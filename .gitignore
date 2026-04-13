@@ -1,0 +1,30 @@
+# Abhängigkeiten und Build-Artefakte
+node_modules/
+dist/
+.astro/
+
+# Logs und Caches
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+coverage/
+*.tsbuildinfo
+
+# Editor- und Betriebssystemdateien
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Lokale Umgebungen und temporäre Dateien
+.env
+.env.*
+!.env.example
+tmp/
+temp/
+
+# Lokale Import- und Arbeitsordner
+Gesetze/
+Flagge_Osten.png
