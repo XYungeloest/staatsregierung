@@ -1,0 +1,48 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Statisches Rechtsportal des Freistaats Ostdeutschland.' } = Astro.props;
+const pageTitle = `${title} | Freistaat Ostdeutschland`;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="container site-header__inner">
+          <div>
+            <p class="site-kicker">Freistaat Ostdeutschland</p>
+            <a class="site-title" href={import.meta.env.BASE_URL}>Ostrecht-Portal</a>
+          </div>
+          <p class="site-status">Statische Projektbasis</p>
+        </div>
+      </header>
+
+      <main id="main-content" class="container site-main">
+        <slot />
+      </main>
+
+      <footer class="site-footer">
+        <div class="container site-footer__inner">
+          <p>Simulationsportal mit statischer Ausgabe auf Basis von Astro.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

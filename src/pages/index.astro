@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const roadmapItems = [
+  {
+    title: 'Normenbestand',
+    description: 'Dateibasierte Inhalte, konsolidierte Fassungen und klare Stammdatenstruktur.',
+  },
+  {
+    title: 'Historie',
+    description: 'Eigene Seiten für Normenhistorien und historische Fassungen mit stabilen URLs.',
+  },
+  {
+    title: 'Verzeichnisse',
+    description: 'Alphabetischer Index und Sachgebietsseiten als statisch generierte Einstiege.',
+  },
+];
+---
+
+<BaseLayout
+  title="Ostrecht-Portal"
+  description="Statisches Rechtsportal des Freistaats Ostdeutschland innerhalb einer politischen Simulation."
+>
+  <section class="hero">
+    <p class="eyebrow">Rechtsinformationssystem</p>
+    <h1>Ostrecht-Portal</h1>
+    <p class="lead">
+      Dieses Portal bildet ein amtlich wirkendes, vollständig statisches Rechtsinformationssystem für den
+      Freistaat Ostdeutschland ab. In dieser ersten Phase steht ein belastbares Grundgerüst im Vordergrund.
+    </p>
+    <div class="meta-grid" aria-label="Projektstatus">
+      <div class="meta-card">
+        <span class="meta-label">Ausgabe</span>
+        <strong>statisch</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Hosting</span>
+        <strong>GitHub Pages</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Technik</span>
+        <strong>Astro + TypeScript</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Stand des Portals</h2>
+      <p>
+        Suche, Normdaten und fachliche Detailseiten folgen in späteren Phasen. Der aktuelle Stand schafft die
+        Basis für eine robuste, langfristig wartbare Struktur.
+      </p>
+    </div>
+
+    <div class="card-grid">
+      {roadmapItems.map((item) => (
+        <article class="panel">
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Hinweis</h2>
+      <p>
+        Das Portal ist Teil einer politischen Simulation. Inhalte, Fundstellen und Rechtsstände werden erst in
+        den folgenden Ausbaustufen ergänzt.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
