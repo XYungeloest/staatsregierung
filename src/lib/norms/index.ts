@@ -42,3 +42,14 @@ export {
   getSubjectUrl,
   type SubjectGroup,
 } from './routes.ts';
+
+export {
+  buildNormOutline,
+  formatDate,
+  formatNormStatus,
+  formatNormType,
+  getBlockAnchorId,
+  getHeadingTag,
+  toDisplayText,
+  type NormOutlineItem,
+} from './presentation.ts';

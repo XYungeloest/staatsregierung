@@ -1,5 +1,11 @@
 ---
 import { getNormHistoryUrl, getNormUrl, getNormVersionUrl, getSubjectUrl } from '../../lib/norms/routes.ts';
+import {
+  formatDate,
+  formatNormStatus,
+  formatNormType,
+  toDisplayText,
+} from '../../lib/norms/presentation.ts';
 import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
 
 interface Props {
@@ -16,46 +22,50 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
   <div class="meta-list">
     <div>
       <dt>Kurztitel</dt>
-      <dd>{norm.meta.shortTitle}</dd>
+      <dd>{toDisplayText(norm.meta.shortTitle)}</dd>
     </div>
     <div>
-      <dt>Abkuerzung</dt>
+      <dt>Abkürzung</dt>
       <dd>{norm.meta.abbr}</dd>
     </div>
     <div>
       <dt>Normtyp</dt>
-      <dd>{norm.meta.type}</dd>
+      <dd>{formatNormType(norm.meta.type)}</dd>
     </div>
     <div>
       <dt>Ressort</dt>
-      <dd>{norm.meta.ministry}</dd>
+      <dd>{toDisplayText(norm.meta.ministry)}</dd>
     </div>
     <div>
       <dt>Zitat</dt>
-      <dd>{version.citation}</dd>
+      <dd>{toDisplayText(version.citation)}</dd>
     </div>
     <div>
-      <dt>Gueltig ab</dt>
-      <dd>{version.validFrom}</dd>
+      <dt>Gültig ab</dt>
+      <dd>{formatDate(version.validFrom)}</dd>
     </div>
     <div>
-      <dt>Gueltig bis</dt>
-      <dd>{version.validTo ?? 'aktuell'}</dd>
+      <dt>Gültig bis</dt>
+      <dd>{version.validTo ? formatDate(version.validTo) : 'aktuell'}</dd>
+    </div>
+    <div>
+      <dt>Status</dt>
+      <dd>{formatNormStatus(norm.meta.status)}</dd>
     </div>
   </div>
 
   <div class="tag-list">
     {norm.meta.subjects.map((subject) => (
-      <a class="tag" href={getSubjectUrl(subject)}>{subject}</a>
+      <a class="tag" href={getSubjectUrl(subject)}>{toDisplayText(subject)}</a>
     ))}
   </div>
 
-  <nav class="link-list" aria-label="Weiterfuehrende Links">
+  <nav class="link-list" aria-label="Weiterführende Links">
     <a href={getNormHistoryUrl(norm.meta.slug)}>Zur Historie</a>
     {historical ? <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a> : null}
     {historicalVersions.map((entry) => (
       <a href={getNormVersionUrl(norm.meta.slug, entry.versionId)}>
-        Historische Fassung {entry.versionId}
+        Historische Fassung vom {formatDate(entry.validFrom)}
       </a>
     ))}
   </nav>

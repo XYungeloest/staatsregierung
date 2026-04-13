@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getIndexGroups, getNormUrl, loadAllNorms } from '../../lib/norms/index.ts';
+import { formatNormType, getIndexGroups, getNormUrl, loadAllNorms, toDisplayText } from '../../lib/norms/index.ts';
 
 const norms = await loadAllNorms();
 const groups = getIndexGroups(norms);
 ---
 
-<BaseLayout title="Alphabetischer Index" description="Alphabetischer Index aller im Portal gefuehrten Normen.">
+<BaseLayout title="Alphabetischer Index" description="Alphabetischer Index aller im Portal geführten Normen.">
   <section class="section page-header">
     <p class="eyebrow">Verzeichnis</p>
     <h1>Alphabetischer Index</h1>
@@ -26,8 +26,8 @@ const groups = getIndexGroups(norms);
       <ul class="record-list">
         {group.norms.map((norm) => (
           <li class="record-list__item">
-            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a>
-            <span>{norm.meta.abbr} · {norm.meta.type}</span>
+            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
+            <span>{norm.meta.abbr} · {formatNormType(norm.meta.type)}</span>
           </li>
         ))}
       </ul>

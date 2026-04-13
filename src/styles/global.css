@@ -220,6 +220,11 @@ a {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.content-stack {
+  display: grid;
+  gap: 1.5rem;
+}
+
 .meta-panel {
   position: sticky;
   top: 1.5rem;
@@ -276,6 +281,28 @@ a {
   flex-wrap: wrap;
 }
 
+.status-notice {
+  margin-top: 1.5rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--color-border-strong);
+  background: var(--color-surface-muted);
+}
+
+.status-notice--historical {
+  background: #efe6d4;
+  border-color: #9a8560;
+}
+
+.status-notice h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.status-notice p {
+  margin: 0.75rem 0 0;
+  line-height: 1.7;
+}
+
 .inline-link,
 .link-list a,
 .letter-nav a {
@@ -326,6 +353,36 @@ a {
   color: var(--color-text-muted);
 }
 
+.norm-outline {
+  padding-top: 1.2rem;
+}
+
+.outline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.outline-list .outline-list {
+  margin-top: 0.55rem;
+  padding-left: 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+.outline-list a {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.outline-label {
+  color: var(--color-text-muted);
+}
+
 .norm-division + .norm-division,
 .norm-unit + .norm-unit,
 .norm-annex + .norm-annex {
@@ -338,8 +395,11 @@ a {
 }
 
 .norm-division__header h2,
+.norm-division__header h3,
 .norm-annex h2,
-.norm-unit__header h3 {
+.norm-annex h3,
+.norm-unit__header h4,
+.norm-unit__header h5 {
   margin: 0;
   font-family: var(--font-serif);
 }
@@ -350,15 +410,43 @@ a {
   color: var(--color-text-muted);
 }
 
-.norm-text,
-.norm-item,
-.norm-subitem {
+.norm-division--part,
+.norm-annex {
+  padding-top: 0.25rem;
+}
+
+.norm-division--section,
+.norm-division--subsection {
+  margin-left: 0.25rem;
+}
+
+.norm-text {
   margin: 0.65rem 0 0;
   line-height: 1.75;
 }
 
-.norm-subitem {
-  padding-left: 1.2rem;
+.norm-list {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.norm-list__item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.7rem;
+  line-height: 1.75;
+}
+
+.norm-list__item--subitem {
+  padding-left: 1.5rem;
+}
+
+.norm-list__label {
+  min-width: 2rem;
+  color: var(--color-text-muted);
 }
 
 .site-footer {

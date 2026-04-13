@@ -1,10 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import {
+  formatDate,
   getCurrentVersion,
   getNormUrl,
   getSubjectGroups,
   loadAllNorms,
+  toDisplayText,
 } from '../lib/norms/index.ts';
 
 const base = import.meta.env.BASE_URL;
@@ -47,8 +49,8 @@ const recentNorms = [...norms]
     <div class="section-header">
       <h2>Einstiege</h2>
       <p>
-        Der Einstieg erfolgt ueber aktuelle Fassungen, den alphabetischen Index und die Sachgebietsseiten.
-        Die Suche wird in einer spaeteren Phase ergaenzt.
+        Der Einstieg erfolgt über aktuelle Fassungen, den alphabetischen Index und die Sachgebietsseiten.
+        Die Suche wird in einer späteren Phase ergänzt.
       </p>
     </div>
 
@@ -60,7 +62,7 @@ const recentNorms = [...norms]
       </article>
       <article class="panel">
         <h3>Sachgebiete</h3>
-        <p>Uebersicht ueber alle gefuehrten Sachgebiete und zugeordnete Normen.</p>
+        <p>Übersicht über alle geführten Sachgebiete und zugeordnete Normen.</p>
         <p><a class="inline-link" href={`${base}subjects/`}>Zu den Sachgebieten</a></p>
       </article>
       <article class="panel">
@@ -83,9 +85,9 @@ const recentNorms = [...norms]
 
         return (
           <article class="panel">
-            <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></h3>
-            <p>{norm.meta.summary}</p>
-            <p class="detail-line">Rechtsstand seit {currentVersion.validFrom}</p>
+            <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a></h3>
+            <p>{toDisplayText(norm.meta.summary)}</p>
+            <p class="detail-line">Rechtsstand seit {formatDate(currentVersion.validFrom)}</p>
           </article>
         );
       })}

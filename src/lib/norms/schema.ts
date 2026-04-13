@@ -408,18 +408,26 @@ function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBo
     return [];
   }
 
-  if (type === 'section') {
+  const looksLikeStructuredBlock =
+    block.children !== undefined || block.title !== undefined || block.label !== undefined;
+
+  if (type === 'section' && !looksLikeStructuredBlock) {
     return [
       {
         type: 'section',
-        label: expectOptionalString(block.number, `${path}.number`),
-        title: expectOptionalString(block.heading, `${path}.heading`) ?? expectOptionalString(block.text, `${path}.text`),
+        label:
+          expectOptionalString(block.label, `${path}.label`) ??
+          expectOptionalString(block.number, `${path}.number`),
+        title:
+          expectOptionalString(block.title, `${path}.title`) ??
+          expectOptionalString(block.heading, `${path}.heading`) ??
+          expectOptionalString(block.text, `${path}.text`),
         children: [],
       },
     ];
   }
 
-  if (type === 'paragraph' || type === 'article') {
+  if ((type === 'paragraph' || type === 'article') && !looksLikeStructuredBlock) {
     const content = Array.isArray(block.content)
       ? block.content.map((entry, contentIndex) =>
           expectString(entry, `${path}.content[${contentIndex}]`),
@@ -429,8 +437,13 @@ function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBo
     return [
       {
         type: type as StructureType,
-        label: expectOptionalString(block.number, `${path}.number`),
-        title: expectOptionalString(block.heading, `${path}.heading`) ?? expectOptionalString(block.text, `${path}.text`),
+        label:
+          expectOptionalString(block.label, `${path}.label`) ??
+          expectOptionalString(block.number, `${path}.number`),
+        title:
+          expectOptionalString(block.title, `${path}.title`) ??
+          expectOptionalString(block.heading, `${path}.heading`) ??
+          expectOptionalString(block.text, `${path}.text`),
         children: content.map((text) => ({
           type: 'paragraphText',
           text,

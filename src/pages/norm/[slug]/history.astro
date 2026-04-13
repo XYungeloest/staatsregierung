@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { formatDate, toDisplayText } from '../../../lib/norms/presentation.ts';
 import { getCurrentVersion, getNormUrl, getNormVersionUrl, loadAllNorms } from '../../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
@@ -14,11 +15,11 @@ export async function getStaticPaths() {
 const { norm, currentVersion } = Astro.props;
 ---
 
-<BaseLayout title={`${norm.meta.title} Historie`} description={`Normenhistorie zu ${norm.meta.title}.`}>
+<BaseLayout title={`${toDisplayText(norm.meta.title)} Historie`} description={`Normenhistorie zu ${toDisplayText(norm.meta.title)}.`}>
   <section class="section page-header">
     <p class="eyebrow">Normenhistorie</p>
-    <h1>{norm.meta.title}</h1>
-    <p class="lead">Historienseite mit Stammfassung, Aenderungsbezuegen und allen gespeicherten Fassungen.</p>
+    <h1>{toDisplayText(norm.meta.title)}</h1>
+    <p class="lead">Historienseite mit Stammfassung, Änderungsbezügen und allen gespeicherten Fassungen.</p>
     <nav class="link-list link-list--inline" aria-label="Seitennavigation">
       <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a>
     </nav>
@@ -34,13 +35,13 @@ const { norm, currentVersion } = Astro.props;
           <li>
             <strong>
               {version.isCurrent ? (
-                <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{version.versionId}</a>
+                <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{formatDate(version.validFrom)}</a>
               ) : (
-                <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}>{version.versionId}</a>
+                <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}>{formatDate(version.validFrom)}</a>
               )}
             </strong>
-            <span>Gueltig von {version.validFrom} bis {version.validTo ?? 'heute'}</span>
-            <span>{version.changeNote}</span>
+            <span>Gültig von {formatDate(version.validFrom)} bis {version.validTo ? formatDate(version.validTo) : 'heute'}</span>
+            <span>{toDisplayText(version.changeNote)}</span>
           </li>
         ))}
       </ul>
@@ -48,15 +49,15 @@ const { norm, currentVersion } = Astro.props;
 
     <section class="section">
       <div class="section-header">
-        <h2>Historieneintraege</h2>
+        <h2>Historieneinträge</h2>
       </div>
       <ul class="timeline-list">
         {norm.history.entries.map((entry) => (
           <li>
-            <strong>{entry.date}</strong>
-            <span>{entry.title}</span>
-            <span>{entry.citation}</span>
-            {entry.relatedNorm ? <span>Bezug: {entry.relatedNorm}</span> : null}
+            <strong>{formatDate(entry.date)}</strong>
+            <span>{toDisplayText(entry.title)}</span>
+            <span>{toDisplayText(entry.citation)}</span>
+            {entry.relatedNorm ? <span>Bezug: {toDisplayText(entry.relatedNorm)}</span> : null}
           </li>
         ))}
       </ul>
@@ -73,15 +74,15 @@ const { norm, currentVersion } = Astro.props;
         </div>
         <div>
           <dt>Aktueller Rechtsstand</dt>
-          <dd>{currentVersion.validFrom}</dd>
+          <dd>{formatDate(currentVersion.validFrom)}</dd>
         </div>
         <div>
-          <dt>Vorgaenger</dt>
-          <dd>{norm.meta.predecessor ?? 'keiner'}</dd>
+          <dt>Vorgänger</dt>
+          <dd>{norm.meta.predecessor ? toDisplayText(norm.meta.predecessor) : 'keiner'}</dd>
         </div>
         <div>
           <dt>Nachfolger</dt>
-          <dd>{norm.meta.successor ?? 'keiner'}</dd>
+          <dd>{norm.meta.successor ? toDisplayText(norm.meta.successor) : 'keiner'}</dd>
         </div>
       </dl>
     </section>
