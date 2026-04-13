@@ -47,6 +47,10 @@ export function getSubjectsUrl(): string {
   return withBase('/subjects/');
 }
 
+export function getEditorialUrl(): string {
+  return withBase('/redaktion/');
+}
+
 export function getSubjectSlug(subject: string): string {
   return normalizeForSlug(subject);
 }

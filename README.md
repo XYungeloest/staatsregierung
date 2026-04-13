@@ -167,6 +167,61 @@ content/normen/polg/
 
 Die Dateinamen unter `versions/` müssen zum jeweiligen `versionId` passen.
 
+## Redaktionelle Eingabemaske
+
+Optional steht eine rein clientseitige Redaktionsmaske unter `/redaktion/` zur Verfügung.
+
+Die Funktion wird zentral in `src/config/features.ts` gesteuert:
+
+- `enableEditorialTools`
+  Schaltet die Redaktionsseite insgesamt ein oder aus
+- `showEditorialNavLink`
+  Blendet den Navigationslink ein oder aus
+
+Wenn `enableEditorialTools` auf `false` steht:
+
+- erscheint kein Navigationslink
+- die Route zeigt nur einen schlichten Hinweis, dass das Werkzeug deaktiviert ist
+
+Wichtig:
+
+- die Redaktionsmaske speichert auf GitHub Pages nichts serverseitig
+- es gibt kein Backend, keine Datenbank, keine Authentifizierung und keine GitHub-Schreibzugriffe
+- die erzeugten JSON-Dateien müssen anschließend manuell ins Repository übernommen werden
+
+Die Maske kann:
+
+- neue Normen mit `meta.json`, `history.json` und erster Versionsdatei vorbereiten
+- neue Fassungen bestehender Normen erzeugen
+- optional eine aktualisierte `history.json` für Änderungsstände ausgeben
+- Pflichtfelder, Datumslogik, doppelte Slugs und doppelte `versionId`-Werte prüfen
+- JSON-Dateien im Browser anzeigen, kopieren und einzeln herunterladen
+
+Praktischer Ablauf:
+
+1. Feature-Flag in `src/config/features.ts` aktivieren
+2. lokal `npm run dev` starten oder die gebaute Seite öffnen
+3. `/redaktion/` aufrufen
+4. Eingaben ausfüllen und JSON-Dateien erzeugen
+5. die Vorschau prüfen
+6. `meta.json`, `history.json` und `versions/[versionId].json` in die passenden Verzeichnisse unter `content/normen/[slug]/` übernehmen
+7. anschließend validieren:
+
+```sh
+npm exec astro check
+npm run build
+```
+
+Beispiel für die Übernahme einer neu erzeugten Norm:
+
+```text
+content/normen/schulordnung/
+├── meta.json
+├── history.json
+└── versions/
+    └── 2026-09-01.json
+```
+
 ## Neue Norm anlegen
 
 ### 1. Verzeichnis anlegen
