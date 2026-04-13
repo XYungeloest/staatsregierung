@@ -34,6 +34,7 @@ export {
 
 export {
   getHomeUrl,
+  getEditorialUrl,
   getIndexUrl,
   getIndexGroups,
   getNormHistoryUrl,

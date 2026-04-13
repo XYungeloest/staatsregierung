@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import { isEditorialNavLinkVisible } from '../config/features.ts';
+import { getEditorialUrl } from '../lib/norms/routes.ts';
 
 interface Props {
   title: string;
@@ -9,6 +11,7 @@ interface Props {
 const { title, description = 'Statisches Rechtsportal des Freistaats Ostdeutschland.' } = Astro.props;
 const pageTitle = `${title} | Freistaat Ostdeutschland`;
 const base = import.meta.env.BASE_URL;
+const showEditorialLink = isEditorialNavLinkVisible();
 ---
 
 <!doctype html>
@@ -42,6 +45,7 @@ const base = import.meta.env.BASE_URL;
             <a href={`${base}search/`}>Suche</a>
             <a href={`${base}index/`}>Index</a>
             <a href={`${base}subjects/`}>Sachgebiete</a>
+            {showEditorialLink ? <a href={getEditorialUrl()}>Redaktion</a> : null}
           </nav>
         </div>
       </header>
@@ -58,6 +62,7 @@ const base = import.meta.env.BASE_URL;
             <a href={`${base}search/`}>Suche</a>
             <a href={`${base}index/`}>Index</a>
             <a href={`${base}subjects/`}>Sachgebiete</a>
+            {showEditorialLink ? <a href={getEditorialUrl()}>Redaktion</a> : null}
           </nav>
         </div>
       </footer>
