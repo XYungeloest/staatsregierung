@@ -11,7 +11,7 @@ import {
   type NormMeta,
   type NormRecord,
   type NormVersion,
-} from './schema';
+} from './schema.ts';
 
 const CONTENT_ROOT = resolve(process.cwd(), 'content', 'normen');
 

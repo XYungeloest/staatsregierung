@@ -18,7 +18,7 @@ export {
   type NormType,
   type NormVersion,
   type StructureType,
-} from './schema';
+} from './schema.ts';
 
 export {
   getCurrentVersion,
@@ -30,4 +30,4 @@ export {
   loadNormHistory,
   loadNormMeta,
   loadNormVersions,
-} from './loader';
+} from './loader.ts';
