@@ -1,3 +1,4 @@
+import type { Dirent } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
@@ -33,9 +34,9 @@ async function listDirectories(directoryPath: string): Promise<string[]> {
     const entries = await readdir(directoryPath, { withFileTypes: true });
 
     return entries
-      .filter((entry) => entry.isDirectory())
-      .map((entry) => entry.name)
-      .sort((left, right) => left.localeCompare(right));
+      .filter((entry: Dirent) => entry.isDirectory())
+      .map((entry: Dirent) => entry.name)
+      .sort((left: string, right: string) => left.localeCompare(right));
   } catch (error) {
     const nodeError = error as NodeJS.ErrnoException;
     if (nodeError.code === 'ENOENT') {
@@ -51,9 +52,9 @@ async function listJsonFiles(directoryPath: string): Promise<string[]> {
     const entries = await readdir(directoryPath, { withFileTypes: true });
 
     return entries
-      .filter((entry) => entry.isFile() && entry.name.endsWith('.json'))
-      .map((entry) => entry.name)
-      .sort((left, right) => left.localeCompare(right));
+      .filter((entry: Dirent) => entry.isFile() && entry.name.endsWith('.json'))
+      .map((entry: Dirent) => entry.name)
+      .sort((left: string, right: string) => left.localeCompare(right));
   } catch (error) {
     const nodeError = error as NodeJS.ErrnoException;
     if (nodeError.code === 'ENOENT') {

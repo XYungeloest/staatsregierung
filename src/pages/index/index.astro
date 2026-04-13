@@ -1,12 +1,22 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { formatNormType, getIndexGroups, getNormUrl, loadAllNorms, toDisplayText } from '../../lib/norms/index.ts';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import {
+  formatNormType,
+  getHomeUrl,
+  getIndexGroups,
+  getNormUrl,
+  loadAllNorms,
+  toDisplayText,
+} from '../../lib/norms/index.ts';
 
 const norms = await loadAllNorms();
 const groups = getIndexGroups(norms);
 ---
 
 <BaseLayout title="Alphabetischer Index" description="Alphabetischer Index aller im Portal geführten Normen.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Alphabetischer Index' }]} />
+
   <section class="section page-header">
     <p class="eyebrow">Verzeichnis</p>
     <h1>Alphabetischer Index</h1>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '../lib/norms/index.ts';
+---
+
+<BaseLayout title="Seite nicht gefunden" description="Die angeforderte Seite wurde im Ostrecht-Portal nicht gefunden.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Seite nicht gefunden' }]} />
+
+  <section class="section page-header error-page">
+    <p class="eyebrow">Fehler 404</p>
+    <h1>Seite nicht gefunden</h1>
+    <p class="lead">
+      Die angeforderte Adresse ist nicht vorhanden oder wurde verschoben. Bitte nutzen Sie die
+      Suche oder die Verzeichnisse, um den gewünschten Inhalt aufzurufen.
+    </p>
+    <nav class="hero-actions" aria-label="Hilfsnavigation">
+      <a class="button-link" href={getSearchUrl()}>Zur Suche</a>
+      <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum Index</a>
+      <a class="button-link button-link--secondary" href={getSubjectsUrl()}>Zu den Sachgebieten</a>
+    </nav>
+  </section>
+</BaseLayout>

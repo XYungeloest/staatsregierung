@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getHomeUrl, getIndexUrl, getSearchUrl } from '../lib/norms/index.ts';
+---
+
+<BaseLayout title="Interner Fehler" description="Während der Darstellung ist ein interner Fehler aufgetreten.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Interner Fehler' }]} />
+
+  <section class="section page-header error-page">
+    <p class="eyebrow">Fehler 500</p>
+    <h1>Interner Fehler</h1>
+    <p class="lead">
+      Die angeforderte Seite konnte derzeit nicht vollständig dargestellt werden. Bitte versuchen
+      Sie es erneut oder nutzen Sie einen anderen Einstiegspunkt.
+    </p>
+    <nav class="hero-actions" aria-label="Hilfsnavigation">
+      <a class="button-link" href={getHomeUrl()}>Zur Startseite</a>
+      <a class="button-link button-link--secondary" href={getSearchUrl()}>Zur Suche</a>
+      <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum Index</a>
+    </nav>
+  </section>
+</BaseLayout>

@@ -31,6 +31,22 @@ export function getNormVersionUrl(slug: string, versionId: string): string {
   return withBase(`/norm/${slug}/version/${versionId}/`);
 }
 
+export function getHomeUrl(): string {
+  return withBase('/');
+}
+
+export function getIndexUrl(): string {
+  return withBase('/index/');
+}
+
+export function getSearchUrl(): string {
+  return withBase('/search/');
+}
+
+export function getSubjectsUrl(): string {
+  return withBase('/subjects/');
+}
+
 export function getSubjectSlug(subject: string): string {
   return normalizeForSlug(subject);
 }

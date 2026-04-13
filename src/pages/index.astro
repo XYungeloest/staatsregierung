@@ -1,10 +1,14 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
 import {
   formatDate,
   getCurrentVersion,
+  getIndexUrl,
   getNormUrl,
+  getSearchUrl,
   getSubjectGroups,
+  getSubjectsUrl,
   loadAllNorms,
   toDisplayText,
 } from '../lib/norms/index.ts';
@@ -22,6 +26,8 @@ const recentNorms = [...norms]
   title="Ostrecht-Portal"
   description="Statisches Rechtsportal des Freistaats Ostdeutschland innerhalb einer politischen Simulation."
 >
+  <Breadcrumbs items={[{ label: 'Start' }]} />
+
   <section class="hero">
     <p class="eyebrow">Rechtsinformationssystem</p>
     <h1>Ostrecht-Portal</h1>
@@ -43,18 +49,28 @@ const recentNorms = [...norms]
         <strong>statisch</strong>
       </div>
     </div>
+    <nav class="hero-actions" aria-label="Schnelleinstiege">
+      <a class="button-link" href={getSearchUrl()}>Zur Suche</a>
+      <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum Index</a>
+      <a class="button-link button-link--secondary" href={getSubjectsUrl()}>Zu den Sachgebieten</a>
+    </nav>
   </section>
 
   <section class="section">
     <div class="section-header">
       <h2>Einstiege</h2>
       <p>
-        Der Einstieg erfolgt über aktuelle Fassungen, den alphabetischen Index und die Sachgebietsseiten.
-        Die Suche wird in einer späteren Phase ergänzt.
+        Der Einstieg erfolgt über aktuelle Fassungen, die clientseitige Suche, den alphabetischen
+        Index und die Sachgebietsseiten.
       </p>
     </div>
 
     <div class="card-grid">
+      <article class="panel">
+        <h3>Suche</h3>
+        <p>Clientseitige Volltext- und Metadatensuche über aktuelle und historische Fassungen.</p>
+        <p><a class="inline-link" href={getSearchUrl()}>Zur Suche</a></p>
+      </article>
       <article class="panel">
         <h3>Alphabetischer Index</h3>
         <p>Alle Normen alphabetisch mit direktem Einstieg in die aktuelle Fassung.</p>

@@ -1,11 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getSubjectUrl, getSubjectGroups, loadAllNorms, toDisplayText } from '../../lib/norms/index.ts';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getHomeUrl, getSubjectUrl, getSubjectGroups, loadAllNorms, toDisplayText } from '../../lib/norms/index.ts';
 
 const groups = getSubjectGroups(await loadAllNorms());
 ---
 
 <BaseLayout title="Sachgebiete" description="Sachgebietsübersicht des Ostrecht-Portals.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Sachgebiete' }]} />
+
   <section class="section page-header">
     <p class="eyebrow">Verzeichnis</p>
     <h1>Sachgebiete</h1>
