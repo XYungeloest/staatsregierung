@@ -1,7 +1,25 @@
 ---
+import { existsSync } from 'node:fs';
+
 import '../styles/global.css';
-import { isEditorialNavLinkVisible } from '../config/features.ts';
-import { getEditorialUrl } from '../lib/norms/routes.ts';
+import {
+  isEditorialNavLinkVisible,
+  isOfficialStyleHeaderEnabled,
+  isServiceLinksEnabled,
+  isStickyHeaderEnabled,
+} from '../config/features.ts';
+import { siteConfig } from '../config/site.ts';
+import {
+  getAccessibilityUrl,
+  getEditorialUrl,
+  getHomeUrl,
+  getImprintUrl,
+  getIndexUrl,
+  getOverviewUrl,
+  getPrivacyUrl,
+  getSearchUrl,
+  getSubjectsUrl,
+} from '../lib/norms/routes.ts';
 
 interface Props {
   title: string;
@@ -12,6 +30,36 @@ const { title, description = 'Statisches Rechtsportal des Freistaats Ostdeutschl
 const pageTitle = `${title} | Freistaat Ostdeutschland`;
 const base = import.meta.env.BASE_URL;
 const showEditorialLink = isEditorialNavLinkVisible();
+const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
+const showServiceLinks = isServiceLinksEnabled();
+const stickyHeader = isStickyHeaderEnabled();
+const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
+const flagAssetFile = new URL(`../../public/${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`, import.meta.url);
+const hasFlagAsset = existsSync(flagAssetFile);
+
+const mainNavLinks = [
+  { href: getHomeUrl(), label: 'Start' },
+  { href: getSearchUrl(), label: 'Suche' },
+  { href: getIndexUrl(), label: 'Index' },
+  { href: getSubjectsUrl(), label: 'Sachgebiete' },
+  ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
+];
+
+const serviceLinks = [
+  { href: getHomeUrl(), label: 'Start' },
+  { href: getOverviewUrl(), label: 'Übersicht' },
+  { href: getImprintUrl(), label: 'Impressum' },
+  { href: getPrivacyUrl(), label: 'Datenschutz' },
+  { href: getAccessibilityUrl(), label: 'Barrierefreiheit' },
+];
+
+const footerPrimaryLinks = [
+  ...(showServiceLinks ? serviceLinks : [{ href: getHomeUrl(), label: 'Start' }]),
+  { href: getSearchUrl(), label: 'Suche' },
+  { href: getIndexUrl(), label: 'Index' },
+  { href: getSubjectsUrl(), label: 'Sachgebiete' },
+  ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
+];
 ---
 
 <!doctype html>
@@ -28,27 +76,104 @@ const showEditorialLink = isEditorialNavLinkVisible();
   <body>
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
     <div class="page-shell">
-      <div class="site-banner">
-        <div class="container site-banner__inner">
-          <p>Amtliche Informationsdarstellung innerhalb einer politischen Simulation</p>
-        </div>
-      </div>
-      <header class="site-header">
-        <div class="container site-header__inner">
-          <div class="site-brand">
-            <p class="site-kicker">Freistaat Ostdeutschland</p>
-            <a class="site-title" href={base}>Ostrecht-Portal</a>
-            <p class="site-subtitle">Rechtsportal mit aktuellen Fassungen, Historien und Verzeichnissen</p>
+      {showOfficialStyleHeader ? (
+        <div class:list={['site-top', stickyHeader && 'site-top--sticky']}>
+          <div class="site-notice" role="note" aria-label="Hinweis zur Fiktionalität">
+            <div class="container site-notice__inner">
+              <div class="site-notice__flag">
+                {hasFlagAsset ? (
+                  <img src={flagAssetUrl} alt="" />
+                ) : (
+                  <span class="site-notice__flag-fallback" aria-hidden="true">{siteConfig.officialFlagFallback}</span>
+                )}
+              </div>
+              <p>{siteConfig.officialNotice}</p>
+            </div>
           </div>
-          <nav class="site-nav" aria-label="Hauptnavigation">
-            <a href={base}>Start</a>
-            <a href={`${base}search/`}>Suche</a>
-            <a href={`${base}index/`}>Index</a>
-            <a href={`${base}subjects/`}>Sachgebiete</a>
-            {showEditorialLink ? <a href={getEditorialUrl()}>Redaktion</a> : null}
-          </nav>
+
+          {showServiceLinks ? (
+            <div class="site-service-bar">
+              <div class="container site-service-bar__inner">
+                <nav class="service-nav" aria-label="Servicenavigation">
+                  {serviceLinks.map((link) => (
+                    <a href={link.href}>{link.label}</a>
+                  ))}
+                </nav>
+              </div>
+            </div>
+          ) : null}
+
+          <header class="site-header">
+            <div class="container site-header__main">
+              <div class="site-branding">
+                <a class="site-wordmark" href={getHomeUrl()}>
+                  <span class="site-wordmark__media" aria-hidden="true">
+                    {hasFlagAsset ? (
+                      <img src={flagAssetUrl} alt="" />
+                    ) : (
+                      <span class="site-notice__flag-fallback">{siteConfig.officialFlagFallback}</span>
+                    )}
+                  </span>
+                  <span class="site-wordmark__text">
+                    <span class="site-kicker">{siteConfig.authorityName}</span>
+                    <span class="site-title">{siteConfig.portalTitle}</span>
+                    <span class="site-subtitle">{siteConfig.portalSubtitle}</span>
+                  </span>
+                </a>
+              </div>
+
+              <div class="site-search">
+                <form class="header-search" action={getSearchUrl()} method="get" role="search" aria-label="Suche im Portal">
+                  <label class="header-search__field">
+                    <span>Suche im Portal</span>
+                    <div class="header-search__control">
+                      <input
+                        type="search"
+                        name="q"
+                        autocomplete="off"
+                        placeholder={siteConfig.searchPlaceholder}
+                      />
+                      <button class="button-link" type="submit">Suchen</button>
+                    </div>
+                  </label>
+                </form>
+              </div>
+            </div>
+
+            <div class="site-nav-bar">
+              <div class="container">
+                <nav class="site-nav" aria-label="Hauptnavigation">
+                  {mainNavLinks.map((link) => (
+                    <a href={link.href}>{link.label}</a>
+                  ))}
+                </nav>
+              </div>
+            </div>
+          </header>
         </div>
-      </header>
+      ) : (
+        <Fragment>
+          <div class="site-banner">
+            <div class="container site-banner__inner">
+              <p>Amtliche Informationsdarstellung innerhalb einer politischen Simulation</p>
+            </div>
+          </div>
+          <header class="site-header">
+            <div class="container site-header__inner">
+              <div class="site-brand">
+                <p class="site-kicker">Freistaat Ostdeutschland</p>
+                <a class="site-title" href={base}>Ostrecht-Portal</a>
+                <p class="site-subtitle">Rechtsportal mit aktuellen Fassungen, Historien und Verzeichnissen</p>
+              </div>
+              <nav class="site-nav" aria-label="Hauptnavigation">
+                {mainNavLinks.map((link) => (
+                  <a href={link.href}>{link.label}</a>
+                ))}
+              </nav>
+            </div>
+          </header>
+        </Fragment>
+      )}
 
       <main id="main-content" class="container site-main">
         <slot />
@@ -56,13 +181,14 @@ const showEditorialLink = isEditorialNavLinkVisible();
 
       <footer class="site-footer">
         <div class="container site-footer__inner">
-          <p>Simulationsportal mit rein statischer Ausgabe auf Basis von Astro und TypeScript.</p>
+          <div class="site-footer__meta">
+            <p>{siteConfig.footerNote}</p>
+            <p class="site-footer__small">{siteConfig.officialNotice}</p>
+          </div>
           <nav class="footer-nav" aria-label="Fußnavigation">
-            <a href={base}>Start</a>
-            <a href={`${base}search/`}>Suche</a>
-            <a href={`${base}index/`}>Index</a>
-            <a href={`${base}subjects/`}>Sachgebiete</a>
-            {showEditorialLink ? <a href={getEditorialUrl()}>Redaktion</a> : null}
+            {footerPrimaryLinks.map((link) => (
+              <a href={link.href}>{link.label}</a>
+            ))}
           </nav>
         </div>
       </footer>

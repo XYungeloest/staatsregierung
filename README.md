@@ -127,6 +127,32 @@ src/lib/norms/           Typen, Validierung, Loader, Routen- und Such-Helfer
 src/scripts/             clientseitige Skripte, z. B. für die Suche
 ```
 
+## Offizielle Header-Sprache und Kennzeichnung
+
+Das Portal kann optional mit einer stärker amtlich wirkenden, aber klar als fiktiv gekennzeichneten
+Kopfstruktur betrieben werden.
+
+Die zentrale Steuerung erfolgt in `src/config/features.ts`:
+
+- `enableOfficialStyleHeader`
+  Schaltet die offizielle Kopfstruktur und die obere Kennzeichnungsleiste ein oder aus
+- `enableServiceLinks`
+  Blendet die zusätzliche Servicenavigation im Kopfbereich ein oder aus
+- `enableStickyHeader`
+  Schaltet den Kopfbereich als sticky Header
+
+Ergänzende Texte und Pfade liegen in `src/config/site.ts`.
+
+Erwarteter Pfad für die Flagge:
+
+```text
+public/assets/flagge-ostdeutschland.png
+```
+
+Wenn die Bilddatei fehlt, verwendet das Layout automatisch einen textuellen Fallback. Die
+Kennzeichnungsleiste weist dauerhaft darauf hin, dass es sich um eine inoffizielle Website einer
+fiktiven Politiksimulation handelt.
+
 ## Architektur in Kürze
 
 Das Projekt arbeitet in drei einfachen Schritten:

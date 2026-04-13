@@ -33,13 +33,17 @@ export {
 } from './loader.ts';
 
 export {
+  getAccessibilityUrl,
   getHomeUrl,
   getEditorialUrl,
+  getImprintUrl,
   getIndexUrl,
   getIndexGroups,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
+  getOverviewUrl,
+  getPrivacyUrl,
   getSearchUrl,
   getSubjectGroups,
   getSubjectSlug,

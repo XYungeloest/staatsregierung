@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import {
+  getAccessibilityUrl,
+  getHomeUrl,
+  getImprintUrl,
+  getIndexUrl,
+  getPrivacyUrl,
+  getSearchUrl,
+  getSubjectsUrl,
+} from '../lib/norms/index.ts';
+---
+
+<BaseLayout title="Übersicht" description="Zentrale Übersicht über die Bereiche des Ostdeutschen Rechtsportals.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Übersicht' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Übersicht</h1>
+    <p class="lead">
+      Diese Seite bündelt die wichtigsten Bereiche des Portals. Das Angebot ist Teil einer fiktiven
+      Politiksimulation und keine echte amtliche Veröffentlichung.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="card-grid">
+      <article class="panel">
+        <h2>Portalbereiche</h2>
+        <div class="link-list">
+          <a href={getSearchUrl()}>Suche</a>
+          <a href={getIndexUrl()}>Alphabetischer Index</a>
+          <a href={getSubjectsUrl()}>Sachgebiete</a>
+        </div>
+      </article>
+      <article class="panel">
+        <h2>Service</h2>
+        <div class="link-list">
+          <a href={getImprintUrl()}>Impressum</a>
+          <a href={getPrivacyUrl()}>Datenschutz</a>
+          <a href={getAccessibilityUrl()}>Barrierefreiheit</a>
+        </div>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

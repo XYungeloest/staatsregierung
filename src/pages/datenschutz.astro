@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getHomeUrl } from '../lib/norms/index.ts';
+---
+
+<BaseLayout title="Datenschutz" description="Technische Datenschutzhinweise für das statische Ostrecht-Portal.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Datenschutz' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Datenschutz</h1>
+    <p class="lead">
+      Diese Hinweise beschreiben die technische Funktionsweise des statischen Simulationsportals.
+      Sie ersetzen keine rechtliche Bewertung externer Hosting-Dienste.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="content-stack">
+      <article class="panel">
+        <h2>Keine serverseitige Anwendungslogik</h2>
+        <p>
+          Das Portal besteht aus statisch erzeugten HTML-, CSS- und JavaScript-Dateien. Es gibt
+          keine eigene Datenbank, kein Login und keine serverseitige Speicherung redaktioneller
+          Eingaben.
+        </p>
+      </article>
+      <article class="panel">
+        <h2>Suche und Browser-Verarbeitung</h2>
+        <p>
+          Die Suche arbeitet clientseitig im Browser auf Basis eines vorab erzeugten Suchindex. Die
+          Suchanfrage wird durch den Projektcode nicht an einen eigenen Server übermittelt.
+        </p>
+      </article>
+      <article class="panel">
+        <h2>Hosting-Hinweis</h2>
+        <p>
+          Beim Abruf der Website können durch die verwendete Hosting-Plattform technisch notwendige
+          Verbindungsdaten verarbeitet werden. Diese Verarbeitung liegt außerhalb der
+          Anwendungslogik dieses Repositories.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
