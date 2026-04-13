@@ -1,11 +1,13 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import NormBody from '../../../../components/norms/NormBody.astro';
 import NormMetaCard from '../../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../components/norms/NormStatusNotice.astro';
 import { buildNormOutline, formatDate, toDisplayText } from '../../../../lib/norms/presentation.ts';
 import {
+  getHomeUrl,
   getNormHistoryUrl,
   getNormUrl,
   loadAllNorms,
@@ -32,10 +34,18 @@ const outline = buildNormOutline(version.body);
   title={`${toDisplayText(norm.meta.title)} ${version.versionId}`}
   description={`Historische Fassung ${version.versionId} von ${toDisplayText(norm.meta.title)}.`}
 >
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+      { label: `Fassung vom ${formatDate(version.validFrom)}` },
+    ]}
+  />
+
   <section class="section page-header">
     <p class="eyebrow">Historische Fassung</p>
     <h1>{toDisplayText(norm.meta.title)}</h1>
-    <p class="lead">Diese Seite zeigt die gespeicherte konsolidierte Fassung mit dem Versionsstand {version.versionId}.</p>
+    <p class="lead">Diese Seite zeigt die gespeicherte konsolidierte Fassung mit dem Stand vom {formatDate(version.validFrom)}.</p>
     <p class="status-line">
       Gültig vom {formatDate(version.validFrom)} bis {version.validTo ? formatDate(version.validTo) : 'heute'}
     </p>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import NormBody from '../../../components/norms/NormBody.astro';
 import NormMetaCard from '../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../components/norms/NormOutline.astro';
@@ -11,8 +12,10 @@ import {
 } from '../../../lib/norms/presentation.ts';
 import {
   getCurrentVersion,
+  getHomeUrl,
   getNormHistoryUrl,
   getNormVersionUrl,
+  getSearchUrl,
   loadAllNorms,
 } from '../../../lib/norms/index.ts';
 
@@ -31,6 +34,14 @@ const outline = buildNormOutline(currentVersion.body);
 ---
 
 <BaseLayout title={toDisplayText(norm.meta.title)} description={toDisplayText(norm.meta.summary)}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Suche', href: getSearchUrl() },
+      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title) },
+    ]}
+  />
+
   <section class="section page-header">
     <p class="eyebrow">Aktuelle Fassung</p>
     <h1>{toDisplayText(norm.meta.title)}</h1>

@@ -1,7 +1,14 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { formatDate, toDisplayText } from '../../../lib/norms/presentation.ts';
-import { getCurrentVersion, getNormUrl, getNormVersionUrl, loadAllNorms } from '../../../lib/norms/index.ts';
+import {
+  getCurrentVersion,
+  getHomeUrl,
+  getNormUrl,
+  getNormVersionUrl,
+  loadAllNorms,
+} from '../../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
   const norms = await loadAllNorms();
@@ -16,6 +23,14 @@ const { norm, currentVersion } = Astro.props;
 ---
 
 <BaseLayout title={`${toDisplayText(norm.meta.title)} Historie`} description={`Normenhistorie zu ${toDisplayText(norm.meta.title)}.`}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+      { label: 'Historie' },
+    ]}
+  />
+
   <section class="section page-header">
     <p class="eyebrow">Normenhistorie</p>
     <h1>{toDisplayText(norm.meta.title)}</h1>
@@ -70,7 +85,7 @@ const { norm, currentVersion } = Astro.props;
       <dl class="meta-list">
         <div>
           <dt>Stammfassung</dt>
-          <dd>{norm.history.initialVersionId}</dd>
+          <dd>{formatDate(norm.history.initialVersionId)}</dd>
         </div>
         <div>
           <dt>Aktueller Rechtsstand</dt>

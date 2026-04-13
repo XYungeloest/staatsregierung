@@ -52,3 +52,24 @@ content/normen/[slug]/
 ```
 
 Die Typen, Validierung und Einlese-Utilities dafür liegen in `src/lib/norms/`. Damit bleiben Inhalte redaktionsnah als Dateien pflegbar und können später zur Build-Zeit in Seiten und Verzeichnisse übernommen werden.
+
+## Suche
+
+Die Suche bleibt vollständig statisch:
+
+- beim Build wird unter `search-index.json` ein JSON-Suchindex erzeugt
+- die Seite `/search/` lädt diesen Index im Browser
+- durchsucht werden Titel, Kurztitel, Abkürzung, Metadaten und Normtexte
+- Filter stehen für Normtyp, Ressort, Sachgebiet und Status bereit
+
+Damit bleibt die GitHub-Pages-Kompatibilität ohne Backend oder serverseitige Suche erhalten.
+
+## Oberfläche
+
+Die Oberfläche ist bewusst nüchtern und behördennah gehalten:
+
+- einheitliche Kopf- und Fußnavigation
+- Brotkrumen zur Orientierung in Verzeichnissen und Normseiten
+- lesefreundliche Typografie und klare Abstände für Normtexte
+- responsive Darstellung für Desktop und Mobilgeräte
+- eigene Fehlerseiten für nicht gefundene oder fehlgeschlagene Aufrufe

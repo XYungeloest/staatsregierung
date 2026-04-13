@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { buildSearchIndexPayload, getHomeUrl, getSearchUrl } from '../lib/norms/index.ts';
+
+const searchPayload = await buildSearchIndexPayload();
+---
+
+<BaseLayout
+  title="Suche"
+  description="Clientseitige Suche über Normtitel, Metadaten und strukturierte Normtexte."
+>
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Suche' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Suche</p>
+    <h1>Normensuche</h1>
+    <p class="lead">
+      Die Suche arbeitet rein clientseitig mit einem beim Build erzeugten Index über die jeweils
+      maßgebliche Fassung jeder Norm.
+    </p>
+    <p class="status-line">
+      Im Suchindex stehen derzeit {searchPayload.documentCount} Normfassungen bereit.
+    </p>
+  </section>
+
+  <section
+    class="section search-shell"
+    aria-labelledby="search-form-title"
+    data-search-root
+    data-index-url={`${import.meta.env.BASE_URL}search-index.json`}
+  >
+    <div class="section-header">
+      <h2 id="search-form-title">Suchanfrage und Filter</h2>
+      <p>
+        Durchsucht werden Titel, Kurztitel, Abkürzung, Metadaten und die gespeicherten Normtexte.
+      </p>
+    </div>
+
+    <form class="search-form" action={getSearchUrl()} method="get" data-search-form>
+      <div class="search-form__primary">
+        <label class="search-field">
+          <span>Suchbegriff</span>
+          <input
+            type="search"
+            name="q"
+            autocomplete="off"
+            placeholder="z. B. Polizei, Förderung, Datenpakt"
+            data-search-query
+          />
+        </label>
+      </div>
+
+      <div class="search-form__filters">
+        <label class="search-field">
+          <span>Normtyp</span>
+          <select name="type" data-search-filter="type">
+            <option value="">Alle</option>
+            {searchPayload.filters.types.map((option) => (
+              <option value={option.value}>{option.label}</option>
+            ))}
+          </select>
+        </label>
+
+        <label class="search-field">
+          <span>Ressort</span>
+          <select name="ministry" data-search-filter="ministry">
+            <option value="">Alle</option>
+            {searchPayload.filters.ministries.map((option) => (
+              <option value={option}>{option}</option>
+            ))}
+          </select>
+        </label>
+
+        <label class="search-field">
+          <span>Sachgebiet</span>
+          <select name="subject" data-search-filter="subject">
+            <option value="">Alle</option>
+            {searchPayload.filters.subjects.map((option) => (
+              <option value={option}>{option}</option>
+            ))}
+          </select>
+        </label>
+
+        <label class="search-field">
+          <span>Status</span>
+          <select name="status" data-search-filter="status">
+            <option value="">Alle</option>
+            {searchPayload.filters.statuses.map((option) => (
+              <option value={option.value}>{option.label}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+    </form>
+
+    <div class="search-feedback" aria-live="polite" data-search-summary>
+      Der Suchindex wird geladen.
+    </div>
+
+    <noscript>
+      <p class="search-feedback search-feedback--warning">
+        Für die Suche wird JavaScript benötigt, da der Index ausschließlich clientseitig ausgewertet
+        wird.
+      </p>
+    </noscript>
+
+    <div class="search-results" data-search-results></div>
+  </section>
+  <script src="../scripts/search-page.ts"></script>
+</BaseLayout>

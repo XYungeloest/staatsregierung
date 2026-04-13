@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getNormUrl, getSubjectGroups, loadAllNorms, toDisplayText } from '../../lib/norms/index.ts';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getHomeUrl, getNormUrl, getSubjectsUrl, getSubjectGroups, loadAllNorms, toDisplayText } from '../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
   const groups = getSubjectGroups(await loadAllNorms());
@@ -15,6 +16,14 @@ const { group } = Astro.props;
 ---
 
 <BaseLayout title={toDisplayText(group.name)} description={`Sachgebiet ${toDisplayText(group.name)} im Ostrecht-Portal.`}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Sachgebiete', href: getSubjectsUrl() },
+      { label: toDisplayText(group.name) },
+    ]}
+  />
+
   <section class="section page-header">
     <p class="eyebrow">Sachgebiet</p>
     <h1>{toDisplayText(group.name)}</h1>

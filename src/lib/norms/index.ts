@@ -33,13 +33,17 @@ export {
 } from './loader.ts';
 
 export {
+  getHomeUrl,
+  getIndexUrl,
   getIndexGroups,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
+  getSearchUrl,
   getSubjectGroups,
   getSubjectSlug,
   getSubjectUrl,
+  getSubjectsUrl,
   type SubjectGroup,
 } from './routes.ts';
 
@@ -53,3 +57,10 @@ export {
   toDisplayText,
   type NormOutlineItem,
 } from './presentation.ts';
+
+export {
+  buildSearchIndexPayload,
+  type SearchFilterOptions,
+  type SearchIndexDocument,
+  type SearchIndexPayload,
+} from './search.ts';

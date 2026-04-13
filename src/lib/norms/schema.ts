@@ -199,7 +199,7 @@ function parseRawBodyBlocks(value: unknown, path: string): RawStructuredBodyBloc
   return value.map((entry, index) => {
     const object = expectObject(entry, `${path}[${index}]`);
     expectString(object.type, `${path}[${index}].type`);
-    return object;
+    return object as RawStructuredBodyBlock;
   });
 }
 
