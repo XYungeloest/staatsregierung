@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://http://www.freistaat-ostdeutschland.de',
+  site: 'https://freistaat-ostdeutschland.de',
 });
