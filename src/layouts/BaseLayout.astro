@@ -1,6 +1,4 @@
 ---
-import { existsSync } from 'node:fs';
-
 import '../styles/global.css';
 import {
   isEditorialNavLinkVisible,
@@ -34,8 +32,6 @@ const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const showServiceLinks = isServiceLinksEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
-const flagAssetFile = new URL(`../../public/${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`, import.meta.url);
-const hasFlagAsset = existsSync(flagAssetFile);
 
 const mainNavLinks = [
   { href: getHomeUrl(), label: 'Start' },
@@ -81,11 +77,14 @@ const footerPrimaryLinks = [
           <div class="site-notice" role="note" aria-label="Hinweis zur Fiktionalität">
             <div class="container site-notice__inner">
               <div class="site-notice__flag">
-                {hasFlagAsset ? (
-                  <img src={flagAssetUrl} alt="" />
-                ) : (
-                  <span class="site-notice__flag-fallback" aria-hidden="true">{siteConfig.officialFlagFallback}</span>
-                )}
+                <img
+                  src={flagAssetUrl}
+                  alt=""
+                  onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.removeAttribute('hidden');"
+                />
+                <span class="site-notice__flag-fallback" aria-hidden="true" hidden>
+                  {siteConfig.officialFlagFallback}
+                </span>
               </div>
               <p>{siteConfig.officialNotice}</p>
             </div>
@@ -108,11 +107,12 @@ const footerPrimaryLinks = [
               <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()}>
                   <span class="site-wordmark__media" aria-hidden="true">
-                    {hasFlagAsset ? (
-                      <img src={flagAssetUrl} alt="" />
-                    ) : (
-                      <span class="site-notice__flag-fallback">{siteConfig.officialFlagFallback}</span>
-                    )}
+                    <img
+                      src={flagAssetUrl}
+                      alt=""
+                      onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.removeAttribute('hidden');"
+                    />
+                    <span class="site-notice__flag-fallback" hidden>{siteConfig.officialFlagFallback}</span>
                   </span>
                   <span class="site-wordmark__text">
                     <span class="site-kicker">{siteConfig.authorityName}</span>
