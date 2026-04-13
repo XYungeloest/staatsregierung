@@ -44,6 +44,10 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
       <dd>{toDisplayText(version.citation)}</dd>
     </div>
     <div>
+      <dt>Stammzitat</dt>
+      <dd>{toDisplayText(norm.meta.initialCitation)}</dd>
+    </div>
+    <div>
       <dt>Gültig ab</dt>
       <dd>{formatDate(version.validFrom)}</dd>
     </div>

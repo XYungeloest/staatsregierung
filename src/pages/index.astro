@@ -49,6 +49,22 @@ const recentNorms = [...norms]
         <strong>statisch</strong>
       </div>
     </div>
+    <form class="search-form search-form--hero" action={getSearchUrl()} method="get" aria-label="Suche auf der Startseite">
+      <div class="search-form__primary">
+        <label class="search-field">
+          <span>Suche im Normenbestand</span>
+          <input
+            type="search"
+            name="q"
+            autocomplete="off"
+            placeholder="z. B. Polizei, Förderung, Datenpakt"
+          />
+        </label>
+      </div>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Suche starten</button>
+      </div>
+    </form>
     <nav class="hero-actions" aria-label="Schnelleinstiege">
       <a class="button-link" href={getSearchUrl()}>Zur Suche</a>
       <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum Index</a>
@@ -68,7 +84,7 @@ const recentNorms = [...norms]
     <div class="card-grid">
       <article class="panel">
         <h3>Suche</h3>
-        <p>Clientseitige Volltext- und Metadatensuche über aktuelle und historische Fassungen.</p>
+        <p>Clientseitige Volltext- und Metadatensuche über die maßgebliche Fassung jeder Norm.</p>
         <p><a class="inline-link" href={getSearchUrl()}>Zur Suche</a></p>
       </article>
       <article class="panel">

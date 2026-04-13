@@ -1,5 +1,5 @@
 import { loadAllNorms } from './loader.ts';
-import { formatNormStatus, formatNormType, toDisplayText } from './presentation.ts';
+import { formatDate, formatNormStatus, formatNormType, toDisplayText } from './presentation.ts';
 import { getNormUrl, getNormVersionUrl } from './routes.ts';
 import type { NormBodyBlock, NormRecord, NormVersion } from './schema.ts';
 
@@ -110,9 +110,7 @@ function compareStrings(left: string, right: string): number {
 function buildSearchDocument(record: NormRecord, version: NormVersion): SearchIndexDocument {
   const { textParts, contexts } = collectBodyContent(version.body);
   const isRepealed = record.meta.status === 'repealed';
-  const resultLabel = isRepealed
-    ? `Letzte Fassung ${version.versionId}`
-    : 'Aktuelle Fassung';
+  const resultLabel = isRepealed ? `Letzte Fassung vom ${formatDate(version.validFrom)}` : 'Aktuelle Fassung';
 
   return {
     id: `${record.meta.slug}:${version.versionId}`,
