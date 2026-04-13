@@ -31,3 +31,14 @@ export {
   loadNormMeta,
   loadNormVersions,
 } from './loader.ts';
+
+export {
+  getIndexGroups,
+  getNormHistoryUrl,
+  getNormUrl,
+  getNormVersionUrl,
+  getSubjectGroups,
+  getSubjectSlug,
+  getSubjectUrl,
+  type SubjectGroup,
+} from './routes.ts';

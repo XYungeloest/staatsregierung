@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSubjectUrl, getSubjectGroups, loadAllNorms } from '../../lib/norms/index.ts';
+
+const groups = getSubjectGroups(await loadAllNorms());
+---
+
+<BaseLayout title="Sachgebiete" description="Sachgebietsuebersicht des Ostrecht-Portals.">
+  <section class="section page-header">
+    <p class="eyebrow">Verzeichnis</p>
+    <h1>Sachgebiete</h1>
+    <p class="lead">Die Normen des Portals sind zusaetzlich nach Sachgebieten erschlossen.</p>
+  </section>
+
+  <section class="section">
+    <ul class="record-list">
+      {groups.map((group) => (
+        <li class="record-list__item">
+          <a class="inline-link" href={getSubjectUrl(group.name)}>{group.name}</a>
+          <span>{group.norms.length} Normen</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
