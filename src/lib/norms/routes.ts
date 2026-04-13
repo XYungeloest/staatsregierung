@@ -51,6 +51,22 @@ export function getEditorialUrl(): string {
   return withBase('/redaktion/');
 }
 
+export function getOverviewUrl(): string {
+  return withBase('/uebersicht/');
+}
+
+export function getImprintUrl(): string {
+  return withBase('/impressum/');
+}
+
+export function getPrivacyUrl(): string {
+  return withBase('/datenschutz/');
+}
+
+export function getAccessibilityUrl(): string {
+  return withBase('/barrierefreiheit/');
+}
+
 export function getSubjectSlug(subject: string): string {
   return normalizeForSlug(subject);
 }

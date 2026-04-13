@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getHomeUrl } from '../lib/norms/index.ts';
+---
+
+<BaseLayout title="Barrierefreiheit" description="Hinweise zur barrierearmen Gestaltung des Ostrecht-Portals.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Barrierefreiheit' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Barrierefreiheit</h1>
+    <p class="lead">
+      Das Portal ist auf eine klare, kontrastreiche und tastaturbedienbare Darstellung ausgelegt.
+      Es handelt sich um eine inoffizielle Simulationswebsite und nicht um eine formale Erklärung
+      einer realen öffentlichen Stelle.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="content-stack">
+      <article class="panel">
+        <h2>Umgesetzte Grundsätze</h2>
+        <ul>
+          <li>klare Überschriftenhierarchien und semantische Landmarken</li>
+          <li>sichtbare Fokuszustände für Links, Formulare und Schaltflächen</li>
+          <li>hoher Kontrast und zurückhaltende, ruhige Gestaltung</li>
+          <li>responsive Darstellung für Mobilgeräte und größere Bildschirme</li>
+        </ul>
+      </article>
+      <article class="panel">
+        <h2>Bekannte Grenzen</h2>
+        <p>
+          Die Qualität der Zugänglichkeit hängt auch von der redaktionellen Pflege der Inhalte,
+          insbesondere der strukturierten Normtexte und aussagekräftiger Linktexte, ab.
+        </p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
