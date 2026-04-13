@@ -38,3 +38,17 @@ SITE_URL=https://beispiel.de BASE_PATH=/ostrecht-portal npm run build
 - `BASE_PATH`: Unterpfad für GitHub Pages, z. B. `/ostrecht-portal/`
 
 Ohne Angabe wird mit `https://example.github.io` und `/` gebaut.
+
+## Content-Struktur
+
+Normdaten liegen dateibasiert unter `content/normen/[slug]/`:
+
+```text
+content/normen/[slug]/
+├── meta.json
+├── history.json
+└── versions/
+    └── [versionId].json
+```
+
+Die Typen, Validierung und Einlese-Utilities dafür liegen in `src/lib/norms/`. Damit bleiben Inhalte redaktionsnah als Dateien pflegbar und können später zur Build-Zeit in Seiten und Verzeichnisse übernommen werden.
