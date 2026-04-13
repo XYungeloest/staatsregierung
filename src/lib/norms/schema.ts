@@ -55,6 +55,11 @@ export interface NormBodyBlock {
   children?: NormBodyBlock[];
 }
 
+export interface RawStructuredBodyBlock {
+  type: string;
+  [key: string]: unknown;
+}
+
 export interface NormVersion {
   versionId: string;
   validFrom: string;
@@ -186,6 +191,18 @@ function parseBodyBlocks(value: unknown, path: string): NormBodyBlock[] {
   return value.map((entry, index) => parseBodyBlock(entry, `${path}[${index}]`));
 }
 
+function parseRawBodyBlocks(value: unknown, path: string): RawStructuredBodyBlock[] {
+  if (!Array.isArray(value)) {
+    fail(path, 'muss ein Array strukturierter Inhaltsblöcke sein');
+  }
+
+  return value.map((entry, index) => {
+    const object = expectObject(entry, `${path}[${index}]`);
+    expectString(object.type, `${path}[${index}].type`);
+    return object;
+  });
+}
+
 function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
   const object = expectObject(value, path);
   const type = expectEnumValue(object.type, `${path}.type`, STRUCTURE_TYPES);
@@ -234,6 +251,37 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
 
 export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
   const object = expectObject(value, path);
+  const rawType = expectString(object.type, `${path}.type`).toLowerCase();
+  const rawStatus = expectString(object.status, `${path}.status`).toLowerCase();
+
+  const normalizedTypeMap: Record<string, NormType> = {
+    gesetz: 'gesetz',
+    verordnung: 'verordnung',
+    verwaltungsvorschrift: 'verwaltungsvorschrift',
+    foerderrichtlinie: 'foerderrichtlinie',
+    förderrichtlinie: 'foerderrichtlinie',
+    staatsvertrag: 'staatsvertrag',
+    zustimmungsgesetz: 'zustimmungsgesetz',
+    aenderungsvorschrift: 'aenderungsvorschrift',
+    änderungsvorschrift: 'aenderungsvorschrift',
+  };
+
+  const normalizedStatusMap: Record<string, NormStatus> = {
+    'in-force': 'in-force',
+    published: 'in-force',
+    repealed: 'repealed',
+    aufgehoben: 'repealed',
+    planned: 'planned',
+    draft: 'planned',
+  };
+
+  if (!normalizedTypeMap[rawType]) {
+    fail(`${path}.type`, `muss einer dieser Werte sein: ${NORM_TYPES.join(', ')}`);
+  }
+
+  if (!normalizedStatusMap[rawStatus]) {
+    fail(`${path}.status`, `muss einer dieser Werte sein: ${NORM_STATUSES.join(', ')}`);
+  }
 
   return {
     id: expectString(object.id, `${path}.id`),
@@ -241,7 +289,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     title: expectString(object.title, `${path}.title`),
     shortTitle: expectString(object.shortTitle, `${path}.shortTitle`),
     abbr: expectString(object.abbr, `${path}.abbr`),
-    type: expectEnumValue(object.type, `${path}.type`, NORM_TYPES),
+    type: normalizedTypeMap[rawType],
     ministry: expectString(object.ministry, `${path}.ministry`),
     subjects: expectStringArray(object.subjects, `${path}.subjects`),
     keywords: expectStringArray(object.keywords, `${path}.keywords`),
@@ -249,7 +297,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     predecessor: expectNullableString(object.predecessor, `${path}.predecessor`),
     successor: expectNullableString(object.successor, `${path}.successor`),
     summary: expectString(object.summary, `${path}.summary`),
-    status: expectEnumValue(object.status, `${path}.status`, NORM_STATUSES),
+    status: normalizedStatusMap[rawStatus],
   };
 }
 
@@ -266,7 +314,7 @@ export function parseNormVersion(value: unknown, path = 'version.json'): NormVer
     isCurrent: expectBoolean(object.isCurrent, `${path}.isCurrent`),
     citation: expectString(object.citation, `${path}.citation`),
     changeNote: expectString(object.changeNote, `${path}.changeNote`),
-    body: parseBodyBlocks(object.body, `${path}.body`),
+    body: normalizeBodyBlocks(parseRawBodyBlocks(object.body, `${path}.body`), `${path}.body`),
   };
 }
 
@@ -291,15 +339,111 @@ function parseHistoryEntry(value: unknown, path: string): NormHistoryEntry {
 
 export function parseNormHistory(value: unknown, path = 'history.json'): NormHistory {
   const object = expectObject(value, path);
-
-  if (!Array.isArray(object.entries)) {
+  const entries = object.entries;
+  if (!Array.isArray(entries)) {
     fail(`${path}.entries`, 'muss ein Array sein');
   }
 
+  if (typeof object.initialVersionId === 'string') {
+    return {
+      initialVersionId: expectString(object.initialVersionId, `${path}.initialVersionId`),
+      entries: entries.map((entry, index) => parseHistoryEntry(entry, `${path}.entries[${index}]`)),
+    };
+  }
+
+  const normSlug =
+    object.normSlug === undefined ? undefined : expectString(object.normSlug, `${path}.normSlug`);
+
+  const normalizedEntries = entries.map((entry, index) => {
+    const entryPath = `${path}.entries[${index}]`;
+    const rawEntry = expectObject(entry, entryPath);
+    const kind = expectString(rawEntry.kind, `${entryPath}.kind`).toLowerCase();
+    const typeMap: Record<string, HistoryEntryType> = {
+      stammfassung: 'initial',
+      aenderung: 'amendment',
+      änderung: 'amendment',
+      aufhebung: 'repeal',
+      hinweis: 'notice',
+    };
+
+    if (!typeMap[kind]) {
+      fail(`${entryPath}.kind`, `unbekannter Historientyp "${kind}"`);
+    }
+
+    return {
+      date: expectIsoDate(rawEntry.date, `${entryPath}.date`),
+      type: typeMap[kind],
+      title: expectString(rawEntry.label, `${entryPath}.label`),
+      citation: expectString(rawEntry.citation, `${entryPath}.citation`),
+      note: undefined,
+      affectingVersionId:
+        rawEntry.versionId === undefined
+          ? undefined
+          : expectNullableString(rawEntry.versionId, `${entryPath}.versionId`),
+      relatedNorm:
+        rawEntry.relatedNormSlug === undefined
+          ? undefined
+          : expectNullableString(rawEntry.relatedNormSlug, `${entryPath}.relatedNormSlug`),
+    } satisfies NormHistoryEntry;
+  });
+
   return {
-    initialVersionId: expectString(object.initialVersionId, `${path}.initialVersionId`),
-    entries: object.entries.map((entry, index) => parseHistoryEntry(entry, `${path}.entries[${index}]`)),
+    initialVersionId:
+      normalizedEntries.find((entry) => entry.type === 'initial')?.affectingVersionId ??
+      normalizedEntries[0]?.affectingVersionId ??
+      normSlug ??
+      fail(`${path}.entries`, 'muss eine Stammfassung mit Versionsbezug enthalten'),
+    entries: normalizedEntries,
   };
+}
+
+function normalizeBodyBlocks(blocks: RawStructuredBodyBlock[], path: string): NormBodyBlock[] {
+  return blocks.flatMap((block, index) => normalizeBodyBlock(block, `${path}[${index}]`));
+}
+
+function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBodyBlock[] {
+  const type = expectString(block.type, `${path}.type`).toLowerCase();
+
+  if (type === 'heading') {
+    return [];
+  }
+
+  if (type === 'section') {
+    return [
+      {
+        type: 'section',
+        label: expectOptionalString(block.number, `${path}.number`),
+        title: expectOptionalString(block.heading, `${path}.heading`) ?? expectOptionalString(block.text, `${path}.text`),
+        children: [],
+      },
+    ];
+  }
+
+  if (type === 'paragraph' || type === 'article') {
+    const content = Array.isArray(block.content)
+      ? block.content.map((entry, contentIndex) =>
+          expectString(entry, `${path}.content[${contentIndex}]`),
+        )
+      : [];
+
+    return [
+      {
+        type: type as StructureType,
+        label: expectOptionalString(block.number, `${path}.number`),
+        title: expectOptionalString(block.heading, `${path}.heading`) ?? expectOptionalString(block.text, `${path}.text`),
+        children: content.map((text) => ({
+          type: 'paragraphText',
+          text,
+        })),
+      },
+    ];
+  }
+
+  if (STRUCTURE_TYPES.includes(type as StructureType)) {
+    return [parseBodyBlock(block, path)];
+  }
+
+  fail(`${path}.type`, `unbekannter Inhaltstyp "${type}"`);
 }
 
 export function validateNormRecord(record: NormRecord, context = record.meta.slug): NormRecord {

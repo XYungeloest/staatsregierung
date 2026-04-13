@@ -1,20 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  getCurrentVersion,
+  getNormUrl,
+  getSubjectGroups,
+  loadAllNorms,
+} from '../lib/norms/index.ts';
 
-const roadmapItems = [
-  {
-    title: 'Normenbestand',
-    description: 'Dateibasierte Inhalte, konsolidierte Fassungen und klare Stammdatenstruktur.',
-  },
-  {
-    title: 'Historie',
-    description: 'Eigene Seiten für Normenhistorien und historische Fassungen mit stabilen URLs.',
-  },
-  {
-    title: 'Verzeichnisse',
-    description: 'Alphabetischer Index und Sachgebietsseiten als statisch generierte Einstiege.',
-  },
-];
+const base = import.meta.env.BASE_URL;
+
+const norms = await loadAllNorms();
+const subjectGroups = getSubjectGroups(norms);
+const recentNorms = [...norms]
+  .sort((left, right) => getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom))
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -25,51 +24,71 @@ const roadmapItems = [
     <p class="eyebrow">Rechtsinformationssystem</p>
     <h1>Ostrecht-Portal</h1>
     <p class="lead">
-      Dieses Portal bildet ein amtlich wirkendes, vollständig statisches Rechtsinformationssystem für den
-      Freistaat Ostdeutschland ab. In dieser ersten Phase steht ein belastbares Grundgerüst im Vordergrund.
+      Das Portal bildet aktuelle Fassungen, historische Fassungen und Normenhistorien des Freistaats
+      Ostdeutschland in einer rein statisch generierten Website ab.
     </p>
     <div class="meta-grid" aria-label="Projektstatus">
       <div class="meta-card">
+        <span class="meta-label">Normenbestand</span>
+        <strong>{norms.length} Normen</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Sachgebiete</span>
+        <strong>{subjectGroups.length}</strong>
+      </div>
+      <div class="meta-card">
         <span class="meta-label">Ausgabe</span>
         <strong>statisch</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Hosting</span>
-        <strong>GitHub Pages</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Technik</span>
-        <strong>Astro + TypeScript</strong>
       </div>
     </div>
   </section>
 
   <section class="section">
     <div class="section-header">
-      <h2>Stand des Portals</h2>
+      <h2>Einstiege</h2>
       <p>
-        Suche, Normdaten und fachliche Detailseiten folgen in späteren Phasen. Der aktuelle Stand schafft die
-        Basis für eine robuste, langfristig wartbare Struktur.
+        Der Einstieg erfolgt ueber aktuelle Fassungen, den alphabetischen Index und die Sachgebietsseiten.
+        Die Suche wird in einer spaeteren Phase ergaenzt.
       </p>
     </div>
 
     <div class="card-grid">
-      {roadmapItems.map((item) => (
-        <article class="panel">
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-        </article>
-      ))}
+      <article class="panel">
+        <h3>Alphabetischer Index</h3>
+        <p>Alle Normen alphabetisch mit direktem Einstieg in die aktuelle Fassung.</p>
+        <p><a class="inline-link" href={`${base}index/`}>Zum Index</a></p>
+      </article>
+      <article class="panel">
+        <h3>Sachgebiete</h3>
+        <p>Uebersicht ueber alle gefuehrten Sachgebiete und zugeordnete Normen.</p>
+        <p><a class="inline-link" href={`${base}subjects/`}>Zu den Sachgebieten</a></p>
+      </article>
+      <article class="panel">
+        <h3>Portalhinweis</h3>
+        <p>Dieses Rechtsportal ist Teil einer politischen Simulation und bildet fiktive, aber plausibel gestaltete Normdaten ab.</p>
+      </article>
     </div>
   </section>
 
   <section class="section section-muted">
     <div class="section-header">
-      <h2>Hinweis</h2>
+      <h2>Letzte Fassungen</h2>
       <p>
-        Das Portal ist Teil einer politischen Simulation. Inhalte, Fundstellen und Rechtsstände werden erst in
-        den folgenden Ausbaustufen ergänzt.
+        Die folgenden aktuellen Fassungen sind nach ihrem Geltungsbeginn sortiert.
       </p>
+    </div>
+    <div class="card-grid">
+      {recentNorms.map((norm) => {
+        const currentVersion = getCurrentVersion(norm);
+
+        return (
+          <article class="panel">
+            <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></h3>
+            <p>{norm.meta.summary}</p>
+            <p class="detail-line">Rechtsstand seit {currentVersion.validFrom}</p>
+          </article>
+        );
+      })}
     </div>
   </section>
 </BaseLayout>

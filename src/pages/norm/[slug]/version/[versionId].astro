@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import NormBody from '../../../../components/norms/NormBody.astro';
+import NormMetaCard from '../../../../components/norms/NormMetaCard.astro';
+import {
+  getNormHistoryUrl,
+  getNormUrl,
+  loadAllNorms,
+} from '../../../../lib/norms/index.ts';
+
+export async function getStaticPaths() {
+  const norms = await loadAllNorms();
+
+  return norms.flatMap((norm) =>
+    norm.versions
+      .filter((version) => !version.isCurrent)
+      .map((version) => ({
+        params: { slug: norm.meta.slug, versionId: version.versionId },
+        props: { norm, version },
+      })),
+  );
+}
+
+const { norm, version } = Astro.props;
+---
+
+<BaseLayout title={`${norm.meta.title} ${version.versionId}`} description={`Historische Fassung ${version.versionId} von ${norm.meta.title}.`}>
+  <section class="section page-header">
+    <p class="eyebrow">Historische Fassung</p>
+    <h1>{norm.meta.title}</h1>
+    <p class="lead">Diese Seite zeigt die gespeicherte konsolidierte Fassung mit dem Versionsstand {version.versionId}.</p>
+    <p class="status-line">Gueltig vom {version.validFrom} bis {version.validTo ?? 'heute'}</p>
+    <nav class="link-list link-list--inline" aria-label="Seitennavigation">
+      <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a>
+      <a href={getNormHistoryUrl(norm.meta.slug)}>Zur Historie</a>
+    </nav>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <div class="section-header">
+        <h2>Historischer Normtext</h2>
+        <p>{version.changeNote}</p>
+      </div>
+      <NormBody blocks={version.body} />
+    </section>
+
+    <NormMetaCard norm={norm} version={version} historical={true} />
+  </div>
+</BaseLayout>

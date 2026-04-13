@@ -1,0 +1,47 @@
+---
+import type { NormBodyBlock } from '../../lib/norms/schema.ts';
+
+interface Props {
+  blocks: NormBodyBlock[];
+}
+
+const { blocks } = Astro.props;
+---
+
+{blocks.map((block) => (
+  <Fragment>
+    {block.type === 'part' || block.type === 'chapter' || block.type === 'section' || block.type === 'subsection' ? (
+      <section class="norm-division">
+        <header class="norm-division__header">
+          {block.label ? <p class="norm-label">{block.label}</p> : null}
+          {block.title ? <h2>{block.title}</h2> : null}
+        </header>
+        {block.children && block.children.length > 0 ? <Astro.self blocks={block.children} /> : null}
+      </section>
+    ) : null}
+
+    {block.type === 'paragraph' || block.type === 'article' ? (
+      <article class="norm-unit">
+        <header class="norm-unit__header">
+          {block.label ? <p class="norm-unit__label">{block.label}</p> : null}
+          {block.title ? <h3>{block.title}</h3> : null}
+        </header>
+        {block.children && block.children.length > 0 ? <Astro.self blocks={block.children} /> : null}
+      </article>
+    ) : null}
+
+    {block.type === 'annex' ? (
+      <section class="norm-annex">
+        <header class="norm-division__header">
+          {block.label ? <p class="norm-label">{block.label}</p> : null}
+          {block.title ? <h2>{block.title}</h2> : null}
+        </header>
+        {block.children && block.children.length > 0 ? <Astro.self blocks={block.children} /> : null}
+      </section>
+    ) : null}
+
+    {block.type === 'paragraphText' ? <p class="norm-text">{block.text}</p> : null}
+    {block.type === 'item' ? <p class="norm-item"><strong>{block.label}</strong> {block.text}</p> : null}
+    {block.type === 'subitem' ? <p class="norm-subitem"><strong>{block.label}</strong> {block.text}</p> : null}
+  </Fragment>
+))}
