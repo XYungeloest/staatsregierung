@@ -1,0 +1,37 @@
+---
+import { formatDate, toDisplayText } from '../../lib/norms/presentation.ts';
+import { getNormHistoryUrl, getNormUrl, getNormVersionUrl } from '../../lib/norms/routes.ts';
+import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
+
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  historical?: boolean;
+}
+
+const { norm, version, historical = false } = Astro.props;
+const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
+---
+
+<aside class:list={['status-notice', historical ? 'status-notice--historical' : 'status-notice--current']}>
+  <h2>{historical ? 'Hinweis zur historischen Fassung' : 'Rechtsstand'}</h2>
+  {historical ? (
+    <p>
+      Dies ist eine historische Fassung. Sie galt vom {formatDate(version.validFrom)} bis{' '}
+      {version.validTo ? formatDate(version.validTo) : 'heute'}.
+    </p>
+  ) : (
+    <p>Dies ist die aktuelle Fassung mit Rechtsstand vom {formatDate(version.validFrom)}.</p>
+  )}
+  <p>{toDisplayText(version.changeNote)}</p>
+  <nav class="link-list link-list--inline" aria-label="Rechtsstandslinks">
+    {historical ? <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a> : null}
+    <a href={getNormHistoryUrl(norm.meta.slug)}>Zur Historie</a>
+    {!historical &&
+      historicalVersions.map((entry) => (
+        <a href={getNormVersionUrl(norm.meta.slug, entry.versionId)}>
+          Historische Fassung vom {formatDate(entry.validFrom)}
+        </a>
+      ))}
+  </nav>
+</aside>

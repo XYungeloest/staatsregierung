@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getNormUrl, getSubjectGroups, loadAllNorms } from '../../lib/norms/index.ts';
+import { getNormUrl, getSubjectGroups, loadAllNorms, toDisplayText } from '../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
   const groups = getSubjectGroups(await loadAllNorms());
@@ -14,10 +14,10 @@ export async function getStaticPaths() {
 const { group } = Astro.props;
 ---
 
-<BaseLayout title={group.name} description={`Sachgebiet ${group.name} im Ostrecht-Portal.`}>
+<BaseLayout title={toDisplayText(group.name)} description={`Sachgebiet ${toDisplayText(group.name)} im Ostrecht-Portal.`}>
   <section class="section page-header">
     <p class="eyebrow">Sachgebiet</p>
-    <h1>{group.name}</h1>
+    <h1>{toDisplayText(group.name)}</h1>
     <p class="lead">Diesem Sachgebiet sind aktuell {group.norms.length} Normen zugeordnet.</p>
   </section>
 
@@ -25,8 +25,8 @@ const { group } = Astro.props;
     <ul class="record-list">
       {group.norms.map((norm) => (
         <li class="record-list__item">
-          <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a>
-          <span>{norm.meta.abbr} · {norm.meta.ministry}</span>
+          <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
+          <span>{norm.meta.abbr} · {toDisplayText(norm.meta.ministry)}</span>
         </li>
       ))}
     </ul>

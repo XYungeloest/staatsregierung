@@ -1,47 +1,116 @@
 ---
+import {
+  getBlockAnchorId,
+  getHeadingTag,
+  toDisplayText,
+} from '../../lib/norms/presentation.ts';
 import type { NormBodyBlock } from '../../lib/norms/schema.ts';
 
 interface Props {
   blocks: NormBodyBlock[];
+  path?: number[];
 }
 
-const { blocks } = Astro.props;
+type BlockRun =
+  | { kind: 'block'; block: NormBodyBlock; index: number }
+  | { kind: 'list'; items: Array<{ block: NormBodyBlock; index: number }> };
+
+const { blocks, path = [] } = Astro.props;
+
+function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
+  const runs: BlockRun[] = [];
+  let listBuffer: Array<{ block: NormBodyBlock; index: number }> = [];
+
+  function flushList() {
+    if (listBuffer.length > 0) {
+      runs.push({ kind: 'list', items: listBuffer });
+      listBuffer = [];
+    }
+  }
+
+  entries.forEach((block, index) => {
+    if (block.type === 'item' || block.type === 'subitem') {
+      listBuffer.push({ block, index });
+      return;
+    }
+
+    flushList();
+    runs.push({ kind: 'block', block, index });
+  });
+
+  flushList();
+  return runs;
+}
 ---
 
-{blocks.map((block) => (
+{groupBlocks(blocks).map((run) => (
   <Fragment>
-    {block.type === 'part' || block.type === 'chapter' || block.type === 'section' || block.type === 'subsection' ? (
-      <section class="norm-division">
-        <header class="norm-division__header">
-          {block.label ? <p class="norm-label">{block.label}</p> : null}
-          {block.title ? <h2>{block.title}</h2> : null}
-        </header>
-        {block.children && block.children.length > 0 ? <Astro.self blocks={block.children} /> : null}
-      </section>
-    ) : null}
+    {run.kind === 'block'
+      ? (() => {
+          const block = run.block;
+          const currentPath = [...path, run.index];
+          const HeadingTag = getHeadingTag(block);
+          const anchorId = getBlockAnchorId(currentPath, block);
 
-    {block.type === 'paragraph' || block.type === 'article' ? (
-      <article class="norm-unit">
-        <header class="norm-unit__header">
-          {block.label ? <p class="norm-unit__label">{block.label}</p> : null}
-          {block.title ? <h3>{block.title}</h3> : null}
-        </header>
-        {block.children && block.children.length > 0 ? <Astro.self blocks={block.children} /> : null}
-      </article>
-    ) : null}
+          return (
+            <Fragment>
+              {block.type === 'part' ||
+              block.type === 'chapter' ||
+              block.type === 'section' ||
+              block.type === 'subsection' ? (
+                <section class={`norm-division norm-division--${block.type}`} aria-labelledby={anchorId}>
+                  <header class="norm-division__header">
+                    {block.label ? <p class="norm-label">{toDisplayText(block.label)}</p> : null}
+                    {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                  </header>
+                  {block.children && block.children.length > 0 ? (
+                    <Astro.self blocks={block.children} path={currentPath} />
+                  ) : null}
+                </section>
+              ) : null}
 
-    {block.type === 'annex' ? (
-      <section class="norm-annex">
-        <header class="norm-division__header">
-          {block.label ? <p class="norm-label">{block.label}</p> : null}
-          {block.title ? <h2>{block.title}</h2> : null}
-        </header>
-        {block.children && block.children.length > 0 ? <Astro.self blocks={block.children} /> : null}
-      </section>
-    ) : null}
+              {block.type === 'paragraph' || block.type === 'article' ? (
+                <article class={`norm-unit norm-unit--${block.type}`} aria-labelledby={anchorId}>
+                  <header class="norm-unit__header">
+                    {block.label ? <p class="norm-unit__label">{toDisplayText(block.label)}</p> : null}
+                    {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                  </header>
+                  {block.children && block.children.length > 0 ? (
+                    <Astro.self blocks={block.children} path={currentPath} />
+                  ) : null}
+                </article>
+              ) : null}
 
-    {block.type === 'paragraphText' ? <p class="norm-text">{block.text}</p> : null}
-    {block.type === 'item' ? <p class="norm-item"><strong>{block.label}</strong> {block.text}</p> : null}
-    {block.type === 'subitem' ? <p class="norm-subitem"><strong>{block.label}</strong> {block.text}</p> : null}
+              {block.type === 'annex' ? (
+                <section class="norm-annex" aria-labelledby={anchorId}>
+                  <header class="norm-division__header">
+                    {block.label ? <p class="norm-label">{toDisplayText(block.label)}</p> : null}
+                    {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                  </header>
+                  {block.children && block.children.length > 0 ? (
+                    <Astro.self blocks={block.children} path={currentPath} />
+                  ) : null}
+                </section>
+              ) : null}
+
+              {block.type === 'paragraphText' ? <p class="norm-text">{toDisplayText(block.text)}</p> : null}
+            </Fragment>
+          );
+        })()
+      : null}
+
+    {run.kind === 'list' ? (
+      <ol class="norm-list">
+        {run.items.map(({ block, index }) => (
+          <li class:list={['norm-list__item', block.type === 'subitem' ? 'norm-list__item--subitem' : undefined]}>
+            {block.label ? <span class="norm-list__label">{toDisplayText(block.label)}</span> : null}
+            <span>{toDisplayText(block.text)}</span>
+            {block.children && block.children.length > 0 ? (
+              <Astro.self blocks={block.children} path={[...path, index]} />
+            ) : null}
+          </li>
+        ))}
+      </ol>
+    ) : null}
   </Fragment>
 ))}

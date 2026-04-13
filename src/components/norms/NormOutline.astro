@@ -1,0 +1,47 @@
+---
+import type { NormOutlineItem } from '../../lib/norms/presentation.ts';
+
+interface Props {
+  items: NormOutlineItem[];
+  nested?: boolean;
+}
+
+const { items, nested = false } = Astro.props;
+---
+
+{items.length > 0 ? (
+  nested ? (
+    <ul class="outline-list">
+      {items.map((item) => (
+        <li>
+          <a href={`#${item.anchor}`}>
+            {item.label && item.label !== item.title ? (
+              <span class="outline-label">{item.label}</span>
+            ) : null}
+            <span>{item.title}</span>
+          </a>
+          {item.children.length > 0 ? <Astro.self items={item.children} nested={true} /> : null}
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <nav class="section norm-outline" aria-label="Inhaltsübersicht">
+      <div class="section-header">
+        <h2>Inhaltsübersicht</h2>
+      </div>
+      <ul class="outline-list">
+        {items.map((item) => (
+          <li>
+            <a href={`#${item.anchor}`}>
+              {item.label && item.label !== item.title ? (
+                <span class="outline-label">{item.label}</span>
+              ) : null}
+              <span>{item.title}</span>
+            </a>
+            {item.children.length > 0 ? <Astro.self items={item.children} nested={true} /> : null}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )
+) : null}
