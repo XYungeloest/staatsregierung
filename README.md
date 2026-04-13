@@ -2,111 +2,444 @@
 
 Statisches Rechtsportal für den „Freistaat Ostdeutschland“ auf Basis von Astro und TypeScript.
 
-## Leitplanken
+Das Projekt ist bewusst einfach gehalten:
 
-- vollständig statische Ausgabe
-- GitHub-Pages-kompatibler Build
 - keine Datenbank
 - kein Backend
 - keine Container
-- dateibasierte Inhalte
+- keine SSR
+- keine automatische Konsolidierung von Änderungsgesetzen
+- vollständig statische Ausgabe für GitHub Pages
 
-## Entwicklung
+## Kurzüberblick
+
+Das Portal zeigt:
+
+- aktuelle Fassungen von Normen
+- historische Fassungen
+- Normenhistorien
+- einen alphabetischen Index
+- Sachgebietsseiten
+- eine rein clientseitige Suche
+
+Inhalte liegen vollständig dateibasiert im Repository unter `content/normen/`.
+
+## Voraussetzungen
+
+- Node.js ab `22.12.0`
+- `npm`
+
+## Installation
+
+Repository klonen und Abhängigkeiten installieren:
 
 ```sh
 npm install
+```
+
+Lokale Entwicklungsumgebung starten:
+
+```sh
 npm run dev
 ```
 
+Danach ist das Portal lokal im Astro-Dev-Server erreichbar.
+
 ## Build
+
+Statischen Build erzeugen:
 
 ```sh
 npm run build
 ```
 
-Die Ausgabe wird vollständig statisch nach `dist/` erzeugt und ist für GitHub Pages vorgesehen.
+Die fertige Ausgabe liegt danach in `dist/`.
 
-Für eine Projektseite unter `https://username.github.io/repo-name/` bauen Sie lokal am besten so:
+Optional können Sie zusätzlich den Type-Check ausführen:
+
+```sh
+npm exec astro check
+```
+
+## GitHub Pages und `base`-Pfad
+
+Das Projekt ist auf GitHub Pages als Projektseite ausgelegt, also auf Adressen wie:
+
+```text
+https://username.github.io/repo-name/
+```
+
+Wichtig dafür sind zwei Umgebungsvariablen:
+
+- `SITE_URL`
+  Die Basisdomain, z. B. `https://username.github.io`
+- `BASE_PATH`
+  Der Unterpfad des Repositories, z. B. `/repo-name/`
+
+Lokaler Test für eine Projektseite:
 
 ```sh
 SITE_URL=https://username.github.io BASE_PATH=/repo-name/ npm run build
 ```
 
-## Konfiguration
-
-`site` und `base` werden über Umgebungsvariablen gesteuert:
+Beispiel für eine Root-Seite ohne Unterpfad:
 
 ```sh
-SITE_URL=https://beispiel.de BASE_PATH=/ostrecht-portal npm run build
+SITE_URL=https://beispiel.de BASE_PATH=/ npm run build
 ```
 
-- `SITE_URL`: vollständige Zieladresse der späteren Seite
-- `BASE_PATH`: Unterpfad für GitHub Pages, z. B. `/ostrecht-portal/`
+Ohne Angaben nutzt das Projekt Standardwerte für die lokale Entwicklung und einfache Tests.
 
-Ohne Angabe wird mit `https://example.github.io` und `/` gebaut.
+## Deployment auf GitHub Pages
 
-Für GitHub Pages als Projektseite gilt in der Regel:
+Das Repository enthält bereits einen einfachen Workflow:
 
-- `SITE_URL=https://username.github.io`
-- `BASE_PATH=/repo-name/`
+- `.github/workflows/deploy.yml`
+
+Der Workflow:
+
+- installiert Abhängigkeiten mit `npm ci`
+- baut das Projekt mit `npm run build`
+- lädt `dist/` als Pages-Artefakt hoch
+- deployed über GitHub Pages
+
+Zusätzlich wird `public/.nojekyll` mit ausgeliefert, damit GitHub Pages die statische Astro-Ausgabe unverändert ausliefert.
+
+### Was Sie in GitHub noch manuell einstellen müssen
+
+1. Repository auf GitHub öffnen
+2. `Settings` → `Pages` öffnen
+3. Bei `Source` die Option `GitHub Actions` auswählen
+4. Prüfen, dass der Workflow auf Ihren Standard-Branch passt
+
+Danach reicht ein Push auf `main`, um das Deployment auszulösen.
+
+## Projektstruktur
+
+Die wichtigsten Verzeichnisse:
+
+```text
+content/normen/          Normdaten als JSON-Dateien
+public/                  statische Dateien wie Favicon und .nojekyll
+src/pages/               Astro-Seiten und Routen
+src/components/          wiederverwendbare Oberflächenbausteine
+src/lib/norms/           Typen, Validierung, Loader, Routen- und Such-Helfer
+src/scripts/             clientseitige Skripte, z. B. für die Suche
+```
+
+## Architektur in Kürze
+
+Das Projekt arbeitet in drei einfachen Schritten:
+
+1. JSON-Dateien unter `content/normen/` werden zur Build-Zeit eingelesen und validiert.
+2. Astro erzeugt daraus statische Seiten für aktuelle Fassungen, historische Fassungen, Historien, Verzeichnisse und Suche.
+3. Die Suche lädt einen vorab erzeugten JSON-Index im Browser und arbeitet rein clientseitig.
+
+Wichtig:
+
+- historische Fassungen werden nicht berechnet
+- jede Fassung liegt als eigene konsolidierte Datei vor
+- Inhalte werden beim Build validiert
 
 ## Content-Struktur
 
-Normdaten liegen dateibasiert unter `content/normen/[slug]/`:
+Jede Norm hat ein eigenes Verzeichnis:
 
 ```text
 content/normen/[slug]/
 ├── meta.json
 ├── history.json
 └── versions/
-    └── [versionId].json
+    ├── 2026-01-01.json
+    └── 2026-04-01.json
 ```
 
-Die Typen, Validierung und Einlese-Utilities dafür liegen in `src/lib/norms/`. Damit bleiben Inhalte redaktionsnah als Dateien pflegbar und können später zur Build-Zeit in Seiten und Verzeichnisse übernommen werden.
+Beispiel:
 
-## Suche
+```text
+content/normen/polg/
+├── meta.json
+├── history.json
+└── versions/
+    ├── 2026-01-01.json
+    └── 2026-04-01.json
+```
 
-Die Suche bleibt vollständig statisch:
+Die Dateinamen unter `versions/` müssen zum jeweiligen `versionId` passen.
 
-- beim Build wird unter `search-index.json` ein JSON-Suchindex erzeugt
-- die Seite `/search/` lädt diesen Index im Browser
-- durchsucht werden Titel, Kurztitel, Abkürzung, Metadaten und Normtexte
-- Filter stehen für Normtyp, Ressort, Sachgebiet und Status bereit
+## Neue Norm anlegen
 
-Damit bleibt die GitHub-Pages-Kompatibilität ohne Backend oder serverseitige Suche erhalten.
+### 1. Verzeichnis anlegen
 
-## Oberfläche
+Beispiel für eine neue Norm mit dem Slug `schulordnung`:
 
-Die Oberfläche ist bewusst nüchtern und behördennah gehalten:
+```text
+content/normen/schulordnung/
+├── meta.json
+├── history.json
+└── versions/
+    └── 2026-09-01.json
+```
 
-- einheitliche Kopf- und Fußnavigation
-- Brotkrumen zur Orientierung in Verzeichnissen und Normseiten
-- lesefreundliche Typografie und klare Abstände für Normtexte
-- responsive Darstellung für Desktop und Mobilgeräte
-- eigene Fehlerseiten für nicht gefundene oder fehlgeschlagene Aufrufe
+### 2. `meta.json` anlegen
 
-## Deployment auf GitHub Pages
+Beispiel:
 
-Für das Deployment ist eine einfache Standardlösung über GitHub Actions eingerichtet:
+```json
+{
+  "id": "fod-schulordnung",
+  "slug": "schulordnung",
+  "title": "Schulordnung des Freistaates Ostdeutschland",
+  "shortTitle": "Schulordnung",
+  "abbr": "SchulO",
+  "type": "verordnung",
+  "ministry": "Ministerium für Bildung und Kultur",
+  "subjects": ["Schulrecht", "Bildung"],
+  "keywords": ["Schule", "Ordnung", "Unterricht"],
+  "initialCitation": "Schulordnung vom 1. September 2026 (GVBl. FOD 2026 S. 201)",
+  "predecessor": null,
+  "successor": null,
+  "summary": "Regelt grundlegende organisatorische Fragen des Schulbetriebs.",
+  "status": "in-force"
+}
+```
 
-- Workflow-Datei: `.github/workflows/deploy.yml`
-- statischer Build mit `npm run build`
-- Upload des `dist/`-Verzeichnisses als Pages-Artefakt
-- Deployment über `actions/deploy-pages`
-- `.nojekyll` wird über `public/.nojekyll` mit ausgeliefert
+Wichtige Hinweise:
 
-Der Workflow ist auf eine Projektseite wie `https://username.github.io/repo-name/` ausgelegt und setzt dafür automatisch:
+- `slug` muss genau zum Verzeichnisnamen passen
+- `type` ist ein technischer Wert und muss einem erlaubten Typ entsprechen
+- `status` ist ebenfalls technisch, z. B. `in-force`
+- sichtbare deutsche Texte dürfen normale Umlaute enthalten
 
-- `SITE_URL=https://<GitHub-Benutzername>.github.io`
-- `BASE_PATH=/repo-name/`
+### 3. Praktischer Codex-Prompt für Gesetzblatt-PDFs
 
-## Manuelle GitHub-Einrichtung
+Wenn ein Gesetzblatt als PDF vorliegt, kann Codex daraus die Dateien für das Portal ableiten. Dafür ist ein klarer Arbeitsauftrag hilfreich.
 
-In GitHub selbst müssen Sie anschließend noch Folgendes einstellen:
+Beispiel-Prompt:
 
-1. Das Standard-Branch-Deployment soll über GitHub Actions laufen.
-2. Öffnen Sie dazu im Repository `Settings` → `Pages`.
-3. Wählen Sie bei `Source` die Option `GitHub Actions`.
-4. Stellen Sie sicher, dass der Default-Branch `main` ist oder passen Sie den Workflow an Ihren Branch an.
+```text
+Lies zuerst vollständig SPEC.md, TASKLIST.md und AGENTS.md.
 
-Danach reicht ein Push auf `main`, um den Build und das Pages-Deployment auszulösen.
+Verarbeite anschließend das folgende Gesetzblatt-PDF:
+[PDF-PFAD-EINFÜGEN]
+
+Ziel:
+- überführe die im PDF enthaltenen Normen oder Änderungen in die dateibasierte Struktur dieses Repositories
+- lege neue Normen unter content/normen/[slug]/ an
+- ergänze bei geänderten Normen die neuen Fassungen als eigene konsolidierte Dateien unter versions/
+- setze die bisher aktuelle Fassung auf historisch, wenn eine neue Fassung in Kraft tritt
+- ergänze history.json mit passenden Historieneinträgen
+- lege bei Änderungsgesetzen oder Änderungsvorschriften auch eigene Normverzeichnisse an, wenn das PDF solche Normen selbst enthält
+- berücksichtige Folgeänderungen, wenn im PDF mehrere Normen geändert werden
+- speichere historische Fassungen als eigene Dateien; keine automatische Konsolidierung bauen
+
+Wichtig:
+- keine Datenbank
+- kein Backend
+- keine Container
+- GitHub-Pages-kompatibel bleiben
+- bestehende Strukturen und Typen aus src/lib/norms/schema.ts beachten
+- sichtbare deutsche Texte mit echten Umlauten und ß schreiben
+- Slugs und technische IDs stabil und ASCII-basiert halten
+- wenn eine Norm bereits existiert, vorhandene Dateien sorgfältig lesen und konsistent fortschreiben statt parallel widersprüchliche Dateien anzulegen
+
+Arbeitsweise:
+1. lies das PDF vollständig
+2. nenne mir kurz, welche Normen neu angelegt oder geändert werden
+3. setze dann die notwendigen Dateien um:
+   - meta.json
+   - history.json
+   - versions/[versionId].json
+4. prüfe danach mit Build oder Type-Check, ob die Daten valide sind
+5. erkläre mir am Ende kurz, welche Normen und Fassungen angelegt oder geändert wurden
+
+Wenn das PDF keine vollständig konsolidierte neue Fassung enthält, dann:
+- leite nur dann eine neue konsolidierte Fassung ab, wenn der Text im PDF dafür ausreichend eindeutig ist
+- andernfalls stoppe kurz und nenne mir genau, welche Fassung oder welche Textteile für eine saubere Konsolidierung fehlen
+```
+
+Praktischer Hinweis:
+
+- Ersetzen Sie `[PDF-PFAD-EINFÜGEN]` durch einen echten lokalen Pfad, z. B. `/Users/name/Downloads/gesetzblatt-2026-12.pdf`
+- Wenn ein Gesetzblatt mehrere Gesetze gleichzeitig ändert, sollte der Prompt ausdrücklich „Folgeänderungen berücksichtigen“ enthalten
+- Wenn im PDF nur eine Änderungsvorschrift steht, aber keine fertige konsolidierte Neufassung, sollte Codex die Grenzen offen benennen statt ungesicherte Fassungen zu erfinden
+
+## Neue Fassung anlegen
+
+Neue Fassungen kommen als eigene JSON-Datei nach:
+
+```text
+content/normen/schulordnung/versions/2027-01-01.json
+```
+
+Beispiel:
+
+```json
+{
+  "versionId": "2027-01-01",
+  "validFrom": "2027-01-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Schulordnung in der Fassung vom 1. Januar 2027 (GVBl. FOD 2027 S. 10)",
+  "changeNote": "§ 3 neu gefasst, § 8 ergänzt",
+  "body": [
+    {
+      "type": "section",
+      "label": "Teil 1",
+      "title": "Allgemeine Vorschriften",
+      "children": []
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 1",
+      "title": "Anwendungsbereich",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verordnung gilt für öffentliche Schulen des Freistaates Ostdeutschland."
+        }
+      ]
+    }
+  ]
+}
+```
+
+Wichtig:
+
+- pro Norm darf es genau eine aktuelle Fassung mit `isCurrent: true` geben
+- die aktuelle Fassung muss `validTo: null` haben
+- historische Fassungen müssen ein gesetztes `validTo` haben
+- `versionId` muss zum Dateinamen passen
+
+## Historieneintrag ergänzen
+
+Historieneinträge stehen in `history.json`.
+
+Beispiel:
+
+```json
+{
+  "initialVersionId": "2026-09-01",
+  "entries": [
+    {
+      "date": "2026-09-01",
+      "type": "initial",
+      "title": "Stammfassung",
+      "citation": "Schulordnung vom 1. September 2026 (GVBl. FOD 2026 S. 201)",
+      "affectingVersionId": "2026-09-01",
+      "relatedNorm": null
+    },
+    {
+      "date": "2027-01-01",
+      "type": "amendment",
+      "title": "Geändert durch Verordnung vom 20. Dezember 2026",
+      "citation": "GVBl. FOD 2027 S. 10",
+      "affectingVersionId": "2027-01-01",
+      "relatedNorm": "schulordnung-aendv-2026"
+    }
+  ]
+}
+```
+
+Wichtig:
+
+- `initialVersionId` muss auf eine vorhandene Fassung zeigen
+- `affectingVersionId` sollte auf die passende Fassung verweisen
+- `relatedNorm` kann auf den Slug einer anderen Norm zeigen
+
+## Welche Felder sichtbar sind
+
+Für Redaktionsarbeit sind diese Felder besonders relevant:
+
+- `title`
+  Der volle sichtbare Titel
+- `shortTitle`
+  Kurztitel für Navigation und Metadaten
+- `abbr`
+  Abkürzung
+- `summary`
+  Kurzbeschreibung, erscheint auf Karten und in der Suche
+- `citation`
+  sichtbare Fundstelle der jeweiligen Fassung
+- `changeNote`
+  Kurzbeschreibung der Änderung dieser Fassung
+- `subjects`
+  für Sachgebietsseiten
+- `keywords`
+  für die Suche
+
+## Erlaubte Normtypen
+
+Aktuell unterstützt das Projekt:
+
+- `gesetz`
+- `verordnung`
+- `verwaltungsvorschrift`
+- `foerderrichtlinie`
+- `staatsvertrag`
+- `zustimmungsgesetz`
+- `aenderungsvorschrift`
+
+## Erlaubte Statuswerte
+
+Aktuell unterstützt das Projekt:
+
+- `in-force`
+- `repealed`
+- `planned`
+
+Zusätzlich werden einige ältere Schreibweisen beim Einlesen normalisiert, zum Beispiel `published` zu `in-force`.
+
+## Arbeiten als Redakteur
+
+Empfohlener Ablauf für Änderungen:
+
+1. bestehende ähnliche Norm unter `content/normen/` als Vorlage öffnen
+2. neue oder geänderte JSON-Datei anlegen
+3. auf konsistente Daten achten:
+   `slug`, `versionId`, Datumswerte, `isCurrent`, `validTo`
+4. Build und Validierung ausführen:
+
+```sh
+npm run build
+npm exec astro check
+```
+
+Wenn der Build fehlschlägt, steckt die Ursache meistens in:
+
+- ungültigem JSON
+- fehlenden Pflichtfeldern
+- falschem `slug`
+- falschem `versionId`
+- mehr als einer aktuellen Fassung
+
+## Nützliche Beispiele im Repository
+
+Zum Nachschauen eignen sich besonders:
+
+- aktuelle und historische Fassung:
+  `content/normen/polg/`
+- Änderungsvorschrift:
+  `content/normen/polg-aendg-2026/`
+- Förderrichtlinie:
+  `content/normen/dorfnetz-foerderrichtlinie/`
+- Staatsvertrag:
+  `content/normen/elbe-datenpakt-stv/`
+
+## Häufige Fragen
+
+### Muss ich historische Fassungen selbst berechnen?
+
+Nein. Historische Fassungen werden nicht automatisch erzeugt. Jede historische Fassung wird als eigene konsolidierte Datei unter `versions/` gespeichert.
+
+### Kann ich einfach Fließtext in `body` schreiben?
+
+Nicht nur. Der Normtext wird strukturiert gespeichert. Am einfachsten ist es, eine bestehende Norm als Vorlage zu nehmen und die Struktur daran anzupassen.
+
+### Warum sieht ein Typ technisch anders aus als im Frontend?
+
+Technische Werte wie `foerderrichtlinie` oder `aenderungsvorschrift` werden im Frontend automatisch in gut lesbares Deutsch umgewandelt.
+
+### Woher kommt die Suche?
+
+Beim Build wird `search-index.json` erzeugt. Die Seite `/search/` lädt diesen Index im Browser und sucht rein clientseitig.

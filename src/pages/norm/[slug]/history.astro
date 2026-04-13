@@ -6,20 +6,31 @@ import {
   getCurrentVersion,
   getHomeUrl,
   getNormUrl,
+  getVersionById,
   getNormVersionUrl,
   loadAllNorms,
 } from '../../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
   const norms = await loadAllNorms();
+  const relatedNormLabels = Object.fromEntries(
+    norms.map((entry) => [entry.meta.slug, toDisplayText(entry.meta.title)]),
+  );
 
   return norms.map((norm) => ({
     params: { slug: norm.meta.slug },
-    props: { norm, currentVersion: getCurrentVersion(norm) },
+    props: { norm, currentVersion: getCurrentVersion(norm), relatedNormLabels },
   }));
 }
 
-const { norm, currentVersion } = Astro.props;
+const { norm, currentVersion, relatedNormLabels } = Astro.props;
+const initialVersion = getVersionById(norm, norm.history.initialVersionId);
+const initialVersionLabel = initialVersion ? formatDate(initialVersion.validFrom) : norm.history.initialVersionId;
+const initialVersionUrl = initialVersion
+  ? initialVersion.isCurrent
+    ? getNormUrl(norm.meta.slug)
+    : getNormVersionUrl(norm.meta.slug, initialVersion.versionId)
+  : undefined;
 ---
 
 <BaseLayout title={`${toDisplayText(norm.meta.title)} Historie`} description={`Normenhistorie zu ${toDisplayText(norm.meta.title)}.`}>
@@ -72,7 +83,18 @@ const { norm, currentVersion } = Astro.props;
             <strong>{formatDate(entry.date)}</strong>
             <span>{toDisplayText(entry.title)}</span>
             <span>{toDisplayText(entry.citation)}</span>
-            {entry.relatedNorm ? <span>Bezug: {toDisplayText(entry.relatedNorm)}</span> : null}
+            {entry.relatedNorm ? (
+              relatedNormLabels[entry.relatedNorm] ? (
+                <span>
+                  Bezug:{' '}
+                  <a class="inline-link" href={getNormUrl(entry.relatedNorm)}>
+                    {relatedNormLabels[entry.relatedNorm]}
+                  </a>
+                </span>
+              ) : (
+                <span>Bezug: {toDisplayText(entry.relatedNorm)}</span>
+              )
+            ) : null}
           </li>
         ))}
       </ul>
@@ -85,7 +107,13 @@ const { norm, currentVersion } = Astro.props;
       <dl class="meta-list">
         <div>
           <dt>Stammfassung</dt>
-          <dd>{formatDate(norm.history.initialVersionId)}</dd>
+          <dd>
+            {initialVersionUrl ? (
+              <a class="inline-link" href={initialVersionUrl}>{initialVersionLabel}</a>
+            ) : (
+              initialVersionLabel
+            )}
+          </dd>
         </div>
         <div>
           <dt>Aktueller Rechtsstand</dt>
