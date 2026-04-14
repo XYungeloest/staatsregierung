@@ -1,0 +1,69 @@
+---
+import { siteConfig } from '../../config/site.ts';
+import {
+  formatTimelineEntryType,
+  type TimelineEntry,
+} from '../../lib/portal/modules.ts';
+
+interface Props {
+  entries: TimelineEntry[];
+}
+
+const { entries } = Astro.props as Props;
+const types = [...new Set(entries.map((entry) => entry.type))];
+const ressorts = [...new Set(entries.map((entry) => entry.ressort).filter(Boolean) as string[])].sort(
+  (left, right) => left.localeCompare(right, 'de'),
+);
+---
+
+<section class="module-section" data-timeline-root>
+  <div class="module-toolbar">
+    <label class="search-field">
+      <span>Typ</span>
+      <select data-timeline-filter="type">
+        <option value="">Alle</option>
+        {types.map((type) => (
+          <option value={type}>{formatTimelineEntryType(type)}</option>
+        ))}
+      </select>
+    </label>
+    <label class="search-field">
+      <span>Ressort</span>
+      <select data-timeline-filter="ressort">
+        <option value="">Alle</option>
+        {ressorts.map((ressort) => (
+          <option value={ressort}>{ressort}</option>
+        ))}
+      </select>
+    </label>
+  </div>
+
+  <div class="timeline" role="list">
+    {entries.map((entry) => (
+      <article
+        class="timeline__item"
+        role="listitem"
+        data-timeline-item
+        data-type={entry.type}
+        data-ressort={entry.ressort ?? ''}
+      >
+        <div class="timeline__date">
+          <time datetime={entry.date}>{siteConfig.date.formatLong(entry.date)}</time>
+        </div>
+        <div class="timeline__body">
+          <p class="timeline__type">{formatTimelineEntryType(entry.type)}</p>
+          <h3>
+            {entry.href ? <a class="inline-link" href={entry.href}>{entry.title}</a> : entry.title}
+          </h3>
+          <p>{entry.summary}</p>
+          {entry.ressort ? <p class="detail-line">Federführend: {entry.ressort}</p> : null}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  <p class="module-empty" data-timeline-empty hidden>
+    Für diese Auswahl sind derzeit keine Zeitachseneinträge sichtbar.
+  </p>
+</section>
+

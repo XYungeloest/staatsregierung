@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import { getHomeUrl, getLawHomeUrl, getLawSearchUrl, getServiceUrl } from '../../lib/portal/index.ts';
 
 const faqItems = [
@@ -13,11 +14,15 @@ const faqItems = [
     question: 'Wo finde ich aktuelle Fassungen und historische Fassungen von Rechtsvorschriften?',
     answer:
       'Der gesamte Rechtsbestand ist unter /recht/ gebündelt. Dort sind aktuelle Fassungen, Historienseiten und historische Fassungen statisch abrufbar.',
+    href: getLawHomeUrl(),
+    hrefLabel: 'Zum Rechtsportal',
   },
   {
     question: 'Kann ich im Rechtsportal nach Titeln, Metadaten und Normtext suchen?',
     answer:
       'Ja. Die Suche nutzt einen beim Build erzeugten Suchindex und läuft vollständig clientseitig im Browser.',
+    href: getLawSearchUrl(),
+    hrefLabel: 'Zur Normensuche',
   },
   {
     question: 'Gibt es Downloads oder offene Daten?',
@@ -80,13 +85,6 @@ const faqItems = [
   </section>
 
   <section class="section">
-    <div class="content-stack faq-list">
-      {faqItems.map((item) => (
-        <article class="panel">
-          <h2>{item.question}</h2>
-          <p>{item.answer}</p>
-        </article>
-      ))}
-    </div>
+    <FaqAccordion items={faqItems} />
   </section>
 </BaseLayout>

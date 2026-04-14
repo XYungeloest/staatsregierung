@@ -1,0 +1,151 @@
+---
+import {
+  formatEuroAmount,
+  formatEuroCompact,
+  type BudgetExplorerEntry,
+  type BudgetSpecialFund,
+  type BudgetSummaryRow,
+} from '../../lib/portal/modules.ts';
+
+interface Props {
+  summaryRows: BudgetSummaryRow[];
+  entries: BudgetExplorerEntry[];
+  specialFunds: BudgetSpecialFund[];
+}
+
+const { summaryRows, entries, specialFunds } = Astro.props as Props;
+const categories = [...new Set(entries.map((entry) => entry.category))];
+const maxByYear = new Map(
+  ['2025', '2026'].map((year) => [
+    year,
+    Math.max(...entries.filter((entry) => entry.year === year).map((entry) => entry.amount)),
+  ]),
+);
+---
+
+<section class="module-section budget-explorer" data-budget-root>
+  <div class="module-toolbar module-toolbar--stacked">
+    <div class="segmented-control" role="tablist" aria-label="Haushaltsjahr">
+      <button type="button" class="segmented-control__button is-active" data-budget-year="2025">
+        2025
+      </button>
+      <button type="button" class="segmented-control__button" data-budget-year="2026">
+        2026
+      </button>
+    </div>
+
+    <div class="module-toolbar">
+      <label class="search-field">
+        <span>Ressort oder Einzelplan</span>
+        <input
+          type="search"
+          placeholder="z. B. Bildung, Fiskus oder Allgemeine Finanzverwaltung"
+          data-budget-filter="query"
+        />
+      </label>
+      <label class="search-field">
+        <span>Kategorie</span>
+        <select data-budget-filter="category">
+          <option value="">Alle</option>
+          {categories.map((category) => (
+            <option value={category}>{category}</option>
+          ))}
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="meta-grid meta-grid--compact">
+    {summaryRows.map((row) => (
+      <div class="meta-card" data-budget-summary data-year={row.year} hidden={row.year !== '2025'}>
+        <span class="meta-label">Gesamtausgaben {row.year}</span>
+        <strong>{formatEuroCompact(row.totalExpense)}</strong>
+        <span class="detail-line">
+          Steuern {formatEuroCompact(row.taxRevenue)} · Investitionen {formatEuroCompact(row.investments)}
+        </span>
+      </div>
+    ))}
+  </div>
+
+  <div class="budget-explorer__bars">
+    {entries.map((entry) => {
+      const max = maxByYear.get(entry.year) ?? entry.amount;
+      const width = max > 0 ? (entry.amount / max) * 100 : 0;
+
+      return (
+        <article
+          class="budget-bar"
+          data-budget-entry
+          data-year={entry.year}
+          data-category={entry.category}
+          data-label={entry.label.toLocaleLowerCase('de-DE')}
+          hidden={entry.year !== '2025'}
+        >
+          <div class="budget-bar__header">
+            <div>
+              <h3>{entry.label}</h3>
+              <p class="detail-line">Einzelplan {entry.plan} · {entry.category}</p>
+            </div>
+            <strong>{formatEuroCompact(entry.amount)}</strong>
+          </div>
+          <div class="budget-bar__track" aria-hidden="true">
+            <span class="budget-bar__fill" style={`width: ${width.toFixed(2)}%`}></span>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  <div class="budget-explorer__table-wrapper">
+    <table class="budget-table">
+      <thead>
+        <tr>
+          <th scope="col">Jahr</th>
+          <th scope="col">Einzelplan</th>
+          <th scope="col">Bereich</th>
+          <th scope="col">Kategorie</th>
+          <th scope="col">Ausgaben</th>
+        </tr>
+      </thead>
+      <tbody>
+        {entries.map((entry) => (
+          <tr
+            data-budget-row
+            data-year={entry.year}
+            data-category={entry.category}
+            data-label={entry.label.toLocaleLowerCase('de-DE')}
+            hidden={entry.year !== '2025'}
+          >
+            <td>{entry.year}</td>
+            <td>{entry.plan}</td>
+            <td>{entry.label}</td>
+            <td>{entry.category}</td>
+            <td>{formatEuroAmount(entry.amount)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <section class="budget-explorer__funds">
+    <div class="section-header section-header--compact">
+      <h3>Sondervermögen und Fonds</h3>
+      <p>Zusätzliche Instrumente ergänzen den Kernhaushalt um gezielte finanzpolitische Steuerung.</p>
+    </div>
+    <div class="card-grid card-grid--three">
+      {specialFunds.map((fund) => (
+        <article class="panel">
+          <h4>
+            {fund.href ? <a class="inline-link" href={fund.href}>{fund.label}</a> : fund.label}
+          </h4>
+          <p>{fund.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <p class="module-empty" data-budget-empty hidden>
+    Für diese Auswahl sind derzeit keine Haushaltspositionen sichtbar.
+  </p>
+</section>
+

@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ProjectTimeline from '../components/portal/ProjectTimeline.astro';
 import GovernmentMemberCard from '../components/portal/GovernmentMemberCard.astro';
 import MinistryCard from '../components/portal/MinistryCard.astro';
 import TopicCard from '../components/portal/TopicCard.astro';
+import { timelineEntries } from '../data/dashboard/timeline.ts';
 import { siteConfig } from '../config/site.ts';
 import {
   getActionPlanUrl,
@@ -181,6 +183,20 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
         <p><a class="inline-link" href={getServiceUrl()}>Zum Service</a></p>
       </article>
     </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Regierungsmaßnahmen im Überblick</h2>
+      <p>
+        Diese kompakte Zeitachse zeigt zentrale Kabinettsentscheidungen, Reformgesetze,
+        Presseereignisse und Haushaltsmaßnahmen seit Dezember 2025.
+      </p>
+    </div>
+    <ProjectTimeline entries={timelineEntries.slice(-6)} />
+    <p class="section-link-row">
+      <a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan mit vollständiger Timeline</a>
+    </p>
   </section>
 
   <section class="section section-muted">

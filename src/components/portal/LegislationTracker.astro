@@ -1,0 +1,85 @@
+---
+import {
+  formatLegislativeStage,
+  getLegislativeStageIndex,
+  legislativeStages,
+  type LegislativeTrackerItem,
+} from '../../lib/portal/modules.ts';
+
+interface Props {
+  items: LegislativeTrackerItem[];
+}
+
+const { items } = Astro.props as Props;
+const ressorts = [...new Set(items.map((item) => item.ressort))].sort((left, right) =>
+  left.localeCompare(right, 'de'),
+);
+---
+
+<section class="module-section" data-legislation-root>
+  <div class="module-toolbar">
+    <label class="search-field">
+      <span>Status</span>
+      <select data-legislation-filter="stage">
+        <option value="">Alle</option>
+        {legislativeStages.map((stage) => (
+          <option value={stage}>{formatLegislativeStage(stage)}</option>
+        ))}
+      </select>
+    </label>
+    <label class="search-field">
+      <span>Ressort</span>
+      <select data-legislation-filter="ressort">
+        <option value="">Alle</option>
+        {ressorts.map((ressort) => (
+          <option value={ressort}>{ressort}</option>
+        ))}
+      </select>
+    </label>
+  </div>
+
+  <div class="card-grid card-grid--two module-card-grid">
+    {items.map((item) => {
+      const currentStageIndex = getLegislativeStageIndex(item.currentStage);
+
+      return (
+        <article
+          class="panel legislation-card"
+          data-legislation-item
+          data-stage={item.currentStage}
+          data-ressort={item.ressort}
+        >
+          <div class="module-card__meta">
+            <span class="tag">{item.ressort}</span>
+            <span class="module-status-pill module-status-pill--secondary">
+              {formatLegislativeStage(item.currentStage)}
+            </span>
+          </div>
+          <h3>
+            {item.href ? <a class="inline-link" href={item.href}>{item.title}</a> : item.title}
+          </h3>
+          <p>{item.description}</p>
+          {item.topic ? <p class="detail-line">Bezug: {item.topic}</p> : null}
+          <ol class="stage-chain" aria-label={`Verfahrensstand ${item.title}`}>
+            {legislativeStages.map((stage, index) => (
+              <li
+                class:list={[
+                  'stage-chain__item',
+                  index < currentStageIndex && 'stage-chain__item--done',
+                  index === currentStageIndex && 'stage-chain__item--current',
+                ]}
+              >
+                <span>{formatLegislativeStage(stage)}</span>
+              </li>
+            ))}
+          </ol>
+        </article>
+      );
+    })}
+  </div>
+
+  <p class="module-empty" data-legislation-empty hidden>
+    Für diese Auswahl sind derzeit keine Gesetzgebungsvorhaben sichtbar.
+  </p>
+</section>
+

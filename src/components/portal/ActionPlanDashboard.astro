@@ -1,0 +1,97 @@
+---
+import { getNormUrl } from '../../lib/norms/routes.ts';
+import {
+  formatActionPlanStatus,
+  getActionPlanStatusIcon,
+  type ActionPlanItem,
+} from '../../lib/portal/modules.ts';
+
+interface Props {
+  items: ActionPlanItem[];
+}
+
+const { items } = Astro.props as Props;
+const ressorts = [...new Set(items.map((item) => item.ressort))].sort((left, right) =>
+  left.localeCompare(right, 'de'),
+);
+const summary = {
+  umgesetzt: items.filter((item) => item.status === 'umgesetzt').length,
+  teilweise_umgesetzt: items.filter((item) => item.status === 'teilweise_umgesetzt').length,
+  angelegt: items.filter((item) => item.status === 'angelegt').length,
+};
+---
+
+<section class="module-section" data-action-plan-root>
+  <div class="module-toolbar">
+    <label class="search-field">
+      <span>Status</span>
+      <select data-action-plan-filter="status">
+        <option value="">Alle</option>
+        <option value="umgesetzt">✅ Umgesetzt</option>
+        <option value="teilweise_umgesetzt">🔄 Teilweise umgesetzt</option>
+        <option value="angelegt">📋 Angelegt</option>
+      </select>
+    </label>
+    <label class="search-field">
+      <span>Ressort</span>
+      <select data-action-plan-filter="ressort">
+        <option value="">Alle</option>
+        {ressorts.map((ressort) => (
+          <option value={ressort}>{ressort}</option>
+        ))}
+      </select>
+    </label>
+  </div>
+
+  <div class="meta-grid meta-grid--compact">
+    <div class="meta-card">
+      <span class="meta-label">✅ Umgesetzt</span>
+      <strong>{summary.umgesetzt}</strong>
+    </div>
+    <div class="meta-card">
+      <span class="meta-label">🔄 Teilweise umgesetzt</span>
+      <strong>{summary.teilweise_umgesetzt}</strong>
+    </div>
+    <div class="meta-card">
+      <span class="meta-label">📋 Angelegt</span>
+      <strong>{summary.angelegt}</strong>
+    </div>
+    <div class="meta-card">
+      <span class="meta-label">Angezeigte Punkte</span>
+      <strong data-action-plan-count>{items.length}</strong>
+    </div>
+  </div>
+
+  <div class="card-grid card-grid--three module-card-grid">
+    {items.map((item) => (
+      <article
+        class="panel module-card"
+        data-action-plan-item
+        data-status={item.status}
+        data-ressort={item.ressort}
+      >
+        <div class="module-card__meta">
+          <span class="module-status-pill">
+            <span aria-hidden="true">{getActionPlanStatusIcon(item.status)}</span>
+            {formatActionPlanStatus(item.status)}
+          </span>
+          <span class="tag">{item.ressort}</span>
+        </div>
+        <h3><a class="inline-link" href={item.href}>{item.title}</a></h3>
+        <p>{item.description}</p>
+        {item.references && item.references.length > 0 ? (
+          <div class="module-card__links">
+            {item.references.map((reference) => (
+              <a class="tag tag--link" href={getNormUrl(reference.normSlug)}>{reference.label}</a>
+            ))}
+          </div>
+        ) : null}
+      </article>
+    ))}
+  </div>
+
+  <p class="module-empty" data-action-plan-empty hidden>
+    Für diese Filterkombination sind derzeit keine Programmpunkte hinterlegt.
+  </p>
+</section>
+

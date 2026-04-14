@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FaqAccordion from '../../components/portal/FaqAccordion.astro';
+import LegislationTracker from '../../components/portal/LegislationTracker.astro';
+import { legislationTrackerItems } from '../../data/dashboard/legislation.ts';
 import {
   formatDate,
   getCurrentVersion,
@@ -18,6 +21,27 @@ const currentNorms = norms.filter((entry) => entry.versions.some((version) => ve
 const latestUpdates = [...norms]
   .sort((left, right) => getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom))
   .slice(0, 3);
+const faqItems = [
+  {
+    question: 'Wo finde ich aktuelle und historische Fassungen?',
+    answer:
+      'Auf jeder Normseite sind die aktuelle Fassung, die Historienseite und gegebenenfalls gespeicherte historische Fassungen direkt erreichbar.',
+    href: getIndexUrl(),
+    hrefLabel: 'Zum Archiv und zu den Historien',
+  },
+  {
+    question: 'Wie funktioniert die Suche im Rechtsbereich?',
+    answer:
+      'Die Suche arbeitet mit einem beim Build erzeugten Index und wird vollständig clientseitig im Browser ausgewertet.',
+    href: getSearchUrl(),
+    hrefLabel: 'Zur Normensuche',
+  },
+  {
+    question: 'Bleibt das Rechtsportal eigenständig nutzbar?',
+    answer:
+      'Ja. Der Rechtsbereich bleibt funktional vollständig erhalten und ist zugleich in das Gesamtportal der Staatsregierung integriert.',
+  },
+];
 ---
 
 <BaseLayout title="Recht" description="Integrierter Rechtsbereich der Staatsregierung des Ostdeutschen Freistaates.">
@@ -78,5 +102,24 @@ const latestUpdates = [...norms]
         );
       })}
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Gesetzgebungs-Tracker</h2>
+      <p>
+        Laufende und kürzlich abgeschlossene Vorhaben werden mit Ressortbezug, Statuskette und
+        direkter Verlinkung in Themen- oder Normseiten dargestellt.
+      </p>
+    </div>
+    <LegislationTracker items={legislationTrackerItems} />
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Häufige Fragen zum Rechtsbereich</h2>
+      <p>Das FAQ-Muster wird auch im Rechtsportal einheitlich als aufklappbare Fragenstruktur eingesetzt.</p>
+    </div>
+    <FaqAccordion items={faqItems} />
   </section>
 </BaseLayout>

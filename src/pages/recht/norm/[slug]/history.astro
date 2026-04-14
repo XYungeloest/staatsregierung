@@ -37,7 +37,7 @@ const initialVersionUrl = initialVersion
 <BaseLayout title={`${toDisplayText(norm.meta.title)} Historie`} description={`Normenhistorie zu ${toDisplayText(norm.meta.title)}.`}>
   <Breadcrumbs
     items={[
-      { label: 'Start', href: getHomeUrl() },
+      { label: 'Startseite', href: getHomeUrl() },
       { label: 'Recht', href: getLawPortalUrl() },
       { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
       { label: 'Historie' },

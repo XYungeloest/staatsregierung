@@ -3,7 +3,6 @@ import '../styles/global.css';
 import {
   isEditorialNavLinkVisible,
   isOfficialStyleHeaderEnabled,
-  isServiceLinksEnabled,
   isStickyHeaderEnabled,
 } from '../config/features.ts';
 import { siteConfig } from '../config/site.ts';
@@ -25,7 +24,6 @@ const pageTitle = `${title} | ${siteConfig.authorityName}`;
 const base = import.meta.env.BASE_URL;
 const showEditorialLink = isEditorialNavLinkVisible();
 const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
-const showServiceLinks = isServiceLinksEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
 const currentPath = Astro.url.pathname;
@@ -55,7 +53,7 @@ const mainNavLinks = siteConfig.mainNavigation.map((entry) => {
 });
 
 const serviceLinks = [
-  { href: getHomeUrl(), label: 'Start' },
+  { href: getHomeUrl(), label: 'Startseite' },
   ...siteConfig.serviceNavigation.map((entry) => ({
     href: getSiteUrl(entry.pathKey),
     label: entry.label,
@@ -78,13 +76,19 @@ const footerPortalLinks = [
   isActive: isActivePath(getPathname(entry.href)),
 }));
 
-const footerServiceLinks = [
-  ...(showServiceLinks ? serviceLinks : [{ href: getHomeUrl(), label: 'Start' }]),
+const footerUtilityLinks = [
+  { href: getLawSearchUrl(), label: 'Rechtssuche' },
+  { href: getSiteUrl('lawIndex'), label: 'Archiv' },
+  { href: getSiteUrl('contact'), label: 'Kontakt' },
   { href: getSiteUrl('career'), label: 'Karriere' },
+  { href: getSiteUrl('faq'), label: 'FAQ' },
+  { href: getSiteUrl('imprint'), label: 'Impressum' },
+  { href: getSiteUrl('privacy'), label: 'Datenschutz' },
+  { href: getSiteUrl('accessibility'), label: 'Barrierefreiheit' },
   ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
 ].map((entry) => ({
   ...entry,
-  isActive: isActivePath(getPathname(entry.href), entry.href === getHomeUrl()),
+  isActive: isActivePath(getPathname(entry.href), true),
 }));
 ---
 
@@ -109,7 +113,7 @@ const footerServiceLinks = [
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
     <div class="page-shell">
       {showOfficialStyleHeader ? (
-        <div class:list={['site-top', stickyHeader && 'site-top--sticky']}>
+        <Fragment>
           <div class="site-notice" role="note" aria-label="Hinweis zur Fiktionalität">
             <div class="container site-notice__inner">
               <div class="site-notice__flag">
@@ -126,19 +130,7 @@ const footerServiceLinks = [
             </div>
           </div>
 
-          {showServiceLinks ? (
-            <div class="site-service-bar">
-              <div class="container site-service-bar__inner">
-                <nav class="service-nav" aria-label="Servicenavigation">
-                  {serviceLinks.map((link) => (
-                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
-                  ))}
-                </nav>
-              </div>
-            </div>
-          ) : null}
-
-          <header class="site-header">
+          <header class:list={['site-header', stickyHeader && 'site-header--sticky']}>
             <div class="container site-header__main">
               <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()}>
@@ -198,18 +190,16 @@ const footerServiceLinks = [
                       </nav>
                     </div>
 
-                    {showServiceLinks ? (
-                      <div class="mobile-nav__group">
-                        <p class="eyebrow">Service</p>
-                        <nav class="mobile-nav__links" aria-label="Mobile Servicenavigation">
-                          {serviceLinks.map((link) => (
-                            <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
-                              {link.label}
-                            </a>
-                          ))}
-                        </nav>
-                      </div>
-                    ) : null}
+                    <div class="mobile-nav__group">
+                      <p class="eyebrow">Service & Hilfe</p>
+                      <nav class="mobile-nav__links" aria-label="Mobile Servicenavigation">
+                        {serviceLinks.map((link) => (
+                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                            {link.label}
+                          </a>
+                        ))}
+                      </nav>
+                    </div>
 
                     <div class="mobile-nav__actions">
                       <a class="button-link button-link--secondary" href={getLawSearchUrl()}>
@@ -233,7 +223,7 @@ const footerServiceLinks = [
               </div>
             </div>
           </header>
-        </div>
+        </Fragment>
       ) : (
         <Fragment>
           <div class="site-banner">
@@ -295,9 +285,9 @@ const footerServiceLinks = [
             </section>
 
             <section class="site-footer__section">
-              <h2>Service</h2>
-              <nav class="footer-nav" aria-label="Servicelinks im Footer">
-                {footerServiceLinks.map((link) => (
+              <h2>Hilfe & Recht</h2>
+              <nav class="footer-nav" aria-label="Hilfelinks im Footer">
+                {footerUtilityLinks.map((link) => (
                   <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
                 ))}
               </nav>
@@ -306,5 +296,8 @@ const footerServiceLinks = [
         </div>
       </footer>
     </div>
+    <script>
+      import '../scripts/portal-modules.ts';
+    </script>
   </body>
 </html>
