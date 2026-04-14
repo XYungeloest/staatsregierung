@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import GovernmentMemberCard from '../../components/portal/GovernmentMemberCard.astro';
+import TopicCard from '../../components/portal/TopicCard.astro';
 import { siteConfig } from '../../config/site.ts';
 import {
   getActionPlanUrl,
@@ -10,13 +11,29 @@ import {
   getGovernmentMembersUrl,
   getHomeUrl,
   getMinisterPresidentUrl,
+  getTopicsUrl,
   loadGovernmentMembers,
+  loadMinistries,
+  loadTopics,
 } from '../../lib/portal/index.ts';
 
-const members = await loadGovernmentMembers();
+const [members, topics, ministries] = await Promise.all([
+  loadGovernmentMembers(),
+  loadTopics(),
+  loadMinistries(),
+]);
 const currentGovernment = siteConfig.currentGovernment;
 const headOfGovernment = members[0];
-const featuredMembers = members.slice(0, 4);
+const featuredMembers = members.slice(0, 6);
+const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
+const flagshipTopics = [
+  'wohnen-und-vergesellschaftung',
+  'bildungsreform',
+  'transparenz-und-lobbyregister',
+].flatMap((slug) => {
+  const topic = topics.find((entry) => entry.slug === slug);
+  return topic ? [topic] : [];
+});
 ---
 
 <BaseLayout
@@ -29,17 +46,36 @@ const featuredMembers = members.slice(0, 4);
     <p class="eyebrow">Staatsregierung</p>
     <h1>Staatsregierung</h1>
     <p class="lead">
-      Die Staatsregierung des Ostdeutschen Freistaates wird aktuell vom
-      {` ${currentGovernment.cabinetName} `} getragen. Sie bündelt politische Leitung,
-      Kabinettsarbeit und ressortübergreifende Koordinierung unter einer einheitlichen
-      Portalarchitektur.
+      Die Staatsregierung des Ostdeutschen Freistaates wird vom {currentGovernment.cabinetName}
+      getragen. Sie verbindet politische Leitung, Kabinettsarbeit, Ressorts und programmatische
+      Vorhaben unter einer gemeinsamen staatlichen Portalstruktur.
     </p>
-    <nav class="link-list link-list--inline" aria-label="Regierungsnavigation">
-      <a href={getMinisterPresidentUrl()}>Ministerpräsident</a>
-      <a href={getCabinetUrl()}>Kabinett</a>
-      <a href={getCoalitionUrl()}>Koalition</a>
-      <a href={getActionPlanUrl()}>15-Punkte-Plan</a>
+    <nav class="hero-actions" aria-label="Regierungseinstiege">
+      <a class="button-link" href={getMinisterPresidentUrl()}>Ministerpräsident</a>
+      <a class="button-link button-link--secondary" href={getCabinetUrl()}>Kabinett & Ressorts</a>
+      <a class="button-link button-link--secondary" href={getActionPlanUrl()}>15-Punkte-Plan</a>
     </nav>
+  </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Kabinettsname</span>
+        <strong>{currentGovernment.cabinetName}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Koalition</span>
+        <strong>{currentGovernment.coalitionShort}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Regierungssitz</span>
+        <strong>{currentGovernment.seatOfGovernment}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Ressorts</span>
+        <strong>{ministries.length}</strong>
+      </div>
+    </div>
   </section>
 
   <div class="content-grid">
@@ -51,79 +87,95 @@ const featuredMembers = members.slice(0, 4);
       <div class="body-copy">
         <p>
           Die Staatsregierung bestimmt die Richtlinien der Politik, koordiniert Kabinettsverfahren
-          und verbindet Staatskanzlei, Ressorts und Gesamtportal zu einer konsistenten öffentlichen
-          Darstellung.
+          und bündelt politische Kommunikation, Ressortsteuerung und zentrale Landesaufgaben.
         </p>
         <p>
           Seit dem {siteConfig.date.formatLong(currentGovernment.formedOn)} führt
           {` ${currentGovernment.headOfGovernment} `} die Staatsregierung. Stellvertretende
           Ministerpräsidentin ist {currentGovernment.deputyHead}.
         </p>
+        <p>
+          Dresden ist der sichtbare politische Bezugspunkt für Kabinettsarbeit,
+          Regierungskoordination und ressortübergreifende Umsetzung.
+        </p>
       </div>
     </section>
 
     <aside class="section meta-panel">
       <div class="section-header section-header--compact">
-        <h2>Auf einen Blick</h2>
+        <h2>Direkteinstiege</h2>
       </div>
-      <dl class="meta-list">
-        <div>
-          <dt>Regierungsmitglieder</dt>
-          <dd>{members.length}</dd>
-        </div>
-        <div>
-          <dt>Kabinett</dt>
-          <dd>{currentGovernment.cabinetName}</dd>
-        </div>
-        <div>
-          <dt>Koalition</dt>
-          <dd>{currentGovernment.coalitionShort}</dd>
-        </div>
-        <div>
-          <dt>Legislatur</dt>
-          <dd>{currentGovernment.legislature}</dd>
-        </div>
-      </dl>
+      <nav class="link-list">
+        <a href={getMinisterPresidentUrl()}>Ministerpräsident</a>
+        <a href={getCabinetUrl()}>Kabinett und Ressorts</a>
+        <a href={getCoalitionUrl()}>Koalition</a>
+        <a href={getActionPlanUrl()}>15-Punkte-Plan</a>
+        <a href={getGovernmentMembersUrl()}>Regierungsmitglieder</a>
+      </nav>
     </aside>
   </div>
 
   <section class="section section-muted">
     <div class="section-header">
-      <h2>Schwerpunkte der Regierungsarbeit</h2>
+      <h2>Regierungsarchitektur</h2>
       <p>
-        Die erste Konsolidierungsphase des Gesamtportals ordnet politische Leitung, Projekte und
-        Ressorts klar in die Master-Informationsarchitektur ein.
+        Die Staatsregierung wird als zusammenhängender Hauptbereich geführt und bindet personelle,
+        politische und thematische Ebenen sichtbar zusammen.
       </p>
     </div>
     <div class="card-grid card-grid--three">
       <article class="panel">
         <h3>Politische Leitung</h3>
         <p>
-          Ministerpräsident, Kabinett und Koalitionsrahmen sind als eigenständige Einstiege
-          strukturiert.
+          Ministerpräsident, Staatskanzlei und Stellvertretung sind als klarer Führungsbereich
+          gebündelt.
         </p>
+        <p><a class="inline-link" href={getMinisterPresidentUrl()}>Zur Leitungsseite</a></p>
       </article>
       <article class="panel">
-        <h3>Regierungsprogramm</h3>
+        <h3>Kabinett & Ressorts</h3>
         <p>
-          Thematische Ausbaustufen wie der 15-Punkte-Plan werden unter derselben Portallogik
-          vorbereitet.
+          Ressortseiten zeigen Leitung, Aufgaben, Kontakt und thematische Einbindung in kompakter
+          Form.
         </p>
+        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett</a></p>
       </article>
       <article class="panel">
-        <h3>Ressortstruktur</h3>
+        <h3>Koalition & Programm</h3>
         <p>
-          Ressorts werden direkt an die Kabinettsarchitektur gekoppelt und nicht mehr als
-          paralleler Bereich geführt.
+          Koalitionsrahmen und 15-Punkte-Plan bilden die politische Arbeitsgrundlage des
+          Regierungshandelns.
         </p>
+        <p><a class="inline-link" href={getCoalitionUrl()}>Zur Koalition</a></p>
       </article>
     </div>
   </section>
 
   <section class="section">
     <div class="section-header">
+      <h2>Politische Schwerpunkte</h2>
+      <p>
+        Diese Themen tragen die aktuelle Regierungsarbeit bereits sichtbar und sind direkt mit
+        Ressorts und Rechtsgrundlagen verknüpft.
+      </p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {flagshipTopics.map((topic) => (
+        <TopicCard
+          topic={topic}
+          ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname}
+        />
+      ))}
+    </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getTopicsUrl()}>Zu allen Themen & Projekte</a>
+    </p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
       <h2>Regierungsmitglieder</h2>
-      <p>Die Profile der Regierungsmitglieder bleiben dateibasiert und erhalten stabile URLs.</p>
+      <p>Die Profile der Regierungsmitglieder bleiben dateibasiert, konsistent und mit stabilen URLs erreichbar.</p>
     </div>
     <div class="card-grid card-grid--two">
       {featuredMembers.map((member) => (

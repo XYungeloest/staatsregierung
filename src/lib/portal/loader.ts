@@ -10,11 +10,13 @@ import {
   parseRegierungMitglied,
   parseSeite,
   parseStellenangebot,
+  parseThemenseite,
   type Ministerium,
   type Pressemitteilung,
   type RegierungMitglied,
   type Seite,
   type Stellenangebot,
+  type Themenseite,
 } from './schema.ts';
 
 const CONTENT_ROOT = resolve(process.cwd(), 'content');
@@ -99,6 +101,16 @@ export async function loadPressReleases(): Promise<Pressemitteilung[]> {
     parsePressemitteilung,
   );
   return entries.sort((left, right) => right.date.localeCompare(left.date));
+}
+
+export async function loadTopics(): Promise<Themenseite[]> {
+  const entries = await loadCollection(portalCollections.themenseite.directorySegments, parseThemenseite);
+  return entries.sort((left, right) => left.title.localeCompare(right.title, 'de'));
+}
+
+export async function loadTopicBySlug(slug: string): Promise<Themenseite | undefined> {
+  const entries = await loadTopics();
+  return entries.find((entry) => entry.slug === slug);
 }
 
 export async function loadPressReleaseBySlug(

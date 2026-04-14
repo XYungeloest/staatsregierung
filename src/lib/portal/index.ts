@@ -5,6 +5,7 @@ export {
   parseRegierungMitglied,
   parseSeite,
   parseStellenangebot,
+  parseThemenseite,
   type Ministerium,
   type PortalContact,
   type PortalLink,
@@ -12,6 +13,8 @@ export {
   type RegierungMitglied,
   type Seite,
   type Stellenangebot,
+  type Themenseite,
+  type Themenstatus,
 } from './schema.ts';
 
 export {
@@ -28,6 +31,8 @@ export {
   loadPressReleaseBySlug,
   loadPressReleases,
   loadRecentPressReleases,
+  loadTopicBySlug,
+  loadTopics,
 } from './loader.ts';
 
 export {
@@ -63,6 +68,7 @@ export {
   getPrivacyUrl,
   getServiceUrl,
   getSiteUrl,
+  getTopicUrl,
   getTopicsUrl,
   withBase,
 } from './routes.ts';

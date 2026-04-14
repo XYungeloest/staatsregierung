@@ -1,46 +1,88 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getHomeUrl, getLawHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
+import TopicCard from '../../components/portal/TopicCard.astro';
+import {
+  getActionPlanUrl,
+  getHomeUrl,
+  getLawHomeUrl,
+  getServiceUrl,
+  loadMinistries,
+  loadTopics,
+} from '../../lib/portal/index.ts';
 
-const topics = [
-  'Staatsaufbau und Verwaltung',
-  'Wirtschaft und Arbeit',
-  'Bildung, Wissenschaft und Kultur',
-  'Soziales und Gesundheit',
-  'Mobilität und Infrastruktur',
-  'Umwelt, Energie und Klima',
-  'Haushalt und Finanzen',
-];
+const [topics, ministries] = await Promise.all([loadTopics(), loadMinistries()]);
+const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
+const flagshipTopics = topics.filter((topic) =>
+  ['kernprojekt', 'umgesetzt', 'sehr-weit-umgesetzt'].includes(topic.status),
+);
+const developingTopics = topics.filter((topic) =>
+  ['teilweise-umgesetzt', 'deutlich-umgesetzt', 'ausbauphase', 'laufend'].includes(topic.status),
+);
+const linkedNormCount = topics.reduce((count, topic) => count + topic.rechtsgrundlagen.length, 0);
 ---
 
-<BaseLayout title="Themen & Projekte" description="Thematische Einstiege des Gesamtportals.">
-  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Themen' }]} />
+<BaseLayout title="Themen & Projekte" description="Thematische Einstiege und Regierungsprojekte des Gesamtportals.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Themen & Projekte' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Themen & Projekte</p>
     <h1>Themen & Projekte</h1>
     <p class="lead">
-      Die Themenseiten bündeln politische Vorhaben, Hintergrundinformationen, Servicehinweise und
-      Verlinkungen in den Rechtsbereich.
+      Die Themenseiten bündeln politische Vorhaben, Umsetzungsstände, nächste Schritte,
+      Rechtsgrundlagen und Zuständigkeiten in einer ruhigen, staatlich anmutenden Struktur.
     </p>
+    <nav class="hero-actions" aria-label="Themeneinstiege">
+      <a class="button-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a>
+      <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
+      <a class="button-link button-link--secondary" href={getServiceUrl()}>Zum Service</a>
+    </nav>
   </section>
 
   <section class="section">
-    <div class="card-grid card-grid--three">
-      {topics.map((topic) => (
-        <article class="panel">
-          <h2>{topic}</h2>
-          <p>
-            Die konkrete Themenseite folgt in den nächsten Phasen. Die Routing- und
-            Layoutarchitektur ist bereits auf das Master-Modell ausgerichtet.
-          </p>
-        </article>
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Themenseiten</span>
+        <strong>{topics.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Rechtsgrundlagen</span>
+        <strong>{linkedNormCount}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Ressorts beteiligt</span>
+        <strong>{new Set(topics.map((topic) => topic.federfuehrendesRessort)).size}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Bereits weit getragene Vorhaben</h2>
+      <p>
+        Diese Themen sind politisch stark verankert und bereits mit belastbaren Rechtsgrundlagen
+        im Portal verknüpft.
+      </p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {flagshipTopics.map((topic) => (
+        <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} />
       ))}
     </div>
-    <p class="section-link-row">
-      <a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a> ·{' '}
-      <a class="inline-link" href={getServiceUrl()}>Zum Service</a>
-    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Weitere Ausbaubereiche</h2>
+      <p>
+        Diese Themen sind bereits politisch angelegt und werden im Gesamtportal schrittweise
+        weiter ausgebaut.
+      </p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {developingTopics.map((topic) => (
+        <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} />
+      ))}
+    </div>
   </section>
 </BaseLayout>

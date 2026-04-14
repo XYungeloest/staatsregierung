@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
 import MinistryCard from '../../../components/portal/MinistryCard.astro';
+import TopicCard from '../../../components/portal/TopicCard.astro';
 import { siteConfig } from '../../../config/site.ts';
 import {
   getGovernmentMemberUrl,
@@ -11,70 +12,96 @@ import {
   getHomeUrl,
   loadGovernmentMembers,
   loadMinistries,
+  loadTopics,
 } from '../../../lib/portal/index.ts';
 
-const [members, ministries] = await Promise.all([loadGovernmentMembers(), loadMinistries()]);
+const [members, ministries, topics] = await Promise.all([
+  loadGovernmentMembers(),
+  loadMinistries(),
+  loadTopics(),
+]);
 const currentGovernment = siteConfig.currentGovernment;
 const memberLookup = new Map(members.map((member) => [member.slug, member]));
+const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const assignments = [
   {
     office: 'Ministerpräsident',
     holderSlug: 'karl-honecker',
-    note: 'Chef der Staatsregierung; Emma Müller ist Chefin der Staatskanzlei.',
+    ministrySlug: 'kapitalakkumulation-des-fiskus',
+    note: 'Führt die Staatsregierung und verantwortet den Fiskus in Personalunion.',
+  },
+  {
+    office: 'Staatskanzlei',
+    holderSlug: 'emma-mueller',
+    ministrySlug: 'staatskanzlei',
+    note: 'Verantwortet die Regierungskoordination und Kabinettsverfahren.',
   },
   {
     office: 'Stellvertretende Ministerpräsidentin; Inneres, Bau und kommunale Angelegenheiten',
     holderSlug: 'mia-wollrath',
-    note: 'Koordiniert zentrale Aufbau- und Verwaltungsfragen.',
-  },
-  {
-    office: 'Kapitalakkumulation des Fiskus',
-    holderSlug: 'karl-honecker',
-    note: 'In Personalunion mit dem Amt des Ministerpräsidenten.',
+    ministrySlug: 'inneres-bau-und-kommunale-angelegenheiten',
   },
   {
     office: 'Grenzschutz, Faschismusbekämpfung und bewaffnete Organe',
     holderSlug: 'alexandrija-dunvjiak',
-  },
-  {
-    office: 'Völkerfreundschaft und Nachbarschaftspolitik',
-    holderSlug: 'tim-dieter',
+    ministrySlug: 'grenzschutz-faschismusbekaempfung-und-bewaffnete-organe',
   },
   {
     office: 'Soziale und gesundheitliche Fürsorge',
     holderSlug: 'simon-kellermann',
-  },
-  {
-    office: 'Mobilität, Infrastruktur und Landesentwicklung',
-    holderSlug: 'vincent-flick',
+    ministrySlug: 'soziale-und-gesundheitliche-fuersorge',
   },
   {
     office: 'Rechtsstaatlichkeit und Angelegenheiten des Staates',
     holderSlug: 'mateo-delgado',
+    ministrySlug: 'rechtsstaatlichkeit-und-angelegenheiten-des-staates',
+  },
+  {
+    office: 'Völkerfreundschaft und Nachbarschaftspolitik',
+    holderSlug: 'tim-dieter',
+    ministrySlug: 'voelkerfreundschaft-und-nachbarschaftspolitik',
+  },
+  {
+    office: 'Mobilität, Infrastruktur und Landesentwicklung',
+    holderSlug: 'vincent-flick',
+    ministrySlug: 'mobilitaet-infrastruktur-und-landesentwicklung',
   },
   {
     office: 'Kultur, Wissenschaft und Tourismus',
     holderSlug: 'freya-warnecke',
+    ministrySlug: 'kultur-wissenschaft-und-tourismus',
   },
   {
     office: 'Bildung und sportliche Ertüchtigung',
     holderSlug: 'friedrich-ritter',
+    ministrySlug: 'bildung-und-sportliche-ertuechtigung',
   },
   {
     office: 'Umwelt, Energie und Klimaschutz',
     holderSlug: 'tim-dieter',
-    note: 'In Personalunion mit dem Ressort für Völkerfreundschaft und Nachbarschaftspolitik.',
+    ministrySlug: 'umwelt-energie-und-klimaschutz',
+    note: 'Wird von Tim Dieter zusätzlich in Personalunion geführt.',
   },
   {
     office: 'Küste, Fischerei, Forst und Landwirtschaft',
     holderSlug: 'elizabeth-eberhardt',
+    ministrySlug: 'kueste-fischerei-forst-und-landwirtschaft',
   },
   {
     office: 'Wirtschaft, Arbeitsmarkt und Beschäftigung',
-    holderSlug: 'karl-honecker',
-    note: 'Seit dem 1. Januar 2026 geschäftsführend durch den Ministerpräsidenten.',
+    holderSlug: 'gerhardt-lehrmann',
+    ministrySlug: 'wirtschaft-arbeitsmarkt-und-beschaeftigung',
   },
 ];
+const topicHighlights = [
+  'wohnen-und-vergesellschaftung',
+  'oepnv-und-mobilitaet',
+  'familie-und-soziales',
+  'haushalt-und-finanzen',
+].flatMap((slug) => {
+  const topic = topics.find((entry) => entry.slug === slug);
+  return topic ? [topic] : [];
+});
 ---
 
 <BaseLayout title="Kabinett Honecker" description="Kabinettsübersicht der Staatsregierung.">
@@ -107,12 +134,12 @@ const assignments = [
         <strong>{currentGovernment.headOfGovernment}</strong>
       </div>
       <div class="meta-card">
-        <span class="meta-label">Stellvertretung</span>
-        <strong>{currentGovernment.deputyHead}</strong>
+        <span class="meta-label">Regierungssitz</span>
+        <strong>{currentGovernment.seatOfGovernment}</strong>
       </div>
       <div class="meta-card">
-        <span class="meta-label">Legislatur</span>
-        <strong>{currentGovernment.legislature}</strong>
+        <span class="meta-label">Ressorts</span>
+        <strong>{ministries.length}</strong>
       </div>
     </div>
   </section>
@@ -124,15 +151,14 @@ const assignments = [
       </div>
       <div class="body-copy">
         <p>
-          Das Kabinett Honecker löste das {currentGovernment.predecessor} ab. In der frühen
-          Regierungsarbeit zeichnen sich institutioneller Ausbau, Daseinsvorsorge, steuernde
-          Landespolitik und die sichtbare Profilierung eines eigenständigen ostdeutschen
-          Staatswesens als Kernlinien ab.
+          Das Kabinett Honecker löste das {currentGovernment.predecessor} ab. Es verbindet
+          institutionellen Ausbau, öffentliche Daseinsvorsorge, steuernde Landespolitik und den
+          Ausbau eines eigenständigen ostdeutschen Staatswesens.
         </p>
         <p>
-          Die Master-Konsolidierung des Portals verortet diese politischen Linien nun eindeutig
-          unter <code>/staatsregierung/</code> und koppelt die Ressorts direkt an die
-          Kabinettsarchitektur.
+          Die Kabinettsstruktur ist im Portal nicht als paralleles Ministerienverzeichnis
+          ausgelagert, sondern direkt als Teil der Staatsregierung verortet. Dadurch bleiben
+          Leitung, Ressorts und politische Vorhaben eng miteinander verbunden.
         </p>
       </div>
     </section>
@@ -174,13 +200,14 @@ const assignments = [
     <div class="section-header">
       <h2>Ressortzuschnitt</h2>
       <p>
-        Die Portfolioübersicht macht auch Personalunionen und kommissarische Zuständigkeiten
-        sichtbar.
+        Die Portfolioübersicht macht Leitungsverantwortung, Personalunionen und den konkreten
+        Ressortbezug sichtbar.
       </p>
     </div>
     <ul class="record-list">
       {assignments.map((assignment) => {
         const member = memberLookup.get(assignment.holderSlug);
+        const ministry = ministryLookup.get(assignment.ministrySlug);
 
         return (
           <li class="record-list__item">
@@ -190,6 +217,7 @@ const assignments = [
                 <a class="inline-link" href={getGovernmentMemberUrl(member.slug)}>{member.name}</a>
               </span>
             ) : null}
+            {ministry ? <span>Ressort: {ministry.kurzname}</span> : null}
             {assignment.note ? <span>{assignment.note}</span> : null}
           </li>
         );
@@ -204,11 +232,29 @@ const assignments = [
   <section class="section section-muted">
     <div class="section-header">
       <h2>Ressorts</h2>
-      <p>Die Ressortseiten sind direkt als Unterseiten des Kabinetts eingebunden.</p>
+      <p>Die Ressortseiten bündeln Leitung, Aufgaben, Kontakt und thematische Zuständigkeiten.</p>
     </div>
     <div class="card-grid card-grid--two">
       {ministries.map((ministry) => (
         <MinistryCard ministry={ministry} />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Regierungsprojekte im Kabinettszuschnitt</h2>
+      <p>
+        Themen und Projekte sind nicht losgelöst, sondern klar an federführende Ressorts und
+        Kabinettsstrukturen angebunden.
+      </p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {topicHighlights.map((topic) => (
+        <TopicCard
+          topic={topic}
+          ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname}
+        />
       ))}
     </div>
   </section>

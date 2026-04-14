@@ -2,7 +2,20 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
-import { getGovernmentUrl, getHomeUrl } from '../../../lib/portal/index.ts';
+import {
+  getActionPlanUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getTopicsUrl,
+} from '../../../lib/portal/index.ts';
+
+const coalitionParties = siteConfig.currentGovernment.coalitionParties;
+const priorities = [
+  'institutioneller Ausbau des Freistaates',
+  'sichtbare öffentliche Daseinsvorsorge',
+  'steuernde Infrastruktur- und Strukturpolitik',
+  'rechtsstaatlich kontrollierte Sicherheits- und Transparenzpolitik',
+];
 ---
 
 <BaseLayout title="Koalition" description="Koalitionsrahmen der aktuellen Staatsregierung.">
@@ -19,7 +32,7 @@ import { getGovernmentUrl, getHomeUrl } from '../../../lib/portal/index.ts';
     <h1>Koalition</h1>
     <p class="lead">
       Die aktuelle Staatsregierung wird von einer Koalition aus {siteConfig.currentGovernment.coalition}
-      getragen.
+      getragen. Sie bildet die politische Grundlage des {siteConfig.currentGovernment.cabinetName}.
     </p>
   </section>
 
@@ -40,11 +53,55 @@ import { getGovernmentUrl, getHomeUrl } from '../../../lib/portal/index.ts';
     </div>
   </section>
 
-  <section class="section section-muted body-copy">
-    <p>
-      Phase 1 bildet die Koalition zunächst als klar verortete Portalseite ab. Vertiefende Inhalte
-      zu Vereinbarungen, Vorhaben und parlamentarischen Linien können in den nächsten Phasen
-      redaktionell ergänzt werden.
+  <section class="section section-muted">
+    <div class="content-grid">
+      <section class="section body-copy">
+        <div class="section-header">
+          <h2>Politische Arbeitsgrundlage</h2>
+        </div>
+        <p>
+          Die Koalition verbindet staatlichen Aufbau, sozial orientierte Daseinsvorsorge,
+          institutionelle Verlässlichkeit und sichtbare Landespolitik. Sie trägt damit die
+          Leitlinien, auf denen auch die Themenarchitektur des Gesamtportals aufbaut.
+        </p>
+        <p>
+          Dresden ist dabei nicht nur Regierungssitz, sondern der sichtbare politische Bezugspunkt
+          für Koordinierung, Kabinettsarbeit und öffentliche Kommunikation der Staatsregierung.
+        </p>
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Tragende Parteien</h2>
+        </div>
+        <ul class="record-list">
+          {coalitionParties.map((party) => (
+            <li class="record-list__item"><span>{party}</span></li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Gemeinsame Leitlinien</h2>
+      <p>Die Koalition gibt den politischen Rahmen vor, innerhalb dessen Regierung, Themen und Rechtsportal zusammenlaufen.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {priorities.map((priority) => (
+        <article class="panel">
+          <h3>{priority}</h3>
+          <p>
+            Dieser Schwerpunkt ist bereits in Regierungsseiten, Themenseiten oder im Rechtsbereich
+            des Portals sichtbar verankert.
+          </p>
+        </article>
+      ))}
+    </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a> ·{' '}
+      <a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a>
     </p>
   </section>
 </BaseLayout>
