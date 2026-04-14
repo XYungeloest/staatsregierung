@@ -15,11 +15,13 @@ const { items } = Astro.props;
   <nav class="breadcrumbs" aria-label="Brotkrumen">
     <ol class="breadcrumbs__list">
       {items.map((item, index) => (
-        <li class="breadcrumbs__item">
+        <li class:list={['breadcrumbs__item', index === items.length - 1 && 'breadcrumbs__item--current']}>
           {item.href && index < items.length - 1 ? (
             <a href={item.href}>{item.label}</a>
           ) : (
-            <span aria-current={index === items.length - 1 ? 'page' : undefined}>{item.label}</span>
+            <span class="breadcrumbs__current" aria-current={index === items.length - 1 ? 'page' : undefined}>
+              {item.label}
+            </span>
           )}
         </li>
       ))}

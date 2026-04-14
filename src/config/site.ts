@@ -31,7 +31,7 @@ export const siteConfig = {
     privacy: '/datenschutz/',
     accessibility: '/barrierefreiheit/',
     overview: '/uebersicht/',
-    editorial: '/recht/redaktion/',
+    editorial: '/redaktion/',
   },
   mainNavigation: [
     { label: 'Staatsregierung', pathKey: 'government' },
