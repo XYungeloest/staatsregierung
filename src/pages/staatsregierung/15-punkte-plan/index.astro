@@ -1,118 +1,21 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import StatusBadge from '../../../components/portal/StatusBadge.astro';
+import ActionPlanDashboard from '../../../components/portal/ActionPlanDashboard.astro';
+import ProjectTimeline from '../../../components/portal/ProjectTimeline.astro';
+import { actionPlanItems } from '../../../data/dashboard/action-plan.ts';
+import { timelineEntries } from '../../../data/dashboard/timeline.ts';
 import {
   getCabinetUrl,
-  getCoalitionUrl,
   getGovernmentUrl,
   getHomeUrl,
-  getLawConstitutionUrl,
+  getLawHomeUrl,
   getMinisterPresidentUrl,
-  getTopicUrl,
   getTopicsUrl,
-  loadTopics,
-  type Themenstatus,
 } from '../../../lib/portal/index.ts';
-
-const topics = await loadTopics();
-const topicLookup = new Map(topics.map((topic) => [topic.slug, topic]));
-const points: Array<{ title: string; description: string; href: string; status: Themenstatus }> = [
-  {
-    title: 'Regierungskoordination in Dresden',
-    description: 'Die Leitungs- und Koordinierungsfunktion der Staatsregierung ist sichtbar unter einer gemeinsamen Portallogik gebündelt.',
-    href: getMinisterPresidentUrl(),
-    status: 'umgesetzt',
-  },
-  {
-    title: 'Kabinett & Ressorts',
-    description: 'Kabinetts- und Ressortstruktur sind mit stabilen URLs und dateibasierten Inhalten aufgebaut.',
-    href: getCabinetUrl(),
-    status: 'umgesetzt',
-  },
-  {
-    title: 'Koalitionsrahmen',
-    description: 'Die politische Trägerschaft des Kabinetts ist mit eigener Inhaltsseite und Leitlinien hinterlegt.',
-    href: getCoalitionUrl(),
-    status: 'umgesetzt',
-  },
-  {
-    title: 'Verfassung, Verkündung und Rechtszugang',
-    description: 'Staatsordnung, Rechtszugang und Verkündungsfragen sind in der Rechtsarchitektur verankert.',
-    href: getLawConstitutionUrl(),
-    status: 'umgesetzt',
-  },
-  {
-    title: 'Wohnen & Vergesellschaftung',
-    description: 'Wohnraumsicherung und Vergesellschaftung bilden ein Kernprojekt der Landespolitik.',
-    href: getTopicUrl('wohnen-und-vergesellschaftung'),
-    status: topicLookup.get('wohnen-und-vergesellschaftung')?.status ?? 'kernprojekt',
-  },
-  {
-    title: 'ÖPNV & Mobilität',
-    description: 'Landesweite Mobilitätsachsen, ÖPNV-Ausbau und Infrastrukturentwicklung werden stufenweise verdichtet.',
-    href: getTopicUrl('oepnv-und-mobilitaet'),
-    status: topicLookup.get('oepnv-und-mobilitaet')?.status ?? 'teilweise-umgesetzt',
-  },
-  {
-    title: 'Bildungsreform',
-    description: 'Schulneuordnung, Kita-Entlastung und Bildungsstandards werden systematisch umgesetzt.',
-    href: getTopicUrl('bildungsreform'),
-    status: topicLookup.get('bildungsreform')?.status ?? 'sehr-weit-umgesetzt',
-  },
-  {
-    title: 'Kulturpass',
-    description: 'Kulturelle Teilhabe für junge Erwachsene ist als eigenes Anspruchsmodell ausgestaltet.',
-    href: getTopicUrl('kulturpass'),
-    status: topicLookup.get('kulturpass')?.status ?? 'umgesetzt',
-  },
-  {
-    title: 'Demokratie & Sicherheit',
-    description: 'Rechtsstaatliche Kontrolle und sicherheitspolitische Handlungsfähigkeit werden zusammengeführt.',
-    href: getTopicUrl('demokratie-und-sicherheit'),
-    status: topicLookup.get('demokratie-und-sicherheit')?.status ?? 'deutlich-umgesetzt',
-  },
-  {
-    title: 'Rundfunkreform',
-    description: 'Der Ostdeutsche Fernsehfunk und die medienrechtliche Neuordnung sind normativ abgesichert.',
-    href: getTopicUrl('rundfunkreform'),
-    status: topicLookup.get('rundfunkreform')?.status ?? 'umgesetzt',
-  },
-  {
-    title: 'Krankenhausfonds',
-    description: 'Gesundheitsversorgung und öffentliche Sicherung regionaler Klinikstandorte werden zusammengeführt.',
-    href: getTopicUrl('krankenhausfonds'),
-    status: topicLookup.get('krankenhausfonds')?.status ?? 'umgesetzt',
-  },
-  {
-    title: 'Familie & Soziales',
-    description: 'Familienentlastung, soziale Sicherung und gesundheitliche Fürsorge werden weiter ausgebaut.',
-    href: getTopicUrl('familie-und-soziales'),
-    status: topicLookup.get('familie-und-soziales')?.status ?? 'teilweise-umgesetzt',
-  },
-  {
-    title: 'Nachbarschaft & Europa',
-    description: 'Grenzüberschreitende Zusammenarbeit ist politisch und normativ fest verankert.',
-    href: getTopicUrl('nachbarschaft-und-europa'),
-    status: topicLookup.get('nachbarschaft-und-europa')?.status ?? 'umgesetzt',
-  },
-  {
-    title: 'Transparenz & Lobbyregister',
-    description: 'Transparenzrecht und parlamentarische Dokumentation stärken staatliche Nachvollziehbarkeit.',
-    href: getTopicUrl('transparenz-und-lobbyregister'),
-    status: topicLookup.get('transparenz-und-lobbyregister')?.status ?? 'umgesetzt',
-  },
-  {
-    title: 'Haushalt & Finanzen',
-    description: 'Haushaltsgesetz, Landesbank und Vergaberecht sichern die finanzielle Handlungsfähigkeit des Landes.',
-    href: getTopicUrl('haushalt-und-finanzen'),
-    status: topicLookup.get('haushalt-und-finanzen')?.status ?? 'umgesetzt',
-  },
-];
-
-const completedCount = points.filter((point) =>
-  ['umgesetzt', 'kernprojekt', 'sehr-weit-umgesetzt', 'deutlich-umgesetzt'].includes(point.status),
-).length;
+const completedCount = actionPlanItems.filter((point) => point.status === 'umgesetzt').length;
+const partlyCount = actionPlanItems.filter((point) => point.status === 'teilweise_umgesetzt').length;
+const plannedCount = actionPlanItems.filter((point) => point.status === 'angelegt').length;
 ---
 
 <BaseLayout title="15-Punkte-Plan" description="Regierungsprogrammatische Leitlinien der Staatsregierung.">
@@ -137,37 +40,65 @@ const completedCount = points.filter((point) =>
     <div class="meta-grid">
       <div class="meta-card">
         <span class="meta-label">Programmpunkte</span>
-        <strong>{points.length}</strong>
+        <strong>{actionPlanItems.length}</strong>
       </div>
       <div class="meta-card">
-        <span class="meta-label">Bereits umgesetzt oder tragend</span>
+        <span class="meta-label">Umgesetzt</span>
         <strong>{completedCount}</strong>
       </div>
       <div class="meta-card">
-        <span class="meta-label">Weiterführende Themenseiten</span>
-        <strong>{topics.length}</strong>
+        <span class="meta-label">Teilweise umgesetzt</span>
+        <strong>{partlyCount}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Angelegt</span>
+        <strong>{plannedCount}</strong>
       </div>
     </div>
   </section>
 
   <section class="section section-muted">
     <div class="section-header">
-      <h2>Programmpunkte</h2>
-      <p>Jeder Punkt verweist direkt auf den einschlägigen Regierungs- oder Themenbereich des Portals.</p>
+      <h2>Fortschritts-Dashboard</h2>
+      <p>
+        Alle Programmpunkte werden mit Statussymbolen, Ressortbezug und direkten Verlinkungen auf
+        Themen- oder Rechtsseiten dargestellt.
+      </p>
     </div>
-    <div class="card-grid card-grid--three">
-      {points.map((point) => (
-        <article class="panel">
-          <div class="topic-card__header">
-            <StatusBadge status={point.status} />
-          </div>
-          <h2><a class="inline-link" href={point.href}>{point.title}</a></h2>
-          <p>{point.description}</p>
-        </article>
-      ))}
-    </div>
+    <ActionPlanDashboard items={actionPlanItems} />
     <p class="section-link-row">
       <a class="inline-link" href={getTopicsUrl()}>Zur Themenübersicht</a>
     </p>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Projekt-Timeline seit Dezember 2025</h2>
+      <p>
+        Die Zeitachse ordnet wichtige Regierungsmaßnahmen, Normerlasse, Presseereignisse und
+        Haushaltsentscheidungen chronologisch in die Gesamtentwicklung ein.
+      </p>
+    </div>
+    <ProjectTimeline entries={timelineEntries} />
+  </section>
+
+  <section class="section section-muted">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Ministerpräsident</h2>
+        <p>Die Leitungsseite bündelt Regierungskoordination, politische Prioritäten und den Regierungssitz Dresden.</p>
+        <p><a class="inline-link" href={getMinisterPresidentUrl()}>Zur Leitungsseite</a></p>
+      </article>
+      <article class="panel">
+        <h2>Kabinett & Ressorts</h2>
+        <p>Die Ressortseiten machen Zuständigkeiten, Themenbezüge und institutionelle Verantwortung lesbar zugänglich.</p>
+        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett</a></p>
+      </article>
+      <article class="panel">
+        <h2>Rechtsportal</h2>
+        <p>Aktuelle Fassungen, Historienseiten und der Gesetzgebungs-Tracker bleiben als Kernmodul unter <code>/recht/</code> erreichbar.</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
+      </article>
+    </div>
   </section>
 </BaseLayout>

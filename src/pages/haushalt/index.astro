@@ -1,6 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import BudgetExplorer from '../../components/portal/BudgetExplorer.astro';
+import {
+  budgetExplorerEntries,
+  budgetSpecialFunds,
+  budgetSummaryRows,
+} from '../../data/dashboard/budget.ts';
 import {
   getBudgetPageUrl,
   getHomeUrl,
@@ -59,6 +65,21 @@ const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
         </article>
       ))}
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Haushalt-Explorer</h2>
+      <p>
+        Der Explorer zeigt den Doppelhaushalt 2025/2026 mit Umschaltung nach Haushaltsjahr und
+        einer einfachen Filterung nach Ressort oder Einzelplan.
+      </p>
+    </div>
+    <BudgetExplorer
+      summaryRows={budgetSummaryRows}
+      entries={budgetExplorerEntries}
+      specialFunds={budgetSpecialFunds}
+    />
   </section>
 
   <section class="section">

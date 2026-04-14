@@ -1,0 +1,29 @@
+---
+import type { FaqItem } from '../../lib/portal/modules.ts';
+
+interface Props {
+  items: FaqItem[];
+  allowMultipleOpen?: boolean;
+}
+
+const { items, allowMultipleOpen = true } = Astro.props as Props;
+---
+
+<div class="faq-accordion" data-faq-root data-allow-multiple={allowMultipleOpen ? 'true' : 'false'}>
+  {items.map((item, index) => (
+    <details class="faq-accordion__item" open={index === 0}>
+      <summary class="faq-accordion__summary">
+        <span>{item.question}</span>
+      </summary>
+      <div class="faq-accordion__body">
+        <p>{item.answer}</p>
+        {item.href ? (
+          <p class="faq-accordion__link-row">
+            <a class="inline-link" href={item.href}>{item.hrefLabel ?? 'Weiterführende Informationen'}</a>
+          </p>
+        ) : null}
+      </div>
+    </details>
+  ))}
+</div>
+

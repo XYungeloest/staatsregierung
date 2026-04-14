@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import MinistryCard from '../../components/portal/MinistryCard.astro';
 import StatusBadge from '../../components/portal/StatusBadge.astro';
 import {
@@ -136,14 +137,7 @@ const relatedTopics = topics
       <h2>FAQ</h2>
       <p>Kurze Hinweise zur politischen Einordnung und zum Umsetzungsstand des Themas.</p>
     </div>
-    <div class="content-stack faq-list">
-      {topic.faq.map((entry) => (
-        <article class="panel">
-          <h3>{entry.question}</h3>
-          <p>{entry.answer}</p>
-        </article>
-      ))}
-    </div>
+    <FaqAccordion items={topic.faq} />
   </section>
 
   <section class="section section-muted">
