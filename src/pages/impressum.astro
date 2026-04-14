@@ -1,39 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { getHomeUrl } from '../lib/norms/index.ts';
+import { getHomeUrl, loadPageBySlug } from '../lib/portal/index.ts';
+
+const page = await loadPageBySlug('impressum');
 ---
 
-<BaseLayout title="Impressum" description="Projektvermerk und Einordnung des fiktiven Ostrecht-Portals.">
+<BaseLayout title={page?.title ?? 'Impressum'} description="Impressum des Regierungsportals.">
   <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Impressum' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Service</p>
-    <h1>Impressum</h1>
-    <p class="lead">
-      Dieses Portal ist kein Angebot einer realen staatlichen Stelle. Es handelt sich um eine
-      inoffizielle Website innerhalb einer fiktiven Politiksimulation.
-    </p>
+    <h1>{page?.title ?? 'Impressum'}</h1>
   </section>
 
-  <section class="section">
-    <div class="content-stack">
-      <article class="panel">
-        <h2>Projektcharakter</h2>
-        <p>
-          Das Ostdeutsche Rechtsportal dient der strukturierten Darstellung fiktiver
-          Rechtsvorschriften innerhalb einer Simulation. Die Seite entfaltet keine amtliche oder
-          rechtliche Wirkung.
-        </p>
-      </article>
-      <article class="panel">
-        <h2>Verantwortung innerhalb der Simulation</h2>
-        <p>
-          Die Inhalte werden redaktionell im Repository gepflegt und als statische Website
-          veröffentlicht. Es besteht kein Bezug zu einer realen Behörde oder staatlichen
-          Veröffentlichungsplattform.
-        </p>
-      </article>
-    </div>
+  <section class="section body-copy">
+    {(page?.body ?? []).map((paragraph) => (
+      <p>{paragraph}</p>
+    ))}
   </section>
 </BaseLayout>

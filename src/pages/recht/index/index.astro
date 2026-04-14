@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  formatNormType,
+  getHomeUrl,
+  getIndexGroups,
+  getLawPortalUrl,
+  getNormUrl,
+  loadAllNorms,
+  toDisplayText,
+} from '../../../lib/norms/index.ts';
+
+const norms = await loadAllNorms();
+const groups = getIndexGroups(norms);
+---
+
+<BaseLayout title="Alphabetischer Index" description="Alphabetischer Index aller im Rechtsbereich geführten Normen.">
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Recht', href: getLawPortalUrl() },
+      { label: 'Alphabetischer Index' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rechtsbereich</p>
+    <h1>Alphabetischer Index</h1>
+    <p class="lead">Alle Normen sind alphabetisch nach ihrem Langtitel geordnet.</p>
+    <nav class="letter-nav" aria-label="Buchstaben-Navigation">
+      {groups.map((group) => (
+        <a href={`#${group.letter}`}>{group.letter}</a>
+      ))}
+    </nav>
+  </section>
+
+  {groups.map((group) => (
+    <section class="section" id={group.letter}>
+      <div class="section-header">
+        <h2>{group.letter}</h2>
+      </div>
+      <ul class="record-list">
+        {group.norms.map((norm) => (
+          <li class="record-list__item">
+            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
+            <span>{norm.meta.abbr} · {formatNormType(norm.meta.type)}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</BaseLayout>

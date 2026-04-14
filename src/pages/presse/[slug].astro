@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../config/site.ts';
+import {
+  getHomeUrl,
+  getPressUrl,
+  loadPressReleases,
+  type Pressemitteilung,
+} from '../../lib/portal/index.ts';
+
+export async function getStaticPaths() {
+  const releases = await loadPressReleases();
+
+  return releases.map((release) => ({
+    params: { slug: release.slug },
+    props: { release },
+  }));
+}
+
+const { release } = Astro.props as { release: Pressemitteilung };
+---
+
+<BaseLayout title={release.title} description={release.teaser}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Presse', href: getPressUrl() },
+      { label: release.title },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Pressemitteilung</p>
+    <h1>{release.title}</h1>
+    <p class="lead">{release.teaser}</p>
+    <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ministry}</p>
+  </section>
+
+  <section class="section">
+    <img class="media-banner" src={release.image} alt={release.imageAlt} />
+    <div class="tag-list">
+      {release.tags.map((tag: string) => (
+        <span class="tag">{tag}</span>
+      ))}
+    </div>
+    <div class="body-copy">
+      {release.body.map((paragraph: string) => (
+        <p>{paragraph}</p>
+      ))}
+    </div>
+    <p class="detail-line">Bildnachweis: {release.imageCredit}</p>
+  </section>
+</BaseLayout>

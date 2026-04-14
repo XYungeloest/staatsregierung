@@ -1,6 +1,6 @@
 export const featureFlags = {
   enableEditorialTools: true,
-  showEditorialNavLink: true,
+  showEditorialNavLink: false,
   enableOfficialStyleHeader: true,
   enableServiceLinks: true,
   enableStickyHeader: true,

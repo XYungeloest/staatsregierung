@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import {
+  formatDate,
+  getCurrentVersion,
+  getHomeUrl,
+  getIndexUrl,
+  getNormUrl,
+  getSearchUrl,
+  getSubjectsUrl,
+  loadAllNorms,
+} from '../../lib/norms/index.ts';
+
+const norms = await loadAllNorms();
+const currentNorms = norms.filter((entry) => entry.versions.some((version) => version.isCurrent));
+const latestUpdates = [...norms]
+  .sort((left, right) => getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom))
+  .slice(0, 3);
+---
+
+<BaseLayout title="Recht" description="Integrierter Rechtsbereich der Staatsregierung des Ostdeutschen Freistaates.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Recht' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rechtsbereich</p>
+    <h1>Recht</h1>
+    <p class="lead">
+      Der Rechtsbereich führt das bisherige statische Rechtsportal mit aktuellen Fassungen,
+      historischen Fassungen, Normenhistorien, Suche, Sachgebieten und Index unter dem neuen
+      Portalrahmen fort.
+    </p>
+    <nav class="hero-actions" aria-label="Rechtseinstiege">
+      <a class="button-link" href={getSearchUrl()}>Normensuche</a>
+      <a class="button-link button-link--secondary" href={getIndexUrl()}>Alphabetischer Index</a>
+      <a class="button-link button-link--secondary" href={getSubjectsUrl()}>Sachgebiete</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Normenbestand</span>
+        <strong>{norms.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Aktuelle Fassungen</span>
+        <strong>{currentNorms.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Ausgabe</span>
+        <strong>vollständig statisch</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Letzte Änderungen</h2>
+      <p>Diese Übersicht dient als Einstieg in den unter <code>/recht/</code> eingebundenen Normenbestand.</p>
+    </div>
+    <div class="card-grid">
+      {latestUpdates.map((norm) => {
+        const currentVersion = getCurrentVersion(norm);
+
+        return (
+          <article class="panel">
+            <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></h3>
+            <p>{norm.meta.summary}</p>
+            <p class="detail-line">Rechtsstand seit {formatDate(currentVersion.validFrom)}</p>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

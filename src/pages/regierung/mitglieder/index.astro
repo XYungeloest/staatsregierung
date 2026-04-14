@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
+import {
+  getGovernmentUrl,
+  getHomeUrl,
+  loadGovernmentMembers,
+} from '../../../lib/portal/index.ts';
+
+const members = await loadGovernmentMembers();
+const leadership = members.slice(0, 2);
+const remainingMembers = members.slice(2);
+---
+
+<BaseLayout title="Regierungsmitglieder" description="Übersicht der Regierungsmitglieder des Ostdeutschen Freistaates.">
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Regierung', href: getGovernmentUrl() },
+      { label: 'Regierungsmitglieder' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Regierung</p>
+    <h1>Regierungsmitglieder</h1>
+    <p class="lead">
+      Die Profile der Regierungsmitglieder zeigen Ämter, Ressorts und Kurzbiografien der aktuellen
+      Staatsregierung an stabilen URLs.
+    </p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Leitung</h2>
+      <p>
+        Die politische Führung der Staatsregierung liegt beim Ministerpräsidenten und seiner
+        Stellvertretung.
+      </p>
+    </div>
+    <div class="spotlight-grid">
+      {leadership.map((member) => (
+        <GovernmentMemberCard member={member} />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Mitglieder des Kabinetts</h2>
+      <p>Alle weiteren Regierungsmitglieder sind mit ihren jeweiligen Zuständigkeiten erschlossen.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {remainingMembers.map((member) => (
+        <GovernmentMemberCard member={member} variant="compact" />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

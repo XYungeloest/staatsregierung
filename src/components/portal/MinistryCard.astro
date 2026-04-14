@@ -1,0 +1,20 @@
+---
+import { getMinistryUrl, type Ministerium } from '../../lib/portal/index.ts';
+
+interface Props {
+  ministry: Ministerium;
+  variant?: 'default' | 'compact';
+}
+
+const { ministry, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+---
+
+<article class:list={['panel', 'ministry-card', isCompact && 'ministry-card--compact']}>
+  <div class="ministry-card__body">
+    <h3><a class="inline-link" href={getMinistryUrl(ministry.slug)}>{ministry.kurzname}</a></h3>
+    <p>{ministry.teaser}</p>
+    <p class="detail-line">{ministry.leitung}</p>
+    {!isCompact ? <p class="ministry-card__topics">{ministry.themen.join(' · ')}</p> : null}
+  </div>
+</article>

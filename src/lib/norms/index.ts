@@ -39,6 +39,7 @@ export {
   getImprintUrl,
   getIndexUrl,
   getIndexGroups,
+  getLawPortalUrl,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,

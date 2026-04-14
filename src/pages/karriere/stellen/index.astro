@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../../config/site.ts';
+import { getCareerUrl, getHomeUrl, getJobUrl, loadJobOffers } from '../../../lib/portal/index.ts';
+
+const offers = await loadJobOffers();
+---
+
+<BaseLayout title="Stellenangebote" description="Offene Stellenangebote der Staatsregierung.">
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Karriere', href: getCareerUrl() },
+      { label: 'Stellenangebote' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Karriere</p>
+    <h1>Stellenangebote</h1>
+    <p class="lead">Der Bereich ist als dateibasierte Stellenliste mit Detailseiten angelegt.</p>
+  </section>
+
+  <div class="content-stack">
+    {offers.map((offer) => (
+      <article class="section">
+        <h2><a class="inline-link" href={getJobUrl(offer.slug)}>{offer.title}</a></h2>
+        <p>{offer.teaser}</p>
+        <p class="detail-line">
+          {offer.ministry} · {offer.location} · Bewerbungsfrist {siteConfig.date.formatLong(offer.applicationDeadline)}
+        </p>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

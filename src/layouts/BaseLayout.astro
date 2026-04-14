@@ -8,52 +8,48 @@ import {
 } from '../config/features.ts';
 import { siteConfig } from '../config/site.ts';
 import {
-  getAccessibilityUrl,
   getEditorialUrl,
   getHomeUrl,
-  getImprintUrl,
-  getIndexUrl,
-  getOverviewUrl,
-  getPrivacyUrl,
-  getSearchUrl,
-  getSubjectsUrl,
-} from '../lib/norms/routes.ts';
+  getLawSearchUrl,
+  getSiteUrl,
+} from '../lib/portal/routes.ts';
 
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = 'Statisches Rechtsportal des Freistaats Ostdeutschland.' } = Astro.props;
-const pageTitle = `${title} | Freistaat Ostdeutschland`;
+const { title, description = 'Statische Website der Staatsregierung des Ostdeutschen Freistaates.' } =
+  Astro.props;
+const pageTitle = `${title} | ${siteConfig.authorityName}`;
 const base = import.meta.env.BASE_URL;
 const showEditorialLink = isEditorialNavLinkVisible();
 const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const showServiceLinks = isServiceLinksEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
+const currentPath = Astro.url.pathname;
 
-const mainNavLinks = [
-  { href: getHomeUrl(), label: 'Start' },
-  { href: getSearchUrl(), label: 'Suche' },
-  { href: getIndexUrl(), label: 'Index' },
-  { href: getSubjectsUrl(), label: 'Sachgebiete' },
-  ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
-];
+const mainNavLinks = siteConfig.mainNavigation.map((entry) => ({
+  href: getSiteUrl(entry.pathKey),
+  label: entry.label,
+}));
 
 const serviceLinks = [
   { href: getHomeUrl(), label: 'Start' },
-  { href: getOverviewUrl(), label: 'Übersicht' },
-  { href: getImprintUrl(), label: 'Impressum' },
-  { href: getPrivacyUrl(), label: 'Datenschutz' },
-  { href: getAccessibilityUrl(), label: 'Barrierefreiheit' },
+  ...siteConfig.serviceNavigation.map((entry) => ({
+    href: getSiteUrl(entry.pathKey),
+    label: entry.label,
+  })),
 ];
 
 const footerPrimaryLinks = [
   ...(showServiceLinks ? serviceLinks : [{ href: getHomeUrl(), label: 'Start' }]),
-  { href: getSearchUrl(), label: 'Suche' },
-  { href: getIndexUrl(), label: 'Index' },
-  { href: getSubjectsUrl(), label: 'Sachgebiete' },
+  { href: getSiteUrl('governmentMembers'), label: 'Regierungsmitglieder' },
+  { href: getSiteUrl('ministries'), label: 'Ministerien' },
+  { href: getSiteUrl('press'), label: 'Presse' },
+  { href: getSiteUrl('jobs'), label: 'Stellenangebote' },
+  { href: getSiteUrl('lawHome'), label: 'Recht' },
   ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
 ];
 ---
@@ -86,7 +82,7 @@ const footerPrimaryLinks = [
                   {siteConfig.officialFlagFallback}
                 </span>
               </div>
-              <p>{siteConfig.officialNotice}</p>
+              <p>{siteConfig.simulationNotice}</p>
             </div>
           </div>
 
@@ -123,9 +119,15 @@ const footerPrimaryLinks = [
               </div>
 
               <div class="site-search">
-                <form class="header-search" action={getSearchUrl()} method="get" role="search" aria-label="Suche im Portal">
+                <form
+                  class="header-search"
+                  action={getLawSearchUrl()}
+                  method="get"
+                  role="search"
+                  aria-label={siteConfig.searchLabel}
+                >
                   <label class="header-search__field">
-                    <span>Suche im Portal</span>
+                    <span>{siteConfig.searchLabel}</span>
                     <div class="header-search__control">
                       <input
                         type="search"
@@ -144,7 +146,9 @@ const footerPrimaryLinks = [
               <div class="container">
                 <nav class="site-nav" aria-label="Hauptnavigation">
                   {mainNavLinks.map((link) => (
-                    <a href={link.href}>{link.label}</a>
+                    <a href={link.href} aria-current={currentPath === new URL(link.href, Astro.url).pathname ? 'page' : undefined}>
+                      {link.label}
+                    </a>
                   ))}
                 </nav>
               </div>
@@ -161,9 +165,9 @@ const footerPrimaryLinks = [
           <header class="site-header">
             <div class="container site-header__inner">
               <div class="site-brand">
-                <p class="site-kicker">Freistaat Ostdeutschland</p>
-                <a class="site-title" href={base}>Ostrecht-Portal</a>
-                <p class="site-subtitle">Rechtsportal mit aktuellen Fassungen, Historien und Verzeichnissen</p>
+                <p class="site-kicker">{siteConfig.authorityName}</p>
+                <a class="site-title" href={getHomeUrl()}>{siteConfig.portalTitle}</a>
+                <p class="site-subtitle">{siteConfig.portalSubtitle}</p>
               </div>
               <nav class="site-nav" aria-label="Hauptnavigation">
                 {mainNavLinks.map((link) => (
@@ -183,7 +187,7 @@ const footerPrimaryLinks = [
         <div class="container site-footer__inner">
           <div class="site-footer__meta">
             <p>{siteConfig.footerNote}</p>
-            <p class="site-footer__small">{siteConfig.officialNotice}</p>
+            <p class="site-footer__small">{siteConfig.simulationNotice}</p>
           </div>
           <nav class="footer-nav" aria-label="Fußnavigation">
             {footerPrimaryLinks.map((link) => (

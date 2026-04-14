@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  getHomeUrl,
+  getLawPortalUrl,
+  getNormUrl,
+  getSubjectsUrl,
+  getSubjectGroups,
+  loadAllNorms,
+  toDisplayText,
+} from '../../../lib/norms/index.ts';
+
+export async function getStaticPaths() {
+  const groups = getSubjectGroups(await loadAllNorms());
+
+  return groups.map((group) => ({
+    params: { subject: group.slug },
+    props: { group },
+  }));
+}
+
+const { group } = Astro.props;
+---
+
+<BaseLayout title={toDisplayText(group.name)} description={`Sachgebiet ${toDisplayText(group.name)} im Rechtsbereich.`}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Recht', href: getLawPortalUrl() },
+      { label: 'Sachgebiete', href: getSubjectsUrl() },
+      { label: toDisplayText(group.name) },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rechtsbereich</p>
+    <h1>{toDisplayText(group.name)}</h1>
+    <p class="lead">Diesem Sachgebiet sind aktuell {group.norms.length} Normen zugeordnet.</p>
+  </section>
+
+  <section class="section">
+    <ul class="record-list">
+      {group.norms.map((norm) => (
+        <li class="record-list__item">
+          <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
+          <span>{norm.meta.abbr} · {toDisplayText(norm.meta.ministry)}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
