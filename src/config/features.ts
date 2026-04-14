@@ -3,7 +3,7 @@ export const featureFlags = {
   showEditorialNavLink: false,
   enableOfficialStyleHeader: true,
   enableServiceLinks: true,
-  enableStickyHeader: true,
+  enableStickyHeader: false,
 } as const;
 
 export function isEditorialToolsEnabled(): boolean {

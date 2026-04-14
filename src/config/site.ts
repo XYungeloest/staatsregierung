@@ -55,12 +55,12 @@ export const siteConfig = {
     citizenService: {
       label: 'Bürgertelefon',
       phone: '+49 351 100-0',
-      email: 'service@ostfreistaat.example',
+      email: 'service@osten.de',
     },
     pressOffice: {
       label: 'Pressestelle der Staatsregierung',
       phone: '+49 351 100-1111',
-      email: 'pressestelle@ostfreistaat.example',
+      email: 'pressestelle@osten.de',
     },
     officeHours: ['Montag bis Donnerstag: 9.00 bis 17.00 Uhr', 'Freitag: 9.00 bis 15.00 Uhr'],
   },
