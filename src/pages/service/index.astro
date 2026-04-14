@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import {
+  getAccessibilityUrl,
+  getCareerUrl,
+  getContactUrl,
+  getFaqUrl,
+  getHomeUrl,
+  getImprintUrl,
+  getPrivacyUrl,
+} from '../../lib/portal/index.ts';
+---
+
+<BaseLayout title="Service" description="Servicebereich des Gesamtportals der Staatsregierung.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Service</h1>
+    <p class="lead">
+      Der Servicebereich bündelt Kontakt, Karriere, Hilfeseiten und rechtlich-organisatorische
+      Hinweise an einem einheitlichen Ort.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Karriere</h2>
+        <p>Offene Stellen und Hinweise zum Arbeiten für die Staatsregierung.</p>
+        <p><a class="inline-link" href={getCareerUrl()}>Zur Karriere</a></p>
+      </article>
+      <article class="panel">
+        <h2>Kontakt</h2>
+        <p>Zentrale Kontaktwege der Staatsregierung, der Pressestelle und des Bürgerdienstes.</p>
+        <p><a class="inline-link" href={getContactUrl()}>Zum Kontakt</a></p>
+      </article>
+      <article class="panel">
+        <h2>FAQ</h2>
+        <p>Kurz erläuterte Hinweise zur Nutzung des Portals und zur statischen Architektur.</p>
+        <p><a class="inline-link" href={getFaqUrl()}>Zur FAQ</a></p>
+      </article>
+      <article class="panel">
+        <h2>Barrierefreiheit</h2>
+        <p>Hinweise zu Struktur, Kontrasten, Tastaturbedienbarkeit und Rückmeldemöglichkeiten.</p>
+        <p><a class="inline-link" href={getAccessibilityUrl()}>Zur Barrierefreiheit</a></p>
+      </article>
+      <article class="panel">
+        <h2>Impressum</h2>
+        <p>Verantwortlichkeiten und Hinweise zur fiktiven, nichtamtlichen Simulation.</p>
+        <p><a class="inline-link" href={getImprintUrl()}>Zum Impressum</a></p>
+      </article>
+      <article class="panel">
+        <h2>Datenschutz</h2>
+        <p>Informationen zur vollständig statischen Auslieferung ohne serverseitige Speicherung.</p>
+        <p><a class="inline-link" href={getPrivacyUrl()}>Zum Datenschutz</a></p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

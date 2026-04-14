@@ -6,7 +6,7 @@ import { getHomeUrl, getIndexUrl, getSearchUrl } from '../lib/norms/index.ts';
 ---
 
 <BaseLayout title="Interner Fehler" description="Während der Darstellung ist ein interner Fehler aufgetreten.">
-  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Interner Fehler' }]} />
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Interner Fehler' }]} />
 
   <section class="section page-header error-page">
     <p class="eyebrow">Fehler 500</p>
@@ -17,7 +17,7 @@ import { getHomeUrl, getIndexUrl, getSearchUrl } from '../lib/norms/index.ts';
     </p>
     <nav class="hero-actions" aria-label="Hilfsnavigation">
       <a class="button-link" href={getHomeUrl()}>Zur Startseite</a>
-      <a class="button-link button-link--secondary" href={getOverviewUrl()}>Zur Übersicht</a>
+      <a class="button-link button-link--secondary" href={getOverviewUrl()}>Zum Service</a>
       <a class="button-link button-link--secondary" href={getSearchUrl()}>Zur Rechtssuche</a>
       <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum alphabetischen Index</a>
     </nav>

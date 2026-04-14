@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import PressReleaseCard from '../../../components/portal/PressReleaseCard.astro';
+import {
+  getHomeUrl,
+  getPressUrl,
+  loadFeaturedPressReleases,
+  loadPressReleases,
+} from '../../../lib/portal/index.ts';
+
+const [releases, featuredReleases] = await Promise.all([
+  loadPressReleases(),
+  loadFeaturedPressReleases(2),
+]);
+
+const featuredSlugs = new Set(featuredReleases.map((release) => release.slug));
+const archiveReleases = releases.filter((release) => !featuredSlugs.has(release.slug));
+const leadRelease = featuredReleases[0];
+const secondaryFeatured = featuredReleases.slice(1);
+---
+
+<BaseLayout title="Pressemitteilungen" description="Pressemitteilungen der Staatsregierung.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Presse', href: getPressUrl() },
+      { label: 'Pressemitteilungen' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Presse & Aktuelles</p>
+    <h1>Pressemitteilungen</h1>
+    <p class="lead">
+      Der Pressebereich bündelt aktuelle Meldungen der Staatsregierung mit klaren Metadaten,
+      stabilen URLs und einer behördennahen Darstellung.
+    </p>
+  </section>
+
+  {leadRelease ? (
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Hervorgehobene Meldung</h2>
+        <p>Wichtige Mitteilungen der Staatsregierung werden auf der Übersichtsseite besonders sichtbar hervorgehoben.</p>
+      </div>
+      <PressReleaseCard release={leadRelease} variant="featured" />
+      {secondaryFeatured.length > 0 ? (
+        <div class="card-grid card-grid--two">
+          {secondaryFeatured.map((release) => (
+            <PressReleaseCard release={release} variant="compact" />
+          ))}
+        </div>
+      ) : null}
+    </section>
+  ) : null}
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Archiv der Mitteilungen</h2>
+      <p>Alle Pressemitteilungen bleiben als statische Einzelseiten mit Datum, Ressortbezug und Fließtext erreichbar.</p>
+    </div>
+    <div class="content-stack">
+      {(archiveReleases.length > 0 ? archiveReleases : releases).map((release) => (
+        <PressReleaseCard release={release} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

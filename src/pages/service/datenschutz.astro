@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getHomeUrl, getServiceUrl, loadPageBySlug } from '../../lib/portal/index.ts';
+
+const page = await loadPageBySlug('datenschutz');
+---
+
+<BaseLayout title={page?.title ?? 'Datenschutz'} description="Datenschutzhinweise des Regierungsportals.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Service', href: getServiceUrl() },
+      { label: 'Datenschutz' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>{page?.title ?? 'Datenschutz'}</h1>
+  </section>
+
+  <div class="content-grid">
+    <section class="section body-copy">
+      {(page?.body ?? []).map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Datenschutzprofil</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Architektur</dt>
+          <dd>Vollständig statische Auslieferung</dd>
+        </div>
+        <div>
+          <dt>Backend</dt>
+          <dd>Kein Login, keine Datenbank und keine serverseitige Formverarbeitung</dd>
+        </div>
+        <div>
+          <dt>Suche</dt>
+          <dd>Vorab generierter Suchindex im Rechtsbereich</dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</BaseLayout>

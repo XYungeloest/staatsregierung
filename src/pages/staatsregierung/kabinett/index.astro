@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
+import MinistryCard from '../../../components/portal/MinistryCard.astro';
+import { siteConfig } from '../../../config/site.ts';
+import {
+  getGovernmentMemberUrl,
+  getGovernmentMembersUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  loadGovernmentMembers,
+  loadMinistries,
+} from '../../../lib/portal/index.ts';
+
+const [members, ministries] = await Promise.all([loadGovernmentMembers(), loadMinistries()]);
+const currentGovernment = siteConfig.currentGovernment;
+const memberLookup = new Map(members.map((member) => [member.slug, member]));
+const assignments = [
+  {
+    office: 'Ministerpräsident',
+    holderSlug: 'karl-honecker',
+    note: 'Chef der Staatsregierung; Emma Müller ist Chefin der Staatskanzlei.',
+  },
+  {
+    office: 'Stellvertretende Ministerpräsidentin; Inneres, Bau und kommunale Angelegenheiten',
+    holderSlug: 'mia-wollrath',
+    note: 'Koordiniert zentrale Aufbau- und Verwaltungsfragen.',
+  },
+  {
+    office: 'Kapitalakkumulation des Fiskus',
+    holderSlug: 'karl-honecker',
+    note: 'In Personalunion mit dem Amt des Ministerpräsidenten.',
+  },
+  {
+    office: 'Grenzschutz, Faschismusbekämpfung und bewaffnete Organe',
+    holderSlug: 'alexandrija-dunvjiak',
+  },
+  {
+    office: 'Völkerfreundschaft und Nachbarschaftspolitik',
+    holderSlug: 'tim-dieter',
+  },
+  {
+    office: 'Soziale und gesundheitliche Fürsorge',
+    holderSlug: 'simon-kellermann',
+  },
+  {
+    office: 'Mobilität, Infrastruktur und Landesentwicklung',
+    holderSlug: 'vincent-flick',
+  },
+  {
+    office: 'Rechtsstaatlichkeit und Angelegenheiten des Staates',
+    holderSlug: 'mateo-delgado',
+  },
+  {
+    office: 'Kultur, Wissenschaft und Tourismus',
+    holderSlug: 'freya-warnecke',
+  },
+  {
+    office: 'Bildung und sportliche Ertüchtigung',
+    holderSlug: 'friedrich-ritter',
+  },
+  {
+    office: 'Umwelt, Energie und Klimaschutz',
+    holderSlug: 'tim-dieter',
+    note: 'In Personalunion mit dem Ressort für Völkerfreundschaft und Nachbarschaftspolitik.',
+  },
+  {
+    office: 'Küste, Fischerei, Forst und Landwirtschaft',
+    holderSlug: 'elizabeth-eberhardt',
+  },
+  {
+    office: 'Wirtschaft, Arbeitsmarkt und Beschäftigung',
+    holderSlug: 'karl-honecker',
+    note: 'Seit dem 1. Januar 2026 geschäftsführend durch den Ministerpräsidenten.',
+  },
+];
+---
+
+<BaseLayout title="Kabinett Honecker" description="Kabinettsübersicht der Staatsregierung.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Kabinett Honecker' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Regierungsarbeit</p>
+    <h1>{currentGovernment.cabinetName}</h1>
+    <p class="lead">
+      Das {currentGovernment.cabinetName} ist die achte Staatsregierung des Ostdeutschen
+      Freistaates. Es wurde am {siteConfig.date.formatLong(currentGovernment.formedOn)} gebildet
+      und wird von einer Koalition aus {currentGovernment.coalition} getragen.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Koalition</span>
+        <strong>{currentGovernment.coalitionShort}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Ministerpräsident</span>
+        <strong>{currentGovernment.headOfGovernment}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Stellvertretung</span>
+        <strong>{currentGovernment.deputyHead}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Legislatur</span>
+        <strong>{currentGovernment.legislature}</strong>
+      </div>
+    </div>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <div class="section-header">
+        <h2>Politische Einordnung</h2>
+      </div>
+      <div class="body-copy">
+        <p>
+          Das Kabinett Honecker löste das {currentGovernment.predecessor} ab. In der frühen
+          Regierungsarbeit zeichnen sich institutioneller Ausbau, Daseinsvorsorge, steuernde
+          Landespolitik und die sichtbare Profilierung eines eigenständigen ostdeutschen
+          Staatswesens als Kernlinien ab.
+        </p>
+        <p>
+          Die Master-Konsolidierung des Portals verortet diese politischen Linien nun eindeutig
+          unter <code>/staatsregierung/</code> und koppelt die Ressorts direkt an die
+          Kabinettsarchitektur.
+        </p>
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Kabinettsdaten</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Gebildet</dt>
+          <dd>{siteConfig.date.formatLong(currentGovernment.formedOn)}</dd>
+        </div>
+        <div>
+          <dt>Vorgänger</dt>
+          <dd>{currentGovernment.predecessor}</dd>
+        </div>
+        <div>
+          <dt>Mitgliederprofile</dt>
+          <dd>{members.length}</dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Mitglieder der Staatsregierung</h2>
+      <p>Die Mitgliederprofile bilden die aktuelle personelle Zusammensetzung des Kabinetts ab.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {members.map((member) => (
+        <GovernmentMemberCard member={member} variant="compact" />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Ressortzuschnitt</h2>
+      <p>
+        Die Portfolioübersicht macht auch Personalunionen und kommissarische Zuständigkeiten
+        sichtbar.
+      </p>
+    </div>
+    <ul class="record-list">
+      {assignments.map((assignment) => {
+        const member = memberLookup.get(assignment.holderSlug);
+
+        return (
+          <li class="record-list__item">
+            <strong>{assignment.office}</strong>
+            {member ? (
+              <span>
+                <a class="inline-link" href={getGovernmentMemberUrl(member.slug)}>{member.name}</a>
+              </span>
+            ) : null}
+            {assignment.note ? <span>{assignment.note}</span> : null}
+          </li>
+        );
+      })}
+    </ul>
+    <p class="detail-line">
+      Weitere Einzelprofile stehen unter{' '}
+      <a class="inline-link" href={getGovernmentMembersUrl()}>Regierungsmitglieder</a> bereit.
+    </p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Ressorts</h2>
+      <p>Die Ressortseiten sind direkt als Unterseiten des Kabinetts eingebunden.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {ministries.map((ministry) => (
+        <MinistryCard ministry={ministry} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getHomeUrl } from '../../lib/portal/index.ts';
+---
+
+<BaseLayout title="Über den Freistaat" description="Grundinformationen zum Ostdeutschen Freistaat.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Freistaat' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Über den Freistaat</p>
+    <h1>Über den Freistaat</h1>
+    <p class="lead">
+      Der Bereich bündelt Grundinformationen zu Verfassung, Staatszielen, Bezirken,
+      Hoheitszeichen und Geschichte des Ostdeutschen Freistaates.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Verfassung und Staatsziele</h2>
+        <p>Einordnung der grundlegenden Staatsordnung und ihrer politischen Leitlinien.</p>
+      </article>
+      <article class="panel">
+        <h2>Bezirke und Hauptstädte</h2>
+        <p>Verwaltungsstruktur und räumliche Ordnung des Freistaates.</p>
+      </article>
+      <article class="panel">
+        <h2>Landesfarben und Hoheitszeichen</h2>
+        <p>Symbolik und staatliche Selbstrepräsentation in der fiktiven Landesordnung.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

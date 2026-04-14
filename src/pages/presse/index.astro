@@ -1,58 +1,38 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import PressReleaseCard from '../../components/portal/PressReleaseCard.astro';
-import { getHomeUrl, loadFeaturedPressReleases, loadPressReleases } from '../../lib/portal/index.ts';
-
-const [releases, featuredReleases] = await Promise.all([
-  loadPressReleases(),
-  loadFeaturedPressReleases(2),
-]);
-
-const featuredSlugs = new Set(featuredReleases.map((release) => release.slug));
-const archiveReleases = releases.filter((release) => !featuredSlugs.has(release.slug));
-const leadRelease = featuredReleases[0];
-const secondaryFeatured = featuredReleases.slice(1);
+import { getHomeUrl, getPressReleaseIndexUrl } from '../../lib/portal/index.ts';
 ---
 
-<BaseLayout title="Presse" description="Pressemitteilungen der Staatsregierung.">
-  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Presse' }]} />
+<BaseLayout title="Presse & Aktuelles" description="Pressebereich der Staatsregierung des Ostdeutschen Freistaates.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse' }]} />
 
   <section class="section page-header">
-    <p class="eyebrow">Presse</p>
-    <h1>Pressemitteilungen</h1>
+    <p class="eyebrow">Presse & Aktuelles</p>
+    <h1>Presse & Aktuelles</h1>
     <p class="lead">
-      Der Pressebereich bündelt aktuelle Meldungen der Staatsregierung mit klaren Metadaten, stabilen
-      URLs und einer behördennahen Darstellung.
+      Der Pressebereich führt Mitteilungen, später auch Reden und Termine, unter einer
+      gemeinsamen Struktur zusammen.
     </p>
   </section>
 
-  {leadRelease ? (
-    <section class="section section-muted">
-      <div class="section-header">
-        <h2>Hervorgehobene Meldung</h2>
-        <p>Wichtige Mitteilungen der Staatsregierung werden auf der Übersichtsseite besonders sichtbar hervorgehoben.</p>
-      </div>
-      <PressReleaseCard release={leadRelease} variant="featured" />
-      {secondaryFeatured.length > 0 ? (
-        <div class="card-grid card-grid--two">
-          {secondaryFeatured.map((release) => (
-            <PressReleaseCard release={release} variant="compact" />
-          ))}
-        </div>
-      ) : null}
-    </section>
-  ) : null}
-
   <section class="section">
-    <div class="section-header">
-      <h2>Archiv</h2>
-      <p>Alle Pressemitteilungen bleiben als statische Einzelseiten mit Datum, Ressortbezug und Fließtext erreichbar.</p>
-    </div>
-    <div class="content-stack">
-      {(archiveReleases.length > 0 ? archiveReleases : releases).map((release) => (
-        <PressReleaseCard release={release} />
-      ))}
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Pressemitteilungen</h2>
+        <p>Bereits angebundener redaktioneller Bestand mit stabilen Detailseiten.</p>
+        <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Pressemitteilungen</a></p>
+      </article>
+      <article class="panel">
+        <h2>Reden</h2>
+        <p>Die Struktur für Reden ist vorbereitet und wird in den nächsten Phasen redaktionell ergänzt.</p>
+        <p><a class="inline-link" href="/presse/reden/">Zu den Reden</a></p>
+      </article>
+      <article class="panel">
+        <h2>Termine</h2>
+        <p>Auch Termine werden künftig in den Pressebereich eingebettet, ohne eigene Serverlogik.</p>
+        <p><a class="inline-link" href="/presse/termine/">Zu den Terminen</a></p>
+      </article>
     </div>
   </section>
 </BaseLayout>

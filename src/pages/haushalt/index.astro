@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getHomeUrl } from '../../lib/portal/index.ts';
+---
+
+<BaseLayout title="Haushalt" description="Haushaltsbereich des Gesamtportals der Staatsregierung.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Haushalt</p>
+    <h1>Haushalt</h1>
+    <p class="lead">
+      Der Haushaltsbereich wird als eigener Hauptbereich des Gesamtportals vorbereitet und in
+      späteren Phasen mit Gesamtplan, Einzelplänen und Sondervermögen ausgebaut.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Gesamtplan</h2>
+        <p>Struktureller Einstieg in die Gesamtschau des Landeshaushalts.</p>
+      </article>
+      <article class="panel">
+        <h2>Einzelpläne</h2>
+        <p>Ressortbezogene Haushaltsbereiche werden in einer späteren Phase ergänzt.</p>
+      </article>
+      <article class="panel">
+        <h2>Sondervermögen</h2>
+        <p>Spezielle Finanzierungsinstrumente erhalten einen eigenen, statischen Darstellungsrahmen.</p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

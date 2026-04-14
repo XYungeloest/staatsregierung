@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { getHomeUrl, getPressUrl } from '../../../lib/portal/index.ts';
+---
+
+<BaseLayout title="Termine" description="Vorbereitete Struktur für Termine im Pressebereich.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Presse', href: getPressUrl() },
+      { label: 'Termine' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Presse & Aktuelles</p>
+    <h1>Termine</h1>
+    <p class="lead">
+      Die Routenhülle für Termine ist bereits Teil der Master-Architektur. Redaktionelle Inhalte
+      folgen in einer späteren Phase.
+    </p>
+  </section>
+</BaseLayout>

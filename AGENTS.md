@@ -1,5 +1,17 @@
 # AGENTS.md
 
+## Master-Portal-Regel
+
+Dieses Projekt ist ein statisches Gesamtportal der Staatsregierung mit integriertem Rechtsbereich.
+
+Prioritäten:
+1. Das Gesamtportal wirkt wie eine Regierungswebsite.
+2. Das Rechtsportal bleibt funktional erhalten.
+3. Inhalte bleiben dateibasiert.
+4. Keine neue Serverarchitektur.
+5. Navigation und Informationsarchitektur folgen der Master-Spezifikation.
+6. Bereits bestehende Seiten dürfen angepasst oder umgehängt werden, wenn dies der konsistenten Gesamtarchitektur dient.
+
 ## Projektkontext
 
 Dieses Repository baut ein statisches Rechtsportal für eine politische Simulation. Es ist kein allgemeines CMS und kein juristisches Großsystem, sondern ein bewusst einfaches, robustes und langfristig wartbares Portal mit aktuellen Fassungen, historischen Fassungen, Normenhistorie und Suche.
@@ -71,14 +83,3 @@ Wenn Anforderungen unklar sind:
 - an `SPEC.md` orientieren
 - konservative, einfache Interpretation wählen
 - keine große Zusatzarchitektur einführen
-
-## Portal-Redesign-Hinweis
-
-Dieses Projekt ist nicht mehr nur ein Rechtsportal, sondern eine statische Website der Staatsregierung mit integriertem Rechtsbereich.
-
-Wichtige Prioritäten:
-1. Das Rechtsportal darf funktional nicht beschädigt werden.
-2. Neue Portalbereiche sollen mit derselben statischen Architektur umgesetzt werden.
-3. Inhalte sind dateibasiert.
-4. Navigation, Layout und Service-Struktur sollen eher wie ein Regierungsportal als wie eine Fachanwendung wirken.
-5. Keine neue Serverarchitektur einführen.

@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
+
+const faqItems = [
+  {
+    question: 'Ist dies eine echte Website einer Behörde?',
+    answer:
+      'Nein. Das Portal ist Teil einer fiktiven Politiksimulation und kennzeichnet seine Inoffizialität dauerhaft sichtbar.',
+  },
+  {
+    question: 'Werden Eingaben serverseitig gespeichert?',
+    answer:
+      'Nein. Das Projekt bleibt vollständig statisch und GitHub-Pages-kompatibel; serverseitige Speicherung findet nicht statt.',
+  },
+  {
+    question: 'Wo finde ich Rechtsvorschriften?',
+    answer:
+      'Der gesamte Rechtsbestand ist unter /recht/ gebündelt und umfasst aktuelle Fassungen, Historien und historische Fassungen.',
+  },
+];
+---
+
+<BaseLayout title="FAQ" description="Häufige Fragen zum Regierungsportal und seiner statischen Architektur.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Service', href: getServiceUrl() },
+      { label: 'FAQ' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>FAQ</h1>
+    <p class="lead">Kurze Hinweise zu Portalcharakter, Technik und Nutzung.</p>
+  </section>
+
+  <section class="section">
+    <div class="content-stack">
+      {faqItems.map((item) => (
+        <article class="panel">
+          <h2>{item.question}</h2>
+          <p>{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
