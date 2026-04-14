@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  getGovernmentMemberUrl,
+  getGovernmentMembersUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  loadGovernmentMembers,
+  type RegierungMitglied,
+} from '../../../lib/portal/index.ts';
+
+export async function getStaticPaths() {
+  const members = await loadGovernmentMembers();
+
+  return members.map((member) => ({
+    params: { slug: member.slug },
+    props: { member },
+  }));
+}
+
+const { member } = Astro.props as { member: RegierungMitglied };
+---
+
+<BaseLayout title={member.name} description={member.kurzbiografie}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Regierung', href: getGovernmentUrl() },
+      { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
+      { label: member.name },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Regierungsmitglied</p>
+    <h1>{member.name}</h1>
+    <p class="lead">{member.amt}</p>
+    <p class="detail-line">{member.ressort}</p>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <div class="status-notice status-notice--current">
+        <h2>Aktuelles Profil</h2>
+        <p>Dieses Profil gehört zur aktuellen Staatsregierung und wird als dateibasierter Portalinhalt gepflegt.</p>
+      </div>
+      <article class="profile-card">
+        <img src={member.bild} alt="" />
+        <div>
+          <p>{member.kurzbiografie}</p>
+          {member.zitat ? <blockquote class="quote-card">„{member.zitat}“</blockquote> : null}
+        </div>
+      </article>
+      <div class="body-copy">
+        {member.langbiografie.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Profil</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Amt</dt>
+          <dd>{member.amt}</dd>
+        </div>
+        <div>
+          <dt>Ressort</dt>
+          <dd>{member.ressort}</dd>
+        </div>
+        <div>
+          <dt>Kontakt</dt>
+          <dd>{member.kontakt?.email ?? 'wird redaktionell ergänzt'}</dd>
+        </div>
+        {member.kontakt?.telefon ? (
+          <div>
+            <dt>Telefon</dt>
+            <dd>{member.kontakt.telefon}</dd>
+          </div>
+        ) : null}
+      </dl>
+      <nav class="link-list">
+        <a href={getGovernmentMembersUrl()}>Zur Übersicht</a>
+        <a href={getGovernmentMemberUrl(member.slug)}>Stabile URL dieses Profils</a>
+      </nav>
+    </aside>
+  </div>
+</BaseLayout>

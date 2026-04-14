@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getHomeUrl, loadPageBySlug } from '../lib/portal/index.ts';
+
+const page = await loadPageBySlug('kontakt');
+---
+
+<BaseLayout title={page?.title ?? 'Kontakt'} description="Kontaktseite der Staatsregierung.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Kontakt' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>{page?.title ?? 'Kontakt'}</h1>
+  </section>
+
+  <div class="content-grid">
+    <section class="section body-copy">
+      {(page?.body ?? []).map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Zentrale Kontaktwege</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Telefon</dt>
+          <dd>+49 341 1000-0</dd>
+        </div>
+        <div>
+          <dt>E-Mail</dt>
+          <dd>service@ostfreistaat.example</dd>
+        </div>
+        <div>
+          <dt>Postanschrift</dt>
+          <dd>Staatskanzlei, Regierungsplatz 1, 04109 Leipzig</dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</BaseLayout>

@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../config/site.ts';
+import { getHomeUrl, getPressReleaseUrl, loadPressReleases } from '../../lib/portal/index.ts';
+
+const releases = await loadPressReleases();
+---
+
+<BaseLayout title="Presse" description="Pressemitteilungen der Staatsregierung.">
+  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Presse' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Presse</p>
+    <h1>Pressemitteilungen</h1>
+    <p class="lead">Der Bereich enthält erste dateibasierte Pressemitteilungen mit Metadaten, Bildern und Ressortbezug.</p>
+  </section>
+
+  <div class="content-stack">
+    {releases.map((release) => (
+      <article class="section press-card">
+        <img src={release.image} alt={release.imageAlt} />
+        <div>
+          <p class="eyebrow">{siteConfig.date.formatLong(release.date)} · {release.ministry}</p>
+          <h2><a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a></h2>
+          <p>{release.teaser}</p>
+        </div>
+      </article>
+    ))}
+  </div>
+</BaseLayout>

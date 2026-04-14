@@ -1,14 +1,17 @@
+import {
+  getAccessibilityUrl,
+  getEditorialUrl,
+  getHomeUrl,
+  getImprintUrl,
+  getLawHomeUrl,
+  getLawIndexUrl,
+  getLawSearchUrl,
+  getLawSubjectsUrl,
+  getOverviewUrl,
+  getPrivacyUrl,
+  withBase,
+} from '../portal/routes.ts';
 import type { NormRecord } from './schema.ts';
-
-const base = import.meta.env?.BASE_URL ?? '/';
-
-function withBase(path: string): string {
-  if (base === '/') {
-    return path;
-  }
-
-  return `${base}${path.replace(/^\//, '')}`;
-}
 
 function normalizeForSlug(value: string): string {
   return value
@@ -20,59 +23,41 @@ function normalizeForSlug(value: string): string {
 }
 
 export function getNormUrl(slug: string): string {
-  return withBase(`/norm/${slug}/`);
+  return withBase(`/recht/norm/${slug}/`);
 }
 
 export function getNormHistoryUrl(slug: string): string {
-  return withBase(`/norm/${slug}/history/`);
+  return withBase(`/recht/norm/${slug}/history/`);
 }
 
 export function getNormVersionUrl(slug: string, versionId: string): string {
-  return withBase(`/norm/${slug}/version/${versionId}/`);
-}
-
-export function getHomeUrl(): string {
-  return withBase('/');
-}
-
-export function getIndexUrl(): string {
-  return withBase('/index/');
+  return withBase(`/recht/norm/${slug}/version/${versionId}/`);
 }
 
 export function getSearchUrl(): string {
-  return withBase('/search/');
+  return getLawSearchUrl();
+}
+
+export function getIndexUrl(): string {
+  return getLawIndexUrl();
 }
 
 export function getSubjectsUrl(): string {
-  return withBase('/subjects/');
+  return getLawSubjectsUrl();
 }
 
-export function getEditorialUrl(): string {
-  return withBase('/redaktion/');
+export function getLawPortalUrl(): string {
+  return getLawHomeUrl();
 }
 
-export function getOverviewUrl(): string {
-  return withBase('/uebersicht/');
-}
-
-export function getImprintUrl(): string {
-  return withBase('/impressum/');
-}
-
-export function getPrivacyUrl(): string {
-  return withBase('/datenschutz/');
-}
-
-export function getAccessibilityUrl(): string {
-  return withBase('/barrierefreiheit/');
-}
+export { getAccessibilityUrl, getEditorialUrl, getHomeUrl, getImprintUrl, getOverviewUrl, getPrivacyUrl };
 
 export function getSubjectSlug(subject: string): string {
   return normalizeForSlug(subject);
 }
 
 export function getSubjectUrl(subject: string): string {
-  return withBase(`/subjects/${getSubjectSlug(subject)}/`);
+  return withBase(`/recht/subjects/${getSubjectSlug(subject)}/`);
 }
 
 export interface SubjectGroup {

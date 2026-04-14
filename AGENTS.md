@@ -71,3 +71,14 @@ Wenn Anforderungen unklar sind:
 - an `SPEC.md` orientieren
 - konservative, einfache Interpretation wählen
 - keine große Zusatzarchitektur einführen
+
+## Portal-Redesign-Hinweis
+
+Dieses Projekt ist nicht mehr nur ein Rechtsportal, sondern eine statische Website der Staatsregierung mit integriertem Rechtsbereich.
+
+Wichtige Prioritäten:
+1. Das Rechtsportal darf funktional nicht beschädigt werden.
+2. Neue Portalbereiche sollen mit derselben statischen Architektur umgesetzt werden.
+3. Inhalte sind dateibasiert.
+4. Navigation, Layout und Service-Struktur sollen eher wie ein Regierungsportal als wie eine Fachanwendung wirken.
+5. Keine neue Serverarchitektur einführen.

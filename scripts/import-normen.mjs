@@ -158,10 +158,6 @@ function stripMarkdown(value) {
   );
 }
 
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&');
-}
-
 function prependHeadingTypeIfFragment(title, headingType) {
   const normalizedTitle = normalizeWhitespace(title);
   const normalizedHeadingType = normalizeWhitespace(headingType);

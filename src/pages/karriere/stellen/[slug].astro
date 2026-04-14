@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../../config/site.ts';
+import {
+  getCareerUrl,
+  getHomeUrl,
+  getJobsUrl,
+  loadJobOffers,
+  type Stellenangebot,
+} from '../../../lib/portal/index.ts';
+
+export async function getStaticPaths() {
+  const offers = await loadJobOffers();
+
+  return offers.map((offer) => ({
+    params: { slug: offer.slug },
+    props: { offer },
+  }));
+}
+
+const { offer } = Astro.props as { offer: Stellenangebot };
+---
+
+<BaseLayout title={offer.title} description={offer.teaser}>
+  <Breadcrumbs
+    items={[
+      { label: 'Start', href: getHomeUrl() },
+      { label: 'Karriere', href: getCareerUrl() },
+      { label: 'Stellenangebote', href: getJobsUrl() },
+      { label: offer.title },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Stellenangebot</p>
+    <h1>{offer.title}</h1>
+    <p class="lead">{offer.teaser}</p>
+    <p class="detail-line">
+      {offer.ministry} · {offer.location} · veröffentlicht am {siteConfig.date.formatLong(offer.datePosted)}
+    </p>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <img class="media-banner" src="/images/jobs/job-platzhalter.svg" alt="" />
+      <div class="body-copy">
+        {offer.body.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Rahmendaten</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Arbeitsort</dt>
+          <dd>{offer.location}</dd>
+        </div>
+        <div>
+          <dt>Beschäftigungsumfang</dt>
+          <dd>{offer.employmentType}</dd>
+        </div>
+        <div>
+          <dt>Vergütung</dt>
+          <dd>{offer.payGrade ?? 'nach Qualifikation'}</dd>
+        </div>
+        <div>
+          <dt>Bewerbungsfrist</dt>
+          <dd>{siteConfig.date.formatLong(offer.applicationDeadline)}</dd>
+        </div>
+      </dl>
+      <nav class="link-list">
+        <a href={getJobsUrl()}>Zur Stellenliste</a>
+        {offer.contact?.email ? <a href={`mailto:${offer.contact.email}`}>Kontakt per E-Mail</a> : null}
+      </nav>
+    </aside>
+  </div>
+</BaseLayout>

@@ -1,0 +1,24 @@
+---
+import {
+  getGovernmentMemberUrl,
+  type RegierungMitglied,
+} from '../../lib/portal/index.ts';
+
+interface Props {
+  member: RegierungMitglied;
+  variant?: 'default' | 'compact';
+}
+
+const { member, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+---
+
+<article class:list={['panel', 'member-card', isCompact && 'member-card--compact']}>
+  <img class="member-card__image" src={member.bild} alt="" />
+  <div class="member-card__body">
+    <h3><a class="inline-link" href={getGovernmentMemberUrl(member.slug)}>{member.name}</a></h3>
+    <p class="detail-line">{member.amt}</p>
+    <p class="member-card__ressort">{member.ressort}</p>
+    {!isCompact ? <p>{member.kurzbiografie}</p> : null}
+  </div>
+</article>

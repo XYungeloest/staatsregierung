@@ -422,10 +422,6 @@ function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBo
   };
   const type = normalizedTypeMap[rawType] ?? rawType;
 
-  if (type === 'heading') {
-    return [];
-  }
-
   const looksLikeStructuredBlock =
     block.children !== undefined || block.title !== undefined || block.label !== undefined;
 
