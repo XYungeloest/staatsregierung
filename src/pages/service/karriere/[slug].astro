@@ -5,6 +5,7 @@ import { siteConfig } from '../../../config/site.ts';
 import {
   getCareerUrl,
   getHomeUrl,
+  getJobUrl,
   getServiceUrl,
   loadJobOffers,
   type Stellenangebot,
@@ -20,6 +21,7 @@ export async function getStaticPaths() {
 }
 
 const { offer } = Astro.props as { offer: Stellenangebot };
+const relatedOffers = (await loadJobOffers()).filter((entry) => entry.slug !== offer.slug).slice(0, 2);
 ---
 
 <BaseLayout title={offer.title} description={offer.teaser}>
@@ -37,7 +39,7 @@ const { offer } = Astro.props as { offer: Stellenangebot };
     <h1>{offer.title}</h1>
     <p class="lead">{offer.teaser}</p>
     <p class="detail-line">
-      {offer.ministry} · {offer.location} · veröffentlicht am{' '}
+      {offer.ressort} · {offer.standort} · veröffentlicht am{' '}
       {siteConfig.date.formatLong(offer.datePosted)}
     </p>
   </section>
@@ -70,11 +72,15 @@ const { offer } = Astro.props as { offer: Stellenangebot };
       <dl class="meta-list">
         <div>
           <dt>Arbeitgeber</dt>
-          <dd>{offer.ministry}</dd>
+          <dd>{offer.ressort}</dd>
+        </div>
+        <div>
+          <dt>Arbeitsbereich</dt>
+          <dd>{offer.arbeitsbereich}</dd>
         </div>
         <div>
           <dt>Arbeitsort</dt>
-          <dd>{offer.location}</dd>
+          <dd>{offer.standort}</dd>
         </div>
         <div>
           <dt>Beschäftigungsart</dt>
@@ -98,6 +104,21 @@ const { offer } = Astro.props as { offer: Stellenangebot };
         {offer.contact?.email ? <a href={`mailto:${offer.contact.email}`}>Kontakt per E-Mail</a> : null}
         {offer.contact?.telefon ? <a href={`tel:${offer.contact.telefon.replace(/\s+/g, '')}`}>Kontakt per Telefon</a> : null}
       </nav>
+      {relatedOffers.length > 0 ? (
+        <>
+          <div class="section-header section-header--compact">
+            <h2>Weitere Stellen</h2>
+          </div>
+          <ul class="record-list">
+            {relatedOffers.map((entry) => (
+              <li class="record-list__item">
+                <strong><a class="inline-link" href={getJobUrl(entry.slug)}>{entry.title}</a></strong>
+                <span>{entry.ressort}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
     </aside>
   </div>
 </BaseLayout>

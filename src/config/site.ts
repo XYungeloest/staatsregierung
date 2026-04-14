@@ -25,6 +25,8 @@ export const siteConfig = {
     topics: '/themen/',
     press: '/presse/',
     pressReleases: '/presse/pressemitteilungen/',
+    pressSpeeches: '/presse/reden/',
+    pressDates: '/presse/termine/',
     budget: '/haushalt/',
     freestate: '/freistaat/',
     service: '/service/',

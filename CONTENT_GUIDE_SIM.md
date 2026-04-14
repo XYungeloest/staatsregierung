@@ -120,4 +120,4 @@ FAQ und Verlinkung ins Rechtsportal immer integrieren.
 - Verfassung und Staatsziele
 - Geschichte und Erinnerungspolitik
 
-Weitere Informationen und echte Pressemmitteilungen können aus dem Ordner "context" entnommen werden, er enthält 3 Wiki Artikel und 4 Pressemitteilungen.
+Weitere Informationen und echte Pressemmitteilungen können aus dem Ordner "context" entnommen werden, er enthält 3 Wiki Artikel, den Haushalt als html(zip), csv und odt, je nach dem was du besser lesen kannst, und 4 Pressemitteilungen.

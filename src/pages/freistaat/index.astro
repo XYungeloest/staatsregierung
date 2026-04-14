@@ -1,35 +1,87 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getHomeUrl } from '../../lib/portal/index.ts';
+import { siteConfig } from '../../config/site.ts';
+import {
+  getFreestatePageUrl,
+  getHomeUrl,
+  loadFreestatePages,
+} from '../../lib/portal/index.ts';
+import { getLawConstitutionUrl } from '../../lib/norms/index.ts';
+
+const pages = await loadFreestatePages();
+const orderedPages = [
+  'verfassung-und-staatsziele',
+  'bezirke',
+  'landesfarben-und-hoheitszeichen',
+  'hauptstaedte',
+  'geschichte',
+]
+  .map((slug) => pages.find((page) => page.slug === slug))
+  .filter((page): page is NonNullable<typeof page> => Boolean(page));
 ---
 
 <BaseLayout title="Über den Freistaat" description="Grundinformationen zum Ostdeutschen Freistaat.">
-  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Freistaat' }]} />
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Über den Freistaat' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Über den Freistaat</p>
     <h1>Über den Freistaat</h1>
     <p class="lead">
-      Der Bereich bündelt Grundinformationen zu Verfassung, Staatszielen, Bezirken,
-      Hoheitszeichen und Geschichte des Ostdeutschen Freistaates.
+      Dieser Bereich bündelt Grundinformationen zu Verfassung, Bezirken, Hoheitszeichen,
+      Hauptstadtfunktionen und zur Geschichte des Ostdeutschen Freistaates.
     </p>
   </section>
 
   <section class="section">
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h2>Verfassung und Staatsziele</h2>
-        <p>Einordnung der grundlegenden Staatsordnung und ihrer politischen Leitlinien.</p>
-      </article>
-      <article class="panel">
-        <h2>Bezirke und Hauptstädte</h2>
-        <p>Verwaltungsstruktur und räumliche Ordnung des Freistaates.</p>
-      </article>
-      <article class="panel">
-        <h2>Landesfarben und Hoheitszeichen</h2>
-        <p>Symbolik und staatliche Selbstrepräsentation in der fiktiven Landesordnung.</p>
-      </article>
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Landeshauptstadt</span>
+        <strong>{siteConfig.currentGovernment.seatOfGovernment}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Bundeshauptstadt</span>
+        <strong>Berlin</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Bezirke</span>
+        <strong>Acht Bezirke</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Landesfarben</span>
+        <strong>Blau, Weiß und Grün</strong>
+      </div>
     </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Themenbereiche</h2>
+      <p>
+        Die Unterseiten ordnen den Freistaat in sachlicher Form ein und verknüpfen, wo sinnvoll,
+        direkt in den Rechtsbereich.
+      </p>
+    </div>
+    <div class="card-grid card-grid--three">
+      {orderedPages.map((page) => (
+        <article class="panel">
+          <h2><a class="inline-link" href={getFreestatePageUrl(page.slug)}>{page.title}</a></h2>
+          <p>{page.body[0]}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Direkter Verfassungszugang</h2>
+      <p>
+        Die rechtliche Grundordnung des Freistaates bleibt parallel als Teil des integrierten
+        Rechtsportals zugänglich.
+      </p>
+    </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getLawConstitutionUrl()}>Zur Verfassung im Rechtsportal</a>
+    </p>
   </section>
 </BaseLayout>

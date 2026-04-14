@@ -4,18 +4,24 @@ import { join, resolve } from 'node:path';
 
 import { portalCollections } from './collections.ts';
 import {
+  parseHaushaltsseite,
   PortalContentValidationError,
+  parseRede,
   parseMinisterium,
   parsePressemitteilung,
   parseRegierungMitglied,
   parseSeite,
   parseStellenangebot,
+  parseTermin,
   parseThemenseite,
+  type Haushaltsseite,
   type Ministerium,
   type Pressemitteilung,
+  type Rede,
   type RegierungMitglied,
   type Seite,
   type Stellenangebot,
+  type Termin,
   type Themenseite,
 } from './schema.ts';
 
@@ -103,6 +109,26 @@ export async function loadPressReleases(): Promise<Pressemitteilung[]> {
   return entries.sort((left, right) => right.date.localeCompare(left.date));
 }
 
+export async function loadSpeeches(): Promise<Rede[]> {
+  const entries = await loadCollection(portalCollections.rede.directorySegments, parseRede);
+  return entries.sort((left, right) => right.date.localeCompare(left.date));
+}
+
+export async function loadSpeechBySlug(slug: string): Promise<Rede | undefined> {
+  const entries = await loadSpeeches();
+  return entries.find((entry) => entry.slug === slug);
+}
+
+export async function loadEvents(): Promise<Termin[]> {
+  const entries = await loadCollection(portalCollections.termin.directorySegments, parseTermin);
+  return entries.sort((left, right) => left.date.localeCompare(right.date));
+}
+
+export async function loadEventBySlug(slug: string): Promise<Termin | undefined> {
+  const entries = await loadEvents();
+  return entries.find((entry) => entry.slug === slug);
+}
+
 export async function loadTopics(): Promise<Themenseite[]> {
   const entries = await loadCollection(portalCollections.themenseite.directorySegments, parseThemenseite);
   return entries.sort((left, right) => left.title.localeCompare(right.title, 'de'));
@@ -110,6 +136,19 @@ export async function loadTopics(): Promise<Themenseite[]> {
 
 export async function loadTopicBySlug(slug: string): Promise<Themenseite | undefined> {
   const entries = await loadTopics();
+  return entries.find((entry) => entry.slug === slug);
+}
+
+export async function loadBudgetPages(): Promise<Haushaltsseite[]> {
+  const entries = await loadCollection(
+    portalCollections.haushaltsseite.directorySegments,
+    parseHaushaltsseite,
+  );
+  return entries.sort((left, right) => left.title.localeCompare(right.title, 'de'));
+}
+
+export async function loadBudgetPageBySlug(slug: string): Promise<Haushaltsseite | undefined> {
+  const entries = await loadBudgetPages();
   return entries.find((entry) => entry.slug === slug);
 }
 
@@ -143,6 +182,19 @@ export async function loadPages(): Promise<Seite[]> {
 
 export async function loadPageBySlug(slug: string): Promise<Seite | undefined> {
   const entries = await loadPages();
+  return entries.find((entry) => entry.slug === slug);
+}
+
+export async function loadFreestatePages(): Promise<Seite[]> {
+  const entries = await loadCollection(
+    portalCollections.freistaatSeite.directorySegments,
+    parseSeite,
+  );
+  return entries.sort((left, right) => left.title.localeCompare(right.title, 'de'));
+}
+
+export async function loadFreestatePageBySlug(slug: string): Promise<Seite | undefined> {
+  const entries = await loadFreestatePages();
   return entries.find((entry) => entry.slug === slug);
 }
 

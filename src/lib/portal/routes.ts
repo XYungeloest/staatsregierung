@@ -74,12 +74,36 @@ export function getPressReleaseUrl(slug: string): string {
   return withBase(`${siteConfig.paths.pressReleases}${slug}/`);
 }
 
+export function getSpeechIndexUrl(): string {
+  return getSiteUrl('pressSpeeches');
+}
+
+export function getSpeechUrl(slug: string): string {
+  return withBase(`${siteConfig.paths.pressSpeeches}${slug}/`);
+}
+
+export function getEventIndexUrl(): string {
+  return getSiteUrl('pressDates');
+}
+
+export function getEventUrl(slug: string): string {
+  return withBase(`${siteConfig.paths.pressDates}${slug}/`);
+}
+
 export function getBudgetUrl(): string {
   return getSiteUrl('budget');
 }
 
+export function getBudgetPageUrl(slug: string): string {
+  return withBase(`${siteConfig.paths.budget}${slug}/`);
+}
+
 export function getFreestateUrl(): string {
   return getSiteUrl('freestate');
+}
+
+export function getFreestatePageUrl(slug: string): string {
+  return withBase(`${siteConfig.paths.freestate}${slug}/`);
 }
 
 export function getServiceUrl(): string {

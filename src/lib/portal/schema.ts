@@ -88,23 +88,50 @@ export interface Pressemitteilung {
   slug: string;
   title: string;
   date: string;
+  ressort: string;
   teaser: string;
   image: string;
   imageAlt: string;
   imageCredit: string;
-  ministry: string;
   tags: string[];
   body: string[];
   isFeatured: boolean;
 }
 
+export interface Rede {
+  slug: string;
+  title: string;
+  date: string;
+  sprecher: string;
+  teaser: string;
+  body: string[];
+}
+
+export interface Termin {
+  slug: string;
+  title: string;
+  date: string;
+  location: string;
+  teaser: string;
+  body: string[];
+}
+
+export interface Haushaltsseite {
+  slug: string;
+  title: string;
+  teaser: string;
+  body: string[];
+  dataset?: Record<string, unknown>;
+}
+
 export interface Stellenangebot {
   slug: string;
   title: string;
-  ministry: string;
+  ressort: string;
+  standort: string;
+  arbeitsbereich: string;
   datePosted: string;
   applicationDeadline: string;
-  location: string;
   employmentType: string;
   payGrade?: string;
   teaser: string;
@@ -237,6 +264,17 @@ function parseLinks(value: unknown, path: string): PortalLink[] {
   });
 }
 
+function parseOptionalRecord(
+  value: unknown,
+  path: string,
+): Record<string, unknown> | undefined {
+  if (value === undefined || value === null) {
+    return undefined;
+  }
+
+  return expectRecord(value, path);
+}
+
 export function parseRegierungMitglied(value: unknown, path: string): RegierungMitglied {
   const entry = expectRecord(value, path);
 
@@ -348,14 +386,52 @@ export function parsePressemitteilung(value: unknown, path: string): Pressemitte
     slug: expectSlug(entry.slug, createPath(path, 'slug')),
     title: expectString(entry.title, createPath(path, 'title')),
     date: expectDate(entry.date, createPath(path, 'date')),
+    ressort: expectString(entry.ressort ?? entry.ministry, createPath(path, 'ressort')),
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     image: expectString(entry.image, createPath(path, 'image')),
     imageAlt: expectString(entry.imageAlt, createPath(path, 'imageAlt')),
     imageCredit: expectString(entry.imageCredit, createPath(path, 'imageCredit')),
-    ministry: expectString(entry.ministry, createPath(path, 'ministry')),
     tags: expectStringArray(entry.tags, createPath(path, 'tags')),
     body: expectStringArray(entry.body, createPath(path, 'body')),
     isFeatured: expectBoolean(entry.isFeatured, createPath(path, 'isFeatured')),
+  };
+}
+
+export function parseRede(value: unknown, path: string): Rede {
+  const entry = expectRecord(value, path);
+
+  return {
+    slug: expectSlug(entry.slug, createPath(path, 'slug')),
+    title: expectString(entry.title, createPath(path, 'title')),
+    date: expectDate(entry.date, createPath(path, 'date')),
+    sprecher: expectString(entry.sprecher, createPath(path, 'sprecher')),
+    teaser: expectString(entry.teaser, createPath(path, 'teaser')),
+    body: expectStringArray(entry.body, createPath(path, 'body')),
+  };
+}
+
+export function parseTermin(value: unknown, path: string): Termin {
+  const entry = expectRecord(value, path);
+
+  return {
+    slug: expectSlug(entry.slug, createPath(path, 'slug')),
+    title: expectString(entry.title, createPath(path, 'title')),
+    date: expectDate(entry.date, createPath(path, 'date')),
+    location: expectString(entry.location, createPath(path, 'location')),
+    teaser: expectString(entry.teaser, createPath(path, 'teaser')),
+    body: expectStringArray(entry.body, createPath(path, 'body')),
+  };
+}
+
+export function parseHaushaltsseite(value: unknown, path: string): Haushaltsseite {
+  const entry = expectRecord(value, path);
+
+  return {
+    slug: expectSlug(entry.slug, createPath(path, 'slug')),
+    title: expectString(entry.title, createPath(path, 'title')),
+    teaser: expectString(entry.teaser, createPath(path, 'teaser')),
+    body: expectStringArray(entry.body, createPath(path, 'body')),
+    dataset: parseOptionalRecord(entry.dataset, createPath(path, 'dataset')),
   };
 }
 
@@ -365,13 +441,14 @@ export function parseStellenangebot(value: unknown, path: string): Stellenangebo
   return {
     slug: expectSlug(entry.slug, createPath(path, 'slug')),
     title: expectString(entry.title, createPath(path, 'title')),
-    ministry: expectString(entry.ministry, createPath(path, 'ministry')),
+    ressort: expectString(entry.ressort ?? entry.ministry, createPath(path, 'ressort')),
+    standort: expectString(entry.standort ?? entry.location, createPath(path, 'standort')),
+    arbeitsbereich: expectString(entry.arbeitsbereich, createPath(path, 'arbeitsbereich')),
     datePosted: expectDate(entry.datePosted, createPath(path, 'datePosted')),
     applicationDeadline: expectDate(
       entry.applicationDeadline,
       createPath(path, 'applicationDeadline'),
     ),
-    location: expectString(entry.location, createPath(path, 'location')),
     employmentType: expectString(entry.employmentType, createPath(path, 'employmentType')),
     payGrade: expectOptionalString(entry.payGrade, createPath(path, 'payGrade')),
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),

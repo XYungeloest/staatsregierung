@@ -1,24 +1,58 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import { getHomeUrl, getPressUrl } from '../../../lib/portal/index.ts';
+import SpeechCard from '../../../components/portal/SpeechCard.astro';
+import {
+  getEventIndexUrl,
+  getHomeUrl,
+  getPressUrl,
+  loadSpeeches,
+} from '../../../lib/portal/index.ts';
+
+const speeches = await loadSpeeches();
+const leadSpeech = speeches[0];
+const remainingSpeeches = speeches.slice(1);
 ---
 
-<BaseLayout title="Reden" description="Vorbereitete Struktur für Reden im Pressebereich.">
+<BaseLayout title="Reden & Regierungserklärungen" description="Reden und Regierungserklärungen der Staatsregierung.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Presse', href: getPressUrl() },
-      { label: 'Reden' },
+      { label: 'Presse & Aktuelles', href: getPressUrl() },
+      { label: 'Reden & Regierungserklärungen' },
     ]}
   />
 
   <section class="section page-header">
     <p class="eyebrow">Presse & Aktuelles</p>
-    <h1>Reden</h1>
+    <h1>Reden & Regierungserklärungen</h1>
     <p class="lead">
-      Die Routenhülle für Reden ist bereits Teil der Master-Architektur. Redaktionelle Inhalte
-      folgen in einer späteren Phase.
+      Hier werden programmatische Reden, Regierungserklärungen und politische Grundsatztexte der
+      Staatsregierung in statischer Form bereitgestellt.
+    </p>
+  </section>
+
+  {leadSpeech ? (
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Aktuelle Rede</h2>
+      </div>
+      <SpeechCard speech={leadSpeech} />
+    </section>
+  ) : null}
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Archiv</h2>
+      <p>Alle Reden und Regierungserklärungen bleiben als statische Einzelseiten mit Datum und Sprecherangabe erreichbar.</p>
+    </div>
+    <div class="content-stack">
+      {(remainingSpeeches.length > 0 ? remainingSpeeches : speeches).map((speech) => (
+        <SpeechCard speech={speech} />
+      ))}
+    </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getEventIndexUrl()}>Weiter zu den Terminen</a>
     </p>
   </section>
 </BaseLayout>

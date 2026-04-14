@@ -1,0 +1,30 @@
+---
+import { siteConfig } from '../../config/site.ts';
+import { getSpeechUrl, type Rede } from '../../lib/portal/index.ts';
+
+interface Props {
+  speech: Rede;
+  variant?: 'default' | 'compact';
+}
+
+const { speech, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+---
+
+<article class:list={['panel', 'speech-card', isCompact && 'speech-card--compact']}>
+  <img
+    class="media-banner speech-card__image"
+    src="/images/presse/presse-platzhalter.svg"
+    alt="Grafischer Platzhalter für Rede oder Regierungserklärung"
+  />
+  <div class="speech-card__body">
+    <p class="eyebrow">{siteConfig.date.formatLong(speech.date)} · {speech.sprecher}</p>
+    <h3><a class="inline-link" href={getSpeechUrl(speech.slug)}>{speech.title}</a></h3>
+    <p>{speech.teaser}</p>
+    {!isCompact ? (
+      <p class="detail-line">
+        {speech.body.length} Abschnitte · Redetext als statische Einzelseite verfügbar
+      </p>
+    ) : null}
+  </div>
+</article>

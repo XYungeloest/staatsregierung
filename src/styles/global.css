@@ -906,6 +906,37 @@ h5 {
   line-height: 1.18;
 }
 
+.speech-card {
+  display: grid;
+  grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.speech-card--compact,
+.event-card--compact {
+  grid-template-columns: 1fr;
+}
+
+.speech-card__image {
+  margin: 0;
+}
+
+.speech-card__body,
+.event-card__body {
+  min-width: 0;
+}
+
+.speech-card__body h3,
+.event-card__body h3 {
+  margin: 0.35rem 0 0;
+}
+
+.event-card {
+  display: grid;
+  gap: 0.75rem;
+}
+
 .member-card,
 .ministry-card,
 .job-card,
@@ -1215,6 +1246,11 @@ h5 {
   padding: 0.9rem 1rem;
   border: 1px solid var(--color-border-strong);
   background: var(--color-info-blue);
+}
+
+.job-filter-card[hidden],
+.contact-route-card[hidden] {
+  display: none !important;
 }
 
 .search-results {
@@ -1681,7 +1717,8 @@ h5 {
   .profile-card,
   .member-card,
   .press-card,
-  .press-tile {
+  .press-tile,
+  .speech-card {
     grid-template-columns: 1fr;
   }
 

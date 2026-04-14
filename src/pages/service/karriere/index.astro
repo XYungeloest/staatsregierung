@@ -5,7 +5,15 @@ import JobOfferCard from '../../../components/portal/JobOfferCard.astro';
 import { getHomeUrl, getServiceUrl, loadJobOffers } from '../../../lib/portal/index.ts';
 
 const offers = await loadJobOffers();
-const featuredOffers = offers.slice(0, 3);
+const ressorts = [...new Set(offers.map((offer) => offer.ressort))].sort((left, right) =>
+  left.localeCompare(right, 'de'),
+);
+const standorte = [...new Set(offers.map((offer) => offer.standort))].sort((left, right) =>
+  left.localeCompare(right, 'de'),
+);
+const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))].sort((left, right) =>
+  left.localeCompare(right, 'de'),
+);
 ---
 
 <BaseLayout title="Karriere" description="Karrierebereich der Staatsregierung des Ostdeutschen Freistaates.">
@@ -30,44 +38,127 @@ const featuredOffers = offers.slice(0, 3);
     <div class="section-header">
       <h2>Karriere in der Landesverwaltung</h2>
       <p>
-        Die Staatsregierung sucht Fachkräfte für Verwaltung, Kommunikation, Kultur, Infrastruktur
-        und den institutionellen Ausbau des Freistaates.
+        Gesucht werden Mitarbeitende für Verwaltung, Presse, Kulturförderung, digitale Dienste und
+        weitere staatliche Aufgabenbereiche des Freistaates.
       </p>
     </div>
     <div class="card-grid card-grid--three">
       <article class="panel">
         <h3>Behördennahe Arbeit</h3>
-        <p>
-          Gesucht werden Mitarbeitende mit sicherer schriftlicher Ausdrucksfähigkeit,
-          Organisationsvermögen und Verständnis für öffentliche Aufgaben.
-        </p>
+        <p>Ausgeschrieben sind Aufgaben mit hoher Textsicherheit, Organisationsstärke und öffentlicher Verantwortung.</p>
       </article>
       <article class="panel">
         <h3>Klare Verfahren</h3>
-        <p>
-          Die Ausschreibungen sind statisch gepflegt, enthalten alle zentralen Rahmendaten und
-          verweisen auf die zuständigen Kontaktstellen.
-        </p>
+        <p>Das Portal stellt Rahmendaten, Ausschreibungstexte und Kontaktstellen bereit, aber keine serverseitige Bewerbung.</p>
       </article>
       <article class="panel">
-        <h3>Breite Aufgabenfelder</h3>
-        <p>
-          Von Pressestelle und Kulturförderung bis zu digitalen Diensten und
-          Verwaltungsmodernisierung reicht das Spektrum der ausgeschriebenen Tätigkeiten.
-        </p>
+        <h3>Clientseitiger Filter</h3>
+        <p>Stellen können direkt auf der Seite nach Ressort, Standort und Beschäftigungsart eingegrenzt werden.</p>
       </article>
     </div>
   </section>
 
   <section class="section">
     <div class="section-header">
-      <h2>Aktuelle Stellenangebote</h2>
-      <p>Die zuletzt veröffentlichten Ausschreibungen sind direkt auf der Karriereseite eingebunden.</p>
+      <h2>Stellenangebote filtern</h2>
+      <p>Die Filterlogik läuft vollständig im Browser und verändert keine Daten auf dem Server.</p>
     </div>
-    <div class="card-grid card-grid--two">
-      {featuredOffers.map((offer) => (
-        <JobOfferCard offer={offer} />
+    <form class="search-form" id="career-filter" data-role="career-filter">
+      <div class="search-form__filters">
+        <label class="search-field">
+          <span>Stichwort</span>
+          <input type="search" name="query" placeholder="z. B. Kultur, Presse oder Verwaltung" />
+        </label>
+        <label class="search-field">
+          <span>Ressort</span>
+          <select name="ressort">
+            <option value="">Alle Ressorts</option>
+            {ressorts.map((entry) => (
+              <option value={entry}>{entry}</option>
+            ))}
+          </select>
+        </label>
+        <label class="search-field">
+          <span>Standort</span>
+          <select name="standort">
+            <option value="">Alle Standorte</option>
+            {standorte.map((entry) => (
+              <option value={entry}>{entry}</option>
+            ))}
+          </select>
+        </label>
+        <label class="search-field">
+          <span>Beschäftigungsart</span>
+          <select name="employmentType">
+            <option value="">Alle Arten</option>
+            {employmentTypes.map((entry) => (
+              <option value={entry}>{entry}</option>
+            ))}
+          </select>
+        </label>
+      </div>
+    </form>
+    <p class="search-feedback" id="career-filter-count">{offers.length} Stellenangebote sichtbar</p>
+    <p class="search-feedback search-feedback--warning" id="career-filter-empty" hidden>
+      Für diese Auswahl wurden keine Stellenangebote gefunden.
+    </p>
+    <div class="card-grid card-grid--two" id="career-filter-results">
+      {offers.map((offer) => (
+        <div
+          class="job-filter-card"
+          data-ressort={offer.ressort}
+          data-standort={offer.standort}
+          data-employment-type={offer.employmentType}
+          data-search={`${offer.title} ${offer.teaser} ${offer.arbeitsbereich} ${offer.ressort}`.toLowerCase()}
+        >
+          <JobOfferCard offer={offer} />
+        </div>
       ))}
     </div>
   </section>
+
+  <script is:inline>
+    (() => {
+      const form = document.querySelector('[data-role="career-filter"]');
+      if (!(form instanceof HTMLFormElement)) return;
+
+      const cards = Array.from(document.querySelectorAll('.job-filter-card'));
+      const count = document.getElementById('career-filter-count');
+      const empty = document.getElementById('career-filter-empty');
+
+      const update = () => {
+        const data = new FormData(form);
+        const query = String(data.get('query') ?? '').trim().toLowerCase();
+        const ressort = String(data.get('ressort') ?? '');
+        const standort = String(data.get('standort') ?? '');
+        const employmentType = String(data.get('employmentType') ?? '');
+
+        let visible = 0;
+
+        cards.forEach((card) => {
+          const matchesQuery = !query || String(card.getAttribute('data-search') ?? '').includes(query);
+          const matchesRessort = !ressort || card.getAttribute('data-ressort') === ressort;
+          const matchesStandort = !standort || card.getAttribute('data-standort') === standort;
+          const matchesEmployment =
+            !employmentType || card.getAttribute('data-employment-type') === employmentType;
+          const isVisible = matchesQuery && matchesRessort && matchesStandort && matchesEmployment;
+
+          card.toggleAttribute('hidden', !isVisible);
+          if (isVisible) visible += 1;
+        });
+
+        if (count) {
+          count.textContent = `${visible} Stellenangebote sichtbar`;
+        }
+
+        if (empty) {
+          empty.toggleAttribute('hidden', visible !== 0);
+        }
+      };
+
+      form.addEventListener('input', update);
+      form.addEventListener('change', update);
+      update();
+    })();
+  </script>
 </BaseLayout>

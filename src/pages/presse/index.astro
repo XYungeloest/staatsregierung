@@ -1,38 +1,123 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getHomeUrl, getPressReleaseIndexUrl } from '../../lib/portal/index.ts';
+import EventCard from '../../components/portal/EventCard.astro';
+import PressReleaseCard from '../../components/portal/PressReleaseCard.astro';
+import SpeechCard from '../../components/portal/SpeechCard.astro';
+import {
+  getEventIndexUrl,
+  getHomeUrl,
+  getPressReleaseIndexUrl,
+  getSpeechIndexUrl,
+  loadEvents,
+  loadFeaturedPressReleases,
+  loadPressReleases,
+  loadSpeeches,
+} from '../../lib/portal/index.ts';
+
+const [releases, featuredReleases, speeches, events] = await Promise.all([
+  loadPressReleases(),
+  loadFeaturedPressReleases(2),
+  loadSpeeches(),
+  loadEvents(),
+]);
+
+const leadRelease = featuredReleases[0] ?? releases[0];
+const latestSpeech = speeches[0];
+const nextEvents = events.slice(0, 3);
 ---
 
 <BaseLayout title="Presse & Aktuelles" description="Pressebereich der Staatsregierung des Ostdeutschen Freistaates.">
-  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse' }]} />
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse & Aktuelles' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Presse & Aktuelles</p>
     <h1>Presse & Aktuelles</h1>
     <p class="lead">
-      Der Pressebereich führt Mitteilungen, später auch Reden und Termine, unter einer
-      gemeinsamen Struktur zusammen.
+      Der Pressebereich bündelt Pressemitteilungen, Reden, Regierungserklärungen und öffentliche
+      Termine der Staatsregierung in einer statischen, gut lesbaren Nachrichtenarchitektur.
     </p>
   </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Pressemitteilungen</span>
+        <strong>{releases.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Reden & Erklärungen</span>
+        <strong>{speeches.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Angekündigte Termine</span>
+        <strong>{events.length}</strong>
+      </div>
+    </div>
+  </section>
+
+  {leadRelease ? (
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Hervorgehobene Mitteilung</h2>
+        <p>Wichtige Meldungen der Staatsregierung werden auf der Übersichtsseite besonders sichtbar platziert.</p>
+      </div>
+      <PressReleaseCard release={leadRelease} variant="featured" />
+    </section>
+  ) : null}
 
   <section class="section">
     <div class="card-grid card-grid--three">
       <article class="panel">
         <h2>Pressemitteilungen</h2>
-        <p>Bereits angebundener redaktioneller Bestand mit stabilen Detailseiten.</p>
+        <p>
+          Amtlich anmutende Meldungen mit Ressortbezug, Metadaten, Bildplatzhaltern und stabilen
+          Einzelseiten.
+        </p>
         <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Pressemitteilungen</a></p>
       </article>
       <article class="panel">
-        <h2>Reden</h2>
-        <p>Die Struktur für Reden ist vorbereitet und wird in den nächsten Phasen redaktionell ergänzt.</p>
-        <p><a class="inline-link" href="/presse/reden/">Zu den Reden</a></p>
+        <h2>Reden & Regierungserklärungen</h2>
+        <p>
+          Redetexte und programmatische Erklärungen der Staatsregierung werden als eigene
+          statische Veröffentlichungen geführt.
+        </p>
+        <p><a class="inline-link" href={getSpeechIndexUrl()}>Zu den Reden</a></p>
       </article>
       <article class="panel">
         <h2>Termine</h2>
-        <p>Auch Termine werden künftig in den Pressebereich eingebettet, ohne eigene Serverlogik.</p>
-        <p><a class="inline-link" href="/presse/termine/">Zu den Terminen</a></p>
+        <p>
+          Öffentliche Termine, Pressekonferenzen und thematische Veranstaltungen werden mit Ort,
+          Datum und Kurzbeschreibung gebündelt.
+        </p>
+        <p><a class="inline-link" href={getEventIndexUrl()}>Zu den Terminen</a></p>
       </article>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="content-grid">
+      <section class="section">
+        <div class="section-header">
+          <h2>Neueste Rede</h2>
+        </div>
+        {latestSpeech ? (
+          <SpeechCard speech={latestSpeech} />
+        ) : (
+          <p class="search-feedback">Noch keine Reden im Bestand.</p>
+        )}
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Nächste Termine</h2>
+        </div>
+        <div class="content-stack">
+          {nextEvents.map((event) => (
+            <EventCard event={event} variant="compact" />
+          ))}
+        </div>
+      </aside>
     </div>
   </section>
 </BaseLayout>

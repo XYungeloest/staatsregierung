@@ -25,6 +25,18 @@ const page = await loadPageBySlug('datenschutz');
       {(page?.body ?? []).map((paragraph) => (
         <p>{paragraph}</p>
       ))}
+
+      <div class="section-header">
+        <h2>Technische Einordnung</h2>
+      </div>
+      <p>
+        Die Website wird als statischer Build ausgeliefert. Es gibt keine Loginbereiche, keine
+        serverseitige Formularverarbeitung und keine nutzerbezogene Datenbank.
+      </p>
+      <p>
+        Suchfunktionen im Rechtsbereich greifen auf einen vorab erzeugten Suchindex zurück, der
+        beim Build in statische Dateien geschrieben wird.
+      </p>
     </section>
 
     <aside class="section meta-panel">

@@ -1,7 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getHomeUrl } from '../../lib/portal/index.ts';
+import {
+  getBudgetPageUrl,
+  getHomeUrl,
+  loadBudgetPages,
+} from '../../lib/portal/index.ts';
+import { getNormUrl } from '../../lib/norms/index.ts';
+
+const pages = await loadBudgetPages();
+const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
+  .map((slug) => pages.find((page) => page.slug === slug))
+  .filter((page): page is NonNullable<typeof page> => Boolean(page));
 ---
 
 <BaseLayout title="Haushalt" description="Haushaltsbereich des Gesamtportals der Staatsregierung.">
@@ -11,25 +21,64 @@ import { getHomeUrl } from '../../lib/portal/index.ts';
     <p class="eyebrow">Haushalt</p>
     <h1>Haushalt</h1>
     <p class="lead">
-      Der Haushaltsbereich wird als eigener Hauptbereich des Gesamtportals vorbereitet und in
-      späteren Phasen mit Gesamtplan, Einzelplänen und Sondervermögen ausgebaut.
+      Der Haushaltsbereich bündelt den Doppelhaushalt 2025/2026, seine Einzelpläne und die
+      Einordnung von Sondervermögen und Fonds in einer sachlichen, staatlich anmutenden Struktur.
     </p>
   </section>
 
   <section class="section">
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h2>Gesamtplan</h2>
-        <p>Struktureller Einstieg in die Gesamtschau des Landeshaushalts.</p>
-      </article>
-      <article class="panel">
-        <h2>Einzelpläne</h2>
-        <p>Ressortbezogene Haushaltsbereiche werden in einer späteren Phase ergänzt.</p>
-      </article>
-      <article class="panel">
-        <h2>Sondervermögen</h2>
-        <p>Spezielle Finanzierungsinstrumente erhalten einen eigenen, statischen Darstellungsrahmen.</p>
-      </article>
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Haushaltsstruktur</span>
+        <strong>Doppelhaushalt 2025/2026</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Teilbereiche</span>
+        <strong>{orderedPages.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Rechtsbezug</span>
+        <strong>Haushaltsgesetz und Haushaltsrecht</strong>
+      </div>
     </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Haushaltsbereiche</h2>
+      <p>
+        Die Seiten sind zunächst informativ angelegt und schaffen eine lesbare Grundlage für
+        spätere datenbasierte Erweiterungen.
+      </p>
+    </div>
+    <div class="card-grid card-grid--three">
+      {orderedPages.map((page) => (
+        <article class="panel">
+          <h2><a class="inline-link" href={getBudgetPageUrl(page.slug)}>{page.title}</a></h2>
+          <p>{page.teaser}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Direkte Rechtsgrundlagen</h2>
+      <p>Finanzpolitische Kernnormen des Freistaates bleiben unmittelbar im Rechtsportal erreichbar.</p>
+    </div>
+    <ul class="record-list">
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2')}>Haushaltsgesetz 2025/2026</a></strong>
+        <span>Gesetzlicher Rahmen des Doppelhaushalts.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('ostdeutsches-landesbankgesetz')}>Landesbank an der Elbe</a></strong>
+        <span>Finanzpolitische Infrastruktur des Freistaates.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('ostdeutsches-tariftreueund-vergabegesetz')}>Tariftreue- und Vergabegesetz</a></strong>
+        <span>Vergabe- und Beschaffungsrahmen mit finanzpolitischer Relevanz.</span>
+      </li>
+    </ul>
   </section>
 </BaseLayout>

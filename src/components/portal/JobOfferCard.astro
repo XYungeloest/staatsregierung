@@ -15,9 +15,9 @@ const isCompact = variant === 'compact';
   <div class="job-card__body">
     <h3><a class="inline-link" href={getJobUrl(offer.slug)}>{offer.title}</a></h3>
     <p>{offer.teaser}</p>
-    <p class="detail-line">{offer.ministry}</p>
+    <p class="detail-line">{offer.ressort}</p>
     <p class="job-card__meta">
-      {offer.location} · {offer.employmentType} · Bewerbungsfrist{' '}
+      {offer.standort} · {offer.employmentType} · Bewerbungsfrist{' '}
       {siteConfig.date.formatLong(offer.applicationDeadline)}
     </p>
   </div>

@@ -1,0 +1,33 @@
+{
+  "slug": "gesamtplan",
+  "title": "Doppelhaushalt 2025/2026 – Gesamtplan",
+  "teaser": "Der Gesamtplan bündelt die finanzpolitische Grundstruktur des ersten Doppelhaushalts des Freistaates und schafft einen statischen Einstieg in Einnahmen, Ausgaben und Schwerpunktsetzungen.",
+  "body": [
+    "Der Haushaltsbereich dient zunächst als sachlich-informativer Überblick über den Doppelhaushalt 2025/2026. Er ordnet zentrale Summen, politische Prioritäten und den Zusammenhang zwischen Gesamtplan, Einzelplänen und Sondervermögen ein.",
+    "Für das Haushaltsjahr 2025 weist die Zusammenfassung Gesamteinnahmen und Gesamtausgaben von jeweils 104.726.510.200 Euro aus. Für 2026 weist die Zusammenfassung Gesamteinnahmen und Gesamtausgaben von jeweils 177.808.943.700 Euro aus.",
+    "Die Staatsregierung nutzt den Gesamtplan als finanzpolitischen Bezugsrahmen für den institutionellen Ausbau des Freistaates, die Sicherung öffentlicher Daseinsvorsorge sowie Investitionen in Bildung, Infrastruktur, soziale Sicherung und staatliche Handlungsfähigkeit.",
+    "Diese Seite bildet bewusst keinen interaktiven Haushalts-Explorer ab. Sie bereitet die Grundstruktur lesbar vor und schafft Platz für spätere datenbasierte Erweiterungen innerhalb derselben statischen Architektur."
+  ],
+  "dataset": {
+    "years": [
+      {
+        "year": "2025",
+        "totalRevenue": "104.726.510.200 Euro",
+        "totalExpense": "104.726.510.200 Euro",
+        "taxRevenue": "85.589.873.000 Euro",
+        "personnel": "27.906.003.900 Euro",
+        "transfers": "52.580.168.000 Euro",
+        "investments": "12.628.645.600 Euro"
+      },
+      {
+        "year": "2026",
+        "totalRevenue": "177.808.943.700 Euro",
+        "totalExpense": "177.808.943.700 Euro",
+        "taxRevenue": "88.875.926.900 Euro",
+        "personnel": "29.037.907.300 Euro",
+        "transfers": "80.865.709.800 Euro",
+        "investments": "60.708.348.800 Euro"
+      }
+    ]
+  }
+}

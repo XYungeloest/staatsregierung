@@ -5,6 +5,7 @@ import PressReleaseCard from '../../../components/portal/PressReleaseCard.astro'
 import {
   getHomeUrl,
   getPressUrl,
+  getSpeechIndexUrl,
   loadFeaturedPressReleases,
   loadPressReleases,
 } from '../../../lib/portal/index.ts';
@@ -24,7 +25,7 @@ const secondaryFeatured = featuredReleases.slice(1);
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Presse', href: getPressUrl() },
+      { label: 'Presse & Aktuelles', href: getPressUrl() },
       { label: 'Pressemitteilungen' },
     ]}
   />
@@ -65,5 +66,8 @@ const secondaryFeatured = featuredReleases.slice(1);
         <PressReleaseCard release={release} />
       ))}
     </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getSpeechIndexUrl()}>Weiter zu Reden & Regierungserklärungen</a>
+    </p>
   </section>
 </BaseLayout>
