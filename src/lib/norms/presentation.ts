@@ -112,6 +112,8 @@ const NORM_TYPE_LABELS: Record<NormType, string> = {
   verordnung: 'Verordnung',
   verwaltungsvorschrift: 'Verwaltungsvorschrift',
   foerderrichtlinie: 'Förderrichtlinie',
+  allgemeinverfuegung: 'Allgemeinverfügung',
+  bekanntmachung: 'Bekanntmachung',
   staatsvertrag: 'Staatsvertrag',
   zustimmungsgesetz: 'Zustimmungsgesetz',
   aenderungsvorschrift: 'Änderungsvorschrift',
