@@ -1,28 +1,48 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
+import { getHomeUrl, getLawHomeUrl, getLawSearchUrl, getServiceUrl } from '../../lib/portal/index.ts';
 
 const faqItems = [
   {
     question: 'Ist dies eine echte Website einer Behörde?',
     answer:
-      'Nein. Das Portal ist Teil einer fiktiven Politiksimulation und kennzeichnet seine Inoffizialität dauerhaft sichtbar.',
+      'Nein. Das Portal ist Teil einer fiktiven Politiksimulation und kennzeichnet seine Inoffizialität dauerhaft sichtbar im Kopfbereich und in den Serviceinformationen.',
+  },
+  {
+    question: 'Wo finde ich aktuelle Fassungen und historische Fassungen von Rechtsvorschriften?',
+    answer:
+      'Der gesamte Rechtsbestand ist unter /recht/ gebündelt. Dort sind aktuelle Fassungen, Historienseiten und historische Fassungen statisch abrufbar.',
+  },
+  {
+    question: 'Kann ich im Rechtsportal nach Titeln, Metadaten und Normtext suchen?',
+    answer:
+      'Ja. Die Suche nutzt einen beim Build erzeugten Suchindex und läuft vollständig clientseitig im Browser.',
+  },
+  {
+    question: 'Gibt es Downloads oder offene Daten?',
+    answer:
+      'Das Portal liefert statische Inhalte aus. Einzelne Bereiche wie Haushalt oder Rechtsportal sind so vorbereitet, dass spätere Downloads oder strukturierte Datenausgaben ergänzt werden können.',
+  },
+  {
+    question: 'Wie gehe ich mit Informationsanträgen oder Transparenzanliegen um?',
+    answer:
+      'Die Seite selbst verarbeitet keine Anträge. Sie verweist auf die einschlägigen Rechtsgrundlagen und den zuständigen Kontaktweg. Fachliche Anliegen sollten über das passende Ressort oder die allgemeine Kontaktseite eingeordnet werden.',
+  },
+  {
+    question: 'Kann ich Petitionen oder Beteiligungsanliegen direkt über das Portal einreichen?',
+    answer:
+      'Nein. Das Projekt verzichtet bewusst auf serverseitige Formularlogik. Beteiligungs- oder Petitionshinweise können nur als statische Informationen oder Kontaktwege abgebildet werden.',
   },
   {
     question: 'Werden Eingaben serverseitig gespeichert?',
     answer:
-      'Nein. Das Projekt bleibt vollständig statisch und GitHub-Pages-kompatibel; serverseitige Speicherung findet nicht statt.',
-  },
-  {
-    question: 'Wo finde ich Rechtsvorschriften?',
-    answer:
-      'Der gesamte Rechtsbestand ist unter /recht/ gebündelt und umfasst aktuelle Fassungen, Historien und historische Fassungen.',
+      'Nein. Das Projekt bleibt vollständig statisch und GitHub-Pages-kompatibel. Es gibt keine serverseitige Speicherung, keine Online-Bewerbungslogik und keine Kontaktformularverarbeitung.',
   },
 ];
 ---
 
-<BaseLayout title="FAQ" description="Häufige Fragen zum Regierungsportal und seiner statischen Architektur.">
+<BaseLayout title="FAQ" description="Häufige Fragen zum Regierungsportal und seiner Nutzung.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
@@ -34,11 +54,33 @@ const faqItems = [
   <section class="section page-header">
     <p class="eyebrow">Service</p>
     <h1>FAQ</h1>
-    <p class="lead">Kurze Hinweise zu Portalcharakter, Technik und Nutzung.</p>
+    <p class="lead">
+      Kurze Hinweise zur Nutzung des Portals, des Rechtsbereichs, zu Informationsanträgen,
+      Downloads, Beteiligung und Kontaktwegen.
+    </p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Rechtsportal</h2>
+        <p>Suche, Normansichten, Historien und Sachgebiete sind vollständig unter /recht/ gebündelt.</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsportal</a></p>
+      </article>
+      <article class="panel">
+        <h2>Normensuche</h2>
+        <p>Die Suche arbeitet clientseitig mit einem vorab erzeugten Suchindex und ohne Backend.</p>
+        <p><a class="inline-link" href={getLawSearchUrl()}>Zur Suche</a></p>
+      </article>
+      <article class="panel">
+        <h2>Servicehinweise</h2>
+        <p>Kontaktwege und organisatorische Informationen finden sich gesammelt im Servicebereich.</p>
+      </article>
+    </div>
   </section>
 
   <section class="section">
-    <div class="content-stack">
+    <div class="content-stack faq-list">
       {faqItems.map((item) => (
         <article class="panel">
           <h2>{item.question}</h2>

@@ -1,14 +1,21 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import { getHomeUrl, getPressUrl } from '../../../lib/portal/index.ts';
+import EventCard from '../../../components/portal/EventCard.astro';
+import {
+  getHomeUrl,
+  getPressUrl,
+  loadEvents,
+} from '../../../lib/portal/index.ts';
+
+const events = await loadEvents();
 ---
 
-<BaseLayout title="Termine" description="Vorbereitete Struktur für Termine im Pressebereich.">
+<BaseLayout title="Termine" description="Öffentliche Termine und Presseveranstaltungen der Staatsregierung.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Presse', href: getPressUrl() },
+      { label: 'Presse & Aktuelles', href: getPressUrl() },
       { label: 'Termine' },
     ]}
   />
@@ -17,8 +24,20 @@ import { getHomeUrl, getPressUrl } from '../../../lib/portal/index.ts';
     <p class="eyebrow">Presse & Aktuelles</p>
     <h1>Termine</h1>
     <p class="lead">
-      Die Routenhülle für Termine ist bereits Teil der Master-Architektur. Redaktionelle Inhalte
-      folgen in einer späteren Phase.
+      Öffentliche Termine, Pressekonferenzen und thematische Veranstaltungen der Staatsregierung
+      werden hier in einer schlichten, statischen Übersicht gebündelt.
     </p>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Anstehende Termine</h2>
+      <p>Ort, Datum und Kurzbeschreibung werden für jeden Termin in einer eigenen statischen Detailseite bereitgestellt.</p>
+    </div>
+    <div class="content-stack">
+      {events.map((event) => (
+        <EventCard event={event} />
+      ))}
+    </div>
   </section>
 </BaseLayout>

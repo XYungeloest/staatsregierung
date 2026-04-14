@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../../config/site.ts';
+import {
+  getHomeUrl,
+  getPressUrl,
+  getSpeechIndexUrl,
+  getSpeechUrl,
+  loadSpeeches,
+  type Rede,
+} from '../../../lib/portal/index.ts';
+
+export async function getStaticPaths() {
+  const speeches = await loadSpeeches();
+
+  return speeches.map((speech) => ({
+    params: { slug: speech.slug },
+    props: { speech },
+  }));
+}
+
+const { speech } = Astro.props as { speech: Rede };
+const allSpeeches = await loadSpeeches();
+const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug).slice(0, 2);
+---
+
+<BaseLayout title={speech.title} description={speech.teaser}>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Presse & Aktuelles', href: getPressUrl() },
+      { label: 'Reden & Regierungserklärungen', href: getSpeechIndexUrl() },
+      { label: speech.title },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rede</p>
+    <h1>{speech.title}</h1>
+    <p class="lead">{speech.teaser}</p>
+    <p class="detail-line">{siteConfig.date.formatLong(speech.date)} · {speech.sprecher}</p>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <img
+        class="media-banner"
+        src="/images/presse/presse-platzhalter.svg"
+        alt="Grafischer Platzhalter für Rede oder Regierungserklärung"
+      />
+      <div class="body-copy">
+        {speech.body.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Metadaten</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Datum</dt>
+          <dd>{siteConfig.date.formatLong(speech.date)}</dd>
+        </div>
+        <div>
+          <dt>Sprecher</dt>
+          <dd>{speech.sprecher}</dd>
+        </div>
+        <div>
+          <dt>Veröffentlichung</dt>
+          <dd>Statische Redeseite</dd>
+        </div>
+      </dl>
+      <nav class="link-list">
+        <a href={getSpeechIndexUrl()}>Zur Übersicht der Reden</a>
+        <a href={getSpeechUrl(speech.slug)}>Stabile URL dieser Rede</a>
+      </nav>
+
+      {relatedSpeeches.length > 0 ? (
+        <>
+          <div class="section-header section-header--compact">
+            <h2>Weitere Reden</h2>
+          </div>
+          <ul class="record-list">
+            {relatedSpeeches.map((entry) => (
+              <li class="record-list__item">
+                <strong><a class="inline-link" href={getSpeechUrl(entry.slug)}>{entry.title}</a></strong>
+                <span>{siteConfig.date.formatLong(entry.date)}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </aside>
+  </div>
+</BaseLayout>

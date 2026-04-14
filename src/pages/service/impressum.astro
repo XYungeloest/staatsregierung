@@ -26,6 +26,11 @@ const page = await loadPageBySlug('impressum');
       {(page?.body ?? []).map((paragraph) => (
         <p>{paragraph}</p>
       ))}
+      <p>
+        Das Projekt dient der Darstellung einer fiktiven Staatsregierung und eines integrierten
+        Rechtsportals. Es beansprucht keine amtliche Authentizität und ersetzt keine reale
+        Veröffentlichung einer Behörde.
+      </p>
     </section>
 
     <aside class="section meta-panel">
@@ -42,7 +47,7 @@ const page = await loadPageBySlug('impressum');
           <dd>{siteConfig.contact.addressLines.join(', ')}</dd>
         </div>
         <div>
-          <dt>Hinweis</dt>
+          <dt>Einordnung</dt>
           <dd>Fiktive Politiksimulation, keine echte amtliche Veröffentlichung</dd>
         </div>
       </dl>

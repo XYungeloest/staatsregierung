@@ -50,6 +50,11 @@ export const portalCollections = {
     label: 'Statische Seiten',
     directorySegments: ['service', 'seiten'],
   },
+  freistaatSeite: {
+    key: 'freistaatSeite',
+    label: 'Freistaat-Seiten',
+    directorySegments: ['freistaat'],
+  },
   norm: {
     key: 'norm',
     label: 'Normen',

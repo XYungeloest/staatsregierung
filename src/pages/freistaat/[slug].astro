@@ -1,0 +1,159 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../config/site.ts';
+import {
+  getFreestatePageUrl,
+  getFreestateUrl,
+  getHomeUrl,
+  loadFreestatePages,
+  type Seite,
+} from '../../lib/portal/index.ts';
+import { getLawConstitutionUrl, getNormUrl } from '../../lib/norms/index.ts';
+
+export async function getStaticPaths() {
+  const pages = await loadFreestatePages();
+
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props as { page: Seite };
+const relatedPages = (await loadFreestatePages()).filter((entry) => entry.slug !== page.slug);
+
+const districtCapitals = [
+  'Berlin',
+  'Potsdam',
+  'Rostock',
+  'Cottbus/Chóśebuz',
+  'Bautzen/Budyšin',
+  'Dresden',
+  'Magdeburg',
+  'Erfurt',
+];
+
+const historyMilestones = [
+  '1. Dezember 2023 – Gründung des Freistaates Ostdeutschland',
+  'Januar 2024 – Konstituierung des ersten Landtags',
+  '2024 bis 2025 – institutioneller Aufbau und mehrere Regierungswechsel',
+  '20. Dezember 2025 – Bildung des Kabinetts Honecker',
+];
+---
+
+<BaseLayout title={page.title} description={page.body[0]}>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Über den Freistaat', href: getFreestateUrl() },
+      { label: page.title },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Über den Freistaat</p>
+    <h1>{page.title}</h1>
+    <p class="lead">{page.body[0]}</p>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <div class="body-copy">
+        {page.body.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      {page.slug === 'bezirke' ? (
+        <>
+          <div class="section-header">
+            <h2>Bezirkshauptstädte</h2>
+          </div>
+          <div class="tag-list">
+            {districtCapitals.map((entry) => (
+              <span class="tag">{entry}</span>
+            ))}
+          </div>
+        </>
+      ) : null}
+
+      {page.slug === 'landesfarben-und-hoheitszeichen' ? (
+        <>
+          <div class="section-header">
+            <h2>Landesfarben</h2>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Blau</span>
+            <span class="tag">Weiß</span>
+            <span class="tag">Grün</span>
+          </div>
+        </>
+      ) : null}
+
+      {page.slug === 'hauptstaedte' ? (
+        <div class="card-grid card-grid--two">
+          <article class="panel">
+            <h3>Dresden</h3>
+            <p>Landeshauptstadt und politischer Sitz der Staatsregierung.</p>
+          </article>
+          <article class="panel">
+            <h3>Berlin</h3>
+            <p>Bundeshauptstadt mit rechtlich abgesicherter Sonderstellung innerhalb des Freistaates.</p>
+          </article>
+        </div>
+      ) : null}
+
+      {page.slug === 'geschichte' ? (
+        <>
+          <div class="section-header">
+            <h2>Wegmarken</h2>
+          </div>
+          <ul class="record-list">
+            {historyMilestones.map((entry) => (
+              <li class="record-list__item"><span>{entry}</span></li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Auf einen Blick</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Landeshauptstadt</dt>
+          <dd>{siteConfig.currentGovernment.seatOfGovernment}</dd>
+        </div>
+        <div>
+          <dt>Bundeshauptstadt</dt>
+          <dd>Berlin</dd>
+        </div>
+        <div>
+          <dt>Sprachen</dt>
+          <dd>Deutsch und Sorbisch</dd>
+        </div>
+      </dl>
+
+      <div class="section-header section-header--compact">
+        <h2>Weiterführend</h2>
+      </div>
+      <nav class="link-list">
+        {relatedPages.map((entry) => (
+          <a href={getFreestatePageUrl(entry.slug)}>{entry.title}</a>
+        ))}
+      </nav>
+
+      <div class="section-header section-header--compact">
+        <h2>Rechtsbezug</h2>
+      </div>
+      <nav class="link-list">
+        <a href={getLawConstitutionUrl()}>Verfassung im Rechtsportal</a>
+        <a href={getNormUrl('hoheitszeichenverordnung')}>Hoheitszeichenverordnung</a>
+        <a href={getNormUrl('gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes')}>Einführungsgesetz zum Hoheitszeichenrecht</a>
+      </nav>
+    </aside>
+  </div>
+</BaseLayout>

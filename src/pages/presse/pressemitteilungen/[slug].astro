@@ -39,7 +39,7 @@ const relatedReleases = allReleases.filter((entry) => entry.slug !== release.slu
     <p class="eyebrow">Pressemitteilung</p>
     <h1>{release.title}</h1>
     <p class="lead">{release.teaser}</p>
-    <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ministry}</p>
+    <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
   </section>
 
   <div class="content-grid">
@@ -68,7 +68,7 @@ const relatedReleases = allReleases.filter((entry) => entry.slug !== release.slu
         </div>
         <div>
           <dt>Ressort</dt>
-          <dd>{release.ministry}</dd>
+          <dd>{release.ressort}</dd>
         </div>
         <div>
           <dt>Bildbeschreibung</dt>

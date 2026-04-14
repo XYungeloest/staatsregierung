@@ -3,10 +3,62 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ServiceCard from '../../components/portal/ServiceCard.astro';
 import { siteConfig } from '../../config/site.ts';
-import { getHomeUrl, getServiceUrl, loadPageBySlug } from '../../lib/portal/index.ts';
+import {
+  getCareerUrl,
+  getFaqUrl,
+  getHomeUrl,
+  getLawHomeUrl,
+  getMinistryUrl,
+  getServiceUrl,
+  loadMinistries,
+  loadPageBySlug,
+} from '../../lib/portal/index.ts';
 
 const page = await loadPageBySlug('kontakt');
 const contact = siteConfig.contact;
+const ministries = await loadMinistries();
+const routedContacts = [
+  {
+    key: 'allgemein',
+    title: 'Allgemeine Anfragen',
+    description: 'Für allgemeine Bürgeranliegen und Hinweise ist das Bürgertelefon der richtige erste Kontaktweg.',
+    primaryLabel: contact.citizenService.label,
+    primaryValue: `${contact.citizenService.phone} · ${contact.citizenService.email}`,
+    links: [{ label: 'Zur FAQ', href: getFaqUrl() }],
+  },
+  {
+    key: 'presse',
+    title: 'Presseanfragen',
+    description: 'Für Medienanfragen, Pressetermine und kurzfristige Auskünfte ist die Pressestelle zuständig.',
+    primaryLabel: contact.pressOffice.label,
+    primaryValue: `${contact.pressOffice.phone} · ${contact.pressOffice.email}`,
+    links: [],
+  },
+  {
+    key: 'recht',
+    title: 'Rechtsportal und Normensuche',
+    description: 'Fragen zur Recherche beginnen in der Regel direkt im Rechtsbereich oder in der FAQ zur Portalnutzung.',
+    primaryLabel: 'Rechtsbereich',
+    primaryValue: 'Aktuelle Fassungen, Historien und Suche',
+    links: [{ label: 'Zum Rechtsportal', href: getLawHomeUrl() }, { label: 'Zur FAQ', href: getFaqUrl() }],
+  },
+  {
+    key: 'informationsantrag',
+    title: 'Informationsanträge und Transparenz',
+    description: 'Anliegen zum Informationszugang sollten zuerst anhand der Transparenz- und Informationshinweise geprüft werden.',
+    primaryLabel: 'Hinweis',
+    primaryValue: 'Prüfung über FAQ, Rechtsgrundlagen und zuständiges Ressort',
+    links: [{ label: 'Zum Rechtsportal', href: getLawHomeUrl() }, { label: 'Zur FAQ', href: getFaqUrl() }],
+  },
+  {
+    key: 'karriere',
+    title: 'Karriere und Stellenangebote',
+    description: 'Für Rückfragen zu Ausschreibungen ist die jeweils in der Stellenanzeige genannte Kontaktstelle maßgeblich.',
+    primaryLabel: 'Karrierebereich',
+    primaryValue: 'Stellenübersicht und Ansprechpartner je Ausschreibung',
+    links: [{ label: 'Zur Karriere', href: getCareerUrl() }],
+  },
+];
 ---
 
 <BaseLayout title={page?.title ?? 'Kontakt'} description="Kontaktseite der Staatsregierung.">
@@ -45,6 +97,46 @@ const contact = siteConfig.contact;
         />
         <ServiceCard title="Postanschrift" body={contact.postalAddress} />
       </div>
+
+      <div class="section-header">
+        <h2>Zuständigkeitswegweiser</h2>
+        <p>Die Auswahl liefert nur einen Hinweis auf den passenden Kontaktweg. Es werden keine Daten übertragen.</p>
+      </div>
+      <form class="search-form" id="contact-router" data-role="contact-router">
+        <label class="search-field">
+          <span>Anliegen auswählen</span>
+          <select name="topic">
+            <option value="">Bitte auswählen</option>
+            <option value="allgemein">Allgemeine Anfrage</option>
+            <option value="presse">Presseanfrage</option>
+            <option value="recht">Rechtsportal oder Normensuche</option>
+            <option value="informationsantrag">Informationsantrag oder Transparenz</option>
+            <option value="karriere">Karriere und Stellenangebote</option>
+          </select>
+        </label>
+      </form>
+
+      <div class="content-stack" id="contact-router-results">
+        {routedContacts.map((entry) => (
+          <article class="panel contact-route-card" data-route-key={entry.key} hidden>
+            <h3>{entry.title}</h3>
+            <p>{entry.description}</p>
+            <p class="detail-line">
+              <strong>{entry.primaryLabel}:</strong> {entry.primaryValue}
+            </p>
+            {entry.links.length > 0 ? (
+              <p class="section-link-row">
+                {entry.links.map((link, index) => (
+                  <>
+                    {index > 0 ? ' · ' : ''}
+                    <a class="inline-link" href={link.href}>{link.label}</a>
+                  </>
+                ))}
+              </p>
+            ) : null}
+          </article>
+        ))}
+      </div>
     </section>
 
     <aside class="section meta-panel">
@@ -73,6 +165,42 @@ const contact = siteConfig.contact;
           <li class="record-list__item"><span>{entry}</span></li>
         ))}
       </ul>
+      <div class="section-header section-header--compact">
+        <h2>Ressorts</h2>
+      </div>
+      <ul class="record-list">
+        {ministries.slice(0, 6).map((ministry) => (
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getMinistryUrl(ministry.slug)}>{ministry.kurzname}</a></strong>
+            <span>{ministry.leitung}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="detail-line">
+        Weitere fachliche Zuständigkeiten finden sich auf den jeweiligen Ressortseiten.
+      </p>
     </aside>
   </div>
+
+  <script is:inline>
+    (() => {
+      const form = document.querySelector('[data-role="contact-router"]');
+      if (!(form instanceof HTMLFormElement)) return;
+
+      const cards = Array.from(document.querySelectorAll('.contact-route-card'));
+
+      const update = () => {
+        const data = new FormData(form);
+        const topic = String(data.get('topic') ?? '');
+
+        cards.forEach((card) => {
+          const key = card.getAttribute('data-route-key');
+          card.toggleAttribute('hidden', !topic || key !== topic);
+        });
+      };
+
+      form.addEventListener('change', update);
+      update();
+    })();
+  </script>
 </BaseLayout>

@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../../config/site.ts';
+import {
+  getEventIndexUrl,
+  getEventUrl,
+  getHomeUrl,
+  getPressUrl,
+  loadEvents,
+  type Termin,
+} from '../../../lib/portal/index.ts';
+
+export async function getStaticPaths() {
+  const events = await loadEvents();
+
+  return events.map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props as { event: Termin };
+const allEvents = await loadEvents();
+const relatedEvents = allEvents.filter((entry) => entry.slug !== event.slug).slice(0, 3);
+---
+
+<BaseLayout title={event.title} description={event.teaser}>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Presse & Aktuelles', href: getPressUrl() },
+      { label: 'Termine', href: getEventIndexUrl() },
+      { label: event.title },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Termin</p>
+    <h1>{event.title}</h1>
+    <p class="lead">{event.teaser}</p>
+    <p class="detail-line">{siteConfig.date.formatLong(event.date)} · {event.location}</p>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <img
+        class="media-banner"
+        src="/images/presse/presse-platzhalter.svg"
+        alt="Grafischer Platzhalter für Terminankündigung"
+      />
+      <div class="body-copy">
+        {event.body.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Metadaten</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Datum</dt>
+          <dd>{siteConfig.date.formatLong(event.date)}</dd>
+        </div>
+        <div>
+          <dt>Ort</dt>
+          <dd>{event.location}</dd>
+        </div>
+        <div>
+          <dt>Format</dt>
+          <dd>Statische Terminankündigung</dd>
+        </div>
+      </dl>
+      <nav class="link-list">
+        <a href={getEventIndexUrl()}>Zur Terminübersicht</a>
+        <a href={getEventUrl(event.slug)}>Stabile URL dieses Termins</a>
+      </nav>
+
+      {relatedEvents.length > 0 ? (
+        <>
+          <div class="section-header section-header--compact">
+            <h2>Weitere Termine</h2>
+          </div>
+          <ul class="record-list">
+            {relatedEvents.map((entry) => (
+              <li class="record-list__item">
+                <strong><a class="inline-link" href={getEventUrl(entry.slug)}>{entry.title}</a></strong>
+                <span>{siteConfig.date.formatLong(entry.date)}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </aside>
+  </div>
+</BaseLayout>

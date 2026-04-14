@@ -1,0 +1,21 @@
+---
+import { siteConfig } from '../../config/site.ts';
+import { getEventUrl, type Termin } from '../../lib/portal/index.ts';
+
+interface Props {
+  event: Termin;
+  variant?: 'default' | 'compact';
+}
+
+const { event, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+---
+
+<article class:list={['panel', 'event-card', isCompact && 'event-card--compact']}>
+  <div class="event-card__body">
+    <p class="eyebrow">{siteConfig.date.formatLong(event.date)} · {event.location}</p>
+    <h3><a class="inline-link" href={getEventUrl(event.slug)}>{event.title}</a></h3>
+    <p>{event.teaser}</p>
+    {!isCompact ? <p class="detail-line">{event.body[0]}</p> : null}
+  </div>
+</article>

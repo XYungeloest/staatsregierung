@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import {
+  getBudgetPageUrl,
+  getBudgetUrl,
+  getHomeUrl,
+  loadBudgetPages,
+  type Haushaltsseite,
+} from '../../lib/portal/index.ts';
+import { getNormUrl } from '../../lib/norms/index.ts';
+
+export async function getStaticPaths() {
+  const pages = await loadBudgetPages();
+
+  return pages.map((page) => ({
+    params: { slug: page.slug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props as { page: Haushaltsseite };
+
+const relatedPages = (await loadBudgetPages()).filter((entry) => entry.slug !== page.slug);
+const dataset = page.dataset ?? {};
+const years = Array.isArray(dataset.years) ? dataset.years : [];
+const topPlans2025 = Array.isArray(dataset.topPlans2025) ? dataset.topPlans2025 : [];
+const topPlans2026 = Array.isArray(dataset.topPlans2026) ? dataset.topPlans2026 : [];
+const focusFunds = Array.isArray(dataset.focusFunds) ? dataset.focusFunds : [];
+---
+
+<BaseLayout title={page.title} description={page.teaser}>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Haushalt', href: getBudgetUrl() },
+      { label: page.title },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Haushalt</p>
+    <h1>{page.title}</h1>
+    <p class="lead">{page.teaser}</p>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <div class="body-copy">
+        {page.body.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      {page.slug === 'gesamtplan' && years.length > 0 ? (
+        <div class="section-header">
+          <h2>Haushaltsjahre im Überblick</h2>
+        </div>
+      ) : null}
+      {page.slug === 'gesamtplan' && years.length > 0 ? (
+        <div class="card-grid card-grid--two">
+          {years.map((entry) => (
+            <article class="panel">
+              <h3>Haushaltsjahr {entry.year}</h3>
+              <dl class="meta-list">
+                <div>
+                  <dt>Gesamteinnahmen</dt>
+                  <dd>{entry.totalRevenue}</dd>
+                </div>
+                <div>
+                  <dt>Gesamtausgaben</dt>
+                  <dd>{entry.totalExpense}</dd>
+                </div>
+                <div>
+                  <dt>Steuereinnahmen</dt>
+                  <dd>{entry.taxRevenue}</dd>
+                </div>
+                <div>
+                  <dt>Personalausgaben</dt>
+                  <dd>{entry.personnel}</dd>
+                </div>
+                <div>
+                  <dt>Zuweisungen und Zuschüsse</dt>
+                  <dd>{entry.transfers}</dd>
+                </div>
+                <div>
+                  <dt>Investitionen</dt>
+                  <dd>{entry.investments}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      ) : null}
+
+      {page.slug === 'einzelplaene' ? (
+        <>
+          <div class="section-header">
+            <h2>Ausgabenschwerpunkte 2025</h2>
+          </div>
+          <ul class="record-list">
+            {topPlans2025.map((entry) => (
+              <li class="record-list__item"><span>{entry}</span></li>
+            ))}
+          </ul>
+          <div class="section-header">
+            <h2>Ausgabenschwerpunkte 2026</h2>
+          </div>
+          <ul class="record-list">
+            {topPlans2026.map((entry) => (
+              <li class="record-list__item"><span>{entry}</span></li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+
+      {page.slug === 'sondervermoegen' ? (
+        <>
+          <div class="section-header">
+            <h2>Besondere Instrumente</h2>
+          </div>
+          <ul class="record-list">
+            {focusFunds.map((entry) => (
+              <li class="record-list__item"><span>{entry}</span></li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Weiterführend</h2>
+      </div>
+      <nav class="link-list">
+        {relatedPages.map((entry) => (
+          <a href={getBudgetPageUrl(entry.slug)}>{entry.title}</a>
+        ))}
+      </nav>
+
+      <div class="section-header section-header--compact">
+        <h2>Rechtsgrundlagen</h2>
+      </div>
+      <nav class="link-list">
+        <a href={getNormUrl('gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2')}>Haushaltsgesetz 2025/2026</a>
+        <a href={getNormUrl('ostdeutsches-landesbankgesetz')}>Landesbank an der Elbe</a>
+        <a href={getNormUrl('ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz')}>Krankenhaussicherungs- und Rekommunalisierungsfonds</a>
+      </nav>
+    </aside>
+  </div>
+</BaseLayout>

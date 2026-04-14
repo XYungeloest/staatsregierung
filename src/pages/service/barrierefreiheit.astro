@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getHomeUrl, getServiceUrl, loadPageBySlug } from '../../lib/portal/index.ts';
+import { getContactUrl, getHomeUrl, getServiceUrl, loadPageBySlug } from '../../lib/portal/index.ts';
 
 const page = await loadPageBySlug('barrierefreiheit');
 ---
@@ -18,6 +18,10 @@ const page = await loadPageBySlug('barrierefreiheit');
   <section class="section page-header">
     <p class="eyebrow">Service</p>
     <h1>{page?.title ?? 'Barrierefreiheit'}</h1>
+    <p class="lead">
+      Diese Erklärung orientiert sich in Aufbau und Ton an BITV-artigen Musterseiten, bleibt aber
+      Teil einer fiktiven, vollständig statischen Politiksimulation.
+    </p>
   </section>
 
   <div class="content-grid">
@@ -25,24 +29,51 @@ const page = await loadPageBySlug('barrierefreiheit');
       {(page?.body ?? []).map((paragraph) => (
         <p>{paragraph}</p>
       ))}
+
+      <div class="section-header">
+        <h2>Stand der Vereinbarkeit</h2>
+      </div>
+      <p>
+        Das Portal ist darauf ausgelegt, die Anforderungen an eine barrierearme Nutzung weitgehend
+        zu erfüllen. Dazu gehören semantische Struktur, Tastaturbedienbarkeit, ausreichende
+        Kontraste, lesbare Typografie und klare Navigationspfade.
+      </p>
+
+      <div class="section-header">
+        <h2>Bekannte Einschränkungen</h2>
+      </div>
+      <ul class="record-list">
+        <li class="record-list__item"><span>Einzelne Platzhaltergrafiken tragen nur allgemeine Alternativtexte.</span></li>
+        <li class="record-list__item"><span>Clientseitige Hilfslogiken wie Filter und Zuständigkeitswegweiser werden fortlaufend auf Tastaturbedienbarkeit geprüft.</span></li>
+        <li class="record-list__item"><span>Historisch importierte Inhalte können in Einzelfällen noch heterogene Textstrukturen enthalten.</span></li>
+      </ul>
+
+      <div class="section-header">
+        <h2>Feedback und Kontakt</h2>
+      </div>
+      <p>
+        Hinweise zur Barrierefreiheit, zu Darstellungsproblemen oder zu nicht ausreichend
+        zugänglichen Inhalten können über die Kontaktseite übermittelt werden.
+      </p>
+      <p><a class="inline-link" href={getContactUrl()}>Zur Kontaktseite</a></p>
     </section>
 
     <aside class="section meta-panel">
       <div class="section-header section-header--compact">
-        <h2>Stand der Umsetzung</h2>
+        <h2>Prüfprofil</h2>
       </div>
       <dl class="meta-list">
         <div>
-          <dt>Navigation</dt>
-          <dd>Semantische Struktur mit Header, Footer, Breadcrumbs und Skip-Link</dd>
+          <dt>Architektur</dt>
+          <dd>Vollständig statisch, ohne serverseitige Komponenten</dd>
         </div>
         <div>
-          <dt>Darstellung</dt>
-          <dd>Klare Kontraste, ruhige Typografie und verständliche Inhaltsblöcke</dd>
+          <dt>Prüfgegenstände</dt>
+          <dd>Navigation, Formulare, Kartenmodule, Rechtsportal, Mobile Darstellung</dd>
         </div>
         <div>
-          <dt>Hinweise</dt>
-          <dd>Rückmeldungen können über die zentrale Kontaktseite erfolgen</dd>
+          <dt>Rückmeldung</dt>
+          <dd>Über die zentrale Kontaktseite</dd>
         </div>
       </dl>
     </aside>
