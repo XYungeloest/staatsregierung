@@ -1,0 +1,14 @@
+---
+interface Props {
+  title: string;
+  body: string;
+  href?: string;
+}
+
+const { title, body, href } = Astro.props as Props;
+---
+
+<article class="panel service-card">
+  <h3>{href ? <a class="inline-link" href={href}>{title}</a> : title}</h3>
+  <p>{body}</p>
+</article>

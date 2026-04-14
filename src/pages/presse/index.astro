@@ -1,10 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { siteConfig } from '../../config/site.ts';
-import { getHomeUrl, getPressReleaseUrl, loadPressReleases } from '../../lib/portal/index.ts';
+import PressReleaseCard from '../../components/portal/PressReleaseCard.astro';
+import { getHomeUrl, loadFeaturedPressReleases, loadPressReleases } from '../../lib/portal/index.ts';
 
-const releases = await loadPressReleases();
+const [releases, featuredReleases] = await Promise.all([
+  loadPressReleases(),
+  loadFeaturedPressReleases(2),
+]);
+
+const featuredSlugs = new Set(featuredReleases.map((release) => release.slug));
+const archiveReleases = releases.filter((release) => !featuredSlugs.has(release.slug));
+const leadRelease = featuredReleases[0];
+const secondaryFeatured = featuredReleases.slice(1);
 ---
 
 <BaseLayout title="Presse" description="Pressemitteilungen der Staatsregierung.">
@@ -13,19 +21,38 @@ const releases = await loadPressReleases();
   <section class="section page-header">
     <p class="eyebrow">Presse</p>
     <h1>Pressemitteilungen</h1>
-    <p class="lead">Der Bereich enthält erste dateibasierte Pressemitteilungen mit Metadaten, Bildern und Ressortbezug.</p>
+    <p class="lead">
+      Der Pressebereich bündelt aktuelle Meldungen der Staatsregierung mit klaren Metadaten, stabilen
+      URLs und einer behördennahen Darstellung.
+    </p>
   </section>
 
-  <div class="content-stack">
-    {releases.map((release) => (
-      <article class="section press-card">
-        <img src={release.image} alt={release.imageAlt} />
-        <div>
-          <p class="eyebrow">{siteConfig.date.formatLong(release.date)} · {release.ministry}</p>
-          <h2><a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a></h2>
-          <p>{release.teaser}</p>
+  {leadRelease ? (
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Hervorgehobene Meldung</h2>
+        <p>Wichtige Mitteilungen der Staatsregierung werden auf der Übersichtsseite besonders sichtbar hervorgehoben.</p>
+      </div>
+      <PressReleaseCard release={leadRelease} variant="featured" />
+      {secondaryFeatured.length > 0 ? (
+        <div class="card-grid card-grid--two">
+          {secondaryFeatured.map((release) => (
+            <PressReleaseCard release={release} variant="compact" />
+          ))}
         </div>
-      </article>
-    ))}
-  </div>
+      ) : null}
+    </section>
+  ) : null}
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Archiv</h2>
+      <p>Alle Pressemitteilungen bleiben als statische Einzelseiten mit Datum, Ressortbezug und Fließtext erreichbar.</p>
+    </div>
+    <div class="content-stack">
+      {(archiveReleases.length > 0 ? archiveReleases : releases).map((release) => (
+        <PressReleaseCard release={release} />
+      ))}
+    </div>
+  </section>
 </BaseLayout>

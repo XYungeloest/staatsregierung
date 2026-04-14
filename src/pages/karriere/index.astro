@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getHomeUrl, getJobsUrl, loadCurrentJobOffers } from '../../lib/portal/index.ts';
+import JobOfferCard from '../../components/portal/JobOfferCard.astro';
+import { getHomeUrl, getJobsUrl, loadJobOffers } from '../../lib/portal/index.ts';
 
-const offers = await loadCurrentJobOffers(3);
+const offers = await loadJobOffers();
+const featuredOffers = offers.slice(0, 3);
 ---
 
 <BaseLayout title="Karriere" description="Karrierebereich der Staatsregierung des Ostdeutschen Freistaates.">
@@ -13,21 +15,45 @@ const offers = await loadCurrentJobOffers(3);
     <p class="eyebrow">Karriere</p>
     <h1>Arbeiten für die Staatsregierung</h1>
     <p class="lead">
-      Der Karrierebereich bündelt Stellenangebote und dient als Einstieg für künftige, dateibasierte
-      Inhalte zu Berufsbildern und Bewerbungswegen.
+      Der Karrierebereich bündelt aktuelle Stellenangebote, informiert über Arbeitsfelder der
+      Landesverwaltung und bleibt vollständig statisch und ohne Bewerbungslogik aufgebaut.
     </p>
     <nav class="hero-actions" aria-label="Karrierenavigation">
       <a class="button-link" href={getJobsUrl()}>Zu den Stellenangeboten</a>
     </nav>
   </section>
 
-  <div class="card-grid">
-    {offers.map((offer) => (
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Karriere in der Landesverwaltung</h2>
+      <p>Die Staatsregierung sucht Fachkräfte für Verwaltung, Kommunikation, Kultur, Infrastruktur und den institutionellen Ausbau des Freistaates.</p>
+    </div>
+    <div class="card-grid card-grid--three">
       <article class="panel">
-        <h3>{offer.title}</h3>
-        <p>{offer.teaser}</p>
-        <p class="detail-line">{offer.ministry}</p>
+        <h3>Behördennahe Arbeit</h3>
+        <p>Gesucht werden Mitarbeitende mit sicherer schriftlicher Ausdrucksfähigkeit, Organisationsvermögen und Verständnis für öffentliche Aufgaben.</p>
       </article>
-    ))}
-  </div>
+      <article class="panel">
+        <h3>Klare Verfahren</h3>
+        <p>Die Ausschreibungen sind statisch gepflegt, enthalten alle zentralen Rahmendaten und verweisen auf die zuständigen Kontaktstellen.</p>
+      </article>
+      <article class="panel">
+        <h3>Breite Aufgabenfelder</h3>
+        <p>Von Pressestelle und Kulturförderung bis zu digitalen Diensten und Verwaltungsmodernisierung reicht das Spektrum der ausgeschriebenen Tätigkeiten.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Aktuelle Stellenangebote</h2>
+      <p>Die zuletzt veröffentlichten Ausschreibungen sind direkt auf der Karriereseite eingebunden.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {featuredOffers.map((offer) => (
+        <JobOfferCard offer={offer} />
+      ))}
+    </div>
+    <p class="section-link-row"><a class="inline-link" href={getJobsUrl()}>Alle Stellenangebote anzeigen</a></p>
+  </section>
 </BaseLayout>

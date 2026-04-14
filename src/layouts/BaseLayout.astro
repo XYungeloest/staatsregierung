@@ -43,13 +43,18 @@ const serviceLinks = [
   })),
 ];
 
-const footerPrimaryLinks = [
-  ...(showServiceLinks ? serviceLinks : [{ href: getHomeUrl(), label: 'Start' }]),
+const footerPortalLinks = [
+  { href: getSiteUrl('government'), label: 'Staatsregierung' },
   { href: getSiteUrl('governmentMembers'), label: 'Regierungsmitglieder' },
   { href: getSiteUrl('ministries'), label: 'Ministerien' },
   { href: getSiteUrl('press'), label: 'Presse' },
-  { href: getSiteUrl('jobs'), label: 'Stellenangebote' },
+  { href: getSiteUrl('career'), label: 'Karriere' },
   { href: getSiteUrl('lawHome'), label: 'Recht' },
+];
+
+const footerServiceLinks = [
+  ...(showServiceLinks ? serviceLinks : [{ href: getHomeUrl(), label: 'Start' }]),
+  { href: getSiteUrl('jobs'), label: 'Stellenangebote' },
   ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
 ];
 ---
@@ -189,11 +194,41 @@ const footerPrimaryLinks = [
             <p>{siteConfig.footerNote}</p>
             <p class="site-footer__small">{siteConfig.simulationNotice}</p>
           </div>
-          <nav class="footer-nav" aria-label="Fußnavigation">
-            {footerPrimaryLinks.map((link) => (
-              <a href={link.href}>{link.label}</a>
-            ))}
-          </nav>
+          <div class="site-footer__grid">
+            <section class="site-footer__section">
+              <h2>Kontakt</h2>
+              <p>{siteConfig.contact.authorityShort}</p>
+              <p>{siteConfig.contact.addressLines.join(', ')}</p>
+              <p>
+                <a href={`tel:${siteConfig.contact.citizenService.phone.replace(/\s+/g, '')}`}>
+                  {siteConfig.contact.citizenService.phone}
+                </a>
+              </p>
+              <p>
+                <a href={`mailto:${siteConfig.contact.citizenService.email}`}>
+                  {siteConfig.contact.citizenService.email}
+                </a>
+              </p>
+            </section>
+
+            <section class="site-footer__section">
+              <h2>Portalbereiche</h2>
+              <nav class="footer-nav" aria-label="Portalbereiche">
+                {footerPortalLinks.map((link) => (
+                  <a href={link.href}>{link.label}</a>
+                ))}
+              </nav>
+            </section>
+
+            <section class="site-footer__section">
+              <h2>Service</h2>
+              <nav class="footer-nav" aria-label="Servicelinks im Footer">
+                {footerServiceLinks.map((link) => (
+                  <a href={link.href}>{link.label}</a>
+                ))}
+              </nav>
+            </section>
+          </div>
         </div>
       </footer>
     </div>

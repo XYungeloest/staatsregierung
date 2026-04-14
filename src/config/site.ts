@@ -43,10 +43,27 @@ export const siteConfig = {
   ],
   serviceNavigation: [
     { label: 'Übersicht', pathKey: 'overview' },
+    { label: 'Kontakt', pathKey: 'contact' },
     { label: 'Impressum', pathKey: 'imprint' },
     { label: 'Datenschutz', pathKey: 'privacy' },
     { label: 'Barrierefreiheit', pathKey: 'accessibility' },
   ],
+  contact: {
+    authorityShort: 'Staatsregierung des Ostdeutschen Freistaates',
+    addressLines: ['Archivstraße 1', '01097 Dresden'],
+    postalAddress: 'Staatskanzlei des Ostdeutschen Freistaates, Archivstraße 1, 01097 Dresden',
+    citizenService: {
+      label: 'Bürgertelefon',
+      phone: '+49 351 100-0',
+      email: 'service@ostfreistaat.example',
+    },
+    pressOffice: {
+      label: 'Pressestelle der Staatsregierung',
+      phone: '+49 351 100-1111',
+      email: 'pressestelle@ostfreistaat.example',
+    },
+    officeHours: ['Montag bis Donnerstag: 9.00 bis 17.00 Uhr', 'Freitag: 9.00 bis 15.00 Uhr'],
+  },
   currentGovernment: {
     cabinetName: 'Kabinett Honecker',
     formedOn: '2025-12-20',
