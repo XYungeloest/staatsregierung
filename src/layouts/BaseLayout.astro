@@ -30,10 +30,29 @@ const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
 const currentPath = Astro.url.pathname;
 
-const mainNavLinks = siteConfig.mainNavigation.map((entry) => ({
-  href: getSiteUrl(entry.pathKey),
-  label: entry.label,
-}));
+function getPathname(href: string): string {
+  return new URL(href, Astro.url).pathname;
+}
+
+function isActivePath(targetPath: string, exact = false): boolean {
+  if (targetPath === '/') {
+    return currentPath === '/';
+  }
+
+  return exact
+    ? currentPath === targetPath
+    : currentPath === targetPath || currentPath.startsWith(targetPath);
+}
+
+const mainNavLinks = siteConfig.mainNavigation.map((entry) => {
+  const href = getSiteUrl(entry.pathKey);
+
+  return {
+    href,
+    label: entry.label,
+    isActive: isActivePath(getPathname(href)),
+  };
+});
 
 const serviceLinks = [
   { href: getHomeUrl(), label: 'Start' },
@@ -41,7 +60,10 @@ const serviceLinks = [
     href: getSiteUrl(entry.pathKey),
     label: entry.label,
   })),
-];
+].map((entry) => ({
+  ...entry,
+  isActive: isActivePath(getPathname(entry.href), true),
+}));
 
 const footerPortalLinks = [
   { href: getSiteUrl('government'), label: 'Staatsregierung' },
@@ -50,13 +72,19 @@ const footerPortalLinks = [
   { href: getSiteUrl('press'), label: 'Presse' },
   { href: getSiteUrl('career'), label: 'Karriere' },
   { href: getSiteUrl('lawHome'), label: 'Recht' },
-];
+].map((entry) => ({
+  ...entry,
+  isActive: isActivePath(getPathname(entry.href)),
+}));
 
 const footerServiceLinks = [
   ...(showServiceLinks ? serviceLinks : [{ href: getHomeUrl(), label: 'Start' }]),
   { href: getSiteUrl('jobs'), label: 'Stellenangebote' },
   ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
-];
+].map((entry) => ({
+  ...entry,
+  isActive: isActivePath(getPathname(entry.href), entry.href === getHomeUrl()),
+}));
 ---
 
 <!doctype html>
@@ -96,7 +124,7 @@ const footerServiceLinks = [
               <div class="container site-service-bar__inner">
                 <nav class="service-nav" aria-label="Servicenavigation">
                   {serviceLinks.map((link) => (
-                    <a href={link.href}>{link.label}</a>
+                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
                   ))}
                 </nav>
               </div>
@@ -147,11 +175,50 @@ const footerServiceLinks = [
               </div>
             </div>
 
+            <div class="site-mobile-nav">
+              <div class="container">
+                <details class="mobile-nav">
+                  <summary class="mobile-nav__summary">Menü</summary>
+                  <div class="mobile-nav__panel">
+                    <div class="mobile-nav__group">
+                      <p class="eyebrow">Hauptbereiche</p>
+                      <nav class="mobile-nav__links" aria-label="Mobile Hauptnavigation">
+                        {mainNavLinks.map((link) => (
+                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                            {link.label}
+                          </a>
+                        ))}
+                      </nav>
+                    </div>
+
+                    {showServiceLinks ? (
+                      <div class="mobile-nav__group">
+                        <p class="eyebrow">Service</p>
+                        <nav class="mobile-nav__links" aria-label="Mobile Servicenavigation">
+                          {serviceLinks.map((link) => (
+                            <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                              {link.label}
+                            </a>
+                          ))}
+                        </nav>
+                      </div>
+                    ) : null}
+
+                    <div class="mobile-nav__actions">
+                      <a class="button-link button-link--secondary" href={getLawSearchUrl()}>
+                        Rechtssuche
+                      </a>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </div>
+
             <div class="site-nav-bar">
               <div class="container">
                 <nav class="site-nav" aria-label="Hauptnavigation">
                   {mainNavLinks.map((link) => (
-                    <a href={link.href} aria-current={currentPath === new URL(link.href, Astro.url).pathname ? 'page' : undefined}>
+                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
                       {link.label}
                     </a>
                   ))}
@@ -176,7 +243,7 @@ const footerServiceLinks = [
               </div>
               <nav class="site-nav" aria-label="Hauptnavigation">
                 {mainNavLinks.map((link) => (
-                  <a href={link.href}>{link.label}</a>
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
                 ))}
               </nav>
             </div>
@@ -215,7 +282,7 @@ const footerServiceLinks = [
               <h2>Portalbereiche</h2>
               <nav class="footer-nav" aria-label="Portalbereiche">
                 {footerPortalLinks.map((link) => (
-                  <a href={link.href}>{link.label}</a>
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
                 ))}
               </nav>
             </section>
@@ -224,7 +291,7 @@ const footerServiceLinks = [
               <h2>Service</h2>
               <nav class="footer-nav" aria-label="Servicelinks im Footer">
                 {footerServiceLinks.map((link) => (
-                  <a href={link.href}>{link.label}</a>
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
                 ))}
               </nav>
             </section>

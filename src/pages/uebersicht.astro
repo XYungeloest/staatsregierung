@@ -2,16 +2,20 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import {
+  getAccessibilityUrl,
   getCareerUrl,
+  getContactUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
+  getImprintUrl,
   getJobsUrl,
   getLawHomeUrl,
   getLawIndexUrl,
   getLawSearchUrl,
   getLawSubjectsUrl,
   getMinistriesUrl,
+  getPrivacyUrl,
   getPressUrl,
 } from '../lib/portal/index.ts';
 
@@ -39,6 +43,15 @@ const sections = [
       { label: 'Normensuche', href: getLawSearchUrl() },
       { label: 'Alphabetischer Index', href: getLawIndexUrl() },
       { label: 'Sachgebiete', href: getLawSubjectsUrl() },
+    ],
+  },
+  {
+    title: 'Service',
+    links: [
+      { label: 'Kontakt', href: getContactUrl() },
+      { label: 'Impressum', href: getImprintUrl() },
+      { label: 'Datenschutz', href: getPrivacyUrl() },
+      { label: 'Barrierefreiheit', href: getAccessibilityUrl() },
     ],
   },
 ];

@@ -16,7 +16,6 @@ import {
   getLawPortalUrl,
   getNormHistoryUrl,
   getNormVersionUrl,
-  getSearchUrl,
   loadAllNorms,
 } from '../../../../lib/norms/index.ts';
 
@@ -39,7 +38,6 @@ const outline = buildNormOutline(currentVersion.body);
     items={[
       { label: 'Start', href: getHomeUrl() },
       { label: 'Recht', href: getLawPortalUrl() },
-      { label: 'Suche', href: getSearchUrl() },
       { label: toDisplayText(norm.meta.shortTitle || norm.meta.title) },
     ]}
   />

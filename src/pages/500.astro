@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getOverviewUrl } from '../lib/portal/index.ts';
 import { getHomeUrl, getIndexUrl, getSearchUrl } from '../lib/norms/index.ts';
 ---
 
@@ -16,8 +17,9 @@ import { getHomeUrl, getIndexUrl, getSearchUrl } from '../lib/norms/index.ts';
     </p>
     <nav class="hero-actions" aria-label="Hilfsnavigation">
       <a class="button-link" href={getHomeUrl()}>Zur Startseite</a>
-      <a class="button-link button-link--secondary" href={getSearchUrl()}>Zur Suche</a>
-      <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum Index</a>
+      <a class="button-link button-link--secondary" href={getOverviewUrl()}>Zur Übersicht</a>
+      <a class="button-link button-link--secondary" href={getSearchUrl()}>Zur Rechtssuche</a>
+      <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum alphabetischen Index</a>
     </nav>
   </section>
 </BaseLayout>

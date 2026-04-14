@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getOverviewUrl } from '../lib/portal/index.ts';
 import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '../lib/norms/index.ts';
 ---
 
-<BaseLayout title="Seite nicht gefunden" description="Die angeforderte Seite wurde im Ostrecht-Portal nicht gefunden.">
+<BaseLayout title="Seite nicht gefunden" description="Die angeforderte Seite wurde im Regierungsportal nicht gefunden.">
   <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Seite nicht gefunden' }]} />
 
   <section class="section page-header error-page">
@@ -15,8 +16,10 @@ import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '../lib/no
       Suche oder die Verzeichnisse, um den gewünschten Inhalt aufzurufen.
     </p>
     <nav class="hero-actions" aria-label="Hilfsnavigation">
-      <a class="button-link" href={getSearchUrl()}>Zur Suche</a>
-      <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum Index</a>
+      <a class="button-link" href={getHomeUrl()}>Zur Startseite</a>
+      <a class="button-link button-link--secondary" href={getOverviewUrl()}>Zur Übersicht</a>
+      <a class="button-link button-link--secondary" href={getSearchUrl()}>Zur Rechtssuche</a>
+      <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum alphabetischen Index</a>
       <a class="button-link button-link--secondary" href={getSubjectsUrl()}>Zu den Sachgebieten</a>
     </nav>
   </section>
