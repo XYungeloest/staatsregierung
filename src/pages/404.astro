@@ -6,7 +6,7 @@ import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '../lib/no
 ---
 
 <BaseLayout title="Seite nicht gefunden" description="Die angeforderte Seite wurde im Regierungsportal nicht gefunden.">
-  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Seite nicht gefunden' }]} />
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Seite nicht gefunden' }]} />
 
   <section class="section page-header error-page">
     <p class="eyebrow">Fehler 404</p>
@@ -17,7 +17,7 @@ import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '../lib/no
     </p>
     <nav class="hero-actions" aria-label="Hilfsnavigation">
       <a class="button-link" href={getHomeUrl()}>Zur Startseite</a>
-      <a class="button-link button-link--secondary" href={getOverviewUrl()}>Zur Übersicht</a>
+      <a class="button-link button-link--secondary" href={getOverviewUrl()}>Zum Service</a>
       <a class="button-link button-link--secondary" href={getSearchUrl()}>Zur Rechtssuche</a>
       <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum alphabetischen Index</a>
       <a class="button-link button-link--secondary" href={getSubjectsUrl()}>Zu den Sachgebieten</a>

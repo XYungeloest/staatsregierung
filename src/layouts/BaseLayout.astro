@@ -67,11 +67,12 @@ const serviceLinks = [
 
 const footerPortalLinks = [
   { href: getSiteUrl('government'), label: 'Staatsregierung' },
-  { href: getSiteUrl('governmentMembers'), label: 'Regierungsmitglieder' },
-  { href: getSiteUrl('ministries'), label: 'Ministerien' },
-  { href: getSiteUrl('press'), label: 'Presse' },
-  { href: getSiteUrl('career'), label: 'Karriere' },
+  { href: getSiteUrl('topics'), label: 'Themen & Projekte' },
   { href: getSiteUrl('lawHome'), label: 'Recht' },
+  { href: getSiteUrl('press'), label: 'Presse & Aktuelles' },
+  { href: getSiteUrl('budget'), label: 'Haushalt' },
+  { href: getSiteUrl('freestate'), label: 'Über den Freistaat' },
+  { href: getSiteUrl('service'), label: 'Service' },
 ].map((entry) => ({
   ...entry,
   isActive: isActivePath(getPathname(entry.href)),
@@ -79,7 +80,7 @@ const footerPortalLinks = [
 
 const footerServiceLinks = [
   ...(showServiceLinks ? serviceLinks : [{ href: getHomeUrl(), label: 'Start' }]),
-  { href: getSiteUrl('jobs'), label: 'Stellenangebote' },
+  { href: getSiteUrl('career'), label: 'Karriere' },
   ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
 ].map((entry) => ({
   ...entry,

@@ -2,6 +2,7 @@ import type { Dirent } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
+import { portalCollections } from './collections.ts';
 import {
   PortalContentValidationError,
   parseMinisterium,
@@ -68,7 +69,10 @@ async function loadCollection<T>(
 }
 
 export async function loadGovernmentMembers(): Promise<RegierungMitglied[]> {
-  const entries = await loadCollection(['regierung', 'mitglieder'], parseRegierungMitglied);
+  const entries = await loadCollection(
+    portalCollections.regierungMitglied.directorySegments,
+    parseRegierungMitglied,
+  );
   return entries.sort((left, right) => left.reihenfolge - right.reihenfolge);
 }
 
@@ -80,7 +84,7 @@ export async function loadGovernmentMemberBySlug(
 }
 
 export async function loadMinistries(): Promise<Ministerium[]> {
-  const entries = await loadCollection(['ministerien'], parseMinisterium);
+  const entries = await loadCollection(portalCollections.ressort.directorySegments, parseMinisterium);
   return entries.sort((left, right) => left.name.localeCompare(right.name, 'de'));
 }
 
@@ -90,7 +94,10 @@ export async function loadMinistryBySlug(slug: string): Promise<Ministerium | un
 }
 
 export async function loadPressReleases(): Promise<Pressemitteilung[]> {
-  const entries = await loadCollection(['presse'], parsePressemitteilung);
+  const entries = await loadCollection(
+    portalCollections.pressemitteilung.directorySegments,
+    parsePressemitteilung,
+  );
   return entries.sort((left, right) => right.date.localeCompare(left.date));
 }
 
@@ -102,7 +109,10 @@ export async function loadPressReleaseBySlug(
 }
 
 export async function loadJobOffers(): Promise<Stellenangebot[]> {
-  const entries = await loadCollection(['karriere'], parseStellenangebot);
+  const entries = await loadCollection(
+    portalCollections.stellenangebot.directorySegments,
+    parseStellenangebot,
+  );
   return entries.sort((left, right) => right.datePosted.localeCompare(left.datePosted));
 }
 
@@ -112,7 +122,10 @@ export async function loadJobOfferBySlug(slug: string): Promise<Stellenangebot |
 }
 
 export async function loadPages(): Promise<Seite[]> {
-  const entries = await loadCollection(['seiten'], parseSeite);
+  const entries = await loadCollection(
+    portalCollections.statischeSeite.directorySegments,
+    parseSeite,
+  );
   return entries.sort((left, right) => left.title.localeCompare(right.title, 'de'));
 }
 

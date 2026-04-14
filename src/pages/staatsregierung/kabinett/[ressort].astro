@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  getGovernmentUrl,
+  getHomeUrl,
+  getMinistriesUrl,
+  getMinistryUrl,
+  loadMinistries,
+  type Ministerium,
+} from '../../../lib/portal/index.ts';
+
+export async function getStaticPaths() {
+  const ministries = await loadMinistries();
+
+  return ministries.map((ministry) => ({
+    params: { ressort: ministry.slug },
+    props: { ministry },
+  }));
+}
+
+const { ministry } = Astro.props as { ministry: Ministerium };
+---
+
+<BaseLayout title={ministry.kurzname} description={ministry.teaser}>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Kabinett', href: getMinistriesUrl() },
+      { label: ministry.kurzname },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Ressort</p>
+    <h1>{ministry.name}</h1>
+    <p class="lead">{ministry.teaser}</p>
+    <p class="detail-line">{ministry.leitung}</p>
+  </section>
+
+  <div class="content-grid">
+    <section class="section">
+      <img class="media-banner" src={ministry.bild} alt="" />
+      <div class="status-notice status-notice--current">
+        <h2>Ressortprofil</h2>
+        <p>Die Ressortseite fasst Auftrag, Aufgaben und Kontakt des Ressorts in kompakter Form zusammen.</p>
+      </div>
+      <div class="body-copy">
+        <p>{ministry.teaser}</p>
+      </div>
+
+      <div class="section-header">
+        <h2>Aufgaben</h2>
+      </div>
+      <ul class="record-list">
+        {ministry.aufgaben.map((task) => (
+          <li class="record-list__item">
+            <span>{task}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="section-header">
+        <h2>Themen</h2>
+      </div>
+      <div class="tag-list">
+        {ministry.themen.map((topic) => (
+          <span class="tag">{topic}</span>
+        ))}
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Kontakt</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Leitung</dt>
+          <dd>{ministry.leitung}</dd>
+        </div>
+        {ministry.kontakt.name ? (
+          <div>
+            <dt>Ansprechstelle</dt>
+            <dd>{ministry.kontakt.name}</dd>
+          </div>
+        ) : null}
+        {ministry.kontakt.referat ? (
+          <div>
+            <dt>Referat</dt>
+            <dd>{ministry.kontakt.referat}</dd>
+          </div>
+        ) : null}
+        <div>
+          <dt>E-Mail</dt>
+          <dd>{ministry.kontakt.email ?? 'wird ergänzt'}</dd>
+        </div>
+        <div>
+          <dt>Telefon</dt>
+          <dd>{ministry.kontakt.telefon ?? 'wird ergänzt'}</dd>
+        </div>
+      </dl>
+      <nav class="link-list">
+        {ministry.verknuepfteLinks.map((link) => (
+          <a href={link.href}>{link.label}</a>
+        ))}
+        <a href={getMinistryUrl(ministry.slug)}>Stabile URL dieses Ressorts</a>
+      </nav>
+    </aside>
+  </div>
+</BaseLayout>

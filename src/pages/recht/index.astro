@@ -6,6 +6,7 @@ import {
   getCurrentVersion,
   getHomeUrl,
   getIndexUrl,
+  getLawConstitutionUrl,
   getNormUrl,
   getSearchUrl,
   getSubjectsUrl,
@@ -20,7 +21,7 @@ const latestUpdates = [...norms]
 ---
 
 <BaseLayout title="Recht" description="Integrierter Rechtsbereich der Staatsregierung des Ostdeutschen Freistaates.">
-  <Breadcrumbs items={[{ label: 'Start', href: getHomeUrl() }, { label: 'Recht' }]} />
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Recht' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Rechtsbereich</p>
@@ -32,8 +33,9 @@ const latestUpdates = [...norms]
     </p>
     <nav class="hero-actions" aria-label="Rechtseinstiege">
       <a class="button-link" href={getSearchUrl()}>Normensuche</a>
-      <a class="button-link button-link--secondary" href={getIndexUrl()}>Alphabetischer Index</a>
+      <a class="button-link button-link--secondary" href={getIndexUrl()}>Archiv</a>
       <a class="button-link button-link--secondary" href={getSubjectsUrl()}>Sachgebiete</a>
+      <a class="button-link button-link--secondary" href={getLawConstitutionUrl()}>Verfassung</a>
     </nav>
   </section>
 
@@ -50,6 +52,10 @@ const latestUpdates = [...norms]
       <div class="meta-card">
         <span class="meta-label">Ausgabe</span>
         <strong>vollständig statisch</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Verortung</span>
+        <strong>/recht/ als Kernmodul</strong>
       </div>
     </div>
   </section>

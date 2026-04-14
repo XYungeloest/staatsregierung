@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { getGovernmentUrl, getHomeUrl, getLawHomeUrl, getTopicsUrl } from '../../../lib/portal/index.ts';
+
+const points = [
+  'Staatsaufbau und Verwaltungsorganisation',
+  'Rechtsrahmen des Freistaates',
+  'Daseinsvorsorge und soziale Sicherung',
+  'Bildung, Wissenschaft und Kultur',
+  'Infrastruktur, Mobilität und Landesentwicklung',
+];
+---
+
+<BaseLayout title="15-Punkte-Plan" description="Regierungsprogrammatische Leitlinien der Staatsregierung.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: '15-Punkte-Plan' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Regierungsprogramm</p>
+    <h1>15-Punkte-Plan</h1>
+    <p class="lead">
+      Die Master-Struktur sieht einen eigenen Einstieg für zentrale Regierungsprojekte vor. In
+      Phase 1 wird dieser Bereich als tragfähiges Grundgerüst vorbereitet.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--three">
+      {points.map((point) => (
+        <article class="panel">
+          <h2>{point}</h2>
+          <p>
+            Dieser Themenstrang wird in den nächsten Phasen mit Projektseiten, Verlinkungen ins
+            Rechtsportal und weiterführenden Inhalten ergänzt.
+          </p>
+        </article>
+      ))}
+    </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getTopicsUrl()}>Zur Themenübersicht</a> ·{' '}
+      <a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
+    </p>
+  </section>
+</BaseLayout>

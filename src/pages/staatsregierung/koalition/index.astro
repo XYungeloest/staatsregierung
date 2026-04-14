@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../../config/site.ts';
+import { getGovernmentUrl, getHomeUrl } from '../../../lib/portal/index.ts';
+---
+
+<BaseLayout title="Koalition" description="Koalitionsrahmen der aktuellen Staatsregierung.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Koalition' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Parlamentarische Grundlage</p>
+    <h1>Koalition</h1>
+    <p class="lead">
+      Die aktuelle Staatsregierung wird von einer Koalition aus {siteConfig.currentGovernment.coalition}
+      getragen.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Kurzbezeichnung</span>
+        <strong>{siteConfig.currentGovernment.coalitionShort}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Kabinettsbildung</span>
+        <strong>{siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Legislatur</span>
+        <strong>{siteConfig.currentGovernment.legislature}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted body-copy">
+    <p>
+      Phase 1 bildet die Koalition zunächst als klar verortete Portalseite ab. Vertiefende Inhalte
+      zu Vereinbarungen, Vorhaben und parlamentarischen Linien können in den nächsten Phasen
+      redaktionell ergänzt werden.
+    </p>
+  </section>
+</BaseLayout>

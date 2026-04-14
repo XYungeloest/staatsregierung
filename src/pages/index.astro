@@ -5,15 +5,20 @@ import GovernmentMemberCard from '../components/portal/GovernmentMemberCard.astr
 import MinistryCard from '../components/portal/MinistryCard.astro';
 import { siteConfig } from '../config/site.ts';
 import {
+  getBudgetUrl,
   getCabinetUrl,
   getCareerUrl,
+  getFreestateUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getJobUrl,
   getLawHomeUrl,
   getMinistriesUrl,
+  getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
+  getServiceUrl,
+  getTopicsUrl,
   loadCurrentJobOffers,
   loadFeaturedPressReleases,
   loadGovernmentMembers,
@@ -59,9 +64,10 @@ const spotlightMinistries = [
     <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
     <h1>{siteConfig.authorityName}</h1>
     <p class="lead">
-      Das Portal bündelt die Arbeit der Staatsregierung, der Ministerien und des integrierten
-      Rechtsbereichs in einer vollständig statischen und GitHub-Pages-kompatiblen Website. Es
-      bildet die fiktive Politiksimulation des Ostdeutschen Freistaates bewusst behördennah ab.
+      Das Portal bündelt die Arbeit der Staatsregierung, Themen und Projekte, Presse, Haushalt,
+      Service und den integrierten Rechtsbereich in einer vollständig statischen und
+      GitHub-Pages-kompatiblen Website. Es bildet die fiktive Politiksimulation des Ostdeutschen
+      Freistaates bewusst behördennah ab.
     </p>
     <div class="meta-grid" aria-label="Portalüberblick">
       <div class="meta-card">
@@ -82,8 +88,8 @@ const spotlightMinistries = [
       </div>
     </div>
     <nav class="hero-actions" aria-label="Schnelleinstiege">
-      <a class="button-link" href={getGovernmentUrl()}>Zur Regierung</a>
-      <a class="button-link button-link--secondary" href={getMinistriesUrl()}>Zu den Ministerien</a>
+      <a class="button-link" href={getGovernmentUrl()}>Zur Staatsregierung</a>
+      <a class="button-link button-link--secondary" href={getTopicsUrl()}>Zu Themen & Projekte</a>
       <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
     </nav>
   </section>
@@ -171,25 +177,25 @@ const spotlightMinistries = [
     </div>
     <div class="card-grid card-grid--three">
       <article class="panel">
-        <h3>Regierung</h3>
+        <h3>Staatsregierung</h3>
         <p>
           Übersicht zur Staatsregierung, zum Kabinett Honecker und zu allen aktuellen
           Regierungsmitgliedern.
         </p>
         <p class="detail-line">Leitung: {currentGovernment.headOfGovernment}</p>
-        <p><a class="inline-link" href={getGovernmentUrl()}>Zur Regierung</a></p>
+        <p><a class="inline-link" href={getGovernmentUrl()}>Zur Staatsregierung</a></p>
       </article>
       <article class="panel">
-        <h3>Ministerien</h3>
+        <h3>Themen & Projekte</h3>
         <p>
-          Alle Ressorts mit Kurzbeschreibung, Leitung, Aufgaben, Kontakt und thematischen
-          Schwerpunkten.
+          Themenbereiche und Regierungsprojekte werden als eigener Hauptbereich des Portals
+          vorbereitet.
         </p>
-        <p class="detail-line">{ministries.length} Ministerien und Staatskanzlei</p>
-        <p><a class="inline-link" href={getMinistriesUrl()}>Zu den Ministerien</a></p>
+        <p class="detail-line">Politische Vorhaben und Rechtsgrundlagen</p>
+        <p><a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a></p>
       </article>
       <article class="panel">
-        <h3>Presse</h3>
+        <h3>Presse & Aktuelles</h3>
         <p>
           {pressReleases[0]?.teaser ??
             'Aktuelle Pressemitteilungen der Staatsregierung und ihrer Ressorts.'}
@@ -199,20 +205,16 @@ const spotlightMinistries = [
             ? siteConfig.date.formatLong(pressReleases[0].date)
             : 'Redaktioneller Bereich'}
         </p>
-        <p><a class="inline-link" href={getPressUrl()}>Zur Presse</a></p>
+        <p><a class="inline-link" href={getPressUrl()}>Zum Pressebereich</a></p>
       </article>
       <article class="panel">
-        <h3>Karriere</h3>
+        <h3>Haushalt</h3>
         <p>
-          {jobOffers[0]?.teaser ??
-            'Informationen zu Einstiegsmöglichkeiten und offenen Stellen in der Landesverwaltung.'}
+          Der Haushaltsbereich wird als eigener Hauptbereich der Staatsregierung in das
+          Gesamtportal eingebunden.
         </p>
-        <p class="detail-line">
-          {jobOffers[0]
-            ? `Bewerbungsfrist: ${siteConfig.date.formatLong(jobOffers[0].applicationDeadline)}`
-            : 'Stellenangebote der Staatsregierung'}
-        </p>
-        <p><a class="inline-link" href={getCareerUrl()}>Zur Karriere</a></p>
+        <p class="detail-line">Gesamtplan, Einzelpläne und Sondervermögen</p>
+        <p><a class="inline-link" href={getBudgetUrl()}>Zum Haushalt</a></p>
       </article>
       <article class="panel">
         <h3>Recht</h3>
@@ -222,6 +224,24 @@ const spotlightMinistries = [
         </p>
         <p class="detail-line">Aktuelle Fassungen, Historie, Suche und Sachgebiete</p>
         <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
+      </article>
+      <article class="panel">
+        <h3>Über den Freistaat</h3>
+        <p>
+          Grundinformationen zur Staatsordnung, zu Hoheitszeichen, Bezirken und zur Geschichte des
+          Freistaates werden in einem eigenen Bereich gebündelt.
+        </p>
+        <p class="detail-line">Staatsziele, Bezirke und Symbolik</p>
+        <p><a class="inline-link" href={getFreestateUrl()}>Zum Bereich Freistaat</a></p>
+      </article>
+      <article class="panel">
+        <h3>Service</h3>
+        <p>
+          Service, Kontakt, Karriere, Datenschutz und Barrierefreiheit liegen künftig an einer
+          gemeinsamen Stelle.
+        </p>
+        <p class="detail-line">Kontakt, FAQ, Karriere und Hilfeseiten</p>
+        <p><a class="inline-link" href={getServiceUrl()}>Zum Service</a></p>
       </article>
     </div>
   </section>
@@ -263,13 +283,14 @@ const spotlightMinistries = [
               </a>
             </p>
             <p class="detail-line">{siteConfig.date.formatLong(pressReleases[0].date)}</p>
+            <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Alle Pressemitteilungen</a></p>
           </>
         ) : (
           <p>Der Pressebereich ist angebunden und kann redaktionell weiter ausgebaut werden.</p>
         )}
       </article>
       <article class="panel">
-        <h3>Karriere</h3>
+        <h3>Service & Karriere</h3>
         {jobOffers[0] ? (
           <>
             <p>
@@ -280,6 +301,7 @@ const spotlightMinistries = [
             <p class="detail-line">
               Bewerbungsfrist: {siteConfig.date.formatLong(jobOffers[0].applicationDeadline)}
             </p>
+            <p><a class="inline-link" href={getCareerUrl()}>Zur Karriere</a></p>
           </>
         ) : (
           <p>

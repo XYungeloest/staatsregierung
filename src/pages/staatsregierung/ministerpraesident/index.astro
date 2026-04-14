@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
+import { siteConfig } from '../../../config/site.ts';
+import {
+  getCabinetUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  loadGovernmentMembers,
+} from '../../../lib/portal/index.ts';
+
+const members = await loadGovernmentMembers();
+const ministerPresident = members[0];
+---
+
+<BaseLayout
+  title="Ministerpräsident"
+  description="Leitungsseite des Ministerpräsidenten innerhalb der Staatsregierung."
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Ministerpräsident' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Leitung</p>
+    <h1>Ministerpräsident</h1>
+    <p class="lead">
+      Der Ministerpräsident führt die Staatsregierung, bestimmt die Richtlinien der Politik und
+      koordiniert die Arbeit des Kabinetts.
+    </p>
+  </section>
+
+  <section class="section section-muted">
+    {ministerPresident ? <GovernmentMemberCard member={ministerPresident} /> : null}
+  </section>
+
+  <section class="section">
+    <div class="content-grid">
+      <section class="section body-copy">
+        <p>
+          In der Master-Architektur des Gesamtportals wird die Leitungsfunktion der
+          Staatsregierung als eigener Einstieg geführt. Sie bündelt Kabinettssteuerung,
+          ressortübergreifende Koordinierung und öffentliche Repräsentation.
+        </p>
+        <p>
+          Die derzeitige Regierungsbildung datiert vom{' '}
+          {siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}. Das Portal führt die
+          politischen Kerndaten bewusst sachlich und statisch.
+        </p>
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Auf einen Blick</h2>
+        </div>
+        <dl class="meta-list">
+          <div>
+            <dt>Amtsträger</dt>
+            <dd>{siteConfig.currentGovernment.headOfGovernment}</dd>
+          </div>
+          <div>
+            <dt>Kabinett</dt>
+            <dd>{siteConfig.currentGovernment.cabinetName}</dd>
+          </div>
+          <div>
+            <dt>Koalition</dt>
+            <dd>{siteConfig.currentGovernment.coalitionShort}</dd>
+          </div>
+        </dl>
+        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett Honecker</a></p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

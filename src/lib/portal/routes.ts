@@ -30,8 +30,20 @@ export function getGovernmentMemberUrl(slug: string): string {
   return withBase(`${siteConfig.paths.governmentMembers}${slug}/`);
 }
 
+export function getMinisterPresidentUrl(): string {
+  return getSiteUrl('ministerPresident');
+}
+
 export function getCabinetUrl(): string {
   return getSiteUrl('cabinet');
+}
+
+export function getCoalitionUrl(): string {
+  return getSiteUrl('coalition');
+}
+
+export function getActionPlanUrl(): string {
+  return getSiteUrl('actionPlan');
 }
 
 export function getMinistriesUrl(): string {
@@ -42,12 +54,32 @@ export function getMinistryUrl(slug: string): string {
   return withBase(`${siteConfig.paths.ministries}${slug}/`);
 }
 
+export function getTopicsUrl(): string {
+  return getSiteUrl('topics');
+}
+
 export function getPressUrl(): string {
   return getSiteUrl('press');
 }
 
+export function getPressReleaseIndexUrl(): string {
+  return getSiteUrl('pressReleases');
+}
+
 export function getPressReleaseUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.press}${slug}/`);
+  return withBase(`${siteConfig.paths.pressReleases}${slug}/`);
+}
+
+export function getBudgetUrl(): string {
+  return getSiteUrl('budget');
+}
+
+export function getFreestateUrl(): string {
+  return getSiteUrl('freestate');
+}
+
+export function getServiceUrl(): string {
+  return getSiteUrl('service');
 }
 
 export function getCareerUrl(): string {
@@ -66,6 +98,10 @@ export function getContactUrl(): string {
   return getSiteUrl('contact');
 }
 
+export function getFaqUrl(): string {
+  return getSiteUrl('faq');
+}
+
 export function getImprintUrl(): string {
   return getSiteUrl('imprint');
 }
@@ -79,7 +115,7 @@ export function getAccessibilityUrl(): string {
 }
 
 export function getOverviewUrl(): string {
-  return getSiteUrl('overview');
+  return getServiceUrl();
 }
 
 export function getLawHomeUrl(): string {
@@ -96,6 +132,10 @@ export function getLawIndexUrl(): string {
 
 export function getLawSubjectsUrl(): string {
   return getSiteUrl('lawSubjects');
+}
+
+export function getLawConstitutionUrl(): string {
+  return getSiteUrl('lawConstitution');
 }
 
 export function getEditorialUrl(): string {

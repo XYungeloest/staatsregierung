@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getHomeUrl, getLawHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
+
+const topics = [
+  'Staatsaufbau und Verwaltung',
+  'Wirtschaft und Arbeit',
+  'Bildung, Wissenschaft und Kultur',
+  'Soziales und Gesundheit',
+  'Mobilität und Infrastruktur',
+  'Umwelt, Energie und Klima',
+  'Haushalt und Finanzen',
+];
+---
+
+<BaseLayout title="Themen & Projekte" description="Thematische Einstiege des Gesamtportals.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Themen' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Themen & Projekte</p>
+    <h1>Themen & Projekte</h1>
+    <p class="lead">
+      Die Themenseiten bündeln politische Vorhaben, Hintergrundinformationen, Servicehinweise und
+      Verlinkungen in den Rechtsbereich.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--three">
+      {topics.map((topic) => (
+        <article class="panel">
+          <h2>{topic}</h2>
+          <p>
+            Die konkrete Themenseite folgt in den nächsten Phasen. Die Routing- und
+            Layoutarchitektur ist bereits auf das Master-Modell ausgerichtet.
+          </p>
+        </article>
+      ))}
+    </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a> ·{' '}
+      <a class="inline-link" href={getServiceUrl()}>Zum Service</a>
+    </p>
+  </section>
+</BaseLayout>

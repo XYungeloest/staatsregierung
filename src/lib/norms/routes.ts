@@ -3,6 +3,7 @@ import {
   getEditorialUrl,
   getHomeUrl,
   getImprintUrl,
+  getLawConstitutionUrl,
   getLawHomeUrl,
   getLawIndexUrl,
   getLawSearchUrl,
@@ -50,14 +51,22 @@ export function getLawPortalUrl(): string {
   return getLawHomeUrl();
 }
 
-export { getAccessibilityUrl, getEditorialUrl, getHomeUrl, getImprintUrl, getOverviewUrl, getPrivacyUrl };
+export {
+  getAccessibilityUrl,
+  getEditorialUrl,
+  getHomeUrl,
+  getImprintUrl,
+  getLawConstitutionUrl,
+  getOverviewUrl,
+  getPrivacyUrl,
+};
 
 export function getSubjectSlug(subject: string): string {
   return normalizeForSlug(subject);
 }
 
 export function getSubjectUrl(subject: string): string {
-  return withBase(`/recht/subjects/${getSubjectSlug(subject)}/`);
+  return withBase(`/recht/sachgebiete/${getSubjectSlug(subject)}/`);
 }
 
 export interface SubjectGroup {

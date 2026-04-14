@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  getHomeUrl,
+  getLawPortalUrl,
+  getNormUrl,
+  loadAllNorms,
+  toDisplayText,
+} from '../../../lib/norms/index.ts';
+
+const norms = await loadAllNorms();
+const constitutionNorms = norms.filter((norm) =>
+  `${norm.meta.title} ${norm.meta.shortTitle ?? ''} ${norm.meta.abbr ?? ''}`
+    .toLowerCase()
+    .includes('verfassung'),
+);
+---
+
+<BaseLayout title="Verfassung" description="Zugang zu verfassungsbezogenen Inhalten des Rechtsbereichs.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Recht', href: getLawPortalUrl() },
+      { label: 'Verfassung' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rechtsbereich</p>
+    <h1>Verfassung</h1>
+    <p class="lead">
+      Dieser Einstieg bündelt verfassungsbezogene Inhalte im Rechtsbereich. In Phase 1 wird dafür
+      eine stabile Route und ein klarer Platz in der Master-Architektur vorbereitet.
+    </p>
+  </section>
+
+  <section class="section">
+    {constitutionNorms.length > 0 ? (
+      <ul class="record-list">
+        {constitutionNorms.map((norm) => (
+          <li class="record-list__item">
+            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
+            <span>{norm.meta.abbr}</span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <article class="panel">
+        <h2>Verfassungsbezogene Inhalte werden vorbereitet</h2>
+        <p>
+          Eine eigenständige Verfassungsdarstellung kann in den nächsten Phasen ergänzt werden, ohne
+          die bestehende Rechtsarchitektur umzubauen.
+        </p>
+      </article>
+    )}
+  </section>
+</BaseLayout>
