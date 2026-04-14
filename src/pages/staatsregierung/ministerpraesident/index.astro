@@ -2,16 +2,35 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
+import MinistryCard from '../../../components/portal/MinistryCard.astro';
 import { siteConfig } from '../../../config/site.ts';
 import {
+  getActionPlanUrl,
   getCabinetUrl,
   getGovernmentUrl,
   getHomeUrl,
+  getTopicUrl,
   loadGovernmentMembers,
+  loadMinistries,
+  loadTopics,
 } from '../../../lib/portal/index.ts';
 
-const members = await loadGovernmentMembers();
+const [members, ministries, topics] = await Promise.all([
+  loadGovernmentMembers(),
+  loadMinistries(),
+  loadTopics(),
+]);
 const ministerPresident = members[0];
+const leadershipMinistries = ministries.filter((ministry) =>
+  ['staatskanzlei', 'kapitalakkumulation-des-fiskus'].includes(ministry.slug),
+);
+const topPriorities = topics
+  .filter((topic) =>
+    ['wohnen-und-vergesellschaftung', 'haushalt-und-finanzen', 'transparenz-und-lobbyregister'].includes(
+      topic.slug,
+    ),
+  )
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -31,7 +50,8 @@ const ministerPresident = members[0];
     <h1>Ministerpräsident</h1>
     <p class="lead">
       Der Ministerpräsident führt die Staatsregierung, bestimmt die Richtlinien der Politik und
-      koordiniert die Arbeit des Kabinetts.
+      koordiniert die Arbeit des Kabinetts. Politischer Bezugspunkt dieser Leitungsfunktion ist
+      Dresden als Sitz der Staatsregierung.
     </p>
   </section>
 
@@ -51,6 +71,11 @@ const ministerPresident = members[0];
           Die derzeitige Regierungsbildung datiert vom{' '}
           {siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}. Das Portal führt die
           politischen Kerndaten bewusst sachlich und statisch.
+        </p>
+        <p>
+          Die Leitungsfunktion des Ministerpräsidenten ist eng mit der Staatskanzlei und dem
+          Fiskusressort verknüpft. Von hier aus werden Regierungsschwerpunkte, Umsetzungsstände und
+          politische Prioritäten des Gesamtportals zusammengeführt.
         </p>
       </section>
 
@@ -73,7 +98,35 @@ const ministerPresident = members[0];
           </div>
         </dl>
         <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett Honecker</a></p>
+        <p><a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a></p>
       </aside>
     </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Unmittelbar geführte Bereiche</h2>
+      <p>Die Leitungsfunktion des Ministerpräsidenten ist inhaltlich besonders mit diesen Bereichen verbunden.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {leadershipMinistries.map((ministry) => (
+        <MinistryCard ministry={ministry} />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Leitende Schwerpunkte</h2>
+      <p>Diese Themen markieren politische Prioritäten der Staatsregierung in der laufenden Legislaturperiode.</p>
+    </div>
+    <ul class="record-list">
+      {topPriorities.map((topic) => (
+        <li class="record-list__item">
+          <strong><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></strong>
+          <span>{topic.teaser}</span>
+        </li>
+      ))}
+    </ul>
   </section>
 </BaseLayout>

@@ -757,6 +757,37 @@ h5 {
   margin: 0.75rem 0 0;
 }
 
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.95rem;
+  padding: 0.25rem 0.7rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.status-badge--green {
+  border-color: #9fc7b8;
+  background: var(--color-info-green);
+  color: var(--color-secondary-hover);
+}
+
+.status-badge--blue {
+  border-color: #a8bdd8;
+  background: var(--color-info-blue);
+  color: var(--color-primary);
+}
+
+.status-badge--amber {
+  border-color: #d5c18d;
+  background: #faf4e6;
+  color: #7a5a16;
+}
+
 .fact-card {
   padding: 1.15rem 1.2rem;
   border: 1px solid var(--color-border);
@@ -775,6 +806,25 @@ h5 {
 .fact-card p {
   margin: 0.75rem 0 0;
   color: var(--color-text-muted);
+}
+
+.topic-card {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.topic-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.85rem;
+  align-items: center;
+}
+
+.topic-card__header .topic-card__meta,
+.topic-card__meta {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
 }
 
 .page-header {
@@ -1088,6 +1138,10 @@ h5 {
 .timeline-list span,
 .outline-label {
   color: var(--color-text-muted);
+}
+
+.faq-list .panel h3 {
+  font-size: 1.12rem;
 }
 
 .search-shell {

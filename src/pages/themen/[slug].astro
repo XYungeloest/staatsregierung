@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import MinistryCard from '../../components/portal/MinistryCard.astro';
+import StatusBadge from '../../components/portal/StatusBadge.astro';
+import {
+  getHomeUrl,
+  getMinistryUrl,
+  getTopicUrl,
+  getTopicsUrl,
+  loadMinistries,
+  loadTopics,
+  type Themenseite,
+} from '../../lib/portal/index.ts';
+import { getLawPortalUrl, getNormUrl, loadAllNorms } from '../../lib/norms/index.ts';
+
+export async function getStaticPaths() {
+  const topics = await loadTopics();
+
+  return topics.map((topic) => ({
+    params: { slug: topic.slug },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props as { topic: Themenseite };
+
+const [topics, ministries, norms] = await Promise.all([loadTopics(), loadMinistries(), loadAllNorms()]);
+const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
+const normLookup = new Map(norms.map((norm) => [norm.meta.slug, norm]));
+const leadMinistry = ministryLookup.get(topic.federfuehrendesRessort);
+const coMinistries = (topic.mitzeichnungsressorts ?? [])
+  .map((slug) => ministryLookup.get(slug))
+  .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
+const legalReferences = topic.rechtsgrundlagen.map((entry) => ({
+  ...entry,
+  norm: entry.normSlug ? normLookup.get(entry.normSlug) : undefined,
+}));
+const relatedTopics = topics
+  .filter((entry) => entry.slug !== topic.slug)
+  .filter(
+    (entry) =>
+      entry.federfuehrendesRessort === topic.federfuehrendesRessort ||
+      (entry.mitzeichnungsressorts ?? []).includes(topic.federfuehrendesRessort),
+  )
+  .slice(0, 3);
+---
+
+<BaseLayout title={topic.title} description={topic.teaser}>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Themen & Projekte', href: getTopicsUrl() },
+      { label: topic.title },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Themen & Projekte</p>
+    <h1>{topic.title}</h1>
+    <div class="topic-card__header">
+      <StatusBadge status={topic.status} />
+      {leadMinistry ? (
+        <p class="topic-card__meta">
+          Federführend:{' '}
+          <a class="inline-link" href={getMinistryUrl(leadMinistry.slug)}>{leadMinistry.kurzname}</a>
+        </p>
+      ) : null}
+    </div>
+    <p class="lead">{topic.hero ?? topic.teaser}</p>
+    <nav class="hero-actions" aria-label="Direkteinstiege">
+      {leadMinistry ? (
+        <a class="button-link" href={getMinistryUrl(leadMinistry.slug)}>Zum zuständigen Ressort</a>
+      ) : null}
+      <a class="button-link button-link--secondary" href={getLawPortalUrl()}>Zum Rechtsbereich</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Was ist beschlossen?</h2>
+      <p>{topic.teaser}</p>
+    </div>
+    <ul class="record-list">
+      {topic.beschlossen.map((entry) => (
+        <li class="record-list__item"><span>{entry}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Was ist umgesetzt?</h2>
+      <p>Der Stand bildet bereits erreichte und rechtlich abgesicherte Schritte des Vorhabens ab.</p>
+    </div>
+    <ul class="record-list">
+      {topic.umgesetzt.map((entry) => (
+        <li class="record-list__item"><span>{entry}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Nächste Schritte</h2>
+      <p>Diese Punkte kennzeichnen laufende oder vorbereitete Ausbauschritte innerhalb des Themas.</p>
+    </div>
+    <ul class="record-list">
+      {topic.naechsteSchritte.map((entry) => (
+        <li class="record-list__item"><span>{entry}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Rechtsgrundlagen</h2>
+      <p>Die Themenseite verlinkt, soweit möglich, direkt in den vorhandenen Normenbestand des Rechtsportals.</p>
+    </div>
+    <ul class="record-list">
+      {legalReferences.map((entry) => (
+        <li class="record-list__item">
+          {entry.norm ? (
+            <strong><a class="inline-link" href={getNormUrl(entry.norm.meta.slug)}>{entry.label}</a></strong>
+          ) : (
+            <strong>{entry.label}</strong>
+          )}
+          {entry.note ? <span>{entry.note}</span> : null}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>FAQ</h2>
+      <p>Kurze Hinweise zur politischen Einordnung und zum Umsetzungsstand des Themas.</p>
+    </div>
+    <div class="content-stack faq-list">
+      {topic.faq.map((entry) => (
+        <article class="panel">
+          <h3>{entry.question}</h3>
+          <p>{entry.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Zuständiges Ressort</h2>
+      <p>Federführung und Mitzeichnung werden als Teil der staatlichen Aufgabenordnung des Freistaates dargestellt.</p>
+    </div>
+    {leadMinistry ? <MinistryCard ministry={leadMinistry} /> : null}
+    {coMinistries.length > 0 ? (
+      <>
+        <p class="detail-line">Mitzeichnende Ressorts</p>
+        <div class="tag-list">
+          {coMinistries.map((ministry) => (
+            <a class="tag" href={getMinistryUrl(ministry.slug)}>{ministry.kurzname}</a>
+          ))}
+        </div>
+      </>
+    ) : null}
+  </section>
+
+  {relatedTopics.length > 0 ? (
+    <section class="section">
+      <div class="section-header">
+        <h2>Verwandte Themen</h2>
+      </div>
+      <ul class="record-list">
+        {relatedTopics.map((entry) => (
+          <li class="record-list__item">
+            <a class="inline-link" href={getTopicUrl(entry.slug)}>{entry.title}</a>
+            <span>{entry.teaser}</span>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ) : null}
+</BaseLayout>

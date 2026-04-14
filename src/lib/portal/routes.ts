@@ -58,6 +58,10 @@ export function getTopicsUrl(): string {
   return getSiteUrl('topics');
 }
 
+export function getTopicUrl(slug: string): string {
+  return withBase(`${siteConfig.paths.topics}${slug}/`);
+}
+
 export function getPressUrl(): string {
   return getSiteUrl('press');
 }

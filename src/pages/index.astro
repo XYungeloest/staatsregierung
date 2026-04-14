@@ -3,17 +3,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import GovernmentMemberCard from '../components/portal/GovernmentMemberCard.astro';
 import MinistryCard from '../components/portal/MinistryCard.astro';
+import TopicCard from '../components/portal/TopicCard.astro';
 import { siteConfig } from '../config/site.ts';
 import {
+  getActionPlanUrl,
   getBudgetUrl,
-  getCabinetUrl,
   getCareerUrl,
   getFreestateUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getJobUrl,
   getLawHomeUrl,
-  getMinistriesUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
@@ -23,12 +23,14 @@ import {
   loadFeaturedPressReleases,
   loadGovernmentMembers,
   loadMinistries,
+  loadTopics,
 } from '../lib/portal/index.ts';
-import { getCurrentVersion, loadAllNorms } from '../lib/norms/index.ts';
+import { getCurrentVersion, getNormUrl, loadAllNorms } from '../lib/norms/index.ts';
 
-const [members, ministries, pressReleases, jobOffers, norms] = await Promise.all([
+const [members, ministries, topics, pressReleases, jobOffers, norms] = await Promise.all([
   loadGovernmentMembers(),
   loadMinistries(),
+  loadTopics(),
   loadFeaturedPressReleases(2),
   loadCurrentJobOffers(2),
   loadAllNorms(),
@@ -43,6 +45,15 @@ const latestNorms = [...norms]
 const currentGovernment = siteConfig.currentGovernment;
 const headOfGovernment = members[0];
 const deputyHead = members[1];
+const featuredTopics = [
+  'wohnen-und-vergesellschaftung',
+  'bildungsreform',
+  'demokratie-und-sicherheit',
+  'haushalt-und-finanzen',
+].flatMap((slug) => {
+  const topic = topics.find((entry) => entry.slug === slug);
+  return topic ? [topic] : [];
+});
 const spotlightMinistries = [
   'staatskanzlei',
   'inneres-bau-und-kommunale-angelegenheiten',
@@ -52,35 +63,35 @@ const spotlightMinistries = [
   const ministry = ministries.find((entry) => entry.slug === slug);
   return ministry ? [ministry] : [];
 });
+const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 ---
 
 <BaseLayout
   title="Startseite"
   description="Statisches Regierungsportal des Ostdeutschen Freistaates mit integriertem Rechtsbereich."
 >
-  <Breadcrumbs items={[{ label: 'Start' }]} />
+  <Breadcrumbs items={[{ label: 'Startseite' }]} />
 
   <section class="hero hero--portal">
     <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
     <h1>{siteConfig.authorityName}</h1>
     <p class="lead">
-      Das Portal bündelt die Arbeit der Staatsregierung, Themen und Projekte, Presse, Haushalt,
-      Service und den integrierten Rechtsbereich in einer vollständig statischen und
-      GitHub-Pages-kompatiblen Website. Es bildet die fiktive Politiksimulation des Ostdeutschen
-      Freistaates bewusst behördennah ab.
+      Das Gesamtportal bündelt Staatsregierung, Themen und Projekte, Recht, Presse, Haushalt und
+      Service in einer ruhigen, behördennahen und vollständig statischen Website. Politischer
+      Bezugspunkt der Regierungsarbeit ist Dresden als Sitz der Staatsregierung.
     </p>
     <div class="meta-grid" aria-label="Portalüberblick">
+      <div class="meta-card">
+        <span class="meta-label">Regierungssitz</span>
+        <strong>{currentGovernment.seatOfGovernment}</strong>
+      </div>
       <div class="meta-card">
         <span class="meta-label">Kabinett gebildet</span>
         <strong>{siteConfig.date.formatLong(currentGovernment.formedOn)}</strong>
       </div>
       <div class="meta-card">
-        <span class="meta-label">Ministerien</span>
-        <strong>{ministries.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Regierungsmitglieder</span>
-        <strong>{members.length}</strong>
+        <span class="meta-label">Themenseiten</span>
+        <strong>{topics.length}</strong>
       </div>
       <div class="meta-card">
         <span class="meta-label">Normen im Rechtsbereich</span>
@@ -95,33 +106,79 @@ const spotlightMinistries = [
   </section>
 
   <section class="section">
-    <div class="section-header">
-      <h2>Freistaat auf einen Blick</h2>
+    <div class="status-notice status-notice--current">
+      <h2>Hinweis zur Einordnung</h2>
       <p>
-        Die Website verbindet Regierungsinformationen mit Grunddaten zum Land und mit dem
-        integrierten Rechtsbereich.
+        Das Portal wirkt bewusst wie eine Regierungswebsite, ist aber weiterhin Teil einer
+        fiktiven Politiksimulation. Diese Kennzeichnung bleibt zusätzlich global im Kopfbereich
+        sichtbar.
       </p>
     </div>
-    <div class="fact-grid">
-      <article class="fact-card">
-        <span class="meta-label">Landeshauptstadt</span>
-        <strong>Dresden</strong>
-        <p>Berlin gehört mit Sonderstellung zum Freistaat und bleibt Bundeshauptstadt.</p>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Portalbereiche</h2>
+      <p>
+        Die Startseite führt in die zentralen Arbeitsbereiche der Staatsregierung ein und bindet
+        den Rechtsbereich als festen Bestandteil des Gesamtportals ein.
+      </p>
+    </div>
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h3>Staatsregierung</h3>
+        <p>
+          Leitung, Kabinett, Koalition und 15-Punkte-Plan sind unter einer gemeinsamen staatlichen
+          Struktur gebündelt.
+        </p>
+        <p class="detail-line">Leitung: {currentGovernment.headOfGovernment}</p>
+        <p><a class="inline-link" href={getGovernmentUrl()}>Zur Staatsregierung</a></p>
       </article>
-      <article class="fact-card">
-        <span class="meta-label">Gründung</span>
-        <strong>1. Dezember 2023</strong>
-        <p>Der Freistaat entstand aus einer staatlichen Neuordnung der ostdeutschen Länder.</p>
+      <article class="panel">
+        <h3>Themen & Projekte</h3>
+        <p>
+          Themenseiten zeigen Beschlüsse, Umsetzungsstände, nächste Schritte, Zuständigkeiten und
+          Rechtsgrundlagen.
+        </p>
+        <p class="detail-line">Direkte Verknüpfung zum Rechtsportal</p>
+        <p><a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a></p>
       </article>
-      <article class="fact-card">
-        <span class="meta-label">Verwaltungsgliederung</span>
-        <strong>Acht Bezirke</strong>
-        <p>Die Bezirke verbinden Landesebene und kommunale Ebene in einer mehrstufigen Struktur.</p>
+      <article class="panel">
+        <h3>Recht</h3>
+        <p>
+          Das Rechtsportal bleibt funktional eigenständig und ist dauerhaft unter
+          <code> /recht/ </code>
+          eingebunden.
+        </p>
+        <p class="detail-line">Aktuelle Fassungen, Historie und Suche</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
       </article>
-      <article class="fact-card">
-        <span class="meta-label">Sprachen</span>
-        <strong>Deutsch und Sorbisch</strong>
-        <p>Die sprachliche und regionale Vielfalt prägt Verwaltung, Kultur und öffentliche Ordnung.</p>
+      <article class="panel">
+        <h3>Presse & Aktuelles</h3>
+        <p>
+          Pressemitteilungen und aktuelle Kommunikation der Staatsregierung sind als eigener
+          Hauptbereich vorbereitet.
+        </p>
+        <p class="detail-line">Regierungsnahe Informationslage</p>
+        <p><a class="inline-link" href={getPressUrl()}>Zum Pressebereich</a></p>
+      </article>
+      <article class="panel">
+        <h3>Haushalt</h3>
+        <p>
+          Haushaltsinformationen und finanzpolitische Grundlagen werden in einem eigenen Bereich
+          zusammengeführt.
+        </p>
+        <p class="detail-line">Gesamtplan, Einzelpläne und Fonds</p>
+        <p><a class="inline-link" href={getBudgetUrl()}>Zum Haushalt</a></p>
+      </article>
+      <article class="panel">
+        <h3>Service</h3>
+        <p>
+          Kontakt, Karriere, Hilfeseiten und formale Informationsseiten liegen gebündelt unter
+          einem gemeinsamen Service-Einstieg.
+        </p>
+        <p class="detail-line">Kontakt, Karriere, Datenschutz und Hilfe</p>
+        <p><a class="inline-link" href={getServiceUrl()}>Zum Service</a></p>
       </article>
     </div>
   </section>
@@ -130,9 +187,9 @@ const spotlightMinistries = [
     <div class="section-header">
       <h2>Aktuelle Staatsregierung</h2>
       <p>
-        Die aktuelle Staatsregierung ist das <strong>{currentGovernment.cabinetName}</strong>. Sie
-        wurde am {siteConfig.date.formatLong(currentGovernment.formedOn)} gebildet und wird von
-        einer Koalition aus {currentGovernment.coalition} getragen.
+        Das <strong>{currentGovernment.cabinetName}</strong> wurde am{' '}
+        {siteConfig.date.formatLong(currentGovernment.formedOn)} gebildet und wird von einer
+        Koalition aus {currentGovernment.coalition} getragen.
       </p>
     </div>
     <div class="spotlight-grid">
@@ -141,117 +198,59 @@ const spotlightMinistries = [
     </div>
     <div class="card-grid card-grid--three">
       <article class="panel">
-        <h3>Regierungsarbeit</h3>
+        <h3>Regierungsleitung</h3>
         <p>
-          Die Staatsregierung koordiniert Kabinettsverfahren, ressortübergreifende Vorhaben und die
-          politische Führung des Landes.
+          Die Staatsregierung steuert Kabinettsverfahren, ressortübergreifende Projekte und die
+          öffentliche Kommunikation des Landes.
+        </p>
+        <p><a class="inline-link" href={getGovernmentMembersUrl()}>Zu den Regierungsmitgliedern</a></p>
+      </article>
+      <article class="panel">
+        <h3>Ressorts</h3>
+        <p>
+          Die Ressortseiten verbinden Leitung, Aufgaben, Kontakt und Themenbezug in einer kompakten
+          Darstellung.
         </p>
         <p><a class="inline-link" href={getGovernmentUrl()}>Zur Regierungsübersicht</a></p>
       </article>
       <article class="panel">
-        <h3>Kabinett Honecker</h3>
+        <h3>15-Punkte-Plan</h3>
         <p>
-          Das Kabinett bildet die achte Staatsregierung des Freistaates und legt die politischen
-          Schwerpunkte der laufenden Legislaturperiode fest.
+          Das Regierungsprogramm ist mit Statusindikatoren und direkten Verweisen auf Themen- und
+          Rechtsseiten eingebunden.
         </p>
-        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett</a></p>
-      </article>
-      <article class="panel">
-        <h3>Mitglieder der Regierung</h3>
-        <p>
-          Profile, Ämter und Ressortzuständigkeiten der aktuellen Regierungsmitglieder werden
-          dateibasiert gepflegt.
-        </p>
-        <p><a class="inline-link" href={getGovernmentMembersUrl()}>Zu den Regierungsmitgliedern</a></p>
+        <p><a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a></p>
       </article>
     </div>
   </section>
 
   <section class="section">
     <div class="section-header">
-      <h2>Portalbereiche</h2>
+      <h2>Schwerpunkte der Landespolitik</h2>
       <p>
-        Die Hauptbereiche sind als eigenständige Module angelegt und behalten zugleich ein
-        gemeinsames Erscheinungsbild des Regierungsportals.
+        Diese Themenseiten tragen das Regierungsportal inhaltlich und verknüpfen politische
+        Vorhaben direkt mit Ressorts und Rechtsgrundlagen.
       </p>
     </div>
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h3>Staatsregierung</h3>
-        <p>
-          Übersicht zur Staatsregierung, zum Kabinett Honecker und zu allen aktuellen
-          Regierungsmitgliedern.
-        </p>
-        <p class="detail-line">Leitung: {currentGovernment.headOfGovernment}</p>
-        <p><a class="inline-link" href={getGovernmentUrl()}>Zur Staatsregierung</a></p>
-      </article>
-      <article class="panel">
-        <h3>Themen & Projekte</h3>
-        <p>
-          Themenbereiche und Regierungsprojekte werden als eigener Hauptbereich des Portals
-          vorbereitet.
-        </p>
-        <p class="detail-line">Politische Vorhaben und Rechtsgrundlagen</p>
-        <p><a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a></p>
-      </article>
-      <article class="panel">
-        <h3>Presse & Aktuelles</h3>
-        <p>
-          {pressReleases[0]?.teaser ??
-            'Aktuelle Pressemitteilungen der Staatsregierung und ihrer Ressorts.'}
-        </p>
-        <p class="detail-line">
-          {pressReleases[0]
-            ? siteConfig.date.formatLong(pressReleases[0].date)
-            : 'Redaktioneller Bereich'}
-        </p>
-        <p><a class="inline-link" href={getPressUrl()}>Zum Pressebereich</a></p>
-      </article>
-      <article class="panel">
-        <h3>Haushalt</h3>
-        <p>
-          Der Haushaltsbereich wird als eigener Hauptbereich der Staatsregierung in das
-          Gesamtportal eingebunden.
-        </p>
-        <p class="detail-line">Gesamtplan, Einzelpläne und Sondervermögen</p>
-        <p><a class="inline-link" href={getBudgetUrl()}>Zum Haushalt</a></p>
-      </article>
-      <article class="panel">
-        <h3>Recht</h3>
-        <p>
-          Das bestehende Rechtsportal bleibt als eigenständiger Bereich erhalten und ist nun unter
-          <code>/recht/</code> eingebunden.
-        </p>
-        <p class="detail-line">Aktuelle Fassungen, Historie, Suche und Sachgebiete</p>
-        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
-      </article>
-      <article class="panel">
-        <h3>Über den Freistaat</h3>
-        <p>
-          Grundinformationen zur Staatsordnung, zu Hoheitszeichen, Bezirken und zur Geschichte des
-          Freistaates werden in einem eigenen Bereich gebündelt.
-        </p>
-        <p class="detail-line">Staatsziele, Bezirke und Symbolik</p>
-        <p><a class="inline-link" href={getFreestateUrl()}>Zum Bereich Freistaat</a></p>
-      </article>
-      <article class="panel">
-        <h3>Service</h3>
-        <p>
-          Service, Kontakt, Karriere, Datenschutz und Barrierefreiheit liegen künftig an einer
-          gemeinsamen Stelle.
-        </p>
-        <p class="detail-line">Kontakt, FAQ, Karriere und Hilfeseiten</p>
-        <p><a class="inline-link" href={getServiceUrl()}>Zum Service</a></p>
-      </article>
+    <div class="card-grid card-grid--two">
+      {featuredTopics.map((topic) => (
+        <TopicCard
+          topic={topic}
+          ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname}
+        />
+      ))}
     </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getTopicsUrl()}>Alle Themenseiten anzeigen</a>
+    </p>
   </section>
 
   <section class="section">
     <div class="section-header">
       <h2>Ministerien im Überblick</h2>
       <p>
-        Die Ressorts greifen die politischen Schwerpunkte des Landes auf: Staatsaufbau,
-        Daseinsvorsorge, Infrastruktur und ein eigenständiges ostdeutsches Regierungsprofil.
+        Die Ressorts greifen die politischen Schwerpunkte des Landes auf und verorten Aufgaben,
+        Zuständigkeiten und Kontaktinformationen in einer einheitlichen Portalstruktur.
       </p>
     </div>
     <div class="card-grid card-grid--two">
@@ -260,7 +259,42 @@ const spotlightMinistries = [
       ))}
     </div>
     <p class="section-link-row">
-      <a class="inline-link" href={getMinistriesUrl()}>Alle Ministerien anzeigen</a>
+      <a class="inline-link" href={getGovernmentUrl()}>Alle Ressorts über die Staatsregierung anzeigen</a>
+    </p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Freistaat auf einen Blick</h2>
+      <p>
+        Grunddaten zum Land und zum Portalrahmen bleiben knapp, sachlich und in enger Verbindung
+        zur politischen Simulation.
+      </p>
+    </div>
+    <div class="fact-grid">
+      <article class="fact-card">
+        <span class="meta-label">Landeshauptstadt</span>
+        <strong>Dresden</strong>
+        <p>Von hier aus werden Staatsregierung, Kabinett und ressortübergreifende Vorhaben koordiniert.</p>
+      </article>
+      <article class="fact-card">
+        <span class="meta-label">Bundeshauptstadt</span>
+        <strong>Berlin</strong>
+        <p>Berlin behält als Bundeshauptstadt eine Sonderstellung innerhalb des Freistaates.</p>
+      </article>
+      <article class="fact-card">
+        <span class="meta-label">Verwaltungsgliederung</span>
+        <strong>Acht Bezirke</strong>
+        <p>Die Bezirksstruktur verbindet Landesebene, regionale Aufgabenwahrnehmung und kommunale Ordnung.</p>
+      </article>
+      <article class="fact-card">
+        <span class="meta-label">Sprachen</span>
+        <strong>Deutsch und Sorbisch</strong>
+        <p>Sprachliche Vielfalt prägt Verwaltung, Kultur und öffentliche Kommunikation des Landes.</p>
+      </article>
+    </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getFreestateUrl()}>Mehr zum Freistaat</a>
     </p>
   </section>
 
@@ -315,14 +349,14 @@ const spotlightMinistries = [
         {latestNorms[0] ? (
           <>
             <p>
-              <a class="inline-link" href={`${getLawHomeUrl()}norm/${latestNorms[0].meta.slug}/`}>
+              <a class="inline-link" href={getNormUrl(latestNorms[0].meta.slug)}>
                 {latestNorms[0].meta.title}
               </a>
             </p>
             <p class="detail-line">
-              Aktuelle Fassung seit{' '}
-              {siteConfig.date.formatLong(getCurrentVersion(latestNorms[0]).validFrom)}
+              Aktuelle Fassung seit {siteConfig.date.formatLong(getCurrentVersion(latestNorms[0]).validFrom)}
             </p>
+            <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
           </>
         ) : (
           <p>

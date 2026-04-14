@@ -1,0 +1,13 @@
+---
+import { formatTopicStatus, getTopicStatusTone } from '../../lib/portal/presentation.ts';
+import type { Themenstatus } from '../../lib/portal/index.ts';
+
+interface Props {
+  status: Themenstatus;
+}
+
+const { status } = Astro.props as Props;
+const tone = getTopicStatusTone(status);
+---
+
+<span class:list={['status-badge', `status-badge--${tone}`]}>{formatTopicStatus(status)}</span>

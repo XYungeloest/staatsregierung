@@ -1,0 +1,31 @@
+---
+import StatusBadge from './StatusBadge.astro';
+import {
+  getMinistryUrl,
+  getTopicUrl,
+  type Themenseite,
+} from '../../lib/portal/index.ts';
+
+interface Props {
+  topic: Themenseite;
+  ministryName?: string;
+}
+
+const { topic, ministryName } = Astro.props as Props;
+---
+
+<article class="panel topic-card">
+  <div class="topic-card__header">
+    <StatusBadge status={topic.status} />
+    {ministryName ? (
+      <p class="topic-card__meta">
+        Zuständig: <a class="inline-link" href={getMinistryUrl(topic.federfuehrendesRessort)}>{ministryName}</a>
+      </p>
+    ) : null}
+  </div>
+  <h2><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></h2>
+  <p>{topic.teaser}</p>
+  <p class="detail-line">
+    {topic.rechtsgrundlagen.length} Rechtsgrundlagen · {topic.naechsteSchritte.length} nächste Schritte
+  </p>
+</article>

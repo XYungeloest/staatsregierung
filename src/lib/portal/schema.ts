@@ -22,10 +22,12 @@ export interface RegierungMitglied {
   name: string;
   amt: string;
   ressort: string;
+  partei?: string;
   reihenfolge: number;
   kurzbiografie: string;
   langbiografie: string[];
   bild: string;
+  bildAlt?: string;
   bildnachweis: string;
   kontakt?: PortalContact;
   zitat?: string;
@@ -36,13 +38,50 @@ export interface Ministerium {
   name: string;
   kurzname: string;
   leitung: string;
+  partei?: string;
   teaser: string;
   aufgaben: string[];
   kontakt: PortalContact;
   bild: string;
+  bildAlt?: string;
   bildnachweis: string;
   themen: string[];
   verknuepfteLinks: PortalLink[];
+}
+
+export type Themenstatus =
+  | 'umgesetzt'
+  | 'kernprojekt'
+  | 'teilweise-umgesetzt'
+  | 'sehr-weit-umgesetzt'
+  | 'deutlich-umgesetzt'
+  | 'ausbauphase'
+  | 'laufend';
+
+export interface ThemenRechtsgrundlage {
+  label: string;
+  normSlug?: string;
+  note?: string;
+}
+
+export interface ThemenFaqEintrag {
+  question: string;
+  answer: string;
+}
+
+export interface Themenseite {
+  slug: string;
+  title: string;
+  teaser: string;
+  status: Themenstatus;
+  hero?: string;
+  beschlossen: string[];
+  umgesetzt: string[];
+  naechsteSchritte: string[];
+  rechtsgrundlagen: ThemenRechtsgrundlage[];
+  faq: ThemenFaqEintrag[];
+  federfuehrendesRessort: string;
+  mitzeichnungsressorts?: string[];
 }
 
 export interface Pressemitteilung {
@@ -151,6 +190,25 @@ function expectStringArray(value: unknown, path: string): string[] {
   return value.map((entry, index) => expectString(entry, `${path}[${index}]`));
 }
 
+function expectTopicStatus(value: unknown, path: string): Themenstatus {
+  const status = expectString(value, path) as Themenstatus;
+  const allowedStatuses: Themenstatus[] = [
+    'umgesetzt',
+    'kernprojekt',
+    'teilweise-umgesetzt',
+    'sehr-weit-umgesetzt',
+    'deutlich-umgesetzt',
+    'ausbauphase',
+    'laufend',
+  ];
+
+  if (!allowedStatuses.includes(status)) {
+    throw new PortalContentValidationError(`${path}: enthält einen unbekannten Themenstatus`);
+  }
+
+  return status;
+}
+
 function parseContact(value: unknown, path: string): PortalContact | undefined {
   if (value === undefined || value === null) {
     return undefined;
@@ -187,10 +245,12 @@ export function parseRegierungMitglied(value: unknown, path: string): RegierungM
     name: expectString(entry.name, createPath(path, 'name')),
     amt: expectString(entry.amt, createPath(path, 'amt')),
     ressort: expectString(entry.ressort, createPath(path, 'ressort')),
+    partei: expectOptionalString(entry.partei, createPath(path, 'partei')),
     reihenfolge: expectNumber(entry.reihenfolge, createPath(path, 'reihenfolge')),
     kurzbiografie: expectString(entry.kurzbiografie, createPath(path, 'kurzbiografie')),
     langbiografie: expectStringArray(entry.langbiografie, createPath(path, 'langbiografie')),
     bild: expectString(entry.bild, createPath(path, 'bild')),
+    bildAlt: expectOptionalString(entry.bildAlt, createPath(path, 'bildAlt')),
     bildnachweis: expectString(entry.bildnachweis, createPath(path, 'bildnachweis')),
     kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')),
     zitat: expectOptionalString(entry.zitat, createPath(path, 'zitat')),
@@ -205,13 +265,79 @@ export function parseMinisterium(value: unknown, path: string): Ministerium {
     name: expectString(entry.name, createPath(path, 'name')),
     kurzname: expectString(entry.kurzname, createPath(path, 'kurzname')),
     leitung: expectString(entry.leitung, createPath(path, 'leitung')),
+    partei: expectOptionalString(entry.partei, createPath(path, 'partei')),
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     aufgaben: expectStringArray(entry.aufgaben, createPath(path, 'aufgaben')),
     kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')) ?? {},
     bild: expectString(entry.bild, createPath(path, 'bild')),
+    bildAlt: expectOptionalString(entry.bildAlt, createPath(path, 'bildAlt')),
     bildnachweis: expectString(entry.bildnachweis, createPath(path, 'bildnachweis')),
     themen: expectStringArray(entry.themen, createPath(path, 'themen')),
     verknuepfteLinks: parseLinks(entry.verknuepfteLinks, createPath(path, 'verknuepfteLinks')),
+  };
+}
+
+function parseThemenRechtsgrundlagen(
+  value: unknown,
+  path: string,
+): ThemenRechtsgrundlage[] {
+  if (!Array.isArray(value)) {
+    throw new PortalContentValidationError(`${path}: muss ein Array sein`);
+  }
+
+  return value.map((entry, index) => {
+    const record = expectRecord(entry, `${path}[${index}]`);
+
+    return {
+      label: expectString(record.label, `${path}[${index}].label`),
+      normSlug: expectOptionalString(record.normSlug, `${path}[${index}].normSlug`),
+      note: expectOptionalString(record.note, `${path}[${index}].note`),
+    };
+  });
+}
+
+function parseThemenFaq(value: unknown, path: string): ThemenFaqEintrag[] {
+  if (!Array.isArray(value)) {
+    throw new PortalContentValidationError(`${path}: muss ein Array sein`);
+  }
+
+  return value.map((entry, index) => {
+    const record = expectRecord(entry, `${path}[${index}]`);
+
+    return {
+      question: expectString(record.question, `${path}[${index}].question`),
+      answer: expectString(record.answer, `${path}[${index}].answer`),
+    };
+  });
+}
+
+export function parseThemenseite(value: unknown, path: string): Themenseite {
+  const entry = expectRecord(value, path);
+
+  return {
+    slug: expectSlug(entry.slug, createPath(path, 'slug')),
+    title: expectString(entry.title, createPath(path, 'title')),
+    teaser: expectString(entry.teaser, createPath(path, 'teaser')),
+    status: expectTopicStatus(entry.status, createPath(path, 'status')),
+    hero: expectOptionalString(entry.hero, createPath(path, 'hero')),
+    beschlossen: expectStringArray(entry.beschlossen, createPath(path, 'beschlossen')),
+    umgesetzt: expectStringArray(entry.umgesetzt, createPath(path, 'umgesetzt')),
+    naechsteSchritte: expectStringArray(
+      entry.naechsteSchritte,
+      createPath(path, 'naechsteSchritte'),
+    ),
+    rechtsgrundlagen: parseThemenRechtsgrundlagen(
+      entry.rechtsgrundlagen,
+      createPath(path, 'rechtsgrundlagen'),
+    ),
+    faq: parseThemenFaq(entry.faq, createPath(path, 'faq')),
+    federfuehrendesRessort: expectSlug(
+      entry.federfuehrendesRessort,
+      createPath(path, 'federfuehrendesRessort'),
+    ),
+    mitzeichnungsressorts: Array.isArray(entry.mitzeichnungsressorts)
+      ? expectStringArray(entry.mitzeichnungsressorts, createPath(path, 'mitzeichnungsressorts'))
+      : undefined,
   };
 }
 

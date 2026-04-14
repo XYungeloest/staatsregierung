@@ -78,12 +78,14 @@ export const siteConfig = {
   currentGovernment: {
     cabinetName: 'Kabinett Honecker',
     formedOn: '2025-12-20',
-    coalition: 'Volksfront und Bündnis Demokratie Europa',
-    coalitionShort: 'VF + DEMOS',
-    headOfGovernment: 'Karl Honecker',
+    coalition: 'Volksfront und DEMOS Ost',
+    coalitionShort: 'Volksfront · DEMOS Ost',
+    coalitionParties: ['Volksfront', 'DEMOS Ost'],
+    headOfGovernment: 'Dr. Karl Honecker',
     deputyHead: 'Mia Wollrath',
     legislature: '6. Ostdeutscher Landtag',
     predecessor: 'Kabinett Delgado',
+    seatOfGovernment: 'Dresden',
   },
   ministries: [
     {

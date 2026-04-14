@@ -1,14 +1,17 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import TopicCard from '../../../components/portal/TopicCard.astro';
 import {
   getGovernmentUrl,
   getHomeUrl,
   getMinistriesUrl,
   getMinistryUrl,
   loadMinistries,
+  loadTopics,
   type Ministerium,
 } from '../../../lib/portal/index.ts';
+import { getNormUrl, loadAllNorms } from '../../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
   const ministries = await loadMinistries();
@@ -20,6 +23,28 @@ export async function getStaticPaths() {
 }
 
 const { ministry } = Astro.props as { ministry: Ministerium };
+
+const [topics, norms] = await Promise.all([loadTopics(), loadAllNorms()]);
+const normLookup = new Map(norms.map((norm) => [norm.meta.slug, norm]));
+const relatedTopics = topics.filter(
+  (topic) =>
+    topic.federfuehrendesRessort === ministry.slug ||
+    (topic.mitzeichnungsressorts ?? []).includes(ministry.slug),
+);
+const legalReferences = Array.from(
+  new Map(
+    relatedTopics.flatMap((topic) =>
+      topic.rechtsgrundlagen.map((entry) => [
+        entry.normSlug ?? `${topic.slug}:${entry.label}`,
+        {
+          ...entry,
+          topicTitle: topic.title,
+          norm: entry.normSlug ? normLookup.get(entry.normSlug) : undefined,
+        },
+      ]),
+    ),
+  ).values(),
+).slice(0, 10);
 ---
 
 <BaseLayout title={ministry.kurzname} description={ministry.teaser}>
@@ -44,7 +69,10 @@ const { ministry } = Astro.props as { ministry: Ministerium };
       <img class="media-banner" src={ministry.bild} alt="" />
       <div class="status-notice status-notice--current">
         <h2>Ressortprofil</h2>
-        <p>Die Ressortseite fasst Auftrag, Aufgaben und Kontakt des Ressorts in kompakter Form zusammen.</p>
+        <p>
+          Die Ressortseite fasst Auftrag, Aufgaben, Themenbezug und Kontakt des Ressorts in einer
+          kompakten, regierungsnahen Form zusammen.
+        </p>
       </div>
       <div class="body-copy">
         <p>{ministry.teaser}</p>
@@ -62,7 +90,7 @@ const { ministry } = Astro.props as { ministry: Ministerium };
       </ul>
 
       <div class="section-header">
-        <h2>Themen</h2>
+        <h2>Thematische Schwerpunkte</h2>
       </div>
       <div class="tag-list">
         {ministry.themen.map((topic) => (
@@ -109,4 +137,42 @@ const { ministry } = Astro.props as { ministry: Ministerium };
       </nav>
     </aside>
   </div>
+
+  {relatedTopics.length > 0 ? (
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Zugeordnete Themen & Projekte</h2>
+        <p>
+          Diese Themenseiten werden federführend oder mitzeichnend von diesem Ressort begleitet.
+        </p>
+      </div>
+      <div class="card-grid card-grid--two">
+        {relatedTopics.map((topic) => (
+          <TopicCard topic={topic} ministryName={ministry.kurzname} />
+        ))}
+      </div>
+    </section>
+  ) : null}
+
+  {legalReferences.length > 0 ? (
+    <section class="section">
+      <div class="section-header">
+        <h2>Rechtsgrundlagen aus den zugeordneten Themen</h2>
+        <p>Die Übersicht zeigt direkte Verknüpfungen aus Themen- und Projektseiten in den Rechtsbereich.</p>
+      </div>
+      <ul class="record-list">
+        {legalReferences.map((entry) => (
+          <li class="record-list__item">
+            {entry.norm ? (
+              <strong><a class="inline-link" href={getNormUrl(entry.norm.meta.slug)}>{entry.label}</a></strong>
+            ) : (
+              <strong>{entry.label}</strong>
+            )}
+            <span>Themenbezug: {entry.topicTitle}</span>
+            {entry.note ? <span>{entry.note}</span> : null}
+          </li>
+        ))}
+      </ul>
+    </section>
+  ) : null}
 </BaseLayout>
