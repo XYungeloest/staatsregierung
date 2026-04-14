@@ -1,0 +1,24 @@
+---
+import { siteConfig } from '../../config/site.ts';
+import { getJobUrl, type Stellenangebot } from '../../lib/portal/index.ts';
+
+interface Props {
+  offer: Stellenangebot;
+  variant?: 'default' | 'compact';
+}
+
+const { offer, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+---
+
+<article class:list={['panel', 'job-card', isCompact && 'job-card--compact']}>
+  <div class="job-card__body">
+    <h3><a class="inline-link" href={getJobUrl(offer.slug)}>{offer.title}</a></h3>
+    <p>{offer.teaser}</p>
+    <p class="detail-line">{offer.ministry}</p>
+    <p class="job-card__meta">
+      {offer.location} · {offer.employmentType} · Bewerbungsfrist{' '}
+      {siteConfig.date.formatLong(offer.applicationDeadline)}
+    </p>
+  </div>
+</article>

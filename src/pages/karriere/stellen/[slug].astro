@@ -43,7 +43,11 @@ const { offer } = Astro.props as { offer: Stellenangebot };
 
   <div class="content-grid">
     <section class="section">
-      <img class="media-banner" src="/images/jobs/job-platzhalter.svg" alt="" />
+      <img class="media-banner" src="/images/jobs/job-platzhalter.svg" alt="Grafischer Platzhalter für Stellenangebot" />
+      <div class="status-notice status-notice--current">
+        <h2>Hinweis</h2>
+        <p>Diese Ausschreibung ist Teil einer statischen Politiksimulation. Es gibt keine serverseitige Bewerbung über das Portal.</p>
+      </div>
       <div class="body-copy">
         {offer.body.map((paragraph: string) => (
           <p>{paragraph}</p>
@@ -57,16 +61,24 @@ const { offer } = Astro.props as { offer: Stellenangebot };
       </div>
       <dl class="meta-list">
         <div>
+          <dt>Arbeitgeber</dt>
+          <dd>{offer.ministry}</dd>
+        </div>
+        <div>
           <dt>Arbeitsort</dt>
           <dd>{offer.location}</dd>
         </div>
         <div>
-          <dt>Beschäftigungsumfang</dt>
+          <dt>Beschäftigungsart</dt>
           <dd>{offer.employmentType}</dd>
         </div>
         <div>
           <dt>Vergütung</dt>
           <dd>{offer.payGrade ?? 'nach Qualifikation'}</dd>
+        </div>
+        <div>
+          <dt>Veröffentlicht</dt>
+          <dd>{siteConfig.date.formatLong(offer.datePosted)}</dd>
         </div>
         <div>
           <dt>Bewerbungsfrist</dt>
@@ -76,6 +88,7 @@ const { offer } = Astro.props as { offer: Stellenangebot };
       <nav class="link-list">
         <a href={getJobsUrl()}>Zur Stellenliste</a>
         {offer.contact?.email ? <a href={`mailto:${offer.contact.email}`}>Kontakt per E-Mail</a> : null}
+        {offer.contact?.telefon ? <a href={`tel:${offer.contact.telefon.replace(/\s+/g, '')}`}>Kontakt per Telefon</a> : null}
       </nav>
     </aside>
   </div>

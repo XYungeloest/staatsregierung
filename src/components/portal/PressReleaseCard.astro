@@ -1,0 +1,29 @@
+---
+import { siteConfig } from '../../config/site.ts';
+import { getPressReleaseUrl, type Pressemitteilung } from '../../lib/portal/index.ts';
+
+interface Props {
+  release: Pressemitteilung;
+  variant?: 'default' | 'compact' | 'featured';
+}
+
+const { release, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+const isFeatured = variant === 'featured';
+---
+
+<article class:list={['section', 'press-tile', isCompact && 'press-tile--compact', isFeatured && 'press-tile--featured']}>
+  <img class="press-tile__image" src={release.image} alt={release.imageAlt} />
+  <div class="press-tile__body">
+    <p class="eyebrow">{siteConfig.date.formatLong(release.date)} · {release.ministry}</p>
+    <h2><a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a></h2>
+    <p>{release.teaser}</p>
+    {!isCompact ? (
+      <div class="tag-list">
+        {release.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    ) : null}
+  </div>
+</article>

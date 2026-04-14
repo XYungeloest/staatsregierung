@@ -4,6 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../config/site.ts';
 import {
   getHomeUrl,
+  getPressReleaseUrl,
   getPressUrl,
   loadPressReleases,
   type Pressemitteilung,
@@ -19,6 +20,8 @@ export async function getStaticPaths() {
 }
 
 const { release } = Astro.props as { release: Pressemitteilung };
+const allReleases = await loadPressReleases();
+const relatedReleases = allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2);
 ---
 
 <BaseLayout title={release.title} description={release.teaser}>
@@ -37,18 +40,63 @@ const { release } = Astro.props as { release: Pressemitteilung };
     <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ministry}</p>
   </section>
 
-  <section class="section">
-    <img class="media-banner" src={release.image} alt={release.imageAlt} />
-    <div class="tag-list">
-      {release.tags.map((tag: string) => (
-        <span class="tag">{tag}</span>
-      ))}
-    </div>
-    <div class="body-copy">
-      {release.body.map((paragraph: string) => (
-        <p>{paragraph}</p>
-      ))}
-    </div>
-    <p class="detail-line">Bildnachweis: {release.imageCredit}</p>
-  </section>
+  <div class="content-grid">
+    <section class="section">
+      <img class="media-banner" src={release.image} alt={release.imageAlt} />
+      <div class="tag-list">
+        {release.tags.map((tag: string) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+      <div class="body-copy">
+        {release.body.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Metadaten</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Datum</dt>
+          <dd>{siteConfig.date.formatLong(release.date)}</dd>
+        </div>
+        <div>
+          <dt>Ressort</dt>
+          <dd>{release.ministry}</dd>
+        </div>
+        <div>
+          <dt>Bildbeschreibung</dt>
+          <dd>{release.imageAlt}</dd>
+        </div>
+        <div>
+          <dt>Bildnachweis</dt>
+          <dd>{release.imageCredit}</dd>
+        </div>
+      </dl>
+      <nav class="link-list">
+        <a href={getPressUrl()}>Zur Presseübersicht</a>
+        <a href={getPressReleaseUrl(release.slug)}>Stabile URL dieser Meldung</a>
+      </nav>
+
+      {relatedReleases.length > 0 ? (
+        <>
+          <div class="section-header section-header--compact">
+            <h2>Weitere Meldungen</h2>
+          </div>
+          <ul class="record-list">
+            {relatedReleases.map((entry) => (
+              <li class="record-list__item">
+                <strong><a class="inline-link" href={getPressReleaseUrl(entry.slug)}>{entry.title}</a></strong>
+                <span>{siteConfig.date.formatLong(entry.date)}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </aside>
+  </div>
 </BaseLayout>

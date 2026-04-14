@@ -1,9 +1,12 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ServiceCard from '../components/portal/ServiceCard.astro';
+import { siteConfig } from '../config/site.ts';
 import { getHomeUrl, loadPageBySlug } from '../lib/portal/index.ts';
 
 const page = await loadPageBySlug('kontakt');
+const contact = siteConfig.contact;
 ---
 
 <BaseLayout title={page?.title ?? 'Kontakt'} description="Kontaktseite der Staatsregierung.">
@@ -12,13 +15,30 @@ const page = await loadPageBySlug('kontakt');
   <section class="section page-header">
     <p class="eyebrow">Service</p>
     <h1>{page?.title ?? 'Kontakt'}</h1>
+    <p class="lead">Zentrale Kontaktwege der Staatsregierung, der Pressestelle und der allgemeinen Servicekommunikation.</p>
   </section>
 
   <div class="content-grid">
-    <section class="section body-copy">
-      {(page?.body ?? []).map((paragraph) => (
-        <p>{paragraph}</p>
-      ))}
+    <section class="section">
+      <div class="body-copy">
+        {(page?.body ?? []).map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+      <div class="card-grid card-grid--three">
+        <ServiceCard
+          title={contact.citizenService.label}
+          body={`${contact.citizenService.phone} · ${contact.citizenService.email}`}
+        />
+        <ServiceCard
+          title={contact.pressOffice.label}
+          body={`${contact.pressOffice.phone} · ${contact.pressOffice.email}`}
+        />
+        <ServiceCard
+          title="Postanschrift"
+          body={contact.postalAddress}
+        />
+      </div>
     </section>
 
     <aside class="section meta-panel">
@@ -28,17 +48,25 @@ const page = await loadPageBySlug('kontakt');
       <dl class="meta-list">
         <div>
           <dt>Telefon</dt>
-          <dd>+49 341 1000-0</dd>
+          <dd>{contact.citizenService.phone}</dd>
         </div>
         <div>
           <dt>E-Mail</dt>
-          <dd>service@ostfreistaat.example</dd>
+          <dd>{contact.citizenService.email}</dd>
         </div>
         <div>
-          <dt>Postanschrift</dt>
-          <dd>Staatskanzlei, Regierungsplatz 1, 04109 Leipzig</dd>
+          <dt>Anschrift</dt>
+          <dd>{contact.addressLines.join(', ')}</dd>
         </div>
       </dl>
+      <div class="section-header section-header--compact">
+        <h2>Servicezeiten</h2>
+      </div>
+      <ul class="record-list">
+        {contact.officeHours.map((entry) => (
+          <li class="record-list__item"><span>{entry}</span></li>
+        ))}
+      </ul>
     </aside>
   </div>
 </BaseLayout>
