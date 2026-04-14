@@ -23,6 +23,7 @@ Das Portal zeigt:
 - eine rein clientseitige Suche
 
 Inhalte liegen vollständig dateibasiert im Repository unter `content/normen/`.
+Die Markdown-Dateien unter `Gesetze/` dienen als Primärquelle für importierte Normtexte.
 
 ## Voraussetzungen
 
@@ -59,6 +60,12 @@ Optional können Sie zusätzlich den Type-Check ausführen:
 
 ```sh
 npm exec astro check
+```
+
+Wenn der Build in einer eingeschränkten Umgebung läuft, kann Astro-Telemetry zusätzlich deaktiviert werden:
+
+```sh
+ASTRO_TELEMETRY_DISABLED=1 npm run build
 ```
 
 ## GitHub Pages und `base`-Pfad
@@ -166,6 +173,7 @@ Wichtig:
 - historische Fassungen werden nicht berechnet
 - jede Fassung liegt als eigene konsolidierte Datei vor
 - Inhalte werden beim Build validiert
+- Markdown-Quellen aus `Gesetze/` werden bei Bedarf über `scripts/import-normen.mjs` in die kanonische JSON-Struktur überführt
 
 ## Content-Struktur
 

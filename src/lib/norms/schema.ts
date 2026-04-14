@@ -3,6 +3,8 @@ export const NORM_TYPES = [
   'verordnung',
   'verwaltungsvorschrift',
   'foerderrichtlinie',
+  'allgemeinverfuegung',
+  'bekanntmachung',
   'staatsvertrag',
   'zustimmungsgesetz',
   'aenderungsvorschrift',
@@ -260,6 +262,9 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     verwaltungsvorschrift: 'verwaltungsvorschrift',
     foerderrichtlinie: 'foerderrichtlinie',
     förderrichtlinie: 'foerderrichtlinie',
+    allgemeinverfuegung: 'allgemeinverfuegung',
+    allgemeinverfügung: 'allgemeinverfuegung',
+    bekanntmachung: 'bekanntmachung',
     staatsvertrag: 'staatsvertrag',
     zustimmungsgesetz: 'zustimmungsgesetz',
     aenderungsvorschrift: 'aenderungsvorschrift',
@@ -402,7 +407,20 @@ function normalizeBodyBlocks(blocks: RawStructuredBodyBlock[], path: string): No
 }
 
 function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBodyBlock[] {
-  const type = expectString(block.type, `${path}.type`).toLowerCase();
+  const rawType = expectString(block.type, `${path}.type`).toLowerCase();
+  const normalizedTypeMap: Record<string, StructureType> = {
+    part: 'part',
+    chapter: 'chapter',
+    section: 'section',
+    subsection: 'subsection',
+    paragraph: 'paragraph',
+    article: 'article',
+    annex: 'annex',
+    paragraphtext: 'paragraphText',
+    item: 'item',
+    subitem: 'subitem',
+  };
+  const type = normalizedTypeMap[rawType] ?? rawType;
 
   if (type === 'heading') {
     return [];

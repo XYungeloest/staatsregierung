@@ -1,0 +1,469 @@
+{
+  "versionId": "2026-03-24",
+  "validFrom": "2026-03-24",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Verordnung vom 24. März 2026 (OGVBl. 2026 Nr. 40)",
+  "changeNote": "Stammfassung.",
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Aufgrund des § 29 Absatz 4 und § 32 Absatz 5 des Wohnvergesellschaftungsgesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 16) ordnet das Staatsministerium des Innern, Bau und für kommunale Angelegenheiten das Nachstehende an:"
+    },
+    {
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Allgemeine Vorschriften",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 1",
+          "title": "Anwendungsbereich",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Diese Verordnung regelt"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "das Nähere zur Erfüllung der Auskunftsund Herausgabepflichten nach § 29 des Wohnvergesellschaftungsgesetzes,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Formanforderungen und den elektronischen Übermittlungsweg,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "das Besitzund Bewirtschaftungsverhältnis während der Interims-Bewirtschaftung,"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "die Höhe und Abrechnung des Bewirtschaftungsentgelts,"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "die Übertragung der Bewirtschaftung an die Trägerin des Gemeineigentums bei Beendigung der Interims-Bewirtschaftung."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 2",
+          "title": "Gesonderter elektronischer Zugang",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "(1) Die Auskünfte und Unterlagen nach § 29 des Wohnvergesellschaftungsgesetzes sind über den von der Durchführungsbehörde eröffneten gesonderten elektronischen Zugang einzureichen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Der elektronische Zugang muss"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "eine sichere Authentifizierung der einreichenden Stelle gewährleisten,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "eine Ende-zu-Ende-Verschlüsselung oder eine funktional gleichwertige technische Sicherung vorsehen,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Integrität, Verfügbarkeit und Vertraulichkeit der übermittelten Daten gewährleisten,´und"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Eingangsbestätigungen automatisiert erzeugen und speichern."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(3) Die Durchführungsbehörde macht den elektronischen Zugang und die technischen Einzelheiten auf ihrer Internetseite bekannt."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 3",
+          "title": "Formate und Struktur der Auskünfte",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "(1) Auskünfte nach § 29 Absatz 1 und 2 des Wohnvergesellschaftungsgesetzes sind in maschinenlesbaren und durchsuchbaren Dateiformaten zu erteilen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Tabellenförmige Angaben sind in einem strukturierten Datensatzformat einzureichen; textförmige Unterlagen sind als durchsuchbare elektronische Dokumente zu übermitteln."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(3) Bestandslisten nach § 29 Absatz 2 Nummer 2 des Wohnvergesellschaftungsgesetzes müssen mindestens folgende Felder enthalten:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Firma des Unternehmens,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Konzernund Verbundzuordnung,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Gemarkung, Flurstück, Grundbuchblatt,"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Anschrift,"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Zahl der Wohnungen,"
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Zahl der sonstigen Nutzungseinheiten,"
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Wohnund Nutzflächen,"
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Baujahr,"
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Eigentumsund sonstige Rechtsverhältnisse und"
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Zuordnung zum Bestand oder Selbstbehalt."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 4",
+          "title": "Weitere Auskunftsund Herausgabepflichten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "(1) Unternehmen haben auf Verlangen der Durchführungsbehörde ergänzend insbesondere vorzulegen:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Organigramme und Beteiligungsübersichten,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Verträge über Geschäftsbesorgung, Asset Management oder Bewirtschaftung,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Bestandsund Mietspiegelauswertungen, soweit sie im Unternehmen vorhanden sind,"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "interne Objektlisten, Leerstandslisten und Instandhaltungsübersichten und"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Dokumentationen zu seit dem Bestandsstichtag vorgenommenen Strukturmaßnahmen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Die Durchführungsbehörde kann zur Plausibilisierung Stichproben, Erläuterungsberichte und eidesstattliche Versicherungen der vertretungsberechtigten Personen verlangen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 5",
+          "title": "Verweis auf Bußgeldvorschriften",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Ordnungswidrig im Sinne des § 35 Absatz 1 Nummer 10 des Wohnvergesellschaftungsgesetzes handelt, wer vorsätzlich oder fahrlässig"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "entgegen § 2 Absatz 1 Auskünfte oder Unterlagen nicht über den eröffneten elektronischen Zugang einreicht,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "entgegen § 3 Absatz 1 oder 2 die vorgeschriebenen Formate nicht verwendet,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "entgegen § 3 Absatz 3 die erforderlichen Mindestangaben nicht vollständig übermittelt oder"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "entgegen § 4 Absatz 1 oder 2 ergänzende Unterlagen oder Erklärungen nicht, nicht richtig, nicht vollständig oder nicht rechtzeitig vorlegt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Abschnitt 2",
+      "title": "Interims-Bewirtschaftung",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 6",
+          "title": "Besitzund Bewirtschaftungsverhältnis",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "(1) Der/die bisherige Eigentümer:in ist während der Dauer der Interims-Bewirtschaftung Besitzmittler der Trägerin des Gemeineigentums."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Er hat die Bestände ordnungsgemäß zu verwalten, insbesondere"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Mieten, Pachten und Nutzungsentgelte einzuziehen,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "den laufenden Unterhalt sicherzustellen,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Verkehrssicherungspflichten zu erfüllen,"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "bestehende Versorgungsund Dienstleistungsverträge ordnungsgemäß zu bedienen und"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "der Trägerin des Gemeineigentums und der Durchführungsbehörde jederzeit Einsicht in die Bewirtschaftung zu ermöglichen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(3) Maßnahmen, die über die laufende ordnungsgemäße Bewirtschaftung hinausgehen, bedürfen der vorherigen Zustimmung der Durchführungsbehörde."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 7",
+          "title": "Verbotene Maßnahmen",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "(1) Während der Interims-Bewirtschaftung sind unzulässig:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Mietund Pachterhöhungen,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Kündigungen gegenüber Mietern, Nutzern oder Pächtern,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "der Beginn von Modernisierungsmaßnahmen,"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Verfügungen über Kautionen außerhalb des gewöhnlichen Bewirtschaftungszwecks,"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Veränderungen der Bewirtschaftungsorganisation, die die Übergabe erschweren."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Die Durchführungsbehörde kann auf Antrag ausnahmsweise eine Zustimmung erteilen, wenn"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "eine Maßnahme zur Gefahrenabwehr oder zur Abwendung erheblicher Schäden zwingend erforderlich ist, und"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "der Zweck der Vergesellschaftung nicht beeinträchtigt wird."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 8",
+          "title": "Bewirtschaftungsentgelt",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "(1) Für die Interims-Bewirtschaftung erhält der Bewirtschaftungsverpflichtete ein marktübliches Entgelt."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Das Bewirtschaftungsentgelt beträgt, soweit nicht im Einzelfall etwas anderes festgesetzt wird, monatlich 3,5 Prozent der im jeweiligen Kalendermonat tatsächlich vereinnahmten Nettokaltmieten und Pachten."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(3) Notwendige und nachgewiesene außergewöhnliche Aufwendungen, die nicht bereits nach Absatz 2 abgegolten sind, können auf Antrag gesondert erstattet werden."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 9",
+          "title": "Abrechnung und Überschüsse",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "(1) Der Bewirtschaftungsverpflichtete rechnet monatlich gegenüber der Trägerin des Gemeineigentums und der Durchführungsbehörde ab."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Die Abrechnung hat insbesondere auszuweisen:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Sollund Ist-Mieten,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "vereinnahmte Pachten und Nebenkosten,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "laufende Bewirtschaftungskosten,"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Instandhaltungsund Instandsetzungskosten,"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "das Bewirtschaftungsentgelt und"
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "den Überschuss oder Fehlbetrag."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(3) Ein Überschuss ist nach Maßgabe des § 32 Absatz 1 Satz 5 des Wohnvergesellschaftungsgesetzes zu verrechnen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 10",
+          "title": "Übertragung der Bewirtschaftung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "(1) Mit Beendigung der Interims-Bewirtschaftung hat der bisherige:n Eigentümer:in die Bewirtschaftung unverzüglich an die Trägerin des Gemeineigentums zu übergeben."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Zu übergeben sind insbesondere:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Mietund Pachtakten,"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Buchhaltungsunterlagen,"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Forderungsund Verbindlichkeitsübersichten,"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Verträge mit Dienstleistern und Versorgungsunternehmen,"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Schlüssel-, Zugangsund Schließanlagenverzeichnisse und"
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "technische und bauliche Bestandsunterlagen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(3) Die Übergabe ist in einem Übergabeprotokoll zu dokumentieren."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 11",
+          "title": "Inkrafttreten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Diese Verordnung tritt am Tage nach ihrer Verkündung in Kraft."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Dr. Karl Honecker Der MINISTERPRÄSIDENT"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
