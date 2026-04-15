@@ -3,8 +3,6 @@ export const featureFlags = {
   showEditorialNavLink: false,
   enableOfficialStyleHeader: true,
   enableStickyHeader: false,
-  enableAnalytics: true,
-  requireConsentForAnalytics: true,
 } as const;
 
 export function isEditorialToolsEnabled(): boolean {
@@ -21,12 +19,4 @@ export function isOfficialStyleHeaderEnabled(): boolean {
 
 export function isStickyHeaderEnabled(): boolean {
   return featureFlags.enableOfficialStyleHeader && featureFlags.enableStickyHeader;
-}
-
-export function isAnalyticsFeatureEnabled(): boolean {
-  return featureFlags.enableAnalytics;
-}
-
-export function isAnalyticsConsentRequired(): boolean {
-  return featureFlags.enableAnalytics && featureFlags.requireConsentForAnalytics;
 }

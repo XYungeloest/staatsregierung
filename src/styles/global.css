@@ -1998,79 +1998,6 @@ article.panel > p:last-child > a.inline-link:hover {
   font-size: 0.9rem;
 }
 
-.footer-link-button {
-  justify-self: start;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--color-accent);
-  font: inherit;
-  font-size: 0.96rem;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 0.15rem;
-}
-
-.footer-link-button:hover {
-  color: var(--color-accent-hover);
-}
-
-.consent-banner {
-  position: fixed;
-  inset: auto 0 0 0;
-  z-index: 35;
-  padding: 1rem 0;
-  background: rgba(24, 34, 45, 0.6);
-  backdrop-filter: blur(6px);
-}
-
-.consent-banner__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.35fr) auto;
-  gap: 1.25rem;
-  align-items: center;
-  padding: 1rem 1.15rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-md);
-  background: var(--color-surface);
-  box-shadow: 0 18px 42px rgba(12, 28, 48, 0.18);
-}
-
-.consent-banner__copy {
-  display: grid;
-  gap: 0.35rem;
-}
-
-.consent-banner__copy h2 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-
-.consent-banner__copy p {
-  margin: 0;
-  color: var(--color-text-muted);
-}
-
-.consent-banner__actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  gap: 0.75rem;
-  align-items: center;
-}
-
-.consent-banner__link {
-  color: var(--color-accent);
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.consent-banner__link:hover {
-  color: var(--color-accent-hover);
-  text-decoration: underline;
-}
-
 @media (max-width: 960px) {
   .content-grid--wide {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2087,14 +2014,6 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .site-header__main {
     grid-template-columns: 1fr;
-  }
-
-  .consent-banner__inner {
-    grid-template-columns: 1fr;
-  }
-
-  .consent-banner__actions {
-    justify-content: flex-start;
   }
 }
 
@@ -2223,19 +2142,6 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .site-footer__section .footer-nav {
     grid-template-columns: 1fr;
-  }
-
-  .consent-banner {
-    padding: 0.75rem 0;
-  }
-
-  .consent-banner__inner {
-    padding: 0.95rem 1rem;
-  }
-
-  .consent-banner__actions {
-    flex-direction: column;
-    align-items: stretch;
   }
 
   .meta-panel {
