@@ -37,6 +37,30 @@ const page = await loadPageBySlug('datenschutz');
         Suchfunktionen im Rechtsbereich greifen auf einen vorab erzeugten Suchindex zurück, der
         beim Build in statische Dateien geschrieben wird.
       </p>
+
+      <div class="section-header">
+        <h2>Webanalyse mit Google Analytics 4</h2>
+      </div>
+      <p>
+        Zur technischen Reichweitenmessung kann Google Analytics 4 eingesetzt werden. Die
+        Einbindung erfolgt clientseitig im Browser. In der aktuellen Konfiguration ist die
+        Webanalyse standardmäßig aktiviert; eine gespeicherte Ablehnung überschreibt diesen
+        Standard für das jeweilige Gerät.
+      </p>
+      <p>
+        Google kann dabei Informationen über die Nutzung der Website verarbeiten. Die Integration
+        nutzt die von Google bereitgestellte Tag-Infrastruktur und setzt keine eigene
+        serverseitige Tracking-Architektur ein.
+      </p>
+      <p>
+        Eine bereits getroffene Entscheidung wird lokal im Browser gespeichert. Sie können diese
+        Entscheidung jederzeit zurücksetzen.
+      </p>
+      <p>
+        <button type="button" class="button-link button-link--secondary" data-analytics-consent-reset>
+          Analytics-Entscheidung zurücksetzen
+        </button>
+      </p>
     </section>
 
     <aside class="section meta-panel">
@@ -55,6 +79,10 @@ const page = await loadPageBySlug('datenschutz');
         <div>
           <dt>Suche</dt>
           <dd>Vorab generierter Suchindex im Rechtsbereich</dd>
+        </div>
+        <div>
+          <dt>Webanalyse</dt>
+          <dd>Google Analytics 4, Standard derzeit aktiviert</dd>
         </div>
       </dl>
     </aside>

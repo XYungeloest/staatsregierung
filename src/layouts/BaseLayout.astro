@@ -1,5 +1,11 @@
 ---
 import '../styles/global.css';
+import AnalyticsConsentBanner from '../components/analytics/AnalyticsConsentBanner.astro';
+import {
+  analyticsConfig,
+  getDefaultAnalyticsConsentState,
+  isAnalyticsEnabled,
+} from '../config/analytics.ts';
 import {
   isEditorialNavLinkVisible,
   isOfficialStyleHeaderEnabled,
@@ -21,6 +27,7 @@ import {
   getLawSearchUrl,
   getSiteUrl,
 } from '../lib/portal/routes.ts';
+import analyticsConsentScriptUrl from '../scripts/analytics-consent.ts?url';
 import portalModulesScriptUrl from '../scripts/portal-modules.ts?url';
 
 interface Props {
@@ -54,6 +61,8 @@ const showEditorialLink = isEditorialNavLinkVisible();
 const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
+const analyticsEnabled = isAnalyticsEnabled();
+const defaultAnalyticsConsentState = getDefaultAnalyticsConsentState();
 const loadPortalModules = scripts.includes('portal-modules');
 const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbs, currentPath, Astro.site);
 const structuredDataItems = [
@@ -170,6 +179,41 @@ const footerUtilityLinks = [
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
     <title>{pageTitle}</title>
+    {analyticsEnabled ? (
+      <>
+        <script
+          is:inline
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${analyticsConfig.measurementId}`}
+        ></script>
+        <script
+          is:inline
+          set:html={`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = window.gtag || gtag;
+            window.gtag('js', new Date());
+            (function() {
+              var consentState = '${defaultAnalyticsConsentState}';
+              try {
+                var storedConsent = window.localStorage.getItem('${analyticsConfig.consentStorageKey}');
+                if (storedConsent === 'accepted' || storedConsent === 'rejected') {
+                  consentState = storedConsent;
+                }
+              } catch {}
+
+              var analyticsStorage = consentState === 'accepted' ? 'granted' : 'denied';
+              window.gtag('consent', 'default', {
+                analytics_storage: analyticsStorage,
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied'
+              });
+            })();
+          `}
+        />
+      </>
+    ) : null}
     {structuredDataItems.map((entry) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
     ))}
@@ -385,6 +429,10 @@ const footerUtilityLinks = [
         </div>
       </footer>
     </div>
+    {analyticsEnabled ? <AnalyticsConsentBanner /> : null}
+    {analyticsEnabled ? (
+      <script is:inline type="module" src={analyticsConsentScriptUrl}></script>
+    ) : null}
     {loadPortalModules ? (
       <script is:inline type="module" src={portalModulesScriptUrl}></script>
     ) : null}
