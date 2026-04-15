@@ -7,9 +7,9 @@ import {
   getNormUrl,
   getSubjectsUrl,
   getSubjectGroups,
-  loadAllNorms,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
+import { loadAllNorms } from '../../../lib/norms/content.ts';
 
 export async function getStaticPaths() {
   const groups = getSubjectGroups(await loadAllNorms());

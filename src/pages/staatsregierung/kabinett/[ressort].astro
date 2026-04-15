@@ -7,12 +7,12 @@ import {
   getHomeUrl,
   getMinistriesUrl,
   getMinistryUrl,
-  loadMinistries,
-  loadTopics,
   resolvePortalPath,
   type Ministerium,
 } from '../../../lib/portal/index.ts';
-import { getNormUrl, loadAllNorms } from '../../../lib/norms/index.ts';
+import { loadMinistries, loadTopics } from '../../../lib/portal/content.ts';
+import { loadAllNorms } from '../../../lib/norms/content.ts';
+import { getNormUrl } from '../../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
   const ministries = await loadMinistries();

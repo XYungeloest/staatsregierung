@@ -1,126 +1,150 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
+import { getJobBySlug, listJobs } from '../../../lib/dynamic/repository.ts';
 import {
   getCareerUrl,
   getHomeUrl,
   getJobUrl,
   resolvePortalPath,
   getServiceUrl,
-  loadJobOffers,
-  type Stellenangebot,
 } from '../../../lib/portal/index.ts';
 
-export async function getStaticPaths() {
-  const offers = await loadJobOffers();
+const slug = Astro.params.slug ?? '';
+const database = getDatabase();
+const offer = slug ? await getJobBySlug(database, slug) : undefined;
 
-  return offers.map((offer) => ({
-    params: { slug: offer.slug },
-    props: { offer },
-  }));
+if (!offer) {
+  Astro.response.status = 404;
 }
 
-const { offer } = Astro.props as { offer: Stellenangebot };
-const relatedOffers = (await loadJobOffers()).filter((entry) => entry.slug !== offer.slug).slice(0, 2);
+const relatedOffers = offer
+  ? (await listJobs(database, { includeInactive: true }))
+      .filter((entry) => entry.slug !== offer.slug)
+      .slice(0, 2)
+  : [];
 ---
 
-<BaseLayout title={offer.title} description={offer.teaser}>
+<BaseLayout
+  title={offer?.title ?? 'Stellenangebot nicht gefunden'}
+  description={
+    offer?.teaser ?? 'Das angeforderte Stellenangebot konnte im dynamischen Karrierebereich nicht gefunden werden.'
+  }
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Service', href: getServiceUrl() },
       { label: 'Karriere', href: getCareerUrl() },
-      { label: offer.title },
+      { label: offer?.title ?? 'Nicht gefunden' },
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Stellenangebot</p>
-    <h1>{offer.title}</h1>
-    <p class="lead">{offer.teaser}</p>
-    <p class="detail-line">
-      {offer.ressort} · {offer.standort} · veröffentlicht am{' '}
-      {siteConfig.date.formatLong(offer.datePosted)}
-    </p>
-  </section>
-
-  <div class="content-grid">
-    <section class="section">
-      <img
-        class="media-banner"
-        src={resolvePortalPath(offer.image ?? '/images/jobs/stellenangebot.png')}
-        alt={offer.imageAlt ?? `Vorläufiges Bild zum Stellenangebot ${offer.title}`}
-      />
-      {offer.imageCredit ? <p class="media-credit">Bildnachweis: {offer.imageCredit}</p> : null}
-      <div class="status-notice status-notice--current">
-        <h2>Hinweis</h2>
-        <p>
-          Diese Ausschreibung ist Teil einer statischen Politiksimulation. Es gibt keine
-          serverseitige Bewerbung über das Portal.
+  {offer ? (
+    <Fragment>
+      <section class="section page-header">
+        <p class="eyebrow">Stellenangebot</p>
+        <h1>{offer.title}</h1>
+        <p class="lead">{offer.teaser}</p>
+        <p class="detail-line">
+          {offer.ressort} · {offer.standort} · veröffentlicht am{' '}
+          {siteConfig.date.formatLong(offer.datePosted)}
         </p>
+      </section>
+
+      <div class="content-grid">
+        <section class="section">
+          <img
+            class="media-banner"
+            src={resolvePortalPath(offer.image ?? '/images/jobs/stellenangebot.png')}
+            alt={offer.imageAlt ?? `Vorläufiges Bild zum Stellenangebot ${offer.title}`}
+          />
+          {offer.imageCredit ? <p class="media-credit">Bildnachweis: {offer.imageCredit}</p> : null}
+          <div class="status-notice status-notice--current">
+            <h2>Hinweis</h2>
+            <p>
+              Diese Ausschreibung ist Teil einer Politiksimulation. Auch im dynamischen
+              Karrierebereich gibt es keine serverseitige Bewerbung über das Portal.
+            </p>
+          </div>
+          <div class="body-copy">
+            {offer.body.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+
+        <aside class="section meta-panel">
+          <div class="section-header section-header--compact">
+            <h2>Rahmendaten</h2>
+          </div>
+          <dl class="meta-list">
+            <div>
+              <dt>Arbeitgeber</dt>
+              <dd>{offer.ressort}</dd>
+            </div>
+            <div>
+              <dt>Arbeitsbereich</dt>
+              <dd>{offer.arbeitsbereich}</dd>
+            </div>
+            <div>
+              <dt>Arbeitsort</dt>
+              <dd>{offer.standort}</dd>
+            </div>
+            <div>
+              <dt>Beschäftigungsart</dt>
+              <dd>{offer.employmentType}</dd>
+            </div>
+            <div>
+              <dt>Vergütung</dt>
+              <dd>{offer.payGrade ?? 'nach Qualifikation'}</dd>
+            </div>
+            <div>
+              <dt>Veröffentlicht</dt>
+              <dd>{siteConfig.date.formatLong(offer.datePosted)}</dd>
+            </div>
+            <div>
+              <dt>Bewerbungsfrist</dt>
+              <dd>{siteConfig.date.formatLong(offer.applicationDeadline)}</dd>
+            </div>
+          </dl>
+          <nav class="link-list">
+            <a href={getCareerUrl()}>Zur Karriereübersicht</a>
+            {offer.contact?.email ? <a href={`mailto:${offer.contact.email}`}>Kontakt per E-Mail</a> : null}
+            {offer.contact?.telefon ? <a href={`tel:${offer.contact.telefon.replace(/\s+/g, '')}`}>Kontakt per Telefon</a> : null}
+          </nav>
+          {relatedOffers.length > 0 ? (
+            <>
+              <div class="section-header section-header--compact">
+                <h2>Weitere Stellen</h2>
+              </div>
+              <ul class="record-list">
+                {relatedOffers.map((entry) => (
+                  <li class="record-list__item">
+                    <strong><a class="inline-link" href={getJobUrl(entry.slug)}>{entry.title}</a></strong>
+                    <span>{entry.ressort}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </aside>
       </div>
-      <div class="body-copy">
-        {offer.body.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
+    </Fragment>
+  ) : (
+    <section class="section">
+      <div class="status-notice status-notice--warning">
+        <h1>Stellenangebot nicht gefunden</h1>
+        <p>
+          Für diesen Slug liegt derzeit kein Eintrag in D1 vor. Prüfen Sie den Seed-Stand oder die
+          angeforderte URL.
+        </p>
+        <p><a class="inline-link" href={getCareerUrl()}>Zur Karriereübersicht</a></p>
       </div>
     </section>
-
-    <aside class="section meta-panel">
-      <div class="section-header section-header--compact">
-        <h2>Rahmendaten</h2>
-      </div>
-      <dl class="meta-list">
-        <div>
-          <dt>Arbeitgeber</dt>
-          <dd>{offer.ressort}</dd>
-        </div>
-        <div>
-          <dt>Arbeitsbereich</dt>
-          <dd>{offer.arbeitsbereich}</dd>
-        </div>
-        <div>
-          <dt>Arbeitsort</dt>
-          <dd>{offer.standort}</dd>
-        </div>
-        <div>
-          <dt>Beschäftigungsart</dt>
-          <dd>{offer.employmentType}</dd>
-        </div>
-        <div>
-          <dt>Vergütung</dt>
-          <dd>{offer.payGrade ?? 'nach Qualifikation'}</dd>
-        </div>
-        <div>
-          <dt>Veröffentlicht</dt>
-          <dd>{siteConfig.date.formatLong(offer.datePosted)}</dd>
-        </div>
-        <div>
-          <dt>Bewerbungsfrist</dt>
-          <dd>{siteConfig.date.formatLong(offer.applicationDeadline)}</dd>
-        </div>
-      </dl>
-      <nav class="link-list">
-        <a href={getCareerUrl()}>Zur Karriereübersicht</a>
-        {offer.contact?.email ? <a href={`mailto:${offer.contact.email}`}>Kontakt per E-Mail</a> : null}
-        {offer.contact?.telefon ? <a href={`tel:${offer.contact.telefon.replace(/\s+/g, '')}`}>Kontakt per Telefon</a> : null}
-      </nav>
-      {relatedOffers.length > 0 ? (
-        <>
-          <div class="section-header section-header--compact">
-            <h2>Weitere Stellen</h2>
-          </div>
-          <ul class="record-list">
-            {relatedOffers.map((entry) => (
-              <li class="record-list__item">
-                <strong><a class="inline-link" href={getJobUrl(entry.slug)}>{entry.title}</a></strong>
-                <span>{entry.ressort}</span>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
-    </aside>
-  </div>
+  )}
 </BaseLayout>

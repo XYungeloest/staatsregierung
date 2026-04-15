@@ -5,9 +5,9 @@ import {
   getBudgetPageUrl,
   getBudgetUrl,
   getHomeUrl,
-  loadBudgetPages,
   type Haushaltsseite,
 } from '../../lib/portal/index.ts';
+import { loadBudgetPages } from '../../lib/portal/content.ts';
 import { getNormUrl } from '../../lib/norms/index.ts';
 
 export async function getStaticPaths() {

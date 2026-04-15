@@ -2,11 +2,8 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
-import {
-  getGovernmentUrl,
-  getHomeUrl,
-  loadGovernmentMembers,
-} from '../../../lib/portal/index.ts';
+import { getGovernmentUrl, getHomeUrl } from '../../../lib/portal/index.ts';
+import { loadGovernmentMembers } from '../../../lib/portal/content.ts';
 
 const members = await loadGovernmentMembers();
 const leadership = members.slice(0, 2);

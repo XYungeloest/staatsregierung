@@ -6,9 +6,9 @@ import {
   getFreestatePageUrl,
   getFreestateUrl,
   getHomeUrl,
-  loadFreestatePages,
   type Seite,
 } from '../../lib/portal/index.ts';
+import { loadFreestatePages } from '../../lib/portal/content.ts';
 import { getLawConstitutionUrl, getNormUrl } from '../../lib/norms/index.ts';
 
 export async function getStaticPaths() {

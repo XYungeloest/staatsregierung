@@ -6,26 +6,39 @@
   "assets": {
     "directory": "./dist"
   },
-
-  // Platzhalter für spätere Ausbaustufen:
-  // "d1_databases": [
-  //   {
-  //     "binding": "DB",
-  //     "database_name": "ostrecht-portal",
-  //     "database_id": "<D1_DATABASE_ID>"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "MEDIA",
-  //     "bucket_name": "ostrecht-portal-media"
-  //   }
-  // ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "freistaat-portal-prod",
+      "database_id": "ebfc21b8-8580-43c0-ad74-07be4396bcf1",
+      "migrations_dir": "./db/migrations"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "freistaat-assets-prod"
+    }
+  ],
 
   "env": {
     "staging": {
       "name": "ostrecht-portal-staging",
-      "workers_dev": true
+      "workers_dev": true,
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "freistaat-portal-staging",
+          "database_id": "a3166e49-521f-4765-bc0f-e7ceec573140",
+          "migrations_dir": "./db/migrations"
+        }
+      ],
+      "r2_buckets": [
+        {
+          "binding": "MEDIA",
+          "bucket_name": "freistaat-assets-staging"
+        }
+      ]
     }
   }
 }

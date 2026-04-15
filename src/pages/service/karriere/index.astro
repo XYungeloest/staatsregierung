@@ -1,10 +1,14 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import JobOfferCard from '../../../components/portal/JobOfferCard.astro';
-import { getHomeUrl, getServiceUrl, loadJobOffers } from '../../../lib/portal/index.ts';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
+import { listJobs } from '../../../lib/dynamic/repository.ts';
+import { getHomeUrl, getServiceUrl } from '../../../lib/portal/index.ts';
 
-const offers = await loadJobOffers();
+const offers = await listJobs(getDatabase());
 const ressorts = [...new Set(offers.map((offer) => offer.ressort))].sort((left, right) =>
   left.localeCompare(right, 'de'),
 );
@@ -34,7 +38,8 @@ const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))
     <h1>Arbeiten für die Staatsregierung</h1>
     <p class="lead">
       Der Karrierebereich bündelt aktuelle Stellenangebote, informiert über Arbeitsfelder der
-      Landesverwaltung und bleibt vollständig statisch und ohne Bewerbungslogik aufgebaut.
+      Landesverwaltung und bleibt ohne Bewerbungslogik aufgebaut, auch wenn die Ausschreibungen
+      nun gezielt dynamisch aus D1 geladen werden.
     </p>
   </section>
 

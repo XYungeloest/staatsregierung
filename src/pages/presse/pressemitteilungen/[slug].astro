@@ -1,7 +1,18 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
+import {
+  getPressReleaseBySlug,
+  listPressReleases,
+} from '../../../lib/dynamic/repository.ts';
+import {
+  getRuntimeNormLookup,
+  getRuntimeTopicLookup,
+} from '../../../lib/runtime-content/index.ts';
 import { buildArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
@@ -10,185 +21,201 @@ import {
   getPressUrl,
   resolvePortalPath,
   getTopicUrl,
-  loadPressReleases,
-  loadTopics,
-  type Pressemitteilung,
 } from '../../../lib/portal/index.ts';
-import { getNormUrl, loadAllNorms } from '../../../lib/norms/index.ts';
+import { getNormUrl } from '../../../lib/norms/index.ts';
 
-export async function getStaticPaths() {
-  const releases = await loadPressReleases();
+const slug = Astro.params.slug ?? '';
+const database = getDatabase();
+const release = slug ? await getPressReleaseBySlug(database, slug) : undefined;
 
-  return releases.map((release) => ({
-    params: { slug: release.slug },
-    props: { release },
-  }));
+if (!release) {
+  Astro.response.status = 404;
 }
 
-const { release } = Astro.props as { release: Pressemitteilung };
-const [allReleases, topics, norms] = await Promise.all([
-  loadPressReleases(),
-  loadTopics(),
-  loadAllNorms(),
-]);
+const allReleases = release ? await listPressReleases(database) : [];
 const releaseLookup = new Map(allReleases.map((entry) => [entry.slug, entry]));
-const topicLookup = new Map(topics.map((entry) => [entry.slug, entry]));
-const normLookup = new Map(norms.map((entry) => [entry.meta.slug, entry]));
-const relatedTopics =
-  release.relatedTopicSlugs
-    ?.map((slug) => topicLookup.get(slug))
-    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [];
-const relatedNorms =
-  release.relatedNormSlugs
-    ?.map((slug) => normLookup.get(slug))
-    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [];
-const relatedReleases =
-  release.relatedPressSlugs
-    ?.map((slug) => releaseLookup.get(slug))
-    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ??
-  allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2);
+const topicLookup = getRuntimeTopicLookup();
+const normLookup = getRuntimeNormLookup();
+
+const relatedTopics = release
+  ? (release.relatedTopicSlugs
+      ?.map((entrySlug) => topicLookup.get(entrySlug))
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [])
+  : [];
+const relatedNorms = release
+  ? (release.relatedNormSlugs
+      ?.map((entrySlug) => normLookup.get(entrySlug))
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [])
+  : [];
+const relatedReleases = release
+  ? (release.relatedPressSlugs
+      ?.map((entrySlug) => releaseLookup.get(entrySlug))
+      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ??
+    allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2))
+  : [];
 ---
 
 <BaseLayout
-  title={release.title}
-  description={release.teaser}
+  title={release?.title ?? 'Pressemitteilung nicht gefunden'}
+  description={
+    release?.teaser ?? 'Die angeforderte Pressemitteilung konnte im dynamischen Pressebereich nicht gefunden werden.'
+  }
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
-    { label: 'Presse', href: getPressUrl() },
+    { label: 'Presse & Aktuelles', href: getPressUrl() },
     { label: 'Pressemitteilungen', href: getPressReleaseIndexUrl() },
-    { label: release.title },
+    { label: release?.title ?? 'Nicht gefunden' },
   ]}
-  ogType="article"
-  ogImage={{ url: release.image, alt: release.imageAlt }}
-  structuredData={buildArticleJsonLd(
-    {
-      title: release.title,
-      description: release.teaser,
-      url: getPressReleaseUrl(release.slug),
-      datePublished: release.date,
-      image: {
-        url: release.image,
-        alt: release.imageAlt,
-      },
-      articleSection: 'Pressemitteilung',
-    },
-    Astro.site,
-  )}
+  ogType={release ? 'article' : 'website'}
+  ogImage={release ? { url: release.image, alt: release.imageAlt } : undefined}
+  structuredData={
+    release
+      ? buildArticleJsonLd(
+          {
+            title: release.title,
+            description: release.teaser,
+            url: getPressReleaseUrl(release.slug),
+            datePublished: release.date,
+            image: {
+              url: release.image,
+              alt: release.imageAlt,
+            },
+            articleSection: 'Pressemitteilung',
+          },
+          Astro.site,
+        )
+      : undefined
+  }
 >
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Presse', href: getPressUrl() },
+      { label: 'Presse & Aktuelles', href: getPressUrl() },
       { label: 'Pressemitteilungen', href: getPressReleaseIndexUrl() },
-      { label: release.title },
+      { label: release?.title ?? 'Nicht gefunden' },
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Pressemitteilung</p>
-    <h1>{release.title}</h1>
-    <p class="lead">{release.teaser}</p>
-    <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
-  </section>
+  {release ? (
+    <Fragment>
+      <section class="section page-header">
+        <p class="eyebrow">Pressemitteilung</p>
+        <h1>{release.title}</h1>
+        <p class="lead">{release.teaser}</p>
+        <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
+      </section>
 
-  <div class="content-grid">
-    <section class="section">
-      <img
-        class="media-banner"
-        src={resolvePortalPath(release.image)}
-        alt={release.imageAlt}
-      />
-      <div class="tag-list">
-        {release.tags.map((tag) => (
-          <span class="tag">{tag}</span>
-        ))}
-      </div>
-      <div class="body-copy">
-        {release.body.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
-      </div>
-    </section>
-
-    <aside class="section meta-panel">
-      <div class="section-header section-header--compact">
-        <h2>Metadaten</h2>
-      </div>
-      <dl class="meta-list">
-        <div>
-          <dt>Datum</dt>
-          <dd>{siteConfig.date.formatLong(release.date)}</dd>
-        </div>
-        <div>
-          <dt>Ressort</dt>
-          <dd>{release.ressort}</dd>
-        </div>
-        <div>
-          <dt>Bildbeschreibung</dt>
-          <dd>{release.imageAlt}</dd>
-        </div>
-        <div>
-          <dt>Bildnachweis</dt>
-          <dd>{release.imageCredit}</dd>
-        </div>
-      </dl>
-      <nav class="link-list">
-        <a href={getPressReleaseIndexUrl()}>Zur Übersicht der Pressemitteilungen</a>
-        <a href={getPressReleaseUrl(release.slug)}>Stabile URL dieser Meldung</a>
-      </nav>
-
-      {relatedReleases.length > 0 ? (
-        <>
-          <div class="section-header section-header--compact">
-            <h2>Weitere Meldungen</h2>
+      <div class="content-grid">
+        <section class="section">
+          <img
+            class="media-banner"
+            src={resolvePortalPath(release.image)}
+            alt={release.imageAlt}
+          />
+          <div class="tag-list">
+            {release.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
           </div>
-          <ul class="record-list">
-            {relatedReleases.map((entry) => (
-              <li class="record-list__item">
-                <strong><a class="inline-link" href={getPressReleaseUrl(entry.slug)}>{entry.title}</a></strong>
-                <span>{siteConfig.date.formatLong(entry.date)}</span>
-              </li>
+          <div class="body-copy">
+            {release.body.map((paragraph) => (
+              <p>{paragraph}</p>
             ))}
-          </ul>
-        </>
-      ) : null}
-    </aside>
-  </div>
+          </div>
+        </section>
 
-  {relatedTopics.length > 0 || relatedNorms.length > 0 ? (
-    <section class="section section-muted">
-      <div class="section-header">
-        <h2>Einordnung und Rechtsbezüge</h2>
-        <p>Die Meldung ist mit den zuständigen Themen- und Rechtsseiten des Portals verknüpft.</p>
+        <aside class="section meta-panel">
+          <div class="section-header section-header--compact">
+            <h2>Metadaten</h2>
+          </div>
+          <dl class="meta-list">
+            <div>
+              <dt>Datum</dt>
+              <dd>{siteConfig.date.formatLong(release.date)}</dd>
+            </div>
+            <div>
+              <dt>Ressort</dt>
+              <dd>{release.ressort}</dd>
+            </div>
+            <div>
+              <dt>Bildbeschreibung</dt>
+              <dd>{release.imageAlt}</dd>
+            </div>
+            <div>
+              <dt>Bildnachweis</dt>
+              <dd>{release.imageCredit}</dd>
+            </div>
+          </dl>
+          <nav class="link-list">
+            <a href={getPressReleaseIndexUrl()}>Zur Übersicht der Pressemitteilungen</a>
+            <a href={getPressReleaseUrl(release.slug)}>Stabile URL dieser Meldung</a>
+          </nav>
+
+          {relatedReleases.length > 0 ? (
+            <>
+              <div class="section-header section-header--compact">
+                <h2>Weitere Meldungen</h2>
+              </div>
+              <ul class="record-list">
+                {relatedReleases.map((entry) => (
+                  <li class="record-list__item">
+                    <strong><a class="inline-link" href={getPressReleaseUrl(entry.slug)}>{entry.title}</a></strong>
+                    <span>{siteConfig.date.formatLong(entry.date)}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </aside>
       </div>
 
-      {relatedTopics.length > 0 ? (
-        <>
-          <h3>Zugeordnete Themen</h3>
-          <ul class="record-list">
-            {relatedTopics.map((topic) => (
-              <li class="record-list__item">
-                <strong><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></strong>
-                <span>{topic.teaser}</span>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
+      {relatedTopics.length > 0 || relatedNorms.length > 0 ? (
+        <section class="section section-muted">
+          <div class="section-header">
+            <h2>Einordnung und Rechtsbezüge</h2>
+            <p>Die Meldung ist mit den zuständigen Themen- und Rechtsseiten des Portals verknüpft.</p>
+          </div>
 
-      {relatedNorms.length > 0 ? (
-        <>
-          <h3>Rechtsgrundlagen</h3>
-          <ul class="record-list">
-            {relatedNorms.map((norm) => (
-              <li class="record-list__item">
-                <strong><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></strong>
-                <span>{norm.meta.summary}</span>
-              </li>
-            ))}
-          </ul>
-        </>
+          {relatedTopics.length > 0 ? (
+            <>
+              <h3>Zugeordnete Themen</h3>
+              <ul class="record-list">
+                {relatedTopics.map((topic) => (
+                  <li class="record-list__item">
+                    <strong><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></strong>
+                    <span>{topic.teaser}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+
+          {relatedNorms.length > 0 ? (
+            <>
+              <h3>Rechtsgrundlagen</h3>
+              <ul class="record-list">
+                {relatedNorms.map((norm) => (
+                  <li class="record-list__item">
+                    <strong><a class="inline-link" href={getNormUrl(norm.slug)}>{norm.title}</a></strong>
+                    <span>{norm.summary}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </section>
       ) : null}
+    </Fragment>
+  ) : (
+    <section class="section">
+      <div class="status-notice status-notice--warning">
+        <h1>Pressemitteilung nicht gefunden</h1>
+        <p>
+          Für diesen Slug liegt derzeit kein Eintrag in D1 vor. Prüfen Sie den Seed-Stand oder die
+          angeforderte URL.
+        </p>
+        <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Zur Übersicht der Pressemitteilungen</a></p>
+      </div>
     </section>
-  ) : null}
+  )}
 </BaseLayout>

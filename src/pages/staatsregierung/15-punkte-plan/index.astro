@@ -1,10 +1,13 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import ActionPlanDashboard from '../../../components/portal/ActionPlanDashboard.astro';
 import ProjectTimeline from '../../../components/portal/ProjectTimeline.astro';
-import { actionPlanItems } from '../../../data/dashboard/action-plan.ts';
 import { timelineEntries } from '../../../data/dashboard/timeline.ts';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
+import { listProjectStatuses } from '../../../lib/dynamic/repository.ts';
 import {
   getCabinetUrl,
   getGovernmentUrl,
@@ -13,6 +16,7 @@ import {
   getMinisterPresidentUrl,
   getTopicsUrl,
 } from '../../../lib/portal/index.ts';
+const actionPlanItems = await listProjectStatuses(getDatabase());
 const completedCount = actionPlanItems.filter((point) => point.status === 'umgesetzt').length;
 const partlyCount = actionPlanItems.filter((point) => point.status === 'teilweise_umgesetzt').length;
 const plannedCount = actionPlanItems.filter((point) => point.status === 'angelegt').length;

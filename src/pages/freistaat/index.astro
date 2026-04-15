@@ -5,8 +5,8 @@ import { siteConfig } from '../../config/site.ts';
 import {
   getFreestatePageUrl,
   getHomeUrl,
-  loadFreestatePages,
 } from '../../lib/portal/index.ts';
+import { loadFreestatePages } from '../../lib/portal/content.ts';
 import { getLawConstitutionUrl } from '../../lib/norms/index.ts';
 
 const pages = await loadFreestatePages();

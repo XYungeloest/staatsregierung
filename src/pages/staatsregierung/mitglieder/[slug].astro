@@ -6,10 +6,10 @@ import {
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
-  loadGovernmentMembers,
   resolvePortalPath,
   type RegierungMitglied,
 } from '../../../lib/portal/index.ts';
+import { loadGovernmentMembers } from '../../../lib/portal/content.ts';
 
 export async function getStaticPaths() {
   const members = await loadGovernmentMembers();

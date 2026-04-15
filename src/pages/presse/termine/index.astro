@@ -1,14 +1,17 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import EventCard from '../../../components/portal/EventCard.astro';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
+import { listEvents } from '../../../lib/dynamic/repository.ts';
 import {
   getHomeUrl,
   getPressUrl,
-  loadEvents,
 } from '../../../lib/portal/index.ts';
 
-const events = await loadEvents();
+const events = await listEvents(getDatabase());
 ---
 
 <BaseLayout title="Termine" description="Öffentliche Termine und Presseveranstaltungen der Staatsregierung.">

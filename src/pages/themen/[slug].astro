@@ -9,11 +9,11 @@ import {
   getMinistryUrl,
   getTopicUrl,
   getTopicsUrl,
-  loadMinistries,
-  loadTopics,
   type Themenseite,
 } from '../../lib/portal/index.ts';
-import { getLawPortalUrl, getNormUrl, loadAllNorms } from '../../lib/norms/index.ts';
+import { loadMinistries, loadTopics } from '../../lib/portal/content.ts';
+import { loadAllNorms } from '../../lib/norms/content.ts';
+import { getLawPortalUrl, getNormUrl } from '../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
   const topics = await loadTopics();

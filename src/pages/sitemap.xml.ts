@@ -36,6 +36,8 @@ import {
   getSpeechUrl,
   getTopicUrl,
   getTopicsUrl,
+} from '../lib/portal/index.ts';
+import {
   loadBudgetPages,
   loadEvents,
   loadFreestatePages,
@@ -45,15 +47,15 @@ import {
   loadPressReleases,
   loadSpeeches,
   loadTopics,
-} from '../lib/portal/index.ts';
+} from '../lib/portal/content.ts';
 import {
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
   getSubjectGroups,
   getSubjectUrl,
-  loadAllNorms,
 } from '../lib/norms/index.ts';
+import { loadAllNorms } from '../lib/norms/content.ts';
 
 function unique(values: string[]): string[] {
   return [...new Set(values)];

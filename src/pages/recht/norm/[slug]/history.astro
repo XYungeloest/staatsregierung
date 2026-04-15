@@ -3,14 +3,12 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import { formatDate, toDisplayText } from '../../../../lib/norms/presentation.ts';
 import {
-  getCurrentVersion,
   getHomeUrl,
   getLawPortalUrl,
   getNormUrl,
-  getVersionById,
   getNormVersionUrl,
-  loadAllNorms,
 } from '../../../../lib/norms/index.ts';
+import { getCurrentVersion, getVersionById, loadAllNorms } from '../../../../lib/norms/content.ts';
 
 export async function getStaticPaths() {
   const norms = await loadAllNorms();

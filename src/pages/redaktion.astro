@@ -7,10 +7,10 @@ import {
   formatNormType,
   getEditorialUrl,
   getHomeUrl,
-  loadAllNorms,
   NORM_STATUSES,
   NORM_TYPES,
 } from '../lib/norms/index.ts';
+import { loadAllNorms } from '../lib/norms/content.ts';
 
 const editorialEnabled = isEditorialToolsEnabled();
 const existingNorms = editorialEnabled ? await loadAllNorms() : [];

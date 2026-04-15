@@ -21,18 +21,6 @@ export {
 } from './schema.ts';
 
 export {
-  getCurrentVersion,
-  getNormContentRoot,
-  getVersionById,
-  listNormSlugs,
-  loadAllNorms,
-  loadNorm,
-  loadNormHistory,
-  loadNormMeta,
-  loadNormVersions,
-} from './loader.ts';
-
-export {
   getAccessibilityUrl,
   getHomeUrl,
   getEditorialUrl,
@@ -64,10 +52,3 @@ export {
   toDisplayText,
   type NormOutlineItem,
 } from './presentation.ts';
-
-export {
-  buildSearchIndexPayload,
-  type SearchFilterOptions,
-  type SearchIndexDocument,
-  type SearchIndexPayload,
-} from './search.ts';
