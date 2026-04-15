@@ -12,14 +12,19 @@ import {
   getLawSearchUrl,
   getSiteUrl,
 } from '../lib/portal/routes.ts';
+import portalModulesScriptUrl from '../scripts/portal-modules.ts?url';
 
 interface Props {
   title: string;
   description?: string;
+  scripts?: ('portal-modules')[];
 }
 
-const { title, description = 'Statische Website der Staatsregierung des Ostdeutschen Freistaates.' } =
-  Astro.props;
+const {
+  title,
+  description = 'Statische Website der Staatsregierung des Ostdeutschen Freistaates.',
+  scripts = [],
+} = Astro.props;
 const pageTitle = `${title} | ${siteConfig.authorityName}`;
 const base = import.meta.env.BASE_URL;
 const showEditorialLink = isEditorialNavLinkVisible();
@@ -27,6 +32,7 @@ const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
 const currentPath = Astro.url.pathname;
+const loadPortalModules = scripts.includes('portal-modules');
 
 function getPathname(href: string): string {
   return new URL(href, Astro.url).pathname;
@@ -63,6 +69,16 @@ const serviceLinks = [
   isActive: isActivePath(getPathname(entry.href), true),
 }));
 
+const utilityNavLinks = siteConfig.serviceNavigation.map((entry) => {
+  const href = getSiteUrl(entry.pathKey);
+
+  return {
+    href,
+    label: entry.label,
+    isActive: isActivePath(getPathname(href), true),
+  };
+});
+
 const footerPortalLinks = [
   { href: getSiteUrl('government'), label: 'Staatsregierung' },
   { href: getSiteUrl('topics'), label: 'Themen & Projekte' },
@@ -79,6 +95,7 @@ const footerPortalLinks = [
 const footerUtilityLinks = [
   { href: getLawSearchUrl(), label: 'Rechtssuche' },
   { href: getSiteUrl('lawIndex'), label: 'Archiv' },
+  { href: getSiteUrl('serviceOverview'), label: 'Übersicht' },
   { href: getSiteUrl('contact'), label: 'Kontakt' },
   { href: getSiteUrl('career'), label: 'Karriere' },
   { href: getSiteUrl('faq'), label: 'FAQ' },
@@ -99,12 +116,6 @@ const footerUtilityLinks = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
     <title>{pageTitle}</title>
@@ -130,9 +141,24 @@ const footerUtilityLinks = [
             </div>
           </div>
 
-          <header class:list={['site-header', stickyHeader && 'site-header--sticky']}>
-            <div class="container site-header__main">
-              <div class="site-branding">
+	          <header class:list={['site-header', stickyHeader && 'site-header--sticky']}>
+	            <div class="site-utility-bar">
+	              <div class="container site-utility-bar__inner">
+	                <nav class="service-nav" aria-label="Servicenavigation">
+	                  {utilityNavLinks.map((link) => (
+	                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+	                      {link.label}
+	                    </a>
+	                  ))}
+	                </nav>
+	                <a class="site-utility-bar__search-link" href={getLawSearchUrl()}>
+	                  Rechtssuche
+	                </a>
+	              </div>
+	            </div>
+
+	            <div class="container site-header__main">
+	              <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()}>
                   <span class="site-wordmark__media" aria-hidden="true">
                     <img
@@ -252,7 +278,7 @@ const footerUtilityLinks = [
         <slot />
       </main>
 
-      <footer class="site-footer">
+	      <footer class="site-footer">
         <div class="container site-footer__inner">
           <div class="site-footer__meta">
             <p class="site-footer__small">{siteConfig.simulationNotice}</p>
@@ -293,10 +319,8 @@ const footerUtilityLinks = [
             </section>
           </div>
         </div>
-      </footer>
-    </div>
-    <script>
-      import '../scripts/portal-modules.ts';
-    </script>
+	      </footer>
+	    </div>
+     {loadPortalModules ? <script is:inline type="module" src={portalModulesScriptUrl}></script> : null}
   </body>
 </html>

@@ -8,8 +8,8 @@ import {
   getLawIndexUrl,
   getLawSearchUrl,
   getLawSubjectsUrl,
-  getOverviewUrl,
   getPrivacyUrl,
+  getServiceOverviewUrl,
   withBase,
 } from '../portal/routes.ts';
 import type { NormRecord } from './schema.ts';
@@ -57,8 +57,8 @@ export {
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
-  getOverviewUrl,
   getPrivacyUrl,
+  getServiceOverviewUrl,
 };
 
 export function getSubjectSlug(subject: string): string {

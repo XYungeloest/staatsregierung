@@ -61,7 +61,11 @@ const routedContacts = [
 ];
 ---
 
-<BaseLayout title={page?.title ?? 'Kontakt'} description="Kontaktseite der Staatsregierung.">
+<BaseLayout
+  title={page?.title ?? 'Kontakt'}
+  description="Kontaktseite der Staatsregierung."
+  scripts={['portal-modules']}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
@@ -182,25 +186,4 @@ const routedContacts = [
     </aside>
   </div>
 
-  <script is:inline>
-    (() => {
-      const form = document.querySelector('[data-role="contact-router"]');
-      if (!(form instanceof HTMLFormElement)) return;
-
-      const cards = Array.from(document.querySelectorAll('.contact-route-card'));
-
-      const update = () => {
-        const data = new FormData(form);
-        const topic = String(data.get('topic') ?? '');
-
-        cards.forEach((card) => {
-          const key = card.getAttribute('data-route-key');
-          card.toggleAttribute('hidden', !topic || key !== topic);
-        });
-      };
-
-      form.addEventListener('change', update);
-      update();
-    })();
-  </script>
 </BaseLayout>

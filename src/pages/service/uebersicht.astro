@@ -1,0 +1,111 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import {
+  getAccessibilityUrl,
+  getBudgetUrl,
+  getCareerUrl,
+  getContactUrl,
+  getFaqUrl,
+  getFreestateUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getImprintUrl,
+  getLawHomeUrl,
+  getPressUrl,
+  getPrivacyUrl,
+  getServiceUrl,
+  getTopicsUrl,
+} from '../../lib/portal/index.ts';
+---
+
+<BaseLayout title="Übersicht" description="Sitemap-artige Übersicht über die zentralen Bereiche des Regierungsportals.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Service', href: getServiceUrl() },
+      { label: 'Übersicht' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Übersicht</h1>
+    <p class="lead">
+      Diese Seite bündelt die wichtigsten Einstiege des Regierungsportals in einer kompakten,
+      sitemap-artigen Übersicht.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Staatsregierung</h2>
+        <p>Regierungsleitung, Kabinett, Koalition und Programmübersicht.</p>
+        <p><a class="inline-link" href={getGovernmentUrl()}>Zur Staatsregierung</a></p>
+      </article>
+      <article class="panel">
+        <h2>Themen & Projekte</h2>
+        <p>Politische Vorhaben mit Umsetzungsstand, FAQ und Rechtsgrundlagen.</p>
+        <p><a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a></p>
+      </article>
+      <article class="panel">
+        <h2>Recht</h2>
+        <p>Normenbestand mit Suche, Archiv, Sachgebieten und Verfassung.</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
+      </article>
+      <article class="panel">
+        <h2>Presse & Aktuelles</h2>
+        <p>Pressemitteilungen, Reden und Termine der Staatsregierung.</p>
+        <p><a class="inline-link" href={getPressUrl()}>Zum Pressebereich</a></p>
+      </article>
+      <article class="panel">
+        <h2>Haushalt</h2>
+        <p>Doppelhaushalt, Einzelpläne, Sondervermögen und Explorer.</p>
+        <p><a class="inline-link" href={getBudgetUrl()}>Zum Haushalt</a></p>
+      </article>
+      <article class="panel">
+        <h2>Über den Freistaat</h2>
+        <p>Staatsziele, Bezirke, Hoheitszeichen und Geschichte.</p>
+        <p><a class="inline-link" href={getFreestateUrl()}>Zum Freistaat</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Servicezugänge</h2>
+      <p>Häufig genutzte Informations- und Hilfeseiten sind hier direkt verlinkt.</p>
+    </div>
+    <ul class="record-list">
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getServiceUrl()}>Service-Start</a></strong>
+        <span>Gemeinsamer Einstieg in Kontakt, Karriere und Hilfe.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getCareerUrl()}>Karriere</a></strong>
+        <span>Stellenangebote und Rahmendaten für die Arbeit in der Landesverwaltung.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getContactUrl()}>Kontakt</a></strong>
+        <span>Zentrale Kontaktwege und Zuständigkeitswegweiser.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getFaqUrl()}>FAQ</a></strong>
+        <span>Kurze Antworten zur Nutzung des Portals und des Rechtsbereichs.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getAccessibilityUrl()}>Barrierefreiheit</a></strong>
+        <span>Hinweise zum Stand der Barrierefreiheit und zum Feedbackweg.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getImprintUrl()}>Impressum</a></strong>
+        <span>Verantwortlichkeiten und Einordnung der fiktiven Website.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getPrivacyUrl()}>Datenschutz</a></strong>
+        <span>Datenschutzhinweise zur statischen Auslieferung ohne Backend.</span>
+      </li>
+    </ul>
+  </section>
+</BaseLayout>

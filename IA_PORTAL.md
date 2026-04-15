@@ -1,49 +1,11 @@
-# Informationsarchitektur des Portals
+# Legacy-Hinweis
 
-## Primäre Navigation
-- Staatsregierung
-- Ministerien
-- Presse
-- Karriere
-- Recht
-- Kontakt
+Diese frühere Informationsarchitektur ist nur noch als Referenz erhalten.
 
-## Sekundäre Navigation / Service
-- Impressum
-- Datenschutz
-- Barrierefreiheit
-- Suche
-- Übersicht
+Die aktuelle Routing- und IA-Quelle ist:
 
-## Seitenbaum
+- [IA_AND_ROUTES.md](./IA_AND_ROUTES.md)
 
-/
-  Startseite
+Archivierte Fassung:
 
-/regierung/
-/regierung/mitglieder/
-/regierung/mitglieder/[slug]/
-/regierung/kabinett/
-
-/ministerien/
-/ministerien/[slug]/
-
-/presse/
-/presse/[slug]/
-
-/karriere/
-/karriere/stellen/
-/karriere/stellen/[slug]/
-
-/recht/
-/recht/suche/
-/recht/index/
-/recht/subjects/
-/recht/norm/[slug]/
-/recht/norm/[slug]/history/
-/recht/norm/[slug]/version/[versionId]/
-
-/kontakt/
-/impressum/
-/datenschutz/
-/barrierefreiheit/
+- [docs/legacy/IA_PORTAL.md](./docs/legacy/IA_PORTAL.md)

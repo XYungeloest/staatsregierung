@@ -9,13 +9,14 @@ import {
   getHomeUrl,
   getImprintUrl,
   getPrivacyUrl,
+  getServiceOverviewUrl,
   loadJobOffers,
 } from '../../lib/portal/index.ts';
 
 const offers = await loadJobOffers();
 ---
 
-<BaseLayout title="Service" description="Servicebereich des Gesamtportals der Staatsregierung.">
+<BaseLayout title="Service" description="Servicebereich der Staatsregierung.">
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service' }]} />
 
   <section class="section page-header">
@@ -23,8 +24,10 @@ const offers = await loadJobOffers();
     <h1>Service</h1>
     <p class="lead">
       Der Servicebereich bündelt Karriere, Kontakt, FAQ sowie rechtlich-organisatorische Hinweise
-      an einem einheitlichen Ort. Alle Inhalte bleiben statisch, nachvollziehbar und ohne
-      serverseitige Verarbeitung umgesetzt.
+      an einem einheitlichen Ort.
+    </p>
+    <p class="detail-line">
+      <a class="inline-link" href={getServiceOverviewUrl()}>Zur kompakten Übersicht aller Portalbereiche</a>
     </p>
   </section>
 
@@ -36,7 +39,7 @@ const offers = await loadJobOffers();
       </div>
       <div class="meta-card">
         <span class="meta-label">Kontaktlogik</span>
-        <strong>Clientseitig</strong>
+        <strong>Digitaler Wegweiser</strong>
       </div>
       <div class="meta-card">
         <span class="meta-label">Formularverarbeitung</span>
@@ -54,7 +57,7 @@ const offers = await loadJobOffers();
       </article>
       <article class="panel">
         <h2>Kontakt</h2>
-        <p>Zentrale Kontaktwege und ein clientseitiger Zuständigkeitswegweiser für typische Anliegen.</p>
+        <p>Zentrale Kontaktwege und ein digitaler Zuständigkeitswegweiser für typische Anliegen.</p>
         <p><a class="inline-link" href={getContactUrl()}>Zum Kontakt</a></p>
       </article>
       <article class="panel">
@@ -69,12 +72,12 @@ const offers = await loadJobOffers();
       </article>
       <article class="panel">
         <h2>Impressum</h2>
-        <p>Verantwortlichkeiten und Einordnung der fiktiven, statischen Regierungswebsite.</p>
+        <p>Verantwortlichkeiten und Einordnung der fiktiven Regierungswebsite.</p>
         <p><a class="inline-link" href={getImprintUrl()}>Zum Impressum</a></p>
       </article>
       <article class="panel">
         <h2>Datenschutz</h2>
-        <p>Datenschutzhinweise zur statischen Auslieferung ohne Login, Tracking und Formularbackend.</p>
+        <p>Datenschutzhinweise zu Auslieferung, Zugriffen und dem Verzicht auf Formularbackend.</p>
         <p><a class="inline-link" href={getPrivacyUrl()}>Zum Datenschutz</a></p>
       </article>
     </div>

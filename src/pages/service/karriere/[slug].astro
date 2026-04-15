@@ -6,6 +6,7 @@ import {
   getCareerUrl,
   getHomeUrl,
   getJobUrl,
+  resolvePortalPath,
   getServiceUrl,
   loadJobOffers,
   type Stellenangebot,
@@ -48,9 +49,10 @@ const relatedOffers = (await loadJobOffers()).filter((entry) => entry.slug !== o
     <section class="section">
       <img
         class="media-banner"
-        src="/images/jobs/job-platzhalter.svg"
-        alt="Grafischer Platzhalter für Stellenangebot"
+        src={resolvePortalPath(offer.image ?? '/images/jobs/stellenangebot.png')}
+        alt={offer.imageAlt ?? `Vorläufiges Bild zum Stellenangebot ${offer.title}`}
       />
+      {offer.imageCredit ? <p class="media-credit">Bildnachweis: {offer.imageCredit}</p> : null}
       <div class="status-notice status-notice--current">
         <h2>Hinweis</h2>
         <p>

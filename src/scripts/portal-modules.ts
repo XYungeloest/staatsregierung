@@ -185,6 +185,75 @@ function initFaqModules(): void {
   }
 }
 
+function initCareerFilterModule(): void {
+  const form = document.querySelector<HTMLFormElement>('[data-role="career-filter"]');
+  if (!form) {
+    return;
+  }
+
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.job-filter-card'));
+  const countNode = document.getElementById('career-filter-count');
+  const emptyNode = document.getElementById('career-filter-empty');
+
+  const update = () => {
+    const data = new FormData(form);
+    const query = String(data.get('query') ?? '').trim().toLowerCase();
+    const ressort = String(data.get('ressort') ?? '');
+    const standort = String(data.get('standort') ?? '');
+    const employmentType = String(data.get('employmentType') ?? '');
+
+    let visibleCount = 0;
+
+    for (const card of cards) {
+      const matchesQuery = !query || String(card.getAttribute('data-search') ?? '').includes(query);
+      const matchesRessort = !ressort || card.getAttribute('data-ressort') === ressort;
+      const matchesStandort = !standort || card.getAttribute('data-standort') === standort;
+      const matchesEmployment =
+        !employmentType || card.getAttribute('data-employment-type') === employmentType;
+      const visible = matchesQuery && matchesRessort && matchesStandort && matchesEmployment;
+
+      card.hidden = !visible;
+      if (visible) {
+        visibleCount += 1;
+      }
+    }
+
+    if (countNode) {
+      countNode.textContent = `${visibleCount} Stellenangebote sichtbar`;
+    }
+
+    if (emptyNode) {
+      emptyNode.hidden = visibleCount !== 0;
+    }
+  };
+
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  update();
+}
+
+function initContactRouterModule(): void {
+  const form = document.querySelector<HTMLFormElement>('[data-role="contact-router"]');
+  if (!form) {
+    return;
+  }
+
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.contact-route-card'));
+
+  const update = () => {
+    const data = new FormData(form);
+    const topic = String(data.get('topic') ?? '');
+
+    for (const card of cards) {
+      const key = card.getAttribute('data-route-key');
+      card.hidden = !topic || key !== topic;
+    }
+  };
+
+  form.addEventListener('change', update);
+  update();
+}
+
 for (const root of document.querySelectorAll<HTMLElement>('[data-action-plan-root]')) {
   filterActionPlanModule(root);
 }
@@ -202,3 +271,5 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-budget-root]'))
 }
 
 initFaqModules();
+initCareerFilterModule();
+initContactRouterModule();

@@ -12,9 +12,17 @@ Prioritäten:
 5. Navigation und Informationsarchitektur folgen der Master-Spezifikation.
 6. Bereits bestehende Seiten dürfen angepasst oder umgehängt werden, wenn dies der konsistenten Gesamtarchitektur dient.
 
+## Review- und Dokumentationsregel
+
+Wenn ich um Review, Verbesserungsvorschläge oder Redaktionsdokumentation bitte:
+- analysiere zuerst den tatsächlichen Repo-Zustand
+- unterscheide klar zwischen Ist-Zustand und Soll-Spezifikation
+- gib gebündelte, priorisierte Vorschläge statt unstrukturierter Einzelfunde
+- dokumentiere Content-Pfade, Formate und Redaktionsregeln möglichst konkret und dateipfadbezogen
+
 ## Projektkontext
 
-Dieses Repository baut ein statisches Rechtsportal für eine politische Simulation. Es ist kein allgemeines CMS und kein juristisches Großsystem, sondern ein bewusst einfaches, robustes und langfristig wartbares Portal mit aktuellen Fassungen, historischen Fassungen, Normenhistorie und Suche.
+Dieses Repository baut eine statische Website der Staatsregierung für eine politische Simulation mit integriertem Rechtsbereich. Es ist kein allgemeines CMS und kein juristisches Großsystem, sondern ein bewusst einfaches, robustes und langfristig wartbares Portal mit Regierungsinhalten, Servicebereichen und einem funktionsfähigen Rechtsportal mit aktuellen Fassungen, historischen Fassungen, Normenhistorie und Suche.
 
 ## Primärziele
 
@@ -53,7 +61,8 @@ Historische Fassungen werden nicht berechnet, sondern liegen als eigene konsolid
 
 ## Arbeitsweise
 
-- Lies zuerst `SPEC.md` und `TASKLIST.md`.
+- Lies zuerst `SPEC_PORTAL_MASTER.md` und `TASKLIST_PORTAL_MASTER.md`.
+- Ziehe bei Strukturfragen zusätzlich `IA_AND_ROUTES.md` und `CONTENT_MODEL_MASTER.md` heran.
 - Arbeite phasenweise.
 - Halte Änderungen klein und überprüfbar.
 - Erkläre vor größeren Umbauten kurz die geplanten Dateien.
@@ -80,6 +89,6 @@ Historische Fassungen werden nicht berechnet, sondern liegen als eigene konsolid
 ## Bei Unsicherheit
 
 Wenn Anforderungen unklar sind:
-- an `SPEC.md` orientieren
+- an `SPEC_PORTAL_MASTER.md` orientieren
 - konservative, einfache Interpretation wählen
 - keine große Zusatzarchitektur einführen

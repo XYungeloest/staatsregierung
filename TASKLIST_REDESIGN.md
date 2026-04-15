@@ -1,53 +1,11 @@
-# Taskliste Redesign Staatsregierung
+# Legacy-Hinweis
 
-## Phase A – Architekturumbau
-- globale Navigation neu ordnen
-- Rechtsportal unter /recht/ einhängen
-- neue Portalbereiche vorbereiten
-- zentrale Config erweitern
+Diese Redesign-Taskliste ist archiviert und nicht mehr führend.
 
-## Phase B – Content-Schemata
-- Content Collections für Regierung, Ministerien, Presse, Karriere, Service
-- Validierung und Loader
+Bitte arbeite mit:
 
-## Phase C – Startseite
-- Startseite der Staatsregierung
-- Hero/Leitmotiv
-- Schnellzugriffe
-- Teaser für Presse, Regierung, Karriere, Recht
+- [TASKLIST_PORTAL_MASTER.md](./TASKLIST_PORTAL_MASTER.md)
 
-## Phase D – Regierung
-- Übersichtsseite Regierung
-- Karten der Regierungsmitglieder
-- Einzelprofile
-- ggf. Kabinett-/Regierungsarbeit-Seite
+Archivierte Fassung:
 
-## Phase E – Ministerien
-- Übersichtsseite Ministerien
-- Unterseiten für jedes Ministerium
-- einfache Inhaltsmodule
-
-## Phase F – Presse
-- Presseübersicht
-- Einzelseite mit Bild, Metadaten, Body
-- hervorgehobene Meldungen
-
-## Phase G – Karriere
-- Karriere-Übersicht
-- Stellenliste
-- Einzelne Stellenausschreibungen
-
-## Phase H – Service
-- Kontakt
-- Impressum
-- Datenschutz
-- Barrierefreiheit
-- Footer und Servicenavigation
-
-## Phase I – Feinschliff
-- Breadcrumbs
-- Typografie
-- Datumsformat
-- Umlaute
-- Navigation mobil/desktop
-- Build und Linkprüfung
+- [docs/legacy/TASKLIST_REDESIGN.md](./docs/legacy/TASKLIST_REDESIGN.md)

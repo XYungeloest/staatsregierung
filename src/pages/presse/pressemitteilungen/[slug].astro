@@ -7,9 +7,13 @@ import {
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
+  resolvePortalPath,
+  getTopicUrl,
   loadPressReleases,
+  loadTopics,
   type Pressemitteilung,
 } from '../../../lib/portal/index.ts';
+import { getNormUrl, loadAllNorms } from '../../../lib/norms/index.ts';
 
 export async function getStaticPaths() {
   const releases = await loadPressReleases();
@@ -21,8 +25,27 @@ export async function getStaticPaths() {
 }
 
 const { release } = Astro.props as { release: Pressemitteilung };
-const allReleases = await loadPressReleases();
-const relatedReleases = allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2);
+const [allReleases, topics, norms] = await Promise.all([
+  loadPressReleases(),
+  loadTopics(),
+  loadAllNorms(),
+]);
+const releaseLookup = new Map(allReleases.map((entry) => [entry.slug, entry]));
+const topicLookup = new Map(topics.map((entry) => [entry.slug, entry]));
+const normLookup = new Map(norms.map((entry) => [entry.meta.slug, entry]));
+const relatedTopics =
+  release.relatedTopicSlugs
+    ?.map((slug) => topicLookup.get(slug))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [];
+const relatedNorms =
+  release.relatedNormSlugs
+    ?.map((slug) => normLookup.get(slug))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [];
+const relatedReleases =
+  release.relatedPressSlugs
+    ?.map((slug) => releaseLookup.get(slug))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ??
+  allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2);
 ---
 
 <BaseLayout title={release.title} description={release.teaser}>
@@ -44,7 +67,11 @@ const relatedReleases = allReleases.filter((entry) => entry.slug !== release.slu
 
   <div class="content-grid">
     <section class="section">
-      <img class="media-banner" src={release.image} alt={release.imageAlt} />
+      <img
+        class="media-banner"
+        src={resolvePortalPath(release.image)}
+        alt={release.imageAlt}
+      />
       <div class="tag-list">
         {release.tags.map((tag) => (
           <span class="tag">{tag}</span>
@@ -101,4 +128,41 @@ const relatedReleases = allReleases.filter((entry) => entry.slug !== release.slu
       ) : null}
     </aside>
   </div>
+
+  {relatedTopics.length > 0 || relatedNorms.length > 0 ? (
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Einordnung und Rechtsbezüge</h2>
+        <p>Die Meldung ist mit den zuständigen Themen- und Rechtsseiten des Portals verknüpft.</p>
+      </div>
+
+      {relatedTopics.length > 0 ? (
+        <>
+          <h3>Zugeordnete Themen</h3>
+          <ul class="record-list">
+            {relatedTopics.map((topic) => (
+              <li class="record-list__item">
+                <strong><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></strong>
+                <span>{topic.teaser}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+
+      {relatedNorms.length > 0 ? (
+        <>
+          <h3>Rechtsgrundlagen</h3>
+          <ul class="record-list">
+            {relatedNorms.map((norm) => (
+              <li class="record-list__item">
+                <strong><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></strong>
+                <span>{norm.meta.summary}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+    </section>
+  ) : null}
 </BaseLayout>

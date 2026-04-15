@@ -9,6 +9,7 @@ import {
   getMinistryUrl,
   loadMinistries,
   loadTopics,
+  resolvePortalPath,
   type Ministerium,
 } from '../../../lib/portal/index.ts';
 import { getNormUrl, loadAllNorms } from '../../../lib/norms/index.ts';
@@ -66,7 +67,12 @@ const legalReferences = Array.from(
 
   <div class="content-grid">
     <section class="section">
-      <img class="media-banner" src={ministry.bild} alt="" />
+      <img
+        class="media-banner"
+        src={resolvePortalPath(ministry.bild)}
+        alt={ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`}
+      />
+      <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p>
       <div class="status-notice status-notice--current">
         <h2>Ressortprofil</h2>
         <p>
@@ -131,7 +137,7 @@ const legalReferences = Array.from(
       </dl>
       <nav class="link-list">
         {ministry.verknuepfteLinks.map((link) => (
-          <a href={link.href}>{link.label}</a>
+          <a href={resolvePortalPath(link.href)}>{link.label}</a>
         ))}
         <a href={getMinistryUrl(ministry.slug)}>Stabile URL dieses Ressorts</a>
       </nav>

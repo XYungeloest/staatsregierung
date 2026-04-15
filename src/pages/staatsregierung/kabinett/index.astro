@@ -196,6 +196,18 @@ const topicHighlights = [
     </div>
   </section>
 
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Ressorts</h2>
+      <p>Die Ressortseiten bündeln Leitung, Aufgaben, Kontakt und thematische Zuständigkeiten.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {ministries.map((ministry) => (
+        <MinistryCard ministry={ministry} />
+      ))}
+    </div>
+  </section>
+  
   <section class="section">
     <div class="section-header">
       <h2>Ressortzuschnitt</h2>
@@ -229,17 +241,6 @@ const topicHighlights = [
     </p>
   </section>
 
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Ressorts</h2>
-      <p>Die Ressortseiten bündeln Leitung, Aufgaben, Kontakt und thematische Zuständigkeiten.</p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {ministries.map((ministry) => (
-        <MinistryCard ministry={ministry} />
-      ))}
-    </div>
-  </section>
 
   <section class="section">
     <div class="section-header">

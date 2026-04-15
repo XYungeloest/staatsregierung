@@ -22,7 +22,7 @@ const developingTopics = topics.filter((topic) =>
 const linkedNormCount = topics.reduce((count, topic) => count + topic.rechtsgrundlagen.length, 0);
 ---
 
-<BaseLayout title="Themen & Projekte" description="Thematische Einstiege und Regierungsprojekte des Gesamtportals.">
+<BaseLayout title="Themen & Projekte" description="Thematische Einstiege und Regierungsprojekte der Staatsregierung.">
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Themen & Projekte' }]} />
 
   <section class="section page-header">
@@ -75,8 +75,8 @@ const linkedNormCount = topics.reduce((count, topic) => count + topic.rechtsgrun
     <div class="section-header">
       <h2>Weitere Ausbaubereiche</h2>
       <p>
-        Diese Themen sind bereits politisch angelegt und werden im Gesamtportal schrittweise
-        weiter ausgebaut.
+        Diese Themen sind politisch angelegt und werden von der Staatsregierung schrittweise
+        weiter vertieft.
       </p>
     </div>
     <div class="card-grid card-grid--two">

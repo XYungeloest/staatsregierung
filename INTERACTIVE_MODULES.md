@@ -173,13 +173,19 @@ Je FAQ-Eintrag:
 
 ## 6. Datengrundlage
 
-Diese Module sollen möglichst mit kleinen, klaren JSON-Dateien oder strukturierten Content-Einträgen arbeiten, zum Beispiel:
-- `src/data/dashboard/15-punkte.json`
-- `src/data/dashboard/timeline.json`
-- `src/data/dashboard/gesetzgebung.json`
-- `src/data/dashboard/haushalt-2025-2026.json`
+Diese Module arbeiten mit kleinen, klaren, buildzeitnahen Datensätzen. Im aktuellen Projekt liegen sie als kuratierte Sekundärquellen unter:
 
-Alternativ können diese Daten aus vorhandenen Collections zusammengesetzt werden, falls das Projekt dies bereits gut unterstützt.
+- `src/data/dashboard/action-plan.ts`
+- `src/data/dashboard/timeline.ts`
+- `src/data/dashboard/legislation.ts`
+- `src/data/dashboard/budget.ts`
+
+Wichtig:
+
+- Diese Dateien dienen der Visualisierung und Einstiegskommunikation.
+- Sie sind nicht die primäre inhaltliche Wahrheit des Portals.
+- Stammdaten bleiben in den Collections unter `content/`.
+- Wo sinnvoll, sollen Dashboard-Daten schrittweise stärker aus Collections oder Normreferenzen abgeleitet werden.
 
 ## 7. Technische Leitplanken
 

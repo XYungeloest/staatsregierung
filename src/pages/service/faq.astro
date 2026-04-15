@@ -47,7 +47,11 @@ const faqItems = [
 ];
 ---
 
-<BaseLayout title="FAQ" description="Häufige Fragen zum Regierungsportal und seiner Nutzung.">
+<BaseLayout
+  title="FAQ"
+  description="Häufige Fragen zum Regierungsportal und seiner Nutzung."
+  scripts={['portal-modules']}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

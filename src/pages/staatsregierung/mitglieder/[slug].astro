@@ -7,6 +7,7 @@ import {
   getGovernmentUrl,
   getHomeUrl,
   loadGovernmentMembers,
+  resolvePortalPath,
   type RegierungMitglied,
 } from '../../../lib/portal/index.ts';
 
@@ -43,15 +44,19 @@ const { member } = Astro.props as { member: RegierungMitglied };
     <section class="section">
       <div class="status-notice status-notice--current">
         <h2>Aktuelles Profil</h2>
-        <p>Dieses Profil gehört zur aktuellen Staatsregierung und wird als dateibasierter Portalinhalt gepflegt.</p>
+        <p>Dieses Profil gehört zur aktuellen Staatsregierung und fasst Aufgabenbereich, Biografie und Kontaktweg kompakt zusammen.</p>
       </div>
       <article class="profile-card">
-        <img src={member.bild} alt="" />
+        <img
+          src={resolvePortalPath(member.bild)}
+          alt={member.bildAlt ?? `Porträt von ${member.name}`}
+        />
         <div>
           <p>{member.kurzbiografie}</p>
           {member.zitat ? <blockquote class="quote-card">„{member.zitat}“</blockquote> : null}
         </div>
       </article>
+      <p class="media-credit">Bildnachweis: {member.bildnachweis}</p>
       <div class="body-copy">
         {member.langbiografie.map((paragraph: string) => (
           <p>{paragraph}</p>
@@ -74,7 +79,7 @@ const { member } = Astro.props as { member: RegierungMitglied };
         </div>
         <div>
           <dt>Kontakt</dt>
-          <dd>{member.kontakt?.email ?? 'wird redaktionell ergänzt'}</dd>
+          <dd>{member.kontakt?.email ?? 'wird ergänzt'}</dd>
         </div>
         {member.kontakt?.telefon ? (
           <div>
