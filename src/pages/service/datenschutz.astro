@@ -1,17 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import {
-  isAnalyticsEnabled,
-  isAnalyticsMeasurementConfigured,
-  requiresAnalyticsConsent,
-} from '../../config/analytics.ts';
 import { getHomeUrl, getServiceUrl, loadPageBySlug } from '../../lib/portal/index.ts';
 
 const page = await loadPageBySlug('datenschutz');
-const analyticsEnabled = isAnalyticsEnabled();
-const analyticsConfigured = isAnalyticsMeasurementConfigured();
-const analyticsConsentRequired = requiresAnalyticsConsent();
 ---
 
 <BaseLayout title={page?.title ?? 'Datenschutz'} description="Datenschutzhinweise des Regierungsportals.">
@@ -45,47 +37,6 @@ const analyticsConsentRequired = requiresAnalyticsConsent();
         Suchfunktionen im Rechtsbereich greifen auf einen vorab erzeugten Suchindex zurück, der
         beim Build in statische Dateien geschrieben wird.
       </p>
-
-      <div class="section-header">
-        <h2>Google Analytics 4 und Einwilligung</h2>
-      </div>
-      <p>
-        Diese Website ist technisch darauf vorbereitet, Google Analytics 4 nur kontrolliert und
-        einwilligungsbasiert zu nutzen. Diese Passage ist ein technischer Platzhalter und keine
-        abschließende rechtliche Formulierung.
-      </p>
-      {analyticsEnabled ? (
-        <p>
-          Analytics ist aktuell technisch aktiviert. Das externe Google-Analytics-Skript wird
-          {analyticsConsentRequired ? ' erst nach einer gespeicherten Zustimmung geladen.' : ' zentral ohne vorgeschalteten Consent-Banner geladen.'}
-        </p>
-      ) : analyticsConfigured ? (
-        <p>
-          Eine Measurement ID ist bereits hinterlegt, die Analytics-Funktion ist aber derzeit per
-          Feature-Flag deaktiviert.
-        </p>
-      ) : (
-        <p>
-          Aktuell ist keine Measurement ID konfiguriert. Damit bleibt die Analytics-Integration
-          inaktiv, auch wenn die Grundstruktur im Projekt vorhanden ist.
-        </p>
-      )}
-      <p>
-        Die Einwilligungsentscheidung wird ausschließlich lokal im Browser gespeichert. Ohne
-        freigegebene Statistikfunktion gibt es keine serverseitige Speicherung einer
-        Consent-Entscheidung innerhalb dieses Projekts.
-      </p>
-      {analyticsEnabled && analyticsConsentRequired ? (
-        <p>
-          <button
-            class="button-link button-link--secondary"
-            type="button"
-            data-analytics-consent-open
-          >
-            Analyse-Einstellungen öffnen
-          </button>
-        </p>
-      ) : null}
     </section>
 
     <aside class="section meta-panel">
@@ -104,20 +55,6 @@ const analyticsConsentRequired = requiresAnalyticsConsent();
         <div>
           <dt>Suche</dt>
           <dd>Vorab generierter Suchindex im Rechtsbereich</dd>
-        </div>
-        <div>
-          <dt>Analytics</dt>
-          <dd>{analyticsEnabled ? 'Technisch aktiviert' : 'Derzeit deaktiviert'}</dd>
-        </div>
-        <div>
-          <dt>Measurement ID</dt>
-          <dd>{analyticsConfigured ? 'Konfiguriert' : 'Nicht hinterlegt'}</dd>
-        </div>
-        <div>
-          <dt>Consent</dt>
-          <dd data-analytics-consent-status>
-            {analyticsConsentRequired ? 'Noch keine Entscheidung gespeichert' : 'Nicht erforderlich'}
-          </dd>
         </div>
       </dl>
     </aside>

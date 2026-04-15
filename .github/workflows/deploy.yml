@@ -22,7 +22,6 @@ jobs:
     env:
       SITE_URL: https://${{ github.repository_owner }}.github.io
       BASE_PATH: /${{ github.event.repository.name }}/
-      PUBLIC_GA_MEASUREMENT_ID: ${{ vars.PUBLIC_GA_MEASUREMENT_ID }}
 
     steps:
       - name: Repository auschecken
