@@ -87,7 +87,6 @@ window.gtag('consent', 'default', ${JSON.stringify({
     ...analyticsConfig.defaultConsent,
     wait_for_update: analyticsConsentRequired ? 500 : 0,
   })});
-${analyticsConsentRequired ? '' : `window.gtag('js', new Date()); window.gtag('config', '${analyticsConfig.measurementId}', { send_page_view: true, allow_google_signals: false, transport_type: 'beacon' });`}
 `
   : '';
 
@@ -202,13 +201,6 @@ const footerUtilityLinks = [
     {structuredDataItems.map((entry) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
     ))}
-    {analyticsEnabled && !analyticsConsentRequired ? (
-      <script
-        is:inline
-        async
-        src={`${analyticsConfig.scriptOrigin}?id=${encodeURIComponent(analyticsConfig.measurementId)}`}
-      ></script>
-    ) : null}
     {analyticsEnabled ? (
       <script is:inline type="text/javascript" set:html={analyticsBootstrapScript} />
     ) : null}

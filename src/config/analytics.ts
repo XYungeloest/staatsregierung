@@ -1,10 +1,7 @@
 import { featureFlags } from './features.ts';
 
 export const analyticsConfig = {
-  defaultMeasurementId: 'G-7W7STBQE3Q',
-  measurementId: (
-    import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? 'G-7W7STBQE3Q'
-  ).trim(),
+  measurementId: (import.meta.env.PUBLIC_GA_MEASUREMENT_ID ?? '').trim(),
   scriptOrigin: 'https://www.googletagmanager.com/gtag/js',
   consentStorageKey: 'ostrecht-portal.analytics-consent',
   defaultConsent: {
