@@ -4,7 +4,7 @@ export const featureFlags = {
   enableOfficialStyleHeader: true,
   enableStickyHeader: false,
   enableAnalytics: true,
-  requireConsentForAnalytics: false,
+  requireConsentForAnalytics: true,
 } as const;
 
 export function isEditorialToolsEnabled(): boolean {
