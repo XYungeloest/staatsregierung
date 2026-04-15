@@ -11,6 +11,7 @@ Prioritäten:
 4. Keine neue Serverarchitektur.
 5. Navigation und Informationsarchitektur folgen der Master-Spezifikation.
 6. Bereits bestehende Seiten dürfen angepasst oder umgehängt werden, wenn dies der konsistenten Gesamtarchitektur dient.
+7. Dokumentiere alle wesentlichen neuen / geänderten Funktionen in der README.md
 
 ## Review- und Dokumentationsregel
 

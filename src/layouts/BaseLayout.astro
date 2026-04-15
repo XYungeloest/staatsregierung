@@ -1,5 +1,11 @@
 ---
 import '../styles/global.css';
+import AnalyticsConsentBanner from '../components/analytics/AnalyticsConsentBanner.astro';
+import {
+  analyticsConfig,
+  isAnalyticsEnabled,
+  requiresAnalyticsConsent,
+} from '../config/analytics.ts';
 import {
   isEditorialNavLinkVisible,
   isOfficialStyleHeaderEnabled,
@@ -19,8 +25,10 @@ import {
   getEditorialUrl,
   getHomeUrl,
   getLawSearchUrl,
+  getPrivacyUrl,
   getSiteUrl,
 } from '../lib/portal/routes.ts';
+import analyticsConsentScriptUrl from '../scripts/analytics-consent.ts?url';
 import portalModulesScriptUrl from '../scripts/portal-modules.ts?url';
 
 interface Props {
@@ -55,12 +63,32 @@ const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
 const loadPortalModules = scripts.includes('portal-modules');
+const analyticsEnabled = isAnalyticsEnabled();
+const analyticsConsentRequired = requiresAnalyticsConsent();
 const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbs, currentPath, Astro.site);
 const structuredDataItems = [
   ...(structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : []),
   ...(breadcrumbJsonLd ? [breadcrumbJsonLd] : []),
 ];
 const ogImageUrl = ogImage ? toAbsoluteUrl(ogImage.url, Astro.site) : undefined;
+const analyticsBootstrapScript = analyticsEnabled
+  ? `
+window.__ostAnalyticsConfig = ${JSON.stringify({
+    enabled: analyticsEnabled,
+    measurementId: analyticsConfig.measurementId,
+    requireConsent: analyticsConsentRequired,
+    consentStorageKey: analyticsConfig.consentStorageKey,
+    scriptUrl: analyticsConfig.scriptOrigin,
+    defaultConsent: analyticsConfig.defaultConsent,
+  })};
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+window.gtag('consent', 'default', ${JSON.stringify({
+    ...analyticsConfig.defaultConsent,
+    wait_for_update: analyticsConsentRequired ? 500 : 0,
+  })});
+`
+  : '';
 
 function getPathname(href: string): string {
   return new URL(href, Astro.url).pathname;
@@ -173,6 +201,9 @@ const footerUtilityLinks = [
     {structuredDataItems.map((entry) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
     ))}
+    {analyticsEnabled ? (
+      <script is:inline type="text/javascript" set:html={analyticsBootstrapScript} />
+    ) : null}
   </head>
   <body>
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
@@ -338,6 +369,10 @@ const footerUtilityLinks = [
         <slot />
       </main>
 
+      {analyticsEnabled && analyticsConsentRequired ? (
+        <AnalyticsConsentBanner privacyUrl={getPrivacyUrl()} />
+      ) : null}
+
       <footer class="site-footer">
         <div class="container site-footer__inner">
           <div class="site-footer__meta">
@@ -380,11 +415,23 @@ const footerUtilityLinks = [
                   </a>
                 ))}
               </nav>
+              {analyticsEnabled && analyticsConsentRequired ? (
+                <button
+                  class="footer-link-button"
+                  type="button"
+                  data-analytics-consent-open
+                >
+                  Analyse-Einstellungen
+                </button>
+              ) : null}
             </section>
           </div>
         </div>
       </footer>
     </div>
+    {analyticsEnabled ? (
+      <script is:inline type="module" src={analyticsConsentScriptUrl}></script>
+    ) : null}
     {loadPortalModules ? (
       <script is:inline type="module" src={portalModulesScriptUrl}></script>
     ) : null}

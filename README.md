@@ -23,6 +23,7 @@ Die aktuellen Leitdokumente im Repository sind:
 - [AGENTS.md](./AGENTS.md)
 - [CONTENT_EDITOR_GUIDE.md](./CONTENT_EDITOR_GUIDE.md)
 - [SEO_NOTES.md](./SEO_NOTES.md)
+- [ANALYTICS_NOTES.md](./ANALYTICS_NOTES.md)
 
 Ältere Vorstufen der Spezifikation liegen nur noch als Archiv unter [docs/legacy/](./docs/legacy/).
 
@@ -155,7 +156,9 @@ public/images/
 - `src/config/site.ts`
   Globale Portaltexte, Navigation, Pfade, Kontaktangaben und Regierungsstammdaten
 - `src/config/features.ts`
-  Schmale Feature-Flags, vor allem für Kennzeichnungsleiste, Sticky Header und Redaktionswerkzeug
+  Schmale Feature-Flags, vor allem für Kennzeichnungsleiste, Sticky Header, Analytics und Redaktionswerkzeug
+- `src/config/analytics.ts`
+  Zentrale Analytics-Konfiguration mit Measurement ID, Consent-Storage-Key und Aktivierungslogik
 
 `siteConfig` enthält bewusst nur globale Portal-Konfiguration. Inhaltliche Listen wie Ressorts oder Regierungsmitglieder werden über die Content-Dateien gepflegt, nicht parallel in der Konfiguration.
 
@@ -237,6 +240,22 @@ Wichtig:
 - es speichert nichts serverseitig
 - es bleibt vollständig statisch
 - es kann über `src/config/features.ts` ein- oder ausgeblendet werden
+
+## Analytics und Consent
+
+Google Analytics 4 ist zentral vorbereitet, aber standardmäßig nicht einfach dauerhaft aktiv.
+
+Wichtige Punkte:
+
+- die Measurement ID wird über `PUBLIC_GA_MEASUREMENT_ID` gepflegt
+- für GitHub Pages kann sie als Repository-Variable `PUBLIC_GA_MEASUREMENT_ID` hinterlegt werden
+- Analytics lässt sich über `src/config/features.ts` zentral aktivieren oder deaktivieren
+- bei aktivierter Consent-Pflicht wird das externe GA4-Skript erst nach Zustimmung geladen
+- die Einwilligungsentscheidung wird nur lokal im Browser gespeichert
+
+Weitere Hinweise stehen in:
+
+- [ANALYTICS_NOTES.md](./ANALYTICS_NOTES.md)
 
 ## Legacy-Dokumente
 
