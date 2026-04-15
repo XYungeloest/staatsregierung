@@ -44,7 +44,8 @@ function serializeForScript(value: unknown): string {
     <h1>Redaktionelle Eingabemaske</h1>
     <p class="lead">
       Dieses Werkzeug erzeugt aus Eingaben neue JSON-Dateien im bestehenden Content-Format. Die
-      Seite bleibt vollständig statisch und speichert auf GitHub Pages nichts serverseitig.
+      Seite bleibt vollständig dateibasiert und speichert auch auf der neuen Cloudflare-Zielplattform
+      nichts serverseitig.
     </p>
     <p class="status-line">
       Feature-Flag: <strong>{featureFlags.enableEditorialTools ? 'aktiviert' : 'deaktiviert'}</strong>

@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ostrecht-portal",
+  "compatibility_date": "2026-04-15",
+  "workers_dev": true,
+  "assets": {
+    "directory": "./dist"
+  },
+
+  // Platzhalter für spätere Ausbaustufen:
+  // "d1_databases": [
+  //   {
+  //     "binding": "DB",
+  //     "database_name": "ostrecht-portal",
+  //     "database_id": "<D1_DATABASE_ID>"
+  //   }
+  // ],
+  // "r2_buckets": [
+  //   {
+  //     "binding": "MEDIA",
+  //     "bucket_name": "ostrecht-portal-media"
+  //   }
+  // ],
+
+  "env": {
+    "staging": {
+      "name": "ostrecht-portal-staging",
+      "workers_dev": true
+    }
+  }
+}
