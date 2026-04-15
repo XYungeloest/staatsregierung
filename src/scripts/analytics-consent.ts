@@ -34,8 +34,13 @@ if (!config || !config.enabled || !config.measurementId) {
   const rejectButtons = document.querySelectorAll<HTMLElement>('[data-analytics-consent-reject]');
   const openButtons = document.querySelectorAll<HTMLElement>('[data-analytics-consent-open]');
   const statusTargets = document.querySelectorAll<HTMLElement>('[data-analytics-consent-status]');
-  let tagLoaded = false;
-  let configSent = false;
+  let tagLoaded = Boolean(
+    document.querySelector(`script[data-ga4-loader="${runtimeConfig.measurementId}"]`) ||
+      document.querySelector(
+        `script[src*="googletagmanager.com/gtag/js?id=${runtimeConfig.measurementId}"]`,
+      ),
+  );
+  let configSent = !runtimeConfig.requireConsent;
   let currentConsent = readConsent();
 
   function ensureGtag(): void {
