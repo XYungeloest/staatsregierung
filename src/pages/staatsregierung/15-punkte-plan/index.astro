@@ -18,7 +18,11 @@ const partlyCount = actionPlanItems.filter((point) => point.status === 'teilweis
 const plannedCount = actionPlanItems.filter((point) => point.status === 'angelegt').length;
 ---
 
-<BaseLayout title="15-Punkte-Plan" description="Regierungsprogrammatische Leitlinien der Staatsregierung.">
+<BaseLayout
+  title="15-Punkte-Plan"
+  description="Regierungsprogrammatische Leitlinien der Staatsregierung."
+  scripts={['portal-modules']}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

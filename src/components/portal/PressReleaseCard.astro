@@ -1,6 +1,10 @@
 ---
 import { siteConfig } from '../../config/site.ts';
-import { getPressReleaseUrl, type Pressemitteilung } from '../../lib/portal/index.ts';
+import {
+  getPressReleaseUrl,
+  resolvePortalPath,
+  type Pressemitteilung,
+} from '../../lib/portal/index.ts';
 
 interface Props {
   release: Pressemitteilung;
@@ -13,7 +17,11 @@ const isFeatured = variant === 'featured';
 ---
 
 <article class:list={['section', 'press-tile', isCompact && 'press-tile--compact', isFeatured && 'press-tile--featured']}>
-  <img class="press-tile__image" src={release.image} alt={release.imageAlt} />
+  <img
+    class="press-tile__image"
+    src={resolvePortalPath(release.image)}
+    alt={release.imageAlt}
+  />
   <div class="press-tile__body">
     <p class="eyebrow">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
     <h2><a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a></h2>

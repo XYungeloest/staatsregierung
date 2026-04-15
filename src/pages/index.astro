@@ -71,6 +71,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
 <BaseLayout
   title="Startseite"
   description="Statisches Regierungsportal des Ostdeutschen Freistaates mit integriertem Rechtsbereich."
+  scripts={['portal-modules']}
 >
   <Breadcrumbs items={[{ label: 'Startseite' }]} />
 
@@ -78,9 +79,9 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
     <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
     <h1>{siteConfig.authorityName}</h1>
     <p class="lead">
-      Das Gesamtportal bündelt Staatsregierung, Themen und Projekte, Recht, Presse, Haushalt und
-      Service in einer ruhigen, behördennahen und vollständig statischen Website. Politischer
-      Bezugspunkt der Regierungsarbeit ist Dresden als Sitz der Staatsregierung.
+      Die Website bündelt Staatsregierung, Themen und Projekte, Recht, Presse, Haushalt und
+      Service in einer ruhigen, behördennahen Struktur. Politischer Bezugspunkt der
+      Regierungsarbeit ist Dresden als Sitz der Staatsregierung.
     </p>
     <div class="meta-grid" aria-label="Portalüberblick">
       <div class="meta-card">
@@ -123,7 +124,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
       <h2>Portalbereiche</h2>
       <p>
         Die Startseite führt in die zentralen Arbeitsbereiche der Staatsregierung ein und bindet
-        den Rechtsbereich als festen Bestandteil des Gesamtportals ein.
+        den Rechtsbereich als festen Bestandteil der Website ein.
       </p>
     </div>
     <div class="card-grid card-grid--three">
@@ -336,7 +337,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
             <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Alle Pressemitteilungen</a></p>
           </>
         ) : (
-          <p>Der Pressebereich ist angebunden und kann redaktionell weiter ausgebaut werden.</p>
+          <p>Der Pressebereich ist angebunden und kann inhaltlich weiter ausgebaut werden.</p>
         )}
       </article>
       <article class="panel">

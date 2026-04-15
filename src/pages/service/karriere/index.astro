@@ -16,7 +16,11 @@ const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))
 );
 ---
 
-<BaseLayout title="Karriere" description="Karrierebereich der Staatsregierung des Ostdeutschen Freistaates.">
+<BaseLayout
+  title="Karriere"
+  description="Karrierebereich der Staatsregierung des Ostdeutschen Freistaates."
+  scripts={['portal-modules']}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
@@ -117,48 +121,4 @@ const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))
     </div>
   </section>
 
-  <script is:inline>
-    (() => {
-      const form = document.querySelector('[data-role="career-filter"]');
-      if (!(form instanceof HTMLFormElement)) return;
-
-      const cards = Array.from(document.querySelectorAll('.job-filter-card'));
-      const count = document.getElementById('career-filter-count');
-      const empty = document.getElementById('career-filter-empty');
-
-      const update = () => {
-        const data = new FormData(form);
-        const query = String(data.get('query') ?? '').trim().toLowerCase();
-        const ressort = String(data.get('ressort') ?? '');
-        const standort = String(data.get('standort') ?? '');
-        const employmentType = String(data.get('employmentType') ?? '');
-
-        let visible = 0;
-
-        cards.forEach((card) => {
-          const matchesQuery = !query || String(card.getAttribute('data-search') ?? '').includes(query);
-          const matchesRessort = !ressort || card.getAttribute('data-ressort') === ressort;
-          const matchesStandort = !standort || card.getAttribute('data-standort') === standort;
-          const matchesEmployment =
-            !employmentType || card.getAttribute('data-employment-type') === employmentType;
-          const isVisible = matchesQuery && matchesRessort && matchesStandort && matchesEmployment;
-
-          card.toggleAttribute('hidden', !isVisible);
-          if (isVisible) visible += 1;
-        });
-
-        if (count) {
-          count.textContent = `${visible} Stellenangebote sichtbar`;
-        }
-
-        if (empty) {
-          empty.toggleAttribute('hidden', visible !== 0);
-        }
-      };
-
-      form.addEventListener('input', update);
-      form.addEventListener('change', update);
-      update();
-    })();
-  </script>
 </BaseLayout>

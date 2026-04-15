@@ -3,11 +3,13 @@
   "name": "Staatskanzlei des Ostdeutschen Freistaates",
   "kurzname": "Staatskanzlei",
   "leitung": "Staatsministerin Emma Müller",
-  "teaser": "Die Staatskanzlei koordiniert die Richtlinien der Politik, organisiert Kabinettsverfahren und hält die ressortübergreifende Regierungsarbeit zusammen.",
+  "teaser": "Die Staatskanzlei koordiniert die Richtlinien der Politik des Ministerpräsidenten, organisiert Kabinettsverfahren und steuert die ressortübergreifende Regierungsarbeit. Sie ist zugleich zentrale Anlaufstelle für strategische Kommunikation und parlamentarische Begleitung.",
   "aufgaben": [
-    "Koordinierung der Kabinettsarbeit und der Richtlinien der Politik",
-    "Abstimmung zwischen Staatsregierung, Landtag und zentralen Landesorganen",
-    "Strategische Kommunikation und organisatorischer Ausbau des Freistaates"
+    "Koordinierung der Kabinettsarbeit und Umsetzung der Richtlinien der Politik des Ministerpräsidenten",
+    "Abstimmung zwischen Staatsregierung, Ostdeutschem Landtag und zentralen Landesorganen",
+    "Strategische Kommunikation, Presse- und Öffentlichkeitsarbeit der Staatsregierung",
+    "Rechtsaufsicht über den Ostdeutschen Fernsehfunk",
+    "Organisatorischer Ausbau und institutionelle Weiterentwicklung des Freistaates"
   ],
   "kontakt": {
     "name": "Zentrale Staatskanzlei",
@@ -15,12 +17,14 @@
     "telefon": "+49 351 100-1000",
     "referat": "Bürger- und Kabinettsreferat"
   },
-  "bild": "/images/ministerien/ministerium-platzhalter.svg",
-  "bildnachweis": "Illustrativer Platzhalter",
+  "bild": "/images/ministerien/staatskanzlei.jpg",
+  "bildAlt": "Ansichtsbild für die Staatskanzlei des Ostdeutschen Freistaates",
+  "bildnachweis": "Staatsregierung",
   "themen": [
     "Regierungskoordination",
     "Kabinettsverfahren",
-    "Staatsaufbau"
+    "Staatsaufbau",
+    "Rundfunk"
   ],
   "verknuepfteLinks": [
     {
@@ -30,6 +34,10 @@
     {
       "label": "Profil von Emma Müller",
       "href": "/staatsregierung/mitglieder/emma-mueller/"
+    },
+    {
+      "label": "Profil des Ministerpräsidenten",
+      "href": "/staatsregierung/mitglieder/karl-honecker/"
     }
   ]
 }

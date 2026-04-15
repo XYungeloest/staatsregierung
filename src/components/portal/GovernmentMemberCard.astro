@@ -1,6 +1,7 @@
 ---
 import {
   getGovernmentMemberUrl,
+  resolvePortalPath,
   type RegierungMitglied,
 } from '../../lib/portal/index.ts';
 
@@ -14,7 +15,11 @@ const isCompact = variant === 'compact';
 ---
 
 <article class:list={['panel', 'member-card', isCompact && 'member-card--compact']}>
-  <img class="member-card__image" src={member.bild} alt="" />
+  <img
+    class="member-card__image"
+    src={resolvePortalPath(member.bild)}
+    alt={member.bildAlt ?? `Porträt von ${member.name}`}
+  />
   <div class="member-card__body">
     <h3><a class="inline-link" href={getGovernmentMemberUrl(member.slug)}>{member.name}</a></h3>
     <p class="detail-line">{member.amt}</p>

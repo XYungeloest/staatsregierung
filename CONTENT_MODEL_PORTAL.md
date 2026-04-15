@@ -1,63 +1,11 @@
-# Content-Modell
+# Legacy-Hinweis
 
-## regierungMitglied
-Felder:
-- slug
-- name
-- amt
-- ressort
-- reihenfolge
-- kurzbiografie
-- langbiografie
-- bild
-- bildnachweis
-- kontakt optional
-- zitat optional
+Dieses frühere Content-Modell ist archiviert und nicht mehr kanonisch.
 
-## ministerium
-Felder:
-- slug
-- name
-- kurzname
-- leitung
-- teaser
-- aufgaben
-- kontakt
-- bild
-- bildnachweis
-- themen
-- verknuepfteLinks
+Das aktuelle Master-Modell liegt in:
 
-## pressemitteilung
-Felder:
-- slug
-- title
-- date
-- teaser
-- image
-- imageAlt
-- imageCredit
-- ministry
-- tags
-- body
-- isFeatured
+- [CONTENT_MODEL_MASTER.md](./CONTENT_MODEL_MASTER.md)
 
-## stellenangebot
-Felder:
-- slug
-- title
-- ministry
-- datePosted
-- applicationDeadline
-- location
-- employmentType
-- payGrade optional
-- teaser
-- body
-- contact optional
+Archivierte Fassung:
 
-## seite
-Felder:
-- slug
-- title
-- body
+- [docs/legacy/CONTENT_MODEL_PORTAL.md](./docs/legacy/CONTENT_MODEL_PORTAL.md)

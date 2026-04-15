@@ -5,6 +5,7 @@ import { siteConfig } from '../../../config/site.ts';
 import {
   getHomeUrl,
   getPressUrl,
+  resolvePortalPath,
   getSpeechIndexUrl,
   getSpeechUrl,
   loadSpeeches,
@@ -46,7 +47,7 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
     <section class="section">
       <img
         class="media-banner"
-        src="/images/presse/presse-platzhalter.svg"
+        src={resolvePortalPath('/images/presse/rede-platzhalter.png')}
         alt="Grafischer Platzhalter für Rede oder Regierungserklärung"
       />
       <div class="body-copy">

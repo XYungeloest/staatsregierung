@@ -3,11 +3,14 @@
   "name": "Staatsministerium für Kapitalakkumulation des Fiskus",
   "kurzname": "Fiskus",
   "leitung": "Ministerpräsident Dr. Karl Honecker",
-  "teaser": "Das Fiskusressort bündelt zentrale Fragen der finanziellen Handlungsfähigkeit und Vermögenssteuerung des Freistaates.",
+  "teaser": "Das Fiskusressort steuert Haushalt, Finanzpolitik, Vermögen und Beteiligungen des Freistaates. Als Ministerium des Ministerpräsidenten bildet es das finanzpolitische Zentrum der Staatsregierung und begleitet fiskalisch sämtliche Großvorhaben einschließlich Vergesellschaftungen und Sondervermögen.",
   "aufgaben": [
-    "Grundsatzfragen des fiskalischen Rahmens und der staatlichen Vermögensordnung",
-    "Steuerung finanzwirksamer Schwerpunktvorhaben der Staatsregierung",
-    "Koordinierung zentraler Finanz- und Akkumulationsentscheidungen"
+    "Aufstellung und Vollzug des Landeshaushalts einschließlich des Doppelhaushalts 2025/2026",
+    "Vermögens-, Beteiligungs- und Gewährleistungspolitik des Freistaates",
+    "Steuerung von Sondervermögen, Fonds und Landesunternehmen",
+    "Fiskalische Begleitung von Vergesellschaftungen, Schuldverschreibungen und Entschädigungsfragen",
+    "Kredit- und Kassenverstärkungspolitik, vorläufige Haushaltsführung",
+    "Errichtung und Aufsicht über die Landesbank an der Elbe (Elbe LB)"
   ],
   "kontakt": {
     "name": "Leitungsstab Fiskus",
@@ -15,17 +18,24 @@
     "telefon": "+49 351 100-1200",
     "referat": "Haushalts- und Grundsatzreferat"
   },
-  "bild": "/images/ministerien/ministerium-platzhalter.svg",
-  "bildnachweis": "Illustrativer Platzhalter",
+  "bild": "/images/ministerien/kapitalakkumulation-des-fiskus.jpeg",
+  "bildAlt": "Ansichtsbild für das Staatsministerium für Kapitalakkumulation des Fiskus",
+  "bildnachweis": "Staatsregierung",
   "themen": [
     "Haushalt",
     "Finanzsteuerung",
-    "Vermögensordnung"
+    "Vermögensordnung",
+    "Landesbank",
+    "Sondervermögen"
   ],
   "verknuepfteLinks": [
     {
       "label": "Profil von Dr. Karl Honecker",
       "href": "/staatsregierung/mitglieder/karl-honecker/"
+    },
+    {
+      "label": "Haushalt",
+      "href": "/haushalt/"
     },
     {
       "label": "Rechtsbereich",

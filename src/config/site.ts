@@ -4,7 +4,6 @@ export const siteConfig = {
   authorityName: 'Staatsregierung des Ostdeutschen Freistaates',
   portalTitle: 'Freistaat Ostdeutschland',
   portalSubtitle: 'Website der Staatsregierung mit Recht, Themen, Presse, Haushalt und Service',
-  portalClaim: 'Sachlich. Statisch. Behördennah.',
   simulationNotice:
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',
   footerNote:
@@ -21,7 +20,6 @@ export const siteConfig = {
     cabinet: '/staatsregierung/kabinett/',
     coalition: '/staatsregierung/koalition/',
     actionPlan: '/staatsregierung/15-punkte-plan/',
-    ministries: '/staatsregierung/kabinett/',
     topics: '/themen/',
     press: '/presse/',
     pressReleases: '/presse/pressemitteilungen/',
@@ -30,8 +28,8 @@ export const siteConfig = {
     budget: '/haushalt/',
     freestate: '/freistaat/',
     service: '/service/',
+    serviceOverview: '/service/uebersicht/',
     career: '/service/karriere/',
-    jobs: '/service/karriere/',
     faq: '/service/faq/',
     lawHome: '/recht/',
     lawSearch: '/recht/suche/',
@@ -42,7 +40,6 @@ export const siteConfig = {
     imprint: '/service/impressum/',
     privacy: '/service/datenschutz/',
     accessibility: '/service/barrierefreiheit/',
-    overview: '/service/',
     editorial: '/redaktion/',
   },
   mainNavigation: [
@@ -55,7 +52,7 @@ export const siteConfig = {
     { label: 'Service', pathKey: 'service' },
   ],
   serviceNavigation: [
-    { label: 'Service', pathKey: 'service' },
+    { label: 'Übersicht', pathKey: 'serviceOverview' },
     { label: 'Kontakt', pathKey: 'contact' },
     { label: 'Impressum', pathKey: 'imprint' },
     { label: 'Datenschutz', pathKey: 'privacy' },
@@ -89,73 +86,6 @@ export const siteConfig = {
     predecessor: 'Kabinett Delgado',
     seatOfGovernment: 'Dresden',
   },
-  ministries: [
-    {
-      slug: 'staatskanzlei',
-      name: 'Staatskanzlei',
-      shortName: 'Staatskanzlei',
-    },
-    {
-      slug: 'inneres-bau-und-kommunale-angelegenheiten',
-      name: 'Staatsministerium für Inneres, Bau und kommunale Angelegenheiten',
-      shortName: 'Inneres, Bau und Kommunales',
-    },
-    {
-      slug: 'kapitalakkumulation-des-fiskus',
-      name: 'Staatsministerium für Kapitalakkumulation des Fiskus',
-      shortName: 'Fiskus',
-    },
-    {
-      slug: 'grenzschutz-faschismusbekaempfung-und-bewaffnete-organe',
-      name: 'Staatsministerium für Grenzschutz, Faschismusbekämpfung und für die bewaffneten Organe',
-      shortName: 'Grenzschutz und bewaffnete Organe',
-    },
-    {
-      slug: 'voelkerfreundschaft-und-nachbarschaftspolitik',
-      name: 'Staatsministerium für Völkerfreundschaft und Nachbarschaftspolitik',
-      shortName: 'Völkerfreundschaft',
-    },
-    {
-      slug: 'soziale-und-gesundheitliche-fuersorge',
-      name: 'Staatsministerium für soziale und gesundheitliche Fürsorge',
-      shortName: 'Soziale Fürsorge',
-    },
-    {
-      slug: 'mobilitaet-infrastruktur-und-landesentwicklung',
-      name: 'Staatsministerium für Mobilität, Infrastruktur und Landesentwicklung',
-      shortName: 'Mobilität und Infrastruktur',
-    },
-    {
-      slug: 'rechtsstaatlichkeit-und-angelegenheiten-des-staates',
-      name: 'Staatsministerium für Rechtsstaatlichkeit und Angelegenheiten des Staates',
-      shortName: 'Rechtsstaatlichkeit',
-    },
-    {
-      slug: 'kultur-wissenschaft-und-tourismus',
-      name: 'Staatsministerium für Kultur, Wissenschaft und Tourismus',
-      shortName: 'Kultur und Wissenschaft',
-    },
-    {
-      slug: 'bildung-und-sportliche-ertuechtigung',
-      name: 'Staatsministerium für Bildung und sportliche Ertüchtigung',
-      shortName: 'Bildung und Sport',
-    },
-    {
-      slug: 'umwelt-energie-und-klimaschutz',
-      name: 'Staatsministerium für Umwelt, Energie und Klimaschutz',
-      shortName: 'Umwelt und Energie',
-    },
-    {
-      slug: 'kueste-fischerei-forst-und-landwirtschaft',
-      name: 'Staatsministerium für Küste, Fischerei, Forst und Landwirtschaft',
-      shortName: 'Küste und Landwirtschaft',
-    },
-    {
-      slug: 'wirtschaft-arbeitsmarkt-und-beschaeftigung',
-      name: 'Staatsministerium für Wirtschaft, Arbeitsmarkt und Beschäftigung',
-      shortName: 'Wirtschaft und Arbeitsmarkt',
-    },
-  ],
   date: {
     formatLong: formatDate,
   },

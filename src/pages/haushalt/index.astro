@@ -20,7 +20,11 @@ const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
   .filter((page): page is NonNullable<typeof page> => Boolean(page));
 ---
 
-<BaseLayout title="Haushalt" description="Haushaltsbereich des Gesamtportals der Staatsregierung.">
+<BaseLayout
+  title="Haushalt"
+  description="Haushaltsbereich der Staatsregierung."
+  scripts={['portal-modules']}
+>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]} />
 
   <section class="section page-header">

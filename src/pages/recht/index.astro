@@ -32,28 +32,32 @@ const faqItems = [
   {
     question: 'Wie funktioniert die Suche im Rechtsbereich?',
     answer:
-      'Die Suche arbeitet mit einem beim Build erzeugten Index und wird vollständig clientseitig im Browser ausgewertet.',
+      'Die Suche nutzt einen beim Build erzeugten Index und wertet die Treffer direkt im Browser aus.',
     href: getSearchUrl(),
     hrefLabel: 'Zur Normensuche',
   },
   {
     question: 'Bleibt das Rechtsportal eigenständig nutzbar?',
     answer:
-      'Ja. Der Rechtsbereich bleibt funktional vollständig erhalten und ist zugleich in das Gesamtportal der Staatsregierung integriert.',
+      'Ja. Der Rechtsbereich bleibt funktional vollständig erhalten und ist zugleich in die Website der Staatsregierung integriert.',
   },
 ];
 ---
 
-<BaseLayout title="Recht" description="Integrierter Rechtsbereich der Staatsregierung des Ostdeutschen Freistaates.">
+<BaseLayout
+  title="Recht"
+  description="Integrierter Rechtsbereich der Staatsregierung des Ostdeutschen Freistaates."
+  scripts={['portal-modules']}
+>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Recht' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Rechtsbereich</p>
     <h1>Recht</h1>
     <p class="lead">
-      Der Rechtsbereich führt das bisherige statische Rechtsportal mit aktuellen Fassungen,
-      historischen Fassungen, Normenhistorien, Suche, Sachgebieten und Index unter dem neuen
-      Portalrahmen fort.
+      Der Rechtsbereich führt das bisherige Rechtsportal mit aktuellen Fassungen, historischen
+      Fassungen, Normenhistorien, Suche, Sachgebieten und Index unter einem gemeinsamen
+      Regierungsauftritt fort.
     </p>
     <nav class="hero-actions" aria-label="Rechtseinstiege">
       <a class="button-link" href={getSearchUrl()}>Normensuche</a>
@@ -75,7 +79,7 @@ const faqItems = [
       </div>
       <div class="meta-card">
         <span class="meta-label">Ausgabe</span>
-        <strong>vollständig statisch</strong>
+        <strong>Dauerhaft veröffentlicht</strong>
       </div>
       <div class="meta-card">
         <span class="meta-label">Verortung</span>

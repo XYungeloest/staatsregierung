@@ -1,6 +1,7 @@
 import { siteConfig, type SitePathKey } from '../../config/site.ts';
 
 const base = import.meta.env?.BASE_URL ?? '/';
+const specialProtocolPattern = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/iu;
 
 export function withBase(path: string): string {
   if (base === '/') {
@@ -8,6 +9,14 @@ export function withBase(path: string): string {
   }
 
   return `${base}${path.replace(/^\//, '')}`;
+}
+
+export function resolvePortalPath(path: string): string {
+  if (!path || specialProtocolPattern.test(path) || !path.startsWith('/')) {
+    return path;
+  }
+
+  return withBase(path);
 }
 
 export function getSiteUrl(pathKey: SitePathKey): string {
@@ -47,11 +56,11 @@ export function getActionPlanUrl(): string {
 }
 
 export function getMinistriesUrl(): string {
-  return getSiteUrl('ministries');
+  return getCabinetUrl();
 }
 
 export function getMinistryUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.ministries}${slug}/`);
+  return withBase(`${siteConfig.paths.cabinet}${slug}/`);
 }
 
 export function getTopicsUrl(): string {
@@ -114,12 +123,12 @@ export function getCareerUrl(): string {
   return getSiteUrl('career');
 }
 
-export function getJobsUrl(): string {
-  return getSiteUrl('jobs');
+export function getServiceOverviewUrl(): string {
+  return getSiteUrl('serviceOverview');
 }
 
 export function getJobUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.jobs}${slug}/`);
+  return withBase(`${siteConfig.paths.career}${slug}/`);
 }
 
 export function getContactUrl(): string {
@@ -140,10 +149,6 @@ export function getPrivacyUrl(): string {
 
 export function getAccessibilityUrl(): string {
   return getSiteUrl('accessibility');
-}
-
-export function getOverviewUrl(): string {
-  return getServiceUrl();
 }
 
 export function getLawHomeUrl(): string {

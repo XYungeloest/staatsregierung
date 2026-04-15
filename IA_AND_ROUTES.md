@@ -6,11 +6,13 @@ Ein zusammenhängendes Regierungsportal mit integriertem Rechtsbereich und Servi
 ## Primäre Routen
 
 /
-  
+
 /staatsregierung/
+/staatsregierung/mitglieder/
+/staatsregierung/mitglieder/[slug]/
 /staatsregierung/ministerpraesident/
 /staatsregierung/kabinett/
-/staatsregierung/kabinett/[ressort]
+/staatsregierung/kabinett/[ressort]/
 /staatsregierung/koalition/
 /staatsregierung/15-punkte-plan/
 
@@ -24,7 +26,7 @@ Ein zusammenhängendes Regierungsportal mit integriertem Rechtsbereich und Servi
 /recht/norm/[slug]/
 /recht/norm/[slug]/history/
 /recht/norm/[slug]/version/[versionId]/
-Hinweis: Bei /recht/ kann die bereits umgesetze Form auch beibehalten/ergänzt werden.
+Hinweis: Bestehende Rechtsfunktionen bleiben unter `/recht/` erhalten und werden innerhalb dieser Route weitergeführt.
 
 /presse/
 /presse/pressemitteilungen/
@@ -32,20 +34,16 @@ Hinweis: Bei /recht/ kann die bereits umgesetze Form auch beibehalten/ergänzt w
 /presse/reden/
 /presse/reden/[slug]/
 /presse/termine/
+/presse/termine/[slug]/
 
 /haushalt/
-/haushalt/gesamtplan/
-/haushalt/einzelplaene/
-/haushalt/sondervermoegen/
+/haushalt/[slug]/
 
 /freistaat/
-/freistaat/verfassung-und-staatsziele/
-/freistaat/bezirke/
-/freistaat/landesfarben-und-hoheitszeichen/
-/freistaat/hauptstaedte/
-/freistaat/geschichte/
+/freistaat/[slug]/
 
 /service/
+/service/uebersicht/
 /service/karriere/
 /service/karriere/[slug]/
 /service/kontakt/
@@ -69,3 +67,4 @@ Hinweis: Bei /recht/ kann die bereits umgesetze Form auch beibehalten/ergänzt w
 - Alle Regierungs-, Presse-, Haushalts- und Serviceinhalte liegen außerhalb des Rechtsbereichs.
 - Themenseiten verlinken direkt in den Rechtsbereich.
 - Service-Seiten werden nicht doppelt außerhalb von `/service/` abgelegt.
+- Die dedizierte Portalübersicht liegt unter `/service/uebersicht/`.

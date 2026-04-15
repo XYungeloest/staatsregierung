@@ -1,6 +1,10 @@
 ---
 import { siteConfig } from '../../config/site.ts';
-import { getSpeechUrl, type Rede } from '../../lib/portal/index.ts';
+import {
+  getSpeechUrl,
+  resolvePortalPath,
+  type Rede,
+} from '../../lib/portal/index.ts';
 
 interface Props {
   speech: Rede;
@@ -14,7 +18,7 @@ const isCompact = variant === 'compact';
 <article class:list={['panel', 'speech-card', isCompact && 'speech-card--compact']}>
   <img
     class="media-banner speech-card__image"
-    src="/images/presse/presse-platzhalter.svg"
+    src={resolvePortalPath('/images/presse/rede-platzhalter.png')}
     alt="Grafischer Platzhalter für Rede oder Regierungserklärung"
   />
   <div class="speech-card__body">

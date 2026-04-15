@@ -22,7 +22,6 @@ export interface RegierungMitglied {
   name: string;
   amt: string;
   ressort: string;
-  partei?: string;
   reihenfolge: number;
   kurzbiografie: string;
   langbiografie: string[];
@@ -38,7 +37,6 @@ export interface Ministerium {
   name: string;
   kurzname: string;
   leitung: string;
-  partei?: string;
   teaser: string;
   aufgaben: string[];
   kontakt: PortalContact;
@@ -96,6 +94,9 @@ export interface Pressemitteilung {
   tags: string[];
   body: string[];
   isFeatured: boolean;
+  relatedTopicSlugs?: string[];
+  relatedNormSlugs?: string[];
+  relatedPressSlugs?: string[];
 }
 
 export interface Rede {
@@ -137,6 +138,9 @@ export interface Stellenangebot {
   teaser: string;
   body: string[];
   contact?: PortalContact;
+  image?: string;
+  imageAlt?: string;
+  imageCredit?: string;
 }
 
 export interface Seite {
@@ -217,6 +221,18 @@ function expectStringArray(value: unknown, path: string): string[] {
   return value.map((entry, index) => expectString(entry, `${path}[${index}]`));
 }
 
+function expectOptionalSlugArray(value: unknown, path: string): string[] | undefined {
+  if (value === undefined || value === null) {
+    return undefined;
+  }
+
+  if (!Array.isArray(value)) {
+    throw new PortalContentValidationError(`${path}: muss ein Array sein`);
+  }
+
+  return value.map((entry, index) => expectSlug(entry, `${path}[${index}]`));
+}
+
 function expectTopicStatus(value: unknown, path: string): Themenstatus {
   const status = expectString(value, path) as Themenstatus;
   const allowedStatuses: Themenstatus[] = [
@@ -283,7 +299,6 @@ export function parseRegierungMitglied(value: unknown, path: string): RegierungM
     name: expectString(entry.name, createPath(path, 'name')),
     amt: expectString(entry.amt, createPath(path, 'amt')),
     ressort: expectString(entry.ressort, createPath(path, 'ressort')),
-    partei: expectOptionalString(entry.partei, createPath(path, 'partei')),
     reihenfolge: expectNumber(entry.reihenfolge, createPath(path, 'reihenfolge')),
     kurzbiografie: expectString(entry.kurzbiografie, createPath(path, 'kurzbiografie')),
     langbiografie: expectStringArray(entry.langbiografie, createPath(path, 'langbiografie')),
@@ -303,7 +318,6 @@ export function parseMinisterium(value: unknown, path: string): Ministerium {
     name: expectString(entry.name, createPath(path, 'name')),
     kurzname: expectString(entry.kurzname, createPath(path, 'kurzname')),
     leitung: expectString(entry.leitung, createPath(path, 'leitung')),
-    partei: expectOptionalString(entry.partei, createPath(path, 'partei')),
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     aufgaben: expectStringArray(entry.aufgaben, createPath(path, 'aufgaben')),
     kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')) ?? {},
@@ -394,6 +408,18 @@ export function parsePressemitteilung(value: unknown, path: string): Pressemitte
     tags: expectStringArray(entry.tags, createPath(path, 'tags')),
     body: expectStringArray(entry.body, createPath(path, 'body')),
     isFeatured: expectBoolean(entry.isFeatured, createPath(path, 'isFeatured')),
+    relatedTopicSlugs: expectOptionalSlugArray(
+      entry.relatedTopicSlugs,
+      createPath(path, 'relatedTopicSlugs'),
+    ),
+    relatedNormSlugs: expectOptionalSlugArray(
+      entry.relatedNormSlugs,
+      createPath(path, 'relatedNormSlugs'),
+    ),
+    relatedPressSlugs: expectOptionalSlugArray(
+      entry.relatedPressSlugs,
+      createPath(path, 'relatedPressSlugs'),
+    ),
   };
 }
 
@@ -454,6 +480,9 @@ export function parseStellenangebot(value: unknown, path: string): Stellenangebo
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     body: expectStringArray(entry.body, createPath(path, 'body')),
     contact: parseContact(entry.contact, createPath(path, 'contact')),
+    image: expectOptionalString(entry.image, createPath(path, 'image')),
+    imageAlt: expectOptionalString(entry.imageAlt, createPath(path, 'imageAlt')),
+    imageCredit: expectOptionalString(entry.imageCredit, createPath(path, 'imageCredit')),
   };
 }
 

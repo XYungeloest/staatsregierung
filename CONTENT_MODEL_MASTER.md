@@ -7,12 +7,12 @@
 - name
 - amt
 - ressort
-- partei
 - reihenfolge
 - kurzbiografie
 - langbiografie
 - bild
 - bildAlt
+- bildnachweis
 - kontakt optional
 - zitat optional
 
@@ -21,12 +21,12 @@
 - name
 - kurzname
 - leitung
-- partei optional
 - teaser
 - aufgaben
 - kontakt
 - bild
 - bildAlt
+- bildnachweis
 - themen
 - verknuepfteLinks
 
@@ -52,9 +52,12 @@
 - teaser
 - image
 - imageAlt
-- imageCredit optional
+- imageCredit
 - body
 - isFeatured optional
+- relatedTopicSlugs optional
+- relatedNormSlugs optional
+- relatedPressSlugs optional
 
 ### rede
 - slug
@@ -92,6 +95,9 @@
 - teaser
 - body
 - contact optional
+- image optional
+- imageAlt optional
+- imageCredit optional
 
 ### statischeSeite
 - slug
@@ -121,10 +127,8 @@ public/
   images/
     ui/
     regierung/
-    ressorts/
-    themen/
+    ministerien/
     presse/
-    haushalt/
     jobs/
 
 ## Hinweis

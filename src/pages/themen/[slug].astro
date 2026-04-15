@@ -47,7 +47,7 @@ const relatedTopics = topics
   .slice(0, 3);
 ---
 
-<BaseLayout title={topic.title} description={topic.teaser}>
+<BaseLayout title={topic.title} description={topic.teaser} scripts={['portal-modules']}>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

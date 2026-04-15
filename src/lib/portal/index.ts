@@ -91,7 +91,6 @@ export {
   getHomeUrl,
   getImprintUrl,
   getJobUrl,
-  getJobsUrl,
   getLawConstitutionUrl,
   getLawHomeUrl,
   getLawIndexUrl,
@@ -101,7 +100,7 @@ export {
   getMinistriesUrl,
   getMinistryUrl,
   getBudgetUrl,
-  getOverviewUrl,
+  getServiceOverviewUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getSpeechIndexUrl,
@@ -112,5 +111,6 @@ export {
   getSiteUrl,
   getTopicUrl,
   getTopicsUrl,
+  resolvePortalPath,
   withBase,
 } from './routes.ts';
