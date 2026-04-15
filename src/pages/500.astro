@@ -5,7 +5,12 @@ import { getServiceOverviewUrl } from '../lib/portal/index.ts';
 import { getHomeUrl, getIndexUrl, getSearchUrl } from '../lib/norms/index.ts';
 ---
 
-<BaseLayout title="Interner Fehler" description="Während der Darstellung ist ein interner Fehler aufgetreten.">
+<BaseLayout
+  title="Interner Fehler"
+  description="Während der Darstellung ist ein interner Fehler aufgetreten."
+  breadcrumbs={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Interner Fehler' }]}
+  noindex={true}
+>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Interner Fehler' }]} />
 
   <section class="section page-header error-page">

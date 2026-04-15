@@ -15,7 +15,15 @@ const norms = await loadAllNorms();
 const groups = getIndexGroups(norms);
 ---
 
-<BaseLayout title="Archiv" description="Archiv und alphabetischer Zugang zu den im Rechtsbereich geführten Normen.">
+<BaseLayout
+  title="Normenarchiv"
+  description="Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: 'Archiv', href: getLawPortalUrl() + 'archiv/' },
+  ]}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

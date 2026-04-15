@@ -48,7 +48,20 @@ const legalReferences = Array.from(
 ).slice(0, 10);
 ---
 
-<BaseLayout title={ministry.kurzname} description={ministry.teaser}>
+<BaseLayout
+  title={`${ministry.kurzname} | ${ministry.name}`}
+  description={ministry.teaser}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Staatsregierung', href: getGovernmentUrl() },
+    { label: 'Kabinett', href: getMinistriesUrl() },
+    { label: ministry.kurzname },
+  ]}
+  ogImage={{
+    url: ministry.bild,
+    alt: ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`,
+  }}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

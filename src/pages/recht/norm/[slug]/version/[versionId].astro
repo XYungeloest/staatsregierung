@@ -29,11 +29,19 @@ export async function getStaticPaths() {
 
 const { norm, version } = Astro.props;
 const outline = buildNormOutline(version.body);
+const normTitle = toDisplayText(norm.meta.title);
+const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
 ---
 
 <BaseLayout
-  title={`${toDisplayText(norm.meta.title)} ${version.versionId}`}
-  description={`Historische Fassung ${version.versionId} von ${toDisplayText(norm.meta.title)}.`}
+  title={`${normTitle} ${version.versionId}`}
+  description={versionDescription}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+    { label: `Fassung vom ${formatDate(version.validFrom)}` },
+  ]}
 >
   <Breadcrumbs
     items={[

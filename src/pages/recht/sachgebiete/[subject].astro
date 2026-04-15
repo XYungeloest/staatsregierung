@@ -23,7 +23,16 @@ export async function getStaticPaths() {
 const { group } = Astro.props;
 ---
 
-<BaseLayout title={toDisplayText(group.name)} description={`Sachgebiet ${toDisplayText(group.name)} im Rechtsbereich.`}>
+<BaseLayout
+  title={`Sachgebiet ${toDisplayText(group.name)}`}
+  description={`Sachgebiet ${toDisplayText(group.name)} im Rechtsbereich des Freistaates Ostdeutschland.`}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: 'Sachgebiete', href: getSubjectsUrl() },
+    { label: toDisplayText(group.name) },
+  ]}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

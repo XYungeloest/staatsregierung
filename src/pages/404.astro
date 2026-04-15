@@ -5,7 +5,12 @@ import { getServiceOverviewUrl } from '../lib/portal/index.ts';
 import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '../lib/norms/index.ts';
 ---
 
-<BaseLayout title="Seite nicht gefunden" description="Die angeforderte Seite wurde im Regierungsportal nicht gefunden.">
+<BaseLayout
+  title="Seite nicht gefunden"
+  description="Die angeforderte Seite wurde im Regierungsportal nicht gefunden."
+  breadcrumbs={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Seite nicht gefunden' }]}
+  noindex={true}
+>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Seite nicht gefunden' }]} />
 
   <section class="section page-header error-page">

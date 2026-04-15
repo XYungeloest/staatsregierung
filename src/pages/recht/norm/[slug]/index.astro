@@ -15,6 +15,7 @@ import {
   getHomeUrl,
   getLawPortalUrl,
   getNormHistoryUrl,
+  getNormUrl,
   getNormVersionUrl,
   loadAllNorms,
 } from '../../../../lib/norms/index.ts';
@@ -31,9 +32,20 @@ export async function getStaticPaths() {
 const { norm, currentVersion } = Astro.props;
 const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
 const outline = buildNormOutline(currentVersion.body);
+const normTitle = toDisplayText(norm.meta.title);
+const normLabel = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
+const currentDescription = `Aktuelle Fassung von ${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Ressort: ${toDisplayText(norm.meta.ministry)}. Rechtsstand seit ${formatDate(currentVersion.validFrom)}.`;
 ---
 
-<BaseLayout title={toDisplayText(norm.meta.title)} description={toDisplayText(norm.meta.summary)}>
+<BaseLayout
+  title={normTitle}
+  description={currentDescription}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+  ]}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

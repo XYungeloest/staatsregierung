@@ -31,6 +31,11 @@ function serializeForScript(value: unknown): string {
 <BaseLayout
   title="Redaktion"
   description="Clientseitige Werkzeuge zum Erzeugen neuer Normdateien und neuer Fassungen für die manuelle Übernahme ins Repository."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Redaktion', href: getEditorialUrl() },
+  ]}
+  noindex={true}
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Redaktion', href: getEditorialUrl() }]} />
 

@@ -7,12 +7,14 @@ import MinistryCard from '../components/portal/MinistryCard.astro';
 import TopicCard from '../components/portal/TopicCard.astro';
 import { timelineEntries } from '../data/dashboard/timeline.ts';
 import { siteConfig } from '../config/site.ts';
+import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '../lib/seo/index.ts';
 import {
   getActionPlanUrl,
   getBudgetUrl,
   getCareerUrl,
   getFreestateUrl,
   getGovernmentMembersUrl,
+  getHomeUrl,
   getGovernmentUrl,
   getJobUrl,
   getLawHomeUrl,
@@ -69,8 +71,10 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
 ---
 
 <BaseLayout
-  title="Startseite"
-  description="Statisches Regierungsportal des Ostdeutschen Freistaates mit integriertem Rechtsbereich."
+  title="Freistaat Ostdeutschland"
+  description="Staatsregierung des Freistaates Ostdeutschland mit Themen, Rechtsportal, Presse, Haushalt und Service. Dresden ist Sitz der Staatsregierung innerhalb dieser fiktiven Politiksimulation."
+  breadcrumbs={[{ label: 'Startseite', href: getHomeUrl() }]}
+  structuredData={[buildWebSiteJsonLd(Astro.site), buildOrganizationJsonLd(Astro.site)]}
   scripts={['portal-modules']}
 >
   <Breadcrumbs items={[{ label: 'Startseite' }]} />

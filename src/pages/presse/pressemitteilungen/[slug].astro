@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
+import { buildArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
   getPressReleaseIndexUrl,
@@ -48,7 +49,32 @@ const relatedReleases =
   allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2);
 ---
 
-<BaseLayout title={release.title} description={release.teaser}>
+<BaseLayout
+  title={release.title}
+  description={release.teaser}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Presse', href: getPressUrl() },
+    { label: 'Pressemitteilungen', href: getPressReleaseIndexUrl() },
+    { label: release.title },
+  ]}
+  ogType="article"
+  ogImage={{ url: release.image, alt: release.imageAlt }}
+  structuredData={buildArticleJsonLd(
+    {
+      title: release.title,
+      description: release.teaser,
+      url: getPressReleaseUrl(release.slug),
+      datePublished: release.date,
+      image: {
+        url: release.image,
+        alt: release.imageAlt,
+      },
+      articleSection: 'Pressemitteilung',
+    },
+    Astro.site,
+  )}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

@@ -22,6 +22,7 @@ Die aktuellen Leitdokumente im Repository sind:
 - [INTERACTIVE_MODULES.md](./INTERACTIVE_MODULES.md)
 - [AGENTS.md](./AGENTS.md)
 - [CONTENT_EDITOR_GUIDE.md](./CONTENT_EDITOR_GUIDE.md)
+- [SEO_NOTES.md](./SEO_NOTES.md)
 
 Ältere Vorstufen der Spezifikation liegen nur noch als Archiv unter [docs/legacy/](./docs/legacy/).
 

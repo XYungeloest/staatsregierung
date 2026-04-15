@@ -4,6 +4,13 @@ export const siteConfig = {
   authorityName: 'Staatsregierung des Ostdeutschen Freistaates',
   portalTitle: 'Freistaat Ostdeutschland',
   portalSubtitle: 'Website der Staatsregierung mit Recht, Themen, Presse, Haushalt und Service',
+  seo: {
+    siteName: 'Freistaat Ostdeutschland',
+    siteUrl: 'https://freistaat-ostdeutschland.de',
+    locale: 'de_DE',
+    defaultDescription:
+      'Website der Staatsregierung des Ostdeutschen Freistaates mit Staatsregierung, Themen, Recht, Presse, Haushalt und Service innerhalb einer fiktiven Politiksimulation.',
+  },
   simulationNotice:
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',
   footerNote:

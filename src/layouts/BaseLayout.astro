@@ -7,6 +7,15 @@ import {
 } from '../config/features.ts';
 import { siteConfig } from '../config/site.ts';
 import {
+  buildBreadcrumbJsonLd,
+  buildCanonicalUrl,
+  buildPageTitle,
+  type SeoBreadcrumbItem,
+  type SeoImage,
+  type StructuredData,
+  toAbsoluteUrl,
+} from '../lib/seo/index.ts';
+import {
   getEditorialUrl,
   getHomeUrl,
   getLawSearchUrl,
@@ -18,21 +27,40 @@ interface Props {
   title: string;
   description?: string;
   scripts?: ('portal-modules')[];
+  breadcrumbs?: SeoBreadcrumbItem[];
+  structuredData?: StructuredData | StructuredData[];
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  ogImage?: SeoImage;
 }
 
 const {
   title,
-  description = 'Statische Website der Staatsregierung des Ostdeutschen Freistaates.',
+  description = siteConfig.seo.defaultDescription,
   scripts = [],
+  breadcrumbs = [],
+  structuredData,
+  noindex = false,
+  ogType = 'website',
+  ogImage,
 } = Astro.props;
-const pageTitle = `${title} | ${siteConfig.authorityName}`;
+
+const currentPath = Astro.url.pathname;
+const pageTitle = buildPageTitle(title);
 const base = import.meta.env.BASE_URL;
+const canonicalUrl = buildCanonicalUrl(Astro.url, Astro.site);
+const robotsContent = noindex ? 'noindex, nofollow' : 'index, follow';
 const showEditorialLink = isEditorialNavLinkVisible();
 const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
-const currentPath = Astro.url.pathname;
 const loadPortalModules = scripts.includes('portal-modules');
+const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbs, currentPath, Astro.site);
+const structuredDataItems = [
+  ...(structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : []),
+  ...(breadcrumbJsonLd ? [breadcrumbJsonLd] : []),
+];
+const ogImageUrl = ogImage ? toAbsoluteUrl(ogImage.url, Astro.site) : undefined;
 
 function getPathname(href: string): string {
   return new URL(href, Astro.url).pathname;
@@ -116,9 +144,35 @@ const footerUtilityLinks = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:locale" content={siteConfig.seo.locale} />
+    <meta property="og:site_name" content={siteConfig.seo.siteName} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl ? (
+      <>
+        <meta property="og:image" content={ogImageUrl} />
+        <meta name="twitter:image" content={ogImageUrl} />
+        {ogImage?.alt ? (
+          <>
+            <meta property="og:image:alt" content={ogImage.alt} />
+            <meta name="twitter:image:alt" content={ogImage.alt} />
+          </>
+        ) : null}
+      </>
+    ) : null}
     <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
     <title>{pageTitle}</title>
+    {structuredDataItems.map((entry) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
+    ))}
   </head>
   <body>
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
@@ -141,24 +195,24 @@ const footerUtilityLinks = [
             </div>
           </div>
 
-	          <header class:list={['site-header', stickyHeader && 'site-header--sticky']}>
-	            <div class="site-utility-bar">
-	              <div class="container site-utility-bar__inner">
-	                <nav class="service-nav" aria-label="Servicenavigation">
-	                  {utilityNavLinks.map((link) => (
-	                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
-	                      {link.label}
-	                    </a>
-	                  ))}
-	                </nav>
-	                <a class="site-utility-bar__search-link" href={getLawSearchUrl()}>
-	                  Rechtssuche
-	                </a>
-	              </div>
-	            </div>
+          <header class:list={['site-header', stickyHeader && 'site-header--sticky']}>
+            <div class="site-utility-bar">
+              <div class="container site-utility-bar__inner">
+                <nav class="service-nav" aria-label="Servicenavigation">
+                  {utilityNavLinks.map((link) => (
+                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                      {link.label}
+                    </a>
+                  ))}
+                </nav>
+                <a class="site-utility-bar__search-link" href={getLawSearchUrl()}>
+                  Rechtssuche
+                </a>
+              </div>
+            </div>
 
-	            <div class="container site-header__main">
-	              <div class="site-branding">
+            <div class="container site-header__main">
+              <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()}>
                   <span class="site-wordmark__media" aria-hidden="true">
                     <img
@@ -166,7 +220,9 @@ const footerUtilityLinks = [
                       alt=""
                       onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.removeAttribute('hidden');"
                     />
-                    <span class="site-notice__flag-fallback" hidden>{siteConfig.officialFlagFallback}</span>
+                    <span class="site-notice__flag-fallback" hidden>
+                      {siteConfig.officialFlagFallback}
+                    </span>
                   </span>
                   <span class="site-wordmark__text">
                     <span class="site-kicker">{siteConfig.authorityName}</span>
@@ -261,12 +317,16 @@ const footerUtilityLinks = [
             <div class="container site-header__inner">
               <div class="site-brand">
                 <p class="site-kicker">{siteConfig.authorityName}</p>
-                <a class="site-title" href={getHomeUrl()}>{siteConfig.portalTitle}</a>
+                <a class="site-title" href={getHomeUrl()}>
+                  {siteConfig.portalTitle}
+                </a>
                 <p class="site-subtitle">{siteConfig.portalSubtitle}</p>
               </div>
               <nav class="site-nav" aria-label="Hauptnavigation">
                 {mainNavLinks.map((link) => (
-                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                    {link.label}
+                  </a>
                 ))}
               </nav>
             </div>
@@ -278,7 +338,7 @@ const footerUtilityLinks = [
         <slot />
       </main>
 
-	      <footer class="site-footer">
+      <footer class="site-footer">
         <div class="container site-footer__inner">
           <div class="site-footer__meta">
             <p class="site-footer__small">{siteConfig.simulationNotice}</p>
@@ -304,7 +364,9 @@ const footerUtilityLinks = [
               <h2>Portalbereiche</h2>
               <nav class="footer-nav" aria-label="Portalbereiche">
                 {footerPortalLinks.map((link) => (
-                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                    {link.label}
+                  </a>
                 ))}
               </nav>
             </section>
@@ -313,14 +375,18 @@ const footerUtilityLinks = [
               <h2>Hilfe & Recht</h2>
               <nav class="footer-nav" aria-label="Hilfelinks im Footer">
                 {footerUtilityLinks.map((link) => (
-                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                    {link.label}
+                  </a>
                 ))}
               </nav>
             </section>
           </div>
         </div>
-	      </footer>
-	    </div>
-     {loadPortalModules ? <script is:inline type="module" src={portalModulesScriptUrl}></script> : null}
+      </footer>
+    </div>
+    {loadPortalModules ? (
+      <script is:inline type="module" src={portalModulesScriptUrl}></script>
+    ) : null}
   </body>
 </html>

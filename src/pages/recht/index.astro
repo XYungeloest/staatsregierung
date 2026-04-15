@@ -10,6 +10,7 @@ import {
   getHomeUrl,
   getIndexUrl,
   getLawConstitutionUrl,
+  getLawPortalUrl,
   getNormUrl,
   getSearchUrl,
   getSubjectsUrl,
@@ -47,6 +48,10 @@ const faqItems = [
 <BaseLayout
   title="Recht"
   description="Integrierter Rechtsbereich der Staatsregierung des Ostdeutschen Freistaates."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+  ]}
   scripts={['portal-modules']}
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Recht' }]} />

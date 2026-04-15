@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
+import { buildArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
   getPressUrl,
@@ -26,7 +27,36 @@ const allSpeeches = await loadSpeeches();
 const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug).slice(0, 2);
 ---
 
-<BaseLayout title={speech.title} description={speech.teaser}>
+<BaseLayout
+  title={speech.title}
+  description={speech.teaser}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Presse & Aktuelles', href: getPressUrl() },
+    { label: 'Reden & Regierungserklärungen', href: getSpeechIndexUrl() },
+    { label: speech.title },
+  ]}
+  ogType="article"
+  ogImage={{
+    url: '/images/presse/rede-platzhalter.png',
+    alt: 'Grafischer Platzhalter für Rede oder Regierungserklärung',
+  }}
+  structuredData={buildArticleJsonLd(
+    {
+      title: speech.title,
+      description: speech.teaser,
+      url: getSpeechUrl(speech.slug),
+      datePublished: speech.date,
+      image: {
+        url: '/images/presse/rede-platzhalter.png',
+        alt: 'Grafischer Platzhalter für Rede oder Regierungserklärung',
+      },
+      articleSection: 'Rede',
+      authorName: speech.sprecher,
+    },
+    Astro.site,
+  )}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

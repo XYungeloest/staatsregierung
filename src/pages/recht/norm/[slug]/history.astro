@@ -32,9 +32,20 @@ const initialVersionUrl = initialVersion
     ? getNormUrl(norm.meta.slug)
     : getNormVersionUrl(norm.meta.slug, initialVersion.versionId)
   : undefined;
+const normTitle = toDisplayText(norm.meta.title);
+const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, gespeicherten Fassungen und Änderungshinweisen im Rechtsbereich des Freistaates Ostdeutschland.`;
 ---
 
-<BaseLayout title={`${toDisplayText(norm.meta.title)} Historie`} description={`Normenhistorie zu ${toDisplayText(norm.meta.title)}.`}>
+<BaseLayout
+  title={`${normTitle} Historie`}
+  description={historyDescription}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+    { label: 'Historie' },
+  ]}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
