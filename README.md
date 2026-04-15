@@ -155,9 +155,13 @@ public/images/
 - `src/config/site.ts`
   Globale Portaltexte, Navigation, Pfade, Kontaktangaben und Regierungsstammdaten
 - `src/config/features.ts`
-  Schmale Feature-Flags, vor allem für Kennzeichnungsleiste, Sticky Header und Redaktionswerkzeug
+  Schmale Feature-Flags, vor allem für Kennzeichnungsleiste, Sticky Header, Analytics und Redaktionswerkzeug
+- `src/config/analytics.ts`
+  Zentrale Konfiguration für Google Analytics 4, Standard-Consent und die clientseitige Consent-Speicherung
 
 `siteConfig` enthält bewusst nur globale Portal-Konfiguration. Inhaltliche Listen wie Ressorts oder Regierungsmitglieder werden über die Content-Dateien gepflegt, nicht parallel in der Konfiguration.
+
+Google Analytics 4 wird global im `BaseLayout` eingebunden. Der Standardzustand der Einwilligung wird zentral über `src/config/analytics.ts` gesteuert; eine abweichende Entscheidung wird ohne Backend lokal im Browser gespeichert.
 
 ## Rechtsbereich
 

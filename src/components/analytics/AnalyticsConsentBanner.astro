@@ -1,0 +1,38 @@
+---
+import {
+  analyticsConfig,
+  isAnalyticsEnabled,
+  shouldShowAnalyticsConsentBanner,
+} from '../../config/analytics.ts';
+import { getPrivacyUrl } from '../../lib/portal/routes.ts';
+
+const showBanner = isAnalyticsEnabled() && shouldShowAnalyticsConsentBanner();
+---
+
+{showBanner ? (
+  <aside
+    id={analyticsConfig.bannerId}
+    class="consent-banner"
+    aria-label="Hinweis zu Webanalyse"
+    hidden
+  >
+    <div class="container consent-banner__inner">
+      <div class="consent-banner__content">
+        <p class="consent-banner__title">Hinweis zu Statistik und Reichweitenmessung</p>
+        <p class="consent-banner__text">
+          Diese Website kann Google Analytics 4 zur anonymisierten Reichweitenmessung verwenden.
+          Die Aktivierung erfolgt erst nach Ihrer Einwilligung.
+          <a class="inline-link" href={getPrivacyUrl()}>Mehr zum Datenschutz</a>
+        </p>
+      </div>
+      <div class="consent-banner__actions">
+        <button type="button" class="button-link button-link--secondary" data-analytics-consent-reject>
+          Ablehnen
+        </button>
+        <button type="button" class="button-link" data-analytics-consent-accept>
+          Zustimmen
+        </button>
+      </div>
+    </div>
+  </aside>
+) : null}
