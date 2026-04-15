@@ -13,7 +13,15 @@ import {
 const groups = getSubjectGroups(await loadAllNorms());
 ---
 
-<BaseLayout title="Sachgebiete" description="Sachgebietsübersicht des Rechtsbereichs.">
+<BaseLayout
+  title="Sachgebiete"
+  description="Sachgebietsübersicht des Rechtsbereichs mit thematischem Zugang zum Normenbestand."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: 'Sachgebiete', href: getLawPortalUrl() + 'sachgebiete/' },
+  ]}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },

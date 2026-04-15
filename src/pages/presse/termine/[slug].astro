@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
+import { buildEventJsonLd } from '../../../lib/seo/index.ts';
 import {
   getEventIndexUrl,
   getEventUrl,
@@ -26,7 +27,30 @@ const allEvents = await loadEvents();
 const relatedEvents = allEvents.filter((entry) => entry.slug !== event.slug).slice(0, 3);
 ---
 
-<BaseLayout title={event.title} description={event.teaser}>
+<BaseLayout
+  title={event.title}
+  description={event.teaser}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Presse & Aktuelles', href: getPressUrl() },
+    { label: 'Termine', href: getEventIndexUrl() },
+    { label: event.title },
+  ]}
+  ogImage={{
+    url: '/images/presse/termin-platzhalter.png',
+    alt: 'Grafischer Platzhalter für Terminankündigung',
+  }}
+  structuredData={buildEventJsonLd(
+    {
+      title: event.title,
+      description: event.teaser,
+      url: getEventUrl(event.slug),
+      startDate: event.date,
+      location: event.location,
+    },
+    Astro.site,
+  )}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
