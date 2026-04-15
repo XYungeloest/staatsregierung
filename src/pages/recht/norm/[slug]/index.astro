@@ -11,14 +11,13 @@ import {
   toDisplayText,
 } from '../../../../lib/norms/presentation.ts';
 import {
-  getCurrentVersion,
   getHomeUrl,
   getLawPortalUrl,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
-  loadAllNorms,
 } from '../../../../lib/norms/index.ts';
+import { getCurrentVersion, loadAllNorms } from '../../../../lib/norms/content.ts';
 
 export async function getStaticPaths() {
   const norms = await loadAllNorms();

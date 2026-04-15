@@ -10,9 +10,8 @@ import {
   getLawHomeUrl,
   getMinistryUrl,
   getServiceUrl,
-  loadMinistries,
-  loadPageBySlug,
 } from '../../lib/portal/index.ts';
+import { loadMinistries, loadPageBySlug } from '../../lib/portal/content.ts';
 
 const page = await loadPageBySlug('kontakt');
 const contact = siteConfig.contact;

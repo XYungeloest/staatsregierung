@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { buildSearchIndexPayload, getHomeUrl, getLawPortalUrl, getSearchUrl } from '../../lib/norms/index.ts';
+import { getHomeUrl, getLawPortalUrl, getSearchUrl } from '../../lib/norms/index.ts';
+import { buildSearchIndexPayload } from '../../lib/norms/search.ts';
 
 const searchPayload = await buildSearchIndexPayload();
 ---

@@ -10,10 +10,12 @@ import {
   getGovernmentUrl,
   getHomeUrl,
   getTopicUrl,
+} from '../../../lib/portal/index.ts';
+import {
   loadGovernmentMembers,
   loadMinistries,
   loadTopics,
-} from '../../../lib/portal/index.ts';
+} from '../../../lib/portal/content.ts';
 
 const [members, ministries, topics] = await Promise.all([
   loadGovernmentMembers(),

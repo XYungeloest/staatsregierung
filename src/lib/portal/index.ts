@@ -46,32 +46,6 @@ export {
 } from './schema.ts';
 
 export {
-  loadBudgetPageBySlug,
-  loadBudgetPages,
-  loadCurrentJobOffers,
-  loadEventBySlug,
-  loadEvents,
-  loadFeaturedPressReleases,
-  loadFreestatePageBySlug,
-  loadFreestatePages,
-  loadGovernmentMemberBySlug,
-  loadGovernmentMembers,
-  loadJobOfferBySlug,
-  loadJobOffers,
-  loadMinistries,
-  loadMinistryBySlug,
-  loadPageBySlug,
-  loadPages,
-  loadPressReleaseBySlug,
-  loadPressReleases,
-  loadRecentPressReleases,
-  loadSpeechBySlug,
-  loadSpeeches,
-  loadTopicBySlug,
-  loadTopics,
-} from './loader.ts';
-
-export {
   getAccessibilityUrl,
   getActionPlanUrl,
   getBudgetPageUrl,

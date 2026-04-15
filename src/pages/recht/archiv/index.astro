@@ -7,9 +7,9 @@ import {
   getIndexGroups,
   getLawPortalUrl,
   getNormUrl,
-  loadAllNorms,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
+import { loadAllNorms } from '../../../lib/norms/content.ts';
 
 const norms = await loadAllNorms();
 const groups = getIndexGroups(norms);

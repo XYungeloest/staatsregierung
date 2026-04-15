@@ -1,7 +1,11 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
+import { getEventBySlug, listEvents } from '../../../lib/dynamic/repository.ts';
 import { buildEventJsonLd } from '../../../lib/seo/index.ts';
 import {
   getEventIndexUrl,
@@ -9,116 +13,137 @@ import {
   getHomeUrl,
   getPressUrl,
   resolvePortalPath,
-  loadEvents,
-  type Termin,
 } from '../../../lib/portal/index.ts';
 
-export async function getStaticPaths() {
-  const events = await loadEvents();
+const slug = Astro.params.slug ?? '';
+const database = getDatabase();
+const event = slug ? await getEventBySlug(database, slug) : undefined;
 
-  return events.map((event) => ({
-    params: { slug: event.slug },
-    props: { event },
-  }));
+if (!event) {
+  Astro.response.status = 404;
 }
 
-const { event } = Astro.props as { event: Termin };
-const allEvents = await loadEvents();
-const relatedEvents = allEvents.filter((entry) => entry.slug !== event.slug).slice(0, 3);
+const allEvents = event ? await listEvents(database) : [];
+const relatedEvents = event ? allEvents.filter((entry) => entry.slug !== event.slug).slice(0, 3) : [];
 ---
 
 <BaseLayout
-  title={event.title}
-  description={event.teaser}
+  title={event?.title ?? 'Termin nicht gefunden'}
+  description={
+    event?.teaser ?? 'Der angeforderte Termin konnte im dynamischen Terminbereich nicht gefunden werden.'
+  }
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Presse & Aktuelles', href: getPressUrl() },
     { label: 'Termine', href: getEventIndexUrl() },
-    { label: event.title },
+    { label: event?.title ?? 'Nicht gefunden' },
   ]}
-  ogImage={{
-    url: '/images/presse/termin-platzhalter.png',
-    alt: 'Grafischer Platzhalter für Terminankündigung',
-  }}
-  structuredData={buildEventJsonLd(
-    {
-      title: event.title,
-      description: event.teaser,
-      url: getEventUrl(event.slug),
-      startDate: event.date,
-      location: event.location,
-    },
-    Astro.site,
-  )}
+  ogImage={
+    event
+      ? {
+          url: '/images/presse/termin-platzhalter.png',
+          alt: 'Grafischer Platzhalter für Terminankündigung',
+        }
+      : undefined
+  }
+  structuredData={
+    event
+      ? buildEventJsonLd(
+          {
+            title: event.title,
+            description: event.teaser,
+            url: getEventUrl(event.slug),
+            startDate: event.date,
+            location: event.location,
+          },
+          Astro.site,
+        )
+      : undefined
+  }
 >
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Presse & Aktuelles', href: getPressUrl() },
       { label: 'Termine', href: getEventIndexUrl() },
-      { label: event.title },
+      { label: event?.title ?? 'Nicht gefunden' },
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Termin</p>
-    <h1>{event.title}</h1>
-    <p class="lead">{event.teaser}</p>
-    <p class="detail-line">{siteConfig.date.formatLong(event.date)} · {event.location}</p>
-  </section>
+  {event ? (
+    <Fragment>
+      <section class="section page-header">
+        <p class="eyebrow">Termin</p>
+        <h1>{event.title}</h1>
+        <p class="lead">{event.teaser}</p>
+        <p class="detail-line">{siteConfig.date.formatLong(event.date)} · {event.location}</p>
+      </section>
 
-  <div class="content-grid">
+      <div class="content-grid">
+        <section class="section">
+          <img
+            class="media-banner"
+            src={resolvePortalPath('/images/presse/termin-platzhalter.png')}
+            alt="Grafischer Platzhalter für Terminankündigung"
+          />
+          <div class="body-copy">
+            {event.body.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+        </section>
+
+        <aside class="section meta-panel">
+          <div class="section-header section-header--compact">
+            <h2>Metadaten</h2>
+          </div>
+          <dl class="meta-list">
+            <div>
+              <dt>Datum</dt>
+              <dd>{siteConfig.date.formatLong(event.date)}</dd>
+            </div>
+            <div>
+              <dt>Ort</dt>
+              <dd>{event.location}</dd>
+            </div>
+            <div>
+              <dt>Format</dt>
+              <dd>Dynamische Terminankündigung aus D1</dd>
+            </div>
+          </dl>
+          <nav class="link-list">
+            <a href={getEventIndexUrl()}>Zur Terminübersicht</a>
+            <a href={getEventUrl(event.slug)}>Stabile URL dieses Termins</a>
+          </nav>
+
+          {relatedEvents.length > 0 ? (
+            <>
+              <div class="section-header section-header--compact">
+                <h2>Weitere Termine</h2>
+              </div>
+              <ul class="record-list">
+                {relatedEvents.map((entry) => (
+                  <li class="record-list__item">
+                    <strong><a class="inline-link" href={getEventUrl(entry.slug)}>{entry.title}</a></strong>
+                    <span>{siteConfig.date.formatLong(entry.date)}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </aside>
+      </div>
+    </Fragment>
+  ) : (
     <section class="section">
-      <img
-        class="media-banner"
-        src={resolvePortalPath('/images/presse/termin-platzhalter.png')}
-        alt="Grafischer Platzhalter für Terminankündigung"
-      />
-      <div class="body-copy">
-        {event.body.map((paragraph) => (
-          <p>{paragraph}</p>
-        ))}
+      <div class="status-notice status-notice--warning">
+        <h1>Termin nicht gefunden</h1>
+        <p>
+          Für diesen Slug liegt derzeit kein Eintrag in D1 vor. Prüfen Sie den Seed-Stand oder die
+          angeforderte URL.
+        </p>
+        <p><a class="inline-link" href={getEventIndexUrl()}>Zur Terminübersicht</a></p>
       </div>
     </section>
-
-    <aside class="section meta-panel">
-      <div class="section-header section-header--compact">
-        <h2>Metadaten</h2>
-      </div>
-      <dl class="meta-list">
-        <div>
-          <dt>Datum</dt>
-          <dd>{siteConfig.date.formatLong(event.date)}</dd>
-        </div>
-        <div>
-          <dt>Ort</dt>
-          <dd>{event.location}</dd>
-        </div>
-        <div>
-          <dt>Format</dt>
-          <dd>Statische Terminankündigung</dd>
-        </div>
-      </dl>
-      <nav class="link-list">
-        <a href={getEventIndexUrl()}>Zur Terminübersicht</a>
-        <a href={getEventUrl(event.slug)}>Stabile URL dieses Termins</a>
-      </nav>
-
-      {relatedEvents.length > 0 ? (
-        <>
-          <div class="section-header section-header--compact">
-            <h2>Weitere Termine</h2>
-          </div>
-          <ul class="record-list">
-            {relatedEvents.map((entry) => (
-              <li class="record-list__item">
-                <strong><a class="inline-link" href={getEventUrl(entry.slug)}>{entry.title}</a></strong>
-                <span>{siteConfig.date.formatLong(entry.date)}</span>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : null}
-    </aside>
-  </div>
+  )}
 </BaseLayout>

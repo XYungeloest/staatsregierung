@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../config/site.ts';
-import { getHomeUrl, getServiceUrl, loadPageBySlug } from '../../lib/portal/index.ts';
+import { getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
+import { loadPageBySlug } from '../../lib/portal/content.ts';
 
 const page = await loadPageBySlug('impressum');
 ---

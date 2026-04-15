@@ -23,13 +23,16 @@ import {
   getPressUrl,
   getServiceUrl,
   getTopicsUrl,
+} from '../lib/portal/index.ts';
+import {
   loadCurrentJobOffers,
   loadFeaturedPressReleases,
   loadGovernmentMembers,
   loadMinistries,
   loadTopics,
-} from '../lib/portal/index.ts';
-import { getCurrentVersion, getNormUrl, loadAllNorms } from '../lib/norms/index.ts';
+} from '../lib/portal/content.ts';
+import { getCurrentVersion, loadAllNorms } from '../lib/norms/content.ts';
+import { getNormUrl } from '../lib/norms/index.ts';
 
 const [members, ministries, topics, pressReleases, jobOffers, norms] = await Promise.all([
   loadGovernmentMembers(),

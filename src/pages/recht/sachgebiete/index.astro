@@ -6,9 +6,9 @@ import {
   getLawPortalUrl,
   getSubjectUrl,
   getSubjectGroups,
-  loadAllNorms,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
+import { loadAllNorms } from '../../../lib/norms/content.ts';
 
 const groups = getSubjectGroups(await loadAllNorms());
 ---

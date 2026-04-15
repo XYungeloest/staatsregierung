@@ -6,8 +6,8 @@ import {
   getEventIndexUrl,
   getHomeUrl,
   getPressUrl,
-  loadSpeeches,
 } from '../../../lib/portal/index.ts';
+import { loadSpeeches } from '../../../lib/portal/content.ts';
 
 const speeches = await loadSpeeches();
 const leadSpeech = speeches[0];

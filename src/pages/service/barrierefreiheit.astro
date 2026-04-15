@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getContactUrl, getHomeUrl, getServiceUrl, loadPageBySlug } from '../../lib/portal/index.ts';
+import { getContactUrl, getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
+import { loadPageBySlug } from '../../lib/portal/content.ts';
 
 const page = await loadPageBySlug('barrierefreiheit');
 ---

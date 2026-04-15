@@ -11,8 +11,8 @@ import {
   getLawPortalUrl,
   getNormHistoryUrl,
   getNormUrl,
-  loadAllNorms,
 } from '../../../../../lib/norms/index.ts';
+import { loadAllNorms } from '../../../../../lib/norms/content.ts';
 
 export async function getStaticPaths() {
   const norms = await loadAllNorms();

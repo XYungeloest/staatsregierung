@@ -7,9 +7,8 @@ import {
   getHomeUrl,
   getLawHomeUrl,
   getServiceUrl,
-  loadMinistries,
-  loadTopics,
 } from '../../lib/portal/index.ts';
+import { loadMinistries, loadTopics } from '../../lib/portal/content.ts';
 
 const [topics, ministries] = await Promise.all([loadTopics(), loadMinistries()]);
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));

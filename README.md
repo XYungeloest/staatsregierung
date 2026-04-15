@@ -24,6 +24,7 @@ Die aktuellen Leitdokumente im Repository sind:
 - [CONTENT_EDITOR_GUIDE.md](./CONTENT_EDITOR_GUIDE.md)
 - [SEO_NOTES.md](./SEO_NOTES.md)
 - [CLOUDFLARE_MIGRATION.md](./CLOUDFLARE_MIGRATION.md)
+- [DYNAMIC_CONTENT_NOTES.md](./DYNAMIC_CONTENT_NOTES.md)
 
 Ältere Vorstufen der Spezifikation liegen nur noch als Archiv unter [docs/legacy/](./docs/legacy/).
 
@@ -33,9 +34,8 @@ Die aktuellen Leitdokumente im Repository sind:
 - TypeScript
 - Cloudflare Workers als Zielplattform
 - in Phase 1 weiterhin weitgehend statische Ausgabe
-- kein Backend
-- keine Datenbank
-- keine serverseitige Inhaltslogik im Portalbetrieb in Phase 1
+- gezielte D1-/R2-Nutzung für ausgewählte dynamische Bereiche
+- kein klassisches Backend und keine Voll-SSR
 - keine Container
 - keine Adminoberfläche
 
@@ -183,6 +183,19 @@ public/images/
 `siteConfig` enthält bewusst nur globale Portal-Konfiguration. Inhaltliche Listen wie Ressorts oder Regierungsmitglieder werden über die Content-Dateien gepflegt, nicht parallel in der Konfiguration.
 
 Google Analytics 4 wird global im `BaseLayout` eingebunden. Der Standardzustand der Einwilligung wird zentral über `src/config/analytics.ts` gesteuert; eine abweichende Entscheidung wird ohne Backend lokal im Browser gespeichert.
+
+## Dynamische Bereiche
+
+In der zweiten Cloudflare-Migrationsphase werden ausgewählte Bereiche gezielt on-demand aus Cloudflare D1 geladen:
+
+- Pressemitteilungen
+- Termine
+- Karriere / Stellenangebote
+- 15-Punkte-Dashboard / Projektstatus
+
+Für Bilder, Downloads und größere Medien steht zusätzlich eine einfache R2-Integration bereit. Das Rechtsportal unter `/recht/` bleibt weiterhin dateibasiert und weitgehend statisch.
+
+Details zu Tabellen, Migrationen, Seed-Workflow und lokalen Schritten stehen in [DYNAMIC_CONTENT_NOTES.md](./DYNAMIC_CONTENT_NOTES.md).
 
 ## Rechtsbereich
 

@@ -9,9 +9,9 @@ import {
   resolvePortalPath,
   getSpeechIndexUrl,
   getSpeechUrl,
-  loadSpeeches,
   type Rede,
 } from '../../../lib/portal/index.ts';
+import { loadSpeeches } from '../../../lib/portal/content.ts';
 
 export async function getStaticPaths() {
   const speeches = await loadSpeeches();

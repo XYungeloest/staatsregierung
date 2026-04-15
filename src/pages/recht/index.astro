@@ -6,7 +6,6 @@ import LegislationTracker from '../../components/portal/LegislationTracker.astro
 import { legislationTrackerItems } from '../../data/dashboard/legislation.ts';
 import {
   formatDate,
-  getCurrentVersion,
   getHomeUrl,
   getIndexUrl,
   getLawConstitutionUrl,
@@ -14,8 +13,8 @@ import {
   getNormUrl,
   getSearchUrl,
   getSubjectsUrl,
-  loadAllNorms,
 } from '../../lib/norms/index.ts';
+import { getCurrentVersion, loadAllNorms } from '../../lib/norms/content.ts';
 
 const norms = await loadAllNorms();
 const currentNorms = norms.filter((entry) => entry.versions.some((version) => version.isCurrent));

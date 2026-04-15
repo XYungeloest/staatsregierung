@@ -10,8 +10,8 @@ import {
   getImprintUrl,
   getPrivacyUrl,
   getServiceOverviewUrl,
-  loadJobOffers,
 } from '../../lib/portal/index.ts';
+import { loadJobOffers } from '../../lib/portal/content.ts';
 
 const offers = await loadJobOffers();
 ---
