@@ -8,7 +8,7 @@ Das Projekt verbindet drei Bereiche in einer gemeinsamen Astro-Architektur:
 - integriertes Rechtsportal mit aktuellen Fassungen, Historien, Suchindex, Archiv und Sachgebieten
 - Servicebereich mit Übersicht, Karriere, Kontakt, FAQ, Datenschutz, Impressum und Barrierefreiheit
 
-Die Website ist ausdrücklich Teil einer fiktiven Politiksimulation. Sie bleibt vollständig dateibasiert, statisch und GitHub-Pages-kompatibel.
+Die Website ist ausdrücklich Teil einer fiktiven Politiksimulation. Sie bleibt vollständig dateibasiert und wird in der ersten Cloudflare-Migrationsphase weiterhin weitgehend statisch erzeugt.
 
 ## Kanonische Dokumentation
 
@@ -23,6 +23,7 @@ Die aktuellen Leitdokumente im Repository sind:
 - [AGENTS.md](./AGENTS.md)
 - [CONTENT_EDITOR_GUIDE.md](./CONTENT_EDITOR_GUIDE.md)
 - [SEO_NOTES.md](./SEO_NOTES.md)
+- [CLOUDFLARE_MIGRATION.md](./CLOUDFLARE_MIGRATION.md)
 
 Ältere Vorstufen der Spezifikation liegen nur noch als Archiv unter [docs/legacy/](./docs/legacy/).
 
@@ -30,10 +31,11 @@ Die aktuellen Leitdokumente im Repository sind:
 
 - Astro
 - TypeScript
-- vollständig statische Ausgabe
+- Cloudflare Workers als Zielplattform
+- in Phase 1 weiterhin weitgehend statische Ausgabe
 - kein Backend
 - keine Datenbank
-- keine SSR
+- keine serverseitige Inhaltslogik im Portalbetrieb in Phase 1
 - keine Container
 - keine Adminoberfläche
 
@@ -59,7 +61,7 @@ npm run dev
 Type-Check ausführen:
 
 ```sh
-npx astro check
+npm run check
 ```
 
 Produktionsbuild erzeugen:
@@ -74,19 +76,25 @@ Wenn die Telemetry in der Umgebung deaktiviert werden soll:
 ASTRO_TELEMETRY_DISABLED=1 npm run build
 ```
 
-## Deployment und `base`-Pfad
+Lokale Vorschau im Cloudflare-kompatiblen Preview-Runtime:
 
-`astro.config.mjs` unterstützt den Build sowohl für eine Root-Domain als auch für GitHub-Pages-Projektpfade über Umgebungsvariablen:
+```sh
+npm run preview
+```
+
+## Build-Parameter, Canonicals und Cloudflare
+
+`astro.config.mjs` liest die Site- und Basis-URL über Umgebungsvariablen ein. Diese Werte steuern insbesondere Canonical-URLs, Sitemap und `robots.txt`.
 
 - `SITE_URL`
-  Vollständige Site-URL, zum Beispiel `https://username.github.io`
+  Vollständige Site-URL, zum Beispiel `https://freistaat-ostdeutschland.de`
 - `BASE_PATH`
-  Unterpfad der Auslieferung, zum Beispiel `/repo-name/`
+  Optionaler Unterpfad, zum Beispiel `/verwaltung/`
 
 Beispiele:
 
 ```sh
-SITE_URL=https://username.github.io BASE_PATH=/repo-name/ npm run build
+SITE_URL=https://ostrecht-portal-staging.<subdomain>.workers.dev npm run build
 ```
 
 ```sh
@@ -98,7 +106,20 @@ Ohne Variablen baut das Projekt standardmäßig mit:
 - `site = https://freistaat-ostdeutschland.de`
 - `base = /`
 
-Der vorhandene GitHub-Actions-Workflow setzt `SITE_URL` und `BASE_PATH` automatisch für GitHub Pages.
+Das eigentliche Cloudflare-Deployment erfolgt anschließend mit Wrangler:
+
+```sh
+npm run deploy
+```
+
+Für ein erstes Staging ist eine separate Worker-Umgebung vorbereitet:
+
+```sh
+SITE_URL=https://ostrecht-portal-staging.<subdomain>.workers.dev npm run build
+npm run deploy:staging
+```
+
+Die nötigen Schritte und offenen externen Cloudflare-Einstellungen stehen in [CLOUDFLARE_MIGRATION.md](./CLOUDFLARE_MIGRATION.md).
 
 ## Wichtige Verzeichnisse
 

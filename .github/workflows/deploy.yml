@@ -1,34 +1,38 @@
-name: Deploy to GitHub Pages
+name: Deploy to Cloudflare Workers
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      environment:
+        description: Zielumgebung
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+      site_url:
+        description: Vollständige URL für Canonical, Sitemap und robots.txt. Für staging erforderlich.
+        required: false
+        type: string
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: cloudflare-workers
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
-    env:
-      SITE_URL: https://${{ github.repository_owner }}.github.io
-      BASE_PATH: /${{ github.event.repository.name }}/
 
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v4
-
-      - name: Pages konfigurieren
-        uses: actions/configure-pages@v5
 
       - name: Node.js einrichten
         uses: actions/setup-node@v4
@@ -39,22 +43,50 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Statischen Build erzeugen
+      - name: Deployment-Metadaten ermitteln
+        id: deployment_meta
+        env:
+          DEFAULT_PRODUCTION_SITE_URL: https://freistaat-ostdeutschland.de
+          EVENT_NAME: ${{ github.event_name }}
+          INPUT_ENVIRONMENT: ${{ github.event.inputs.environment }}
+          INPUT_SITE_URL: ${{ github.event.inputs.site_url }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            DEPLOY_ENV="$INPUT_ENVIRONMENT"
+            SITE_URL="$INPUT_SITE_URL"
+          else
+            DEPLOY_ENV="production"
+            SITE_URL="$DEFAULT_PRODUCTION_SITE_URL"
+          fi
+
+          if [ "$DEPLOY_ENV" = "staging" ] && [ -z "$SITE_URL" ]; then
+            echo "Für ein Staging-Deployment muss workflow_dispatch.site_url gesetzt werden." >&2
+            exit 1
+          fi
+
+          if [ -z "$SITE_URL" ]; then
+            SITE_URL="$DEFAULT_PRODUCTION_SITE_URL"
+          fi
+
+          echo "deploy_env=$DEPLOY_ENV" >> "$GITHUB_OUTPUT"
+          echo "site_url=$SITE_URL" >> "$GITHUB_OUTPUT"
+
+      - name: Type-Check
+        run: npm run check
+
+      - name: Build für Cloudflare erzeugen
         run: npm run build
+        env:
+          SITE_URL: ${{ steps.deployment_meta.outputs.site_url }}
 
-      - name: Pages-Artefakt hochladen
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Nach GitHub Pages deployen
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Nach Cloudflare deployen
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          DEPLOY_ENV: ${{ steps.deployment_meta.outputs.deploy_env }}
+        run: |
+          if [ "$DEPLOY_ENV" = "staging" ]; then
+            npm run deploy:staging
+          else
+            npm run deploy
+          fi
