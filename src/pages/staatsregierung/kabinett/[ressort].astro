@@ -3,8 +3,11 @@ export const prerender = false;
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import InlineEditTrigger from '../../../components/editorial/InlineEditTrigger.astro';
+import InlineEditorPanel from '../../../components/editorial/InlineEditorPanel.astro';
 import PageTools from '../../../components/editorial/PageTools.astro';
 import TopicCard from '../../../components/portal/TopicCard.astro';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
 import {
   getGovernmentUrl,
   getHomeUrl,
@@ -22,6 +25,15 @@ import {
   resolveMinistryPageContent,
   shouldRenderEditorialUi,
 } from '../../../lib/editorial/live.ts';
+import {
+  buildInlineEditHref,
+  buildInlineSectionState,
+  getInlineBaseDraft,
+  getInlineFieldDefinition,
+  getInlinePanelState,
+  getInlineSectionStatusLabel,
+} from '../../../lib/editorial/inline.ts';
+import type { EditorialInlineSectionState } from '../../../lib/editorial/inline.ts';
 
 const slug = Astro.params.ressort ?? '';
 const fallbackMinistry = slug ? loadRuntimeMinistryBySlug(slug) : undefined;
@@ -55,6 +67,39 @@ const legalReferences = Array.from(
   ).values(),
 ).slice(0, 10);
 const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const database = showEditorialUi ? getDatabase() : undefined;
+const inlineBase = showEditorialUi && database && slug
+  ? await getInlineBaseDraft(database, 'ressort', slug)
+  : undefined;
+
+function getInlineState(fieldKey: string): EditorialInlineSectionState | undefined {
+  if (!inlineBase) {
+    return undefined;
+  }
+
+  const definition = getInlineFieldDefinition('ressort', fieldKey);
+  return definition
+    ? buildInlineSectionState(
+        'ressort',
+        definition,
+        inlineBase.sourceOrigin,
+        inlineBase.fallbackDraft,
+        inlineBase.currentDraft,
+        inlineBase.publishedDraft,
+      )
+    : undefined;
+}
+
+const heroInline = getInlineState('hero');
+const mediaInline = getInlineState('media');
+const tasksInline = getInlineState('aufgaben');
+const contactInline = getInlineState('kontakt');
+const inlinePanel =
+  showEditorialUi && database && slug && Astro.url.searchParams.get('editor')
+    ? await getInlinePanelState(database, Astro.url, 'ressort', slug, Astro.url.searchParams.get('editor') ?? '')
+    : undefined;
+const editorMessage = Astro.url.searchParams.get('message') ?? undefined;
+const editorError = Astro.url.searchParams.get('error') ?? undefined;
 ---
 
 {ministry ? (
@@ -86,6 +131,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
       <h1>{ministry.name}</h1>
       <p class="lead">{ministry.teaser}</p>
       <p class="detail-line">{ministry.leitung}</p>
+      <InlineEditTrigger
+        visible={showEditorialUi && Boolean(heroInline)}
+        href={buildInlineEditHref(Astro.url, 'hero')}
+        label="Ressortkopf"
+        statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+      />
     </section>
 
     <section class="section">
@@ -100,6 +151,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
 
     <div class="content-grid">
       <section class="section">
+        <InlineEditTrigger
+          visible={showEditorialUi && Boolean(mediaInline)}
+          href={buildInlineEditHref(Astro.url, 'media')}
+          label="Medienblock"
+          statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Fallback'}
+        />
         <img
           class="media-banner"
           src={resolvePortalPath(ministry.bild)}
@@ -120,6 +177,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         <div class="section-header">
           <h2>Aufgaben</h2>
         </div>
+        <InlineEditTrigger
+          visible={showEditorialUi && Boolean(tasksInline)}
+          href={buildInlineEditHref(Astro.url, 'aufgaben')}
+          label="Aufgaben"
+          statusLabel={tasksInline ? getInlineSectionStatusLabel(tasksInline) : 'Fallback'}
+        />
         <ul class="record-list">
           {ministry.aufgaben.map((task) => (
             <li class="record-list__item">
@@ -142,6 +205,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         <div class="section-header section-header--compact">
           <h2>Kontakt</h2>
         </div>
+        <InlineEditTrigger
+          visible={showEditorialUi && Boolean(contactInline)}
+          href={buildInlineEditHref(Astro.url, 'kontakt')}
+          label="Kontaktblock"
+          statusLabel={contactInline ? getInlineSectionStatusLabel(contactInline) : 'Fallback'}
+        />
         <dl class="meta-list">
           <div>
             <dt>Leitung</dt>
@@ -214,6 +283,14 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         </ul>
       </section>
     ) : null}
+
+    <InlineEditorPanel
+      visible={showEditorialUi && Boolean(inlinePanel)}
+      currentUrl={Astro.url}
+      panel={inlinePanel}
+      message={editorMessage}
+      errorMessage={editorError}
+    />
   </BaseLayout>
 ) : (
   <BaseLayout

@@ -1,13 +1,13 @@
 # Editorial Studio Notes
 
-## Ziel von Phase 2
+## Ziel von Phase 4
 
 Das Redaktionsstudio unter `/redaktion/` bleibt ein interner, bewusst schmaler Arbeitsbereich für die Website der Staatsregierung. Es ersetzt kein externes CMS und baut keine eigene Login- oder Rollenarchitektur. Stattdessen nutzt es:
 
 - Astro + TypeScript
 - Cloudflare Workers für gezielte on-demand-Routen
 - D1 für Entwürfe, Versionen, Live-Overrides und Publish-Logs
-- R2 für Medienuploads
+- R2 für Medienuploads und kleine Medienauswahl im Seiteneditor
 - Cloudflare Access als vorgesehenen Schutz vor öffentlichem Zugriff
 
 Das Rechtsportal unter `/recht/` bleibt funktional unangetastet. Das bisherige Normdatei-Werkzeug bleibt separat unter `/redaktion/recht/` erhalten.
@@ -25,13 +25,19 @@ Das Rechtsportal unter `/recht/` bleibt funktional unangetastet. Das bisherige N
 - `/redaktion/inhalte/[type]/[id]`
   Bearbeitung, Preview, Versionsverlauf, Publish-/Override-Aktionen und Reset auf statischen Fallback
 - `/redaktion/medien/`
-  Einfacher R2-Upload und Liste referenzierbarer `mediaKey`s
+  Einfache Medienbibliothek mit Upload, Übersicht, Filter und referenzierbaren `mediaKey`s
 - `/redaktion/entwuerfe/`
   Übersicht aller Drafts und offenen, noch nicht live übernommenen Änderungen
 - `/redaktion/recht/`
   Bestehendes Rechtswerkzeug für Normdateien
 
 Zusätzlich gibt es interne Endpunkte unter `/redaktion/api/...` für Speichern, Direktpublish, Live-Override, Override-Reset, JSON-Export und Medienupload.
+
+Neu in Phase 3 und 4:
+
+- seitennahe Inline-/Block-Bearbeitung direkt aus editierbaren öffentlichen Seiten
+- ein Sidepanel-Editor statt ausschließlicher Studio-Formularseiten
+- feldgenaue Statusanzeige pro Block
 
 ## Unterstützte Inhaltstypen
 
@@ -58,6 +64,21 @@ Zusätzlich gibt es interne Endpunkte unter `/redaktion/api/...` für Speichern,
   Fallback-Datei `content/regierung/mitglieder/[slug].json`
 
 Diese vier Typen bleiben im Portal strukturell dateibasiert. Öffentlich wird aber zuerst geprüft, ob ein veröffentlichter D1-Override existiert. Nur wenn kein Override aktiv ist, wird die bisherige Datei aus `content/` gerendert.
+
+### Seitennahe Bearbeitung
+
+Direkt aus der jeweiligen Seite heraus bearbeitbar sind jetzt mindestens:
+
+- `pressemitteilung`
+  Kopfbereich, Medienblock, Meldungstext
+- `service-seite`
+  Seitentitel und Inhaltsblock
+- `themenseite`
+  Hero, Beschlossen, Umgesetzt, Nächste Schritte, FAQ
+- `ressort`
+  Ressortkopf, Medienblock, Aufgaben, Kontakt
+- `regierungsmitglied`
+  Profilkopf, Porträt, Biografie, Kontakt
 
 ## D1-Struktur
 
@@ -109,6 +130,19 @@ Für Override-Typen:
 
 Für Override-Typen steht optional weiter ein strukturierter JSON-Download bereit. Das ist hilfreich, wenn ein veröffentlichter D1-Stand später bewusst ins Repository übernommen werden soll.
 
+## Feld- und Block-Mapping
+
+Die seitennahen Bearbeitungseinstiege hängen nicht frei an HTML, sondern an einem kleinen Mapping-Layer in `src/lib/editorial/inline.ts`.
+
+Dort ist je unterstütztem Seitentyp festgelegt:
+
+- welche Blöcke editierbar sind
+- welche Formularfelder zu diesem Block gehören
+- welche Werte aus statischem Fallback, Live-Stand und Entwurf verglichen werden
+- ob ein Block Medienauswahl benötigt
+
+Die Templates rendern nur die Einstiegspunkte und das Sidepanel. Die eigentliche Zuordnung zwischen Seitensektion und D1-Feldern liegt bewusst getrennt im Mapping-Layer.
+
 ## Vorschau
 
 Die Vorschau läuft innerhalb der Bearbeitungsseiten unter `/redaktion/inhalte/[type]/[id]` bzw. `/neu`. Sie zeigt:
@@ -130,6 +164,15 @@ Editierbare öffentliche Seiten zeigen eine dezente interne Box mit:
 
 Die Box wird nur angezeigt, wenn Redaktionsfunktionen aktiviert sind und lokal oder mit Cloudflare-Access-Headern gearbeitet wird.
 
+Zusätzlich markieren einzelne Inhaltsblöcke kleine `Bearbeiten`-Aktionen direkt an der Seite. Diese öffnen ein Sidepanel, das:
+
+- den aktuellen Entwurfswert lädt
+- den statischen oder D1-Ausgangswert sichtbar macht
+- Änderungen als Entwurf speichert
+- direkt veröffentlicht
+- den statischen Fallback in den Entwurf übernehmen kann
+- bei Override-Typen einen Reset auf den statischen Stand erlaubt
+
 ## R2-Nutzung
 
 Uploads im Studio:
@@ -138,6 +181,13 @@ Uploads im Studio:
 2. Upload landet in `MEDIA` mit einem Key unter `editorial/YYYY-MM-DD/...`
 3. Metadaten landen in `media_assets`
 4. der erzeugte `mediaKey` kann in Formularen eingetragen werden
+
+Neu in Phase 3:
+
+- das Sidepanel zeigt für Medienblöcke eine kleine Bibliothek vorhandener Assets
+- Uploads können direkt aus dem Sidepanel erfolgen
+- der Upload springt danach zurück auf die gerade bearbeitete Seite
+- Medien werden über `mediaKey` in die bestehenden D1- und Override-Modelle eingebunden
 
 Gespeichert werden:
 
@@ -185,9 +235,37 @@ Für Staging und Produktion sollte `/redaktion/*` nicht öffentlich erreichbar s
 1. In Cloudflare Zero Trust eine Access Application für die Pfade `/redaktion/*` anlegen.
 2. Zulässige Identitäten oder Gruppen definieren.
 3. Optional nur bestimmte E-Mail-Domänen oder konkrete Nutzer zulassen.
-4. Das öffentliche Portal außerhalb von `/redaktion/*` ungeschützt lassen.
+4. Für seitennahe Bearbeitung auf öffentlichen Seiten zusätzlich sicherstellen, dass auch die editierbaren öffentlichen Routen die Access-Header sehen können.
+5. Das übrige öffentliche Portal ohne Redaktionsoberfläche normal ausliefern.
 
-Das Studio liest vorhandene Access-Header (`cf-access-authenticated-user-email`, `cf-access-authenticated-user-name`) nur für Anzeige- und Autorenfelder aus. Es baut keine eigene Benutzerverwaltung auf.
+Das Studio erkennt Access-Sitzungen jetzt nicht nur über `cf-access-authenticated-user-email`, sondern auch über weitere typische Access-Header wie `cf-access-authenticated-user-name`, `cf-access-authenticated-user-uuid` und `cf-access-jwt-assertion`. Es baut dennoch keine eigene Benutzerverwaltung auf.
+
+## Remote-Betrieb in Staging und Produktion
+
+- Alle Schreibpfade unter `/redaktion/api/...` laufen on-demand und verlangen remote eine erkannte lokale Sitzung oder Cloudflare Access.
+- Die Studio-Seiten zeigen jetzt die erkannte Umgebung (`local`, `staging`, `production`) sowie den Binding-Status für D1 und R2 an.
+- Öffentliche Bearbeiten-Einstiege bleiben dezent und erscheinen nur, wenn die jeweilige Seitenanfrage lokal oder mit Access-Headern ankommt.
+- Ein erfolgreicher Publish schreibt in die D1- bzw. R2-Ressourcen der aktuell angezeigten Worker-Umgebung.
+
+## Remote-Testablauf
+
+1. Migrationen für die Zielumgebung anwenden.
+2. Optional Seed-Daten einspielen.
+3. `npm run deploy:staging` oder `npm run deploy` ausführen.
+4. Geschützt über Cloudflare Access die Route `/redaktion/` öffnen.
+5. Auf der Studio-Startseite prüfen:
+   - Umgebung
+   - Access-Signal
+   - D1-Binding
+   - R2-Binding
+6. Einen Entwurf speichern, veröffentlichen oder ein Medium hochladen.
+7. Die öffentliche Zielseite neu laden und den Hinweis `Live-Override aktiv` bzw. das neue Medium prüfen.
+
+## Override- und Reset-Prüfung
+
+- Ein veröffentlichter Override ist produktiv aktiv, wenn die öffentliche Seite `Live-Override aktiv` meldet und der Studio-Eintrag eine veröffentlichte Version besitzt.
+- Ein Reset stellt sofort auf den statischen Repository-Fallback zurück, der D1-Entwurf bleibt jedoch erhalten.
+- Für direkte D1-Typen gilt die Veröffentlichung als produktiv, sobald der Eintrag auf der öffentlichen Route aus der Zielumgebung sichtbar ist.
 
 ## Bewusste Grenzen dieser Phase
 
@@ -196,3 +274,4 @@ Das Studio liest vorhandene Access-Header (`cf-access-authenticated-user-email`,
 - kein WYSIWYG-HTML-Editor
 - keine Veröffentlichung ins Rechtsportal
 - keine vollständige CMS-Architektur
+- keine feldgenaue Bearbeitung des Rechtsportals unter `/recht/`

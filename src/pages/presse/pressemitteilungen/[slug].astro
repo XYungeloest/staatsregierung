@@ -3,6 +3,8 @@ export const prerender = false;
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import InlineEditTrigger from '../../../components/editorial/InlineEditTrigger.astro';
+import InlineEditorPanel from '../../../components/editorial/InlineEditorPanel.astro';
 import PageTools from '../../../components/editorial/PageTools.astro';
 import { siteConfig } from '../../../config/site.ts';
 import { getDatabase } from '../../../lib/dynamic/env.ts';
@@ -18,6 +20,15 @@ import {
   getEditorialPublicState,
   shouldRenderEditorialUi,
 } from '../../../lib/editorial/live.ts';
+import {
+  buildInlineEditHref,
+  buildInlineSectionState,
+  getInlineBaseDraft,
+  getInlineFieldDefinition,
+  getInlinePanelState,
+  getInlineSectionStatusLabel,
+} from '../../../lib/editorial/inline.ts';
+import type { EditorialInlineSectionState } from '../../../lib/editorial/inline.ts';
 import { buildArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
@@ -60,6 +71,37 @@ const relatedReleases = release
       .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ??
     allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2))
   : [];
+const inlineBase = showEditorialUi && slug
+  ? await getInlineBaseDraft(database, 'pressemitteilung', slug)
+  : undefined;
+
+function getInlineState(fieldKey: string): EditorialInlineSectionState | undefined {
+  if (!inlineBase) {
+    return undefined;
+  }
+
+  const definition = getInlineFieldDefinition('pressemitteilung', fieldKey);
+  return definition
+    ? buildInlineSectionState(
+        'pressemitteilung',
+        definition,
+        inlineBase.sourceOrigin,
+        inlineBase.fallbackDraft,
+        inlineBase.currentDraft,
+        inlineBase.publishedDraft,
+      )
+    : undefined;
+}
+
+const heroInline = getInlineState('hero');
+const mediaInline = getInlineState('media');
+const bodyInline = getInlineState('body');
+const inlinePanel =
+  showEditorialUi && slug && Astro.url.searchParams.get('editor')
+    ? await getInlinePanelState(database, Astro.url, 'pressemitteilung', slug, Astro.url.searchParams.get('editor') ?? '')
+    : undefined;
+const editorMessage = Astro.url.searchParams.get('message') ?? undefined;
+const editorError = Astro.url.searchParams.get('error') ?? undefined;
 ---
 
 <BaseLayout
@@ -110,6 +152,12 @@ const relatedReleases = release
         <h1>{release.title}</h1>
         <p class="lead">{release.teaser}</p>
         <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
+        <InlineEditTrigger
+          visible={showEditorialUi && Boolean(heroInline)}
+          href={buildInlineEditHref(Astro.url, 'hero')}
+          label="Kopfbereich"
+          statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+        />
       </section>
 
       {editorial ? (
@@ -126,6 +174,12 @@ const relatedReleases = release
 
       <div class="content-grid">
         <section class="section">
+          <InlineEditTrigger
+            visible={showEditorialUi && Boolean(mediaInline)}
+            href={buildInlineEditHref(Astro.url, 'media')}
+            label="Medienblock"
+            statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Fallback'}
+          />
           <img
             class="media-banner"
             src={resolvePortalPath(release.image)}
@@ -136,6 +190,12 @@ const relatedReleases = release
               <span class="tag">{tag}</span>
             ))}
           </div>
+          <InlineEditTrigger
+            visible={showEditorialUi && Boolean(bodyInline)}
+            href={buildInlineEditHref(Astro.url, 'body')}
+            label="Meldungstext"
+            statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Fallback'}
+          />
           <div class="body-copy">
             {release.body.map((paragraph) => (
               <p>{paragraph}</p>
@@ -224,6 +284,14 @@ const relatedReleases = release
           ) : null}
         </section>
       ) : null}
+
+      <InlineEditorPanel
+        visible={showEditorialUi && Boolean(inlinePanel)}
+        currentUrl={Astro.url}
+        panel={inlinePanel}
+        message={editorMessage}
+        errorMessage={editorError}
+      />
     </Fragment>
   ) : (
     <section class="section">

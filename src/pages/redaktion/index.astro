@@ -5,18 +5,19 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import StudioNav from '../../components/editorial/StudioNav.astro';
 import StatusBadge from '../../components/editorial/StatusBadge.astro';
+import { getDatabase, getRuntimeBindingState } from '../../lib/dynamic/env.ts';
 import { getEditorialAccessInfo } from '../../lib/editorial/access.ts';
 import { listEditorialEntries, listEditorialTypeSummaries, listMediaAssets } from '../../lib/editorial/repository.ts';
 import { editorialEntryTypes, getEditorialTypeDefinition } from '../../lib/editorial/studio.ts';
-import { getDatabase } from '../../lib/dynamic/env.ts';
 import { getEditorialUrl, getHomeUrl } from '../../lib/portal/routes.ts';
 
-const database = getDatabase();
-const accessInfo = getEditorialAccessInfo(Astro.request);
-const typeSummaries = await listEditorialTypeSummaries(database);
+const runtime = getRuntimeBindingState(Astro.url);
+const database = runtime.hasDatabase ? getDatabase() : undefined;
+const accessInfo = getEditorialAccessInfo(Astro.request, Astro.url);
+const typeSummaries = database ? await listEditorialTypeSummaries(database) : [];
 const summaryMap = new Map(typeSummaries.map((entry) => [entry.type, entry]));
-const recentEntries = (await listEditorialEntries(database)).slice(0, 8);
-const mediaAssets = await listMediaAssets(database);
+const recentEntries = database ? (await listEditorialEntries(database)).slice(0, 8) : [];
+const mediaAssets = database ? await listMediaAssets(database) : [];
 const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publishedCount, 0);
 ---
 
@@ -41,7 +42,9 @@ const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publish
     <p class="detail-line">
       Aktive Sitzung: {accessInfo.displayName}
       {' · '}
-      {accessInfo.protectedByAccess ? 'Access-Header erkannt' : 'lokale oder ungeschützte Sitzung'}
+      {accessInfo.protectedByAccess ? 'Access-Schutz erkannt' : accessInfo.isLocalRequest ? 'lokale Sitzung' : 'ungeschützte Sitzung'}
+      {' · '}
+      Umgebung: {runtime.environment}
     </p>
   </section>
 
@@ -49,7 +52,7 @@ const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publish
     <StudioNav current="overview" />
   </section>
 
-  {!accessInfo.protectedByAccess ? (
+  {!accessInfo.protectedByAccess && !accessInfo.isLocalRequest ? (
     <section class="section">
       <div class="status-notice status-notice--warning">
         <h2>Zugriffsschutz noch nicht erzwungen</h2>
@@ -57,12 +60,33 @@ const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publish
           Diese Instanz zeigt keine Cloudflare-Access-Header. Für Staging und Produktion sollte
           <code>/redaktion/*</code> ausschließlich hinter Cloudflare Access liegen.
         </p>
+        <p>
+          Für seitennahe Bearbeitung auf öffentlichen Seiten müssen auch diese editierbaren Seiten
+          Access-Header erhalten. Nur das Absichern von <code>/redaktion/*</code> blendet die
+          Bearbeiten-Einstiege auf den öffentlichen Routen noch nicht ein.
+        </p>
       </div>
     </section>
   ) : null}
 
   <section class="section">
     <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Runtime</span>
+        <strong>{runtime.environment}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Access-Signal</span>
+        <strong>{accessInfo.accessSignal}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">D1-Binding</span>
+        <strong>{runtime.hasDatabase ? 'aktiv' : 'fehlt'}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">R2-Binding</span>
+        <strong>{runtime.hasMediaBucket ? 'aktiv' : 'fehlt'}</strong>
+      </div>
       <div class="meta-card">
         <span class="meta-label">Inhaltstypen</span>
         <strong>{editorialEntryTypes.length}</strong>
@@ -81,6 +105,18 @@ const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publish
       </div>
     </div>
   </section>
+
+  {!runtime.hasDatabase || !runtime.hasMediaBucket ? (
+    <section class="section">
+      <div class="status-notice status-notice--warning">
+        <h2>Bindings prüfen</h2>
+        <p>
+          Redaktionelle Remote-Schreibpfade brauchen D1 und R2 in derselben Worker-Umgebung.
+          Diese Instanz meldet D1 {runtime.hasDatabase ? 'aktiv' : 'fehlend'} und R2 {runtime.hasMediaBucket ? 'aktiv' : 'fehlend'}.
+        </p>
+      </div>
+    </section>
+  ) : null}
 
   <section class="section section-muted">
     <div class="section-header">

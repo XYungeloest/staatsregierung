@@ -1,6 +1,12 @@
 import type { APIRoute } from 'astro';
 import { getDatabase } from '../../../../../lib/dynamic/env.ts';
-import { createEditorialRedirect, getEditorialEditorUrl, withEditorialMessage } from '../../../../../lib/editorial/api.ts';
+import {
+  createEditorialRedirect,
+  formatEditorialActionError,
+  getEditorialEditorUrl,
+  requireEditorialWriteAccess,
+  withEditorialMessage,
+} from '../../../../../lib/editorial/api.ts';
 import { getEditorialAuthor } from '../../../../../lib/editorial/access.ts';
 import { getEditorialEntryById, saveEditorialEntry, writePublishLog } from '../../../../../lib/editorial/repository.ts';
 import { entryToWriteInput } from '../../../../../lib/editorial/drafts.ts';
@@ -9,7 +15,7 @@ import { withBase } from '../../../../../lib/portal/routes.ts';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ params, request }) => {
+export const POST: APIRoute = async ({ params, request, url }) => {
   if (!isEditorialEntryType(params.type)) {
     return new Response('Unbekannter Inhaltstyp', { status: 404 });
   }
@@ -18,7 +24,12 @@ export const POST: APIRoute = async ({ params, request }) => {
   const definition = getEditorialTypeDefinition(type);
   const formData = await request.formData();
   const fallbackUrl = getEditorialEditorUrl(type, formData);
+  const deniedResponse = requireEditorialWriteAccess(request, url, fallbackUrl);
   const entryId = String(formData.get('entryId') ?? '').trim();
+
+  if (deniedResponse) {
+    return deniedResponse;
+  }
 
   if (!entryId) {
     return createEditorialRedirect(withEditorialMessage(fallbackUrl, 'error', 'Kein Redaktionsstand angegeben.'));
@@ -60,7 +71,11 @@ export const POST: APIRoute = async ({ params, request }) => {
       ),
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Override konnte nicht deaktiviert werden.';
+    const message = formatEditorialActionError(
+      error,
+      'Override konnte nicht deaktiviert werden.',
+      url,
+    );
     return createEditorialRedirect(withEditorialMessage(fallbackUrl, 'error', message));
   }
 };

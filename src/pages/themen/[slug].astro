@@ -3,10 +3,13 @@ export const prerender = false;
 
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import InlineEditTrigger from '../../components/editorial/InlineEditTrigger.astro';
+import InlineEditorPanel from '../../components/editorial/InlineEditorPanel.astro';
 import PageTools from '../../components/editorial/PageTools.astro';
 import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import MinistryCard from '../../components/portal/MinistryCard.astro';
 import StatusBadge from '../../components/portal/StatusBadge.astro';
+import { getDatabase } from '../../lib/dynamic/env.ts';
 import {
   getHomeUrl,
   getMinistryUrl,
@@ -24,6 +27,15 @@ import {
   resolveTopicPageContent,
   shouldRenderEditorialUi,
 } from '../../lib/editorial/live.ts';
+import {
+  buildInlineEditHref,
+  buildInlineSectionState,
+  getInlineBaseDraft,
+  getInlineFieldDefinition,
+  getInlinePanelState,
+  getInlineSectionStatusLabel,
+} from '../../lib/editorial/inline.ts';
+import type { EditorialInlineSectionState } from '../../lib/editorial/inline.ts';
 
 const slug = Astro.params.slug ?? '';
 const fallbackTopic = slug ? loadRuntimeTopicBySlug(slug) : undefined;
@@ -56,6 +68,40 @@ const relatedTopics = topic
       .slice(0, 3)
   : [];
 const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const database = showEditorialUi ? getDatabase() : undefined;
+const inlineBase = showEditorialUi && database && slug
+  ? await getInlineBaseDraft(database, 'themenseite', slug)
+  : undefined;
+
+function getInlineState(fieldKey: string): EditorialInlineSectionState | undefined {
+  if (!inlineBase) {
+    return undefined;
+  }
+
+  const definition = getInlineFieldDefinition('themenseite', fieldKey);
+  return definition
+    ? buildInlineSectionState(
+        'themenseite',
+        definition,
+        inlineBase.sourceOrigin,
+        inlineBase.fallbackDraft,
+        inlineBase.currentDraft,
+        inlineBase.publishedDraft,
+      )
+    : undefined;
+}
+
+const heroInline = getInlineState('hero');
+const beschlossenInline = getInlineState('beschlossen');
+const umgesetztInline = getInlineState('umgesetzt');
+const stepsInline = getInlineState('naechste-schritte');
+const faqInline = getInlineState('faq');
+const inlinePanel =
+  showEditorialUi && database && slug && Astro.url.searchParams.get('editor')
+    ? await getInlinePanelState(database, Astro.url, 'themenseite', slug, Astro.url.searchParams.get('editor') ?? '')
+    : undefined;
+const editorMessage = Astro.url.searchParams.get('message') ?? undefined;
+const editorError = Astro.url.searchParams.get('error') ?? undefined;
 ---
 
 {topic ? (
@@ -96,6 +142,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         ) : null}
         <a class="button-link button-link--secondary" href={getLawPortalUrl()}>Zum Rechtsbereich</a>
       </nav>
+      <InlineEditTrigger
+        visible={showEditorialUi && Boolean(heroInline)}
+        href={buildInlineEditHref(Astro.url, 'hero')}
+        label="Hero"
+        statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+      />
     </section>
 
     <section class="section">
@@ -113,6 +165,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         <h2>Was ist beschlossen?</h2>
         <p>{topic.teaser}</p>
       </div>
+      <InlineEditTrigger
+        visible={showEditorialUi && Boolean(beschlossenInline)}
+        href={buildInlineEditHref(Astro.url, 'beschlossen')}
+        label="Beschlossen"
+        statusLabel={beschlossenInline ? getInlineSectionStatusLabel(beschlossenInline) : 'Fallback'}
+      />
       <ul class="record-list">
         {topic.beschlossen.map((entry) => (
           <li class="record-list__item"><span>{entry}</span></li>
@@ -125,6 +183,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         <h2>Was ist umgesetzt?</h2>
         <p>Der Stand bildet bereits erreichte und rechtlich abgesicherte Schritte des Vorhabens ab.</p>
       </div>
+      <InlineEditTrigger
+        visible={showEditorialUi && Boolean(umgesetztInline)}
+        href={buildInlineEditHref(Astro.url, 'umgesetzt')}
+        label="Umgesetzt"
+        statusLabel={umgesetztInline ? getInlineSectionStatusLabel(umgesetztInline) : 'Fallback'}
+      />
       <ul class="record-list">
         {topic.umgesetzt.map((entry) => (
           <li class="record-list__item"><span>{entry}</span></li>
@@ -137,6 +201,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         <h2>Nächste Schritte</h2>
         <p>Diese Punkte kennzeichnen laufende oder vorbereitete Ausbauschritte innerhalb des Themas.</p>
       </div>
+      <InlineEditTrigger
+        visible={showEditorialUi && Boolean(stepsInline)}
+        href={buildInlineEditHref(Astro.url, 'naechste-schritte')}
+        label="Nächste Schritte"
+        statusLabel={stepsInline ? getInlineSectionStatusLabel(stepsInline) : 'Fallback'}
+      />
       <ul class="record-list">
         {topic.naechsteSchritte.map((entry) => (
           <li class="record-list__item"><span>{entry}</span></li>
@@ -168,6 +238,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         <h2>FAQ</h2>
         <p>Kurze Hinweise zur politischen Einordnung und zum Umsetzungsstand des Themas.</p>
       </div>
+      <InlineEditTrigger
+        visible={showEditorialUi && Boolean(faqInline)}
+        href={buildInlineEditHref(Astro.url, 'faq')}
+        label="FAQ"
+        statusLabel={faqInline ? getInlineSectionStatusLabel(faqInline) : 'Fallback'}
+      />
       <FaqAccordion items={topic.faq} />
     </section>
 
@@ -204,6 +280,14 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         </ul>
       </section>
     ) : null}
+
+    <InlineEditorPanel
+      visible={showEditorialUi && Boolean(inlinePanel)}
+      currentUrl={Astro.url}
+      panel={inlinePanel}
+      message={editorMessage}
+      errorMessage={editorError}
+    />
   </BaseLayout>
 ) : (
   <BaseLayout

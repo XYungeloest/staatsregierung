@@ -5,7 +5,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import StudioNav from '../../../../components/editorial/StudioNav.astro';
 import StatusBadge from '../../../../components/editorial/StatusBadge.astro';
-import { getDatabase } from '../../../../lib/dynamic/env.ts';
+import { getDatabase, getRuntimeBindingState } from '../../../../lib/dynamic/env.ts';
 import { listEditorialEntries } from '../../../../lib/editorial/repository.ts';
 import { listEditorialSources } from '../../../../lib/editorial/sources.ts';
 import { getEditorialTypeDefinition, isEditorialEntryType } from '../../../../lib/editorial/studio.ts';
@@ -19,6 +19,7 @@ if (!isEditorialEntryType(typeParam)) {
 
 const type = typeParam && isEditorialEntryType(typeParam) ? typeParam : undefined;
 const definition = type ? getEditorialTypeDefinition(type) : undefined;
+const runtime = getRuntimeBindingState(Astro.url);
 const database = getDatabase();
 const entries = type ? await listEditorialEntries(database, { type }) : [];
 const sources = type ? await listEditorialSources(database, type) : [];
@@ -52,6 +53,7 @@ const entryBySlug = new Map(entries.map((entry) => [entry.slug, entry]));
       {definition?.description ??
         'Bitte öffnen Sie einen unterstützten Inhaltstyp aus der Übersicht des Redaktionsstudios.'}
     </p>
+    <p class="detail-line">Umgebung: {runtime.environment}</p>
   </section>
 
   <section class="section">

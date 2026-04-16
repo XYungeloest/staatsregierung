@@ -29,6 +29,8 @@ Das Rechtsportal unter `/recht/` bleibt dateibasiert und weitgehend statisch.
 
 Die Bindings sind in [wrangler.jsonc](/Users/petzke/ostrecht-portal/wrangler.jsonc:1) hinterlegt.
 
+Zusätzlich wird pro Worker-Umgebung die Variable `APP_ENV` gesetzt, damit das Studio und Fehlermeldungen klar zwischen `staging` und `production` unterscheiden können.
+
 ## D1-Tabellen
 
 ### `press_releases`
@@ -144,6 +146,8 @@ npm run db:migrate:staging
 npm run db:migrate:prod
 ```
 
+Die Migrationsbefehle verwenden jeweils die in `wrangler.jsonc` hinterlegten D1-IDs der Zielumgebung.
+
 ## Remote-Seed
 
 ### Staging
@@ -169,6 +173,12 @@ R2 wird in dieser Phase bewusst einfach vorbereitet:
 Damit ist eine schrittweise Umstellung einzelner Bilder oder Downloads auf R2 möglich, ohne bestehende Inhalte sofort umzuziehen.
 
 Zusätzlich nutzt das Redaktionsstudio R2 nun direkt für interne Uploads unter `/redaktion/medien/`. Die Uploads werden in D1 über `media_assets` referenziert und können anschließend über `mediaKey` in Studio-Formularen eingebunden werden.
+
+Für Remote-Uploads gilt:
+
+- `npm run deploy:staging` schreibt nach dem Deploy in `freistaat-assets-staging`
+- `npm run deploy` schreibt nach dem Deploy in `freistaat-assets-prod`
+- die Studio-Oberfläche zeigt die erkannte Umgebung und den R2-Binding-Status jetzt direkt an
 
 ## Jetzt dynamische Seiten
 

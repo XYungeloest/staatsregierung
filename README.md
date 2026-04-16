@@ -123,6 +123,12 @@ npm run deploy:staging
 
 Die nötigen Schritte und offenen externen Cloudflare-Einstellungen stehen in [CLOUDFLARE_MIGRATION.md](./CLOUDFLARE_MIGRATION.md).
 
+Für redaktionelle Remote-Tests gilt zusätzlich:
+
+- `/redaktion/*` sollte in Staging und Produktion hinter Cloudflare Access liegen
+- seitennahe Bearbeitung auf öffentlichen editierbaren Seiten benötigt ebenfalls Access-Header auf genau diesen Seitenanfragen
+- das Studio zeigt die erkannte Umgebung sowie den D1-/R2-Binding-Status direkt an
+
 ## Wichtige Verzeichnisse
 
 ### Content

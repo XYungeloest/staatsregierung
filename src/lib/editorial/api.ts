@@ -1,4 +1,6 @@
+import { getRuntimeEnvironmentName } from '../dynamic/env.ts';
 import { withBase } from '../portal/routes.ts';
+import { getEditorialAccessInfo } from './access.ts';
 import type { EditorialEntryType } from './studio.ts';
 
 function readOptionalString(formData: FormData, key: string): string | undefined {
@@ -49,4 +51,42 @@ export function createEditorialRedirect(url: string, status = 303): Response {
       Location: url,
     },
   });
+}
+
+export function formatEditorialActionError(
+  error: unknown,
+  fallbackMessage: string,
+  url?: URL,
+): string {
+  const runtime = getRuntimeEnvironmentName(url);
+  const message = error instanceof Error ? error.message : fallbackMessage;
+
+  if (
+    message.includes('Cloudflare-D1-Binding') ||
+    message.includes('Cloudflare-R2-Binding')
+  ) {
+    return `${message} Bitte Wrangler-Bindings und die Zielumgebung (${runtime}) prüfen.`;
+  }
+
+  return message;
+}
+
+export function requireEditorialWriteAccess(
+  request: Request,
+  url: URL,
+  redirectTo: string,
+): Response | undefined {
+  const accessInfo = getEditorialAccessInfo(request, url);
+
+  if (accessInfo.editorialSessionActive) {
+    return undefined;
+  }
+
+  return createEditorialRedirect(
+    withEditorialMessage(
+      redirectTo,
+      'error',
+      `Schreibzugriff blockiert. In ${getRuntimeEnvironmentName(url)} ist Cloudflare Access für redaktionelle Änderungen erforderlich.`,
+    ),
+  );
 }
