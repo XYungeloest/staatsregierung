@@ -1,6 +1,11 @@
 import type { APIRoute } from 'astro';
 import { getDatabase, getMediaBucket } from '../../../../lib/dynamic/env.ts';
-import { createEditorialRedirect, withEditorialMessage } from '../../../../lib/editorial/api.ts';
+import {
+  createEditorialRedirect,
+  formatEditorialActionError,
+  requireEditorialWriteAccess,
+  withEditorialMessage,
+} from '../../../../lib/editorial/api.ts';
 import { getEditorialAuthor } from '../../../../lib/editorial/access.ts';
 import { buildEditorialMediaKey, inferMediaTitle } from '../../../../lib/editorial/media.ts';
 import { saveMediaAsset } from '../../../../lib/editorial/repository.ts';
@@ -8,16 +13,26 @@ import { withBase } from '../../../../lib/portal/routes.ts';
 
 export const prerender = false;
 
-function redirectToMedia(key: 'message' | 'error', message: string): Response {
-  return createEditorialRedirect(withEditorialMessage(withBase('/redaktion/medien/'), key, message));
+function getRedirectTarget(formData: FormData): string {
+  const returnTo = String(formData.get('returnTo') ?? '').trim();
+  return returnTo || withBase('/redaktion/medien/');
 }
 
-export const POST: APIRoute = async ({ request }) => {
+function redirectToMedia(formData: FormData, key: 'message' | 'error', message: string): Response {
+  return createEditorialRedirect(withEditorialMessage(getRedirectTarget(formData), key, message));
+}
+
+export const POST: APIRoute = async ({ request, url }) => {
   const formData = await request.formData();
   const file = formData.get('file');
+  const deniedResponse = requireEditorialWriteAccess(request, url, getRedirectTarget(formData));
+
+  if (deniedResponse) {
+    return deniedResponse;
+  }
 
   if (!(file instanceof File) || file.size === 0) {
-    return redirectToMedia('error', 'Bitte eine Datei auswählen.');
+    return redirectToMedia(formData, 'error', 'Bitte eine Datei auswählen.');
   }
 
   try {
@@ -27,7 +42,7 @@ export const POST: APIRoute = async ({ request }) => {
     const credit = String(formData.get('credit') ?? '').trim() || undefined;
 
     if (!altText) {
-      return redirectToMedia('error', 'Alt-Text ist erforderlich.');
+      return redirectToMedia(formData, 'error', 'Alt-Text ist erforderlich.');
     }
 
     await getMediaBucket().put(key, await file.arrayBuffer(), {
@@ -47,9 +62,9 @@ export const POST: APIRoute = async ({ request }) => {
       author: getEditorialAuthor(request),
     });
 
-    return redirectToMedia('message', `Medium gespeichert: ${key}`);
+    return redirectToMedia(formData, 'message', `Medium gespeichert: ${key}`);
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Upload fehlgeschlagen.';
-    return redirectToMedia('error', message);
+    const message = formatEditorialActionError(error, 'Upload fehlgeschlagen.', url);
+    return redirectToMedia(formData, 'error', message);
   }
 };

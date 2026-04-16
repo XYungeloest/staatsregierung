@@ -4,14 +4,16 @@ export const prerender = false;
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import StudioNav from '../../../components/editorial/StudioNav.astro';
+import { getDatabase, getRuntimeBindingState } from '../../../lib/dynamic/env.ts';
 import { getEditorialAccessInfo } from '../../../lib/editorial/access.ts';
 import { listMediaAssets } from '../../../lib/editorial/repository.ts';
 import { buildMediaUrl } from '../../../lib/dynamic/media.ts';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
 import { getEditorialUrl, getHomeUrl, withBase } from '../../../lib/portal/routes.ts';
 
-const accessInfo = getEditorialAccessInfo(Astro.request);
-const mediaAssets = await listMediaAssets(getDatabase());
+const accessInfo = getEditorialAccessInfo(Astro.request, Astro.url);
+const runtime = getRuntimeBindingState(Astro.url);
+const database = runtime.hasDatabase ? getDatabase() : undefined;
+const mediaAssets = database ? await listMediaAssets(database) : [];
 const errorMessage = Astro.url.searchParams.get('error') ?? undefined;
 const message = Astro.url.searchParams.get('message') ?? undefined;
 ---
@@ -41,7 +43,13 @@ const message = Astro.url.searchParams.get('message') ?? undefined;
       Uploads landen direkt im gebundenen R2-Bucket und werden zusätzlich mit Alt-Text, Titel und
       optionalem Credit in D1 referenziert.
     </p>
-    <p class="detail-line">Bearbeiter: {accessInfo.displayName}</p>
+    <p class="detail-line">
+      Bearbeiter: {accessInfo.displayName}
+      {' · '}
+      Umgebung: {runtime.environment}
+      {' · '}
+      R2: {runtime.hasMediaBucket ? 'aktiv' : 'fehlt'}
+    </p>
   </section>
 
   <section class="section">
@@ -104,17 +112,27 @@ const message = Astro.url.searchParams.get('message') ?? undefined;
         Für Produktion und Staging sollte auch der Zugriff auf <code>/redaktion/medien/</code>
         ausschließlich über Cloudflare Access erfolgen.
       </p>
+      <p>
+        Uploads landen immer im R2-Bucket der aktuell angezeigten Umgebung. Prüfen Sie diese
+        Anzeige vor jedem Remote-Test.
+      </p>
     </aside>
   </section>
 
   <section class="section section-muted">
-    <div class="section-header">
-      <h2>Bereits verfügbare Medien</h2>
-      <p>Referenzieren Sie diese Keys in den Feldern <code>mediaKey</code> der Redaktionsformulare.</p>
-    </div>
-    {mediaAssets.length > 0 ? (
-      <div class="studio-table-wrapper">
-        <table class="studio-table">
+      <div class="section-header">
+        <h2>Bereits verfügbare Medien</h2>
+        <p>Referenzieren Sie diese Keys in den Feldern <code>mediaKey</code> der Redaktionsformulare.</p>
+      </div>
+      <form class="search-form" data-role="media-library-filter">
+        <label class="search-field">
+          <span>Filter</span>
+          <input type="search" name="query" placeholder="Titel, Key oder Alt-Text filtern" />
+        </label>
+      </form>
+      {mediaAssets.length > 0 ? (
+        <div class="studio-table-wrapper">
+          <table class="studio-table">
           <thead>
             <tr>
               <th>Titel</th>
@@ -125,7 +143,10 @@ const message = Astro.url.searchParams.get('message') ?? undefined;
           </thead>
           <tbody>
             {mediaAssets.map((asset) => (
-              <tr>
+              <tr
+                data-media-row
+                data-media-search={`${asset.title} ${asset.key} ${asset.altText} ${asset.credit ?? ''}`.toLowerCase()}
+              >
                 <td>
                   <strong>{asset.title}</strong>
                   <br />
@@ -147,4 +168,19 @@ const message = Astro.url.searchParams.get('message') ?? undefined;
       <p>Der R2-Bestand ist derzeit leer.</p>
     )}
   </section>
+
+  <script is:inline>
+    document.querySelectorAll('[data-role="media-library-filter"]').forEach((form) => {
+      const input = form.querySelector('input[name="query"]');
+      if (!(input instanceof HTMLInputElement)) return;
+
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
+        document.querySelectorAll('[data-media-row]').forEach((row) => {
+          const haystack = row.getAttribute('data-media-search') || '';
+          row.toggleAttribute('hidden', query.length > 0 && !haystack.includes(query));
+        });
+      });
+    });
+  </script>
 </BaseLayout>

@@ -75,7 +75,7 @@ const projectStatuses = ['umgesetzt', 'teilweise_umgesetzt', 'angelegt'];
   <div class="editorial-feedback">
     Bearbeiter: <strong>{accessInfo.displayName}</strong>
     {' · '}
-    Schutz: <strong>{accessInfo.protectedByAccess ? 'Cloudflare Access erkannt' : 'lokale oder ungeschützte Sitzung'}</strong>
+    Schutz: <strong>{accessInfo.protectedByAccess ? `Cloudflare Access (${accessInfo.accessSignal})` : accessInfo.isLocalRequest ? 'lokale Sitzung' : 'ungeschützte Sitzung'}</strong>
   </div>
 
   {errorMessage ? <div class="editorial-feedback editorial-feedback--error">{errorMessage}</div> : null}

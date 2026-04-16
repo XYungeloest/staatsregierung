@@ -3,7 +3,10 @@ export const prerender = false;
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import InlineEditTrigger from '../../../components/editorial/InlineEditTrigger.astro';
+import InlineEditorPanel from '../../../components/editorial/InlineEditorPanel.astro';
 import PageTools from '../../../components/editorial/PageTools.astro';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
 import {
   getGovernmentMemberUrl,
   getGovernmentMembersUrl,
@@ -16,6 +19,15 @@ import {
   resolveGovernmentMemberPageContent,
   shouldRenderEditorialUi,
 } from '../../../lib/editorial/live.ts';
+import {
+  buildInlineEditHref,
+  buildInlineSectionState,
+  getInlineBaseDraft,
+  getInlineFieldDefinition,
+  getInlinePanelState,
+  getInlineSectionStatusLabel,
+} from '../../../lib/editorial/inline.ts';
+import type { EditorialInlineSectionState } from '../../../lib/editorial/inline.ts';
 
 const slug = Astro.params.slug ?? '';
 const fallbackMember = slug ? loadRuntimeGovernmentMemberBySlug(slug) : undefined;
@@ -26,6 +38,39 @@ if (!member) {
 }
 
 const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const database = showEditorialUi ? getDatabase() : undefined;
+const inlineBase = showEditorialUi && database && slug
+  ? await getInlineBaseDraft(database, 'regierungsmitglied', slug)
+  : undefined;
+
+function getInlineState(fieldKey: string): EditorialInlineSectionState | undefined {
+  if (!inlineBase) {
+    return undefined;
+  }
+
+  const definition = getInlineFieldDefinition('regierungsmitglied', fieldKey);
+  return definition
+    ? buildInlineSectionState(
+        'regierungsmitglied',
+        definition,
+        inlineBase.sourceOrigin,
+        inlineBase.fallbackDraft,
+        inlineBase.currentDraft,
+        inlineBase.publishedDraft,
+      )
+    : undefined;
+}
+
+const heroInline = getInlineState('hero');
+const mediaInline = getInlineState('media');
+const bioInline = getInlineState('biografie');
+const contactInline = getInlineState('kontakt');
+const inlinePanel =
+  showEditorialUi && database && slug && Astro.url.searchParams.get('editor')
+    ? await getInlinePanelState(database, Astro.url, 'regierungsmitglied', slug, Astro.url.searchParams.get('editor') ?? '')
+    : undefined;
+const editorMessage = Astro.url.searchParams.get('message') ?? undefined;
+const editorError = Astro.url.searchParams.get('error') ?? undefined;
 ---
 
 {member ? (
@@ -44,6 +89,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
       <h1>{member.name}</h1>
       <p class="lead">{member.amt}</p>
       <p class="detail-line">{member.ressort}</p>
+      <InlineEditTrigger
+        visible={showEditorialUi && Boolean(heroInline)}
+        href={buildInlineEditHref(Astro.url, 'hero')}
+        label="Profilkopf"
+        statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+      />
     </section>
 
     <section class="section">
@@ -62,6 +113,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
           <h2>Aktuelles Profil</h2>
           <p>Dieses Profil gehört zur aktuellen Staatsregierung und fasst Aufgabenbereich, Biografie und Kontaktweg kompakt zusammen.</p>
         </div>
+        <InlineEditTrigger
+          visible={showEditorialUi && Boolean(mediaInline)}
+          href={buildInlineEditHref(Astro.url, 'media')}
+          label="Porträt"
+          statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Fallback'}
+        />
         <article class="profile-card">
           <img
             src={resolvePortalPath(member.bild)}
@@ -73,6 +130,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
           </div>
         </article>
         <p class="media-credit">Bildnachweis: {member.bildnachweis}</p>
+        <InlineEditTrigger
+          visible={showEditorialUi && Boolean(bioInline)}
+          href={buildInlineEditHref(Astro.url, 'biografie')}
+          label="Biografie"
+          statusLabel={bioInline ? getInlineSectionStatusLabel(bioInline) : 'Fallback'}
+        />
         <div class="body-copy">
           {member.langbiografie.map((paragraph: string) => (
             <p>{paragraph}</p>
@@ -84,6 +147,12 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         <div class="section-header section-header--compact">
           <h2>Profil</h2>
         </div>
+        <InlineEditTrigger
+          visible={showEditorialUi && Boolean(contactInline)}
+          href={buildInlineEditHref(Astro.url, 'kontakt')}
+          label="Kontaktblock"
+          statusLabel={contactInline ? getInlineSectionStatusLabel(contactInline) : 'Fallback'}
+        />
         <dl class="meta-list">
           <div>
             <dt>Amt</dt>
@@ -110,6 +179,14 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
         </nav>
       </aside>
     </div>
+
+    <InlineEditorPanel
+      visible={showEditorialUi && Boolean(inlinePanel)}
+      currentUrl={Astro.url}
+      panel={inlinePanel}
+      message={editorMessage}
+      errorMessage={editorError}
+    />
   </BaseLayout>
 ) : (
   <BaseLayout

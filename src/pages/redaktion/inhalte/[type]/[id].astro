@@ -7,7 +7,7 @@ import EntryEditorForm from '../../../../components/editorial/EntryEditorForm.as
 import EntryPreview from '../../../../components/editorial/EntryPreview.astro';
 import StatusBadge from '../../../../components/editorial/StatusBadge.astro';
 import StudioNav from '../../../../components/editorial/StudioNav.astro';
-import { getDatabase } from '../../../../lib/dynamic/env.ts';
+import { getDatabase, getRuntimeBindingState } from '../../../../lib/dynamic/env.ts';
 import { getEditorialAccessInfo } from '../../../../lib/editorial/access.ts';
 import { buildEditorialFormValues, entryToWriteInput, getEditorialPreviewRoute } from '../../../../lib/editorial/drafts.ts';
 import { getEditorialEntryById, listEditorialVersions } from '../../../../lib/editorial/repository.ts';
@@ -23,6 +23,7 @@ if (!isEditorialEntryType(typeParam)) {
 
 const type = typeParam && isEditorialEntryType(typeParam) ? typeParam : undefined;
 const definition = type ? getEditorialTypeDefinition(type) : undefined;
+const runtime = getRuntimeBindingState(Astro.url);
 const database = getDatabase();
 const entry = entryId ? await getEditorialEntryById(database, entryId) : undefined;
 
@@ -30,7 +31,7 @@ if (!entry || !type || entry.type !== type) {
   Astro.response.status = 404;
 }
 
-const accessInfo = getEditorialAccessInfo(Astro.request);
+const accessInfo = getEditorialAccessInfo(Astro.request, Astro.url);
 const versions = entry ? await listEditorialVersions(database, entry.id) : [];
 const currentDraft = entry ? entryToWriteInput(entry) : undefined;
 const formValues = currentDraft ? buildEditorialFormValues(currentDraft) : undefined;
@@ -76,6 +77,8 @@ const message = Astro.url.searchParams.get('message') ?? undefined;
           Version {entry.currentVersionNumber}
           {' · '}
           Zuletzt geändert {entry.updatedAt.slice(0, 16).replace('T', ' ')}
+          {' · '}
+          Umgebung {runtime.environment}
         </p>
       </section>
 
@@ -143,6 +146,20 @@ const message = Astro.url.searchParams.get('message') ?? undefined;
               <h2>Metadaten</h2>
             </div>
             <dl class="meta-list">
+              <div>
+                <dt>Redaktionssitzung</dt>
+                <dd>
+                  {accessInfo.protectedByAccess
+                    ? `Cloudflare Access (${accessInfo.accessSignal})`
+                    : accessInfo.isLocalRequest
+                      ? 'lokale Sitzung'
+                      : 'ungeschützt'}
+                </dd>
+              </div>
+              <div>
+                <dt>Bindings</dt>
+                <dd>D1 {runtime.hasDatabase ? 'aktiv' : 'fehlt'} / R2 {runtime.hasMediaBucket ? 'aktiv' : 'fehlt'}</dd>
+              </div>
               <div>
                 <dt>Quelle</dt>
                 <dd>{entry.metadata.sourceOrigin ?? 'manuell'} / {entry.metadata.sourceId ?? 'neu'}</dd>

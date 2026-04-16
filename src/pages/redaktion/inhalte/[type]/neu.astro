@@ -6,7 +6,7 @@ import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import EntryEditorForm from '../../../../components/editorial/EntryEditorForm.astro';
 import EntryPreview from '../../../../components/editorial/EntryPreview.astro';
 import StudioNav from '../../../../components/editorial/StudioNav.astro';
-import { getDatabase } from '../../../../lib/dynamic/env.ts';
+import { getDatabase, getRuntimeBindingState } from '../../../../lib/dynamic/env.ts';
 import { getEditorialAccessInfo } from '../../../../lib/editorial/access.ts';
 import { buildEditorialFormValues, createBlankEditorialDraft, getEditorialPreviewRoute } from '../../../../lib/editorial/drafts.ts';
 import { getEditorialEntryByTypeAndSlug } from '../../../../lib/editorial/repository.ts';
@@ -22,7 +22,8 @@ if (!isEditorialEntryType(typeParam)) {
 
 const type = typeParam && isEditorialEntryType(typeParam) ? typeParam : undefined;
 const definition = type ? getEditorialTypeDefinition(type) : undefined;
-const accessInfo = getEditorialAccessInfo(Astro.request);
+const runtime = getRuntimeBindingState(Astro.url);
+const accessInfo = getEditorialAccessInfo(Astro.request, Astro.url);
 const sourceId = Astro.url.searchParams.get('source') ?? undefined;
 const sourceOrigin = Astro.url.searchParams.get('origin');
 const errorMessage = Astro.url.searchParams.get('error') ?? undefined;
@@ -75,6 +76,13 @@ const exportPath =
       {definition
         ? 'Neue Inhalte können manuell oder auf Basis bestehender Portalquellen erfasst werden.'
         : 'Bitte öffnen Sie einen unterstützten Inhaltstyp aus der Studio-Übersicht.'}
+    </p>
+    <p class="detail-line">
+      Sitzung: {accessInfo.displayName}
+      {' · '}
+      Umgebung: {runtime.environment}
+      {' · '}
+      D1: {runtime.hasDatabase ? 'aktiv' : 'fehlt'}
     </p>
   </section>
 

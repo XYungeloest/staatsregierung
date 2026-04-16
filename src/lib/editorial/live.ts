@@ -11,6 +11,7 @@ import {
   type Themenseite,
 } from '../portal/schema.ts';
 import { withBase } from '../portal/routes.ts';
+import { hasEditorialSession } from './access.ts';
 import type { EditorialEntryState } from './schema.ts';
 import { getEditorialEntryStateByTypeAndSlug } from './repository.ts';
 import type { EditorialEntryType, EditorialSourceOrigin } from './studio.ts';
@@ -23,17 +24,12 @@ export interface EditorialPublicState {
   liveLabel: string;
 }
 
-function isLocalEditorialHost(hostname: string): boolean {
-  return hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '0.0.0.0';
-}
-
 export function shouldRenderEditorialUi(request: Request, url: URL): boolean {
   if (!isEditorialToolsEnabled()) {
     return false;
   }
 
-  const accessEmail = request.headers.get('cf-access-authenticated-user-email')?.trim();
-  return Boolean(accessEmail) || isLocalEditorialHost(url.hostname);
+  return hasEditorialSession(request, url);
 }
 
 export function getEditorialStudioHref(
