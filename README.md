@@ -25,6 +25,7 @@ Die aktuellen Leitdokumente im Repository sind:
 - [SEO_NOTES.md](./SEO_NOTES.md)
 - [CLOUDFLARE_MIGRATION.md](./CLOUDFLARE_MIGRATION.md)
 - [DYNAMIC_CONTENT_NOTES.md](./DYNAMIC_CONTENT_NOTES.md)
+- [EDITORIAL_STUDIO_NOTES.md](./EDITORIAL_STUDIO_NOTES.md)
 
 Ältere Vorstufen der Spezifikation liegen nur noch als Archiv unter [docs/legacy/](./docs/legacy/).
 
@@ -35,9 +36,10 @@ Die aktuellen Leitdokumente im Repository sind:
 - Cloudflare Workers als Zielplattform
 - in Phase 1 weiterhin weitgehend statische Ausgabe
 - gezielte D1-/R2-Nutzung für ausgewählte dynamische Bereiche
+- leichtgewichtiges Redaktionsstudio unter `/redaktion/` für interne Entwürfe, Preview und Medien
 - kein klassisches Backend und keine Voll-SSR
 - keine Container
-- keine Adminoberfläche
+- keine öffentliche Adminoberfläche und kein Drittanbieter-CMS
 
 ## Voraussetzungen
 
@@ -196,6 +198,23 @@ In der zweiten Cloudflare-Migrationsphase werden ausgewählte Bereiche gezielt o
 Für Bilder, Downloads und größere Medien steht zusätzlich eine einfache R2-Integration bereit. Das Rechtsportal unter `/recht/` bleibt weiterhin dateibasiert und weitgehend statisch.
 
 Details zu Tabellen, Migrationen, Seed-Workflow und lokalen Schritten stehen in [DYNAMIC_CONTENT_NOTES.md](./DYNAMIC_CONTENT_NOTES.md).
+
+## Redaktionsstudio
+
+Unter `/redaktion/` läuft jetzt ein interner, on-demand gerenderter Redaktionsbereich für:
+
+- Pressemitteilungen
+- Termine
+- Stellenangebote
+- Projektstatus
+- Service-Seiten
+- Themenseiten
+- Ressorts
+- Regierungsmitglieder
+
+Direkt live schaltbar sind aktuell nur die bereits D1-gestützten Bereiche Pressemitteilungen, Termine, Stellenangebote und Projektstatus. Service-, Themen- und Regierungsinhalte bleiben in Phase 1 des Studios dateibasiert und werden als Entwurf mit Preview und Export vorbereitet.
+
+Das frühere clientseitige Normdatei-Werkzeug bleibt als eigenes Rechtswerkzeug unter `/redaktion/recht/` erhalten. Hinweise zu Routen, D1-Tabellen, R2-Uploads und Access-Schutz stehen in [EDITORIAL_STUDIO_NOTES.md](./EDITORIAL_STUDIO_NOTES.md).
 
 ## Rechtsbereich
 

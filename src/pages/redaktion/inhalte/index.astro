@@ -1,0 +1,78 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import StudioNav from '../../../components/editorial/StudioNav.astro';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
+import { listEditorialTypeSummaries } from '../../../lib/editorial/repository.ts';
+import { editorialEntryTypes, getEditorialTypeDefinition } from '../../../lib/editorial/studio.ts';
+import { getEditorialUrl, getHomeUrl } from '../../../lib/portal/routes.ts';
+
+const summaries = await listEditorialTypeSummaries(getDatabase());
+const summaryMap = new Map(summaries.map((entry) => [entry.type, entry]));
+---
+
+<BaseLayout
+  title="Redaktionsinhalte"
+  description="Übersicht aller im Studio bearbeitbaren Inhaltstypen."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Redaktion', href: getEditorialUrl() },
+    { label: 'Inhalte' },
+  ]}
+  noindex={true}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Redaktion', href: getEditorialUrl() },
+      { label: 'Inhalte' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Redaktionsbereiche</p>
+    <h1>Inhaltstypen</h1>
+    <p class="lead">
+      Jeder Typ besitzt eigene Felder, eine Vorschau und je nach Bereich einen Direktpublish- oder
+      Exportpfad.
+    </p>
+  </section>
+
+  <section class="section">
+    <StudioNav current="content" />
+  </section>
+
+  <section class="section section-muted">
+    <div class="card-grid card-grid--three">
+      {editorialEntryTypes.map((type) => {
+        const definition = getEditorialTypeDefinition(type);
+        const summary = summaryMap.get(type);
+
+        return (
+          <article class="panel studio-card">
+            <p class="eyebrow">{definition.publishMode === 'direct' ? 'Direkt live' : 'Export / manuell'}</p>
+            <h2>{definition.pluralLabel}</h2>
+            <p>{definition.description}</p>
+            <dl class="meta-list meta-list--compact">
+              <div>
+                <dt>Einträge</dt>
+                <dd>{summary?.totalCount ?? 0}</dd>
+              </div>
+              <div>
+                <dt>Entwürfe</dt>
+                <dd>{summary?.draftCount ?? 0}</dd>
+              </div>
+              <div>
+                <dt>Export bereit</dt>
+                <dd>{summary?.exportReadyCount ?? 0}</dd>
+              </div>
+            </dl>
+            <p><a class="inline-link" href={`${getEditorialUrl()}inhalte/${type}/`}>Zum Bereich</a></p>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,172 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import EntryEditorForm from '../../../../components/editorial/EntryEditorForm.astro';
+import EntryPreview from '../../../../components/editorial/EntryPreview.astro';
+import StatusBadge from '../../../../components/editorial/StatusBadge.astro';
+import StudioNav from '../../../../components/editorial/StudioNav.astro';
+import { getDatabase } from '../../../../lib/dynamic/env.ts';
+import { getEditorialAccessInfo } from '../../../../lib/editorial/access.ts';
+import { buildEditorialFormValues, entryToWriteInput, getEditorialPreviewRoute } from '../../../../lib/editorial/drafts.ts';
+import { getEditorialEntryById, listEditorialVersions } from '../../../../lib/editorial/repository.ts';
+import { getEditorialStoragePath, getEditorialTypeDefinition, isEditorialEntryType } from '../../../../lib/editorial/studio.ts';
+import { getEditorialUrl, getHomeUrl, withBase } from '../../../../lib/portal/routes.ts';
+
+const typeParam = Astro.params.type;
+const entryId = Astro.params.id ?? '';
+
+if (!isEditorialEntryType(typeParam)) {
+  Astro.response.status = 404;
+}
+
+const type = typeParam && isEditorialEntryType(typeParam) ? typeParam : undefined;
+const definition = type ? getEditorialTypeDefinition(type) : undefined;
+const database = getDatabase();
+const entry = entryId ? await getEditorialEntryById(database, entryId) : undefined;
+
+if (!entry || !type || entry.type !== type) {
+  Astro.response.status = 404;
+}
+
+const accessInfo = getEditorialAccessInfo(Astro.request);
+const versions = entry ? await listEditorialVersions(database, entry.id) : [];
+const currentDraft = entry ? entryToWriteInput(entry) : undefined;
+const formValues = currentDraft ? buildEditorialFormValues(currentDraft) : undefined;
+const previewRoute = entry ? getEditorialPreviewRoute(entry.type, entry.slug, entry.route) : undefined;
+const exportPath = entry ? getEditorialStoragePath(entry.type, entry.slug) : undefined;
+const errorMessage = Astro.url.searchParams.get('error') ?? undefined;
+const message = Astro.url.searchParams.get('message') ?? undefined;
+---
+
+<BaseLayout
+  title={entry ? `${entry.title} bearbeiten` : 'Entwurf nicht gefunden'}
+  description={entry ? `Bearbeitung von ${entry.title} im Redaktionsstudio.` : 'Der angeforderte Redaktionsentwurf wurde nicht gefunden.'}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Redaktion', href: getEditorialUrl() },
+    { label: 'Inhalte', href: `${getEditorialUrl()}inhalte/` },
+    { label: definition?.pluralLabel ?? 'Unbekannter Typ', href: type ? `${getEditorialUrl()}inhalte/${type}/` : undefined },
+    { label: entry?.title ?? 'Nicht gefunden' },
+  ]}
+  noindex={true}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Redaktion', href: getEditorialUrl() },
+      { label: 'Inhalte', href: `${getEditorialUrl()}inhalte/` },
+      { label: definition?.pluralLabel ?? 'Unbekannter Typ', href: type ? `${getEditorialUrl()}inhalte/${type}/` : undefined },
+      { label: entry?.title ?? 'Nicht gefunden' },
+    ]}
+  />
+
+  {entry && type && definition && currentDraft && formValues ? (
+    <Fragment>
+      <section class="section page-header">
+        <p class="eyebrow">Redaktionsentwurf</p>
+        <h1>{entry.title}</h1>
+        <p class="lead">
+          {definition.description}
+        </p>
+        <p class="detail-line">
+          <StatusBadge status={entry.status} />
+          {' · '}
+          Version {entry.currentVersionNumber}
+          {' · '}
+          Zuletzt geändert {entry.updatedAt.slice(0, 16).replace('T', ' ')}
+        </p>
+      </section>
+
+      <section class="section">
+        <StudioNav current="content" />
+      </section>
+
+      {message ? (
+        <section class="section">
+          <div class="editorial-feedback editorial-feedback--success">{message}</div>
+        </section>
+      ) : null}
+
+      <section class="section studio-workspace">
+        <div class="studio-workspace__main">
+          <EntryEditorForm
+            type={type}
+            values={formValues}
+            accessInfo={accessInfo}
+            saveAction={withBase(`/redaktion/api/inhalte/${type}/save`)}
+            publishAction={withBase(`/redaktion/api/inhalte/${type}/publish`)}
+            exportAction={withBase(`/redaktion/api/inhalte/${type}/export`)}
+            downloadAction={
+              definition.publishMode === 'export'
+                ? withBase(`/redaktion/api/inhalte/${type}/${entry.id}/export.json`)
+                : undefined
+            }
+            liveUrl={previewRoute}
+            errorMessage={errorMessage}
+          />
+        </div>
+        <div class="studio-workspace__side">
+          <EntryPreview
+            type={type}
+            title={entry.title}
+            slug={entry.slug}
+            route={previewRoute ?? entry.route}
+            status={entry.status}
+            content={entry.content}
+          />
+
+          <section class="panel">
+            <div class="section-header section-header--compact">
+              <h2>Versionsverlauf</h2>
+            </div>
+            {versions.length > 0 ? (
+              <ul class="record-list">
+                {versions.map((version: (typeof versions)[number]) => (
+                  <li class="record-list__item">
+                    <strong>Version {version.versionNumber}</strong>
+                    <span>{version.action}</span>
+                    <span>{version.summary ?? 'ohne Änderungsvermerk'}</span>
+                    <span>{version.createdAt.slice(0, 16).replace('T', ' ')}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>Für diesen Entwurf liegt noch kein Versionsverlauf vor.</p>
+            )}
+          </section>
+
+          <section class="panel">
+            <div class="section-header section-header--compact">
+              <h2>Metadaten</h2>
+            </div>
+            <dl class="meta-list">
+              <div>
+                <dt>Quelle</dt>
+                <dd>{entry.metadata.sourceOrigin ?? 'manuell'} / {entry.metadata.sourceId ?? 'neu'}</dd>
+              </div>
+              <div>
+                <dt>Ziel-URL</dt>
+                <dd><code>{previewRoute}</code></dd>
+              </div>
+              {exportPath ? (
+                <div>
+                  <dt>Exportpfad</dt>
+                  <dd><code>{exportPath}</code></dd>
+                </div>
+              ) : null}
+            </dl>
+          </section>
+        </div>
+      </section>
+    </Fragment>
+  ) : (
+    <section class="section">
+      <div class="status-notice status-notice--warning">
+        <h2>Entwurf nicht gefunden</h2>
+        <p>Der angeforderte Redaktionsstand konnte nicht geladen werden.</p>
+      </div>
+    </section>
+  )}
+</BaseLayout>

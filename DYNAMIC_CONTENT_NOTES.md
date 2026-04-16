@@ -47,6 +47,22 @@ Speichert Stellenangebote mit Ressort, Standort, Arbeitsbereich, Veröffentlichu
 
 Speichert die Einträge des 15-Punkte-Dashboards mit Reihenfolge, Status, Ressort, Ziel-URL und optionalen Normreferenzen.
 
+### `editor_entries`
+
+Speichert Redaktionsentwürfe, Preview-Stände und veröffentlichte oder exportbereite Inhalte über alle Studio-Typen hinweg.
+
+### `editor_versions`
+
+Speichert einfache Versionsstände mit Änderungsvermerk, Aktion (`draft_save`, `publish`, `export`) und optionalem Publish-/Export-Payload.
+
+### `media_assets`
+
+Speichert Metadaten zu in R2 abgelegten Studio-Medien wie Key, Alt-Text, Titel, Dateiname und MIME-Typ.
+
+### `publish_log`
+
+Schreibt eine einfache Historie für direkte Veröffentlichungen oder vorbereitete Exporte.
+
 ## Migrationen
 
 Die D1-Migrationen liegen unter:
@@ -58,6 +74,7 @@ db/migrations/
 Aktuell:
 
 - `0001_dynamic_content.sql`
+- `0002_editorial_studio.sql`
 
 ## Seed- und Import-Workflow
 
@@ -150,6 +167,8 @@ R2 wird in dieser Phase bewusst einfach vorbereitet:
 
 Damit ist eine schrittweise Umstellung einzelner Bilder oder Downloads auf R2 möglich, ohne bestehende Inhalte sofort umzuziehen.
 
+Zusätzlich nutzt das Redaktionsstudio R2 nun direkt für interne Uploads unter `/redaktion/medien/`. Die Uploads werden in D1 über `media_assets` referenziert und können anschließend über `mediaKey` in Studio-Formularen eingebunden werden.
+
 ## Jetzt dynamische Seiten
 
 - `/presse/`
@@ -162,6 +181,13 @@ Damit ist eine schrittweise Umstellung einzelner Bilder oder Downloads auf R2 m�
 - `/staatsregierung/15-punkte-plan/`
 - `/media/[...key]`
 - `/api/project-status.json`
+- `/redaktion/`
+- `/redaktion/inhalte/`
+- `/redaktion/inhalte/[type]/`
+- `/redaktion/inhalte/[type]/neu`
+- `/redaktion/inhalte/[type]/[id]`
+- `/redaktion/medien/`
+- `/redaktion/entwuerfe/`
 
 ## Bewusst statisch bleibende Bereiche
 

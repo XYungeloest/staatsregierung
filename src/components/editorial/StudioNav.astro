@@ -1,0 +1,25 @@
+---
+import { withBase } from '../../lib/portal/routes.ts';
+
+interface Props {
+  current?: 'overview' | 'content' | 'drafts' | 'media' | 'recht';
+}
+
+const { current } = Astro.props;
+
+const items = [
+  { key: 'overview', label: 'Studio', href: withBase('/redaktion/') },
+  { key: 'content', label: 'Inhalte', href: withBase('/redaktion/inhalte/') },
+  { key: 'drafts', label: 'Entwürfe', href: withBase('/redaktion/entwuerfe/') },
+  { key: 'media', label: 'Medien', href: withBase('/redaktion/medien/') },
+  { key: 'recht', label: 'Rechtswerkzeug', href: withBase('/redaktion/recht/') },
+] as const;
+---
+
+<nav class="studio-nav" aria-label="Redaktionsstudio">
+  {items.map((item) => (
+    <a class:list={['studio-nav__link', current === item.key && 'is-current']} href={item.href}>
+      {item.label}
+    </a>
+  ))}
+</nav>
