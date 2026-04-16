@@ -14,8 +14,12 @@ function normalizeMediaKey(value: string): string {
     .join('/');
 }
 
+export function buildMediaPath(mediaKey: string): string {
+  return `/media/${normalizeMediaKey(mediaKey)}`;
+}
+
 export function buildMediaUrl(mediaKey: string): string {
-  return withBase(`/media/${normalizeMediaKey(mediaKey)}`);
+  return withBase(buildMediaPath(mediaKey));
 }
 
 export function resolveStoredMediaUrl(reference: StoredMediaReference): string | undefined {

@@ -127,7 +127,9 @@ Für `staging` muss im manuellen Workflow eine vollständige `site_url` angegebe
 - Staatsregierung, Themen, Presse, Haushalt, Freistaat und Service
 - das komplette Rechtsportal unter `/recht/`
 - Normensuche via statischem Suchindex
-- redaktionelles Hilfswerkzeug unter `/redaktion/`
+- das Rechtswerkzeug für Normdateien unter `/redaktion/recht/`
+
+Das eigentliche Redaktionsstudio unter `/redaktion/` ist inzwischen als gezielt on-demand gerenderter Worker-Bereich ergänzt worden. Die ursprüngliche Migrationsentscheidung bleibt dabei erhalten: Das öffentliche Portal bleibt weitgehend statisch, nur interne Studio-Routen und ausgewählte D1-Bereiche rendern serverseitig bei Bedarf.
 
 ## Gute Kandidaten für spätere Dynamisierung
 

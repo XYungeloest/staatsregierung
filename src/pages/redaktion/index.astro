@@ -1,0 +1,161 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import StudioNav from '../../components/editorial/StudioNav.astro';
+import StatusBadge from '../../components/editorial/StatusBadge.astro';
+import { getEditorialAccessInfo } from '../../lib/editorial/access.ts';
+import { listEditorialEntries, listEditorialTypeSummaries, listMediaAssets } from '../../lib/editorial/repository.ts';
+import { editorialEntryTypes, getEditorialTypeDefinition } from '../../lib/editorial/studio.ts';
+import { getDatabase } from '../../lib/dynamic/env.ts';
+import { getEditorialUrl, getHomeUrl } from '../../lib/portal/routes.ts';
+
+const database = getDatabase();
+const accessInfo = getEditorialAccessInfo(Astro.request);
+const typeSummaries = await listEditorialTypeSummaries(database);
+const summaryMap = new Map(typeSummaries.map((entry) => [entry.type, entry]));
+const recentEntries = (await listEditorialEntries(database)).slice(0, 8);
+const mediaAssets = await listMediaAssets(database);
+---
+
+<BaseLayout
+  title="Redaktionsstudio"
+  description="Geschützter Redaktionsbereich für Entwürfe, Vorschau, Medien und direkte Veröffentlichungen in ausgewählten Portalbereichen."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Redaktion' },
+  ]}
+  noindex={true}
+>
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Redaktion' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Internes Werkzeug</p>
+    <h1>Redaktionsstudio</h1>
+    <p class="lead">
+      Das Studio bündelt D1-Entwürfe, Vorschau, direkte Veröffentlichungen für Presse, Termine,
+      Karriere und Dashboard sowie Exportpfade für die weiterhin dateibasierten Bereiche.
+    </p>
+    <p class="detail-line">
+      Aktive Sitzung: {accessInfo.displayName}
+      {' · '}
+      {accessInfo.protectedByAccess ? 'Access-Header erkannt' : 'lokale oder ungeschützte Sitzung'}
+    </p>
+  </section>
+
+  <section class="section">
+    <StudioNav current="overview" />
+  </section>
+
+  {!accessInfo.protectedByAccess ? (
+    <section class="section">
+      <div class="status-notice status-notice--warning">
+        <h2>Zugriffsschutz noch nicht erzwungen</h2>
+        <p>
+          Diese Instanz zeigt keine Cloudflare-Access-Header. Für Staging und Produktion sollte
+          <code>/redaktion/*</code> ausschließlich hinter Cloudflare Access liegen.
+        </p>
+      </div>
+    </section>
+  ) : null}
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Inhaltstypen</span>
+        <strong>{editorialEntryTypes.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Entwürfe gesamt</span>
+        <strong>{recentEntries.filter((entry) => entry.status === 'draft').length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Exportbereit</span>
+        <strong>{recentEntries.filter((entry) => entry.status === 'export_ready').length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Medien</span>
+        <strong>{mediaAssets.length}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Bearbeitbare Inhaltstypen</h2>
+      <p>
+        Die Live-Schaltung erfolgt nur für D1-gestützte Bereiche. Service, Themen und
+        Regierungsprofile bleiben in Phase 1 im Entwurfs- und Exportmodus.
+      </p>
+    </div>
+    <div class="card-grid card-grid--three">
+      {editorialEntryTypes.map((type) => {
+        const definition = getEditorialTypeDefinition(type);
+        const summary = summaryMap.get(type);
+
+        return (
+          <article class="panel studio-card">
+            <p class="eyebrow">{definition.publishMode === 'direct' ? 'Direktpublish' : 'Export'}</p>
+            <h2>{definition.pluralLabel}</h2>
+            <p>{definition.description}</p>
+            <dl class="meta-list meta-list--compact">
+              <div>
+                <dt>Einträge</dt>
+                <dd>{summary?.totalCount ?? 0}</dd>
+              </div>
+              <div>
+                <dt>Entwürfe</dt>
+                <dd>{summary?.draftCount ?? 0}</dd>
+              </div>
+              <div>
+                <dt>Veröffentlicht</dt>
+                <dd>{summary?.publishedCount ?? 0}</dd>
+              </div>
+            </dl>
+            <p><a class="inline-link" href={`${getEditorialUrl()}inhalte/${type}/`}>Typ öffnen</a></p>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="content-grid">
+      <section class="section">
+        <div class="section-header section-header--compact">
+          <h2>Letzte Redaktionsstände</h2>
+        </div>
+        {recentEntries.length > 0 ? (
+          <ul class="record-list">
+            {recentEntries.map((entry) => (
+              <li class="record-list__item">
+                <strong>
+                  <a class="inline-link" href={`${getEditorialUrl()}inhalte/${entry.type}/${entry.id}/`}>
+                    {entry.title}
+                  </a>
+                </strong>
+                <span>{getEditorialTypeDefinition(entry.type).label}</span>
+                <span><StatusBadge status={entry.status} /></span>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Es liegen noch keine Redaktionsentwürfe in D1 vor.</p>
+        )}
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Schnellzugriff</h2>
+        </div>
+        <nav class="link-list">
+          <a href={`${getEditorialUrl()}inhalte/`}>Inhalte verwalten</a>
+          <a href={`${getEditorialUrl()}entwuerfe/`}>Entwürfe und Exportstände</a>
+          <a href={`${getEditorialUrl()}medien/`}>Medien in R2</a>
+          <a href={`${getEditorialUrl()}recht/`}>Bestehendes Rechtswerkzeug</a>
+        </nav>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

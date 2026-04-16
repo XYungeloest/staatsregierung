@@ -1,0 +1,227 @@
+---
+import { formatActionPlanStatus } from '../../lib/portal/modules.ts';
+import { resolvePortalPath } from '../../lib/portal/routes.ts';
+import type {
+  EditorialEntryContent,
+  EventDraftContent,
+  GovernmentMemberDraftContent,
+  JobDraftContent,
+  MinistryDraftContent,
+  PressReleaseDraftContent,
+  ProjectStatusDraftContent,
+  ServicePageDraftContent,
+  TopicDraftContent,
+} from '../../lib/editorial/schema.ts';
+import { formatEditorialStatus, getEditorialStoragePath, type EditorialEntryStatus, type EditorialEntryType } from '../../lib/editorial/studio.ts';
+import { getPreviewImage } from '../../lib/editorial/transformers.ts';
+
+interface Props {
+  type: EditorialEntryType;
+  title: string;
+  slug: string;
+  route: string;
+  status: EditorialEntryStatus;
+  content: EditorialEntryContent;
+}
+
+const { type, title, slug, route, status, content } = Astro.props;
+const previewImage = getPreviewImage(content);
+const exportPath = getEditorialStoragePath(type, slug);
+---
+
+<section class="studio-preview panel">
+  <div class="section-header section-header--compact">
+    <h2>Vorschau</h2>
+    <p>
+      Zielstatus: <strong>{formatEditorialStatus(status)}</strong>
+      {' · '}
+      Ziel-URL: <code>{route}</code>
+      {exportPath ? (
+        <>
+          {' · '}
+          Exportpfad: <code>{exportPath}</code>
+        </>
+      ) : null}
+    </p>
+  </div>
+
+  <article class="studio-preview__card">
+    <header class="studio-preview__header">
+      <p class="eyebrow">{type}</p>
+      <h3>{title || 'Unbenannter Eintrag'}</h3>
+      <p class="detail-line">Slug: {slug || 'noch offen'}</p>
+    </header>
+
+    {previewImage.url ? (
+      <img class="studio-preview__image" src={resolvePortalPath(previewImage.url)} alt={previewImage.alt || title || 'Vorschaubild'} />
+    ) : null}
+
+    {type === 'pressemitteilung' ? (
+      <>
+        {(() => {
+          const press = content as PressReleaseDraftContent;
+          return (
+            <Fragment>
+              <p class="lead">{press.teaser}</p>
+              <p class="detail-line">{press.date} · {press.ressort}</p>
+              <div class="tag-list">
+                {press.tags.map((tag) => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+              <div class="body-copy">
+                {press.body.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+            </Fragment>
+          );
+        })()}
+      </>
+    ) : null}
+
+    {type === 'termin' ? (
+      <>
+        {(() => {
+          const event = content as EventDraftContent;
+          return (
+            <Fragment>
+              <p class="lead">{event.teaser}</p>
+              <p class="detail-line">{event.date} · {event.location}</p>
+              <div class="body-copy">
+                {event.body.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+            </Fragment>
+          );
+        })()}
+      </>
+    ) : null}
+
+    {type === 'stellenangebot' ? (
+      <>
+        {(() => {
+          const job = content as JobDraftContent;
+          return (
+            <Fragment>
+              <p class="lead">{job.teaser}</p>
+              <p class="detail-line">{job.ressort} · {job.standort} · {job.employmentType}</p>
+              <div class="body-copy">
+                {job.body.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+            </Fragment>
+          );
+        })()}
+      </>
+    ) : null}
+
+    {type === 'projektstatus' ? (
+      <>
+        {(() => {
+          const item = content as ProjectStatusDraftContent;
+          return (
+            <Fragment>
+              <p class="lead">{item.description}</p>
+              <p class="detail-line">
+                {item.ressort} · {formatActionPlanStatus(item.status)} · Position {item.position}
+              </p>
+              {item.references.length > 0 ? (
+                <ul class="record-list">
+                  {item.references.map((reference) => (
+                    <li class="record-list__item">
+                      <strong>{reference.label}</strong>
+                      <span>{reference.normSlug}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </Fragment>
+          );
+        })()}
+      </>
+    ) : null}
+
+    {type === 'service-seite' ? (
+      <>
+        {(() => {
+          const page = content as ServicePageDraftContent;
+          return (
+            <div class="body-copy">
+              {page.body.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          );
+        })()}
+      </>
+    ) : null}
+
+    {type === 'themenseite' ? (
+      <>
+        {(() => {
+          const topic = content as TopicDraftContent;
+          return (
+            <Fragment>
+              <p class="lead">{topic.teaser}</p>
+              {topic.hero ? <p>{topic.hero}</p> : null}
+              <dl class="meta-list">
+                <div>
+                  <dt>Status</dt>
+                  <dd>{topic.status}</dd>
+                </div>
+                <div>
+                  <dt>Federführung</dt>
+                  <dd>{topic.federfuehrendesRessort}</dd>
+                </div>
+              </dl>
+            </Fragment>
+          );
+        })()}
+      </>
+    ) : null}
+
+    {type === 'ressort' ? (
+      <>
+        {(() => {
+          const ministry = content as MinistryDraftContent;
+          return (
+            <Fragment>
+              <p class="lead">{ministry.teaser}</p>
+              <p class="detail-line">{ministry.leitung}</p>
+              <ul class="record-list">
+                {ministry.aufgaben.map((item) => (
+                  <li class="record-list__item">
+                    <strong>{item}</strong>
+                  </li>
+                ))}
+              </ul>
+            </Fragment>
+          );
+        })()}
+      </>
+    ) : null}
+
+    {type === 'regierungsmitglied' ? (
+      <>
+        {(() => {
+          const member = content as GovernmentMemberDraftContent;
+          return (
+            <Fragment>
+              <p class="lead">{member.kurzbiografie}</p>
+              <p class="detail-line">{member.amt} · {member.ressort}</p>
+              <div class="body-copy">
+                {member.langbiografie.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+              {member.zitat ? <blockquote class="studio-preview__quote">„{member.zitat}“</blockquote> : null}
+            </Fragment>
+          );
+        })()}
+      </>
+    ) : null}
+  </article>
+</section>

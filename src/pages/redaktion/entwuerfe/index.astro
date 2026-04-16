@@ -1,0 +1,72 @@
+---
+export const prerender = false;
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import StudioNav from '../../../components/editorial/StudioNav.astro';
+import StatusBadge from '../../../components/editorial/StatusBadge.astro';
+import { getDatabase } from '../../../lib/dynamic/env.ts';
+import { listEditorialEntries } from '../../../lib/editorial/repository.ts';
+import { getEditorialTypeDefinition } from '../../../lib/editorial/studio.ts';
+import { getEditorialUrl, getHomeUrl } from '../../../lib/portal/routes.ts';
+
+const entries = await listEditorialEntries(getDatabase(), {
+  statuses: ['draft', 'export_ready'],
+});
+---
+
+<BaseLayout
+  title="Entwürfe und Exportstände"
+  description="Aktuelle Entwürfe, Exportstände und nicht live geschaltete Inhalte."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Redaktion', href: getEditorialUrl() },
+    { label: 'Entwürfe' },
+  ]}
+  noindex={true}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Redaktion', href: getEditorialUrl() },
+      { label: 'Entwürfe' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Arbeitsstände</p>
+    <h1>Entwürfe und Exportstände</h1>
+    <p class="lead">
+      Diese Ansicht bündelt alle Inhalte, die noch nicht live in den öffentlichen Zielbereich
+      übernommen wurden oder bewusst im Exportmodus bleiben.
+    </p>
+  </section>
+
+  <section class="section">
+    <StudioNav current="drafts" />
+  </section>
+
+  <section class="section">
+    {entries.length > 0 ? (
+      <ul class="record-list">
+        {entries.map((entry) => (
+          <li class="record-list__item studio-record">
+            <strong>
+              <a class="inline-link" href={`${getEditorialUrl()}inhalte/${entry.type}/${entry.id}/`}>
+                {entry.title}
+              </a>
+            </strong>
+            <span>{getEditorialTypeDefinition(entry.type).label}</span>
+            <span><StatusBadge status={entry.status} /></span>
+            <span>Version {entry.currentVersionNumber}</span>
+          </li>
+        ))}
+      </ul>
+    ) : (
+      <div class="status-notice status-notice--current">
+        <h2>Keine offenen Entwürfe</h2>
+        <p>Derzeit liegen keine Entwürfe oder Exportstände in D1 vor.</p>
+      </div>
+    )}
+  </section>
+</BaseLayout>

@@ -1,7 +1,7 @@
 ---
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { featureFlags, isEditorialToolsEnabled } from '../config/features.ts';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { featureFlags, isEditorialToolsEnabled } from '../../../config/features.ts';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
 import {
   formatNormStatus,
   formatNormType,
@@ -9,8 +9,8 @@ import {
   getHomeUrl,
   NORM_STATUSES,
   NORM_TYPES,
-} from '../lib/norms/index.ts';
-import { loadAllNorms } from '../lib/norms/content.ts';
+} from '../../../lib/norms/index.ts';
+import { loadAllNorms } from '../../../lib/norms/content.ts';
 
 const editorialEnabled = isEditorialToolsEnabled();
 const existingNorms = editorialEnabled ? await loadAllNorms() : [];
@@ -29,19 +29,26 @@ function serializeForScript(value: unknown): string {
 ---
 
 <BaseLayout
-  title="Redaktion"
+  title="Rechtswerkzeug"
   description="Clientseitige Werkzeuge zum Erzeugen neuer Normdateien und neuer Fassungen für die manuelle Übernahme ins Repository."
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Redaktion', href: getEditorialUrl() },
+    { label: 'Rechtswerkzeug' },
   ]}
   noindex={true}
 >
-  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Redaktion', href: getEditorialUrl() }]} />
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Redaktion', href: getEditorialUrl() },
+      { label: 'Rechtswerkzeug' },
+    ]}
+  />
 
   <section class="section page-header">
-    <p class="eyebrow">Redaktion</p>
-    <h1>Redaktionelle Eingabemaske</h1>
+    <p class="eyebrow">Rechtsredaktion</p>
+    <h1>Werkzeug für Normdateien</h1>
     <p class="lead">
       Dieses Werkzeug erzeugt aus Eingaben neue JSON-Dateien im bestehenden Content-Format. Die
       Seite bleibt vollständig dateibasiert und speichert auch auf der neuen Cloudflare-Zielplattform
@@ -390,7 +397,7 @@ function serializeForScript(value: unknown): string {
         is:inline
         set:html={serializeForScript(bootstrapData)}
       ></script>
-      <script src="../scripts/editorial-page.ts"></script>
+      <script src="../../../scripts/editorial-page.ts"></script>
     </Fragment>
   )}
 </BaseLayout>
