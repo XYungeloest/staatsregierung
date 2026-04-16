@@ -3,7 +3,9 @@ import type {
   EditorialEntry,
   EditorialEntryMetadata,
   EditorialEntryRecord,
+  EditorialEntryState,
   EditorialSaveResult,
+  EditorialPublishedVersionRow,
   EditorialTypeSummary,
   EditorialVersion,
   EditorialVersionRecord,
@@ -13,7 +15,12 @@ import type {
   MediaAssetWriteInput,
   PublishLogWriteInput,
 } from './schema.ts';
-import type { EditorialEntryStatus, EditorialEntryType } from './studio.ts';
+import {
+  fromDatabasePublishMode,
+  toDatabasePublishMode,
+  type EditorialEntryStatus,
+  type EditorialEntryType,
+} from './studio.ts';
 
 function parseJson<T>(value: string | null | undefined, fallback: T): T {
   if (!value) {
@@ -69,11 +76,12 @@ function mapEditorialEntry(row: EditorialEntryRecord): EditorialEntry {
     route: row.route,
     title: row.title,
     status: row.status,
-    publishMode: row.publish_mode,
+    publishMode: fromDatabasePublishMode(row.publish_mode),
     author: row.author ?? undefined,
     metadata: parseJson<EditorialEntryMetadata>(row.metadata_json, {}),
     content: parseJson<EditorialEntryContent>(row.content_json, {} as EditorialEntryContent),
     currentVersionId: row.current_version_id ?? undefined,
+    publishedVersionId: row.published_version_id ?? undefined,
     currentVersionNumber: row.current_version_number,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -146,6 +154,7 @@ export async function listEditorialEntries(
         metadata_json,
         content_json,
         current_version_id,
+        published_version_id,
         current_version_number,
         created_at,
         updated_at,
@@ -212,6 +221,7 @@ export async function getEditorialEntryById(
         metadata_json,
         content_json,
         current_version_id,
+        published_version_id,
         current_version_number,
         created_at,
         updated_at,
@@ -246,6 +256,7 @@ export async function getEditorialEntryByTypeAndSlug(
         metadata_json,
         content_json,
         current_version_id,
+        published_version_id,
         current_version_number,
         created_at,
         updated_at,
@@ -289,6 +300,93 @@ export async function listEditorialVersions(
   return rows.map(mapEditorialVersion);
 }
 
+export async function getEditorialVersionById(
+  database: D1Database,
+  versionId: string,
+): Promise<EditorialVersion | undefined> {
+  const row = await queryFirst<EditorialVersionRecord>(
+    database,
+    `
+      SELECT
+        id,
+        entry_id,
+        version_number,
+        status,
+        action,
+        author,
+        summary,
+        metadata_json,
+        content_json,
+        published_payload_json,
+        created_at
+      FROM editor_versions
+      WHERE id = ?
+      LIMIT 1
+    `,
+    [versionId],
+  );
+
+  return row ? mapEditorialVersion(row) : undefined;
+}
+
+export async function getPublishedEditorialVersionByTypeAndSlug(
+  database: D1Database,
+  type: EditorialEntryType,
+  slug: string,
+): Promise<EditorialVersion | undefined> {
+  const row = await queryFirst<EditorialPublishedVersionRow>(
+    database,
+    `
+      SELECT
+        versions.id,
+        versions.entry_id,
+        versions.version_number,
+        versions.status,
+        versions.action,
+        versions.author,
+        versions.summary,
+        versions.metadata_json,
+        versions.content_json,
+        versions.published_payload_json,
+        versions.created_at,
+        entries.slug AS entry_slug,
+        entries.route AS entry_route,
+        entries.title AS entry_title,
+        entries.type AS entry_type
+      FROM editor_entries AS entries
+      INNER JOIN editor_versions AS versions
+        ON versions.id = entries.published_version_id
+      WHERE entries.type = ? AND entries.slug = ?
+      LIMIT 1
+    `,
+    [type, slug],
+  );
+
+  return row ? mapEditorialVersion(row) : undefined;
+}
+
+export async function getEditorialEntryStateByTypeAndSlug(
+  database: D1Database,
+  type: EditorialEntryType,
+  slug: string,
+): Promise<EditorialEntryState> {
+  const entry = await getEditorialEntryByTypeAndSlug(database, type, slug);
+  const publishedVersion = entry?.publishedVersionId
+    ? await getEditorialVersionById(database, entry.publishedVersionId)
+    : undefined;
+
+  return {
+    entry,
+    publishedVersion,
+    hasLiveVersion: Boolean(entry?.publishedVersionId && publishedVersion),
+    hasPendingChanges: Boolean(
+      entry?.publishedVersionId &&
+        entry.currentVersionId &&
+        entry.currentVersionId !== entry.publishedVersionId,
+    ),
+  };
+}
+
 export async function saveEditorialEntry(
   database: D1Database,
   input: EditorialEntryWriteInput,
@@ -309,7 +407,26 @@ export async function saveEditorialEntry(
   const metadataJson = JSON.stringify(input.metadata);
   const contentJson = JSON.stringify(input.content);
   const publishedPayloadJson = input.publishedPayload ? JSON.stringify(input.publishedPayload) : null;
-  const publishedAt = input.status === 'published' ? new Date().toISOString() : null;
+  const hasExistingLiveVersion = Boolean(existingEntry?.publishedVersionId);
+  const publishedVersionId =
+    input.liveBehavior === 'publish'
+      ? versionId
+      : input.liveBehavior === 'reset'
+        ? null
+        : existingEntry?.publishedVersionId ?? null;
+  const nextStatus =
+    input.liveBehavior === 'publish'
+      ? 'published'
+      : hasExistingLiveVersion && input.liveBehavior !== 'reset'
+        ? 'published'
+        : 'draft';
+  const publishedAt =
+    input.liveBehavior === 'publish'
+      ? new Date().toISOString()
+      : input.liveBehavior === 'reset'
+        ? null
+        : existingEntry?.publishedAt ?? null;
+  const databasePublishMode = toDatabasePublishMode(input.publishMode);
 
   if (!existingEntry) {
     await execute(
@@ -327,12 +444,13 @@ export async function saveEditorialEntry(
           metadata_json,
           content_json,
           current_version_id,
+          published_version_id,
           current_version_number,
           created_at,
           updated_at,
           published_at
         )
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?)
       `,
       [
         entryId,
@@ -340,12 +458,13 @@ export async function saveEditorialEntry(
         input.slug,
         input.route,
         input.title,
-        input.status,
-        input.publishMode,
+        nextStatus,
+        databasePublishMode,
         input.author ?? null,
         metadataJson,
         contentJson,
         versionId,
+        publishedVersionId,
         versionNumber,
         publishedAt,
       ],
@@ -365,23 +484,24 @@ export async function saveEditorialEntry(
           metadata_json = ?,
           content_json = ?,
           current_version_id = ?,
+          published_version_id = ?,
           current_version_number = ?,
           updated_at = CURRENT_TIMESTAMP,
-          published_at = CASE WHEN ? IS NOT NULL THEN ? ELSE published_at END
+          published_at = ?
         WHERE id = ?
       `,
       [
         input.slug,
         input.route,
         input.title,
-        input.status,
-        input.publishMode,
+        nextStatus,
+        databasePublishMode,
         input.author ?? null,
         metadataJson,
         contentJson,
         versionId,
+        publishedVersionId,
         versionNumber,
-        publishedAt,
         publishedAt,
         entryId,
       ],
@@ -410,7 +530,7 @@ export async function saveEditorialEntry(
       versionId,
       entryId,
       versionNumber,
-      input.status,
+      nextStatus,
       input.action,
       input.author ?? null,
       input.summary ?? null,
@@ -454,7 +574,7 @@ export async function writePublishLog(
       input.versionId ?? null,
       input.targetType,
       input.targetIdentifier ?? null,
-      input.mode,
+      toDatabasePublishMode(input.mode),
       input.status,
       input.detail ?? null,
       input.payload ? JSON.stringify(input.payload) : null,

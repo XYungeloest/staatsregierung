@@ -10,18 +10,26 @@ import { listEditorialEntries } from '../../../lib/editorial/repository.ts';
 import { getEditorialTypeDefinition } from '../../../lib/editorial/studio.ts';
 import { getEditorialUrl, getHomeUrl } from '../../../lib/portal/routes.ts';
 
-const entries = await listEditorialEntries(getDatabase(), {
-  statuses: ['draft', 'export_ready'],
-});
+const allEntries = await listEditorialEntries(getDatabase());
+const entries = allEntries.filter(
+  (entry) =>
+    entry.status === 'draft' ||
+    entry.status === 'export_ready' ||
+    Boolean(
+      entry.publishedVersionId &&
+        entry.currentVersionId &&
+        entry.currentVersionId !== entry.publishedVersionId,
+    ),
+);
 ---
 
 <BaseLayout
-  title="Entwürfe und Exportstände"
-  description="Aktuelle Entwürfe, Exportstände und nicht live geschaltete Inhalte."
+  title="Entwürfe und offene Stände"
+  description="Aktuelle Entwürfe, nicht live geschaltete Inhalte und offene Änderungen."
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Redaktion', href: getEditorialUrl() },
-    { label: 'Entwürfe' },
+    { label: 'Offene Stände' },
   ]}
   noindex={true}
 >
@@ -29,16 +37,16 @@ const entries = await listEditorialEntries(getDatabase(), {
     items={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Redaktion', href: getEditorialUrl() },
-      { label: 'Entwürfe' },
+      { label: 'Offene Stände' },
     ]}
   />
 
   <section class="section page-header">
     <p class="eyebrow">Arbeitsstände</p>
-    <h1>Entwürfe und Exportstände</h1>
+    <h1>Entwürfe und offene Stände</h1>
     <p class="lead">
-      Diese Ansicht bündelt alle Inhalte, die noch nicht live in den öffentlichen Zielbereich
-      übernommen wurden oder bewusst im Exportmodus bleiben.
+      Diese Ansicht bündelt Entwürfe sowie bereits live geschaltete Einträge mit weiteren, noch
+      nicht veröffentlichten Änderungen.
     </p>
   </section>
 
@@ -59,13 +67,16 @@ const entries = await listEditorialEntries(getDatabase(), {
             <span>{getEditorialTypeDefinition(entry.type).label}</span>
             <span><StatusBadge status={entry.status} /></span>
             <span>Version {entry.currentVersionNumber}</span>
+            {entry.publishedVersionId && entry.currentVersionId !== entry.publishedVersionId ? (
+              <span>Live-Override aktiv, Entwurf offen</span>
+            ) : null}
           </li>
         ))}
       </ul>
     ) : (
       <div class="status-notice status-notice--current">
         <h2>Keine offenen Entwürfe</h2>
-        <p>Derzeit liegen keine Entwürfe oder Exportstände in D1 vor.</p>
+        <p>Derzeit liegen keine offenen Entwürfe oder ausstehenden Änderungen in D1 vor.</p>
       </div>
     )}
   </section>

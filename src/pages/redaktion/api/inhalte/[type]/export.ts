@@ -18,8 +18,8 @@ export const POST: APIRoute = async ({ params, request }) => {
   const type = params.type;
   const definition = getEditorialTypeDefinition(type);
 
-  if (definition.publishMode !== 'export') {
-    return new Response('Exportmodus für diesen Typ nicht erlaubt', { status: 405 });
+  if (!definition.exportPathBuilder) {
+    return new Response('Für diesen Typ steht kein JSON-Export zur Verfügung', { status: 405 });
   }
 
   const formData = await request.formData();
@@ -58,11 +58,11 @@ export const POST: APIRoute = async ({ params, request }) => {
       withEditorialMessage(
         withBase(`/redaktion/inhalte/${type}/${result.entryId}/`),
         'message',
-        `Export vorbereitet: ${exportArtifact.filename}`,
+        `Payload exportiert: ${exportArtifact.filename}`,
       ),
     );
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Export konnte nicht vorbereitet werden.';
+    const message = error instanceof Error ? error.message : 'Export konnte nicht erzeugt werden.';
     return createEditorialRedirect(withEditorialMessage(fallbackUrl, 'error', message));
   }
 };

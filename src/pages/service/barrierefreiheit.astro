@@ -1,10 +1,21 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageTools from '../../components/editorial/PageTools.astro';
 import { getContactUrl, getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
-import { loadPageBySlug } from '../../lib/portal/content.ts';
+import { loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import {
+  resolveServicePageContent,
+  shouldRenderEditorialUi,
+} from '../../lib/editorial/live.ts';
 
-const page = await loadPageBySlug('barrierefreiheit');
+const { page, editorial } = await resolveServicePageContent(
+  'barrierefreiheit',
+  loadRuntimeServicePageBySlug('barrierefreiheit'),
+);
+const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
 ---
 
 <BaseLayout title={page?.title ?? 'Barrierefreiheit'} description="Hinweise zur Barrierefreiheit des Regierungsportals.">
@@ -23,6 +34,16 @@ const page = await loadPageBySlug('barrierefreiheit');
       Diese Erklärung orientiert sich in Aufbau und Ton an BITV-artigen Musterseiten, bleibt aber
       Teil einer fiktiven, vollständig statischen Politiksimulation.
     </p>
+  </section>
+
+  <section class="section">
+    <PageTools
+      visible={showEditorialUi}
+      studioHref={editorial.studioHref}
+      sourceLabel={editorial.sourceLabel}
+      liveLabel={editorial.liveLabel}
+      hasPendingChanges={editorial.entryState.hasPendingChanges}
+    />
   </section>
 
   <div class="content-grid">

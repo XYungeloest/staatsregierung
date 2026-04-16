@@ -1,0 +1,30 @@
+---
+interface Props {
+  visible: boolean;
+  studioHref: string;
+  sourceLabel: string;
+  liveLabel: string;
+  hasPendingChanges?: boolean;
+}
+
+const {
+  visible,
+  studioHref,
+  sourceLabel,
+  liveLabel,
+  hasPendingChanges = false,
+} = Astro.props;
+---
+
+{visible ? (
+  <aside class="editorial-page-tools" aria-label="Redaktioneller Einstieg">
+    <p class="editorial-page-tools__label">Redaktion</p>
+    <p class="editorial-page-tools__meta">
+      <strong>{sourceLabel}</strong>
+      {' · '}
+      {liveLabel}
+      {hasPendingChanges ? ' · Entwurf wartet auf Veröffentlichung' : ''}
+    </p>
+    <p><a class="inline-link" href={studioHref}>Seite im Redaktionsstudio öffnen</a></p>
+  </aside>
+) : null}

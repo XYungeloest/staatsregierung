@@ -3,6 +3,7 @@ export const prerender = false;
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import PageTools from '../../../components/editorial/PageTools.astro';
 import { siteConfig } from '../../../config/site.ts';
 import { getDatabase } from '../../../lib/dynamic/env.ts';
 import {
@@ -13,6 +14,10 @@ import {
   getRuntimeNormLookup,
   getRuntimeTopicLookup,
 } from '../../../lib/runtime-content/index.ts';
+import {
+  getEditorialPublicState,
+  shouldRenderEditorialUi,
+} from '../../../lib/editorial/live.ts';
 import { buildArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
@@ -27,6 +32,8 @@ import { getNormUrl } from '../../../lib/norms/index.ts';
 const slug = Astro.params.slug ?? '';
 const database = getDatabase();
 const release = slug ? await getPressReleaseBySlug(database, slug) : undefined;
+const editorial = slug ? await getEditorialPublicState('pressemitteilung', slug, 'd1') : undefined;
+const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
 
 if (!release) {
   Astro.response.status = 404;
@@ -104,6 +111,18 @@ const relatedReleases = release
         <p class="lead">{release.teaser}</p>
         <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
       </section>
+
+      {editorial ? (
+        <section class="section">
+          <PageTools
+            visible={showEditorialUi}
+            studioHref={editorial.studioHref}
+            sourceLabel={editorial.sourceLabel}
+            liveLabel={editorial.liveLabel}
+            hasPendingChanges={editorial.entryState.hasPendingChanges}
+          />
+        </section>
+      ) : null}
 
       <div class="content-grid">
         <section class="section">

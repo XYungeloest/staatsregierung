@@ -212,7 +212,7 @@ Unter `/redaktion/` läuft jetzt ein interner, on-demand gerenderter Redaktionsb
 - Ressorts
 - Regierungsmitglieder
 
-Direkt live schaltbar sind aktuell nur die bereits D1-gestützten Bereiche Pressemitteilungen, Termine, Stellenangebote und Projektstatus. Service-, Themen- und Regierungsinhalte bleiben in Phase 1 des Studios dateibasiert und werden als Entwurf mit Preview und Export vorbereitet.
+Direkt live schaltbar sind die bereits D1-gestützten Bereiche Pressemitteilungen, Termine, Stellenangebote und Projektstatus. Service-Seiten, Themenseiten, Ressorts und Regierungsmitglieder unterstützen zusätzlich veröffentlichte D1-Live-Overrides mit dateibasiertem Fallback aus dem Repository.
 
 Das frühere clientseitige Normdatei-Werkzeug bleibt als eigenes Rechtswerkzeug unter `/redaktion/recht/` erhalten. Hinweise zu Routen, D1-Tabellen, R2-Uploads und Access-Schutz stehen in [EDITORIAL_STUDIO_NOTES.md](./EDITORIAL_STUDIO_NOTES.md).
 

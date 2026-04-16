@@ -1,10 +1,21 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageTools from '../../components/editorial/PageTools.astro';
 import { getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
-import { loadPageBySlug } from '../../lib/portal/content.ts';
+import { loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import {
+  resolveServicePageContent,
+  shouldRenderEditorialUi,
+} from '../../lib/editorial/live.ts';
 
-const page = await loadPageBySlug('datenschutz');
+const { page, editorial } = await resolveServicePageContent(
+  'datenschutz',
+  loadRuntimeServicePageBySlug('datenschutz'),
+);
+const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
 ---
 
 <BaseLayout title={page?.title ?? 'Datenschutz'} description="Datenschutzhinweise des Regierungsportals.">
@@ -19,6 +30,16 @@ const page = await loadPageBySlug('datenschutz');
   <section class="section page-header">
     <p class="eyebrow">Service</p>
     <h1>{page?.title ?? 'Datenschutz'}</h1>
+  </section>
+
+  <section class="section">
+    <PageTools
+      visible={showEditorialUi}
+      studioHref={editorial.studioHref}
+      sourceLabel={editorial.sourceLabel}
+      liveLabel={editorial.liveLabel}
+      hasPendingChanges={editorial.entryState.hasPendingChanges}
+    />
   </section>
 
   <div class="content-grid">

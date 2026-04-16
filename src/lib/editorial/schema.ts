@@ -133,11 +133,12 @@ export interface EditorialEntryRecord {
   route: string;
   title: string;
   status: EditorialEntryStatus;
-  publish_mode: EditorialPublishMode;
+  publish_mode: 'direct' | 'export';
   author: string | null;
   metadata_json: string;
   content_json: string;
   current_version_id: string | null;
+  published_version_id: string | null;
   current_version_number: number;
   created_at: string;
   updated_at: string;
@@ -170,6 +171,7 @@ export interface EditorialEntry {
   metadata: EditorialEntryMetadata;
   content: EditorialEntryContent;
   currentVersionId?: string;
+  publishedVersionId?: string;
   currentVersionNumber: number;
   createdAt: string;
   updatedAt: string;
@@ -204,6 +206,21 @@ export interface EditorialEntryWriteInput {
   action: EditorialVersionAction;
   summary?: string;
   publishedPayload?: unknown;
+  liveBehavior?: 'preserve' | 'publish' | 'reset';
+}
+
+export interface EditorialPublishedVersionRow extends EditorialVersionRecord {
+  entry_slug: string;
+  entry_route: string;
+  entry_title: string;
+  entry_type: EditorialEntryType;
+}
+
+export interface EditorialEntryState {
+  entry?: EditorialEntry;
+  publishedVersion?: EditorialVersion;
+  hasLiveVersion: boolean;
+  hasPendingChanges: boolean;
 }
 
 export interface EditorialSaveResult {

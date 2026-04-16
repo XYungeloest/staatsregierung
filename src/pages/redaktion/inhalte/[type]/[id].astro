@@ -96,13 +96,14 @@ const message = Astro.url.searchParams.get('message') ?? undefined;
             values={formValues}
             accessInfo={accessInfo}
             saveAction={withBase(`/redaktion/api/inhalte/${type}/save`)}
-            publishAction={withBase(`/redaktion/api/inhalte/${type}/publish`)}
-            exportAction={withBase(`/redaktion/api/inhalte/${type}/export`)}
-            downloadAction={
-              definition.publishMode === 'export'
-                ? withBase(`/redaktion/api/inhalte/${type}/${entry.id}/export.json`)
-                : undefined
-            }
+            secondaryAction={withBase(`/redaktion/api/inhalte/${type}/publish`)}
+            resetAction={withBase(`/redaktion/api/inhalte/${type}/reset`)}
+            hasActiveLiveVersion={Boolean(entry.publishedVersionId)}
+            hasPendingChanges={Boolean(
+              entry.publishedVersionId &&
+                entry.currentVersionId &&
+                entry.currentVersionId !== entry.publishedVersionId,
+            )}
             liveUrl={previewRoute}
             errorMessage={errorMessage}
           />
@@ -150,9 +151,13 @@ const message = Astro.url.searchParams.get('message') ?? undefined;
                 <dt>Ziel-URL</dt>
                 <dd><code>{previewRoute}</code></dd>
               </div>
+              <div>
+                <dt>Live-Quelle</dt>
+                <dd>{entry.publishedVersionId ? 'Veröffentlichter Override aus D1' : 'Statischer Fallback aktiv'}</dd>
+              </div>
               {exportPath ? (
                 <div>
-                  <dt>Exportpfad</dt>
+                  <dt>Repository-Fallback</dt>
                   <dd><code>{exportPath}</code></dd>
                 </div>
               ) : null}

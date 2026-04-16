@@ -1,6 +1,9 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import PageTools from '../../../components/editorial/PageTools.astro';
 import TopicCard from '../../../components/portal/TopicCard.astro';
 import {
   getGovernmentUrl,
@@ -8,30 +11,35 @@ import {
   getMinistriesUrl,
   getMinistryUrl,
   resolvePortalPath,
-  type Ministerium,
 } from '../../../lib/portal/index.ts';
-import { loadMinistries, loadTopics } from '../../../lib/portal/content.ts';
-import { loadAllNorms } from '../../../lib/norms/content.ts';
+import {
+  getRuntimeNormLookup,
+  loadRuntimeMinistryBySlug,
+  loadRuntimeTopics,
+} from '../../../lib/runtime-content/index.ts';
 import { getNormUrl } from '../../../lib/norms/index.ts';
+import {
+  resolveMinistryPageContent,
+  shouldRenderEditorialUi,
+} from '../../../lib/editorial/live.ts';
 
-export async function getStaticPaths() {
-  const ministries = await loadMinistries();
+const slug = Astro.params.ressort ?? '';
+const fallbackMinistry = slug ? loadRuntimeMinistryBySlug(slug) : undefined;
+const { ministry, editorial } = await resolveMinistryPageContent(slug, fallbackMinistry);
 
-  return ministries.map((ministry) => ({
-    params: { ressort: ministry.slug },
-    props: { ministry },
-  }));
+if (!ministry) {
+  Astro.response.status = 404;
 }
 
-const { ministry } = Astro.props as { ministry: Ministerium };
-
-const [topics, norms] = await Promise.all([loadTopics(), loadAllNorms()]);
-const normLookup = new Map(norms.map((norm) => [norm.meta.slug, norm]));
-const relatedTopics = topics.filter(
-  (topic) =>
-    topic.federfuehrendesRessort === ministry.slug ||
-    (topic.mitzeichnungsressorts ?? []).includes(ministry.slug),
-);
+const topics = loadRuntimeTopics();
+const normLookup = getRuntimeNormLookup();
+const relatedTopics = ministry
+  ? topics.filter(
+      (topic) =>
+        topic.federfuehrendesRessort === ministry.slug ||
+        (topic.mitzeichnungsressorts ?? []).includes(ministry.slug),
+    )
+  : [];
 const legalReferences = Array.from(
   new Map(
     relatedTopics.flatMap((topic) =>
@@ -46,152 +54,192 @@ const legalReferences = Array.from(
     ),
   ).values(),
 ).slice(0, 10);
+const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
 ---
 
-<BaseLayout
-  title={`${ministry.kurzname} | ${ministry.name}`}
-  description={ministry.teaser}
-  breadcrumbs={[
-    { label: 'Startseite', href: getHomeUrl() },
-    { label: 'Staatsregierung', href: getGovernmentUrl() },
-    { label: 'Kabinett', href: getMinistriesUrl() },
-    { label: ministry.kurzname },
-  ]}
-  ogImage={{
-    url: ministry.bild,
-    alt: ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`,
-  }}
->
-  <Breadcrumbs
-    items={[
+{ministry ? (
+  <BaseLayout
+    title={`${ministry.kurzname} | ${ministry.name}`}
+    description={ministry.teaser}
+    breadcrumbs={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Staatsregierung', href: getGovernmentUrl() },
       { label: 'Kabinett', href: getMinistriesUrl() },
       { label: ministry.kurzname },
     ]}
-  />
+    ogImage={{
+      url: ministry.bild,
+      alt: ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`,
+    }}
+  >
+    <Breadcrumbs
+      items={[
+        { label: 'Startseite', href: getHomeUrl() },
+        { label: 'Staatsregierung', href: getGovernmentUrl() },
+        { label: 'Kabinett', href: getMinistriesUrl() },
+        { label: ministry.kurzname },
+      ]}
+    />
 
-  <section class="section page-header">
-    <p class="eyebrow">Ressort</p>
-    <h1>{ministry.name}</h1>
-    <p class="lead">{ministry.teaser}</p>
-    <p class="detail-line">{ministry.leitung}</p>
-  </section>
+    <section class="section page-header">
+      <p class="eyebrow">Ressort</p>
+      <h1>{ministry.name}</h1>
+      <p class="lead">{ministry.teaser}</p>
+      <p class="detail-line">{ministry.leitung}</p>
+    </section>
 
-  <div class="content-grid">
     <section class="section">
-      <img
-        class="media-banner"
-        src={resolvePortalPath(ministry.bild)}
-        alt={ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`}
+      <PageTools
+        visible={showEditorialUi}
+        studioHref={editorial.studioHref}
+        sourceLabel={editorial.sourceLabel}
+        liveLabel={editorial.liveLabel}
+        hasPendingChanges={editorial.entryState.hasPendingChanges}
       />
-      <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p>
-      <div class="status-notice status-notice--current">
-        <h2>Ressortprofil</h2>
-        <p>
-          Die Ressortseite fasst Auftrag, Aufgaben, Themenbezug und Kontakt des Ressorts in einer
-          kompakten, regierungsnahen Form zusammen.
-        </p>
-      </div>
-      <div class="body-copy">
-        <p>{ministry.teaser}</p>
-      </div>
-
-      <div class="section-header">
-        <h2>Aufgaben</h2>
-      </div>
-      <ul class="record-list">
-        {ministry.aufgaben.map((task) => (
-          <li class="record-list__item">
-            <span>{task}</span>
-          </li>
-        ))}
-      </ul>
-
-      <div class="section-header">
-        <h2>Thematische Schwerpunkte</h2>
-      </div>
-      <div class="tag-list">
-        {ministry.themen.map((topic) => (
-          <span class="tag">{topic}</span>
-        ))}
-      </div>
     </section>
 
-    <aside class="section meta-panel">
-      <div class="section-header section-header--compact">
-        <h2>Kontakt</h2>
-      </div>
-      <dl class="meta-list">
-        <div>
-          <dt>Leitung</dt>
-          <dd>{ministry.leitung}</dd>
+    <div class="content-grid">
+      <section class="section">
+        <img
+          class="media-banner"
+          src={resolvePortalPath(ministry.bild)}
+          alt={ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`}
+        />
+        <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p>
+        <div class="status-notice status-notice--current">
+          <h2>Ressortprofil</h2>
+          <p>
+            Die Ressortseite fasst Auftrag, Aufgaben, Themenbezug und Kontakt des Ressorts in einer
+            kompakten, regierungsnahen Form zusammen.
+          </p>
         </div>
-        {ministry.kontakt.name ? (
-          <div>
-            <dt>Ansprechstelle</dt>
-            <dd>{ministry.kontakt.name}</dd>
-          </div>
-        ) : null}
-        {ministry.kontakt.referat ? (
-          <div>
-            <dt>Referat</dt>
-            <dd>{ministry.kontakt.referat}</dd>
-          </div>
-        ) : null}
-        <div>
-          <dt>E-Mail</dt>
-          <dd>{ministry.kontakt.email ?? 'wird ergänzt'}</dd>
+        <div class="body-copy">
+          <p>{ministry.teaser}</p>
         </div>
-        <div>
-          <dt>Telefon</dt>
-          <dd>{ministry.kontakt.telefon ?? 'wird ergänzt'}</dd>
-        </div>
-      </dl>
-      <nav class="link-list">
-        {ministry.verknuepfteLinks.map((link) => (
-          <a href={resolvePortalPath(link.href)}>{link.label}</a>
-        ))}
-        <a href={getMinistryUrl(ministry.slug)}>Stabile URL dieses Ressorts</a>
-      </nav>
-    </aside>
-  </div>
 
-  {relatedTopics.length > 0 ? (
-    <section class="section section-muted">
-      <div class="section-header">
-        <h2>Zugeordnete Themen & Projekte</h2>
-        <p>
-          Diese Themenseiten werden federführend oder mitzeichnend von diesem Ressort begleitet.
-        </p>
-      </div>
-      <div class="card-grid card-grid--two">
-        {relatedTopics.map((topic) => (
-          <TopicCard topic={topic} ministryName={ministry.kurzname} />
-        ))}
-      </div>
-    </section>
-  ) : null}
+        <div class="section-header">
+          <h2>Aufgaben</h2>
+        </div>
+        <ul class="record-list">
+          {ministry.aufgaben.map((task) => (
+            <li class="record-list__item">
+              <span>{task}</span>
+            </li>
+          ))}
+        </ul>
 
-  {legalReferences.length > 0 ? (
+        <div class="section-header">
+          <h2>Thematische Schwerpunkte</h2>
+        </div>
+        <div class="tag-list">
+          {ministry.themen.map((topic) => (
+            <span class="tag">{topic}</span>
+          ))}
+        </div>
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Kontakt</h2>
+        </div>
+        <dl class="meta-list">
+          <div>
+            <dt>Leitung</dt>
+            <dd>{ministry.leitung}</dd>
+          </div>
+          {ministry.kontakt.name ? (
+            <div>
+              <dt>Ansprechstelle</dt>
+              <dd>{ministry.kontakt.name}</dd>
+            </div>
+          ) : null}
+          {ministry.kontakt.referat ? (
+            <div>
+              <dt>Referat</dt>
+              <dd>{ministry.kontakt.referat}</dd>
+            </div>
+          ) : null}
+          <div>
+            <dt>E-Mail</dt>
+            <dd>{ministry.kontakt.email ?? 'wird ergänzt'}</dd>
+          </div>
+          <div>
+            <dt>Telefon</dt>
+            <dd>{ministry.kontakt.telefon ?? 'wird ergänzt'}</dd>
+          </div>
+        </dl>
+        <nav class="link-list">
+          {ministry.verknuepfteLinks.map((link) => (
+            <a href={resolvePortalPath(link.href)}>{link.label}</a>
+          ))}
+          <a href={getMinistryUrl(ministry.slug)}>Stabile URL dieses Ressorts</a>
+        </nav>
+      </aside>
+    </div>
+
+    {relatedTopics.length > 0 ? (
+      <section class="section section-muted">
+        <div class="section-header">
+          <h2>Zugeordnete Themen & Projekte</h2>
+          <p>
+            Diese Themenseiten werden federführend oder mitzeichnend von diesem Ressort begleitet.
+          </p>
+        </div>
+        <div class="card-grid card-grid--two">
+          {relatedTopics.map((topic) => (
+            <TopicCard topic={topic} ministryName={ministry.kurzname} />
+          ))}
+        </div>
+      </section>
+    ) : null}
+
+    {legalReferences.length > 0 ? (
+      <section class="section">
+        <div class="section-header">
+          <h2>Rechtsgrundlagen aus den zugeordneten Themen</h2>
+          <p>Die Übersicht zeigt direkte Verknüpfungen aus Themen- und Projektseiten in den Rechtsbereich.</p>
+        </div>
+        <ul class="record-list">
+          {legalReferences.map((entry) => (
+            <li class="record-list__item">
+              {entry.norm ? (
+                <strong><a class="inline-link" href={getNormUrl(entry.norm.slug)}>{entry.label}</a></strong>
+              ) : (
+                <strong>{entry.label}</strong>
+              )}
+              <span>Themenbezug: {entry.topicTitle}</span>
+              {entry.note ? <span>{entry.note}</span> : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null}
+  </BaseLayout>
+) : (
+  <BaseLayout
+    title="Ressort nicht gefunden"
+    description="Die angeforderte Ressortseite konnte nicht geladen werden."
+    breadcrumbs={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Kabinett', href: getMinistriesUrl() },
+      { label: 'Nicht gefunden' },
+    ]}
+  >
+    <Breadcrumbs
+      items={[
+        { label: 'Startseite', href: getHomeUrl() },
+        { label: 'Staatsregierung', href: getGovernmentUrl() },
+        { label: 'Kabinett', href: getMinistriesUrl() },
+        { label: 'Nicht gefunden' },
+      ]}
+    />
+
     <section class="section">
-      <div class="section-header">
-        <h2>Rechtsgrundlagen aus den zugeordneten Themen</h2>
-        <p>Die Übersicht zeigt direkte Verknüpfungen aus Themen- und Projektseiten in den Rechtsbereich.</p>
+      <div class="status-notice status-notice--warning">
+        <h1>Ressortseite nicht gefunden</h1>
+        <p>Für diese URL liegt weder ein statisches Ressortprofil noch ein veröffentlichter D1-Override vor.</p>
       </div>
-      <ul class="record-list">
-        {legalReferences.map((entry) => (
-          <li class="record-list__item">
-            {entry.norm ? (
-              <strong><a class="inline-link" href={getNormUrl(entry.norm.meta.slug)}>{entry.label}</a></strong>
-            ) : (
-              <strong>{entry.label}</strong>
-            )}
-            <span>Themenbezug: {entry.topicTitle}</span>
-            {entry.note ? <span>{entry.note}</span> : null}
-          </li>
-        ))}
-      </ul>
     </section>
-  ) : null}
-</BaseLayout>
+  </BaseLayout>
+)}

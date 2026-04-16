@@ -1,6 +1,9 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageTools from '../../components/editorial/PageTools.astro';
 import ServiceCard from '../../components/portal/ServiceCard.astro';
 import { siteConfig } from '../../config/site.ts';
 import {
@@ -11,11 +14,19 @@ import {
   getMinistryUrl,
   getServiceUrl,
 } from '../../lib/portal/index.ts';
-import { loadMinistries, loadPageBySlug } from '../../lib/portal/content.ts';
+import { loadRuntimeMinistries, loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import {
+  resolveServicePageContent,
+  shouldRenderEditorialUi,
+} from '../../lib/editorial/live.ts';
 
-const page = await loadPageBySlug('kontakt');
+const { page, editorial } = await resolveServicePageContent(
+  'kontakt',
+  loadRuntimeServicePageBySlug('kontakt'),
+);
 const contact = siteConfig.contact;
-const ministries = await loadMinistries();
+const ministries = loadRuntimeMinistries();
+const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
 const routedContacts = [
   {
     key: 'allgemein',
@@ -80,6 +91,16 @@ const routedContacts = [
       Zentrale Kontaktwege der Staatsregierung, der Pressestelle und der allgemeinen
       Servicekommunikation.
     </p>
+  </section>
+
+  <section class="section">
+    <PageTools
+      visible={showEditorialUi}
+      studioHref={editorial.studioHref}
+      sourceLabel={editorial.sourceLabel}
+      liveLabel={editorial.liveLabel}
+      hasPendingChanges={editorial.entryState.hasPendingChanges}
+    />
   </section>
 
   <div class="content-grid">
