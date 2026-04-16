@@ -113,8 +113,7 @@ const exportPath =
             values={formValues}
             accessInfo={accessInfo}
             saveAction={withBase(`/redaktion/api/inhalte/${type}/save`)}
-            publishAction={withBase(`/redaktion/api/inhalte/${type}/publish`)}
-            exportAction={withBase(`/redaktion/api/inhalte/${type}/export`)}
+            secondaryAction={withBase(`/redaktion/api/inhalte/${type}/publish`)}
             liveUrl={previewRoute}
             errorMessage={errorMessage}
           />
@@ -138,7 +137,7 @@ const exportPath =
                 {' · '}
                 Quelle: <code>{sourceId}</code>
               </p>
-              {exportPath ? <p>Späterer Exportpfad: <code>{exportPath}</code></p> : null}
+              {exportPath ? <p>Repository-Fallbackpfad: <code>{exportPath}</code></p> : null}
             </section>
           ) : null}
         </div>

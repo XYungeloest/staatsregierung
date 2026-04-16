@@ -15,8 +15,8 @@ export const GET: APIRoute = async ({ params }) => {
   const type = params.type;
   const definition = getEditorialTypeDefinition(type);
 
-  if (definition.publishMode !== 'export') {
-    return new Response('Für diesen Typ steht kein Export bereit.', { status: 405 });
+  if (!definition.exportPathBuilder) {
+    return new Response('Für diesen Typ steht kein JSON-Export bereit.', { status: 405 });
   }
 
   const entryId = params.id ?? '';

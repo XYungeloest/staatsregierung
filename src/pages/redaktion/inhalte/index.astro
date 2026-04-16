@@ -36,7 +36,7 @@ const summaryMap = new Map(summaries.map((entry) => [entry.type, entry]));
     <h1>Inhaltstypen</h1>
     <p class="lead">
       Jeder Typ besitzt eigene Felder, eine Vorschau und je nach Bereich einen Direktpublish- oder
-      Exportpfad.
+      Live-Override-Workflow.
     </p>
   </section>
 
@@ -52,7 +52,7 @@ const summaryMap = new Map(summaries.map((entry) => [entry.type, entry]));
 
         return (
           <article class="panel studio-card">
-            <p class="eyebrow">{definition.publishMode === 'direct' ? 'Direkt live' : 'Export / manuell'}</p>
+            <p class="eyebrow">{definition.publishMode === 'direct' ? 'Direkt live' : 'Live-Override'}</p>
             <h2>{definition.pluralLabel}</h2>
             <p>{definition.description}</p>
             <dl class="meta-list meta-list--compact">
@@ -65,8 +65,8 @@ const summaryMap = new Map(summaries.map((entry) => [entry.type, entry]));
                 <dd>{summary?.draftCount ?? 0}</dd>
               </div>
               <div>
-                <dt>Export bereit</dt>
-                <dd>{summary?.exportReadyCount ?? 0}</dd>
+                <dt>Live aktiv</dt>
+                <dd>{summary?.publishedCount ?? 0}</dd>
               </div>
             </dl>
             <p><a class="inline-link" href={`${getEditorialUrl()}inhalte/${type}/`}>Zum Bereich</a></p>

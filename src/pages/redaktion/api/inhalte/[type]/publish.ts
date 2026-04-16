@@ -18,8 +18,8 @@ export const POST: APIRoute = async ({ params, request }) => {
   const type = params.type;
   const definition = getEditorialTypeDefinition(type);
 
-  if (definition.publishMode !== 'direct') {
-    return new Response('Direktpublish für diesen Typ nicht erlaubt', { status: 405 });
+  if (definition.publishMode !== 'direct' && definition.publishMode !== 'override') {
+    return new Response('Veröffentlichung für diesen Typ nicht erlaubt', { status: 405 });
   }
 
   const formData = await request.formData();
@@ -34,6 +34,7 @@ export const POST: APIRoute = async ({ params, request }) => {
       status: 'published' as const,
       publishMode: definition.publishMode,
       action: 'publish' as const,
+      liveBehavior: 'publish' as const,
     };
 
     const publishedPayload = buildContentPayload(previewInput);
@@ -42,7 +43,9 @@ export const POST: APIRoute = async ({ params, request }) => {
       publishedPayload,
     };
 
-    await publishDirectContent(getDatabase(), writeInput);
+    if (definition.publishMode === 'direct') {
+      await publishDirectContent(getDatabase(), writeInput);
+    }
     const result = await saveEditorialEntry(getDatabase(), writeInput);
     await writePublishLog(getDatabase(), {
       entryId: result.entryId,
@@ -51,7 +54,10 @@ export const POST: APIRoute = async ({ params, request }) => {
       targetIdentifier: parsed.slug,
       mode: definition.publishMode,
       status: 'success',
-      detail: 'Direkt in D1 veröffentlicht.',
+      detail:
+        definition.publishMode === 'direct'
+          ? 'Direkt in D1 veröffentlicht.'
+          : 'Live-Override für die öffentliche Seite aktiviert.',
       payload: publishedPayload,
     });
 
@@ -59,7 +65,9 @@ export const POST: APIRoute = async ({ params, request }) => {
       withEditorialMessage(
         withBase(`/redaktion/inhalte/${type}/${result.entryId}/`),
         'message',
-        'Eintrag direkt veröffentlicht.',
+        definition.publishMode === 'direct'
+          ? 'Eintrag direkt veröffentlicht.'
+          : 'Live-Override veröffentlicht.',
       ),
     );
   } catch (error) {

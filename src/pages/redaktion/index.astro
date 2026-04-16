@@ -17,6 +17,7 @@ const typeSummaries = await listEditorialTypeSummaries(database);
 const summaryMap = new Map(typeSummaries.map((entry) => [entry.type, entry]));
 const recentEntries = (await listEditorialEntries(database)).slice(0, 8);
 const mediaAssets = await listMediaAssets(database);
+const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publishedCount, 0);
 ---
 
 <BaseLayout
@@ -35,7 +36,7 @@ const mediaAssets = await listMediaAssets(database);
     <h1>Redaktionsstudio</h1>
     <p class="lead">
       Das Studio bündelt D1-Entwürfe, Vorschau, direkte Veröffentlichungen für Presse, Termine,
-      Karriere und Dashboard sowie Exportpfade für die weiterhin dateibasierten Bereiche.
+      Karriere und Dashboard sowie Live-Overrides für ausgewählte Service-, Themen- und Regierungsseiten.
     </p>
     <p class="detail-line">
       Aktive Sitzung: {accessInfo.displayName}
@@ -71,8 +72,8 @@ const mediaAssets = await listMediaAssets(database);
         <strong>{recentEntries.filter((entry) => entry.status === 'draft').length}</strong>
       </div>
       <div class="meta-card">
-        <span class="meta-label">Exportbereit</span>
-        <strong>{recentEntries.filter((entry) => entry.status === 'export_ready').length}</strong>
+        <span class="meta-label">Live aktiv</span>
+        <strong>{activeLiveCount}</strong>
       </div>
       <div class="meta-card">
         <span class="meta-label">Medien</span>
@@ -85,8 +86,8 @@ const mediaAssets = await listMediaAssets(database);
     <div class="section-header">
       <h2>Bearbeitbare Inhaltstypen</h2>
       <p>
-        Die Live-Schaltung erfolgt nur für D1-gestützte Bereiche. Service, Themen und
-        Regierungsprofile bleiben in Phase 1 im Entwurfs- und Exportmodus.
+        D1-Bereiche werden direkt veröffentlicht. Statische Portalbereiche können jetzt gezielt
+        per Live-Override überlagert werden, ohne ihren dateibasierten Fallback zu verlieren.
       </p>
     </div>
     <div class="card-grid card-grid--three">
@@ -96,7 +97,7 @@ const mediaAssets = await listMediaAssets(database);
 
         return (
           <article class="panel studio-card">
-            <p class="eyebrow">{definition.publishMode === 'direct' ? 'Direktpublish' : 'Export'}</p>
+            <p class="eyebrow">{definition.publishMode === 'direct' ? 'Direktpublish' : 'Live-Override'}</p>
             <h2>{definition.pluralLabel}</h2>
             <p>{definition.description}</p>
             <dl class="meta-list meta-list--compact">
@@ -151,7 +152,7 @@ const mediaAssets = await listMediaAssets(database);
         </div>
         <nav class="link-list">
           <a href={`${getEditorialUrl()}inhalte/`}>Inhalte verwalten</a>
-          <a href={`${getEditorialUrl()}entwuerfe/`}>Entwürfe und Exportstände</a>
+          <a href={`${getEditorialUrl()}entwuerfe/`}>Entwürfe und offene Stände</a>
           <a href={`${getEditorialUrl()}medien/`}>Medien in R2</a>
           <a href={`${getEditorialUrl()}recht/`}>Bestehendes Rechtswerkzeug</a>
         </nav>

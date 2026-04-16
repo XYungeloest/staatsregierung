@@ -1,97 +1,141 @@
 ---
+export const prerender = false;
+
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import PageTools from '../../../components/editorial/PageTools.astro';
 import {
   getGovernmentMemberUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
   resolvePortalPath,
-  type RegierungMitglied,
 } from '../../../lib/portal/index.ts';
-import { loadGovernmentMembers } from '../../../lib/portal/content.ts';
+import { loadRuntimeGovernmentMemberBySlug } from '../../../lib/runtime-content/index.ts';
+import {
+  resolveGovernmentMemberPageContent,
+  shouldRenderEditorialUi,
+} from '../../../lib/editorial/live.ts';
 
-export async function getStaticPaths() {
-  const members = await loadGovernmentMembers();
+const slug = Astro.params.slug ?? '';
+const fallbackMember = slug ? loadRuntimeGovernmentMemberBySlug(slug) : undefined;
+const { member, editorial } = await resolveGovernmentMemberPageContent(slug, fallbackMember);
 
-  return members.map((member) => ({
-    params: { slug: member.slug },
-    props: { member },
-  }));
+if (!member) {
+  Astro.response.status = 404;
 }
 
-const { member } = Astro.props as { member: RegierungMitglied };
+const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
 ---
 
-<BaseLayout title={member.name} description={member.kurzbiografie}>
-  <Breadcrumbs
-    items={[
+{member ? (
+  <BaseLayout title={member.name} description={member.kurzbiografie}>
+    <Breadcrumbs
+      items={[
+        { label: 'Startseite', href: getHomeUrl() },
+        { label: 'Staatsregierung', href: getGovernmentUrl() },
+        { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
+        { label: member.name },
+      ]}
+    />
+
+    <section class="section page-header">
+      <p class="eyebrow">Regierungsmitglied</p>
+      <h1>{member.name}</h1>
+      <p class="lead">{member.amt}</p>
+      <p class="detail-line">{member.ressort}</p>
+    </section>
+
+    <section class="section">
+      <PageTools
+        visible={showEditorialUi}
+        studioHref={editorial.studioHref}
+        sourceLabel={editorial.sourceLabel}
+        liveLabel={editorial.liveLabel}
+        hasPendingChanges={editorial.entryState.hasPendingChanges}
+      />
+    </section>
+
+    <div class="content-grid">
+      <section class="section">
+        <div class="status-notice status-notice--current">
+          <h2>Aktuelles Profil</h2>
+          <p>Dieses Profil gehört zur aktuellen Staatsregierung und fasst Aufgabenbereich, Biografie und Kontaktweg kompakt zusammen.</p>
+        </div>
+        <article class="profile-card">
+          <img
+            src={resolvePortalPath(member.bild)}
+            alt={member.bildAlt ?? `Porträt von ${member.name}`}
+          />
+          <div>
+            <p>{member.kurzbiografie}</p>
+            {member.zitat ? <blockquote class="quote-card">„{member.zitat}“</blockquote> : null}
+          </div>
+        </article>
+        <p class="media-credit">Bildnachweis: {member.bildnachweis}</p>
+        <div class="body-copy">
+          {member.langbiografie.map((paragraph: string) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Profil</h2>
+        </div>
+        <dl class="meta-list">
+          <div>
+            <dt>Amt</dt>
+            <dd>{member.amt}</dd>
+          </div>
+          <div>
+            <dt>Ressort</dt>
+            <dd>{member.ressort}</dd>
+          </div>
+          <div>
+            <dt>Kontakt</dt>
+            <dd>{member.kontakt?.email ?? 'wird ergänzt'}</dd>
+          </div>
+          {member.kontakt?.telefon ? (
+            <div>
+              <dt>Telefon</dt>
+              <dd>{member.kontakt.telefon}</dd>
+            </div>
+          ) : null}
+        </dl>
+        <nav class="link-list">
+          <a href={getGovernmentMembersUrl()}>Zur Übersicht</a>
+          <a href={getGovernmentMemberUrl(member.slug)}>Stabile URL dieses Profils</a>
+        </nav>
+      </aside>
+    </div>
+  </BaseLayout>
+) : (
+  <BaseLayout
+    title="Profil nicht gefunden"
+    description="Das angeforderte Regierungsprofil konnte nicht geladen werden."
+    breadcrumbs={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Staatsregierung', href: getGovernmentUrl() },
       { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
-      { label: member.name },
+      { label: 'Nicht gefunden' },
     ]}
-  />
+  >
+    <Breadcrumbs
+      items={[
+        { label: 'Startseite', href: getHomeUrl() },
+        { label: 'Staatsregierung', href: getGovernmentUrl() },
+        { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
+        { label: 'Nicht gefunden' },
+      ]}
+    />
 
-  <section class="section page-header">
-    <p class="eyebrow">Regierungsmitglied</p>
-    <h1>{member.name}</h1>
-    <p class="lead">{member.amt}</p>
-    <p class="detail-line">{member.ressort}</p>
-  </section>
-
-  <div class="content-grid">
     <section class="section">
-      <div class="status-notice status-notice--current">
-        <h2>Aktuelles Profil</h2>
-        <p>Dieses Profil gehört zur aktuellen Staatsregierung und fasst Aufgabenbereich, Biografie und Kontaktweg kompakt zusammen.</p>
-      </div>
-      <article class="profile-card">
-        <img
-          src={resolvePortalPath(member.bild)}
-          alt={member.bildAlt ?? `Porträt von ${member.name}`}
-        />
-        <div>
-          <p>{member.kurzbiografie}</p>
-          {member.zitat ? <blockquote class="quote-card">„{member.zitat}“</blockquote> : null}
-        </div>
-      </article>
-      <p class="media-credit">Bildnachweis: {member.bildnachweis}</p>
-      <div class="body-copy">
-        {member.langbiografie.map((paragraph: string) => (
-          <p>{paragraph}</p>
-        ))}
+      <div class="status-notice status-notice--warning">
+        <h1>Regierungsprofil nicht gefunden</h1>
+        <p>Für diese URL liegt weder ein statisches Profil noch ein veröffentlichter D1-Override vor.</p>
       </div>
     </section>
-
-    <aside class="section meta-panel">
-      <div class="section-header section-header--compact">
-        <h2>Profil</h2>
-      </div>
-      <dl class="meta-list">
-        <div>
-          <dt>Amt</dt>
-          <dd>{member.amt}</dd>
-        </div>
-        <div>
-          <dt>Ressort</dt>
-          <dd>{member.ressort}</dd>
-        </div>
-        <div>
-          <dt>Kontakt</dt>
-          <dd>{member.kontakt?.email ?? 'wird ergänzt'}</dd>
-        </div>
-        {member.kontakt?.telefon ? (
-          <div>
-            <dt>Telefon</dt>
-            <dd>{member.kontakt.telefon}</dd>
-          </div>
-        ) : null}
-      </dl>
-      <nav class="link-list">
-        <a href={getGovernmentMembersUrl()}>Zur Übersicht</a>
-        <a href={getGovernmentMemberUrl(member.slug)}>Stabile URL dieses Profils</a>
-      </nav>
-    </aside>
-  </div>
-</BaseLayout>
+  </BaseLayout>
+)}

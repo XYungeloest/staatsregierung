@@ -29,6 +29,7 @@ export const POST: APIRoute = async ({ params, request }) => {
       status: 'draft' as const,
       publishMode: definition.publishMode,
       action: 'draft_save' as const,
+      liveBehavior: 'preserve' as const,
     };
 
     buildContentPayload(writeInput);

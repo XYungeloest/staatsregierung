@@ -9,9 +9,11 @@ interface Props {
   values: EditorialFormValues;
   accessInfo: EditorialAccessInfo;
   saveAction: string;
-  publishAction: string;
-  exportAction: string;
+  secondaryAction?: string;
   downloadAction?: string;
+  resetAction?: string;
+  hasActiveLiveVersion?: boolean;
+  hasPendingChanges?: boolean;
   liveUrl?: string;
   errorMessage?: string;
 }
@@ -21,15 +23,17 @@ const {
   values,
   accessInfo,
   saveAction,
-  publishAction,
-  exportAction,
+  secondaryAction,
   downloadAction,
+  resetAction,
+  hasActiveLiveVersion = false,
+  hasPendingChanges = false,
   liveUrl,
   errorMessage,
 } = Astro.props;
 
 const definition = getEditorialTypeDefinition(type);
-const isDirectPublish = definition.publishMode === 'direct';
+const hasExistingEntry = textValue('entryId').length > 0;
 
 function textValue(key: string, fallback = ''): string {
   const value = values[key];
@@ -79,7 +83,7 @@ const projectStatuses = ['umgesetzt', 'teilweise_umgesetzt', 'angelegt'];
   <div class="editorial-grid editorial-grid--two">
     <label class="search-field">
       <span>Slug</span>
-      <input type="text" name="slug" value={textValue('slug')} required />
+      <input type="text" name="slug" value={textValue('slug')} required readonly={hasExistingEntry} />
     </label>
     <label class="search-field">
       <span>Technische Route</span>
@@ -98,7 +102,20 @@ const projectStatuses = ['umgesetzt', 'teilweise_umgesetzt', 'angelegt'];
         placeholder="z. B. Teaser präzisiert, Datum aktualisiert"
       />
     </label>
+    {hasExistingEntry ? (
+      <p class="detail-line editorial-grid__full">
+        Der Slug bleibt nach dem ersten Speichern fixiert, damit Studio-Eintrag und Live-URL
+        stabil zugeordnet bleiben.
+      </p>
+    ) : null}
   </div>
+
+  {hasActiveLiveVersion || hasPendingChanges ? (
+    <div class="editorial-feedback">
+      {hasActiveLiveVersion ? 'Live-Override aktiv.' : 'Noch kein Live-Override aktiv.'}
+      {hasPendingChanges ? ' Es liegen unveröffentlichte Änderungen gegenüber dem Live-Stand vor.' : ''}
+    </div>
+  ) : null}
 
   {type === 'pressemitteilung' ? (
     <div class="editorial-grid editorial-grid--two">
@@ -506,15 +523,16 @@ const projectStatuses = ['umgesetzt', 'teilweise_umgesetzt', 'angelegt'];
 
   <div class="editorial-actions">
     <button class="button-link" type="submit">Entwurf speichern</button>
-    {isDirectPublish ? (
-      <button class="button-link button-link--secondary" type="submit" formaction={publishAction}>
+    {secondaryAction ? (
+      <button class="button-link button-link--secondary" type="submit" formaction={secondaryAction}>
         {definition.directPublishLabel}
       </button>
-    ) : (
-      <button class="button-link button-link--secondary" type="submit" formaction={exportAction}>
-        {definition.directPublishLabel}
+    ) : null}
+    {resetAction && hasActiveLiveVersion ? (
+      <button class="button-link button-link--ghost" type="submit" formaction={resetAction}>
+        Override deaktivieren
       </button>
-    )}
+    ) : null}
     {liveUrl ? (
       <a class="button-link button-link--ghost" href={liveUrl} target="_blank" rel="noreferrer">
         Live-Ziel öffnen

@@ -14,7 +14,7 @@ export const editorialEntryTypes = [
 export type EditorialEntryType = (typeof editorialEntryTypes)[number];
 export type EditorialEntryStatus = 'draft' | 'published' | 'export_ready';
 export type EditorialVersionAction = 'draft_save' | 'publish' | 'export';
-export type EditorialPublishMode = 'direct' | 'export';
+export type EditorialPublishMode = 'direct' | 'override';
 export type EditorialSourceOrigin = 'manual' | 'd1' | 'file';
 
 export interface EditorialTypeDefinition {
@@ -69,9 +69,9 @@ export const editorialTypeDefinitions: Record<EditorialEntryType, EditorialTypeD
     type: 'service-seite',
     label: 'Service-Seite',
     pluralLabel: 'Service-Seiten',
-    description: 'Dateibasierte Service-Grundseiten mit Export für manuelle Übernahme.',
-    publishMode: 'export',
-    directPublishLabel: 'Export vorbereiten',
+    description: 'Dateibasierte Service-Grundseiten mit Live-Override bei weiterem statischem Fallback.',
+    publishMode: 'override',
+    directPublishLabel: 'Live-Override veröffentlichen',
     routeBuilder: (slug) => withBase(`/service/${slug}/`),
     exportPathBuilder: (slug) => `content/service/seiten/${slug}.json`,
   },
@@ -79,9 +79,9 @@ export const editorialTypeDefinitions: Record<EditorialEntryType, EditorialTypeD
     type: 'themenseite',
     label: 'Themenseite',
     pluralLabel: 'Themenseiten',
-    description: 'Themenseiten mit Preview und Export in das bestehende JSON-Modell.',
-    publishMode: 'export',
-    directPublishLabel: 'Export vorbereiten',
+    description: 'Themenseiten mit Live-Override bei weiterem dateibasiertem Fallback.',
+    publishMode: 'override',
+    directPublishLabel: 'Live-Override veröffentlichen',
     routeBuilder: (slug) => withBase(`/themen/${slug}/`),
     exportPathBuilder: (slug) => `content/themen/${slug}.json`,
   },
@@ -89,9 +89,9 @@ export const editorialTypeDefinitions: Record<EditorialEntryType, EditorialTypeD
     type: 'ressort',
     label: 'Ressort',
     pluralLabel: 'Ressorts',
-    description: 'Ressortprofile mit Export in die statische Regierungsarchitektur.',
-    publishMode: 'export',
-    directPublishLabel: 'Export vorbereiten',
+    description: 'Ressortprofile mit Live-Override über der statischen Regierungsarchitektur.',
+    publishMode: 'override',
+    directPublishLabel: 'Live-Override veröffentlichen',
     routeBuilder: (slug) => withBase(`/staatsregierung/kabinett/${slug}/`),
     exportPathBuilder: (slug) => `content/ressorts/${slug}.json`,
   },
@@ -99,9 +99,9 @@ export const editorialTypeDefinitions: Record<EditorialEntryType, EditorialTypeD
     type: 'regierungsmitglied',
     label: 'Regierungsmitglied',
     pluralLabel: 'Regierungsmitglieder',
-    description: 'Mitgliederprofile mit Entwurf, Preview und Export.',
-    publishMode: 'export',
-    directPublishLabel: 'Export vorbereiten',
+    description: 'Mitgliederprofile mit Live-Override bei statischem Fallback.',
+    publishMode: 'override',
+    directPublishLabel: 'Live-Override veröffentlichen',
     routeBuilder: (slug) => withBase(`/staatsregierung/mitglieder/${slug}/`),
     exportPathBuilder: (slug) => `content/regierung/mitglieder/${slug}.json`,
   },
@@ -149,7 +149,7 @@ export function formatEditorialStatus(status: EditorialEntryStatus): string {
 }
 
 export function formatEditorialPublishMode(mode: EditorialPublishMode): string {
-  return mode === 'direct' ? 'Direktpublish' : 'Export';
+  return mode === 'direct' ? 'Direktpublish' : 'Live-Override';
 }
 
 export function getEditorialStatusTone(status: EditorialEntryStatus): 'blue' | 'green' | 'amber' {
@@ -165,4 +165,16 @@ export function getEditorialStatusTone(status: EditorialEntryStatus): 'blue' | '
 
 export function getEditorialStoragePath(type: EditorialEntryType, slug: string): string | undefined {
   return getEditorialTypeDefinition(type).exportPathBuilder?.(slug);
+}
+
+export function isEditorialOverrideType(type: EditorialEntryType): boolean {
+  return getEditorialTypeDefinition(type).publishMode === 'override';
+}
+
+export function toDatabasePublishMode(mode: EditorialPublishMode): 'direct' | 'export' {
+  return mode === 'override' ? 'export' : 'direct';
+}
+
+export function fromDatabasePublishMode(value: 'direct' | 'export'): EditorialPublishMode {
+  return value === 'export' ? 'override' : 'direct';
 }

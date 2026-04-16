@@ -3,9 +3,14 @@ export const prerender = false;
 
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import PageTools from '../../../components/editorial/PageTools.astro';
 import { siteConfig } from '../../../config/site.ts';
 import { getDatabase } from '../../../lib/dynamic/env.ts';
 import { getJobBySlug, listJobs } from '../../../lib/dynamic/repository.ts';
+import {
+  getEditorialPublicState,
+  shouldRenderEditorialUi,
+} from '../../../lib/editorial/live.ts';
 import {
   getCareerUrl,
   getHomeUrl,
@@ -17,6 +22,8 @@ import {
 const slug = Astro.params.slug ?? '';
 const database = getDatabase();
 const offer = slug ? await getJobBySlug(database, slug) : undefined;
+const editorial = slug ? await getEditorialPublicState('stellenangebot', slug, 'd1') : undefined;
+const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
 
 if (!offer) {
   Astro.response.status = 404;
@@ -55,6 +62,18 @@ const relatedOffers = offer
           {siteConfig.date.formatLong(offer.datePosted)}
         </p>
       </section>
+
+      {editorial ? (
+        <section class="section">
+          <PageTools
+            visible={showEditorialUi}
+            studioHref={editorial.studioHref}
+            sourceLabel={editorial.sourceLabel}
+            liveLabel={editorial.liveLabel}
+            hasPendingChanges={editorial.entryState.hasPendingChanges}
+          />
+        </section>
+      ) : null}
 
       <div class="content-grid">
         <section class="section">

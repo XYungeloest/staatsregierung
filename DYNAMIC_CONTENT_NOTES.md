@@ -49,11 +49,11 @@ Speichert die Einträge des 15-Punkte-Dashboards mit Reihenfolge, Status, Ressor
 
 ### `editor_entries`
 
-Speichert Redaktionsentwürfe, Preview-Stände und veröffentlichte oder exportbereite Inhalte über alle Studio-Typen hinweg.
+Speichert Redaktionsentwürfe, Preview-Stände, veröffentlichte Inhalte und den optional aktiven `published_version_id` für Live-Overrides über alle Studio-Typen hinweg.
 
 ### `editor_versions`
 
-Speichert einfache Versionsstände mit Änderungsvermerk, Aktion (`draft_save`, `publish`, `export`) und optionalem Publish-/Export-Payload.
+Speichert einfache Versionsstände mit Änderungsvermerk, Aktion (`draft_save`, `publish`, `export`) und optionalem Publish-/Override-Payload.
 
 ### `media_assets`
 
@@ -61,7 +61,7 @@ Speichert Metadaten zu in R2 abgelegten Studio-Medien wie Key, Alt-Text, Titel, 
 
 ### `publish_log`
 
-Schreibt eine einfache Historie für direkte Veröffentlichungen oder vorbereitete Exporte.
+Schreibt eine einfache Historie für direkte Veröffentlichungen, Live-Overrides und optionale JSON-Exporte.
 
 ## Migrationen
 
@@ -75,6 +75,7 @@ Aktuell:
 
 - `0001_dynamic_content.sql`
 - `0002_editorial_studio.sql`
+- `0003_editorial_live_overrides.sql`
 
 ## Seed- und Import-Workflow
 
