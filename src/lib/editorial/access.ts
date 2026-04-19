@@ -75,6 +75,11 @@ export function hasEditorialSession(request: Request, url: URL): boolean {
   return getEditorialAccessInfo(request, url).editorialSessionActive;
 }
 
+export function hasEditorialWriteAccess(request: Request, url: URL): boolean {
+  const accessInfo = getEditorialAccessInfo(request, url);
+  return accessInfo.protectedByAccess || accessInfo.isLocalRequest;
+}
+
 export function getEditorialAuthor(request: Request, fallback?: string): string | undefined {
   const accessInfo = getEditorialAccessInfo(request);
   return accessInfo.email ?? (fallback?.trim() || undefined);

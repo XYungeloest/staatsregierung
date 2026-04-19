@@ -33,6 +33,7 @@ import {
 } from '../lib/portal/content.ts';
 import { getCurrentVersion, loadAllNorms } from '../lib/norms/content.ts';
 import { getNormUrl } from '../lib/norms/index.ts';
+import SocializationCounter from '../components/portal/SocializationCounter.astro';
 
 const [members, ministries, topics, pressReleases, jobOffers, norms] = await Promise.all([
   loadGovernmentMembers(),
@@ -113,6 +114,16 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
       <a class="button-link button-link--secondary" href={getTopicsUrl()}>Zu Themen & Projekte</a>
       <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
     </nav>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+    </div>
+    <SocializationCounter
+      baseValue={638382}
+      baseTimestamp="2026-04-18T12:00:00+02:00"
+      ratePerHour={3635}
+    />
   </section>
 
   <section class="section">

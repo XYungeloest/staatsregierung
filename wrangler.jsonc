@@ -4,7 +4,8 @@
   "compatibility_date": "2026-04-15",
   "workers_dev": true,
   "vars": {
-    "APP_ENV": "production"
+    "APP_ENV": "production",
+    "EDITORIAL_SESSION_TTL_SECONDS": "14400"
   },
   "assets": {
     "directory": "./dist"
@@ -29,7 +30,8 @@
       "name": "ostrecht-portal-staging",
       "workers_dev": true,
       "vars": {
-        "APP_ENV": "staging"
+        "APP_ENV": "staging",
+        "EDITORIAL_SESSION_TTL_SECONDS": "14400"
       },
       "d1_databases": [
         {

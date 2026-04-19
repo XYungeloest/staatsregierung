@@ -22,12 +22,14 @@ import {
   resolveServicePageContent,
   shouldRenderEditorialUi,
 } from '../../lib/editorial/live.ts';
+import { getEditorialSessionLogoutHref } from '../../lib/editorial/session.ts';
 
 const { page, editorial } = await resolveServicePageContent(
   'datenschutz',
   loadRuntimeServicePageBySlug('datenschutz'),
 );
-const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
+const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
 const database = showEditorialUi ? getDatabase() : undefined;
 const inlineBase = showEditorialUi && database
   ? await getInlineBaseDraft(database, 'service-seite', 'datenschutz')
@@ -88,6 +90,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
       sourceLabel={editorial.sourceLabel}
       liveLabel={editorial.liveLabel}
       hasPendingChanges={editorial.entryState.hasPendingChanges}
+      sessionDisableHref={editorialSessionLogoutHref}
     />
   </section>
 

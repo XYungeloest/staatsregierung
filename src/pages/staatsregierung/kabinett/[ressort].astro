@@ -25,6 +25,7 @@ import {
   resolveMinistryPageContent,
   shouldRenderEditorialUi,
 } from '../../../lib/editorial/live.ts';
+import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
 import {
   buildInlineEditHref,
   buildInlineSectionState,
@@ -66,7 +67,8 @@ const legalReferences = Array.from(
     ),
   ).values(),
 ).slice(0, 10);
-const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
+const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
 const database = showEditorialUi ? getDatabase() : undefined;
 const inlineBase = showEditorialUi && database && slug
   ? await getInlineBaseDraft(database, 'ressort', slug)
@@ -146,6 +148,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         sourceLabel={editorial.sourceLabel}
         liveLabel={editorial.liveLabel}
         hasPendingChanges={editorial.entryState.hasPendingChanges}
+        sessionDisableHref={editorialSessionLogoutHref}
       />
     </section>
 

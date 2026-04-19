@@ -30,6 +30,8 @@ Das Rechtsportal unter `/recht/` bleibt funktional unangetastet. Das bisherige N
   Übersicht aller Drafts und offenen, noch nicht live übernommenen Änderungen
 - `/redaktion/recht/`
   Bestehendes Rechtswerkzeug für Normdateien
+- `/redaktion/session`
+  Access-geschützter Bootstrap-Endpunkt zum Setzen oder Beenden eines kurzlebigen Editor-Cookies für öffentliche Seiten
 
 Zusätzlich gibt es interne Endpunkte unter `/redaktion/api/...` für Speichern, Direktpublish, Live-Override, Override-Reset, JSON-Export und Medienupload.
 
@@ -162,7 +164,7 @@ Editierbare öffentliche Seiten zeigen eine dezente interne Box mit:
 - Hinweis auf unveröffentlichte Änderungen
 - Link `Seite im Redaktionsstudio öffnen`
 
-Die Box wird nur angezeigt, wenn Redaktionsfunktionen aktiviert sind und lokal oder mit Cloudflare-Access-Headern gearbeitet wird.
+Die Box wird angezeigt, wenn Redaktionsfunktionen aktiviert sind und entweder lokal gearbeitet wird, direkte Access-Header vorliegen oder ein gültiges, signiertes Editor-Cookie für die aktuelle Domain gesetzt wurde.
 
 Zusätzlich markieren einzelne Inhaltsblöcke kleine `Bearbeiten`-Aktionen direkt an der Seite. Diese öffnen ein Sidepanel, das:
 
@@ -235,16 +237,40 @@ Für Staging und Produktion sollte `/redaktion/*` nicht öffentlich erreichbar s
 1. In Cloudflare Zero Trust eine Access Application für die Pfade `/redaktion/*` anlegen.
 2. Zulässige Identitäten oder Gruppen definieren.
 3. Optional nur bestimmte E-Mail-Domänen oder konkrete Nutzer zulassen.
-4. Für seitennahe Bearbeitung auf öffentlichen Seiten zusätzlich sicherstellen, dass auch die editierbaren öffentlichen Routen die Access-Header sehen können.
+4. Die Route `/redaktion/session` in dieselbe Access-Anwendung aufnehmen.
 5. Das übrige öffentliche Portal ohne Redaktionsoberfläche normal ausliefern.
 
 Das Studio erkennt Access-Sitzungen jetzt nicht nur über `cf-access-authenticated-user-email`, sondern auch über weitere typische Access-Header wie `cf-access-authenticated-user-name`, `cf-access-authenticated-user-uuid` und `cf-access-jwt-assertion`. Es baut dennoch keine eigene Benutzerverwaltung auf.
 
+Zusätzlich wird ein Secret für die Editor-Cookie-Signatur benötigt:
+
+```sh
+wrangler secret put EDITORIAL_SESSION_SECRET
+wrangler secret put EDITORIAL_SESSION_SECRET --env staging
+```
+
+Optional kann die Gültigkeit über `EDITORIAL_SESSION_TTL_SECONDS` in `wrangler.jsonc` angepasst werden. Standard in diesem Repository sind 4 Stunden.
+
+## Bootstrap-Flow für öffentliche Seiten
+
+1. Redaktion öffnet eine Access-geschützte URL wie `/redaktion/session?returnTo=/themen/beispiel/`.
+2. Der Worker prüft die Access-Header.
+3. Anschließend wird ein kurzlebiges, signiertes Cookie `editorial_session` für die aktuelle Host-Domain gesetzt.
+4. Die öffentliche Zielseite rendert danach die Bearbeiten-Einstiege serverseitig sichtbar.
+5. Die Sichtbarkeit kann über `/redaktion/session?mode=logout&returnTo=/ziel/` wieder beendet werden.
+
+Wichtig:
+
+- Das Cookie dient nur zur Sichtbarkeit auf öffentlichen Seiten.
+- Schreib-Endpunkte unter `/redaktion/api/...` vertrauen weiterhin nicht allein auf dieses Cookie.
+- Für Speichern, Veröffentlichen, Reset und Upload bleibt ein Access-geschützter Zugriff auf `/redaktion/*` erforderlich.
+
 ## Remote-Betrieb in Staging und Produktion
 
-- Alle Schreibpfade unter `/redaktion/api/...` laufen on-demand und verlangen remote eine erkannte lokale Sitzung oder Cloudflare Access.
+- Alle Schreibpfade unter `/redaktion/api/...` laufen on-demand und verlangen remote eine erkannte lokale Sitzung oder Cloudflare Access auf `/redaktion/*`.
 - Die Studio-Seiten zeigen jetzt die erkannte Umgebung (`local`, `staging`, `production`) sowie den Binding-Status für D1 und R2 an.
-- Öffentliche Bearbeiten-Einstiege bleiben dezent und erscheinen nur, wenn die jeweilige Seitenanfrage lokal oder mit Access-Headern ankommt.
+- Die Studio-Übersicht zeigt zusätzlich, ob das Editor-Cookie für die aktuelle Domain aktiv ist.
+- Öffentliche Bearbeiten-Einstiege bleiben dezent und erscheinen nur, wenn die jeweilige Seitenanfrage lokal, mit Access-Headern oder mit gültigem Editor-Cookie ankommt.
 - Ein erfolgreicher Publish schreibt in die D1- bzw. R2-Ressourcen der aktuell angezeigten Worker-Umgebung.
 
 ## Remote-Testablauf
@@ -256,10 +282,13 @@ Das Studio erkennt Access-Sitzungen jetzt nicht nur über `cf-access-authenticat
 5. Auf der Studio-Startseite prüfen:
    - Umgebung
    - Access-Signal
+   - Editor-Cookie
    - D1-Binding
    - R2-Binding
-6. Einen Entwurf speichern, veröffentlichen oder ein Medium hochladen.
-7. Die öffentliche Zielseite neu laden und den Hinweis `Live-Override aktiv` bzw. das neue Medium prüfen.
+6. Optional `/redaktion/session?returnTo=/zielseite/` aufrufen, um die öffentliche Bearbeitung auf der Domain zu aktivieren.
+7. Die öffentliche Zielseite neu laden und die Bearbeiten-Einstiege prüfen.
+8. Einen Entwurf speichern, veröffentlichen oder ein Medium hochladen.
+9. Die öffentliche Zielseite neu laden und den Hinweis `Live-Override aktiv` bzw. das neue Medium prüfen.
 
 ## Override- und Reset-Prüfung
 

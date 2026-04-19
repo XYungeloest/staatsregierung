@@ -1,0 +1,241 @@
+---
+interface Props {
+  baseValue?: number;
+  baseTimestamp?: string;
+  ratePerHour?: number;
+  headline?: string;
+  description?: string;
+}
+
+const {
+  baseValue = 678382,
+  baseTimestamp = '2026-04-18T12:00:00+02:00',
+  ratePerHour = 17635,
+  headline = '',
+  description = 'Bisher in Gemeineigentum überführt:',
+} = Astro.props;
+---
+
+<section class="socialization-counter" aria-labelledby="vergesellschaftungszaehler-title">
+  <div class="socialization-counter__inner">
+    <div class="socialization-counter__header">
+      <div>
+        <p class="socialization-counter__eyebrow">Wohnvergesellschaftung</p>
+        <h2 id="vergesellschaftungszaehler-title" class="socialization-counter__title">
+          {headline}
+        </h2>
+      </div>
+      <p class="socialization-counter__status">Laufender Maßnahmenstand</p>
+    </div>
+
+    <p class="socialization-counter__lead">
+      {headline}
+      {description}
+    </p>
+
+    <div class="socialization-counter__grid">
+      <div class="socialization-counter__value-card">
+        <span class="socialization-counter__label">Aktueller Stand</span>
+        <div
+          class="socialization-counter__number"
+          data-counter
+          data-base-value={String(baseValue)}
+          data-base-timestamp={baseTimestamp}
+          data-rate-per-hour={String(ratePerHour)}
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          47.382 Wohnungen
+        </div>
+      </div>
+
+      <dl class="socialization-counter__facts">
+        <div>
+          <dt>Fortschreibung</dt>
+          <dd>ca. {ratePerHour} pro Stunde</dd>
+        </div>
+        <div>
+          <dt>Bezugsstand</dt>
+          <dd>18. April 2026</dd>
+        </div>
+        <div>
+          <dt>Kontext</dt>
+          <dd>Feststellungsbescheide nach dem WohnVerG</dd>
+        </div>
+      </dl>
+    </div>
+
+    <p class="socialization-counter__meta">
+      Fortschreibung im Takt der laufenden Überführung. Darstellung symbolisch.
+    </p>
+  </div>
+</section>
+
+<script>
+  const counter = document.querySelector('[data-counter]');
+  if (counter instanceof HTMLElement) {
+    const baseValue = Number(counter.dataset.baseValue ?? '678382');
+    const baseTimestamp = Date.parse(counter.dataset.baseTimestamp ?? '');
+    const ratePerHour = Number(counter.dataset.ratePerHour ?? '17635');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const formatter = new Intl.NumberFormat('de-DE');
+
+    const getTargetValue = () => {
+      if (Number.isNaN(baseTimestamp)) return baseValue;
+      const elapsedMs = Date.now() - baseTimestamp;
+      const elapsedHours = Math.max(0, elapsedMs / 1000 / 60 / 60);
+      return Math.floor(baseValue + elapsedHours * ratePerHour);
+    };
+
+    const render = (value: number) => {
+      counter.textContent = `${formatter.format(value)} Wohnungen`;
+    };
+
+    const target = getTargetValue();
+
+    if (prefersReducedMotion) {
+      render(target);
+    } else {
+      let current = Math.max(baseValue, target - 24);
+      render(current);
+
+      const tick = () => {
+        const liveTarget = getTargetValue();
+        if (current < liveTarget) {
+          current += 1;
+          render(current);
+        }
+        const nextDelay = 1200 + Math.random() * 2200;
+        window.setTimeout(tick, nextDelay);
+      };
+
+      window.setTimeout(tick, 900);
+    }
+  }
+</script>
+
+<style>
+  .socialization-counter {
+    margin: 0;
+  }
+
+  .socialization-counter__inner {
+    border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
+    border-radius: 1rem;
+    padding: 1.3rem;
+    background: var(--color-surface, #f7f7f5);
+  }
+
+  .socialization-counter__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem 1rem;
+  }
+
+  .socialization-counter__status {
+    margin: 0;
+    padding: 0.3rem 0.6rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-surface-muted, #efefe9) 82%, #ffffff 18%);
+    color: var(--color-text-muted, #5f666d);
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .socialization-counter__eyebrow {
+    margin: 0 0 0.4rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted, #5f666d);
+  }
+
+  .socialization-counter__title {
+    margin: 0;
+    font-size: clamp(1.35rem, 2vw, 1.85rem);
+    line-height: 1.15;
+  }
+
+  .socialization-counter__lead {
+    margin: 0.8rem 0 0;
+    max-width: 48rem;
+    color: var(--color-text-muted, #4f575e);
+  }
+
+  .socialization-counter__grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .socialization-counter__value-card {
+    padding: 1rem 1.05rem;
+    border-radius: 0.85rem;
+    background:
+      linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--color-surface-muted, #efefe9) 92%, #ffffff 8%),
+        color-mix(in srgb, var(--color-surface, #f7f7f5) 84%, #ffffff 16%)
+      );
+  }
+
+  .socialization-counter__label {
+    display: block;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted, #5f666d);
+  }
+
+  .socialization-counter__number {
+    margin-top: 0.55rem;
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  .socialization-counter__facts {
+    display: grid;
+    gap: 0.8rem;
+    margin: 0;
+  }
+
+  .socialization-counter__facts div {
+    padding: 0.85rem 1rem;
+    border-left: 3px solid color-mix(in srgb, var(--color-border, rgba(0, 0, 0, 0.12)) 78%, #aeb5bc 22%);
+    background: color-mix(in srgb, var(--color-surface, #f7f7f5) 88%, #ffffff 12%);
+  }
+
+  .socialization-counter__facts dt {
+    margin: 0;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted, #5f666d);
+  }
+
+  .socialization-counter__facts dd {
+    margin: 0.35rem 0 0;
+    font-weight: 600;
+  }
+
+  .socialization-counter__meta {
+    margin: 0.85rem 0 0;
+    font-size: 0.95rem;
+    color: var(--color-text-muted, #5f666d);
+  }
+
+  @media (min-width: 720px) {
+    .socialization-counter__inner {
+      padding: 1.5rem 1.6rem 1.6rem;
+    }
+
+    .socialization-counter__grid {
+      grid-template-columns: minmax(0, 1.5fr) minmax(16rem, 1fr);
+      align-items: stretch;
+    }
+  }
+</style>

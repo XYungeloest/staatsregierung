@@ -126,8 +126,15 @@ Die nötigen Schritte und offenen externen Cloudflare-Einstellungen stehen in [C
 Für redaktionelle Remote-Tests gilt zusätzlich:
 
 - `/redaktion/*` sollte in Staging und Produktion hinter Cloudflare Access liegen
-- seitennahe Bearbeitung auf öffentlichen editierbaren Seiten benötigt ebenfalls Access-Header auf genau diesen Seitenanfragen
+- `/redaktion/session` sollte ebenfalls hinter derselben Access-Anwendung liegen
+- seitennahe Bearbeitung auf öffentlichen editierbaren Seiten kann danach über ein kurzlebiges, signiertes Editor-Cookie sichtbar gemacht werden
 - das Studio zeigt die erkannte Umgebung sowie den D1-/R2-Binding-Status direkt an
+- zusätzlich muss ein Secret für das Editor-Cookie gesetzt werden:
+
+```sh
+wrangler secret put EDITORIAL_SESSION_SECRET
+wrangler secret put EDITORIAL_SESSION_SECRET --env staging
+```
 
 ## Wichtige Verzeichnisse
 
