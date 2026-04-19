@@ -1,0 +1,466 @@
+---
+import { currentStateElection, type ElectionDataset, type ElectionPartyResult } from '../../data/dashboard/election.ts';
+
+interface Props {
+  data?: ElectionDataset;
+}
+
+const { data = currentStateElection } = Astro.props;
+
+const sortedResults = [...data.results].sort((left, right) => right.percent - left.percent);
+const percentFormatter = new Intl.NumberFormat('de-DE', {
+  minimumFractionDigits: 1,
+  maximumFractionDigits: 2,
+});
+
+const formatDelta = (delta: ElectionPartyResult['delta']) => {
+  if (delta === 'neu') {
+    return 'neu';
+  }
+
+  const sign = delta > 0 ? '+' : '';
+  return `${sign}${percentFormatter.format(delta)}`;
+};
+---
+
+<div
+  class="election-widget panel"
+  data-election-widget
+  data-total-seats={String(data.totalSeats)}
+  data-majority-seats={String(data.majoritySeats)}
+>
+  <div class="election-widget__head">
+    <p class="eyebrow">Aktuelles Wahlergebnis</p>
+    <h3>{data.title}</h3>
+    <p class="election-widget__meta">
+      Stimmenanteile, Veränderung zur letzten Wahl und Koalitionsrechnung auf Sitzbasis.
+    </p>
+  </div>
+
+  <div class="election-widget__grid">
+    <div class="election-widget__results">
+      <ul class="election-widget__chart" role="list" aria-label="Wahlergebnisse nach Parteien">
+        {sortedResults.map((party) => {
+          const deltaClass =
+            party.delta === 'neu' ? 'is-new' : party.delta > 0 ? 'is-positive' : 'is-negative';
+          const deltaPrefix = party.delta === 'neu' ? '●' : party.delta > 0 ? '▲' : '▼';
+
+          return (
+            <li
+              class="election-widget__bar-item"
+              aria-label={`${party.shortName}: ${percentFormatter.format(party.percent)} Prozent, ${formatDelta(
+                party.delta,
+              )}, ${party.seats} Sitze`}
+            >
+              <div class="election-widget__bar">
+                <div class="election-widget__bar-track" aria-hidden="true">
+                  <span
+                    class="election-widget__bar-fill"
+                    data-bar-fill
+                    style={`height: ${party.percent}%;`}
+                  ></span>
+                </div>
+                <span class="election-widget__percent">{percentFormatter.format(party.percent)} %</span>
+              </div>
+              <div class="election-widget__party">
+                <strong>{party.shortName}</strong>
+                <span class="election-widget__fullname">{party.fullName}</span>
+                <span class:list={['election-widget__delta', deltaClass]}>
+                  {deltaPrefix} {formatDelta(party.delta)}
+                </span>
+                <span class="election-widget__seats">{party.seats} Sitze</span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+
+    <div class="election-widget__coalition">
+      <h4>Koalitionsrechner</h4>
+      <p class="election-widget__calculator-hint">
+        Mehrheit ab <strong>{data.majoritySeats}</strong> von <strong>{data.totalSeats}</strong> Sitzen.
+      </p>
+      <fieldset class="election-widget__choices">
+        <legend>Parteien auswählen</legend>
+        <ul role="list">
+          {sortedResults.map((party) => (
+            <li>
+              <label class="election-widget__choice">
+                <input
+                  type="checkbox"
+                  data-party-toggle
+                  value={party.id}
+                  data-party-name={party.shortName}
+                  data-party-seats={String(party.seats)}
+                  data-party-percent={String(party.percent)}
+                />
+                <span>{party.shortName}</span>
+                <span class="election-widget__choice-meta">{party.seats} Sitze</span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </fieldset>
+      <div class="election-widget__status" aria-live="polite" aria-atomic="true">
+        <p class="election-widget__selected" data-coalition-selected>Keine Parteien ausgewählt.</p>
+        <dl class="election-widget__totals">
+          <div>
+            <dt>Sitze</dt>
+            <dd data-coalition-seats>0 / {data.totalSeats}</dd>
+          </div>
+          <div>
+            <dt>Stimmenanteil</dt>
+            <dd data-coalition-percent>0,0&nbsp;%</dd>
+          </div>
+        </dl>
+        <div class="election-widget__seat-track" aria-hidden="true">
+          <span class="election-widget__seat-fill" data-coalition-seat-fill></span>
+        </div>
+        <p class="election-widget__majority" data-coalition-majority-status>Keine Mehrheit.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const percentageFormatter = new Intl.NumberFormat('de-DE', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 2,
+  });
+
+  for (const root of document.querySelectorAll('[data-election-widget]')) {
+    if (!(root instanceof HTMLElement)) {
+      continue;
+    }
+
+    const checkboxes = Array.from(root.querySelectorAll('[data-party-toggle]')).filter(
+      (element) => element instanceof HTMLInputElement,
+    );
+    const selectedNode = root.querySelector('[data-coalition-selected]');
+    const seatsNode = root.querySelector('[data-coalition-seats]');
+    const percentNode = root.querySelector('[data-coalition-percent]');
+    const majorityNode = root.querySelector('[data-coalition-majority-status]');
+    const seatFillNode = root.querySelector('[data-coalition-seat-fill]');
+
+    const totalSeats = Number(root.dataset.totalSeats ?? '0');
+    const majoritySeats = Number(root.dataset.majoritySeats ?? '0');
+
+    const update = () => {
+      const selected = checkboxes.filter((checkbox) => checkbox.checked);
+      const selectedNames = selected.map((checkbox) => checkbox.dataset.partyName ?? '');
+      const seats = selected.reduce(
+        (sum, checkbox) => sum + Number(checkbox.dataset.partySeats ?? '0'),
+        0,
+      );
+      const percent = selected.reduce(
+        (sum, checkbox) => sum + Number(checkbox.dataset.partyPercent ?? '0'),
+        0,
+      );
+      const hasMajority = seats >= majoritySeats;
+
+      if (selectedNode instanceof HTMLElement) {
+        selectedNode.textContent =
+          selectedNames.length > 0
+            ? `Ausgewählt: ${selectedNames.join(', ')}`
+            : 'Keine Parteien ausgewählt.';
+      }
+
+      if (seatsNode instanceof HTMLElement) {
+        seatsNode.textContent = `${seats} / ${totalSeats}`;
+      }
+
+      if (percentNode instanceof HTMLElement) {
+        percentNode.textContent = `${percentageFormatter.format(percent)}\u00A0%`;
+      }
+
+      if (majorityNode instanceof HTMLElement) {
+        majorityNode.textContent = hasMajority
+          ? `Mehrheit erreicht (${seats} von ${totalSeats} Sitzen).`
+          : `Keine Mehrheit (${seats} von ${totalSeats} Sitzen).`;
+        majorityNode.classList.toggle('is-majority', hasMajority);
+      }
+
+      if (seatFillNode instanceof HTMLElement) {
+        const ratio = totalSeats > 0 ? Math.min(100, (seats / totalSeats) * 100) : 0;
+        seatFillNode.style.width = `${ratio}%`;
+      }
+    };
+
+    for (const checkbox of checkboxes) {
+      checkbox.addEventListener('change', update);
+    }
+
+    const showChart = () => {
+      root.classList.add('is-chart-visible');
+    };
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      showChart();
+    } else if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              showChart();
+              observer.disconnect();
+              break;
+            }
+          }
+        },
+        { threshold: 0.35 },
+      );
+      observer.observe(root);
+    } else {
+      showChart();
+    }
+
+    update();
+  }
+</script>
+
+<style>
+  .election-widget {
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .election-widget__head h3 {
+    margin: 0.2rem 0 0.3rem;
+  }
+
+  .election-widget__meta {
+    margin: 0;
+    color: var(--color-text-muted);
+  }
+
+  .election-widget__grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .election-widget__chart {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.75rem;
+    align-items: end;
+  }
+
+  .election-widget__bar {
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .election-widget__bar-track {
+    height: 10.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-alt);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .election-widget__bar-fill {
+    width: 100%;
+    display: block;
+    background: linear-gradient(180deg, #3664a1 0%, var(--color-primary) 100%);
+    transform-origin: bottom;
+    transform: scaleY(0);
+    transition: transform 720ms ease-out;
+  }
+
+  .is-chart-visible .election-widget__bar-fill {
+    transform: scaleY(1);
+  }
+
+  .election-widget__percent {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-heading);
+  }
+
+  .election-widget__party {
+    margin-top: 0.45rem;
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .election-widget__fullname {
+    font-size: 0.78rem;
+    line-height: 1.35;
+    color: var(--color-text-muted);
+  }
+
+  .election-widget__delta {
+    width: fit-content;
+    padding: 0.12rem 0.38rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface-alt);
+    font-size: 0.76rem;
+    font-weight: 600;
+  }
+
+  .election-widget__delta.is-positive {
+    border-color: #8fb6a8;
+    background: var(--color-info-green);
+    color: var(--color-secondary-hover);
+  }
+
+  .election-widget__delta.is-negative {
+    border-color: #c8a0a0;
+    color: #7a2c2c;
+  }
+
+  .election-widget__delta.is-new {
+    border-color: #9aa8b8;
+    color: var(--color-primary);
+  }
+
+  .election-widget__seats {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+  }
+
+  .election-widget__coalition h4 {
+    margin: 0;
+    font-size: 1.05rem;
+  }
+
+  .election-widget__calculator-hint {
+    margin: 0.35rem 0 0.8rem;
+    color: var(--color-text-muted);
+    font-size: 0.92rem;
+  }
+
+  .election-widget__choices {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .election-widget__choices legend {
+    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-heading);
+  }
+
+  .election-widget__choices ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .election-widget__choice {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    min-height: 2rem;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    cursor: pointer;
+  }
+
+  .election-widget__choice input {
+    margin-right: 0.25rem;
+  }
+
+  .election-widget__choice-meta {
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+  }
+
+  .election-widget__status {
+    margin-top: 0.9rem;
+    padding: 0.85rem 0.95rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-alt);
+  }
+
+  .election-widget__selected {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+  }
+
+  .election-widget__totals {
+    margin: 0.65rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.55rem;
+  }
+
+  .election-widget__totals dt {
+    font-size: 0.78rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .election-widget__totals dd {
+    margin: 0.15rem 0 0;
+    font-weight: 700;
+  }
+
+  .election-widget__seat-track {
+    margin-top: 0.65rem;
+    height: 0.72rem;
+    border-radius: 999px;
+    background: #d9e1ea;
+    overflow: hidden;
+  }
+
+  .election-widget__seat-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-primary) 0%, #2f5f99 100%);
+    transition: width 220ms ease-out;
+  }
+
+  .election-widget__majority {
+    margin: 0.65rem 0 0;
+    font-weight: 700;
+    color: #7a2c2c;
+  }
+
+  .election-widget__majority.is-majority {
+    color: var(--color-secondary-hover);
+  }
+
+  @media (min-width: 940px) {
+    .election-widget__grid {
+      grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 1fr);
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .election-widget__chart {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .election-widget__bar-fill,
+    .election-widget__seat-fill {
+      transition: none;
+    }
+
+    .election-widget__bar-fill {
+      transform: scaleY(1);
+    }
+  }
+</style>

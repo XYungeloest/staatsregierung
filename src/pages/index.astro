@@ -34,6 +34,7 @@ import {
 import { getCurrentVersion, loadAllNorms } from '../lib/norms/content.ts';
 import { getNormUrl } from '../lib/norms/index.ts';
 import SocializationCounter from '../components/portal/SocializationCounter.astro';
+import ElectionWidget from '../components/portal/ElectionWidget.astro';
 
 const [members, ministries, topics, pressReleases, jobOffers, norms] = await Promise.all([
   loadGovernmentMembers(),
@@ -135,6 +136,17 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
         sichtbar.
       </p>
     </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Wahlergebnis und Koalitionsrechner</h2>
+      <p>
+        Die Darstellung zeigt das aktuelle Wahlergebnis mit Veränderungen zur letzten Wahl sowie
+        eine rechnerische Mehrheitsprüfung auf Basis von 15 Sitzen.
+      </p>
+    </div>
+    <ElectionWidget />
   </section>
 
   <section class="section">
