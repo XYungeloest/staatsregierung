@@ -128,6 +128,7 @@ const formatDelta = (delta: ElectionPartyResult['delta']) => {
     minimumFractionDigits: 1,
     maximumFractionDigits: 2,
   });
+  const chartVisibilityThreshold = 0.35;
 
   for (const root of document.querySelectorAll('[data-election-widget]')) {
     if (!(root instanceof HTMLElement)) {
@@ -208,7 +209,7 @@ const formatDelta = (delta: ElectionPartyResult['delta']) => {
             }
           }
         },
-        { threshold: 0.35 },
+        { threshold: chartVisibilityThreshold },
       );
       observer.observe(root);
     } else {
