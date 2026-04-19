@@ -12,6 +12,7 @@ import {
 } from '../portal/schema.ts';
 import { withBase } from '../portal/routes.ts';
 import { hasEditorialSession } from './access.ts';
+import { readEditorialSessionCookie } from './session.ts';
 import type { EditorialEntryState } from './schema.ts';
 import { getEditorialEntryStateByTypeAndSlug } from './repository.ts';
 import type { EditorialEntryType, EditorialSourceOrigin } from './studio.ts';
@@ -24,12 +25,17 @@ export interface EditorialPublicState {
   liveLabel: string;
 }
 
-export function shouldRenderEditorialUi(request: Request, url: URL): boolean {
+export async function shouldRenderEditorialUi(request: Request, url: URL): Promise<boolean> {
   if (!isEditorialToolsEnabled()) {
     return false;
   }
 
-  return hasEditorialSession(request, url);
+  if (hasEditorialSession(request, url)) {
+    return true;
+  }
+
+  const cookieState = await readEditorialSessionCookie(request, url);
+  return cookieState.active;
 }
 
 export function getEditorialStudioHref(

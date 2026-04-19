@@ -20,6 +20,7 @@ import {
   getEditorialPublicState,
   shouldRenderEditorialUi,
 } from '../../../lib/editorial/live.ts';
+import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
 import {
   buildInlineEditHref,
   buildInlineSectionState,
@@ -44,7 +45,8 @@ const slug = Astro.params.slug ?? '';
 const database = getDatabase();
 const release = slug ? await getPressReleaseBySlug(database, slug) : undefined;
 const editorial = slug ? await getEditorialPublicState('pressemitteilung', slug, 'd1') : undefined;
-const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
+const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
 
 if (!release) {
   Astro.response.status = 404;
@@ -168,6 +170,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
             sourceLabel={editorial.sourceLabel}
             liveLabel={editorial.liveLabel}
             hasPendingChanges={editorial.entryState.hasPendingChanges}
+            sessionDisableHref={editorialSessionLogoutHref}
           />
         </section>
       ) : null}

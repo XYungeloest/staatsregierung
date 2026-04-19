@@ -31,6 +31,7 @@ import {
   resolveServicePageContent,
   shouldRenderEditorialUi,
 } from '../../lib/editorial/live.ts';
+import { getEditorialSessionLogoutHref } from '../../lib/editorial/session.ts';
 
 const { page, editorial } = await resolveServicePageContent(
   'kontakt',
@@ -38,7 +39,8 @@ const { page, editorial } = await resolveServicePageContent(
 );
 const contact = siteConfig.contact;
 const ministries = loadRuntimeMinistries();
-const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
+const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
 const database = showEditorialUi ? getDatabase() : undefined;
 const inlineBase = showEditorialUi && database
   ? await getInlineBaseDraft(database, 'service-seite', 'kontakt')
@@ -149,6 +151,7 @@ const routedContacts = [
       sourceLabel={editorial.sourceLabel}
       liveLabel={editorial.liveLabel}
       hasPendingChanges={editorial.entryState.hasPendingChanges}
+      sessionDisableHref={editorialSessionLogoutHref}
     />
   </section>
 

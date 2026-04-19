@@ -55,6 +55,8 @@ interface R2Bucket {
 declare namespace Cloudflare {
   interface Env {
     APP_ENV?: string;
+    EDITORIAL_SESSION_SECRET?: string;
+    EDITORIAL_SESSION_TTL_SECONDS?: string;
     DB: D1Database;
     MEDIA: R2Bucket;
   }

@@ -11,6 +11,7 @@ import {
   getEditorialPublicState,
   shouldRenderEditorialUi,
 } from '../../../lib/editorial/live.ts';
+import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
 import { buildEventJsonLd } from '../../../lib/seo/index.ts';
 import {
   getEventIndexUrl,
@@ -24,7 +25,8 @@ const slug = Astro.params.slug ?? '';
 const database = getDatabase();
 const event = slug ? await getEventBySlug(database, slug) : undefined;
 const editorial = slug ? await getEditorialPublicState('termin', slug, 'd1') : undefined;
-const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
+const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
 
 if (!event) {
   Astro.response.status = 404;
@@ -94,6 +96,7 @@ const relatedEvents = event ? allEvents.filter((entry) => entry.slug !== event.s
             sourceLabel={editorial.sourceLabel}
             liveLabel={editorial.liveLabel}
             hasPendingChanges={editorial.entryState.hasPendingChanges}
+            sessionDisableHref={editorialSessionLogoutHref}
           />
         </section>
       ) : null}

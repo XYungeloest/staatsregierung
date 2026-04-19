@@ -5,6 +5,8 @@ interface Props {
   sourceLabel: string;
   liveLabel: string;
   hasPendingChanges?: boolean;
+  sessionEnableHref?: string;
+  sessionDisableHref?: string;
 }
 
 const {
@@ -13,6 +15,8 @@ const {
   sourceLabel,
   liveLabel,
   hasPendingChanges = false,
+  sessionEnableHref,
+  sessionDisableHref,
 } = Astro.props;
 ---
 
@@ -29,5 +33,11 @@ const {
       Bearbeiten-Links sind direkt an den relevanten Inhaltsblöcken eingeblendet.
     </p>
     <p><a class="inline-link" href={studioHref}>Seite im Redaktionsstudio öffnen</a></p>
+    {sessionEnableHref ? (
+      <p><a class="inline-link" href={sessionEnableHref}>Öffentliche Bearbeitung für diese Domain aktivieren</a></p>
+    ) : null}
+    {sessionDisableHref ? (
+      <p><a class="inline-link" href={sessionDisableHref}>Redaktionelle Sichtbarkeit beenden</a></p>
+    ) : null}
   </aside>
 ) : null}

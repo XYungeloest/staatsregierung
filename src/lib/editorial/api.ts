@@ -1,6 +1,6 @@
 import { getRuntimeEnvironmentName } from '../dynamic/env.ts';
 import { withBase } from '../portal/routes.ts';
-import { getEditorialAccessInfo } from './access.ts';
+import { hasEditorialWriteAccess } from './access.ts';
 import type { EditorialEntryType } from './studio.ts';
 
 function readOptionalString(formData: FormData, key: string): string | undefined {
@@ -76,9 +76,7 @@ export function requireEditorialWriteAccess(
   url: URL,
   redirectTo: string,
 ): Response | undefined {
-  const accessInfo = getEditorialAccessInfo(request, url);
-
-  if (accessInfo.editorialSessionActive) {
+  if (hasEditorialWriteAccess(request, url)) {
     return undefined;
   }
 
@@ -86,7 +84,7 @@ export function requireEditorialWriteAccess(
     withEditorialMessage(
       redirectTo,
       'error',
-      `Schreibzugriff blockiert. In ${getRuntimeEnvironmentName(url)} ist Cloudflare Access für redaktionelle Änderungen erforderlich.`,
+      `Schreibzugriff blockiert. In ${getRuntimeEnvironmentName(url)} sind lokale Entwicklung oder ein aktueller Cloudflare-Access-Zugriff auf /redaktion/* erforderlich. Ein Editor-Cookie allein reicht nicht aus.`,
     ),
   );
 }

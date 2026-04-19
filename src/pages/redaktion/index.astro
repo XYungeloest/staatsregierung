@@ -8,6 +8,11 @@ import StatusBadge from '../../components/editorial/StatusBadge.astro';
 import { getDatabase, getRuntimeBindingState } from '../../lib/dynamic/env.ts';
 import { getEditorialAccessInfo } from '../../lib/editorial/access.ts';
 import { listEditorialEntries, listEditorialTypeSummaries, listMediaAssets } from '../../lib/editorial/repository.ts';
+import {
+  getEditorialSessionBootstrapHref,
+  getEditorialSessionLogoutHref,
+  readEditorialSessionCookie,
+} from '../../lib/editorial/session.ts';
 import { editorialEntryTypes, getEditorialTypeDefinition } from '../../lib/editorial/studio.ts';
 import { getEditorialUrl, getHomeUrl } from '../../lib/portal/routes.ts';
 
@@ -19,6 +24,9 @@ const summaryMap = new Map(typeSummaries.map((entry) => [entry.type, entry]));
 const recentEntries = database ? (await listEditorialEntries(database)).slice(0, 8) : [];
 const mediaAssets = database ? await listMediaAssets(database) : [];
 const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publishedCount, 0);
+const bootstrapHomeHref = getEditorialSessionBootstrapHref('/');
+const bootstrapLogoutHref = getEditorialSessionLogoutHref('/');
+const editorCookieState = await readEditorialSessionCookie(Astro.request, Astro.url);
 ---
 
 <BaseLayout
@@ -61,9 +69,9 @@ const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publish
           <code>/redaktion/*</code> ausschließlich hinter Cloudflare Access liegen.
         </p>
         <p>
-          Für seitennahe Bearbeitung auf öffentlichen Seiten müssen auch diese editierbaren Seiten
-          Access-Header erhalten. Nur das Absichern von <code>/redaktion/*</code> blendet die
-          Bearbeiten-Einstiege auf den öffentlichen Routen noch nicht ein.
+          Für seitennahe Bearbeitung auf öffentlichen Seiten wird jetzt ein separates,
+          kurzlebiges Editor-Cookie über <code>/redaktion/session</code> gesetzt. Der
+          Redaktionsbereich selbst sollte trotzdem vollständig hinter Cloudflare Access bleiben.
         </p>
       </div>
     </section>
@@ -78,6 +86,10 @@ const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publish
       <div class="meta-card">
         <span class="meta-label">Access-Signal</span>
         <strong>{accessInfo.accessSignal}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Editor-Cookie</span>
+        <strong>{editorCookieState.active ? 'aktiv' : editorCookieState.reason}</strong>
       </div>
       <div class="meta-card">
         <span class="meta-label">D1-Binding</span>
@@ -117,6 +129,27 @@ const activeLiveCount = typeSummaries.reduce((sum, entry) => sum + entry.publish
       </div>
     </section>
   ) : null}
+
+  <section class="section">
+    <div class="status-notice status-notice--current">
+      <h2>Öffentliche Bearbeitung aktivieren</h2>
+      <p>
+        Nach einem Access-geschützten Aufruf von <code>/redaktion/session</code> setzt der Worker
+        ein signiertes, kurzlebiges Editor-Cookie für diese Domain. Damit werden die
+        Bearbeiten-Einstiege auf öffentlichen editierbaren Seiten sichtbar, ohne die gesamte
+        Website hinter Access zu stellen.
+      </p>
+      <p>
+        <a class="inline-link" href={bootstrapHomeHref}>Editor-Cookie für diese Domain aktivieren</a>
+        {' · '}
+        <a class="inline-link" href={bootstrapLogoutHref}>Sichtbarkeit wieder beenden</a>
+      </p>
+      <p>
+        Für eine konkrete Seite kann stattdessen direkt
+        <code>{`${getEditorialUrl()}session?returnTo=/themen/beispiel/`}</code> aufgerufen werden.
+      </p>
+    </div>
+  </section>
 
   <section class="section section-muted">
     <div class="section-header">

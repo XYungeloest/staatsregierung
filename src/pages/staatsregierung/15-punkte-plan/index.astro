@@ -10,6 +10,7 @@ import { timelineEntries } from '../../../data/dashboard/timeline.ts';
 import { getDatabase } from '../../../lib/dynamic/env.ts';
 import { listProjectStatuses } from '../../../lib/dynamic/repository.ts';
 import { shouldRenderEditorialUi } from '../../../lib/editorial/live.ts';
+import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
 import { withBase } from '../../../lib/portal/routes.ts';
 import {
   getCabinetUrl,
@@ -23,7 +24,8 @@ const actionPlanItems = await listProjectStatuses(getDatabase());
 const completedCount = actionPlanItems.filter((point) => point.status === 'umgesetzt').length;
 const partlyCount = actionPlanItems.filter((point) => point.status === 'teilweise_umgesetzt').length;
 const plannedCount = actionPlanItems.filter((point) => point.status === 'angelegt').length;
-const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
+const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
+const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
 ---
 
 <BaseLayout
@@ -54,6 +56,7 @@ const showEditorialUi = shouldRenderEditorialUi(Astro.request, Astro.url);
       studioHref={withBase('/redaktion/inhalte/projektstatus/')}
       sourceLabel="D1-Livebereich"
       liveLabel="Projektstände werden direkt aus D1 ausgeliefert"
+      sessionDisableHref={editorialSessionLogoutHref}
     />
   </section>
 
