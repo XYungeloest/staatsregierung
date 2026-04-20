@@ -21,6 +21,7 @@ const formatDelta = (delta: ElectionPartyResult['delta']) => {
   const sign = delta > 0 ? '+' : '';
   return `${sign}${percentFormatter.format(delta)}`;
 };
+const maxPercent = Math.max(...sortedResults.map((p) => p.percent));
 ---
 
 <div
@@ -57,7 +58,7 @@ const formatDelta = (delta: ElectionPartyResult['delta']) => {
                   <span
                     class="election-widget__bar-fill"
                     data-bar-fill
-                    style={`height: ${party.percent}%;`}
+                    style={`height: ${(party.percent / maxPercent) * 100}%;`}
                   ></span>
                 </div>
                 <span class="election-widget__percent">{percentFormatter.format(party.percent)} %</span>

@@ -2388,6 +2388,15 @@ article.panel > p:last-child > a.inline-link:hover {
   font-size: 0.9rem;
 }
 
+.election-widget__fullname {
+  font-size: 0.78rem;
+  line-height: 1.35;
+  color: var(--color-text-muted);
+  min-height: 2.7em; /* ← NEU: Platz für ~2 Zeilen reservieren */
+}
+
+
+
 @media (max-width: 960px) {
   .content-grid--wide {
     grid-template-columns: repeat(2, minmax(0, 1fr));
