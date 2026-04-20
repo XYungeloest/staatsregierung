@@ -16,13 +16,13 @@ export interface ElectionDataset {
 }
 
 export const currentStateElection: ElectionDataset = {
-  title: 'Wahl zum Landtag 2026',
+  title: 'Wahl zum 7. Ostdeutschen Landtag',
   electionDate: '2026-04-19',
   results: [
     {
       id: 'vf',
       shortName: 'VF',
-      fullName: 'Vereinte Fortschrittspartei',
+      fullName: 'Volksfront',
       percent: 34.69,
       delta: 2.29,
       seats: 5,
@@ -30,7 +30,7 @@ export const currentStateElection: ElectionDataset = {
     {
       id: 'demos',
       shortName: 'DEMOS',
-      fullName: 'Demokratische Mitte Ostdeutschlands',
+      fullName: 'DEMOS an der Elbe',
       percent: 24.49,
       delta: -5.21,
       seats: 4,
@@ -38,26 +38,26 @@ export const currentStateElection: ElectionDataset = {
     {
       id: 'frp',
       shortName: 'FRP',
-      fullName: 'Freie Reformpartei',
+      fullName: 'Freiheitliche Reformpartei',
       percent: 16.33,
       delta: -21.47,
-      seats: 3,
+      seats: 2,
     },
     {
       id: 'patrioten',
       shortName: 'PATRIOTEN',
-      fullName: 'Patrioten',
+      fullName: 'ostdeutsche Patrioten',
       percent: 14.29,
       delta: 'neu',
       seats: 2,
     },
     {
       id: 'cdp',
-      shortName: 'CDP',
+      shortName: 'CDP Ost',
       fullName: 'Christlich-Demokratische Partei',
       percent: 10.2,
       delta: 'neu',
-      seats: 1,
+      seats: 2,
     },
   ],
   totalSeats: 15,

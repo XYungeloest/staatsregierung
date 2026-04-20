@@ -84,6 +84,28 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
 >
   <Breadcrumbs items={[{ label: 'Startseite' }]} />
 
+  <section class="section">
+    <div class="section-header">
+      <h2>Wahlergebnis und Koalitionsrechner</h2>
+      <p>
+        Die Darstellung zeigt das aktuelle Wahlergebnis mit Veränderungen zur letzten Wahl sowie
+        eine rechnerische Mehrheitsprüfung auf Basis von 15 Sitzen.
+      </p>
+    </div>
+    <ElectionWidget />
+  </section>
+
+  <section class="section">
+    <div class="status-notice status-notice--current">
+      <h2>Hinweis zur Einordnung</h2>
+      <p>
+        Das Portal wirkt bewusst wie eine Regierungswebsite, ist aber weiterhin Teil einer
+        fiktiven Politiksimulation. Diese Kennzeichnung bleibt zusätzlich global im Kopfbereich
+        sichtbar.
+      </p>
+    </div>
+  </section>
+
   <section class="hero hero--portal">
     <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
     <h1>{siteConfig.authorityName}</h1>
@@ -125,28 +147,6 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
       baseTimestamp="2026-04-18T12:00:00+02:00"
       ratePerHour={3635}
     />
-  </section>
-
-  <section class="section">
-    <div class="status-notice status-notice--current">
-      <h2>Hinweis zur Einordnung</h2>
-      <p>
-        Das Portal wirkt bewusst wie eine Regierungswebsite, ist aber weiterhin Teil einer
-        fiktiven Politiksimulation. Diese Kennzeichnung bleibt zusätzlich global im Kopfbereich
-        sichtbar.
-      </p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Wahlergebnis und Koalitionsrechner</h2>
-      <p>
-        Die Darstellung zeigt das aktuelle Wahlergebnis mit Veränderungen zur letzten Wahl sowie
-        eine rechnerische Mehrheitsprüfung auf Basis von 15 Sitzen.
-      </p>
-    </div>
-    <ElectionWidget />
   </section>
 
   <section class="section">
