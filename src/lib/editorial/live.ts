@@ -62,12 +62,12 @@ export async function getEditorialPublicState(
   sourceOrigin: EditorialSourceOrigin,
 ): Promise<EditorialPublicState> {
   const entryState = await getEditorialEntryStateByTypeAndSlug(getDatabase(), type, slug);
-  const sourceLabel = entryState.hasLiveVersion ? 'Live-Override aktiv' : 'Statischer Fallback';
+  const sourceLabel = entryState.hasLiveVersion ? 'Redaktioneller Stand aktiv' : 'Grundstand';
   const liveLabel = entryState.hasPendingChanges
     ? 'Unveröffentlichte Änderungen vorhanden'
     : entryState.hasLiveVersion
-      ? 'Veröffentlichter Override wird ausgeliefert'
-      : 'Öffentliche Seite kommt aus dem Repository';
+      ? 'Veröffentlichter redaktioneller Stand wird angezeigt'
+      : 'Öffentliche Seite zeigt den freigegebenen Grundstand';
 
   return {
     entryState,

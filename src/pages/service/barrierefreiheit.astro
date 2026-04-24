@@ -77,13 +77,13 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
     <h1>{page?.title ?? 'Barrierefreiheit'}</h1>
     <p class="lead">
       Diese Erklärung orientiert sich in Aufbau und Ton an BITV-artigen Musterseiten, bleibt aber
-      Teil einer fiktiven, vollständig statischen Politiksimulation.
+      Teil einer fiktiven Politiksimulation.
     </p>
     <InlineEditTrigger
       visible={showEditorialUi && Boolean(heroInline)}
       href={buildInlineEditHref(Astro.url, 'hero')}
       label="Seitentitel"
-      statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+      statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
     />
   </section>
 
@@ -104,7 +104,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         visible={showEditorialUi && Boolean(bodyInline)}
         href={buildInlineEditHref(Astro.url, 'body')}
         label="Inhaltsblock"
-        statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Fallback'}
+        statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Ausgangsstand'}
       />
       {(page?.body ?? []).map((paragraph) => (
         <p>{paragraph}</p>
@@ -144,8 +144,8 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
       </div>
       <dl class="meta-list">
         <div>
-          <dt>Architektur</dt>
-          <dd>Vollständig statisch, ohne serverseitige Komponenten</dd>
+          <dt>Stand</dt>
+          <dd>Fortlaufende Prüfung und redaktionelle Verbesserung</dd>
         </div>
         <div>
           <dt>Prüfgegenstände</dt>

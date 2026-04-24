@@ -137,7 +137,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         visible={showEditorialUi && Boolean(heroInline)}
         href={buildInlineEditHref(Astro.url, 'hero')}
         label="Ressortkopf"
-        statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+        statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
       />
     </section>
 
@@ -158,7 +158,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
           visible={showEditorialUi && Boolean(mediaInline)}
           href={buildInlineEditHref(Astro.url, 'media')}
           label="Medienblock"
-          statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Fallback'}
+          statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Ausgangsstand'}
         />
         <img
           class="media-banner"
@@ -184,7 +184,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
           visible={showEditorialUi && Boolean(tasksInline)}
           href={buildInlineEditHref(Astro.url, 'aufgaben')}
           label="Aufgaben"
-          statusLabel={tasksInline ? getInlineSectionStatusLabel(tasksInline) : 'Fallback'}
+          statusLabel={tasksInline ? getInlineSectionStatusLabel(tasksInline) : 'Ausgangsstand'}
         />
         <ul class="record-list">
           {ministry.aufgaben.map((task) => (
@@ -212,7 +212,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
           visible={showEditorialUi && Boolean(contactInline)}
           href={buildInlineEditHref(Astro.url, 'kontakt')}
           label="Kontaktblock"
-          statusLabel={contactInline ? getInlineSectionStatusLabel(contactInline) : 'Fallback'}
+          statusLabel={contactInline ? getInlineSectionStatusLabel(contactInline) : 'Ausgangsstand'}
         />
         <dl class="meta-list">
           <div>
@@ -318,7 +318,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
     <section class="section">
       <div class="status-notice status-notice--warning">
         <h1>Ressortseite nicht gefunden</h1>
-        <p>Für diese URL liegt weder ein statisches Ressortprofil noch ein veröffentlichter D1-Override vor.</p>
+        <p>Der angeforderte Inhalt konnte nicht gefunden werden. Bitte nutzen Sie die Kabinettsübersicht.</p>
       </div>
     </section>
   </BaseLayout>

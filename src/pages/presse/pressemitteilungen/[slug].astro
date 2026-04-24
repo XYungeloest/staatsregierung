@@ -158,7 +158,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
           visible={showEditorialUi && Boolean(heroInline)}
           href={buildInlineEditHref(Astro.url, 'hero')}
           label="Kopfbereich"
-          statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+          statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
         />
       </section>
 
@@ -181,7 +181,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
             visible={showEditorialUi && Boolean(mediaInline)}
             href={buildInlineEditHref(Astro.url, 'media')}
             label="Medienblock"
-            statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Fallback'}
+            statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Ausgangsstand'}
           />
           <img
             class="media-banner"
@@ -197,7 +197,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
             visible={showEditorialUi && Boolean(bodyInline)}
             href={buildInlineEditHref(Astro.url, 'body')}
             label="Meldungstext"
-            statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Fallback'}
+            statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Ausgangsstand'}
           />
           <div class="body-copy">
             {release.body.map((paragraph) => (
@@ -301,8 +301,8 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
       <div class="status-notice status-notice--warning">
         <h1>Pressemitteilung nicht gefunden</h1>
         <p>
-          Für diesen Slug liegt derzeit kein Eintrag in D1 vor. Prüfen Sie den Seed-Stand oder die
-          angeforderte URL.
+          Der angeforderte Inhalt konnte nicht gefunden werden. Bitte nutzen Sie die Übersicht der
+          Pressemitteilungen.
         </p>
         <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Zur Übersicht der Pressemitteilungen</a></p>
       </div>

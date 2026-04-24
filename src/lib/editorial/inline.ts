@@ -327,11 +327,11 @@ export function buildInlineSectionState(
       ? 'Entwurf überschreibt den aktuell ausgelieferten Wert.'
       : hasOverrideValue
         ? isEditorialOverrideType(type)
-          ? 'Live-Override aktiv.'
-          : 'Aktueller D1-Livewert.'
+          ? 'Redaktioneller Stand aktiv.'
+          : 'Aktueller Veröffentlichungsstand.'
         : sourceOrigin === 'file'
-          ? 'Feld stammt aus dem statischen Repository-Fallback.'
-          : 'Feld stammt aus der D1-Livequelle.',
+          ? 'Feld stammt aus dem freigegebenen Grundstand.'
+          : 'Feld stammt aus dem aktuellen Veröffentlichungsstand.',
   };
 }
 
@@ -344,7 +344,7 @@ export function getInlineSectionStatusLabel(state: EditorialInlineSectionState):
     return 'Überschrieben';
   }
 
-  return 'Fallback';
+  return 'Ausgangsstand';
 }
 
 export async function getInlinePanelState(

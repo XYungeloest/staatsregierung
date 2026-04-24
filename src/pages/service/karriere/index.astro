@@ -38,8 +38,7 @@ const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))
     <h1>Arbeiten für die Staatsregierung</h1>
     <p class="lead">
       Der Karrierebereich bündelt aktuelle Stellenangebote, informiert über Arbeitsfelder der
-      Landesverwaltung und bleibt ohne Bewerbungslogik aufgebaut, auch wenn die Ausschreibungen
-      nun gezielt dynamisch aus D1 geladen werden.
+      Landesverwaltung und verweist auf die jeweils genannten Kontaktstellen.
     </p>
   </section>
 
@@ -58,7 +57,7 @@ const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))
       </article>
       <article class="panel">
         <h3>Klare Verfahren</h3>
-        <p>Das Portal stellt Rahmendaten, Ausschreibungstexte und Kontaktstellen bereit, aber keine serverseitige Bewerbung.</p>
+        <p>Das Portal stellt Rahmendaten, Ausschreibungstexte und Kontaktstellen bereit; Bewerbungen erfolgen über die angegebenen Wege.</p>
       </article>
       <article class="panel">
         <h3>Clientseitiger Filter</h3>
@@ -70,7 +69,7 @@ const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))
   <section class="section">
     <div class="section-header">
       <h2>Stellenangebote filtern</h2>
-      <p>Die Filterlogik läuft vollständig im Browser und verändert keine Daten auf dem Server.</p>
+      <p>Grenzen Sie die Stellenangebote nach Stichwort, Ressort, Standort und Beschäftigungsart ein.</p>
     </div>
     <form class="search-form" id="career-filter" data-role="career-filter">
       <div class="search-form__filters">
