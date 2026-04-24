@@ -11,7 +11,7 @@ const {
   baseValue = 678382,
   baseTimestamp = '2026-04-18T12:00:00+02:00',
   ratePerHour = 17635,
-  headline = '',
+  headline = 'Wohnungen im Gemeineigentum',
   description = 'Bisher in Gemeineigentum überführt:',
 } = Astro.props;
 ---
@@ -29,7 +29,6 @@ const {
     </div>
 
     <p class="socialization-counter__lead">
-      {headline}
       {description}
     </p>
 
@@ -121,7 +120,8 @@ const {
 
   .socialization-counter__inner {
     border: 1px solid var(--color-border, rgba(0, 0, 0, 0.12));
-    border-radius: 1rem;
+    border-top: 4px solid var(--color-secondary, #3e8132);
+    border-radius: var(--radius-md, 0.4rem);
     padding: 1.3rem;
     background: var(--color-surface, #f7f7f5);
   }
@@ -137,8 +137,9 @@ const {
   .socialization-counter__status {
     margin: 0;
     padding: 0.3rem 0.6rem;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--color-surface-muted, #efefe9) 82%, #ffffff 18%);
+    border: 1px solid var(--color-border, #dadada);
+    border-radius: var(--radius-sm, 0.25rem);
+    background: var(--color-surface-muted, #f7f8f9);
     color: var(--color-text-muted, #5f666d);
     font-size: 0.85rem;
     white-space: nowrap;
@@ -172,13 +173,9 @@ const {
 
   .socialization-counter__value-card {
     padding: 1rem 1.05rem;
-    border-radius: 0.85rem;
-    background:
-      linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--color-surface-muted, #efefe9) 92%, #ffffff 8%),
-        color-mix(in srgb, var(--color-surface, #f7f7f5) 84%, #ffffff 16%)
-      );
+    border: 1px solid var(--color-border, #dadada);
+    border-radius: var(--radius-md, 0.4rem);
+    background: var(--color-surface-muted, #f7f8f9);
   }
 
   .socialization-counter__label {
@@ -194,7 +191,8 @@ const {
     font-size: clamp(2rem, 5vw, 3.6rem);
     line-height: 1;
     font-weight: 700;
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
+    color: var(--color-primary, #1a3b66);
   }
 
   .socialization-counter__facts {
@@ -205,8 +203,8 @@ const {
 
   .socialization-counter__facts div {
     padding: 0.85rem 1rem;
-    border-left: 3px solid color-mix(in srgb, var(--color-border, rgba(0, 0, 0, 0.12)) 78%, #aeb5bc 22%);
-    background: color-mix(in srgb, var(--color-surface, #f7f7f5) 88%, #ffffff 12%);
+    border-left: 3px solid var(--color-secondary, #3e8132);
+    background: var(--color-surface-muted, #f7f8f9);
   }
 
   .socialization-counter__facts dt {
