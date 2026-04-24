@@ -7,6 +7,7 @@ import EventCard from '../../../components/portal/EventCard.astro';
 import { getDatabase } from '../../../lib/dynamic/env.ts';
 import { listEvents } from '../../../lib/dynamic/repository.ts';
 import {
+  getEventIndexUrl,
   getHomeUrl,
   getPressUrl,
 } from '../../../lib/portal/index.ts';
@@ -30,6 +31,11 @@ const events = await listEvents(getDatabase());
       Öffentliche Termine, Pressekonferenzen und thematische Veranstaltungen der Staatsregierung
       werden hier in einer schlichten, gut geordneten Übersicht gebündelt.
     </p>
+    <nav class="hero-actions" aria-label="Terminangebote">
+      <a class="button-link button-link--secondary" href={`${getEventIndexUrl()}kalender.ics`}>
+        Kalender abonnieren
+      </a>
+    </nav>
   </section>
 
   <section class="section">

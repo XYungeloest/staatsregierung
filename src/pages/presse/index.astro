@@ -60,6 +60,10 @@ const nextEvents = events.slice(0, 3);
         <strong>{events.length}</strong>
       </div>
     </div>
+    <nav class="link-list link-list--inline" aria-label="Presse-Abonnements">
+      <a href={`${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, '')}rss.xml`}>Pressemitteilungen als RSS</a>
+      <a href={`${getEventIndexUrl()}kalender.ics`}>Termine als Kalender</a>
+    </nav>
   </section>
 
   {leadRelease ? (

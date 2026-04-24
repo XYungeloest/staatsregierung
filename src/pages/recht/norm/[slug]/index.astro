@@ -5,6 +5,13 @@ import NormBody from '../../../../components/norms/NormBody.astro';
 import NormMetaCard from '../../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../components/norms/NormStatusNotice.astro';
+import { loadPressReleases, loadTopics } from '../../../../lib/portal/content.ts';
+import {
+  getPressReleaseIndexUrl,
+  getPressReleaseUrl,
+  getTopicUrl,
+  getTopicsUrl,
+} from '../../../../lib/portal/routes.ts';
 import {
   buildNormOutline,
   formatDate,
@@ -34,6 +41,13 @@ const outline = buildNormOutline(currentVersion.body);
 const normTitle = toDisplayText(norm.meta.title);
 const normLabel = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
 const currentDescription = `Aktuelle Fassung von ${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Ressort: ${toDisplayText(norm.meta.ministry)}. Rechtsstand seit ${formatDate(currentVersion.validFrom)}.`;
+const [topics, pressReleases] = await Promise.all([loadTopics(), loadPressReleases()]);
+const relatedTopics = topics.filter((topic) =>
+  topic.rechtsgrundlagen.some((entry) => entry.normSlug === norm.meta.slug),
+);
+const relatedPressReleases = pressReleases
+  .filter((release) => release.relatedNormSlugs?.includes(norm.meta.slug))
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -82,6 +96,47 @@ const currentDescription = `Aktuelle Fassung von ${normLabel} im Rechtsbereich d
       </section>
     </div>
 
-    <NormMetaCard norm={norm} version={currentVersion} />
+    <aside class="content-stack">
+      <NormMetaCard norm={norm} version={currentVersion} />
+      {relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
+        <section class="section">
+          <div class="section-header section-header--compact">
+            <h2>Bezüge im Portal</h2>
+          </div>
+          {relatedTopics.length > 0 ? (
+            <>
+              <h3>Themen</h3>
+              <ul class="record-list">
+                {relatedTopics.map((topic) => (
+                  <li class="record-list__item">
+                    <a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a>
+                    <span>{topic.teaser}</span>
+                  </li>
+                ))}
+              </ul>
+              <p class="section-link-row">
+                <a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a>
+              </p>
+            </>
+          ) : null}
+          {relatedPressReleases.length > 0 ? (
+            <>
+              <h3>Presse</h3>
+              <ul class="record-list">
+                {relatedPressReleases.map((release) => (
+                  <li class="record-list__item">
+                    <a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a>
+                    <span>{formatDate(release.date)} · {release.ressort}</span>
+                  </li>
+                ))}
+              </ul>
+              <p class="section-link-row">
+                <a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Pressemitteilungen</a>
+              </p>
+            </>
+          ) : null}
+        </section>
+      ) : null}
+    </aside>
   </div>
 </BaseLayout>

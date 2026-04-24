@@ -1,94 +1,87 @@
 # AGENTS.md
 
-## Master-Portal-Regel
+## Grundregel
 
-Dieses Projekt ist ein statisches Gesamtportal der Staatsregierung mit integriertem Rechtsbereich.
+Dieses Repository ist das Portal einer fiktiven Staatsregierung mit integriertem Rechtsbereich. Die öffentliche Website soll wie eine sachliche Regierungswebsite wirken, nicht wie eine Entwicklerdemo.
 
 Prioritäten:
-1. Das Gesamtportal wirkt wie eine Regierungswebsite.
-2. Das Rechtsportal bleibt funktional erhalten.
-3. Inhalte bleiben dateibasiert.
-4. Keine neue Serverarchitektur.
-5. Navigation und Informationsarchitektur folgen der Master-Spezifikation.
-6. Bereits bestehende Seiten dürfen angepasst oder umgehängt werden, wenn dies der konsistenten Gesamtarchitektur dient.
 
-## Review- und Dokumentationsregel
+1. Öffentliches Portal behördennah, ruhig und verständlich halten.
+2. Rechtsportal unter `/recht/` funktional erhalten.
+3. Inhalte möglichst dateibasiert und nachvollziehbar pflegen.
+4. Bestehende Cloudflare- und Redaktionsstudio-Logik respektieren.
+5. Keine unnötige neue Architektur oder Bibliothek einführen.
+6. Änderungen klein, überprüfbar und passend zum vorhandenen Stil halten.
 
-Wenn ich um Review, Verbesserungsvorschläge oder Redaktionsdokumentation bitte:
-- analysiere zuerst den tatsächlichen Repo-Zustand
-- unterscheide klar zwischen Ist-Zustand und Soll-Spezifikation
-- gib gebündelte, priorisierte Vorschläge statt unstrukturierter Einzelfunde
-- dokumentiere Content-Pfade, Formate und Redaktionsregeln möglichst konkret und dateipfadbezogen
+## Dokumentationsstand
 
-## Projektkontext
+Primäre Projektdokumentation ist jetzt:
 
-Dieses Repository baut eine statische Website der Staatsregierung für eine politische Simulation mit integriertem Rechtsbereich. Es ist kein allgemeines CMS und kein juristisches Großsystem, sondern ein bewusst einfaches, robustes und langfristig wartbares Portal mit Regierungsinhalten, Servicebereichen und einem funktionsfähigen Rechtsportal mit aktuellen Fassungen, historischen Fassungen, Normenhistorie und Suche.
+- `README.md`
+- `AGENTS.md`
+- der tatsächliche Code- und Content-Zustand
+- `context/` als erhaltenes Ausgangs- und Simulationsmaterial
 
-## Primärziele
-
-1. Vollständig statische Website
-2. GitHub-Pages-kompatibler Build
-3. Klare dateibasierte Content-Struktur
-4. Einfache Rechtsstandslogik über gespeicherte Fassungen
-5. Gute Lesbarkeit und geringe technische Komplexität
-
-## Nicht-Ziele
-
-- keine Datenbank
-- kein Server-Backend
-- kein Login
-- kein Adminbereich
-- keine SSR
-- keine automatische Konsolidierung von Änderungsgesetzen
-- kein Overengineering
-
-## Technische Präferenzen
-
-- Astro
-- TypeScript
-- kleine, verständliche Komponenten
-- klare Utility-Funktionen statt unnötiger Klassenhierarchien
-- Build-Zeit-Generierung statt Laufzeitmagie
-
-## Inhaltslogik
-
-Jede Norm besitzt:
-- Stammdaten
-- mehrere Fassungen
-- Historieneinträge
-
-Historische Fassungen werden nicht berechnet, sondern liegen als eigene konsolidierte Fassungen vor.
+Alte Root-Spezifikationen und Zwischenpläne sind nicht mehr kanonisch.
 
 ## Arbeitsweise
 
-- Lies zuerst `SPEC_PORTAL_MASTER.md` und `TASKLIST_PORTAL_MASTER.md`.
-- Ziehe bei Strukturfragen zusätzlich `IA_AND_ROUTES.md` und `CONTENT_MODEL_MASTER.md` heran.
-- Arbeite phasenweise.
-- Halte Änderungen klein und überprüfbar.
-- Erkläre vor größeren Umbauten kurz die geplanten Dateien.
-- Bevorzuge direkte, robuste Lösungen.
-- Führe keine unnötigen Bibliotheken ein.
-- Dokumentiere neue zentrale Entscheidungen knapp in der README.
+- Bei Review- oder Planungsfragen zuerst den tatsächlichen Repo-Zustand lesen.
+- Ist-Zustand und gewünschte Weiterentwicklung klar trennen.
+- Bei Strukturfragen konservativ an bestehenden Routen, Komponenten und Content-Modellen orientieren.
+- Keine großen Refactorings starten, wenn eine direkte, robuste Änderung reicht.
+- Nicht verwandte Änderungen im Working Tree nicht zurücksetzen.
+- Neue zentrale Entscheidungen knapp in `README.md` oder hier dokumentieren.
 
-## Code-Stil
+## Technik
 
-- klare Typen
-- sprechende Namen
-- kurze Funktionen mit klarer Verantwortung
-- keine zu frühe Generalisierung
-- Kommentare nur dort, wo die Absicht nicht sofort aus dem Code hervorgeht
+- Astro
+- TypeScript
+- Cloudflare Workers
+- D1/R2 nur für die bereits vorgesehenen Laufzeitbereiche
+- klare Utility-Funktionen statt unnötiger Klassenhierarchien
+- Build- und Content-Checks vor Abschluss ausführen, sofern möglich
+
+Wichtige Befehle:
+
+```sh
+npm run content:check
+npm run check
+npm run build
+```
+
+## Inhalt und Redaktion
+
+- Deutschsprachige Inhalte mit echten Umlauten.
+- Öffentliche Seiten verwenden nutzerorientierte Sprache.
+- Architekturbegriffe wie D1, R2, Build, Repository, Fallback, Live-Override oder serverseitige Formularlogik gehören nicht in öffentliche Bürgertexte.
+- Operative technische Begriffe sind in interner Doku, Code und geschütztem Redaktionsstudio zulässig.
+- Gerhardt Lehrmann ist kein aktives Kabinettsmitglied. Das Wirtschaftsressort wird geschäftsführend von Ministerpräsident Dr. Karl Honecker geleitet.
+- Kein neues Profil für Gerhardt Lehrmann anlegen.
+
+## Rechtsportal
+
+Normen liegen unter:
+
+```text
+content/normen/[slug]/
+  meta.json
+  history.json
+  versions/[versionId].json
+```
+
+Historische Fassungen sind gespeicherte Fassungen, keine automatisch berechneten Konsolidierungen.
 
 ## UI-Stil
 
 - nüchtern
 - behördennah
-- gute Typografie
-- keine verspielten Effekte
-- Inhaltsklarheit vor Design-Spielereien
+- gut lesbar
+- barrierearm
+- Jost als Schrift
+- ruhige Blau-Weiß-Grün-Anmutung
+- Inhaltsklarheit vor Effekten
 
 ## Bei Unsicherheit
 
-Wenn Anforderungen unklar sind:
-- an `SPEC_PORTAL_MASTER.md` orientieren
-- konservative, einfache Interpretation wählen
-- keine große Zusatzarchitektur einführen
+Den vorhandenen Code, `README.md`, `AGENTS.md` und `context/` heranziehen. Wenn mehrere Wege möglich sind, die einfache, robuste und am wenigsten invasive Lösung wählen.

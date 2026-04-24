@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getHomeUrl, getLawSearchUrl, getPortalSearchUrl } from '../lib/portal/index.ts';
+
+const indexUrl = `${import.meta.env.BASE_URL}search-index.json`;
+---
+
+<BaseLayout
+  title="Suche"
+  description="Suche im Portal der Staatsregierung des Ostdeutschen Freistaates."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Suche', href: getPortalSearchUrl() },
+  ]}
+>
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Suche' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Portalsuche</p>
+    <h1>Suche</h1>
+    <p class="lead">
+      Die Suche führt durch Themen, Staatsregierung, Presse, Service, Haushalt und Recht.
+    </p>
+  </section>
+
+  <section class="section search-shell" data-portal-search-root data-index-url={indexUrl}>
+    <form class="search-form" method="get" action={getPortalSearchUrl()} data-portal-search-form>
+      <div class="search-form__primary">
+        <label class="search-field">
+          <span>Suchbegriff</span>
+          <input
+            type="search"
+            name="q"
+            autocomplete="off"
+            placeholder="z. B. Haushalt, Kabinett, Presse oder Vergesellschaftung"
+            data-portal-search-query
+          />
+        </label>
+      </div>
+      <div class="search-form__filters">
+        <label class="search-field">
+          <span>Bereich</span>
+          <select name="type" data-portal-search-type>
+            <option value="">Alle Bereiche</option>
+            <option value="government">Staatsregierung</option>
+            <option value="ministry">Ressorts</option>
+            <option value="topic">Themen</option>
+            <option value="press">Pressemitteilungen</option>
+            <option value="speech">Reden</option>
+            <option value="event">Termine</option>
+            <option value="budget">Haushalt</option>
+            <option value="freestate">Über den Freistaat</option>
+            <option value="service">Service</option>
+            <option value="job">Karriere</option>
+            <option value="law">Recht</option>
+          </select>
+        </label>
+      </div>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Suchen</button>
+        <a class="button-link button-link--secondary" href={getLawSearchUrl()}>Nur im Recht suchen</a>
+      </div>
+    </form>
+
+    <p class="search-feedback" data-portal-search-count>Suchbegriff eingeben</p>
+    <p class="search-feedback search-feedback--warning" data-portal-search-empty hidden>
+      Zu Ihrer Suche wurden keine passenden Inhalte gefunden.
+    </p>
+    <ol class="record-list search-results__list" data-portal-search-results></ol>
+  </section>
+
+  <script>
+    import '../scripts/portal-search-page.ts';
+  </script>
+</BaseLayout>

@@ -25,9 +25,23 @@ const featuredSlugs = new Set(featuredReleases.map((release) => release.slug));
 const archiveReleases = releases.filter((release) => !featuredSlugs.has(release.slug));
 const leadRelease = featuredReleases[0];
 const secondaryFeatured = featuredReleases.slice(1);
+const displayedReleases = archiveReleases.length > 0 ? archiveReleases : releases;
+const ressorts = [...new Set(releases.map((release) => release.ressort))].sort((left, right) =>
+  left.localeCompare(right, 'de'),
+);
+const years = [...new Set(releases.map((release) => release.date.slice(0, 4)))].sort((left, right) =>
+  right.localeCompare(left),
+);
+const tags = [...new Set(releases.flatMap((release) => release.tags))].sort((left, right) =>
+  left.localeCompare(right, 'de'),
+);
 ---
 
-<BaseLayout title="Pressemitteilungen" description="Pressemitteilungen der Staatsregierung.">
+<BaseLayout
+  title="Pressemitteilungen"
+  description="Pressemitteilungen der Staatsregierung."
+  scripts={['portal-modules']}
+>
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
@@ -43,6 +57,9 @@ const secondaryFeatured = featuredReleases.slice(1);
       Der Pressebereich bündelt aktuelle Meldungen der Staatsregierung mit klaren Metadaten,
       stabilen URLs und einer behördennahen Darstellung.
     </p>
+    <nav class="hero-actions" aria-label="Presseangebote">
+      <a class="button-link button-link--secondary" href="../rss.xml">RSS-Feed abonnieren</a>
+    </nav>
   </section>
 
   {leadRelease ? (
@@ -67,9 +84,50 @@ const secondaryFeatured = featuredReleases.slice(1);
       <h2>Archiv der Mitteilungen</h2>
       <p>Alle Pressemitteilungen bleiben mit Datum, Ressortbezug und Fließtext dauerhaft erreichbar.</p>
     </div>
+    <form class="search-form" data-role="press-release-filter">
+      <div class="search-form__filters">
+        <label class="search-field">
+          <span>Suchbegriff</span>
+          <input type="search" name="query" placeholder="Titel, Ressort oder Schlagwort" />
+        </label>
+        <label class="search-field">
+          <span>Ressort</span>
+          <select name="ressort">
+            <option value="">Alle Ressorts</option>
+            {ressorts.map((ressort) => <option value={ressort}>{ressort}</option>)}
+          </select>
+        </label>
+        <label class="search-field">
+          <span>Jahr</span>
+          <select name="year">
+            <option value="">Alle Jahre</option>
+            {years.map((year) => <option value={year}>{year}</option>)}
+          </select>
+        </label>
+        <label class="search-field">
+          <span>Schlagwort</span>
+          <select name="tag">
+            <option value="">Alle Schlagwörter</option>
+            {tags.map((tag) => <option value={tag}>{tag}</option>)}
+          </select>
+        </label>
+      </div>
+    </form>
+    <p class="search-feedback" id="press-release-filter-count">{displayedReleases.length} Mitteilungen sichtbar</p>
+    <p class="search-feedback search-feedback--warning" id="press-release-filter-empty" hidden>
+      Zu diesen Filtern wurden keine Pressemitteilungen gefunden.
+    </p>
     <div class="content-stack">
-      {(archiveReleases.length > 0 ? archiveReleases : releases).map((release) => (
-        <PressReleaseCard release={release} />
+      {displayedReleases.map((release) => (
+        <div
+          class="press-release-filter-card"
+          data-search={`${release.title} ${release.teaser} ${release.ressort} ${release.tags.join(' ')} ${release.body.join(' ')}`.toLocaleLowerCase('de-DE')}
+          data-ressort={release.ressort}
+          data-year={release.date.slice(0, 4)}
+          data-tags={release.tags.join('|')}
+        >
+          <PressReleaseCard release={release} />
+        </div>
       ))}
     </div>
     <p class="section-link-row">

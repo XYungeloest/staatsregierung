@@ -26,6 +26,7 @@ import {
   getLawIndexUrl,
   getMinistryUrl,
   getMinisterPresidentUrl,
+  getPortalSearchUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
@@ -102,6 +103,7 @@ export const GET: APIRoute = async ({ site }) => {
 
   const staticPaths = [
     getHomeUrl(),
+    getPortalSearchUrl(),
     getGovernmentUrl(),
     getGovernmentMembersUrl(),
     getMinisterPresidentUrl(),

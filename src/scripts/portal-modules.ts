@@ -232,6 +232,52 @@ function initCareerFilterModule(): void {
   update();
 }
 
+function initPressReleaseFilterModule(): void {
+  const form = document.querySelector<HTMLFormElement>('[data-role="press-release-filter"]');
+  if (!form) {
+    return;
+  }
+
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.press-release-filter-card'));
+  const countNode = document.getElementById('press-release-filter-count');
+  const emptyNode = document.getElementById('press-release-filter-empty');
+
+  const update = () => {
+    const data = new FormData(form);
+    const query = String(data.get('query') ?? '').trim().toLocaleLowerCase('de-DE');
+    const ressort = String(data.get('ressort') ?? '');
+    const year = String(data.get('year') ?? '');
+    const tag = String(data.get('tag') ?? '');
+    let visibleCount = 0;
+
+    for (const card of cards) {
+      const tags = String(card.dataset.tags ?? '').split('|');
+      const visible =
+        (!query || String(card.dataset.search ?? '').includes(query)) &&
+        (!ressort || card.dataset.ressort === ressort) &&
+        (!year || card.dataset.year === year) &&
+        (!tag || tags.includes(tag));
+
+      card.hidden = !visible;
+      if (visible) {
+        visibleCount += 1;
+      }
+    }
+
+    if (countNode) {
+      countNode.textContent = `${visibleCount} Mitteilungen sichtbar`;
+    }
+
+    if (emptyNode) {
+      emptyNode.hidden = visibleCount !== 0;
+    }
+  };
+
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  update();
+}
+
 function initContactRouterModule(): void {
   const form = document.querySelector<HTMLFormElement>('[data-role="contact-router"]');
   if (!form) {
@@ -272,4 +318,5 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-budget-root]'))
 
 initFaqModules();
 initCareerFilterModule();
+initPressReleaseFilterModule();
 initContactRouterModule();

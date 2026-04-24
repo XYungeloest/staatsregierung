@@ -25,6 +25,7 @@ import {
   getEditorialUrl,
   getHomeUrl,
   getLawSearchUrl,
+  getPortalSearchUrl,
   getSiteUrl,
 } from '../lib/portal/routes.ts';
 import analyticsConsentScriptUrl from '../scripts/analytics-consent.ts?url';
@@ -130,6 +131,7 @@ const footerPortalLinks = [
 }));
 
 const footerUtilityLinks = [
+  { href: getPortalSearchUrl(), label: 'Portalsuche' },
   { href: getLawSearchUrl(), label: 'Rechtssuche' },
   { href: getSiteUrl('lawIndex'), label: 'Archiv' },
   { href: getSiteUrl('serviceOverview'), label: 'Übersicht' },
@@ -231,8 +233,8 @@ const footerUtilityLinks = [
                   alt=""
                   onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.removeAttribute('hidden');"
                 />
-                <span class="site-notice__flag-fallback" aria-hidden="true" hidden>
-                  {siteConfig.officialFlagFallback}
+                <span class="site-notice__flag-text" aria-hidden="true" hidden>
+                  {siteConfig.officialFlagText}
                 </span>
               </div>
               <p>{siteConfig.simulationNotice}</p>
@@ -249,8 +251,8 @@ const footerUtilityLinks = [
                     </a>
                   ))}
                 </nav>
-                <a class="site-utility-bar__search-link" href={getLawSearchUrl()}>
-                  Rechtssuche
+                <a class="site-utility-bar__search-link" href={getPortalSearchUrl()}>
+                  Suche
                 </a>
               </div>
             </div>
@@ -264,8 +266,8 @@ const footerUtilityLinks = [
                       alt=""
                       onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.removeAttribute('hidden');"
                     />
-                    <span class="site-notice__flag-fallback" hidden>
-                      {siteConfig.officialFlagFallback}
+                    <span class="site-notice__flag-text" hidden>
+                      {siteConfig.officialFlagText}
                     </span>
                   </span>
                   <span class="site-wordmark__text">
@@ -279,7 +281,7 @@ const footerUtilityLinks = [
               <div class="site-search">
                 <form
                   class="header-search"
-                  action={getLawSearchUrl()}
+                  action={getPortalSearchUrl()}
                   method="get"
                   role="search"
                   aria-label={siteConfig.searchLabel}
@@ -328,8 +330,8 @@ const footerUtilityLinks = [
                     </div>
 
                     <div class="mobile-nav__actions">
-                      <a class="button-link button-link--secondary" href={getLawSearchUrl()}>
-                        Rechtssuche
+                      <a class="button-link button-link--secondary" href={getPortalSearchUrl()}>
+                        Suche
                       </a>
                     </div>
                   </div>
