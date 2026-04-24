@@ -14,13 +14,14 @@ export const siteConfig = {
   simulationNotice:
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',
   footerNote:
-    'Statische Website der Staatsregierung des Ostdeutschen Freistaates mit integriertem Rechtsbereich innerhalb einer fiktiven Politiksimulation.',
+    'Website der Staatsregierung des Ostdeutschen Freistaates mit integriertem Rechtsbereich innerhalb einer fiktiven Politiksimulation.',
   officialFlagAssetPath: '/images/ui/ost-flagge.png',
-  officialFlagFallback: 'OF',
-  searchLabel: 'Recht durchsuchen',
-  searchPlaceholder: 'z. B. Normtitel, Kurztitel oder Sachgebiet',
+  officialFlagText: 'OF',
+  searchLabel: 'Portal durchsuchen',
+  searchPlaceholder: 'z. B. Thema, Ressort, Recht oder Presse',
   paths: {
     home: '/',
+    search: '/suche/',
     government: '/staatsregierung/',
     governmentMembers: '/staatsregierung/mitglieder/',
     ministerPresident: '/staatsregierung/ministerpraesident/',

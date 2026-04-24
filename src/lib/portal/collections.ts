@@ -45,9 +45,9 @@ export const portalCollections = {
     label: 'Stellenangebote',
     directorySegments: ['service', 'stellen'],
   },
-  statischeSeite: {
-    key: 'statischeSeite',
-    label: 'Statische Seiten',
+  serviceSeite: {
+    key: 'serviceSeite',
+    label: 'Service-Seiten',
     directorySegments: ['service', 'seiten'],
   },
   freistaatSeite: {

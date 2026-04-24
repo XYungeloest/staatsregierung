@@ -1,144 +1,48 @@
 # Staatsregierung des Ostdeutschen Freistaates
 
-Statische Website der Staatsregierung des Ostdeutschen Freistaates mit integriertem Rechtsbereich unter `/recht/`.
+Website der fiktiven Staatsregierung des Ostdeutschen Freistaates mit Regierungsportal, Rechtsbereich, Presse, Haushalt, Service und internem Redaktionsstudio.
 
-Das Projekt verbindet drei Bereiche in einer gemeinsamen Astro-Architektur:
+Die öffentliche Website soll sachlich, ruhig und behördennah wirken. Architektur- und Entwicklungsbegriffe gehören nicht in öffentliche Seitentexte; operative Hinweise bleiben in Code, README, AGENTS oder im geschützten Redaktionsstudio.
 
-- Regierungsportal mit Staatsregierung, Themen, Presse, Haushalt und Freistaat-Seiten
-- integriertes Rechtsportal mit aktuellen Fassungen, Historien, Suchindex, Archiv und Sachgebieten
-- Servicebereich mit Übersicht, Karriere, Kontakt, FAQ, Datenschutz, Impressum und Barrierefreiheit
+## Projektkern
 
-Die Website ist ausdrücklich Teil einer fiktiven Politiksimulation. Sie bleibt vollständig dateibasiert und wird in der ersten Cloudflare-Migrationsphase weiterhin weitgehend statisch erzeugt.
-
-## Kanonische Dokumentation
-
-Die aktuellen Leitdokumente im Repository sind:
-
-- [SPEC_PORTAL_MASTER.md](./SPEC_PORTAL_MASTER.md)
-- [IA_AND_ROUTES.md](./IA_AND_ROUTES.md)
-- [CONTENT_MODEL_MASTER.md](./CONTENT_MODEL_MASTER.md)
-- [CONTENT_GUIDE_SIM.md](./CONTENT_GUIDE_SIM.md)
-- [TASKLIST_PORTAL_MASTER.md](./TASKLIST_PORTAL_MASTER.md)
-- [INTERACTIVE_MODULES.md](./INTERACTIVE_MODULES.md)
-- [AGENTS.md](./AGENTS.md)
-- [CONTENT_EDITOR_GUIDE.md](./CONTENT_EDITOR_GUIDE.md)
-- [SEO_NOTES.md](./SEO_NOTES.md)
-- [CLOUDFLARE_MIGRATION.md](./CLOUDFLARE_MIGRATION.md)
-- [DYNAMIC_CONTENT_NOTES.md](./DYNAMIC_CONTENT_NOTES.md)
-- [EDITORIAL_STUDIO_NOTES.md](./EDITORIAL_STUDIO_NOTES.md)
-
-Ältere Vorstufen der Spezifikation liegen nur noch als Archiv unter [docs/legacy/](./docs/legacy/).
-
-## Technischer Rahmen
-
-- Astro
-- TypeScript
+- Astro und TypeScript
 - Cloudflare Workers als Zielplattform
-- in Phase 1 weiterhin weitgehend statische Ausgabe
-- gezielte D1-/R2-Nutzung für ausgewählte dynamische Bereiche
-- leichtgewichtiges Redaktionsstudio unter `/redaktion/` für interne Entwürfe, Preview und Medien
-- kein klassisches Backend und keine Voll-SSR
-- keine Container
-- keine öffentliche Adminoberfläche und kein Drittanbieter-CMS
+- dateibasierte Inhalte unter `content/`
+- gezielte Laufzeitbereiche für Presse, Termine, Stellenangebote, Medien und Projektstatus
+- Rechtsportal unter `/recht/` mit Normen, Fassungen, Historien, Sachgebieten und Rechtssuche
+- Redaktionsstudio unter `/redaktion/`, das in Staging und Produktion hinter Cloudflare Access liegen soll
 
-## Voraussetzungen
+Das Projekt ist eine politische Simulation. Es stellt keine echte amtliche Veröffentlichung dar.
 
-- Node.js ab `22.12.0`
-- `npm`
-
-## Lokale Entwicklung
-
-Abhängigkeiten installieren:
+## Entwicklung
 
 ```sh
 npm install
-```
-
-Entwicklungsserver starten:
-
-```sh
 npm run dev
-```
-
-Type-Check ausführen:
-
-```sh
+npm run content:check
 npm run check
-```
-
-Produktionsbuild erzeugen:
-
-```sh
 npm run build
 ```
 
-Wenn die Telemetry in der Umgebung deaktiviert werden soll:
-
-```sh
-ASTRO_TELEMETRY_DISABLED=1 npm run build
-```
-
-Lokale Vorschau im Cloudflare-kompatiblen Preview-Runtime:
+Weitere wichtige Befehle:
 
 ```sh
 npm run preview
-```
-
-## Build-Parameter, Canonicals und Cloudflare
-
-`astro.config.mjs` liest die Site- und Basis-URL über Umgebungsvariablen ein. Diese Werte steuern insbesondere Canonical-URLs, Sitemap und `robots.txt`.
-
-- `SITE_URL`
-  Vollständige Site-URL, zum Beispiel `https://freistaat-ostdeutschland.de`
-- `BASE_PATH`
-  Optionaler Unterpfad, zum Beispiel `/verwaltung/`
-
-Beispiele:
-
-```sh
-SITE_URL=https://ostrecht-portal-staging.<subdomain>.workers.dev npm run build
-```
-
-```sh
-SITE_URL=https://osten.de BASE_PATH=/ npm run build
-```
-
-Ohne Variablen baut das Projekt standardmäßig mit:
-
-- `site = https://freistaat-ostdeutschland.de`
-- `base = /`
-
-Das eigentliche Cloudflare-Deployment erfolgt anschließend mit Wrangler:
-
-```sh
+npm run db:seed:build
+npm run db:migrate:local
+npm run db:seed:local
+npm run deploy:staging
 npm run deploy
 ```
 
-Für ein erstes Staging ist eine separate Worker-Umgebung vorbereitet:
+`SITE_URL` und `BASE_PATH` steuern Canonicals, Sitemap, Robots und Pfadauflösung:
 
 ```sh
-SITE_URL=https://ostrecht-portal-staging.<subdomain>.workers.dev npm run build
-npm run deploy:staging
-```
-
-Die nötigen Schritte und offenen externen Cloudflare-Einstellungen stehen in [CLOUDFLARE_MIGRATION.md](./CLOUDFLARE_MIGRATION.md).
-
-Für redaktionelle Remote-Tests gilt zusätzlich:
-
-- `/redaktion/*` sollte in Staging und Produktion hinter Cloudflare Access liegen
-- `/redaktion/session` sollte ebenfalls hinter derselben Access-Anwendung liegen
-- seitennahe Bearbeitung auf öffentlichen editierbaren Seiten kann danach über ein kurzlebiges, signiertes Editor-Cookie sichtbar gemacht werden
-- das Studio zeigt die erkannte Umgebung sowie den D1-/R2-Binding-Status direkt an
-- zusätzlich muss ein Secret für das Editor-Cookie gesetzt werden:
-
-```sh
-wrangler secret put EDITORIAL_SESSION_SECRET
-wrangler secret put EDITORIAL_SESSION_SECRET --env staging
+SITE_URL=https://freistaat-ostdeutschland.de BASE_PATH=/ npm run build
 ```
 
 ## Wichtige Verzeichnisse
-
-### Content
 
 ```text
 content/
@@ -146,177 +50,91 @@ content/
   haushalt/
   normen/
   presse/
-    mitteilungen/
-    reden/
-    termine/
   regierung/
-    mitglieder/
   ressorts/
   service/
-    seiten/
-    stellen/
   themen/
-```
 
-### Seiten und Logik
-
-```text
 src/
   components/
   config/
   data/
-    dashboard/
   layouts/
   lib/
-    norms/
-    portal/
   pages/
   scripts/
   styles/
+
+db/
+  migrations/
+  seeds/
+
+context/
+  externe Ausgangstexte und Simulationsmaterial
 ```
 
-### Assets
+`context/` bleibt bewusst erhalten. Alte Planungs- und Zwischendokumente im Repository-Root wurden in diese README und `AGENTS.md` verdichtet.
 
-```text
-public/images/
-  jobs/
-  ministerien/
-  presse/
-  regierung/
-  ui/
-```
+## Content-Regeln
+
+- Öffentliche Inhalte werden deutschsprachig mit echten Umlauten gepflegt.
+- Datumsdarstellung auf Seiten bevorzugt `TT. Monat JJJJ`.
+- Regierungsmitglieder liegen unter `content/regierung/mitglieder/`.
+- Ressorts liegen unter `content/ressorts/`.
+- Themenseiten verweisen über `federfuehrendesRessort` und `rechtsgrundlagen[].normSlug` auf Ressorts und Normen.
+- Pressemitteilungen können über `relatedTopicSlugs`, `relatedNormSlugs` und `relatedPressSlugs` querverlinkt werden.
+- Stellenangebote liegen unter `content/service/stellen/`.
+- Service-Grundseiten liegen unter `content/service/seiten/`.
+- Normen liegen unter `content/normen/[slug]/` mit `meta.json`, `history.json` und `versions/[versionId].json`.
+
+Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen gespeichert.
 
 ## Zentrale Konfiguration
 
-- `src/config/site.ts`
-  Globale Portaltexte, Navigation, Pfade, Kontaktangaben und Regierungsstammdaten
-- `src/config/features.ts`
-  Schmale Feature-Flags, vor allem für Kennzeichnungsleiste, Sticky Header, Analytics und Redaktionswerkzeug
-- `src/config/analytics.ts`
-  Zentrale Konfiguration für Google Analytics 4, Standard-Consent und die clientseitige Consent-Speicherung
+- `src/config/site.ts`: Portaltexte, Pfade, Navigation, Kontakt, Regierungsstammdaten
+- `src/config/features.ts`: Feature-Flags für Header, Redaktionszugänge und Analytics
+- `src/config/analytics.ts`: Consent und Webanalyse-Konfiguration
+- `src/lib/portal/routes.ts`: zentrale Portalpfade
+- `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik
 
-`siteConfig` enthält bewusst nur globale Portal-Konfiguration. Inhaltliche Listen wie Ressorts oder Regierungsmitglieder werden über die Content-Dateien gepflegt, nicht parallel in der Konfiguration.
+## Laufzeitbereiche
 
-Google Analytics 4 wird global im `BaseLayout` eingebunden. Der Standardzustand der Einwilligung wird zentral über `src/config/analytics.ts` gesteuert; eine abweichende Entscheidung wird ohne Backend lokal im Browser gespeichert.
-
-## Dynamische Bereiche
-
-In der zweiten Cloudflare-Migrationsphase werden ausgewählte Bereiche gezielt on-demand aus Cloudflare D1 geladen:
+Diese Bereiche können aus Cloudflare D1/R2 gespeist werden:
 
 - Pressemitteilungen
 - Termine
-- Karriere / Stellenangebote
-- 15-Punkte-Dashboard / Projektstatus
+- Stellenangebote
+- Projektstatus / 15-Punkte-Dashboard
+- Medien
+- ausgewählte Live-Overrides für redaktionelle Inhalte
 
-Für Bilder, Downloads und größere Medien steht zusätzlich eine einfache R2-Integration bereit. Das Rechtsportal unter `/recht/` bleibt weiterhin dateibasiert und weitgehend statisch.
-
-Details zu Tabellen, Migrationen, Seed-Workflow und lokalen Schritten stehen in [DYNAMIC_CONTENT_NOTES.md](./DYNAMIC_CONTENT_NOTES.md).
+Dateibasierte Inhalte bleiben die robuste Grundquelle. Das Rechtsportal darf funktional nicht leichtfertig umgebaut werden.
 
 ## Redaktionsstudio
 
-Unter `/redaktion/` läuft jetzt ein interner, on-demand gerenderter Redaktionsbereich für:
+`/redaktion/` ist ein interner Arbeitsbereich für:
 
-- Pressemitteilungen
-- Termine
-- Stellenangebote
-- Projektstatus
-- Service-Seiten
-- Themenseiten
-- Ressorts
-- Regierungsmitglieder
+- Inhalte bearbeiten und veröffentlichen
+- Entwürfe
+- Medien
+- ausgewählte Inline-Bearbeitung
+- Rechtswerkzeug für Normdateien
 
-Direkt live schaltbar sind die bereits D1-gestützten Bereiche Pressemitteilungen, Termine, Stellenangebote und Projektstatus. Service-Seiten, Themenseiten, Ressorts und Regierungsmitglieder unterstützen zusätzlich veröffentlichte D1-Live-Overrides mit dateibasiertem Fallback aus dem Repository.
+Für produktionsnahe Umgebungen:
 
-Das frühere clientseitige Normdatei-Werkzeug bleibt als eigenes Rechtswerkzeug unter `/redaktion/recht/` erhalten. Hinweise zu Routen, D1-Tabellen, R2-Uploads und Access-Schutz stehen in [EDITORIAL_STUDIO_NOTES.md](./EDITORIAL_STUDIO_NOTES.md).
-
-## Rechtsbereich
-
-Der Rechtsbereich bleibt funktional erhalten und liegt vollständig unter `/recht/`.
-
-Normen liegen kanonisch unter:
-
-```text
-content/normen/[slug]/
-  meta.json
-  history.json
-  versions/
-    [versionId].json
+```sh
+wrangler secret put EDITORIAL_SESSION_SECRET
+wrangler secret put EDITORIAL_SESSION_SECRET --env staging
 ```
 
-Historische Fassungen werden nicht berechnet, sondern als eigene Fassungen gespeichert.
+## Qualitätssicherung
 
-Die Suche arbeitet mit einem beim Build erzeugten Index unter:
+Vor relevanten Änderungen:
 
-```text
-src/pages/recht/search-index.json.ts
+```sh
+npm run content:check
+npm run check
+npm run build
 ```
 
-## Weitere dateibasierte Bereiche
-
-Zusätzlich zum Rechtsportal werden diese Bereiche direkt aus JSON-Dateien geladen und validiert:
-
-- Regierungsmitglieder
-- Ressorts
-- Themenseiten
-- Pressemitteilungen
-- Reden
-- Termine
-- Haushaltsseiten
-- Stellenangebote
-- Service-Seiten
-
-Die Schemata und Parser dafür liegen in:
-
-```text
-src/lib/portal/schema.ts
-```
-
-## Dashboard- und Interaktionsmodule
-
-Interaktive, aber rein statische Module liegen als kleine Client-Module vor, unter anderem für:
-
-- 15-Punkte-Plan
-- Projekt-Timeline
-- Gesetzgebungs-Tracker
-- Haushalt-Explorer
-- FAQ-Akkordeons
-- Karriere-Filter
-- Kontakt-Wegweiser
-
-Die kuratierten Datensätze für Dashboard-Module liegen in:
-
-```text
-src/data/dashboard/
-```
-
-Diese Daten sind bewusst Sekundärquellen für Visualisierung und Einstiegsmodule, nicht die primäre inhaltliche Wahrheit. Inhaltliche Stammdaten bleiben in den Collections unter `content/`.
-
-## Typografie und Assets
-
-- Die UI verwendet die Schriftart Jost als lokal gehostete Variable Font unter `src/assets/fonts/`.
-- Regierungs-, Ressort-, Presse- und Jobbilder werden über benannte PNG-Dateien unter `public/images/` referenziert.
-- Die Flagge des Freistaates liegt unter `public/images/ui/ost-flagge.png`.
-
-## Redaktionelles Werkzeug
-
-Unter `/redaktion/` gibt es ein optionales, rein clientseitiges Hilfswerkzeug für Normdateien.
-
-Wichtig:
-
-- es ist standardmäßig nicht in der Navigation verlinkt
-- es speichert nichts serverseitig
-- es bleibt vollständig statisch
-- es kann über `src/config/features.ts` ein- oder ausgeblendet werden
-
-## Legacy-Dokumente
-
-Die früheren Portal- und Redesign-Spezifikationen bleiben nur als Referenz erhalten:
-
-- `SPEC.md`
-- `SPEC_REDESIGN.md`
-- `TASKLIST.md`
-- `TASKLIST_REDESIGN.md`
-- `IA_PORTAL.md`
-- `CONTENT_MODEL_PORTAL.md`
-
-Die inhaltlichen Altstände liegen unter `docs/legacy/`; die Dateien im Projektwurzel verweisen nur noch auf die Master-Dokumentation.
+Nach öffentlichen Textänderungen zusätzlich gezielt nach Entwicklerbegriffen suchen und sicherstellen, dass sie nicht in Bürgerseiten erscheinen.

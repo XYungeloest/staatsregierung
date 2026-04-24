@@ -27,6 +27,10 @@ export function getHomeUrl(): string {
   return getSiteUrl('home');
 }
 
+export function getPortalSearchUrl(): string {
+  return getSiteUrl('search');
+}
+
 export function getGovernmentUrl(): string {
   return getSiteUrl('government');
 }

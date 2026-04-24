@@ -341,7 +341,7 @@ h5 {
   border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
-.site-notice__flag-fallback {
+.site-notice__flag-text {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1874,6 +1874,7 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .job-filter-card[hidden],
+.press-release-filter-card[hidden],
 .contact-route-card[hidden] {
   display: none !important;
 }
@@ -2387,15 +2388,6 @@ article.panel > p:last-child > a.inline-link:hover {
 .site-footer__small {
   font-size: 0.9rem;
 }
-
-.election-widget__fullname {
-  font-size: 0.78rem;
-  line-height: 1.35;
-  color: var(--color-text-muted);
-  min-height: 2.7em; /* ← NEU: Platz für ~2 Zeilen reservieren */
-}
-
-
 
 @media (max-width: 960px) {
   .content-grid--wide {

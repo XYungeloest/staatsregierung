@@ -174,7 +174,7 @@ export async function loadJobOfferBySlug(slug: string): Promise<Stellenangebot |
 
 export async function loadPages(): Promise<Seite[]> {
   const entries = await loadCollection(
-    portalCollections.statischeSeite.directorySegments,
+    portalCollections.serviceSeite.directorySegments,
     parseSeite,
   );
   return entries.sort((left, right) => left.title.localeCompare(right.title, 'de'));

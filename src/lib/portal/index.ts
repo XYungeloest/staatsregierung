@@ -77,6 +77,7 @@ export {
   getServiceOverviewUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
+  getPortalSearchUrl,
   getSpeechIndexUrl,
   getSpeechUrl,
   getPressUrl,
