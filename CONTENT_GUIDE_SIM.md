@@ -14,7 +14,7 @@
 - Bildung und sportliche Ertüchtigung — Friedrich Ritter
 - Umwelt, Energie und Klimaschutz — Tim Dieter
 - Küste, Fischerei, Forst und Landwirtschaft — Elizabeth Eberhardt
-- Wirtschaft, Arbeitsmarkt und Beschäftigung — Gerhardt Lehrmann
+- Wirtschaft, Arbeitsmarkt und Beschäftigung — Dr. Karl Honecker (geschäftsführend)
 
 Koalition:
 - Volksfront

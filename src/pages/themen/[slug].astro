@@ -148,7 +148,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         visible={showEditorialUi && Boolean(heroInline)}
         href={buildInlineEditHref(Astro.url, 'hero')}
         label="Hero"
-        statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+        statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
       />
     </section>
 
@@ -172,7 +172,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         visible={showEditorialUi && Boolean(beschlossenInline)}
         href={buildInlineEditHref(Astro.url, 'beschlossen')}
         label="Beschlossen"
-        statusLabel={beschlossenInline ? getInlineSectionStatusLabel(beschlossenInline) : 'Fallback'}
+        statusLabel={beschlossenInline ? getInlineSectionStatusLabel(beschlossenInline) : 'Ausgangsstand'}
       />
       <ul class="record-list">
         {topic.beschlossen.map((entry) => (
@@ -190,7 +190,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         visible={showEditorialUi && Boolean(umgesetztInline)}
         href={buildInlineEditHref(Astro.url, 'umgesetzt')}
         label="Umgesetzt"
-        statusLabel={umgesetztInline ? getInlineSectionStatusLabel(umgesetztInline) : 'Fallback'}
+        statusLabel={umgesetztInline ? getInlineSectionStatusLabel(umgesetztInline) : 'Ausgangsstand'}
       />
       <ul class="record-list">
         {topic.umgesetzt.map((entry) => (
@@ -208,7 +208,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         visible={showEditorialUi && Boolean(stepsInline)}
         href={buildInlineEditHref(Astro.url, 'naechste-schritte')}
         label="Nächste Schritte"
-        statusLabel={stepsInline ? getInlineSectionStatusLabel(stepsInline) : 'Fallback'}
+        statusLabel={stepsInline ? getInlineSectionStatusLabel(stepsInline) : 'Ausgangsstand'}
       />
       <ul class="record-list">
         {topic.naechsteSchritte.map((entry) => (
@@ -245,7 +245,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         visible={showEditorialUi && Boolean(faqInline)}
         href={buildInlineEditHref(Astro.url, 'faq')}
         label="FAQ"
-        statusLabel={faqInline ? getInlineSectionStatusLabel(faqInline) : 'Fallback'}
+        statusLabel={faqInline ? getInlineSectionStatusLabel(faqInline) : 'Ausgangsstand'}
       />
       <FaqAccordion items={topic.faq} />
     </section>
@@ -313,7 +313,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
     <section class="section">
       <div class="status-notice status-notice--warning">
         <h1>Themenseite nicht gefunden</h1>
-        <p>Für diese URL liegt weder ein statischer Inhalt noch ein veröffentlichter D1-Override vor.</p>
+        <p>Der angeforderte Inhalt konnte nicht gefunden werden. Bitte nutzen Sie die Themenübersicht.</p>
       </div>
     </section>
   </BaseLayout>

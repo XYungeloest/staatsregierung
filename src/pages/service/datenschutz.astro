@@ -79,7 +79,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
       visible={showEditorialUi && Boolean(heroInline)}
       href={buildInlineEditHref(Astro.url, 'hero')}
       label="Seitentitel"
-      statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+      statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
     />
   </section>
 
@@ -100,22 +100,21 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         visible={showEditorialUi && Boolean(bodyInline)}
         href={buildInlineEditHref(Astro.url, 'body')}
         label="Inhaltsblock"
-        statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Fallback'}
+        statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Ausgangsstand'}
       />
       {(page?.body ?? []).map((paragraph) => (
         <p>{paragraph}</p>
       ))}
 
       <div class="section-header">
-        <h2>Technische Einordnung</h2>
+        <h2>Nutzung des Portals</h2>
       </div>
       <p>
-        Die Website wird als statischer Build ausgeliefert. Es gibt keine Loginbereiche, keine
-        serverseitige Formularverarbeitung und keine nutzerbezogene Datenbank.
+        Das öffentliche Portal bietet keine Benutzerkonten und keinen Anmeldebereich. Kontakt-,
+        Karriere- und Beteiligungshinweise verweisen auf die jeweils genannten Kontaktwege.
       </p>
       <p>
-        Suchfunktionen im Rechtsbereich greifen auf einen vorab erzeugten Suchindex zurück, der
-        beim Build in statische Dateien geschrieben wird.
+        Die Normensuche stellt einen Suchindex für Titel, Metadaten und Normtexte bereit.
       </p>
 
       <div class="section-header">
@@ -129,8 +128,7 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
       </p>
       <p>
         Google kann dabei Informationen über die Nutzung der Website verarbeiten. Die Integration
-        nutzt die von Google bereitgestellte Tag-Infrastruktur und setzt keine eigene
-        serverseitige Tracking-Architektur ein.
+        nutzt die von Google bereitgestellte Tag-Infrastruktur.
       </p>
       <p>
         Eine bereits getroffene Entscheidung wird lokal im Browser gespeichert. Sie können diese
@@ -149,16 +147,16 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
       </div>
       <dl class="meta-list">
         <div>
-          <dt>Architektur</dt>
-          <dd>Vollständig statische Auslieferung</dd>
+          <dt>Benutzerkonto</dt>
+          <dd>Kein öffentlicher Anmeldebereich</dd>
         </div>
         <div>
-          <dt>Backend</dt>
-          <dd>Kein Login, keine Datenbank und keine serverseitige Formverarbeitung</dd>
+          <dt>Formulare</dt>
+          <dd>Keine Online-Formulare für Kontakt oder Bewerbung</dd>
         </div>
         <div>
           <dt>Suche</dt>
-          <dd>Vorab generierter Suchindex im Rechtsbereich</dd>
+          <dd>Suchindex im Rechtsbereich</dd>
         </div>
         <div>
           <dt>Webanalyse</dt>

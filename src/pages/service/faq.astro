@@ -13,21 +13,21 @@ const faqItems = [
   {
     question: 'Wo finde ich aktuelle Fassungen und historische Fassungen von Rechtsvorschriften?',
     answer:
-      'Der gesamte Rechtsbestand ist unter /recht/ gebündelt. Dort sind aktuelle Fassungen, Historienseiten und historische Fassungen statisch abrufbar.',
+      'Der gesamte Rechtsbestand ist unter /recht/ gebündelt. Dort sind aktuelle Fassungen, Historienseiten und historische Fassungen dauerhaft abrufbar.',
     href: getLawHomeUrl(),
     hrefLabel: 'Zum Rechtsportal',
   },
   {
     question: 'Kann ich im Rechtsportal nach Titeln, Metadaten und Normtext suchen?',
     answer:
-      'Ja. Die Suche nutzt einen beim Build erzeugten Suchindex und läuft vollständig clientseitig im Browser.',
+      'Ja. Die Normensuche wertet Titel, Metadaten, Sachgebiete und Normtexte aus und führt direkt zu den passenden Fassungen.',
     href: getLawSearchUrl(),
     hrefLabel: 'Zur Normensuche',
   },
   {
     question: 'Gibt es Downloads oder offene Daten?',
     answer:
-      'Das Portal liefert statische Inhalte aus. Einzelne Bereiche wie Haushalt oder Rechtsportal sind so vorbereitet, dass spätere Downloads oder strukturierte Datenausgaben ergänzt werden können.',
+      'Einzelne Bereiche wie Haushalt oder Rechtsportal können schrittweise um Downloads oder strukturierte Datenausgaben ergänzt werden.',
   },
   {
     question: 'Wie gehe ich mit Informationsanträgen oder Transparenzanliegen um?',
@@ -37,7 +37,7 @@ const faqItems = [
   {
     question: 'Kann ich Petitionen oder Beteiligungsanliegen direkt über das Portal einreichen?',
     answer:
-      'Nein. Das Projekt verzichtet bewusst auf serverseitige Formularlogik. Beteiligungs- oder Petitionshinweise können nur als statische Informationen oder Kontaktwege abgebildet werden.',
+      'Nein. Das Portal bietet derzeit kein Online-Formular für Petitionen oder Beteiligungsanliegen an. Bitte nutzen Sie die angegebenen Kontaktwege.',
   },
   {
     question: 'Werden Nutzungsdaten mit Webanalyse erfasst?',
@@ -45,9 +45,9 @@ const faqItems = [
       'Ja, in der aktuellen Konfiguration ist Google Analytics 4 standardmäßig aktiviert. Eine lokal gespeicherte Ablehnung kann die Webanalyse für dieses Gerät deaktivieren.',
   },
   {
-    question: 'Werden Eingaben serverseitig gespeichert?',
+    question: 'Werden Eingaben über das Portal gespeichert?',
     answer:
-      'Nein. Das Projekt bleibt in dieser Phase weitgehend statisch und verarbeitet keine Eingaben serverseitig. Es gibt keine Online-Bewerbungslogik, keine Kontaktformularverarbeitung und keine persistente Portalspeicherung. Eine eventuelle Webanalyse läuft ausschließlich clientseitig im Browser.',
+      'Das öffentliche Portal bietet derzeit keine Eingabeformulare für Bewerbungen, Kontaktanliegen oder Petitionen an. Eine Webanalyse kann je nach Einwilligung im Browser erfolgen.',
   },
 ];
 ---
@@ -83,7 +83,7 @@ const faqItems = [
       </article>
       <article class="panel">
         <h2>Normensuche</h2>
-        <p>Die Suche arbeitet clientseitig mit einem vorab erzeugten Suchindex und ohne Backend.</p>
+        <p>Die Normensuche führt über Titel, Metadaten und Normtexte zu den passenden Rechtsvorschriften.</p>
         <p><a class="inline-link" href={getLawSearchUrl()}>Zur Suche</a></p>
       </article>
       <article class="panel">

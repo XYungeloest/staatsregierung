@@ -140,7 +140,7 @@ const routedContacts = [
       visible={showEditorialUi && Boolean(heroInline)}
       href={buildInlineEditHref(Astro.url, 'hero')}
       label="Seitentitel"
-      statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Fallback'}
+      statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
     />
   </section>
 
@@ -162,7 +162,7 @@ const routedContacts = [
           visible={showEditorialUi && Boolean(bodyInline)}
           href={buildInlineEditHref(Astro.url, 'body')}
           label="Inhaltsblock"
-          statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Fallback'}
+          statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Ausgangsstand'}
         />
         {(page?.body ?? []).map((paragraph) => (
           <p>{paragraph}</p>
