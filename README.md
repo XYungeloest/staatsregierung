@@ -4,6 +4,8 @@ Website der fiktiven Staatsregierung des Ostdeutschen Freistaates mit Regierungs
 
 Die öffentliche Website soll sachlich, ruhig und behördennah wirken. Architektur- und Entwicklungsbegriffe gehören nicht in öffentliche Seitentexte; operative Hinweise bleiben in Code, README, AGENTS oder im geschützten Redaktionsstudio.
 
+Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
+
 ## Projektkern
 
 - Astro und TypeScript
@@ -77,6 +79,7 @@ context/
 
 ## Content-Regeln
 
+- Die vollständige Pflegeanleitung für Inhaltsformate, JSON-Felder, Normfassungen, Dashboarddaten und Redaktionsstudio-Bezüge steht in `CONTENT.md`.
 - Öffentliche Inhalte werden deutschsprachig mit echten Umlauten gepflegt.
 - Datumsdarstellung auf Seiten bevorzugt `TT. Monat JJJJ`.
 - Regierungsmitglieder liegen unter `content/regierung/mitglieder/`.
