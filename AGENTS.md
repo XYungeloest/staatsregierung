@@ -19,6 +19,7 @@ Primäre Projektdokumentation ist jetzt:
 
 - `README.md`
 - `AGENTS.md`
+- `CONTENT.md`
 - der tatsächliche Code- und Content-Zustand
 - `context/` als erhaltenes Ausgangs- und Simulationsmaterial
 
