@@ -1,14 +1,11 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import JobOfferCard from '../../../components/portal/JobOfferCard.astro';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
-import { listJobs } from '../../../lib/dynamic/repository.ts';
+import { loadJobOffers } from '../../../lib/portal/content.ts';
 import { getHomeUrl, getServiceUrl } from '../../../lib/portal/index.ts';
 
-const offers = await listJobs(getDatabase());
+const offers = await loadJobOffers();
 const ressorts = [...new Set(offers.map((offer) => offer.ressort))].sort((left, right) =>
   left.localeCompare(right, 'de'),
 );

@@ -23,7 +23,6 @@ export {
 export {
   getAccessibilityUrl,
   getHomeUrl,
-  getEditorialUrl,
   getImprintUrl,
   getIndexUrl,
   getIndexGroups,

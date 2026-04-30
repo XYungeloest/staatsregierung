@@ -53,7 +53,6 @@ export {
   getCoalitionUrl,
   getCareerUrl,
   getContactUrl,
-  getEditorialUrl,
   getEventIndexUrl,
   getEventUrl,
   getFaqUrl,

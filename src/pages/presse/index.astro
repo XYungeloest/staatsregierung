@@ -1,18 +1,15 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import EventCard from '../../components/portal/EventCard.astro';
 import PressReleaseCard from '../../components/portal/PressReleaseCard.astro';
 import SpeechCard from '../../components/portal/SpeechCard.astro';
-import { getDatabase } from '../../lib/dynamic/env.ts';
 import {
-  listEvents,
-  listFeaturedPressReleases,
-  listPressReleases,
-} from '../../lib/dynamic/repository.ts';
-import { loadRuntimeSpeeches } from '../../lib/runtime-content/index.ts';
+  loadEvents,
+  loadFeaturedPressReleases,
+  loadPressReleases,
+  loadSpeeches,
+} from '../../lib/portal/content.ts';
 import {
   getEventIndexUrl,
   getHomeUrl,
@@ -20,13 +17,12 @@ import {
   getSpeechIndexUrl,
 } from '../../lib/portal/index.ts';
 
-const database = getDatabase();
-const speeches = loadRuntimeSpeeches();
 const [releases, featuredReleases, events] = await Promise.all([
-  listPressReleases(database),
-  listFeaturedPressReleases(database, 2),
-  listEvents(database),
+  loadPressReleases(),
+  loadFeaturedPressReleases(2),
+  loadEvents(),
 ]);
+const speeches = await loadSpeeches();
 
 const leadRelease = featuredReleases[0] ?? releases[0];
 const latestSpeech = speeches[0];

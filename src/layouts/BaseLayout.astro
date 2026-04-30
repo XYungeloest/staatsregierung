@@ -7,7 +7,6 @@ import {
   isAnalyticsEnabled,
 } from '../config/analytics.ts';
 import {
-  isEditorialNavLinkVisible,
   isOfficialStyleHeaderEnabled,
   isStickyHeaderEnabled,
 } from '../config/features.ts';
@@ -22,7 +21,6 @@ import {
   toAbsoluteUrl,
 } from '../lib/seo/index.ts';
 import {
-  getEditorialUrl,
   getHomeUrl,
   getLawSearchUrl,
   getPortalSearchUrl,
@@ -58,7 +56,6 @@ const pageTitle = buildPageTitle(title);
 const base = import.meta.env.BASE_URL;
 const canonicalUrl = buildCanonicalUrl(Astro.url, Astro.site);
 const robotsContent = noindex ? 'noindex, nofollow' : 'index, follow';
-const showEditorialLink = isEditorialNavLinkVisible();
 const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
@@ -141,7 +138,6 @@ const footerUtilityLinks = [
   { href: getSiteUrl('imprint'), label: 'Impressum' },
   { href: getSiteUrl('privacy'), label: 'Datenschutz' },
   { href: getSiteUrl('accessibility'), label: 'Barrierefreiheit' },
-  ...(showEditorialLink ? [{ href: getEditorialUrl(), label: 'Redaktion' }] : []),
 ].map((entry) => ({
   ...entry,
   isActive: isActivePath(getPathname(entry.href), true),

@@ -1,23 +1,8 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import InlineEditTrigger from '../../components/editorial/InlineEditTrigger.astro';
-import InlineEditorPanel from '../../components/editorial/InlineEditorPanel.astro';
-import PageTools from '../../components/editorial/PageTools.astro';
 import ServiceCard from '../../components/portal/ServiceCard.astro';
 import { siteConfig } from '../../config/site.ts';
-import { getDatabase } from '../../lib/dynamic/env.ts';
-import {
-  buildInlineEditHref,
-  buildInlineSectionState,
-  getInlineBaseDraft,
-  getInlineFieldDefinition,
-  getInlinePanelState,
-  getInlineSectionStatusLabel,
-} from '../../lib/editorial/inline.ts';
-import type { EditorialInlineSectionState } from '../../lib/editorial/inline.ts';
 import {
   getCareerUrl,
   getFaqUrl,
@@ -27,51 +12,10 @@ import {
   getServiceUrl,
 } from '../../lib/portal/index.ts';
 import { loadRuntimeMinistries, loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
-import {
-  resolveServicePageContent,
-  shouldRenderEditorialUi,
-} from '../../lib/editorial/live.ts';
-import { getEditorialSessionLogoutHref } from '../../lib/editorial/session.ts';
 
-const { page, editorial } = await resolveServicePageContent(
-  'kontakt',
-  loadRuntimeServicePageBySlug('kontakt'),
-);
+const page = loadRuntimeServicePageBySlug('kontakt');
 const contact = siteConfig.contact;
 const ministries = loadRuntimeMinistries();
-const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
-const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
-const database = showEditorialUi ? getDatabase() : undefined;
-const inlineBase = showEditorialUi && database
-  ? await getInlineBaseDraft(database, 'service-seite', 'kontakt')
-  : undefined;
-
-function getInlineState(fieldKey: string): EditorialInlineSectionState | undefined {
-  if (!inlineBase) {
-    return undefined;
-  }
-
-  const definition = getInlineFieldDefinition('service-seite', fieldKey);
-  return definition
-    ? buildInlineSectionState(
-        'service-seite',
-        definition,
-        inlineBase.sourceOrigin,
-        inlineBase.fallbackDraft,
-        inlineBase.currentDraft,
-        inlineBase.publishedDraft,
-      )
-    : undefined;
-}
-
-const heroInline = getInlineState('hero');
-const bodyInline = getInlineState('body');
-const inlinePanel =
-  showEditorialUi && database && Astro.url.searchParams.get('editor')
-    ? await getInlinePanelState(database, Astro.url, 'service-seite', 'kontakt', Astro.url.searchParams.get('editor') ?? '')
-    : undefined;
-const editorMessage = Astro.url.searchParams.get('message') ?? undefined;
-const editorError = Astro.url.searchParams.get('error') ?? undefined;
 const routedContacts = [
   {
     key: 'allgemein',
@@ -136,34 +80,11 @@ const routedContacts = [
       Zentrale Kontaktwege der Staatsregierung, der Pressestelle und der allgemeinen
       Servicekommunikation.
     </p>
-    <InlineEditTrigger
-      visible={showEditorialUi && Boolean(heroInline)}
-      href={buildInlineEditHref(Astro.url, 'hero')}
-      label="Seitentitel"
-      statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
-    />
-  </section>
-
-  <section class="section">
-    <PageTools
-      visible={showEditorialUi}
-      studioHref={editorial.studioHref}
-      sourceLabel={editorial.sourceLabel}
-      liveLabel={editorial.liveLabel}
-      hasPendingChanges={editorial.entryState.hasPendingChanges}
-      sessionDisableHref={editorialSessionLogoutHref}
-    />
   </section>
 
   <div class="content-grid">
     <section class="section">
       <div class="body-copy">
-        <InlineEditTrigger
-          visible={showEditorialUi && Boolean(bodyInline)}
-          href={buildInlineEditHref(Astro.url, 'body')}
-          label="Inhaltsblock"
-          statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Ausgangsstand'}
-        />
         {(page?.body ?? []).map((paragraph) => (
           <p>{paragraph}</p>
         ))}
@@ -263,13 +184,4 @@ const routedContacts = [
       </p>
     </aside>
   </div>
-
-  <InlineEditorPanel
-    visible={showEditorialUi && Boolean(inlinePanel)}
-    currentUrl={Astro.url}
-    panel={inlinePanel}
-    message={editorMessage}
-    errorMessage={editorError}
-  />
-
 </BaseLayout>

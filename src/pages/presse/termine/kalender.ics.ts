@@ -1,9 +1,6 @@
-export const prerender = false;
-
 import type { APIRoute } from 'astro';
 import { siteConfig } from '../../../config/site.ts';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
-import { listEvents } from '../../../lib/dynamic/repository.ts';
+import { loadEvents } from '../../../lib/portal/content.ts';
 import { getEventUrl } from '../../../lib/portal/index.ts';
 
 function escapeIcs(value: string): string {
@@ -24,7 +21,7 @@ function absoluteUrl(path: string, site: URL): string {
 
 export const GET: APIRoute = async ({ site }) => {
   const baseUrl = site ?? new URL(siteConfig.seo.siteUrl);
-  const events = await listEvents(getDatabase());
+  const events = await loadEvents();
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',

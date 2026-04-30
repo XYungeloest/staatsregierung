@@ -1,24 +1,20 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import PressReleaseCard from '../../../components/portal/PressReleaseCard.astro';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
 import {
-  listFeaturedPressReleases,
-  listPressReleases,
-} from '../../../lib/dynamic/repository.ts';
+  loadFeaturedPressReleases,
+  loadPressReleases,
+} from '../../../lib/portal/content.ts';
 import {
   getHomeUrl,
   getPressUrl,
   getSpeechIndexUrl,
 } from '../../../lib/portal/index.ts';
 
-const database = getDatabase();
 const [releases, featuredReleases] = await Promise.all([
-  listPressReleases(database),
-  listFeaturedPressReleases(database, 2),
+  loadPressReleases(),
+  loadFeaturedPressReleases(2),
 ]);
 
 const featuredSlugs = new Set(featuredReleases.map((release) => release.slug));

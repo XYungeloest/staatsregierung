@@ -4,49 +4,19 @@
   "compatibility_date": "2026-04-15",
   "workers_dev": true,
   "vars": {
-    "APP_ENV": "production",
-    "EDITORIAL_SESSION_TTL_SECONDS": "14400"
+    "APP_ENV": "production"
   },
   "assets": {
     "directory": "./dist"
   },
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "freistaat-portal-prod",
-      "database_id": "ebfc21b8-8580-43c0-ad74-07be4396bcf1",
-      "migrations_dir": "./db/migrations"
-    }
-  ],
-  "r2_buckets": [
-    {
-      "binding": "MEDIA",
-      "bucket_name": "freistaat-assets-prod"
-    }
-  ],
 
   "env": {
     "staging": {
       "name": "ostrecht-portal-staging",
       "workers_dev": true,
       "vars": {
-        "APP_ENV": "staging",
-        "EDITORIAL_SESSION_TTL_SECONDS": "14400"
-      },
-      "d1_databases": [
-        {
-          "binding": "DB",
-          "database_name": "freistaat-portal-staging",
-          "database_id": "a3166e49-521f-4765-bc0f-e7ceec573140",
-          "migrations_dir": "./db/migrations"
-        }
-      ],
-      "r2_buckets": [
-        {
-          "binding": "MEDIA",
-          "bucket_name": "freistaat-assets-staging"
-        }
-      ]
+        "APP_ENV": "staging"
+      }
     }
   }
 }

@@ -48,7 +48,6 @@ export const siteConfig = {
     imprint: '/service/impressum/',
     privacy: '/service/datenschutz/',
     accessibility: '/service/barrierefreiheit/',
-    editorial: '/redaktion/',
   },
   mainNavigation: [
     { label: 'Staatsregierung', pathKey: 'government' },

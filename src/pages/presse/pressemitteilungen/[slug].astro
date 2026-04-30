@@ -1,35 +1,12 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import InlineEditTrigger from '../../../components/editorial/InlineEditTrigger.astro';
-import InlineEditorPanel from '../../../components/editorial/InlineEditorPanel.astro';
-import PageTools from '../../../components/editorial/PageTools.astro';
 import { siteConfig } from '../../../config/site.ts';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
-import {
-  getPressReleaseBySlug,
-  listPressReleases,
-} from '../../../lib/dynamic/repository.ts';
+import { loadPressReleases } from '../../../lib/portal/content.ts';
 import {
   getRuntimeNormLookup,
   getRuntimeTopicLookup,
 } from '../../../lib/runtime-content/index.ts';
-import {
-  getEditorialPublicState,
-  shouldRenderEditorialUi,
-} from '../../../lib/editorial/live.ts';
-import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
-import {
-  buildInlineEditHref,
-  buildInlineSectionState,
-  getInlineBaseDraft,
-  getInlineFieldDefinition,
-  getInlinePanelState,
-  getInlineSectionStatusLabel,
-} from '../../../lib/editorial/inline.ts';
-import type { EditorialInlineSectionState } from '../../../lib/editorial/inline.ts';
 import { buildArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
@@ -38,175 +15,102 @@ import {
   getPressUrl,
   resolvePortalPath,
   getTopicUrl,
+  type Pressemitteilung,
 } from '../../../lib/portal/index.ts';
 import { getNormUrl } from '../../../lib/norms/index.ts';
 
-const slug = Astro.params.slug ?? '';
-const database = getDatabase();
-const release = slug ? await getPressReleaseBySlug(database, slug) : undefined;
-const editorial = slug ? await getEditorialPublicState('pressemitteilung', slug, 'd1') : undefined;
-const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
-const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
+export async function getStaticPaths() {
+  const releases = await loadPressReleases();
 
-if (!release) {
-  Astro.response.status = 404;
+  return releases.map((release) => ({
+    params: { slug: release.slug },
+    props: { release },
+  }));
 }
 
-const allReleases = release ? await listPressReleases(database) : [];
+const { release } = Astro.props as { release: Pressemitteilung };
+const allReleases = await loadPressReleases();
 const releaseLookup = new Map(allReleases.map((entry) => [entry.slug, entry]));
 const topicLookup = getRuntimeTopicLookup();
 const normLookup = getRuntimeNormLookup();
 
-const relatedTopics = release
-  ? (release.relatedTopicSlugs
-      ?.map((entrySlug) => topicLookup.get(entrySlug))
-      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [])
-  : [];
-const relatedNorms = release
-  ? (release.relatedNormSlugs
-      ?.map((entrySlug) => normLookup.get(entrySlug))
-      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [])
-  : [];
-const relatedReleases = release
-  ? (release.relatedPressSlugs
-      ?.map((entrySlug) => releaseLookup.get(entrySlug))
-      .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ??
-    allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2))
-  : [];
-const inlineBase = showEditorialUi && slug
-  ? await getInlineBaseDraft(database, 'pressemitteilung', slug)
-  : undefined;
-
-function getInlineState(fieldKey: string): EditorialInlineSectionState | undefined {
-  if (!inlineBase) {
-    return undefined;
-  }
-
-  const definition = getInlineFieldDefinition('pressemitteilung', fieldKey);
-  return definition
-    ? buildInlineSectionState(
-        'pressemitteilung',
-        definition,
-        inlineBase.sourceOrigin,
-        inlineBase.fallbackDraft,
-        inlineBase.currentDraft,
-        inlineBase.publishedDraft,
-      )
-    : undefined;
-}
-
-const heroInline = getInlineState('hero');
-const mediaInline = getInlineState('media');
-const bodyInline = getInlineState('body');
-const inlinePanel =
-  showEditorialUi && slug && Astro.url.searchParams.get('editor')
-    ? await getInlinePanelState(database, Astro.url, 'pressemitteilung', slug, Astro.url.searchParams.get('editor') ?? '')
-    : undefined;
-const editorMessage = Astro.url.searchParams.get('message') ?? undefined;
-const editorError = Astro.url.searchParams.get('error') ?? undefined;
+const relatedTopics =
+  release.relatedTopicSlugs
+    ?.map((entrySlug) => topicLookup.get(entrySlug))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [];
+const relatedNorms =
+  release.relatedNormSlugs
+    ?.map((entrySlug) => normLookup.get(entrySlug))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ?? [];
+const relatedReleases =
+  release.relatedPressSlugs
+    ?.map((entrySlug) => releaseLookup.get(entrySlug))
+    .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry)) ??
+  allReleases.filter((entry) => entry.slug !== release.slug).slice(0, 2);
 ---
 
 <BaseLayout
-  title={release?.title ?? 'Pressemitteilung nicht gefunden'}
-  description={
-    release?.teaser ?? 'Die angeforderte Pressemitteilung konnte im dynamischen Pressebereich nicht gefunden werden.'
-  }
+  title={release.title}
+  description={release.teaser}
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Presse & Aktuelles', href: getPressUrl() },
     { label: 'Pressemitteilungen', href: getPressReleaseIndexUrl() },
-    { label: release?.title ?? 'Nicht gefunden' },
+    { label: release.title },
   ]}
-  ogType={release ? 'article' : 'website'}
-  ogImage={release ? { url: release.image, alt: release.imageAlt } : undefined}
-  structuredData={
-    release
-      ? buildArticleJsonLd(
-          {
-            title: release.title,
-            description: release.teaser,
-            url: getPressReleaseUrl(release.slug),
-            datePublished: release.date,
-            image: {
-              url: release.image,
-              alt: release.imageAlt,
-            },
-            articleSection: 'Pressemitteilung',
-          },
-          Astro.site,
-        )
-      : undefined
-  }
+  ogType="article"
+  ogImage={{ url: release.image, alt: release.imageAlt }}
+  structuredData={buildArticleJsonLd(
+    {
+      title: release.title,
+      description: release.teaser,
+      url: getPressReleaseUrl(release.slug),
+      datePublished: release.date,
+      image: {
+        url: release.image,
+        alt: release.imageAlt,
+      },
+      articleSection: 'Pressemitteilung',
+    },
+    Astro.site,
+  )}
 >
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Presse & Aktuelles', href: getPressUrl() },
       { label: 'Pressemitteilungen', href: getPressReleaseIndexUrl() },
-      { label: release?.title ?? 'Nicht gefunden' },
+      { label: release.title },
     ]}
   />
 
-  {release ? (
-    <Fragment>
-      <section class="section page-header">
-        <p class="eyebrow">Pressemitteilung</p>
-        <h1>{release.title}</h1>
-        <p class="lead">{release.teaser}</p>
-        <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
-        <InlineEditTrigger
-          visible={showEditorialUi && Boolean(heroInline)}
-          href={buildInlineEditHref(Astro.url, 'hero')}
-          label="Kopfbereich"
-          statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
-        />
-      </section>
+  <section class="section page-header">
+    <p class="eyebrow">Pressemitteilung</p>
+    <h1>{release.title}</h1>
+    <p class="lead">{release.teaser}</p>
+    <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
+  </section>
 
-      {editorial ? (
-        <section class="section">
-          <PageTools
-            visible={showEditorialUi}
-            studioHref={editorial.studioHref}
-            sourceLabel={editorial.sourceLabel}
-            liveLabel={editorial.liveLabel}
-            hasPendingChanges={editorial.entryState.hasPendingChanges}
-            sessionDisableHref={editorialSessionLogoutHref}
-          />
-        </section>
-      ) : null}
+  <div class="content-grid">
+    <section class="section">
+      <img
+        class="media-banner"
+        src={resolvePortalPath(release.image)}
+        alt={release.imageAlt}
+      />
+      <div class="tag-list">
+        {release.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+      <div class="body-copy">
+        {release.body.map((paragraph) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+    </section>
 
-      <div class="content-grid">
-        <section class="section">
-          <InlineEditTrigger
-            visible={showEditorialUi && Boolean(mediaInline)}
-            href={buildInlineEditHref(Astro.url, 'media')}
-            label="Medienblock"
-            statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Ausgangsstand'}
-          />
-          <img
-            class="media-banner"
-            src={resolvePortalPath(release.image)}
-            alt={release.imageAlt}
-          />
-          <div class="tag-list">
-            {release.tags.map((tag) => (
-              <span class="tag">{tag}</span>
-            ))}
-          </div>
-          <InlineEditTrigger
-            visible={showEditorialUi && Boolean(bodyInline)}
-            href={buildInlineEditHref(Astro.url, 'body')}
-            label="Meldungstext"
-            statusLabel={bodyInline ? getInlineSectionStatusLabel(bodyInline) : 'Ausgangsstand'}
-          />
-          <div class="body-copy">
-            {release.body.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
-          </div>
-        </section>
-
-        <aside class="section meta-panel">
+    <aside class="section meta-panel">
           <div class="section-header section-header--compact">
             <h2>Metadaten</h2>
           </div>
@@ -248,11 +152,11 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
               </ul>
             </>
           ) : null}
-        </aside>
-      </div>
+    </aside>
+  </div>
 
-      {relatedTopics.length > 0 || relatedNorms.length > 0 ? (
-        <section class="section section-muted">
+  {relatedTopics.length > 0 || relatedNorms.length > 0 ? (
+    <section class="section section-muted">
           <div class="section-header">
             <h2>Einordnung und Rechtsbezüge</h2>
             <p>Die Meldung ist mit den zuständigen Themen- und Rechtsseiten des Portals verknüpft.</p>
@@ -285,27 +189,6 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
               </ul>
             </>
           ) : null}
-        </section>
-      ) : null}
-
-      <InlineEditorPanel
-        visible={showEditorialUi && Boolean(inlinePanel)}
-        currentUrl={Astro.url}
-        panel={inlinePanel}
-        message={editorMessage}
-        errorMessage={editorError}
-      />
-    </Fragment>
-  ) : (
-    <section class="section">
-      <div class="status-notice status-notice--warning">
-        <h1>Pressemitteilung nicht gefunden</h1>
-        <p>
-          Der angeforderte Inhalt konnte nicht gefunden werden. Bitte nutzen Sie die Übersicht der
-          Pressemitteilungen.
-        </p>
-        <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Zur Übersicht der Pressemitteilungen</a></p>
-      </div>
     </section>
-  )}
+  ) : null}
 </BaseLayout>

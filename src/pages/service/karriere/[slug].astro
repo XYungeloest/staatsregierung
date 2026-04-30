@@ -1,41 +1,30 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import PageTools from '../../../components/editorial/PageTools.astro';
 import { siteConfig } from '../../../config/site.ts';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
-import { getJobBySlug, listJobs } from '../../../lib/dynamic/repository.ts';
-import {
-  getEditorialPublicState,
-  shouldRenderEditorialUi,
-} from '../../../lib/editorial/live.ts';
-import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
+import { loadJobOffers } from '../../../lib/portal/content.ts';
 import {
   getCareerUrl,
   getHomeUrl,
   getJobUrl,
   resolvePortalPath,
   getServiceUrl,
+  type Stellenangebot,
 } from '../../../lib/portal/index.ts';
 
-const slug = Astro.params.slug ?? '';
-const database = getDatabase();
-const offer = slug ? await getJobBySlug(database, slug) : undefined;
-const editorial = slug ? await getEditorialPublicState('stellenangebot', slug, 'd1') : undefined;
-const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
-const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
+export async function getStaticPaths() {
+  const offers = await loadJobOffers();
 
-if (!offer) {
-  Astro.response.status = 404;
+  return offers.map((offer) => ({
+    params: { slug: offer.slug },
+    props: { offer },
+  }));
 }
 
-const relatedOffers = offer
-  ? (await listJobs(database, { includeInactive: true }))
-      .filter((entry) => entry.slug !== offer.slug)
-      .slice(0, 2)
-  : [];
+const { offer } = Astro.props as { offer: Stellenangebot };
+const relatedOffers = (await loadJobOffers())
+  .filter((entry) => entry.slug !== offer.slug)
+  .slice(0, 2);
 ---
 
 <BaseLayout
@@ -64,19 +53,6 @@ const relatedOffers = offer
           {siteConfig.date.formatLong(offer.datePosted)}
         </p>
       </section>
-
-      {editorial ? (
-        <section class="section">
-          <PageTools
-            visible={showEditorialUi}
-            studioHref={editorial.studioHref}
-            sourceLabel={editorial.sourceLabel}
-            liveLabel={editorial.liveLabel}
-            hasPendingChanges={editorial.entryState.hasPendingChanges}
-            sessionDisableHref={editorialSessionLogoutHref}
-          />
-        </section>
-      ) : null}
 
       <div class="content-grid">
         <section class="section">

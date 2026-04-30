@@ -1,12 +1,6 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import InlineEditTrigger from '../../../components/editorial/InlineEditTrigger.astro';
-import InlineEditorPanel from '../../../components/editorial/InlineEditorPanel.astro';
-import PageTools from '../../../components/editorial/PageTools.astro';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
 import {
   getGovernmentMemberUrl,
   getGovernmentMembersUrl,
@@ -14,65 +8,17 @@ import {
   getHomeUrl,
   resolvePortalPath,
 } from '../../../lib/portal/index.ts';
-import { loadRuntimeGovernmentMemberBySlug } from '../../../lib/runtime-content/index.ts';
-import {
-  resolveGovernmentMemberPageContent,
-  shouldRenderEditorialUi,
-} from '../../../lib/editorial/live.ts';
-import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
-import {
-  buildInlineEditHref,
-  buildInlineSectionState,
-  getInlineBaseDraft,
-  getInlineFieldDefinition,
-  getInlinePanelState,
-  getInlineSectionStatusLabel,
-} from '../../../lib/editorial/inline.ts';
-import type { EditorialInlineSectionState } from '../../../lib/editorial/inline.ts';
+import { loadRuntimeGovernmentMembers } from '../../../lib/runtime-content/index.ts';
+import type { RegierungMitglied } from '../../../lib/portal/index.ts';
 
-const slug = Astro.params.slug ?? '';
-const fallbackMember = slug ? loadRuntimeGovernmentMemberBySlug(slug) : undefined;
-const { member, editorial } = await resolveGovernmentMemberPageContent(slug, fallbackMember);
-
-if (!member) {
-  Astro.response.status = 404;
+export function getStaticPaths() {
+  return loadRuntimeGovernmentMembers().map((member) => ({
+    params: { slug: member.slug },
+    props: { member },
+  }));
 }
 
-const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
-const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
-const database = showEditorialUi ? getDatabase() : undefined;
-const inlineBase = showEditorialUi && database && slug
-  ? await getInlineBaseDraft(database, 'regierungsmitglied', slug)
-  : undefined;
-
-function getInlineState(fieldKey: string): EditorialInlineSectionState | undefined {
-  if (!inlineBase) {
-    return undefined;
-  }
-
-  const definition = getInlineFieldDefinition('regierungsmitglied', fieldKey);
-  return definition
-    ? buildInlineSectionState(
-        'regierungsmitglied',
-        definition,
-        inlineBase.sourceOrigin,
-        inlineBase.fallbackDraft,
-        inlineBase.currentDraft,
-        inlineBase.publishedDraft,
-      )
-    : undefined;
-}
-
-const heroInline = getInlineState('hero');
-const mediaInline = getInlineState('media');
-const bioInline = getInlineState('biografie');
-const contactInline = getInlineState('kontakt');
-const inlinePanel =
-  showEditorialUi && database && slug && Astro.url.searchParams.get('editor')
-    ? await getInlinePanelState(database, Astro.url, 'regierungsmitglied', slug, Astro.url.searchParams.get('editor') ?? '')
-    : undefined;
-const editorMessage = Astro.url.searchParams.get('message') ?? undefined;
-const editorError = Astro.url.searchParams.get('error') ?? undefined;
+const { member } = Astro.props as { member: RegierungMitglied };
 ---
 
 {member ? (
@@ -91,23 +37,6 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
       <h1>{member.name}</h1>
       <p class="lead">{member.amt}</p>
       <p class="detail-line">{member.ressort}</p>
-      <InlineEditTrigger
-        visible={showEditorialUi && Boolean(heroInline)}
-        href={buildInlineEditHref(Astro.url, 'hero')}
-        label="Profilkopf"
-        statusLabel={heroInline ? getInlineSectionStatusLabel(heroInline) : 'Ausgangsstand'}
-      />
-    </section>
-
-    <section class="section">
-      <PageTools
-        visible={showEditorialUi}
-        studioHref={editorial.studioHref}
-        sourceLabel={editorial.sourceLabel}
-        liveLabel={editorial.liveLabel}
-        hasPendingChanges={editorial.entryState.hasPendingChanges}
-        sessionDisableHref={editorialSessionLogoutHref}
-      />
     </section>
 
     <div class="content-grid">
@@ -116,12 +45,6 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
           <h2>Aktuelles Profil</h2>
           <p>Dieses Profil gehört zur aktuellen Staatsregierung und fasst Aufgabenbereich, Biografie und Kontaktweg kompakt zusammen.</p>
         </div>
-        <InlineEditTrigger
-          visible={showEditorialUi && Boolean(mediaInline)}
-          href={buildInlineEditHref(Astro.url, 'media')}
-          label="Porträt"
-          statusLabel={mediaInline ? getInlineSectionStatusLabel(mediaInline) : 'Ausgangsstand'}
-        />
         <article class="profile-card">
           <img
             src={resolvePortalPath(member.bild)}
@@ -133,12 +56,6 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
           </div>
         </article>
         <p class="media-credit">Bildnachweis: {member.bildnachweis}</p>
-        <InlineEditTrigger
-          visible={showEditorialUi && Boolean(bioInline)}
-          href={buildInlineEditHref(Astro.url, 'biografie')}
-          label="Biografie"
-          statusLabel={bioInline ? getInlineSectionStatusLabel(bioInline) : 'Ausgangsstand'}
-        />
         <div class="body-copy">
           {member.langbiografie.map((paragraph: string) => (
             <p>{paragraph}</p>
@@ -150,12 +67,6 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         <div class="section-header section-header--compact">
           <h2>Profil</h2>
         </div>
-        <InlineEditTrigger
-          visible={showEditorialUi && Boolean(contactInline)}
-          href={buildInlineEditHref(Astro.url, 'kontakt')}
-          label="Kontaktblock"
-          statusLabel={contactInline ? getInlineSectionStatusLabel(contactInline) : 'Ausgangsstand'}
-        />
         <dl class="meta-list">
           <div>
             <dt>Amt</dt>
@@ -182,14 +93,6 @@ const editorError = Astro.url.searchParams.get('error') ?? undefined;
         </nav>
       </aside>
     </div>
-
-    <InlineEditorPanel
-      visible={showEditorialUi && Boolean(inlinePanel)}
-      currentUrl={Astro.url}
-      panel={inlinePanel}
-      message={editorMessage}
-      errorMessage={editorError}
-    />
   </BaseLayout>
 ) : (
   <BaseLayout

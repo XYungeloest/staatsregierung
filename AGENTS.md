@@ -9,7 +9,7 @@ Prioritäten:
 1. Öffentliches Portal behördennah, ruhig und verständlich halten.
 2. Rechtsportal unter `/recht/` funktional erhalten.
 3. Inhalte möglichst dateibasiert und nachvollziehbar pflegen.
-4. Bestehende Cloudflare- und Redaktionsstudio-Logik respektieren.
+4. Cloudflare-Deploymentlogik respektieren.
 5. Keine unnötige neue Architektur oder Bibliothek einführen.
 6. Änderungen klein, überprüfbar und passend zum vorhandenen Stil halten.
 
@@ -39,7 +39,7 @@ Alte Root-Spezifikationen und Zwischenpläne sind nicht mehr kanonisch.
 - Astro
 - TypeScript
 - Cloudflare Workers
-- D1/R2 nur für die bereits vorgesehenen Laufzeitbereiche
+- keine aktiven D1/R2-Bindings im aktuellen Portalstand
 - klare Utility-Funktionen statt unnötiger Klassenhierarchien
 - Build- und Content-Checks vor Abschluss ausführen, sofern möglich
 
@@ -56,7 +56,7 @@ npm run build
 - Deutschsprachige Inhalte mit echten Umlauten.
 - Öffentliche Seiten verwenden nutzerorientierte Sprache.
 - Architekturbegriffe wie D1, R2, Build, Repository, Fallback, Live-Override oder serverseitige Formularlogik gehören nicht in öffentliche Bürgertexte.
-- Operative technische Begriffe sind in interner Doku, Code und geschütztem Redaktionsstudio zulässig.
+- Operative technische Begriffe sind in interner Doku und Code zulässig.
 - Gerhardt Lehrmann ist kein aktives Kabinettsmitglied. Das Wirtschaftsressort wird geschäftsführend von Ministerpräsident Dr. Karl Honecker geleitet.
 - Kein neues Profil für Gerhardt Lehrmann anlegen.
 
