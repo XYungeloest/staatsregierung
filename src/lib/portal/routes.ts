@@ -174,7 +174,3 @@ export function getLawSubjectsUrl(): string {
 export function getLawConstitutionUrl(): string {
   return getSiteUrl('lawConstitution');
 }
-
-export function getEditorialUrl(): string {
-  return getSiteUrl('editorial');
-}

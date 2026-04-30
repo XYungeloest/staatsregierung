@@ -1,12 +1,12 @@
 # Content-Pflege
 
-Diese Datei beschreibt den aktuellen kanonischen Weg, Inhalte der Website einzupflegen. Maßgeblich sind der tatsächliche Code- und Content-Stand, `README.md`, `AGENTS.md` und diese Datei. Technische Details werden in den Parsern in `src/lib/portal/schema.ts`, `src/lib/norms/schema.ts` und in den Redaktionsstudio-Dateien unter `src/lib/editorial/` validiert.
+Diese Datei beschreibt den aktuellen kanonischen Weg, Inhalte der Website einzupflegen. Maßgeblich sind der tatsächliche Code- und Content-Stand, `README.md`, `AGENTS.md` und diese Datei. Technische Details werden in den Parsern in `src/lib/portal/schema.ts` und `src/lib/norms/schema.ts` validiert.
 
 ## Grundsatz
 
 Öffentliche Website-Inhalte werden in der Regel dateibasiert als JSON unter `content/` gepflegt. Eine Inhaltsdatei ist immer ein JSON-Objekt, kein Markdown-Dokument und keine Liste als Wurzelwert. Textabsätze werden meist als String-Arrays gepflegt.
 
-Das Redaktionsstudio unter `/redaktion/` kann bestimmte Inhalte in Cloudflare D1/R2 bearbeiten oder veröffentlichen. Die dateibasierten Inhalte bleiben trotzdem die nachvollziehbare Grundquelle. Für langfristige, überprüfbare Änderungen sollen exportierbare oder statische Inhalte wieder in die passenden Dateien unter `content/` übernommen werden.
+Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuellen Stand nicht an die Website angebunden; Inhalte werden über JSON-Dateien, TypeScript-Dashboarddaten und Bilddateien unter `public/images/` bereitgestellt.
 
 ## Allgemeine Regeln
 
@@ -648,7 +648,7 @@ Wichtige Werte:
 Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfigurationsdateien:
 
 - `src/config/site.ts`: Portalname, Pfade, Navigation, Kontakt, Regierungsstammdaten
-- `src/config/features.ts`: Feature-Schalter für Header, Redaktion, Analytics und ähnliche Bereiche
+- `src/config/features.ts`: Feature-Schalter für Header, Analytics und ähnliche Bereiche
 - `src/config/analytics.ts`: Analyse- und Consent-Konfiguration
 
 Diese Dateien nur ändern, wenn sich die Struktur oder zentrale Stammdaten ändern. Normale Seiteninhalte gehören nach `content/`.
@@ -665,39 +665,6 @@ Typische Orte:
 - `src/lib/portal/presentation.ts` und `src/lib/norms/presentation.ts`: Formatierungs- und Anzeigetexte.
 
 Grundregel: Wiederkehrende oder fachliche Inhalte gehören in `content/` oder `src/data/dashboard/`. Kurze Strukturtexte, Labels und UI-Hinweise bleiben in Astro-Komponenten oder Konfiguration. Wenn ein Text regelmäßig redaktionell geändert werden soll, sollte er nicht dauerhaft hart in einer Seite stehen, sondern in das passende Content-Modell wandern.
-
-## Redaktionsstudio
-
-Das Redaktionsstudio kennt diese Inhaltstypen:
-
-```text
-pressemitteilung
-termin
-stellenangebot
-projektstatus
-service-seite
-themenseite
-ressort
-regierungsmitglied
-```
-
-Direkt veröffentlichte D1-Bereiche:
-
-- Pressemitteilungen
-- Termine
-- Stellenangebote
-- Projektstatus
-
-Dateibasierte Bereiche mit überschreibbarer Live-Version und Exportpfad:
-
-- `service-seite` -> `content/service/seiten/[slug].json`
-- `themenseite` -> `content/themen/[slug].json`
-- `ressort` -> `content/ressorts/[slug].json`
-- `regierungsmitglied` -> `content/regierung/mitglieder/[slug].json`
-
-Für dauerhafte Pflege gilt: Wenn eine Änderung im Studio für einen dateibasierten Bereich gemacht wurde, soll sie nach Prüfung in die entsprechende JSON-Datei übernommen werden.
-
-Medien aus dem Studio können in R2 liegen. Dateibasierte Inhalte referenzieren Bilder aus `public/images/...`.
 
 ## Bilder und Medien
 

@@ -1,6 +1,5 @@
 import {
   getAccessibilityUrl,
-  getEditorialUrl,
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
@@ -53,7 +52,6 @@ export function getLawPortalUrl(): string {
 
 export {
   getAccessibilityUrl,
-  getEditorialUrl,
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,

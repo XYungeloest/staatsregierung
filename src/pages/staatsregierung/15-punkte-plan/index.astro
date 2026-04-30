@@ -1,17 +1,10 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import PageTools from '../../../components/editorial/PageTools.astro';
 import ActionPlanDashboard from '../../../components/portal/ActionPlanDashboard.astro';
 import ProjectTimeline from '../../../components/portal/ProjectTimeline.astro';
+import { actionPlanItems } from '../../../data/dashboard/action-plan.ts';
 import { timelineEntries } from '../../../data/dashboard/timeline.ts';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
-import { listProjectStatuses } from '../../../lib/dynamic/repository.ts';
-import { shouldRenderEditorialUi } from '../../../lib/editorial/live.ts';
-import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
-import { withBase } from '../../../lib/portal/routes.ts';
 import {
   getCabinetUrl,
   getGovernmentUrl,
@@ -20,12 +13,9 @@ import {
   getMinisterPresidentUrl,
   getTopicsUrl,
 } from '../../../lib/portal/index.ts';
-const actionPlanItems = await listProjectStatuses(getDatabase());
 const completedCount = actionPlanItems.filter((point) => point.status === 'umgesetzt').length;
 const partlyCount = actionPlanItems.filter((point) => point.status === 'teilweise_umgesetzt').length;
 const plannedCount = actionPlanItems.filter((point) => point.status === 'angelegt').length;
-const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
-const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
 ---
 
 <BaseLayout
@@ -48,16 +38,6 @@ const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathn
       Der 15-Punkte-Plan bündelt die zentralen politischen Linien der Staatsregierung in einer
       lesbaren Übersicht mit Statusindikatoren und direkten Portalverlinkungen.
     </p>
-  </section>
-
-  <section class="section">
-    <PageTools
-      visible={showEditorialUi}
-      studioHref={withBase('/redaktion/inhalte/projektstatus/')}
-      sourceLabel="Redaktioneller Projektbereich"
-      liveLabel="Projektstände werden aus dem Redaktionsbereich übernommen"
-      sessionDisableHref={editorialSessionLogoutHref}
-    />
   </section>
 
   <section class="section">

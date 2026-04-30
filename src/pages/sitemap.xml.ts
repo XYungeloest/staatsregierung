@@ -1,5 +1,4 @@
 import type { APIRoute } from 'astro';
-import { isEditorialToolsEnabled } from '../config/features.ts';
 import { siteConfig } from '../config/site.ts';
 import {
   getActionPlanUrl,
@@ -151,9 +150,8 @@ export const GET: APIRoute = async ({ site }) => {
     ...getSubjectGroups(norms).map((group) => getSubjectUrl(group.name)),
   ];
 
-  const editorialPaths = isEditorialToolsEnabled() ? [siteConfig.paths.editorial] : [];
-  const paths = unique([...staticPaths, ...dynamicPaths, ...editorialPaths]).filter(
-    (path) => path !== siteConfig.paths.lawSearch && path !== siteConfig.paths.editorial,
+  const paths = unique([...staticPaths, ...dynamicPaths]).filter(
+    (path) => path !== siteConfig.paths.lawSearch,
   );
 
   const xml = [

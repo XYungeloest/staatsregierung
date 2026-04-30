@@ -179,7 +179,7 @@ export const actionPlanItems: ActionPlanItem[] = [
     id: 'service-und-verwaltungszugang',
     title: 'Service und Verwaltungszugang',
     description:
-      'Servicewege, Kontakt, FAQ, Barrierefreiheit und redaktionelle Übersicht sind angelegt und werden schrittweise nutzerfreundlicher gebündelt.',
+      'Servicewege, Kontakt, FAQ und Barrierefreiheit sind angelegt und werden schrittweise nutzerfreundlicher gebündelt.',
     status: 'angelegt',
     ressort: 'Staatskanzlei',
     href: getServiceUrl(),

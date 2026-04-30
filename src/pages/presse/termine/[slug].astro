@@ -1,17 +1,8 @@
 ---
-export const prerender = false;
-
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import PageTools from '../../../components/editorial/PageTools.astro';
 import { siteConfig } from '../../../config/site.ts';
-import { getDatabase } from '../../../lib/dynamic/env.ts';
-import { getEventBySlug, listEvents } from '../../../lib/dynamic/repository.ts';
-import {
-  getEditorialPublicState,
-  shouldRenderEditorialUi,
-} from '../../../lib/editorial/live.ts';
-import { getEditorialSessionLogoutHref } from '../../../lib/editorial/session.ts';
+import { loadEvents } from '../../../lib/portal/content.ts';
 import { buildEventJsonLd } from '../../../lib/seo/index.ts';
 import {
   getEventIndexUrl,
@@ -19,21 +10,21 @@ import {
   getHomeUrl,
   getPressUrl,
   resolvePortalPath,
+  type Termin,
 } from '../../../lib/portal/index.ts';
 
-const slug = Astro.params.slug ?? '';
-const database = getDatabase();
-const event = slug ? await getEventBySlug(database, slug) : undefined;
-const editorial = slug ? await getEditorialPublicState('termin', slug, 'd1') : undefined;
-const showEditorialUi = await shouldRenderEditorialUi(Astro.request, Astro.url);
-const editorialSessionLogoutHref = getEditorialSessionLogoutHref(Astro.url.pathname);
+export async function getStaticPaths() {
+  const events = await loadEvents();
 
-if (!event) {
-  Astro.response.status = 404;
+  return events.map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
 }
 
-const allEvents = event ? await listEvents(database) : [];
-const relatedEvents = event ? allEvents.filter((entry) => entry.slug !== event.slug).slice(0, 3) : [];
+const { event } = Astro.props as { event: Termin };
+const allEvents = await loadEvents();
+const relatedEvents = allEvents.filter((entry) => entry.slug !== event.slug).slice(0, 3);
 ---
 
 <BaseLayout
@@ -87,19 +78,6 @@ const relatedEvents = event ? allEvents.filter((entry) => entry.slug !== event.s
         <p class="lead">{event.teaser}</p>
         <p class="detail-line">{siteConfig.date.formatLong(event.date)} · {event.location}</p>
       </section>
-
-      {editorial ? (
-        <section class="section">
-          <PageTools
-            visible={showEditorialUi}
-            studioHref={editorial.studioHref}
-            sourceLabel={editorial.sourceLabel}
-            liveLabel={editorial.liveLabel}
-            hasPendingChanges={editorial.entryState.hasPendingChanges}
-            sessionDisableHref={editorialSessionLogoutHref}
-          />
-        </section>
-      ) : null}
 
       <div class="content-grid">
         <section class="section">

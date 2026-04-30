@@ -1,16 +1,11 @@
 import type { APIRoute } from 'astro';
-import { getDatabase } from '../../lib/dynamic/env.ts';
-import { listProjectStatuses } from '../../lib/dynamic/repository.ts';
-
-export const prerender = false;
+import { actionPlanItems } from '../../data/dashboard/action-plan.ts';
 
 export const GET: APIRoute = async () => {
-  const items = await listProjectStatuses(getDatabase());
-
   return new Response(
     JSON.stringify({
-      count: items.length,
-      items,
+      count: actionPlanItems.length,
+      items: actionPlanItems,
     }),
     {
       headers: {
