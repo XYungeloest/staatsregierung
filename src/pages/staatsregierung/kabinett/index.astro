@@ -10,6 +10,7 @@ import {
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
+  getPreviousCabinetsUrl,
 } from '../../../lib/portal/index.ts';
 import {
   loadGovernmentMembers,
@@ -30,7 +31,7 @@ const assignments = [
     office: 'Ministerpräsident',
     holderSlug: 'karl-honecker',
     ministrySlug: 'kapitalakkumulation-des-fiskus',
-    note: 'Führt die Staatsregierung und verantwortet den Fiskus in Personalunion.',
+    note: 'Führt die Staatsregierung und leitet das Staatsministerium der Finanzen in Personalunion.',
   },
   {
     office: 'Staatskanzlei',
@@ -39,22 +40,7 @@ const assignments = [
     note: 'Verantwortet die Regierungskoordination und Kabinettsverfahren.',
   },
   {
-    office: 'Stellvertretende Ministerpräsidentin; Inneres, Bau und kommunale Angelegenheiten',
-    holderSlug: 'mia-wollrath',
-    ministrySlug: 'inneres-bau-und-kommunale-angelegenheiten',
-  },
-  {
-    office: 'Grenzschutz, Faschismusbekämpfung und bewaffnete Organe',
-    holderSlug: 'alexandrija-dunvjiak',
-    ministrySlug: 'grenzschutz-faschismusbekaempfung-und-bewaffnete-organe',
-  },
-  {
-    office: 'Soziale und gesundheitliche Fürsorge',
-    holderSlug: 'simon-kellermann',
-    ministrySlug: 'soziale-und-gesundheitliche-fuersorge',
-  },
-  {
-    office: 'Rechtsstaatlichkeit und Angelegenheiten des Staates',
+    office: 'Stellvertretender Ministerpräsident; Rechtsstaatlichkeit und kulturelle Emanzipation',
     holderSlug: 'mateo-delgado',
     ministrySlug: 'rechtsstaatlichkeit-und-angelegenheiten-des-staates',
   },
@@ -64,54 +50,64 @@ const assignments = [
     ministrySlug: 'voelkerfreundschaft-und-nachbarschaftspolitik',
   },
   {
-    office: 'Mobilität, Infrastruktur und Landesentwicklung',
+    office: 'Mobilität und regionale Entwicklung',
     holderSlug: 'vincent-flick',
     ministrySlug: 'mobilitaet-infrastruktur-und-landesentwicklung',
   },
   {
-    office: 'Kultur, Wissenschaft und Tourismus',
-    holderSlug: 'freya-warnecke',
-    ministrySlug: 'kultur-wissenschaft-und-tourismus',
-  },
-  {
-    office: 'Bildung und sportliche Ertüchtigung',
-    holderSlug: 'friedrich-ritter',
+    office: 'Volksbildung und Wissenschaft',
+    holderSlug: 'carl-ulbricht',
     ministrySlug: 'bildung-und-sportliche-ertuechtigung',
   },
   {
-    office: 'Umwelt, Energie und Klimaschutz',
-    holderSlug: 'tim-dieter',
+    office: 'Nachhaltigkeit und Energie',
+    holderSlug: 'volker-bagdadi',
     ministrySlug: 'umwelt-energie-und-klimaschutz',
-    note: 'Wird von Tim Dieter zusätzlich in Personalunion geführt.',
   },
   {
-    office: 'Küste, Fischerei, Forst und Landwirtschaft',
-    holderSlug: 'elizabeth-eberhardt',
+    office: 'Land-, Forst- und Küstenwirtschaft',
+    holderSlug: 'endo-meyer-raucht',
     ministrySlug: 'kueste-fischerei-forst-und-landwirtschaft',
   },
   {
-    office: 'Wirtschaft, Arbeitsmarkt und Beschäftigung',
-    holderSlug: 'gerhardt-lehrmann',
+    office: 'Wirtschaft und Arbeit',
+    holderSlug: 'max-peterson',
     ministrySlug: 'wirtschaft-arbeitsmarkt-und-beschaeftigung',
+  },
+  {
+    office: 'Inneres und Wohnungswirtschaft',
+    holderSlug: 'mia-wollrath',
+    ministrySlug: 'inneres-bau-und-kommunale-angelegenheiten',
+  },
+  {
+    office: 'Staats- und Grenzsicherheit',
+    holderSlug: 'mia-wollrath',
+    ministrySlug: 'grenzschutz-faschismusbekaempfung-und-bewaffnete-organe',
+    note: 'Wird von Mia Wollrath geschäftsführend geleitet.',
+  },
+  {
+    office: 'Gesundheits- und Sozialwesen',
+    holderSlug: 'lucia-liebknecht',
+    ministrySlug: 'soziale-und-gesundheitliche-fuersorge',
   },
 ];
 const topicHighlights = [
   'wohnen-und-vergesellschaftung',
+  'gute-arbeit',
   'oepnv-und-mobilitaet',
-  'familie-und-soziales',
-  'haushalt-und-finanzen',
+  'kultur-erinnerung-und-medien',
 ].flatMap((slug) => {
   const topic = topics.find((entry) => entry.slug === slug);
   return topic ? [topic] : [];
 });
 ---
 
-<BaseLayout title="Kabinett Honecker" description="Kabinettsübersicht der Staatsregierung.">
+<BaseLayout title="Kabinett Honecker II" description="Kabinettsübersicht der aktuellen Staatsregierung.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Staatsregierung', href: getGovernmentUrl() },
-      { label: 'Kabinett Honecker' },
+      { label: 'Kabinett Honecker II' },
     ]}
   />
 
@@ -119,9 +115,9 @@ const topicHighlights = [
     <p class="eyebrow">Regierungsarbeit</p>
     <h1>{currentGovernment.cabinetName}</h1>
     <p class="lead">
-      Das {currentGovernment.cabinetName} ist die achte Staatsregierung des Ostdeutschen
-      Freistaates. Es wurde am {siteConfig.date.formatLong(currentGovernment.formedOn)} gebildet
-      und wird von einer Koalition aus {currentGovernment.coalition} getragen.
+      Das {currentGovernment.cabinetName} ist seit dem {siteConfig.date.formatLong(currentGovernment.formedOn)}
+      im Amt. Es wird von einer Koalition aus {currentGovernment.coalition} getragen und setzt den
+      15-Punkte-Plan II als politische Arbeitsgrundlage um.
     </p>
   </section>
 
@@ -153,14 +149,20 @@ const topicHighlights = [
       </div>
       <div class="body-copy">
         <p>
-          Das Kabinett Honecker löste das {currentGovernment.predecessor} ab. Es verbindet
-          institutionellen Ausbau, öffentliche Daseinsvorsorge, steuernde Landespolitik und den
-          Ausbau eines eigenständigen ostdeutschen Staatswesens.
+          Das Kabinett Honecker II löste das {currentGovernment.predecessor} ab. Es verbindet die
+          Sicherung der ersten Aufbauphase mit neuen Schwerpunkten bei Wohnen, guter Arbeit,
+          öffentlicher Wirtschaft, sozialer Sicherheit, Energie und regionaler Entwicklung.
         </p>
         <p>
           Die Kabinettsstruktur ist im Portal nicht als paralleles Ministerienverzeichnis
           ausgelagert, sondern direkt als Teil der Staatsregierung verortet. Dadurch bleiben
           Leitung, Ressorts und politische Vorhaben eng miteinander verbunden.
+        </p>
+        <p>
+          Der Organisationserlass 05/2026 vom 4. Mai 2026 benennt mehrere Staatsministerien neu
+          und löst das bisherige Kultur-, Wissenschafts- und Tourismusressort auf. Wissenschaft
+          liegt nun bei Volksbildung und Wissenschaft; Kultur und Tourismus liegen bei
+          Rechtsstaatlichkeit und kultureller Emanzipation.
         </p>
       </div>
     </section>
@@ -183,6 +185,7 @@ const topicHighlights = [
           <dd>{members.length}</dd>
         </div>
       </dl>
+      <p><a class="inline-link" href={getPreviousCabinetsUrl()}>Frühere Kabinette</a></p>
     </aside>
   </div>
 

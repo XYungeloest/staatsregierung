@@ -11,6 +11,7 @@ import {
   getGovernmentMembersUrl,
   getHomeUrl,
   getMinisterPresidentUrl,
+  getPreviousCabinetsUrl,
   getTopicsUrl,
 } from '../../lib/portal/index.ts';
 import {
@@ -30,8 +31,8 @@ const featuredMembers = members.slice(0, 6);
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const flagshipTopics = [
   'wohnen-und-vergesellschaftung',
-  'bildungsreform',
-  'transparenz-und-lobbyregister',
+  'gute-arbeit',
+  'energie-und-klima',
 ].flatMap((slug) => {
   const topic = topics.find((entry) => entry.slug === slug);
   return topic ? [topic] : [];
@@ -93,8 +94,8 @@ const flagshipTopics = [
         </p>
         <p>
           Seit dem {siteConfig.date.formatLong(currentGovernment.formedOn)} führt
-          {` ${currentGovernment.headOfGovernment} `} die Staatsregierung. Stellvertretende
-          Ministerpräsidentin ist {currentGovernment.deputyHead}.
+          {` ${currentGovernment.headOfGovernment} `} die Staatsregierung. Stellvertretender
+          Ministerpräsident ist {currentGovernment.deputyHead}.
         </p>
         <p>
           Dresden ist der sichtbare politische Bezugspunkt für Kabinettsarbeit,
@@ -113,6 +114,7 @@ const flagshipTopics = [
         <a href={getCoalitionUrl()}>Koalition</a>
         <a href={getActionPlanUrl()}>15-Punkte-Plan</a>
         <a href={getGovernmentMembersUrl()}>Regierungsmitglieder</a>
+        <a href={getPreviousCabinetsUrl()}>Frühere Kabinette</a>
       </nav>
     </aside>
   </div>
@@ -146,7 +148,7 @@ const flagshipTopics = [
         <h3>Koalition & Programm</h3>
         <p>
           Koalitionsrahmen und 15-Punkte-Plan bilden die politische Arbeitsgrundlage des
-          Regierungshandelns.
+          Kabinetts Honecker II.
         </p>
         <p><a class="inline-link" href={getCoalitionUrl()}>Zur Koalition</a></p>
       </article>

@@ -28,7 +28,7 @@ const leadershipMinistries = ministries.filter((ministry) =>
 );
 const topPriorities = topics
   .filter((topic) =>
-    ['wohnen-und-vergesellschaftung', 'haushalt-und-finanzen', 'transparenz-und-lobbyregister'].includes(
+    ['wohnen-und-vergesellschaftung', 'gute-arbeit', 'haushalt-und-finanzen'].includes(
       topic.slug,
     ),
   )
@@ -76,7 +76,7 @@ const topPriorities = topics
         </p>
         <p>
           Die Leitungsfunktion des Ministerpräsidenten ist eng mit der Staatskanzlei und dem
-          Fiskusressort verknüpft. Von hier aus werden Regierungsschwerpunkte, Umsetzungsstände und
+          Staatsministerium der Finanzen verknüpft. Von hier aus werden Regierungsschwerpunkte, Umsetzungsstände und
           politische Prioritäten der Staatsregierung gebündelt.
         </p>
       </section>
@@ -99,7 +99,7 @@ const topPriorities = topics
             <dd>{siteConfig.currentGovernment.coalitionShort}</dd>
           </div>
         </dl>
-        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett Honecker</a></p>
+        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett Honecker II</a></p>
         <p><a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a></p>
       </aside>
     </div>

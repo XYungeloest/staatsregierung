@@ -51,6 +51,10 @@ export function getCabinetUrl(): string {
   return getSiteUrl('cabinet');
 }
 
+export function getPreviousCabinetsUrl(): string {
+  return getSiteUrl('previousCabinets');
+}
+
 export function getCoalitionUrl(): string {
   return getSiteUrl('coalition');
 }

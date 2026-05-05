@@ -1,5 +1,6 @@
 import {
   getBudgetUrl,
+  getCabinetUrl,
   getGovernmentUrl,
   getPressReleaseUrl,
   getTopicUrl,
@@ -11,7 +12,7 @@ const timelineEntrySeed: TimelineEntry[] = [
   {
     id: 'kabinett-honecker-bildung',
     date: '2025-12-20',
-    title: 'Kabinett Honecker bildet die Staatsregierung',
+    title: 'Kabinett Honecker I bildet die Staatsregierung',
     type: 'kabinett',
     summary:
       'Mit der Kabinettsbildung werden Ressortzuständigkeiten, Regierungsleitung und die politische Arbeitsgrundlage des Portals gesetzt.',
@@ -25,7 +26,7 @@ const timelineEntrySeed: TimelineEntry[] = [
     type: 'gesetz',
     summary:
       'Die wohnungspolitische Regulierung wird mit Mietpreisbegrenzung und Kappungsgrenzen frühzeitig rechtlich abgesichert.',
-    ressort: 'Inneres und Kommunales',
+    ressort: 'Inneres und Wohnungswirtschaft',
     href: getNormUrl('verordnung-zur-bestimmung-der-gebiete-mit-mietpreisbegrenzung-bei-mietbeginn'),
   },
   {
@@ -35,7 +36,7 @@ const timelineEntrySeed: TimelineEntry[] = [
     type: 'gesetz',
     summary:
       'Die finanzpolitische Infrastruktur des Freistaates wird mit Landesbankgesetz, Tariftreue und Verkündungsrecht konsolidiert.',
-    ressort: 'Fiskus',
+    ressort: 'Finanzen',
     href: getTopicUrl('haushalt-und-finanzen'),
   },
   {
@@ -55,7 +56,7 @@ const timelineEntrySeed: TimelineEntry[] = [
     type: 'gesetz',
     summary:
       'Die Rundfunkreform verbindet den Ostdeutschen Fernsehfunk mit einer staatsvertraglichen Neuordnung des Medienraums.',
-    ressort: 'Kultur und Wissenschaft',
+    ressort: 'Rechtsstaatlichkeit und kulturelle Emanzipation',
     href: getTopicUrl('rundfunkreform'),
   },
   {
@@ -65,7 +66,7 @@ const timelineEntrySeed: TimelineEntry[] = [
     type: 'haushalt',
     summary:
       'Mit dem Haushaltsgesetz erhält die Regierungsarbeit einen verbindlichen Finanzrahmen für Ressorts, Investitionen und Fonds.',
-    ressort: 'Fiskus',
+    ressort: 'Finanzen',
     href: getBudgetUrl(),
   },
   {
@@ -75,7 +76,7 @@ const timelineEntrySeed: TimelineEntry[] = [
     type: 'gesetz',
     summary:
       'Der Kulturpass schafft einen neuen, landesweit sichtbaren Zugang zu kultureller Teilhabe für junge Erwachsene.',
-    ressort: 'Kultur und Wissenschaft',
+    ressort: 'Rechtsstaatlichkeit und kulturelle Emanzipation',
     href: getNormUrl('ostdeutsches-kulturpassgesetz'),
   },
   {
@@ -95,7 +96,7 @@ const timelineEntrySeed: TimelineEntry[] = [
     type: 'projekt',
     summary:
       'Die operative Steuerung der Wohnvergesellschaftung wird mit flankierenden Verordnungen und Bewertungsregeln vertieft.',
-    ressort: 'Inneres und Kommunales',
+    ressort: 'Inneres und Wohnungswirtschaft',
     href: getTopicUrl('wohnen-und-vergesellschaftung'),
   },
   {
@@ -115,7 +116,7 @@ const timelineEntrySeed: TimelineEntry[] = [
     type: 'presse',
     summary:
       'Die Staatsregierung erläutert eine vorläufige humanitäre Entscheidung im Zusammenspiel von Sicherheits- und Menschenrechtspolitik.',
-    ressort: 'Grenzschutz und bewaffnete Organe',
+    ressort: 'Staats- und Grenzsicherheit',
     href: getPressReleaseUrl('abschiebungen-in-den-iran-voruebergehend-ausgesetzt'),
   },
   {
@@ -125,8 +126,38 @@ const timelineEntrySeed: TimelineEntry[] = [
     type: 'gesetz',
     summary:
       'Flankierende Verwaltungsvorschriften vertiefen die alltagspraktische Umsetzung der Bildungs- und Fürsorgepolitik.',
-    ressort: 'Bildung und Sport',
+    ressort: 'Volksbildung und Wissenschaft',
     href: getNormUrl('schulmilcherlass'),
+  },
+  {
+    id: 'kabinett-honecker-i-ende',
+    date: '2026-05-04',
+    title: 'Kabinett Honecker I endet als erste Aufbauphase',
+    type: 'kabinett',
+    summary:
+      'Die bisherige Staatsregierung wird historisch nachvollziehbar archiviert; ihre Normen, Pressebeiträge und Programmstände bleiben im Portal erreichbar.',
+    ressort: 'Staatskanzlei',
+    href: getGovernmentUrl(),
+  },
+  {
+    id: 'kabinett-honecker-ii',
+    date: '2026-05-04',
+    title: 'Kabinett Honecker II nimmt die Arbeit auf',
+    type: 'kabinett',
+    summary:
+      'Mit dem Kabinett Honecker II beginnt die zweite sozialstaatliche Aufbauphase des Freistaates auf Grundlage des neuen 15-Punkte-Plans.',
+    ressort: 'Staatskanzlei',
+    href: getGovernmentUrl(),
+  },
+  {
+    id: 'organisationserlass-05-2026',
+    date: '2026-05-04',
+    title: 'Organisationserlass 05/2026 ordnet Ressorts neu',
+    type: 'gesetz',
+    summary:
+      'Die Staatsministerien erhalten neue Bezeichnungen; das bisherige Kultur-, Wissenschafts- und Tourismusressort wird aufgelöst und sachlich zugeordnet.',
+    ressort: 'Staatskanzlei',
+    href: getCabinetUrl(),
   },
 ];
 

@@ -8,7 +8,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     title: 'Wohnvergesellschaftungsgesetz',
     description:
       'Das Vorhaben überführt zentrale Wohnungsbestände in gemeinwohlorientierte Strukturen und wird durch flankierende Vollzugsnormen ergänzt.',
-    ressort: 'Inneres und Kommunales',
+    ressort: 'Inneres und Wohnungswirtschaft',
     currentStage: 'inkrafttreten',
     topic: 'Wohnen & Vergesellschaftung',
     href: getNormUrl('wohnvergesellschaftungsgesetz'),
@@ -28,7 +28,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     title: 'Ostdeutsches Kulturpassgesetz',
     description:
       'Der Kulturpass schafft einen unmittelbaren Zugang zu Kulturangeboten und macht Teilhabepolitik landesweit sichtbar.',
-    ressort: 'Kultur und Wissenschaft',
+    ressort: 'Rechtsstaatlichkeit und kulturelle Emanzipation',
     currentStage: 'inkrafttreten',
     topic: 'Kulturpass',
     href: getNormUrl('ostdeutsches-kulturpassgesetz'),
@@ -38,7 +38,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     title: 'Krankenhaussicherungs- und Rekommunalisierungsfonds',
     description:
       'Das Vorhaben bündelt staatliche Sicherung und öffentliche Steuerung regionaler Krankenhausstandorte.',
-    ressort: 'Soziale Fürsorge',
+    ressort: 'Gesundheits- und Sozialwesen',
     currentStage: 'inkrafttreten',
     topic: 'Krankenhausfonds',
     href: getNormUrl('ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz'),
@@ -48,7 +48,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     title: 'Bildungsfreistellungsgesetz',
     description:
       'Die Bildungsreform wird um ein landesweites Anspruchsmodell auf Bildungsfreistellung im Erwerbsleben ergänzt.',
-    ressort: 'Bildung und Sport',
+    ressort: 'Volksbildung und Wissenschaft',
     currentStage: 'inkrafttreten',
     topic: 'Bildungsreform',
     href: getNormUrl('gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland'),
@@ -58,7 +58,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     title: 'Ausbaugesetz öffentlicher Mobilitätsachsen',
     description:
       'Für Schienenreaktivierung, Knotenentwicklung und landesweite Standards wird ein eigenständiges Mobilitätsgesetz vorbereitet.',
-    ressort: 'Mobilität und Infrastruktur',
+    ressort: 'Mobilität und regionale Entwicklung',
     currentStage: 'entwurf',
     topic: 'ÖPNV & Mobilität',
     href: getTopicUrl('oepnv-und-mobilitaet'),
@@ -68,7 +68,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     title: 'Tarifverordnung für landesweite Verbundstandards',
     description:
       'Die Verordnung soll Tarifintegration und einheitliche Mindeststandards für den schrittweisen Aufbau des Ostdeutschlandtakts festlegen.',
-    ressort: 'Mobilität und Infrastruktur',
+    ressort: 'Mobilität und regionale Entwicklung',
     currentStage: 'kabinett',
     topic: 'ÖPNV & Mobilität',
     href: getTopicUrl('oepnv-und-mobilitaet'),
@@ -78,10 +78,9 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     title: 'Investitions- und Fondsfortentwicklungsgesetz',
     description:
       'Das Vorhaben bündelt nächste Ausbauschritte für Sondervermögen, Finanzierungsinstrumente und investive Schwerpunktsetzung.',
-    ressort: 'Fiskus',
+    ressort: 'Finanzen',
     currentStage: 'landtag',
     topic: 'Haushalt & Finanzen',
     href: getTopicUrl('haushalt-und-finanzen'),
   },
 ];
-

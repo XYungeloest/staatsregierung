@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../../config/site.ts';
+import {
+  getCabinetUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getPreviousCabinetsUrl,
+} from '../../../lib/portal/index.ts';
+
+import archive from '../../../../content/regierung/archiv/kabinett-honecker-i.json';
+---
+
+<BaseLayout
+  title="Frühere Kabinette"
+  description="Archiv früherer Staatsregierungen des Ostdeutschen Freistaates."
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Frühere Kabinette' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Archiv</p>
+    <h1>Frühere Kabinette</h1>
+    <p class="lead">
+      Dieser Bereich dokumentiert abgeschlossene Staatsregierungen. Die aktuelle
+      Staatsregierung bleibt unter Kabinett und Ressorts erreichbar.
+    </p>
+    <nav class="hero-actions" aria-label="Archiv und aktuelles Kabinett">
+      <a class="button-link" href={getCabinetUrl()}>Aktuelles Kabinett</a>
+      <a class="button-link button-link--secondary" href={`${getPreviousCabinetsUrl()}honecker-i/`}>Kabinett Honecker I</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Aktuell</span>
+        <strong>{siteConfig.currentGovernment.cabinetName}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Archiviert</span>
+        <strong>{archive.cabinetName}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Amtszeit Honecker I</span>
+        <strong>{siteConfig.date.formatLong(archive.formedOn)} bis {siteConfig.date.formatLong(archive.endedOn)}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Archivierte Staatsregierungen</h2>
+      <p>
+        Historische Kabinettsseiten zeigen frühere Koalitionen, Mitglieder, Ressorts und
+        Programmstände ohne sie mit der aktuellen Regierungsarbeit zu vermischen.
+      </p>
+    </div>
+    <div class="card-grid card-grid--two">
+      <article class="panel">
+        <h3>{archive.cabinetName}</h3>
+        <p>{archive.summary}</p>
+        <p class="detail-line">
+          {siteConfig.date.formatLong(archive.formedOn)} bis {siteConfig.date.formatLong(archive.endedOn)}
+        </p>
+        <p><a class="inline-link" href={`${getPreviousCabinetsUrl()}honecker-i/`}>Zum Archivstand</a></p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
