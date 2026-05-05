@@ -1,57 +1,14 @@
-import {
-  getCabinetUrl,
-  getLawConstitutionUrl,
-  getMinisterPresidentUrl,
-  getServiceUrl,
-  getTopicUrl,
-} from '../../lib/portal/routes.ts';
+import { getTopicUrl } from '../../lib/portal/routes.ts';
 import type { ActionPlanItem } from '../../lib/portal/modules.ts';
 
 export const actionPlanItems: ActionPlanItem[] = [
   {
-    id: 'regierungssitz-dresden',
-    title: 'Regierungskoordination in Dresden',
+    id: 'zweite-wohn-und-bodenoffensive',
+    title: 'Zweite Wohn- und Bodenoffensive',
     description:
-      'Die Staatsregierung ist mit sichtbarer Leitungsstruktur, klaren Zuständigkeiten und dauerhaftem Bezugspunkt Dresden im Portal verankert.',
-    status: 'umgesetzt',
-    ressort: 'Staatskanzlei',
-    href: getMinisterPresidentUrl(),
-  },
-  {
-    id: 'kabinett-und-ressorts',
-    title: 'Kabinett und Ressorts',
-    description:
-      'Die Ressortstruktur, die Kabinettsmitglieder und die institutionelle Aufgabenordnung des Freistaates sind vollständig aufgebaut.',
-    status: 'umgesetzt',
-    ressort: 'Staatskanzlei',
-    href: getCabinetUrl(),
-  },
-  {
-    id: 'rechtsordnung-und-verkuendung',
-    title: 'Verfassung, Verkündung und Rechtszugang',
-    description:
-      'Verfassung, Verkündungslogik und ein integrierter Zugang zu aktuellen und historischen Fassungen sind unter /recht/ gebündelt.',
-    status: 'umgesetzt',
-    ressort: 'Rechtsstaatlichkeit',
-    href: getLawConstitutionUrl(),
-    references: [
-      {
-        label: 'Verfassung',
-        normSlug: 'gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5',
-      },
-      {
-        label: 'Gesetz über Verkündungen und Bekanntmachungen',
-        normSlug: 'gesetz-uber-verkundungen-und-bekanntmachungen',
-      },
-    ],
-  },
-  {
-    id: 'wohnen-und-vergesellschaftung',
-    title: 'Wohnen und Vergesellschaftung',
-    description:
-      'Wohnraumschutz, Vergesellschaftung, Preisregulierung und Vollzugsinstrumente bilden ein tragendes Kernprojekt der Landespolitik.',
-    status: 'umgesetzt',
-    ressort: 'Inneres und Kommunales',
+      'Bodenpolitik, Wohnraumschutz, öffentliche Wohnungsaufsicht und gemeinwohlorientierte Träger werden zur zweiten Wohn- und Bodenoffensive ausgebaut.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Inneres und Wohnungswirtschaft',
     href: getTopicUrl('wohnen-und-vergesellschaftung'),
     references: [
       { label: 'Vergesellschaftungsrahmengesetz', normSlug: 'vergesellschaftungsrahmengesetz' },
@@ -59,66 +16,33 @@ export const actionPlanItems: ActionPlanItem[] = [
     ],
   },
   {
-    id: 'mobilitaet-und-oepnv',
-    title: 'ÖPNV und Mobilität',
+    id: 'gute-arbeit',
+    title: 'Gute Arbeit wird zur verbindlichen Norm',
     description:
-      'Planung, Finanzierung und Strukturaufbau sind angelegt; fachrechtliche Vertiefungen für Tarif- und Reaktivierungsfragen folgen schrittweise.',
+      'Tarifbindung, Mitbestimmung, Entfristung und gute Löhne sollen verbindliche Grundlage öffentlicher Mittel, Aufträge und Unternehmen werden.',
     status: 'teilweise_umgesetzt',
-    ressort: 'Mobilität und Infrastruktur',
-    href: getTopicUrl('oepnv-und-mobilitaet'),
-  },
-  {
-    id: 'bildungsreform',
-    title: 'Bildungsreform',
-    description:
-      'Schulneuordnung, Kita-Entlastung und ergänzende Verordnungen bilden bereits einen breiten Umsetzungsstand der Bildungsreform.',
-    status: 'umgesetzt',
-    ressort: 'Bildung und Sport',
-    href: getTopicUrl('bildungsreform'),
+    ressort: 'Wirtschaft und Arbeit',
+    href: getTopicUrl('gute-arbeit'),
     references: [
-      {
-        label: 'Gesetz zur Neuordnung des Ostdeutschen Schulsystems',
-        normSlug: 'gesetz-zur-neuordnung-des-ostdeutschen-schulsystems',
-      },
+      { label: 'Ostdeutsches Tariftreue- und Vergabegesetz', normSlug: 'ostdeutsches-tariftreueund-vergabegesetz' },
     ],
   },
   {
-    id: 'kulturpass',
-    title: 'Kulturpass und kulturelle Teilhabe',
+    id: 'oeffentliche-wirtschaft-und-strukturwandel',
+    title: 'Öffentliche Wirtschaft und Strukturwandel sichern',
     description:
-      'Der Kulturpass ist als eigenständiges Leistungsinstrument aufgebaut und bereits direkt mit dem Rechtsportal verbunden.',
-    status: 'umgesetzt',
-    ressort: 'Kultur und Wissenschaft',
-    href: getTopicUrl('kulturpass'),
-    references: [
-      { label: 'Ostdeutsches Kulturpassgesetz', normSlug: 'ostdeutsches-kulturpassgesetz' },
-    ],
+      'Öffentliche Wirtschaft, Rekommunalisierung, Gemeinwohlkriterien und strategische Industriepolitik sollen regionale Wertschöpfung sichern.',
+    status: 'angelegt',
+    ressort: 'Wirtschaft und Arbeit',
+    href: getTopicUrl('oeffentliche-wirtschaft-und-strukturwandel'),
   },
   {
-    id: 'demokratie-und-sicherheit',
-    title: 'Demokratie und Sicherheit',
+    id: 'gesundheit-und-pflege',
+    title: 'Gesundheit in Reichweite, Pflege mit Würde',
     description:
-      'Rechtsstaatliche Kontrolle, Antidiskriminierung und sicherheitspolitische Handlungsfähigkeit werden gemeinsam fortgeführt.',
-    status: 'umgesetzt',
-    ressort: 'Rechtsstaatlichkeit',
-    href: getTopicUrl('demokratie-und-sicherheit'),
-  },
-  {
-    id: 'rundfunkreform',
-    title: 'Rundfunkreform',
-    description:
-      'Die Rundfunkordnung des Freistaates wurde mit dem Ostdeutschen Fernsehfunk und staatsvertraglichen Anpassungen neu geordnet.',
-    status: 'umgesetzt',
-    ressort: 'Kultur und Wissenschaft',
-    href: getTopicUrl('rundfunkreform'),
-  },
-  {
-    id: 'krankenhausfonds',
-    title: 'Krankenhausfonds und öffentliche Sicherung',
-    description:
-      'Der Krankenhaussicherungs- und Rekommunalisierungsfonds ist als zentrales Instrument staatlicher Daseinsvorsorge normativ verankert.',
-    status: 'umgesetzt',
-    ressort: 'Soziale Fürsorge',
+      'Regionale Gesundheitszentren, Krankenhausplanung, öffentliche Pflege und kommunale Gesundheitsinfrastruktur werden als Daseinsvorsorge fortgeführt.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Gesundheits- und Sozialwesen',
     href: getTopicUrl('krankenhausfonds'),
     references: [
       {
@@ -128,30 +52,76 @@ export const actionPlanItems: ActionPlanItem[] = [
     ],
   },
   {
-    id: 'familie-und-soziales',
-    title: 'Familie und Soziales',
+    id: 'familien-entlasten',
+    title: 'Familien entlasten und Kinder stärken',
     description:
-      'Familienentlastung und soziale Sicherung sind angelegt und teilweise umgesetzt, insbesondere über Kita- und Fürsorgepolitik.',
-    status: 'teilweise_umgesetzt',
-    ressort: 'Soziale Fürsorge',
+      'Familienservicehäuser, Gebührenbremse, soziale Orte, bessere Betreuung und erreichbare Beratung sollen Familien im Alltag entlasten.',
+    status: 'angelegt',
+    ressort: 'Gesundheits- und Sozialwesen',
     href: getTopicUrl('familie-und-soziales'),
   },
   {
-    id: 'nachbarschaft-und-europa',
-    title: 'Nachbarschaft und Europa',
+    id: 'bildungsreform-und-wissenschaft',
+    title: 'Bildungsreform vertiefen, Forschung und Fachkräfte stärken',
     description:
-      'Grenzüberschreitende Zusammenarbeit mit Polen und Tschechien ist institutionell und normativ bereits fest verankert.',
-    status: 'umgesetzt',
-    ressort: 'Völkerfreundschaft',
-    href: getTopicUrl('nachbarschaft-und-europa'),
+      'Schulreform, Hochschulselbstverwaltung, Forschung, Transfer und Fachkräftesicherung werden im Ressort Volksbildung und Wissenschaft gebündelt.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Volksbildung und Wissenschaft',
+    href: getTopicUrl('bildungsreform'),
+    references: [
+      {
+        label: 'Gesetz zur Neuordnung des Ostdeutschen Schulsystems',
+        normSlug: 'gesetz-zur-neuordnung-des-ostdeutschen-schulsystems',
+      },
+    ],
   },
   {
-    id: 'transparenz-und-lobbyregister',
-    title: 'Transparenz und Lobbyregister',
+    id: 'mobilitaet-und-digitale-teilhabe',
+    title: 'Mobilität und digitale Teilhabe öffentlich sichern',
     description:
-      'Informationszugang, Transparenzpflichten und Beteiligtendokumentation sind mit tragenden Landesnormen im Portal eingebunden.',
-    status: 'umgesetzt',
-    ressort: 'Rechtsstaatlichkeit',
+      'Verkehrsverbund, Ostdeutschlandtakt, Mobilitätsgarantie, digitale Grundversorgung und öffentliche Plattformen werden zusammengeführt.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Mobilität und regionale Entwicklung',
+    href: getTopicUrl('oepnv-und-mobilitaet'),
+  },
+  {
+    id: 'energie-klima-umwelt',
+    title: 'Energie sicher, Klima sozial, Umwelt geschützt',
+    description:
+      'Energie, Wärme, Wasser, Kreislaufwirtschaft und Klimaanpassung sollen sozial, öffentlich und planbar organisiert werden.',
+    status: 'angelegt',
+    ressort: 'Nachhaltigkeit und Energie',
+    href: getTopicUrl('energie-und-klima'),
+  },
+  {
+    id: 'demokratie-und-sicherheit',
+    title: 'Demokratie schützen, Sicherheit rechtsstaatlich stärken',
+    description:
+      'Sicherheitsbehörden, Prävention, Antidiskriminierung, Opferberatung und demokratische Kontrolle werden als gemeinsamer Sicherheitsrahmen fortentwickelt.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Rechtsstaatlichkeit und Staats- und Grenzsicherheit',
+    href: getTopicUrl('demokratie-und-sicherheit'),
+  },
+  {
+    id: 'kultur-erinnerung-medien',
+    title: 'Kultur stärken, Erinnerung gestalten, Medien regional verankern',
+    description:
+      'Kulturpass, Gedenkstätten, Kulturhäuser, regionale Medien und Erinnerungspolitik werden im neuen Kulturzuschnitt weitergeführt.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Rechtsstaatlichkeit und kulturelle Emanzipation',
+    href: getTopicUrl('kultur-erinnerung-und-medien'),
+    references: [
+      { label: 'Ostdeutsches Kulturpassgesetz', normSlug: 'ostdeutsches-kulturpassgesetz' },
+      { label: 'Ostdeutsches Fernsehfunkgesetz', normSlug: 'ostdeutsches-fernsehfunkgesetz' },
+    ],
+  },
+  {
+    id: 'verwaltung-transparenz-buergernaehe',
+    title: 'Verwaltung modernisieren, Transparenz und Bürgernähe stärken',
+    description:
+      'Analoges Amt, Verwaltungsmodernisierung, Transparenz, Bürgerräte, Antikorruption und verständliche Verwaltung werden fortgeführt.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Rechtsstaatlichkeit und kulturelle Emanzipation',
     href: getTopicUrl('transparenz-und-lobbyregister'),
     references: [
       {
@@ -161,12 +131,39 @@ export const actionPlanItems: ActionPlanItem[] = [
     ],
   },
   {
-    id: 'haushalt-und-finanzen',
-    title: 'Haushalt und Finanzen',
+    id: 'kommunen-regionen-berlin',
+    title: 'Kommunen, Regionen und Berlin handlungsfähig machen',
     description:
-      'Doppelhaushalt, Landesbank und Vergaberecht bilden die finanzpolitische Grundarchitektur des Landes.',
-    status: 'umgesetzt',
-    ressort: 'Fiskus',
+      'Kommunale Finanzen, Konnexität, soziale Infrastruktur, regionale Entwicklung und Berlin-Sonderrecht werden als eigener Schwerpunkt gesetzt.',
+    status: 'angelegt',
+    ressort: 'Inneres und Wohnungswirtschaft',
+    href: getTopicUrl('kommunen-regionen-und-berlin'),
+  },
+  {
+    id: 'soziale-sicherheit-teilhabe',
+    title: 'Soziale Sicherheit, Rente und Teilhabe ausbauen',
+    description:
+      'Sozialpass, Housing First, Gebührenbremse, soziale Rechte und Teilhabeinfrastruktur sollen Armut und Ausgrenzung entgegenwirken.',
+    status: 'angelegt',
+    ressort: 'Gesundheits- und Sozialwesen',
+    href: getTopicUrl('soziale-sicherheit-und-teilhabe'),
+  },
+  {
+    id: 'nachbarschaft-ostsee-stimme',
+    title: 'Nachbarschaft, Ostsee und ostdeutsche Stimme stärken',
+    description:
+      'Grenzraumkooperation, Ostseestrategie, Bundesratsinitiativen und ostdeutsche Interessenvertretung werden ausgebaut.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Völkerfreundschaft und Nachbarschaftspolitik',
+    href: getTopicUrl('nachbarschaft-und-europa'),
+  },
+  {
+    id: 'finanzen-soziale-prioritaeten',
+    title: 'Finanzen mit sozialen Prioritäten',
+    description:
+      'Der Haushalt wird auf öffentliche Investitionen, soziale Sicherheit, Daseinsvorsorge, regionale Wertschöpfung und demokratische Kontrolle ausgerichtet.',
+    status: 'teilweise_umgesetzt',
+    ressort: 'Finanzen',
     href: getTopicUrl('haushalt-und-finanzen'),
     references: [
       {
@@ -174,14 +171,5 @@ export const actionPlanItems: ActionPlanItem[] = [
         normSlug: 'gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2',
       },
     ],
-  },
-  {
-    id: 'service-und-verwaltungszugang',
-    title: 'Service und Verwaltungszugang',
-    description:
-      'Servicewege, Kontakt, FAQ und Barrierefreiheit sind angelegt und werden schrittweise nutzerfreundlicher gebündelt.',
-    status: 'angelegt',
-    ressort: 'Staatskanzlei',
-    href: getServiceUrl(),
   },
 ];
