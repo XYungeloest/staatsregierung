@@ -326,6 +326,7 @@ h5 {
 .module-section {
   display: grid;
   gap: 1.25rem;
+  min-width: 0;
 }
 
 .module-toolbar {
@@ -344,8 +345,23 @@ h5 {
   align-items: stretch;
 }
 
+.module-card-grid.card-grid--three {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 21rem), 1fr));
+}
+
+.module-card-grid.card-grid--two {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr));
+}
+
 .module-card {
   height: 100%;
+  min-width: 0;
+}
+
+.module-card h3,
+.legislation-card h3 {
+  font-size: 1.16rem;
+  line-height: 1.28;
 }
 
 .module-card__meta,
@@ -353,13 +369,20 @@ h5 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  align-items: center;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.module-card__links {
+  margin-top: 0.2rem;
 }
 
 .module-status-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  max-width: 100%;
+  min-width: 0;
   min-height: 2rem;
   padding: 0.35rem 0.7rem;
   border: 1px solid rgba(47, 123, 61, 0.28);
@@ -368,6 +391,8 @@ h5 {
   color: var(--color-secondary-hover);
   font-size: 0.92rem;
   font-weight: 600;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .module-status-pill--secondary {
@@ -390,6 +415,8 @@ h5 {
 }
 
 .tag--link {
+  justify-content: flex-start;
+  text-align: left;
   text-decoration: none;
 }
 
@@ -401,16 +428,17 @@ h5 {
   position: relative;
   display: grid;
   gap: 1rem;
+  min-width: 0;
 }
 
 .timeline::before {
   content: '';
   position: absolute;
-  left: 8.25rem;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  width: 3px;
-  background: var(--rule-gradient);
+  left: 7.65rem;
+  top: 0.85rem;
+  bottom: 0.85rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(47, 123, 61, 0.42), rgba(23, 59, 107, 0.35));
 }
 
 .timeline__item {
@@ -419,28 +447,33 @@ h5 {
   grid-template-columns: 7rem minmax(0, 1fr);
   gap: 1.25rem;
   align-items: start;
+  min-width: 0;
 }
 
 .timeline__item::before {
   content: '';
   position: absolute;
-  left: 7.79rem;
+  left: 7.25rem;
   top: 0.65rem;
-  width: 0.9rem;
-  height: 0.9rem;
-  border: 2px solid var(--color-surface);
+  z-index: 2;
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 0.25rem solid #f4f8f5;
   border-radius: 999px;
   background: var(--color-seal);
-  box-shadow: 0 0 0 3px rgba(143, 46, 47, 0.14);
+  box-shadow: 0 0 0 1px rgba(143, 46, 47, 0.18);
 }
 
 .timeline__date time {
   display: inline-block;
+  max-width: 100%;
   font-size: 0.92rem;
   color: var(--color-text-muted);
+  line-height: 1.45;
 }
 
 .timeline__body {
+  min-width: 0;
   padding: 1rem 1.1rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -452,6 +485,8 @@ h5 {
 
 .timeline__body h3 {
   margin: 0.1rem 0 0.55rem;
+  font-size: 1.18rem;
+  line-height: 1.25;
 }
 
 .timeline__body p {
@@ -470,6 +505,7 @@ h5 {
 .legislation-card {
   display: grid;
   gap: 0.85rem;
+  min-width: 0;
 }
 
 .stage-chain {
@@ -482,6 +518,7 @@ h5 {
 }
 
 .stage-chain__item {
+  min-width: 0;
   flex: 1 1 8.5rem;
   padding: 0.65rem 0.55rem;
   border: 1px solid var(--color-border);
@@ -491,6 +528,7 @@ h5 {
   text-align: center;
   font-size: 0.84rem;
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
 .stage-chain__item--done {
@@ -1395,6 +1433,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .panel {
   position: relative;
   overflow: hidden;
+  min-width: 0;
   padding: 1.25rem;
   background: var(--color-surface);
   transition:
@@ -1424,15 +1463,19 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .panel h3 {
   font-size: 1.25rem;
+  line-height: 1.25;
 }
 
 .panel p {
   margin: 0.75rem 0 0;
+  overflow-wrap: anywhere;
 }
 
 .status-badge {
   display: inline-flex;
   align-items: center;
+  max-width: 100%;
+  min-width: 0;
   min-height: 1.95rem;
   padding: 0.25rem 0.7rem;
   border: 1px solid transparent;
@@ -1440,7 +1483,8 @@ article.panel > p:last-child > a.inline-link:hover {
   font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  white-space: nowrap;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .status-badge--green {
@@ -1489,13 +1533,15 @@ article.panel > p:last-child > a.inline-link:hover {
 .topic-card {
   display: grid;
   gap: 0.9rem;
+  min-width: 0;
 }
 
 .topic-card__header {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem 0.85rem;
-  align-items: center;
+  align-items: flex-start;
+  min-width: 0;
 }
 
 .topic-card__header .topic-card__meta,
@@ -1503,6 +1549,7 @@ article.panel > p:last-child > a.inline-link:hover {
   margin: 0;
   color: var(--color-text-muted);
   font-size: 0.95rem;
+  overflow-wrap: anywhere;
 }
 
 .page-header {
@@ -1770,12 +1817,17 @@ article.panel > p:last-child > a.inline-link:hover {
 .tag {
   display: inline-flex;
   align-items: center;
+  max-width: 100%;
+  min-width: 0;
   padding: 0.35rem 0.7rem;
   border-radius: var(--radius-sm);
   border: 1px solid #9dc8bb;
   background: var(--color-info-green);
   color: var(--color-secondary);
   text-decoration: none;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  white-space: normal;
   transition:
     color 140ms ease,
     background-color 140ms ease,
@@ -1833,6 +1885,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .letter-nav a,
 .outline-list a {
   color: var(--color-accent);
+  overflow-wrap: anywhere;
   text-decoration: none;
 }
 
@@ -2440,10 +2493,20 @@ article.panel > p:last-child > a.inline-link:hover {
   .timeline__item {
     grid-template-columns: 1fr;
     gap: 0.6rem;
+    padding-left: 0;
   }
 
   .timeline__body {
     padding: 0.9rem 1rem;
+  }
+
+  .timeline__date time {
+    padding: 0.25rem 0.55rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface-muted);
+    color: var(--color-primary);
+    font-weight: 650;
   }
 
   .stage-chain {
