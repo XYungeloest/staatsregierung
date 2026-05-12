@@ -159,6 +159,16 @@ const timelineEntrySeed: TimelineEntry[] = [
     ressort: 'Staatskanzlei',
     href: getCabinetUrl(),
   },
+  {
+    id: 'anwendungsgesetze-vergesellschaftung-mai-2026',
+    date: '2026-05-12',
+    title: 'Neue Anwendungsgesetze zum Vergesellschaftungsrahmen werden vorbereitet',
+    type: 'projekt',
+    summary:
+      'Die Staatsregierung arbeitet an Entwürfen für öffentliche Mobilität sowie Energie- und Wärmeinfrastruktur als weitere Anwendungsbereiche der Gemeinwirtschaft.',
+    ressort: 'Staatsregierung',
+    href: getTopicUrl('oeffentliche-wirtschaft-und-strukturwandel'),
+  },
 ];
 
 export const timelineEntries = [...timelineEntrySeed].sort((left, right) =>

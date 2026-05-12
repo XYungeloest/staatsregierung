@@ -31,10 +31,13 @@ export const actionPlanItems: ActionPlanItem[] = [
     id: 'oeffentliche-wirtschaft-und-strukturwandel',
     title: 'Öffentliche Wirtschaft und Strukturwandel sichern',
     description:
-      'Öffentliche Wirtschaft, Rekommunalisierung, Gemeinwohlkriterien und strategische Industriepolitik sollen regionale Wertschöpfung sichern.',
-    status: 'angelegt',
+      'Öffentliche Wirtschaft, Rekommunalisierung und sektorspezifische Anwendungsgesetze sollen regionale Wertschöpfung und Daseinsvorsorge sichern.',
+    status: 'teilweise_umgesetzt',
     ressort: 'Wirtschaft und Arbeit',
     href: getTopicUrl('oeffentliche-wirtschaft-und-strukturwandel'),
+    references: [
+      { label: 'Vergesellschaftungsrahmengesetz', normSlug: 'vergesellschaftungsrahmengesetz' },
+    ],
   },
   {
     id: 'gesundheit-und-pflege',
@@ -79,19 +82,25 @@ export const actionPlanItems: ActionPlanItem[] = [
     id: 'mobilitaet-und-digitale-teilhabe',
     title: 'Mobilität und digitale Teilhabe öffentlich sichern',
     description:
-      'Verkehrsverbund, Ostdeutschlandtakt, Mobilitätsgarantie, digitale Grundversorgung und öffentliche Plattformen werden zusammengeführt.',
+      'Verkehrsverbund, Ostdeutsche Eisenbahn, Mobilitätsgarantie, digitale Grundversorgung und öffentliche Plattformen werden zusammengeführt.',
     status: 'teilweise_umgesetzt',
     ressort: 'Mobilität und regionale Entwicklung',
     href: getTopicUrl('oepnv-und-mobilitaet'),
+    references: [
+      { label: 'Vergesellschaftungsrahmengesetz', normSlug: 'vergesellschaftungsrahmengesetz' },
+    ],
   },
   {
     id: 'energie-klima-umwelt',
     title: 'Energie sicher, Klima sozial, Umwelt geschützt',
     description:
       'Energie, Wärme, Wasser, Kreislaufwirtschaft und Klimaanpassung sollen sozial, öffentlich und planbar organisiert werden.',
-    status: 'angelegt',
+    status: 'teilweise_umgesetzt',
     ressort: 'Nachhaltigkeit und Energie',
     href: getTopicUrl('energie-und-klima'),
+    references: [
+      { label: 'Vergesellschaftungsrahmengesetz', normSlug: 'vergesellschaftungsrahmengesetz' },
+    ],
   },
   {
     id: 'demokratie-und-sicherheit',
