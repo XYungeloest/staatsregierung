@@ -55,13 +55,23 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
   },
   {
     id: 'oepnv-ausbaugesetz',
-    title: 'Ausbaugesetz öffentlicher Mobilitätsachsen',
+    title: 'Gesetz zur Errichtung der Ostdeutschen Eisenbahn',
     description:
-      'Für Schienenreaktivierung, Knotenentwicklung und landesweite Standards wird ein eigenständiges Mobilitätsgesetz vorbereitet.',
+      'Der Entwurf soll die Ostdeutsche Eisenbahn als gemeinwirtschaftliche Trägerin öffentlicher Verkehrsleistungen aufbauen und Verkehrsproduktionsmittel dauerhaft öffentlich sichern.',
     ressort: 'Mobilität und regionale Entwicklung',
     currentStage: 'entwurf',
     topic: 'ÖPNV & Mobilität',
     href: getTopicUrl('oepnv-und-mobilitaet'),
+  },
+  {
+    id: 'energie-und-waermevergesellschaftungsgesetz',
+    title: 'Energie- und Wärmevergesellschaftungsgesetz',
+    description:
+      'Der Entwurf konkretisiert den Vergesellschaftungsrahmen für Energie- und Wärmeinfrastruktur, soziale Energiepreise und öffentliche Trägerstrukturen.',
+    ressort: 'Nachhaltigkeit und Energie',
+    currentStage: 'entwurf',
+    topic: 'Energie & Klima',
+    href: getTopicUrl('energie-und-klima'),
   },
   {
     id: 'tarifverordnung-ostdeutschlandtakt',
