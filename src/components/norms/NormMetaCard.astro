@@ -20,8 +20,9 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
 
 <aside class="section meta-panel">
   <div class="section-header section-header--compact">
-    <h2>Metadaten</h2>
+    <h2>Vorschriftendaten</h2>
   </div>
+  <h3>Bezeichnung</h3>
   <div class="meta-list">
     <div>
       <dt>Kurztitel</dt>
@@ -39,14 +40,22 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
       <dt>Ressort</dt>
       <dd>{toDisplayText(norm.meta.ministry)}</dd>
     </div>
+  </div>
+
+  <h3>Fundstelle</h3>
+  <div class="meta-list">
     <div>
-      <dt>Zitat</dt>
+      <dt>Vollzitat</dt>
       <dd>{toDisplayText(version.citation)}</dd>
     </div>
     <div>
-      <dt>Stammzitat</dt>
+      <dt>Stammfundstelle</dt>
       <dd>{toDisplayText(norm.meta.initialCitation)}</dd>
     </div>
+  </div>
+
+  <h3>Gültigkeit</h3>
+  <div class="meta-list">
     <div>
       <dt>Gültig ab</dt>
       <dd>{formatDate(version.validFrom)}</dd>
@@ -61,19 +70,28 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
     </div>
   </div>
 
+  <h3>Sachgebiete</h3>
   <div class="tag-list">
     {norm.meta.subjects.map((subject) => (
       <a class="tag" href={getSubjectUrl(subject)}>{toDisplayText(subject)}</a>
     ))}
   </div>
 
-  <nav class="link-list" aria-label="Weiterführende Links">
-    <a href={getNormHistoryUrl(norm.meta.slug)}>Zur Historie</a>
+  <h3>Fassungen und Historie</h3>
+  <nav class="link-list" aria-label="Fassungen und Historie">
+    {!historical ? <a href={getNormUrl(norm.meta.slug)}>Aktuelle Fassung</a> : null}
     {historical ? <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a> : null}
+    <a href={getNormHistoryUrl(norm.meta.slug)}>Normenhistorie</a>
     {historicalVersions.map((entry) => (
       <a href={getNormVersionUrl(norm.meta.slug, entry.versionId)}>
         Historische Fassung vom {formatDate(entry.validFrom)}
       </a>
     ))}
+    {historicalVersions.length === 0 ? <span>Keine historischen Fassungen gespeichert</span> : null}
   </nav>
+
+  <h3>Ausgabe</h3>
+  <div class="link-list">
+    <button class="text-link-button" type="button" onclick="window.print()">Seite drucken</button>
+  </div>
 </aside>

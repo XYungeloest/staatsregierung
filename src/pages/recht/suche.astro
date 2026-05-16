@@ -1,7 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getHomeUrl, getLawPortalUrl, getSearchUrl } from '../../lib/norms/index.ts';
+import {
+  getFundingUrl,
+  getHelpUrl,
+  getHomeUrl,
+  getIndexUrl,
+  getLawPortalUrl,
+  getSearchUrl,
+  getSubjectsUrl,
+} from '../../lib/norms/index.ts';
 import { buildSearchIndexPayload } from '../../lib/norms/search.ts';
 
 const searchPayload = await buildSearchIndexPayload();
@@ -29,12 +37,18 @@ const searchPayload = await buildSearchIndexPayload();
     <p class="eyebrow">Rechtsbereich</p>
     <h1>Normensuche</h1>
     <p class="lead">
-      Die Suche erschließt Titel, Metadaten und Normtexte der jeweils maßgeblichen Fassung jeder
-      Norm.
+      Die Suche erschließt Titel, Metadaten, Fundstellen und Normtexte aller gespeicherten
+      Fassungen.
     </p>
     <p class="status-line">
       Im Suchindex stehen derzeit {searchPayload.documentCount} Normfassungen bereit.
     </p>
+    <nav class="link-list link-list--inline" aria-label="Weitere Rechtseinstiege">
+      <a href={getIndexUrl()}>Alphabetischer Index</a>
+      <a href={getSubjectsUrl()}>Sachgebiete</a>
+      <a href={getFundingUrl()}>Förderrichtlinien</a>
+      <a href={getHelpUrl()}>Hilfe</a>
+    </nav>
   </section>
 
   <section
@@ -46,7 +60,8 @@ const searchPayload = await buildSearchIndexPayload();
     <div class="section-header">
       <h2 id="search-form-title">Suchanfrage und Filter</h2>
       <p>
-        Durchsucht werden Titel, Kurztitel, Abkürzung, Metadaten und die gespeicherten Normtexte.
+        Durchsucht werden Titel, Kurztitel, Abkürzung, Metadaten, Fundstellen und die
+        gespeicherten Normtexte.
       </p>
     </div>
 
@@ -61,6 +76,32 @@ const searchPayload = await buildSearchIndexPayload();
             placeholder="z. B. Polizei, Förderung, Datenpakt"
             data-search-query
           />
+        </label>
+        <label class="search-field">
+          <span>Suchbereich</span>
+          <select name="scope" data-search-filter="scope">
+            <option value="all">Titel, Metadaten und Text</option>
+            <option value="title">Nur Titel, Kurztitel und Abkürzung</option>
+            <option value="metadata">Nur Metadaten und Fundstellen</option>
+            <option value="body">Nur Normtext</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="search-form__filters">
+        <label class="search-field">
+          <span>Enthält nicht</span>
+          <input type="search" name="exclude" autocomplete="off" placeholder="auszuschließender Begriff" data-search-filter="exclude" />
+        </label>
+
+        <label class="search-field">
+          <span>Exakte Wortfolge</span>
+          <input type="search" name="exact" autocomplete="off" placeholder="z. B. bezahlbarer Wohnraum" data-search-filter="exact" />
+        </label>
+
+        <label class="search-field">
+          <span>Fundstelle</span>
+          <input type="search" name="citation" autocomplete="off" placeholder="z. B. OGVBl. 2026 Nr. 16" data-search-filter="citation" />
         </label>
       </div>
 
@@ -104,6 +145,28 @@ const searchPayload = await buildSearchIndexPayload();
             ))}
           </select>
         </label>
+      </div>
+
+      <div class="search-form__filters">
+        <label class="search-field">
+          <span>Geltungstag</span>
+          <input type="date" name="geltungstag" data-search-filter="geltungstag" />
+        </label>
+
+        <label class="search-field">
+          <span>Gültig ab</span>
+          <input type="date" name="validFrom" data-search-filter="validFrom" />
+        </label>
+
+        <label class="search-field">
+          <span>Gültig bis</span>
+          <input type="date" name="validTo" data-search-filter="validTo" />
+        </label>
+      </div>
+
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Suchen</button>
+        <a class="button-link button-link--secondary" href={getSearchUrl()}>Zurücksetzen</a>
       </div>
     </form>
 

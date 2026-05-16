@@ -22,11 +22,15 @@ export {
 
 export {
   getAccessibilityUrl,
+  getFundingUrl,
   getHomeUrl,
+  getHelpUrl,
   getImprintUrl,
   getIndexUrl,
   getIndexGroups,
   getLawConstitutionUrl,
+  getLawFundingUrl,
+  getLawHelpUrl,
   getLawPortalUrl,
   getNormHistoryUrl,
   getNormUrl,

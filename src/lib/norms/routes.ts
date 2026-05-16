@@ -3,7 +3,9 @@ import {
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
+  getLawFundingUrl,
   getLawHomeUrl,
+  getLawHelpUrl,
   getLawIndexUrl,
   getLawSearchUrl,
   getLawSubjectsUrl,
@@ -46,6 +48,14 @@ export function getSubjectsUrl(): string {
   return getLawSubjectsUrl();
 }
 
+export function getFundingUrl(): string {
+  return getLawFundingUrl();
+}
+
+export function getHelpUrl(): string {
+  return getLawHelpUrl();
+}
+
 export function getLawPortalUrl(): string {
   return getLawHomeUrl();
 }
@@ -55,6 +65,8 @@ export {
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
+  getLawFundingUrl,
+  getLawHelpUrl,
   getPrivacyUrl,
   getServiceOverviewUrl,
 };

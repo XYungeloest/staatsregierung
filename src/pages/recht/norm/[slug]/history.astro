@@ -32,6 +32,12 @@ const initialVersionUrl = initialVersion
   : undefined;
 const normTitle = toDisplayText(norm.meta.title);
 const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, gespeicherten Fassungen und Änderungshinweisen im Rechtsbereich des Freistaates Ostdeutschland.`;
+const historyTypeLabels: Record<string, string> = {
+  initial: 'Stammfassung',
+  amendment: 'Änderung',
+  repeal: 'Aufhebung',
+  notice: 'Hinweis',
+};
 ---
 
 <BaseLayout
@@ -56,7 +62,10 @@ const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, ges
   <section class="section page-header">
     <p class="eyebrow">Normenhistorie</p>
     <h1>{toDisplayText(norm.meta.title)}</h1>
-    <p class="lead">Historienseite mit Stammfassung, Änderungsbezügen und allen gespeicherten Fassungen.</p>
+    <p class="lead">
+      Historienseite mit Stammfassung, Änderungsbezügen, Fundstellen und allen gespeicherten
+      Fassungen.
+    </p>
     <nav class="link-list link-list--inline" aria-label="Seitennavigation">
       <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a>
     </nav>
@@ -77,7 +86,9 @@ const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, ges
                 <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}>{formatDate(version.validFrom)}</a>
               )}
             </strong>
-            <span>Gültig von {formatDate(version.validFrom)} bis {version.validTo ? formatDate(version.validTo) : 'heute'}</span>
+            <span>{version.isCurrent ? 'Aktuelle Fassung' : 'Historische Fassung'}</span>
+            <span>Gültig von {formatDate(version.validFrom)} bis {version.validTo ? formatDate(version.validTo) : 'aktuell'}</span>
+            <span>Fundstelle: {toDisplayText(version.citation)}</span>
             <span>{toDisplayText(version.changeNote)}</span>
           </li>
         ))}
@@ -91,9 +102,26 @@ const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, ges
       <ul class="timeline-list">
         {norm.history.entries.map((entry) => (
           <li>
-            <strong>{formatDate(entry.date)}</strong>
+            <strong>{formatDate(entry.date)} · {historyTypeLabels[entry.type] ?? entry.type}</strong>
             <span>{toDisplayText(entry.title)}</span>
-            <span>{toDisplayText(entry.citation)}</span>
+            <span>Fundstelle: {toDisplayText(entry.citation)}</span>
+            {entry.note ? <span>{toDisplayText(entry.note)}</span> : null}
+            {entry.affectingVersionId ? (
+              <span>
+                Fassung:{' '}
+                {getVersionById(norm, entry.affectingVersionId)?.isCurrent ? (
+                  <a class="inline-link" href={getNormUrl(norm.meta.slug)}>
+                    {formatDate(getVersionById(norm, entry.affectingVersionId)!.validFrom)}
+                  </a>
+                ) : getVersionById(norm, entry.affectingVersionId) ? (
+                  <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, entry.affectingVersionId)}>
+                    {formatDate(getVersionById(norm, entry.affectingVersionId)!.validFrom)}
+                  </a>
+                ) : (
+                  toDisplayText(entry.affectingVersionId)
+                )}
+              </span>
+            ) : null}
             {entry.relatedNorm ? (
               relatedNormLabels[entry.relatedNorm] ? (
                 <span>
@@ -129,6 +157,14 @@ const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, ges
         <div>
           <dt>Aktueller Rechtsstand</dt>
           <dd>{formatDate(currentVersion.validFrom)}</dd>
+        </div>
+        <div>
+          <dt>Gespeicherte Fassungen</dt>
+          <dd>{norm.versions.length}</dd>
+        </div>
+        <div>
+          <dt>Historieneinträge</dt>
+          <dd>{norm.history.entries.length}</dd>
         </div>
         <div>
           <dt>Vorgänger</dt>

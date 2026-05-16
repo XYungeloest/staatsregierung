@@ -5,6 +5,28 @@ const root = resolve(process.cwd());
 const contentRoot = join(root, 'content');
 const publicRoot = join(root, 'public');
 const problems = [];
+const allowedNormTypes = new Set([
+  'gesetz',
+  'verordnung',
+  'verwaltungsvorschrift',
+  'foerderrichtlinie',
+  'allgemeinverfuegung',
+  'bekanntmachung',
+  'staatsvertrag',
+  'zustimmungsgesetz',
+  'aenderungsvorschrift',
+]);
+const allowedNormStatuses = new Set(['in-force', 'repealed', 'planned']);
+const allowedNormMinistries = new Set([
+  'Freistaat Ostdeutschland',
+  'Landtag des Freistaates Ostdeutschland',
+  'Staatskanzlei des Freistaates Ostdeutschland',
+  'Staatsministerium des Innern, Bau und für kommunale Angelegenheiten',
+  'Staatsministerium für Kultus, Jugend und Sport',
+  'Staatsministerium für Umwelt, Energie und Klimaschutz',
+  'Staatsministerium für Völkerfreundschaft und Nachbarschaftspolitik',
+  'Staatsministerium für Wirtschaft, Nachhaltigkeit und Mobilität',
+]);
 
 async function exists(path) {
   try {
@@ -150,6 +172,28 @@ for (const { file, json } of records) {
       if (!pressSlugs.has(slug)) {
         addProblem(file, `relatedPressSlugs verweist auf unbekannte Pressemitteilung: ${slug}`);
       }
+    }
+  }
+
+  if (rel.startsWith('normen/') && basename(file) === 'meta.json') {
+    if (!allowedNormTypes.has(json.type)) {
+      addProblem(file, `type ist kein erlaubter Normtyp: ${json.type}`);
+    }
+
+    if (!allowedNormStatuses.has(json.status)) {
+      addProblem(file, `status ist kein erlaubter Normstatus: ${json.status}`);
+    }
+
+    if (!allowedNormMinistries.has(json.ministry)) {
+      addProblem(file, `ministry ist nicht als Norm-Ressort zugelassen: ${json.ministry}`);
+    }
+
+    if (!Array.isArray(json.subjects) || json.subjects.length === 0) {
+      addProblem(file, 'subjects muss mindestens ein Sachgebiet enthalten');
+    }
+
+    if (!Array.isArray(json.keywords) || json.keywords.length === 0) {
+      addProblem(file, 'keywords muss mindestens ein Stichwort enthalten');
     }
   }
 }
