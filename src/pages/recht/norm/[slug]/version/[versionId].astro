@@ -7,6 +7,8 @@ import NormOutline from '../../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../../components/norms/NormStatusNotice.astro';
 import { buildNormOutline, formatDate, toDisplayText } from '../../../../../lib/norms/presentation.ts';
 import {
+  buildNormTextLinkReferences,
+  getRelatedNormsBySubjects,
   getHomeUrl,
   getLawPortalUrl,
   getNormHistoryUrl,
@@ -22,12 +24,17 @@ export async function getStaticPaths() {
       .filter((version) => !version.isCurrent)
       .map((version) => ({
         params: { slug: norm.meta.slug, versionId: version.versionId },
-        props: { norm, version },
+        props: {
+          norm,
+          version,
+          textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
+          relatedNorms: getRelatedNormsBySubjects(norm, norms),
+        },
       })),
   );
 }
 
-const { norm, version } = Astro.props;
+const { norm, version, textReferences, relatedNorms } = Astro.props;
 const outline = buildNormOutline(version.body);
 const normTitle = toDisplayText(norm.meta.title);
 const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
@@ -75,10 +82,10 @@ const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand
           <h2>Historischer Normtext</h2>
           <p>{toDisplayText(version.changeNote)}</p>
         </div>
-        <NormBody blocks={version.body} />
+        <NormBody blocks={version.body} references={textReferences} />
       </section>
     </div>
 
-    <NormMetaCard norm={norm} version={version} historical={true} />
+    <NormMetaCard norm={norm} version={version} historical={true} relatedNorms={relatedNorms} />
   </div>
 </BaseLayout>

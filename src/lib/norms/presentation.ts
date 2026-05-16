@@ -8,6 +8,19 @@ export interface NormOutlineItem {
   children: NormOutlineItem[];
 }
 
+export interface ParsedCitation {
+  source: string;
+  year: string;
+  issue: string;
+  page?: string;
+}
+
+export interface TextLinkReference {
+  label: string;
+  url: string;
+  external?: boolean;
+}
+
 const DISPLAY_REPLACEMENTS: Array<[RegExp, string]> = [
   [/\bAbkuerzung\b/g, 'Abkürzung'],
   [/\bAenderungsvorschrift\b/g, 'Änderungsvorschrift'],
@@ -154,6 +167,79 @@ export function formatDate(value: string): string {
     year: 'numeric',
     timeZone: 'UTC',
   }).format(date);
+}
+
+export function parseCitation(value: string): ParsedCitation | undefined {
+  const displayValue = toDisplayText(value);
+  const match = displayValue.match(
+    /\b(OGVBl\.|OABl\.|StAnzO\.|OVertrBl\.|SächsGVBl\.|BGBl\.)\s+(\d{4})\s+Nr\.\s+([A-Za-z0-9.-]+)(?:\s+S\.\s+([A-Za-z0-9.-]+))?/u,
+  );
+
+  if (!match) {
+    return undefined;
+  }
+
+  return {
+    source: match[1],
+    year: match[2],
+    issue: match[3],
+    page: match[4],
+  };
+}
+
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
+
+function isWordCharacter(value: string): boolean {
+  return /[\p{L}\p{N}_-]/u.test(value);
+}
+
+function isDelimited(value: string, start: number, length: number): boolean {
+  const before = value[start - 1];
+  const after = value[start + length];
+
+  return (!before || !isWordCharacter(before)) && (!after || !isWordCharacter(after));
+}
+
+export function renderLinkedDisplayText(
+  value: string | null | undefined,
+  references: TextLinkReference[] = [],
+): string {
+  const text = toDisplayText(value);
+  if (!text || references.length === 0) {
+    return escapeHtml(text);
+  }
+
+  const chunks: string[] = [];
+  let index = 0;
+
+  while (index < text.length) {
+    const match = references.find((reference) => {
+      if (!text.startsWith(reference.label, index)) {
+        return false;
+      }
+
+      return isDelimited(text, index, reference.label.length);
+    });
+
+    if (!match) {
+      chunks.push(escapeHtml(text[index]));
+      index += 1;
+      continue;
+    }
+
+    chunks.push(
+      `<a class="inline-link" href="${escapeHtml(match.url)}"${match.external ? ' rel="noopener noreferrer" target="_blank"' : ''}>${escapeHtml(match.label)}</a>`,
+    );
+    index += match.label.length;
+  }
+
+  return chunks.join('');
 }
 
 export function getBlockAnchorId(path: number[], block: NormBodyBlock): string {

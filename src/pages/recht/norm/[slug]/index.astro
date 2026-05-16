@@ -23,6 +23,8 @@ import {
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
+  buildNormTextLinkReferences,
+  getRelatedNormsBySubjects,
 } from '../../../../lib/norms/index.ts';
 import { getCurrentVersion, loadAllNorms } from '../../../../lib/norms/content.ts';
 
@@ -31,11 +33,16 @@ export async function getStaticPaths() {
 
   return norms.map((norm) => ({
     params: { slug: norm.meta.slug },
-    props: { norm, currentVersion: getCurrentVersion(norm) },
+    props: {
+      norm,
+      currentVersion: getCurrentVersion(norm),
+      textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
+      relatedNorms: getRelatedNormsBySubjects(norm, norms),
+    },
   }));
 }
 
-const { norm, currentVersion } = Astro.props;
+const { norm, currentVersion, textReferences, relatedNorms } = Astro.props;
 const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
 const outline = buildNormOutline(currentVersion.body);
 const normTitle = toDisplayText(norm.meta.title);
@@ -92,12 +99,12 @@ const relatedPressReleases = pressReleases
           <h2>Vorschriftentext</h2>
           <p>{toDisplayText(currentVersion.changeNote)}</p>
         </div>
-        <NormBody blocks={currentVersion.body} />
+        <NormBody blocks={currentVersion.body} references={textReferences} />
       </section>
     </div>
 
     <aside class="content-stack">
-      <NormMetaCard norm={norm} version={currentVersion} />
+      <NormMetaCard norm={norm} version={currentVersion} relatedNorms={relatedNorms} />
       {relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
         <section class="section">
           <div class="section-header section-header--compact">

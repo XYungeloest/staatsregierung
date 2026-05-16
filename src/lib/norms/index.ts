@@ -54,6 +54,11 @@ export {
   formatNormType,
   getBlockAnchorId,
   getHeadingTag,
+  parseCitation,
+  renderLinkedDisplayText,
   toDisplayText,
   type NormOutlineItem,
+  type ParsedCitation,
+  type TextLinkReference,
 } from './presentation.ts';
+export { buildNormTextLinkReferences, getRelatedNormsBySubjects } from './references.ts';

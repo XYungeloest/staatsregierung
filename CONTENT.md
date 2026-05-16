@@ -457,6 +457,10 @@ Historische Fassungen sind gespeicherte Fassungen. Sie werden nicht automatisch 
 Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
 Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene statische URLs.
 
+Normtexte können kontrollierte Links enthalten, die zur Laufzeit aus eindeutigen Abkürzungen und
+Kurztiteln im vorhandenen Normenbestand erzeugt werden. Externe Bundesrechtsverweise sind bewusst
+auf eine kleine gepflegte Liste beschränkt.
+
 ### Norm-Metadaten
 
 Pfad: `content/normen/[slug]/meta.json`
