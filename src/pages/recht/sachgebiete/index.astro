@@ -4,13 +4,16 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import {
   getHomeUrl,
   getLawPortalUrl,
+  getSubjectAreaGroups,
   getSubjectUrl,
   getSubjectGroups,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../lib/norms/content.ts';
 
-const groups = getSubjectGroups(await loadAllNorms());
+const norms = await loadAllNorms();
+const groups = getSubjectGroups(norms);
+const areaGroups = getSubjectAreaGroups(norms);
 ---
 
 <BaseLayout
@@ -33,17 +36,45 @@ const groups = getSubjectGroups(await loadAllNorms());
   <section class="section page-header">
     <p class="eyebrow">Rechtsbereich</p>
     <h1>Sachgebiete</h1>
-    <p class="lead">Die Normen des Portals sind zusätzlich nach Sachgebieten erschlossen.</p>
+    <p class="lead">
+      Die Normen des Portals sind nach Sachgebieten erschlossen und zusätzlich in fachliche
+      Hauptbereiche gegliedert.
+    </p>
+    <p class="status-line">{groups.length} Sachgebiete mit {norms.length} Vorschriften.</p>
   </section>
 
   <section class="section">
-    <ul class="record-list">
-      {groups.map((group) => (
-        <li class="record-list__item">
-          <a class="inline-link" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)}</a>
-          <span>{group.norms.length} Normen</span>
-        </li>
+    <div class="section-header">
+      <h2>Systematische Übersicht</h2>
+      <p>Die Hauptbereiche fassen verwandte Sachgebiete für die Recherche zusammen.</p>
+    </div>
+    <div class="content-grid content-grid--wide">
+      {areaGroups.map((area) => (
+        <section class="panel">
+          <h3>{area.name}</h3>
+          <p>{area.description}</p>
+          <p class="detail-line">{area.normCount} Vorschriften in {area.subjects.length} Sachgebieten</p>
+          <ul class="record-list">
+            {area.subjects.map((group) => (
+              <li class="record-list__item">
+                <a class="inline-link" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)}</a>
+                <span>{group.norms.length} Normen</span>
+              </li>
+            ))}
+          </ul>
+        </section>
       ))}
-    </ul>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Alphabetische Liste</h2>
+    </div>
+    <div class="tag-list">
+      {groups.map((group) => (
+        <a class="tag" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)} ({group.norms.length})</a>
+      ))}
+    </div>
   </section>
 </BaseLayout>

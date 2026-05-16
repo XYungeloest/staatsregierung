@@ -454,6 +454,9 @@ content/normen/[slug]/
 
 Historische Fassungen sind gespeicherte Fassungen. Sie werden nicht automatisch aus Änderungen berechnet. Jede Fassung muss vollständig genug sein, um eigenständig angezeigt zu werden.
 
+Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
+Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene statische URLs.
+
 ### Norm-Metadaten
 
 Pfad: `content/normen/[slug]/meta.json`
@@ -663,6 +666,8 @@ Typische Orte:
 - `src/pages/**/*.astro`: Seiteneinstiege, Abschnittsüberschriften, leere Zustände und feste Verknüpfungen.
 - `src/components/**/*.astro`: Karten, Akkordeons, Statusanzeigen, Suchoberflächen und Modultexte.
 - `src/lib/portal/presentation.ts` und `src/lib/norms/presentation.ts`: Formatierungs- und Anzeigetexte.
+- `src/lib/norms/routes.ts`: zentrale Pfade und Gruppierungen des Rechtsbereichs, einschließlich
+  Suche, Index, Sachgebieten, Förderrichtlinien und Hilfe.
 
 Grundregel: Wiederkehrende oder fachliche Inhalte gehören in `content/` oder `src/data/dashboard/`. Kurze Strukturtexte, Labels und UI-Hinweise bleiben in Astro-Komponenten oder Konfiguration. Wenn ein Text regelmäßig redaktionell geändert werden soll, sollte er nicht dauerhaft hart in einer Seite stehen, sondern in das passende Content-Modell wandern.
 

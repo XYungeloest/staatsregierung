@@ -2,25 +2,38 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import {
+  formatNormType,
   getHomeUrl,
   getLawPortalUrl,
+  getSearchUrl,
   getNormUrl,
+  getSubjectAreaGroups,
   getSubjectsUrl,
   getSubjectGroups,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../lib/norms/content.ts';
+import type { NormType } from '../../../lib/norms/schema.ts';
 
 export async function getStaticPaths() {
-  const groups = getSubjectGroups(await loadAllNorms());
+  const norms = await loadAllNorms();
+  const groups = getSubjectGroups(norms);
+  const areaGroups = getSubjectAreaGroups(norms);
 
   return groups.map((group) => ({
     params: { subject: group.slug },
-    props: { group },
+    props: {
+      group,
+      area: areaGroups.find((area) => area.subjects.some((subject) => subject.slug === group.slug)),
+    },
   }));
 }
 
-const { group } = Astro.props;
+const { group, area } = Astro.props;
+const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
+  map.set(norm.meta.type, (map.get(norm.meta.type) ?? 0) + 1);
+  return map;
+}, new Map<string, number>()).entries()].sort(([left], [right]) => left.localeCompare(right, 'de'));
 ---
 
 <BaseLayout
@@ -45,10 +58,36 @@ const { group } = Astro.props;
   <section class="section page-header">
     <p class="eyebrow">Rechtsbereich</p>
     <h1>{toDisplayText(group.name)}</h1>
-    <p class="lead">Diesem Sachgebiet sind aktuell {group.norms.length} Normen zugeordnet.</p>
+    <p class="lead">
+      Diesem Sachgebiet sind aktuell {group.norms.length} Normen zugeordnet.
+      {area ? ` Es gehört zum Bereich ${area.name}.` : ''}
+    </p>
+    <nav class="link-list link-list--inline" aria-label="Sachgebietsaktionen">
+      <a href={`${getSearchUrl()}?subject=${encodeURIComponent(group.name)}`}>In diesem Sachgebiet suchen</a>
+      <a href={getSubjectsUrl()}>Alle Sachgebiete</a>
+    </nav>
   </section>
 
   <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Vorschriften</span>
+        <strong>{group.norms.length}</strong>
+      </div>
+      {typeCounts.map(([type, count]) => (
+        <div class="meta-card">
+          <span class="meta-label">{formatNormType(type as NormType)}</span>
+          <strong>{count}</strong>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Vorschriften</h2>
+      <p>Aktuelle und gespeicherte Normen mit Ressortbezug.</p>
+    </div>
     <ul class="record-list">
       {group.norms.map((norm) => (
         <li class="record-list__item">

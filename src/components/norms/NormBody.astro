@@ -70,15 +70,15 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               ) : null}
 
               {block.type === 'paragraph' || block.type === 'article' ? (
-                <article class={`norm-unit norm-unit--${block.type}`} aria-labelledby={anchorId}>
-                  <header class="norm-unit__header">
+                <details class={`norm-unit norm-unit--${block.type}`} aria-labelledby={anchorId} open>
+                  <summary class="norm-unit__summary">
                     {block.label ? <p class="norm-unit__label">{toDisplayText(block.label)}</p> : null}
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
-                  </header>
+                  </summary>
                   {block.children && block.children.length > 0 ? (
                     <Astro.self blocks={block.children} path={currentPath} />
                   ) : null}
-                </article>
+                </details>
               ) : null}
 
               {block.type === 'annex' ? (
