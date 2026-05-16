@@ -1,9 +1,16 @@
 ---
-import { getNormHistoryUrl, getNormUrl, getNormVersionUrl, getSubjectUrl } from '../../lib/norms/routes.ts';
+import {
+  getHelpUrl,
+  getNormHistoryUrl,
+  getNormUrl,
+  getNormVersionUrl,
+  getSubjectUrl,
+} from '../../lib/norms/routes.ts';
 import {
   formatDate,
   formatNormStatus,
   formatNormType,
+  parseCitation,
   toDisplayText,
 } from '../../lib/norms/presentation.ts';
 import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
@@ -12,10 +19,13 @@ interface Props {
   norm: NormRecord;
   version: NormVersion;
   historical?: boolean;
+  relatedNorms?: NormRecord[];
 }
 
-const { norm, version, historical = false } = Astro.props;
+const { norm, version, historical = false, relatedNorms = [] } = Astro.props;
 const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
+const citation = parseCitation(version.citation);
+const initialCitation = parseCitation(norm.meta.initialCitation);
 ---
 
 <aside class="section meta-panel">
@@ -48,10 +58,26 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
       <dt>Vollzitat</dt>
       <dd>{toDisplayText(version.citation)}</dd>
     </div>
+    {citation ? (
+      <div>
+        <dt>Fundstelle</dt>
+        <dd>
+          {citation.source} {citation.year} Nr. {citation.issue}{citation.page ? ` S. ${citation.page}` : ''}
+        </dd>
+      </div>
+    ) : null}
     <div>
       <dt>Stammfundstelle</dt>
       <dd>{toDisplayText(norm.meta.initialCitation)}</dd>
     </div>
+    {initialCitation ? (
+      <div>
+        <dt>Stammausgabe</dt>
+        <dd>
+          {initialCitation.source} {initialCitation.year} Nr. {initialCitation.issue}{initialCitation.page ? ` S. ${initialCitation.page}` : ''}
+        </dd>
+      </div>
+    ) : null}
   </div>
 
   <h3>Gültigkeit</h3>
@@ -90,8 +116,20 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
     {historicalVersions.length === 0 ? <span>Keine historischen Fassungen gespeichert</span> : null}
   </nav>
 
+  {relatedNorms.length > 0 ? (
+    <>
+      <h3>Verwandte Vorschriften</h3>
+      <nav class="link-list" aria-label="Verwandte Vorschriften">
+        {relatedNorms.map((entry) => (
+          <a href={getNormUrl(entry.meta.slug)}>{toDisplayText(entry.meta.shortTitle || entry.meta.title)}</a>
+        ))}
+      </nav>
+    </>
+  ) : null}
+
   <h3>Ausgabe</h3>
   <div class="link-list">
     <button class="text-link-button" type="button" onclick="window.print()">Seite drucken</button>
+    <a href={getHelpUrl()}>Hilfe zum Rechtsbereich</a>
   </div>
 </aside>

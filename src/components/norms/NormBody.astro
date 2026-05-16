@@ -2,20 +2,23 @@
 import {
   getBlockAnchorId,
   getHeadingTag,
+  renderLinkedDisplayText,
   toDisplayText,
 } from '../../lib/norms/presentation.ts';
+import type { TextLinkReference } from '../../lib/norms/presentation.ts';
 import type { NormBodyBlock } from '../../lib/norms/schema.ts';
 
 interface Props {
   blocks: NormBodyBlock[];
   path?: number[];
+  references?: TextLinkReference[];
 }
 
 type BlockRun =
   | { kind: 'block'; block: NormBodyBlock; index: number }
   | { kind: 'list'; items: Array<{ block: NormBodyBlock; index: number }> };
 
-const { blocks, path = [] } = Astro.props;
+const { blocks, path = [], references = [] } = Astro.props;
 
 function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
   const runs: BlockRun[] = [];
@@ -64,7 +67,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </header>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} />
                   ) : null}
                 </section>
               ) : null}
@@ -76,7 +79,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </summary>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} />
                   ) : null}
                 </details>
               ) : null}
@@ -88,12 +91,14 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </header>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} />
                   ) : null}
                 </section>
               ) : null}
 
-              {block.type === 'paragraphText' ? <p class="norm-text">{toDisplayText(block.text)}</p> : null}
+              {block.type === 'paragraphText' ? (
+                <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
+              ) : null}
             </Fragment>
           );
         })()
@@ -104,9 +109,9 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
         {run.items.map(({ block, index }) => (
           <li class:list={['norm-list__item', block.type === 'subitem' ? 'norm-list__item--subitem' : undefined]}>
             {block.label ? <span class="norm-list__label">{toDisplayText(block.label)}</span> : null}
-            <span>{toDisplayText(block.text)}</span>
+            <span set:html={renderLinkedDisplayText(block.text, references)} />
             {block.children && block.children.length > 0 ? (
-              <Astro.self blocks={block.children} path={[...path, index]} />
+              <Astro.self blocks={block.children} path={[...path, index]} references={references} />
             ) : null}
           </li>
         ))}
