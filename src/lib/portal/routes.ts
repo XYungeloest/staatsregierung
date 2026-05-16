@@ -175,6 +175,14 @@ export function getLawSubjectsUrl(): string {
   return getSiteUrl('lawSubjects');
 }
 
+export function getLawFundingUrl(): string {
+  return getSiteUrl('lawFunding');
+}
+
 export function getLawConstitutionUrl(): string {
   return getSiteUrl('lawConstitution');
+}
+
+export function getLawHelpUrl(): string {
+  return getSiteUrl('lawHelp');
 }

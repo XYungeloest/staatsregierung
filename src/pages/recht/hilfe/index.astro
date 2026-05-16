@@ -1,0 +1,103 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  getFundingUrl,
+  getHelpUrl,
+  getHomeUrl,
+  getIndexUrl,
+  getLawPortalUrl,
+  getSearchUrl,
+  getSubjectsUrl,
+} from '../../../lib/norms/index.ts';
+---
+
+<BaseLayout
+  title="Hilfe zum Rechtsbereich"
+  description="Hinweise zur Nutzung von Suche, Trefferliste, Vorschriftentexten, Fassungen und Sachgebieten im Rechtsbereich."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: 'Hilfe', href: getHelpUrl() },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Recht', href: getLawPortalUrl() },
+      { label: 'Hilfe' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rechtsbereich</p>
+    <h1>Hilfe</h1>
+    <p class="lead">
+      Hinweise zur Recherche im Rechtsbereich, zu aktuellen und historischen Fassungen sowie zur
+      Einordnung nach Sachgebieten.
+    </p>
+  </section>
+
+  <div class="content-grid">
+    <div class="content-stack">
+      <section class="section">
+        <div class="section-header">
+          <h2>Suche</h2>
+        </div>
+        <p>
+          Die einfache Suche findet Begriffe in Titel, Kurztitel, Abkürzung, Metadaten und
+          Normtext. Die erweiterten Filter grenzen Treffer nach Normtyp, Ressort, Sachgebiet,
+          Status, Geltungsdatum und Fundstelle ein.
+        </p>
+        <p class="section-link-row"><a class="inline-link" href={getSearchUrl()}>Zur Normensuche</a></p>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Trefferliste</h2>
+        </div>
+        <p>
+          Treffer zeigen Fundstelle, Gültigkeitszeitraum, Vorschriftentyp, Ressort, Sachgebiete
+          und einen Textausschnitt. Soweit der Treffer einem Paragraphen, Artikel oder Abschnitt
+          zugeordnet werden kann, wird diese Stelle zusätzlich genannt.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Fassungen und Historie</h2>
+        </div>
+        <p>
+          Die Normseite unter dem allgemeinen Normlink zeigt die aktuelle Fassung. Gespeicherte
+          frühere Fassungen haben eigene, unveränderliche Fassungslinks. Die Historienseite nennt
+          Stammfassung, Änderungsbezüge und die gespeicherten Fassungen.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Vorschriftentext</h2>
+        </div>
+        <p>
+          Vorschriftentexte werden mit Inhaltsübersicht, Normtext und Metadaten dargestellt. Die
+          Marginalspalte nennt unter anderem Vollzitat, Gültigkeitszeitraum, Status, Sachgebiete
+          und Links zu Fassungen oder Historie.
+        </p>
+      </section>
+    </div>
+
+    <aside class="content-stack">
+      <section class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Direkteinstiege</h2>
+        </div>
+        <nav class="link-list" aria-label="Hilfenavigation">
+          <a href={getSearchUrl()}>Normensuche</a>
+          <a href={getIndexUrl()}>Alphabetischer Index</a>
+          <a href={getSubjectsUrl()}>Sachgebiete</a>
+          <a href={getFundingUrl()}>Förderrichtlinien</a>
+        </nav>
+      </section>
+    </aside>
+  </div>
+</BaseLayout>

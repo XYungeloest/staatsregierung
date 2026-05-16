@@ -13,6 +13,41 @@ import { loadAllNorms } from '../../../lib/norms/content.ts';
 
 const norms = await loadAllNorms();
 const groups = getIndexGroups(norms);
+const keywordEntries = new Map<string, typeof norms>();
+
+for (const norm of norms) {
+  for (const rawKeyword of [norm.meta.abbr, norm.meta.shortTitle, ...norm.meta.keywords]) {
+    const keyword = toDisplayText(rawKeyword).trim();
+    if (!keyword || keyword.length < 2) {
+      continue;
+    }
+
+    const existing = keywordEntries.get(keyword) ?? [];
+    if (!existing.some((entry) => entry.meta.slug === norm.meta.slug)) {
+      keywordEntries.set(keyword, [...existing, norm]);
+    }
+  }
+}
+
+const keywordGroups = [...keywordEntries.entries()]
+  .sort(([left], [right]) => left.localeCompare(right, 'de'))
+  .reduce<Array<{ letter: string; entries: Array<{ keyword: string; norms: typeof norms }> }>>(
+    (result, [keyword, keywordNorms]) => {
+      const letter = keyword.charAt(0).toUpperCase();
+      const key = /[A-ZÄÖÜ]/u.test(letter) ? letter : '#';
+      const group = result.find((entry) => entry.letter === key);
+      const entry = { keyword, norms: keywordNorms.sort((left, right) => left.meta.title.localeCompare(right.meta.title, 'de')) };
+
+      if (group) {
+        group.entries.push(entry);
+      } else {
+        result.push({ letter: key, entries: [entry] });
+      }
+
+      return result;
+    },
+    [],
+  );
 ---
 
 <BaseLayout
@@ -36,7 +71,8 @@ const groups = getIndexGroups(norms);
     <p class="eyebrow">Rechtsbereich</p>
     <h1>Archiv</h1>
     <p class="lead">
-      Das Archiv dient als alphabetischer Zugang zu allen im Rechtsbereich geführten Normen.
+      Das Archiv dient als alphabetischer Zugang zu allen im Rechtsbereich geführten Normen sowie
+      zu Abkürzungen, Kurztiteln und Stichwörtern.
     </p>
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
       {groups.map((group) => (
@@ -60,4 +96,35 @@ const groups = getIndexGroups(norms);
       </ul>
     </section>
   ))}
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Stichwortindex</h2>
+      <p>Abkürzungen, Kurztitel und redaktionelle Stichwörter führen zusätzlich in den Normenbestand.</p>
+    </div>
+    <div class="content-grid content-grid--wide">
+      {keywordGroups.map((group) => (
+        <section class="panel">
+          <h3>{group.letter}</h3>
+          <ul class="record-list">
+            {group.entries.slice(0, 24).map((entry) => (
+              <li class="record-list__item">
+                <strong>{entry.keyword}</strong>
+                <span>
+                  {entry.norms.map((norm, index) => (
+                    <Fragment>
+                      {index > 0 ? ', ' : ''}
+                      <a class="inline-link" href={getNormUrl(norm.meta.slug)}>
+                        {toDisplayText(norm.meta.shortTitle || norm.meta.title)}
+                      </a>
+                    </Fragment>
+                  ))}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </section>
 </BaseLayout>

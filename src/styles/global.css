@@ -1789,6 +1789,12 @@ article.panel > p:last-child > a.inline-link:hover {
   margin: 0;
 }
 
+.meta-panel h3 {
+  margin: 1.25rem 0 0.7rem;
+  font-size: 0.96rem;
+  color: var(--color-heading);
+}
+
 .meta-list div {
   display: grid;
   gap: 0.25rem;
@@ -1847,6 +1853,10 @@ article.panel > p:last-child > a.inline-link:hover {
   margin-top: 1.25rem;
 }
 
+.link-list span {
+  color: var(--color-text-muted);
+}
+
 .link-list--inline {
   flex-direction: row;
   flex-wrap: wrap;
@@ -1882,6 +1892,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .inline-link,
 .link-list a,
+.text-link-button,
 .letter-nav a,
 .outline-list a {
   color: var(--color-accent);
@@ -1891,10 +1902,20 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .inline-link:hover,
 .link-list a:hover,
+.text-link-button:hover,
 .letter-nav a:hover,
 .outline-list a:hover {
   color: var(--color-accent-hover);
   text-decoration: underline;
+}
+
+.text-link-button {
+  width: fit-content;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
 }
 
 .letter-nav {
@@ -2057,6 +2078,31 @@ article.panel > p:last-child > a.inline-link:hover {
 .search-hit__context {
   margin: 0.65rem 0 0;
   line-height: 1.7;
+}
+
+.search-hit__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem 1rem;
+  margin: 0.9rem 0 0;
+}
+
+.search-hit__facts div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.search-hit__facts dt {
+  color: var(--color-text-muted);
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.search-hit__facts dd {
+  margin: 0;
+  line-height: 1.45;
 }
 
 .search-hit__meta {
@@ -2539,6 +2585,10 @@ article.panel > p:last-child > a.inline-link:hover {
     align-items: flex-start;
   }
 
+  .search-hit__facts {
+    grid-template-columns: 1fr;
+  }
+
   .header-search__control {
     display: flex;
     width: 100%;
@@ -2551,6 +2601,36 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .norm-list__item--subitem {
     padding-left: 0.8rem;
+  }
+}
+
+@media print {
+  .site-notice,
+  .site-header,
+  .site-footer,
+  .breadcrumbs,
+  .hero-actions,
+  .link-list,
+  .norm-outline,
+  .status-notice,
+  .meta-panel .link-list,
+  .text-link-button {
+    display: none !important;
+  }
+
+  .site-main,
+  .section,
+  .panel,
+  .meta-panel,
+  .search-hit {
+    box-shadow: none !important;
+    border-color: #999 !important;
+    background: #fff !important;
+  }
+
+  .content-grid,
+  .content-grid--wide {
+    display: block;
   }
 }
 

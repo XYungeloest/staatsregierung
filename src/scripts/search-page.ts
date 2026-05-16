@@ -1,9 +1,25 @@
+type SearchScope = 'all' | 'title' | 'metadata' | 'body';
+
 interface SearchState {
   q: string;
+  exclude: string;
+  exact: string;
+  scope: SearchScope;
   type: string;
   ministry: string;
   subject: string;
   status: string;
+  geltungstag: string;
+  validFrom: string;
+  validTo: string;
+  citation: string;
+}
+
+interface SearchHitUnit {
+  type: string;
+  label: string;
+  title: string;
+  text: string;
 }
 
 interface SearchDocument {
@@ -25,11 +41,13 @@ interface SearchDocument {
   summary: string;
   initialCitation: string;
   citation: string;
+  publication: string;
   changeNote: string;
   validFrom: string;
   validTo: string | null;
   bodyText: string;
   contexts: string[];
+  hitUnits: SearchHitUnit[];
   resultLabel: string;
 }
 
@@ -45,7 +63,9 @@ interface SearchResultEntry {
 const root = document.querySelector<HTMLElement>('[data-search-root]');
 const form = document.querySelector<HTMLFormElement>('[data-search-form]');
 const queryInput = document.querySelector<HTMLInputElement>('[data-search-query]');
-const filterInputs = Array.from(document.querySelectorAll<HTMLSelectElement>('[data-search-filter]'));
+const filterInputs = Array.from(
+  document.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-search-filter]'),
+);
 const summary = document.querySelector<HTMLElement>('[data-search-summary]');
 const resultsContainer = document.querySelector<HTMLElement>('[data-search-results]');
 const indexUrl = root?.dataset.indexUrl ?? '';
@@ -86,7 +106,24 @@ function formatDate(value: string): string {
 }
 
 function getEmptyState(): SearchState {
-  return { q: '', type: '', ministry: '', subject: '', status: '' };
+  return {
+    q: '',
+    exclude: '',
+    exact: '',
+    scope: 'all',
+    type: '',
+    ministry: '',
+    subject: '',
+    status: '',
+    geltungstag: '',
+    validFrom: '',
+    validTo: '',
+    citation: '',
+  };
+}
+
+function normalizeScope(value: string): SearchScope {
+  return value === 'title' || value === 'metadata' || value === 'body' ? value : 'all';
 }
 
 function getFormState(): SearchState {
@@ -97,10 +134,17 @@ function getFormState(): SearchState {
   const formData = new FormData(form);
   return {
     q: String(formData.get('q') ?? '').trim(),
+    exclude: String(formData.get('exclude') ?? '').trim(),
+    exact: String(formData.get('exact') ?? '').trim(),
+    scope: normalizeScope(String(formData.get('scope') ?? 'all')),
     type: String(formData.get('type') ?? '').trim(),
     ministry: String(formData.get('ministry') ?? '').trim(),
     subject: String(formData.get('subject') ?? '').trim(),
     status: String(formData.get('status') ?? '').trim(),
+    geltungstag: String(formData.get('geltungstag') ?? '').trim(),
+    validFrom: String(formData.get('validFrom') ?? '').trim(),
+    validTo: String(formData.get('validTo') ?? '').trim(),
+    citation: String(formData.get('citation') ?? '').trim(),
   };
 }
 
@@ -121,10 +165,17 @@ function readStateFromUrl(): SearchState {
   const params = new URLSearchParams(window.location.search);
   return {
     q: params.get('q') ?? '',
+    exclude: params.get('exclude') ?? '',
+    exact: params.get('exact') ?? '',
+    scope: normalizeScope(params.get('scope') ?? 'all'),
     type: params.get('type') ?? '',
     ministry: params.get('ministry') ?? '',
     subject: params.get('subject') ?? '',
     status: params.get('status') ?? '',
+    geltungstag: params.get('geltungstag') ?? '',
+    validFrom: params.get('validFrom') ?? '',
+    validTo: params.get('validTo') ?? '',
+    citation: params.get('citation') ?? '',
   };
 }
 
@@ -132,7 +183,7 @@ function writeStateToUrl(state: SearchState): void {
   const params = new URLSearchParams();
 
   for (const [key, value] of Object.entries(state) as Array<[keyof SearchState, string]>) {
-    if (value) {
+    if (value && !(key === 'scope' && value === 'all')) {
       params.set(key, value);
     }
   }
@@ -142,13 +193,41 @@ function writeStateToUrl(state: SearchState): void {
   window.history.replaceState({}, '', target);
 }
 
+function getNormalizedFields(documentEntry: SearchDocument): Record<SearchScope, string> {
+  const title = normalizeSearchText(
+    [documentEntry.title, documentEntry.shortTitle, documentEntry.abbr].join(' '),
+  );
+  const metadata = normalizeSearchText(
+    [
+      documentEntry.typeLabel,
+      documentEntry.ministry,
+      ...documentEntry.subjects,
+      ...documentEntry.keywords,
+      documentEntry.statusLabel,
+      documentEntry.summary,
+      documentEntry.initialCitation,
+      documentEntry.citation,
+      documentEntry.publication,
+      documentEntry.changeNote,
+    ].join(' '),
+  );
+  const body = normalizeSearchText(documentEntry.bodyText);
+
+  return {
+    all: `${title} ${metadata} ${body}`.trim(),
+    title,
+    metadata,
+    body,
+  };
+}
+
 function clipContext(text: string, tokens: string[]): string {
   const trimmed = text.trim();
   if (!trimmed) {
     return '';
   }
 
-  if (tokens.length === 0 && trimmed.length <= 220) {
+  if (tokens.length === 0 && trimmed.length <= 240) {
     return trimmed;
   }
 
@@ -163,11 +242,11 @@ function clipContext(text: string, tokens: string[]): string {
   }
 
   if (index < 0) {
-    return trimmed.length > 220 ? `${trimmed.slice(0, 217).trimEnd()}...` : trimmed;
+    return trimmed.length > 240 ? `${trimmed.slice(0, 237).trimEnd()}...` : trimmed;
   }
 
-  const start = Math.max(0, index - 70);
-  const end = Math.min(trimmed.length, start + 220);
+  const start = Math.max(0, index - 80);
+  const end = Math.min(trimmed.length, start + 240);
   const prefix = start > 0 ? '...' : '';
   const suffix = end < trimmed.length ? '...' : '';
 
@@ -176,6 +255,7 @@ function clipContext(text: string, tokens: string[]): string {
 
 function buildContext(documentEntry: SearchDocument, tokens: string[]): string {
   const contexts = [
+    ...documentEntry.hitUnits.map((unit) => unit.text),
     ...documentEntry.contexts,
     documentEntry.summary,
     documentEntry.changeNote,
@@ -196,6 +276,23 @@ function buildContext(documentEntry: SearchDocument, tokens: string[]): string {
   return clipContext(documentEntry.summary || documentEntry.bodyText, tokens);
 }
 
+function findHitUnits(documentEntry: SearchDocument, tokens: string[]): SearchHitUnit[] {
+  if (tokens.length === 0) {
+    return [];
+  }
+
+  return documentEntry.hitUnits
+    .filter((unit) => {
+      const normalized = normalizeSearchText(`${unit.label} ${unit.title} ${unit.text}`);
+      return tokens.some((token) => normalized.includes(token));
+    })
+    .slice(0, 3);
+}
+
+function isDateInRange(date: string, start: string, end: string | null): boolean {
+  return start <= date && (!end || date <= end);
+}
+
 function matchesFilters(documentEntry: SearchDocument, state: SearchState): boolean {
   if (state.type && documentEntry.type !== state.type) {
     return false;
@@ -213,53 +310,62 @@ function matchesFilters(documentEntry: SearchDocument, state: SearchState): bool
     return false;
   }
 
+  if (state.geltungstag && !isDateInRange(state.geltungstag, documentEntry.validFrom, documentEntry.validTo)) {
+    return false;
+  }
+
+  if (state.validFrom && documentEntry.validTo && documentEntry.validTo < state.validFrom) {
+    return false;
+  }
+
+  if (state.validTo && documentEntry.validFrom > state.validTo) {
+    return false;
+  }
+
+  if (state.citation) {
+    const citation = normalizeSearchText(
+      `${documentEntry.citation} ${documentEntry.initialCitation} ${documentEntry.publication}`,
+    );
+    if (!splitTokens(state.citation).every((token) => citation.includes(token))) {
+      return false;
+    }
+  }
+
   return true;
 }
 
 function scoreDocument(
   documentEntry: SearchDocument,
+  state: SearchState,
   normalizedQuery: string,
   tokens: string[],
 ): number {
-  const fields = {
-    title: normalizeSearchText(documentEntry.title),
-    shortTitle: normalizeSearchText(documentEntry.shortTitle),
-    abbr: normalizeSearchText(documentEntry.abbr),
-    metadata: normalizeSearchText(
-      [
-        documentEntry.typeLabel,
-        documentEntry.ministry,
-        ...documentEntry.subjects,
-        ...documentEntry.keywords,
-        documentEntry.statusLabel,
-        documentEntry.summary,
-        documentEntry.initialCitation,
-        documentEntry.citation,
-        documentEntry.changeNote,
-      ].join(' '),
-    ),
-    body: normalizeSearchText(documentEntry.bodyText),
-  };
+  const fields = getNormalizedFields(documentEntry);
+  const searchable = fields[state.scope];
 
-  const combined = `${fields.title} ${fields.shortTitle} ${fields.abbr} ${fields.metadata} ${fields.body}`.trim();
+  if (normalizedQuery && !tokens.every((token) => searchable.includes(token))) {
+    return -1;
+  }
 
-  if (normalizedQuery && !tokens.every((token) => combined.includes(token))) {
+  const exact = normalizeSearchText(state.exact);
+  if (exact && !searchable.includes(exact)) {
+    return -1;
+  }
+
+  const excludedTokens = splitTokens(state.exclude);
+  if (excludedTokens.some((token) => fields.all.includes(token))) {
     return -1;
   }
 
   let score = 0;
 
   for (const token of tokens) {
-    if (fields.abbr.includes(token)) {
+    if (normalizeSearchText(documentEntry.abbr).includes(token)) {
       score += 18;
     }
 
     if (fields.title.includes(token)) {
       score += 14;
-    }
-
-    if (fields.shortTitle.includes(token)) {
-      score += 11;
     }
 
     if (fields.metadata.includes(token)) {
@@ -276,10 +382,6 @@ function scoreDocument(
       score += 18;
     }
 
-    if (fields.shortTitle.includes(normalizedQuery)) {
-      score += 12;
-    }
-
     if (fields.metadata.includes(normalizedQuery)) {
       score += 8;
     }
@@ -290,7 +392,7 @@ function scoreDocument(
   }
 
   if (documentEntry.isCurrent) {
-    score += 1;
+    score += 2;
   }
 
   return score;
@@ -301,8 +403,17 @@ function renderResults(results: SearchDocument[], state: SearchState): void {
     return;
   }
 
-  const hasQuery = Boolean(state.q.trim());
-  const hasFilters = Boolean(state.type || state.ministry || state.subject || state.status);
+  const hasQuery = Boolean(state.q.trim() || state.exact.trim() || state.exclude.trim());
+  const hasFilters = Boolean(
+    state.type ||
+      state.ministry ||
+      state.subject ||
+      state.status ||
+      state.geltungstag ||
+      state.validFrom ||
+      state.validTo ||
+      state.citation,
+  );
 
   if (!hasQuery && !hasFilters) {
     summary.textContent = 'Bitte geben Sie einen Suchbegriff ein oder wählen Sie mindestens einen Filter.';
@@ -323,9 +434,11 @@ function renderResults(results: SearchDocument[], state: SearchState): void {
     <ol class="record-list search-results__list">
       ${results
         .map((result) => {
-          const context = buildContext(result, splitTokens(state.q));
+          const tokens = splitTokens(state.q || state.exact);
+          const context = buildContext(result, tokens);
+          const hitUnits = findHitUnits(result, tokens);
           const validFromLabel = formatDate(result.validFrom);
-          const validUntilLabel = result.validTo ? formatDate(result.validTo) : 'heute';
+          const validUntilLabel = result.validTo ? formatDate(result.validTo) : 'aktuell';
 
           return `
             <li class="record-list__item search-hit">
@@ -333,15 +446,22 @@ function renderResults(results: SearchDocument[], state: SearchState): void {
                 <h3><a class="inline-link" href="${result.url}">${escapeHtml(result.title)}</a></h3>
                 <span>${escapeHtml(result.resultLabel)}</span>
               </div>
+              <dl class="search-hit__facts">
+                <div><dt>Fundstelle</dt><dd>${escapeHtml(result.citation)}</dd></div>
+                <div><dt>Gültigkeit</dt><dd>${escapeHtml(validFromLabel)} bis ${escapeHtml(validUntilLabel)}</dd></div>
+                <div><dt>Normtyp</dt><dd>${escapeHtml(result.typeLabel)}</dd></div>
+                <div><dt>Ressort</dt><dd>${escapeHtml(result.ministry)}</dd></div>
+              </dl>
               <p class="search-hit__meta">
-                ${escapeHtml(result.typeLabel)} | ${escapeHtml(result.abbr)} | ${escapeHtml(result.ministry)}
+                Status: ${escapeHtml(result.statusLabel)} | Sachgebiete: ${escapeHtml(result.subjects.join(', ')) || 'keine Zuordnung'}
               </p>
-              <p class="search-hit__meta">
-                Rechtsstand ${escapeHtml(validFromLabel)} bis ${escapeHtml(validUntilLabel)} | Status: ${escapeHtml(result.statusLabel)}
-              </p>
-              <p class="search-hit__meta">
-                Sachgebiete: ${escapeHtml(result.subjects.join(', ')) || 'keine Zuordnung'}
-              </p>
+              ${
+                hitUnits.length > 0
+                  ? `<p class="search-hit__meta">Trefferstellen: ${hitUnits
+                      .map((unit) => escapeHtml([unit.label, unit.title].filter(Boolean).join(' ')))
+                      .join('; ')}</p>`
+                  : ''
+              }
               <p class="search-hit__context">${escapeHtml(context)}</p>
             </li>
           `;
@@ -385,9 +505,9 @@ async function setupSearch(): Promise<void> {
       .filter((documentEntry) => matchesFilters(documentEntry, state))
       .map((documentEntry): SearchResultEntry => ({
         documentEntry,
-        score: scoreDocument(documentEntry, normalizedQuery, tokens),
+        score: scoreDocument(documentEntry, state, normalizedQuery, tokens),
       }))
-      .filter((entry: SearchResultEntry) => (normalizedQuery ? entry.score >= 0 : true))
+      .filter((entry: SearchResultEntry) => (normalizedQuery || state.exact || state.exclude ? entry.score >= 0 : true))
       .sort((left: SearchResultEntry, right: SearchResultEntry) => {
         if (right.score !== left.score) {
           return right.score - left.score;
@@ -411,6 +531,7 @@ async function setupSearch(): Promise<void> {
 
   queryInput.addEventListener('input', runSearch);
   for (const input of filterInputs) {
+    input.addEventListener('input', runSearch);
     input.addEventListener('change', runSearch);
   }
 

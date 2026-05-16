@@ -22,12 +22,21 @@ export interface SearchIndexDocument {
   summary: string;
   initialCitation: string;
   citation: string;
+  publication: string;
   changeNote: string;
   validFrom: string;
   validTo: string | null;
   bodyText: string;
   contexts: string[];
+  hitUnits: SearchHitUnit[];
   resultLabel: string;
+}
+
+export interface SearchHitUnit {
+  type: string;
+  label: string;
+  title: string;
+  text: string;
 }
 
 export interface SearchFilterOptions {
@@ -47,6 +56,7 @@ export interface SearchIndexPayload {
 interface CollectedBodyContent {
   textParts: string[];
   contexts: string[];
+  hitUnits: SearchHitUnit[];
 }
 
 function addText(target: string[], value: string | undefined): void {
@@ -63,27 +73,56 @@ function addText(target: string[], value: string | undefined): void {
 function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   const textParts: string[] = [];
   const contexts: string[] = [];
+  const hitUnits: SearchHitUnit[] = [];
 
-  const visit = (entries: NormBodyBlock[]) => {
+  const visit = (entries: NormBodyBlock[], currentUnit?: SearchHitUnit & { textParts: string[] }) => {
     for (const block of entries) {
       const headingParts: string[] = [];
       addText(headingParts, block.label);
       addText(headingParts, block.title);
 
       if (headingParts.length > 0) {
-        textParts.push(headingParts.join(' '));
+        const heading = headingParts.join(' ');
+        textParts.push(heading);
+        currentUnit?.textParts.push(heading);
       }
+
+      const isHitUnit =
+        block.type === 'paragraph' ||
+        block.type === 'article' ||
+        block.type === 'section' ||
+        block.type === 'subsection' ||
+        block.type === 'annex';
+      const nextUnit = isHitUnit
+        ? {
+            type: block.type,
+            label: toDisplayText(block.label ?? ''),
+            title: toDisplayText(block.title ?? block.label ?? ''),
+            text: '',
+            textParts: headingParts.length > 0 ? [headingParts.join(' ')] : [],
+          }
+        : currentUnit;
 
       if (block.text) {
         const text = toDisplayText(block.text).trim();
         if (text) {
           textParts.push(text);
           contexts.push(text);
+          nextUnit?.textParts.push(text);
         }
       }
 
       if (block.children) {
-        visit(block.children);
+        visit(block.children, nextUnit);
+      }
+
+      if (isHitUnit && nextUnit && nextUnit.textParts.length > 0) {
+        hitUnits.push({
+          type: nextUnit.type,
+          label: nextUnit.label,
+          title: nextUnit.title,
+          text: nextUnit.textParts.join('\n\n'),
+        });
       }
     }
   };
@@ -93,7 +132,15 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   return {
     textParts,
     contexts,
+    hitUnits,
   };
+}
+
+function extractPublication(value: string): string {
+  const displayValue = toDisplayText(value);
+  const parenthesized = displayValue.match(/\(([^)]+)\)/u)?.[1]?.trim();
+
+  return parenthesized || displayValue;
 }
 
 function compareLabelValuePairs(
@@ -108,9 +155,12 @@ function compareStrings(left: string, right: string): number {
 }
 
 function buildSearchDocument(record: NormRecord, version: NormVersion): SearchIndexDocument {
-  const { textParts, contexts } = collectBodyContent(version.body);
-  const isRepealed = record.meta.status === 'repealed';
-  const resultLabel = isRepealed ? `Letzte Fassung vom ${formatDate(version.validFrom)}` : 'Aktuelle Fassung';
+  const { textParts, contexts, hitUnits } = collectBodyContent(version.body);
+  const resultLabel = version.isCurrent
+    ? record.meta.status === 'repealed'
+      ? `Letzte Fassung vom ${formatDate(version.validFrom)}`
+      : 'Aktuelle Fassung'
+    : `Historische Fassung vom ${formatDate(version.validFrom)}`;
 
   return {
     id: `${record.meta.slug}:${version.versionId}`,
@@ -133,31 +183,15 @@ function buildSearchDocument(record: NormRecord, version: NormVersion): SearchIn
     summary: toDisplayText(record.meta.summary),
     initialCitation: toDisplayText(record.meta.initialCitation),
     citation: toDisplayText(version.citation),
+    publication: extractPublication(version.citation),
     changeNote: toDisplayText(version.changeNote),
     validFrom: version.validFrom,
     validTo: version.validTo,
     bodyText: textParts.join('\n\n'),
     contexts,
+    hitUnits,
     resultLabel,
   };
-}
-
-function getLatestVersion(record: NormRecord): NormVersion {
-  return [...record.versions].sort((left, right) => right.validFrom.localeCompare(left.validFrom))[0];
-}
-
-function getSearchVersionForRecord(record: NormRecord): NormVersion {
-  if (record.meta.status === 'repealed') {
-    return getLatestVersion(record);
-  }
-
-  const currentVersion = record.versions.find((version) => version.isCurrent);
-
-  if (!currentVersion) {
-    return getLatestVersion(record);
-  }
-
-  return currentVersion;
 }
 
 function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
@@ -191,7 +225,7 @@ function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
 export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
   const records = await loadAllNorms();
   const documents = records
-    .map((record) => buildSearchDocument(record, getSearchVersionForRecord(record)))
+    .flatMap((record) => record.versions.map((version) => buildSearchDocument(record, version)))
     .sort((left, right) => {
       if (left.title !== right.title) {
         return left.title.localeCompare(right.title, 'de');
