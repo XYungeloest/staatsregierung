@@ -85,6 +85,46 @@ export interface SubjectGroup {
   norms: NormRecord[];
 }
 
+export interface SubjectAreaGroup {
+  name: string;
+  description: string;
+  subjects: SubjectGroup[];
+  normCount: number;
+}
+
+const SUBJECT_AREA_DEFINITIONS: Array<{ name: string; description: string; subjects: string[] }> = [
+  {
+    name: 'Staat, Verwaltung und Sicherheit',
+    description: 'Verfassung, Verwaltung, Transparenz, öffentliche Ordnung und allgemeines Landesrecht.',
+    subjects: [
+      'Landesrecht',
+      'Kommunal- und Verwaltungsrecht',
+      'Sicherheit und Ordnung',
+      'Transparenz und Informationszugang',
+      'Verordnungsrecht',
+    ],
+  },
+  {
+    name: 'Wirtschaft, Arbeit und soziale Sicherung',
+    description: 'Wirtschaftsrecht, Förderung, Arbeit, Soziales, Wohnen und Bodenordnung.',
+    subjects: ['Arbeit und Soziales', 'Wirtschaft und Förderung', 'Wohnen und Bodenordnung'],
+  },
+  {
+    name: 'Bildung, Kultur und Gesellschaft',
+    description: 'Bildung, Medien, Rundfunk, Feiertage und gesellschaftliches Leben.',
+    subjects: ['Bildung und Weiterbildung', 'Rundfunk und Medien', 'Feiertage und gesellschaftliches Leben'],
+  },
+  {
+    name: 'Umwelt, Raum und Nachbarschaft',
+    description: 'Umwelt, Energie, Raumordnung, Landesplanung, Staatsverträge und Nachbarschaftsrecht.',
+    subjects: [
+      'Umwelt, Energie und Klimaschutz',
+      'Raumordnung und Landesplanung',
+      'Völkerrecht und Staatsverträge',
+    ],
+  },
+];
+
 export function getSubjectGroups(norms: NormRecord[]): SubjectGroup[] {
   const groups = new Map<string, SubjectGroup>();
 
@@ -112,6 +152,39 @@ export function getSubjectGroups(norms: NormRecord[]): SubjectGroup[] {
       norms: [...group.norms].sort((left, right) => left.meta.title.localeCompare(right.meta.title)),
     }))
     .sort((left, right) => left.name.localeCompare(right.name));
+}
+
+export function getSubjectAreaGroups(norms: NormRecord[]): SubjectAreaGroup[] {
+  const subjectGroups = getSubjectGroups(norms);
+  const knownSubjects = new Set<string>();
+  const areaGroups = SUBJECT_AREA_DEFINITIONS.map((definition) => {
+    const subjects = definition.subjects
+      .map((subject) => subjectGroups.find((group) => group.name === subject))
+      .filter((group): group is SubjectGroup => Boolean(group));
+
+    for (const subject of subjects) {
+      knownSubjects.add(subject.name);
+    }
+
+    return {
+      name: definition.name,
+      description: definition.description,
+      subjects,
+      normCount: new Set(subjects.flatMap((subject) => subject.norms.map((norm) => norm.meta.slug))).size,
+    };
+  });
+
+  const remainingSubjects = subjectGroups.filter((subject) => !knownSubjects.has(subject.name));
+  if (remainingSubjects.length > 0) {
+    areaGroups.push({
+      name: 'Weitere Sachgebiete',
+      description: 'Weitere im Normenbestand verwendete fachliche Zuordnungen.',
+      subjects: remainingSubjects,
+      normCount: new Set(remainingSubjects.flatMap((subject) => subject.norms.map((norm) => norm.meta.slug))).size,
+    });
+  }
+
+  return areaGroups.filter((group) => group.subjects.length > 0);
 }
 
 export function getIndexGroups(norms: NormRecord[]): Array<{ letter: string; norms: NormRecord[] }> {

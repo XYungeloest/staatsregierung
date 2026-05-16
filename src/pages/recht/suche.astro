@@ -145,6 +145,15 @@ const searchPayload = await buildSearchIndexPayload();
             ))}
           </select>
         </label>
+
+        <label class="search-field">
+          <span>Fassung</span>
+          <select name="versionScope" data-search-filter="versionScope">
+            <option value="all">Alle gespeicherten Fassungen</option>
+            <option value="current">Nur aktuelle Fassungen</option>
+            <option value="historical">Nur historische Fassungen</option>
+          </select>
+        </label>
       </div>
 
       <div class="search-form__filters">

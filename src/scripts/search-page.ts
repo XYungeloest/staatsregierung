@@ -1,4 +1,5 @@
 type SearchScope = 'all' | 'title' | 'metadata' | 'body';
+type VersionScope = 'all' | 'current' | 'historical';
 
 interface SearchState {
   q: string;
@@ -9,6 +10,7 @@ interface SearchState {
   ministry: string;
   subject: string;
   status: string;
+  versionScope: VersionScope;
   geltungstag: string;
   validFrom: string;
   validTo: string;
@@ -27,6 +29,7 @@ interface SearchDocument {
   slug: string;
   versionId: string;
   url: string;
+  currentUrl: string;
   isCurrent: boolean;
   title: string;
   shortTitle: string;
@@ -115,6 +118,7 @@ function getEmptyState(): SearchState {
     ministry: '',
     subject: '',
     status: '',
+    versionScope: 'all',
     geltungstag: '',
     validFrom: '',
     validTo: '',
@@ -124,6 +128,10 @@ function getEmptyState(): SearchState {
 
 function normalizeScope(value: string): SearchScope {
   return value === 'title' || value === 'metadata' || value === 'body' ? value : 'all';
+}
+
+function normalizeVersionScope(value: string): VersionScope {
+  return value === 'current' || value === 'historical' ? value : 'all';
 }
 
 function getFormState(): SearchState {
@@ -141,6 +149,7 @@ function getFormState(): SearchState {
     ministry: String(formData.get('ministry') ?? '').trim(),
     subject: String(formData.get('subject') ?? '').trim(),
     status: String(formData.get('status') ?? '').trim(),
+    versionScope: normalizeVersionScope(String(formData.get('versionScope') ?? 'all')),
     geltungstag: String(formData.get('geltungstag') ?? '').trim(),
     validFrom: String(formData.get('validFrom') ?? '').trim(),
     validTo: String(formData.get('validTo') ?? '').trim(),
@@ -172,6 +181,7 @@ function readStateFromUrl(): SearchState {
     ministry: params.get('ministry') ?? '',
     subject: params.get('subject') ?? '',
     status: params.get('status') ?? '',
+    versionScope: normalizeVersionScope(params.get('versionScope') ?? 'all'),
     geltungstag: params.get('geltungstag') ?? '',
     validFrom: params.get('validFrom') ?? '',
     validTo: params.get('validTo') ?? '',
@@ -183,7 +193,7 @@ function writeStateToUrl(state: SearchState): void {
   const params = new URLSearchParams();
 
   for (const [key, value] of Object.entries(state) as Array<[keyof SearchState, string]>) {
-    if (value && !(key === 'scope' && value === 'all')) {
+    if (value && !(key === 'scope' && value === 'all') && !(key === 'versionScope' && value === 'all')) {
       params.set(key, value);
     }
   }
@@ -310,6 +320,14 @@ function matchesFilters(documentEntry: SearchDocument, state: SearchState): bool
     return false;
   }
 
+  if (state.versionScope === 'current' && !documentEntry.isCurrent) {
+    return false;
+  }
+
+  if (state.versionScope === 'historical' && documentEntry.isCurrent) {
+    return false;
+  }
+
   if (state.geltungstag && !isDateInRange(state.geltungstag, documentEntry.validFrom, documentEntry.validTo)) {
     return false;
   }
@@ -409,6 +427,7 @@ function renderResults(results: SearchDocument[], state: SearchState): void {
       state.ministry ||
       state.subject ||
       state.status ||
+      state.versionScope !== 'all' ||
       state.geltungstag ||
       state.validFrom ||
       state.validTo ||
@@ -461,6 +480,11 @@ function renderResults(results: SearchDocument[], state: SearchState): void {
                       .map((unit) => escapeHtml([unit.label, unit.title].filter(Boolean).join(' ')))
                       .join('; ')}</p>`
                   : ''
+              }
+              ${
+                result.isCurrent
+                  ? ''
+                  : `<p class="search-hit__meta"><a class="inline-link" href="${result.currentUrl}">Aktuelle Fassung öffnen</a></p>`
               }
               <p class="search-hit__context">${escapeHtml(context)}</p>
             </li>

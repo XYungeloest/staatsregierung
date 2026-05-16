@@ -38,10 +38,12 @@ export {
   getPrivacyUrl,
   getServiceOverviewUrl,
   getSearchUrl,
+  getSubjectAreaGroups,
   getSubjectGroups,
   getSubjectSlug,
   getSubjectUrl,
   getSubjectsUrl,
+  type SubjectAreaGroup,
   type SubjectGroup,
 } from './routes.ts';
 

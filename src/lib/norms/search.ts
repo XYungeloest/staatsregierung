@@ -8,6 +8,7 @@ export interface SearchIndexDocument {
   slug: string;
   versionId: string;
   url: string;
+  currentUrl: string;
   isCurrent: boolean;
   title: string;
   shortTitle: string;
@@ -169,6 +170,7 @@ function buildSearchDocument(record: NormRecord, version: NormVersion): SearchIn
     url: version.isCurrent
       ? getNormUrl(record.meta.slug)
       : getNormVersionUrl(record.meta.slug, version.versionId),
+    currentUrl: getNormUrl(record.meta.slug),
     isCurrent: version.isCurrent,
     title: toDisplayText(record.meta.title),
     shortTitle: toDisplayText(record.meta.shortTitle),

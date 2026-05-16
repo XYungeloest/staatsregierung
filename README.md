@@ -83,6 +83,9 @@ context/
 
 Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen gespeichert.
 
+Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
+Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene statische URLs.
+
 ## Zentrale Konfiguration
 
 - `src/config/site.ts`: Portaltexte, Pfade, Navigation, Kontakt, Regierungsstammdaten
@@ -90,6 +93,8 @@ Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als 
 - `src/config/analytics.ts`: Consent und Webanalyse-Konfiguration
 - `src/lib/portal/routes.ts`: zentrale Portalpfade
 - `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik
+- Der Rechtsbereich hat statische Einstiege für Suche, alphabetischen Index, Sachgebiete,
+  Förderrichtlinien und Hilfe. Neue Rechtspfade werden zentral über die Route-Helper gepflegt.
 
 ## Laufzeit und Cloudflare
 
