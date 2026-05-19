@@ -21,6 +21,10 @@ const isFeatured = variant === 'featured';
     class="press-tile__image"
     src={resolvePortalPath(release.image)}
     alt={release.imageAlt}
+    width="640"
+    height="360"
+    loading="lazy"
+    decoding="async"
   />
   <div class="press-tile__body">
     <p class="eyebrow">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>

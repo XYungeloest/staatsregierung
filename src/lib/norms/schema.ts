@@ -27,6 +27,8 @@ export const STRUCTURE_TYPES = [
   'subitem',
 ] as const;
 
+const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
+
 export type NormType = (typeof NORM_TYPES)[number];
 export type NormStatus = (typeof NORM_STATUSES)[number];
 export type HistoryEntryType = (typeof HISTORY_ENTRY_TYPES)[number];
@@ -127,6 +129,16 @@ function expectString(value: unknown, path: string): string {
   }
 
   return trimmed;
+}
+
+function expectSlug(value: unknown, path: string): string {
+  const slug = expectString(value, path);
+
+  if (!SLUG_PATTERN.test(slug)) {
+    fail(path, 'muss ein technischer Slug sein');
+  }
+
+  return slug;
 }
 
 function expectOptionalString(value: unknown, path: string): string | undefined {
@@ -290,7 +302,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
 
   return {
     id: expectString(object.id, `${path}.id`),
-    slug: expectString(object.slug, `${path}.slug`),
+    slug: expectSlug(object.slug, `${path}.slug`),
     title: expectString(object.title, `${path}.title`),
     shortTitle: expectString(object.shortTitle, `${path}.shortTitle`),
     abbr: expectString(object.abbr, `${path}.abbr`),

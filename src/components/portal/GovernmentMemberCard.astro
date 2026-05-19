@@ -19,6 +19,10 @@ const isCompact = variant === 'compact';
     class="member-card__image"
     src={resolvePortalPath(member.bild)}
     alt={member.bildAlt ?? `Porträt von ${member.name}`}
+    width="352"
+    height="440"
+    loading="lazy"
+    decoding="async"
   />
   <div class="member-card__body">
     <h3><a class="inline-link" href={getGovernmentMemberUrl(member.slug)}>{member.name}</a></h3>

@@ -57,7 +57,7 @@ npm run build
 - Öffentliche Seiten verwenden nutzerorientierte Sprache.
 - Architekturbegriffe wie D1, R2, Build, Repository, Fallback, Live-Override oder serverseitige Formularlogik gehören nicht in öffentliche Bürgertexte.
 - Operative technische Begriffe sind in interner Doku und Code zulässig.
-- Gerhardt Lehrmann ist kein aktives Kabinettsmitglied. Das Wirtschaftsressort wird geschäftsführend von Ministerpräsident Dr. Karl Honecker geleitet.
+- Gerhardt Lehrmann ist kein aktives Kabinettsmitglied. Das Wirtschaftsressort wird im aktuellen Kabinett Honecker II von Staatsminister Max Peterson geleitet.
 - Kein neues Profil für Gerhardt Lehrmann anlegen.
 
 ## Rechtsportal

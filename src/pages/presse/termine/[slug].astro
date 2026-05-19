@@ -85,6 +85,9 @@ const relatedEvents = allEvents.filter((entry) => entry.slug !== event.slug).sli
             class="media-banner"
             src={resolvePortalPath('/images/presse/termin-platzhalter.png')}
             alt="Grafischer Platzhalter für Terminankündigung"
+            width="1280"
+            height="720"
+            decoding="async"
           />
           <div class="body-copy">
             {event.body.map((paragraph) => (

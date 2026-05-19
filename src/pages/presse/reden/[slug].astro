@@ -79,6 +79,9 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
         class="media-banner"
         src={resolvePortalPath('/images/presse/rede-platzhalter.png')}
         alt="Grafischer Platzhalter für Rede oder Regierungserklärung"
+        width="1280"
+        height="720"
+        decoding="async"
       />
       <div class="body-copy">
         {speech.body.map((paragraph) => (

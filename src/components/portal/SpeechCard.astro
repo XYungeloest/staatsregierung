@@ -20,6 +20,10 @@ const isCompact = variant === 'compact';
     class="media-banner speech-card__image"
     src={resolvePortalPath('/images/presse/rede-platzhalter.png')}
     alt="Grafischer Platzhalter für Rede oder Regierungserklärung"
+    width="640"
+    height="360"
+    loading="lazy"
+    decoding="async"
   />
   <div class="speech-card__body">
     <p class="eyebrow">{siteConfig.date.formatLong(speech.date)} · {speech.sprecher}</p>

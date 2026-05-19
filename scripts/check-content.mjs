@@ -5,6 +5,7 @@ const root = resolve(process.cwd());
 const contentRoot = join(root, 'content');
 const publicRoot = join(root, 'public');
 const problems = [];
+const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const allowedNormTypes = new Set([
   'gesetz',
   'verordnung',
@@ -129,6 +130,8 @@ for (const { file, json } of records) {
   if ('slug' in json) {
     if (typeof json.slug !== 'string' || json.slug.length === 0) {
       addProblem(file, 'slug fehlt oder ist leer');
+    } else if (!slugPattern.test(json.slug)) {
+      addProblem(file, `slug "${json.slug}" ist kein technischer ASCII-Slug`);
     } else if (basename(file) === 'meta.json') {
       const directorySlug = basename(dirname(file));
       if (json.slug !== directorySlug) {

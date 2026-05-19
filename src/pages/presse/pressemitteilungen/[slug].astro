@@ -97,6 +97,9 @@ const relatedReleases =
         class="media-banner"
         src={resolvePortalPath(release.image)}
         alt={release.imageAlt}
+        width="1280"
+        height="720"
+        decoding="async"
       />
       <div class="tag-list">
         {release.tags.map((tag) => (
