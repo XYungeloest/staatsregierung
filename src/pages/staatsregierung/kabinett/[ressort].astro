@@ -88,6 +88,9 @@ const legalReferences = Array.from(
           class="media-banner"
           src={resolvePortalPath(ministry.bild)}
           alt={ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`}
+          width="1280"
+          height="720"
+          decoding="async"
         />
         <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p>
         <div class="status-notice status-notice--current">

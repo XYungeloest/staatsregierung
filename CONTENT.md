@@ -35,7 +35,13 @@ content/
     mitteilungen/*.json
     reden/*.json
     termine/*.json
-  regierung/mitglieder/*.json
+  regierung/
+    archiv/
+      kabinett-honecker-i.json
+      honecker-i/
+        mitglieder/*.json
+        ressorts/*.json
+    mitglieder/*.json
   ressorts/*.json
   service/
     seiten/*.json
@@ -184,7 +190,7 @@ Format:
 
 Pfad: `content/regierung/mitglieder/[slug].json`
 
-Regierungsmitglieder werden nach `reihenfolge` sortiert. Gerhardt Lehrmann ist kein aktives Kabinettsmitglied und soll nicht als neues Profil angelegt werden. Das Wirtschaftsressort wird geschäftsführend von Ministerpräsident Dr. Karl Honecker geleitet.
+Regierungsmitglieder werden nach `reihenfolge` sortiert. Der aktuelle Kabinettsstand ist Honecker II. Gerhardt Lehrmann ist kein aktives Kabinettsmitglied und soll nicht als neues Profil angelegt werden. Das Wirtschaftsressort wird im aktuellen Kabinett von Staatsminister Max Peterson geleitet.
 
 Pflichtfelder:
 
@@ -225,6 +231,36 @@ Format:
   "zitat": "Optionales Zitat."
 }
 ```
+
+### Archivierte Kabinette
+
+Pfade:
+
+```text
+content/regierung/archiv/kabinett-honecker-i.json
+content/regierung/archiv/honecker-i/mitglieder/[slug].json
+content/regierung/archiv/honecker-i/ressorts/[slug].json
+```
+
+Archivierte Kabinette dokumentieren abgeschlossene Regierungsstände. Sie sind inhaltlich eigenständige Archivstände und werden nicht automatisch aus dem aktuellen Kabinett abgeleitet. Änderungen am aktuellen Kabinett müssen deshalb nicht rückwirkend in Archivdateien übernommen werden.
+
+`kabinett-honecker-i.json` beschreibt den Archivstand als Ganzes.
+
+Pflichtfelder:
+
+- `slug`
+- `title`
+- `cabinetName`
+- `formedOn`
+- `endedOn`
+- `coalition`
+- `headOfGovernment`
+- `deputyHead`
+- `summary`
+
+Die Archiv-Mitglieder verwenden grundsätzlich dieselben Felder wie aktuelle Regierungsmitglieder. Die Archiv-Ressorts verwenden grundsätzlich dieselben Felder wie aktuelle Ressorts. Sichtbar ausgewertet werden auf der Archivseite derzeit insbesondere Name, Amt, Ressort, Reihenfolge, Ressortname, Kurzname und Leitung.
+
+Archivdateien dürfen frühere Ressortzuschnitte, frühere Amtsbezeichnungen und geschäftsführende Zuständigkeiten enthalten. Sie müssen aber weiterhin gültige Slugs, erreichbare Bildpfade und sachliche Archivtexte verwenden.
 
 ### Pressemitteilungen
 
@@ -370,7 +406,7 @@ Format:
     "email": "karriere@example.test",
     "telefon": "+49 351 100-0000"
   },
-  "image": "/images/jobs/beispielstelle.png",
+  "image": "/images/jobs/beispielstelle.jpg",
   "imageAlt": "Bild zur Ausschreibung",
   "imageCredit": "Staatsregierung"
 }
@@ -696,6 +732,8 @@ In JSON wird daraus zum Beispiel:
   "imageCredit": "Staatsregierung"
 }
 ```
+
+Fotografische Motive sollten als webtaugliche JPEG-Dateien gepflegt werden. Transparente oder grafische Platzhalter können PNG bleiben.
 
 `npm run content:check` prüft Bildpfade für Felder wie `bild`, `image` und `hero`, wenn sie mit `/images/` beginnen.
 

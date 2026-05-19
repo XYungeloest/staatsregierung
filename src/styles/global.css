@@ -1597,10 +1597,17 @@ article.panel > p:last-child > a.inline-link:hover {
 .media-banner {
   display: block;
   width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface-muted);
   box-shadow: var(--shadow-card);
+}
+
+.profile-card img {
+  aspect-ratio: 4 / 5;
 }
 
 .quote-card {
@@ -1641,6 +1648,9 @@ article.panel > p:last-child > a.inline-link:hover {
 .press-tile__image {
   display: block;
   width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface-muted);
@@ -1708,6 +1718,9 @@ article.panel > p:last-child > a.inline-link:hover {
 .member-card__image {
   display: block;
   width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface-muted);

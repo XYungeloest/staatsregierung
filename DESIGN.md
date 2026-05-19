@@ -1,54 +1,87 @@
-# Design System: Sachsen.de & Freistaat Ostdeutschland
+# Design-System: Freistaat Ostdeutschland
 
-Dieses Dokument beschreibt das visuelle Design-System, das auf der offiziellen Website des "Freistaat Ostdeutschland".
+Dieses Dokument beschreibt die visuelle Leitlinie des Portals. Maßgeblich bleibt der tatsächliche CSS-Stand in `src/styles/global.css`; diese Datei erklärt die Absicht dahinter.
 
-## 1. Markenidentität & Tonalität
-Das Design vermittelt Seriosität, Vertrauen und offizielle Autorität. Es ist klar strukturiert, funktional und barrierefrei ausgerichtet. Durch die Ergänzung von Blau-Tönen wird die formelle, staatliche Anmutung verstärkt.
+## Grundhaltung
 
-## 2. Farbpalette
+Das Portal soll wie eine sachliche Regierungswebsite wirken: ruhig, belastbar, gut lesbar und ohne Demo- oder Kampagnencharakter. Die Gestaltung ordnet Inhalte, Zuständigkeiten und Rechtsinformationen, statt sich selbst in den Vordergrund zu stellen.
 
-### Primärfarben
-*   **Sachsen-Grün:** `#3E8132` (Wird für das Logo, Navigationselemente und Akzente verwendet)
-*   **Ostdeutschland-Blau:** `#1A3B66` (Ein tiefes, seriöses Blau für Header-Elemente, Buttons und Kontraste)
-*   **Weiß:** `#FFFFFF` (Hintergrundfarbe für Klarheit und Lesbarkeit)
+Prioritäten:
 
-### Sekundär- & Graustufen
-*   **Dunkelgrau:** `#333333` (Haupttextfarbe für hohen Kontrast)
-*   **Hellgrau:** `#F3F3F4` (Hintergrund für Sektionen und Trennelemente)
-*   **Mittleres Grau:** `#DADADA` (Rahmen und sekundäre Informationen)
+- klare Orientierung vor visueller Überraschung
+- hoher Textkontrast und stabile Layouts
+- nüchterne Amtsanmutung mit freundlicher, nicht dekorativer Farbigkeit
+- wiedererkennbare Blau-Weiß-Grün-Anmutung
+- barrierearme Interaktion mit sichtbaren Fokuszuständen
 
-## 3. Typografie
-*   **Schriftart:** Public Sans (oder eine ähnliche serifenlose Systemschrift wie Arial/Helvetica für maximale Kompatibilität).
-*   **Hierarchie:**
-    *   **H1 (Überschriften):** Fett, dunkelgrau, großzügiger Zeilenabstand.
-    *   **Body Text:** Gut lesbare Größe (ca. 16px), hoher Kontrast zum Hintergrund.
-    *   **Links:** Oft in Sachsen-Grün oder Ostdeutschland-Blau.
+## Typografie
 
-## 4. Komponenten & Stil-Elemente
+Das Portal verwendet Jost als lokale Variable Font. Sie wird in `src/styles/global.css` eingebunden und für Fließtext, Navigation und Überschriften genutzt.
 
-### Navigation
-*   Horizontale Hauptnavigation mit klaren Kategorien.
-*   Suche prominent im Header platziert, oft in einem farblich abgesetzten Bereich (Blau).
-*   Breadcrumbs zur einfachen Orientierung.
+Regeln:
 
-### Buttons & Interaktion
-*   **Primär-Buttons:** Abgerundete Ecken, Hintergrund in Sachsen-Grün oder Ostdeutschland-Blau, weißer Text.
-*   **Sekundär-Buttons:** Graue Konturen oder dezente Hintergründe.
-*   **Hover-Effekte:** Dezente Farbänderung oder Unterstreichung zur Anzeige der Interaktivität.
+- Überschriften knapp, sachlich und gut scannbar halten.
+- Keine negativen Laufweiten verwenden.
+- Lange Amts- und Ressortbezeichnungen müssen umbrechen dürfen.
+- Hero-Größen nur für echte Seitenköpfe einsetzen, nicht in Karten oder Listen.
 
-### Karten (Cards) & Sektionen
-*   Flaches Design mit feinen grauen Rahmen.
-*   Sektionen können durch einen dezenten hellgrauen Hintergrund oder farbige Akzentlinien oben getrennt werden.
+## Farbpalette
 
-## 5. Layout-Prinzipien
-*   **Grid:** Strukturiertes Spalten-Layout (meist 12-Spalten-Raster).
-*   **Whitespace:** Großzügige Verwendung von Leerraum zur Trennung von Informationsbereichen.
-*   **Responsive Design:** Optimiert für Desktop, Tablet und Mobile.
+Die aktuelle Palette ist bewusst gedämpft und behördennah:
 
-## 6. Barrierefreiheit
-*   Hoher Kontrast zwischen Text und Hintergrund.
-*   Klare visuelle Fokus-Indikatoren für Tastaturnavigation.
-*   Strukturierte Verwendung von HTML-Headings (H1-H6).
+- Primärblau: `#173b6b`
+- Sekundärgrün: `#2f7b3d`
+- Siegelrot: `#8f2e2f`
+- Goldakzent: `#c39a3b`
+- Text: `#20312d`
+- Seitenhintergrund: `#edf1f0`
+- Oberfläche: `#fffffb`
+- Rahmen: `#c6d2cc`
+
+Blau trägt Navigation, Rechtsbereich, primäre Aktionen und Orientierung. Grün setzt ruhige Akzente im allgemeinen Portal. Rot und Gold bleiben sparsam für hoheitliche Akzente, Hinweise und Statusmomente.
+
+## Layout
+
+Die Seiten arbeiten mit breiten Inhaltsbändern und begrenzten Innencontainern. Karten werden für wiederholte Einheiten genutzt, zum Beispiel Mitglieder, Presse, Stellen oder Datensätze. Ganze Seitenabschnitte sollen nicht wie schwebende Karten wirken.
+
+Regeln:
+
+- Informationsdichte darf behördlich-kompakt sein, solange Abstände und Zeilenlängen lesbar bleiben.
+- Wiederholte Karten brauchen stabile Bild- und Textflächen, damit Listen nicht springen.
+- Rechtsportal und Normseiten priorisieren Lesbarkeit, Gliederung und zitierfähige Struktur.
+- Mobile Layouts sollen Inhalte stapeln, nicht verstecken.
+
+## Bilder
+
+Bilder unterstützen Orientierung und Wiedererkennung. Porträts, Ressortbilder und Pressebilder sollen nicht als schwere Originaldateien ausgeliefert werden, wenn eine webtaugliche Fassung ausreicht.
+
+Regeln:
+
+- Bilder unter `public/images/` mit absoluten Pfaden ab `/images/...` referenzieren.
+- Porträts webtauglich komprimieren und in stabilen Seitenverhältnissen anzeigen.
+- Alternativtexte in den JSON-Inhalten fachlich beschreibend pflegen.
+- Bildnachweise nicht auslassen, wenn der Content-Typ sie vorsieht.
+
+## Komponenten
+
+Buttons, Links, Listen, Suchmasken und Karten bleiben zurückhaltend. Ecken sind leicht gerundet, Rahmen fein, Schatten schwach. Hover- und Fokuszustände dürfen deutlich sein, sollen aber keine Bewegung oder Effekte erzwingen.
+
+Geeignete Muster:
+
+- Breadcrumbs für tiefe Bereiche
+- Tabellen und strukturierte Listen für Rechts- und Verwaltungsinhalte
+- Karten für wiederholte Teaser
+- Tags nur, wenn sie beim Scannen helfen
+- dezente Hinweisboxen für Status, Zuständigkeit oder Kontext
+
+## Was vermieden wird
+
+- Marketing-Heroes ohne Verwaltungsnutzen
+- starke Farbverläufe als Hauptmotiv
+- dekorative Formen ohne Informationswert
+- übertriebene Animationen
+- öffentliche Texte mit technischen Architekturbegriffen
+- Layouts, die wie eine Entwicklerdemo oder ein Dashboard-Prototyp wirken
 
 # Design principle no. 1
 You tend to converge toward generic, "on distribution" outputs. In frontend design, this creates what users call the "AI slop" aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight. Focus on:

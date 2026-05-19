@@ -49,6 +49,9 @@ const { member } = Astro.props as { member: RegierungMitglied };
           <img
             src={resolvePortalPath(member.bild)}
             alt={member.bildAlt ?? `Porträt von ${member.name}`}
+            width="720"
+            height="900"
+            decoding="async"
           />
           <div>
             <p>{member.kurzbiografie}</p>
