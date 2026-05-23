@@ -11,7 +11,8 @@ Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
 - Astro und TypeScript
 - Cloudflare Workers als Zielplattform
 - dateibasierte Inhalte unter `content/`
-- Rechtsportal unter `/recht/` mit Normen, Fassungen, Historien, Sachgebieten und Rechtssuche
+- Rechtsportal unter `/recht/` mit Normen, Fassungen, Historien, Sachgebieten, Fundstellen,
+  Verkündungen und Rechtssuche
 
 Das Projekt ist eine politische Simulation. Es stellt keine echte amtliche Veröffentlichung dar.
 
@@ -51,6 +52,7 @@ content/
   ressorts/
   service/
   themen/
+  verkuendungen/
 
 src/
   components/
@@ -80,6 +82,8 @@ context/
 - Stellenangebote liegen unter `content/service/stellen/`.
 - Service-Grundseiten liegen unter `content/service/seiten/`.
 - Normen liegen unter `content/normen/[slug]/` mit `meta.json`, `history.json` und `versions/[versionId].json`.
+- Verkündungen liegen unter `content/verkuendungen/[slug].json` und verknüpfen Ausgaben über
+  `entries[].normSlug` und `entries[].versionId` mit gespeicherten Normfassungen.
 
 Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen gespeichert.
 
@@ -94,7 +98,8 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
 - `src/lib/portal/routes.ts`: zentrale Portalpfade
 - `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik
 - Der Rechtsbereich hat statische Einstiege für Suche, alphabetischen Index, Sachgebiete,
-  Förderrichtlinien und Hilfe. Neue Rechtspfade werden zentral über die Route-Helper gepflegt.
+  Fundstellennachweise, Verkündungen, Förderrichtlinien und Hilfe. Neue Rechtspfade werden
+  zentral über die Route-Helper gepflegt.
 
 ## Laufzeit und Cloudflare
 

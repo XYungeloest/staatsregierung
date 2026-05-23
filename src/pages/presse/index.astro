@@ -10,8 +10,10 @@ import {
   loadPressReleases,
   loadSpeeches,
 } from '../../lib/portal/content.ts';
+import { siteConfig } from '../../config/site.ts';
 import {
   getEventIndexUrl,
+  getContactUrl,
   getHomeUrl,
   getPressReleaseIndexUrl,
   getSpeechIndexUrl,
@@ -73,6 +75,10 @@ const nextEvents = events.slice(0, 3);
   ) : null}
 
   <section class="section">
+    <div class="section-header">
+      <h2>Newsroom</h2>
+      <p>Direkteinstiege für Redaktion, Termine, Reden, Pressekontakt und abonnierbare Formate.</p>
+    </div>
     <div class="card-grid card-grid--three">
       <article class="panel">
         <h2>Pressemitteilungen</h2>
@@ -97,6 +103,27 @@ const nextEvents = events.slice(0, 3);
           Datum und Kurzbeschreibung gebündelt.
         </p>
         <p><a class="inline-link" href={getEventIndexUrl()}>Zu den Terminen</a></p>
+      </article>
+      <article class="panel">
+        <h2>Pressekontakt</h2>
+        <p>
+          {siteConfig.contact.pressOffice.label}: {siteConfig.contact.pressOffice.phone},{' '}
+          {siteConfig.contact.pressOffice.email}.
+        </p>
+        <p><a class="inline-link" href={getContactUrl()}>Zu den Kontaktwegen</a></p>
+      </article>
+      <article class="panel">
+        <h2>Medien und Bilder</h2>
+        <p>
+          Pressebilder und Medienhinweise werden redaktionell über die jeweiligen Meldungen und
+          Termine geführt.
+        </p>
+        <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Meldungen</a></p>
+      </article>
+      <article class="panel">
+        <h2>RSS und Kalender</h2>
+        <p>Mitteilungen und Termine können direkt abonniert werden.</p>
+        <p><a class="inline-link" href={`${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, '')}rss.xml`}>RSS öffnen</a></p>
       </article>
     </div>
   </section>

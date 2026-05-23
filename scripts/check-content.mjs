@@ -119,6 +119,15 @@ const normSlugs = new Set(
     .map(({ json }) => json.slug)
     .filter(Boolean),
 );
+const normVersionIds = new Map();
+
+for (const { file, json } of byPrefix('normen/').filter(({ file }) => relative(contentRoot, file).includes('/versions/'))) {
+  const [, normSlug, , fileName] = relative(contentRoot, file).split('/');
+  const versionId = typeof json.versionId === 'string' ? json.versionId : basename(fileName, extname(fileName));
+  const versions = normVersionIds.get(normSlug) ?? new Set();
+  versions.add(versionId);
+  normVersionIds.set(normSlug, versions);
+}
 
 for (const { file, json } of records) {
   if (!json || typeof json !== 'object' || Array.isArray(json)) {
@@ -197,6 +206,83 @@ for (const { file, json } of records) {
 
     if (!Array.isArray(json.keywords) || json.keywords.length === 0) {
       addProblem(file, 'keywords muss mindestens ein Stichwort enthalten');
+    }
+  }
+
+  if (rel.startsWith('verkuendungen/')) {
+    if (typeof json.title !== 'string' || json.title.trim().length === 0) {
+      addProblem(file, 'title fehlt oder ist leer');
+    }
+
+    if (!Number.isInteger(json.year)) {
+      addProblem(file, 'year muss eine Jahreszahl sein');
+    }
+
+    if (typeof json.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(json.date)) {
+      addProblem(file, 'date muss ein Datum im Format YYYY-MM-DD sein');
+    } else if (Number.isInteger(json.year) && !json.date.startsWith(`${json.year}-`)) {
+      addProblem(file, 'year muss zum Verkündungsdatum passen');
+    }
+
+    if (typeof json.issue !== 'string' || json.issue.trim().length === 0) {
+      addProblem(file, 'issue fehlt oder ist leer');
+    }
+
+    if (typeof json.publication !== 'string' || json.publication.trim().length === 0) {
+      addProblem(file, 'publication fehlt oder ist leer');
+    }
+
+    if (typeof json.pdf === 'string' && json.pdf.startsWith('/')) {
+      const absolutePdfPath = join(publicRoot, json.pdf.replace(/^\//u, ''));
+      if (!await exists(absolutePdfPath)) {
+        addProblem(file, `PDF-Pfad fehlt: ${json.pdf}`);
+      }
+    }
+
+    if (!Array.isArray(json.entries) || json.entries.length === 0) {
+      addProblem(file, 'entries muss mindestens einen Eintrag enthalten');
+    }
+
+    const entryIds = new Set();
+    for (const [index, entry] of (json.entries ?? []).entries()) {
+      const entryPath = `entries[${index}]`;
+
+      if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
+        addProblem(file, `${entryPath} muss ein Objekt sein`);
+        continue;
+      }
+
+      if (typeof entry.id !== 'string' || !slugPattern.test(entry.id)) {
+        addProblem(file, `${entryPath}.id ist kein technischer ASCII-Slug`);
+      } else if (entryIds.has(entry.id)) {
+        addProblem(file, `${entryPath}.id ist innerhalb der Verkündung doppelt vergeben`);
+      } else {
+        entryIds.add(entry.id);
+      }
+
+      if (typeof entry.title !== 'string' || entry.title.trim().length === 0) {
+        addProblem(file, `${entryPath}.title fehlt oder ist leer`);
+      }
+
+      if (typeof entry.type !== 'string' || entry.type.trim().length === 0) {
+        addProblem(file, `${entryPath}.type fehlt oder ist leer`);
+      }
+
+      if (typeof entry.citation !== 'string' || entry.citation.trim().length === 0) {
+        addProblem(file, `${entryPath}.citation fehlt oder ist leer`);
+      }
+
+      if (entry.versionId && !entry.normSlug) {
+        addProblem(file, `${entryPath}.versionId setzt normSlug voraus`);
+      }
+
+      if (entry.normSlug) {
+        if (!normSlugs.has(entry.normSlug)) {
+          addProblem(file, `${entryPath}.normSlug verweist auf unbekannte Norm: ${entry.normSlug}`);
+        } else if (entry.versionId && !normVersionIds.get(entry.normSlug)?.has(entry.versionId)) {
+          addProblem(file, `${entryPath}.versionId verweist auf unbekannte Fassung: ${entry.normSlug}/${entry.versionId}`);
+        }
+      }
     }
   }
 }

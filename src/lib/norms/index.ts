@@ -31,11 +31,17 @@ export {
   getLawConstitutionUrl,
   getLawFundingUrl,
   getLawHelpUrl,
+  getLawPublicationsUrl,
+  getLawReferencesUrl,
   getLawPortalUrl,
+  getNormCompareUrl,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
+  getPublicationUrl,
+  getPublicationsUrl,
   getPrivacyUrl,
+  getReferencesUrl,
   getServiceOverviewUrl,
   getSearchUrl,
   getSubjectAreaGroups,
@@ -46,6 +52,21 @@ export {
   type SubjectAreaGroup,
   type SubjectGroup,
 } from './routes.ts';
+
+export {
+  buildNormPublicationReferenceLookup,
+  formatPublicationEntryType,
+  getNormPublicationReference,
+  getPublicationLabel,
+  listPublicationEntries,
+  loadAllVerkuendungen,
+  loadVerkuendung,
+  parseVerkuendung,
+  type NormPublicationReference,
+  type PublicationEntryType,
+  type Verkuendung,
+  type VerkuendungEntry,
+} from './publications.ts';
 
 export {
   buildNormOutline,

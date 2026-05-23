@@ -51,28 +51,28 @@ const keywordGroups = [...keywordEntries.entries()]
 ---
 
 <BaseLayout
-  title="Normenarchiv"
+  title="Alphabetischer Index"
   description="Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen."
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Recht', href: getLawPortalUrl() },
-    { label: 'Archiv', href: getLawPortalUrl() + 'archiv/' },
+    { label: 'Alphabetischer Index', href: getLawPortalUrl() + 'archiv/' },
   ]}
 >
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Recht', href: getLawPortalUrl() },
-      { label: 'Archiv' },
+      { label: 'Alphabetischer Index' },
     ]}
   />
 
   <section class="section page-header">
     <p class="eyebrow">Rechtsbereich</p>
-    <h1>Archiv</h1>
+    <h1>Alphabetischer Index</h1>
     <p class="lead">
-      Das Archiv dient als alphabetischer Zugang zu allen im Rechtsbereich geführten Normen sowie
-      zu Abkürzungen, Kurztiteln und Stichwörtern.
+      Der alphabetische Index führt zu allen im Rechtsbereich geführten Normen sowie zu
+      Abkürzungen, Kurztiteln und Stichwörtern.
     </p>
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
       {groups.map((group) => (

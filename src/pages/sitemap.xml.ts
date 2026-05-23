@@ -9,6 +9,7 @@ import {
   getCareerUrl,
   getCoalitionUrl,
   getContactUrl,
+  getEasyLanguageUrl,
   getEventIndexUrl,
   getEventUrl,
   getFaqUrl,
@@ -21,8 +22,11 @@ import {
   getImprintUrl,
   getJobUrl,
   getLawConstitutionUrl,
+  getLawFundingUrl,
   getLawHomeUrl,
   getLawIndexUrl,
+  getLawPublicationsUrl,
+  getLawReferencesUrl,
   getMinistryUrl,
   getMinisterPresidentUrl,
   getPortalSearchUrl,
@@ -30,8 +34,10 @@ import {
   getPressReleaseUrl,
   getPressUrl,
   getPrivacyUrl,
+  getPublicationsUrl,
   getServiceOverviewUrl,
   getServiceUrl,
+  getSignLanguageUrl,
   getSpeechIndexUrl,
   getSpeechUrl,
   getTopicUrl,
@@ -49,13 +55,16 @@ import {
   loadTopics,
 } from '../lib/portal/content.ts';
 import {
+  getNormCompareUrl,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
+  getPublicationUrl,
   getSubjectGroups,
   getSubjectUrl,
 } from '../lib/norms/index.ts';
 import { loadAllNorms } from '../lib/norms/content.ts';
+import { loadAllVerkuendungen } from '../lib/norms/publications.ts';
 
 function unique(values: string[]): string[] {
   return [...new Set(values)];
@@ -87,6 +96,7 @@ export const GET: APIRoute = async ({ site }) => {
     freestatePages,
     jobOffers,
     norms,
+    publications,
   ] = await Promise.all([
     loadGovernmentMembers(),
     loadMinistries(),
@@ -98,6 +108,7 @@ export const GET: APIRoute = async ({ site }) => {
     loadFreestatePages(),
     loadJobOffers(),
     loadAllNorms(),
+    loadAllVerkuendungen(),
   ]);
 
   const staticPaths = [
@@ -121,11 +132,17 @@ export const GET: APIRoute = async ({ site }) => {
     getCareerUrl(),
     getContactUrl(),
     getFaqUrl(),
+    getPublicationsUrl(),
+    getEasyLanguageUrl(),
+    getSignLanguageUrl(),
     getAccessibilityUrl(),
     getImprintUrl(),
     getPrivacyUrl(),
     getLawHomeUrl(),
     getLawIndexUrl(),
+    getLawFundingUrl(),
+    getLawReferencesUrl(),
+    getLawPublicationsUrl(),
     getLawConstitutionUrl(),
     `${getLawHomeUrl()}sachgebiete/`,
   ];
@@ -143,10 +160,12 @@ export const GET: APIRoute = async ({ site }) => {
     ...norms.flatMap((norm) => [
       getNormUrl(norm.meta.slug),
       getNormHistoryUrl(norm.meta.slug),
+      ...(norm.versions.length > 1 ? [getNormCompareUrl(norm.meta.slug)] : []),
       ...norm.versions
         .filter((version) => !version.isCurrent)
         .map((version) => getNormVersionUrl(norm.meta.slug, version.versionId)),
     ]),
+    ...publications.map((publication) => getPublicationUrl(publication.slug)),
     ...getSubjectGroups(norms).map((group) => getSubjectUrl(group.name)),
   ];
 

@@ -115,12 +115,12 @@ const utilityNavLinks = siteConfig.serviceNavigation.map((entry) => {
 });
 
 const footerPortalLinks = [
+  { href: getSiteUrl('freestate'), label: 'Freistaat' },
   { href: getSiteUrl('government'), label: 'Staatsregierung' },
-  { href: getSiteUrl('topics'), label: 'Themen & Projekte' },
+  { href: getSiteUrl('topics'), label: 'Themen' },
   { href: getSiteUrl('lawHome'), label: 'Recht' },
-  { href: getSiteUrl('press'), label: 'Presse & Aktuelles' },
+  { href: getSiteUrl('press'), label: 'Presse' },
   { href: getSiteUrl('budget'), label: 'Haushalt' },
-  { href: getSiteUrl('freestate'), label: 'Über den Freistaat' },
   { href: getSiteUrl('service'), label: 'Service' },
 ].map((entry) => ({
   ...entry,
@@ -130,11 +130,16 @@ const footerPortalLinks = [
 const footerUtilityLinks = [
   { href: getPortalSearchUrl(), label: 'Portalsuche' },
   { href: getLawSearchUrl(), label: 'Rechtssuche' },
-  { href: getSiteUrl('lawIndex'), label: 'Archiv' },
+  { href: getSiteUrl('lawIndex'), label: 'Alphabetischer Index' },
+  { href: getSiteUrl('lawReferences'), label: 'Fundstellennachweise' },
+  { href: getSiteUrl('lawPublications'), label: 'Verkündungen' },
   { href: getSiteUrl('serviceOverview'), label: 'Übersicht' },
   { href: getSiteUrl('contact'), label: 'Kontakt' },
   { href: getSiteUrl('career'), label: 'Karriere' },
   { href: getSiteUrl('faq'), label: 'FAQ' },
+  { href: getSiteUrl('easyLanguage'), label: 'Leichte Sprache' },
+  { href: getSiteUrl('signLanguage'), label: 'Gebärdensprache' },
+  { href: getSiteUrl('publications'), label: 'Publikationen' },
   { href: getSiteUrl('imprint'), label: 'Impressum' },
   { href: getSiteUrl('privacy'), label: 'Datenschutz' },
   { href: getSiteUrl('accessibility'), label: 'Barrierefreiheit' },

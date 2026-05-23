@@ -47,6 +47,7 @@ content/
     seiten/*.json
     stellen/*.json
   themen/*.json
+  verkuendungen/*.json
 
 src/data/dashboard/
   action-plan.ts
@@ -61,6 +62,71 @@ public/images/
   regierung/
   ui/
 ```
+
+## Rechtsverkündungen und Fundstellen
+
+Pfad: `content/verkuendungen/[slug].json`
+
+Verkündungen beschreiben Ausgaben amtlicher Veröffentlichungsblätter. Sie sind das Bindeglied
+zwischen Fundstelle und gespeicherter Normfassung. Die Normdateien selbst bleiben unverändert; die
+Verknüpfung erfolgt über `entries[].normSlug` und `entries[].versionId`.
+
+Pflichtfelder:
+
+- `slug`
+- `title`
+- `year`
+- `issue`
+- `date`
+- `publication`
+- `entries`
+
+Optionale Felder:
+
+- `pdf`
+- `entries[].pages`
+- `entries[].normSlug`
+- `entries[].versionId`
+
+Format:
+
+```json
+{
+  "slug": "ogvbl-2026-16",
+  "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 16",
+  "year": 2026,
+  "issue": "16",
+  "date": "2026-03-23",
+  "publication": "OGVBl.",
+  "entries": [
+    {
+      "id": "beispielgesetz",
+      "title": "Beispielgesetz",
+      "type": "gesetz",
+      "citation": "OGVBl. 2026 Nr. 16 S. 1",
+      "pages": "1-4",
+      "normSlug": "beispielgesetz",
+      "versionId": "2026-03-23"
+    }
+  ]
+}
+```
+
+Erlaubte Eintragstypen:
+
+```text
+gesetz
+verordnung
+verwaltungsvorschrift
+foerderrichtlinie
+bekanntmachung
+staatsvertrag
+sonstiges
+```
+
+`entries[].normSlug` muss auf eine Norm unter `content/normen/` verweisen. Wenn `versionId`
+gesetzt ist, muss diese Fassung unter `content/normen/[slug]/versions/[versionId].json`
+vorhanden sein.
 
 ## Normale JSON-Inhalte
 

@@ -179,10 +179,30 @@ export function getLawFundingUrl(): string {
   return getSiteUrl('lawFunding');
 }
 
+export function getLawReferencesUrl(): string {
+  return getSiteUrl('lawReferences');
+}
+
+export function getLawPublicationsUrl(): string {
+  return getSiteUrl('lawPublications');
+}
+
 export function getLawConstitutionUrl(): string {
   return getSiteUrl('lawConstitution');
 }
 
 export function getLawHelpUrl(): string {
   return getSiteUrl('lawHelp');
+}
+
+export function getEasyLanguageUrl(): string {
+  return getSiteUrl('easyLanguage');
+}
+
+export function getSignLanguageUrl(): string {
+  return getSiteUrl('signLanguage');
+}
+
+export function getPublicationsUrl(): string {
+  return getSiteUrl('publications');
 }

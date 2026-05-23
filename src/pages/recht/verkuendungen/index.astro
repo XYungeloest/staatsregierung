@@ -1,0 +1,105 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  formatDate,
+  formatPublicationEntryType,
+  getHomeUrl,
+  getLawPortalUrl,
+  getPublicationLabel,
+  getPublicationUrl,
+  getPublicationsUrl,
+  getReferencesUrl,
+  loadAllVerkuendungen,
+  toDisplayText,
+} from '../../../lib/norms/index.ts';
+
+const publications = await loadAllVerkuendungen();
+const entryCount = publications.reduce((sum, publication) => sum + publication.entries.length, 0);
+const years = [...new Set(publications.map((publication) => publication.year))].sort((left, right) => right - left);
+---
+
+<BaseLayout
+  title="Verkündungen"
+  description="Verkündungsblätter, Ausgaben und Einträge des Rechtsbereichs."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: 'Verkündungen', href: getPublicationsUrl() },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Recht', href: getLawPortalUrl() },
+      { label: 'Verkündungen' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rechtsbereich</p>
+    <h1>Verkündungen</h1>
+    <p class="lead">
+      Ausgaben der Verkündungsblätter mit Datum, Fundstellen und Verknüpfungen zu gespeicherten
+      Normfassungen.
+    </p>
+    <nav class="link-list link-list--inline" aria-label="Weitere Rechtseinstiege">
+      <a href={getReferencesUrl()}>Fundstellennachweise</a>
+      <a href={getLawPortalUrl()}>Rechtsbereich</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Ausgaben</span>
+        <strong>{publications.length}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Einträge</span>
+        <strong>{entryCount}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Jahre</span>
+        <strong>{years.length}</strong>
+      </div>
+    </div>
+  </section>
+
+  {years.map((year) => {
+    const yearPublications = publications.filter((publication) => publication.year === year);
+
+    return (
+      <section class="section">
+        <div class="section-header">
+          <h2>{year}</h2>
+          <p>Ausgaben des Jahres {year} in absteigender Veröffentlichungsfolge.</p>
+        </div>
+        <ul class="record-list">
+          {yearPublications.map((publication) => (
+            <li class="record-list__item">
+              <strong>
+                <a class="inline-link" href={getPublicationUrl(publication.slug)}>
+                  {toDisplayText(publication.title)}
+                </a>
+              </strong>
+              <span>
+                {getPublicationLabel(publication)} · {formatDate(publication.date)} · {publication.entries.length}{' '}
+                {publication.entries.length === 1 ? 'Eintrag' : 'Einträge'}
+              </span>
+              <span>
+                {publication.entries.slice(0, 3).map((entry, index) => (
+                  <Fragment>
+                    {index > 0 ? '; ' : ''}
+                    {toDisplayText(entry.title)} ({formatPublicationEntryType(entry.type)})
+                  </Fragment>
+                ))}
+                {publication.entries.length > 3 ? ' …' : ''}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  })}
+</BaseLayout>

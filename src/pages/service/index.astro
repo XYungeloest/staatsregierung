@@ -5,11 +5,14 @@ import {
   getAccessibilityUrl,
   getCareerUrl,
   getContactUrl,
+  getEasyLanguageUrl,
   getFaqUrl,
   getHomeUrl,
   getImprintUrl,
   getPrivacyUrl,
+  getPublicationsUrl,
   getServiceOverviewUrl,
+  getSignLanguageUrl,
 } from '../../lib/portal/index.ts';
 import { loadJobOffers } from '../../lib/portal/content.ts';
 
@@ -45,6 +48,10 @@ const offers = await loadJobOffers();
         <span class="meta-label">Kontaktwege</span>
         <strong>Zentral gebündelt</strong>
       </div>
+      <div class="meta-card">
+        <span class="meta-label">Publikationen</span>
+        <strong>Recht, Presse, Service</strong>
+      </div>
     </div>
   </section>
 
@@ -64,6 +71,21 @@ const offers = await loadJobOffers();
         <h2>FAQ</h2>
         <p>Hilfen zur Nutzung des Rechtsportals, zu Downloads, Informationsanträgen und Kontaktwegen.</p>
         <p><a class="inline-link" href={getFaqUrl()}>Zur FAQ</a></p>
+      </article>
+      <article class="panel">
+        <h2>Publikationen</h2>
+        <p>Verkündungen, Presseformate und zentrale Downloadangebote.</p>
+        <p><a class="inline-link" href={getPublicationsUrl()}>Zu Publikationen</a></p>
+      </article>
+      <article class="panel">
+        <h2>Leichte Sprache</h2>
+        <p>Kurze Orientierung zu den wichtigsten Portalbereichen.</p>
+        <p><a class="inline-link" href={getEasyLanguageUrl()}>Zu Leichte Sprache</a></p>
+      </article>
+      <article class="panel">
+        <h2>Gebärdensprache</h2>
+        <p>Hinweise zum Angebot in Gebärdensprache und zum Feedbackweg.</p>
+        <p><a class="inline-link" href={getSignLanguageUrl()}>Zur Gebärdensprache</a></p>
       </article>
       <article class="panel">
         <h2>Barrierefreiheit</h2>

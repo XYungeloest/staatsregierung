@@ -18,6 +18,9 @@ import {
   getGovernmentUrl,
   getJobUrl,
   getLawHomeUrl,
+  getLawPublicationsUrl,
+  getLawSearchUrl,
+  getPortalSearchUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
@@ -87,10 +90,27 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
     <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
     <h1>{siteConfig.authorityName}</h1>
     <p class="lead">
-      Die Website bündelt Staatsregierung, Themen und Projekte, Recht, Presse, Haushalt und
-      Service in einer ruhigen, behördennahen Struktur. Seit dem 4. Mai 2026 ist das
-      Kabinett Honecker II im Amt.
+      Zentrale Informationen zu Staatsregierung, Themen, Recht, Presse und Service. Seit dem
+      4. Mai 2026 ist das Kabinett Honecker II im Amt.
     </p>
+    <form class="search-form search-form--hero" action={getPortalSearchUrl()} method="get" role="search">
+      <label class="search-field">
+        <span>Portal durchsuchen</span>
+        <input type="search" name="q" autocomplete="off" placeholder="z. B. Kabinett, Recht, Förderung" />
+      </label>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Suchen</button>
+        <a class="button-link button-link--secondary" href={getLawSearchUrl()}>Rechtssuche</a>
+      </div>
+    </form>
+    <nav class="link-list link-list--inline" aria-label="Schnellzugriffe">
+      <a href={getGovernmentUrl()}>Staatsregierung</a>
+      <a href={getTopicsUrl()}>Themen</a>
+      <a href={getLawHomeUrl()}>Recht</a>
+      <a href={getLawPublicationsUrl()}>Verkündungen</a>
+      <a href={getPressUrl()}>Presse</a>
+      <a href={getServiceUrl()}>Service</a>
+    </nav>
     <div class="meta-grid" aria-label="Portalüberblick">
       <div class="meta-card">
         <span class="meta-label">Regierungssitz</span>
@@ -109,7 +129,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
         <strong>{norms.length}</strong>
       </div>
     </div>
-    <nav class="hero-actions" aria-label="Schnelleinstiege">
+    <nav class="hero-actions portal-home-header__actions" aria-label="Schnelleinstiege">
       <a class="button-link" href={getGovernmentUrl()}>Zur Staatsregierung</a>
       <a class="button-link button-link--secondary" href={getTopicsUrl()}>Zu Themen & Projekte</a>
       <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
@@ -125,7 +145,6 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
       </p>
     </div>
   </section>
-
   <section class="section section-muted">
     <SocializationCounter
       baseValue={638382}
@@ -133,7 +152,6 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
       ratePerHour={1589}
     />
   </section>
-
   <section class="section">
     <div class="section-header">
       <h2>Portalbereiche</h2>

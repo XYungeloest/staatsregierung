@@ -7,6 +7,8 @@ import {
   getHomeUrl,
   getIndexUrl,
   getLawPortalUrl,
+  getPublicationsUrl,
+  getReferencesUrl,
   getSearchUrl,
   getSubjectsUrl,
 } from '../../../lib/norms/index.ts';
@@ -59,7 +61,20 @@ import {
         <p>
           Treffer zeigen Fundstelle, Gültigkeitszeitraum, Vorschriftentyp, Ressort, Sachgebiete
           und einen Textausschnitt. Soweit der Treffer einem Paragraphen, Artikel oder Abschnitt
-          zugeordnet werden kann, wird diese Stelle zusätzlich genannt.
+          zugeordnet werden kann, wird diese Stelle zusätzlich genannt und direkt verlinkt.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Fundstellen und Verkündungen</h2>
+        </div>
+        <p>
+          Verkündungen sind als eigene Ausgaben geführt. Die Fundstellennachweise zeigen, in
+          welcher Ausgabe ein Eintrag steht und welche gespeicherte Normfassung dazu gehört.
+        </p>
+        <p class="section-link-row">
+          <a class="inline-link" href={getPublicationsUrl()}>Zu den Verkündungen</a>
         </p>
       </section>
 
@@ -100,6 +115,8 @@ import {
           <a href={getSearchUrl()}>Normensuche</a>
           <a href={getIndexUrl()}>Alphabetischer Index</a>
           <a href={getSubjectsUrl()}>Sachgebiete</a>
+          <a href={getReferencesUrl()}>Fundstellennachweise</a>
+          <a href={getPublicationsUrl()}>Verkündungen</a>
           <a href={getFundingUrl()}>Förderrichtlinien</a>
         </nav>
       </section>

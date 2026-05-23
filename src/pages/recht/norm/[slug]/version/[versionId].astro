@@ -8,16 +8,19 @@ import NormStatusNotice from '../../../../../components/norms/NormStatusNotice.a
 import { buildNormOutline, formatDate, toDisplayText } from '../../../../../lib/norms/presentation.ts';
 import {
   buildNormTextLinkReferences,
+  buildNormPublicationReferenceLookup,
   getRelatedNormsBySubjects,
   getHomeUrl,
   getLawPortalUrl,
   getNormHistoryUrl,
   getNormUrl,
+  loadAllVerkuendungen,
 } from '../../../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../../../lib/norms/content.ts';
 
 export async function getStaticPaths() {
-  const norms = await loadAllNorms();
+  const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+  const publicationReferences = buildNormPublicationReferenceLookup(publications);
 
   return norms.flatMap((norm) =>
     norm.versions
@@ -29,12 +32,14 @@ export async function getStaticPaths() {
           version,
           textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
           relatedNorms: getRelatedNormsBySubjects(norm, norms),
+          publicationReferences,
         },
       })),
   );
 }
 
-const { norm, version, textReferences, relatedNorms } = Astro.props;
+const { norm, version, textReferences, relatedNorms, publicationReferences } = Astro.props;
+const publicationReference = publicationReferences.get(`${norm.meta.slug}:${version.versionId}`);
 const outline = buildNormOutline(version.body);
 const normTitle = toDisplayText(norm.meta.title);
 const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
@@ -86,6 +91,12 @@ const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand
       </section>
     </div>
 
-    <NormMetaCard norm={norm} version={version} historical={true} relatedNorms={relatedNorms} />
+    <NormMetaCard
+      norm={norm}
+      version={version}
+      historical={true}
+      relatedNorms={relatedNorms}
+      publicationReference={publicationReference}
+    />
   </div>
 </BaseLayout>

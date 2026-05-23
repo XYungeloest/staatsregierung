@@ -1,6 +1,17 @@
 import { loadAllNorms } from './loader.ts';
-import { formatDate, formatNormStatus, formatNormType, toDisplayText } from './presentation.ts';
-import { getNormUrl, getNormVersionUrl } from './routes.ts';
+import {
+  formatDate,
+  formatNormStatus,
+  formatNormType,
+  getBlockAnchorId,
+  toDisplayText,
+} from './presentation.ts';
+import {
+  buildNormPublicationReferenceLookup,
+  loadAllVerkuendungen,
+  type NormPublicationReference,
+} from './publications.ts';
+import { getNormUrl, getNormVersionUrl, getPublicationUrl } from './routes.ts';
 import type { NormBodyBlock, NormRecord, NormVersion } from './schema.ts';
 
 export interface SearchIndexDocument {
@@ -24,6 +35,12 @@ export interface SearchIndexDocument {
   initialCitation: string;
   citation: string;
   publication: string;
+  publicationSlug?: string;
+  publicationUrl?: string;
+  publicationTitle?: string;
+  publicationDate?: string;
+  publicationIssue?: string;
+  publicationEntryTitle?: string;
   changeNote: string;
   validFrom: string;
   validTo: string | null;
@@ -38,6 +55,7 @@ export interface SearchHitUnit {
   label: string;
   title: string;
   text: string;
+  anchor: string;
 }
 
 export interface SearchFilterOptions {
@@ -76,8 +94,13 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   const contexts: string[] = [];
   const hitUnits: SearchHitUnit[] = [];
 
-  const visit = (entries: NormBodyBlock[], currentUnit?: SearchHitUnit & { textParts: string[] }) => {
-    for (const block of entries) {
+  const visit = (
+    entries: NormBodyBlock[],
+    path: number[] = [],
+    currentUnit?: SearchHitUnit & { textParts: string[] },
+  ) => {
+    for (const [index, block] of entries.entries()) {
+      const currentPath = [...path, index];
       const headingParts: string[] = [];
       addText(headingParts, block.label);
       addText(headingParts, block.title);
@@ -100,6 +123,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
             label: toDisplayText(block.label ?? ''),
             title: toDisplayText(block.title ?? block.label ?? ''),
             text: '',
+            anchor: getBlockAnchorId(currentPath, block),
             textParts: headingParts.length > 0 ? [headingParts.join(' ')] : [],
           }
         : currentUnit;
@@ -114,7 +138,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
       }
 
       if (block.children) {
-        visit(block.children, nextUnit);
+        visit(block.children, currentPath, nextUnit);
       }
 
       if (isHitUnit && nextUnit && nextUnit.textParts.length > 0) {
@@ -123,6 +147,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
           label: nextUnit.label,
           title: nextUnit.title,
           text: nextUnit.textParts.join('\n\n'),
+          anchor: nextUnit.anchor,
         });
       }
     }
@@ -155,7 +180,11 @@ function compareStrings(left: string, right: string): number {
   return left.localeCompare(right, 'de');
 }
 
-function buildSearchDocument(record: NormRecord, version: NormVersion): SearchIndexDocument {
+function buildSearchDocument(
+  record: NormRecord,
+  version: NormVersion,
+  publicationReference?: NormPublicationReference,
+): SearchIndexDocument {
   const { textParts, contexts, hitUnits } = collectBodyContent(version.body);
   const resultLabel = version.isCurrent
     ? record.meta.status === 'repealed'
@@ -185,7 +214,15 @@ function buildSearchDocument(record: NormRecord, version: NormVersion): SearchIn
     summary: toDisplayText(record.meta.summary),
     initialCitation: toDisplayText(record.meta.initialCitation),
     citation: toDisplayText(version.citation),
-    publication: extractPublication(version.citation),
+    publication: publicationReference
+      ? `${publicationReference.publication} ${publicationReference.publicationDate} Nr. ${publicationReference.issue}`
+      : extractPublication(version.citation),
+    publicationSlug: publicationReference?.publicationSlug,
+    publicationUrl: publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined,
+    publicationTitle: publicationReference ? toDisplayText(publicationReference.publicationTitle) : undefined,
+    publicationDate: publicationReference?.publicationDate,
+    publicationIssue: publicationReference?.issue,
+    publicationEntryTitle: publicationReference ? toDisplayText(publicationReference.entryTitle) : undefined,
     changeNote: toDisplayText(version.changeNote),
     validFrom: version.validFrom,
     validTo: version.validTo,
@@ -225,9 +262,18 @@ function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
 }
 
 export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
-  const records = await loadAllNorms();
+  const [records, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+  const publicationReferences = buildNormPublicationReferenceLookup(publications);
   const documents = records
-    .flatMap((record) => record.versions.map((version) => buildSearchDocument(record, version)))
+    .flatMap((record) =>
+      record.versions.map((version) =>
+        buildSearchDocument(
+          record,
+          version,
+          publicationReferences.get(`${record.meta.slug}:${version.versionId}`),
+        ),
+      ),
+    )
     .sort((left, right) => {
       if (left.title !== right.title) {
         return left.title.localeCompare(right.title, 'de');

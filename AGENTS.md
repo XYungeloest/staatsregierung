@@ -73,6 +73,15 @@ content/normen/[slug]/
 
 Historische Fassungen sind gespeicherte Fassungen, keine automatisch berechneten Konsolidierungen.
 
+Verkündungen liegen unter:
+
+```text
+content/verkuendungen/[slug].json
+```
+
+Sie verknüpfen Fundstellen über `entries[].normSlug` und `entries[].versionId` mit gespeicherten
+Normfassungen. Norm-JSONs bleiben dadurch unabhängig von später gepflegten Amtsblatt-Ausgaben.
+
 ## UI-Stil
 
 - nüchtern
