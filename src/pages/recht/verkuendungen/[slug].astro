@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  formatDate,
+  formatPublicationEntryType,
+  getHomeUrl,
+  getLawPortalUrl,
+  getNormUrl,
+  getNormVersionUrl,
+  getPublicationLabel,
+  getPublicationUrl,
+  getPublicationsUrl,
+  getReferencesUrl,
+  loadAllVerkuendungen,
+  toDisplayText,
+} from '../../../lib/norms/index.ts';
+import { loadAllNorms } from '../../../lib/norms/content.ts';
+
+export async function getStaticPaths() {
+  const publications = await loadAllVerkuendungen();
+
+  return publications.map((publication) => ({
+    params: { slug: publication.slug },
+    props: { publication },
+  }));
+}
+
+const { publication } = Astro.props;
+const norms = await loadAllNorms();
+const normBySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
+
+function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
+  if (!normSlug) {
+    return undefined;
+  }
+
+  const norm = normBySlug.get(normSlug);
+  if (!norm) {
+    return undefined;
+  }
+
+  const version = versionId ? norm.versions.find((entry) => entry.versionId === versionId) : undefined;
+  return !version || version.isCurrent ? getNormUrl(normSlug) : getNormVersionUrl(normSlug, version.versionId);
+}
+---
+
+<BaseLayout
+  title={publication.title}
+  description={`${publication.title} mit Fundstellen und verlinkten Normfassungen.`}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: 'Verkündungen', href: getPublicationsUrl() },
+    { label: publication.title, href: getPublicationUrl(publication.slug) },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Recht', href: getLawPortalUrl() },
+      { label: 'Verkündungen', href: getPublicationsUrl() },
+      { label: publication.title },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Verkündung</p>
+    <h1>{toDisplayText(publication.title)}</h1>
+    <p class="lead">
+      {getPublicationLabel(publication)} vom {formatDate(publication.date)} mit den verzeichneten
+      Veröffentlichungen und Verknüpfungen zu Normfassungen.
+    </p>
+    <nav class="link-list link-list--inline" aria-label="Verkündungsnavigation">
+      <a href={getPublicationsUrl()}>Alle Verkündungen</a>
+      <a href={getReferencesUrl()}>Fundstellennachweise</a>
+      <button class="text-link-button" type="button" onclick="window.print()">Seite drucken</button>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Einträge</h2>
+      <p>Die Einträge bilden die Fundstelle und, soweit vorhanden, die zugehörige Normfassung ab.</p>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col">Fundstelle</th>
+            <th scope="col">Titel</th>
+            <th scope="col">Typ</th>
+            <th scope="col">Fassung</th>
+          </tr>
+        </thead>
+        <tbody>
+          {publication.entries.map((entry) => {
+            const normUrl = getEntryNormUrl(entry.normSlug, entry.versionId);
+
+            return (
+              <tr id={entry.id}>
+                <td>
+                  <strong>{toDisplayText(entry.citation)}</strong>
+                  {entry.pages ? <span>Seiten {entry.pages}</span> : null}
+                </td>
+                <td>{toDisplayText(entry.title)}</td>
+                <td>{formatPublicationEntryType(entry.type)}</td>
+                <td>
+                  {normUrl ? (
+                    <a class="inline-link" href={normUrl}>
+                      {entry.versionId ? `Fassung ${entry.versionId}` : 'Norm öffnen'}
+                    </a>
+                  ) : (
+                    <span>Kein Normlink hinterlegt</span>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Hinweise</h2>
+      <p>
+        Die verlinkte Normfassung ist der strukturierte Textstand im Rechtsbereich. Die Fundstelle
+        dokumentiert die Ausgabe, in der die Vorschrift oder Bekanntmachung geführt wird.
+      </p>
+    </div>
+    {publication.pdf ? (
+      <p class="section-link-row">
+        <a class="inline-link" href={publication.pdf}>Ausgabe als PDF öffnen</a>
+      </p>
+    ) : (
+      <p class="detail-line">Für diese Ausgabe ist derzeit kein PDF hinterlegt.</p>
+    )}
+  </section>
+</BaseLayout>

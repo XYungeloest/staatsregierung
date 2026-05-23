@@ -7,6 +7,8 @@ import {
   getHomeUrl,
   getIndexUrl,
   getLawPortalUrl,
+  getPublicationsUrl,
+  getReferencesUrl,
   getSearchUrl,
   getSubjectsUrl,
 } from '../../lib/norms/index.ts';
@@ -46,6 +48,8 @@ const searchPayload = await buildSearchIndexPayload();
     <nav class="link-list link-list--inline" aria-label="Weitere Rechtseinstiege">
       <a href={getIndexUrl()}>Alphabetischer Index</a>
       <a href={getSubjectsUrl()}>Sachgebiete</a>
+      <a href={getReferencesUrl()}>Fundstellennachweise</a>
+      <a href={getPublicationsUrl()}>Verkündungen</a>
       <a href={getFundingUrl()}>Förderrichtlinien</a>
       <a href={getHelpUrl()}>Hilfe</a>
     </nav>
@@ -154,6 +158,15 @@ const searchPayload = await buildSearchIndexPayload();
             <option value="historical">Nur historische Fassungen</option>
           </select>
         </label>
+
+        <label class="search-field">
+          <span>Sortierung</span>
+          <select name="sort" data-search-filter="sort">
+            <option value="relevance">Relevanz</option>
+            <option value="title">Titel A-Z</option>
+            <option value="rechtsstand">Neuester Rechtsstand</option>
+          </select>
+        </label>
       </div>
 
       <div class="search-form__filters">
@@ -184,10 +197,19 @@ const searchPayload = await buildSearchIndexPayload();
     </div>
 
     <noscript>
-      <p class="search-feedback search-feedback--warning">
-        Für die Suche wird JavaScript benötigt, da der Index ausschließlich clientseitig ausgewertet
-        wird.
-      </p>
+      <div class="search-feedback search-feedback--warning">
+        <p>
+          Für die freie Volltextsuche wird JavaScript benötigt. Die amtlichen Einstiege bleiben
+          ohne JavaScript erreichbar.
+        </p>
+        <nav class="link-list link-list--inline" aria-label="Rechtseinstiege ohne JavaScript">
+          <a href={getIndexUrl()}>Alphabetischer Index</a>
+          <a href={getSubjectsUrl()}>Sachgebiete</a>
+          <a href={getReferencesUrl()}>Fundstellennachweise</a>
+          <a href={getPublicationsUrl()}>Verkündungen</a>
+          <a href={getFundingUrl()}>Förderrichtlinien</a>
+        </nav>
+      </div>
     </noscript>
 
     <div class="search-results" data-search-results></div>

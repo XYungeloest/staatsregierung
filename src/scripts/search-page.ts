@@ -1,5 +1,6 @@
 type SearchScope = 'all' | 'title' | 'metadata' | 'body';
 type VersionScope = 'all' | 'current' | 'historical';
+type SortKey = 'relevance' | 'title' | 'rechtsstand';
 
 interface SearchState {
   q: string;
@@ -15,6 +16,7 @@ interface SearchState {
   validFrom: string;
   validTo: string;
   citation: string;
+  sort: SortKey;
 }
 
 interface SearchHitUnit {
@@ -22,6 +24,7 @@ interface SearchHitUnit {
   label: string;
   title: string;
   text: string;
+  anchor: string;
 }
 
 interface SearchDocument {
@@ -45,6 +48,12 @@ interface SearchDocument {
   initialCitation: string;
   citation: string;
   publication: string;
+  publicationSlug?: string;
+  publicationUrl?: string;
+  publicationTitle?: string;
+  publicationDate?: string;
+  publicationIssue?: string;
+  publicationEntryTitle?: string;
   changeNote: string;
   validFrom: string;
   validTo: string | null;
@@ -123,6 +132,7 @@ function getEmptyState(): SearchState {
     validFrom: '',
     validTo: '',
     citation: '',
+    sort: 'relevance',
   };
 }
 
@@ -132,6 +142,10 @@ function normalizeScope(value: string): SearchScope {
 
 function normalizeVersionScope(value: string): VersionScope {
   return value === 'current' || value === 'historical' ? value : 'all';
+}
+
+function normalizeSortKey(value: string): SortKey {
+  return value === 'title' || value === 'rechtsstand' ? value : 'relevance';
 }
 
 function getFormState(): SearchState {
@@ -154,6 +168,7 @@ function getFormState(): SearchState {
     validFrom: String(formData.get('validFrom') ?? '').trim(),
     validTo: String(formData.get('validTo') ?? '').trim(),
     citation: String(formData.get('citation') ?? '').trim(),
+    sort: normalizeSortKey(String(formData.get('sort') ?? 'relevance')),
   };
 }
 
@@ -186,6 +201,7 @@ function readStateFromUrl(): SearchState {
     validFrom: params.get('validFrom') ?? '',
     validTo: params.get('validTo') ?? '',
     citation: params.get('citation') ?? '',
+    sort: normalizeSortKey(params.get('sort') ?? 'relevance'),
   };
 }
 
@@ -193,7 +209,12 @@ function writeStateToUrl(state: SearchState): void {
   const params = new URLSearchParams();
 
   for (const [key, value] of Object.entries(state) as Array<[keyof SearchState, string]>) {
-    if (value && !(key === 'scope' && value === 'all') && !(key === 'versionScope' && value === 'all')) {
+    if (
+      value &&
+      !(key === 'scope' && value === 'all') &&
+      !(key === 'versionScope' && value === 'all') &&
+      !(key === 'sort' && value === 'relevance')
+    ) {
       params.set(key, value);
     }
   }
@@ -218,6 +239,10 @@ function getNormalizedFields(documentEntry: SearchDocument): Record<SearchScope,
       documentEntry.initialCitation,
       documentEntry.citation,
       documentEntry.publication,
+      documentEntry.publicationTitle,
+      documentEntry.publicationDate,
+      documentEntry.publicationIssue,
+      documentEntry.publicationEntryTitle,
       documentEntry.changeNote,
     ].join(' '),
   );
@@ -342,7 +367,15 @@ function matchesFilters(documentEntry: SearchDocument, state: SearchState): bool
 
   if (state.citation) {
     const citation = normalizeSearchText(
-      `${documentEntry.citation} ${documentEntry.initialCitation} ${documentEntry.publication}`,
+      [
+        documentEntry.citation,
+        documentEntry.initialCitation,
+        documentEntry.publication,
+        documentEntry.publicationTitle,
+        documentEntry.publicationDate,
+        documentEntry.publicationIssue,
+        documentEntry.publicationEntryTitle,
+      ].join(' '),
     );
     if (!splitTokens(state.citation).every((token) => citation.includes(token))) {
       return false;
@@ -416,6 +449,46 @@ function scoreDocument(
   return score;
 }
 
+function getResultBadgeClass(result: SearchDocument): string {
+  if (result.status === 'repealed') {
+    return 'status-badge--amber';
+  }
+
+  if (result.status === 'planned') {
+    return 'status-badge--blue';
+  }
+
+  return result.isCurrent ? 'status-badge--green' : 'status-badge--blue';
+}
+
+function compareResults(left: SearchResultEntry, right: SearchResultEntry, state: SearchState): number {
+  if (state.sort === 'title') {
+    if (left.documentEntry.title !== right.documentEntry.title) {
+      return left.documentEntry.title.localeCompare(right.documentEntry.title, 'de');
+    }
+
+    return right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
+  }
+
+  if (state.sort === 'rechtsstand') {
+    if (left.documentEntry.validFrom !== right.documentEntry.validFrom) {
+      return right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
+    }
+
+    return left.documentEntry.title.localeCompare(right.documentEntry.title, 'de');
+  }
+
+  if (right.score !== left.score) {
+    return right.score - left.score;
+  }
+
+  if (left.documentEntry.title !== right.documentEntry.title) {
+    return left.documentEntry.title.localeCompare(right.documentEntry.title, 'de');
+  }
+
+  return right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
+}
+
 function renderResults(results: SearchDocument[], state: SearchState): void {
   if (!summary || !resultsContainer) {
     return;
@@ -431,7 +504,8 @@ function renderResults(results: SearchDocument[], state: SearchState): void {
       state.geltungstag ||
       state.validFrom ||
       state.validTo ||
-      state.citation,
+      state.citation ||
+      state.sort !== 'relevance',
   );
 
   if (!hasQuery && !hasFilters) {
@@ -458,18 +532,30 @@ function renderResults(results: SearchDocument[], state: SearchState): void {
           const hitUnits = findHitUnits(result, tokens);
           const validFromLabel = formatDate(result.validFrom);
           const validUntilLabel = result.validTo ? formatDate(result.validTo) : 'aktuell';
+          const publicationLabel = result.publicationTitle
+            ? `${result.publicationTitle}${result.publicationDate ? `, ${formatDate(result.publicationDate)}` : ''}`
+            : result.publication;
+          const publicationMarkup =
+            publicationLabel && result.publicationUrl
+              ? `<a class="inline-link" href="${escapeHtml(result.publicationUrl)}">${escapeHtml(publicationLabel)}</a>`
+              : escapeHtml(publicationLabel);
 
           return `
             <li class="record-list__item search-hit">
               <div class="search-hit__header">
                 <h3><a class="inline-link" href="${result.url}">${escapeHtml(result.title)}</a></h3>
-                <span>${escapeHtml(result.resultLabel)}</span>
+                <span class="status-badge ${getResultBadgeClass(result)}">${escapeHtml(result.resultLabel)} · ${escapeHtml(result.statusLabel)}</span>
               </div>
               <dl class="search-hit__facts">
                 <div><dt>Fundstelle</dt><dd>${escapeHtml(result.citation)}</dd></div>
                 <div><dt>Gültigkeit</dt><dd>${escapeHtml(validFromLabel)} bis ${escapeHtml(validUntilLabel)}</dd></div>
                 <div><dt>Normtyp</dt><dd>${escapeHtml(result.typeLabel)}</dd></div>
                 <div><dt>Ressort</dt><dd>${escapeHtml(result.ministry)}</dd></div>
+                ${
+                  publicationLabel
+                    ? `<div><dt>Verkündung</dt><dd>${publicationMarkup}</dd></div>`
+                    : ''
+                }
               </dl>
               <p class="search-hit__meta">
                 Status: ${escapeHtml(result.statusLabel)} | Sachgebiete: ${escapeHtml(result.subjects.join(', ')) || 'keine Zuordnung'}
@@ -477,7 +563,11 @@ function renderResults(results: SearchDocument[], state: SearchState): void {
               ${
                 hitUnits.length > 0
                   ? `<p class="search-hit__meta">Trefferstellen: ${hitUnits
-                      .map((unit) => escapeHtml([unit.label, unit.title].filter(Boolean).join(' ')))
+                      .map((unit) => {
+                        const label = escapeHtml([unit.label, unit.title].filter(Boolean).join(' '));
+                        const href = unit.anchor ? `${result.url}#${escapeHtml(unit.anchor)}` : result.url;
+                        return `<a class="inline-link" href="${href}">${label}</a>`;
+                      })
                       .join('; ')}</p>`
                   : ''
               }
@@ -532,17 +622,7 @@ async function setupSearch(): Promise<void> {
         score: scoreDocument(documentEntry, state, normalizedQuery, tokens),
       }))
       .filter((entry: SearchResultEntry) => (normalizedQuery || state.exact || state.exclude ? entry.score >= 0 : true))
-      .sort((left: SearchResultEntry, right: SearchResultEntry) => {
-        if (right.score !== left.score) {
-          return right.score - left.score;
-        }
-
-        if (left.documentEntry.title !== right.documentEntry.title) {
-          return left.documentEntry.title.localeCompare(right.documentEntry.title, 'de');
-        }
-
-        return right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
-      })
+      .sort((left: SearchResultEntry, right: SearchResultEntry) => compareResults(left, right, state))
       .map((entry: SearchResultEntry) => entry.documentEntry);
 
     renderResults(results, state);

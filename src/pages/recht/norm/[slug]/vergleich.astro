@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import NormBody from '../../../../components/norms/NormBody.astro';
+import {
+  buildNormTextLinkReferences,
+  formatDate,
+  getHomeUrl,
+  getLawPortalUrl,
+  getNormHistoryUrl,
+  getNormUrl,
+  toDisplayText,
+} from '../../../../lib/norms/index.ts';
+import { loadAllNorms } from '../../../../lib/norms/content.ts';
+
+export async function getStaticPaths() {
+  const norms = await loadAllNorms();
+
+  return norms
+    .filter((norm) => norm.versions.length > 1)
+    .map((norm) => {
+      const sortedVersions = [...norm.versions].sort((left, right) =>
+        right.validFrom.localeCompare(left.validFrom),
+      );
+
+      return {
+        params: { slug: norm.meta.slug },
+        props: {
+          norm,
+          leftVersion: sortedVersions[1],
+          rightVersion: sortedVersions[0],
+          textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
+        },
+      };
+    });
+}
+
+const { norm, leftVersion, rightVersion, textReferences } = Astro.props;
+const normTitle = toDisplayText(norm.meta.title);
+---
+
+<BaseLayout
+  title={`${normTitle} vergleichen`}
+  description={`Vergleich gespeicherter Fassungen von ${normTitle}.`}
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht', href: getLawPortalUrl() },
+    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+    { label: 'Vergleich' },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Recht', href: getLawPortalUrl() },
+      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+      { label: 'Vergleich' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Versionsvergleich</p>
+    <h1>{normTitle}</h1>
+    <p class="lead">
+      Gegenüberstellung der beiden zuletzt gespeicherten Fassungen. Der Vergleich ersetzt keine
+      redaktionelle Konsolidierung; maßgeblich bleiben die gespeicherten Fassungen.
+    </p>
+    <nav class="link-list link-list--inline" aria-label="Vergleichsnavigation">
+      <a href={getNormUrl(norm.meta.slug)}>Aktuelle Fassung</a>
+      <a href={getNormHistoryUrl(norm.meta.slug)}>Normenhistorie</a>
+    </nav>
+  </section>
+
+  <section class="section compare-grid" aria-label="Fassungsvergleich">
+    <article>
+      <div class="section-header section-header--compact">
+        <h2>Fassung vom {formatDate(leftVersion.validFrom)}</h2>
+        <p>{toDisplayText(leftVersion.changeNote)}</p>
+      </div>
+      <NormBody blocks={leftVersion.body} references={textReferences} />
+    </article>
+
+    <article>
+      <div class="section-header section-header--compact">
+        <h2>Fassung vom {formatDate(rightVersion.validFrom)}</h2>
+        <p>{toDisplayText(rightVersion.changeNote)}</p>
+      </div>
+      <NormBody blocks={rightVersion.body} references={textReferences} />
+    </article>
+  </section>
+</BaseLayout>

@@ -1,5 +1,6 @@
 import { loadAllNorms } from '../norms/content.ts';
-import { getNormUrl } from '../norms/routes.ts';
+import { loadAllVerkuendungen } from '../norms/publications.ts';
+import { getNormUrl, getPublicationUrl as getLawPublicationDetailUrl } from '../norms/routes.ts';
 import { toDisplayText } from '../norms/presentation.ts';
 import {
   loadBudgetPages,
@@ -17,7 +18,10 @@ import {
   getAccessibilityUrl,
   getBudgetPageUrl,
   getContactUrl,
+  getEasyLanguageUrl,
   getEventUrl,
+  getLawPublicationsUrl,
+  getLawReferencesUrl,
   getFreestatePageUrl,
   getGovernmentMemberUrl,
   getImprintUrl,
@@ -25,7 +29,9 @@ import {
   getMinistryUrl,
   getPressReleaseUrl,
   getPrivacyUrl,
+  getPublicationsUrl,
   getSpeechUrl,
+  getSignLanguageUrl,
   getTopicUrl,
 } from './routes.ts';
 
@@ -68,6 +74,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
     servicePages,
     jobOffers,
     norms,
+    publications,
   ] = await Promise.all([
     loadGovernmentMembers(),
     loadMinistries(),
@@ -80,9 +87,55 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
     loadPages(),
     loadJobOffers(),
     loadAllNorms(),
+    loadAllVerkuendungen(),
   ]);
 
   const entries: PortalSearchEntry[] = [
+    {
+      id: 'law-publications',
+      type: 'law',
+      typeLabel: 'Recht',
+      title: 'Verkündungen',
+      description: 'Ausgaben der Verkündungsblätter mit Fundstellen und Normfassungen.',
+      url: getLawPublicationsUrl(),
+      text: 'Verkündungen Gesetz- und Verordnungsblatt Staatsanzeiger Vertragsblatt Fundstellen',
+    },
+    {
+      id: 'law-references',
+      type: 'law',
+      typeLabel: 'Recht',
+      title: 'Fundstellennachweise',
+      description: 'Fundstellen nach Blatt, Ausgabe, Datum und Normfassung.',
+      url: getLawReferencesUrl(),
+      text: 'Fundstellen Nachweise OGVBl StAnzO OVertrBl Amtsblatt',
+    },
+    {
+      id: 'service-easy-language',
+      type: 'service',
+      typeLabel: 'Service',
+      title: 'Leichte Sprache',
+      description: 'Kurze Orientierung zu den wichtigsten Portalbereichen.',
+      url: getEasyLanguageUrl(),
+      text: 'Leichte Sprache Orientierung Staatsregierung Themen Recht Kontakt',
+    },
+    {
+      id: 'service-sign-language',
+      type: 'service',
+      typeLabel: 'Service',
+      title: 'Gebärdensprache',
+      description: 'Hinweise zum Angebot in Gebärdensprache.',
+      url: getSignLanguageUrl(),
+      text: 'Gebärdensprache Video Kontakt Barrierefreiheit',
+    },
+    {
+      id: 'service-publications',
+      type: 'service',
+      typeLabel: 'Service',
+      title: 'Publikationen und Downloads',
+      description: 'Verkündungen, Presseformate und zentrale Downloadangebote.',
+      url: getPublicationsUrl(),
+      text: 'Publikationen Downloads Verkündungen Presse RSS Kalender',
+    },
     ...members.map((member) => ({
       id: `government-member:${member.slug}`,
       type: 'government',
@@ -208,6 +261,20 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
         norm.meta.subjects.map(toDisplayText),
         norm.meta.keywords.map(toDisplayText),
         toDisplayText(norm.meta.initialCitation),
+      ]),
+    })),
+    ...publications.map((publication) => ({
+      id: `law-publication:${publication.slug}`,
+      type: 'law',
+      typeLabel: 'Verkündung',
+      title: toDisplayText(publication.title),
+      description: `${publication.publication} ${publication.year} Nr. ${publication.issue}`,
+      url: getLawPublicationDetailUrl(publication.slug),
+      text: joinText([
+        publication.date,
+        publication.publication,
+        publication.issue,
+        publication.entries.map((entry) => `${entry.title} ${entry.citation}`),
       ]),
     })),
   ];

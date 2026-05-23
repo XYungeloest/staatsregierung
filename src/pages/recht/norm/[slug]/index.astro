@@ -24,12 +24,15 @@ import {
   getNormUrl,
   getNormVersionUrl,
   buildNormTextLinkReferences,
+  buildNormPublicationReferenceLookup,
   getRelatedNormsBySubjects,
+  loadAllVerkuendungen,
 } from '../../../../lib/norms/index.ts';
 import { getCurrentVersion, loadAllNorms } from '../../../../lib/norms/content.ts';
 
 export async function getStaticPaths() {
-  const norms = await loadAllNorms();
+  const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+  const publicationReferences = buildNormPublicationReferenceLookup(publications);
 
   return norms.map((norm) => ({
     params: { slug: norm.meta.slug },
@@ -38,11 +41,13 @@ export async function getStaticPaths() {
       currentVersion: getCurrentVersion(norm),
       textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
       relatedNorms: getRelatedNormsBySubjects(norm, norms),
+      publicationReferences,
     },
   }));
 }
 
-const { norm, currentVersion, textReferences, relatedNorms } = Astro.props;
+const { norm, currentVersion, textReferences, relatedNorms, publicationReferences } = Astro.props;
+const publicationReference = publicationReferences.get(`${norm.meta.slug}:${currentVersion.versionId}`);
 const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
 const outline = buildNormOutline(currentVersion.body);
 const normTitle = toDisplayText(norm.meta.title);
@@ -104,7 +109,12 @@ const relatedPressReleases = pressReleases
     </div>
 
     <aside class="content-stack">
-      <NormMetaCard norm={norm} version={currentVersion} relatedNorms={relatedNorms} />
+      <NormMetaCard
+        norm={norm}
+        version={currentVersion}
+        relatedNorms={relatedNorms}
+        publicationReference={publicationReference}
+      />
       {relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
         <section class="section">
           <div class="section-header section-header--compact">

@@ -1,9 +1,11 @@
 ---
 import {
   getHelpUrl,
+  getNormCompareUrl,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
+  getPublicationUrl,
   getSubjectUrl,
 } from '../../lib/norms/routes.ts';
 import {
@@ -14,18 +16,21 @@ import {
   toDisplayText,
 } from '../../lib/norms/presentation.ts';
 import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
+import type { NormPublicationReference } from '../../lib/norms/publications.ts';
 
 interface Props {
   norm: NormRecord;
   version: NormVersion;
   historical?: boolean;
   relatedNorms?: NormRecord[];
+  publicationReference?: NormPublicationReference;
 }
 
-const { norm, version, historical = false, relatedNorms = [] } = Astro.props;
+const { norm, version, historical = false, relatedNorms = [], publicationReference } = Astro.props;
 const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
 const citation = parseCitation(version.citation);
 const initialCitation = parseCitation(norm.meta.initialCitation);
+const canCompareVersions = norm.versions.length > 1;
 ---
 
 <aside class="section meta-panel">
@@ -78,6 +83,21 @@ const initialCitation = parseCitation(norm.meta.initialCitation);
         </dd>
       </div>
     ) : null}
+    {publicationReference ? (
+      <div>
+        <dt>Verkündung</dt>
+        <dd>
+          <a class="inline-link" href={getPublicationUrl(publicationReference.publicationSlug)}>
+            {toDisplayText(publicationReference.publicationTitle)}
+          </a>
+          <br />
+          <span>
+            {formatDate(publicationReference.publicationDate)}
+            {publicationReference.pages ? ` · Seiten ${publicationReference.pages}` : ''}
+          </span>
+        </dd>
+      </div>
+    ) : null}
   </div>
 
   <h3>Gültigkeit</h3>
@@ -113,6 +133,7 @@ const initialCitation = parseCitation(norm.meta.initialCitation);
         Historische Fassung vom {formatDate(entry.validFrom)}
       </a>
     ))}
+    {canCompareVersions ? <a href={getNormCompareUrl(norm.meta.slug)}>Fassungen vergleichen</a> : null}
     {historicalVersions.length === 0 ? <span>Keine historischen Fassungen gespeichert</span> : null}
   </nav>
 

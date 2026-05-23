@@ -7,6 +7,8 @@ import {
   getLawHomeUrl,
   getLawHelpUrl,
   getLawIndexUrl,
+  getLawPublicationsUrl,
+  getLawReferencesUrl,
   getLawSearchUrl,
   getLawSubjectsUrl,
   getPrivacyUrl,
@@ -36,6 +38,10 @@ export function getNormVersionUrl(slug: string, versionId: string): string {
   return withBase(`/recht/norm/${slug}/version/${versionId}/`);
 }
 
+export function getNormCompareUrl(slug: string): string {
+  return withBase(`/recht/norm/${slug}/vergleich/`);
+}
+
 export function getSearchUrl(): string {
   return getLawSearchUrl();
 }
@@ -50,6 +56,18 @@ export function getSubjectsUrl(): string {
 
 export function getFundingUrl(): string {
   return getLawFundingUrl();
+}
+
+export function getReferencesUrl(): string {
+  return getLawReferencesUrl();
+}
+
+export function getPublicationsUrl(): string {
+  return getLawPublicationsUrl();
+}
+
+export function getPublicationUrl(slug: string): string {
+  return withBase(`/recht/verkuendungen/${slug}/`);
 }
 
 export function getHelpUrl(): string {
@@ -67,6 +85,8 @@ export {
   getLawConstitutionUrl,
   getLawFundingUrl,
   getLawHelpUrl,
+  getLawPublicationsUrl,
+  getLawReferencesUrl,
   getPrivacyUrl,
   getServiceOverviewUrl,
 };

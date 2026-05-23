@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getContactUrl, getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
+---
+
+<BaseLayout title="Gebärdensprache" description="Hinweise zum Angebot in Gebärdensprache.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Service', href: getServiceUrl() },
+      { label: 'Gebärdensprache' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Gebärdensprache</h1>
+    <p class="lead">
+      Hier wird das Angebot in Gebärdensprache beschrieben. Videoinhalte können später an dieser
+      Stelle ergänzt werden.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="status-notice status-notice--current">
+      <h2>Hinweis</h2>
+      <p>
+        Für diese Simulation sind noch keine Gebärdensprachvideos hinterlegt. Die Seite bleibt als
+        fester Service-Einstieg vorhanden und nennt den Kontaktweg für Hinweise.
+      </p>
+      <p><a class="inline-link" href={getContactUrl()}>Kontakt aufnehmen</a></p>
+    </div>
+  </section>
+</BaseLayout>

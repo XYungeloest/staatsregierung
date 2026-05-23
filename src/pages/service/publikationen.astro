@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import {
+  getCareerUrl,
+  getHomeUrl,
+  getLawPublicationsUrl,
+  getPressReleaseIndexUrl,
+  getServiceUrl,
+} from '../../lib/portal/index.ts';
+---
+
+<BaseLayout title="Publikationen und Downloads" description="Publikationen, Downloads und abonnierbare Inhalte des Portals.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Service', href: getServiceUrl() },
+      { label: 'Publikationen und Downloads' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Publikationen und Downloads</h1>
+    <p class="lead">
+      Zentrale Veröffentlichungen, abonnierbare Presse- und Terminformate sowie amtliche
+      Verkündungen sind hier gebündelt.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Verkündungen</h2>
+        <p>Ausgaben und Fundstellen des Rechtsbereichs.</p>
+        <p><a class="inline-link" href={getLawPublicationsUrl()}>Zu den Verkündungen</a></p>
+      </article>
+      <article class="panel">
+        <h2>Pressemitteilungen</h2>
+        <p>Aktuelle Meldungen der Staatsregierung und RSS-Angebot.</p>
+        <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Pressemitteilungen</a></p>
+      </article>
+      <article class="panel">
+        <h2>Karriere</h2>
+        <p>Stellenangebote und Informationen zur Arbeit in der Landesverwaltung.</p>
+        <p><a class="inline-link" href={getCareerUrl()}>Zur Karriere</a></p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

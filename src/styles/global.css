@@ -635,6 +635,50 @@ h5 {
   background: var(--color-surface-alt);
 }
 
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.data-table {
+  width: 100%;
+  min-width: 42rem;
+  border-collapse: collapse;
+  background: var(--color-surface);
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.85rem 0.95rem;
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.data-table th {
+  background: var(--color-surface-alt);
+  color: var(--color-primary);
+  font-size: 0.88rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.data-table td > span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.data-table tr:last-child td {
+  border-bottom: 0;
+}
+
 .budget-explorer__funds {
   display: grid;
   gap: 1rem;
@@ -1577,6 +1621,28 @@ article.panel > p:last-child > a.inline-link:hover {
   line-height: 1.08;
 }
 
+.portal-home-header {
+  display: grid;
+  gap: 1rem;
+  padding: 2.35rem 0 2rem;
+}
+
+.portal-home-header .lead {
+  margin-top: 0.5rem;
+}
+
+.portal-home-header .search-form {
+  margin-top: 0.25rem;
+}
+
+.portal-home-header .link-list {
+  margin-top: 0;
+}
+
+.portal-home-header__actions {
+  margin-top: 0.25rem;
+}
+
 .profile-card,
 .press-card {
   display: grid;
@@ -1777,6 +1843,22 @@ article.panel > p:last-child > a.inline-link:hover {
 .content-stack {
   display: grid;
   gap: 1.25rem;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.compare-grid > article {
+  min-width: 0;
+  padding: 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
 }
 
 .section-link-row {
@@ -2548,6 +2630,7 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .content-grid,
   .content-grid--wide,
+  .compare-grid,
   .search-form__filters,
   .card-grid,
   .meta-grid,
