@@ -36,7 +36,6 @@ import {
 } from '../lib/portal/content.ts';
 import { getCurrentVersion, loadAllNorms } from '../lib/norms/content.ts';
 import { getNormUrl } from '../lib/norms/index.ts';
-import SocializationCounter from '../components/portal/SocializationCounter.astro';
 
 const [members, ministries, topics, pressReleases, jobOffers, norms] = await Promise.all([
   loadGovernmentMembers(),
@@ -86,7 +85,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
 >
   <Breadcrumbs items={[{ label: 'Startseite' }]} />
 
-  <section class="hero hero--portal">
+  <section class="section page-header portal-home-header">
     <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
     <h1>{siteConfig.authorityName}</h1>
     <p class="lead">
@@ -111,6 +110,21 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
       <a href={getPressUrl()}>Presse</a>
       <a href={getServiceUrl()}>Service</a>
     </nav>
+    <nav class="hero-actions portal-home-header__actions" aria-label="Schnelleinstiege">
+      <a class="button-link" href={getGovernmentUrl()}>Zur Staatsregierung</a>
+      <a class="button-link button-link--secondary" href={getTopicsUrl()}>Zu Themen & Projekte</a>
+      <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="status-notice status-notice--current">
+      <h2>Neue Staatsregierung im Amt</h2>
+      <p>
+        Das Kabinett Honecker II wurde am 4. Mai 2026 gebildet. Die Ressorts wurden neu geordnet;
+        der 15-Punkte-Plan II bildet die politische Arbeitsgrundlage der zweiten Aufbauphase.
+      </p>
+    </div>
     <div class="meta-grid" aria-label="Portalüberblick">
       <div class="meta-card">
         <span class="meta-label">Regierungssitz</span>
@@ -129,28 +143,6 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
         <strong>{norms.length}</strong>
       </div>
     </div>
-    <nav class="hero-actions portal-home-header__actions" aria-label="Schnelleinstiege">
-      <a class="button-link" href={getGovernmentUrl()}>Zur Staatsregierung</a>
-      <a class="button-link button-link--secondary" href={getTopicsUrl()}>Zu Themen & Projekte</a>
-      <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
-    </nav>
-  </section>
-
-  <section class="section">
-    <div class="status-notice status-notice--current">
-      <h2>Neue Staatsregierung im Amt</h2>
-      <p>
-        Das Kabinett Honecker II wurde am 4. Mai 2026 gebildet. Die Ressorts wurden neu geordnet;
-        der 15-Punkte-Plan II bildet die politische Arbeitsgrundlage der zweiten Aufbauphase.
-      </p>
-    </div>
-  </section>
-  <section class="section section-muted">
-    <SocializationCounter
-      baseValue={638382}
-      baseTimestamp="2026-04-28T12:00:00+02:00"
-      ratePerHour={1589}
-    />
   </section>
   <section class="section">
     <div class="section-header">
