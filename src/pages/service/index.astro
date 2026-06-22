@@ -19,7 +19,7 @@ import { loadJobOffers } from '../../lib/portal/content.ts';
 const offers = await loadJobOffers();
 ---
 
-<BaseLayout title="Service" description="Kontakt, Karriere, Orientierung und barrierearme Serviceangebote des fiktiven Regierungsportals.">
+<BaseLayout title="Service" description="Kontakt, Karriere, Orientierung und barrierearme Serviceangebote des Regierungsportals.">
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service' }]} />
 
   <section class="section page-header">
@@ -94,12 +94,12 @@ const offers = await loadJobOffers();
       </article>
       <article class="panel">
         <h2>Impressum</h2>
-        <p>Verantwortlichkeiten und Einordnung der fiktiven Regierungswebsite.</p>
+        <p>Verantwortlichkeiten und Angaben zum Portal.</p>
         <p><a class="inline-link" href={getImprintUrl()}>Zum Impressum</a></p>
       </article>
       <article class="panel">
         <h2>Datenschutz</h2>
-        <p>Datenschutzhinweise zu Webanalyse, Kontaktwegen und zur Einordnung des fiktiven Portals.</p>
+        <p>Datenschutzhinweise zu Webanalyse und Kontaktwegen.</p>
         <p><a class="inline-link" href={getPrivacyUrl()}>Zum Datenschutz</a></p>
       </article>
     </div>

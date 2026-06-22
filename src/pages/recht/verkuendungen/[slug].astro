@@ -111,7 +111,7 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
                       {entry.versionId ? `Fassung ${entry.versionId}` : 'Norm öffnen'}
                     </a>
                   ) : (
-                    <span>Kein Normlink hinterlegt</span>
+                    <span>Keine Normfassung zugeordnet</span>
                   )}
                 </td>
               </tr>
@@ -126,8 +126,8 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
     <div class="section-header">
       <h2>Hinweise</h2>
       <p>
-        Die verlinkte Normfassung ist der strukturierte Textstand im Rechtsbereich. Die Fundstelle
-        dokumentiert die Ausgabe, in der die Vorschrift oder Bekanntmachung geführt wird.
+        Die verlinkte Normfassung und die Fundstelle dokumentieren die Ausgabe, in der die
+        Vorschrift oder Bekanntmachung geführt wird.
       </p>
     </div>
     {publication.pdf ? (
@@ -135,7 +135,7 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
         <a class="inline-link" href={publication.pdf}>Ausgabe als PDF öffnen</a>
       </p>
     ) : (
-      <p class="detail-line">Für diese Ausgabe ist derzeit kein PDF hinterlegt.</p>
+      <p class="detail-line">Für diese Ausgabe liegt derzeit kein PDF vor.</p>
     )}
   </section>
 </BaseLayout>

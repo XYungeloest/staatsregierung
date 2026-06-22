@@ -31,7 +31,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
 
 <BaseLayout
   title="Presse & Aktuelles"
-  description="Pressemitteilungen, Reden, Termine und Pressekontakt der fiktiven Staatsregierung des Ostdeutschen Freistaates."
+  description="Pressemitteilungen, Reden, Termine und Pressekontakt der Staatsregierung des Ostdeutschen Freistaates."
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse & Aktuelles' }]} />
 
@@ -53,7 +53,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
             <p><a class="inline-link" href={getPressReleaseUrl(leadRelease.slug)}>{leadRelease.title}</a></p>
             <p class="detail-line">{siteConfig.date.formatLong(leadRelease.date)}</p>
           </>
-        ) : <p>Derzeit ist keine Pressemitteilung hinterlegt.</p>}
+        ) : <p>Derzeit liegt keine Pressemitteilung vor.</p>}
       </article>
       <article class="panel">
         <h3>Nächster Termin</h3>
@@ -62,7 +62,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
             <p><a class="inline-link" href={getEventUrl(nextEvents[0].slug)}>{nextEvents[0].title}</a></p>
             <p class="detail-line">{siteConfig.date.formatLong(nextEvents[0].date)} · {nextEvents[0].location}</p>
           </>
-        ) : <p>Derzeit sind keine zukünftigen öffentlichen Termine hinterlegt.</p>}
+        ) : <p>Derzeit sind keine zukünftigen öffentlichen Termine angekündigt.</p>}
       </article>
       <article class="panel">
         <h3>Pressekontakt</h3>

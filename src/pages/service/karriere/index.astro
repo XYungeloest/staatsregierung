@@ -12,7 +12,7 @@ const standorte = [...new Set(offers.map((offer) => offer.standort))].sort((left
 const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))].sort((left, right) => left.localeCompare(right, 'de'));
 ---
 
-<BaseLayout title="Karriere" description="Karriere, Arbeitsfelder und aktuelle Stellenangebote der fiktiven Staatsregierung des Ostdeutschen Freistaates." scripts={['portal-modules']}>
+<BaseLayout title="Karriere" description="Karriere, Arbeitsfelder und aktuelle Stellenangebote der Staatsregierung des Ostdeutschen Freistaates." scripts={['portal-modules']}>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service', href: getServiceUrl() }, { label: 'Karriere' }]} />
 
   <section class="section page-header">
@@ -56,7 +56,7 @@ const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))
           ))}
         </div>
       </Fragment>
-    ) : <p class="search-feedback">Derzeit sind keine Stellenangebote mit offener Bewerbungsfrist hinterlegt. Bitte schauen Sie zu einem späteren Zeitpunkt wieder vorbei.</p>}
+    ) : <p class="search-feedback">Derzeit gibt es keine Stellenangebote mit offener Bewerbungsfrist. Bitte schauen Sie zu einem späteren Zeitpunkt wieder vorbei.</p>}
   </section>
 
   {expired.length > 0 ? (

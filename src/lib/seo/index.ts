@@ -66,8 +66,6 @@ export function buildOrganizationJsonLd(site?: URL): StructuredData {
     name: siteConfig.authorityName,
     alternateName: siteConfig.seo.siteName,
     description: siteConfig.seo.defaultDescription,
-    disambiguatingDescription:
-      'Fiktives Regierungsportal innerhalb einer politischen Simulation; keine amtliche Veröffentlichung.',
     url: getBaseUrl(site).toString(),
     logo: toAbsoluteUrl(siteConfig.officialFlagAssetPath, site),
     address: {

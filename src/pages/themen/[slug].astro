@@ -130,7 +130,7 @@ const relatedTopics = topic
     <section class="section section-muted">
       <div class="section-header">
         <h2>Rechtsgrundlagen</h2>
-        <p>Die Themenseite verlinkt, soweit möglich, direkt in den vorhandenen Normenbestand des Rechtsportals.</p>
+        <p>Hier finden Sie die einschlägigen Gesetze, Verordnungen und Richtlinien.</p>
       </div>
       <ul class="record-list">
         {legalReferences.map((entry) => (
@@ -149,7 +149,7 @@ const relatedTopics = topic
     <section class="section">
       <div class="section-header">
         <h2>FAQ</h2>
-        <p>Kurze Hinweise zur politischen Einordnung und zum Umsetzungsstand des Themas.</p>
+        <p>Antworten auf häufige Fragen zum Vorhaben.</p>
       </div>
       <FaqAccordion items={topic.faq} />
     </section>
@@ -157,7 +157,7 @@ const relatedTopics = topic
     <section class="section section-muted">
       <div class="section-header">
         <h2>Zuständiges Ressort</h2>
-        <p>Federführung und Mitzeichnung werden als Teil der staatlichen Aufgabenordnung des Freistaates dargestellt.</p>
+        <p>Dieses Ressort ist für das Vorhaben zuständig.</p>
       </div>
       {leadMinistry ? <MinistryCard ministry={leadMinistry} /> : null}
       {coMinistries.length > 0 ? (

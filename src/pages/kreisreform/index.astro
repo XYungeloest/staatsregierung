@@ -82,7 +82,7 @@ const bisherigeBezirke = [
     </p>
     <nav class="hero-actions" aria-label="Direkteinstiege">
       <a class="button-link" href="#karte">Karte öffnen</a>
-      <a class="button-link button-link--secondary" href="#bezirke">Bezirk suchen</a>
+      <a class="button-link button-link--secondary" href="#bezirk-suche">Bezirk suchen</a>
       <a class="button-link button-link--secondary" href="#tabellen">Tabellen anzeigen</a>
       <a class="button-link button-link--secondary" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
     </nav>
@@ -142,17 +142,17 @@ const bisherigeBezirke = [
                 <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteKreise.available && 'is-disabled']}>
                   <input type="checkbox" data-layer-toggle="alteKreise" disabled={!manifest.layers.alteKreise.available} />
                   <span>Alte Kreise</span>
-                  <small data-layer-note>{manifest.layers.alteKreise.available ? '' : 'noch nicht hinterlegt'}</small>
+                  <small data-layer-note>{manifest.layers.alteKreise.available ? '' : 'derzeit nicht verfügbar'}</small>
                 </label>
                 <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteBezirke.available && 'is-disabled']}>
                   <input type="checkbox" data-layer-toggle="alteBezirke" disabled={!manifest.layers.alteBezirke.available} />
                   <span>Alte Bezirke</span>
-                  <small data-layer-note>{manifest.layers.alteBezirke.available ? '' : 'noch nicht hinterlegt'}</small>
+                  <small data-layer-note>{manifest.layers.alteBezirke.available ? '' : 'derzeit nicht verfügbar'}</small>
                 </label>
                 <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteBundeslaender.available && 'is-disabled']}>
                   <input type="checkbox" data-layer-toggle="alteBundeslaender" disabled={!manifest.layers.alteBundeslaender.available} />
                   <span>Alte Länder</span>
-                  <small data-layer-note>{manifest.layers.alteBundeslaender.available ? '' : 'noch nicht hinterlegt'}</small>
+                  <small data-layer-note>{manifest.layers.alteBundeslaender.available ? '' : 'derzeit nicht verfügbar'}</small>
                 </label>
               </div>
             </details>

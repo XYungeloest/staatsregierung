@@ -11,7 +11,7 @@ const { upcoming, past } = splitEventsByDate(await loadEvents());
 
 <BaseLayout
   title="Termine"
-  description="Zukünftige öffentliche Termine und das Terminarchiv der fiktiven Staatsregierung des Ostdeutschen Freistaates."
+  description="Zukünftige öffentliche Termine und das Terminarchiv der Staatsregierung des Ostdeutschen Freistaates."
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse & Aktuelles', href: getPressUrl() }, { label: 'Termine' }]} />
 
@@ -32,7 +32,7 @@ const { upcoming, past } = splitEventsByDate(await loadEvents());
     {upcoming.length > 0 ? (
       <div class="content-stack">{upcoming.map((event) => <EventCard event={event} />)}</div>
     ) : (
-      <p class="search-feedback">Derzeit sind keine zukünftigen öffentlichen Termine hinterlegt.</p>
+      <p class="search-feedback">Derzeit sind keine zukünftigen öffentlichen Termine angekündigt.</p>
     )}
   </section>
 

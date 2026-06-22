@@ -22,7 +22,7 @@ const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
 
 <BaseLayout
   title="Haushalt"
-  description="Haushalt, Gesamtplan, Einzelpläne und Sondervermögen der fiktiven Staatsregierung des Ostdeutschen Freistaates."
+  description="Haushalt, Gesamtplan, Einzelpläne und Sondervermögen der Staatsregierung des Ostdeutschen Freistaates."
   scripts={['portal-modules']}
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]} />
@@ -31,8 +31,8 @@ const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
     <p class="eyebrow">Haushalt</p>
     <h1>Haushalt</h1>
     <p class="lead">
-      Der Haushaltsbereich bündelt den Doppelhaushalt 2025/2026, seine Einzelpläne und die
-      Einordnung von Sondervermögen und Fonds in einer sachlichen, staatlich anmutenden Struktur.
+      Hier finden Sie den Doppelhaushalt 2025/2026, seine Einzelpläne sowie Informationen zu
+      Sondervermögen und Fonds.
     </p>
   </section>
 
@@ -56,10 +56,7 @@ const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
   <section class="section section-muted">
     <div class="section-header">
       <h2>Haushaltsbereiche</h2>
-      <p>
-        Die Seiten sind zunächst informativ angelegt und schaffen eine lesbare Grundlage für
-        spätere datenbasierte Erweiterungen.
-      </p>
+      <p>Gesamtplan, Einzelpläne und Sondervermögen sind nach Bereichen gegliedert.</p>
     </div>
     <div class="card-grid card-grid--three">
       {orderedPages.map((page) => (
@@ -74,10 +71,7 @@ const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
   <section class="section">
     <div class="section-header">
       <h2>Haushalt-Explorer</h2>
-      <p>
-        Der Explorer zeigt den Doppelhaushalt 2025/2026 mit Umschaltung nach Haushaltsjahr und
-        einer einfachen Filterung nach Ressort oder Einzelplan.
-      </p>
+      <p>Wählen Sie Haushaltsjahr, Ressort oder Einzelplan aus.</p>
     </div>
     <BudgetExplorer
       summaryRows={budgetSummaryRows}
