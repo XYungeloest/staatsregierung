@@ -101,6 +101,10 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
   Fundstellennachweise, Verkündungen, Förderrichtlinien und Hilfe. Neue Rechtspfade werden
   zentral über die Route-Helper gepflegt.
 
+Für öffentliche Übersichten werden Termine und Stellenangebote über
+`src/lib/portal/dates.ts` gegen den redaktionellen Stichtag gefiltert. Vergangene Termine und
+abgelaufene Fristen bleiben im Archiv erreichbar, werden aber nicht als aktuell ausgegeben.
+
 ## Laufzeit und Cloudflare
 
 Das Portal wird weiterhin für Cloudflare Workers gebaut, nutzt aktuell aber keine D1- oder R2-Bindings. Pressemitteilungen, Termine, Stellenangebote, Projektstatus und Medien werden dateibasiert aus `content/`, `src/data/dashboard/` und `public/images/` erzeugt.

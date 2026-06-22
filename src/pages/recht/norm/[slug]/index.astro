@@ -92,13 +92,20 @@ const relatedPressReleases = pressReleases
         </a>
       ))}
     </nav>
+    <nav class="link-list link-list--inline norm-jump-nav" aria-label="Sprungmarken in dieser Vorschrift">
+      <a href="#norm-inhalt">Inhalt</a>
+      <a href="#normtext">Text</a>
+      <a href="#normdaten">Daten</a>
+      <a href="#normhistorie">Historie</a>
+      {relatedNorms.length > 0 ? <a href="#normverwandt">Verwandte Vorschriften</a> : null}
+    </nav>
   </section>
 
   <NormStatusNotice norm={norm} version={currentVersion} />
 
   <div class="content-grid">
     <div class="content-stack">
-      <NormOutline items={outline} />
+      <div id="norm-inhalt"><NormOutline items={outline} /></div>
       <section class="section" id="normtext">
         <div class="section-header">
           <h2>Vorschriftentext</h2>

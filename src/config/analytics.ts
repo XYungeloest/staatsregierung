@@ -4,7 +4,7 @@ export const analyticsConfig = {
   measurementId: 'G-7W7STBQE3Q',
   consentStorageKey: 'ostrecht-portal-analytics-consent',
   bannerId: 'analytics-consent-banner',
-  requireConsent: false,
+  requireConsent: true,
 } as const;
 
 export type AnalyticsConsentState = 'accepted' | 'rejected';
@@ -14,7 +14,7 @@ export function isAnalyticsEnabled(): boolean {
 }
 
 export function getDefaultAnalyticsConsentState(): AnalyticsConsentState {
-  return analyticsConfig.requireConsent ? 'rejected' : 'accepted';
+  return 'rejected';
 }
 
 export function shouldShowAnalyticsConsentBanner(): boolean {

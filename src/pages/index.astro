@@ -1,27 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import ProjectTimeline from '../components/portal/ProjectTimeline.astro';
-import GovernmentMemberCard from '../components/portal/GovernmentMemberCard.astro';
-import MinistryCard from '../components/portal/MinistryCard.astro';
 import TopicCard from '../components/portal/TopicCard.astro';
-import { timelineEntries } from '../data/dashboard/timeline.ts';
 import { siteConfig } from '../config/site.ts';
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '../lib/seo/index.ts';
 import {
   getActionPlanUrl,
-  getBudgetUrl,
   getCareerUrl,
   getFreestateUrl,
   getGovernmentMembersUrl,
-  getHomeUrl,
   getGovernmentUrl,
-  getJobUrl,
+  getHomeUrl,
   getKreisreformUrl,
   getLawHomeUrl,
   getLawPublicationsUrl,
   getLawSearchUrl,
-  getPortalSearchUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
@@ -30,260 +23,132 @@ import {
 } from '../lib/portal/index.ts';
 import {
   loadCurrentJobOffers,
-  loadFeaturedPressReleases,
-  loadGovernmentMembers,
   loadMinistries,
+  loadRecentPressReleases,
   loadTopics,
 } from '../lib/portal/content.ts';
 import { getCurrentVersion, loadAllNorms } from '../lib/norms/content.ts';
 import { getNormUrl } from '../lib/norms/index.ts';
 
-const [members, ministries, topics, pressReleases, jobOffers, norms] = await Promise.all([
-  loadGovernmentMembers(),
+const [ministries, topics, latestReleases, currentJobOffers, norms] = await Promise.all([
   loadMinistries(),
   loadTopics(),
-  loadFeaturedPressReleases(2),
-  loadCurrentJobOffers(2),
+  loadRecentPressReleases(1),
+  loadCurrentJobOffers(1),
   loadAllNorms(),
 ]);
 
-const latestNorms = [...norms]
+const currentGovernment = siteConfig.currentGovernment;
+const latestRelease = latestReleases[0];
+const latestNorm = [...norms]
   .sort((left, right) =>
     getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom),
-  )
-  .slice(0, 2);
-
-const currentGovernment = siteConfig.currentGovernment;
-const headOfGovernment = members[0];
-const deputyHead = members[1];
+  )[0];
 const featuredTopics = [
   'wohnen-und-vergesellschaftung',
   'gute-arbeit',
   'energie-und-klima',
-  'haushalt-und-finanzen',
 ].flatMap((slug) => {
   const topic = topics.find((entry) => entry.slug === slug);
   return topic ? [topic] : [];
-});
-const spotlightMinistries = [
-  'staatskanzlei',
-  'inneres-bau-und-kommunale-angelegenheiten',
-  'wirtschaft-arbeitsmarkt-und-beschaeftigung',
-  'mobilitaet-infrastruktur-und-landesentwicklung',
-].flatMap((slug) => {
-  const ministry = ministries.find((entry) => entry.slug === slug);
-  return ministry ? [ministry] : [];
 });
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 ---
 
 <BaseLayout
-  title="Freistaat Ostdeutschland"
-  description="Staatsregierung des Freistaates Ostdeutschland mit Themen, Rechtsportal, Presse, Haushalt und Service. Dresden ist Sitz der Staatsregierung innerhalb dieser fiktiven Politiksimulation."
+  title="Regierungsportal des Ostdeutschen Freistaates"
+  description="Fiktives Regierungsportal des Ostdeutschen Freistaates mit Kabinett, Reformprojekten, Rechtsportal, Presse und Service."
   breadcrumbs={[{ label: 'Startseite', href: getHomeUrl() }]}
   structuredData={[buildWebSiteJsonLd(Astro.site), buildOrganizationJsonLd(Astro.site)]}
-  scripts={['portal-modules']}
 >
   <Breadcrumbs items={[{ label: 'Startseite' }]} />
 
   <section class="section page-header portal-home-header">
-    <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
-    <h1>{siteConfig.authorityName}</h1>
+    <p class="eyebrow">Fiktive politische Simulation</p>
+    <h1>Regierungsportal des Ostdeutschen Freistaates</h1>
     <p class="lead">
-      Zentrale Informationen zu Staatsregierung, Themen, Recht, Presse und Service. Seit dem
-      4. Mai 2026 ist das Kabinett Honecker II im Amt.
+      Kabinett, Reformprojekte, Rechtsvorschriften, Presse und Service der fiktiven
+      Staatsregierung an einem Ort.
     </p>
-    <form class="search-form search-form--hero" action={getPortalSearchUrl()} method="get" role="search">
-      <label class="search-field">
-        <span>Portal durchsuchen</span>
-        <input type="search" name="q" autocomplete="off" placeholder="z. B. Kabinett, Recht, Förderung" />
-      </label>
-      <div class="search-form__actions">
-        <button class="button-link" type="submit">Suchen</button>
-        <a class="button-link button-link--secondary" href={getLawSearchUrl()}>Rechtssuche</a>
-      </div>
-    </form>
-    <nav class="link-list link-list--inline" aria-label="Schnellzugriffe">
-      <a href={getGovernmentUrl()}>Staatsregierung</a>
-      <a href={getTopicsUrl()}>Themen</a>
-      <a href={getKreisreformUrl()}>Kreisreform</a>
-      <a href={getLawHomeUrl()}>Recht</a>
-      <a href={getLawPublicationsUrl()}>Verkündungen</a>
-      <a href={getPressUrl()}>Presse</a>
-      <a href={getServiceUrl()}>Service</a>
+    <p class="portal-home-header__notice">
+      Dieses Portal ist Teil einer politischen Simulation und keine echte amtliche Veröffentlichung.
+    </p>
+    <nav class="hero-actions portal-home-header__actions" aria-label="Wichtige Einstiege">
+      <a class="button-link" href={getLawSearchUrl()}>Recht durchsuchen</a>
+      <a class="button-link" href={getTopicsUrl()}>Aktuelle Reformen ansehen</a>
+      <a class="button-link" href={getKreisreformUrl()}>Kreisreform öffnen</a>
     </nav>
-    <nav class="hero-actions portal-home-header__actions" aria-label="Schnelleinstiege">
-      <a class="button-link" href={getGovernmentUrl()}>Zur Staatsregierung</a>
-      <a class="button-link button-link--secondary" href={getKreisreformUrl()}>Zur Kreisreform</a>
-      <a class="button-link button-link--secondary" href={getTopicsUrl()}>Zu Themen & Projekte</a>
-      <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
-    </nav>
-  </section>
-
-  <section class="section">
-    <div class="status-notice status-notice--current">
-      <h2>Neue Staatsregierung im Amt</h2>
-      <p>
-        Das Kabinett Honecker II wurde am 4. Mai 2026 gebildet. Die Ressorts wurden neu geordnet;
-        der 15-Punkte-Plan II bildet die politische Arbeitsgrundlage der zweiten Aufbauphase.
-      </p>
-    </div>
-    <div class="status-notice status-notice--current portal-home-feature">
-      <h2>Kreis- und Bezirksreform</h2>
-      <p>
-        Die neue Verwaltungsgliederung ordnet Kreise und Bezirke neu. Die Themenseite bietet eine
-        interaktive Karte, Vergleichsebenen zu bisherigen Kreisen und eine tabellarische Übersicht.
-      </p>
-      <p><a class="inline-link" href={getKreisreformUrl()}>Zur Kreis- und Bezirksreform</a></p>
-    </div>
-    <div class="meta-grid" aria-label="Portalüberblick">
-      <div class="meta-card">
-        <span class="meta-label">Regierungssitz</span>
-        <strong>{currentGovernment.seatOfGovernment}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Kabinett gebildet</span>
-        <strong>{siteConfig.date.formatLong(currentGovernment.formedOn)}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Themenseiten</span>
-        <strong>{topics.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Normen im Rechtsbereich</span>
-        <strong>{norms.length}</strong>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="section-header">
-      <h2>Portalbereiche</h2>
-      <p>
-        Die Startseite führt in die zentralen Arbeitsbereiche der Staatsregierung ein und bindet
-        den Rechtsbereich als festen Bestandteil der Website ein.
-      </p>
-    </div>
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h3>Staatsregierung</h3>
-        <p>
-          Leitung, Kabinett, Koalition und 15-Punkte-Plan sind unter einer gemeinsamen staatlichen
-          Struktur gebündelt.
-        </p>
-        <p class="detail-line">Leitung: {currentGovernment.headOfGovernment}</p>
-        <p><a class="inline-link" href={getGovernmentUrl()}>Zur Staatsregierung</a></p>
-      </article>
-      <article class="panel">
-        <h3>Themen & Projekte</h3>
-        <p>
-          Themenseiten zeigen Beschlüsse, Umsetzungsstände, nächste Schritte, Zuständigkeiten und
-          Rechtsgrundlagen.
-        </p>
-        <p class="detail-line">Direkte Verknüpfung zum Rechtsportal</p>
-        <p><a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a></p>
-      </article>
-      <article class="panel">
-        <h3>Recht</h3>
-        <p>
-          Der Rechtsbereich ist als eigener Hauptbereich dauerhaft in die Website eingebunden.
-        </p>
-        <p class="detail-line">Aktuelle Fassungen, Historie und Suche</p>
-        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
-      </article>
-      <article class="panel">
-        <h3>Presse & Aktuelles</h3>
-        <p>
-          Pressemitteilungen und aktuelle Kommunikation der Staatsregierung sind als eigener
-          Hauptbereich vorbereitet.
-        </p>
-        <p class="detail-line">Regierungsnahe Informationslage</p>
-        <p><a class="inline-link" href={getPressUrl()}>Zum Pressebereich</a></p>
-      </article>
-      <article class="panel">
-        <h3>Haushalt</h3>
-        <p>
-          Haushaltsinformationen und finanzpolitische Grundlagen werden in einem eigenen Bereich
-          zusammengeführt.
-        </p>
-        <p class="detail-line">Gesamtplan, Einzelpläne und Fonds</p>
-        <p><a class="inline-link" href={getBudgetUrl()}>Zum Haushalt</a></p>
-      </article>
-      <article class="panel">
-        <h3>Service</h3>
-        <p>
-          Kontakt, Karriere, Hilfeseiten und formale Informationsseiten liegen gebündelt unter
-          einem gemeinsamen Service-Einstieg.
-        </p>
-        <p class="detail-line">Kontakt, Karriere, Datenschutz und Hilfe</p>
-        <p><a class="inline-link" href={getServiceUrl()}>Zum Service</a></p>
-      </article>
-    </div>
-  </section>
-
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Regierungsmaßnahmen im Überblick</h2>
-      <p>
-        Diese kompakte Zeitachse zeigt zentrale Kabinettsentscheidungen, Reformgesetze,
-        Presseereignisse und Haushaltsmaßnahmen seit Dezember 2025.
-      </p>
-    </div>
-    <ProjectTimeline entries={timelineEntries.slice(-6)} />
-    <p class="section-link-row">
-      <a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan mit vollständiger Timeline</a>
+    <p class="portal-home-header__secondary-link">
+      <a class="inline-link" href="#fiktion">Einordnung der politischen Simulation</a>
     </p>
   </section>
 
-  <section class="section section-muted">
+  <section class="section" aria-labelledby="portalpfade">
     <div class="section-header">
-      <h2>Aktuelle Staatsregierung</h2>
-      <p>
-        Das <strong>{currentGovernment.cabinetName}</strong> wurde am{' '}
-        {siteConfig.date.formatLong(currentGovernment.formedOn)} gebildet und wird von einer
-        Koalition aus {currentGovernment.coalition} getragen.
-      </p>
+      <h2 id="portalpfade">Wichtige Bereiche</h2>
+      <p>Wählen Sie einen Bereich, um direkt zum passenden Angebot zu gelangen.</p>
     </div>
-    <div class="spotlight-grid">
-      {headOfGovernment ? <GovernmentMemberCard member={headOfGovernment} /> : null}
-      {deputyHead ? <GovernmentMemberCard member={deputyHead} /> : null}
-    </div>
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h3>Regierungsleitung</h3>
-        <p>
-          Die Staatsregierung steuert Kabinettsverfahren, ressortübergreifende Projekte und die
-          öffentliche Kommunikation des Landes.
-        </p>
-        <p><a class="inline-link" href={getGovernmentMembersUrl()}>Zu den Regierungsmitgliedern</a></p>
+    <div class="card-grid card-grid--four portal-path-grid">
+      <article class="panel portal-path-card">
+        <h3>Regierung &amp; Kabinett</h3>
+        <p>Informationen zum Kabinett, zu Ministerien und zu Zuständigkeiten.</p>
+        <p><a class="inline-link" href={getGovernmentUrl()}>Regierung öffnen</a></p>
       </article>
-      <article class="panel">
-        <h3>Ressorts</h3>
-        <p>
-          Die Ressortseiten verbinden Leitung, Aufgaben, Kontakt und Themenbezug in einer kompakten
-          Darstellung.
-        </p>
-        <p><a class="inline-link" href={getGovernmentUrl()}>Zur Regierungsübersicht</a></p>
+      <article class="panel portal-path-card">
+        <h3>Reformen &amp; Themen</h3>
+        <p>Vorhaben, Umsetzungsstände, nächste Schritte und Rechtsgrundlagen.</p>
+        <p><a class="inline-link" href={getTopicsUrl()}>Themen öffnen</a></p>
       </article>
-      <article class="panel">
-        <h3>15-Punkte-Plan</h3>
-        <p>
-          Das Regierungsprogramm ist mit Statusindikatoren und direkten Verweisen auf Themen- und
-          Rechtsseiten eingebunden.
-        </p>
-        <p><a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a></p>
+      <article class="panel portal-path-card">
+        <h3>Recht &amp; Verkündungen</h3>
+        <p>Vorschriften, Fassungen, Fundstellen, Verkündungen und Rechtssuche.</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Rechtsportal öffnen</a></p>
+      </article>
+      <article class="panel portal-path-card">
+        <h3>Presse, Kontakt &amp; Service</h3>
+        <p>Aktuelle Mitteilungen, Termine, Kontaktwege und hilfreiche Serviceangebote.</p>
+        <p><a class="inline-link" href={getPressUrl()}>Presse &amp; Service öffnen</a></p>
       </article>
     </div>
   </section>
 
-  <section class="section">
-    <div class="section-header">
-      <h2>Schwerpunkte der Landespolitik</h2>
+  <section class="section section-muted" aria-labelledby="regierungsstand">
+    <div id="fiktion" class="status-notice status-notice--current">
+      <h2 id="regierungsstand">Aktueller Regierungsstand</h2>
       <p>
-        Diese Themenseiten tragen das Regierungsportal inhaltlich und verknüpfen politische
-        Vorhaben direkt mit Ressorts und Rechtsgrundlagen.
+        Das {currentGovernment.cabinetName} ist seit dem{' '}
+        {siteConfig.date.formatLong(currentGovernment.formedOn)} im Amt. Es wird von{' '}
+        {currentGovernment.headOfGovernment} geleitet; die politischen Vorhaben sind im
+        15-Punkte-Plan II gebündelt.
       </p>
+      <p>
+        <a class="inline-link" href={getGovernmentUrl()}>Zum Kabinett und den Ressorts</a>
+        <span aria-hidden="true"> · </span>
+        <a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a>
+      </p>
+    </div>
+    {latestRelease ? (
+      <div class="portal-current-news">
+        <p class="eyebrow">Neueste Pressemitteilung</p>
+        <h3><a class="inline-link" href={getPressReleaseUrl(latestRelease.slug)}>{latestRelease.title}</a></h3>
+        <p>{latestRelease.teaser}</p>
+        <p class="detail-line">{siteConfig.date.formatLong(latestRelease.date)} · {latestRelease.ressort}</p>
+      </div>
+    ) : null}
+  </section>
+
+  <section class="section" aria-labelledby="projekte">
+    <div class="section-header">
+      <h2 id="projekte">Top-Projekte und Reformen</h2>
+      <p>Diese Vorhaben sind derzeit besonders wichtig und führen zu Zuständigkeiten und Rechtsgrundlagen.</p>
     </div>
     <div class="card-grid card-grid--two">
+      <article class="panel portal-project-card">
+        <p class="eyebrow">Kreis- und Bezirksreform 2027</p>
+        <h3>Kreise, Bezirke und Zuständigkeiten neu ordnen</h3>
+        <p>Vergleichen Sie die neue Verwaltungsgliederung über Karte, Suche und tabellarische Übersicht.</p>
+        <p><a class="inline-link" href={getKreisreformUrl()}>Kreisreform öffnen</a></p>
+      </article>
       {featuredTopics.map((topic) => (
         <TopicCard
           topic={topic}
@@ -291,136 +156,76 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
         />
       ))}
     </div>
-    <p class="section-link-row">
-      <a class="inline-link" href={getTopicsUrl()}>Alle Themenseiten anzeigen</a>
-    </p>
+    <p class="section-link-row"><a class="inline-link" href={getTopicsUrl()}>Alle Reformthemen anzeigen</a></p>
   </section>
 
-  <section class="section">
-    <div class="section-header">
-      <h2>Ministerien im Überblick</h2>
-      <p>
-        Die Ressorts greifen die politischen Schwerpunkte des Landes auf und verorten Aufgaben,
-        Zuständigkeiten und Kontaktinformationen in einer einheitlichen Portalstruktur.
-      </p>
+  <section class="section section-muted" aria-labelledby="recht-teaser">
+    <div class="content-grid">
+      <div>
+        <div class="section-header">
+          <h2 id="recht-teaser">Recht schnell finden</h2>
+          <p>Durchsuchen Sie Vorschriften, aktuelle und historische Fassungen, Fundstellen und Verkündungen.</p>
+        </div>
+        <p>
+          <a class="button-link" href={getLawSearchUrl()}>Recht durchsuchen</a>
+          <a class="button-link button-link--secondary" href={getLawPublicationsUrl()}>Verkündungen ansehen</a>
+        </p>
+      </div>
+      <aside class="meta-panel portal-law-current">
+        <p class="eyebrow">Zuletzt aktualisiert</p>
+        {latestNorm ? (
+          <>
+            <h3><a class="inline-link" href={getNormUrl(latestNorm.meta.slug)}>{latestNorm.meta.title}</a></h3>
+            <p>Aktuelle Fassung seit {siteConfig.date.formatLong(getCurrentVersion(latestNorm).validFrom)}.</p>
+          </>
+        ) : <p>Das Rechtsportal hält aktuelle und gespeicherte historische Fassungen bereit.</p>}
+      </aside>
     </div>
-    <div class="card-grid card-grid--two">
-      {spotlightMinistries.map((ministry) => (
-        <MinistryCard ministry={ministry} />
-      ))}
-    </div>
-    <p class="section-link-row">
-      <a class="inline-link" href={getGovernmentUrl()}>Alle Ressorts über die Staatsregierung anzeigen</a>
-    </p>
   </section>
 
-  <section class="section section-muted">
+  <section class="section" aria-labelledby="presse-service">
     <div class="section-header">
-      <h2>Freistaat auf einen Blick</h2>
-      <p>
-        Grunddaten zum Land und zum Portalrahmen bleiben knapp, sachlich und in enger Verbindung
-        zur politischen Simulation.
-      </p>
-    </div>
-    <div class="fact-grid">
-      <article class="fact-card">
-        <span class="meta-label">Landeshauptstadt</span>
-        <strong>Dresden</strong>
-        <p>Von hier aus werden Staatsregierung, Kabinett und ressortübergreifende Vorhaben koordiniert.</p>
-      </article>
-      <article class="fact-card">
-        <span class="meta-label">Bundeshauptstadt</span>
-        <strong>Berlin</strong>
-        <p>Berlin behält als Bundeshauptstadt eine Sonderstellung innerhalb des Freistaates.</p>
-      </article>
-      <article class="fact-card">
-        <span class="meta-label">Verwaltungsgliederung</span>
-        <strong>Acht Bezirke</strong>
-        <p>Die Bezirksstruktur verbindet Landesebene, regionale Aufgabenwahrnehmung und kommunale Ordnung.</p>
-      </article>
-      <article class="fact-card">
-        <span class="meta-label">Sprachen</span>
-        <strong>Deutsch und Sorbisch</strong>
-        <p>Sprachliche Vielfalt prägt Verwaltung, Kultur und öffentliche Kommunikation des Landes.</p>
-      </article>
-    </div>
-    <p class="section-link-row">
-      <a class="inline-link" href={getFreestateUrl()}>Mehr zum Freistaat</a>
-    </p>
-  </section>
-
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Aus aktuellen Bereichen</h2>
-      <p>
-        Die Startseite verzahnt Presse, Karriere und den Rechtsbereich mit den Kerninformationen
-        der Staatsregierung.
-      </p>
+      <h2 id="presse-service">Presse, Kontakt und Service</h2>
+      <p>Hier finden Sie aktuelle Mitteilungen, Kontaktwege und weitere Angebote des Portals.</p>
     </div>
     <div class="card-grid card-grid--three">
       <article class="panel">
-        <h3>Presse</h3>
-        {pressReleases[0] ? (
-          <>
-            <p>
-              <a class="inline-link" href={getPressReleaseUrl(pressReleases[0].slug)}>
-                {pressReleases[0].title}
-              </a>
-            </p>
-            <p class="detail-line">{siteConfig.date.formatLong(pressReleases[0].date)}</p>
-            <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Alle Pressemitteilungen</a></p>
-          </>
-        ) : (
-          <p>Der Pressebereich ist angebunden und kann inhaltlich weiter ausgebaut werden.</p>
-        )}
+        <h3>Presse &amp; Aktuelles</h3>
+        <p>Pressemitteilungen, Reden, Termine sowie RSS- und Kalenderangebote.</p>
+        <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Pressemitteilungen öffnen</a></p>
       </article>
       <article class="panel">
-        <h3>Service & Karriere</h3>
-        {jobOffers[0] ? (
-          <>
-            <p>
-              <a class="inline-link" href={getJobUrl(jobOffers[0].slug)}>
-                {jobOffers[0].title}
-              </a>
-            </p>
-            <p class="detail-line">
-              Bewerbungsfrist: {siteConfig.date.formatLong(jobOffers[0].applicationDeadline)}
-            </p>
-            <p><a class="inline-link" href={getCareerUrl()}>Zur Karriere</a></p>
-          </>
-        ) : (
-          <p>
-            Der Karrierebereich ist vorbereitet und kann mit weiteren Stellenangeboten ergänzt
-            werden.
-          </p>
-        )}
+        <h3>Kontakt</h3>
+        <p>Die zentrale Anlaufstelle bündelt Bürgertelefon, Presse- und Fachkontakte.</p>
+        <p><a class="inline-link" href={getServiceUrl()}>Service und Kontakt öffnen</a></p>
       </article>
       <article class="panel">
-        <h3>Recht</h3>
-        {latestNorms[0] ? (
+        <h3>Karriere</h3>
+        {currentJobOffers[0] ? (
           <>
-            <p>
-              <a class="inline-link" href={getNormUrl(latestNorms[0].meta.slug)}>
-                {latestNorms[0].meta.title}
-              </a>
-            </p>
-            <p class="detail-line">
-              Aktuelle Fassung seit {siteConfig.date.formatLong(getCurrentVersion(latestNorms[0]).validFrom)}
-            </p>
-            <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
+            <p>{currentJobOffers[0].title}</p>
+            <p><a class="inline-link" href={getCareerUrl()}>Aktuelle Stellenangebote öffnen</a></p>
           </>
         ) : (
-          <p>
-            Der Rechtsbereich bleibt vollständig erhalten und ist weiterhin such- und zitierbar.
-          </p>
+          <>
+            <p>Derzeit sind keine offenen Bewerbungsfristen hinterlegt. Informationen zum Arbeitsfeld bleiben im Karrierebereich verfügbar.</p>
+            <p><a class="inline-link" href={getCareerUrl()}>Zum Karrierebereich</a></p>
+          </>
         )}
       </article>
     </div>
   </section>
 
-  <style>
-    .portal-home-feature {
-      margin-top: 1rem;
-    }
-  </style>
+  <section class="section portal-home-secondary" aria-labelledby="weitere-einstiege">
+    <div class="section-header">
+      <h2 id="weitere-einstiege">Weitere Einstiege</h2>
+    </div>
+    <nav class="link-list link-list--inline" aria-label="Weitere Portalbereiche">
+      <a href={getGovernmentMembersUrl()}>Regierungsmitglieder</a>
+      <a href={getFreestateUrl()}>Grunddaten zum Freistaat</a>
+      <a href={getActionPlanUrl()}>Zeitplan der Vorhaben</a>
+      <a href={getPressUrl()}>Presse &amp; Aktuelles</a>
+      <a href={getServiceUrl()}>Serviceübersicht</a>
+    </nav>
+  </section>
 </BaseLayout>
