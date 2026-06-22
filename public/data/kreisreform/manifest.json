@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-05-26T17:18:49.702Z",
+  "source": {
+    "geoPackage": "data/geo/kreisreform/gebietsreform.gpkg",
+    "neuordnungsgesetz": "data/geo/kreisreform/bezirks-und-kreisneuordnungsgesetz-entwurf.md",
+    "bezirkseinfuehrungsgesetz": "data/geo/kreisreform/ostdeutsches-bezirkseinfuehrungsgesetz.md",
+    "vg250": "data/geo/kreisreform/vg250/DE_VG250.gpkg",
+    "vg250Download": "https://daten.gdz.bkg.bund.de/produkte/vg/vg250_ebenen_0101/aktuell/vg250_01-01.utm32s.gpkg.ebenen.zip",
+    "sourceSrs": "EPSG:25832",
+    "webSrs": "EPSG:4326",
+    "layers": [
+      {
+        "name": "bezirke",
+        "srsId": 25832
+      },
+      {
+        "name": "gemeinden_mit_einwohner",
+        "srsId": 25832
+      },
+      {
+        "name": "kreise_mit_einwohnern",
+        "srsId": 25832
+      }
+    ]
+  },
+  "stats": {
+    "neueKreise": 101,
+    "neueBezirke": 14,
+    "gemeinden": 2379,
+    "wirksamAb": "2027-01-01",
+    "groessterKreis": {
+      "name": "Berlin",
+      "typ": "Kreisfreie Stadt",
+      "einwohner": 3685265
+    }
+  },
+  "layers": {
+    "neueKreise": {
+      "url": "/data/kreisreform/neue-kreise.geojson",
+      "available": true,
+      "sizeBytes": 888093,
+      "featureCount": 101,
+      "bbox": [
+        9.87698,
+        50.17175,
+        15.04182,
+        54.68488
+      ]
+    },
+    "neueBezirke": {
+      "url": "/data/kreisreform/neue-bezirke.geojson",
+      "available": true,
+      "sizeBytes": 306494,
+      "featureCount": 14,
+      "bbox": [
+        9.87732,
+        50.17175,
+        15.04179,
+        54.68488
+      ]
+    },
+    "gemeindenSuche": {
+      "url": "/data/kreisreform/gemeinden-zur-suche.json",
+      "available": true,
+      "sizeBytes": 815344,
+      "featureCount": 2379
+    },
+    "alteKreise": {
+      "url": "/data/kreisreform/alte-kreise.geojson",
+      "available": true,
+      "sizeBytes": 692515,
+      "featureCount": 76,
+      "bbox": [
+        9.87698,
+        50.17153,
+        15.04182,
+        54.685
+      ]
+    },
+    "alteBezirke": {
+      "url": "/data/kreisreform/alte-bezirke.geojson",
+      "available": true,
+      "sizeBytes": 216747,
+      "featureCount": 8,
+      "bbox": [
+        9.87698,
+        50.17175,
+        15.04179,
+        54.68501
+      ]
+    },
+    "alteBundeslaender": {
+      "url": "/data/kreisreform/alte-bundeslaender.geojson",
+      "available": true,
+      "sizeBytes": 131635,
+      "featureCount": 6,
+      "bbox": [
+        9.87698,
+        50.17153,
+        15.04182,
+        54.88406
+      ]
+    }
+  },
+  "notice": "Die Karte dient der anschaulichen Darstellung; rechtsverbindlich ist die verkündete Fassung des Gesetzes einschließlich Anlagen."
+}

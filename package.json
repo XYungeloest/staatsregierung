@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "content:check": "node scripts/check-content.mjs",
+    "kreisreform:prepare": "node scripts/prepare-kreisreform-map.mjs",
     "check": "astro check",
     "build": "astro build",
     "preview": "astro preview",
@@ -17,11 +18,14 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
-    "astro": "^6.1.5"
+    "astro": "^6.1.5",
+    "leaflet": "^1.9.4"
   },
   "devDependencies": {
     "@astrojs/cloudflare": "^13.1.10",
+    "@types/leaflet": "^1.9.21",
     "@types/node": "^25.6.0",
+    "polygon-clipping": "^0.15.7",
     "wrangler": "^4.83.0"
   }
 }

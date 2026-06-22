@@ -17,6 +17,7 @@ import {
   getHomeUrl,
   getGovernmentUrl,
   getJobUrl,
+  getKreisreformUrl,
   getLawHomeUrl,
   getLawPublicationsUrl,
   getLawSearchUrl,
@@ -105,6 +106,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
     <nav class="link-list link-list--inline" aria-label="Schnellzugriffe">
       <a href={getGovernmentUrl()}>Staatsregierung</a>
       <a href={getTopicsUrl()}>Themen</a>
+      <a href={getKreisreformUrl()}>Kreisreform</a>
       <a href={getLawHomeUrl()}>Recht</a>
       <a href={getLawPublicationsUrl()}>Verkündungen</a>
       <a href={getPressUrl()}>Presse</a>
@@ -112,6 +114,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
     </nav>
     <nav class="hero-actions portal-home-header__actions" aria-label="Schnelleinstiege">
       <a class="button-link" href={getGovernmentUrl()}>Zur Staatsregierung</a>
+      <a class="button-link button-link--secondary" href={getKreisreformUrl()}>Zur Kreisreform</a>
       <a class="button-link button-link--secondary" href={getTopicsUrl()}>Zu Themen & Projekte</a>
       <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
     </nav>
@@ -124,6 +127,14 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
         Das Kabinett Honecker II wurde am 4. Mai 2026 gebildet. Die Ressorts wurden neu geordnet;
         der 15-Punkte-Plan II bildet die politische Arbeitsgrundlage der zweiten Aufbauphase.
       </p>
+    </div>
+    <div class="status-notice status-notice--current portal-home-feature">
+      <h2>Kreis- und Bezirksreform</h2>
+      <p>
+        Die neue Verwaltungsgliederung ordnet Kreise und Bezirke neu. Die Themenseite bietet eine
+        interaktive Karte, Vergleichsebenen zu bisherigen Kreisen und eine tabellarische Übersicht.
+      </p>
+      <p><a class="inline-link" href={getKreisreformUrl()}>Zur Kreis- und Bezirksreform</a></p>
     </div>
     <div class="meta-grid" aria-label="Portalüberblick">
       <div class="meta-card">
@@ -406,4 +417,10 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
       </article>
     </div>
   </section>
+
+  <style>
+    .portal-home-feature {
+      margin-top: 1rem;
+    }
+  </style>
 </BaseLayout>
