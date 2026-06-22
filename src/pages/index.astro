@@ -57,30 +57,24 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
 
 <BaseLayout
   title="Regierungsportal des Ostdeutschen Freistaates"
-  description="Fiktives Regierungsportal des Ostdeutschen Freistaates mit Kabinett, Reformprojekten, Rechtsportal, Presse und Service."
+  description="Regierungsportal des Ostdeutschen Freistaates mit Kabinett, Reformprojekten, Rechtsportal, Presse und Service."
   breadcrumbs={[{ label: 'Startseite', href: getHomeUrl() }]}
   structuredData={[buildWebSiteJsonLd(Astro.site), buildOrganizationJsonLd(Astro.site)]}
 >
   <Breadcrumbs items={[{ label: 'Startseite' }]} />
 
   <section class="section page-header portal-home-header">
-    <p class="eyebrow">Fiktive politische Simulation</p>
+    <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
     <h1>Regierungsportal des Ostdeutschen Freistaates</h1>
     <p class="lead">
-      Kabinett, Reformprojekte, Rechtsvorschriften, Presse und Service der fiktiven
-      Staatsregierung an einem Ort.
-    </p>
-    <p class="portal-home-header__notice">
-      Dieses Portal ist Teil einer politischen Simulation und keine echte amtliche Veröffentlichung.
+      Kabinett, Reformprojekte, Rechtsvorschriften, Presse und Service der Staatsregierung an
+      einem Ort.
     </p>
     <nav class="hero-actions portal-home-header__actions" aria-label="Wichtige Einstiege">
       <a class="button-link" href={getLawSearchUrl()}>Recht durchsuchen</a>
       <a class="button-link" href={getTopicsUrl()}>Aktuelle Reformen ansehen</a>
       <a class="button-link" href={getKreisreformUrl()}>Kreisreform öffnen</a>
     </nav>
-    <p class="portal-home-header__secondary-link">
-      <a class="inline-link" href="#fiktion">Einordnung der politischen Simulation</a>
-    </p>
   </section>
 
   <section class="section" aria-labelledby="portalpfade">
@@ -112,8 +106,26 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
     </div>
   </section>
 
+  <section class="section portal-reform-priority" aria-labelledby="kreisreform-aktuell">
+    <article class="reform-priority-card">
+      <div>
+        <p class="eyebrow">Aktuell im Gesetzgebungsverfahren</p>
+        <h2 id="kreisreform-aktuell">Kreis- und Bezirksreform 2027</h2>
+        <p>
+          Der Entwurf zur Neuordnung der Kreise und Bezirke soll am 23. Juni 2026 in den
+          Ostdeutschen Landtag eingebracht werden. Karte, Suche und Tabellen zeigen den
+          vorgesehenen Stand der Reform.
+        </p>
+      </div>
+      <div class="reform-priority-card__actions">
+        <a class="button-link" href={getKreisreformUrl()}>Kreisreform öffnen</a>
+        <a class="button-link button-link--secondary" href={`${getKreisreformUrl()}#tabellen`}>Kreise und Bezirke ansehen</a>
+      </div>
+    </article>
+  </section>
+
   <section class="section section-muted" aria-labelledby="regierungsstand">
-    <div id="fiktion" class="status-notice status-notice--current">
+    <div class="status-notice status-notice--current">
       <h2 id="regierungsstand">Aktueller Regierungsstand</h2>
       <p>
         Das {currentGovernment.cabinetName} ist seit dem{' '}

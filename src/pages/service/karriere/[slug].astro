@@ -30,7 +30,7 @@ const relatedOffers = (await loadJobOffers())
 <BaseLayout
   title={offer?.title ?? 'Stellenangebot nicht gefunden'}
   description={
-    offer?.teaser ?? 'Das angeforderte Stellenangebot konnte im dynamischen Karrierebereich nicht gefunden werden.'
+    offer?.teaser ?? 'Das angeforderte Stellenangebot konnte nicht gefunden werden.'
   }
 >
   <Breadcrumbs
@@ -70,8 +70,7 @@ const relatedOffers = (await loadJobOffers())
           <div class="status-notice status-notice--current">
             <h2>Hinweis</h2>
             <p>
-              Diese Ausschreibung ist Teil einer Politiksimulation. Bewerbungen erfolgen über die
-              in der Ausschreibung genannten Kontaktwege.
+              Bewerbungen erfolgen über die in der Ausschreibung genannten Kontaktwege.
             </p>
           </div>
           <div class="body-copy">

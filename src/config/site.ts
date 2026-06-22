@@ -9,12 +9,11 @@ export const siteConfig = {
     siteUrl: 'https://freistaat-ostdeutschland.de',
     locale: 'de_DE',
     defaultDescription:
-      'Fiktives Regierungsportal des Ostdeutschen Freistaates mit Kabinett, Reformprojekten, Rechtsportal, Presse und Service.',
+      'Regierungsportal des Ostdeutschen Freistaates mit Kabinett, Reformprojekten, Rechtsportal, Presse und Service.',
   },
   simulationNotice:
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',
-  footerNote:
-    'Website der Staatsregierung des Ostdeutschen Freistaates mit integriertem Rechtsbereich innerhalb einer fiktiven Politiksimulation.',
+  footerNote: 'Website der Staatsregierung des Ostdeutschen Freistaates mit integriertem Rechtsbereich.',
   officialFlagAssetPath: '/images/ui/ost-flagge.png',
   officialFlagText: 'OF',
   searchLabel: 'Portal durchsuchen',
@@ -62,6 +61,7 @@ export const siteConfig = {
     { label: 'Freistaat', pathKey: 'freestate' },
     { label: 'Staatsregierung', pathKey: 'government' },
     { label: 'Themen', pathKey: 'topics' },
+    { label: 'Kreisreform', pathKey: 'kreisreform' },
     { label: 'Recht', pathKey: 'lawHome' },
     { label: 'Presse', pathKey: 'press' },
     { label: 'Service', pathKey: 'service' },

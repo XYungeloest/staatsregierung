@@ -32,7 +32,7 @@ const isArchivedEvent = isPast(event.date);
 <BaseLayout
   title={event?.title ?? 'Termin nicht gefunden'}
   description={
-    event?.teaser ?? 'Der angeforderte Termin konnte im dynamischen Terminbereich nicht gefunden werden.'
+    event?.teaser ?? 'Der angeforderte Termin konnte nicht gefunden werden.'
   }
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
