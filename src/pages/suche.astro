@@ -75,7 +75,13 @@ const indexUrl = `${import.meta.env.BASE_URL}search-index.json`;
     <p class="search-feedback search-feedback--warning" data-portal-search-error role="alert" hidden>
       Die Suche ist derzeit nicht verfügbar. Bitte versuchen Sie es später erneut.
     </p>
-    <ol class="record-list search-results__list" data-portal-search-results aria-live="polite" aria-label="Suchtreffer"></ol>
+    <h2 id="portal-search-results-heading" class="visually-hidden">Suchergebnisse</h2>
+    <ol
+      class="record-list search-results__list"
+      data-portal-search-results
+      aria-live="polite"
+      aria-labelledby="portal-search-results-heading"
+    ></ol>
   </section>
 
   <script>

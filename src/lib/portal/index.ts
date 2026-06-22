@@ -68,6 +68,7 @@ export {
   getKreisreformUrl,
   getLawConstitutionUrl,
   getLawFundingUrl,
+  getLawHelpUrl,
   getLawHomeUrl,
   getLawIndexUrl,
   getLawPublicationsUrl,

@@ -78,15 +78,16 @@ function updateGoogleConsent(state: AnalyticsConsentState): void {
   });
 }
 
-function configureGoogleAnalytics(): void {
+function configureGoogleAnalytics(consent: AnalyticsConsentState): void {
   if (window.__ga4Configured) {
     return;
   }
 
+  const analyticsStorage = consent === 'accepted' ? 'granted' : 'denied';
   window.dataLayer = window.dataLayer ?? [];
   window.gtag = window.gtag ?? ((...args: unknown[]) => window.dataLayer?.push(args));
   window.gtag('consent', 'default', {
-    analytics_storage: 'granted',
+    analytics_storage: analyticsStorage,
     ad_storage: 'denied',
     ad_user_data: 'denied',
     ad_personalization: 'denied',
@@ -105,11 +106,11 @@ function configureGoogleAnalytics(): void {
 }
 
 function applyConsent(state: AnalyticsConsentState): void {
-  updateGoogleConsent(state);
-
   if (state === 'accepted') {
-    configureGoogleAnalytics();
+    configureGoogleAnalytics(state);
   }
+
+  updateGoogleConsent(state);
 }
 
 function persistAndApplyConsent(state: AnalyticsConsentState): void {

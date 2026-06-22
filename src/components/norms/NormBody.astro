@@ -12,13 +12,14 @@ interface Props {
   blocks: NormBodyBlock[];
   path?: number[];
   references?: TextLinkReference[];
+  headingLevel?: number;
 }
 
 type BlockRun =
   | { kind: 'block'; block: NormBodyBlock; index: number }
   | { kind: 'list'; items: Array<{ block: NormBodyBlock; index: number }> };
 
-const { blocks, path = [], references = [] } = Astro.props;
+const { blocks, path = [], references = [], headingLevel = 2 } = Astro.props;
 
 function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
   const runs: BlockRun[] = [];
@@ -52,8 +53,11 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
       ? (() => {
           const block = run.block;
           const currentPath = [...path, run.index];
-          const HeadingTag = getHeadingTag(block);
+          const HeadingTag = getHeadingTag(headingLevel);
           const anchorId = getBlockAnchorId(currentPath, block);
+          const childHeadingLevel = block.title
+            ? Number.parseInt(HeadingTag.slice(1), 10)
+            : headingLevel;
 
           return (
             <Fragment>
@@ -67,7 +71,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </header>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} />
                   ) : null}
                 </section>
               ) : null}
@@ -79,7 +83,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </summary>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} />
                   ) : null}
                 </details>
               ) : null}
@@ -91,7 +95,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </header>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} />
                   ) : null}
                 </section>
               ) : null}
@@ -111,7 +115,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
             {block.label ? <span class="norm-list__label">{toDisplayText(block.label)}</span> : null}
             <span set:html={renderLinkedDisplayText(block.text, references)} />
             {block.children && block.children.length > 0 ? (
-              <Astro.self blocks={block.children} path={[...path, index]} references={references} />
+              <Astro.self blocks={block.children} path={[...path, index]} references={references} headingLevel={headingLevel} />
             ) : null}
           </li>
         ))}

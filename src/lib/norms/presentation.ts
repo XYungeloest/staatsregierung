@@ -254,16 +254,9 @@ export function getBlockAnchorId(path: number[], block: NormBodyBlock): string {
   return `block-${path.join('-')}-${slug || block.type}`;
 }
 
-export function getHeadingTag(block: NormBodyBlock): 'h2' | 'h3' | 'h4' | 'h5' {
-  if (block.type === 'part' || block.type === 'chapter') {
-    return 'h2';
-  }
-
-  if (block.type === 'section' || block.type === 'subsection' || block.type === 'annex') {
-    return 'h3';
-  }
-
-  return 'h4';
+export function getHeadingTag(parentLevel: number): 'h3' | 'h4' | 'h5' | 'h6' {
+  const level = Math.min(Math.max(parentLevel + 1, 3), 6);
+  return `h${level}` as 'h3' | 'h4' | 'h5' | 'h6';
 }
 
 export function buildNormOutline(

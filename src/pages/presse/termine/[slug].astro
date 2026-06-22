@@ -44,7 +44,7 @@ const isArchivedEvent = isPast(event.date);
     event
       ? {
           url: '/images/presse/termin-platzhalter.png',
-          alt: 'Grafischer Platzhalter für Terminankündigung',
+          alt: 'Grafik zu einem Termin der Staatsregierung',
         }
       : undefined
   }
@@ -57,6 +57,9 @@ const isArchivedEvent = isPast(event.date);
             url: getEventUrl(event.slug),
             startDate: event.date,
             location: event.location,
+            eventStatus: isArchivedEvent
+              ? 'https://schema.org/EventCompleted'
+              : 'https://schema.org/EventScheduled',
           },
           Astro.site,
         )
@@ -87,7 +90,7 @@ const isArchivedEvent = isPast(event.date);
           <img
             class="media-banner"
             src={resolvePortalPath('/images/presse/termin-platzhalter.png')}
-            alt="Grafischer Platzhalter für Terminankündigung"
+            alt="Grafik zu einem Termin der Staatsregierung"
             width="1280"
             height="720"
             decoding="async"

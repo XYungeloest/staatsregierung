@@ -92,16 +92,21 @@ const historyMilestones = [
       ) : null}
 
       {page.slug === 'hauptstaedte' ? (
-        <div class="card-grid card-grid--two">
-          <article class="panel">
-            <h3>Dresden</h3>
-            <p>Landeshauptstadt und politischer Sitz der Staatsregierung.</p>
-          </article>
-          <article class="panel">
-            <h3>Berlin</h3>
-            <p>Bundeshauptstadt mit rechtlich abgesicherter Sonderstellung innerhalb des Freistaates.</p>
-          </article>
-        </div>
+        <>
+          <div class="section-header">
+            <h2>Hauptstadtfunktionen</h2>
+          </div>
+          <div class="card-grid card-grid--two">
+            <article class="panel">
+              <h3>Dresden</h3>
+              <p>Landeshauptstadt und politischer Sitz der Staatsregierung.</p>
+            </article>
+            <article class="panel">
+              <h3>Berlin</h3>
+              <p>Bundeshauptstadt mit rechtlich abgesicherter Sonderstellung innerhalb des Freistaates.</p>
+            </article>
+          </div>
+        </>
       ) : null}
 
       {page.slug === 'geschichte' ? (

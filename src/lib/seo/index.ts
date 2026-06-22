@@ -181,6 +181,7 @@ export interface EventJsonLdInput {
   url: string;
   startDate: string;
   location: string;
+  eventStatus?: 'https://schema.org/EventCompleted' | 'https://schema.org/EventScheduled';
 }
 
 export function buildEventJsonLd(input: EventJsonLdInput, site?: URL): StructuredData {
@@ -191,7 +192,7 @@ export function buildEventJsonLd(input: EventJsonLdInput, site?: URL): Structure
     description: input.description,
     url: toAbsoluteUrl(input.url, site),
     startDate: input.startDate,
-    eventStatus: 'https://schema.org/EventScheduled',
+    eventStatus: input.eventStatus ?? 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: {
       '@type': 'Place',
