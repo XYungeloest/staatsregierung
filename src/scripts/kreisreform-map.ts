@@ -186,7 +186,10 @@ async function initMap(container: HTMLElement): Promise<void> {
     fitToVisibleLayers(state);
     setStatus(statusElement, 'Karte bereit. Wählen Sie ein Gebiet aus oder nutzen Sie die Suche.');
 
-    window.setTimeout(() => map.invalidateSize(), 120);
+    window.setTimeout(() => {
+      map.invalidateSize();
+      fitToVisibleLayers(state);
+    }, 120);
   } catch {
     setStatus(
       statusElement,
