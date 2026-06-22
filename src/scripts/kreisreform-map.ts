@@ -2,7 +2,6 @@ import type * as Leaflet from 'leaflet';
 import type { Feature, FeatureCollection, GeoJsonObject, Geometry } from 'geojson';
 
 type LayerKey = 'neueKreise' | 'neueBezirke' | 'alteKreise' | 'alteBezirke' | 'alteBundeslaender';
-type SearchKind = 'kreis' | 'bezirk' | 'gemeinde' | 'alt';
 
 interface LayerInfo {
   url: string;
@@ -40,43 +39,18 @@ interface KreisreformProperties {
   quelle?: string;
 }
 
-interface GemeindeSearchEntry {
-  id: string;
-  name: string;
-  typ: string;
-  kreisNeu: string;
-  kreisNeuId: string;
-  bezirkNeu?: string;
-  alterKreis: string;
-  bundeslandAlt: string;
-  bezirkAlt: string;
-  einwohner?: number;
-  flaecheKm2?: number;
-}
-
-interface SearchEntry {
-  id: string;
-  label: string;
-  context: string;
-  kind: SearchKind;
-  layerKey: LayerKey;
-  targetId: string;
-  note?: string;
-}
-
 interface LayerDefinition {
   key: LayerKey;
   manifestKey: keyof KreisreformManifest['layers'];
   defaultVisible: boolean;
-  detailKind: SearchKind;
 }
 
 const layerDefinitions: LayerDefinition[] = [
-  { key: 'neueKreise', manifestKey: 'neueKreise', defaultVisible: true, detailKind: 'kreis' },
-  { key: 'neueBezirke', manifestKey: 'neueBezirke', defaultVisible: true, detailKind: 'bezirk' },
-  { key: 'alteKreise', manifestKey: 'alteKreise', defaultVisible: false, detailKind: 'alt' },
-  { key: 'alteBezirke', manifestKey: 'alteBezirke', defaultVisible: false, detailKind: 'alt' },
-  { key: 'alteBundeslaender', manifestKey: 'alteBundeslaender', defaultVisible: false, detailKind: 'alt' },
+  { key: 'neueKreise', manifestKey: 'neueKreise', defaultVisible: true },
+  { key: 'neueBezirke', manifestKey: 'neueBezirke', defaultVisible: true },
+  { key: 'alteKreise', manifestKey: 'alteKreise', defaultVisible: false },
+  { key: 'alteBezirke', manifestKey: 'alteBezirke', defaultVisible: false },
+  { key: 'alteBundeslaender', manifestKey: 'alteBundeslaender', defaultVisible: false },
 ];
 
 const districtColors: Record<string, string> = {
@@ -98,14 +72,42 @@ const districtColors: Record<string, string> = {
 
 const integerFormatter = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 0 });
 const areaFormatter = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
-const desktopOverviewZoom = 6.5;
 
 function bootMaps(): void {
+  for (const trigger of document.querySelectorAll<HTMLElement>('[data-open-kreisreform-map]')) {
+    trigger.addEventListener('click', () => {
+      const disclosure = document.querySelector<HTMLDetailsElement>('[data-map-disclosure]');
+      if (disclosure) disclosure.open = true;
+    });
+  }
+
   const containers = Array.from(document.querySelectorAll<HTMLElement>('[data-kreisreform-map]'));
   for (const container of containers) {
     if (container.dataset.mapInitialized === 'true') continue;
     container.dataset.mapInitialized = 'true';
-    lazyInit(container);
+
+    const disclosure = container.closest<HTMLDetailsElement>('[data-map-disclosure]');
+    if (!disclosure) {
+      lazyInit(container);
+      continue;
+    }
+
+    const mobileQuery = window.matchMedia('(max-width: 640px)');
+    const startWhenAvailable = () => {
+      if (disclosure.open) {
+        lazyInit(container);
+      }
+    };
+    const updateDisclosure = () => {
+      if (!mobileQuery.matches) {
+        disclosure.open = true;
+      }
+      startWhenAvailable();
+    };
+
+    disclosure.addEventListener('toggle', startWhenAvailable);
+    mobileQuery.addEventListener('change', updateDisclosure);
+    updateDisclosure();
   }
 }
 
@@ -116,6 +118,9 @@ if (document.readyState === 'loading') {
 }
 
 function lazyInit(container: HTMLElement): void {
+  if (container.dataset.mapLoadScheduled === 'true') return;
+  container.dataset.mapLoadScheduled = 'true';
+
   let started = false;
   const start = () => {
     if (started) return;
@@ -147,8 +152,6 @@ async function initMap(container: HTMLElement): Promise<void> {
   const mapElement = container.querySelector<HTMLElement>('[data-map-canvas]');
   const statusElement = container.querySelector<HTMLElement>('[data-map-status]');
   const detailPanel = container.querySelector<HTMLElement>('[data-detail-panel]');
-  const searchInput = container.querySelector<HTMLInputElement>('[data-map-search]');
-  const searchResults = container.querySelector<HTMLElement>('[data-map-search-results]');
   const resetButton = container.querySelector<HTMLButtonElement>('[data-map-reset]');
 
   if (!mapElement || !statusElement || !detailPanel) return;
@@ -180,13 +183,11 @@ async function initMap(container: HTMLElement): Promise<void> {
     applyLayerAvailability(container, manifest);
     wireLayerControls(container, state);
     wireReset(resetButton, state);
-    wireSearch(searchInput, searchResults, state);
-
     await Promise.all([ensureLayer('neueKreise', state), ensureLayer('neueBezirke', state)]);
     setLayerVisibility('neueKreise', true, state);
     setLayerVisibility('neueBezirke', true, state);
     fitToVisibleLayers(state);
-    setStatus(statusElement, 'Karte bereit. Wählen Sie ein Gebiet aus oder nutzen Sie die Suche.');
+    setStatus(statusElement, 'Karte bereit. Wählen Sie ein Gebiet aus oder nutzen Sie die Gebietssuche.');
 
     window.setTimeout(() => {
       map.invalidateSize();
@@ -219,9 +220,6 @@ function createMapState(
     layers: new Map<LayerKey, Leaflet.GeoJSON>(),
     data: new Map<LayerKey, FeatureCollection>(),
     selectedLayer: undefined as Leaflet.Layer | undefined,
-    searchIndex: [] as SearchEntry[],
-    gemeinden: undefined as GemeindeSearchEntry[] | undefined,
-    gemeindenLoading: false,
   };
 }
 
@@ -253,7 +251,6 @@ async function ensureLayer(key: LayerKey, state: MapState): Promise<Leaflet.GeoJ
 
   const collection = await fetchJson<FeatureCollection>(state.dataUrl(layerInfo.url));
   state.data.set(key, collection);
-  addFeaturesToSearch(key, collection, state);
 
   const layer = state.L.geoJSON(collection as GeoJsonObject, {
     style: (feature) => styleFeature(key, (feature?.properties ?? {}) as KreisreformProperties),
@@ -345,155 +342,6 @@ function wireReset(button: HTMLButtonElement | null, state: MapState): void {
     fitToVisibleLayers(state);
     setStatus(state.statusElement, 'Neue Ordnung wiederhergestellt.');
   });
-}
-
-function wireSearch(
-  input: HTMLInputElement | null,
-  resultsElement: HTMLElement | null,
-  state: MapState,
-): void {
-  if (!input || !resultsElement) return;
-
-  input.addEventListener('input', () => {
-    void updateSearch(input.value, resultsElement, state);
-  });
-}
-
-async function updateSearch(queryValue: string, resultsElement: HTMLElement, state: MapState): Promise<void> {
-  const query = normalizeSearch(queryValue);
-  if (query.length < 2) {
-    resultsElement.innerHTML = '';
-    resultsElement.hidden = true;
-    return;
-  }
-
-  await ensureGemeindenSearch(state);
-  const matches = state.searchIndex
-    .filter((entry) => normalizeSearch(`${entry.label} ${entry.context}`).includes(query))
-    .slice(0, 10);
-
-  if (matches.length === 0) {
-    resultsElement.innerHTML = '<li>Keine Treffer gefunden.</li>';
-    resultsElement.hidden = false;
-    return;
-  }
-
-  resultsElement.innerHTML = matches
-    .map(
-      (entry, index) => `
-        <li>
-          <button type="button" data-search-result="${index}">
-            <span>${escapeHtml(entry.label)}</span>
-            <small>${escapeHtml(entry.context)}</small>
-          </button>
-        </li>
-      `,
-    )
-    .join('');
-  resultsElement.hidden = false;
-
-  for (const button of Array.from(resultsElement.querySelectorAll<HTMLButtonElement>('[data-search-result]'))) {
-    button.addEventListener('click', () => {
-      const index = Number(button.dataset.searchResult ?? -1);
-      const entry = matches[index];
-      if (entry) {
-        void selectSearchEntry(entry, state);
-      }
-    });
-  }
-}
-
-async function ensureGemeindenSearch(state: MapState): Promise<void> {
-  if (state.gemeinden || state.gemeindenLoading) return;
-  const layerInfo = state.manifest.layers.gemeindenSuche;
-  if (!layerInfo?.available) return;
-
-  state.gemeindenLoading = true;
-  try {
-    state.gemeinden = await fetchJson<GemeindeSearchEntry[]>(state.dataUrl(layerInfo.url));
-    for (const gemeinde of state.gemeinden) {
-      state.searchIndex.push({
-        id: gemeinde.id,
-        label: gemeinde.name,
-        context: `${gemeinde.typ}, neuer Kreis ${gemeinde.kreisNeu}`,
-        kind: 'gemeinde',
-        layerKey: 'neueKreise',
-        targetId: gemeinde.kreisNeuId,
-        note: `${gemeinde.name} gehört nach den Suchdaten zum neuen Kreis ${gemeinde.kreisNeu}.`,
-      });
-    }
-  } finally {
-    state.gemeindenLoading = false;
-  }
-}
-
-function addFeaturesToSearch(key: LayerKey, collection: FeatureCollection, state: MapState): void {
-  for (const feature of collection.features) {
-    const properties = (feature.properties ?? {}) as KreisreformProperties;
-    if (!properties.id || !properties.name) continue;
-
-    if (key === 'neueKreise') {
-      state.searchIndex.push({
-        id: properties.id,
-        label: properties.name,
-        context: `${properties.typ ?? 'Kreis'}, Bezirk ${properties.bezirkNeu ?? 'unbekannt'}`,
-        kind: 'kreis',
-        layerKey: key,
-        targetId: properties.id,
-      });
-    } else if (key === 'neueBezirke') {
-      state.searchIndex.push({
-        id: properties.id,
-        label: properties.name,
-        context: `Neuer Bezirk, Sitz ${properties.sitz ?? 'nicht angegeben'}`,
-        kind: 'bezirk',
-        layerKey: key,
-        targetId: properties.id,
-      });
-    } else {
-      const context =
-        key === 'alteBezirke'
-          ? `Bisheriger Bezirk, Sitz ${properties.sitz ?? 'nicht angegeben'}`
-          : key === 'alteBundeslaender'
-            ? 'Bisheriges Land'
-            : `${properties.typ ?? 'Bisheriger Kreis'}, Bezirk ${properties.bezirkAlt ?? 'unbekannt'}`;
-      state.searchIndex.push({
-        id: properties.id,
-        label: properties.name,
-        context,
-        kind: 'alt',
-        layerKey: key,
-        targetId: properties.id,
-      });
-    }
-  }
-}
-
-async function selectSearchEntry(entry: SearchEntry, state: MapState): Promise<void> {
-  const layer = await ensureLayer(entry.layerKey, state);
-  if (!layer) return;
-
-  const targetLayer = findFeatureLayer(layer, entry.targetId);
-  if (!targetLayer) return;
-
-  const feature = (targetLayer as Leaflet.Layer & { feature?: Feature }).feature;
-  if (feature) {
-    selectFeature(entry.layerKey, feature as Feature<Geometry, KreisreformProperties>, targetLayer, state, entry.note);
-  }
-
-  if ('getBounds' in targetLayer && typeof targetLayer.getBounds === 'function') {
-    state.map.fitBounds(targetLayer.getBounds(), { padding: [28, 28], maxZoom: 10 });
-  }
-}
-
-function findFeatureLayer(layer: Leaflet.GeoJSON, id: string): Leaflet.Layer | undefined {
-  let found: Leaflet.Layer | undefined;
-  layer.eachLayer((entryLayer) => {
-    const feature = (entryLayer as Leaflet.Layer & { feature?: Feature }).feature;
-    const properties = (feature?.properties ?? {}) as KreisreformProperties;
-    if (properties.id === id) found = entryLayer;
-  });
-  return found;
 }
 
 function styleFeature(key: LayerKey, properties: KreisreformProperties): Leaflet.PathOptions {
@@ -691,19 +539,8 @@ function fitToVisibleLayers(state: MapState): void {
   }
 
   if (bounds.isValid()) {
-    state.map.fitBounds(bounds, { padding: [24, 24], maxZoom: 9 });
-
-    if (window.matchMedia('(min-width: 981px)').matches && state.map.getZoom() < desktopOverviewZoom) {
-      state.map.setZoom(desktopOverviewZoom);
-    }
+    state.map.fitBounds(bounds, { padding: [16, 16], maxZoom: 7 });
   }
-}
-
-function normalizeSearch(value: string): string {
-  return value
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/gu, '')
-    .toLocaleLowerCase('de-DE');
 }
 
 function formatInteger(value: number | undefined): string {

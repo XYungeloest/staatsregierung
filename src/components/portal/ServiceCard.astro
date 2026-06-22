@@ -3,12 +3,23 @@ interface Props {
   title: string;
   body: string;
   href?: string;
+  links?: Array<{ href: string; label: string }>;
 }
 
-const { title, body, href } = Astro.props as Props;
+const { title, body, href, links = [] } = Astro.props as Props;
 ---
 
 <article class="panel service-card">
   <h3>{href ? <a class="inline-link" href={href}>{title}</a> : title}</h3>
   <p>{body}</p>
+  {links.length > 0 ? (
+    <p class="section-link-row">
+      {links.map((link, index) => (
+        <Fragment>
+          {index > 0 ? <span aria-hidden="true"> · </span> : null}
+          <a class="inline-link" href={link.href}>{link.label}</a>
+        </Fragment>
+      ))}
+    </p>
+  ) : null}
 </article>

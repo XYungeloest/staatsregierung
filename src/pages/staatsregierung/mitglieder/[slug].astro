@@ -58,7 +58,7 @@ const { member } = Astro.props as { member: RegierungMitglied };
             {member.zitat ? <blockquote class="quote-card">„{member.zitat}“</blockquote> : null}
           </div>
         </article>
-        <p class="media-credit">Bildnachweis: {member.bildnachweis}</p>
+        {member.bildnachweis ? <p class="media-credit">Bildnachweis: {member.bildnachweis}</p> : null}
         <div class="body-copy">
           {member.langbiografie.map((paragraph: string) => (
             <p>{paragraph}</p>
@@ -79,14 +79,16 @@ const { member } = Astro.props as { member: RegierungMitglied };
             <dt>Ressort</dt>
             <dd>{member.ressort}</dd>
           </div>
-          <div>
-            <dt>Kontakt</dt>
-            <dd>{member.kontakt?.email ?? 'wird ergänzt'}</dd>
-          </div>
+          {member.kontakt?.email ? (
+            <div>
+              <dt>Kontakt</dt>
+              <dd><a class="inline-link" href={`mailto:${member.kontakt.email}`}>{member.kontakt.email}</a></dd>
+            </div>
+          ) : null}
           {member.kontakt?.telefon ? (
             <div>
               <dt>Telefon</dt>
-              <dd>{member.kontakt.telefon}</dd>
+              <dd><a class="inline-link" href={`tel:${member.kontakt.telefon.replace(/\s+/gu, '')}`}>{member.kontakt.telefon}</a></dd>
             </div>
           ) : null}
         </dl>

@@ -28,7 +28,8 @@ Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuelle
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
-- Bildfelder immer mit verständlichem Alternativtext und Nachweis pflegen, wenn der Inhaltstyp diese Felder vorsieht.
+- Bildfelder immer mit verständlichem Alternativtext pflegen. Bildnachweise nur angeben, wenn ein
+  belastbarer Nachweis vorliegt; keine Platzhalter- oder vorläufigen Angaben veröffentlichen.
 - Nach Content-Änderungen mindestens `npm run content:check` ausführen; vor Abschluss zusätzlich `npm run check` und bei größeren Änderungen `npm run build`.
 
 ## Verzeichnisübersicht
@@ -818,6 +819,10 @@ Die allgemeine Suche unter `/suche/` hat feste, zugängliche Zustände für Ausg
 Treffer, keine Treffer und Fehler. Die Texte dieser Zustände liegen in der Suchseite und ihrem
 Skript; sie sind keine redaktionellen Datensätze. Beim Ändern müssen die Zustände weiterhin klar
 unterscheidbar bleiben und Suchfeld, Filter sowie Enter-Taste per Tastatur funktionieren.
+
+Die Kreisreform hat eine eigenständige Gebietssuche. Sie wird aus `manifest.json`, neuen Kreisen,
+neuen Bezirken und `gemeinden-zur-suche.json` gespeist und muss auch ohne geöffnete Karte eine
+textliche Zuordnung ausgeben.
 
 ## Bilder und Medien
 

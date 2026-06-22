@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getContactUrl, getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
 import { loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import { siteConfig } from '../../config/site.ts';
 
 const page = loadRuntimeServicePageBySlug('barrierefreiheit');
 ---
@@ -28,21 +29,41 @@ const page = loadRuntimeServicePageBySlug('barrierefreiheit');
         <p>{paragraph}</p>
       ))}
 
-      <div class="section-header">
-        <h2>Stand der Vereinbarkeit</h2>
-      </div>
-      <p>
-        Das Portal soll ohne besondere technische Kenntnisse nutzbar sein. Navigation, Suche,
-        Formulare und Inhalte sind dafür klar gegliedert und gut lesbar.
-      </p>
+      {page?.accessibilityAudit ? (
+        <>
+          <div class="section-header">
+            <h2>Prüfstand</h2>
+            <p>Die folgenden Angaben beziehen sich auf den Portalstand vom {siteConfig.date.formatLong(page.accessibilityAudit.checkedOn)}.</p>
+          </div>
+          <dl class="meta-list accessibility-audit-list">
+            <div>
+              <dt>Geprüfte Bereiche</dt>
+              <dd>
+                <ul>
+                  {page.accessibilityAudit.scope.map((entry) => <li>{entry}</li>)}
+                </ul>
+              </dd>
+            </div>
+            <div>
+              <dt>Prüfungen</dt>
+              <dd>
+                <ul>
+                  {page.accessibilityAudit.methods.map((entry) => <li>{entry}</li>)}
+                </ul>
+              </dd>
+            </div>
+          </dl>
 
-      <div class="section-header">
-        <h2>Bekannte Einschränkungen</h2>
-      </div>
-      <ul class="record-list">
-        <li class="record-list__item"><span>Zur Kreisreform stehen neben der Karte auch Tabellen, Suche und eine Bezirksübersicht zur Verfügung.</span></li>
-        <li class="record-list__item"><span>Einzelne Rechtsinhalte können unterschiedlich gegliedert sein.</span></li>
-      </ul>
+          <div class="section-header">
+            <h2>Bekannte Einschränkungen</h2>
+          </div>
+          <ul class="record-list">
+            {page.accessibilityAudit.knownLimitations.map((entry) => (
+              <li class="record-list__item"><span>{entry}</span></li>
+            ))}
+          </ul>
+        </>
+      ) : null}
 
       <div class="section-header">
         <h2>Feedback und Kontakt</h2>
@@ -56,16 +77,16 @@ const page = loadRuntimeServicePageBySlug('barrierefreiheit');
 
     <aside class="section meta-panel">
       <div class="section-header section-header--compact">
-        <h2>Prüfprofil</h2>
+        <h2>Prüfhinweise</h2>
       </div>
       <dl class="meta-list">
         <div>
           <dt>Stand</dt>
-          <dd>Fortlaufende Prüfung und redaktionelle Verbesserung</dd>
+          <dd>{page?.accessibilityAudit ? siteConfig.date.formatLong(page.accessibilityAudit.checkedOn) : 'Keine Angabe'}</dd>
         </div>
         <div>
-          <dt>Prüfgegenstände</dt>
-          <dd>Navigation, Formulare, Kartenmodule, Rechtsportal, Mobile Darstellung</dd>
+          <dt>Grundsatz</dt>
+          <dd>Es werden nur nachvollziehbar geprüfte Angaben veröffentlicht.</dd>
         </div>
         <div>
           <dt>Rückmeldung</dt>

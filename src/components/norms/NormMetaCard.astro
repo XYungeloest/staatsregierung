@@ -38,7 +38,7 @@ const canCompareVersions = norm.versions.length > 1;
     <h2>Vorschriftendaten</h2>
   </div>
   <h3>Bezeichnung</h3>
-  <div class="meta-list">
+  <dl class="meta-list">
     <div>
       <dt>Kurztitel</dt>
       <dd>{toDisplayText(norm.meta.shortTitle)}</dd>
@@ -55,10 +55,10 @@ const canCompareVersions = norm.versions.length > 1;
       <dt>Ressort</dt>
       <dd>{toDisplayText(norm.meta.ministry)}</dd>
     </div>
-  </div>
+  </dl>
 
   <h3>Fundstelle</h3>
-  <div class="meta-list">
+  <dl class="meta-list">
     <div>
       <dt>Vollzitat</dt>
       <dd>{toDisplayText(version.citation)}</dd>
@@ -98,10 +98,10 @@ const canCompareVersions = norm.versions.length > 1;
         </dd>
       </div>
     ) : null}
-  </div>
+  </dl>
 
   <h3>Gültigkeit</h3>
-  <div class="meta-list">
+  <dl class="meta-list">
     <div>
       <dt>Gültig ab</dt>
       <dd>{formatDate(version.validFrom)}</dd>
@@ -114,7 +114,7 @@ const canCompareVersions = norm.versions.length > 1;
       <dt>Status</dt>
       <dd>{formatNormStatus(norm.meta.status)}</dd>
     </div>
-  </div>
+  </dl>
 
   <h3>Sachgebiete</h3>
   <div class="tag-list">

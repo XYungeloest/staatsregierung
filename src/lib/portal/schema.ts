@@ -27,7 +27,7 @@ export interface RegierungMitglied {
   langbiografie: string[];
   bild: string;
   bildAlt?: string;
-  bildnachweis: string;
+  bildnachweis?: string;
   kontakt?: PortalContact;
   zitat?: string;
 }
@@ -42,7 +42,7 @@ export interface Ministerium {
   kontakt: PortalContact;
   bild: string;
   bildAlt?: string;
-  bildnachweis: string;
+  bildnachweis?: string;
   themen: string[];
   verknuepfteLinks: PortalLink[];
 }
@@ -90,7 +90,7 @@ export interface Pressemitteilung {
   teaser: string;
   image: string;
   imageAlt: string;
-  imageCredit: string;
+  imageCredit?: string;
   tags: string[];
   body: string[];
   isFeatured: boolean;
@@ -147,6 +147,14 @@ export interface Seite {
   slug: string;
   title: string;
   body: string[];
+  accessibilityAudit?: AccessibilityAudit;
+}
+
+export interface AccessibilityAudit {
+  checkedOn: string;
+  scope: string[];
+  methods: string[];
+  knownLimitations: string[];
 }
 
 function createPath(prefix: string, key: string): string {
@@ -304,7 +312,7 @@ export function parseRegierungMitglied(value: unknown, path: string): RegierungM
     langbiografie: expectStringArray(entry.langbiografie, createPath(path, 'langbiografie')),
     bild: expectString(entry.bild, createPath(path, 'bild')),
     bildAlt: expectOptionalString(entry.bildAlt, createPath(path, 'bildAlt')),
-    bildnachweis: expectString(entry.bildnachweis, createPath(path, 'bildnachweis')),
+    bildnachweis: expectOptionalString(entry.bildnachweis, createPath(path, 'bildnachweis')),
     kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')),
     zitat: expectOptionalString(entry.zitat, createPath(path, 'zitat')),
   };
@@ -323,7 +331,7 @@ export function parseMinisterium(value: unknown, path: string): Ministerium {
     kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')) ?? {},
     bild: expectString(entry.bild, createPath(path, 'bild')),
     bildAlt: expectOptionalString(entry.bildAlt, createPath(path, 'bildAlt')),
-    bildnachweis: expectString(entry.bildnachweis, createPath(path, 'bildnachweis')),
+    bildnachweis: expectOptionalString(entry.bildnachweis, createPath(path, 'bildnachweis')),
     themen: expectStringArray(entry.themen, createPath(path, 'themen')),
     verknuepfteLinks: parseLinks(entry.verknuepfteLinks, createPath(path, 'verknuepfteLinks')),
   };
@@ -404,7 +412,7 @@ export function parsePressemitteilung(value: unknown, path: string): Pressemitte
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     image: expectString(entry.image, createPath(path, 'image')),
     imageAlt: expectString(entry.imageAlt, createPath(path, 'imageAlt')),
-    imageCredit: expectString(entry.imageCredit, createPath(path, 'imageCredit')),
+    imageCredit: expectOptionalString(entry.imageCredit, createPath(path, 'imageCredit')),
     tags: expectStringArray(entry.tags, createPath(path, 'tags')),
     body: expectStringArray(entry.body, createPath(path, 'body')),
     isFeatured: expectBoolean(entry.isFeatured, createPath(path, 'isFeatured')),
@@ -493,5 +501,27 @@ export function parseSeite(value: unknown, path: string): Seite {
     slug: expectSlug(entry.slug, createPath(path, 'slug')),
     title: expectString(entry.title, createPath(path, 'title')),
     body: expectStringArray(entry.body, createPath(path, 'body')),
+    accessibilityAudit: parseAccessibilityAudit(
+      entry.accessibilityAudit,
+      createPath(path, 'accessibilityAudit'),
+    ),
+  };
+}
+
+function parseAccessibilityAudit(value: unknown, path: string): AccessibilityAudit | undefined {
+  if (value === undefined || value === null) {
+    return undefined;
+  }
+
+  const entry = expectRecord(value, path);
+
+  return {
+    checkedOn: expectDate(entry.checkedOn, createPath(path, 'checkedOn')),
+    scope: expectStringArray(entry.scope, createPath(path, 'scope')),
+    methods: expectStringArray(entry.methods, createPath(path, 'methods')),
+    knownLimitations: expectStringArray(
+      entry.knownLimitations,
+      createPath(path, 'knownLimitations'),
+    ),
   };
 }

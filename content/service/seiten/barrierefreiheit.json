@@ -2,8 +2,27 @@
   "slug": "barrierefreiheit",
   "title": "Barrierefreiheit",
   "body": [
-    "Die Website bietet klare Kontraste, gut lesbare Texte und nachvollziehbare Navigationswege.",
-    "Navigation, Suche, Karten, Recht und Inhaltsseiten sollen gut zugänglich sein.",
+    "Wir arbeiten daran, dass Navigation, Suche, Karten, Recht und Inhaltsseiten gut zugänglich sind.",
+    "Für wichtige Inhalte stehen mehrere Zugänge bereit, zum Beispiel Suche, Tabellen und strukturierte Inhaltsseiten.",
     "Hinweise zur Barrierefreiheit können über die zentrale Kontaktseite übermittelt werden."
-  ]
+  ],
+  "accessibilityAudit": {
+    "checkedOn": "2026-06-22",
+    "scope": [
+      "Seitengerüst mit Navigation, Skip-Link und Footer",
+      "Portalsuche, Filter und Statusmeldungen",
+      "Kreisreform mit Suche, Tabellenalternative und Kartensteuerung",
+      "Themen-, Presse-, Service- und Rechtsseiten"
+    ],
+    "methods": [
+      "Statische Prüfung von Überschriften, Formularbeschriftungen, Alternativtexten und Landmarken",
+      "Tastaturprüfung wichtiger Navigationen, Formulare, Akkordeons und Schaltflächen",
+      "Prüfung fester Ansichten für kleine, mittlere und große Bildschirmbreiten"
+    ],
+    "knownLimitations": [
+      "Gebärdensprachvideos sind derzeit nicht verfügbar; die wichtigsten Informationen stehen als Text bereit.",
+      "Die Karte der Kreisreform ist eine zusätzliche Darstellung. Suche, Bezirksübersicht und Tabellen bleiben ohne Karte nutzbar.",
+      "Die Detailgliederung einzelner historischer Rechtsfassungen kann unterschiedlich umfangreich sein."
+    ]
+  }
 }

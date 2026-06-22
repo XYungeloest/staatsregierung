@@ -26,6 +26,9 @@ npm run dev
 npm run content:check
 npm run check
 npm run build
+npm run links:check
+npm run test:visual
+npm run test:a11y
 ```
 
 Weitere wichtige Befehle:
@@ -117,8 +120,8 @@ Der derzeitige Stichtag ist der 22. Juni 2026.
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter
 `public/data/kreisreform/`. Auf großen Bildschirmen startet die Karte in einer engen Übersicht der
-Reformregion; auf kleineren Bildschirmen wird sie an die verfügbare Fläche angepasst. Karte, Suche
-und Tabellen haben eine zugängliche alternative Nutzung.
+Reformregion; auf kleinen Bildschirmen steht die Gebietssuche mit Textdetail vor der optionalen
+Karte. Bezirkskarten und Tabellen bleiben ohne Kartenstart nutzbar.
 
 Webanalyse ist optional. Der Ausgangszustand nutzt nur notwendige Funktionen; eine Zustimmung wird
 lokal gespeichert und kann über die Datenschutzeinstellungen zurückgesetzt werden.
@@ -146,8 +149,15 @@ Vor relevanten Änderungen:
 npm run content:check
 npm run check
 npm run build
+npm run links:check
 ```
 
 Nach öffentlichen Textänderungen zusätzlich gezielt nach Entwicklerbegriffen suchen und sicherstellen, dass sie nicht in Bürgerseiten erscheinen.
 Bei Layout-, Karten- oder Header-Änderungen die Startseite und `/kreisreform/` zusätzlich manuell
 bei 360, 390, 768, 1024 und 1440 Pixel Breite prüfen.
+
+`npm run links:check` prüft nach dem Build alle statisch ausgegebenen internen Verweise.
+`npm run test:visual` erzeugt und vergleicht Chromium-Screenshots dieser Ansichten. Die externen
+Basiskacheln der Kreisreform werden dabei unterdrückt, damit die Baselines reproduzierbar bleiben.
+`npm run test:a11y` führt zusätzlich einen automatisierten Accessibility-Smoke-Test aus. Beide
+Checks ergänzen, ersetzen aber nicht den manuellen Tastatur- und Screenreader-Kurztest.

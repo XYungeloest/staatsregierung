@@ -38,7 +38,7 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
   ]}
   ogType="article"
   ogImage={{
-    url: '/images/presse/rede-platzhalter.png',
+    url: '/images/presse/rede-uebersicht.png',
     alt: 'Grafik zu einer Rede oder Regierungserklärung der Staatsregierung',
   }}
   structuredData={buildArticleJsonLd(
@@ -48,7 +48,7 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
       url: getSpeechUrl(speech.slug),
       datePublished: speech.date,
       image: {
-        url: '/images/presse/rede-platzhalter.png',
+        url: '/images/presse/rede-uebersicht.png',
         alt: 'Grafik zu einer Rede oder Regierungserklärung der Staatsregierung',
       },
       articleSection: 'Rede',
@@ -77,7 +77,7 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
     <section class="section">
       <img
         class="media-banner"
-        src={resolvePortalPath('/images/presse/rede-platzhalter.png')}
+            src={resolvePortalPath('/images/presse/rede-uebersicht.png')}
         alt="Grafik zu einer Rede oder Regierungserklärung der Staatsregierung"
         width="1280"
         height="720"

@@ -57,8 +57,8 @@ Regeln:
 - Die Startseite ordnet den Einstieg in dieser Reihenfolge: klare Orientierung, Portalpfade,
   aktueller Stand, Reformen, Recht sowie Presse und Service. Sekundäre Einstiege folgen danach.
 - Die Kreisreform ist als eigenständiger, sichtbarer Portalweg gestaltet. Auf großen Bildschirmen
-  startet die Karte eng auf der Reformregion; auf kleinen Bildschirmen stehen Suche, Karten- und
-  Tabellenzugang sowie Bezirk-Karten als gleichwertige Alternativen bereit.
+  startet die Karte eng auf der Reformregion; auf kleinen Bildschirmen stehen Suche und
+  Bezirk-Karten vor der optionalen Kartenansicht. Tabellen bleiben als Detailansicht erreichbar.
 - Große Karten und Detailtabellen dürfen ihren Inhalt nicht hinter einem Seitenüberlauf verstecken.
   Tabellen sind bei Bedarf als klar abgegrenzte Detailansicht horizontal scrollbar; die wichtigsten
   Informationen bleiben zusätzlich ohne Tabelle erreichbar.
@@ -72,7 +72,7 @@ Regeln:
 - Bilder unter `public/images/` mit absoluten Pfaden ab `/images/...` referenzieren.
 - Porträts webtauglich komprimieren und in stabilen Seitenverhältnissen anzeigen.
 - Alternativtexte in den JSON-Inhalten fachlich beschreibend pflegen.
-- Bildnachweise nicht auslassen, wenn der Content-Typ sie vorsieht.
+- Bildnachweise nur ausgeben, wenn ein belastbarer redaktioneller Nachweis vorliegt.
 
 ## Komponenten
 
@@ -94,6 +94,7 @@ Geeignete Muster:
 - Tags nur, wenn sie beim Scannen helfen
 - dezente Hinweisboxen für Status, Zuständigkeit oder Kontext
 - klar unterschiedliche Zustände für Suche: noch keine Eingabe, Laden, Treffer, keine Treffer und Fehler
+- visuelle Baselines für die festgelegten Portalansichten und Bildschirmbreiten
 
 ## Was vermieden wird
 

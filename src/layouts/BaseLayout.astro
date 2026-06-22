@@ -22,8 +22,6 @@ import {
   getPortalSearchUrl,
   getSiteUrl,
 } from '../lib/portal/routes.ts';
-import analyticsConsentScriptUrl from '../scripts/analytics-consent.ts?url';
-import portalModulesScriptUrl from '../scripts/portal-modules.ts?url';
 
 interface Props {
   title: string;
@@ -401,10 +399,14 @@ const footerUtilityLinks = [
     </div>
     {analyticsEnabled ? <AnalyticsConsentBanner /> : null}
     {analyticsEnabled ? (
-      <script is:inline type="module" src={analyticsConsentScriptUrl}></script>
+      <script>
+        import '../scripts/analytics-consent.ts';
+      </script>
     ) : null}
     {loadPortalModules ? (
-      <script is:inline type="module" src={portalModulesScriptUrl}></script>
+      <script>
+        import '../scripts/portal-modules.ts';
+      </script>
     ) : null}
   </body>
 </html>

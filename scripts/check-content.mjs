@@ -116,10 +116,15 @@ function collectStrings(value, path = '', strings = []) {
 }
 
 const genderedNounStem = '(?:Bürger|Schüler|Arbeitnehmer|Arbeitgeber|Weidetierhalter|Pendler|Forscher|Gastgeber|Vertreter|Expert|Vermieter|Mieter|Einwohner|Rentner|Kolleg|Referent|Sachbearbeiter|Mitarbeiter|Leser|Nutzer|Antragsteller|Teilnehmer|Bewohner)';
+const masculineGenderedSuffix = '(?:e|en|er)?';
 
 const disallowedGenderForms = [
   {
     pattern: new RegExp(`\\b${genderedNounStem}in(?:nen)?\\s*\\/\\s*[\\p{L}-]+\\b`, 'gu'),
+    label: 'Schrägstrichform',
+  },
+  {
+    pattern: new RegExp(`\\b${genderedNounStem}${masculineGenderedSuffix}\\s*\\/\\s*${genderedNounStem}in(?:nen)?\\b`, 'gu'),
     label: 'Schrägstrichform',
   },
   {
@@ -128,6 +133,10 @@ const disallowedGenderForms = [
   },
   {
     pattern: new RegExp(`\\b[\\p{L}-]+\\s+und\\s+${genderedNounStem}innen\\b`, 'gu'),
+    label: 'Paarform',
+  },
+  {
+    pattern: new RegExp(`\\b${genderedNounStem}${masculineGenderedSuffix}\\s+und\\s+${genderedNounStem}in(?:nen)?\\b`, 'gu'),
     label: 'Paarform',
   },
   {
@@ -148,6 +157,12 @@ const disallowedGenderForms = [
   },
 ];
 
+const disallowedPublicCopy = [
+  { pattern: /\b(?:vorläufige\s+platzhalterdatei|platzhalterbild|platzhaltergrafik)\b/giu, label: 'Platzhalterhinweis' },
+  { pattern: /\bBITV-artig\b/giu, label: 'technische Umsetzungsbeschreibung' },
+  { pattern: /\b(?:fiktive?\s+(?:website|seite)|politische\s+simulation)\b/giu, label: 'zusätzlicher Simulationshinweis' },
+];
+
 function validateGenderedLanguage(file, rel, json) {
   if (rel.startsWith('normen/')) {
     return;
@@ -159,6 +174,13 @@ function validateGenderedLanguage(file, rel, json) {
       const match = pattern.exec(entry.value);
       if (match) {
         addProblem(file, `${entry.path} enthält eine ${label}: „${match[0]}“`);
+      }
+    }
+    for (const { pattern, label } of disallowedPublicCopy) {
+      pattern.lastIndex = 0;
+      const match = pattern.exec(entry.value);
+      if (match) {
+        addProblem(file, `${entry.path} enthält einen unzulässigen ${label}: „${match[0]}“`);
       }
     }
   }
