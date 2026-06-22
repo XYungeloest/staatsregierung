@@ -63,6 +63,10 @@ export function getActionPlanUrl(): string {
   return getSiteUrl('actionPlan');
 }
 
+export function getKreisreformUrl(): string {
+  return getSiteUrl('kreisreform');
+}
+
 export function getMinistriesUrl(): string {
   return getCabinetUrl();
 }

@@ -29,6 +29,7 @@ export const siteConfig = {
     previousCabinets: '/staatsregierung/fruehere-kabinette/',
     coalition: '/staatsregierung/koalition/',
     actionPlan: '/staatsregierung/15-punkte-plan/',
+    kreisreform: '/kreisreform/',
     topics: '/themen/',
     press: '/presse/',
     pressReleases: '/presse/pressemitteilungen/',

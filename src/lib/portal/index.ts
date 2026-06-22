@@ -65,6 +65,7 @@ export {
   getHomeUrl,
   getImprintUrl,
   getJobUrl,
+  getKreisreformUrl,
   getLawConstitutionUrl,
   getLawFundingUrl,
   getLawHomeUrl,

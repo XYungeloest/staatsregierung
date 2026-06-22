@@ -1,0 +1,614 @@
+---
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import {
+  getFreestateUrl,
+  getHomeUrl,
+  getLawHomeUrl,
+  getTopicsUrl,
+} from '../../lib/portal/index.ts';
+import {
+  formatArea,
+  formatInteger,
+  formatLongDate,
+} from '../../lib/kreisreform/format.ts';
+import type {
+  GeoJsonFeatureCollection,
+  KreisreformManifest,
+  NeuerBezirkProperties,
+  NeuerKreisProperties,
+} from '../../lib/kreisreform/types.ts';
+import 'leaflet/dist/leaflet.css';
+
+const dataRoot = path.join(process.cwd(), 'public', 'data', 'kreisreform');
+
+function readMapData<T>(fileName: string): T {
+  return JSON.parse(readFileSync(path.join(dataRoot, fileName), 'utf8')) as T;
+}
+
+const manifest = readMapData<KreisreformManifest>('manifest.json');
+const kreiseCollection = readMapData<GeoJsonFeatureCollection<NeuerKreisProperties>>('neue-kreise.geojson');
+const bezirkeCollection = readMapData<GeoJsonFeatureCollection<NeuerBezirkProperties>>('neue-bezirke.geojson');
+
+const neueKreise = [...kreiseCollection.features]
+  .map((feature) => feature.properties)
+  .sort((left, right) => `${left.name}-${left.typ}`.localeCompare(`${right.name}-${right.typ}`, 'de'));
+const neueBezirke = [...bezirkeCollection.features]
+  .map((feature) => feature.properties)
+  .sort((left, right) => left.name.localeCompare(right.name, 'de'));
+
+const base = import.meta.env.BASE_URL;
+const oldLayersAvailable =
+  manifest.layers.alteKreise.available ||
+  manifest.layers.alteBezirke.available ||
+  manifest.layers.alteBundeslaender.available;
+const bisherigeBezirke = [
+  'Berlin',
+  'Brandenburg',
+  'Mecklenburg-Vorpommern',
+  'Niederlausitz',
+  'Oberlausitz',
+  'Sachsen',
+  'Sachsen-Anhalt',
+  'Thüringen',
+];
+---
+
+<BaseLayout
+  title="Kreis- und Bezirksreform"
+  description="Informationen der Staatsregierung zur neuen Verwaltungsordnung der Kreise und Bezirke im Freistaat Ostdeutschland."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Themen & Projekte', href: getTopicsUrl() },
+    { label: 'Kreis- und Bezirksreform' },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Themen & Projekte', href: getTopicsUrl() },
+      { label: 'Kreis- und Bezirksreform' },
+    ]}
+  />
+
+  <section class="section page-header kreisreform-header">
+    <p class="eyebrow">Gebietsordnung</p>
+    <h1>Kreis- und Bezirksreform</h1>
+    <p class="lead">Neue Verwaltungsgliederung für einen handlungsfähigen Freistaat</p>
+    <p>
+      Die Reform ordnet die mittlere Verwaltungsebene und die Kreisstruktur des Freistaates neu.
+      Die Seite zeigt den vorgesehenen Zuschnitt der neuen Kreise und Bezirke und macht die
+      wichtigsten Veränderungen verständlich nachvollziehbar.
+    </p>
+    <nav class="hero-actions" aria-label="Direkteinstiege">
+      <a class="button-link" href="#karte">Zur Karte</a>
+      <a class="button-link button-link--secondary" href="#tabellen">Zu den Tabellen</a>
+      <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
+    </nav>
+  </section>
+
+  <section class="section" aria-labelledby="kennzahlen">
+    <div class="section-header">
+      <h2 id="kennzahlen">Auf einen Blick</h2>
+      <p>Die Kennzahlen beruhen auf den vorbereiteten Grenz- und Einwohnerdaten zur Reform.</p>
+    </div>
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Neue Bezirke</span>
+        <strong>{formatInteger(manifest.stats.neueBezirke)}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Neue Kreise</span>
+        <strong>{formatInteger(manifest.stats.neueKreise)}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Wirksamwerden</span>
+        <strong>{formatLongDate(manifest.stats.wirksamAb)}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Größter Kreis nach Einwohnerzahl</span>
+        <strong>{manifest.stats.groessterKreis?.name ?? 'Keine Angabe'}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section id="karte" class="section section-muted" aria-labelledby="kartenueberschrift">
+    <div class="section-header">
+      <h2 id="kartenueberschrift">Interaktive Karte</h2>
+      <p>
+        Standardmäßig sind die neuen Kreise und die neuen Bezirksgrenzen sichtbar. Die bisherigen
+        Kreise, Bezirke und Länder können als zurückhaltende Vergleichsebenen zugeschaltet werden.
+      </p>
+    </div>
+
+    <div class="kreisreform-map-shell" data-kreisreform-map data-base-url={base}>
+      <div class="kreisreform-map-layout">
+        <div class="kreisreform-map-main">
+          <div class="kreisreform-map-toolbar" aria-label="Karteneinstellungen">
+            <details class="kreisreform-control-group" open>
+              <summary>Layer</summary>
+              <div class="kreisreform-layer-list">
+                <label class="kreisreform-layer-toggle">
+                  <input type="checkbox" data-layer-toggle="neueKreise" checked />
+                  <span>Neue Kreise</span>
+                  <small data-layer-note></small>
+                </label>
+                <label class="kreisreform-layer-toggle">
+                  <input type="checkbox" data-layer-toggle="neueBezirke" checked />
+                  <span>Neue Bezirke</span>
+                  <small data-layer-note></small>
+                </label>
+                <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteKreise.available && 'is-disabled']}>
+                  <input type="checkbox" data-layer-toggle="alteKreise" disabled={!manifest.layers.alteKreise.available} />
+                  <span>Alte Kreise</span>
+                  <small data-layer-note>{manifest.layers.alteKreise.available ? '' : 'noch nicht hinterlegt'}</small>
+                </label>
+                <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteBezirke.available && 'is-disabled']}>
+                  <input type="checkbox" data-layer-toggle="alteBezirke" disabled={!manifest.layers.alteBezirke.available} />
+                  <span>Alte Bezirke</span>
+                  <small data-layer-note>{manifest.layers.alteBezirke.available ? '' : 'noch nicht hinterlegt'}</small>
+                </label>
+                <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteBundeslaender.available && 'is-disabled']}>
+                  <input type="checkbox" data-layer-toggle="alteBundeslaender" disabled={!manifest.layers.alteBundeslaender.available} />
+                  <span>Alte Länder</span>
+                  <small data-layer-note>{manifest.layers.alteBundeslaender.available ? '' : 'noch nicht hinterlegt'}</small>
+                </label>
+              </div>
+            </details>
+
+            <div class="kreisreform-search">
+              <label class="search-field">
+                <span>Kreis, Bezirk oder Gemeinde suchen</span>
+                <input
+                  type="search"
+                  data-map-search
+                  autocomplete="off"
+                  placeholder="z. B. Leipzig, Lausitz, Potsdam"
+                />
+              </label>
+              <ul class="kreisreform-search-results" data-map-search-results hidden></ul>
+            </div>
+
+            <button class="button-link button-link--secondary" type="button" data-map-reset>
+              Auf neue Ordnung zurücksetzen
+            </button>
+          </div>
+
+          <div class="kreisreform-map-canvas" data-map-canvas aria-label="Interaktive Karte der Kreis- und Bezirksreform"></div>
+          <p class="kreisreform-map-status" data-map-status role="status" aria-live="polite">
+            Karte wird vorbereitet.
+          </p>
+
+          <div class="kreisreform-legend" aria-label="Legende">
+            <span><i class="legend-fill"></i> Neue Kreise</span>
+            <span><i class="legend-line"></i> Neue Bezirksgrenzen</span>
+            <span><i class="legend-dashed"></i> Bisherige Kreisgrenzen</span>
+          </div>
+
+          <div class="status-notice kreisreform-map-notice">
+            <h3>Hinweis zur Karte</h3>
+            <p>{manifest.notice}</p>
+          </div>
+        </div>
+
+        <aside class="kreisreform-detail-panel" data-detail-panel aria-live="polite">
+          <p class="eyebrow">Auswahl</p>
+          <h3>Gebiet auswählen</h3>
+          <p>Wählen Sie ein Gebiet in der Karte oder einen Treffer aus der Suche aus.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="aenderungen">
+    <div class="section-header">
+      <h2 id="aenderungen">Was ändert sich?</h2>
+      <p>Die Reform verbindet eine neue Bezirksordnung mit einer neuen Kreisgliederung.</p>
+    </div>
+    <div class="compare-grid">
+      <article>
+        <h3>Bisherige Bezirke</h3>
+        <p>
+          Bis Ende 2026 bestehen acht Bezirke: {bisherigeBezirke.join(', ')}. Sie beruhen auf dem
+          bisherigen Bezirkseinführungsgesetz.
+        </p>
+      </article>
+      <article>
+        <h3>Neue Bezirke</h3>
+        <p>
+          Ab {formatLongDate(manifest.stats.wirksamAb)} sind vierzehn Bezirke vorgesehen. Sie
+          erhalten feste Sitze, eine neue Bezirksordnung und klar zugeordnete Kreise.
+        </p>
+      </article>
+      <article>
+        <h3>Bisherige Kreise</h3>
+        <p>
+          Die bisherigen Landkreise und kreisfreien Städte bleiben für Übergänge, Rechtsnachfolge
+          und örtliche Zuordnung wichtig. Ihre Grenzen werden aus den amtlichen VG250-Daten des
+          Bundesamtes für Kartographie und Geodäsie abgeleitet.
+        </p>
+      </article>
+      <article>
+        <h3>Neue Kreise</h3>
+        <p>
+          Die neue Ordnung umfasst {formatInteger(manifest.stats.neueKreise)} Landkreise und
+          Kreisfreie Städte. Berlin bleibt Sonderfall: Die Stadt ist zugleich Bezirk, Kreisfreie
+          Stadt und Bundeshauptstadt; Stadt- und Bezirksorgane werden in Personalunion geführt.
+        </p>
+      </article>
+    </div>
+    {!oldLayersAvailable ? (
+      <p class="detail-line">
+        Die Vergleichslayer zu bisherigen Kreisen, bisherigen Bezirken und alten Ländern sind in
+        dieser Datenfassung noch nicht veröffentlicht.
+      </p>
+    ) : null}
+  </section>
+
+  <section id="tabellen" class="section section-muted" aria-labelledby="tabellenueberschrift">
+    <div class="section-header">
+      <h2 id="tabellenueberschrift">Tabellarische Übersicht</h2>
+      <p>
+        Die Tabellen bieten eine nicht-kartografische Übersicht über die neuen Bezirke und Kreise.
+      </p>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <caption>Neue Bezirke</caption>
+        <thead>
+          <tr>
+            <th scope="col">Bezirk</th>
+            <th scope="col">Sitz</th>
+            <th scope="col">Einwohner</th>
+            <th scope="col">Fläche</th>
+            <th scope="col">Zugeordnete Kreise</th>
+          </tr>
+        </thead>
+        <tbody>
+          {neueBezirke.map((bezirk) => (
+            <tr>
+              <th scope="row">{bezirk.name}</th>
+              <td>{bezirk.sitz}</td>
+              <td>{formatInteger(bezirk.einwohner)}</td>
+              <td>{formatArea(bezirk.flaecheKm2)}</td>
+              <td>{bezirk.kreise.join(', ')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <caption>Neue Kreise und Kreisfreie Städte</caption>
+        <thead>
+          <tr>
+            <th scope="col">Kreis</th>
+            <th scope="col">Typ</th>
+            <th scope="col">Bezirk</th>
+            <th scope="col">Einwohner</th>
+            <th scope="col">Fläche</th>
+            <th scope="col">Bisherige Gebietsteile</th>
+          </tr>
+        </thead>
+        <tbody>
+          {neueKreise.map((kreis) => (
+            <tr>
+              <th scope="row">{kreis.name}</th>
+              <td>{kreis.typ}</td>
+              <td>{kreis.bezirkNeu}</td>
+              <td>{formatInteger(kreis.einwohner)}</td>
+              <td>{formatArea(kreis.flaecheKm2)}</td>
+              <td>
+                {kreis.alteKreise.map((entry) => entry.name).join(', ')}
+                <span>{kreis.gemeinden ? `${formatInteger(kreis.gemeinden)} Gemeinden` : 'Keine Gemeindezahl'}</span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="rechtsgrundlagen">
+    <div class="section-header">
+      <h2 id="rechtsgrundlagen">Rechtsgrundlagen</h2>
+      <p>Maßgeblich bleibt die verkündete Rechtsfassung mit Anlagen.</p>
+    </div>
+    <ul class="record-list">
+      <li class="record-list__item">
+        <strong>Entwurf eines Gesetzes zur Neuordnung der Kreise und Bezirke</strong>
+        <span>insbesondere Anlagen 1 bis 3 mit Bezirksgrunddaten und Kreiszuordnung.</span>
+      </li>
+      <li class="record-list__item">
+        <strong>Ostdeutsches Bezirkseinführungsgesetz</strong>
+        <span>Grundlage der bisherigen acht Bezirke bis zum Wirksamwerden der Neuordnung.</span>
+      </li>
+      <li class="record-list__item">
+        <strong>Digitale Grenzdaten</strong>
+        <span>
+          ergänzende anschauliche Darstellung; bisherige Kreise und Länder beruhen auf VG250 des
+          Bundesamtes für Kartographie und Geodäsie.
+        </span>
+      </li>
+    </ul>
+    <p class="section-link-row">
+      <a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsportal</a>
+      <span aria-hidden="true"> · </span>
+      <a class="inline-link" href={getFreestateUrl()}>Über den Freistaat</a>
+    </p>
+  </section>
+
+  <script>
+    import '../../scripts/kreisreform-map.ts';
+  </script>
+
+  <style>
+    .kreisreform-header > p:not(.eyebrow):not(.lead) {
+      max-width: 68ch;
+    }
+
+    .kreisreform-map-shell {
+      margin-top: 1.5rem;
+    }
+
+    .kreisreform-map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 2.2fr) minmax(18rem, 0.8fr);
+      gap: 1rem;
+      align-items: stretch;
+    }
+
+    .kreisreform-map-main,
+    .kreisreform-detail-panel {
+      min-width: 0;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-card);
+    }
+
+    .kreisreform-map-main {
+      overflow: hidden;
+    }
+
+    .kreisreform-map-toolbar {
+      display: grid;
+      grid-template-columns: minmax(13rem, 1fr) minmax(16rem, 1.2fr) auto;
+      gap: 0.9rem;
+      align-items: end;
+      padding: 1rem;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-surface-alt);
+    }
+
+    .kreisreform-control-group summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--color-heading);
+    }
+
+    .kreisreform-layer-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+    }
+
+    .kreisreform-layer-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-height: 2.1rem;
+      padding: 0.35rem 0.55rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface);
+      line-height: 1.25;
+    }
+
+    .kreisreform-layer-toggle input {
+      inline-size: 1rem;
+      block-size: 1rem;
+    }
+
+    .kreisreform-layer-toggle small {
+      color: var(--color-text-muted);
+    }
+
+    .kreisreform-layer-toggle.is-disabled {
+      color: var(--color-text-muted);
+      background: var(--color-surface-muted);
+    }
+
+    .kreisreform-search {
+      position: relative;
+      min-width: 0;
+    }
+
+    .kreisreform-search .search-field {
+      margin: 0;
+    }
+
+    .kreisreform-search-results {
+      position: absolute;
+      z-index: 500;
+      top: calc(100% + 0.35rem);
+      left: 0;
+      right: 0;
+      display: grid;
+      gap: 0;
+      max-height: 18rem;
+      margin: 0;
+      padding: 0.35rem;
+      overflow: auto;
+      list-style: none;
+      border: 1px solid var(--color-border-strong);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .kreisreform-search-results button {
+      display: grid;
+      width: 100%;
+      gap: 0.1rem;
+      padding: 0.55rem 0.65rem;
+      border: 0;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--color-text);
+      font: inherit;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .kreisreform-search-results button:hover,
+    .kreisreform-search-results button:focus-visible {
+      background: var(--color-info-blue);
+    }
+
+    .kreisreform-search-results small {
+      color: var(--color-text-muted);
+    }
+
+    .kreisreform-map-canvas {
+      width: 100%;
+      min-height: 36rem;
+      background: #dfe9e6;
+    }
+
+    .kreisreform-map-status {
+      margin: 0;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      font-size: 0.95rem;
+    }
+
+    .kreisreform-map-status.is-error {
+      color: var(--color-seal);
+      font-weight: 650;
+    }
+
+    .kreisreform-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem 1rem;
+      padding: 0.9rem 1rem;
+      border-top: 1px solid var(--color-border);
+      background: var(--color-surface-alt);
+    }
+
+    .kreisreform-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--color-text-muted);
+      font-size: 0.94rem;
+    }
+
+    .kreisreform-legend i {
+      display: inline-block;
+      width: 1.6rem;
+      height: 0.9rem;
+      border: 2px solid var(--color-primary);
+    }
+
+    .legend-fill {
+      background: rgba(47, 123, 61, 0.3);
+    }
+
+    .legend-line {
+      height: 0;
+      border-width: 0;
+      border-top: 3px solid var(--color-primary);
+    }
+
+    .legend-dashed {
+      height: 0;
+      border-width: 0;
+      border-top: 2px dashed var(--color-seal);
+    }
+
+    .kreisreform-map-notice {
+      margin: 1rem;
+    }
+
+    .kreisreform-map-notice h3,
+    .kreisreform-detail-panel h3,
+    .kreisreform-detail-panel h4 {
+      margin: 0;
+    }
+
+    .kreisreform-detail-panel {
+      align-self: start;
+      padding: 1rem;
+      position: sticky;
+      top: 1rem;
+    }
+
+    .kreisreform-detail-panel h3 {
+      margin-top: 0.35rem;
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .kreisreform-detail-panel h4 {
+      margin-top: 1.1rem;
+      font-size: 1rem;
+    }
+
+    .kreisreform-detail-panel ul {
+      display: grid;
+      gap: 0.4rem;
+      margin: 0.6rem 0 0;
+      padding-left: 1.1rem;
+    }
+
+    .kreisreform-detail-panel li span {
+      color: var(--color-text-muted);
+    }
+
+    .kreisreform-detail-note {
+      padding: 0.6rem 0.7rem;
+      border-left: 0.22rem solid var(--color-secondary);
+      background: var(--color-info-green);
+    }
+
+    .data-table caption {
+      padding: 0.9rem 1rem;
+      text-align: left;
+      font-weight: 760;
+      color: var(--color-heading);
+    }
+
+    @media (max-width: 980px) {
+      .kreisreform-map-layout,
+      .kreisreform-map-toolbar {
+        grid-template-columns: 1fr;
+      }
+
+      .kreisreform-detail-panel {
+        position: static;
+      }
+
+      .kreisreform-map-canvas {
+        min-height: 28rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .kreisreform-layer-list {
+        display: grid;
+      }
+
+      .kreisreform-map-canvas {
+        min-height: 24rem;
+      }
+    }
+  </style>
+</BaseLayout>
