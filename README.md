@@ -15,6 +15,8 @@ Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
   Verkündungen und Rechtssuche
 
 Das Projekt ist eine politische Simulation. Es stellt keine echte amtliche Veröffentlichung dar.
+Der dafür notwendige Hinweis erscheint sichtbar in der oberen Hinweisleiste und im Footer; weitere
+öffentliche Texte sollen die Simulation nicht wiederholen.
 
 ## Entwicklung
 
@@ -54,6 +56,10 @@ content/
   themen/
   verkuendungen/
 
+public/
+  data/kreisreform/
+  images/
+
 src/
   components/
   config/
@@ -80,6 +86,8 @@ context/
 - Themenseiten verweisen über `federfuehrendesRessort` und `rechtsgrundlagen[].normSlug` auf Ressorts und Normen.
 - Pressemitteilungen können über `relatedTopicSlugs`, `relatedNormSlugs` und `relatedPressSlugs` querverlinkt werden.
 - Stellenangebote liegen unter `content/service/stellen/`.
+- Personenbezeichnungen werden durchgehend mit Doppelpunkt gegendert, zum Beispiel `Bürger:innen`
+  und `Referent:in`; Paarformen, Sternchen, Binnen-I und Unterstriche werden nicht verwendet.
 - Service-Grundseiten liegen unter `content/service/seiten/`.
 - Normen liegen unter `content/normen/[slug]/` mit `meta.json`, `history.json` und `versions/[versionId].json`.
 - Verkündungen liegen unter `content/verkuendungen/[slug].json` und verknüpfen Ausgaben über
@@ -104,6 +112,25 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
 Für öffentliche Übersichten werden Termine und Stellenangebote über
 `src/lib/portal/dates.ts` gegen den redaktionellen Stichtag gefiltert. Vergangene Termine und
 abgelaufene Fristen bleiben im Archiv erreichbar, werden aber nicht als aktuell ausgegeben.
+Der derzeitige Stichtag ist der 22. Juni 2026.
+
+Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
+Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter
+`public/data/kreisreform/`. Auf großen Bildschirmen startet die Karte in einer engen Übersicht der
+Reformregion; auf kleineren Bildschirmen wird sie an die verfügbare Fläche angepasst. Karte, Suche
+und Tabellen haben eine zugängliche alternative Nutzung.
+
+Webanalyse ist optional. Der Ausgangszustand nutzt nur notwendige Funktionen; eine Zustimmung wird
+lokal gespeichert und kann über die Datenschutzeinstellungen zurückgesetzt werden.
+
+Die allgemeine Suche unter `/suche/` unterscheidet einen leeren Ausgangszustand, Laden, Treffer,
+keine Treffer und Fehler. Die Suche und ihre Filter bleiben per Tastatur bedienbar; Status und
+Trefferzahl werden zugänglich ausgegeben. Im Rechtsbereich sind Suche, Index, Sachgebiete,
+Verkündungen, Fundstellen, Verfassung, Förderrichtlinien und Hilfe eigenständige Einstiege.
+
+Jede Seite verwendet das gemeinsame Layout mit Skip-Link, sichtbaren Fokuszuständen,
+Breadcrumbs und individuellen Metadaten. Für Pressemitteilungen werden passende Artikel- und
+Breadcrumb-Strukturdaten erzeugt; für das Portal stehen Website- und Organisationsdaten bereit.
 
 ## Laufzeit und Cloudflare
 
@@ -122,3 +149,5 @@ npm run build
 ```
 
 Nach öffentlichen Textänderungen zusätzlich gezielt nach Entwicklerbegriffen suchen und sicherstellen, dass sie nicht in Bürgerseiten erscheinen.
+Bei Layout-, Karten- oder Header-Änderungen die Startseite und `/kreisreform/` zusätzlich manuell
+bei 360, 390, 768, 1024 und 1440 Pixel Breite prüfen.

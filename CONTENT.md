@@ -17,6 +17,16 @@ Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuelle
 - Datumswerte in JSON als `YYYY-MM-DD` schreiben, zum Beispiel `2026-04-17`.
 - Öffentliche Bürgertexte sachlich, behördennah und verständlich formulieren.
 - Entwicklerbegriffe wie D1, R2, Build, Repository, Fallback, Live-Override oder serverseitige Formularlogik nicht in öffentliche Seiten schreiben.
+- Öffentliche Texte erläutern nicht die Umsetzung, Gestaltung oder Bereitstellung der Website. Keine
+  Hinweise auf Platzhalter, technische Zustände oder beabsichtigte Designwirkung schreiben.
+- Personenbezeichnungen mit Doppelpunkt gendern, zum Beispiel `Bürger:innen`, `Schüler:innen` und
+  `Referent:in`. Paarformen, Sternchen, Binnen-I und Unterstriche nicht verwenden.
+- Der sichtbare Hinweis zur politischen Simulation bleibt auf obere Hinweisleiste und Footer
+  beschränkt. In normalen Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation
+  ergänzen.
+- Für aktuelle Übersichten gilt der redaktionelle Stichtag 22. Juni 2026. Termine davor sind
+  vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
+  hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
 - Bildfelder immer mit verständlichem Alternativtext und Nachweis pflegen, wenn der Inhaltstyp diese Felder vorsieht.
 - Nach Content-Änderungen mindestens `npm run content:check` ausführen; vor Abschluss zusätzlich `npm run check` und bei größeren Änderungen `npm run build`.
@@ -48,6 +58,14 @@ content/
     stellen/*.json
   themen/*.json
   verkuendungen/*.json
+
+public/data/
+  kreisreform/
+    manifest.json
+    neue-kreise.geojson
+    neue-bezirke.geojson
+    alte-*.geojson
+    gemeinden-zur-suche.json
 
 src/data/dashboard/
   action-plan.ts
@@ -427,6 +445,10 @@ Format:
 }
 ```
 
+Öffentliche Übersichten teilen Termine über `src/lib/portal/dates.ts` in künftige und vergangene
+Einträge. Nur Termine am oder nach dem redaktionellen Stichtag erscheinen unter „Nächste Termine“.
+Vergangene Einträge bleiben im Archiv sichtbar.
+
 ### Stellenangebote
 
 Pfad: `content/service/stellen/[slug].json`
@@ -477,6 +499,9 @@ Format:
   "imageCredit": "Staatsregierung"
 }
 ```
+
+Die Karriereübersicht zeigt nur Stellen mit einer Bewerbungsfrist am oder nach dem redaktionellen
+Stichtag als aktuell. Abgelaufene Ausschreibungen bleiben als Archivbestand erreichbar.
 
 ### Service-Seiten
 
@@ -752,6 +777,18 @@ Wichtige Werte:
 - `LegislativeStage`: `entwurf`, `kabinett`, `landtag`, `verkuendung`, `inkrafttreten`
 - Budgetjahre: `2025`, `2026`
 
+## Kreis- und Bezirksreform
+
+Pfad: `public/data/kreisreform/`
+
+Die Kreisreform verwendet GeoJSON für die Kartenebenen, `manifest.json` für Beschriftungen,
+Verfügbarkeit und Kennzahlen sowie `gemeinden-zur-suche.json` für die Suche. Die Seite selbst liegt
+unter `/kreisreform/`; die Tabellen werden beim Build aus den neuen Kreis- und Bezirksdaten erzeugt.
+
+Neue oder geänderte Kartendaten müssen konsistente Kennungen für Suche, Bezirke und Kreise behalten.
+Die Grundinformationen müssen auch ohne geladene Karte über Suche, Detailbereich, mobile
+Bezirk-Karten und Tabellen erreichbar bleiben.
+
 ## Zentrale Konfiguration
 
 Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfigurationsdateien:
@@ -776,6 +813,11 @@ Typische Orte:
   Suche, Index, Sachgebieten, Förderrichtlinien und Hilfe.
 
 Grundregel: Wiederkehrende oder fachliche Inhalte gehören in `content/` oder `src/data/dashboard/`. Kurze Strukturtexte, Labels und UI-Hinweise bleiben in Astro-Komponenten oder Konfiguration. Wenn ein Text regelmäßig redaktionell geändert werden soll, sollte er nicht dauerhaft hart in einer Seite stehen, sondern in das passende Content-Modell wandern.
+
+Die allgemeine Suche unter `/suche/` hat feste, zugängliche Zustände für Ausgangslage, Laden,
+Treffer, keine Treffer und Fehler. Die Texte dieser Zustände liegen in der Suchseite und ihrem
+Skript; sie sind keine redaktionellen Datensätze. Beim Ändern müssen die Zustände weiterhin klar
+unterscheidbar bleiben und Suchfeld, Filter sowie Enter-Taste per Tastatur funktionieren.
 
 ## Bilder und Medien
 
