@@ -9,7 +9,7 @@ export const siteConfig = {
     siteUrl: 'https://freistaat-ostdeutschland.de',
     locale: 'de_DE',
     defaultDescription:
-      'Website der Staatsregierung des Ostdeutschen Freistaates mit Staatsregierung, Themen, Recht, Presse, Haushalt und Service innerhalb einer fiktiven Politiksimulation.',
+      'Fiktives Regierungsportal des Ostdeutschen Freistaates mit Kabinett, Reformprojekten, Rechtsportal, Presse und Service.',
   },
   simulationNotice:
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',

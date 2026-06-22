@@ -187,10 +187,10 @@ async function initMap(container: HTMLElement): Promise<void> {
     setStatus(statusElement, 'Karte bereit. Wählen Sie ein Gebiet aus oder nutzen Sie die Suche.');
 
     window.setTimeout(() => map.invalidateSize(), 120);
-  } catch (error) {
+  } catch {
     setStatus(
       statusElement,
-      `Die Karte konnte nicht geladen werden. ${error instanceof Error ? error.message : 'Unbekannter Fehler.'}`,
+      'Die Karte konnte nicht geladen werden. Nutzen Sie die tabellarische Übersicht oder die Suche.',
       true,
     );
   }
@@ -290,6 +290,7 @@ function applyLayerAvailability(container: HTMLElement, manifest: KreisreformMan
     input.checked = definition.defaultVisible && layerInfo.available;
     input.disabled = !layerInfo.available;
     label?.classList.toggle('is-disabled', !layerInfo.available);
+    label?.classList.toggle('is-active', input.checked);
     if (status) {
       status.textContent = layerInfo.available ? '' : 'noch nicht hinterlegt';
     }
@@ -302,6 +303,8 @@ function wireLayerControls(container: HTMLElement, state: MapState): void {
   for (const input of inputs) {
     input.addEventListener('change', () => {
       const key = input.dataset.layerToggle as LayerKey;
+      const label = input.closest<HTMLElement>('.kreisreform-layer-toggle');
+      label?.classList.toggle('is-active', input.checked);
       void (async () => {
         if (input.checked) {
           const layer = await ensureLayer(key, state);
@@ -311,6 +314,7 @@ function wireLayerControls(container: HTMLElement, state: MapState): void {
             setStatus(state.statusElement, 'Layer eingeblendet.');
           } else {
             input.checked = false;
+            label?.classList.remove('is-active');
           }
           return;
         }
@@ -328,6 +332,7 @@ function wireReset(button: HTMLButtonElement | null, state: MapState): void {
       const input = document.querySelector<HTMLInputElement>(`[data-layer-toggle="${definition.key}"]`);
       const shouldShow = definition.key === 'neueKreise' || definition.key === 'neueBezirke';
       if (input && !input.disabled) input.checked = shouldShow;
+      input?.closest<HTMLElement>('.kreisreform-layer-toggle')?.classList.toggle('is-active', shouldShow);
       setLayerVisibility(definition.key, shouldShow, state);
     }
     state.selectedLayer = undefined;

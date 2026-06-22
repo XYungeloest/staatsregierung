@@ -28,7 +28,7 @@ const isFeatured = variant === 'featured';
   />
   <div class="press-tile__body">
     <p class="eyebrow">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
-    <h2><a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a></h2>
+    <h3><a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a></h3>
     <p>{release.teaser}</p>
     {!isCompact ? (
       <div class="tag-list">

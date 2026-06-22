@@ -37,18 +37,16 @@ function scoreEntry(entry: PortalSearchEntry, terms: string[]): number {
   let score = 0;
 
   for (const term of terms) {
-    if (title.includes(term)) {
-      score += 12;
-    }
-    if (description.includes(term)) {
-      score += 6;
-    }
-    if (text.includes(term)) {
-      score += 2;
-    }
+    if (title.includes(term)) score += 12;
+    if (description.includes(term)) score += 6;
+    if (text.includes(term)) score += 2;
   }
 
   return score;
+}
+
+function hasSearchIntent(query: string, type: string): boolean {
+  return Boolean(query.trim() || type);
 }
 
 if (root) {
@@ -58,19 +56,24 @@ if (root) {
   const countNode = root.querySelector<HTMLElement>('[data-portal-search-count]');
   const resultNode = root.querySelector<HTMLElement>('[data-portal-search-results]');
   const emptyNode = root.querySelector<HTMLElement>('[data-portal-search-empty]');
+  const errorNode = root.querySelector<HTMLElement>('[data-portal-search-error]');
   const indexUrl = root.dataset.indexUrl ?? '/search-index.json';
   const params = new URLSearchParams(window.location.search);
 
-  if (queryInput) {
-    queryInput.value = params.get('q') ?? '';
-  }
+  if (queryInput) queryInput.value = params.get('q') ?? '';
+  if (typeSelect) typeSelect.value = params.get('type') ?? '';
 
-  if (typeSelect) {
-    typeSelect.value = params.get('type') ?? '';
+  const initialQuery = queryInput?.value ?? '';
+  const initialType = typeSelect?.value ?? '';
+  if (hasSearchIntent(initialQuery, initialType) && countNode) {
+    countNode.textContent = 'Suche wird geladen …';
   }
 
   fetch(indexUrl)
-    .then((response) => response.json() as Promise<PortalSearchPayload>)
+    .then(async (response) => {
+      if (!response.ok) throw new Error(`Search index could not be loaded (${response.status})`);
+      return (await response.json()) as PortalSearchPayload;
+    })
     .then((payload) => {
       const entries = payload.entries;
 
@@ -78,6 +81,18 @@ if (root) {
         const query = queryInput?.value.trim() ?? '';
         const type = typeSelect?.value ?? '';
         const terms = normalize(query).split(/\s+/u).filter(Boolean);
+        const searching = hasSearchIntent(query, type);
+
+        if (!searching) {
+          if (countNode) {
+            countNode.textContent = 'Geben Sie einen Suchbegriff ein oder wählen Sie einen Bereich aus.';
+          }
+          if (emptyNode) emptyNode.hidden = true;
+          if (resultNode) resultNode.innerHTML = '';
+          window.history.replaceState(null, '', window.location.pathname);
+          return;
+        }
+
         const matches = entries
           .map((entry) => ({ entry, score: terms.length > 0 ? scoreEntry(entry, terms) : 1 }))
           .filter(({ entry, score }) => (!type || entry.type === type) && score > 0)
@@ -85,13 +100,9 @@ if (root) {
           .slice(0, 50);
 
         if (countNode) {
-          countNode.textContent = terms.length > 0 || type ? `${matches.length} Treffer` : 'Suchbegriff eingeben';
+          countNode.textContent = `${matches.length} ${matches.length === 1 ? 'Treffer' : 'Treffer'}`;
         }
-
-        if (emptyNode) {
-          emptyNode.hidden = matches.length > 0 || (!query && !type);
-        }
-
+        if (emptyNode) emptyNode.hidden = matches.length > 0;
         if (resultNode) {
           resultNode.innerHTML = matches
             .map(
@@ -102,22 +113,20 @@ if (root) {
                     <span class="tag">${escapeHtml(entry.typeLabel)}</span>
                   </div>
                   <p class="search-hit__context">${escapeHtml(entry.description)}</p>
-                </li>
-              `,
+                </li>`,
             )
             .join('');
         }
 
         const nextParams = new URLSearchParams();
-        if (query) {
-          nextParams.set('q', query);
-        }
-        if (type) {
-          nextParams.set('type', type);
-        }
+        if (query) nextParams.set('q', query);
+        if (type) nextParams.set('type', type);
         const nextSearch = nextParams.toString();
-        const nextUrl = `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ''}`;
-        window.history.replaceState(null, '', nextUrl);
+        window.history.replaceState(
+          null,
+          '',
+          `${window.location.pathname}${nextSearch ? `?${nextSearch}` : ''}`,
+        );
       };
 
       form?.addEventListener('submit', (event) => {
@@ -129,8 +138,8 @@ if (root) {
       update();
     })
     .catch(() => {
-      if (countNode) {
-        countNode.textContent = 'Die Suche ist derzeit nicht verfügbar.';
-      }
+      if (countNode) countNode.textContent = 'Die Suche konnte nicht geladen werden.';
+      if (errorNode) errorNode.hidden = false;
+      if (emptyNode) emptyNode.hidden = true;
     });
 }

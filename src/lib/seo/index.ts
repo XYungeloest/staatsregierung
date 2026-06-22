@@ -53,7 +53,7 @@ export function buildWebSiteJsonLd(site?: URL): StructuredData {
     inLanguage: 'de-DE',
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${toAbsoluteUrl(siteConfig.paths.lawSearch, site)}?q={search_term_string}`,
+      target: `${toAbsoluteUrl(siteConfig.paths.search, site)}?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   };
@@ -66,6 +66,8 @@ export function buildOrganizationJsonLd(site?: URL): StructuredData {
     name: siteConfig.authorityName,
     alternateName: siteConfig.seo.siteName,
     description: siteConfig.seo.defaultDescription,
+    disambiguatingDescription:
+      'Fiktives Regierungsportal innerhalb einer politischen Simulation; keine amtliche Veröffentlichung.',
     url: getBaseUrl(site).toString(),
     logo: toAbsoluteUrl(siteConfig.officialFlagAssetPath, site),
     address: {

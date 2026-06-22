@@ -23,9 +23,10 @@ const { topic, ministryName } = Astro.props as Props;
       </p>
     ) : null}
   </div>
-  <h2><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></h2>
+  <h3><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></h3>
   <p>{topic.teaser}</p>
   <p class="detail-line">
     {topic.rechtsgrundlagen.length} Rechtsgrundlagen · {topic.naechsteSchritte.length} nächste Schritte
   </p>
+  <p><a class="inline-link" href={getTopicUrl(topic.slug)}>Thema öffnen</a></p>
 </article>

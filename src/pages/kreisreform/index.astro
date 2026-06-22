@@ -57,8 +57,8 @@ const bisherigeBezirke = [
 ---
 
 <BaseLayout
-  title="Kreis- und Bezirksreform"
-  description="Informationen der Staatsregierung zur neuen Verwaltungsordnung der Kreise und Bezirke im Freistaat Ostdeutschland."
+  title="Kreis- und Bezirksreform 2027"
+  description="Interaktive Übersicht zur Kreis- und Bezirksreform mit Karte, Bezirken, Kreisen, Tabellen und Rechtsgrundlagen."
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Themen & Projekte', href: getTopicsUrl() },
@@ -75,17 +75,16 @@ const bisherigeBezirke = [
 
   <section class="section page-header kreisreform-header">
     <p class="eyebrow">Gebietsordnung</p>
-    <h1>Kreis- und Bezirksreform</h1>
-    <p class="lead">Neue Verwaltungsgliederung für einen handlungsfähigen Freistaat</p>
-    <p>
-      Die Reform ordnet die mittlere Verwaltungsebene und die Kreisstruktur des Freistaates neu.
-      Die Seite zeigt den vorgesehenen Zuschnitt der neuen Kreise und Bezirke und macht die
-      wichtigsten Veränderungen verständlich nachvollziehbar.
+    <h1>Kreis- und Bezirksreform 2027</h1>
+    <p class="lead">
+      Die neue Verwaltungsgliederung ordnet Bezirke, Kreise und Zuständigkeiten neu. Suchen Sie
+      nach Gemeinden, Kreisen oder Bezirken und vergleichen Sie alte und neue Grenzen.
     </p>
     <nav class="hero-actions" aria-label="Direkteinstiege">
-      <a class="button-link" href="#karte">Zur Karte</a>
-      <a class="button-link button-link--secondary" href="#tabellen">Zu den Tabellen</a>
-      <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
+      <a class="button-link" href="#karte">Karte öffnen</a>
+      <a class="button-link button-link--secondary" href="#bezirke">Bezirk suchen</a>
+      <a class="button-link button-link--secondary" href="#tabellen">Tabellen anzeigen</a>
+      <a class="button-link button-link--secondary" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
     </nav>
   </section>
 
@@ -158,7 +157,7 @@ const bisherigeBezirke = [
               </div>
             </details>
 
-            <div class="kreisreform-search">
+            <div id="bezirk-suche" class="kreisreform-search">
               <label class="search-field">
                 <span>Kreis, Bezirk oder Gemeinde suchen</span>
                 <input
@@ -176,7 +175,13 @@ const bisherigeBezirke = [
             </button>
           </div>
 
-          <div class="kreisreform-map-canvas" data-map-canvas aria-label="Interaktive Karte der Kreis- und Bezirksreform"></div>
+          <div
+            class="kreisreform-map-canvas"
+            data-map-canvas
+            tabindex="0"
+            role="region"
+            aria-label="Interaktive Karte der Kreis- und Bezirksreform. Nutzen Sie die Suche und die Layer-Steuerung für eine zugängliche Auswahl."
+          ></div>
           <p class="kreisreform-map-status" data-map-status role="status" aria-live="polite">
             Karte wird vorbereitet.
           </p>
@@ -191,6 +196,11 @@ const bisherigeBezirke = [
             <h3>Hinweis zur Karte</h3>
             <p>{manifest.notice}</p>
           </div>
+          <noscript>
+            <p class="kreisreform-map-status is-error">
+              Die Karte konnte nicht geladen werden. Nutzen Sie die tabellarische Übersicht oder die Suche.
+            </p>
+          </noscript>
         </div>
 
         <aside class="kreisreform-detail-panel" data-detail-panel aria-live="polite">
@@ -199,6 +209,25 @@ const bisherigeBezirke = [
           <p>Wählen Sie ein Gebiet in der Karte oder einen Treffer aus der Suche aus.</p>
         </aside>
       </div>
+    </div>
+  </section>
+
+  <section id="bezirke" class="section kreisreform-mobile-alternative" aria-labelledby="bezirksuebersicht">
+    <div class="section-header">
+      <h2 id="bezirksuebersicht">Bezirke und Kreise ohne Karte</h2>
+      <p>Diese Übersicht ist besonders für kleine Bildschirme und die Nutzung ohne Karte gedacht.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {neueBezirke.map((bezirk) => (
+        <article class="panel">
+          <h3>{bezirk.name}</h3>
+          <p class="detail-line">Sitz: {bezirk.sitz} · {formatInteger(bezirk.einwohner)} Einwohner</p>
+          <details class="faq-accordion__item">
+            <summary class="faq-accordion__summary">Zugeordnete Kreise anzeigen</summary>
+            <div class="faq-accordion__body"><ul>{bezirk.kreise.map((kreis) => <li>{kreis}</li>)}</ul></div>
+          </details>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -313,7 +342,7 @@ const bisherigeBezirke = [
     </div>
   </section>
 
-  <section class="section" aria-labelledby="rechtsgrundlagen">
+  <section id="rechtsgrundlagen" class="section" aria-labelledby="rechtsgrundlagen">
     <div class="section-header">
       <h2 id="rechtsgrundlagen">Rechtsgrundlagen</h2>
       <p>Maßgeblich bleibt die verkündete Rechtsfassung mit Anlagen.</p>
@@ -424,6 +453,13 @@ const bisherigeBezirke = [
       background: var(--color-surface-muted);
     }
 
+    .kreisreform-layer-toggle.is-active {
+      border-color: var(--color-primary);
+      background: var(--color-info-blue);
+      color: var(--color-heading);
+      box-shadow: inset 0 0 0 1px rgba(23, 59, 107, 0.12);
+    }
+
     .kreisreform-search {
       position: relative;
       min-width: 0;
@@ -481,6 +517,11 @@ const bisherigeBezirke = [
       background: #dfe9e6;
     }
 
+    .kreisreform-map-canvas:focus-visible {
+      outline: 3px solid var(--color-accent);
+      outline-offset: -3px;
+    }
+
     .kreisreform-map-status {
       margin: 0;
       padding: 0.75rem 1rem;
@@ -536,6 +577,10 @@ const bisherigeBezirke = [
 
     .kreisreform-map-notice {
       margin: 1rem;
+    }
+
+    .kreisreform-mobile-alternative {
+      display: none;
     }
 
     .kreisreform-map-notice h3,
@@ -608,6 +653,14 @@ const bisherigeBezirke = [
 
       .kreisreform-map-canvas {
         min-height: 24rem;
+      }
+
+      .kreisreform-mobile-alternative {
+        display: block;
+      }
+
+      .kreisreform-detail-panel {
+        order: 2;
       }
     }
   </style>

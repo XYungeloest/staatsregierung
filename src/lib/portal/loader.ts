@@ -3,6 +3,7 @@ import { readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
 import { portalCollections } from './collections.ts';
+import { isCurrentOrFuture } from './dates.ts';
 import {
   parseHaushaltsseite,
   PortalContentValidationError,
@@ -210,5 +211,5 @@ export async function loadRecentPressReleases(limit = 3): Promise<Pressemitteilu
 
 export async function loadCurrentJobOffers(limit = 3): Promise<Stellenangebot[]> {
   const entries = await loadJobOffers();
-  return entries.slice(0, limit);
+  return entries.filter((entry) => isCurrentOrFuture(entry.applicationDeadline)).slice(0, limit);
 }

@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { siteConfig } from '../../../config/site.ts';
+import { splitEventsByDate } from '../../../lib/portal/dates.ts';
 import { loadEvents } from '../../../lib/portal/content.ts';
 import { getEventUrl } from '../../../lib/portal/index.ts';
 
@@ -21,7 +22,7 @@ function absoluteUrl(path: string, site: URL): string {
 
 export const GET: APIRoute = async ({ site }) => {
   const baseUrl = site ?? new URL(siteConfig.seo.siteUrl);
-  const events = await loadEvents();
+  const { upcoming: events } = splitEventsByDate(await loadEvents());
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',

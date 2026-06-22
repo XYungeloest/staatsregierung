@@ -79,13 +79,28 @@ function updateGoogleConsent(state: AnalyticsConsentState): void {
 }
 
 function configureGoogleAnalytics(): void {
-  if (window.__ga4Configured || typeof window.gtag !== 'function') {
+  if (window.__ga4Configured) {
     return;
   }
 
-  window.gtag('config', analyticsConfig.measurementId, {
-    anonymize_ip: true,
+  window.dataLayer = window.dataLayer ?? [];
+  window.gtag = window.gtag ?? ((...args: unknown[]) => window.dataLayer?.push(args));
+  window.gtag('consent', 'default', {
+    analytics_storage: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
   });
+  window.gtag('js', new Date());
+  window.gtag('config', analyticsConfig.measurementId, { anonymize_ip: true });
+
+  if (!document.querySelector('script[data-analytics-loader]')) {
+    const script = document.createElement('script');
+    script.async = true;
+    script.dataset.analyticsLoader = 'true';
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsConfig.measurementId)}`;
+    document.head.append(script);
+  }
   window.__ga4Configured = true;
 }
 
