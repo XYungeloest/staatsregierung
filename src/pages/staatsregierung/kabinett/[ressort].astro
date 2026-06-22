@@ -92,7 +92,7 @@ const legalReferences = Array.from(
           height="720"
           decoding="async"
         />
-        <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p>
+        {ministry.bildnachweis ? <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p> : null}
         <div class="status-notice status-notice--current">
           <h2>Ressortprofil</h2>
           <p>Aufgaben, Themen und Kontakt des Ressorts im Überblick.</p>
@@ -143,14 +143,18 @@ const legalReferences = Array.from(
               <dd>{ministry.kontakt.referat}</dd>
             </div>
           ) : null}
-          <div>
-            <dt>E-Mail</dt>
-            <dd>{ministry.kontakt.email ?? 'wird ergänzt'}</dd>
-          </div>
-          <div>
-            <dt>Telefon</dt>
-            <dd>{ministry.kontakt.telefon ?? 'wird ergänzt'}</dd>
-          </div>
+          {ministry.kontakt.email ? (
+            <div>
+              <dt>E-Mail</dt>
+              <dd><a class="inline-link" href={`mailto:${ministry.kontakt.email}`}>{ministry.kontakt.email}</a></dd>
+            </div>
+          ) : null}
+          {ministry.kontakt.telefon ? (
+            <div>
+              <dt>Telefon</dt>
+              <dd><a class="inline-link" href={`tel:${ministry.kontakt.telefon.replace(/\s+/gu, '')}`}>{ministry.kontakt.telefon}</a></dd>
+            </div>
+          ) : null}
         </dl>
         <nav class="link-list">
           {ministry.verknuepfteLinks.map((link) => (

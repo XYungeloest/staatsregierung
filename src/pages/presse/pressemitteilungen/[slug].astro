@@ -130,10 +130,12 @@ const relatedReleases =
               <dt>Bildbeschreibung</dt>
               <dd>{release.imageAlt}</dd>
             </div>
-            <div>
-              <dt>Bildnachweis</dt>
-              <dd>{release.imageCredit}</dd>
-            </div>
+            {release.imageCredit ? (
+              <div>
+                <dt>Bildnachweis</dt>
+                <dd>{release.imageCredit}</dd>
+              </div>
+            ) : null}
           </dl>
           <nav class="link-list">
             <a href={getPressReleaseIndexUrl()}>Zur Übersicht der Pressemitteilungen</a>

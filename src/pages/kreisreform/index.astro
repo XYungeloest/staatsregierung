@@ -81,7 +81,7 @@ const bisherigeBezirke = [
       nach Gemeinden, Kreisen oder Bezirken und vergleichen Sie alte und neue Grenzen.
     </p>
     <nav class="hero-actions" aria-label="Direkteinstiege">
-      <a class="button-link" href="#karte">Karte öffnen</a>
+      <a class="button-link" href="#karte" data-open-kreisreform-map>Karte öffnen</a>
       <a class="button-link button-link--secondary" href="#bezirk-suche">Bezirk suchen</a>
       <a class="button-link button-link--secondary" href="#tabellen">Tabellen anzeigen</a>
       <a class="button-link button-link--secondary" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
@@ -113,6 +113,52 @@ const bisherigeBezirke = [
     </div>
   </section>
 
+  <section
+    id="bezirk-suche"
+    class="section section-muted kreisreform-search-section"
+    aria-labelledby="gebietssuche"
+    data-kreisreform-search
+    data-base-url={base}
+  >
+    <div class="section-header">
+      <h2 id="gebietssuche">Gebiet suchen</h2>
+      <p>Suchen Sie nach Gemeinde, Kreis oder Bezirk. Das Ergebnis steht auch ohne Kartenansicht bereit.</p>
+    </div>
+    <label class="search-field kreisreform-search-field">
+      <span>Kreis, Bezirk oder Gemeinde suchen</span>
+      <input
+        type="search"
+        data-kreisreform-search-input
+        autocomplete="off"
+        placeholder="z. B. Leipzig, Lausitz, Potsdam"
+      />
+    </label>
+    <p class="search-feedback" data-kreisreform-search-status role="status" aria-live="polite">
+      Geben Sie mindestens zwei Buchstaben ein, um ein Gebiet zu suchen.
+    </p>
+    <ul class="kreisreform-search-results" data-kreisreform-search-results hidden></ul>
+    <article class="panel kreisreform-search-detail" data-kreisreform-search-detail aria-live="polite" hidden></article>
+  </section>
+
+  <section id="bezirke" class="section kreisreform-mobile-alternative" aria-labelledby="bezirksuebersicht">
+    <div class="section-header">
+      <h2 id="bezirksuebersicht">Bezirke und Kreise ohne Karte</h2>
+      <p>Diese Übersicht ist besonders für kleine Bildschirme und die Nutzung ohne Karte gedacht.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {neueBezirke.map((bezirk) => (
+        <article class="panel">
+          <h3>{bezirk.name}</h3>
+          <p class="detail-line">Sitz: {bezirk.sitz} · {formatInteger(bezirk.einwohner)} Einwohner</p>
+          <details class="faq-accordion__item">
+            <summary class="faq-accordion__summary">Zugeordnete Kreise anzeigen</summary>
+            <div class="faq-accordion__body"><ul>{bezirk.kreise.map((kreis) => <li>{kreis}</li>)}</ul></div>
+          </details>
+        </article>
+      ))}
+    </div>
+  </section>
+
   <section id="karte" class="section section-muted" aria-labelledby="kartenueberschrift">
     <div class="section-header">
       <h2 id="kartenueberschrift">Interaktive Karte</h2>
@@ -122,8 +168,10 @@ const bisherigeBezirke = [
       </p>
     </div>
 
-    <div class="kreisreform-map-shell" data-kreisreform-map data-base-url={base}>
-      <div class="kreisreform-map-layout">
+    <details class="kreisreform-map-disclosure" data-map-disclosure>
+      <summary>Karte anzeigen</summary>
+      <div class="kreisreform-map-shell" data-kreisreform-map data-base-url={base}>
+        <div class="kreisreform-map-layout">
         <div class="kreisreform-map-main">
           <div class="kreisreform-map-toolbar" aria-label="Karteneinstellungen">
             <details class="kreisreform-control-group" open>
@@ -157,19 +205,6 @@ const bisherigeBezirke = [
               </div>
             </details>
 
-            <div id="bezirk-suche" class="kreisreform-search">
-              <label class="search-field">
-                <span>Kreis, Bezirk oder Gemeinde suchen</span>
-                <input
-                  type="search"
-                  data-map-search
-                  autocomplete="off"
-                  placeholder="z. B. Leipzig, Lausitz, Potsdam"
-                />
-              </label>
-              <ul class="kreisreform-search-results" data-map-search-results hidden></ul>
-            </div>
-
             <button class="button-link button-link--secondary" type="button" data-map-reset>
               Auf neue Ordnung zurücksetzen
             </button>
@@ -196,11 +231,6 @@ const bisherigeBezirke = [
             <h3>Hinweis zur Karte</h3>
             <p>{manifest.notice}</p>
           </div>
-          <noscript>
-            <p class="kreisreform-map-status is-error">
-              Die Karte konnte nicht geladen werden. Nutzen Sie die tabellarische Übersicht oder die Suche.
-            </p>
-          </noscript>
         </div>
 
         <aside class="kreisreform-detail-panel" data-detail-panel aria-live="polite">
@@ -208,27 +238,14 @@ const bisherigeBezirke = [
           <h3>Gebiet auswählen</h3>
           <p>Wählen Sie ein Gebiet in der Karte oder einen Treffer aus der Suche aus.</p>
         </aside>
+        </div>
       </div>
-    </div>
-  </section>
-
-  <section id="bezirke" class="section kreisreform-mobile-alternative" aria-labelledby="bezirksuebersicht">
-    <div class="section-header">
-      <h2 id="bezirksuebersicht">Bezirke und Kreise ohne Karte</h2>
-      <p>Diese Übersicht ist besonders für kleine Bildschirme und die Nutzung ohne Karte gedacht.</p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {neueBezirke.map((bezirk) => (
-        <article class="panel">
-          <h3>{bezirk.name}</h3>
-          <p class="detail-line">Sitz: {bezirk.sitz} · {formatInteger(bezirk.einwohner)} Einwohner</p>
-          <details class="faq-accordion__item">
-            <summary class="faq-accordion__summary">Zugeordnete Kreise anzeigen</summary>
-            <div class="faq-accordion__body"><ul>{bezirk.kreise.map((kreis) => <li>{kreis}</li>)}</ul></div>
-          </details>
-        </article>
-      ))}
-    </div>
+    </details>
+    <noscript>
+      <p class="kreisreform-map-status is-error">
+        Die Karte konnte nicht geladen werden. Nutzen Sie die tabellarische Übersicht oder die Suche.
+      </p>
+    </noscript>
   </section>
 
   <section class="section" aria-labelledby="aenderungen">
@@ -284,7 +301,7 @@ const bisherigeBezirke = [
       </p>
     </div>
 
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der neuen Bezirke">
       <table class="data-table">
         <caption>Neue Bezirke</caption>
         <thead>
@@ -310,7 +327,7 @@ const bisherigeBezirke = [
       </table>
     </div>
 
-    <div class="table-wrap">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der neuen Kreise und Kreisfreien Städte">
       <table class="data-table">
         <caption>Neue Kreise und Kreisfreie Städte</caption>
         <thead>
@@ -372,6 +389,7 @@ const bisherigeBezirke = [
   </section>
 
   <script>
+    import '../../scripts/kreisreform-search.ts';
     import '../../scripts/kreisreform-map.ts';
   </script>
 
@@ -380,8 +398,40 @@ const bisherigeBezirke = [
       max-width: 68ch;
     }
 
-    .kreisreform-map-shell {
+    .kreisreform-search-section {
+      position: relative;
+    }
+
+    .kreisreform-search-field {
+      max-width: 44rem;
+    }
+
+    .kreisreform-search-detail {
+      margin-top: 1rem;
+    }
+
+    .kreisreform-map-disclosure {
       margin-top: 1.5rem;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-card);
+    }
+
+    .kreisreform-map-disclosure > summary {
+      min-height: 3rem;
+      padding: 0.8rem 1rem;
+      color: var(--color-heading);
+      font-weight: 760;
+      cursor: pointer;
+    }
+
+    .kreisreform-map-disclosure[open] > summary {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .kreisreform-map-shell {
+      margin: 0;
     }
 
     .kreisreform-map-layout {
@@ -406,7 +456,7 @@ const bisherigeBezirke = [
 
     .kreisreform-map-toolbar {
       display: grid;
-      grid-template-columns: minmax(13rem, 1fr) minmax(16rem, 1.2fr) auto;
+      grid-template-columns: minmax(13rem, 1fr) auto;
       gap: 0.9rem;
       align-items: end;
       padding: 1rem;
@@ -460,25 +510,11 @@ const bisherigeBezirke = [
       box-shadow: inset 0 0 0 1px rgba(23, 59, 107, 0.12);
     }
 
-    .kreisreform-search {
-      position: relative;
-      min-width: 0;
-    }
-
-    .kreisreform-search .search-field {
-      margin: 0;
-    }
-
     .kreisreform-search-results {
-      position: absolute;
-      z-index: 500;
-      top: calc(100% + 0.35rem);
-      left: 0;
-      right: 0;
       display: grid;
       gap: 0;
       max-height: 18rem;
-      margin: 0;
+      margin: 0.7rem 0 0;
       padding: 0.35rem;
       overflow: auto;
       list-style: none;
@@ -647,6 +683,10 @@ const bisherigeBezirke = [
     }
 
     @media (max-width: 640px) {
+      .kreisreform-map-disclosure > summary {
+        min-height: 3.25rem;
+      }
+
       .kreisreform-layer-list {
         display: grid;
       }

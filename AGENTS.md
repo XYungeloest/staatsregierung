@@ -50,6 +50,9 @@ Wichtige Befehle:
 npm run content:check
 npm run check
 npm run build
+npm run links:check
+npm run test:visual
+npm run test:a11y
 ```
 
 ## Inhalt und Redaktion
@@ -99,7 +102,11 @@ Normfassungen. Norm-JSONs bleiben dadurch unabhängig von später gepflegten Amt
 - Startseiteninhalte klar priorisieren: Einstieg, zentrale Portalpfade, aktueller Regierungsstand, Reformen, Recht sowie Presse und Service.
 - Die Kreisreform ist ein zentraler Portalweg unter `/kreisreform/`, in der Hauptnavigation, auf der Startseite und in den Themen-Einstiegen sichtbar.
 - Interaktive Karten, Tabellen und Filter müssen auf kleinen Bildschirmen ohne unkontrolliertes horizontales Scrollen nutzbar bleiben.
+- Die Kreisreform-Suche muss ohne geöffnete Karte ein textliches Ergebnis liefern; die Karte startet
+  auf kleinen Bildschirmen nur nach ausdrücklichem Öffnen.
 - Statistik bleibt freiwillig: Nur notwendige Funktionen sind Standard, Webanalyse startet erst nach ausdrücklicher Zustimmung.
+- Screenshot-Baselines und Accessibility-Smoke-Tests sind Teil der Produktions-QA. Sie ergänzen
+  den manuellen Tastatur- und Screenreader-Kurztest.
 
 ## Bei Unsicherheit
 
