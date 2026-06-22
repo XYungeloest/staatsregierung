@@ -855,6 +855,10 @@ Folgende Verknüpfungen werden in der Content-QA geprüft:
 - `content/presse/mitteilungen/*.json`: `relatedNormSlugs` muss auf vorhandene Normen zeigen.
 - `content/presse/mitteilungen/*.json`: `relatedPressSlugs` muss auf vorhandene Pressemitteilungen zeigen.
 
+Die Content-QA prüft außerhalb von `content/normen/` außerdem verbreitete Paar-, Schrägstrich-,
+Sternchen-, Binnen-I- und Unterstrichformen. Öffentliche Personenbezeichnungen werden mit
+Doppelpunkt gepflegt.
+
 Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht vollständig automatisch validiert. Sie sollten nach Änderungen im Browser geprüft werden.
 
 ## Empfohlener Ablauf

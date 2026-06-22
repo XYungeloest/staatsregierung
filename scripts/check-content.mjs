@@ -93,6 +93,77 @@ function collectImagePaths(value, paths = []) {
   return paths;
 }
 
+function collectStrings(value, path = '', strings = []) {
+  if (typeof value === 'string') {
+    strings.push({ path, value });
+    return strings;
+  }
+
+  if (Array.isArray(value)) {
+    value.forEach((entry, index) => collectStrings(entry, `${path}[${index}]`, strings));
+    return strings;
+  }
+
+  if (!value || typeof value !== 'object') {
+    return strings;
+  }
+
+  for (const [key, entry] of Object.entries(value)) {
+    collectStrings(entry, path ? `${path}.${key}` : key, strings);
+  }
+
+  return strings;
+}
+
+const genderedNounStem = '(?:Bürger|Schüler|Arbeitnehmer|Arbeitgeber|Weidetierhalter|Pendler|Forscher|Gastgeber|Vertreter|Expert|Vermieter|Mieter|Einwohner|Rentner|Kolleg|Referent|Sachbearbeiter|Mitarbeiter|Leser|Nutzer|Antragsteller|Teilnehmer|Bewohner)';
+
+const disallowedGenderForms = [
+  {
+    pattern: new RegExp(`\\b${genderedNounStem}in(?:nen)?\\s*\\/\\s*[\\p{L}-]+\\b`, 'gu'),
+    label: 'Schrägstrichform',
+  },
+  {
+    pattern: new RegExp(`\\b${genderedNounStem}innen\\s+und\\s+[\\p{L}-]+\\b`, 'gu'),
+    label: 'Paarform',
+  },
+  {
+    pattern: new RegExp(`\\b[\\p{L}-]+\\s+und\\s+${genderedNounStem}innen\\b`, 'gu'),
+    label: 'Paarform',
+  },
+  {
+    pattern: /\b[\p{L}-]+\*[\p{L}-]+\b/gu,
+    label: 'Sternchenform',
+  },
+  {
+    pattern: /\b[\p{L}-]+_[\p{L}-]+\b/gu,
+    label: 'Unterstrichform',
+  },
+  {
+    pattern: /\b[\p{L}-]+Innen\b/gu,
+    label: 'Binnen-I-Form',
+  },
+  {
+    pattern: /\b(?:Damen und Herren|Frauen und Männer|Männer und Frauen)\b/gu,
+    label: 'Paarform',
+  },
+];
+
+function validateGenderedLanguage(file, rel, json) {
+  if (rel.startsWith('normen/')) {
+    return;
+  }
+
+  for (const entry of collectStrings(json)) {
+    for (const { pattern, label } of disallowedGenderForms) {
+      pattern.lastIndex = 0;
+      const match = pattern.exec(entry.value);
+      if (match) {
+        addProblem(file, `${entry.path} enthält eine ${label}: „${match[0]}“`);
+      }
+    }
+  }
+}
+
 function slugFromFile(path) {
   return basename(path, extname(path));
 }
@@ -136,6 +207,7 @@ for (const { file, json } of records) {
   }
 
   const rel = relative(contentRoot, file);
+  validateGenderedLanguage(file, rel, json);
   if ('slug' in json) {
     if (typeof json.slug !== 'string' || json.slug.length === 0) {
       addProblem(file, 'slug fehlt oder ist leer');

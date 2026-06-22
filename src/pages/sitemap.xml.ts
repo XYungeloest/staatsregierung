@@ -21,8 +21,10 @@ import {
   getHomeUrl,
   getImprintUrl,
   getJobUrl,
+  getKreisreformUrl,
   getLawConstitutionUrl,
   getLawFundingUrl,
+  getLawHelpUrl,
   getLawHomeUrl,
   getLawIndexUrl,
   getLawPublicationsUrl,
@@ -33,6 +35,7 @@ import {
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
+  getPreviousCabinetsUrl,
   getPrivacyUrl,
   getPublicationsUrl,
   getServiceOverviewUrl,
@@ -120,6 +123,7 @@ export const GET: APIRoute = async ({ site }) => {
     getCabinetUrl(),
     getCoalitionUrl(),
     getActionPlanUrl(),
+    getKreisreformUrl(),
     getTopicsUrl(),
     getPressUrl(),
     getPressReleaseIndexUrl(),
@@ -144,7 +148,10 @@ export const GET: APIRoute = async ({ site }) => {
     getLawReferencesUrl(),
     getLawPublicationsUrl(),
     getLawConstitutionUrl(),
+    getLawHelpUrl(),
     `${getLawHomeUrl()}sachgebiete/`,
+    getPreviousCabinetsUrl(),
+    `${getPreviousCabinetsUrl()}honecker-i/`,
   ];
 
   const dynamicPaths = [
