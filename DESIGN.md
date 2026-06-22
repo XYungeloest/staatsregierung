@@ -13,6 +13,7 @@ Prioritäten:
 - nüchterne Amtsanmutung mit freundlicher, nicht dekorativer Farbigkeit
 - wiedererkennbare Blau-Weiß-Grün-Anmutung
 - barrierearme Interaktion mit sichtbaren Fokuszuständen
+- keine Überläufe, abgeschnittenen Inhalte oder ungeplanten horizontalen Scrollbereiche
 
 ## Typografie
 
@@ -24,6 +25,7 @@ Regeln:
 - Keine negativen Laufweiten verwenden.
 - Lange Amts- und Ressortbezeichnungen müssen umbrechen dürfen.
 - Hero-Größen nur für echte Seitenköpfe einsetzen, nicht in Karten oder Listen.
+- Personenbezeichnungen mit Doppelpunkt schreiben, etwa `Bürger:innen` oder `Referent:in`.
 
 ## Farbpalette
 
@@ -52,6 +54,14 @@ Regeln:
 - Verkündungen, Fundstellen und Normmetadaten werden als Listen, Tabellen und Definitionen
   dargestellt, nicht als dekorative Teaserflächen.
 - Mobile Layouts sollen Inhalte stapeln, nicht verstecken.
+- Die Startseite ordnet den Einstieg in dieser Reihenfolge: klare Orientierung, Portalpfade,
+  aktueller Stand, Reformen, Recht sowie Presse und Service. Sekundäre Einstiege folgen danach.
+- Die Kreisreform ist als eigenständiger, sichtbarer Portalweg gestaltet. Auf großen Bildschirmen
+  startet die Karte eng auf der Reformregion; auf kleinen Bildschirmen stehen Suche, Karten- und
+  Tabellenzugang sowie Bezirk-Karten als gleichwertige Alternativen bereit.
+- Große Karten und Detailtabellen dürfen ihren Inhalt nicht hinter einem Seitenüberlauf verstecken.
+  Tabellen sind bei Bedarf als klar abgegrenzte Detailansicht horizontal scrollbar; die wichtigsten
+  Informationen bleiben zusätzlich ohne Tabelle erreichbar.
 
 ## Bilder
 
@@ -68,13 +78,22 @@ Regeln:
 
 Buttons, Links, Listen, Suchmasken und Karten bleiben zurückhaltend. Ecken sind leicht gerundet, Rahmen fein, Schatten schwach. Hover- und Fokuszustände dürfen deutlich sein, sollen aber keine Bewegung oder Effekte erzwingen.
 
+Der Header verwendet die Staatsflagge als klar erkennbare, rahmenlose Bildmarke neben dem Wortzeichen.
+Sie darf nicht durch zusätzliche Kästen, Doppelrahmen oder zu geringe Größe an Wirkung verlieren.
+
+Die sichtbaren Hinweise zur politischen Simulation stehen in der oberen Hinweisleiste und im Footer.
+Sie sind Teil der Seite, aber nicht Teil jedes Seitenkopfs oder Teasers.
+
 Geeignete Muster:
 
 - Breadcrumbs für tiefe Bereiche
+- ein Skip-Link und klar sichtbare Fokuszustände für Navigation, Suche, Filter, Karte, Akkordeons
+  und Dialoge
 - Tabellen und strukturierte Listen für Rechts- und Verwaltungsinhalte
 - Karten für wiederholte Teaser
 - Tags nur, wenn sie beim Scannen helfen
 - dezente Hinweisboxen für Status, Zuständigkeit oder Kontext
+- klar unterschiedliche Zustände für Suche: noch keine Eingabe, Laden, Treffer, keine Treffer und Fehler
 
 ## Was vermieden wird
 
@@ -84,3 +103,5 @@ Geeignete Muster:
 - übertriebene Animationen
 - öffentliche Texte mit technischen Architekturbegriffen
 - Layouts, die wie eine Entwicklerdemo oder ein Dashboard-Prototyp wirken
+- Selbstbeschreibungen der Umsetzung, etwa Hinweise auf Platzhalter, Designabsichten oder technische
+  Bereitstellung

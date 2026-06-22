@@ -98,6 +98,7 @@ const districtColors: Record<string, string> = {
 
 const integerFormatter = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 0 });
 const areaFormatter = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 });
+const desktopOverviewZoom = 6.5;
 
 function bootMaps(): void {
   const containers = Array.from(document.querySelectorAll<HTMLElement>('[data-kreisreform-map]'));
@@ -167,6 +168,7 @@ async function initMap(container: HTMLElement): Promise<void> {
       attributionControl: true,
       scrollWheelZoom: false,
       zoomControl: true,
+      zoomSnap: 0.25,
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -690,6 +692,10 @@ function fitToVisibleLayers(state: MapState): void {
 
   if (bounds.isValid()) {
     state.map.fitBounds(bounds, { padding: [24, 24], maxZoom: 9 });
+
+    if (window.matchMedia('(min-width: 981px)').matches && state.map.getZoom() < desktopOverviewZoom) {
+      state.map.setZoom(desktopOverviewZoom);
+    }
   }
 }
 
