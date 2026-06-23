@@ -873,6 +873,280 @@ h5 {
   gap: 1rem;
 }
 
+/* Haushaltsportal: Kennzahlen, Vergleich und Einzelpläne */
+.budget-portal-header {
+  display: grid;
+  gap: 1.15rem;
+  padding: clamp(1.35rem, 3vw, 2.35rem);
+  border: 1px solid var(--color-border);
+  border-top: 0.35rem solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--color-surface) 0%, var(--color-info-blue) 100%);
+}
+
+.budget-portal-header .lead {
+  max-width: 68rem;
+  margin: 0;
+}
+
+.budget-section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.35rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.budget-section-nav a {
+  padding: 0.42rem 0.62rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+  font-size: 0.92rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.budget-section-nav a:hover,
+.budget-section-nav a:focus-visible,
+.budget-section-nav a[aria-current='page'] {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.budget-dashboard {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.section-header--with-control {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.budget-year-selector {
+  display: grid;
+  gap: 0.35rem;
+  flex: 0 0 auto;
+}
+
+.budget-year-selector__label {
+  color: var(--color-heading);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.budget-year-content {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.budget-kpi-grid--six {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 10.5rem), 1fr));
+  gap: 0.75rem;
+}
+
+.budget-kpi-grid--six .budget-kpi-card,
+.budget-plan-kpis article,
+.budget-comparison-grid article {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.budget-kpi-grid--six .budget-kpi-card strong,
+.budget-plan-kpis strong,
+.budget-comparison-grid strong {
+  color: var(--color-primary);
+  font-size: clamp(1.15rem, 2vw, 1.55rem);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.budget-kpi-grid--six .budget-kpi-card .detail-line,
+.budget-plan-kpis article > span:last-child,
+.budget-comparison-grid article > span {
+  margin: 0;
+  font-size: 0.84rem;
+}
+
+.budget-kpi-grid--six .budget-kpi-card > * {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.budget-explanation-grid,
+.budget-structure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.budget-explanation-card,
+.budget-structure-card {
+  padding: 1.1rem 1.2rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.budget-explanation-card h3,
+.budget-structure-card h3 {
+  margin-top: 0;
+}
+
+.budget-explanation-card p:last-child {
+  margin-bottom: 0;
+}
+
+.budget-structure-card__total {
+  margin: 0.2rem 0 0.85rem;
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.budget-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.budget-comparison-grid article > span:nth-of-type(1) {
+  color: var(--color-text-muted);
+}
+
+.budget-context-note {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border-left: 0.32rem solid var(--color-secondary);
+  background: var(--color-info-green);
+}
+
+.budget-context-note span {
+  color: var(--color-text);
+}
+
+.budget-context-note a {
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.14em;
+}
+
+.budget-portal-table,
+.budget-total-table,
+.budget-plan-data-table,
+.budget-chapter-table {
+  min-width: 58rem;
+}
+
+.budget-category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 0.65rem;
+}
+
+.budget-category-grid article {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.budget-category-grid strong {
+  color: var(--color-primary);
+  font-size: 1.2rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.budget-plan-table {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.budget-plan-table__tools {
+  display: grid;
+  grid-template-columns: minmax(14rem, 1fr) minmax(22rem, 1.45fr);
+  gap: 1rem;
+  align-items: end;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-alt);
+}
+
+.budget-plan-table__tools h3,
+.budget-plan-table__tools p {
+  margin-top: 0;
+}
+
+.budget-plan-table__tools p:last-child {
+  margin-bottom: 0;
+}
+
+.budget-plan-table__filters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.budget-plan-data-table th[scope='row'] {
+  min-width: 15rem;
+}
+
+.budget-plan-data-table th[scope='row'] > span {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--color-text-muted);
+  font-size: 0.86rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.budget-plan-kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.budget-instrument-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1rem;
+}
+
+.budget-instrument-card {
+  padding: 1.15rem;
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-secondary);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.budget-instrument-card h3 {
+  margin-top: 0.15rem;
+}
+
+.budget-instrument-card .meta-list {
+  margin-top: 1rem;
+}
+
 .faq-accordion {
   display: grid;
   gap: 0.75rem;
@@ -2772,6 +3046,14 @@ article.panel > p:last-child > a.inline-link:hover {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .budget-kpi-grid--six {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .budget-plan-table__tools {
+    grid-template-columns: 1fr;
+  }
+
   .consent-banner__inner {
     flex-direction: column;
     align-items: flex-start;
@@ -2954,6 +3236,23 @@ article.panel > p:last-child > a.inline-link:hover {
     grid-template-columns: 1fr;
   }
 
+  .section-header--with-control,
+  .budget-explanation-grid,
+  .budget-structure-grid,
+  .budget-comparison-grid,
+  .budget-plan-kpis {
+    grid-template-columns: 1fr;
+  }
+
+  .section-header--with-control {
+    display: grid;
+    align-items: stretch;
+  }
+
+  .budget-plan-table__filters {
+    grid-template-columns: 1fr;
+  }
+
   .budget-chart__axis {
     margin-left: 0;
   }
@@ -3043,6 +3342,10 @@ article.panel > p:last-child > a.inline-link:hover {
 
   .data-table {
     min-width: 38rem;
+  }
+
+  .budget-kpi-grid--six {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .norm-list__item {

@@ -1,0 +1,38 @@
+---
+import type { BudgetYear } from '../../data/haushalt.ts';
+
+interface Props {
+  id: string;
+  label?: string;
+  defaultYear?: BudgetYear | 'vergleich';
+  includeComparison?: boolean;
+}
+
+const {
+  id,
+  label = 'Ansicht auswählen',
+  defaultYear = '2026',
+  includeComparison = true,
+} = Astro.props as Props;
+const options = [
+  { value: '2025', label: '2025' },
+  { value: '2026', label: '2026' },
+  ...(includeComparison ? [{ value: 'vergleich', label: 'Vergleich' }] : []),
+];
+---
+
+<div class="budget-year-selector" role="group" aria-labelledby={`${id}-label`}>
+  <span id={`${id}-label`} class="budget-year-selector__label">{label}</span>
+  <div class="segmented-control">
+    {options.map((option) => (
+      <button
+        type="button"
+        class:list={['segmented-control__button', option.value === defaultYear && 'is-active']}
+        aria-pressed={option.value === defaultYear ? 'true' : 'false'}
+        data-budget-year-option={option.value}
+      >
+        {option.label}
+      </button>
+    ))}
+  </div>
+</div>

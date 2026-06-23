@@ -1,0 +1,104 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import BudgetSectionNav from '../../../components/portal/BudgetSectionNav.astro';
+import {
+  budgetPlans,
+  budgetTotals,
+  getBudgetChange,
+  getBudgetShare,
+  type BudgetPlan,
+} from '../../../data/haushalt.ts';
+import { formatEuroAmount, formatEuroCompact, formatPercent } from '../../../lib/portal/modules.ts';
+import { getNormUrl } from '../../../lib/norms/routes.ts';
+import { getBudgetPageUrl, getBudgetUrl, getHomeUrl, getMinistryUrl, getTopicUrl } from '../../../lib/portal/routes.ts';
+
+export function getStaticPaths() {
+  return budgetPlans.map((plan) => ({ params: { plan: plan.number }, props: { plan } }));
+}
+
+const { plan } = Astro.props as { plan: BudgetPlan };
+const change = getBudgetChange(plan);
+const composition = [
+  ['Personalausgaben', 'personnel'],
+  ['Sächliche Verwaltung und Schuldendienst', 'operations'],
+  ['Zuweisungen und Zuschüsse', 'transfers'],
+  ['Baumaßnahmen', 'construction'],
+  ['Investitionen und Investitionsförderung', 'investments'],
+  ['Besondere Finanzierungsausgaben', 'financingExpenses'],
+] as const;
+const selectedChapters = [
+  ...plan.chapters['2025'].map((chapter) => ({ ...chapter, year: '2025' })),
+  ...plan.chapters['2026'].map((chapter) => ({ ...chapter, year: '2026' })),
+];
+---
+
+<BaseLayout title={`Einzelplan ${plan.number}: ${plan.title}`} description={`Haushaltsansätze und Kapitel des Einzelplans ${plan.number} im Doppelhaushalt 2025/2026.`}>
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt', href: getBudgetUrl() }, { label: 'Einzelpläne', href: getBudgetPageUrl('einzelplaene') }, { label: `Einzelplan ${plan.number}` }]} />
+
+  <section class="section budget-portal-header budget-plan-header">
+    <p class="eyebrow">Haushalt · Einzelplan {plan.number}</p>
+    <h1>{plan.title}</h1>
+    <p class="lead">{plan.politicalFocus}</p>
+    <p class="detail-line"><strong>{plan.category}</strong> · Zuständiger Bereich: {plan.responsibility}</p>
+    <BudgetSectionNav current="einzelplaene" />
+  </section>
+
+  <section class="section" aria-labelledby="einzelplan-kennzahlen">
+    <div class="section-header"><h2 id="einzelplan-kennzahlen">Haushaltsansätze im Vergleich</h2><p>Die Beträge sind Ansätze des Kernhaushalts für diesen Einzelplan.</p></div>
+    <div class="budget-plan-kpis">
+      <article><span class="meta-label">Ausgaben 2025</span><strong>{formatEuroCompact(plan.amounts['2025'].expenses)}</strong><span>{formatEuroAmount(plan.amounts['2025'].expenses)}</span></article>
+      <article><span class="meta-label">Ausgaben 2026</span><strong>{formatEuroCompact(plan.amounts['2026'].expenses)}</strong><span>{formatEuroAmount(plan.amounts['2026'].expenses)}</span></article>
+      <article><span class="meta-label">Veränderung</span><strong>{formatEuroCompact(change.absolute)}</strong><span>{change.percent === null ? 'Prozentwert nicht berechenbar' : `${formatPercent(change.percent)} gegenüber 2025`}</span></article>
+      <article><span class="meta-label">Anteil am Kernhaushalt</span><strong>{formatPercent(getBudgetShare(plan.amounts['2026'].expenses, budgetTotals['2026'].expenses) ?? 0)}</strong><span>bezogen auf Gesamtausgaben 2026</span></article>
+    </div>
+  </section>
+
+  <div class="content-grid">
+    <section class="section" aria-labelledby="einzelplan-struktur">
+      <div class="section-header"><h2 id="einzelplan-struktur">Ausgabenstruktur</h2><p>Die Anteile beziehen sich auf die Ausgaben dieses Einzelplans, nicht auf den Gesamthaushalt.</p></div>
+      <div class="table-wrap" tabindex="0" role="region" aria-label={`Ausgabenstruktur Einzelplan ${plan.number}`}>
+        <table class="data-table budget-total-table">
+          <caption>Ausgabenarten im Jahresvergleich</caption>
+          <thead><tr><th scope="col">Ausgabenart</th><th scope="col">2025</th><th scope="col">2026</th><th scope="col">Veränderung</th><th scope="col">Anteil 2026</th></tr></thead>
+          <tbody>
+            {composition.map(([label, field]) => {
+              const amount2025 = plan.amounts['2025'][field];
+              const amount2026 = plan.amounts['2026'][field];
+              return <tr><th scope="row">{label}</th><td>{formatEuroAmount(amount2025)}</td><td>{formatEuroAmount(amount2026)}</td><td>{formatEuroAmount(amount2026 - amount2025)}</td><td>{formatPercent(getBudgetShare(amount2026, plan.amounts['2026'].expenses) ?? 0)}</td></tr>;
+            })}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact"><h2>Einordnung</h2></div>
+      <dl class="meta-list">
+        <div><dt>Verwaltungsbereich</dt><dd>{plan.category}</dd></div>
+        <div><dt>Politischer Schwerpunkt</dt><dd>{plan.politicalFocus}</dd></div>
+        <div><dt>Investitionsanteil 2026</dt><dd>{formatPercent(getBudgetShare(plan.amounts['2026'].investments, plan.amounts['2026'].expenses) ?? 0)}</dd></div>
+        <div><dt>Personalanteil 2026</dt><dd>{formatPercent(getBudgetShare(plan.amounts['2026'].personnel, plan.amounts['2026'].expenses) ?? 0)}</dd></div>
+      </dl>
+      <nav class="link-list">
+        {plan.ministrySlug ? <a href={getMinistryUrl(plan.ministrySlug)}>{plan.ministryLabel ?? 'Zuständiges Ressort'}</a> : null}
+        {plan.topicSlug ? <a href={getTopicUrl(plan.topicSlug)}>Zugeordnetes Thema</a> : null}
+        <a href={getNormUrl('gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2')}>Haushaltsgesetz 2025/2026</a>
+        <a href={getBudgetPageUrl('einzelplaene')}>Zur Übersicht aller Einzelpläne</a>
+      </nav>
+    </aside>
+  </div>
+
+  <section class="section section-muted" aria-labelledby="einzelplan-kapitel">
+    <div class="section-header"><h2 id="einzelplan-kapitel">Ausgewählte Kapitel und Titel</h2><p>Die Tabelle zeigt wichtige, in den Haushaltsunterlagen ausgewiesene Positionen. Kapitel und einzelne Titel werden nicht zu einer zusätzlichen Zwischensumme addiert.</p></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label={`Ausgewählte Kapitel des Einzelplans ${plan.number}`}>
+      <table class="data-table budget-chapter-table">
+        <caption>Ausgewählte Positionen nach Haushaltsjahr</caption>
+        <thead><tr><th scope="col">Jahr</th><th scope="col">Kapitel oder Titel</th><th scope="col">Bezeichnung</th><th scope="col">Ausgaben</th><th scope="col">Investitionen und Investitionsförderung</th></tr></thead>
+        <tbody>
+          {selectedChapters.map((chapter) => <tr><td>{chapter.year}</td><td>{chapter.code}</td><th scope="row">{chapter.label}</th><td>{formatEuroAmount(chapter.expenses)}</td><td>{formatEuroAmount(chapter.investments)}</td></tr>)}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

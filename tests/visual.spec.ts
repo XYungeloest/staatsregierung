@@ -3,6 +3,10 @@ import { expect, test, type Page } from '@playwright/test';
 const visualPages = [
   { name: 'startseite', path: '/' },
   { name: 'haushalt', path: '/haushalt/' },
+  { name: 'haushalt-gesamtplan', path: '/haushalt/gesamtplan/' },
+  { name: 'haushalt-einzelplaene', path: '/haushalt/einzelplaene/' },
+  { name: 'haushalt-einzelplan-03', path: '/haushalt/einzelplaene/03/' },
+  { name: 'haushalt-sondervermoegen', path: '/haushalt/sondervermoegen/' },
   { name: 'themen', path: '/themen/' },
   { name: 'thema-kulturpass', path: '/themen/kulturpass/' },
   { name: 'kreisreform', path: '/kreisreform/' },
@@ -60,20 +64,25 @@ test('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
   await expect(page.locator('[data-kreisreform-search-detail]')).toBeVisible();
 });
 
-test('Haushalt: Explorer filtert Einzelpläne und bleibt ohne Überlauf bedienbar', async ({ page }) => {
+test('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', async ({ page }) => {
   await preparePage(page);
   await page.goto('/haushalt/');
 
-  const explorer = page.locator('[data-budget-root]');
-  await expect(explorer).toBeVisible();
-  await explorer.getByRole('button', { name: '2026', exact: true }).click();
-  await explorer.getByRole('tab', { name: 'Ausgaben nach Einzelplänen' }).click();
-  await explorer.locator('[data-budget-filter="query"]').fill('Bildung');
-  await expect(explorer.locator('[data-budget-entry]:visible')).toHaveCount(1);
-  await expect(explorer.locator('[data-budget-status]')).toContainText('1 Einzelplan');
+  const dashboard = page.locator('[data-budget-year-switcher]');
+  await expect(dashboard).toBeVisible();
+  await dashboard.getByRole('button', { name: 'Vergleich', exact: true }).click();
+  await expect(dashboard.locator('[data-budget-year-content="vergleich"]')).toBeVisible();
+  await expect(dashboard.locator('[data-budget-year-status]')).toContainText('Vergleich');
 
-  await explorer.getByRole('tab', { name: 'Datentabelle' }).click();
-  await expect(explorer.locator('[data-budget-row]:visible')).toHaveCount(1);
+  await page.goto('/haushalt/einzelplaene/');
+  const plans = page.locator('[data-budget-year-switcher]');
+  await plans.getByRole('button', { name: 'Vergleich', exact: true }).click();
+  const table = plans.locator('[data-budget-year-content="vergleich"] [data-budget-plan-table]');
+  await expect(table).toBeVisible();
+  await table.locator('[data-budget-plan-filter="query"]').fill('Bildung');
+  await expect(table.locator('[data-budget-plan-row]:visible')).toHaveCount(1);
+  await expect(table.locator('[data-budget-plan-status]')).toContainText('1 von 20 Einzelplänen');
+
   await verifyViewport(page);
 });
 

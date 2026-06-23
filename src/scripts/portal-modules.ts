@@ -376,6 +376,93 @@ function initContactRouterModule(): void {
   update();
 }
 
+function initBudgetYearSwitchers(): void {
+  const roots = document.querySelectorAll<HTMLElement>('[data-budget-year-switcher]');
+
+  for (const root of roots) {
+    const buttons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-budget-year-option]'));
+    const panels = Array.from(root.querySelectorAll<HTMLElement>('[data-budget-year-content]'));
+    const status = root.querySelector<HTMLElement>('[data-budget-year-status]');
+    let selected = buttons.find((button) => button.getAttribute('aria-pressed') === 'true')?.dataset.budgetYearOption ?? '2026';
+
+    const update = () => {
+      for (const button of buttons) {
+        const active = button.dataset.budgetYearOption === selected;
+        button.classList.toggle('is-active', active);
+        button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      }
+
+      for (const panel of panels) {
+        panel.hidden = panel.dataset.budgetYearContent !== selected;
+      }
+
+      if (status) {
+        status.textContent = selected === 'vergleich'
+          ? 'Der Vergleich der Haushaltsjahre 2025 und 2026 wird angezeigt.'
+          : `Die Kennzahlen für das Haushaltsjahr ${selected} werden angezeigt.`;
+      }
+    };
+
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        selected = button.dataset.budgetYearOption ?? selected;
+        update();
+      });
+    }
+
+    update();
+  }
+}
+
+function initBudgetPlanTables(): void {
+  const roots = document.querySelectorAll<HTMLElement>('[data-budget-plan-table]');
+
+  for (const root of roots) {
+    const category = root.querySelector<HTMLSelectElement>('[data-budget-plan-filter="category"]');
+    const sort = root.querySelector<HTMLSelectElement>('[data-budget-plan-filter="sort"]');
+    const query = root.querySelector<HTMLInputElement>('[data-budget-plan-filter="query"]');
+    const body = root.querySelector<HTMLTableSectionElement>('tbody');
+    const rows = Array.from(root.querySelectorAll<HTMLTableRowElement>('[data-budget-plan-row]'));
+    const status = root.querySelector<HTMLElement>('[data-budget-plan-status]');
+    const empty = root.querySelector<HTMLElement>('[data-budget-plan-empty]');
+
+    const update = () => {
+      const categoryValue = category?.value ?? '';
+      const queryValue = (query?.value ?? '').trim().toLocaleLowerCase('de-DE');
+      const sortValue = sort?.value ?? 'number';
+      const visibleRows = rows.filter((row) => {
+        const matchesCategory = !categoryValue || row.dataset.category === categoryValue;
+        const matchesQuery = !queryValue || (row.dataset.search ?? '').includes(queryValue);
+        row.hidden = !(matchesCategory && matchesQuery);
+        return !row.hidden;
+      });
+
+      visibleRows.sort((left, right) => {
+        if (sortValue === 'expenses') return Number(right.dataset.expenses) - Number(left.dataset.expenses);
+        if (sortValue === 'change') return Number(right.dataset.change) - Number(left.dataset.change);
+        if (sortValue === 'category') return (left.dataset.category ?? '').localeCompare(right.dataset.category ?? '', 'de');
+        return Number(left.dataset.number) - Number(right.dataset.number);
+      });
+
+      for (const row of visibleRows) {
+        body?.append(row);
+      }
+
+      if (status) {
+        status.textContent = `${visibleRows.length} von ${rows.length} Einzelplänen sichtbar.`;
+      }
+      if (empty) {
+        empty.hidden = visibleRows.length > 0;
+      }
+    };
+
+    category?.addEventListener('change', update);
+    sort?.addEventListener('change', update);
+    query?.addEventListener('input', update);
+    update();
+  }
+}
+
 for (const root of document.querySelectorAll<HTMLElement>('[data-action-plan-root]')) {
   filterActionPlanModule(root);
 }
@@ -392,6 +479,8 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-budget-root]'))
   filterBudgetModule(root);
 }
 
+initBudgetYearSwitchers();
+initBudgetPlanTables();
 initFaqModules();
 initCareerFilterModule();
 initPressReleaseFilterModule();

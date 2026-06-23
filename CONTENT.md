@@ -538,36 +538,20 @@ Pflichtfelder:
 
 Format wie Service-Seiten. Diese Seiten beschreiben Grundlagen des fiktiven Freistaates, etwa Bezirke, Geschichte, Hauptstädte, Landesfarben und Verfassungsziele.
 
-### Haushaltsseiten
+### Haushaltsbereich
 
-Pfad: `content/haushalt/[slug].json`
+Die fachlichen Haushaltsseiten liegen unter `/haushalt/`, `/haushalt/gesamtplan/`,
+`/haushalt/einzelplaene/`, `/haushalt/einzelplaene/[nummer]/` und
+`/haushalt/sondervermoegen/`. Die zentrale Datenlogik ist `src/data/haushalt.ts`:
 
-Pflichtfelder:
-
-- `slug`
-- `title`
-- `teaser`
-- `body`
-
-Optionale Felder:
-
-- `dataset`
-
-Format:
-
-```json
-{
-  "slug": "gesamtplan",
-  "title": "Doppelhaushalt 2025/2026 - Gesamtplan",
-  "teaser": "Kurzer Einstieg.",
-  "body": ["Absatz eins.", "Absatz zwei."],
-  "dataset": {
-    "key": "frei strukturierbare Zusatzdaten für die jeweilige Seite"
-  }
-}
-```
-
-`dataset` wird als Objekt akzeptiert. Die Darstellung hängt von der jeweiligen Haushaltsseite ab.
+- `context/Staatshaushalt 2025_2026 - Zusammenfassung.csv` liefert die Werte der beiden Jahre
+  für Gesamtplan und Einzelpläne.
+- `context/Staatshaushalt 2025_2026.zip` liefert die archivierten Einzelplan-Blätter für die
+  dargestellten Kapitel und Titel.
+- Summen, Anteile und Veränderungen werden aus diesen Werten berechnet; sie dürfen nicht in
+  Seiten oder Komponenten erneut hart codiert werden.
+- `content/haushalt/*.json` bleibt als Such- und Metadatenbestand erhalten. Dort keine von der
+  zentralen Datenquelle abweichenden Kennzahlen pflegen.
 
 ## Rechtsportal und Normen
 
@@ -765,7 +749,7 @@ Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `ar
 Nicht alle sichtbaren Inhalte liegen unter `content/`. Einige kompakte Dashboarddaten werden als TypeScript gepflegt:
 
 - `src/data/dashboard/action-plan.ts`: 15-Punkte-Plan
-- `src/data/dashboard/budget.ts`: Budget-Explorer, Haushaltszahlen und Sonderfonds
+- `src/data/haushalt.ts`: Gesamtplan, Einzelpläne, Kapitelangaben und Sondervermögen
 - `src/data/dashboard/legislation.ts`: Gesetzgebungsstand
 - `src/data/dashboard/timeline.ts`: Zeitachse auf Startseite und 15-Punkte-Plan
 
@@ -776,7 +760,7 @@ Wichtige Werte:
 - `ActionPlanStatus`: `umgesetzt`, `teilweise_umgesetzt`, `angelegt`
 - `TimelineEntryType`: `gesetz`, `projekt`, `kabinett`, `presse`, `haushalt`
 - `LegislativeStage`: `entwurf`, `kabinett`, `landtag`, `verkuendung`, `inkrafttreten`
-- Budgetjahre: `2025`, `2026`
+- Budgetjahre: `2025`, `2026`; Vergleiche werden aus den Jahreswerten abgeleitet
 
 ## Kreis- und Bezirksreform
 
@@ -891,9 +875,8 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 | Stellenangebot | `content/service/stellen/[slug].json` | JSON-Objekt |
 | Service-Seite | `content/service/seiten/[slug].json` | JSON-Objekt |
 | Freistaat-Seite | `content/freistaat/[slug].json` | JSON-Objekt |
-| Haushaltsseite | `content/haushalt/[slug].json` | JSON-Objekt mit optionalem `dataset` |
+| Haushaltsdaten | `src/data/haushalt.ts` | Buildzeitbasiertes TypeScript-Datenmodell aus CSV und Archivblättern |
 | Norm | `content/normen/[slug]/` | `meta.json`, `history.json`, `versions/*.json` |
 | 15-Punkte-Plan | `src/data/dashboard/action-plan.ts` | TypeScript-Daten |
-| Budget-Module | `src/data/dashboard/budget.ts` | TypeScript-Daten |
 | Gesetzgebungsstand | `src/data/dashboard/legislation.ts` | TypeScript-Daten |
 | Timeline | `src/data/dashboard/timeline.ts` | TypeScript-Daten |

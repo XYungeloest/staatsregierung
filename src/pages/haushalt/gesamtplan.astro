@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import BudgetKpiCards from '../../components/portal/BudgetKpiCards.astro';
+import BudgetSectionNav from '../../components/portal/BudgetSectionNav.astro';
+import BudgetYearSelector from '../../components/portal/BudgetYearSelector.astro';
+import {
+  budgetTotals,
+  getExpenseBreakdown,
+  getRevenueBreakdown,
+  getBudgetShare,
+} from '../../data/haushalt.ts';
+import { formatEuroAmount, formatEuroCompact, formatPercent } from '../../lib/portal/modules.ts';
+import { getBudgetUrl, getHomeUrl } from '../../lib/portal/routes.ts';
+
+const summaryRows = [
+  ['Gesamteinnahmen', 'revenue'],
+  ['Gesamtausgaben', 'expenses'],
+  ['Steuereinnahmen', 'tax'],
+  ['Personalausgaben', 'personnel'],
+  ['Zuweisungen und Zuschüsse', 'transfers'],
+  ['Baumaßnahmen', 'construction'],
+  ['Investitionen und Investitionsförderung', 'investments'],
+  ['Besondere Finanzierungsausgaben', 'financingExpenses'],
+] as const;
+---
+
+<BaseLayout
+  title="Gesamtplan"
+  description="Gesamtplan des Doppelhaushalts 2025/2026 mit Einnahmen, Ausgabenarten und Jahresvergleich."
+  scripts={['portal-modules']}
+>
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt', href: getBudgetUrl() }, { label: 'Gesamtplan' }]} />
+
+  <section class="section budget-portal-header">
+    <p class="eyebrow">Haushalt · Gesamtplan</p>
+    <h1>Gesamtplan des Doppelhaushalts</h1>
+    <p class="lead">Der Gesamtplan erklärt die Einnahmen und Ausgaben des Kernhaushalts nach den Hauptgruppen der Haushaltsrechnung. Einzelpläne und Sondervermögen sind eigene Betrachtungsebenen.</p>
+    <BudgetSectionNav current="gesamtplan" />
+  </section>
+
+  <section class="section budget-dashboard" data-budget-year-switcher aria-labelledby="gesamtplan-stand">
+    <div class="section-header section-header--with-control">
+      <div><h2 id="gesamtplan-stand">Einnahmen und Ausgaben</h2><p>Wählen Sie ein Jahr für die Strukturansicht oder den Jahresvergleich.</p></div>
+      <BudgetYearSelector id="gesamtplan-year" label="Haushaltsjahr" />
+    </div>
+    <p class="visually-hidden" data-budget-year-status role="status" aria-live="polite"></p>
+
+    {(['2025', '2026'] as const).map((year) => (
+      <div class="budget-year-content" data-budget-year-content={year} hidden={year !== '2026'}>
+        <BudgetKpiCards year={year} amounts={budgetTotals[year]} />
+        <div class="budget-structure-grid">
+          <article class="budget-structure-card">
+            <h3>Einnahmen {year}</h3>
+            <p class="budget-structure-card__total">{formatEuroCompact(budgetTotals[year].revenue)}</p>
+            <ul class="budget-breakdown-list">
+              {getRevenueBreakdown(year).map((item) => (
+                <li><span>{item.label}</span><strong>{formatEuroCompact(item.amount)}</strong><small>{formatPercent(getBudgetShare(item.amount, budgetTotals[year].revenue) ?? 0)} der Einnahmen</small></li>
+              ))}
+            </ul>
+          </article>
+          <article class="budget-structure-card">
+            <h3>Ausgaben {year}</h3>
+            <p class="budget-structure-card__total">{formatEuroCompact(budgetTotals[year].expenses)}</p>
+            <ul class="budget-breakdown-list">
+              {getExpenseBreakdown(year).map((item) => (
+                <li><span>{item.label}</span><strong>{formatEuroCompact(item.amount)}</strong><small>{formatPercent(getBudgetShare(item.amount, budgetTotals[year].expenses) ?? 0)} der Ausgaben</small></li>
+              ))}
+            </ul>
+          </article>
+        </div>
+        <div class="budget-explanation-grid">
+          <article class="budget-explanation-card"><h3>Ausgabenstruktur</h3><p>Zuweisungen und Zuschüsse sind mit {formatPercent(getBudgetShare(budgetTotals[year].transfers, budgetTotals[year].expenses) ?? 0)} der Ausgaben die größte Hauptgruppe. Personalausgaben und Investitionen werden daneben als eigene Gruppen ausgewiesen.</p></article>
+          <article class="budget-explanation-card"><h3>Investitionen</h3><p>Die Position „Investitionen und Investitionsförderung“ enthält die Hauptgruppe 8. Baumaßnahmen werden getrennt ausgewiesen und nicht in diesen Betrag eingerechnet.</p></article>
+        </div>
+      </div>
+    ))}
+
+    <div class="budget-year-content" data-budget-year-content="vergleich" hidden>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="Vergleich von Einnahmen und Ausgaben 2025 und 2026">
+        <table class="data-table budget-total-table">
+          <caption>Hauptkennzahlen des Gesamtplans</caption>
+          <thead><tr><th scope="col">Kennzahl</th><th scope="col">2025</th><th scope="col">2026</th><th scope="col">Veränderung absolut</th><th scope="col">Veränderung in Prozent</th></tr></thead>
+          <tbody>
+            {summaryRows.map(([label, field]) => {
+              const amount2025 = budgetTotals['2025'][field];
+              const amount2026 = budgetTotals['2026'][field];
+              const difference = amount2026 - amount2025;
+              const percent = amount2025 === 0 ? null : difference / amount2025;
+              return <tr><th scope="row">{label}</th><td>{formatEuroAmount(amount2025)}</td><td>{formatEuroAmount(amount2026)}</td><td>{formatEuroAmount(difference)}</td><td>{percent === null ? '–' : formatPercent(percent)}</td></tr>;
+            })}
+          </tbody>
+        </table>
+      </div>
+      <div class="budget-explanation-grid">
+        <article class="budget-explanation-card"><h3>Veränderungen richtig lesen</h3><p>Die Tabelle vergleicht Ansätze des Doppelhaushalts. Sie zeigt keine Jahresrechnung und keine Bewertung einzelner Aufgabenbereiche.</p></article>
+        <article class="budget-explanation-card"><h3>Besondere Finanzierungsausgaben</h3><p>Diese Hauptgruppe kann auch negative Werte enthalten. Deshalb wird sie in der Tabelle als Betrag ausgewiesen und nicht als grafischer Anteil interpretiert.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="gesamtplan-tabelle">
+    <div class="section-header"><h2 id="gesamtplan-tabelle">Alle Hauptkennzahlen</h2><p>Die Vergleichstabelle bleibt als textliche Alternative zur Strukturansicht verfügbar.</p></div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle mit allen Hauptkennzahlen des Gesamtplans">
+      <table class="data-table budget-total-table">
+        <caption>Gesamtplan 2025 und 2026</caption>
+        <thead><tr><th scope="col">Kennzahl</th><th scope="col">2025</th><th scope="col">2026</th><th scope="col">Veränderung</th></tr></thead>
+        <tbody>
+          {summaryRows.map(([label, field]) => {
+            const difference = budgetTotals['2026'][field] - budgetTotals['2025'][field];
+            return <tr><th scope="row">{label}</th><td>{formatEuroAmount(budgetTotals['2025'][field])}</td><td>{formatEuroAmount(budgetTotals['2026'][field])}</td><td>{formatEuroAmount(difference)}</td></tr>;
+          })}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</BaseLayout>

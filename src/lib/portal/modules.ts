@@ -44,49 +44,6 @@ export interface LegislativeTrackerItem {
   href?: string;
 }
 
-export type BudgetYear = '2025' | '2026';
-
-export type BudgetCategory =
-  | 'Ressort'
-  | 'Verfassungsorgan'
-  | 'Unabhängige Stelle'
-  | 'Zentrale Verwaltung';
-
-export interface BudgetBreakdownItem {
-  label: string;
-  amount: number;
-}
-
-export interface BudgetSummaryRow {
-  year: BudgetYear;
-  state: 'Haushaltsgesetz';
-  totalRevenue: number;
-  totalExpense: number;
-  taxRevenue: number;
-  personnel: number;
-  transfers: number;
-  investments: number;
-  revenueBreakdown: BudgetBreakdownItem[];
-  expenseBreakdown: BudgetBreakdownItem[];
-}
-
-export interface BudgetExplorerEntry {
-  year: BudgetYear;
-  state: 'Haushaltsgesetz';
-  plan: string;
-  label: string;
-  category: BudgetCategory;
-  amount: number;
-  investments: number;
-}
-
-export interface BudgetSpecialFund {
-  label: string;
-  purpose: string;
-  description: string;
-  href?: string;
-}
-
 export interface FaqItem {
   question: string;
   answer: string;
@@ -167,18 +124,21 @@ export function formatEuroAmount(amount: number): string {
 }
 
 export function formatEuroCompact(amount: number): string {
-  if (amount >= 1_000_000_000) {
-    return `${new Intl.NumberFormat('de-DE', {
+  const absoluteAmount = Math.abs(amount);
+  const sign = amount < 0 ? '−' : '';
+
+  if (absoluteAmount >= 1_000_000_000) {
+    return `${sign}${new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 1,
       maximumFractionDigits: 1,
-    }).format(amount / 1_000_000_000)} Mrd. €`;
+    }).format(absoluteAmount / 1_000_000_000)} Mrd. €`;
   }
 
-  if (amount >= 1_000_000) {
-    return `${new Intl.NumberFormat('de-DE', {
+  if (absoluteAmount >= 1_000_000) {
+    return `${sign}${new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 1,
       maximumFractionDigits: 1,
-    }).format(amount / 1_000_000)} Mio. €`;
+    }).format(absoluteAmount / 1_000_000)} Mio. €`;
   }
 
   return formatEuroAmount(amount);

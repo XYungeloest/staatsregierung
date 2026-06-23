@@ -1,0 +1,21 @@
+---
+import { getBudgetPageUrl, getBudgetUrl } from '../../lib/portal/routes.ts';
+
+interface Props {
+  current?: 'portal' | 'gesamtplan' | 'einzelplaene' | 'sondervermoegen';
+}
+
+const { current = 'portal' } = Astro.props as Props;
+const links = [
+  { id: 'portal' as const, label: 'Haushaltsportal', href: getBudgetUrl() },
+  { id: 'gesamtplan' as const, label: 'Gesamtplan', href: getBudgetPageUrl('gesamtplan') },
+  { id: 'einzelplaene' as const, label: 'Einzelpläne', href: getBudgetPageUrl('einzelplaene') },
+  { id: 'sondervermoegen' as const, label: 'Sondervermögen und Fonds', href: getBudgetPageUrl('sondervermoegen') },
+];
+---
+
+<nav class="budget-section-nav" aria-label="Bereiche des Haushaltsportals">
+  {links.map((link) => (
+    <a href={link.href} aria-current={link.id === current ? 'page' : undefined}>{link.label}</a>
+  ))}
+</nav>

@@ -3,6 +3,10 @@ import { expect, test } from '@playwright/test';
 
 const auditPages = [
   '/',
+  '/haushalt/',
+  '/haushalt/einzelplaene/',
+  '/haushalt/einzelplaene/03/',
+  '/haushalt/sondervermoegen/',
   '/themen/kulturpass/',
   '/kreisreform/',
   '/suche/',
