@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import BudgetExplorer from '../../components/portal/BudgetExplorer.astro';
+import BudgetKpiGrid from '../../components/portal/BudgetKpiGrid.astro';
+import BudgetMethodology from '../../components/portal/BudgetMethodology.astro';
 import {
   budgetExplorerEntries,
   budgetSpecialFunds,
@@ -22,40 +24,34 @@ const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
 
 <BaseLayout
   title="Haushalt"
-  description="Haushalt, Gesamtplan, Einzelpläne und Sondervermögen der Staatsregierung des Ostdeutschen Freistaates."
+  description="Doppelhaushalt 2025/2026 mit Gesamtüberblick, Einzelplänen, Einnahmen, Investitionen und Sondervermögen des Ostdeutschen Freistaates."
   scripts={['portal-modules']}
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Haushalt</p>
-    <h1>Haushalt</h1>
+    <h1>Haushalt des Ostdeutschen Freistaates</h1>
     <p class="lead">
-      Hier finden Sie den Doppelhaushalt 2025/2026, seine Einzelpläne sowie Informationen zu
-      Sondervermögen und Fonds.
+      Der Doppelhaushalt 2025/2026 zeigt, wofür der Freistaat Mittel einsetzt, welche Ressorts
+      welche Einzelpläne verantworten und wie Investitionen, Sondervermögen und laufende Ausgaben
+      zusammenwirken.
     </p>
+    <nav class="hero-actions" aria-label="Direkteinstiege zum Haushalt">
+      <a class="button-link" href="#haushalt-explorer">Gesamtüberblick</a>
+      <a class="button-link button-link--secondary" href="#budget-tab-distribution">Ausgaben nach Einzelplänen</a>
+      <a class="button-link button-link--secondary" href="#budget-tab-revenue">Einnahmen und Finanzierung</a>
+      <a class="button-link button-link--secondary" href="#budget-tab-investment">Investitionen</a>
+      <a class="button-link button-link--secondary" href="#budget-tab-funds">Sondervermögen und Fonds</a>
+      <a class="button-link button-link--secondary" href={`${import.meta.env.BASE_URL}haushalt/daten.csv`} download>Daten herunterladen</a>
+    </nav>
   </section>
 
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Haushaltsstruktur</span>
-        <strong>Doppelhaushalt 2025/2026</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Teilbereiche</span>
-        <strong>{orderedPages.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Rechtsbezug</span>
-        <strong>Haushaltsgesetz und Haushaltsrecht</strong>
-      </div>
-    </div>
-  </section>
+  <BudgetKpiGrid summaryRows={budgetSummaryRows} specialFunds={budgetSpecialFunds} />
 
-  <section class="section section-muted">
+  <section class="section section-muted" aria-labelledby="haushaltsbereiche">
     <div class="section-header">
-      <h2>Haushaltsbereiche</h2>
+      <h2 id="haushaltsbereiche">Haushaltsbereiche</h2>
       <p>Gesamtplan, Einzelpläne und Sondervermögen sind nach Bereichen gegliedert.</p>
     </div>
     <div class="card-grid card-grid--three">
@@ -69,16 +65,14 @@ const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
   </section>
 
   <section class="section">
-    <div class="section-header">
-      <h2>Haushalt-Explorer</h2>
-      <p>Wählen Sie Haushaltsjahr, Ressort oder Einzelplan aus.</p>
-    </div>
     <BudgetExplorer
       summaryRows={budgetSummaryRows}
       entries={budgetExplorerEntries}
       specialFunds={budgetSpecialFunds}
     />
   </section>
+
+  <BudgetMethodology />
 
   <section class="section">
     <div class="section-header">

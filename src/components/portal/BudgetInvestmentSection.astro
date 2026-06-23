@@ -1,0 +1,78 @@
+---
+import {
+  formatEuroCompact,
+  formatPercent,
+  type BudgetExplorerEntry,
+  type BudgetSummaryRow,
+} from '../../lib/portal/modules.ts';
+
+interface Props {
+  entries: BudgetExplorerEntry[];
+  summaryRows: BudgetSummaryRow[];
+}
+
+const { entries, summaryRows } = Astro.props as Props;
+const years = ['2025', '2026'] as const;
+const summaryByYear = new Map(summaryRows.map((row) => [row.year, row]));
+---
+
+<section class="budget-view" aria-labelledby="investitionen">
+  <div class="section-header section-header--compact">
+    <h3 id="investitionen">Investitionen</h3>
+    <p>Investitionen und Investitionsförderung werden unabhängig von den übrigen Ausgaben dargestellt.</p>
+  </div>
+  <p class="detail-line">Die Verteilung bezieht sich auf die im jeweiligen Einzelplan ausgewiesenen Investitionen und Investitionsförderungen.</p>
+
+  {years.map((year) => {
+    const summary = summaryByYear.get(year);
+    const entriesForYear = entries
+      .filter((entry) => entry.year === year && entry.investments > 0)
+      .sort((left, right) => right.investments - left.investments);
+    const maximumShare = summary
+      ? Math.max(...entriesForYear.map((entry) => entry.investments / summary.investments))
+      : 0;
+    const scale = Math.max(10, Math.ceil(maximumShare * 100 / 10) * 10);
+
+    return summary ? (
+      <div class="budget-investment" data-budget-year-panel data-year={year} hidden={year !== '2025'}>
+        <div class="meta-grid meta-grid--compact">
+          <article class="meta-card">
+            <span class="meta-label">Investitionen {year}</span>
+            <strong>{formatEuroCompact(summary.investments)}</strong>
+            <span class="detail-line">Investitionen und Investitionsförderung</span>
+          </article>
+          <article class="meta-card">
+            <span class="meta-label">Anteil am Gesamtvolumen</span>
+            <strong>{formatPercent(summary.investments / summary.totalExpense)}</strong>
+            <span class="detail-line">Bezogen auf Gesamtausgaben {year}</span>
+          </article>
+        </div>
+        <ol class="budget-chart__items">
+          {entriesForYear.map((entry) => {
+            const share = entry.investments / summary.investments;
+            const width = Math.min(100, (share * 100 / scale) * 100);
+
+            return (
+              <li
+                class="budget-chart__item"
+                data-budget-investment-entry
+                data-year={entry.year}
+                data-state={entry.state}
+                data-category={entry.category}
+                data-label={`${entry.plan} ${entry.label}`.toLocaleLowerCase('de-DE')}
+              >
+                <div class="budget-chart__label">
+                  <span><strong>Einzelplan {entry.plan}</strong> · {entry.label}</span>
+                  <span>{formatEuroCompact(entry.investments)} · {formatPercent(share)}</span>
+                </div>
+                <div class="budget-chart__plot" aria-hidden="true">
+                  <span class="budget-chart__bar budget-chart__bar--investment" style={`width: ${width.toFixed(2)}%`}></span>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    ) : null;
+  })}
+</section>

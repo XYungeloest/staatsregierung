@@ -100,16 +100,45 @@ function filterBudgetModule(root: HTMLElement): void {
   const yearButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-budget-year]'));
   const queryInput = root.querySelector<HTMLInputElement>('[data-budget-filter="query"]');
   const categorySelect = root.querySelector<HTMLSelectElement>('[data-budget-filter="category"]');
+  const stateSelect = root.querySelector<HTMLSelectElement>('[data-budget-filter="state"]');
   const entries = Array.from(root.querySelectorAll<HTMLElement>('[data-budget-entry]'));
+  const investmentEntries = Array.from(root.querySelectorAll<HTMLElement>('[data-budget-investment-entry]'));
   const rows = Array.from(root.querySelectorAll<HTMLElement>('[data-budget-row]'));
-  const summaries = Array.from(root.querySelectorAll<HTMLElement>('[data-budget-summary]'));
+  const comparisonRows = Array.from(root.querySelectorAll<HTMLElement>('[data-budget-comparison]'));
+  const yearPanels = Array.from(root.querySelectorAll<HTMLElement>('[data-budget-year-panel]'));
+  const viewButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-budget-view]'));
+  const viewPanels = Array.from(root.querySelectorAll<HTMLElement>('[data-budget-panel]'));
+  const statusNode = root.querySelector<HTMLElement>('[data-budget-status]');
   const emptyNode = root.querySelector<HTMLElement>('[data-budget-empty]');
 
   let activeYear = '2025';
+  let activeView = 'overview';
+
+  const setActiveView = (view: string, moveFocus = false) => {
+    if (!viewPanels.some((panel) => panel.dataset.budgetPanel === view)) {
+      return;
+    }
+
+    activeView = view;
+    for (const button of viewButtons) {
+      const isActive = button.dataset.budgetView === activeView;
+      button.classList.toggle('is-active', isActive);
+      button.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      button.tabIndex = isActive ? 0 : -1;
+      if (moveFocus && isActive) {
+        button.focus();
+      }
+    }
+
+    for (const panel of viewPanels) {
+      panel.hidden = panel.dataset.budgetPanel !== activeView;
+    }
+  };
 
   const update = () => {
     const query = (queryInput?.value ?? '').trim().toLocaleLowerCase('de-DE');
     const category = categorySelect?.value ?? '';
+    const state = stateSelect?.value ?? '';
     let visibleCount = 0;
 
     for (const button of yearButtons) {
@@ -117,16 +146,17 @@ function filterBudgetModule(root: HTMLElement): void {
       button.setAttribute('aria-pressed', button.dataset.budgetYear === activeYear ? 'true' : 'false');
     }
 
-    for (const summary of summaries) {
-      summary.hidden = summary.dataset.year !== activeYear;
+    for (const panel of yearPanels) {
+      panel.hidden = panel.dataset.year !== activeYear;
     }
 
-    const matchesCommonFilters = (element: HTMLElement) => {
+    const matchesCommonFilters = (element: HTMLElement, withYear = true) => {
       const matchesYear = element.dataset.year === activeYear;
+      const matchesState = !state || element.dataset.state === state;
       const matchesCategory = !category || element.dataset.category === category;
       const label = element.dataset.label ?? '';
       const matchesQuery = !query || label.includes(query);
-      return matchesYear && matchesCategory && matchesQuery;
+      return (!withYear || matchesYear) && matchesState && matchesCategory && matchesQuery;
     };
 
     for (const entry of entries) {
@@ -137,12 +167,24 @@ function filterBudgetModule(root: HTMLElement): void {
       }
     }
 
+    for (const entry of investmentEntries) {
+      entry.hidden = !matchesCommonFilters(entry);
+    }
+
     for (const row of rows) {
       row.hidden = !matchesCommonFilters(row);
     }
 
+    for (const row of comparisonRows) {
+      row.hidden = !matchesCommonFilters(row, false);
+    }
+
+    if (statusNode) {
+      statusNode.textContent = `${visibleCount} ${visibleCount === 1 ? 'Einzelplan ist' : 'Einzelpläne sind'} für ${activeYear} sichtbar.`;
+    }
+
     if (emptyNode) {
-      emptyNode.hidden = visibleCount > 0;
+      emptyNode.hidden = visibleCount > 0 || ['overview', 'revenue', 'funds'].includes(activeView);
     }
   };
 
@@ -153,8 +195,42 @@ function filterBudgetModule(root: HTMLElement): void {
     });
   }
 
+  for (const button of viewButtons) {
+    button.addEventListener('click', () => {
+      setActiveView(button.dataset.budgetView ?? 'overview');
+      update();
+    });
+
+    button.addEventListener('keydown', (event) => {
+      const currentIndex = viewButtons.indexOf(button);
+      let nextIndex = currentIndex;
+
+      if (event.key === 'ArrowRight') nextIndex = (currentIndex + 1) % viewButtons.length;
+      if (event.key === 'ArrowLeft') nextIndex = (currentIndex - 1 + viewButtons.length) % viewButtons.length;
+      if (event.key === 'Home') nextIndex = 0;
+      if (event.key === 'End') nextIndex = viewButtons.length - 1;
+
+      if (nextIndex !== currentIndex) {
+        event.preventDefault();
+        setActiveView(viewButtons[nextIndex].dataset.budgetView ?? 'overview', true);
+        update();
+      }
+    });
+  }
+
+  const updateViewFromHash = () => {
+    const view = window.location.hash.replace(/^#budget-tab-/u, '');
+    if (view && view !== window.location.hash) {
+      setActiveView(view);
+      update();
+    }
+  };
+
   queryInput?.addEventListener('input', update);
   categorySelect?.addEventListener('change', update);
+  stateSelect?.addEventListener('change', update);
+  window.addEventListener('hashchange', updateViewFromHash);
+  updateViewFromHash();
   update();
 }
 

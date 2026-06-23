@@ -1,0 +1,45 @@
+---
+import { formatEuroCompact, formatPercent, type BudgetSummaryRow } from '../../lib/portal/modules.ts';
+
+interface Props {
+  summaryRows: BudgetSummaryRow[];
+}
+
+const { summaryRows } = Astro.props as Props;
+---
+
+<section class="budget-view" aria-labelledby="einnahmen-ausgaben">
+  <div class="section-header section-header--compact">
+    <h3 id="einnahmen-ausgaben">Einnahmen und Ausgaben</h3>
+    <p>Die Einnahmen- und Ausgabenseite sind getrennt dargestellt, damit ihre jeweiligen Strukturen nachvollziehbar bleiben.</p>
+  </div>
+  {summaryRows.map((summary) => (
+    <div class="budget-flow-grid" data-budget-year-panel data-year={summary.year} hidden={summary.year !== '2025'}>
+      <article class="budget-flow-card">
+        <h4>Einnahmen {summary.year}</h4>
+        <p class="budget-flow-card__total">{formatEuroCompact(summary.totalRevenue)}</p>
+        <ul class="budget-breakdown-list">
+          {summary.revenueBreakdown.map((entry) => (
+            <li>
+              <span>{entry.label}</span>
+              <strong>{formatEuroCompact(entry.amount)}</strong>
+            </li>
+          ))}
+        </ul>
+      </article>
+      <article class="budget-flow-card">
+        <h4>Ausgaben {summary.year}</h4>
+        <p class="budget-flow-card__total">{formatEuroCompact(summary.totalExpense)}</p>
+        <ul class="budget-breakdown-list">
+          {summary.expenseBreakdown.map((entry) => (
+            <li>
+              <span>{entry.label}</span>
+              <strong>{formatEuroCompact(entry.amount)}</strong>
+              <small>{formatPercent(entry.amount / summary.totalExpense)}</small>
+            </li>
+          ))}
+        </ul>
+      </article>
+    </div>
+  ))}
+</section>

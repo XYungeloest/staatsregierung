@@ -1,0 +1,73 @@
+---
+import {
+  formatEuroAmount,
+  formatPercent,
+  type BudgetExplorerEntry,
+  type BudgetSummaryRow,
+} from '../../lib/portal/modules.ts';
+
+interface Props {
+  entries: BudgetExplorerEntry[];
+  summaryRows: BudgetSummaryRow[];
+}
+
+const { entries, summaryRows } = Astro.props as Props;
+const summaryByYear = new Map(summaryRows.map((row) => [row.year, row]));
+const entriesByPlan2025 = new Map(entries.filter((entry) => entry.year === '2025').map((entry) => [entry.plan, entry]));
+const orderedEntries = [...entries].sort((left, right) =>
+  left.year.localeCompare(right.year) || Number(left.plan) - Number(right.plan),
+);
+---
+
+<section id="haushaltsdaten" class="budget-view" aria-labelledby="haushaltsdaten-ueberschrift">
+  <div class="section-header section-header--compact">
+    <h3 id="haushaltsdaten-ueberschrift">Datentabelle</h3>
+    <p>Die Tabelle enthält die Angaben aus dem Explorer in einer zugänglichen, filterbaren Form.</p>
+  </div>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Haushaltsdaten nach Einzelplan">
+    <table class="data-table budget-data-table">
+      <caption>Ausgaben und Investitionen nach Einzelplan</caption>
+      <thead>
+        <tr>
+          <th scope="col">Jahr</th>
+          <th scope="col">Haushaltsstand</th>
+          <th scope="col">Einzelplan</th>
+          <th scope="col">Bereich</th>
+          <th scope="col">Kategorie</th>
+          <th scope="col">Ausgaben</th>
+          <th scope="col">Anteil</th>
+          <th scope="col">Investitionen</th>
+          <th scope="col">Veränderung zum Vorjahr</th>
+        </tr>
+      </thead>
+      <tbody>
+        {orderedEntries.map((entry) => {
+          const summary = summaryByYear.get(entry.year);
+          const previous = entry.year === '2026' ? entriesByPlan2025.get(entry.plan) : undefined;
+          const change = previous ? entry.amount - previous.amount : undefined;
+
+          return (
+            <tr
+              data-budget-row
+              data-year={entry.year}
+              data-state={entry.state}
+              data-category={entry.category}
+              data-label={`${entry.plan} ${entry.label}`.toLocaleLowerCase('de-DE')}
+              hidden={entry.year !== '2025'}
+            >
+              <td>{entry.year}</td>
+              <td>{entry.state}</td>
+              <td>{entry.plan}</td>
+              <th scope="row">{entry.label}</th>
+              <td>{entry.category}</td>
+              <td>{formatEuroAmount(entry.amount)}</td>
+              <td>{summary ? formatPercent(entry.amount / summary.totalExpense) : '–'}</td>
+              <td>{formatEuroAmount(entry.investments)}</td>
+              <td>{change === undefined ? '–' : `${change < 0 ? '−' : '+'}${formatEuroAmount(Math.abs(change))}`}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -53,7 +53,7 @@ if (root) {
   const form = root.querySelector<HTMLFormElement>('[data-portal-search-form]');
   const queryInput = root.querySelector<HTMLInputElement>('[data-portal-search-query]');
   const typeSelect = root.querySelector<HTMLSelectElement>('[data-portal-search-type]');
-  const countNode = root.querySelector<HTMLElement>('[data-portal-search-count]');
+  const statusNode = root.querySelector<HTMLElement>('[data-portal-search-status]');
   const resultNode = root.querySelector<HTMLElement>('[data-portal-search-results]');
   const emptyNode = root.querySelector<HTMLElement>('[data-portal-search-empty]');
   const errorNode = root.querySelector<HTMLElement>('[data-portal-search-error]');
@@ -65,8 +65,8 @@ if (root) {
 
   const initialQuery = queryInput?.value ?? '';
   const initialType = typeSelect?.value ?? '';
-  if (hasSearchIntent(initialQuery, initialType) && countNode) {
-    countNode.textContent = 'Suche wird geladen …';
+  if (hasSearchIntent(initialQuery, initialType) && statusNode) {
+    statusNode.textContent = 'Suche wird geladen …';
   }
 
   fetch(indexUrl)
@@ -84,8 +84,8 @@ if (root) {
         const searching = hasSearchIntent(query, type);
 
         if (!searching) {
-          if (countNode) {
-            countNode.textContent = 'Geben Sie einen Suchbegriff ein oder wählen Sie einen Bereich aus.';
+          if (statusNode) {
+            statusNode.textContent = 'Geben Sie einen Suchbegriff ein oder wählen Sie einen Bereich aus.';
           }
           if (emptyNode) emptyNode.hidden = true;
           if (resultNode) resultNode.innerHTML = '';
@@ -99,8 +99,10 @@ if (root) {
           .sort((left, right) => right.score - left.score || left.entry.title.localeCompare(right.entry.title, 'de'))
           .slice(0, 50);
 
-        if (countNode) {
-          countNode.textContent = `${matches.length} ${matches.length === 1 ? 'Treffer' : 'Treffer'}`;
+        if (statusNode) {
+          statusNode.textContent = matches.length === 0
+            ? 'Keine Treffer gefunden.'
+            : `${matches.length} ${matches.length === 1 ? 'Treffer' : 'Treffer'} gefunden.`;
         }
         if (emptyNode) emptyNode.hidden = matches.length > 0;
         if (resultNode) {
@@ -138,7 +140,7 @@ if (root) {
       update();
     })
     .catch(() => {
-      if (countNode) countNode.textContent = 'Die Suche konnte nicht geladen werden.';
+      if (statusNode) statusNode.textContent = 'Die Suche ist derzeit nicht verfügbar.';
       if (errorNode) errorNode.hidden = false;
       if (emptyNode) emptyNode.hidden = true;
     });
