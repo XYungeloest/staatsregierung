@@ -1,97 +1,155 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import BudgetExplorer from '../../components/portal/BudgetExplorer.astro';
-import BudgetKpiGrid from '../../components/portal/BudgetKpiGrid.astro';
-import BudgetMethodology from '../../components/portal/BudgetMethodology.astro';
+import BudgetKpiCards from '../../components/portal/BudgetKpiCards.astro';
+import BudgetSectionNav from '../../components/portal/BudgetSectionNav.astro';
+import BudgetYearSelector from '../../components/portal/BudgetYearSelector.astro';
 import {
-  budgetExplorerEntries,
-  budgetSpecialFunds,
-  budgetSummaryRows,
-} from '../../data/dashboard/budget.ts';
-import {
-  getBudgetPageUrl,
-  getHomeUrl,
-} from '../../lib/portal/index.ts';
-import { loadBudgetPages } from '../../lib/portal/content.ts';
-import { getNormUrl } from '../../lib/norms/index.ts';
+  budgetPlans,
+  budgetSpecialInstruments,
+  budgetTotals,
+  getBudgetShare,
+} from '../../data/haushalt.ts';
+import { formatEuroCompact, formatPercent } from '../../lib/portal/modules.ts';
+import { getBudgetPageUrl, getBudgetPlanUrl, getHomeUrl } from '../../lib/portal/routes.ts';
 
-const pages = await loadBudgetPages();
-const orderedPages = ['gesamtplan', 'einzelplaene', 'sondervermoegen']
-  .map((slug) => pages.find((page) => page.slug === slug))
-  .filter((page): page is NonNullable<typeof page> => Boolean(page));
+const ressortPlans = budgetPlans
+  .filter((plan) => plan.category === 'Ressort')
+  .sort((left, right) => right.amounts['2026'].expenses - left.amounts['2026'].expenses);
+const financePlan = budgetPlans.find((plan) => plan.number === '20');
+const totalChange = budgetTotals['2026'].expenses - budgetTotals['2025'].expenses;
+const investmentChange = budgetTotals['2026'].investments - budgetTotals['2025'].investments;
+const taxChange = budgetTotals['2026'].tax - budgetTotals['2025'].tax;
 ---
 
 <BaseLayout
   title="Haushalt"
-  description="Doppelhaushalt 2025/2026 mit Gesamtüberblick, Einzelplänen, Einnahmen, Investitionen und Sondervermögen des Ostdeutschen Freistaates."
+  description="Das Haushaltsportal zum Doppelhaushalt 2025/2026 mit Gesamtplan, Einzelplänen und Sondervermögen."
   scripts={['portal-modules']}
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]} />
 
-  <section class="section page-header">
-    <p class="eyebrow">Haushalt</p>
-    <h1>Haushalt des Ostdeutschen Freistaates</h1>
+  <section class="section budget-portal-header">
+    <p class="eyebrow">Haushaltsportal</p>
+    <h1>Doppelhaushalt 2025/2026</h1>
     <p class="lead">
-      Der Doppelhaushalt 2025/2026 zeigt, wofür der Freistaat Mittel einsetzt, welche Ressorts
-      welche Einzelpläne verantworten und wie Investitionen, Sondervermögen und laufende Ausgaben
-      zusammenwirken.
+      Der Haushalt zeigt die Einnahmen und Ausgaben des Freistaates nach Jahren, Aufgabenbereichen
+      und Einzelplänen. Sondervermögen und Kooperationsfonds werden getrennt vom Kernhaushalt erläutert.
     </p>
-    <nav class="hero-actions" aria-label="Direkteinstiege zum Haushalt">
-      <a class="button-link" href="#haushalt-explorer">Gesamtüberblick</a>
-      <a class="button-link button-link--secondary" href="#budget-tab-distribution">Ausgaben nach Einzelplänen</a>
-      <a class="button-link button-link--secondary" href="#budget-tab-revenue">Einnahmen und Finanzierung</a>
-      <a class="button-link button-link--secondary" href="#budget-tab-investment">Investitionen</a>
-      <a class="button-link button-link--secondary" href="#budget-tab-funds">Sondervermögen und Fonds</a>
+    <BudgetSectionNav current="portal" />
+    <nav class="hero-actions" aria-label="Direkteinstiege zum Haushaltsportal">
+      <a class="button-link" href={getBudgetPageUrl('gesamtplan')}>Gesamtplan ansehen</a>
+      <a class="button-link button-link--secondary" href={getBudgetPageUrl('einzelplaene')}>Einzelpläne vergleichen</a>
+      <a class="button-link button-link--secondary" href={getBudgetPageUrl('sondervermoegen')}>Sondervermögen und Fonds</a>
       <a class="button-link button-link--secondary" href={`${import.meta.env.BASE_URL}haushalt/daten.csv`} download>Daten herunterladen</a>
     </nav>
   </section>
 
-  <BudgetKpiGrid summaryRows={budgetSummaryRows} specialFunds={budgetSpecialFunds} />
+  <section class="section budget-dashboard" data-budget-year-switcher aria-labelledby="haushaltsstand">
+    <div class="section-header section-header--with-control">
+      <div>
+        <h2 id="haushaltsstand">Haushaltsstand im Überblick</h2>
+        <p>Wählen Sie ein Haushaltsjahr oder den direkten Vergleich. Alle Kennzahlen beziehen sich auf den Kernhaushalt.</p>
+      </div>
+      <BudgetYearSelector id="portal-year" label="Haushaltsjahr" />
+    </div>
+    <p class="visually-hidden" data-budget-year-status role="status" aria-live="polite"></p>
 
-  <section class="section section-muted" aria-labelledby="haushaltsbereiche">
+    {(['2025', '2026'] as const).map((year) => (
+      <div class="budget-year-content" data-budget-year-content={year} hidden={year !== '2026'}>
+        <BudgetKpiCards year={year} amounts={budgetTotals[year]} />
+        <div class="budget-explanation-grid">
+          <article class="budget-explanation-card">
+            <span class="meta-label">Einordnung {year}</span>
+            <h3>Was prägt diesen Haushalt?</h3>
+            <p>
+              Zuweisungen und Zuschüsse bilden mit {formatPercent(getBudgetShare(budgetTotals[year].transfers, budgetTotals[year].expenses) ?? 0)}
+              {' '}den größten Ausgabenblock. Die Investitionen und Investitionsförderung betragen
+              {' '}{formatPercent(getBudgetShare(budgetTotals[year].investments, budgetTotals[year].expenses) ?? 0)} der Gesamtausgaben.
+            </p>
+          </article>
+          <article class="budget-explanation-card">
+            <span class="meta-label">Haushaltsstruktur</span>
+            <h3>Was die Kennzahlen nicht zeigen</h3>
+            <p>
+              Die Einzelpläne ordnen Ausgaben nach Verwaltungsbereichen. Sie sind keine Rangfolge politischer Bedeutung.
+              Zentral gebündelte Mittel, etwa in der Allgemeinen Finanzverwaltung, werden daher gesondert eingeordnet.
+            </p>
+          </article>
+        </div>
+      </div>
+    ))}
+
+    <div class="budget-year-content" data-budget-year-content="vergleich" hidden>
+      <div class="budget-comparison-grid" aria-label="Vergleich zentraler Haushaltskennzahlen 2025 und 2026">
+        <article>
+          <span class="meta-label">Gesamtausgaben</span>
+          <strong>{formatEuroCompact(budgetTotals['2025'].expenses)}</strong>
+          <span>2025</span>
+          <strong>{formatEuroCompact(budgetTotals['2026'].expenses)}</strong>
+          <span>2026 · Veränderung {formatEuroCompact(totalChange)}</span>
+        </article>
+        <article>
+          <span class="meta-label">Investitionen und Investitionsförderung</span>
+          <strong>{formatEuroCompact(budgetTotals['2025'].investments)}</strong>
+          <span>2025</span>
+          <strong>{formatEuroCompact(budgetTotals['2026'].investments)}</strong>
+          <span>2026 · Veränderung {formatEuroCompact(investmentChange)}</span>
+        </article>
+        <article>
+          <span class="meta-label">Steuereinnahmen</span>
+          <strong>{formatEuroCompact(budgetTotals['2025'].tax)}</strong>
+          <span>2025</span>
+          <strong>{formatEuroCompact(budgetTotals['2026'].tax)}</strong>
+          <span>2026 · Veränderung {formatEuroCompact(taxChange)}</span>
+        </article>
+      </div>
+      <p class="detail-line">Der Vergleich zeigt absolute Ansätze. Die Ausgabenstruktur und alle Ausgabearten stehen im <a class="inline-link" href={getBudgetPageUrl('gesamtplan')}>Gesamtplan</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section-muted" aria-labelledby="ressortvergleich">
     <div class="section-header">
-      <h2 id="haushaltsbereiche">Haushaltsbereiche</h2>
-      <p>Gesamtplan, Einzelpläne und Sondervermögen sind nach Bereichen gegliedert.</p>
+      <h2 id="ressortvergleich">Ressortübergreifender Überblick</h2>
+      <p>Ausgaben der Ressort-Einzelpläne im Haushalt 2026. Die Tabelle zeigt Volumen und Anteil, keine Bewertung der Mittelversorgung.</p>
+    </div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Ressortausgaben im Haushalt 2026">
+      <table class="data-table budget-portal-table">
+        <caption>Ausgaben im Vergleich der Ressort-Einzelpläne</caption>
+        <thead>
+          <tr><th scope="col">Einzelplan</th><th scope="col">Ressort</th><th scope="col">Ausgaben 2026</th><th scope="col">Anteil am Gesamthaushalt</th><th scope="col">Details</th></tr>
+        </thead>
+        <tbody>
+          {ressortPlans.slice(0, 8).map((plan) => (
+            <tr>
+              <td>{plan.number}</td>
+              <td><strong>{plan.title}</strong></td>
+              <td>{formatEuroCompact(plan.amounts['2026'].expenses)}</td>
+              <td>{formatPercent(getBudgetShare(plan.amounts['2026'].expenses, budgetTotals['2026'].expenses) ?? 0)}</td>
+              <td><a class="inline-link" href={getBudgetPlanUrl(plan.number)}>Einzelplan öffnen</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    {financePlan ? (
+      <aside class="budget-context-note">
+        <strong>Allgemeine Finanzverwaltung getrennt betrachten</strong>
+        <span>Einzelplan 20 bündelt unter anderem Steuereinnahmen, kommunalen Finanzausgleich, Versorgung und Beteiligungen. Sein Volumen ist deshalb nicht mit einem Ressorthaushalt gleichzusetzen. <a class="inline-link" href={getBudgetPlanUrl(financePlan.number)}>Einordnung öffnen</a></span>
+      </aside>
+    ) : null}
+  </section>
+
+  <section class="section" aria-labelledby="zugang-haushalt">
+    <div class="section-header">
+      <h2 id="zugang-haushalt">Den Haushalt erschließen</h2>
+      <p>Die Bereiche folgen der Struktur der Haushaltsunterlagen und machen die jeweiligen Bezugsgrößen sichtbar.</p>
     </div>
     <div class="card-grid card-grid--three">
-      {orderedPages.map((page) => (
-        <article class="panel">
-          <h2><a class="inline-link" href={getBudgetPageUrl(page.slug)}>{page.title}</a></h2>
-          <p>{page.teaser}</p>
-        </article>
-      ))}
+      <article class="panel"><h3><a class="inline-link" href={getBudgetPageUrl('gesamtplan')}>Gesamtplan</a></h3><p>Einnahmen, Ausgabenarten und Jahresvergleich für den Kernhaushalt.</p></article>
+      <article class="panel"><h3><a class="inline-link" href={getBudgetPageUrl('einzelplaene')}>Einzelpläne</a></h3><p>Alle Verwaltungsbereiche mit Veränderung, Haushaltsanteil und Detailseiten.</p></article>
+      <article class="panel"><h3><a class="inline-link" href={getBudgetPageUrl('sondervermoegen')}>Sondervermögen und Fonds</a></h3><p>Getrennte rechtliche Instrumente mit Angaben zu Zweck, Zuständigkeit und Bezug zum Kernhaushalt.</p></article>
     </div>
-  </section>
-
-  <section class="section">
-    <BudgetExplorer
-      summaryRows={budgetSummaryRows}
-      entries={budgetExplorerEntries}
-      specialFunds={budgetSpecialFunds}
-    />
-  </section>
-
-  <BudgetMethodology />
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Direkte Rechtsgrundlagen</h2>
-      <p>Finanzpolitische Kernnormen des Freistaates bleiben unmittelbar im Rechtsportal erreichbar.</p>
-    </div>
-    <ul class="record-list">
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getNormUrl('gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2')}>Haushaltsgesetz 2025/2026</a></strong>
-        <span>Gesetzlicher Rahmen des Doppelhaushalts.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getNormUrl('ostdeutsches-landesbankgesetz')}>Landesbank an der Elbe</a></strong>
-        <span>Finanzpolitische Infrastruktur des Freistaates.</span>
-      </li>
-      <li class="record-list__item">
-        <strong><a class="inline-link" href={getNormUrl('ostdeutsches-tariftreueund-vergabegesetz')}>Tariftreue- und Vergabegesetz</a></strong>
-        <span>Vergabe- und Beschaffungsrahmen mit finanzpolitischer Relevanz.</span>
-      </li>
-    </ul>
+    <p class="detail-line">{budgetSpecialInstruments.length} rechtlich belegte Instrumente sind im Bereich Sondervermögen und Fonds eingeordnet.</p>
   </section>
 </BaseLayout>

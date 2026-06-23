@@ -119,6 +119,10 @@ export function getBudgetPageUrl(slug: string): string {
   return withBase(`${siteConfig.paths.budget}${slug}/`);
 }
 
+export function getBudgetPlanUrl(planNumber: string): string {
+  return withBase(`${siteConfig.paths.budget}einzelplaene/${planNumber.padStart(2, '0')}/`);
+}
+
 export function getFreestateUrl(): string {
   return getSiteUrl('freestate');
 }

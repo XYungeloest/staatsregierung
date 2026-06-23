@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import BudgetPlanTable from '../../../components/portal/BudgetPlanTable.astro';
+import BudgetSectionNav from '../../../components/portal/BudgetSectionNav.astro';
+import BudgetYearSelector from '../../../components/portal/BudgetYearSelector.astro';
+import { budgetPlans, budgetTotals, getBudgetShare } from '../../../data/haushalt.ts';
+import { formatEuroCompact, formatPercent } from '../../../lib/portal/modules.ts';
+import { getBudgetUrl, getHomeUrl } from '../../../lib/portal/routes.ts';
+
+const categoryCounts = [...new Set(budgetPlans.map((plan) => plan.category))].map((category) => ({
+  category,
+  count: budgetPlans.filter((plan) => plan.category === category).length,
+}));
+---
+
+<BaseLayout
+  title="Einzelpläne"
+  description="Alle Einzelpläne des Doppelhaushalts 2025/2026 mit Haushaltsanteilen, Ausgabenarten und Jahresvergleich."
+  scripts={['portal-modules']}
+>
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt', href: getBudgetUrl() }, { label: 'Einzelpläne' }]} />
+
+  <section class="section budget-portal-header">
+    <p class="eyebrow">Haushalt · Einzelpläne</p>
+    <h1>Einzelpläne verständlich vergleichen</h1>
+    <p class="lead">Die Einzelpläne bilden Ressorts, Verfassungsorgane und zentrale Verwaltungsbereiche ab. Ausgabenhöhe und Anteil am Haushalt erklären ein Volumen – sie bewerten keine Aufgabe oder Mittelversorgung.</p>
+    <BudgetSectionNav current="einzelplaene" />
+  </section>
+
+  <section class="section section-muted" aria-labelledby="einzelplan-einordnung">
+    <div class="section-header"><h2 id="einzelplan-einordnung">So lesen Sie die Übersicht</h2><p>Der Gesamtplan enthält den Kernhaushalt. Einzelpläne untergliedern diesen nach Verwaltungsbereichen; die Summe einzelner Pläne ist nicht automatisch eine zusätzliche Ebene neben dem Gesamtplan.</p></div>
+    <div class="budget-category-grid">
+      {categoryCounts.map((entry) => <article><strong>{entry.count}</strong><span>{entry.category}</span></article>)}
+      <article><strong>{formatEuroCompact(budgetTotals['2026'].expenses)}</strong><span>Kernhaushalt 2026</span></article>
+    </div>
+    <p class="detail-line">Einzelplan 20, Allgemeine Finanzverwaltung, bündelt zentrale Finanzströme. Er ist in der Vergleichstabelle enthalten, sollte aber nicht wie ein Fachressort gelesen werden.</p>
+  </section>
+
+  <section class="section" data-budget-year-switcher aria-labelledby="einzelplan-auswahl">
+    <div class="section-header section-header--with-control">
+      <div><h2 id="einzelplan-auswahl">Ansicht und Vergleich</h2><p>Wählen Sie ein Jahr für Anteile innerhalb dieses Jahres oder den direkten Vergleich aller Einzelpläne.</p></div>
+      <BudgetYearSelector id="einzelplan-year" label="Haushaltsjahr" />
+    </div>
+    <p class="visually-hidden" data-budget-year-status role="status" aria-live="polite"></p>
+    <div data-budget-year-content="2025" hidden><BudgetPlanTable plans={budgetPlans} mode="2025" /></div>
+    <div data-budget-year-content="2026"><BudgetPlanTable plans={budgetPlans} mode="2026" /></div>
+    <div data-budget-year-content="vergleich" hidden><BudgetPlanTable plans={budgetPlans} mode="vergleich" /></div>
+  </section>
+
+  <section class="section" aria-labelledby="einzelplan-hinweis">
+    <div class="budget-context-note"><strong>Vergleichbare Bezugsgröße</strong><span>Der Anteil eines Einzelplans wird immer als Anteil an den Gesamtausgaben desselben Jahres ausgewiesen. Für 2026 entspricht beispielsweise {formatEuroCompact(budgetPlans.find((plan) => plan.number === '04')?.amounts['2026'].expenses ?? 0)} im Einzelplan Bildung {formatPercent(getBudgetShare(budgetPlans.find((plan) => plan.number === '04')?.amounts['2026'].expenses ?? 0, budgetTotals['2026'].expenses) ?? 0)} des Kernhaushalts.</span></div>
+  </section>
+</BaseLayout>

@@ -123,11 +123,12 @@ Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter
 Reformregion; auf kleinen Bildschirmen steht die Gebietssuche mit Textdetail vor der optionalen
 Karte. Bezirkskarten und Tabellen bleiben ohne Kartenstart nutzbar.
 
-Der Haushalt-Explorer nutzt normalisierte, statische Werte aus
-`src/data/dashboard/budget.ts`. Die derzeitige Quelle ist die Zusammenfassung unter
-`context/Staatshaushalt 2025_2026 - Zusammenfassung.csv`; Rohdaten werden nicht im Browser
-geladen. Die öffentliche CSV-Ausgabe steht unter `/haushalt/daten.csv` bereit. Bei einem späteren
-Import sind Datenquelle, Datenmodell und Darstellung weiterhin getrennt zu halten.
+Der Haushaltsbereich verwendet `src/data/haushalt.ts` als zentrale Datenlogik. Die Datei liest die
+Zusammenfassung unter `context/Staatshaushalt 2025_2026 - Zusammenfassung.csv` buildzeitbasiert
+ein und berechnet daraus Summen, Anteile und Jahresvergleiche. Ausgewählte Kapitel- und Titelangaben
+der Einzelpläne stammen aus `context/Staatshaushalt 2025_2026.zip`. Gesamtplan, Einzelpläne und
+Sondervermögen verwenden dieselbe Datenbasis; Sondervermögen werden nicht zu den Einzelplänen
+addiert. Die öffentliche CSV-Ausgabe steht unter `/haushalt/daten.csv` bereit.
 
 Webanalyse ist optional. Der Ausgangszustand nutzt nur notwendige Funktionen; eine Zustimmung wird
 lokal gespeichert und kann über die Datenschutzeinstellungen zurückgesetzt werden.

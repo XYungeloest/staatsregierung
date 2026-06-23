@@ -1,4 +1,4 @@
-import { budgetExplorerEntries, budgetSummaryRows } from '../../data/dashboard/budget.ts';
+import { budgetPlans, budgetTotals, getBudgetShare } from '../../data/haushalt.ts';
 import { formatPercent } from '../../lib/portal/modules.ts';
 
 export const prerender = true;
@@ -9,30 +9,43 @@ function escapeCsv(value: string | number): string {
 }
 
 export function GET(): Response {
-  const summaryByYear = new Map(budgetSummaryRows.map((row) => [row.year, row]));
   const header = [
     'Jahr',
     'Haushaltsstand',
     'Einzelplan',
-    'Bereich',
+    'Bezeichnung',
     'Kategorie',
+    'Zuständiger Bereich',
+    'Einnahmen in Euro',
     'Ausgaben in Euro',
     'Anteil an Gesamtausgaben',
-    'Investitionen in Euro',
+    'Personalausgaben in Euro',
+    'Zuweisungen und Zuschüsse in Euro',
+    'Baumaßnahmen in Euro',
+    'Investitionen und Investitionsförderung in Euro',
+    'Verpflichtungsermächtigungen in Euro',
   ];
-  const rows = budgetExplorerEntries.map((entry) => {
-    const summary = summaryByYear.get(entry.year);
-    return [
-      entry.year,
-      entry.state,
-      entry.plan,
-      entry.label,
-      entry.category,
-      entry.amount,
-      summary ? formatPercent(entry.amount / summary.totalExpense) : '',
-      entry.investments,
-    ];
-  });
+  const rows = budgetPlans.flatMap((plan) =>
+    (['2025', '2026'] as const).map((year) => {
+      const amounts = plan.amounts[year];
+      return [
+        year,
+        'Haushaltsgesetz',
+        plan.number,
+        plan.title,
+        plan.category,
+        plan.responsibility,
+        amounts.revenue,
+        amounts.expenses,
+        formatPercent(getBudgetShare(amounts.expenses, budgetTotals[year].expenses) ?? 0),
+        amounts.personnel,
+        amounts.transfers,
+        amounts.construction,
+        amounts.investments,
+        amounts.commitments,
+      ];
+    }),
+  );
   const csv = [header, ...rows]
     .map((row) => row.map(escapeCsv).join(';'))
     .join('\r\n');
