@@ -5,6 +5,7 @@ import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import MinistryCard from '../../components/portal/MinistryCard.astro';
 import StatusBadge from '../../components/portal/StatusBadge.astro';
 import {
+  getContactUrl,
   getHomeUrl,
   getMinistryUrl,
   getPortalSearchUrl,
@@ -98,12 +99,17 @@ const pressSearchUrl = topic
     <section class="section topic-orientation" aria-labelledby="themen-ueberblick">
       <div class="section-header">
         <h2 id="themen-ueberblick">Auf einen Blick</h2>
-        <p>Der Überblick führt direkt zu Status, Zuständigkeit, Rechtsgrundlagen und den nächsten Schritten.</p>
+        <p>Die Kurzstruktur führt direkt zu den wichtigsten Informationen und weiterführenden Bereichen.</p>
       </div>
       <div class="topic-orientation__grid">
         <article class="panel topic-orientation__item">
-          <h3>Status</h3>
-          <StatusBadge status={topic.status} />
+          <h3>Kurzfassung</h3>
+          <p>{topic.teaser}</p>
+        </article>
+        <article class="panel topic-orientation__item">
+          <h3>Was ändert sich?</h3>
+          <p>{topic.beschlossen[0]}</p>
+          <p><a class="inline-link" href="#was-aendert-sich">Änderungen ansehen</a></p>
         </article>
         <article class="panel topic-orientation__item">
           <h3>Zuständiges Ressort</h3>
@@ -117,16 +123,16 @@ const pressSearchUrl = topic
           <p><a class="inline-link" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a></p>
         </article>
         <article class="panel topic-orientation__item">
-          <h3>Nächste Schritte</h3>
-          <p>{topic.naechsteSchritte.length} {topic.naechsteSchritte.length === 1 ? 'Schritt' : 'Schritte'}</p>
+          <h3>Nächster Schritt</h3>
+          <p>{topic.naechsteSchritte[0]}</p>
           <p><a class="inline-link" href="#naechste-schritte">Nächste Schritte ansehen</a></p>
         </article>
       </div>
     </section>
 
-    <section id="naechste-schritte" class="section">
+    <section id="was-aendert-sich" class="section">
       <div class="section-header">
-        <h2>Was ist beschlossen?</h2>
+        <h2>Was ändert sich?</h2>
         <p>{topic.teaser}</p>
       </div>
       <ul class="record-list">
@@ -136,7 +142,7 @@ const pressSearchUrl = topic
       </ul>
     </section>
 
-    <section id="rechtsgrundlagen" class="section section-muted">
+    <section id="umsetzung" class="section section-muted">
       <div class="section-header">
         <h2>Was ist umgesetzt?</h2>
         <p>Der Stand bildet bereits erreichte und rechtlich abgesicherte Schritte des Vorhabens ab.</p>
@@ -148,7 +154,7 @@ const pressSearchUrl = topic
       </ul>
     </section>
 
-    <section class="section">
+    <section id="naechste-schritte" class="section">
       <div class="section-header">
         <h2>Nächste Schritte</h2>
         <p>Diese Punkte kennzeichnen laufende oder vorbereitete Ausbauschritte innerhalb des Themas.</p>
@@ -160,7 +166,7 @@ const pressSearchUrl = topic
       </ul>
     </section>
 
-    <section id="zustaendiges-ressort" class="section section-muted">
+    <section id="rechtsgrundlagen" class="section section-muted">
       <div class="section-header">
         <h2>Rechtsgrundlagen</h2>
         <p>Hier finden Sie die einschlägigen Gesetze, Verordnungen und Richtlinien.</p>
@@ -177,21 +183,6 @@ const pressSearchUrl = topic
           </li>
         ))}
       </ul>
-    </section>
-
-    <section class="section topic-next-actions" aria-labelledby="was-jetzt">
-      <div class="section-header">
-        <h2 id="was-jetzt">Was können Sie jetzt tun?</h2>
-        <p>Nutzen Sie die weiterführenden Informationen zum Vorhaben.</p>
-      </div>
-      <nav class="hero-actions" aria-label="Weiterführende Schritte">
-        <a class="button-link" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
-        <a class="button-link button-link--secondary" href="#naechste-schritte">Nächste Schritte ansehen</a>
-        {leadMinistry ? (
-          <a class="button-link button-link--secondary" href={getMinistryUrl(leadMinistry.slug)}>Zuständiges Ressort öffnen</a>
-        ) : null}
-        <a class="button-link button-link--secondary" href={pressSearchUrl}>Presse zum Thema durchsuchen</a>
-      </nav>
     </section>
 
     <section class="section">
@@ -235,6 +226,21 @@ const pressSearchUrl = topic
         </ul>
       </section>
     ) : null}
+
+    <section class="section topic-next-actions" aria-labelledby="was-jetzt">
+      <div class="section-header">
+        <h2 id="was-jetzt">Was können Sie jetzt tun?</h2>
+        <p>Nutzen Sie die weiterführenden Informationen zum Vorhaben.</p>
+      </div>
+      <nav class="hero-actions" aria-label="Weiterführende Schritte">
+        <a class="button-link" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
+        {leadMinistry ? (
+          <a class="button-link button-link--secondary" href={getMinistryUrl(leadMinistry.slug)}>Zuständiges Ressort öffnen</a>
+        ) : null}
+        <a class="button-link button-link--secondary" href={pressSearchUrl}>Presse zum Thema durchsuchen</a>
+        <a class="button-link button-link--secondary" href={getContactUrl()}>Kontakt aufnehmen</a>
+      </nav>
+    </section>
   </BaseLayout>
 ) : (
   <BaseLayout

@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 const visualPages = [
   { name: 'startseite', path: '/' },
+  { name: 'haushalt', path: '/haushalt/' },
   { name: 'themen', path: '/themen/' },
   { name: 'thema-kulturpass', path: '/themen/kulturpass/' },
   { name: 'kreisreform', path: '/kreisreform/' },
@@ -11,6 +12,7 @@ const visualPages = [
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
   { name: 'barrierefreiheit', path: '/service/barrierefreiheit/' },
+  { name: 'hinweis-gebaerdensprache', path: '/service/gebaerdensprache/' },
 ];
 
 async function preparePage(page: Page, consent = 'rejected'): Promise<void> {
@@ -56,6 +58,23 @@ test('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
   await expect(page.locator('[data-kreisreform-search-result]')).toHaveCount(1, { timeout: 15_000 });
   await page.locator('[data-kreisreform-search-result]').click();
   await expect(page.locator('[data-kreisreform-search-detail]')).toBeVisible();
+});
+
+test('Haushalt: Explorer filtert Einzelpläne und bleibt ohne Überlauf bedienbar', async ({ page }) => {
+  await preparePage(page);
+  await page.goto('/haushalt/');
+
+  const explorer = page.locator('[data-budget-root]');
+  await expect(explorer).toBeVisible();
+  await explorer.getByRole('button', { name: '2026', exact: true }).click();
+  await explorer.getByRole('tab', { name: 'Ausgaben nach Einzelplänen' }).click();
+  await explorer.locator('[data-budget-filter="query"]').fill('Bildung');
+  await expect(explorer.locator('[data-budget-entry]:visible')).toHaveCount(1);
+  await expect(explorer.locator('[data-budget-status]')).toContainText('1 Einzelplan');
+
+  await explorer.getByRole('tab', { name: 'Datentabelle' }).click();
+  await expect(explorer.locator('[data-budget-row]:visible')).toHaveCount(1);
+  await verifyViewport(page);
 });
 
 test('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ page }) => {

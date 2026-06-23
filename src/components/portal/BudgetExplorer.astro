@@ -1,7 +1,13 @@
 ---
+import BudgetDataTable from './BudgetDataTable.astro';
+import BudgetDistributionChart from './BudgetDistributionChart.astro';
+import BudgetInvestmentSection from './BudgetInvestmentSection.astro';
+import BudgetRevenueExpenseOverview from './BudgetRevenueExpenseOverview.astro';
+import BudgetSpecialFunds from './BudgetSpecialFunds.astro';
+import BudgetYearComparison from './BudgetYearComparison.astro';
 import {
-  formatEuroAmount,
   formatEuroCompact,
+  formatPercent,
   type BudgetExplorerEntry,
   type BudgetSpecialFund,
   type BudgetSummaryRow,
@@ -14,137 +20,130 @@ interface Props {
 }
 
 const { summaryRows, entries, specialFunds } = Astro.props as Props;
-const categories = [...new Set(entries.map((entry) => entry.category))];
-const maxByYear = new Map(
-  ['2025', '2026'].map((year) => [
-    year,
-    Math.max(...entries.filter((entry) => entry.year === year).map((entry) => entry.amount)),
-  ]),
-);
+const categories = [...new Set(entries.map((entry) => entry.category))].sort((left, right) => left.localeCompare(right, 'de'));
+const years = ['2025', '2026'] as const;
 ---
 
-<section class="module-section budget-explorer" data-budget-root>
-  <div class="module-toolbar module-toolbar--stacked">
-    <div class="segmented-control" role="tablist" aria-label="Haushaltsjahr">
-      <button type="button" class="segmented-control__button is-active" data-budget-year="2025">
-        2025
-      </button>
-      <button type="button" class="segmented-control__button" data-budget-year="2026">
-        2026
-      </button>
-    </div>
+<section class="budget-explorer" data-budget-root aria-labelledby="haushalt-explorer">
+  <div class="section-header">
+    <h2 id="haushalt-explorer">Haushalt-Explorer</h2>
+    <p>Filtern Sie die Einzelpläne und wählen Sie eine Ansicht. Alle Diagramme werden durch verständliche Tabellen ergänzt.</p>
+  </div>
 
-    <div class="module-toolbar">
+  <fieldset class="budget-filters">
+    <legend>Auswahl eingrenzen</legend>
+    <div class="budget-filters__grid">
+      <div class="budget-filter-group">
+        <span id="budget-year-label" class="search-field__label">Haushaltsjahr</span>
+        <div class="segmented-control" role="group" aria-labelledby="budget-year-label">
+          {years.map((year) => (
+            <button
+              type="button"
+              class:list={['segmented-control__button', year === '2025' && 'is-active']}
+              data-budget-year={year}
+              aria-pressed={year === '2025' ? 'true' : 'false'}
+            >
+              {year}
+            </button>
+          ))}
+        </div>
+      </div>
       <label class="search-field">
-        <span>Ressort oder Einzelplan</span>
-        <input
-          type="search"
-          placeholder="z. B. Bildung, Finanzen oder Allgemeine Finanzverwaltung"
-          data-budget-filter="query"
-        />
+        <span>Haushaltsstand</span>
+        <select data-budget-filter="state">
+          <option value="Haushaltsgesetz">Haushaltsgesetz</option>
+        </select>
       </label>
       <label class="search-field">
         <span>Kategorie</span>
         <select data-budget-filter="category">
-          <option value="">Alle</option>
-          {categories.map((category) => (
-            <option value={category}>{category}</option>
-          ))}
+          <option value="">Alle Kategorien</option>
+          {categories.map((category) => <option value={category}>{category}</option>)}
         </select>
       </label>
+      <label class="search-field">
+        <span>Einzelplan oder Bereich</span>
+        <input
+          type="search"
+          placeholder="z. B. Bildung, 04 oder Finanzverwaltung"
+          data-budget-filter="query"
+        />
+      </label>
     </div>
+  </fieldset>
+
+  <p class="search-feedback" data-budget-status role="status" aria-live="polite">
+    Die Übersicht zeigt die Einzelpläne des Haushaltsjahres 2025.
+  </p>
+
+  <div class="budget-view-tabs" role="tablist" aria-label="Ansichten des Haushalt-Explorers">
+    <button type="button" role="tab" id="budget-tab-overview" aria-controls="budget-panel-overview" aria-selected="true" data-budget-view="overview">Übersicht</button>
+    <button type="button" role="tab" id="budget-tab-distribution" aria-controls="budget-panel-distribution" aria-selected="false" tabindex="-1" data-budget-view="distribution">Ausgaben nach Einzelplänen</button>
+    <button type="button" role="tab" id="budget-tab-comparison" aria-controls="budget-panel-comparison" aria-selected="false" tabindex="-1" data-budget-view="comparison">Veränderung zum Vorjahr</button>
+    <button type="button" role="tab" id="budget-tab-revenue" aria-controls="budget-panel-revenue" aria-selected="false" tabindex="-1" data-budget-view="revenue">Einnahmen und Ausgaben</button>
+    <button type="button" role="tab" id="budget-tab-investment" aria-controls="budget-panel-investment" aria-selected="false" tabindex="-1" data-budget-view="investment">Investitionen</button>
+    <button type="button" role="tab" id="budget-tab-funds" aria-controls="budget-panel-funds" aria-selected="false" tabindex="-1" data-budget-view="funds">Sondervermögen und Fonds</button>
+    <button type="button" role="tab" id="budget-tab-table" aria-controls="budget-panel-table" aria-selected="false" tabindex="-1" data-budget-view="table">Datentabelle</button>
   </div>
 
-  <div class="meta-grid meta-grid--compact">
-    {summaryRows.map((row) => (
-      <div class="meta-card" data-budget-summary data-year={row.year} hidden={row.year !== '2025'}>
-        <span class="meta-label">Gesamtausgaben {row.year}</span>
-        <strong>{formatEuroCompact(row.totalExpense)}</strong>
-        <span class="detail-line">
-          Steuern {formatEuroCompact(row.taxRevenue)} · Investitionen {formatEuroCompact(row.investments)}
-        </span>
+  <section id="budget-panel-overview" class="budget-view-panel" role="tabpanel" aria-labelledby="budget-tab-overview" data-budget-panel="overview">
+    <div class="section-header section-header--compact">
+      <h3>Gesamtüberblick</h3>
+      <p>Die Kennzahlen ordnen das ausgewählte Haushaltsjahr ein. Größere Werte bedeuten ein höheres Volumen, nicht eine höhere Priorität oder Qualität.</p>
+    </div>
+    {summaryRows.map((summary) => (
+      <div class="budget-overview" data-budget-year-panel data-year={summary.year} hidden={summary.year !== '2025'}>
+        <article class="meta-card budget-overview__total">
+          <span class="meta-label">Gesamtausgaben {summary.year}</span>
+          <strong>{formatEuroCompact(summary.totalExpense)}</strong>
+          <span class="detail-line">{summary.state}</span>
+        </article>
+        <div class="meta-grid meta-grid--compact">
+          <article class="meta-card">
+            <span class="meta-label">Steuereinnahmen</span>
+            <strong>{formatEuroCompact(summary.taxRevenue)}</strong>
+            <span class="detail-line">{formatPercent(summary.taxRevenue / summary.totalRevenue)} der Gesamteinnahmen</span>
+          </article>
+          <article class="meta-card">
+            <span class="meta-label">Investitionen</span>
+            <strong>{formatEuroCompact(summary.investments)}</strong>
+            <span class="detail-line">{formatPercent(summary.investments / summary.totalExpense)} der Gesamtausgaben</span>
+          </article>
+          <article class="meta-card">
+            <span class="meta-label">Zuweisungen und Zuschüsse</span>
+            <strong>{formatEuroCompact(summary.transfers)}</strong>
+            <span class="detail-line">{formatPercent(summary.transfers / summary.totalExpense)} der Gesamtausgaben</span>
+          </article>
+        </div>
       </div>
     ))}
-  </div>
+  </section>
 
-  <div class="budget-explorer__bars">
-    {entries.map((entry) => {
-      const max = maxByYear.get(entry.year) ?? entry.amount;
-      const width = max > 0 ? (entry.amount / max) * 100 : 0;
+  <section id="budget-panel-distribution" class="budget-view-panel" role="tabpanel" aria-labelledby="budget-tab-distribution" data-budget-panel="distribution" hidden>
+    <BudgetDistributionChart entries={entries} summaryRows={summaryRows} />
+  </section>
 
-      return (
-        <article
-          class="budget-bar"
-          data-budget-entry
-          data-year={entry.year}
-          data-category={entry.category}
-          data-label={entry.label.toLocaleLowerCase('de-DE')}
-          hidden={entry.year !== '2025'}
-        >
-          <div class="budget-bar__header">
-            <div>
-              <h3>{entry.label}</h3>
-              <p class="detail-line">Einzelplan {entry.plan} · {entry.category}</p>
-            </div>
-            <strong>{formatEuroCompact(entry.amount)}</strong>
-          </div>
-          <div class="budget-bar__track" aria-hidden="true">
-            <span class="budget-bar__fill" style={`width: ${width.toFixed(2)}%`}></span>
-          </div>
-        </article>
-      );
-    })}
-  </div>
+  <section id="budget-panel-comparison" class="budget-view-panel" role="tabpanel" aria-labelledby="budget-tab-comparison" data-budget-panel="comparison" hidden>
+    <BudgetYearComparison entries={entries} />
+  </section>
 
-  <div class="budget-explorer__table-wrapper">
-    <table class="budget-table">
-      <thead>
-        <tr>
-          <th scope="col">Jahr</th>
-          <th scope="col">Einzelplan</th>
-          <th scope="col">Bereich</th>
-          <th scope="col">Kategorie</th>
-          <th scope="col">Ausgaben</th>
-        </tr>
-      </thead>
-      <tbody>
-        {entries.map((entry) => (
-          <tr
-            data-budget-row
-            data-year={entry.year}
-            data-category={entry.category}
-            data-label={entry.label.toLocaleLowerCase('de-DE')}
-            hidden={entry.year !== '2025'}
-          >
-            <td>{entry.year}</td>
-            <td>{entry.plan}</td>
-            <td>{entry.label}</td>
-            <td>{entry.category}</td>
-            <td>{formatEuroAmount(entry.amount)}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
+  <section id="budget-panel-revenue" class="budget-view-panel" role="tabpanel" aria-labelledby="budget-tab-revenue" data-budget-panel="revenue" hidden>
+    <BudgetRevenueExpenseOverview summaryRows={summaryRows} />
+  </section>
 
-  <section class="budget-explorer__funds">
-    <div class="section-header section-header--compact">
-      <h3>Sondervermögen und Fonds</h3>
-      <p>Zusätzliche Instrumente ergänzen den Kernhaushalt um gezielte finanzpolitische Steuerung.</p>
-    </div>
-    <div class="card-grid card-grid--three">
-      {specialFunds.map((fund) => (
-        <article class="panel">
-          <h4>
-            {fund.href ? <a class="inline-link" href={fund.href}>{fund.label}</a> : fund.label}
-          </h4>
-          <p>{fund.description}</p>
-        </article>
-      ))}
-    </div>
+  <section id="budget-panel-investment" class="budget-view-panel" role="tabpanel" aria-labelledby="budget-tab-investment" data-budget-panel="investment" hidden>
+    <BudgetInvestmentSection entries={entries} summaryRows={summaryRows} />
+  </section>
+
+  <section id="budget-panel-funds" class="budget-view-panel" role="tabpanel" aria-labelledby="budget-tab-funds" data-budget-panel="funds" hidden>
+    <BudgetSpecialFunds funds={specialFunds} />
+  </section>
+
+  <section id="budget-panel-table" class="budget-view-panel" role="tabpanel" aria-labelledby="budget-tab-table" data-budget-panel="table" hidden>
+    <BudgetDataTable entries={entries} summaryRows={summaryRows} />
   </section>
 
   <p class="module-empty" data-budget-empty hidden>
-    Für diese Auswahl sind derzeit keine Haushaltspositionen sichtbar.
+    Für diese Auswahl sind keine Einzelpläne sichtbar. Passen Sie die Filter an.
   </p>
 </section>

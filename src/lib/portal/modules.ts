@@ -44,26 +44,45 @@ export interface LegislativeTrackerItem {
   href?: string;
 }
 
+export type BudgetYear = '2025' | '2026';
+
+export type BudgetCategory =
+  | 'Ressort'
+  | 'Verfassungsorgan'
+  | 'Unabhängige Stelle'
+  | 'Zentrale Verwaltung';
+
+export interface BudgetBreakdownItem {
+  label: string;
+  amount: number;
+}
+
 export interface BudgetSummaryRow {
-  year: '2025' | '2026';
+  year: BudgetYear;
+  state: 'Haushaltsgesetz';
   totalRevenue: number;
   totalExpense: number;
   taxRevenue: number;
   personnel: number;
   transfers: number;
   investments: number;
+  revenueBreakdown: BudgetBreakdownItem[];
+  expenseBreakdown: BudgetBreakdownItem[];
 }
 
 export interface BudgetExplorerEntry {
-  year: '2025' | '2026';
+  year: BudgetYear;
+  state: 'Haushaltsgesetz';
   plan: string;
   label: string;
-  category: 'Ressort' | 'Verfassungsorgan' | 'Zentrale Verwaltung';
+  category: BudgetCategory;
   amount: number;
+  investments: number;
 }
 
 export interface BudgetSpecialFund {
   label: string;
+  purpose: string;
   description: string;
   href?: string;
 }
@@ -165,3 +184,10 @@ export function formatEuroCompact(amount: number): string {
   return formatEuroAmount(amount);
 }
 
+export function formatPercent(value: number, maximumFractionDigits = 1): string {
+  return new Intl.NumberFormat('de-DE', {
+    style: 'percent',
+    minimumFractionDigits: 0,
+    maximumFractionDigits,
+  }).format(value);
+}

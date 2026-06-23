@@ -64,6 +64,7 @@ export const siteConfig = {
     { label: 'Kreisreform', pathKey: 'kreisreform' },
     { label: 'Recht', pathKey: 'lawHome' },
     { label: 'Presse', pathKey: 'press' },
+    { label: 'Haushalt', pathKey: 'budget' },
     { label: 'Service', pathKey: 'service' },
   ],
   serviceNavigation: [

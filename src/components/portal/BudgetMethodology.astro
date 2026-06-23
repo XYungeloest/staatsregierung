@@ -1,0 +1,55 @@
+---
+import { budgetDataSource } from '../../data/dashboard/budget.ts';
+import { getLawHomeUrl } from '../../lib/portal/routes.ts';
+import { getNormUrl } from '../../lib/norms/routes.ts';
+---
+
+<section class="section section-muted budget-methodology" aria-labelledby="daten-methodik">
+  <div class="content-grid">
+    <div>
+      <div class="section-header">
+        <h2 id="daten-methodik">Daten und Methodik</h2>
+        <p>Die Darstellung dient der Orientierung und ersetzt nicht die amtlichen Haushaltsunterlagen.</p>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Datenquelle</dt>
+          <dd>{budgetDataSource.label}, Zusammenfassung des Doppelhaushalts 2025/2026.</dd>
+        </div>
+        <div>
+          <dt>Haushaltsstand</dt>
+          <dd>Haushaltsgesetz für 2025 und 2026.</dd>
+        </div>
+        <div>
+          <dt>Einzelpläne</dt>
+          <dd>Einzelpläne ordnen Mittel nach Ressorts, Verfassungsorganen und weiteren Aufgabenbereichen.</dd>
+        </div>
+        <div>
+          <dt>Investitionen</dt>
+          <dd>Ausgewiesen werden Investitionen und Investitionsförderung nach der Haushaltssystematik.</dd>
+        </div>
+      </dl>
+    </div>
+    <aside class="meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Begriffe kurz erklärt</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Doppelhaushalt</dt>
+          <dd>Ein Haushaltsgesetz, das zwei Haushaltsjahre umfasst.</dd>
+        </div>
+        <div>
+          <dt>Soll und Ist</dt>
+          <dd>Sollwerte sind beschlossene Ansätze; Istwerte zeigen spätere tatsächliche Ausgaben und Einnahmen.</dd>
+        </div>
+        <div>
+          <dt>Sondervermögen</dt>
+          <dd>Ein zweckgebundenes Finanzierungsinstrument neben dem Kernhaushalt.</dd>
+        </div>
+      </dl>
+      <p><a class="inline-link" href={getNormUrl('gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2')}>Haushaltsgesetz 2025/2026 lesen</a></p>
+      <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsportal</a></p>
+    </aside>
+  </div>
+</section>
