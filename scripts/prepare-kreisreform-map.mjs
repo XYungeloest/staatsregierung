@@ -959,7 +959,7 @@ function main() {
       neueKreise: kreiseFeatures.length,
       neueBezirke: bezirkeFeatures.length,
       gemeinden: gemeinden.length,
-      wirksamAb: '2027-01-01',
+      wirksamAb: '2026-08-01',
       groessterKreis: largestKreis
         ? {
             name: largestKreis.properties.name,
