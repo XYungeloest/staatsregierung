@@ -443,7 +443,7 @@ function renderDetail(key: LayerKey, properties: KreisreformProperties, panel: H
   if (key === 'neueKreise') {
     const oldParts = properties.alteKreise?.length
       ? `<ul>${properties.alteKreise
-          .map((entry) => `<li>${escapeHtml(entry.name)} <span>${escapeHtml(entry.bezirkAlt)}</span></li>`)
+          .map((entry) => `<li>${escapeHtml(entry.name)}, <span>${escapeHtml(entry.bezirkAlt)}</span></li>`)
           .join('')}</ul>`
       : '<p>Keine Angabe.</p>';
 
