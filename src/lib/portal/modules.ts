@@ -29,10 +29,11 @@ export interface TimelineEntry {
 
 export type LegislativeStage =
   | 'entwurf'
-  | 'kabinett'
-  | 'landtag'
-  | 'verkuendung'
-  | 'inkrafttreten';
+  | 'eingebracht'
+  | 'in-beratung'
+  | 'beschlossen'
+  | 'verkuendet'
+  | 'inkraft';
 
 export interface LegislativeTrackerItem {
   id: string;
@@ -53,10 +54,11 @@ export interface FaqItem {
 
 export const legislativeStages: LegislativeStage[] = [
   'entwurf',
-  'kabinett',
-  'landtag',
-  'verkuendung',
-  'inkrafttreten',
+  'eingebracht',
+  'in-beratung',
+  'beschlossen',
+  'verkuendet',
+  'inkraft',
 ];
 
 export function formatActionPlanStatus(status: ActionPlanStatus): string {
@@ -100,14 +102,16 @@ export function formatLegislativeStage(stage: LegislativeStage): string {
   switch (stage) {
     case 'entwurf':
       return 'Entwurf';
-    case 'kabinett':
-      return 'Kabinett';
-    case 'landtag':
-      return 'Landtag';
-    case 'verkuendung':
-      return 'Verkündung';
-    case 'inkrafttreten':
-      return 'Inkrafttreten';
+    case 'eingebracht':
+      return 'Eingebracht';
+    case 'in-beratung':
+      return 'In Beratung';
+    case 'beschlossen':
+      return 'Beschlossen';
+    case 'verkuendet':
+      return 'Verkündet';
+    case 'inkraft':
+      return 'In Kraft';
   }
 }
 

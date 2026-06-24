@@ -6,15 +6,18 @@ import { siteConfig } from '../config/site.ts';
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '../lib/seo/index.ts';
 import {
   getActionPlanUrl,
+  getBudgetUrl,
   getCareerUrl,
   getFreestateUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
   getKreisreformUrl,
+  getLawHomeUrl,
   getLawPublicationsUrl,
   getLawSearchUrl,
   getContactUrl,
+  getEventIndexUrl,
   getPortalSearchUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
@@ -68,16 +71,16 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
     <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
     <h1>Regierungsportal des Ostdeutschen Freistaates</h1>
     <p class="lead">
-      Finden Sie aktuelle Vorhaben, Rechtsgrundlagen, Pressemitteilungen und Kontaktwege der
-      Staatsregierung des Ostdeutschen Freistaates.
+      Hier finden Sie Gesetze, Reformvorhaben, Pressemitteilungen, Haushaltsdaten und Kontaktwege
+      der Staatsregierung.
     </p>
     <nav class="hero-actions portal-home-header__actions" aria-label="Wichtige Einstiege">
-      <a class="button-link" href={getPortalSearchUrl()}>Recht und Reformen durchsuchen</a>
-      <a class="button-link button-link--secondary" href={getKreisreformUrl()}>Kreisreform öffnen</a>
-      <a class="button-link button-link--secondary" href={getContactUrl()}>Kontakt zur Staatsregierung</a>
+      <a class="button-link" href={getPortalSearchUrl()}>Recht &amp; Reformen durchsuchen</a>
     </nav>
     <p class="portal-home-header__secondary-link">
-      <a class="inline-link" href={getPressReleaseIndexUrl()}>Pressemitteilungen lesen</a>
+      <a class="inline-link" href={getPressReleaseIndexUrl()}>Pressemitteilungen ansehen</a>
+      <span aria-hidden="true"> · </span>
+      <a class="inline-link" href={getContactUrl()}>Kontakt zur Staatsregierung</a>
     </p>
   </section>
 
@@ -88,49 +91,55 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
     </div>
     <div class="card-grid card-grid--three portal-path-grid">
       <article class="panel portal-path-card">
-        <h3>Ich suche ein Gesetz</h3>
+        <h3>Ich suche ein Gesetz oder eine Vorschrift</h3>
         <p>Durchsuchen Sie Vorschriften, Fassungen, Fundstellen und Verkündungen.</p>
-        <p><a class="inline-link" href={getLawSearchUrl()}>Recht durchsuchen</a></p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Gesetz suchen</a></p>
       </article>
       <article class="panel portal-path-card">
-        <h3>Ich will eine Reform verstehen</h3>
+        <h3>Ich will wissen, was sich durch eine Reform ändert</h3>
         <p>Sehen Sie Umsetzungsstand, Zuständigkeit, nächste Schritte und Rechtsgrundlagen.</p>
-        <p><a class="inline-link" href={getTopicsUrl()}>Themen öffnen</a></p>
+        <p><a class="inline-link" href={getTopicsUrl()}>Reformen ansehen</a></p>
       </article>
       <article class="panel portal-path-card">
-        <h3>Ich suche meine Gemeinde</h3>
+        <h3>Ich suche meine neue Kreis- oder Bezirkszuordnung</h3>
         <p>Finden Sie Gemeinden, Kreise und Bezirke in der Kreisreform 2026.</p>
-        <p><a class="inline-link" href={getKreisreformUrl()}>Kreisreform öffnen</a></p>
+        <p><a class="inline-link" href={`${getKreisreformUrl()}#bezirk-suche`}>Gemeinde suchen</a></p>
       </article>
       <article class="panel portal-path-card">
-        <h3>Ich möchte Kontakt aufnehmen</h3>
+        <h3>Ich möchte die Staatsregierung kontaktieren</h3>
         <p>Nutzen Sie zentrale Kontaktwege und den Zuständigkeitswegweiser.</p>
-        <p><a class="inline-link" href={getContactUrl()}>Kontakt öffnen</a></p>
+        <p><a class="inline-link" href={getContactUrl()}>Kontaktweg finden</a></p>
       </article>
       <article class="panel portal-path-card">
-        <h3>Ich suche aktuelle Mitteilungen</h3>
+        <h3>Ich suche Pressemitteilungen oder Termine</h3>
         <p>Lesen Sie Pressemitteilungen, Reden und Termine der Staatsregierung.</p>
-        <p><a class="inline-link" href={getPressUrl()}>Presse öffnen</a></p>
+        <p><a class="inline-link" href={getPressUrl()}>Pressebereich öffnen</a></p>
       </article>
     </div>
   </section>
 
-  <section class="section portal-reform-priority" aria-labelledby="kreisreform-aktuell">
-    <article class="reform-priority-card">
-      <div>
-        <p class="eyebrow">Aktuell im Gesetzgebungsverfahren</p>
-        <h2 id="kreisreform-aktuell">Kreis- und Bezirksreform 2026</h2>
-        <p>
-          Der Entwurf zur Neuordnung der Kreise und Bezirke wurde am 23. Juni 2026 in den
-          Ostdeutschen Landtag eingebracht. Karte, Suche und Tabellen zeigen den Stand des
-          Gesetzgebungsverfahrens und den vorgesehenen Zuschnitt.
-        </p>
-      </div>
-      <div class="reform-priority-card__actions">
-        <a class="button-link" href={getKreisreformUrl()}>Kreisreform öffnen</a>
-        <a class="button-link button-link--secondary" href={`${getKreisreformUrl()}#tabellen`}>Kreise und Bezirke ansehen</a>
-      </div>
-    </article>
+  <section class="section portal-reform-priority" aria-labelledby="aktuell-wichtig">
+    <div class="section-header">
+      <h2 id="aktuell-wichtig">Aktuell wichtig</h2>
+      <p>Wichtige Verfahren und Grundlagen im Überblick.</p>
+    </div>
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h3>Kreis- und Bezirksreform 2026</h3>
+        <p>Gesetzgebungsverfahren 2026, Wirksamwerden zum 1. August 2026.</p>
+        <p><a class="inline-link" href={`${getKreisreformUrl()}#bezirk-suche`}>Gemeinde suchen</a></p>
+      </article>
+      <article class="panel">
+        <h3>Doppelhaushalt 2025/2026</h3>
+        <p>Ausgaben, Investitionen, Einzelpläne und Sondervermögen verständlich erklärt.</p>
+        <p><a class="inline-link" href={getBudgetUrl()}>Haushalt ansehen</a></p>
+      </article>
+      <article class="panel">
+        <h3>Aktuelle Gesetzgebung</h3>
+        <p>Laufende Verfahren, verkündete Gesetze und Rechtsstände im Überblick.</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Rechtsportal öffnen</a></p>
+      </article>
+    </div>
   </section>
 
   <section class="section section-muted" aria-labelledby="regierungsstand">
@@ -168,7 +177,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
         <p class="eyebrow">Kreis- und Bezirksreform 2026</p>
         <h3>Kreise, Bezirke und Zuständigkeiten neu ordnen</h3>
         <p>Vergleichen Sie die neue Verwaltungsgliederung über Karte, Suche und tabellarische Übersicht.</p>
-        <p><a class="inline-link" href={getKreisreformUrl()}>Kreisreform öffnen</a></p>
+        <p><a class="inline-link" href={`${getKreisreformUrl()}#karte`}>Kreisreform-Karte ansehen</a></p>
       </article>
       {featuredTopics.map((topic) => (
         <TopicCard
@@ -234,6 +243,24 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
           </>
         )}
       </article>
+    </div>
+  </section>
+
+  <section class="section section-muted" aria-labelledby="vorhaben-verfolgen">
+    <div class="content-grid">
+      <div>
+        <div class="section-header section-header--compact">
+          <h2 id="vorhaben-verfolgen">Vorhaben verfolgen</h2>
+          <p>Erhalten Sie neue Pressemitteilungen, Termine und Verkündungen per RSS oder Kalender.</p>
+        </div>
+        <p class="section-link-row">
+          <a class="inline-link" href={`${getPressUrl()}rss.xml`}>RSS abonnieren</a>
+          <span aria-hidden="true"> · </span>
+          <a class="inline-link" href={`${getEventIndexUrl()}kalender.ics`}>Kalender öffnen</a>
+          <span aria-hidden="true"> · </span>
+          <a class="inline-link" href={getPressReleaseIndexUrl()}>Pressemitteilungen ansehen</a>
+        </p>
+      </div>
     </div>
   </section>
 

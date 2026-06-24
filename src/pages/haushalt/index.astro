@@ -3,15 +3,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import BudgetKpiCards from '../../components/portal/BudgetKpiCards.astro';
 import BudgetSectionNav from '../../components/portal/BudgetSectionNav.astro';
+import BudgetTaskAreaChart from '../../components/portal/BudgetTaskAreaChart.astro';
 import BudgetYearSelector from '../../components/portal/BudgetYearSelector.astro';
 import {
   budgetPlans,
   budgetSpecialInstruments,
   budgetTotals,
   getBudgetShare,
+  getBudgetTaskAreas,
 } from '../../data/haushalt.ts';
 import { formatEuroCompact, formatPercent } from '../../lib/portal/modules.ts';
-import { getBudgetPageUrl, getBudgetPlanUrl, getHomeUrl } from '../../lib/portal/routes.ts';
+import { getBudgetPageUrl, getBudgetPlanUrl, getBudgetUrl, getHomeUrl } from '../../lib/portal/routes.ts';
+import { buildDatasetJsonLd } from '../../lib/seo/index.ts';
 
 const ressortPlans = budgetPlans
   .filter((plan) => plan.category === 'Ressort')
@@ -20,12 +23,19 @@ const financePlan = budgetPlans.find((plan) => plan.number === '20');
 const totalChange = budgetTotals['2026'].expenses - budgetTotals['2025'].expenses;
 const investmentChange = budgetTotals['2026'].investments - budgetTotals['2025'].investments;
 const taxChange = budgetTotals['2026'].tax - budgetTotals['2025'].tax;
+const taskAreas = getBudgetTaskAreas();
 ---
 
 <BaseLayout
-  title="Haushalt"
+  title="Doppelhaushalt 2025/2026"
   description="Das Haushaltsportal zum Doppelhaushalt 2025/2026 mit Gesamtplan, Einzelplänen und Sondervermögen."
   scripts={['portal-modules']}
+  structuredData={buildDatasetJsonLd({
+    name: 'Doppelhaushalt 2025/2026 des Ostdeutschen Freistaates',
+    description: 'Einnahmen, Ausgaben, Investitionen, Einzelpläne und Sondervermögen des Doppelhaushalts 2025/2026.',
+    url: getBudgetUrl(),
+    distributionUrl: '/haushalt/daten.csv',
+  }, Astro.site)}
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]} />
 
@@ -33,8 +43,9 @@ const taxChange = budgetTotals['2026'].tax - budgetTotals['2025'].tax;
     <p class="eyebrow">Haushaltsportal</p>
     <h1>Doppelhaushalt 2025/2026</h1>
     <p class="lead">
-      Der Haushalt zeigt die Einnahmen und Ausgaben des Freistaates nach Jahren, Aufgabenbereichen
-      und Einzelplänen. Sondervermögen und Kooperationsfonds werden getrennt vom Kernhaushalt erläutert.
+      Der Haushalt zeigt Einnahmen, Ausgaben, Investitionen, Einzelpläne und Sondervermögen.
+      Einzelplananteile sind keine politische Rangfolge und keine Aussage darüber, ob ein Ressort
+      ausreichend ausgestattet ist.
     </p>
     <BudgetSectionNav current="portal" />
     <nav class="hero-actions" aria-label="Direkteinstiege zum Haushaltsportal">
@@ -57,7 +68,7 @@ const taxChange = budgetTotals['2026'].tax - budgetTotals['2025'].tax;
 
     {(['2025', '2026'] as const).map((year) => (
       <div class="budget-year-content" data-budget-year-content={year} hidden={year !== '2026'}>
-        <BudgetKpiCards year={year} amounts={budgetTotals[year]} />
+        <BudgetKpiCards year={year} amounts={budgetTotals[year]} specialInstrumentCount={budgetSpecialInstruments.length} />
         <div class="budget-explanation-grid">
           <article class="budget-explanation-card">
             <span class="meta-label">Einordnung {year}</span>
@@ -108,10 +119,14 @@ const taxChange = budgetTotals['2026'].tax - budgetTotals['2025'].tax;
     </div>
   </section>
 
+  <section class="section" aria-labelledby="aufgabenbereiche">
+    <BudgetTaskAreaChart areas={taskAreas} year="2026" />
+  </section>
+
   <section class="section section-muted" aria-labelledby="ressortvergleich">
     <div class="section-header">
       <h2 id="ressortvergleich">Ressortübergreifender Überblick</h2>
-      <p>Ausgaben der Ressort-Einzelpläne im Haushalt 2026. Die Tabelle zeigt Volumen und Anteil, keine Bewertung der Mittelversorgung.</p>
+      <p>Ausgaben der Ressort-Einzelpläne im Haushalt 2026. Die Tabelle zeigt den Anteil am Gesamthaushalt, keine Bewertung der politischen Priorität oder Mittelversorgung.</p>
     </div>
     <div class="table-wrap" tabindex="0" role="region" aria-label="Ressortausgaben im Haushalt 2026">
       <table class="data-table budget-portal-table">

@@ -103,6 +103,7 @@ function createSearchDetail(entry: SearchEntry): string {
         <div><dt>Bisheriger Kreis</dt><dd>${escapeHtml(value.alterKreis ?? 'Keine Angabe')}</dd></div>
         <div><dt>Einwohner</dt><dd>${formatInteger(value.einwohner)}</dd></div>
         <div><dt>Fläche</dt><dd>${formatArea(value.flaecheKm2)}</dd></div>
+        <div><dt>Rechtsgrundlage</dt><dd>Entwurf des Kreis- und Bezirksneuordnungsgesetzes, Anlagen 1 und 2</dd></div>
       </dl>
       <p class="detail-line">Die Karte kann zur räumlichen Einordnung zusätzlich geöffnet werden.</p>
     `;
@@ -119,6 +120,7 @@ function createSearchDetail(entry: SearchEntry): string {
         <div><dt>Einwohner</dt><dd>${formatInteger(value.einwohner)}</dd></div>
         <div><dt>Fläche</dt><dd>${formatArea(value.flaecheKm2)}</dd></div>
         <div><dt>Gemeinden</dt><dd>${formatInteger(value.gemeinden)}</dd></div>
+        <div><dt>Rechtsgrundlage</dt><dd>Entwurf des Kreis- und Bezirksneuordnungsgesetzes, Anlagen 1 und 2</dd></div>
       </dl>
       <p class="detail-line">Die Karte kann zur räumlichen Einordnung zusätzlich geöffnet werden.</p>
     `;
@@ -133,6 +135,7 @@ function createSearchDetail(entry: SearchEntry): string {
       <div><dt>Einwohner</dt><dd>${formatInteger(value.einwohner)}</dd></div>
       <div><dt>Fläche</dt><dd>${formatArea(value.flaecheKm2)}</dd></div>
       <div><dt>Zugeordnete Kreise</dt><dd>${escapeHtml((value.kreise ?? []).join(', ') || 'Keine Angabe')}</dd></div>
+      <div><dt>Rechtsgrundlage</dt><dd>Entwurf des Kreis- und Bezirksneuordnungsgesetzes, Anlage 1</dd></div>
     </dl>
     <p class="detail-line">Die Karte kann zur räumlichen Einordnung zusätzlich geöffnet werden.</p>
   `;

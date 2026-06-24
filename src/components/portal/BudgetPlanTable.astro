@@ -75,7 +75,7 @@ const title = isComparison ? 'Vergleich der Einzelpläne 2025/2026' : `Einzelpl�
                   <td>{formatPercent(getBudgetShare(plan.amounts[mode].personnel, amount) ?? 0)}</td>
                 </>
               )}
-              <td><a class="inline-link" href={getBudgetPlanUrl(plan.number)}>Öffnen</a></td>
+              <td><a class="inline-link" href={getBudgetPlanUrl(plan.number)}>Einzelplan {plan.number} ansehen</a></td>
             </tr>
           );
         })}

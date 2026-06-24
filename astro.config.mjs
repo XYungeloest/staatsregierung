@@ -21,6 +21,10 @@ export default defineConfig({
   output: 'static',
   site: process.env.SITE_URL ?? defaultSiteUrl,
   base: normalizeBasePath(process.env.BASE_PATH),
+  redirects: {
+    '/presse/termine/einbringung-kreis-und-bezirksreform-2027/':
+      '/presse/termine/einbringung-kreis-und-bezirksreform-2026/',
+  },
   session: {
     // Phase 1 verwendet keine serverseitigen Sessions.
     driver: sessionDrivers.null(),

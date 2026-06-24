@@ -9,16 +9,16 @@ import { formatEuroCompact, formatPercent } from '../../lib/portal/modules.ts';
 interface Props {
   year: BudgetYear;
   amounts: BudgetAmounts;
+  specialInstrumentCount?: number;
 }
 
-const { year, amounts } = Astro.props as Props;
+const { year, amounts, specialInstrumentCount } = Astro.props as Props;
 const cards = [
-  { label: 'Gesamteinnahmen', amount: amounts.revenue, description: 'Summe der Einnahmen' },
   { label: 'Gesamtausgaben', amount: amounts.expenses, description: 'Summe der Ausgaben' },
-  { label: 'Steuereinnahmen', amount: amounts.tax, description: getBudgetShare(amounts.tax, amounts.revenue) },
+  { label: 'Gesamteinnahmen', amount: amounts.revenue, description: 'Summe der Einnahmen' },
+  { label: 'Investitionen', amount: amounts.investments, description: getBudgetShare(amounts.investments, amounts.expenses) },
   { label: 'Personalausgaben', amount: amounts.personnel, description: getBudgetShare(amounts.personnel, amounts.expenses) },
-  { label: 'Zuweisungen und Zuschüsse', amount: amounts.transfers, description: getBudgetShare(amounts.transfers, amounts.expenses) },
-  { label: 'Investitionen und Investitionsförderung', amount: amounts.investments, description: getBudgetShare(amounts.investments, amounts.expenses) },
+  { label: 'Schuldendienst und Finanzierungen', amount: amounts.financingExpenses, description: 'Besondere Finanzierungsausgaben' },
 ];
 ---
 
@@ -36,4 +36,11 @@ const cards = [
       </span>
     </article>
   ))}
+  {typeof specialInstrumentCount === 'number' ? (
+    <article class="budget-kpi-card">
+      <span class="meta-label">Sondervermögen und Fonds</span>
+      <strong>{specialInstrumentCount}</strong>
+      <span class="detail-line">rechtlich eingeordnete Instrumente</span>
+    </article>
+  ) : null}
 </div>

@@ -22,9 +22,9 @@ Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuelle
 - Personenbezeichnungen mit Doppelpunkt gendern, zum Beispiel `Bürger:innen`, `Schüler:innen` und
   `Referent:in`. Paarformen, Sternchen, Binnen-I und Unterstriche nicht verwenden.
 - Der sichtbare Hinweis zur politischen Simulation bleibt auf obere Hinweisleiste und Footer
-  beschränkt. In normalen Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation
-  ergänzen.
-- Für aktuelle Übersichten gilt der redaktionelle Stichtag 22. Juni 2026. Termine davor sind
+  beschränkt. Das Impressum enthält die ausführliche rechtliche Einordnung; in normalen
+  Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation ergänzen.
+- Für aktuelle Übersichten gilt der redaktionelle Stichtag 24. Juni 2026. Termine davor sind
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
