@@ -62,7 +62,7 @@ export function buildWebSiteJsonLd(site?: URL): StructuredData {
 export function buildOrganizationJsonLd(site?: URL): StructuredData {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'GovernmentOrganization',
     name: siteConfig.authorityName,
     alternateName: siteConfig.seo.siteName,
     description: siteConfig.seo.defaultDescription,
@@ -172,6 +172,55 @@ export function buildArticleJsonLd(
           height: input.image.height,
         }
       : undefined,
+  };
+}
+
+export function buildNewsArticleJsonLd(input: ArticleJsonLdInput, site?: URL): StructuredData {
+  return {
+    ...buildArticleJsonLd(input, site),
+    '@type': 'NewsArticle',
+  };
+}
+
+export function buildDatasetJsonLd(
+  input: { name: string; description: string; url: string; distributionUrl?: string },
+  site?: URL,
+): StructuredData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: input.name,
+    description: input.description,
+    url: toAbsoluteUrl(input.url, site),
+    inLanguage: 'de-DE',
+    creator: {
+      '@type': 'GovernmentOrganization',
+      name: siteConfig.authorityName,
+    },
+    distribution: input.distributionUrl
+      ? {
+          '@type': 'DataDownload',
+          encodingFormat: 'text/csv',
+          contentUrl: toAbsoluteUrl(input.distributionUrl, site),
+        }
+      : undefined,
+  };
+}
+
+export function buildFaqPageJsonLd(
+  entries: Array<{ question: string; answer: string }>,
+): StructuredData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: entries.map((entry) => ({
+      '@type': 'Question',
+      name: entry.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: entry.answer,
+      },
+    })),
   };
 }
 

@@ -1,6 +1,7 @@
 ---
 import { siteConfig } from '../../config/site.ts';
 import { getJobUrl, type Stellenangebot } from '../../lib/portal/index.ts';
+import { isToday } from '../../lib/portal/dates.ts';
 
 interface Props {
   offer: Stellenangebot;
@@ -20,5 +21,6 @@ const isCompact = variant === 'compact';
       {offer.standort} · {offer.employmentType} · Bewerbungsfrist{' '}
       {siteConfig.date.formatLong(offer.applicationDeadline)}
     </p>
+    {isToday(offer.applicationDeadline) ? <p class="tag">Bewerbungsfrist endet heute</p> : null}
   </div>
 </article>

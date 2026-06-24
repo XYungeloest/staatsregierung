@@ -57,6 +57,7 @@ if (root) {
   const resultNode = root.querySelector<HTMLElement>('[data-portal-search-results]');
   const emptyNode = root.querySelector<HTMLElement>('[data-portal-search-empty]');
   const errorNode = root.querySelector<HTMLElement>('[data-portal-search-error]');
+  const examplesNode = root.querySelector<HTMLElement>('[data-portal-search-examples]');
   const indexUrl = root.dataset.indexUrl ?? '/search-index.json';
   const params = new URLSearchParams(window.location.search);
 
@@ -66,7 +67,8 @@ if (root) {
   const initialQuery = queryInput?.value ?? '';
   const initialType = typeSelect?.value ?? '';
   if (hasSearchIntent(initialQuery, initialType) && statusNode) {
-    statusNode.textContent = 'Suche wird geladen …';
+    statusNode.textContent = 'Suche läuft …';
+    if (examplesNode) examplesNode.hidden = true;
   }
 
   fetch(indexUrl)
@@ -85,9 +87,11 @@ if (root) {
 
         if (!searching) {
           if (statusNode) {
-            statusNode.textContent = 'Geben Sie einen Suchbegriff ein oder wählen Sie einen Bereich aus.';
+            statusNode.textContent = 'Wonach suchen Sie? Geben Sie einen Begriff ein, zum Beispiel Kreisreform, Haushalt, Kabinett, Kultur, Gesetz oder Bezirk.';
           }
           if (emptyNode) emptyNode.hidden = true;
+          if (errorNode) errorNode.hidden = true;
+          if (examplesNode) examplesNode.hidden = false;
           if (resultNode) resultNode.innerHTML = '';
           window.history.replaceState(null, '', window.location.pathname);
           return;
@@ -99,12 +103,15 @@ if (root) {
           .sort((left, right) => right.score - left.score || left.entry.title.localeCompare(right.entry.title, 'de'))
           .slice(0, 50);
 
+        if (examplesNode) examplesNode.hidden = true;
+        if (errorNode) errorNode.hidden = true;
         if (statusNode) {
+          const searchContext = query || typeSelect?.selectedOptions[0]?.textContent || 'den gewählten Bereich';
           statusNode.textContent = matches.length === 0
-            ? 'Keine Treffer gefunden.'
-            : `${matches.length} ${matches.length === 1 ? 'Treffer' : 'Treffer'} gefunden.`;
+            ? 'Keine Treffer gefunden. Prüfen Sie die Schreibweise oder suchen Sie in einem anderen Bereich.'
+            : `${matches.length} Treffer für „${searchContext}“`;
         }
-        if (emptyNode) emptyNode.hidden = matches.length > 0;
+        if (emptyNode) emptyNode.hidden = true;
         if (resultNode) {
           resultNode.innerHTML = matches
             .map(
@@ -140,8 +147,10 @@ if (root) {
       update();
     })
     .catch(() => {
-      if (statusNode) statusNode.textContent = 'Die Suche ist derzeit nicht verfügbar.';
-      if (errorNode) errorNode.hidden = false;
+      if (statusNode) statusNode.textContent = 'Die Suche ist derzeit nicht erreichbar. Nutzen Sie vorübergehend die Bereiche Recht, Themen, Presse und Service.';
+      if (errorNode) errorNode.hidden = true;
       if (emptyNode) emptyNode.hidden = true;
+      if (examplesNode) examplesNode.hidden = true;
+      if (resultNode) resultNode.innerHTML = '';
     });
 }

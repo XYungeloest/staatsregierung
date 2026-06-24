@@ -63,6 +63,13 @@ export interface BudgetSpecialInstrument {
   topicSlug?: string;
 }
 
+export interface BudgetTaskArea {
+  label: string;
+  description: string;
+  planNumbers: readonly string[];
+  amounts: Record<BudgetYear, number>;
+}
+
 export const budgetDataSource = {
   label: 'Staatshaushalt 2025/2026',
   summaryFile: 'context/Staatshaushalt 2025_2026 - Zusammenfassung.csv',
@@ -299,4 +306,61 @@ export function getExpenseBreakdown(year: BudgetYear) {
     { label: 'Investitionen und Investitionsförderung', amount: amounts.investments },
     { label: 'Besondere Finanzierungsausgaben', amount: amounts.financingExpenses },
   ];
+}
+
+const budgetTaskAreaDefinitions = [
+  {
+    label: 'Bildung, Jugend und Kultur',
+    description: 'Schulen, Hochschulen, frühkindliche Bildung, Kultur und Wissenschaft.',
+    planNumbers: ['04', '11'],
+  },
+  {
+    label: 'Soziales und Gesundheit',
+    description: 'Soziale Sicherung, Familien, Pflege und Gesundheitsversorgung.',
+    planNumbers: ['08'],
+  },
+  {
+    label: 'Inneres, Recht und Sicherheit',
+    description: 'Kommunen, Wohnen, Justiz, Polizei und Sicherheitsstrukturen.',
+    planNumbers: ['03', '05', '13'],
+  },
+  {
+    label: 'Wirtschaft, Umwelt und Landwirtschaft',
+    description: 'Arbeit, Strukturpolitik, Energie, Klima, Land- und Forstwirtschaft.',
+    planNumbers: ['07', '09', '14'],
+  },
+  {
+    label: 'Infrastruktur, Verkehr und Bauen',
+    description: 'Mobilität, regionale Entwicklung, staatlicher Hochbau und Liegenschaften.',
+    planNumbers: ['10', '19'],
+  },
+  {
+    label: 'Innovation und Digitalisierung',
+    description: 'Informations- und Kommunikationstechnik sowie Transparenzaufsicht.',
+    planNumbers: ['17', '18'],
+  },
+  {
+    label: 'Allgemeine Finanzverwaltung',
+    description: 'Steuern, kommunaler Finanzausgleich, Versorgung, Beteiligungen und Staatsvermögen.',
+    planNumbers: ['20'],
+  },
+  {
+    label: 'Zentrale Leistungen und Verfassungsorgane',
+    description: 'Landtag, Staatskanzlei, Finanzsteuerung, internationale Zusammenarbeit und unabhängige Verfassungsorgane.',
+    planNumbers: ['01', '02', '06', '12', '15', '16'],
+  },
+] as const;
+
+export function getBudgetTaskAreas(): BudgetTaskArea[] {
+  return budgetTaskAreaDefinitions.map((definition) => ({
+    ...definition,
+    amounts: {
+      '2025': budgetPlans
+        .filter((plan) => (definition.planNumbers as readonly string[]).includes(plan.number))
+        .reduce((sum, plan) => sum + plan.amounts['2025'].expenses, 0),
+      '2026': budgetPlans
+        .filter((plan) => (definition.planNumbers as readonly string[]).includes(plan.number))
+        .reduce((sum, plan) => sum + plan.amounts['2026'].expenses, 0),
+    },
+  }));
 }

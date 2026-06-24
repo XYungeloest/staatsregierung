@@ -14,6 +14,7 @@ import {
   formatInteger,
   formatLongDate,
 } from '../../lib/kreisreform/format.ts';
+import { buildFaqPageJsonLd } from '../../lib/seo/index.ts';
 import type {
   GeoJsonFeatureCollection,
   KreisreformManifest,
@@ -54,6 +55,14 @@ const bisherigeBezirke = [
   'Sachsen-Anhalt',
   'Thüringen',
 ];
+const kreisreformFaq = [
+  { question: 'Muss ich meine Adresse ändern?', answer: 'Nein. Gemeindegrenzen und postalische Anschriften bleiben durch die Neuordnung unverändert. Die Kreis- und Bezirkszuordnung ändert sich zum Wirksamwerden des Gesetzes.' },
+  { question: 'Ändern sich Kfz-Kennzeichen?', answer: 'Die Regelungen zu Kfz-Kennzeichen werden gesondert bekannt gemacht. Bestehende Kennzeichen werden durch die Gebietszuordnung nicht unmittelbar ungültig.' },
+  { question: 'Welche Behörde ist künftig zuständig?', answer: 'Die Gebietssuche zeigt den neuen Kreis und Bezirk. Für einzelne Aufgaben gelten bis zum Abschluss der Übergangsregelungen die jeweils bekannt gemachten Zuständigkeiten.' },
+  { question: 'Wann gilt die neue Zuordnung?', answer: 'Die neue Kreis- und Bezirksgliederung soll am 1. August 2026 wirksam werden.' },
+  { question: 'Was passiert mit bisherigen Landkreisen?', answer: 'Die bisherigen Kreise bleiben für Rechtsnachfolge, Übergangsaufgaben und die Bereinigung bestehender Regelungen bedeutsam. Die Einzelheiten ergeben sich aus dem Gesetzesentwurf und seinen Anlagen.' },
+  { question: 'Wo finde ich die Rechtsgrundlagen?', answer: 'Die Seite bündelt die vorgesehenen Grundlagen. Verkündete Fassungen und Fundstellen werden im Rechtsportal veröffentlicht.' },
+];
 ---
 
 <BaseLayout
@@ -64,6 +73,7 @@ const bisherigeBezirke = [
     { label: 'Themen & Projekte', href: getTopicsUrl() },
     { label: 'Kreis- und Bezirksreform' },
   ]}
+  structuredData={buildFaqPageJsonLd(kreisreformFaq)}
 >
   <Breadcrumbs
     items={[
@@ -77,13 +87,13 @@ const bisherigeBezirke = [
     <p class="eyebrow">Gebietsordnung</p>
     <h1>Kreis- und Bezirksreform 2026</h1>
     <p class="lead">
-      Die neue Verwaltungsgliederung ordnet Bezirke, Kreise und Zuständigkeiten neu. Suchen Sie
-      nach Gemeinden, Kreisen oder Bezirken und vergleichen Sie alte und neue Grenzen.
+      Suchen Sie Ihre Gemeinde und sehen Sie, welchem Kreis und Bezirk sie künftig zugeordnet ist.
     </p>
+    <p>Gesetzgebungsverfahren 2026, Wirksamwerden zum 1. August 2026.</p>
     <nav class="hero-actions" aria-label="Direkteinstiege">
-      <a class="button-link" href="#karte" data-open-kreisreform-map>Karte öffnen</a>
-      <a class="button-link button-link--secondary" href="#bezirk-suche">Bezirk suchen</a>
-      <a class="button-link button-link--secondary" href="#tabellen">Tabellen anzeigen</a>
+      <a class="button-link" href="#bezirk-suche">Gemeinde suchen</a>
+      <a class="button-link button-link--secondary" href="#karte" data-open-kreisreform-map>Karte ansehen</a>
+      <a class="button-link button-link--secondary" href="#tabellen">Tabellenansicht ansehen</a>
       <a class="button-link button-link--secondary" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
     </nav>
   </section>
@@ -125,7 +135,7 @@ const bisherigeBezirke = [
       <p>Suchen Sie nach Gemeinde, Kreis oder Bezirk. Das Ergebnis steht auch ohne Kartenansicht bereit.</p>
     </div>
     <label class="search-field kreisreform-search-field">
-      <span>Kreis, Bezirk oder Gemeinde suchen</span>
+      <span>Gemeinde, Kreis oder Bezirk suchen</span>
       <input
         type="search"
         data-kreisreform-search-input
@@ -257,7 +267,7 @@ const bisherigeBezirke = [
       <article>
         <h3>Bisherige Bezirke</h3>
         <p>
-          Bis Ende 2026 bestehen acht Bezirke: {bisherigeBezirke.join(', ')}. Sie beruhen auf dem
+          Bis zum 31. Juli 2026 bestehen acht Bezirke: {bisherigeBezirke.join(', ')}. Sie beruhen auf dem
           bisherigen Bezirkseinführungsgesetz.
         </p>
       </article>
@@ -386,6 +396,23 @@ const bisherigeBezirke = [
       <span aria-hidden="true"> · </span>
       <a class="inline-link" href={getFreestateUrl()}>Über den Freistaat</a>
     </p>
+  </section>
+
+  <section class="section section-muted" aria-labelledby="kreisreform-faq">
+    <div class="section-header">
+      <h2 id="kreisreform-faq">Häufige Fragen</h2>
+      <p>Antworten zur vorgesehenen Neuordnung und zum Übergang am 1. August 2026.</p>
+    </div>
+    <div class="faq-accordion" data-faq-root data-allow-multiple="false">
+      {kreisreformFaq.map((entry) => (
+        <details class="faq-accordion__item">
+          <summary class="faq-accordion__summary">{entry.question}</summary>
+          <div class="faq-accordion__body">
+            <p>{entry.question === 'Wo finde ich die Rechtsgrundlagen?' ? <>Die Seite bündelt die vorgesehenen Grundlagen. Verkündete Fassungen und Fundstellen werden im <a class="inline-link" href={getLawHomeUrl()}>Rechtsportal</a> veröffentlicht.</> : entry.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
   </section>
 
   <script>

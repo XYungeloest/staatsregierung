@@ -15,7 +15,8 @@ Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
   Verkündungen und Rechtssuche
 
 Das Projekt ist eine politische Simulation. Es stellt keine echte amtliche Veröffentlichung dar.
-Der dafür notwendige Hinweis erscheint sichtbar in der oberen Hinweisleiste und im Footer; weitere
+Der dafür notwendige Hinweis erscheint sichtbar in der oberen Hinweisleiste und im Footer. Das
+Impressum enthält zusätzlich die rechtlich erforderliche ausführliche Einordnung; weitere
 öffentliche Texte sollen die Simulation nicht wiederholen.
 
 ## Entwicklung
@@ -115,7 +116,7 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
 Für öffentliche Übersichten werden Termine und Stellenangebote über
 `src/lib/portal/dates.ts` gegen den redaktionellen Stichtag gefiltert. Vergangene Termine und
 abgelaufene Fristen bleiben im Archiv erreichbar, werden aber nicht als aktuell ausgegeben.
-Der derzeitige Stichtag ist der 22. Juni 2026.
+Der derzeitige Stichtag ist der 24. Juni 2026.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter

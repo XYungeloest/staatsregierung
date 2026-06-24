@@ -67,7 +67,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
       <article class="panel">
         <h3>Pressekontakt</h3>
         <p>{siteConfig.contact.pressOffice.label}</p>
-        <p class="detail-line"><a class="inline-link" href={`mailto:${siteConfig.contact.pressOffice.email}`}>{siteConfig.contact.pressOffice.email}</a><br />{siteConfig.contact.pressOffice.phone}</p>
+        <p class="detail-line"><a class="inline-link" href={`mailto:${siteConfig.contact.pressOffice.email}`}>{siteConfig.contact.pressOffice.email}</a><br /><a class="inline-link" href={`tel:${siteConfig.contact.pressOffice.phone.replace(/\s+/gu, '')}`}>{siteConfig.contact.pressOffice.phone}</a></p>
       </article>
       <article class="panel">
         <h3>RSS &amp; Kalender</h3>

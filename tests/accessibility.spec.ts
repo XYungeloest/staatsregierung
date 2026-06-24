@@ -12,6 +12,7 @@ const auditPages = [
   '/suche/',
   '/recht/norm/ostdeutsches-kulturpassgesetz/',
   '/service/kontakt/',
+  '/service/impressum/',
   '/service/barrierefreiheit/',
 ];
 

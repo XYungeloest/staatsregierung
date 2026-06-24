@@ -28,5 +28,5 @@ const { topic, ministryName } = Astro.props as Props;
   <p class="detail-line">
     {topic.rechtsgrundlagen.length} Rechtsgrundlagen · {topic.naechsteSchritte.length} nächste Schritte
   </p>
-  <p><a class="inline-link" href={getTopicUrl(topic.slug)}>Thema öffnen</a></p>
+  <p><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title} ansehen</a></p>
 </article>

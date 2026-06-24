@@ -26,6 +26,7 @@ import {
   getGovernmentMemberUrl,
   getImprintUrl,
   getJobUrl,
+  getKreisreformUrl,
   getMinistryUrl,
   getPressReleaseUrl,
   getPrivacyUrl,
@@ -91,6 +92,15 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
   ]);
 
   const entries: PortalSearchEntry[] = [
+    {
+      id: 'kreisreform',
+      type: 'topic',
+      typeLabel: 'Thema',
+      title: 'Kreis- und Bezirksreform 2026',
+      description: 'Gemeinden, Kreise und Bezirke in der neuen Verwaltungsgliederung suchen und vergleichen.',
+      url: getKreisreformUrl(),
+      text: 'Kreisreform Gebietsreform Gemeinde suchen neuer Kreis neuer Bezirk Kreis- und Bezirksneuordnung Gesetzgebungsverfahren 2026',
+    },
     {
       id: 'law-publications',
       type: 'law',

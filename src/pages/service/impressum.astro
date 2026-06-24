@@ -1,47 +1,94 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { siteConfig } from '../../config/site.ts';
-import { getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
-import { loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import { getAccessibilityUrl, getHomeUrl, getPrivacyUrl, getServiceUrl } from '../../lib/portal/index.ts';
 
-const page = loadRuntimeServicePageBySlug('impressum');
+const addressLines = ['Archivstraße 1', '01097 Dresden'];
 ---
 
-<BaseLayout title={page?.title ?? 'Impressum'} description="Impressum des Regierungsportals.">
-  <Breadcrumbs
-    items={[
-      { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Service', href: getServiceUrl() },
-      { label: 'Impressum' },
-    ]}
-  />
+<BaseLayout title="Impressum" description="Impressum und Hinweise zum Internetangebot des Ostdeutschen Freistaates.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service', href: getServiceUrl() }, { label: 'Impressum' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Service</p>
-    <h1>{page?.title ?? 'Impressum'}</h1>
+    <h1>Impressum</h1>
   </section>
 
   <div class="content-grid">
     <section class="section body-copy">
-      {(page?.body ?? []).map((paragraph) => (
-        <p>{paragraph}</p>
-      ))}
+      <h2>Anbieter und Herausgeber</h2>
+      <p>Staatsregierung des Ostdeutschen Freistaates<br />Staatskanzlei des Ostdeutschen Freistaates<br />{addressLines.join(', ')}</p>
+      <p>Telefon: <a class="inline-link" href="tel:+493511000">+49 351 100-0</a><br />E-Mail: <a class="inline-link" href="mailto:service@freistaat-ostdeutschland.de">service@freistaat-ostdeutschland.de</a><br />Internet: freistaat-ostdeutschland.de</p>
+      <p>Die Staatsregierung des Ostdeutschen Freistaates ist Herausgeberin dieses Internetangebots.</p>
+
+      <h2>Vertreten durch</h2>
+      <p>Dr. Karl Honecker<br />Ministerpräsident des Ostdeutschen Freistaates</p>
+
+      <h2>Verantwortliche Stelle</h2>
+      <p>Staatskanzlei des Ostdeutschen Freistaates<br />Referat Digitale Regierungskommunikation und Bürgerinformation<br />{addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href="mailto:redaktion@freistaat-ostdeutschland.de">redaktion@freistaat-ostdeutschland.de</a></p>
+      <p>Die redaktionelle Pflege, technische Koordination und organisatorische Gesamtverantwortung für dieses Portal liegen bei der Staatskanzlei des Ostdeutschen Freistaates.</p>
+
+      <h2>Verantwortlich für journalistisch-redaktionelle Inhalte</h2>
+      <p>Verantwortlich im Sinne des § 18 Abs. 2 Medienstaatsvertrag:</p>
+      <p>Mara Seidel<br />Leiterin des Presse- und Informationsamtes der Staatsregierung<br />Staatskanzlei des Ostdeutschen Freistaates<br />{addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href="mailto:presse@freistaat-ostdeutschland.de">presse@freistaat-ostdeutschland.de</a></p>
+      <p>Die Verantwortung umfasst insbesondere Pressemitteilungen, redaktionelle Meldungen, Themenseiten, Regierungserklärungen und sonstige publizistische Inhalte dieses Internetangebots.</p>
+
+      <h2>Presse- und Öffentlichkeitsarbeit</h2>
+      <p>Presse- und Informationsamt der Staatsregierung<br />{addressLines.join(', ')}</p>
+      <p>Telefon: <a class="inline-link" href="tel:+493511001200">+49 351 100-1200</a><br />E-Mail: <a class="inline-link" href="mailto:presse@freistaat-ostdeutschland.de">presse@freistaat-ostdeutschland.de</a></p>
+      <p>Anfragen von Medienvertreter:innen richten Sie bitte an die Pressestelle der Staatsregierung.</p>
+
+      <h2>Technischer Betrieb</h2>
+      <p>Staatskanzlei des Ostdeutschen Freistaates<br />Referat Digitale Infrastruktur und Portalbetrieb<br />{addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href="mailto:portalbetrieb@freistaat-ostdeutschland.de">portalbetrieb@freistaat-ostdeutschland.de</a></p>
+      <p>Der technische Betrieb umfasst die Pflege der Portalstruktur, die Bereitstellung der Suchfunktionen, die Barrierefreiheitskomponenten, die Cookie-Einstellungen und die technische Verfügbarkeit des Internetangebots.</p>
+
+      <h2>Hinweis zur politischen Simulation</h2>
+      <p>Dieses Internetangebot ist Teil einer fiktiven politischen Simulation des Ostdeutschen Freistaates. Der Ostdeutsche Freistaat ist kein real bestehendes deutsches Bundesland. Die dargestellten Behörden, Ämter, Rechtsakte, Pressemitteilungen, Haushaltsdaten, Personen, Zuständigkeiten und Kontaktwege dienen ausschließlich der Simulation, Dokumentation und politischen Rollenspielgestaltung.</p>
+      <p>Dieses Portal ist keine amtliche Website einer realen staatlichen Stelle. Es werden keine Verwaltungsleistungen im rechtlichen Sinne erbracht. Über dieses Internetangebot können keine rechtsverbindlichen Anträge, Widersprüche, Petitionen, Auskunftsersuchen oder sonstigen Verwaltungsverfahren gegenüber realen Behörden eingeleitet werden.</p>
+
+      <h2>Inhalte des Internetangebots</h2>
+      <p>Die Inhalte dieses Portals werden mit größtmöglicher Sorgfalt erstellt und redaktionell gepflegt. Sie dienen der Information über die fiktive Staatsregierung, simulierte Gesetzgebungsverfahren, politische Vorhaben, Haushaltsdaten, Pressemitteilungen und Serviceangebote innerhalb der politischen Simulation.</p>
+      <p>Eine Gewähr für Aktualität, Vollständigkeit und Richtigkeit der Inhalte wird nicht übernommen, soweit es sich um fiktive, satirische, spielerische oder simulationsbezogene Inhalte handelt. Maßgeblich ist stets der erkennbare Kontext der politischen Simulation.</p>
+
+      <h2>Rechtsinformationen und Normtexte</h2>
+      <p>Soweit dieses Portal Gesetze, Verordnungen, Verwaltungsvorschriften, Fundstellen, Verkündungen oder Rechtsstände enthält, handelt es sich um fiktive Rechtsinformationen innerhalb der politischen Simulation. Diese Inhalte entfalten keine Rechtswirkung gegenüber natürlichen oder juristischen Personen in der realen Bundesrepublik Deutschland.</p>
+      <p>Die bereitgestellten Normtexte, Begründungen und Fundstellennachweise dienen der internen Dokumentation des Simulationsgeschehens und ersetzen keine amtliche Rechtsauskunft.</p>
+
+      <h2>Externe Links</h2>
+      <p>Dieses Internetangebot kann Verweise auf externe Internetseiten enthalten. Für Inhalte externer Seiten ist ausschließlich der jeweilige Anbieter verantwortlich. Die Staatsregierung des Ostdeutschen Freistaates macht sich fremde Inhalte durch die Verlinkung nicht zu eigen.</p>
+      <p>Zum Zeitpunkt der Verlinkung wurden externe Inhalte auf erkennbare Rechtsverstöße geprüft. Eine dauerhafte inhaltliche Kontrolle externer Seiten findet ohne konkreten Anlass nicht statt. Bei Bekanntwerden entsprechender Rechtsverletzungen werden betroffene Links entfernt.</p>
+
+      <h2>Urheberrecht und Nutzungsrechte</h2>
+      <p>Die auf diesem Internetangebot veröffentlichten Texte, Grafiken, Logos, Karten, Tabellen, Datenvisualisierungen, Bilder und sonstigen Inhalte unterliegen dem Urheberrecht, soweit sie nicht ausdrücklich als gemeinfrei oder unter einer freien Lizenz gekennzeichnet sind.</p>
+      <p>Eine Nutzung, Vervielfältigung, Bearbeitung oder Weiterverbreitung ist nur im Rahmen der jeweils angegebenen Lizenz oder mit Zustimmung der verantwortlichen Redaktion zulässig. Inhalte, die im Rahmen der politischen Simulation erstellt wurden, dürfen für Zwecke der Simulation, Berichterstattung und Dokumentation unter Nennung der Quelle verwendet werden, sofern keine abweichenden Hinweise angegeben sind.</p>
+
+      <h2>Bildnachweise</h2>
+      <p>Soweit Bilder, Karten, Symbole, Wappen, Logos oder sonstige grafische Elemente verwendet werden, erfolgen Bildnachweise unmittelbar am jeweiligen Inhalt, im Quellennachweis der Seite oder in einem gesonderten Bildnachweisbereich.</p>
+      <p>Fiktive Hoheitszeichen, Wappen, Flaggen und Embleme des Ostdeutschen Freistaates sind Bestandteil der politischen Simulation und stellen keine realen amtlichen Hoheitszeichen dar.</p>
+
+      <h2>Datenschutz und Barrierefreiheit</h2>
+      <p>Informationen zur Verarbeitung personenbezogener Daten, zu Cookies und Statistikfunktionen finden Sie in der <a class="inline-link" href={getPrivacyUrl()}>Datenschutzerklärung</a>. Informationen zu bekannten Einschränkungen und Kontaktmöglichkeiten bei Barrieren stehen in der <a class="inline-link" href={getAccessibilityUrl()}>Erklärung zur Barrierefreiheit</a>.</p>
+
+      <h2>Kontakt bei Fehlern oder Barrieren</h2>
+      <p>Hinweise zu technischen Fehlern, fehlerhaften Links, Darstellungsproblemen, Barrieren oder unklaren Inhalten können an die Portalredaktion gesendet werden: <a class="inline-link" href="mailto:redaktion@freistaat-ostdeutschland.de">redaktion@freistaat-ostdeutschland.de</a>.</p>
+      <p>Bitte nennen Sie nach Möglichkeit die betroffene Seite, den verwendeten Browser, das Endgerät und eine kurze Beschreibung des Problems.</p>
+
+      <h2>Keine Streitbeilegung für Verwaltungsverfahren</h2>
+      <p>Da es sich um ein fiktives Internetangebot im Rahmen einer politischen Simulation handelt, nimmt die Staatsregierung des Ostdeutschen Freistaates nicht an realen Streitbeilegungsverfahren vor Verbraucherschlichtungsstellen teil. Über dieses Portal werden keine entgeltlichen Leistungen gegenüber Verbraucher:innen angeboten.</p>
+
+      <h2>Stand</h2>
+      <p>Stand dieses Impressums: 24. Juni 2026</p>
     </section>
 
     <aside class="section meta-panel">
-      <div class="section-header section-header--compact">
-        <h2>Verantwortung</h2>
-      </div>
+      <div class="section-header section-header--compact"><h2>Rechtsgrundlagen</h2></div>
       <dl class="meta-list">
-        <div>
-          <dt>Stelle</dt>
-          <dd>{siteConfig.contact.authorityShort}</dd>
-        </div>
-        <div>
-          <dt>Sitz</dt>
-          <dd>{siteConfig.contact.addressLines.join(', ')}</dd>
-        </div>
+        <div><dt>Anbieterkennzeichnung</dt><dd>§ 5 DDG</dd></div>
+        <div><dt>Redaktionelle Verantwortung</dt><dd>§ 18 Abs. 2 MStV</dd></div>
+        <div><dt>Herausgeberin</dt><dd>Staatskanzlei des Ostdeutschen Freistaates</dd></div>
       </dl>
     </aside>
   </div>

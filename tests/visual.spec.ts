@@ -15,6 +15,7 @@ const visualPages = [
   { name: 'norm-kulturpass', path: '/recht/norm/ostdeutsches-kulturpassgesetz/' },
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
+  { name: 'impressum', path: '/service/impressum/' },
   { name: 'barrierefreiheit', path: '/service/barrierefreiheit/' },
   { name: 'hinweis-gebaerdensprache', path: '/service/gebaerdensprache/' },
 ];
@@ -64,6 +65,32 @@ test('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
   await expect(page.locator('[data-kreisreform-search-detail]')).toBeVisible();
 });
 
+test('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) => {
+  await preparePage(page);
+  await page.goto('/suche/');
+
+  const status = page.locator('[data-portal-search-status]');
+  const input = page.locator('[data-portal-search-query]');
+  const noResults = page.locator('[data-portal-search-empty]');
+  const error = page.locator('[data-portal-search-error]');
+
+  await expect(status).toContainText('Wonach suchen Sie?');
+  await expect(noResults).toBeHidden();
+  await expect(error).toBeHidden();
+
+  await input.fill('Kreisreform');
+  await expect(status).toContainText('Treffer für „Kreisreform“');
+  await expect(page.locator('[data-portal-search-results] .search-hit')).not.toHaveCount(0);
+  await expect(noResults).toBeHidden();
+  await expect(error).toBeHidden();
+
+  await input.fill('zzzznichtvorhanden');
+  await expect(status).toContainText('Keine Treffer gefunden.');
+  await expect(page.locator('[data-portal-search-results] .search-hit')).toHaveCount(0);
+  await expect(noResults).toBeHidden();
+  await expect(error).toBeHidden();
+});
+
 test('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', async ({ page }) => {
   await preparePage(page);
   await page.goto('/haushalt/');
@@ -84,6 +111,19 @@ test('Haushalt: Jahrwechsel und Einzelplanfilter sind eindeutig bedienbar', asyn
   await expect(table.locator('[data-budget-plan-status]')).toContainText('1 von 20 Einzelplänen');
 
   await verifyViewport(page);
+});
+
+test('Haushalt: Kopfbereich hat einen verlässlichen Innenabstand', async ({ page }) => {
+  await preparePage(page);
+  await page.goto('/haushalt/');
+
+  const header = page.locator('.budget-portal-header').first();
+  const heading = header.getByRole('heading', { level: 1 });
+  const [headerBox, headingBox] = await Promise.all([header.boundingBox(), heading.boundingBox()]);
+
+  expect(headerBox).not.toBeNull();
+  expect(headingBox).not.toBeNull();
+  expect((headingBox?.x ?? 0) - (headerBox?.x ?? 0)).toBeGreaterThanOrEqual(24);
 });
 
 test('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ page }) => {

@@ -9,7 +9,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     description:
       'Das Vorhaben überführt zentrale Wohnungsbestände in gemeinwohlorientierte Strukturen und wird durch flankierende Vollzugsnormen ergänzt.',
     ressort: 'Inneres und Wohnungswirtschaft',
-    currentStage: 'inkrafttreten',
+    currentStage: 'inkraft',
     topic: 'Wohnen & Vergesellschaftung',
     href: getNormUrl('wohnvergesellschaftungsgesetz'),
   },
@@ -19,7 +19,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     description:
       'Das Gesetz stärkt Informationszugang, Transparenzpflichten und die Nachvollziehbarkeit staatlichen Handelns.',
     ressort: 'Rechtsstaatlichkeit',
-    currentStage: 'inkrafttreten',
+    currentStage: 'inkraft',
     topic: 'Transparenz & Lobbyregister',
     href: getNormUrl('ostdeutsches-transparenzund-informationsfreiheitsgesetz'),
   },
@@ -29,7 +29,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     description:
       'Der Kulturpass schafft einen unmittelbaren Zugang zu Kulturangeboten und macht Teilhabepolitik landesweit sichtbar.',
     ressort: 'Rechtsstaatlichkeit und kulturelle Emanzipation',
-    currentStage: 'inkrafttreten',
+    currentStage: 'inkraft',
     topic: 'Kulturpass',
     href: getNormUrl('ostdeutsches-kulturpassgesetz'),
   },
@@ -39,7 +39,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     description:
       'Das Vorhaben bündelt staatliche Sicherung und öffentliche Steuerung regionaler Krankenhausstandorte.',
     ressort: 'Gesundheits- und Sozialwesen',
-    currentStage: 'inkrafttreten',
+    currentStage: 'inkraft',
     topic: 'Krankenhausfonds',
     href: getNormUrl('ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz'),
   },
@@ -49,7 +49,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     description:
       'Die Bildungsreform wird um ein landesweites Anspruchsmodell auf Bildungsfreistellung im Erwerbsleben ergänzt.',
     ressort: 'Volksbildung und Wissenschaft',
-    currentStage: 'inkrafttreten',
+    currentStage: 'inkraft',
     topic: 'Bildungsreform',
     href: getNormUrl('gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland'),
   },
@@ -79,7 +79,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     description:
       'Die Verordnung soll Tarifintegration und einheitliche Mindeststandards für den schrittweisen Aufbau des Ostdeutschlandtakts festlegen.',
     ressort: 'Mobilität und regionale Entwicklung',
-    currentStage: 'kabinett',
+    currentStage: 'in-beratung',
     topic: 'ÖPNV & Mobilität',
     href: getTopicUrl('oepnv-und-mobilitaet'),
   },
@@ -89,7 +89,7 @@ export const legislationTrackerItems: LegislativeTrackerItem[] = [
     description:
       'Das Vorhaben bündelt nächste Ausbauschritte für Sondervermögen, Finanzierungsinstrumente und investive Schwerpunktsetzung.',
     ressort: 'Finanzen',
-    currentStage: 'landtag',
+    currentStage: 'eingebracht',
     topic: 'Haushalt & Finanzen',
     href: getTopicUrl('haushalt-und-finanzen'),
   },

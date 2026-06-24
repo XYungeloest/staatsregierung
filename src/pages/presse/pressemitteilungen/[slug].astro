@@ -7,7 +7,7 @@ import {
   getRuntimeNormLookup,
   getRuntimeTopicLookup,
 } from '../../../lib/runtime-content/index.ts';
-import { buildArticleJsonLd } from '../../../lib/seo/index.ts';
+import { buildNewsArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
   getPressReleaseIndexUrl,
@@ -60,7 +60,7 @@ const relatedReleases =
   ]}
   ogType="article"
   ogImage={{ url: release.image, alt: release.imageAlt }}
-  structuredData={buildArticleJsonLd(
+  structuredData={buildNewsArticleJsonLd(
     {
       title: release.title,
       description: release.teaser,
