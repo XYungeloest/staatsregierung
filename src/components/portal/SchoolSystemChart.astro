@@ -1,0 +1,275 @@
+---
+import {
+  schoolSystemColumnCount,
+  schoolSystemContinuations,
+  schoolSystemGrades,
+  schoolSystemGuides,
+  schoolSystemTracks,
+  schoolSystemZones,
+  type SchoolSystemGuide,
+  type SchoolSystemTrack,
+  type SchoolSystemZone,
+} from '../../data/school-system.ts';
+import SchoolSystemLegend from './SchoolSystemLegend.astro';
+
+const chart = {
+  width: 1700,
+  height: 980,
+  axisWidth: 56,
+  gap: 6,
+  topBandHeight: 138,
+  gradeHeight: 54,
+  footerHeight: 44,
+};
+const plotX = chart.axisWidth + chart.gap;
+const plotWidth = chart.width - plotX;
+const gridY = chart.topBandHeight + chart.gap;
+const gridHeight = chart.gradeHeight * 14;
+const footerY = gridY + gridHeight + chart.gap;
+const columnWidth = plotWidth / schoolSystemColumnCount;
+
+function gradeY(grade: number): number {
+  return gridY + (14 - grade) * chart.gradeHeight;
+}
+
+function rectFromGrades(item: SchoolSystemTrack | SchoolSystemZone): {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+} {
+  return {
+    x: plotX + (item.columnStart - 1) * columnWidth,
+    y: gradeY(item.endGrade),
+    width: item.columnSpan * columnWidth,
+    height: (item.endGrade - item.startGrade + 1) * chart.gradeHeight,
+  };
+}
+
+function rectFromColumns(item: { columnStart: number; columnSpan: number }): {
+  x: number;
+  width: number;
+} {
+  return {
+    x: plotX + (item.columnStart - 1) * columnWidth,
+    width: item.columnSpan * columnWidth,
+  };
+}
+
+function horizontalGuideY(guide: SchoolSystemGuide): number {
+  return gridY + (14 - (guide.afterGrade ?? 1)) * chart.gradeHeight;
+}
+
+function verticalGuideRect(guide: SchoolSystemGuide): { x: number; y1: number; y2: number } {
+  return {
+    x: plotX + ((guide.columnLine ?? 1) - 1) * columnWidth,
+    y1: gradeY(guide.endGrade ?? 14),
+    y2: gradeY(guide.startGrade ?? 1) + chart.gradeHeight,
+  };
+}
+
+function gradesLabel(track: SchoolSystemTrack): string {
+  return track.startGrade === track.endGrade
+    ? `Klassenstufe ${track.startGrade}`
+    : `Klassenstufen ${track.startGrade} bis ${track.endGrade}`;
+}
+
+function displayCompletion(track: SchoolSystemTrack): string | undefined {
+  return track.subtitle ? undefined : track.completion;
+}
+---
+
+<figure
+  class="school-system-figure"
+  aria-labelledby="school-system-chart-title"
+  aria-describedby="school-system-chart-description"
+>
+  <div class="section-header section-header--compact">
+    <h2 id="school-system-chart-title">Grafik zum Schulsystem</h2>
+    <p>Die Übersicht zeigt Schularten, Abschlüsse und Anschlusswege in vereinfachter Form.</p>
+  </div>
+
+  <SchoolSystemLegend />
+
+  <p id="school-system-chart-description" class="school-system-chart__summary">
+    Die Grafik zeigt die Bildungswege von der Primarstufe über Sekundarstufe I und II bis zu
+    beruflicher Bildung, Hochschulzugang und Weiterbildung.
+  </p>
+
+  <p class="school-system-chart__scroll-hint">
+    Auf kleinen Bildschirmen kann die Grafik seitlich verschoben werden. Die tabellarische Alternative folgt direkt darunter.
+  </p>
+
+  <div class="school-system-chart__scroll" tabindex="0" aria-label="Horizontal verschiebbare Schulsystem-Grafik">
+    <svg
+      class="school-system-svg"
+      viewBox={`0 0 ${chart.width} ${chart.height}`}
+      aria-labelledby="school-system-chart-title"
+      aria-describedby="school-system-chart-description"
+    >
+      <defs>
+        <linearGradient id="school-system-grey-gradient" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="#c8cfcc" />
+          <stop offset="50%" stop-color="#e4e7e5" />
+          <stop offset="100%" stop-color="#c8cfcc" />
+        </linearGradient>
+      </defs>
+      <rect class="school-system-svg__top-band" x={plotX} y="0" width={plotWidth} height={chart.topBandHeight} />
+      <rect class="school-system-svg__axis-cell" x="0" y="0" width={chart.axisWidth} height={chart.topBandHeight} />
+      <text
+        class="school-system-svg__axis-title"
+        x={chart.axisWidth / 2}
+        y={chart.topBandHeight / 2}
+        text-anchor="middle"
+        dominant-baseline="middle"
+        transform={`rotate(-90 ${chart.axisWidth / 2} ${chart.topBandHeight / 2})`}
+      >
+        Schulbesuchsjahre
+      </text>
+
+      {schoolSystemContinuations.map((entry) => {
+        const rect = rectFromColumns(entry);
+        const isHigherEducation = entry.category === 'higherEducation';
+        return (
+          <g>
+            {isHigherEducation ? null : (
+              <rect
+                class:list={['school-system-svg__block', `school-system-fill--${entry.category}`]}
+                x={rect.x + 4}
+                y={chart.topBandHeight - 54}
+                width={Math.max(0, rect.width - 8)}
+                height="50"
+              />
+            )}
+            <foreignObject
+              x={isHigherEducation ? rect.x : rect.x + 6}
+              y={isHigherEducation ? 24 : chart.topBandHeight - 51}
+              width={isHigherEducation ? rect.width : Math.max(0, rect.width - 12)}
+              height={isHigherEducation ? 58 : 48}
+            >
+              <div
+                class:list={[
+                  'school-system-svg-label',
+                  isHigherEducation && 'school-system-svg-label--higher',
+                ]}
+              >
+                <strong>{entry.label}</strong>
+                {entry.subtitle ? <span>{entry.subtitle}</span> : null}
+                {entry.note ? <small>{entry.note}</small> : null}
+              </div>
+            </foreignObject>
+          </g>
+        );
+      })}
+
+      <rect class="school-system-svg__grid-base" x={plotX} y={gridY} width={plotWidth} height={gridHeight} />
+
+      {schoolSystemGrades.map((grade) => (
+        <g aria-hidden="true">
+          <rect
+            class="school-system-svg__axis-cell"
+            x="0"
+            y={gradeY(grade)}
+            width={chart.axisWidth}
+            height={chart.gradeHeight - 2}
+          />
+          <text
+            class="school-system-svg__grade"
+            x={chart.axisWidth / 2}
+            y={gradeY(grade) + chart.gradeHeight / 2}
+            text-anchor="middle"
+            dominant-baseline="middle"
+          >
+            {grade}
+          </text>
+        </g>
+      ))}
+
+      {schoolSystemZones.map((zone) => {
+        const rect = rectFromGrades(zone);
+        return (
+          <rect
+            class:list={['school-system-svg__zone', `school-system-fill--${zone.category}`]}
+            x={rect.x}
+            y={rect.y}
+            width={rect.width}
+            height={rect.height}
+          />
+        );
+      })}
+
+      {schoolSystemTracks.map((track) => {
+        const rect = rectFromGrades(track);
+        return (
+          <g aria-label={`${track.label}, ${gradesLabel(track)}${track.completion ? `, ${track.completion}` : ''}`}>
+            <rect
+              class:list={[
+                'school-system-svg__block',
+                `school-system-fill--${track.category}`,
+              ]}
+              x={rect.x + 2}
+              y={rect.y + 2}
+              width={Math.max(0, rect.width - 4)}
+              height={Math.max(0, rect.height - 4)}
+            />
+            <foreignObject
+              x={rect.x + 6}
+              y={rect.y + 6}
+              width={Math.max(0, rect.width - 12)}
+              height={Math.max(0, rect.height - 12)}
+            >
+              <div
+                class:list={[
+                  'school-system-svg-label',
+                  track.compact && 'school-system-svg-label--compact',
+                ]}
+              >
+                <strong>{track.label}</strong>
+                {track.subtitle ? <span>{track.subtitle}</span> : null}
+                {displayCompletion(track) ? <em>{displayCompletion(track)}</em> : null}
+              </div>
+            </foreignObject>
+          </g>
+        );
+      })}
+
+      {schoolSystemGuides.map((guide) => {
+        if (guide.orientation === 'horizontal') {
+          const y = horizontalGuideY(guide);
+          return (
+            <line
+              class="school-system-svg__guide"
+              x1={plotX}
+              y1={y}
+              x2={plotX + plotWidth}
+              y2={y}
+            />
+          );
+        }
+
+        const line = verticalGuideRect(guide);
+        return (
+          <line
+            class="school-system-svg__guide"
+            x1={line.x}
+            y1={line.y1}
+            x2={line.x}
+            y2={line.y2}
+          />
+        );
+      })}
+
+      <rect class="school-system-svg__footer" x={plotX} y={footerY} width={plotWidth} height={chart.footerHeight} />
+      <rect class="school-system-svg__axis-cell" x="0" y={footerY} width={chart.axisWidth} height={chart.footerHeight} />
+      <text
+        class="school-system-svg__footer-text"
+        x={plotX + plotWidth / 2}
+        y={footerY + chart.footerHeight / 2}
+        text-anchor="middle"
+        dominant-baseline="middle"
+      >
+        Frühkindliche Bildung, Erziehung und Betreuung
+      </text>
+    </svg>
+  </div>
+</figure>

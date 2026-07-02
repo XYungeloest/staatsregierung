@@ -30,6 +30,8 @@ export const siteConfig = {
     actionPlan: '/staatsregierung/15-punkte-plan/',
     kreisreform: '/kreisreform/',
     topics: '/themen/',
+    educationAndSchool: '/themen/bildung-und-schule/',
+    schoolSystem: '/themen/bildung-und-schule/schulsystem/',
     press: '/presse/',
     pressReleases: '/presse/pressemitteilungen/',
     pressSpeeches: '/presse/reden/',

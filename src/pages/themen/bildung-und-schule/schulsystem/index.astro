@@ -1,0 +1,261 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import EducationPathNav from '../../../../components/portal/EducationPathNav.astro';
+import SchoolSystemChart from '../../../../components/portal/SchoolSystemChart.astro';
+import SchoolSystemTable from '../../../../components/portal/SchoolSystemTable.astro';
+import SchoolTypeCards from '../../../../components/portal/SchoolTypeCards.astro';
+import {
+  getContactUrl,
+  getEducationAndSchoolUrl,
+  getHomeUrl,
+  getLawHomeUrl,
+  getMinistryUrl,
+  getSchoolSystemUrl,
+  getTopicUrl,
+  getTopicsUrl,
+} from '../../../../lib/portal/index.ts';
+import { getNormUrl } from '../../../../lib/norms/index.ts';
+
+const title = 'Schulsystem des Ostdeutschen Freistaates | Bildung und Schule';
+const pageTitle = 'Schulsystem des Ostdeutschen Freistaates';
+const description = 'Überblick über Schularten, Bildungswege, Abschlüsse und Übergänge im Schulsystem des Ostdeutschen Freistaates.';
+const breadcrumbs = [
+  { label: 'Startseite', href: getHomeUrl() },
+  { label: 'Themen', href: getTopicsUrl() },
+  { label: 'Bildung und Schule', href: getEducationAndSchoolUrl() },
+  { label: 'Schulsystem', href: getSchoolSystemUrl() },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  ogType="article"
+>
+  <Breadcrumbs
+    items={breadcrumbs.map((item, index) => index === breadcrumbs.length - 1 ? { label: item.label } : item)}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Bildung und Schule</p>
+    <h1>{pageTitle}</h1>
+    <p class="lead">
+      Das Schulsystem führt von der frühkindlichen Bildung über die allgemeinbildenden Schulen
+      bis zu beruflicher Bildung, Hochschulzugang und Weiterbildung.
+    </p>
+    <nav class="hero-actions" aria-label="Direkteinstiege Schulsystem">
+      <a class="button-link" href="#grafik">Grafik zum Schulsystem ansehen</a>
+      <a class="button-link button-link--secondary" href="#allgemeinbildende-schulen">Schularten im Überblick</a>
+    </nav>
+  </section>
+
+  <div class="school-system-page-grid">
+    <EducationPathNav />
+
+    <div class="school-system-content">
+      <section id="ueberblick" class="section school-system-intro" aria-labelledby="ueberblick-title">
+        <div class="section-header">
+          <h2 id="ueberblick-title">Überblick</h2>
+          <p>
+            Das Schulsystem des Ostdeutschen Freistaates bietet verschiedene Bildungswege und
+            Abschlüsse. Schüler:innen können entsprechend ihrer Entwicklung, Interessen und
+            Leistungsstände unterschiedliche Schularten besuchen und zwischen Bildungswegen
+            wechseln.
+          </p>
+        </div>
+        <p>
+          Die Übersicht zeigt die wichtigsten Schularten, Abschlüsse und Übergänge in vereinfachter
+          Form. Sonderwege, individuelle Fördermaßnahmen, Schulen in freier Trägerschaft und der
+          zweite Bildungsweg werden ergänzend erläutert.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <section id="grafik" class="section school-system-section-muted school-system-chart-section" aria-labelledby="grafik-title">
+    <div class="section-header">
+      <h2 id="grafik-title">Bildungswege als Grafik</h2>
+      <p>
+        Die Grafik ordnet Schularten nach Schulbesuchsjahren, Stufen, Abschlüssen und
+        Übergängen.
+      </p>
+    </div>
+    <SchoolSystemChart />
+    <SchoolSystemTable />
+  </section>
+
+  <div class="school-system-page-grid school-system-page-grid--details">
+    <div class="school-system-nav-spacer" aria-hidden="true"></div>
+    <div class="school-system-content">
+      <section id="allgemeinbildende-schulen" class="section" aria-labelledby="allgemeinbildende-title">
+        <div class="section-header">
+          <h2 id="allgemeinbildende-title">Allgemeinbildende Schulen</h2>
+          <p>
+            Allgemeinbildende Schulen vermitteln grundlegende und weiterführende Bildung und führen
+            zu schulischen Abschlüssen der Sekundarstufe I und II.
+          </p>
+        </div>
+        <SchoolTypeCards group="Allgemeinbildende Schulen" />
+      </section>
+
+      <section id="berufsbildende-schulen" class="section school-system-section-muted" aria-labelledby="berufsbildende-title">
+        <div class="section-header">
+          <h2 id="berufsbildende-title">Berufsbildende Schulen</h2>
+          <p>
+            Berufsbildende Schulen verbinden schulisches Lernen mit beruflicher Qualifizierung,
+            Ausbildung, Studienzugang und Weiterbildung.
+          </p>
+        </div>
+        <SchoolTypeCards group="Berufsbildende Schulen" />
+      </section>
+
+      <section id="abschluesse-und-uebergaenge" class="section" aria-labelledby="abschluesse-title">
+        <div class="section-header">
+          <h2 id="abschluesse-title">Abschlüsse und Übergänge</h2>
+          <p>
+            Bildungswege bleiben durchlässig. Nach Hauptschulabschluss, Realschulabschluss,
+            Fachhochschulreife oder allgemeiner Hochschulreife schließen sich berufliche Ausbildung,
+            berufliche Weiterbildung oder Hochschulzugang an.
+          </p>
+        </div>
+        <ul class="record-list">
+          <li class="record-list__item">
+            <strong>Hauptschulabschluss</strong>
+            <span>Eröffnet Wege in Ausbildung, Berufsvorbereitung und weiterführende schulische Bildung.</span>
+          </li>
+          <li class="record-list__item">
+            <strong>Realschulabschluss</strong>
+            <span>Ermöglicht berufliche Bildung, Fachoberschule, berufliches Gymnasium und weitere Anschlusswege.</span>
+          </li>
+          <li class="record-list__item">
+            <strong>Fachhochschulreife und allgemeine Hochschulreife</strong>
+            <span>Eröffnen den Hochschulzugang und können mit beruflichen Qualifizierungen verbunden sein.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section id="zweiter-bildungsweg" class="section school-system-section-muted" aria-labelledby="zweiter-title">
+        <div class="section-header">
+          <h2 id="zweiter-title">Zweiter Bildungsweg</h2>
+          <p>
+            Der zweite Bildungsweg richtet sich an Erwachsene, die einen Schulabschluss nachholen
+            oder einen höheren Abschluss erreichen möchten.
+          </p>
+        </div>
+        <SchoolTypeCards group="Weitere Bildungswege" ids={['zweiter-bildungsweg-card']} />
+      </section>
+
+      <section id="schulen-in-freier-traegerschaft" class="section" aria-labelledby="freie-title">
+        <div class="section-header">
+          <h2 id="freie-title">Schulen in freier Trägerschaft</h2>
+          <p>
+            Schulen in freier Trägerschaft ergänzen die öffentliche Schullandschaft. Sie benötigen
+            die vorgesehene Genehmigung oder Anerkennung und müssen die Anforderungen an Unterricht,
+            Abschlüsse und Gleichwertigkeit erfüllen.
+          </p>
+        </div>
+        <SchoolTypeCards group="Weitere Bildungswege" ids={['freie-traegerschaft-card']} />
+      </section>
+
+      <section id="foerderung-und-unterstuetzung" class="section school-system-section-muted" aria-labelledby="foerderung-title">
+        <div class="section-header">
+          <h2 id="foerderung-title">Förderung und Unterstützung</h2>
+          <p>
+            Förderung soll Bildungswege stabilisieren und Übergänge erleichtern. Dazu gehören
+            individuelle Unterstützung, sonderpädagogische Förderung, berufliche Orientierung und
+            begleitende Angebote im Schulalltag.
+          </p>
+        </div>
+        <ul class="record-list">
+          <li class="record-list__item">
+            <strong>Individuelle Förderung</strong>
+            <span>Schulen berücksichtigen Lernstand, Entwicklung und besonderen Unterstützungsbedarf.</span>
+          </li>
+          <li class="record-list__item">
+            <strong>Berufliche Orientierung</strong>
+            <span>Übergänge in Ausbildung, berufliche Schulen und Studium werden frühzeitig vorbereitet.</span>
+          </li>
+          <li class="record-list__item">
+            <strong>Alltagsnahe Unterstützung</strong>
+            <span>Ergänzende Programme können Teilhabe, Gesundheit und soziale Stabilität im Schulalltag stärken.</span>
+          </li>
+        </ul>
+        <SchoolTypeCards group="Weitere Bildungswege" ids={['foerderangebote-card', 'studienqualifizierung-card']} />
+      </section>
+
+      <section id="rechtsgrundlagen" class="section" aria-labelledby="rechtsgrundlagen-title">
+        <div class="section-header">
+          <h2 id="rechtsgrundlagen-title">Rechtsgrundlagen</h2>
+          <p>
+            Das Rechtsportal enthält einschlägige Vorschriften und gespeicherte Fassungen zu Schule,
+            Oberstufe, Unterstützung und Weiterbildung.
+          </p>
+        </div>
+        <ul class="record-list">
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getNormUrl('gesetz-zur-neuordnung-des-ostdeutschen-schulsystems')}>Gesetz zur Neuordnung des Ostdeutschen Schulsystems</a></strong>
+            <span>Zentrale schulrechtliche Grundlage im Rechtsportal.</span>
+          </li>
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getNormUrl('oberstufenund-abiturprufungsverordnung')}>Oberstufen- und Abiturprüfungsverordnung</a></strong>
+            <span>Regelungen zur gymnasialen Oberstufe und Abiturprüfung.</span>
+          </li>
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getNormUrl('verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n')}>Verordnung über private mobile Endgeräte in der Primarstufe</a></strong>
+            <span>Vorschrift mit Bezug zur Primarstufe.</span>
+          </li>
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getNormUrl('schulmilcherlass')}>Schulmilcherlass</a></strong>
+            <span>Verwaltungsvorschrift zur Unterstützung im Schulalltag.</span>
+          </li>
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getNormUrl('gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland')}>Bildungsfreistellungsgesetz</a></strong>
+            <span>Rechtsgrundlage für Weiterbildung im Erwerbsleben.</span>
+          </li>
+        </ul>
+      </section>
+
+      <section id="zustaendige-stellen" class="section school-system-section-muted" aria-labelledby="stellen-title">
+        <div class="section-header">
+          <h2 id="stellen-title">Informationen zur zuständigen Behörde</h2>
+          <p>
+            Die fachliche Zuständigkeit für Schularten, Schulorganisation,
+            Unterrichtsentwicklung und Bildungswege liegt beim zuständigen Bildungsressort des
+            Ostdeutschen Freistaates.
+          </p>
+        </div>
+        <article class="panel">
+          <h3>Zuständige Stelle</h3>
+          <p>Staatsministerium für Volksbildung und Wissenschaft</p>
+          <p>
+            <a class="inline-link" href={getMinistryUrl('bildung-und-sportliche-ertuechtigung')}>Zum zuständigen Ressort</a>
+            <span aria-hidden="true"> · </span>
+            <a class="inline-link" href={getContactUrl()}>Kontakt</a>
+            <span aria-hidden="true"> · </span>
+            <a class="inline-link" href={getLawHomeUrl()}>Rechtsportal</a>
+            <span aria-hidden="true"> · </span>
+            <a class="inline-link" href={getEducationAndSchoolUrl()}>Themenbereich Bildung und Schule</a>
+          </p>
+        </article>
+      </section>
+
+      <section class="section" aria-labelledby="verwandte-title">
+        <div class="section-header">
+          <h2 id="verwandte-title">Verwandte Themen</h2>
+        </div>
+        <ul class="record-list">
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getTopicUrl('bildungsreform')}>Bildungsreform</a></strong>
+            <span>Umsetzungsstand und nächste Schritte der Bildungsreform.</span>
+          </li>
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getEducationAndSchoolUrl()}>Bildung und Schule</a></strong>
+            <span>Übergeordneter Einstieg zu schulischer Bildung.</span>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

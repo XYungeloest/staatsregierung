@@ -83,6 +83,14 @@ export function getTopicUrl(slug: string): string {
   return withBase(`${siteConfig.paths.topics}${slug}/`);
 }
 
+export function getEducationAndSchoolUrl(): string {
+  return getSiteUrl('educationAndSchool');
+}
+
+export function getSchoolSystemUrl(): string {
+  return getSiteUrl('schoolSystem');
+}
+
 export function getPressUrl(): string {
   return getSiteUrl('press');
 }

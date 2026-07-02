@@ -1,0 +1,33 @@
+---
+import { schoolSystemTableRows } from '../../data/school-system.ts';
+---
+
+<section class="school-system-table" aria-labelledby="school-system-table-title">
+  <div class="section-header section-header--compact">
+    <h2 id="school-system-table-title">Tabellarische Alternative</h2>
+    <p>Die Tabelle beschreibt die wichtigsten Schularten, Bildungswege, Abschlüsse und Anschlussmöglichkeiten.</p>
+  </div>
+  <div class="table-wrap">
+    <table class="data-table school-system-data-table">
+      <caption>Textalternative zur Schulsystem-Grafik</caption>
+      <thead>
+        <tr>
+          <th scope="col">Schulart/Bildungsweg</th>
+          <th scope="col">Klassenstufen oder Zeitraum</th>
+          <th scope="col">Möglicher Abschluss</th>
+          <th scope="col">Anschlussmöglichkeiten</th>
+        </tr>
+      </thead>
+      <tbody>
+        {schoolSystemTableRows.map((row) => (
+          <tr>
+            <th scope="row">{row.label}</th>
+            <td>{row.period}</td>
+            <td>{row.completion}</td>
+            <td>{row.connections}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
