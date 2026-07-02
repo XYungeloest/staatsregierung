@@ -1,0 +1,22 @@
+---
+import { schoolTypes, type SchoolTypeInfo } from '../../data/school-system.ts';
+
+interface Props {
+  group: SchoolTypeInfo['group'];
+  ids?: string[];
+}
+
+const { group, ids } = Astro.props;
+const entries = schoolTypes.filter((entry) =>
+  entry.group === group && (!ids || ids.includes(entry.id))
+);
+---
+
+<div class="card-grid card-grid--two school-type-grid">
+  {entries.map((entry) => (
+    <article class="panel school-type-card">
+      <h3>{entry.title}</h3>
+      {entry.text.map((paragraph) => <p>{paragraph}</p>)}
+    </article>
+  ))}
+</div>

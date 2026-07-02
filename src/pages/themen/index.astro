@@ -4,9 +4,11 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import TopicCard from '../../components/portal/TopicCard.astro';
 import {
   getActionPlanUrl,
+  getEducationAndSchoolUrl,
   getHomeUrl,
   getKreisreformUrl,
   getLawHomeUrl,
+  getSchoolSystemUrl,
   getServiceUrl,
 } from '../../lib/portal/index.ts';
 import { loadMinistries, loadTopics } from '../../lib/portal/content.ts';
@@ -54,6 +56,23 @@ const linkedNormCount = topics.reduce((count, topic) => count + topic.rechtsgrun
       <div class="reform-priority-card__actions">
         <a class="button-link" href={`${getKreisreformUrl()}#karte`}>Kreisreform-Karte ansehen</a>
         <a class="button-link button-link--secondary" href={`${getKreisreformUrl()}#rechtsgrundlagen`}>Rechtsgrundlagen lesen</a>
+      </div>
+    </article>
+  </section>
+
+  <section class="section" aria-labelledby="bildung-schule">
+    <article class="reform-priority-card">
+      <div>
+        <p class="eyebrow">Bildung</p>
+        <h2 id="bildung-schule">Bildung und Schule</h2>
+        <p>
+          Der Themenbereich bündelt Informationen zu Schularten, Bildungswegen,
+          Abschlüssen, Zuständigkeiten und Rechtsgrundlagen.
+        </p>
+      </div>
+      <div class="reform-priority-card__actions">
+        <a class="button-link" href={getSchoolSystemUrl()}>Schulsystem ansehen</a>
+        <a class="button-link button-link--secondary" href={getEducationAndSchoolUrl()}>Bildung und Schule öffnen</a>
       </div>
     </article>
   </section>

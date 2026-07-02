@@ -5,6 +5,7 @@ import {
   getAccessibilityUrl,
   getCareerUrl,
   getContactUrl,
+  getEducationAndSchoolUrl,
   getEasyLanguageUrl,
   getFaqUrl,
   getHomeUrl,
@@ -71,6 +72,11 @@ const offers = await loadJobOffers();
         <h2>FAQ</h2>
         <p>Hilfen zur Nutzung des Rechtsportals, zu Downloads, Informationsanträgen und Kontaktwegen.</p>
         <p><a class="inline-link" href={getFaqUrl()}>Zur FAQ</a></p>
+      </article>
+      <article class="panel">
+        <h2>Bildung und Schule</h2>
+        <p>Schularten, Bildungswege, Abschlüsse und zuständige Stellen im Überblick.</p>
+        <p><a class="inline-link" href={getEducationAndSchoolUrl()}>Zu Bildung und Schule</a></p>
       </article>
       <article class="panel">
         <h2>Publikationen</h2>
