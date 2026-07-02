@@ -1,81 +1,54 @@
 ---
 import {
-  schoolSystemColumnCount,
-  schoolSystemContinuations,
+  schoolSystemChart,
   schoolSystemGrades,
-  schoolSystemGuides,
-  schoolSystemTracks,
-  schoolSystemZones,
-  type SchoolSystemGuide,
-  type SchoolSystemTrack,
-  type SchoolSystemZone,
+  type SchoolSystemChartBlock,
+  type SchoolSystemChartTextLine,
 } from '../../data/school-system.ts';
 import SchoolSystemLegend from './SchoolSystemLegend.astro';
 
-const chart = {
-  width: 1700,
-  height: 980,
-  axisWidth: 56,
-  gap: 6,
-  topBandHeight: 138,
-  gradeHeight: 54,
-  footerHeight: 44,
-};
-const plotX = chart.axisWidth + chart.gap;
-const plotWidth = chart.width - plotX;
-const gridY = chart.topBandHeight + chart.gap;
-const gridHeight = chart.gradeHeight * 14;
-const footerY = gridY + gridHeight + chart.gap;
-const columnWidth = plotWidth / schoolSystemColumnCount;
+const chart = schoolSystemChart;
 
 function gradeY(grade: number): number {
-  return gridY + (14 - grade) * chart.gradeHeight;
+  return chart.gridY + (14 - grade) * chart.gradeHeight;
 }
 
-function rectFromGrades(item: SchoolSystemTrack | SchoolSystemZone): {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-} {
-  return {
-    x: plotX + (item.columnStart - 1) * columnWidth,
-    y: gradeY(item.endGrade),
-    width: item.columnSpan * columnWidth,
-    height: (item.endGrade - item.startGrade + 1) * chart.gradeHeight,
-  };
+function labelText(block: SchoolSystemChartBlock): string {
+  return block.lines?.map((line) => line.text).join(' ') ?? '';
 }
 
-function rectFromColumns(item: { columnStart: number; columnSpan: number }): {
-  x: number;
-  width: number;
-} {
-  return {
-    x: plotX + (item.columnStart - 1) * columnWidth,
-    width: item.columnSpan * columnWidth,
-  };
+function lineClass(line: SchoolSystemChartTextLine): string {
+  return `school-system-chart-text__line school-system-chart-text__line--${line.kind ?? 'small'}`;
 }
 
-function horizontalGuideY(guide: SchoolSystemGuide): number {
-  return gridY + (14 - (guide.afterGrade ?? 1)) * chart.gradeHeight;
+function textX(block: SchoolSystemChartBlock): number {
+  if (block.textX) {
+    return block.textX;
+  }
+
+  return block.anchor === 'start' ? block.x + 8 : block.x + block.width / 2;
 }
 
-function verticalGuideRect(guide: SchoolSystemGuide): { x: number; y1: number; y2: number } {
-  return {
-    x: plotX + ((guide.columnLine ?? 1) - 1) * columnWidth,
-    y1: gradeY(guide.endGrade ?? 14),
-    y2: gradeY(guide.startGrade ?? 1) + chart.gradeHeight,
-  };
+function textY(block: SchoolSystemChartBlock): number {
+  if (block.textY) {
+    return block.textY;
+  }
+
+  const lines = block.lines ?? [];
+  const lineHeight = block.lineHeight ?? 18;
+  return block.y + block.height / 2 - ((lines.length - 1) * lineHeight) / 2 + 6;
 }
 
-function gradesLabel(track: SchoolSystemTrack): string {
-  return track.startGrade === track.endGrade
-    ? `Klassenstufe ${track.startGrade}`
-    : `Klassenstufen ${track.startGrade} bis ${track.endGrade}`;
+function textTransform(block: SchoolSystemChartBlock): string | undefined {
+  if (!block.rotate) {
+    return undefined;
+  }
+
+  return `rotate(${block.rotate} ${block.x + block.width / 2} ${block.y + block.height / 2})`;
 }
 
-function displayCompletion(track: SchoolSystemTrack): string | undefined {
-  return track.subtitle ? undefined : track.completion;
+function hasText(block: SchoolSystemChartBlock): boolean {
+  return Boolean(block.lines?.length);
 }
 ---
 
@@ -113,56 +86,43 @@ function displayCompletion(track: SchoolSystemTrack): string | undefined {
           <stop offset="50%" stop-color="#e4e7e5" />
           <stop offset="100%" stop-color="#c8cfcc" />
         </linearGradient>
+        <linearGradient id="school-system-primary-gradient" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="#3cae18" />
+          <stop offset="52%" stop-color="#43b51d" />
+          <stop offset="100%" stop-color="#3cad18" />
+        </linearGradient>
+        <linearGradient id="school-system-secondary-gradient" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#cbe9bc" />
+          <stop offset="50%" stop-color="#acd78b" />
+          <stop offset="100%" stop-color="#cfeac4" />
+        </linearGradient>
+        <linearGradient id="school-system-vocational-gradient" x1="0" x2="1" y1="0" y2="0">
+          <stop offset="0%" stop-color="#ee8400" />
+          <stop offset="48%" stop-color="#f08900" />
+          <stop offset="100%" stop-color="#ed8200" />
+        </linearGradient>
+        <linearGradient id="school-system-study-gradient" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#f9aa48" />
+          <stop offset="100%" stop-color="#f2942c" />
+        </linearGradient>
+        <linearGradient id="school-system-advanced-gradient" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#ffd08d" />
+          <stop offset="100%" stop-color="#f7a542" />
+        </linearGradient>
       </defs>
-      <rect class="school-system-svg__top-band" x={plotX} y="0" width={plotWidth} height={chart.topBandHeight} />
-      <rect class="school-system-svg__axis-cell" x="0" y="0" width={chart.axisWidth} height={chart.topBandHeight} />
+      <rect class="school-system-svg__grid-base" x={chart.plotX} y={chart.topBandHeight} width={chart.plotWidth} height={chart.footerY - chart.topBandHeight} />
+      <rect class="school-system-svg__top-band" x={chart.plotX} y="0" width={chart.plotWidth} height={chart.topBandHeight} />
+      <rect class="school-system-svg__axis-cell" x="0" y="0" width={chart.axisWidth} height={chart.gridY - 4} />
       <text
         class="school-system-svg__axis-title"
         x={chart.axisWidth / 2}
-        y={chart.topBandHeight / 2}
+        y={(chart.gridY - 4) / 2}
         text-anchor="middle"
         dominant-baseline="middle"
-        transform={`rotate(-90 ${chart.axisWidth / 2} ${chart.topBandHeight / 2})`}
+        transform={`rotate(-90 ${chart.axisWidth / 2} ${(chart.gridY - 4) / 2})`}
       >
-        Schulbesuchsjahre
+        SCHULBESUCHSJAHRE
       </text>
-
-      {schoolSystemContinuations.map((entry) => {
-        const rect = rectFromColumns(entry);
-        const isHigherEducation = entry.category === 'higherEducation';
-        return (
-          <g>
-            {isHigherEducation ? null : (
-              <rect
-                class:list={['school-system-svg__block', `school-system-fill--${entry.category}`]}
-                x={rect.x + 4}
-                y={chart.topBandHeight - 54}
-                width={Math.max(0, rect.width - 8)}
-                height="50"
-              />
-            )}
-            <foreignObject
-              x={isHigherEducation ? rect.x : rect.x + 6}
-              y={isHigherEducation ? 24 : chart.topBandHeight - 51}
-              width={isHigherEducation ? rect.width : Math.max(0, rect.width - 12)}
-              height={isHigherEducation ? 58 : 48}
-            >
-              <div
-                class:list={[
-                  'school-system-svg-label',
-                  isHigherEducation && 'school-system-svg-label--higher',
-                ]}
-              >
-                <strong>{entry.label}</strong>
-                {entry.subtitle ? <span>{entry.subtitle}</span> : null}
-                {entry.note ? <small>{entry.note}</small> : null}
-              </div>
-            </foreignObject>
-          </g>
-        );
-      })}
-
-      <rect class="school-system-svg__grid-base" x={plotX} y={gridY} width={plotWidth} height={gridHeight} />
 
       {schoolSystemGrades.map((grade) => (
         <g aria-hidden="true">
@@ -171,12 +131,12 @@ function displayCompletion(track: SchoolSystemTrack): string | undefined {
             x="0"
             y={gradeY(grade)}
             width={chart.axisWidth}
-            height={chart.gradeHeight - 2}
+            height={chart.gradeHeight - 4}
           />
           <text
             class="school-system-svg__grade"
             x={chart.axisWidth / 2}
-            y={gradeY(grade) + chart.gradeHeight / 2}
+            y={gradeY(grade) + chart.gradeHeight / 2 - 1}
             text-anchor="middle"
             dominant-baseline="middle"
           >
@@ -185,86 +145,79 @@ function displayCompletion(track: SchoolSystemTrack): string | undefined {
         </g>
       ))}
 
-      {schoolSystemZones.map((zone) => {
-        const rect = rectFromGrades(zone);
-        return (
-          <rect
-            class:list={['school-system-svg__zone', `school-system-fill--${zone.category}`]}
-            x={rect.x}
-            y={rect.y}
-            width={rect.width}
-            height={rect.height}
-          />
-        );
-      })}
+      {chart.zones.map((zone) => (
+        <rect
+          class:list={['school-system-svg__zone', `school-system-fill--${zone.category}`]}
+          x={zone.x}
+          y={zone.y}
+          width={zone.width}
+          height={zone.height}
+        />
+      ))}
 
-      {schoolSystemTracks.map((track) => {
-        const rect = rectFromGrades(track);
-        return (
-          <g aria-label={`${track.label}, ${gradesLabel(track)}${track.completion ? `, ${track.completion}` : ''}`}>
+      {chart.connectors.map((connector) => (
+        <rect
+          class:list={['school-system-svg__connector', `school-system-fill--${connector.category}`]}
+          x={connector.x}
+          y={connector.y}
+          width={connector.width}
+          height={connector.height}
+        />
+      ))}
+
+      {chart.blocks.map((block) => (
+        block.noBox ? null : (
             <rect
               class:list={[
                 'school-system-svg__block',
-                `school-system-fill--${track.category}`,
+                `school-system-fill--${block.category}`,
               ]}
-              x={rect.x + 2}
-              y={rect.y + 2}
-              width={Math.max(0, rect.width - 4)}
-              height={Math.max(0, rect.height - 4)}
+              x={block.x}
+              y={block.y}
+              width={block.width}
+              height={block.height}
             />
-            <foreignObject
-              x={rect.x + 6}
-              y={rect.y + 6}
-              width={Math.max(0, rect.width - 12)}
-              height={Math.max(0, rect.height - 12)}
+        )
+      ))}
+
+      {chart.guides.map((guide) => (
+        <line
+          class="school-system-svg__guide"
+          x1={guide.x1}
+          y1={guide.y1}
+          x2={guide.x2}
+          y2={guide.y2}
+        />
+      ))}
+
+      {chart.blocks.map((block) => (
+        hasText(block) ? (
+          <g transform={textTransform(block)} aria-label={labelText(block)}>
+            <text
+              class="school-system-chart-text"
+              text-anchor={block.anchor ?? 'middle'}
+              dominant-baseline="alphabetic"
             >
-              <div
-                class:list={[
-                  'school-system-svg-label',
-                  track.compact && 'school-system-svg-label--compact',
-                ]}
-              >
-                <strong>{track.label}</strong>
-                {track.subtitle ? <span>{track.subtitle}</span> : null}
-                {displayCompletion(track) ? <em>{displayCompletion(track)}</em> : null}
-              </div>
-            </foreignObject>
+              {block.lines?.map((line, index) => (
+                <tspan
+                  class={lineClass(line)}
+                  x={textX(block)}
+                  y={textY(block) + index * (block.lineHeight ?? 18)}
+                >
+                  {line.text}
+                </tspan>
+              ))}
+            </text>
           </g>
-        );
-      })}
+        ) : null
+      ))}
 
-      {schoolSystemGuides.map((guide) => {
-        if (guide.orientation === 'horizontal') {
-          const y = horizontalGuideY(guide);
-          return (
-            <line
-              class="school-system-svg__guide"
-              x1={plotX}
-              y1={y}
-              x2={plotX + plotWidth}
-              y2={y}
-            />
-          );
-        }
-
-        const line = verticalGuideRect(guide);
-        return (
-          <line
-            class="school-system-svg__guide"
-            x1={line.x}
-            y1={line.y1}
-            x2={line.x}
-            y2={line.y2}
-          />
-        );
-      })}
-
-      <rect class="school-system-svg__footer" x={plotX} y={footerY} width={plotWidth} height={chart.footerHeight} />
-      <rect class="school-system-svg__axis-cell" x="0" y={footerY} width={chart.axisWidth} height={chart.footerHeight} />
+      <rect class="school-system-svg__footer" x={chart.plotX} y={chart.footerY} width={chart.plotWidth} height={chart.footerHeight} />
+      <rect class="school-system-svg__axis-cell" x="0" y={chart.footerY} width={chart.axisWidth} height={chart.footerHeight} />
       <text
         class="school-system-svg__footer-text"
-        x={plotX + plotWidth / 2}
-        y={footerY + chart.footerHeight / 2}
+        x={chart.plotX + chart.plotWidth / 2}
+        y={chart.footerY + chart.footerHeight / 2}
         text-anchor="middle"
         dominant-baseline="middle"
       >
