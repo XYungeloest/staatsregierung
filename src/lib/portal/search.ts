@@ -119,7 +119,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       title: 'Schulsystem des Ostdeutschen Freistaates',
       description: 'Überblick über Schularten, Bildungswege, Abschlüsse und Übergänge im Schulsystem des Ostdeutschen Freistaates.',
       url: getSchoolSystemUrl(),
-      text: 'Schule Schulsystem Bildung Grundschule Oberschule Gymnasium Gemeinschaftsschule Förderschule Berufsschule Berufsfachschule Fachoberschule Berufliches Gymnasium Fachschule Hochschulreife Realschulabschluss Hauptschulabschluss Berufsausbildung Zweiter Bildungsweg FOS DUBAS Studienqualifizierung Fachhochschulreife',
+      text: 'Schule Schulsystem Bildung Polytechnische Oberschule POS Erweiterte Oberschule EOS Primarstufe Sekundarstufe Förderschule Berufsschule Berufsfachschule Fachoberschule Berufliches Gymnasium Fachschule Hochschulreife Berufsausbildung Zweiter Bildungsweg FOS DUBAS Studienqualifizierung Fachhochschulreife Grundschule Oberschule Gymnasium Gemeinschaftsschule Realschulabschluss Hauptschulabschluss',
     },
     {
       id: 'law-publications',
