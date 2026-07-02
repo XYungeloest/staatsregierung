@@ -527,9 +527,9 @@ export const schoolSystemChart: SchoolSystemChartSpec = {
     { id: 'work-connector-mid-d', category: 'advancedVocational', x: 807, y: 138, width: 7, height: 188 },
     { id: 'work-connector-right-a', category: 'advancedVocational', x: 1022, y: 138, width: 7, height: 188 },
     { id: 'work-connector-right-b', category: 'advancedVocational', x: 1110, y: 138, width: 7, height: 188 },
-    { id: 'study-connector-fos-plus', category: 'advancedVocational', x: 1183, y: 138, width: 7, height: 78 },
-    { id: 'study-connector-bg', category: 'advancedVocational', x: 1280, y: 138, width: 7, height: 132 },
-    { id: 'study-connector-dubas', category: 'advancedVocational', x: 1390, y: 138, width: 7, height: 132 },
+    { id: 'study-connector-fos-plus', category: 'advancedVocational', x: 1181, y: 138, width: 7, height: 78 },
+    { id: 'study-connector-bg', category: 'advancedVocational', x: 1275, y: 138, width: 7, height: 132 },
+    { id: 'study-connector-dubas', category: 'advancedVocational', x: 1373, y: 138, width: 7, height: 132 },
   ],
   blocks: [
     {
@@ -828,9 +828,9 @@ export const schoolSystemChart: SchoolSystemChartSpec = {
     {
       id: 'fachoberschule-right',
       category: 'studyQualification',
-      x: 1066,
+      x: 1068,
       y: 326,
-      width: 88,
+      width: 86,
       height: 110,
       lines: [{ text: 'FACH-', kind: 'title' }, { text: 'OBER-', kind: 'title' }, { text: 'SCHULE', kind: 'title' }],
       lineHeight: 20,
@@ -838,16 +838,16 @@ export const schoolSystemChart: SchoolSystemChartSpec = {
     {
       id: 'fos-plus',
       category: 'advancedVocational',
-      x: 1158,
+      x: 1160,
       y: 216,
-      width: 45,
+      width: 48,
       height: 220,
       lines: [{ text: 'FOS+', kind: 'title' }],
     },
     {
       id: 'berufliches-gymnasium',
       category: 'studyQualification',
-      x: 1208,
+      x: 1214,
       y: 272,
       width: 128,
       height: 164,
@@ -862,9 +862,9 @@ export const schoolSystemChart: SchoolSystemChartSpec = {
     {
       id: 'dubas',
       category: 'advancedVocational',
-      x: 1342,
+      x: 1348,
       y: 216,
-      width: 64,
+      width: 56,
       height: 220,
       lines: [{ text: 'DUBAS', kind: 'title' }],
     },
@@ -1013,7 +1013,7 @@ export const schoolSystemChart: SchoolSystemChartSpec = {
     { id: 'orientation-grade-six', orientation: 'horizontal', x1: 270, x2: 1768, y1: 676, y2: 676 },
     { id: 'gym-path-a', orientation: 'vertical', x1: 1324, x2: 1324, y1: 436, y2: 766 },
     { id: 'gym-path-b', orientation: 'vertical', x1: 1390, x2: 1390, y1: 436, y2: 766 },
-    { id: 'community-path', orientation: 'vertical', x1: 1544, x2: 1544, y1: 326, y2: 986 },
+    { id: 'community-path', orientation: 'vertical', x1: 1556, x2: 1556, y1: 326, y2: 986 },
   ],
 };
 
