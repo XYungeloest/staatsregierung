@@ -2699,6 +2699,90 @@ article.panel > p:last-child > a.inline-link:hover {
   margin: 1.5rem 0 0;
 }
 
+.school-system-figure--placeholder {
+  display: grid;
+  gap: 1rem;
+}
+
+.school-system-chart-placeholder {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.school-system-placeholder-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 18rem;
+  color: #17221d;
+  font-family: var(--font-display);
+}
+
+.school-system-placeholder-svg__background {
+  fill: #fbfdfb;
+  stroke: #cbd8d2;
+  stroke-width: 2;
+}
+
+.school-system-placeholder-svg__band {
+  fill: #d9dfdd;
+}
+
+.school-system-placeholder-svg__primary {
+  fill: #43b51d;
+}
+
+.school-system-placeholder-svg__secondary {
+  fill: #acd78b;
+}
+
+.school-system-placeholder-svg__secondary-light {
+  fill: #d8efc9;
+}
+
+.school-system-placeholder-svg__vocational {
+  fill: #f18700;
+}
+
+.school-system-placeholder-svg__vocational-light {
+  fill: #ffc983;
+}
+
+.school-system-placeholder-svg__guide {
+  stroke: #ffffff;
+  stroke-width: 6;
+  stroke-dasharray: 22 18;
+}
+
+.school-system-placeholder-svg__title,
+.school-system-placeholder-svg__label {
+  fill: currentColor;
+  font-weight: 760;
+  letter-spacing: 0;
+}
+
+.school-system-placeholder-svg__title {
+  font-size: 24px;
+}
+
+.school-system-placeholder-svg__label {
+  font-size: 20px;
+}
+
+.school-system-placeholder-svg__subtitle,
+.school-system-placeholder-svg__small,
+.school-system-placeholder-svg__axis {
+  fill: #35443f;
+  font-size: 16px;
+}
+
+.school-system-placeholder-svg__small {
+  font-style: italic;
+}
+
 .school-system-legend {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
