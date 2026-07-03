@@ -1,228 +1,74 @@
 ---
-import {
-  schoolSystemChart,
-  schoolSystemGrades,
-  type SchoolSystemChartBlock,
-  type SchoolSystemChartTextLine,
-} from '../../data/school-system.ts';
-import SchoolSystemLegend from './SchoolSystemLegend.astro';
-
-const chart = schoolSystemChart;
-
-function gradeY(grade: number): number {
-  return chart.gridY + (14 - grade) * chart.gradeHeight;
-}
-
-function labelText(block: SchoolSystemChartBlock): string {
-  return block.lines?.map((line) => line.text).join(' ') ?? '';
-}
-
-function lineClass(line: SchoolSystemChartTextLine): string {
-  return `school-system-chart-text__line school-system-chart-text__line--${line.kind ?? 'small'}`;
-}
-
-function textX(block: SchoolSystemChartBlock): number {
-  if (block.textX) {
-    return block.textX;
-  }
-
-  return block.anchor === 'start' ? block.x + 8 : block.x + block.width / 2;
-}
-
-function textY(block: SchoolSystemChartBlock): number {
-  if (block.textY) {
-    return block.textY;
-  }
-
-  const lines = block.lines ?? [];
-  const lineHeight = block.lineHeight ?? 18;
-  return block.y + block.height / 2 - ((lines.length - 1) * lineHeight) / 2 + 6;
-}
-
-function textTransform(block: SchoolSystemChartBlock): string | undefined {
-  if (!block.rotate) {
-    return undefined;
-  }
-
-  return `rotate(${block.rotate} ${block.x + block.width / 2} ${block.y + block.height / 2})`;
-}
-
-function hasText(block: SchoolSystemChartBlock): boolean {
-  return Boolean(block.lines?.length);
-}
+// Placeholder for the later maintained school-system graphic.
 ---
 
 <figure
-  class="school-system-figure"
+  class="school-system-figure school-system-figure--placeholder"
   aria-labelledby="school-system-chart-title"
   aria-describedby="school-system-chart-description"
 >
   <div class="section-header section-header--compact">
-    <h2 id="school-system-chart-title">Grafik zum Schulsystem</h2>
-    <p>Die Übersicht zeigt Schularten, Abschlüsse und Anschlusswege in vereinfachter Form.</p>
+    <h2 id="school-system-chart-title">Grafische Übersicht zum Schulsystem</h2>
+    <p>Die tabellarische Übersicht unterhalb der Grafik enthält die verbindliche Textalternative.</p>
   </div>
 
-  <SchoolSystemLegend />
-
   <p id="school-system-chart-description" class="school-system-chart__summary">
-    Die Grafik zeigt die Bildungswege von der Primarstufe über Sekundarstufe I und II bis zu
-    beruflicher Bildung, Hochschulzugang und Weiterbildung.
+    Die Grafik soll die Bildungswege von der Polytechnischen Oberschule über die Erweiterte
+    Oberschule bis zu beruflicher Bildung, Hochschulzugang und Weiterbildung zeigen.
   </p>
 
-  <p class="school-system-chart__scroll-hint">
-    Auf kleinen Bildschirmen kann die Grafik seitlich verschoben werden. Die tabellarische Alternative folgt direkt darunter.
-  </p>
-
-  <div class="school-system-chart__scroll" tabindex="0" aria-label="Horizontal verschiebbare Schulsystem-Grafik">
-    <svg
-      class="school-system-svg"
-      viewBox={`0 0 ${chart.width} ${chart.height}`}
-      aria-labelledby="school-system-chart-title"
-      aria-describedby="school-system-chart-description"
-    >
-      <defs>
-        <linearGradient id="school-system-grey-gradient" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="#c8cfcc" />
-          <stop offset="50%" stop-color="#e4e7e5" />
-          <stop offset="100%" stop-color="#c8cfcc" />
-        </linearGradient>
-        <linearGradient id="school-system-primary-gradient" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="#3cae18" />
-          <stop offset="52%" stop-color="#43b51d" />
-          <stop offset="100%" stop-color="#3cad18" />
-        </linearGradient>
-        <linearGradient id="school-system-secondary-gradient" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0%" stop-color="#cbe9bc" />
-          <stop offset="50%" stop-color="#acd78b" />
-          <stop offset="100%" stop-color="#cfeac4" />
-        </linearGradient>
-        <linearGradient id="school-system-vocational-gradient" x1="0" x2="1" y1="0" y2="0">
-          <stop offset="0%" stop-color="#ee8400" />
-          <stop offset="48%" stop-color="#f08900" />
-          <stop offset="100%" stop-color="#ed8200" />
-        </linearGradient>
-        <linearGradient id="school-system-study-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#f9aa48" />
-          <stop offset="100%" stop-color="#f2942c" />
-        </linearGradient>
-        <linearGradient id="school-system-advanced-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#ffd08d" />
-          <stop offset="100%" stop-color="#f7a542" />
-        </linearGradient>
-      </defs>
-      <rect class="school-system-svg__grid-base" x={chart.plotX} y={chart.topBandHeight} width={chart.plotWidth} height={chart.footerY - chart.topBandHeight} />
-      <rect class="school-system-svg__top-band" x={chart.plotX} y="0" width={chart.plotWidth} height={chart.topBandHeight} />
-      <rect class="school-system-svg__axis-cell" x="0" y="0" width={chart.axisWidth} height={chart.gridY - 4} />
-      <text
-        class="school-system-svg__axis-title"
-        x={chart.axisWidth / 2}
-        y={(chart.gridY - 4) / 2}
-        text-anchor="middle"
-        dominant-baseline="middle"
-        transform={`rotate(-90 ${chart.axisWidth / 2} ${(chart.gridY - 4) / 2})`}
-      >
-        SCHULBESUCHSJAHRE
+  <div class="school-system-chart-placeholder" aria-hidden="true">
+    <svg class="school-system-placeholder-svg" viewBox="0 0 1200 520" role="img">
+      <rect class="school-system-placeholder-svg__background" x="1" y="1" width="1198" height="518" rx="8" />
+      <rect class="school-system-placeholder-svg__band" x="32" y="32" width="1136" height="76" rx="2" />
+      <text class="school-system-placeholder-svg__title" x="600" y="72" text-anchor="middle">
+        Grafische Übersicht zum Schulsystem
+      </text>
+      <text class="school-system-placeholder-svg__subtitle" x="600" y="94" text-anchor="middle">
+        Platz für eine eigenständig erstellte, barrierearm beschriftete Schulsystemgrafik
       </text>
 
-      {schoolSystemGrades.map((grade) => (
-        <g aria-hidden="true">
-          <rect
-            class="school-system-svg__axis-cell"
-            x="0"
-            y={gradeY(grade)}
-            width={chart.axisWidth}
-            height={chart.gradeHeight - 4}
-          />
-          <text
-            class="school-system-svg__grade"
-            x={chart.axisWidth / 2}
-            y={gradeY(grade) + chart.gradeHeight / 2 - 1}
-            text-anchor="middle"
-            dominant-baseline="middle"
-          >
-            {grade}
-          </text>
-        </g>
-      ))}
+      <g>
+        <rect class="school-system-placeholder-svg__primary" x="76" y="352" width="1048" height="90" rx="2" />
+        <text class="school-system-placeholder-svg__label" x="600" y="403" text-anchor="middle">
+          Polytechnische Oberschule: Primarstufe
+        </text>
+      </g>
 
-      {chart.zones.map((zone) => (
-        <rect
-          class:list={['school-system-svg__zone', `school-system-fill--${zone.category}`]}
-          x={zone.x}
-          y={zone.y}
-          width={zone.width}
-          height={zone.height}
-        />
-      ))}
+      <g>
+        <rect class="school-system-placeholder-svg__secondary" x="76" y="214" width="716" height="118" rx="2" />
+        <text class="school-system-placeholder-svg__label" x="434" y="268" text-anchor="middle">
+          Polytechnische Oberschule: Sekundarstufe I
+        </text>
+        <text class="school-system-placeholder-svg__small" x="434" y="294" text-anchor="middle">
+          Abschlüsse nach Klassenstufe 9 und 10
+        </text>
+      </g>
 
-      {chart.connectors.map((connector) => (
-        <rect
-          class:list={['school-system-svg__connector', `school-system-fill--${connector.category}`]}
-          x={connector.x}
-          y={connector.y}
-          width={connector.width}
-          height={connector.height}
-        />
-      ))}
+      <g>
+        <rect class="school-system-placeholder-svg__secondary-light" x="812" y="214" width="312" height="118" rx="2" />
+        <text class="school-system-placeholder-svg__label" x="968" y="268" text-anchor="middle">
+          Erweiterte Oberschule
+        </text>
+        <text class="school-system-placeholder-svg__small" x="968" y="294" text-anchor="middle">
+          Jahrgangsstufen 11 und 12
+        </text>
+      </g>
 
-      {chart.blocks.map((block) => (
-        block.noBox ? null : (
-            <rect
-              class:list={[
-                'school-system-svg__block',
-                `school-system-fill--${block.category}`,
-              ]}
-              x={block.x}
-              y={block.y}
-              width={block.width}
-              height={block.height}
-            />
-        )
-      ))}
+      <g>
+        <rect class="school-system-placeholder-svg__vocational" x="76" y="132" width="250" height="62" rx="2" />
+        <rect class="school-system-placeholder-svg__vocational" x="344" y="132" width="250" height="62" rx="2" />
+        <rect class="school-system-placeholder-svg__vocational-light" x="612" y="132" width="250" height="62" rx="2" />
+        <rect class="school-system-placeholder-svg__vocational-light" x="880" y="132" width="244" height="62" rx="2" />
+        <text class="school-system-placeholder-svg__small" x="201" y="169" text-anchor="middle">Berufsschule</text>
+        <text class="school-system-placeholder-svg__small" x="469" y="169" text-anchor="middle">Berufsfachschule</text>
+        <text class="school-system-placeholder-svg__small" x="737" y="169" text-anchor="middle">Fachoberschule</text>
+        <text class="school-system-placeholder-svg__small" x="1002" y="169" text-anchor="middle">Fachschule</text>
+      </g>
 
-      {chart.guides.map((guide) => (
-        <line
-          class="school-system-svg__guide"
-          x1={guide.x1}
-          y1={guide.y1}
-          x2={guide.x2}
-          y2={guide.y2}
-        />
-      ))}
-
-      {chart.blocks.map((block) => (
-        hasText(block) ? (
-          <g transform={textTransform(block)} aria-label={labelText(block)}>
-            <text
-              class="school-system-chart-text"
-              text-anchor={block.anchor ?? 'middle'}
-              dominant-baseline="alphabetic"
-            >
-              {block.lines?.map((line, index) => (
-                <tspan
-                  class={lineClass(line)}
-                  x={textX(block)}
-                  y={textY(block) + index * (block.lineHeight ?? 18)}
-                >
-                  {line.text}
-                </tspan>
-              ))}
-            </text>
-          </g>
-        ) : null
-      ))}
-
-      <rect class="school-system-svg__footer" x={chart.plotX} y={chart.footerY} width={chart.plotWidth} height={chart.footerHeight} />
-      <rect class="school-system-svg__axis-cell" x="0" y={chart.footerY} width={chart.axisWidth} height={chart.footerHeight} />
-      <text
-        class="school-system-svg__footer-text"
-        x={chart.plotX + chart.plotWidth / 2}
-        y={chart.footerY + chart.footerHeight / 2}
-        text-anchor="middle"
-        dominant-baseline="middle"
-      >
-        Frühkindliche Bildung, Erziehung und Betreuung
-      </text>
+      <line class="school-system-placeholder-svg__guide" x1="76" x2="1124" y1="342" y2="342" />
+      <line class="school-system-placeholder-svg__guide" x1="792" x2="792" y1="194" y2="332" />
+      <text class="school-system-placeholder-svg__axis" x="32" y="474">Schulbesuchsjahre / Übergänge</text>
     </svg>
   </div>
 </figure>
