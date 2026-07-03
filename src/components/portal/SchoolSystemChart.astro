@@ -1,9 +1,9 @@
 ---
-// Placeholder for the later maintained school-system graphic.
+const chartImageSrc = '/images/ui/schulsystem.svg';
 ---
 
 <figure
-  class="school-system-figure school-system-figure--placeholder"
+  class="school-system-figure school-system-figure--image"
   aria-labelledby="school-system-chart-title"
   aria-describedby="school-system-chart-description"
 >
@@ -13,62 +13,23 @@
   </div>
 
   <p id="school-system-chart-description" class="school-system-chart__summary">
-    Die Grafik soll die Bildungswege von der Polytechnischen Oberschule über die Erweiterte
-    Oberschule bis zu beruflicher Bildung, Hochschulzugang und Weiterbildung zeigen.
+    Die Grafik zeigt die Bildungswege von der Polytechnischen Oberschule über die Erweiterte
+    Oberschule bis zu beruflicher Bildung, Hochschulzugang und Weiterbildung.
   </p>
 
-  <div class="school-system-chart-placeholder" aria-hidden="true">
-    <svg class="school-system-placeholder-svg" viewBox="0 0 1200 520" role="img">
-      <rect class="school-system-placeholder-svg__background" x="1" y="1" width="1198" height="518" rx="8" />
-      <rect class="school-system-placeholder-svg__band" x="32" y="32" width="1136" height="76" rx="2" />
-      <text class="school-system-placeholder-svg__title" x="600" y="72" text-anchor="middle">
-        Grafische Übersicht zum Schulsystem
-      </text>
-      <text class="school-system-placeholder-svg__subtitle" x="600" y="94" text-anchor="middle">
-        Platz für eine eigenständig erstellte, barrierearm beschriftete Schulsystemgrafik
-      </text>
+  <p class="school-system-chart__scroll-hint">
+    Auf kleineren Bildschirmen kann die Grafik seitlich verschoben werden.
+  </p>
 
-      <g>
-        <rect class="school-system-placeholder-svg__primary" x="76" y="352" width="1048" height="90" rx="2" />
-        <text class="school-system-placeholder-svg__label" x="600" y="403" text-anchor="middle">
-          Polytechnische Oberschule: Primarstufe
-        </text>
-      </g>
-
-      <g>
-        <rect class="school-system-placeholder-svg__secondary" x="76" y="214" width="716" height="118" rx="2" />
-        <text class="school-system-placeholder-svg__label" x="434" y="268" text-anchor="middle">
-          Polytechnische Oberschule: Sekundarstufe I
-        </text>
-        <text class="school-system-placeholder-svg__small" x="434" y="294" text-anchor="middle">
-          Abschlüsse nach Klassenstufe 9 und 10
-        </text>
-      </g>
-
-      <g>
-        <rect class="school-system-placeholder-svg__secondary-light" x="812" y="214" width="312" height="118" rx="2" />
-        <text class="school-system-placeholder-svg__label" x="968" y="268" text-anchor="middle">
-          Erweiterte Oberschule
-        </text>
-        <text class="school-system-placeholder-svg__small" x="968" y="294" text-anchor="middle">
-          Jahrgangsstufen 11 und 12
-        </text>
-      </g>
-
-      <g>
-        <rect class="school-system-placeholder-svg__vocational" x="76" y="132" width="250" height="62" rx="2" />
-        <rect class="school-system-placeholder-svg__vocational" x="344" y="132" width="250" height="62" rx="2" />
-        <rect class="school-system-placeholder-svg__vocational-light" x="612" y="132" width="250" height="62" rx="2" />
-        <rect class="school-system-placeholder-svg__vocational-light" x="880" y="132" width="244" height="62" rx="2" />
-        <text class="school-system-placeholder-svg__small" x="201" y="169" text-anchor="middle">Berufsschule</text>
-        <text class="school-system-placeholder-svg__small" x="469" y="169" text-anchor="middle">Berufsfachschule</text>
-        <text class="school-system-placeholder-svg__small" x="737" y="169" text-anchor="middle">Fachoberschule</text>
-        <text class="school-system-placeholder-svg__small" x="1002" y="169" text-anchor="middle">Fachschule</text>
-      </g>
-
-      <line class="school-system-placeholder-svg__guide" x1="76" x2="1124" y1="342" y2="342" />
-      <line class="school-system-placeholder-svg__guide" x1="792" x2="792" y1="194" y2="332" />
-      <text class="school-system-placeholder-svg__axis" x="32" y="474">Schulbesuchsjahre / Übergänge</text>
-    </svg>
+  <div class="school-system-chart__scroll" tabindex="0" role="region" aria-label="Schulsystemgrafik horizontal verschieben">
+    <img
+      class="school-system-chart__image"
+      src={chartImageSrc}
+      alt="Grafische Übersicht über die Bildungswege im Schulsystem des Ostdeutschen Freistaates"
+      width="1153"
+      height="1075"
+      loading="lazy"
+      decoding="async"
+    />
   </div>
 </figure>
