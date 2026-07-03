@@ -62,6 +62,12 @@ Regeln:
 - Große Karten und Detailtabellen dürfen ihren Inhalt nicht hinter einem Seitenüberlauf verstecken.
   Tabellen sind bei Bedarf als klar abgegrenzte Detailansicht horizontal scrollbar; die wichtigsten
   Informationen bleiben zusätzlich ohne Tabelle erreichbar.
+- Lokale Ankernavigationen auf langen Fachseiten sollen kompakt im normalen Inhaltsfluss stehen,
+  wenn eine dauerhafte Sidebar nicht über die gesamte Seite mitläuft. Leere Rasterspalten und
+  abrupte Einrückungen zwischen Abschnitten vermeiden.
+- Breite Fachgrafiken, etwa die Schulsystemübersicht, werden gerahmt und auf kleinen Bildschirmen
+  horizontal scrollbar angeboten. Eine zugängliche textliche oder tabellarische Alternative bleibt
+  unmittelbar im Seitenkontext verfügbar.
 
 ## Bilder
 

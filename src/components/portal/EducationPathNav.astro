@@ -2,13 +2,11 @@
 import { educationPathNavItems } from '../../data/school-system.ts';
 ---
 
-<aside class="education-path-nav" aria-labelledby="education-path-nav-title">
+<nav class="education-path-nav" aria-labelledby="education-path-nav-title">
   <h2 id="education-path-nav-title">Bildung und Schule</h2>
-  <nav aria-label="Lokale Navigation Schulsystem">
-    <ul>
-      {educationPathNavItems.map((item) => (
-        <li><a href={item.href}>{item.label}</a></li>
-      ))}
-    </ul>
-  </nav>
-</aside>
+  <ul>
+    {educationPathNavItems.map((item) => (
+      <li><a href={item.href}>{item.label}</a></li>
+    ))}
+  </ul>
+</nav>

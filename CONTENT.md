@@ -799,6 +799,12 @@ Typische Orte:
 
 Grundregel: Wiederkehrende oder fachliche Inhalte gehören in `content/` oder `src/data/dashboard/`. Kurze Strukturtexte, Labels und UI-Hinweise bleiben in Astro-Komponenten oder Konfiguration. Wenn ein Text regelmäßig redaktionell geändert werden soll, sollte er nicht dauerhaft hart in einer Seite stehen, sondern in das passende Content-Modell wandern.
 
+Die feste Unterseite `/themen/bildung-und-schule/schulsystem/` wird im Code gepflegt, weil sie
+mehrere Komponenten, lokale Anker und eine eigene Grafikdarstellung verbindet. Die Schularten,
+Tabellenzeilen und Ankerpunkte liegen in `src/data/school-system.ts`; die ausgelieferte Grafik liegt
+unter `public/images/ui/schulsystem.svg`, die bearbeitbare draw.io-Ausgangsdatei unter
+`context/schulsystem.drawio.svg`.
+
 Die allgemeine Suche unter `/suche/` hat feste, zugängliche Zustände für Ausgangslage, Laden,
 Treffer, keine Treffer und Fehler. Die Texte dieser Zustände liegen in der Suchseite und ihrem
 Skript; sie sind keine redaktionellen Datensätze. Beim Ändern müssen die Zustände weiterhin klar

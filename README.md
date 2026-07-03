@@ -124,6 +124,12 @@ Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter
 Reformregion; auf kleinen Bildschirmen steht die Gebietssuche mit Textdetail vor der optionalen
 Karte. Bezirkskarten und Tabellen bleiben ohne Kartenstart nutzbar.
 
+Der Bereich Bildung und Schule hat neben dem allgemeinen Einstieg unter
+`/themen/bildung-und-schule/` eine feste Unterseite zum Schulsystem unter
+`/themen/bildung-und-schule/schulsystem/`. Die Schulsystemgrafik wird als redaktionelles SVG unter
+`public/images/ui/schulsystem.svg` ausgeliefert; die bearbeitbare Ausgangsdatei bleibt in
+`context/schulsystem.drawio.svg`.
+
 Der Haushaltsbereich verwendet `src/data/haushalt.ts` als zentrale Datenlogik. Die Datei liest die
 Zusammenfassung unter `context/Staatshaushalt 2025_2026 - Zusammenfassung.csv` buildzeitbasiert
 ein und berechnet daraus Summen, Anteile und Jahresvergleiche. Ausgewählte Kapitel- und Titelangaben

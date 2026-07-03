@@ -45,6 +45,7 @@
   --content-width: 78rem;
   --content-width-narrow: 60rem;
   --rule-gradient: var(--color-primary);
+  --section-rule-gap: 0.95rem;
 }
 
 * {
@@ -1868,7 +1869,7 @@ article.panel > p:last-child > a.inline-link:hover {
 .section-header {
   max-width: 52rem;
   position: relative;
-  padding-top: 0.65rem;
+  padding-top: var(--section-rule-gap);
 }
 
 .section-header::before {
@@ -2623,26 +2624,20 @@ article.panel > p:last-child > a.inline-link:hover {
   font-size: 1.12rem;
 }
 
-/* Bildung und Schule */
-.school-system-page-grid {
-  display: grid;
-  grid-template-columns: minmax(13rem, 0.74fr) minmax(0, 2.8fr);
-  gap: 1.4rem;
-  align-items: start;
-}
-
 .education-path-nav {
-  position: sticky;
-  top: 1rem;
-  padding: 1rem;
-  border: 1px solid rgba(23, 59, 107, 0.2);
-  border-radius: var(--radius-md);
-  background: var(--color-surface-muted);
-  box-shadow: var(--shadow-card);
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  align-items: start;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .education-path-nav h2 {
   margin: 0;
+  padding-top: 0.45rem;
   color: var(--color-heading);
   font-family: var(--font-display);
   font-size: 1rem;
@@ -2650,36 +2645,34 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .education-path-nav ul {
-  display: grid;
-  gap: 0.35rem;
-  margin: 0.85rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .education-path-nav a {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  min-height: 2.75rem;
-  padding: 0.45rem 0.55rem;
+  min-height: 2.5rem;
+  padding: 0.42rem 0.65rem;
+  border: 1px solid rgba(23, 59, 107, 0.18);
   border-radius: var(--radius-sm);
+  background: var(--color-surface);
   color: var(--color-primary);
+  font-size: 0.94rem;
+  font-weight: 650;
   text-decoration: none;
   line-height: 1.35;
 }
 
-.education-path-nav a:hover {
-  background: var(--color-info-blue);
-  color: var(--color-accent-hover);
+.education-path-nav a:hover,
+.education-path-nav a:focus-visible {
+  background: var(--color-primary);
+  color: #fff;
   text-decoration: none;
-}
-
-.school-system-content {
-  min-width: 0;
-}
-
-.school-system-nav-spacer {
-  min-height: 1px;
 }
 
 .school-system-section-muted {
@@ -3201,20 +3194,12 @@ article.panel > p:last-child > a.inline-link:hover {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .school-system-page-grid {
+  .education-path-nav {
     grid-template-columns: 1fr;
   }
 
-  .education-path-nav {
-    position: static;
-  }
-
-  .school-system-nav-spacer {
-    display: none;
-  }
-
-  .education-path-nav ul {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .education-path-nav h2 {
+    padding-top: 0;
   }
 
   .budget-kpi-grid--six {
@@ -3481,8 +3466,9 @@ article.panel > p:last-child > a.inline-link:hover {
     grid-template-columns: 1fr;
   }
 
-  .education-path-nav ul {
-    grid-template-columns: 1fr;
+  .education-path-nav a {
+    width: 100%;
+    justify-content: center;
   }
 
   .site-footer__section .footer-nav {
