@@ -28,17 +28,6 @@
   --color-info-blue: #e6eef6;
   --color-info-green: #e6f2e8;
   --color-info-gold: #fbf2d9;
-  --color-diagram-surface: #fbfdfb;
-  --color-diagram-border: #cbd8d2;
-  --color-diagram-band: #d9dfdd;
-  --color-diagram-primary: #43b51d;
-  --color-diagram-secondary: #acd78b;
-  --color-diagram-secondary-soft: #d8efc9;
-  --color-diagram-vocational: #f18700;
-  --color-diagram-vocational-soft: #ffc983;
-  --color-diagram-line: #ffffff;
-  --color-diagram-text: #17221d;
-  --color-diagram-text-muted: #35443f;
   --color-accent: var(--color-primary);
   --color-accent-hover: var(--color-primary-hover);
   --color-accent-soft: var(--color-info-blue);
@@ -2710,88 +2699,37 @@ article.panel > p:last-child > a.inline-link:hover {
   margin: 1.5rem 0 0;
 }
 
-.school-system-figure--placeholder {
+.school-system-figure--image {
   display: grid;
   gap: 1rem;
 }
 
-.school-system-chart-placeholder {
-  overflow: hidden;
+.school-system-chart__scroll-hint {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.school-system-chart__scroll {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   background: var(--color-surface);
   box-shadow: var(--shadow-card);
 }
 
-.school-system-placeholder-svg {
+.school-system-chart__scroll:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+.school-system-chart__image {
   display: block;
   width: 100%;
   height: auto;
-  min-height: 18rem;
-  color: var(--color-diagram-text);
-  font-family: var(--font-display);
-}
-
-.school-system-placeholder-svg__background {
-  fill: var(--color-diagram-surface);
-  stroke: var(--color-diagram-border);
-  stroke-width: 2;
-}
-
-.school-system-placeholder-svg__band {
-  fill: var(--color-diagram-band);
-}
-
-.school-system-placeholder-svg__primary {
-  fill: var(--color-diagram-primary);
-}
-
-.school-system-placeholder-svg__secondary {
-  fill: var(--color-diagram-secondary);
-}
-
-.school-system-placeholder-svg__secondary-light {
-  fill: var(--color-diagram-secondary-soft);
-}
-
-.school-system-placeholder-svg__vocational {
-  fill: var(--color-diagram-vocational);
-}
-
-.school-system-placeholder-svg__vocational-light {
-  fill: var(--color-diagram-vocational-soft);
-}
-
-.school-system-placeholder-svg__guide {
-  stroke: var(--color-diagram-line);
-  stroke-width: 6;
-  stroke-dasharray: 22 18;
-}
-
-.school-system-placeholder-svg__title,
-.school-system-placeholder-svg__label {
-  fill: currentColor;
-  font-weight: 760;
-  letter-spacing: 0;
-}
-
-.school-system-placeholder-svg__title {
-  font-size: 24px;
-}
-
-.school-system-placeholder-svg__label {
-  font-size: 20px;
-}
-
-.school-system-placeholder-svg__subtitle,
-.school-system-placeholder-svg__small,
-.school-system-placeholder-svg__axis {
-  fill: var(--color-diagram-text-muted);
-  font-size: 16px;
-}
-
-.school-system-placeholder-svg__small {
-  font-style: italic;
+  min-width: 64rem;
 }
 
 .school-system-chart__summary {
