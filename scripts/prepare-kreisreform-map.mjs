@@ -226,6 +226,12 @@ function queryJson(sql, databasePath = sourceGpkg) {
 
 function slugify(value) {
   return String(value)
+    .replace(/ä/g, 'ae')
+    .replace(/ö/g, 'oe')
+    .replace(/ü/g, 'ue')
+    .replace(/Ä/g, 'Ae')
+    .replace(/Ö/g, 'Oe')
+    .replace(/Ü/g, 'Ue')
     .normalize('NFKD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/ß/g, 'ss')

@@ -3,8 +3,11 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
 import { loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import { isAnalyticsEnabled } from '../../config/analytics.ts';
+import { siteConfig } from '../../config/site.ts';
 
 const page = loadRuntimeServicePageBySlug('datenschutz');
+const analyticsEnabled = isAnalyticsEnabled();
 ---
 
 <BaseLayout title={page?.title ?? 'Datenschutz'} description="Datenschutzhinweise des Regierungsportals.">
@@ -27,33 +30,86 @@ const page = loadRuntimeServicePageBySlug('datenschutz');
         <p>{paragraph}</p>
       ))}
 
-      <div class="section-header">
-        <h2>Nutzung des Portals</h2>
-      </div>
+      <div class="section-header"><h2>Verantwortliche Stelle</h2></div>
+      <p>{siteConfig.contact.authorityShort}, {siteConfig.contact.addressLines.join(', ')}.</p>
       <p>
-        Das öffentliche Portal bietet keine Benutzerkonten und keinen Anmeldebereich. Kontakt-,
-        Karriere- und Beteiligungshinweise verweisen auf die jeweils genannten Kontaktwege.
-      </p>
-      <p>
-        Die Normensuche stellt einen Suchindex für Titel, Metadaten und Normtexte bereit.
+        Datenschutzanfragen können an <a class="inline-link" href={`mailto:${siteConfig.contact.citizenService.email}`}>{siteConfig.contact.citizenService.email}</a>
+        oder telefonisch an <a class="inline-link" href={`tel:${siteConfig.contact.citizenService.phone.replace(/\s+/gu, '')}`}>{siteConfig.contact.citizenService.phone}</a> gerichtet werden.
       </p>
 
-      <div class="section-header">
-        <h2>Statistik-Cookies</h2>
-      </div>
+      <div class="section-header"><h2>Hosting und technische Protokollierung</h2></div>
       <p>
-        Wir nutzen Statistik nur, wenn Sie zustimmen. Die Website funktioniert auch ohne
-        Webanalyse vollständig. Ohne Zustimmung werden keine Statistik-Cookies aktiviert.
+        Das Portal wird über Cloudflare Workers und das Cloudflare-Netzwerk ausgeliefert. Für die
+        sichere Bereitstellung können insbesondere IP-Adresse, Zeitpunkt, aufgerufene Adresse,
+        Referrer, Browser- und Geräteangaben sowie Antwortstatus technisch verarbeitet und in
+        Sicherheits- oder Zugriffsprotokollen erfasst werden. Zweck sind Auslieferung,
+        Fehleranalyse, Abwehr missbräuchlicher Zugriffe und Betriebssicherheit.
       </p>
       <p>
-        Wenn Sie Statistik erlauben, wird Google Analytics 4 zur Reichweitenmessung eingebunden.
-        Die Entscheidung wird lokal in Ihrem Browser gespeichert und kann jederzeit geändert
-        werden.
+        Eine feste Speicherdauer für Hostingprotokolle ist im Portal nicht festgelegt. Maßgeblich
+        sind die beim Hosting tatsächlich konfigurierten Aufbewahrungs- und Sicherheitsregeln.
+        Eine eigenständige Cloudflare-Webanalyse wird nicht eingesetzt.
+      </p>
+
+      <div class="section-header"><h2>Interaktive Karte von OpenStreetMap</h2></div>
+      <p>
+        Die Kreisreform ist über Suche, Bezirksübersicht und Tabellen vollständig ohne Karte
+        nutzbar. Erst wenn Sie „Karte laden“ wählen, ruft der Browser Kartenkacheln von
+        OpenStreetMap ab. Dabei werden technisch mindestens die IP-Adresse, der Zeitpunkt, die
+        angeforderten Kacheln sowie Browser- und Referrerangaben an den Kacheldienst übertragen.
+        Die Freigabe gilt nur für den aktuellen Seitenaufruf und wird nicht dauerhaft gespeichert.
       </p>
       <p>
-        <button type="button" class="button-link button-link--secondary" data-analytics-consent-reset>
-          Datenschutzeinstellungen ändern
-        </button>
+        Zweck ist ausschließlich die von Ihnen angeforderte kartografische Darstellung. Eine
+        Übertragung außerhalb des Europäischen Wirtschaftsraums kann durch die technische
+        Bereitstellung des Dienstes nicht ausgeschlossen werden.
+      </p>
+
+      {analyticsEnabled ? (
+        <>
+          <div class="section-header"><h2>Freiwillige Reichweitenstatistik</h2></div>
+          <p>
+            Google Analytics 4 wird erst geladen, wenn Sie „Statistik erlauben“ auswählen. Ohne
+            Zustimmung werden weder das Google-Skript noch Statistik-Anfragen gestartet. Erfasst
+            werden können Seitenaufrufe, technische Geräte- und Browserangaben, gekürzte oder
+            abgeleitete Standortangaben sowie von Google Analytics verwendete Kennungen.
+          </p>
+          <p>
+            Empfänger ist Google als Anbieter des Analysedienstes. Eine Verarbeitung in Staaten
+            außerhalb des Europäischen Wirtschaftsraums kann nicht ausgeschlossen werden. Die
+            Verarbeitung beruht hier ausschließlich auf Ihrer freiwilligen Einwilligung. Die
+            konkrete Aufbewahrungsdauer der Analysedaten ist auf dieser Website nicht
+            ausgewiesen und kann deshalb an dieser Stelle nicht verbindlich angegeben werden.
+          </p>
+          <p>
+            Ihre Auswahl wird lokal im Browser gespeichert, bis Sie sie ändern oder den
+            Browserspeicher löschen.
+            Bei einem Widerruf wird die weitere Übermittlung unterbunden; erreichbare
+            Statistik-Cookies dieses Portals werden entfernt.
+          </p>
+          <p>
+            <button type="button" class="button-link button-link--secondary" data-analytics-consent-reset>
+              Datenschutzeinstellungen ändern
+            </button>
+          </p>
+        </>
+      ) : null}
+
+      <div class="section-header"><h2>Lokale Funktionen und Suche</h2></div>
+      <p>
+        Portal- und Normensuche laden lokale Suchindizes derselben Website. Filter, Kontaktwegweiser
+        und Tabellen werden im Browser verarbeitet und übertragen keine Eingaben an externe
+        Dienste. Technisch notwendige Einstellungen werden nur lokal gespeichert, wenn die
+        jeweilige Funktion dies ausdrücklich vorsieht.
+      </p>
+
+      <div class="section-header"><h2>Ihre Rechte</h2></div>
+      <p>
+        Sie können Auskunft, Berichtigung, Löschung, Einschränkung und Herausgabe der Sie
+        betreffenden Daten verlangen sowie einer Verarbeitung widersprechen. Eine erteilte
+        Einwilligung können Sie jederzeit für die Zukunft widerrufen. Außerdem können Sie sich an
+        eine zuständige Datenschutzaufsicht wenden. Ob und in welchem Umfang ein Recht im Einzelfall
+        besteht, hängt von der tatsächlich erfolgten Verarbeitung ab.
       </p>
     </section>
 
@@ -72,11 +128,15 @@ const page = loadRuntimeServicePageBySlug('datenschutz');
         </div>
         <div>
           <dt>Suche</dt>
-          <dd>Suchindex im Rechtsbereich</dd>
+          <dd>Lokale Suchindizes ohne externe Übermittlung</dd>
         </div>
         <div>
           <dt>Webanalyse</dt>
-          <dd>Google Analytics 4 nur nach Zustimmung</dd>
+          <dd>{analyticsEnabled ? 'Google Analytics 4 nur nach Zustimmung' : 'Nicht aktiviert'}</dd>
+        </div>
+        <div>
+          <dt>Karte</dt>
+          <dd>OpenStreetMap erst nach bewusster Freigabe</dd>
         </div>
       </dl>
     </aside>

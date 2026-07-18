@@ -130,7 +130,7 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
                       </strong>
                       <span>{getPublicationLabel(publication)}</span>
                     </td>
-                    <td>{formatDate(publication.date)}</td>
+                    <td><time datetime={publication.date}>{formatDate(publication.date)}</time></td>
                     <td>
                       {toDisplayText(entry.title)}
                       <span>{formatPublicationEntryType(entry.type)}</span>

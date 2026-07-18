@@ -46,6 +46,7 @@ export interface PortalSearchEntry {
   description: string;
   url: string;
   text: string;
+  date?: string;
 }
 
 export interface PortalSearchPayload {
@@ -208,6 +209,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       description: release.teaser,
       url: getPressReleaseUrl(release.slug),
       text: joinText([release.date, release.ressort, release.tags, release.body]),
+      date: release.date,
     })),
     ...speeches.map((speech) => ({
       id: `speech:${speech.slug}`,
@@ -217,6 +219,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       description: speech.teaser,
       url: getSpeechUrl(speech.slug),
       text: joinText([speech.date, speech.sprecher, speech.body]),
+      date: speech.date,
     })),
     ...events.map((event) => ({
       id: `event:${event.slug}`,
@@ -226,6 +229,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       description: event.teaser,
       url: getEventUrl(event.slug),
       text: joinText([event.date, event.location, event.body]),
+      date: event.date,
     })),
     ...budgetPages.map((page) => ({
       id: `budget:${page.slug}`,
@@ -276,6 +280,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
         job.payGrade,
         job.body,
       ]),
+      date: job.datePosted,
     })),
     ...norms.map((norm) => ({
       id: `law:${norm.meta.slug}`,
@@ -292,6 +297,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
         norm.meta.keywords.map(toDisplayText),
         toDisplayText(norm.meta.initialCitation),
       ]),
+      date: norm.versions.find((version) => version.isCurrent)?.validFrom,
     })),
     ...publications.map((publication) => ({
       id: `law-publication:${publication.slug}`,
@@ -306,6 +312,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
         publication.issue,
         publication.entries.map((entry) => `${entry.title} ${entry.citation}`),
       ]),
+      date: publication.date,
     })),
   ];
 

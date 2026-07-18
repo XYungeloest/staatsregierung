@@ -17,12 +17,13 @@ import {
 } from '../../lib/norms/presentation.ts';
 import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
 import type { NormPublicationReference } from '../../lib/norms/publications.ts';
+import type { RelatedNormRecommendation } from '../../lib/norms/references.ts';
 
 interface Props {
   norm: NormRecord;
   version: NormVersion;
   historical?: boolean;
-  relatedNorms?: NormRecord[];
+  relatedNorms?: RelatedNormRecommendation[];
   publicationReference?: NormPublicationReference;
 }
 
@@ -92,7 +93,7 @@ const canCompareVersions = norm.versions.length > 1;
           </a>
           <br />
           <span>
-            {formatDate(publicationReference.publicationDate)}
+            <time datetime={publicationReference.publicationDate}>{formatDate(publicationReference.publicationDate)}</time>
             {publicationReference.pages ? ` · Seiten ${publicationReference.pages}` : ''}
           </span>
         </dd>
@@ -104,11 +105,11 @@ const canCompareVersions = norm.versions.length > 1;
   <dl class="meta-list">
     <div>
       <dt>Gültig ab</dt>
-      <dd>{formatDate(version.validFrom)}</dd>
+      <dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd>
     </div>
     <div>
       <dt>Gültig bis</dt>
-      <dd>{version.validTo ? formatDate(version.validTo) : 'aktuell'}</dd>
+      <dd>{version.validTo ? <time datetime={version.validTo}>{formatDate(version.validTo)}</time> : 'aktuell'}</dd>
     </div>
     <div>
       <dt>Status</dt>
@@ -130,7 +131,7 @@ const canCompareVersions = norm.versions.length > 1;
     <a href={getNormHistoryUrl(norm.meta.slug)}>Normenhistorie</a>
     {historicalVersions.map((entry) => (
       <a href={getNormVersionUrl(norm.meta.slug, entry.versionId)}>
-        Historische Fassung vom {formatDate(entry.validFrom)}
+        Historische Fassung vom <time datetime={entry.validFrom}>{formatDate(entry.validFrom)}</time>
       </a>
     ))}
     {canCompareVersions ? <a href={getNormCompareUrl(norm.meta.slug)}>Fassungen vergleichen</a> : null}
@@ -141,8 +142,11 @@ const canCompareVersions = norm.versions.length > 1;
     <>
       <h3 id="normverwandt">Verwandte Vorschriften</h3>
       <nav class="link-list" aria-label="Verwandte Vorschriften">
-        {relatedNorms.map((entry) => (
-          <a href={getNormUrl(entry.meta.slug)}>{toDisplayText(entry.meta.shortTitle || entry.meta.title)}</a>
+        {relatedNorms.map(({ norm: entry, relation }) => (
+          <a href={getNormUrl(entry.meta.slug)}>
+            <span>{toDisplayText(entry.meta.shortTitle || entry.meta.title)}</span>
+            <small>{relation}</small>
+          </a>
         ))}
       </nav>
     </>
@@ -150,7 +154,7 @@ const canCompareVersions = norm.versions.length > 1;
 
   <h3>Ausgabe</h3>
   <div class="link-list">
-    <button class="text-link-button" type="button" onclick="window.print()">Seite drucken</button>
+    <button class="text-link-button" type="button" data-print-page>Seite drucken</button>
     <a href={getHelpUrl()}>Hilfe zum Rechtsbereich</a>
   </div>
 </aside>

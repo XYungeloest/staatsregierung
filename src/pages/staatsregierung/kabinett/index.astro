@@ -115,7 +115,7 @@ const topicHighlights = [
     <p class="eyebrow">Regierungsarbeit</p>
     <h1>{currentGovernment.cabinetName}</h1>
     <p class="lead">
-      Das {currentGovernment.cabinetName} ist seit dem {siteConfig.date.formatLong(currentGovernment.formedOn)}
+      Das {currentGovernment.cabinetName} ist seit dem <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time>
       im Amt. Es wird von einer Koalition aus {currentGovernment.coalition} getragen und setzt den
       15-Punkte-Plan II als politische Arbeitsgrundlage um.
     </p>
@@ -159,7 +159,7 @@ const topicHighlights = [
           Leitung, Ressorts und politische Vorhaben eng miteinander verbunden.
         </p>
         <p>
-          Der Organisationserlass 05/2026 vom 4. Mai 2026 benennt mehrere Staatsministerien neu
+          Der Organisationserlass 05/2026 vom <time datetime="2026-05-04">4. Mai 2026</time> benennt mehrere Staatsministerien neu
           und löst das bisherige Kultur-, Wissenschafts- und Tourismusressort auf. Wissenschaft
           liegt nun bei Volksbildung und Wissenschaft; Kultur und Tourismus liegen bei
           Rechtsstaatlichkeit und kultureller Emanzipation.
@@ -174,7 +174,7 @@ const topicHighlights = [
       <dl class="meta-list">
         <div>
           <dt>Gebildet</dt>
-          <dd>{siteConfig.date.formatLong(currentGovernment.formedOn)}</dd>
+          <dd><time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time></dd>
         </div>
         <div>
           <dt>Vorgänger</dt>

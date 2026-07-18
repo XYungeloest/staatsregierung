@@ -49,7 +49,7 @@ import archive from '../../../../content/regierung/archiv/kabinett-honecker-i.js
       </div>
       <div class="meta-card">
         <span class="meta-label">Amtszeit Honecker I</span>
-        <strong>{siteConfig.date.formatLong(archive.formedOn)} bis {siteConfig.date.formatLong(archive.endedOn)}</strong>
+        <strong><time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time></strong>
       </div>
     </div>
   </section>
@@ -67,7 +67,7 @@ import archive from '../../../../content/regierung/archiv/kabinett-honecker-i.js
         <h3>{archive.cabinetName}</h3>
         <p>{archive.summary}</p>
         <p class="detail-line">
-          {siteConfig.date.formatLong(archive.formedOn)} bis {siteConfig.date.formatLong(archive.endedOn)}
+          <time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time>
         </p>
         <p><a class="inline-link" href={`${getPreviousCabinetsUrl()}honecker-i/`}>Zum Archivstand</a></p>
       </article>

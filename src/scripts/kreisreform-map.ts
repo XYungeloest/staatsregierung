@@ -1,5 +1,6 @@
 import type * as Leaflet from 'leaflet';
 import type { Feature, FeatureCollection, GeoJsonObject, Geometry } from 'geojson';
+import { formatCount } from '../lib/kreisreform/format.ts';
 
 type LayerKey = 'neueKreise' | 'neueBezirke' | 'alteKreise' | 'alteBezirke' | 'alteBundeslaender';
 
@@ -76,38 +77,28 @@ const areaFormatter = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2 
 function bootMaps(): void {
   for (const trigger of document.querySelectorAll<HTMLElement>('[data-open-kreisreform-map]')) {
     trigger.addEventListener('click', () => {
-      const disclosure = document.querySelector<HTMLDetailsElement>('[data-map-disclosure]');
-      if (disclosure) disclosure.open = true;
+      window.setTimeout(() => {
+        document.querySelector<HTMLButtonElement>('[data-map-load]')?.focus();
+      });
     });
   }
 
   const containers = Array.from(document.querySelectorAll<HTMLElement>('[data-kreisreform-map]'));
   for (const container of containers) {
     if (container.dataset.mapInitialized === 'true') continue;
-    container.dataset.mapInitialized = 'true';
+    const gate = container.closest<HTMLElement>('[data-map-gate]');
+    const loadButton = gate?.querySelector<HTMLButtonElement>('[data-map-load]');
+    const loadSurface = gate?.querySelector<HTMLElement>('[data-map-load-surface]');
 
-    const disclosure = container.closest<HTMLDetailsElement>('[data-map-disclosure]');
-    if (!disclosure) {
-      lazyInit(container);
-      continue;
-    }
-
-    const mobileQuery = window.matchMedia('(max-width: 640px)');
-    const startWhenAvailable = () => {
-      if (disclosure.open) {
-        lazyInit(container);
-      }
-    };
-    const updateDisclosure = () => {
-      if (!mobileQuery.matches) {
-        disclosure.open = true;
-      }
-      startWhenAvailable();
-    };
-
-    disclosure.addEventListener('toggle', startWhenAvailable);
-    mobileQuery.addEventListener('change', updateDisclosure);
-    updateDisclosure();
+    loadButton?.addEventListener('click', () => {
+      if (container.dataset.mapInitialized === 'true') return;
+      container.dataset.mapInitialized = 'true';
+      loadSurface?.setAttribute('hidden', '');
+      container.removeAttribute('hidden');
+      void initMap(container).then(() => {
+        container.querySelector<HTMLElement>('[data-map-canvas]')?.focus();
+      });
+    });
   }
 }
 
@@ -115,37 +106,6 @@ if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', bootMaps, { once: true });
 } else {
   bootMaps();
-}
-
-function lazyInit(container: HTMLElement): void {
-  if (container.dataset.mapLoadScheduled === 'true') return;
-  container.dataset.mapLoadScheduled = 'true';
-
-  let started = false;
-  const start = () => {
-    if (started) return;
-    started = true;
-    void initMap(container);
-  };
-
-  if (!('IntersectionObserver' in window)) {
-    start();
-    return;
-  }
-
-  const fallbackTimer = window.setTimeout(start, 2500);
-  const observer = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        observer.disconnect();
-        window.clearTimeout(fallbackTimer);
-        start();
-      }
-    },
-    { rootMargin: '180px' },
-  );
-
-  observer.observe(container);
 }
 
 async function initMap(container: HTMLElement): Promise<void> {
@@ -456,7 +416,7 @@ function renderDetail(key: LayerKey, properties: KreisreformProperties, panel: H
         <div><dt>Neuer Bezirk</dt><dd>${escapeHtml(properties.bezirkNeu ?? 'Keine Angabe')}</dd></div>
         <div><dt>Einwohner</dt><dd>${formatInteger(properties.einwohner)}</dd></div>
         <div><dt>Fläche</dt><dd>${formatArea(properties.flaecheKm2)}</dd></div>
-        <div><dt>Gemeinden</dt><dd>${formatInteger(properties.gemeinden)}</dd></div>
+        <div><dt>Gemeinden</dt><dd>${formatCount(properties.gemeinden, 'Gemeinde', 'Gemeinden')}</dd></div>
       </dl>
       <h4>Bisherige Gebietsteile</h4>
       ${oldParts}

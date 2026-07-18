@@ -11,6 +11,7 @@ import {
 } from '../../lib/portal/index.ts';
 import {
   formatArea,
+  formatCount,
   formatInteger,
   formatLongDate,
 } from '../../lib/kreisreform/format.ts';
@@ -89,7 +90,7 @@ const kreisreformFaq = [
     <p class="lead">
       Suchen Sie Ihre Gemeinde und sehen Sie, welchem Kreis und Bezirk sie künftig zugeordnet ist.
     </p>
-    <p>Gesetzgebungsverfahren 2026, Wirksamwerden zum 1. August 2026.</p>
+    <p>Gesetzgebungsverfahren 2026, Wirksamwerden zum <time datetime="2026-08-01">1. August 2026</time>.</p>
     <nav class="hero-actions" aria-label="Direkteinstiege">
       <a class="button-link" href="#bezirk-suche">Gemeinde suchen</a>
       <a class="button-link button-link--secondary" href="#karte" data-open-kreisreform-map>Karte ansehen</a>
@@ -114,7 +115,7 @@ const kreisreformFaq = [
       </div>
       <div class="meta-card">
         <span class="meta-label">Wirksamwerden</span>
-        <strong>{formatLongDate(manifest.stats.wirksamAb)}</strong>
+        <strong><time datetime={manifest.stats.wirksamAb}>{formatLongDate(manifest.stats.wirksamAb)}</time></strong>
       </div>
       <div class="meta-card">
         <span class="meta-label">Größter Kreis nach Einwohnerzahl</span>
@@ -178,9 +179,19 @@ const kreisreformFaq = [
       </p>
     </div>
 
-    <details class="kreisreform-map-disclosure" data-map-disclosure>
-      <summary>Karte anzeigen</summary>
-      <div class="kreisreform-map-shell" data-kreisreform-map data-base-url={base}>
+    <div class="kreisreform-map-gate" data-map-gate>
+      <div class="kreisreform-map-load-surface" data-map-load-surface>
+        <h3>Interaktive Karte laden</h3>
+        <p>
+          Beim Laden der Karte werden Inhalte von OpenStreetMap abgerufen. Alternativ können Sie
+          alle Zuordnungen über die Suche und die Tabellen ansehen.
+        </p>
+        <div class="hero-actions">
+          <button class="button-link" type="button" data-map-load>Karte laden</button>
+          <a class="button-link button-link--secondary" href="#tabellen">Ohne Karte fortfahren</a>
+        </div>
+      </div>
+      <div class="kreisreform-map-shell" data-kreisreform-map data-base-url={base} hidden>
         <div class="kreisreform-map-layout">
         <div class="kreisreform-map-main">
           <div class="kreisreform-map-toolbar" aria-label="Karteneinstellungen">
@@ -250,7 +261,7 @@ const kreisreformFaq = [
         </aside>
         </div>
       </div>
-    </details>
+    </div>
     <noscript>
       <p class="kreisreform-map-status is-error">
         Die Karte konnte nicht geladen werden. Nutzen Sie die tabellarische Übersicht oder die Suche.
@@ -267,14 +278,14 @@ const kreisreformFaq = [
       <article>
         <h3>Bisherige Bezirke</h3>
         <p>
-          Bis zum 31. Juli 2026 bestehen acht Bezirke: {bisherigeBezirke.join(', ')}. Sie beruhen auf dem
+          Bis zum <time datetime="2026-07-31">31. Juli 2026</time> bestehen acht Bezirke: {bisherigeBezirke.join(', ')}. Sie beruhen auf dem
           bisherigen Bezirkseinführungsgesetz.
         </p>
       </article>
       <article>
         <h3>Neue Bezirke</h3>
         <p>
-          Ab {formatLongDate(manifest.stats.wirksamAb)} sind vierzehn Bezirke vorgesehen. Sie
+          Ab <time datetime={manifest.stats.wirksamAb}>{formatLongDate(manifest.stats.wirksamAb)}</time> sind vierzehn Bezirke vorgesehen. Sie
           erhalten feste Sitze, eine neue Bezirksordnung und klar zugeordnete Kreise.
         </p>
       </article>
@@ -311,7 +322,33 @@ const kreisreformFaq = [
       </p>
     </div>
 
-    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der neuen Bezirke">
+    <div class="kreisreform-table-tools" data-kreisreform-table-filter>
+      <label class="search-field" for="kreisreform-table-query">
+        <span>Kreis oder Bezirk filtern</span>
+        <input
+          id="kreisreform-table-query"
+          type="search"
+          autocomplete="off"
+          placeholder="z. B. Lausitz oder Berlin"
+          data-kreisreform-table-query
+        />
+      </label>
+      <label class="search-field" for="kreisreform-table-bezirk">
+        <span>Bezirk auswählen</span>
+        <select id="kreisreform-table-bezirk" data-kreisreform-table-bezirk>
+          <option value="">Alle Bezirke</option>
+          {neueBezirke.map((bezirk) => <option value={bezirk.name}>{bezirk.name}</option>)}
+        </select>
+      </label>
+      <p class="search-feedback" role="status" aria-live="polite" data-kreisreform-table-status>
+        {formatCount(neueBezirke.length, 'Bezirk', 'Bezirke')} und {formatCount(neueKreise.length, 'Kreis', 'Kreise')} sichtbar.
+      </p>
+    </div>
+
+    <p class="table-scroll-hint" id="bezirke-scroll-hint">
+      Auf kleinen Bildschirmen können Sie die Tabelle innerhalb dieses Bereichs horizontal verschieben.
+    </p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der neuen Bezirke" aria-describedby="bezirke-scroll-hint">
       <table class="data-table">
         <caption>Neue Bezirke</caption>
         <thead>
@@ -325,7 +362,7 @@ const kreisreformFaq = [
         </thead>
         <tbody>
           {neueBezirke.map((bezirk) => (
-            <tr>
+            <tr data-kreisreform-table-row data-kind="bezirk" data-name={bezirk.name.toLocaleLowerCase('de-DE')} data-bezirk={bezirk.name}>
               <th scope="row">{bezirk.name}</th>
               <td>{bezirk.sitz}</td>
               <td>{formatInteger(bezirk.einwohner)}</td>
@@ -337,7 +374,10 @@ const kreisreformFaq = [
       </table>
     </div>
 
-    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der neuen Kreise und Kreisfreien Städte">
+    <p class="table-scroll-hint" id="kreise-scroll-hint">
+      Auf kleinen Bildschirmen können Sie die Tabelle innerhalb dieses Bereichs horizontal verschieben.
+    </p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der neuen Kreise und Kreisfreien Städte" aria-describedby="kreise-scroll-hint">
       <table class="data-table">
         <caption>Neue Kreise und Kreisfreie Städte</caption>
         <thead>
@@ -352,7 +392,7 @@ const kreisreformFaq = [
         </thead>
         <tbody>
           {neueKreise.map((kreis) => (
-            <tr>
+            <tr data-kreisreform-table-row data-kind="kreis" data-name={`${kreis.name} ${kreis.bezirkNeu}`.toLocaleLowerCase('de-DE')} data-bezirk={kreis.bezirkNeu}>
               <th scope="row">{kreis.name}</th>
               <td>{kreis.typ}</td>
               <td>{kreis.bezirkNeu}</td>
@@ -360,7 +400,7 @@ const kreisreformFaq = [
               <td>{formatArea(kreis.flaecheKm2)}</td>
               <td>
                 {kreis.alteKreise.map((entry) => entry.name).join(', ')}
-                <span>{kreis.gemeinden ? `${formatInteger(kreis.gemeinden)} Gemeinden` : 'Keine Gemeindezahl'}</span>
+                <span>{formatCount(kreis.gemeinden, 'Gemeinde', 'Gemeinden')}</span>
               </td>
             </tr>
           ))}
@@ -369,9 +409,9 @@ const kreisreformFaq = [
     </div>
   </section>
 
-  <section id="rechtsgrundlagen" class="section" aria-labelledby="rechtsgrundlagen">
+  <section id="rechtsgrundlagen" class="section" aria-labelledby="rechtsgrundlagen-ueberschrift">
     <div class="section-header">
-      <h2 id="rechtsgrundlagen">Rechtsgrundlagen</h2>
+      <h2 id="rechtsgrundlagen-ueberschrift">Rechtsgrundlagen</h2>
       <p>Maßgeblich bleibt die verkündete Rechtsfassung mit Anlagen.</p>
     </div>
     <ul class="record-list">
@@ -401,14 +441,14 @@ const kreisreformFaq = [
   <section class="section section-muted" aria-labelledby="kreisreform-faq">
     <div class="section-header">
       <h2 id="kreisreform-faq">Häufige Fragen</h2>
-      <p>Antworten zur vorgesehenen Neuordnung und zum Übergang am 1. August 2026.</p>
+      <p>Antworten zur vorgesehenen Neuordnung und zum Übergang am <time datetime="2026-08-01">1. August 2026</time>.</p>
     </div>
     <div class="faq-accordion" data-faq-root data-allow-multiple="false">
       {kreisreformFaq.map((entry) => (
         <details class="faq-accordion__item">
           <summary class="faq-accordion__summary">{entry.question}</summary>
           <div class="faq-accordion__body">
-            <p>{entry.question === 'Wo finde ich die Rechtsgrundlagen?' ? <>Die Seite bündelt die vorgesehenen Grundlagen. Verkündete Fassungen und Fundstellen werden im <a class="inline-link" href={getLawHomeUrl()}>Rechtsportal</a> veröffentlicht.</> : entry.answer}</p>
+            <p>{entry.question === 'Wo finde ich die Rechtsgrundlagen?' ? <>Die Seite bündelt die vorgesehenen Grundlagen. Verkündete Fassungen und Fundstellen werden im <a class="inline-link" href={getLawHomeUrl()}>Rechtsportal</a> veröffentlicht.</> : entry.question === 'Wann gilt die neue Zuordnung?' ? <>Die neue Kreis- und Bezirksgliederung soll am <time datetime="2026-08-01">1. August 2026</time> wirksam werden.</> : entry.answer}</p>
           </div>
         </details>
       ))}
@@ -418,6 +458,7 @@ const kreisreformFaq = [
   <script>
     import '../../scripts/kreisreform-search.ts';
     import '../../scripts/kreisreform-map.ts';
+    import '../../scripts/kreisreform-table.ts';
   </script>
 
   <style>
@@ -437,7 +478,7 @@ const kreisreformFaq = [
       margin-top: 1rem;
     }
 
-    .kreisreform-map-disclosure {
+    .kreisreform-map-gate {
       margin-top: 1.5rem;
       border: 1px solid var(--color-border);
       border-radius: var(--radius-md);
@@ -445,20 +486,35 @@ const kreisreformFaq = [
       box-shadow: var(--shadow-card);
     }
 
-    .kreisreform-map-disclosure > summary {
-      min-height: 3rem;
-      padding: 0.8rem 1rem;
-      color: var(--color-heading);
-      font-weight: 760;
-      cursor: pointer;
+    .kreisreform-map-load-surface {
+      padding: clamp(1.25rem, 3vw, 2rem);
     }
 
-    .kreisreform-map-disclosure[open] > summary {
-      border-bottom: 1px solid var(--color-border);
+    .kreisreform-map-load-surface h3 {
+      margin: 0;
     }
 
     .kreisreform-map-shell {
       margin: 0;
+    }
+
+    .kreisreform-table-tools {
+      display: grid;
+      grid-template-columns: minmax(16rem, 1fr) minmax(14rem, 0.65fr);
+      gap: 1rem;
+      align-items: end;
+      margin: 1.25rem 0;
+    }
+
+    .kreisreform-table-tools .search-feedback {
+      grid-column: 1 / -1;
+      margin: 0;
+    }
+
+    .table-scroll-hint {
+      margin: 1rem 0 0.45rem;
+      color: var(--color-text-muted);
+      font-size: 0.92rem;
     }
 
     .kreisreform-map-layout {
@@ -700,6 +756,10 @@ const kreisreformFaq = [
         grid-template-columns: 1fr;
       }
 
+      .kreisreform-table-tools {
+        grid-template-columns: 1fr;
+      }
+
       .kreisreform-detail-panel {
         position: static;
       }
@@ -710,10 +770,6 @@ const kreisreformFaq = [
     }
 
     @media (max-width: 640px) {
-      .kreisreform-map-disclosure > summary {
-        min-height: 3.25rem;
-      }
-
       .kreisreform-layer-list {
         display: grid;
       }

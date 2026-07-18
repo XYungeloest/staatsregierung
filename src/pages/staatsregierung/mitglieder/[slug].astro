@@ -1,12 +1,12 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ResponsivePicture from '../../../components/portal/ResponsivePicture.astro';
 import {
   getGovernmentMemberUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
-  resolvePortalPath,
 } from '../../../lib/portal/index.ts';
 import { loadRuntimeGovernmentMembers } from '../../../lib/runtime-content/index.ts';
 import type { RegierungMitglied } from '../../../lib/portal/index.ts';
@@ -46,12 +46,15 @@ const { member } = Astro.props as { member: RegierungMitglied };
           <p>Dieses Profil gehört zur aktuellen Staatsregierung und fasst Aufgabenbereich, Biografie und Kontaktweg kompakt zusammen.</p>
         </div>
         <article class="profile-card">
-          <img
-            src={resolvePortalPath(member.bild)}
+          <ResponsivePicture
+            src={member.bild}
             alt={member.bildAlt ?? `Porträt von ${member.name}`}
-            width="720"
-            height="900"
-            decoding="async"
+            width={720}
+            height={900}
+            widths={[240, 360, 480]}
+            sizes="(max-width: 720px) calc(100vw - 2.4rem), 320px"
+            loading="eager"
+            fetchpriority="high"
           />
           <div>
             <p>{member.kurzbiografie}</p>

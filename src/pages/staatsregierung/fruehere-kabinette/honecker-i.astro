@@ -56,7 +56,7 @@ const ministries = Object.values(ministryModules)
     <div class="meta-grid">
       <div class="meta-card">
         <span class="meta-label">Amtszeit</span>
-        <strong>{siteConfig.date.formatLong(archive.formedOn)} bis {siteConfig.date.formatLong(archive.endedOn)}</strong>
+        <strong><time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time></strong>
       </div>
       <div class="meta-card">
         <span class="meta-label">Koalition</span>
@@ -78,7 +78,7 @@ const ministries = Object.values(ministryModules)
       <h2>Historische Einordnung</h2>
       <p>
         Das Kabinett Honecker I bildet den abgeschlossenen Ausgangsstand vor dem Regierungswechsel
-        am 4. Mai 2026. Die damaligen Profile und Ressortbeschreibungen sind hier als
+        am <time datetime="2026-05-04">4. Mai 2026</time>. Die damaligen Profile und Ressortbeschreibungen sind hier als
         Archivstand dokumentiert.
       </p>
     </div>

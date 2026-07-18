@@ -26,10 +26,14 @@ npm install
 npm run dev
 npm run content:check
 npm run check
+npm run test:unit
 npm run build
 npm run links:check
+npm run seo:check
 npm run test:visual
 npm run test:a11y
+npm run test:quality
+npm run test:browsers
 ```
 
 Weitere wichtige Befehle:
@@ -120,9 +124,10 @@ Der derzeitige Stichtag ist der 24. Juni 2026.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter
-`public/data/kreisreform/`. Auf großen Bildschirmen startet die Karte in einer engen Übersicht der
-Reformregion; auf kleinen Bildschirmen steht die Gebietssuche mit Textdetail vor der optionalen
-Karte. Bezirkskarten und Tabellen bleiben ohne Kartenstart nutzbar.
+`public/data/kreisreform/`. Die interaktive Karte wird auf keiner Viewportbreite automatisch
+gestartet: Erst die ausdrückliche Freigabe innerhalb des aktuellen Seitenaufrufs lädt Kacheln von
+OpenStreetMap. Gebietssuche, Bezirksübersichten, Filter und Tabellen funktionieren vollständig
+ohne Kartenstart.
 
 Der Bereich Bildung und Schule hat neben dem allgemeinen Einstieg unter
 `/themen/bildung-und-schule/` eine feste Unterseite zum Schulsystem unter
@@ -138,7 +143,10 @@ Sondervermögen verwenden dieselbe Datenbasis; Sondervermögen werden nicht zu d
 addiert. Die öffentliche CSV-Ausgabe steht unter `/haushalt/daten.csv` bereit.
 
 Webanalyse ist optional. Der Ausgangszustand nutzt nur notwendige Funktionen; eine Zustimmung wird
-lokal gespeichert und kann über die Datenschutzeinstellungen zurückgesetzt werden.
+lokal gespeichert und kann über die Datenschutzeinstellungen zurückgesetzt werden. Google
+Analytics wird erst nach Zustimmung nachgeladen. Eine etwaige automatische Einbindung von
+Cloudflare Web Analytics muss zusätzlich in der Cloudflare-Projektkonfiguration deaktiviert
+bleiben, weil sie außerhalb des Repository-Builds erfolgen kann.
 
 Die allgemeine Suche unter `/suche/` unterscheidet einen leeren Ausgangszustand, Laden, Treffer,
 keine Treffer und Fehler. Die Suche und ihre Filter bleiben per Tastatur bedienbar; Status und
@@ -147,11 +155,22 @@ Verkündungen, Fundstellen, Verfassung, Förderrichtlinien und Hilfe eigenständ
 
 Jede Seite verwendet das gemeinsame Layout mit Skip-Link, sichtbaren Fokuszuständen,
 Breadcrumbs und individuellen Metadaten. Für Pressemitteilungen werden passende Artikel- und
-Breadcrumb-Strukturdaten erzeugt; für das Portal stehen Website- und Organisationsdaten bereit.
+Breadcrumb-Strukturdaten erzeugt; die Organisationsdaten kennzeichnen das Portal ausdrücklich als
+fiktive Politiksimulation. Das gemeinsame Social-Media-Bild liegt unter
+`public/images/social/portal-preview.png`.
 
 ## Laufzeit und Cloudflare
 
 Das Portal wird weiterhin für Cloudflare Workers gebaut, nutzt aktuell aber keine D1- oder R2-Bindings. Pressemitteilungen, Termine, Stellenangebote, Projektstatus und Medien werden dateibasiert aus `content/`, `src/data/dashboard/` und `public/images/` erzeugt.
+
+Die produktiven Sicherheitsheader einschließlich HSTS, CSP, Framing-, Referrer-, MIME- und
+Permissions-Schutz werden über `public/_headers` für Cloudflare Static Assets ausgeliefert. Die CSP
+erlaubt OpenStreetMap und Google-Analytics-Endpunkte nur als technisch mögliche, weiterhin durch
+die jeweilige Einwilligungslogik gesperrte Ziele.
+
+Responsive Regierungs-, Ressort- und Stellenbilder werden als AVIF, WebP und JPEG unter
+`public/images/generated/` abgelegt. `npm run images:generate` erzeugt die Varianten deterministisch
+aus den redaktionellen Originalbildern.
 
 Das Rechtsportal darf funktional nicht leichtfertig umgebaut werden.
 
@@ -162,16 +181,24 @@ Vor relevanten Änderungen:
 ```sh
 npm run content:check
 npm run check
+npm run test:unit
 npm run build
 npm run links:check
+npm run seo:check
+npm run test:quality
+npm run test:browsers
 ```
 
 Nach öffentlichen Textänderungen zusätzlich gezielt nach Entwicklerbegriffen suchen und sicherstellen, dass sie nicht in Bürgerseiten erscheinen.
-Bei Layout-, Karten- oder Header-Änderungen die Startseite und `/kreisreform/` zusätzlich manuell
-bei 360, 390, 768, 1024 und 1440 Pixel Breite prüfen.
+Bei Layout-, Karten- oder Header-Änderungen die Startseite und `/kreisreform/` zusätzlich bei den
+definierten mobilen, Tablet- und Desktopbreiten prüfen.
 
 `npm run links:check` prüft nach dem Build alle statisch ausgegebenen internen Verweise.
 `npm run test:visual` erzeugt und vergleicht Chromium-Screenshots dieser Ansichten. Die externen
 Basiskacheln der Kreisreform werden dabei unterdrückt, damit die Baselines reproduzierbar bleiben.
 `npm run test:a11y` führt zusätzlich einen automatisierten Accessibility-Smoke-Test aus. Beide
 Checks ergänzen, ersetzen aber nicht den manuellen Tastatur- und Screenreader-Kurztest.
+`npm run test:quality` prüft unter anderem die acht Abnahme-Viewports auf Dokumentüberlauf sowie
+Karten- und Statistikfreigaben, Zoom und reduzierte Bewegung. `npm run test:browsers` führt die
+zentralen Interaktionen zusätzlich in Chromium, Firefox und WebKit aus; `npm run seo:check` prüft
+Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten und Sitemap.

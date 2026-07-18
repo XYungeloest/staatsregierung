@@ -10,6 +10,15 @@ export const siteConfig = {
     locale: 'de_DE',
     defaultDescription:
       'Regierungsportal des Ostdeutschen Freistaates mit Kabinett, Reformprojekten, Rechtsportal, Presse und Service.',
+    simulationDescription:
+      'Fiktives Regierungsportal des Ostdeutschen Freistaates innerhalb einer politischen Simulation.',
+    defaultSocialImage: {
+      url: '/images/social/portal-preview.png',
+      alt: 'Freistaat Ostdeutschland – fiktives Regierungsportal einer Politiksimulation',
+      width: 1200,
+      height: 630,
+      type: 'image/png',
+    },
   },
   simulationNotice:
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',

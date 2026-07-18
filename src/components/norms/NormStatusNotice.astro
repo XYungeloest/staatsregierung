@@ -17,11 +17,11 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
   <h2>{historical ? 'Hinweis zur historischen Fassung' : 'Rechtsstand'}</h2>
   {historical ? (
     <p>
-      Dies ist eine historische Fassung. Sie galt vom {formatDate(version.validFrom)} bis{' '}
-      {version.validTo ? formatDate(version.validTo) : 'heute'}.
+      Dies ist eine historische Fassung. Sie galt vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> bis{' '}
+      {version.validTo ? <time datetime={version.validTo}>{formatDate(version.validTo)}</time> : 'heute'}.
     </p>
   ) : (
-    <p>Dies ist die aktuelle Fassung mit Rechtsstand vom {formatDate(version.validFrom)}.</p>
+    <p>Dies ist die aktuelle Fassung mit Rechtsstand vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>.</p>
   )}
   <p>{toDisplayText(version.changeNote)}</p>
   <nav class="link-list link-list--inline" aria-label="Rechtsstandslinks">
@@ -30,7 +30,7 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
     {!historical &&
       historicalVersions.map((entry) => (
         <a href={getNormVersionUrl(norm.meta.slug, entry.versionId)}>
-          Historische Fassung vom {formatDate(entry.validFrom)}
+          Historische Fassung vom <time datetime={entry.validFrom}>{formatDate(entry.validFrom)}</time>
         </a>
       ))}
   </nav>

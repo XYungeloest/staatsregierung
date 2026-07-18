@@ -35,10 +35,10 @@ const districtCapitals = [
 ];
 
 const historyMilestones = [
-  '1. Dezember 2023 – Gründung des Freistaates Ostdeutschland',
-  'Januar 2024 – Konstituierung des ersten Landtags',
-  '2024 bis 2025 – institutioneller Aufbau und mehrere Regierungswechsel',
-  '20. Dezember 2025 – Bildung des Kabinetts Honecker',
+  { datetime: '2023-12-01', label: '1. Dezember 2023', text: 'Gründung des Freistaates Ostdeutschland' },
+  { datetime: '2024-01', label: 'Januar 2024', text: 'Konstituierung des ersten Landtags' },
+  { datetime: null, label: '2024 bis 2025', text: 'institutioneller Aufbau und mehrere Regierungswechsel' },
+  { datetime: '2025-12-20', label: '20. Dezember 2025', text: 'Bildung des Kabinetts Honecker' },
 ];
 ---
 
@@ -116,7 +116,7 @@ const historyMilestones = [
           </div>
           <ul class="record-list">
             {historyMilestones.map((entry) => (
-              <li class="record-list__item"><span>{entry}</span></li>
+              <li class="record-list__item"><span>{entry.datetime ? <time datetime={entry.datetime}>{entry.label}</time> : entry.label} – {entry.text}</span></li>
             ))}
           </ul>
         </>

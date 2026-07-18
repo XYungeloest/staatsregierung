@@ -10,6 +10,7 @@ export interface SeoImage {
   alt?: string;
   width?: number;
   height?: number;
+  type?: string;
 }
 
 export type StructuredData = Record<string, unknown>;
@@ -48,7 +49,7 @@ export function buildWebSiteJsonLd(site?: URL): StructuredData {
     '@type': 'WebSite',
     name: siteConfig.seo.siteName,
     alternateName: siteConfig.authorityName,
-    description: siteConfig.seo.defaultDescription,
+    description: siteConfig.seo.simulationDescription,
     url: absoluteSiteUrl,
     inLanguage: 'de-DE',
     potentialAction: {
@@ -62,35 +63,12 @@ export function buildWebSiteJsonLd(site?: URL): StructuredData {
 export function buildOrganizationJsonLd(site?: URL): StructuredData {
   return {
     '@context': 'https://schema.org',
-    '@type': 'GovernmentOrganization',
+    '@type': 'Organization',
     name: siteConfig.authorityName,
-    alternateName: siteConfig.seo.siteName,
-    description: siteConfig.seo.defaultDescription,
+    alternateName: `${siteConfig.seo.siteName} – Politiksimulation`,
+    description: siteConfig.seo.simulationDescription,
     url: getBaseUrl(site).toString(),
     logo: toAbsoluteUrl(siteConfig.officialFlagAssetPath, site),
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: siteConfig.contact.addressLines[0],
-      postalCode: '01097',
-      addressLocality: 'Dresden',
-      addressCountry: 'DE',
-    },
-    contactPoint: [
-      {
-        '@type': 'ContactPoint',
-        contactType: 'Bürgerservice',
-        telephone: siteConfig.contact.citizenService.phone,
-        email: siteConfig.contact.citizenService.email,
-        availableLanguage: 'de',
-      },
-      {
-        '@type': 'ContactPoint',
-        contactType: 'Pressestelle',
-        telephone: siteConfig.contact.pressOffice.phone,
-        email: siteConfig.contact.pressOffice.email,
-        availableLanguage: 'de',
-      },
-    ],
   };
 }
 
@@ -141,6 +119,8 @@ export function buildArticleJsonLd(
   input: ArticleJsonLdInput,
   site?: URL,
 ): StructuredData {
+  const image = input.image ?? siteConfig.seo.defaultSocialImage;
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -154,22 +134,24 @@ export function buildArticleJsonLd(
     author: {
       '@type': 'Organization',
       name: input.authorName ?? siteConfig.authorityName,
+      description: siteConfig.seo.simulationDescription,
     },
     publisher: {
       '@type': 'Organization',
       name: siteConfig.authorityName,
+      description: siteConfig.seo.simulationDescription,
       logo: {
         '@type': 'ImageObject',
         url: toAbsoluteUrl(siteConfig.officialFlagAssetPath, site),
       },
     },
-    image: input.image
+    image: image
       ? {
           '@type': 'ImageObject',
-          url: toAbsoluteUrl(input.image.url, site),
-          caption: input.image.alt,
-          width: input.image.width,
-          height: input.image.height,
+          url: toAbsoluteUrl(image.url, site),
+          caption: image.alt,
+          width: image.width,
+          height: image.height,
         }
       : undefined,
   };
@@ -194,8 +176,9 @@ export function buildDatasetJsonLd(
     url: toAbsoluteUrl(input.url, site),
     inLanguage: 'de-DE',
     creator: {
-      '@type': 'GovernmentOrganization',
+      '@type': 'Organization',
       name: siteConfig.authorityName,
+      description: siteConfig.seo.simulationDescription,
     },
     distribution: input.distributionUrl
       ? {
@@ -256,6 +239,7 @@ export function buildEventJsonLd(input: EventJsonLdInput, site?: URL): Structure
       '@type': 'Organization',
       name: siteConfig.authorityName,
       url: getBaseUrl(site).toString(),
+      description: siteConfig.seo.simulationDescription,
     },
   };
 }

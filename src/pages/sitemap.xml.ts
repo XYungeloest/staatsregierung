@@ -32,7 +32,6 @@ import {
   getLawReferencesUrl,
   getMinistryUrl,
   getMinisterPresidentUrl,
-  getPortalSearchUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
@@ -118,7 +117,6 @@ export const GET: APIRoute = async ({ site }) => {
 
   const staticPaths = [
     getHomeUrl(),
-    getPortalSearchUrl(),
     getGovernmentUrl(),
     getGovernmentMembersUrl(),
     getMinisterPresidentUrl(),
@@ -180,6 +178,28 @@ export const GET: APIRoute = async ({ site }) => {
     ...getSubjectGroups(norms).map((group) => getSubjectUrl(group.name)),
   ];
 
+  const lastmodByPath = new Map<string, string>();
+  for (const entry of pressReleases) lastmodByPath.set(getPressReleaseUrl(entry.slug), entry.date);
+  for (const entry of speeches) lastmodByPath.set(getSpeechUrl(entry.slug), entry.date);
+  for (const entry of events) lastmodByPath.set(getEventUrl(entry.slug), entry.date);
+  for (const entry of jobOffers) lastmodByPath.set(getJobUrl(entry.slug), entry.datePosted);
+  for (const publication of publications) {
+    lastmodByPath.set(getPublicationUrl(publication.slug), publication.date);
+  }
+  for (const norm of norms) {
+    const lastmod = [
+      ...norm.versions.map((version) => version.validFrom),
+      ...norm.history.entries.map((entry) => entry.date),
+    ].sort().at(-1);
+    if (!lastmod) continue;
+    lastmodByPath.set(getNormUrl(norm.meta.slug), lastmod);
+    lastmodByPath.set(getNormHistoryUrl(norm.meta.slug), lastmod);
+    if (norm.versions.length > 1) lastmodByPath.set(getNormCompareUrl(norm.meta.slug), lastmod);
+    for (const version of norm.versions.filter((entry) => !entry.isCurrent)) {
+      lastmodByPath.set(getNormVersionUrl(norm.meta.slug, version.versionId), version.validFrom);
+    }
+  }
+
   const paths = unique([...staticPaths, ...dynamicPaths]).filter(
     (path) => path !== siteConfig.paths.lawSearch,
   );
@@ -187,9 +207,10 @@ export const GET: APIRoute = async ({ site }) => {
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
-    ...paths.map(
-      (path) => `  <url><loc>${escapeXml(toAbsoluteUrl(path, baseUrl))}</loc></url>`,
-    ),
+    ...paths.map((path) => {
+      const lastmod = lastmodByPath.get(path);
+      return `  <url><loc>${escapeXml(toAbsoluteUrl(path, baseUrl))}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`;
+    }),
     '</urlset>',
   ].join('\n');
 

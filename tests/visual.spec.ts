@@ -85,9 +85,9 @@ test('Portalsuche: Zustände schließen sich gegenseitig aus', async ({ page }) 
   await expect(error).toBeHidden();
 
   await input.fill('zzzznichtvorhanden');
-  await expect(status).toContainText('Keine Treffer gefunden.');
+  await expect(status).toContainText('Keine Treffer für');
   await expect(page.locator('[data-portal-search-results] .search-hit')).toHaveCount(0);
-  await expect(noResults).toBeHidden();
+  await expect(noResults).toBeVisible();
   await expect(error).toBeHidden();
 });
 
@@ -130,16 +130,13 @@ test('Kreisreform: Kartenansicht ist kontrolliert und lesbar', async ({ page }) 
   await preparePage(page);
   await page.goto('/kreisreform/');
 
-  const disclosure = page.locator('[data-map-disclosure]');
-  await expect(disclosure).toHaveCount(1);
-  const isOpen = await disclosure.evaluate((element) => (element as HTMLDetailsElement).open);
-  if (!isOpen) {
-    await page.locator('[data-map-disclosure] > summary').click();
-  }
+  const gate = page.locator('[data-map-gate]');
+  await expect(gate).toHaveCount(1);
+  await page.locator('[data-map-load]').click();
 
   await expect(page.locator('[data-map-status]')).toContainText(/Karte bereit|Karte konnte nicht geladen werden/, { timeout: 20_000 });
   await verifyViewport(page);
-  await expect(disclosure).toHaveScreenshot('kreisreform-karte.png');
+  await expect(gate).toHaveScreenshot('kreisreform-karte.png');
 });
 
 test('Consent-Hinweis ist lesbar und ablehnbar', async ({ page }) => {

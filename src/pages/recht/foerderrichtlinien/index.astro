@@ -62,7 +62,7 @@ const latestFunding = [...fundingNorms]
             <article class="panel">
               <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.shortTitle || norm.meta.title)}</a></h3>
               <p>{toDisplayText(norm.meta.summary)}</p>
-              <p class="detail-line">Gültig seit {formatDate(version.validFrom)} · {toDisplayText(norm.meta.ministry)}</p>
+              <p class="detail-line">Gültig seit <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> · {toDisplayText(norm.meta.ministry)}</p>
             </article>
           );
         })}

@@ -1,0 +1,49 @@
+---
+import { resolvePortalPath } from '../../lib/portal/index.ts';
+
+interface Props {
+  src: string;
+  alt: string;
+  className?: string;
+  width: number;
+  height: number;
+  widths: number[];
+  sizes: string;
+  loading?: 'eager' | 'lazy';
+  fetchpriority?: 'high' | 'low' | 'auto';
+}
+
+const {
+  src,
+  alt,
+  className,
+  width,
+  height,
+  widths,
+  sizes,
+  loading = 'lazy',
+  fetchpriority = 'auto',
+} = Astro.props as Props;
+const pathWithoutExtension = src.replace(/^\/images\//u, '').replace(/\.[a-z0-9]+$/iu, '');
+const variantUrl = (variantWidth: number, extension: 'avif' | 'webp' | 'jpg') =>
+  resolvePortalPath(`/images/generated/${pathWithoutExtension}-${variantWidth}.${extension}`);
+const srcset = (extension: 'avif' | 'webp' | 'jpg') =>
+  widths.map((variantWidth) => `${variantUrl(variantWidth, extension)} ${variantWidth}w`).join(', ');
+---
+
+<picture class="responsive-picture">
+  <source type="image/avif" srcset={srcset('avif')} sizes={sizes} />
+  <source type="image/webp" srcset={srcset('webp')} sizes={sizes} />
+  <img
+    class={className}
+    src={resolvePortalPath(src)}
+    srcset={srcset('jpg')}
+    sizes={sizes}
+    alt={alt}
+    width={width}
+    height={height}
+    loading={loading}
+    fetchpriority={fetchpriority}
+    decoding="async"
+  />
+</picture>

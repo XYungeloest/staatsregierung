@@ -13,6 +13,7 @@ const indexUrl = `${import.meta.env.BASE_URL}search-index.json`;
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Suche', href: getPortalSearchUrl() },
   ]}
+  noindex={true}
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Suche' }]} />
 
@@ -56,6 +57,13 @@ const indexUrl = `${import.meta.env.BASE_URL}search-index.json`;
             <option value="law">Recht</option>
           </select>
         </label>
+        <label class="search-field">
+          <span>Sortierung</span>
+          <select name="sort" data-portal-search-sort>
+            <option value="relevance">Relevanz</option>
+            <option value="latest">Aktualität</option>
+          </select>
+        </label>
       </div>
       <div class="search-form__actions">
         <button class="button-link" type="submit">Suchen</button>
@@ -81,6 +89,11 @@ const indexUrl = `${import.meta.env.BASE_URL}search-index.json`;
       data-portal-search-results
       aria-labelledby="portal-search-results-heading"
     ></ol>
+    <p class="search-results__more" data-portal-search-more-wrap hidden>
+      <button class="button-link button-link--secondary" type="button" data-portal-search-more>
+        Weitere Treffer laden
+      </button>
+    </p>
   </section>
 
   <script>

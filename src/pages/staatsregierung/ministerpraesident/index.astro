@@ -74,7 +74,7 @@ const topPriorities = topics
         </p>
         <p>
           Die derzeitige Regierungsbildung datiert vom{' '}
-          {siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}. Die Leitungsseite
+          <time datetime={siteConfig.currentGovernment.formedOn}>{siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}</time>. Die Leitungsseite
           fasst die politischen Kerndaten bewusst sachlich und übersichtlich zusammen.
         </p>
         <p>

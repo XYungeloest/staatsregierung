@@ -361,6 +361,7 @@ function initContactRouterModule(): void {
   }
 
   const cards = Array.from(document.querySelectorAll<HTMLElement>('.contact-route-card'));
+  const status = document.querySelector<HTMLElement>('[data-contact-router-status]');
 
   const update = () => {
     const data = new FormData(form);
@@ -369,6 +370,13 @@ function initContactRouterModule(): void {
     for (const card of cards) {
       const key = card.getAttribute('data-route-key');
       card.hidden = !topic || key !== topic;
+    }
+
+    const selectedCard = cards.find((card) => card.getAttribute('data-route-key') === topic);
+    if (status) {
+      status.textContent = selectedCard
+        ? `Kontaktweg angezeigt: ${selectedCard.dataset.routeTitle ?? 'passender Kontaktweg'}.`
+        : 'Wählen Sie ein Anliegen aus. Das passende Ergebnis erscheint anschließend unterhalb der Auswahl.';
     }
   };
 

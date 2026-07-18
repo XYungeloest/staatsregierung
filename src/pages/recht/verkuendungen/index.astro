@@ -84,7 +84,7 @@ const years = [...new Set(publications.map((publication) => publication.year))].
                 </a>
               </strong>
               <span>
-                {getPublicationLabel(publication)} · {formatDate(publication.date)} · {publication.entries.length}{' '}
+                {getPublicationLabel(publication)} · <time datetime={publication.date}>{formatDate(publication.date)}</time> · {publication.entries.length}{' '}
                 {publication.entries.length === 1 ? 'Eintrag' : 'Einträge'}
               </span>
               <span>

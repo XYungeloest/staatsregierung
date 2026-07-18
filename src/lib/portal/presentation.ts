@@ -2,34 +2,31 @@ import type { Themenstatus } from './schema.ts';
 
 export function formatTopicStatus(status: Themenstatus): string {
   switch (status) {
-    case 'umgesetzt':
-      return 'Umgesetzt';
-    case 'kernprojekt':
-      return 'Kernprojekt';
-    case 'teilweise-umgesetzt':
-      return 'Teilweise umgesetzt';
-    case 'sehr-weit-umgesetzt':
-      return 'Sehr weit umgesetzt';
-    case 'deutlich-umgesetzt':
-      return 'Deutlich umgesetzt';
-    case 'ausbauphase':
-      return 'Ausbauphase';
-    case 'laufend':
-      return 'Laufend';
+    case 'geplant':
+      return 'Geplant';
+    case 'entwurf':
+      return 'Entwurf';
+    case 'im-gesetzgebungsverfahren':
+      return 'Im Gesetzgebungsverfahren';
+    case 'beschlossen':
+      return 'Beschlossen';
+    case 'in-umsetzung':
+      return 'In Umsetzung';
+    case 'abgeschlossen':
+      return 'Abgeschlossen';
   }
 }
 
 export function getTopicStatusTone(status: Themenstatus): 'green' | 'blue' | 'amber' {
   switch (status) {
-    case 'umgesetzt':
-    case 'kernprojekt':
-    case 'sehr-weit-umgesetzt':
-    case 'deutlich-umgesetzt':
+    case 'abgeschlossen':
       return 'green';
-    case 'teilweise-umgesetzt':
-    case 'laufend':
+    case 'beschlossen':
+    case 'in-umsetzung':
       return 'blue';
-    case 'ausbauphase':
+    case 'geplant':
+    case 'entwurf':
+    case 'im-gesetzgebungsverfahren':
       return 'amber';
   }
 }

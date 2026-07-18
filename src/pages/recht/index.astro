@@ -192,7 +192,7 @@ const faqItems = [
             <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></h3>
             <p>{norm.meta.summary}</p>
             <p class="detail-line">
-              {formatNormType(norm.meta.type)} · Rechtsstand seit {formatDate(currentVersion.validFrom)}
+              {formatNormType(norm.meta.type)} · Rechtsstand seit <time datetime={currentVersion.validFrom}>{formatDate(currentVersion.validFrom)}</time>
             </p>
           </article>
         );
@@ -212,7 +212,7 @@ const faqItems = [
             <a class="inline-link" href={getPublicationUrl(publication.slug)}>{publication.title}</a>
           </strong>
           <span>
-            {formatDate(publication.date)} · {publication.publication} {publication.year} Nr. {publication.issue} ·{' '}
+            <time datetime={publication.date}>{formatDate(publication.date)}</time> · {publication.publication} {publication.year} Nr. {publication.issue} ·{' '}
             {publication.entries.length} {publication.entries.length === 1 ? 'Eintrag' : 'Einträge'}
           </span>
         </li>

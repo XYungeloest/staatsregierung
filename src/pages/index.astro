@@ -7,47 +7,28 @@ import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '../lib/seo/index.ts
 import {
   getActionPlanUrl,
   getBudgetUrl,
-  getCareerUrl,
-  getFreestateUrl,
-  getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
   getKreisreformUrl,
   getLawHomeUrl,
-  getLawPublicationsUrl,
-  getLawSearchUrl,
   getContactUrl,
   getEventIndexUrl,
   getPortalSearchUrl,
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
-  getServiceUrl,
   getTopicsUrl,
 } from '../lib/portal/index.ts';
-import {
-  loadCurrentJobOffers,
-  loadMinistries,
-  loadRecentPressReleases,
-  loadTopics,
-} from '../lib/portal/content.ts';
-import { getCurrentVersion, loadAllNorms } from '../lib/norms/content.ts';
-import { getNormUrl } from '../lib/norms/index.ts';
+import { loadMinistries, loadRecentPressReleases, loadTopics } from '../lib/portal/content.ts';
 
-const [ministries, topics, latestReleases, currentJobOffers, norms] = await Promise.all([
+const [ministries, topics, latestReleases] = await Promise.all([
   loadMinistries(),
   loadTopics(),
   loadRecentPressReleases(1),
-  loadCurrentJobOffers(1),
-  loadAllNorms(),
 ]);
 
 const currentGovernment = siteConfig.currentGovernment;
 const latestRelease = latestReleases[0];
-const latestNorm = [...norms]
-  .sort((left, right) =>
-    getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom),
-  )[0];
 const featuredTopics = [
   'wohnen-und-vergesellschaftung',
   'gute-arbeit',
@@ -69,19 +50,15 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
 
   <section class="section page-header portal-home-header">
     <p class="eyebrow">Staatsregierung des Ostdeutschen Freistaates</p>
-    <h1>Regierungsportal des Ostdeutschen Freistaates</h1>
+    <h1>Gesetze, Reformen und Services auf einen Blick</h1>
     <p class="lead">
-      Hier finden Sie Gesetze, Reformvorhaben, Pressemitteilungen, Haushaltsdaten und Kontaktwege
-      der Staatsregierung.
+      Finden Sie aktuelle Rechtsstände, politische Vorhaben, Haushaltsdaten und den passenden
+      Kontakt zur Staatsregierung.
     </p>
     <nav class="hero-actions portal-home-header__actions" aria-label="Wichtige Einstiege">
-      <a class="button-link" href={getPortalSearchUrl()}>Recht &amp; Reformen durchsuchen</a>
+      <a class="button-link" href={getPortalSearchUrl()}>Portal durchsuchen</a>
+      <a class="button-link button-link--secondary" href="#aktuelle-vorhaben">Aktuelle Vorhaben</a>
     </nav>
-    <p class="portal-home-header__secondary-link">
-      <a class="inline-link" href={getPressReleaseIndexUrl()}>Pressemitteilungen ansehen</a>
-      <span aria-hidden="true"> · </span>
-      <a class="inline-link" href={getContactUrl()}>Kontakt zur Staatsregierung</a>
-    </p>
   </section>
 
   <section class="section" aria-labelledby="portalpfade">
@@ -91,55 +68,58 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
     </div>
     <div class="card-grid card-grid--three portal-path-grid">
       <article class="panel portal-path-card">
-        <h3>Ich suche ein Gesetz oder eine Vorschrift</h3>
+        <h3>Gesetz finden</h3>
         <p>Durchsuchen Sie Vorschriften, Fassungen, Fundstellen und Verkündungen.</p>
         <p><a class="inline-link" href={getLawHomeUrl()}>Gesetz suchen</a></p>
       </article>
       <article class="panel portal-path-card">
-        <h3>Ich will wissen, was sich durch eine Reform ändert</h3>
+        <h3>Reform verstehen</h3>
         <p>Sehen Sie Umsetzungsstand, Zuständigkeit, nächste Schritte und Rechtsgrundlagen.</p>
         <p><a class="inline-link" href={getTopicsUrl()}>Reformen ansehen</a></p>
       </article>
       <article class="panel portal-path-card">
-        <h3>Ich suche meine neue Kreis- oder Bezirkszuordnung</h3>
+        <h3>Neue Kreiszuordnung finden</h3>
         <p>Finden Sie Gemeinden, Kreise und Bezirke in der Kreisreform 2026.</p>
         <p><a class="inline-link" href={`${getKreisreformUrl()}#bezirk-suche`}>Gemeinde suchen</a></p>
       </article>
       <article class="panel portal-path-card">
-        <h3>Ich möchte die Staatsregierung kontaktieren</h3>
+        <h3>Zuständige Stelle finden</h3>
         <p>Nutzen Sie zentrale Kontaktwege und den Zuständigkeitswegweiser.</p>
         <p><a class="inline-link" href={getContactUrl()}>Kontaktweg finden</a></p>
       </article>
       <article class="panel portal-path-card">
-        <h3>Ich suche Pressemitteilungen oder Termine</h3>
+        <h3>Presse und Termine</h3>
         <p>Lesen Sie Pressemitteilungen, Reden und Termine der Staatsregierung.</p>
         <p><a class="inline-link" href={getPressUrl()}>Pressebereich öffnen</a></p>
       </article>
     </div>
   </section>
 
-  <section class="section portal-reform-priority" aria-labelledby="aktuell-wichtig">
+  <section id="aktuelle-vorhaben" class="section portal-reform-priority" aria-labelledby="aktuell-wichtig">
     <div class="section-header">
-      <h2 id="aktuell-wichtig">Aktuell wichtig</h2>
-      <p>Wichtige Verfahren und Grundlagen im Überblick.</p>
+      <h2 id="aktuell-wichtig">Aktuelle Vorhaben</h2>
+      <p>Zentrale Reformen und ihr Umsetzungsstand im Überblick.</p>
     </div>
     <div class="card-grid card-grid--three">
-      <article class="panel">
+      <article class="panel portal-project-card">
         <h3>Kreis- und Bezirksreform 2026</h3>
-        <p>Gesetzgebungsverfahren 2026, Wirksamwerden zum 1. August 2026.</p>
+        <p>Gesetzgebungsverfahren 2026, Wirksamwerden zum <time datetime="2026-08-01">1. August 2026</time>.</p>
         <p><a class="inline-link" href={`${getKreisreformUrl()}#bezirk-suche`}>Gemeinde suchen</a></p>
       </article>
-      <article class="panel">
-        <h3>Doppelhaushalt 2025/2026</h3>
-        <p>Ausgaben, Investitionen, Einzelpläne und Sondervermögen verständlich erklärt.</p>
-        <p><a class="inline-link" href={getBudgetUrl()}>Haushalt ansehen</a></p>
-      </article>
-      <article class="panel">
-        <h3>Aktuelle Gesetzgebung</h3>
-        <p>Laufende Verfahren, verkündete Gesetze und Rechtsstände im Überblick.</p>
-        <p><a class="inline-link" href={getLawHomeUrl()}>Rechtsportal öffnen</a></p>
-      </article>
+      {featuredTopics.map((topic) => (
+        <TopicCard
+          topic={topic}
+          ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname}
+        />
+      ))}
     </div>
+    <p class="section-link-row">
+      <a class="inline-link" href={getTopicsUrl()}>Alle Reformthemen</a>
+      <span aria-hidden="true"> · </span>
+      <a class="inline-link" href={getBudgetUrl()}>Doppelhaushalt 2025/2026</a>
+      <span aria-hidden="true"> · </span>
+      <a class="inline-link" href={getLawHomeUrl()}>Aktuelle Gesetzgebung</a>
+    </p>
   </section>
 
   <section class="section section-muted" aria-labelledby="regierungsstand">
@@ -147,7 +127,7 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
       <h2 id="regierungsstand">Aktueller Regierungsstand</h2>
       <p>
         Das {currentGovernment.cabinetName} ist seit dem{' '}
-        {siteConfig.date.formatLong(currentGovernment.formedOn)} im Amt. Es wird von{' '}
+        <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time> im Amt. Es wird von{' '}
         {currentGovernment.headOfGovernment} geleitet; die politischen Vorhaben sind im
         15-Punkte-Plan II gebündelt.
       </p>
@@ -157,123 +137,40 @@ const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, mini
         <a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a>
       </p>
     </div>
-    {latestRelease ? (
-      <div class="portal-current-news">
-        <p class="eyebrow">Neueste Pressemitteilung</p>
-        <h3><a class="inline-link" href={getPressReleaseUrl(latestRelease.slug)}>{latestRelease.title}</a></h3>
-        <p>{latestRelease.teaser}</p>
-        <p class="detail-line">{siteConfig.date.formatLong(latestRelease.date)} · {latestRelease.ressort}</p>
-      </div>
-    ) : null}
-  </section>
-
-  <section class="section" aria-labelledby="projekte">
-    <div class="section-header">
-      <h2 id="projekte">Top-Projekte und Reformen</h2>
-      <p>Diese Vorhaben sind derzeit besonders wichtig und führen zu Zuständigkeiten und Rechtsgrundlagen.</p>
-    </div>
-    <div class="card-grid card-grid--two">
-      <article class="panel portal-project-card">
-        <p class="eyebrow">Kreis- und Bezirksreform 2026</p>
-        <h3>Kreise, Bezirke und Zuständigkeiten neu ordnen</h3>
-        <p>Vergleichen Sie die neue Verwaltungsgliederung über Karte, Suche und tabellarische Übersicht.</p>
-        <p><a class="inline-link" href={`${getKreisreformUrl()}#karte`}>Kreisreform-Karte ansehen</a></p>
-      </article>
-      {featuredTopics.map((topic) => (
-        <TopicCard
-          topic={topic}
-          ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname}
-        />
-      ))}
-    </div>
-    <p class="section-link-row"><a class="inline-link" href={getTopicsUrl()}>Alle Reformthemen anzeigen</a></p>
-  </section>
-
-  <section class="section section-muted" aria-labelledby="recht-teaser">
-    <div class="content-grid">
-      <div>
-        <div class="section-header">
-          <h2 id="recht-teaser">Recht schnell finden</h2>
-          <p>Durchsuchen Sie Vorschriften, aktuelle und historische Fassungen, Fundstellen und Verkündungen.</p>
-        </div>
-        <p>
-          <a class="button-link" href={getLawSearchUrl()}>Recht durchsuchen</a>
-          <a class="button-link button-link--secondary" href={getLawPublicationsUrl()}>Verkündungen ansehen</a>
-        </p>
-      </div>
-      <aside class="meta-panel portal-law-current">
-        <p class="eyebrow">Zuletzt aktualisiert</p>
-        {latestNorm ? (
-          <>
-            <h3><a class="inline-link" href={getNormUrl(latestNorm.meta.slug)}>{latestNorm.meta.title}</a></h3>
-            <p>Aktuelle Fassung seit {siteConfig.date.formatLong(getCurrentVersion(latestNorm).validFrom)}.</p>
-          </>
-        ) : <p>Das Rechtsportal hält aktuelle und gespeicherte historische Fassungen bereit.</p>}
-      </aside>
-    </div>
   </section>
 
   <section class="section" aria-labelledby="presse-service">
     <div class="section-header">
-      <h2 id="presse-service">Presse, Kontakt und Service</h2>
-      <p>Hier finden Sie aktuelle Mitteilungen, Kontaktwege und weitere Angebote des Portals.</p>
+      <h2 id="presse-service">Presse und Termine</h2>
+      <p>Aktuelle Mitteilungen, öffentliche Termine und Abonnements der Staatsregierung.</p>
     </div>
     <div class="card-grid card-grid--three">
       <article class="panel">
-        <h3>Presse &amp; Aktuelles</h3>
-        <p>Pressemitteilungen, Reden, Termine sowie RSS- und Kalenderangebote.</p>
-        <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Pressemitteilungen öffnen</a></p>
+        <p class="eyebrow">Neueste Pressemitteilung</p>
+        {latestRelease ? (
+          <>
+            <h3><a class="inline-link" href={getPressReleaseUrl(latestRelease.slug)}>{latestRelease.title}</a></h3>
+            <p>{latestRelease.teaser}</p>
+            <p class="detail-line"><time datetime={latestRelease.date}>{siteConfig.date.formatLong(latestRelease.date)}</time> · {latestRelease.ressort}</p>
+          </>
+        ) : <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Pressemitteilungen öffnen</a></p>}
+      </article>
+      <article class="panel">
+        <h3>Termine und Abonnements</h3>
+        <p>Öffentliche Termine lassen sich als Kalender öffnen; neue Mitteilungen stehen als RSS-Feed bereit.</p>
+        <p>
+          <a class="inline-link" href={getEventIndexUrl()}>Termine ansehen</a>
+          <span aria-hidden="true"> · </span>
+          <a class="inline-link" href={`${getEventIndexUrl()}kalender.ics`}>Kalender</a>
+          <span aria-hidden="true"> · </span>
+          <a class="inline-link" href={`${getPressUrl()}rss.xml`}>RSS</a>
+        </p>
       </article>
       <article class="panel">
         <h3>Kontakt</h3>
-        <p>Die zentrale Anlaufstelle bündelt Bürgertelefon, Presse- und Fachkontakte.</p>
-        <p><a class="inline-link" href={getServiceUrl()}>Service und Kontakt öffnen</a></p>
-      </article>
-      <article class="panel">
-        <h3>Karriere</h3>
-        {currentJobOffers[0] ? (
-          <>
-            <p>{currentJobOffers[0].title}</p>
-            <p><a class="inline-link" href={getCareerUrl()}>Aktuelle Stellenangebote öffnen</a></p>
-          </>
-        ) : (
-          <>
-            <p>Derzeit sind keine offenen Bewerbungsfristen hinterlegt. Informationen zum Arbeitsfeld bleiben im Karrierebereich verfügbar.</p>
-            <p><a class="inline-link" href={getCareerUrl()}>Zum Karrierebereich</a></p>
-          </>
-        )}
+        <p>Der Wegweiser führt zum passenden Bürgertelefon, Presse- oder Fachkontakt.</p>
+        <p><a class="inline-link" href={getContactUrl()}>Zuständige Stelle finden</a></p>
       </article>
     </div>
-  </section>
-
-  <section class="section section-muted" aria-labelledby="vorhaben-verfolgen">
-    <div class="content-grid">
-      <div>
-        <div class="section-header section-header--compact">
-          <h2 id="vorhaben-verfolgen">Vorhaben verfolgen</h2>
-          <p>Erhalten Sie neue Pressemitteilungen, Termine und Verkündungen per RSS oder Kalender.</p>
-        </div>
-        <p class="section-link-row">
-          <a class="inline-link" href={`${getPressUrl()}rss.xml`}>RSS abonnieren</a>
-          <span aria-hidden="true"> · </span>
-          <a class="inline-link" href={`${getEventIndexUrl()}kalender.ics`}>Kalender öffnen</a>
-          <span aria-hidden="true"> · </span>
-          <a class="inline-link" href={getPressReleaseIndexUrl()}>Pressemitteilungen ansehen</a>
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section portal-home-secondary" aria-labelledby="weitere-einstiege">
-    <div class="section-header">
-      <h2 id="weitere-einstiege">Weitere Einstiege</h2>
-    </div>
-    <nav class="link-list link-list--inline" aria-label="Weitere Portalbereiche">
-      <a href={getGovernmentMembersUrl()}>Regierungsmitglieder</a>
-      <a href={getFreestateUrl()}>Grunddaten zum Freistaat</a>
-      <a href={getActionPlanUrl()}>Zeitplan der Vorhaben</a>
-      <a href={getPressUrl()}>Presse &amp; Aktuelles</a>
-      <a href={getServiceUrl()}>Serviceübersicht</a>
-    </nav>
   </section>
 </BaseLayout>

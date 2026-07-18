@@ -17,6 +17,7 @@ declare global {
 const ACCEPT_SELECTOR = '[data-analytics-consent-accept]';
 const REJECT_SELECTOR = '[data-analytics-consent-reject]';
 const RESET_SELECTOR = '[data-analytics-consent-reset]';
+let returnFocusTo: HTMLElement | null = null;
 
 function supportsStorage(): boolean {
   try {
@@ -31,8 +32,12 @@ function readConsent(): AnalyticsConsentState | null {
     return null;
   }
 
-  const value = window.localStorage.getItem(analyticsConfig.consentStorageKey);
-  return value === 'accepted' || value === 'rejected' ? value : null;
+  try {
+    const value = window.localStorage.getItem(analyticsConfig.consentStorageKey);
+    return value === 'accepted' || value === 'rejected' ? value : null;
+  } catch {
+    return null;
+  }
 }
 
 function writeConsent(value: AnalyticsConsentState): void {
@@ -40,7 +45,11 @@ function writeConsent(value: AnalyticsConsentState): void {
     return;
   }
 
-  window.localStorage.setItem(analyticsConfig.consentStorageKey, value);
+  try {
+    window.localStorage.setItem(analyticsConfig.consentStorageKey, value);
+  } catch {
+    // Die Auswahl gilt dann nur für den aktuellen Seitenaufruf.
+  }
 }
 
 function clearConsent(): void {
@@ -48,15 +57,24 @@ function clearConsent(): void {
     return;
   }
 
-  window.localStorage.removeItem(analyticsConfig.consentStorageKey);
+  try {
+    window.localStorage.removeItem(analyticsConfig.consentStorageKey);
+  } catch {
+    // Der lokale Speicher ist in diesem Browser nicht verfügbar.
+  }
 }
 
 function getBanner(): HTMLElement | null {
   return document.getElementById(analyticsConfig.bannerId);
 }
 
-function showBanner(): void {
+function showBanner(focusDecision = false): void {
   getBanner()?.removeAttribute('hidden');
+  if (focusDecision) {
+    window.requestAnimationFrame(() => {
+      getBanner()?.querySelector<HTMLButtonElement>(REJECT_SELECTOR)?.focus();
+    });
+  }
 }
 
 function hideBanner(): void {
@@ -105,6 +123,28 @@ function configureGoogleAnalytics(consent: AnalyticsConsentState): void {
   window.__ga4Configured = true;
 }
 
+function expireAnalyticsCookies(): void {
+  const cookieNames = document.cookie
+    .split(';')
+    .map((entry) => entry.split('=')[0]?.trim())
+    .filter((name): name is string => Boolean(name && (/^_ga/iu.test(name) || /^_gid$/iu.test(name) || /^_gat/iu.test(name))));
+  const domainParts = window.location.hostname.split('.');
+  const domains = ['', window.location.hostname, domainParts.length > 1 ? `.${domainParts.slice(-2).join('.')}` : ''];
+
+  for (const name of cookieNames) {
+    for (const domain of new Set(domains)) {
+      document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax${domain ? `; Domain=${domain}` : ''}`;
+    }
+  }
+}
+
+function disableGoogleAnalytics(): void {
+  updateGoogleConsent('rejected');
+  document.querySelector('script[data-analytics-loader]')?.remove();
+  expireAnalyticsCookies();
+  window.__ga4Configured = false;
+}
+
 function applyConsent(state: AnalyticsConsentState): void {
   if (state === 'accepted') {
     configureGoogleAnalytics(state);
@@ -116,7 +156,12 @@ function applyConsent(state: AnalyticsConsentState): void {
 function persistAndApplyConsent(state: AnalyticsConsentState): void {
   writeConsent(state);
   applyConsent(state);
+  if (state === 'rejected') {
+    disableGoogleAnalytics();
+  }
   hideBanner();
+  returnFocusTo?.focus();
+  returnFocusTo = null;
 }
 
 function handleClick(event: Event): void {
@@ -137,13 +182,12 @@ function handleClick(event: Event): void {
   }
 
   if (target.closest(RESET_SELECTOR)) {
+    returnFocusTo = target.closest<HTMLElement>(RESET_SELECTOR);
     clearConsent();
-    window.__ga4Configured = false;
-    const defaultConsent = getDefaultAnalyticsConsentState();
-    applyConsent(defaultConsent);
+    disableGoogleAnalytics();
 
     if (shouldShowAnalyticsConsentBanner()) {
-      showBanner();
+      showBanner(true);
     } else {
       hideBanner();
     }

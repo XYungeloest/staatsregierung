@@ -6,7 +6,6 @@ import { buildArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
   getPressUrl,
-  resolvePortalPath,
   getSpeechIndexUrl,
   getSpeechUrl,
   type Rede,
@@ -37,20 +36,12 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
     { label: speech.title },
   ]}
   ogType="article"
-  ogImage={{
-    url: '/images/presse/rede-uebersicht.png',
-    alt: 'Grafik zu einer Rede oder Regierungserklärung der Staatsregierung',
-  }}
   structuredData={buildArticleJsonLd(
     {
       title: speech.title,
       description: speech.teaser,
       url: getSpeechUrl(speech.slug),
       datePublished: speech.date,
-      image: {
-        url: '/images/presse/rede-uebersicht.png',
-        alt: 'Grafik zu einer Rede oder Regierungserklärung der Staatsregierung',
-      },
       articleSection: 'Rede',
       authorName: speech.sprecher,
     },
@@ -70,19 +61,11 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
     <p class="eyebrow">Rede</p>
     <h1>{speech.title}</h1>
     <p class="lead">{speech.teaser}</p>
-    <p class="detail-line">{siteConfig.date.formatLong(speech.date)} · {speech.sprecher}</p>
+    <p class="detail-line"><time datetime={speech.date}>{siteConfig.date.formatLong(speech.date)}</time> · {speech.sprecher}</p>
   </section>
 
   <div class="content-grid">
     <section class="section">
-      <img
-        class="media-banner"
-            src={resolvePortalPath('/images/presse/rede-uebersicht.png')}
-        alt="Grafik zu einer Rede oder Regierungserklärung der Staatsregierung"
-        width="1280"
-        height="720"
-        decoding="async"
-      />
       <div class="body-copy">
         {speech.body.map((paragraph) => (
           <p>{paragraph}</p>
@@ -97,7 +80,7 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
       <dl class="meta-list">
         <div>
           <dt>Datum</dt>
-          <dd>{siteConfig.date.formatLong(speech.date)}</dd>
+          <dd><time datetime={speech.date}>{siteConfig.date.formatLong(speech.date)}</time></dd>
         </div>
         <div>
           <dt>Sprecher</dt>
@@ -122,7 +105,7 @@ const relatedSpeeches = allSpeeches.filter((entry) => entry.slug !== speech.slug
             {relatedSpeeches.map((entry) => (
               <li class="record-list__item">
                 <strong><a class="inline-link" href={getSpeechUrl(entry.slug)}>{entry.title}</a></strong>
-                <span>{siteConfig.date.formatLong(entry.date)}</span>
+                <span><time datetime={entry.date}>{siteConfig.date.formatLong(entry.date)}</time></span>
               </li>
             ))}
           </ul>

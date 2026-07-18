@@ -82,4 +82,9 @@ export {
   type ParsedCitation,
   type TextLinkReference,
 } from './presentation.ts';
-export { buildNormTextLinkReferences, getRelatedNormsBySubjects } from './references.ts';
+export {
+  buildNormTextLinkReferences,
+  getRelatedNormRecommendations,
+  getRelatedNormsBySubjects,
+  type RelatedNormRecommendation,
+} from './references.ts';

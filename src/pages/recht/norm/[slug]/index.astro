@@ -25,7 +25,7 @@ import {
   getNormVersionUrl,
   buildNormTextLinkReferences,
   buildNormPublicationReferenceLookup,
-  getRelatedNormsBySubjects,
+  getRelatedNormRecommendations,
   loadAllVerkuendungen,
 } from '../../../../lib/norms/index.ts';
 import { getCurrentVersion, loadAllNorms } from '../../../../lib/norms/content.ts';
@@ -40,7 +40,7 @@ export async function getStaticPaths() {
       norm,
       currentVersion: getCurrentVersion(norm),
       textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
-      relatedNorms: getRelatedNormsBySubjects(norm, norms),
+      relatedNorms: getRelatedNormRecommendations(norm, norms),
       publicationReferences,
     },
   }));
@@ -63,7 +63,7 @@ const relatedPressReleases = pressReleases
 ---
 
 <BaseLayout
-  title={normTitle}
+  title={normLabel}
   description={currentDescription}
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
@@ -83,12 +83,12 @@ const relatedPressReleases = pressReleases
     <p class="eyebrow">Aktuelle Fassung</p>
     <h1>{toDisplayText(norm.meta.title)}</h1>
     <p class="lead">{toDisplayText(norm.meta.summary)}</p>
-    <p class="status-line">Rechtsstand: aktuelle Fassung seit {formatDate(currentVersion.validFrom)}</p>
+    <p class="status-line">Rechtsstand: aktuelle Fassung seit <time datetime={currentVersion.validFrom}>{formatDate(currentVersion.validFrom)}</time></p>
     <nav class="link-list link-list--inline" aria-label="Seitennavigation">
       <a href={getNormHistoryUrl(norm.meta.slug)}>Historie</a>
       {historicalVersions.map((version) => (
         <a href={getNormVersionUrl(norm.meta.slug, version.versionId)}>
-          Fassung vom {formatDate(version.validFrom)}
+          Fassung vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>
         </a>
       ))}
     </nav>
@@ -150,7 +150,7 @@ const relatedPressReleases = pressReleases
                 {relatedPressReleases.map((release) => (
                   <li class="record-list__item">
                     <a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a>
-                    <span>{formatDate(release.date)} · {release.ressort}</span>
+                    <span><time datetime={release.date}>{formatDate(release.date)}</time> · {release.ressort}</span>
                   </li>
                 ))}
               </ul>

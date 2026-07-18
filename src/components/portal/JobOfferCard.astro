@@ -19,7 +19,7 @@ const isCompact = variant === 'compact';
     <p class="detail-line">{offer.ressort}</p>
     <p class="job-card__meta">
       {offer.standort} · {offer.employmentType} · Bewerbungsfrist{' '}
-      {siteConfig.date.formatLong(offer.applicationDeadline)}
+      <time datetime={offer.applicationDeadline}>{siteConfig.date.formatLong(offer.applicationDeadline)}</time>
     </p>
     {isToday(offer.applicationDeadline) ? <p class="tag">Bewerbungsfrist endet heute</p> : null}
   </div>

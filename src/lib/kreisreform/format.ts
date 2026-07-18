@@ -27,3 +27,12 @@ export function formatArea(value: number | undefined): string {
 export function formatLongDate(value: string): string {
   return longDateFormatter.format(new Date(`${value}T00:00:00+01:00`));
 }
+
+export function formatCount(
+  value: number | undefined,
+  singular: string,
+  plural: string,
+): string {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return 'Keine Angabe';
+  return `${integerFormatter.format(value)} ${value === 1 ? singular : plural}`;
+}
