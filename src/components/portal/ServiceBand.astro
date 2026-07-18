@@ -1,0 +1,56 @@
+---
+import {
+  getContactUrl,
+  getLawHomeUrl,
+  getMinistriesUrl,
+  getPressUrl,
+} from '../../lib/portal/index.ts';
+import PortalIcon from './PortalIcon.astro';
+
+const services = [
+  {
+    title: 'Servicenummer 115',
+    text: 'Zentrale Auskunft und Kontaktwege',
+    href: getContactUrl(),
+    icon: 'phone' as const,
+  },
+  {
+    title: 'Kontakt',
+    text: 'Telefon, E-Mail und Kontaktformular',
+    href: getContactUrl(),
+    icon: 'contact' as const,
+  },
+  {
+    title: 'Ressort finden',
+    text: 'Ministerien und Zuständigkeiten',
+    href: getMinistriesUrl(),
+    icon: 'ministry' as const,
+  },
+  {
+    title: 'Rechtsportal',
+    text: 'Gesetze und Vorschriften durchsuchen',
+    href: getLawHomeUrl(),
+    icon: 'law' as const,
+  },
+  {
+    title: 'RSS & Kalender',
+    text: 'Mitteilungen und Termine verfolgen',
+    href: getPressUrl(),
+    icon: 'rss' as const,
+  },
+];
+---
+
+<aside class="service-band" aria-label="Schnelleinstiege zu Kontakt und Service">
+  <div class="container service-band__grid">
+    {services.map((service) => (
+      <a class="service-band__item" href={service.href}>
+        <span class="service-band__icon"><PortalIcon name={service.icon} /></span>
+        <span>
+          <strong>{service.title}</strong>
+          <small>{service.text}</small>
+        </span>
+      </a>
+    ))}
+  </div>
+</aside>
