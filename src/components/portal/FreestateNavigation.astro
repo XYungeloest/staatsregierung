@@ -1,0 +1,17 @@
+---
+import SectionNavigation from './SectionNavigation.astro';
+import { getFreestatePageUrl, getFreestateUrl } from '../../lib/portal/index.ts';
+---
+
+<SectionNavigation
+  label="Freistaat"
+  variant="freestate"
+  items={[
+    { label: 'Überblick', href: getFreestateUrl() },
+    { label: 'Verfassung & Staatsziele', href: getFreestatePageUrl('verfassung-und-staatsziele') },
+    { label: 'Bezirke', href: getFreestatePageUrl('bezirke') },
+    { label: 'Hoheitszeichen', href: getFreestatePageUrl('landesfarben-und-hoheitszeichen') },
+    { label: 'Hauptstädte', href: getFreestatePageUrl('hauptstaedte') },
+    { label: 'Geschichte', href: getFreestatePageUrl('geschichte') },
+  ]}
+/>

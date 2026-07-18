@@ -137,3 +137,118 @@ Dessen größte aktuelle Variante ist 960 Pixel breit; ein später redaktionell 
 größeres Original könnte die Schärfe auf sehr breiten hochauflösenden Displays weiter verbessern,
 ist für Funktion und Layout aber nicht erforderlich. Inhaltliche Aktualität richtet sich weiterhin
 nach dem redaktionellen Stichtag 24. Juni 2026.
+
+---
+
+## Phase 2: Bereichs-, Übersichts- und Detailseiten
+
+### Ausgangsbefund
+
+Nach der ersten Phase waren Startseite, Behördenkopf, Serviceband und Footer bereits der visuelle
+Maßstab. Die zentralen Unterseiten verwendeten dagegen überwiegend denselben großen weißen
+Seitenkopf, gleichförmige Kartenraster und teilweise sehr große Abschnittsabstände. Personen,
+Ressorts, Status und fachliche Arbeitsaufträge waren im Einstieg nicht ausreichend sichtbar;
+langen Seiten fehlte teils eine lokale Orientierung.
+
+### Neue Unterseitenmuster und Komponenten
+
+`SectionHero.astro` führt ein gemeinsames, flaches Bereichskopfmuster mit Varianten für Regierung,
+Themen, Recht, Haushalt, Kreisreform, Presse, Service und Freistaat ein. Der Kopf kann echte Fakten,
+Status, genau eine primäre Aktion, ein vorhandenes Bild und eine Suche oder einen anderen
+fachlichen Einstieg aufnehmen. Eine Langtitelvariante schützt Norm- und Ressorttitel vor Überlauf.
+
+`SectionNavigation.astro` stellt die lokale Bereichs- und Ankernavigation mit semantischem
+Navigationsbereich, beschreibendem Label, aktivem Link und sichtbaren Fokuszuständen bereit.
+Bereichsspezifische Wrapper vereinheitlichen Regierung, Recht, Haushalt, Presse und Freistaat.
+`MinistryDirectory.astro` lädt Ressortname, Kurzname, Leitung und zentrale Aufgabe aus den
+vorhandenen Ministeriumsdaten. `ServiceCard.astro`, `TopicCard.astro` und `MinistryCard.astro`
+wurden an die neue Typografie, Iconlogik und zurückhaltende Flächengestaltung angepasst.
+
+### Geänderte Seitenfamilien
+
+- **Staatsregierung:** repräsentativer Einstieg mit Kabinett Honecker II, Porträt, Koalition,
+  Leitung und Ressortzahl; gestaffelte Direkteinstiege, datenbasiertes Ministeriumsverzeichnis und
+  konsistente Mitgliederkarten. Kabinett, Ministerpräsident, Koalition, 15-Punkte-Plan,
+  Mitglieder und frühere Kabinette nutzen die lokale Regierungsnavigation.
+- **Kabinett und Ressorts:** das Kabinett bildet den zentralen Ministerienbereich ohne
+  hartcodierte Ressortduplikate. Ressortdetails beginnen zweispaltig mit Aufgaben, Leitung, Bild
+  und Kontakt; danach folgen Profil, Zuständigkeiten, Themen und Rechtsgrundlagen.
+- **Regierungsmitglieder:** Porträt, Name, Amt, Ressort, Status und Kontakt stehen gemeinsam im
+  ersten Profilbereich; Biografie und weiterführende Angaben schließen darunter an.
+- **Themen:** Kreisreform und Bildung sind hervorgehobene Leitthemen. Die Übersicht gruppiert die
+  tatsächlichen Statuswerte und nennt das zuständige Ressort. Details besitzen die geforderte
+  Ankernavigation, eine verständliche Abfolge der nächsten Schritte und fachliche Rechtslisten.
+- **Recht:** Suche und kompakte echte Kennzahlen stehen am Anfang. Recherchewege, Änderungen und
+  Verkündungen sind strukturierte Listen. Normköpfe zeigen Rechtsstand, Typ, Abkürzung und
+  Fundstelle früh; die Navigation zu Inhalt, Text, Daten, Historie und verwandten Vorschriften ist
+  vereinheitlicht. Normtext, Historienmodell, Tracker und Druckansicht bleiben erhalten.
+- **Haushalt:** kompakter Bereichskopf, gemeinsame lokale Navigation und früh sichtbare
+  Jahresumschaltung. Doppelte große Aktionswege wurden entfernt; Kennzahlen, Filter, Tabellen,
+  Vergleiche und Datenlogik bleiben unverändert.
+- **Kreisreform:** die textlich nutzbare Gebietssuche steht im Bereichskopf vor Fakten und Karte.
+  Bezirke und Kreise, Karte, Änderungen, Tabellen, Rechtsgrundlagen und FAQ besitzen eindeutige
+  Anker. Kartenfreigabe, Tabellenansicht und Suchlogik bleiben unverändert.
+- **Presse:** die neueste Meldung bildet den redaktionellen Schwerpunkt; weitere Meldungen,
+  Termine, Kontakt, RSS und Kalender sind getrennt gruppiert. Leere Terminmodule werden nicht
+  ausgegeben.
+- **Service:** Kontakt und 115, Ressortsuche, Karriere, Publikationen und FAQ ersetzen die
+  bisherigen Pseudo-Kennzahlen. Leichte Sprache, Gebärdensprache und Barrierefreiheit sowie
+  Impressum und Datenschutz bilden jeweils eigene Gruppen. Es gibt weder ein erfundenes
+  Servicekonto noch einen Telefonlink für 115.
+- **Freistaat:** Grunddaten, Regierungssitz, staatliche Struktur, Flagge und zentrale Wege zu
+  Staatsregierung, Themen, Recht und Haushalt vertiefen die Orientierung der Startseite.
+- **Startseite:** nur typografischer Feinschliff am Desktop-H1, Bildposition und etwas geringere
+  Abstände im unteren Bereich; Informationsarchitektur und bestehende Einstiege bleiben erhalten.
+
+### Bewusst beibehaltene Fachstrukturen
+
+Normfassungen, Historien, Verkündungsverknüpfungen, Haushaltsdaten und -filter sowie
+Kreisreformdaten wurden nicht neu modelliert. Die Karte startet weiterhin erst nach ausdrücklicher
+Freigabe. Tabellen bleiben in ihren kontrollierten Scrollbereichen. Es wurden keine Dienste,
+Personen, Ressorts oder Pressebilder ergänzt, die nicht in den bestehenden Quellen vorhanden sind.
+
+### Responsive Entscheidungen
+
+Die repräsentativen Seitentypen werden bei 360 × 800, 390 × 844, 768 × 1024, 1024 × 900 und
+1440 × 1000 geprüft. Bereichsköpfe und Profilköpfe stapeln Bild und Text ohne leere Spalte;
+Langtitel brechen innerhalb des Containers um. Lokale Navigationen werden mobil zweispaltig oder
+kontrolliert umbrechend dargestellt und nicht fixiert. Kontaktangaben und Aktionen erhalten die
+volle verfügbare Breite. Breite Fachtabellen scrollen nur in ihrem eigenen, beschrifteten Bereich.
+
+### Accessibility-Entscheidungen
+
+Alle neuen Einstiege bewahren genau eine H1, Landmarken, Skip-Link und nachvollziehbare
+Überschriften. Lokale Navigationen besitzen ein verständliches `aria-label` und `aria-current`.
+Suche, Filter und Statusmeldungen bleiben beschriftet und tastaturbedienbar. Fokuszustände und
+Touchziele sind sichtbar beziehungsweise ausreichend groß. Status wird nie nur über Farbe
+vermittelt; normale Themen- und Navigationsakzente verwenden kein Rot. Reduzierte Bewegung und
+die Rechtsdruckansicht bleiben berücksichtigt.
+
+### Tests und Ergebnisse
+
+Die Testabdeckung wurde um Staatsregierung, Kabinett, ein Ressort, ein Regierungsmitglied und
+Service ergänzt; eine Themendetailseite war bereits enthalten. Browserprüfungen sichern lokale
+Navigation, Ministeriumsverzeichnis, Profilporträt, Servicegruppierung sowie Kreisreform-,
+Haushalts-, Rechts- und Portalsuche. Qualitätsprüfungen decken die fünf verbindlichen Viewports,
+200-Prozent-Zoom und lange Norm- und Ressorttitel ab. Nach manueller Sichtprüfung wurden die
+Baselines aktualisiert und anschließend in einem unveränderten Lauf verifiziert.
+
+- `npm run content:check`: Content-QA erfolgreich
+- `npm run check`: 169 Dateien, 0 Fehler, 0 Warnungen, 0 Hinweise
+- `npm run test:unit`: 3 fachliche Zuordnungsprüfungen erfolgreich
+- `npm run build`: 322 statische Seiten erfolgreich erzeugt
+- `npm run links:check`: interne Links in 322 HTML-Dateien erfolgreich geprüft
+- `npm run seo:check`: SEO-QA erfolgreich
+- `npm run test:a11y`: 95 Accessibility-Prüfungen erfolgreich
+- `npm run test:quality`: 6 Viewport-, Überlauf-, Zoom-, Consent- und Bewegungsprüfungen erfolgreich
+- `npm run test:browsers`: 21 Interaktionstests in Chromium, Firefox und WebKit erfolgreich
+- `npm run test:visual:update`: 140 Baselines und ergänzende Interaktionsprüfungen aktualisiert
+- `npm run test:visual`: 140 visuelle und ergänzende Interaktionstests erfolgreich verifiziert
+
+### Verbleibende Einschränkungen
+
+Das vorhandene Staatskanzlei-Motiv liegt nur bis 960 Pixel Breite vor und wurde nicht künstlich
+hochskaliert. Die vorhandenen Pressebilder sind Ein-Pixel-Platzhalter und werden deshalb nicht als
+redaktionelle Aufmacherbilder verwendet. Die integrierte Browser-Verbindung der Arbeitsumgebung
+war wegen fehlender Laufzeitmetadaten nicht verfügbar; Sicht-, Interaktions- und Screenshotprüfung
+erfolgen daher mit der lokal installierten Playwright-Konfiguration.

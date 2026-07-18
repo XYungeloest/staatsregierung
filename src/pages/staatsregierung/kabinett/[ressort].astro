@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import ResponsivePicture from '../../../components/portal/ResponsivePicture.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import TopicCard from '../../../components/portal/TopicCard.astro';
 import {
   getGovernmentUrl,
   getHomeUrl,
   getMinistriesUrl,
-  getMinistryUrl,
   resolvePortalPath,
 } from '../../../lib/portal/index.ts';
 import {
@@ -72,30 +72,34 @@ const legalReferences = Array.from(
       ]}
     />
 
-    <section class="section page-header">
-      <p class="eyebrow">Ressort</p>
-      <h1>{ministry.name}</h1>
-      <p class="lead">{ministry.teaser}</p>
-      <p class="detail-line">{ministry.leitung}</p>
-    </section>
+    <SectionHero
+      eyebrow="Ministerium"
+      title={ministry.name}
+      titleSize="long"
+      lead={ministry.teaser}
+      variant="government"
+      facts={[
+        { label: 'Leitung', value: ministry.leitung },
+        { label: 'Aufgabenbereiche', value: String(ministry.aufgaben.length) },
+        { label: 'Zugeordnete Themen', value: String(relatedTopics.length) },
+      ]}
+      actions={[{ label: 'Kontakt zum Ministerium', href: '#kontakt', primary: true }]}
+      image={{
+        src: ministry.bild,
+        alt: ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`,
+        width: 1280,
+        height: 720,
+        widths: [480, 720, 960],
+        kind: 'landscape',
+      }}
+    />
+    <GovernmentNavigation />
+    {ministry.bildnachweis ? <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p> : null}
 
     <div class="content-grid">
       <section class="section">
-        <ResponsivePicture
-          className="media-banner"
-          src={ministry.bild}
-          alt={ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`}
-          width={1280}
-          height={720}
-          widths={[480, 720, 960]}
-          sizes="(max-width: 720px) calc(100vw - 2.4rem), (max-width: 1100px) 62vw, 760px"
-          loading="eager"
-          fetchpriority="high"
-        />
-        {ministry.bildnachweis ? <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p> : null}
-        <div class="status-notice status-notice--current">
+        <div class="section-header">
           <h2>Ressortprofil</h2>
-          <p>Aufgaben, Themen und Kontakt des Ressorts im Überblick.</p>
         </div>
         <div class="body-copy">
           <p>{ministry.teaser}</p>
@@ -122,7 +126,7 @@ const legalReferences = Array.from(
         </div>
       </section>
 
-      <aside class="section meta-panel">
+      <aside id="kontakt" class="section meta-panel">
         <div class="section-header section-header--compact">
           <h2>Kontakt</h2>
         </div>
@@ -160,7 +164,7 @@ const legalReferences = Array.from(
           {ministry.verknuepfteLinks.map((link) => (
             <a href={resolvePortalPath(link.href)}>{link.label}</a>
           ))}
-          <a href={getMinistryUrl(ministry.slug)}>Stabile URL dieses Ressorts</a>
+          <a href={getMinistriesUrl()}>Alle Ministerien</a>
         </nav>
       </aside>
     </div>

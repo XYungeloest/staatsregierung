@@ -4,6 +4,7 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import BudgetPlanTable from '../../../components/portal/BudgetPlanTable.astro';
 import BudgetSectionNav from '../../../components/portal/BudgetSectionNav.astro';
 import BudgetYearSelector from '../../../components/portal/BudgetYearSelector.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import { budgetPlans, budgetTotals, getBudgetShare } from '../../../data/haushalt.ts';
 import { formatEuroCompact, formatPercent } from '../../../lib/portal/modules.ts';
 import { getBudgetUrl, getHomeUrl } from '../../../lib/portal/routes.ts';
@@ -21,12 +22,17 @@ const categoryCounts = [...new Set(budgetPlans.map((plan) => plan.category))].ma
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt', href: getBudgetUrl() }, { label: 'Einzelpläne' }]} />
 
-  <section class="section budget-portal-header">
-    <p class="eyebrow">Haushalt · Einzelpläne</p>
-    <h1>Einzelpläne verständlich vergleichen</h1>
-    <p class="lead">Die Einzelpläne bilden Ressorts, Verfassungsorgane und zentrale Verwaltungsbereiche ab. Ausgabenhöhe und Anteil am Haushalt erklären ein Volumen – sie bewerten keine Aufgabe oder Mittelversorgung.</p>
-    <BudgetSectionNav current="einzelplaene" />
-  </section>
+  <SectionHero
+    eyebrow="Haushalt · Einzelpläne"
+    title="Einzelpläne vergleichen"
+    lead="Ressorts, Verfassungsorgane und zentrale Verwaltungsbereiche im Jahres- und Strukturvergleich."
+    variant="budget"
+    facts={[
+      { label: 'Einzelpläne', value: String(budgetPlans.length) },
+      { label: 'Kernhaushalt 2026', value: formatEuroCompact(budgetTotals['2026'].expenses) },
+    ]}
+  />
+  <BudgetSectionNav current="einzelplaene" />
 
   <section class="section section-muted" aria-labelledby="einzelplan-einordnung">
     <div class="section-header"><h2 id="einzelplan-einordnung">So lesen Sie die Übersicht</h2><p>Der Gesamtplan enthält den Kernhaushalt. Einzelpläne untergliedern diesen nach Verwaltungsbereichen; die Summe einzelner Pläne ist nicht automatisch eine zusätzliche Ebene neben dem Gesamtplan.</p></div>

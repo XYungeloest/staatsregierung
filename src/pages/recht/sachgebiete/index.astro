@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import LawNavigation from '../../../components/portal/LawNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   getHomeUrl,
   getLawPortalUrl,
@@ -33,15 +35,14 @@ const areaGroups = getSubjectAreaGroups(norms);
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Rechtsbereich</p>
-    <h1>Sachgebiete</h1>
-    <p class="lead">
-      Die Normen des Portals sind nach Sachgebieten erschlossen und zusätzlich in fachliche
-      Hauptbereiche gegliedert.
-    </p>
-    <p class="status-line">{groups.length} Sachgebiete mit {norms.length} Vorschriften.</p>
-  </section>
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title="Sachgebiete"
+    lead="Vorschriften nach fachlicher Zuordnung und thematischen Hauptbereichen recherchieren."
+    variant="law"
+    facts={[{ label: 'Sachgebiete', value: String(groups.length) }, { label: 'Vorschriften', value: String(norms.length) }]}
+  />
+  <LawNavigation />
 
   <section class="section">
     <div class="section-header">

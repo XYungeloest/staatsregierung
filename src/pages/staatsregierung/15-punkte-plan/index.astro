@@ -3,6 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import ActionPlanDashboard from '../../../components/portal/ActionPlanDashboard.astro';
 import ProjectTimeline from '../../../components/portal/ProjectTimeline.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import { actionPlanItems } from '../../../data/dashboard/action-plan.ts';
 import { timelineEntries } from '../../../data/dashboard/timeline.ts';
 import {
@@ -31,39 +33,23 @@ const plannedCount = actionPlanItems.filter((point) => point.status === 'angeleg
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Regierungsprogramm</p>
-    <h1>15-Punkte-Plan II</h1>
-    <p class="lead">
-      Der 15-Punkte-Plan II bündelt die zentralen politischen Linien des Kabinetts Honecker II in
-      einer lesbaren Übersicht mit Statusindikatoren und direkten Portalverlinkungen.
-    </p>
-  </section>
-
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Programmpunkte</span>
-        <strong>{actionPlanItems.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Umgesetzt</span>
-        <strong>{completedCount}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Teilweise umgesetzt</span>
-        <strong>{partlyCount}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Angelegt</span>
-        <strong>{plannedCount}</strong>
-      </div>
-    </div>
-  </section>
+  <SectionHero
+    eyebrow="Regierungsprogramm"
+    title="15-Punkte-Plan II"
+    lead="Die zentralen politischen Linien des Kabinetts Honecker II mit ihrem jeweiligen Umsetzungsstand."
+    variant="government"
+    facts={[
+      { label: 'Programmpunkte', value: String(actionPlanItems.length) },
+      { label: 'Umgesetzt', value: String(completedCount) },
+      { label: 'Teilweise umgesetzt', value: String(partlyCount) },
+      { label: 'Angelegt', value: String(plannedCount) },
+    ]}
+  />
+  <GovernmentNavigation />
 
   <section class="section section-muted">
     <div class="section-header">
-      <h2>Fortschritts-Dashboard</h2>
+      <h2>Stand der Programmpunkte</h2>
       <p>
         Alle Programmpunkte werden mit Statussymbolen, Ressortbezug und direkten Verlinkungen auf
         Themen- oder Rechtsseiten dargestellt.
@@ -100,7 +86,7 @@ const plannedCount = actionPlanItems.filter((point) => point.status === 'angeleg
       </article>
       <article class="panel">
         <h2>Rechtsportal</h2>
-        <p>Aktuelle Fassungen, Historienseiten und der Gesetzgebungs-Tracker bleiben als Kernmodul unter <code>/recht/</code> erreichbar.</p>
+        <p>Aktuelle Fassungen, frühere Rechtsstände und laufende Gesetzgebungsvorhaben sind im Rechtsbereich gebündelt.</p>
         <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
       </article>
     </div>

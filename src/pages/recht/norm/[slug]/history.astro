@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import SectionHero from '../../../../components/portal/SectionHero.astro';
+import SectionNavigation from '../../../../components/portal/SectionNavigation.astro';
 import { formatDate, toDisplayText } from '../../../../lib/norms/presentation.ts';
 import {
   getHomeUrl,
@@ -60,20 +62,31 @@ const historyTypeLabels: Record<string, string> = {
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Normenhistorie</p>
-    <h1>{toDisplayText(norm.meta.title)}</h1>
-    <p class="lead">
-      Historienseite mit Stammfassung, Änderungsbezügen, Fundstellen und allen gespeicherten
-      Fassungen.
-    </p>
-    <nav class="link-list link-list--inline" aria-label="Seitennavigation">
-      <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a>
-    </nav>
-  </section>
+  <SectionHero
+    eyebrow="Normenhistorie"
+    title={toDisplayText(norm.meta.title)}
+    titleSize="long"
+    lead="Stammfassung, Änderungsbezüge, Fundstellen und alle gespeicherten Fassungen."
+    variant="law"
+    facts={[
+      { label: 'Gespeicherte Fassungen', value: String(norm.versions.length) },
+      { label: 'Historieneinträge', value: String(norm.history.entries.length) },
+      { label: 'Aktueller Rechtsstand', value: formatDate(currentVersion.validFrom) },
+    ]}
+    actions={[{ label: 'Aktuelle Fassung', href: getNormUrl(norm.meta.slug), primary: true }]}
+  />
+  <SectionNavigation
+    label="Normenhistorie"
+    variant="law"
+    items={[
+      { label: 'Fassungen', href: '#fassungen' },
+      { label: 'Historieneinträge', href: '#historieneintraege' },
+      { label: 'Stammdaten', href: '#stammdaten' },
+    ]}
+  />
 
   <div class="content-grid content-grid--wide">
-    <section class="section">
+    <section id="fassungen" class="section">
       <div class="section-header">
         <h2>Fassungen</h2>
       </div>
@@ -96,7 +109,7 @@ const historyTypeLabels: Record<string, string> = {
       </ul>
     </section>
 
-    <section class="section">
+    <section id="historieneintraege" class="section">
       <div class="section-header">
         <h2>Historieneinträge</h2>
       </div>
@@ -140,7 +153,7 @@ const historyTypeLabels: Record<string, string> = {
       </ul>
     </section>
 
-    <section class="section">
+    <section id="stammdaten" class="section">
       <div class="section-header">
         <h2>Stammdaten</h2>
       </div>

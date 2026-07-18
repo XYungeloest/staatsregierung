@@ -2,6 +2,10 @@ import { expect, test, type Page } from '@playwright/test';
 
 const visualPages = [
   { name: 'startseite', path: '/' },
+  { name: 'staatsregierung', path: '/staatsregierung/' },
+  { name: 'kabinett', path: '/staatsregierung/kabinett/' },
+  { name: 'ressort-wirtschaft-arbeit', path: '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/' },
+  { name: 'regierungsmitglied-max-peterson', path: '/staatsregierung/mitglieder/max-peterson/' },
   { name: 'haushalt', path: '/haushalt/' },
   { name: 'haushalt-gesamtplan', path: '/haushalt/gesamtplan/' },
   { name: 'haushalt-einzelplaene', path: '/haushalt/einzelplaene/' },
@@ -15,6 +19,7 @@ const visualPages = [
   { name: 'norm-kulturpass', path: '/recht/norm/ostdeutsches-kulturpassgesetz/' },
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
+  { name: 'service', path: '/service/' },
   { name: 'impressum', path: '/service/impressum/' },
   { name: 'barrierefreiheit', path: '/service/barrierefreiheit/' },
   { name: 'hinweis-gebaerdensprache', path: '/service/gebaerdensprache/' },
@@ -117,7 +122,7 @@ test('Haushalt: Kopfbereich hat einen verlässlichen Innenabstand', async ({ pag
   await preparePage(page);
   await page.goto('/haushalt/');
 
-  const header = page.locator('.budget-portal-header').first();
+  const header = page.locator('.section-hero--budget').first();
   const heading = header.getByRole('heading', { level: 1 });
   const [headerBox, headingBox] = await Promise.all([header.boundingBox(), heading.boundingBox()]);
 

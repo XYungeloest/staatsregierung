@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import { siteConfig } from '../../../config/site.ts';
 import {
   getCabinetUrl,
@@ -24,35 +26,19 @@ import archive from '../../../../content/regierung/archiv/kabinett-honecker-i.js
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Archiv</p>
-    <h1>Frühere Kabinette</h1>
-    <p class="lead">
-      Dieser Bereich dokumentiert abgeschlossene Staatsregierungen. Die aktuelle
-      Staatsregierung bleibt unter Kabinett und Ressorts erreichbar.
-    </p>
-    <nav class="hero-actions" aria-label="Archiv und aktuelles Kabinett">
-      <a class="button-link" href={getCabinetUrl()}>Aktuelles Kabinett</a>
-      <a class="button-link button-link--secondary" href={`${getPreviousCabinetsUrl()}honecker-i/`}>Kabinett Honecker I</a>
-    </nav>
-  </section>
-
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Aktuell</span>
-        <strong>{siteConfig.currentGovernment.cabinetName}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Archiviert</span>
-        <strong>{archive.cabinetName}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Amtszeit Honecker I</span>
-        <strong><time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time></strong>
-      </div>
-    </div>
-  </section>
+  <SectionHero
+    eyebrow="Regierungsarchiv"
+    title="Frühere Kabinette"
+    lead="Abgeschlossene Staatsregierungen mit Amtszeit, Zusammensetzung und politischen Schwerpunkten."
+    variant="government"
+    facts={[
+      { label: 'Aktuelles Kabinett', value: siteConfig.currentGovernment.cabinetName, href: getCabinetUrl() },
+      { label: 'Archivierter Bestand', value: archive.cabinetName },
+      { label: 'Amtszeit', value: `${siteConfig.date.formatLong(archive.formedOn)} bis ${siteConfig.date.formatLong(archive.endedOn)}` },
+    ]}
+    actions={[{ label: archive.cabinetName, href: `${getPreviousCabinetsUrl()}honecker-i/`, primary: true }]}
+  />
+  <GovernmentNavigation />
 
   <section class="section section-muted">
     <div class="section-header">

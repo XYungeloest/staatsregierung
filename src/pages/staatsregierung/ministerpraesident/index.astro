@@ -1,13 +1,15 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import MinistryCard from '../../../components/portal/MinistryCard.astro';
 import { siteConfig } from '../../../config/site.ts';
 import {
   getActionPlanUrl,
   getCabinetUrl,
   getGovernmentUrl,
+  getGovernmentMemberUrl,
   getHomeUrl,
   getTopicUrl,
 } from '../../../lib/portal/index.ts';
@@ -47,22 +49,27 @@ const topPriorities = topics
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Leitung</p>
-    <h1>Ministerpräsident</h1>
-    <p class="lead">
-      Der Ministerpräsident führt die Staatsregierung, bestimmt die Richtlinien der Politik und
-      koordiniert die Arbeit des Kabinetts. Politischer Bezugspunkt dieser Leitungsfunktion ist
-      Dresden als Sitz der Staatsregierung.
-    </p>
-  </section>
-
-  <section class="section section-muted">
-    <div class="section-header section-header--compact">
-      <h2>Amtsträger</h2>
-    </div>
-    {ministerPresident ? <GovernmentMemberCard member={ministerPresident} /> : null}
-  </section>
+  <SectionHero
+    eyebrow="Leitung der Staatsregierung"
+    title="Ministerpräsident"
+    lead="Der Ministerpräsident führt die Staatsregierung, bestimmt die Richtlinien der Politik und koordiniert die Arbeit des Kabinetts."
+    variant="government"
+    facts={[
+      { label: 'Amtsträger', value: siteConfig.currentGovernment.headOfGovernment },
+      { label: 'Kabinett', value: siteConfig.currentGovernment.cabinetName },
+      { label: 'Regierungssitz', value: siteConfig.currentGovernment.seatOfGovernment },
+    ]}
+    actions={ministerPresident ? [{ label: 'Zum persönlichen Profil', href: getGovernmentMemberUrl(ministerPresident.slug), primary: true }] : []}
+    image={ministerPresident ? {
+      src: ministerPresident.bild,
+      alt: ministerPresident.bildAlt ?? `Porträt von ${ministerPresident.name}`,
+      width: 352,
+      height: 440,
+      widths: [240, 360, 480],
+      kind: 'portrait',
+    } : undefined}
+  />
+  <GovernmentNavigation />
 
   <section class="section">
     <div class="content-grid">
@@ -75,7 +82,7 @@ const topPriorities = topics
         <p>
           Die derzeitige Regierungsbildung datiert vom{' '}
           <time datetime={siteConfig.currentGovernment.formedOn}>{siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}</time>. Die Leitungsseite
-          fasst die politischen Kerndaten bewusst sachlich und übersichtlich zusammen.
+          Seitdem führt das Kabinett die zweite sozialstaatliche Aufbauphase.
         </p>
         <p>
           Die Leitungsfunktion des Ministerpräsidenten ist eng mit der Staatskanzlei und dem

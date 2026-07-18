@@ -2,11 +2,12 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
-import MinistryCard from '../../../components/portal/MinistryCard.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import MinistryDirectory from '../../../components/portal/MinistryDirectory.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import TopicCard from '../../../components/portal/TopicCard.astro';
 import { siteConfig } from '../../../config/site.ts';
 import {
-  getGovernmentMemberUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
@@ -24,73 +25,7 @@ const [members, ministries, topics] = await Promise.all([
   loadTopics(),
 ]);
 const currentGovernment = siteConfig.currentGovernment;
-const memberLookup = new Map(members.map((member) => [member.slug, member]));
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
-const assignments = [
-  {
-    office: 'Ministerpräsident',
-    holderSlug: 'karl-honecker',
-    ministrySlug: 'kapitalakkumulation-des-fiskus',
-    note: 'Führt die Staatsregierung und leitet das Staatsministerium der Finanzen in Personalunion.',
-  },
-  {
-    office: 'Staatskanzlei',
-    holderSlug: 'emma-mueller',
-    ministrySlug: 'staatskanzlei',
-    note: 'Verantwortet die Regierungskoordination und Kabinettsverfahren.',
-  },
-  {
-    office: 'Stellvertretender Ministerpräsident; Rechtsstaatlichkeit und kulturelle Emanzipation',
-    holderSlug: 'mateo-delgado',
-    ministrySlug: 'rechtsstaatlichkeit-und-angelegenheiten-des-staates',
-  },
-  {
-    office: 'Völkerfreundschaft und Nachbarschaftspolitik',
-    holderSlug: 'tim-dieter',
-    ministrySlug: 'voelkerfreundschaft-und-nachbarschaftspolitik',
-  },
-  {
-    office: 'Mobilität und regionale Entwicklung',
-    holderSlug: 'vincent-flick',
-    ministrySlug: 'mobilitaet-infrastruktur-und-landesentwicklung',
-  },
-  {
-    office: 'Volksbildung und Wissenschaft',
-    holderSlug: 'carl-ulbricht',
-    ministrySlug: 'bildung-und-sportliche-ertuechtigung',
-  },
-  {
-    office: 'Nachhaltigkeit und Energie',
-    holderSlug: 'volker-bagdadi',
-    ministrySlug: 'umwelt-energie-und-klimaschutz',
-  },
-  {
-    office: 'Land-, Forst- und Küstenwirtschaft',
-    holderSlug: 'endo-meyer-raucht',
-    ministrySlug: 'kueste-fischerei-forst-und-landwirtschaft',
-  },
-  {
-    office: 'Wirtschaft und Arbeit',
-    holderSlug: 'max-peterson',
-    ministrySlug: 'wirtschaft-arbeitsmarkt-und-beschaeftigung',
-  },
-  {
-    office: 'Inneres und Wohnungswirtschaft',
-    holderSlug: 'mia-wollrath',
-    ministrySlug: 'inneres-bau-und-kommunale-angelegenheiten',
-  },
-  {
-    office: 'Staats- und Grenzsicherheit',
-    holderSlug: 'mia-wollrath',
-    ministrySlug: 'grenzschutz-faschismusbekaempfung-und-bewaffnete-organe',
-    note: 'Wird von Mia Wollrath geschäftsführend geleitet.',
-  },
-  {
-    office: 'Gesundheits- und Sozialwesen',
-    holderSlug: 'lucia-liebknecht',
-    ministrySlug: 'soziale-und-gesundheitliche-fuersorge',
-  },
-];
 const topicHighlights = [
   'wohnen-und-vergesellschaftung',
   'gute-arbeit',
@@ -111,36 +46,21 @@ const topicHighlights = [
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Regierungsarbeit</p>
-    <h1>{currentGovernment.cabinetName}</h1>
-    <p class="lead">
-      Das {currentGovernment.cabinetName} ist seit dem <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time>
-      im Amt. Es wird von einer Koalition aus {currentGovernment.coalition} getragen und setzt den
-      15-Punkte-Plan II als politische Arbeitsgrundlage um.
-    </p>
-  </section>
-
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Koalition</span>
-        <strong>{currentGovernment.coalitionShort}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Ministerpräsident</span>
-        <strong>{currentGovernment.headOfGovernment}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Regierungssitz</span>
-        <strong>{currentGovernment.seatOfGovernment}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Ressorts</span>
-        <strong>{ministries.length}</strong>
-      </div>
-    </div>
-  </section>
+  <SectionHero
+    eyebrow="Kabinett"
+    title={currentGovernment.cabinetName}
+    lead={`Seit dem ${siteConfig.date.formatLong(currentGovernment.formedOn)} führt das Kabinett die Staatsregierung und die Arbeit der Ministerien.`}
+    variant="government"
+    facts={[
+      { label: 'Gebildet', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
+      { label: 'Koalition', value: currentGovernment.coalitionShort },
+      { label: 'Leitung', value: currentGovernment.headOfGovernment },
+      { label: 'Regierungssitz', value: currentGovernment.seatOfGovernment },
+      { label: 'Ministerien', value: String(ministries.length) },
+    ]}
+    actions={[{ label: 'Ministeriumsverzeichnis', href: '#ministerien', primary: true }]}
+  />
+  <GovernmentNavigation />
 
   <div class="content-grid">
     <section class="section">
@@ -154,9 +74,8 @@ const topicHighlights = [
           öffentlicher Wirtschaft, sozialer Sicherheit, Energie und regionaler Entwicklung.
         </p>
         <p>
-          Die Kabinettsstruktur ist im Portal nicht als paralleles Ministerienverzeichnis
-          ausgelagert, sondern direkt als Teil der Staatsregierung verortet. Dadurch bleiben
-          Leitung, Ressorts und politische Vorhaben eng miteinander verbunden.
+          Leitung, Ressorts und politische Vorhaben werden gemeinsam dargestellt. So werden
+          Zuständigkeiten und politische Verantwortung unmittelbar nachvollziehbar.
         </p>
         <p>
           Der Organisationserlass 05/2026 vom <time datetime="2026-05-04">4. Mai 2026</time> benennt mehrere Staatsministerien neu
@@ -189,60 +108,24 @@ const topicHighlights = [
     </aside>
   </div>
 
-  <section class="section section-muted">
+  <section id="ministerien" class="section section-muted">
     <div class="section-header">
-      <h2>Mitglieder der Staatsregierung</h2>
-      <p>Die Mitgliederprofile bilden die aktuelle personelle Zusammensetzung des Kabinetts ab.</p>
+      <h2>Ministeriumsverzeichnis</h2>
+      <p>Alle Ressortangaben werden aus den zentral gepflegten Ministeriumsdaten übernommen.</p>
     </div>
-    <div class="card-grid card-grid--two">
-      {members.map((member) => (
-        <GovernmentMemberCard member={member} variant="compact" />
-      ))}
-    </div>
+    <MinistryDirectory ministries={ministries} />
   </section>
 
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Ressorts</h2>
-      <p>Die Ressortseiten bündeln Leitung, Aufgaben, Kontakt und thematische Zuständigkeiten.</p>
-    </div>
-    <div class="card-grid card-grid--two">
-      {ministries.map((ministry) => (
-        <MinistryCard ministry={ministry} />
-      ))}
-    </div>
-  </section>
-  
   <section class="section">
     <div class="section-header">
-      <h2>Ressortzuschnitt</h2>
-      <p>
-        Die Portfolioübersicht macht Leitungsverantwortung, Personalunionen und den konkreten
-        Ressortbezug sichtbar.
-      </p>
+      <h2>Mitglieder der Staatsregierung</h2>
+      <p>Die Profile bilden die aktuelle personelle Zusammensetzung des Kabinetts ab.</p>
     </div>
-    <ul class="record-list">
-      {assignments.map((assignment) => {
-        const member = memberLookup.get(assignment.holderSlug);
-        const ministry = ministryLookup.get(assignment.ministrySlug);
-
-        return (
-          <li class="record-list__item">
-            <strong>{assignment.office}</strong>
-            {member ? (
-              <span>
-                <a class="inline-link" href={getGovernmentMemberUrl(member.slug)}>{member.name}</a>
-              </span>
-            ) : null}
-            {ministry ? <span>Ressort: {ministry.kurzname}</span> : null}
-            {assignment.note ? <span>{assignment.note}</span> : null}
-          </li>
-        );
-      })}
-    </ul>
+    <div class="card-grid card-grid--two">
+      {members.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
+    </div>
     <p class="detail-line">
-      Weitere Einzelprofile stehen unter{' '}
-      <a class="inline-link" href={getGovernmentMembersUrl()}>Regierungsmitglieder</a> bereit.
+      <a class="inline-link" href={getGovernmentMembersUrl()}>Alle Regierungsmitglieder mit Profilen</a>
     </p>
   </section>
 

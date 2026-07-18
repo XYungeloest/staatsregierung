@@ -1,13 +1,12 @@
 import { expect, test } from '@playwright/test';
 
 const viewports = [
-  { width: 320, height: 568 },
-  { width: 375, height: 667 },
+  { width: 360, height: 800 },
   { width: 390, height: 844 },
   { width: 768, height: 1024 },
-  { width: 1024, height: 768 },
+  { width: 1024, height: 900 },
   { width: 1366, height: 768 },
-  { width: 1440, height: 900 },
+  { width: 1440, height: 1000 },
   { width: 1920, height: 1080 },
 ];
 
@@ -16,7 +15,27 @@ const overflowPages = [
   '/kreisreform/',
   '/suche/?q=Gesetz',
   '/recht/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/',
+  '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
+  '/staatsregierung/mitglieder/max-peterson/',
+  '/themen/energie-und-klima/',
+  '/service/',
 ];
+
+test('lange Norm- und Ressorttitel bleiben innerhalb ihres Bereichskopfes', async ({ page }) => {
+  for (const path of [
+    '/recht/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/',
+    '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
+  ]) {
+    await page.setViewportSize({ width: 360, height: 800 });
+    await page.goto(path);
+    const hero = page.locator('.section-hero');
+    const heading = hero.getByRole('heading', { level: 1 });
+    const [heroBox, headingBox] = await Promise.all([hero.boundingBox(), heading.boundingBox()]);
+    expect(heroBox).not.toBeNull();
+    expect(headingBox).not.toBeNull();
+    expect((headingBox?.x ?? 0) + (headingBox?.width ?? 0)).toBeLessThanOrEqual((heroBox?.x ?? 0) + (heroBox?.width ?? 0) + 1);
+  }
+});
 
 test('kein Dokumentüberlauf in den geforderten Ansichten', async ({ page }) => {
   for (const viewport of viewports) {

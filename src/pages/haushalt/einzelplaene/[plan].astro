@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import BudgetSectionNav from '../../../components/portal/BudgetSectionNav.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   budgetPlans,
   budgetTotals,
@@ -36,13 +37,19 @@ const selectedChapters = [
 <BaseLayout title={`Einzelplan ${plan.number}: ${plan.title}`} description={`Haushaltsansätze und Kapitel des Einzelplans ${plan.number} im Doppelhaushalt 2025/2026.`}>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt', href: getBudgetUrl() }, { label: 'Einzelpläne', href: getBudgetPageUrl('einzelplaene') }, { label: `Einzelplan ${plan.number}` }]} />
 
-  <section class="section budget-portal-header budget-plan-header">
-    <p class="eyebrow">Haushalt · Einzelplan {plan.number}</p>
-    <h1>{plan.title}</h1>
-    <p class="lead">{plan.politicalFocus}</p>
-    <p class="detail-line"><strong>{plan.category}</strong> · Zuständiger Bereich: {plan.responsibility}</p>
-    <BudgetSectionNav current="einzelplaene" />
-  </section>
+  <SectionHero
+    eyebrow={`Haushalt · Einzelplan ${plan.number}`}
+    title={plan.title}
+    titleSize="long"
+    lead={plan.politicalFocus}
+    variant="budget"
+    facts={[
+      { label: 'Verwaltungsbereich', value: plan.category },
+      { label: 'Zuständigkeit', value: plan.responsibility },
+      { label: 'Ausgaben 2026', value: formatEuroCompact(plan.amounts['2026'].expenses) },
+    ]}
+  />
+  <BudgetSectionNav current="einzelplaene" />
 
   <section class="section" aria-labelledby="einzelplan-kennzahlen">
     <div class="section-header"><h2 id="einzelplan-kennzahlen">Haushaltsansätze im Vergleich</h2><p>Die Beträge sind Ansätze des Kernhaushalts für diesen Einzelplan.</p></div>

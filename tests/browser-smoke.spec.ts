@@ -56,3 +56,47 @@ test('Kreisreform bleibt ohne Karte nutzbar', async ({ page }) => {
   await page.locator('#kreisreform-table-query').fill('Berlin');
   await expect(page.locator('[data-kreisreform-table-status]')).toContainText('sichtbar');
 });
+
+test('Lokale Bereichsnavigation und Ministeriumsverzeichnis sind vollständig zugänglich', async ({ page }) => {
+  await page.goto('/staatsregierung/kabinett/');
+
+  const navigation = page.getByRole('navigation', { name: 'Staatsregierung' });
+  await expect(navigation).toBeVisible();
+  await expect(navigation.getByRole('link', { name: 'Kabinett & Ressorts' })).toHaveAttribute('aria-current', 'page');
+
+  const directory = page.locator('[data-ministry-directory]');
+  await expect(directory).toBeVisible();
+  await expect(directory.locator('.ministry-directory__item')).toHaveCount(12);
+  await expect(directory).toContainText('Max Peterson');
+  await expect(directory.getByRole('link', { name: /Staatsministerium für Wirtschaft/ }).first()).toBeVisible();
+});
+
+test('Regierungsprofil verbindet Porträt, Amt, Status und Kontakt im sichtbaren Kopf', async ({ page }) => {
+  await page.goto('/staatsregierung/mitglieder/max-peterson/');
+
+  const hero = page.locator('.section-hero--profile');
+  await expect(hero).toBeVisible();
+  await expect(hero.getByRole('heading', { level: 1 })).toHaveText('Max Peterson');
+  await expect(hero.locator('.section-hero__image')).toBeVisible();
+  await expect(hero).toContainText('Aktuelles Kabinettsmitglied');
+  await expect(hero.getByRole('link', { name: /@/ })).toBeVisible();
+});
+
+test('Service gruppiert Kontakt, Orientierung, barrierearme Zugänge und Rechtliches', async ({ page }) => {
+  await page.goto('/service/');
+
+  await expect(page.getByRole('heading', { name: 'Kontakt und Servicenummer 115' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Orientierung und Angebote' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Barrierearme Zugänge' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Rechtliche Hinweise' })).toBeVisible();
+  await expect(page.locator('a[href="tel:115"]')).toHaveCount(0);
+});
+
+test('Rechts- und Portalsuche liefern weiterhin Treffer', async ({ page }) => {
+  await page.goto('/recht/suche/?q=Kulturpass');
+  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+  await expect(page.locator('[data-search-results] .search-hit')).not.toHaveCount(0);
+
+  await page.goto('/suche/?q=Kreisreform');
+  await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
+});

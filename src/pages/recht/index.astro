@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import LegislationTracker from '../../components/portal/LegislationTracker.astro';
+import LawNavigation from '../../components/portal/LawNavigation.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
 import { legislationTrackerItems } from '../../data/dashboard/legislation.ts';
 import {
   formatDate,
@@ -25,7 +27,6 @@ import { getCurrentVersion, loadAllNorms } from '../../lib/norms/content.ts';
 
 const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
 const currentNorms = norms.filter((entry) => entry.versions.some((version) => version.isCurrent));
-const fundingNorms = norms.filter((entry) => entry.meta.type === 'foerderrichtlinie');
 const subjectCount = new Set(norms.flatMap((entry) => entry.meta.subjects)).size;
 const typeCount = new Set(norms.map((entry) => entry.meta.type)).size;
 const publicationEntryCount = publications.reduce((sum, publication) => sum + publication.entries.length, 0);
@@ -93,7 +94,7 @@ const faqItems = [
   {
     question: 'Bleibt das Rechtsportal eigenständig nutzbar?',
     answer:
-      'Ja. Der Rechtsbereich bleibt funktional vollständig erhalten und ist zugleich in die Website der Staatsregierung integriert.',
+      'Ja. Alle Rechtsangebote sind im Rechtsbereich gebündelt und zugleich über die Staatsregierung und ihre Themen erreichbar.',
   },
 ];
 ---
@@ -109,14 +110,19 @@ const faqItems = [
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Recht' }]} />
 
-  <section class="section page-header">
-    <p class="eyebrow">Rechtsbereich</p>
-    <h1>Recht</h1>
-    <p class="lead">
-      Das Rechtsportal bündelt aktuelle Fassungen, gespeicherte historische Fassungen,
-      Normenhistorien, Suche, Sachgebiete, Förderrichtlinien und alphabetischen Index unter einem
-      gemeinsamen Regierungsauftritt.
-    </p>
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title="Recht recherchieren"
+    lead="Aktuelle und historische Fassungen, Fundstellen, Verkündungen und Sachgebiete des Ostdeutschen Freistaates."
+    variant="law"
+    facts={[
+      { label: 'Normen', value: String(norms.length) },
+      { label: 'Aktuelle Fassungen', value: String(currentNorms.length) },
+      { label: 'Sachgebiete', value: String(subjectCount) },
+      { label: 'Vorschriftentypen', value: String(typeCount) },
+      { label: 'Verkündungseinträge', value: String(publicationEntryCount) },
+    ]}
+  >
     <form class="search-form search-form--hero" action={getSearchUrl()} method="get" role="search">
       <label class="search-field">
         <span>Rechtsvorschriften suchen</span>
@@ -132,50 +138,22 @@ const faqItems = [
         <a class="button-link button-link--secondary" href={getSearchUrl()}>Erweiterte Suche</a>
       </div>
     </form>
-  </section>
-
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Normenbestand</span>
-        <strong>{norms.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Aktuelle Fassungen</span>
-        <strong>{currentNorms.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Sachgebiete</span>
-        <strong>{subjectCount}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Vorschriftentypen</span>
-        <strong>{typeCount}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Förderrichtlinien</span>
-        <strong>{fundingNorms.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Verkündungseinträge</span>
-        <strong>{publicationEntryCount}</strong>
-      </div>
-    </div>
-  </section>
+  </SectionHero>
+  <LawNavigation />
 
   <section class="section">
     <div class="section-header">
       <h2>Einstiege</h2>
       <p>Die wichtigsten Recherchewege im Rechtsbereich.</p>
     </div>
-    <div class="card-grid">
+    <ul class="law-entry-list">
       {portalEntrances.map((entry) => (
-        <article class="panel">
-          <h3><a class="inline-link" href={entry.href}>{entry.title}</a></h3>
+        <li>
+          <h3><a href={entry.href}>{entry.title}</a></h3>
           <p>{entry.text}</p>
-        </article>
+        </li>
       ))}
-    </div>
+    </ul>
   </section>
 
   <section class="section section-muted">
@@ -183,21 +161,21 @@ const faqItems = [
       <h2>Letzte Änderungen</h2>
       <p>Die zuletzt in Kraft getretenen Fassungen im Normenbestand.</p>
     </div>
-    <div class="card-grid">
+    <ul class="record-list">
       {latestUpdates.map((norm) => {
         const currentVersion = getCurrentVersion(norm);
 
         return (
-          <article class="panel">
-            <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></h3>
-            <p>{norm.meta.summary}</p>
-            <p class="detail-line">
+          <li class="record-list__item">
+            <strong><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></strong>
+            <span>{norm.meta.summary}</span>
+            <span class="detail-line">
               {formatNormType(norm.meta.type)} · Rechtsstand seit <time datetime={currentVersion.validFrom}>{formatDate(currentVersion.validFrom)}</time>
-            </p>
-          </article>
+            </span>
+          </li>
         );
       })}
-    </div>
+    </ul>
   </section>
 
   <section class="section">

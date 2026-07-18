@@ -2,6 +2,8 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import { getGovernmentUrl, getHomeUrl } from '../../../lib/portal/index.ts';
 import { loadGovernmentMembers } from '../../../lib/portal/content.ts';
 
@@ -19,14 +21,14 @@ const remainingMembers = members.slice(2);
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Regierung</p>
-    <h1>Regierungsmitglieder</h1>
-    <p class="lead">
-      Die Profile der Regierungsmitglieder zeigen Ämter, Ressorts und Kurzbiografien der aktuellen
-      Staatsregierung an stabilen URLs.
-    </p>
-  </section>
+  <SectionHero
+    eyebrow="Staatsregierung"
+    title="Regierungsmitglieder"
+    lead="Ämter, Ressorts und biografische Angaben der Mitglieder des aktuellen Kabinetts."
+    variant="government"
+    facts={[{ label: 'Mitglieder', value: String(members.length) }]}
+  />
+  <GovernmentNavigation />
 
   <section class="section section-muted">
     <div class="section-header">

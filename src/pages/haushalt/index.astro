@@ -5,6 +5,7 @@ import BudgetKpiCards from '../../components/portal/BudgetKpiCards.astro';
 import BudgetSectionNav from '../../components/portal/BudgetSectionNav.astro';
 import BudgetTaskAreaChart from '../../components/portal/BudgetTaskAreaChart.astro';
 import BudgetYearSelector from '../../components/portal/BudgetYearSelector.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
 import {
   budgetPlans,
   budgetSpecialInstruments,
@@ -39,22 +40,20 @@ const taskAreas = getBudgetTaskAreas();
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt' }]} />
 
-  <section class="section budget-portal-header">
-    <p class="eyebrow">Haushaltsportal</p>
-    <h1>Doppelhaushalt 2025/2026</h1>
-    <p class="lead">
-      Der Haushalt zeigt Einnahmen, Ausgaben, Investitionen, Einzelpläne und Sondervermögen.
-      Einzelplananteile sind keine politische Rangfolge und keine Aussage darüber, ob ein Ressort
-      ausreichend ausgestattet ist.
-    </p>
-    <BudgetSectionNav current="portal" />
-    <nav class="hero-actions" aria-label="Direkteinstiege zum Haushaltsportal">
-      <a class="button-link" href={getBudgetPageUrl('gesamtplan')}>Gesamtplan ansehen</a>
-      <a class="button-link button-link--secondary" href={getBudgetPageUrl('einzelplaene')}>Einzelpläne vergleichen</a>
-      <a class="button-link button-link--secondary" href={getBudgetPageUrl('sondervermoegen')}>Sondervermögen und Fonds</a>
-      <a class="button-link button-link--secondary" href={`${import.meta.env.BASE_URL}haushalt/daten.csv`} download>Daten herunterladen</a>
-    </nav>
-  </section>
+  <SectionHero
+    eyebrow="Haushaltsportal"
+    title="Doppelhaushalt 2025/2026"
+    lead="Einnahmen, Ausgaben, Investitionen, Einzelpläne und Sondervermögen des Ostdeutschen Freistaates."
+    variant="budget"
+    facts={[
+      { label: 'Ausgaben 2026', value: formatEuroCompact(budgetTotals['2026'].expenses) },
+      { label: 'Investitionen 2026', value: formatEuroCompact(budgetTotals['2026'].investments) },
+      { label: 'Einzelpläne', value: String(budgetPlans.length) },
+      { label: 'Sonderinstrumente', value: String(budgetSpecialInstruments.length) },
+    ]}
+    actions={[{ label: 'Haushaltsdaten herunterladen', href: `${import.meta.env.BASE_URL}haushalt/daten.csv`, primary: true }]}
+  />
+  <BudgetSectionNav current="portal" />
 
   <section class="section budget-dashboard" data-budget-year-switcher aria-labelledby="haushaltsstand">
     <div class="section-header section-header--with-control">
@@ -160,11 +159,11 @@ const taskAreas = getBudgetTaskAreas();
       <h2 id="zugang-haushalt">Den Haushalt erschließen</h2>
       <p>Die Bereiche folgen der Struktur der Haushaltsunterlagen und machen die jeweiligen Bezugsgrößen sichtbar.</p>
     </div>
-    <div class="card-grid card-grid--three">
-      <article class="panel"><h3><a class="inline-link" href={getBudgetPageUrl('gesamtplan')}>Gesamtplan</a></h3><p>Einnahmen, Ausgabenarten und Jahresvergleich für den Kernhaushalt.</p></article>
-      <article class="panel"><h3><a class="inline-link" href={getBudgetPageUrl('einzelplaene')}>Einzelpläne</a></h3><p>Alle Verwaltungsbereiche mit Veränderung, Haushaltsanteil und Detailseiten.</p></article>
-      <article class="panel"><h3><a class="inline-link" href={getBudgetPageUrl('sondervermoegen')}>Sondervermögen und Fonds</a></h3><p>Getrennte rechtliche Instrumente mit Angaben zu Zweck, Zuständigkeit und Bezug zum Kernhaushalt.</p></article>
-    </div>
+    <ul class="direct-entry-list">
+      <li><strong>Gesamtplan</strong><span><a class="inline-link" href={getBudgetPageUrl('gesamtplan')}>Einnahmen, Ausgabenarten und Jahresvergleich</a></span></li>
+      <li><strong>Einzelpläne</strong><span><a class="inline-link" href={getBudgetPageUrl('einzelplaene')}>Verwaltungsbereiche, Veränderungen und Haushaltsanteile</a></span></li>
+      <li><strong>Sondervermögen und Fonds</strong><span><a class="inline-link" href={getBudgetPageUrl('sondervermoegen')}>Zweck, Zuständigkeit und Bezug zum Kernhaushalt</a></span></li>
+    </ul>
     <p class="detail-line">{budgetSpecialInstruments.length} rechtlich belegte Instrumente sind im Bereich Sondervermögen und Fonds eingeordnet.</p>
   </section>
 </BaseLayout>

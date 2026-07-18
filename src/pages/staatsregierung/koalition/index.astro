@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import { siteConfig } from '../../../config/site.ts';
 import {
   getActionPlanUrl,
@@ -27,31 +29,19 @@ const priorities = [
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Parlamentarische Grundlage</p>
-    <h1>Koalition</h1>
-    <p class="lead">
-      Die aktuelle Staatsregierung wird von einer Koalition aus {siteConfig.currentGovernment.coalition}
-      getragen. Sie bildet die politische Grundlage des {siteConfig.currentGovernment.cabinetName}.
-    </p>
-  </section>
-
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Kurzbezeichnung</span>
-        <strong>{siteConfig.currentGovernment.coalitionShort}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Kabinettsbildung</span>
-        <strong><time datetime={siteConfig.currentGovernment.formedOn}>{siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}</time></strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Legislatur</span>
-        <strong>{siteConfig.currentGovernment.legislature}</strong>
-      </div>
-    </div>
-  </section>
+  <SectionHero
+    eyebrow="Parlamentarische Grundlage"
+    title="Koalition"
+    lead={`Die Koalition aus ${siteConfig.currentGovernment.coalition} trägt das ${siteConfig.currentGovernment.cabinetName}.`}
+    variant="government"
+    facts={[
+      { label: 'Kurzbezeichnung', value: siteConfig.currentGovernment.coalitionShort },
+      { label: 'Kabinettsbildung', value: siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn) },
+      { label: 'Legislatur', value: siteConfig.currentGovernment.legislature },
+    ]}
+    actions={[{ label: '15-Punkte-Plan II', href: getActionPlanUrl(), primary: true }]}
+  />
+  <GovernmentNavigation />
 
   <section class="section section-muted">
     <div class="content-grid">
@@ -88,17 +78,9 @@ const priorities = [
         <h2>Gemeinsame Leitlinien</h2>
         <p>Die Koalition gibt den politischen Rahmen vor, innerhalb dessen Regierung, Themen und Rechtsordnung fortentwickelt werden.</p>
       </div>
-    <div class="card-grid card-grid--two">
-      {priorities.map((priority) => (
-        <article class="panel">
-          <h3>{priority}</h3>
-          <p>
-            Dieser Schwerpunkt ist bereits in Regierungsseiten, Themenseiten oder im Rechtsbereich
-            des Portals sichtbar verankert.
-          </p>
-        </article>
-      ))}
-    </div>
+    <ul class="record-list">
+      {priorities.map((priority) => <li class="record-list__item"><strong>{priority}</strong></li>)}
+    </ul>
     <p class="section-link-row">
       <a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a> ·{' '}
       <a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a>

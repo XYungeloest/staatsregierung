@@ -1,0 +1,40 @@
+---
+interface Item {
+  label: string;
+  href: string;
+  current?: boolean;
+}
+
+interface Props {
+  label: string;
+  items: Item[];
+  variant?: 'government' | 'topics' | 'law' | 'budget' | 'reform' | 'press' | 'service' | 'freestate' | 'plain';
+}
+
+const { label, items, variant = 'plain' } = Astro.props as Props;
+const currentPath = Astro.url.pathname.replace(/\/+$/u, '/') || '/';
+const pathFromHref = (href: string) => {
+  if (href.startsWith('#')) return null;
+  try {
+    return new URL(href, Astro.url).pathname.replace(/\/+$/u, '/') || '/';
+  } catch {
+    return null;
+  }
+};
+---
+
+<nav class:list={['section-navigation', `section-navigation--${variant}`]} aria-label={label}>
+  <div class="section-navigation__inner">
+    <span class="section-navigation__label">{label}</span>
+    <ul>
+      {items.map((item) => {
+        const isCurrent = item.current ?? pathFromHref(item.href) === currentPath;
+        return (
+          <li>
+            <a href={item.href} aria-current={isCurrent ? 'page' : undefined}>{item.label}</a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</nav>

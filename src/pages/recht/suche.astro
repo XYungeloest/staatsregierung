@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import LawNavigation from '../../components/portal/LawNavigation.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
 import {
   getFundingUrl,
-  getHelpUrl,
   getHomeUrl,
   getIndexUrl,
   getLawPortalUrl,
@@ -35,25 +36,14 @@ const searchPayload = await buildSearchIndexPayload();
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Rechtsbereich</p>
-    <h1>Normensuche</h1>
-    <p class="lead">
-      Die Suche erschließt Titel, Metadaten, Fundstellen und Normtexte aller gespeicherten
-      Fassungen.
-    </p>
-    <p class="status-line">
-      Im Suchindex stehen derzeit {searchPayload.documentCount} Normfassungen bereit.
-    </p>
-    <nav class="link-list link-list--inline" aria-label="Weitere Rechtseinstiege">
-      <a href={getIndexUrl()}>Alphabetischer Index</a>
-      <a href={getSubjectsUrl()}>Sachgebiete</a>
-      <a href={getReferencesUrl()}>Fundstellennachweise</a>
-      <a href={getPublicationsUrl()}>Verkündungen</a>
-      <a href={getFundingUrl()}>Förderrichtlinien</a>
-      <a href={getHelpUrl()}>Hilfe</a>
-    </nav>
-  </section>
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title="Normensuche"
+    lead="Titel, Metadaten, Fundstellen und Normtexte aller gespeicherten Fassungen durchsuchen."
+    variant="law"
+    facts={[{ label: 'Durchsuchbare Normfassungen', value: String(searchPayload.documentCount) }]}
+  />
+  <LawNavigation />
 
   <section
     class="section search-shell"

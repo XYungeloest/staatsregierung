@@ -9,6 +9,7 @@ const groups = [
   { directory: 'regierung', widths: [240, 360, 480] },
   { directory: 'ministerien', widths: [480, 720, 960] },
   { directory: 'jobs', widths: [480, 720, 960, 1280] },
+  { directory: 'ui', widths: [480, 720, 960] },
 ];
 const supportedExtensions = new Set(['.jpg', '.jpeg', '.png']);
 
