@@ -129,6 +129,61 @@ Informationen müssen außerhalb der Tabelle oder Grafik zugänglich bleiben. Di
 liefert ein Textergebnis ohne gestartete Karte; die Karte wird auf kleinen Bildschirmen nur nach
 ausdrücklicher Freigabe geladen.
 
+## Unterseiten und Bereichsidentitäten
+
+Unterseiten folgen einer gemeinsamen, abgestuften Hierarchie: globaler Behördenkopf,
+bereichsbezogener Einstieg, lokale Orientierung, fachlich passende Inhaltsmodule sowie das
+gemeinsame Serviceband mit Footer. `SectionHero.astro` ersetzt die frühere universelle,
+schwebende Kopfkarte auf den zentralen Seitenfamilien. Die Varianten `government`, `topics`,
+`law`, `budget`, `reform`, `press`, `service`, `freestate` und `plain` verwenden denselben Aufbau
+und unterscheiden sich nur durch zurückhaltende Akzentfarben, Medienanteil und fachliche
+Zusatzinhalte.
+
+- Staatsregierung nutzt Porträts, Leitung, Koalition und Ressortbezüge.
+- Themen zeigen Status, Zuständigkeit und nächsten Schritt.
+- Recht stellt Suche, Rechtsstand und strukturierte Dokumente vor dekorative Flächen.
+- Haushalt priorisiert Jahre, echte Kennzahlen, Vergleiche und Tabellen.
+- Kreisreform beginnt mit der textlich nutzbaren Gebietssuche; die Karte bleibt nachgeordnet.
+- Presse trennt redaktionelle Meldungen, Termine, Kontakt und Abonnements.
+- Service gruppiert Kontakt, Orientierung, barrierearme Zugänge und rechtliche Informationen.
+- Freistaat verbindet Grunddaten, staatliche Struktur und die zentralen Landesbereiche.
+
+Normale Seitentitel verwenden ungefähr `clamp(2.2rem, 4vw, 3.25rem)`. Eine eigene Langtitelklasse
+reduziert sehr lange Norm- und Ressorttitel und erlaubt sichere Umbrüche. Im Einstieg gibt es
+höchstens eine primäre Aktion. Suche oder ein anderer primärer Arbeitsauftrag steht vor ergänzenden
+Fakten und Aktionen.
+
+## Lokale Navigation und Orientierung
+
+`SectionNavigation.astro` bildet die gemeinsame Bereichs- und Ankernavigation. Sie bleibt ein
+semantisches `nav` mit beschreibendem Label, echten Links und `aria-current`; sie täuscht keine
+Registerkartensteuerung vor. Auf großen Bildschirmen ist sie kompakt horizontal angeordnet, auf
+kleinen Bildschirmen bricht sie kontrolliert um. Dort wird sie nicht fixiert. Lange Themen- und
+Fachseiten ergänzen Anker zu Überblick, Änderungen, Umsetzungsstand, nächsten Schritten,
+Rechtsgrundlagen, FAQ und Zuständigkeit.
+
+## Fakten, Status und wiederholte Einheiten
+
+Kennzahlenkarten sind echten Zahlenwerten vorbehalten. Kurze Fakten stehen als Definitionen im
+Bereichskopf oder in kompakten Faktenlisten; Statusangaben besitzen zusätzlich eine textliche
+Bezeichnung. Navigationszugänge sind Links oder Servicemodule und werden nicht als Statistik
+ausgegeben.
+
+Karten bleiben wiederholten, gleichartigen Einheiten vorbehalten, etwa Personen, Themen oder
+Servicezugängen. Ministerien werden als scanbares, datenbasiertes Verzeichnis dargestellt.
+Inhaltsabschnitte verwenden vorrangig Typografie, Listen und gezielte Hintergrundgruppen. Grün und
+Gold tragen normale Akzente; Rot ist Warnungen und kritischen Zuständen vorbehalten. Durchgehende
+Trennlinien, große Schatten und lange Leerräume werden vermieden.
+
+## Personen und Bilder auf Unterseiten
+
+Bei Regierungsmitgliedern bilden Porträt, Name, Amt, Ressort, Status und Kontakt einen gemeinsamen
+Profilkopf. Ressortseiten verbinden Titel und Zuständigkeit mit einem vorhandenen Ressortbild oder
+einem kompakten Kontaktzugang. Bilder besitzen stabile Seitenverhältnisse und verschwinden nicht
+in leeren Spalten. Die Freistaat-Seite verwendet die vorhandene, 1920 Pixel breite Flagge und
+formatoptimierte responsive Varianten bis 960 Pixel Breite. Für das 960 Pixel breite
+Staatskanzlei-Hero liegt weiterhin kein größeres redaktionelles Original vor.
+
 ## Responsive Verhalten
 
 Die Gestaltung arbeitet inhaltlich mit vier Bereichen:

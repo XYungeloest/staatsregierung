@@ -1,0 +1,24 @@
+---
+import SectionNavigation from './SectionNavigation.astro';
+import {
+  getActionPlanUrl,
+  getCabinetUrl,
+  getCoalitionUrl,
+  getGovernmentMembersUrl,
+  getGovernmentUrl,
+  getMinisterPresidentUrl,
+} from '../../lib/portal/index.ts';
+---
+
+<SectionNavigation
+  label="Staatsregierung"
+  variant="government"
+  items={[
+    { label: 'Überblick', href: getGovernmentUrl() },
+    { label: 'Kabinett & Ressorts', href: getCabinetUrl() },
+    { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
+    { label: 'Ministerpräsident', href: getMinisterPresidentUrl() },
+    { label: 'Koalition', href: getCoalitionUrl() },
+    { label: '15-Punkte-Plan', href: getActionPlanUrl() },
+  ]}
+/>

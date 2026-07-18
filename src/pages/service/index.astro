@@ -1,18 +1,20 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
+import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import ServiceCard from '../../components/portal/ServiceCard.astro';
 import {
   getAccessibilityUrl,
+  getCabinetUrl,
   getCareerUrl,
   getContactUrl,
-  getEducationAndSchoolUrl,
   getEasyLanguageUrl,
   getFaqUrl,
   getHomeUrl,
   getImprintUrl,
   getPrivacyUrl,
   getPublicationsUrl,
-  getServiceOverviewUrl,
   getSignLanguageUrl,
 } from '../../lib/portal/index.ts';
 import { loadJobOffers } from '../../lib/portal/content.ts';
@@ -23,91 +25,73 @@ const offers = await loadJobOffers();
 <BaseLayout title="Service" description="Kontakt, Karriere, Orientierung und barrierearme Serviceangebote des Regierungsportals.">
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service' }]} />
 
-  <section class="section page-header">
-    <p class="eyebrow">Service</p>
-    <h1>Service</h1>
-    <p class="lead">
-      Der Servicebereich bündelt Karriere, Kontakt, FAQ sowie rechtlich-organisatorische Hinweise
-      an einem einheitlichen Ort.
-    </p>
-    <p class="detail-line">
-      <a class="inline-link" href={getServiceOverviewUrl()}>Zur kompakten Übersicht aller Portalbereiche</a>
-    </p>
+  <SectionHero
+    eyebrow="Service"
+    title="Service und Orientierung"
+    lead="Kontaktwege, Zuständigkeiten, Stellenangebote und barrierearme Zugänge zum Regierungsportal."
+    variant="service"
+    facts={[
+      { label: 'Servicenummer', value: '115' },
+      { label: 'Aktuelle Stellenangebote', value: String(offers.length), href: getCareerUrl() },
+    ]}
+    actions={[{ label: 'Kontakt und Zuständigkeit', href: getContactUrl(), primary: true }]}
+  />
+  <SectionNavigation
+    label="Servicebereiche"
+    variant="service"
+    items={[
+      { label: 'Kontakt & 115', href: '#kontakt' },
+      { label: 'Orientierung', href: '#orientierung' },
+      { label: 'Barrierearme Zugänge', href: '#zugaenge' },
+      { label: 'Rechtliche Hinweise', href: '#rechtliches' },
+    ]}
+  />
+
+  <section id="kontakt" class="section" aria-labelledby="kontakt-115">
+    <div class="section-header">
+      <h2 id="kontakt-115">Kontakt und Servicenummer 115</h2>
+      <p>Für allgemeine Fragen und die Suche nach der zuständigen Stelle.</p>
+    </div>
+    <ServiceCard
+      title="Kontakt zur Landesverwaltung"
+      body="Die Servicenummer 115 ist montags bis freitags von 8 bis 18 Uhr erreichbar. Der Kontaktbereich hilft außerdem bei der Zuordnung Ihres Anliegens."
+      href={getContactUrl()}
+      icon="phone"
+      emphasis={true}
+    />
   </section>
 
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Stellenangebote</span>
-        <strong>{offers.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Kontaktlogik</span>
-        <strong>Digitaler Wegweiser</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Kontaktwege</span>
-        <strong>Zentral gebündelt</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Publikationen</span>
-        <strong>Recht, Presse, Service</strong>
-      </div>
+  <section id="orientierung" class="section section-muted" aria-labelledby="service-orientierung">
+    <div class="section-header">
+      <h2 id="service-orientierung">Orientierung und Angebote</h2>
+    </div>
+    <div class="service-entry-grid">
+      <ServiceCard title="Zuständiges Ressort finden" body="Ministerien, Aufgaben und Kontaktstellen der Staatsregierung." href={getCabinetUrl()} icon="ministry" />
+      <ServiceCard title="Karriere" body="Offene Stellen und Kontaktwege für die Arbeit in der Landesverwaltung." href={getCareerUrl()} icon="government" />
+      <ServiceCard title="Publikationen" body="Verkündungen, Presseformate und zentrale Veröffentlichungen." href={getPublicationsUrl()} icon="press" />
+      <ServiceCard title="Hilfe und FAQ" body="Antworten zur Nutzung des Portals, zu Downloads und Kontaktwegen." href={getFaqUrl()} icon="topics" />
     </div>
   </section>
 
-  <section class="section section-muted">
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h2>Karriere</h2>
-        <p>Offene Stellen, Rahmendaten und Kontaktwege für die Arbeit in der Landesverwaltung.</p>
-        <p><a class="inline-link" href={getCareerUrl()}>Zur Karriere</a></p>
-      </article>
-      <article class="panel">
-        <h2>Kontakt</h2>
-        <p>Zentrale Kontaktwege und ein digitaler Zuständigkeitswegweiser für typische Anliegen.</p>
-        <p><a class="inline-link" href={getContactUrl()}>Zum Kontakt</a></p>
-      </article>
-      <article class="panel">
-        <h2>FAQ</h2>
-        <p>Hilfen zur Nutzung des Rechtsportals, zu Downloads, Informationsanträgen und Kontaktwegen.</p>
-        <p><a class="inline-link" href={getFaqUrl()}>Zur FAQ</a></p>
-      </article>
-      <article class="panel">
-        <h2>Bildung und Schule</h2>
-        <p>Schularten, Bildungswege, Abschlüsse und zuständige Stellen im Überblick.</p>
-        <p><a class="inline-link" href={getEducationAndSchoolUrl()}>Zu Bildung und Schule</a></p>
-      </article>
-      <article class="panel">
-        <h2>Publikationen</h2>
-        <p>Verkündungen, Presseformate und zentrale Downloadangebote.</p>
-        <p><a class="inline-link" href={getPublicationsUrl()}>Zu Publikationen</a></p>
-      </article>
-      <article class="panel">
-        <h2>Leichte Sprache</h2>
-        <p>Kurze Orientierung zu den wichtigsten Portalbereichen.</p>
-        <p><a class="inline-link" href={getEasyLanguageUrl()}>Zu Leichte Sprache</a></p>
-      </article>
-      <article class="panel">
-        <h2>Gebärdensprache in Vorbereitung</h2>
-        <p>Derzeit gibt es noch keine Gebärdensprachvideos. Hier finden Sie Status und Feedbackweg.</p>
-        <p><a class="inline-link" href={getSignLanguageUrl()}>Zum Hinweis zu Gebärdensprache</a></p>
-      </article>
-      <article class="panel">
-        <h2>Barrierefreiheit</h2>
-        <p>Stand der Zugänglichkeit, bekannte Einschränkungen und Feedbackweg.</p>
-        <p><a class="inline-link" href={getAccessibilityUrl()}>Zur Barrierefreiheit</a></p>
-      </article>
-      <article class="panel">
-        <h2>Impressum</h2>
-        <p>Verantwortlichkeiten und Angaben zum Portal.</p>
-        <p><a class="inline-link" href={getImprintUrl()}>Zum Impressum</a></p>
-      </article>
-      <article class="panel">
-        <h2>Datenschutz</h2>
-        <p>Datenschutzhinweise zu Webanalyse und Kontaktwegen.</p>
-        <p><a class="inline-link" href={getPrivacyUrl()}>Zum Datenschutz</a></p>
-      </article>
+  <section id="zugaenge" class="section" aria-labelledby="barrierearme-zugaenge">
+    <div class="section-header">
+      <h2 id="barrierearme-zugaenge">Barrierearme Zugänge</h2>
+      <p>Informationen in zugänglichen Formaten sowie Angaben zur Barrierefreiheit.</p>
+    </div>
+    <div class="service-entry-grid">
+      <ServiceCard title="Leichte Sprache" body="Kurze Orientierung zu den wichtigsten Portalbereichen." href={getEasyLanguageUrl()} icon="easy-language" />
+      <ServiceCard title="Gebärdensprache" body="Informationen zum aktuellen Angebot und zum Feedbackweg." href={getSignLanguageUrl()} icon="sign-language" />
+      <ServiceCard title="Barrierefreiheit" body="Stand der Zugänglichkeit, bekannte Einschränkungen und Feedbackweg." href={getAccessibilityUrl()} icon="accessibility" />
+    </div>
+  </section>
+
+  <section id="rechtliches" class="section section-muted" aria-labelledby="rechtliche-hinweise">
+    <div class="section-header">
+      <h2 id="rechtliche-hinweise">Rechtliche Hinweise</h2>
+    </div>
+    <div class="service-legal-links">
+      <a href={getImprintUrl()}>Impressum</a>
+      <a href={getPrivacyUrl()}>Datenschutz</a>
     </div>
   </section>
 </BaseLayout>

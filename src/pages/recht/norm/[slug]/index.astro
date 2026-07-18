@@ -5,6 +5,8 @@ import NormBody from '../../../../components/norms/NormBody.astro';
 import NormMetaCard from '../../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../components/norms/NormStatusNotice.astro';
+import SectionHero from '../../../../components/portal/SectionHero.astro';
+import SectionNavigation from '../../../../components/portal/SectionNavigation.astro';
 import { loadPressReleases, loadTopics } from '../../../../lib/portal/content.ts';
 import {
   getPressReleaseIndexUrl,
@@ -15,6 +17,7 @@ import {
 import {
   buildNormOutline,
   formatDate,
+  formatNormType,
   toDisplayText,
 } from '../../../../lib/norms/presentation.ts';
 import {
@@ -22,7 +25,6 @@ import {
   getLawPortalUrl,
   getNormHistoryUrl,
   getNormUrl,
-  getNormVersionUrl,
   buildNormTextLinkReferences,
   buildNormPublicationReferenceLookup,
   getRelatedNormRecommendations,
@@ -48,7 +50,6 @@ export async function getStaticPaths() {
 
 const { norm, currentVersion, textReferences, relatedNorms, publicationReferences } = Astro.props;
 const publicationReference = publicationReferences.get(`${norm.meta.slug}:${currentVersion.versionId}`);
-const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
 const outline = buildNormOutline(currentVersion.body);
 const normTitle = toDisplayText(norm.meta.title);
 const normLabel = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
@@ -79,27 +80,31 @@ const relatedPressReleases = pressReleases
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Aktuelle Fassung</p>
-    <h1>{toDisplayText(norm.meta.title)}</h1>
-    <p class="lead">{toDisplayText(norm.meta.summary)}</p>
-    <p class="status-line">Rechtsstand: aktuelle Fassung seit <time datetime={currentVersion.validFrom}>{formatDate(currentVersion.validFrom)}</time></p>
-    <nav class="link-list link-list--inline" aria-label="Seitennavigation">
-      <a href={getNormHistoryUrl(norm.meta.slug)}>Historie</a>
-      {historicalVersions.map((version) => (
-        <a href={getNormVersionUrl(norm.meta.slug, version.versionId)}>
-          Fassung vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>
-        </a>
-      ))}
-    </nav>
-    <nav class="link-list link-list--inline norm-jump-nav" aria-label="Sprungmarken in dieser Vorschrift">
-      <a href="#norm-inhalt">Inhalt</a>
-      <a href="#normtext">Text</a>
-      <a href="#normdaten">Daten</a>
-      <a href="#normhistorie">Historie</a>
-      {relatedNorms.length > 0 ? <a href="#normverwandt">Verwandte Vorschriften</a> : null}
-    </nav>
-  </section>
+  <SectionHero
+    eyebrow="Aktuelle Fassung"
+    title={toDisplayText(norm.meta.title)}
+    titleSize="long"
+    lead={toDisplayText(norm.meta.summary)}
+    status={`Rechtsstand seit ${formatDate(currentVersion.validFrom)}`}
+    variant="law"
+    facts={[
+      { label: 'Abkürzung', value: toDisplayText(norm.meta.abbr) },
+      { label: 'Normtyp', value: formatNormType(norm.meta.type) },
+      { label: 'Fundstelle', value: toDisplayText(currentVersion.citation) },
+    ]}
+    actions={[{ label: 'Normenhistorie', href: getNormHistoryUrl(norm.meta.slug), primary: true }]}
+  />
+  <SectionNavigation
+    label="Vorschrift"
+    variant="law"
+    items={[
+      { label: 'Inhalt', href: '#norm-inhalt' },
+      { label: 'Text', href: '#normtext' },
+      { label: 'Daten', href: '#normdaten' },
+      { label: 'Historie', href: '#normhistorie' },
+      ...(relatedNorms.length > 0 ? [{ label: 'Verwandte Vorschriften', href: '#normverwandt' }] : []),
+    ]}
+  />
 
   <NormStatusNotice norm={norm} version={currentVersion} />
 

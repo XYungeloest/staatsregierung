@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import LawNavigation from '../../../components/portal/LawNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatDate,
   formatPublicationEntryType,
@@ -9,7 +11,6 @@ import {
   getPublicationLabel,
   getPublicationUrl,
   getPublicationsUrl,
-  getReferencesUrl,
   loadAllVerkuendungen,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
@@ -36,35 +37,18 @@ const years = [...new Set(publications.map((publication) => publication.year))].
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Rechtsbereich</p>
-    <h1>Verkündungen</h1>
-    <p class="lead">
-      Ausgaben der Verkündungsblätter mit Datum, Fundstellen und Verknüpfungen zu gespeicherten
-      Normfassungen.
-    </p>
-    <nav class="link-list link-list--inline" aria-label="Weitere Rechtseinstiege">
-      <a href={getReferencesUrl()}>Fundstellennachweise</a>
-      <a href={getLawPortalUrl()}>Rechtsbereich</a>
-    </nav>
-  </section>
-
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Ausgaben</span>
-        <strong>{publications.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Einträge</span>
-        <strong>{entryCount}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Jahre</span>
-        <strong>{years.length}</strong>
-      </div>
-    </div>
-  </section>
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title="Verkündungen"
+    lead="Ausgaben der Verkündungsblätter mit Datum, Fundstellen und verknüpften Normfassungen."
+    variant="law"
+    facts={[
+      { label: 'Ausgaben', value: String(publications.length) },
+      { label: 'Einträge', value: String(entryCount) },
+      { label: 'Jahre', value: String(years.length) },
+    ]}
+  />
+  <LawNavigation />
 
   {years.map((year) => {
     const yearPublications = publications.filter((publication) => publication.year === year);

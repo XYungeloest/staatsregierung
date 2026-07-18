@@ -1,5 +1,6 @@
 ---
 import StatusBadge from './StatusBadge.astro';
+import PortalIcon from './PortalIcon.astro';
 import {
   getMinistryUrl,
   getTopicUrl,
@@ -23,10 +24,10 @@ const { topic, ministryName } = Astro.props as Props;
       </p>
     ) : null}
   </div>
-  <h3><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></h3>
+  <h3><a href={getTopicUrl(topic.slug)}>{topic.title}</a></h3>
   <p>{topic.teaser}</p>
   <p class="detail-line">
     {topic.rechtsgrundlagen.length} Rechtsgrundlagen · {topic.naechsteSchritte.length} nächste Schritte
   </p>
-  <p><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title} ansehen</a></p>
+  <a class="topic-card__link" href={getTopicUrl(topic.slug)} aria-label={`${topic.title} ansehen`}><PortalIcon name="arrow" /></a>
 </article>

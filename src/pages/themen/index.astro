@@ -2,6 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import TopicCard from '../../components/portal/TopicCard.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
+import SectionNavigation from '../../components/portal/SectionNavigation.astro';
 import {
   getActionPlanUrl,
   getEducationAndSchoolUrl,
@@ -15,34 +17,44 @@ import { loadMinistries, loadTopics } from '../../lib/portal/content.ts';
 
 const [topics, ministries] = await Promise.all([loadTopics(), loadMinistries()]);
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
-const flagshipTopics = topics.filter((topic) =>
-  ['kernprojekt', 'umgesetzt', 'sehr-weit-umgesetzt'].includes(topic.status),
-);
-const developingTopics = topics.filter((topic) =>
-  ['teilweise-umgesetzt', 'deutlich-umgesetzt', 'ausbauphase', 'laufend'].includes(topic.status),
-);
+const implementationTopics = topics.filter((topic) => topic.status === 'in-umsetzung');
+const legislativeTopics = topics.filter((topic) => topic.status === 'im-gesetzgebungsverfahren');
+const plannedTopics = topics.filter((topic) => topic.status === 'geplant');
 const linkedNormCount = topics.reduce((count, topic) => count + topic.rechtsgrundlagen.length, 0);
 ---
 
 <BaseLayout title="Themen & Projekte" description="Reformthemen mit Umsetzungsstand, Zuständigkeiten, nächsten Schritten und Rechtsgrundlagen im Ostdeutschen Freistaat.">
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Themen & Projekte' }]} />
 
-  <section class="section page-header">
-    <p class="eyebrow">Themen & Projekte</p>
-    <h1>Themen & Projekte</h1>
-    <p class="lead">
-      Hier finden Sie politische Vorhaben, ihren aktuellen Stand, nächste Schritte,
-      Rechtsgrundlagen und zuständige Ressorts.
-    </p>
-    <nav class="hero-actions" aria-label="Themeneinstiege">
-      <a class="button-link" href={`${getKreisreformUrl()}#bezirk-suche`}>Gemeinde in neuer Gliederung suchen</a>
-      <a class="button-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a>
-      <a class="button-link button-link--secondary" href={getLawHomeUrl()}>Zum Rechtsbereich</a>
-      <a class="button-link button-link--secondary" href={getServiceUrl()}>Zum Service</a>
-    </nav>
-  </section>
+  <SectionHero
+    eyebrow="Themen & Projekte"
+    title="Themen & Projekte"
+    lead="Politische Vorhaben mit Umsetzungsstand, nächsten Schritten, Rechtsgrundlagen und zuständigen Ressorts."
+    variant="topics"
+    facts={[
+      { label: 'Themenseiten', value: String(topics.length) },
+      { label: 'Rechtsgrundlagen', value: String(linkedNormCount) },
+      { label: 'Federführende Ressorts', value: String(new Set(topics.map((topic) => topic.federfuehrendesRessort)).size) },
+    ]}
+    actions={[
+      { label: 'Gemeinde in neuer Gliederung suchen', href: `${getKreisreformUrl()}#bezirk-suche`, primary: true },
+      { label: '15-Punkte-Plan II', href: getActionPlanUrl() },
+    ]}
+  />
+  <SectionNavigation
+    label="Themenbereiche"
+    variant="topics"
+    items={[
+      { label: 'Leitthemen', href: '#leitthemen' },
+      { label: 'In Umsetzung', href: '#in-umsetzung' },
+      { label: 'Gesetzgebung', href: '#gesetzgebung' },
+      { label: 'Geplant', href: '#geplant' },
+      { label: 'Recht', href: getLawHomeUrl() },
+      { label: 'Service', href: getServiceUrl() },
+    ]}
+  />
 
-  <section class="section" aria-labelledby="kreisreform-aktuell">
+  <section id="leitthemen" class="section topic-lead-grid" aria-label="Leitthemen">
     <article class="reform-priority-card">
       <div>
         <p class="eyebrow">Aktuell</p>
@@ -58,9 +70,6 @@ const linkedNormCount = topics.reduce((count, topic) => count + topic.rechtsgrun
         <a class="button-link button-link--secondary" href={`${getKreisreformUrl()}#rechtsgrundlagen`}>Rechtsgrundlagen lesen</a>
       </div>
     </article>
-  </section>
-
-  <section class="section" aria-labelledby="bildung-schule">
     <article class="reform-priority-card">
       <div>
         <p class="eyebrow">Bildung</p>
@@ -77,47 +86,37 @@ const linkedNormCount = topics.reduce((count, topic) => count + topic.rechtsgrun
     </article>
   </section>
 
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Themenseiten</span>
-        <strong>{topics.length}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Rechtsgrundlagen</span>
-        <strong>{linkedNormCount}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Ressorts beteiligt</span>
-        <strong>{new Set(topics.map((topic) => topic.federfuehrendesRessort)).size}</strong>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-muted">
+  <section id="in-umsetzung" class="section section-muted">
     <div class="section-header">
-      <h2>Bereits weit getragene Vorhaben</h2>
-      <p>
-        Diese Themen sind politisch weit fortgeschritten und rechtlich abgesichert.
-      </p>
+      <h2>In Umsetzung</h2>
+      <p>Vorhaben, deren beschlossene oder vorbereitete Maßnahmen derzeit umgesetzt werden.</p>
     </div>
     <div class="card-grid card-grid--two">
-      {flagshipTopics.map((topic) => (
+      {implementationTopics.map((topic) => (
         <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} />
       ))}
     </div>
   </section>
 
-  <section class="section">
+  <section id="gesetzgebung" class="section">
     <div class="section-header">
-      <h2>Weitere Ausbaubereiche</h2>
-      <p>
-        Diese Themen sind politisch angelegt und werden von der Staatsregierung schrittweise
-        weiter vertieft.
-      </p>
+      <h2>Im Gesetzgebungsverfahren</h2>
+      <p>Vorhaben, zu denen ein parlamentarisches oder rechtliches Verfahren läuft.</p>
     </div>
     <div class="card-grid card-grid--two">
-      {developingTopics.map((topic) => (
+      {legislativeTopics.map((topic) => (
+        <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} />
+      ))}
+    </div>
+  </section>
+
+  <section id="geplant" class="section section-muted">
+    <div class="section-header">
+      <h2>Geplant</h2>
+      <p>Vorhaben, deren nächste fachliche oder rechtliche Schritte vorbereitet werden.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {plannedTopics.map((topic) => (
         <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} />
       ))}
     </div>

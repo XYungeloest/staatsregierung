@@ -1,5 +1,6 @@
 ---
 import { getBudgetPageUrl, getBudgetUrl } from '../../lib/portal/routes.ts';
+import SectionNavigation from './SectionNavigation.astro';
 
 interface Props {
   current?: 'portal' | 'gesamtplan' | 'einzelplaene' | 'sondervermoegen';
@@ -14,8 +15,8 @@ const links = [
 ];
 ---
 
-<nav class="budget-section-nav" aria-label="Bereiche des Haushaltsportals">
-  {links.map((link) => (
-    <a href={link.href} aria-current={link.id === current ? 'page' : undefined}>{link.label}</a>
-  ))}
-</nav>
+<SectionNavigation
+  label="Haushalt"
+  variant="budget"
+  items={links.map((link) => ({ label: link.label, href: link.href, current: link.id === current }))}
+/>

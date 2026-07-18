@@ -5,6 +5,7 @@ import BudgetKpiCards from '../../components/portal/BudgetKpiCards.astro';
 import BudgetSectionNav from '../../components/portal/BudgetSectionNav.astro';
 import BudgetTaskAreaChart from '../../components/portal/BudgetTaskAreaChart.astro';
 import BudgetYearSelector from '../../components/portal/BudgetYearSelector.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
 import {
   budgetTotals,
   budgetSpecialInstruments,
@@ -36,12 +37,17 @@ const taskAreas = getBudgetTaskAreas();
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt', href: getBudgetUrl() }, { label: 'Gesamtplan' }]} />
 
-  <section class="section budget-portal-header">
-    <p class="eyebrow">Haushalt · Gesamtplan</p>
-    <h1>Gesamtplan des Doppelhaushalts</h1>
-    <p class="lead">Der Gesamtplan erklärt die Einnahmen und Ausgaben des Kernhaushalts nach den Hauptgruppen der Haushaltsrechnung. Einzelpläne und Sondervermögen sind eigene Betrachtungsebenen.</p>
-    <BudgetSectionNav current="gesamtplan" />
-  </section>
+  <SectionHero
+    eyebrow="Haushalt · Gesamtplan"
+    title="Gesamtplan des Doppelhaushalts"
+    lead="Einnahmen und Ausgaben des Kernhaushalts nach den Hauptgruppen der Haushaltsrechnung."
+    variant="budget"
+    facts={[
+      { label: 'Ausgaben 2026', value: formatEuroCompact(budgetTotals['2026'].expenses) },
+      { label: 'Einnahmen 2026', value: formatEuroCompact(budgetTotals['2026'].revenue) },
+    ]}
+  />
+  <BudgetSectionNav current="gesamtplan" />
 
   <section class="section budget-dashboard" data-budget-year-switcher aria-labelledby="gesamtplan-stand">
     <div class="section-header section-header--with-control">

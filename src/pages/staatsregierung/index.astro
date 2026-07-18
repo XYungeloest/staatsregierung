@@ -2,6 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import GovernmentMemberCard from '../../components/portal/GovernmentMemberCard.astro';
+import GovernmentNavigation from '../../components/portal/GovernmentNavigation.astro';
+import MinistryDirectory from '../../components/portal/MinistryDirectory.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
 import TopicCard from '../../components/portal/TopicCard.astro';
 import { siteConfig } from '../../config/site.ts';
 import {
@@ -45,41 +48,31 @@ const flagshipTopics = [
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Staatsregierung' }]} />
 
-  <section class="section page-header">
-    <p class="eyebrow">Staatsregierung</p>
-    <h1>Staatsregierung</h1>
-    <p class="lead">
-      Die Staatsregierung des Ostdeutschen Freistaates wird vom {currentGovernment.cabinetName}
-      getragen. Sie verbindet politische Leitung, Kabinettsarbeit, Ressorts und programmatische
-      Vorhaben der Staatsregierung.
-    </p>
-    <nav class="hero-actions" aria-label="Regierungseinstiege">
-      <a class="button-link" href={getMinisterPresidentUrl()}>Ministerpräsident</a>
-      <a class="button-link button-link--secondary" href={getCabinetUrl()}>Kabinett & Ressorts</a>
-      <a class="button-link button-link--secondary" href={getActionPlanUrl()}>15-Punkte-Plan</a>
-    </nav>
-  </section>
-
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Kabinettsname</span>
-        <strong>{currentGovernment.cabinetName}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Koalition</span>
-        <strong>{currentGovernment.coalitionShort}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Regierungssitz</span>
-        <strong>{currentGovernment.seatOfGovernment}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Ressorts</span>
-        <strong>{ministries.length}</strong>
-      </div>
-    </div>
-  </section>
+  <SectionHero
+    eyebrow="Staatsregierung"
+    title="Staatsregierung"
+    lead={`Das ${currentGovernment.cabinetName} führt die Staatsregierung und koordiniert die Arbeit der Ministerien.`}
+    variant="government"
+    facts={[
+      { label: 'Kabinett', value: currentGovernment.cabinetName },
+      { label: 'Ministerpräsident', value: currentGovernment.headOfGovernment, href: getMinisterPresidentUrl() },
+      { label: 'Koalition', value: currentGovernment.coalitionShort, href: getCoalitionUrl() },
+      { label: 'Ministerien', value: String(ministries.length), href: getCabinetUrl() },
+    ]}
+    actions={[
+      { label: 'Kabinett und Ministerien', href: getCabinetUrl(), primary: true },
+      { label: '15-Punkte-Plan', href: getActionPlanUrl() },
+    ]}
+    image={headOfGovernment ? {
+      src: headOfGovernment.bild,
+      alt: headOfGovernment.bildAlt ?? `Porträt von ${headOfGovernment.name}`,
+      width: 352,
+      height: 440,
+      widths: [240, 360, 480],
+      kind: 'portrait',
+    } : undefined}
+  />
+  <GovernmentNavigation />
 
   <div class="content-grid">
     <section class="section">
@@ -121,38 +114,25 @@ const flagshipTopics = [
 
   <section class="section section-muted">
     <div class="section-header">
-      <h2>Regierungsorganisation</h2>
+      <h2>Direkte Wege zur Regierungsarbeit</h2>
       <p>
         Die Staatsregierung wird als zusammenhängender Hauptbereich geführt und bindet personelle,
         politische und thematische Ebenen sichtbar zusammen.
       </p>
     </div>
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h3>Politische Leitung</h3>
-        <p>
-          Ministerpräsident, Staatskanzlei und Stellvertretung sind als klarer Führungsbereich
-          gebündelt.
-        </p>
-        <p><a class="inline-link" href={getMinisterPresidentUrl()}>Zur Leitungsseite</a></p>
-      </article>
-      <article class="panel">
-        <h3>Kabinett & Ressorts</h3>
-        <p>
-          Ressortseiten zeigen Leitung, Aufgaben, Kontakt und thematische Einbindung in kompakter
-          Form.
-        </p>
-        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett</a></p>
-      </article>
-      <article class="panel">
-        <h3>Koalition & Programm</h3>
-        <p>
-          Koalitionsrahmen und 15-Punkte-Plan bilden die politische Arbeitsgrundlage des
-          Kabinetts Honecker II.
-        </p>
-        <p><a class="inline-link" href={getCoalitionUrl()}>Zur Koalition</a></p>
-      </article>
+    <ul class="direct-entry-list">
+      <li><strong>Politische Leitung</strong><span><a class="inline-link" href={getMinisterPresidentUrl()}>Ministerpräsident und Staatskanzlei</a></span></li>
+      <li><strong>Kabinett</strong><span><a class="inline-link" href={getCabinetUrl()}>Ministerien, Zuständigkeiten und Regierungsmitglieder</a></span></li>
+      <li><strong>Arbeitsgrundlage</strong><span><a class="inline-link" href={getCoalitionUrl()}>Koalition</a> und <a class="inline-link" href={getActionPlanUrl()}>15-Punkte-Plan II</a></span></li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="ministerien">
+    <div class="section-header">
+      <h2 id="ministerien">Ministerien</h2>
+      <p>Leitung und zentrale Aufgaben der Ministerien des {currentGovernment.cabinetName}.</p>
     </div>
+    <MinistryDirectory ministries={ministries} />
   </section>
 
   <section class="section">
@@ -179,7 +159,7 @@ const flagshipTopics = [
   <section class="section section-muted">
     <div class="section-header">
       <h2>Regierungsmitglieder</h2>
-      <p>Die Profile der Regierungsmitglieder sind einheitlich dargestellt und mit stabilen URLs erreichbar.</p>
+      <p>Die Profile stellen Amt, Zuständigkeiten, Lebenslauf und Kontakt übersichtlich zusammen.</p>
     </div>
     <div class="card-grid card-grid--two">
       {featuredMembers.map((member) => (

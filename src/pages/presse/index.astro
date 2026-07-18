@@ -4,6 +4,9 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import EventCard from '../../components/portal/EventCard.astro';
 import PressReleaseCard from '../../components/portal/PressReleaseCard.astro';
 import SpeechCard from '../../components/portal/SpeechCard.astro';
+import PressNavigation from '../../components/portal/PressNavigation.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
+import ServiceCard from '../../components/portal/ServiceCard.astro';
 import { siteConfig } from '../../config/site.ts';
 import { splitEventsByDate } from '../../lib/portal/dates.ts';
 import { loadEvents, loadPressReleases, loadSpeeches } from '../../lib/portal/content.ts';
@@ -14,7 +17,6 @@ import {
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getSpeechIndexUrl,
-  getEventUrl,
 } from '../../lib/portal/index.ts';
 
 const [releases, events, speeches] = await Promise.all([
@@ -35,51 +37,22 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse & Aktuelles' }]} />
 
-  <section class="section page-header">
-    <p class="eyebrow">Presse &amp; Aktuelles</p>
-    <h1>Presse &amp; Aktuelles</h1>
-    <p class="lead">Aktuelle Mitteilungen, Reden, Termine und Pressekontakt der Staatsregierung.</p>
-  </section>
-
-  <section class="section" aria-labelledby="presse-ueberblick">
-    <div class="section-header">
-      <h2 id="presse-ueberblick">Auf einen Blick</h2>
-    </div>
-    <div class="card-grid card-grid--four press-overview-grid">
-      <article class="panel">
-        <h3>Neueste Pressemitteilung</h3>
-        {leadRelease ? (
-          <>
-            <p><a class="inline-link" href={getPressReleaseUrl(leadRelease.slug)}>{leadRelease.title}</a></p>
-            <p class="detail-line"><time datetime={leadRelease.date}>{siteConfig.date.formatLong(leadRelease.date)}</time></p>
-          </>
-        ) : <p>Derzeit liegt keine Pressemitteilung vor.</p>}
-      </article>
-      <article class="panel">
-        <h3>Nächster Termin</h3>
-        {nextEvents[0] ? (
-          <>
-            <p><a class="inline-link" href={getEventUrl(nextEvents[0].slug)}>{nextEvents[0].title}</a></p>
-            <p class="detail-line"><time datetime={nextEvents[0].date}>{siteConfig.date.formatLong(nextEvents[0].date)}</time> · {nextEvents[0].location}</p>
-          </>
-        ) : <p>Derzeit sind keine zukünftigen öffentlichen Termine angekündigt.</p>}
-      </article>
-      <article class="panel">
-        <h3>Pressekontakt</h3>
-        <p>{siteConfig.contact.pressOffice.label}</p>
-        <p class="detail-line"><a class="inline-link" href={`mailto:${siteConfig.contact.pressOffice.email}`}>{siteConfig.contact.pressOffice.email}</a><br /><a class="inline-link" href={`tel:${siteConfig.contact.pressOffice.phone.replace(/\s+/gu, '')}`}>{siteConfig.contact.pressOffice.phone}</a></p>
-      </article>
-      <article class="panel">
-        <h3>RSS &amp; Kalender</h3>
-        <p>Abonnieren Sie Mitteilungen per RSS oder zukünftige Termine als Kalender.</p>
-        <p><a class="inline-link" href={rssUrl}>RSS öffnen</a></p>
-        <p><a class="inline-link" href={calendarUrl}>Kalender abonnieren</a></p>
-      </article>
-    </div>
-  </section>
+  <SectionHero
+    eyebrow="Presse & Aktuelles"
+    title="Presse & Aktuelles"
+    lead="Pressemitteilungen, Reden, öffentliche Termine und Medienkontakt der Staatsregierung."
+    variant="press"
+    facts={[
+      { label: 'Pressemitteilungen', value: String(releases.length) },
+      { label: 'Künftige Termine', value: String(nextEvents.length) },
+      { label: 'Reden', value: String(speeches.length) },
+    ]}
+    actions={leadRelease ? [{ label: 'Neueste Pressemitteilung', href: getPressReleaseUrl(leadRelease.slug), primary: true }] : []}
+  />
+  <PressNavigation />
 
   {leadRelease ? (
-    <section class="section section-muted">
+    <section class="section">
       <div class="section-header">
         <h2>Neueste Mitteilung</h2>
         <p>Die zuletzt veröffentlichte Mitteilung der Staatsregierung.</p>
@@ -88,33 +61,34 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
     </section>
   ) : null}
 
+  <section class="section section-muted" aria-labelledby="presse-service">
+    <div class="section-header">
+      <h2 id="presse-service">Kontakt und Abonnements</h2>
+    </div>
+    <div class="press-service-grid">
+      <aside class="press-contact-module">
+        <h3>{siteConfig.contact.pressOffice.label}</h3>
+        <p>Kontaktstelle für Medienanfragen zur Arbeit der Staatsregierung.</p>
+        <p><a class="inline-link" href={`mailto:${siteConfig.contact.pressOffice.email}`}>{siteConfig.contact.pressOffice.email}</a><br /><a class="inline-link" href={`tel:${siteConfig.contact.pressOffice.phone.replace(/\s+/gu, '')}`}>{siteConfig.contact.pressOffice.phone}</a></p>
+        <p><a class="inline-link" href={getContactUrl()}>Weitere Kontaktwege</a></p>
+      </aside>
+      <div class="service-entry-grid">
+        <ServiceCard title="RSS-Feed" body="Neue Pressemitteilungen im Feed abonnieren." href={rssUrl} icon="press" />
+        <ServiceCard title="Terminkalender" body="Öffentliche Termine als Kalender abonnieren." href={calendarUrl} icon="topics" />
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="section-header">
       <h2>Bereiche für Medien und Öffentlichkeit</h2>
       <p>Alle Inhalte bleiben dauerhaft nach Veröffentlichungsart und Datum erreichbar.</p>
     </div>
-    <div class="card-grid card-grid--three">
-      <article class="panel">
-        <h3>Pressemitteilungen</h3>
-        <p>Mit Datum, Ressort, Kurztext und eigener Detailseite.</p>
-        <p><a class="inline-link" href={getPressReleaseIndexUrl()}>Zu den Pressemitteilungen</a></p>
-      </article>
-      <article class="panel">
-        <h3>Reden &amp; Erklärungen</h3>
-        <p>Redetexte und Erklärungen der Staatsregierung.</p>
-        <p><a class="inline-link" href={getSpeechIndexUrl()}>Zu den Reden</a></p>
-      </article>
-      <article class="panel">
-        <h3>Termine &amp; Archiv</h3>
-        <p>Zukünftige Termine und klar gekennzeichnete vergangene Veranstaltungen.</p>
-        <p><a class="inline-link" href={getEventIndexUrl()}>Zur Terminübersicht</a></p>
-      </article>
-      <article class="panel">
-        <h3>Kontakt für Medien</h3>
-        <p>Für Fragen zur Pressearbeit steht die Pressestelle zur Verfügung.</p>
-        <p><a class="inline-link" href={getContactUrl()}>Zu den Kontaktwegen</a></p>
-      </article>
-    </div>
+    <ul class="direct-entry-list">
+      <li><strong>Pressemitteilungen</strong><span><a class="inline-link" href={getPressReleaseIndexUrl()}>Alle Meldungen nach Datum und Ressort</a></span></li>
+      <li><strong>Reden & Erklärungen</strong><span><a class="inline-link" href={getSpeechIndexUrl()}>Redetexte und Erklärungen der Staatsregierung</a></span></li>
+      <li><strong>Termine & Archiv</strong><span><a class="inline-link" href={getEventIndexUrl()}>Künftige und vergangene Veranstaltungen</a></span></li>
+    </ul>
   </section>
 
   <section class="section section-muted">

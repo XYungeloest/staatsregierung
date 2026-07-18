@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import LawNavigation from '../../../components/portal/LawNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatNormType,
   getHomeUrl,
@@ -67,13 +69,15 @@ const keywordGroups = [...keywordEntries.entries()]
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Rechtsbereich</p>
-    <h1>Alphabetischer Index</h1>
-    <p class="lead">
-      Der alphabetische Index führt zu allen im Rechtsbereich geführten Normen sowie zu
-      Abkürzungen, Kurztiteln und Stichwörtern.
-    </p>
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title="Alphabetischer Index"
+    lead="Alle Vorschriften, Abkürzungen, Kurztitel und Stichwörter von A bis Z."
+    variant="law"
+    facts={[{ label: 'Normen', value: String(norms.length) }, { label: 'Buchstabengruppen', value: String(groups.length) }]}
+  />
+  <LawNavigation />
+  <section class="section" aria-label="Buchstabenauswahl">
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
       {groups.map((group) => (
         <a href={`#${group.letter}`}>{group.letter}</a>

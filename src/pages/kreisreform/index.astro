@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
+import SectionNavigation from '../../components/portal/SectionNavigation.astro';
 import {
   getFreestateUrl,
   getHomeUrl,
@@ -84,72 +86,51 @@ const kreisreformFaq = [
     ]}
   />
 
-  <section class="section page-header kreisreform-header">
-    <p class="eyebrow">Gebietsordnung</p>
-    <h1>Kreis- und Bezirksreform 2026</h1>
-    <p class="lead">
-      Suchen Sie Ihre Gemeinde und sehen Sie, welchem Kreis und Bezirk sie künftig zugeordnet ist.
-    </p>
-    <p>Gesetzgebungsverfahren 2026, Wirksamwerden zum <time datetime="2026-08-01">1. August 2026</time>.</p>
-    <nav class="hero-actions" aria-label="Direkteinstiege">
-      <a class="button-link" href="#bezirk-suche">Gemeinde suchen</a>
-      <a class="button-link button-link--secondary" href="#karte" data-open-kreisreform-map>Karte ansehen</a>
-      <a class="button-link button-link--secondary" href="#tabellen">Tabellenansicht ansehen</a>
-      <a class="button-link button-link--secondary" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
-    </nav>
-  </section>
-
-  <section class="section" aria-labelledby="kennzahlen">
-    <div class="section-header">
-      <h2 id="kennzahlen">Auf einen Blick</h2>
-      <p>Die Kennzahlen beruhen auf den vorbereiteten Grenz- und Einwohnerdaten zur Reform.</p>
-    </div>
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Neue Bezirke</span>
-        <strong>{formatInteger(manifest.stats.neueBezirke)}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Neue Kreise</span>
-        <strong>{formatInteger(manifest.stats.neueKreise)}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Wirksamwerden</span>
-        <strong><time datetime={manifest.stats.wirksamAb}>{formatLongDate(manifest.stats.wirksamAb)}</time></strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Größter Kreis nach Einwohnerzahl</span>
-        <strong>{manifest.stats.groessterKreis?.name ?? 'Keine Angabe'}</strong>
-      </div>
-    </div>
-  </section>
-
-  <section
-    id="bezirk-suche"
-    class="section section-muted kreisreform-search-section"
-    aria-labelledby="gebietssuche"
-    data-kreisreform-search
-    data-base-url={base}
+  <SectionHero
+    eyebrow="Gebietsordnung"
+    title="Kreis- und Bezirksreform 2026"
+    lead="Suchen Sie Ihre Gemeinde und sehen Sie, welchem Kreis und Bezirk sie künftig zugeordnet ist."
+    status="Im Gesetzgebungsverfahren"
+    variant="reform"
+    facts={[
+      { label: 'Neue Bezirke', value: formatInteger(manifest.stats.neueBezirke) },
+      { label: 'Neue Kreise', value: formatInteger(manifest.stats.neueKreise) },
+      { label: 'Vorgesehen ab', value: formatLongDate(manifest.stats.wirksamAb) },
+    ]}
   >
-    <div class="section-header">
+    <div
+      id="bezirk-suche"
+      class="kreisreform-search-panel"
+      aria-labelledby="gebietssuche"
+      data-kreisreform-search
+      data-base-url={base}
+    >
       <h2 id="gebietssuche">Gebiet suchen</h2>
       <p>Suchen Sie nach Gemeinde, Kreis oder Bezirk. Das Ergebnis steht auch ohne Kartenansicht bereit.</p>
+      <label class="search-field kreisreform-search-field">
+        <span>Gemeinde, Kreis oder Bezirk suchen</span>
+        <input type="search" data-kreisreform-search-input autocomplete="off" placeholder="z. B. Leipzig, Lausitz, Potsdam" />
+      </label>
+      <p class="search-feedback" data-kreisreform-search-status role="status" aria-live="polite">
+        Geben Sie mindestens zwei Buchstaben ein, um ein Gebiet zu suchen.
+      </p>
+      <ul class="kreisreform-search-results" data-kreisreform-search-results hidden></ul>
+      <article class="panel kreisreform-search-detail" data-kreisreform-search-detail aria-live="polite" hidden></article>
     </div>
-    <label class="search-field kreisreform-search-field">
-      <span>Gemeinde, Kreis oder Bezirk suchen</span>
-      <input
-        type="search"
-        data-kreisreform-search-input
-        autocomplete="off"
-        placeholder="z. B. Leipzig, Lausitz, Potsdam"
-      />
-    </label>
-    <p class="search-feedback" data-kreisreform-search-status role="status" aria-live="polite">
-      Geben Sie mindestens zwei Buchstaben ein, um ein Gebiet zu suchen.
-    </p>
-    <ul class="kreisreform-search-results" data-kreisreform-search-results hidden></ul>
-    <article class="panel kreisreform-search-detail" data-kreisreform-search-detail aria-live="polite" hidden></article>
-  </section>
+  </SectionHero>
+  <SectionNavigation
+    label="Kreisreform"
+    variant="reform"
+    items={[
+      { label: 'Gebietssuche', href: '#bezirk-suche' },
+      { label: 'Bezirke & Kreise', href: '#bezirke' },
+      { label: 'Karte', href: '#karte' },
+      { label: 'Was ändert sich?', href: '#aenderungen' },
+      { label: 'Tabellen', href: '#tabellen' },
+      { label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' },
+      { label: 'FAQ', href: '#kreisreform-faq' },
+    ]}
+  />
 
   <section id="bezirke" class="section kreisreform-mobile-alternative" aria-labelledby="bezirksuebersicht">
     <div class="section-header">
@@ -269,9 +250,9 @@ const kreisreformFaq = [
     </noscript>
   </section>
 
-  <section class="section" aria-labelledby="aenderungen">
+  <section id="aenderungen" class="section" aria-labelledby="aenderungen-ueberschrift">
     <div class="section-header">
-      <h2 id="aenderungen">Was ändert sich?</h2>
+      <h2 id="aenderungen-ueberschrift">Was ändert sich?</h2>
       <p>Die Reform verbindet eine neue Bezirksordnung mit einer neuen Kreisgliederung.</p>
     </div>
     <div class="compare-grid">
@@ -438,9 +419,9 @@ const kreisreformFaq = [
     </p>
   </section>
 
-  <section class="section section-muted" aria-labelledby="kreisreform-faq">
+  <section id="kreisreform-faq" class="section section-muted" aria-labelledby="kreisreform-faq-ueberschrift">
     <div class="section-header">
-      <h2 id="kreisreform-faq">Häufige Fragen</h2>
+      <h2 id="kreisreform-faq-ueberschrift">Häufige Fragen</h2>
       <p>Antworten zur vorgesehenen Neuordnung und zum Übergang am <time datetime="2026-08-01">1. August 2026</time>.</p>
     </div>
     <div class="faq-accordion" data-faq-root data-allow-multiple="false">
@@ -462,16 +443,25 @@ const kreisreformFaq = [
   </script>
 
   <style>
-    .kreisreform-header > p:not(.eyebrow):not(.lead) {
-      max-width: 68ch;
+    .kreisreform-search-panel {
+      padding: 1rem;
+      border: 1px solid #9bb79f;
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.94);
     }
 
-    .kreisreform-search-section {
-      position: relative;
+    .kreisreform-search-panel h2,
+    .kreisreform-search-panel p {
+      margin: 0;
+    }
+
+    .kreisreform-search-panel > p {
+      margin-top: 0.4rem;
     }
 
     .kreisreform-search-field {
       max-width: 44rem;
+      margin-top: 0.85rem;
     }
 
     .kreisreform-search-detail {
@@ -691,7 +681,7 @@ const kreisreformFaq = [
     .legend-dashed {
       height: 0;
       border-width: 0;
-      border-top: 2px dashed var(--color-seal);
+      border-top: 2px dashed var(--color-text-muted);
     }
 
     .kreisreform-map-notice {

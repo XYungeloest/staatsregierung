@@ -3,7 +3,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import MinistryCard from '../../components/portal/MinistryCard.astro';
-import StatusBadge from '../../components/portal/StatusBadge.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
+import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import { formatTopicStatus } from '../../lib/portal/presentation.ts';
 import {
   getContactUrl,
   getHomeUrl,
@@ -17,7 +19,7 @@ import {
   loadRuntimeMinistries,
   loadRuntimeTopics,
 } from '../../lib/runtime-content/index.ts';
-import { getLawPortalUrl, getNormUrl } from '../../lib/norms/index.ts';
+import { getNormUrl } from '../../lib/norms/index.ts';
 import type { Themenseite } from '../../lib/portal/index.ts';
 
 export function getStaticPaths() {
@@ -75,59 +77,48 @@ const pressSearchUrl = topic
       ]}
     />
 
-    <section class="section page-header">
-      <p class="eyebrow">Themen & Projekte</p>
-      <h1>{topic.title}</h1>
-      <div class="topic-card__header">
-        <StatusBadge status={topic.status} />
-        {leadMinistry ? (
-          <p class="topic-card__meta">
-            Federführend:{' '}
-            <a class="inline-link" href={getMinistryUrl(leadMinistry.slug)}>{leadMinistry.kurzname}</a>
-          </p>
-        ) : null}
-      </div>
-      <p class="lead">{topic.hero ?? topic.teaser}</p>
-      <nav class="hero-actions" aria-label="Direkteinstiege">
-        {leadMinistry ? (
-          <a class="button-link" href={getMinistryUrl(leadMinistry.slug)}>Zum zuständigen Ressort</a>
-        ) : null}
-        <a class="button-link button-link--secondary" href={getLawPortalUrl()}>Zum Rechtsbereich</a>
-      </nav>
-    </section>
+    <SectionHero
+      eyebrow="Themen & Projekte"
+      title={topic.title}
+      titleSize="long"
+      lead={topic.hero ?? topic.teaser}
+      status={formatTopicStatus(topic.status)}
+      variant="topics"
+      facts={[
+        ...(leadMinistry ? [{ label: 'Federführendes Ressort', value: leadMinistry.kurzname, href: getMinistryUrl(leadMinistry.slug) }] : []),
+        { label: 'Nächster Schritt', value: topic.naechsteSchritte[0] },
+        { label: 'Rechtsgrundlagen', value: String(topic.rechtsgrundlagen.length), href: '#rechtsgrundlagen' },
+      ]}
+      actions={[
+        ...(leadMinistry ? [{ label: 'Zum zuständigen Ressort', href: getMinistryUrl(leadMinistry.slug), primary: true }] : []),
+        { label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' },
+      ]}
+    />
+    <SectionNavigation
+      label="Auf dieser Seite"
+      variant="topics"
+      items={[
+        { label: 'Auf einen Blick', href: '#auf-einen-blick' },
+        { label: 'Was ändert sich?', href: '#was-aendert-sich' },
+        { label: 'Umsetzungsstand', href: '#umsetzung' },
+        { label: 'Nächste Schritte', href: '#naechste-schritte' },
+        { label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' },
+        { label: 'FAQ', href: '#faq' },
+        { label: 'Zuständiges Ressort', href: '#ressort' },
+      ]}
+    />
 
-    <section class="section topic-orientation" aria-labelledby="themen-ueberblick">
+    <section id="auf-einen-blick" class="section topic-orientation" aria-labelledby="themen-ueberblick">
       <div class="section-header">
         <h2 id="themen-ueberblick">Auf einen Blick</h2>
         <p>Die Kurzstruktur führt direkt zu den wichtigsten Informationen und weiterführenden Bereichen.</p>
       </div>
-      <div class="topic-orientation__grid">
-        <article class="panel topic-orientation__item">
-          <h3>Kurzfassung</h3>
-          <p>{topic.teaser}</p>
-        </article>
-        <article class="panel topic-orientation__item">
-          <h3>Was ändert sich?</h3>
-          <p>{topic.beschlossen[0]}</p>
-          <p><a class="inline-link" href="#was-aendert-sich">Änderungen ansehen</a></p>
-        </article>
-        <article class="panel topic-orientation__item">
-          <h3>Zuständiges Ressort</h3>
-          {leadMinistry ? (
-            <p><a class="inline-link" href={getMinistryUrl(leadMinistry.slug)}>{leadMinistry.kurzname}</a></p>
-          ) : <p>Keine Angabe</p>}
-        </article>
-        <article class="panel topic-orientation__item">
-          <h3>Rechtsgrundlagen</h3>
-          <p>{topic.rechtsgrundlagen.length} {topic.rechtsgrundlagen.length === 1 ? 'Eintrag' : 'Einträge'}</p>
-          <p><a class="inline-link" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a></p>
-        </article>
-        <article class="panel topic-orientation__item">
-          <h3>Nächster Schritt</h3>
-          <p>{topic.naechsteSchritte[0]}</p>
-          <p><a class="inline-link" href="#naechste-schritte">Nächste Schritte ansehen</a></p>
-        </article>
-      </div>
+      <dl class="topic-overview-list">
+        <div><dt>Kurzfassung</dt><dd>{topic.teaser}</dd></div>
+        <div><dt>Was ändert sich?</dt><dd>{topic.beschlossen[0]}</dd></div>
+        <div><dt>Nächster Schritt</dt><dd>{topic.naechsteSchritte[0]}</dd></div>
+        <div><dt>Federführung</dt><dd>{leadMinistry ? <a class="inline-link" href={getMinistryUrl(leadMinistry.slug)}>{leadMinistry.kurzname}</a> : 'Keine Angabe'}</dd></div>
+      </dl>
     </section>
 
     <section id="was-aendert-sich" class="section">
@@ -159,11 +150,11 @@ const pressSearchUrl = topic
         <h2>Nächste Schritte</h2>
         <p>Diese Punkte kennzeichnen laufende oder vorbereitete Ausbauschritte innerhalb des Themas.</p>
       </div>
-      <ul class="record-list">
+      <ol class="topic-timeline">
         {topic.naechsteSchritte.map((entry) => (
-          <li class="record-list__item"><span>{entry}</span></li>
+          <li><p>{entry}</p></li>
         ))}
-      </ul>
+      </ol>
     </section>
 
     <section id="rechtsgrundlagen" class="section section-muted">
@@ -185,7 +176,7 @@ const pressSearchUrl = topic
       </ul>
     </section>
 
-    <section class="section">
+    <section id="faq" class="section">
       <div class="section-header">
         <h2>FAQ</h2>
         <p>Antworten auf häufige Fragen zum Vorhaben.</p>
@@ -193,7 +184,7 @@ const pressSearchUrl = topic
       <FaqAccordion items={topic.faq} />
     </section>
 
-    <section class="section section-muted">
+    <section id="ressort" class="section section-muted">
       <div class="section-header">
         <h2>Zuständiges Ressort</h2>
         <p>Dieses Ressort ist für das Vorhaben zuständig.</p>

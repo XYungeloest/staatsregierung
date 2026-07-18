@@ -1,0 +1,20 @@
+---
+import SectionNavigation from './SectionNavigation.astro';
+import {
+  getEventIndexUrl,
+  getPressReleaseIndexUrl,
+  getPressUrl,
+  getSpeechIndexUrl,
+} from '../../lib/portal/index.ts';
+---
+
+<SectionNavigation
+  label="Presse"
+  variant="press"
+  items={[
+    { label: 'Überblick', href: getPressUrl() },
+    { label: 'Pressemitteilungen', href: getPressReleaseIndexUrl() },
+    { label: 'Reden & Erklärungen', href: getSpeechIndexUrl() },
+    { label: 'Termine', href: getEventIndexUrl() },
+  ]}
+/>

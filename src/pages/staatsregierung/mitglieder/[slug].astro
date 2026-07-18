@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import ResponsivePicture from '../../../components/portal/ResponsivePicture.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
-  getGovernmentMemberUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
   getHomeUrl,
@@ -32,41 +32,43 @@ const { member } = Astro.props as { member: RegierungMitglied };
       ]}
     />
 
-    <section class="section page-header">
-      <p class="eyebrow">Regierungsmitglied</p>
-      <h1>{member.name}</h1>
-      <p class="lead">{member.amt}</p>
-      <p class="detail-line">{member.ressort}</p>
-    </section>
+    <SectionHero
+      eyebrow="Regierungsmitglied"
+      title={member.name}
+      titleSize="long"
+      lead={member.amt}
+      status="Aktuelles Kabinettsmitglied"
+      variant="government"
+      facts={[
+        { label: 'Ressort', value: member.ressort },
+        ...(member.kontakt?.email ? [{ label: 'E-Mail', value: member.kontakt.email, href: `mailto:${member.kontakt.email}` }] : []),
+        ...(member.kontakt?.telefon ? [{ label: 'Telefon', value: member.kontakt.telefon, href: `tel:${member.kontakt.telefon.replace(/\s+/gu, '')}` }] : []),
+      ]}
+      actions={[{ label: 'Zur Mitgliederübersicht', href: getGovernmentMembersUrl(), primary: true }]}
+      image={{
+        src: member.bild,
+        alt: member.bildAlt ?? `Porträt von ${member.name}`,
+        width: 720,
+        height: 900,
+        widths: [240, 360, 480],
+        kind: 'portrait',
+      }}
+    />
+    <GovernmentNavigation />
+    {member.bildnachweis ? <p class="media-credit">Bildnachweis: {member.bildnachweis}</p> : null}
 
     <div class="content-grid">
       <section class="section">
-        <div class="status-notice status-notice--current">
-          <h2>Aktuelles Profil</h2>
-          <p>Dieses Profil gehört zur aktuellen Staatsregierung und fasst Aufgabenbereich, Biografie und Kontaktweg kompakt zusammen.</p>
+        <div class="section-header">
+          <h2>Biografie</h2>
         </div>
-        <article class="profile-card">
-          <ResponsivePicture
-            src={member.bild}
-            alt={member.bildAlt ?? `Porträt von ${member.name}`}
-            width={720}
-            height={900}
-            widths={[240, 360, 480]}
-            sizes="(max-width: 720px) calc(100vw - 2.4rem), 320px"
-            loading="eager"
-            fetchpriority="high"
-          />
-          <div>
-            <p>{member.kurzbiografie}</p>
-            {member.zitat ? <blockquote class="quote-card">„{member.zitat}“</blockquote> : null}
-          </div>
-        </article>
-        {member.bildnachweis ? <p class="media-credit">Bildnachweis: {member.bildnachweis}</p> : null}
         <div class="body-copy">
+          <p><strong>{member.kurzbiografie}</strong></p>
           {member.langbiografie.map((paragraph: string) => (
             <p>{paragraph}</p>
           ))}
         </div>
+        {member.zitat ? <blockquote class="quote-card">„{member.zitat}“</blockquote> : null}
       </section>
 
       <aside class="section meta-panel">
@@ -97,7 +99,6 @@ const { member } = Astro.props as { member: RegierungMitglied };
         </dl>
         <nav class="link-list">
           <a href={getGovernmentMembersUrl()}>Zur Übersicht</a>
-          <a href={getGovernmentMemberUrl(member.slug)}>Stabile URL dieses Profils</a>
         </nav>
       </aside>
     </div>

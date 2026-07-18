@@ -1,0 +1,35 @@
+---
+import PortalIcon from './PortalIcon.astro';
+import { getMinistryUrl, type Ministerium } from '../../lib/portal/index.ts';
+
+interface Props {
+  ministries: Ministerium[];
+}
+
+const { ministries } = Astro.props as Props;
+---
+
+<div class="ministry-directory" data-ministry-directory>
+  {ministries.map((ministry) => (
+    <article class="ministry-directory__item">
+      <div class="ministry-directory__icon" aria-hidden="true"><PortalIcon name="ministry" /></div>
+      <div class="ministry-directory__body">
+        <p class="ministry-directory__shortname">{ministry.kurzname}</p>
+        <h3><a href={getMinistryUrl(ministry.slug)}>{ministry.name}</a></h3>
+        <dl>
+          <div>
+            <dt>Leitung</dt>
+            <dd>{ministry.leitung}</dd>
+          </div>
+          <div>
+            <dt>Zentrale Aufgabe</dt>
+            <dd>{ministry.aufgaben[0] ?? ministry.teaser}</dd>
+          </div>
+        </dl>
+      </div>
+      <a class="ministry-directory__link" href={getMinistryUrl(ministry.slug)} aria-label={`${ministry.name} öffnen`}>
+        <PortalIcon name="arrow" />
+      </a>
+    </article>
+  ))}
+</div>

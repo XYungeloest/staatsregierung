@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FreestateNavigation from '../../components/portal/FreestateNavigation.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
 import { siteConfig } from '../../config/site.ts';
 import {
   getFreestatePageUrl,
@@ -51,11 +53,14 @@ const historyMilestones = [
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Über den Freistaat</p>
-    <h1>{page.title}</h1>
-    <p class="lead">{page.body[0]}</p>
-  </section>
+  <SectionHero
+    eyebrow="Über den Freistaat"
+    title={page.title}
+    titleSize="long"
+    lead={page.body[0]}
+    variant="freestate"
+  />
+  <FreestateNavigation />
 
   <div class="content-grid">
     <section class="section">

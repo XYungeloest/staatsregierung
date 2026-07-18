@@ -1,10 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import FreestateNavigation from '../../components/portal/FreestateNavigation.astro';
+import SectionHero from '../../components/portal/SectionHero.astro';
 import { siteConfig } from '../../config/site.ts';
 import {
+  getBudgetUrl,
   getFreestatePageUrl,
+  getGovernmentUrl,
   getHomeUrl,
+  getTopicsUrl,
 } from '../../lib/portal/index.ts';
 import { loadFreestatePages } from '../../lib/portal/content.ts';
 import { getLawConstitutionUrl } from '../../lib/norms/index.ts';
@@ -24,42 +29,46 @@ const orderedPages = [
 <BaseLayout title="Über den Freistaat" description="Grunddaten, Geschichte, Bezirke und Staatsziele des Ostdeutschen Freistaates.">
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Über den Freistaat' }]} />
 
-  <section class="section page-header">
-    <p class="eyebrow">Über den Freistaat</p>
-    <h1>Über den Freistaat</h1>
-    <p class="lead">
-      Dieser Bereich bündelt Grundinformationen zu Verfassung, Bezirken, Hoheitszeichen,
-      Hauptstadtfunktionen und zur Geschichte des Ostdeutschen Freistaates.
-    </p>
-  </section>
+  <SectionHero
+    eyebrow="Über den Freistaat"
+    title="Der Ostdeutsche Freistaat"
+    lead="Grunddaten, staatliche Struktur, Hoheitszeichen und Geschichte des Freistaates."
+    variant="freestate"
+    facts={[
+      { label: 'Landeshauptstadt', value: siteConfig.currentGovernment.seatOfGovernment },
+      { label: 'Bundeshauptstadt', value: 'Berlin' },
+      { label: 'Derzeitige Bezirke', value: '8' },
+      { label: 'Landesfarben', value: 'Blau, Weiß und Grün' },
+    ]}
+    image={{
+      src: siteConfig.officialFlagAssetPath,
+      alt: 'Flagge des Ostdeutschen Freistaates in Blau, Weiß und Grün',
+      width: 1920,
+      height: 1152,
+      widths: [480, 720, 960],
+      kind: 'mark',
+      position: 'center',
+    }}
+  />
+  <FreestateNavigation />
 
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Landeshauptstadt</span>
-        <strong>{siteConfig.currentGovernment.seatOfGovernment}</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Bundeshauptstadt</span>
-        <strong>Berlin</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Bezirke</span>
-        <strong>Acht Bezirke</strong>
-      </div>
-      <div class="meta-card">
-        <span class="meta-label">Landesfarben</span>
-        <strong>Blau, Weiß und Grün</strong>
-      </div>
+  <section class="section" aria-labelledby="staatliche-orientierung">
+    <div class="section-header">
+      <h2 id="staatliche-orientierung">Staatliche Orientierung</h2>
     </div>
+    <ul class="direct-entry-list">
+      <li><strong>Staatsregierung</strong><span><a class="inline-link" href={getGovernmentUrl()}>Kabinett, Ministerien und politische Leitung</a></span></li>
+      <li><strong>Themen</strong><span><a class="inline-link" href={getTopicsUrl()}>Vorhaben, Zuständigkeiten und nächste Schritte</a></span></li>
+      <li><strong>Recht</strong><span><a class="inline-link" href={getLawConstitutionUrl()}>Verfassung und Rechtsordnung</a></span></li>
+      <li><strong>Haushalt</strong><span><a class="inline-link" href={getBudgetUrl()}>Doppelhaushalt, Einzelpläne und Fonds</a></span></li>
+    </ul>
   </section>
 
   <section class="section section-muted">
     <div class="section-header">
       <h2>Themenbereiche</h2>
       <p>
-        Die Unterseiten ordnen den Freistaat in sachlicher Form ein und verknüpfen, wo sinnvoll,
-        direkt in den Rechtsbereich.
+        Verfassung, Bezirke, Hoheitszeichen, Hauptstadtfunktionen und Geschichte im Überblick.
       </p>
     </div>
     <div class="card-grid card-grid--three">
