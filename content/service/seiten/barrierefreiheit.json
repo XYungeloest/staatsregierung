@@ -2,12 +2,12 @@
   "slug": "barrierefreiheit",
   "title": "Barrierefreiheit",
   "body": [
-    "Wir arbeiten daran, dass Navigation, Suche, Karten, Recht und Inhaltsseiten gut zugänglich sind.",
-    "Für wichtige Inhalte stehen mehrere Zugänge bereit, zum Beispiel Suche, Tabellen und strukturierte Inhaltsseiten.",
-    "Hinweise zur Barrierefreiheit können über die zentrale Kontaktseite übermittelt werden."
+    "Dieses fiktive Regierungsportal innerhalb einer Politiksimulation soll unabhängig von Gerät und unterstützender Technik verständlich nutzbar sein.",
+    "Für zentrale Inhalte stehen mehrere Zugänge bereit, zum Beispiel Suche, Tabellen und strukturierte Inhaltsseiten. Die Kreisreform ist vollständig ohne interaktive Karte nutzbar.",
+    "Die Erklärung beruht auf den nachfolgend benannten Prüfungen. Sie ist keine amtliche Bestätigung einer BITV- oder WCAG-Konformität."
   ],
   "accessibilityAudit": {
-    "checkedOn": "2026-06-22",
+    "checkedOn": "2026-07-18",
     "scope": [
       "Seitengerüst mit Navigation, Skip-Link und Footer",
       "Portalsuche, Filter und Statusmeldungen",
@@ -17,7 +17,9 @@
     "methods": [
       "Statische Prüfung von Überschriften, Formularbeschriftungen, Alternativtexten und Landmarken",
       "Tastaturprüfung wichtiger Navigationen, Formulare, Akkordeons und Schaltflächen",
-      "Prüfung fester Ansichten für kleine, mittlere und große Bildschirmbreiten"
+      "Automatisierte WCAG-Smoke-Tests mit axe-core und Playwright",
+      "Browser- und Überlaufprüfungen von 320 bis 1920 Pixel Breite",
+      "Prüfung bei 200 Prozent Zoom und reduzierter Bewegung"
     ],
     "knownLimitations": [
       "Gebärdensprachvideos sind derzeit nicht verfügbar; die wichtigsten Informationen stehen als Text bereit.",

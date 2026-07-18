@@ -2,7 +2,6 @@
 import { siteConfig } from '../../config/site.ts';
 import {
   getSpeechUrl,
-  resolvePortalPath,
   type Rede,
 } from '../../lib/portal/index.ts';
 
@@ -15,18 +14,9 @@ const { speech, variant = 'default' } = Astro.props as Props;
 const isCompact = variant === 'compact';
 ---
 
-<article class:list={['panel', 'speech-card', isCompact && 'speech-card--compact']}>
-  <img
-    class="media-banner speech-card__image"
-    src={resolvePortalPath('/images/presse/rede-uebersicht.png')}
-    alt="Grafik zu einer Rede oder Regierungserklärung der Staatsregierung"
-    width="640"
-    height="360"
-    loading="lazy"
-    decoding="async"
-  />
+<article class:list={['panel', 'speech-card', 'speech-card--text', isCompact && 'speech-card--compact']}>
   <div class="speech-card__body">
-    <p class="eyebrow">{siteConfig.date.formatLong(speech.date)} · {speech.sprecher}</p>
+    <p class="eyebrow"><time datetime={speech.date}>{siteConfig.date.formatLong(speech.date)}</time> · {speech.sprecher}</p>
     <h3><a class="inline-link" href={getSpeechUrl(speech.slug)}>{speech.title}</a></h3>
     <p>{speech.teaser}</p>
     {!isCompact ? (

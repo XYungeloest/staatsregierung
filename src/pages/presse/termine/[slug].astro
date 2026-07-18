@@ -10,7 +10,6 @@ import {
   getEventUrl,
   getHomeUrl,
   getPressUrl,
-  resolvePortalPath,
   type Termin,
 } from '../../../lib/portal/index.ts';
 
@@ -40,14 +39,6 @@ const isArchivedEvent = isPast(event.date);
     { label: 'Termine', href: getEventIndexUrl() },
     { label: event?.title ?? 'Nicht gefunden' },
   ]}
-  ogImage={
-    event
-      ? {
-          url: '/images/presse/termin-uebersicht.png',
-          alt: 'Grafik zu einem Termin der Staatsregierung',
-        }
-      : undefined
-  }
   structuredData={
     event
       ? buildEventJsonLd(
@@ -81,20 +72,12 @@ const isArchivedEvent = isPast(event.date);
         <p class="eyebrow">Termin</p>
         <h1>{event.title}</h1>
         <p class="lead">{event.teaser}</p>
-        <p class="detail-line">{siteConfig.date.formatLong(event.date)} · {event.location}</p>
+        <p class="detail-line"><time datetime={event.date}>{siteConfig.date.formatLong(event.date)}</time> · {event.location}</p>
         {isArchivedEvent ? <p class="status-badge status-badge--amber">Vergangener Termin</p> : null}
       </section>
 
       <div class="content-grid">
         <section class="section">
-          <img
-            class="media-banner"
-            src={resolvePortalPath('/images/presse/termin-uebersicht.png')}
-            alt="Grafik zu einem Termin der Staatsregierung"
-            width="1280"
-            height="720"
-            decoding="async"
-          />
           <div class="body-copy">
             {event.body.map((paragraph) => (
               <p>{paragraph}</p>
@@ -109,7 +92,7 @@ const isArchivedEvent = isPast(event.date);
           <dl class="meta-list">
             <div>
               <dt>Datum</dt>
-              <dd>{siteConfig.date.formatLong(event.date)}</dd>
+              <dd><time datetime={event.date}>{siteConfig.date.formatLong(event.date)}</time></dd>
             </div>
             <div>
               <dt>Ort</dt>
@@ -134,7 +117,7 @@ const isArchivedEvent = isPast(event.date);
                 {relatedEvents.map((entry) => (
                   <li class="record-list__item">
                     <strong><a class="inline-link" href={getEventUrl(entry.slug)}>{entry.title}</a></strong>
-                    <span>{siteConfig.date.formatLong(entry.date)}</span>
+                    <span><time datetime={entry.date}>{siteConfig.date.formatLong(entry.date)}</time></span>
                   </li>
                 ))}
               </ul>

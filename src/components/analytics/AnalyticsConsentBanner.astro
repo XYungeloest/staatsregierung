@@ -19,7 +19,7 @@ const showBanner = isAnalyticsEnabled() && shouldShowAnalyticsConsentBanner();
   >
     <div class="container consent-banner__inner">
       <div class="consent-banner__content">
-        <p class="consent-banner__title">Statistik-Cookies</p>
+        <p class="consent-banner__title" id="analytics-consent-title">Statistik-Cookies</p>
         <p id="analytics-consent-description" class="consent-banner__text">
           Wir nutzen Statistik nur, wenn Sie zustimmen. Die Website funktioniert auch ohne
           Webanalyse vollständig.
@@ -27,10 +27,10 @@ const showBanner = isAnalyticsEnabled() && shouldShowAnalyticsConsentBanner();
         </p>
       </div>
       <div class="consent-banner__actions">
-        <button type="button" class="button-link button-link--secondary" data-analytics-consent-reject>
+        <button type="button" class="button-link button-link--secondary consent-banner__choice" data-analytics-consent-reject>
           Nur notwendige Funktionen nutzen
         </button>
-        <button type="button" class="button-link" data-analytics-consent-accept>
+        <button type="button" class="button-link button-link--secondary consent-banner__choice" data-analytics-consent-accept>
           Statistik erlauben
         </button>
       </div>

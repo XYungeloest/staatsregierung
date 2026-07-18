@@ -68,13 +68,13 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
     <p class="eyebrow">Verkündung</p>
     <h1>{toDisplayText(publication.title)}</h1>
     <p class="lead">
-      {getPublicationLabel(publication)} vom {formatDate(publication.date)} mit den verzeichneten
+      {getPublicationLabel(publication)} vom <time datetime={publication.date}>{formatDate(publication.date)}</time> mit den verzeichneten
       Veröffentlichungen und Verknüpfungen zu Normfassungen.
     </p>
     <nav class="link-list link-list--inline" aria-label="Verkündungsnavigation">
       <a href={getPublicationsUrl()}>Alle Verkündungen</a>
       <a href={getReferencesUrl()}>Fundstellennachweise</a>
-      <button class="text-link-button" type="button" onclick="window.print()">Seite drucken</button>
+      <button class="text-link-button" type="button" data-print-page>Seite drucken</button>
     </nav>
   </section>
 

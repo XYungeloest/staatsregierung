@@ -1,5 +1,7 @@
 export {};
 
+import { formatCount } from '../lib/kreisreform/format.ts';
+
 interface LayerInfo {
   url: string;
   available: boolean;
@@ -119,7 +121,7 @@ function createSearchDetail(entry: SearchEntry): string {
         <div><dt>Neuer Bezirk</dt><dd>${escapeHtml(value.bezirkNeu)}</dd></div>
         <div><dt>Einwohner</dt><dd>${formatInteger(value.einwohner)}</dd></div>
         <div><dt>Fläche</dt><dd>${formatArea(value.flaecheKm2)}</dd></div>
-        <div><dt>Gemeinden</dt><dd>${formatInteger(value.gemeinden)}</dd></div>
+        <div><dt>Gemeinden</dt><dd>${formatCount(value.gemeinden, 'Gemeinde', 'Gemeinden')}</dd></div>
         <div><dt>Rechtsgrundlage</dt><dd>Entwurf des Kreis- und Bezirksneuordnungsgesetzes, Anlagen 1 und 2</dd></div>
       </dl>
       <p class="detail-line">Die Karte kann zur räumlichen Einordnung zusätzlich geöffnet werden.</p>

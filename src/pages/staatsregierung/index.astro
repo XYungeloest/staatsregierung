@@ -93,7 +93,7 @@ const flagshipTopics = [
           und bündelt politische Kommunikation, Ressortsteuerung und zentrale Landesaufgaben.
         </p>
         <p>
-          Seit dem {siteConfig.date.formatLong(currentGovernment.formedOn)} führt
+          Seit dem <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time> führt
           {` ${currentGovernment.headOfGovernment} `} die Staatsregierung. Stellvertretender
           Ministerpräsident ist {currentGovernment.deputyHead}.
         </p>

@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ResponsivePicture from '../../../components/portal/ResponsivePicture.astro';
 import { siteConfig } from '../../../config/site.ts';
 import { loadJobOffers } from '../../../lib/portal/content.ts';
 import {
   getCareerUrl,
   getHomeUrl,
   getJobUrl,
-  resolvePortalPath,
   getServiceUrl,
   type Stellenangebot,
 } from '../../../lib/portal/index.ts';
@@ -50,20 +50,23 @@ const relatedOffers = (await loadJobOffers())
         <p class="lead">{offer.teaser}</p>
         <p class="detail-line">
           {offer.ressort} · {offer.standort} · veröffentlicht am{' '}
-          {siteConfig.date.formatLong(offer.datePosted)}
+          <time datetime={offer.datePosted}>{siteConfig.date.formatLong(offer.datePosted)}</time>
         </p>
       </section>
 
       <div class="content-grid">
         <section class="section">
           {offer.image ? (
-            <img
-              class="media-banner"
-              src={resolvePortalPath(offer.image)}
+            <ResponsivePicture
+              className="media-banner"
+              src={offer.image}
               alt={offer.imageAlt ?? `Ansichtsbild zum Stellenangebot ${offer.title}`}
-              width="1280"
-              height="720"
-              decoding="async"
+              width={1280}
+              height={731}
+              widths={[480, 720, 960, 1280]}
+              sizes="(max-width: 720px) calc(100vw - 2.4rem), (max-width: 1100px) 62vw, 760px"
+              loading="eager"
+              fetchpriority="high"
             />
           ) : null}
           {offer.image && offer.imageCredit ? <p class="media-credit">Bildnachweis: {offer.imageCredit}</p> : null}
@@ -107,11 +110,11 @@ const relatedOffers = (await loadJobOffers())
             </div>
             <div>
               <dt>Veröffentlicht</dt>
-              <dd>{siteConfig.date.formatLong(offer.datePosted)}</dd>
+              <dd><time datetime={offer.datePosted}>{siteConfig.date.formatLong(offer.datePosted)}</time></dd>
             </div>
             <div>
               <dt>Bewerbungsfrist</dt>
-              <dd>{siteConfig.date.formatLong(offer.applicationDeadline)}</dd>
+              <dd><time datetime={offer.applicationDeadline}>{siteConfig.date.formatLong(offer.applicationDeadline)}</time></dd>
             </div>
           </dl>
           <nav class="link-list">

@@ -51,7 +51,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
         {leadRelease ? (
           <>
             <p><a class="inline-link" href={getPressReleaseUrl(leadRelease.slug)}>{leadRelease.title}</a></p>
-            <p class="detail-line">{siteConfig.date.formatLong(leadRelease.date)}</p>
+            <p class="detail-line"><time datetime={leadRelease.date}>{siteConfig.date.formatLong(leadRelease.date)}</time></p>
           </>
         ) : <p>Derzeit liegt keine Pressemitteilung vor.</p>}
       </article>
@@ -60,7 +60,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
         {nextEvents[0] ? (
           <>
             <p><a class="inline-link" href={getEventUrl(nextEvents[0].slug)}>{nextEvents[0].title}</a></p>
-            <p class="detail-line">{siteConfig.date.formatLong(nextEvents[0].date)} · {nextEvents[0].location}</p>
+            <p class="detail-line"><time datetime={nextEvents[0].date}>{siteConfig.date.formatLong(nextEvents[0].date)}</time> · {nextEvents[0].location}</p>
           </>
         ) : <p>Derzeit sind keine zukünftigen öffentlichen Termine angekündigt.</p>}
       </article>

@@ -13,7 +13,6 @@ import {
   getPressReleaseIndexUrl,
   getPressReleaseUrl,
   getPressUrl,
-  resolvePortalPath,
   getTopicUrl,
   type Pressemitteilung,
 } from '../../../lib/portal/index.ts';
@@ -59,17 +58,12 @@ const relatedReleases =
     { label: release.title },
   ]}
   ogType="article"
-  ogImage={{ url: release.image, alt: release.imageAlt }}
   structuredData={buildNewsArticleJsonLd(
     {
       title: release.title,
       description: release.teaser,
       url: getPressReleaseUrl(release.slug),
       datePublished: release.date,
-      image: {
-        url: release.image,
-        alt: release.imageAlt,
-      },
       articleSection: 'Pressemitteilung',
     },
     Astro.site,
@@ -88,19 +82,11 @@ const relatedReleases =
     <p class="eyebrow">Pressemitteilung</p>
     <h1>{release.title}</h1>
     <p class="lead">{release.teaser}</p>
-    <p class="detail-line">{siteConfig.date.formatLong(release.date)} · {release.ressort}</p>
+    <p class="detail-line"><time datetime={release.date}>{siteConfig.date.formatLong(release.date)}</time> · {release.ressort}</p>
   </section>
 
   <div class="content-grid">
     <section class="section">
-      <img
-        class="media-banner"
-        src={resolvePortalPath(release.image)}
-        alt={release.imageAlt}
-        width="1280"
-        height="720"
-        decoding="async"
-      />
       <div class="tag-list">
         {release.tags.map((tag) => (
           <span class="tag">{tag}</span>
@@ -120,7 +106,7 @@ const relatedReleases =
           <dl class="meta-list">
             <div>
               <dt>Datum</dt>
-              <dd>{siteConfig.date.formatLong(release.date)}</dd>
+              <dd><time datetime={release.date}>{siteConfig.date.formatLong(release.date)}</time></dd>
             </div>
             <div>
               <dt>Ressort</dt>
@@ -151,7 +137,7 @@ const relatedReleases =
                 {relatedReleases.map((entry) => (
                   <li class="record-list__item">
                     <strong><a class="inline-link" href={getPressReleaseUrl(entry.slug)}>{entry.title}</a></strong>
-                    <span>{siteConfig.date.formatLong(entry.date)}</span>
+                    <span><time datetime={entry.date}>{siteConfig.date.formatLong(entry.date)}</time></span>
                   </li>
                 ))}
               </ul>

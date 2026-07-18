@@ -9,7 +9,7 @@ import { buildNormOutline, formatDate, toDisplayText } from '../../../../../lib/
 import {
   buildNormTextLinkReferences,
   buildNormPublicationReferenceLookup,
-  getRelatedNormsBySubjects,
+  getRelatedNormRecommendations,
   getHomeUrl,
   getLawPortalUrl,
   getNormHistoryUrl,
@@ -31,7 +31,7 @@ export async function getStaticPaths() {
           norm,
           version,
           textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
-          relatedNorms: getRelatedNormsBySubjects(norm, norms),
+          relatedNorms: getRelatedNormRecommendations(norm, norms),
           publicationReferences,
         },
       })),
@@ -42,11 +42,12 @@ const { norm, version, textReferences, relatedNorms, publicationReferences } = A
 const publicationReference = publicationReferences.get(`${norm.meta.slug}:${version.versionId}`);
 const outline = buildNormOutline(version.body);
 const normTitle = toDisplayText(norm.meta.title);
+const normSeoTitle = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
 const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
 ---
 
 <BaseLayout
-  title={`${normTitle} ${version.versionId}`}
+  title={`${normSeoTitle} ${version.versionId}`}
   description={versionDescription}
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
@@ -67,9 +68,9 @@ const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand
   <section class="section page-header">
     <p class="eyebrow">Historische Fassung</p>
     <h1>{toDisplayText(norm.meta.title)}</h1>
-    <p class="lead">Historische Fassung mit Stand vom {formatDate(version.validFrom)}.</p>
+    <p class="lead">Historische Fassung mit Stand vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>.</p>
     <p class="status-line">
-      Gültig vom {formatDate(version.validFrom)} bis {version.validTo ? formatDate(version.validTo) : 'heute'}
+      Gültig vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> bis {version.validTo ? <time datetime={version.validTo}>{formatDate(version.validTo)}</time> : 'heute'}
     </p>
     <nav class="link-list link-list--inline" aria-label="Seitennavigation">
       <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a>

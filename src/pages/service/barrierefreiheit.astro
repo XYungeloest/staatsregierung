@@ -33,7 +33,7 @@ const page = loadRuntimeServicePageBySlug('barrierefreiheit');
         <>
           <div class="section-header">
             <h2>Prüfstand</h2>
-            <p>Die folgenden Angaben beziehen sich auf den Portalstand vom {siteConfig.date.formatLong(page.accessibilityAudit.checkedOn)}.</p>
+            <p>Die folgenden Angaben beziehen sich auf den Portalstand vom <time datetime={page.accessibilityAudit.checkedOn}>{siteConfig.date.formatLong(page.accessibilityAudit.checkedOn)}</time>.</p>
           </div>
           <dl class="meta-list accessibility-audit-list">
             <div>
@@ -55,6 +55,17 @@ const page = loadRuntimeServicePageBySlug('barrierefreiheit');
           </dl>
 
           <div class="section-header">
+            <h2>Vereinbarkeitsstatus</h2>
+          </div>
+          <p>
+            Nach dem dokumentierten Prüfstand ist das Portal mit den angestrebten Anforderungen
+            teilweise vereinbar. Für die geprüften Kernabläufe wurden keine automatisiert
+            erkennbaren schwerwiegenden Barrieren festgestellt; die unten genannten
+            Einschränkungen bleiben bestehen. Eine förmliche Prüfung durch eine unabhängige
+            Prüfstelle hat nicht stattgefunden.
+          </p>
+
+          <div class="section-header">
             <h2>Bekannte Einschränkungen</h2>
           </div>
           <ul class="record-list">
@@ -66,11 +77,23 @@ const page = loadRuntimeServicePageBySlug('barrierefreiheit');
       ) : null}
 
       <div class="section-header">
+        <h2>Barrierefreie Alternativen</h2>
+      </div>
+      <p>
+        Zu Karteninhalten stehen Suche, Bezirksübersicht und vollständige Tabellen bereit.
+        Rechtsinhalte sind als gegliederter Text, historische Fassung und Druckansicht zugänglich.
+        Wenn ein Inhalt nicht nutzbar ist, kann er über die zentrale Kontaktstelle in einer
+        geeigneten textlichen Form angefragt werden.
+      </p>
+
+      <div class="section-header">
         <h2>Feedback und Kontakt</h2>
       </div>
       <p>
         Hinweise zur Barrierefreiheit, zu Darstellungsproblemen oder zu nicht ausreichend
-        zugänglichen Inhalten können über die Kontaktseite übermittelt werden.
+        zugänglichen Inhalten können über die Kontaktseite übermittelt werden. Bitte nennen Sie
+        dabei die betroffene Seite und die beobachtete Barriere. Rückmeldungen werden geprüft;
+        sofern eine Antwortmöglichkeit angegeben wurde, erfolgt die Rückmeldung über diesen Weg.
       </p>
       <p><a class="inline-link" href={getContactUrl()}>Zur Kontaktseite</a></p>
     </section>
@@ -82,7 +105,7 @@ const page = loadRuntimeServicePageBySlug('barrierefreiheit');
       <dl class="meta-list">
         <div>
           <dt>Stand</dt>
-          <dd>{page?.accessibilityAudit ? siteConfig.date.formatLong(page.accessibilityAudit.checkedOn) : 'Keine Angabe'}</dd>
+          <dd>{page?.accessibilityAudit ? <time datetime={page.accessibilityAudit.checkedOn}>{siteConfig.date.formatLong(page.accessibilityAudit.checkedOn)}</time> : 'Keine Angabe'}</dd>
         </div>
         <div>
           <dt>Grundsatz</dt>

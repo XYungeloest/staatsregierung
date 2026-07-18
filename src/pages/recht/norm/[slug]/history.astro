@@ -31,6 +31,7 @@ const initialVersionUrl = initialVersion
     : getNormVersionUrl(norm.meta.slug, initialVersion.versionId)
   : undefined;
 const normTitle = toDisplayText(norm.meta.title);
+const normSeoTitle = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
 const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, gespeicherten Fassungen und Änderungshinweisen im Rechtsbereich des Freistaates Ostdeutschland.`;
 const historyTypeLabels: Record<string, string> = {
   initial: 'Stammfassung',
@@ -41,7 +42,7 @@ const historyTypeLabels: Record<string, string> = {
 ---
 
 <BaseLayout
-  title={`${normTitle} Historie`}
+  title={`${normSeoTitle} Historie`}
   description={historyDescription}
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
@@ -81,13 +82,13 @@ const historyTypeLabels: Record<string, string> = {
           <li>
             <strong>
               {version.isCurrent ? (
-                <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{formatDate(version.validFrom)}</a>
+                <a class="inline-link" href={getNormUrl(norm.meta.slug)}><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></a>
               ) : (
-                <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}>{formatDate(version.validFrom)}</a>
+                <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></a>
               )}
             </strong>
             <span>{version.isCurrent ? 'Aktuelle Fassung' : 'Historische Fassung'}</span>
-            <span>Gültig von {formatDate(version.validFrom)} bis {version.validTo ? formatDate(version.validTo) : 'aktuell'}</span>
+            <span>Gültig von <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> bis {version.validTo ? <time datetime={version.validTo}>{formatDate(version.validTo)}</time> : 'aktuell'}</span>
             <span>Fundstelle: {toDisplayText(version.citation)}</span>
             <span>{toDisplayText(version.changeNote)}</span>
           </li>
@@ -102,7 +103,7 @@ const historyTypeLabels: Record<string, string> = {
       <ul class="timeline-list">
         {norm.history.entries.map((entry) => (
           <li>
-            <strong>{formatDate(entry.date)} · {historyTypeLabels[entry.type] ?? entry.type}</strong>
+            <strong><time datetime={entry.date}>{formatDate(entry.date)}</time> · {historyTypeLabels[entry.type] ?? entry.type}</strong>
             <span>{toDisplayText(entry.title)}</span>
             <span>Fundstelle: {toDisplayText(entry.citation)}</span>
             {entry.note ? <span>{toDisplayText(entry.note)}</span> : null}
@@ -111,11 +112,11 @@ const historyTypeLabels: Record<string, string> = {
                 Fassung:{' '}
                 {getVersionById(norm, entry.affectingVersionId)?.isCurrent ? (
                   <a class="inline-link" href={getNormUrl(norm.meta.slug)}>
-                    {formatDate(getVersionById(norm, entry.affectingVersionId)!.validFrom)}
+                    <time datetime={getVersionById(norm, entry.affectingVersionId)!.validFrom}>{formatDate(getVersionById(norm, entry.affectingVersionId)!.validFrom)}</time>
                   </a>
                 ) : getVersionById(norm, entry.affectingVersionId) ? (
                   <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, entry.affectingVersionId)}>
-                    {formatDate(getVersionById(norm, entry.affectingVersionId)!.validFrom)}
+                    <time datetime={getVersionById(norm, entry.affectingVersionId)!.validFrom}>{formatDate(getVersionById(norm, entry.affectingVersionId)!.validFrom)}</time>
                   </a>
                 ) : (
                   toDisplayText(entry.affectingVersionId)
@@ -147,8 +148,8 @@ const historyTypeLabels: Record<string, string> = {
         <div>
           <dt>Stammfassung</dt>
           <dd>
-            {initialVersionUrl ? (
-              <a class="inline-link" href={initialVersionUrl}>{initialVersionLabel}</a>
+            {initialVersionUrl && initialVersion ? (
+              <a class="inline-link" href={initialVersionUrl}><time datetime={initialVersion.validFrom}>{initialVersionLabel}</time></a>
             ) : (
               initialVersionLabel
             )}
@@ -156,7 +157,7 @@ const historyTypeLabels: Record<string, string> = {
         </div>
         <div>
           <dt>Aktueller Rechtsstand</dt>
-          <dd>{formatDate(currentVersion.validFrom)}</dd>
+          <dd><time datetime={currentVersion.validFrom}>{formatDate(currentVersion.validFrom)}</time></dd>
         </div>
         <div>
           <dt>Gespeicherte Fassungen</dt>

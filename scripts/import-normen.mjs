@@ -199,6 +199,12 @@ function makeLine(raw, index) {
 
 function slugify(value) {
   return value
+    .replace(/ä/gu, 'ae')
+    .replace(/ö/gu, 'oe')
+    .replace(/ü/gu, 'ue')
+    .replace(/Ä/gu, 'Ae')
+    .replace(/Ö/gu, 'Oe')
+    .replace(/Ü/gu, 'Ue')
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/gu, '')
     .toLowerCase()
@@ -207,23 +213,15 @@ function slugify(value) {
     .replace(/^-+|-+$/gu, '');
 }
 
-function checksum(value) {
-  let hash = 5381;
-
-  for (const character of value) {
-    hash = (hash * 33) ^ character.charCodeAt(0);
-  }
-
-  return (hash >>> 0).toString(36);
-}
-
 function shortSlug(value) {
   const slug = slugify(value);
   if (slug.length <= 80) {
     return slug;
   }
 
-  return `${slug.slice(0, 60).replace(/-+$/u, '')}-${checksum(slug).slice(0, 8)}`;
+  const shortened = slug.slice(0, 80);
+  const lastSeparator = shortened.lastIndexOf('-');
+  return (lastSeparator >= 40 ? shortened.slice(0, lastSeparator) : shortened).replace(/-+$/u, '');
 }
 
 function compareStrings(left, right) {
@@ -1341,7 +1339,8 @@ function buildNormRecords(sources) {
     let suffix = 2;
     const baseSlug = slug;
     while (usedSlugs.has(slug)) {
-      slug = `${baseSlug}-${suffix}`;
+      const suffixText = `-${suffix}`;
+      slug = `${baseSlug.slice(0, 80 - suffixText.length).replace(/-+$/u, '')}${suffixText}`;
       suffix += 1;
     }
     usedSlugs.add(slug);

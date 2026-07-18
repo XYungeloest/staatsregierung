@@ -178,13 +178,12 @@ Optionale Felder:
 Erlaubte Werte für `status`:
 
 ```text
-umgesetzt
-kernprojekt
-teilweise-umgesetzt
-sehr-weit-umgesetzt
-deutlich-umgesetzt
-ausbauphase
-laufend
+geplant
+entwurf
+im-gesetzgebungsverfahren
+beschlossen
+in-umsetzung
+abgeschlossen
 ```
 
 Format:
@@ -194,7 +193,7 @@ Format:
   "slug": "beispielthema",
   "title": "Beispielthema",
   "teaser": "Kurzer Einstiegstext für Übersichten.",
-  "status": "laufend",
+  "status": "in-umsetzung",
   "hero": "Ein längerer Einstieg für die Detailseite.",
   "beschlossen": ["Beschlossener Punkt."],
   "umgesetzt": ["Umgesetzter Punkt."],

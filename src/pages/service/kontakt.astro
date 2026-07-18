@@ -130,9 +130,14 @@ const routedContacts = [
         <p>Die Auswahl liefert nur einen Hinweis auf den passenden Kontaktweg. Es werden keine Daten übertragen.</p>
       </div>
       <form class="search-form" id="contact-router" data-role="contact-router">
-        <label class="search-field">
+        <label class="search-field" for="contact-router-topic">
           <span>Anliegen auswählen</span>
-          <select name="topic">
+          <select
+            id="contact-router-topic"
+            name="topic"
+            aria-controls="contact-router-results"
+            aria-describedby="contact-router-status"
+          >
             <option value="">Bitte auswählen</option>
             <option value="allgemein">Allgemeine Anfrage</option>
             <option value="presse">Presseanfrage</option>
@@ -143,9 +148,19 @@ const routedContacts = [
         </label>
       </form>
 
+      <p
+        id="contact-router-status"
+        class="search-feedback"
+        role="status"
+        aria-live="polite"
+        data-contact-router-status
+      >
+        Wählen Sie ein Anliegen aus. Das passende Ergebnis erscheint anschließend unterhalb der Auswahl.
+      </p>
+
       <div class="content-stack" id="contact-router-results">
         {routedContacts.map((entry) => (
-          <article class="panel contact-route-card" data-route-key={entry.key} hidden>
+          <article class="panel contact-route-card" data-route-key={entry.key} data-route-title={entry.title} hidden>
             <h3>{entry.title}</h3>
             <p>{entry.description}</p>
             <p class="detail-line">

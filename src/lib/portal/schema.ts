@@ -48,13 +48,12 @@ export interface Ministerium {
 }
 
 export type Themenstatus =
-  | 'umgesetzt'
-  | 'kernprojekt'
-  | 'teilweise-umgesetzt'
-  | 'sehr-weit-umgesetzt'
-  | 'deutlich-umgesetzt'
-  | 'ausbauphase'
-  | 'laufend';
+  | 'geplant'
+  | 'entwurf'
+  | 'im-gesetzgebungsverfahren'
+  | 'beschlossen'
+  | 'in-umsetzung'
+  | 'abgeschlossen';
 
 export interface ThemenRechtsgrundlage {
   label: string;
@@ -244,13 +243,12 @@ function expectOptionalSlugArray(value: unknown, path: string): string[] | undef
 function expectTopicStatus(value: unknown, path: string): Themenstatus {
   const status = expectString(value, path) as Themenstatus;
   const allowedStatuses: Themenstatus[] = [
-    'umgesetzt',
-    'kernprojekt',
-    'teilweise-umgesetzt',
-    'sehr-weit-umgesetzt',
-    'deutlich-umgesetzt',
-    'ausbauphase',
-    'laufend',
+    'geplant',
+    'entwurf',
+    'im-gesetzgebungsverfahren',
+    'beschlossen',
+    'in-umsetzung',
+    'abgeschlossen',
   ];
 
   if (!allowedStatuses.includes(status)) {

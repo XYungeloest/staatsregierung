@@ -37,10 +37,11 @@ export async function getStaticPaths() {
 
 const { norm, leftVersion, rightVersion, textReferences } = Astro.props;
 const normTitle = toDisplayText(norm.meta.title);
+const normSeoTitle = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
 ---
 
 <BaseLayout
-  title={`${normTitle} vergleichen`}
+  title={`${normSeoTitle} vergleichen`}
   description={`Vergleich gespeicherter Fassungen von ${normTitle}.`}
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
@@ -74,7 +75,7 @@ const normTitle = toDisplayText(norm.meta.title);
   <section class="section compare-grid" aria-label="Fassungsvergleich">
     <article>
       <div class="section-header section-header--compact">
-        <h2>Fassung vom {formatDate(leftVersion.validFrom)}</h2>
+        <h2>Fassung vom <time datetime={leftVersion.validFrom}>{formatDate(leftVersion.validFrom)}</time></h2>
         <p>{toDisplayText(leftVersion.changeNote)}</p>
       </div>
       <NormBody blocks={leftVersion.body} references={textReferences} />
@@ -82,7 +83,7 @@ const normTitle = toDisplayText(norm.meta.title);
 
     <article>
       <div class="section-header section-header--compact">
-        <h2>Fassung vom {formatDate(rightVersion.validFrom)}</h2>
+        <h2>Fassung vom <time datetime={rightVersion.validFrom}>{formatDate(rightVersion.validFrom)}</time></h2>
         <p>{toDisplayText(rightVersion.changeNote)}</p>
       </div>
       <NormBody blocks={rightVersion.body} references={textReferences} />

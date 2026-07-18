@@ -42,14 +42,14 @@ const {
   structuredData,
   noindex = false,
   ogType = 'website',
-  ogImage,
+  ogImage = siteConfig.seo.defaultSocialImage,
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
 const pageTitle = buildPageTitle(title);
 const base = import.meta.env.BASE_URL;
 const canonicalUrl = buildCanonicalUrl(Astro.url, Astro.site);
-const robotsContent = noindex ? 'noindex, nofollow' : 'index, follow';
+const robotsContent = noindex ? 'noindex, follow' : 'index, follow';
 const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const stickyHeader = isStickyHeaderEnabled();
 const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
@@ -153,6 +153,9 @@ const footerUtilityLinks = [
       <>
         <meta property="og:image" content={ogImageUrl} />
         <meta name="twitter:image" content={ogImageUrl} />
+        {ogImage?.width ? <meta property="og:image:width" content={String(ogImage.width)} /> : null}
+        {ogImage?.height ? <meta property="og:image:height" content={String(ogImage.height)} /> : null}
+        {ogImage?.type ? <meta property="og:image:type" content={ogImage.type} /> : null}
         {ogImage?.alt ? (
           <>
             <meta property="og:image:alt" content={ogImage.alt} />
@@ -179,7 +182,6 @@ const footerUtilityLinks = [
                 <img
                   src={flagAssetUrl}
                   alt=""
-                  onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.removeAttribute('hidden');"
                 />
                 <span class="site-notice__flag-text" aria-hidden="true" hidden>
                   {siteConfig.officialFlagText}
@@ -207,12 +209,11 @@ const footerUtilityLinks = [
 
             <div class="container site-header__main">
               <div class="site-branding">
-                <a class="site-wordmark" href={getHomeUrl()}>
+                <a class="site-wordmark" href={getHomeUrl()} aria-label="Startseite Freistaat Ostdeutschland">
                   <span class="site-wordmark__media" aria-hidden="true">
                     <img
                       src={flagAssetUrl}
                       alt=""
-                      onerror="this.style.display='none'; if (this.nextElementSibling) this.nextElementSibling.removeAttribute('hidden');"
                     />
                     <span class="site-notice__flag-text" hidden>
                       {siteConfig.officialFlagText}
@@ -232,12 +233,13 @@ const footerUtilityLinks = [
                   action={getPortalSearchUrl()}
                   method="get"
                   role="search"
-                  aria-label={siteConfig.searchLabel}
+                  aria-label="Portalsuche"
                 >
-                  <label class="header-search__field">
-                    <span>{siteConfig.searchLabel}</span>
+                  <label class="visually-hidden" for="header-portal-search">{siteConfig.searchLabel}</label>
+                  <div class="header-search__field">
                     <div class="header-search__control">
                       <input
+                        id="header-portal-search"
                         type="search"
                         name="q"
                         autocomplete="off"
@@ -245,7 +247,7 @@ const footerUtilityLinks = [
                       />
                       <button class="button-link" type="submit">Suchen</button>
                     </div>
-                  </label>
+                  </div>
                 </form>
               </div>
             </div>
@@ -397,5 +399,8 @@ const footerUtilityLinks = [
         import '../scripts/portal-modules.ts';
       </script>
     ) : null}
+    <script>
+      import '../scripts/global.ts';
+    </script>
   </body>
 </html>
