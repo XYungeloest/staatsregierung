@@ -1,114 +1,174 @@
 # Design-System: Freistaat Ostdeutschland
 
-Dieses Dokument beschreibt die visuelle Leitlinie des Portals. Maßgeblich bleibt der tatsächliche CSS-Stand in `src/styles/global.css`; diese Datei erklärt die Absicht dahinter.
+Dieses Dokument beschreibt die visuelle Leitlinie des Portals. Maßgeblich bleibt der tatsächliche
+Stand in `src/styles/global.css`; dieses Dokument hält die gestalterischen Entscheidungen und ihre
+Anwendung fest.
 
 ## Grundhaltung
 
-Das Portal soll wie eine sachliche Regierungswebsite wirken: ruhig, belastbar, gut lesbar und ohne Demo- oder Kampagnencharakter. Die Gestaltung ordnet Inhalte, Zuständigkeiten und Rechtsinformationen, statt sich selbst in den Vordergrund zu stellen.
+Das Portal wirkt wie eine sachliche Regierungswebsite: ruhig, verlässlich, verständlich und
+barrierearm. Die Gestaltung priorisiert Orientierung, Zuständigkeiten und aktuelle Informationen.
+Sie vermeidet Kampagnenästhetik, unnötige Effekte und den Eindruck einer Entwicklerdemo.
 
-Prioritäten:
+Die visuelle Richtung der Startseite übersetzt die bereitgestellte Referenz in das vorhandene
+Portal: ein klarer Behördenkopf, eine bildgestützte Suche, kompakte Direkteinstiege, ein sichtbares
+Hinweisband und geordnete Informationsbereiche. Inhalte und Funktionen bleiben dabei vollständig
+aus den bestehenden Routen und dateibasierten Quellen abgeleitet.
 
-- klare Orientierung vor visueller Überraschung
-- hoher Textkontrast und stabile Layouts
-- nüchterne Amtsanmutung mit freundlicher, nicht dekorativer Farbigkeit
-- wiedererkennbare Blau-Weiß-Grün-Anmutung
-- barrierearme Interaktion mit sichtbaren Fokuszuständen
-- keine Überläufe, abgeschnittenen Inhalte oder ungeplanten horizontalen Scrollbereiche
+## Design-Tokens
+
+Die zentralen Werte liegen als CSS Custom Properties in `src/styles/global.css`.
+
+| Rolle | Wert | Verwendung |
+| --- | --- | --- |
+| Primärblau | `#173b6b` | Navigation, Links, primäre Orientierung |
+| Dunkelblau | `#0a2547` | Hero, Serviceband, Footer |
+| Sekundärgrün | `#2f7b3d` | ruhige Akzente und Status |
+| Siegelrot | `#8f2e2f` | hoheitliche und dringliche Akzente |
+| Gold | `#c39a3b` | sparsame Hervorhebung |
+| Text | `#20312d` | Fließtext |
+| Seitenfläche | `#edf1f0` | Seitenhintergrund |
+| Oberfläche | `#fffffb` | Karten und Inhaltsflächen |
+| Rahmen | `#c6d2cc` | Trennung und Gruppierung |
+
+Ecken sind mit etwa 8 bis 14 Pixeln nur leicht gerundet. Schatten trennen Ebenen zurückhaltend;
+Rahmen und Abstände tragen die Struktur. Farbverläufe und dekorative Großformen sind kein
+Grundelement des Portals.
 
 ## Typografie
 
-Das Portal verwendet Jost als lokale Variable Font. Sie wird in `src/styles/global.css` eingebunden und für Fließtext, Navigation und Überschriften genutzt.
+Das Portal verwendet Jost als lokal ausgelieferte Variable Font für Überschriften, Navigation und
+Fließtext. Schriftgrößen sind responsiv begrenzt und lange Ressort- oder Amtsbezeichnungen dürfen
+umbrechen.
 
-Regeln:
+- Überschriften sind kurz, sachlich und gut scannbar.
+- Fließtext arbeitet mit gut lesbarer Zeilenhöhe und begrenzter Zeilenlänge.
+- Karten verwenden keine unnötig kleinen Hilfstexte.
+- Negative Laufweiten werden vermieden.
+- Personenbezeichnungen verwenden einheitlich den Doppelpunkt.
 
-- Überschriften knapp, sachlich und gut scannbar halten.
-- Keine negativen Laufweiten verwenden.
-- Lange Amts- und Ressortbezeichnungen müssen umbrechen dürfen.
-- Hero-Größen nur für echte Seitenköpfe einsetzen, nicht in Karten oder Listen.
-- Personenbezeichnungen mit Doppelpunkt schreiben, etwa `Bürger:innen` oder `Referent:in`.
+## Layoutsystem
 
-## Farbpalette
+`BaseLayout.astro` kennt zwei Hauptvarianten:
 
-Die aktuelle Palette ist bewusst gedämpft und behördennah:
+- `contained` für Fach-, Rechts- und Inhaltsseiten mit einem begrenzten Hauptcontainer
+- `full` für die Startseite mit vollbreiten Farbbändern und jeweils innen begrenzten Containern
 
-- Primärblau: `#173b6b`
-- Sekundärgrün: `#2f7b3d`
-- Siegelrot: `#8f2e2f`
-- Goldakzent: `#c39a3b`
-- Text: `#20312d`
-- Seitenhintergrund: `#edf1f0`
-- Oberfläche: `#fffffb`
-- Rahmen: `#c6d2cc`
+Der maximale Inhaltscontainer ist 84 Rem breit. Vollbreite Bereiche behalten stets ausreichende
+Innenabstände. Wiederholte Einheiten nutzen Grid oder strukturierte Listen; ganze Fachabschnitte
+werden nicht ohne Grund in schwebende Karten verwandelt.
 
-Blau trägt Navigation, Rechtsbereich, primäre Aktionen und Orientierung. Grün setzt ruhige Akzente im allgemeinen Portal. Rot und Gold bleiben sparsam für hoheitliche Akzente, Hinweise und Statusmomente.
+## Globaler Kopfbereich
 
-## Layout
+Der gemeinsame Header besteht aus:
 
-Die Seiten arbeiten mit breiten Inhaltsbändern und begrenzten Innencontainern. Karten werden für wiederholte Einheiten genutzt, zum Beispiel Mitglieder, Presse, Stellen oder Datensätze. Ganze Seitenabschnitte sollen nicht wie schwebende Karten wirken.
+1. sichtbarer Simulations-Hinweisleiste,
+2. Wortmarke mit Staatsflagge,
+3. Hauptnavigation mit aktivem Zustand,
+4. realer Portalsuche,
+5. Einstiegen zu Leichter Sprache und Gebärdensprache.
 
-Regeln:
+Auf kleineren Bildschirmen bleiben Suche und Servicelinks direkt in der geöffneten
+Menünavigation erreichbar. Das Menü verwendet native, tastaturbedienbare Elemente. Der Skip-Link
+führt unmittelbar zum Hauptinhalt.
 
-- Informationsdichte darf behördlich-kompakt sein, solange Abstände und Zeilenlängen lesbar bleiben.
-- Wiederholte Karten brauchen stabile Bild- und Textflächen, damit Listen nicht springen.
-- Rechtsportal und Normseiten priorisieren Lesbarkeit, Gliederung und zitierfähige Struktur.
-- Verkündungen, Fundstellen und Normmetadaten werden als Listen, Tabellen und Definitionen
-  dargestellt, nicht als dekorative Teaserflächen.
-- Mobile Layouts sollen Inhalte stapeln, nicht verstecken.
-- Die Startseite ordnet den Einstieg in dieser Reihenfolge: klare Orientierung, Portalpfade,
-  aktueller Stand, Reformen, Recht sowie Presse und Service. Sekundäre Einstiege folgen danach.
-- Die Kreisreform ist als eigenständiger, sichtbarer Portalweg gestaltet. Auf großen Bildschirmen
-  startet die Karte eng auf der Reformregion; auf kleinen Bildschirmen stehen Suche und
-  Bezirk-Karten vor der optionalen Kartenansicht. Tabellen bleiben als Detailansicht erreichbar.
-- Große Karten und Detailtabellen dürfen ihren Inhalt nicht hinter einem Seitenüberlauf verstecken.
-  Tabellen sind bei Bedarf als klar abgegrenzte Detailansicht horizontal scrollbar; die wichtigsten
-  Informationen bleiben zusätzlich ohne Tabelle erreichbar.
-- Lokale Ankernavigationen auf langen Fachseiten sollen kompakt im normalen Inhaltsfluss stehen,
-  wenn eine dauerhafte Sidebar nicht über die gesamte Seite mitläuft. Leere Rasterspalten und
-  abrupte Einrückungen zwischen Abschnitten vermeiden.
-- Breite Fachgrafiken, etwa die Schulsystemübersicht, werden gerahmt und auf kleinen Bildschirmen
-  horizontal scrollbar angeboten. Eine zugängliche textliche oder tabellarische Alternative bleibt
-  unmittelbar im Seitenkontext verfügbar.
+## Startseite
 
-## Bilder
+Die Startseite folgt einer festen Informationshierarchie:
 
-Bilder unterstützen Orientierung und Wiedererkennung. Porträts, Ressortbilder und Pressebilder sollen nicht als schwere Originaldateien ausgeliefert werden, wenn eine webtaugliche Fassung ausreicht.
+1. Hero mit redaktionellem Staatskanzlei-Bild, H1 und Portalsuche
+2. zentrale Portalpfade als kompakte Zugangskarten
+3. wichtiges Hinweisband aus vorhandenen Inhalten
+4. Presse, aktuelle Ministerien und Freistaat-Kurzprofil
+5. Kreisreform als hervorgehobener Portalweg und weitere Themen
+6. Recht, Haushalt, Regierungsprogramm, Karriere und weitere Serviceangebote
+7. globales 115-Serviceband und Footer
 
-Regeln:
-
-- Bilder unter `public/images/` mit absoluten Pfaden ab `/images/...` referenzieren.
-- Porträts webtauglich komprimieren und in stabilen Seitenverhältnissen anzeigen.
-- Alternativtexte in den JSON-Inhalten fachlich beschreibend pflegen.
-- Bildnachweise nur ausgeben, wenn ein belastbarer redaktioneller Nachweis vorliegt.
+Suchvorschläge, Karten, Hinweise und Listen verweisen ausschließlich auf vorhandene Seiten. Die
+Direkteinstiege sind keine erfundenen Onlinedienste.
 
 ## Komponenten
 
-Buttons, Links, Listen, Suchmasken und Karten bleiben zurückhaltend. Ecken sind leicht gerundet, Rahmen fein, Schatten schwach. Hover- und Fokuszustände dürfen deutlich sein, sollen aber keine Bewegung oder Effekte erzwingen.
+Wiederkehrende Startseitenmuster liegen als kleine Astro-Komponenten unter
+`src/components/portal/`:
 
-Der Header verwendet die Staatsflagge als klar erkennbare, rahmenlose Bildmarke neben dem Wortzeichen.
-Sie darf nicht durch zusätzliche Kästen, Doppelrahmen oder zu geringe Größe an Wirkung verlieren.
+- `PortalIcon.astro`: konsistentes, lokales SVG-Iconset
+- `PortalAccessCard.astro`: zentrale Portalpfade
+- `ImportantNoticeBand.astro`: kompakte wichtige Hinweise
+- `HomePressList.astro`: aktuelle Presseinformationen
+- `HomeMinistryList.astro`: aktuelle Ressortliste
+- `FreestateSummary.astro`: Freistaat-Kurzprofil
+- `ServiceBand.astro`: 115-, Kontakt-, Behördenfinder-, RSS- und Kalenderzugänge
 
-Die sichtbaren Hinweise zur politischen Simulation stehen in der oberen Hinweisleiste und im Footer.
-Sie sind Teil der Seite, aber nicht Teil jedes Seitenkopfs oder Teasers.
+Buttons, Links, Suchmasken und Karten besitzen gut erkennbare Hover- und Fokuszustände. Icons
+ergänzen Text, ersetzen ihn aber nicht. Breadcrumbs, Tabellen, Definitionen und Listen bleiben die
+bevorzugten Muster für Rechts- und Verwaltungsinhalte.
 
-Geeignete Muster:
+## Bilder
 
-- Breadcrumbs für tiefe Bereiche
-- ein Skip-Link und klar sichtbare Fokuszustände für Navigation, Suche, Filter, Karte, Akkordeons
-  und Dialoge
-- Tabellen und strukturierte Listen für Rechts- und Verwaltungsinhalte
-- Karten für wiederholte Teaser
-- Tags nur, wenn sie beim Scannen helfen
-- dezente Hinweisboxen für Status, Zuständigkeit oder Kontext
-- klar unterschiedliche Zustände für Suche: noch keine Eingabe, Laden, Treffer, keine Treffer und Fehler
-- visuelle Baselines für die festgelegten Portalansichten und Bildschirmbreiten
+Bilder unterstützen Orientierung und Wiedererkennung. Die Startseite nutzt das vorhandene,
+redaktionell nachgewiesene Staatskanzlei-Motiv mit AVIF-, WebP- und JPEG-Varianten. Ein dunkler
+Overlay stellt die Lesbarkeit des Hero-Texts sicher.
+
+- Bilder werden über absolute Pfade unter `/images/` referenziert.
+- Responsive Varianten liegen unter `public/images/generated/`.
+- Alternativtexte beschreiben den fachlichen Bildinhalt.
+- Bildnachweise werden nur bei belastbarer Quelle ausgegeben.
+- Ein-Pixel-Platzhalter werden nicht als sichtbare Pressebilder verwendet.
+- Unterhalb des sichtbaren Einstiegs werden Bilder nach Möglichkeit verzögert geladen.
+
+## Fach- und Rechtsseiten
+
+Fachseiten verwenden denselben Kopf, dieselben Tokens und dieselbe Servicezone wie die
+Startseite, behalten aber ihre inhaltlich geeigneten Strukturen. Das Rechtsportal priorisiert
+Lesbarkeit, Gliederung, zitierfähige Normtexte und stabile Verlinkung. Verkündungen, Fundstellen und
+Metadaten bleiben Listen, Tabellen oder Definitionen statt dekorativer Teaser.
+
+Breite Tabellen und Fachgrafiken erhalten klar abgegrenzte Scrollbereiche. Ihre wesentlichen
+Informationen müssen außerhalb der Tabelle oder Grafik zugänglich bleiben. Die Kreisreform-Suche
+liefert ein Textergebnis ohne gestartete Karte; die Karte wird auf kleinen Bildschirmen nur nach
+ausdrücklicher Freigabe geladen.
+
+## Responsive Verhalten
+
+Die Gestaltung arbeitet inhaltlich mit vier Bereichen:
+
+- großer Desktop: volle Hauptnavigation und mehrspaltige Startseitenmodule
+- kleiner Desktop/Tablet quer: kompaktes Menü und reduzierte Spaltenzahl
+- Tablet hoch: überwiegend zwei Spalten
+- Smartphone: lineare Reihenfolge mit ausreichend großen Bedienzielen
+
+Inhalte werden gestapelt, nicht abgeschnitten oder versteckt. Kein Seitenlayout darf einen
+unkontrollierten horizontalen Dokumentüberlauf erzeugen. Tabellen dürfen in einem ausdrücklich
+gekennzeichneten Detailbereich horizontal scrollen.
+
+## Barrierefreiheit
+
+- genau eine H1 pro Seite
+- semantische Landmarken und nachvollziehbare Überschriftenfolge
+- Skip-Link und deutlich sichtbarer Tastaturfokus
+- `aria-current` für den aktiven Hauptnavigationspunkt
+- beschriftete Suchfelder und verständliche Schaltflächen
+- ausreichender Farbkontrast, auch auf Bildflächen
+- Statusausgaben der Suche werden zugänglich angekündigt
+- keine allein durch Farbe vermittelte Information
+- Rücksicht auf reduzierte Bewegung und Druckausgabe
+
+Automatisierte Tests ergänzen den manuellen Tastatur-, Zoom- und Screenreader-Kurztest.
+
+## Qualitätssicherung
+
+Die visuellen Baselines decken zentrale Seiten bei Smartphone-, Tablet- und Desktopbreiten ab.
+Änderungen an Header, Startseite oder globalen Komponenten werden erst nach manueller Sichtprüfung
+in die Baselines übernommen. Content-, Type-, Build-, Link-, Accessibility-, Browser- und
+Overflow-Prüfungen bleiben Teil der Produktions-QA.
 
 ## Was vermieden wird
 
 - Marketing-Heroes ohne Verwaltungsnutzen
-- starke Farbverläufe als Hauptmotiv
-- dekorative Formen ohne Informationswert
+- erfundene Bürgerdienste oder nicht vorhandene Kontenfunktionen
+- starke Farbverläufe und dekorative Formen ohne Informationswert
 - übertriebene Animationen
 - öffentliche Texte mit technischen Architekturbegriffen
-- Layouts, die wie eine Entwicklerdemo oder ein Dashboard-Prototyp wirken
-- Selbstbeschreibungen der Umsetzung, etwa Hinweise auf Platzhalter, Designabsichten oder technische
-  Bereitstellung
+- wiederholte Erklärungen der politischen Simulation außerhalb der festgelegten Hinweise
+- Layouts mit abgeschnittenen Inhalten oder ungeplantem horizontalem Scrollen

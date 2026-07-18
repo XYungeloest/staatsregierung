@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import AnalyticsConsentBanner from '../components/analytics/AnalyticsConsentBanner.astro';
+import PortalIcon from '../components/portal/PortalIcon.astro';
+import ServiceBand from '../components/portal/ServiceBand.astro';
 import { isAnalyticsEnabled } from '../config/analytics.ts';
 import {
   isOfficialStyleHeaderEnabled,
@@ -32,6 +34,7 @@ interface Props {
   noindex?: boolean;
   ogType?: 'website' | 'article';
   ogImage?: SeoImage;
+  mainWidth?: 'contained' | 'full';
 }
 
 const {
@@ -43,6 +46,7 @@ const {
   noindex = false,
   ogType = 'website',
   ogImage = siteConfig.seo.defaultSocialImage,
+  mainWidth = 'contained',
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
@@ -107,24 +111,41 @@ const utilityNavLinks = siteConfig.serviceNavigation.map((entry) => {
   };
 });
 
+const headerAccessLinks = utilityNavLinks.filter((link) =>
+  ['Leichte Sprache', 'Gebärdensprache'].includes(link.label),
+);
+
+const homeNavLink = {
+  href: getHomeUrl(),
+  label: 'Startseite',
+  isActive: currentPath === '/',
+};
+
 const footerPortalLinks = mainNavLinks;
 
-const footerUtilityLinks = [
+const footerServiceLinks = [
   { href: getPortalSearchUrl(), label: 'Portalsuche' },
+  { href: getSiteUrl('serviceOverview'), label: 'Übersicht' },
+  { href: getSiteUrl('contact'), label: 'Kontakt' },
+  { href: getSiteUrl('career'), label: 'Karriere' },
+  { href: getSiteUrl('publications'), label: 'Publikationen' },
+  { href: getSiteUrl('easyLanguage'), label: 'Leichte Sprache' },
+  { href: getSiteUrl('signLanguage'), label: 'Gebärdensprache' },
+  { href: getSiteUrl('accessibility'), label: 'Barrierefreiheit' },
+].map((entry) => ({
+  ...entry,
+  isActive: isActivePath(getPathname(entry.href), true),
+}));
+
+const footerLegalLinks = [
   { href: getLawSearchUrl(), label: 'Rechtssuche' },
   { href: getSiteUrl('lawIndex'), label: 'Alphabetischer Index' },
   { href: getSiteUrl('lawReferences'), label: 'Fundstellennachweise' },
   { href: getSiteUrl('lawPublications'), label: 'Verkündungen' },
-  { href: getSiteUrl('serviceOverview'), label: 'Übersicht' },
-  { href: getSiteUrl('contact'), label: 'Kontakt' },
-  { href: getSiteUrl('career'), label: 'Karriere' },
   { href: getSiteUrl('faq'), label: 'FAQ' },
-  { href: getSiteUrl('easyLanguage'), label: 'Leichte Sprache' },
-  { href: getSiteUrl('signLanguage'), label: 'Gebärdensprache' },
-  { href: getSiteUrl('publications'), label: 'Publikationen' },
   { href: getSiteUrl('imprint'), label: 'Impressum' },
   { href: getSiteUrl('privacy'), label: 'Datenschutz' },
-  { href: getSiteUrl('accessibility'), label: 'Barrierefreiheit' },
+  { href: getSiteUrl('accessibility'), label: 'Erklärung zur Barrierefreiheit' },
 ].map((entry) => ({
   ...entry,
   isActive: isActivePath(getPathname(entry.href), true),
@@ -192,42 +213,36 @@ const footerUtilityLinks = [
           </div>
 
           <header class:list={['site-header', stickyHeader && 'site-header--sticky']}>
-            <div class="site-utility-bar">
-              <div class="container site-utility-bar__inner">
-                <nav class="service-nav" aria-label="Servicenavigation">
-                  {utilityNavLinks.map((link) => (
-                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
-                      {link.label}
-                    </a>
-                  ))}
-                </nav>
-                <a class="site-utility-bar__search-link" href={getPortalSearchUrl()}>
-                  Suche
-                </a>
-              </div>
-            </div>
-
             <div class="container site-header__main">
               <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()} aria-label="Startseite Freistaat Ostdeutschland">
                   <span class="site-wordmark__media" aria-hidden="true">
-                    <img
-                      src={flagAssetUrl}
-                      alt=""
-                    />
-                    <span class="site-notice__flag-text" hidden>
-                      {siteConfig.officialFlagText}
-                    </span>
+                    <img src={flagAssetUrl} alt="" width="64" height="48" />
                   </span>
                   <span class="site-wordmark__text">
+                    <span class="site-title">Freistaat<br />Ostdeutschland</span>
                     <span class="site-kicker">{siteConfig.authorityName}</span>
-                    <span class="site-title">{siteConfig.portalTitle}</span>
-                    <span class="site-subtitle">{siteConfig.portalSubtitle}</span>
                   </span>
                 </a>
               </div>
 
-              <div class="site-search">
+              <nav class="site-header__nav site-nav" aria-label="Hauptnavigation">
+                <a
+                  class="site-nav__home"
+                  href={homeNavLink.href}
+                  aria-label={homeNavLink.label}
+                  aria-current={homeNavLink.isActive ? 'page' : undefined}
+                >
+                  <PortalIcon name="home" />
+                </a>
+                {mainNavLinks.map((link) => (
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+
+              <div class="site-header__tools">
                 <form
                   class="header-search"
                   action={getPortalSearchUrl()}
@@ -236,68 +251,65 @@ const footerUtilityLinks = [
                   aria-label="Portalsuche"
                 >
                   <label class="visually-hidden" for="header-portal-search">{siteConfig.searchLabel}</label>
-                  <div class="header-search__field">
-                    <div class="header-search__control">
-                      <input
-                        id="header-portal-search"
-                        type="search"
-                        name="q"
-                        autocomplete="off"
-                        placeholder={siteConfig.searchPlaceholder}
-                      />
-                      <button class="button-link" type="submit">Suchen</button>
-                    </div>
+                  <div class="header-search__control">
+                    <input
+                      id="header-portal-search"
+                      type="search"
+                      name="q"
+                      autocomplete="off"
+                      placeholder="Suche auf der Website"
+                    />
+                    <button type="submit" aria-label="Suche starten"><PortalIcon name="search" /></button>
                   </div>
                 </form>
-              </div>
-            </div>
-
-            <div class="site-mobile-nav">
-              <div class="container">
-                <details class="mobile-nav">
-                  <summary class="mobile-nav__summary">Menü</summary>
-                  <div class="mobile-nav__panel">
-                    <div class="mobile-nav__group">
-                      <p class="eyebrow">Hauptbereiche</p>
-                      <nav class="mobile-nav__links" aria-label="Mobile Hauptnavigation">
-                        {mainNavLinks.map((link) => (
-                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
-                            {link.label}
-                          </a>
-                        ))}
-                      </nav>
-                    </div>
-
-                    <div class="mobile-nav__group">
-                      <p class="eyebrow">Service & Hilfe</p>
-                      <nav class="mobile-nav__links" aria-label="Mobile Servicenavigation">
-                        {serviceLinks.map((link) => (
-                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
-                            {link.label}
-                          </a>
-                        ))}
-                      </nav>
-                    </div>
-
-                    <div class="mobile-nav__actions">
-                      <a class="button-link button-link--secondary" href={getPortalSearchUrl()}>
-                        Suche
-                      </a>
-                    </div>
-                  </div>
-                </details>
-              </div>
-            </div>
-
-            <div class="site-nav-bar">
-              <div class="container">
-                <nav class="site-nav" aria-label="Hauptnavigation">
-                  {mainNavLinks.map((link) => (
+                <nav class="header-access-links" aria-label="Barrierearme Zugänge">
+                  {headerAccessLinks.map((link) => (
                     <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
-                      {link.label}
+                      <PortalIcon name={link.label === 'Leichte Sprache' ? 'easy-language' : 'sign-language'} />
+                      <span>{link.label}</span>
                     </a>
                   ))}
                 </nav>
+              </div>
+
+              <div class="site-mobile-actions">
+                <a class="site-mobile-actions__search" href={getPortalSearchUrl()} aria-label="Portalsuche öffnen">
+                  <PortalIcon name="search" />
+                </a>
+                <details class="mobile-nav">
+                  <summary class="mobile-nav__summary"><PortalIcon name="menu" /><span>Menü</span></summary>
+                  <div class="mobile-nav__panel">
+                    <form
+                      class="header-search header-search--mobile"
+                      action={getPortalSearchUrl()}
+                      method="get"
+                      role="search"
+                      aria-label="Mobile Portalsuche"
+                    >
+                      <label for="mobile-portal-search">Portal durchsuchen</label>
+                      <div class="header-search__control">
+                        <input id="mobile-portal-search" type="search" name="q" autocomplete="off" placeholder={siteConfig.searchPlaceholder} />
+                        <button type="submit"><PortalIcon name="search" /><span>Suchen</span></button>
+                      </div>
+                    </form>
+                    <div class="mobile-nav__group">
+                      <p class="eyebrow">Hauptbereiche</p>
+                      <nav class="mobile-nav__links" aria-label="Mobile Hauptnavigation">
+                        {[homeNavLink, ...mainNavLinks].map((link) => (
+                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                        ))}
+                      </nav>
+                    </div>
+                    <div class="mobile-nav__group">
+                      <p class="eyebrow">Service & Hilfe</p>
+                      <nav class="mobile-nav__links mobile-nav__links--utility" aria-label="Mobile Servicenavigation">
+                        {serviceLinks.slice(1).map((link) => (
+                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                        ))}
+                      </nav>
+                    </div>
+                  </div>
+                </details>
               </div>
             </div>
           </header>
@@ -330,30 +342,25 @@ const footerUtilityLinks = [
         </Fragment>
       )}
 
-      <main id="main-content" class="container site-main">
+      <main
+        id="main-content"
+        class:list={['site-main', mainWidth === 'contained' ? 'container' : 'site-main--full']}
+      >
         <slot />
       </main>
 
+      <ServiceBand />
+
       <footer class="site-footer">
         <div class="container site-footer__inner">
-          <div class="site-footer__meta">
-            <p class="site-footer__small">{siteConfig.simulationNotice}</p>
-          </div>
           <div class="site-footer__grid">
-            <section class="site-footer__section">
-              <h2>Kontakt</h2>
-              <p>{siteConfig.contact.authorityShort}</p>
-              <p>{siteConfig.contact.addressLines.join(', ')}</p>
-              <p>
-                <a href={`tel:${siteConfig.contact.citizenService.phone.replace(/\s+/g, '')}`}>
-                  {siteConfig.contact.citizenService.phone}
-                </a>
-              </p>
-              <p>
-                <a href={`mailto:${siteConfig.contact.citizenService.email}`}>
-                  {siteConfig.contact.citizenService.email}
-                </a>
-              </p>
+            <section class="site-footer__section site-footer__identity">
+              <a class="site-footer__wordmark" href={getHomeUrl()}>
+                <img src={flagAssetUrl} alt="" width="48" height="36" />
+                <span>Freistaat<br />Ostdeutschland</span>
+              </a>
+              <p>{siteConfig.footerNote}</p>
+              <p class="site-footer__simulation">{siteConfig.simulationNotice}</p>
             </section>
 
             <section class="site-footer__section">
@@ -368,22 +375,34 @@ const footerUtilityLinks = [
             </section>
 
             <section class="site-footer__section">
-              <h2>Hilfe & Recht</h2>
-              <nav class="footer-nav" aria-label="Hilfelinks im Footer">
-                {footerUtilityLinks.map((link) => (
+              <h2>Service & Zugänge</h2>
+              <nav class="footer-nav" aria-label="Servicelinks im Footer">
+                {footerServiceLinks.map((link) => (
                   <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
                     {link.label}
                   </a>
                 ))}
               </nav>
-              {analyticsEnabled ? (
-                <p class="site-footer__settings">
-                  <button type="button" class="text-link-button" data-analytics-consent-reset>
-                    Datenschutzeinstellungen ändern
-                  </button>
-                </p>
-              ) : null}
             </section>
+
+            <section class="site-footer__section site-footer__contact">
+              <h2>Kontakt</h2>
+              <p>{siteConfig.contact.addressLines.join(', ')}</p>
+              <p><a href={`tel:${siteConfig.contact.citizenService.phone.replace(/\s+/g, '')}`}>{siteConfig.contact.citizenService.phone}</a></p>
+              <p><a href={`mailto:${siteConfig.contact.citizenService.email}`}>{siteConfig.contact.citizenService.email}</a></p>
+            </section>
+          </div>
+          <div class="site-footer__bottom">
+            <nav class="site-footer__legal" aria-label="Rechtliche Hinweise und weitere Hilfe">
+              {footerLegalLinks.map((link) => (
+                <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+              ))}
+            </nav>
+            {analyticsEnabled ? (
+              <button type="button" class="text-link-button" data-analytics-consent-reset>
+                Datenschutzeinstellungen
+              </button>
+            ) : null}
           </div>
         </div>
       </footer>

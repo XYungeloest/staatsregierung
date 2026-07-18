@@ -159,6 +159,12 @@ Breadcrumb-Strukturdaten erzeugt; die Organisationsdaten kennzeichnen das Portal
 fiktive Politiksimulation. Das gemeinsame Social-Media-Bild liegt unter
 `public/images/social/portal-preview.png`.
 
+`BaseLayout.astro` stellt mit `mainWidth="contained"` den begrenzten Hauptcontainer für Fachseiten
+und mit `mainWidth="full"` vollbreite Inhaltsbänder mit inneren Containern bereit. Die Startseite
+verwendet die volle Variante und setzt ihre wiederverwendbaren Zugangskarten, Informationslisten,
+Icons und das Serviceband aus `src/components/portal/` zusammen. Die gestalterischen Regeln stehen
+in `DESIGN.md`, die Redesign-Entscheidungen in `REDESIGN_IMPLEMENTATION.md`.
+
 ## Laufzeit und Cloudflare
 
 Das Portal wird weiterhin für Cloudflare Workers gebaut, nutzt aktuell aber keine D1- oder R2-Bindings. Pressemitteilungen, Termine, Stellenangebote, Projektstatus und Medien werden dateibasiert aus `content/`, `src/data/dashboard/` und `public/images/` erzeugt.

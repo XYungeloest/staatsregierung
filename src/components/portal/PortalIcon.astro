@@ -1,0 +1,61 @@
+---
+type PortalIconName =
+  | 'home'
+  | 'search'
+  | 'menu'
+  | 'law'
+  | 'topics'
+  | 'map'
+  | 'budget'
+  | 'government'
+  | 'ministry'
+  | 'press'
+  | 'contact'
+  | 'phone'
+  | 'rss'
+  | 'calendar'
+  | 'easy-language'
+  | 'sign-language'
+  | 'accessibility'
+  | 'arrow';
+
+interface Props {
+  name: PortalIconName;
+  className?: string;
+}
+
+const { name, className } = Astro.props as Props;
+---
+
+<svg
+  class:list={['portal-icon', className]}
+  viewBox="0 0 24 24"
+  width="24"
+  height="24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.8"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  focusable="false"
+>
+  {name === 'home' ? <><path d="m3 11 9-7 9 7" /><path d="M5.5 10v10h13V10M9 20v-6h6v6" /></> : null}
+  {name === 'search' ? <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 4.5 4.5" /></> : null}
+  {name === 'menu' ? <><path d="M4 7h16M4 12h16M4 17h16" /></> : null}
+  {name === 'law' ? <><path d="M6 3h9l3 3v15H6z" /><path d="M15 3v4h4M9 11h6M9 15h6" /></> : null}
+  {name === 'topics' ? <><path d="M4 5h7v6H4zM13 5h7v6h-7zM4 13h7v6H4zM13 13h7v6h-7z" /></> : null}
+  {name === 'map' ? <><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3z" /><path d="M9 3v15M15 6v15" /></> : null}
+  {name === 'budget' ? <><path d="M4 5h16v14H4z" /><path d="M4 9h16M8 13h3M8 16h5M16 13h.01M16 16h.01" /></> : null}
+  {name === 'government' ? <><path d="m3 9 9-5 9 5" /><path d="M5 10h14M6 18h12M4 21h16M8 10v8M12 10v8M16 10v8" /></> : null}
+  {name === 'ministry' ? <><path d="M4 21V7h10v14M14 11h6v10M7 10h1M11 10h1M7 14h1M11 14h1M7 18h1M11 18h1M17 14h1M17 18h1" /></> : null}
+  {name === 'press' ? <><path d="M4 5h16v14H4z" /><path d="M7 9h4v4H7zM14 9h3M14 12h3M7 16h10" /></> : null}
+  {name === 'contact' ? <><path d="M4 5h16v14H4z" /><path d="m4 7 8 6 8-6" /></> : null}
+  {name === 'phone' ? <path d="M7 3 4 5c0 8 7 15 15 15l2-3-5-3-2 2c-3-1-5-3-6-6l2-2z" /> : null}
+  {name === 'rss' ? <><path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14" /><circle cx="5" cy="19" r="1" fill="currentColor" stroke="none" /></> : null}
+  {name === 'calendar' ? <><path d="M4 6h16v14H4zM8 3v6M16 3v6M4 10h16" /><path d="M8 14h2M14 14h2M8 17h2" /></> : null}
+  {name === 'easy-language' ? <><path d="M4 5h16v14H4z" /><path d="M8 9h8M8 12h5M8 15h7" /></> : null}
+  {name === 'sign-language' ? <><path d="M8 12V7a1.5 1.5 0 0 1 3 0v4-6a1.5 1.5 0 0 1 3 0v6-4a1.5 1.5 0 0 1 3 0v6l1-2a1.5 1.5 0 0 1 2.5 1.5L18 18a5 5 0 0 1-4 2h-2a5 5 0 0 1-5-5v-3a1.5 1.5 0 0 1 3 0v2" /></> : null}
+  {name === 'accessibility' ? <><circle cx="12" cy="4" r="2" /><path d="M5 8h14M12 6v7M8 21l4-8 4 8M7 11l5 2 5-2" /></> : null}
+  {name === 'arrow' ? <><path d="M5 12h14M14 7l5 5-5 5" /></> : null}
+</svg>
