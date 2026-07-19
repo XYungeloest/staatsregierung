@@ -1,9 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { siteConfig } from '../../config/site.ts';
 import { getAccessibilityUrl, getHomeUrl, getPrivacyUrl, getServiceUrl } from '../../lib/portal/index.ts';
 
-const addressLines = ['Archivstraße 1', '01097 Dresden'];
+const { contact, currentGovernment } = siteConfig;
+const citizenPhoneHref = `tel:${contact.citizenService.phone.replace(/\s+/gu, '')}`;
+const pressPhoneHref = `tel:${contact.pressOffice.phone.replace(/\s+/gu, '')}`;
+const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
 ---
 
 <BaseLayout title="Impressum" description="Impressum und Hinweise zum Internetangebot des Ostdeutschen Freistaates.">
@@ -17,32 +21,32 @@ const addressLines = ['Archivstraße 1', '01097 Dresden'];
   <div class="content-grid">
     <section class="section body-copy">
       <h2>Anbieter und Herausgeber</h2>
-      <p>Staatsregierung des Ostdeutschen Freistaates<br />Staatskanzlei des Ostdeutschen Freistaates<br />{addressLines.join(', ')}</p>
-      <p>Telefon: <a class="inline-link" href="tel:+493511000">+49 351 100-0</a><br />E-Mail: <a class="inline-link" href="mailto:service@freistaat-ostdeutschland.de">service@freistaat-ostdeutschland.de</a><br />Internet: freistaat-ostdeutschland.de</p>
+      <p>{contact.authorityShort}<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
+      <p>Telefon: <a class="inline-link" href={citizenPhoneHref}>{contact.citizenService.phone}</a><br />E-Mail: <a class="inline-link" href={`mailto:${contact.citizenService.email}`}>{contact.citizenService.email}</a><br />Internet: {siteHostname}</p>
       <p>Die Staatsregierung des Ostdeutschen Freistaates ist Herausgeberin dieses Internetangebots.</p>
 
       <h2>Vertreten durch</h2>
-      <p>Dr. Karl Honecker<br />Ministerpräsident des Ostdeutschen Freistaates</p>
+      <p>{currentGovernment.headOfGovernment}<br />Ministerpräsident des Ostdeutschen Freistaates</p>
 
       <h2>Verantwortliche Stelle</h2>
-      <p>Staatskanzlei des Ostdeutschen Freistaates<br />Referat Digitale Regierungskommunikation und Bürgerinformation<br />{addressLines.join(', ')}</p>
-      <p>E-Mail: <a class="inline-link" href="mailto:redaktion@freistaat-ostdeutschland.de">redaktion@freistaat-ostdeutschland.de</a></p>
+      <p>Staatskanzlei des Ostdeutschen Freistaates<br />Referat Digitale Regierungskommunikation und Bürgerinformation<br />{contact.addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href={`mailto:${contact.editorialOffice.email}`}>{contact.editorialOffice.email}</a></p>
       <p>Die redaktionelle Pflege, technische Koordination und organisatorische Gesamtverantwortung für dieses Portal liegen bei der Staatskanzlei des Ostdeutschen Freistaates.</p>
 
       <h2>Verantwortlich für journalistisch-redaktionelle Inhalte</h2>
       <p>Verantwortlich im Sinne des § 18 Abs. 2 Medienstaatsvertrag:</p>
-      <p>Mara Seidel<br />Leiterin des Presse- und Informationsamtes der Staatsregierung<br />Staatskanzlei des Ostdeutschen Freistaates<br />{addressLines.join(', ')}</p>
-      <p>E-Mail: <a class="inline-link" href="mailto:presse@freistaat-ostdeutschland.de">presse@freistaat-ostdeutschland.de</a></p>
+      <p>Mara Seidel<br />Leiterin des Presse- und Informationsamtes der Staatsregierung<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href={`mailto:${contact.pressOffice.email}`}>{contact.pressOffice.email}</a></p>
       <p>Die Verantwortung umfasst insbesondere Pressemitteilungen, redaktionelle Meldungen, Themenseiten, Regierungserklärungen und sonstige publizistische Inhalte dieses Internetangebots.</p>
 
       <h2>Presse- und Öffentlichkeitsarbeit</h2>
-      <p>Presse- und Informationsamt der Staatsregierung<br />{addressLines.join(', ')}</p>
-      <p>Telefon: <a class="inline-link" href="tel:+493511001200">+49 351 100-1200</a><br />E-Mail: <a class="inline-link" href="mailto:presse@freistaat-ostdeutschland.de">presse@freistaat-ostdeutschland.de</a></p>
+      <p>{contact.pressOffice.label}<br />{contact.addressLines.join(', ')}</p>
+      <p>Telefon: <a class="inline-link" href={pressPhoneHref}>{contact.pressOffice.phone}</a><br />E-Mail: <a class="inline-link" href={`mailto:${contact.pressOffice.email}`}>{contact.pressOffice.email}</a></p>
       <p>Anfragen von Medienvertreter:innen richten Sie bitte an die Pressestelle der Staatsregierung.</p>
 
       <h2>Technischer Betrieb</h2>
-      <p>Staatskanzlei des Ostdeutschen Freistaates<br />Referat Digitale Infrastruktur und Portalbetrieb<br />{addressLines.join(', ')}</p>
-      <p>E-Mail: <a class="inline-link" href="mailto:portalbetrieb@freistaat-ostdeutschland.de">portalbetrieb@freistaat-ostdeutschland.de</a></p>
+      <p>Staatskanzlei des Ostdeutschen Freistaates<br />{contact.portalOperations.label}<br />{contact.addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href={`mailto:${contact.portalOperations.email}`}>{contact.portalOperations.email}</a></p>
       <p>Der technische Betrieb umfasst die Pflege der Portalstruktur, die Bereitstellung der Suchfunktionen, die Barrierefreiheitskomponenten, die Cookie-Einstellungen und die technische Verfügbarkeit des Internetangebots.</p>
 
       <h2>Hinweis zur politischen Simulation</h2>
@@ -73,7 +77,7 @@ const addressLines = ['Archivstraße 1', '01097 Dresden'];
       <p>Informationen zur Verarbeitung personenbezogener Daten, zu Cookies und Statistikfunktionen finden Sie in der <a class="inline-link" href={getPrivacyUrl()}>Datenschutzerklärung</a>. Informationen zu bekannten Einschränkungen und Kontaktmöglichkeiten bei Barrieren stehen in der <a class="inline-link" href={getAccessibilityUrl()}>Erklärung zur Barrierefreiheit</a>.</p>
 
       <h2>Kontakt bei Fehlern oder Barrieren</h2>
-      <p>Hinweise zu technischen Fehlern, fehlerhaften Links, Darstellungsproblemen, Barrieren oder unklaren Inhalten können an die Portalredaktion gesendet werden: <a class="inline-link" href="mailto:redaktion@freistaat-ostdeutschland.de">redaktion@freistaat-ostdeutschland.de</a>.</p>
+      <p>Hinweise zu technischen Fehlern, fehlerhaften Links, Darstellungsproblemen, Barrieren oder unklaren Inhalten können an die Portalredaktion gesendet werden: <a class="inline-link" href={`mailto:${contact.editorialOffice.email}`}>{contact.editorialOffice.email}</a>.</p>
       <p>Bitte nennen Sie nach Möglichkeit die betroffene Seite, den verwendeten Browser, das Endgerät und eine kurze Beschreibung des Problems.</p>
 
       <h2>Keine Streitbeilegung für Verwaltungsverfahren</h2>

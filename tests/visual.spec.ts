@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test';
+import { expect, test, type Locator, type Page } from '@playwright/test';
 
 const visualPages = [
   { name: 'startseite', path: '/' },
@@ -46,6 +46,128 @@ async function verifyViewport(page: Page): Promise<void> {
   expect(dimensions.bodyWidth).toBeLessThanOrEqual(dimensions.viewportWidth + 1);
 }
 
+async function prepareLocator(locator: Locator): Promise<void> {
+  await locator.scrollIntoViewIfNeeded();
+  await expect(locator).toBeVisible();
+  await locator.locator('img').evaluateAll(async (images) => {
+    await Promise.all((images as HTMLImageElement[]).map(async (image) => {
+      if (!image.complete) {
+        await new Promise<void>((resolve) => {
+          image.addEventListener('load', () => resolve(), { once: true });
+          image.addEventListener('error', () => resolve(), { once: true });
+        });
+      }
+      await image.decode?.().catch(() => undefined);
+    }));
+  });
+}
+
+async function expectSectionScreenshot(locator: Locator, name: string): Promise<void> {
+  await prepareLocator(locator);
+  await expect(locator).toHaveScreenshot(name);
+}
+
+const componentVisualPages = [
+  {
+    name: 'staatsregierung-module',
+    path: '/staatsregierung/',
+    shots: [
+      ['leitung-direkteinstiege', '[data-visual-section="government-leadership-entrypoints"]'],
+      ['regierung-direkte-wege', '[data-visual-section="government-direct-entrypoints"]'],
+      ['regierung-ministerium', '[data-visual-section="government-ministry-directory"] .ministry-directory__item:first-child'],
+    ],
+  },
+  {
+    name: 'kabinett-module',
+    path: '/staatsregierung/kabinett/',
+    shots: [
+      ['kabinett-ressortverzeichnis', '[data-visual-section="cabinet-ministry-directory"] .ministry-directory__item:first-child'],
+      ['kabinett-mitglied', '[data-visual-section="cabinet-members"] .member-card:first-child'],
+    ],
+  },
+  {
+    name: 'regierungsmitglied-module',
+    path: '/staatsregierung/mitglieder/max-peterson/',
+    shots: [
+      ['mitglied-hero-bildnachweis', '.section-hero__media'],
+      ['mitglied-biografie', '[data-visual-section="member-biography-profile"] > .section:first-child .body-copy'],
+      ['mitglied-profil-kontakt', '[data-visual-section="member-biography-profile"] > .meta-panel'],
+    ],
+  },
+  {
+    name: 'ministerium-module',
+    path: '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
+    shots: [
+      ['ministerium-hero-bildnachweis', '.section-hero__media'],
+      ['ministerium-aufgaben', '[data-visual-section="ministry-profile-contact"] > .section:first-child'],
+      ['ministerium-kontakt', '[data-visual-section="ministry-profile-contact"] > .meta-panel'],
+      ['ministerium-thema', '[data-visual-section="ministry-topics"] .topic-card:first-child'],
+    ],
+  },
+  {
+    name: 'themen-module',
+    path: '/themen/',
+    shots: [['themen-weitere', '[data-visual-section="topics-additional"] .topic-card:first-child']],
+  },
+  {
+    name: 'themendetail-module',
+    path: '/themen/kulturpass/',
+    shots: [
+      ['thema-naechste-schritte', '[data-visual-section="topic-next-steps"]'],
+      ['thema-rechtsgrundlagen', '[data-visual-section="topic-legal-bases"]'],
+    ],
+  },
+  {
+    name: 'recht-module',
+    path: '/recht/',
+    shots: [
+      ['recht-recherchewege', '[data-visual-section="law-research-paths"]'],
+      ['recht-rechtsstaende', '[data-visual-section="law-latest-status"] .record-list__item:first-child'],
+    ],
+  },
+  {
+    name: 'norm-module',
+    path: '/recht/norm/ostdeutsches-kulturpassgesetz/',
+    shots: [
+      ['norm-rechtsstand', '[data-visual-section="norm-legal-status"]'],
+      ['norm-navigation', '.section-navigation'],
+      ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
+    ],
+  },
+  {
+    name: 'haushalt-module',
+    path: '/haushalt/',
+    shots: [
+      ['haushalt-jahreswahl-kennzahlen', '[data-visual-section="budget-year-kpis"]'],
+      ['haushalt-tabelle', '[data-visual-section="budget-table"] .table-wrap'],
+    ],
+  },
+  {
+    name: 'presse-module',
+    path: '/presse/',
+    shots: [
+      ['presse-weitere-meldungen', '[data-visual-section="press-additional-releases"]'],
+      ['presse-kontakt', '[data-visual-section="press-contact"]'],
+      ['presse-termine', '[data-visual-section="press-dates"] .meta-panel'],
+    ],
+  },
+  {
+    name: 'service-module',
+    path: '/service/',
+    shots: [
+      ['service-barrierearme-zugaenge', '[data-visual-section="service-accessibility"]'],
+      ['service-rechtliche-hinweise', '[data-visual-section="service-legal"]'],
+      ['globales-serviceband', '[data-visual-section="global-service-band"]'],
+      ['globaler-footer', '[data-visual-section="global-footer"]'],
+    ],
+  },
+  {
+    name: 'schulsystem-module',
+    path: '/themen/bildung-und-schule/schulsystem/',
+    shots: [['schulsystem-grafik', '[data-visual-section="school-system-chart"]']],
+  },
+] as const;
+
 for (const entry of visualPages) {
   test(`visuelle Basislinie: ${entry.name}`, async ({ page }) => {
     await preparePage(page);
@@ -57,6 +179,35 @@ for (const entry of visualPages) {
     await expect(page).toHaveScreenshot(`${entry.name}.png`);
   });
 }
+
+for (const entry of componentVisualPages) {
+  test(`Komponenten-Basislinien: ${entry.name}`, async ({ page }) => {
+    await preparePage(page);
+    await page.goto(entry.path);
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+    });
+
+    for (const [name, selector] of entry.shots) {
+      await expectSectionScreenshot(page.locator(selector), `${name}.png`);
+    }
+    await verifyViewport(page);
+  });
+}
+
+test('Komponenten-Basislinien: Kreisreform-Suche, Kartensperre und Tabellenzugang', async ({ page }) => {
+  await preparePage(page);
+  await page.goto('/kreisreform/');
+  await page.locator('[data-kreisreform-search-input]').fill('Abtsbessingen');
+  const result = page.locator('[data-kreisreform-search-result]').first();
+  await expect(result).toBeVisible();
+  await result.click();
+
+  await expectSectionScreenshot(page.locator('[data-kreisreform-search-detail]'), 'kreisreform-suchergebnis.png');
+  await expectSectionScreenshot(page.locator('[data-map-load-surface]'), 'kreisreform-kartensperre.png');
+  await expectSectionScreenshot(page.locator('[data-kreisreform-table-filter]'), 'kreisreform-tabellenzugang.png');
+  await verifyViewport(page);
+});
 
 test('Kreisreform: Suche funktioniert ohne Kartenstart', async ({ page }) => {
   await preparePage(page);

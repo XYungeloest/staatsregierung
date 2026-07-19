@@ -1,4 +1,4 @@
-import { access, readdir, readFile } from 'node:fs/promises';
+import { access, readdir, readFile, stat } from 'node:fs/promises';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 
 const root = resolve(process.cwd());
@@ -18,6 +18,7 @@ const allowedNormTypes = new Set([
   'aenderungsvorschrift',
 ]);
 const allowedNormStatuses = new Set(['in-force', 'repealed', 'planned']);
+const allowedEmailDomains = new Set(['freistaat-ostdeutschland.de']);
 const allowedNormMinistries = new Set([
   'Freistaat Ostdeutschland',
   'Landtag des Freistaates Ostdeutschland',
@@ -186,6 +187,20 @@ function validateGenderedLanguage(file, rel, json) {
   }
 }
 
+function validateEmailDomains(file, json) {
+  const emailPattern = /\b[A-Z0-9._%+-]+@([A-Z0-9.-]+\.[A-Z]{2,})\b/giu;
+
+  for (const entry of collectStrings(json)) {
+    emailPattern.lastIndex = 0;
+    for (const match of entry.value.matchAll(emailPattern)) {
+      const domain = match[1].toLocaleLowerCase('de');
+      if (!allowedEmailDomains.has(domain)) {
+        addProblem(file, `${entry.path} enthält eine nicht zugelassene E-Mail-Domain: ${domain}`);
+      }
+    }
+  }
+}
+
 function slugFromFile(path) {
   return basename(path, extname(path));
 }
@@ -230,6 +245,7 @@ for (const { file, json } of records) {
 
   const rel = relative(contentRoot, file);
   validateGenderedLanguage(file, rel, json);
+  validateEmailDomains(file, json);
   if ('slug' in json) {
     if (typeof json.slug !== 'string' || json.slug.length === 0) {
       addProblem(file, 'slug fehlt oder ist leer');
@@ -379,6 +395,26 @@ for (const { file, json } of records) {
       }
     }
   }
+}
+
+const schoolSystemAsset = join(publicRoot, 'images/ui/schulsystem.svg');
+if (await exists(schoolSystemAsset)) {
+  const [assetSource, assetStats] = await Promise.all([
+    readFile(schoolSystemAsset, 'utf8'),
+    stat(schoolSystemAsset),
+  ]);
+  const forbiddenAssetFragments = ['<mxfile', '&lt;mxfile', 'app.diagrams.net', '<!DOCTYPE', 'data:image/'];
+
+  if (assetStats.size > 200_000) {
+    addProblem(schoolSystemAsset, `ist mit ${assetStats.size} Byte größer als das festgelegte SVG-Budget von 200000 Byte`);
+  }
+  for (const fragment of forbiddenAssetFragments) {
+    if (assetSource.includes(fragment)) {
+      addProblem(schoolSystemAsset, `enthält nicht bereinigte Editor- oder Rasterdaten: ${fragment}`);
+    }
+  }
+} else {
+  addProblem(schoolSystemAsset, 'fehlt');
 }
 
 if (problems.length > 0) {

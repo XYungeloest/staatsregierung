@@ -252,3 +252,106 @@ hochskaliert. Die vorhandenen Pressebilder sind Ein-Pixel-Platzhalter und werden
 redaktionelle Aufmacherbilder verwendet. Die integrierte Browser-Verbindung der Arbeitsumgebung
 war wegen fehlender Laufzeitmetadaten nicht verfügbar; Sicht-, Interaktions- und Screenshotprüfung
 erfolgen daher mit der lokal installierten Playwright-Konfiguration.
+
+---
+
+## Phase 3: Polishing, Konsistenz, Performance und visuelle Qualität
+
+### Ausgangsbefund
+
+Das Bereichsdesign aus Phase 2 war vollständig umgesetzt. Beim Feinschliff blieben jedoch vier
+konkrete Qualitätslücken: Bildnachweise standen getrennt hinter der lokalen Navigation, die
+Darstellung der 115 enthielt eine nicht belegte Erreichbarkeitsaussage, redaktionelle Kontakte
+verwendeten teilweise die falsche Domain `osten.de`, und die ausgelieferte Schulsystemgrafik
+enthielt Editor- und Raster-Fallbackdaten. Die vorhandenen Full-Page-Baselines zeigten zudem nur
+begrenzt, ob wichtige Module unterhalb des ersten Viewports unverändert bleiben.
+
+### Gelöste Probleme und geänderte Muster
+
+- `SectionHero.astro` unterstützt am Bild nun einen optionalen Nachweis. Medien werden als
+  `figure` ausgegeben; ein vorhandener Nachweis steht als direkt zugeordnetes `figcaption` unter
+  der Bildfläche. Alternativtext und Quellenangabe bleiben getrennte Informationen.
+- Regierungs-, Ministerpräsidenten-, Mitglieder- und Ressort-Heroes übernehmen den vorhandenen
+  Wert `bildnachweis`. Die losgelösten `.media-credit`-Absätze hinter der Regierungsnavigation
+  wurden entfernt.
+- Die Behördennummer 115 ist in `siteConfig.contact.authorityNumber` mit Label, Nummer,
+  Beschreibung, Zielpfad und ausdrücklichem Flag für einen direkten Telefonweg modelliert. Im
+  aktuellen Stand verweist sie auf den Kontaktbereich; `directPhoneLink` ist `false`. Es wird kein
+  `tel:115` erzeugt und keine eigene Erreichbarkeit behauptet.
+- Anschrift, Bürgerkontakt, Pressestelle, Portalredaktion und Portalbetrieb werden im Impressum
+  aus `siteConfig` übernommen. Footer und Pressebereich verwenden dieselbe Quelle.
+- Alle Personen-, Ressort-, Archiv- und Karrierekontakte wurden auf
+  `@freistaat-ostdeutschland.de` vereinheitlicht. `content:check` erlaubt in Content-Datensätzen
+  ausschließlich diese Domain und meldet unbekannte Domains als Fehler.
+- Die Presseübersicht zeigt nach dem redaktionellen Aufmacher zusätzlich drei kompakte aktuelle
+  Meldungen, bevor Kontakt, Abonnements und Termine folgen.
+
+### Asset- und Performance-Entscheidungen
+
+`public/images/ui/schulsystem.svg` wurde ohne visuelle Neuinterpretation von 883.888 auf 185.034
+Byte reduziert. Entfernt wurden XML-Kommentar und DOCTYPE, das eingebettete Draw.io-Dokument sowie
+34 redundante PNG-Fallbacks. `viewBox`, Abmessungen, Vektorformen, Texte, Linien, Pfeile und Farben
+bleiben erhalten. Ein Content-QA-Check begrenzt die Datei auf 200.000 Byte und verhindert erneut
+eingebettete Editor- oder Rasterdaten.
+
+Für die mehrfach klein dargestellte Landesflagge wird die bereits generierte 480-Pixel-WebP-Datei
+verwendet. Sie ist 596 Byte groß statt etwa 11 KB für das 1920-Pixel-PNG und reduziert vor allem
+die Dekodierfläche. Das Bild im Simulationshinweis besitzt nun ebenfalls explizite intrinsische
+Abmessungen. Die responsive AVIF-, WebP- und JPEG-Strategie der Inhaltsbilder bleibt unverändert.
+Das 960-Pixel-Staatskanzlei-Motiv wird nicht hochskaliert.
+
+### Visuelle und funktionale Absicherung
+
+Die fünf bestehenden Projekte für 360 × 800, 390 × 844, 768 × 1024, 1024 × 900 und 1440 × 1000
+bleiben erhalten. Neue Locator-Baselines scrollen gezielt zu Leitung und Direkteinstiegen,
+Ministeriums- und Mitgliederkomponenten, Biografie und Kontakt, Aufgaben und Themen,
+Themenstatus, nächsten Schritten und Rechtsgrundlagen, Recherchewegen und Rechtsstand,
+Normnavigation und Textbeginn, Haushaltsumschaltung und Tabelle, Reform-Suchergebnis,
+Kartensperre und Tabellenzugang, weiteren Pressemeldungen, Terminen und Pressekontakt,
+barrierearmen und rechtlichen Servicezugängen sowie Serviceband, Footer und Schulsystemgrafik.
+Enthaltene Lazy-Load-Bilder werden vor jeder Aufnahme dekodiert.
+
+Browserprüfungen verhindern eine erneute Erreichbarkeitsbehauptung oder einen `tel:115`-Link. Sie
+prüfen außerdem semantische Hero-Figuren, Bildnachweis und Alternativtext sowie das Fehlen eines
+losgelösten `.media-credit`-Absatzes direkt hinter der Bereichsnavigation. Suche, Haushaltsfilter
+und Kreisreform-Zuordnung bleiben funktional unverändert.
+
+Alle verbindlichen Prüfkommandos wurden nach der Umsetzung erfolgreich abgeschlossen:
+
+- `npm run content:check`: Content-QA einschließlich Domain- und SVG-Regel erfolgreich
+- `npm run check`: 169 Dateien, 0 Fehler, 0 Warnungen, 0 Hinweise
+- `npm run test:unit`: 3 fachliche Zuordnungsprüfungen erfolgreich
+- `npm run build`: 322 statische Seiten erfolgreich erzeugt
+- `npm run links:check`: interne Links in 322 HTML-Dateien erfolgreich geprüft
+- `npm run seo:check`: SEO-QA erfolgreich
+- `npm run test:a11y`: 95 Accessibility-Prüfungen erfolgreich
+- `npm run test:quality`: 6 Qualitätsprüfungen einschließlich Viewports und 200-Prozent-Zoom erfolgreich
+- `npm run test:browsers`: 27 Interaktionstests in Chromium, Firefox und WebKit erfolgreich
+- `npm run test:visual:update`: Baselines in allen fünf Projekten aktualisiert
+- `npm run test:visual`: 205 visuelle und ergänzende Interaktionstests erfolgreich verifiziert
+
+### Accessibility- und Responsive-Entscheidungen
+
+Das `figcaption` steht kontrastreich direkt unter dem Bild und bleibt mobil lesbar, ohne das Motiv
+zu überdecken. Intrinsische Medienabmessungen stabilisieren den Seitenaufbau. Semantik,
+Überschriftenhierarchie, Tastaturbedienung, sichtbare Fokuszustände, 200-Prozent-Zoom,
+reduzierte Bewegung und die Druckansicht des Rechtsportals bleiben erhalten. Neue Akzente verwenden
+weiterhin Dunkelblau, Grün und Gold; Rot bleibt Warnungen und Fehlern vorbehalten.
+
+### Geänderte Dateigruppen
+
+- zentrale Komponenten und Konfiguration: `SectionHero.astro`, `ServiceBand.astro`,
+  `BaseLayout.astro`, `site.ts`, `global.css`
+- Seiten: Regierung, Kabinett, Mitglieder, Ressorts, Themen, Recht, Normdetail, Haushalt,
+  Kreisreform, Presse, Service, Impressum und Schulsystem
+- Content: aktuelle und archivierte Regierungs- und Ressortdaten sowie Karrierekontakte
+- QA: `check-content.mjs`, Browser- und Visualtests sowie neue Screenshot-Baselines
+- Dokumentation: `CONTENT.md`, `DESIGN.md`, `REDESIGN_IMPLEMENTATION.md`
+
+### Verbleibende Einschränkungen
+
+Für das Staatskanzlei-Hero liegt weiterhin nur ein redaktionelles Motiv bis 960 Pixel Breite vor.
+Eine schärfere Darstellung auf hochauflösenden großen Desktopdisplays benötigt ein größeres
+redaktionelles Original. Die integrierte Browser-Verbindung der Arbeitsumgebung stand bei der
+manuellen Prüfung nicht zur Verfügung; die Sicht-, Interaktions- und Viewportprüfung erfolgt daher
+mit der lokalen Playwright-Vorschau und den erzeugten Baselines.

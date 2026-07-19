@@ -48,6 +48,7 @@ const { member } = Astro.props as { member: RegierungMitglied };
       image={{
         src: member.bild,
         alt: member.bildAlt ?? `Porträt von ${member.name}`,
+        credit: member.bildnachweis,
         width: 720,
         height: 900,
         widths: [240, 360, 480],
@@ -55,9 +56,8 @@ const { member } = Astro.props as { member: RegierungMitglied };
       }}
     />
     <GovernmentNavigation />
-    {member.bildnachweis ? <p class="media-credit">Bildnachweis: {member.bildnachweis}</p> : null}
 
-    <div class="content-grid">
+    <div class="content-grid" data-visual-section="member-biography-profile">
       <section class="section">
         <div class="section-header">
           <h2>Biografie</h2>

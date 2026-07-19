@@ -66,6 +66,7 @@ const flagshipTopics = [
     image={headOfGovernment ? {
       src: headOfGovernment.bild,
       alt: headOfGovernment.bildAlt ?? `Porträt von ${headOfGovernment.name}`,
+      credit: headOfGovernment.bildnachweis,
       width: 352,
       height: 440,
       widths: [240, 360, 480],
@@ -74,7 +75,7 @@ const flagshipTopics = [
   />
   <GovernmentNavigation />
 
-  <div class="content-grid">
+  <div class="content-grid" data-visual-section="government-leadership-entrypoints">
     <section class="section">
       <div class="section-header">
         <h2>Leitung der Staatsregierung</h2>
@@ -112,7 +113,7 @@ const flagshipTopics = [
     </aside>
   </div>
 
-  <section class="section section-muted">
+  <section class="section section-muted" data-visual-section="government-direct-entrypoints">
     <div class="section-header">
       <h2>Direkte Wege zur Regierungsarbeit</h2>
       <p>
@@ -127,7 +128,7 @@ const flagshipTopics = [
     </ul>
   </section>
 
-  <section class="section" aria-labelledby="ministerien">
+  <section class="section" aria-labelledby="ministerien" data-visual-section="government-ministry-directory">
     <div class="section-header">
       <h2 id="ministerien">Ministerien</h2>
       <p>Leitung und zentrale Aufgaben der Ministerien des {currentGovernment.cabinetName}.</p>

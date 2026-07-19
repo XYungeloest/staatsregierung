@@ -24,6 +24,7 @@ export const siteConfig = {
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',
   footerNote: 'Website der Staatsregierung des Ostdeutschen Freistaates mit integriertem Rechtsbereich.',
   officialFlagAssetPath: '/images/ui/ost-flagge.png',
+  officialFlagSmallAssetPath: '/images/generated/ui/ost-flagge-480.webp',
   officialFlagText: 'OF',
   searchLabel: 'Portal durchsuchen',
   searchPlaceholder: 'z. B. Thema, Ressort, Recht oder Presse',
@@ -93,10 +94,26 @@ export const siteConfig = {
       phone: '+49 351 100-0',
       email: 'service@freistaat-ostdeutschland.de',
     },
+    authorityNumber: {
+      label: 'Behördennummer',
+      number: '115',
+      description:
+        'Informationen zur Behördennummer 115 und die Kontaktwege der Staatsregierung finden Sie im Kontaktbereich.',
+      pathKey: 'contact',
+      directPhoneLink: false,
+    },
     pressOffice: {
       label: 'Presse- und Informationsamt der Staatsregierung',
       phone: '+49 351 100-1200',
       email: 'presse@freistaat-ostdeutschland.de',
+    },
+    editorialOffice: {
+      label: 'Portalredaktion',
+      email: 'redaktion@freistaat-ostdeutschland.de',
+    },
+    portalOperations: {
+      label: 'Referat Digitale Infrastruktur und Portalbetrieb',
+      email: 'portalbetrieb@freistaat-ostdeutschland.de',
     },
     officeHours: ['Montag bis Donnerstag: 9.00 bis 17.00 Uhr', 'Freitag: 9.00 bis 15.00 Uhr'],
   },

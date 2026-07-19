@@ -4,6 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import SectionHero from '../../components/portal/SectionHero.astro';
 import SectionNavigation from '../../components/portal/SectionNavigation.astro';
 import ServiceCard from '../../components/portal/ServiceCard.astro';
+import { siteConfig } from '../../config/site.ts';
 import {
   getAccessibilityUrl,
   getCabinetUrl,
@@ -20,6 +21,7 @@ import {
 import { loadJobOffers } from '../../lib/portal/content.ts';
 
 const offers = await loadJobOffers();
+const authorityNumber = siteConfig.contact.authorityNumber;
 ---
 
 <BaseLayout title="Service" description="Kontakt, Karriere, Orientierung und barrierearme Serviceangebote des Regierungsportals.">
@@ -31,7 +33,7 @@ const offers = await loadJobOffers();
     lead="Kontaktwege, Zuständigkeiten, Stellenangebote und barrierearme Zugänge zum Regierungsportal."
     variant="service"
     facts={[
-      { label: 'Servicenummer', value: '115' },
+      { label: authorityNumber.label, value: authorityNumber.number },
       { label: 'Aktuelle Stellenangebote', value: String(offers.length), href: getCareerUrl() },
     ]}
     actions={[{ label: 'Kontakt und Zuständigkeit', href: getContactUrl(), primary: true }]}
@@ -49,12 +51,12 @@ const offers = await loadJobOffers();
 
   <section id="kontakt" class="section" aria-labelledby="kontakt-115">
     <div class="section-header">
-      <h2 id="kontakt-115">Kontakt und Servicenummer 115</h2>
+      <h2 id="kontakt-115">Kontakt und Behördennummer {authorityNumber.number}</h2>
       <p>Für allgemeine Fragen und die Suche nach der zuständigen Stelle.</p>
     </div>
     <ServiceCard
       title="Kontakt zur Landesverwaltung"
-      body="Die Servicenummer 115 ist montags bis freitags von 8 bis 18 Uhr erreichbar. Der Kontaktbereich hilft außerdem bei der Zuordnung Ihres Anliegens."
+      body={authorityNumber.description}
       href={getContactUrl()}
       icon="phone"
       emphasis={true}
@@ -73,7 +75,7 @@ const offers = await loadJobOffers();
     </div>
   </section>
 
-  <section id="zugaenge" class="section" aria-labelledby="barrierearme-zugaenge">
+  <section id="zugaenge" class="section" aria-labelledby="barrierearme-zugaenge" data-visual-section="service-accessibility">
     <div class="section-header">
       <h2 id="barrierearme-zugaenge">Barrierearme Zugänge</h2>
       <p>Informationen in zugänglichen Formaten sowie Angaben zur Barrierefreiheit.</p>
@@ -85,7 +87,7 @@ const offers = await loadJobOffers();
     </div>
   </section>
 
-  <section id="rechtliches" class="section section-muted" aria-labelledby="rechtliche-hinweise">
+  <section id="rechtliches" class="section section-muted" aria-labelledby="rechtliche-hinweise" data-visual-section="service-legal">
     <div class="section-header">
       <h2 id="rechtliche-hinweise">Rechtliche Hinweise</h2>
     </div>

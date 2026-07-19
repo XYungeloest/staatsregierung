@@ -55,7 +55,7 @@ const taskAreas = getBudgetTaskAreas();
   />
   <BudgetSectionNav current="portal" />
 
-  <section class="section budget-dashboard" data-budget-year-switcher aria-labelledby="haushaltsstand">
+  <section class="section budget-dashboard" data-budget-year-switcher data-visual-section="budget-year-kpis" aria-labelledby="haushaltsstand">
     <div class="section-header section-header--with-control">
       <div>
         <h2 id="haushaltsstand">Haushaltsstand im Überblick</h2>
@@ -122,7 +122,7 @@ const taskAreas = getBudgetTaskAreas();
     <BudgetTaskAreaChart areas={taskAreas} year="2026" />
   </section>
 
-  <section class="section section-muted" aria-labelledby="ressortvergleich">
+  <section class="section section-muted" aria-labelledby="ressortvergleich" data-visual-section="budget-table">
     <div class="section-header">
       <h2 id="ressortvergleich">Ressortübergreifender Überblick</h2>
       <p>Ausgaben der Ressort-Einzelpläne im Haushalt 2026. Die Tabelle zeigt den Anteil am Gesamthaushalt, keine Bewertung der politischen Priorität oder Mittelversorgung.</p>

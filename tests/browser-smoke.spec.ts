@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('Startseite bietet Suche, Ministerien, mobile Navigation und 115-Einstieg', async ({ page }) => {
+test('Startseite bietet Suche, Ministerien, mobile Navigation und 115-Orientierung', async ({ page }) => {
   await page.addInitScript(() => {
     window.localStorage.setItem('ostrecht-portal-analytics-consent', 'rejected');
   });
@@ -8,7 +8,7 @@ test('Startseite bietet Suche, Ministerien, mobile Navigation und 115-Einstieg',
 
   await expect(page.locator('h1')).toHaveText('Schnell zur richtigen Information');
   await expect(page.locator('.home-ministry-list a')).toHaveCount(6);
-  await expect(page.locator('.service-band__item', { hasText: 'Servicenummer 115' })).toHaveAttribute(
+  await expect(page.locator('.service-band__item', { hasText: 'Behördennummer 115' })).toHaveAttribute(
     'href',
     '/service/kontakt/',
   );
@@ -78,6 +78,9 @@ test('Regierungsprofil verbindet Porträt, Amt, Status und Kontakt im sichtbaren
   await expect(hero).toBeVisible();
   await expect(hero.getByRole('heading', { level: 1 })).toHaveText('Max Peterson');
   await expect(hero.locator('.section-hero__image')).toBeVisible();
+  await expect(hero.locator('figure')).toHaveCount(1);
+  await expect(hero.locator('figcaption')).toHaveText('Bildnachweis: Staatsregierung');
+  await expect(hero.locator('img')).toHaveAttribute('alt', 'Porträt von Max Peterson');
   await expect(hero).toContainText('Aktuelles Kabinettsmitglied');
   await expect(hero.getByRole('link', { name: /@/ })).toBeVisible();
 });
@@ -85,11 +88,40 @@ test('Regierungsprofil verbindet Porträt, Amt, Status und Kontakt im sichtbaren
 test('Service gruppiert Kontakt, Orientierung, barrierearme Zugänge und Rechtliches', async ({ page }) => {
   await page.goto('/service/');
 
-  await expect(page.getByRole('heading', { name: 'Kontakt und Servicenummer 115' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Kontakt und Behördennummer 115' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Orientierung und Angebote' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Barrierearme Zugänge' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Rechtliche Hinweise' })).toBeVisible();
-  await expect(page.locator('a[href="tel:115"]')).toHaveCount(0);
+  await expect(page.locator('a[href^="tel:115"]')).toHaveCount(0);
+  await expect(page.getByText(/115 ist montags bis freitags von 8 bis 18 Uhr/iu)).toHaveCount(0);
+  await expect(page.getByText(/Informationen zur Behördennummer 115 und die Kontaktwege/iu)).toBeVisible();
+});
+
+test('Bildnachweise bleiben beim Hero-Bild und nicht hinter der Bereichsnavigation', async ({ page }) => {
+  for (const path of [
+    '/staatsregierung/mitglieder/max-peterson/',
+    '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
+  ]) {
+    await page.goto(path);
+    const hero = page.locator('.section-hero');
+    await expect(hero.locator('figure .section-hero__credit')).toHaveText('Bildnachweis: Staatsregierung');
+    await expect(page.locator('.section-navigation + p.media-credit')).toHaveCount(0);
+    await expect(page.locator('main > p.media-credit')).toHaveCount(0);
+  }
+});
+
+test('115 bleibt ein Informationsweg ohne behauptete Erreichbarkeit oder Direktwahl', async ({ page }) => {
+  for (const path of ['/', '/service/']) {
+    await page.goto(path);
+    await expect(page.locator('a[href^="tel:115"]')).toHaveCount(0);
+    await expect(page.getByText(/115 ist montags bis freitags von 8 bis 18 Uhr/iu)).toHaveCount(0);
+  }
+
+  const serviceEntry = page.locator('[data-visual-section="global-service-band"] .service-band__item', {
+    hasText: 'Behördennummer 115',
+  });
+  await expect(serviceEntry).toHaveAttribute('href', '/service/kontakt/');
+  await expect(serviceEntry).toContainText('Informationen und Kontaktwege');
 });
 
 test('Rechts- und Portalsuche liefern weiterhin Treffer', async ({ page }) => {

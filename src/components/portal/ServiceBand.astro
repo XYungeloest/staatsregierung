@@ -4,14 +4,21 @@ import {
   getLawHomeUrl,
   getMinistriesUrl,
   getPressUrl,
+  getSiteUrl,
 } from '../../lib/portal/index.ts';
+import { siteConfig } from '../../config/site.ts';
 import PortalIcon from './PortalIcon.astro';
+
+const authorityNumber = siteConfig.contact.authorityNumber;
+const authorityNumberHref = authorityNumber.directPhoneLink
+  ? `tel:${authorityNumber.number.replace(/\s+/gu, '')}`
+  : getSiteUrl(authorityNumber.pathKey);
 
 const services = [
   {
-    title: 'Servicenummer 115',
-    text: 'Zentrale Auskunft und Kontaktwege',
-    href: getContactUrl(),
+    title: `${authorityNumber.label} ${authorityNumber.number}`,
+    text: 'Informationen und Kontaktwege',
+    href: authorityNumberHref,
     icon: 'phone' as const,
   },
   {
@@ -41,7 +48,7 @@ const services = [
 ];
 ---
 
-<aside class="service-band" aria-label="Schnelleinstiege zu Kontakt und Service">
+<aside class="service-band" aria-label="Schnelleinstiege zu Kontakt und Service" data-visual-section="global-service-band">
   <div class="container service-band__grid">
     {services.map((service) => (
       <a class="service-band__item" href={service.href}>
