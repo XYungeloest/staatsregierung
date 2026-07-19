@@ -56,7 +56,7 @@ const canonicalUrl = buildCanonicalUrl(Astro.url, Astro.site);
 const robotsContent = noindex ? 'noindex, follow' : 'index, follow';
 const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
 const stickyHeader = isStickyHeaderEnabled();
-const flagAssetUrl = `${base}${siteConfig.officialFlagAssetPath.replace(/^\//, '')}`;
+const smallFlagAssetUrl = `${base}${siteConfig.officialFlagSmallAssetPath.replace(/^\//, '')}`;
 const analyticsEnabled = isAnalyticsEnabled();
 const loadPortalModules = scripts.includes('portal-modules');
 const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbs, currentPath, Astro.site);
@@ -201,8 +201,10 @@ const footerLegalLinks = [
             <div class="container site-notice__inner">
               <div class="site-notice__flag">
                 <img
-                  src={flagAssetUrl}
+                  src={smallFlagAssetUrl}
                   alt=""
+                  width="480"
+                  height="288"
                 />
                 <span class="site-notice__flag-text" aria-hidden="true" hidden>
                   {siteConfig.officialFlagText}
@@ -217,7 +219,7 @@ const footerLegalLinks = [
               <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()} aria-label="Startseite Freistaat Ostdeutschland">
                   <span class="site-wordmark__media" aria-hidden="true">
-                    <img src={flagAssetUrl} alt="" width="64" height="48" />
+                    <img src={smallFlagAssetUrl} alt="" width="64" height="48" />
                   </span>
                   <span class="site-wordmark__text">
                     <span class="site-title">Freistaat<br />Ostdeutschland</span>
@@ -351,12 +353,12 @@ const footerLegalLinks = [
 
       <ServiceBand />
 
-      <footer class="site-footer">
+      <footer class="site-footer" data-visual-section="global-footer">
         <div class="container site-footer__inner">
           <div class="site-footer__grid">
             <section class="site-footer__section site-footer__identity">
               <a class="site-footer__wordmark" href={getHomeUrl()}>
-                <img src={flagAssetUrl} alt="" width="48" height="36" />
+                <img src={smallFlagAssetUrl} alt="" width="48" height="36" />
                 <span>Freistaat<br />Ostdeutschland</span>
               </a>
               <p>{siteConfig.footerNote}</p>

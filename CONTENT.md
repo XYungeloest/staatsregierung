@@ -839,6 +839,16 @@ Fotografische Motive sollten als webtaugliche JPEG-Dateien gepflegt werden. Tran
 
 `npm run content:check` prüft Bildpfade für Felder wie `bild`, `image` und `hero`, wenn sie mit `/images/` beginnen.
 
+E-Mail-Adressen in redaktionellen JSON-Daten verwenden ausschließlich die Domain
+`freistaat-ostdeutschland.de`. Die Content-QA führt diese Domain als kontrollierte Allowlist und
+meldet unbekannte oder abweichende Domains als Fehler. Zentrale Portal-, Presse-, Redaktions- und
+Betriebskontakte werden in `src/config/site.ts` gepflegt und auf Seiten nicht erneut hartcodiert.
+
+Die ausgelieferte Schulsystemgrafik wird als bereinigtes SVG ohne Draw.io-Dokumentdaten oder
+eingebettete Raster-Fallbacks geführt. Die Content-QA prüft dafür ein Größenbudget von 200.000 Byte
+und weist verbliebene Editor- beziehungsweise Rasterdaten zurück. Die bearbeitbare Quelldatei in
+`context/` bleibt davon unberührt.
+
 ## Verknüpfungen
 
 Folgende Verknüpfungen werden in der Content-QA geprüft:

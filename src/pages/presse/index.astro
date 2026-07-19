@@ -25,6 +25,7 @@ const [releases, events, speeches] = await Promise.all([
   loadSpeeches(),
 ]);
 const leadRelease = releases[0];
+const additionalReleases = releases.slice(1, 4);
 const latestSpeech = speeches[0];
 const { upcoming: nextEvents } = splitEventsByDate(events);
 const calendarUrl = `${getEventIndexUrl()}kalender.ics`;
@@ -61,7 +62,20 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
     </section>
   ) : null}
 
-  <section class="section section-muted" aria-labelledby="presse-service">
+  {additionalReleases.length > 0 ? (
+    <section class="section" data-visual-section="press-additional-releases">
+      <div class="section-header">
+        <h2>Weitere Meldungen</h2>
+        <p>Weitere aktuelle Mitteilungen der Staatsregierung.</p>
+      </div>
+      <div class="content-stack">
+        {additionalReleases.map((release) => <PressReleaseCard release={release} variant="compact" />)}
+      </div>
+      <p class="section-link-row"><a class="inline-link" href={getPressReleaseIndexUrl()}>Alle Pressemitteilungen</a></p>
+    </section>
+  ) : null}
+
+  <section class="section section-muted" aria-labelledby="presse-service" data-visual-section="press-contact">
     <div class="section-header">
       <h2 id="presse-service">Kontakt und Abonnements</h2>
     </div>
@@ -91,7 +105,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
     </ul>
   </section>
 
-  <section class="section section-muted">
+  <section class="section section-muted" data-visual-section="press-dates">
     <div class="content-grid">
       <section class="section">
         <div class="section-header"><h2>Neueste Rede</h2></div>

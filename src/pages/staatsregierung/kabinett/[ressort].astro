@@ -87,6 +87,7 @@ const legalReferences = Array.from(
       image={{
         src: ministry.bild,
         alt: ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`,
+        credit: ministry.bildnachweis,
         width: 1280,
         height: 720,
         widths: [480, 720, 960],
@@ -94,9 +95,8 @@ const legalReferences = Array.from(
       }}
     />
     <GovernmentNavigation />
-    {ministry.bildnachweis ? <p class="media-credit">Bildnachweis: {ministry.bildnachweis}</p> : null}
 
-    <div class="content-grid">
+    <div class="content-grid" data-visual-section="ministry-profile-contact">
       <section class="section">
         <div class="section-header">
           <h2>Ressortprofil</h2>
@@ -170,7 +170,7 @@ const legalReferences = Array.from(
     </div>
 
     {relatedTopics.length > 0 ? (
-      <section class="section section-muted">
+      <section class="section section-muted" data-visual-section="ministry-topics">
         <div class="section-header">
           <h2>Zugeordnete Themen & Projekte</h2>
           <p>

@@ -13,7 +13,7 @@ const { norm, version, historical = false } = Astro.props;
 const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
 ---
 
-<aside class:list={['status-notice', historical ? 'status-notice--historical' : 'status-notice--current']}>
+<aside class:list={['status-notice', historical ? 'status-notice--historical' : 'status-notice--current']} data-visual-section="norm-legal-status">
   <h2>{historical ? 'Hinweis zur historischen Fassung' : 'Rechtsstand'}</h2>
   {historical ? (
     <p>

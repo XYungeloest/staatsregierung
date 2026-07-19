@@ -27,6 +27,7 @@ interface Action {
 interface HeroImage {
   src: string;
   alt: string;
+  credit?: string;
   width: number;
   height: number;
   widths: number[];
@@ -109,7 +110,7 @@ const primaryActionIndex = actions.findIndex((action) => action.primary);
     </div>
 
     {image ? (
-      <div class:list={['section-hero__media', `section-hero__media--${image.kind ?? 'landscape'}`]} style={`--hero-image-position: ${image.position ?? 'center'};`}>
+      <figure class:list={['section-hero__media', `section-hero__media--${image.kind ?? 'landscape'}`]} style={`--hero-image-position: ${image.position ?? 'center'};`}>
         <ResponsivePicture
           className="section-hero__image"
           src={image.src}
@@ -121,7 +122,8 @@ const primaryActionIndex = actions.findIndex((action) => action.primary);
           loading="eager"
           fetchpriority="high"
         />
-      </div>
+        {image.credit ? <figcaption class="section-hero__credit">Bildnachweis: {image.credit}</figcaption> : null}
+      </figure>
     ) : null}
   </div>
 </header>

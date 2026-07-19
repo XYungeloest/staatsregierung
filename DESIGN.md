@@ -184,6 +184,17 @@ in leeren Spalten. Die Freistaat-Seite verwendet die vorhandene, 1920 Pixel brei
 formatoptimierte responsive Varianten bis 960 Pixel Breite. Für das 960 Pixel breite
 Staatskanzlei-Hero liegt weiterhin kein größeres redaktionelles Original vor.
 
+Bildnachweise gehören unmittelbar zur jeweiligen Medienfläche. `SectionHero.astro` gibt Bilder
+mit belastbarem Nachweis als `figure` mit direkt zugeordnetem `figcaption` aus; der Alternativtext
+beschreibt weiterhin unabhängig davon den Bildinhalt. Nachweise dürfen nicht als losgelöste Zeile
+hinter einer Bereichsnavigation erscheinen. Die Beschriftung bleibt auf kleinen Bildschirmen
+lesbar und verdeckt keine wesentlichen Bildinhalte.
+
+Die Behördennummer 115 ist ein Orientierungsbegriff, kein automatisch angebotener Telefonweg.
+Ihre Darstellung wird zentral konfiguriert und verweist auf den Kontaktbereich. Ein `tel:`-Link
+wird nur ausgegeben, wenn ein direkter Telefonweg ausdrücklich konfiguriert ist. Angaben zu
+Erreichbarkeiten dürfen nicht aus der bloßen Nummer abgeleitet werden.
+
 ## Responsive Verhalten
 
 Die Gestaltung arbeitet inhaltlich mit vier Bereichen:
@@ -217,6 +228,13 @@ Die visuellen Baselines decken zentrale Seiten bei Smartphone-, Tablet- und Desk
 Änderungen an Header, Startseite oder globalen Komponenten werden erst nach manueller Sichtprüfung
 in die Baselines übernommen. Content-, Type-, Build-, Link-, Accessibility-, Browser- und
 Overflow-Prüfungen bleiben Teil der Produktions-QA.
+
+Ergänzend zu den vollständigen Seitenbaselines sichern kleine Locator-Screenshots wichtige
+Module unterhalb des ersten Viewports. Dazu gehören unter anderem Ministeriumsverzeichnisse,
+Profil- und Kontaktbereiche, Recherchewege, Rechtsstand, Haushaltskennzahlen, Reformzugänge,
+Pressekontakt, barrierearme Zugänge sowie das globale Serviceband und der Footer. Die Tests
+scrollen das jeweilige Modul kontrolliert in den sichtbaren Bereich und warten auf enthaltene
+Bilder.
 
 ## Was vermieden wird
 
