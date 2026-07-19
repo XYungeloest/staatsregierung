@@ -71,7 +71,6 @@ public/data/
 
 src/data/dashboard/
   action-plan.ts
-  budget.ts
   legislation.ts
   timeline.ts
 
@@ -105,6 +104,7 @@ Optionale Felder:
 
 - `pdf`
 - `sourceFiles`
+- `sourceReferences`
 - `entries[].documentDate`
 - `entries[].pages`
 - `entries[].normSlug`
@@ -120,12 +120,20 @@ Format:
   "issue": "16",
   "date": "2026-03-23",
   "publication": "OGVBl.",
+  "sourceReferences": [
+    {
+      "kind": "original",
+      "label": "Amtliches Original-PDF der Ausgabe",
+      "availability": "not-versioned"
+    }
+  ],
   "entries": [
     {
       "id": "beispielgesetz",
       "title": "Beispielgesetz",
       "type": "gesetz",
-      "citation": "OGVBl. 2026 Nr. 16 S. 1",
+      "citation": "Gesetz vom 22. März 2026 (OGVBl. 2026 Nr. 16 S. 1)",
+      "documentDate": "2026-03-22",
       "pages": "1-4",
       "normSlug": "beispielgesetz",
       "versionId": "2026-03-23"
@@ -137,9 +145,15 @@ Format:
 `date` ist das Ausgabedatum und damit das Veröffentlichungsdatum der Ausgabe.
 `entries[].documentDate` bezeichnet dagegen das Ausfertigungs- beziehungsweise Dokumentdatum.
 Beide Werte werden getrennt gepflegt und dürfen nicht aus Bequemlichkeit gleichgesetzt werden.
-`entries[].citation` enthält die genaue Fundstelle einschließlich Seitenbereich. Im verknüpften
-Normdatensatz bleibt daneben das vollständige Normzitat erhalten, zum Beispiel
+`entries[].citation` enthält Normart, Dokumentdatum und die genaue Fundstelle einschließlich
+Seitenbereich. Auch im verknüpften Normdatensatz bleibt das vollständige Normzitat erhalten, zum Beispiel
 `Förderrichtlinie vom 6. März 2026 (StAnzO. 2026 Nr. 4)`.
+
+`sourceFiles` und `sourceReferences[].localSource` dürfen ausschließlich relative Pfade zu
+tatsächlich versionierten Dateien enthalten. Externe Quellen verwenden eine HTTPS-URL und
+`availability: "external"`. Lokal redaktionell geprüfte, aber nicht mitversionierte Originale
+werden mit `availability: "not-versioned"` dokumentiert; ein scheinbarer lokaler Pfad ist dann
+unzulässig. Der aktuelle Bestand hält die amtlichen PDF-Originale nicht im Repository vor.
 
 Erlaubte Eintragstypen:
 
@@ -621,7 +635,11 @@ Erlaubte Werte für `status`:
 
 ```text
 in-force
+future-effective
+pending-effective
 repealed
+historical
+one-time-act
 planned
 ```
 
@@ -641,10 +659,15 @@ Format:
   "initialCitation": "Gesetz vom 17. April 2026",
   "predecessor": null,
   "successor": null,
+  "enactedNorm": "eingefuehrte-stammnorm",
   "summary": "Kurze Zusammenfassung.",
   "status": "in-force"
 }
 ```
+
+`enactedNorm` und `enactingNorm` kennzeichnen die wechselseitige Beziehung zwischen einem
+Einführungs- oder Mantelgesetz und der dadurch eingeführten Stammnorm. Diese Beziehung ist keine
+Vorgänger-/Nachfolgerbeziehung und keine Berechtigung, beide Rechtsakte zusammenzuführen.
 
 ### Norm-Historie
 
@@ -768,6 +791,11 @@ Verfahrensstufe, verständlicher Statustext, nächste angesetzte Beratung, Quell
 und der zuletzt bestätigte Stand. Einbringungsdatum, Ausschuss, Beschlussempfehlung und
 Verfahrensgruppe werden nur gepflegt, wenn sie belegt sind.
 
+Jeder Eintrag unter `sources` kennzeichnet die Verfügbarkeit ausdrücklich: `local` setzt einen
+versionierten `localSource`-Pfad voraus, `external` eine stabile `sourceUrl`, und `missing`
+dokumentiert eine noch nicht vorliegende Primärdatei ohne erfundenen Pfad. Tagesordnung und
+Beschlussempfehlung ändern einen Vorgang nicht automatisch in einen Ergebnisstatus.
+
 Erlaubte Verfahrensstufen:
 
 ```text
@@ -818,10 +846,15 @@ Bezirk-Karten und Tabellen erreichbar bleiben.
 Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfigurationsdateien:
 
 - `src/config/site.ts`: Portalname, Pfade, Navigation, Kontakt, Regierungsstammdaten
-- `src/config/features.ts`: Feature-Schalter für Header, Analytics und ähnliche Bereiche
+- `src/config/features.ts`: Feature-Schalter für die optionale Webanalyse
 - `src/config/analytics.ts`: Analyse- und Consent-Konfiguration
 
 Diese Dateien nur ändern, wenn sich die Struktur oder zentrale Stammdaten ändern. Normale Seiteninhalte gehören nach `content/`.
+
+`scripts/import-normen.mjs` ist ein kontrolliertes Migrationswerkzeug für lokale Markdown-
+Extrakte. Das Quellverzeichnis muss mit `--source-dir` ausdrücklich angegeben werden. Ohne
+`--replace-output` läuft das Werkzeug nur prüfend; mit diesem Schalter ersetzt es den vollständigen
+Normbestand und darf deshalb nur nach gesonderter Sicherung und Quellenprüfung eingesetzt werden.
 
 ## Seitengerüst und feste UI-Texte
 

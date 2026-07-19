@@ -23,7 +23,9 @@ export type LegislativeProcedureStage = (typeof LEGISLATIVE_STAGES)[number];
 export interface LegislativeSource {
   label: string;
   kind: 'drucksache' | 'beschlussempfehlung' | 'tagesordnung' | 'entwurf';
+  availability: 'local' | 'external' | 'missing';
   localSource?: string;
+  sourceUrl?: string;
 }
 
 export interface LegislativeRecommendation {
@@ -121,10 +123,30 @@ function parseProcedure(value: unknown, path: string): LegislativeProcedure {
     if (!['drucksache', 'beschlussempfehlung', 'tagesordnung', 'entwurf'].includes(kind)) {
       fail(`${path}.sources[${index}].kind`, 'enthält einen unbekannten Quellentyp');
     }
+    const availability = string(
+      sourceEntry.availability,
+      `${path}.sources[${index}].availability`,
+    ) as LegislativeSource['availability'];
+    if (!['local', 'external', 'missing'].includes(availability)) {
+      fail(`${path}.sources[${index}].availability`, 'muss local, external oder missing sein');
+    }
+    const localSource = optionalString(sourceEntry.localSource, `${path}.sources[${index}].localSource`);
+    const sourceUrl = optionalString(sourceEntry.sourceUrl, `${path}.sources[${index}].sourceUrl`);
+    if (availability === 'local' && !localSource) {
+      fail(`${path}.sources[${index}].localSource`, 'ist für eine lokale Quelle erforderlich');
+    }
+    if (availability === 'external' && !sourceUrl) {
+      fail(`${path}.sources[${index}].sourceUrl`, 'ist für eine externe Quelle erforderlich');
+    }
+    if (availability === 'missing' && (localSource || sourceUrl)) {
+      fail(`${path}.sources[${index}]`, 'darf für eine fehlende Quelle keinen Pfad oder URL behaupten');
+    }
     return {
       label: string(sourceEntry.label, `${path}.sources[${index}].label`),
       kind,
-      localSource: optionalString(sourceEntry.localSource, `${path}.sources[${index}].localSource`),
+      availability,
+      localSource,
+      sourceUrl,
     };
   });
 

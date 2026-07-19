@@ -19,6 +19,17 @@ const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
 export type PublicationEntryType = (typeof PUBLICATION_ENTRY_TYPES)[number];
 
+export type PublicationSourceAvailability = 'versioned' | 'external' | 'not-versioned';
+
+export interface PublicationSourceReference {
+  label: string;
+  kind: 'original' | 'index' | 'transcription';
+  availability: PublicationSourceAvailability;
+  localSource?: string;
+  url?: string;
+  note?: string;
+}
+
 export interface VerkuendungEntry {
   id: string;
   title: string;
@@ -39,6 +50,7 @@ export interface Verkuendung {
   publication: string;
   pdf?: string;
   sourceFiles?: string[];
+  sourceReferences?: PublicationSourceReference[];
   entries: VerkuendungEntry[];
 }
 
@@ -175,6 +187,40 @@ function parseVerkuendungEntry(value: unknown, path: string): VerkuendungEntry {
   };
 }
 
+function parseSourceReference(value: unknown, path: string): PublicationSourceReference {
+  const object = expectObject(value, path);
+  const availability = expectEnumValue(
+    object.availability,
+    `${path}.availability`,
+    ['versioned', 'external', 'not-versioned'] as const,
+  );
+  const localSource = expectOptionalString(object.localSource, `${path}.localSource`);
+  const url = expectOptionalString(object.url, `${path}.url`);
+
+  if (availability === 'versioned' && !localSource) {
+    fail(`${path}.localSource`, 'ist für eine versionierte Quelle erforderlich');
+  }
+  if (availability === 'external' && !url) {
+    fail(`${path}.url`, 'ist für eine externe Quelle erforderlich');
+  }
+  if (availability === 'not-versioned' && (localSource || url)) {
+    fail(path, 'darf für eine nicht mitversionierte Quelle keinen lokalen Pfad oder URL behaupten');
+  }
+
+  return {
+    label: expectString(object.label, `${path}.label`),
+    kind: expectEnumValue(
+      object.kind,
+      `${path}.kind`,
+      ['original', 'index', 'transcription'] as const,
+    ),
+    availability,
+    localSource,
+    url,
+    note: expectOptionalString(object.note, `${path}.note`),
+  };
+}
+
 export function parseVerkuendung(value: unknown, path = 'verkuendung.json'): Verkuendung {
   const object = expectObject(value, path);
   const entries = object.entries;
@@ -217,6 +263,16 @@ export function parseVerkuendung(value: unknown, path = 'verkuendung.json'): Ver
           if (!Array.isArray(object.sourceFiles)) fail(`${path}.sourceFiles`, 'muss ein Array sein');
           return object.sourceFiles.map((entry, index) =>
             expectString(entry, `${path}.sourceFiles[${index}]`),
+          );
+        })(),
+    sourceReferences: object.sourceReferences === undefined
+      ? undefined
+      : (() => {
+          if (!Array.isArray(object.sourceReferences)) {
+            fail(`${path}.sourceReferences`, 'muss ein Array sein');
+          }
+          return object.sourceReferences.map((entry, index) =>
+            parseSourceReference(entry, `${path}.sourceReferences[${index}]`),
           );
         })(),
     entries: parsedEntries,

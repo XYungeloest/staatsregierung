@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 
-import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { access, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { basename, join, resolve } from 'node:path';
 
 const ROOT = process.cwd();
-const SOURCE_DIR = resolve(ROOT, 'Gesetze');
+const args = process.argv.slice(2);
+const sourceDirectoryIndex = args.indexOf('--source-dir');
+const sourceDirectoryArgument = sourceDirectoryIndex >= 0 ? args[sourceDirectoryIndex + 1] : undefined;
+const SHOULD_REPLACE_OUTPUT = args.includes('--replace-output');
+const SOURCE_DIR = sourceDirectoryArgument ? resolve(ROOT, sourceDirectoryArgument) : undefined;
 const OUTPUT_DIR = resolve(ROOT, 'content', 'normen');
-const TODAY_ISO = '2026-04-14';
+const TODAY_ISO = '2026-07-19';
 
 const SOURCE_TYPES = [
   'Gesetz',
@@ -1411,6 +1415,12 @@ async function writeRecords(records) {
 }
 
 async function readMarkdownFiles() {
+  if (!SOURCE_DIR) {
+    throw new Error('Quellverzeichnis fehlt. Aufruf: node scripts/import-normen.mjs --source-dir <verzeichnis> [--replace-output]');
+  }
+  await access(SOURCE_DIR).catch(() => {
+    throw new Error(`Das angegebene Quellverzeichnis ist nicht vorhanden: ${SOURCE_DIR}`);
+  });
   const entries = await readdir(SOURCE_DIR, { withFileTypes: true });
   const markdownFiles = entries
     .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
@@ -1445,7 +1455,7 @@ async function main() {
   }
 
   if (sources.length === 0) {
-    throw new Error('Es konnten keine Normquellen aus dem Verzeichnis "Gesetze" abgeleitet werden.');
+    throw new Error(`Es konnten keine Normquellen aus dem Verzeichnis "${SOURCE_DIR}" abgeleitet werden.`);
   }
 
   const records = buildNormRecords(sources);
@@ -1454,12 +1464,13 @@ async function main() {
     throw new Error('Es konnten keine Normdatensätze erzeugt werden.');
   }
 
-  const replacedEntries = await writeRecords(records);
+  const replacedEntries = SHOULD_REPLACE_OUTPUT ? await writeRecords(records) : [];
 
   console.log(
     JSON.stringify(
       {
         importedNormCount: records.length,
+        mode: SHOULD_REPLACE_OUTPUT ? 'replace-output' : 'audit-only',
         replacedSeedEntries: replacedEntries,
         partiallyStructuredFiles: [...report.partialFiles].sort(compareStrings),
       },
@@ -1467,6 +1478,10 @@ async function main() {
       2,
     ),
   );
+
+  if (!SHOULD_REPLACE_OUTPUT) {
+    console.error('Prüflauf: Es wurden keine Dateien geschrieben. --replace-output ersetzt den vollständigen Normbestand.');
+  }
 }
 
 main().catch((error) => {

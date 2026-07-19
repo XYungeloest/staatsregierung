@@ -115,7 +115,7 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
 ## Zentrale Konfiguration
 
 - `src/config/site.ts`: Portaltexte, Pfade, Navigation, Kontakt, Regierungsstammdaten
-- `src/config/features.ts`: Feature-Flags für Header und Analytics
+- `src/config/features.ts`: Feature-Flag für die optionale Webanalyse
 - `src/config/analytics.ts`: Consent und Webanalyse-Konfiguration
 - `src/lib/portal/routes.ts`: zentrale Portalpfade
 - `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik
@@ -168,8 +168,8 @@ fiktive Politiksimulation. Das gemeinsame Social-Media-Bild liegt unter
 `BaseLayout.astro` stellt mit `mainWidth="contained"` den begrenzten Hauptcontainer für Fachseiten
 und mit `mainWidth="full"` vollbreite Inhaltsbänder mit inneren Containern bereit. Die Startseite
 verwendet die volle Variante und setzt ihre wiederverwendbaren Zugangskarten, Informationslisten,
-Icons und das Serviceband aus `src/components/portal/` zusammen. Die gestalterischen Regeln stehen
-in `DESIGN.md`, die Redesign-Entscheidungen in `REDESIGN_IMPLEMENTATION.md`.
+Icons und das Serviceband aus `src/components/portal/` zusammen. Die dauerhaft gültigen
+gestalterischen Regeln stehen in `DESIGN.md`.
 
 ## Laufzeit und Cloudflare
 

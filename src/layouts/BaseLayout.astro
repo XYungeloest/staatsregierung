@@ -4,10 +4,6 @@ import AnalyticsConsentBanner from '../components/analytics/AnalyticsConsentBann
 import PortalIcon from '../components/portal/PortalIcon.astro';
 import ServiceBand from '../components/portal/ServiceBand.astro';
 import { isAnalyticsEnabled } from '../config/analytics.ts';
-import {
-  isOfficialStyleHeaderEnabled,
-  isStickyHeaderEnabled,
-} from '../config/features.ts';
 import { siteConfig } from '../config/site.ts';
 import {
   buildBreadcrumbJsonLd,
@@ -54,8 +50,6 @@ const pageTitle = buildPageTitle(title);
 const base = import.meta.env.BASE_URL;
 const canonicalUrl = buildCanonicalUrl(Astro.url, Astro.site);
 const robotsContent = noindex ? 'noindex, follow' : 'index, follow';
-const showOfficialStyleHeader = isOfficialStyleHeaderEnabled();
-const stickyHeader = isStickyHeaderEnabled();
 const smallFlagAssetUrl = `${base}${siteConfig.officialFlagSmallAssetPath.replace(/^\//, '')}`;
 const analyticsEnabled = isAnalyticsEnabled();
 const loadPortalModules = scripts.includes('portal-modules');
@@ -195,8 +189,7 @@ const footerLegalLinks = [
   <body>
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
     <div class="page-shell">
-      {showOfficialStyleHeader ? (
-        <Fragment>
+      <Fragment>
           <div class="site-notice" role="note" aria-label="Hinweis zum Portal">
             <div class="container site-notice__inner">
               <div class="site-notice__flag">
@@ -214,7 +207,7 @@ const footerLegalLinks = [
             </div>
           </div>
 
-          <header class:list={['site-header', stickyHeader && 'site-header--sticky']}>
+          <header class="site-header">
             <div class="container site-header__main">
               <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()} aria-label="Startseite Freistaat Ostdeutschland">
@@ -315,34 +308,7 @@ const footerLegalLinks = [
               </div>
             </div>
           </header>
-        </Fragment>
-      ) : (
-        <Fragment>
-          <div class="site-banner">
-            <div class="container site-banner__inner">
-              <p>Informationen der Staatsregierung des Ostdeutschen Freistaates</p>
-            </div>
-          </div>
-          <header class="site-header">
-            <div class="container site-header__inner">
-              <div class="site-brand">
-                <p class="site-kicker">{siteConfig.authorityName}</p>
-                <a class="site-title" href={getHomeUrl()}>
-                  {siteConfig.portalTitle}
-                </a>
-                <p class="site-subtitle">{siteConfig.portalSubtitle}</p>
-              </div>
-              <nav class="site-nav" aria-label="Hauptnavigation">
-                {mainNavLinks.map((link) => (
-                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
-                    {link.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </header>
-        </Fragment>
-      )}
+      </Fragment>
 
       <main
         id="main-content"

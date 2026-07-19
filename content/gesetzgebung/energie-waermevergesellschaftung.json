@@ -7,16 +7,42 @@
   "introducedOn": "2026-05-24",
   "stage": "zweite-lesung-angesetzt",
   "statusLabel": "Zweite Lesung am 20. Juli 2026 angesetzt; Ausschuss empfiehlt Annahme.",
-  "nextScheduledReading": { "date": "2026-07-20", "reading": "zweite-lesung" },
-  "recommendation": { "documentNumber": "07/19", "result": "annahme" },
+  "nextScheduledReading": {
+    "date": "2026-07-20",
+    "reading": "zweite-lesung"
+  },
+  "recommendation": {
+    "documentNumber": "07/19",
+    "result": "annahme"
+  },
   "sources": [
-    { "label": "Drucksache 07/08", "kind": "drucksache", "localSource": "context/entwürfe/Wärme und Energievergesellschaftung.md" },
-    { "label": "Beschlussempfehlung, Drucksache 07/19", "kind": "beschlussempfehlung" },
-    { "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026", "kind": "tagesordnung" }
+    {
+      "label": "Drucksache 07/08",
+      "kind": "drucksache",
+      "localSource": "context/entwürfe/Wärme und Energievergesellschaftung.md",
+      "availability": "local"
+    },
+    {
+      "label": "Beschlussempfehlung, Drucksache 07/19",
+      "kind": "beschlussempfehlung",
+      "availability": "missing"
+    },
+    {
+      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
+      "kind": "tagesordnung",
+      "availability": "missing"
+    }
   ],
-  "relatedTopics": ["energie-und-klima", "oeffentliche-wirtschaft-und-strukturwandel"],
-  "relatedMinistries": ["umwelt-energie-und-klimaschutz"],
-  "relatedNorms": ["vergesellschaftungsrahmengesetz"],
+  "relatedTopics": [
+    "energie-und-klima",
+    "oeffentliche-wirtschaft-und-strukturwandel"
+  ],
+  "relatedMinistries": [
+    "umwelt-energie-und-klimaschutz"
+  ],
+  "relatedNorms": [
+    "vergesellschaftungsrahmengesetz"
+  ],
   "confirmedAsOf": "2026-07-19",
   "dateNote": "Die Entwurfsquelle benennt Volker Bagdadi als bei Einbringung zuständigen Staatsminister; seit 7. Juli 2026 leitet Yannik Schmäle das Ressort."
 }

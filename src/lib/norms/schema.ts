@@ -13,6 +13,7 @@ export const NORM_TYPES = [
 export const NORM_STATUSES = [
   'in-force',
   'future-effective',
+  'pending-effective',
   'repealed',
   'historical',
   'one-time-act',
@@ -54,6 +55,8 @@ export interface NormMeta {
   initialCitation: string;
   predecessor: string | null;
   successor: string | null;
+  enactingNorm?: string;
+  enactedNorm?: string;
   summary: string;
   status: NormStatus;
   documentDate?: string;
@@ -303,6 +306,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     planned: 'planned',
     draft: 'planned',
     'future-effective': 'future-effective',
+    'pending-effective': 'pending-effective',
     historical: 'historical',
     'one-time-act': 'one-time-act',
   };
@@ -328,6 +332,8 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     initialCitation: expectString(object.initialCitation, `${path}.initialCitation`),
     predecessor: expectNullableString(object.predecessor, `${path}.predecessor`),
     successor: expectNullableString(object.successor, `${path}.successor`),
+    enactingNorm: expectOptionalString(object.enactingNorm, `${path}.enactingNorm`),
+    enactedNorm: expectOptionalString(object.enactedNorm, `${path}.enactedNorm`),
     summary: expectString(object.summary, `${path}.summary`),
     status: normalizedStatusMap[rawStatus],
     documentDate:

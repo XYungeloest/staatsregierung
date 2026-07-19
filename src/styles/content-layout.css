@@ -1,0 +1,92 @@
+/* Verdichtung und Fallback für noch nicht spezialisierte Inhaltsseiten. */
+.page-header {
+  position: relative;
+  margin-top: 0;
+  padding: clamp(1.4rem, 3vw, 2.15rem) 0;
+  border: 0;
+  border-block: 1px solid var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.page-header h1 {
+  margin: 0.35rem 0 0;
+  max-width: 28ch;
+  color: var(--color-primary-hover);
+  font-family: var(--font-display);
+  line-height: 1.08;
+  font-size: clamp(2.1rem, 4vw, 3.15rem);
+}
+
+.section {
+  margin-top: 1rem;
+  padding-block: clamp(1.35rem, 2.7vw, 1.9rem);
+  border-top: 0;
+}
+
+.section-muted {
+  padding-block: clamp(1.65rem, 3.2vw, 2.15rem);
+  border-block: 1px solid rgba(130, 152, 141, 0.35);
+}
+
+.panel {
+  border: 1px solid var(--color-border);
+  box-shadow: none;
+}
+
+.panel:hover {
+  box-shadow: 0 3px 10px rgba(10, 37, 71, 0.055);
+}
+
+.home-hero__content {
+  width: min(100%, 52rem);
+}
+
+.home-hero h1 {
+  max-width: 19ch;
+  font-size: clamp(2.5rem, 4vw, 3.6rem);
+}
+
+.home-hero__image {
+  object-position: 60% 52%;
+}
+
+.home-priority-section,
+.home-resource-section {
+  padding-block: clamp(2.15rem, 4.2vw, 3.6rem);
+}
+
+.reform-priority-card {
+  border-color: var(--color-border-strong);
+  border-left-color: var(--color-secondary);
+  background: linear-gradient(110deg, var(--color-info-green), var(--color-surface));
+  box-shadow: none;
+}
+
+.timeline__item::before {
+  background: var(--color-secondary);
+  box-shadow: 0 0 0 1px rgba(47, 123, 61, 0.2);
+}
+
+.timeline__type {
+  color: var(--color-secondary-hover);
+}
+
+.faq-accordion__summary::after {
+  color: var(--color-primary);
+}
+
+@media (max-width: 720px) {
+  .page-header {
+    padding-inline: 0;
+  }
+
+  .home-hero h1 {
+    font-size: clamp(2.05rem, 10vw, 2.8rem);
+  }
+
+  .home-hero__image {
+    object-position: 56% 50%;
+  }
+}
