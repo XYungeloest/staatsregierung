@@ -27,13 +27,13 @@ export interface TimelineEntry {
   href?: string;
 }
 
-export type LegislativeStage =
-  | 'entwurf'
-  | 'eingebracht'
-  | 'in-beratung'
-  | 'beschlossen'
-  | 'verkuendet'
-  | 'inkraft';
+import {
+  formatLegislativeProcedureStage,
+  LEGISLATIVE_STAGES,
+  type LegislativeProcedureStage,
+} from './legislation.ts';
+
+export type LegislativeStage = LegislativeProcedureStage;
 
 export interface LegislativeTrackerItem {
   id: string;
@@ -43,6 +43,16 @@ export interface LegislativeTrackerItem {
   currentStage: LegislativeStage;
   topic?: string;
   href?: string;
+  documentNumber: string;
+  nextScheduledReading: {
+    date: string;
+    reading: 'erste-lesung' | 'zweite-lesung';
+  };
+  recommendation?: {
+    documentNumber: string;
+    result: 'annahme' | 'ablehnung';
+  };
+  proposedCommittee?: string;
 }
 
 export interface FaqItem {
@@ -52,14 +62,7 @@ export interface FaqItem {
   hrefLabel?: string;
 }
 
-export const legislativeStages: LegislativeStage[] = [
-  'entwurf',
-  'eingebracht',
-  'in-beratung',
-  'beschlossen',
-  'verkuendet',
-  'inkraft',
-];
+export const legislativeStages: LegislativeStage[] = [...LEGISLATIVE_STAGES];
 
 export function formatActionPlanStatus(status: ActionPlanStatus): string {
   switch (status) {
@@ -99,20 +102,7 @@ export function formatTimelineEntryType(type: TimelineEntryType): string {
 }
 
 export function formatLegislativeStage(stage: LegislativeStage): string {
-  switch (stage) {
-    case 'entwurf':
-      return 'Entwurf';
-    case 'eingebracht':
-      return 'Eingebracht';
-    case 'in-beratung':
-      return 'In Beratung';
-    case 'beschlossen':
-      return 'Beschlossen';
-    case 'verkuendet':
-      return 'Verkündet';
-    case 'inkraft':
-      return 'In Kraft';
-  }
+  return formatLegislativeProcedureStage(stage);
 }
 
 export function getLegislativeStageIndex(stage: LegislativeStage): number {

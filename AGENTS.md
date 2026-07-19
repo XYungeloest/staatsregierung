@@ -63,7 +63,7 @@ npm run test:a11y
 - Öffentliche Texte erklären weder Gestaltung noch Umsetzung der Website. Formulierungen über Platzhalter, Designabsichten, technische Zustände oder die eigene Seitenstruktur vermeiden.
 - Geschlechtergerechte Personenbezeichnungen einheitlich mit Doppelpunkt schreiben, zum Beispiel `Bürger:innen` oder `Referent:in`. Keine Paarformen, Sterne, Binnen-I oder Unterstriche verwenden.
 - Der Hinweis auf die politische Simulation bleibt sichtbar in der oberen Hinweisleiste und im Footer. Außerhalb dieser festen Hinweise bleiben öffentliche Texte frei von Wiederholungen; das Impressum enthält die erforderliche ausführliche Einordnung des fiktiven Internetangebots.
-- Der redaktionelle Stichtag für aktuelle Termine und Stellenangebote ist der 24. Juni 2026. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote.
+- Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote ist der 19. Juli 2026. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote.
 - Operative technische Begriffe sind in interner Doku und Code zulässig.
 - Gerhardt Lehrmann ist kein aktives Kabinettsmitglied. Das Wirtschaftsressort wird im aktuellen Kabinett Honecker II von Staatsminister Max Peterson geleitet.
 - Kein neues Profil für Gerhardt Lehrmann anlegen.

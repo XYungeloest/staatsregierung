@@ -7,6 +7,7 @@ import MinistryDirectory from '../../../components/portal/MinistryDirectory.astr
 import SectionHero from '../../../components/portal/SectionHero.astro';
 import TopicCard from '../../../components/portal/TopicCard.astro';
 import { siteConfig } from '../../../config/site.ts';
+import { getNormUrl } from '../../../lib/norms/routes.ts';
 import {
   getGovernmentMembersUrl,
   getGovernmentUrl,
@@ -14,17 +15,20 @@ import {
   getPreviousCabinetsUrl,
 } from '../../../lib/portal/index.ts';
 import {
-  loadGovernmentMembers,
+  loadCurrentGovernmentMembers,
   loadMinistries,
   loadTopics,
 } from '../../../lib/portal/content.ts';
 
 const [members, ministries, topics] = await Promise.all([
-  loadGovernmentMembers(),
+  loadCurrentGovernmentMembers(),
   loadMinistries(),
   loadTopics(),
 ]);
 const currentGovernment = siteConfig.currentGovernment;
+const cabinetMembers = members.filter((member) => member.slug !== 'emma-mueller');
+const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
+const stateMinistryCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const topicHighlights = [
   'wohnen-und-vergesellschaftung',
@@ -56,7 +60,8 @@ const topicHighlights = [
       { label: 'Koalition', value: currentGovernment.coalitionShort },
       { label: 'Leitung', value: currentGovernment.headOfGovernment },
       { label: 'Regierungssitz', value: currentGovernment.seatOfGovernment },
-      { label: 'Ministerien', value: String(ministries.length) },
+      { label: 'Staatsministerien', value: String(stateMinistryCount) },
+      { label: 'Koalitionssitze', value: `${currentGovernment.coalitionSeats} von ${currentGovernment.parliamentSeats}` },
     ]}
     actions={[{ label: 'Ministeriumsverzeichnis', href: '#ministerien', primary: true }]}
   />
@@ -78,7 +83,7 @@ const topicHighlights = [
           Zuständigkeiten und politische Verantwortung unmittelbar nachvollziehbar.
         </p>
         <p>
-          Der Organisationserlass 05/2026 vom <time datetime="2026-05-04">4. Mai 2026</time> benennt mehrere Staatsministerien neu
+          Der <a class="inline-link" href={getNormUrl('erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-05-2026')}>Organisationserlass 05/2026</a> vom <time datetime="2026-05-04">4. Mai 2026</time> benennt mehrere Staatsministerien neu
           und löst das bisherige Kultur-, Wissenschafts- und Tourismusressort auf. Wissenschaft
           liegt nun bei Volksbildung und Wissenschaft; Kultur und Tourismus liegen bei
           Rechtsstaatlichkeit und kultureller Emanzipation.
@@ -100,13 +105,25 @@ const topicHighlights = [
           <dd>{currentGovernment.predecessor}</dd>
         </div>
         <div>
-          <dt>Mitgliederprofile</dt>
-          <dd>{members.length}</dd>
+          <dt>Staatsminister:innen</dt>
+          <dd>{cabinetMembers.length}</dd>
         </div>
       </dl>
       <p><a class="inline-link" href={getPreviousCabinetsUrl()}>Frühere Kabinette</a></p>
     </aside>
   </div>
+
+  <section class="section section-muted" aria-labelledby="kabinett-chronologie">
+    <div class="section-header">
+      <h2 id="kabinett-chronologie">Chronologie des Kabinetts Honecker II</h2>
+    </div>
+    <ol class="record-list">
+      <li class="record-list__item"><strong><time datetime="2026-05-04">4. Mai 2026</time></strong><span>Bildung des Kabinetts Honecker II.</span></li>
+      <li class="record-list__item"><strong><time datetime="2026-05-19">19. Mai 2026</time></strong><span>Thomas Henry Barlow übernimmt Staats- und Grenzsicherheit sowie vorübergehend das Innenressort; Mia Wollrath scheidet aus dem Kabinett aus.</span></li>
+      <li class="record-list__item"><strong><time datetime="2026-07-05">5. Juli 2026</time></strong><span>Die Koalition verfügt nach den dokumentierten Fraktionsübertritten über elf von fünfzehn Sitzen.</span></li>
+      <li class="record-list__item"><strong><time datetime="2026-07-07">7. Juli 2026</time></strong><span>Volker Bagdadi übernimmt Inneres und Wohnungswirtschaft; Yannik Schmäle übernimmt Nachhaltigkeit und Energie.</span></li>
+    </ol>
+  </section>
 
   <section id="ministerien" class="section section-muted" data-visual-section="cabinet-ministry-directory">
     <div class="section-header">
@@ -122,11 +139,21 @@ const topicHighlights = [
       <p>Die Profile bilden die aktuelle personelle Zusammensetzung des Kabinetts ab.</p>
     </div>
     <div class="card-grid card-grid--two">
-      {members.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
+      {cabinetMembers.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
     </div>
     <p class="detail-line">
       <a class="inline-link" href={getGovernmentMembersUrl()}>Alle Regierungsmitglieder mit Profilen</a>
     </p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Leitung der Staatskanzlei</h2>
+      <p>Die Chefin der Staatskanzlei wird getrennt von den elf Staatsminister:innen ausgewiesen.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {chancelleryLeadership.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
+    </div>
   </section>
 
 

@@ -454,7 +454,11 @@ function getResultBadgeClass(result: SearchDocument): string {
     return 'status-badge--amber';
   }
 
-  if (result.status === 'planned') {
+  if (result.status === 'historical' || result.status === 'one-time-act') {
+    return 'status-badge--amber';
+  }
+
+  if (result.status === 'planned' || result.status === 'future-effective') {
     return 'status-badge--blue';
   }
 

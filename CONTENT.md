@@ -24,7 +24,7 @@ Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuelle
 - Der sichtbare Hinweis zur politischen Simulation bleibt auf obere Hinweisleiste und Footer
   beschränkt. Das Impressum enthält die ausführliche rechtliche Einordnung; in normalen
   Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation ergänzen.
-- Für aktuelle Übersichten gilt der redaktionelle Stichtag 24. Juni 2026. Termine davor sind
+- Für aktuelle Übersichten gilt der redaktionelle Stichtag 19. Juli 2026. Termine davor sind
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
@@ -36,6 +36,7 @@ Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuelle
 
 ```text
 content/
+  gesetzgebung/*.json
   freistaat/*.json
   haushalt/*.json
   normen/[slug]/
@@ -103,6 +104,8 @@ Pflichtfelder:
 Optionale Felder:
 
 - `pdf`
+- `sourceFiles`
+- `entries[].documentDate`
 - `entries[].pages`
 - `entries[].normSlug`
 - `entries[].versionId`
@@ -130,6 +133,13 @@ Format:
   ]
 }
 ```
+
+`date` ist das Ausgabedatum und damit das Veröffentlichungsdatum der Ausgabe.
+`entries[].documentDate` bezeichnet dagegen das Ausfertigungs- beziehungsweise Dokumentdatum.
+Beide Werte werden getrennt gepflegt und dürfen nicht aus Bequemlichkeit gleichgesetzt werden.
+`entries[].citation` enthält die genaue Fundstelle einschließlich Seitenbereich. Im verknüpften
+Normdatensatz bleibt daneben das vollständige Normzitat erhalten, zum Beispiel
+`Förderrichtlinie vom 6. März 2026 (StAnzO. 2026 Nr. 4)`.
 
 Erlaubte Eintragstypen:
 
@@ -743,13 +753,44 @@ subitem
 
 Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `article` und `annex` brauchen mindestens `label` oder `title` und in der Regel `children`. Textblöcke `paragraphText`, `item` und `subitem` brauchen `text`.
 
+## Parlamentarische Gesetzgebung
+
+Pfad: `content/gesetzgebung/[slug].json`
+
+Parlamentarische Vorgänge werden als eigenständige, quellengebundene Inhaltsdatensätze gepflegt.
+`src/data/dashboard/legislation.ts` bereitet diese Daten nur noch für das vorhandene
+Übersichtsmodul auf. Ein Vorgang erhält seinen Status ausschließlich aus belegten Dokumenten;
+das Erreichen eines Sitzungstermins verändert ihn nicht automatisch. Eine Annahmeempfehlung ist
+weder Gesetzesbeschluss noch Verkündung.
+
+Pflichtangaben sind Slug, vollständiger Titel, Kurztitel, Drucksachennummer, Initiator,
+Verfahrensstufe, verständlicher Statustext, nächste angesetzte Beratung, Quellen, Verknüpfungen
+und der zuletzt bestätigte Stand. Einbringungsdatum, Ausschuss, Beschlussempfehlung und
+Verfahrensgruppe werden nur gepflegt, wenn sie belegt sind.
+
+Erlaubte Verfahrensstufen:
+
+```text
+eingebracht
+erste-lesung-angesetzt
+erste-lesung-abgeschlossen
+ausschussberatung
+zweite-lesung-angesetzt
+beschlussempfehlung-annahme
+beschlussempfehlung-ablehnung
+beschlossen
+verkuendet
+in-kraft
+erledigt
+```
+
 ## Dashboard- und Modul-Daten
 
 Nicht alle sichtbaren Inhalte liegen unter `content/`. Einige kompakte Dashboarddaten werden als TypeScript gepflegt:
 
 - `src/data/dashboard/action-plan.ts`: 15-Punkte-Plan
 - `src/data/haushalt.ts`: Gesamtplan, Einzelpläne, Kapitelangaben und Sondervermögen
-- `src/data/dashboard/legislation.ts`: Gesetzgebungsstand
+- `src/data/dashboard/legislation.ts`: Darstellung der Vorgänge aus `content/gesetzgebung/`
 - `src/data/dashboard/timeline.ts`: Zeitachse auf Startseite und 15-Punkte-Plan
 
 Diese Dateien sind kein Bürgertext-Content im JSON-Modell, sondern strukturierte Moduldaten. Änderungen dort müssen typkompatibel sein. Die erlaubten Typen stehen in `src/lib/portal/modules.ts`.
@@ -758,7 +799,6 @@ Wichtige Werte:
 
 - `ActionPlanStatus`: `umgesetzt`, `teilweise_umgesetzt`, `angelegt`
 - `TimelineEntryType`: `gesetz`, `projekt`, `kabinett`, `presse`, `haushalt`
-- `LegislativeStage`: `entwurf`, `kabinett`, `landtag`, `verkuendung`, `inkrafttreten`
 - Budgetjahre: `2025`, `2026`; Vergleiche werden aus den Jahreswerten abgeleitet
 
 ## Kreis- und Bezirksreform
@@ -893,5 +933,6 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 | Haushaltsdaten | `src/data/haushalt.ts` | Buildzeitbasiertes TypeScript-Datenmodell aus CSV und Archivblättern |
 | Norm | `content/normen/[slug]/` | `meta.json`, `history.json`, `versions/*.json` |
 | 15-Punkte-Plan | `src/data/dashboard/action-plan.ts` | TypeScript-Daten |
-| Gesetzgebungsstand | `src/data/dashboard/legislation.ts` | TypeScript-Daten |
+| Gesetzgebungsverfahren | `content/gesetzgebung/[slug].json` | JSON-Objekt |
+| Gesetzgebungsdarstellung | `src/data/dashboard/legislation.ts` | TypeScript-Adapter |
 | Timeline | `src/data/dashboard/timeline.ts` | TypeScript-Daten |

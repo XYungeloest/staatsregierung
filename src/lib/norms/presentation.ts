@@ -134,8 +134,11 @@ const NORM_TYPE_LABELS: Record<NormType, string> = {
 
 const NORM_STATUS_LABELS: Record<NormStatus, string> = {
   'in-force': 'in Kraft',
+  'future-effective': 'verkündet, tritt künftig in Kraft',
   repealed: 'außer Kraft',
-  planned: 'geplant',
+  historical: 'historische Fassung',
+  'one-time-act': 'einmaliger Rechtsakt',
+  planned: 'nicht verkündet',
 };
 
 export function toDisplayText(value: string | null | undefined): string {

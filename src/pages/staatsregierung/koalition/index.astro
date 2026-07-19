@@ -38,6 +38,7 @@ const priorities = [
       { label: 'Kurzbezeichnung', value: siteConfig.currentGovernment.coalitionShort },
       { label: 'Kabinettsbildung', value: siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn) },
       { label: 'Legislatur', value: siteConfig.currentGovernment.legislature },
+      { label: 'Sitze seit 5. Juli 2026', value: `${siteConfig.currentGovernment.coalitionSeats} von ${siteConfig.currentGovernment.parliamentSeats}` },
     ]}
     actions={[{ label: '15-Punkte-Plan II', href: getActionPlanUrl(), primary: true }]}
   />

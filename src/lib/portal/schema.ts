@@ -17,6 +17,13 @@ export interface PortalLink {
   href: string;
 }
 
+export interface GovernmentOfficeTerm {
+  title: string;
+  ministry?: string;
+  servingFrom: string;
+  servingTo?: string;
+}
+
 export interface RegierungMitglied {
   slug: string;
   name: string;
@@ -30,6 +37,13 @@ export interface RegierungMitglied {
   bildnachweis?: string;
   kontakt?: PortalContact;
   zitat?: string;
+  current: boolean;
+  servingFrom?: string;
+  servingTo?: string;
+  currentOffices: GovernmentOfficeTerm[];
+  formerOffices: GovernmentOfficeTerm[];
+  party?: string;
+  appointmentSource?: string;
 }
 
 export interface Ministerium {
@@ -114,6 +128,7 @@ export interface Termin {
   location: string;
   teaser: string;
   body: string[];
+  relatedLegislationSlugs?: string[];
 }
 
 export interface Haushaltsseite {
@@ -297,6 +312,29 @@ function parseOptionalRecord(
   return expectRecord(value, path);
 }
 
+function parseOfficeTerms(value: unknown, path: string): GovernmentOfficeTerm[] {
+  if (value === undefined || value === null) {
+    return [];
+  }
+
+  if (!Array.isArray(value)) {
+    throw new PortalContentValidationError(`${path}: muss ein Array sein`);
+  }
+
+  return value.map((item, index) => {
+    const entry = expectRecord(item, `${path}[${index}]`);
+    return {
+      title: expectString(entry.title, `${path}[${index}].title`),
+      ministry: expectOptionalString(entry.ministry, `${path}[${index}].ministry`),
+      servingFrom: expectDate(entry.servingFrom, `${path}[${index}].servingFrom`),
+      servingTo:
+        entry.servingTo === undefined
+          ? undefined
+          : expectDate(entry.servingTo, `${path}[${index}].servingTo`),
+    };
+  });
+}
+
 export function parseRegierungMitglied(value: unknown, path: string): RegierungMitglied {
   const entry = expectRecord(value, path);
 
@@ -313,6 +351,19 @@ export function parseRegierungMitglied(value: unknown, path: string): RegierungM
     bildnachweis: expectOptionalString(entry.bildnachweis, createPath(path, 'bildnachweis')),
     kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')),
     zitat: expectOptionalString(entry.zitat, createPath(path, 'zitat')),
+    current: entry.current === undefined ? true : expectBoolean(entry.current, createPath(path, 'current')),
+    servingFrom:
+      entry.servingFrom === undefined
+        ? undefined
+        : expectDate(entry.servingFrom, createPath(path, 'servingFrom')),
+    servingTo:
+      entry.servingTo === undefined
+        ? undefined
+        : expectDate(entry.servingTo, createPath(path, 'servingTo')),
+    currentOffices: parseOfficeTerms(entry.currentOffices, createPath(path, 'currentOffices')),
+    formerOffices: parseOfficeTerms(entry.formerOffices, createPath(path, 'formerOffices')),
+    party: expectOptionalString(entry.party, createPath(path, 'party')),
+    appointmentSource: expectOptionalString(entry.appointmentSource, createPath(path, 'appointmentSource')),
   };
 }
 
@@ -452,6 +503,10 @@ export function parseTermin(value: unknown, path: string): Termin {
     location: expectString(entry.location, createPath(path, 'location')),
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     body: expectStringArray(entry.body, createPath(path, 'body')),
+    relatedLegislationSlugs: expectOptionalSlugArray(
+      entry.relatedLegislationSlugs,
+      createPath(path, 'relatedLegislationSlugs'),
+    ),
   };
 }
 

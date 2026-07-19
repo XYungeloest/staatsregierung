@@ -128,6 +128,10 @@ export const siteConfig = {
     legislature: '7. Ostdeutscher Landtag',
     predecessor: 'Kabinett Honecker I',
     seatOfGovernment: 'Dresden',
+    stateMinisterCount: 11,
+    coalitionSeats: 11,
+    parliamentSeats: 15,
+    lastReshuffleOn: '2026-07-07',
   },
   date: {
     formatLong: formatDate,

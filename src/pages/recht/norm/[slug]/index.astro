@@ -17,6 +17,7 @@ import {
 import {
   buildNormOutline,
   formatDate,
+  formatNormStatus,
   formatNormType,
   toDisplayText,
 } from '../../../../lib/norms/presentation.ts';
@@ -53,7 +54,9 @@ const publicationReference = publicationReferences.get(`${norm.meta.slug}:${curr
 const outline = buildNormOutline(currentVersion.body);
 const normTitle = toDisplayText(norm.meta.title);
 const normLabel = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
-const currentDescription = `Aktuelle Fassung von ${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Ressort: ${toDisplayText(norm.meta.ministry)}. Rechtsstand seit ${formatDate(currentVersion.validFrom)}.`;
+const normStatusLabel = formatNormStatus(norm.meta.status);
+const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
+const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Status: ${normStatusLabel}. Ressort: ${toDisplayText(norm.meta.ministry)}.`;
 const [topics, pressReleases] = await Promise.all([loadTopics(), loadPressReleases()]);
 const relatedTopics = topics.filter((topic) =>
   topic.rechtsgrundlagen.some((entry) => entry.normSlug === norm.meta.slug),
@@ -81,11 +84,15 @@ const relatedPressReleases = pressReleases
   />
 
   <SectionHero
-    eyebrow="Aktuelle Fassung"
+    eyebrow={norm.meta.status === 'in-force' ? 'Aktuelle Fassung' : 'Veröffentlichte Fassung'}
     title={toDisplayText(norm.meta.title)}
     titleSize="long"
     lead={toDisplayText(norm.meta.summary)}
-    status={`Rechtsstand seit ${formatDate(currentVersion.validFrom)}`}
+    status={norm.meta.status === 'future-effective'
+      ? `Verkündet · Inkrafttreten am ${formatDate(statusDate)}`
+      : norm.meta.status === 'repealed' || norm.meta.status === 'historical'
+        ? `${normStatusLabel}${norm.meta.expiryDate ? ` seit ${formatDate(norm.meta.expiryDate)}` : ''}`
+        : `${normStatusLabel} seit ${formatDate(statusDate)}`}
     variant="law"
     facts={[
       { label: 'Abkürzung', value: toDisplayText(norm.meta.abbr) },

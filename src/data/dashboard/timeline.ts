@@ -157,17 +157,57 @@ const timelineEntrySeed: TimelineEntry[] = [
     summary:
       'Die Staatsministerien erhalten neue Bezeichnungen; das bisherige Kultur-, Wissenschafts- und Tourismusressort wird aufgelöst und sachlich zugeordnet.',
     ressort: 'Staatskanzlei',
-    href: getCabinetUrl(),
+    href: getNormUrl('erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-05-2026'),
   },
   {
     id: 'anwendungsgesetze-vergesellschaftung-mai-2026',
-    date: '2026-05-12',
-    title: 'Neue Anwendungsgesetze zum Vergesellschaftungsrahmen werden vorbereitet',
+    date: '2026-05-15',
+    title: 'Entwürfe zur öffentlichen Verkehrs- und Energieinfrastruktur werden eingebracht',
     type: 'projekt',
     summary:
-      'Die Staatsregierung arbeitet an Entwürfen für öffentliche Mobilität sowie Energie- und Wärmeinfrastruktur als weitere Anwendungsbereiche der Gemeinwirtschaft.',
+      'Die Gesetzgebungsverfahren zur Ostdeutschen Eisenbahn sowie zur Energie- und Wärmeinfrastruktur sind im Landtag anhängig und für die zweite Lesung am 20. Juli 2026 vorgesehen.',
     ressort: 'Staatsregierung',
     href: getTopicUrl('oeffentliche-wirtschaft-und-strukturwandel'),
+  },
+  {
+    id: 'kabinett-honecker-ii-erste-veraenderungen',
+    date: '2026-05-19',
+    title: 'Erste personelle Veränderungen im Kabinett Honecker II',
+    type: 'kabinett',
+    summary:
+      'Thomas Henry Barlow übernimmt das Staatsministerium für Staats- und Grenzsicherheit und führt zugleich vorübergehend das Innenressort. Mia Wollrath scheidet aus dem Kabinett aus.',
+    ressort: 'Staatskanzlei',
+    href: getCabinetUrl(),
+  },
+  {
+    id: 'koalitionsmehrheit-juli-2026',
+    date: '2026-07-05',
+    title: 'Koalition verfügt über elf von fünfzehn Sitzen',
+    type: 'kabinett',
+    summary:
+      'Nach den dokumentierten Fraktionsübertritten verfügt die Regierungskoalition über elf der fünfzehn Sitze im 7. Ostdeutschen Landtag.',
+    ressort: 'Staatskanzlei',
+    href: getGovernmentUrl(),
+  },
+  {
+    id: 'kabinett-honecker-ii-umbildung',
+    date: '2026-07-07',
+    title: 'Kabinett Honecker II wird umgebildet',
+    type: 'kabinett',
+    summary:
+      'Volker Bagdadi übernimmt das Staatsministerium des Innern und für Wohnungswirtschaft. Yannik Schmäle übernimmt das Staatsministerium für Nachhaltigkeit und Energie. Thomas Henry Barlow bleibt Staatsminister für Staats- und Grenzsicherheit.',
+    ressort: 'Staatskanzlei',
+    href: getCabinetUrl(),
+  },
+  {
+    id: 'dritte-plenarsitzung-angesetzt',
+    date: '2026-07-20',
+    title: 'Zwölf Gesetzesberatungen für die dritte Plenarsitzung angesetzt',
+    type: 'projekt',
+    summary:
+      'Die Tagesordnung sieht fünf zweite und sieben erste Lesungen vor. Die Ansetzung und die vorliegenden Beschlussempfehlungen nehmen kein Beratungsergebnis vorweg.',
+    ressort: 'Ostdeutscher Landtag',
+    href: getGovernmentUrl(),
   },
 ];
 

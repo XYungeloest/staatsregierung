@@ -85,6 +85,11 @@ export async function loadGovernmentMembers(): Promise<RegierungMitglied[]> {
   return entries.sort((left, right) => left.reihenfolge - right.reihenfolge);
 }
 
+export async function loadCurrentGovernmentMembers(): Promise<RegierungMitglied[]> {
+  const entries = await loadGovernmentMembers();
+  return entries.filter((entry) => entry.current);
+}
+
 export async function loadGovernmentMemberBySlug(
   slug: string,
 ): Promise<RegierungMitglied | undefined> {

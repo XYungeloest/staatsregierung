@@ -136,7 +136,7 @@ Bilddatei vor. Deshalb wurde ein vorhandenes, inhaltlich passendes Staatskanzlei
 Dessen größte aktuelle Variante ist 960 Pixel breit; ein später redaktionell bereitgestelltes,
 größeres Original könnte die Schärfe auf sehr breiten hochauflösenden Displays weiter verbessern,
 ist für Funktion und Layout aber nicht erforderlich. Inhaltliche Aktualität richtet sich weiterhin
-nach dem redaktionellen Stichtag 24. Juni 2026.
+nach dem redaktionellen Stichtag 19. Juli 2026.
 
 ---
 
@@ -355,3 +355,58 @@ Eine schärfere Darstellung auf hochauflösenden großen Desktopdisplays benöti
 redaktionelles Original. Die integrierte Browser-Verbindung der Arbeitsumgebung stand bei der
 manuellen Prüfung nicht zur Verfügung; die Sicht-, Interaktions- und Viewportprüfung erfolgt daher
 mit der lokalen Playwright-Vorschau und den erzeugten Baselines.
+
+---
+
+## Phase 4: Quellengebundene Inhaltsaktualisierung zum 19. Juli 2026
+
+Die vierte Phase bewahrt Gestaltung und Seitenarchitektur und aktualisiert den fachlichen
+Datenstand. Der Rechtsbestand umfasst nun 103 Normdatensätze und 81 Ausgabedatensätze aus OGVBl.,
+OABl., StAnzO. und OVertrBl. Dokumentdatum, Veröffentlichungsdatum, Inkrafttreten und
+Außerkrafttreten werden getrennt gespeichert. Normzitate behalten Normart und Dokumentdatum;
+seitenbezogene Fundstellen bleiben zusätzlich am Verkündungseintrag erhalten.
+
+Das Statusmodell unterscheidet geltende, künftig wirksame, außer Kraft getretene, historische und
+einmalig abgeschlossene Rechtsakte. Dadurch erscheinen die Erdbebenfolgenverordnung als außer
+Kraft, die WM-Lärmschutzverordnung als geltend und befristet sowie beide Vorschriften aus
+StAnzO. 2026 Nr. 14 als verkündet, aber noch nicht geltend. Freie Konsolidierungen wurden nicht
+erstellt.
+
+Zwölf Verfahren des 7. Landtags liegen nun unter `content/gesetzgebung/`. Die Darstellung in
+`src/data/dashboard/legislation.ts` ist nur noch ein Adapter. Alle Verfahren bleiben auf dem zum
+Stichtag belegten Stand der für den 20. Juli angesetzten ersten beziehungsweise zweiten Lesung;
+eine Annahmeempfehlung wird nicht als Beschluss behandelt. Suche, Themenverknüpfungen, Termin,
+Kalender, Sitemap und strukturierte Daten verwenden dieselbe Quelle.
+
+Das Kabinett Honecker II bildet die Veränderungen vom 19. Mai und 7. Juli vollständig ab. Aktuelle
+Listen enthalten elf Staatsminister:innen, darunter Volker Bagdadi im Innenressort, Yannik
+Schmäle im Nachhaltigkeitsressort und Thomas Henry Barlow für Staats- und Grenzsicherheit. Mia
+Wollraths frühere Amtszeiten bleiben im historischen Profil erhalten. Emma Müller wird separat als
+Chefin der Staatskanzlei geführt. Die neutrale Chronologie dokumentiert Bildung, beide personellen
+Änderungen und den belegten Koalitionsstand vom 5. Juli.
+
+Die Content-QA prüft Ausgabedateien und Inhaltsverzeichnisse, getrennte Datumsarten, zeitabhängige
+Normstatus, vollständige Normzitate, Verfahrens- und Drucksacheneindeutigkeit, Referenzen,
+Kabinettszahl und Ressortleitungen. Fachlich nicht hinreichend belegte Angaben stehen in
+`CONTENT_GAPS.md`; insbesondere werden keine Ergebnisse der erst am 20. Juli stattfindenden
+Plenarsitzung vorweggenommen.
+
+### Prüfergebnisse der Inhaltsaktualisierung
+
+Die abschließende Prüfung wurde mit dem Stichtagsbestand erneut ausgeführt:
+
+- `npm run content:check`: 103 Normen, 81 Verkündungsausgaben und 12 Gesetzgebungsvorgänge geprüft
+- `npm run check`: 171 Dateien, 0 Fehler, 0 Warnungen, 0 Hinweise
+- `npm run test:unit`: 8 fachliche Status-, Referenz- und Kabinettsprüfungen erfolgreich
+- `npm run build`: 456 statische Seiten erfolgreich erzeugt
+- `npm run links:check`: interne Links in 456 HTML-Dateien erfolgreich geprüft
+- `npm run seo:check`: SEO-QA erfolgreich
+- `npm run test:a11y`: 95 Accessibility-Prüfungen erfolgreich
+- `npm run test:quality`: 6 Qualitätsprüfungen einschließlich langer Normtitel erfolgreich
+- `npm run test:browsers`: 36 Interaktionstests in Chromium, Firefox und WebKit erfolgreich
+- `npm run test:visual:update`: die fachlich veränderten Baselines nach Sichtprüfung aktualisiert
+- `npm run test:visual`: 205 visuelle und ergänzende Interaktionstests erfolgreich verifiziert
+
+Vollzitate werden nicht auf die Seitenfundstelle verkürzt. Die Metadaten und Fassungen führen
+beispielsweise `Förderrichtlinie vom 6. März 2026 (StAnzO. 2026 Nr. 4)`; die präzise
+Seitenangabe `StAnzO. 2026 Nr. 4 S. 2` bleibt davon getrennt am Verkündungseintrag erhalten.

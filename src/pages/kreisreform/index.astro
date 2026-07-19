@@ -59,7 +59,7 @@ const bisherigeBezirke = [
   'Thüringen',
 ];
 const kreisreformFaq = [
-  { question: 'Muss ich meine Adresse ändern?', answer: 'Nein. Gemeindegrenzen und postalische Anschriften bleiben durch die Neuordnung unverändert. Die Kreis- und Bezirkszuordnung ändert sich zum Wirksamwerden des Gesetzes.' },
+  { question: 'Muss ich meine Adresse ändern?', answer: 'Der Gesetzentwurf sieht keine Änderung der Gemeindegrenzen oder postalischen Anschriften vor. Neue Kreis- und Bezirkszuordnungen würden erst mit einem wirksam gewordenen Gesetz gelten.' },
   { question: 'Ändern sich Kfz-Kennzeichen?', answer: 'Die Regelungen zu Kfz-Kennzeichen werden gesondert bekannt gemacht. Bestehende Kennzeichen werden durch die Gebietszuordnung nicht unmittelbar ungültig.' },
   { question: 'Welche Behörde ist künftig zuständig?', answer: 'Die Gebietssuche zeigt den neuen Kreis und Bezirk. Für einzelne Aufgaben gelten bis zum Abschluss der Übergangsregelungen die jeweils bekannt gemachten Zuständigkeiten.' },
   { question: 'Wann gilt die neue Zuordnung?', answer: 'Die neue Kreis- und Bezirksgliederung soll am 1. August 2026 wirksam werden.' },
@@ -253,21 +253,19 @@ const kreisreformFaq = [
   <section id="aenderungen" class="section" aria-labelledby="aenderungen-ueberschrift">
     <div class="section-header">
       <h2 id="aenderungen-ueberschrift">Was ändert sich?</h2>
-      <p>Die Reform verbindet eine neue Bezirksordnung mit einer neuen Kreisgliederung.</p>
+      <p>Der Gesetzentwurf verbindet eine neue Bezirksordnung mit einer neuen Kreisgliederung.</p>
     </div>
     <div class="compare-grid">
       <article>
         <h3>Bisherige Bezirke</h3>
         <p>
-          Bis zum <time datetime="2026-07-31">31. Juli 2026</time> bestehen acht Bezirke: {bisherigeBezirke.join(', ')}. Sie beruhen auf dem
-          bisherigen Bezirkseinführungsgesetz.
+          Zum Stand <time datetime="2026-07-19">19. Juli 2026</time> bestehen acht Bezirke: {bisherigeBezirke.join(', ')}. Sie beruhen auf dem bisherigen Bezirkseinführungsgesetz.
         </p>
       </article>
       <article>
         <h3>Neue Bezirke</h3>
         <p>
-          Ab <time datetime={manifest.stats.wirksamAb}>{formatLongDate(manifest.stats.wirksamAb)}</time> sind vierzehn Bezirke vorgesehen. Sie
-          erhalten feste Sitze, eine neue Bezirksordnung und klar zugeordnete Kreise.
+          Der Entwurf sieht ab <time datetime={manifest.stats.wirksamAb}>{formatLongDate(manifest.stats.wirksamAb)}</time> vierzehn Bezirke mit festen Sitzen, einer neuen Bezirksordnung und klar zugeordneten Kreisen vor. Ein Gesetzesbeschluss liegt noch nicht vor.
         </p>
       </article>
       <article>
@@ -393,7 +391,7 @@ const kreisreformFaq = [
   <section id="rechtsgrundlagen" class="section" aria-labelledby="rechtsgrundlagen-ueberschrift">
     <div class="section-header">
       <h2 id="rechtsgrundlagen-ueberschrift">Rechtsgrundlagen</h2>
-      <p>Maßgeblich bleibt die verkündete Rechtsfassung mit Anlagen.</p>
+      <p>Derzeit maßgeblich ist der eingebrachte Entwurf. Eine verkündete Neuregelung liegt zum Stand 19. Juli 2026 nicht vor.</p>
     </div>
     <ul class="record-list">
       <li class="record-list__item">
@@ -422,7 +420,7 @@ const kreisreformFaq = [
   <section id="kreisreform-faq" class="section section-muted" aria-labelledby="kreisreform-faq-ueberschrift">
     <div class="section-header">
       <h2 id="kreisreform-faq-ueberschrift">Häufige Fragen</h2>
-      <p>Antworten zur vorgesehenen Neuordnung und zum Übergang am <time datetime="2026-08-01">1. August 2026</time>.</p>
+      <p>Antworten zur vorgesehenen Neuordnung und zum im Entwurf genannten Termin <time datetime="2026-08-01">1. August 2026</time>.</p>
     </div>
     <div class="faq-accordion" data-faq-root data-allow-multiple="false">
       {kreisreformFaq.map((entry) => (

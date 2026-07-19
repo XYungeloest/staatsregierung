@@ -5,6 +5,8 @@ Website der fiktiven Staatsregierung des Ostdeutschen Freistaates mit Regierungs
 Die öffentliche Website soll sachlich, ruhig und behördennah wirken. Architektur- und Entwicklungsbegriffe gehören nicht in öffentliche Seitentexte; operative Hinweise bleiben in Code, README, AGENTS oder `CONTENT.md`.
 
 Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
+Der quellengebundene Stichtagsimport vom 19. Juli 2026 ist in
+`CONTENT_UPDATE_2026-07-19.md` bilanziert; offene Quellenfragen stehen in `CONTENT_GAPS.md`.
 
 ## Projektkern
 
@@ -54,6 +56,7 @@ SITE_URL=https://freistaat-ostdeutschland.de BASE_PATH=/ npm run build
 
 ```text
 content/
+  gesetzgebung/
   freistaat/
   haushalt/
   normen/
@@ -100,6 +103,9 @@ context/
 - Normen liegen unter `content/normen/[slug]/` mit `meta.json`, `history.json` und `versions/[versionId].json`.
 - Verkündungen liegen unter `content/verkuendungen/[slug].json` und verknüpfen Ausgaben über
   `entries[].normSlug` und `entries[].versionId` mit gespeicherten Normfassungen.
+- Parlamentarische Verfahren liegen unter `content/gesetzgebung/[slug].json`. Ihr Status wird aus
+  belegten Drucksachen, Empfehlungen und Tagesordnungen gepflegt und ändert sich nicht allein mit
+  dem Ablauf eines angesetzten Sitzungstermins.
 
 Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen gespeichert.
 
@@ -120,7 +126,7 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
 Für öffentliche Übersichten werden Termine und Stellenangebote über
 `src/lib/portal/dates.ts` gegen den redaktionellen Stichtag gefiltert. Vergangene Termine und
 abgelaufene Fristen bleiben im Archiv erreichbar, werden aber nicht als aktuell ausgegeben.
-Der derzeitige Stichtag ist der 24. Juni 2026.
+Der derzeitige Stichtag ist der 19. Juli 2026.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter

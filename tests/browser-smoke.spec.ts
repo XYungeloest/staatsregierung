@@ -132,3 +132,50 @@ test('Rechts- und Portalsuche liefern weiterhin Treffer', async ({ page }) => {
   await page.goto('/suche/?q=Kreisreform');
   await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
 });
+
+test('Kabinettsumbildung und historische Amtszeiten bleiben nachvollziehbar', async ({ page }) => {
+  await page.goto('/staatsregierung/kabinett/');
+  const members = page.locator('[data-visual-section="cabinet-members"]');
+  await expect(members).toContainText('Volker Bagdadi');
+  await expect(members).toContainText('Yannik Schmäle');
+  await expect(members).toContainText('Thomas Henry Barlow');
+  await expect(members).not.toContainText('Mia Wollrath');
+  await expect(page.getByText('11 von 15', { exact: true })).toBeVisible();
+
+  await page.goto('/staatsregierung/mitglieder/mia-wollrath/');
+  await expect(page.locator('.section-hero')).toContainText('Historisches Regierungsprofil');
+  await expect(page.getByText(/bis zum 19\. Mai 2026/iu).first()).toBeVisible();
+});
+
+test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 19. Juli 2026 ab', async ({ page }) => {
+  await page.goto('/recht/norm/verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n/');
+  await expect(page.getByText(/außer Kraft seit/iu).first()).toBeVisible();
+
+  await page.goto('/recht/norm/verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel/');
+  await expect(page.getByText(/ist verkündet und tritt am/iu).first()).toBeVisible();
+
+  await page.goto('/suche/?q=07%2F17&type=legislation');
+  await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
+  await expect(page.locator('.search-hit').first()).toContainText('Erste Lesung am 20. Juli 2026 angesetzt');
+});
+
+test('Kalender, Sitemap und strukturierte Termindaten enthalten den neuen Stand', async ({ page, request }) => {
+  const calendar = await request.get('/presse/termine/kalender.ics');
+  expect(calendar.ok()).toBe(true);
+  const calendarText = await calendar.text();
+  expect(calendarText).toContain('Dritte Plenarsitzung des 7. Ostdeutschen Landtags');
+
+  const sitemap = await request.get('/sitemap.xml');
+  expect(sitemap.ok()).toBe(true);
+  const sitemapText = await sitemap.text();
+  expect(sitemapText).toContain('/presse/termine/dritte-plenarsitzung-7-landtag/');
+  expect(sitemapText).toContain('/themen/staatsreform-und-verfassung/');
+  expect(sitemapText).toContain('/recht/norm/verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel/');
+
+  await page.goto('/presse/termine/dritte-plenarsitzung-7-landtag/');
+  const structuredData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
+    scripts.map((script) => script.textContent ?? '').join('\n'),
+  );
+  expect(structuredData).toContain('EventScheduled');
+  await expect(page.getByRole('heading', { name: 'Angesetzte Gesetzesberatungen' })).toBeVisible();
+});

@@ -11,6 +11,9 @@ interface Props {
 
 const { norm, version, historical = false } = Astro.props;
 const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
+const status = norm.meta.status;
+const effectiveDate = norm.meta.effectiveDate ?? version.validFrom;
+const expiryDate = norm.meta.expiryDate ?? version.validTo;
 ---
 
 <aside class:list={['status-notice', historical ? 'status-notice--historical' : 'status-notice--current']} data-visual-section="norm-legal-status">
@@ -20,6 +23,20 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
       Dies ist eine historische Fassung. Sie galt vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> bis{' '}
       {version.validTo ? <time datetime={version.validTo}>{formatDate(version.validTo)}</time> : 'heute'}.
     </p>
+  ) : status === 'future-effective' ? (
+    <p>
+      Diese Vorschrift ist verkündet und tritt am{' '}
+      <time datetime={effectiveDate}>{formatDate(effectiveDate)}</time> in Kraft. Bis dahin gehört sie
+      noch nicht zum geltenden Rechtsstand.
+    </p>
+  ) : status === 'repealed' || status === 'historical' ? (
+    <p>
+      Diese Vorschrift ist außer Kraft
+      {expiryDate ? <> seit <time datetime={expiryDate}>{formatDate(expiryDate)}</time></> : null}.
+      Die zuletzt veröffentlichte Fassung bleibt zu Dokumentationszwecken verfügbar.
+    </p>
+  ) : status === 'one-time-act' ? (
+    <p>Dieser einmalige Rechtsakt ist abgeschlossen und bleibt zu Dokumentationszwecken verfügbar.</p>
   ) : (
     <p>Dies ist die aktuelle Fassung mit Rechtsstand vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>.</p>
   )}
