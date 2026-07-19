@@ -90,6 +90,8 @@ const relatedPressReleases = pressReleases
     lead={toDisplayText(norm.meta.summary)}
     status={norm.meta.status === 'future-effective'
       ? `Verkündet · Inkrafttreten am ${formatDate(statusDate)}`
+      : norm.meta.status === 'pending-effective'
+        ? 'Verkündet · Inkrafttreten noch nicht belegt'
       : norm.meta.status === 'repealed' || norm.meta.status === 'historical'
         ? `${normStatusLabel}${norm.meta.expiryDate ? ` seit ${formatDate(norm.meta.expiryDate)}` : ''}`
         : `${normStatusLabel} seit ${formatDate(statusDate)}`}

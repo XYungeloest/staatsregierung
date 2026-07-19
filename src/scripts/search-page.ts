@@ -458,7 +458,7 @@ function getResultBadgeClass(result: SearchDocument): string {
     return 'status-badge--amber';
   }
 
-  if (result.status === 'planned' || result.status === 'future-effective') {
+  if (result.status === 'planned' || result.status === 'future-effective' || result.status === 'pending-effective') {
     return 'status-badge--blue';
   }
 

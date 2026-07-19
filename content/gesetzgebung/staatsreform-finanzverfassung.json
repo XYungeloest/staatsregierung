@@ -7,13 +7,31 @@
   "introducedOn": "2026-07-15",
   "stage": "erste-lesung-angesetzt",
   "statusLabel": "Erste Lesung am 20. Juli 2026 angesetzt.",
-  "nextScheduledReading": { "date": "2026-07-20", "reading": "erste-lesung" },
+  "nextScheduledReading": {
+    "date": "2026-07-20",
+    "reading": "erste-lesung"
+  },
   "sources": [
-    { "label": "Drucksache 07/24", "kind": "drucksache", "localSource": "context/entwürfe/Große Staatsreform.md" },
-    { "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026", "kind": "tagesordnung" }
+    {
+      "label": "Drucksache 07/24",
+      "kind": "drucksache",
+      "localSource": "context/entwürfe/Große Staatsreform.md",
+      "availability": "local"
+    },
+    {
+      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
+      "kind": "tagesordnung",
+      "availability": "missing"
+    }
   ],
-  "relatedTopics": ["staatsreform-und-verfassung", "haushalt-und-finanzen"],
-  "relatedMinistries": ["staatskanzlei", "kapitalakkumulation-des-fiskus"],
+  "relatedTopics": [
+    "staatsreform-und-verfassung",
+    "haushalt-und-finanzen"
+  ],
+  "relatedMinistries": [
+    "staatskanzlei",
+    "kapitalakkumulation-des-fiskus"
+  ],
   "relatedNorms": [],
   "confirmedAsOf": "2026-07-19",
   "group": "grosse-staatsreform"

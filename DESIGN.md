@@ -15,6 +15,21 @@ Portal: ein klarer Behördenkopf, eine bildgestützte Suche, kompakte Direkteins
 Hinweisband und geordnete Informationsbereiche. Inhalte und Funktionen bleiben dabei vollständig
 aus den bestehenden Routen und dateibasierten Quellen abgeleitet.
 
+## Stylesheet-Struktur
+
+`src/styles/global.css` hält nur die stabile Importreihenfolge. Die Kaskade ist nach Verantwortung
+gegliedert: `foundation.css` enthält Tokens, Basis-, Layout- und allgemeine Fachregeln,
+`section-system.css` die Bereichsheros und lokale Orientierung, `portal-shell.css` Behördenkopf,
+Serviceband und Footer, `home.css` die Startseite und `content-layout.css` die abschließende
+Verdichtung gemeinsamer Inhaltsseiten. Responsive und druckspezifische Regeln bleiben jeweils bei
+ihrem fachlichen Block; ihre Reihenfolge darf nicht ohne visuelle Regressionstests verändert werden.
+
+Bei der Bereinigung am 19. Juli 2026 sank der Bestand von 6.257 Zeilen, 114.861 Byte und 982 Regeln
+auf 5.759 Zeilen, 106.128 Byte und 900 Regeln. Entfernt wurden die nicht mehr erreichbaren alten
+Header-Varianten, der ungenutzte Budget-Explorer sowie bytegleiche Deklarationsdubletten. Die
+gemeinsamen Root-Regeln für `.page-header` und `.panel` besitzen jeweils eine Basisdefinition und
+höchstens eine bewusst spätere Inhaltsseiten-Verfeinerung; responsive Varianten bleiben getrennt.
+
 ## Design-Tokens
 
 Die zentralen Werte liegen als CSS Custom Properties in `src/styles/global.css`.
@@ -24,7 +39,7 @@ Die zentralen Werte liegen als CSS Custom Properties in `src/styles/global.css`.
 | Primärblau | `#173b6b` | Navigation, Links, primäre Orientierung |
 | Dunkelblau | `#0a2547` | Hero, Serviceband, Footer |
 | Sekundärgrün | `#2f7b3d` | ruhige Akzente und Status |
-| Siegelrot | `#8f2e2f` | hoheitliche und dringliche Akzente |
+| Warnrot | `#8f2e2f` | ausschließlich Fehler-, Warn- und Gefahrensituationen |
 | Gold | `#c39a3b` | sparsame Hervorhebung |
 | Text | `#20312d` | Fließtext |
 | Seitenfläche | `#edf1f0` | Seitenhintergrund |

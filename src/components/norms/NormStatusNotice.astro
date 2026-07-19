@@ -29,6 +29,12 @@ const expiryDate = norm.meta.expiryDate ?? version.validTo;
       <time datetime={effectiveDate}>{formatDate(effectiveDate)}</time> in Kraft. Bis dahin gehört sie
       noch nicht zum geltenden Rechtsstand.
     </p>
+  ) : status === 'pending-effective' ? (
+    <p>
+      Diese Vorschrift ist veröffentlicht. Der Eintritt der im Text genannten Bedingung für das
+      Inkrafttreten ist durch die vorliegenden Quellen noch nicht belegt. Sie wird daher nicht als
+      geltender Rechtsstand ausgewiesen.
+    </p>
   ) : status === 'repealed' || status === 'historical' ? (
     <p>
       Diese Vorschrift ist außer Kraft

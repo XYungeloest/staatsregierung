@@ -1,5 +1,7 @@
 import { access, readdir, readFile, stat } from 'node:fs/promises';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 
 const root = resolve(process.cwd());
 const contentRoot = join(root, 'content');
@@ -20,6 +22,7 @@ const allowedNormTypes = new Set([
 const allowedNormStatuses = new Set([
   'in-force',
   'future-effective',
+  'pending-effective',
   'repealed',
   'historical',
   'one-time-act',
@@ -38,6 +41,23 @@ const allowedNormMinistries = new Set([
   'Staatsministerium für Völkerfreundschaft und Nachbarschaftspolitik',
   'Staatsministerium für Wirtschaft, Nachhaltigkeit und Mobilität',
 ]);
+const execFileAsync = promisify(execFile);
+
+async function loadTrackedFiles() {
+  try {
+    const { stdout } = await execFileAsync('git', ['ls-files', '-z'], {
+      cwd: root,
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    return new Set(stdout.split('\0').filter(Boolean));
+  } catch (error) {
+    problems.push(`Quellenvertrag: versionierte Dateien konnten nicht über git ls-files ermittelt werden (${error.message})`);
+    return new Set();
+  }
+}
+
+const trackedFiles = await loadTrackedFiles();
 
 async function exists(path) {
   try {
@@ -214,6 +234,26 @@ function slugFromFile(path) {
   return basename(path, extname(path));
 }
 
+async function validateVersionedSource(file, fieldPath, sourcePath) {
+  if (typeof sourcePath !== 'string' || sourcePath.trim() === '') {
+    addProblem(file, `${fieldPath} muss einen nichtleeren Repository-Pfad enthalten`);
+    return;
+  }
+
+  const normalizedPath = sourcePath.replaceAll('\\', '/').replace(/^\.\//u, '');
+  if (normalizedPath.startsWith('/') || normalizedPath.split('/').includes('..')) {
+    addProblem(file, `${fieldPath} muss relativ zum Repository liegen: ${sourcePath}`);
+    return;
+  }
+  if (!trackedFiles.has(normalizedPath)) {
+    addProblem(file, `${fieldPath} verweist nicht auf eine versionierte Datei: ${sourcePath}`);
+    return;
+  }
+  if (!await exists(join(root, normalizedPath))) {
+    addProblem(file, `${fieldPath} verweist auf eine im Checkout fehlende Datei: ${sourcePath}`);
+  }
+}
+
 const files = await listJsonFiles(contentRoot);
 const records = [];
 
@@ -381,9 +421,28 @@ for (const { file, json } of records) {
     }
 
     for (const sourceFile of json.sourceFiles ?? []) {
-      const absoluteSourcePath = join(root, sourceFile);
-      if (!await exists(absoluteSourcePath)) {
-        addProblem(file, `Quelldatei fehlt: ${sourceFile}`);
+      await validateVersionedSource(file, 'sourceFiles', sourceFile);
+    }
+
+    if (!Array.isArray(json.sourceReferences) || json.sourceReferences.length === 0) {
+      addProblem(file, 'sourceReferences muss die Verfügbarkeit der Primärquelle dokumentieren');
+    }
+    for (const [index, source] of (json.sourceReferences ?? []).entries()) {
+      const sourcePath = `sourceReferences[${index}]`;
+      if (!source || typeof source !== 'object' || Array.isArray(source)) {
+        addProblem(file, `${sourcePath} muss ein Objekt sein`);
+        continue;
+      }
+      if (!['versioned', 'external', 'not-versioned'].includes(source.availability)) {
+        addProblem(file, `${sourcePath}.availability ist unbekannt: ${source.availability}`);
+      } else if (source.availability === 'versioned') {
+        await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
+      } else if (source.availability === 'external') {
+        if (typeof source.url !== 'string' || !/^https:\/\//u.test(source.url)) {
+          addProblem(file, `${sourcePath}.url muss für eine externe Quelle eine HTTPS-URL enthalten`);
+        }
+      } else if (source.localSource || source.url) {
+        addProblem(file, `${sourcePath} darf für eine nicht mitversionierte Quelle keinen Pfad oder URL behaupten`);
       }
     }
 
@@ -418,6 +477,10 @@ for (const { file, json } of records) {
 
       if (typeof entry.citation !== 'string' || entry.citation.trim().length === 0) {
         addProblem(file, `${entryPath}.citation fehlt oder ist leer`);
+      } else if (/^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(entry.citation.trim())) {
+        addProblem(file, `${entryPath}.citation darf nicht nur aus der Fundstelle bestehen; Normart und Dokumentdatum müssen erhalten bleiben`);
+      } else if (entry.documentDate && !/\bvom \d{1,2}\. [A-ZÄÖÜ][a-zäöüß]+ \d{4} \(/u.test(entry.citation)) {
+        addProblem(file, `${entryPath}.citation muss Normart, Dokumentdatum und Fundstelle enthalten`);
       }
 
       if (entry.versionId && !entry.normSlug) {
@@ -429,6 +492,16 @@ for (const { file, json } of records) {
           addProblem(file, `${entryPath}.normSlug verweist auf unbekannte Norm: ${entry.normSlug}`);
         } else if (entry.versionId && !normVersionIds.get(entry.normSlug)?.has(entry.versionId)) {
           addProblem(file, `${entryPath}.versionId verweist auf unbekannte Fassung: ${entry.normSlug}/${entry.versionId}`);
+        } else {
+          const meta = byPrefix('normen/').find(({ file: normFile, json: normJson }) =>
+            basename(normFile) === 'meta.json' && normJson.slug === entry.normSlug,
+          )?.json;
+          if (entry.documentDate && meta?.documentDate && entry.documentDate !== meta.documentDate) {
+            addProblem(file, `${entryPath}.documentDate weicht vom Normdatensatz ${entry.normSlug} ab`);
+          }
+          if (meta?.publicationDate && meta.publicationDate !== json.date) {
+            addProblem(file, `${entryPath} verweist auf eine Norm mit abweichendem Veröffentlichungsdatum`);
+          }
         }
       }
     }
@@ -436,7 +509,13 @@ for (const { file, json } of records) {
 }
 
 const publicationSourceOwners = new Map();
+const publicationKeys = new Set();
 for (const { file, json } of byPrefix('verkuendungen/')) {
+  const publicationKey = `${json.publication}:${json.year}:${json.issue}`;
+  if (publicationKeys.has(publicationKey)) {
+    addProblem(file, `Ausgabedatensatz ist doppelt vorhanden: ${publicationKey}`);
+  }
+  publicationKeys.add(publicationKey);
   for (const sourceFile of json.sourceFiles ?? []) {
     const owners = publicationSourceOwners.get(sourceFile) ?? [];
     owners.push(file);
@@ -448,17 +527,6 @@ for (const { file, json } of byPrefix('verkuendungen/')) {
     }
   }
 }
-
-const legalSourceDirectory = join(root, 'Gesetze');
-for (const entry of await readdir(legalSourceDirectory, { withFileTypes: true })) {
-  if (!entry.isFile() || !entry.name.endsWith('.pdf')) continue;
-  if (entry.name === 'Gesamtplan 2025-2026.pdf' || entry.name === 'Verfassung des Ostdeutschen Freistaates.pdf') continue;
-  const sourceFile = `Gesetze/${entry.name}`;
-  const owners = publicationSourceOwners.get(sourceFile) ?? [];
-  if (owners.length !== 1) {
-    addProblem(join(legalSourceDirectory, entry.name), `muss genau einem Ausgabedatensatz zugeordnet sein, gefunden: ${owners.length}`);
-  }
-}
 for (const [sourceFile, owners] of publicationSourceOwners) {
   if (owners.length !== 1) {
     addProblem(join(root, sourceFile), `ist mehreren Ausgabedatensätzen zugeordnet`);
@@ -466,6 +534,7 @@ for (const [sourceFile, owners] of publicationSourceOwners) {
 }
 
 const normMetaRecords = byPrefix('normen/').filter(({ file }) => basename(file) === 'meta.json');
+const normMetaBySlug = new Map(normMetaRecords.map(({ json }) => [json.slug, json]));
 for (const { file, json } of normMetaRecords) {
   if (json.publicationDate && !json.documentDate && !json.dateNote) {
     addProblem(file, 'publicationDate ist gesetzt, aber documentDate oder eine begründete dateNote fehlt');
@@ -473,8 +542,61 @@ for (const { file, json } of normMetaRecords) {
   if (json.status === 'future-effective' && (!json.effectiveDate || json.effectiveDate <= '2026-07-19')) {
     addProblem(file, 'future-effective setzt ein Inkrafttreten nach dem Stichtag voraus');
   }
+  if (json.status === 'pending-effective' && json.effectiveDate) {
+    addProblem(file, 'pending-effective darf kein unbelegtes konkretes Inkrafttretensdatum enthalten');
+  }
   if (json.status === 'repealed' && (!json.expiryDate || json.expiryDate > '2026-07-19')) {
     addProblem(file, 'repealed setzt ein Außerkrafttreten am oder vor dem Stichtag voraus');
+  }
+
+  for (const [relation, inverse] of [['enactedNorm', 'enactingNorm'], ['enactingNorm', 'enactedNorm']]) {
+    const targetSlug = json[relation];
+    if (!targetSlug) continue;
+    const target = normMetaBySlug.get(targetSlug);
+    if (!target) {
+      addProblem(file, `${relation} verweist auf unbekannte Norm: ${targetSlug}`);
+    } else if (target[inverse] !== json.slug) {
+      addProblem(file, `${relation} ist bei ${targetSlug} nicht wechselseitig als ${inverse} hinterlegt`);
+    }
+  }
+}
+
+function normalizeDuplicateTitle(value) {
+  return value
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/\([^)]*\)/gu, ' ')
+    .toLocaleLowerCase('de')
+    .replace(/[^a-z0-9]+/gu, ' ')
+    .trim();
+}
+
+function citationFundstelle(value) {
+  return typeof value === 'string' ? value.match(/\(([^)]+)\)/u)?.[1]?.trim() ?? value.trim() : '';
+}
+
+const possibleDuplicateNorms = new Map();
+for (const { file, json } of normMetaRecords) {
+  const duplicateKey = [
+    normalizeDuplicateTitle(json.title ?? ''),
+    citationFundstelle(json.initialCitation),
+    json.effectiveDate ?? '',
+  ].join('|');
+  const candidates = possibleDuplicateNorms.get(duplicateKey) ?? [];
+  candidates.push({ file, json });
+  possibleDuplicateNorms.set(duplicateKey, candidates);
+}
+for (const candidates of possibleDuplicateNorms.values()) {
+  if (candidates.length < 2) continue;
+  for (const candidate of candidates) {
+    const relatedSlugs = new Set([candidate.json.enactedNorm, candidate.json.enactingNorm].filter(Boolean));
+    const unrelated = candidates.filter((other) => other !== candidate && !relatedSlugs.has(other.json.slug));
+    if (unrelated.length > 0) {
+      addProblem(
+        candidate.file,
+        `verdächtige Dublette zu ${unrelated.map(({ json }) => json.slug).join(', ')}: gleicher normalisierter Titel, gleiche Erstfundstelle und Wirksamkeit`,
+      );
+    }
   }
 }
 
@@ -492,6 +614,47 @@ for (const { file, json } of legislationRecords) {
     addProblem(file, 'eine Beschlussempfehlung darf ohne amtliches Ergebnis nicht als Beschluss, Verkündung oder Inkrafttreten geführt werden');
   }
   if (json.confirmedAsOf !== '2026-07-19') addProblem(file, 'confirmedAsOf muss dem redaktionellen Stichtag 2026-07-19 entsprechen');
+  if (json.nextScheduledReading?.date !== '2026-07-20') {
+    addProblem(file, 'nextScheduledReading.date muss für die dritte Plenarsitzung 2026-07-20 sein');
+  }
+  if (!['erste-lesung-angesetzt', 'zweite-lesung-angesetzt'].includes(json.stage)) {
+    addProblem(file, 'darf ohne Ergebnisquelle nur als angesetzte erste oder zweite Lesung geführt werden');
+  }
+  const agendaSources = (json.sources ?? []).filter((source) => source.kind === 'tagesordnung');
+  if (agendaSources.length !== 1) {
+    addProblem(file, `muss genau einen Tagesordnungsnachweis enthalten, gefunden: ${agendaSources.length}`);
+  }
+  for (const [index, source] of (json.sources ?? []).entries()) {
+    const sourcePath = `sources[${index}]`;
+    if (source.availability === 'local') {
+      await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
+    } else if (source.availability === 'external') {
+      if (typeof source.sourceUrl !== 'string' || !/^https:\/\//u.test(source.sourceUrl)) {
+        addProblem(file, `${sourcePath}.sourceUrl muss für eine externe Quelle eine HTTPS-URL enthalten`);
+      }
+    } else if (source.availability !== 'missing') {
+      addProblem(file, `${sourcePath}.availability ist unbekannt: ${source.availability}`);
+    } else if (source.localSource || source.sourceUrl) {
+      addProblem(file, `${sourcePath} darf für eine fehlende Quelle keinen Pfad oder URL behaupten`);
+    }
+  }
+}
+
+if (legislationRecords.length !== 12) {
+  addProblem(join(contentRoot, 'gesetzgebung'), `muss zwölf Vorgänge der dritten Plenarsitzung enthalten, gefunden: ${legislationRecords.length}`);
+}
+
+const plenaryEvent = byPrefix('presse/termine/').find(({ json }) => json.slug === 'dritte-plenarsitzung-7-landtag');
+if (!plenaryEvent) {
+  addProblem(join(contentRoot, 'presse', 'termine'), 'Termin der dritten Plenarsitzung fehlt');
+} else {
+  const linkedProcedures = new Set(plenaryEvent.json.relatedLegislationSlugs ?? []);
+  for (const { file, json } of legislationRecords) {
+    if (!linkedProcedures.has(json.slug)) addProblem(file, 'ist nicht mit dem Termin der dritten Plenarsitzung verknüpft');
+  }
+  if (linkedProcedures.size !== 12) {
+    addProblem(plenaryEvent.file, `muss genau zwölf Gesetzgebungsvorgänge verknüpfen, gefunden: ${linkedProcedures.size}`);
+  }
 }
 
 for (const { file, json } of byPrefix('presse/termine/')) {

@@ -7,15 +7,41 @@
   "introducedOn": "2026-05-27",
   "stage": "zweite-lesung-angesetzt",
   "statusLabel": "Zweite Lesung am 20. Juli 2026 angesetzt; Ausschuss empfiehlt Annahme.",
-  "nextScheduledReading": { "date": "2026-07-20", "reading": "zweite-lesung" },
-  "recommendation": { "documentNumber": "07/18", "result": "annahme" },
+  "nextScheduledReading": {
+    "date": "2026-07-20",
+    "reading": "zweite-lesung"
+  },
+  "recommendation": {
+    "documentNumber": "07/18",
+    "result": "annahme"
+  },
   "sources": [
-    { "label": "Drucksache 07/10", "kind": "drucksache", "localSource": "context/entwürfe/Standortgesetz.md" },
-    { "label": "Gemeinsame Beschlussempfehlung, Drucksache 07/18", "kind": "beschlussempfehlung" },
-    { "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026", "kind": "tagesordnung" }
+    {
+      "label": "Drucksache 07/10",
+      "kind": "drucksache",
+      "localSource": "context/entwürfe/Standortgesetz.md",
+      "availability": "local"
+    },
+    {
+      "label": "Gemeinsame Beschlussempfehlung, Drucksache 07/18",
+      "kind": "beschlussempfehlung",
+      "availability": "missing"
+    },
+    {
+      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
+      "kind": "tagesordnung",
+      "availability": "missing"
+    }
   ],
-  "relatedTopics": ["oeffentliche-wirtschaft-und-strukturwandel", "oepnv-und-mobilitaet"],
-  "relatedMinistries": ["mobilitaet-infrastruktur-und-landesentwicklung", "wirtschaft-arbeitsmarkt-und-beschaeftigung", "kapitalakkumulation-des-fiskus"],
+  "relatedTopics": [
+    "oeffentliche-wirtschaft-und-strukturwandel",
+    "oepnv-und-mobilitaet"
+  ],
+  "relatedMinistries": [
+    "mobilitaet-infrastruktur-und-landesentwicklung",
+    "wirtschaft-arbeitsmarkt-und-beschaeftigung",
+    "kapitalakkumulation-des-fiskus"
+  ],
   "relatedNorms": [],
   "confirmedAsOf": "2026-07-19"
 }

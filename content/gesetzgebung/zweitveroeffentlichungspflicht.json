@@ -6,13 +6,29 @@
   "initiator": "Staatsregierung",
   "stage": "erste-lesung-angesetzt",
   "statusLabel": "Erste Lesung am 20. Juli 2026 angesetzt.",
-  "nextScheduledReading": { "date": "2026-07-20", "reading": "erste-lesung" },
+  "nextScheduledReading": {
+    "date": "2026-07-20",
+    "reading": "erste-lesung"
+  },
   "sources": [
-    { "label": "Drucksache 07/27", "kind": "drucksache", "localSource": "context/entwürfe/Drs 07-27.md" },
-    { "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026", "kind": "tagesordnung" }
+    {
+      "label": "Drucksache 07/27",
+      "kind": "drucksache",
+      "localSource": "context/entwürfe/Drs 07-27.md",
+      "availability": "local"
+    },
+    {
+      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
+      "kind": "tagesordnung",
+      "availability": "missing"
+    }
   ],
-  "relatedTopics": ["bildungsreform"],
-  "relatedMinistries": ["bildung-und-sportliche-ertuechtigung"],
+  "relatedTopics": [
+    "bildungsreform"
+  ],
+  "relatedMinistries": [
+    "bildung-und-sportliche-ertuechtigung"
+  ],
   "relatedNorms": [],
   "confirmedAsOf": "2026-07-19",
   "dateNote": "Die vorliegende Entwurfsquelle ist mit 15. Juli 2025 datiert. Wegen des Widerspruchs zur Drucksachennummer der 7. Wahlperiode und zur Tagesordnung wird daraus kein Einbringungsdatum abgeleitet."

@@ -7,15 +7,39 @@
   "introducedOn": "2026-05-29",
   "stage": "zweite-lesung-angesetzt",
   "statusLabel": "Zweite Lesung am 20. Juli 2026 angesetzt; Ausschuss empfiehlt Annahme.",
-  "nextScheduledReading": { "date": "2026-07-20", "reading": "zweite-lesung" },
-  "recommendation": { "documentNumber": "07/21", "result": "annahme" },
+  "nextScheduledReading": {
+    "date": "2026-07-20",
+    "reading": "zweite-lesung"
+  },
+  "recommendation": {
+    "documentNumber": "07/21",
+    "result": "annahme"
+  },
   "sources": [
-    { "label": "Drucksache 07/12", "kind": "drucksache", "localSource": "context/entwürfe/Drucksache 7-12.md" },
-    { "label": "Beschlussempfehlung, Drucksache 07/21", "kind": "beschlussempfehlung" },
-    { "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026", "kind": "tagesordnung" }
+    {
+      "label": "Drucksache 07/12",
+      "kind": "drucksache",
+      "localSource": "context/entwürfe/Drucksache 7-12.md",
+      "availability": "local"
+    },
+    {
+      "label": "Beschlussempfehlung, Drucksache 07/21",
+      "kind": "beschlussempfehlung",
+      "availability": "missing"
+    },
+    {
+      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
+      "kind": "tagesordnung",
+      "availability": "missing"
+    }
   ],
-  "relatedTopics": ["familie-und-soziales", "soziale-sicherheit-und-teilhabe"],
-  "relatedMinistries": ["soziale-und-gesundheitliche-fuersorge"],
+  "relatedTopics": [
+    "familie-und-soziales",
+    "soziale-sicherheit-und-teilhabe"
+  ],
+  "relatedMinistries": [
+    "soziale-und-gesundheitliche-fuersorge"
+  ],
   "relatedNorms": [],
   "confirmedAsOf": "2026-07-19"
 }

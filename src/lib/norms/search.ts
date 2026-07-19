@@ -190,6 +190,8 @@ function buildSearchDocument(
   const resultLabel = version.isCurrent
     ? record.meta.status === 'future-effective'
       ? `Verkündet; tritt am ${formatDate(record.meta.effectiveDate ?? version.validFrom)} in Kraft`
+      : record.meta.status === 'pending-effective'
+        ? 'Verkündet; Inkrafttreten noch nicht belegt'
       : record.meta.status === 'repealed' || record.meta.status === 'historical'
         ? `Letzte Fassung vom ${formatDate(version.validFrom)}`
         : record.meta.status === 'one-time-act'
