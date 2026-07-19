@@ -18,17 +18,18 @@ import {
   getTopicsUrl,
 } from '../../lib/portal/index.ts';
 import {
-  loadGovernmentMembers,
+  loadCurrentGovernmentMembers,
   loadMinistries,
   loadTopics,
 } from '../../lib/portal/content.ts';
 
 const [members, topics, ministries] = await Promise.all([
-  loadGovernmentMembers(),
+  loadCurrentGovernmentMembers(),
   loadTopics(),
   loadMinistries(),
 ]);
 const currentGovernment = siteConfig.currentGovernment;
+const stateMinistryCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
 const headOfGovernment = members[0];
 const featuredMembers = members.slice(0, 6);
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
@@ -57,7 +58,7 @@ const flagshipTopics = [
       { label: 'Kabinett', value: currentGovernment.cabinetName },
       { label: 'Ministerpräsident', value: currentGovernment.headOfGovernment, href: getMinisterPresidentUrl() },
       { label: 'Koalition', value: currentGovernment.coalitionShort, href: getCoalitionUrl() },
-      { label: 'Ministerien', value: String(ministries.length), href: getCabinetUrl() },
+      { label: 'Staatsministerien', value: String(stateMinistryCount), href: getCabinetUrl() },
     ]}
     actions={[
       { label: 'Kabinett und Ministerien', href: getCabinetUrl(), primary: true },

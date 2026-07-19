@@ -186,10 +186,15 @@ function buildSearchDocument(
   publicationReference?: NormPublicationReference,
 ): SearchIndexDocument {
   const { textParts, contexts, hitUnits } = collectBodyContent(version.body);
+  const isApplicableCurrentVersion = version.isCurrent && record.meta.status === 'in-force';
   const resultLabel = version.isCurrent
-    ? record.meta.status === 'repealed'
-      ? `Letzte Fassung vom ${formatDate(version.validFrom)}`
-      : 'Aktuelle Fassung'
+    ? record.meta.status === 'future-effective'
+      ? `Verkündet; tritt am ${formatDate(record.meta.effectiveDate ?? version.validFrom)} in Kraft`
+      : record.meta.status === 'repealed' || record.meta.status === 'historical'
+        ? `Letzte Fassung vom ${formatDate(version.validFrom)}`
+        : record.meta.status === 'one-time-act'
+          ? 'Abgeschlossener einmaliger Rechtsakt'
+          : 'Aktuelle Fassung'
     : `Historische Fassung vom ${formatDate(version.validFrom)}`;
 
   return {
@@ -200,7 +205,7 @@ function buildSearchDocument(
       ? getNormUrl(record.meta.slug)
       : getNormVersionUrl(record.meta.slug, version.versionId),
     currentUrl: getNormUrl(record.meta.slug),
-    isCurrent: version.isCurrent,
+    isCurrent: isApplicableCurrentVersion,
     title: toDisplayText(record.meta.title),
     shortTitle: toDisplayText(record.meta.shortTitle),
     abbr: toDisplayText(record.meta.abbr),

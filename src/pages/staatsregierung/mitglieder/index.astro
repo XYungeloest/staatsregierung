@@ -5,11 +5,12 @@ import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCar
 import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
 import SectionHero from '../../../components/portal/SectionHero.astro';
 import { getGovernmentUrl, getHomeUrl } from '../../../lib/portal/index.ts';
-import { loadGovernmentMembers } from '../../../lib/portal/content.ts';
+import { loadCurrentGovernmentMembers } from '../../../lib/portal/content.ts';
 
-const members = await loadGovernmentMembers();
+const members = await loadCurrentGovernmentMembers();
 const leadership = members.slice(0, 2);
-const remainingMembers = members.slice(2);
+const cabinetMembers = members.filter((member) => member.reihenfolge > 2 && member.slug !== 'emma-mueller');
+const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
 ---
 
 <BaseLayout title="Regierungsmitglieder" description="Übersicht der Regierungsmitglieder des Ostdeutschen Freistaates.">
@@ -51,7 +52,19 @@ const remainingMembers = members.slice(2);
       <p>Alle weiteren Regierungsmitglieder sind mit ihren jeweiligen Zuständigkeiten erschlossen.</p>
     </div>
     <div class="card-grid card-grid--two">
-      {remainingMembers.map((member) => (
+      {cabinetMembers.map((member) => (
+        <GovernmentMemberCard member={member} variant="compact" />
+      ))}
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Staatskanzlei</h2>
+      <p>Die Leitung der Staatskanzlei gehört zur Staatsregierung, wird aber nicht als Staatsministerium gezählt.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {chancelleryLeadership.map((member) => (
         <GovernmentMemberCard member={member} variant="compact" />
       ))}
     </div>

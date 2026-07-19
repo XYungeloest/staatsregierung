@@ -10,6 +10,7 @@ import {
 } from '../../../lib/portal/index.ts';
 import { loadRuntimeGovernmentMembers } from '../../../lib/runtime-content/index.ts';
 import type { RegierungMitglied } from '../../../lib/portal/index.ts';
+import { siteConfig } from '../../../config/site.ts';
 
 export function getStaticPaths() {
   return loadRuntimeGovernmentMembers().map((member) => ({
@@ -33,11 +34,11 @@ const { member } = Astro.props as { member: RegierungMitglied };
     />
 
     <SectionHero
-      eyebrow="Regierungsmitglied"
+      eyebrow={member.current ? 'Regierungsmitglied' : 'Historisches Regierungsprofil'}
       title={member.name}
       titleSize="long"
       lead={member.amt}
-      status="Aktuelles Kabinettsmitglied"
+      status={member.current ? 'Aktuelles Kabinettsmitglied' : `Aus dem Kabinett ausgeschieden${member.servingTo ? ` am ${siteConfig.date.formatLong(member.servingTo)}` : ''}`}
       variant="government"
       facts={[
         { label: 'Ressort', value: member.ressort },
@@ -84,6 +85,39 @@ const { member } = Astro.props as { member: RegierungMitglied };
             <dt>Ressort</dt>
             <dd>{member.ressort}</dd>
           </div>
+          {member.party ? (
+            <div>
+              <dt>Partei</dt>
+              <dd>{member.party}</dd>
+            </div>
+          ) : null}
+          {member.currentOffices.length > 0 ? (
+            <div>
+              <dt>Aktuelle Ämter</dt>
+              <dd>
+                <ul class="plain-list">
+                  {member.currentOffices.map((office) => (
+                    <li>{office.title} · seit <time datetime={office.servingFrom}>{siteConfig.date.formatLong(office.servingFrom)}</time></li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ) : null}
+          {member.formerOffices.length > 0 ? (
+            <div>
+              <dt>Frühere Ämter</dt>
+              <dd>
+                <ul class="plain-list">
+                  {member.formerOffices.map((office) => (
+                    <li>
+                      {office.title} · <time datetime={office.servingFrom}>{siteConfig.date.formatLong(office.servingFrom)}</time>
+                      {office.servingTo ? <> bis <time datetime={office.servingTo}>{siteConfig.date.formatLong(office.servingTo)}</time></> : null}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ) : null}
           {member.kontakt?.email ? (
             <div>
               <dt>Kontakt</dt>

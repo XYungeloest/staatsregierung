@@ -5,6 +5,7 @@ import {
   legislativeStages,
   type LegislativeTrackerItem,
 } from '../../lib/portal/modules.ts';
+import { siteConfig } from '../../config/site.ts';
 
 interface Props {
   items: LegislativeTrackerItem[];
@@ -58,7 +59,18 @@ const ressorts = [...new Set(items.map((item) => item.ressort))].sort((left, rig
           <h3>
             {item.href ? <a class="inline-link" href={item.href}>{item.title}</a> : item.title}
           </h3>
+          <p class="detail-line">Drucksache {item.documentNumber}</p>
           <p>{item.description}</p>
+          <p class="detail-line">
+            Nächste Beratung: <time datetime={item.nextScheduledReading.date}>{siteConfig.date.formatLong(item.nextScheduledReading.date)}</time>
+            {' · '}{item.nextScheduledReading.reading === 'erste-lesung' ? 'Erste Lesung' : 'Zweite Lesung'}
+          </p>
+          {item.recommendation ? (
+            <p class="detail-line">
+              Beschlussempfehlung {item.recommendation.documentNumber}: {item.recommendation.result === 'annahme' ? 'Annahme empfohlen' : 'Ablehnung empfohlen'}
+            </p>
+          ) : null}
+          {item.proposedCommittee ? <p class="detail-line">Vorgeschlagene Überweisung: {item.proposedCommittee}</p> : null}
           {item.topic ? <p class="detail-line">Bezug: {item.topic}</p> : null}
           <ol class="stage-chain" aria-label={`Verfahrensstand ${item.title}`}>
             {legislativeStages.map((stage, index) => (
@@ -82,4 +94,3 @@ const ressorts = [...new Set(items.map((item) => item.ressort))].sort((left, rig
     Für diese Auswahl sind derzeit keine Gesetzgebungsvorhaben sichtbar.
   </p>
 </section>
-

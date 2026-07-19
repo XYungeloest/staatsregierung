@@ -2,6 +2,7 @@ export {
   loadBudgetPageBySlug,
   loadBudgetPages,
   loadCurrentJobOffers,
+  loadCurrentGovernmentMembers,
   loadEventBySlug,
   loadEvents,
   loadFeaturedPressReleases,

@@ -10,7 +10,14 @@ export const NORM_TYPES = [
   'aenderungsvorschrift',
 ] as const;
 
-export const NORM_STATUSES = ['in-force', 'repealed', 'planned'] as const;
+export const NORM_STATUSES = [
+  'in-force',
+  'future-effective',
+  'repealed',
+  'historical',
+  'one-time-act',
+  'planned',
+] as const;
 
 export const HISTORY_ENTRY_TYPES = ['initial', 'amendment', 'repeal', 'notice'] as const;
 
@@ -49,6 +56,11 @@ export interface NormMeta {
   successor: string | null;
   summary: string;
   status: NormStatus;
+  documentDate?: string;
+  publicationDate?: string;
+  effectiveDate?: string;
+  expiryDate?: string;
+  dateNote?: string;
 }
 
 export interface NormBodyBlock {
@@ -290,6 +302,9 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     aufgehoben: 'repealed',
     planned: 'planned',
     draft: 'planned',
+    'future-effective': 'future-effective',
+    historical: 'historical',
+    'one-time-act': 'one-time-act',
   };
 
   if (!normalizedTypeMap[rawType]) {
@@ -315,6 +330,23 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     successor: expectNullableString(object.successor, `${path}.successor`),
     summary: expectString(object.summary, `${path}.summary`),
     status: normalizedStatusMap[rawStatus],
+    documentDate:
+      object.documentDate === undefined
+        ? undefined
+        : expectIsoDate(object.documentDate, `${path}.documentDate`),
+    publicationDate:
+      object.publicationDate === undefined
+        ? undefined
+        : expectIsoDate(object.publicationDate, `${path}.publicationDate`),
+    effectiveDate:
+      object.effectiveDate === undefined
+        ? undefined
+        : expectIsoDate(object.effectiveDate, `${path}.effectiveDate`),
+    expiryDate:
+      object.expiryDate === undefined
+        ? undefined
+        : expectIsoDate(object.expiryDate, `${path}.expiryDate`),
+    dateNote: expectOptionalString(object.dateNote, `${path}.dateNote`),
   };
 }
 

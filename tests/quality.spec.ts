@@ -15,6 +15,7 @@ const overflowPages = [
   '/kreisreform/',
   '/suche/?q=Gesetz',
   '/recht/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/',
+  '/recht/norm/verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb/',
   '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
   '/staatsregierung/mitglieder/max-peterson/',
   '/themen/energie-und-klima/',
@@ -24,6 +25,7 @@ const overflowPages = [
 test('lange Norm- und Ressorttitel bleiben innerhalb ihres Bereichskopfes', async ({ page }) => {
   for (const path of [
     '/recht/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/',
+    '/recht/norm/verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb/',
     '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
   ]) {
     await page.setViewportSize({ width: 360, height: 800 });

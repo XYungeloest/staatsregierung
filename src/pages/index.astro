@@ -100,15 +100,21 @@ const portalAccesses = [
 const importantItems = [
   {
     title: 'Kreis- und Bezirksreform 2026',
-    description: 'Neue Gliederung ab 1. August 2026',
+    description: 'Erste Lesung am 20. Juli 2026 angesetzt',
     href: getKreisreformUrl(),
     icon: 'map' as const,
   },
   {
     title: currentGovernment.cabinetName,
-    description: `Seit ${siteConfig.date.formatLong(currentGovernment.formedOn)} im Amt`,
+    description: `Zuletzt umgebildet am ${siteConfig.date.formatLong(currentGovernment.lastReshuffleOn)}`,
     href: getGovernmentUrl(),
     icon: 'government' as const,
+  },
+  {
+    title: 'Dritte Plenarsitzung',
+    description: 'Zwölf Beratungen am 20. Juli 2026 angesetzt',
+    href: `${getPressUrl()}termine/dritte-plenarsitzung-7-landtag/`,
+    icon: 'press' as const,
   },
   {
     title: 'Doppelhaushalt 2025/2026',

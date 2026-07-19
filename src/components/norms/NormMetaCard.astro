@@ -32,6 +32,8 @@ const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
 const citation = parseCitation(version.citation);
 const initialCitation = parseCitation(norm.meta.initialCitation);
 const canCompareVersions = norm.versions.length > 1;
+const effectiveFrom = norm.meta.effectiveDate ?? version.validFrom;
+const effectiveUntil = norm.meta.expiryDate ?? version.validTo;
 ---
 
 <aside id="normdaten" class="section meta-panel">
@@ -103,18 +105,36 @@ const canCompareVersions = norm.versions.length > 1;
 
   <h3>Gültigkeit</h3>
   <dl class="meta-list">
+    {norm.meta.documentDate ? (
+      <div>
+        <dt>Normdatum</dt>
+        <dd><time datetime={norm.meta.documentDate}>{formatDate(norm.meta.documentDate)}</time></dd>
+      </div>
+    ) : null}
+    {norm.meta.publicationDate ? (
+      <div>
+        <dt>Veröffentlicht</dt>
+        <dd><time datetime={norm.meta.publicationDate}>{formatDate(norm.meta.publicationDate)}</time></dd>
+      </div>
+    ) : null}
     <div>
-      <dt>Gültig ab</dt>
-      <dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd>
+      <dt>In Kraft ab</dt>
+      <dd><time datetime={effectiveFrom}>{formatDate(effectiveFrom)}</time></dd>
     </div>
     <div>
-      <dt>Gültig bis</dt>
-      <dd>{version.validTo ? <time datetime={version.validTo}>{formatDate(version.validTo)}</time> : 'aktuell'}</dd>
+      <dt>In Kraft bis</dt>
+      <dd>{effectiveUntil ? <time datetime={effectiveUntil}>{formatDate(effectiveUntil)}</time> : 'unbefristet'}</dd>
     </div>
     <div>
       <dt>Status</dt>
       <dd>{formatNormStatus(norm.meta.status)}</dd>
     </div>
+    {norm.meta.dateNote ? (
+      <div>
+        <dt>Datierungshinweis</dt>
+        <dd>{toDisplayText(norm.meta.dateNote)}</dd>
+      </div>
+    ) : null}
   </dl>
 
   <h3>Sachgebiete</h3>

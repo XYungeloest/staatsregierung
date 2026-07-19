@@ -25,6 +25,7 @@ export interface VerkuendungEntry {
   type: PublicationEntryType;
   citation: string;
   pages?: string;
+  documentDate?: string;
   normSlug?: string;
   versionId?: string;
 }
@@ -37,6 +38,7 @@ export interface Verkuendung {
   date: string;
   publication: string;
   pdf?: string;
+  sourceFiles?: string[];
   entries: VerkuendungEntry[];
 }
 
@@ -165,6 +167,9 @@ function parseVerkuendungEntry(value: unknown, path: string): VerkuendungEntry {
     type: expectEnumValue(object.type, `${path}.type`, PUBLICATION_ENTRY_TYPES),
     citation: expectString(object.citation, `${path}.citation`),
     pages: expectOptionalString(object.pages, `${path}.pages`),
+    documentDate: object.documentDate === undefined
+      ? undefined
+      : expectIsoDate(object.documentDate, `${path}.documentDate`),
     normSlug,
     versionId,
   };
@@ -206,6 +211,14 @@ export function parseVerkuendung(value: unknown, path = 'verkuendung.json'): Ver
     date,
     publication: expectString(object.publication, `${path}.publication`),
     pdf: expectOptionalString(object.pdf, `${path}.pdf`),
+    sourceFiles: object.sourceFiles === undefined
+      ? undefined
+      : (() => {
+          if (!Array.isArray(object.sourceFiles)) fail(`${path}.sourceFiles`, 'muss ein Array sein');
+          return object.sourceFiles.map((entry, index) =>
+            expectString(entry, `${path}.sourceFiles[${index}]`),
+          );
+        })(),
     entries: parsedEntries,
   };
 }

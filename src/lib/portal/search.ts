@@ -2,6 +2,7 @@ import { loadAllNorms } from '../norms/content.ts';
 import { loadAllVerkuendungen } from '../norms/publications.ts';
 import { getNormUrl, getPublicationUrl as getLawPublicationDetailUrl } from '../norms/routes.ts';
 import { toDisplayText } from '../norms/presentation.ts';
+import { loadLegislativeProcedures } from './legislation.ts';
 import {
   loadBudgetPages,
   loadEvents,
@@ -79,6 +80,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
     jobOffers,
     norms,
     publications,
+    legislativeProcedures,
   ] = await Promise.all([
     loadGovernmentMembers(),
     loadMinistries(),
@@ -92,6 +94,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
     loadJobOffers(),
     loadAllNorms(),
     loadAllVerkuendungen(),
+    loadLegislativeProcedures(),
   ]);
 
   const entries: PortalSearchEntry[] = [
@@ -228,8 +231,32 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       title: event.title,
       description: event.teaser,
       url: getEventUrl(event.slug),
-      text: joinText([event.date, event.location, event.body]),
+      text: joinText([event.date, event.location, event.body, event.relatedLegislationSlugs]),
       date: event.date,
+    })),
+    ...legislativeProcedures.map((procedure) => ({
+      id: `legislation:${procedure.slug}`,
+      type: 'legislation',
+      typeLabel: 'Gesetzgebung',
+      title: procedure.title,
+      description: procedure.statusLabel,
+      url: procedure.slug === 'kreis-und-bezirksneuordnungsgesetz'
+        ? getKreisreformUrl()
+        : procedure.relatedTopics[0]
+          ? getTopicUrl(procedure.relatedTopics[0])
+          : getLawPublicationsUrl(),
+      text: joinText([
+        procedure.shortTitle,
+        procedure.documentNumber,
+        procedure.initiator,
+        procedure.statusLabel,
+        procedure.leadCommittee,
+        procedure.proposedCommittee,
+        procedure.recommendation?.documentNumber,
+        procedure.relatedTopics,
+        procedure.relatedMinistries,
+      ]),
+      date: procedure.confirmedAsOf,
     })),
     ...budgetPages.map((page) => ({
       id: `budget:${page.slug}`,

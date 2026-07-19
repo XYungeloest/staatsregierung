@@ -3,13 +3,16 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
 import { loadEvents } from '../../../lib/portal/content.ts';
+import { loadLegislativeProcedures } from '../../../lib/portal/legislation.ts';
 import { isPast } from '../../../lib/portal/dates.ts';
 import { buildEventJsonLd } from '../../../lib/seo/index.ts';
 import {
   getEventIndexUrl,
   getEventUrl,
   getHomeUrl,
+  getKreisreformUrl,
   getPressUrl,
+  getTopicUrl,
   type Termin,
 } from '../../../lib/portal/index.ts';
 
@@ -26,6 +29,11 @@ const { event } = Astro.props as { event: Termin };
 const allEvents = await loadEvents();
 const relatedEvents = allEvents.filter((entry) => entry.slug !== event.slug).slice(0, 3);
 const isArchivedEvent = isPast(event.date);
+const relatedLegislation = event.relatedLegislationSlugs?.length
+  ? (await loadLegislativeProcedures()).filter((procedure) =>
+      event.relatedLegislationSlugs?.includes(procedure.slug),
+    )
+  : [];
 ---
 
 <BaseLayout
@@ -83,6 +91,25 @@ const isArchivedEvent = isPast(event.date);
               <p>{paragraph}</p>
             ))}
           </div>
+          {relatedLegislation.length > 0 ? (
+            <section aria-labelledby="termin-verfahren">
+              <div class="section-header section-header--compact">
+                <h2 id="termin-verfahren">Angesetzte Gesetzesberatungen</h2>
+              </div>
+              <ol class="record-list">
+                {relatedLegislation.map((procedure) => (
+                  <li class="record-list__item">
+                    <strong>
+                      <a class="inline-link" href={procedure.slug === 'kreis-und-bezirksneuordnungsgesetz' ? getKreisreformUrl() : getTopicUrl(procedure.relatedTopics[0])}>
+                        Drucksache {procedure.documentNumber}: {procedure.shortTitle}
+                      </a>
+                    </strong>
+                    <span>{procedure.statusLabel}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
         </section>
 
         <aside class="section meta-panel">

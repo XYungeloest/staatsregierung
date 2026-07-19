@@ -6,6 +6,7 @@ import MinistryCard from '../../components/portal/MinistryCard.astro';
 import SectionHero from '../../components/portal/SectionHero.astro';
 import SectionNavigation from '../../components/portal/SectionNavigation.astro';
 import { formatTopicStatus } from '../../lib/portal/presentation.ts';
+import { loadLegislativeProcedures } from '../../lib/portal/legislation.ts';
 import {
   getContactUrl,
   getHomeUrl,
@@ -56,6 +57,9 @@ const relatedTopics = topic
 const pressSearchUrl = topic
   ? `${getPortalSearchUrl()}?${new URLSearchParams({ q: topic.title, type: 'press' }).toString()}`
   : getPortalSearchUrl();
+const relatedProcedures = topic
+  ? (await loadLegislativeProcedures()).filter((procedure) => procedure.relatedTopics.includes(topic.slug))
+  : [];
 ---
 
 {topic ? (
@@ -102,6 +106,7 @@ const pressSearchUrl = topic
         { label: 'Was ändert sich?', href: '#was-aendert-sich' },
         { label: 'Umsetzungsstand', href: '#umsetzung' },
         { label: 'Nächste Schritte', href: '#naechste-schritte' },
+        ...(relatedProcedures.length > 0 ? [{ label: 'Gesetzgebung', href: '#gesetzgebung' }] : []),
         { label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' },
         { label: 'FAQ', href: '#faq' },
         { label: 'Zuständiges Ressort', href: '#ressort' },
@@ -156,6 +161,25 @@ const pressSearchUrl = topic
         ))}
       </ol>
     </section>
+
+    {relatedProcedures.length > 0 ? (
+      <section id="gesetzgebung" class="section section-muted" aria-labelledby="gesetzgebung-title">
+        <div class="section-header">
+          <h2 id="gesetzgebung-title">Parlamentarische Verfahren</h2>
+          <p>Bestätigter Stand am 19. Juli 2026. Angesetzte Beratungen nehmen kein Ergebnis vorweg.</p>
+        </div>
+        <ul class="record-list">
+          {relatedProcedures.map((procedure) => (
+            <li class="record-list__item">
+              <strong>{procedure.shortTitle}</strong>
+              <span>Drucksache {procedure.documentNumber} · {procedure.statusLabel}</span>
+              {procedure.recommendation ? <span>Beschlussempfehlung {procedure.recommendation.documentNumber}: Annahme empfohlen</span> : null}
+              {procedure.proposedCommittee ? <span>Vorgeschlagene Überweisung: {procedure.proposedCommittee}</span> : null}
+            </li>
+          ))}
+        </ul>
+      </section>
+    ) : null}
 
     <section id="rechtsgrundlagen" class="section section-muted" data-visual-section="topic-legal-bases">
       <div class="section-header">
