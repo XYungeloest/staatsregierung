@@ -17,7 +17,12 @@ const overflowPages = [
   '/recht/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/',
   '/recht/norm/verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb/',
   '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
+  '/staatsregierung/kabinett/grenzschutz-faschismusbekaempfung-und-bewaffnete-organe/',
   '/staatsregierung/mitglieder/max-peterson/',
+  '/staatsregierung/mitglieder/yannik-schmaele/',
+  '/staatsregierung/mitglieder/thomas-henry-barlow/',
+  '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/',
+  '/recht/norm/sero-verordnung/',
   '/themen/energie-und-klima/',
   '/service/',
 ];
@@ -27,6 +32,9 @@ test('lange Norm- und Ressorttitel bleiben innerhalb ihres Bereichskopfes', asyn
     '/recht/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/',
     '/recht/norm/verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb/',
     '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
+    '/staatsregierung/kabinett/grenzschutz-faschismusbekaempfung-und-bewaffnete-organe/',
+    '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/',
+    '/recht/norm/sero-verordnung/',
   ]) {
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto(path);

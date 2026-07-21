@@ -5,12 +5,8 @@
   "documentNumber": "07/08",
   "initiator": "Staatsregierung",
   "introducedOn": "2026-05-24",
-  "stage": "zweite-lesung-angesetzt",
-  "statusLabel": "Zweite Lesung am 20. Juli 2026 angesetzt; Ausschuss empfiehlt Annahme.",
-  "nextScheduledReading": {
-    "date": "2026-07-20",
-    "reading": "zweite-lesung"
-  },
+  "stage": "in-kraft",
+  "statusLabel": "Beschlossen und am 20. Juli 2026 verkündet; seit 21. Juli 2026 in Kraft.",
   "recommendation": {
     "documentNumber": "07/19",
     "result": "annahme"
@@ -28,9 +24,10 @@
       "availability": "missing"
     },
     {
-      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
-      "kind": "tagesordnung",
-      "availability": "missing"
+      "label": "OGVBl. 2026 Nr. 49",
+      "kind": "verkuendung",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 49.md",
+      "availability": "local"
     }
   ],
   "relatedTopics": [
@@ -41,8 +38,16 @@
     "umwelt-energie-und-klimaschutz"
   ],
   "relatedNorms": [
-    "vergesellschaftungsrahmengesetz"
+    "energie-und-waermevergesellschaftungs-paketgesetz",
+    "energie-und-waermevergesellschaftungsgesetz",
+    "ostdeutsche-netze-gesetz",
+    "landesenergiewerke-gesetz",
+    "energie-und-waermefinanzierungsgesetz"
   ],
-  "confirmedAsOf": "2026-07-19",
-  "dateNote": "Die Entwurfsquelle benennt Volker Bagdadi als bei Einbringung zuständigen Staatsminister; seit 7. Juli 2026 leitet Yannik Schmäle das Ressort."
+  "confirmedAsOf": "2026-07-21",
+  "dateNote": "Die Entwurfsquelle benennt Volker Bagdadi als bei Einbringung zuständigen Staatsminister; seit 7. Juli 2026 leitet Yannik Schmäle das Ressort.",
+  "decidedOn": "2026-07-20",
+  "promulgatedOn": "2026-07-20",
+  "effectiveOn": "2026-07-21",
+  "publicationSlug": "ogvbl-2026-49"
 }

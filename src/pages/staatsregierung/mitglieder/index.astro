@@ -9,25 +9,25 @@ import { loadCurrentGovernmentMembers } from '../../../lib/portal/content.ts';
 
 const members = await loadCurrentGovernmentMembers();
 const leadership = members.slice(0, 2);
-const cabinetMembers = members.filter((member) => member.reihenfolge > 2 && member.slug !== 'emma-mueller');
+const stateCouncilMembers = members.filter((member) => member.reihenfolge > 2 && member.slug !== 'emma-mueller');
 const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
 ---
 
-<BaseLayout title="Regierungsmitglieder" description="Übersicht der Regierungsmitglieder des Ostdeutschen Freistaates.">
+<BaseLayout title="Mitglieder des Staatsrates" description="Übersicht der Mitglieder des ersten Staatsrates des Ostdeutschen Freistaates.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsregierung', href: getGovernmentUrl() },
-      { label: 'Regierungsmitglieder' },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Mitglieder' },
     ]}
   />
 
   <SectionHero
-    eyebrow="Staatsregierung"
-    title="Regierungsmitglieder"
-    lead="Ämter, Ressorts und biografische Angaben der Mitglieder des aktuellen Kabinetts."
+    eyebrow="Staatsrat"
+    title="Mitglieder des Staatsrates"
+    lead="Ämter, Geschäftsbereiche und biografische Angaben der Mitglieder des ersten Staatsrates."
     variant="government"
-    facts={[{ label: 'Mitglieder', value: String(members.length) }]}
+    facts={[{ label: 'Mitglieder des Staatsrates', value: String(leadership.length + stateCouncilMembers.length) }]}
   />
   <GovernmentNavigation />
 
@@ -35,7 +35,7 @@ const chancelleryLeadership = members.filter((member) => member.slug === 'emma-m
     <div class="section-header">
       <h2>Leitung</h2>
       <p>
-        Die politische Führung der Staatsregierung liegt beim Ministerpräsidenten und seiner
+        Die politische Führung des Staatsrates liegt beim Staatspräsidenten und seiner
         Stellvertretung.
       </p>
     </div>
@@ -48,11 +48,11 @@ const chancelleryLeadership = members.filter((member) => member.slug === 'emma-m
 
   <section class="section">
     <div class="section-header">
-      <h2>Mitglieder des Kabinetts</h2>
-      <p>Alle weiteren Regierungsmitglieder sind mit ihren jeweiligen Zuständigkeiten erschlossen.</p>
+      <h2>Weitere Mitglieder des Staatsrates</h2>
+      <p>Alle weiteren Mitglieder sind mit ihren jeweiligen Geschäftsbereichen erschlossen.</p>
     </div>
     <div class="card-grid card-grid--two">
-      {cabinetMembers.map((member) => (
+      {stateCouncilMembers.map((member) => (
         <GovernmentMemberCard member={member} variant="compact" />
       ))}
     </div>
@@ -61,7 +61,7 @@ const chancelleryLeadership = members.filter((member) => member.slug === 'emma-m
   <section class="section section-muted">
     <div class="section-header">
       <h2>Staatskanzlei</h2>
-      <p>Die Leitung der Staatskanzlei gehört zur Staatsregierung, wird aber nicht als Staatsministerium gezählt.</p>
+      <p>Die Leitung der Staatskanzlei wird eigenständig neben den Mitgliedern des Staatsrates ausgewiesen.</p>
     </div>
     <div class="card-grid card-grid--two">
       {chancelleryLeadership.map((member) => (

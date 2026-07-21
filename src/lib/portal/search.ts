@@ -150,7 +150,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       title: 'Leichte Sprache',
       description: 'Kurze Orientierung zu den wichtigsten Portalbereichen.',
       url: getEasyLanguageUrl(),
-      text: 'Leichte Sprache Orientierung Staatsregierung Themen Recht Kontakt',
+      text: 'Leichte Sprache Orientierung Staatsrat Staatsregierung Themen Recht Kontakt',
     },
     {
       id: 'service-sign-language',
@@ -173,16 +173,18 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
     ...members.map((member) => ({
       id: `government-member:${member.slug}`,
       type: 'government',
-      typeLabel: 'Staatsregierung',
+      typeLabel: member.current ? 'Staatsrat' : 'Regierungsarchiv',
       title: member.name,
-      description: member.amt,
+      description: member.currentOffices.length > 0
+        ? member.currentOffices.map((office) => office.title).join('; ')
+        : member.amt,
       url: getGovernmentMemberUrl(member.slug),
       text: joinText([member.ressort, member.kurzbiografie, member.langbiografie]),
     })),
     ...ministries.map((ministry) => ({
       id: `ministry:${ministry.slug}`,
       type: 'ministry',
-      typeLabel: 'Ressort',
+      typeLabel: 'Staatssekretariat',
       title: ministry.name,
       description: ministry.teaser,
       url: getMinistryUrl(ministry.slug),

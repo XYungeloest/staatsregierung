@@ -24,7 +24,7 @@ Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuelle
 - Der sichtbare Hinweis zur politischen Simulation bleibt auf obere Hinweisleiste und Footer
   beschränkt. Das Impressum enthält die ausführliche rechtliche Einordnung; in normalen
   Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation ergänzen.
-- Für aktuelle Übersichten gilt der redaktionelle Stichtag 19. Juli 2026. Termine davor sind
+- Für aktuelle Übersichten gilt der redaktionelle Stichtag 21. Juli 2026. Termine davor sind
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
@@ -245,7 +245,7 @@ Format:
 
 Pfad: `content/ressorts/[slug].json`
 
-Ressorts beschreiben Ministerien, Zuständigkeiten, Kontakt und Verknüpfungen.
+Ressorts beschreiben die aktuellen Staatssekretariate, Zuständigkeiten, Kontakt und Verknüpfungen.
 
 Pflichtfelder:
 
@@ -272,7 +272,7 @@ Format:
   "slug": "staatskanzlei",
   "name": "Staatskanzlei des Ostdeutschen Freistaates",
   "kurzname": "Staatskanzlei",
-  "leitung": "Staatsministerin Beispiel",
+  "leitung": "Staatsrätin Beispiel",
   "teaser": "Kurze Beschreibung.",
   "aufgaben": ["Aufgabe"],
   "kontakt": {
@@ -283,11 +283,11 @@ Format:
   },
   "bild": "/images/ministerien/staatskanzlei.jpg",
   "bildAlt": "Beschreibung des Bildes",
-  "bildnachweis": "Staatsregierung",
+  "bildnachweis": "Staatsrat",
   "themen": ["Themenbezug"],
   "verknuepfteLinks": [
     {
-      "label": "Zur Staatsregierung",
+      "label": "Zum Staatsrat",
       "href": "/staatsregierung/"
     }
   ]
@@ -298,7 +298,11 @@ Format:
 
 Pfad: `content/regierung/mitglieder/[slug].json`
 
-Regierungsmitglieder werden nach `reihenfolge` sortiert. Der aktuelle Kabinettsstand ist Honecker II. Gerhardt Lehrmann ist kein aktives Kabinettsmitglied und soll nicht als neues Profil angelegt werden. Das Wirtschaftsressort wird im aktuellen Kabinett von Staatsminister Max Peterson geleitet.
+Mitglieder werden nach `reihenfolge` sortiert. Aktueller Stand ist der erste Staatsrat, der am
+21. Juli 2026 aus dem Kabinett Honecker II hervorging. Emma Müller wird als Chefin der Staatskanzlei
+separat geführt und nicht als Mitglied des Staatsrates gezählt. Thomas Henry Barlow ist historisch
+erreichbar, aber nicht aktiv. Yannik Schmäle besitzt zwei gleichzeitige Einträge in `currentOffices`.
+Gerhardt Lehrmann ist kein aktives Mitglied und erhält kein neues Profil.
 
 Pflichtfelder:
 
@@ -311,6 +315,9 @@ Pflichtfelder:
 - `langbiografie`
 - `bild`
 - `bildnachweis`
+- `current`
+- `currentOffices`
+- `formerOffices`
 
 Optionale Felder:
 
@@ -324,14 +331,23 @@ Format:
 {
   "slug": "max-mustermann",
   "name": "Max Mustermann",
-  "amt": "Staatsminister",
+  "amt": "Staatsrat",
   "ressort": "Bezeichnung des Ressorts",
   "reihenfolge": 10,
   "kurzbiografie": "Kurze Zusammenfassung.",
   "langbiografie": ["Absatz eins.", "Absatz zwei."],
   "bild": "/images/regierung/max-mustermann.jpg",
   "bildAlt": "Porträt von Max Mustermann",
-  "bildnachweis": "Staatsregierung",
+  "bildnachweis": "Staatsrat",
+  "current": true,
+  "currentOffices": [
+    {
+      "title": "Staatsrat für einen Geschäftsbereich",
+      "ministry": "Staatssekretariat für einen Geschäftsbereich",
+      "servingFrom": "2026-07-21"
+    }
+  ],
+  "formerOffices": [],
   "kontakt": {
     "email": "max.mustermann@example.test",
     "telefon": "+49 351 100-0000"
@@ -653,10 +669,10 @@ Format:
   "shortTitle": "Beispielgesetz",
   "abbr": "BspG",
   "type": "gesetz",
-  "ministry": "Landtag des Freistaates Ostdeutschland",
+  "ministry": "Volkskammer des Freistaates Ostdeutschland",
   "subjects": ["Landesrecht"],
   "keywords": ["Beispiel"],
-  "initialCitation": "Gesetz vom 17. April 2026",
+  "initialCitation": "Gesetz vom 17. April 2026 (OGVBl. 2026 Nr. 20 S. 2)",
   "predecessor": null,
   "successor": null,
   "enactedNorm": "eingefuehrte-stammnorm",
@@ -665,7 +681,7 @@ Format:
 }
 ```
 
-`enactedNorm` und `enactingNorm` kennzeichnen die wechselseitige Beziehung zwischen einem
+`enactedNorm`, `enactedNorms` und `enactingNorm` kennzeichnen die wechselseitige Beziehung zwischen einem
 Einführungs- oder Mantelgesetz und der dadurch eingeführten Stammnorm. Diese Beziehung ist keine
 Vorgänger-/Nachfolgerbeziehung und keine Berechtigung, beide Rechtsakte zusammenzuführen.
 
@@ -846,15 +862,25 @@ Bezirk-Karten und Tabellen erreichbar bleiben.
 Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfigurationsdateien:
 
 - `src/config/site.ts`: Portalname, Pfade, Navigation, Kontakt, Regierungsstammdaten
+- `src/config/editorial.json`: redaktioneller Stichtag
 - `src/config/features.ts`: Feature-Schalter für die optionale Webanalyse
 - `src/config/analytics.ts`: Analyse- und Consent-Konfiguration
 
 Diese Dateien nur ändern, wenn sich die Struktur oder zentrale Stammdaten ändern. Normale Seiteninhalte gehören nach `content/`.
 
-`scripts/import-normen.mjs` ist ein kontrolliertes Migrationswerkzeug für lokale Markdown-
-Extrakte. Das Quellverzeichnis muss mit `--source-dir` ausdrücklich angegeben werden. Ohne
-`--replace-output` läuft das Werkzeug nur prüfend; mit diesem Schalter ersetzt es den vollständigen
-Normbestand und darf deshalb nur nach gesonderter Sicherung und Quellenprüfung eingesetzt werden.
+`scripts/import-normen.mjs` ist der kontrollierte Importer für versionierte Markdown-Quellen unter
+`Gesetze/`. Er klassifiziert Verkündungsblätter, konsolidierte Einzelnormen, redaktionelle Dateien
+und mehrdeutige Quellen. Ohne `--write` läuft er ausschließlich prüfend. Schreiben ist nur mit
+einer gezielten `--file`-Angabe zulässig; vorhandene Datensätze werden erst mit
+`--update-existing` verändert. Es gibt keinen Modus, der den gesamten Normbestand automatisch
+löscht. PDF-Dateien werden nicht als Ersatz für fehlende verlässliche Markdown-Transkriptionen
+ausgewertet.
+
+```sh
+npm run norms:audit
+npm run norms:import -- --file "Gesetze/OGVBl. 2026 Nr. 58.md"
+npm run test:parser
+```
 
 ## Seitengerüst und feste UI-Texte
 

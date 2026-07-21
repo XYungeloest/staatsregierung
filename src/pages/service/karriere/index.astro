@@ -12,19 +12,19 @@ const standorte = [...new Set(offers.map((offer) => offer.standort))].sort((left
 const employmentTypes = [...new Set(offers.map((offer) => offer.employmentType))].sort((left, right) => left.localeCompare(right, 'de'));
 ---
 
-<BaseLayout title="Karriere" description="Karriere, Arbeitsfelder und aktuelle Stellenangebote der Staatsregierung des Ostdeutschen Freistaates." scripts={['portal-modules']}>
+<BaseLayout title="Karriere" description="Karriere, Arbeitsfelder und aktuelle Stellenangebote des Staatsrates des Ostdeutschen Freistaates." scripts={['portal-modules']}>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service', href: getServiceUrl() }, { label: 'Karriere' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Karriere</p>
-    <h1>Arbeiten für die Staatsregierung</h1>
+    <h1>Arbeiten für den Staatsrat</h1>
     <p class="lead">Der Karrierebereich informiert über Arbeitsfelder, Kontaktstellen und aktuelle Stellenangebote.</p>
   </section>
 
   <section class="section section-muted">
     <div class="section-header">
       <h2>Karriere in der Landesverwaltung</h2>
-      <p>Die Staatsregierung bündelt hier Hinweise zu Aufgabenfeldern, Verfahren und ausgeschriebenen Stellen.</p>
+      <p>Der Staatsrat bündelt hier Hinweise zu Aufgabenfeldern, Verfahren und ausgeschriebenen Stellen.</p>
     </div>
     <div class="card-grid card-grid--three">
       <article class="panel"><h3>Öffentliche Aufgaben</h3><p>Arbeitsfelder reichen von Verwaltung und Recht bis Kultur, Mobilität und Kommunikation.</p></article>

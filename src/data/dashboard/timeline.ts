@@ -200,14 +200,44 @@ const timelineEntrySeed: TimelineEntry[] = [
     href: getCabinetUrl(),
   },
   {
-    id: 'dritte-plenarsitzung-angesetzt',
+    id: 'dritte-plenarsitzung-gesetzespaket',
     date: '2026-07-20',
-    title: 'Zwölf Gesetzesberatungen für die dritte Plenarsitzung angesetzt',
-    type: 'projekt',
+    title: 'Zwölf Gesetze werden verkündet',
+    type: 'gesetz',
     summary:
-      'Die Tagesordnung sieht fünf zweite und sieben erste Lesungen vor. Die Ansetzung und die vorliegenden Beschlussempfehlungen nehmen kein Beratungsergebnis vorweg.',
-    ressort: 'Ostdeutscher Landtag',
+      'Die Ausgaben 46 bis 57 des Gesetz- und Verordnungsblattes dokumentieren die Verkündung der zwölf zuvor für die dritte Plenarsitzung angesetzten Vorhaben. Einzelne Abstimmungsergebnisse sind damit nicht dokumentiert.',
+    ressort: '7. Volkskammer',
+    href: getTopicUrl('staatsreform-und-verfassung'),
+  },
+  {
+    id: 'barlow-entlassung',
+    date: '2026-07-20',
+    title: 'Thomas Henry Barlow scheidet aus der Staatsorganisation aus',
+    type: 'kabinett',
+    summary:
+      'Thomas Henry Barlow wird als Staatsminister für Staats- und Grenzsicherheit entlassen und gehört dem am Folgetag entstehenden ersten Staatsrat nicht an.',
+    ressort: 'Staatskanzlei',
+    href: getCabinetUrl(),
+  },
+  {
+    id: 'erster-staatsrat',
+    date: '2026-07-21',
+    title: 'Erster Staatsrat nimmt die Arbeit auf',
+    type: 'kabinett',
+    summary:
+      'Mit dem Inkrafttreten der Großen Staatsreform wird die bisherige Staatsregierung übergangsweise zum ersten Staatsrat. Dr. Karl Honecker wird erster Staatspräsident.',
+    ressort: 'Staatskanzlei',
     href: getGovernmentUrl(),
+  },
+  {
+    id: 'sero-verordnung',
+    date: '2026-07-21',
+    title: 'SERO-Verordnung tritt in Kraft',
+    type: 'gesetz',
+    summary:
+      'Der Staatsrat schafft einen Rechtsrahmen für die Sekundärrohstoff-Erfassung und die landeseigene Kreislaufwirtschaftsinfrastruktur.',
+    ressort: 'Nachhaltigkeit und Energie',
+    href: getNormUrl('sero-verordnung'),
   },
 ];
 

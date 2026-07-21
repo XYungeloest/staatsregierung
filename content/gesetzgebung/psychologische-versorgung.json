@@ -5,12 +5,8 @@
   "documentNumber": "07/12",
   "initiator": "Staatsregierung",
   "introducedOn": "2026-05-29",
-  "stage": "zweite-lesung-angesetzt",
-  "statusLabel": "Zweite Lesung am 20. Juli 2026 angesetzt; Ausschuss empfiehlt Annahme.",
-  "nextScheduledReading": {
-    "date": "2026-07-20",
-    "reading": "zweite-lesung"
-  },
+  "stage": "in-kraft",
+  "statusLabel": "Beschlossen und am 20. Juli 2026 verkündet; seit dem Tag der Verkündung in Kraft.",
   "recommendation": {
     "documentNumber": "07/21",
     "result": "annahme"
@@ -28,9 +24,10 @@
       "availability": "missing"
     },
     {
-      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
-      "kind": "tagesordnung",
-      "availability": "missing"
+      "label": "OGVBl. 2026 Nr. 51",
+      "kind": "verkuendung",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 51.md",
+      "availability": "local"
     }
   ],
   "relatedTopics": [
@@ -40,6 +37,12 @@
   "relatedMinistries": [
     "soziale-und-gesundheitliche-fuersorge"
   ],
-  "relatedNorms": [],
-  "confirmedAsOf": "2026-07-19"
+  "relatedNorms": [
+    "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung"
+  ],
+  "confirmedAsOf": "2026-07-21",
+  "decidedOn": "2026-07-20",
+  "promulgatedOn": "2026-07-20",
+  "effectiveOn": "2026-07-20",
+  "publicationSlug": "ogvbl-2026-51"
 }

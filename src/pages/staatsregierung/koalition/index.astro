@@ -20,11 +20,11 @@ const priorities = [
 ];
 ---
 
-<BaseLayout title="Koalition" description="Koalitionsrahmen der aktuellen Staatsregierung.">
+<BaseLayout title="Koalition" description="Koalitionsrahmen des aktuellen Staatsrates.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
       { label: 'Koalition' },
     ]}
   />
@@ -36,7 +36,7 @@ const priorities = [
     variant="government"
     facts={[
       { label: 'Kurzbezeichnung', value: siteConfig.currentGovernment.coalitionShort },
-      { label: 'Kabinettsbildung', value: siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn) },
+      { label: 'Übergang zum Staatsrat', value: siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn) },
       { label: 'Legislatur', value: siteConfig.currentGovernment.legislature },
       { label: 'Sitze seit 5. Juli 2026', value: `${siteConfig.currentGovernment.coalitionSeats} von ${siteConfig.currentGovernment.parliamentSeats}` },
     ]}
@@ -77,7 +77,7 @@ const priorities = [
   <section class="section">
       <div class="section-header">
         <h2>Gemeinsame Leitlinien</h2>
-        <p>Die Koalition gibt den politischen Rahmen vor, innerhalb dessen Regierung, Themen und Rechtsordnung fortentwickelt werden.</p>
+        <p>Die Koalition gibt den politischen Rahmen vor, innerhalb dessen Staatsrat, Themen und Rechtsordnung fortentwickelt werden.</p>
       </div>
     <ul class="record-list">
       {priorities.map((priority) => <li class="record-list__item"><strong>{priority}</strong></li>)}

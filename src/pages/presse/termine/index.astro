@@ -11,14 +11,14 @@ const { upcoming, past } = splitEventsByDate(await loadEvents());
 
 <BaseLayout
   title="Termine"
-  description="Zukünftige öffentliche Termine und das Terminarchiv der Staatsregierung des Ostdeutschen Freistaates."
+  description="Zukünftige öffentliche Termine und das Terminarchiv des Staatsrates des Ostdeutschen Freistaates."
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse & Aktuelles', href: getPressUrl() }, { label: 'Termine' }]} />
 
   <section class="section page-header">
     <p class="eyebrow">Presse &amp; Aktuelles</p>
     <h1>Termine</h1>
-    <p class="lead">Öffentliche Termine, Pressekonferenzen und Veranstaltungen der Staatsregierung.</p>
+    <p class="lead">Öffentliche Termine, Pressekonferenzen und Veranstaltungen des Staatsrates.</p>
     <nav class="hero-actions" aria-label="Terminangebote">
       <a class="button-link button-link--secondary" href={`${getEventIndexUrl()}kalender.ics`}>Kalender abonnieren</a>
     </nav>

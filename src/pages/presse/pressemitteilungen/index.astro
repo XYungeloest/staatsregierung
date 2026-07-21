@@ -35,7 +35,7 @@ const tags = [...new Set(releases.flatMap((release) => release.tags))].sort((lef
 
 <BaseLayout
   title="Pressemitteilungen"
-  description="Pressemitteilungen der Staatsregierung."
+  description="Pressemitteilungen des Staatsrates."
   scripts={['portal-modules']}
 >
   <Breadcrumbs
@@ -50,7 +50,7 @@ const tags = [...new Set(releases.flatMap((release) => release.tags))].sort((lef
     <p class="eyebrow">Presse & Aktuelles</p>
     <h1>Pressemitteilungen</h1>
     <p class="lead">
-      Hier finden Sie aktuelle Meldungen der Staatsregierung mit Veröffentlichungsdatum,
+      Hier finden Sie aktuelle Meldungen des Staatsrates mit Veröffentlichungsdatum,
       herausgebender Stelle und zugehörigen Themen.
     </p>
     <nav class="hero-actions" aria-label="Presseangebote">
@@ -62,7 +62,7 @@ const tags = [...new Set(releases.flatMap((release) => release.tags))].sort((lef
     <section class="section section-muted">
       <div class="section-header">
         <h2>Hervorgehobene Meldung</h2>
-        <p>Wichtige Mitteilungen der Staatsregierung werden auf der Übersichtsseite besonders sichtbar hervorgehoben.</p>
+        <p>Wichtige Mitteilungen des Staatsrates werden auf der Übersichtsseite besonders sichtbar hervorgehoben.</p>
       </div>
       <PressReleaseCard release={leadRelease} variant="featured" />
       {secondaryFeatured.length > 0 ? (

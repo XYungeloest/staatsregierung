@@ -1,12 +1,13 @@
-# Staatsregierung des Ostdeutschen Freistaates
+# Staatsrat des Ostdeutschen Freistaates
 
-Website der fiktiven Staatsregierung des Ostdeutschen Freistaates mit Regierungsportal, Rechtsbereich, Presse, Haushalt und Service.
+Website des fiktiven Staatsrates des Ostdeutschen Freistaates mit Staatsportal, Rechtsbereich, Presse, Haushalt und Service.
 
 Die öffentliche Website soll sachlich, ruhig und behördennah wirken. Architektur- und Entwicklungsbegriffe gehören nicht in öffentliche Seitentexte; operative Hinweise bleiben in Code, README, AGENTS oder `CONTENT.md`.
 
 Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
-Der quellengebundene Stichtagsimport vom 19. Juli 2026 ist in
-`CONTENT_UPDATE_2026-07-19.md` bilanziert; offene Quellenfragen stehen in `CONTENT_GAPS.md`.
+Der aktuelle redaktionelle Stand ist der 21. Juli 2026. Der frühere Stichtagsimport vom
+19. Juli 2026 bleibt in `CONTENT_UPDATE_2026-07-19.md` historisch dokumentiert; aktuelle offene
+Quellenfragen stehen in `CONTENT_GAPS.md`.
 
 ## Projektkern
 
@@ -106,6 +107,9 @@ context/
 - Parlamentarische Verfahren liegen unter `content/gesetzgebung/[slug].json`. Ihr Status wird aus
   belegten Drucksachen, Empfehlungen und Tagesordnungen gepflegt und ändert sich nicht allein mit
   dem Ablauf eines angesetzten Sitzungstermins.
+- Die versionierten Markdown-Transkriptionen unter `Gesetze/` sind die regulären Importquellen für
+  Verkündungsblätter und konsolidierte Einzelnormen. PDF-Dateien werden nicht ersatzweise automatisch
+  als scheinbar verlässlicher Volltext ausgewertet.
 
 Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen gespeichert.
 
@@ -115,6 +119,7 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
 ## Zentrale Konfiguration
 
 - `src/config/site.ts`: Portaltexte, Pfade, Navigation, Kontakt, Regierungsstammdaten
+- `src/config/editorial.json`: zentraler redaktioneller Stichtag
 - `src/config/features.ts`: Feature-Flag für die optionale Webanalyse
 - `src/config/analytics.ts`: Consent und Webanalyse-Konfiguration
 - `src/lib/portal/routes.ts`: zentrale Portalpfade
@@ -126,7 +131,12 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
 Für öffentliche Übersichten werden Termine und Stellenangebote über
 `src/lib/portal/dates.ts` gegen den redaktionellen Stichtag gefiltert. Vergangene Termine und
 abgelaufene Fristen bleiben im Archiv erreichbar, werden aber nicht als aktuell ausgegeben.
-Der derzeitige Stichtag ist der 19. Juli 2026.
+Der derzeitige Stichtag ist der 21. Juli 2026.
+
+Der Normimport ist standardmäßig ein schreibfreier Audit. `npm run norms:audit` klassifiziert die
+Quellen und zeigt erkannte Normen und geplante Änderungen. Schreiben ist nur gezielt mit
+`npm run norms:import -- --file "Gesetze/…md"` möglich; vorhandene Datensätze werden nur mit dem
+zusätzlichen Flag `--update-existing` verändert. Der Import löscht den Normbestand nicht.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter

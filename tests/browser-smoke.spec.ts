@@ -60,15 +60,15 @@ test('Kreisreform bleibt ohne Karte nutzbar', async ({ page }) => {
 test('Lokale Bereichsnavigation und Ministeriumsverzeichnis sind vollständig zugänglich', async ({ page }) => {
   await page.goto('/staatsregierung/kabinett/');
 
-  const navigation = page.getByRole('navigation', { name: 'Staatsregierung' });
+  const navigation = page.getByRole('navigation', { name: 'Staatsrat' });
   await expect(navigation).toBeVisible();
-  await expect(navigation.getByRole('link', { name: 'Kabinett & Ressorts' })).toHaveAttribute('aria-current', 'page');
+  await expect(navigation.getByRole('link', { name: 'Staatsrat & Geschäftsbereiche' })).toHaveAttribute('aria-current', 'page');
 
   const directory = page.locator('[data-ministry-directory]');
   await expect(directory).toBeVisible();
   await expect(directory.locator('.ministry-directory__item')).toHaveCount(12);
   await expect(directory).toContainText('Max Peterson');
-  await expect(directory.getByRole('link', { name: /Staatsministerium für Wirtschaft/ }).first()).toBeVisible();
+  await expect(directory.getByRole('link', { name: /Staatssekretariat für Wirtschaft/ }).first()).toBeVisible();
 });
 
 test('Regierungsprofil verbindet Porträt, Amt, Status und Kontakt im sichtbaren Kopf', async ({ page }) => {
@@ -81,7 +81,7 @@ test('Regierungsprofil verbindet Porträt, Amt, Status und Kontakt im sichtbaren
   await expect(hero.locator('figure')).toHaveCount(1);
   await expect(hero.locator('figcaption')).toHaveText('Bildnachweis: Staatsregierung');
   await expect(hero.locator('img')).toHaveAttribute('alt', 'Porträt von Max Peterson');
-  await expect(hero).toContainText('Aktuelles Kabinettsmitglied');
+  await expect(hero).toContainText('Aktuelles Mitglied des ersten Staatsrates');
   await expect(hero.getByRole('link', { name: /@/ })).toBeVisible();
 });
 
@@ -104,7 +104,7 @@ test('Bildnachweise bleiben beim Hero-Bild und nicht hinter der Bereichsnavigati
   ]) {
     await page.goto(path);
     const hero = page.locator('.section-hero');
-    await expect(hero.locator('figure .section-hero__credit')).toHaveText('Bildnachweis: Staatsregierung');
+    await expect(hero.locator('figure .section-hero__credit')).toHaveText(/^Bildnachweis: (?:Staatsregierung|Staatsrat)$/u);
     await expect(page.locator('.section-navigation + p.media-credit')).toHaveCount(0);
     await expect(page.locator('main > p.media-credit')).toHaveCount(0);
   }
@@ -133,21 +133,30 @@ test('Rechts- und Portalsuche liefern weiterhin Treffer', async ({ page }) => {
   await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
 });
 
-test('Kabinettsumbildung und historische Amtszeiten bleiben nachvollziehbar', async ({ page }) => {
+test('Erster Staatsrat und historische Amtszeiten bleiben nachvollziehbar', async ({ page }) => {
   await page.goto('/staatsregierung/kabinett/');
   const members = page.locator('[data-visual-section="cabinet-members"]');
   await expect(members).toContainText('Volker Bagdadi');
   await expect(members).toContainText('Yannik Schmäle');
-  await expect(members).toContainText('Thomas Henry Barlow');
+  await expect(members).not.toContainText('Thomas Henry Barlow');
   await expect(members).not.toContainText('Mia Wollrath');
-  await expect(page.getByText('11 von 15', { exact: true })).toBeVisible();
+  await expect(page.getByText('10', { exact: true }).first()).toBeVisible();
+
+  await page.goto('/staatsregierung/mitglieder/yannik-schmaele/');
+  const schmaeleHero = page.locator('.section-hero');
+  await expect(schmaeleHero).toContainText('Staatsrat für Nachhaltigkeit und Energie');
+  await expect(schmaeleHero).toContainText('Staatsrat für Staats- und Grenzsicherheit');
+
+  await page.goto('/staatsregierung/mitglieder/thomas-henry-barlow/');
+  await expect(page.locator('.section-hero')).toContainText('Historisches Regierungsprofil');
+  await expect(page.locator('.section-hero')).toContainText('20. Juli 2026');
 
   await page.goto('/staatsregierung/mitglieder/mia-wollrath/');
   await expect(page.locator('.section-hero')).toContainText('Historisches Regierungsprofil');
   await expect(page.getByText(/bis zum 19\. Mai 2026/iu).first()).toBeVisible();
 });
 
-test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 19. Juli 2026 ab', async ({ page }) => {
+test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 21. Juli 2026 ab', async ({ page }) => {
   await page.goto('/recht/norm/verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n/');
   await expect(page.getByText(/außer Kraft seit/iu).first()).toBeVisible();
 
@@ -156,14 +165,23 @@ test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 19. Juli 2026 ab', as
 
   await page.goto('/suche/?q=07%2F17&type=legislation');
   await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
-  await expect(page.locator('.search-hit').first()).toContainText('Erste Lesung am 20. Juli 2026 angesetzt');
+  await expect(page.locator('.search-hit').first()).toContainText('Beschlossen und am 20. Juli 2026 verkündet');
+
+  await page.goto('/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/');
+  await expect(page.getByText(/Siebte Volkskammer ist der siebte Landtag/u)).toBeVisible();
+  await expect(page.getByText(/Artikel 75a/u).first()).toBeVisible();
+
+  await page.goto('/recht/norm/sero-verordnung/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Sekundärrohstoff-Erfassung');
+  await expect(page.getByText('SERO-Verordnung', { exact: true }).first()).toBeVisible();
+  await expect(page.getByText(/in Kraft/u).first()).toBeVisible();
 });
 
 test('Kalender, Sitemap und strukturierte Termindaten enthalten den neuen Stand', async ({ page, request }) => {
   const calendar = await request.get('/presse/termine/kalender.ics');
   expect(calendar.ok()).toBe(true);
   const calendarText = await calendar.text();
-  expect(calendarText).toContain('Dritte Plenarsitzung des 7. Ostdeutschen Landtags');
+  expect(calendarText).not.toContain('Dritte Plenarsitzung der 7. Wahlperiode');
 
   const sitemap = await request.get('/sitemap.xml');
   expect(sitemap.ok()).toBe(true);
@@ -176,6 +194,6 @@ test('Kalender, Sitemap und strukturierte Termindaten enthalten den neuen Stand'
   const structuredData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>
     scripts.map((script) => script.textContent ?? '').join('\n'),
   );
-  expect(structuredData).toContain('EventScheduled');
-  await expect(page.getByRole('heading', { name: 'Angesetzte Gesetzesberatungen' })).toBeVisible();
+  expect(structuredData).toContain('EventCompleted');
+  await expect(page.getByRole('heading', { name: 'Behandelte Gesetzesvorhaben' })).toBeVisible();
 });

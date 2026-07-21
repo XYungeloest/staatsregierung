@@ -13,11 +13,11 @@ const { ministries } = Astro.props as Props;
   <header class="home-info-card__header">
     <div>
       <p class="eyebrow">Ressorts</p>
-      <h2 id="home-ministries-title">Ihre Ministerien</h2>
+      <h2 id="home-ministries-title">Ihre Staatssekretariate</h2>
     </div>
     <a href={getMinistriesUrl()}>Alle anzeigen <span aria-hidden="true">→</span></a>
   </header>
-  <nav class="home-ministry-list" aria-label="Ausgewählte Ministerien">
+  <nav class="home-ministry-list" aria-label="Ausgewählte Staatssekretariate">
     {ministries.map((ministry) => (
       <a href={getMinistryUrl(ministry.slug)}>
         <PortalIcon name="ministry" />

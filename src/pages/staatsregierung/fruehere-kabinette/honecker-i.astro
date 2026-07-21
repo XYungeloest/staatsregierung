@@ -36,7 +36,7 @@ const ministries = Object.values(ministryModules)
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
       { label: 'Frühere Kabinette', href: getPreviousCabinetsUrl() },
       { label: 'Kabinett Honecker I' },
     ]}
@@ -47,7 +47,7 @@ const ministries = Object.values(ministryModules)
     <h1>{archive.cabinetName}</h1>
     <p class="lead">{archive.summary}</p>
     <nav class="hero-actions" aria-label="Archivnavigation">
-      <a class="button-link" href={getCabinetUrl()}>Aktuelles Kabinett Honecker II</a>
+      <a class="button-link" href={getCabinetUrl()}>Zum aktuellen ersten Staatsrat</a>
       <a class="button-link button-link--secondary" href={getActionPlanUrl()}>Aktueller 15-Punkte-Plan II</a>
     </nav>
   </section>

@@ -165,8 +165,8 @@ const relatedProcedures = topic
     {relatedProcedures.length > 0 ? (
       <section id="gesetzgebung" class="section section-muted" aria-labelledby="gesetzgebung-title">
         <div class="section-header">
-          <h2 id="gesetzgebung-title">Parlamentarische Verfahren</h2>
-          <p>Bestätigter Stand am 19. Juli 2026. Angesetzte Beratungen nehmen kein Ergebnis vorweg.</p>
+          <h2 id="gesetzgebung-title">Rechtsstand der Vorhaben</h2>
+          <p>Bestätigter Stand am 21. Juli 2026. Beschluss, Verkündung und Inkrafttreten werden getrennt ausgewiesen.</p>
         </div>
         <ul class="record-list">
           {relatedProcedures.map((procedure) => (
@@ -174,7 +174,7 @@ const relatedProcedures = topic
               <strong>{procedure.shortTitle}</strong>
               <span>Drucksache {procedure.documentNumber} · {procedure.statusLabel}</span>
               {procedure.recommendation ? <span>Beschlussempfehlung {procedure.recommendation.documentNumber}: Annahme empfohlen</span> : null}
-              {procedure.proposedCommittee ? <span>Vorgeschlagene Überweisung: {procedure.proposedCommittee}</span> : null}
+              {procedure.proposedCommittee ? <span>Bei Einbringung vorgeschlagene Überweisung: {procedure.proposedCommittee}</span> : null}
             </li>
           ))}
         </ul>

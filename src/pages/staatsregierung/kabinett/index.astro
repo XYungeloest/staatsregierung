@@ -26,9 +26,9 @@ const [members, ministries, topics] = await Promise.all([
   loadTopics(),
 ]);
 const currentGovernment = siteConfig.currentGovernment;
-const cabinetMembers = members.filter((member) => member.slug !== 'emma-mueller');
+const stateCouncilMembers = members.filter((member) => member.slug !== 'emma-mueller');
 const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
-const stateMinistryCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
+const stateSecretariatCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const topicHighlights = [
   'wohnen-und-vergesellschaftung',
@@ -41,29 +41,29 @@ const topicHighlights = [
 });
 ---
 
-<BaseLayout title="Kabinett Honecker II" description="Kabinettsübersicht der aktuellen Staatsregierung.">
+<BaseLayout title="Erster Staatsrat" description="Mitglieder und Geschäftsbereiche des ersten Staatsrates.">
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsregierung', href: getGovernmentUrl() },
-      { label: 'Kabinett Honecker II' },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Erster Staatsrat' },
     ]}
   />
 
   <SectionHero
-    eyebrow="Kabinett"
+    eyebrow="Staatsrat"
     title={currentGovernment.cabinetName}
-    lead={`Seit dem ${siteConfig.date.formatLong(currentGovernment.formedOn)} führt das Kabinett die Staatsregierung und die Arbeit der Ministerien.`}
+    lead={`Seit dem ${siteConfig.date.formatLong(currentGovernment.formedOn)} leitet der erste Staatsrat die vollziehende Gewalt und seine Staatssekretariate.`}
     variant="government"
     facts={[
-      { label: 'Gebildet', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
+      { label: 'Übergang', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
       { label: 'Koalition', value: currentGovernment.coalitionShort },
       { label: 'Leitung', value: currentGovernment.headOfGovernment },
       { label: 'Regierungssitz', value: currentGovernment.seatOfGovernment },
-      { label: 'Staatsministerien', value: String(stateMinistryCount) },
+      { label: 'Staatssekretariate', value: String(stateSecretariatCount) },
       { label: 'Koalitionssitze', value: `${currentGovernment.coalitionSeats} von ${currentGovernment.parliamentSeats}` },
     ]}
-    actions={[{ label: 'Ministeriumsverzeichnis', href: '#ministerien', primary: true }]}
+    actions={[{ label: 'Staatssekretariatsverzeichnis', href: '#ministerien', primary: true }]}
   />
   <GovernmentNavigation />
 
@@ -74,9 +74,9 @@ const topicHighlights = [
       </div>
       <div class="body-copy">
         <p>
-          Das Kabinett Honecker II löste das {currentGovernment.predecessor} ab. Es verbindet die
-          Sicherung der ersten Aufbauphase mit neuen Schwerpunkten bei Wohnen, guter Arbeit,
-          öffentlicher Wirtschaft, sozialer Sicherheit, Energie und regionaler Entwicklung.
+          Der erste Staatsrat ging am 21. Juli 2026 unmittelbar aus dem {currentGovernment.predecessor}
+          hervor. Die bisherigen Mitglieder wurden nach der Übergangsvorschrift der Staatsverfassung
+          bis zur Wahl eines Staatsrates in das neue Verfassungsorgan übergeleitet.
         </p>
         <p>
           Leitung, Ressorts und politische Vorhaben werden gemeinsam dargestellt. So werden
@@ -93,11 +93,11 @@ const topicHighlights = [
 
     <aside class="section meta-panel">
       <div class="section-header section-header--compact">
-        <h2>Kabinettsdaten</h2>
+        <h2>Daten des Staatsrates</h2>
       </div>
       <dl class="meta-list">
         <div>
-          <dt>Gebildet</dt>
+          <dt>Übergeleitet</dt>
           <dd><time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time></dd>
         </div>
         <div>
@@ -105,8 +105,8 @@ const topicHighlights = [
           <dd>{currentGovernment.predecessor}</dd>
         </div>
         <div>
-          <dt>Staatsminister:innen</dt>
-          <dd>{cabinetMembers.length}</dd>
+          <dt>Mitglieder des Staatsrates</dt>
+          <dd>{stateCouncilMembers.length}</dd>
         </div>
       </dl>
       <p><a class="inline-link" href={getPreviousCabinetsUrl()}>Frühere Kabinette</a></p>
@@ -122,34 +122,36 @@ const topicHighlights = [
       <li class="record-list__item"><strong><time datetime="2026-05-19">19. Mai 2026</time></strong><span>Thomas Henry Barlow übernimmt Staats- und Grenzsicherheit sowie vorübergehend das Innenressort; Mia Wollrath scheidet aus dem Kabinett aus.</span></li>
       <li class="record-list__item"><strong><time datetime="2026-07-05">5. Juli 2026</time></strong><span>Die Koalition verfügt nach den dokumentierten Fraktionsübertritten über elf von fünfzehn Sitzen.</span></li>
       <li class="record-list__item"><strong><time datetime="2026-07-07">7. Juli 2026</time></strong><span>Volker Bagdadi übernimmt Inneres und Wohnungswirtschaft; Yannik Schmäle übernimmt Nachhaltigkeit und Energie.</span></li>
+      <li class="record-list__item"><strong><time datetime="2026-07-20">20. Juli 2026</time></strong><span>Thomas Henry Barlow wird entlassen und gehört dem ersten Staatsrat nicht an.</span></li>
+      <li class="record-list__item"><strong><time datetime="2026-07-21">21. Juli 2026</time></strong><span>Das Kabinett Honecker II geht in den ersten Staatsrat über; Yannik Schmäle übernimmt zusätzlich Staats- und Grenzsicherheit.</span></li>
     </ol>
   </section>
 
   <section id="ministerien" class="section section-muted" data-visual-section="cabinet-ministry-directory">
     <div class="section-header">
-      <h2>Ministeriumsverzeichnis</h2>
-      <p>Alle Ressortangaben werden aus den zentral gepflegten Ministeriumsdaten übernommen.</p>
+      <h2>Verzeichnis der Staatssekretariate</h2>
+      <p>Alle Geschäftsbereiche und Leitungen werden aus den zentral gepflegten Ressortdaten übernommen.</p>
     </div>
     <MinistryDirectory ministries={ministries} />
   </section>
 
   <section class="section" data-visual-section="cabinet-members">
     <div class="section-header">
-      <h2>Mitglieder der Staatsregierung</h2>
-      <p>Die Profile bilden die aktuelle personelle Zusammensetzung des Kabinetts ab.</p>
+      <h2>Mitglieder des Staatsrates</h2>
+      <p>Die Profile bilden die aktuelle personelle Zusammensetzung des ersten Staatsrates ab.</p>
     </div>
     <div class="card-grid card-grid--two">
-      {cabinetMembers.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
+      {stateCouncilMembers.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
     </div>
     <p class="detail-line">
-      <a class="inline-link" href={getGovernmentMembersUrl()}>Alle Regierungsmitglieder mit Profilen</a>
+      <a class="inline-link" href={getGovernmentMembersUrl()}>Alle Mitglieder mit Profilen</a>
     </p>
   </section>
 
   <section class="section section-muted">
     <div class="section-header">
       <h2>Leitung der Staatskanzlei</h2>
-      <p>Die Chefin der Staatskanzlei wird getrennt von den elf Staatsminister:innen ausgewiesen.</p>
+      <p>Die Chefin der Staatskanzlei wird getrennt von den Mitgliedern des Staatsrates ausgewiesen.</p>
     </div>
     <div class="card-grid card-grid--two">
       {chancelleryLeadership.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
@@ -159,10 +161,10 @@ const topicHighlights = [
 
   <section class="section">
     <div class="section-header">
-      <h2>Regierungsprojekte im Kabinettszuschnitt</h2>
+      <h2>Vorhaben in der Struktur des Staatsrates</h2>
       <p>
         Themen und Projekte sind nicht losgelöst, sondern klar an federführende Ressorts und
-        Kabinettsstrukturen angebunden.
+        Geschäftsbereiche angebunden.
       </p>
     </div>
     <div class="card-grid card-grid--two">

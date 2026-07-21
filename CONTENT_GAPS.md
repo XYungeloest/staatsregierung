@@ -1,77 +1,118 @@
 # Offene Quellenfragen
 
-**Redaktioneller Stand:** 19. Juli 2026
-**Zuletzt geprüft:** 19. Juli 2026
+**Redaktioneller Stand:** 21. Juli 2026
+**Zuletzt geprüft:** 21. Juli 2026
 
-Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden im Portal nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
+Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
+nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
 
 ## 1. Redaktionell offene Primärquellen
 
 Belegt:
 
-- Die Beschlussempfehlungen 07/18 bis 07/21 sind im bereitgestellten Quellenbestand nicht als Original-PDF vorhanden.
-- Die amtliche Tagesordnung der dritten Plenarsitzung am 20. Juli 2026 liegt nicht als dauerhaft versionierte lokale Primärdatei vor.
-- `OGVBl II-24.pdf` und `OGVBl I-25.pdf` sind bildbasierte Ausgaben. Für elf darin enthaltene ältere Dokumente liegt kein verlässlich maschinenlesbarer Volltext vor.
-- Die Datei `Verfassung des Ostdeutschen Freistaates.pdf` enthält einen Verfassungstext, aber keine eindeutig belegte amtliche Fundstelle und kein zweifelsfrei belegtes Verkündungsdatum.
-- Für mehrere ältere Stammnormen, darunter das Landesplanungsgesetz, die Landkreisordnung und das Verwaltungsorganisationsgesetz, fehlen im bereitgestellten Bestand vollständige Primärnachweise zu Normdatum, Veröffentlichung und Inkrafttreten.
-- Für das polnische und das tschechische Grenzraumabkommen ist der für das Inkrafttreten erforderliche Austausch der Notifikationen nicht nachgewiesen. Für den NDR-Änderungs- und Überleitungsstaatsvertrag ist der Austausch der Ratifikationsurkunden nicht nachgewiesen.
+- Die Beschlussempfehlungen 07/18 bis 07/21 sind im bereitgestellten Quellenbestand nicht als
+  Original-PDF vorhanden.
+- Ein Plenarprotokoll und die einzelnen Abstimmungsergebnisse der dritten Plenarsitzung vom
+  20. Juli 2026 liegen nicht vor.
+- Die Ausgaben OGVBl. 2026 Nr. 46 bis 58 liegen als versionierte Markdown-Transkriptionen unter
+  `Gesetze/` vor. Die zugehörigen Original-PDFs sind nicht Bestandteil des Repositorys.
+- `OGVBl II-24.pdf` und `OGVBl I-25.pdf` sind bildbasierte Alt-Ausgaben. Für elf darin enthaltene
+  ältere Dokumente liegt weiterhin kein redaktionell geprüfter maschinenlesbarer Volltext vor.
+- Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
+  Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
+  Veröffentlichung oder Inkrafttreten.
+- Für das polnische und das tschechische Grenzraumabkommen ist der für das Inkrafttreten
+  erforderliche Austausch der Notifikationen nicht nachgewiesen. Für den NDR-Änderungs- und
+  Überleitungsstaatsvertrag ist der Austausch der Ratifikationsurkunden nicht nachgewiesen.
 
 Schlussfolgerung:
 
-- Geänderte Gesetzeswortlaute, Ausschusszuständigkeiten und Beschlussergebnisse werden aus den fehlenden Beschlussempfehlungen nicht rekonstruiert.
-- Die Alt-Ausgaben werden erst nach einer redaktionell geprüften Transkription als vollständige Normfassungen ergänzt.
-- Die Verfassung und die weiteren Stammnormen erhalten keine erfundene Fundstelle oder Datumsangabe.
-- Die drei bedingt wirksamen Staatsverträge werden als veröffentlicht, aber nicht als geltender Rechtsstand ausgewiesen.
-- Bei Änderungsgesetzen ohne vollständig belegte Stammfassung wird keine frei rekonstruierte konsolidierte Fassung erstellt.
+- Die Ausgaben 46 bis 58 und ihre Normtexte werden aus den versionierten Markdown-Transkriptionen
+  gepflegt. Eine PDF-Extraktion wird nicht als Ersatzquelle verwendet.
+- Die Verkündungsblätter 46 bis 57 belegen Beschluss und Verkündung der zwölf zuvor angesetzten
+  Vorhaben. Nicht belegte Abstimmungsverläufe oder Stimmenzahlen werden nicht ergänzt.
+- Die Alt-Ausgaben werden erst nach einer redaktionell geprüften Transkription als vollständige
+  Normfassungen ergänzt.
+- Bei Änderungsgesetzen ohne vollständig belegte Ausgangsfassung wird keine frei rekonstruierte
+  konsolidierte Fassung erstellt.
+- Die drei bedingt wirksamen Staatsverträge bleiben veröffentlicht, aber ohne belegtes
+  Inkrafttreten.
 
-## 2. Noch nicht eingetretene beziehungsweise nicht belegte parlamentarische Ergebnisse
+## 2. Nicht belegte parlamentarische Einzelergebnisse
 
 Belegt:
 
-- Die Tagesordnung setzt am 20. Juli 2026 zwölf Beratungen an: fünf zweite und sieben erste Lesungen.
-- Für fünf Vorgänge ist eine Annahmeempfehlung angegeben. Eine Empfehlung ist weder ein Gesetzesbeschluss noch eine Verkündung.
-- Für das Kreis- und Bezirksneuordnungsgesetz ist nur die vorgeschlagene Überweisung an den Ausschuss für Inneres und Kommunen belegt.
-- Zum redaktionellen Stichtag liegt naturgemäß noch kein Ergebnisprotokoll der Sitzung vom 20. Juli 2026 vor.
+- Die Tagesordnung setzte für den 20. Juli 2026 zwölf Beratungen an.
+- Die Ausgaben OGVBl. 2026 Nr. 46 bis 57 dokumentieren die anschließende Verkündung dieser zwölf
+  Vorhaben.
+- Die amtlichen Verkündungen erlauben die Statusangaben „beschlossen“ und „verkündet“ sowie die aus
+  den Schlussvorschriften abgeleiteten Wirksamkeitsangaben.
+- Ein Plenarprotokoll mit Redebeiträgen, Änderungsanträgen, Einzelabstimmungen und Stimmenzahlen
+  liegt nicht vor.
 
 Schlussfolgerung:
 
-- Alle zwölf Vorgänge bleiben im Status „angesetzt“.
-- Kein Vorgang wird allein durch Zeitablauf, Tagesordnung oder Annahmeempfehlung als beschlossen, verkündet oder in Kraft geführt.
-- Nachzureichen sind Plenarprotokoll, Abstimmungsergebnisse, gegebenenfalls beschlossene Fassungen, Ausfertigungen und die späteren Verkündungsblätter.
+- Die zwölf Vorgänge werden nicht mehr als lediglich angesetzt dargestellt.
+- Abstimmungsergebnisse, Beratungsverläufe oder nicht aus der Verkündung erkennbare Ausschussdetails
+  werden weiterhin nicht behauptet.
+- Die Drucksachen und Beschlussempfehlungen bleiben historische Verfahrensquellen; für den aktuellen
+  Rechtsstand sind die Verkündungsblätter maßgeblich.
 
 ## 3. Technische Quellenverfügbarkeit im Repository
 
 Belegt:
 
-- Die zur Redaktion verwendeten Original-PDFs im lokalen Arbeitsordner `Gesetze/` sind nicht Bestandteil des versionierten Repositorys. Der Ordner ist ausdrücklich als lokaler Import- und Arbeitsordner ignoriert.
-- Die 81 Ausgabedatensätze behaupten deshalb keine lokalen `sourceFiles` mehr. Sie kennzeichnen das amtliche Original als „nicht mitversioniert“ und verweisen zusätzlich auf die festgeschriebene Liste der Verkündungsblätter als externen Index.
-- Versionierte lokale Quellenpfade sind nur in den Gesetzgebungsvorgängen vorhanden und zeigen auf Dateien unter `context/entwürfe/`.
-- Der Content-Checker prüft lokale Quellenpfade gegen den Git-Dateibestand und gegen den aktuellen Checkout. Ein fehlender oder nicht versionierter lokaler Pfad ist ein Fehler.
-- Das Importwerkzeug akzeptiert ein Quellenverzeichnis nur noch ausdrücklich über `--source-dir`; ohne `--replace-output` führt es ausschließlich einen Prüflauf aus.
+- Die 98 Markdown-Dateien unter `Gesetze/` sind versioniert. Die Ausgaben 46 bis 58 und
+  `Staatsverfassung.md` dienen als lokale strukturierte Importquellen.
+- Ein `sourceFiles`-Eintrag ist nur zulässig, wenn die angegebene Datei im Git-Bestand und im
+  Checkout vorhanden ist. Der Content-Checker prüft beides.
+- Die neuen Ausgabedatensätze verweisen über `sourceReferences` auf die versionierte
+  Markdown-Transkription. Nicht mitversionierte Original-PDFs werden nicht als lokale Datei
+  behauptet.
+- Der Normimport läuft standardmäßig nur als Audit. Schreiben erfordert `--write` und eine gezielte
+  `--file`-Angabe; vorhandene Normen werden erst mit `--update-existing` verändert.
+- Der vollständige Audit meldet mehrere ältere OABl.-, StAnzO.- und einzelne OGVBl.-Dateien als
+  mehrdeutig. Diese Dateien werden nicht automatisch importiert.
 
 Schlussfolgerung:
 
-- Ein sauberer Checkout benötigt keinen privaten Ordner `Gesetze/` für `npm run content:check`.
-- Die amtlichen Original-PDFs sind redaktionell weiterhin aufzubewahren. Eine spätere Aufnahme in das Repository erfordert eine gesonderte Speicher-, Lizenz- und Veröffentlichungsentscheidung.
+- `npm run content:check` benötigt keine privaten lokalen PDF-Quellen.
+- Mehrdeutige Altquellen bleiben unverändert, bis ihr Aufbau redaktionell geprüft und ein
+  passender Parserfall ergänzt wurde.
+- Der Import löscht den vorhandenen Normbestand nicht und erzeugt keine instabilen Suffix-Slugs.
 
 ## 4. Bekannte Widersprüche in den Quellen
 
 Belegt:
 
-- StAnzO. 2026 Nr. 13 enthält 19. Mai 2026 im Kopf beziehungsweise Inhaltsverzeichnis, 27. Mai 2026 in der Überschrift und 19. Mai 2026 in der Unterschriftszeile. Das Ausgabedatum ist der 27. Mai 2026.
-- Beim Helsinki-Übereinkommen nennt das Verkündungsblattregister den 14. Juli 1994, der Kopf des lokalen Originals den 14. Juli 1992 und der Vertragstext den 9. April 1992 als Abschlussdatum.
-- Die lokale Entwurfsdatei zu Drucksache 07/27 nennt den 15. Juli 2025, obwohl der Vorgang dem 7. Landtag im Juli 2026 zugeordnet ist.
+- OGVBl. 2026 Nr. 53 bezeichnet in Artikel 121a die „achte Volkskammer“ als achten Landtag. Die
+  bereitgestellte konsolidierte Datei `Gesetze/Staatsverfassung.md` und die verbindliche
+  redaktionelle Übergangsangabe nennen dagegen die siebte Volkskammer und den siebten Landtag.
+- StAnzO. 2026 Nr. 13 enthält 19. Mai 2026 im Kopf beziehungsweise Inhaltsverzeichnis, 27. Mai 2026
+  in der Überschrift und 19. Mai 2026 in der Unterschriftszeile. Das Ausgabedatum ist der
+  27. Mai 2026.
+- Beim Helsinki-Übereinkommen nennt das Verkündungsblattregister den 14. Juli 1994, der Kopf des
+  lokalen Originals den 14. Juli 1992 und der Vertragstext den 9. April 1992 als Abschlussdatum.
+- Die lokale Entwurfsdatei zu Drucksache 07/27 nennt den 15. Juli 2025, obwohl der Vorgang der
+  siebten Wahlperiode im Juli 2026 zugeordnet ist.
 
 Schlussfolgerung:
 
-- Bei StAnzO. 2026 Nr. 13 wird das Ausgabedatum als Veröffentlichungsdatum verwendet; ein eindeutiges Dokumentdatum wird nicht ausgewiesen.
-- Beim Helsinki-Übereinkommen wird der 9. April 1992 als Dokumentdatum geführt. Die abweichenden Index- und Kopfangaben bleiben als Hinweis sichtbar.
-- Für Drucksache 07/27 wird kein Einbringungsdatum ausgewiesen.
+- Die aktuelle Lesefassung folgt für die Übergangsbezeichnung der konsolidierten Datei und weist
+  die Abweichung in den Normmetadaten aus. Der Wortlaut von OGVBl. 2026 Nr. 53 bleibt unverändert.
+- Bei StAnzO. 2026 Nr. 13 wird das Ausgabedatum als Veröffentlichungsdatum verwendet; ein
+  eindeutiges Dokumentdatum wird nicht erfunden.
+- Beim Helsinki-Übereinkommen wird der 9. April 1992 als Dokumentdatum geführt. Die abweichenden
+  Index- und Kopfangaben bleiben als Hinweis sichtbar.
+- Für Drucksache 07/27 wird kein unbelegtes Einbringungsdatum ergänzt.
 
 ## 5. Nächster Aktualisierungsschritt
 
-1. Amtliche Tagesordnung und Beschlussempfehlungen 07/18 bis 07/21 als Primärdateien nachreichen und gegen die erfassten Vorgänge prüfen.
-2. Nach der Sitzung vom 20. Juli 2026 Plenarprotokoll und Abstimmungsergebnisse einarbeiten; Statusänderungen nur aus diesen Quellen ableiten.
-3. Gegebenenfalls beschlossene Fassungen mit späteren Ausfertigungen und Verkündungsblättern abgleichen.
-4. Austauschdaten der Notifikationen beziehungsweise Ratifikationsurkunden für die drei Staatsverträge belegen.
-5. Bildbasierte Alt-Ausgaben transkribieren und fehlende Fundstellen älterer Stammnormen recherchieren.
+1. Original-PDFs der Ausgaben 46 bis 58 mit den versionierten Markdown-Transkriptionen abgleichen.
+2. Plenarprotokoll und Einzelabstimmungsergebnisse vom 20. Juli 2026 nachreichen und ausschließlich
+   für die noch offenen Beratungsdetails auswerten.
+3. Den Widerspruch in Artikel 121a durch eine belastbare amtliche Berichtigung oder eine eindeutig
+   autorisierte konsolidierte Fassung klären.
+4. Mehrdeutige Alt-Ausgaben redaktionell transkribieren und mit gezielten Parser-Fixtures absichern.
+5. Austauschdaten der Notifikationen beziehungsweise Ratifikationsurkunden für die drei
+   Staatsverträge belegen.

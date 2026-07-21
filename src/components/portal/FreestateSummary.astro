@@ -15,9 +15,9 @@ import PortalIcon from './PortalIcon.astro';
     <span></span><span></span><span></span>
   </div>
   <dl class="home-freestate-facts">
-    <div><PortalIcon name="government" /><dt>Sitz der Staatsregierung</dt><dd>{siteConfig.currentGovernment.seatOfGovernment}</dd></div>
-    <div><PortalIcon name="ministry" /><dt>Aktuelles Kabinett</dt><dd>{siteConfig.currentGovernment.cabinetName}</dd></div>
-    <div><PortalIcon name="law" /><dt>Legislatur</dt><dd>{siteConfig.currentGovernment.legislature}</dd></div>
+    <div><PortalIcon name="government" /><dt>Sitz des Staatsrates</dt><dd>{siteConfig.currentGovernment.seatOfGovernment}</dd></div>
+    <div><PortalIcon name="ministry" /><dt>Staatsorgan</dt><dd>{siteConfig.currentGovernment.cabinetName}</dd></div>
+    <div><PortalIcon name="law" /><dt>Volksvertretung</dt><dd>{siteConfig.currentGovernment.legislature}</dd></div>
     <div><PortalIcon name="topics" /><dt>Regierungskoalition</dt><dd>{siteConfig.currentGovernment.coalitionShort}</dd></div>
   </dl>
   <a class="button-link button-link--secondary home-freestate-card__link" href={getFreestateUrl()}>

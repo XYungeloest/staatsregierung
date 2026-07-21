@@ -2,7 +2,7 @@
 
 ## Grundregel
 
-Dieses Repository ist das Portal einer fiktiven Staatsregierung mit integriertem Rechtsbereich. Die öffentliche Website soll wie eine sachliche Regierungswebsite wirken, nicht wie eine Entwicklerdemo.
+Dieses Repository ist das Portal des fiktiven Staatsrates mit integriertem Rechtsbereich. Die öffentliche Website soll wie eine sachliche staatliche Website wirken, nicht wie eine Entwicklerdemo.
 
 Prioritäten:
 
@@ -63,9 +63,10 @@ npm run test:a11y
 - Öffentliche Texte erklären weder Gestaltung noch Umsetzung der Website. Formulierungen über Platzhalter, Designabsichten, technische Zustände oder die eigene Seitenstruktur vermeiden.
 - Geschlechtergerechte Personenbezeichnungen einheitlich mit Doppelpunkt schreiben, zum Beispiel `Bürger:innen` oder `Referent:in`. Keine Paarformen, Sterne, Binnen-I oder Unterstriche verwenden.
 - Der Hinweis auf die politische Simulation bleibt sichtbar in der oberen Hinweisleiste und im Footer. Außerhalb dieser festen Hinweise bleiben öffentliche Texte frei von Wiederholungen; das Impressum enthält die erforderliche ausführliche Einordnung des fiktiven Internetangebots.
-- Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote ist der 19. Juli 2026. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote.
+- Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote ist der 21. Juli 2026. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote.
 - Operative technische Begriffe sind in interner Doku und Code zulässig.
-- Gerhardt Lehrmann ist kein aktives Kabinettsmitglied. Das Wirtschaftsressort wird im aktuellen Kabinett Honecker II von Staatsminister Max Peterson geleitet.
+- Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor. Max Peterson leitet als Staatsrat das Staatssekretariat für Wirtschaft und Arbeit.
+- Thomas Henry Barlow ist seit dem 20. Juli 2026 nicht mehr aktiv. Yannik Schmäle leitet seit dem 21. Juli 2026 sowohl Nachhaltigkeit und Energie als auch Staats- und Grenzsicherheit.
 - Kein neues Profil für Gerhardt Lehrmann anlegen.
 
 ## Rechtsportal
@@ -80,6 +81,11 @@ content/normen/[slug]/
 ```
 
 Historische Fassungen sind gespeicherte Fassungen, keine automatisch berechneten Konsolidierungen.
+
+Die versionierten Markdown-Quellen unter `Gesetze/` sind für den Normimport maßgeblich. Der Import
+läuft ohne Schreibflag nur als Audit, schreibt ausschließlich gezielt ausgewählte Quellen und darf
+vorhandene Normordner nicht pauschal löschen. PDF-Extraktionen ersetzen keine verlässliche
+Markdown-Transkription.
 
 Verkündungen liegen unter:
 

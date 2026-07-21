@@ -22,7 +22,7 @@ export type LegislativeProcedureStage = (typeof LEGISLATIVE_STAGES)[number];
 
 export interface LegislativeSource {
   label: string;
-  kind: 'drucksache' | 'beschlussempfehlung' | 'tagesordnung' | 'entwurf';
+  kind: 'drucksache' | 'beschlussempfehlung' | 'tagesordnung' | 'entwurf' | 'verkuendung';
   availability: 'local' | 'external' | 'missing';
   localSource?: string;
   sourceUrl?: string;
@@ -42,13 +42,18 @@ export interface LegislativeProcedure {
   introducedOn?: string;
   stage: LegislativeProcedureStage;
   statusLabel: string;
-  nextScheduledReading: {
+  nextScheduledReading?: {
     date: string;
     reading: 'erste-lesung' | 'zweite-lesung';
   };
   leadCommittee?: string;
   proposedCommittee?: string;
   recommendation?: LegislativeRecommendation;
+  decidedOn?: string;
+  promulgatedOn?: string;
+  effectiveOn?: string;
+  implementationOn?: string;
+  publicationSlug?: string;
   sources: LegislativeSource[];
   relatedTopics: string[];
   relatedMinistries: string[];
@@ -100,9 +105,11 @@ function parseProcedure(value: unknown, path: string): LegislativeProcedure {
   if (!DOCUMENT_NUMBER_PATTERN.test(documentNumber)) fail(`${path}.documentNumber`, 'muss dem Muster 07/00 entsprechen');
   if (!LEGISLATIVE_STAGES.includes(stage)) fail(`${path}.stage`, 'enthält eine unbekannte Verfahrensstufe');
 
-  const scheduled = record(entry.nextScheduledReading, `${path}.nextScheduledReading`);
-  const reading = string(scheduled.reading, `${path}.nextScheduledReading.reading`);
-  if (reading !== 'erste-lesung' && reading !== 'zweite-lesung') {
+  const scheduled = entry.nextScheduledReading
+    ? record(entry.nextScheduledReading, `${path}.nextScheduledReading`)
+    : undefined;
+  const reading = scheduled ? string(scheduled.reading, `${path}.nextScheduledReading.reading`) : undefined;
+  if (reading && reading !== 'erste-lesung' && reading !== 'zweite-lesung') {
     fail(`${path}.nextScheduledReading.reading`, 'muss erste-lesung oder zweite-lesung sein');
   }
 
@@ -120,7 +127,7 @@ function parseProcedure(value: unknown, path: string): LegislativeProcedure {
   const sources = entry.sources.map((source, index) => {
     const sourceEntry = record(source, `${path}.sources[${index}]`);
     const kind = string(sourceEntry.kind, `${path}.sources[${index}].kind`) as LegislativeSource['kind'];
-    if (!['drucksache', 'beschlussempfehlung', 'tagesordnung', 'entwurf'].includes(kind)) {
+    if (!['drucksache', 'beschlussempfehlung', 'tagesordnung', 'entwurf', 'verkuendung'].includes(kind)) {
       fail(`${path}.sources[${index}].kind`, 'enthält einen unbekannten Quellentyp');
     }
     const availability = string(
@@ -159,10 +166,10 @@ function parseProcedure(value: unknown, path: string): LegislativeProcedure {
     introducedOn: entry.introducedOn ? date(entry.introducedOn, `${path}.introducedOn`) : undefined,
     stage,
     statusLabel: string(entry.statusLabel, `${path}.statusLabel`),
-    nextScheduledReading: {
+    nextScheduledReading: scheduled ? {
       date: date(scheduled.date, `${path}.nextScheduledReading.date`),
       reading: reading as 'erste-lesung' | 'zweite-lesung',
-    },
+    } : undefined,
     leadCommittee: optionalString(entry.leadCommittee, `${path}.leadCommittee`),
     proposedCommittee: optionalString(entry.proposedCommittee, `${path}.proposedCommittee`),
     recommendation: recommendation
@@ -171,6 +178,11 @@ function parseProcedure(value: unknown, path: string): LegislativeProcedure {
           result: recommendationResult as 'annahme' | 'ablehnung',
         }
       : undefined,
+    decidedOn: entry.decidedOn ? date(entry.decidedOn, `${path}.decidedOn`) : undefined,
+    promulgatedOn: entry.promulgatedOn ? date(entry.promulgatedOn, `${path}.promulgatedOn`) : undefined,
+    effectiveOn: entry.effectiveOn ? date(entry.effectiveOn, `${path}.effectiveOn`) : undefined,
+    implementationOn: entry.implementationOn ? date(entry.implementationOn, `${path}.implementationOn`) : undefined,
+    publicationSlug: optionalString(entry.publicationSlug, `${path}.publicationSlug`),
     sources,
     relatedTopics: stringArray(entry.relatedTopics, `${path}.relatedTopics`),
     relatedMinistries: stringArray(entry.relatedMinistries, `${path}.relatedMinistries`),
