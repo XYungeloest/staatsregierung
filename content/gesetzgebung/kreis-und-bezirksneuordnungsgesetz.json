@@ -5,12 +5,8 @@
   "documentNumber": "07/17",
   "initiator": "Staatsregierung",
   "introducedOn": "2026-06-23",
-  "stage": "erste-lesung-angesetzt",
-  "statusLabel": "Erste Lesung am 20. Juli 2026 angesetzt.",
-  "nextScheduledReading": {
-    "date": "2026-07-20",
-    "reading": "erste-lesung"
-  },
+  "stage": "in-kraft",
+  "statusLabel": "Beschlossen und am 20. Juli 2026 verkündet. Das Gesetz gilt seit 21. Juli 2026; die neue Gebietsstruktur wird am 1. August 2026 wirksam.",
   "proposedCommittee": "Ausschuss für Inneres und Kommunen",
   "sources": [
     {
@@ -20,9 +16,10 @@
       "availability": "local"
     },
     {
-      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
-      "kind": "tagesordnung",
-      "availability": "missing"
+      "label": "OGVBl. 2026 Nr. 46",
+      "kind": "verkuendung",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.md",
+      "availability": "local"
     }
   ],
   "relatedTopics": [
@@ -32,9 +29,15 @@
     "inneres-bau-und-kommunale-angelegenheiten"
   ],
   "relatedNorms": [
-    "sachsische-landkreisordnung",
-    "sachsisches-verwaltungsorganisationsgesetz"
+    "kreis-und-bezirksneuordnungsgesetz",
+    "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
+    "ostdeutsche-bezirksordnung"
   ],
-  "confirmedAsOf": "2026-07-19",
-  "dateNote": "Die Entwurfsquelle benennt Thomas Henry Barlow als bei Einbringung zuständigen Innenminister; seit 7. Juli 2026 leitet Volker Bagdadi das Ressort."
+  "confirmedAsOf": "2026-07-21",
+  "dateNote": "Die Entwurfsquelle benennt Thomas Henry Barlow als bei Einbringung zuständigen Innenminister; seit 7. Juli 2026 leitet Volker Bagdadi das Ressort.",
+  "decidedOn": "2026-07-20",
+  "promulgatedOn": "2026-07-20",
+  "effectiveOn": "2026-07-21",
+  "implementationOn": "2026-08-01",
+  "publicationSlug": "ogvbl-2026-46"
 }

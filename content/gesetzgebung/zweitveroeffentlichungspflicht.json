@@ -4,12 +4,8 @@
   "shortTitle": "Zweitveröffentlichungspflicht",
   "documentNumber": "07/27",
   "initiator": "Staatsregierung",
-  "stage": "erste-lesung-angesetzt",
-  "statusLabel": "Erste Lesung am 20. Juli 2026 angesetzt.",
-  "nextScheduledReading": {
-    "date": "2026-07-20",
-    "reading": "erste-lesung"
-  },
+  "stage": "in-kraft",
+  "statusLabel": "Beschlossen und am 20. Juli 2026 verkündet; seit dem Tag der Verkündung in Kraft.",
   "sources": [
     {
       "label": "Drucksache 07/27",
@@ -18,9 +14,10 @@
       "availability": "local"
     },
     {
-      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
-      "kind": "tagesordnung",
-      "availability": "missing"
+      "label": "OGVBl. 2026 Nr. 57",
+      "kind": "verkuendung",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 57.md",
+      "availability": "local"
     }
   ],
   "relatedTopics": [
@@ -29,7 +26,13 @@
   "relatedMinistries": [
     "bildung-und-sportliche-ertuechtigung"
   ],
-  "relatedNorms": [],
-  "confirmedAsOf": "2026-07-19",
-  "dateNote": "Die vorliegende Entwurfsquelle ist mit 15. Juli 2025 datiert. Wegen des Widerspruchs zur Drucksachennummer der 7. Wahlperiode und zur Tagesordnung wird daraus kein Einbringungsdatum abgeleitet."
+  "relatedNorms": [
+    "gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht"
+  ],
+  "confirmedAsOf": "2026-07-21",
+  "dateNote": "Die vorliegende Entwurfsquelle ist mit 15. Juli 2025 datiert. Wegen des Widerspruchs zur Drucksachennummer der 7. Wahlperiode und zur Tagesordnung wird daraus kein Einbringungsdatum abgeleitet.",
+  "decidedOn": "2026-07-20",
+  "promulgatedOn": "2026-07-20",
+  "effectiveOn": "2026-07-20",
+  "publicationSlug": "ogvbl-2026-57"
 }

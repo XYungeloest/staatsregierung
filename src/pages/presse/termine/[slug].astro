@@ -94,7 +94,7 @@ const relatedLegislation = event.relatedLegislationSlugs?.length
           {relatedLegislation.length > 0 ? (
             <section aria-labelledby="termin-verfahren">
               <div class="section-header section-header--compact">
-                <h2 id="termin-verfahren">Angesetzte Gesetzesberatungen</h2>
+                <h2 id="termin-verfahren">{isArchivedEvent ? 'Behandelte Gesetzesvorhaben' : 'Angesetzte Gesetzesberatungen'}</h2>
               </div>
               <ol class="record-list">
                 {relatedLegislation.map((procedure) => (
@@ -127,7 +127,7 @@ const relatedLegislation = event.relatedLegislationSlugs?.length
             </div>
             <div>
               <dt>Format</dt>
-              <dd>{isArchivedEvent ? 'Dokumentierter vergangener Termin' : 'Terminankündigung der Staatsregierung'}</dd>
+              <dd>{isArchivedEvent ? 'Dokumentierter vergangener Termin' : 'Terminankündigung des Staatsrates'}</dd>
             </div>
           </dl>
           <nav class="link-list">

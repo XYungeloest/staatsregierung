@@ -1,15 +1,15 @@
 import { formatDate } from '../lib/norms/presentation.ts';
 
 export const siteConfig = {
-  authorityName: 'Staatsregierung des Ostdeutschen Freistaates',
+  authorityName: 'Staatsrat des Ostdeutschen Freistaates',
   portalTitle: 'Freistaat Ostdeutschland',
-  portalSubtitle: 'Website der Staatsregierung mit Recht, Themen, Presse, Haushalt und Service',
+  portalSubtitle: 'Website des Staatsrates mit Recht, Themen, Presse, Haushalt und Service',
   seo: {
     siteName: 'Freistaat Ostdeutschland',
     siteUrl: 'https://freistaat-ostdeutschland.de',
     locale: 'de_DE',
     defaultDescription:
-      'Regierungsportal des Ostdeutschen Freistaates mit Kabinett, Reformprojekten, Rechtsportal, Presse und Service.',
+      'Staatsportal des Ostdeutschen Freistaates mit Staatsrat, Reformprojekten, Rechtsportal, Presse und Service.',
     simulationDescription:
       'Fiktives Regierungsportal des Ostdeutschen Freistaates innerhalb einer politischen Simulation.',
     defaultSocialImage: {
@@ -22,7 +22,7 @@ export const siteConfig = {
   },
   simulationNotice:
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',
-  footerNote: 'Website der Staatsregierung des Ostdeutschen Freistaates mit integriertem Rechtsbereich.',
+  footerNote: 'Website des Staatsrates des Ostdeutschen Freistaates mit integriertem Rechtsbereich.',
   officialFlagAssetPath: '/images/ui/ost-flagge.png',
   officialFlagSmallAssetPath: '/images/generated/ui/ost-flagge-480.webp',
   officialFlagText: 'OF',
@@ -71,7 +71,7 @@ export const siteConfig = {
   },
   mainNavigation: [
     { label: 'Freistaat', pathKey: 'freestate' },
-    { label: 'Staatsregierung', pathKey: 'government' },
+    { label: 'Staatsrat', pathKey: 'government' },
     { label: 'Themen', pathKey: 'topics' },
     { label: 'Recht', pathKey: 'lawHome' },
     { label: 'Kreisreform', pathKey: 'kreisreform' },
@@ -86,7 +86,7 @@ export const siteConfig = {
     { label: 'Kontakt', pathKey: 'contact' },
   ],
   contact: {
-    authorityShort: 'Staatsregierung des Ostdeutschen Freistaates',
+    authorityShort: 'Staatsrat des Ostdeutschen Freistaates',
     addressLines: ['Archivstraße 1', '01097 Dresden'],
     postalAddress: 'Staatskanzlei des Ostdeutschen Freistaates, Archivstraße 1, 01097 Dresden',
     citizenService: {
@@ -98,12 +98,12 @@ export const siteConfig = {
       label: 'Behördennummer',
       number: '115',
       description:
-        'Informationen zur Behördennummer 115 und die Kontaktwege der Staatsregierung finden Sie im Kontaktbereich.',
+        'Informationen zur Behördennummer 115 und die Kontaktwege des Staatsrates finden Sie im Kontaktbereich.',
       pathKey: 'contact',
       directPhoneLink: false,
     },
     pressOffice: {
-      label: 'Presse- und Informationsamt der Staatsregierung',
+      label: 'Presse- und Informationsamt des Staatsrates',
       phone: '+49 351 100-1200',
       email: 'presse@freistaat-ostdeutschland.de',
     },
@@ -118,20 +118,19 @@ export const siteConfig = {
     officeHours: ['Montag bis Donnerstag: 9.00 bis 17.00 Uhr', 'Freitag: 9.00 bis 15.00 Uhr'],
   },
   currentGovernment: {
-    cabinetName: 'Kabinett Honecker II',
-    formedOn: '2026-05-04',
+    cabinetName: 'Erster Staatsrat',
+    formedOn: '2026-07-21',
     coalition: 'Volksfront und DEMOS an der Elbe',
     coalitionShort: 'Volksfront · DEMOS an der Elbe',
     coalitionParties: ['Volksfront', 'DEMOS an der Elbe'],
     headOfGovernment: 'Dr. Karl Honecker',
     deputyHead: 'Dr. Mateo Delgado',
-    legislature: '7. Ostdeutscher Landtag',
-    predecessor: 'Kabinett Honecker I',
+    legislature: '7. Volkskammer',
+    predecessor: 'Kabinett Honecker II',
     seatOfGovernment: 'Dresden',
-    stateMinisterCount: 11,
     coalitionSeats: 11,
     parliamentSeats: 15,
-    lastReshuffleOn: '2026-07-07',
+    lastReshuffleOn: '2026-07-21',
   },
   date: {
     formatLong: formatDate,

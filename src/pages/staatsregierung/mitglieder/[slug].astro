@@ -20,6 +20,7 @@ export function getStaticPaths() {
 }
 
 const { member } = Astro.props as { member: RegierungMitglied };
+const currentOfficeTitles = member.currentOffices.map((office) => office.title);
 ---
 
 {member ? (
@@ -27,18 +28,18 @@ const { member } = Astro.props as { member: RegierungMitglied };
     <Breadcrumbs
       items={[
         { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Staatsregierung', href: getGovernmentUrl() },
-        { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
+        { label: 'Staatsrat', href: getGovernmentUrl() },
+        { label: 'Mitglieder', href: getGovernmentMembersUrl() },
         { label: member.name },
       ]}
     />
 
     <SectionHero
-      eyebrow={member.current ? 'Regierungsmitglied' : 'Historisches Regierungsprofil'}
+      eyebrow={member.current ? 'Mitglied des Staatsrates' : 'Historisches Regierungsprofil'}
       title={member.name}
       titleSize="long"
-      lead={member.amt}
-      status={member.current ? 'Aktuelles Kabinettsmitglied' : `Aus dem Kabinett ausgeschieden${member.servingTo ? ` am ${siteConfig.date.formatLong(member.servingTo)}` : ''}`}
+      lead={currentOfficeTitles.length === 1 ? currentOfficeTitles[0] : member.current ? undefined : member.amt}
+      status={member.current ? 'Aktuelles Mitglied des ersten Staatsrates' : `Aus dem Kabinett ausgeschieden${member.servingTo ? ` am ${siteConfig.date.formatLong(member.servingTo)}` : ''}`}
       variant="government"
       facts={[
         { label: 'Ressort', value: member.ressort },
@@ -55,7 +56,13 @@ const { member } = Astro.props as { member: RegierungMitglied };
         widths: [240, 360, 480],
         kind: 'portrait',
       }}
-    />
+    >
+      {currentOfficeTitles.length > 1 ? (
+        <ul class="plain-list" aria-label="Aktuelle Ämter">
+          {currentOfficeTitles.map((title) => <li>{title}</li>)}
+        </ul>
+      ) : null}
+    </SectionHero>
     <GovernmentNavigation />
 
     <div class="content-grid" data-visual-section="member-biography-profile">
@@ -79,7 +86,11 @@ const { member } = Astro.props as { member: RegierungMitglied };
         <dl class="meta-list">
           <div>
             <dt>Amt</dt>
-            <dd>{member.amt}</dd>
+            <dd>
+              {currentOfficeTitles.length > 0 ? (
+                <ul class="plain-list">{currentOfficeTitles.map((title) => <li>{title}</li>)}</ul>
+              ) : member.amt}
+            </dd>
           </div>
           <div>
             <dt>Ressort</dt>
@@ -143,7 +154,7 @@ const { member } = Astro.props as { member: RegierungMitglied };
     description="Das angeforderte Regierungsprofil konnte nicht geladen werden."
     breadcrumbs={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
       { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
       { label: 'Nicht gefunden' },
     ]}
@@ -151,7 +162,7 @@ const { member } = Astro.props as { member: RegierungMitglied };
     <Breadcrumbs
       items={[
         { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Staatsregierung', href: getGovernmentUrl() },
+        { label: 'Staatsrat', href: getGovernmentUrl() },
         { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
         { label: 'Nicht gefunden' },
       ]}

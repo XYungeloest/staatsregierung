@@ -15,7 +15,7 @@ export async function loadLegislationTrackerItems(): Promise<LegislativeTrackerI
     id: procedure.slug,
     title: procedure.title,
     description: procedure.statusLabel,
-    ressort: ministryNames.get(procedure.relatedMinistries[0] ?? '') ?? 'Staatsregierung',
+    ressort: ministryNames.get(procedure.relatedMinistries[0] ?? '') ?? 'Staatsrat',
     currentStage: procedure.stage,
     topic: topicNames.get(procedure.relatedTopics[0] ?? ''),
     href: procedure.slug === 'kreis-und-bezirksneuordnungsgesetz'

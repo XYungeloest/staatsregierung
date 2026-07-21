@@ -23,10 +23,10 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <h2>Anbieter und Herausgeber</h2>
       <p>{contact.authorityShort}<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
       <p>Telefon: <a class="inline-link" href={citizenPhoneHref}>{contact.citizenService.phone}</a><br />E-Mail: <a class="inline-link" href={`mailto:${contact.citizenService.email}`}>{contact.citizenService.email}</a><br />Internet: {siteHostname}</p>
-      <p>Die Staatsregierung des Ostdeutschen Freistaates ist Herausgeberin dieses Internetangebots.</p>
+      <p>Der Staatsrat des Ostdeutschen Freistaates ist Herausgeber dieses Internetangebots.</p>
 
       <h2>Vertreten durch</h2>
-      <p>{currentGovernment.headOfGovernment}<br />Ministerpräsident des Ostdeutschen Freistaates</p>
+      <p>{currentGovernment.headOfGovernment}<br />Staatspräsident des Ostdeutschen Freistaates</p>
 
       <h2>Verantwortliche Stelle</h2>
       <p>Staatskanzlei des Ostdeutschen Freistaates<br />Referat Digitale Regierungskommunikation und Bürgerinformation<br />{contact.addressLines.join(', ')}</p>
@@ -35,14 +35,14 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
 
       <h2>Verantwortlich für journalistisch-redaktionelle Inhalte</h2>
       <p>Verantwortlich im Sinne des § 18 Abs. 2 Medienstaatsvertrag:</p>
-      <p>Mara Seidel<br />Leiterin des Presse- und Informationsamtes der Staatsregierung<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
+      <p>Mara Seidel<br />Leiterin des Presse- und Informationsamtes des Staatsrates<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
       <p>E-Mail: <a class="inline-link" href={`mailto:${contact.pressOffice.email}`}>{contact.pressOffice.email}</a></p>
       <p>Die Verantwortung umfasst insbesondere Pressemitteilungen, redaktionelle Meldungen, Themenseiten, Regierungserklärungen und sonstige publizistische Inhalte dieses Internetangebots.</p>
 
       <h2>Presse- und Öffentlichkeitsarbeit</h2>
       <p>{contact.pressOffice.label}<br />{contact.addressLines.join(', ')}</p>
       <p>Telefon: <a class="inline-link" href={pressPhoneHref}>{contact.pressOffice.phone}</a><br />E-Mail: <a class="inline-link" href={`mailto:${contact.pressOffice.email}`}>{contact.pressOffice.email}</a></p>
-      <p>Anfragen von Medienvertreter:innen richten Sie bitte an die Pressestelle der Staatsregierung.</p>
+      <p>Anfragen von Medienvertreter:innen richten Sie bitte an die Pressestelle des Staatsrates.</p>
 
       <h2>Technischer Betrieb</h2>
       <p>Staatskanzlei des Ostdeutschen Freistaates<br />{contact.portalOperations.label}<br />{contact.addressLines.join(', ')}</p>
@@ -54,7 +54,7 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <p>Dieses Portal ist keine amtliche Website einer realen staatlichen Stelle. Es werden keine Verwaltungsleistungen im rechtlichen Sinne erbracht. Über dieses Internetangebot können keine rechtsverbindlichen Anträge, Widersprüche, Petitionen, Auskunftsersuchen oder sonstigen Verwaltungsverfahren gegenüber realen Behörden eingeleitet werden.</p>
 
       <h2>Inhalte des Internetangebots</h2>
-      <p>Die Inhalte dieses Portals werden mit größtmöglicher Sorgfalt erstellt und redaktionell gepflegt. Sie dienen der Information über die fiktive Staatsregierung, simulierte Gesetzgebungsverfahren, politische Vorhaben, Haushaltsdaten, Pressemitteilungen und Serviceangebote innerhalb der politischen Simulation.</p>
+      <p>Die Inhalte dieses Portals werden mit größtmöglicher Sorgfalt erstellt und redaktionell gepflegt. Sie dienen der Information über den fiktiven Staatsrat, simulierte Rechtsetzung, politische Vorhaben, Haushaltsdaten, Pressemitteilungen und Serviceangebote innerhalb der politischen Simulation.</p>
       <p>Eine Gewähr für Aktualität, Vollständigkeit und Richtigkeit der Inhalte wird nicht übernommen, soweit es sich um fiktive, satirische, spielerische oder simulationsbezogene Inhalte handelt. Maßgeblich ist stets der erkennbare Kontext der politischen Simulation.</p>
 
       <h2>Rechtsinformationen und Normtexte</h2>
@@ -62,7 +62,7 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <p>Die bereitgestellten Normtexte, Begründungen und Fundstellennachweise dienen der internen Dokumentation des Simulationsgeschehens und ersetzen keine amtliche Rechtsauskunft.</p>
 
       <h2>Externe Links</h2>
-      <p>Dieses Internetangebot kann Verweise auf externe Internetseiten enthalten. Für Inhalte externer Seiten ist ausschließlich der jeweilige Anbieter verantwortlich. Die Staatsregierung des Ostdeutschen Freistaates macht sich fremde Inhalte durch die Verlinkung nicht zu eigen.</p>
+      <p>Dieses Internetangebot kann Verweise auf externe Internetseiten enthalten. Für Inhalte externer Seiten ist ausschließlich der jeweilige Anbieter verantwortlich. Der Staatsrat des Ostdeutschen Freistaates macht sich fremde Inhalte durch die Verlinkung nicht zu eigen.</p>
       <p>Zum Zeitpunkt der Verlinkung wurden externe Inhalte auf erkennbare Rechtsverstöße geprüft. Eine dauerhafte inhaltliche Kontrolle externer Seiten findet ohne konkreten Anlass nicht statt. Bei Bekanntwerden entsprechender Rechtsverletzungen werden betroffene Links entfernt.</p>
 
       <h2>Urheberrecht und Nutzungsrechte</h2>
@@ -81,10 +81,10 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <p>Bitte nennen Sie nach Möglichkeit die betroffene Seite, den verwendeten Browser, das Endgerät und eine kurze Beschreibung des Problems.</p>
 
       <h2>Keine Streitbeilegung für Verwaltungsverfahren</h2>
-      <p>Da es sich um ein fiktives Internetangebot im Rahmen einer politischen Simulation handelt, nimmt die Staatsregierung des Ostdeutschen Freistaates nicht an realen Streitbeilegungsverfahren vor Verbraucherschlichtungsstellen teil. Über dieses Portal werden keine entgeltlichen Leistungen gegenüber Verbraucher:innen angeboten.</p>
+      <p>Da es sich um ein fiktives Internetangebot im Rahmen einer politischen Simulation handelt, nimmt der Staatsrat des Ostdeutschen Freistaates nicht an realen Streitbeilegungsverfahren vor Verbraucherschlichtungsstellen teil. Über dieses Portal werden keine entgeltlichen Leistungen gegenüber Verbraucher:innen angeboten.</p>
 
       <h2>Stand</h2>
-      <p>Stand dieses Impressums: <time datetime="2026-07-19">19. Juli 2026</time></p>
+      <p>Stand dieses Impressums: <time datetime="2026-07-21">21. Juli 2026</time></p>
     </section>
 
     <aside class="section meta-panel">
@@ -92,7 +92,7 @@ const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
       <dl class="meta-list">
         <div><dt>Anbieterkennzeichnung</dt><dd>§ 5 DDG</dd></div>
         <div><dt>Redaktionelle Verantwortung</dt><dd>§ 18 Abs. 2 MStV</dd></div>
-        <div><dt>Herausgeberin</dt><dd>Staatskanzlei des Ostdeutschen Freistaates</dd></div>
+        <div><dt>Herausgeber</dt><dd>{contact.authorityShort}</dd></div>
       </dl>
     </aside>
   </div>

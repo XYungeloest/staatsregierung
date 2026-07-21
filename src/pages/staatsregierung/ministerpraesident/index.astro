@@ -14,13 +14,13 @@ import {
   getTopicUrl,
 } from '../../../lib/portal/index.ts';
 import {
-  loadGovernmentMembers,
+  loadCurrentGovernmentMembers,
   loadMinistries,
   loadTopics,
 } from '../../../lib/portal/content.ts';
 
 const [members, ministries, topics] = await Promise.all([
-  loadGovernmentMembers(),
+  loadCurrentGovernmentMembers(),
   loadMinistries(),
   loadTopics(),
 ]);
@@ -38,26 +38,26 @@ const topPriorities = topics
 ---
 
 <BaseLayout
-  title="Ministerpräsident"
-  description="Leitungsseite des Ministerpräsidenten innerhalb der Staatsregierung."
+  title="Staatspräsident"
+  description="Leitungsseite des ersten Staatspräsidenten innerhalb des Staatsrates."
 >
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsregierung', href: getGovernmentUrl() },
-      { label: 'Ministerpräsident' },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Staatspräsident' },
     ]}
   />
 
   <SectionHero
-    eyebrow="Leitung der Staatsregierung"
-    title="Ministerpräsident"
-    lead="Der Ministerpräsident führt die Staatsregierung, bestimmt die Richtlinien der Politik und koordiniert die Arbeit des Kabinetts."
+    eyebrow="Leitung des Staatsrates"
+    title="Staatspräsident"
+    lead="Der Staatspräsident führt den Vorsitz im Staatsrat, bestimmt die Richtlinien der Politik und vertritt den Freistaat nach außen."
     variant="government"
     facts={[
       { label: 'Amtsträger', value: siteConfig.currentGovernment.headOfGovernment },
-      { label: 'Kabinett', value: siteConfig.currentGovernment.cabinetName },
-      { label: 'Regierungssitz', value: siteConfig.currentGovernment.seatOfGovernment },
+      { label: 'Staatsrat', value: siteConfig.currentGovernment.cabinetName },
+      { label: 'Sitz', value: siteConfig.currentGovernment.seatOfGovernment },
     ]}
     actions={ministerPresident ? [{ label: 'Zum persönlichen Profil', href: getGovernmentMemberUrl(ministerPresident.slug), primary: true }] : []}
     image={ministerPresident ? {
@@ -76,19 +76,19 @@ const topPriorities = topics
     <div class="content-grid">
       <section class="section body-copy">
         <p>
-          Die Leitungsfunktion der Staatsregierung bündelt Kabinettssteuerung, ressortübergreifende
+          Die Leitungsfunktion des Staatsrates bündelt Staatsratssteuerung, ressortübergreifende
           Koordinierung und öffentliche Repräsentation. Von hier aus werden politische
           Schwerpunkte, Regierungsverfahren und zentrale Kommunikationslinien zusammengeführt.
         </p>
         <p>
-          Die derzeitige Regierungsbildung datiert vom{' '}
-          <time datetime={siteConfig.currentGovernment.formedOn}>{siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}</time>. Die Leitungsseite
-          Seitdem führt das Kabinett die zweite sozialstaatliche Aufbauphase.
+          Der Übergang zum ersten Staatsrat erfolgte am{' '}
+          <time datetime={siteConfig.currentGovernment.formedOn}>{siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}</time>.
+          Seitdem gilt die neue Staatsorganisation.
         </p>
         <p>
-          Die Leitungsfunktion des Ministerpräsidenten ist eng mit der Staatskanzlei und dem
-          Staatsministerium der Finanzen verknüpft. Von hier aus werden Regierungsschwerpunkte, Umsetzungsstände und
-          politische Prioritäten der Staatsregierung gebündelt.
+          Die Leitungsfunktion des Staatspräsidenten ist eng mit der Staatskanzlei und dem
+          Staatssekretariat der Finanzen verknüpft. Von hier aus werden Schwerpunkte, Umsetzungsstände und
+          politische Prioritäten des Staatsrates gebündelt.
         </p>
       </section>
 
@@ -102,7 +102,7 @@ const topPriorities = topics
             <dd>{siteConfig.currentGovernment.headOfGovernment}</dd>
           </div>
           <div>
-            <dt>Kabinett</dt>
+            <dt>Staatsrat</dt>
             <dd>{siteConfig.currentGovernment.cabinetName}</dd>
           </div>
           <div>
@@ -110,7 +110,7 @@ const topPriorities = topics
             <dd>{siteConfig.currentGovernment.coalitionShort}</dd>
           </div>
         </dl>
-        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett Honecker II</a></p>
+        <p><a class="inline-link" href={getCabinetUrl()}>Zum ersten Staatsrat</a></p>
         <p><a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a></p>
       </aside>
     </div>
@@ -119,7 +119,7 @@ const topPriorities = topics
   <section class="section section-muted">
     <div class="section-header">
       <h2>Unmittelbar geführte Bereiche</h2>
-      <p>Die Leitungsfunktion des Ministerpräsidenten ist inhaltlich besonders mit diesen Bereichen verbunden.</p>
+      <p>Die Leitungsfunktion des Staatspräsidenten ist inhaltlich besonders mit diesen Bereichen verbunden.</p>
     </div>
     <div class="card-grid card-grid--two">
       {leadershipMinistries.map((ministry) => (
@@ -131,7 +131,7 @@ const topPriorities = topics
   <section class="section">
     <div class="section-header">
       <h2>Leitende Schwerpunkte</h2>
-      <p>Diese Themen markieren politische Prioritäten der Staatsregierung in der laufenden Legislaturperiode.</p>
+      <p>Diese Themen markieren politische Prioritäten des Staatsrates in der laufenden Wahlperiode.</p>
     </div>
     <ul class="record-list">
       {topPriorities.map((topic) => (

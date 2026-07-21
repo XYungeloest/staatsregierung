@@ -57,6 +57,7 @@ export interface NormMeta {
   successor: string | null;
   enactingNorm?: string;
   enactedNorm?: string;
+  enactedNorms?: string[];
   summary: string;
   status: NormStatus;
   documentDate?: string;
@@ -334,6 +335,10 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     successor: expectNullableString(object.successor, `${path}.successor`),
     enactingNorm: expectOptionalString(object.enactingNorm, `${path}.enactingNorm`),
     enactedNorm: expectOptionalString(object.enactedNorm, `${path}.enactedNorm`),
+    enactedNorms:
+      object.enactedNorms === undefined
+        ? undefined
+        : expectStringArray(object.enactedNorms, `${path}.enactedNorms`),
     summary: expectString(object.summary, `${path}.summary`),
     status: normalizedStatusMap[rawStatus],
     documentDate:

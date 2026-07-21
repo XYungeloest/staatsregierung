@@ -44,7 +44,7 @@ export interface LegislativeTrackerItem {
   topic?: string;
   href?: string;
   documentNumber: string;
-  nextScheduledReading: {
+  nextScheduledReading?: {
     date: string;
     reading: 'erste-lesung' | 'zweite-lesung';
   };
@@ -93,7 +93,7 @@ export function formatTimelineEntryType(type: TimelineEntryType): string {
     case 'projekt':
       return 'Politisches Projekt';
     case 'kabinett':
-      return 'Kabinettsbeschluss';
+      return 'Staatsorganisation';
     case 'presse':
       return 'Presseereignis';
     case 'haushalt':

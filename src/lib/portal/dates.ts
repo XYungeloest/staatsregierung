@@ -1,10 +1,11 @@
 import type { Stellenangebot, Termin } from './schema.ts';
+import editorialConfig from '../../config/editorial.json' with { type: 'json' };
 
 /**
  * Editorial reference date for the static portal build. Content that is no longer
  * current is kept in its archive, but is not presented as an upcoming item.
  */
-export const PORTAL_REFERENCE_DATE = '2026-07-19';
+export const PORTAL_REFERENCE_DATE = editorialConfig.referenceDate;
 
 export function isCurrentOrFuture(date: string, referenceDate = PORTAL_REFERENCE_DATE): boolean {
   return date >= referenceDate;

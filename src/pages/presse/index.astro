@@ -34,14 +34,14 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
 
 <BaseLayout
   title="Presse & Aktuelles"
-  description="Pressemitteilungen, Reden, Termine und Pressekontakt der Staatsregierung des Ostdeutschen Freistaates."
+  description="Pressemitteilungen, Reden, Termine und Pressekontakt des Staatsrates des Ostdeutschen Freistaates."
 >
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse & Aktuelles' }]} />
 
   <SectionHero
     eyebrow="Presse & Aktuelles"
     title="Presse & Aktuelles"
-    lead="Pressemitteilungen, Reden, öffentliche Termine und Medienkontakt der Staatsregierung."
+    lead="Pressemitteilungen, Reden, öffentliche Termine und Medienkontakt des Staatsrates."
     variant="press"
     facts={[
       { label: 'Pressemitteilungen', value: String(releases.length) },
@@ -56,7 +56,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
     <section class="section">
       <div class="section-header">
         <h2>Neueste Mitteilung</h2>
-        <p>Die zuletzt veröffentlichte Mitteilung der Staatsregierung.</p>
+        <p>Die zuletzt veröffentlichte Mitteilung des Staatsrates.</p>
       </div>
       <PressReleaseCard release={leadRelease} variant="featured" />
     </section>
@@ -66,7 +66,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
     <section class="section" data-visual-section="press-additional-releases">
       <div class="section-header">
         <h2>Weitere Meldungen</h2>
-        <p>Weitere aktuelle Mitteilungen der Staatsregierung.</p>
+        <p>Weitere aktuelle Mitteilungen des Staatsrates.</p>
       </div>
       <div class="content-stack">
         {additionalReleases.map((release) => <PressReleaseCard release={release} variant="compact" />)}
@@ -82,7 +82,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
     <div class="press-service-grid">
       <aside class="press-contact-module">
         <h3>{siteConfig.contact.pressOffice.label}</h3>
-        <p>Kontaktstelle für Medienanfragen zur Arbeit der Staatsregierung.</p>
+        <p>Kontaktstelle für Medienanfragen zur Arbeit des Staatsrates.</p>
         <p><a class="inline-link" href={`mailto:${siteConfig.contact.pressOffice.email}`}>{siteConfig.contact.pressOffice.email}</a><br /><a class="inline-link" href={`tel:${siteConfig.contact.pressOffice.phone.replace(/\s+/gu, '')}`}>{siteConfig.contact.pressOffice.phone}</a></p>
         <p><a class="inline-link" href={getContactUrl()}>Weitere Kontaktwege</a></p>
       </aside>
@@ -100,7 +100,7 @@ const rssUrl = `${getPressReleaseIndexUrl().replace(/pressemitteilungen\/$/u, ''
     </div>
     <ul class="direct-entry-list">
       <li><strong>Pressemitteilungen</strong><span><a class="inline-link" href={getPressReleaseIndexUrl()}>Alle Meldungen nach Datum und Ressort</a></span></li>
-      <li><strong>Reden & Erklärungen</strong><span><a class="inline-link" href={getSpeechIndexUrl()}>Redetexte und Erklärungen der Staatsregierung</a></span></li>
+      <li><strong>Reden & Erklärungen</strong><span><a class="inline-link" href={getSpeechIndexUrl()}>Redetexte und Erklärungen des Staatsrates</a></span></li>
       <li><strong>Termine & Archiv</strong><span><a class="inline-link" href={getEventIndexUrl()}>Künftige und vergangene Veranstaltungen</a></span></li>
     </ul>
   </section>

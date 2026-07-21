@@ -78,14 +78,14 @@ const portalAccesses = [
     icon: 'budget' as const,
   },
   {
-    title: 'Staatsregierung',
-    description: 'Kabinett, Mitglieder und politische Vorhaben',
+    title: 'Staatsrat',
+    description: 'Mitglieder, Geschäftsbereiche und politische Vorhaben',
     href: getGovernmentUrl(),
     icon: 'government' as const,
   },
   {
-    title: 'Ministerien',
-    description: 'Ressorts, Zuständigkeiten und Kontaktwege',
+    title: 'Staatssekretariate',
+    description: 'Geschäftsbereiche, Zuständigkeiten und Kontaktwege',
     href: getMinistriesUrl(),
     icon: 'ministry' as const,
   },
@@ -100,19 +100,19 @@ const portalAccesses = [
 const importantItems = [
   {
     title: 'Kreis- und Bezirksreform 2026',
-    description: 'Erste Lesung am 20. Juli 2026 angesetzt',
+    description: 'Verkündet; neue Gebietsstruktur ab 1. August 2026',
     href: getKreisreformUrl(),
     icon: 'map' as const,
   },
   {
     title: currentGovernment.cabinetName,
-    description: `Zuletzt umgebildet am ${siteConfig.date.formatLong(currentGovernment.lastReshuffleOn)}`,
+    description: `Übergang am ${siteConfig.date.formatLong(currentGovernment.formedOn)}`,
     href: getGovernmentUrl(),
     icon: 'government' as const,
   },
   {
-    title: 'Dritte Plenarsitzung',
-    description: 'Zwölf Beratungen am 20. Juli 2026 angesetzt',
+    title: 'Gesetze vom 20. Juli 2026',
+    description: 'Zwölf Vorhaben beschlossen und verkündet',
     href: `${getPressUrl()}termine/dritte-plenarsitzung-7-landtag/`,
     icon: 'press' as const,
   },
@@ -197,7 +197,7 @@ const importantItems = [
       <div class="container"><ImportantNoticeBand items={importantItems} /></div>
     </section>
 
-    <section class="home-band home-information-section" aria-label="Aktuelles, Ministerien und Orientierung">
+    <section class="home-band home-information-section" aria-label="Aktuelles, Staatssekretariate und Orientierung">
       <div class="container home-information-grid">
         <HomePressList releases={latestReleases} />
         <HomeMinistryList ministries={ministries.slice(0, 6)} />
@@ -225,7 +225,7 @@ const importantItems = [
               Textliche Ergebnisse stehen auch ohne geöffnete Karte bereit.
             </p>
             <dl class="home-lead-feature__facts">
-              <div><dt>Gesetzgebungsverfahren</dt><dd>2026</dd></div>
+              <div><dt>Rechtsstand</dt><dd>verkündet</dd></div>
               <div><dt>Wirksamwerden</dt><dd>1. August 2026</dd></div>
             </dl>
             <a class="button-link" href={`${getKreisreformUrl()}#bezirk-suche`}>Gemeinde suchen <PortalIcon name="arrow" /></a>
@@ -274,7 +274,7 @@ const importantItems = [
           </article>
           <article class="home-resource-card">
             <PortalIcon name="government" />
-            <p class="eyebrow">Regierungsprogramm</p>
+            <p class="eyebrow">Arbeitsprogramm</p>
             <h3>15-Punkte-Plan II</h3>
             <p>Vorhaben des {currentGovernment.cabinetName} mit Umsetzungsstand und Rechtsgrundlagen.</p>
             <a href={getActionPlanUrl()}>Programm ansehen <PortalIcon name="arrow" /></a>

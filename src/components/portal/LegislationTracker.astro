@@ -61,16 +61,24 @@ const ressorts = [...new Set(items.map((item) => item.ressort))].sort((left, rig
           </h3>
           <p class="detail-line">Drucksache {item.documentNumber}</p>
           <p>{item.description}</p>
-          <p class="detail-line">
-            Nächste Beratung: <time datetime={item.nextScheduledReading.date}>{siteConfig.date.formatLong(item.nextScheduledReading.date)}</time>
-            {' · '}{item.nextScheduledReading.reading === 'erste-lesung' ? 'Erste Lesung' : 'Zweite Lesung'}
-          </p>
+          {item.nextScheduledReading ? (
+            <p class="detail-line">
+              Nächste Beratung: <time datetime={item.nextScheduledReading.date}>{siteConfig.date.formatLong(item.nextScheduledReading.date)}</time>
+              {' · '}{item.nextScheduledReading.reading === 'erste-lesung' ? 'Erste Lesung' : 'Zweite Lesung'}
+            </p>
+          ) : null}
           {item.recommendation ? (
             <p class="detail-line">
               Beschlussempfehlung {item.recommendation.documentNumber}: {item.recommendation.result === 'annahme' ? 'Annahme empfohlen' : 'Ablehnung empfohlen'}
             </p>
           ) : null}
-          {item.proposedCommittee ? <p class="detail-line">Vorgeschlagene Überweisung: {item.proposedCommittee}</p> : null}
+          {item.proposedCommittee ? (
+            <p class="detail-line">
+              {currentStageIndex >= getLegislativeStageIndex('beschlossen')
+                ? 'Bei Einbringung vorgeschlagene Überweisung'
+                : 'Vorgeschlagene Überweisung'}: {item.proposedCommittee}
+            </p>
+          ) : null}
           {item.topic ? <p class="detail-line">Bezug: {item.topic}</p> : null}
           <ol class="stage-chain" aria-label={`Verfahrensstand ${item.title}`}>
             {legislativeStages.map((stage, index) => (

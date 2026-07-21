@@ -58,22 +58,22 @@ const legalReferences = Array.from(
     description={ministry.teaser}
     breadcrumbs={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsregierung', href: getGovernmentUrl() },
-      { label: 'Kabinett', href: getMinistriesUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Geschäftsbereiche', href: getMinistriesUrl() },
       { label: ministry.kurzname },
     ]}
   >
     <Breadcrumbs
       items={[
         { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Staatsregierung', href: getGovernmentUrl() },
-        { label: 'Kabinett', href: getMinistriesUrl() },
+        { label: 'Staatsrat', href: getGovernmentUrl() },
+        { label: 'Geschäftsbereiche', href: getMinistriesUrl() },
         { label: ministry.kurzname },
       ]}
     />
 
     <SectionHero
-      eyebrow="Ministerium"
+      eyebrow="Staatssekretariat"
       title={ministry.name}
       titleSize="long"
       lead={ministry.teaser}
@@ -83,7 +83,7 @@ const legalReferences = Array.from(
         { label: 'Aufgabenbereiche', value: String(ministry.aufgaben.length) },
         { label: 'Zugeordnete Themen', value: String(relatedTopics.length) },
       ]}
-      actions={[{ label: 'Kontakt zum Ministerium', href: '#kontakt', primary: true }]}
+      actions={[{ label: 'Kontakt zum Staatssekretariat', href: '#kontakt', primary: true }]}
       image={{
         src: ministry.bild,
         alt: ministry.bildAlt ?? `Ansichtsbild für das ${ministry.name}`,
@@ -164,7 +164,7 @@ const legalReferences = Array.from(
           {ministry.verknuepfteLinks.map((link) => (
             <a href={resolvePortalPath(link.href)}>{link.label}</a>
           ))}
-          <a href={getMinistriesUrl()}>Alle Ministerien</a>
+          <a href={getMinistriesUrl()}>Alle Staatssekretariate</a>
         </nav>
       </aside>
     </div>
@@ -213,7 +213,7 @@ const legalReferences = Array.from(
     description="Die angeforderte Ressortseite konnte nicht geladen werden."
     breadcrumbs={[
       { label: 'Startseite', href: getHomeUrl() },
-      { label: 'Staatsregierung', href: getGovernmentUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
       { label: 'Kabinett', href: getMinistriesUrl() },
       { label: 'Nicht gefunden' },
     ]}
@@ -221,7 +221,7 @@ const legalReferences = Array.from(
     <Breadcrumbs
       items={[
         { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Staatsregierung', href: getGovernmentUrl() },
+        { label: 'Staatsrat', href: getGovernmentUrl() },
         { label: 'Kabinett', href: getMinistriesUrl() },
         { label: 'Nicht gefunden' },
       ]}

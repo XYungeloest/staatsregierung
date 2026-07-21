@@ -27,7 +27,13 @@ const isCompact = variant === 'compact';
   />
   <div class="member-card__body">
     <h3><a class="inline-link" href={getGovernmentMemberUrl(member.slug)}>{member.name}</a></h3>
-    <p class="detail-line">{member.amt}</p>
+    {member.currentOffices.length > 0 ? (
+      <ul class="plain-list detail-line" aria-label="Aktuelle Ämter">
+        {member.currentOffices.map((office) => <li>{office.title}</li>)}
+      </ul>
+    ) : (
+      <p class="detail-line">{member.amt}</p>
+    )}
     <p class="member-card__ressort">{member.ressort}</p>
     {!isCompact ? <p>{member.kurzbiografie}</p> : null}
   </div>

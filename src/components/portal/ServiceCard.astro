@@ -13,7 +13,7 @@ interface Props {
 const { title, body, href, links = [], icon, emphasis = false } = Astro.props as Props;
 ---
 
-<article class:list={['service-card', emphasis && 'service-card--emphasis']}>
+<article class:list={['service-card', icon && 'service-card--with-icon', emphasis && 'service-card--emphasis']}>
   {icon ? <div class="service-card__icon" aria-hidden="true"><PortalIcon name={icon} /></div> : null}
   <div class="service-card__body">
   <h3>{href ? <a href={href}>{title}</a> : title}</h3>

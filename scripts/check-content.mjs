@@ -6,6 +6,8 @@ import { promisify } from 'node:util';
 const root = resolve(process.cwd());
 const contentRoot = join(root, 'content');
 const publicRoot = join(root, 'public');
+const editorialConfig = JSON.parse(await readFile(join(root, 'src', 'config', 'editorial.json'), 'utf8'));
+const referenceDate = editorialConfig.referenceDate;
 const problems = [];
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 const allowedNormTypes = new Set([
@@ -32,7 +34,9 @@ const allowedEmailDomains = new Set(['freistaat-ostdeutschland.de']);
 const allowedNormMinistries = new Set([
   'Freistaat Ostdeutschland',
   'Staatsregierung des Freistaates Ostdeutschland',
+  'Staatsrat des Freistaates Ostdeutschland',
   'Landtag des Freistaates Ostdeutschland',
+  'Volkskammer des Freistaates Ostdeutschland',
   'Staatskanzlei des Freistaates Ostdeutschland',
   'Staatsministerium für Volksbildung und Wissenschaft',
   'Staatsministerium des Innern, Bau und für kommunale Angelegenheiten',
@@ -539,17 +543,17 @@ for (const { file, json } of normMetaRecords) {
   if (json.publicationDate && !json.documentDate && !json.dateNote) {
     addProblem(file, 'publicationDate ist gesetzt, aber documentDate oder eine begründete dateNote fehlt');
   }
-  if (json.status === 'future-effective' && (!json.effectiveDate || json.effectiveDate <= '2026-07-19')) {
+  if (json.status === 'future-effective' && (!json.effectiveDate || json.effectiveDate <= referenceDate)) {
     addProblem(file, 'future-effective setzt ein Inkrafttreten nach dem Stichtag voraus');
   }
   if (json.status === 'pending-effective' && json.effectiveDate) {
     addProblem(file, 'pending-effective darf kein unbelegtes konkretes Inkrafttretensdatum enthalten');
   }
-  if (json.status === 'repealed' && (!json.expiryDate || json.expiryDate > '2026-07-19')) {
+  if (json.status === 'repealed' && (!json.expiryDate || json.expiryDate > referenceDate)) {
     addProblem(file, 'repealed setzt ein Außerkrafttreten am oder vor dem Stichtag voraus');
   }
 
-  for (const [relation, inverse] of [['enactedNorm', 'enactingNorm'], ['enactingNorm', 'enactedNorm']]) {
+  for (const [relation, inverse] of [['enactedNorm', 'enactingNorm']]) {
     const targetSlug = json[relation];
     if (!targetSlug) continue;
     const target = normMetaBySlug.get(targetSlug);
@@ -558,6 +562,19 @@ for (const { file, json } of normMetaRecords) {
     } else if (target[inverse] !== json.slug) {
       addProblem(file, `${relation} ist bei ${targetSlug} nicht wechselseitig als ${inverse} hinterlegt`);
     }
+  }
+  for (const targetSlug of json.enactedNorms ?? []) {
+    const target = normMetaBySlug.get(targetSlug);
+    if (!target) {
+      addProblem(file, `enactedNorms verweist auf unbekannte Norm: ${targetSlug}`);
+    } else if (target.enactingNorm !== json.slug) {
+      addProblem(file, `enactedNorms ist bei ${targetSlug} nicht wechselseitig als enactingNorm hinterlegt`);
+    }
+  }
+  if (json.enactingNorm) {
+    const parent = normMetaBySlug.get(json.enactingNorm);
+    const reciprocal = parent?.enactedNorm === json.slug || parent?.enactedNorms?.includes(json.slug);
+    if (parent && !reciprocal) addProblem(file, `enactingNorm ist bei ${json.enactingNorm} nicht wechselseitig hinterlegt`);
   }
 }
 
@@ -589,7 +606,11 @@ for (const { file, json } of normMetaRecords) {
 for (const candidates of possibleDuplicateNorms.values()) {
   if (candidates.length < 2) continue;
   for (const candidate of candidates) {
-    const relatedSlugs = new Set([candidate.json.enactedNorm, candidate.json.enactingNorm].filter(Boolean));
+    const relatedSlugs = new Set([
+      candidate.json.enactedNorm,
+      ...(candidate.json.enactedNorms ?? []),
+      candidate.json.enactingNorm,
+    ].filter(Boolean));
     const unrelated = candidates.filter((other) => other !== candidate && !relatedSlugs.has(other.json.slug));
     if (unrelated.length > 0) {
       addProblem(
@@ -610,19 +631,16 @@ for (const { file, json } of legislationRecords) {
   for (const slug of json.relatedTopics ?? []) if (!topicSlugs.has(slug)) addProblem(file, `relatedTopics verweist auf unbekanntes Thema: ${slug}`);
   for (const slug of json.relatedMinistries ?? []) if (!ministrySlugs.has(slug)) addProblem(file, `relatedMinistries verweist auf unbekanntes Ressort: ${slug}`);
   for (const slug of json.relatedNorms ?? []) if (!normSlugs.has(slug)) addProblem(file, `relatedNorms verweist auf unbekannte Norm: ${slug}`);
-  if (json.recommendation && ['beschlossen', 'verkuendet', 'in-kraft'].includes(json.stage)) {
-    addProblem(file, 'eine Beschlussempfehlung darf ohne amtliches Ergebnis nicht als Beschluss, Verkündung oder Inkrafttreten geführt werden');
+  if (json.confirmedAsOf !== referenceDate) addProblem(file, `confirmedAsOf muss dem redaktionellen Stichtag ${referenceDate} entsprechen`);
+  if (json.stage !== 'in-kraft') addProblem(file, 'muss nach der belegten Verkündung und dem Inkrafttreten als in-kraft geführt werden');
+  if (json.nextScheduledReading) addProblem(file, 'darf nach Abschluss der Beratung keine nächste angesetzte Lesung mehr enthalten');
+  if (json.decidedOn !== '2026-07-20' || json.promulgatedOn !== '2026-07-20') {
+    addProblem(file, 'muss Beschluss- und Verkündungsdatum 20. Juli 2026 getrennt ausweisen');
   }
-  if (json.confirmedAsOf !== '2026-07-19') addProblem(file, 'confirmedAsOf muss dem redaktionellen Stichtag 2026-07-19 entsprechen');
-  if (json.nextScheduledReading?.date !== '2026-07-20') {
-    addProblem(file, 'nextScheduledReading.date muss für die dritte Plenarsitzung 2026-07-20 sein');
-  }
-  if (!['erste-lesung-angesetzt', 'zweite-lesung-angesetzt'].includes(json.stage)) {
-    addProblem(file, 'darf ohne Ergebnisquelle nur als angesetzte erste oder zweite Lesung geführt werden');
-  }
-  const agendaSources = (json.sources ?? []).filter((source) => source.kind === 'tagesordnung');
-  if (agendaSources.length !== 1) {
-    addProblem(file, `muss genau einen Tagesordnungsnachweis enthalten, gefunden: ${agendaSources.length}`);
+  const promulgationSources = (json.sources ?? []).filter((source) => source.kind === 'verkuendung');
+  if (promulgationSources.length !== 1) addProblem(file, `muss genau einen Verkündungsnachweis enthalten, gefunden: ${promulgationSources.length}`);
+  if (!publicationKeys.has(`OGVBl.:2026:${json.publicationSlug?.replace('ogvbl-2026-', '')}`)) {
+    addProblem(file, `publicationSlug verweist auf keine vorhandene OGVBl.-Ausgabe: ${json.publicationSlug}`);
   }
   for (const [index, source] of (json.sources ?? []).entries()) {
     const sourcePath = `sources[${index}]`;
@@ -664,9 +682,11 @@ for (const { file, json } of byPrefix('presse/termine/')) {
 }
 
 const currentMembers = governmentMemberRecords.filter(({ json }) => json.current === true);
-const currentStateMinisters = currentMembers.filter(({ json }) => json.slug !== 'emma-mueller');
-if (currentStateMinisters.length !== 11) {
-  addProblem(join(contentRoot, 'regierung', 'mitglieder'), `muss genau elf aktuelle Staatsminister:innen enthalten, gefunden: ${currentStateMinisters.length}`);
+const currentStateCouncilMembers = currentMembers.filter(({ json }) =>
+  (json.currentOffices ?? []).some((office) => /Staatsrat|Staatsrätin|Staatspräsident/u.test(office.title)),
+);
+if (currentStateCouncilMembers.length !== 10) {
+  addProblem(join(contentRoot, 'regierung', 'mitglieder'), `muss nach Barlows Entlassung zehn aktive Mitglieder des ersten Staatsrates enthalten, gefunden: ${currentStateCouncilMembers.length}`);
 }
 if (currentMembers.some(({ json }) => json.slug === 'mia-wollrath')) {
   addProblem(join(contentRoot, 'regierung', 'mitglieder', 'mia-wollrath.json'), 'darf nicht als aktuelles Kabinettsmitglied geführt werden');
@@ -674,7 +694,7 @@ if (currentMembers.some(({ json }) => json.slug === 'mia-wollrath')) {
 const expectedLeaders = new Map([
   ['inneres-bau-und-kommunale-angelegenheiten', 'Volker Bagdadi'],
   ['umwelt-energie-und-klimaschutz', 'Yannik Schmäle'],
-  ['grenzschutz-faschismusbekaempfung-und-bewaffnete-organe', 'Thomas Henry Barlow'],
+  ['grenzschutz-faschismusbekaempfung-und-bewaffnete-organe', 'Yannik Schmäle'],
 ]);
 for (const { file, json } of ministryRecords) {
   const matchingLeaders = currentMembers.filter(({ json: member }) => json.leitung?.includes(member.name));
@@ -685,6 +705,20 @@ for (const { file, json } of ministryRecords) {
 const emma = currentMembers.find(({ json }) => json.slug === 'emma-mueller')?.json;
 if (!emma || emma.amt !== 'Chefin der Staatskanzlei') {
   addProblem(join(contentRoot, 'regierung', 'mitglieder', 'emma-mueller.json'), 'muss getrennt als Chefin der Staatskanzlei geführt werden');
+}
+if (currentMembers.some(({ json }) => json.slug === 'thomas-henry-barlow')) {
+  addProblem(join(contentRoot, 'regierung', 'mitglieder', 'thomas-henry-barlow.json'), 'darf nach der Entlassung am 20. Juli 2026 nicht aktuell sein');
+}
+const schmaele = currentMembers.find(({ json }) => json.slug === 'yannik-schmaele')?.json;
+const schmaeleOffices = new Set((schmaele?.currentOffices ?? []).map((office) => office.ministry));
+for (const ministry of ['Staatssekretariat für Nachhaltigkeit und Energie', 'Staatssekretariat für Staats- und Grenzsicherheit']) {
+  if (!schmaeleOffices.has(ministry)) addProblem(join(contentRoot, 'regierung', 'mitglieder', 'yannik-schmaele.json'), `aktueller Geschäftsbereich fehlt: ${ministry}`);
+}
+
+for (let issue = 46; issue <= 58; issue += 1) {
+  const slug = `ogvbl-2026-${issue}`;
+  const matches = byPrefix('verkuendungen/').filter(({ json }) => json.slug === slug);
+  if (matches.length !== 1) addProblem(join(contentRoot, 'verkuendungen'), `${slug} muss genau einmal vorhanden sein, gefunden: ${matches.length}`);
 }
 
 const schoolSystemAsset = join(publicRoot, 'images/ui/schulsystem.svg');

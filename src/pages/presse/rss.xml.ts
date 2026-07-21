@@ -23,9 +23,9 @@ export const GET: APIRoute = async ({ site }) => {
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<rss version="2.0">',
     '<channel>',
-    `<title>${escapeXml('Pressemitteilungen der Staatsregierung')}</title>`,
+    `<title>${escapeXml('Pressemitteilungen des Staatsrates')}</title>`,
     `<link>${escapeXml(absoluteUrl(getPressUrl(), baseUrl))}</link>`,
-    `<description>${escapeXml('Aktuelle Pressemitteilungen der Staatsregierung des Ostdeutschen Freistaates.')}</description>`,
+    `<description>${escapeXml('Aktuelle Pressemitteilungen des Staatsrates des Ostdeutschen Freistaates.')}</description>`,
     ...releases.slice(0, 30).map((release) => {
       const link = absoluteUrl(getPressReleaseUrl(release.slug), baseUrl);
       return [

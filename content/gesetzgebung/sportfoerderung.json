@@ -5,12 +5,8 @@
   "documentNumber": "07/22",
   "initiator": "Staatsregierung",
   "introducedOn": "2026-07-08",
-  "stage": "erste-lesung-angesetzt",
-  "statusLabel": "Erste Lesung am 20. Juli 2026 angesetzt.",
-  "nextScheduledReading": {
-    "date": "2026-07-20",
-    "reading": "erste-lesung"
-  },
+  "stage": "in-kraft",
+  "statusLabel": "Beschlossen und am 20. Juli 2026 verkündet; seit 21. Juli 2026 in Kraft.",
   "sources": [
     {
       "label": "Drucksache 07/22",
@@ -19,9 +15,10 @@
       "availability": "local"
     },
     {
-      "label": "Tagesordnung der dritten Plenarsitzung am 20. Juli 2026",
-      "kind": "tagesordnung",
-      "availability": "missing"
+      "label": "OGVBl. 2026 Nr. 52",
+      "kind": "verkuendung",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.md",
+      "availability": "local"
     }
   ],
   "relatedTopics": [
@@ -30,6 +27,17 @@
   "relatedMinistries": [
     "bildung-und-sportliche-ertuechtigung"
   ],
-  "relatedNorms": [],
-  "confirmedAsOf": "2026-07-19"
+  "relatedNorms": [
+    "sportneuordnungsgesetz",
+    "ostdeutsches-sportfoerdergesetz",
+    "landesagentur-spitzensport-gesetz",
+    "sportstiftungs-und-sportfondsgesetz",
+    "athletenfoerder-und-versorgungsgesetz",
+    "betriebssportgemeinschaftengesetz"
+  ],
+  "confirmedAsOf": "2026-07-21",
+  "decidedOn": "2026-07-20",
+  "promulgatedOn": "2026-07-20",
+  "effectiveOn": "2026-07-21",
+  "publicationSlug": "ogvbl-2026-52"
 }
