@@ -7,6 +7,10 @@
   "changeNote": "Verkündete Fassung.",
   "body": [
     {
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 20. Juli 2026 das folgende Gesetz beschlossen:"
+    },
+    {
       "type": "article",
       "label": "Artikel 1",
       "title": "Änderung der Staatsverfassung",
@@ -18,87 +22,147 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "Abschnitt 8 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Er erhält folgende Bezeichnung:"
+          "text": "Abschnitt 8 wird wie folgt geändert:",
+          "level": 0,
+          "listId": "33hvlqviv5d8",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Er erhält folgende Bezeichnung:",
+              "level": 1,
+              "listId": "33hvlqviv5d8",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "section",
+                      "label": "VIII. Abschnitt",
+                      "title": "Das Finanzwesen und Landesvermögen”",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "In Artikel 93 Absatz 2 werden die Wörter “eine Legislaturperiode oder mehrere Legislaturperiode” durch die Wörter “ein Rechnungsjahr oder mehrere Rechnungsjahre” ersetzt.",
+              "level": 1,
+              "listId": "33hvlqviv5d8",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "In Artikel 95 werden die Absätze 2 bis 6 aufgehoben.",
+              "level": 1,
+              "listId": "33hvlqviv5d8",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d.",
+              "text": "Nach Artikel 95 wird der folgende Artikel 95a eingefügt:",
+              "level": 1,
+              "listId": "33hvlqviv5d8",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "article",
+                      "label": "Artikel 95a",
+                      "title": "Gemeinwirtschaftliches Vermögen und Privatisierungsschutz",
+                      "children": [
+                        {
+                          "type": "subparagraph",
+                          "label": "(1)",
+                          "text": "Vermögen, Unternehmen, Beteiligungen, Infrastrukturen, Grundstücke, Rechte und sonstige Vermögensgegenstände, die durch Vergesellschaftung, Rekommunalisierung, Enteignung, Überführung in Gemeineigentum oder durch Errichtung gemeinwirtschaftlicher Träger geschaffen oder erworben worden sind, dienen dauerhaft dem Wohl der Allgemeinheit.",
+                          "level": 0,
+                          "listId": "rpj30ivbs3kx",
+                          "numberingStyle": "decimal",
+                          "children": []
+                        },
+                        {
+                          "type": "subparagraph",
+                          "label": "(2)",
+                          "text": "Der Freistaat Ostdeutschland schützt gemeinwirtschaftliches Vermögen vor sachwidriger Veräußerung, Zerschlagung, Beleihung, Belastung oder Zweckentfremdung. Seine Verwaltung hat nach den Grundsätzen der öffentlichen Daseinsvorsorge, der Wirtschaftlichkeit, der Nachhaltigkeit, der demokratischen Kontrolle und des langfristigen Vermögenserhalts zu erfolgen.",
+                          "level": 0,
+                          "listId": "rpj30ivbs3kx",
+                          "numberingStyle": "decimal",
+                          "children": []
+                        },
+                        {
+                          "type": "subparagraph",
+                          "label": "(3)",
+                          "text": "Die Veräußerung, Privatisierung, Teilprivatisierung, Belastung oder sonstige Aufgabe des beherrschenden öffentlichen Einflusses auf gemeinwirtschaftliches Vermögen von erheblicher Bedeutung ist unzulässig. Rechtsgeschäfte der ordnungsgemäßen Wirtschaftsführung, durch die der beherrschende öffentliche Einfluss oder die dauerhafte Aufgabenerfüllung nicht gefährdet wird, bleiben unberührt.",
+                          "level": 0,
+                          "listId": "rpj30ivbs3kx",
+                          "numberingStyle": "decimal",
+                          "children": []
+                        },
+                        {
+                          "type": "subparagraph",
+                          "label": "(4)",
+                          "text": "Vermögen, das durch Gesetz in Gemeineigentum oder in andere Formen der Gemeinwirtschaft überführt worden ist, darf abweichend von Absatz 3 nur durch besonderes Gesetz wieder privatisiert oder dem beherrschenden Einfluss des Freistaates entzogen werden, soweit dadurch die Erfüllung einer Aufgabe der öffentlichen Daseinsvorsorge, die Versorgungssicherheit, die Bezahlbarkeit grundlegender Leistungen, der Schutz natürlicher Lebensgrundlagen oder die langfristige Handlungsfähigkeit des Freistaates nicht gefährdet würde.",
+                          "level": 0,
+                          "listId": "rpj30ivbs3kx",
+                          "numberingStyle": "decimal",
+                          "children": []
+                        },
+                        {
+                          "type": "subparagraph",
+                          "label": "(5)",
+                          "text": "Erlöse aus der Veräußerung gemeinwirtschaftlichen Vermögens sind grundsätzlich zur Finanzierung von Investitionen in Aufgaben der öffentlichen Daseinsvorsorge zu verwenden. Eine Verwendung zur Deckung laufender konsumtiver Ausgaben ist unzulässig.",
+                          "level": 0,
+                          "listId": "rpj30ivbs3kx",
+                          "numberingStyle": "decimal",
+                          "children": []
+                        },
+                        {
+                          "type": "subparagraph",
+                          "label": "(6)",
+                          "text": "Das Nähere bestimmt ein besonderes Gesetz.”",
+                          "level": 0,
+                          "listId": "rpj30ivbs3kx",
+                          "numberingStyle": "decimal",
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "In Artikel 98 werden die Wörter “einer Legislaturperiode” durch die Wörter “eines Jahres” ersetzt.",
+              "level": 1,
+              "listId": "33hvlqviv5d8",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         }
       ]
     },
     {
-      "type": "section",
-      "label": "VIII. Abschnitt",
-      "title": "Das Finanzwesen und Landesvermögen”",
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Inkrafttreten",
       "children": [
         {
-          "type": "item",
-          "label": "2.",
-          "text": "In Artikel 93 Absatz 2 werden die Wörter “eine Legislaturperiode oder mehrere Legislaturperiode” durch die Wörter “ein Rechnungsjahr oder mehrere Rechnungsjahre” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In Artikel 95 werden die Absätze 2 bis 6 aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Nach Artikel 95 wird der folgende Artikel 95a eingefügt:"
-        },
-        {
-          "type": "article",
-          "label": "Artikel 95a",
-          "title": "Gemeinwirtschaftliches Vermögen und Privatisierungsschutz",
-          "children": [
-            {
-              "type": "item",
-              "label": "1)",
-              "text": "Vermögen, Unternehmen, Beteiligungen, Infrastrukturen, Grundstücke, Rechte und sonstige Vermögensgegenstände, die durch Vergesellschaftung, Rekommunalisierung, Enteignung, Überführung in Gemeineigentum oder durch Errichtung gemeinwirtschaftlicher Träger geschaffen oder erworben worden sind, dienen dauerhaft dem Wohl der Allgemeinheit."
-            },
-            {
-              "type": "item",
-              "label": "2)",
-              "text": "Der Freistaat Ostdeutschland schützt gemeinwirtschaftliches Vermögen vor sachwidriger Veräußerung, Zerschlagung, Beleihung, Belastung oder Zweckentfremdung. Seine Verwaltung hat nach den Grundsätzen der öffentlichen Daseinsvorsorge, der Wirtschaftlichkeit, der Nachhaltigkeit, der demokratischen Kontrolle und des langfristigen Vermögenserhalts zu erfolgen."
-            },
-            {
-              "type": "item",
-              "label": "3)",
-              "text": "Die Veräußerung, Privatisierung, Teilprivatisierung, Belastung oder sonstige Aufgabe des beherrschenden öffentlichen Einflusses auf gemeinwirtschaftliches Vermögen von erheblicher Bedeutung ist unzulässig. Rechtsgeschäfte der ordnungsgemäßen Wirtschaftsführung, durch die der beherrschende öffentliche Einfluss oder die dauerhafte Aufgabenerfüllung nicht gefährdet wird, bleiben unberührt."
-            },
-            {
-              "type": "item",
-              "label": "4)",
-              "text": "Vermögen, das durch Gesetz in Gemeineigentum oder in andere Formen der Gemeinwirtschaft überführt worden ist, darf abweichend von Absatz 3 nur durch besonderes Gesetz wieder privatisiert oder dem beherrschenden Einfluss des Freistaates entzogen werden, soweit dadurch die Erfüllung einer Aufgabe der öffentlichen Daseinsvorsorge, die Versorgungssicherheit, die Bezahlbarkeit grundlegender Leistungen, der Schutz natürlicher Lebensgrundlagen oder die langfristige Handlungsfähigkeit des Freistaates nicht gefährdet würde."
-            },
-            {
-              "type": "item",
-              "label": "5)",
-              "text": "Erlöse aus der Veräußerung gemeinwirtschaftlichen Vermögens sind grundsätzlich zur Finanzierung von Investitionen in Aufgaben der öffentlichen Daseinsvorsorge zu verwenden. Eine Verwendung zur Deckung laufender konsumtiver Ausgaben ist unzulässig."
-            },
-            {
-              "type": "item",
-              "label": "6)",
-              "text": "Das Nähere bestimmt ein besonderes Gesetz.”"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "In Artikel 98 werden die Wörter “einer Legislaturperiode” durch die Wörter “eines Jahres” ersetzt."
-            }
-          ]
-        },
-        {
-          "type": "article",
-          "label": "Artikel 2",
-          "title": "Inkrafttreten",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
         }
       ]
     }

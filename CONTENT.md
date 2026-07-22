@@ -157,6 +157,10 @@ Normmetadaten trennen das erlassende Organ (`enactingBody`) vom fachlich zustän
 `abbr` ist optional und darf ausschließlich aus einer Primärquelle übernommen werden. Redaktionelle
 Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht.
 
+Bei HTML-migrierten Normen dokumentiert `meta.json` dieselbe strukturtragende Datei zusätzlich in
+`sourceReferences`. Verkündungsdatensatz und Normmetadaten müssen dabei auf denselben `.html`-Pfad
+zeigen; die Content-QA prüft diese Beziehung.
+
 `sourceFiles` und `sourceReferences[].localSource` dürfen ausschließlich relative Pfade zu
 tatsächlich versionierten Dateien enthalten. Externe Quellen verwenden eine HTTPS-URL und
 `availability: "external"`. Lokal redaktionell geprüfte, aber nicht mitversionierte Originale
@@ -876,22 +880,26 @@ Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfig
 
 Diese Dateien nur ändern, wenn sich die Struktur oder zentrale Stammdaten ändern. Normale Seiteninhalte gehören nach `content/`.
 
-`scripts/import-normen.mjs` ist der kontrollierte Importer für versionierte Markdown-Quellen unter
-`Gesetze/`. Er klassifiziert Verkündungsblätter, konsolidierte Einzelnormen, redaktionelle Dateien
-und mehrdeutige Quellen. Ohne `--write` läuft er ausschließlich prüfend. Schreiben ist nur mit
-einer gezielten `--file`-Angabe zulässig; vorhandene Datensätze werden erst mit
-`--update-existing` verändert. Es gibt keinen Modus, der den gesamten Normbestand automatisch
-löscht. PDF-Dateien werden nicht als Ersatz für fehlende verlässliche Markdown-Transkriptionen
-ausgewertet.
+`scripts/import-normen.mjs` ist der kontrollierte Importer für versionierte HTML-Quellen unter
+`Gesetze/`. Er verwendet `parse5`, klassifiziert Verkündungsblätter, konsolidierte Einzelnormen,
+redaktionelle Dateien, nicht unterstützte und mehrdeutige Quellen und rekonstruiert Google-Docs-
+Listen aus Listenkennung, Ebene, CSS-Zählerformat und Zählerstand. Skripte, externe Stylesheets,
+Schriftimporte, Bilder und Layoutattribute werden verworfen. Das Quell-HTML wird nicht direkt in
+Astro ausgegeben; allein validierte JSON-Blöcke sind öffentlich. Gleichnamige Markdown-Dateien sind
+Altbestand und werden vom Importer nicht gelesen. Ohne `--write` läuft er ausschließlich prüfend.
+Schreiben ist nur mit einer gezielten HTML-`--file`-Angabe zulässig; vorhandene Datensätze werden
+erst mit `--update-existing` verändert. Es gibt keinen Modus, der den gesamten Normbestand
+automatisch löscht. PDF-Dateien werden nicht als Ersatz für fehlende verlässliche HTML-
+Transkriptionen ausgewertet.
 
 ```sh
 npm run norms:audit
 npm run norms:audit -- --strict
-npm run norms:import -- --file "Gesetze/OGVBl. 2026 Nr. 58.md"
+npm run norms:import -- --write --file "Gesetze/OGVBl. 2026 Nr. 58.html"
 npm run test:parser
 ```
 
-Der strikte Audit ist schreibfrei und prüft die konfigurierten Markdown-Primärquellen gegen die
+Der strikte Audit ist schreibfrei und prüft die konfigurierten HTML-Primärquellen gegen die
 gespeicherten Normfassungen und Verkündungsdatensätze. Er schlägt bei fehlenden Normen,
 abweichenden Titeln oder Datumswerten, Parser-Vertragsverletzungen und geplanten Änderungen fehl.
 Er ist Bestandteil von `npm run content:check` und der CI-Qualitätsprüfung.

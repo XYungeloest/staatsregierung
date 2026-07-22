@@ -69,7 +69,9 @@ const execFileAsync = promisify(execFile);
 
 async function loadTrackedFiles() {
   try {
-    const { stdout } = await execFileAsync('git', ['ls-files', '-z'], {
+    // Vor einem Commit müssen neu hinzugefügte, nicht ignorierte Quellen bereits durch
+    // dieselbe QA laufen können, ohne den Git-Index als Nebeneffekt zu verändern.
+    const { stdout } = await execFileAsync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], {
       cwd: root,
       encoding: 'utf8',
       maxBuffer: 10 * 1024 * 1024,
@@ -408,6 +410,25 @@ for (const { file, json } of records) {
     } else if (/^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(json.initialCitation.trim())) {
       addProblem(file, 'initialCitation darf nicht nur aus der Fundstelle bestehen; Normart und Dokumentdatum müssen erhalten bleiben');
     }
+
+    for (const [index, source] of (json.sourceReferences ?? []).entries()) {
+      const sourcePath = `sourceReferences[${index}]`;
+      if (!source || typeof source !== 'object' || Array.isArray(source)) {
+        addProblem(file, `${sourcePath} muss ein Objekt sein`);
+        continue;
+      }
+      if (source.kind !== 'structured-html-transcription') {
+        addProblem(file, `${sourcePath}.kind ist für eine Normquelle unbekannt: ${source.kind}`);
+      }
+      if (source.availability !== 'versioned') {
+        addProblem(file, `${sourcePath}.availability muss versioned sein`);
+      }
+      if (typeof source.localSource !== 'string' || !source.localSource.endsWith('.html')) {
+        addProblem(file, `${sourcePath}.localSource muss auf eine HTML-Datei verweisen`);
+      } else {
+        await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
+      }
+    }
   }
 
   if (rel.startsWith('normen/') && basename(file) === 'history.json') {
@@ -627,6 +648,22 @@ for (const { file, json } of normMetaRecords) {
     const reciprocal = parent?.enactedNorm === json.slug || parent?.enactedNorms?.includes(json.slug);
     if (parent && !reciprocal) addProblem(file, `enactingNorm ist bei ${json.enactingNorm} nicht wechselseitig hinterlegt`);
   }
+}
+
+for (const { file, json } of byPrefix('verkuendungen/').filter(({ json }) => /^ogvbl-2026-(?:4[6-9]|5[0-8])$/u.test(json.slug))) {
+  const publicationSource = json.sourceReferences?.find((source) => source.kind === 'structured-html-transcription')?.localSource;
+  for (const [index, entry] of (json.entries ?? []).entries()) {
+    const meta = normMetaBySlug.get(entry.normSlug);
+    if (!meta) continue;
+    if (!publicationSource || !meta.sourceReferences?.some((source) => source.localSource === publicationSource)) {
+      addProblem(file, `entries[${index}] und Normdatensatz ${entry.normSlug} verweisen nicht auf dieselbe HTML-Quelle`);
+    }
+  }
+}
+
+const constitutionMeta = normMetaBySlug.get('staatsverfassung-des-freistaates-ostdeutschland');
+if (!constitutionMeta?.sourceReferences?.some((source) => source.localSource === 'Gesetze/Staatsverfassung.html')) {
+  addProblem(join(contentRoot, 'normen/staatsverfassung-des-freistaates-ostdeutschland/meta.json'), 'sourceReferences muss auf Gesetze/Staatsverfassung.html verweisen');
 }
 
 function normalizeDuplicateTitle(value) {

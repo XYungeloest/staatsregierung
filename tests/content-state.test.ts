@@ -110,7 +110,7 @@ test('Verkündungen unterscheiden versionierte und nicht mitversionierte Quellen
   const newPublications = publications.filter((publication) => Number(publication.issue) >= 46 && Number(publication.issue) <= 58 && publication.year === 2026);
   assert.equal(newPublications.length, 13);
   assert.ok(newPublications.every((publication) => publication.sourceReferences?.some(
-    (source) => source.kind === 'transcription' && source.availability === 'versioned' && source.localSource?.endsWith('.md'),
+    (source) => source.kind === 'structured-html-transcription' && source.availability === 'versioned' && source.localSource?.endsWith('.html'),
   )));
   assert.ok(publications.flatMap((publication) => publication.entries).every(
     (entry) => !/^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(entry.citation),
@@ -149,15 +149,20 @@ test('Staatsreform, Verfassung und Verkündungen sind zum 21. Juli verknüpft', 
   const firstReform = normMap.get('erstes-gesetz-zur-grossen-staatsreform');
   assert.ok(firstReform);
   const enactedText = JSON.stringify(firstReform.versions[0].body);
-  assert.match(enactedText, /Siebte Volkskammer ist der siebte Landtag/u);
-  assert.match(enactedText, /Wahl zur achten Volkskammer/u);
-  assert.doesNotMatch(enactedText, /Achte Volkskammer ist der achte Landtag/u);
+  assert.match(enactedText, /Achte Volkskammer ist der achte Landtag/u);
+  assert.match(enactedText, /Wahl zur neunten Volkskammer/u);
+  assert.doesNotMatch(enactedText, /Siebte Volkskammer ist der siebte Landtag/u);
   assert.notEqual(enactedText, consolidatedText);
   for (const issue of [53, 54, 55, 56]) {
     const publication = publications.find((entry) => entry.slug === `ogvbl-2026-${issue}`);
     assert.ok(publication);
     assert.equal(publication.date, '2026-07-20');
     assert.ok(publication.entries.every((entry) => entry.normSlug && entry.versionId));
+    const localSource = publication.sourceReferences?.find((source) => source.kind === 'structured-html-transcription')?.localSource;
+    assert.ok(localSource?.endsWith('.html'));
+    assert.ok(publication.entries.every((entry) =>
+      normMap.get(entry.normSlug ?? '')?.meta.sourceReferences?.some((source) => source.localSource === localSource),
+    ));
   }
   const sero = normMap.get('sero-verordnung');
   assert.equal(sero?.meta.documentDate, '2026-07-20');

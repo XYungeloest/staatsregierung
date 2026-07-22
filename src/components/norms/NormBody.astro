@@ -13,13 +13,14 @@ interface Props {
   path?: number[];
   references?: TextLinkReference[];
   headingLevel?: number;
+  quoted?: boolean;
 }
 
 type BlockRun =
   | { kind: 'block'; block: NormBodyBlock; index: number }
   | { kind: 'list'; items: Array<{ block: NormBodyBlock; index: number }> };
 
-const { blocks, path = [], references = [], headingLevel = 2 } = Astro.props;
+const { blocks, path = [], references = [], headingLevel = 2, quoted = false } = Astro.props;
 
 function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
   const runs: BlockRun[] = [];
@@ -71,21 +72,41 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </header>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} />
                   ) : null}
                 </section>
               ) : null}
 
               {block.type === 'paragraph' || block.type === 'article' ? (
-                <details class={`norm-unit norm-unit--${block.type}`} aria-labelledby={anchorId} open>
-                  <summary class="norm-unit__summary">
-                    {block.label ? <p class="norm-unit__label">{toDisplayText(block.label)}</p> : null}
-                    {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
-                  </summary>
+                quoted ? (
+                  <section class={`norm-quoted-unit norm-quoted-unit--${block.type}`} aria-labelledby={anchorId}>
+                    <header class="norm-quoted-unit__header">
+                      {block.label ? <p class="norm-quoted-unit__label">{toDisplayText(block.label)}</p> : null}
+                      {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                    </header>
+                    {block.children && block.children.length > 0 ? (
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={true} />
+                    ) : null}
+                  </section>
+                ) : (
+                  <details class={`norm-unit norm-unit--${block.type}`} aria-labelledby={anchorId} open>
+                    <summary class="norm-unit__summary">
+                      {block.label ? <p class="norm-unit__label">{toDisplayText(block.label)}</p> : null}
+                      {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                    </summary>
+                    {block.children && block.children.length > 0 ? (
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} />
+                    ) : null}
+                  </details>
+                )
+              ) : null}
+
+              {block.type === 'quotedProvision' ? (
+                <blockquote class="norm-quoted-provision">
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={true} />
                   ) : null}
-                </details>
+                </blockquote>
               ) : null}
 
               {block.type === 'annex' ? (
@@ -95,7 +116,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                     {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </header>
                   {block.children && block.children.length > 0 ? (
-                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} />
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} />
                   ) : null}
                 </section>
               ) : null}
@@ -114,13 +135,22 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               {block.type === 'table' ? (
                 <div class="table-wrap norm-table-wrap" tabindex="0" role="region" aria-label={block.title ?? 'Tabelle im Normtext'}>
                   <table class="norm-table">
+                    <caption class="visually-hidden">{block.title ?? 'Tabelle im Normtext'}</caption>
                     {block.children?.map((row) => (
                       <tr>
                         {row.children?.map((cell) => (
                           cell.type === 'tableHeaderCell' ? (
-                            <th scope="col" set:html={renderLinkedDisplayText(cell.text ?? '', references)} />
+                            <th scope="col" rowspan={cell.rowspan} colspan={cell.colspan}>
+                              {cell.children?.length ? (
+                                <Astro.self blocks={cell.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} />
+                              ) : <span set:html={renderLinkedDisplayText(cell.text ?? '', references)} />}
+                            </th>
                           ) : (
-                            <td set:html={renderLinkedDisplayText(cell.text ?? '', references)} />
+                            <td rowspan={cell.rowspan} colspan={cell.colspan}>
+                              {cell.children?.length ? (
+                                <Astro.self blocks={cell.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} />
+                              ) : <span set:html={renderLinkedDisplayText(cell.text ?? '', references)} />}
+                            </td>
                           )
                         ))}
                       </tr>
@@ -134,14 +164,18 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
       : null}
 
     {run.kind === 'list' ? (
-      <ol class="norm-list">
+      <ol class:list={['norm-amendment-list', quoted ? 'norm-amendment-list--quoted' : undefined]}>
         {run.items.map(({ block, index }) => (
-          <li class:list={['norm-list__item', block.type === 'subitem' ? 'norm-list__item--subitem' : undefined]}>
-            {block.label ? <span class="norm-list__label">{toDisplayText(block.label)}</span> : null}
-            <span set:html={renderLinkedDisplayText(block.text, references)} />
-            {block.children && block.children.length > 0 ? (
-              <Astro.self blocks={block.children} path={[...path, index]} references={references} headingLevel={headingLevel} />
-            ) : null}
+          <li class="norm-amendment-item">
+            {block.label ? <span class="norm-amendment-item__label">{toDisplayText(block.label)}</span> : null}
+            <div class="norm-amendment-item__content">
+              <span set:html={renderLinkedDisplayText(block.text, references)} />
+              {block.children && block.children.length > 0 ? (
+                <div class="norm-amendment-item__children">
+                  <Astro.self blocks={block.children} path={[...path, index]} references={references} headingLevel={headingLevel} quoted={quoted} />
+                </div>
+              ) : null}
+            </div>
           </li>
         ))}
       </ol>

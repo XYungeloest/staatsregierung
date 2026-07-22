@@ -7,6 +7,10 @@
   "changeNote": "Verkündete Fassung.",
   "body": [
     {
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 20. Juli 2026 das folgende Gesetz beschlossen:"
+    },
+    {
       "type": "article",
       "label": "Artikel 1",
       "title": "Einführung eines Gesetzes zur Beschleunigung luftfahrtindustrieller Vorhaben von besonderer Landesbedeutung am Standort Leipzig/Halle",
@@ -16,1208 +20,1651 @@
           "text": "Das nachstehende wird Gesetz:"
         },
         {
+          "type": "quotedProvision",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Gesetz zur Beschleunigung luftfahrtindustrieller Vorhaben von besonderer Landesbedeutung am Standort Leipzig/Halle (Hochgeschwindigkeitsluftfahrt-Standortgesetz – HGLStG)"
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 1",
+              "title": "Anwendungsbereich und Begriffsbestimmungen",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 1",
+                  "title": "Begriffsbestimmungen",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Im Sinne dieses Gesetzes ist"
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "ein luftfahrtindustrielles Vorhaben ein Vorhaben, das der Entwicklung, Herstellung, Wartung, Prüfung, Auslieferung, Zertifizierungsunterstützung, Ausbildung oder industriellen Zulieferung im Zusammenhang mit Hochgeschwindigkeits- oder Überschallluftfahrt dient,",
+                      "level": 0,
+                      "listId": "by2tn36gimsh",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "der Standort Leipzig/Halle der Flughafen Leipzig/Halle einschließlich der für ein Vorhaben nach Nummer 1 erforderlichen oder geeigneten angrenzenden Fächen,",
+                      "level": 0,
+                      "listId": "by2tn36gimsh",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Projektträger eine natürliche oder juristische Person des privaten oder öffentlichen Rechts, die ein Vorhaben nach Nummer 1 vorbereitet, errichtet, betreibt oder daran mitwirkt,",
+                      "level": 0,
+                      "listId": "by2tn36gimsh",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "zuständige Behörde jede Behörde, die für ein Verfahren, eine Entscheidung, eine Stellungnahme, eine Beteiligung oder eine sonstige Mitwirkung im Zusammenhang mit einem Vorhaben nach Nummer 1 zuständig ist,",
+                      "level": 0,
+                      "listId": "by2tn36gimsh",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "Projektstelle die Projektstelle nach § 3,",
+                      "level": 0,
+                      "listId": "by2tn36gimsh",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "Standortvertrag ein Vertrag zwischen dem Freistaat und einem Projektträger über die Vorbereitung eines Vorhabens nach Nummer 1 und",
+                      "level": 0,
+                      "listId": "by2tn36gimsh",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "nachhaltiger Luftfahrtkraftstoff ein Luftfahrtkraftstoff nach Maßgabe des anwendbaren Rechts der Europäischen Union.",
+                      "level": 0,
+                      "listId": "by2tn36gimsh",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 2",
+                  "title": "Vorhaben von besonderer Landesbedeutung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Das Vorhaben „Boom Europe Leipzig/Halle“ ist ein luftfahrtindustrielles Vorhaben von besonderer Landesbedeutung.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Das Vorhaben umfasst insbesondere",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "ein europäisches Auslieferungszentrum,",
+                      "level": 0,
+                      "listId": "xfmlnynvi2bz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "ein Wartungs-, Reparatur- und Überholungszentrum,",
+                      "level": 0,
+                      "listId": "xfmlnynvi2bz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Test- und Zertifizierungsunterstützung,",
+                      "level": 0,
+                      "listId": "xfmlnynvi2bz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Triebwerks-, Lärm-, Emissions- und Kraftstofftestinfrastruktur,",
+                      "level": 0,
+                      "listId": "xfmlnynvi2bz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "ein Ausbildungszentrum,",
+                      "level": 0,
+                      "listId": "xfmlnynvi2bz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "eine europäische Zuliefer- und Komponentenbasis,",
+                      "level": 0,
+                      "listId": "xfmlnynvi2bz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "soweit die technischen, wirtschaftlichen und rechtlichen Voraussetzungen vorliegen, eine Komponentenfertigung oder Endmontage.",
+                      "level": 0,
+                      "listId": "xfmlnynvi2bz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Die Staatsregierung kann durch Rechtsverordnung weitere luftfahrtindustrielle Vorhaben am Standort Leipzig/Halle als Vorhaben von besonderer Landesbedeutung bestimmen, wenn das Vorhaben erhebliche Bedeutung für Forschung, Beschäftigung, industrielle Wertschöpfung, technologische Souveränität oder Strukturentwicklung im Freistaat hat.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 2",
+              "title": "Zuständigkeit und Koordinierung",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 3",
+                  "title": "Projektstelle",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Bei der Staatskanzlei wird eine Projektstelle Hochgeschwindigkeitsluftfahrt eingerichtet. Die Projektstelle handelt in Angelegenheiten der Standort- und Verfahrenskoordination im fachlichen Auftrag des zuständigen Staatsministeriums. Die Dienstaufsicht obliegt der Staatskanzlei.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Projektstelle koordiniert die Vorbereitung und Durchführung der Vorhaben nach § 2.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Die Zuständigkeit der fachlich zuständigen Behörden bleibt unberührt.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 4",
+                  "title": "Koordinierung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Projektstelle ist Koordinierungsstelle für landes- und kommunalrechtliche Verfahren im Zusammenhang mit Vorhaben nach § 2, soweit sonstiges Recht nicht entgegensteht.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die zuständigen Behörden unterrichten die Projektstelle unverzüglich über wesentliche Verfahrensschritte, Verzögerungen, Hindernisse und Abstimmungsbedarfe.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Die Projektstelle kann Stellungnahmen und Sachstandsberichte der zuständigen Behörden anfordern, soweit dies für die Koordinierung des Vorhabens erforderlich ist.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die Projektstelle ist nicht befugt, anstelle der zuständigen Behörde über Genehmigungen, Zulassungen, Planfeststellungen, Erlaubnisse oder sonstige Verwaltungsakte zu entscheiden.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 5",
+                  "title": "Projektmanager:in",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Projektstelle kann im Einvernehmen mit den jeweils zuständigen Behörden einen Projektmanager:in zur Unterstützung der Verfahrenskoordination einsetzen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Hoheitliche Entscheidungen dürfen dem/der Projektmanager:in nicht übertragen werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Die Kosten des/der Projektmanager:in können dem/der Projektträger:in durch öffentlich-rechtlichen Vertrag auferlegt werden, soweit dies angemessen ist und im sachlichen Zusammenhang mit dem Vorhaben steht.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 3",
+              "title": "Verfahrensbeschleunigung",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 6",
+                  "title": "Verfahrensfahrplan",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Für jedes Vorhaben nach § 2 erstellt die Projektstelle im Benehmen mit den zuständigen Behörden und dem/der Projektträger:in einen Verfahrensfahrplan.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Der Verfahrensfahrplan enthält insbesondere",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "die voraussichtlich erforderlichen Verfahren und Entscheidungen,",
+                      "level": 0,
+                      "listId": "g25jfhbpchh2",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "die zuständigen Behörden,",
+                      "level": 0,
+                      "listId": "g25jfhbpchh2",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "die erforderlichen Unterlagen und Gutachten,",
+                      "level": 0,
+                      "listId": "g25jfhbpchh2",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "die vorgesehenen Beteiligungen,",
+                      "level": 0,
+                      "listId": "g25jfhbpchh2",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "die voraussichtlichen Verfahrensschritte und Fristen,",
+                      "level": 0,
+                      "listId": "g25jfhbpchh2",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "die Schnittstellen zu Bundesbehörden, Stellen der Europäischen Union und sonstigen Beteiligten und",
+                      "level": 0,
+                      "listId": "g25jfhbpchh2",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "erkennbare Risiken und Klärungsbedarfe.",
+                      "level": 0,
+                      "listId": "g25jfhbpchh2",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Der Verfahrensfahrplan ist fortzuschreiben, wenn sich der Projektzuschnitt, die Rechtslage oder der Verfahrensstand wesentlich ändert.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 7",
+                  "title": "Antragskonferenz",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Vor Einreichung wesentlicher Anträge führt die Projektstelle eine Antragskonferenz durch, soweit dies für die Verfahrensbeschleunigung erforderlich ist.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "An der Antragskonferenz sollen der/die Projektträger:in, die zuständigen Behörden, die Flughafengesellschaft, die betroffenen kommunalen Gebietskörperschaften sowie weitere nach Einschätzung der Projektstelle berührte Stellen beteiligt werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "In der Antragskonferenz sollen insbesondere Gegenstand, Umfang und voraussichtliche Vollständigkeit der Antragsunterlagen, erforderliche Gutachten, Beteiligungen, Umweltprüfungen, Sicherheitsanforderungen und Fristen erörtert werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Das Ergebnis der Antragskonferenz ist zu dokumentieren.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 8",
+                  "title": "Beteiligung öffentlicher Stellen",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Stellungnahmen und Beteiligungen öffentlicher Stellen sollen parallel eingeholt werden, soweit sonstiges Recht nicht entgegensteht.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die zuständigen Behörden wirken darauf hin, dass Nachforderungen von Unterlagen frühzeitig, gebündelt und nachvollziehbar erfolgen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Nachforderungen sind zu begründen. Sie sollen erkennen lassen, welche Unterlagen zur weiteren Bearbeitung erforderlich sind.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 9",
+                  "title": "Fachrechtliche Beschleunigungsinstrumente",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die zuständigen Behörden prüfen frühzeitig, ob Vorbescheide, Teilgenehmigungen, abschnittsweise Zulassungen oder Zulassungen eines vorzeitigen Beginns nach dem jeweils anzuwendenden Fachrecht in Betracht kommen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Prüfung nach Absatz 1 ist im Verfahrensfahrplan zu dokumentieren.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Die materiellen Voraussetzungen des jeweils anzuwendenden Fachrechts bleiben unberührt.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 10",
+                  "title": "Vorrangige Bearbeitung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Verfahren im Zusammenhang mit Vorhaben nach § 2 sind von den Behörden des Freistaates vorrangig zu bearbeiten, soweit dies mit den gesetzlichen Aufgaben der Behörden und den Rechten Dritter vereinbar ist.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die vorrangige Bearbeitung darf nicht dazu führen, dass zwingende Prüfungen unterbleiben oder gesetzlich vorgeschriebene Beteiligungen verkürzt werden.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Kann eine Behörde die vorrangige Bearbeitung nicht gewährleisten, teilt sie dies der Projektstelle und der vorgesetzten Behörde unverzüglich mit. Die Projektstelle unterrichtet die Staatsregierung und schlägt Maßnahmen zur Behebung vor.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 4",
+              "title": "Standort und Infrastruktur",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 11",
+                  "title": "Standortbereich",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Standortbereich im Sinne dieses Gesetzes ist der Flughafen Leipzig/Halle einschließlich der für Vorhaben nach § 2 erforderlichen oder geeigneten angrenzenden Entwicklungsflächen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Zum Standortbereich können insbesondere Flächen für Hangars, Prüfstände, Labore, Schulungs- und Simulationszentren, Infrastruktur gehören.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Die Staatsregierung wird ermächtigt, durch Rechtsverordnung den Standortbereich räumlich näher zu bestimmen. In der Rechtsverordnung dürfen nur Flächen einbezogen werden, die für Vorhaben nach § 2 oder für deren notwendige Infrastruktur erforderlich oder geeignet sind.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Rechte der Eigentümer:innen sowie sonstige:r Berechtigte:r bleiben unberührt. Dieses Gesetz begründet keine Enteignungsermächtigung.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 12",
+                  "title": "Flughafengesellschaft",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Staatsregierung bindet die für den Betrieb des Flughafens Leipzig/Halle zuständige Flughafengesellschaft und ihre Gesellschafter frühzeitig in die Standortentwicklung ein.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Gegenstand der Einbindung sind insbesondere",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "Flächenverfügbarkeit,",
+                      "level": 0,
+                      "listId": "2xr1m16zbrh8",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "luftseitige und landseitige Erschließung,",
+                      "level": 0,
+                      "listId": "2xr1m16zbrh8",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Rollfeld- und Vorfeldanbindung,",
+                      "level": 0,
+                      "listId": "2xr1m16zbrh8",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Sicherheitsbereiche,",
+                      "level": 0,
+                      "listId": "2xr1m16zbrh8",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "Pacht-, Miet-, Erbbaurechts- und Beteiligungsmodelle,",
+                      "level": 0,
+                      "listId": "2xr1m16zbrh8",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "Investitionsbedarf und",
+                      "level": 0,
+                      "listId": "2xr1m16zbrh8",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "Vereinbarkeit mit bestehenden Flughafenentwicklungsplänen.",
+                      "level": 0,
+                      "listId": "2xr1m16zbrh8",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Rechte und Pflichten der Flughafengesellschaft entstehen nur durch Gesetz, Verwaltungsakt oder gesonderte Vereinbarung.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 13",
+                  "title": "Infrastrukturkoordination",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Projektstelle koordiniert die Abstimmung über die für Vorhaben nach § 2 erforderliche oder geeignete Infrastruktur.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Zur Infrastruktur im Sinne des Absatzes 1 gehören insbesondere",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "Verkehrswege,",
+                      "level": 0,
+                      "listId": "rixd1qxxt18s",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Schienen- und Straßenanschlüsse,",
+                      "level": 0,
+                      "listId": "rixd1qxxt18s",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Energieversorgung,",
+                      "level": 0,
+                      "listId": "rixd1qxxt18s",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Wasserstoffinfrastruktur,",
+                      "level": 0,
+                      "listId": "rixd1qxxt18s",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "Lagerung und Betankung nachhaltiger Luftfahrtkraftstoffe,",
+                      "level": 0,
+                      "listId": "rixd1qxxt18s",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "digitale Netze,",
+                      "level": 0,
+                      "listId": "rixd1qxxt18s",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "Wasser- und Abwasserinfrastruktur und",
+                      "level": 0,
+                      "listId": "rixd1qxxt18s",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "8.",
+                      "text": "Brandschutz- und Sicherheitsinfrastruktur.",
+                      "level": 0,
+                      "listId": "rixd1qxxt18s",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Die Zuständigkeiten der jeweiligen Vorhabenträger und Fachbehörden bleiben unberührt.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 15",
+                  "title": "Standortentwicklungsgesellschaft",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Der Freistaat kann zur Vorbereitung, Errichtung, Finanzierung, Verwaltung oder zum Betrieb von Infrastruktur im Zusammenhang mit Vorhaben nach § 2 eine Kapitalgesellschaft errichten, sich an einer Kapitalgesellschaft beteiligen oder eine bestehende Landesgesellschaft beauftragen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Gesellschaft darf insbesondere Aufgaben wahrnehmen in den Bereichen",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "Flächenentwicklung,",
+                      "level": 0,
+                      "listId": "36pyysbm8663",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Errichtung und Verwaltung von Hangars, Prüfständen, Labor- und Schulungsinfrastruktur,",
+                      "level": 0,
+                      "listId": "36pyysbm8663",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Koordinierung von Zuliefer- und Ansiedlungsflächen,",
+                      "level": 0,
+                      "listId": "36pyysbm8663",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Verwaltung von Förder- und Infrastrukturprojekten und",
+                      "level": 0,
+                      "listId": "36pyysbm8663",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "Beteiligung an Projektgesellschaften.",
+                      "level": 0,
+                      "listId": "36pyysbm8663",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Haushaltsrechtliche, vergaberechtliche und beihilferechtliche Vorgaben bleiben unberührt.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 5",
+              "title": "Standortvertrag und Förderung",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 16",
+                  "title": "Standortvertrag",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Staatsregierung wird ermächtigt, zur Umsetzung eines Vorhabens nach § 2 einen öffentlich-rechtlichen Standortvertrag nach Maßgabe der Vorschriften über öffentlich-rechtliche Verträge mit einem/einer Projektträger:in zu schließen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Der Standortvertrag darf keine Ansprüche begründen, die im Verwaltungsverfahren begründet werden müssen.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 17",
+                  "title": "Fördergegenstände",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Förderungen können gewährt werden für",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "Flächenentwicklung und Erschließung,",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Hangars, Prüfstände, Test- und Laborinfrastruktur,",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Investitionen in luftfahrtindustrielle Anlagen,",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Forschung und Entwicklung,",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "Ausbildung und Fachkräftegewinnung,",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "Infrastruktur für nachhaltige Luftfahrtkraftstoffe, Wasserstoff und Energie,",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "Umwelt-, Lärm- und Emissionsmonitoring,",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "8.",
+                      "text": "Zuliefernetzwerke,",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "9.",
+                      "text": "Digitalisierung, Simulation und Zertifizierungsunterstützung",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "10.",
+                      "text": "Beteiligungen, Darlehen, Gewährleistungen und sonstige Finanzierungsinstrumente.",
+                      "level": 0,
+                      "listId": "c8bzie9lrfqy",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Finanzierung von Förderungen nach Absatz 1 kann aus dem Sondervermögen ,,Hochgeschwindigkeitsluftfahrt Ost” erfolgen.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 18",
+                  "title": "Fördervoraussetzungen",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Förderungen nach § 17 setzen voraus, dass"
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "eine gegenseitige Vereinbarung mit dem Ostdeutschen Freistaat besteht,",
+                      "level": 0,
+                      "listId": "w8aa9se04alf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "der/die Projektträger:in eine eigene angemessene Investition erbringt,",
+                      "level": 0,
+                      "listId": "w8aa9se04alf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "der/die Projektträger:in sich zu einer angemessenen Standortbindung verpflichtet,",
+                      "level": 0,
+                      "listId": "w8aa9se04alf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "der/die Projektträger:in Arbeitsplätze schafft oder sichert und",
+                      "level": 0,
+                      "listId": "w8aa9se04alf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "die zweckentsprechende Verwendung der Förderung gesichert ist.",
+                      "level": 0,
+                      "listId": "w8aa9se04alf",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 19",
+                  "title": "Besondere Anforderungen an das Vorhaben „Boom Europe Leipzig/Halle“",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ soll der Standortvertrag eine eigene Investition des Projektträgers in Höhe von mindestens 1,5 Milliarden Euro über zehn Jahre vorsehen, soweit der Projektzuschnitt keine abweichende Regelung rechtfertigt.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ soll der Standortvertrag eine Standortbindung von mindestens 20 Jahren vorsehen.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ sollen Förderungen an Meilensteine, Nachweispflichten, Standortbindung, Investitionsfortschritt und Arbeitsplatzentwicklung gebunden werden.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 20",
+                  "title": "Rückforderung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Förderungen nach diesem Gesetz sind ganz oder teilweise zurückzufordern, soweit",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "Fördermittel zweckwidrig verwendet werden,",
+                      "level": 0,
+                      "listId": "78gnluyg67ek",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "wesentliche Investitionszusagen nicht erfüllt werden,",
+                      "level": 0,
+                      "listId": "78gnluyg67ek",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "vereinbarte Arbeitsplatzschwellen nicht erreicht werden,",
+                      "level": 0,
+                      "listId": "78gnluyg67ek",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "die Standortbindung verletzt wird,",
+                      "level": 0,
+                      "listId": "78gnluyg67ek",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "beihilferechtliche Rückforderungsgründe vorliegen oder",
+                      "level": 0,
+                      "listId": "78gnluyg67ek",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "Auflagen oder Bedingungen wesentlich verletzt werden.",
+                      "level": 0,
+                      "listId": "78gnluyg67ek",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Von einer Rückforderung kann ganz oder teilweise abgesehen werden, soweit der Förderzweck im Wesentlichen erreicht wurde und das Absehen mit Haushaltsrecht und Recht der Europäischen Union vereinbar ist.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 6",
+              "title": "Forschung, Ausbildung und Monitoring",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 21",
+                  "title": "Forschungsverbund",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Das Staatsministerium für Volksbildung und Wissenschaft kann Maßnahmen zum Aufbau eines Forschungsverbundes Überschalltechnologie Ost fördern.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "In den Forschungsverbund können insbesondere Hochschulen, außeruniversitäre Forschungseinrichtungen, das Deutsche Zentrum für Luft- und Raumfahrt, Unternehmen und sonstige geeignete Stellen einbezogen werden.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 22",
+                  "title": "Ausbildungsinfrastruktur",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Das Staatsministerium für Wirtschaft und Arbeit kann Maßnahmen zur Aus-, Fort- und Weiterbildung von Fachkräften für Vorhaben nach § 3 fördern.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Förderungen können Hochschulen, Berufsschulen, Kammern, Unternehmen, Forschungseinrichtungen, Trägern der beruflichen Bildung und sonstigen geeigneten Stellen gewährt werden.",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 23",
+                  "title": "Nebenbestimmungen zum Umwelt- und Lärmschutz",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Bei Förderungen nach diesem Gesetz sind, soweit nach Art und Umfang des Vorhabens erforderlich, Nebenbestimmungen über Umwelt-, Lärm- und Emissionsmonitoring vorzusehen."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 7",
+              "title": "Prüfung",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 24",
+                  "title": "Rechnungshof",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Die Prüfung durch den Rechnungshof bleibt unberührt."
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 25",
+                  "title": "Projektbeendigung",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Wird ein Vorhaben nach § 3 nicht weiterverfolgt, unterrichtet die Staatsregierung den Landtag unverzüglich."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Einführung eines Gesetzes über das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost",
+      "children": [
+        {
           "type": "paragraphText",
-          "text": "Gesetz zur Beschleunigung luftfahrtindustrieller Vorhaben von besonderer Landesbedeutung am Standort Leipzig/Halle (Hochgeschwindigkeitsluftfahrt-Standortgesetz – HGLStG)"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 1",
-      "title": "Anwendungsbereich und Begriffsbestimmungen",
-      "children": [
-        {
-          "type": "paragraph",
-          "label": "§ 1",
-          "title": "Begriffsbestimmungen",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Im Sinne dieses Gesetzes ist"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "ein luftfahrtindustrielles Vorhaben ein Vorhaben, das der Entwicklung, Herstellung, Wartung, Prüfung, Auslieferung, Zertifizierungsunterstützung, Ausbildung oder industriellen Zulieferung im Zusammenhang mit Hochgeschwindigkeits- oder Überschallluftfahrt dient,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "der Standort Leipzig/Halle der Flughafen Leipzig/Halle einschließlich der für ein Vorhaben nach Nummer 1 erforderlichen oder geeigneten angrenzenden Fächen,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Projektträger eine natürliche oder juristische Person des privaten oder öffentlichen Rechts, die ein Vorhaben nach Nummer 1 vorbereitet, errichtet, betreibt oder daran mitwirkt,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "zuständige Behörde jede Behörde, die für ein Verfahren, eine Entscheidung, eine Stellungnahme, eine Beteiligung oder eine sonstige Mitwirkung im Zusammenhang mit einem Vorhaben nach Nummer 1 zuständig ist,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "Projektstelle die Projektstelle nach § 3,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "Standortvertrag ein Vertrag zwischen dem Freistaat und einem Projektträger über die Vorbereitung eines Vorhabens nach Nummer 1 und"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "nachhaltiger Luftfahrtkraftstoff ein Luftfahrtkraftstoff nach Maßgabe des anwendbaren Rechts der Europäischen Union."
-            }
-          ]
+          "text": "Das nachstehende wird Gesetz:"
         },
         {
-          "type": "paragraph",
-          "label": "§ 2",
-          "title": "Vorhaben von besonderer Landesbedeutung",
+          "type": "quotedProvision",
           "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Das Vorhaben „Boom Europe Leipzig/Halle“ ist ein luftfahrtindustrielles Vorhaben von besonderer Landesbedeutung."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Das Vorhaben umfasst insbesondere"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "ein europäisches Auslieferungszentrum,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "ein Wartungs-, Reparatur- und Überholungszentrum,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Test- und Zertifizierungsunterstützung,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Triebwerks-, Lärm-, Emissions- und Kraftstofftestinfrastruktur,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "ein Ausbildungszentrum,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "eine europäische Zuliefer- und Komponentenbasis,"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "soweit die technischen, wirtschaftlichen und rechtlichen Voraussetzungen vorliegen, eine Komponentenfertigung oder Endmontage."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die Staatsregierung kann durch Rechtsverordnung weitere luftfahrtindustrielle Vorhaben am Standort Leipzig/Halle als Vorhaben von besonderer Landesbedeutung bestimmen, wenn das Vorhaben erhebliche Bedeutung für Forschung, Beschäftigung, industrielle Wertschöpfung, technologische Souveränität oder Strukturentwicklung im Freistaat hat."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 2",
-      "title": "Zuständigkeit und Koordinierung",
-      "children": [
-        {
-          "type": "paragraph",
-          "label": "§ 3",
-          "title": "Projektstelle",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Bei der Staatskanzlei wird eine Projektstelle Hochgeschwindigkeitsluftfahrt eingerichtet. Die Projektstelle handelt in Angelegenheiten der Standort- und Verfahrenskoordination im fachlichen Auftrag des zuständigen Staatsministeriums. Die Dienstaufsicht obliegt der Staatskanzlei."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die Projektstelle koordiniert die Vorbereitung und Durchführung der Vorhaben nach § 2."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die Zuständigkeit der fachlich zuständigen Behörden bleibt unberührt."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 4",
-          "title": "Koordinierung",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Die Projektstelle ist Koordinierungsstelle für landes- und kommunalrechtliche Verfahren im Zusammenhang mit Vorhaben nach § 2, soweit sonstiges Recht nicht entgegensteht."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die zuständigen Behörden unterrichten die Projektstelle unverzüglich über wesentliche Verfahrensschritte, Verzögerungen, Hindernisse und Abstimmungsbedarfe."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die Projektstelle kann Stellungnahmen und Sachstandsberichte der zuständigen Behörden anfordern, soweit dies für die Koordinierung des Vorhabens erforderlich ist."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(4)",
-              "text": "Die Projektstelle ist nicht befugt, anstelle der zuständigen Behörde über Genehmigungen, Zulassungen, Planfeststellungen, Erlaubnisse oder sonstige Verwaltungsakte zu entscheiden."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 5",
-          "title": "Projektmanager:in",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Die Projektstelle kann im Einvernehmen mit den jeweils zuständigen Behörden einen Projektmanager:in zur Unterstützung der Verfahrenskoordination einsetzen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Hoheitliche Entscheidungen dürfen dem/der Projektmanager:in nicht übertragen werden."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die Kosten des/der Projektmanager:in können dem/der Projektträger:in durch öffentlich-rechtlichen Vertrag auferlegt werden, soweit dies angemessen ist und im sachlichen Zusammenhang mit dem Vorhaben steht."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 3",
-      "title": "Verfahrensbeschleunigung",
-      "children": [
-        {
-          "type": "paragraph",
-          "label": "§ 6",
-          "title": "Verfahrensfahrplan",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Für jedes Vorhaben nach § 2 erstellt die Projektstelle im Benehmen mit den zuständigen Behörden und dem/der Projektträger:in einen Verfahrensfahrplan."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Der Verfahrensfahrplan enthält insbesondere"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "die voraussichtlich erforderlichen Verfahren und Entscheidungen,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "die zuständigen Behörden,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "die erforderlichen Unterlagen und Gutachten,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "die vorgesehenen Beteiligungen,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "die voraussichtlichen Verfahrensschritte und Fristen,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "die Schnittstellen zu Bundesbehörden, Stellen der Europäischen Union und sonstigen Beteiligten und"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "erkennbare Risiken und Klärungsbedarfe."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Der Verfahrensfahrplan ist fortzuschreiben, wenn sich der Projektzuschnitt, die Rechtslage oder der Verfahrensstand wesentlich ändert."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 7",
-          "title": "Antragskonferenz",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Vor Einreichung wesentlicher Anträge führt die Projektstelle eine Antragskonferenz durch, soweit dies für die Verfahrensbeschleunigung erforderlich ist."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "An der Antragskonferenz sollen der/die Projektträger:in, die zuständigen Behörden, die Flughafengesellschaft, die betroffenen kommunalen Gebietskörperschaften sowie weitere nach Einschätzung der Projektstelle berührte Stellen beteiligt werden."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "In der Antragskonferenz sollen insbesondere Gegenstand, Umfang und voraussichtliche Vollständigkeit der Antragsunterlagen, erforderliche Gutachten, Beteiligungen, Umweltprüfungen, Sicherheitsanforderungen und Fristen erörtert werden."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(4)",
-              "text": "Das Ergebnis der Antragskonferenz ist zu dokumentieren."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 8",
-          "title": "Beteiligung öffentlicher Stellen",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Stellungnahmen und Beteiligungen öffentlicher Stellen sollen parallel eingeholt werden, soweit sonstiges Recht nicht entgegensteht."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die zuständigen Behörden wirken darauf hin, dass Nachforderungen von Unterlagen frühzeitig, gebündelt und nachvollziehbar erfolgen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Nachforderungen sind zu begründen. Sie sollen erkennen lassen, welche Unterlagen zur weiteren Bearbeitung erforderlich sind."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 9",
-          "title": "Fachrechtliche Beschleunigungsinstrumente",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Die zuständigen Behörden prüfen frühzeitig, ob Vorbescheide, Teilgenehmigungen, abschnittsweise Zulassungen oder Zulassungen eines vorzeitigen Beginns nach dem jeweils anzuwendenden Fachrecht in Betracht kommen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die Prüfung nach Absatz 1 ist im Verfahrensfahrplan zu dokumentieren."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die materiellen Voraussetzungen des jeweils anzuwendenden Fachrechts bleiben unberührt."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 10",
-          "title": "Vorrangige Bearbeitung",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Verfahren im Zusammenhang mit Vorhaben nach § 2 sind von den Behörden des Freistaates vorrangig zu bearbeiten, soweit dies mit den gesetzlichen Aufgaben der Behörden und den Rechten Dritter vereinbar ist."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die vorrangige Bearbeitung darf nicht dazu führen, dass zwingende Prüfungen unterbleiben oder gesetzlich vorgeschriebene Beteiligungen verkürzt werden."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Kann eine Behörde die vorrangige Bearbeitung nicht gewährleisten, teilt sie dies der Projektstelle und der vorgesetzten Behörde unverzüglich mit. Die Projektstelle unterrichtet die Staatsregierung und schlägt Maßnahmen zur Behebung vor."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 4",
-      "title": "Standort und Infrastruktur",
-      "children": [
-        {
-          "type": "paragraph",
-          "label": "§ 11",
-          "title": "Standortbereich",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Standortbereich im Sinne dieses Gesetzes ist der Flughafen Leipzig/Halle einschließlich der für Vorhaben nach § 2 erforderlichen oder geeigneten angrenzenden Entwicklungsflächen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Zum Standortbereich können insbesondere Flächen für Hangars, Prüfstände, Labore, Schulungs- und Simulationszentren, Infrastruktur gehören."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die Staatsregierung wird ermächtigt, durch Rechtsverordnung den Standortbereich räumlich näher zu bestimmen. In der Rechtsverordnung dürfen nur Flächen einbezogen werden, die für Vorhaben nach § 2 oder für deren notwendige Infrastruktur erforderlich oder geeignet sind."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(4)",
-              "text": "Rechte der Eigentümer:innen sowie sonstige:r Berechtigte:r bleiben unberührt. Dieses Gesetz begründet keine Enteignungsermächtigung."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 12",
-          "title": "Flughafengesellschaft",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Die Staatsregierung bindet die für den Betrieb des Flughafens Leipzig/Halle zuständige Flughafengesellschaft und ihre Gesellschafter frühzeitig in die Standortentwicklung ein."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Gegenstand der Einbindung sind insbesondere"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Flächenverfügbarkeit,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "luftseitige und landseitige Erschließung,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Rollfeld- und Vorfeldanbindung,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Sicherheitsbereiche,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "Pacht-, Miet-, Erbbaurechts- und Beteiligungsmodelle,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "Investitionsbedarf und"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "Vereinbarkeit mit bestehenden Flughafenentwicklungsplänen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Rechte und Pflichten der Flughafengesellschaft entstehen nur durch Gesetz, Verwaltungsakt oder gesonderte Vereinbarung."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 13",
-          "title": "Infrastrukturkoordination",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Die Projektstelle koordiniert die Abstimmung über die für Vorhaben nach § 2 erforderliche oder geeignete Infrastruktur."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Zur Infrastruktur im Sinne des Absatzes 1 gehören insbesondere"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Verkehrswege,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "Schienen- und Straßenanschlüsse,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Energieversorgung,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Wasserstoffinfrastruktur,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "Lagerung und Betankung nachhaltiger Luftfahrtkraftstoffe,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "digitale Netze,"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "Wasser- und Abwasserinfrastruktur und"
-            },
-            {
-              "type": "item",
-              "label": "8.",
-              "text": "Brandschutz- und Sicherheitsinfrastruktur."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die Zuständigkeiten der jeweiligen Vorhabenträger und Fachbehörden bleiben unberührt."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 15",
-          "title": "Standortentwicklungsgesellschaft",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Der Freistaat kann zur Vorbereitung, Errichtung, Finanzierung, Verwaltung oder zum Betrieb von Infrastruktur im Zusammenhang mit Vorhaben nach § 2 eine Kapitalgesellschaft errichten, sich an einer Kapitalgesellschaft beteiligen oder eine bestehende Landesgesellschaft beauftragen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die Gesellschaft darf insbesondere Aufgaben wahrnehmen in den Bereichen"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Flächenentwicklung,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "Errichtung und Verwaltung von Hangars, Prüfständen, Labor- und Schulungsinfrastruktur,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Koordinierung von Zuliefer- und Ansiedlungsflächen,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Verwaltung von Förder- und Infrastrukturprojekten und"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "Beteiligung an Projektgesellschaften."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(4)",
-              "text": "Haushaltsrechtliche, vergaberechtliche und beihilferechtliche Vorgaben bleiben unberührt."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 5",
-      "title": "Standortvertrag und Förderung",
-      "children": [
-        {
-          "type": "paragraph",
-          "label": "§ 16",
-          "title": "Standortvertrag",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Die Staatsregierung wird ermächtigt, zur Umsetzung eines Vorhabens nach § 2 einen öffentlich-rechtlichen Standortvertrag nach Maßgabe der Vorschriften über öffentlich-rechtliche Verträge mit einem/einer Projektträger:in zu schließen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Der Standortvertrag darf keine Ansprüche begründen, die im Verwaltungsverfahren begründet werden müssen."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 17",
-          "title": "Fördergegenstände",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Förderungen können gewährt werden für"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Flächenentwicklung und Erschließung,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "Hangars, Prüfstände, Test- und Laborinfrastruktur,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Investitionen in luftfahrtindustrielle Anlagen,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Forschung und Entwicklung,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "Ausbildung und Fachkräftegewinnung,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "Infrastruktur für nachhaltige Luftfahrtkraftstoffe, Wasserstoff und Energie,"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "Umwelt-, Lärm- und Emissionsmonitoring,"
-            },
-            {
-              "type": "item",
-              "label": "8.",
-              "text": "Zuliefernetzwerke,"
-            },
-            {
-              "type": "item",
-              "label": "9.",
-              "text": "Digitalisierung, Simulation und Zertifizierungsunterstützung"
-            },
-            {
-              "type": "item",
-              "label": "10.",
-              "text": "Beteiligungen, Darlehen, Gewährleistungen und sonstige Finanzierungsinstrumente."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die Finanzierung von Förderungen nach Absatz 1 kann aus dem Sondervermögen ,,Hochgeschwindigkeitsluftfahrt Ost” erfolgen."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 18",
-          "title": "Fördervoraussetzungen",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Förderungen nach § 17 setzen voraus, dass"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "eine gegenseitige Vereinbarung mit dem Ostdeutschen Freistaat besteht,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "der/die Projektträger:in eine eigene angemessene Investition erbringt,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "der/die Projektträger:in sich zu einer angemessenen Standortbindung verpflichtet,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "der/die Projektträger:in Arbeitsplätze schafft oder sichert und"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "die zweckentsprechende Verwendung der Förderung gesichert ist."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 19",
-          "title": "Besondere Anforderungen an das Vorhaben „Boom Europe Leipzig/Halle“",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ soll der Standortvertrag eine eigene Investition des Projektträgers in Höhe von mindestens 1,5 Milliarden Euro über zehn Jahre vorsehen, soweit der Projektzuschnitt keine abweichende Regelung rechtfertigt."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ soll der Standortvertrag eine Standortbindung von mindestens 20 Jahren vorsehen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ sollen Förderungen an Meilensteine, Nachweispflichten, Standortbindung, Investitionsfortschritt und Arbeitsplatzentwicklung gebunden werden."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 20",
-          "title": "Rückforderung",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Förderungen nach diesem Gesetz sind ganz oder teilweise zurückzufordern, soweit"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Fördermittel zweckwidrig verwendet werden,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "wesentliche Investitionszusagen nicht erfüllt werden,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "vereinbarte Arbeitsplatzschwellen nicht erreicht werden,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "die Standortbindung verletzt wird,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "beihilferechtliche Rückforderungsgründe vorliegen oder"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "Auflagen oder Bedingungen wesentlich verletzt werden."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Von einer Rückforderung kann ganz oder teilweise abgesehen werden, soweit der Förderzweck im Wesentlichen erreicht wurde und das Absehen mit Haushaltsrecht und Recht der Europäischen Union vereinbar ist."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 6",
-      "title": "Forschung, Ausbildung und Monitoring",
-      "children": [
-        {
-          "type": "paragraph",
-          "label": "§ 21",
-          "title": "Forschungsverbund",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Das Staatsministerium für Volksbildung und Wissenschaft kann Maßnahmen zum Aufbau eines Forschungsverbundes Überschalltechnologie Ost fördern."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "In den Forschungsverbund können insbesondere Hochschulen, außeruniversitäre Forschungseinrichtungen, das Deutsche Zentrum für Luft- und Raumfahrt, Unternehmen und sonstige geeignete Stellen einbezogen werden."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 22",
-          "title": "Ausbildungsinfrastruktur",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Das Staatsministerium für Wirtschaft und Arbeit kann Maßnahmen zur Aus-, Fort- und Weiterbildung von Fachkräften für Vorhaben nach § 3 fördern."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Förderungen können Hochschulen, Berufsschulen, Kammern, Unternehmen, Forschungseinrichtungen, Trägern der beruflichen Bildung und sonstigen geeigneten Stellen gewährt werden."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 23",
-          "title": "Nebenbestimmungen zum Umwelt- und Lärmschutz",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Bei Förderungen nach diesem Gesetz sind, soweit nach Art und Umfang des Vorhabens erforderlich, Nebenbestimmungen über Umwelt-, Lärm- und Emissionsmonitoring vorzusehen."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 7",
-      "title": "Prüfung",
-      "children": [
-        {
-          "type": "paragraph",
-          "label": "§ 24",
-          "title": "Rechnungshof",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Die Prüfung durch den Rechnungshof bleibt unberührt."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 25",
-          "title": "Projektbeendigung",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Wird ein Vorhaben nach § 3 nicht weiterverfolgt, unterrichtet die Staatsregierung den Landtag unverzüglich."
-            }
-          ]
-        },
-        {
-          "type": "article",
-          "label": "Artikel 2",
-          "title": "Einführung eines Gesetzes über das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Das nachstehende wird Gesetz:"
-            },
             {
               "type": "paragraphText",
               "text": "Gesetz über das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost (Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz – HGLSVermG)"
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 1",
+              "title": "Errichtung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Es wird ein Sondervermögen des Freistaates mit der Bezeichnung „Sondervermögen Hochgeschwindigkeitsluftfahrt Ost“ errichtet.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Das Sondervermögen ist nicht rechtsfähig.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Das Sondervermögen ist getrennt vom übrigen Vermögen des Freistaates zu verwalten.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Ein Insolvenzverfahren über das Sondervermögen ist unzulässig.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 2",
+              "title": "Stellung im Haushalt",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Für das Sondervermögen gelten die Vorschriften der Landeshaushaltsordnung, soweit dieses Gesetz nichts anderes bestimmt.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Einnahmen und Ausgaben des Sondervermögens werden in einem Wirtschaftsplan veranschlagt.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Wirtschaftsplan wird dem Haushaltsplan als Anlage beigefügt.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 3",
+              "title": "Mittelverwendung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Aus dem Sondervermögen dürfen Ausgaben geleistet und Verpflichtungen eingegangen werden für",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Flächenentwicklung und Erschließung am Flughafen Leipzig/Halle und auf angrenzenden Entwicklungsflächen,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Hangars, Prüfstände, Test-, Labor-, Schulungs- und Simulationsinfrastruktur,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Verkehrs-, Energie-, Wasserstoff-, Kraftstoff-, Digital- und Sicherheitsinfrastruktur,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Investitionsförderungen,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Forschungs- und Entwicklungsförderungen,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Ausbildungs- und Fachkräfteprogramme,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "Umwelt-, Lärm- und Emissionsmonitoring,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "Zuliefer- und Ansiedlungsprogramme,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "9.",
+                  "text": "Beteiligungen, Darlehen, Wandeldarlehen, Gewährleistungen und sonstige Finanzierungsinstrumente,",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "10.",
+                  "text": "Planungs-, Gutachter-, Projektmanagement- und Verwaltungskosten, soweit sie unmittelbar mit Maßnahmen nach den Nummern 1 bis 9 zusammenhängen.",
+                  "level": 0,
+                  "listId": "bz1m5ez786nn",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Aus dem Sondervermögen dürfen Ausgaben und Verpflichtungen bis zu einer Gesamthöhe von 4,5 Milliarden Euro geleistet oder eingegangen werden. Eine Erhöhung des Gesamtbetrages ist nur durch Gesetz zulässig.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 4",
+              "title": "Einnahmen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Dem Sondervermögen fließen zu:",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Zuführungen aus dem Landeshaushalt,",
+                  "level": 0,
+                  "listId": "awkkqqufk8sa",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "zweckgebundene Mittel des Bundes,",
+                  "level": 0,
+                  "listId": "awkkqqufk8sa",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "zweckgebundene Mittel der Europäischen Union,",
+                  "level": 0,
+                  "listId": "awkkqqufk8sa",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Leistungen von Gemeinden, Landkreisen, Zweckverbänden oder sonstigen öffentlichen Stellen,",
+                  "level": 0,
+                  "listId": "awkkqqufk8sa",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Rückflüsse aus Darlehen, Beteiligungen und Wandeldarlehen,",
+                  "level": 0,
+                  "listId": "awkkqqufk8sa",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Entgelte, Erstattungen und Rückforderungen,",
+                  "level": 0,
+                  "listId": "awkkqqufk8sa",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "Zinsen und sonstige Erträge,",
+                  "level": 0,
+                  "listId": "awkkqqufk8sa",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "sonstige zweckgebundene Einnahmen.",
+                  "level": 0,
+                  "listId": "awkkqqufk8sa",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Einnahmen dürfen nur für Maßnahmen nach § 3 verwendet werden.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 5",
+              "title": "Wirtschaftsplan",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Für jedes Haushaltsjahr ist ein Wirtschaftsplan aufzustellen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Wirtschaftsplan enthält",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "die voraussichtlichen Einnahmen,",
+                  "level": 0,
+                  "listId": "ujzgtnt6z38z",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "die voraussichtlichen Ausgaben,",
+                  "level": 0,
+                  "listId": "ujzgtnt6z38z",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "die Verpflichtungsermächtigungen,",
+                  "level": 0,
+                  "listId": "ujzgtnt6z38z",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "die Darlehen, Beteiligungen und Gewährleistungen,",
+                  "level": 0,
+                  "listId": "ujzgtnt6z38z",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "die wesentlichen Maßnahmen,",
+                  "level": 0,
+                  "listId": "ujzgtnt6z38z",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "eine Übersicht über Rückflüsse und Rückforderungen und",
+                  "level": 0,
+                  "listId": "ujzgtnt6z38z",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "eine Übersicht über Risiken.",
+                  "level": 0,
+                  "listId": "ujzgtnt6z38z",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Verpflichtungen zulasten künftiger Haushaltsjahre dürfen nur aufgrund einer im Wirtschaftsplan oder im Haushaltsgesetz veranschlagten Verpflichtungsermächtigung eingegangen werden.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 6",
+              "title": "Bewirtschaftung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Das Staatsministerium der Finanzen bewirtschaftet das Sondervermögen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Das Staatsministerium der Finanzen kann Aufgaben der Bewirtschaftung im Einvernehmen mit dem Staatsministerium für Mobilität und regionale Entwicklung und dem Staatsministerium für Wirtschaft und Arbeit auf andere Stellen des Freistaates, eine Landesgesellschaft, die Landesbank an der Elbe, die Industriestiftung Ost, sobald sie errichtet ist, oder eine vergleichbare Landesbeteiligungsstelle übertragen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die Verantwortung des Staatsministeriums der Finanzen für die Bewirtschaftung des Sondervermögens bleibt unberührt.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 7",
+              "title": "Darlehen, Beteiligungen und Gewährleistungen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Aus dem Sondervermögen können Darlehen, Wandeldarlehen, Beteiligungen und Gewährleistungen gewährt oder übernommen werden, soweit dies einer Maßnahme nach § 3 dient.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Darlehen, Wandeldarlehen, Beteiligungen und Gewährleistungen sind grundsätzlich zu marktüblichen Bedingungen auszugestalten, soweit nicht eine nach dem Recht der Europäischen Union zulässige Abweichung vorgesehen ist. Eine Abweichung kann insbesondere aufgrund einer Freistellungsverordnung, einer De-minimis-Regelung oder einer Genehmigung der Europäischen Kommission zulässig sein.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die Übernahme von Gewährleistungen bedarf der Zustimmung des Staatsministeriums der Finanzen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Das Nähere regelt der Wirtschaftsplan.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 8",
+              "title": "Kredite",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Das Sondervermögen ist nicht zur Aufnahme von Krediten ermächtigt.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Eine Kreditaufnahme zugunsten des Sondervermögens ist nur zulässig, soweit sie durch Gesetz oder Haushaltsgesetz ausdrücklich zugelassen ist und mit der Verfassung des Freistaates vereinbar ist.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 9",
+              "title": "Rechnungslegung und Bericht",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Über die Einnahmen und Ausgaben des Sondervermögens ist gesondert Rechnung zu legen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Jahresrechnung des Sondervermögens ist der Haushaltsrechnung beizufügen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Das Staatsministerium der Finanzen berichtet dem Landtag jährlich über Bestand, Einnahmen, Ausgaben, Verpflichtungen, Risiken und Mittelverwendung.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 10",
+              "title": "Rückflüsse und Rückforderungen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Rückflüsse aus Darlehen, Wandeldarlehen, Beteiligungen, Gewährleistungen, Erstattungen und Rückforderungen fließen dem Sondervermögen zu.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Von der Geltendmachung einer Rückforderung kann ganz oder teilweise abgesehen werden, soweit dies haushaltsrechtlich zulässig ist, die Verwendung der Mittel nach § 3 nicht beeinträchtigt wird und das Recht der Europäischen Union nicht entgegensteht.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 11",
+              "title": "Auflösung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Bei Auflösung des Sondervermögens fällt ein verbleibendes Vermögen dem Landeshaushalt zu.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Bei Auflösung bestehende Verpflichtungen sind abzuwickeln.",
+                  "children": []
+                }
+              ]
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 3",
+      "title": "Inkrafttreten",
+      "children": [
         {
-          "type": "paragraph",
-          "label": "§ 1",
-          "title": "Errichtung",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Es wird ein Sondervermögen des Freistaates mit der Bezeichnung „Sondervermögen Hochgeschwindigkeitsluftfahrt Ost“ errichtet."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Das Sondervermögen ist nicht rechtsfähig."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Das Sondervermögen ist getrennt vom übrigen Vermögen des Freistaates zu verwalten."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(4)",
-              "text": "Ein Insolvenzverfahren über das Sondervermögen ist unzulässig."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 2",
-          "title": "Stellung im Haushalt",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Für das Sondervermögen gelten die Vorschriften der Landeshaushaltsordnung, soweit dieses Gesetz nichts anderes bestimmt."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die Einnahmen und Ausgaben des Sondervermögens werden in einem Wirtschaftsplan veranschlagt."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Der Wirtschaftsplan wird dem Haushaltsplan als Anlage beigefügt."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 3",
-          "title": "Mittelverwendung",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Aus dem Sondervermögen dürfen Ausgaben geleistet und Verpflichtungen eingegangen werden für"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Flächenentwicklung und Erschließung am Flughafen Leipzig/Halle und auf angrenzenden Entwicklungsflächen,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "Hangars, Prüfstände, Test-, Labor-, Schulungs- und Simulationsinfrastruktur,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Verkehrs-, Energie-, Wasserstoff-, Kraftstoff-, Digital- und Sicherheitsinfrastruktur,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Investitionsförderungen,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "Forschungs- und Entwicklungsförderungen,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "Ausbildungs- und Fachkräfteprogramme,"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "Umwelt-, Lärm- und Emissionsmonitoring,"
-            },
-            {
-              "type": "item",
-              "label": "8.",
-              "text": "Zuliefer- und Ansiedlungsprogramme,"
-            },
-            {
-              "type": "item",
-              "label": "9.",
-              "text": "Beteiligungen, Darlehen, Wandeldarlehen, Gewährleistungen und sonstige Finanzierungsinstrumente,"
-            },
-            {
-              "type": "item",
-              "label": "10.",
-              "text": "Planungs-, Gutachter-, Projektmanagement- und Verwaltungskosten, soweit sie unmittelbar mit Maßnahmen nach den Nummern 1 bis 9 zusammenhängen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Aus dem Sondervermögen dürfen Ausgaben und Verpflichtungen bis zu einer Gesamthöhe von 4,5 Milliarden Euro geleistet oder eingegangen werden. Eine Erhöhung des Gesamtbetrages ist nur durch Gesetz zulässig."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 4",
-          "title": "Einnahmen",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Dem Sondervermögen fließen zu:"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Zuführungen aus dem Landeshaushalt,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "zweckgebundene Mittel des Bundes,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "zweckgebundene Mittel der Europäischen Union,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "Leistungen von Gemeinden, Landkreisen, Zweckverbänden oder sonstigen öffentlichen Stellen,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "Rückflüsse aus Darlehen, Beteiligungen und Wandeldarlehen,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "Entgelte, Erstattungen und Rückforderungen,"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "Zinsen und sonstige Erträge,"
-            },
-            {
-              "type": "item",
-              "label": "8.",
-              "text": "sonstige zweckgebundene Einnahmen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die Einnahmen dürfen nur für Maßnahmen nach § 3 verwendet werden."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 5",
-          "title": "Wirtschaftsplan",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Für jedes Haushaltsjahr ist ein Wirtschaftsplan aufzustellen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Der Wirtschaftsplan enthält"
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "die voraussichtlichen Einnahmen,"
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "die voraussichtlichen Ausgaben,"
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "die Verpflichtungsermächtigungen,"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "die Darlehen, Beteiligungen und Gewährleistungen,"
-            },
-            {
-              "type": "item",
-              "label": "5.",
-              "text": "die wesentlichen Maßnahmen,"
-            },
-            {
-              "type": "item",
-              "label": "6.",
-              "text": "eine Übersicht über Rückflüsse und Rückforderungen und"
-            },
-            {
-              "type": "item",
-              "label": "7.",
-              "text": "eine Übersicht über Risiken."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Verpflichtungen zulasten künftiger Haushaltsjahre dürfen nur aufgrund einer im Wirtschaftsplan oder im Haushaltsgesetz veranschlagten Verpflichtungsermächtigung eingegangen werden."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 6",
-          "title": "Bewirtschaftung",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Das Staatsministerium der Finanzen bewirtschaftet das Sondervermögen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Das Staatsministerium der Finanzen kann Aufgaben der Bewirtschaftung im Einvernehmen mit dem Staatsministerium für Mobilität und regionale Entwicklung und dem Staatsministerium für Wirtschaft und Arbeit auf andere Stellen des Freistaates, eine Landesgesellschaft, die Landesbank an der Elbe, die Industriestiftung Ost, sobald sie errichtet ist, oder eine vergleichbare Landesbeteiligungsstelle übertragen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die Verantwortung des Staatsministeriums der Finanzen für die Bewirtschaftung des Sondervermögens bleibt unberührt."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 7",
-          "title": "Darlehen, Beteiligungen und Gewährleistungen",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Aus dem Sondervermögen können Darlehen, Wandeldarlehen, Beteiligungen und Gewährleistungen gewährt oder übernommen werden, soweit dies einer Maßnahme nach § 3 dient."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Darlehen, Wandeldarlehen, Beteiligungen und Gewährleistungen sind grundsätzlich zu marktüblichen Bedingungen auszugestalten, soweit nicht eine nach dem Recht der Europäischen Union zulässige Abweichung vorgesehen ist. Eine Abweichung kann insbesondere aufgrund einer Freistellungsverordnung, einer De-minimis-Regelung oder einer Genehmigung der Europäischen Kommission zulässig sein."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Die Übernahme von Gewährleistungen bedarf der Zustimmung des Staatsministeriums der Finanzen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(4)",
-              "text": "Das Nähere regelt der Wirtschaftsplan."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 8",
-          "title": "Kredite",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Das Sondervermögen ist nicht zur Aufnahme von Krediten ermächtigt."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Eine Kreditaufnahme zugunsten des Sondervermögens ist nur zulässig, soweit sie durch Gesetz oder Haushaltsgesetz ausdrücklich zugelassen ist und mit der Verfassung des Freistaates vereinbar ist."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 9",
-          "title": "Rechnungslegung und Bericht",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Über die Einnahmen und Ausgaben des Sondervermögens ist gesondert Rechnung zu legen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Die Jahresrechnung des Sondervermögens ist der Haushaltsrechnung beizufügen."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(3)",
-              "text": "Das Staatsministerium der Finanzen berichtet dem Landtag jährlich über Bestand, Einnahmen, Ausgaben, Verpflichtungen, Risiken und Mittelverwendung."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 10",
-          "title": "Rückflüsse und Rückforderungen",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Rückflüsse aus Darlehen, Wandeldarlehen, Beteiligungen, Gewährleistungen, Erstattungen und Rückforderungen fließen dem Sondervermögen zu."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Von der Geltendmachung einer Rückforderung kann ganz oder teilweise abgesehen werden, soweit dies haushaltsrechtlich zulässig ist, die Verwendung der Mittel nach § 3 nicht beeinträchtigt wird und das Recht der Europäischen Union nicht entgegensteht."
-            }
-          ]
-        },
-        {
-          "type": "paragraph",
-          "label": "§ 11",
-          "title": "Auflösung",
-          "children": [
-            {
-              "type": "subparagraph",
-              "label": "(1)",
-              "text": "Bei Auflösung des Sondervermögens fällt ein verbleibendes Vermögen dem Landeshaushalt zu."
-            },
-            {
-              "type": "subparagraph",
-              "label": "(2)",
-              "text": "Bei Auflösung bestehende Verpflichtungen sind abzuwickeln."
-            }
-          ]
-        },
-        {
-          "type": "article",
-          "label": "Artikel 3",
-          "title": "Inkrafttreten",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
         }
       ]
     }

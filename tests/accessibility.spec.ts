@@ -19,6 +19,7 @@ const auditPages = [
   '/kreisreform/',
   '/suche/',
   '/recht/norm/ostdeutsches-kulturpassgesetz/',
+  '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
   '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/',
   '/recht/norm/sero-verordnung/',
   '/recht/',

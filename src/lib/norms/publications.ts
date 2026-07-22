@@ -23,7 +23,7 @@ export type PublicationSourceAvailability = 'versioned' | 'external' | 'not-vers
 
 export interface PublicationSourceReference {
   label: string;
-  kind: 'original' | 'index' | 'transcription';
+  kind: 'original' | 'index' | 'transcription' | 'structured-html-transcription';
   availability: PublicationSourceAvailability;
   localSource?: string;
   url?: string;
@@ -215,7 +215,7 @@ function parseSourceReference(value: unknown, path: string): PublicationSourceRe
     kind: expectEnumValue(
       object.kind,
       `${path}.kind`,
-      ['original', 'index', 'transcription'] as const,
+      ['original', 'index', 'transcription', 'structured-html-transcription'] as const,
     ),
     availability,
     localSource,

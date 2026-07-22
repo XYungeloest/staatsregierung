@@ -34,6 +34,7 @@ export const STRUCTURE_TYPES = [
   'paragraphText',
   'item',
   'subitem',
+  'quotedProvision',
   'table',
   'tableRow',
   'tableHeaderCell',
@@ -46,6 +47,13 @@ export type NormType = (typeof NORM_TYPES)[number];
 export type NormStatus = (typeof NORM_STATUSES)[number];
 export type HistoryEntryType = (typeof HISTORY_ENTRY_TYPES)[number];
 export type StructureType = (typeof STRUCTURE_TYPES)[number];
+
+export interface NormSourceReference {
+  kind: 'structured-html-transcription';
+  label: string;
+  availability: 'versioned';
+  localSource: string;
+}
 
 export interface NormMeta {
   id: string;
@@ -74,6 +82,7 @@ export interface NormMeta {
   effectiveDate?: string;
   expiryDate?: string;
   dateNote?: string;
+  sourceReferences?: NormSourceReference[];
 }
 
 export interface NormBodyBlock {
@@ -81,6 +90,12 @@ export interface NormBodyBlock {
   label?: string;
   title?: string;
   text?: string;
+  level?: number;
+  listId?: string;
+  numberingStyle?: string;
+  rowspan?: number;
+  colspan?: number;
+  columns?: number;
   children?: NormBodyBlock[];
 }
 
@@ -195,12 +210,34 @@ function expectBoolean(value: unknown, path: string): boolean {
   return value;
 }
 
+function expectOptionalInteger(
+  value: unknown,
+  path: string,
+  { minimum = 0 }: { minimum?: number } = {},
+): number | undefined {
+  if (value === undefined) return undefined;
+  if (!Number.isInteger(value) || (value as number) < minimum) {
+    fail(path, `muss eine ganze Zahl ab ${minimum} sein`);
+  }
+  return value as number;
+}
+
 function expectStringArray(value: unknown, path: string): string[] {
   if (!Array.isArray(value)) {
     fail(path, 'muss ein String-Array sein');
   }
 
   return value.map((entry, index) => expectString(entry, `${path}[${index}]`));
+}
+
+function parseNormSourceReference(value: unknown, path: string): NormSourceReference {
+  const object = expectObject(value, path);
+  return {
+    kind: expectEnumValue(object.kind, `${path}.kind`, ['structured-html-transcription'] as const),
+    label: expectString(object.label, `${path}.label`),
+    availability: expectEnumValue(object.availability, `${path}.availability`, ['versioned'] as const),
+    localSource: expectString(object.localSource, `${path}.localSource`),
+  };
 }
 
 function expectEnumValue<T extends readonly string[]>(
@@ -257,6 +294,12 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
     : expectOptionalString(object.text, `${path}.text`);
   const children =
     object.children === undefined ? undefined : parseBodyBlocks(object.children, `${path}.children`);
+  const level = expectOptionalInteger(object.level, `${path}.level`);
+  const listId = expectOptionalString(object.listId, `${path}.listId`);
+  const numberingStyle = expectOptionalString(object.numberingStyle, `${path}.numberingStyle`);
+  const rowspan = expectOptionalInteger(object.rowspan, `${path}.rowspan`, { minimum: 1 });
+  const colspan = expectOptionalInteger(object.colspan, `${path}.colspan`, { minimum: 1 });
+  const columns = expectOptionalInteger(object.columns, `${path}.columns`, { minimum: 1 });
 
   if (type === 'paragraphText' || type === 'subparagraph' || type === 'item' || type === 'subitem') {
     if (!text) {
@@ -286,17 +329,80 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
     fail(`${path}.children`, `ist für Blocktyp "${type}" erforderlich`);
   }
 
+  if (type === 'quotedProvision' && (!children || children.length === 0)) {
+    fail(`${path}.children`, 'muss für zitierten Normtext mindestens einen Block enthalten');
+  }
+
+  if ((level !== undefined || listId !== undefined || numberingStyle !== undefined) && !['item', 'subitem', 'subparagraph'].includes(type)) {
+    fail(path, 'Listenmetadaten sind nur an Listen- und Absatzpunkten zulässig');
+  }
+
+  if ((rowspan !== undefined || colspan !== undefined) && type !== 'tableCell' && type !== 'tableHeaderCell') {
+    fail(path, 'rowspan und colspan sind nur an Tabellenzellen zulässig');
+  }
+
+  if (columns !== undefined && type !== 'table') {
+    fail(path, 'columns ist nur an Tabellen zulässig');
+  }
+
   if ((type === 'tableCell' || type === 'tableHeaderCell') && text === undefined) {
     fail(`${path}.text`, 'muss für eine Tabellenzelle vorhanden sein');
   }
 
-  return {
+  const block: NormBodyBlock = {
     type,
     label,
     title,
     text,
+    level,
+    listId,
+    numberingStyle,
+    rowspan,
+    colspan,
+    columns,
     children,
   };
+
+  if (type === 'table') validateTableGrid(block, path);
+  return block;
+}
+
+function validateTableGrid(table: NormBodyBlock, path: string): void {
+  const rows = table.children ?? [];
+  const occupied: boolean[][] = [];
+  let width = 0;
+  rows.forEach((row, rowIndex) => {
+    if (row.type !== 'tableRow') fail(`${path}.children[${rowIndex}].type`, 'muss tableRow sein');
+    occupied[rowIndex] ??= [];
+    let column = 0;
+    (row.children ?? []).forEach((cell, cellIndex) => {
+      if (cell.type !== 'tableCell' && cell.type !== 'tableHeaderCell') {
+        fail(`${path}.children[${rowIndex}].children[${cellIndex}].type`, 'muss eine Tabellenzelle sein');
+      }
+      while (occupied[rowIndex][column]) column += 1;
+      const rowspan = cell.rowspan ?? 1;
+      const colspan = cell.colspan ?? 1;
+      for (let rowOffset = 0; rowOffset < rowspan; rowOffset += 1) {
+        occupied[rowIndex + rowOffset] ??= [];
+        for (let columnOffset = 0; columnOffset < colspan; columnOffset += 1) {
+          if (occupied[rowIndex + rowOffset][column + columnOffset]) {
+            fail(`${path}.children[${rowIndex}].children[${cellIndex}]`, 'überlappt eine andere Tabellenzelle');
+          }
+          occupied[rowIndex + rowOffset][column + columnOffset] = true;
+        }
+      }
+      column += colspan;
+    });
+    width = Math.max(width, occupied[rowIndex].length);
+  });
+  occupied.forEach((row, rowIndex) => {
+    if (row.filter(Boolean).length !== width) {
+      fail(`${path}.children[${rowIndex}]`, `belegt ${row.filter(Boolean).length} statt ${width} Spalten`);
+    }
+  });
+  if (table.columns !== undefined && table.columns !== width) {
+    fail(`${path}.columns`, `ist ${table.columns}, die Tabelle besitzt jedoch ${width} Spalten`);
+  }
 }
 
 export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
@@ -383,6 +489,14 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
         ? undefined
         : expectIsoDate(object.expiryDate, `${path}.expiryDate`),
     dateNote: expectOptionalString(object.dateNote, `${path}.dateNote`),
+    sourceReferences: object.sourceReferences === undefined
+      ? undefined
+      : (() => {
+          if (!Array.isArray(object.sourceReferences)) fail(`${path}.sourceReferences`, 'muss ein Array sein');
+          return object.sourceReferences.map((entry, index) =>
+            parseNormSourceReference(entry, `${path}.sourceReferences[${index}]`),
+          );
+        })(),
   };
 }
 
@@ -502,6 +616,7 @@ function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBo
     item: 'item',
     subitem: 'subitem',
     subparagraph: 'subparagraph',
+    quotedprovision: 'quotedProvision',
     table: 'table',
     tablerow: 'tableRow',
     tableheadercell: 'tableHeaderCell',
