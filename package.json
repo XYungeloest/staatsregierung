@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "content:check": "node scripts/check-content.mjs",
+    "content:check": "node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/check-content.mjs",
     "norms:audit": "node scripts/import-normen.mjs --source-dir Gesetze",
     "norms:import": "node scripts/import-normen.mjs --source-dir Gesetze --write",
     "test:parser": "node --test tests/norm-markdown-parser.test.mjs",
@@ -15,7 +15,7 @@
     "images:generate": "node scripts/generate-responsive-images.mjs",
     "check": "astro check",
     "test:unit": "node --experimental-strip-types --test tests/*.test.ts tests/*.test.mjs",
-    "build": "astro build",
+    "build": "astro build && node scripts/stamp-build.mjs",
     "links:check": "npm run build && node scripts/check-links.mjs",
     "seo:check": "npm run build && node scripts/check-seo.mjs",
     "test:links": "npm run links:check",

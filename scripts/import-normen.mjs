@@ -9,6 +9,10 @@ import {
   parsePublicationMarkdown,
   summarizeParsedSource,
 } from './lib/norm-markdown-parser.mjs';
+import {
+  validateConstitutionParserContract,
+  validatePublicationParserContract,
+} from './lib/norm-parser-contract.mjs';
 
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
@@ -21,6 +25,8 @@ const sourceDir = resolve(ROOT, valueAfter('--source-dir') ?? 'Gesetze');
 const outputDir = resolve(ROOT, 'content', 'normen');
 const publicationDir = resolve(ROOT, 'content', 'verkuendungen');
 const shouldWrite = args.includes('--write');
+const strictMode = args.includes('--strict');
+const quietMode = args.includes('--quiet');
 const allowExistingUpdate = args.includes('--update-existing');
 const selectedFiles = new Set(allValuesAfter('--file').flatMap((value) => value.split(',')).map((value) => basename(value.trim())));
 const editorialConfig = JSON.parse(await readFile(resolve(ROOT, 'src/config/editorial.json'), 'utf8'));
@@ -28,6 +34,9 @@ const asOf = valueAfter('--as-of') ?? editorialConfig.referenceDate;
 
 if (!/^\d{4}-\d{2}-\d{2}$/u.test(asOf)) {
   throw new Error(`Ungültiger Stichtag „${asOf}“. Erwartet wird --as-of JJJJ-MM-TT.`);
+}
+if (strictMode && shouldWrite) {
+  throw new Error('--strict ist ein reiner Prüfmodus und kann nicht mit --write kombiniert werden.');
 }
 
 const ISSUE_CONFIG = {
@@ -216,7 +225,7 @@ function buildConstitutionRecord(parsed) {
       documentDate: '2024-10-15',
       publicationDate: '2024-10-15',
       effectiveDate: '2024-10-15',
-      dateNote: 'Redaktionelle Lesefassung. Artikel 121a weicht vom verkündeten Ersten Gesetz zur Großen Staatsreform ab: Die Lesefassung nennt die siebte Volkskammer, den siebten Landtag und die Wahl zur achten Volkskammer; OGVBl. 2026 Nr. 53 nennt die achte Volkskammer, den achten Landtag und die Wahl zur neunten Volkskammer.',
+      dateNote: 'Redaktionelle Lesefassung vom 21. Juli 2026. Artikel 121a gibt den bestätigten Wortlaut des Ersten Gesetzes zur Großen Staatsreform wieder.',
     },
     history: {
       initialVersionId: null,
@@ -241,7 +250,7 @@ function buildConstitutionRecord(parsed) {
       validTo: null,
       isCurrent: true,
       citation: 'Verfassung vom 15. Oktober 2024, zuletzt geändert durch Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 56)',
-      changeNote: 'Redaktionelle konsolidierte Lesefassung unter Berücksichtigung der vier Gesetze zur Großen Staatsreform; der dokumentierte Wortlautkonflikt in Artikel 121a bleibt bestehen.',
+      changeNote: 'Redaktionelle konsolidierte Lesefassung unter Berücksichtigung der vier Gesetze zur Großen Staatsreform.',
       body: parsed.body,
     }],
   };
@@ -520,7 +529,7 @@ if (selectedFiles.size > 0) {
 }
 
 const existingAuditRecords = await loadExistingAuditRecords();
-const report = { asOf, mode: shouldWrite ? 'incremental-write' : 'audit-only', recognized: [], skipped: [], ambiguous: [], sourceAudit: [], changes: [] };
+const report = { asOf, mode: shouldWrite ? 'incremental-write' : strictMode ? 'strict-audit' : 'audit-only', recognized: [], skipped: [], ambiguous: [], sourceAudit: [], changes: [] };
 const records = [];
 const publications = [];
 for (const fileName of markdownFiles) {
@@ -540,12 +549,14 @@ for (const fileName of markdownFiles) {
   if (classification.kind === 'consolidated') {
     if (fileName === 'Staatsverfassung.md') {
       const parsed = parseConsolidatedMarkdown(fileName, markdown, { title: 'Verfassung des Freistaates Ostdeutschland' });
+      const parserContractIssues = validateConstitutionParserContract(parsed);
       report.recognized.push({ file: fileName, classification: classification.kind, norms: [{ title: parsed.title, type: 'gesetz' }] });
       const record = buildConstitutionRecord(parsed);
       records.push(record);
       report.sourceAudit.push({
         file: fileName,
         classification: classification.kind,
+        parserContractIssues,
         norms: [{ slug: record.meta.slug, title: record.meta.title, ...compareGeneratedRecordToExisting(record, existingAuditRecords.get(record.meta.slug)) }],
       });
     } else {
@@ -556,6 +567,7 @@ for (const fileName of markdownFiles) {
   }
   try {
     const parsed = parsePublicationMarkdown(fileName, markdown);
+    const parserContractIssues = validatePublicationParserContract(parsed);
     const summaries = summarizeParsedSource(parsed);
     report.recognized.push({ file: fileName, classification: classification.kind, norms: summaries });
     if (ISSUE_CONFIG[parsed.issue]) {
@@ -566,6 +578,7 @@ for (const fileName of markdownFiles) {
       report.sourceAudit.push({
         file: fileName,
         classification: classification.kind,
+        parserContractIssues,
         norms: issueRecords.map((record) => ({
           slug: record.meta.slug,
           title: record.meta.title,
@@ -629,5 +642,44 @@ if (shouldWrite) {
   }
 }
 
-console.log(JSON.stringify(report, null, 2));
+const configuredSourceFiles = new Set([
+  ...Object.keys(ISSUE_CONFIG).map((issue) => `OGVBl. 2026 Nr. ${issue}.md`),
+  'Staatsverfassung.md',
+]);
+const strictFiles = selectedFiles.size > 0
+  ? new Set([...selectedFiles].filter((fileName) => configuredSourceFiles.has(fileName)))
+  : configuredSourceFiles;
+const strictFailures = [];
+if (strictMode) {
+  for (const fileName of strictFiles) {
+    if (!markdownFiles.includes(fileName)) strictFailures.push(`${fileName}: konfigurierte Quelle fehlt`);
+  }
+  for (const audit of report.sourceAudit.filter((entry) => strictFiles.has(entry.file))) {
+    for (const issue of audit.parserContractIssues ?? []) strictFailures.push(`${audit.file}: Parservertrag: ${issue}`);
+    if (audit.status === 'parse-error' || audit.status === 'needs-review') {
+      for (const issue of audit.issues ?? ['Quelle konnte nicht eindeutig geprüft werden']) strictFailures.push(`${audit.file}: ${issue}`);
+    }
+    for (const norm of audit.norms ?? []) {
+      if (norm.status !== 'matches') {
+        strictFailures.push(`${audit.file}: ${norm.slug ?? norm.title ?? 'erwartete Norm'}: ${norm.issues?.join('; ') || norm.status || 'Abweichung'}`);
+      }
+    }
+  }
+  for (const change of report.changes) {
+    if (/^would-(?:create|update)/u.test(change.action)) {
+      strictFailures.push(`${change.slug}: ${change.action}`);
+    }
+  }
+  report.strict = { passed: strictFailures.length === 0, failures: strictFailures };
+}
+
+if (quietMode) {
+  console.log(`Normquellen-Audit: ${report.recognized.length} erkannt, ${report.skipped.length} übersprungen, ${report.ambiguous.length} mehrdeutig${strictMode ? `, ${strictFailures.length} strikte Abweichungen` : ''}.`);
+} else {
+  console.log(JSON.stringify(report, null, 2));
+}
 if (!shouldWrite) console.error('Prüflauf: Es wurden keine Dateien geschrieben. Gezielt schreiben mit --write --file <Datei>.');
+if (strictFailures.length > 0) {
+  for (const failure of strictFailures) console.error(`STRICT: ${failure}`);
+  process.exitCode = 1;
+}

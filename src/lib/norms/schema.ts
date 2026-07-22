@@ -36,6 +36,7 @@ export const STRUCTURE_TYPES = [
   'subitem',
   'table',
   'tableRow',
+  'tableHeaderCell',
   'tableCell',
 ] as const;
 
@@ -173,6 +174,11 @@ function expectOptionalString(value: unknown, path: string): string | undefined 
   return expectString(value, path);
 }
 
+function expectTableCellText(value: unknown, path: string): string {
+  if (typeof value !== 'string') fail(path, 'muss ein String sein');
+  return value.trim();
+}
+
 function expectNullableString(value: unknown, path: string): string | null {
   if (value === null || value === undefined) {
     return null;
@@ -246,7 +252,9 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
   const type = expectEnumValue(object.type, `${path}.type`, STRUCTURE_TYPES);
   const label = expectOptionalString(object.label, `${path}.label`);
   const title = expectOptionalString(object.title, `${path}.title`);
-  const text = expectOptionalString(object.text, `${path}.text`);
+  const text = type === 'tableCell' || type === 'tableHeaderCell'
+    ? expectTableCellText(object.text, `${path}.text`)
+    : expectOptionalString(object.text, `${path}.text`);
   const children =
     object.children === undefined ? undefined : parseBodyBlocks(object.children, `${path}.children`);
 
@@ -278,8 +286,8 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
     fail(`${path}.children`, `ist für Blocktyp "${type}" erforderlich`);
   }
 
-  if (type === 'tableCell' && !text) {
-    fail(`${path}.text`, 'ist für eine Tabellenzelle erforderlich');
+  if ((type === 'tableCell' || type === 'tableHeaderCell') && text === undefined) {
+    fail(`${path}.text`, 'muss für eine Tabellenzelle vorhanden sein');
   }
 
   return {
@@ -496,6 +504,7 @@ function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBo
     subparagraph: 'subparagraph',
     table: 'table',
     tablerow: 'tableRow',
+    tableheadercell: 'tableHeaderCell',
     tablecell: 'tableCell',
   };
   const type = normalizedTypeMap[rawType] ?? rawType;

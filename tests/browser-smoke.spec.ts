@@ -8,6 +8,9 @@ test('Startseite bietet Suche, Ministerien, mobile Navigation und 115-Orientieru
 
   await expect(page.locator('h1')).toHaveText('Schnell zur richtigen Information');
   await expect(page.locator('.home-ministry-list a')).toHaveCount(6);
+  await expect(page.locator('.home-resource-card', { hasText: 'Recht schnell finden' })).toContainText('1 Eintrag');
+  await expect(page.getByText(/Vorhaben des ersten Staatsrates/u)).toBeVisible();
+  await expect(page.getByText('Staatssekretariate und Zuständigkeiten', { exact: true })).toBeVisible();
   await expect(page.locator('.service-band__item', { hasText: 'Behördennummer 115' })).toHaveAttribute(
     'href',
     '/service/kontakt/',
@@ -28,6 +31,30 @@ test('Startseite bietet Suche, Ministerien, mobile Navigation und 115-Orientieru
   await expect(mobileMenu.locator('#mobile-portal-search')).toBeVisible();
   await expect(mobileMenu.getByRole('link', { name: 'Leichte Sprache', exact: true })).toBeVisible();
   await expect(mobileMenu.getByRole('link', { name: 'Gebärdensprache', exact: true })).toBeVisible();
+});
+
+test('alle ausgelieferten Routentypen tragen dieselbe vollständige Buildkennung', async ({ page, request }) => {
+  const routes = [
+    '/',
+    '/recht/',
+    '/recht/verfassung/',
+    '/recht/norm/sero-verordnung/',
+    '/recht/verkuendungen/ogvbl-2026-58/',
+    '/sitemap.xml',
+    '/search-index.json',
+  ];
+  let buildCommit = '';
+  for (const route of routes) {
+    const response = await request.get(route);
+    expect(response.ok(), route).toBe(true);
+    const routeCommit = response.headers()['x-portal-commit'];
+    expect(routeCommit, route).toMatch(/^[0-9a-f]{40}$/u);
+    buildCommit ||= routeCommit;
+    expect(routeCommit, route).toBe(buildCommit);
+  }
+
+  await page.goto('/recht/verfassung/');
+  await expect(page.locator('meta[name="build-commit"]')).toHaveAttribute('content', buildCommit);
 });
 
 test('Kernnavigation, Suche und Kontaktwegweiser funktionieren', async ({ page }) => {
@@ -172,12 +199,12 @@ test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 21. Juli 2026 ab', as
   await expect(page.getByText(/Artikel 75a/u).first()).toBeVisible();
 
   await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
-  await expect(page.getByText(/Achte Volkskammer ist der achte Landtag/u)).toBeVisible();
-  await expect(page.getByText(/Wahl zur neunten Volkskammer/u)).toBeVisible();
+  await expect(page.getByText(/Siebte Volkskammer ist der siebte Landtag/u)).toBeVisible();
+  await expect(page.getByText(/Wahl zur achten Volkskammer/u)).toBeVisible();
 
   await page.goto('/recht/verfassung/');
-  await expect(page.getByRole('heading', { name: 'Dokumentierter Wortlautkonflikt in Artikel 121a' })).toBeVisible();
-  await expect(page.getByText(/Das verkündete Erste Gesetz/u)).toContainText('achten Landtag');
+  await expect(page.getByRole('heading', { name: 'Quellenstand zu Artikel 121a' })).toBeVisible();
+  await expect(page.getByText(/Die Lesefassung und das Erste Gesetz/u)).toContainText('achten Volkskammer');
   await expect(page.locator('.record-list')).toContainText('Erstes Gesetz zur Großen Staatsreform');
   await expect(page.locator('.record-list')).toContainText('Viertes Gesetz zur Großen Staatsreform');
 

@@ -4,9 +4,14 @@ import test from 'node:test';
 
 import {
   classifyMarkdownSource,
+  parseConsolidatedMarkdown,
   parsePublicationMarkdown,
   summarizeParsedSource,
 } from '../scripts/lib/norm-markdown-parser.mjs';
+import {
+  validateConstitutionParserContract,
+  validatePublicationParserContract,
+} from '../scripts/lib/norm-parser-contract.mjs';
 
 async function issue(number) {
   const fileName = `OGVBl. 2026 Nr. ${number}.md`;
@@ -16,6 +21,14 @@ async function issue(number) {
 
 function bodyText(norm) {
   return JSON.stringify(norm.body);
+}
+
+function flattenBlocks(blocks, output = []) {
+  for (const block of blocks ?? []) {
+    output.push(block);
+    flattenBlocks(block.children, output);
+  }
+  return output;
 }
 
 test('Ausgabe 46 trennt Mantelgesetz, OstKrBzNG und Bezirksordnung', async () => {
@@ -66,8 +79,20 @@ for (const [number, ordinal] of [[53, 'Erstes'], [54, 'Zweites'], [55, 'Drittes'
 test('Ausgabe 53 bewahrt den verkündeten Wortlaut von Artikel 121a', async () => {
   const parsed = await issue(53);
   const text = bodyText(parsed);
-  assert.match(text, /Achte Volkskammer ist der achte Landtag\. Die Wahl zur neunten Volkskammer findet Ende August statt\./u);
-  assert.doesNotMatch(text, /Siebte Volkskammer/u);
+  assert.match(text, /Siebte Volkskammer ist der siebte Landtag\. Die Wahl zur achten Volkskammer findet Ende August statt\./u);
+  assert.doesNotMatch(text, /Achte Volkskammer ist der achte Landtag/u);
+  assert.deepEqual(validatePublicationParserContract(parsed), []);
+});
+
+test('Artikel 120 der Lesefassung besitzt vier eindeutige Absatzkennzeichnungen', async () => {
+  const markdown = await readFile(new URL('../Gesetze/Staatsverfassung.md', import.meta.url), 'utf8');
+  const parsed = parseConsolidatedMarkdown('Staatsverfassung.md', markdown, {
+    title: 'Verfassung des Freistaates Ostdeutschland',
+  });
+  const article120 = flattenBlocks(parsed.body).find((block) => block.label === 'Artikel 120');
+  assert.ok(article120);
+  assert.deepEqual(article120.children.map((block) => block.label), ['1)', '1a)', '1b)', '2)']);
+  assert.deepEqual(validateConstitutionParserContract(parsed), []);
 });
 
 test('Ausgabe 55 bewahrt verschachtelte Änderungsanweisungen und Zitate', async () => {
@@ -191,7 +216,7 @@ Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.
   assert.equal(firstParagraph.children[1].label, '(1a)');
 });
 
-test('echte Markdown-Tabellen werden als Zeilen und Zellen strukturiert', () => {
+test('Markdown-Tabellen bewahren Kopfzellen, leere Zellen und die Spaltenzahl jeder Zeile', () => {
   const markdown = `
 **Gesetz- und Verordnungsblatt**
 für den Freistaat Ostdeutschland.
@@ -208,10 +233,11 @@ vom 20. Juli 2026
 
 ## § 1 Tabelle
 
-| Bezeichnung | Wert |
-| --- | ---: |
-| A | 1 |
-| B | 2 |
+| Bezeichnung | Wert | Hinweis |
+| --- | ---: | --- |
+| A | 1 | Ein längerer Inhalt bleibt vollständig erhalten. |
+| B |  | kurz |
+| C | 3 |
 
 ## § 2 Inkrafttreten
 
@@ -219,7 +245,10 @@ Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.
 `;
   const parsed = parsePublicationMarkdown('OGVBl. 2026 Nr. 99.md', markdown);
   const table = parsed.body.find((block) => block.label === '§ 1').children.find((block) => block.type === 'table');
-  assert.equal(table.children.length, 3);
-  assert.deepEqual(table.children[0].children.map((cell) => cell.text), ['Bezeichnung', 'Wert']);
-  assert.deepEqual(table.children[2].children.map((cell) => cell.text), ['B', '2']);
+  assert.equal(table.children.length, 4);
+  assert.deepEqual(table.children[0].children.map((cell) => cell.type), ['tableHeaderCell', 'tableHeaderCell', 'tableHeaderCell']);
+  assert.deepEqual(table.children[0].children.map((cell) => cell.text), ['Bezeichnung', 'Wert', 'Hinweis']);
+  assert.deepEqual(table.children[1].children.map((cell) => cell.text), ['A', '1', 'Ein längerer Inhalt bleibt vollständig erhalten.']);
+  assert.deepEqual(table.children[2].children.map((cell) => cell.text), ['B', '', 'kurz']);
+  assert.deepEqual(table.children.map((row) => row.children.length), [3, 3, 3, 2]);
 });
