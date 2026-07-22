@@ -89,14 +89,14 @@ Schlussfolgerung:
 
 Belegt:
 
-- OGVBl. 2026 Nr. 53 lautet in Artikel 121a: „Siebte Volkskammer ist der siebte Landtag. Die Wahl zur
-  achten Volkskammer findet Ende August statt.“ Ältere Dateien enthielen fälschlicherweise "achte Volkskammer"
-- Die konsolidierte Datei `Gesetze/Staatsverfassung.md` lautet dagegen: „Siebte Volkskammer ist der
-  siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.“
-- Die zuvor erzeugte JSON-Fassung des Ersten Staatsreformgesetzes enthielt als dritte, von beiden
-  Quellen abweichende Kombination „Siebte Volkskammer … Wahl zur neunten Volkskammer“. Diese
-  Importabweichung wurde am 22. Juli 2026 beseitigt; sie bleibt als festgestellter Reviewfehler
-  dokumentiert und ist kein eigener Rechtsstand.
+- Die bestätigte Markdown-Fassung von OGVBl. 2026 Nr. 53 lautet in Artikel 121a: „Siebte
+  Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.“
+- Eine frühere Fassung der Transkription und die Entwurfsdatei `context/entwürfe/Große
+  Staatsreform.md` enthalten dagegen „Achte Volkskammer … Wahl zur neunten Volkskammer“.
+  Diese Entwurfsfassung wird nicht als geltender Wortlaut ausgegeben.
+- Die zuvor erzeugte JSON-Fassung des Ersten Staatsreformgesetzes folgte noch der älteren
+  Entwurfsfassung. Quelle, Parsergebnis, Normfassung und konsolidierte Lesefassung wurden am
+  22. Juli 2026 auf den bestätigten Wortlaut „Siebte … achte“ abgeglichen.
 - StAnzO. 2026 Nr. 13 enthält 19. Mai 2026 im Kopf beziehungsweise Inhaltsverzeichnis, 27. Mai 2026
   in der Überschrift und 19. Mai 2026 in der Unterschriftszeile. Das Ausgabedatum ist der
   27. Mai 2026.
@@ -107,9 +107,9 @@ Belegt:
 
 Schlussfolgerung:
 
-- Das Erste Staatsreformgesetz gibt ausschließlich den Wortlaut von OGVBl. 2026 Nr. 53 wieder.
-  Die aktuelle Verfassungsseite kennzeichnet `Staatsverfassung.md` ausdrücklich als redaktionelle
-  Lesefassung und nennt beide voneinander abweichenden Aussagen vollständig.
+- Das Erste Staatsreformgesetz und die redaktionelle Lesefassung geben einheitlich den bestätigten
+  Wortlaut „Siebte Volkskammer … Wahl zur achten Volkskammer“ wieder. Die abweichende Entwurfsfassung
+  bleibt als Provenienzhinweis dokumentiert, ist aber kein eigener Rechtsstand.
 - `initialVersionId` der Verfassung bleibt leer, solange keine belastbare historische
   Volltextfassung vorliegt; die konsolidierte Fassung vom 21. Juli 2026 wird nicht als
   Ursprungsfassung ausgegeben.
@@ -124,8 +124,6 @@ Schlussfolgerung:
 1. Original-PDFs der Ausgaben 46 bis 58 mit den versionierten Markdown-Transkriptionen abgleichen.
 2. Plenarprotokoll und Einzelabstimmungsergebnisse vom 20. Juli 2026 nachreichen und ausschließlich
    für die noch offenen Beratungsdetails auswerten.
-3. Den Widerspruch in Artikel 121a durch eine belastbare amtliche Berichtigung oder eine eindeutig
-   autorisierte konsolidierte Fassung klären.
-4. Mehrdeutige Alt-Ausgaben redaktionell transkribieren und mit gezielten Parser-Fixtures absichern.
-5. Austauschdaten der Notifikationen beziehungsweise Ratifikationsurkunden für die drei
+3. Mehrdeutige Alt-Ausgaben redaktionell transkribieren und mit gezielten Parser-Fixtures absichern.
+4. Austauschdaten der Notifikationen beziehungsweise Ratifikationsurkunden für die drei
    Staatsverträge belegen.

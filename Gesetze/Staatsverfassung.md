@@ -1087,8 +1087,8 @@ Der Freistaat trägt im Rahmen seiner Möglichkeiten dazu bei, die Ursachen indi
 ## **Artikel 120 – Fortgeltung von Landesrecht** {#artikel-120-–-fortgeltung-von-landesrecht}
 
 1) Das im Gebiet des Freistaates Ostdeutschland als Landesrecht geltende Recht bleibt in Kraft, soweit es dieser Verfassung nicht widerspricht.  
-1) Landesrecht im Sinne des Absatz 1 ist das Recht des Sächsischen Freistaates, das bis zum 1\. Dezember 2023 im Sächsischen Gesetzes- und Verordnungsblatt nach den Bestimmungen der Sächsischen Verfassung zustande gekommen und verkündet wurde.  
-1) Landesrecht im Sinne des Absatzes 1 ist abweichend von Absatz 1a auch das Recht eines ehemaligen ostdeutschen Landes, dessen Fortbestand wegen seiner engen örtlichen, organisatorischen oder kulturellen Verbindung mit diesem Land für die Rechtsordnung des Freistaates unabdingbar ist.. Über das Bestehen oder Nichtbestehen einer Rechtsvorschrift nach Satz 1 entscheidet im Zweifel die Volkskammer  
+1a) Landesrecht im Sinne des Absatz 1 ist das Recht des Sächsischen Freistaates, das bis zum 1\. Dezember 2023 im Sächsischen Gesetzes- und Verordnungsblatt nach den Bestimmungen der Sächsischen Verfassung zustande gekommen und verkündet wurde.
+1b) Landesrecht im Sinne des Absatzes 1 ist abweichend von Absatz 1a auch das Recht eines ehemaligen ostdeutschen Landes, dessen Fortbestand wegen seiner engen örtlichen, organisatorischen oder kulturellen Verbindung mit diesem Land für die Rechtsordnung des Freistaates unabdingbar ist.. Über das Bestehen oder Nichtbestehen einer Rechtsvorschrift nach Satz 1 entscheidet im Zweifel die Volkskammer
 2) Landesrecht und Landesgesetze im Sinne der Artikel 81 Absatz 1 Nr. 2 und 3 sowie Artikel 90 sind auch das Recht und die Gesetze aus der Zeit vor dem Inkrafttreten dieser Verfassung.
 
 ## **Artikel 121 – Ostdeutsche Akademie der Wissenschaften** {#artikel-121-–-ostdeutsche-akademie-der-wissenschaften}

@@ -2697,10 +2697,18 @@ article.panel > p:last-child > a.inline-link:hover {
   border-collapse: collapse;
 }
 
+.norm-table th,
 .norm-table td {
   padding: 0.55rem 0.7rem;
   border: 1px solid var(--color-border);
   vertical-align: top;
+  text-align: left;
+}
+
+.norm-table th {
+  background: var(--color-surface-muted);
+  color: var(--color-primary);
+  font-weight: 700;
 }
 
 .norm-list {

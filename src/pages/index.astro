@@ -46,6 +46,7 @@ const [ministries, topics, latestReleases, publications, currentJobs] = await Pr
 const currentGovernment = siteConfig.currentGovernment;
 const latestPublication = publications[0];
 const latestJob = currentJobs[0];
+const publicationEntryLabel = (count: number) => count === 1 ? 'Eintrag' : 'Einträge';
 const featuredTopics = ['bildungsreform', 'energie-und-klima', 'wohnen-und-vergesellschaftung']
   .flatMap((slug) => {
     const topic = topics.find((entry) => entry.slug === slug);
@@ -260,7 +261,7 @@ const importantItems = [
             {latestPublication ? (
               <p>
                 Verkündet am <time datetime={latestPublication.date}>{siteConfig.date.formatLong(latestPublication.date)}</time>
-                {' · '}{latestPublication.entries.length} Einträge
+                {' · '}{latestPublication.entries.length} {publicationEntryLabel(latestPublication.entries.length)}
               </p>
             ) : <p>Aktuelle Fassungen, Fundstellen und Verkündungen im Rechtsportal.</p>}
             <a href={latestPublication ? getPublicationUrl(latestPublication.slug) : getLawHomeUrl()}>Veröffentlichung öffnen <PortalIcon name="arrow" /></a>
@@ -276,7 +277,7 @@ const importantItems = [
             <PortalIcon name="government" />
             <p class="eyebrow">Arbeitsprogramm</p>
             <h3>15-Punkte-Plan II</h3>
-            <p>Vorhaben des {currentGovernment.cabinetName} mit Umsetzungsstand und Rechtsgrundlagen.</p>
+            <p>Vorhaben des ersten Staatsrates mit Umsetzungsstand und Rechtsgrundlagen.</p>
             <a href={getActionPlanUrl()}>Programm ansehen <PortalIcon name="arrow" /></a>
           </article>
           {latestJob ? (

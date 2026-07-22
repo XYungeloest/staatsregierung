@@ -886,9 +886,15 @@ ausgewertet.
 
 ```sh
 npm run norms:audit
+npm run norms:audit -- --strict
 npm run norms:import -- --file "Gesetze/OGVBl. 2026 Nr. 58.md"
 npm run test:parser
 ```
+
+Der strikte Audit ist schreibfrei und prüft die konfigurierten Markdown-Primärquellen gegen die
+gespeicherten Normfassungen und Verkündungsdatensätze. Er schlägt bei fehlenden Normen,
+abweichenden Titeln oder Datumswerten, Parser-Vertragsverletzungen und geplanten Änderungen fehl.
+Er ist Bestandteil von `npm run content:check` und der CI-Qualitätsprüfung.
 
 ## Seitengerüst und feste UI-Texte
 

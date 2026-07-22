@@ -137,6 +137,14 @@ Der Normimport ist standardmäßig ein schreibfreier Audit. `npm run norms:audit
 Quellen und zeigt erkannte Normen und geplante Änderungen. Schreiben ist nur gezielt mit
 `npm run norms:import -- --file "Gesetze/…md"` möglich; vorhandene Datensätze werden nur mit dem
 zusätzlichen Flag `--update-existing` verändert. Der Import löscht den Normbestand nicht.
+`npm run norms:audit -- --strict` vergleicht die konfigurierten Primärquellen mit den gespeicherten
+Norm- und Verkündungsdaten und beendet den Prozess bei Abweichungen mit einem Fehlercode.
+`npm run content:check` führt diesen strikten Abgleich vor den übrigen Inhaltsprüfungen automatisch
+aus.
+
+Jeder Produktionsbuild trägt den vollständigen Git-Commit als `meta[name="build-commit"]` in
+HTML-Seiten und als Antwortheader `X-Portal-Commit` auf allen Routen. In CI wird die Kennung aus
+`GITHUB_SHA` übernommen; lokale Builds verwenden den aktuellen `HEAD`.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter

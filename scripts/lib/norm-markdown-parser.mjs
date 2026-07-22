@@ -172,8 +172,6 @@ function sanitizeBodyLines(lines, startIndex, endIndex) {
     if (/^\[image\d+\]:/iu.test(line.raw.trim()) || /^!\[[^\]]*\]\[[^\]]+\]\s*$/u.test(line.raw.trim())) continue;
     if (/^\[\^[^\]]+\]:/u.test(line.raw.trim())) continue;
     if (BASE64_PATTERN.test(line.raw)) continue;
-    if (/^\|\s*(?::?-{3,}:?\s*\|)+\s*$/u.test(line.raw.trim())) continue;
-    if (/^\|\s*\|(?:\s*\|)*\s*$/u.test(line.raw.trim())) continue;
     if (/Gesetz- und Verordnungsblatt/iu.test(line.text) && /Nr\./u.test(line.text)) continue;
     result.push(line);
   }
@@ -183,13 +181,23 @@ function sanitizeBodyLines(lines, startIndex, endIndex) {
 const STRUCTURE_RANK = { part: 1, chapter: 2, section: 3, subsection: 4, article: 5, paragraph: 5, annex: 5 };
 
 function parseListItem(text) {
-  let match = text.match(/^(\d+)[.)]\s+(.*)$/u);
+  let match = text.match(/^(\d+[a-z]?)[.)]\s+(.*)$/iu);
   if (match) return { type: 'item', label: `${match[1]}${text.startsWith(`${match[1]})`) ? ')' : '.'}`, text: match[2] };
   match = text.match(/^([a-z]{1,2})\)\s+(.*)$/iu);
   if (match) return { type: match[1].length > 1 ? 'subitem' : 'item', label: `${match[1]})`, text: match[2] };
   match = text.match(/^[–—-]\s+(.*)$/u);
   if (match) return { type: 'item', label: '–', text: match[1] };
   return null;
+}
+
+function tableCells(raw) {
+  const trimmed = raw.trim();
+  const withoutOuterPipes = trimmed.replace(/^\|/u, '').replace(/\|$/u, '');
+  return withoutOuterPipes.split('|').map((cell) => stripMarkdown(cell));
+}
+
+function isTableSeparator(raw) {
+  return /^\s*\|(?:\s*:?-{3,}:?\s*\|)+\s*$/u.test(raw);
 }
 
 export function parseStructuredBody(inputLines) {
@@ -227,20 +235,22 @@ export function parseStructuredBody(inputLines) {
 
     if (/^\s*\|.*\|\s*$/u.test(line.raw)) {
       const rows = [];
+      const rawRows = [];
       let cursor = index;
       while (cursor < lines.length && /^\s*\|.*\|\s*$/u.test(lines[cursor].raw)) {
-        if (!/^\s*\|(?:\s*:?-{3,}:?\s*\|)+\s*$/u.test(lines[cursor].raw)) {
-          const cells = lines[cursor].raw
-            .trim()
-            .replace(/^\||\|$/gu, '')
-            .split('|')
-            .map((cell) => stripMarkdown(cell))
-            .filter((cell) => cell.length > 0)
-            .map((text) => ({ type: 'tableCell', text }));
-          if (cells.length > 0) rows.push({ type: 'tableRow', children: cells });
-        }
+        rawRows.push(lines[cursor]);
         cursor += 1;
       }
+      const separatorIndex = rawRows.findIndex((row) => isTableSeparator(row.raw));
+      rawRows.forEach((row, rowIndex) => {
+        if (isTableSeparator(row.raw)) return;
+        const header = separatorIndex > 0 && rowIndex < separatorIndex;
+        const cells = tableCells(row.raw).map((text) => ({
+          type: header ? 'tableHeaderCell' : 'tableCell',
+          text,
+        }));
+        rows.push({ type: 'tableRow', children: cells });
+      });
       if (rows.length > 0) stack.at(-1).children.push({ type: 'table', children: rows });
       index = cursor - 1;
       previousWasBlank = false;
