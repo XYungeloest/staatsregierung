@@ -41,12 +41,15 @@ export const STRUCTURE_TYPES = [
   'tableCell',
 ] as const;
 
+export const TABLE_HEADER_SCOPES = ['col', 'row', 'colgroup', 'rowgroup'] as const;
+
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
 
 export type NormType = (typeof NORM_TYPES)[number];
 export type NormStatus = (typeof NORM_STATUSES)[number];
 export type HistoryEntryType = (typeof HISTORY_ENTRY_TYPES)[number];
 export type StructureType = (typeof STRUCTURE_TYPES)[number];
+export type TableHeaderScope = (typeof TABLE_HEADER_SCOPES)[number];
 
 export interface NormSourceReference {
   kind: 'structured-html-transcription' | 'legacy-markdown-transcription';
@@ -93,6 +96,7 @@ export interface NormBodyBlock {
   level?: number;
   listId?: string;
   numberingStyle?: string;
+  scope?: TableHeaderScope;
   rowspan?: number;
   colspan?: number;
   columns?: number;
@@ -305,6 +309,9 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
   const level = expectOptionalInteger(object.level, `${path}.level`);
   const listId = expectOptionalString(object.listId, `${path}.listId`);
   const numberingStyle = expectOptionalString(object.numberingStyle, `${path}.numberingStyle`);
+  const scope = object.scope === undefined
+    ? undefined
+    : expectEnumValue(object.scope, `${path}.scope`, TABLE_HEADER_SCOPES);
   const rowspan = expectOptionalInteger(object.rowspan, `${path}.rowspan`, { minimum: 1 });
   const colspan = expectOptionalInteger(object.colspan, `${path}.colspan`, { minimum: 1 });
   const columns = expectOptionalInteger(object.columns, `${path}.columns`, { minimum: 1 });
@@ -353,6 +360,10 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
     fail(path, 'rowspan und colspan sind nur an Tabellenzellen zulässig');
   }
 
+  if (scope !== undefined && type !== 'tableHeaderCell') {
+    fail(`${path}.scope`, 'ist nur an Tabellenkopfzellen zulässig');
+  }
+
   if (columns !== undefined && type !== 'table') {
     fail(path, 'columns ist nur an Tabellen zulässig');
   }
@@ -369,6 +380,7 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
     level,
     listId,
     numberingStyle,
+    scope,
     rowspan,
     colspan,
     columns,

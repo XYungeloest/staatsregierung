@@ -112,8 +112,10 @@ context/
   einem HTML5-Parser, rekonstruiert daraus strukturierte Normdaten und veröffentlicht niemals das
   Quell-HTML direkt. Eine intern derselben Ausgabe zugeordnete Markdown-Datei wird nicht geöffnet.
   Für Altquellen ohne HTML bleibt ein getrennter Legacy-Parser verfügbar; solche Datensätze sind als
-  `legacy-markdown-transcription` gekennzeichnet. PDF-Dateien werden zur visuellen Kontrolle von
-  Gliederung und Einrückung herangezogen, aber nicht automatisch als Volltext importiert.
+  `legacy-markdown-transcription` gekennzeichnet. Soweit vorhanden, wird die zugehörige PDF immer
+  visuell gegen Gliederungstiefe, Einrückung, Nummerierungsfolge, Listenfortsetzungen, Zitate,
+  Tabellen und Anlagen geprüft, aber nicht automatisch als Volltext importiert. Nicht eindeutig
+  auflösbare Abweichungen zwischen HTML, Legacy-Markdown und PDF werden nicht still harmonisiert.
 
 Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen gespeichert.
 
@@ -149,7 +151,12 @@ aus.
 
 Jeder Produktionsbuild trägt den vollständigen Git-Commit als `meta[name="build-commit"]` in
 HTML-Seiten und als Antwortheader `X-Portal-Commit` auf allen Routen. In CI wird die Kennung aus
-`GITHUB_SHA` übernommen; lokale Builds verwenden den aktuellen `HEAD`.
+`GITHUB_SHA` über `PORTAL_BUILD_COMMIT` übernommen; lokale Builds verwenden den aktuellen `HEAD`.
+Der bekannte öffentlich ausgelieferte Produktionsstand ist am 22. Juli 2026 weiterhin
+`59adee4659992b96d55812fbf4e3612a3541e126`; Abweichungen zum aktuellen Repository sind deshalb
+kein Cachehinweis. Vor einem späteren Deployment müssen `/`, `/recht/`, `/recht/verfassung/`, die
+Normseiten des Ersten Staatsreformgesetzes und der SERO-Verordnung, die Verkündungsseiten Nr. 53
+und 58 sowie `/sitemap.xml` und `/search-index.json` dieselbe neue vollständige Kennung ausgeben.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter

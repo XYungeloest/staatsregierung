@@ -47,6 +47,21 @@ export function validatePublicationParserContract(parsed) {
     if (firstItem?.label !== '1.' || firstItem.children?.[0]?.label !== 'a.' || firstItem.children?.[0]?.children?.[0]?.label !== 'i.') {
       issues.push('Änderungshierarchie 1. → a. → i. wurde nicht rekonstruiert');
     }
+    const firstItemLabels = firstItem?.children?.map((block) => block.label) ?? [];
+    if (JSON.stringify(firstItemLabels) !== JSON.stringify(['a.', 'b.', 'c.', 'd.', 'e.'])) {
+      issues.push(`Geschwisterfolge unter Nummer 1 ist ${JSON.stringify(firstItemLabels)} statt ["a.","b.","c.","d.","e."]`);
+    }
+    const letterD = firstItem?.children?.find((block) => block.label === 'd.');
+    const letterE = firstItem?.children?.find((block) => block.label === 'e.');
+    const quotedArticle5Paragraphs = flattenWithQuoteState(letterD?.children)
+      .filter(({ block, insideQuote }) => insideQuote && block.type === 'subparagraph')
+      .map(({ block }) => block.label);
+    if (JSON.stringify(quotedArticle5Paragraphs) !== JSON.stringify(['(1)', '(2)', '(3)'])) {
+      issues.push(`zitierter Artikel 5 enthält die Absatzkennzeichnungen ${JSON.stringify(quotedArticle5Paragraphs)} statt ["(1)","(2)","(3)"]`);
+    }
+    if (!letterE?.text?.startsWith('Artikel 6 wird wie folgt geändert')) {
+      issues.push('Artikel 6 wurde nicht als Buchstabe e. unter Nummer 1 erkannt');
+    }
   }
   return issues;
 }

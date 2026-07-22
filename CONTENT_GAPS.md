@@ -14,8 +14,9 @@ Belegt:
   Original-PDF vorhanden.
 - Ein Plenarprotokoll und die einzelnen Abstimmungsergebnisse der dritten Plenarsitzung vom
   20. Juli 2026 liegen nicht vor.
-- Die Ausgaben OGVBl. 2026 Nr. 46 bis 58 liegen als redaktionell geprüfte HTML-Transkriptionen
-  unter `Gesetze/` vor. Die zugehörigen Original-PDFs sind nicht Bestandteil des Repositorys.
+- Die Ausgaben OGVBl. 2026 Nr. 46 bis 58 liegen als redaktionell geprüfte HTML-Transkriptionen und
+  mit den zugehörigen Original-PDFs unter `Gesetze/` vor. Die PDFs sind visuelle Kontrollquellen,
+  keine strukturtragenden Importquellen.
 - `OGVBl II-24.pdf` und `OGVBl I-25.pdf` sind bildbasierte Alt-Ausgaben. Für elf darin enthaltene
   ältere Dokumente liegt weiterhin kein redaktionell geprüfter maschinenlesbarer Volltext vor.
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
@@ -78,6 +79,10 @@ Belegt:
   HTML-Transkription. Bei den 12 aktualisierten Markdown-only-Ausgaben verweist die gleiche
   Beziehung ausdrücklich auf die Legacy-Transkription. Die vorhandenen PDFs dienen der visuellen
   Gegenprüfung und sind keine Importquelle.
+- PDF-geprüfte Strukturfixtures sichern die kritischen Gliederungen der Ausgaben OGVBl. 2026
+  Nr. 3, 17, 46, 47, 52, 53, 54 und 58. Bei Nr. 53 belegen insbesondere die Seiten 2 und 3 die
+  Fortsetzung `a.` bis `e.` trotz des technischen HTML-Zählerneustarts; bei Nr. 54 belegt Seite 4
+  denselben Fortsetzungsfall.
 - Der Normimport läuft standardmäßig nur als Audit. Schreiben erfordert `--write` und eine gezielte
   `--file`-Angabe; vorhandene Normen werden erst mit `--update-existing` verändert.
 - OABl. 2025 Nr. 2 bleibt unverändert: In der Markdown-Datei wurden Nummerierung und Normtext in
@@ -88,7 +93,9 @@ Belegt:
 
 Schlussfolgerung:
 
-- `npm run content:check` benötigt keine privaten lokalen PDF-Quellen.
+- Der automatisierte Import liest aus PDFs keinen Normvolltext. Fehlende visuelle Kontrollquellen
+  werden hier dokumentiert; ein strukturell nicht auflösbarer Fall muss im Audit `needs-review`
+  auslösen.
 - Mehrdeutige Altquellen bleiben unverändert, bis ihr Aufbau redaktionell geprüft und ein
   passender Parserfall ergänzt wurde.
 - Der Import löscht den vorhandenen Normbestand nicht und erzeugt keine instabilen Suffix-Slugs.
@@ -104,6 +111,10 @@ Belegt:
 - StAnzO. 2026 Nr. 13 enthält 19. Mai 2026 im Kopf beziehungsweise Inhaltsverzeichnis, 27. Mai 2026
   in der Überschrift und 19. Mai 2026 in der Unterschriftszeile. Das Ausgabedatum ist der
   27. Mai 2026.
+- Die unter `OGVBl. 2026 Nr. 58.pdf` bereitgestellte PDF zeigt im sichtbaren Ausgabenkopf
+  `Nr. 57`, während die gleichnamige HTML-Transkription intern `Nr. 58` ausweist. Titel und
+  Norminhalt der PDF entsprechen der SERO-Verordnung. Bis zur Klärung dient die PDF für diese Norm
+  nur als visuelle Strukturkontrolle, nicht als Nachweis der Ausgabenummer.
 - Beim Helsinki-Übereinkommen nennt das Verkündungsblattregister den 14. Juli 1994, der Kopf des
   lokalen Originals den 14. Juli 1992 und der Vertragstext den 9. April 1992 als Abschlussdatum.
 - Die lokale Entwurfsdatei zu Drucksache 07/27 nennt den 15. Juli 2025, obwohl der Vorgang der

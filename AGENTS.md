@@ -89,7 +89,11 @@ Quelle wird dann ausdrücklich als `legacy-markdown-transcription` dokumentiert.
 ohne Schreibflag nur als Audit, schreibt ausschließlich gezielt ausgewählte Quellen und darf
 vorhandene Normordner nicht pauschal löschen. Quell-HTML wird nie direkt öffentlich gerendert;
 veröffentlicht werden nur validierte strukturierte Normdaten. PDFs dienen bei Altquellen der
-visuellen Gegenprüfung, nicht als automatisch importierter Volltext.
+visuellen Gegenprüfung, nicht als automatisch importierter Volltext. Soweit eine passende PDF
+vorliegt, ist sie auch bei HTML-Quellen zur Kontrolle von Gliederung, Einrückung, Nummerierungsfolge,
+Listenfortsetzungen, zitierten Neufassungen, Tabellen und Anlagen heranzuziehen. Fehlende PDFs und
+nicht eindeutig auflösbare Strukturkonflikte werden in `CONTENT_GAPS.md` dokumentiert; mehrdeutige
+Fälle dürfen im strikten Audit nicht still als geprüft gelten.
 
 Verkündungen liegen unter:
 

@@ -7,11 +7,13 @@ import {
   parseConsolidatedHtml,
   parsePublicationHtml,
   summarizeParsedSource,
+  validateListSequences,
 } from '../scripts/lib/norm-html-parser.mjs';
 import {
   validateConstitutionParserContract,
   validatePublicationParserContract,
 } from '../scripts/lib/norm-parser-contract.mjs';
+import { complexHtmlStructureFixtures } from './fixtures/norm-structure-fixtures.mjs';
 
 async function issue(number) {
   const fileName = `OGVBl. 2026 Nr. ${number}.html`;
@@ -69,6 +71,7 @@ test('Ausgabe 53 rekonstruiert äußere Artikel, sibling-Listen und zitierte Neu
   assert.equal(article1.title, 'Änderung der Staatsverfassung');
   const number1 = article1.children.find((block) => block.type === 'item');
   assert.equal(number1.label, '1.');
+  assert.deepEqual(number1.children.map((child) => child.label), complexHtmlStructureFixtures[53].number1Children);
   assert.equal(number1.children[0].label, 'a.');
   assert.equal(number1.children[0].children[0].label, 'i.');
   assert.equal(number1.children.find((block) => block.text.startsWith('Artikel 3')).children.length, 2);
@@ -76,8 +79,59 @@ test('Ausgabe 53 rekonstruiert äußere Artikel, sibling-Listen und zitierte Neu
   const article5 = flat.find(({ block, insideQuote }) => insideQuote && block.type === 'article' && block.label === 'Artikel 5')?.block;
   assert.ok(article5);
   assert.deepEqual(article5.children.map((block) => block.label), ['(1)', '(2)', '(3)']);
+  const letterD = number1.children.find((block) => block.label === 'd.');
+  const letterE = number1.children.find((block) => block.label === 'e.');
+  assert.ok(flatten(letterD.children).some(({ block }) => block.type === 'article' && block.label === 'Artikel 5'));
+  assert.match(letterE.text, /^Artikel 6 wird wie folgt geändert/u);
+  assert.equal(number1.children.filter((block) => block.label === 'a.').length, 1);
   assert.ok(flat.some(({ block }) => block.type === 'quotedProvision'));
   assert.deepEqual(validatePublicationParserContract(parsed), []);
+});
+
+test('PDF-geprüfte Strukturfixtures sichern die komplexen HTML-Ausgaben 3, 17, 46, 47, 52, 53, 54 und 58', async () => {
+  for (const number of [3, 17, 46, 47, 52, 53, 54, 58]) {
+    const parsed = await issue(number);
+    const fixture = complexHtmlStructureFixtures[number];
+    const summary = summarizeParsedSource(parsed);
+    if (fixture.outerArticles) assert.deepEqual(summary[0].outerArticles, fixture.outerArticles, `Ausgabe ${number}: äußere Artikel`);
+    if (fixture.outerParagraphs) assert.deepEqual(summary[0].outerParagraphs, fixture.outerParagraphs, `Ausgabe ${number}: äußere Paragraphen`);
+    if (fixture.introducedLastStructures) {
+      assert.deepEqual(summary.slice(1).map((entry) => entry.lastStructure), fixture.introducedLastStructures, `Ausgabe ${number}: eingeführte Normen`);
+    }
+    if (fixture.introducedAbbreviations) {
+      assert.deepEqual(parsed.introducedNorms.map((norm) => norm.abbr), fixture.introducedAbbreviations, `Ausgabe ${number}: Abkürzungen`);
+    }
+    if (fixture.number1Children) {
+      const article1 = parsed.body.find((block) => block.label === 'Artikel 1');
+      const number1 = article1?.children.find((block) => block.label === '1.');
+      assert.deepEqual(number1?.children.map((child) => child.label), fixture.number1Children, `Ausgabe ${number}: Geschwister unter Nummer 1`);
+    }
+    const flat = flatten(parsed.body);
+    if (fixture.quotedStructure) {
+      assert.ok(flat.some(({ block, insideQuote }) => insideQuote && block.type === fixture.quotedStructure), `Ausgabe ${number}: zitierte Struktur ${fixture.quotedStructure}`);
+    }
+    if (fixture.quotedLabel) {
+      assert.ok(flat.some(({ block, insideQuote }) => insideQuote && block.label === fixture.quotedLabel), `Ausgabe ${number}: zitierte Struktur ${fixture.quotedLabel}`);
+    }
+    if (fixture.quotedArticle) {
+      const quotedArticle = flat.find(({ block, insideQuote }) => insideQuote && block.type === 'article' && block.label === fixture.quotedArticle)?.block;
+      assert.ok(quotedArticle, `Ausgabe ${number}: zitierter Artikel ${fixture.quotedArticle}`);
+      assert.deepEqual(quotedArticle.children.map((child) => child.label), fixture.quotedParagraphs, `Ausgabe ${number}: Absätze in ${fixture.quotedArticle}`);
+    }
+    if (fixture.tableCount !== undefined) assert.equal(summary[0].tableCount, fixture.tableCount, `Ausgabe ${number}: Tabellen`);
+    assert.deepEqual(validateListSequences(parsed.body), [], `Ausgabe ${number}: Listensequenzen`);
+  }
+});
+
+test('Sequenzvalidierung meldet doppelte, rückwärts laufende und stilistisch gemischte Geschwister', () => {
+  const item = (label, numberingStyle = 'lower-latin', listId = 'test-list') => ({
+    type: 'item', label, text: label, level: 0, listId, numberingStyle, children: [],
+  });
+  assert.match(validateListSequences([item('a.'), item('a.')])[0], /doppeltes Gliederungszeichen/u);
+  assert.match(validateListSequences([item('b.'), item('a.')])[0], /rückwärts laufende Nummerierungsfolge/u);
+  assert.match(validateListSequences([item('a.'), item('c.')])[0], /lückenhafte Nummerierungsfolge/u);
+  assert.match(validateListSequences([item('a.'), item('ii.', 'lower-roman')])[0], /widersprüchliche Nummerierungsstile/u);
+  assert.deepEqual(validateListSequences([item('a.'), { type: 'paragraphText', text: 'Neue Liste.' }, item('a.')]), []);
 });
 
 test('Ausgabe 17 hält das eingebettete Hoheitszeichengesetz unter Artikel 4', async () => {
@@ -148,4 +202,30 @@ test('HTML-Tabellen bewahren leere Zellen, Kopfzellen, Spalten und Zellspannen',
   assert.equal(table.children[0].children[1].colspan, 2);
   assert.equal(table.children[2].children[1].text, '');
   assert.equal(table.children[0].children[0].type, 'tableHeaderCell');
+  assert.equal(table.children[0].children[0].scope, 'col');
+  assert.equal(table.children[0].children[1].scope, 'colgroup');
+  assert.equal(table.children[1].children[0].scope, 'col');
+});
+
+test('HTML-Tabellen erhalten explizite Scopes und erfinden bei uneindeutigen Kopfzellen keinen Scope', () => {
+  const html = `<!doctype html><html><head><style></style></head><body>
+    <p>Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland</p>
+    <p>Nr. 98</p><p>Ausgegeben zu Dresden am 21. Juli 2026</p>
+    <p>Inhaltsverzeichnis</p><p>20. Juli 2026 Testgesetz Seite 2</p>
+    <p>Gesetz<br>über einen Scopetest<br>vom 20. Juli 2026</p>
+    <h2>§ 1<br>Tabelle</h2>
+    <table><tbody>
+      <tr><th scope="rowgroup" rowspan="2">Gruppe</th><td>A</td></tr>
+      <tr><td>B</td></tr>
+      <tr><th>Uneindeutig</th><td>C</td></tr>
+      <tr><td>D</td><th>Uneindeutige Kopfzelle</th></tr>
+    </tbody></table>
+    <h2>§ 2<br>Inkrafttreten</h2><p>Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft.</p>
+    <p>Dresden, den 20. Juli 2026</p></body></html>`;
+  const parsed = parsePublicationHtml('scope-test.html', html);
+  const table = flatten(parsed.body).find(({ block }) => block.type === 'table')?.block;
+  assert.equal(table.children[0].children[0].scope, 'rowgroup');
+  assert.equal(table.children[2].children[0].scope, 'row');
+  assert.equal(table.children[0].children[1].scope, undefined);
+  assert.equal(table.children[3].children[1].scope, undefined);
 });
