@@ -7,24 +7,51 @@
   "changeNote": "Amtlich veröffentlichter Einzelakt.",
   "body": [
     {
-      "type": "section",
-      "label": "Seite 2",
-      "title": "Amtlicher Text",
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 23. März 2026 das folgende Gesetz beschlossen:"
+    },
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Bereinigung des Ostdeutschen Landesrechts",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 22 24. März 2026\nErstes Gesetz\nbetreffend die Bereinigung ostdeutschen\nLandesrechts\nvom 23. März 2026\nDer Ostdeutsche Landtag hat am 23.\nMärz 2026 das folgende Gesetz\nbeschlossen:\nArtikel 1\nBereinigung des Ostdeutschen\nLandesrechts\n(1) Die Schriftleitung des\nOstdeutschen Gesetzes- und\nVerordnungsblattes wird\nermächtigt von Amts wegen, die\nBezeichnungen der\nRechtsvorschriften, die im\nOstdeutschen Freistaat gelten,\ninsofern zu ersetzen, als dass\n,,Sächsisch” durch ,,Ostdeutsch”\nersetzt wird.\n(2) Die Schriftleitung des\nOstdeutschen Gesetzes- und\nVerordnungsblattes wird\nermächtigt von Amts wegen, bei\nVeröffentlichungen von\nkonsolidierten Fassungen von\nRechtsvorschriften die Worte\n,,Sächsisch\" durch\n,,Ostdeutsch”\nzu ersetzen.\n(3) Dasselbe gilt auch für andere\nflektierte Formen von\n,,Sächsisch\" und ,,Ostdeutsch”\n.\nArtikel 2\nInkrafttreten\nDieses Gesetz tritt mit dem Tag seiner\nVerkündung in Kraft.\nDresden, den 24. März 2026\nSeite 2"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Schriftleitung des Ostdeutschen Gesetzes- und Verordnungsblattes wird ermächtigt von Amts wegen, die Bezeichnungen der Rechtsvorschriften, die im Ostdeutschen Freistaat gelten, insofern zu ersetzen, als dass ,,Sächsisch” durch ,,Ostdeutsch” ersetzt wird.",
+          "level": 0,
+          "listId": "tssaw5ak2f6l",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Schriftleitung des Ostdeutschen Gesetzes- und Verordnungsblattes wird ermächtigt von Amts wegen, bei Veröffentlichungen von konsolidierten Fassungen von Rechtsvorschriften die Worte ,,Sächsisch\" durch ,,Ostdeutsch”zu ersetzen.",
+          "level": 0,
+          "listId": "tssaw5ak2f6l",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Dasselbe gilt auch für andere flektierte Formen von ,,Sächsisch\" und ,,Ostdeutsch”.",
+          "level": 0,
+          "listId": "tssaw5ak2f6l",
+          "numberingStyle": "decimal",
+          "children": []
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 3",
-      "title": "Amtlicher Text",
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Inkrafttreten",
       "children": [
         {
           "type": "paragraphText",
-          "text": "OGVBl. Nr. 22 24. März 2026\nLouis Hahne-Eichinger\nD e r L A N D T A G S P R Ä S I D E N T\nDr. Karl Honecker\nD e r M I N I S T E R P R Ä S I D E N T\nSeite 3"
+          "text": "Dieses Gesetz tritt mit dem Tag seiner Verkündung in Kraft."
         }
       ]
     }

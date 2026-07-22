@@ -11,6 +11,12 @@ import {
   summarizeParsedSource,
 } from './lib/norm-html-parser.mjs';
 import {
+  classifyMarkdownSource,
+  parseConsolidatedMarkdown,
+  parsePublicationMarkdown,
+  summarizeParsedSource as summarizeMarkdownSource,
+} from './lib/norm-markdown-parser.mjs';
+import {
   validateConstitutionParserContract,
   validatePublicationParserContract,
 } from './lib/norm-parser-contract.mjs';
@@ -128,13 +134,214 @@ function deriveStatus(norm, index) {
   return norm.effectiveDate > asOf ? 'future-effective' : 'in-force';
 }
 
+function isHtmlSource(fileName) {
+  return fileName.toLocaleLowerCase('de').endsWith('.html');
+}
+
 function normSourceReferences(fileName) {
+  const html = isHtmlSource(fileName);
   return [{
-    kind: 'structured-html-transcription',
-    label: 'Redaktionell geprüfte HTML-Fassung der Quelle',
+    kind: html ? 'structured-html-transcription' : 'legacy-markdown-transcription',
+    label: html ? 'Redaktionell geprüfte HTML-Fassung der Quelle' : 'Historische Markdown-Transkription (Altbestand)',
     availability: 'versioned',
     localSource: `Gesetze/${basename(fileName)}`,
   }];
+}
+
+function publicationSourceReference(fileName) {
+  const html = isHtmlSource(fileName);
+  return {
+    kind: html ? 'structured-html-transcription' : 'legacy-markdown-transcription',
+    label: html ? 'Redaktionell geprüfte HTML-Fassung der Ausgabe' : 'Historische Markdown-Transkription der Ausgabe (Altbestand)',
+    availability: 'versioned',
+    localSource: `Gesetze/${basename(fileName)}`,
+  };
+}
+
+function publicationIdentityKey(publication, year, issue) {
+  return `${publication}|${year}|${String(issue).replace(/^0+(?=\d)/u, '')}`;
+}
+
+function publicationIdentityFromLegacyFileName(fileName) {
+  const match = fileName.match(/^(OABl|OGVBl|OVertrBl|StAnzO)\.?\s*(\d{4})\s*Nr\.?\s*(\d+)/iu);
+  if (!match) return null;
+  const publication = {
+    oabl: 'OABl.', ogvbl: 'OGVBl.', overtrbl: 'OVertrBl.', stanzo: 'StAnzO.',
+  }[match[1].toLocaleLowerCase('de')];
+  return publicationIdentityKey(publication, Number(match[2]), match[3]);
+}
+
+function legacyTitleScore(left, right) {
+  const normalizedLeft = normalizedAuditTitle(left);
+  const normalizedRight = normalizedAuditTitle(right);
+  if (!normalizedLeft || !normalizedRight) return 0;
+  if (normalizedLeft === normalizedRight) return 100;
+  if (normalizedLeft.includes(normalizedRight) || normalizedRight.includes(normalizedLeft)) return 80;
+  const leftTokens = new Set(normalizedLeft.split(' '));
+  const rightTokens = new Set(normalizedRight.split(' '));
+  const intersection = [...leftTokens].filter((token) => rightTokens.has(token)).length;
+  const union = new Set([...leftTokens, ...rightTokens]).size;
+  return union > 0 ? Math.round((intersection / union) * 60) : 0;
+}
+
+function relatedNormSlugs(meta) {
+  return [meta?.enactedNorm, ...(meta?.enactedNorms ?? [])].filter(Boolean);
+}
+
+function legacyEntryCitation(previous, meta, publication, documentDate) {
+  if (previous?.citation && /\bvom\s+\d{1,2}\.\s+[A-ZÄÖÜa-zäöüß]+\s+\d{4}/u.test(previous.citation)) return previous.citation;
+  const labels = {
+    gesetz: 'Gesetz',
+    verordnung: 'Verordnung',
+    verwaltungsvorschrift: 'Verwaltungsvorschrift',
+    foerderrichtlinie: 'Förderrichtlinie',
+    allgemeinverfuegung: 'Allgemeinverfügung',
+    bekanntmachung: 'Bekanntmachung',
+    staatsvertrag: 'Staatsvertrag',
+    zustimmungsgesetz: 'Gesetz',
+    aenderungsvorschrift: 'Gesetz',
+  };
+  const page = previous?.startPage ?? previous?.pages?.match(/\d+/u)?.[0];
+  return `${labels[meta.type] ?? 'Veröffentlichung'} vom ${formatGermanDate(documentDate)} (${publication.publication} ${publication.year} Nr. ${publication.issue}${page ? ` S. ${page}` : ''})`;
+}
+
+function resolveLegacySourceRecords(parsed, existingPublication, existingRecords) {
+  if (!existingPublication) {
+    return { records: [], publication: null, issues: ['kein vorhandener Verkündungsdatensatz mit identischer interner Publikation, Jahr und Ausgabe'] };
+  }
+  if (existingPublication.date !== parsed.publicationDate) {
+    return {
+      records: [],
+      publication: null,
+      issues: [`internes Ausgabedatum ${parsed.publicationDate} widerspricht dem Verkündungsdatensatz ${existingPublication.date}`],
+    };
+  }
+
+  const parsedNorms = [parsed, ...parsed.introducedNorms];
+  const directSlugs = (existingPublication.entries ?? []).map((entry) => entry.normSlug).filter(Boolean);
+  const candidateSlugs = [];
+  const queue = [...directSlugs];
+  while (queue.length > 0) {
+    const slug = queue.shift();
+    if (!slug || candidateSlugs.includes(slug)) continue;
+    candidateSlugs.push(slug);
+    const existing = existingRecords.get(slug);
+    if (existing) queue.push(...relatedNormSlugs(existing.meta));
+  }
+  const candidates = candidateSlugs.flatMap((slug) => {
+    const existing = existingRecords.get(slug);
+    return existing ? [{ slug, existing }] : [];
+  });
+  const relationOuter = candidates.filter(({ slug, existing }) => directSlugs.includes(slug) && relatedNormSlugs(existing.meta).length > 0);
+  const used = new Set();
+  const mappings = [];
+  const issues = [];
+
+  for (let index = 0; index < parsedNorms.length; index += 1) {
+    const norm = parsedNorms[index];
+    let available = candidates.filter(({ slug }) => !used.has(slug));
+    if (index === 0 && relationOuter.length === 1) available = [relationOuter[0], ...available.filter(({ slug }) => slug !== relationOuter[0].slug)];
+    const ranked = available.map((candidate) => ({
+      ...candidate,
+      score: legacyTitleScore(norm.title, candidate.existing.meta.title) +
+        (index === 0 && relationOuter.some(({ slug }) => slug === candidate.slug) ? 15 : 0),
+    })).sort((left, right) => right.score - left.score || candidateSlugs.indexOf(left.slug) - candidateSlugs.indexOf(right.slug));
+    const best = ranked[0];
+    if (!best || best.score < 35 || (ranked[1] && ranked[1].score === best.score)) {
+      issues.push(`${norm.title}: keine eindeutige stabile Slug-Zuordnung (${ranked.slice(0, 3).map((entry) => `${entry.slug}: ${entry.score}`).join(', ') || 'keine Kandidaten'})`);
+      continue;
+    }
+    used.add(best.slug);
+    mappings.push({ norm, slug: best.slug, existing: best.existing });
+  }
+  if (mappings.length !== parsedNorms.length) return { records: [], publication: null, issues };
+
+  const records = mappings.map(({ norm, slug, existing }) => {
+    const publicationEntry = (existingPublication.entries ?? []).find((entry) => entry.normSlug === slug);
+    const currentVersion = existing.versions.find((entry) => entry.versionId === publicationEntry?.versionId) ??
+      existing.versions.find((entry) => entry.isCurrent) ?? existing.versions.at(-1);
+    if (!currentVersion) throw new Error(`${parsed.fileName}: ${slug} besitzt keine aktualisierbare Fassung`);
+    return {
+      source: parsed.fileName,
+      startPage: publicationEntry?.startPage,
+      meta: {
+        ...existing.meta,
+        sourceReferences: [
+          ...(existing.meta.sourceReferences ?? []).filter((reference) =>
+            !/\.(?:md|html)$/iu.test(String(reference.localSource ?? ''))
+          ),
+          ...normSourceReferences(parsed.fileName),
+        ].filter((reference, index, references) =>
+          references.findIndex((candidate) => candidate.localSource === reference.localSource) === index
+        ),
+      },
+      history: existing.history,
+      versions: [{ ...currentVersion, body: norm.body }],
+    };
+  });
+  const mappedEntries = mappings.map(({ norm, slug, existing }, index) => {
+    const previous = (existingPublication.entries ?? []).find((entry) => entry.normSlug === slug);
+    const version = records[index].versions[0];
+    const documentDate = previous?.documentDate ?? existing.meta.documentDate ?? norm.documentDate ?? parsed.documentDate;
+    return {
+      ...(previous ?? {}),
+      id: previous?.id ?? slug,
+      title: existing.meta.title,
+      type: previous?.type ?? (existing.meta.type === 'verordnung' ? 'verordnung' : 'gesetz'),
+      citation: legacyEntryCitation(previous, existing.meta, existingPublication, documentDate),
+      documentDate,
+      normSlug: slug,
+      versionId: version.versionId,
+    };
+  });
+  const mappedSlugs = new Set(mappedEntries.map((entry) => entry.normSlug));
+  const publication = {
+    ...existingPublication,
+    ...(existingPublication.sourceFiles ? { sourceFiles: [`Gesetze/${basename(parsed.fileName)}`] } : {}),
+    sourceReferences: [
+      ...(existingPublication.sourceReferences ?? []).filter((reference) =>
+        !['transcription', 'structured-html-transcription', 'legacy-markdown-transcription'].includes(reference.kind) &&
+        !/\.(?:md|html)$/iu.test(String(reference.localSource ?? ''))
+      ),
+      publicationSourceReference(parsed.fileName),
+    ].filter((reference, index, references) =>
+      references.findIndex((candidate) =>
+        candidate.kind === reference.kind && candidate.localSource === reference.localSource && candidate.url === reference.url
+      ) === index
+    ),
+    entries: [...mappedEntries, ...(existingPublication.entries ?? []).filter((entry) => entry.normSlug && !mappedSlugs.has(entry.normSlug))],
+  };
+  return { records, publication, issues };
+}
+
+function resolveLegacyConsolidatedRecord(parsed, existingRecords) {
+  const ranked = [...existingRecords.entries()].map(([slug, existing]) => ({
+    slug,
+    existing,
+    score: legacyTitleScore(parsed.title, existing.meta.title),
+  })).filter((entry) => entry.score >= 35)
+    .sort((left, right) => right.score - left.score || left.slug.localeCompare(right.slug));
+  const best = ranked[0];
+  if (!best || (ranked[1] && ranked[1].score === best.score)) {
+    return { record: null, issues: [`keine eindeutige stabile Slug-Zuordnung (${ranked.slice(0, 3).map((entry) => `${entry.slug}: ${entry.score}`).join(', ') || 'keine Kandidaten'})`] };
+  }
+  const currentVersion = best.existing.versions.find((entry) => entry.isCurrent) ?? best.existing.versions.at(-1);
+  if (!currentVersion) return { record: null, issues: [`${best.slug} besitzt keine aktualisierbare Fassung`] };
+  return {
+    record: {
+      source: parsed.fileName,
+      meta: {
+        ...best.existing.meta,
+        sourceReferences: [
+          ...(best.existing.meta.sourceReferences ?? []).filter((reference) => !/\.(?:md|html)$/iu.test(String(reference.localSource ?? ''))),
+          ...normSourceReferences(parsed.fileName),
+        ],
+      },
+      history: best.existing.history,
+      versions: [{ ...currentVersion, body: parsed.body }],
+    },
+    issues: [],
+  };
 }
 
 function buildRecords(parsed) {
@@ -276,12 +483,7 @@ function publicationFrom(parsed, records) {
     issue: parsed.issue,
     date: parsed.publicationDate,
     publication: 'OGVBl.',
-    sourceReferences: [{
-      kind: 'structured-html-transcription',
-      label: 'Redaktionell geprüfte HTML-Fassung der Ausgabe',
-      availability: 'versioned',
-      localSource: `Gesetze/${basename(parsed.fileName)}`,
-    }],
+    sourceReferences: [publicationSourceReference(parsed.fileName)],
     entries: records.map((record) => ({
       id: record.meta.slug,
       title: record.meta.title,
@@ -299,9 +501,14 @@ function validateRecord(record) {
   if (!record.meta.slug || !/^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(record.meta.slug)) throw new Error(`${record.source}: instabiler oder ungültiger Slug ${record.meta.slug}`);
   if (!record.versions[0].body.length) throw new Error(`${record.source}: ${record.meta.slug} besitzt einen leeren Normkörper`);
   const text = JSON.stringify(record.versions[0].body);
-  if (/data:image|;base64,|Inhaltsverzeichnis|Dresden, den|LANDTAGSPRÄSIDENT/iu.test(text)) {
+  if (hasNormContamination(text)) {
     throw new Error(`${record.source}: ${record.meta.slug} enthält Kopf-, Bild- oder Signaturdaten`);
   }
+}
+
+function hasNormContamination(text) {
+  return /data:image|;base64,|Inhaltsverzeichnis|\bDresden,\s+den\s+\d/iu.test(text) ||
+    /D\s+e\s+r\s+L\s+A\s+N\s+D\s+T\s+A\s+G\s+S\s+P\s+R/u.test(text);
 }
 
 async function readExistingRecord(slug) {
@@ -420,6 +627,31 @@ function flattenBody(blocks, output = []) {
   return output;
 }
 
+function summarizeLegacyMarkdownAudit(parsed) {
+  const flat = flattenBody(parsed.body);
+  return {
+    outerStructure: (parsed.body ?? [])
+      .filter((block) => ['part', 'chapter', 'section', 'subsection', 'article', 'paragraph', 'annex'].includes(block.type))
+      .map((block) => block.label)
+      .filter(Boolean),
+    articleCount: flat.filter((block) => block.type === 'article').length,
+    paragraphCount: flat.filter((block) => block.type === 'paragraph').length,
+    listCount: flat.filter((block) => block.type === 'item' || block.type === 'subitem').length,
+    tableCount: flat.filter((block) => block.type === 'table').length,
+  };
+}
+
+function legacyMarkdownStructureIssues(parsed) {
+  const flat = flattenBody(parsed.body);
+  const denseNumberingCell = flat.find((block) =>
+    ['tableCell', 'tableHeaderCell'].includes(block.type) &&
+    (String(block.text ?? '').match(/\b\d+(?:\.\d+){1,}\b/gu) ?? []).length >= 10
+  );
+  return denseNumberingCell
+    ? ['Nummerierung und Normtext sind in einer Layouttabelle getrennt; die Eltern-Kind-Zuordnung ist aus der Markdown-Transkription nicht zuverlässig rekonstruierbar']
+    : [];
+}
+
 async function loadExistingAuditRecords() {
   const result = new Map();
   for (const entry of await readdir(outputDir, { withFileTypes: true })) {
@@ -437,6 +669,18 @@ async function loadExistingAuditRecords() {
   return result;
 }
 
+async function loadExistingPublications() {
+  const result = new Map();
+  for (const fileName of (await readdir(publicationDir)).filter((name) => name.endsWith('.json'))) {
+    const publication = JSON.parse(await readFile(join(publicationDir, fileName), 'utf8'));
+    const key = publicationIdentityKey(publication.publication, publication.year, publication.issue);
+    const entries = result.get(key) ?? [];
+    entries.push({ publication, fileName });
+    result.set(key, entries);
+  }
+  return result;
+}
+
 function compareGeneratedRecordToExisting(record, existing) {
   if (!existing) return { status: 'missing-content-record', issues: ['kein Datensatz unter dem stabilen Slug vorhanden'] };
   const version = existing.versions.find((entry) => entry.versionId === record.versions[0].versionId);
@@ -447,7 +691,7 @@ function compareGeneratedRecordToExisting(record, existing) {
   if (existing.meta.publicationDate !== record.meta.publicationDate) issues.push('Veröffentlichungsdatum weicht ab');
   if (JSON.stringify(version.body) !== JSON.stringify(record.versions[0].body)) issues.push('strukturierter Normtext weicht vom aktuellen Parsergebnis ab');
   const storedText = JSON.stringify(version.body);
-  if (/data:image|;base64,|Inhaltsverzeichnis|LANDTAGSPRÄSIDENT|Dresden, den/iu.test(storedText)) issues.push('Vorblatt-, Bild-, Inhaltsverzeichnis- oder Signaturtext im Normkörper');
+  if (hasNormContamination(storedText)) issues.push('Vorblatt-, Bild-, Inhaltsverzeichnis- oder Signaturtext im Normkörper');
   return { status: issues.length ? 'differs' : 'matches', issues };
 }
 
@@ -464,7 +708,7 @@ function compareParsedNormToExisting(norm, issue, existingRecords) {
     const storedBlocks = flattenBody(version?.body ?? []);
     const storedLabels = new Set(storedBlocks.map((block) => block.label).filter(Boolean));
     const missingLabels = [...sourceLabels].filter((label) => !storedLabels.has(label));
-    const contamination = /data:image|;base64,|Inhaltsverzeichnis|LANDTAGSPRÄSIDENT|Dresden, den/iu.test(JSON.stringify(version?.body ?? []));
+    const contamination = hasNormContamination(JSON.stringify(version?.body ?? []));
     return { slug, missingLabels, contamination, score: missingLabels.length + (contamination ? 1000 : 0) };
   }).sort((left, right) => left.score - right.score || left.slug.localeCompare(right.slug));
   const best = ranked[0];
@@ -529,25 +773,45 @@ async function writeRecord(record, changes) {
 
 await access(sourceDir).catch(() => { throw new Error(`Quellverzeichnis fehlt: ${sourceDir}`); });
 const directoryEntries = await readdir(sourceDir, { withFileTypes: true });
-const htmlFiles = directoryEntries
+const allHtmlFiles = directoryEntries
   .filter((entry) => entry.isFile() && entry.name.toLocaleLowerCase('de').endsWith('.html'))
   .map((entry) => entry.name)
-  .filter((name) => selectedFiles.size === 0 || selectedFiles.has(name))
   .sort((left, right) => left.localeCompare(right, 'de'));
+const allMarkdownFiles = directoryEntries
+  .filter((entry) => entry.isFile() && entry.name.toLocaleLowerCase('de').endsWith('.md'))
+  .map((entry) => entry.name)
+  .sort((left, right) => left.localeCompare(right, 'de'));
+const htmlFiles = allHtmlFiles.filter((name) => selectedFiles.size === 0 || selectedFiles.has(name));
+const markdownFiles = allMarkdownFiles.filter((name) => selectedFiles.size === 0 || selectedFiles.has(name));
 
 if (selectedFiles.size > 0) {
-  const markdownSelection = [...selectedFiles].filter((name) => name.toLocaleLowerCase('de').endsWith('.md'));
-  if (markdownSelection.length > 0) throw new Error(`Markdown ist keine Normimportquelle: ${markdownSelection.join(', ')}`);
-  const missing = [...selectedFiles].filter((name) => !htmlFiles.includes(name));
-  if (missing.length) throw new Error(`Ausgewählte HTML-Quelle fehlt: ${missing.join(', ')}`);
+  const unsupportedSelection = [...selectedFiles].filter((name) => !/\.(?:html|md)$/iu.test(name));
+  if (unsupportedSelection.length > 0) throw new Error(`Nicht unterstütztes Quellformat: ${unsupportedSelection.join(', ')}`);
+  const availableFiles = new Set([...allHtmlFiles, ...allMarkdownFiles]);
+  const missing = [...selectedFiles].filter((name) => !availableFiles.has(name));
+  if (missing.length) throw new Error(`Ausgewählte Normquelle fehlt: ${missing.join(', ')}`);
 }
 
+const htmlPublicationIdentities = new Set();
+for (const fileName of allHtmlFiles) {
+  try {
+    const html = await readFile(join(sourceDir, fileName), 'utf8');
+    if (classifyHtmlSource(fileName, html).kind !== 'publication') continue;
+    const parsed = parsePublicationHtml(fileName, html);
+    htmlPublicationIdentities.add(publicationIdentityKey(parsed.publication, parsed.year, parsed.issue));
+  } catch {
+    // Eine fehlerhafte HTML-Datei darf keinen stillen Rückfall auf Markdown auslösen.
+  }
+}
+const htmlStems = new Set(allHtmlFiles.map((name) => name.replace(/\.html$/iu, '').replace(/[ .]/gu, '').toLocaleLowerCase('de')));
+
 const existingAuditRecords = await loadExistingAuditRecords();
+const existingPublications = await loadExistingPublications();
 const report = {
   asOf,
   mode: shouldWrite ? 'incremental-write' : strictMode ? 'strict-audit' : 'audit-only',
-  sourceFormat: 'structured-html',
-  legacyMarkdownIgnored: directoryEntries.filter((entry) => entry.isFile() && entry.name.toLocaleLowerCase('de').endsWith('.md')).map((entry) => entry.name).sort((left, right) => left.localeCompare(right, 'de')),
+  sourceFormat: 'structured-html-with-explicit-legacy-markdown',
+  legacyMarkdownIgnored: [],
   recognized: [], skipped: [], unsupported: [], ambiguous: [], sourceAudit: [], changes: [],
 };
 const records = [];
@@ -638,6 +902,15 @@ for (const fileName of htmlFiles) {
         })),
       });
     } else {
+      const publicationCandidates = existingPublications.get(publicationIdentityKey(parsed.publication, parsed.year, parsed.issue)) ?? [];
+      const exactPublicationCandidates = publicationCandidates.filter(({ publication }) => publication.date === parsed.publicationDate);
+      const existingPublication = exactPublicationCandidates.length === 1 ? exactPublicationCandidates[0].publication : null;
+      const resolved = resolveLegacySourceRecords(parsed, existingPublication, existingAuditRecords);
+      if (resolved.records.length > 0 && resolved.publication) {
+        resolved.records.forEach(validateRecord);
+        records.push(...resolved.records);
+        publications.push(resolved.publication);
+      }
       report.sourceAudit.push({
         file: fileName,
         classification: classification.kind,
@@ -651,16 +924,168 @@ for (const fileName of htmlFiles) {
         paragraphCount: auditSummary.paragraphCount,
         listCount: auditSummary.listCount,
         tableCount: auditSummary.tableCount,
-        norms: [parsed, ...parsed.introducedNorms].map((norm) => ({
-          title: norm.title,
-          ...compareParsedNormToExisting(norm, parsed.issue, existingAuditRecords),
-        })),
-        writeStatus: 'keine stabile Importkonfiguration; Altbestand bleibt unverändert',
+        norms: resolved.records.length > 0
+          ? resolved.records.map((record) => ({
+              slug: record.meta.slug,
+              title: record.meta.title,
+              ...compareGeneratedRecordToExisting(record, existingAuditRecords.get(record.meta.slug)),
+            }))
+          : [parsed, ...parsed.introducedNorms].map((norm) => ({
+              title: norm.title,
+              ...compareParsedNormToExisting(norm, parsed.issue, existingAuditRecords),
+            })),
+        issues: [
+          ...(exactPublicationCandidates.length > 1 ? ['mehrere Verkündungsdatensätze stimmen in Publikation, Ausgabe und Datum überein'] : []),
+          ...(publicationCandidates.length > 0 && exactPublicationCandidates.length === 0
+            ? [`internes Ausgabedatum ${parsed.publicationDate} stimmt mit keinem vorhandenen Verkündungsdatensatz überein`]
+            : []),
+          ...resolved.issues,
+        ],
+        writeStatus: resolved.records.length > 0
+          ? 'stabile Bestandszuordnung; gezielte Aktualisierung mit --write --update-existing möglich'
+          : 'keine eindeutige Bestandszuordnung; Altbestand bleibt unverändert',
       });
     }
   } catch (error) {
     report.ambiguous.push({ file: fileName, reason: error.message });
     report.sourceAudit.push({ file: fileName, classification: classification.kind, status: 'parse-error', issues: [error.message] });
+    if (selectedFiles.has(fileName)) throw error;
+  }
+}
+
+for (const fileName of markdownFiles) {
+  const stem = fileName.replace(/\.md$/iu, '').replace(/[ .]/gu, '').toLocaleLowerCase('de');
+  const filePublicationIdentity = publicationIdentityFromLegacyFileName(fileName);
+  if (htmlStems.has(stem) || (filePublicationIdentity && htmlPublicationIdentities.has(filePublicationIdentity))) {
+    const reason = filePublicationIdentity
+      ? 'HTML-Quelle derselben Ausgabe vorhanden; Markdown-Altbestand wird nicht geöffnet'
+      : 'gleichnamige HTML-Quelle vorhanden; Markdown-Altbestand wird nicht geöffnet';
+    report.legacyMarkdownIgnored.push({ file: fileName, reason });
+    report.sourceAudit.push({ file: fileName, classification: 'legacy-markdown', status: 'superseded-by-html', issues: [reason] });
+    if (selectedFiles.has(fileName)) throw new Error(`${fileName}: ${reason}`);
+    continue;
+  }
+  const sourcePath = join(sourceDir, fileName);
+  const markdown = await readFile(sourcePath, 'utf8');
+  const classification = classifyMarkdownSource(fileName, markdown);
+  if (classification.kind === 'editorial') {
+    report.skipped.push({ file: fileName, reason: classification.reason });
+    report.sourceAudit.push({ file: fileName, classification: 'legacy-markdown-editorial', status: 'skipped-editorial', issues: [classification.reason] });
+    continue;
+  }
+  if (classification.kind === 'ambiguous') {
+    report.ambiguous.push({ file: fileName, reason: classification.reason });
+    report.sourceAudit.push({ file: fileName, classification: 'legacy-markdown-ambiguous', status: 'needs-review', issues: [classification.reason] });
+    if (selectedFiles.has(fileName)) throw new Error(`${fileName}: ${classification.reason}`);
+    continue;
+  }
+
+  try {
+    if (classification.kind === 'consolidated') {
+      if (htmlStems.has(stem)) {
+        const reason = 'gleichnamige HTML-Quelle vorhanden; Markdown-Altbestand wird nicht geöffnet';
+        report.legacyMarkdownIgnored.push({ file: fileName, reason });
+        report.sourceAudit.push({ file: fileName, classification: 'legacy-markdown', status: 'superseded-by-html', issues: [reason] });
+        if (selectedFiles.has(fileName)) throw new Error(`${fileName}: ${reason}`);
+        continue;
+      }
+      const parsed = parseConsolidatedMarkdown(fileName, markdown);
+      const resolved = resolveLegacyConsolidatedRecord(parsed, existingAuditRecords);
+      if (resolved.record) {
+        validateRecord(resolved.record);
+        records.push(resolved.record);
+      }
+      const auditSummary = summarizeLegacyMarkdownAudit(parsed);
+      report.recognized.push({ file: fileName, classification: 'legacy-markdown-consolidated', norms: [{ title: parsed.title, type: 'gesetz' }] });
+      report.sourceAudit.push({
+        file: fileName,
+        classification: 'legacy-markdown-consolidated',
+        detectedIssue: null,
+        detectedNorms: [parsed.title],
+        documentDate: null,
+        publicationDate: null,
+        startPage: null,
+        ...auditSummary,
+        norms: resolved.record
+          ? [{ slug: resolved.record.meta.slug, title: resolved.record.meta.title, ...compareGeneratedRecordToExisting(resolved.record, existingAuditRecords.get(resolved.record.meta.slug)) }]
+          : [{ title: parsed.title, status: 'unmatched', issues: resolved.issues }],
+        issues: resolved.issues,
+        writeStatus: resolved.record
+          ? 'stabile Bestandszuordnung; gezielte Legacy-Aktualisierung mit --write --update-existing möglich'
+          : 'keine eindeutige Bestandszuordnung; Altbestand bleibt unverändert',
+      });
+      continue;
+    }
+
+    const parsed = parsePublicationMarkdown(fileName, markdown);
+    const identity = publicationIdentityKey(parsed.publication, parsed.year, parsed.issue);
+    if (htmlPublicationIdentities.has(identity)) {
+      const reason = 'HTML-Quelle derselben intern erkannten Ausgabe vorhanden; Markdown-Altbestand wird nicht importiert';
+      report.legacyMarkdownIgnored.push({ file: fileName, reason });
+      report.sourceAudit.push({
+        file: fileName,
+        classification: 'legacy-markdown-publication',
+        detectedIssue: parsed.issue,
+        detectedNorms: [parsed.title, ...(parsed.introducedNorms ?? []).map((norm) => norm.title)],
+        documentDate: parsed.documentDate,
+        publicationDate: parsed.publicationDate,
+        status: 'superseded-by-html',
+        issues: [reason],
+      });
+      if (selectedFiles.has(fileName)) throw new Error(`${fileName}: ${reason}`);
+      continue;
+    }
+    const publicationCandidates = existingPublications.get(identity) ?? [];
+    const exactPublicationCandidates = publicationCandidates.filter(({ publication }) => publication.date === parsed.publicationDate);
+    const existingPublication = exactPublicationCandidates.length === 1 ? exactPublicationCandidates[0].publication : null;
+    const structuralIssues = legacyMarkdownStructureIssues(parsed);
+    if (selectedFiles.has(fileName) && structuralIssues.length > 0) {
+      throw new Error(`${fileName}: ${structuralIssues.join('; ')}`);
+    }
+    const resolved = structuralIssues.length === 0
+      ? resolveLegacySourceRecords(parsed, existingPublication, existingAuditRecords)
+      : { records: [], publication: null, issues: structuralIssues };
+    if (resolved.records.length > 0 && resolved.publication) {
+      resolved.records.forEach(validateRecord);
+      records.push(...resolved.records);
+      publications.push(resolved.publication);
+    }
+    const summaries = summarizeMarkdownSource(parsed);
+    const auditSummary = summarizeLegacyMarkdownAudit(parsed);
+    report.recognized.push({ file: fileName, classification: 'legacy-markdown-publication', norms: summaries });
+    report.sourceAudit.push({
+      file: fileName,
+      classification: 'legacy-markdown-publication',
+      detectedIssue: parsed.issue,
+      detectedNorms: summaries.map((summary) => summary.title),
+      documentDate: parsed.documentDate,
+      publicationDate: parsed.publicationDate,
+      startPage: parsed.startPage ?? null,
+      ...auditSummary,
+      norms: resolved.records.length > 0
+        ? resolved.records.map((record) => ({
+            slug: record.meta.slug,
+            title: record.meta.title,
+            ...compareGeneratedRecordToExisting(record, existingAuditRecords.get(record.meta.slug)),
+          }))
+        : [parsed, ...(parsed.introducedNorms ?? [])].map((norm) => ({
+            title: norm.title,
+            ...compareParsedNormToExisting(norm, parsed.issue, existingAuditRecords),
+          })),
+      issues: [
+        ...(exactPublicationCandidates.length > 1 ? ['mehrere Verkündungsdatensätze stimmen in Publikation, Ausgabe und Datum überein'] : []),
+        ...(publicationCandidates.length > 0 && exactPublicationCandidates.length === 0
+          ? [`internes Ausgabedatum ${parsed.publicationDate} stimmt mit keinem vorhandenen Verkündungsdatensatz überein`]
+          : []),
+        ...resolved.issues,
+      ],
+      writeStatus: resolved.records.length > 0
+        ? 'stabile Bestandszuordnung; gezielte Legacy-Aktualisierung mit --write --update-existing möglich'
+        : 'keine eindeutige Bestandszuordnung; Altbestand bleibt unverändert',
+    });
+  } catch (error) {
+    report.ambiguous.push({ file: fileName, reason: error.message });
+    report.sourceAudit.push({ file: fileName, classification: `legacy-markdown-${classification.kind}`, status: 'parse-error', issues: [error.message] });
     if (selectedFiles.has(fileName)) throw error;
   }
 }
@@ -721,8 +1146,8 @@ if (strictMode) {
     const configuredIssue = fileName.match(/^OGVBl\.\s*2026\s*Nr\.\s*(4[6-9]|5[0-8])\.html$/iu)?.[1];
     if (configuredIssue && !recognizedConfiguredSources.has(configuredIssue)) {
       strictFailures.push(`${fileName}: konfigurierte Ausgabe wurde in keiner HTML-Quelle anhand interner Metadaten erkannt`);
-    } else if (selectedFiles.size > 0 && !htmlFiles.includes(fileName)) {
-      strictFailures.push(`${fileName}: ausgewählte HTML-Quelle fehlt`);
+    } else if (selectedFiles.size > 0 && !htmlFiles.includes(fileName) && !markdownFiles.includes(fileName)) {
+      strictFailures.push(`${fileName}: ausgewählte Normquelle fehlt`);
     }
   }
   for (const issue of Object.keys(ISSUE_CONFIG)) {
@@ -749,7 +1174,7 @@ if (strictMode) {
 }
 
 if (quietMode) {
-  console.log(`Normquellen-Audit (HTML): ${report.recognized.length} erkannt, ${report.skipped.length} redaktionell, ${report.unsupported.length} nicht unterstützt, ${report.ambiguous.length} mehrdeutig${strictMode ? `, ${strictFailures.length} strikte Abweichungen` : ''}.`);
+  console.log(`Normquellen-Audit: ${report.recognized.length} erkannt, ${report.skipped.length} redaktionell, ${report.unsupported.length} nicht unterstützt, ${report.ambiguous.length} mehrdeutig${strictMode ? `, ${strictFailures.length} strikte Abweichungen` : ''}.`);
 } else {
   console.log(JSON.stringify(report, null, 2));
 }

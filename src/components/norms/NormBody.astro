@@ -122,14 +122,28 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               ) : null}
 
               {block.type === 'paragraphText' ? (
-                <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
+                <Fragment>
+                  <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
+                  {block.children && block.children.length > 0 ? (
+                    <div class="norm-text__children">
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} />
+                    </div>
+                  ) : null}
+                </Fragment>
               ) : null}
 
               {block.type === 'subparagraph' ? (
-                <p class="norm-subparagraph">
-                  {block.label ? <span class="norm-subparagraph__label">{toDisplayText(block.label)}</span> : null}
-                  <span set:html={renderLinkedDisplayText(block.text, references)} />
-                </p>
+                <div class="norm-subparagraph-wrap">
+                  <p class="norm-subparagraph">
+                    {block.label ? <span class="norm-subparagraph__label">{toDisplayText(block.label)}</span> : null}
+                    <span set:html={renderLinkedDisplayText(block.text, references)} />
+                  </p>
+                  {block.children && block.children.length > 0 ? (
+                    <div class="norm-subparagraph__children">
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} />
+                    </div>
+                  ) : null}
+                </div>
               ) : null}
 
               {block.type === 'table' ? (

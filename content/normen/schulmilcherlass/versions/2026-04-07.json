@@ -18,32 +18,67 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "Zweck"
-        },
-        {
-          "type": "paragraphText",
-          "text": "1.1 Diese Verwaltungsvorschrift regelt die unentgeltliche Bereitstellung von Schulmilch an öffentlichen Schulen im Freistaat Ostdeutschland."
-        },
-        {
-          "type": "paragraphText",
-          "text": "1.2 Die Bereitstellung der Schulmilch dient der schulischen Gesundheitsvorsorge, der sozialen Gleichheit im Schulalltag sowie der Unterstützung regelmäßiger und verlässlicher Verpflegungsstrukturen an Schulen."
+          "text": "Zweck",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.1",
+              "text": "Diese Verwaltungsvorschrift regelt die unentgeltliche Bereitstellung von Schulmilch an öffentlichen Schulen im Freistaat Ostdeutschland.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.2",
+              "text": "Die Bereitstellung der Schulmilch dient der schulischen Gesundheitsvorsorge, der sozialen Gleichheit im Schulalltag sowie der Unterstützung regelmäßiger und verlässlicher Verpflegungsstrukturen an Schulen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "2.",
-          "text": "Geltungsbereich"
-        },
-        {
-          "type": "paragraphText",
-          "text": "2.1 Diese Verwaltungsvorschrift gilt für öffentliche allgemeinbildende und berufsbildende Schulen des Freistaates Ostdeutschland."
-        },
-        {
-          "type": "paragraphText",
-          "text": "2.2 Öffentliche Schulen im Sinne dieser Verwaltungsvorschrift sind insbesondere Polytechnische Oberschulen, Erweiterte Oberschulen, Förderschulen, berufsbildende Schulen sowie Schulen des zweiten Bildungsweges in staatlicher oder kommunaler Trägerschaft."
-        },
-        {
-          "type": "paragraphText",
-          "text": "2.3 Staatlich anerkannte Schulen in freier Trägerschaft können auf Antrag und nach Maßgabe verfügbarer Haushaltsmittel in das Programm einbezogen werden, sofern sie die Anforderungen dieser Verwaltungsvorschrift entsprechend erfüllen. Über den Antrag entscheidet die zuständige staatliche Schulbehörde."
+          "text": "Geltungsbereich",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "2.1",
+              "text": "Diese Verwaltungsvorschrift gilt für öffentliche allgemeinbildende und berufsbildende Schulen des Freistaates Ostdeutschland.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.2",
+              "text": "Öffentliche Schulen im Sinne dieser Verwaltungsvorschrift sind insbesondere Polytechnische Oberschulen, Erweiterte Oberschulen, Förderschulen, berufsbildende Schulen sowie Schulen des zweiten Bildungsweges in staatlicher oder kommunaler Trägerschaft.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.3",
+              "text": "Staatlich anerkannte Schulen in freier Trägerschaft können auf Antrag und nach Maßgabe verfügbarer Haushaltsmittel in das Programm einbezogen werden, sofern sie die Anforderungen dieser Verwaltungsvorschrift entsprechend erfüllen. Über den Antrag entscheidet die zuständige staatliche Schulbehörde.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -55,78 +90,123 @@
         {
           "type": "item",
           "label": "3.",
-          "text": "Grundsatz der unentgeltlichen Abgabe"
-        },
-        {
-          "type": "paragraphText",
-          "text": "3.1 Jeder Schülerin und jedem Schüler ist an jedem Unterrichtstag auf Wunsch unentgeltlich Schulmilch bereitzustellen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "3.2 Eine Kostenbeteiligung der Schülerinnen und Schüler, ihrer Eltern oder sonstiger Erziehungsberechtigter findet nicht statt."
-        },
-        {
-          "type": "paragraphText",
-          "text": "3.3 Entgelte, Pfandbeträge, Bearbeitungsgebühren oder sonstige mittelbare Kosten dürfen im Zusammenhang mit der Inanspruchnahme der Schulmilch nicht erhoben werden."
+          "text": "Grundsatz der unentgeltlichen Abgabe",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "3.1",
+              "text": "Jeder Schülerin und jedem Schüler ist an jedem Unterrichtstag auf Wunsch unentgeltlich Schulmilch bereitzustellen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.2",
+              "text": "Eine Kostenbeteiligung der Schülerinnen und Schüler, ihrer Eltern oder sonstiger Erziehungsberechtigter findet nicht statt.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.3",
+              "text": "Entgelte, Pfandbeträge, Bearbeitungsgebühren oder sonstige mittelbare Kosten dürfen im Zusammenhang mit der Inanspruchnahme der Schulmilch nicht erhoben werden.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "4.",
-          "text": "Art der Schulmilch"
-        },
-        {
-          "type": "paragraphText",
-          "text": "4.1 Als Schulmilch im Sinne dieser Verwaltungsvorschrift gelten insbesondere"
+          "text": "Art der Schulmilch",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "4.1",
+              "text": "Als Schulmilch im Sinne dieser Verwaltungsvorschrift gelten insbesondere",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "a)",
-          "text": "pasteurisierte Frischmilch als Vollmilch oder fettarme Milch,"
-        },
-        {
-          "type": "subitem",
-          "label": "b)",
-          "text": "H-Milch, soweit Frischmilch im Einzelfall nicht wirtschaftlich oder organisatorisch verlässlich bereitgestellt werden kann,"
-        },
-        {
-          "type": "item",
-          "label": "c)",
-          "text": "ungesüßte Milchmischgetränke,"
-        },
-        {
-          "type": "subitem",
-          "label": "d)",
-          "text": "vegane Pflanzendrinks sowie"
-        },
-        {
-          "type": "item",
-          "label": "e)",
-          "text": "Naturjoghurt in portionsgerechter Form."
-        },
-        {
-          "type": "paragraphText",
-          "text": "4.2 Die bereitgestellten Erzeugnisse müssen den lebensmittelrechtlichen Vorschriften entsprechen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "4.3 Soweit dies aus medizinischen Gründen erforderlich ist, muss im Rahmen des organisatorisch und wirtschaftlich Vertretbaren eine geeignete laktosefreie Alternative bereitgestellt werden."
+          "text": "pasteurisierte Frischmilch als Vollmilch oder fettarme Milch, b) H-Milch, soweit Frischmilch im Einzelfall nicht wirtschaftlich oder organisatorisch verlässlich bereitgestellt werden kann, c) ungesüßte Milchmischgetränke, d) vegane Pflanzendrinks sowie e) Naturjoghurt in portionsgerechter Form.",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "lower-latin",
+          "children": [
+            {
+              "type": "item",
+              "label": "4.2",
+              "text": "Die bereitgestellten Erzeugnisse müssen den lebensmittelrechtlichen Vorschriften entsprechen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.3",
+              "text": "Soweit dies aus medizinischen Gründen erforderlich ist, muss im Rahmen des organisatorisch und wirtschaftlich Vertretbaren eine geeignete laktosefreie Alternative bereitgestellt werden.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "5.",
-          "text": "Umfang und Ausgabe"
-        },
-        {
-          "type": "paragraphText",
-          "text": "5.1 Die tägliche Bereitstellungsmenge beträgt je Schülerin und Schüler mindestens 200 Milliliter oder eine mengenmäßig entsprechende Portion."
-        },
-        {
-          "type": "paragraphText",
-          "text": "5.2 Die Schule entscheidet im Rahmen ihrer pädagogischen Eigenverantwortung über Form und Zeitpunkt der Ausgabe. Die Ausgabe soll während der Unterrichtszeit oder in den Pausen in einer Weise erfolgen, die einen geordneten Schulbetrieb gewährleistet."
-        },
-        {
-          "type": "paragraphText",
-          "text": "5.3 Die Schulmilch ist in trinkfertigem, hygienisch einwandfreiem und altersgerecht portionsgerechtem Zustand auszugeben."
+          "text": "Umfang und Ausgabe",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "5.1",
+              "text": "Die tägliche Bereitstellungsmenge beträgt je Schülerin und Schüler mindestens 200 Milliliter oder eine mengenmäßig entsprechende Portion.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.2",
+              "text": "Die Schule entscheidet im Rahmen ihrer pädagogischen Eigenverantwortung über Form und Zeitpunkt der Ausgabe. Die Ausgabe soll während der Unterrichtszeit oder in den Pausen in einer Weise erfolgen, die einen geordneten Schulbetrieb gewährleistet.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.3",
+              "text": "Die Schulmilch ist in trinkfertigem, hygienisch einwandfreiem und altersgerecht portionsgerechtem Zustand auszugeben.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -138,40 +218,85 @@
         {
           "type": "item",
           "label": "6.",
-          "text": "Beschaffung"
-        },
-        {
-          "type": "paragraphText",
-          "text": "6.1 Bei der Beschaffung soll, soweit vergabeund haushaltsrechtlich zulässig, Milch aus regionaler Erzeugung im Freistaat Ostdeutschland bevorzugt berücksichtigt werden."
-        },
-        {
-          "type": "paragraphText",
-          "text": "6.2 Die Schulen und Schulträger sollen, soweit dies zweckmäßig ist, mit regionalen Molkereien, Erzeugergemeinschaften oder sonst geeigneten Lieferanten zusammenarbeiten."
-        },
-        {
-          "type": "paragraphText",
-          "text": "6.3 Die Beschaffung erfolgt nach Maßgabe des Ostdeutschen Tariftreue- und Vergabegesetzes sowie der sonst einschlägigen vergabeund haushaltsrechtlichen Vorschriften. Sozial-, Nachhaltigkeitsund Qualitätskriterien sollen bei der Vergabe angemessen berücksichtigt werden."
-        },
-        {
-          "type": "paragraphText",
-          "text": "6.4 Das Staatsministerium für Bildung und sportliche Ertüchtigung kann im Einvernehmen mit dem Staatsministerium für Küste, Fischerei, Forst und Landwirtschaft sowie dem Staatsministerium für Kapitalakkumulation des Fiskus Rahmenverträge oder zentrale Beschaffungsverfahren für mehrere Schulen oder Schularten vorsehen."
+          "text": "Beschaffung",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "6.1",
+              "text": "Bei der Beschaffung soll, soweit vergabe- und haushaltsrechtlich zulässig, Milch aus regionaler Erzeugung im Freistaat Ostdeutschland bevorzugt berücksichtigt werden.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.2",
+              "text": "Die Schulen und Schulträger sollen, soweit dies zweckmäßig ist, mit regionalen Molkereien, Erzeugergemeinschaften oder sonst geeigneten Lieferanten zusammenarbeiten.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.3",
+              "text": "Die Beschaffung erfolgt nach Maßgabe des Ostdeutschen Tariftreue- und Vergabegesetzes sowie der sonst einschlägigen vergabe- und haushaltsrechtlichen Vorschriften. Sozial-, Nachhaltigkeits- und Qualitätskriterien sollen bei der Vergabe angemessen berücksichtigt werden.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.4",
+              "text": "Das Staatsministerium für Bildung und sportliche Ertüchtigung kann im Einvernehmen mit dem Staatsministerium für Küste, Fischerei, Forst und Landwirtschaft sowie dem Staatsministerium für Kapitalakkumulation des Fiskus Rahmenverträge oder zentrale Beschaffungsverfahren für mehrere Schulen oder Schularten vorsehen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "7.",
-          "text": "Qualität und Hygiene"
-        },
-        {
-          "type": "paragraphText",
-          "text": "7.1 Die bereitgestellte Schulmilch muss den Anforderungen der Verordnung (EU) Nr. 1308/2013 sowie den einschlägigen lebensmittelhygienerechtlichen Vorschriften entsprechen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "7.2 Die Schulleitungen tragen die Verantwortung für die ordnungsgemäße Lagerung, die hygienische Ausgabe und die Einhaltung der Kühlkettenerfordernisse an der Schule."
-        },
-        {
-          "type": "paragraphText",
-          "text": "7.3 Schulträger unterstützen die Schulen bei der Sicherstellung der für Lagerung, Kühlung und Ausgabe erforderlichen sachlichen Voraussetzungen."
+          "text": "Qualität und Hygiene",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "7.1",
+              "text": "Die bereitgestellte Schulmilch muss den Anforderungen der Verordnung (EU) Nr. 1308/2013 sowie den einschlägigen lebensmittelhygienerechtlichen Vorschriften entsprechen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.2",
+              "text": "Die Schulleitungen tragen die Verantwortung für die ordnungsgemäße Lagerung, die hygienische Ausgabe und die Einhaltung der Kühlkettenerfordernisse an der Schule.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.3",
+              "text": "Schulträger unterstützen die Schulen bei der Sicherstellung der für Lagerung, Kühlung und Ausgabe erforderlichen sachlichen Voraussetzungen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -183,40 +308,85 @@
         {
           "type": "item",
           "label": "8.",
-          "text": "Finanzierung"
-        },
-        {
-          "type": "paragraphText",
-          "text": "8.1 Die Kosten der Schulmilchversorgung an öffentlichen Schulen werden vom Freistaat Ostdeutschland getragen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "8.2 Zu den erstattungsfähigen Aufwendungen gehören die nachgewiesenen Kosten der Beschaffung, Lieferung und unmittelbar erforderlichen sachlichen Bereitstellung der Schulmilch."
-        },
-        {
-          "type": "paragraphText",
-          "text": "8.3 Für Schülerinnen und Schüler sowie deren Erziehungsberechtigte entstehen keine Kosten."
-        },
-        {
-          "type": "paragraphText",
-          "text": "8.4 Mittel der Europäischen Union im Rahmen des EU-Schulprogramms, insbesondere nach Maßgabe der Verordnung (EU) Nr. 2016/791, sind vorrangig einzusetzen und auf die vom Land zu tragenden Aufwendungen anzurechnen."
+          "text": "Finanzierung",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "8.1",
+              "text": "Die Kosten der Schulmilchversorgung an öffentlichen Schulen werden vom Freistaat Ostdeutschland getragen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.2",
+              "text": "Zu den erstattungsfähigen Aufwendungen gehören die nachgewiesenen Kosten der Beschaffung, Lieferung und unmittelbar erforderlichen sachlichen Bereitstellung der Schulmilch.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.3",
+              "text": "Für Schülerinnen und Schüler sowie deren Erziehungsberechtigte entstehen keine Kosten.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.4",
+              "text": "Mittel der Europäischen Union im Rahmen des EU-Schulprogramms, insbesondere nach Maßgabe der Verordnung (EU) Nr. 2016/791, sind vorrangig einzusetzen und auf die vom Land zu tragenden Aufwendungen anzurechnen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "9.",
-          "text": "Abrechnung"
-        },
-        {
-          "type": "paragraphText",
-          "text": "9.1 Schulen in staatlicher Trägerschaft bewirtschaften die Mittel nach Maßgabe der haushaltsrechtlichen Vorgaben und der durch das Staatsministerium erlassenen Ausführungshinweise."
-        },
-        {
-          "type": "paragraphText",
-          "text": "9.2 Bei Schulen in kommunaler Trägerschaft erfolgt die Erstattung der nachgewiesenen erstattungsfähigen Aufwendungen auf Antrag des Schulträgers oder im Rahmen eines gesondert geregelten Erstattungsverfahrens."
-        },
-        {
-          "type": "paragraphText",
-          "text": "9.3 Das Nähere zur Antragstellung, Nachweisführung, Fristsetzung und Abrechnung regelt das Staatsministerium für Bildung und sportliche Ertüchtigung durch gesonderte Abrechnungsrichtlinie."
+          "text": "Abrechnung",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "9.1",
+              "text": "Schulen in staatlicher Trägerschaft bewirtschaften die Mittel nach Maßgabe der haushaltsrechtlichen Vorgaben und der durch das Staatsministerium erlassenen Ausführungshinweise.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.2",
+              "text": "Bei Schulen in kommunaler Trägerschaft erfolgt die Erstattung der nachgewiesenen erstattungsfähigen Aufwendungen auf Antrag des Schulträgers oder im Rahmen eines gesondert geregelten Erstattungsverfahrens.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.3",
+              "text": "Das Nähere zur Antragstellung, Nachweisführung, Fristsetzung und Abrechnung regelt das Staatsministerium für Bildung und sportliche Ertüchtigung durch gesonderte Abrechnungsrichtlinie.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -228,65 +398,105 @@
         {
           "type": "item",
           "label": "10.",
-          "text": "Zuständigkeit"
-        },
-        {
-          "type": "paragraphText",
-          "text": "10.1 Zuständig für den Vollzug dieser Verwaltungsvorschrift sind die staatlichen Schulbehörden."
-        },
-        {
-          "type": "paragraphText",
-          "text": "10.2 Die Schulleitungen sind für die organisatorische Durchführung an den Schulen verantwortlich."
-        },
-        {
-          "type": "paragraphText",
-          "text": "10.3 Die Schulträger wirken bei der sachlichen und logistischen Umsetzung im Rahmen ihrer Zuständigkeiten mit."
+          "text": "Zuständigkeit",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "10.1",
+              "text": "Zuständig für den Vollzug dieser Verwaltungsvorschrift sind die staatlichen Schulbehörden.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.2",
+              "text": "Die Schulleitungen sind für die organisatorische Durchführung an den Schulen verantwortlich.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.3",
+              "text": "Die Schulträger wirken bei der sachlichen und logistischen Umsetzung im Rahmen ihrer Zuständigkeiten mit.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "11.",
-          "text": "Ausführungshinweise"
-        },
-        {
-          "type": "paragraphText",
-          "text": "11.1 Das Staatsministerium für Bildung und sportliche Ertüchtigung kann Ausführungshinweise, Muster, Formblätter und Musterverträge zur Durchführung dieser Verwaltungsvorschrift erlassen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "11.2 Die staatlichen Schulbehörden können ergänzende organisatorische Festlegungen treffen, soweit dies zur Sicherstellung eines einheitlichen und ordnungsgemäßen Vollzugs erforderlich ist und dieser Verwaltungsvorschrift nicht widerspricht."
+          "text": "Ausführungshinweise",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "11.1",
+              "text": "Das Staatsministerium für Bildung und sportliche Ertüchtigung kann Ausführungshinweise, Muster, Formblätter und Musterverträge zur Durchführung dieser Verwaltungsvorschrift erlassen.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11.2",
+              "text": "Die staatlichen Schulbehörden können ergänzende organisatorische Festlegungen treffen, soweit dies zur Sicherstellung eines einheitlichen und ordnungsgemäßen Vollzugs erforderlich ist und dieser Verwaltungsvorschrift nicht widerspricht.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "12.",
-          "text": "Dokumentation und Berichterstattung"
-        },
-        {
-          "type": "paragraphText",
-          "text": "12.1 Die Schulen dokumentieren in geeigneter Form insbesondere"
+          "text": "Dokumentation und Berichterstattung",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "12.1",
+              "text": "Die Schulen dokumentieren in geeigneter Form insbesondere",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
           "label": "a)",
-          "text": "die Zahl der ausgegebenen Portionen,"
-        },
-        {
-          "type": "subitem",
-          "label": "b)",
-          "text": "wesentliche Lieferstörungen,"
-        },
-        {
-          "type": "item",
-          "label": "c)",
-          "text": "Qualitätsmängel sowie"
-        },
-        {
-          "type": "subitem",
-          "label": "d)",
-          "text": "sonstige für den Vollzug bedeutsame Vorkommnisse."
-        },
-        {
-          "type": "paragraphText",
-          "text": "12.2 Die staatlichen Schulbehörden berichten dem Staatsministerium für Bildung und sportliche Ertüchtigung jährlich, erstmals zum 1. April des auf das Inkrafttreten folgenden Jahres, über die Inanspruchnahme, die entstandenen Kosten und die Erfahrungen beim Vollzug."
+          "text": "die Zahl der ausgegebenen Portionen, b) wesentliche Lieferstörungen, c) Qualitätsmängel sowie d) sonstige für den Vollzug bedeutsame Vorkommnisse.",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "lower-latin",
+          "children": [
+            {
+              "type": "item",
+              "label": "12.2",
+              "text": "Die staatlichen Schulbehörden berichten dem Staatsministerium für Bildung und sportliche Ertüchtigung jährlich, erstmals zum 1. April des auf das Inkrafttreten folgenden Jahres, über die Inanspruchnahme, die entstandenen Kosten und die Erfahrungen beim Vollzug.",
+              "level": 1,
+              "listId": "printed-outline",
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -298,7 +508,11 @@
         {
           "type": "item",
           "label": "13.",
-          "text": "Inkrafttreten"
+          "text": "Inkrafttreten",
+          "level": 0,
+          "listId": "printed-outline",
+          "numberingStyle": "decimal",
+          "children": []
         },
         {
           "type": "paragraphText",
@@ -306,7 +520,7 @@
         },
         {
           "type": "paragraphText",
-          "text": "Dr. Karl Honecker Der MINISTERPRÄSIDENT"
+          "text": "Dr. Karl Honecker D e r M I N I S T E R P R Ä S I D E N T"
         }
       ]
     }

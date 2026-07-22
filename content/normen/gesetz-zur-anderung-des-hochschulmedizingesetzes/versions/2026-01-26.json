@@ -22,36 +22,83 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "Die Bezeichnung des Gesetzes wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Gesetz über die Hochschulen im Freistaat Ostdeutschland"
-        },
-        {
-          "type": "paragraphText",
-          "text": "(Ostdeutsches Hochschulgesetz – HSG)”"
+          "text": "Die Bezeichnung des Gesetzes wird wie folgt gefasst:",
+          "level": 0,
+          "listId": "o3by0f4sr4rn",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": ",,Gesetz über die Hochschulen im Freistaat Ostdeutschland"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "(Ostdeutsches Hochschulgesetz – HSG)”"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
           "label": "2.",
-          "text": "Nach § 106 wird folgender § 106a eingefügt: ,,§ 106a Vergütung während des Praktisches Jahres"
-        },
-        {
-          "type": "paragraphText",
-          "text": "1) Studierende der Humanmedizin, die sich nach § 3 der Approbationsordnung für Ärzte im praktischen Jahr an einer medizinischen Fakultät einer Universität im Ostdeutschen Freistaat befinden, haben einen Anspruch auf staatliche Vergütung, wenn sie nicht aufgrund einer anderen Vorschrift Leistungen zur Ausbildungsförderung erhalten."
-        },
-        {
-          "type": "paragraphText",
-          "text": "2) Studierende nach Absatz 1 haben Anspruch auf Leistungen entsprechend § 13 des Bundesausbildungsförderungsgesetzes. Die Leistungen werden in Höhe von 200 Euro vom Uniklinikum oder der kassenärztlichen Vereinigung und im Übrigen vom Ostdeutschen Freistaat entrichtet."
-        },
-        {
-          "type": "paragraphText",
-          "text": "3) Der Vergütungsanspruch nach Absatz 3 erlischt, wenn der Studierende seinen Prüfungsanspruch verloren hat oder mehr Fehltage in Anspruch genommen hat, als ihm rechtlich zustehen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "4) Für die Bearbeitung der Anträge ist die Hochschule zuständig, in der der Studierende immatrikuliert ist.”"
+          "text": "Nach § 106 wird folgender § 106a eingefügt:",
+          "level": 0,
+          "listId": "o3by0f4sr4rn",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 106a",
+                  "title": "Vergütung während des Praktisches Jahres",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Studierende der Humanmedizin, die sich nach § 3 der Approbationsordnung für Ärzte im praktischen Jahr an einer medizinischen Fakultät einer Universität im Ostdeutschen Freistaat befinden, haben einen Anspruch auf staatliche Vergütung, wenn sie nicht aufgrund einer anderen Vorschrift Leistungen zur Ausbildungsförderung erhalten.",
+                      "level": 0,
+                      "listId": "swvbvh1nikd6",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Studierende nach Absatz 1 haben Anspruch auf Leistungen entsprechend § 13 des Bundesausbildungsförderungsgesetzes. Die Leistungen werden in Höhe von 200 Euro vom Uniklinikum oder der kassenärztlichen Vereinigung und im Übrigen vom Ostdeutschen Freistaat entrichtet.",
+                      "level": 0,
+                      "listId": "swvbvh1nikd6",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Der Vergütungsanspruch nach Absatz 3 erlischt, wenn der Studierende seinen Prüfungsanspruch verloren hat oder mehr Fehltage in Anspruch genommen hat, als ihm rechtlich zustehen.",
+                      "level": 0,
+                      "listId": "swvbvh1nikd6",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Für die Bearbeitung der Anträge ist die Hochschule zuständig, in der der Studierende immatrikuliert ist.”",
+                      "level": 0,
+                      "listId": "swvbvh1nikd6",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
@@ -61,12 +108,22 @@
       "title": "Übergangsbestimmungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "1) Der Anspruch nach § 106a des Hochschulgesetzes wird nicht rückwirkend gewährt."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Anspruch nach § 106a des Hochschulgesetzes wird nicht rückwirkend gewährt.",
+          "level": 0,
+          "listId": "4dwrc7xku109",
+          "numberingStyle": "decimal",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "2) Die Hochschule hat Leistungen frühestens für den Bewilligungszeitraum vom Januar 2026 an zu gewähren."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Hochschule hat Leistungen frühestens für den Bewilligungszeitraum vom Januar 2026 an zu gewähren.",
+          "level": 0,
+          "listId": "4dwrc7xku109",
+          "numberingStyle": "decimal",
+          "children": []
         }
       ]
     },

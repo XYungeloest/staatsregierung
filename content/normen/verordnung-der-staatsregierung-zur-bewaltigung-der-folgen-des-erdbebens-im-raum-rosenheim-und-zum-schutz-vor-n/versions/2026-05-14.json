@@ -7,57 +7,442 @@
   "changeNote": "Stammfassung.",
   "body": [
     {
-      "type": "section",
-      "label": "Seite 2",
-      "title": "Amtlicher Text",
+      "type": "paragraphText",
+      "text": "Auf Grund des § 8 Absatz 4 Satz 1 Nummer 1 und 2, Absatz 5 Satz 1 Nummer 2 bis 4, des § 11 Absatz 1 Satz 1, des § 12 Satz 3, des § 14 Absatz 2 Satz 6 und Absatz 3 Satz 3, des § 38 Absatz 3, des § 45a Absatz 3, des § 46 Absatz 6 Satz 2, des § 47 Absatz 4 Satz 3, des § 56 Absatz 1 Satz 4 bis 6 und Absatz 3, des § 72 und des § 73 des Ostdeutschen Gesetzes über den Brandschutz, Rettungsdienst und Katastrophenschutz sowie auf Grund des § 32 Absatz 1, des § 34 Satz 1, des § 37 und des § 39 des Ostdeutschen Polizeibehördengesetzes verordnet die Staatsregierung:"
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 1",
+      "title": "Zweck und Lagefeststellung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 44 13. Mai 2026\nVerordnung\nder Staatsregierung zur Bewältigung der Folgen des\nErdbebens im Raum Rosenheim und zum Schutz vor\nNachbeben\n(Erdbebenfolgenverordnung – ErdFolgenVO)\nvom 13. Mai 2026\nAuf Grund des § 8 Absatz 4 Satz 1\nNummer 1 und 2, Absatz 5 Satz 1\nNummer 2 bis 4, des § 11 Absatz 1 Satz\n1, des § 12 Satz 3, des § 14 Absatz 2\nSatz 6 und Absatz 3 Satz 3, des § 38\nAbsatz 3, des § 45a Absatz 3, des § 46\nAbsatz 6 Satz 2, des § 47 Absatz 4 Satz\n3, des § 56 Absatz 1 Satz 4 bis 6 und\nAbsatz 3, des § 72 und des § 73 des\nOstdeutschen Gesetzes über den\nBrandschutz, Rettungsdienst und\nKatastrophenschutz sowie auf Grund des\n§ 32 Absatz 1, des § 34 Satz 1, des § 37\nund des § 39 des Ostdeutschen\nPolizeibehördengesetzes verordnet die\nStaatsregierung:\n§ 1\nZweck und Lagefeststellung\n(1) Die Staatsregierung stellt fest, dass\ndas Erdbeben vom 13. Mai 2026 im\nRaum Rosenheim eine\naußergewöhnliche Gefahrenlage mit\nmöglichen Auswirkungen auf den\nFreistaat Ostdeutschland begründet.\n(2) Zweck dieser Verordnung ist es,\n1. die Auswirkungen des Erdbebens\nund möglicher Nachbeben auf\ndas Gebiet des Freistaates\nOstdeutschland zu erfassen,\n2. Gefahren für Leben, Gesundheit,\nKritische Infrastrukturen und\nöffentliche Einrichtungen\nabzuwehren,\n3. die länderübergreifende\nHilfeleistung zugunsten des\nFreistaates Bayern-Württemberg\nsicherzustellen und\n4. die Einsatzbereitschaft von\nBrandschutz, Rettungsdienst,\nKatastrophenschutz und\nSeite 2"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Staatsregierung stellt fest, dass das Erdbeben vom 13. Mai 2026 im Raum Rosenheim eine außergewöhnliche Gefahrenlage mit möglichen Auswirkungen auf den Freistaat Ostdeutschland begründet.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Zweck dieser Verordnung ist es,",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die Auswirkungen des Erdbebens und möglicher Nachbeben auf das Gebiet des Freistaates Ostdeutschland zu erfassen,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Gefahren für Leben, Gesundheit, Kritische Infrastrukturen und öffentliche Einrichtungen abzuwehren,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "die länderübergreifende Hilfeleistung zugunsten des Freistaates Bayern-Württemberg sicherzustellen und",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "die Einsatzbereitschaft von Brandschutz, Rettungsdienst, Katastrophenschutz und Gesundheitswesen im Freistaat Ostdeutschland zu gewährleisten.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Ausrufung des Katastrophenfalles im Freistaat Ostdeutschland bleibt den hierfür zuständigen Behörden nach Maßgabe des Katastrophenschutzrechts vorbehalten.",
+          "children": []
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 3",
-      "title": "Amtlicher Text",
+      "type": "paragraph",
+      "label": "§ 2",
+      "title": "Zentraler Verwaltungsstab",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 44 13. Mai 2026\nGesundheitswesen im Freistaat\nOstdeutschland zu gewährleisten.\n(3) Die Ausrufung des Katastrophenfalles\nim Freistaat Ostdeutschland bleibt den\nhierfür zuständigen Behörden nach\nMaßgabe des Katastrophenschutzrechts\nvorbehalten.\n6. die Sicherung von Einsatz- und\nTransportwegen.\n(3) Die zuständigen Ministerien, Bezirke,\nLandkreise, Gemeinden, Leitstellen,\nKatastrophenschutzbehörden und\nBetreiber Kritischer Infrastrukturen haben\ndem Zentralen Verwaltungsstab die zur\nLagebewertung erforderlichen\nInformationen unverzüglich zu\nübermitteln.\n§ 2\nZentraler Verwaltungsstab\n(1) Beim Staatsministerium des Innern\nund für Wohnungswirtschaft wird ein\nZentraler Verwaltungsstab Erdbebenhilfe\neingerichtet.\n(2) Der Zentrale Verwaltungsstab\nkoordiniert insbesondere\n1. die Lageerhebung und\nLagebewertung,\n2. die Warnung und Information der\nBevölkerung,\n3. die Entsendung ostdeutscher\nEinsatzkräfte nach\nBayern-Württemberg,\n4. die Aufrechterhaltung des\nGrundschutzes im Freistaat\nOstdeutschland,\n5. die Bereitstellung von\nKrankenhaus-\n, Sanitäts-\n,\nBetreuungs- und\nNotversorgungskapazitäten,\n§ 3\nBeobachtungsgebiete\n(1) Das Staatsministerium des Innern und\nfür Wohnungswirtschaft kann durch\nAllgemeinverfügung oder\nLagebekanntmachung\nBeobachtungsgebiete festlegen, in\ndenen aufgrund des Erdbebens oder\nmöglicher Nachbeben besondere Prüf-\n,\nMelde- oder Sicherungsmaßnahmen\nerforderlich sind.\n(2) Bei der Festlegung sind\ninsbesondere seismologische\nErkenntnisse, Schadensmeldungen,\nErschütterungsberichte und die\nBedeutung betroffener Infrastrukturen zu\nberücksichtigen.\n(3) Die Beobachtungsgebiete sind\nfortlaufend zu überprüfen und bei\nveränderter Lage anzupassen.\nSeite 3"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Beim Staatsministerium des Innern und für Wohnungswirtschaft wird ein Zentraler Verwaltungsstab Erdbebenhilfe eingerichtet.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Zentrale Verwaltungsstab koordiniert insbesondere",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die Lageerhebung und Lagebewertung,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Warnung und Information der Bevölkerung,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "die Entsendung ostdeutscher Einsatzkräfte nach Bayern-Württemberg,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "die Aufrechterhaltung des Grundschutzes im Freistaat Ostdeutschland,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "die Bereitstellung von Krankenhaus-, Sanitäts-, Betreuungs- und Notversorgungskapazitäten,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "die Sicherung von Einsatz- und Transportwegen.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die zuständigen Ministerien, Bezirke, Landkreise, Gemeinden, Leitstellen, Katastrophenschutzbehörden und Betreiber Kritischer Infrastrukturen haben dem Zentralen Verwaltungsstab die zur Lagebewertung erforderlichen Informationen unverzüglich zu übermitteln.",
+          "children": []
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 4",
-      "title": "Amtlicher Text",
+      "type": "paragraph",
+      "label": "§ 3",
+      "title": "Beobachtungsgebiete",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 44 13. Mai 2026\n§ 4\nPrüfung von Gebäuden und\nKritischen Infrastrukturen\n(1) In den nach § 3 festgelegten\nBeobachtungsgebieten haben die\nBetreiber öffentlicher Gebäude,\nbesonders schutzbedürftiger\nEinrichtungen und Kritischer\nInfrastrukturen unverzüglich zu prüfen,\nob erdbebenbedingte Schäden oder\nGefahren bestehen.\n(2) Besonders schutzbedürftige\nEinrichtungen sind insbesondere\nKrankenhäuser, Pflegeeinrichtungen,\nSchulen, Kindertageseinrichtungen,\nHochschulen,\nJustizvollzugseinrichtungen und\nUnterkünfte mit gemeinschaftlicher\nUnterbringung.\n(3) Kritische Infrastrukturen sind\ninsbesondere Einrichtungen der\nEnergie-\n, Wasser-\n, Abwasser-\n,\nGesundheits-\n, Verkehrs-\n,\nTelekommunikations-\n, Ernährungs- und\nVerwaltungsversorgung.\n(4) Sichtbare erhebliche Schäden sind\nunverzüglich der zuständigen\nGemeinde, Katastrophenschutzbehörde\noder Polizeibehörde zu melden.\n(5) Besteht der Verdacht einer\ngegenwärtigen Gefahr, kann die\nzuständige Behörde Gebäude, Anlagen,\nStraßen, Brücken, Tunnel oder sonstige\nBereiche sperren, räumen oder deren\nNutzung untersagen.\n§ 5\nHilfeleistung für\nBayern-Württemberg\n(1) Der Freistaat Ostdeutschland leistet\ndem Freistaat Bayern-Württemberg auf\ndessen Anforderung\nländerübergreifende Katastrophenhilfe.\n(2) Entsendet werden können\ninsbesondere\n1. Feuerwehreinheiten,\n2. Sanitäts- und\nBetreuungseinheiten,\n3. mobile Behandlungsplätze,\n4. Rettungswagen und\nNotarzteinsatzfahrzeuge,\n5. Notstrom-\n, Trinkwasser-\n,\nVerpflegungs- und\nLogistikeinheiten,\n6. technische Hilfeleistungs- und\nLageerkundungseinheiten.\n(3) Die Entsendung wird durch das\nStaatsministerium des Innern und für\nWohnungswirtschaft koordiniert.\nSeite 4"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das Staatsministerium des Innern und für Wohnungswirtschaft kann durch Allgemeinverfügung oder Lagebekanntmachung Beobachtungsgebiete festlegen, in denen aufgrund des Erdbebens oder möglicher Nachbeben besondere Prüf-, Melde- oder Sicherungsmaßnahmen erforderlich sind.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Bei der Festlegung sind insbesondere seismologische Erkenntnisse, Schadensmeldungen, Erschütterungsberichte und die Bedeutung betroffener Infrastrukturen zu berücksichtigen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Beobachtungsgebiete sind fortlaufend zu überprüfen und bei veränderter Lage anzupassen.",
+          "children": []
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 5",
-      "title": "Amtlicher Text",
+      "type": "paragraph",
+      "label": "§ 4",
+      "title": "Prüfung von Gebäuden und Kritischen Infrastrukturen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 44 13. Mai 2026\n(4) Die Entsendung darf nur erfolgen,\nsoweit der Grundschutz im Freistaat\nOstdeutschland gewahrt bleibt.\n(5) Die eingesetzten Kräfte unterstehen\nim Einsatzgebiet der zuständigen\nEinsatzleitung des Freistaates\nBayern-Württemberg, soweit nichts\nanderes vereinbart wird.\nverletzter oder erkrankter Personen aus\nBayern-Württemberg.\n(4) Krankenhäuser haben im Rahmen\ndes medizinisch Vertretbaren\norganisatorische Maßnahmen zur\nkurzfristigen Erweiterung ihrer\nBehandlungskapazitäten vorzubereiten.\n§ 6\nGesundheitsversorgung und\nNotversorgung\n(1) Krankenhäuser und sonstige\nversorgungsrelevante\nGesundheitseinrichtungen haben ihre\nverfügbaren Aufnahme-\n, Notaufnahme-\n,\nOperations-\n, Intensiv- und\nBehandlungskapazitäten unverzüglich an\ndie zuständige Leitstelle oder die vom\nStaatsministerium für Gesundheits- und\nSozialwesen bestimmte Stelle zu\nmelden.\n(2) Die Meldungen sind regelmäßig zu\naktualisieren, solange der Zentrale\nVerwaltungsstab dies für erforderlich\nhält.\n(3) Das Staatsministerium für\nGesundheits- und Sozialwesen\nkoordiniert im Einvernehmen mit dem\nStaatsministerium des Innern und für\nWohnungswirtschaft die Aufnahme\n§ 7\nEinsatz- und Transportwege\n(1) Das Staatsministerium für Mobilität\nund regionale Entwicklung kann im\nEinvernehmen mit dem\nStaatsministerium des Innern und für\nWohnungswirtschaft Einsatz- und\nTransportwege festlegen.\n(2) Die zuständigen Behörden treffen\ndie erforderlichen Maßnahmen, um\ndiese Wege für Einsatzkräfte,\nRettungsmittel, Hilfsgüter und\nPatiententransporte freizuhalten.\n(3) Hierzu können insbesondere\nVerkehrslenkungen, Umleitungen,\nzeitweilige Sperrungen und\nVorrangregelungen angeordnet werden.\n§ 8\nWarnung und Verhalten der\nBevölkerung\nSeite 5"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "In den nach § 3 festgelegten Beobachtungsgebieten haben die Betreiber öffentlicher Gebäude, besonders schutzbedürftiger Einrichtungen und Kritischer Infrastrukturen unverzüglich zu prüfen, ob erdbebenbedingte Schäden oder Gefahren bestehen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Besonders schutzbedürftige Einrichtungen sind insbesondere Krankenhäuser, Pflegeeinrichtungen, Schulen, Kindertageseinrichtungen, Hochschulen, Justizvollzugseinrichtungen und Unterkünfte mit gemeinschaftlicher Unterbringung.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Kritische Infrastrukturen sind insbesondere Einrichtungen der Energie-, Wasser-, Abwasser-, Gesundheits-, Verkehrs-, Telekommunikations-, Ernährungs- und Verwaltungsversorgung.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Sichtbare erhebliche Schäden sind unverzüglich der zuständigen Gemeinde, Katastrophenschutzbehörde oder Polizeibehörde zu melden.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Besteht der Verdacht einer gegenwärtigen Gefahr, kann die zuständige Behörde Gebäude, Anlagen, Straßen, Brücken, Tunnel oder sonstige Bereiche sperren, räumen oder deren Nutzung untersagen.",
+          "children": []
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 6",
-      "title": "Amtlicher Text",
+      "type": "paragraph",
+      "label": "§ 5",
+      "title": "Hilfeleistung für Bayern-Württemberg",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 44 13. Mai 2026\n(1) Das Staatsministerium des Innern und\nfür Wohnungswirtschaft stellt eine\neinheitliche Information der Bevölkerung\nüber amtliche Warnkanäle sicher.\n(2) Die Bevölkerung kann insbesondere\ndarauf hingewiesen werden,\n1. beschädigte Gebäude und\nAnlagen nicht zu betreten,\n2. Aufzüge nach Erschütterungen\nnicht zu benutzen,\n3. Abstand zu Fassaden,\nSchornsteinen, Brücken, Tunneln\nund beschädigten Bauwerken zu\nhalten,\n4. Notrufnummern nur in akuten\nNotlagen zu verwenden,\n5. amtliche Warnmeldungen und\nAnordnungen zu beachten.\n(2) Das Staatsministerium des Innern\nund für Wohnungswirtschaft kann zur\nDurchführung dieser Verordnung\nAllgemeinverfügungen, Lageerlasse,\nMusteranordnungen und\nVerwaltungshinweise erlassen.\n(3) Die Fachzuständigkeiten anderer\nMinisterien bleiben unberührt.\n§ 10\nInkrafttreten und Außerkrafttreten\n(1) Diese Verordnung tritt am Tag nach\nihrer Verkündung in Kraft.\n(2) Sie tritt mit Ablauf des 27. Mai 2026\naußer Kraft.\n(3) Die Staatsregierung kann das\nAußerkrafttreten durch\nRechtsverordnung um höchstens\nvierzehn Tage hinausschieben, soweit\ndie Lage dies erfordert.\n§ 9\nVollzug\n(1) Für den Vollzug dieser Verordnung\nsind die nach Fachrecht zuständigen\nBehörden zuständig.\nDresden, den 13. Mai 2026\nDr. Karl Honecker\nD e r M I N I S T E R P R Ä S I D E N T\nSeite 6"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Freistaat Ostdeutschland leistet dem Freistaat Bayern-Württemberg auf dessen Anforderung länderübergreifende Katastrophenhilfe.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Entsendet werden können insbesondere",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Feuerwehreinheiten,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Sanitäts- und Betreuungseinheiten,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "mobile Behandlungsplätze,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Rettungswagen und Notarzteinsatzfahrzeuge,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Notstrom-, Trinkwasser-, Verpflegungs- und Logistikeinheiten,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "technische Hilfeleistungs- und Lageerkundungseinheiten.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Entsendung wird durch das Staatsministerium des Innern und für Wohnungswirtschaft koordiniert.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Die Entsendung darf nur erfolgen, soweit der Grundschutz im Freistaat Ostdeutschland gewahrt bleibt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Die eingesetzten Kräfte unterstehen im Einsatzgebiet der zuständigen Einsatzleitung des Freistaates Bayern-Württemberg, soweit nichts anderes vereinbart wird.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 6",
+      "title": "Gesundheitsversorgung und Notversorgung",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Krankenhäuser und sonstige versorgungsrelevante Gesundheitseinrichtungen haben ihre verfügbaren Aufnahme-, Notaufnahme-, Operations-, Intensiv- und Behandlungskapazitäten unverzüglich an die zuständige Leitstelle oder die vom Staatsministerium für Gesundheits- und Sozialwesen bestimmte Stelle zu melden.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Meldungen sind regelmäßig zu aktualisieren, solange der Zentrale Verwaltungsstab dies für erforderlich hält.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das Staatsministerium für Gesundheits- und Sozialwesen koordiniert im Einvernehmen mit dem Staatsministerium des Innern und für Wohnungswirtschaft die Aufnahme verletzter oder erkrankter Personen aus Bayern-Württemberg.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Krankenhäuser haben im Rahmen des medizinisch Vertretbaren organisatorische Maßnahmen zur kurzfristigen Erweiterung ihrer Behandlungskapazitäten vorzubereiten.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 7",
+      "title": "Einsatz- und Transportwege",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das Staatsministerium für Mobilität und regionale Entwicklung kann im Einvernehmen mit dem Staatsministerium des Innern und für Wohnungswirtschaft Einsatz- und Transportwege festlegen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die zuständigen Behörden treffen die erforderlichen Maßnahmen, um diese Wege für Einsatzkräfte, Rettungsmittel, Hilfsgüter und Patiententransporte freizuhalten.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Hierzu können insbesondere Verkehrslenkungen, Umleitungen, zeitweilige Sperrungen und Vorrangregelungen angeordnet werden.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 8",
+      "title": "Warnung und Verhalten der Bevölkerung",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das Staatsministerium des Innern und für Wohnungswirtschaft stellt eine einheitliche Information der Bevölkerung über amtliche Warnkanäle sicher.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Bevölkerung kann insbesondere darauf hingewiesen werden,",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "beschädigte Gebäude und Anlagen nicht zu betreten,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Aufzüge nach Erschütterungen nicht zu benutzen,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Abstand zu Fassaden, Schornsteinen, Brücken, Tunneln und beschädigten Bauwerken zu halten,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Notrufnummern nur in akuten Notlagen zu verwenden,",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "amtliche Warnmeldungen und Anordnungen zu beachten.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 9",
+      "title": "Vollzug",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Für den Vollzug dieser Verordnung sind die nach Fachrecht zuständigen Behörden zuständig.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Das Staatsministerium des Innern und für Wohnungswirtschaft kann zur Durchführung dieser Verordnung Allgemeinverfügungen, Lageerlasse, Musteranordnungen und Verwaltungshinweise erlassen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Fachzuständigkeiten anderer Ministerien bleiben unberührt.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 10",
+      "title": "Inkrafttreten und Außerkrafttreten",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Diese Verordnung tritt am Tag nach ihrer Verkündung in Kraft.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Sie tritt mit Ablauf des 27. Mai 2026 außer Kraft.",
+          "children": []
         }
       ]
     }

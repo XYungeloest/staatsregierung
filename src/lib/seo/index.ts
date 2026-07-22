@@ -68,7 +68,7 @@ export function buildOrganizationJsonLd(site?: URL): StructuredData {
     alternateName: `${siteConfig.seo.siteName} – Politiksimulation`,
     description: siteConfig.seo.simulationDescription,
     url: getBaseUrl(site).toString(),
-    logo: toAbsoluteUrl(siteConfig.officialFlagAssetPath, site),
+    logo: toAbsoluteUrl(siteConfig.officialCoatOfArmsAssetPath, site),
   };
 }
 
@@ -142,7 +142,7 @@ export function buildArticleJsonLd(
       description: siteConfig.seo.simulationDescription,
       logo: {
         '@type': 'ImageObject',
-        url: toAbsoluteUrl(siteConfig.officialFlagAssetPath, site),
+        url: toAbsoluteUrl(siteConfig.officialCoatOfArmsAssetPath, site),
       },
     },
     image: image

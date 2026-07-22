@@ -2699,6 +2699,11 @@ article.panel > p:last-child > a.inline-link:hover {
   font-weight: 700;
 }
 
+.norm-text__children,
+.norm-subparagraph__children {
+  margin-inline-start: 2.7rem;
+}
+
 .norm-table-wrap {
   margin-top: 1rem;
 }
@@ -3200,6 +3205,12 @@ article.panel > p:last-child > a.inline-link:hover {
   .norm-amendment-item {
     grid-template-columns: 2.25rem minmax(0, 1fr);
     column-gap: 0.55rem;
+  }
+
+
+  .norm-text__children,
+  .norm-subparagraph__children {
+    margin-inline-start: 1.35rem;
   }
 
   .norm-quoted-provision {

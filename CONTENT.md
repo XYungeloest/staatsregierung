@@ -159,13 +159,16 @@ Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht.
 
 Bei HTML-migrierten Normen dokumentiert `meta.json` dieselbe strukturtragende Datei zusätzlich in
 `sourceReferences`. Verkündungsdatensatz und Normmetadaten müssen dabei auf denselben `.html`-Pfad
-zeigen; die Content-QA prüft diese Beziehung.
+zeigen; die Content-QA prüft diese Beziehung. Nur bei einer Altquelle ohne zuordenbare HTML-Ausgabe
+darf stattdessen `legacy-markdown-transcription` mit einem `.md`-Pfad verwendet werden. Auch dann
+müssen Verkündungsdatensatz und Normmetadaten dieselbe strukturtragende Datei nennen.
 
 `sourceFiles` und `sourceReferences[].localSource` dürfen ausschließlich relative Pfade zu
 tatsächlich versionierten Dateien enthalten. Externe Quellen verwenden eine HTTPS-URL und
 `availability: "external"`. Lokal redaktionell geprüfte, aber nicht mitversionierte Originale
 werden mit `availability: "not-versioned"` dokumentiert; ein scheinbarer lokaler Pfad ist dann
-unzulässig. Der aktuelle Bestand hält die amtlichen PDF-Originale nicht im Repository vor.
+unzulässig. Soweit amtliche PDFs unter `Gesetze/` versioniert sind, dienen sie der visuellen
+Gegenprüfung, werden aber nicht als strukturtragende Importquelle behandelt.
 
 Erlaubte Eintragstypen:
 
@@ -880,22 +883,27 @@ Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfig
 
 Diese Dateien nur ändern, wenn sich die Struktur oder zentrale Stammdaten ändern. Normale Seiteninhalte gehören nach `content/`.
 
-`scripts/import-normen.mjs` ist der kontrollierte Importer für versionierte HTML-Quellen unter
-`Gesetze/`. Er verwendet `parse5`, klassifiziert Verkündungsblätter, konsolidierte Einzelnormen,
+`scripts/import-normen.mjs` ist der kontrollierte Importer für versionierte Rechtsquellen unter
+`Gesetze/`. Reguläre Quellen sind HTML-Dateien. Er verwendet `parse5`, klassifiziert
+Verkündungsblätter, konsolidierte Einzelnormen,
 redaktionelle Dateien, nicht unterstützte und mehrdeutige Quellen und rekonstruiert Google-Docs-
 Listen aus Listenkennung, Ebene, CSS-Zählerformat und Zählerstand. Skripte, externe Stylesheets,
 Schriftimporte, Bilder und Layoutattribute werden verworfen. Das Quell-HTML wird nicht direkt in
-Astro ausgegeben; allein validierte JSON-Blöcke sind öffentlich. Gleichnamige Markdown-Dateien sind
-Altbestand und werden vom Importer nicht gelesen. Ohne `--write` läuft er ausschließlich prüfend.
-Schreiben ist nur mit einer gezielten HTML-`--file`-Angabe zulässig; vorhandene Datensätze werden
+Astro ausgegeben; allein validierte JSON-Blöcke sind öffentlich. Markdown bleibt ausschließlich für
+Altquellen ohne entsprechende HTML-Ausgabe verfügbar. Sobald die Ausgabe intern als HTML erkannt
+wird, wird ihr Markdown-Pendant nicht geöffnet. Der Legacy-Parser nutzt erhaltene Einrückungen und
+gleicht verlorene alphabetische beziehungsweise römische Ebenen gegen die PDF-Darstellung ab.
+Ohne `--write` läuft der Import ausschließlich prüfend. Schreiben ist nur mit einer gezielten
+`.html`- oder zulässigen `.md`-`--file`-Angabe möglich; vorhandene Datensätze werden
 erst mit `--update-existing` verändert. Es gibt keinen Modus, der den gesamten Normbestand
-automatisch löscht. PDF-Dateien werden nicht als Ersatz für fehlende verlässliche HTML-
-Transkriptionen ausgewertet.
+automatisch löscht. PDF-Dateien werden nur als visuelle Kontrollquelle und nicht automatisch als
+Normtext ausgewertet.
 
 ```sh
 npm run norms:audit
 npm run norms:audit -- --strict
 npm run norms:import -- --write --file "Gesetze/OGVBl. 2026 Nr. 58.html"
+npm run norms:import -- --write --update-existing --file "Gesetze/OGVBl. 2026 Nr. 44.md"
 npm run test:parser
 ```
 

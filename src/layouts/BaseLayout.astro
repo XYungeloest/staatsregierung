@@ -181,7 +181,8 @@ const footerLegalLinks = [
         ) : null}
       </>
     ) : null}
-    <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
+    <link rel="icon" type="image/svg+xml" sizes="any" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="alternate icon" type="image/x-icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
     <title>{pageTitle}</title>
     {structuredDataItems.map((entry) => (
       <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
@@ -213,7 +214,7 @@ const footerLegalLinks = [
               <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()} aria-label="Startseite Freistaat Ostdeutschland">
                   <span class="site-wordmark__media" aria-hidden="true">
-                    <img src={coatOfArmsAssetUrl} alt="" width="598" height="695" />
+                    <img src={coatOfArmsAssetUrl} alt="" width="596" height="694" />
                   </span>
                   <span class="site-wordmark__text">
                     <span class="site-title">Freistaat<br />Ostdeutschland</span>

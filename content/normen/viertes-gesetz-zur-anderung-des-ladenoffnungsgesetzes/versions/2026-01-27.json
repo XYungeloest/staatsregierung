@@ -7,46 +7,318 @@
   "changeNote": "Amtlich veröffentlichter Einzelakt.",
   "body": [
     {
-      "type": "section",
-      "label": "Seite 2",
-      "title": "Amtlicher Text",
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 26. Januar 2026 das folgende Gesetz beschlossen:"
+    },
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Änderung des Ladenöffnungsgesetzes",
       "children": [
         {
           "type": "paragraphText",
-          "text": "OGVBl. Nr. 4 27. Januar 2026\nViertes Gesetz\nzur Änderung des Ladenöffnungsgesetzes\nvom 26. Januar 2026\nDer Ostdeutsche Landtag hat am 26.\nJanuar 2026 das folgende Gesetz\nbeschlossen:\nArtikel 1\nÄnderung des\nLadenöffnungsgesetzes\nDas Sächsische Ladenöffnungsgesetz\nvom 1. Dezember 2010 (SächsGVBl. S.\n338), das zuletzt durch das Gesetz vom\n5. November 2020 (SächsGVBl. S. 589)\ngeändert worden ist, wird wie folgt\ngeändert:\n1. In der Bezeichnung des Gesetzes\nwird “Sächsische” durch\n“Ostdeutsche” ersetzt.\n2. § 3 wird wie folgt geändert:\na. Absatz 1 wird wie folgt\ngefasst:\n,,Montags bis\nSamstags dürfen\nVerkaufsstellen von\n5 bis 23 Uhr\ngeöffnet haben. An\nSonntagen dürfen\nVerkaufsstellen von\n6 bis 14 Uhr\ngeöffnet haben.\nFällt der Vortag des\nWeihnachtsfestes\n(24. Dezember) auf\neinen Werktag, so\nhat er gleich einen\nSonntag geöffnet.\n”\nb. In Absatz 2 werden die\nWörter ,,und an Sonn-\nund Feiertagen”\ngestrichen.\nc. Absatz 4 Satz 4 wird\naufgehoben.\n3. § 8 wird wie folgt geändert:\na. Absatz 1 wird wie folgt\ngeändert:\ni. Die\nAbsatzbezeichnung\nwird gestrichen.\nii. Satz 1 wird wie\nfolgt geändert:\n1. Die Angabe\n,,Abs.\n” wird\ndurch das\nWort\nSeite 2"
+          "text": "Das Sächsische Ladenöffnungsgesetz vom 1. Dezember 2010 (SächsGVBl. S. 338), das zuletzt durch das Gesetz vom 5. November 2020 (SächsGVBl. S. 589) geändert worden ist, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In der Bezeichnung des Gesetzes wird “Sächsische” durch “Ostdeutsche” ersetzt.",
+          "level": 0,
+          "listId": "79gw2ttl0o3h",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 3 wird wie folgt geändert:",
+          "level": 0,
+          "listId": "79gw2ttl0o3h",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Absatz 1 wird wie folgt gefasst:",
+              "level": 1,
+              "listId": "79gw2ttl0o3h",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": ",,Montags bis Samstags dürfen Verkaufsstellen von 5 bis 23 Uhr geöffnet haben. An Sonntagen dürfen Verkaufsstellen von 6 bis 14 Uhr geöffnet haben. Fällt der Vortag des Weihnachtsfestes (24. Dezember) auf einen Werktag, so hat er gleich einen Sonntag geöffnet.”"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "In Absatz 2 werden die Wörter ,,und an Sonn- und Feiertagen” gestrichen.",
+              "level": 1,
+              "listId": "79gw2ttl0o3h",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Absatz 4 Satz 4 wird aufgehoben.",
+              "level": 1,
+              "listId": "79gw2ttl0o3h",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "§ 8 wird wie folgt geändert:",
+          "level": 0,
+          "listId": "79gw2ttl0o3h",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Absatz 1 wird wie folgt geändert:",
+              "level": 1,
+              "listId": "79gw2ttl0o3h",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "i.",
+                  "text": "Die Absatzbezeichnung wird gestrichen.",
+                  "level": 2,
+                  "listId": "79gw2ttl0o3h",
+                  "numberingStyle": "lower-roman",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ii.",
+                  "text": "Satz 1 wird wie folgt geändert:",
+                  "level": 2,
+                  "listId": "79gw2ttl0o3h",
+                  "numberingStyle": "lower-roman",
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "Die Angabe ,,Abs.” wird durch das Wort ,,Absatz” ersetzt.",
+                      "level": 3,
+                      "listId": "79gw2ttl0o3h",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Die Angabe ,,vier” wird durch die Angabe ,,fünf” ersetzt.",
+                      "level": 3,
+                      "listId": "79gw2ttl0o3h",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Die Wörter ,,zwischen 12 und 18 Uhr” werden durch die Wörter ,,wie an einem Werktag” ersetzt.",
+                      "level": 3,
+                      "listId": "79gw2ttl0o3h",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Die Absätze 2 und 3 werden aufgehoben.",
+              "level": 1,
+              "listId": "79gw2ttl0o3h",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Nach § 3 werden folgende §§ 3a und 3b eingefügt:",
+          "level": 0,
+          "listId": "79gw2ttl0o3h",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 3a",
+                  "title": "Spätverkaufsstelle",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Abweichend von § 3 Absatz 1 Satz 2 und 3 dürfen öffnen",
+                      "level": 0,
+                      "listId": "4vko79h2o3j5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "a.",
+                      "text": "Verkaufsstelle, die für den Bedarf von Touristen ausschließlich Andenken, Straßenkarten, Stadtpläne, Reiseführer, Tabakwaren, Verkaufsmaterial für Film- und Fotozwecke, Bedarfsartikel für den alsbaldigen Verbrauch sowie Lebens- und Genussmittel zum sofortigen Verzehr anbieten von 8 bis 20 Uhr,",
+                      "level": 0,
+                      "listId": "tcywebz81mdu",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "b.",
+                      "text": "Verkaufsstellen zur Versorgung der Besucherinnen und Besucher auf dem Gelände oder im Gebäude einer Veranstaltung oder eines Museums mit themenbezogenen Waren oder mit Lebens- und Genussmitteln zum sofortigen Verzehr während der Veranstaltungs- und Öffnungsdauer,",
+                      "level": 0,
+                      "listId": "tcywebz81mdu",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "c.",
+                      "text": "Verkaufsstellen, deren Angebot ausschließlich aus einer oder mehreren der Warengruppen Blumen und Pflanzen, Zeitungen und Zeitschriften, Back- und Konditorwaren, Milch und MIlcherzeugnisse besteht von 7 bis 15 Uhr und",
+                      "level": 0,
+                      "listId": "tcywebz81mdu",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "d.",
+                      "text": "Kunst- und Gebrauchtwarenmärkte von 7 bis 18 Uhr.",
+                      "level": 0,
+                      "listId": "tcywebz81mdu",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "In Verkaufsstellen",
+                      "level": 0,
+                      "listId": "4vko79h2o3j5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "a.",
+                      "text": "darf leicht verderbliches Obst und Gemüse und Erzeuger angeboten werden an Sonn- und Feiertagen und am 24. Dezember, wenn dieser Tag auf einen Adventssonntag fällt von 6 bis 15 Uhr und",
+                      "level": 0,
+                      "listId": "760r1yp6lktu",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "b.",
+                      "text": "dürfen Weihnachtsbäume angeboten werden an Adventssonntagen und am 24. Dezember von 6 bis 20 Uhr.",
+                      "level": 0,
+                      "listId": "760r1yp6lktu",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 3b",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Personallos betrieben Kleinstsupermärkte mit einer unmittelbar dem Verkauf dienenden Grundfläche von bis zu 150 m2, in denen kein persönlicher Kundenkontakt stattfindet und die Auswahl, Übergabe und Bezahlung der Waren mittels eines oder mehrerer Warenautomatenoder mittels Selbstbedienung erfolgt, dürfen abweichend von den Vorschriften des § 3 an allen Tagen während des ganzen Tages geöffnet sein.",
+                      "level": 0,
+                      "listId": "94wr7jltw88p",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Abweichend von Absatz 1 darf die zuständige Ortspolizeibehörde an Sonn- und Feiertagen die Dauer und die Lage der zugelassenen Öffnungszeiten eines personallos betriebenen Kleinstsupermarktes einschränken, jedoch nicht unter einer Dauer von acht zusammenhängenden Stunden.”",
+                      "level": 0,
+                      "listId": "94wr7jltw88p",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ],
+                  "title": "Personallos betriebene Kleinstsupermärkte"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Nach § 8 wird folgender § 8a eingefügt:",
+          "level": 0,
+          "listId": "79gw2ttl0o3h",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 8a",
+                  "title": "Besonderer Schutz des Hauptgottestdienstes",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "An den Sonn- und Feiertagen mit kirchlichem Charakter sind in der Nähe von religiösen Einrichtungen, die dem Gottesdienst dienen oder an Orten, an denen ein Gottesdienst stattfindet das Handeltreiben oder die Öffnung einer Verkaufsstelle während der Dauer des Gottesdienstes verboten.",
+                      "level": 0,
+                      "listId": "22235ty2224y",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die kommunalen Ordnungsbehörden haben durch Satzung Umfang, Art und Dauer des nach Absatz 1 vorgeschriebenen Verbotes bekannt zu machen. Hat eine Gemeinde nicht nach Satz 1 eine Bestimmung getroffen, so gilt das Verbot für die Dauer des Tages im gesamten Gemeindegebiet.”",
+                      "level": 0,
+                      "listId": "22235ty2224y",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 3",
-      "title": "Amtlicher Text",
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Inkrafttreten",
       "children": [
         {
           "type": "paragraphText",
-          "text": "OGVBl. Nr. 4 27. Januar 2026\n,,Absatz\n”\nersetzt.\n2. Die Angabe\n,,vier” wird\ndurch die\nAngabe\n,,fünf”\nersetzt.\n3. Die Wörter\n,,zwischen\n12 und 18\nUhr”\nwerden\ndurch die\nWörter ,,wie\nan einem\nWerktag”\nersetzt.\nb. Die Absätze 2 und 3\nwerden aufgehoben.\n4. Nach § 3 werden folgende §§ 3a\nund 3b eingefügt:\n,,§ 3a\nSpätverkaufsstelle\n(1) Abweichend von § 3\nAbsatz 1 Satz 2 und 3\ndürfen öffnen\na. Verkaufsstelle, die\nfür den Bedarf von\nTouristen\nausschließlich\nAndenken,\nStraßenkarten,\nStadtpläne,\nReiseführer,\nTabakwaren,\nVerkaufsmaterial\nfür Film- und\nFotozwecke,\nBedarfsartikel für\nden alsbaldigen\nVerbrauch sowie\nLebens- und\nGenussmittel zum\nsofortigen Verzehr\nanbieten von 8 bis\n20 Uhr,\nb. Verkaufsstellen zur\nVersorgung der\nBesucherinnen und\nBesucher auf dem\nGelände oder im\nGebäude einer\nVeranstaltung oder\neines Museums mit\nthemenbezogenen\nWaren oder mit\nLebens- und\nGenussmitteln zum\nsofortigen Verzehr\nwährend der\nVeranstaltungs- und\nÖffnungsdauer,\nc. Verkaufsstellen,\nderen Angebot\nausschließlich aus\nSeite 3"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 4",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 4 27. Januar 2026\neiner oder\nmehreren der\nWarengruppen\nBlumen und\nPflanzen,\nZeitungen und\nZeitschriften, Back-\nund\nKonditorwaren,\nMilch und\nMIlcherzeugnisse\nbesteht von 7 bis\n15 Uhr und\nd. Kunst- und\nGebrauchtwarenmä\nrkte von 7 bis 18\nUhr.\n(2) In Verkaufsstellen\na. darf leicht\nverderbliches Obst\nund Gemüse und\nErzeuger\nangeboten werden\nan Sonn- und\nFeiertagen und am\n24. Dezember,\nwenn dieser Tag\nauf einen\nAdventssonntag\nfällt von 6 bis 15\nUhr und\nb. dürfen\nWeihnachtsbäume\nangeboten werden\nan\nAdventssonntagen\nund am 24.\nDezember von 6\nbis 20 Uhr.\n§ 3b\nPersonallos betriebene\nKleinstsupermärkte\n(1) Personallos betrieben\nKleinstsupermärkte mit\neiner unmittelbar dem\nVerkauf dienenden\nGrundfläche von bis zu\n150 m\n2\n, in denen kein\npersönlicher\nKundenkontakt stattfindet\nund die Auswahl,\nÜbergabe und Bezahlung\nder Waren mittels eines\noder mehrerer\nWarenautomatenoder\nmittels Selbstbedienung\nerfolgt, dürfen\nabweichend von den\nVorschriften des § 3 an\nallen Tagen während des\nganzen Tages geöffnet\nsein.\n(2) Abweichend von Absatz 1\ndarf die zuständige\nOrtspolizeibehörde an\nSeite 4"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 5",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 4 27. Januar 2026\nSonn- und Feiertagen die\nDauer und die Lage der\nzugelassenen\nÖffnungszeiten eines\npersonallos betriebenen\nKleinstsupermarktes\neinschränken, jedoch\nnicht unter einer Dauer\nvon acht\nzusammenhängenden\nStunden.\n”\n5. Nach § 8 wird folgender § 8a\neingefügt:\nÖffnung einer\nVerkaufsstelle während\nder Dauer des\nGottesdienstes verboten.\n(2) Die kommunalen\nOrdnungsbehörden haben\ndurch Satzung Umfang,\nArt und Dauer des nach\nAbsatz 1\nvorgeschriebenen\nVerbotes bekannt zu\nmachen. Hat eine\nGemeinde nicht nach Satz\n1 eine Bestimmung\ngetroffen, so gilt das\nVerbot für die Dauer des\nTages im gesamten\nGemeindegebiet.\n”\n,,§ 8a\nBesonderer Schutz des\nHauptgottestdienstes\n(1) An den Sonn- und\nFeiertagen mit kirchlichem\nCharakter sind in der\nNähe von religiösen\nEinrichtungen, die dem\nGottesdienst dienen oder\nan Orten, an denen ein\nGottesdienst stattfindet das\nHandeltreiben oder die\nArtikel 2\nInkrafttreten\nDieses Gesetz tritt am 1. Februar 2026\nin Kraft.\nDresden, den 26. Januar 2026\nLouis Hahne-Eichinger\nD e r L A N D T A G S P R Ä S I D E N T\nDr. Karl Honecker\nD e r M I N I S T E R P R Ä S I D E N T\nSeite 5"
+          "text": "Dieses Gesetz tritt am 1. Februar 2026 in Kraft."
         }
       ]
     }

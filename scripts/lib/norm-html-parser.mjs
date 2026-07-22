@@ -2,12 +2,16 @@ import { parse } from 'parse5';
 
 const DATE_PATTERN = /(\d{1,2})\.\s*(Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+(\d{4})/iu;
 const LIST_CLASS_PATTERN = /(?:^|\s)lst-kix_([a-z0-9_]+)-(\d+)(?=\s|$)/iu;
-const SIGNATURE_PATTERN = /^Dresden,\s+den\b/iu;
-const CONTAMINATION_PATTERN = /data:image|;base64,|@font-face|@import\s+url|<style|Inhaltsverzeichnis|Nichtamtliches Inhaltsverzeichnis|LANDTAGSPRÄSIDENT|D\s*e\s*r\s+L\s*A\s*N\s*D\s*T\s*A\s*G\s*S\s*P\s*R/iu;
-const QUOTE_TRIGGER_PATTERN = /(?:(?:wird|werden)\s+(?:wie folgt|durch folgende|durch die nachstehende)\s+(?:neu\s+)?(?:gefasst|eingefügt)|(?:wird|werden)\s+[^:]*?(?:eingefügt|angefügt)|(?:wird|werden)\s+durch\s+(?:die\s+)?(?:folgende|nachstehende)\s+Fassung\s+(?:ersetzt|abgelöst)|(?:erhält|erhalten)\s+folgende\s+Bezeichnung|(?:wird|werden)\s+wie\s+folgt\s+ersetzt)\s*:\s*$/iu;
+const SIGNATURE_PATTERN = /^[\p{L} .'-]{2,60},\s+den\s+\d{1,2}\./iu;
+const CONTAMINATION_PATTERN = /data:image|;base64,|@font-face|@import\s+url|<style|Inhaltsverzeichnis|Nichtamtliches Inhaltsverzeichnis/iu;
+const QUOTE_TRIGGER_PATTERN = /(?:(?:wird|werden)\s+(?:wie folgt|durch folgende|durch die nachstehende)\s+(?:neu\s*)?(?:gefasst|eingefügt)|(?:wird|werden)\s+[^:]*?(?:eingefügt|angefügt|(?:neu\s*)?gefasst)|(?:wird|werden)\s+durch\s+(?:die\s+)?(?:folgende|nachstehende)\s+(?:Fassung|Anlage)\s+(?:ersetzt|abgelöst)|(?:erhält|erhalten)\s+folgende\s+Bezeichnung|(?:wird|werden)\s+wie\s+folgt\s+ersetzt)\s*:\s*$/iu;
+const AMENDMENT_REFERENCE_PATTERN = /\b(?:wird|werden)\b[^:]*\b(?:geändert|aufgehoben|ersetzt|gefasst|eingefügt|angefügt|verschoben|umbenannt)\b\s*:?\s*$/iu;
 const INTRODUCTION_PATTERN = /^(?:Das\s+nachstehende\s+wird\s+(Gesetz|Verordnung):|.+?wird\s+durch\s+die\s+nachstehende\s+(.+?)\s+abgelöst:)$/iu;
 const OPENING_QUOTE_PATTERN = /^(?:„|“|‚|‘|,,|")/u;
 const CLOSING_QUOTE_PATTERN = /(?:“|”|’|''|")\s*$/u;
+const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Organisationserlass|Erlass|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
+const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Neufassung|Übergangsbestimmungen?|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Rechtsbereinigung)/iu;
+const EMBEDDED_NORM_TITLE_PATTERN = /^(?:Gesetz|Verordnung|Satzung|Staatsvertrag|Abkommen|Übereinkommen)\b/iu;
 
 const STRUCTURE_RANK = {
   part: 1,
@@ -16,7 +20,7 @@ const STRUCTURE_RANK = {
   subsection: 4,
   article: 5,
   paragraph: 5,
-  annex: 5,
+  annex: 1,
 };
 
 export class NormHtmlParseError extends Error {
@@ -77,6 +81,15 @@ function textOf(node) {
 
 function linesOf(node) {
   return normalizeHtmlText(textWithBreaks(node)).split(/\n+/u).map((line) => line.trim()).filter(Boolean);
+}
+
+function normalizeHeadingText(value) {
+  return normalizeHtmlText(value)
+    .replace(/^(.*?\b(?:Gesetz|Verordnung|Verwaltungsvorschrift|Förderrichtlinie|Richtlinie|Anordnung|Bekanntmachung|Erlass|Staatsvertrag|Abkommen|Übereinkommen|Vertrag))(?=(?:zur|zum|über|der|des|für|betreffend|eines|einer)\b)/iu, '$1 ')
+    .replace(/\)(?=vom\s+\d)/giu, ') ')
+    .replace(/([\p{L}])(?=vom\s+\d{1,2}\.)/giu, '$1 ')
+    .replace(/\s+/gu, ' ')
+    .trim();
 }
 
 function styleTexts(document) {
@@ -235,7 +248,10 @@ function sourceTypeFromHeading(heading, title) {
 
 export function parseStructureMarker(value) {
   const original = normalizeHtmlText(value);
-  const text = original.replace(/^[„“”'`,.]+/u, '').trim();
+  // Google Docs combines label, title and sometimes a short title in one
+  // paragraph with several <br> elements. Structure matching must therefore
+  // treat these visual line breaks as spaces while preserving the wording.
+  const text = original.replace(/^[„“”'`,.]+/u, '').replace(/\n+/gu, ' ').trim();
   let match = text.match(/^((?:Teil|Kapitel|Abschnitt|Unterabschnitt)\s+(?:\d+[a-z]?|[IVXLCDM]+))\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) {
     const prefix = match[1].split(/\s+/u)[0].toLocaleLowerCase('de');
@@ -244,14 +260,46 @@ export function parseStructureMarker(value) {
   }
   match = text.match(/^([IVXLCDM]+\.\s*Abschnitt)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'section', label: match[1], title: match[2] || undefined };
+  match = text.match(/^([IVXLCDM]+\.)(?:\s|\n)*(.*)$/u);
+  if (match) return { type: 'section', label: match[1], title: match[2] || undefined };
   match = text.match(/^(Präambel)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'section', label: 'Präambel', title: match[2] || undefined };
   match = text.match(/^(Artikel\s+\d+[a-z]?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
+  if (match) return { type: 'article', label: match[1], title: match[2] || undefined };
+  match = text.match(/^(Article\s+\d+[a-z]?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'article', label: match[1], title: match[2] || undefined };
   match = text.match(/^(§{1,2}\s*\d+[a-z]?(?:\s*(?:,|und)\s*\d+[a-z]?)?(?:\s+bis\s+\d+[a-z]?)?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'paragraph', label: match[1], title: match[2] || undefined };
   match = text.match(/^((?:Anlage(?:\s+\d+[a-z]?)?|Anhang)(?:\s*\([^)]*\))?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
   if (match) return { type: 'annex', label: match[1], title: match[2] || undefined };
+  match = text.match(/^((?:Annex|Appendix)\s+(?:\d+[a-z]?|[IVXLCDM]+))\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
+  if (match) return { type: 'annex', label: match[1], title: match[2] || undefined };
+  match = text.match(/^(Regulation\s+\d+[a-z]?)\s*(?:[–—:-]|\n)?\s*(.*)$/iu);
+  if (match) return { type: 'section', label: match[1], title: match[2] || undefined };
+  return null;
+}
+
+function parsePrintedListItem(value) {
+  const text = normalizeHtmlText(value).replace(/^[„“”'`,]+/u, '').trim();
+  let match = text.match(/^(\d+(?:\.\d+)*\.?)\s+(.*)$/u);
+  if (match) {
+    const segments = match[1].replace(/\.$/u, '').split('.');
+    return {
+      label: match[1],
+      text: match[2],
+      level: Math.max(0, segments.length - 1),
+      numberingStyle: 'decimal',
+    };
+  }
+  match = text.match(/^([a-z]{1,2})\)\s+(.*)$/iu);
+  if (match) {
+    return {
+      label: `${match[1]})`,
+      text: match[2],
+      level: match[1].length > 1 ? 1 : 0,
+      numberingStyle: 'lower-latin',
+    };
+  }
   return null;
 }
 
@@ -332,6 +380,17 @@ function flowNodes(body) {
   return elementChildren(body).filter((node) => !['script', 'style', 'link', 'meta', 'img', 'hr'].includes(node.tagName));
 }
 
+function nestedFlowNodes(container, output = []) {
+  for (const child of elementChildren(container)) {
+    if (['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'ol', 'ul', 'table'].includes(child.tagName)) {
+      output.push(child);
+    } else {
+      nestedFlowNodes(child, output);
+    }
+  }
+  return output;
+}
+
 function makeAtomicTokens(nodes, css, fileName) {
   const counters = new Map();
   const tokens = [];
@@ -384,11 +443,21 @@ function makeAtomicTokens(nodes, css, fileName) {
     }
     const rawText = normalizeHtmlText(textWithBreaks(node));
     const marker = parseStructureMarker(rawText);
-    if (marker) {
+    const amendmentInstruction = QUOTE_TRIGGER_PATTERN.test(text);
+    const amendmentReference = marker && ['article', 'paragraph'].includes(marker.type) && AMENDMENT_REFERENCE_PATTERN.test(marker.title ?? '');
+    const printedItem = !marker ? parsePrintedListItem(text) : null;
+    if (marker && !amendmentReference && !(amendmentInstruction && ['article', 'paragraph'].includes(marker.type))) {
       tokens.push({
         kind: 'structure', marker, text: rawText, rawText,
         tagName: node.tagName, bold: isBold(node, css), centered: isCentered(node, css),
         opensQuote: OPENING_QUOTE_PATTERN.test(rawText),
+      });
+    } else if (printedItem) {
+      tokens.push({
+        kind: 'listItem',
+        listId: 'printed-outline',
+        ...printedItem,
+        startsList: printedItem.level === 0,
       });
     } else {
       tokens.push({ kind: 'paragraph', text, rawText, tagName: node.tagName, bold: isBold(node, css), centered: isCentered(node, css) });
@@ -406,6 +475,18 @@ function groupIntroducedQuotes(tokens) {
   for (let index = 0; index < tokens.length; index += 1) {
     const token = tokens[index];
     grouped.push(token);
+    if (
+      isOuterArticleToken(token) &&
+      EMBEDDED_NORM_TITLE_PATTERN.test(token.marker.title ?? '') &&
+      tokens[index + 1]?.kind === 'structure' &&
+      tokens[index + 1].marker.type !== 'article'
+    ) {
+      let end = index + 1;
+      while (end < tokens.length && !isOuterArticleToken(tokens[end])) end += 1;
+      grouped.push({ kind: 'quotedGroup', tokens: tokens.slice(index + 1, end), attachToPrevious: true, introduction: true });
+      index = end - 1;
+      continue;
+    }
     if (token.kind !== 'paragraph' || !INTRODUCTION_PATTERN.test(token.text)) continue;
     let end = index + 1;
     while (end < tokens.length && !isOuterArticleToken(tokens[end])) end += 1;
@@ -422,18 +503,30 @@ function groupAmendmentQuotes(tokens) {
   for (let index = 0; index < tokens.length; index += 1) {
     const token = tokens[index];
     grouped.push(token);
-    if (token.kind !== 'listItem' || !QUOTE_TRIGGER_PATTERN.test(token.text)) continue;
+    if (!['listItem', 'paragraph'].includes(token.kind) || !QUOTE_TRIGGER_PATTERN.test(token.text)) continue;
     let end = index + 1;
     let sawContent = false;
     while (end < tokens.length) {
       const candidate = tokens[end];
       if (candidate.kind === 'listItem' && candidate.listId === token.listId && candidate.level <= token.level) break;
-      if (sawContent && isOuterArticleToken(candidate) && CLOSING_QUOTE_PATTERN.test(tokens[end - 1]?.text ?? tokens[end - 1]?.rawText ?? '')) break;
+      if (
+        sawContent &&
+        isOuterArticleToken(candidate) &&
+        (
+          CLOSING_QUOTE_PATTERN.test(tokens[end - 1]?.text ?? tokens[end - 1]?.rawText ?? '') ||
+          OUTER_ARTICLE_TITLE_PATTERN.test(candidate.marker.title ?? '')
+        )
+      ) break;
       sawContent = true;
       end += 1;
     }
     if (end > index + 1) {
-      grouped.push({ kind: 'quotedGroup', tokens: tokens.slice(index + 1, end), attachToPrevious: true, introduction: false });
+      grouped.push({
+        kind: 'quotedGroup',
+        tokens: tokens.slice(index + 1, end),
+        attachToPrevious: token.kind === 'listItem',
+        introduction: false,
+      });
       index = end - 1;
     }
   }
@@ -448,6 +541,7 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
   const root = [];
   const stack = [{ rank: 0, children: root }];
   const listParents = new Map();
+  const listBaselines = new Map();
   let lastBlock = null;
 
   const append = (block) => {
@@ -465,6 +559,7 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
       stack.push({ rank, children: block.children });
       lastBlock = block;
       listParents.clear();
+      listBaselines.clear();
       continue;
     }
     if (token.kind === 'paragraph') {
@@ -488,30 +583,38 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
         parents = new Map();
         listParents.set(token.listId, parents);
       }
+      let baseline = listBaselines.get(token.listId);
+      if (baseline === undefined || token.level < baseline) {
+        baseline = token.level;
+        listBaselines.set(token.listId, baseline);
+        parents.clear();
+      }
+      const semanticLevel = token.level - baseline;
       let destination = currentChildren(stack);
-      if (token.level > 0) {
+      if (semanticLevel > 0) {
         let parent;
-        for (let parentLevel = token.level - 1; parentLevel >= 0; parentLevel -= 1) {
+        for (let parentLevel = semanticLevel - 1; parentLevel >= 0; parentLevel -= 1) {
           parent = parents.get(parentLevel);
           if (parent) break;
         }
-        if (!parent) throw new NormHtmlParseError(fileName, `Listenebene ${token.level} der Liste ${token.listId} besitzt keinen übergeordneten Punkt: „${token.text.slice(0, 100)}“`);
-        parent.children ??= [];
-        destination = parent.children;
+        if (parent) {
+          parent.children ??= [];
+          destination = parent.children;
+        }
       }
       const type = /^\(\d+[a-z]?\)$/iu.test(token.label) ? 'subparagraph' : 'item';
       const block = {
         type,
         label: token.label,
         text: token.text,
-        level: token.level,
+        level: semanticLevel,
         listId: token.listId,
         numberingStyle: token.numberingStyle,
         children: [],
       };
       destination.push(block);
-      parents.set(token.level, block);
-      for (const level of [...parents.keys()]) if (level > token.level) parents.delete(level);
+      parents.set(semanticLevel, block);
+      for (const level of [...parents.keys()]) if (level > semanticLevel) parents.delete(level);
       lastBlock = block;
       continue;
     }
@@ -541,10 +644,13 @@ function flattenBlocks(blocks, output = [], insideQuote = false) {
 
 function validateBody(fileName, title, body) {
   const flat = flattenBlocks(body);
-  const main = flat.filter(({ block, insideQuote }) => !insideQuote && ['article', 'paragraph', 'annex'].includes(block.type));
-  if (main.length === 0) throw new NormHtmlParseError(fileName, `„${title}“ enthält keine äußeren Artikel, Paragraphen oder Anlagen`);
+  const main = flat.filter(({ block, insideQuote }) => !insideQuote && [
+    'part', 'chapter', 'section', 'subsection', 'article', 'paragraph', 'annex', 'item', 'subitem', 'table',
+  ].includes(block.type));
+  if (main.length === 0) throw new NormHtmlParseError(fileName, `„${title}“ enthält keine erkennbare äußere Gliederung`);
   const bodyText = flat.map(({ block }) => `${block.label ?? ''} ${block.title ?? ''} ${block.text ?? ''}`).join(' ');
-  if (CONTAMINATION_PATTERN.test(bodyText)) throw new NormHtmlParseError(fileName, `Kopf-, Fuß-, CSS-, Bild- oder Signaturdaten sind in den Normkörper von „${title}“ geraten`);
+  const contamination = bodyText.match(CONTAMINATION_PATTERN)?.[0];
+  if (contamination) throw new NormHtmlParseError(fileName, `Kopf-, Fuß-, CSS-, Bild- oder Signaturdaten sind in den Normkörper von „${title}“ geraten (${contamination})`);
 }
 
 function inferEffectiveDate(text, publicationDate) {
@@ -577,10 +683,25 @@ function sanitizeNormNodes(nodes) {
   return result;
 }
 
-function headingCandidate(node) {
-  const lines = linesOf(node);
-  if (lines.length === 0 || !parseGermanDate(lines.join(' '))) return false;
-  return /^(?:(?:Erstes|Zweites|Drittes|Viertes|Fünftes|Sechstes|Siebtes|Achtes|Neuntes|Zehntes)\s+)?(?:Gesetz|Verordnung)\b/iu.test(lines[0]);
+function headingRanges(nodes, tocIndex, css) {
+  const ranges = [];
+  let floor = tocIndex + 1;
+  for (let end = tocIndex + 1; end < nodes.length; end += 1) {
+    const endText = textOf(nodes[end]);
+    if (nodes[end].tagName === 'table' || /^(?:Seite\s*)?\d+$/iu.test(endText)) floor = end + 1;
+    if (!parseGermanDate(endText)) continue;
+    for (let start = end; start >= Math.max(floor, end - 3); start -= 1) {
+      const text = normalizeHeadingText(nodes.slice(start, end + 1).map(textOf).join(' '));
+      const presentedAsHeading = start === floor || nodes.slice(start, end + 1).some((node) =>
+        /^h[1-6]$/u.test(node.tagName) || linesOf(node).length > 1 || isBold(node, css) || isCentered(node, css)
+      );
+      if ((ranges.length > 0 && !presentedAsHeading) || !SOURCE_HEADING_START_PATTERN.test(text) || !/\bvom\s+\d{1,2}\./iu.test(text)) continue;
+      ranges.push({ start, end, text });
+      floor = end + 1;
+      break;
+    }
+  }
+  return ranges;
 }
 
 function extractIntroducedNorms(tokens, publication, fileName) {
@@ -635,51 +756,156 @@ function parsedDocument(fileName, html) {
 export function classifyHtmlSource(fileName, html) {
   const { documentText } = parsedDocument(fileName, html);
   const lead = documentText.slice(0, 5000);
-  const publication = /Gesetz- und Verordnungsblatt/iu.test(lead) && /Ausgegeben\s+zu/iu.test(lead) && /Inhaltsverzeichnis/iu.test(lead);
+  const publicationIdentity = detectPublicationIdentity(lead);
+  const publication = publicationIdentity && /Ausgegeben\s+zu/iu.test(lead) && /Inhaltsverzeichnis/iu.test(lead);
   const editorial = /\b(?:Pressemitteilung|Begründung|Vorblatt|Erläuterung|Begleittext)\b/iu.test(lead) || /^PM[-_. ]/iu.test(fileName);
   const structureCount = (documentText.match(/(?:^|\s)(?:Artikel\s+\d+[a-z]?|§{1,2}\s*\d+[a-z]?)/giu) ?? []).length;
   const consolidated = /Staatsverfassung/iu.test(fileName) || /Nichtamtliches Inhaltsverzeichnis/iu.test(lead) || structureCount >= 3;
-  if (publication && editorial) return { kind: 'ambiguous', reason: 'Verkündungsblatt- und Begleittextmerkmale überschneiden sich' };
-  if (publication) return { kind: 'publication', reason: 'Verkündungsblatt mit internem Ausgabekopf und Inhaltsverzeichnis' };
+  if (publication) return { kind: 'publication', publication: publicationIdentity.publication, reason: `${publicationIdentity.longName} mit internem Ausgabekopf und Inhaltsverzeichnis` };
   if (editorial) return { kind: 'editorial', reason: 'redaktioneller Begleittext' };
   if (consolidated) return { kind: 'consolidated', reason: 'konsolidierte oder eigenständige Einzelnorm' };
   if (/<html\b/iu.test(html)) return { kind: 'unsupported', reason: 'HTML ohne eindeutige Norm- oder Verkündungsblattstruktur' };
   return { kind: 'ambiguous', reason: 'keine eindeutige HTML-Dokumentstruktur' };
 }
 
+function detectPublicationIdentity(value) {
+  const text = String(value ?? '');
+  if (/\b(?:OVertrBl\.|Vertragsblatt\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu.test(text)) {
+    return { publication: 'OVertrBl.', longName: 'Vertragsblatt' };
+  }
+  if (/\b(?:StAnzO\.|Staatsanzeiger\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu.test(text)) {
+    return { publication: 'StAnzO.', longName: 'Staatsanzeiger' };
+  }
+  if (/\b(?:OABl\.|Amtsblatt\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu.test(text)) {
+    return { publication: 'OABl.', longName: 'Amtsblatt' };
+  }
+  if (/\b(?:OGVBl\.|Gesetz-\s*und\s+Verordnungsblatt)/iu.test(text)) {
+    return { publication: 'OGVBl.', longName: 'Gesetz- und Verordnungsblatt' };
+  }
+  return null;
+}
+
+function parseHeadingRange(range, fileName) {
+  const documentDate = parseGermanDate(range.text);
+  if (!documentDate) throw new NormHtmlParseError(fileName, 'Dokumentdatum in der Normüberschrift fehlt');
+  const dateMatch = range.text.match(DATE_PATTERN);
+  const rawTitle = range.text.slice(0, dateMatch?.index ?? range.text.length).replace(/\s+vom\s*$/iu, '').trim();
+  const heading = rawTitle.match(SOURCE_HEADING_START_PATTERN)?.[0]?.trim();
+  if (!heading) throw new NormHtmlParseError(fileName, `Dokumenttyp in der Normüberschrift „${rawTitle}“ fehlt`);
+  return { heading, documentDate, ...parseIdentity(heading, rawTitle) };
+}
+
+function tocEntries(nodes, tocIndex, mainStart) {
+  const result = [];
+  let pendingDate = null;
+  const candidates = [];
+  for (const node of nodes.slice(tocIndex + 1, mainStart)) {
+    if (node.tagName === 'table') {
+      candidates.push(...descendants(node, (entry) => entry.tagName === 'td' || entry.tagName === 'th').map(textOf));
+    } else {
+      candidates.push(textOf(node));
+    }
+  }
+  for (const candidate of candidates.map(normalizeHeadingText).filter(Boolean)) {
+    const date = parseGermanDate(candidate);
+    if (date && DATE_PATTERN.test(candidate) && candidate.replace(DATE_PATTERN, '').trim() === '') {
+      pendingDate = date;
+      continue;
+    }
+    if (/^(?:Seite\s*)?\d+$/iu.test(candidate)) continue;
+    if (!/(?:Gesetz|Verordnung|Verwaltungsvorschrift|Förderrichtlinie|Richtlinie|Allgemeinverfügung|Anordnung|Bekanntmachung|Erlass|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu.test(candidate)) continue;
+    result.push({ title: candidate, documentDate: pendingDate });
+    pendingDate = null;
+  }
+  return result;
+}
+
+function preferTocTitle(identity, tocTitle) {
+  if (!tocTitle || identity.title === tocTitle) return identity;
+  const normalizedTitle = identity.title.replace(/\s+/gu, ' ').trim();
+  const normalizedTocTitle = tocTitle.replace(/\s+/gu, ' ').trim();
+  if (normalizedTitle.endsWith(normalizedTocTitle)) {
+    return { ...identity, title: normalizedTocTitle, shortTitle: normalizedTocTitle };
+  }
+  return identity;
+}
+
 export function parsePublicationHtml(fileName, html) {
   const classification = classifyHtmlSource(fileName, html);
   if (classification.kind !== 'publication') throw new NormHtmlParseError(fileName, `Quelle ist kein Verkündungsblatt (${classification.reason})`);
-  const { nodes, css, documentText } = parsedDocument(fileName, html);
+  const { nodes, css } = parsedDocument(fileName, html);
   const headerText = nodes.slice(0, 10).map(textOf).join(' ');
   const issueMatch = headerText.match(/\bNr\.\s*(\d+)\b/u);
   const publicationDate = parseGermanDate(headerText.match(/Ausgegeben\s+zu[\s\S]{0,120}/iu)?.[0] ?? headerText);
   if (!issueMatch || !publicationDate) throw new NormHtmlParseError(fileName, 'Ausgabenummer oder Ausgabedatum konnte nicht aus dem Inhalt bestimmt werden');
   const tocIndex = nodes.findIndex((node) => /^Inhaltsverzeichnis$/iu.test(textOf(node)));
   if (tocIndex < 0) throw new NormHtmlParseError(fileName, 'Inhaltsverzeichnis fehlt');
-  const headingIndex = nodes.findIndex((node, index) => index > tocIndex && headingCandidate(node));
-  if (headingIndex < 0) throw new NormHtmlParseError(fileName, 'keine unterstützte Normüberschrift nach dem Inhaltsverzeichnis erkannt');
-  const headingLines = linesOf(nodes[headingIndex]);
-  const documentDate = parseGermanDate(headingLines.join(' '));
-  const titleLines = headingLines.filter((line) => !/^vom\b/iu.test(line) && !DATE_PATTERN.test(line));
-  const dateLine = headingLines.findIndex((line) => /\bvom\b/iu.test(line));
-  const identityLines = dateLine >= 0 ? headingLines.slice(0, dateLine) : titleLines;
-  const heading = identityLines[0];
-  const identity = parseIdentity(heading, identityLines.join(' '));
-  const tocText = nodes.slice(tocIndex, headingIndex).map(textOf).join(' ');
+  const ranges = headingRanges(nodes, tocIndex, css);
+  if (ranges.length === 0) throw new NormHtmlParseError(fileName, 'keine unterstützte Normüberschrift nach dem Inhaltsverzeichnis erkannt');
+  const [mainRange] = ranges;
+  const toc = tocEntries(nodes, tocIndex, mainRange.start);
+  const mainIdentity = preferTocTitle(parseHeadingRange(mainRange, fileName), toc[0]?.title);
+  const tocText = nodes.slice(tocIndex, mainRange.start).map(textOf).join(' ');
   const startPage = tocText.match(/\bSeite\s*(\d+)\b/iu)?.[1];
-  const bodyNodes = sanitizeNormNodes(nodes.slice(headingIndex + 1));
+  const undatedPublishedStart = classification.publication === 'OVertrBl.' && ranges.length === 1
+    ? nodes.findIndex((node, index) => index > mainRange.end && /^(?:CONVENTION|ABKOMMEN|ÜBEREINKOMMEN)\b/iu.test(textOf(node)))
+    : -1;
+  const mainEnd = ranges[1]?.start ?? (undatedPublishedStart >= 0 ? undatedPublishedStart : nodes.length);
+  const bodyNodes = sanitizeNormNodes(nodes.slice(mainRange.end + 1, mainEnd));
   const rawTokens = makeAtomicTokens(bodyNodes, css, fileName);
   const body = parseTokens(rawTokens, fileName);
-  validateBody(fileName, identity.title, body);
-  const effectiveDate = inferEffectiveDate(documentText, publicationDate);
+  validateBody(fileName, mainIdentity.title, body);
+  const effectiveDate = inferEffectiveDate(bodyNodes.map(textOf).join(' '), publicationDate);
   const publication = {
-    kind: 'publication', fileName, issue: issueMatch[1], publication: 'OGVBl.', publicationDate,
-    documentDate, effectiveDate, heading, ...identity,
-    type: sourceTypeFromHeading(heading, identity.title),
+    kind: 'publication', fileName, issue: issueMatch[1], publication: classification.publication, year: Number(publicationDate.slice(0, 4)), publicationDate,
+    effectiveDate, ...mainIdentity,
+    type: sourceTypeFromHeading(mainIdentity.heading, mainIdentity.title),
     ...(startPage ? { startPage } : {}), body,
   };
   publication.introducedNorms = extractIntroducedNorms(rawTokens, publication, fileName);
+  for (let rangeIndex = 1; rangeIndex < ranges.length; rangeIndex += 1) {
+    const range = ranges[rangeIndex];
+    const nextStart = ranges[rangeIndex + 1]?.start ?? nodes.length;
+    const identity = preferTocTitle(parseHeadingRange(range, fileName), toc[rangeIndex]?.title);
+    const secondaryNodes = sanitizeNormNodes(nodes.slice(range.end + 1, nextStart));
+    const secondaryBody = parseTokens(makeAtomicTokens(secondaryNodes, css, fileName), fileName);
+    validateBody(fileName, identity.title, secondaryBody);
+    publication.introducedNorms.push({
+      kind: 'published',
+      ...identity,
+      type: sourceTypeFromHeading(identity.heading, identity.title),
+      publicationDate,
+      effectiveDate: inferEffectiveDate(secondaryNodes.map(textOf).join(' '), publicationDate),
+      body: secondaryBody,
+    });
+  }
+  if (undatedPublishedStart >= 0) {
+    const tocEntry = toc[1];
+    const sourceContainer = nodes[undatedPublishedStart];
+    const sourceCells = sourceContainer.tagName === 'table'
+      ? directRows(sourceContainer).flatMap((row) => elementChildren(row).filter((cell) => cell.tagName === 'td' || cell.tagName === 'th'))
+      : [];
+    const germanCell = sourceCells.find((cell) => /^ÜBEREINKOMMEN\b/iu.test(textOf(cell))) ?? sourceCells.at(-1);
+    const identity = {
+      heading: 'Übereinkommen',
+      title: tocEntry?.title ?? 'Übereinkommen über den Schutz der Meeresumwelt des Ostseegebiets, 1992',
+      shortTitle: tocEntry?.title ?? 'Übereinkommen',
+      documentDate: tocEntry?.documentDate ?? publicationDate,
+    };
+    const treatyNodes = germanCell ? nestedFlowNodes(germanCell) : nodes.slice(undatedPublishedStart + 1);
+    const treatyBodyStart = treatyNodes.findIndex((node) => /^(?:THE CONTRACTING PARTIES|DIE VERTRAGSPARTEIEN)/iu.test(textOf(node)));
+    const secondaryNodes = treatyNodes.slice(treatyBodyStart >= 0 ? treatyBodyStart : 0);
+    const secondaryBody = parseTokens(makeAtomicTokens(secondaryNodes, css, fileName), fileName);
+    validateBody(fileName, identity.title, secondaryBody);
+    publication.introducedNorms.push({
+      kind: 'published',
+      ...identity,
+      type: 'staatsvertrag',
+      publicationDate,
+      effectiveDate: null,
+      body: secondaryBody,
+    });
+  }
   if (publication.introducedNorms.length > 0 || /Änderung|Reform|Neuordnung|Einführung|Errichtung/iu.test(publication.title)) publication.type = 'aenderungsvorschrift';
   return publication;
 }

@@ -7,23 +7,23 @@
   "publication": "OGVBl.",
   "entries": [
     {
-      "id": "gesetz-verkundungen-bekanntmachungen",
-      "title": "Gesetz über Verkündungen und Bekanntmachungen",
-      "type": "gesetz",
-      "citation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 9 S. 1)",
-      "pages": "1-5",
-      "documentDate": "2026-01-26",
-      "normSlug": "gesetz-uber-verkundungen-und-bekanntmachungen",
-      "versionId": "2026-01-26"
-    },
-    {
       "id": "verfassungsaenderung-verkundung",
-      "title": "Gesetz zur Veränderung der Verfassung zur Änderung der Verkündung elektronischer Verkündungsblätter",
+      "title": "Gesetz zur Veränderung der Verfassung zur Änderung der Verkündungsregeln und zur Einführung eines Verkündungsgesetz",
       "type": "gesetz",
       "citation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 9 S. 6)",
       "pages": "6-8",
       "documentDate": "2026-01-26",
       "normSlug": "gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5",
+      "versionId": "2026-01-26"
+    },
+    {
+      "id": "gesetz-verkundungen-bekanntmachungen",
+      "title": "Gesetz über Verkündungen und Bekanntmachungen (Bekanntmachungs und Verkündungsgesetz \\- BeVerKüGe)",
+      "type": "gesetz",
+      "citation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 9 S. 1)",
+      "pages": "1-5",
+      "documentDate": "2026-01-26",
+      "normSlug": "gesetz-uber-verkundungen-und-bekanntmachungen",
       "versionId": "2026-01-26"
     }
   ],
@@ -39,6 +39,12 @@
       "label": "Festgeschriebene Liste der amtlichen Verkündungsblätter",
       "availability": "external",
       "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
+    },
+    {
+      "kind": "structured-html-transcription",
+      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 9.html"
     }
   ]
 }

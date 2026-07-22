@@ -28,3 +28,27 @@ test('Normschema erhält leere Tabellenzellen und unterscheidet Kopfzellen', () 
   assert.equal(version.body[0].children?.[0].children?.[1].type, 'tableHeaderCell');
   assert.equal(version.body[0].children?.[1].children?.[1].text, '');
 });
+
+test('Normschema erlaubt quellentreue textlose Gliederungspunkte mit sichtbarem Zeichen', () => {
+  const version = parseNormVersion({
+    versionId: '2026-07-22',
+    validFrom: '2026-07-22',
+    validTo: null,
+    isCurrent: true,
+    citation: 'Testgesetz vom 22. Juli 2026 (OGVBl. 2026 Nr. 99)',
+    changeNote: 'Testfassung.',
+    body: [
+      {
+        type: 'item',
+        label: '4.',
+        text: '',
+        children: [{ type: 'item', label: 'a.', text: 'Unterpunkt', children: [] }],
+      },
+      { type: 'subparagraph', label: '(5)', text: '', children: [] },
+    ],
+  }, 'test/version.json');
+
+  assert.equal(version.body[0].text, '');
+  assert.equal(version.body[0].children?.[0].label, 'a.');
+  assert.equal(version.body[1].label, '(5)');
+});

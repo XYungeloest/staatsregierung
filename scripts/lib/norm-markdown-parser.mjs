@@ -1,13 +1,16 @@
-const ORDINAL_LAW = '(?:Erstes|Zweites|Drittes|Viertes|Fünftes|Sechstes|Siebtes|Achtes|Neuntes|Zehntes|Elftes|Zwölftes|Dreizehntes|Vierzehntes|Fünfzehntes|Sechzehntes|Siebzehntes|Achtzehntes|Neunzehntes|Zwanzigstes)';
+const ORDINAL_STEM = '(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)';
+const ORDINAL_LAW = `(?:${ORDINAL_STEM}(?:e|er|es|en))`;
 
 const SOURCE_HEADING_PATTERN = new RegExp(
-  `^(?:(?:${ORDINAL_LAW})\\s+Gesetz|Gesetz|Änderungsgesetz|Rechtsverordnung|Verordnung|Satzung|Förderrichtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Bekanntmachung|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)$`,
+  `^(?:(?:${ORDINAL_LAW})\\s+(?:Gesetz|Verordnung)|Gesetz|Änderungsgesetz|Rechtsverordnung|Verordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Bekanntmachung|Anordnung|Erlass|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)(?:\\s+.*)?$`,
   'iu',
 );
 
 const OUTER_ARTICLE_TITLE = /^(?:Einführung|Änderung|Neufassung|Übergangsbestimmungen?|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Rechtsbereinigung)/iu;
 const SIGNATURE_START = /^(?:Dresden|Berlin|Leipzig|Potsdam|Warschau|Prag|Helsinki),\s+den\b/iu;
+const SIGNATURE_OFFICE = /^(?:D\s+i\s+e|D\s+e\s+r)\s+(?:M\s+I\s+N\s+I\s+S\s+T\s+E\s+R|S\s+T\s+A\s+A\s+T\s+S|L\s+A\s+N\s+D\s+T\s+A\s+G)/iu;
 const BASE64_PATTERN = /(?:data:image\/|;base64,|\[image\d+\]:\s*<data:)/iu;
+const QUOTED_PROVISION_TRIGGER = /(?:wird\s+(?:wie folgt gefasst|folgender\s+(?:Artikel|Paragraph|§)[^:]*(?:eingefügt|angefügt))|wird\s+durch\s+(?:die\s+)?(?:folgende|nachstehende)\s+Fassung\s+(?:ersetzt|abgelöst)|erhält\s+folgende\s+Bezeichnung)\s*:?$/iu;
 
 export class NormMarkdownParseError extends Error {
   constructor(fileName, line, message) {
@@ -17,7 +20,10 @@ export class NormMarkdownParseError extends Error {
 }
 
 export function normalizeMarkdown(markdown) {
-  return markdown.replace(/\r\n?/gu, '\n').replace(/\u000b/gu, '');
+  return markdown
+    .replace(/\r\n?/gu, '\n')
+    .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/gu, ' ')
+    .replace(/\u00a0/gu, ' ');
 }
 
 export function stripMarkdown(value) {
@@ -27,6 +33,7 @@ export function stripMarkdown(value) {
     .replace(/\{#[^}]+\}\s*$/u, '')
     .replace(/!\[[^\]]*\](?:\[[^\]]+\]|\([^)]*\))/gu, '')
     .replace(/\[([^\]]+)\]\([^)]*\)/gu, '$1')
+    .replace(/\[\^[^\]]+\]/gu, '')
     .replace(/\*\*|__/gu, '')
     .replace(/(?<!\*)\*(?!\*)/gu, '')
     .replace(/`/gu, '')
@@ -38,6 +45,7 @@ export function stripMarkdown(value) {
 function makeLines(markdown) {
   return normalizeMarkdown(markdown).split('\n').map((raw, index) => ({
     raw,
+    indent: raw.match(/^\s*/u)?.[0].replace(/\t/gu, '    ').length ?? 0,
     number: index + 1,
     text: stripMarkdown(raw),
     blank: stripMarkdown(raw) === '',
@@ -49,7 +57,7 @@ export function classifyMarkdownSource(fileName, markdown) {
   if (/^PM-/iu.test(fileName) || /\bPressemitteilung\b/iu.test(normalized.slice(0, 3000))) {
     return { kind: 'editorial', reason: 'Presse- oder Begleittext' };
   }
-  if (/Gesetz- und Verordnungsblatt/iu.test(normalized) && /Ausgegeben\s+zu/iu.test(normalized)) {
+  if (/(?:Gesetz- und Verordnungsblatt|Amtsblatt|Staatsanzeiger|Vertragsblatt)/iu.test(normalized.slice(0, 5000)) && /Ausgegeben\s+(?:zu|in)/iu.test(normalized.slice(0, 5000))) {
     return { kind: 'publication', reason: 'Ausgabe eines Verkündungsblattes' };
   }
   const structureCount = (normalized.match(/^(?:\s*#{1,6}\s*)?(?:\*\*)?(?:§{1,2}\s*\d|Artikel\s+\d)/gimu) ?? []).length;
@@ -110,13 +118,15 @@ function sourceTypeFromHeading(heading, title) {
   if (/Förderrichtlinie/iu.test(heading)) return 'foerderrichtlinie';
   if (/Allgemeinverfügung/iu.test(heading)) return 'allgemeinverfuegung';
   if (/Bekanntmachung/iu.test(heading)) return 'bekanntmachung';
+  if (/Anordnung|Erlass|Richtlinie/iu.test(heading)) return 'verwaltungsvorschrift';
   if (/Staatsvertrag|Abkommen|Übereinkommen|Vertrag/iu.test(heading)) return 'staatsvertrag';
   if (/Änderung|Neuordnung|Einführung|Errichtung|Reform/iu.test(`${heading} ${title}`)) return 'aenderungsvorschrift';
   return 'gesetz';
 }
 
 export function parseStructureMarker(value) {
-  const text = stripMarkdown(value).replace(/^[„“”'`,.]+/u, '').trim();
+  const raw = String(value ?? '');
+  const text = stripMarkdown(raw).replace(/^[„“”'`,.]+/u, '').trim();
   let match = text.match(/^((?:Teil|Kapitel|Abschnitt|Unterabschnitt)\s+(?:\d+[a-z]?|[IVXLCDM]+))\s*(?:[–—:-]|\s-\s)?\s*(.*)$/iu);
   if (match) {
     const prefix = match[1].split(/\s+/u)[0].toLocaleLowerCase('de');
@@ -125,6 +135,16 @@ export function parseStructureMarker(value) {
   }
   match = text.match(/^([IVXLCDM]+\.\s*Abschnitt)\s*(?:[–—:-])?\s*(.*)$/u);
   if (match) return { type: 'section', label: match[1], title: match[2] || undefined };
+  if (/^\s*(?:#{1,6}\s*)?(?:\*\*)?(?![IVXLCDM]\\?\.)[A-Z]\\?\.(?:\*\*)?\s*$/u.test(raw)) {
+    return { type: 'part', label: text };
+  }
+  if (/^\s*(?:#{1,6}\s*)?(?:\*\*)?[IVXLCDM]+\\?\.(?:\*\*)?\s*$/u.test(raw)) {
+    return { type: 'section', label: text };
+  }
+  if (/^\s*(?:(?:#{1,6}\s*)|(?:\*\*))\d+(?:\.\d+)*\\?\.(?:\*\*)?\s+.+/u.test(raw)) {
+    const outline = text.match(/^(\d+(?:\.\d+)*\.)\s+(.+)$/u);
+    if (outline) return { type: outline[1].includes('.') && outline[1].split('.').filter(Boolean).length > 1 ? 'subsection' : 'section', label: outline[1], title: outline[2] };
+  }
   match = text.match(/^(Präambel)\s*(?:[–—:-])?\s*(.*)$/iu);
   if (match) return { type: 'section', label: 'Präambel', title: match[2] || undefined };
   match = text.match(/^(Artikel\s+\d+[a-z]?)\s*(?:[–—:-])?\s*(.*)$/iu);
@@ -164,6 +184,12 @@ function sanitizeBodyLines(lines, startIndex, endIndex) {
       inSignatureBlock = true;
       continue;
     }
+    if (SIGNATURE_OFFICE.test(line.text)) {
+      while (result.at(-1)?.blank) result.pop();
+      if (result.at(-1) && !parseStructureMarker(result.at(-1).raw)) result.pop();
+      inSignatureBlock = true;
+      continue;
+    }
     if (inSignatureBlock) {
       const marker = parseStructureMarker(line.raw);
       if (marker?.type !== 'annex') continue;
@@ -178,16 +204,50 @@ function sanitizeBodyLines(lines, startIndex, endIndex) {
   return result;
 }
 
-const STRUCTURE_RANK = { part: 1, chapter: 2, section: 3, subsection: 4, article: 5, paragraph: 5, annex: 5 };
+const STRUCTURE_RANK = { part: 1, chapter: 2, annex: 2, section: 3, subsection: 4, article: 5, paragraph: 5 };
 
 function parseListItem(text) {
-  let match = text.match(/^(\d+[a-z]?)[.)]\s+(.*)$/iu);
-  if (match) return { type: 'item', label: `${match[1]}${text.startsWith(`${match[1]})`) ? ')' : '.'}`, text: match[2] };
-  match = text.match(/^([a-z]{1,2})\)\s+(.*)$/iu);
-  if (match) return { type: match[1].length > 1 ? 'subitem' : 'item', label: `${match[1]})`, text: match[2] };
+  let match = text.match(/^(\(?\d+[a-z]?\)?[.)])(?:\s+(.*))?$/iu);
+  if (match) return { type: 'item', label: match[1], text: match[2] ?? '', numberingStyle: /^\(/u.test(match[1]) ? 'decimal-parenthesized' : 'decimal' };
+  match = text.match(/^([a-z]{1,2}[.)])(?:\s+(.*))?$/iu);
+  if (match) return { type: match[1].length > 2 ? 'subitem' : 'item', label: match[1], text: match[2] ?? '', numberingStyle: 'lower-latin' };
+  match = text.match(/^([ivxlcdm]+[.)])(?:\s+(.*))?$/iu);
+  if (match) return { type: 'subitem', label: match[1], text: match[2] ?? '', numberingStyle: 'lower-roman' };
   match = text.match(/^[–—-]\s+(.*)$/u);
   if (match) return { type: 'item', label: '–', text: match[1] };
   return null;
+}
+
+function alphabeticLabel(number) {
+  let value = Math.max(1, number);
+  let label = '';
+  while (value > 0) {
+    value -= 1;
+    label = String.fromCharCode(97 + (value % 26)) + label;
+    value = Math.floor(value / 26);
+  }
+  return label;
+}
+
+function romanLabel(number) {
+  const values = [[1000, 'm'], [900, 'cm'], [500, 'd'], [400, 'cd'], [100, 'c'], [90, 'xc'], [50, 'l'], [40, 'xl'], [10, 'x'], [9, 'ix'], [5, 'v'], [4, 'iv'], [1, 'i']];
+  let value = Math.max(1, number);
+  let label = '';
+  for (const [numeric, roman] of values) {
+    while (value >= numeric) {
+      label += roman;
+      value -= numeric;
+    }
+  }
+  return label;
+}
+
+function normalizeLegacyNestedLabel(item, semanticLevel) {
+  if (semanticLevel === 0 || item.numberingStyle !== 'decimal' || !/^\d+\.$/u.test(item.label)) return item;
+  const number = Number.parseInt(item.label, 10);
+  if (semanticLevel === 1) return { ...item, label: `${alphabeticLabel(number)}.`, numberingStyle: 'lower-latin' };
+  if (semanticLevel === 2) return { ...item, label: `${romanLabel(number)}.`, numberingStyle: 'lower-roman' };
+  return { ...item, label: `${alphabeticLabel(number).repeat(2)})`, numberingStyle: 'lower-latin-double' };
 }
 
 function tableCells(raw) {
@@ -202,10 +262,11 @@ function isTableSeparator(raw) {
 
 export function parseStructuredBody(inputLines) {
   const lines = inputLines.map((line, index) => typeof line === 'string'
-    ? { raw: line, text: stripMarkdown(line), blank: stripMarkdown(line) === '', number: index + 1 }
+    ? { raw: line, indent: line.match(/^\s*/u)?.[0].replace(/\t/gu, '    ').length ?? 0, text: stripMarkdown(line), blank: stripMarkdown(line) === '', number: index + 1 }
     : line);
   const root = [];
   const stack = [{ rank: 0, children: root }];
+  let listStack = [];
   let previousWasBlank = true;
 
   const appendContinuation = (children, text) => {
@@ -225,9 +286,20 @@ export function parseStructuredBody(inputLines) {
     if (marker) {
       const block = { type: marker.type, label: marker.label, title: marker.title, children: [] };
       const rank = STRUCTURE_RANK[marker.type];
+      const quoteParent = listStack.at(-1);
+      if (quoteParent && line.indent > quoteParent.indent && QUOTED_PROVISION_TRIGGER.test(quoteParent.block.text ?? '')) {
+        const quotedProvision = { type: 'quotedProvision', children: [block] };
+        quoteParent.block.children.push(quotedProvision);
+        stack.push({ rank, children: block.children });
+        listStack = [];
+        if (marker.titleLine === index + 1) index = marker.titleLine;
+        previousWasBlank = false;
+        continue;
+      }
       while (stack.length > 1 && stack.at(-1).rank >= rank) stack.pop();
       stack.at(-1).children.push(block);
       stack.push({ rank, children: block.children });
+      listStack = [];
       if (marker.titleLine === index + 1) index = marker.titleLine;
       previousWasBlank = false;
       continue;
@@ -252,6 +324,7 @@ export function parseStructuredBody(inputLines) {
         rows.push({ type: 'tableRow', children: cells });
       });
       if (rows.length > 0) stack.at(-1).children.push({ type: 'table', children: rows });
+      listStack = [];
       index = cursor - 1;
       previousWasBlank = false;
       continue;
@@ -259,23 +332,44 @@ export function parseStructuredBody(inputLines) {
 
     const text = line.text;
     if (!text || /^Inhaltsverzeichnis$/iu.test(text)) continue;
+    if (text === '1.' && line.indent === 0 && !root.some((block) => ['part', 'chapter', 'section'].includes(block.type)) &&
+      lines.slice(index + 1).some((candidate) => parseStructureMarker(candidate.raw)?.label === 'II.')) {
+      const block = { type: 'section', label: 'I.', children: [] };
+      root.push(block);
+      stack.push({ rank: STRUCTURE_RANK.section, children: block.children });
+      listStack = [];
+      previousWasBlank = false;
+      continue;
+    }
     const subparagraph = text.match(/^\((\d+[a-z]?)\)\s*(.*)$/iu);
     if (subparagraph) {
-      stack.at(-1).children.push({ type: 'subparagraph', label: `(${subparagraph[1]})`, text: subparagraph[2] });
+      const block = { type: 'subparagraph', label: `(${subparagraph[1]})`, text: subparagraph[2], children: [] };
+      stack.at(-1).children.push(block);
+      listStack = [{ indent: line.indent, children: block.children, block }];
       previousWasBlank = false;
       continue;
     }
     const item = parseListItem(text);
     if (item) {
-      stack.at(-1).children.push(item);
+      while (listStack.length > 0 && line.indent <= listStack.at(-1).indent) listStack.pop();
+      const semanticLevel = listStack.length;
+      const normalizedItem = normalizeLegacyNestedLabel(item, semanticLevel);
+      const block = { ...normalizedItem, level: semanticLevel, children: [] };
+      const children = listStack.at(-1)?.children ?? stack.at(-1).children;
+      children.push(block);
+      listStack.push({ indent: line.indent, children: block.children, block });
       previousWasBlank = false;
       continue;
     }
-    if (!previousWasBlank && appendContinuation(stack.at(-1).children, text)) {
+    const continuationChildren = listStack.at(-1)?.children?.length === 0 && listStack.at(-1)?.block
+      ? [listStack.at(-1).block]
+      : stack.at(-1).children;
+    if ((!previousWasBlank || listStack.at(-1)?.block?.text === '') && appendContinuation(continuationChildren, text)) {
       previousWasBlank = false;
       continue;
     }
     stack.at(-1).children.push({ type: 'paragraphText', text });
+    listStack = [];
     previousWasBlank = false;
   }
   return root;
@@ -291,8 +385,10 @@ function flattenBlocks(blocks, output = []) {
 
 function validateBody(fileName, sourceLine, title, body, { strictLabels = false } = {}) {
   const flat = flattenBlocks(body);
-  const structured = flat.filter((block) => ['article', 'paragraph', 'annex'].includes(block.type));
-  if (structured.length === 0) throw new NormMarkdownParseError(fileName, sourceLine, `„${title}“ enthält keinen erkannten Artikel oder Paragraphen`);
+  const structured = flat.filter((block) => ['part', 'chapter', 'section', 'subsection', 'article', 'paragraph', 'annex', 'item', 'table'].includes(block.type));
+  if (structured.length === 0 && !flat.some((block) => block.type === 'paragraphText' && block.text)) {
+    throw new NormMarkdownParseError(fileName, sourceLine, `„${title}“ enthält keinen erkannten Normtext`);
+  }
   const bodyText = flat.map((block) => `${block.label ?? ''} ${block.title ?? ''} ${block.text ?? ''}`).join(' ');
   if (/Inhaltsverzeichnis/iu.test(bodyText)) throw new NormMarkdownParseError(fileName, sourceLine, `Inhaltsverzeichnis ist in den Normkörper von „${title}“ geraten`);
   if (BASE64_PATTERN.test(bodyText)) throw new NormMarkdownParseError(fileName, sourceLine, `Bild- oder Base64-Daten sind in den Normkörper von „${title}“ geraten`);
@@ -314,7 +410,7 @@ function findMainHeading(lines, tocIndex) {
   return -1;
 }
 
-function parseMainTitle(lines, headingIndex, fileName) {
+function parseMainTitle(lines, headingIndex, fileName, fallbackDocumentDate = null) {
   const heading = lines[headingIndex].text;
   const titleLines = [];
   let documentDate = null;
@@ -327,9 +423,10 @@ function parseMainTitle(lines, headingIndex, fileName) {
       cursor += 1;
       break;
     }
-    if (parseStructureMarker(line.raw) || /^(?:Der .*Landtag|Auf Grund|Aufgrund|Der Staatsrat)/iu.test(line.text)) break;
+    if (parseStructureMarker(line.raw) || /^(?:Der .*Landtag|Auf Grund|Aufgrund|Der Staatsrat|Ich ordne|Gemäß)/iu.test(line.text)) break;
     titleLines.push(line);
   }
+  documentDate ??= fallbackDocumentDate;
   if (!documentDate) throw new NormMarkdownParseError(fileName, lines[headingIndex].number, 'Dokumentdatum nach der Normüberschrift fehlt oder ist mehrdeutig');
   const identity = parseIdentity(heading, cleanTitleLines(titleLines));
   if (!identity.title || /^\|/u.test(identity.title)) throw new NormMarkdownParseError(fileName, lines[headingIndex].number, 'Normtitel fehlt oder besteht aus Kopf-/Tabellentext');
@@ -394,18 +491,17 @@ export function parsePublicationMarkdown(fileName, markdown) {
   const classification = classifyMarkdownSource(fileName, markdown);
   if (classification.kind !== 'publication') throw new NormMarkdownParseError(fileName, 1, `Quelle ist keine Verkündungsblatt-Ausgabe (${classification.reason})`);
   const lines = makeLines(markdown);
-  const header = lines.slice(0, 15).map((line) => line.text).join(' ');
+  const header = lines.slice(0, 20).map((line) => line.text).join(' ');
   const issueMatch = header.match(/Nr\.\s*(\d+)/u);
   const publicationDate = parseGermanDate(header.match(/Ausgegeben[^|]*/iu)?.[0] ?? header);
   if (!issueMatch || !publicationDate) throw new NormMarkdownParseError(fileName, 1, 'Ausgabenummer oder Ausgabedatum konnte nicht bestimmt werden');
   const tocIndex = lines.findIndex((line) => /^Inhaltsverzeichnis$/iu.test(line.text));
   const headingIndex = findMainHeading(lines, tocIndex);
   if (headingIndex < 0) throw new NormMarkdownParseError(fileName, 1, 'keine unterstützte Normüberschrift nach dem Inhaltsverzeichnis erkannt');
-  const main = parseMainTitle(lines, headingIndex, fileName);
+  const main = parseMainTitle(lines, headingIndex, fileName, publicationDate);
   const tocText = lines.slice(Math.max(0, tocIndex), headingIndex).map((line) => line.text).join(' ');
   const startPage = tocText.match(/\bSeite\s+(\d+)\b/iu)?.[1];
-  let bodyStart = main.cursor;
-  while (bodyStart < lines.length && !parseStructureMarker(lines[bodyStart].raw)) bodyStart += 1;
+  const bodyStart = main.cursor;
   // Der Ausfertigungsblock beendet nicht zwingend die Quelle: Anlagen können ihm folgen.
   // Die Bereinigung überspringt Signaturzeilen und setzt bei einer Anlage wieder ein.
   const bodyEnd = lines.length;
@@ -418,7 +514,10 @@ export function parsePublicationMarkdown(fileName, markdown) {
     kind: 'publication',
     fileName,
     issue: issueMatch[1],
-    publication: 'OGVBl.',
+    publication: /Gesetz- und Verordnungsblatt/iu.test(header) ? 'OGVBl.'
+      : /Staatsanzeiger/iu.test(header) ? 'StAnzO.'
+        : /Vertragsblatt/iu.test(header) ? 'OVertrBl.' : 'OABl.',
+    year: Number(publicationDate.slice(0, 4)),
     publicationDate,
     documentDate: main.documentDate,
     effectiveDate,
@@ -430,7 +529,8 @@ export function parsePublicationMarkdown(fileName, markdown) {
     body,
   };
   publication.introducedNorms = extractIntroducedNorms(lines, bodyStart, bodyEnd, publication, fileName);
-  if (publication.introducedNorms.length > 0 || publication.body[0]?.title?.startsWith('Änderung')) {
+  const firstMainStructure = publication.body.find((block) => ['article', 'paragraph'].includes(block.type));
+  if (publication.introducedNorms.length > 0 || firstMainStructure?.title?.startsWith('Änderung')) {
     publication.type = 'aenderungsvorschrift';
   }
   return publication;
@@ -444,7 +544,13 @@ export function parseConsolidatedMarkdown(fileName, markdown, identity = {}) {
   let bodyStart = lines.findIndex((line, index) => index > tocIndex && /^\s*#{1,6}\s/u.test(line.raw) && parseStructureMarker(line.raw));
   if (bodyStart < 0) bodyStart = lines.findIndex((line) => parseStructureMarker(line.raw));
   const body = parseStructuredBody(sanitizeBodyLines(lines, bodyStart, lines.length));
-  const title = identity.title ?? stripMarkdown(fileName.replace(/\.md$/iu, ''));
+  const titlePreamble = [];
+  for (const line of lines.slice(0, tocIndex >= 0 ? tocIndex : 12)) {
+    if (/^(?:Vollzitat|Weitere Änderungen|in der Fassung)/iu.test(line.text)) break;
+    if (line.text) titlePreamble.push(line.text);
+  }
+  const inferredTitle = titlePreamble.join(' ').replace(/\s+/gu, ' ').trim();
+  const title = (identity.title ?? inferredTitle) || stripMarkdown(fileName.replace(/\.md$/iu, ''));
   validateBody(fileName, lines[bodyStart]?.number ?? 1, title, body, { strictLabels: true });
   return { kind: 'consolidated', fileName, title, body, sourceLine: lines[bodyStart]?.number ?? 1 };
 }

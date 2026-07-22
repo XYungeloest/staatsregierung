@@ -49,7 +49,7 @@ export type HistoryEntryType = (typeof HISTORY_ENTRY_TYPES)[number];
 export type StructureType = (typeof STRUCTURE_TYPES)[number];
 
 export interface NormSourceReference {
-  kind: 'structured-html-transcription';
+  kind: 'structured-html-transcription' | 'legacy-markdown-transcription';
   label: string;
   availability: 'versioned';
   localSource: string;
@@ -194,6 +194,12 @@ function expectTableCellText(value: unknown, path: string): string {
   return value.trim();
 }
 
+function expectOptionalContainerText(value: unknown, path: string): string | undefined {
+  if (value === undefined) return undefined;
+  if (typeof value !== 'string') fail(path, 'muss ein String sein');
+  return value.trim();
+}
+
 function expectNullableString(value: unknown, path: string): string | null {
   if (value === null || value === undefined) {
     return null;
@@ -233,7 +239,7 @@ function expectStringArray(value: unknown, path: string): string[] {
 function parseNormSourceReference(value: unknown, path: string): NormSourceReference {
   const object = expectObject(value, path);
   return {
-    kind: expectEnumValue(object.kind, `${path}.kind`, ['structured-html-transcription'] as const),
+    kind: expectEnumValue(object.kind, `${path}.kind`, ['structured-html-transcription', 'legacy-markdown-transcription'] as const),
     label: expectString(object.label, `${path}.label`),
     availability: expectEnumValue(object.availability, `${path}.availability`, ['versioned'] as const),
     localSource: expectString(object.localSource, `${path}.localSource`),
@@ -291,7 +297,9 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
   const title = expectOptionalString(object.title, `${path}.title`);
   const text = type === 'tableCell' || type === 'tableHeaderCell'
     ? expectTableCellText(object.text, `${path}.text`)
-    : expectOptionalString(object.text, `${path}.text`);
+    : type === 'subparagraph' || type === 'item' || type === 'subitem'
+      ? expectOptionalContainerText(object.text, `${path}.text`)
+      : expectOptionalString(object.text, `${path}.text`);
   const children =
     object.children === undefined ? undefined : parseBodyBlocks(object.children, `${path}.children`);
   const level = expectOptionalInteger(object.level, `${path}.level`);
@@ -301,10 +309,14 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
   const colspan = expectOptionalInteger(object.colspan, `${path}.colspan`, { minimum: 1 });
   const columns = expectOptionalInteger(object.columns, `${path}.columns`, { minimum: 1 });
 
-  if (type === 'paragraphText' || type === 'subparagraph' || type === 'item' || type === 'subitem') {
+  if (type === 'paragraphText') {
     if (!text) {
       fail(`${path}.text`, `ist für Blocktyp "${type}" erforderlich`);
     }
+  }
+
+  if ((type === 'subparagraph' || type === 'item' || type === 'subitem') && !label && !text && (!children || children.length === 0)) {
+    fail(path, `Blocktyp "${type}" benötigt Gliederungszeichen, Text oder untergeordnete Blöcke`);
   }
 
   if (

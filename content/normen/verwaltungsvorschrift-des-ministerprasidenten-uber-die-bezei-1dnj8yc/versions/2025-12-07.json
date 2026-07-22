@@ -11,44 +11,144 @@
       "text": "Im Benehmen mit der Staatskanzlei und den übrigen Staatsministerien wird folgende Verwaltungsvorschrift erlassen:"
     },
     {
-      "type": "paragraphText",
-      "text": "A. Geltungsbereich"
-    },
-    {
-      "type": "paragraphText",
-      "text": "Die Verwaltungsvorschrift gilt für internen und externen Veröffentlichungen der Behörden und Dienststellen des Ostdeutschen Freistaates (Landesbehörden) sowie der Körperschaften (ausgenommen Gebietskörperschaften), Anstalten und Stiftungen des öffentlichen Rechts, die der Aufsicht des Ostdeutschen Freistaates unterstehen."
-    },
-    {
-      "type": "paragraphText",
-      "text": "B. Anwendungsvorschriften"
-    },
-    {
-      "type": "item",
-      "label": "1.",
-      "text": "Die Landesbehörden verwenden bei der Anfertigung von Dokumenten und Akten die in der nachstehenden Liste aufgeführten Abkürzungen, soweit diese sich auf die entsprechenden Bundesgesetze beziehen."
-    },
-    {
-      "type": "item",
-      "label": "2.",
-      "text": "Möchte sich eine Landesbehörde auf ein nicht in der Liste aufgeführtes Bundesgesetze beziehen, so hat sie die bekannte amtliche Abkürzung oder die in der Fachwelt verbreitete Abkürzung zu verwenden."
-    },
-    {
-      "type": "item",
-      "label": "3.",
-      "text": "Als Abkürzung ist festgesetzt: 1.,,GrundG” für das Grundgesetz für die Bundesrepublik Deutschland, 2.,,StGB” für das Strafgesetzbuch, 3.,,BGB” für das Bürgerliche Gesetzbuch, 4.,,EGStGB” für das Einführungsgesetz zum Strafgesetzbuch, 5.,,EGBGB” für das Einführungsgesetz für das Bürgerliche Gesetzbuch, 6.,,StVO” für die Straßenverkehrsordnung, 7.,,StVG” für das Straßenverkehrsgesetz, 8.,,SG” für das Soldatengesetz, 9.,,AufenthG” für das Aufenthaltsgesetz, 10.,,ArbZG” für das Arbeitszeitgesetz und 11.,,AsylG” für das Asylgesetz."
-    },
-    {
-      "type": "section",
-      "label": "C.",
-      "title": "Inkrafttreten",
+      "type": "part",
+      "label": "A.",
+      "title": "Geltungsbereich",
       "children": [
         {
           "type": "paragraphText",
-          "text": "Diese Verwaltungsvorschrift tritt am Tage ihrer Veröffentlichung in Kraft."
+          "text": "Die Verwaltungsvorschrift gilt für internen und externen Veröffentlichungen der Behörden und Dienststellen des Ostdeutschen Freistaates (Landesbehörden) sowie der Körperschaften (ausgenommen Gebietskörperschaften), Anstalten und Stiftungen des öffentlichen Rechts, die der Aufsicht des Ostdeutschen Freistaates unterstehen."
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "label": "B.",
+      "title": "Anwendungsvorschriften",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Landesbehörden verwenden bei der Anfertigung von Dokumenten und Akten die in der nachstehenden Liste aufgeführten Abkürzungen, soweit diese sich auf die entsprechenden Bundesgesetze beziehen.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "Mateo Delgado Der MINISTERPRÄSIDENT"
+          "type": "item",
+          "label": "2.",
+          "text": "Möchte sich eine Landesbehörde auf ein nicht in der Liste aufgeführtes Bundesgesetze beziehen, so hat sie die bekannte amtliche Abkürzung oder die in der Fachwelt verbreitete Abkürzung zu verwenden.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Als Abkürzung ist festgesetzt:",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": ",,GrundG” für das Grundgesetz für die Bundesrepublik Deutschland,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": ",,StGB” für das Strafgesetzbuch,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": ",,BGB” für das Bürgerliche Gesetzbuch,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d.",
+              "text": ",,EGStGB” für das Einführungsgesetz zum Strafgesetzbuch,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e.",
+              "text": ",,EGBGB” für das Einführungsgesetz für das Bürgerliche Gesetzbuch,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "f.",
+              "text": ",,StVO” für die Straßenverkehrsordnung,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "g.",
+              "text": ",,StVG” für das Straßenverkehrsgesetz,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "h.",
+              "text": ",,SG” für das Soldatengesetz,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "i.",
+              "text": ",,AufenthG” für das Aufenthaltsgesetz,",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "j.",
+              "text": ",,ArbZG” für das Arbeitszeitgesetz und",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "k.",
+              "text": ",,AsylG” für das Asylgesetz.",
+              "numberingStyle": "lower-latin",
+              "level": 1,
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "C.",
+          "title": "Inkrafttreten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Diese Verwaltungsvorschrift tritt am Tage ihrer Veröffentlichung in Kraft."
+            }
+          ]
         }
       ]
     }

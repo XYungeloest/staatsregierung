@@ -7,101 +7,784 @@
   "changeNote": "Amtlich veröffentlichter Einzelakt.",
   "body": [
     {
-      "type": "section",
-      "label": "Seite 2",
-      "title": "Amtlicher Text",
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 23. März 2026 das folgende Gesetz beschlossen:"
+    },
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Änderung des Gesetzes über den öffentlichen Personennahverkehr",
       "children": [
         {
           "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\nErstes Gesetz\nzur Änderung des Gesetzes über den öffentlichen\nPersonennahverkehr\nvom 23. März 2026\nDer Ostdeutsche Landtag hat am 23.\nMärz 2026 das folgende Gesetz\nbeschlossen:\nArtikel 1\nÄnderung des Gesetzes über den\nöffentlichen Personennahverkehr\nDas Gesetz über den öffentlichen\nPersonennahverkehr im Freistaat\nSachsen vom 14. Dezember 1995\n(SächsGVBl. S. 412, 449), das zuletzt\ndurch Artikel 36 des Gesetzes vom 27.\nJanuar 2012 (SächsGVBl. S. 130)\ngeändert worden ist, wird wie folgt\ngeändert:\n1. Die Bezeichnung des Gesetzes\nwird wie folgt gefasst:\n,,Gesetz über den\nöffentlichen\nPersonennahverkehr im\nOstdeutschen Freistaat\n(Ostdeutsche\nPersonennahverkehrsgeset\nz – ÖPNVG)”\n2. Die Inhaltsübersicht wird wie\nfolgt geändert:\na. Die Angabe zu § 3 wird\nwie folgt gefasst:\n“§ 3 Aufgabenbestimmung\nund Aufgabenträger”\nb. Die Angabe zu § 4 wird\nwie folgt gefasst:\n“§ 4 Ostdeutscher\nVerkehrsverbund”\nc. Nach der Angabe zu § 4\nwird folgende Angabe\neingefügt:\n“§ 4a Preisgestaltung”\n3. In § 1 Absatz 3 werden die\nWörter ,,Staatsministerium für\nWirtschaft, Arbeit und Verkehr”\ndurch die Wörter ,,zuständiges\nStaatsministerium” ersetzt.\n4. § 2 wird wie folgt gefasst:\na. In Absatz 1 Satz 2 wird\ndas Wort “Abs.\n” durch das\nWort “Absatz\n” ersetzt.\nSeite 2"
+          "text": "Das Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen vom 14. Dezember 1995 (SächsGVBl. S. 412, 449), das zuletzt durch Artikel 36 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130) geändert worden ist, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Bezeichnung des Gesetzes wird wie folgt gefasst:",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": ",,Gesetz über den öffentlichen Personennahverkehr im Ostdeutschen Freistaat"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "(Ostdeutsche Personennahverkehrsgesetz – ÖPNVG)”"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Inhaltsübersicht wird wie folgt geändert:",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Die Angabe zu § 3 wird wie folgt gefasst:",
+              "level": 1,
+              "listId": "3n8iq1ed3lgm",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "label": "§ 3",
+                      "title": "Aufgabenbestimmung und Aufgabenträger”",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Die Angabe zu § 4 wird wie folgt gefasst:",
+              "level": 1,
+              "listId": "3n8iq1ed3lgm",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "label": "§ 4",
+                      "title": "Ostdeutscher Verkehrsverbund”",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Nach der Angabe zu § 4 wird folgende Angabe eingefügt:",
+              "level": 1,
+              "listId": "3n8iq1ed3lgm",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "label": "§ 4a",
+                      "title": "Preisgestaltung”",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "In § 1 Absatz 3 werden die Wörter ,,Staatsministerium für Wirtschaft, Arbeit und Verkehr” durch die Wörter ,,zuständiges Staatsministerium” ersetzt.",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "§ 2 wird wie folgt gefasst:",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a.",
+                  "text": "In Absatz 1 Satz 2 wird das Wort “Abs.” durch das Wort “Absatz” ersetzt.",
+                  "level": 0,
+                  "listId": "3n8iq1ed3lgm",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b.",
+                  "text": "In Absatz 5 werden nach dem Wort “Verkehrsgestaltung” die Wörter “durch den Ostdeutschen Verkehrsverbund sowie” eingefügt.",
+                  "level": 0,
+                  "listId": "3n8iq1ed3lgm",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c.",
+                  "text": "In Absatz 7 Satz 3 wird das Wort ,,Abs.” durch das Wort ,,Absatz” und das Wort ,,Nr.” durch das Wort ,,Nummer” ersetzt.",
+                  "level": 0,
+                  "listId": "3n8iq1ed3lgm",
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "§§ 3 und 4 werden wie folgt gefasst:",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 3",
+                  "title": "Aufgabenbestimmung und Aufgabenträger",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Planung, Organisation und Ausgestaltung des öffentlichen Personennahverkehrs ist eine Aufgabe der Daseinsvorsorge. Aufgabenträger für den Schienenersonennahverkehr ist das zuständige Staatsministerium. Für den übrigen Personen- nahverkehr sind die Bezirke Aufgabenträger.",
+                      "level": 0,
+                      "listId": "4pja3ejjgoyo",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Bezirke wirken bei der Planung, Organisation und Ausgestaltung des öffentlichen Personennahverkehrs mit den Landkreisen und kreisfreien Städten zusammen. Sie können diesen sowie ihren Zusammenschlüssen durch öffentlich-rechtliche Vereinbarung einzelne Aufgaben übertragen, soweit eine wirtschaftliche, leistungsfähige und bürgernahe Aufgabenwahrnehmung sichergestellt bleibt.",
+                      "level": 0,
+                      "listId": "4pja3ejjgoyo",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Zuständige Behörde für die Vereinbarung und Auferlegung gemeinwirtschaftlicher Verkehrsleistungen ist der jeweilige Aufgabenträger; für den Schienenpersonennahverkehr ist zuständige Behörde das zuständige Staatsministerium.",
+                      "level": 0,
+                      "listId": "4pja3ejjgoyo",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die Aufgabenträger bleiben für die Sicherstellung eines ausreichenden öffentlichen Personennahverkehrs in ihrem Zuständigkeitsbereich verantwortlich, soweit dieses Gesetz dem Ostdeutschen Verkehrsverbund keine eigenen Aufgaben zuweist.",
+                      "level": 0,
+                      "listId": "4pja3ejjgoyo",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 4",
+                  "title": "Ostdeutscher Verkehrsverbund",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Zum Zweck einer gemeinsamen Landesverkehrsplanung, eines gemeinsamen Auftritts im öffentlichen Raum, der Abstimmung der Bedienstandards sowie der Festlegung eines landesweit einheitlichen Tarifs wird der Ostdeutsche Verkehrsverbund (OVV) errichtet.",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Der Ostdeutsche Verkehrsverbund ist eine landesunmittelbare, rechtsfähige Körperschaft des öffentlichen Rechts. Mitglieder des Ostdeutschen Verkehrsverbundes sind der Ostdeutsche Freistaat, die Bezirke, die Landkreise und die kreisfreien Städte.",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Dem Ostdeutschen Verkehrsverbund obliegen insbesondere",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "die Erarbeitung und Fortschreibung eines landesweiten Rahmennahverkehrsplans,",
+                      "level": 0,
+                      "listId": "74u6g4slszz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "die Festlegung, Fortschreibung und Durchführung eines landesweit einheitlichen Tarifs nach § 4a,",
+                      "level": 0,
+                      "listId": "74u6g4slszz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "die Organisation eines gemeinsamen Vertriebs, eines gemeinsamen Marketings sowie einer einheitlichen Fahrgastinformation,",
+                      "level": 0,
+                      "listId": "74u6g4slszz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "die Koordinierung der Schnittstellen zwischen Schienenpersonennahverkehr und dem übrigen öffentlichen Personennahverkehr,",
+                      "level": 0,
+                      "listId": "74u6g4slszz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "die Festlegung einheitlicher Standards für Daten, Vertrieb, Kontrolle und digitale Auskunftssysteme sowie",
+                      "level": 0,
+                      "listId": "74u6g4slszz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "die Einnahmenaufteilung und das finanzielle Clearing zwischen den beteiligten Aufgabenträgern und Verkehrsunternehmen.",
+                      "level": 0,
+                      "listId": "74u6g4slszz",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Organe des Ostdeutschen Verkehrsverbundes sind die Verbandsversammlung, der Verwaltungsrat und die Geschäftsführung.",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(5)",
+                      "text": "In der Verbandsversammlung entsendet jedes Mitglied eine Vertreterin oder einen Vertreter sowie eine Stellvertreterin oder einen Stellvertreter. Das Stimmgewicht ist in der Satzung so auszugestalten, dass insgesamt ein Drittel der Stimmen dem Freistaat, ein Drittel den Bezirken und ein Drittel den Landkreisen und kreisfreien Städten zusteht. Innerhalb der jeweiligen Mitgliedergruppe werden die Stimmen nach Maßgabe der Satzung verteilt.",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(6)",
+                      "text": "Der Verwaltungsrat überwacht die Geschäftsführung und bereitet die Beschlüsse der Verbandsversammlung vor. Er besteht aus neun Mitgliedern; der Freistaat, die Bezirke sowie die Landkreise und kreisfreien Städte entsenden jeweils drei Mitglieder.",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(7)",
+                      "text": "Die Geschäftsführung führt die laufenden Geschäfte des Ostdeutschen Verkehrsverbundes, vertritt ihn gerichtlich und außergerichtlich und vollzieht die Beschlüsse seiner Organe.",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(8)",
+                      "text": "Der Ostdeutsche Verkehrsverbund regelt seine Angelegenheiten durch Satzung. Die Satzung bedarf der Zustimmung der Staatsregierung. Sie muss insbesondere Bestimmungen enthalten über",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "den Sitz,",
+                      "level": 0,
+                      "listId": "hdq5paqc1x3l",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "die innere Organisation,",
+                      "level": 0,
+                      "listId": "hdq5paqc1x3l",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "die Einberufung und Beschlussfassung der Organe,",
+                      "level": 0,
+                      "listId": "hdq5paqc1x3l",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "die Verteilung und Ausübung der Stimmen,",
+                      "level": 0,
+                      "listId": "hdq5paqc1x3l",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "die Haushalts- und Wirtschaftsführung,",
+                      "level": 0,
+                      "listId": "hdq5paqc1x3l",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "das Rechnungswesen und die Rechnungsprüfung sowie",
+                      "level": 0,
+                      "listId": "hdq5paqc1x3l",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "die Beteiligung von Beiräten, insbesondere von Fahrgastverbänden und Verbänden von Menschen mit Behinderungen.",
+                      "level": 0,
+                      "listId": "hdq5paqc1x3l",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(9)",
+                      "text": "Der Ostdeutsche Verkehrsverbund unterliegt der Rechtsaufsicht des zuständigen Staatsministeriums. Die Rechtsaufsichtsbehörde kann rechtswidrige Beschlüsse beanstanden und ihre Aufhebung oder Änderung verlangen.",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(10)",
+                      "text": "Der Ostdeutsche Verkehrsverbund unterliegt der Prüfung durch den Rechnungshof.“",
+                      "level": 0,
+                      "listId": "ee3icicmq8n5",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Nach § 4 wird folgender § 4a eingefügt:",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 4",
+                  "title": "Preisgestaltung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Der Ostdeutsche Verkehrsverbund legt selbstständig seinen Tarif nach den Maßgaben dieses Gesetzes und seiner Satzungen fest. Der Tarif ist einfach, transparent, verbundweit einheitlich und barrierefrei auszugestalten. Er ist sowohl digital als auch in mindestens einer nicht digitalen Vertriebsform anzubieten.",
+                      "level": 0,
+                      "listId": "1ec4xnupzt7v",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Der Ostdeutsche Verkehrsverbund hat zumindest folgende Tarife anzubieten:",
+                      "level": 0,
+                      "listId": "1ec4xnupzt7v",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "einen ermäßigten Tarif für Auszubildende, Schüler:innen, Student:innen und Personen, die noch nicht das 21 Lebensjahr erreicht haben;",
+                      "level": 0,
+                      "listId": "8l9db26y2boj",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "einen ermäßigten Tarif für Rentner:innen und Personen, die bereits das 65 Lebensjahr erreicht haben und",
+                      "level": 0,
+                      "listId": "8l9db26y2boj",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "einen ermäßigten Tarif für Bezieher von Leistungen nach dem Zweiten oder Zwölften Buch Sozialgesetzbuch.",
+                      "level": 0,
+                      "listId": "8l9db26y2boj",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Der Tarif nach Absatz 1 Nummer 1 und 2 ist unentgeltlich und entspricht dem Angebot des durch § 9 des Regionalisierungsgesetzes gewährleisteten Deutschlandtickets. Deckungsmittel für die Übernahme der durch Satz 1 entstandenen Kosten sind die durch das Regionalisierungsgesetz vorgesehenen Bundes- und Landesmittel; ein darüber hinausgehender Deckungsbedarf wird nach § 7 gedeckt.",
+                      "level": 0,
+                      "listId": "1ec4xnupzt7v",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Es ist ein Angebot bereitzustellen, dass es ermöglicht, mithilfe eines Tickets landesweit den gesamten öffentlichen Personennahverkehr zu nutzen (Ost-Ticket). Das Ost-Ticket ist als Tages-, Monats- und Jahreskarte auch so anzubieten, dass kein Dauerschuldverhältnis eingegangen werden muss. Die Kosten der Monatskarte dürfen nicht mehr als die Hälfte des Preises des Deutschlandtickets betragen. Tritt das Deutschlandticket oder seine gesetzlichen Grundlagen außer Kraft, so ist für Satz 3 der letzte erwerbliche Preis des Deutschlandtickets heranzuziehen.",
+                      "level": 0,
+                      "listId": "1ec4xnupzt7v",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(5)",
+                      "text": "Decken die Erlöse des Tickets nicht die für die Verkehrsbetriebe entstandenen Kosten, gleicht der Ostdeutsche Verkehrsverbund die Unterdeckung aus. Mindereinnahmen aus den in Absatz 2 und 4 geregelten Tarifen sind nach § 7 auszugleichen.“",
+                      "level": 0,
+                      "listId": "1ec4xnupzt7v",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "In § 5 Absatz 1 wird das Wort ,,Abs.” durch das Wort ,,Absatz” ersetzt.",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "In § 6 Satz 1 werden die Wörter „Staatsministerium für Wirtschaft, Arbeit und Verkehr“ durch die Wörter „zuständige Staatsministerium“ ersetzt.",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "§ 7 wird wie folgt geändert:",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Nach Absatz 1 Satz 1 wird der folgende Satz eingefügt:",
+              "level": 1,
+              "listId": "3n8iq1ed3lgm",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraph",
+                      "label": "§ 4a",
+                      "title": "bleibt unberührt.”",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Nach Absatz 2 werden die folgenden Absätze 3 bis 7 eingefügt:",
+              "level": 1,
+              "listId": "3n8iq1ed3lgm",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "“(3) Der Ostdeutsche Verkehrsverbund finanziert seine Aufgaben aus"
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "Tarifeinnahmen,",
+                      "level": 0,
+                      "listId": "x9k7c0moyhx0",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "Mitteln nach Absatz 2, soweit sie ihm zugewiesen sind,",
+                      "level": 0,
+                      "listId": "x9k7c0moyhx0",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "sonstigen Einnahmen und Erstattungen sowie",
+                      "level": 0,
+                      "listId": "x9k7c0moyhx0",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "Umlagen seiner Mitglieder.",
+                      "level": 0,
+                      "listId": "x9k7c0moyhx0",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die jährliche Grundumlage zur Finanzierung der Verwaltungs-, Vertriebs-, Koordinierungs- und Clearingaufgaben des Ostdeutschen Verkehrsverbundes wird wie folgt getragen:",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "zu einem Drittel durch den Freistaat,",
+                      "level": 0,
+                      "listId": "1deel5n7qnrn",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "zu einem Drittel durch die Bezirke zu gleichen Teilen,",
+                      "level": 0,
+                      "listId": "1deel5n7qnrn",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "zu einem Drittel durch die Landkreise und kreisfreien Städte zu gleichen Teilen.",
+                      "level": 0,
+                      "listId": "1deel5n7qnrn",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(5)",
+                      "text": "Soweit die Kosten der in § 4a Absatz 2 und 4 geregelten Tarife nicht durch Tarifeinnahmen, Bundesmittel, Landesmittel oder sonstige Erstattungen gedeckt sind, trägt der Freistaat die verbleibende Unterdeckung.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(6)",
+                      "text": "Reichen die Einnahmen des Ostdeutschen Verkehrsverbundes einschließlich der Grundumlage nach Absatz 4 zur Deckung seiner sonstigen Aufwendungen nicht aus, gleicht der Freistaat die verbleibende Unterdeckung aus.",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(7)",
+                      "text": "Das zuständige Staatsministerium wird ermächtigt, im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium das Nähere zur Mittelverwendung, Mittelverteilung, Abrechnung, Nachweisführung und Umlagenerhebung durch Rechtsverordnung zu regeln.”",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Der bisherige Absatz 3 wird zum Absatz 8.",
+              "level": 1,
+              "listId": "3n8iq1ed3lgm",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "10.",
+          "text": "§ 8 wird aufgehoben.",
+          "level": 0,
+          "listId": "3n8iq1ed3lgm",
+          "numberingStyle": "decimal",
+          "children": []
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 3",
-      "title": "Amtlicher Text",
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Übergangsbestimmungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\nb. In Absatz 5 werden nach\ndem Wort\n“Verkehrsgestaltung” die\nWörter “durch den\nOstdeutschen\nVerkehrsverbund sowie”\neingefügt.\nc. In Absatz 7 Satz 3 wird\ndas Wort ,,Abs.\n” durch\ndas Wort ,,Absatz\n”\nund\ndas Wort ,,Nr.\n” durch das\nWort ,,Nummer” ersetzt.\n5. §§ 3 und 4 werden wie folgt\ngefasst:\n,,§ 3\nAufgabenbestimmung\nund Aufgabenträger\n(1) Die Planung, Organisation\nund Ausgestaltung des\nöffentlichen\nPersonennahverkehrs ist\neine Aufgabe der\nDaseinsvorsorge.\nAufgabenträger für den\nSchienenersonennahverke\nhr ist das zuständige\nStaatsministerium. Für den\nübrigen Personen-\nnahverkehr sind die\nBezirke Aufgabenträger.\n(2) Die Bezirke wirken bei der\nPlanung, Organisation\nund Ausgestaltung des\nöffentlichen\nPersonennahverkehrs mit\nden Landkreisen und\nkreisfreien Städten\nzusammen. Sie können\ndiesen sowie ihren\nZusammenschlüssen durch\nöffentlich-rechtliche\nVereinbarung einzelne\nAufgaben übertragen,\nsoweit eine wirtschaftliche,\nleistungsfähige und\nbürgernahe\nAufgabenwahrnehmung\nsichergestellt bleibt.\n(3) Zuständige Behörde für\ndie Vereinbarung und\nAuferlegung\ngemeinwirtschaftlicher\nVerkehrsleistungen ist der\njeweilige Aufgabenträger;\nfür den\nSchienenpersonennahverk\nehr ist zuständige Behörde\ndas zuständige\nStaatsministerium.\n(4) Die Aufgabenträger\nbleiben für die\nSicherstellung eines\nausreichenden\nöffentlichen\nPersonennahverkehrs in\nihrem\nSeite 3"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das zuständige Staatsministerium beruft innerhalb von drei Monaten nach Inkrafttreten dieses Gesetzes die konstituierende Sitzung zur Errichtung des Ostdeutschen Verkehrsverbundes ein.",
+          "level": 0,
+          "listId": "xpbxwbj87pwp",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Mitglieder des Ostdeutschen Verkehrsverbundes haben innerhalb von sechs Monaten nach Inkrafttreten dieses Gesetzes die Satzung zu beschließen, die Organe zu bestellen und einen vorläufigen Wirtschaftsplan aufzustellen.",
+          "level": 0,
+          "listId": "xpbxwbj87pwp",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die bei Inkrafttreten dieses Gesetzes bestehenden Verkehrsverbünde, Zweckverbände, sonstigen kommunalen Zusammenschlüsse und vertraglichen Kooperationsstrukturen im Bereich des öffentlichen Personennahverkehrs bestehen bis zur Übernahme ihrer Aufgaben durch den Ostdeutschen Verkehrsverbund fort.",
+          "level": 0,
+          "listId": "xpbxwbj87pwp",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Die Aufgabenübernahme nach Absatz 3 soll innerhalb von zwölf Monaten, spätestens jedoch innerhalb von vierundzwanzig Monaten nach Inkrafttreten dieses Gesetzes abgeschlossen sein.",
+          "level": 0,
+          "listId": "xpbxwbj87pwp",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Der Übergang von Personal, Vermögen, Rechten und Pflichten auf den Ostdeutschen Verkehrsverbund wird durch öffentlich-rechtliche Vereinbarungen der Beteiligten geregelt. Soweit dies in den Vereinbarungen vorgesehen ist und erforderliche Zustimmungen Dritter vorliegen, tritt der Ostdeutsche Verkehrsverbund in bestehende Vertragsverhältnisse ein.",
+          "level": 0,
+          "listId": "xpbxwbj87pwp",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(6)",
+          "text": "Bis zur Einführung des landesweit einheitlichen Tarifs des Ostdeutschen Verkehrsverbundes gelten die bisherigen Verbund- und Übergangstarife fort. Spätestens vierundzwanzig Monate nach Inkrafttreten dieses Gesetzes ist ein landesweit einheitlicher Tarif einzuführen.",
+          "level": 0,
+          "listId": "xpbxwbj87pwp",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(7)",
+          "text": "Das zuständige Staatsministerium wird ermächtigt, im Einvernehmen mit dem Staatsministerium der Finanzen durch Rechtsverordnung die zur erstmaligen Organisation des Ostdeutschen Verkehrsverbundes erforderlichen Übergangsregelungen zu treffen.",
+          "level": 0,
+          "listId": "xpbxwbj87pwp",
+          "numberingStyle": "decimal",
+          "children": []
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 4",
-      "title": "Amtlicher Text",
+      "type": "article",
+      "label": "Artikel 3",
+      "title": "Inkrafttreten",
       "children": [
         {
           "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\nZuständigkeitsbereich\nverantwortlich, soweit\ndieses Gesetz dem\nOstdeutschen\nVerkehrsverbund keine\neigenen Aufgaben\nzuweist.\n§ 4\nOstdeutscher\nVerkehrsverbund\n(1) Zum Zweck einer\ngemeinsamen\nLandesverkehrsplanung,\neines gemeinsamen\nAuftritts im öffentlichen\nRaum, der Abstimmung\nder Bedienstandards\nsowie der Festlegung\neines landesweit\neinheitlichen Tarifs wird\nder Ostdeutsche\nVerkehrsverbund (OVV)\nerrichtet.\n(2) Der Ostdeutsche\nVerkehrsverbund ist eine\nlandesunmittelbare,\nrechtsfähige Körperschaft\ndes öffentlichen Rechts.\nMitglieder des\nOstdeutschen\nVerkehrsverbundes sind\nder Ostdeutsche Freistaat,\ndie Bezirke, die\nLandkreise und die\nkreisfreien Städte.\n(3) Dem Ostdeutschen\nVerkehrsverbund obliegen\ninsbesondere\n1. die Erarbeitung\nund Fortschreibung\neines landesweiten\nRahmennahverkehr\nsplans,\n2. die Festlegung,\nFortschreibung und\nDurchführung\neines landesweit\neinheitlichen Tarifs\nnach § 4a,\n3. die Organisation\neines\ngemeinsamen\nVertriebs, eines\ngemeinsamen\nMarketings sowie\neiner einheitlichen\nFahrgastinformation\n,\n4. die Koordinierung\nder Schnittstellen\nzwischen\nSchienenpersonen\nnahverkehr und\ndem übrigen\nöffentlichen\nSeite 4"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 5",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\nPersonennahverkeh\nr,\n5. die Festlegung\neinheitlicher\nStandards für\nDaten, Vertrieb,\nKontrolle und\ndigitale\nAuskunftssysteme\nsowie\n6. die\nEinnahmenaufteilun\ng und das\nfinanzielle Clearing\nzwischen den\nbeteiligten\nAufgabenträgern\nund\nVerkehrsunternehm\nen.\n(4) Organe des Ostdeutschen\nVerkehrsverbundes sind\ndie\nVerbandsversammlung,\nder Verwaltungsrat und\ndie Geschäftsführung.\n(5) In der\nVerbandsversammlung\nentsendet jedes Mitglied\neine Vertreterin oder\neinen Vertreter sowie eine\nStellvertreterin oder einen\nStellvertreter. Das\nStimmgewicht ist in der\nSatzung so auszugestalten,\ndass insgesamt ein Drittel\nder Stimmen dem\nFreistaat, ein Drittel den\nBezirken und ein Drittel\nden Landkreisen und\nkreisfreien Städten zusteht.\nInnerhalb der jeweiligen\nMitgliedergruppe werden\ndie Stimmen nach\nMaßgabe der Satzung\nverteilt.\n(6) Der Verwaltungsrat\nüberwacht die\nGeschäftsführung und\nbereitet die Beschlüsse\nder Verbandsversammlung\nvor. Er besteht aus neun\nMitgliedern; der Freistaat,\ndie Bezirke sowie die\nLandkreise und kreisfreien\nStädte entsenden jeweils\ndrei Mitglieder.\n(7) Die Geschäftsführung\nführt die laufenden\nGeschäfte des\nOstdeutschen\nVerkehrsverbundes, vertritt\nihn gerichtlich und\naußergerichtlich und\nvollzieht die Beschlüsse\nseiner Organe.\nSeite 5"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 6",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\n(8) Der Ostdeutsche\nVerkehrsverbund regelt\nseine Angelegenheiten\ndurch Satzung. Die\nSatzung bedarf der\nZustimmung der\nStaatsregierung. Sie muss\ninsbesondere\nBestimmungen enthalten\nüber\n1. den Sitz,\n2. die innere\nOrganisation,\n3. die Einberufung\nund\nBeschlussfassung\nder Organe,\n4. die Verteilung und\nAusübung der\nStimmen,\n5. die Haushalts- und\nWirtschaftsführung,\n6. das\nRechnungswesen\nund die\nRechnungsprüfung\nsowie\n7. die Beteiligung von\nBeiräten,\ninsbesondere von\nFahrgastverbänden\nund Verbänden\nvon Menschen mit\nBehinderungen.\n(9) Der Ostdeutsche\nVerkehrsverbund\nunterliegt der\nRechtsaufsicht des\nzuständigen\nStaatsministeriums. Die\nRechtsaufsichtsbehörde\nkann rechtswidrige\nBeschlüsse beanstanden\nund ihre Aufhebung oder\nÄnderung verlangen.\n(10) Der Ostdeutsche\nVerkehrsverbund\nunterliegt der Prüfung\ndurch den\nRechnungshof.\n“\n6. Nach § 4 wird folgender § 4a\neingefügt:\n“§ 4\nPreisgestaltung\n(1) Der Ostdeutsche\nVerkehrsverbund legt\nselbstständig seinen Tarif\nnach den Maßgaben\ndieses Gesetzes und\nseiner Satzungen fest. Der\nTarif ist einfach,\ntransparent, verbundweit\neinheitlich und barrierefrei\nauszugestalten. Er ist\nsowohl digital als auch in\nSeite 6"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 7",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\nmindestens einer nicht\ndigitalen Vertriebsform\nanzubieten.\n(2) Der Ostdeutsche\nVerkehrsverbund hat\nzumindest folgende Tarife\nanzubieten:\n1. einen ermäßigten\nTarif für\nAuszubildende,\nSchüler:innen,\nStudent:innen und\nPersonen, die noch\nnicht das 21\nLebensjahr erreicht\nhaben;\n2. einen ermäßigten\nTarif für\nRentner:innen und\nPersonen, die\nbereits das 65\nLebensjahr erreicht\nhaben und\n3. einen ermäßigten\nTarif für Bezieher\nvon Leistungen\nnach dem Zweiten\noder Zwölften Buch\nSozialgesetzbuch.\n(3) Der Tarif nach Absatz 1\nNummer 1 und 2 ist\nunentgeltlich und\nentspricht dem Angebot\ndes durch § 9 des\nRegionalisierungsgesetzes\ngewährleisteten\nDeutschlandtickets.\nDeckungsmittel für die\nÜbernahme der durch\nSatz 1 entstandenen\nKosten sind die durch das\nRegionalisierungsgesetz\nvorgesehenen Bundes-\nund Landesmittel; ein\ndarüber hinausgehender\nDeckungsbedarf wird\nnach § 7 gedeckt.\n(4) Es ist ein Angebot\nbereitzustellen, dass es\nermöglicht, mithilfe eines\nTickets landesweit den\ngesamten öffentlichen\nPersonennahverkehr zu\nnutzen (Ost-Ticket). Das\nOst-Ticket ist als Tages-\n,\nMonats- und Jahreskarte\nauch so anzubieten, dass\nkein Dauerschuldverhältnis\neingegangen werden\nmuss. Die Kosten der\nMonatskarte dürfen nicht\nmehr als die Hälfte des\nPreises des\nDeutschlandtickets\nbetragen. Tritt das\nDeutschlandticket oder\nSeite 7"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 8",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\nseine gesetzlichen\nGrundlagen außer Kraft,\nso ist für Satz 3 der letzte\nerwerbliche Preis des\nDeutschlandtickets\nheranzuziehen.\n(5) Decken die Erlöse des\nTickets nicht die für die\nVerkehrsbetriebe\nentstandenen Kosten,\ngleicht der Ostdeutsche\nVerkehrsverbund die\nUnterdeckung aus.\nMindereinnahmen aus den\nin Absatz 2 und 4\ngeregelten Tarifen sind\nnach § 7 auszugleichen.\n“\n7. In § 5 Absatz 1 wird das Wort\n,,Abs.\n” durch das Wort ,,Absatz\n”\nersetzt.\n8. In § 6 Satz 1 werden die Wörter\n„Staatsministerium für Wirtschaft,\nArbeit und Verkehr“ durch die\nWörter „zuständige\nStaatsministerium“ ersetzt.\n9. § 7 wird wie folgt geändert:\na. Nach Absatz 1 Satz 1 wird\nder folgende Satz\neingefügt:\n“§ 4a bleibt unberührt.\n”\nb. Nach Absatz 2 werden\ndie folgenden Absätze 3\nbis 7 eingefügt:\n“(3) Der Ostdeutsche\nVerkehrsverbund finanziert\nseine Aufgaben aus\n1. Tarifeinnahmen,\n2. Mitteln nach Absatz\n2, soweit sie ihm\nzugewiesen sind,\n3. sonstigen\nEinnahmen und\nErstattungen sowie\n4. Umlagen seiner\nMitglieder.\n(4) Die jährliche\nGrundumlage zur\nFinanzierung der\nVerwaltungs-\n, Vertriebs-\n,\nKoordinierungs- und\nClearingaufgaben des\nOstdeutschen\nVerkehrsverbundes wird\nwie folgt getragen:\n1. zu einem Drittel\ndurch den\nFreistaat,\n2. zu einem Drittel\ndurch die Bezirke\nzu gleichen Teilen,\n3. zu einem Drittel\ndurch die\nLandkreise und\nkreisfreien Städte\nzu gleichen Teilen.\nSeite 8"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 9",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\n(5) Soweit die Kosten der\nin § 4a Absatz 2 und 4\ngeregelten Tarife nicht\ndurch Tarifeinnahmen,\nBundesmittel, Landesmittel\noder sonstige Erstattungen\ngedeckt sind, trägt der\nFreistaat die verbleibende\nUnterdeckung.\n(6) Reichen die\nEinnahmen des\nOstdeutschen\nVerkehrsverbundes\neinschließlich der\nGrundumlage nach Absatz\n4 zur Deckung seiner\nsonstigen Aufwendungen\nnicht aus, gleicht der\nFreistaat die verbleibende\nUnterdeckung aus.\n(7) Das zuständige\nStaatsministerium wird\nermächtigt, im\nEinvernehmen mit dem für\nFinanzen zuständigen\nStaatsministerium das\nNähere zur\nMittelverwendung,\nMittelverteilung,\nAbrechnung,\nNachweisführung und\nUmlagenerhebung durch\nRechtsverordnung zu\nregeln.\n”\nc. Der bisherige Absatz 3\nwird zum Absatz 8.\n10. § 8 wird aufgehoben.\nArtikel 2\nÜbergangsbestimmungen\n(1) Das zuständige Staatsministerium\nberuft innerhalb von drei\nMonaten nach Inkrafttreten dieses\nGesetzes die konstituierende\nSitzung zur Errichtung des\nOstdeutschen Verkehrsverbundes\nein.\n(2) Die Mitglieder des Ostdeutschen\nVerkehrsverbundes haben\ninnerhalb von sechs Monaten\nnach Inkrafttreten dieses Gesetzes\ndie Satzung zu beschließen, die\nOrgane zu bestellen und einen\nvorläufigen Wirtschaftsplan\naufzustellen.\n(3) Die bei Inkrafttreten dieses\nGesetzes bestehenden\nVerkehrsverbünde,\nZweckverbände, sonstigen\nkommunalen Zusammenschlüsse\nund vertraglichen\nKooperationsstrukturen im\nBereich des öffentlichen\nPersonennahverkehrs bestehen\nSeite 9"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 10",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 29 24. März 2026\nbis zur Übernahme ihrer\nAufgaben durch den\nOstdeutschen Verkehrsverbund\nfort.\n(4) Die Aufgabenübernahme nach\nAbsatz 3 soll innerhalb von zwölf\nMonaten, spätestens jedoch\ninnerhalb von vierundzwanzig\nMonaten nach Inkrafttreten dieses\nGesetzes abgeschlossen sein.\n(5) Der Übergang von Personal,\nVermögen, Rechten und Pflichten\nauf den Ostdeutschen\nVerkehrsverbund wird durch\nöffentlich-rechtliche\nVereinbarungen der Beteiligten\ngeregelt. Soweit dies in den\nVereinbarungen vorgesehen ist\nund erforderliche Zustimmungen\nDritter vorliegen, tritt der\nOstdeutsche Verkehrsverbund in\nbestehende Vertragsverhältnisse\nein.\n(6) Bis zur Einführung des landesweit\neinheitlichen Tarifs des\nOstdeutschen Verkehrsverbundes\ngelten die bisherigen Verbund-\nund Übergangstarife fort.\nSpätestens vierundzwanzig\nMonate nach Inkrafttreten dieses\nGesetzes ist ein landesweit\neinheitlicher Tarif einzuführen.\n(7) Das zuständige Staatsministerium\nwird ermächtigt, im\nEinvernehmen mit dem\nStaatsministerium der Finanzen\ndurch Rechtsverordnung die zur\nerstmaligen Organisation des\nOstdeutschen Verkehrsverbundes\nerforderlichen\nÜbergangsregelungen zu treffen.\nArtikel 3\nInkrafttreten\nDieses Gesetz tritt mit dem Tag seiner\nVerkündung in Kraft.\nDresden, den 24. März 2026\nLouis Hahne-Eichinger\nD e r L A N D T A G S P R Ä S I D E N T\nDr. Karl Honecker\nD e r M I N I S T E R P R Ä S I D E N T\nSeite 10"
+          "text": "Dieses Gesetz tritt mit dem Tag seiner Verkündung in Kraft."
         }
       ]
     }
