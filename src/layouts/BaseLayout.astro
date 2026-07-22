@@ -51,6 +51,7 @@ const base = import.meta.env.BASE_URL;
 const canonicalUrl = buildCanonicalUrl(Astro.url, Astro.site);
 const robotsContent = noindex ? 'noindex, follow' : 'index, follow';
 const smallFlagAssetUrl = `${base}${siteConfig.officialFlagSmallAssetPath.replace(/^\//, '')}`;
+const coatOfArmsAssetUrl = `${base}${siteConfig.officialCoatOfArmsAssetPath.replace(/^\//, '')}`;
 const analyticsEnabled = isAnalyticsEnabled();
 const loadPortalModules = scripts.includes('portal-modules');
 const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbs, currentPath, Astro.site);
@@ -179,7 +180,6 @@ const footerLegalLinks = [
         ) : null}
       </>
     ) : null}
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
     <link rel="icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
     <title>{pageTitle}</title>
     {structuredDataItems.map((entry) => (
@@ -212,7 +212,7 @@ const footerLegalLinks = [
               <div class="site-branding">
                 <a class="site-wordmark" href={getHomeUrl()} aria-label="Startseite Freistaat Ostdeutschland">
                   <span class="site-wordmark__media" aria-hidden="true">
-                    <img src={smallFlagAssetUrl} alt="" width="64" height="48" />
+                    <img src={coatOfArmsAssetUrl} alt="" width="598" height="695" />
                   </span>
                   <span class="site-wordmark__text">
                     <span class="site-title">Freistaat<br />Ostdeutschland</span>
@@ -324,7 +324,7 @@ const footerLegalLinks = [
           <div class="site-footer__grid">
             <section class="site-footer__section site-footer__identity">
               <a class="site-footer__wordmark" href={getHomeUrl()}>
-                <img src={smallFlagAssetUrl} alt="" width="48" height="36" />
+                <img src={coatOfArmsAssetUrl} alt="" width="598" height="695" />
                 <span>Freistaat<br />Ostdeutschland</span>
               </a>
               <p>{siteConfig.footerNote}</p>

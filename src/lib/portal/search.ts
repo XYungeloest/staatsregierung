@@ -321,7 +321,8 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       text: joinText([
         toDisplayText(norm.meta.shortTitle),
         toDisplayText(norm.meta.abbr),
-        toDisplayText(norm.meta.ministry),
+        toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry),
+        toDisplayText(norm.meta.enactingBody),
         norm.meta.subjects.map(toDisplayText),
         norm.meta.keywords.map(toDisplayText),
         toDisplayText(norm.meta.initialCitation),

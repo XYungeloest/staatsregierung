@@ -24,11 +24,14 @@
           "type": "item",
           "label": "1)",
           "text": "Artikel 101 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Artikel 101"
-        },
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 101",
+      "title": "Grundsätze der Erziehung und Bildung",
+      "children": [
         {
           "type": "paragraphText",
           "text": "Grundsätze der Erziehung und Bildung"
@@ -47,11 +50,14 @@
           "type": "item",
           "label": "2)",
           "text": "Nach Artikel 101 wird folgender Artikel 101a eingefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Artikel 101a"
-        },
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 101a",
+      "title": "Integrierter und polytechnischer Bildungsauftrag",
+      "children": [
         {
           "type": "paragraphText",
           "text": "Integrierter und polytechnischer Bildungsauftrag"
@@ -75,11 +81,14 @@
           "type": "item",
           "label": "3)",
           "text": "Artikel 102 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Artikel 102"
-        },
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 102",
+      "title": "Schulwesen, Lernmittelfreiheit",
+      "children": [
         {
           "type": "paragraphText",
           "text": "Schulwesen, Lernmittelfreiheit"
@@ -112,38 +121,30 @@
         {
           "type": "item",
           "label": "4)",
-          "text": "Nach Artikel 103 Absatz 3 wird folgender Absatz 4 angefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„(4) Lehrmittel, digitale Lernmittel und Lernplattformen, die im Unterricht eingesetzt werden, bedürfen der Zulassung oder Anerkennung durch den Freistaat.“"
+          "text": "Nach Artikel 103 Absatz 3 wird folgender Absatz 4 angefügt: „(4) Lehrmittel, digitale Lernmittel und Lernplattformen, die im Unterricht eingesetzt werden, bedürfen der Zulassung oder Anerkennung durch den Freistaat.“"
         },
         {
           "type": "item",
           "label": "5)",
-          "text": "Nach Artikel 104 Absatz 1 werden die folgenden Absätze 1a und 1b eingefügt:"
+          "text": "Nach Artikel 104 Absatz 1 werden die folgenden Absätze 1a und 1b eingefügt: „(1a) An jeder Schule werden Interessenvertretungen der Schüler, Lehrkräfte und Eltern gebildet. Maßgebliche Entscheidungen, die nicht durch Gesetz oder Rechtsverordnung geregelt sind und die Schule durch Satzung trifft, bedürfen der Zustimmung aller Interessenvertretungen, soweit nicht zwingende Gründe entgegenstehen."
         },
         {
-          "type": "paragraphText",
-          "text": "„(1a) An jeder Schule werden Interessenvertretungen der Schüler, Lehrkräfte und Eltern gebildet. Maßgebliche Entscheidungen, die nicht durch Gesetz oder Rechtsverordnung geregelt sind und die Schule durch Satzung trifft, bedürfen der Zustimmung aller Interessenvertretungen, soweit nicht zwingende Gründe entgegenstehen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "(1b) Die Mitwirkung nach diesem Artikel begründet kein Recht, den öffentlichen Bildungsauftrag, die allgemeine Schulpflicht, das integrierte Schulwesen oder die weltanschauliche Neutralität der öffentlichen Schule zu beseitigen oder zu beschränken.“"
+          "type": "subparagraph",
+          "label": "(1b)",
+          "text": "Die Mitwirkung nach diesem Artikel begründet kein Recht, den öffentlichen Bildungsauftrag, die allgemeine Schulpflicht, das integrierte Schulwesen oder die weltanschauliche Neutralität der öffentlichen Schule zu beseitigen oder zu beschränken.“"
         },
         {
           "type": "item",
           "label": "6)",
           "text": "Artikel 105 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Artikel 105"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Religionsunterricht"
-        },
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 105",
+      "title": "Religionsunterricht",
+      "children": [
         {
           "type": "item",
           "label": "1)",
@@ -168,11 +169,14 @@
           "type": "item",
           "label": "7)",
           "text": "Artikel 106 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Artikel 106"
-        },
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 106",
+      "title": "Berufsbildung",
+      "children": [
         {
           "type": "paragraphText",
           "text": "Berufsbildung"
@@ -200,11 +204,14 @@
           "type": "item",
           "label": "1)",
           "text": "Die Überschrift wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„X. Abschnitt – Die Religionsgemeinschaften“"
-        },
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "X. Abschnitt",
+      "title": "Die Religionsgemeinschaften“",
+      "children": [
         {
           "type": "item",
           "label": "2)",
@@ -213,11 +220,7 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "Die Überschrift wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Stellung der Kirchen“"
+          "text": "Die Überschrift wird wie folgt gefasst: „Stellung der Kirchen“"
         },
         {
           "type": "item",
@@ -227,11 +230,7 @@
         {
           "type": "item",
           "label": "3.",
-          "text": "Absatz 3 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„(3) Die Kirchen und Religionsgemeinschaften sind vom Staat getrennt. Sie entfalten sich bei der Erfüllung ihrer Aufgaben im Rahmen des für alle geltenden Gesetzes.“"
+          "text": "Absatz 3 wird wie folgt gefasst: „(3) Die Kirchen und Religionsgemeinschaften sind vom Staat getrennt. Sie entfalten sich bei der Erfüllung ihrer Aufgaben im Rahmen des für alle geltenden Gesetzes.“"
         },
         {
           "type": "item",
@@ -254,27 +253,30 @@
           "text": "Artikel 112 wird wie folgt gefasst:"
         },
         {
-          "type": "paragraphText",
-          "text": "„Artikel 112"
+          "type": "article",
+          "label": "Artikel 112",
+          "title": "Staatsleistungen an die Kirche",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Staatsleistungen an die Kirche"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die auf Gesetz, Vertrag oder besonderen Rechtstiteln beruhenden Leistungen des Freistaates an die Kirchen sind abgelöst. Neue Staatsleistungen an Religions- oder Weltanschauungsgemeinschaften werden nicht begründet.“"
+            }
+          ]
         },
         {
-          "type": "paragraphText",
-          "text": "Staatsleistungen an die Kirche"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die auf Gesetz, Vertrag oder besonderen Rechtstiteln beruhenden Leistungen des Freistaates an die Kirchen sind abgelöst. Neue Staatsleistungen an Religions- oder Weltanschauungsgemeinschaften werden nicht begründet.“"
-        }
-      ]
-    },
-    {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Inkrafttreten",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Inkrafttreten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
+            }
+          ]
         }
       ]
     }

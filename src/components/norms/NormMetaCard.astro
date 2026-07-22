@@ -46,18 +46,28 @@ const effectiveUntil = norm.meta.expiryDate ?? version.validTo;
       <dt>Kurztitel</dt>
       <dd>{toDisplayText(norm.meta.shortTitle)}</dd>
     </div>
-    <div>
-      <dt>Abkürzung</dt>
-      <dd>{norm.meta.abbr}</dd>
-    </div>
+    {norm.meta.abbr ? (
+      <div>
+        <dt>Abkürzung</dt>
+        <dd>{norm.meta.abbr}</dd>
+      </div>
+    ) : null}
     <div>
       <dt>Normtyp</dt>
       <dd>{formatNormType(norm.meta.type)}</dd>
     </div>
-    <div>
-      <dt>Ressort</dt>
-      <dd>{toDisplayText(norm.meta.ministry)}</dd>
-    </div>
+    {norm.meta.enactingBody ? (
+      <div>
+        <dt>Erlassendes Organ</dt>
+        <dd>{toDisplayText(norm.meta.enactingBody)}</dd>
+      </div>
+    ) : null}
+    {norm.meta.responsibleMinistry || norm.meta.ministry ? (
+      <div>
+        <dt>Zuständiger Geschäftsbereich</dt>
+        <dd>{toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry)}</dd>
+      </div>
+    ) : null}
   </dl>
 
   <h3>Fundstelle</h3>
@@ -96,7 +106,11 @@ const effectiveUntil = norm.meta.expiryDate ?? version.validTo;
           <br />
           <span>
             <time datetime={publicationReference.publicationDate}>{formatDate(publicationReference.publicationDate)}</time>
-            {publicationReference.pages ? ` · Seiten ${publicationReference.pages}` : ''}
+            {publicationReference.pages
+              ? ` · Seiten ${publicationReference.pages}`
+              : publicationReference.startPage
+                ? ` · Beginn auf Seite ${publicationReference.startPage}`
+                : ''}
           </span>
         </dd>
       </div>

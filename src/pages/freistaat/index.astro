@@ -16,6 +16,9 @@ import { getLawConstitutionUrl } from '../../lib/norms/index.ts';
 
 const pages = await loadFreestatePages();
 const orderedPages = [
+  'land-und-leute',
+  'staatsaufbau',
+  'grosse-staatsreform',
   'verfassung-und-staatsziele',
   'bezirke',
   'landesfarben-und-hoheitszeichen',
@@ -26,19 +29,22 @@ const orderedPages = [
   .filter((page): page is NonNullable<typeof page> => Boolean(page));
 ---
 
-<BaseLayout title="Über den Freistaat" description="Grunddaten, Geschichte, Bezirke und Staatsziele des Ostdeutschen Freistaates.">
+<BaseLayout
+  title="Über den Freistaat"
+  description="Land und Leute, Staatsaufbau, Verfassung, Regionen, Hoheitszeichen und Geschichte des Ostdeutschen Freistaates."
+>
   <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Über den Freistaat' }]} />
 
   <SectionHero
     eyebrow="Über den Freistaat"
     title="Der Ostdeutsche Freistaat"
-    lead="Grunddaten, staatliche Struktur, Hoheitszeichen und Geschichte des Freistaates."
+    lead="Land und Leute, Staatsaufbau, Verfassung, Regionen, Hoheitszeichen und Geschichte im Überblick."
     variant="freestate"
     facts={[
       { label: 'Landeshauptstadt', value: siteConfig.currentGovernment.seatOfGovernment },
-      { label: 'Bundeshauptstadt', value: 'Berlin' },
-      { label: 'Derzeitige Bezirke', value: '8' },
-      { label: 'Landesfarben', value: 'Blau, Weiß und Grün' },
+      { label: 'Volksvertretung', value: siteConfig.currentGovernment.legislature },
+      { label: 'Vollziehende Gewalt', value: siteConfig.currentGovernment.cabinetName },
+      { label: 'Bezirke', value: '14 ab 1. August 2026' },
     ]}
     image={{
       src: siteConfig.officialFlagAssetPath,
@@ -55,12 +61,33 @@ const orderedPages = [
   <section class="section" aria-labelledby="staatliche-orientierung">
     <div class="section-header">
       <h2 id="staatliche-orientierung">Staatliche Orientierung</h2>
+      <p>Direkte Zugänge zu den wichtigsten Institutionen und Grundlagen des Freistaates.</p>
     </div>
     <ul class="direct-entry-list">
-      <li><strong>Staatsrat</strong><span><a class="inline-link" href={getGovernmentUrl()}>Staatspräsident, Mitglieder und Staatssekretariate</a></span></li>
-      <li><strong>Themen</strong><span><a class="inline-link" href={getTopicsUrl()}>Vorhaben, Zuständigkeiten und nächste Schritte</a></span></li>
-      <li><strong>Recht</strong><span><a class="inline-link" href={getLawConstitutionUrl()}>Verfassung und Rechtsordnung</a></span></li>
-      <li><strong>Haushalt</strong><span><a class="inline-link" href={getBudgetUrl()}>Doppelhaushalt, Einzelpläne und Fonds</a></span></li>
+      <li>
+        <strong>Staatsaufbau</strong>
+        <span><a class="inline-link" href={getFreestatePageUrl('staatsaufbau')}>Volkskammer, Staatsrat und Verfassungsgerichtshof</a></span>
+      </li>
+      <li>
+        <strong>Große Staatsreform</strong>
+        <span><a class="inline-link" href={getFreestatePageUrl('grosse-staatsreform')}>Neuordnung seit dem 21. Juli 2026</a></span>
+      </li>
+      <li>
+        <strong>Staatsrat</strong>
+        <span><a class="inline-link" href={getGovernmentUrl()}>Staatspräsident, Mitglieder und Staatssekretariate</a></span>
+      </li>
+      <li>
+        <strong>Recht</strong>
+        <span><a class="inline-link" href={getLawConstitutionUrl()}>Verfassung und Rechtsordnung</a></span>
+      </li>
+      <li>
+        <strong>Themen</strong>
+        <span><a class="inline-link" href={getTopicsUrl()}>Vorhaben, Zuständigkeiten und nächste Schritte</a></span>
+      </li>
+      <li>
+        <strong>Haushalt</strong>
+        <span><a class="inline-link" href={getBudgetUrl()}>Doppelhaushalt, Einzelpläne und Fonds</a></span>
+      </li>
     </ul>
   </section>
 
@@ -68,7 +95,7 @@ const orderedPages = [
     <div class="section-header">
       <h2>Themenbereiche</h2>
       <p>
-        Verfassung, Bezirke, Hoheitszeichen, Hauptstadtfunktionen und Geschichte im Überblick.
+        Grundlagen des Landes, neue Staatsorganisation, regionale Gliederung und historische Entwicklung.
       </p>
     </div>
     <div class="card-grid card-grid--three">
@@ -85,8 +112,8 @@ const orderedPages = [
     <div class="section-header">
       <h2>Direkter Verfassungszugang</h2>
       <p>
-        Die rechtliche Grundordnung des Freistaates bleibt parallel als Teil des integrierten
-        Rechtsportals zugänglich.
+        Die geltende Verfassung und die vier Gesetze zur Großen Staatsreform sind im integrierten
+        Rechtsportal mit Fundstellen und Fassungen zugänglich.
       </p>
     </div>
     <p class="section-link-row">

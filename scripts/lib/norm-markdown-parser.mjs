@@ -101,7 +101,7 @@ function parseIdentity(heading, rawTitle) {
     const simpleParenthetical = title.match(/\(([^()]{2,40})\)\s*$/u);
     if (simpleParenthetical) abbr = simpleParenthetical[1].trim();
   }
-  return { title, shortTitle, abbr: abbr || shortTitle };
+  return { title, shortTitle, abbr: abbr || undefined };
 }
 
 function sourceTypeFromHeading(heading, title) {
@@ -198,9 +198,21 @@ export function parseStructuredBody(inputLines) {
     : line);
   const root = [];
   const stack = [{ rank: 0, children: root }];
+  let previousWasBlank = true;
+
+  const appendContinuation = (children, text) => {
+    const previous = children.at(-1);
+    if (!previous || !['paragraphText', 'subparagraph', 'item', 'subitem'].includes(previous.type)) return false;
+    previous.text = `${previous.text} ${text}`.replace(/\s+/gu, ' ').trim();
+    return true;
+  };
+
   for (let index = 0; index < lines.length; index += 1) {
     const line = lines[index];
-    if (line.blank) continue;
+    if (line.blank) {
+      previousWasBlank = true;
+      continue;
+    }
     const marker = markerAt(lines, index);
     if (marker) {
       const block = { type: marker.type, label: marker.label, title: marker.title, children: [] };
@@ -209,12 +221,52 @@ export function parseStructuredBody(inputLines) {
       stack.at(-1).children.push(block);
       stack.push({ rank, children: block.children });
       if (marker.titleLine === index + 1) index = marker.titleLine;
+      previousWasBlank = false;
       continue;
     }
-    const text = line.text.replace(/^\|\s*/u, '').replace(/\s*\|\s*$/u, '').replace(/\s*\|\s*/gu, ' | ');
+
+    if (/^\s*\|.*\|\s*$/u.test(line.raw)) {
+      const rows = [];
+      let cursor = index;
+      while (cursor < lines.length && /^\s*\|.*\|\s*$/u.test(lines[cursor].raw)) {
+        if (!/^\s*\|(?:\s*:?-{3,}:?\s*\|)+\s*$/u.test(lines[cursor].raw)) {
+          const cells = lines[cursor].raw
+            .trim()
+            .replace(/^\||\|$/gu, '')
+            .split('|')
+            .map((cell) => stripMarkdown(cell))
+            .filter((cell) => cell.length > 0)
+            .map((text) => ({ type: 'tableCell', text }));
+          if (cells.length > 0) rows.push({ type: 'tableRow', children: cells });
+        }
+        cursor += 1;
+      }
+      if (rows.length > 0) stack.at(-1).children.push({ type: 'table', children: rows });
+      index = cursor - 1;
+      previousWasBlank = false;
+      continue;
+    }
+
+    const text = line.text;
     if (!text || /^Inhaltsverzeichnis$/iu.test(text)) continue;
+    const subparagraph = text.match(/^\((\d+[a-z]?)\)\s*(.*)$/iu);
+    if (subparagraph) {
+      stack.at(-1).children.push({ type: 'subparagraph', label: `(${subparagraph[1]})`, text: subparagraph[2] });
+      previousWasBlank = false;
+      continue;
+    }
     const item = parseListItem(text);
-    stack.at(-1).children.push(item ?? { type: 'paragraphText', text });
+    if (item) {
+      stack.at(-1).children.push(item);
+      previousWasBlank = false;
+      continue;
+    }
+    if (!previousWasBlank && appendContinuation(stack.at(-1).children, text)) {
+      previousWasBlank = false;
+      continue;
+    }
+    stack.at(-1).children.push({ type: 'paragraphText', text });
+    previousWasBlank = false;
   }
   return root;
 }
@@ -340,6 +392,8 @@ export function parsePublicationMarkdown(fileName, markdown) {
   const headingIndex = findMainHeading(lines, tocIndex);
   if (headingIndex < 0) throw new NormMarkdownParseError(fileName, 1, 'keine unterstützte Normüberschrift nach dem Inhaltsverzeichnis erkannt');
   const main = parseMainTitle(lines, headingIndex, fileName);
+  const tocText = lines.slice(Math.max(0, tocIndex), headingIndex).map((line) => line.text).join(' ');
+  const startPage = tocText.match(/\bSeite\s+(\d+)\b/iu)?.[1];
   let bodyStart = main.cursor;
   while (bodyStart < lines.length && !parseStructureMarker(lines[bodyStart].raw)) bodyStart += 1;
   // Der Ausfertigungsblock beendet nicht zwingend die Quelle: Anlagen können ihm folgen.
@@ -362,6 +416,7 @@ export function parsePublicationMarkdown(fileName, markdown) {
     ...main.identity,
     type: sourceTypeFromHeading(main.heading, main.identity.title),
     sourceLine: lines[headingIndex].number,
+    startPage,
     body,
   };
   publication.introducedNorms = extractIntroducedNorms(lines, bodyStart, bodyEnd, publication, fileName);

@@ -24,6 +24,7 @@ test('Ausgabe 46 trennt Mantelgesetz, OstKrBzNG und Bezirksordnung', async () =>
   assert.equal(parsed.title, 'Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften');
   assert.equal(parsed.documentDate, '2026-07-20');
   assert.equal(parsed.publicationDate, '2026-07-20');
+  assert.equal(parsed.startPage, '2');
   assert.equal(parsed.effectiveDate, '2026-07-21');
   assert.equal(parsed.introducedNorms.length, 2);
   assert.equal(parsed.introducedNorms[0].abbr, 'OstKrBzNG');
@@ -57,9 +58,17 @@ for (const [number, ordinal] of [[53, 'Erstes'], [54, 'Zweites'], [55, 'Drittes'
     assert.equal(parsed.documentDate, '2026-07-20');
     assert.equal(parsed.publicationDate, '2026-07-20');
     assert.equal(parsed.effectiveDate, '2026-07-21');
+    assert.equal(parsed.abbr, undefined);
     assert.equal(summarizeParsedSource(parsed).at(-1).lastStructure, 'Artikel 2');
   });
 }
+
+test('Ausgabe 53 bewahrt den verkündeten Wortlaut von Artikel 121a', async () => {
+  const parsed = await issue(53);
+  const text = bodyText(parsed);
+  assert.match(text, /Achte Volkskammer ist der achte Landtag\. Die Wahl zur neunten Volkskammer findet Ende August statt\./u);
+  assert.doesNotMatch(text, /Siebte Volkskammer/u);
+});
 
 test('Ausgabe 55 bewahrt verschachtelte Änderungsanweisungen und Zitate', async () => {
   const parsed = await issue(55);
@@ -147,4 +156,70 @@ Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.
   assert.match(text, /Anlage 1/u);
   assert.match(text, /Erster Eintrag/u);
   assert.doesNotMatch(text, /unterzeichnende Person|Ministerpräsident/u);
+});
+
+test('Absatzmarker und Fortsetzungszeilen bleiben als eigene Absätze verbunden', () => {
+  const markdown = `
+**Gesetz- und Verordnungsblatt**
+für den Freistaat Ostdeutschland.
+
+| Nr. 99 | Ausgegeben zu Dresden am 21. Juli 2026 |
+
+Inhaltsverzeichnis
+
+| 20. Juli 2026 | Gesetz über einen Test | Seite 2 |
+
+**Gesetz**
+über einen Test
+vom 20. Juli 2026
+
+## § 1 Regelung
+
+(1) Der erste Absatz beginnt hier
+und wird in der nächsten Zeile fortgesetzt.
+
+(1a) Der zweite Absatz bleibt eigenständig.
+
+## § 2 Inkrafttreten
+
+Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.
+`;
+  const parsed = parsePublicationMarkdown('OGVBl. 2026 Nr. 99.md', markdown);
+  const firstParagraph = parsed.body.find((block) => block.label === '§ 1');
+  assert.deepEqual(firstParagraph.children.map((block) => block.type), ['subparagraph', 'subparagraph']);
+  assert.match(firstParagraph.children[0].text, /beginnt hier und wird in der nächsten Zeile fortgesetzt/u);
+  assert.equal(firstParagraph.children[1].label, '(1a)');
+});
+
+test('echte Markdown-Tabellen werden als Zeilen und Zellen strukturiert', () => {
+  const markdown = `
+**Gesetz- und Verordnungsblatt**
+für den Freistaat Ostdeutschland.
+
+| Nr. 99 | Ausgegeben zu Dresden am 21. Juli 2026 |
+
+Inhaltsverzeichnis
+
+| 20. Juli 2026 | Gesetz über einen Test | Seite 2 |
+
+**Gesetz**
+über einen Test
+vom 20. Juli 2026
+
+## § 1 Tabelle
+
+| Bezeichnung | Wert |
+| --- | ---: |
+| A | 1 |
+| B | 2 |
+
+## § 2 Inkrafttreten
+
+Dieses Gesetz tritt am Tag nach der Verkündung in Kraft.
+`;
+  const parsed = parsePublicationMarkdown('OGVBl. 2026 Nr. 99.md', markdown);
+  const table = parsed.body.find((block) => block.label === '§ 1').children.find((block) => block.type === 'table');
+  assert.equal(table.children.length, 3);
+  assert.deepEqual(table.children[0].children.map((cell) => cell.text), ['Bezeichnung', 'Wert']);
+  assert.deepEqual(table.children[2].children.map((cell) => cell.text), ['B', '2']);
 });

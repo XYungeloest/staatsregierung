@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -17,16 +17,19 @@
           "title": "Grundsätze der Sportförderung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Sportförderung des Freistaates ist an den Grundsätzen der Freiwilligkeit, Menschenwürde, körperlichen Unversehrtheit, Chancengleichheit, Gleichbehandlung, Inklusion, demokratischen Selbstorganisation des Sports, Transparenz und Wirtschaftlichkeit auszurichten."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Sportförderung des Freistaates ist an den Grundsätzen der Freiwilligkeit, Menschenwürde, körperlichen Unversehrtheit, Chancengleichheit, Gleichbehandlung, Inklusion, demokratischen Selbstorganisation des Sports, Transparenz und Wirtschaftlichkeit auszurichten."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Sportliche Förderung darf nicht von politischer Überzeugung, Weltanschauung, Herkunft, Geschlecht, Behinderung, Religion, sexueller Identität, sozialer Lage oder einer nicht sportbezogenen Loyalitätserwartung abhängig gemacht werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Sportliche Förderung darf nicht von politischer Überzeugung, Weltanschauung, Herkunft, Geschlecht, Behinderung, Religion, sexueller Identität, sozialer Lage oder einer nicht sportbezogenen Loyalitätserwartung abhängig gemacht werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Kinder und Jugendliche dürfen nicht gegen ihren Willen oder gegen den Willen ihrer Personensorgeberechtigten einer leistungssportlichen Förderung, einem Vereinswechsel oder einer Internatsunterbringung zugeführt werden."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Kinder und Jugendliche dürfen nicht gegen ihren Willen oder gegen den Willen ihrer Personensorgeberechtigten einer leistungssportlichen Förderung, einem Vereinswechsel oder einer Internatsunterbringung zugeführt werden."
             }
           ]
         },
@@ -102,12 +105,14 @@
           "title": "Landessportplanung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die oberste Sportbehörde stellt einen Landessportplan auf."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die oberste Sportbehörde stellt einen Landessportplan auf."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Landessportplan ist mindestens alle fünf Jahre fortzuschreiben. Der Landessportrat Ost ist vor der Beschlussfassung anzuhören."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Landessportplan ist mindestens alle fünf Jahre fortzuschreiben. Der Landessportrat Ost ist vor der Beschlussfassung anzuhören."
             }
           ]
         }
@@ -135,12 +140,14 @@
           "title": "Kinder- und Jugendsport",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat fördert den Kinder- und Jugendsport als Teil der Bildungs-, Gesundheits- und Jugendpolitik."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat fördert den Kinder- und Jugendsport als Teil der Bildungs-, Gesundheits- und Jugendpolitik."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Bei Fördermaßnahmen für Minderjährige sind Schutzkonzepte vorzuhalten. Das Nähere bestimmt die oberste Sportbehörde durch Verwaltungsvorschrift."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Bei Fördermaßnahmen für Minderjährige sind Schutzkonzepte vorzuhalten. Das Nähere bestimmt die oberste Sportbehörde durch Verwaltungsvorschrift."
             }
           ]
         },
@@ -150,20 +157,24 @@
           "title": "Ostdeutsche Kinder- und Jugendspiele",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat veranstaltet im Zusammenwirken mit dem Ostdeutschen Sportbund, den Sportfachverbänden, den Bezirken und den Kommunen die Ostdeutschen Kinder- und Jugendspiele."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat veranstaltet im Zusammenwirken mit dem Ostdeutschen Sportbund, den Sportfachverbänden, den Bezirken und den Kommunen die Ostdeutschen Kinder- und Jugendspiele."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Ostdeutschen Kinder- und Jugendspiele finden auf Kreis-, Bezirks- und Landesebene statt."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Ostdeutschen Kinder- und Jugendspiele finden auf Kreis-, Bezirks- und Landesebene statt."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Teilnahme ist freiwillig."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Teilnahme ist freiwillig."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Durchführung der Ostdeutschen Kinder- und Jugendspiele kann durch Zuwendungen des Landes gefördert werden."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Durchführung der Ostdeutschen Kinder- und Jugendspiele kann durch Zuwendungen des Landes gefördert werden."
             }
           ]
         },
@@ -173,12 +184,14 @@
           "title": "Landessportpass Ost",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat richtet einen Landessportpass Ost ein."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat richtet einen Landessportpass Ost ein."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Landessportpass Ost gewährt"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Landessportpass Ost gewährt"
             },
             {
               "type": "item",
@@ -206,12 +219,14 @@
               "text": "Fahrtkostenzuschüsse zu anerkannten Sportangeboten."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Anspruchsberechtigt sind Kinder und Jugendliche bis zur Vollendung des 18. Lebensjahres oder des ersten Bildungswegs."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Anspruchsberechtigt sind Kinder und Jugendliche bis zur Vollendung des 18. Lebensjahres oder des ersten Bildungswegs."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Das Nähere, insbesondere zu Leistungsvoraussetzungen, Umfang, Verfahren, Nachweisen und Abrechnung, regelt das für Bildung zuständige Staatsministerium im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium durch Rechtsverordnung."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Das Nähere, insbesondere zu Leistungsvoraussetzungen, Umfang, Verfahren, Nachweisen und Abrechnung, regelt das für Bildung zuständige Staatsministerium im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium durch Rechtsverordnung."
             }
           ]
         },
@@ -221,12 +236,14 @@
           "title": "Gesundheitssport, Seniorensport und Rehabilitationssport",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat fördert Gesundheitssport, Seniorensport und Rehabilitationssport als Bestandteil der Gesundheitsvorsorge."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat fördert Gesundheitssport, Seniorensport und Rehabilitationssport als Bestandteil der Gesundheitsvorsorge."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Das für Gesundheitswesen zuständige Staatsministerium stellt im Benehmen mit der obersten Sportbehörde Grundsätze der Förderung auf."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Das für Gesundheitswesen zuständige Staatsministerium stellt im Benehmen mit der obersten Sportbehörde Grundsätze der Förderung auf."
             }
           ]
         },
@@ -254,20 +271,24 @@
           "title": "Nachwuchsleistungssport",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Nachwuchsleistungssport dient der freiwilligen Förderung sportlich besonders entwicklungsfähiger Kinder, Jugendlicher und junger Erwachsener."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Nachwuchsleistungssport dient der freiwilligen Förderung sportlich besonders entwicklungsfähiger Kinder, Jugendlicher und junger Erwachsener."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Maßnahmen des Nachwuchsleistungssports müssen mit Schule, Ausbildung oder Studium vereinbar sein."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Maßnahmen des Nachwuchsleistungssports müssen mit Schule, Ausbildung oder Studium vereinbar sein."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Aufnahme in Maßnahmen des Nachwuchsleistungssports setzt bei Minderjährigen die Einwilligung der Personensorgeberechtigten und die Zustimmung des Minderjährigen voraus."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Aufnahme in Maßnahmen des Nachwuchsleistungssports setzt bei Minderjährigen die Einwilligung der Personensorgeberechtigten und die Zustimmung des Minderjährigen voraus."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Beendigung einer Fördermaßnahme darf nicht mit dem Verlust eines Schulplatzes oder eines Ausbildungsplatzes verbunden werden. Anschluss- und Rückkehrmöglichkeiten sind zu gewährleisten."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Beendigung einer Fördermaßnahme darf nicht mit dem Verlust eines Schulplatzes oder eines Ausbildungsplatzes verbunden werden. Anschluss- und Rückkehrmöglichkeiten sind zu gewährleisten."
             }
           ]
         },
@@ -277,8 +298,9 @@
           "title": "Stützpunktsystem",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Das Stützpunktsystem besteht aus"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Das Stützpunktsystem besteht aus"
             },
             {
               "type": "item",
@@ -296,12 +318,14 @@
               "text": "Landesleistungszentren."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Stützpunkte werden von der obersten Sportbehörde anerkannt. Die Anerkennung kann befristet und mit Nebenbestimmungen versehen werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Stützpunkte werden von der obersten Sportbehörde anerkannt. Die Anerkennung kann befristet und mit Nebenbestimmungen versehen werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Voraussetzung der Anerkennung ist, dass der Stützpunkt"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Voraussetzung der Anerkennung ist, dass der Stützpunkt"
             },
             {
               "type": "item",
@@ -341,16 +365,19 @@
           "title": "Kreisstützpunkte",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Kreisstützpunkte dienen der sportlichen Grundausbildung, Sichtung und wohnortnahen Förderung."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Kreisstützpunkte dienen der sportlichen Grundausbildung, Sichtung und wohnortnahen Förderung."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Jeder Landkreis und jede kreisfreie Stadt soll im Rahmen seiner Leistungsfähigkeit mindestens einen Kreisstützpunkt oder eine gleichwertige Kooperation mehrerer kommunaler Träger vorhalten."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Jeder Landkreis und jede kreisfreie Stadt soll im Rahmen seiner Leistungsfähigkeit mindestens einen Kreisstützpunkt oder eine gleichwertige Kooperation mehrerer kommunaler Träger vorhalten."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Anerkennung als Kreisstützpunkt erfolgt im Benehmen mit dem jeweiligen Landkreis oder der jeweiligen kreisfreien Stadt."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Anerkennung als Kreisstützpunkt erfolgt im Benehmen mit dem jeweiligen Landkreis oder der jeweiligen kreisfreien Stadt."
             }
           ]
         },
@@ -360,16 +387,19 @@
           "title": "Bezirksstützpunkte",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Bezirksstützpunkte dienen dem Aufbauleistungssport und der sportartspezifischen Förderung."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bezirksstützpunkte dienen dem Aufbauleistungssport und der sportartspezifischen Förderung."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) In jedem Bezirk sollen nach Maßgabe des Landessportplans Bezirksstützpunkte eingerichtet werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "In jedem Bezirk sollen nach Maßgabe des Landessportplans Bezirksstützpunkte eingerichtet werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die zuständige Bezirksverwaltung koordiniert die Bezirksstützpunkte im Benehmen mit den betroffenen Landkreisen, kreisfreien Städten, Sportfachverbänden und Schulträgern."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die zuständige Bezirksverwaltung koordiniert die Bezirksstützpunkte im Benehmen mit den betroffenen Landkreisen, kreisfreien Städten, Sportfachverbänden und Schulträgern."
             }
           ]
         },
@@ -379,16 +409,19 @@
           "title": "Landesleistungszentren",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Landesleistungszentren dienen der Anschlussförderung an Landes- und Bundeskader."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Landesleistungszentren dienen der Anschlussförderung an Landes- und Bundeskader."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Landesleistungszentren können insbesondere mit Ostdeutschen Sportschulen, Hochschulen, sportmedizinischen Einrichtungen und Internaten verbunden werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Landesleistungszentren können insbesondere mit Ostdeutschen Sportschulen, Hochschulen, sportmedizinischen Einrichtungen und Internaten verbunden werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Anerkennung als Landesleistungszentrum erfolgt durch die oberste Sportbehörde im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium, soweit dauerhafte Haushaltsverpflichtungen begründet werden."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Anerkennung als Landesleistungszentrum erfolgt durch die oberste Sportbehörde im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium, soweit dauerhafte Haushaltsverpflichtungen begründet werden."
             }
           ]
         },
@@ -398,8 +431,9 @@
           "title": "Ostdeutsche Sportclubs",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Ein Landesleistungszentrum kann als Ostdeutscher Sportclub anerkannt werden, wenn es"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ein Landesleistungszentrum kann als Ostdeutscher Sportclub anerkannt werden, wenn es"
             },
             {
               "type": "item",
@@ -427,12 +461,14 @@
               "text": "eine Athletenvertretung eingerichtet hat."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Ostdeutsche Sportclubs können institutionell gefördert werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Ostdeutsche Sportclubs können institutionell gefördert werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Anerkennung ist auf höchstens fünf Jahre zu befristen. Eine erneute Anerkennung ist zulässig."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Anerkennung ist auf höchstens fünf Jahre zu befristen. Eine erneute Anerkennung ist zulässig."
             }
           ]
         },
@@ -442,20 +478,24 @@
           "title": "Landesberufung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Landesberufung ist die freiwillige Aufnahme eines/r Athleten/Athletin in eine vertiefte Förderung des Nachwuchsleistungs- oder Spitzensports."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Landesberufung ist die freiwillige Aufnahme eines/r Athleten/Athletin in eine vertiefte Förderung des Nachwuchsleistungs- oder Spitzensports."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Landesberufung erfolgt durch die oberste Sportbehörde."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Landesberufung erfolgt durch die oberste Sportbehörde."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Bei Minderjährigen bedarf die Landesberufung der schriftlichen Einwilligung der Personensorgeberechtigten und der Zustimmung des Minderjährigen."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Bei Minderjährigen bedarf die Landesberufung der schriftlichen Einwilligung der Personensorgeberechtigten und der Zustimmung des Minderjährigen."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Landesberufung kann widerrufen werden, wenn die Voraussetzungen entfallen sind oder schwerwiegende Verstöße gegen Antidoping-, Schutz- oder Integritätsanforderungen vorliegen."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Landesberufung kann widerrufen werden, wenn die Voraussetzungen entfallen sind oder schwerwiegende Verstöße gegen Antidoping-, Schutz- oder Integritätsanforderungen vorliegen."
             }
           ]
         },
@@ -465,12 +505,14 @@
           "title": "Soziale Ausgleichsleistungen",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat gewährt soziale Ausgleichsleistungen, um eine Teilnahme an Fördermaßnahmen unabhängig von der wirtschaftlichen Lage der Familie zu ermöglichen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat gewährt soziale Ausgleichsleistungen, um eine Teilnahme an Fördermaßnahmen unabhängig von der wirtschaftlichen Lage der Familie zu ermöglichen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Soziale Ausgleichsleistungen können insbesondere gewährt werden für"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Soziale Ausgleichsleistungen können insbesondere gewährt werden für"
             },
             {
               "type": "item",
@@ -517,12 +559,14 @@
           "title": "Ostdeutscher Leistungssportkader",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat richtet den Ostdeutschen Leistungssportkader ein."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat richtet den Ostdeutschen Leistungssportkader ein."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Ostdeutsche Leistungssportkader gliedert sich in"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Ostdeutsche Leistungssportkader gliedert sich in"
             },
             {
               "type": "item",
@@ -555,8 +599,9 @@
               "text": "Medaillenkader Ost."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Paralympische und deaflympische Kaderathlet:innen sind olympischen Kaderathlet:innen gleichgestellt."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Paralympische und deaflympische Kaderathlet:innen sind olympischen Kaderathlet:innen gleichgestellt."
             }
           ]
         },
@@ -566,12 +611,14 @@
           "title": "Kaderförderung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Kaderathlet:innen erhalten nach Maßgabe dieses Gesetzes und des Athletenförder- und Versorgungsgesetzes eine Kaderförderung."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Kaderathlet:innen erhalten nach Maßgabe dieses Gesetzes und des Athletenförder- und Versorgungsgesetzes eine Kaderförderung."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Kaderförderung umfasst insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Kaderförderung umfasst insbesondere"
             },
             {
               "type": "item",
@@ -624,8 +671,9 @@
               "text": "Übergangsleistungen nach Beendigung der sportlichen Laufbahn."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Förderung wird zusätzlich zu Leistungen des Bundes, anderer Länder, der Deutschen Sporthilfe oder vergleichbarer Einrichtungen gewährt, soweit durch Rechtsverordnung nichts Abweichendes bestimmt wird."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Förderung wird zusätzlich zu Leistungen des Bundes, anderer Länder, der Deutschen Sporthilfe oder vergleichbarer Einrichtungen gewährt, soweit durch Rechtsverordnung nichts Abweichendes bestimmt wird."
             }
           ]
         },
@@ -635,12 +683,14 @@
           "title": "Förderverträge",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Förderleistungen im Spitzensport werden auf Grundlage schriftlicher Förderverträge gewährt."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Förderleistungen im Spitzensport werden auf Grundlage schriftlicher Förderverträge gewährt."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Fördervertrag regelt insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Fördervertrag regelt insbesondere"
             },
             {
               "type": "item",
@@ -678,12 +728,14 @@
               "text": "Beendigung und Rückforderung."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Bei Minderjährigen ist der Fördervertrag mit den Personensorgeberechtigten und dem Minderjährigen zu schließen."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Bei Minderjährigen ist der Fördervertrag mit den Personensorgeberechtigten und dem Minderjährigen zu schließen."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Förderverträge dürfen keine Verpflichtung zur Einnahme bestimmter Arzneimittel, Nahrungsergänzungsmittel oder sonstiger Substanzen enthalten."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Förderverträge dürfen keine Verpflichtung zur Einnahme bestimmter Arzneimittel, Nahrungsergänzungsmittel oder sonstiger Substanzen enthalten."
             }
           ]
         },
@@ -693,12 +745,14 @@
           "title": "Sportförderstellen im öffentlichen Dienst",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat kann Sportförderstellen im öffentlichen Dienst einrichten."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat kann Sportförderstellen im öffentlichen Dienst einrichten."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Sportförderstellen können insbesondere in der Landesverwaltung, bei der Polizei, bei der Feuerwehr, im Rettungswesen, an Hochschulen und bei landeseigenen Unternehmen eingerichtet werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Sportförderstellen können insbesondere in der Landesverwaltung, bei der Polizei, bei der Feuerwehr, im Rettungswesen, an Hochschulen und bei landeseigenen Unternehmen eingerichtet werden."
             }
           ]
         },
@@ -708,12 +762,14 @@
           "title": "Prämien und ergänzende Leistungen",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Für besondere sportliche Leistungen werden Landesprämien gewährt."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Für besondere sportliche Leistungen werden Landesprämien gewährt."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Prämien werden mindestens gewährt für"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Prämien werden mindestens gewährt für"
             },
             {
               "type": "item",
@@ -751,16 +807,19 @@
               "text": "vergleichbare Leistungen in nichtolympischen Schwerpunkt- und Entwicklungssportarten."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Olympische, paralympische und deaflympische Leistungen sind prämienrechtlich gleich zu behandeln."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Olympische, paralympische und deaflympische Leistungen sind prämienrechtlich gleich zu behandeln."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Staatsregierung wird ermächtigt, durch Rechtsverordnung Prämien, Abstufungen, Verfahren, Nachweise, Ausschlussgründe und Rückforderungstatbestände zu regeln."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Staatsregierung wird ermächtigt, durch Rechtsverordnung Prämien, Abstufungen, Verfahren, Nachweise, Ausschlussgründe und Rückforderungstatbestände zu regeln."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die Rechtsverordnung nach Absatz 4 hat mindestens folgende Prämien vorzusehen:"
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Rechtsverordnung nach Absatz 4 hat mindestens folgende Prämien vorzusehen:"
             },
             {
               "type": "item",
@@ -805,16 +864,19 @@
           "title": "Athletenvertretung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Kaderathlet:innen wählen eine Athletenvertretung."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Kaderathlet:innen wählen eine Athletenvertretung."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Athletenvertretung ist vor wesentlichen Entscheidungen über Fördergrundsätze, Kaderkriterien, Schutzkonzepte und Prämienregelungen anzuhören."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Athletenvertretung ist vor wesentlichen Entscheidungen über Fördergrundsätze, Kaderkriterien, Schutzkonzepte und Prämienregelungen anzuhören."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Tätigkeit in der Athletenvertretung darf nicht zu sportlichen oder förderrechtlichen Nachteilen führen."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Tätigkeit in der Athletenvertretung darf nicht zu sportlichen oder förderrechtlichen Nachteilen führen."
             }
           ]
         },
@@ -842,12 +904,14 @@
           "title": "Sportmedizinische Betreuung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat fördert eine unabhängige sportmedizinische Betreuung im Nachwuchsleistungs- und Spitzensport."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat fördert eine unabhängige sportmedizinische Betreuung im Nachwuchsleistungs- und Spitzensport."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Sportmedizinische Untersuchungen bei Minderjährigen bedürfen der Einwilligung der Personensorgeberechtigten und der Zustimmung des Minderjährigen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Sportmedizinische Untersuchungen bei Minderjährigen bedürfen der Einwilligung der Personensorgeberechtigten und der Zustimmung des Minderjährigen."
             }
           ]
         },
@@ -857,16 +921,19 @@
           "title": "Institut für Angewandte Sportwissenschaft Ost",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat errichtet das Institut für Angewandte Sportwissenschaft Ost."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat errichtet das Institut für Angewandte Sportwissenschaft Ost."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Das Institut ist eine Einrichtung des Freistaates."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Das Institut ist eine Einrichtung des Freistaates."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Das Institut unterstützt die Sportförderung insbesondere durch"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Das Institut unterstützt die Sportförderung insbesondere durch"
             },
             {
               "type": "item",
@@ -894,8 +961,9 @@
               "text": "sportwissenschaftliche Beratung von Stützpunkten, Landesleistungszentren, Ostdeutschen Sportclubs und Ostdeutschen Sportschulen."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Personenbezogene Daten dürfen nur verarbeitet werden, soweit eine gesetzliche Grundlage besteht oder die betroffene Person eingewilligt hat."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Personenbezogene Daten dürfen nur verarbeitet werden, soweit eine gesetzliche Grundlage besteht oder die betroffene Person eingewilligt hat."
             }
           ]
         },
@@ -905,16 +973,19 @@
           "title": "Trainerakademie Ostdeutschland",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat errichtet die Trainerakademie Ostdeutschland."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat errichtet die Trainerakademie Ostdeutschland."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Trainerakademie dient der Aus-, Fort- und Weiterbildung von Trainern."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Trainerakademie dient der Aus-, Fort- und Weiterbildung von Trainern."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Ausbildung hat verpflichtende Inhalte zu Kinderschutz, Antidoping, Sportmedizin, Sportpsychologie, Pädagogik, Inklusion, Datenschutz und Integrität des Sports zu enthalten."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Ausbildung hat verpflichtende Inhalte zu Kinderschutz, Antidoping, Sportmedizin, Sportpsychologie, Pädagogik, Inklusion, Datenschutz und Integrität des Sports zu enthalten."
             }
           ]
         },
@@ -924,16 +995,19 @@
           "title": "Landestrainerpool",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat kann einen Landestrainerpool bilden."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat kann einen Landestrainerpool bilden."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Trainer des Landestrainerpools können an Stützpunkten, Landesleistungszentren, Ostdeutschen Sportclubs und Ostdeutschen Sportschulen eingesetzt werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Trainer des Landestrainerpools können an Stützpunkten, Landesleistungszentren, Ostdeutschen Sportclubs und Ostdeutschen Sportschulen eingesetzt werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Dienst- oder Arbeitsverhältnisse sind so auszugestalten, dass fachliche Unabhängigkeit, Schutzpflichten gegenüber Minderjährigen und Antidopingpflichten gewährleistet sind."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Dienst- oder Arbeitsverhältnisse sind so auszugestalten, dass fachliche Unabhängigkeit, Schutzpflichten gegenüber Minderjährigen und Antidopingpflichten gewährleistet sind."
             }
           ]
         }
@@ -950,16 +1024,19 @@
           "title": "Schutz der Gesundheit und der Persönlichkeit",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Alle Fördermaßnahmen nach diesem Gesetz sind so auszugestalten, dass die körperliche und psychische Gesundheit sowie die Persönlichkeit der Athlet:innen geschützt werden."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Alle Fördermaßnahmen nach diesem Gesetz sind so auszugestalten, dass die körperliche und psychische Gesundheit sowie die Persönlichkeit der Athlet:innen geschützt werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Förderempfänger:innen haben Schutzkonzepte vorzuhalten, soweit sie mit Minderjährigen, Kaderathlet:innen oder Athlet:innen in Abhängigkeitsverhältnissen arbeiten."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Förderempfänger:innen haben Schutzkonzepte vorzuhalten, soweit sie mit Minderjährigen, Kaderathlet:innen oder Athlet:innen in Abhängigkeitsverhältnissen arbeiten."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Schutzkonzepte müssen insbesondere Regelungen enthalten zu"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Schutzkonzepte müssen insbesondere Regelungen enthalten zu"
             },
             {
               "type": "item",
@@ -999,20 +1076,24 @@
           "title": "Minderjährigenschutz im Leistungssport",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Bei Minderjährigen haben Kindeswohl, Gesundheit und schulische Entwicklung Vorrang vor sportlichen Leistungszielen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bei Minderjährigen haben Kindeswohl, Gesundheit und schulische Entwicklung Vorrang vor sportlichen Leistungszielen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Trainings- und Wettkampfbelastungen sind altersangemessen auszugestalten."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Trainings- und Wettkampfbelastungen sind altersangemessen auszugestalten."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Internate und Wohnheime des Nachwuchsleistungssports bedürfen eines pädagogischen Schutzkonzepts."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Internate und Wohnheime des Nachwuchsleistungssports bedürfen eines pädagogischen Schutzkonzepts."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Eine Landesberufung, Kaderzuordnung oder Aufnahme in eine Sportschule darf nicht von der Verpflichtung abhängig gemacht werden, ein Internat zu nutzen, soweit eine zumutbare Alternative besteht."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Eine Landesberufung, Kaderzuordnung oder Aufnahme in eine Sportschule darf nicht von der Verpflichtung abhängig gemacht werden, ein Internat zu nutzen, soweit eine zumutbare Alternative besteht."
             }
           ]
         },
@@ -1033,20 +1114,24 @@
           "title": "Ombudsstelle Sport",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Bei der obersten Sportbehörde wird eine unabhängige Ombudsstelle Sport eingerichtet."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bei der obersten Sportbehörde wird eine unabhängige Ombudsstelle Sport eingerichtet."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Ombudsstelle ist Anlaufstelle für Athlet:innen, Personensorgeberechtigte, Trainer:innen, Beschäftigte und sonstige Beteiligte."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Ombudsstelle ist Anlaufstelle für Athlet:innen, Personensorgeberechtigte, Trainer:innen, Beschäftigte und sonstige Beteiligte."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Ombudsstelle ist fachlich unabhängig. Sie darf wegen der Wahrnehmung ihrer Aufgaben nicht angewiesen werden."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Ombudsstelle ist fachlich unabhängig. Sie darf wegen der Wahrnehmung ihrer Aufgaben nicht angewiesen werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Ombudsstelle berichtet jährlich der Staatsregierung."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Ombudsstelle berichtet jährlich der Staatsregierung."
             }
           ]
         },
@@ -1056,16 +1141,19 @@
           "title": "Meldestelle Sportintegrität",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die oberste Sportbehörde richtet eine Meldestelle Sportintegrität ein."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die oberste Sportbehörde richtet eine Meldestelle Sportintegrität ein."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Meldestelle nimmt Hinweise auf Verstöße gegen Antidoping-, Schutz- und Integritätsanforderungen entgegen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Meldestelle nimmt Hinweise auf Verstöße gegen Antidoping-, Schutz- und Integritätsanforderungen entgegen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Hinweisgeber dürfen wegen einer Meldung nicht benachteiligt werden, wenn sie hinreichenden Anlass zu der Annahme hatten, dass die gemeldeten Tatsachen zutreffen."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Hinweisgeber dürfen wegen einer Meldung nicht benachteiligt werden, wenn sie hinreichenden Anlass zu der Annahme hatten, dass die gemeldeten Tatsachen zutreffen."
             }
           ]
         }
@@ -1082,12 +1170,14 @@
           "title": "Landesamt für Sport und Körperkultur",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat errichtet ein Landesamt für Sport und Körperkultur als Landesoberbehörde."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat errichtet ein Landesamt für Sport und Körperkultur als Landesoberbehörde."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Das Landesamt untersteht der Dienst- und Fachaufsicht der obersten Sportbehörde."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Das Landesamt untersteht der Dienst- und Fachaufsicht der obersten Sportbehörde."
             }
           ]
         },
@@ -1097,12 +1187,14 @@
           "title": "Ostdeutscher Sportbund",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Ostdeutsche Sportbund ist der freiwillige Zusammenschluss der Sportvereine und Sportfachverbände im Freistaat."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Ostdeutsche Sportbund ist der freiwillige Zusammenschluss der Sportvereine und Sportfachverbände im Freistaat."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Freistaat kann den Ostdeutschen Sportbund institutionell fördern, wenn dieser"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Freistaat kann den Ostdeutschen Sportbund institutionell fördern, wenn dieser"
             },
             {
               "type": "item",
@@ -1137,12 +1229,14 @@
           "title": "Beleihung des Ostdeutschen Sportbundes",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Ostdeutsche Sportbund kann durch Rechtsverordnung mit einzelnen Aufgaben nach diesem Gesetz beliehen werden."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Ostdeutsche Sportbund kann durch Rechtsverordnung mit einzelnen Aufgaben nach diesem Gesetz beliehen werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Ostdeutsche Sportbund unterliegt bei der Wahrnehmung beliehener Aufgaben der Rechts- und Fachaufsicht der obersten Sportbehörde."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Ostdeutsche Sportbund unterliegt bei der Wahrnehmung beliehener Aufgaben der Rechts- und Fachaufsicht der obersten Sportbehörde."
             }
           ]
         },
@@ -1152,12 +1246,14 @@
           "title": "Landessportrat Ost",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Bei der obersten Sportbehörde wird ein Landessportrat Ost gebildet."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bei der obersten Sportbehörde wird ein Landessportrat Ost gebildet."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Dem Landessportrat gehören Vertreter:innen an"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Dem Landessportrat gehören Vertreter:innen an"
             },
             {
               "type": "item",
@@ -1220,8 +1316,9 @@
               "text": "der Ombudsstelle Sport."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Der Landessportrat berät die Staatsregierung."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Landessportrat berät die Staatsregierung."
             }
           ]
         },
@@ -1231,12 +1328,14 @@
           "title": "Sportanlagenkataster",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Das Landesamt für Sport und Körperkultur führt ein Sportanlagenkataster."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Das Landesamt für Sport und Körperkultur führt ein Sportanlagenkataster."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Gemeinden, Landkreise, kreisfreie Städte und Bezirke übermitteln dem Landesamt die für das Sportanlagenkataster erforderlichen Daten."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Gemeinden, Landkreise, kreisfreie Städte und Bezirke übermitteln dem Landesamt die für das Sportanlagenkataster erforderlichen Daten."
             }
           ]
         }
@@ -1253,12 +1352,14 @@
           "title": "Sportstätten als öffentliche Aufgabe",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Gemeinden, Landkreise und kreisfreie Städte gewährleisten im Rahmen ihrer Leistungsfähigkeit eine angemessene Versorgung der Bevölkerung mit öffentlichen Sportstätten."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Gemeinden, Landkreise und kreisfreie Städte gewährleisten im Rahmen ihrer Leistungsfähigkeit eine angemessene Versorgung der Bevölkerung mit öffentlichen Sportstätten."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Freistaat unterstützt die kommunalen Träger bei der Erfüllung der Aufgabe nach Absatz 1."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Freistaat unterstützt die kommunalen Träger bei der Erfüllung der Aufgabe nach Absatz 1."
             }
           ]
         },
@@ -1268,12 +1369,14 @@
           "title": "Kommunale Sportstättenplanung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Landkreise und kreisfreie Städte stellen im Benehmen mit den Gemeinden einen Sportstättenplan auf."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Landkreise und kreisfreie Städte stellen im Benehmen mit den Gemeinden einen Sportstättenplan auf."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Sportstättenplan enthält insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Sportstättenplan enthält insbesondere"
             },
             {
               "type": "item",
@@ -1306,8 +1409,9 @@
               "text": "Bedarf für Stützpunkte und Wettkampfbetrieb."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Sportstättenpläne sind der zuständigen Bezirksverwaltung und dem Landesamt für Sport und Körperkultur zu übermitteln."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Sportstättenpläne sind der zuständigen Bezirksverwaltung und dem Landesamt für Sport und Körperkultur zu übermitteln."
             }
           ]
         },
@@ -1317,12 +1421,14 @@
           "title": "Sportstättenförderung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat fördert Bau, Sanierung, Modernisierung, Ausstattung und barrierefreie Herrichtung von Sportstätten."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat fördert Bau, Sanierung, Modernisierung, Ausstattung und barrierefreie Herrichtung von Sportstätten."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Eine Förderung setzt voraus, dass die geförderte Sportstätte nach Maßgabe des Zuwendungsbescheides für den öffentlichen Sport zur Verfügung steht."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Eine Förderung setzt voraus, dass die geförderte Sportstätte nach Maßgabe des Zuwendungsbescheides für den öffentlichen Sport zur Verfügung steht."
             }
           ]
         },
@@ -1332,16 +1438,19 @@
           "title": "Kostenfreier Zugang für Kinder und Jugendliche",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Kinder und Jugendliche bis zur Vollendung des 18. Lebensjahres erhalten zu öffentlichen Sportstätten für schulische und vereinsgebundene Sportangebote kostenfreien Zugang, soweit die Sportstätte durch Landesmittel nach diesem Gesetz gefördert wird."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Kinder und Jugendliche bis zur Vollendung des 18. Lebensjahres erhalten zu öffentlichen Sportstätten für schulische und vereinsgebundene Sportangebote kostenfreien Zugang, soweit die Sportstätte durch Landesmittel nach diesem Gesetz gefördert wird."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Absatz 1 gilt nicht für Eintrittsentgelte bei kommerziellen Veranstaltungen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Absatz 1 gilt nicht für Eintrittsentgelte bei kommerziellen Veranstaltungen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Das Nähere, insbesondere zu Ausgleichsleistungen an kommunale Träger, regelt die oberste Sportbehörde im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium durch Rechtsverordnung."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Das Nähere, insbesondere zu Ausgleichsleistungen an kommunale Träger, regelt die oberste Sportbehörde im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium durch Rechtsverordnung."
             }
           ]
         },
@@ -1351,12 +1460,14 @@
           "title": "Schwimmhallen- und Schwimmausbildungsprogramm",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat fördert die Sicherung und den Ausbau der Schwimminfrastruktur."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat fördert die Sicherung und den Ausbau der Schwimminfrastruktur."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Förderung ist mit dem schulischen Schwimmunterricht abzustimmen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Förderung ist mit dem schulischen Schwimmunterricht abzustimmen."
             }
           ]
         }
@@ -1455,16 +1566,19 @@
           "title": "Prüfung der Mittelverwendung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Zuwendungsempfänger:innen haben die zweckentsprechende Verwendung der Mittel nachzuweisen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Zuwendungsempfänger:innen haben die zweckentsprechende Verwendung der Mittel nachzuweisen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die zuständigen Behörden und der Rechnungshof des Freistaates Ostdeutschland sind berechtigt, die Mittelverwendung zu prüfen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die zuständigen Behörden und der Rechnungshof des Freistaates Ostdeutschland sind berechtigt, die Mittelverwendung zu prüfen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Der/die Zuwendungsempfänger:in hat die erforderlichen Auskünfte zu erteilen und Unterlagen vorzulegen."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der/die Zuwendungsempfänger:in hat die erforderlichen Auskünfte zu erteilen und Unterlagen vorzulegen."
             }
           ]
         },
@@ -1474,12 +1588,14 @@
           "title": "Aufsicht",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die oberste Sportbehörde führt die Aufsicht über die Durchführung dieses Gesetzes, soweit nichts anderes bestimmt ist."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die oberste Sportbehörde führt die Aufsicht über die Durchführung dieses Gesetzes, soweit nichts anderes bestimmt ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Fachaufsicht über Bezirksverwaltungen bei der Durchführung staatlicher Aufgaben nach diesem Gesetz richtet sich nach dem Fachrecht."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Fachaufsicht über Bezirksverwaltungen bei der Durchführung staatlicher Aufgaben nach diesem Gesetz richtet sich nach dem Fachrecht."
             }
           ]
         }
@@ -1496,8 +1612,9 @@
           "title": "Verordnungsermächtigungen",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die oberste Sportbehörde wird ermächtigt, im Einvernehmen mit den jeweils fachlich betroffenen Staatsministerien durch Rechtsverordnung nähere Bestimmungen zu erlassen über"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die oberste Sportbehörde wird ermächtigt, im Einvernehmen mit den jeweils fachlich betroffenen Staatsministerien durch Rechtsverordnung nähere Bestimmungen zu erlassen über"
             },
             {
               "type": "item",
@@ -1560,16 +1677,19 @@
               "text": "Zusammensetzung und Verfahren des Landessportrates Ost."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Rechtsverordnungen nach Absatz 1 Nummer 1, 4, 5, 6, 9 und 11 bedürfen des Einvernehmens mit dem für Finanzen zuständigen Staatsministerium."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Rechtsverordnungen nach Absatz 1 Nummer 1, 4, 5, 6, 9 und 11 bedürfen des Einvernehmens mit dem für Finanzen zuständigen Staatsministerium."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Rechtsverordnungen nach Absatz 1 Nummer 7 und 8 bedürfen des Einvernehmens mit dem für Gesundheitswesen zuständigen Staatsministerium."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Rechtsverordnungen nach Absatz 1 Nummer 7 und 8 bedürfen des Einvernehmens mit dem für Gesundheitswesen zuständigen Staatsministerium."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Rechtsverordnungen nach Absatz 1 Nummer 6 haben Mindestbeträge für Prämien nach § 22 festzusetzen."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Rechtsverordnungen nach Absatz 1 Nummer 6 haben Mindestbeträge für Prämien nach § 22 festzusetzen."
             }
           ]
         }

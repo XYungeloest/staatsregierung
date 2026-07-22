@@ -92,7 +92,7 @@ const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
       {group.norms.map((norm) => (
         <li class="record-list__item">
           <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
-          <span>{norm.meta.abbr} · {toDisplayText(norm.meta.ministry)}</span>
+          <span>{[norm.meta.abbr, toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry)].filter(Boolean).join(' · ')}</span>
         </li>
       ))}
     </ul>

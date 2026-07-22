@@ -3,7 +3,7 @@
   "validFrom": "2026-08-01",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -12,20 +12,24 @@
       "title": "Rechtsstellung der Bezirke",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Bezirke sind rechtsfähige Körperschaften des öffentlichen Rechts mit dem Recht der Selbstverwaltung nach Maßgabe dieses Gesetzes."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Bezirke sind rechtsfähige Körperschaften des öffentlichen Rechts mit dem Recht der Selbstverwaltung nach Maßgabe dieses Gesetzes."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Bezirke sind zugleich allgemeine staatliche Mittelbehörden des Freistaates Ostdeutschland, soweit ihnen staatliche Aufgaben durch Gesetz oder auf Grund eines Gesetzes übertragen sind."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Bezirke sind zugleich allgemeine staatliche Mittelbehörden des Freistaates Ostdeutschland, soweit ihnen staatliche Aufgaben durch Gesetz oder auf Grund eines Gesetzes übertragen sind."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Bezirke haben keine Gesetzgebungskompetenz. Sie sind zur Rechtsetzung befugt, wenn ihnen ein Gesetz diese Befugnis verleiht."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Bezirke haben keine Gesetzgebungskompetenz. Sie sind zur Rechtsetzung befugt, wenn ihnen ein Gesetz diese Befugnis verleiht."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Die Bezirke erfüllen ihre Aufgaben zum gemeinsamen Wohl ihrer Einwohner:innen. Sie achten die kommunale Selbstverwaltung der Gemeinden, Landkreise und kreisfreie Städte."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Die Bezirke erfüllen ihre Aufgaben zum gemeinsamen Wohl ihrer Einwohner:innen. Sie achten die kommunale Selbstverwaltung der Gemeinden, Landkreise und kreisfreie Städte."
         }
       ]
     },
@@ -197,16 +201,19 @@
       "title": "Aufgaben der Bezirke",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Bezirke erfüllen eigene Bezirksangelegenheiten und ihnen übertragene staatliche Angelegenheiten."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Bezirke erfüllen eigene Bezirksangelegenheiten und ihnen übertragene staatliche Angelegenheiten."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Bezirke koordinieren in ihrem Gebiet die überörtliche Verwaltung, Planung, Infrastrukturentwicklung und Aufgabenwahrnehmung, soweit nicht die Staatsregierung, ein Staatsministerium, eine Landesoberbehörde, ein Kreis oder eine Gemeinde zuständig ist."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Bezirke koordinieren in ihrem Gebiet die überörtliche Verwaltung, Planung, Infrastrukturentwicklung und Aufgabenwahrnehmung, soweit nicht die Staatsregierung, ein Staatsministerium, eine Landesoberbehörde, ein Kreis oder eine Gemeinde zuständig ist."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Bezirke wirken auf gleichwertige Lebensverhältnisse im Bezirksgebiet hin. Sie dürfen nicht in die Selbstverwaltung der Gemeinden, Landkreise und kreisfreien Städte eingreifen, soweit ihnen hierfür keine gesetzliche Befugnis zusteht."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Bezirke wirken auf gleichwertige Lebensverhältnisse im Bezirksgebiet hin. Sie dürfen nicht in die Selbstverwaltung der Gemeinden, Landkreise und kreisfreien Städte eingreifen, soweit ihnen hierfür keine gesetzliche Befugnis zusteht."
         }
       ]
     },
@@ -216,12 +223,14 @@
       "title": "Bezirkssatzung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Bezirk erlässt eine Bezirkshauptsatzung. Die Bezirkshauptsatzung wird mit der Mehrheit der Stimmen aller Mitglieder des Bezirkstags beschlossen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Bezirk erlässt eine Bezirkshauptsatzung. Die Bezirkshauptsatzung wird mit der Mehrheit der Stimmen aller Mitglieder des Bezirkstags beschlossen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Bezirkssatzung regelt insbesondere"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Bezirkssatzung regelt insbesondere"
         },
         {
           "type": "item",
@@ -249,8 +258,9 @@
           "text": "nähere Bestimmungen zur öffentlichen Bekanntmachung."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Bezirkssatzung ist durch den Vorsitzenden des Rates des Bezirkes auszufertigen, öffentlich auf elektronischen Wege bekannt zu machen und dem für Inneres zuständigen Staatsministerium unverzüglich anzuzeigen."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Bezirkssatzung ist durch den Vorsitzenden des Rates des Bezirkes auszufertigen, öffentlich auf elektronischen Wege bekannt zu machen und dem für Inneres zuständigen Staatsministerium unverzüglich anzuzeigen."
         }
       ]
     },
@@ -260,8 +270,9 @@
       "title": "Organe des Bezirks",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Organe des Bezirks sind"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Organe des Bezirks sind"
         },
         {
           "type": "item",
@@ -279,12 +290,14 @@
           "text": "der/die Vorsitzende des Rates des Bezirkes (Bezirksratsvositzende:r)."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Verwaltungsbehörde des Bezirks ist die Bezirksverwaltung."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Verwaltungsbehörde des Bezirks ist die Bezirksverwaltung."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Für Berlin gilt § 25."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Für Berlin gilt § 25."
         }
       ]
     },
@@ -294,20 +307,24 @@
       "title": "Bezirkstag",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Bezirkstag ist die demokratisch gewählte Vertretung der Bürger:innen des Bezirks."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Bezirkstag ist die demokratisch gewählte Vertretung der Bürger:innen des Bezirks."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Bezirkstag wird in allgemeiner, unmittelbarer, freier, gleicher und geheimer Wahl gewählt."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Bezirkstag wird in allgemeiner, unmittelbarer, freier, gleicher und geheimer Wahl gewählt."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Wahlgebiet ist der Bezirk."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Wahlgebiet ist der Bezirk."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Der Bezirkstag gibt sich eine Geschäftsordnung."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der Bezirkstag gibt sich eine Geschäftsordnung."
         }
       ]
     },
@@ -317,8 +334,9 @@
       "title": "Zusammensetzung und Wahl des Bezirkstags",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Zahl der Mitglieder des Bezirkstags beträgt in Bezirken mit"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Zahl der Mitglieder des Bezirkstags beträgt in Bezirken mit"
         },
         {
           "type": "item",
@@ -341,16 +359,19 @@
           "text": "mehr als 3 000 000 Einwohnern 95."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Änderungen der maßgebenden Einwohnerzahl werden erst bei der nächsten regelmäßigen Wahl berücksichtigt."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Änderungen der maßgebenden Einwohnerzahl werden erst bei der nächsten regelmäßigen Wahl berücksichtigt."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Wahlperiode beträgt fünf Jahre. Sie endet mit dem Zusammentreten des neu gewählten Bezirkstags."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Wahlperiode beträgt fünf Jahre. Sie endet mit dem Zusammentreten des neu gewählten Bezirkstags."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Für die Wahl des Bezirkstags gelten die Vorschriften über die Wahl der Kreistage entsprechend, soweit dieses Gesetz oder das Kommunalwahlgesetz für den Freistaat Ostdeutschland nichts anderes bestimmt."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Für die Wahl des Bezirkstags gelten die Vorschriften über die Wahl der Kreistage entsprechend, soweit dieses Gesetz oder das Kommunalwahlgesetz für den Freistaat Ostdeutschland nichts anderes bestimmt."
         }
       ]
     },
@@ -360,16 +381,19 @@
       "title": "Aufgaben des Bezirkstags",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Bezirkstag entscheidet über alle Angelegenheiten des Bezirks, soweit nicht der Rat des Bezirkes, der/die Vorsitzende des Rates des Bezirkes oder die Bezirksverwaltung kraft Gesetzes zuständig ist."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Bezirkstag entscheidet über alle Angelegenheiten des Bezirks, soweit nicht der Rat des Bezirkes, der/die Vorsitzende des Rates des Bezirkes oder die Bezirksverwaltung kraft Gesetzes zuständig ist."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Bezirkstag kann einzelne Angelegenheiten auf den Rat des Bezirkes oder auf beschließende Ausschüsse übertragen, soweit Absatz 3 nichts anderes bestimmt."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Bezirkstag kann einzelne Angelegenheiten auf den Rat des Bezirkes oder auf beschließende Ausschüsse übertragen, soweit Absatz 3 nichts anderes bestimmt."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Der Bezirkstag kann nicht übertragen"
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Bezirkstag kann nicht übertragen"
         },
         {
           "type": "item",
@@ -422,8 +446,9 @@
           "text": "die Kontrolle des Rates des Bezirkes."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Der Bezirk darf Vermögensgegenstände, die sie zur Erfüllung ihrer Aufgaben nicht braucht, veräußern. Der Bezirkstag kann diese Befugnis auf den Rat des Bezirks übertragen."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der Bezirk darf Vermögensgegenstände, die sie zur Erfüllung ihrer Aufgaben nicht braucht, veräußern. Der Bezirkstag kann diese Befugnis auf den Rat des Bezirks übertragen."
         }
       ]
     },
@@ -433,24 +458,29 @@
       "title": "Rat des Bezirkes",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Rat des Bezirkes leitet die Bezirksverwaltung. Er besteht aus dem/der Vorsitzenden des Rates des Bezirkes und den weiteren Mitgliedern des Rates des Bezirkes."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Rat des Bezirkes leitet die Bezirksverwaltung. Er besteht aus dem/der Vorsitzenden des Rates des Bezirkes und den weiteren Mitgliedern des Rates des Bezirkes."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die weiteren Mitglieder des Rates des Bezirkes führen Geschäftsbereiche. Ihre Zahl beträgt mindestens vier und höchstens zehn."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die weiteren Mitglieder des Rates des Bezirkes führen Geschäftsbereiche. Ihre Zahl beträgt mindestens vier und höchstens zehn."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Der Bezirkstag wählt die weiteren Mitglieder des Rates des Bezirkes auf Vorschlag des/der Vorsitzenden des Rates des Bezirkes mit der Mehrheit der Stimmen aller Mitglieder des Bezirkstags."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Bezirkstag wählt die weiteren Mitglieder des Rates des Bezirkes auf Vorschlag des/der Vorsitzenden des Rates des Bezirkes mit der Mehrheit der Stimmen aller Mitglieder des Bezirkstags."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Der Rat des Bezirkes bereitet die Beschlüsse des Bezirkstags vor und führt sie aus. Er erledigt die Geschäfte der laufenden Verwaltung und die ihm übertragenen Angelegenheiten."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der Rat des Bezirkes bereitet die Beschlüsse des Bezirkstags vor und führt sie aus. Er erledigt die Geschäfte der laufenden Verwaltung und die ihm übertragenen Angelegenheiten."
         },
         {
-          "type": "paragraphText",
-          "text": "(5) Der Rat des Bezirkes ist in übertragenen staatlichen Angelegenheiten an Gesetz, Rechtsverordnung, allgemeine Verwaltungsvorschriften und fachaufsichtliche Weisungen gebunden."
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Der Rat des Bezirkes ist in übertragenen staatlichen Angelegenheiten an Gesetz, Rechtsverordnung, allgemeine Verwaltungsvorschriften und fachaufsichtliche Weisungen gebunden."
         }
       ]
     },
@@ -460,24 +490,29 @@
       "title": "Vorsitzende:r des Rates des Bezirkes",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der/die Vorsitzende des Rates des Bezirkes wird vom Bezirkstag für die Dauer der Wahlperiode des Bezirkstags gewählt."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der/die Vorsitzende des Rates des Bezirkes wird vom Bezirkstag für die Dauer der Wahlperiode des Bezirkstags gewählt."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Wählbar ist, wer zum Bezirkstag wählbar ist und die Gewähr dafür bietet, jederzeit für die freiheitliche demokratische Grundordnung im Sinne der Verfassung des Freistaates Ostdeutschland einzutreten."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Wählbar ist, wer zum Bezirkstag wählbar ist und die Gewähr dafür bietet, jederzeit für die freiheitliche demokratische Grundordnung im Sinne der Verfassung des Freistaates Ostdeutschland einzutreten."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Der/die Vorsitzende des Rates des Bezirkes vertritt den Bezirk nach außen. Er/sie ist Leiter:in der Bezirksverwaltung und Dienstvorgesetzte:r der Bediensteten des Bezirks, soweit gesetzlich nichts anderes bestimmt ist."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der/die Vorsitzende des Rates des Bezirkes vertritt den Bezirk nach außen. Er/sie ist Leiter:in der Bezirksverwaltung und Dienstvorgesetzte:r der Bediensteten des Bezirks, soweit gesetzlich nichts anderes bestimmt ist."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Der/die Vorsitzende des Rates des Bezirkes ist Beamte:r auf Zeit. Das Nähere regelt das Beamtenrecht."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der/die Vorsitzende des Rates des Bezirkes ist Beamte:r auf Zeit. Das Nähere regelt das Beamtenrecht."
         },
         {
-          "type": "paragraphText",
-          "text": "(5) Der/die Vorsitzende des Rates des Bezirkes kann vom Bezirkstag mit einer Mehrheit von zwei Dritteln der gesetzlichen Mitgliederzahl abgewählt werden. Der Antrag bedarf der Unterstützung von mindestens einem Drittel der gesetzlichen Mitgliederzahl des Bezirkstags."
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Der/die Vorsitzende des Rates des Bezirkes kann vom Bezirkstag mit einer Mehrheit von zwei Dritteln der gesetzlichen Mitgliederzahl abgewählt werden. Der Antrag bedarf der Unterstützung von mindestens einem Drittel der gesetzlichen Mitgliederzahl des Bezirkstags."
         }
       ]
     },
@@ -487,20 +522,24 @@
       "title": "Bezirksverwaltung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Bezirksverwaltung ist die Verwaltungsbehörde des Bezirks."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Bezirksverwaltung ist die Verwaltungsbehörde des Bezirks."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Sie nimmt die eigenen Bezirksangelegenheiten, die übertragenen staatlichen Angelegenheiten und die ihr sonst durch Gesetz oder Rechtsverordnung zugewiesenen Aufgaben wahr."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Sie nimmt die eigenen Bezirksangelegenheiten, die übertragenen staatlichen Angelegenheiten und die ihr sonst durch Gesetz oder Rechtsverordnung zugewiesenen Aufgaben wahr."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Bezirksverwaltung unterhält Außenstellen, soweit dies zur bürgernahen, flächendeckenden und wirtschaftlichen Aufgabenerfüllung erforderlich ist."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Bezirksverwaltung unterhält Außenstellen, soweit dies zur bürgernahen, flächendeckenden und wirtschaftlichen Aufgabenerfüllung erforderlich ist."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Sonderbehörden werden in die Bezirksverwaltung eingegliedert, soweit ein Gesetz dies bestimmt. Landesoberbehörden, der Rechnungshof, das Landesamt für Steuern, das Landeskriminalamt, das Landesamt für Verfassungsschutz und zentrale IT- und Vergabebehörden bleiben unberührt, soweit gesetzlich nichts anderes bestimmt ist."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Sonderbehörden werden in die Bezirksverwaltung eingegliedert, soweit ein Gesetz dies bestimmt. Landesoberbehörden, der Rechnungshof, das Landesamt für Steuern, das Landeskriminalamt, das Landesamt für Verfassungsschutz und zentrale IT- und Vergabebehörden bleiben unberührt, soweit gesetzlich nichts anderes bestimmt ist."
         }
       ]
     },
@@ -571,12 +610,14 @@
       "title": "Übertragene staatliche Angelegenheiten",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Übertragene staatliche Angelegenheiten sind die Aufgaben, die den Bezirken durch Gesetz oder auf Grund eines Gesetzes zur Erfüllung nach Weisung zugewiesen werden."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Übertragene staatliche Angelegenheiten sind die Aufgaben, die den Bezirken durch Gesetz oder auf Grund eines Gesetzes zur Erfüllung nach Weisung zugewiesen werden."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Den Bezirken können insbesondere übertragen werden"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Den Bezirken können insbesondere übertragen werden"
         },
         {
           "type": "item",
@@ -629,8 +670,9 @@
           "text": "Aufgaben der staatlichen Sonderverwaltung, soweit sie nicht Landesoberbehörden oder zentralen Fachbehörden vorbehalten sind."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Umfang und Grenzen des Weisungsrechts ergeben sich aus dem Fachrecht."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Umfang und Grenzen des Weisungsrechts ergeben sich aus dem Fachrecht."
         }
       ]
     },
@@ -640,16 +682,19 @@
       "title": "Bündelungsfunktion",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Bezirksverwaltung ist allgemeine Bündelungsbehörde des Freistaates im Bezirk."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Bezirksverwaltung ist allgemeine Bündelungsbehörde des Freistaates im Bezirk."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Sie koordiniert die staatlichen Aufgaben im Bezirksgebiet, soweit mehrere Fachverwaltungen betroffen sind und keine andere Stelle zuständig ist."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Sie koordiniert die staatlichen Aufgaben im Bezirksgebiet, soweit mehrere Fachverwaltungen betroffen sind und keine andere Stelle zuständig ist."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Staatsministerien können die Bezirksverwaltungen im Rahmen ihrer Fachzuständigkeit durch allgemeine Verwaltungsvorschriften und Weisungen steuern, soweit es sich um übertragene staatliche Angelegenheiten handelt."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Staatsministerien können die Bezirksverwaltungen im Rahmen ihrer Fachzuständigkeit durch allgemeine Verwaltungsvorschriften und Weisungen steuern, soweit es sich um übertragene staatliche Angelegenheiten handelt."
         }
       ]
     },
@@ -659,16 +704,19 @@
       "title": "Verhältnis zu Gemeinden, Landkreisen und kreisfreien Städten",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Gemeinden, Landkreise und kreisfreie Städte bleiben Träger der kommunalen Selbstverwaltung."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Gemeinden, Landkreise und kreisfreie Städte bleiben Träger der kommunalen Selbstverwaltung."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Bezirk darf gegenüber Gemeinden, Landkreisen und kreisfreien Städten nur solche Aufsichts-, Koordinierungs- und Planungsbefugnisse ausüben, die ihm durch Gesetz oder auf Grund eines Gesetzes ausdrücklich zugewiesen sind."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Bezirk darf gegenüber Gemeinden, Landkreisen und kreisfreien Städten nur solche Aufsichts-, Koordinierungs- und Planungsbefugnisse ausüben, die ihm durch Gesetz oder auf Grund eines Gesetzes ausdrücklich zugewiesen sind."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Der Bezirk soll bei Planungen und Maßnahmen, die wesentliche Belange von Gemeinden, Landkreisen oder kreisfreien Städten berühren, diese frühzeitig beteiligen."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Bezirk soll bei Planungen und Maßnahmen, die wesentliche Belange von Gemeinden, Landkreisen oder kreisfreien Städten berühren, diese frühzeitig beteiligen."
         }
       ]
     },
@@ -678,20 +726,24 @@
       "title": "Bezirksentwicklungsplan",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Bezirkstag beschließt für den Bezirk einen Bezirksentwicklungsplan."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Bezirkstag beschließt für den Bezirk einen Bezirksentwicklungsplan."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Bezirksentwicklungsplan enthält die Grundsätze der räumlichen, infrastrukturellen, kulturellen, wirtschaftlichen, sozialen und ökologischen Entwicklung des Bezirks."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Bezirksentwicklungsplan enthält die Grundsätze der räumlichen, infrastrukturellen, kulturellen, wirtschaftlichen, sozialen und ökologischen Entwicklung des Bezirks."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Der Bezirksentwicklungsplan ist mit den Zielen der Raumordnung, der Landesplanung und den Fachplanungen des Freistaates abzustimmen. Gemeinden, Landkreise, kreisfreie Städte und betroffene öffentliche Stellen sind zu beteiligen."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Bezirksentwicklungsplan ist mit den Zielen der Raumordnung, der Landesplanung und den Fachplanungen des Freistaates abzustimmen. Gemeinden, Landkreise, kreisfreie Städte und betroffene öffentliche Stellen sind zu beteiligen."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Der Bezirksentwicklungsplan ist spätestens alle fünf Jahre zu überprüfen."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Der Bezirksentwicklungsplan ist spätestens alle fünf Jahre zu überprüfen."
         }
       ]
     },
@@ -701,16 +753,19 @@
       "title": "Beteiligung gegenüber der Staatsregierung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Staatsregierung beteiligt die Bezirke frühzeitig an Gesetzes- und Verordnungsvorhaben, die ihre Aufgaben, ihre Finanzgrundlagen oder ihre Organisation wesentlich berühren."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Staatsregierung beteiligt die Bezirke frühzeitig an Gesetzes- und Verordnungsvorhaben, die ihre Aufgaben, ihre Finanzgrundlagen oder ihre Organisation wesentlich berühren."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Bezirke können gegenüber der Staatsregierung Stellungnahmen zu Angelegenheiten von bezirklicher Bedeutung abgeben."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Bezirke können gegenüber der Staatsregierung Stellungnahmen zu Angelegenheiten von bezirklicher Bedeutung abgeben."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Das Nähere regelt die Staatsregierung durch Geschäftsordnung oder Verwaltungsvorschrift."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das Nähere regelt die Staatsregierung durch Geschäftsordnung oder Verwaltungsvorschrift."
         }
       ]
     },
@@ -720,16 +775,19 @@
       "title": "Einwohner:innen und Bürger:innen des Bezirks",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Einwohner:in des Bezirks ist, wer im Gebiet des Bezirks wohnt."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Einwohner:in des Bezirks ist, wer im Gebiet des Bezirks wohnt."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Bürger:in des Bezirks ist jede:r Deutsche im Sinne des Artikels 116 des Grundgesetzes und jede:r Staatsangehörige eines anderen Mitgliedstaates der Europäischen Unionund seit mindestens drei Monaten im Bezirk wohnt. Wählbar ist jede:r der das Alter erreicht hat, mit dem man das Wahlrecht erhält. Wahlberechtigt ist jede:r Bürger:in, die/der das sechzehnte Lebensjahr erreicht hat."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Bürger:in des Bezirks ist jede:r Deutsche im Sinne des Artikels 116 des Grundgesetzes und jede:r Staatsangehörige eines anderen Mitgliedstaates der Europäischen Unionund seit mindestens drei Monaten im Bezirk wohnt. Wählbar ist jede:r der das Alter erreicht hat, mit dem man das Wahlrecht erhält. Wahlberechtigt ist jede:r Bürger:in, die/der das sechzehnte Lebensjahr erreicht hat."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Wer in mehreren Bezirken wohnt, ist Bürger:in nur in dem Bezirk, in dem er/sie seit mindestens drei Monaten seine Hauptwohnung hat."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Wer in mehreren Bezirken wohnt, ist Bürger:in nur in dem Bezirk, in dem er/sie seit mindestens drei Monaten seine Hauptwohnung hat."
         }
       ]
     },
@@ -739,20 +797,24 @@
       "title": "Einwohner- und Bürgerbeteiligung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Bezirk unterrichtet seine Einwohner:innen laufend über allgemein bedeutsame Angelegenheiten seines Aufgabenbereichs."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Bezirk unterrichtet seine Einwohner:innen laufend über allgemein bedeutsame Angelegenheiten seines Aufgabenbereichs."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Bezirk soll die Einwohner:innen bei Planungen und Vorhaben, die die Entwicklung des Bezirks oder wesentliche soziale, kulturelle, ökologische oder wirtschaftliche Belange berühren, frühzeitig beteiligen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Bezirk soll die Einwohner:innen bei Planungen und Vorhaben, die die Entwicklung des Bezirks oder wesentliche soziale, kulturelle, ökologische oder wirtschaftliche Belange berühren, frühzeitig beteiligen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Einwohner:innenantrag, Bürger:innenbegehren und Bürger:innenentscheid sind in eigenen Bezirksangelegenheiten zulässig. Die Vorschriften der Landkreisordnung für den Freistaat Ostdeutschland gelten entsprechend, soweit dieses Gesetz nichts anderes bestimmt."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Einwohner:innenantrag, Bürger:innenbegehren und Bürger:innenentscheid sind in eigenen Bezirksangelegenheiten zulässig. Die Vorschriften der Landkreisordnung für den Freistaat Ostdeutschland gelten entsprechend, soweit dieses Gesetz nichts anderes bestimmt."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Bürger:innenentscheide sind unzulässig über"
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Bürger:innenentscheide sind unzulässig über"
         },
         {
           "type": "item",
@@ -787,20 +849,24 @@
       "title": "Bezirksfinanzen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Bezirke haben eine eigene Haushaltswirtschaft."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Bezirke haben eine eigene Haushaltswirtschaft."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Bezirke erhalten zur Erfüllung ihrer Aufgaben Zuweisungen nach Maßgabe des Haushaltsgesetzes und des Finanzausgleichsrechts."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Bezirke erhalten zur Erfüllung ihrer Aufgaben Zuweisungen nach Maßgabe des Haushaltsgesetzes und des Finanzausgleichsrechts."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Bezirke können Abgaben nur erheben, soweit ein Gesetz hierzu ermächtigt."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Bezirke können Abgaben nur erheben, soweit ein Gesetz hierzu ermächtigt."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Für die Haushaltswirtschaft der Bezirke gelten die Vorschriften der Landkreisordnung für den Freistaat Ostdeutschland entsprechend, soweit dieses Gesetz nichts anderes bestimmt."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Für die Haushaltswirtschaft der Bezirke gelten die Vorschriften der Landkreisordnung für den Freistaat Ostdeutschland entsprechend, soweit dieses Gesetz nichts anderes bestimmt."
         }
       ]
     },
@@ -810,12 +876,14 @@
       "title": "Bezirksfinanzausgleich",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Das Land stellt den Bezirken die zur angemessenen Erfüllung ihrer Aufgaben erforderlichen Finanzmittel im Rahmen seiner Leistungsfähigkeit zur Verfügung."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das Land stellt den Bezirken die zur angemessenen Erfüllung ihrer Aufgaben erforderlichen Finanzmittel im Rahmen seiner Leistungsfähigkeit zur Verfügung."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Bezirksfinanzausgleich berücksichtigt insbesondere"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Bezirksfinanzausgleich berücksichtigt insbesondere"
         },
         {
           "type": "item",
@@ -868,8 +936,9 @@
           "text": "Transformations- und Strukturwandelaufgaben."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Das Nähere regelt das Finanzausgleichsgesetz."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das Nähere regelt das Finanzausgleichsgesetz."
         }
       ]
     },
@@ -879,16 +948,19 @@
       "title": "Haushaltswirtschaft und Prüfung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Bezirkstag beschließt die Haushaltssatzung und den Haushaltsplan."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Bezirkstag beschließt die Haushaltssatzung und den Haushaltsplan."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Bezirk richtet ein Rechnungsprüfungsamt ein. Der Rechnungshof des Freistaates Ostdeutschland prüft die Haushalts- und Wirtschaftsführung der Bezirke nach Maßgabe des Haushaltsrechts."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Bezirk richtet ein Rechnungsprüfungsamt ein. Der Rechnungshof des Freistaates Ostdeutschland prüft die Haushalts- und Wirtschaftsführung der Bezirke nach Maßgabe des Haushaltsrechts."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Haushaltssatzung ist der Rechtsaufsichtsbehörde vorzulegen. Genehmigungspflichten richten sich nach dem Haushaltsrecht."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Haushaltssatzung ist der Rechtsaufsichtsbehörde vorzulegen. Genehmigungspflichten richten sich nach dem Haushaltsrecht."
         }
       ]
     },
@@ -898,16 +970,19 @@
       "title": "Aufsicht",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Rechtsaufsichtsbehörde über die Bezirke ist das für Inneres zuständige Staatsministerium."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Rechtsaufsichtsbehörde über die Bezirke ist das für Inneres zuständige Staatsministerium."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) In übertragenen staatlichen Angelegenheiten führt das fachlich zuständige Staatsministerium die Fachaufsicht."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "In übertragenen staatlichen Angelegenheiten führt das fachlich zuständige Staatsministerium die Fachaufsicht."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Berührt eine Angelegenheit mehrere Geschäftsbereiche, koordiniert das für Inneres zuständige Staatsministerium die Aufsicht, soweit die Staatsregierung nichts anderes bestimmt."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Berührt eine Angelegenheit mehrere Geschäftsbereiche, koordiniert das für Inneres zuständige Staatsministerium die Aufsicht, soweit die Staatsregierung nichts anderes bestimmt."
         }
       ]
     },
@@ -917,36 +992,44 @@
       "title": "Berlin",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Im Bezirk Berlin werden keine zusätzlichen Bezirksorgane neben den Organen der Bundeshauptstadt Berlin gebildet."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Im Bezirk Berlin werden keine zusätzlichen Bezirksorgane neben den Organen der Bundeshauptstadt Berlin gebildet."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Aufgaben des Bezirkstags Berlin nimmt der Stadtrat der Bundeshauptstadt Berlin wahr."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Aufgaben des Bezirkstags Berlin nimmt der Stadtrat der Bundeshauptstadt Berlin wahr."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Aufgaben des Rates des Bezirkes Berlin nehmen der/die Oberbürgermeister:in und die Beigeordneten der Bundeshauptstadt Berlin wahr."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Aufgaben des Rates des Bezirkes Berlin nehmen der/die Oberbürgermeister:in und die Beigeordneten der Bundeshauptstadt Berlin wahr."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Die Aufgaben des/der Vorsitzenden des Rates des Bezirkes Berlin nimmt der/die Oberbürgermeister:in der Bundeshauptstadt Berlin wahr. Die Hauptsatzung der Bundeshauptstadt Berlin kann zulassen, dass der/die Oberbürgermeister:in in Angelegenheiten des Bezirks Berlin die Amtsbezeichnung „Regierende Bürgermeisterin“ bzw. „Regierender Bürgermeister“ führt."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Die Aufgaben des/der Vorsitzenden des Rates des Bezirkes Berlin nimmt der/die Oberbürgermeister:in der Bundeshauptstadt Berlin wahr. Die Hauptsatzung der Bundeshauptstadt Berlin kann zulassen, dass der/die Oberbürgermeister:in in Angelegenheiten des Bezirks Berlin die Amtsbezeichnung „Regierende Bürgermeisterin“ bzw. „Regierender Bürgermeister“ führt."
         },
         {
-          "type": "paragraphText",
-          "text": "(5) Die Aufgaben der Bezirksverwaltung Berlin nimmt die Hauptverwaltung der Bundeshauptstadt Berlin wahr."
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Die Aufgaben der Bezirksverwaltung Berlin nimmt die Hauptverwaltung der Bundeshauptstadt Berlin wahr."
         },
         {
-          "type": "paragraphText",
-          "text": "(6) Der Haushalt des Bezirks Berlin wird als gesonderter Teil im Haushalt der Bundeshauptstadt Berlin ausgewiesen."
+          "type": "subparagraph",
+          "label": "(6)",
+          "text": "Der Haushalt des Bezirks Berlin wird als gesonderter Teil im Haushalt der Bundeshauptstadt Berlin ausgewiesen."
         },
         {
-          "type": "paragraphText",
-          "text": "(7) Die Stadtbezirke der Bundeshauptstadt Berlin sind keine Bezirke im Sinne dieses Gesetzes. Bezirksversammlungen und Bezirksämter der Stadtbezirke sind Organe der innerstädtischen Verwaltung der Bundeshauptstadt Berlin."
+          "type": "subparagraph",
+          "label": "(7)",
+          "text": "Die Stadtbezirke der Bundeshauptstadt Berlin sind keine Bezirke im Sinne dieses Gesetzes. Bezirksversammlungen und Bezirksämter der Stadtbezirke sind Organe der innerstädtischen Verwaltung der Bundeshauptstadt Berlin."
         },
         {
-          "type": "paragraphText",
-          "text": "(8) Die §§ 71b bis 71f der Gemeindeordnung für den Freistaat Ostdeutschland bleiben unberührt."
+          "type": "subparagraph",
+          "label": "(8)",
+          "text": "Die §§ 71b bis 71f der Gemeindeordnung für den Freistaat Ostdeutschland bleiben unberührt."
         }
       ]
     },
@@ -956,8 +1039,9 @@
       "title": "Rechtsverordnungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Das für Inneres zuständige Staatsministerium wird ermächtigt, durch Rechtsverordnung nähere Bestimmungen zu erlassen über"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das für Inneres zuständige Staatsministerium wird ermächtigt, durch Rechtsverordnung nähere Bestimmungen zu erlassen über"
         },
         {
           "type": "item",
@@ -990,8 +1074,9 @@
           "text": "die Überleitung bisheriger bezirklicher Aufgaben."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Rechtsverordnungen nach Absatz 1 Nummer 3 bedürfen des Einvernehmens mit dem für Finanzen zuständigen Staatsministerium."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Rechtsverordnungen nach Absatz 1 Nummer 3 bedürfen des Einvernehmens mit dem für Finanzen zuständigen Staatsministerium."
         }
       ]
     }

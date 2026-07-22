@@ -22,25 +22,104 @@ export async function getStaticPaths() {
   }));
 }
 
+type BodyBlock =
+  | { type: 'heading'; text: string }
+  | { type: 'paragraph'; text: string }
+  | { type: 'list'; items: string[] };
+
+interface RelatedLink {
+  label: string;
+  href: string;
+}
+
+function buildBodyBlocks(entries: string[]): BodyBlock[] {
+  const blocks: BodyBlock[] = [];
+
+  for (const entry of entries) {
+    if (entry.startsWith('## ')) {
+      blocks.push({ type: 'heading', text: entry.slice(3).trim() });
+      continue;
+    }
+
+    if (entry.startsWith('- ')) {
+      const item = entry.slice(2).trim();
+      const previous = blocks[blocks.length - 1];
+
+      if (previous?.type === 'list') {
+        previous.items.push(item);
+      } else {
+        blocks.push({ type: 'list', items: [item] });
+      }
+      continue;
+    }
+
+    blocks.push({ type: 'paragraph', text: entry });
+  }
+
+  return blocks;
+}
+
 const { page } = Astro.props as { page: Seite };
 const relatedPages = (await loadFreestatePages()).filter((entry) => entry.slug !== page.slug);
+const bodyBlocks = buildBodyBlocks(page.body.slice(1));
 
 const districtCapitals = [
-  'Berlin',
-  'Potsdam',
-  'Rostock',
-  'Cottbus/Chóśebuz',
-  'Bautzen/Budyšin',
-  'Dresden',
-  'Magdeburg',
-  'Erfurt',
+  'Berlin – Berlin',
+  'Dresden – Elbsachsen',
+  'Cottbus/Chóśebuz – Lausitz',
+  'Leipzig – Leipzig-Mittelsachsen',
+  'Magdeburg – Magdeburg-Anhalt',
+  'Schwerin – Mecklenburg-Schwerin',
+  'Potsdam – Mittelmark-Fläming',
+  'Neuruppin – Nordmark',
+  'Frankfurt (Oder) – Oderland-Uckermark',
+  'Halle (Saale) – Saale-Harz',
+  'Jena – Saale-Pleiße',
+  'Erfurt – Thüringer Wald-Eichsfeld',
+  'Chemnitz – Vogtland-Erzgebirge',
+  'Greifswald – Vorpommern',
 ];
 
 const historyMilestones = [
   { datetime: '2023-12-01', label: '1. Dezember 2023', text: 'Gründung des Freistaates Ostdeutschland' },
   { datetime: '2024-01', label: 'Januar 2024', text: 'Konstituierung des ersten Landtags' },
-  { datetime: null, label: '2024 bis 2025', text: 'institutioneller Aufbau und mehrere Regierungswechsel' },
-  { datetime: '2025-12-20', label: '20. Dezember 2025', text: 'Bildung des Kabinetts Honecker' },
+  { datetime: '2025-12-20', label: '20. Dezember 2025', text: 'Bildung des Kabinetts Honecker I' },
+  { datetime: '2026-05-04', label: '4. Mai 2026', text: 'Bildung des Kabinetts Honecker II' },
+  { datetime: '2026-07-20', label: '20. Juli 2026', text: 'Verkündung der vier Gesetze zur Großen Staatsreform' },
+  { datetime: '2026-07-21', label: '21. Juli 2026', text: 'Volkskammer, Staatsrat und Staatspräsident treten an die Stelle der bisherigen Organbezeichnungen' },
+  { datetime: '2026-08-01', label: '1. August 2026', text: 'Wirksamwerden der neuen Kreis- und Bezirksgliederung' },
+];
+
+const legalLinksByPage: Record<string, RelatedLink[]> = {
+  'verfassung-und-staatsziele': [
+    { label: 'Verfassung im Rechtsportal', href: getLawConstitutionUrl() },
+    { label: 'Erstes Gesetz zur Großen Staatsreform', href: getNormUrl('erstes-gesetz-zur-grossen-staatsreform') },
+    { label: 'Drittes Gesetz zur Großen Staatsreform', href: getNormUrl('drittes-gesetz-zur-grossen-staatsreform') },
+  ],
+  'staatsaufbau': [
+    { label: 'Verfassung im Rechtsportal', href: getLawConstitutionUrl() },
+    { label: 'Erstes Gesetz zur Großen Staatsreform', href: getNormUrl('erstes-gesetz-zur-grossen-staatsreform') },
+  ],
+  'grosse-staatsreform': [
+    { label: 'Erstes Gesetz zur Großen Staatsreform', href: getNormUrl('erstes-gesetz-zur-grossen-staatsreform') },
+    { label: 'Zweites Gesetz zur Großen Staatsreform', href: getNormUrl('zweites-gesetz-zur-grossen-staatsreform') },
+    { label: 'Drittes Gesetz zur Großen Staatsreform', href: getNormUrl('drittes-gesetz-zur-grossen-staatsreform') },
+    { label: 'Viertes Gesetz zur Großen Staatsreform', href: getNormUrl('viertes-gesetz-zur-grossen-staatsreform') },
+  ],
+  'bezirke': [
+    { label: 'Kreis- und Bezirksneuordnungsgesetz', href: getNormUrl('kreis-und-bezirksneuordnungsgesetz') },
+    { label: 'Ostdeutsches Kreis- und Bezirksneuordnungsgesetz', href: getNormUrl('ostdeutsches-kreis-und-bezirksneuordnungsgesetz') },
+    { label: 'Ostdeutsche Bezirksordnung', href: getNormUrl('ostdeutsche-bezirksordnung') },
+  ],
+  'landesfarben-und-hoheitszeichen': [
+    { label: 'Verfassung im Rechtsportal', href: getLawConstitutionUrl() },
+    { label: 'Hoheitszeichenverordnung', href: getNormUrl('hoheitszeichenverordnung') },
+    { label: 'Einführungsgesetz zum Hoheitszeichenrecht', href: getNormUrl('gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes') },
+  ],
+};
+
+const legalLinks = legalLinksByPage[page.slug] ?? [
+  { label: 'Verfassung im Rechtsportal', href: getLawConstitutionUrl() },
 ];
 ---
 
@@ -65,15 +144,27 @@ const historyMilestones = [
   <div class="content-grid">
     <section class="section">
       <div class="body-copy">
-        {page.body.map((paragraph) => (
-          <p>{paragraph}</p>
+        {bodyBlocks.map((block) => (
+          block.type === 'heading' ? (
+            <div class="section-header">
+              <h2>{block.text}</h2>
+            </div>
+          ) : block.type === 'list' ? (
+            <ul class="record-list">
+              {block.items.map((item) => (
+                <li class="record-list__item"><span>{item}</span></li>
+              ))}
+            </ul>
+          ) : (
+            <p>{block.text}</p>
+          )
         ))}
       </div>
 
       {page.slug === 'bezirke' ? (
         <>
           <div class="section-header">
-            <h2>Bezirkshauptstädte</h2>
+            <h2>Sitze der Bezirksverwaltungen ab 1. August 2026</h2>
           </div>
           <div class="tag-list">
             {districtCapitals.map((entry) => (
@@ -104,11 +195,11 @@ const historyMilestones = [
           <div class="card-grid card-grid--two">
             <article class="panel">
               <h3>Dresden</h3>
-              <p>Landeshauptstadt und politischer Sitz des Staatsrates.</p>
+              <p>Landeshauptstadt, Sitz des Staatsrates und Sitz der Volkskammer.</p>
             </article>
             <article class="panel">
               <h3>Berlin</h3>
-              <p>Bundeshauptstadt mit rechtlich abgesicherter Sonderstellung innerhalb des Freistaates.</p>
+              <p>Bundeshauptstadt, kreisfreie Stadt und eigener Bezirk mit rechtlich abgesicherter Sonderstellung.</p>
             </article>
           </div>
         </>
@@ -121,7 +212,13 @@ const historyMilestones = [
           </div>
           <ul class="record-list">
             {historyMilestones.map((entry) => (
-              <li class="record-list__item"><span>{entry.datetime ? <time datetime={entry.datetime}>{entry.label}</time> : entry.label} – {entry.text}</span></li>
+              <li class="record-list__item">
+                <span>
+                  {entry.datetime ? <time datetime={entry.datetime}>{entry.label}</time> : entry.label}
+                  {' – '}
+                  {entry.text}
+                </span>
+              </li>
             ))}
           </ul>
         </>
@@ -138,12 +235,16 @@ const historyMilestones = [
           <dd>{siteConfig.currentGovernment.seatOfGovernment}</dd>
         </div>
         <div>
-          <dt>Bundeshauptstadt</dt>
-          <dd>Berlin</dd>
+          <dt>Volksvertretung</dt>
+          <dd>{siteConfig.currentGovernment.legislature}</dd>
+        </div>
+        <div>
+          <dt>Vollziehende Gewalt</dt>
+          <dd>{siteConfig.currentGovernment.cabinetName}</dd>
         </div>
         <div>
           <dt>Sprachen</dt>
-          <dd>Deutsch und Sorbisch</dd>
+          <dd>Deutsch sowie Ober- und Niedersorbisch im sorbischen Siedlungsgebiet</dd>
         </div>
       </dl>
 
@@ -160,9 +261,9 @@ const historyMilestones = [
         <h2>Rechtsbezug</h2>
       </div>
       <nav class="link-list">
-        <a href={getLawConstitutionUrl()}>Verfassung im Rechtsportal</a>
-        <a href={getNormUrl('hoheitszeichenverordnung')}>Hoheitszeichenverordnung</a>
-        <a href={getNormUrl('gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes')}>Einführungsgesetz zum Hoheitszeichenrecht</a>
+        {legalLinks.map((entry) => (
+          <a href={entry.href}>{entry.label}</a>
+        ))}
       </nav>
     </aside>
   </div>

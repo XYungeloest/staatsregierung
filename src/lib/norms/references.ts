@@ -92,7 +92,7 @@ export function buildNormTextLinkReferences(
       url: getNormUrl(norm.meta.slug),
     };
 
-    addUniqueReference(references, norm.meta.abbr, reference);
+    if (norm.meta.abbr) addUniqueReference(references, norm.meta.abbr, reference);
     addUniqueReference(references, norm.meta.shortTitle, reference);
   }
 
@@ -153,6 +153,7 @@ function collectBodyText(norm: NormRecord): string {
 
 function aliases(norm: NormRecord): string[] {
   return [norm.meta.abbr, norm.meta.shortTitle, norm.meta.title]
+    .filter((value): value is string => Boolean(value))
     .map((value) => value.trim().normalize('NFKC').toLocaleLowerCase('de'))
     .filter((value, index, values) => value.length >= 4 && values.indexOf(value) === index);
 }

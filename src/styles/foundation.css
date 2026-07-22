@@ -2672,6 +2672,37 @@ article.panel > p:last-child > a.inline-link:hover {
   color: var(--color-ink);
 }
 
+.norm-subparagraph {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.7rem;
+  max-width: 82ch;
+  margin: 0.65rem 0 0;
+  color: var(--color-ink);
+  line-height: 1.78;
+}
+
+.norm-subparagraph__label {
+  min-width: 2rem;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.norm-table-wrap {
+  margin-top: 1rem;
+}
+
+.norm-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.norm-table td {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
 .norm-list {
   margin: 0.85rem 0 0;
   padding: 0;

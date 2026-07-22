@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 47 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 47)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -12,12 +12,14 @@
       "title": "Anwendungsbereich",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Dieses Gesetz gilt für private Verkehrsunternehmen, die öffentliche Personenverkehrsleistungen im Gebiet des Freistaates Ostdeutschland erbringen und nicht nach dem Ostdeutschen Verkehrsvergesellschaftungsgesetz vergesellschaftet werden."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Dieses Gesetz gilt für private Verkehrsunternehmen, die öffentliche Personenverkehrsleistungen im Gebiet des Freistaates Ostdeutschland erbringen und nicht nach dem Ostdeutschen Verkehrsvergesellschaftungsgesetz vergesellschaftet werden."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Dieses Gesetz gilt nur, soweit die Verkehrsleistungen aufgrund eines öffentlichen Dienstleistungsauftrages, eines Verkehrsvertrages, einer Ausgleichsregelung oder einer sonstigen öffentlichen Finanzierung erbracht werden."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Dieses Gesetz gilt nur, soweit die Verkehrsleistungen aufgrund eines öffentlichen Dienstleistungsauftrages, eines Verkehrsvertrages, einer Ausgleichsregelung oder einer sonstigen öffentlichen Finanzierung erbracht werden."
         }
       ]
     },
@@ -27,12 +29,14 @@
       "title": "Gemeinwirtschaftliche Bindung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Private Verkehrsunternehmen nach § 1 sind bei der Erbringung öffentlicher Verkehrsleistungen an gemeinwirtschaftliche Pflichten gebunden."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Private Verkehrsunternehmen nach § 1 sind bei der Erbringung öffentlicher Verkehrsleistungen an gemeinwirtschaftliche Pflichten gebunden."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Sie haben insbesondere"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Sie haben insbesondere"
         },
         {
           "type": "item",
@@ -92,16 +96,19 @@
       "title": "Open-Book-Pflicht",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Private Verkehrsunternehmen nach § 1 haben gegenüber dem jeweiligen Aufgabenträger, dem Ostdeutschen Verkehrsverbund und der zuständigen Behörde eine getrennte Kosten- und Erlösrechnung für öffentlich finanzierte Verkehrsleistungen zu führen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Private Verkehrsunternehmen nach § 1 haben gegenüber dem jeweiligen Aufgabenträger, dem Ostdeutschen Verkehrsverbund und der zuständigen Behörde eine getrennte Kosten- und Erlösrechnung für öffentlich finanzierte Verkehrsleistungen zu führen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Unterlagen sind jährlich vorzulegen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Unterlagen sind jährlich vorzulegen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Konzerninterne Leistungen dürfen nur zu marktüblichen und nachprüfbaren Bedingungen abgerechnet werden."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Konzerninterne Leistungen dürfen nur zu marktüblichen und nachprüfbaren Bedingungen abgerechnet werden."
         }
       ]
     },
@@ -111,16 +118,19 @@
       "title": "Gewinnbegrenzung und Reinvestition",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Öffentliche Dienstleistungsaufträge mit privaten Verkehrsunternehmen haben eine angemessene Gewinnobergrenze vorzusehen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Öffentliche Dienstleistungsaufträge mit privaten Verkehrsunternehmen haben eine angemessene Gewinnobergrenze vorzusehen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Gewinne oberhalb der vereinbarten Gewinnobergrenze sind an den Aufgabenträger zurückzuführen oder in die Verbesserung der Verkehrsleistung zu reinvestieren."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Gewinne oberhalb der vereinbarten Gewinnobergrenze sind an den Aufgabenträger zurückzuführen oder in die Verbesserung der Verkehrsleistung zu reinvestieren."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Das Nähere regelt der öffentliche Dienstleistungsauftrag."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das Nähere regelt der öffentliche Dienstleistungsauftrag."
         }
       ]
     },
@@ -130,16 +140,19 @@
       "title": "Landesfinanzierte Betriebsmittel",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Fahrzeuge, Werkstätten, Ladeinfrastrukturen, Vertriebsinfrastrukturen und sonstige betriebsnotwendige Vermögensgegenstände, die überwiegend aus Mitteln des Freistaates, des Ostdeutschen Verkehrsverbundes, der Bezirke oder aus Regionalisierungsmitteln finanziert werden, sollen Eigentum der Ostdeutschen Eisenbahn oder eines öffentlichen Aufgabenträgers werden."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Fahrzeuge, Werkstätten, Ladeinfrastrukturen, Vertriebsinfrastrukturen und sonstige betriebsnotwendige Vermögensgegenstände, die überwiegend aus Mitteln des Freistaates, des Ostdeutschen Verkehrsverbundes, der Bezirke oder aus Regionalisierungsmitteln finanziert werden, sollen Eigentum der Ostdeutschen Eisenbahn oder eines öffentlichen Aufgabenträgers werden."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Abweichungen von Absatz 1 bedürfen der Zustimmung des zuständigen Staatsministeriums im Einvernehmen mit dem Staatsministerium der Finanzen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Abweichungen von Absatz 1 bedürfen der Zustimmung des zuständigen Staatsministeriums im Einvernehmen mit dem Staatsministerium der Finanzen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Förderbescheide und Verkehrsverträge haben Rückfall-, Herausgabe- oder Erwerbsrechte zugunsten der öffentlichen Hand vorzusehen."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Förderbescheide und Verkehrsverträge haben Rückfall-, Herausgabe- oder Erwerbsrechte zugunsten der öffentlichen Hand vorzusehen."
         }
       ]
     }

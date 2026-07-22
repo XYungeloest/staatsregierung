@@ -30,9 +30,13 @@ export const STRUCTURE_TYPES = [
   'paragraph',
   'article',
   'annex',
+  'subparagraph',
   'paragraphText',
   'item',
   'subitem',
+  'table',
+  'tableRow',
+  'tableCell',
 ] as const;
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/u;
@@ -47,9 +51,13 @@ export interface NormMeta {
   slug: string;
   title: string;
   shortTitle: string;
-  abbr: string;
+  abbr?: string;
+  shortTitleSource?: 'official' | 'editorial';
   type: NormType;
-  ministry: string;
+  /** Bestandsfeld; neue Datensätze trennen Organ und fachliche Zuständigkeit. */
+  ministry?: string;
+  enactingBody?: string;
+  responsibleMinistry?: string;
   subjects: string[];
   keywords: string[];
   initialCitation: string;
@@ -101,7 +109,7 @@ export interface NormHistoryEntry {
 }
 
 export interface NormHistory {
-  initialVersionId: string;
+  initialVersionId: string | null;
   entries: NormHistoryEntry[];
 }
 
@@ -242,7 +250,7 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
   const children =
     object.children === undefined ? undefined : parseBodyBlocks(object.children, `${path}.children`);
 
-  if (type === 'paragraphText' || type === 'item' || type === 'subitem') {
+  if (type === 'paragraphText' || type === 'subparagraph' || type === 'item' || type === 'subitem') {
     if (!text) {
       fail(`${path}.text`, `ist für Blocktyp "${type}" erforderlich`);
     }
@@ -266,8 +274,12 @@ function parseBodyBlock(value: unknown, path: string): NormBodyBlock {
     fail(`${path}.children`, `ist für Blocktyp "${type}" erforderlich`);
   }
 
-  if ((type === 'paragraph' || type === 'article') && !children) {
+  if ((type === 'paragraph' || type === 'article' || type === 'table' || type === 'tableRow') && !children) {
     fail(`${path}.children`, `ist für Blocktyp "${type}" erforderlich`);
+  }
+
+  if (type === 'tableCell' && !text) {
+    fail(`${path}.text`, 'ist für eine Tabellenzelle erforderlich');
   }
 
   return {
@@ -325,9 +337,14 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     slug: expectSlug(object.slug, `${path}.slug`),
     title: expectString(object.title, `${path}.title`),
     shortTitle: expectString(object.shortTitle, `${path}.shortTitle`),
-    abbr: expectString(object.abbr, `${path}.abbr`),
+    abbr: expectOptionalString(object.abbr, `${path}.abbr`),
+    shortTitleSource: object.shortTitleSource === undefined
+      ? undefined
+      : expectEnumValue(object.shortTitleSource, `${path}.shortTitleSource`, ['official', 'editorial'] as const),
     type: normalizedTypeMap[rawType],
-    ministry: expectString(object.ministry, `${path}.ministry`),
+    ministry: expectOptionalString(object.ministry, `${path}.ministry`),
+    enactingBody: expectOptionalString(object.enactingBody, `${path}.enactingBody`),
+    responsibleMinistry: expectOptionalString(object.responsibleMinistry, `${path}.responsibleMinistry`),
     subjects: expectStringArray(object.subjects, `${path}.subjects`),
     keywords: expectStringArray(object.keywords, `${path}.keywords`),
     initialCitation: expectString(object.initialCitation, `${path}.initialCitation`),
@@ -404,9 +421,11 @@ export function parseNormHistory(value: unknown, path = 'history.json'): NormHis
     fail(`${path}.entries`, 'muss ein Array sein');
   }
 
-  if (typeof object.initialVersionId === 'string') {
+  if (typeof object.initialVersionId === 'string' || object.initialVersionId === null) {
     return {
-      initialVersionId: expectString(object.initialVersionId, `${path}.initialVersionId`),
+      initialVersionId: object.initialVersionId === null
+        ? null
+        : expectString(object.initialVersionId, `${path}.initialVersionId`),
       entries: entries.map((entry, index) => parseHistoryEntry(entry, `${path}.entries[${index}]`)),
     };
   }
@@ -474,6 +493,10 @@ function normalizeBodyBlock(block: RawStructuredBodyBlock, path: string): NormBo
     paragraphtext: 'paragraphText',
     item: 'item',
     subitem: 'subitem',
+    subparagraph: 'subparagraph',
+    table: 'table',
+    tablerow: 'tableRow',
+    tablecell: 'tableCell',
   };
   const type = normalizedTypeMap[rawType] ?? rawType;
 
@@ -562,7 +585,7 @@ export function validateNormRecord(record: NormRecord, context = record.meta.slu
     }
   }
 
-  if (!knownVersionIds.has(record.history.initialVersionId)) {
+  if (record.history.initialVersionId !== null && !knownVersionIds.has(record.history.initialVersionId)) {
     fail(
       `${context}/history.json.initialVersionId`,
       'muss auf eine vorhandene Version verweisen',

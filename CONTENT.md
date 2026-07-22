@@ -106,6 +106,7 @@ Optionale Felder:
 - `sourceFiles`
 - `sourceReferences`
 - `entries[].documentDate`
+- `entries[].startPage`
 - `entries[].pages`
 - `entries[].normSlug`
 - `entries[].versionId`
@@ -145,9 +146,16 @@ Format:
 `date` ist das Ausgabedatum und damit das Veröffentlichungsdatum der Ausgabe.
 `entries[].documentDate` bezeichnet dagegen das Ausfertigungs- beziehungsweise Dokumentdatum.
 Beide Werte werden getrennt gepflegt und dürfen nicht aus Bequemlichkeit gleichgesetzt werden.
-`entries[].citation` enthält Normart, Dokumentdatum und die genaue Fundstelle einschließlich
-Seitenbereich. Auch im verknüpften Normdatensatz bleibt das vollständige Normzitat erhalten, zum Beispiel
+`entries[].citation` enthält Normart, Dokumentdatum und die belegte Fundstelle. `startPage` bezeichnet
+ausschließlich eine belastbar bekannte Anfangsseite; `pages` ist vollständigen, belegten Seitenbereichen
+vorbehalten. Eine Anfangsseite darf nicht als vollständiger Seitenbereich ausgegeben und bei Mantelgesetzen
+nicht pauschal auf eingeführte Stammnormen übertragen werden. Auch im verknüpften Normdatensatz bleibt das vollständige Normzitat erhalten, zum Beispiel
 `Förderrichtlinie vom 6. März 2026 (StAnzO. 2026 Nr. 4)`.
+
+Normmetadaten trennen das erlassende Organ (`enactingBody`) vom fachlich zuständigen Geschäftsbereich
+(`responsibleMinistry`). Das ältere Feld `ministry` bleibt nur für vorhandene Bestandsdaten kompatibel.
+`abbr` ist optional und darf ausschließlich aus einer Primärquelle übernommen werden. Redaktionelle
+Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht.
 
 `sourceFiles` und `sourceReferences[].localSource` dürfen ausschließlich relative Pfade zu
 tatsächlich versionierten Dateien enthalten. Externe Quellen verwenden eine HTTPS-URL und

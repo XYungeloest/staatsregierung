@@ -1,7 +1,7 @@
 # Offene Quellenfragen
 
 **Redaktioneller Stand:** 21. Juli 2026
-**Zuletzt geprüft:** 21. Juli 2026
+**Zuletzt geprüft:** 22. Juli 2026
 
 Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
 nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
@@ -21,6 +21,10 @@ Belegt:
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
+- Die Veröffentlichungsliste weist die Ursprungsfassung der Staatsverfassung ab Seite 5 der
+  Ausgabe OGVBl. 2024 Nr. II nach. Eine versionierte Markdown-Quelle mit ihrem vollständigen
+  Wortlaut liegt nicht vor. Deshalb kann derzeit keine belastbare historische Volltextfassung
+  von 2024 gespeichert werden.
 - Für das polnische und das tschechische Grenzraumabkommen ist der für das Inkrafttreten
   erforderliche Austausch der Notifikationen nicht nachgewiesen. Für den NDR-Änderungs- und
   Überleitungsstaatsvertrag ist der Austausch der Ratifikationsurkunden nicht nachgewiesen.
@@ -85,9 +89,14 @@ Schlussfolgerung:
 
 Belegt:
 
-- OGVBl. 2026 Nr. 53 bezeichnet in Artikel 121a die „achte Volkskammer“ als achten Landtag. Die
-  bereitgestellte konsolidierte Datei `Gesetze/Staatsverfassung.md` und die verbindliche
-  redaktionelle Übergangsangabe nennen dagegen die siebte Volkskammer und den siebten Landtag.
+- OGVBl. 2026 Nr. 53 lautet in Artikel 121a: „Siebte Volkskammer ist der siebte Landtag. Die Wahl zur
+  achten Volkskammer findet Ende August statt.“ Ältere Dateien enthielen fälschlicherweise "achte Volkskammer"
+- Die konsolidierte Datei `Gesetze/Staatsverfassung.md` lautet dagegen: „Siebte Volkskammer ist der
+  siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.“
+- Die zuvor erzeugte JSON-Fassung des Ersten Staatsreformgesetzes enthielt als dritte, von beiden
+  Quellen abweichende Kombination „Siebte Volkskammer … Wahl zur neunten Volkskammer“. Diese
+  Importabweichung wurde am 22. Juli 2026 beseitigt; sie bleibt als festgestellter Reviewfehler
+  dokumentiert und ist kein eigener Rechtsstand.
 - StAnzO. 2026 Nr. 13 enthält 19. Mai 2026 im Kopf beziehungsweise Inhaltsverzeichnis, 27. Mai 2026
   in der Überschrift und 19. Mai 2026 in der Unterschriftszeile. Das Ausgabedatum ist der
   27. Mai 2026.
@@ -98,8 +107,12 @@ Belegt:
 
 Schlussfolgerung:
 
-- Die aktuelle Lesefassung folgt für die Übergangsbezeichnung der konsolidierten Datei und weist
-  die Abweichung in den Normmetadaten aus. Der Wortlaut von OGVBl. 2026 Nr. 53 bleibt unverändert.
+- Das Erste Staatsreformgesetz gibt ausschließlich den Wortlaut von OGVBl. 2026 Nr. 53 wieder.
+  Die aktuelle Verfassungsseite kennzeichnet `Staatsverfassung.md` ausdrücklich als redaktionelle
+  Lesefassung und nennt beide voneinander abweichenden Aussagen vollständig.
+- `initialVersionId` der Verfassung bleibt leer, solange keine belastbare historische
+  Volltextfassung vorliegt; die konsolidierte Fassung vom 21. Juli 2026 wird nicht als
+  Ursprungsfassung ausgegeben.
 - Bei StAnzO. 2026 Nr. 13 wird das Ausgabedatum als Veröffentlichungsdatum verwendet; ein
   eindeutiges Dokumentdatum wird nicht erfunden.
 - Beim Helsinki-Übereinkommen wird der 9. April 1992 als Dokumentdatum geführt. Die abweichenden

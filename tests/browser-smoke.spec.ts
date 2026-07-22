@@ -171,10 +171,26 @@ test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 21. Juli 2026 ab', as
   await expect(page.getByText(/Siebte Volkskammer ist der siebte Landtag/u)).toBeVisible();
   await expect(page.getByText(/Artikel 75a/u).first()).toBeVisible();
 
+  await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
+  await expect(page.getByText(/Achte Volkskammer ist der achte Landtag/u)).toBeVisible();
+  await expect(page.getByText(/Wahl zur neunten Volkskammer/u)).toBeVisible();
+
+  await page.goto('/recht/verfassung/');
+  await expect(page.getByRole('heading', { name: 'Dokumentierter Wortlautkonflikt in Artikel 121a' })).toBeVisible();
+  await expect(page.getByText(/Das verkündete Erste Gesetz/u)).toContainText('achten Landtag');
+  await expect(page.locator('.record-list')).toContainText('Erstes Gesetz zur Großen Staatsreform');
+  await expect(page.locator('.record-list')).toContainText('Viertes Gesetz zur Großen Staatsreform');
+
   await page.goto('/recht/norm/sero-verordnung/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Sekundärrohstoff-Erfassung');
   await expect(page.getByText('SERO-Verordnung', { exact: true }).first()).toBeVisible();
   await expect(page.getByText(/in Kraft/u).first()).toBeVisible();
+});
+
+test('Wappen kennzeichnet die Wortmarke in Kopf und Fuß', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.site-wordmark img')).toHaveAttribute('src', /Neues%20Wappen\.png|Neues Wappen\.png/u);
+  await expect(page.locator('.site-footer__wordmark img')).toHaveAttribute('src', /Neues%20Wappen\.png|Neues Wappen\.png/u);
 });
 
 test('Kalender, Sitemap und strukturierte Termindaten enthalten den neuen Stand', async ({ page, request }) => {
