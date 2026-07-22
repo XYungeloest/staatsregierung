@@ -140,6 +140,14 @@ const componentVisualPages = [
     ],
   },
   {
+    name: 'norm-sidebar-module',
+    path: '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
+    shots: [
+      ['norm-vorschriftendaten', '[data-visual-section="norm-metadata"]'],
+      ['norm-weiterfuehrende-bezuege', '[data-visual-section="norm-portal-relations"]'],
+    ],
+  },
+  {
     name: 'haushalt-module',
     path: '/haushalt/',
     shots: [

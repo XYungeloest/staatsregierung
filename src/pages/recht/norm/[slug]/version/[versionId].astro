@@ -9,7 +9,6 @@ import { buildNormOutline, formatDate, toDisplayText } from '../../../../../lib/
 import {
   buildNormTextLinkReferences,
   buildNormPublicationReferenceLookup,
-  getRelatedNormRecommendations,
   getHomeUrl,
   getLawPortalUrl,
   getNormHistoryUrl,
@@ -31,14 +30,13 @@ export async function getStaticPaths() {
           norm,
           version,
           textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
-          relatedNorms: getRelatedNormRecommendations(norm, norms),
           publicationReferences,
         },
       })),
   );
 }
 
-const { norm, version, textReferences, relatedNorms, publicationReferences } = Astro.props;
+const { norm, version, textReferences, publicationReferences } = Astro.props;
 const publicationReference = publicationReferences.get(`${norm.meta.slug}:${version.versionId}`);
 const outline = buildNormOutline(version.body);
 const normTitle = toDisplayText(norm.meta.title);
@@ -80,7 +78,7 @@ const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand
 
   <NormStatusNotice norm={norm} version={version} historical={true} />
 
-  <div class="content-grid">
+  <div class="content-grid norm-detail-layout">
     <div class="content-stack">
       <NormOutline items={outline} />
       <section class="section" id="normtext">
@@ -96,7 +94,6 @@ const versionDescription = `Historische Fassung von ${normTitle} mit Rechtsstand
       norm={norm}
       version={version}
       historical={true}
-      relatedNorms={relatedNorms}
       publicationReference={publicationReference}
     />
   </div>

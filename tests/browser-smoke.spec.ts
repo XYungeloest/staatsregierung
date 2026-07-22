@@ -248,6 +248,46 @@ test('OGVBl. 2026 Nr. 53 trennt äußere Artikel und zitierte Neufassungen', asy
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 });
 
+test('Vorschriftendaten und weiterführende Bezüge überlappen nicht', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
+
+  const metadata = page.locator('[data-visual-section="norm-metadata"]');
+  const relations = page.locator('[data-visual-section="norm-portal-relations"]');
+  await expect(metadata).toBeVisible();
+  await expect(relations).toBeVisible();
+  await expect(metadata.locator('.norm-meta-panel__group > h3')).toHaveText([
+    'Einordnung',
+    'Rechtsstand',
+    'Zitierweise und Verkündung',
+    'Sachgebiete',
+  ]);
+  await expect(metadata).not.toContainText('Stammausgabe');
+  await expect(metadata).not.toContainText('Keine historischen Fassungen gespeichert');
+  await expect(relations.getByRole('heading', { name: 'Verwandte Vorschriften' })).toBeVisible();
+  await expect(relations.getByRole('heading', { name: 'Themen' })).toBeVisible();
+
+  expect(await metadata.evaluate((element) => getComputedStyle(element).position)).toBe('static');
+  await relations.scrollIntoViewIfNeeded();
+  const overlap = await page.evaluate(() => {
+    const metadataBox = document.querySelector('[data-visual-section="norm-metadata"]')?.getBoundingClientRect();
+    const relationsBox = document.querySelector('[data-visual-section="norm-portal-relations"]')?.getBoundingClientRect();
+    if (!metadataBox || !relationsBox) return Number.POSITIVE_INFINITY;
+    return Math.max(0, metadataBox.bottom - relationsBox.top);
+  });
+  expect(overlap).toBe(0);
+
+  await page.setViewportSize({ width: 1024, height: 900 });
+  expect(await page.locator('.norm-detail-layout').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length)).toBe(1);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const widths = await page.evaluate(() => ({
+    viewport: document.documentElement.clientWidth,
+    document: document.documentElement.scrollWidth,
+  }));
+  expect(widths.document).toBeLessThanOrEqual(widths.viewport);
+});
+
 test('Normtabellen geben nur belastbare Kopfzellen-Scope-Werte aus', async ({ page }) => {
   await page.goto('/recht/norm/gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh/');
 
