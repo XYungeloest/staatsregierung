@@ -38,7 +38,9 @@ test('alle ausgelieferten Routentypen tragen dieselbe vollständige Buildkennung
     '/',
     '/recht/',
     '/recht/verfassung/',
+    '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
     '/recht/norm/sero-verordnung/',
+    '/recht/verkuendungen/ogvbl-2026-53/',
     '/recht/verkuendungen/ogvbl-2026-58/',
     '/sitemap.xml',
     '/search-index.json',
@@ -225,7 +227,10 @@ test('OGVBl. 2026 Nr. 53 trennt äußere Artikel und zitierte Neufassungen', asy
 
   const firstItem = page.locator('.norm-amendment-list > .norm-amendment-item').first();
   await expect(firstItem.locator(':scope > .norm-amendment-item__label')).toHaveText('1.');
-  await expect(firstItem.locator(':scope > .norm-amendment-item__content > .norm-amendment-item__children > ol > li').first()).toContainText('a.');
+  const letterItems = firstItem.locator(':scope > .norm-amendment-item__content > .norm-amendment-item__children > ol > li');
+  await expect(letterItems.locator(':scope > .norm-amendment-item__label')).toHaveText(['a.', 'b.', 'c.', 'd.', 'e.']);
+  await expect(letterItems.filter({ has: page.getByText(/^Artikel 6 wird wie folgt geändert:/u) })).toHaveCount(1);
+  await expect(letterItems.locator(':scope > .norm-amendment-item__label').filter({ hasText: /^a\.$/u })).toHaveCount(1);
   await expect(firstItem.locator('ol ol > li').first()).toContainText('i.');
 
   const quotedArticle = page.locator('blockquote.norm-quoted-provision').filter({
@@ -241,6 +246,15 @@ test('OGVBl. 2026 Nr. 53 trennt äußere Artikel und zitierte Neufassungen', asy
     scrollWidth: document.documentElement.scrollWidth,
   }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
+});
+
+test('Normtabellen geben nur belastbare Kopfzellen-Scope-Werte aus', async ({ page }) => {
+  await page.goto('/recht/norm/gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh/');
+
+  const headerCells = page.locator('.norm-table th');
+  await expect(headerCells).toHaveCount(3);
+  await expect(page.locator('.norm-table th[scope="col"]')).toHaveCount(3);
+  await expect(page.locator('.norm-table th[scope="row"], .norm-table th[scope="colgroup"], .norm-table th[scope="rowgroup"]')).toHaveCount(0);
 });
 
 test('Wappen kennzeichnet die Wortmarke in Kopf und Fuß', async ({ page }) => {

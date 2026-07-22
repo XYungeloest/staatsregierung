@@ -12,6 +12,7 @@ const CLOSING_QUOTE_PATTERN = /(?:“|”|’|''|")\s*$/u;
 const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Organisationserlass|Erlass|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
 const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Neufassung|Übergangsbestimmungen?|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Rechtsbereinigung)/iu;
 const EMBEDDED_NORM_TITLE_PATTERN = /^(?:Gesetz|Verordnung|Satzung|Staatsvertrag|Abkommen|Übereinkommen)\b/iu;
+const TABLE_HEADER_SCOPES = new Set(['col', 'row', 'colgroup', 'rowgroup']);
 
 const STRUCTURE_RANK = {
   part: 1,
@@ -219,6 +220,48 @@ function formatCounter(value, style) {
   return null;
 }
 
+function parseAlphaCounter(value) {
+  let result = 0;
+  for (const character of value.toLocaleLowerCase('de')) {
+    const code = character.codePointAt(0) - 96;
+    if (code < 1 || code > 26) return null;
+    result = result * 26 + code;
+  }
+  return result || null;
+}
+
+function parseRomanCounter(value) {
+  const glyphs = { I: 1, V: 5, X: 10, L: 50, C: 100, D: 500, M: 1000 };
+  const normalized = value.toLocaleUpperCase('de');
+  if (!/^[IVXLCDM]+$/u.test(normalized)) return null;
+  let result = 0;
+  for (let index = 0; index < normalized.length; index += 1) {
+    const current = glyphs[normalized[index]];
+    const next = glyphs[normalized[index + 1]] ?? 0;
+    result += current < next ? -current : current;
+  }
+  return romanCounter(result) === normalized ? result : null;
+}
+
+function counterValueFromLabel(label, style) {
+  const visible = style === 'decimal' || style === 'decimal-leading-zero'
+    ? String(label ?? '').match(/\d+(?=\D*$)/u)?.[0]
+    : String(label ?? '').match(/[\p{L}\d]+/u)?.[0];
+  if (!visible) return null;
+  if (style === 'decimal' || style === 'decimal-leading-zero') {
+    return /^\d+$/u.test(visible) ? Number.parseInt(visible, 10) : null;
+  }
+  if (style === 'lower-latin' || style === 'lower-alpha' || style === 'upper-latin' || style === 'upper-alpha') {
+    return /^[A-Z]+$/iu.test(visible) ? parseAlphaCounter(visible) : null;
+  }
+  if (style === 'lower-roman' || style === 'upper-roman') return parseRomanCounter(visible);
+  return null;
+}
+
+function hasDirectQuotedProvision(block) {
+  return block?.children?.some((child) => child.type === 'quotedProvision') ?? false;
+}
+
 function parseIdentity(heading, rawTitle) {
   const cleaned = normalizeHtmlText(rawTitle).replace(/^[„“”'`,.]+/u, '').replace(/\s+/gu, ' ').trim();
   let title = new RegExp(`^(?:${heading}|Gesetz|Verordnung)\\b`, 'iu').test(cleaned)
@@ -303,11 +346,15 @@ function parsePrintedListItem(value) {
   return null;
 }
 
-function directRows(table) {
+function directRowEntries(table) {
   const sections = elementChildren(table).filter((child) => ['thead', 'tbody', 'tfoot'].includes(child.tagName));
   return sections.length > 0
-    ? sections.flatMap((section) => elementChildren(section, 'tr'))
-    : elementChildren(table, 'tr');
+    ? sections.flatMap((section) => elementChildren(section, 'tr').map((node) => ({ node, section: section.tagName })))
+    : elementChildren(table, 'tr').map((node) => ({ node, section: null }));
+}
+
+function directRows(table) {
+  return directRowEntries(table).map(({ node }) => node);
 }
 
 function parsePositiveSpan(value, fallback = 1) {
@@ -317,22 +364,32 @@ function parsePositiveSpan(value, fallback = 1) {
 }
 
 function tableBlock(node, css, fileName) {
-  const rows = directRows(node);
-  const firstContentRow = rows.findIndex((row) => elementChildren(row).some((cell) => textOf(cell)));
-  const children = rows.map((row, rowIndex) => {
+  const rowEntries = directRowEntries(node);
+  const firstContentRow = rowEntries.findIndex(({ node: row }) => elementChildren(row).some((cell) => textOf(cell)));
+  const children = rowEntries.map(({ node: row, section }, rowIndex) => {
     const cells = elementChildren(row).filter((cell) => cell.tagName === 'td' || cell.tagName === 'th');
+    const rowIsHeader = cells.length > 0 && cells.every((cell) => cell.tagName === 'th' || isBold(cell, css));
     return {
       type: 'tableRow',
-      children: cells.map((cell) => {
+      children: cells.map((cell, cellIndex) => {
         const paragraphs = descendants(cell, (entry) => entry.tagName === 'p').map(textOf).filter(Boolean);
         const cellText = paragraphs.length > 0 ? paragraphs.join('\n') : textOf(cell);
-        const header = cell.tagName === 'th' || (rowIndex === firstContentRow && cells.length > 0 && cells.every((entry) => isBold(entry, css)));
         const cellAttrs = attrs(cell);
+        const explicitScope = cellAttrs.scope?.toLocaleLowerCase('en');
+        if (explicitScope && !TABLE_HEADER_SCOPES.has(explicitScope)) {
+          throw new NormHtmlParseError(fileName, `Tabelle enthält den nicht unterstützten Kopfzellen-Scope „${cellAttrs.scope}“`);
+        }
+        const header = cell.tagName === 'th' || Boolean(explicitScope) || (rowIndex === firstContentRow && rowIsHeader);
         const rowspan = parsePositiveSpan(cellAttrs.rowspan);
         const colspan = parsePositiveSpan(cellAttrs.colspan);
+        let scope = explicitScope;
+        if (!scope && header && section === 'thead') scope = colspan > 1 ? 'colgroup' : 'col';
+        if (!scope && header && rowIndex === firstContentRow && rowIsHeader) scope = colspan > 1 ? 'colgroup' : 'col';
+        if (!scope && cell.tagName === 'th' && section === 'tbody' && cellIndex === 0 && rowspan === 1 && colspan === 1) scope = 'row';
         return {
           type: header ? 'tableHeaderCell' : 'tableCell',
           text: cellText,
+          ...(scope ? { scope } : {}),
           ...(rowspan > 1 ? { rowspan } : {}),
           ...(colspan > 1 ? { colspan } : {}),
           ...(paragraphs.length > 1 ? { children: paragraphs.map((text) => ({ type: 'paragraphText', text })) } : {}),
@@ -428,6 +485,9 @@ function makeAtomicTokens(nodes, css, fileName) {
           listId,
           level,
           numberingStyle: style.numberingStyle,
+          counterValue: counter,
+          numberingPrefix: style.prefix,
+          numberingSuffix: style.suffix,
           label: `${style.prefix}${visible}${style.suffix}`.trim(),
           text: textOf(item),
           startsList: hasStartClass,
@@ -542,7 +602,9 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
   const stack = [{ rank: 0, children: root }];
   const listParents = new Map();
   const listBaselines = new Map();
+  const listCounterOffsets = new WeakMap();
   let lastBlock = null;
+  let lastListState = null;
 
   const append = (block) => {
     currentChildren(stack).push(block);
@@ -558,6 +620,7 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
       currentChildren(stack).push(block);
       stack.push({ rank, children: block.children });
       lastBlock = block;
+      lastListState = null;
       listParents.clear();
       listBaselines.clear();
       continue;
@@ -589,7 +652,7 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
         listBaselines.set(token.listId, baseline);
         parents.clear();
       }
-      const semanticLevel = token.level - baseline;
+      let semanticLevel = token.level - baseline;
       let destination = currentChildren(stack);
       if (semanticLevel > 0) {
         let parent;
@@ -602,13 +665,56 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
           destination = parent.children;
         }
       }
+      const continuesAfterQuote =
+        lastListState &&
+        lastBlock === lastListState.block &&
+        currentChildren(stack) === lastListState.structureParent &&
+        token.level === lastListState.sourceLevel &&
+        token.numberingStyle === lastListState.numberingStyle &&
+        hasDirectQuotedProvision(lastListState.block);
+      if (continuesAfterQuote) {
+        semanticLevel = lastListState.semanticLevel;
+        destination = lastListState.destination;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+      }
+      let destinationOffsets = listCounterOffsets.get(destination);
+      if (!destinationOffsets) {
+        destinationOffsets = new Map();
+        listCounterOffsets.set(destination, destinationOffsets);
+      }
+      const counterKey = `${token.listId}:${token.level}`;
+      let existingCounterOffset = destinationOffsets.get(counterKey) ?? 0;
+      let semanticCounterValue = Number.isInteger(token.counterValue) ? token.counterValue + existingCounterOffset : token.counterValue;
+      let semanticListId = token.listId;
+      let label = existingCounterOffset === 0
+        ? token.label
+        : `${token.numberingPrefix}${formatCounter(semanticCounterValue, token.numberingStyle)}${token.numberingSuffix}`.trim();
+      if (continuesAfterQuote) {
+        semanticListId = lastListState.semanticListId;
+        const expectedCounterValue = lastListState.counterValue + 1;
+        if (Number.isInteger(token.counterValue) && token.counterValue === expectedCounterValue) {
+          existingCounterOffset = 0;
+          destinationOffsets.set(counterKey, 0);
+          semanticCounterValue = token.counterValue;
+          label = token.label;
+        } else if (Number.isInteger(token.counterValue) && semanticCounterValue !== expectedCounterValue && token.counterValue <= lastListState.counterValue) {
+          semanticCounterValue = expectedCounterValue;
+          existingCounterOffset = semanticCounterValue - token.counterValue;
+          destinationOffsets.set(counterKey, existingCounterOffset);
+          const visible = formatCounter(semanticCounterValue, token.numberingStyle);
+          if (!visible) {
+            throw new NormHtmlParseError(fileName, `needs-review: Listenfortsetzung nach Zitat mit nicht auflösbarem Stil ${token.numberingStyle}`);
+          }
+          label = `${token.numberingPrefix}${visible}${token.numberingSuffix}`.trim();
+        }
+      }
       const type = /^\(\d+[a-z]?\)$/iu.test(token.label) ? 'subparagraph' : 'item';
       const block = {
         type,
-        label: token.label,
+        label,
         text: token.text,
         level: semanticLevel,
-        listId: token.listId,
+        listId: semanticListId,
         numberingStyle: token.numberingStyle,
         children: [],
       };
@@ -616,6 +722,16 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
       parents.set(semanticLevel, block);
       for (const level of [...parents.keys()]) if (level > semanticLevel) parents.delete(level);
       lastBlock = block;
+      lastListState = {
+        block,
+        counterValue: semanticCounterValue,
+        destination,
+        numberingStyle: token.numberingStyle,
+        semanticLevel,
+        semanticListId,
+        sourceLevel: token.level,
+        structureParent: currentChildren(stack),
+      };
       continue;
     }
     if (token.kind === 'quotedGroup') {
@@ -632,6 +748,43 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
     }
   }
   return root;
+}
+
+export function validateListSequences(body) {
+  const issues = [];
+  const visit = (children, path = []) => {
+    let previous = null;
+    for (const [index, block] of (children ?? []).entries()) {
+      const blockPath = [...path, block.label ?? `${block.type}[${index}]`];
+      const listBlock = ['item', 'subitem', 'subparagraph'].includes(block.type) && block.listId && block.numberingStyle;
+      if (!listBlock || block.listId === 'printed-outline') {
+        previous = null;
+      } else if (previous && previous.listId === block.listId) {
+        if (previous.level !== block.level) {
+          issues.push(`${blockPath.join(' > ')}: widersprüchliche semantische Listenebenen ${previous.level} und ${block.level}`);
+        } else if (previous.numberingStyle !== block.numberingStyle) {
+          issues.push(`${blockPath.join(' > ')}: widersprüchliche Nummerierungsstile ${previous.numberingStyle} und ${block.numberingStyle}`);
+        } else {
+          const previousValue = counterValueFromLabel(previous.label, previous.numberingStyle);
+          const currentValue = counterValueFromLabel(block.label, block.numberingStyle);
+          if (previousValue !== null && currentValue !== null && currentValue <= previousValue) {
+            const reason = currentValue === previousValue
+              ? 'doppeltes Gliederungszeichen'
+              : 'rückwärts laufende Nummerierungsfolge oder unerwarteter Neustart';
+            issues.push(`${blockPath.join(' > ')}: ${reason} (${previous.label} → ${block.label})`);
+          } else if (previousValue !== null && currentValue !== null && currentValue !== previousValue + 1) {
+            issues.push(`${blockPath.join(' > ')}: lückenhafte Nummerierungsfolge oder nicht aufgelöster Listenwechsel (${previous.label} → ${block.label})`);
+          }
+        }
+        previous = block;
+      } else {
+        previous = block;
+      }
+      visit(block.children, blockPath);
+    }
+  };
+  visit(body);
+  return issues;
 }
 
 function flattenBlocks(blocks, output = [], insideQuote = false) {
@@ -651,6 +804,10 @@ function validateBody(fileName, title, body) {
   const bodyText = flat.map(({ block }) => `${block.label ?? ''} ${block.title ?? ''} ${block.text ?? ''}`).join(' ');
   const contamination = bodyText.match(CONTAMINATION_PATTERN)?.[0];
   if (contamination) throw new NormHtmlParseError(fileName, `Kopf-, Fuß-, CSS-, Bild- oder Signaturdaten sind in den Normkörper von „${title}“ geraten (${contamination})`);
+  const sequenceIssues = validateListSequences(body);
+  if (sequenceIssues.length > 0) {
+    throw new NormHtmlParseError(fileName, `needs-review: ${sequenceIssues.join('; ')}`);
+  }
 }
 
 function inferEffectiveDate(text, publicationDate) {

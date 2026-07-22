@@ -444,7 +444,7 @@ function buildConstitutionRecord(parsed) {
       publicationDate: '2024-10-15',
       effectiveDate: '2024-10-15',
       sourceReferences: normSourceReferences(parsed.fileName),
-      dateNote: 'Redaktionelle Lesefassung vom 21. Juli 2026. Der Wortlaut von Artikel 121a weicht vom Änderungstext in OGVBl. 2026 Nr. 53 ab; die Quellenklärung ist noch offen.',
+      dateNote: 'Redaktionelle Lesefassung vom 21. Juli 2026.',
     },
     history: {
       initialVersionId: null,

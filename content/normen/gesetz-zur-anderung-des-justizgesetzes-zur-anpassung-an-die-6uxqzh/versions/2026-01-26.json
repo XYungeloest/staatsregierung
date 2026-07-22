@@ -1867,15 +1867,18 @@
                                                   "children": [
                                                     {
                                                       "type": "tableHeaderCell",
-                                                      "text": "Nr."
+                                                      "text": "Nr.",
+                                                      "scope": "col"
                                                     },
                                                     {
                                                       "type": "tableHeaderCell",
-                                                      "text": "Amtsgericht"
+                                                      "text": "Amtsgericht",
+                                                      "scope": "col"
                                                     },
                                                     {
                                                       "type": "tableHeaderCell",
-                                                      "text": "Zuständigkeit für die Landkreise, kreisfreie Städte und Gemeinden sowie Gebiete von Gemeinden"
+                                                      "text": "Zuständigkeit für die Landkreise, kreisfreie Städte und Gemeinden sowie Gebiete von Gemeinden",
+                                                      "scope": "col"
                                                     }
                                                   ]
                                                 },

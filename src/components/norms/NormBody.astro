@@ -154,7 +154,7 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
                       <tr>
                         {row.children?.map((cell) => (
                           cell.type === 'tableHeaderCell' ? (
-                            <th scope="col" rowspan={cell.rowspan} colspan={cell.colspan}>
+                            <th scope={cell.scope} rowspan={cell.rowspan} colspan={cell.colspan}>
                               {cell.children?.length ? (
                                 <Astro.self blocks={cell.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} />
                               ) : <span set:html={renderLinkedDisplayText(cell.text ?? '', references)} />}

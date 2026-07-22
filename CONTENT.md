@@ -168,7 +168,10 @@ tatsächlich versionierten Dateien enthalten. Externe Quellen verwenden eine HTT
 `availability: "external"`. Lokal redaktionell geprüfte, aber nicht mitversionierte Originale
 werden mit `availability: "not-versioned"` dokumentiert; ein scheinbarer lokaler Pfad ist dann
 unzulässig. Soweit amtliche PDFs unter `Gesetze/` versioniert sind, dienen sie der visuellen
-Gegenprüfung, werden aber nicht als strukturtragende Importquelle behandelt.
+Gegenprüfung, werden aber nicht als strukturtragende Importquelle behandelt. Diese Gegenprüfung
+umfasst insbesondere Gliederungstiefe, Einrückung, Nummerierungs- und Fortsetzungsfolgen, zitierte
+Neufassungen, Tabellenkopf- und Zellenstruktur sowie die Zuordnung von Anlagen. Mehrdeutige
+Abweichungen werden weder sprachlich noch strukturell still harmonisiert.
 
 Erlaubte Eintragstypen:
 
@@ -897,7 +900,9 @@ Ohne `--write` läuft der Import ausschließlich prüfend. Schreiben ist nur mit
 `.html`- oder zulässigen `.md`-`--file`-Angabe möglich; vorhandene Datensätze werden
 erst mit `--update-existing` verändert. Es gibt keinen Modus, der den gesamten Normbestand
 automatisch löscht. PDF-Dateien werden nur als visuelle Kontrollquelle und nicht automatisch als
-Normtext ausgewertet.
+Normtext ausgewertet. Fehlt die notwendige PDF oder bleibt eine Struktur trotz visueller Kontrolle
+mehrdeutig, wird dies in `CONTENT_GAPS.md` festgehalten; der strikte Audit meldet den betroffenen
+Parserfall als `needs-review`.
 
 ```sh
 npm run norms:audit
