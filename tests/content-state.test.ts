@@ -149,9 +149,8 @@ test('Staatsreform, Verfassung und Verkündungen sind zum 21. Juli verknüpft', 
   const firstReform = normMap.get('erstes-gesetz-zur-grossen-staatsreform');
   assert.ok(firstReform);
   const enactedText = JSON.stringify(firstReform.versions[0].body);
-  assert.match(enactedText, /Achte Volkskammer ist der achte Landtag/u);
-  assert.match(enactedText, /Wahl zur neunten Volkskammer/u);
-  assert.doesNotMatch(enactedText, /Siebte Volkskammer ist der siebte Landtag/u);
+  assert.match(enactedText, /Siebte Volkskammer ist der siebte Landtag/u);
+  assert.match(enactedText, /Wahl zur achten Volkskammer/u);
   assert.notEqual(enactedText, consolidatedText);
   for (const issue of [53, 54, 55, 56]) {
     const publication = publications.find((entry) => entry.slug === `ogvbl-2026-${issue}`);

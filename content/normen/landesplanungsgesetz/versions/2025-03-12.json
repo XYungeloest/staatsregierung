@@ -12,26 +12,38 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "unverändert"
+          "text": "u n v e r ä n d e r t"
         }
       ]
     },
     {
       "type": "paragraph",
       "label": "§ 19",
-      "title": "– Raumordnungsbehörden, sachliche Zuständigkeit",
+      "title": "Raumordnungsbehörden, sachliche Zuständigkeit",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "1) Oberste Raumordnungs- und Landesplanungsbehörde ist das Staatsministerium für Regionalentwicklung."
+          "type": "item",
+          "label": "1)",
+          "text": "Oberste Raumordnungs- und Landesplanungsbehörde ist das Staatsministerium für Regionalentwicklung.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "2) Raumordnungsbehörde ist der jeweilige Bezirk."
+          "type": "item",
+          "label": "2)",
+          "text": "Raumordnungsbehörde ist der jeweilige Bezirk.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "3) Zuständig ist die Raumordnungsbehörde, soweit nichts anderes bestimmt ist."
+          "type": "item",
+          "label": "3)",
+          "text": "Zuständig ist die Raumordnungsbehörde, soweit nichts anderes bestimmt ist.",
+          "numberingStyle": "decimal",
+          "level": 0,
+          "children": []
         }
       ]
     },
@@ -41,7 +53,7 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "unverändert"
+          "text": "u n v e r ä n d e r t"
         }
       ]
     }

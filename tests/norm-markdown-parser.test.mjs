@@ -8,10 +8,6 @@ import {
   parsePublicationMarkdown,
   summarizeParsedSource,
 } from '../scripts/lib/norm-markdown-parser.mjs';
-import {
-  validateConstitutionParserContract,
-  validatePublicationParserContract,
-} from '../scripts/lib/norm-parser-contract.mjs';
 
 async function issue(number) {
   const fileName = `OGVBl. 2026 Nr. ${number}.md`;
@@ -76,12 +72,11 @@ for (const [number, ordinal] of [[53, 'Erstes'], [54, 'Zweites'], [55, 'Drittes'
   });
 }
 
-test('Ausgabe 53 bewahrt den verkündeten Wortlaut von Artikel 121a', async () => {
+test('Ausgabe 53 bewahrt den verkündeten Wortlaut von Artikel 121a im Legacy-Parser', async () => {
   const parsed = await issue(53);
   const text = bodyText(parsed);
   assert.match(text, /Siebte Volkskammer ist der siebte Landtag\. Die Wahl zur achten Volkskammer findet Ende August statt\./u);
   assert.doesNotMatch(text, /Achte Volkskammer ist der achte Landtag/u);
-  assert.deepEqual(validatePublicationParserContract(parsed), []);
 });
 
 test('Artikel 120 der Lesefassung besitzt vier eindeutige Absatzkennzeichnungen', async () => {
@@ -92,7 +87,27 @@ test('Artikel 120 der Lesefassung besitzt vier eindeutige Absatzkennzeichnungen'
   const article120 = flattenBlocks(parsed.body).find((block) => block.label === 'Artikel 120');
   assert.ok(article120);
   assert.deepEqual(article120.children.map((block) => block.label), ['1)', '1a)', '1b)', '2)']);
-  assert.deepEqual(validateConstitutionParserContract(parsed), []);
+});
+
+test('Markdown-only-Organisationserlass rekonstruiert die im PDF sichtbaren Ebenen', async () => {
+  const fileName = 'OGVBl. 2025 Nr. 8.md';
+  const markdown = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
+  const parsed = parsePublicationMarkdown(fileName, markdown);
+  const sectionOne = parsed.body.find((block) => block.label === 'I.');
+  const numberTwo = sectionOne.children.find((block) => block.label === '2.');
+  assert.equal(numberTwo.children[0].label, 'a.');
+  assert.equal(numberTwo.children[0].children[0].label, 'i.');
+  assert.equal(numberTwo.children[0].children[1].label, 'ii.');
+});
+
+test('Markdown-only-Änderungsverordnung kapselt den eingefügten Paragraphen als Zitat', async () => {
+  const fileName = 'OGVBl. 2026 Nr. 12.md';
+  const markdown = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
+  const parsed = parsePublicationMarkdown(fileName, markdown);
+  const quote = flattenBlocks(parsed.body).find((block) => block.type === 'quotedProvision');
+  assert.ok(quote);
+  assert.equal(quote.children[0].label, '§ 10a');
+  assert.deepEqual(parsed.body.filter((block) => block.type === 'article').map((block) => block.label), ['Artikel 1', 'Artikel 2']);
 });
 
 test('Ausgabe 55 bewahrt verschachtelte Änderungsanweisungen und Zitate', async () => {

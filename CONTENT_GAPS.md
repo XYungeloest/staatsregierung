@@ -67,18 +67,24 @@ Schlussfolgerung:
 
 Belegt:
 
-- Unter `Gesetze/` liegen 79 HTML-Dateien und 98 ältere Markdown-Dateien. Die HTML-Ausgaben 46 bis
-  58 und `Staatsverfassung.html` dienen als lokale strukturtragende Importquellen. Die Markdown-
-  Dateien sind Altbestand, werden nicht automatisch gelöscht und beeinflussen den Import nicht.
+- Unter `Gesetze/` liegen 79 HTML-Dateien und 98 ältere Markdown-Dateien. Sämtliche eindeutig einem
+  Bestandsdatensatz zuordenbaren HTML-Ausgaben sowie `Staatsverfassung.html` dienen als lokale
+  strukturtragende Importquellen. Markdown bleibt Altbestand und wird bei vorhandener HTML-Ausgabe
+  nicht geöffnet. 17 Normen ohne HTML wurden nach PDF-/Quellvergleich mit dem getrennten
+  Legacy-Parser aktualisiert und als `legacy-markdown-transcription` gekennzeichnet.
 - Ein `sourceFiles`-Eintrag ist nur zulässig, wenn die angegebene Datei im Git-Bestand und im
   Checkout vorhanden ist. Der Content-Checker prüft beides.
-- Die neuen Ausgabedatensätze verweisen über `sourceReferences` auf die versionierte
-  HTML-Transkription. Nicht mitversionierte Original-PDFs werden nicht als lokale Datei
-  behauptet.
+- HTML-migrierte Ausgabedatensätze verweisen über `sourceReferences` auf die versionierte
+  HTML-Transkription. Bei den 12 aktualisierten Markdown-only-Ausgaben verweist die gleiche
+  Beziehung ausdrücklich auf die Legacy-Transkription. Die vorhandenen PDFs dienen der visuellen
+  Gegenprüfung und sind keine Importquelle.
 - Der Normimport läuft standardmäßig nur als Audit. Schreiben erfordert `--write` und eine gezielte
   `--file`-Angabe; vorhandene Normen werden erst mit `--update-existing` verändert.
-- Der vollständige Audit meldet mehrere ältere OABl.-, StAnzO.- und einzelne OGVBl.-Dateien als
-  mehrdeutig. Diese Dateien werden nicht automatisch importiert.
+- OABl. 2025 Nr. 2 bleibt unverändert: In der Markdown-Datei wurden Nummerierung und Normtext in
+  getrennte Zellen einer einzigen Layouttabelle zusammengezogen; eine belastbare Eltern-Kind-
+  Zuordnung ist daraus nicht möglich. `StAnzO. 2026 Nr. 2.html` bezeichnet sich intern dagegen als
+  OABl. Nr. 2 vom 3. März 2026 und kollidiert damit mit dem vorhandenen StAnzO.-Datensatz. Beide
+  Fälle werden im Audit ausdrücklich ausgewiesen und nicht automatisch geschrieben.
 
 Schlussfolgerung:
 
@@ -91,13 +97,10 @@ Schlussfolgerung:
 
 Belegt:
 
-- Die HTML-Ausgabe OGVBl. 2026 Nr. 53 enthält in der dort verkündeten Änderung zu Artikel 121a
-  „Achte Volkskammer … Wahl zur neunten Volkskammer“.
-- Die konsolidierte Quelle `Staatsverfassung.html` enthält in Artikel 121a dagegen „Siebte
-  Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.“
-- Beide HTML-Quellen werden quellentreu und ohne automatische sprachliche oder inhaltliche
-  Korrektur importiert. Der Widerspruch ist redaktionell noch anhand eines höherrangigen
-  Primärnachweises zu klären.
+- Die HTML-Ausgabe OGVBl. 2026 Nr. 53 und die konsolidierte Quelle `Staatsverfassung.html`
+  enthalten in Artikel 121a übereinstimmend „Siebte Volkskammer ist der siebte Landtag. Die Wahl
+  zur achten Volkskammer findet Ende August statt.“ Der frühere Markdown-Altbestand lautet an
+  dieser Stelle gleich; er wird bei vorhandenem HTML dennoch nicht importiert.
 - StAnzO. 2026 Nr. 13 enthält 19. Mai 2026 im Kopf beziehungsweise Inhaltsverzeichnis, 27. Mai 2026
   in der Überschrift und 19. Mai 2026 in der Unterschriftszeile. Das Ausgabedatum ist der
   27. Mai 2026.
@@ -108,8 +111,8 @@ Belegt:
 
 Schlussfolgerung:
 
-- Das Erste Staatsreformgesetz und die konsolidierte Lesefassung bleiben bis zur Quellenklärung in
-  ihren jeweiligen HTML-Wortlauten gespeichert; der Importer harmonisiert den Widerspruch nicht.
+- Das Erste Staatsreformgesetz und die konsolidierte Lesefassung werden jeweils quellentreu aus
+  ihren HTML-Dateien gespeichert; der Importer nimmt keine sprachliche Harmonisierung vor.
 - `initialVersionId` der Verfassung bleibt leer, solange keine belastbare historische
   Volltextfassung vorliegt; die konsolidierte Fassung vom 21. Juli 2026 wird nicht als
   Ursprungsfassung ausgegeben.
@@ -121,9 +124,11 @@ Schlussfolgerung:
 
 ## 5. Nächster Aktualisierungsschritt
 
-1. Original-PDFs der Ausgaben 46 bis 58 mit den versionierten HTML-Transkriptionen abgleichen.
+1. OABl. 2025 Nr. 2 neu und strukturerhaltend als HTML transkribieren sowie die interne Identität
+   von `StAnzO. 2026 Nr. 2.html` redaktionell klären.
 2. Plenarprotokoll und Einzelabstimmungsergebnisse vom 20. Juli 2026 nachreichen und ausschließlich
    für die noch offenen Beratungsdetails auswerten.
-3. Mehrdeutige Alt-Ausgaben redaktionell transkribieren und mit gezielten Parser-Fixtures absichern.
+3. Für die weiterhin nur als Markdown vorliegenden Altquellen schrittweise strukturierte HTML-
+   Transkriptionen erstellen; bis dahin die PDF-Gegenprüfung und Legacy-Fixtures beibehalten.
 4. Austauschdaten der Notifikationen beziehungsweise Ratifikationsurkunden für die drei
    Staatsverträge belegen.

@@ -417,14 +417,15 @@ for (const { file, json } of records) {
         addProblem(file, `${sourcePath} muss ein Objekt sein`);
         continue;
       }
-      if (source.kind !== 'structured-html-transcription') {
+      if (!['structured-html-transcription', 'legacy-markdown-transcription'].includes(source.kind)) {
         addProblem(file, `${sourcePath}.kind ist für eine Normquelle unbekannt: ${source.kind}`);
       }
       if (source.availability !== 'versioned') {
         addProblem(file, `${sourcePath}.availability muss versioned sein`);
       }
-      if (typeof source.localSource !== 'string' || !source.localSource.endsWith('.html')) {
-        addProblem(file, `${sourcePath}.localSource muss auf eine HTML-Datei verweisen`);
+      const requiredExtension = source.kind === 'legacy-markdown-transcription' ? '.md' : '.html';
+      if (typeof source.localSource !== 'string' || !source.localSource.endsWith(requiredExtension)) {
+        addProblem(file, `${sourcePath}.localSource muss für ${source.kind} auf eine ${requiredExtension}-Datei verweisen`);
       } else {
         await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
       }
@@ -657,6 +658,20 @@ for (const { file, json } of byPrefix('verkuendungen/').filter(({ json }) => /^o
     if (!meta) continue;
     if (!publicationSource || !meta.sourceReferences?.some((source) => source.localSource === publicationSource)) {
       addProblem(file, `entries[${index}] und Normdatensatz ${entry.normSlug} verweisen nicht auf dieselbe HTML-Quelle`);
+    }
+  }
+}
+
+for (const { file, json } of byPrefix('verkuendungen/')) {
+  const structuredSource = json.sourceReferences?.find((source) =>
+    ['structured-html-transcription', 'legacy-markdown-transcription'].includes(source.kind)
+  )?.localSource;
+  if (!structuredSource) continue;
+  for (const [index, entry] of (json.entries ?? []).entries()) {
+    const meta = normMetaBySlug.get(entry.normSlug);
+    if (!meta) continue;
+    if (!meta.sourceReferences?.some((source) => source.localSource === structuredSource)) {
+      addProblem(file, `entries[${index}] und Normdatensatz ${entry.normSlug} verweisen nicht auf dieselbe strukturtragende Quelle`);
     }
   }
 }

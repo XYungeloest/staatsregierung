@@ -22,35 +22,105 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "In Römisch I wird nach der Ziffer 6.3 folgende Ziffer 6.4 eingefügt: „6.4 Auf den Geheimschutzdokumenten ist gut sichtbar auf der ersten Seite eine Markierung nach Anlage 8 dieser Verwaltungsvorschrift anzubringen.\""
+          "text": "In Römisch I wird nach der Ziffer 6.3 folgende Ziffer 6.4 eingefügt: „6.4 Auf den Geheimschutzdokumenten ist gut sichtbar auf der ersten Seite eine Markierung nach Anlage 8 dieser Verwaltungsvorschrift anzubringen.\"",
+          "level": 0,
+          "listId": "pvstt4s1vplb",
+          "numberingStyle": "decimal",
+          "children": []
         },
         {
           "type": "item",
           "label": "2.",
-          "text": "Folgende Anlage 8 wird angefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„ANLAGE 8 (zu Nummer 6.4)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Verschlusssache – Nur für den Dienstgebrauch (VS – NfD) :----:---- Verschlusssache – Vertraulich (VS-Vertr.) Geheim (Geheim) Streng Geheim (Streng Geheim)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "“"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "II.",
-      "title": "Inkrafttreten",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "Diese Verwaltungsvorschrift tritt am Tag der Veröffentlichung im Staatsanzeiger für den Freistaat Ostdeutschland in Kraft."
+          "text": "Folgende Anlage 8 wird angefügt:",
+          "level": 0,
+          "listId": "pvstt4s1vplb",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "annex",
+                  "label": "ANLAGE 8 (zu Nummer 6.4)",
+                  "children": [
+                    {
+                      "type": "table",
+                      "children": [
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Verschlusssache – Nur für den Dienstgebrauch (VS – NfD)"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": ""
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Verschlusssache – Vertraulich (VS-Vertr.)"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": ""
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Geheim (Geheim)"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": ""
+                            }
+                          ]
+                        },
+                        {
+                          "type": "tableRow",
+                          "children": [
+                            {
+                              "type": "tableCell",
+                              "text": "Streng Geheim (Streng Geheim)"
+                            },
+                            {
+                              "type": "tableCell",
+                              "text": ""
+                            }
+                          ]
+                        }
+                      ],
+                      "columns": 2
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "“"
+                    },
+                    {
+                      "type": "section",
+                      "label": "II.",
+                      "title": "Inkrafttreten",
+                      "children": [
+                        {
+                          "type": "paragraphText",
+                          "text": "Diese Verwaltungsvorschrift tritt am Tag der Veröffentlichung im Staatsanzeiger für den Freistaat Ostdeutschland in Kraft."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     }

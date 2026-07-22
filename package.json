@@ -10,7 +10,7 @@
     "content:check": "node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/check-content.mjs",
     "norms:audit": "node scripts/import-normen.mjs --source-dir Gesetze",
     "norms:import": "node scripts/import-normen.mjs --source-dir Gesetze",
-    "test:parser": "node --test tests/norm-html-parser.test.mjs",
+    "test:parser": "node --test tests/norm-html-parser.test.mjs tests/norm-markdown-parser.test.mjs tests/import-audit.test.mjs",
     "kreisreform:prepare": "node scripts/prepare-kreisreform-map.mjs",
     "images:generate": "node scripts/generate-responsive-images.mjs",
     "check": "astro check",

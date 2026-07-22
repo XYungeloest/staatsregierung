@@ -22,17 +22,40 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "§ 8 Absatz 1 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Nach Satz 1 wird folgender Satz eingefügt: „Schotterungen sowie vergleichbare flächenhafte Gestaltungen, bei denen die Vegetation nicht überwiegt, insbesondere Schotterund Kiesgärten sowie Steinvorgärten, sind keine andere zulässige Verwendung im Sinne des Satzes 1.“"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Der bisherige Satz 2 wird zu Satz 3."
+          "text": "§ 8 Absatz 1 wird wie folgt geändert:",
+          "level": 0,
+          "listId": "z9i4nlkd458a",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Nach Satz 1 wird folgender Satz eingefügt:",
+              "level": 1,
+              "listId": "z9i4nlkd458a",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "„Schotterungen sowie vergleichbare flächenhafte Gestaltungen, bei denen die Vegetation nicht überwiegt, insbesondere Schotter- und Kiesgärten sowie Steinvorgärten, sind keine andere zulässige Verwendung im Sinne des Satzes 1.“"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Der bisherige Satz 2 wird zu Satz 3.",
+              "level": 1,
+              "listId": "z9i4nlkd458a",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         }
       ]
     },

@@ -16,16 +16,22 @@
       "title": "Art der Schuldverschreibungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Schuldverschreibungen werden als unverbriefte übertragbare Buchforderungen ausgegeben."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Schuldverschreibungen werden als unverbriefte übertragbare Buchforderungen ausgegeben.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Ausgabe von Stücken ist ausgeschlossen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Ausgabe von Stücken ist ausgeschlossen.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Schuldverschreibungen lauten auf Euro."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Schuldverschreibungen lauten auf Euro.",
+          "children": []
         }
       ]
     },
@@ -35,41 +41,67 @@
       "title": "Schuldbuch und Registerführung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Zuteilung der Schuldverschreibungen erfolgt durch Eintragung in das Schuldbuch des Freistaates Ostdeutschland."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Zuteilung der Schuldverschreibungen erfolgt durch Eintragung in das Schuldbuch des Freistaates Ostdeutschland.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Das Schuldbuch wird von der Staatsschuldenverwaltung des Freistaates Ostdeutschland beim zuständigen Staatsministerium geführt."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Das Schuldbuch wird von der Staatsschuldenverwaltung des Freistaates Ostdeutschland beim zuständigen Staatsministerium geführt.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Eintragung hat insbesondere auszuweisen:"
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Eintragung hat insbesondere auszuweisen:",
+          "children": []
         },
         {
           "type": "item",
           "label": "1.",
-          "text": "Namen oder Firma des Berechtigten,"
+          "text": "Namen oder Firma des Berechtigten,",
+          "level": 0,
+          "listId": "9clp8t7mqww9",
+          "numberingStyle": "decimal",
+          "children": []
         },
         {
           "type": "item",
           "label": "2.",
-          "text": "Nennbetrag,"
+          "text": "Nennbetrag,",
+          "level": 0,
+          "listId": "9clp8t7mqww9",
+          "numberingStyle": "decimal",
+          "children": []
         },
         {
           "type": "item",
           "label": "3.",
-          "text": "Datum der Zuteilung,"
+          "text": "Datum der Zuteilung,",
+          "level": 0,
+          "listId": "9clp8t7mqww9",
+          "numberingStyle": "decimal",
+          "children": []
         },
         {
           "type": "item",
           "label": "4.",
-          "text": "Fälligkeit und Zinslauf und"
+          "text": "Fälligkeit und Zinslauf und",
+          "level": 0,
+          "listId": "9clp8t7mqww9",
+          "numberingStyle": "decimal",
+          "children": []
         },
         {
           "type": "item",
           "label": "5.",
-          "text": "etwaige Übertragungen, Verpfändungen oder Vermerke."
+          "text": "etwaige Übertragungen, Verpfändungen oder Vermerke.",
+          "level": 0,
+          "listId": "9clp8t7mqww9",
+          "numberingStyle": "decimal",
+          "children": []
         }
       ]
     },
@@ -79,12 +111,16 @@
       "title": "Nennbetrag und Rundung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Nennbetrag der zugeteilten Schuldverschreibungen entspricht dem im Entschädigungsbescheid festgesetzten Entschädigungsbetrag."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Nennbetrag der zugeteilten Schuldverschreibungen entspricht dem im Entschädigungsbescheid festgesetzten Entschädigungsbetrag.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Soweit der Entschädigungsbescheid Teilbeträge für Nebenberechtigte ausweist, sind diese gesondert im Schuldbuch zu erfassen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Soweit der Entschädigungsbescheid Teilbeträge für Nebenberechtigte ausweist, sind diese gesondert im Schuldbuch zu erfassen.",
+          "children": []
         }
       ]
     },
@@ -94,16 +130,22 @@
       "title": "Zinsen und Tilgung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Schuldverschreibungen werden mit 2,5 Prozent jährlich verzinst."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Schuldverschreibungen werden mit 2,5 Prozent jährlich verzinst.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Tilgung erfolgt in Form einer über 100 Jahre laufenden Annuität."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Tilgung erfolgt in Form einer über 100 Jahre laufenden Annuität.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Zins und Tilgung werden jährlich nachträglich zu dem vom zuständigen Staatsministerium bekannt gemachten Zahlungstermin geleistet."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Zins und Tilgung werden jährlich nachträglich zu dem vom zuständigen Staatsministerium bekannt gemachten Zahlungstermin geleistet.",
+          "children": []
         }
       ]
     },
@@ -113,16 +155,22 @@
       "title": "Übertragung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Übertragung der Schuldverschreibungen bedarf der Eintragung im Schuldbuch."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Übertragung der Schuldverschreibungen bedarf der Eintragung im Schuldbuch.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Übertragung ist von dem bisherigen und dem neuen Berechtigten in der vom zuständigen Staatsministerium bekannt gemachten Form zu beantragen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Übertragung ist von dem bisherigen und dem neuen Berechtigten in der vom zuständigen Staatsministerium bekannt gemachten Form zu beantragen.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Wirksamkeit der Übertragung tritt mit Eintragung in das Schuldbuch ein."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Wirksamkeit der Übertragung tritt mit Eintragung in das Schuldbuch ein.",
+          "children": []
         }
       ]
     },
@@ -132,12 +180,16 @@
       "title": "Auszahlungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Zahlungen auf Zins und Tilgung erfolgen unbar auf das vom Berechtigten benannte Konto."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Zahlungen auf Zins und Tilgung erfolgen unbar auf das vom Berechtigten benannte Konto.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Änderungen der Zahlungsdaten sind der schuldbuchführenden Stelle unverzüglich mitzuteilen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Änderungen der Zahlungsdaten sind der schuldbuchführenden Stelle unverzüglich mitzuteilen.",
+          "children": []
         }
       ]
     },
@@ -147,16 +199,22 @@
       "title": "Marktpflege",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Marktpflege nach § 11 Absatz 6 des Wohnvergesellschaftungsgesetzes erfolgt durch die vom zuständigen Staatsministerium bestimmte Stelle."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Marktpflege nach § 11 Absatz 6 des Wohnvergesellschaftungsgesetzes erfolgt durch die vom zuständigen Staatsministerium bestimmte Stelle.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Marktpflege umfasst insbesondere den Anund Verkauf von Schuldverschreibungen zur Förderung der Handelbarkeit und Wertstabilität."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Marktpflege umfasst insbesondere den An- und Verkauf von Schuldverschreibungen zur Förderung der Handelbarkeit und Wertstabilität.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Marktpflegende Stelle ist die Landesfinanzagentur Ostdeutschland beim zuständigen Staatsministerium."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Marktpflegende Stelle ist die Landesfinanzagentur Ostdeutschland beim zuständigen Staatsministerium.",
+          "children": []
         }
       ]
     },
@@ -166,12 +224,16 @@
       "title": "Amtshilfe und Zusammenwirken",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Durchführungsbehörde, die Trägerin des Gemeineigentums, die schuldbuchführende Stelle und die marktpflegende Stelle arbeiten eng zusammen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Durchführungsbehörde, die Trägerin des Gemeineigentums, die schuldbuchführende Stelle und die marktpflegende Stelle arbeiten eng zusammen.",
+          "children": []
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Entschädigungsbescheid ist der schuldbuchführenden Stelle unverzüglich in elektronischer Form zu übermitteln."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Entschädigungsbescheid ist der schuldbuchführenden Stelle unverzüglich in elektronischer Form zu übermitteln.",
+          "children": []
         }
       ]
     },
@@ -186,7 +248,7 @@
         },
         {
           "type": "paragraphText",
-          "text": "Dr. Karl Honecker Der MINISTERPRÄSIDENT"
+          "text": "Dr. Karl Honecker D e r M I N I S T E R P R Ä S I D E N T"
         }
       ]
     }

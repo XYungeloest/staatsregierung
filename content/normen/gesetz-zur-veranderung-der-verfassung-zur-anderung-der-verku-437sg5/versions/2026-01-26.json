@@ -14,42 +14,210 @@
       "type": "article",
       "label": "Artikel 1",
       "title": "Änderung der Verfassung",
-      "children": []
-    },
-    {
-      "type": "article",
-      "label": "Artikel 76",
-      "title": "der Verfassung des Freistaats Ostdeutschland vom 15. Oktober 2024 (OGVBl. II/2024), die zuletzt durch Artikel 1 des Gesetzes vom 12. März 2025 (OGVBl. I/2025) geändert worden ist, wird wie folgt geändert:",
       "children": [
+        {
+          "type": "paragraphText",
+          "text": "Artikel 76 der Verfassung des Freistaats Ostdeutschland vom 15. Oktober 2024 (OGVBl. II/2024), die zuletzt durch Artikel 1 des Gesetzes vom 12. März 2025 (OGVBl. I/2025) geändert worden ist, wird wie folgt geändert:"
+        },
         {
           "type": "item",
           "label": "1.",
-          "text": "In Absatz 1 Satz 1 werden die Worte „der laufenden Legislaturperiode” durch „vierzehn Tage” ersetzt."
+          "text": "In Absatz 1 Satz 1 werden die Worte „der laufenden Legislaturperiode” durch „vierzehn Tage” ersetzt.",
+          "level": 0,
+          "listId": "o9jyhy54epbk",
+          "numberingStyle": "decimal",
+          "children": []
         },
         {
           "type": "item",
           "label": "2.",
-          "text": "Nach Absatz 1 wird folgender Absatz 1a gefasst: „Die Frist von vierzehn Tage nach Absatz 1 Satz 1 sowie die Dringlichkeit nach Satz 2 gilt nicht, wenn die Umstände es nicht zulassen. In diesem Falle müssen jedoch Gesetze, so schnell es die Umstände erlauben, verkündet werden.”"
+          "text": "Nach Absatz 1 wird folgender Absatz 1a gefasst:",
+          "level": 0,
+          "listId": "o9jyhy54epbk",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„Die Frist von vierzehn Tage nach Absatz 1 Satz 1 sowie die Dringlichkeit nach Satz 2 gilt nicht, wenn die Umstände es nicht zulassen. In diesem Falle müssen jedoch Gesetze, so schnell es die Umstände erlauben, verkündet werden.”"
+                }
+              ]
+            }
+          ]
         },
         {
           "type": "item",
           "label": "3.",
-          "text": "Es wird ein Absatz 4 gefasst: „Näheres zur Ausfertigung und Verkündung nach Absatz 1 bis 3 wird durch Gesetz geregelt.\""
+          "text": "Es wird ein Absatz 4 gefasst:",
+          "level": 0,
+          "listId": "o9jyhy54epbk",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„Näheres zur Ausfertigung und Verkündung nach Absatz 1 bis 3 wird durch Gesetz geregelt.\""
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
       "type": "article",
       "label": "Artikel 2",
-      "title": "Einführung eines Bekanntmachungsund Verkündungsgesetz",
+      "title": "Einführung eines Bekanntmachungs- und Verkündungsgesetz",
       "children": [
         {
           "type": "paragraphText",
           "text": "Das nachstehende wird Gesetz:"
         },
         {
-          "type": "paragraphText",
-          "text": "Gesetz über Verkündungen und Bekanntmachungen (Bekanntmachungs und Verkündungsgesetz \\- BeVerKüGe)"
+          "type": "quotedProvision",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Gesetz über Verkündungen und Bekanntmachungen (Bekanntmachungs und Verkündungsgesetz - BeVerKüGe)"
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 1",
+              "title": "Bekanntmachung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Rechtsvorschriften des Freistaats Ostdeutschland werden im Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland bekanntgegeben. Verkündungen und Bekanntmachungen sind ebenso in diesem bekanntzugeben, wenn dies durch Rechtsvorschrift vorgeschrieben ist.",
+                  "level": 0,
+                  "listId": "yzvkw7zdngvq",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Das Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland kann ebenso die Bezeichnung „OGVBl.\" als Abkürzung führen.",
+                  "level": 0,
+                  "listId": "yzvkw7zdngvq",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Verkündungen und Bekanntmachungen, die nicht unter Absatz 1 fallen, sind im Staatsanzeiger bekanntzugeben. Erlasse sind von Satz 1 ausgeschlossen.",
+                  "level": 0,
+                  "listId": "yzvkw7zdngvq",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 2",
+              "title": "Bekanntmachung von Verträgen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Völkerrechtliche Verträge und Staatsverträge des Freistaats Ostdeutschland werden im Vertragsblatt bekanntgegeben.",
+                  "level": 0,
+                  "listId": "i6xpq6z1blhz",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Gesetze, welche die Ratifikation von Verträgen nach Absatz 1 beinhalten, werden abweichend des § 1 Absatz 1 ebenso im gleichen Vertragsblatt verkündet, wie der Vertrag, der durch das Gesetz ratifiziert wird.",
+                  "level": 0,
+                  "listId": "i6xpq6z1blhz",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 3",
+              "title": "Einzelbekanntmachung",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Neben den §§ 1 und 2 sind verfassungsmäßig beschlossene Gesetze, als auch Rechtsverordnungen sowie Verträge nach § 2 Absatz 1 und ihres Ratifikationsgesetz jeweils einzeln bekanntzugeben."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 4",
+              "title": "Elektronische Bekanntmachung und Entgeltfreiheit",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Das Gesetz- und Verordnungsblatt, das Vertragsblatt, Erlasse, der Staatsanzeiger sowie Bekanntmachungen durch kommunale Gebietskörperschaften sind ausschließlich im Internet auf elektronischer Weise unter der Adresse ,,www.ost-recht.de\" bekanntzugeben.",
+                  "level": 0,
+                  "listId": "11vmnnpftdu3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Ausdrucke des Gesetz- und Verordnungsblatt, des Vertragsblattes, von Erlassen sowie des Staatsanzeigers sind bei Stellen des Landes und der Gemeinden gegen Erstattung der Entstehungskosten des Ausdruckes herauszugeben.",
+                  "level": 0,
+                  "listId": "11vmnnpftdu3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Ausdrucke von Bekanntmachungen von kommunalen Gebietskörperschaften sind bei den Stellen, die es bekanntgeben gegen Erstattung der Entstehungskosten des Ausdruckes herauszugeben.",
+                  "level": 0,
+                  "listId": "11vmnnpftdu3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 5",
+              "title": "Verzögerte Verkündung",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Bei Eintritt des Falles nach Artikel 76 Absatz 1a der Verfassung des Freistaates Ostdeutschland:"
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "finden Verkündungen auf eine andere geeignete öffentliche Weise statt. §§ 1 bis 4 sind nicht anzuwenden;",
+                  "level": 0,
+                  "listId": "70dfpvd03oj5",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "können der MDR und RBB von der Staatsregierung angewiesen werden, die Bekanntmachungen durchzuführen.",
+                  "level": 0,
+                  "listId": "70dfpvd03oj5",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
         }
       ]
     },

@@ -110,9 +110,10 @@ context/
 - Die redaktionell geprüften HTML-Dateien unter `Gesetze/` sind die alleinigen regulären
   Importquellen für Verkündungsblätter und konsolidierte Einzelnormen. Der Import liest sie mit
   einem HTML5-Parser, rekonstruiert daraus strukturierte Normdaten und veröffentlicht niemals das
-  Quell-HTML direkt. Gleichnamige Markdown-Dateien sind nur noch gekennzeichneter Altbestand und
-  werden vom Importer nicht geöffnet. PDF-Dateien werden nicht ersatzweise automatisch als
-  scheinbar verlässlicher Volltext ausgewertet.
+  Quell-HTML direkt. Eine intern derselben Ausgabe zugeordnete Markdown-Datei wird nicht geöffnet.
+  Für Altquellen ohne HTML bleibt ein getrennter Legacy-Parser verfügbar; solche Datensätze sind als
+  `legacy-markdown-transcription` gekennzeichnet. PDF-Dateien werden zur visuellen Kontrolle von
+  Gliederung und Einrückung herangezogen, aber nicht automatisch als Volltext importiert.
 
 Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen gespeichert.
 
@@ -138,7 +139,8 @@ Der derzeitige Stichtag ist der 21. Juli 2026.
 
 Der Normimport ist standardmäßig ein schreibfreier Audit. `npm run norms:audit` klassifiziert die
 Quellen und zeigt erkannte Normen und geplante Änderungen. Schreiben ist nur gezielt mit
-`npm run norms:import -- --write --file "Gesetze/…html"` möglich; vorhandene Datensätze werden nur
+`npm run norms:import -- --write --file "Gesetze/…html"` möglich; eine Markdown-only-Altquelle kann
+auf dieselbe Weise ausdrücklich mit einer `.md`-Datei ausgewählt werden. Vorhandene Datensätze werden nur
 mit dem zusätzlichen Flag `--update-existing` verändert. Der Import löscht den Normbestand nicht.
 `npm run norms:audit -- --strict` vergleicht die konfigurierten Primärquellen mit den gespeicherten
 Norm- und Verkündungsdaten und beendet den Prozess bei Abweichungen mit einem Fehlercode.

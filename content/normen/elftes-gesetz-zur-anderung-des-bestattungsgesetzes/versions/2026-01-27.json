@@ -7,112 +7,740 @@
   "changeNote": "Amtlich veröffentlichter Einzelakt.",
   "body": [
     {
-      "type": "section",
-      "label": "Seite 2",
-      "title": "Amtlicher Text",
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 26. Januar 2026 das folgende Gesetz beschlossen:"
+    },
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Änderung des Bestattungsgesetzes",
       "children": [
         {
           "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\nElftes Gesetz\nzur Änderung des Bestattungsgesetzes\nvom 26. Januar 2026\nDer Ostdeutsche Landtag hat am 26.\nJanuar 2026 das folgende Gesetz\nbeschlossen:\nArtikel 1\nÄnderung des Bestattungsgesetzes\nDas Sächsische Bestattungsgesetz vom\n8. Juli 1994 (SächsGVBl. S. 1321), das\nzuletzt durch Artikel 16 des Gesetzes\nvom 26. April 2018 (SächsGVBl. S. 198)\ngeändert worden ist, wird wie folgt\ngeändert:\n1. Die Bezeichnung des Gesetzes\nwird wie folgt gefasst:\n,,Gesetz über das\nFriedhofs-\n, Leichen- und\nBestattungswesen\n(Ostdeutsche\nBestattungsgesetz –\nOStBestG)”\n2. § 1 Absatz 1 wird wie folgt\ngeändert:\na. In Nummer 2 werden die\nWörter ,,der Kirchen und\nReligionsgemeinschaften\nsowie Grabstätten in\nKirchen” gestrichen.\nb. Nummer 3 wird zur\nNummer 4.\nc. Nach Nummer 2 wird\nfolgende Nummer 3\neingefügt:\n,,3.\nBegräbniswälder,\n”\n3. Nach § 1 wird folgender § 1a\neingefügt:\n,,§ 1a\nFriedhöfe\n(1) Friedhöfe sind\nEinrichtungen, die den\nverstorbenen Personen als\nwürdige Ruhestätte und\nder Pflege ihres Adenkens\ngewidmet sind. Friedhöfe\nsind so zu errichten und\nzu gestalten, dass die\nTotenruhe gewährleistet\nund das Wohl der\nAllgemeinheit nicht\nbeeinträchtigt wird.\nSeite 2"
+          "text": "Das Sächsische Bestattungsgesetz vom 8. Juli 1994 (SächsGVBl. S. 1321), das zuletzt durch Artikel 16 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198) geändert worden ist, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Bezeichnung des Gesetzes wird wie folgt gefasst:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": ",,Gesetz über das Friedhofs-, Leichen- und Bestattungswesen"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "(Ostdeutsche Bestattungsgesetz – OStBestG)”"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 1 Absatz 1 wird wie folgt geändert:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "In Nummer 2 werden die Wörter ,,der Kirchen und Religionsgemeinschaften sowie Grabstätten in Kirchen” gestrichen.",
+              "level": 1,
+              "listId": "odb2i57i6m9x",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Nummer 3 wird zur Nummer 4.",
+              "level": 1,
+              "listId": "odb2i57i6m9x",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Nach Nummer 2 wird folgende Nummer 3 eingefügt:",
+              "level": 1,
+              "listId": "odb2i57i6m9x",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "Begräbniswälder,”",
+                      "level": 0,
+                      "listId": "printed-outline",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Nach § 1 wird folgender § 1a eingefügt:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 1a",
+                  "title": "Friedhöfe",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Friedhöfe sind Einrichtungen, die den verstorbenen Personen als würdige Ruhestätte und der Pflege ihres Adenkens gewidmet sind. Friedhöfe sind so zu errichten und zu gestalten, dass die Totenruhe gewährleistet und das Wohl der Allgemeinheit nicht beeinträchtigt wird.",
+                      "level": 0,
+                      "listId": "9k4pf5prv4pp",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Träger von Friedhöfen können nur gemeinden sowie Religions und Weltanschauungsgemeinschaften, die Körperschaften des öffentlichen Rechts sind, sein.”",
+                      "level": 0,
+                      "listId": "9k4pf5prv4pp",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Nach § 2 wird folgender § 2a eingefügt:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 2a",
+                  "title": "Begräbsniswälder",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Begräbniswälder außerhalb von umfriedeten Friedhöfen sind Friedhöfe auf festgelegten Waldgrundstücken, auf denen ausschließlich Feuerbestattungen oder das Ausbringen der Arsche zugelassen sind. Sie bedürfen grundsätzlich keiner Einfriedung, müssen aber räumlich von der Umgebung abgegrenzt und als Friedhof erkennbar sein.",
+                      "level": 0,
+                      "listId": "hckmbt85x3of",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "In Begräbniswäldern auf umfriedeten Friedhöfen sind Erd- und Feuerbestattungen sowie das Ausbringen der Asche zugelassen.",
+                      "level": 0,
+                      "listId": "hckmbt85x3of",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Bei der Errichtung sind das Wasserhaushaltsrecht, der Gesundheitsschutz, der Naturschutz sowie die bodennutzungsrechtlichen Bestimmungen zu beachten. Das Nähere zu Begräbniswäldern regelt die Friedhofssatzung oder Friedhofsordnung.”",
+                      "level": 0,
+                      "listId": "hckmbt85x3of",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "§ 7 wird wie folgt gefasst:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 7",
+                  "title": "Friedhofssatzung, Friedhofsordnung",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Die Friedhofsträger regeln durch Satzung oder Ordnung insbesondere"
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "die Nutzung des Friedhofs und dessen Einrichtungen,",
+                      "level": 0,
+                      "listId": "h4p7zu2mvxis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "die auf dem Friedhof zur Verfügung stehenden Grab- und Bestattungsarten,",
+                      "level": 0,
+                      "listId": "h4p7zu2mvxis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "den Erwerb und das Nutzungsrecht an Grabstätten,",
+                      "level": 0,
+                      "listId": "h4p7zu2mvxis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "den Erwerb und das Nutzungsrecht an Grabstätten,",
+                      "level": 0,
+                      "listId": "h4p7zu2mvxis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "die Beschaffenheit von Särgen, Aschernen und Bestattungstüchern,",
+                      "level": 0,
+                      "listId": "h4p7zu2mvxis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "die Gebühren,",
+                      "level": 0,
+                      "listId": "h4p7zu2mvxis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "die Verfahrensweise der Nachbestattung noch vorhandener Leichen, menschlicher Überreste oder Aschereste bei Beendigung des Nutzungsrechts an einer Grabstätte oder nach Ablauf der Ruhezeit und",
+                      "level": 0,
+                      "listId": "h4p7zu2mvxis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "8.",
+                      "text": "die Ruhezeit, sofern sie von der Mindestruhezeit abweicht.",
+                      "level": 0,
+                      "listId": "h4p7zu2mvxis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraph",
+                  "label": "§ 7a",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Die Friedhofsträger bestimmen durch Satzung, dass Grabmale und Grabeinfassungen aus Naturstein nur aufgestellt werden dürfen, wenn sie nachweislich ohne schlimmste Formen von Kinderarbeiten im Sinne des Artikels 3 des Übereinkommens Nummer 182 der Internationalen Arbeitsorganisation vom 17. Juni 1999 über das Verbot und unverzügliche Maßnahmen zur Beseitigung der schlimmsten Formen der Kinderarbeit (BGBl. 2001 II S. 1290, 1291) hergestellt worden sind. Herstellung im Sinne dieses Artikels umfasst sämtliche Bearbeitungsschritte von der Gewinnung des Natursteins bis zum Endprodukt.",
+                      "level": 0,
+                      "listId": "fsm5nhqaxj94",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Der Nachweis im Sinne des Absatzes 1 Satz 1 kann erbracht werden durch",
+                      "level": 0,
+                      "listId": "fsm5nhqaxj94",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "a.",
+                      "text": "eine lückenlose Dokumentation, wonach die Grabmale oder Grabeinfassungen aus Naturstein ausschließlich in Mitgliedsstaaten der Europäischen Union, weiteren Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum oder der Schweiz hergestellt worden sind, oder",
+                      "level": 0,
+                      "listId": "85e4njf1b87r",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "b.",
+                      "text": "die schriftliche Erklärung einer Organisation, in der versichert wird, dass",
+                      "level": 0,
+                      "listId": "85e4njf1b87r",
+                      "numberingStyle": "lower-latin",
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "i.",
+                          "text": "die Herstellung ohne schlimmste Formen von Kinderarbeit erfolgt ist,",
+                          "level": 1,
+                          "listId": "85e4njf1b87r",
+                          "numberingStyle": "lower-roman",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "ii.",
+                          "text": "dies durch sachkundige und unabhängige Kontrolleurinnen und Kontrolleure regelmäßig und unangemeldet in Steinbrüchen und verarbeitenden Betrieben vor Ort überprüft wird, wobei die Kontrollen nicht länger als sechs Monate zurückliegen dürfen und",
+                          "level": 1,
+                          "listId": "85e4njf1b87r",
+                          "numberingStyle": "lower-roman",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "iii.",
+                          "text": "die ausstellende Organisation weder unmittelbar noch mittelbar an der Herstellung oder am Handel mit Naturstein beteiligt ist.“",
+                          "level": 1,
+                          "listId": "85e4njf1b87r",
+                          "numberingStyle": "lower-roman",
+                          "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "Ist die Vorlage eines Nachweises nach Satz 1 unzumutbar genügt es, dass die oder der Letztveräußernde schriftlich"
+                    },
+                    {
+                      "type": "item",
+                      "label": "a.",
+                      "text": "zusichert, dass ihr oder ihm keine Anhaltspunkte dafür bekantn sind, dass die verwendeten Grabmale oder Grabeinfassungen aus Naturstein unter schlimmsten Formen von Kinderarbeit hergestellt worden sind, und",
+                      "level": 0,
+                      "listId": "yb7878x10ce8",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "b.",
+                      "text": "dargelegt, welche wirksamen Maßnahmen ergriffen worden sind, um die Verwendung von solchen Grabmalen oder Grabeinfassungen zu vermeiden.",
+                      "level": 0,
+                      "listId": "yb7878x10ce8",
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Eines Nachweises bedarf es nicht, wenn die oder der Letztveräußernde glaubhaft macht, dass die Grabmale oder Grabeinfassungen aus Naturstein oder deren Rohmaterial vor dem 28. Dezember 2019 in das Bundesgebiet eingeführt wurden.”",
+                      "children": []
+                    }
+                  ],
+                  "title": "Verbot von Grabmalen und Grabeinfassungen aus Kinderarbeit"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "§ 10 wird wie folgt gefasst:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 10",
+                  "title": "Verantwortlichkeit; Totenfürsorgeverfügung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Für die Erfüllung der aufgrund dieses Gesetzes bestehenden Verpflichtungen sind die folgenden volljährigen Personen in ihrem Verhältnis zu der verstorbenen Person in der angegebenen Reihenfolge verantwortlich:",
+                      "level": 0,
+                      "listId": "7qjglbvldpoe",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "die von der verstorbenen Person zur Totenfürsorge benannte Person,",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "die Ehefrau oder der Ehemann oder die Lebenspartnerin oder der Lebenspartner,",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "die Kinder,",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "die Eltern,",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "die oder der sonstige Sorgeberechtigte,",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "die Geschwister,",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "die Großeltern,",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "8.",
+                      "text": "die Enkelkinder,",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "9.",
+                      "text": "die nach § 7 Absatz 3 Nummer 3 Buchstabe c in Verbindung mit § 7 Absatz 3a des Zweiten Buchs Sozialgesetzbuch.",
+                      "level": 0,
+                      "listId": "b2q2hc9rile",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Eine Bestattungsunternehmerin oder Bestattungsunternehmer oder eine dritte Person ist im Rahmen der übernommenen Verpflichtungen verantwortlich.",
+                      "level": 0,
+                      "listId": "7qjglbvldpoe",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Wird die Totenfürsorgeverfügung nicht vollzogen, ist die Asche der verstorbenen Person nach Absatz 1 auf einem Friedhof beizusetzen. Satz 1 gilt auch, wenn Asche einer verstorbenen Person aufgefunden wird und die Totenfürsorgeverfügung dieser Person nicht vorgelegt oder nicht mehr vollzogen werden kann. Kann aufgefundene menschliche Totenasche keiner verstorbenen Person zugeordnet werden oder sind für die aufgefundene Asche einer verstorbenen Person keine Verantwortlichen nach Absatz 1 vorhanden, ist § Absatz 4 maßgebend.",
+                      "level": 0,
+                      "listId": "7qjglbvldpoe",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die Verantwortlichkeit nach dem Polizei- und Ordnungsbehördengesetz bleibt unberührt.”",
+                      "level": 0,
+                      "listId": "7qjglbvldpoe",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "§ 18 Absatz 6 wird wie folgt gefasst:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "“(6) Auf ein totgeborenes oder in der Geburt verstorbenes Kind finden die Bestimmungen dieses Gesetzes entsprechend Anwendung, wenn das Gewicht des Kindes mindestens 500 Gramm beträgt oder das Gewicht unter 500 Gramm beträgt, aber die 24. Schwangerschaftswoche erreicht wurde. Hat sich kein Merkmal des Lebens gezeigt und das Gewicht beträgt weniger als 500 Gramm und ist die 24. Schwangerschaftswoche nicht erreicht (Sternenkind), so ist eine Bestattung zu genehmigen, wenn ein Elternteil dies beantragt. Auf Antrag jedenfalls eines Elternteils kann auch eine Beilegung des Sternenkindes zu der Leiche des gleichzeitig oder in kürzester Zeitabfolge verstorbenen Elternteils zwecks gemeinsamer Erd- oder Feuerbestattung erfolgen. Ist kein Elternteil mehr vorhanden, können die Verantwortlichen nach § 13 Absatz 1 die Bestattung nach Satz 2 oder die Beilegung nach Satz 3 beantragen. Über die Anträge nach den Sätzen 2 bis 4 entscheidet die örtliche Ordnungsbehörde des Bestattungsorts. Ist die Geburt in einer medizinischen Einrichtung oder in Gegenwart einer Ärztin oder eines Arztes erfolgt, hat die medizinische Einrichtung die Ärztin oder der Arzt auf die Möglichkeiten nach den Sätzen 2 bis 4 hinzuweisen. Wird keine der Möglichkeiten nach den Sätzen 2 bis 4 hinzuweisen. Wird keine der Möglichkeiten nach den Sätzen 2 bis 4 in Anspruch genommen, hat die medizinische Einrichtung, die Ärztin oder der Arzt dafür Sorge zu tragen, dass ein Sternenkind unter würdigen Bedingungen bestattet wird. Sammelbestattungen in angemessenen Zeitrahmen sind möglich, sofern die Sternenkinder unter würdigen Bedingungen gesammelt werden; ein würdiger Sammelort ist auf Verlangen gegenüber dem fachlich zuständigen Staatsministerium oder dem örtlich zuständigen Gesundheitsamt nachzuweisen. Die Bestattung kann als Erd- oder Feuerbestattung, auch auf einem speziellen Grabfeld für Sternenkinder auf einem Friedhof, erfolgen; der Bestattungsort ist zu dokumentieren."
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(6a)",
+                  "text": "Für die aus einem Schwangerschaftsabbruch stammende Leibesfrucht gilt Absatz 6 mit der Maßgabe entsprechend, dass eine individuelle Bestattung nur mit Einwilligung der Frau erfolgen kann.”",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Nach § 18b wird folgender § 18c eingefügt:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 18c",
+                  "title": "Neue Bestattungsformen; Flussbestattungen",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Zulässig sind die Flussbestattungen, ein genehmigtes Ausbringen der Asche außerhalb von Friedhöfen, die Aushändigung der Ascheurne an bestimmte Personen zur privaten Aufbewahrung mit oder ohne Teilungsmöglichkeit der Asche zur würdevollen Weiterverarbeitung oder die Aushändigung von Teilen der Asche zur würdevollen Weiterverarbeitung oder die Aushändigung von Teilen der Asche zur würdevollen Weiterverarbeitung( neue Bestattungsformen). Die Flussbestattung ist die Beisetzung einer Ascheurne aus sofort wasserlöslicher Zellulose vom Schiff aus auf einem der oberirdischen Gewässer Weser, Elbe, Saale, Spree, Havel, Mulde, Leine und Weißer Elster auf ostdeutschem Hoheitsgebiet, unter Beachtung der Vorschriften des Wasserechts. Voraussetzungen für die neuen Bestattungsformen gemäß Satz 1 sind, dass die verstorbene Person"
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "ihren letzten Hauptwohnsitz in Ostdeutschland hatte und",
+                      "level": 0,
+                      "listId": "69a6g595z3g6",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "durch eine schriftliche Verfügung eine neue Bestattungsform bestimmt und eine Person für die Totenfürsorge benannt hat (Totenfürsorgeverfügung).",
+                      "level": 0,
+                      "listId": "69a6g595z3g6",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "Zur Ausbringung der Asche außerhalb eines Friedhofs oder eines privaten Bestattungsplatzes ist die Zustimmung der Eigentümerin oder des Eigentümers des Grundstücks nachzuweisen. Die Nutzung des Grundstücks darf nicht gegen Entgelt erfolgen. Die Ausbringung darf die Benutzung benachbarter Grundstücke nicht oder nur unwesentlich beeinträchtigen Grundstücke nicht oder nur unwesentlich beeinträchtigen.”"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "§ 10 wird wie folgt gefasst:",
+          "level": 0,
+          "listId": "odb2i57i6m9x",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 10",
+                  "title": "Verantwortlichkeit; Totenfürsorgeverfügung",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Für die Erfüllung der aufgrund dieses Gesetzes bestehenden Verpflichtungen sind die folgenden volljährigen Personen in ihrem Verhältnis zu der verstorbenen Person in der angegebenen Reihenfolge verantwortlich:",
+                      "level": 0,
+                      "listId": "i8eixdp8ucqj",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "die von der verstorbenen Person zur Totenfürsorge benannte Person,",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "die Ehefrau oder der Ehemann oder die Lebenspartnerin oder der Lebenspartner,",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "die Kinder,",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "die Eltern,",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "5.",
+                      "text": "die oder der sonstige Sorgeberechtigte,",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "6.",
+                      "text": "die Geschwister,",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "7.",
+                      "text": "die Großeltern,",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "8.",
+                      "text": "die Enkelkinder,",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "9.",
+                      "text": "die nach § 7 Absatz 3 Nummer 3 Buchstabe c in Verbindung mit § 7 Absatz 3a des Zweiten Buchs Sozialgesetzbuch.",
+                      "level": 0,
+                      "listId": "fy3obu4pbjis",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Eine Bestattungsunternehmerin oder Bestattungsunternehmer oder eine dritte Person ist im Rahmen der übernommenen Verpflichtungen verantwortlich.",
+                      "level": 0,
+                      "listId": "i8eixdp8ucqj",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Wird die Totenfürsorgeverfügung nicht vollzogen, ist die Asche der verstorbenen Person nach Absatz 1 auf einem Friedhof beizusetzen. Satz 1 gilt auch, wenn Asche einer verstorbenen Person aufgefunden wird und die Totenfürsorgeverfügung dieser Person nicht vorgelegt oder nicht mehr vollzogen werden kann. Kann aufgefundene menschliche Totenasche keiner verstorbenen Person zugeordnet werden oder sind für die aufgefundene Asche einer verstorbenen Person keine Verantwortlichen nach Absatz 1 vorhanden, ist § Absatz 4 maßgebend.",
+                      "level": 0,
+                      "listId": "i8eixdp8ucqj",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "subparagraph",
+                      "label": "(4)",
+                      "text": "Die Verantwortlichkeit nach dem Polizei- und Ordnungsbehördengesetz bleibt unberührt.”",
+                      "level": 0,
+                      "listId": "i8eixdp8ucqj",
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
-      "type": "section",
-      "label": "Seite 3",
-      "title": "Amtlicher Text",
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Inkrafttreten",
       "children": [
         {
           "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\n(2) Träger von Friedhöfen\nkönnen nur gemeinden\nsowie Religions und\nWeltanschauungsgemeins\nchaften, die\nKörperschaften des\nöffentlichen Rechts sind,\nsein.\n”\n4. Nach § 2 wird folgender § 2a\neingefügt:\n,,§ 2a\nBegräbsniswälder\n(1) Begräbniswälder\naußerhalb von\numfriedeten Friedhöfen\nsind Friedhöfe auf\nfestgelegten\nWaldgrundstücken, auf\ndenen ausschließlich\nFeuerbestattungen oder\ndas Ausbringen der\nArsche zugelassen sind.\nSie bedürfen\ngrundsätzlich keiner\nEinfriedung, müssen aber\nräumlich von der\nUmgebung abgegrenzt\nund als Friedhof\nerkennbar sein.\n(2) In Begräbniswäldern auf\numfriedeten Friedhöfen\nsind Erd- und\nFeuerbestattungen sowie\ndas Ausbringen der Asche\nzugelassen.\n(3) Bei der Errichtung sind\ndas Wasserhaushaltsrecht,\nder Gesundheitsschutz,\nder Naturschutz sowie die\nbodennutzungsrechtlichen\nBestimmungen zu\nbeachten. Das Nähere zu\nBegräbniswäldern regelt\ndie Friedhofssatzung oder\nFriedhofsordnung.\n”\n5. § 7 wird wie folgt gefasst:\n,,§ 7\nFriedhofssatzung,\nFriedhofsordnung\nDie Friedhofsträger regeln durch\nSatzung oder Ordnung\ninsbesondere\n1. die Nutzung des Friedhofs\nund dessen Einrichtungen,\n2. die auf dem Friedhof zur\nVerfügung stehenden\nGrab- und\nBestattungsarten,\n3. den Erwerb und das\nNutzungsrecht an\nGrabstätten,\n4. den Erwerb und das\nNutzungsrecht an\nGrabstätten,\nSeite 3"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 4",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\n5. die Beschaffenheit von\nSärgen, Aschernen und\nBestattungstüchern,\n6. die Gebühren,\n7. die Verfahrensweise der\nNachbestattung noch\nvorhandener Leichen,\nmenschlicher Überreste\noder Aschereste bei\nBeendigung des\nNutzungsrechts an einer\nGrabstätte oder nach\nAblauf der Ruhezeit und\n8. die Ruhezeit, sofern sie\nvon der Mindestruhezeit\nabweicht.\n§ 7a\nVerbot von Grabmalen und\nGrabeinfassungen aus\nKinderarbeit\n(1) Die Friedhofsträger\nbestimmen durch Satzung,\ndass Grabmale und\nGrabeinfassungen aus\nNaturstein nur aufgestellt\nwerden dürfen, wenn sie\nnachweislich ohne\nschlimmste Formen von\nKinderarbeiten im Sinne\ndes Artikels 3 des\nÜbereinkommens\nNummer 182 der\nInternationalen\nArbeitsorganisation vom\n17. Juni 1999 über das\nVerbot und unverzügliche\nMaßnahmen zur\nBeseitigung der\nschlimmsten Formen der\nKinderarbeit (BGBl. 2001\nII S. 1290, 1291)\nhergestellt worden sind.\nHerstellung im Sinne\ndieses Artikels umfasst\nsämtliche\nBearbeitungsschritte von\nder Gewinnung des\nNatursteins bis zum\nEndprodukt.\n(2) Der Nachweis im Sinne\ndes Absatzes 1 Satz 1 kann\nerbracht werden durch\na. eine lückenlose\nDokumentation,\nwonach die\nGrabmale oder\nGrabeinfassungen\naus Naturstein\nausschließlich in\nMitgliedsstaaten\nder Europäischen\nUnion, weiteren\nVertragsstaaten des\nAbkommens über\nden Europäischen\nSeite 4"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 5",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\nWirtschaftsraum\noder der Schweiz\nhergestellt worden\nsind, oder\nb. die schriftliche\nErklärung einer\nOrganisation, in\nder versichert wird,\ndass\ni. die\nHerstellung\nohne\nschlimmste\nFormen von\nKinderarbeit\nerfolgt ist,\nii. dies durch\nsachkundige\nund\nunabhängig\ne\nKontrolleuri\nnnen und\nKontrolleure\nregelmäßig\nund\nunangemeld\net in\nSteinbrüche\nn und\nverarbeitend\nen\nBetrieben\nvor Ort\nüberprüft\nwird, wobei\ndie\nKontrollen\nnicht länger\nals sechs\nMonate\nzurückliege\nn dürfen\nund\niii. die\nausstellende\nOrganisatio\nn weder\nunmittelbar\nnoch\nmittelbar an\nder\nHerstellung\noder am\nHandel mit\nNaturstein\nbeteiligt\nist.\n“\nIst die Vorlage eines\nNachweises nach Satz 1\nunzumutbar genügt es,\ndass die oder der\nLetztveräußernde\nschriftlich\na. zusichert, dass ihr\noder ihm keine\nSeite 5"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 6",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\nAnhaltspunkte\ndafür bekantn sind,\ndass die\nverwendeten\nGrabmale oder\nGrabeinfassungen\naus Naturstein\nunter schlimmsten\nFormen von\nKinderarbeit\nhergestellt worden\nsind, und\nb. dargelegt, welche\nwirksamen\nMaßnahmen\nergriffen worden\nsind, um die\nVerwendung von\nsolchen Grabmalen\noder\nGrabeinfassungen\nzu vermeiden.\n(3) Eines Nachweises bedarf es\nnicht, wenn die oder der\nLetztveräußernde glaubhaft\nmacht, dass die Grabmale oder\nGrabeinfassungen aus Naturstein\noder deren Rohmaterial vor dem\n28. Dezember 2019 in das\nBundesgebiet eingeführt\nwurden.\n”\n6. § 10 wird wie folgt gefasst:\n,,§ 10\nVerantwortlichkeit;\nTotenfürsorgeverfügung\n(1) Für die Erfüllung der\naufgrund dieses Gesetzes\nbestehenden\nVerpflichtungen sind die\nfolgenden volljährigen\nPersonen in ihrem\nVerhältnis zu der\nverstorbenen Person in\nder angegebenen\nReihenfolge\nverantwortlich:\n1. die von der\nverstorbenen\nPerson zur\nTotenfürsorge\nbenannte Person,\n2. die Ehefrau oder\nder Ehemann oder\ndie\nLebenspartnerin\noder der\nLebenspartner,\n3. die Kinder,\n4. die Eltern,\n5. die oder der\nsonstige\nSorgeberechtigte,\n6. die Geschwister,\n7. die Großeltern,\n8. die Enkelkinder,\nSeite 6"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 7",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\n9. die nach § 7 Absatz\n3 Nummer 3\nBuchstabe c in\nVerbindung mit § 7\nAbsatz 3a des\nZweiten Buchs\nSozialgesetzbuch.\nPerson zugeordnet\nwerden oder sind für die\naufgefundene Asche einer\nverstorbenen Person keine\nVerantwortlichen nach\nAbsatz 1 vorhanden, ist §\nAbsatz 4 maßgebend.\n(4) Die Verantwortlichkeit\nnach dem Polizei- und\nOrdnungsbehördengesetz\nbleibt unberührt.\n”\n7. § 18 Absatz 6 wird wie folgt\ngefasst:\n(2) Eine\nBestattungsunternehmerin\noder\nBestattungsunternehmer\noder eine dritte Person ist\nim Rahmen der\nübernommenen\nVerpflichtungen\nverantwortlich.\n(3) Wird die\nTotenfürsorgeverfügung\nnicht vollzogen, ist die\nAsche der verstorbenen\nPerson nach Absatz 1 auf\neinem Friedhof\nbeizusetzen. Satz 1 gilt\nauch, wenn Asche einer\nverstorbenen Person\naufgefunden wird und die\nTotenfürsorgeverfügung\ndieser Person nicht\nvorgelegt oder nicht mehr\nvollzogen werden kann.\nKann aufgefundene\nmenschliche Totenasche\nkeiner verstorbenen\n“(6) Auf ein totgeborenes\noder in der Geburt\nverstorbenes Kind finden\ndie Bestimmungen dieses\nGesetzes entsprechend\nAnwendung, wenn das\nGewicht des Kindes\nmindestens 500 Gramm\nbeträgt oder das Gewicht\nunter 500 Gramm beträgt,\naber die 24.\nSchwangerschaftswoche\nerreicht wurde. Hat sich\nkein Merkmal des Lebens\ngezeigt und das Gewicht\nbeträgt weniger als 500\nGramm und ist die 24.\nSchwangerschaftswoche\nnicht erreicht\n(Sternenkind), so ist eine\nSeite 7"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 8",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\nBestattung zu\ngenehmigen, wenn ein\nElternteil dies beantragt.\nAuf Antrag jedenfalls\neines Elternteils kann auch\neine Beilegung des\nSternenkindes zu der\nLeiche des gleichzeitig\noder in kürzester\nZeitabfolge verstorbenen\nElternteils zwecks\ngemeinsamer Erd- oder\nFeuerbestattung erfolgen.\nIst kein Elternteil mehr\nvorhanden, können die\nVerantwortlichen nach §\n13 Absatz 1 die Bestattung\nnach Satz 2 oder die\nBeilegung nach Satz 3\nbeantragen. Über die\nAnträge nach den Sätzen\n2 bis 4 entscheidet die\nörtliche Ordnungsbehörde\ndes Bestattungsorts. Ist die\nGeburt in einer\nmedizinischen Einrichtung\noder in Gegenwart einer\nÄrztin oder eines Arztes\nerfolgt, hat die\nmedizinische Einrichtung\ndie Ärztin oder der Arzt\nauf die Möglichkeiten\nnach den Sätzen 2 bis 4\nhinzuweisen. Wird keine\nder Möglichkeiten nach\nden Sätzen 2 bis 4\nhinzuweisen. Wird keine\nder Möglichkeiten nach\nden Sätzen 2 bis 4 in\nAnspruch genommen, hat\ndie medizinische\nEinrichtung, die Ärztin\noder der Arzt dafür Sorge\nzu tragen, dass ein\nSternenkind unter\nwürdigen Bedingungen\nbestattet wird.\nSammelbestattungen in\nangemessenen Zeitrahmen\nsind möglich, sofern die\nSternenkinder unter\nwürdigen Bedingungen\ngesammelt werden; ein\nwürdiger Sammelort ist\nauf Verlangen gegenüber\ndem fachlich zuständigen\nStaatsministerium oder\ndem örtlich zuständigen\nGesundheitsamt\nnachzuweisen. Die\nBestattung kann als Erd-\noder Feuerbestattung,\nauch auf einem speziellen\nGrabfeld für\nSternenkinder auf einem\nFriedhof, erfolgen; der\nSeite 8"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 9",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\nBestattungsort ist zu\ndokumentieren.\n(6a) Für die aus einem\nSchwangerschaftsabbruch\nstammende Leibesfrucht\ngilt Absatz 6 mit der\nMaßgabe entsprechend,\ndass eine individuelle\nBestattung nur mit\nEinwilligung der Frau\nerfolgen kann.\n”\n8. Nach § 18b wird folgender § 18c\neingefügt:\n,,§ 18c\nNeue Bestattungsformen;\nFlussbestattungen\nZulässig sind die\nFlussbestattungen, ein\ngenehmigtes Ausbringen der\nAsche außerhalb von Friedhöfen,\ndie Aushändigung der Ascheurne\nan bestimmte Personen zur\nprivaten Aufbewahrung mit oder\nohne Teilungsmöglichkeit der\nAsche zur würdevollen\nWeiterverarbeitung oder die\nAushändigung von Teilen der\nAsche zur würdevollen\nWeiterverarbeitung oder die\nAushändigung von Teilen der\nAsche zur würdevollen\nWeiterverarbeitung( neue\nBestattungsformen). Die\nFlussbestattung ist die Beisetzung\neiner Ascheurne aus sofort\nwasserlöslicher Zellulose vom\nSchiff aus auf einem der\noberirdischen Gewässer Weser,\nElbe, Saale, Spree, Havel, Mulde,\nLeine und Weißer Elster auf\nostdeutschem Hoheitsgebiet,\nunter Beachtung der Vorschriften\ndes Wasserechts.\nVoraussetzungen für die neuen\nBestattungsformen gemäß Satz 1\nsind, dass die verstorbene Person\n1. ihren letzten\nHauptwohnsitz in\nOstdeutschland hatte und\n2. durch eine schriftliche\nVerfügung eine neue\nBestattungsform bestimmt\nund eine Person für die\nTotenfürsorge benannt hat\n(Totenfürsorgeverfügung).\nZur Ausbringung der Asche\naußerhalb eines Friedhofs oder\neines privaten Bestattungsplatzes\nist die Zustimmung der\nEigentümerin oder des\nEigentümers des Grundstücks\nnachzuweisen. Die Nutzung des\nGrundstücks darf nicht gegen\nEntgelt erfolgen. Die\nAusbringung darf die Benutzung\nbenachbarter Grundstücke nicht\nSeite 9"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 10",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\noder nur unwesentlich\nbeeinträchtigen Grundstücke\nnicht oder nur unwesentlich\nbeeinträchtigen.\n”\n9. § 10 wird wie folgt gefasst:\n,,§ 10\nVerantwortlichkeit;\nTotenfürsorgeverfügung\n(1) Für die Erfüllung der\naufgrund dieses Gesetzes\nbestehenden\nVerpflichtungen sind die\nfolgenden volljährigen\nPersonen in ihrem\nVerhältnis zu der\nverstorbenen Person in\nder angegebenen\nReihenfolge\nverantwortlich:\n1. die von der\nverstorbenen\nPerson zur\nTotenfürsorge\nbenannte Person,\n2. die Ehefrau oder\nder Ehemann oder\ndie\nLebenspartnerin\noder der\nLebenspartner,\n3. die Kinder,\n4. die Eltern,\n5. die oder der\nsonstige\nSorgeberechtigte,\n6. die Geschwister,\n7. die Großeltern,\n8. die Enkelkinder,\n9. die nach § 7 Absatz\n3 Nummer 3\nBuchstabe c in\nVerbindung mit § 7\nAbsatz 3a des\nZweiten Buchs\nSozialgesetzbuch.\n(2) Eine\nBestattungsunternehmerin\noder\nBestattungsunternehmer\noder eine dritte Person ist\nim Rahmen der\nübernommenen\nVerpflichtungen\nverantwortlich.\n(3) Wird die\nTotenfürsorgeverfügung\nnicht vollzogen, ist die\nAsche der verstorbenen\nPerson nach Absatz 1 auf\neinem Friedhof\nbeizusetzen. Satz 1 gilt\nauch, wenn Asche einer\nverstorbenen Person\naufgefunden wird und die\nTotenfürsorgeverfügung\nSeite 10"
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Seite 11",
-      "title": "Amtlicher Text",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "OGVBl. Nr. 11 27. Januar 2026\ndieser Person nicht\nvorgelegt oder nicht mehr\nvollzogen werden kann.\nKann aufgefundene\nmenschliche Totenasche\nkeiner verstorbenen\nPerson zugeordnet\nwerden oder sind für die\naufgefundene Asche einer\nverstorbenen Person keine\nVerantwortlichen nach\nAbsatz 1 vorhanden, ist §\nAbsatz 4 maßgebend.\n(4) Die Verantwortlichkeit\nnach dem Polizei- und\nOrdnungsbehördengesetz\nbleibt unberührt.\n”\nArtikel 2\nInkrafttreten\nDieses Gesetz tritt mit dem Tag seiner\nVerkündung in Kraft.\nDresden, den 26. Januar 2026\nLouis Hahne-Eichinger\nD e r L A N D T A G S P R Ä S I D E N T\nDr. Karl Honecker\nD e r M I N I S T E R P R Ä S I D E N T\nSimon Kellermann\nD e r S T A A T S M I N I S T E R F Ü R S O Z I A L E U N D\nG E S U N D H E I T L I C H E F Ü R S O R G E\nSeite 11"
+          "text": "Dieses Gesetz tritt mit dem Tag seiner Verkündung in Kraft."
         }
       ]
     }

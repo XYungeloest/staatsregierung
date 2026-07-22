@@ -80,6 +80,33 @@ test('Ausgabe 53 rekonstruiert äußere Artikel, sibling-Listen und zitierte Neu
   assert.deepEqual(validatePublicationParserContract(parsed), []);
 });
 
+test('Ausgabe 17 hält das eingebettete Hoheitszeichengesetz unter Artikel 4', async () => {
+  const parsed = await issue(17);
+  const flat = flatten(parsed.body);
+  const outerArticles = flat
+    .filter(({ block, insideQuote }) => !insideQuote && block.type === 'article')
+    .map(({ block }) => block.label);
+  assert.deepEqual(outerArticles, ['Artikel 1', 'Artikel 2', 'Artikel 3', 'Artikel 4', 'Artikel 5']);
+
+  const article4 = parsed.body.find((block) => block.label === 'Artikel 4');
+  assert.match(article4.title, /^Gesetz über die Hoheitszeichen/u);
+  assert.equal(article4.children[0].type, 'quotedProvision');
+  assert.equal(article4.children[0].children[0].label, 'Abschnitt 1');
+  assert.ok(flat.some(({ block, insideQuote }) => insideQuote && block.label === '§ 15'));
+  assert.ok(!parsed.body.some((block) => block.type === 'section'));
+});
+
+test('Ausgabe 3 hält die ersetzte Anlage im Zitat und Artikel 2 auf der Außenebene', async () => {
+  const parsed = await issue(3);
+  const flat = flatten(parsed.body);
+  const outerArticles = flat
+    .filter(({ block, insideQuote }) => !insideQuote && block.type === 'article')
+    .map(({ block }) => block.label);
+  assert.deepEqual(outerArticles, ['Artikel 1', 'Artikel 2']);
+  assert.ok(flat.some(({ block, insideQuote }) => insideQuote && block.type === 'annex'));
+  assert.ok(!parsed.body.some((block) => block.type === 'annex'));
+});
+
 test('konsolidierte Staatsverfassung kommt aus HTML und erhält Artikel 120 quellentreu', async () => {
   const html = await readFile(new URL('../Gesetze/Staatsverfassung.html', import.meta.url), 'utf8');
   const parsed = parseConsolidatedHtml('Staatsverfassung.html', html, { title: 'Verfassung des Freistaates Ostdeutschland' });

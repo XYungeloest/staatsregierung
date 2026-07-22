@@ -7,8 +7,18 @@
   "publication": "OGVBl.",
   "entries": [
     {
+      "id": "versorgung-wohnen-sicherung",
+      "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
+      "type": "gesetz",
+      "citation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16 S. 31)",
+      "pages": "31-38",
+      "documentDate": "2026-03-23",
+      "normSlug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+      "versionId": "2026-03-23"
+    },
+    {
       "id": "vergesellschaftungsrahmengesetz",
-      "title": "Vergesellschaftungsrahmengesetz",
+      "title": "Gesetz über den allgemeinen Rahmen der Vergesellschaftung",
       "type": "gesetz",
       "citation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16 S. 1)",
       "pages": "1-12",
@@ -17,18 +27,8 @@
       "versionId": "2026-03-23"
     },
     {
-      "id": "gemeingut-wohnen-gesetz",
-      "title": "Gemeingut-Wohnen-Gesetz",
-      "type": "gesetz",
-      "citation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16 S. 13)",
-      "pages": "13-20",
-      "documentDate": "2026-03-23",
-      "normSlug": "gemeingut-wohnen-gesetz",
-      "versionId": "2026-03-23"
-    },
-    {
       "id": "wohnvergesellschaftungsgesetz",
-      "title": "Wohnvergesellschaftungsgesetz",
+      "title": "Gesetz zur Überführung von Wohnimmobilien in Gemeineigentum",
       "type": "gesetz",
       "citation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16 S. 21)",
       "pages": "21-30",
@@ -37,13 +37,13 @@
       "versionId": "2026-03-23"
     },
     {
-      "id": "versorgung-wohnen-sicherung",
-      "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit Wohnraum",
+      "id": "gemeingut-wohnen-gesetz",
+      "title": "Gesetz zur Errichtung der Anstalt öffentlichen Rechts „Gemeingut Wohnen“",
       "type": "gesetz",
-      "citation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16 S. 31)",
-      "pages": "31-38",
+      "citation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16 S. 13)",
+      "pages": "13-20",
       "documentDate": "2026-03-23",
-      "normSlug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+      "normSlug": "gemeingut-wohnen-gesetz",
       "versionId": "2026-03-23"
     }
   ],
@@ -59,6 +59,12 @@
       "label": "Festgeschriebene Liste der amtlichen Verkündungsblätter",
       "availability": "external",
       "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
+    },
+    {
+      "kind": "structured-html-transcription",
+      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 16.html"
     }
   ]
 }

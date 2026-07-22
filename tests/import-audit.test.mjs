@@ -28,7 +28,7 @@ test('strikter Audit kann nicht versehentlich schreiben', () => {
   assert.match(result.stderr, /reiner Prüfmodus/u);
 });
 
-test('Importer öffnet keine Markdown-Datei als Normquelle', () => {
+test('Importer öffnet Markdown nicht, wenn dieselbe Ausgabe als HTML vorhanden ist', () => {
   const result = spawnSync(process.execPath, [
     'scripts/import-normen.mjs',
     '--source-dir',
@@ -37,5 +37,18 @@ test('Importer öffnet keine Markdown-Datei als Normquelle', () => {
     'OGVBl. 2026 Nr. 53.md',
   ], { encoding: 'utf8' });
   assert.notEqual(result.status, 0);
-  assert.match(result.stderr, /Markdown ist keine Normimportquelle/u);
+  assert.match(result.stderr, /HTML-Quelle derselben Ausgabe vorhanden; Markdown-Altbestand wird nicht geöffnet/u);
+});
+
+test('Importer auditiert eine Markdown-only-Quelle ausdrücklich als Legacy-Transkription', () => {
+  const result = spawnSync(process.execPath, [
+    'scripts/import-normen.mjs',
+    '--source-dir',
+    'Gesetze',
+    '--file',
+    'OGVBl. 2026 Nr. 44.md',
+    '--quiet',
+  ], { encoding: 'utf8' });
+  assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);
+  assert.match(result.stdout, /1 erkannt/u);
 });
