@@ -44,6 +44,26 @@ const allowedNormMinistries = new Set([
   'Staatsministerium für Umwelt, Energie und Klimaschutz',
   'Staatsministerium für Völkerfreundschaft und Nachbarschaftspolitik',
   'Staatsministerium für Wirtschaft, Nachhaltigkeit und Mobilität',
+  'Staatssekretariat des Innern und für Wohnungswirtschaft',
+  'Staatssekretariat der Finanzen',
+  'Staatssekretariat für Wirtschaft und Arbeit',
+  'Staatssekretariat für Gesundheits- und Sozialwesen',
+  'Staatssekretariat für Nachhaltigkeit und Energie',
+  'Staatssekretariat für Mobilität und regionale Entwicklung',
+  'Staatssekretariat für Volksbildung und Wissenschaft',
+  'Staatssekretariat für Staats- und Grenzsicherheit',
+  'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
+]);
+const allowedEnactingBodies = new Set([
+  'Landtag des Freistaates Ostdeutschland',
+  'Volkskammer des Freistaates Ostdeutschland',
+  'Staatsregierung des Freistaates Ostdeutschland',
+  'Staatsrat des Freistaates Ostdeutschland',
+]);
+const unverifiedGeneratedAbbreviations = new Set([
+  'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',
+  'PsychVersStG', '1. StaatsreformG', '2. StaatsreformG', '3. StaatsreformG',
+  '4. StaatsreformG', 'ZweitVeröffG',
 ]);
 const execFileAsync = promisify(execFile);
 
@@ -362,8 +382,17 @@ for (const { file, json } of records) {
       addProblem(file, `status ist kein erlaubter Normstatus: ${json.status}`);
     }
 
-    if (!allowedNormMinistries.has(json.ministry)) {
-      addProblem(file, `ministry ist nicht als Norm-Ressort zugelassen: ${json.ministry}`);
+    const responsibility = json.responsibleMinistry ?? json.ministry;
+    if (!allowedNormMinistries.has(responsibility)) {
+      addProblem(file, `fachliche Zuständigkeit ist nicht als Norm-Ressort zugelassen: ${responsibility}`);
+    }
+
+    if (json.enactingBody && !allowedEnactingBodies.has(json.enactingBody)) {
+      addProblem(file, `enactingBody ist nicht als erlassendes Organ zugelassen: ${json.enactingBody}`);
+    }
+
+    if (json.abbr && unverifiedGeneratedAbbreviations.has(json.abbr)) {
+      addProblem(file, `abbr ist nicht durch die Primärquelle belegt: ${json.abbr}`);
     }
 
     if (!Array.isArray(json.subjects) || json.subjects.length === 0) {
@@ -455,6 +484,7 @@ for (const { file, json } of records) {
     }
 
     const entryIds = new Set();
+    const startPageOwners = new Map();
     for (const [index, entry] of (json.entries ?? []).entries()) {
       const entryPath = `entries[${index}]`;
 
@@ -477,6 +507,15 @@ for (const { file, json } of records) {
 
       if (typeof entry.type !== 'string' || entry.type.trim().length === 0) {
         addProblem(file, `${entryPath}.type fehlt oder ist leer`);
+      }
+
+      if (entry.startPage && entry.pages) {
+        addProblem(file, `${entryPath} darf nicht zugleich startPage und pages verwenden`);
+      }
+      if (entry.startPage) {
+        const owners = startPageOwners.get(entry.startPage) ?? [];
+        owners.push(index);
+        startPageOwners.set(entry.startPage, owners);
       }
 
       if (typeof entry.citation !== 'string' || entry.citation.trim().length === 0) {
@@ -506,6 +545,18 @@ for (const { file, json } of records) {
           if (meta?.publicationDate && meta.publicationDate !== json.date) {
             addProblem(file, `${entryPath} verweist auf eine Norm mit abweichendem Veröffentlichungsdatum`);
           }
+        }
+      }
+    }
+
+    if (/^ogvbl-2026-(?:4[6-9]|5[0-8])$/u.test(json.slug)) {
+      for (const [page, owners] of startPageOwners) {
+        if (owners.length > 1) addProblem(file, `Anfangsseite ${page} wurde pauschal mehreren Einträgen zugeordnet`);
+      }
+      for (const [index, entry] of (json.entries ?? []).entries()) {
+        if (entry.pages === '2') addProblem(file, `entries[${index}].pages darf eine bloße Anfangsseite nicht als Seitenbereich modellieren`);
+        if (index > 0 && /\bS\.\s*2\b/u.test(entry.citation) && !entry.startPage && !entry.pages) {
+          addProblem(file, `entries[${index}].citation enthält eine unbelegte pauschale Seite 2`);
         }
       }
     }

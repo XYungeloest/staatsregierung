@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 48 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 48)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -63,12 +63,14 @@
           "title": "Vorhaben von besonderer Landesbedeutung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Das Vorhaben „Boom Europe Leipzig/Halle“ ist ein luftfahrtindustrielles Vorhaben von besonderer Landesbedeutung."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Das Vorhaben „Boom Europe Leipzig/Halle“ ist ein luftfahrtindustrielles Vorhaben von besonderer Landesbedeutung."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Das Vorhaben umfasst insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Das Vorhaben umfasst insbesondere"
             },
             {
               "type": "item",
@@ -106,8 +108,9 @@
               "text": "soweit die technischen, wirtschaftlichen und rechtlichen Voraussetzungen vorliegen, eine Komponentenfertigung oder Endmontage."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Staatsregierung kann durch Rechtsverordnung weitere luftfahrtindustrielle Vorhaben am Standort Leipzig/Halle als Vorhaben von besonderer Landesbedeutung bestimmen, wenn das Vorhaben erhebliche Bedeutung für Forschung, Beschäftigung, industrielle Wertschöpfung, technologische Souveränität oder Strukturentwicklung im Freistaat hat."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Staatsregierung kann durch Rechtsverordnung weitere luftfahrtindustrielle Vorhaben am Standort Leipzig/Halle als Vorhaben von besonderer Landesbedeutung bestimmen, wenn das Vorhaben erhebliche Bedeutung für Forschung, Beschäftigung, industrielle Wertschöpfung, technologische Souveränität oder Strukturentwicklung im Freistaat hat."
             }
           ]
         }
@@ -124,16 +127,19 @@
           "title": "Projektstelle",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Bei der Staatskanzlei wird eine Projektstelle Hochgeschwindigkeitsluftfahrt eingerichtet. Die Projektstelle handelt in Angelegenheiten der Standort- und Verfahrenskoordination im fachlichen Auftrag des zuständigen Staatsministeriums. Die Dienstaufsicht obliegt der Staatskanzlei."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bei der Staatskanzlei wird eine Projektstelle Hochgeschwindigkeitsluftfahrt eingerichtet. Die Projektstelle handelt in Angelegenheiten der Standort- und Verfahrenskoordination im fachlichen Auftrag des zuständigen Staatsministeriums. Die Dienstaufsicht obliegt der Staatskanzlei."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Projektstelle koordiniert die Vorbereitung und Durchführung der Vorhaben nach § 2."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Projektstelle koordiniert die Vorbereitung und Durchführung der Vorhaben nach § 2."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Zuständigkeit der fachlich zuständigen Behörden bleibt unberührt."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Zuständigkeit der fachlich zuständigen Behörden bleibt unberührt."
             }
           ]
         },
@@ -143,20 +149,24 @@
           "title": "Koordinierung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Projektstelle ist Koordinierungsstelle für landes- und kommunalrechtliche Verfahren im Zusammenhang mit Vorhaben nach § 2, soweit sonstiges Recht nicht entgegensteht."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Projektstelle ist Koordinierungsstelle für landes- und kommunalrechtliche Verfahren im Zusammenhang mit Vorhaben nach § 2, soweit sonstiges Recht nicht entgegensteht."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die zuständigen Behörden unterrichten die Projektstelle unverzüglich über wesentliche Verfahrensschritte, Verzögerungen, Hindernisse und Abstimmungsbedarfe."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die zuständigen Behörden unterrichten die Projektstelle unverzüglich über wesentliche Verfahrensschritte, Verzögerungen, Hindernisse und Abstimmungsbedarfe."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Projektstelle kann Stellungnahmen und Sachstandsberichte der zuständigen Behörden anfordern, soweit dies für die Koordinierung des Vorhabens erforderlich ist."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Projektstelle kann Stellungnahmen und Sachstandsberichte der zuständigen Behörden anfordern, soweit dies für die Koordinierung des Vorhabens erforderlich ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Projektstelle ist nicht befugt, anstelle der zuständigen Behörde über Genehmigungen, Zulassungen, Planfeststellungen, Erlaubnisse oder sonstige Verwaltungsakte zu entscheiden."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Projektstelle ist nicht befugt, anstelle der zuständigen Behörde über Genehmigungen, Zulassungen, Planfeststellungen, Erlaubnisse oder sonstige Verwaltungsakte zu entscheiden."
             }
           ]
         },
@@ -166,16 +176,19 @@
           "title": "Projektmanager:in",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Projektstelle kann im Einvernehmen mit den jeweils zuständigen Behörden einen Projektmanager:in zur Unterstützung der Verfahrenskoordination einsetzen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Projektstelle kann im Einvernehmen mit den jeweils zuständigen Behörden einen Projektmanager:in zur Unterstützung der Verfahrenskoordination einsetzen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Hoheitliche Entscheidungen dürfen dem/der Projektmanager:in nicht übertragen werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Hoheitliche Entscheidungen dürfen dem/der Projektmanager:in nicht übertragen werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Kosten des/der Projektmanager:in können dem/der Projektträger:in durch öffentlich-rechtlichen Vertrag auferlegt werden, soweit dies angemessen ist und im sachlichen Zusammenhang mit dem Vorhaben steht."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Kosten des/der Projektmanager:in können dem/der Projektträger:in durch öffentlich-rechtlichen Vertrag auferlegt werden, soweit dies angemessen ist und im sachlichen Zusammenhang mit dem Vorhaben steht."
             }
           ]
         }
@@ -192,12 +205,14 @@
           "title": "Verfahrensfahrplan",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Für jedes Vorhaben nach § 2 erstellt die Projektstelle im Benehmen mit den zuständigen Behörden und dem/der Projektträger:in einen Verfahrensfahrplan."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Für jedes Vorhaben nach § 2 erstellt die Projektstelle im Benehmen mit den zuständigen Behörden und dem/der Projektträger:in einen Verfahrensfahrplan."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Verfahrensfahrplan enthält insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Verfahrensfahrplan enthält insbesondere"
             },
             {
               "type": "item",
@@ -235,8 +250,9 @@
               "text": "erkennbare Risiken und Klärungsbedarfe."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Der Verfahrensfahrplan ist fortzuschreiben, wenn sich der Projektzuschnitt, die Rechtslage oder der Verfahrensstand wesentlich ändert."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Verfahrensfahrplan ist fortzuschreiben, wenn sich der Projektzuschnitt, die Rechtslage oder der Verfahrensstand wesentlich ändert."
             }
           ]
         },
@@ -246,20 +262,24 @@
           "title": "Antragskonferenz",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Vor Einreichung wesentlicher Anträge führt die Projektstelle eine Antragskonferenz durch, soweit dies für die Verfahrensbeschleunigung erforderlich ist."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Vor Einreichung wesentlicher Anträge führt die Projektstelle eine Antragskonferenz durch, soweit dies für die Verfahrensbeschleunigung erforderlich ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) An der Antragskonferenz sollen der/die Projektträger:in, die zuständigen Behörden, die Flughafengesellschaft, die betroffenen kommunalen Gebietskörperschaften sowie weitere nach Einschätzung der Projektstelle berührte Stellen beteiligt werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "An der Antragskonferenz sollen der/die Projektträger:in, die zuständigen Behörden, die Flughafengesellschaft, die betroffenen kommunalen Gebietskörperschaften sowie weitere nach Einschätzung der Projektstelle berührte Stellen beteiligt werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) In der Antragskonferenz sollen insbesondere Gegenstand, Umfang und voraussichtliche Vollständigkeit der Antragsunterlagen, erforderliche Gutachten, Beteiligungen, Umweltprüfungen, Sicherheitsanforderungen und Fristen erörtert werden."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "In der Antragskonferenz sollen insbesondere Gegenstand, Umfang und voraussichtliche Vollständigkeit der Antragsunterlagen, erforderliche Gutachten, Beteiligungen, Umweltprüfungen, Sicherheitsanforderungen und Fristen erörtert werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Das Ergebnis der Antragskonferenz ist zu dokumentieren."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Das Ergebnis der Antragskonferenz ist zu dokumentieren."
             }
           ]
         },
@@ -269,16 +289,19 @@
           "title": "Beteiligung öffentlicher Stellen",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Stellungnahmen und Beteiligungen öffentlicher Stellen sollen parallel eingeholt werden, soweit sonstiges Recht nicht entgegensteht."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Stellungnahmen und Beteiligungen öffentlicher Stellen sollen parallel eingeholt werden, soweit sonstiges Recht nicht entgegensteht."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die zuständigen Behörden wirken darauf hin, dass Nachforderungen von Unterlagen frühzeitig, gebündelt und nachvollziehbar erfolgen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die zuständigen Behörden wirken darauf hin, dass Nachforderungen von Unterlagen frühzeitig, gebündelt und nachvollziehbar erfolgen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Nachforderungen sind zu begründen. Sie sollen erkennen lassen, welche Unterlagen zur weiteren Bearbeitung erforderlich sind."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Nachforderungen sind zu begründen. Sie sollen erkennen lassen, welche Unterlagen zur weiteren Bearbeitung erforderlich sind."
             }
           ]
         },
@@ -288,16 +311,19 @@
           "title": "Fachrechtliche Beschleunigungsinstrumente",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die zuständigen Behörden prüfen frühzeitig, ob Vorbescheide, Teilgenehmigungen, abschnittsweise Zulassungen oder Zulassungen eines vorzeitigen Beginns nach dem jeweils anzuwendenden Fachrecht in Betracht kommen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die zuständigen Behörden prüfen frühzeitig, ob Vorbescheide, Teilgenehmigungen, abschnittsweise Zulassungen oder Zulassungen eines vorzeitigen Beginns nach dem jeweils anzuwendenden Fachrecht in Betracht kommen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Prüfung nach Absatz 1 ist im Verfahrensfahrplan zu dokumentieren."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Prüfung nach Absatz 1 ist im Verfahrensfahrplan zu dokumentieren."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die materiellen Voraussetzungen des jeweils anzuwendenden Fachrechts bleiben unberührt."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die materiellen Voraussetzungen des jeweils anzuwendenden Fachrechts bleiben unberührt."
             }
           ]
         },
@@ -307,16 +333,19 @@
           "title": "Vorrangige Bearbeitung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Verfahren im Zusammenhang mit Vorhaben nach § 2 sind von den Behörden des Freistaates vorrangig zu bearbeiten, soweit dies mit den gesetzlichen Aufgaben der Behörden und den Rechten Dritter vereinbar ist."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Verfahren im Zusammenhang mit Vorhaben nach § 2 sind von den Behörden des Freistaates vorrangig zu bearbeiten, soweit dies mit den gesetzlichen Aufgaben der Behörden und den Rechten Dritter vereinbar ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die vorrangige Bearbeitung darf nicht dazu führen, dass zwingende Prüfungen unterbleiben oder gesetzlich vorgeschriebene Beteiligungen verkürzt werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die vorrangige Bearbeitung darf nicht dazu führen, dass zwingende Prüfungen unterbleiben oder gesetzlich vorgeschriebene Beteiligungen verkürzt werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Kann eine Behörde die vorrangige Bearbeitung nicht gewährleisten, teilt sie dies der Projektstelle und der vorgesetzten Behörde unverzüglich mit. Die Projektstelle unterrichtet die Staatsregierung und schlägt Maßnahmen zur Behebung vor."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Kann eine Behörde die vorrangige Bearbeitung nicht gewährleisten, teilt sie dies der Projektstelle und der vorgesetzten Behörde unverzüglich mit. Die Projektstelle unterrichtet die Staatsregierung und schlägt Maßnahmen zur Behebung vor."
             }
           ]
         }
@@ -333,20 +362,24 @@
           "title": "Standortbereich",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Standortbereich im Sinne dieses Gesetzes ist der Flughafen Leipzig/Halle einschließlich der für Vorhaben nach § 2 erforderlichen oder geeigneten angrenzenden Entwicklungsflächen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Standortbereich im Sinne dieses Gesetzes ist der Flughafen Leipzig/Halle einschließlich der für Vorhaben nach § 2 erforderlichen oder geeigneten angrenzenden Entwicklungsflächen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Zum Standortbereich können insbesondere Flächen für Hangars, Prüfstände, Labore, Schulungs- und Simulationszentren, Infrastruktur gehören."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Zum Standortbereich können insbesondere Flächen für Hangars, Prüfstände, Labore, Schulungs- und Simulationszentren, Infrastruktur gehören."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Staatsregierung wird ermächtigt, durch Rechtsverordnung den Standortbereich räumlich näher zu bestimmen. In der Rechtsverordnung dürfen nur Flächen einbezogen werden, die für Vorhaben nach § 2 oder für deren notwendige Infrastruktur erforderlich oder geeignet sind."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Staatsregierung wird ermächtigt, durch Rechtsverordnung den Standortbereich räumlich näher zu bestimmen. In der Rechtsverordnung dürfen nur Flächen einbezogen werden, die für Vorhaben nach § 2 oder für deren notwendige Infrastruktur erforderlich oder geeignet sind."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Rechte der Eigentümer:innen sowie sonstige:r Berechtigte:r bleiben unberührt. Dieses Gesetz begründet keine Enteignungsermächtigung."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Rechte der Eigentümer:innen sowie sonstige:r Berechtigte:r bleiben unberührt. Dieses Gesetz begründet keine Enteignungsermächtigung."
             }
           ]
         },
@@ -356,12 +389,14 @@
           "title": "Flughafengesellschaft",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Staatsregierung bindet die für den Betrieb des Flughafens Leipzig/Halle zuständige Flughafengesellschaft und ihre Gesellschafter frühzeitig in die Standortentwicklung ein."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatsregierung bindet die für den Betrieb des Flughafens Leipzig/Halle zuständige Flughafengesellschaft und ihre Gesellschafter frühzeitig in die Standortentwicklung ein."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Gegenstand der Einbindung sind insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Gegenstand der Einbindung sind insbesondere"
             },
             {
               "type": "item",
@@ -399,8 +434,9 @@
               "text": "Vereinbarkeit mit bestehenden Flughafenentwicklungsplänen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Rechte und Pflichten der Flughafengesellschaft entstehen nur durch Gesetz, Verwaltungsakt oder gesonderte Vereinbarung."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Rechte und Pflichten der Flughafengesellschaft entstehen nur durch Gesetz, Verwaltungsakt oder gesonderte Vereinbarung."
             }
           ]
         },
@@ -410,12 +446,14 @@
           "title": "Infrastrukturkoordination",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Projektstelle koordiniert die Abstimmung über die für Vorhaben nach § 2 erforderliche oder geeignete Infrastruktur."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Projektstelle koordiniert die Abstimmung über die für Vorhaben nach § 2 erforderliche oder geeignete Infrastruktur."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Zur Infrastruktur im Sinne des Absatzes 1 gehören insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Zur Infrastruktur im Sinne des Absatzes 1 gehören insbesondere"
             },
             {
               "type": "item",
@@ -458,8 +496,9 @@
               "text": "Brandschutz- und Sicherheitsinfrastruktur."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Zuständigkeiten der jeweiligen Vorhabenträger und Fachbehörden bleiben unberührt."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Zuständigkeiten der jeweiligen Vorhabenträger und Fachbehörden bleiben unberührt."
             }
           ]
         },
@@ -469,12 +508,14 @@
           "title": "Standortentwicklungsgesellschaft",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Freistaat kann zur Vorbereitung, Errichtung, Finanzierung, Verwaltung oder zum Betrieb von Infrastruktur im Zusammenhang mit Vorhaben nach § 2 eine Kapitalgesellschaft errichten, sich an einer Kapitalgesellschaft beteiligen oder eine bestehende Landesgesellschaft beauftragen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat kann zur Vorbereitung, Errichtung, Finanzierung, Verwaltung oder zum Betrieb von Infrastruktur im Zusammenhang mit Vorhaben nach § 2 eine Kapitalgesellschaft errichten, sich an einer Kapitalgesellschaft beteiligen oder eine bestehende Landesgesellschaft beauftragen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Gesellschaft darf insbesondere Aufgaben wahrnehmen in den Bereichen"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Gesellschaft darf insbesondere Aufgaben wahrnehmen in den Bereichen"
             },
             {
               "type": "item",
@@ -502,8 +543,9 @@
               "text": "Beteiligung an Projektgesellschaften."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Haushaltsrechtliche, vergaberechtliche und beihilferechtliche Vorgaben bleiben unberührt."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Haushaltsrechtliche, vergaberechtliche und beihilferechtliche Vorgaben bleiben unberührt."
             }
           ]
         }
@@ -520,12 +562,14 @@
           "title": "Standortvertrag",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Staatsregierung wird ermächtigt, zur Umsetzung eines Vorhabens nach § 2 einen öffentlich-rechtlichen Standortvertrag nach Maßgabe der Vorschriften über öffentlich-rechtliche Verträge mit einem/einer Projektträger:in zu schließen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatsregierung wird ermächtigt, zur Umsetzung eines Vorhabens nach § 2 einen öffentlich-rechtlichen Standortvertrag nach Maßgabe der Vorschriften über öffentlich-rechtliche Verträge mit einem/einer Projektträger:in zu schließen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Standortvertrag darf keine Ansprüche begründen, die im Verwaltungsverfahren begründet werden müssen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Standortvertrag darf keine Ansprüche begründen, die im Verwaltungsverfahren begründet werden müssen."
             }
           ]
         },
@@ -535,8 +579,9 @@
           "title": "Fördergegenstände",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Förderungen können gewährt werden für"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Förderungen können gewährt werden für"
             },
             {
               "type": "item",
@@ -589,8 +634,9 @@
               "text": "Beteiligungen, Darlehen, Gewährleistungen und sonstige Finanzierungsinstrumente."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Finanzierung von Förderungen nach Absatz 1 kann aus dem Sondervermögen ,,Hochgeschwindigkeitsluftfahrt Ost” erfolgen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Finanzierung von Förderungen nach Absatz 1 kann aus dem Sondervermögen ,,Hochgeschwindigkeitsluftfahrt Ost” erfolgen."
             }
           ]
         },
@@ -636,16 +682,19 @@
           "title": "Besondere Anforderungen an das Vorhaben „Boom Europe Leipzig/Halle“",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Bei dem Vorhaben „Boom Europe Leipzig/Halle“ soll der Standortvertrag eine eigene Investition des Projektträgers in Höhe von mindestens 1,5 Milliarden Euro über zehn Jahre vorsehen, soweit der Projektzuschnitt keine abweichende Regelung rechtfertigt."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ soll der Standortvertrag eine eigene Investition des Projektträgers in Höhe von mindestens 1,5 Milliarden Euro über zehn Jahre vorsehen, soweit der Projektzuschnitt keine abweichende Regelung rechtfertigt."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Bei dem Vorhaben „Boom Europe Leipzig/Halle“ soll der Standortvertrag eine Standortbindung von mindestens 20 Jahren vorsehen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ soll der Standortvertrag eine Standortbindung von mindestens 20 Jahren vorsehen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Bei dem Vorhaben „Boom Europe Leipzig/Halle“ sollen Förderungen an Meilensteine, Nachweispflichten, Standortbindung, Investitionsfortschritt und Arbeitsplatzentwicklung gebunden werden."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Bei dem Vorhaben „Boom Europe Leipzig/Halle“ sollen Förderungen an Meilensteine, Nachweispflichten, Standortbindung, Investitionsfortschritt und Arbeitsplatzentwicklung gebunden werden."
             }
           ]
         },
@@ -655,8 +704,9 @@
           "title": "Rückforderung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Förderungen nach diesem Gesetz sind ganz oder teilweise zurückzufordern, soweit"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Förderungen nach diesem Gesetz sind ganz oder teilweise zurückzufordern, soweit"
             },
             {
               "type": "item",
@@ -689,8 +739,9 @@
               "text": "Auflagen oder Bedingungen wesentlich verletzt werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Von einer Rückforderung kann ganz oder teilweise abgesehen werden, soweit der Förderzweck im Wesentlichen erreicht wurde und das Absehen mit Haushaltsrecht und Recht der Europäischen Union vereinbar ist."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Von einer Rückforderung kann ganz oder teilweise abgesehen werden, soweit der Förderzweck im Wesentlichen erreicht wurde und das Absehen mit Haushaltsrecht und Recht der Europäischen Union vereinbar ist."
             }
           ]
         }
@@ -707,12 +758,14 @@
           "title": "Forschungsverbund",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Das Staatsministerium für Volksbildung und Wissenschaft kann Maßnahmen zum Aufbau eines Forschungsverbundes Überschalltechnologie Ost fördern."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Das Staatsministerium für Volksbildung und Wissenschaft kann Maßnahmen zum Aufbau eines Forschungsverbundes Überschalltechnologie Ost fördern."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) In den Forschungsverbund können insbesondere Hochschulen, außeruniversitäre Forschungseinrichtungen, das Deutsche Zentrum für Luft- und Raumfahrt, Unternehmen und sonstige geeignete Stellen einbezogen werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "In den Forschungsverbund können insbesondere Hochschulen, außeruniversitäre Forschungseinrichtungen, das Deutsche Zentrum für Luft- und Raumfahrt, Unternehmen und sonstige geeignete Stellen einbezogen werden."
             }
           ]
         },
@@ -722,12 +775,14 @@
           "title": "Ausbildungsinfrastruktur",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Das Staatsministerium für Wirtschaft und Arbeit kann Maßnahmen zur Aus-, Fort- und Weiterbildung von Fachkräften für Vorhaben nach § 3 fördern."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Das Staatsministerium für Wirtschaft und Arbeit kann Maßnahmen zur Aus-, Fort- und Weiterbildung von Fachkräften für Vorhaben nach § 3 fördern."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Förderungen können Hochschulen, Berufsschulen, Kammern, Unternehmen, Forschungseinrichtungen, Trägern der beruflichen Bildung und sonstigen geeigneten Stellen gewährt werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Förderungen können Hochschulen, Berufsschulen, Kammern, Unternehmen, Forschungseinrichtungen, Trägern der beruflichen Bildung und sonstigen geeigneten Stellen gewährt werden."
             }
           ]
         },

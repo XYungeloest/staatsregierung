@@ -25,8 +25,12 @@ export async function getStaticPaths() {
 }
 
 const { norm, currentVersion, relatedNormLabels } = Astro.props;
-const initialVersion = getVersionById(norm, norm.history.initialVersionId);
-const initialVersionLabel = initialVersion ? formatDate(initialVersion.validFrom) : norm.history.initialVersionId;
+const initialVersion = norm.history.initialVersionId
+  ? getVersionById(norm, norm.history.initialVersionId)
+  : undefined;
+const initialVersionLabel = initialVersion
+  ? formatDate(initialVersion.validFrom)
+  : norm.history.initialVersionId ?? 'Stammfassung nicht als Volltext gespeichert';
 const initialVersionUrl = initialVersion
   ? initialVersion.isCurrent
     ? getNormUrl(norm.meta.slug)

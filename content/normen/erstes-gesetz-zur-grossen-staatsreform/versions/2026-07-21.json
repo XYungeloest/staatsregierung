@@ -68,15 +68,14 @@
           "type": "item",
           "label": "4.",
           "text": "Artikel 5 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 5"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Staatsvolk, Minderheiten"
-        },
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 5",
+      "title": "Staatsvolk, Minderheiten",
+      "children": [
         {
           "type": "item",
           "label": "1)",
@@ -151,287 +150,288 @@
           "type": "item",
           "label": "1.",
           "text": "Er erhält folgende Bezeichnung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,III. Abschnitt – Die Volkskammer”"
-        },
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III. Abschnitt",
+      "title": "Die Volkskammer”",
+      "children": [
         {
           "type": "item",
           "label": "2.",
           "text": "Artikel 39 wird wie folgt gefasst:"
         },
         {
-          "type": "paragraphText",
-          "text": ",,Artikel 39"
+          "type": "article",
+          "label": "Artikel 39",
+          "title": "Aufgabe",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Volkskammer ist die gewählte Vertretung des Volkes."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Die Volkskammer übt die gesetzgebende Gewalt aus, überwacht die Ausübung der vollziehenden Gewalt nach Maßgabe dieser Verfassung und ist Stätte der politischen Willensbildung.“"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Artikel 40 wird aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Artikel 41 wird wie folgt gefasst:"
+            }
+          ]
         },
         {
-          "type": "paragraphText",
-          "text": "Aufgabe"
+          "type": "article",
+          "label": "Artikel 41",
+          "title": "Wählbarkeit; Wahlberechtigung",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Volkskammer wird nach den Grundsätzen der Verhältniswahl gewählt."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Wählbar sind alle Wahlberechtigten, die sich seit mindestens drei Monaten im Freistaat aufhalten. Wer einer anderen gesetzgebenden Körperschaft eines Landes angehört, kann nicht der Volkskammer angehören."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Näheres bestimmt ein Gesetz.”"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Artikel 42 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Absatz 1 wird ,,Landtag” durch ,,Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Absatz 3 wird ,,Landes” durch ,,Freistaates” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In Absatz 4 wird nach ,,bestimmt” das Wort ,,ein” eingefügt."
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Artikel 43 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Absatz 1 werden die Wörter „eines Mitgliedes des Landtages“ durch die Wörter „eines Mitgliedes der Volkskammer“ und die Wörter „des neuen Landtages“ durch die Wörter „der neuen Volkskammer“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Absatz 2 werden die Wörter „dem Präsidenten des Landtages“ durch die Wörter „dem Präsidenten der Volkskammer“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Artikel 44 wird wie folgt gefasst:"
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Volkskammer ist die gewählte Vertretung des Volkes."
+          "type": "article",
+          "label": "Artikel 44",
+          "title": "Wahlperiode; Zusammentritt; Einberufung",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Volkskammer wird auf vier Monate gewählt. Ihre Wahlperiode endet mit dem Zusammentritt einer neuen Volkskammer. Dies gilt auch für den Fall der Auflösung der Volkskammer."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Die Neuwahl muss vor Ablauf der Wahlperiode, im Fall der Auflösung der Volkskammer binnen sechzig Tagen stattfinden."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Die Volkskammer tritt spätestens am dreißigsten Tage nach der Neuwahl zusammen. Die erste Sitzung wird vom bisherigen Präsidenten (Alterspräsidenten) einberufen und bis zur Wahl des Präsidenten der Volkskammer geleitet. Ist der bisherige Präsident nicht Mitglied der Volkskammer, so ist der dienstälteste Abgeordnete Alterspräsident."
+            },
+            {
+              "type": "item",
+              "label": "4)",
+              "text": "Die Volkskammer bestimmt den Schluss und den Wiederbeginn ihrer Sitzungen. Der Präsident kann die Volkskammer früher einberufen. Er ist dazu verpflichtet, wenn ein Viertel der Mitglieder der Volkskammer oder der Staatsrat es verlangt.”"
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "In Artikel 45 Absatz 1 wird ,,des Landtages” durch ,,der Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Artikel 46 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Absatz 1 wird ,,Der Landtag” durch ,,Die Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Absatz 3 wird aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "In Artikel 47 wird ,,Der Landtag” durch ,,Die Volkskammer” und ,,des Landtages” durch ,,der Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "Artikel 48 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Es werden jeweils ,,des Landtages” durch ,,der Volkskammer”, ,,der Landtag” durch ,,die Volkskammer”, ,,Mitglied der Staatsregierung” durch ,,Staatsrates”, je ,,Landtag” durch ,,Volkskammer\", ,,vom Landtag” durch ,,von der Volkskammer” und je ,,Der Landtag” durch ,,Die Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Absatz 2 wird folgender Satz angefügt:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,Die Geschäftsordnung kann vorsehen, dass die Volkskammer auch dann beschlussfähig ist, wenn sie ordnungsgemäß geladen wurde.”"
+            },
+            {
+              "type": "item",
+              "label": "12.",
+              "text": "Artikel 49 wird wie folgt gefasst:"
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "2)",
-          "text": "Die Volkskammer übt die gesetzgebende Gewalt aus, überwacht die Ausübung der vollziehenden Gewalt nach Maßgabe dieser Verfassung und ist Stätte der politischen Willensbildung.“"
+          "type": "article",
+          "label": "Artikel 49",
+          "title": "Beziehung zwischen Staatsrat und Volkskammer",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Staatsräte und ihre Beauftragten haben zu den Sitzungen der Volkskammer und ihrer Ausschüsse Zutritt und müssen jederzeit gehört werden.“"
+            },
+            {
+              "type": "item",
+              "label": "13.",
+              "text": "Artikel 50 wird aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "14.",
+              "text": "In Artikel 51 werden die Wörter „die Staatsregierung oder ihre Mitglieder im Landtag und in seinen Ausschüssen“ durch die Wörter „der Staatsrat oder seine Mitglieder in der Volkskammer und in ihren Ausschüssen“, ,,die Staatsregierung” durch ,,der Staatsrat”, ,,im Landtag” durch ,,in der Volkskammer”, ,,der Staatsregierung” durch ,,des Staatsrates”, ,,Die Staatsregierung” durch ,,Der Staatsrat” und ,,des Landtages” durch ,,der Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "15.",
+              "text": "Artikel 52 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Es wird jeweils ,,Der Landtag” durch ,,Die Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Absatz 2 wird aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Absatz 4 wird wie folgt gefasst:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,(4) Die Ausschüsse tagen öffentlich. Sie können die Öffentlichkeit in einer nichtöffentlichen Sitzung ausschließen.”"
+            },
+            {
+              "type": "item",
+              "label": "16.",
+              "text": "In Artikel 53 und 54 wird jeweils ,,Der Landtag” durch ,,Die Volkskammer” und „des Landtages“ durch die Wörter „der Volkskammer“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "17.",
+              "text": "In Artikel 54 Absatz 4 werden die Wörter „die Staatsregierung“ durch die Wörter „der Staatsrat“ und die Wörter „ihren Bediensteten“ durch die Wörter „seinen Bediensteten“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "18.",
+              "text": "In Artikel 55 werden jeweils ,,im Landtag” durch ,,in der Volkskammer\" und ,,des Landtages” durch ,,der Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "19.",
+              "text": "Artikel 57 wird aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "20.",
+              "text": "Artikel 58 wird wie folgt gefasst:"
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "3.",
-          "text": "Artikel 40 wird aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Artikel 41 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 41"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Wählbarkeit; Wahlberechtigung"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Volkskammer wird nach den Grundsätzen der Verhältniswahl gewählt."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Wählbar sind alle Wahlberechtigten, die sich seit mindestens drei Monaten im Freistaat aufhalten. Wer einer anderen gesetzgebenden Körperschaft eines Landes angehört, kann nicht der Volkskammer angehören."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Näheres bestimmt ein Gesetz.”"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Artikel 42 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Absatz 1 wird ,,Landtag” durch ,,Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Absatz 3 wird ,,Landes” durch ,,Freistaates” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In Absatz 4 wird nach ,,bestimmt” das Wort ,,ein” eingefügt."
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Artikel 43 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Absatz 1 werden die Wörter „eines Mitgliedes des Landtages“ durch die Wörter „eines Mitgliedes der Volkskammer“ und die Wörter „des neuen Landtages“ durch die Wörter „der neuen Volkskammer“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Absatz 2 werden die Wörter „dem Präsidenten des Landtages“ durch die Wörter „dem Präsidenten der Volkskammer“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Artikel 44 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 44"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Wahlperiode; Zusammentritt; Einberufung"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Volkskammer wird auf vier Monate gewählt. Ihre Wahlperiode endet mit dem Zusammentritt einer neuen Volkskammer. Dies gilt auch für den Fall der Auflösung der Volkskammer."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Die Neuwahl muss vor Ablauf der Wahlperiode, im Fall der Auflösung der Volkskammer binnen sechzig Tagen stattfinden."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Die Volkskammer tritt spätestens am dreißigsten Tage nach der Neuwahl zusammen. Die erste Sitzung wird vom bisherigen Präsidenten (Alterspräsidenten) einberufen und bis zur Wahl des Präsidenten der Volkskammer geleitet. Ist der bisherige Präsident nicht Mitglied der Volkskammer, so ist der dienstälteste Abgeordnete Alterspräsident."
-        },
-        {
-          "type": "item",
-          "label": "4)",
-          "text": "Die Volkskammer bestimmt den Schluss und den Wiederbeginn ihrer Sitzungen. Der Präsident kann die Volkskammer früher einberufen. Er ist dazu verpflichtet, wenn ein Viertel der Mitglieder der Volkskammer oder der Staatsrat es verlangt.”"
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "In Artikel 45 Absatz 1 wird ,,des Landtages” durch ,,der Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Artikel 46 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Absatz 1 wird ,,Der Landtag” durch ,,Die Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Absatz 3 wird aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "In Artikel 47 wird ,,Der Landtag” durch ,,Die Volkskammer” und ,,des Landtages” durch ,,der Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "11.",
-          "text": "Artikel 48 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Es werden jeweils ,,des Landtages” durch ,,der Volkskammer”, ,,der Landtag” durch ,,die Volkskammer”, ,,Mitglied der Staatsregierung” durch ,,Staatsrates”, je ,,Landtag” durch ,,Volkskammer\", ,,vom Landtag” durch ,,von der Volkskammer” und je ,,Der Landtag” durch ,,Die Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Absatz 2 wird folgender Satz angefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Die Geschäftsordnung kann vorsehen, dass die Volkskammer auch dann beschlussfähig ist, wenn sie ordnungsgemäß geladen wurde.”"
-        },
-        {
-          "type": "item",
-          "label": "12.",
-          "text": "Artikel 49 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 49"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Beziehung zwischen Staatsrat und Volkskammer"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die Staatsräte und ihre Beauftragten haben zu den Sitzungen der Volkskammer und ihrer Ausschüsse Zutritt und müssen jederzeit gehört werden.“"
-        },
-        {
-          "type": "item",
-          "label": "13.",
-          "text": "Artikel 50 wird aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "14.",
-          "text": "In Artikel 51 werden die Wörter „die Staatsregierung oder ihre Mitglieder im Landtag und in seinen Ausschüssen“ durch die Wörter „der Staatsrat oder seine Mitglieder in der Volkskammer und in ihren Ausschüssen“, ,,die Staatsregierung” durch ,,der Staatsrat”, ,,im Landtag” durch ,,in der Volkskammer”, ,,der Staatsregierung” durch ,,des Staatsrates”, ,,Die Staatsregierung” durch ,,Der Staatsrat” und ,,des Landtages” durch ,,der Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "15.",
-          "text": "Artikel 52 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Es wird jeweils ,,Der Landtag” durch ,,Die Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Absatz 2 wird aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Absatz 4 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,(4) Die Ausschüsse tagen öffentlich. Sie können die Öffentlichkeit in einer nichtöffentlichen Sitzung ausschließen.”"
-        },
-        {
-          "type": "item",
-          "label": "16.",
-          "text": "In Artikel 53 und 54 wird jeweils ,,Der Landtag” durch ,,Die Volkskammer” und „des Landtages“ durch die Wörter „der Volkskammer“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "17.",
-          "text": "In Artikel 54 Absatz 4 werden die Wörter „die Staatsregierung“ durch die Wörter „der Staatsrat“ und die Wörter „ihren Bediensteten“ durch die Wörter „seinen Bediensteten“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "18.",
-          "text": "In Artikel 55 werden jeweils ,,im Landtag” durch ,,in der Volkskammer\" und ,,des Landtages” durch ,,der Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "19.",
-          "text": "Artikel 57 wird aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "20.",
-          "text": "Artikel 58 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 58"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Auflösung der Volkskammer"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Volkskammer kann sich mit der Mehrheit von zwei Dritteln der Stimmen auflösen."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Verlangt der Staatsrat die Auflösung, so bedarf es nur der Mehrheit der Stimmen.”"
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Abschnitt 4 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Er erhält folgende Bezeichnung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,IV. Abschnitt – Der Staatsrat”"
-        },
+          "type": "article",
+          "label": "Artikel 58",
+          "title": "Auflösung der Volkskammer",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Volkskammer kann sich mit der Mehrheit von zwei Dritteln der Stimmen auflösen."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Verlangt der Staatsrat die Auflösung, so bedarf es nur der Mehrheit der Stimmen.”"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Abschnitt 4 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Er erhält folgende Bezeichnung:"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV. Abschnitt",
+      "title": "Der Staatsrat”",
+      "children": [
         {
           "type": "item",
           "label": "2.",
@@ -467,777 +467,744 @@
           "text": "Artikel 60 wird wie folgt gefasst:"
         },
         {
-          "type": "paragraphText",
-          "text": ",,Artikel 60"
+          "type": "article",
+          "label": "Artikel 60",
+          "title": "Bildung des Staatsrates",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Der Staatsrat bedarf des Vertrauens der Volkskammer. Die Volkskammer wählt den Staatsrat."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Die Volkskammer kann den gesamten Staatsrat als Liste in einem Wahlakt mit der Mehrheit ihrer Mitglieder ohne Aussprache in geheimer Abstimmung wählen. Wählt die Volkskammer nach Satz 1 den Staatsrat, so sind die bisherigen Mitglieder des Staatsrates abberufen. Scheitert die Wahl derselben Liste nach Satz 1 zweimal hintereinander, so ist auch die Liste gewählt, die die Mehrheit der Stimmen auf sich vereint."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Die Volkskammer kann einzelne Mitglieder durch Zuwahl auf Vorschlag des Staatsrates auch ohne geheime Abstimmung wählen."
+            },
+            {
+              "type": "item",
+              "label": "4)",
+              "text": "Der Staatsrat bestimmt aus seiner Mitte einen Staatspräsidenten.”"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "In Artikel 61 werden die Worte ,,der Staatsregierung” durch ,,des Staatsrates” und die Wörter „vor dem Landtag“ durch die Wörter „vor der Volkskammer“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Artikel 62 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Die Überschrift wird wie folgt gefasst: „Rechtsstellung der Mitglieder des Staatsrates“."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Absatz 1 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Die Absatzbezeichnung wird gestrichen."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Es werden die Worte ,,der Staatsregierung” durch die Worte ,,des Staatsrates” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Absatz 2 wird aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Artikel 63 und 64 werden wie folgt gefasst:"
+            }
+          ]
         },
         {
-          "type": "paragraphText",
-          "text": "Bildung des Staatsrates"
+          "type": "article",
+          "label": "Artikel 63",
+          "title": "Staatspräsident",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Der Staatspräsident vertritt den Freistaat nach außen. Er führt den Vorsitz im Staatsrat und leitet seine Sitzungen. Bei Stimmengleichheit gibt seine Stimme den Ausschlag."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Der Staatspräsident bestimmt die Richtlinien der Regierungspolitik. Sie bedürfen der Zustimmung des Staatsrates. Der Staatspräsident überwacht die Einhaltung der Richtlinien der Regierungspolitik; er hat das Recht, über alle Amtsgeschäfte Auskunft zu verlangen."
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "1)",
-          "text": "Der Staatsrat bedarf des Vertrauens der Volkskammer. Die Volkskammer wählt den Staatsrat."
+          "type": "article",
+          "label": "Artikel 63a",
+          "title": "Mitglieder des Staatsrates",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Mitglieder des Staatsrates sind gleichberechtigt."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Jedes Mitglied des Staatsrates leitet seinen Geschäftsbereich selbständig und in eigener Verantwortung innerhalb der Richtlinien der Regierungspolitik. Bei Meinungsverschiedenheiten oder auf Antrag des Staatspräsidenten entscheidet der Staatsrat."
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "2)",
-          "text": "Die Volkskammer kann den gesamten Staatsrat als Liste in einem Wahlakt mit der Mehrheit ihrer Mitglieder ohne Aussprache in geheimer Abstimmung wählen. Wählt die Volkskammer nach Satz 1 den Staatsrat, so sind die bisherigen Mitglieder des Staatsrates abberufen. Scheitert die Wahl derselben Liste nach Satz 1 zweimal hintereinander, so ist auch die Liste gewählt, die die Mehrheit der Stimmen auf sich vereint."
+          "type": "article",
+          "label": "Artikel 64",
+          "title": "Staatsrat",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Der Staatsrat gibt sich eine Geschäftsordnung."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Der Staatsrat beschließt insbesondere über Gesetzesvorlagen, über Angelegenheiten, in denen die Verfassung oder ein Gesetz dies vorschreibt, über Meinungsverschiedenheiten, die den Geschäftskreis mehrerer Staatsräte berühren, und über Fragen von grundsätzlicher Bedeutung.“"
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Artikel 65 wird aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "In Artikel 66 werden die Worte ,,Der Ministerpräsident” durch die Worte ,,Der Staatsrat” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Artikel 67 bis 69 werden wie folgt gefasst:"
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "3)",
-          "text": "Die Volkskammer kann einzelne Mitglieder durch Zuwahl auf Vorschlag des Staatsrates auch ohne geheime Abstimmung wählen."
+          "type": "article",
+          "label": "Artikel 67",
+          "title": "Begnadigungsrecht",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Der Staatsrat übt das Begnadigungsrecht aus. Er kann es auf andere Stellen übertragen."
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "4)",
-          "text": "Der Staatsrat bestimmt aus seiner Mitte einen Staatspräsidenten.”"
+          "type": "article",
+          "label": "Artikel 68",
+          "title": "Beendigung der Mitgliedschaft im Staatsrat",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Mitgliedschaft im Staatsrat endet mit dem Rücktritt, dem Tod oder der Abberufung. Das Amt des Staatssekretärs endet auch mit dem Ende der Mitgliedschaft des Mitglieds, dem es beigeordnet wurde."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Ein Mitglied des Staatsrates kann jederzeit durch die Volkskammer abberufen werden. Der Staatsrat kann, ohne Beteiligung des betroffenen Staatsrates, bestimmen, dass die Mitgliedschaft bis zur Entscheidung der Volkskammer ruht."
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "4.",
-          "text": "In Artikel 61 werden die Worte ,,der Staatsregierung” durch ,,des Staatsrates” und die Wörter „vor dem Landtag“ durch die Wörter „vor der Volkskammer“ ersetzt."
+          "type": "article",
+          "label": "Artikel 68a",
+          "title": "Vertretung; Stellvertretung",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Stellvertretung innerhalb des Staatsrates bestimmt der Staatsrat."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Erledigt sich das Amt des Staatspräsidenten, so bestimmt der Staatsrat aus seiner Mitte einen Nachfolger."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Im Falle des Rücktritts haben die Staatsräte bis zur Klärung der Nachfolge die Amtsgeschäfte fortzuführen."
+            }
+          ]
         },
         {
-          "type": "item",
-          "label": "5.",
-          "text": "Artikel 62 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Die Überschrift wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "„Rechtsstellung der Mitglieder des Staatsrates“."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Absatz 1 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Die Absatzbezeichnung wird gestrichen."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Es werden die Worte ,,der Staatsregierung” durch die Worte ,,des Staatsrates” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Absatz 2 wird aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Artikel 63 und 64 werden wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 63"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Staatspräsident"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Der Staatspräsident vertritt den Freistaat nach außen. Er führt den Vorsitz im Staatsrat und leitet seine Sitzungen. Bei Stimmengleichheit gibt seine Stimme den Ausschlag."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Der Staatspräsident bestimmt die Richtlinien der Regierungspolitik. Sie bedürfen der Zustimmung des Staatsrates. Der Staatspräsident überwacht die Einhaltung der Richtlinien der Regierungspolitik; er hat das Recht, über alle Amtsgeschäfte Auskunft zu verlangen."
+          "type": "article",
+          "label": "Artikel 69",
+          "title": "Vertrauen der Volkskammer",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Ein Mitglied des Staatsrates kann einen Antrag mit der Frage verbinden, ob die Volkskammer ihm das Vertrauen ausspricht. Das Vertrauen ist ausgesprochen, wenn dem Antrag mehr als die Hälfte der Mitglieder der Volkskammer zustimmt."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Der Antrag muss auf Einbringung oder Beschluss eines Gesetzes lauten. Spricht die Volkskammer dem Mitglied des Staatsrates nicht das Vertrauen aus, so hat dieses Mitglied des Staatsrates zurückzutreten.”"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Abschnitt 5 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Er erhält folgende Bezeichnung:"
+            }
+          ]
         }
       ]
     },
     {
-      "type": "article",
-      "label": "Artikel 63a",
-      "title": "Mitglieder des Staatsrates",
+      "type": "section",
+      "label": "V. Abschnitt",
+      "title": "Die Rechtsetzung”",
       "children": [
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Mitglieder des Staatsrates sind gleichberechtigt."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Jedes Mitglied des Staatsrates leitet seinen Geschäftsbereich selbständig und in eigener Verantwortung innerhalb der Richtlinien der Regierungspolitik. Bei Meinungsverschiedenheiten oder auf Antrag des Staatspräsidenten entscheidet der Staatsrat."
-        }
-      ]
-    },
-    {
-      "type": "article",
-      "label": "Artikel 64",
-      "title": "Staatsrat",
-      "children": [
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Der Staatsrat gibt sich eine Geschäftsordnung."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Der Staatsrat beschließt insbesondere über Gesetzesvorlagen, über Angelegenheiten, in denen die Verfassung oder ein Gesetz dies vorschreibt, über Meinungsverschiedenheiten, die den Geschäftskreis mehrerer Staatsräte berühren, und über Fragen von grundsätzlicher Bedeutung.“"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Artikel 65 wird aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "In Artikel 66 werden die Worte ,,Der Ministerpräsident” durch die Worte ,,Der Staatsrat” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Artikel 67 bis 69 werden wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 67"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Begnadigungsrecht"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Der Staatsrat übt das Begnadigungsrecht aus. Er kann es auf andere Stellen übertragen."
-        }
-      ]
-    },
-    {
-      "type": "article",
-      "label": "Artikel 68",
-      "title": "Beendigung der Mitgliedschaft im Staatsrat",
-      "children": [
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Mitgliedschaft im Staatsrat endet mit dem Rücktritt, dem Tod oder der Abberufung. Das Amt des Staatssekretärs endet auch mit dem Ende der Mitgliedschaft des Mitglieds, dem es beigeordnet wurde."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Ein Mitglied des Staatsrates kann jederzeit durch die Volkskammer abberufen werden. Der Staatsrat kann, ohne Beteiligung des betroffenen Staatsrates, bestimmen, dass die Mitgliedschaft bis zur Entscheidung der Volkskammer ruht."
-        }
-      ]
-    },
-    {
-      "type": "article",
-      "label": "Artikel 68a",
-      "title": "Vertretung; Stellvertretung",
-      "children": [
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Stellvertretung innerhalb des Staatsrates bestimmt der Staatsrat."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Erledigt sich das Amt des Staatspräsidenten, so bestimmt der Staatsrat aus seiner Mitte einen Nachfolger."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Im Falle des Rücktritts haben die Staatsräte bis zur Klärung der Nachfolge die Amtsgeschäfte fortzuführen."
-        }
-      ]
-    },
-    {
-      "type": "article",
-      "label": "Artikel 69",
-      "title": "Vertrauen der Volkskammer",
-      "children": [
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Ein Mitglied des Staatsrates kann einen Antrag mit der Frage verbinden, ob die Volkskammer ihm das Vertrauen ausspricht. Das Vertrauen ist ausgesprochen, wenn dem Antrag mehr als die Hälfte der Mitglieder der Volkskammer zustimmt."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Der Antrag muss auf Einbringung oder Beschluss eines Gesetzes lauten. Spricht die Volkskammer dem Mitglied des Staatsrates nicht das Vertrauen aus, so hat dieses Mitglied des Staatsrates zurückzutreten.”"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Abschnitt 5 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Er erhält folgende Bezeichnung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,V. Abschnitt – Die Rechtsetzung”"
-        },
         {
           "type": "item",
           "label": "2.",
           "text": "Artikel 70 wird wie folgt gefasst:"
         },
         {
-          "type": "paragraphText",
-          "text": ",,Artikel 70"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Gesetzesinitiative; Beginn der Gesetzgebung"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Gesetzesvorlagen werden bei der Volkskammer vom Staatsrat, aus der Mitte der Volkskammer oder vom Volk durch Volksantrag eingebracht."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Das Volk beschließt die Gesetze. Die Volkskammer kann in dessen Vertretung Gesetze beschließen, wenn die Entscheidung nicht dem Volk vorbehalten ist."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Ein von der Volkskammer nach Absatz 2 beschlossenes Gesetz kommt nicht zustande, wenn der Staatsrat mit der Mehrheit seiner Mitglieder dem Gesetzesbeschluss widersprochen hat und die Volkskammer auf Antrag diesem Widerspruch nicht mit derselben Mehrheit zurückgewiesen hat. In den Fällen des Artikel 74a Absatz 2 Satz 1 kann die Volkskammer nicht auf ihren Beschluss beharren; in den Übrigen Fällen des Artikel 74a benötigt der Beharrungsbeschluss zwei Drittel der Mitglieder. Satz 1 findet bei Gesetzen nach Artikel 74 keine Anwendung. ”"
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In Artikel 71 Absatz 1 werden die Wörter „im Land“ durch die Wörter „im Freistaat“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Artikel 71 Absatz 2 bis 4 werden wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,(2) Der Volksantrag ist beim Präsidenten der Volkskammer einzureichen. Er entscheidet nach Stellungnahme des Staatsrates unverzüglich über die Zulässigkeit."
-        },
-        {
-          "type": "paragraphText",
-          "text": "(2a) Hält der Präsident der Volkskammer oder der Staatsrat den Volksantrag mit der Staatsverfassung für nicht vereinbar, so ist unverzüglich die Entscheidung der Volkskammer zu dieser Sache einzuholen. Gegen die Entscheidung der Volkskammer ist Beschwerde zum Verfassungsgerichtshof statthaft."
-        },
-        {
-          "type": "paragraphText",
-          "text": "(3) Der Präsident der Volkskammer veröffentlicht den zulässigen Volksantrag mit Begründung."
-        },
-        {
-          "type": "paragraphText",
-          "text": "(4) Die Volkskammer gibt den Antragstellern Gelegenheit zur Anhörung.”"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Artikel 72 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 72"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Volksbegehren; Volksentscheid"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Antragsteller können verlangen, dass über den Volksantrag durch das Volk abzustimmen ist (Volksentscheid)."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Ein Volksentscheid nach Absatz 1 findet statt, wenn mindestens ein Zehntel der Stimmberechtigten den Volksantrag durch ihre Unterschrift unterstützen (Volksbegehren)."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Ist ein Volksbegehren erfolgreich, so wird zur nächsten Volkskammerwahl über den Volksantrag abgestimmt."
-        },
-        {
-          "type": "item",
-          "label": "4)",
-          "text": "Bei dem Volksentscheid wird mit Ja oder Nein gestimmt. Es entscheidet die Mehrheit der abgegebenen gültigen Stimmen.”"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Artikel 73 Absatz 2 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,(2) Über dieselbe Sache kann nur einmal im Kalenderjahr ein Volksentscheid stattfinden.”"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Artikel 74 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Absatz 1 Satz 2 und 3 werden aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Absatz 2 werden die Wörter “zwei Dritteln” durch die Wörter “drei Vierteln\" ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In Absatz 3 werden die Wörter „Mitglieder des Landtages“ durch die Wörter „Mitglieder der Volkskammer“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Absatz 4 wird aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "Nach Artikel 74 wird folgender Artikel 74a eingefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 74a"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Besondere Gesetze"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Bestimmt diese Verfassung, dass zu einem Gegenstand ein besonderes Gesetz erlassen werden muss, so bedarf das Gesetz der Mehrheit von zwei Dritteln der Mitglieder der Volkskammer."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Das Vorschlagsrecht für besondere Gesetze, die die Rechtsstellung des Staatsrates bestimmen, ist dem Staatsrat und dem Volk vorbehalten. Das Vorschlagsrecht für besondere Gesetze, die die Rechtsstellung der Volkskammer bestimmen, ist der Volkskammer und dem Volk vorbehalten. Das gilt nicht für das Besoldungs- und Vergütungsrecht."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Die öffentliche Daseinsvorsorge steht unter besonderem Schutz des Staates. Ein Gesetz, das die Rechtsstellung einer Einrichtung der Daseinsvorsorge berührt, muss nach den Grundsätzen des Absatz 1 zustande kommen. Nach Satz 2 ist die Rechtsstellung berührt, wenn sie unmittelbar verschlechtert wird.“"
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Artikel 75 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 75"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vollziehungsverordnung"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Die Staatsräte erlassen zur Durchführung eines Gesetzes ihres Geschäftsbereichs Rechtsverordnungen (Vollziehungsverordnungen). Die Vollziehungsverordnung bedarf zu ihrer Wirksamkeit der Ermächtigung durch Gesetz, das Inhalt, Zweck und Ausmaß der Vollziehungsverordnung bestimmt. Rechtsverordnungen müssen ihre Ermächtigungen benennen."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Die Ermächtigung durch Gesetz an einen Staatsrat gilt als eine Ermächtigung an alle Staatsräte, soweit ihr Geschäftsbereich vom Regelungsinhalt umfasst wird."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Die zur Ausführung der Gesetze erforderlichen allgemeinen Verwaltungsvorschriften werden von den Staatsräten für ihren Geschäftsbereich erlassen, soweit die Gesetze nichts anderes bestimmen. Sie können das Recht zum Erlass von Verwaltungsvorschriften anderen Stellen übertragen."
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "Nach Artikel 75 wird folgender Artikel 75a eingefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 75a"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Selbstständige Rechtsverordnungen"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Der Staatsrat kann Rechtsverordnungen erlassen, soweit sie nicht Gesetze ändern oder ihnen entgegenstehen (Selbstständige Rechtsverordnung). Eine Rechtsverordnung nach Satz 1 kann jederzeit durch die Volkskammer aufgehoben werden. Eine Verordnung nach Satz 1 darf die Rechtsstellung eines Mitglieds eines Staatsorgans nicht berühren."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Der Staatsrat kann eine besondere Notlage erklären. Eine Notlage nach Satz 1 kann nur bei außergewöhnlichen Notsituationen erklärt werden, deren Ausmaß vom Staat mit den regulären Mitteln nicht oder nicht rechtzeitig beherrscht werden kann. In Zeiten einer Notlage kann der Staatsrat auch solche Rechtsverordnungen erlassen, die ein Gesetz aufheben, außer Kraft setzen oder verändern. Solche Rechtsverordnungen können von der Volkskammer jederzeit jedoch nur durch Gesetz aufgehoben werden."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Ist der Eintritt des Spannungsfalls nach Artikel 80a des Grundgesetzes oder der Verteidigungsfall nach Artikel 115a des Grundgesetzes festgestellt, so kann für die Dauer der Notlage des Bundes der Staatsrat auch Rechtsverordnungen erlassen, die nicht mit den Vorschriften dieser Verfassung vereinbar sind. Satz 1 gilt nicht für die Grundrechte und für diese Vorschrift; eine solche Verordnung kann nicht die Verfassung ändern. Die Volkskammer kann, wenn sie zu dem Entschluss gekommen ist, dass die Verordnung nicht der Sicherstellung des Staats- oder Gemeinwesens dient, die Verordnung aufheben."
-        },
-        {
-          "type": "item",
-          "label": "4)",
-          "text": "Rechtsverordnungen nach den Absätzen 1 bis 3 müssen ihre rechtliche Grundlage benennen. Die Rechte nach dieser Vorschrift können nicht übertragen werden.“"
-        },
-        {
-          "type": "item",
-          "label": "11.",
-          "text": "Artikel 76 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Absatz 1 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,(1) Die verfassungsmäßig beschlossenen Gesetze werden vom Staatspräsidenten und dem zuständigen Mitglied des Staatsrates ausgefertigt und vom Staatspräsidenten binnen vierzehn Tagen im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland verkündet. Wenn die Volkskammer die Dringlichkeit beschließt, müssen sie unverzüglich ausgefertigt und verkündet werden.”"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Absatz 2 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,(2) Rechtsverordnungen werden von der Stelle ausgefertigt, die sie erlässt. Rechtsverordnungen des Staatsrates werden vom Staatsrat ausgefertigt. Soweit das Gesetz nichts anderes bestimmt, werden Rechtsverordnungen im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland verkündet.”"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Abschnitt 6 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Artikel 80 wird je die Worte ,,des Landtages” durch die Worte ,,der Volkskammer” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Artikel 81 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 81"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Verfassungsgerichtshof"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Der Verfassungsgerichtshof entscheidet"
-        },
-        {
-          "type": "paragraphText",
-          "text": "> > > > > 1. über die Auslegung dieser Verfassung aus Anlass von Streitigkeiten über den Umfang der Rechte und Pflichten eines Staatsorgans oder anderer Beteiligter, die am Verfassungsleben teilnehmen und durch die Verfassung oder eine Geschäftsordnung eines Staatsorgans mit eigenen Rechten und Pflichten ausgestattet sind, auf Antrag eines Staatsorgans oder eines anderen Beteiligten (Organstreitverfahren),"
-        },
-        {
-          "type": "paragraphText",
-          "text": "> > > > > 2. bei Zweifeln oder Meinungsverschiedenheiten über die Vereinbarkeit von Landesrecht mit dieser Verfassung auf Antrag eines Viertels der Mitglieder der Volkskammer oder auf Antrag des Staatsrates (Abstrakte Normenkontrolle),"
-        },
-        {
-          "type": "paragraphText",
-          "text": "> > > > > 3. über die Vereinbarkeit eines Landesgesetzes mit dieser Verfassung, nachdem ein Gericht das Verfahren gemäß Artikel 100 Absatz 1 des Grundgesetzes ausgesetzt hat (Konkrete Normenkontrolle),"
-        },
-        {
-          "type": "paragraphText",
-          "text": "> > > > > 4. über Verfassungsbeschwerden, die von jeder Person erhoben werden können, die sich durch die öffentliche Gewalt in einem ihrer in dieser Verfassung niedergelegten Grundrechte verletzt fühlt (Verfassungsbeschwerde),"
-        },
-        {
-          "type": "paragraphText",
-          "text": "> > > > > 5. in den weiteren in dieser Verfassung ihm zugewiesenen Angelegenheiten und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "> > > > > 6. in den ihm durch Gesetz zugewiesenen Angelegenheiten."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Der Verfassungsgerichtshof besteht aus sechs Richtern, die zu gleichen Teilen von der Volkskammer und dem Staatsrat bestimmt werden."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Die Richter werden für die Dauer von neun Jahren berufen. Berufen ist, wer mit einer Mehrheit von zwei Dritteln der Stimmen des Wahlorgans gewählt wurde."
-        },
-        {
-          "type": "item",
-          "label": "4)",
-          "text": "Die Mitglieder dürfen weder dem Bundestag, dem Bundesrat, der Bundesregierung noch entsprechenden Organen eines Landes angehören."
-        },
-        {
-          "type": "item",
-          "label": "5)",
-          "text": "Haben sowohl der Staatsrat als auch die Volkskammer ihre Mitglieder nicht bestimmt, so entscheidet nach Artikel 99 des Grundgesetzes das Bundesverfassungsgericht nach den Bestimmungen, die für den Verfassungsgerichtshof gelten würden."
-        },
-        {
-          "type": "item",
-          "label": "6)",
-          "text": "Das Nähere bestimmt ein Gesetz.“"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Abschnitt 7 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Artikel 82 Absatz 1 werden die Wörter „durch die Staatsregierung, die ihr unterstellten Behörden“ durch die Wörter „durch den Staatsrat, die ihm unterstellten Behörden“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Artikel 83 Absatz 2 und 3 werden wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,(2) Die Einrichtung der staatlichen Behörden im Einzelnen obliegt dem Staatsrat. Er kann einzelne Staatsräte hierzu ermächtigen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "(3) Der Freistaat unterhält keinen Geheimdienst mit polizeilichen Befugnissen. Behörden die polizeiliche Maßnahmen tätigen unterliegen der Nachprüfung durch ein unabhängiges Gremium, dessen Verfahren, Rechtsschutz und Bestellung ein besonderes Gesetz bestimmt. Eine parlamentarische Nachprüfung der Maßnahmen nach Satz 1 bedürfen der Grundlage durch ein besonderes Gesetz. ”"
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "Abschnitt 8 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Artikel 96 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Die Wörter „des Staatsministers der Finanzen“ werden durch die Wörter „des für den Fiskus zuständigen Staatsrates“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Die Wörter „des Landtages“ werden durch die Wörter „der Volkskammer“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Artikel 97 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "In Absatz 1 werden jeweils die Wörter „des Landtages“ durch die Wörter „der Volkskammer“, jeweils die Wörter „die Staatsregierung“ durch die Wörter „der Staatsrat“ und die Wörter „der Landtag“ durch die Wörter „die Volkskammer“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "In Absatz 2 werden die Wörter „die Staatsregierung“ durch die Wörter „der Staatsrat“ und die Wörter „dem Landtag“ durch die Wörter „der Volkskammer“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "In Artikel 98 Absatz 1 und 2 werden jeweils die Wörter „die Staatsregierung“ durch die Wörter „der Staatsrat“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Artikel 99 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 99"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Rechnungslegung"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Der für den Fiskus zuständige Staatsrat hat der Volkskammer über alle Einnahmen und Ausgaben sowie über die Veränderung des Vermögens und der Schulden des Freistaates zur Entlastung des Staatsrates jährlich Rechnung zu legen.”"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "In Artikel 100 Absatz 1 werden die Wörter „des Landes“ durch die Wörter „des Freistaates“ ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Artikel 100 Absatz 3 und 4 werden wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,(3) Der Präsident des Rechnungshofes wird von der Volkskammer auf Vorschlag des Staatsrates mit einer Mehrheit von zwei Dritteln der abgegebenen Stimmen gewählt. Der Vizepräsident wird vom Staatsrat auf Vorschlag des Präsidenten des Rechnungshofes mit Zustimmung der Volkskammer ernannt."
-        },
-        {
-          "type": "paragraphText",
-          "text": "(4) Der Rechnungshof berichtet jährlich unmittelbar der Volkskammer und unterrichtet gleichzeitig den Staatsrat.”"
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Abschnitt 11 wird wie folgt geändert:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Artikel 113 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 113"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Notstand; Notparlament"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Ist bei drohender Gefahr für den Bestand oder die freiheitliche demokratische Grundordnung des Freistaates oder für die lebensnotwendige Versorgung der Bevölkerung sowie bei einem Notstand infolge einer Naturkatastrophe oder eines besonders schweren Unglücksfalles die Volkskammer verhindert, sich alsbald zu versammeln, so nimmt ein aus allen Fraktionen der Volkskammer gebildeter Ausschuss der Volkskammer als Notparlament die Rechte der Volkskammer wahr. Die Verfassung darf durch ein von diesem Ausschuss beschlossenes Gesetz nicht geändert werden. Die Befugnis, dem Staatsrat das Vertrauen zu entziehen, steht dem Ausschuss nicht zu."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Solange eine Gefahr für den Bestand oder die freiheitliche demokratische Grundordnung des Freistaates droht, finden durch das Volk vorzunehmende Wahlen und Abstimmungen nicht statt. Die Feststellung, dass Wahlen und Abstimmungen nicht stattfinden, trifft die Volkskammer mit einer Mehrheit von zwei Dritteln ihrer Mitglieder. Ist die Volkskammer verhindert, sich alsbald zu versammeln, so trifft der in Absatz 1 genannte Ausschuss die Feststellung mit einer Mehrheit von zwei Dritteln seiner Mitglieder. Die verschobenen Wahlen und Abstimmungen sind innerhalb von sechs Monaten, nachdem die Volkskammer festgestellt hat, dass die Gefahr beendet ist, durchzuführen. Die Amtsdauer der in Betracht kommenden Personen und Körperschaften verlängert sich bis zum Ablauf des Tages der Neuwahl."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Die Feststellung, dass die Volkskammer verhindert ist, sich alsbald zu versammeln, trifft der Präsident der Volkskammer. Die Entscheidung ist im Gesetzes- und Verordnungsblatt bekannt zu machen."
-        },
-        {
-          "type": "item",
-          "label": "4)",
-          "text": "Gesetze werden im Fall des Absatzes 1, falls eine rechtzeitige Verkündung im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland nicht möglich ist, auf andere Weise öffentlich bekanntgemacht. Die Verkündung im Gesetz- und Verordnungsblatt ist nachzuholen, sobald die Umstände es zulassen."
-        },
-        {
-          "type": "item",
-          "label": "5)",
-          "text": "Die Volkskammer kann die Beschlüsse des in Absatz 1 genannten Ausschusses innerhalb von vier Wochen nach ihrem nächsten Wiederzusammentritt mit der Mehrheit der abgegebenen Stimmen aufheben.”"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Artikel 114 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 114"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Widerstandsrecht"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Gegen jede Person, die es unternimmt, die verfassungsmäßige Ordnung zu beseitigen, haben alle Bürger das Recht zum Widerstand, wenn andere Abhilfe nicht möglich ist.”"
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Artikel 116 wird wie folgt gefasst:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 116"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Wiedergutmachung"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Wer im Gebiet des heutigen Freistaates oder als Bewohner dieses Gebietes durch nationalsozialistische oder monarchistische Gewaltherrschaft wegen seiner politischen, religiösen oder weltanschaulichen Überzeugung, aus rassistischen Gründen oder wegen seiner Abstammung oder Nationalität oder wegen seiner sozialen Stellung oder wegen seiner Behinderung oder wegen seiner gleichgeschlechtlichen Orientierung oder in anderer Weise willkürlich geschädigt wurde, hat nach Maßgabe der Gesetze Anspruch auf Wiedergutmachung.”"
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Artikel 118 und 119 werden aufgehoben."
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Nach Artikel 120 Absatz 1 wird folgender Absatz 1a eingefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,(1a) Landesrecht im Sinne des Absatz 1 ist das Recht des Sächsischen Freistaates, das bis zum 1. Dezember 2023 im Sächsischen Gesetzes- und Verordnungsblatt nach den Bestimmungen der Sächsischen Verfassung zustande gekommen und verkündet wurde."
-        },
-        {
-          "type": "paragraphText",
-          "text": "(1b) Landesrecht im Sinne des Absatzes 1 ist abweichend von Absatz 1a auch das Recht eines ehemaligen ostdeutschen Landes, dessen Fortbestand wegen seiner engen örtlichen, organisatorischen oder kulturellen Verbindung mit diesem Land für die Rechtsordnung des Freistaates unabdingbar ist.. Über das Bestehen oder Nichtbestehen einer Rechtsvorschrift nach Satz 1 entscheidet im Zweifel die Volkskammer.”"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "In Artikel 121 wird das Wort “Sächsische” durch das Wort “Ostdeutsche” ersetzt."
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Nach Artikel 121 wird folgender Artikel 121a eingefügt:"
-        },
-        {
-          "type": "paragraphText",
-          "text": ",,Artikel 121a"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Überleitung anlässlich der Großen Staatsreform"
-        },
-        {
-          "type": "item",
-          "label": "1)",
-          "text": "Siebte Volkskammer ist der siebte Landtag. Die Wahl zur neunten Volkskammer findet Ende August statt."
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Erster Staatsrat ist bis zur Wahl eines Staatsrates nach Artikel 60 Absatz 2 die Staatsregierung, die zum Zeitpunkt des Inkrafttretens wirksam gewählt und ernannt war."
-        },
-        {
-          "type": "item",
-          "label": "3)",
-          "text": "Erster Staatspräsident ist der Ministerpräsident, der zum Zeitpunkt des Inkrafttretens wirksam gewählt worden ist.”"
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "Artikel 122 wird aufgehoben."
-        }
-      ]
-    },
-    {
-      "type": "article",
-      "label": "Artikel 2",
-      "title": "Inkrafttreten",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
+          "type": "article",
+          "label": "Artikel 70",
+          "title": "Gesetzesinitiative; Beginn der Gesetzgebung",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Gesetzesvorlagen werden bei der Volkskammer vom Staatsrat, aus der Mitte der Volkskammer oder vom Volk durch Volksantrag eingebracht."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Das Volk beschließt die Gesetze. Die Volkskammer kann in dessen Vertretung Gesetze beschließen, wenn die Entscheidung nicht dem Volk vorbehalten ist."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Ein von der Volkskammer nach Absatz 2 beschlossenes Gesetz kommt nicht zustande, wenn der Staatsrat mit der Mehrheit seiner Mitglieder dem Gesetzesbeschluss widersprochen hat und die Volkskammer auf Antrag diesem Widerspruch nicht mit derselben Mehrheit zurückgewiesen hat. In den Fällen des Artikel 74a Absatz 2 Satz 1 kann die Volkskammer nicht auf ihren Beschluss beharren; in den Übrigen Fällen des Artikel 74a benötigt der Beharrungsbeschluss zwei Drittel der Mitglieder. Satz 1 findet bei Gesetzen nach Artikel 74 keine Anwendung. ”"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In Artikel 71 Absatz 1 werden die Wörter „im Land“ durch die Wörter „im Freistaat“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Artikel 71 Absatz 2 bis 4 werden wie folgt gefasst:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,(2) Der Volksantrag ist beim Präsidenten der Volkskammer einzureichen. Er entscheidet nach Stellungnahme des Staatsrates unverzüglich über die Zulässigkeit."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2a)",
+              "text": "Hält der Präsident der Volkskammer oder der Staatsrat den Volksantrag mit der Staatsverfassung für nicht vereinbar, so ist unverzüglich die Entscheidung der Volkskammer zu dieser Sache einzuholen. Gegen die Entscheidung der Volkskammer ist Beschwerde zum Verfassungsgerichtshof statthaft."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Präsident der Volkskammer veröffentlicht den zulässigen Volksantrag mit Begründung."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Volkskammer gibt den Antragstellern Gelegenheit zur Anhörung.”"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Artikel 72 wird wie folgt gefasst:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 72",
+          "title": "Volksbegehren; Volksentscheid",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Antragsteller können verlangen, dass über den Volksantrag durch das Volk abzustimmen ist (Volksentscheid)."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Ein Volksentscheid nach Absatz 1 findet statt, wenn mindestens ein Zehntel der Stimmberechtigten den Volksantrag durch ihre Unterschrift unterstützen (Volksbegehren)."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Ist ein Volksbegehren erfolgreich, so wird zur nächsten Volkskammerwahl über den Volksantrag abgestimmt."
+            },
+            {
+              "type": "item",
+              "label": "4)",
+              "text": "Bei dem Volksentscheid wird mit Ja oder Nein gestimmt. Es entscheidet die Mehrheit der abgegebenen gültigen Stimmen.”"
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Artikel 73 Absatz 2 wird wie folgt gefasst:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,(2) Über dieselbe Sache kann nur einmal im Kalenderjahr ein Volksentscheid stattfinden.”"
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Artikel 74 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Absatz 1 Satz 2 und 3 werden aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Absatz 2 werden die Wörter “zwei Dritteln” durch die Wörter “drei Vierteln\" ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In Absatz 3 werden die Wörter „Mitglieder des Landtages“ durch die Wörter „Mitglieder der Volkskammer“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Absatz 4 wird aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Nach Artikel 74 wird folgender Artikel 74a eingefügt:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 74a",
+          "title": "Besondere Gesetze",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Bestimmt diese Verfassung, dass zu einem Gegenstand ein besonderes Gesetz erlassen werden muss, so bedarf das Gesetz der Mehrheit von zwei Dritteln der Mitglieder der Volkskammer."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Das Vorschlagsrecht für besondere Gesetze, die die Rechtsstellung des Staatsrates bestimmen, ist dem Staatsrat und dem Volk vorbehalten. Das Vorschlagsrecht für besondere Gesetze, die die Rechtsstellung der Volkskammer bestimmen, ist der Volkskammer und dem Volk vorbehalten. Das gilt nicht für das Besoldungs- und Vergütungsrecht."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Die öffentliche Daseinsvorsorge steht unter besonderem Schutz des Staates. Ein Gesetz, das die Rechtsstellung einer Einrichtung der Daseinsvorsorge berührt, muss nach den Grundsätzen des Absatz 1 zustande kommen. Nach Satz 2 ist die Rechtsstellung berührt, wenn sie unmittelbar verschlechtert wird.“"
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Artikel 75 wird wie folgt gefasst:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 75",
+          "title": "Vollziehungsverordnung",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Die Staatsräte erlassen zur Durchführung eines Gesetzes ihres Geschäftsbereichs Rechtsverordnungen (Vollziehungsverordnungen). Die Vollziehungsverordnung bedarf zu ihrer Wirksamkeit der Ermächtigung durch Gesetz, das Inhalt, Zweck und Ausmaß der Vollziehungsverordnung bestimmt. Rechtsverordnungen müssen ihre Ermächtigungen benennen."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Die Ermächtigung durch Gesetz an einen Staatsrat gilt als eine Ermächtigung an alle Staatsräte, soweit ihr Geschäftsbereich vom Regelungsinhalt umfasst wird."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Die zur Ausführung der Gesetze erforderlichen allgemeinen Verwaltungsvorschriften werden von den Staatsräten für ihren Geschäftsbereich erlassen, soweit die Gesetze nichts anderes bestimmen. Sie können das Recht zum Erlass von Verwaltungsvorschriften anderen Stellen übertragen."
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Nach Artikel 75 wird folgender Artikel 75a eingefügt:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 75a",
+          "title": "Selbstständige Rechtsverordnungen",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Der Staatsrat kann Rechtsverordnungen erlassen, soweit sie nicht Gesetze ändern oder ihnen entgegenstehen (Selbstständige Rechtsverordnung). Eine Rechtsverordnung nach Satz 1 kann jederzeit durch die Volkskammer aufgehoben werden. Eine Verordnung nach Satz 1 darf die Rechtsstellung eines Mitglieds eines Staatsorgans nicht berühren."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Der Staatsrat kann eine besondere Notlage erklären. Eine Notlage nach Satz 1 kann nur bei außergewöhnlichen Notsituationen erklärt werden, deren Ausmaß vom Staat mit den regulären Mitteln nicht oder nicht rechtzeitig beherrscht werden kann. In Zeiten einer Notlage kann der Staatsrat auch solche Rechtsverordnungen erlassen, die ein Gesetz aufheben, außer Kraft setzen oder verändern. Solche Rechtsverordnungen können von der Volkskammer jederzeit jedoch nur durch Gesetz aufgehoben werden."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Ist der Eintritt des Spannungsfalls nach Artikel 80a des Grundgesetzes oder der Verteidigungsfall nach Artikel 115a des Grundgesetzes festgestellt, so kann für die Dauer der Notlage des Bundes der Staatsrat auch Rechtsverordnungen erlassen, die nicht mit den Vorschriften dieser Verfassung vereinbar sind. Satz 1 gilt nicht für die Grundrechte und für diese Vorschrift; eine solche Verordnung kann nicht die Verfassung ändern. Die Volkskammer kann, wenn sie zu dem Entschluss gekommen ist, dass die Verordnung nicht der Sicherstellung des Staats- oder Gemeinwesens dient, die Verordnung aufheben."
+            },
+            {
+              "type": "item",
+              "label": "4)",
+              "text": "Rechtsverordnungen nach den Absätzen 1 bis 3 müssen ihre rechtliche Grundlage benennen. Die Rechte nach dieser Vorschrift können nicht übertragen werden.“"
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "Artikel 76 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Absatz 1 wird wie folgt gefasst:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,(1) Die verfassungsmäßig beschlossenen Gesetze werden vom Staatspräsidenten und dem zuständigen Mitglied des Staatsrates ausgefertigt und vom Staatspräsidenten binnen vierzehn Tagen im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland verkündet. Wenn die Volkskammer die Dringlichkeit beschließt, müssen sie unverzüglich ausgefertigt und verkündet werden.”"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Absatz 2 wird wie folgt gefasst:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,(2) Rechtsverordnungen werden von der Stelle ausgefertigt, die sie erlässt. Rechtsverordnungen des Staatsrates werden vom Staatsrat ausgefertigt. Soweit das Gesetz nichts anderes bestimmt, werden Rechtsverordnungen im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland verkündet.”"
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Abschnitt 6 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Artikel 80 wird je die Worte ,,des Landtages” durch die Worte ,,der Volkskammer” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Artikel 81 wird wie folgt gefasst:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 81",
+          "title": "Verfassungsgerichtshof",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Der Verfassungsgerichtshof entscheidet > > > > > 1. über die Auslegung dieser Verfassung aus Anlass von Streitigkeiten über den Umfang der Rechte und Pflichten eines Staatsorgans oder anderer Beteiligter, die am Verfassungsleben teilnehmen und durch die Verfassung oder eine Geschäftsordnung eines Staatsorgans mit eigenen Rechten und Pflichten ausgestattet sind, auf Antrag eines Staatsorgans oder eines anderen Beteiligten (Organstreitverfahren), > > > > > 2. bei Zweifeln oder Meinungsverschiedenheiten über die Vereinbarkeit von Landesrecht mit dieser Verfassung auf Antrag eines Viertels der Mitglieder der Volkskammer oder auf Antrag des Staatsrates (Abstrakte Normenkontrolle), > > > > > 3. über die Vereinbarkeit eines Landesgesetzes mit dieser Verfassung, nachdem ein Gericht das Verfahren gemäß Artikel 100 Absatz 1 des Grundgesetzes ausgesetzt hat (Konkrete Normenkontrolle), > > > > > 4. über Verfassungsbeschwerden, die von jeder Person erhoben werden können, die sich durch die öffentliche Gewalt in einem ihrer in dieser Verfassung niedergelegten Grundrechte verletzt fühlt (Verfassungsbeschwerde), > > > > > 5. in den weiteren in dieser Verfassung ihm zugewiesenen Angelegenheiten und > > > > > 6. in den ihm durch Gesetz zugewiesenen Angelegenheiten."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Der Verfassungsgerichtshof besteht aus sechs Richtern, die zu gleichen Teilen von der Volkskammer und dem Staatsrat bestimmt werden."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Die Richter werden für die Dauer von neun Jahren berufen. Berufen ist, wer mit einer Mehrheit von zwei Dritteln der Stimmen des Wahlorgans gewählt wurde."
+            },
+            {
+              "type": "item",
+              "label": "4)",
+              "text": "Die Mitglieder dürfen weder dem Bundestag, dem Bundesrat, der Bundesregierung noch entsprechenden Organen eines Landes angehören."
+            },
+            {
+              "type": "item",
+              "label": "5)",
+              "text": "Haben sowohl der Staatsrat als auch die Volkskammer ihre Mitglieder nicht bestimmt, so entscheidet nach Artikel 99 des Grundgesetzes das Bundesverfassungsgericht nach den Bestimmungen, die für den Verfassungsgerichtshof gelten würden."
+            },
+            {
+              "type": "item",
+              "label": "6)",
+              "text": "Das Nähere bestimmt ein Gesetz.“"
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Abschnitt 7 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Artikel 82 Absatz 1 werden die Wörter „durch die Staatsregierung, die ihr unterstellten Behörden“ durch die Wörter „durch den Staatsrat, die ihm unterstellten Behörden“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Artikel 83 Absatz 2 und 3 werden wie folgt gefasst:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,(2) Die Einrichtung der staatlichen Behörden im Einzelnen obliegt dem Staatsrat. Er kann einzelne Staatsräte hierzu ermächtigen."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Freistaat unterhält keinen Geheimdienst mit polizeilichen Befugnissen. Behörden die polizeiliche Maßnahmen tätigen unterliegen der Nachprüfung durch ein unabhängiges Gremium, dessen Verfahren, Rechtsschutz und Bestellung ein besonderes Gesetz bestimmt. Eine parlamentarische Nachprüfung der Maßnahmen nach Satz 1 bedürfen der Grundlage durch ein besonderes Gesetz. ”"
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Abschnitt 8 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Artikel 96 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Die Wörter „des Staatsministers der Finanzen“ werden durch die Wörter „des für den Fiskus zuständigen Staatsrates“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Die Wörter „des Landtages“ werden durch die Wörter „der Volkskammer“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Artikel 97 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In Absatz 1 werden jeweils die Wörter „des Landtages“ durch die Wörter „der Volkskammer“, jeweils die Wörter „die Staatsregierung“ durch die Wörter „der Staatsrat“ und die Wörter „der Landtag“ durch die Wörter „die Volkskammer“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "In Absatz 2 werden die Wörter „die Staatsregierung“ durch die Wörter „der Staatsrat“ und die Wörter „dem Landtag“ durch die Wörter „der Volkskammer“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "In Artikel 98 Absatz 1 und 2 werden jeweils die Wörter „die Staatsregierung“ durch die Wörter „der Staatsrat“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Artikel 99 wird wie folgt gefasst:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 99",
+          "title": "Rechnungslegung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Der für den Fiskus zuständige Staatsrat hat der Volkskammer über alle Einnahmen und Ausgaben sowie über die Veränderung des Vermögens und der Schulden des Freistaates zur Entlastung des Staatsrates jährlich Rechnung zu legen.”"
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "In Artikel 100 Absatz 1 werden die Wörter „des Landes“ durch die Wörter „des Freistaates“ ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Artikel 100 Absatz 3 und 4 werden wie folgt gefasst:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,(3) Der Präsident des Rechnungshofes wird von der Volkskammer auf Vorschlag des Staatsrates mit einer Mehrheit von zwei Dritteln der abgegebenen Stimmen gewählt. Der Vizepräsident wird vom Staatsrat auf Vorschlag des Präsidenten des Rechnungshofes mit Zustimmung der Volkskammer ernannt."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Der Rechnungshof berichtet jährlich unmittelbar der Volkskammer und unterrichtet gleichzeitig den Staatsrat.”"
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Abschnitt 11 wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Artikel 113 wird wie folgt gefasst:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 113",
+          "title": "Notstand; Notparlament",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Ist bei drohender Gefahr für den Bestand oder die freiheitliche demokratische Grundordnung des Freistaates oder für die lebensnotwendige Versorgung der Bevölkerung sowie bei einem Notstand infolge einer Naturkatastrophe oder eines besonders schweren Unglücksfalles die Volkskammer verhindert, sich alsbald zu versammeln, so nimmt ein aus allen Fraktionen der Volkskammer gebildeter Ausschuss der Volkskammer als Notparlament die Rechte der Volkskammer wahr. Die Verfassung darf durch ein von diesem Ausschuss beschlossenes Gesetz nicht geändert werden. Die Befugnis, dem Staatsrat das Vertrauen zu entziehen, steht dem Ausschuss nicht zu."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Solange eine Gefahr für den Bestand oder die freiheitliche demokratische Grundordnung des Freistaates droht, finden durch das Volk vorzunehmende Wahlen und Abstimmungen nicht statt. Die Feststellung, dass Wahlen und Abstimmungen nicht stattfinden, trifft die Volkskammer mit einer Mehrheit von zwei Dritteln ihrer Mitglieder. Ist die Volkskammer verhindert, sich alsbald zu versammeln, so trifft der in Absatz 1 genannte Ausschuss die Feststellung mit einer Mehrheit von zwei Dritteln seiner Mitglieder. Die verschobenen Wahlen und Abstimmungen sind innerhalb von sechs Monaten, nachdem die Volkskammer festgestellt hat, dass die Gefahr beendet ist, durchzuführen. Die Amtsdauer der in Betracht kommenden Personen und Körperschaften verlängert sich bis zum Ablauf des Tages der Neuwahl."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Die Feststellung, dass die Volkskammer verhindert ist, sich alsbald zu versammeln, trifft der Präsident der Volkskammer. Die Entscheidung ist im Gesetzes- und Verordnungsblatt bekannt zu machen."
+            },
+            {
+              "type": "item",
+              "label": "4)",
+              "text": "Gesetze werden im Fall des Absatzes 1, falls eine rechtzeitige Verkündung im Gesetz- und Verordnungsblatt des Freistaates Ostdeutschland nicht möglich ist, auf andere Weise öffentlich bekanntgemacht. Die Verkündung im Gesetz- und Verordnungsblatt ist nachzuholen, sobald die Umstände es zulassen."
+            },
+            {
+              "type": "item",
+              "label": "5)",
+              "text": "Die Volkskammer kann die Beschlüsse des in Absatz 1 genannten Ausschusses innerhalb von vier Wochen nach ihrem nächsten Wiederzusammentritt mit der Mehrheit der abgegebenen Stimmen aufheben.”"
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Artikel 114 wird wie folgt gefasst:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 114",
+          "title": "Widerstandsrecht",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Gegen jede Person, die es unternimmt, die verfassungsmäßige Ordnung zu beseitigen, haben alle Bürger das Recht zum Widerstand, wenn andere Abhilfe nicht möglich ist.”"
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Artikel 116 wird wie folgt gefasst:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 116",
+          "title": "Wiedergutmachung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Wer im Gebiet des heutigen Freistaates oder als Bewohner dieses Gebietes durch nationalsozialistische oder monarchistische Gewaltherrschaft wegen seiner politischen, religiösen oder weltanschaulichen Überzeugung, aus rassistischen Gründen oder wegen seiner Abstammung oder Nationalität oder wegen seiner sozialen Stellung oder wegen seiner Behinderung oder wegen seiner gleichgeschlechtlichen Orientierung oder in anderer Weise willkürlich geschädigt wurde, hat nach Maßgabe der Gesetze Anspruch auf Wiedergutmachung.”"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Artikel 118 und 119 werden aufgehoben."
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Nach Artikel 120 Absatz 1 wird folgender Absatz 1a eingefügt:"
+            },
+            {
+              "type": "paragraphText",
+              "text": ",,(1a) Landesrecht im Sinne des Absatz 1 ist das Recht des Sächsischen Freistaates, das bis zum 1. Dezember 2023 im Sächsischen Gesetzes- und Verordnungsblatt nach den Bestimmungen der Sächsischen Verfassung zustande gekommen und verkündet wurde."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(1b)",
+              "text": "Landesrecht im Sinne des Absatzes 1 ist abweichend von Absatz 1a auch das Recht eines ehemaligen ostdeutschen Landes, dessen Fortbestand wegen seiner engen örtlichen, organisatorischen oder kulturellen Verbindung mit diesem Land für die Rechtsordnung des Freistaates unabdingbar ist.. Über das Bestehen oder Nichtbestehen einer Rechtsvorschrift nach Satz 1 entscheidet im Zweifel die Volkskammer.”"
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "In Artikel 121 wird das Wort “Sächsische” durch das Wort “Ostdeutsche” ersetzt."
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Nach Artikel 121 wird folgender Artikel 121a eingefügt:"
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 121a",
+          "title": "Überleitung anlässlich der Großen Staatsreform",
+          "children": [
+            {
+              "type": "item",
+              "label": "1)",
+              "text": "Achte Volkskammer ist der achte Landtag. Die Wahl zur neunten Volkskammer findet Ende August statt."
+            },
+            {
+              "type": "item",
+              "label": "2)",
+              "text": "Erster Staatsrat ist bis zur Wahl eines Staatsrates nach Artikel 60 Absatz 2 die Staatsregierung, die zum Zeitpunkt des Inkrafttretens wirksam gewählt und ernannt war."
+            },
+            {
+              "type": "item",
+              "label": "3)",
+              "text": "Erster Staatspräsident ist der Ministerpräsident, der zum Zeitpunkt des Inkrafttretens wirksam gewählt worden ist.”"
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Artikel 122 wird aufgehoben."
+            }
+          ]
+        },
+        {
+          "type": "article",
+          "label": "Artikel 2",
+          "title": "Inkrafttreten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
+            }
+          ]
         }
       ]
     }

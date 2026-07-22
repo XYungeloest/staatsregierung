@@ -132,7 +132,27 @@ test('Staatsreform, Verfassung und Verkündungen sind zum 21. Juli verknüpft', 
   const constitution = normMap.get('staatsverfassung-des-freistaates-ostdeutschland');
   assert.ok(constitution);
   assert.equal(constitution.meta.status, 'in-force');
-  assert.match(JSON.stringify(constitution.versions[0].body), /Siebte Volkskammer ist der siebte Landtag/u);
+  const consolidatedText = JSON.stringify(constitution.versions[0].body);
+  assert.match(consolidatedText, /Siebte Volkskammer ist der siebte Landtag/u);
+  assert.match(consolidatedText, /Wahl zur achten Volkskammer/u);
+  assert.equal(constitution.history.initialVersionId, null);
+  const amendments = constitution.history.entries.filter((entry) => entry.type === 'amendment');
+  assert.deepEqual(
+    amendments.map((entry) => entry.relatedNorm),
+    [
+      'erstes-gesetz-zur-grossen-staatsreform',
+      'zweites-gesetz-zur-grossen-staatsreform',
+      'drittes-gesetz-zur-grossen-staatsreform',
+      'viertes-gesetz-zur-grossen-staatsreform',
+    ],
+  );
+  const firstReform = normMap.get('erstes-gesetz-zur-grossen-staatsreform');
+  assert.ok(firstReform);
+  const enactedText = JSON.stringify(firstReform.versions[0].body);
+  assert.match(enactedText, /Achte Volkskammer ist der achte Landtag/u);
+  assert.match(enactedText, /Wahl zur neunten Volkskammer/u);
+  assert.doesNotMatch(enactedText, /Siebte Volkskammer/u);
+  assert.notEqual(enactedText, consolidatedText);
   for (const issue of [53, 54, 55, 56]) {
     const publication = publications.find((entry) => entry.slug === `ogvbl-2026-${issue}`);
     assert.ok(publication);
@@ -143,4 +163,32 @@ test('Staatsreform, Verfassung und Verkündungen sind zum 21. Juli verknüpft', 
   assert.equal(sero?.meta.documentDate, '2026-07-20');
   assert.equal(sero?.meta.publicationDate, '2026-07-21');
   assert.equal(sero?.meta.effectiveDate, '2026-07-21');
+});
+
+test('neue Fundstellen, Abkürzungen und Zuständigkeiten bleiben quellengebunden', async () => {
+  const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+  const newPublications = publications.filter((publication) => (
+    publication.year === 2026 && Number(publication.issue) >= 46 && Number(publication.issue) <= 58
+  ));
+  assert.equal(newPublications.length, 13);
+  for (const publication of newPublications) {
+    const withStartPage = publication.entries.filter((entry) => entry.startPage);
+    assert.equal(withStartPage.length, 1, `${publication.slug} darf nur eine belegte Anfangsseite führen`);
+    assert.equal(withStartPage[0].startPage, '2');
+    assert.ok(publication.entries.every((entry) => entry.pages === undefined));
+    assert.ok(publication.entries.slice(1).every((entry) => !/\bS\.\s*2\b/u.test(entry.citation)));
+  }
+
+  const forbidden = new Set([
+    'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',
+    'PsychVersStG', '1. StaatsreformG', '2. StaatsreformG', '3. StaatsreformG',
+    '4. StaatsreformG', 'ZweitVeröffG',
+  ]);
+  for (const norm of norms.filter((entry) => (entry.meta.publicationDate ?? '') >= '2026-07-20')) {
+    assert.ok(!norm.meta.abbr || !forbidden.has(norm.meta.abbr));
+    assert.ok(norm.meta.keywords.every((keyword) => !forbidden.has(keyword)));
+    assert.ok(norm.meta.enactingBody, `${norm.meta.slug} benötigt ein erlassendes Organ`);
+    assert.ok(norm.meta.responsibleMinistry, `${norm.meta.slug} benötigt einen zuständigen Geschäftsbereich`);
+    assert.notEqual(norm.meta.summary, `Regelt ${norm.meta.title}.`);
+  }
 });

@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 48 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 48)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -12,20 +12,24 @@
       "title": "Errichtung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Es wird ein Sondervermögen des Freistaates mit der Bezeichnung „Sondervermögen Hochgeschwindigkeitsluftfahrt Ost“ errichtet."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Es wird ein Sondervermögen des Freistaates mit der Bezeichnung „Sondervermögen Hochgeschwindigkeitsluftfahrt Ost“ errichtet."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Das Sondervermögen ist nicht rechtsfähig."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Das Sondervermögen ist nicht rechtsfähig."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Das Sondervermögen ist getrennt vom übrigen Vermögen des Freistaates zu verwalten."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das Sondervermögen ist getrennt vom übrigen Vermögen des Freistaates zu verwalten."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Ein Insolvenzverfahren über das Sondervermögen ist unzulässig."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Ein Insolvenzverfahren über das Sondervermögen ist unzulässig."
         }
       ]
     },
@@ -35,16 +39,19 @@
       "title": "Stellung im Haushalt",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Für das Sondervermögen gelten die Vorschriften der Landeshaushaltsordnung, soweit dieses Gesetz nichts anderes bestimmt."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Für das Sondervermögen gelten die Vorschriften der Landeshaushaltsordnung, soweit dieses Gesetz nichts anderes bestimmt."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Einnahmen und Ausgaben des Sondervermögens werden in einem Wirtschaftsplan veranschlagt."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Einnahmen und Ausgaben des Sondervermögens werden in einem Wirtschaftsplan veranschlagt."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Der Wirtschaftsplan wird dem Haushaltsplan als Anlage beigefügt."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Wirtschaftsplan wird dem Haushaltsplan als Anlage beigefügt."
         }
       ]
     },
@@ -54,8 +61,9 @@
       "title": "Mittelverwendung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Aus dem Sondervermögen dürfen Ausgaben geleistet und Verpflichtungen eingegangen werden für"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Aus dem Sondervermögen dürfen Ausgaben geleistet und Verpflichtungen eingegangen werden für"
         },
         {
           "type": "item",
@@ -108,8 +116,9 @@
           "text": "Planungs-, Gutachter-, Projektmanagement- und Verwaltungskosten, soweit sie unmittelbar mit Maßnahmen nach den Nummern 1 bis 9 zusammenhängen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Aus dem Sondervermögen dürfen Ausgaben und Verpflichtungen bis zu einer Gesamthöhe von 4,5 Milliarden Euro geleistet oder eingegangen werden. Eine Erhöhung des Gesamtbetrages ist nur durch Gesetz zulässig."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Aus dem Sondervermögen dürfen Ausgaben und Verpflichtungen bis zu einer Gesamthöhe von 4,5 Milliarden Euro geleistet oder eingegangen werden. Eine Erhöhung des Gesamtbetrages ist nur durch Gesetz zulässig."
         }
       ]
     },
@@ -119,8 +128,9 @@
       "title": "Einnahmen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Dem Sondervermögen fließen zu:"
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Dem Sondervermögen fließen zu:"
         },
         {
           "type": "item",
@@ -163,8 +173,9 @@
           "text": "sonstige zweckgebundene Einnahmen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Einnahmen dürfen nur für Maßnahmen nach § 3 verwendet werden."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Einnahmen dürfen nur für Maßnahmen nach § 3 verwendet werden."
         }
       ]
     },
@@ -174,12 +185,14 @@
       "title": "Wirtschaftsplan",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Für jedes Haushaltsjahr ist ein Wirtschaftsplan aufzustellen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Für jedes Haushaltsjahr ist ein Wirtschaftsplan aufzustellen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Wirtschaftsplan enthält"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Wirtschaftsplan enthält"
         },
         {
           "type": "item",
@@ -217,8 +230,9 @@
           "text": "eine Übersicht über Risiken."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Verpflichtungen zulasten künftiger Haushaltsjahre dürfen nur aufgrund einer im Wirtschaftsplan oder im Haushaltsgesetz veranschlagten Verpflichtungsermächtigung eingegangen werden."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Verpflichtungen zulasten künftiger Haushaltsjahre dürfen nur aufgrund einer im Wirtschaftsplan oder im Haushaltsgesetz veranschlagten Verpflichtungsermächtigung eingegangen werden."
         }
       ]
     },
@@ -228,16 +242,19 @@
       "title": "Bewirtschaftung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Das Staatsministerium der Finanzen bewirtschaftet das Sondervermögen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das Staatsministerium der Finanzen bewirtschaftet das Sondervermögen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Das Staatsministerium der Finanzen kann Aufgaben der Bewirtschaftung im Einvernehmen mit dem Staatsministerium für Mobilität und regionale Entwicklung und dem Staatsministerium für Wirtschaft und Arbeit auf andere Stellen des Freistaates, eine Landesgesellschaft, die Landesbank an der Elbe, die Industriestiftung Ost, sobald sie errichtet ist, oder eine vergleichbare Landesbeteiligungsstelle übertragen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Das Staatsministerium der Finanzen kann Aufgaben der Bewirtschaftung im Einvernehmen mit dem Staatsministerium für Mobilität und regionale Entwicklung und dem Staatsministerium für Wirtschaft und Arbeit auf andere Stellen des Freistaates, eine Landesgesellschaft, die Landesbank an der Elbe, die Industriestiftung Ost, sobald sie errichtet ist, oder eine vergleichbare Landesbeteiligungsstelle übertragen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Verantwortung des Staatsministeriums der Finanzen für die Bewirtschaftung des Sondervermögens bleibt unberührt."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Verantwortung des Staatsministeriums der Finanzen für die Bewirtschaftung des Sondervermögens bleibt unberührt."
         }
       ]
     },
@@ -247,20 +264,24 @@
       "title": "Darlehen, Beteiligungen und Gewährleistungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Aus dem Sondervermögen können Darlehen, Wandeldarlehen, Beteiligungen und Gewährleistungen gewährt oder übernommen werden, soweit dies einer Maßnahme nach § 3 dient."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Aus dem Sondervermögen können Darlehen, Wandeldarlehen, Beteiligungen und Gewährleistungen gewährt oder übernommen werden, soweit dies einer Maßnahme nach § 3 dient."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Darlehen, Wandeldarlehen, Beteiligungen und Gewährleistungen sind grundsätzlich zu marktüblichen Bedingungen auszugestalten, soweit nicht eine nach dem Recht der Europäischen Union zulässige Abweichung vorgesehen ist. Eine Abweichung kann insbesondere aufgrund einer Freistellungsverordnung, einer De-minimis-Regelung oder einer Genehmigung der Europäischen Kommission zulässig sein."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Darlehen, Wandeldarlehen, Beteiligungen und Gewährleistungen sind grundsätzlich zu marktüblichen Bedingungen auszugestalten, soweit nicht eine nach dem Recht der Europäischen Union zulässige Abweichung vorgesehen ist. Eine Abweichung kann insbesondere aufgrund einer Freistellungsverordnung, einer De-minimis-Regelung oder einer Genehmigung der Europäischen Kommission zulässig sein."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Übernahme von Gewährleistungen bedarf der Zustimmung des Staatsministeriums der Finanzen."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Übernahme von Gewährleistungen bedarf der Zustimmung des Staatsministeriums der Finanzen."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Das Nähere regelt der Wirtschaftsplan."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Das Nähere regelt der Wirtschaftsplan."
         }
       ]
     },
@@ -270,12 +291,14 @@
       "title": "Kredite",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Das Sondervermögen ist nicht zur Aufnahme von Krediten ermächtigt."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das Sondervermögen ist nicht zur Aufnahme von Krediten ermächtigt."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Eine Kreditaufnahme zugunsten des Sondervermögens ist nur zulässig, soweit sie durch Gesetz oder Haushaltsgesetz ausdrücklich zugelassen ist und mit der Verfassung des Freistaates vereinbar ist."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Eine Kreditaufnahme zugunsten des Sondervermögens ist nur zulässig, soweit sie durch Gesetz oder Haushaltsgesetz ausdrücklich zugelassen ist und mit der Verfassung des Freistaates vereinbar ist."
         }
       ]
     },
@@ -285,16 +308,19 @@
       "title": "Rechnungslegung und Bericht",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Über die Einnahmen und Ausgaben des Sondervermögens ist gesondert Rechnung zu legen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Über die Einnahmen und Ausgaben des Sondervermögens ist gesondert Rechnung zu legen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Jahresrechnung des Sondervermögens ist der Haushaltsrechnung beizufügen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Jahresrechnung des Sondervermögens ist der Haushaltsrechnung beizufügen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Das Staatsministerium der Finanzen berichtet dem Landtag jährlich über Bestand, Einnahmen, Ausgaben, Verpflichtungen, Risiken und Mittelverwendung."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das Staatsministerium der Finanzen berichtet dem Landtag jährlich über Bestand, Einnahmen, Ausgaben, Verpflichtungen, Risiken und Mittelverwendung."
         }
       ]
     },
@@ -304,12 +330,14 @@
       "title": "Rückflüsse und Rückforderungen",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Rückflüsse aus Darlehen, Wandeldarlehen, Beteiligungen, Gewährleistungen, Erstattungen und Rückforderungen fließen dem Sondervermögen zu."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Rückflüsse aus Darlehen, Wandeldarlehen, Beteiligungen, Gewährleistungen, Erstattungen und Rückforderungen fließen dem Sondervermögen zu."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Von der Geltendmachung einer Rückforderung kann ganz oder teilweise abgesehen werden, soweit dies haushaltsrechtlich zulässig ist, die Verwendung der Mittel nach § 3 nicht beeinträchtigt wird und das Recht der Europäischen Union nicht entgegensteht."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Von der Geltendmachung einer Rückforderung kann ganz oder teilweise abgesehen werden, soweit dies haushaltsrechtlich zulässig ist, die Verwendung der Mittel nach § 3 nicht beeinträchtigt wird und das Recht der Europäischen Union nicht entgegensteht."
         }
       ]
     },
@@ -319,12 +347,14 @@
       "title": "Auflösung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Bei Auflösung des Sondervermögens fällt ein verbleibendes Vermögen dem Landeshaushalt zu."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Bei Auflösung des Sondervermögens fällt ein verbleibendes Vermögen dem Landeshaushalt zu."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Bei Auflösung bestehende Verpflichtungen sind abzuwickeln."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Bei Auflösung bestehende Verpflichtungen sind abzuwickeln."
         }
       ]
     }

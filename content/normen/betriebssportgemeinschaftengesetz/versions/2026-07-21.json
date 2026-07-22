@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -12,12 +12,14 @@
       "title": "Betriebssportgemeinschaft",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Eine Betriebssportgemeinschaft ist ein freiwilliger Zusammenschluss von Beschäftigten eines Arbeitgebers oder mehrerer Arbeitgeber zur gemeinsamen sportlichen Betätigung."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Eine Betriebssportgemeinschaft ist ein freiwilliger Zusammenschluss von Beschäftigten eines Arbeitgebers oder mehrerer Arbeitgeber zur gemeinsamen sportlichen Betätigung."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Betriebssportgemeinschaften können Familienangehörige von Beschäftigten aufnehmen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Betriebssportgemeinschaften können Familienangehörige von Beschäftigten aufnehmen."
         }
       ]
     },
@@ -27,16 +29,19 @@
       "title": "Öffentliche Arbeitgeber",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Öffentliche Arbeitgeber:innen des Freistaates sollen Betriebssportangebote ermöglichen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Öffentliche Arbeitgeber:innen des Freistaates sollen Betriebssportangebote ermöglichen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Landesbehörden, landesunmittelbare juristische Personen des öffentlichen Rechts und landeseigene Unternehmen mit regelmäßig mindestens 50 Beschäftigten haben Betriebssportangebote einzurichten oder sich an überbetrieblichen Betriebssportangeboten zu beteiligen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Landesbehörden, landesunmittelbare juristische Personen des öffentlichen Rechts und landeseigene Unternehmen mit regelmäßig mindestens 50 Beschäftigten haben Betriebssportangebote einzurichten oder sich an überbetrieblichen Betriebssportangeboten zu beteiligen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Angebote nach Absatz 2 können durch Dienstvereinbarung näher ausgestaltet werden."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Angebote nach Absatz 2 können durch Dienstvereinbarung näher ausgestaltet werden."
         }
       ]
     },
@@ -46,12 +51,14 @@
       "title": "Große private Arbeitgeber",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Private Arbeitgeber mit regelmäßig mindestens 250 Beschäftigten sollen Betriebssportangebote ermöglichen oder sich an überbetrieblichen Betriebssportangeboten beteiligen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Private Arbeitgeber mit regelmäßig mindestens 250 Beschäftigten sollen Betriebssportangebote ermöglichen oder sich an überbetrieblichen Betriebssportangeboten beteiligen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Private Arbeitgeber können für Betriebssportangebote Zuwendungen nach Maßgabe des Haushaltsplans erhalten."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Private Arbeitgeber können für Betriebssportangebote Zuwendungen nach Maßgabe des Haushaltsplans erhalten."
         }
       ]
     },
@@ -61,16 +68,19 @@
       "title": "Arbeitszeitgutschrift",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Beschäftigten öffentlicher Arbeitgeber:innen kann für anerkannten Präventionssport eine Arbeitszeitgutschrift von bis zu einer Stunde wöchentlich gewährt werden."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Beschäftigten öffentlicher Arbeitgeber:innen kann für anerkannten Präventionssport eine Arbeitszeitgutschrift von bis zu einer Stunde wöchentlich gewährt werden."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Arbeitszeitgutschrift setzt voraus, dass dienstliche Belange nicht entgegenstehen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Arbeitszeitgutschrift setzt voraus, dass dienstliche Belange nicht entgegenstehen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Das Nähere wird durch Dienstvereinbarung oder Verwaltungsvorschrift geregelt."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das Nähere wird durch Dienstvereinbarung oder Verwaltungsvorschrift geregelt."
         }
       ]
     },
@@ -80,12 +90,14 @@
       "title": "Betriebssportspiele",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Freistaat fördert jährliche Betriebssportspiele auf Kreis- und Bezirksebene."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Freistaat fördert jährliche Betriebssportspiele auf Kreis- und Bezirksebene."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Landesweite Betriebssportspiele werden alle zwei Jahre durchgeführt."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Landesweite Betriebssportspiele werden alle zwei Jahre durchgeführt."
         }
       ]
     },
@@ -95,12 +107,14 @@
       "title": "Ostdeutscher Betriebssportverband",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Freistaat fördert den Ostdeutschen Betriebssportverband."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Freistaat fördert den Ostdeutschen Betriebssportverband."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Ostdeutsche Betriebssportverband koordiniert Betriebssportgemeinschaften, Betriebssportspiele und Aus- und Fortbildungsangebote."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Ostdeutsche Betriebssportverband koordiniert Betriebssportgemeinschaften, Betriebssportspiele und Aus- und Fortbildungsangebote."
         }
       ]
     },
@@ -110,16 +124,19 @@
       "title": "Antidoping, Arbeitsschutz und Freiwilligkeit",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Teilnahme an Betriebssportangeboten ist freiwillig."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Teilnahme an Betriebssportangeboten ist freiwillig."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Aus der Nichtteilnahme dürfen keine arbeits- oder dienstrechtlichen Nachteile entstehen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Aus der Nichtteilnahme dürfen keine arbeits- oder dienstrechtlichen Nachteile entstehen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Betriebssportangebote sind unter Beachtung des Arbeitsschutzes, des Gesundheitsschutzes und der Integrität des Sports durchzuführen."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Betriebssportangebote sind unter Beachtung des Arbeitsschutzes, des Gesundheitsschutzes und der Integrität des Sports durchzuführen."
         }
       ]
     },

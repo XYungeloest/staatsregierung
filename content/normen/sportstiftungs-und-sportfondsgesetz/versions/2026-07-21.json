@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -12,12 +12,14 @@
       "title": "Errichtung, Rechtsform und Sitz",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Freistaat Ostdeutschland errichtet die Sportstiftung Ostdeutschland als rechtsfähige Stiftung des öffentlichen Rechts."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Freistaat Ostdeutschland errichtet die Sportstiftung Ostdeutschland als rechtsfähige Stiftung des öffentlichen Rechts."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Stiftung hat ihren Sitz in Magdeburg."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Stiftung hat ihren Sitz in Magdeburg."
         }
       ]
     },
@@ -27,12 +29,14 @@
       "title": "Aufgaben",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Sportstiftung Ost finanziert und fördert Maßnahmen des Breiten-, Kinder-, Jugend-, Nachwuchsleistungs- und Spitzensports sowie der Sportinfrastruktur im Freistaat Ostdeutschland."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Sportstiftung Ost finanziert und fördert Maßnahmen des Breiten-, Kinder-, Jugend-, Nachwuchsleistungs- und Spitzensports sowie der Sportinfrastruktur im Freistaat Ostdeutschland."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Sie fördert insbesondere"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Sie fördert insbesondere"
         },
         {
           "type": "item",
@@ -97,16 +101,19 @@
       "title": "Sportfonds Ost",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Bei der Sportstiftung Ost wird der Sportfonds Ost als rechtlich unselbständiger Sonderfonds eingerichtet."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Bei der Sportstiftung Ost wird der Sportfonds Ost als rechtlich unselbständiger Sonderfonds eingerichtet."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Mittel des Sportfonds Ost sind zweckgebunden für Aufgaben nach § 2 zu verwenden."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Mittel des Sportfonds Ost sind zweckgebunden für Aufgaben nach § 2 zu verwenden."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Stiftung führt für den Sportfonds Ost eine gesonderte Wirtschafts- und Vermögensrechnung."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Stiftung führt für den Sportfonds Ost eine gesonderte Wirtschafts- und Vermögensrechnung."
         }
       ]
     },
@@ -137,12 +144,14 @@
       "title": "Stiftungsrat",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Stiftungsrat überwacht den Vorstand und beschließt über die Grundsätze der Mittelverwendung."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Stiftungsrat überwacht den Vorstand und beschließt über die Grundsätze der Mittelverwendung."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Dem Stiftungsrat gehören an"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Dem Stiftungsrat gehören an"
         },
         {
           "type": "item",
@@ -187,12 +196,14 @@
       "title": "Vorstand",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Vorstand führt die Geschäfte der Sportstiftung Ost."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Vorstand führt die Geschäfte der Sportstiftung Ost."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Er wird vom Stiftungsrat mit Zustimmung des für Bildung zuständigen Staatsministeriums bestellt."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Er wird vom Stiftungsrat mit Zustimmung des für Bildung zuständigen Staatsministeriums bestellt."
         }
       ]
     },

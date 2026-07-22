@@ -101,7 +101,11 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
               <tr id={entry.id}>
                 <td>
                   <strong>{toDisplayText(entry.citation)}</strong>
-                  {entry.pages ? <span>Seiten {entry.pages}</span> : null}
+                  {entry.pages
+                    ? <span>Seiten {entry.pages}</span>
+                    : entry.startPage
+                      ? <span>Beginn auf Seite {entry.startPage}</span>
+                      : null}
                 </td>
                 <td>{toDisplayText(entry.title)}</td>
                 <td>{formatPublicationEntryType(entry.type)}</td>

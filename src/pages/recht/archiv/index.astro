@@ -18,7 +18,7 @@ const groups = getIndexGroups(norms);
 const keywordEntries = new Map<string, typeof norms>();
 
 for (const norm of norms) {
-  for (const rawKeyword of [norm.meta.abbr, norm.meta.shortTitle, ...norm.meta.keywords]) {
+  for (const rawKeyword of [norm.meta.abbr, norm.meta.shortTitle, ...norm.meta.keywords].filter(Boolean)) {
     const keyword = toDisplayText(rawKeyword).trim();
     if (!keyword || keyword.length < 2) {
       continue;
@@ -94,7 +94,7 @@ const keywordGroups = [...keywordEntries.entries()]
         {group.norms.map((norm) => (
           <li class="record-list__item">
             <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
-            <span>{norm.meta.abbr} · {formatNormType(norm.meta.type)}</span>
+            <span>{[norm.meta.abbr, formatNormType(norm.meta.type)].filter(Boolean).join(' · ')}</span>
           </li>
         ))}
       </ul>

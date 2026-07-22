@@ -56,7 +56,8 @@ const normTitle = toDisplayText(norm.meta.title);
 const normLabel = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
 const normStatusLabel = formatNormStatus(norm.meta.status);
 const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
-const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Status: ${normStatusLabel}. Ressort: ${toDisplayText(norm.meta.ministry)}.`;
+const responsibility = toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry);
+const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Status: ${normStatusLabel}.${responsibility ? ` Zuständiger Geschäftsbereich: ${responsibility}.` : ''}`;
 const [topics, pressReleases] = await Promise.all([loadTopics(), loadPressReleases()]);
 const relatedTopics = topics.filter((topic) =>
   topic.rechtsgrundlagen.some((entry) => entry.normSlug === norm.meta.slug),
@@ -97,7 +98,7 @@ const relatedPressReleases = pressReleases
         : `${normStatusLabel} seit ${formatDate(statusDate)}`}
     variant="law"
     facts={[
-      { label: 'Abkürzung', value: toDisplayText(norm.meta.abbr) },
+      ...(norm.meta.abbr ? [{ label: 'Abkürzung', value: toDisplayText(norm.meta.abbr) }] : []),
       { label: 'Normtyp', value: formatNormType(norm.meta.type) },
       { label: 'Fundstelle', value: toDisplayText(currentVersion.citation) },
     ]}

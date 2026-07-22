@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -12,12 +12,14 @@
       "title": "Errichtung, Rechtsform und Sitz",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Freistaat Ostdeutschland errichtet die Landesagentur Spitzensport Ost (LASpO) als rechtsfähige Anstalt des öffentlichen Rechts."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Freistaat Ostdeutschland errichtet die Landesagentur Spitzensport Ost (LASpO) als rechtsfähige Anstalt des öffentlichen Rechts."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Landesagentur hat ihren Sitz in Leipzig. Außenstellen können durch Satzung eingerichtet werden."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Landesagentur hat ihren Sitz in Leipzig. Außenstellen können durch Satzung eingerichtet werden."
         }
       ]
     },
@@ -27,12 +29,14 @@
       "title": "Aufgaben",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Landesagentur nimmt Aufgaben der Spitzensportförderung nach Maßgabe des Ostdeutschen Sportfördergesetzes wahr."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Landesagentur nimmt Aufgaben der Spitzensportförderung nach Maßgabe des Ostdeutschen Sportfördergesetzes wahr."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Sie ist insbesondere zuständig für"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Sie ist insbesondere zuständig für"
         },
         {
           "type": "item",
@@ -118,12 +122,14 @@
       "title": "Verwaltungsrat",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Verwaltungsrat überwacht den Vorstand."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Verwaltungsrat überwacht den Vorstand."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Dem Verwaltungsrat gehören an"
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Dem Verwaltungsrat gehören an"
         },
         {
           "type": "item",
@@ -161,12 +167,14 @@
           "text": "ein:e Vertreter:in der kommunalen Spitzenverbände."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Den Vorsitz führt ein:e Vertreter:in der obersten Sportbehörde."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Den Vorsitz führt ein:e Vertreter:in der obersten Sportbehörde."
         },
         {
-          "type": "paragraphText",
-          "text": "(4) Das Nähere regelt die Satzung."
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Das Nähere regelt die Satzung."
         }
       ]
     },
@@ -176,16 +184,19 @@
       "title": "Vorstand",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Der Vorstand leitet die Landesagentur."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Vorstand leitet die Landesagentur."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Vorstand besteht aus einem oder mehreren Mitgliedern."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Vorstand besteht aus einem oder mehreren Mitgliedern."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Mitglieder des Vorstandes werden vom Verwaltungsrat mit Zustimmung der obersten Sportbehörde bestellt."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Mitglieder des Vorstandes werden vom Verwaltungsrat mit Zustimmung der obersten Sportbehörde bestellt."
         }
       ]
     },
@@ -195,16 +206,19 @@
       "title": "Satzung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Landesagentur gibt sich eine Satzung."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Landesagentur gibt sich eine Satzung."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Die Satzung bedarf der Genehmigung der obersten Sportbehörde im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Satzung bedarf der Genehmigung der obersten Sportbehörde im Einvernehmen mit dem für Finanzen zuständigen Staatsministerium."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Die Satzung regelt insbesondere"
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Satzung regelt insbesondere"
         },
         {
           "type": "item",
@@ -249,12 +263,14 @@
       "title": "Aufsicht",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Die Landesagentur untersteht der Rechtsaufsicht der obersten Sportbehörde."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Landesagentur untersteht der Rechtsaufsicht der obersten Sportbehörde."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Soweit die Landesagentur staatliche Aufgaben wahrnimmt, unterliegt sie der Fachaufsicht der obersten Sportbehörde."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Soweit die Landesagentur staatliche Aufgaben wahrnimmt, unterliegt sie der Fachaufsicht der obersten Sportbehörde."
         }
       ]
     }

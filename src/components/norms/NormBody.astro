@@ -103,6 +103,27 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               {block.type === 'paragraphText' ? (
                 <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
               ) : null}
+
+              {block.type === 'subparagraph' ? (
+                <p class="norm-subparagraph">
+                  {block.label ? <span class="norm-subparagraph__label">{toDisplayText(block.label)}</span> : null}
+                  <span set:html={renderLinkedDisplayText(block.text, references)} />
+                </p>
+              ) : null}
+
+              {block.type === 'table' ? (
+                <div class="table-wrap norm-table-wrap" tabindex="0" role="region" aria-label={block.title ?? 'Tabelle im Normtext'}>
+                  <table class="norm-table">
+                    {block.children?.map((row) => (
+                      <tr>
+                        {row.children?.map((cell) => (
+                          <td set:html={renderLinkedDisplayText(cell.text, references)} />
+                        ))}
+                      </tr>
+                    ))}
+                  </table>
+                </div>
+              ) : null}
             </Fragment>
           );
         })()

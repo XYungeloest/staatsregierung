@@ -63,9 +63,9 @@ summary:focus-visible {
 }
 
 .site-wordmark__media img {
-  width: 3.35rem;
-  height: 2.55rem;
-  object-fit: cover;
+  width: 3.05rem;
+  height: 3.55rem;
+  object-fit: contain;
 }
 
 .site-wordmark__text {
@@ -354,9 +354,9 @@ summary:focus-visible {
 }
 
 .site-footer__wordmark img {
-  width: 2.75rem;
-  height: 2.05rem;
-  object-fit: cover;
+  width: 2.3rem;
+  height: 2.7rem;
+  object-fit: contain;
 }
 
 .site-footer__identity > p {
@@ -537,8 +537,8 @@ summary:focus-visible {
   }
 
   .site-wordmark__media img {
-    width: 2.65rem;
-    height: 2rem;
+    width: 2.35rem;
+    height: 2.75rem;
   }
 
   .site-wordmark .site-title {

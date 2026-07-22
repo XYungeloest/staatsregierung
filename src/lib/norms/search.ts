@@ -213,7 +213,7 @@ function buildSearchDocument(
     abbr: toDisplayText(record.meta.abbr),
     type: record.meta.type,
     typeLabel: formatNormType(record.meta.type),
-    ministry: toDisplayText(record.meta.ministry),
+    ministry: toDisplayText(record.meta.responsibleMinistry ?? record.meta.ministry ?? record.meta.enactingBody),
     subjects: record.meta.subjects.map((subject) => toDisplayText(subject)),
     keywords: record.meta.keywords.map((keyword) => toDisplayText(keyword)),
     status: record.meta.status,
@@ -248,7 +248,8 @@ function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
 
   for (const record of records) {
     types.set(record.meta.type, formatNormType(record.meta.type));
-    ministries.add(toDisplayText(record.meta.ministry));
+    const responsibility = toDisplayText(record.meta.responsibleMinistry ?? record.meta.ministry);
+    if (responsibility) ministries.add(responsibility);
     statuses.set(record.meta.status, formatNormStatus(record.meta.status));
 
     for (const subject of record.meta.subjects) {

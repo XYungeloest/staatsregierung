@@ -25,6 +25,7 @@ export const siteConfig = {
   footerNote: 'Website des Staatsrates des Ostdeutschen Freistaates mit integriertem Rechtsbereich.',
   officialFlagAssetPath: '/images/ui/ost-flagge.png',
   officialFlagSmallAssetPath: '/images/generated/ui/ost-flagge-480.webp',
+  officialCoatOfArmsAssetPath: '/assets/Neues Wappen.png',
   officialFlagText: 'OF',
   searchLabel: 'Portal durchsuchen',
   searchPlaceholder: 'z. B. Thema, Ressort, Recht oder Presse',

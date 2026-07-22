@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 49 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 49)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -12,12 +12,14 @@
       "title": "Errichtung des Sondervermögens",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Es wird ein Sondervermögen des Freistaates Ostdeutschland mit der Bezeichnung „Sondervermögen Energie- und Wärmevergesellschaftung“ errichtet."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Es wird ein Sondervermögen des Freistaates Ostdeutschland mit der Bezeichnung „Sondervermögen Energie- und Wärmevergesellschaftung“ errichtet."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Das Sondervermögen ist nicht rechtsfähig. Es wird vom Staatsministerium der Finanzen verwaltet."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Das Sondervermögen ist nicht rechtsfähig. Es wird vom Staatsministerium der Finanzen verwaltet."
         }
       ]
     },
@@ -119,16 +121,19 @@
       "title": "Kredit- und Garantieermächtigung",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Das Staatsministerium der Finanzen wird ermächtigt, für das Sondervermögen Kredite aufzunehmen, soweit dies zur Erfüllung der Zwecke nach § 2 erforderlich ist."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das Staatsministerium der Finanzen wird ermächtigt, für das Sondervermögen Kredite aufzunehmen, soweit dies zur Erfüllung der Zwecke nach § 2 erforderlich ist."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Freistaat Ostdeutschland kann Garantien, Bürgschaften und Gewährleistungen für Schuldverschreibungen und Finanzierungsinstrumente der Ostdeutsche Netze und der Landesenergiewerke Ost übernehmen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Freistaat Ostdeutschland kann Garantien, Bürgschaften und Gewährleistungen für Schuldverschreibungen und Finanzierungsinstrumente der Ostdeutsche Netze und der Landesenergiewerke Ost übernehmen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Das Haushaltsgesetz bestimmt für jedes Haushaltsjahr die Höchstbeträge der Kreditaufnahme, der Verpflichtungsermächtigungen sowie der Garantien, Bürgschaften und Gewährleistungen nach diesem Gesetz."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Das Haushaltsgesetz bestimmt für jedes Haushaltsjahr die Höchstbeträge der Kreditaufnahme, der Verpflichtungsermächtigungen sowie der Garantien, Bürgschaften und Gewährleistungen nach diesem Gesetz."
         }
       ]
     },
@@ -138,16 +143,19 @@
       "title": "Wirtschaftsplan",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "(1) Für das Sondervermögen ist für jedes Haushaltsjahr ein Wirtschaftsplan aufzustellen."
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Für das Sondervermögen ist für jedes Haushaltsjahr ein Wirtschaftsplan aufzustellen."
         },
         {
-          "type": "paragraphText",
-          "text": "(2) Der Wirtschaftsplan ist dem Haushaltsplan als Anlage beizufügen."
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Wirtschaftsplan ist dem Haushaltsplan als Anlage beizufügen."
         },
         {
-          "type": "paragraphText",
-          "text": "(3) Der Wirtschaftsplan hat eine mehrjährige Finanzierungsübersicht zu enthalten. Diese umfasst insbesondere die voraussichtlichen Entschädigungsleistungen, Investitionsausgaben, Transformationskosten, Schuldendienstleistungen und Rückflüsse."
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Der Wirtschaftsplan hat eine mehrjährige Finanzierungsübersicht zu enthalten. Diese umfasst insbesondere die voraussichtlichen Entschädigungsleistungen, Investitionsausgaben, Transformationskosten, Schuldendienstleistungen und Rückflüsse."
         }
       ]
     }

@@ -3,7 +3,7 @@
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 47 S. 2)",
+  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 47)",
   "changeNote": "Eingeführte Stammfassung.",
   "body": [
     {
@@ -17,20 +17,24 @@
           "title": "Gegenstand und Zweck des Gesetzes",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Dieses Gesetz überführt private Verkehrsproduktionsmittel in Gemeineigentum zum Zweck der gemeinwirtschaftlichen Sicherstellung eines zuverlässigen, bezahlbaren, barrierefreien, flächendeckenden und klimaverträglichen öffentlichen Personenverkehrs sowie eines landesbedeutsamen Schienengüterverkehrs im Freistaat Ostdeutschland."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Dieses Gesetz überführt private Verkehrsproduktionsmittel in Gemeineigentum zum Zweck der gemeinwirtschaftlichen Sicherstellung eines zuverlässigen, bezahlbaren, barrierefreien, flächendeckenden und klimaverträglichen öffentlichen Personenverkehrs sowie eines landesbedeutsamen Schienengüterverkehrs im Freistaat Ostdeutschland."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Dieses Gesetz ist ein Anwendungsgesetz im Sinne des Vergesellschaftungsrahmengesetzes."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Dieses Gesetz ist ein Anwendungsgesetz im Sinne des Vergesellschaftungsrahmengesetzes."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Überführung erfolgt zugunsten der Ostdeutschen Eisenbahn als Trägerin des Gemeineigentums."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Überführung erfolgt zugunsten der Ostdeutschen Eisenbahn als Trägerin des Gemeineigentums."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Zweck der Vergesellschaftung ist die unmittelbare Deckung des öffentlichen Bedarfs an Mobilität als Leistung der Daseinsvorsorge ohne privatnützige Gewinnerzielungsabsicht."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Zweck der Vergesellschaftung ist die unmittelbare Deckung des öffentlichen Bedarfs an Mobilität als Leistung der Daseinsvorsorge ohne privatnützige Gewinnerzielungsabsicht."
             }
           ]
         },
@@ -58,16 +62,19 @@
           "title": "Unternehmen, Unternehmensverbund und Beherrschung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Unternehmen im Sinne dieses Gesetzes sind natürliche Personen, juristische Personen des Privatrechts und rechtsfähige Personengesellschaften des Privatrechts."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Unternehmen im Sinne dieses Gesetzes sind natürliche Personen, juristische Personen des Privatrechts und rechtsfähige Personengesellschaften des Privatrechts."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Ein übergeordnetes Unternehmen ist ein Unternehmen, das unmittelbar oder mittelbar beherrschenden Einfluss auf ein anderes Unternehmen ausübt."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Ein übergeordnetes Unternehmen ist ein Unternehmen, das unmittelbar oder mittelbar beherrschenden Einfluss auf ein anderes Unternehmen ausübt."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Beherrschender Einfluss liegt insbesondere vor, wenn ein Unternehmen"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Beherrschender Einfluss liegt insbesondere vor, wenn ein Unternehmen"
             },
             {
               "type": "item",
@@ -90,12 +97,14 @@
               "text": "tatsächlich die wirtschaftliche oder organisatorische Leitung eines anderen Unternehmens ausübt."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Unternehmensverbund ist die Gesamtheit der durch Über- und Unterordnung verbundenen Unternehmen. Maßgeblich ist der Unternehmensverbund des obersten herrschenden Unternehmens."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Unternehmensverbund ist die Gesamtheit der durch Über- und Unterordnung verbundenen Unternehmen. Maßgeblich ist der Unternehmensverbund des obersten herrschenden Unternehmens."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Verkehrsleistungen, Verkehrsproduktionsmittel, Beschäftigte, Rechte und Pflichten eines untergeordneten Unternehmens werden dem Unternehmensverbund zugerechnet."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Verkehrsleistungen, Verkehrsproduktionsmittel, Beschäftigte, Rechte und Pflichten eines untergeordneten Unternehmens werden dem Unternehmensverbund zugerechnet."
             }
           ]
         },
@@ -105,8 +114,9 @@
           "title": "Private Verkehrsunternehmen",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Privates Verkehrsunternehmen ist ein Unternehmen, das im Gebiet des Freistaates Ostdeutschland öffentliche Personenverkehrsleistungen oder landesbedeutsame Schienengüterverkehrsleistungen erbringt und nicht unmittelbar oder mittelbar mehrheitlich im Eigentum"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Privates Verkehrsunternehmen ist ein Unternehmen, das im Gebiet des Freistaates Ostdeutschland öffentliche Personenverkehrsleistungen oder landesbedeutsame Schienengüterverkehrsleistungen erbringt und nicht unmittelbar oder mittelbar mehrheitlich im Eigentum"
             },
             {
               "type": "item",
@@ -153,8 +163,9 @@
               "text": "steht."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Ein Unternehmen gilt auch dann als privat, wenn öffentliche Stellen nur Minderheitsbeteiligungen halten und kein beherrschender öffentlicher Einfluss besteht."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Ein Unternehmen gilt auch dann als privat, wenn öffentliche Stellen nur Minderheitsbeteiligungen halten und kein beherrschender öffentlicher Einfluss besteht."
             }
           ]
         },
@@ -164,8 +175,9 @@
           "title": "Verkehrsleistungen",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Öffentliche Personenverkehrsleistungen im Sinne dieses Gesetzes sind Verkehrsleistungen"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Öffentliche Personenverkehrsleistungen im Sinne dieses Gesetzes sind Verkehrsleistungen"
             },
             {
               "type": "item",
@@ -197,8 +209,9 @@
               "text": "soweit sie der allgemeinen öffentlichen Personenbeförderung dienen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Landesbedeutsame Schienengüterverkehrsleistungen sind Güterverkehrsleistungen auf der Schiene, die"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Landesbedeutsame Schienengüterverkehrsleistungen sind Güterverkehrsleistungen auf der Schiene, die"
             },
             {
               "type": "item",
@@ -235,8 +248,9 @@
               "text": "dienen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Landesbedeutsamkeit im Sinne des Absatzes 2 liegt insbesondere vor, wenn der Unternehmensverbund am Bestandsstichtag im Gebiet des Freistaates Ostdeutschland"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Landesbedeutsamkeit im Sinne des Absatzes 2 liegt insbesondere vor, wenn der Unternehmensverbund am Bestandsstichtag im Gebiet des Freistaates Ostdeutschland"
             },
             {
               "type": "item",
@@ -264,8 +278,9 @@
               "text": "für die Versorgungssicherheit eines Bezirks oder mehrerer Bezirke von erheblicher Bedeutung ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Nicht erfasst sind"
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Nicht erfasst sind"
             },
             {
               "type": "item",
@@ -290,12 +305,14 @@
           "title": "Verkehrsleistungsbestand",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Verkehrsleistungsbestand eines Unternehmensverbundes ist die Gesamtheit der öffentlichen Personenverkehrsleistungen und landesbedeutsamen Schienengüterverkehrsleistungen, die ihm im Gebiet des Freistaates Ostdeutschland zuzurechnen sind."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Verkehrsleistungsbestand eines Unternehmensverbundes ist die Gesamtheit der öffentlichen Personenverkehrsleistungen und landesbedeutsamen Schienengüterverkehrsleistungen, die ihm im Gebiet des Freistaates Ostdeutschland zuzurechnen sind."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Verkehrsleistungsbestand wird bestimmt nach"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Verkehrsleistungsbestand wird bestimmt nach"
             },
             {
               "type": "item",
@@ -338,8 +355,9 @@
               "text": "der Zahl der Bezirke, in denen Verkehrsleistungen erbracht werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Verkehrsleistungen sind einem Unternehmensverbund zuzurechnen, wenn ein Unternehmen des Verbundes"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Verkehrsleistungen sind einem Unternehmensverbund zuzurechnen, wenn ein Unternehmen des Verbundes"
             },
             {
               "type": "item",
@@ -374,12 +392,14 @@
           "title": "Verkehrsproduktionsmittel",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Verkehrsproduktionsmittel sind Sachen, Rechte, Nutzungsrechte, Vertragspositionen, technische Systeme, Datenbestände und sonstige wirtschaftliche Vermögenswerte, die zur Erbringung öffentlicher Personenverkehrsleistungen sowie eines landesbedeutsamen Schienengüterverkehrs erforderlich sind."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Verkehrsproduktionsmittel sind Sachen, Rechte, Nutzungsrechte, Vertragspositionen, technische Systeme, Datenbestände und sonstige wirtschaftliche Vermögenswerte, die zur Erbringung öffentlicher Personenverkehrsleistungen sowie eines landesbedeutsamen Schienengüterverkehrs erforderlich sind."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Verkehrsproduktionsmittel sind insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Verkehrsproduktionsmittel sind insbesondere"
             },
             {
               "type": "item",
@@ -427,8 +447,9 @@
               "text": "betriebsnotwendige gewerbliche Schutzrechte und Markenrechte."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Betriebsnotwendig sind Verkehrsproduktionsmittel, wenn sie am Bestandsstichtag überwiegend oder wesentlich der Erbringung öffentlicher Personenverkehrsleistungen oder landesbedeutsamer Schienengüterverkehrsleistungen im Gebiet des Freistaates Ostdeutschland dienen oder hierfür vorgehalten werden."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Betriebsnotwendig sind Verkehrsproduktionsmittel, wenn sie am Bestandsstichtag überwiegend oder wesentlich der Erbringung öffentlicher Personenverkehrsleistungen oder landesbedeutsamer Schienengüterverkehrsleistungen im Gebiet des Freistaates Ostdeutschland dienen oder hierfür vorgehalten werden."
             }
           ]
         },
@@ -456,8 +477,9 @@
           "title": "Überführung privater Verkehrsproduktionsmittel",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Hat ein privater Verkehrsunternehmensverbund am Bestandsstichtag im Gebiet des Freistaates Ostdeutschland"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Hat ein privater Verkehrsunternehmensverbund am Bestandsstichtag im Gebiet des Freistaates Ostdeutschland"
             },
             {
               "type": "item",
@@ -484,16 +506,19 @@
               "text": "erbracht, so sind seine betriebsnotwendigen Verkehrsproduktionsmittel mit dem Überführungsstichtag in Gemeineigentum überführt."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Voraussetzung der Überführung nach Absatz 1 ist, dass die Verkehrsleistungen des Unternehmensverbundes überwiegend aufgrund öffentlicher Dienstleistungsaufträge, Verkehrsverträge, öffentlicher Zuschüsse, Ausgleichszahlungen, Tarifausgleiche oder sonstiger öffentlicher Finanzierung erbracht werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Voraussetzung der Überführung nach Absatz 1 ist, dass die Verkehrsleistungen des Unternehmensverbundes überwiegend aufgrund öffentlicher Dienstleistungsaufträge, Verkehrsverträge, öffentlicher Zuschüsse, Ausgleichszahlungen, Tarifausgleiche oder sonstiger öffentlicher Finanzierung erbracht werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Überführung nach Absatz 1 erfasst nur Verkehrsproduktionsmittel, die dem öffentlichen Personenverkehr im Gebiet des Freistaates Ostdeutschland zugeordnet sind."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Überführung nach Absatz 1 erfasst nur Verkehrsproduktionsmittel, die dem öffentlichen Personenverkehr im Gebiet des Freistaates Ostdeutschland zugeordnet sind."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Hat ein privater Eisenbahnverkehrsunternehmensverbund am Bestandsstichtag im Gebiet des Freistaates Ostdeutschland landesbedeutsame Schienengüterverkehrsleistungen nach § 5 Absatz 2 erbracht, so sind seine betriebsnotwendigen Verkehrsproduktionsmittel mit dem Überführungsstichtag in Gemeineigentum überführt, wenn"
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Hat ein privater Eisenbahnverkehrsunternehmensverbund am Bestandsstichtag im Gebiet des Freistaates Ostdeutschland landesbedeutsame Schienengüterverkehrsleistungen nach § 5 Absatz 2 erbracht, so sind seine betriebsnotwendigen Verkehrsproduktionsmittel mit dem Überführungsstichtag in Gemeineigentum überführt, wenn"
             },
             {
               "type": "item",
@@ -511,12 +536,14 @@
               "text": "der Unternehmensverbund Schienengüterverkehrsleistungen aufgrund einer öffentlichen Vereinbarung, Förderbindung, Krisenvorsorgeplanung, Katastrophenschutzplanung oder sonstigen gemeinwohlbezogenen Verpflichtung erbringt."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die Überführung nach Absatz 4 erfasst nur Verkehrsproduktionsmittel, die dem landesbedeutsamen Schienengüterverkehr im Gebiet des Freistaates Ostdeutschland eindeutig, überwiegend und betriebsnotwendig zugeordnet sind."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Überführung nach Absatz 4 erfasst nur Verkehrsproduktionsmittel, die dem landesbedeutsamen Schienengüterverkehr im Gebiet des Freistaates Ostdeutschland eindeutig, überwiegend und betriebsnotwendig zugeordnet sind."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Nicht nach Absatz 4 überführt werden Verkehrsproduktionsmittel, die ausschließlich"
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Nicht nach Absatz 4 überführt werden Verkehrsproduktionsmittel, die ausschließlich"
             },
             {
               "type": "item",
@@ -544,12 +571,14 @@
               "text": "Güterverkehrsleistungen dienen, deren Unterbrechung keine erheblichen Auswirkungen auf Versorgungssicherheit, kritische Infrastruktur, Klimaschutz, regionale Wirtschaftsstruktur oder öffentliche Daseinsvorsorge hätte."
             },
             {
-              "type": "paragraphText",
-              "text": "(7) Verkehrsproduktionsmittel, die überwiegend außerhalb des Freistaates Ostdeutschland eingesetzt werden, werden nicht überführt, es sei denn, sie sind für den geordneten Weiterbetrieb der im Freistaat erbrachten Verkehrsleistungen unabdingbar und dem Verkehrsleistungsbestand nach § 6 eindeutig zuzurechnen."
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Verkehrsproduktionsmittel, die überwiegend außerhalb des Freistaates Ostdeutschland eingesetzt werden, werden nicht überführt, es sei denn, sie sind für den geordneten Weiterbetrieb der im Freistaat erbrachten Verkehrsleistungen unabdingbar und dem Verkehrsleistungsbestand nach § 6 eindeutig zuzurechnen."
             },
             {
-              "type": "paragraphText",
-              "text": "(8) Die Überführung erfolgt kraft Gesetzes. Ein Verwaltungsakt zur Begründung der Überführung ist nicht erforderlich."
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Die Überführung erfolgt kraft Gesetzes. Ein Verwaltungsakt zur Begründung der Überführung ist nicht erforderlich."
             }
           ]
         },
@@ -559,24 +588,29 @@
           "title": "Umgehungsschutz und nicht erfasste Kleinbetriebe",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Von der Überführung nach § 9 Absatz 1 sind Verkehrsproduktionsmittel ausgenommen, soweit sie nicht dem öffentlichen Personenverkehr im Gebiet des Freistaates Ostdeutschland zugeordnet sind."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Von der Überführung nach § 9 Absatz 1 sind Verkehrsproduktionsmittel ausgenommen, soweit sie nicht dem öffentlichen Personenverkehr im Gebiet des Freistaates Ostdeutschland zugeordnet sind."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Von der Überführung nach § 9 Absatz 4 sind Verkehrsproduktionsmittel ausgenommen, soweit sie nicht dem landesbedeutsamen Schienengüterverkehr im Gebiet des Freistaates Ostdeutschland zugeordnet sind."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Von der Überführung nach § 9 Absatz 4 sind Verkehrsproduktionsmittel ausgenommen, soweit sie nicht dem landesbedeutsamen Schienengüterverkehr im Gebiet des Freistaates Ostdeutschland zugeordnet sind."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Verkehrsproduktionsmittel kleiner und mittlerer Verkehrsunternehmen werden nicht überführt, soweit der Unternehmensverbund die Voraussetzungen nach § 9 Absatz 1 oder Absatz 4 nicht erfüllt."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Verkehrsproduktionsmittel kleiner und mittlerer Verkehrsunternehmen werden nicht überführt, soweit der Unternehmensverbund die Voraussetzungen nach § 9 Absatz 1 oder Absatz 4 nicht erfüllt."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Abweichend von Absatz 3 sind Verkehrsproduktionsmittel zu überführen, wenn der Unternehmensverbund durch Aufspaltung, Ausgliederung, Subunternehmerkonstruktion, konzerninterne Verlagerung oder sonstige Gestaltung nur deshalb unterhalb der Schwellenwerte bleibt, um die Anwendung dieses Gesetzes zu vermeiden."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Abweichend von Absatz 3 sind Verkehrsproduktionsmittel zu überführen, wenn der Unternehmensverbund durch Aufspaltung, Ausgliederung, Subunternehmerkonstruktion, konzerninterne Verlagerung oder sonstige Gestaltung nur deshalb unterhalb der Schwellenwerte bleibt, um die Anwendung dieses Gesetzes zu vermeiden."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Verkehrsleistungen verbundener Unternehmen, konzerninterner Betreiber, Betriebsführungsgesellschaften und abhängiger Subunternehmer sind zusammenzurechnen."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Verkehrsleistungen verbundener Unternehmen, konzerninterner Betreiber, Betriebsführungsgesellschaften und abhängiger Subunternehmer sind zusammenzurechnen."
             }
           ]
         },
@@ -586,12 +620,14 @@
           "title": "Überführungsstichtag",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Überführungsstichtag ist der 1. Juli 2026."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Überführungsstichtag ist der 1. Juli 2026."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der spätere Wegfall der Voraussetzungen nach § 9 lässt die Überführung unberührt."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der spätere Wegfall der Voraussetzungen nach § 9 lässt die Überführung unberührt."
             }
           ]
         },
@@ -601,12 +637,14 @@
           "title": "Feststellungsbescheid",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Vergesellschaftungsbehörde stellt für jeden von § 9 betroffenen Unternehmensverbund den am Bestandsstichtag bestehenden Verkehrsleistungsbestand und die überführten Verkehrsproduktionsmittel fest."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Vergesellschaftungsbehörde stellt für jeden von § 9 betroffenen Unternehmensverbund den am Bestandsstichtag bestehenden Verkehrsleistungsbestand und die überführten Verkehrsproduktionsmittel fest."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Feststellungsbescheid bezeichnet insbesondere"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Feststellungsbescheid bezeichnet insbesondere"
             },
             {
               "type": "item",
@@ -669,8 +707,9 @@
               "text": "den Überführungsstichtag."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Der Feststellungsbescheid hat nur feststellende Wirkung. Die Überführung erfolgt unmittelbar durch dieses Gesetz."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Feststellungsbescheid hat nur feststellende Wirkung. Die Überführung erfolgt unmittelbar durch dieses Gesetz."
             }
           ]
         }
@@ -687,24 +726,29 @@
           "title": "Vergesellschaftungsbehörde",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Vergesellschaftungsbehörde ist das zuständige Staatsministerium."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Vergesellschaftungsbehörde ist das zuständige Staatsministerium."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Soweit dieses Gesetz nichts anderes bestimmt, führt die Vergesellschaftungsbehörde dieses Gesetz aus."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Soweit dieses Gesetz nichts anderes bestimmt, führt die Vergesellschaftungsbehörde dieses Gesetz aus."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Vergesellschaftungsbehörde beteiligt andere Staatsministerien, soweit deren Geschäftsbereich berührt ist."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Vergesellschaftungsbehörde beteiligt andere Staatsministerien, soweit deren Geschäftsbereich berührt ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Vergesellschaftungsbehörde kann sich zur Durchführung dieses Gesetzes der Ostdeutschen Eisenbahn bedienen. Hoheitliche Entscheidungen bleiben der Vergesellschaftungsbehörde vorbehalten."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Vergesellschaftungsbehörde kann sich zur Durchführung dieses Gesetzes der Ostdeutschen Eisenbahn bedienen. Hoheitliche Entscheidungen bleiben der Vergesellschaftungsbehörde vorbehalten."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die Vergesellschaftungsbehörde kann durch Rechtsverordnung nähere Bestimmungen über Verfahren, Form der Mitwirkung, vorzulegende Unterlagen, elektronische Datenübermittlung und Fristen treffen, soweit dadurch keine über dieses Gesetz hinausgehende Vergesellschaftung begründet wird."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Vergesellschaftungsbehörde kann durch Rechtsverordnung nähere Bestimmungen über Verfahren, Form der Mitwirkung, vorzulegende Unterlagen, elektronische Datenübermittlung und Fristen treffen, soweit dadurch keine über dieses Gesetz hinausgehende Vergesellschaftung begründet wird."
             }
           ]
         },
@@ -714,16 +758,19 @@
           "title": "Mitteilung der gesetzlichen Überführung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Vergesellschaftungsbehörde unterrichtet die betroffenen Unternehmensverbünde, Eigentümer:innen, Nebenberechtigten, Aufgabenträgerinnen und sonstigen bekannten Betroffenen über Art und Umfang der gesetzlichen Überführung."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Vergesellschaftungsbehörde unterrichtet die betroffenen Unternehmensverbünde, Eigentümer:innen, Nebenberechtigten, Aufgabenträgerinnen und sonstigen bekannten Betroffenen über Art und Umfang der gesetzlichen Überführung."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Mitteilung hat keine rechtsbegründende Wirkung."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Mitteilung hat keine rechtsbegründende Wirkung."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Unterbleibt eine Mitteilung oder ist sie fehlerhaft, berührt dies die gesetzliche Überführung nach § 9 nicht."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Unterbleibt eine Mitteilung oder ist sie fehlerhaft, berührt dies die gesetzliche Überführung nach § 9 nicht."
             }
           ]
         },
@@ -733,12 +780,14 @@
           "title": "Auskunfts-, Mitwirkungs- und Duldungspflichten",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Betroffene Unternehmensverbünde, die ihnen angehörenden Unternehmen, Eigentümer:innen, Besitzer:innen, Nebenberechtigte, Aufgabenträger, Verkehrsunternehmen, Leasinggeber, Vermieter, Verpächter, Wartungsunternehmen, IT-Dienstleister und sonstige Personen, deren Rechte oder Pflichten durch dieses Gesetz berührt werden können, haben der Vergesellschaftungsbehörde und der Ostdeutschen Eisenbahn die zur Durchführung dieses Gesetzes erforderlichen Auskünfte zu erteilen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Betroffene Unternehmensverbünde, die ihnen angehörenden Unternehmen, Eigentümer:innen, Besitzer:innen, Nebenberechtigte, Aufgabenträger, Verkehrsunternehmen, Leasinggeber, Vermieter, Verpächter, Wartungsunternehmen, IT-Dienstleister und sonstige Personen, deren Rechte oder Pflichten durch dieses Gesetz berührt werden können, haben der Vergesellschaftungsbehörde und der Ostdeutschen Eisenbahn die zur Durchführung dieses Gesetzes erforderlichen Auskünfte zu erteilen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Auskunftspflicht umfasst insbesondere Angaben über"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Auskunftspflicht umfasst insbesondere Angaben über"
             },
             {
               "type": "item",
@@ -801,28 +850,34 @@
               "text": "Ersatzteile, Vorräte, Werkzeuge und technische Ausrüstung."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die nach Absatz 1 Verpflichteten haben auf Anforderung Unterlagen vorzulegen, elektronische Daten zu übermitteln und Einsicht in Geschäftsbücher, Verträge, technische Dokumentationen, Betriebsunterlagen und sonstige geschäftliche Unterlagen zu gewähren."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die nach Absatz 1 Verpflichteten haben auf Anforderung Unterlagen vorzulegen, elektronische Daten zu übermitteln und Einsicht in Geschäftsbücher, Verträge, technische Dokumentationen, Betriebsunterlagen und sonstige geschäftliche Unterlagen zu gewähren."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Beauftragte der Vergesellschaftungsbehörde und der Ostdeutschen Eisenbahn dürfen während der üblichen Geschäfts- und Betriebszeiten Grundstücke, Geschäftsräume, Betriebsräume, Fahrzeuge, Werkstätten, Depots, Abstellanlagen, Leitstellen und sonstige Betriebsanlagen betreten, soweit dies zur Durchführung dieses Gesetzes erforderlich ist."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Beauftragte der Vergesellschaftungsbehörde und der Ostdeutschen Eisenbahn dürfen während der üblichen Geschäfts- und Betriebszeiten Grundstücke, Geschäftsräume, Betriebsräume, Fahrzeuge, Werkstätten, Depots, Abstellanlagen, Leitstellen und sonstige Betriebsanlagen betreten, soweit dies zur Durchführung dieses Gesetzes erforderlich ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die nach Absatz 1 Verpflichteten haben Besichtigungen, Prüfungen, technische Aufnahmen, Inventarisierungen, Datensicherungen und Funktionsprüfungen zu dulden."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die nach Absatz 1 Verpflichteten haben Besichtigungen, Prüfungen, technische Aufnahmen, Inventarisierungen, Datensicherungen und Funktionsprüfungen zu dulden."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Die Verarbeitung personenbezogener Daten ist zulässig, soweit sie zur Durchführung dieses Gesetzes, zur Sicherung der Betriebskontinuität, zur Vorbereitung des Personalübergangs, zur Entschädigung oder zur Erfüllung bundesrechtlicher Genehmigungs- und Zulassungserfordernisse erforderlich ist."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die Verarbeitung personenbezogener Daten ist zulässig, soweit sie zur Durchführung dieses Gesetzes, zur Sicherung der Betriebskontinuität, zur Vorbereitung des Personalübergangs, zur Entschädigung oder zur Erfüllung bundesrechtlicher Genehmigungs- und Zulassungserfordernisse erforderlich ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(7) Geschäfts- und Betriebsgeheimnisse sind zu wahren. Sie stehen der Auskunfts-, Mitwirkungs- und Duldungspflicht nicht entgegen, soweit die Kenntnis zur Durchführung dieses Gesetzes erforderlich ist."
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Geschäfts- und Betriebsgeheimnisse sind zu wahren. Sie stehen der Auskunfts-, Mitwirkungs- und Duldungspflicht nicht entgegen, soweit die Kenntnis zur Durchführung dieses Gesetzes erforderlich ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(8) Durch die Absätze 4 bis 6 wird das Grundrecht der Unverletzlichkeit der Wohnung eingeschränkt, soweit Geschäftsräume, Betriebsräume, Betriebsgrundstücke und sonstige nicht zu Wohnzwecken genutzte Räume betroffen sind."
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Durch die Absätze 4 bis 6 wird das Grundrecht der Unverletzlichkeit der Wohnung eingeschränkt, soweit Geschäftsräume, Betriebsräume, Betriebsgrundstücke und sonstige nicht zu Wohnzwecken genutzte Räume betroffen sind."
             }
           ]
         },
@@ -832,12 +887,14 @@
           "title": "Sicherung der Überführung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Ab dem Inkrafttreten dieses Gesetzes bis zur Besitzüberleitung dürfen keine Rechtsgeschäfte, Maßnahmen oder Unterlassungen vorgenommen werden, die den Vollzug der gesetzlichen Überführung vereiteln, erschweren, verzögern oder den Wert, die Nutzbarkeit oder die Betriebsfähigkeit der überführten Verkehrsproduktionsmittel wesentlich beeinträchtigen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ab dem Inkrafttreten dieses Gesetzes bis zur Besitzüberleitung dürfen keine Rechtsgeschäfte, Maßnahmen oder Unterlassungen vorgenommen werden, die den Vollzug der gesetzlichen Überführung vereiteln, erschweren, verzögern oder den Wert, die Nutzbarkeit oder die Betriebsfähigkeit der überführten Verkehrsproduktionsmittel wesentlich beeinträchtigen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Insbesondere unzulässig sind"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Insbesondere unzulässig sind"
             },
             {
               "type": "item",
@@ -875,20 +932,24 @@
               "text": "die Gründung oder Nutzung von Zwischen-, Besitz-, Betriebsführungs- oder Auffanggesellschaften zur Umgehung dieses Gesetzes."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Maßnahmen der ordnungsgemäßen Unterhaltung, Instandhaltung, Verkehrssicherung und Betriebsfortführung bleiben zulässig."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Maßnahmen der ordnungsgemäßen Unterhaltung, Instandhaltung, Verkehrssicherung und Betriebsfortführung bleiben zulässig."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Maßnahmen nach Absatz 2 können mit vorheriger Zustimmung der Vergesellschaftungsbehörde vorgenommen werden, wenn sie dem Zweck dieses Gesetzes nicht widersprechen und die Betriebskontinuität nicht gefährden."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Maßnahmen nach Absatz 2 können mit vorheriger Zustimmung der Vergesellschaftungsbehörde vorgenommen werden, wenn sie dem Zweck dieses Gesetzes nicht widersprechen und die Betriebskontinuität nicht gefährden."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Rechtsgeschäfte, die gegen Absatz 1 oder Absatz 2 verstoßen, sind unwirksam."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Rechtsgeschäfte, die gegen Absatz 1 oder Absatz 2 verstoßen, sind unwirksam."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Die Vergesellschaftungsbehörde kann zur Sicherung der Überführung durch Verwaltungsakt Anordnungen treffen, insbesondere Verfügungsbeschränkungen, Herausgabesicherungen, Unterlassungsgebote, Dokumentationspflichten, Datensicherungen und vorläufige Besitzschutzmaßnahmen."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die Vergesellschaftungsbehörde kann zur Sicherung der Überführung durch Verwaltungsakt Anordnungen treffen, insbesondere Verfügungsbeschränkungen, Herausgabesicherungen, Unterlassungsgebote, Dokumentationspflichten, Datensicherungen und vorläufige Besitzschutzmaßnahmen."
             }
           ]
         },
@@ -898,16 +959,19 @@
           "title": "Besitzüberleitung und Herausgabe",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die bisherigen Eigentümer:innen, Besitzer:innen sowie sonstigen Verfügungsberechtigten haben die überführten Verkehrsproduktionsmittel am Überführungsstichtag an die Ostdeutsche Eisenbahn herauszugeben."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die bisherigen Eigentümer:innen, Besitzer:innen sowie sonstigen Verfügungsberechtigten haben die überführten Verkehrsproduktionsmittel am Überführungsstichtag an die Ostdeutsche Eisenbahn herauszugeben."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Herausgabe hat in einem geordneten, betriebsbereiten und dokumentierten Zustand zu erfolgen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Herausgabe hat in einem geordneten, betriebsbereiten und dokumentierten Zustand zu erfolgen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Zur Herausgabe gehören insbesondere"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Zur Herausgabe gehören insbesondere"
             },
             {
               "type": "item",
@@ -950,16 +1014,19 @@
               "text": "Unterlagen zu öffentlichen Förderungen, Zuschüssen und Ausgleichszahlungen."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Ostdeutsche Eisenbahn tritt mit dem Überführungsstichtag in das Eigentum der überführten Verkehrsproduktionsmittel ein."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Ostdeutsche Eisenbahn tritt mit dem Überführungsstichtag in das Eigentum der überführten Verkehrsproduktionsmittel ein."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Kommen Verpflichtete ihrer Herausgabe- oder Mitwirkungspflicht nicht nach, kann die Vergesellschaftungsbehörde die Herausgabe durch Verwaltungsakt anordnen und mit Mitteln des Verwaltungszwangs durchsetzen."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Kommen Verpflichtete ihrer Herausgabe- oder Mitwirkungspflicht nicht nach, kann die Vergesellschaftungsbehörde die Herausgabe durch Verwaltungsakt anordnen und mit Mitteln des Verwaltungszwangs durchsetzen."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Die Einlegung eines Rechtsbehelfs gegen eine Herausgabeanordnung hat keine aufschiebende Wirkung, soweit die Anordnung zur Sicherung der Betriebskontinuität erforderlich ist."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die Einlegung eines Rechtsbehelfs gegen eine Herausgabeanordnung hat keine aufschiebende Wirkung, soweit die Anordnung zur Sicherung der Betriebskontinuität erforderlich ist."
             }
           ]
         },
@@ -969,8 +1036,9 @@
           "title": "Verträge, Nutzungsrechte und Rechte Dritter",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Vertragspositionen, Nutzungsrechte, Mietrechte, Leasingrechte, Wartungsrechte, Softwarelizenzen und sonstige betriebsnotwendige Rechte gehen mit dem Überführungsstichtag auf die Ostdeutsche Eisenbahn über, soweit"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Vertragspositionen, Nutzungsrechte, Mietrechte, Leasingrechte, Wartungsrechte, Softwarelizenzen und sonstige betriebsnotwendige Rechte gehen mit dem Überführungsstichtag auf die Ostdeutsche Eisenbahn über, soweit"
             },
             {
               "type": "item",
@@ -988,24 +1056,29 @@
               "text": "Bundesrecht, Unionsrecht oder zwingendes Zivilrecht dem Übergang nicht entgegensteht."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Eigentum Dritter wird nur überführt, wenn es nach § 9 in Verbindung mit den §§ 5 bis 7 eindeutig erfasst ist."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Eigentum Dritter wird nur überführt, wenn es nach § 9 in Verbindung mit den §§ 5 bis 7 eindeutig erfasst ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Soweit ein Übergang von Vertragspositionen oder Nutzungsrechten der Zustimmung Dritter bedarf, wirken die bisherigen Vertragspartner, die betroffenen Unternehmensverbünde und die Ostdeutsche Eisenbahn auf die Erteilung der Zustimmung hin."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Soweit ein Übergang von Vertragspositionen oder Nutzungsrechten der Zustimmung Dritter bedarf, wirken die bisherigen Vertragspartner, die betroffenen Unternehmensverbünde und die Ostdeutsche Eisenbahn auf die Erteilung der Zustimmung hin."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Bis zur Klärung des Übergangs einer betriebsnotwendigen Vertragsposition ist der bisherige Vertragspartner verpflichtet, die Vertragsposition zugunsten der Ostdeutschen Eisenbahn fortzuführen, soweit dies rechtlich zulässig und zur Sicherung der Betriebskontinuität erforderlich ist."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Bis zur Klärung des Übergangs einer betriebsnotwendigen Vertragsposition ist der bisherige Vertragspartner verpflichtet, die Vertragsposition zugunsten der Ostdeutschen Eisenbahn fortzuführen, soweit dies rechtlich zulässig und zur Sicherung der Betriebskontinuität erforderlich ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Rechte Dritter, die nicht überführt werden, bleiben unberührt. Ihre Ausübung darf den Vollzug dieses Gesetzes nicht missbräuchlich vereiteln oder erheblich erschweren."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Rechte Dritter, die nicht überführt werden, bleiben unberührt. Ihre Ausübung darf den Vollzug dieses Gesetzes nicht missbräuchlich vereiteln oder erheblich erschweren."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Für aufrechterhaltene Rechte Dritter ist bei der Entschädigung zu berücksichtigen, ob und in welchem Umfang sie den Wert der überführten Verkehrsproduktionsmittel mindern."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Für aufrechterhaltene Rechte Dritter ist bei der Entschädigung zu berücksichtigen, ob und in welchem Umfang sie den Wert der überführten Verkehrsproduktionsmittel mindern."
             }
           ]
         },
@@ -1015,28 +1088,34 @@
           "title": "Verkehrsverträge und öffentliche Dienstleistungsaufträge",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Öffentliche Dienstleistungsaufträge, Verkehrsverträge, Ausgleichsvereinbarungen und sonstige Vereinbarungen über öffentliche Verkehrsleistungen, die zwischen dem Freistaat, einem Bezirk, dem Ostdeutschen Verkehrsverbund oder einem sonstigen öffentlichen Aufgabenträger und einem betroffenen Unternehmensverbund bestehen, gehen mit dem Überführungsstichtag auf die Ostdeutsche Eisenbahn über, soweit sie die überführten Verkehrsleistungen betreffen."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Öffentliche Dienstleistungsaufträge, Verkehrsverträge, Ausgleichsvereinbarungen und sonstige Vereinbarungen über öffentliche Verkehrsleistungen, die zwischen dem Freistaat, einem Bezirk, dem Ostdeutschen Verkehrsverbund oder einem sonstigen öffentlichen Aufgabenträger und einem betroffenen Unternehmensverbund bestehen, gehen mit dem Überführungsstichtag auf die Ostdeutsche Eisenbahn über, soweit sie die überführten Verkehrsleistungen betreffen."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Verträge anderer Aufgabenträger gehen nur über, soweit der jeweilige Aufgabenträger zustimmt oder ein Gesetz dies ausdrücklich bestimmt."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Verträge anderer Aufgabenträger gehen nur über, soweit der jeweilige Aufgabenträger zustimmt oder ein Gesetz dies ausdrücklich bestimmt."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Ostdeutsche Eisenbahn tritt in die Rechte und Pflichten aus den nach Absatz 1 übergehenden Verträgen ein."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Ostdeutsche Eisenbahn tritt in die Rechte und Pflichten aus den nach Absatz 1 übergehenden Verträgen ein."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Vertragsbestimmungen, die mit der Gemeinwohlbindung der Ostdeutschen Eisenbahn unvereinbar sind, sind ab dem Überführungsstichtag nicht anzuwenden. Dies gilt insbesondere für Regelungen über privatnützige Gewinnausschüttungen, konzerninterne Gewinnabführungen oder Entgelte ohne angemessene Gegenleistung."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Vertragsbestimmungen, die mit der Gemeinwohlbindung der Ostdeutschen Eisenbahn unvereinbar sind, sind ab dem Überführungsstichtag nicht anzuwenden. Dies gilt insbesondere für Regelungen über privatnützige Gewinnausschüttungen, konzerninterne Gewinnabführungen oder Entgelte ohne angemessene Gegenleistung."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die übrigen Vertragsbestimmungen bleiben wirksam."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die übrigen Vertragsbestimmungen bleiben wirksam."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Soweit ein öffentlicher Dienstleistungsauftrag unionsrechtlich angepasst, neu vergeben oder neu gefasst werden muss, wirken der betroffene Aufgabenträger und die Ostdeutsche Eisenbahn unverzüglich auf eine rechtmäßige Fortführung der Verkehrsleistung hin."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Soweit ein öffentlicher Dienstleistungsauftrag unionsrechtlich angepasst, neu vergeben oder neu gefasst werden muss, wirken der betroffene Aufgabenträger und die Ostdeutsche Eisenbahn unverzüglich auf eine rechtmäßige Fortführung der Verkehrsleistung hin."
             }
           ]
         },
@@ -1046,28 +1125,34 @@
           "title": "Bundesrechtliche Genehmigungen, Sicherheitsakte und Zulassungen",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Genehmigungen, Sicherheitsbescheinigungen, Sicherheitsgenehmigungen, Zulassungen, Erlaubnisse und sonstige öffentlich-rechtliche Berechtigungen nach Bundesrecht gehen nur über, soweit Bundesrecht dies zulässt."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Genehmigungen, Sicherheitsbescheinigungen, Sicherheitsgenehmigungen, Zulassungen, Erlaubnisse und sonstige öffentlich-rechtliche Berechtigungen nach Bundesrecht gehen nur über, soweit Bundesrecht dies zulässt."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Ostdeutsche Eisenbahn stellt unverzüglich alle nach Bundesrecht erforderlichen Anträge auf Erteilung, Änderung, Erweiterung, Umschreibung oder Anerkennung von Genehmigungen, Sicherheitsakten, Zulassungen und Erlaubnissen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Ostdeutsche Eisenbahn stellt unverzüglich alle nach Bundesrecht erforderlichen Anträge auf Erteilung, Änderung, Erweiterung, Umschreibung oder Anerkennung von Genehmigungen, Sicherheitsakten, Zulassungen und Erlaubnissen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die betroffenen Unternehmensverbünde und die ihnen angehörenden Unternehmen haben alle für die Antragstellung erforderlichen Unterlagen, Nachweise, Sicherheitsmanagementunterlagen, Fahrzeugunterlagen, Betriebsunterlagen, Personalnachweise und sonstigen Dokumente vollständig herauszugeben."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die betroffenen Unternehmensverbünde und die ihnen angehörenden Unternehmen haben alle für die Antragstellung erforderlichen Unterlagen, Nachweise, Sicherheitsmanagementunterlagen, Fahrzeugunterlagen, Betriebsunterlagen, Personalnachweise und sonstigen Dokumente vollständig herauszugeben."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die zuständigen Landesbehörden wirken im Rahmen ihrer Zuständigkeit darauf hin, dass öffentliche Verkehrsleistungen ohne Unterbrechung fortgeführt werden können."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die zuständigen Landesbehörden wirken im Rahmen ihrer Zuständigkeit darauf hin, dass öffentliche Verkehrsleistungen ohne Unterbrechung fortgeführt werden können."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Bis zur Entscheidung über bundesrechtlich erforderliche Anträge darf die Ostdeutsche Eisenbahn Verkehrsleistungen nur erbringen, soweit dies nach Bundesrecht zulässig ist."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Bis zur Entscheidung über bundesrechtlich erforderliche Anträge darf die Ostdeutsche Eisenbahn Verkehrsleistungen nur erbringen, soweit dies nach Bundesrecht zulässig ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Die Vorschriften dieses Gesetzes begründen keinen Anspruch auf Erteilung bundesrechtlicher Genehmigungen, Sicherheitsakte, Zulassungen oder Erlaubnisse."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die Vorschriften dieses Gesetzes begründen keinen Anspruch auf Erteilung bundesrechtlicher Genehmigungen, Sicherheitsakte, Zulassungen oder Erlaubnisse."
             }
           ]
         },
@@ -1077,28 +1162,34 @@
           "title": "Personalübergang",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Arbeitsverhältnisse der Beschäftigten, die dem überführten Betrieb, Betriebsteil oder Verkehrsleistungsbestand im Gebiet des Freistaates Ostdeutschland zuzuordnen sind, gehen mit dem Überführungsstichtag mit allen Rechten und Pflichten auf die Ostdeutsche Eisenbahn über."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Arbeitsverhältnisse der Beschäftigten, die dem überführten Betrieb, Betriebsteil oder Verkehrsleistungsbestand im Gebiet des Freistaates Ostdeutschland zuzuordnen sind, gehen mit dem Überführungsstichtag mit allen Rechten und Pflichten auf die Ostdeutsche Eisenbahn über."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) § 613a des Bürgerlichen Gesetzbuches gilt entsprechend, soweit dieses Gesetz nichts Abweichendes bestimmt."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "§ 613a des Bürgerlichen Gesetzbuches gilt entsprechend, soweit dieses Gesetz nichts Abweichendes bestimmt."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Bestehende Vergütungsansprüche, Arbeitszeitregelungen, Betriebsvereinbarungen, Tarifbindungen und sonstige arbeitsrechtliche Besitzstände bleiben mindestens für die Dauer von zwei Jahren ab dem Überführungsstichtag erhalten."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Bestehende Vergütungsansprüche, Arbeitszeitregelungen, Betriebsvereinbarungen, Tarifbindungen und sonstige arbeitsrechtliche Besitzstände bleiben mindestens für die Dauer von zwei Jahren ab dem Überführungsstichtag erhalten."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Betriebsbedingte Kündigungen aus Anlass der Vergesellschaftung sind für die Dauer von drei Jahren ab dem Überführungsstichtag ausgeschlossen."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Betriebsbedingte Kündigungen aus Anlass der Vergesellschaftung sind für die Dauer von drei Jahren ab dem Überführungsstichtag ausgeschlossen."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die betroffenen Beschäftigten sind spätestens einen Monat vor dem Überführungsstichtag schriftlich über den Übergang ihrer Arbeitsverhältnisse zu unterrichten."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die betroffenen Beschäftigten sind spätestens einen Monat vor dem Überführungsstichtag schriftlich über den Übergang ihrer Arbeitsverhältnisse zu unterrichten."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Die Unterrichtung muss Angaben enthalten über"
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die Unterrichtung muss Angaben enthalten über"
             },
             {
               "type": "item",
@@ -1131,12 +1222,14 @@
               "text": "den Kündigungsschutz nach Absatz 4."
             },
             {
-              "type": "paragraphText",
-              "text": "(7) Ein Widerspruchsrecht gegen den gesetzlichen Übergang des Arbeitsverhältnisses besteht nicht. Sonstige arbeitsrechtliche Rechte bleiben unberührt."
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Ein Widerspruchsrecht gegen den gesetzlichen Übergang des Arbeitsverhältnisses besteht nicht. Sonstige arbeitsrechtliche Rechte bleiben unberührt."
             },
             {
-              "type": "paragraphText",
-              "text": "(8) Für Beschäftigte, die nicht eindeutig einem überführten Betrieb, Betriebsteil oder Verkehrsleistungsbestand zugeordnet werden können, entscheidet die Vergesellschaftungsbehörde nach Anhörung des betroffenen Unternehmens, der Ostdeutschen Eisenbahn und der zuständigen Interessenvertretung durch Zuordnungsbescheid."
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Für Beschäftigte, die nicht eindeutig einem überführten Betrieb, Betriebsteil oder Verkehrsleistungsbestand zugeordnet werden können, entscheidet die Vergesellschaftungsbehörde nach Anhörung des betroffenen Unternehmens, der Ostdeutschen Eisenbahn und der zuständigen Interessenvertretung durch Zuordnungsbescheid."
             }
           ]
         }
@@ -1153,24 +1246,29 @@
           "title": "Grundsatz der Entschädigung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Für die Überführung von Verkehrsproduktionsmitteln in Gemeineigentum ist eine Entschädigung zu leisten."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Für die Überführung von Verkehrsproduktionsmitteln in Gemeineigentum ist eine Entschädigung zu leisten."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Entschädigung kann verlangen, wem durch dieses Gesetz Eigentum oder eine sonstige vermögenswerte Rechtsposition entzogen wird."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Entschädigung kann verlangen, wem durch dieses Gesetz Eigentum oder eine sonstige vermögenswerte Rechtsposition entzogen wird."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Entschädigungsverpflichtete ist die Ostdeutsche Eisenbahn."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Entschädigungsverpflichtete ist die Ostdeutsche Eisenbahn."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Der Freistaat Ostdeutschland haftet für die Erfüllung der Entschädigungsverpflichtungen nach Maßgabe dieses Gesetzes."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Der Freistaat Ostdeutschland haftet für die Erfüllung der Entschädigungsverpflichtungen nach Maßgabe dieses Gesetzes."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die Entschädigung wird in der nach § 23 bezeichneten Art und in dem nach den §§ 24 bis 27 bezeichneten Ausmaß gewährt."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Entschädigung wird in der nach § 23 bezeichneten Art und in dem nach den §§ 24 bis 27 bezeichneten Ausmaß gewährt."
             }
           ]
         },
@@ -1180,32 +1278,39 @@
           "title": "Art der Entschädigung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Der Entschädigungsanspruch wird grundsätzlich durch Zuteilung übertragbarer Schuldverschreibungen der Ostdeutschen Eisenbahn erfüllt."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Entschädigungsanspruch wird grundsätzlich durch Zuteilung übertragbarer Schuldverschreibungen der Ostdeutschen Eisenbahn erfüllt."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Zuteilung erfolgt durch Eintragung in ein Schuldbuch. Die Ausgabe von Stücken ist ausgeschlossen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Zuteilung erfolgt durch Eintragung in ein Schuldbuch. Die Ausgabe von Stücken ist ausgeschlossen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Schuldverschreibungen werden ab dem Überführungsstichtag mit einem festen Zinssatz von 2,5 Prozent jährlich verzinst."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Schuldverschreibungen werden ab dem Überführungsstichtag mit einem festen Zinssatz von 2,5 Prozent jährlich verzinst."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Schuldverschreibungen werden über 50 Jahre so getilgt, dass der für Zinsen und Tilgung zu zahlende Jahresbetrag konstant bleibt."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Schuldverschreibungen werden über 50 Jahre so getilgt, dass der für Zinsen und Tilgung zu zahlende Jahresbetrag konstant bleibt."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Der Freistaat Ostdeutschland haftet für die von der Ostdeutschen Eisenbahn als Art der Entschädigung begebenen Schuldverschreibungen nach dem Gesetz über die öffentlichen Ersatzleistungen."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Der Freistaat Ostdeutschland haftet für die von der Ostdeutschen Eisenbahn als Art der Entschädigung begebenen Schuldverschreibungen nach dem Gesetz über die öffentlichen Ersatzleistungen."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Entschädigungen bis zu einem Betrag von 100 000 Euro können in Geld geleistet werden."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Entschädigungen bis zu einem Betrag von 100 000 Euro können in Geld geleistet werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(7) Das Staatsministerium der Finanzen wird ermächtigt, im Einvernehmen mit dem zuständigen Staatsministerium durch Rechtsverordnung Einzelheiten über Begebung, Verzinsung, Tilgung, Übertragbarkeit, Schuldbuchführung und Marktpflege der Schuldverschreibungen zu regeln."
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Das Staatsministerium der Finanzen wird ermächtigt, im Einvernehmen mit dem zuständigen Staatsministerium durch Rechtsverordnung Einzelheiten über Begebung, Verzinsung, Tilgung, Übertragbarkeit, Schuldbuchführung und Marktpflege der Schuldverschreibungen zu regeln."
             }
           ]
         },
@@ -1215,16 +1320,19 @@
           "title": "Ausmaß der Entschädigung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Höhe der Entschädigung bemisst sich nach dem Vergesellschaftungswert der überführten Verkehrsproduktionsmittel."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Höhe der Entschädigung bemisst sich nach dem Vergesellschaftungswert der überführten Verkehrsproduktionsmittel."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Vergesellschaftungswert ist der gemeinwirtschaftlich bereinigte Wert der überführten Verkehrsproduktionsmittel im Zeitpunkt des Überführungsstichtages."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Vergesellschaftungswert ist der gemeinwirtschaftlich bereinigte Wert der überführten Verkehrsproduktionsmittel im Zeitpunkt des Überführungsstichtages."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Bei der Ermittlung des Vergesellschaftungswertes sind insbesondere zu berücksichtigen:"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Bei der Ermittlung des Vergesellschaftungswertes sind insbesondere zu berücksichtigen:"
             },
             {
               "type": "item",
@@ -1277,8 +1385,9 @@
               "text": "Rechte Dritter, soweit sie aufrechterhalten werden und den Wert mindern."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Nicht zu entschädigen sind"
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Nicht zu entschädigen sind"
             },
             {
               "type": "item",
@@ -1321,28 +1430,34 @@
               "text": "der bloße Verlust privatnütziger Verfügungsmacht über gemeinwirtschaftlich gebundene Verkehrsproduktionsmittel."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die Entschädigung ist niedriger als der Verkehrswert zu bestimmen, soweit dies wegen der Ablösung privatnütziger Verfügungsmacht durch Gemeineigentum und gemeinwirtschaftliche Bewirtschaftung gerechtfertigt ist."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Entschädigung ist niedriger als der Verkehrswert zu bestimmen, soweit dies wegen der Ablösung privatnütziger Verfügungsmacht durch Gemeineigentum und gemeinwirtschaftliche Bewirtschaftung gerechtfertigt ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Wurden Verkehrsproduktionsmittel ganz oder überwiegend aus öffentlichen Mitteln finanziert, ist dies wertmindernd zu berücksichtigen."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Wurden Verkehrsproduktionsmittel ganz oder überwiegend aus öffentlichen Mitteln finanziert, ist dies wertmindernd zu berücksichtigen."
             },
             {
-              "type": "paragraphText",
-              "text": "(7) Bei Verkehrsproduktionsmitteln, die dem landesbedeutsamen Schienengüterverkehr zugeordnet sind und nicht überwiegend aus öffentlichen Mitteln finanziert wurden, sind nachhaltig erzielbare marktwirtschaftliche Erträge aus bestehenden Vertragsbeziehungen angemessen zu berücksichtigen. Dies gilt nicht für bloße Gewinnerwartungen, spekulative Erweiterungserwartungen, konzerninterne Verrechnungsvorteile ohne angemessene Gegenleistung oder Erträge, die auf Umgehungsgeschäften beruhen."
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Bei Verkehrsproduktionsmitteln, die dem landesbedeutsamen Schienengüterverkehr zugeordnet sind und nicht überwiegend aus öffentlichen Mitteln finanziert wurden, sind nachhaltig erzielbare marktwirtschaftliche Erträge aus bestehenden Vertragsbeziehungen angemessen zu berücksichtigen. Dies gilt nicht für bloße Gewinnerwartungen, spekulative Erweiterungserwartungen, konzerninterne Verrechnungsvorteile ohne angemessene Gegenleistung oder Erträge, die auf Umgehungsgeschäften beruhen."
             },
             {
-              "type": "paragraphText",
-              "text": "(8) Die gemeinwirtschaftliche Bereinigung des Vergesellschaftungswertes darf bei Verkehrsproduktionsmitteln des landesbedeutsamen Schienengüterverkehrs nicht allein darauf gestützt werden, dass die Verkehrsproduktionsmittel künftig gemeinwirtschaftlich genutzt werden. Maßgeblich ist eine gerechte Abwägung zwischen dem öffentlichen Interesse an Versorgungssicherheit, Klimaschutz und kritischer Infrastruktur einerseits und dem wirtschaftlichen Wert der entzogenen Rechtsposition andererseits."
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Die gemeinwirtschaftliche Bereinigung des Vergesellschaftungswertes darf bei Verkehrsproduktionsmitteln des landesbedeutsamen Schienengüterverkehrs nicht allein darauf gestützt werden, dass die Verkehrsproduktionsmittel künftig gemeinwirtschaftlich genutzt werden. Maßgeblich ist eine gerechte Abwägung zwischen dem öffentlichen Interesse an Versorgungssicherheit, Klimaschutz und kritischer Infrastruktur einerseits und dem wirtschaftlichen Wert der entzogenen Rechtsposition andererseits."
             },
             {
-              "type": "paragraphText",
-              "text": "(9) Werden Verbindlichkeiten, Lasten oder sonstige Verpflichtungen von der Ostdeutschen Eisenbahn übernommen, mindern sie die Entschädigung."
+              "type": "subparagraph",
+              "label": "(9)",
+              "text": "Werden Verbindlichkeiten, Lasten oder sonstige Verpflichtungen von der Ostdeutschen Eisenbahn übernommen, mindern sie die Entschädigung."
             },
             {
-              "type": "paragraphText",
-              "text": "(10) Die Entschädigung ist auf volle eintausend Euro zu runden. Beträge ab fünfhundert Euro sind aufzurunden."
+              "type": "subparagraph",
+              "label": "(10)",
+              "text": "Die Entschädigung ist auf volle eintausend Euro zu runden. Beträge ab fünfhundert Euro sind aufzurunden."
             }
           ]
         },
@@ -1352,16 +1467,19 @@
           "title": "Bewertungsverfahren",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Vergesellschaftungsbehörde ermittelt den Vergesellschaftungswert auf Grundlage eines Bewertungsgutachtens."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Vergesellschaftungsbehörde ermittelt den Vergesellschaftungswert auf Grundlage eines Bewertungsgutachtens."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Das Bewertungsgutachten ist durch eine unabhängige Bewertungskommission zu erstellen."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Das Bewertungsgutachten ist durch eine unabhängige Bewertungskommission zu erstellen."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Die Bewertungskommission besteht aus fünf Mitgliedern:"
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Bewertungskommission besteht aus fünf Mitgliedern:"
             },
             {
               "type": "item",
@@ -1389,16 +1507,19 @@
               "text": "einer/einem vom Oberverwaltungsgericht Oberlausitz-Sachsen bestimmten unabhängigen Sachverständigen."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Kommt eine Bestimmung nach Absatz 3 Nummer 4 nicht innerhalb von zwei Monaten nach Aufforderung zustande, bestimmt das Oberverwaltungsgericht Oberlausitz-Sachsen die sachverständige Person."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Kommt eine Bestimmung nach Absatz 3 Nummer 4 nicht innerhalb von zwei Monaten nach Aufforderung zustande, bestimmt das Oberverwaltungsgericht Oberlausitz-Sachsen die sachverständige Person."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Die Bewertungskommission kann Unterlagen anfordern, Auskünfte einholen, Ortsbesichtigungen durchführen, technische Prüfungen veranlassen und weitere Sachverständige hinzuziehen."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Bewertungskommission kann Unterlagen anfordern, Auskünfte einholen, Ortsbesichtigungen durchführen, technische Prüfungen veranlassen und weitere Sachverständige hinzuziehen."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Die Bewertung hat getrennt auszuweisen:"
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die Bewertung hat getrennt auszuweisen:"
             },
             {
               "type": "item",
@@ -1446,12 +1567,14 @@
               "text": "übernommene Verbindlichkeiten und Lasten."
             },
             {
-              "type": "paragraphText",
-              "text": "(7) Die Beteiligten erhalten Gelegenheit zur Stellungnahme zum Bewertungsgutachten."
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Die Beteiligten erhalten Gelegenheit zur Stellungnahme zum Bewertungsgutachten."
             },
             {
-              "type": "paragraphText",
-              "text": "(8) Das zuständige Staatsministerium kann im Einvernehmen mit dem Staatsministerium der Finanzen durch Rechtsverordnung nähere Bestimmungen zum Bewertungsverfahren, zu Bewertungsmaßstäben, zur Zusammensetzung der Bewertungskommission und zur Kostentragung treffen."
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Das zuständige Staatsministerium kann im Einvernehmen mit dem Staatsministerium der Finanzen durch Rechtsverordnung nähere Bestimmungen zum Bewertungsverfahren, zu Bewertungsmaßstäben, zur Zusammensetzung der Bewertungskommission und zur Kostentragung treffen."
             }
           ]
         },
@@ -1461,12 +1584,14 @@
           "title": "Entschädigungsbescheid",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Die Vergesellschaftungsbehörde setzt die Entschädigung durch einen Verwaltungsakt (Entschädiugungsbescheid) fest."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Vergesellschaftungsbehörde setzt die Entschädigung durch einen Verwaltungsakt (Entschädiugungsbescheid) fest."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Entschädigungsbescheid bezeichnet"
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Entschädigungsbescheid bezeichnet"
             },
             {
               "type": "item",
@@ -1519,16 +1644,19 @@
               "text": "Verzinsung und Tilgung."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Der Entschädigungsbescheid ist den Beteiligten zuzustellen."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Entschädigungsbescheid ist den Beteiligten zuzustellen."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Festsetzung der Entschädigung berührt die Wirksamkeit der gesetzlichen Überführung nicht."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Festsetzung der Entschädigung berührt die Wirksamkeit der gesetzlichen Überführung nicht."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Klagen gegen den Entschädigungsbescheid haben keine aufschiebende Wirkung für die Überführung, Besitzüberleitung, Betriebsfortführung und Zuordnung der Verkehrsproduktionsmittel."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Klagen gegen den Entschädigungsbescheid haben keine aufschiebende Wirkung für die Überführung, Besitzüberleitung, Betriebsfortführung und Zuordnung der Verkehrsproduktionsmittel."
             }
           ]
         },
@@ -1538,28 +1666,34 @@
           "title": "Nebenberechtigte und Rechte Dritter",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Nebenberechtigte sind Personen, denen an überführten Verkehrsproduktionsmitteln ein dingliches Recht, ein Sicherungsrecht, ein Nutzungsrecht, ein Leasingrecht, ein Mietrecht, ein Pfandrecht, eine Forderung oder eine sonstige vermögenswerte Rechtsposition zusteht."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Nebenberechtigte sind Personen, denen an überführten Verkehrsproduktionsmitteln ein dingliches Recht, ein Sicherungsrecht, ein Nutzungsrecht, ein Leasingrecht, ein Mietrecht, ein Pfandrecht, eine Forderung oder eine sonstige vermögenswerte Rechtsposition zusteht."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Nebenberechtigte sind am Entschädigungsverfahren zu beteiligen, soweit ihr Recht durch die Überführung erlischt, beschränkt, übertragen oder in seinem wirtschaftlichen Wert beeinträchtigt wird."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Nebenberechtigte sind am Entschädigungsverfahren zu beteiligen, soweit ihr Recht durch die Überführung erlischt, beschränkt, übertragen oder in seinem wirtschaftlichen Wert beeinträchtigt wird."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Rechte Dritter, die nach diesem Gesetz aufrechterhalten werden, mindern die Entschädigung der bisherigen Eigentümerin oder des bisherigen Eigentümers."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Rechte Dritter, die nach diesem Gesetz aufrechterhalten werden, mindern die Entschädigung der bisherigen Eigentümerin oder des bisherigen Eigentümers."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Erlischt ein Recht Dritter durch die Überführung, ist der Wert dieses Rechts aus der Entschädigung zu ersetzen, soweit das Recht entschädigungsfähig ist."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Erlischt ein Recht Dritter durch die Überführung, ist der Wert dieses Rechts aus der Entschädigung zu ersetzen, soweit das Recht entschädigungsfähig ist."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Bestehen mehrere Ansprüche auf dieselbe Entschädigung und ist eine Einigung über die Verteilung nicht nachgewiesen, ist die Entschädigung unter Verzicht auf das Recht der Rücknahme zu hinterlegen."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Bestehen mehrere Ansprüche auf dieselbe Entschädigung und ist eine Einigung über die Verteilung nicht nachgewiesen, ist die Entschädigung unter Verzicht auf das Recht der Rücknahme zu hinterlegen."
             },
             {
-              "type": "paragraphText",
-              "text": "(6) Über Streitigkeiten zwischen mehreren Entschädigungsberechtigten oder Nebenberechtigten über die Verteilung einer Entschädigung entscheiden die ordentlichen Gerichte nach dem Gesetz über die öffentlichen Ersatzleistungen."
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Über Streitigkeiten zwischen mehreren Entschädigungsberechtigten oder Nebenberechtigten über die Verteilung einer Entschädigung entscheiden die ordentlichen Gerichte nach dem Gesetz über die öffentlichen Ersatzleistungen."
             }
           ]
         }
@@ -1576,24 +1710,29 @@
           "title": "Rechtsweg",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Für öffentlich-rechtliche Streitigkeiten nichtverfassungsrechtlicher Art nach diesem Gesetz ist der Verwaltungsrechtsweg eröffnet, soweit nicht dieses Gesetz oder ein anderes Gesetz etwas anderes bestimmt."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Für öffentlich-rechtliche Streitigkeiten nichtverfassungsrechtlicher Art nach diesem Gesetz ist der Verwaltungsrechtsweg eröffnet, soweit nicht dieses Gesetz oder ein anderes Gesetz etwas anderes bestimmt."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Verwaltungsrechtsweg ist insbesondere eröffnet für Streitigkeiten über Feststellungsbescheide, Sicherungsanordnungen, Herausgabeanordnungen, Zuordnungsbescheide, Register- und Verzeichnisberichtigungen sowie sonstige Verwaltungsakte der Vergesellschaftungsbehörde."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Verwaltungsrechtsweg ist insbesondere eröffnet für Streitigkeiten über Feststellungsbescheide, Sicherungsanordnungen, Herausgabeanordnungen, Zuordnungsbescheide, Register- und Verzeichnisberichtigungen sowie sonstige Verwaltungsakte der Vergesellschaftungsbehörde."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Für Streitigkeiten wegen der Höhe der Entschädigung ist der ordentliche Rechtsweg eröffnet. Dies gilt auch für Streitigkeiten über die Verteilung hinterlegter Entschädigungen zwischen mehreren Entschädigungsberechtigten oder Nebenberechtigten."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Für Streitigkeiten wegen der Höhe der Entschädigung ist der ordentliche Rechtsweg eröffnet. Dies gilt auch für Streitigkeiten über die Verteilung hinterlegter Entschädigungen zwischen mehreren Entschädigungsberechtigten oder Nebenberechtigten."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Rechtsbehelfe gegen den Feststellungsbescheid, Herausgabeanordnungen und Sicherungsanordnungen haben keine aufschiebende Wirkung, soweit die aufschiebende Wirkung den Vollzug der gesetzlichen Überführung, die Betriebskontinuität oder die Sicherung öffentlicher Verkehrsleistungen gefährden würde."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Rechtsbehelfe gegen den Feststellungsbescheid, Herausgabeanordnungen und Sicherungsanordnungen haben keine aufschiebende Wirkung, soweit die aufschiebende Wirkung den Vollzug der gesetzlichen Überführung, die Betriebskontinuität oder die Sicherung öffentlicher Verkehrsleistungen gefährden würde."
             },
             {
-              "type": "paragraphText",
-              "text": "(5) Das Gericht der Hauptsache kann auf Antrag die aufschiebende Wirkung ganz oder teilweise anordnen, soweit überwiegende private Interessen dies gebieten und öffentliche Verkehrsinteressen nicht entgegenstehen."
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Das Gericht der Hauptsache kann auf Antrag die aufschiebende Wirkung ganz oder teilweise anordnen, soweit überwiegende private Interessen dies gebieten und öffentliche Verkehrsinteressen nicht entgegenstehen."
             }
           ]
         },
@@ -1603,20 +1742,24 @@
           "title": "Register-, Grundbuch- und Verzeichnisberichtigung",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Soweit die Überführung von Verkehrsproduktionsmitteln eine Berichtigung von Registern, Grundbüchern, Fahrzeugregistern, Zulassungsverzeichnissen, Genehmigungsverzeichnissen oder sonstigen öffentlichen Verzeichnissen erfordert, veranlasst die Vergesellschaftungsbehörde die Berichtigung."
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Soweit die Überführung von Verkehrsproduktionsmitteln eine Berichtigung von Registern, Grundbüchern, Fahrzeugregistern, Zulassungsverzeichnissen, Genehmigungsverzeichnissen oder sonstigen öffentlichen Verzeichnissen erfordert, veranlasst die Vergesellschaftungsbehörde die Berichtigung."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Der Feststellungsbescheid ersetzt die zur Berichtigung erforderlichen Bewilligungen, Zustimmungserklärungen und sonstigen Erklärungen der bisherigen Berechtigten, soweit Landesrecht dies zulässt."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Feststellungsbescheid ersetzt die zur Berichtigung erforderlichen Bewilligungen, Zustimmungserklärungen und sonstigen Erklärungen der bisherigen Berechtigten, soweit Landesrecht dies zulässt."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Soweit Bundesrecht, Unionsrecht oder sonstiges höherrangiges Recht eine besondere Zustimmung, Genehmigung oder Prüfung verlangt, bleibt diese unberührt."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Soweit Bundesrecht, Unionsrecht oder sonstiges höherrangiges Recht eine besondere Zustimmung, Genehmigung oder Prüfung verlangt, bleibt diese unberührt."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Die Ostdeutsche Eisenbahn ist verpflichtet, an Register-, Grundbuch- und Verzeichnisberichtigungen mitzuwirken."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Ostdeutsche Eisenbahn ist verpflichtet, an Register-, Grundbuch- und Verzeichnisberichtigungen mitzuwirken."
             }
           ]
         },
@@ -1626,8 +1769,9 @@
           "title": "Ordnungswidrigkeiten",
           "children": [
             {
-              "type": "paragraphText",
-              "text": "(1) Ordnungswidrig handelt, wer vorsätzlich oder fahrlässig"
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ordnungswidrig handelt, wer vorsätzlich oder fahrlässig"
             },
             {
               "type": "item",
@@ -1680,16 +1824,19 @@
               "text": "seine Mitwirkungspflichten nach § 20 oder § 21 verletzt."
             },
             {
-              "type": "paragraphText",
-              "text": "(2) Die Ordnungswidrigkeit kann mit einer Geldbuße bis zu zwanzig Millionen Euro geahndet werden."
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Ordnungswidrigkeit kann mit einer Geldbuße bis zu zwanzig Millionen Euro geahndet werden."
             },
             {
-              "type": "paragraphText",
-              "text": "(3) Bei der Bemessung der Geldbuße sind insbesondere die wirtschaftliche Leistungsfähigkeit des Betroffenen, die Bedeutung der betroffenen Verkehrsleistung, der Grad der Gefährdung der Betriebskontinuität und der wirtschaftliche Vorteil aus dem Verstoß zu berücksichtigen."
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Bei der Bemessung der Geldbuße sind insbesondere die wirtschaftliche Leistungsfähigkeit des Betroffenen, die Bedeutung der betroffenen Verkehrsleistung, der Grad der Gefährdung der Betriebskontinuität und der wirtschaftliche Vorteil aus dem Verstoß zu berücksichtigen."
             },
             {
-              "type": "paragraphText",
-              "text": "(4) Zuständige Verwaltungsbehörde im Sinne des Gesetzes über Ordnungswidrigkeiten ist die Vergesellschaftungsbehörde."
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Zuständige Verwaltungsbehörde im Sinne des Gesetzes über Ordnungswidrigkeiten ist die Vergesellschaftungsbehörde."
             }
           ]
         }

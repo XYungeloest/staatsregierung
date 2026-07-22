@@ -35,6 +35,7 @@ export interface VerkuendungEntry {
   title: string;
   type: PublicationEntryType;
   citation: string;
+  startPage?: string;
   pages?: string;
   documentDate?: string;
   normSlug?: string;
@@ -63,6 +64,7 @@ export interface NormPublicationReference {
   entryId: string;
   entryTitle: string;
   citation: string;
+  startPage?: string;
   pages?: string;
 }
 
@@ -178,6 +180,7 @@ function parseVerkuendungEntry(value: unknown, path: string): VerkuendungEntry {
     title: expectString(object.title, `${path}.title`),
     type: expectEnumValue(object.type, `${path}.type`, PUBLICATION_ENTRY_TYPES),
     citation: expectString(object.citation, `${path}.citation`),
+    startPage: expectOptionalString(object.startPage, `${path}.startPage`),
     pages: expectOptionalString(object.pages, `${path}.pages`),
     documentDate: object.documentDate === undefined
       ? undefined
@@ -396,6 +399,7 @@ export function buildNormPublicationReferenceLookup(
         entryId: entry.id,
         entryTitle: entry.title,
         citation: entry.citation,
+        startPage: entry.startPage,
         pages: entry.pages,
       });
     }
