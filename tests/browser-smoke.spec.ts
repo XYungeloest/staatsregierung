@@ -199,12 +199,13 @@ test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 21. Juli 2026 ab', as
   await expect(page.getByText(/Artikel 75a/u).first()).toBeVisible();
 
   await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
-  await expect(page.getByText(/Siebte Volkskammer ist der siebte Landtag/u)).toBeVisible();
-  await expect(page.getByText(/Wahl zur achten Volkskammer/u)).toBeVisible();
+  await expect(page.getByText(/Achte Volkskammer ist der achte Landtag/u)).toBeVisible();
+  await expect(page.getByText(/Wahl zur neunten Volkskammer/u)).toBeVisible();
 
   await page.goto('/recht/verfassung/');
   await expect(page.getByRole('heading', { name: 'Quellenstand zu Artikel 121a' })).toBeVisible();
-  await expect(page.getByText(/Die Lesefassung und das Erste Gesetz/u)).toContainText('achten Volkskammer');
+  await expect(page.getByText(/Das am 20\. Juli 2026 verkündete Erste Gesetz/u)).toContainText('neunten Volkskammer');
+  await expect(page.getByText(/Das am 20\. Juli 2026 verkündete Erste Gesetz/u)).toContainText('siebte Volkskammer');
   await expect(page.locator('.record-list')).toContainText('Erstes Gesetz zur Großen Staatsreform');
   await expect(page.locator('.record-list')).toContainText('Viertes Gesetz zur Großen Staatsreform');
 
@@ -212,6 +213,34 @@ test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 21. Juli 2026 ab', as
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Sekundärrohstoff-Erfassung');
   await expect(page.getByText('SERO-Verordnung', { exact: true }).first()).toBeVisible();
   await expect(page.getByText(/in Kraft/u).first()).toBeVisible();
+});
+
+test('OGVBl. 2026 Nr. 53 trennt äußere Artikel und zitierte Neufassungen', async ({ page }) => {
+  await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
+
+  const outline = page.getByRole('navigation', { name: 'Inhaltsübersicht' });
+  await expect(outline.getByRole('link', { name: /Artikel 1 Änderung der Staatsverfassung/u })).toBeVisible();
+  await expect(outline.getByRole('link', { name: /Artikel 2 Inkrafttreten/u })).toBeVisible();
+  await expect(outline.getByRole('link', { name: /Artikel 5/u })).toHaveCount(0);
+
+  const firstItem = page.locator('.norm-amendment-list > .norm-amendment-item').first();
+  await expect(firstItem.locator(':scope > .norm-amendment-item__label')).toHaveText('1.');
+  await expect(firstItem.locator(':scope > .norm-amendment-item__content > .norm-amendment-item__children > ol > li').first()).toContainText('a.');
+  await expect(firstItem.locator('ol ol > li').first()).toContainText('i.');
+
+  const quotedArticle = page.locator('blockquote.norm-quoted-provision').filter({
+    has: page.getByText('Staatsvolk, Minderheiten', { exact: true }),
+  });
+  await expect(quotedArticle).toContainText('Staatsvolk, Minderheiten');
+  await expect(quotedArticle.locator('.norm-subparagraph__label')).toHaveText(['(1)', '(2)', '(3)']);
+  await expect(page.locator('details.norm-unit').filter({ hasText: /^Artikel 5/u })).toHaveCount(0);
+
+  await page.setViewportSize({ width: 360, height: 800 });
+  const dimensions = await page.evaluate(() => ({
+    clientWidth: document.documentElement.clientWidth,
+    scrollWidth: document.documentElement.scrollWidth,
+  }));
+  expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 });
 
 test('Wappen kennzeichnet die Wortmarke in Kopf und Fuß', async ({ page }) => {

@@ -7,6 +7,10 @@
   "changeNote": "Verkündete Fassung.",
   "body": [
     {
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 20. Juli 2026 das folgende Gesetz beschlossen:"
+    },
+    {
       "type": "article",
       "label": "Artikel 1",
       "title": "Einführung eines Gesetzes über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates",
@@ -16,1062 +20,1430 @@
           "text": "Das nachstehende wird Gesetz:"
         },
         {
-          "type": "paragraphText",
-          "text": "Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates (Kasernierte-Grenzpolizei-Gesetz – KGrPolG)"
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 1",
-      "title": "Errichtung, Rechtsstellung, Bezeichnung",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Im Geschäftsbereich des Staatsministeriums für Staats- und Grenzssicherheit wird die ,,Kasernierte Grenzpolizei” errichtet."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Die Kasernierte Grenzpolizei ist keine Streitkraft. Sie nimmt keine Aufgaben der militärischen Verteidigung, der bewaffneten Grenzverteidigung, der Kriegführung, der militärischen Luftraumverteidigung oder der militärischen Seeraumverteidigung wahr."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(6)",
-          "text": "Die Zuständigkeiten des Bundes, insbesondere für den Grenzschutz, die Streitkräfte, den Luftverkehr und die Bundespolizei, bleiben unberührt."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 2",
-      "title": "Aufgaben",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei nimmt vollzugspolizeiliche Aufgaben wahr"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "zur Verhütung, Aufklärung und Bekämpfung grenzüberschreitender Kriminalität,"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "zur Fahndung in Grenzräumen, auf Verkehrswegen mit grenzüberschreitender Bedeutung sowie in Anlagen und Einrichtungen des internationalen Verkehrs,"
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "zum Schutz gefährdeter grenznaher Infrastrukturen,"
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "zur polizeilichen Lageaufklärung in Grenzräumen,"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "zur Unterstützung anderer Polizeidienststellen bei Einsätzen aus besonderem Anlass,"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "zur Unterstützung der zuständigen Behörden des Bundes und"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "zur Unterstützung bei Katastrophen, Großschadensereignissen und sonstigen besonderen Gefahrenlagen, soweit ein Bezug zu ihren Aufgaben besteht."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Grenzüberschreitende Kriminalität im Sinne dieses Gesetzes umfasst insbesondere Straftaten der Schleusungskriminalität, des Menschenhandels, des Betäubungsmittelhandels, des unerlaubten Waffenhandels, der Geldwäsche, der organisierten Eigentumskriminalität, der Kraftfahrzeugverschiebung, der Urkundenfälschung sowie der sonstigen banden- oder gewerbsmäßigen Kriminalität mit grenzüberschreitendem Bezug."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Die Kasernierte Grenzpolizei unterstützt die übrigen Polizeidienststellen des Landes bei der Wahrnehmung der Aufgaben nach dem Ostdeutschen Polizeivollzugsdienstgesetz, soweit ihre besondere Organisation, Ausstattung oder Lagekompetenz dies erfordert."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 3",
-      "title": "Wahrnehmung grenzpolizeilicher Einzeldienstaufgaben",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei nimmt Aufgaben des grenzpolizeilichen Einzeldienstes wahr, soweit der Ostdeutsche Freistaat diese Aufgaben im Einvernehmen mit dem Bund nach § 2 Absatz 1 des Bundespolizeigesetzes mit eigenen Kräften wahrnimmt."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Die Wahrnehmung grenzpolizeilicher Einzeldienstaufgaben darf erst aufgenommen werden, wenn die Vereinbarung mit dem Bund wirksam ist und die bundesrechtlich vorgesehene Bekanntmachung erfolgt ist."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 4",
-      "title": "Befugnisse",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei hat zur Erfüllung ihrer Aufgaben die Befugnisse des Polizeivollzugsdienstes nach dem Ostdeutschen Polizeivollzugsdienstgesetz und nach anderen Rechtsvorschriften."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Soweit die Kasernierte Grenzpolizei Aufgaben des grenzpolizeilichen Einzeldienstes nach § 3 wahrnimmt, richten sich ihre Befugnisse nach Bundesrecht, soweit dieses dies bestimmt."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Maßnahmen der Kasernierten Grenzpolizei sind polizeiliche Maßnahmen; sie sind keine Maßnahmen militärischer Gewalt."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 5",
-      "title": "Aufbau und Organisation",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei wird von einem/einer Präsident:in geleitet."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Bei der Kasernierten Grenzpolizei können insbesondere eingerichtet werden:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "ein Präsidialstab,"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Grenzpolizeidirektionen,"
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Grenzpolizeiinspektionen,"
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Grenzpolizeistationen,"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "mobile Fahndungseinheiten,"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Einsatz- und Zugriffseinheiten,"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "ein Luftdienst (§ 8),"
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "ein Küsten- und Wasserschutzdienst (§ 9),"
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "ein technischer Einsatzdienst (§ 10),"
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "ein Lage- und Analysezentrum (§ 11) und"
-        },
-        {
-          "type": "item",
-          "label": "11.",
-          "text": "Ausbildungs- und Fortbildungseinrichtungen."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Die Kasernierte Grenzpolizei kann gemeinsame Dienststellen und gemeinsame Einrichtungen mit Behörden des Bundes, anderer Länder und anderer Staaten bilden, soweit Rechtsvorschriften oder Vereinbarungen dies zulassen."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 6",
-      "title": "Einsatzstandorte und Bereitschaftsunterkünfte",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei kann Einsatzstandorte, Bereitschaftsunterkünfte, Ausbildungsstandorte, technische Einsatzstützpunkte und temporäre Einsatzunterkünfte unterhalten."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Die Unterbringung in Bereitschaftsunterkünften dient der Sicherstellung der Einsatzbereitschaft, der Aus- und Fortbildung, der Einsatzvorbereitung, der Einsatznachbereitung sowie der Bewältigung besonderer Einsatzlagen."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Eine dauerhafte Verpflichtung zum Wohnen in Bereitschaftsunterkünften außerhalb dienstlicher Erfordernisse wird durch dieses Gesetz nicht begründet."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(4)",
-          "text": "Die Einrichtungen nach Absatz 1 dürfen nicht der militärischen Ausbildung, der militärischen Verbandsbildung oder der Vorbereitung militärischer Verteidigung dienen."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 7",
-      "title": "Liegenschaftsprogramm",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei kann zur Erfüllung ihrer Aufgaben Liegenschaften unterhalten."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Für das Liegenschaftsprogramm sollen vorrangig ehemals militärisch, grenzpolizeilich, polizeilich, verkehrsinfrastrukturell oder sicherheitsbehördlich genutzte Liegenschaften herangezogen werden, soweit ihre Nutzung für Aufgaben der Kasernierten Grenzpolizei geeignet und mit den Anforderungen des Umwelt-, Natur-, Denkmal-, Bau-, Haushalts- und Vergaberechts vereinbar ist."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Die in der Anlage aufgeführten Liegenschaften sind vorrangig auf ihre Eignung für die Aufgaben der Kasernierten Grenzpolizei zu prüfen. Die Aufnahme einer Liegenschaft in die Anlage begründet keinen Anspruch auf Erwerb, Überlassung, Mitnutzung oder Widmung."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(4)",
-          "text": "Vor Erwerb, Pacht, Miete, Mitnutzung oder Entwicklung einer Liegenschaft sind insbesondere zu prüfen:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "die Eigentums- und Nutzungsverhältnisse,"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "die Vereinbarkeit mit den Aufgaben der Kasernierten Grenzpolizei,"
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "die Kampfmittelbelastung,"
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "die Altlasten- und Bodenschutzbelange,"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "die Belange des Natur- und Landschaftsschutzes,"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "die Belange des Denkmalschutzes,"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "die bauplanungs- und bauordnungsrechtliche Zulässigkeit,"
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "die verkehrliche und einsatztaktische Erschließung,"
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "die Wirtschaftlichkeit und"
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "die Auswirkungen auf Gemeinden, Einwohnerinnen und Einwohner sowie bestehende zivile Nutzungen."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(5)",
-          "text": "Das Staatsministerium für Staats- und Grenzsicherheit kann mit dem Bund, anderen Ländern, Gemeinden, Gemeindeverbänden, sonstigen juristischen Personen des öffentlichen Rechts und privaten Eigentümern Vereinbarungen über Erwerb, Pacht, Miete, Mitnutzung, Entwicklung, Sicherung, Erschließung und Betrieb von Liegenschaften schließen."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(6)",
-          "text": "Liegenschaften der Kasernierten Grenzpolizei dürfen nur zu polizeilichen Zwecken, zur Aus- und Fortbildung, zur Einsatzvorbereitung, zur Einsatznachbereitung, zur technischen Einsatzunterstützung, zur Unterbringung im Sinne des § 6 und zur Zusammenarbeit mit den zuständigen Behörden genutzt werden."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(7)",
-          "text": "Eine militärische Widmung der Liegenschaften, eine Nutzung zur militärischen Ausbildung, zur militärischen Verbandsbildung oder zur Vorbereitung militärischer Verteidigung ist unzulässig."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 8",
-      "title": "Luftdienst",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei unterhält zur Unterstützung ihrer Aufgaben einen Luftdienst."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Der Luftdienst kann bemannte und unbemannte Luftfahrtsysteme einsetzen, insbesondere zur"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "polizeilichen Lageaufklärung,"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Fahndungsunterstützung,"
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Suche nach Personen,"
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Einsatzführung,"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Bild- und Datenübertragung,"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Unterstützung bei Katastrophen, Großschadensereignissen und besonderen Gefahrenlagen und"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Unterstützung anderer Polizeidienststellen und zuständiger Behörden des Bundes."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Der Luftdienst nimmt keine Aufgaben der militärischen Luftraumüberwachung, der Luftraumverteidigung oder des Luftkampfes wahr."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(4)",
-          "text": "Bewaffnete Luftfahrzeuge und bewaffnete unbemannte Luftfahrtsysteme dürfen nicht beschafft, vorgehalten oder eingesetzt werden."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 9",
-      "title": "Küsten- und Wasserschutzdienst",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei unterhält zur Unterstützung ihrer Aufgaben einen Küsten- und Wasserschutzdienst."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Der Küsten- und Wasserschutzdienst nimmt vollzugspolizeiliche Aufgaben insbesondere auf grenznahen Gewässern, in Häfen, an Umschlagstellen, auf Wasserstraßen, an Küstenabschnitten sowie an wasserbezogenen Anlagen kritischer Infrastruktur wahr, soweit nicht eine andere Polizeidienststelle zuständig ist."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Der Küsten- und Wasserschutzdienst kann Wasserfahrzeuge, Tauchergruppen, Hafenfahndungsgruppen, Gefahrgutkontrollgruppen und technische Einsatzgruppen einsetzen."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(4)",
-          "text": "Der Küsten- und Wasserschutzdienst nimmt keine Aufgaben der militärischen Seeraumüberwachung, der Küstenverteidigung oder der Seekriegführung wahr."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(5)",
-          "text": "Kriegsschiffe, Seezielwaffen, Seeminen sowie sonstige nach Bauart und Zweckbestimmung für die militärische Seekriegführung bestimmte Einsatzmittel dürfen nicht beschafft, vorgehalten oder eingesetzt werden."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 10",
-      "title": "Technischer Einsatzdienst",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei unterhält zur Unterstützung ihrer Aufgaben einen technischen Einsatzdienst."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Der technische Einsatzdienst kann insbesondere folgende Führungs- und Einsatzmittel vorhalten und einsetzen:"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "geschützte Dienstfahrzeuge,"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Sonderfahrzeuge,"
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "mobile Kontrollstellen,"
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "mobile Führungsstellen,"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "technische Sperren,"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Wasserwerfer,"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Kommunikations- und Aufklärungstechnik,"
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "Drohnendetektionssysteme,"
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Ausrüstung zum Schutz vor chemischen, biologischen, radiologischen und nuklearen Gefahren und"
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "Sanitäts-, Berge- und Dekontaminationsausstattung."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Führungs- und Einsatzmittel nach Absatz 2 dürfen nur zu polizeilichen Zwecken eingesetzt werden."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(4)",
-          "text": "Kampfpanzer, Schützenpanzer mit militärischer Hauptbewaffnung, Artilleriesysteme, Flugabwehrsysteme, Raketenwaffen sowie sonstige nach Bauart und Zweckbestimmung für die militärische Gefechtsführung bestimmte Einsatzmittel dürfen nicht beschafft, vorgehalten oder eingesetzt werden."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 11",
-      "title": "Lage- und Analysezentrum",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Bei der Kasernierten Grenzpolizei wird ein Lage- und Analysezentrum eingerichtet."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Das Lage- und Analysezentrum dient der Zusammenführung, Auswertung und Darstellung polizeilicher Lageinformationen zur Erfüllung der Aufgaben der Kasernierten Grenzpolizei."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Die Verarbeitung personenbezogener Daten richtet sich nach dem Ostdeutschen Polizeivollzugsdienstgesetz und den sonstigen hierfür geltenden Rechtsvorschriften."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(4)",
-          "text": "Das Lage- und Analysezentrum kann gemeinsame Lagebilder mit Behörden des Bundes, anderer Länder und anderer Staaten erstellen, soweit die Übermittlung und Verarbeitung der hierfür erforderlichen Daten zulässig ist."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 12",
-      "title": "Zusammenarbeit",
-      "children": [
-        {
-          "type": "subparagraph",
-          "label": "(1)",
-          "text": "Die Kasernierte Grenzpolizei arbeitet mit den übrigen Polizeidienststellen des Landes, den Polizeibehörden, der Bundespolizei, der Zollverwaltung, dem Bundeskriminalamt, den Verfassungsschutzbehörden im Rahmen ihrer gesetzlichen Zuständigkeiten, den Katastrophenschutzbehörden sowie mit den zuständigen Behörden anderer Länder und Staaten zusammen."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(2)",
-          "text": "Die Zusammenarbeit mit Behörden anderer Staaten richtet sich nach den hierfür geltenden Rechtsvorschriften und Vereinbarungen."
-        },
-        {
-          "type": "subparagraph",
-          "label": "(3)",
-          "text": "Das Staatsministerium für Staats- und Grenzsicherheit kann Vereinbarungen schließen, soweit dies zur Erfüllung der Aufgaben der Kasernierten Grenzpolizei erforderlich ist."
-        }
-      ]
-    },
-    {
-      "type": "paragraph",
-      "label": "§ 13",
-      "title": "Verordnungsermächtigung",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "Das Staatsministerium für Staats- und Grenzsicherheit wird ermächtigt, durch Rechtsverordnung nähere Bestimmungen zu erlassen über"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "die innere Gliederung der Kasernierten Grenzpolizei,"
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "die Dienstsitze, Dienstbezirke und Zuständigkeitsbereiche,"
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "die Einrichtung, Zuordnung und Aufgaben der Organisationseinheiten,"
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "die Einsatzstandorte, Bereitschaftsunterkünfte und Ausbildungsstandorte,"
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "die Zusammenarbeit mit anderen Polizeidienststellen,"
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "die Wahrnehmung von Aufgaben des grenzpolizeilichen Einzeldienstes nach Maßgabe der Vereinbarung mit dem Bund und"
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "die Dienst- und Fachaufsicht innerhalb der Kasernierten Grenzpolizei."
-        }
-      ]
-    },
-    {
-      "type": "annex",
-      "label": "Anlage (zu § 7 Absatz 4)",
-      "title": "Liegenschaftsprogramm der Kasernierten Grenzpolizei",
-      "children": []
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 1",
-      "title": "Kernliegenschaften",
-      "children": [
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Tegel Nord"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Hauptstadt-, Leitungs-, Luftdienst- und Bundeskooperationsstützpunkt."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Sperenberg/Kummersdorf"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Hauptausbildungszentrum, technisches Einsatz- und Übungszentrum, Fahrtrainingsstandort, Drohnenübungsstandort, CBRN- und Sanitätsübungsstandort sowie Lager- und Wartungsstandort."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Großenhain"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als sächsischer Hauptstandort, Luftdienststützpunkt, technischer Einsatzstützpunkt, Ausbildungsstandort und Standort für geschützte Dienstfahrzeuge."
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Rothenburg/Görlitz"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als operativer Grenzluftstützpunkt Ost, Drohnenstützpunkt, Fahndungsstützpunkt und Lageunterstützungsstandort für den Grenzraum zu Polen und Tschechien."
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Peenemünde"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als kombinierter Luftdienst-, Küsten- und Wasserschutzstützpunkt, maritime Ausbildungsstätte, Drohnenstützpunkt und Hafenfahndungsstandort."
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Dranske/Bug"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Standort des Küsten- und Wasserschutzdienstes, Bootsführerschule, maritime Ausbildungsstätte und Küstenlageunterstützungsstandort."
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Neuhardenberg"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Luftdienststützpunkt für den Oderraum, Fahndungs- und Katastrophenschutzstützpunkt sowie Reserveflugplatz."
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "Magdeburg-Cochstedt"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Kooperations-, Ausbildungs- und Erprobungsstandort für unbemannte Luftfahrtsysteme, Drohnendetektion und drohnenbezogene Führungsunterstützung."
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Altenburg-Nobitz"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als mitteldeutscher Luftdienst-, Ausbildungs- und Einsatzstützpunkt."
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "Schwerin-Parchim"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Luftlogistik-, Material-, Reserve- und Ausweichstandort."
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 2",
-      "title": "Ergänzungs- und Kooperationsliegenschaften",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "Ergänzungs- und Kooperationsliegenschaften"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Eberswalde-Finow"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Luftdienst- und Fahndungsstützpunkt Nordost."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Groß Dölln"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Fahrtrainings-, Sonderfahrzeug-, Großübungs- und Drohnenteststandort."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Welzow"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Lausitzer Luftdienst-, Ausbildungs- und Katastrophenschutzstützpunkt."
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Cottbus-Drewitz"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als technischer Einsatzstützpunkt, Energie- und Resilienzstandort, Fahrtrainingsfläche und Drohnenstandort."
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Werneuchen"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Berliner Umlandstützpunkt für Luftdienst, Drohnenbetrieb und Fahndungsunterstützung."
-        },
-        {
-          "type": "item",
-          "label": "6.",
-          "text": "Preschen"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als grenznahes Übungs-, Drohnen-, Sonderfahrzeug- und Technikgelände."
-        },
-        {
-          "type": "item",
-          "label": "7.",
-          "text": "Rechlin-Lärz"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Luftdienstschule, Reserveflugplatz und Drohnenübungsstandort."
-        },
-        {
-          "type": "item",
-          "label": "8.",
-          "text": "Trollenhagen/Neubrandenburg"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als nordostdeutscher Luftdienst-, Katastrophenschutz- und Einsatzstützpunkt."
-        },
-        {
-          "type": "item",
-          "label": "9.",
-          "text": "Eisenach-Kindel"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als westlicher Luftdienst-, Fahrtrainings- und Ausbildungsstützpunkt."
-        },
-        {
-          "type": "item",
-          "label": "10.",
-          "text": "Allstedt"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Luftdienst-, Ausbildungs-, Lager-, Technik- und Reservestandort."
-        },
-        {
-          "type": "item",
-          "label": "11.",
-          "text": "Merseburg"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als regionaler Ausbildungs-, Hubschrauber- und Unterstützungsstandort."
-        },
-        {
-          "type": "item",
-          "label": "12.",
-          "text": "Burg/Krähenberge"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Elbe-, Hochwasser-, Logistik- und technischer Einsatzstützpunkt."
-        },
-        {
-          "type": "item",
-          "label": "13.",
-          "text": "Zerbst"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Reserveflugplatz, Ausbildungsstandort und technische Reservefläche."
-        }
-      ]
-    },
-    {
-      "type": "section",
-      "label": "Abschnitt 3",
-      "title": "Sonder-, Reserve- und Prüfstandorte",
-      "children": [
-        {
-          "type": "paragraphText",
-          "text": "Sonder-, Reserve- und Prüfstandorte"
-        },
-        {
-          "type": "item",
-          "label": "1.",
-          "text": "Wünsdorf-Waldstadt"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Verwaltungs-, Archiv-, Schulungs-, Lage- oder Führungsstandort."
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "Jüterbog"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung erschlossener Teilflächen als Ausbildungs-, Technik-, Reserve- oder Lagerstandort."
-        },
-        {
-          "type": "item",
-          "label": "3.",
-          "text": "Kossa/Söllichau"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als geschützte Führungs-, Ausbildungs- oder Krisenstabsübungsstätte."
-        },
-        {
-          "type": "item",
-          "label": "4.",
-          "text": "Mockrehna/Elsnig"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als Material-, Lager-, Sicherungs- und Technikstandort nach besonderer Kampfmittel-, Altlasten- und Umweltprüfung."
-        },
-        {
-          "type": "item",
-          "label": "5.",
-          "text": "Dänholm Stralsund"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Vorgesehene Prüfung:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eignung als kleine maritime Außenstelle, Kooperationsstandort oder Traditions- und Ausbildungsstandort des Küsten- und Wasserschutzdienstes."
-        },
-        {
-          "type": "article",
-          "label": "Artikel 2",
-          "title": "Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes",
+          "type": "quotedProvision",
           "children": [
             {
               "type": "paragraphText",
-              "text": "Das Ostdeutsche Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), das zuletzt durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 28) geändert worden ist, wird wie folgt geändert:"
+              "text": "Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates (Kasernierte-Grenzpolizei-Gesetz – KGrPolG)"
             },
             {
-              "type": "item",
-              "label": "1.",
-              "text": "In der Inhaltsübersicht wird nach der Angabe zu § 100 folgende Angabe eingefügt:"
+              "type": "paragraph",
+              "label": "§ 1",
+              "title": "Errichtung, Rechtsstellung, Bezeichnung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Im Geschäftsbereich des Staatsministeriums für Staats- und Grenzssicherheit wird die ,,Kasernierte Grenzpolizei” errichtet.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Kasernierte Grenzpolizei ist keine Streitkraft. Sie nimmt keine Aufgaben der militärischen Verteidigung, der bewaffneten Grenzverteidigung, der Kriegführung, der militärischen Luftraumverteidigung oder der militärischen Seeraumverteidigung wahr.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(6)",
+                  "text": "Die Zuständigkeiten des Bundes, insbesondere für den Grenzschutz, die Streitkräfte, den Luftverkehr und die Bundespolizei, bleiben unberührt.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 2",
+              "title": "Aufgaben",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei nimmt vollzugspolizeiliche Aufgaben wahr",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "zur Verhütung, Aufklärung und Bekämpfung grenzüberschreitender Kriminalität,",
+                  "level": 0,
+                  "listId": "trt8kjh0zztc",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "zur Fahndung in Grenzräumen, auf Verkehrswegen mit grenzüberschreitender Bedeutung sowie in Anlagen und Einrichtungen des internationalen Verkehrs,",
+                  "level": 0,
+                  "listId": "trt8kjh0zztc",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "zum Schutz gefährdeter grenznaher Infrastrukturen,",
+                  "level": 0,
+                  "listId": "trt8kjh0zztc",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "zur polizeilichen Lageaufklärung in Grenzräumen,",
+                  "level": 0,
+                  "listId": "trt8kjh0zztc",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "zur Unterstützung anderer Polizeidienststellen bei Einsätzen aus besonderem Anlass,",
+                  "level": 0,
+                  "listId": "trt8kjh0zztc",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "zur Unterstützung der zuständigen Behörden des Bundes und",
+                  "level": 0,
+                  "listId": "trt8kjh0zztc",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "zur Unterstützung bei Katastrophen, Großschadensereignissen und sonstigen besonderen Gefahrenlagen, soweit ein Bezug zu ihren Aufgaben besteht.",
+                  "level": 0,
+                  "listId": "trt8kjh0zztc",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Grenzüberschreitende Kriminalität im Sinne dieses Gesetzes umfasst insbesondere Straftaten der Schleusungskriminalität, des Menschenhandels, des Betäubungsmittelhandels, des unerlaubten Waffenhandels, der Geldwäsche, der organisierten Eigentumskriminalität, der Kraftfahrzeugverschiebung, der Urkundenfälschung sowie der sonstigen banden- oder gewerbsmäßigen Kriminalität mit grenzüberschreitendem Bezug.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die Kasernierte Grenzpolizei unterstützt die übrigen Polizeidienststellen des Landes bei der Wahrnehmung der Aufgaben nach dem Ostdeutschen Polizeivollzugsdienstgesetz, soweit ihre besondere Organisation, Ausstattung oder Lagekompetenz dies erfordert.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 3",
+              "title": "Wahrnehmung grenzpolizeilicher Einzeldienstaufgaben",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei nimmt Aufgaben des grenzpolizeilichen Einzeldienstes wahr, soweit der Ostdeutsche Freistaat diese Aufgaben im Einvernehmen mit dem Bund nach § 2 Absatz 1 des Bundespolizeigesetzes mit eigenen Kräften wahrnimmt.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Wahrnehmung grenzpolizeilicher Einzeldienstaufgaben darf erst aufgenommen werden, wenn die Vereinbarung mit dem Bund wirksam ist und die bundesrechtlich vorgesehene Bekanntmachung erfolgt ist.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 4",
+              "title": "Befugnisse",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei hat zur Erfüllung ihrer Aufgaben die Befugnisse des Polizeivollzugsdienstes nach dem Ostdeutschen Polizeivollzugsdienstgesetz und nach anderen Rechtsvorschriften.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Soweit die Kasernierte Grenzpolizei Aufgaben des grenzpolizeilichen Einzeldienstes nach § 3 wahrnimmt, richten sich ihre Befugnisse nach Bundesrecht, soweit dieses dies bestimmt.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Maßnahmen der Kasernierten Grenzpolizei sind polizeiliche Maßnahmen; sie sind keine Maßnahmen militärischer Gewalt.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 5",
+              "title": "Aufbau und Organisation",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei wird von einem/einer Präsident:in geleitet.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Bei der Kasernierten Grenzpolizei können insbesondere eingerichtet werden:",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "ein Präsidialstab,",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Grenzpolizeidirektionen,",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Grenzpolizeiinspektionen,",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Grenzpolizeistationen,",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "mobile Fahndungseinheiten,",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Einsatz- und Zugriffseinheiten,",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "ein Luftdienst (§ 8),",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "ein Küsten- und Wasserschutzdienst (§ 9),",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "9.",
+                  "text": "ein technischer Einsatzdienst (§ 10),",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "10.",
+                  "text": "ein Lage- und Analysezentrum (§ 11) und",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "11.",
+                  "text": "Ausbildungs- und Fortbildungseinrichtungen.",
+                  "level": 0,
+                  "listId": "24vyjwn9vbph",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die Kasernierte Grenzpolizei kann gemeinsame Dienststellen und gemeinsame Einrichtungen mit Behörden des Bundes, anderer Länder und anderer Staaten bilden, soweit Rechtsvorschriften oder Vereinbarungen dies zulassen.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 6",
+              "title": "Einsatzstandorte und Bereitschaftsunterkünfte",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei kann Einsatzstandorte, Bereitschaftsunterkünfte, Ausbildungsstandorte, technische Einsatzstützpunkte und temporäre Einsatzunterkünfte unterhalten.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Unterbringung in Bereitschaftsunterkünften dient der Sicherstellung der Einsatzbereitschaft, der Aus- und Fortbildung, der Einsatzvorbereitung, der Einsatznachbereitung sowie der Bewältigung besonderer Einsatzlagen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Eine dauerhafte Verpflichtung zum Wohnen in Bereitschaftsunterkünften außerhalb dienstlicher Erfordernisse wird durch dieses Gesetz nicht begründet.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Die Einrichtungen nach Absatz 1 dürfen nicht der militärischen Ausbildung, der militärischen Verbandsbildung oder der Vorbereitung militärischer Verteidigung dienen.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 7",
+              "title": "Liegenschaftsprogramm",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei kann zur Erfüllung ihrer Aufgaben Liegenschaften unterhalten.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Für das Liegenschaftsprogramm sollen vorrangig ehemals militärisch, grenzpolizeilich, polizeilich, verkehrsinfrastrukturell oder sicherheitsbehördlich genutzte Liegenschaften herangezogen werden, soweit ihre Nutzung für Aufgaben der Kasernierten Grenzpolizei geeignet und mit den Anforderungen des Umwelt-, Natur-, Denkmal-, Bau-, Haushalts- und Vergaberechts vereinbar ist.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die in der Anlage aufgeführten Liegenschaften sind vorrangig auf ihre Eignung für die Aufgaben der Kasernierten Grenzpolizei zu prüfen. Die Aufnahme einer Liegenschaft in die Anlage begründet keinen Anspruch auf Erwerb, Überlassung, Mitnutzung oder Widmung.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Vor Erwerb, Pacht, Miete, Mitnutzung oder Entwicklung einer Liegenschaft sind insbesondere zu prüfen:",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "die Eigentums- und Nutzungsverhältnisse,",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "die Vereinbarkeit mit den Aufgaben der Kasernierten Grenzpolizei,",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "die Kampfmittelbelastung,",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "die Altlasten- und Bodenschutzbelange,",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "die Belange des Natur- und Landschaftsschutzes,",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "die Belange des Denkmalschutzes,",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "die bauplanungs- und bauordnungsrechtliche Zulässigkeit,",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "die verkehrliche und einsatztaktische Erschließung,",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "9.",
+                  "text": "die Wirtschaftlichkeit und",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "10.",
+                  "text": "die Auswirkungen auf Gemeinden, Einwohnerinnen und Einwohner sowie bestehende zivile Nutzungen.",
+                  "level": 0,
+                  "listId": "bqgg7s4z9ix9",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Das Staatsministerium für Staats- und Grenzsicherheit kann mit dem Bund, anderen Ländern, Gemeinden, Gemeindeverbänden, sonstigen juristischen Personen des öffentlichen Rechts und privaten Eigentümern Vereinbarungen über Erwerb, Pacht, Miete, Mitnutzung, Entwicklung, Sicherung, Erschließung und Betrieb von Liegenschaften schließen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(6)",
+                  "text": "Liegenschaften der Kasernierten Grenzpolizei dürfen nur zu polizeilichen Zwecken, zur Aus- und Fortbildung, zur Einsatzvorbereitung, zur Einsatznachbereitung, zur technischen Einsatzunterstützung, zur Unterbringung im Sinne des § 6 und zur Zusammenarbeit mit den zuständigen Behörden genutzt werden.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(7)",
+                  "text": "Eine militärische Widmung der Liegenschaften, eine Nutzung zur militärischen Ausbildung, zur militärischen Verbandsbildung oder zur Vorbereitung militärischer Verteidigung ist unzulässig.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 8",
+              "title": "Luftdienst",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei unterhält zur Unterstützung ihrer Aufgaben einen Luftdienst.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Luftdienst kann bemannte und unbemannte Luftfahrtsysteme einsetzen, insbesondere zur",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "polizeilichen Lageaufklärung,",
+                  "level": 0,
+                  "listId": "5stuu7vc37ui",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Fahndungsunterstützung,",
+                  "level": 0,
+                  "listId": "5stuu7vc37ui",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Suche nach Personen,",
+                  "level": 0,
+                  "listId": "5stuu7vc37ui",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Einsatzführung,",
+                  "level": 0,
+                  "listId": "5stuu7vc37ui",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Bild- und Datenübertragung,",
+                  "level": 0,
+                  "listId": "5stuu7vc37ui",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Unterstützung bei Katastrophen, Großschadensereignissen und besonderen Gefahrenlagen und",
+                  "level": 0,
+                  "listId": "5stuu7vc37ui",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "Unterstützung anderer Polizeidienststellen und zuständiger Behörden des Bundes.",
+                  "level": 0,
+                  "listId": "5stuu7vc37ui",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Luftdienst nimmt keine Aufgaben der militärischen Luftraumüberwachung, der Luftraumverteidigung oder des Luftkampfes wahr.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Bewaffnete Luftfahrzeuge und bewaffnete unbemannte Luftfahrtsysteme dürfen nicht beschafft, vorgehalten oder eingesetzt werden.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 9",
+              "title": "Küsten- und Wasserschutzdienst",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei unterhält zur Unterstützung ihrer Aufgaben einen Küsten- und Wasserschutzdienst.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Küsten- und Wasserschutzdienst nimmt vollzugspolizeiliche Aufgaben insbesondere auf grenznahen Gewässern, in Häfen, an Umschlagstellen, auf Wasserstraßen, an Küstenabschnitten sowie an wasserbezogenen Anlagen kritischer Infrastruktur wahr, soweit nicht eine andere Polizeidienststelle zuständig ist.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Küsten- und Wasserschutzdienst kann Wasserfahrzeuge, Tauchergruppen, Hafenfahndungsgruppen, Gefahrgutkontrollgruppen und technische Einsatzgruppen einsetzen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Der Küsten- und Wasserschutzdienst nimmt keine Aufgaben der militärischen Seeraumüberwachung, der Küstenverteidigung oder der Seekriegführung wahr.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Kriegsschiffe, Seezielwaffen, Seeminen sowie sonstige nach Bauart und Zweckbestimmung für die militärische Seekriegführung bestimmte Einsatzmittel dürfen nicht beschafft, vorgehalten oder eingesetzt werden.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 10",
+              "title": "Technischer Einsatzdienst",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei unterhält zur Unterstützung ihrer Aufgaben einen technischen Einsatzdienst.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der technische Einsatzdienst kann insbesondere folgende Führungs- und Einsatzmittel vorhalten und einsetzen:",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "geschützte Dienstfahrzeuge,",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Sonderfahrzeuge,",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "mobile Kontrollstellen,",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "mobile Führungsstellen,",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "technische Sperren,",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Wasserwerfer,",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "Kommunikations- und Aufklärungstechnik,",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "Drohnendetektionssysteme,",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "9.",
+                  "text": "Ausrüstung zum Schutz vor chemischen, biologischen, radiologischen und nuklearen Gefahren und",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "10.",
+                  "text": "Sanitäts-, Berge- und Dekontaminationsausstattung.",
+                  "level": 0,
+                  "listId": "bgi5mhn7f8p6",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Führungs- und Einsatzmittel nach Absatz 2 dürfen nur zu polizeilichen Zwecken eingesetzt werden.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Kampfpanzer, Schützenpanzer mit militärischer Hauptbewaffnung, Artilleriesysteme, Flugabwehrsysteme, Raketenwaffen sowie sonstige nach Bauart und Zweckbestimmung für die militärische Gefechtsführung bestimmte Einsatzmittel dürfen nicht beschafft, vorgehalten oder eingesetzt werden.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 11",
+              "title": "Lage- und Analysezentrum",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Bei der Kasernierten Grenzpolizei wird ein Lage- und Analysezentrum eingerichtet.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Das Lage- und Analysezentrum dient der Zusammenführung, Auswertung und Darstellung polizeilicher Lageinformationen zur Erfüllung der Aufgaben der Kasernierten Grenzpolizei.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die Verarbeitung personenbezogener Daten richtet sich nach dem Ostdeutschen Polizeivollzugsdienstgesetz und den sonstigen hierfür geltenden Rechtsvorschriften.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Das Lage- und Analysezentrum kann gemeinsame Lagebilder mit Behörden des Bundes, anderer Länder und anderer Staaten erstellen, soweit die Übermittlung und Verarbeitung der hierfür erforderlichen Daten zulässig ist.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 12",
+              "title": "Zusammenarbeit",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Kasernierte Grenzpolizei arbeitet mit den übrigen Polizeidienststellen des Landes, den Polizeibehörden, der Bundespolizei, der Zollverwaltung, dem Bundeskriminalamt, den Verfassungsschutzbehörden im Rahmen ihrer gesetzlichen Zuständigkeiten, den Katastrophenschutzbehörden sowie mit den zuständigen Behörden anderer Länder und Staaten zusammen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Zusammenarbeit mit Behörden anderer Staaten richtet sich nach den hierfür geltenden Rechtsvorschriften und Vereinbarungen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Das Staatsministerium für Staats- und Grenzsicherheit kann Vereinbarungen schließen, soweit dies zur Erfüllung der Aufgaben der Kasernierten Grenzpolizei erforderlich ist.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 13",
+              "title": "Verordnungsermächtigung",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Das Staatsministerium für Staats- und Grenzsicherheit wird ermächtigt, durch Rechtsverordnung nähere Bestimmungen zu erlassen über"
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "die innere Gliederung der Kasernierten Grenzpolizei,",
+                  "level": 0,
+                  "listId": "ywv7r3j0iuk4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "die Dienstsitze, Dienstbezirke und Zuständigkeitsbereiche,",
+                  "level": 0,
+                  "listId": "ywv7r3j0iuk4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "die Einrichtung, Zuordnung und Aufgaben der Organisationseinheiten,",
+                  "level": 0,
+                  "listId": "ywv7r3j0iuk4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "die Einsatzstandorte, Bereitschaftsunterkünfte und Ausbildungsstandorte,",
+                  "level": 0,
+                  "listId": "ywv7r3j0iuk4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "die Zusammenarbeit mit anderen Polizeidienststellen,",
+                  "level": 0,
+                  "listId": "ywv7r3j0iuk4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "die Wahrnehmung von Aufgaben des grenzpolizeilichen Einzeldienstes nach Maßgabe der Vereinbarung mit dem Bund und",
+                  "level": 0,
+                  "listId": "ywv7r3j0iuk4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "die Dienst- und Fachaufsicht innerhalb der Kasernierten Grenzpolizei.",
+                  "level": 0,
+                  "listId": "ywv7r3j0iuk4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "annex",
+              "label": "Anlage (zu § 7 Absatz 4)",
+              "title": "Liegenschaftsprogramm der Kasernierten Grenzpolizei",
+              "children": []
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 1",
+              "title": "Kernliegenschaften",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Tegel Nord",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Hauptstadt-, Leitungs-, Luftdienst- und Bundeskooperationsstützpunkt."
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Sperenberg/Kummersdorf",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Hauptausbildungszentrum, technisches Einsatz- und Übungszentrum, Fahrtrainingsstandort, Drohnenübungsstandort, CBRN- und Sanitätsübungsstandort sowie Lager- und Wartungsstandort."
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Großenhain",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als sächsischer Hauptstandort, Luftdienststützpunkt, technischer Einsatzstützpunkt, Ausbildungsstandort und Standort für geschützte Dienstfahrzeuge."
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Rothenburg/Görlitz",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als operativer Grenzluftstützpunkt Ost, Drohnenstützpunkt, Fahndungsstützpunkt und Lageunterstützungsstandort für den Grenzraum zu Polen und Tschechien."
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Peenemünde",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als kombinierter Luftdienst-, Küsten- und Wasserschutzstützpunkt, maritime Ausbildungsstätte, Drohnenstützpunkt und Hafenfahndungsstandort."
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Dranske/Bug",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Standort des Küsten- und Wasserschutzdienstes, Bootsführerschule, maritime Ausbildungsstätte und Küstenlageunterstützungsstandort."
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "Neuhardenberg",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Luftdienststützpunkt für den Oderraum, Fahndungs- und Katastrophenschutzstützpunkt sowie Reserveflugplatz."
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "Magdeburg-Cochstedt",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Kooperations-, Ausbildungs- und Erprobungsstandort für unbemannte Luftfahrtsysteme, Drohnendetektion und drohnenbezogene Führungsunterstützung."
+                },
+                {
+                  "type": "item",
+                  "label": "9.",
+                  "text": "Altenburg-Nobitz",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als mitteldeutscher Luftdienst-, Ausbildungs- und Einsatzstützpunkt."
+                },
+                {
+                  "type": "item",
+                  "label": "10.",
+                  "text": "Schwerin-Parchim",
+                  "level": 0,
+                  "listId": "hgmqe0whg54p",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Luftlogistik-, Material-, Reserve- und Ausweichstandort."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 2",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Ergänzungs- und Kooperationsliegenschaften"
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Eberswalde-Finow",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Luftdienst- und Fahndungsstützpunkt Nordost."
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Groß Dölln",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Fahrtrainings-, Sonderfahrzeug-, Großübungs- und Drohnenteststandort."
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Welzow",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Lausitzer Luftdienst-, Ausbildungs- und Katastrophenschutzstützpunkt."
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Cottbus-Drewitz",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als technischer Einsatzstützpunkt, Energie- und Resilienzstandort, Fahrtrainingsfläche und Drohnenstandort."
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Werneuchen",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Berliner Umlandstützpunkt für Luftdienst, Drohnenbetrieb und Fahndungsunterstützung."
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Preschen",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als grenznahes Übungs-, Drohnen-, Sonderfahrzeug- und Technikgelände."
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "Rechlin-Lärz",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Luftdienstschule, Reserveflugplatz und Drohnenübungsstandort."
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "Trollenhagen/Neubrandenburg",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als nordostdeutscher Luftdienst-, Katastrophenschutz- und Einsatzstützpunkt."
+                },
+                {
+                  "type": "item",
+                  "label": "9.",
+                  "text": "Eisenach-Kindel",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als westlicher Luftdienst-, Fahrtrainings- und Ausbildungsstützpunkt."
+                },
+                {
+                  "type": "item",
+                  "label": "10.",
+                  "text": "Allstedt",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Luftdienst-, Ausbildungs-, Lager-, Technik- und Reservestandort."
+                },
+                {
+                  "type": "item",
+                  "label": "11.",
+                  "text": "Merseburg",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als regionaler Ausbildungs-, Hubschrauber- und Unterstützungsstandort."
+                },
+                {
+                  "type": "item",
+                  "label": "12.",
+                  "text": "Burg/Krähenberge",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Elbe-, Hochwasser-, Logistik- und technischer Einsatzstützpunkt."
+                },
+                {
+                  "type": "item",
+                  "label": "13.",
+                  "text": "Zerbst",
+                  "level": 0,
+                  "listId": "6grv8wj3sde4",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Reserveflugplatz, Ausbildungsstandort und technische Reservefläche."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "Abschnitt 3",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Sonder-, Reserve- und Prüfstandorte"
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Wünsdorf-Waldstadt",
+                  "level": 0,
+                  "listId": "cavs2pj1rd3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Verwaltungs-, Archiv-, Schulungs-, Lage- oder Führungsstandort."
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Jüterbog",
+                  "level": 0,
+                  "listId": "cavs2pj1rd3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung erschlossener Teilflächen als Ausbildungs-, Technik-, Reserve- oder Lagerstandort."
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Kossa/Söllichau",
+                  "level": 0,
+                  "listId": "cavs2pj1rd3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als geschützte Führungs-, Ausbildungs- oder Krisenstabsübungsstätte."
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Mockrehna/Elsnig",
+                  "level": 0,
+                  "listId": "cavs2pj1rd3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als Material-, Lager-, Sicherungs- und Technikstandort nach besonderer Kampfmittel-, Altlasten- und Umweltprüfung."
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Dänholm Stralsund",
+                  "level": 0,
+                  "listId": "cavs2pj1rd3",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Vorgesehene Prüfung:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eignung als kleine maritime Außenstelle, Kooperationsstandort oder Traditions- und Ausbildungsstandort des Küsten- und Wasserschutzdienstes."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Ostdeutsche Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), das zuletzt durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 28) geändert worden ist, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In der Inhaltsübersicht wird nach der Angabe zu § 100 folgende Angabe eingefügt: „§ 100a Kasernierte Grenzpolizei“.",
+          "level": 0,
+          "listId": "re7mjwa84x4f",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 97 Absatz 1 wird wie folgt geändert: a) In Nummer 4 wird am Ende das Wort „und“ gestrichen. b) Nach Nummer 4 wird folgende Nummer 5 eingefügt: „5. die Kasernierte Grenzpolizei und“. c) Die bisherige Nummer 5 wird Nummer 6.",
+          "level": 0,
+          "listId": "re7mjwa84x4f",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Nach § 100 wird folgender § 100a eingefügt:",
+          "level": 0,
+          "listId": "re7mjwa84x4f",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "quotedProvision",
+              "children": [
+                {
+                  "type": "paragraph",
+                  "label": "§ 100a",
+                  "title": "Kasernierte Grenzpolizei",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Aufbau, Organisation und Aufgaben der Kasernierten Grenzpolizei richten sich nach dem Kasernierte-Grenzpolizei-Gesetz.“"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
         {
-          "type": "paragraph",
-          "label": "§ 100a",
-          "title": "Kasernierte Grenzpolizei“.",
-          "children": [
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "§ 97 Absatz 1 wird wie folgt geändert:"
-            },
-            {
-              "type": "item",
-              "label": "a)",
-              "text": "In Nummer 4 wird am Ende das Wort „und“ gestrichen."
-            },
-            {
-              "type": "item",
-              "label": "b)",
-              "text": "Nach Nummer 4 wird folgende Nummer 5 eingefügt: „5. die Kasernierte Grenzpolizei und“."
-            },
-            {
-              "type": "item",
-              "label": "c)",
-              "text": "Die bisherige Nummer 5 wird Nummer 6."
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Nach § 100 wird folgender § 100a eingefügt:"
-            }
-          ]
-        },
+          "type": "item",
+          "label": "4.",
+          "text": "§ 101 Absatz 1 wird wie folgt gefasst: „(1) Die Dienst- und Fachaufsicht über das Landeskriminalamt, das Polizeiverwaltungsamt, das Präsidium der Bereitschaftspolizei, die Kasernierte Grenzpolizei und die Polizeidirektionen übt das Staatsministerium für Staats- und Grenzsicherheit aus.“",
+          "level": 0,
+          "listId": "re7mjwa84x4f",
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 3",
+      "title": "Inkrafttreten",
+      "children": [
         {
-          "type": "paragraph",
-          "label": "§ 100a",
-          "title": "Kasernierte Grenzpolizei",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Aufbau, Organisation und Aufgaben der Kasernierten Grenzpolizei richten sich nach dem Kasernierte-Grenzpolizei-Gesetz.“"
-            },
-            {
-              "type": "item",
-              "label": "4.",
-              "text": "§ 101 Absatz 1 wird wie folgt gefasst: „(1) Die Dienst- und Fachaufsicht über das Landeskriminalamt, das Polizeiverwaltungsamt, das Präsidium der Bereitschaftspolizei, die Kasernierte Grenzpolizei und die Polizeidirektionen übt das Staatsministerium für Staats- und Grenzsicherheit aus.“"
-            }
-          ]
-        },
-        {
-          "type": "article",
-          "label": "Artikel 3",
-          "title": "Inkrafttreten",
-          "children": [
-            {
-              "type": "paragraphText",
-              "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
-            }
-          ]
+          "type": "paragraphText",
+          "text": "Dieses Gesetz tritt am Tag nach seiner Verkündung in Kraft."
         }
       ]
     }

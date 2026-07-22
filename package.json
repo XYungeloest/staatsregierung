@@ -9,8 +9,8 @@
     "dev": "astro dev",
     "content:check": "node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/check-content.mjs",
     "norms:audit": "node scripts/import-normen.mjs --source-dir Gesetze",
-    "norms:import": "node scripts/import-normen.mjs --source-dir Gesetze --write",
-    "test:parser": "node --test tests/norm-markdown-parser.test.mjs",
+    "norms:import": "node scripts/import-normen.mjs --source-dir Gesetze",
+    "test:parser": "node --test tests/norm-html-parser.test.mjs",
     "kreisreform:prepare": "node scripts/prepare-kreisreform-map.mjs",
     "images:generate": "node scripts/generate-responsive-images.mjs",
     "check": "astro check",
@@ -32,7 +32,8 @@
   },
   "dependencies": {
     "astro": "^6.1.5",
-    "leaflet": "^1.9.4"
+    "leaflet": "^1.9.4",
+    "parse5": "^8.0.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",

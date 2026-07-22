@@ -22,8 +22,20 @@ test('strikter Audit kann nicht versehentlich schreiben', () => {
     '--strict',
     '--write',
     '--file',
-    'OGVBl. 2026 Nr. 53.md',
+    'OGVBl. 2026 Nr. 53.html',
   ], { encoding: 'utf8' });
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /reiner Prüfmodus/u);
+});
+
+test('Importer öffnet keine Markdown-Datei als Normquelle', () => {
+  const result = spawnSync(process.execPath, [
+    'scripts/import-normen.mjs',
+    '--source-dir',
+    'Gesetze',
+    '--file',
+    'OGVBl. 2026 Nr. 53.md',
+  ], { encoding: 'utf8' });
+  assert.notEqual(result.status, 0);
+  assert.match(result.stderr, /Markdown ist keine Normimportquelle/u);
 });

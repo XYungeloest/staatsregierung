@@ -82,10 +82,11 @@ content/normen/[slug]/
 
 Historische Fassungen sind gespeicherte Fassungen, keine automatisch berechneten Konsolidierungen.
 
-Die versionierten Markdown-Quellen unter `Gesetze/` sind für den Normimport maßgeblich. Der Import
-läuft ohne Schreibflag nur als Audit, schreibt ausschließlich gezielt ausgewählte Quellen und darf
-vorhandene Normordner nicht pauschal löschen. PDF-Extraktionen ersetzen keine verlässliche
-Markdown-Transkription.
+Die versionierten HTML-Quellen unter `Gesetze/` sind für den Normimport maßgeblich. Der Import liest
+keine Markdown-Datei und kennt keinen stillen Markdown-Rückfall. Er läuft ohne Schreibflag nur als
+Audit, schreibt ausschließlich gezielt ausgewählte Quellen und darf vorhandene Normordner nicht
+pauschal löschen. Das Quell-HTML wird nie direkt öffentlich gerendert; veröffentlicht werden nur
+validierte strukturierte Normdaten. PDF-Extraktionen ersetzen keine verlässliche HTML-Transkription.
 
 Verkündungen liegen unter:
 

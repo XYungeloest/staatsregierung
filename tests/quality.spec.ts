@@ -22,6 +22,7 @@ const overflowPages = [
   '/staatsregierung/mitglieder/yannik-schmaele/',
   '/staatsregierung/mitglieder/thomas-henry-barlow/',
   '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/',
+  '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
   '/recht/norm/sero-verordnung/',
   '/themen/energie-und-klima/',
   '/service/',

@@ -12,6 +12,15 @@ function textOf(blocks) {
     .join(' ');
 }
 
+function flattenWithQuoteState(blocks, output = [], insideQuote = false) {
+  for (const block of blocks ?? []) {
+    const quoted = insideQuote || block.type === 'quotedProvision';
+    output.push({ block, insideQuote });
+    flattenWithQuoteState(block.children, output, quoted);
+  }
+  return output;
+}
+
 export function validatePublicationParserContract(parsed) {
   const issues = [];
   const issueNumber = Number(parsed.issue);
@@ -25,11 +34,19 @@ export function validatePublicationParserContract(parsed) {
   }
 
   if (issueNumber === 53) {
-    const text = textOf(parsed.body);
-    if (!text.includes('Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.')) {
-      issues.push('Artikel 121a weicht vom bestätigten Wortlaut „Siebte … achte“ ab');
+    const flat = flattenWithQuoteState(parsed.body);
+    const outerArticles = flat
+      .filter(({ block, insideQuote }) => !insideQuote && block.type === 'article')
+      .map(({ block }) => block.label);
+    if (JSON.stringify(outerArticles) !== JSON.stringify(['Artikel 1', 'Artikel 2'])) {
+      issues.push(`äußere Artikel sind ${JSON.stringify(outerArticles)} statt ["Artikel 1","Artikel 2"]`);
     }
-    if (text.includes('Achte Volkskammer ist der achte Landtag')) issues.push('Artikel 121a enthält die verworfene Fassung „Achte … neunte“');
+    const quotedArticle5 = flat.find(({ block, insideQuote }) => insideQuote && block.type === 'article' && block.label === 'Artikel 5');
+    if (!quotedArticle5) issues.push('Artikel 5 wurde nicht als zitierte Neufassung erkannt');
+    const firstItem = parsed.body.find((block) => block.label === 'Artikel 1')?.children?.find((block) => block.type === 'item');
+    if (firstItem?.label !== '1.' || firstItem.children?.[0]?.label !== 'a.' || firstItem.children?.[0]?.children?.[0]?.label !== 'i.') {
+      issues.push('Änderungshierarchie 1. → a. → i. wurde nicht rekonstruiert');
+    }
   }
   return issues;
 }
@@ -40,8 +57,8 @@ export function validateConstitutionParserContract(parsed) {
   const labels = article120?.children
     ?.filter((block) => block.type === 'subparagraph' || block.type === 'item')
     .map((block) => block.label) ?? [];
-  if (JSON.stringify(labels) !== JSON.stringify(['1)', '1a)', '1b)', '2)'])) {
-    issues.push(`Artikel 120 enthält die Absatzkennzeichnungen ${JSON.stringify(labels)} statt ["1)","1a)","1b)","2)"]`);
+  if (JSON.stringify(labels) !== JSON.stringify(['(1)', '(1a)', '(1b)', '(2)'])) {
+    issues.push(`Artikel 120 enthält die Absatzkennzeichnungen ${JSON.stringify(labels)} statt ["(1)","(1a)","(1b)","(2)"]`);
   }
   const text = textOf(parsed.body);
   if (!text.includes('Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.')) {

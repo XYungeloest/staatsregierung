@@ -270,6 +270,7 @@ export function buildNormOutline(
 ): NormOutlineItem[] {
   return blocks.flatMap((block, index) => {
     const currentPath = [...path, index];
+    if (block.type === 'quotedProvision') return [];
     const shouldInclude =
       block.type === 'part' ||
       block.type === 'chapter' ||

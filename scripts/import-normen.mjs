@@ -4,11 +4,12 @@ import { access, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, join, relative, resolve } from 'node:path';
 
 import {
-  classifyMarkdownSource,
-  parseConsolidatedMarkdown,
-  parsePublicationMarkdown,
+  classifyHtmlSource,
+  parseConsolidatedHtml,
+  parsePublicationHtml,
+  summarizeHtmlAudit,
   summarizeParsedSource,
-} from './lib/norm-markdown-parser.mjs';
+} from './lib/norm-html-parser.mjs';
 import {
   validateConstitutionParserContract,
   validatePublicationParserContract,
@@ -127,6 +128,15 @@ function deriveStatus(norm, index) {
   return norm.effectiveDate > asOf ? 'future-effective' : 'in-force';
 }
 
+function normSourceReferences(fileName) {
+  return [{
+    kind: 'structured-html-transcription',
+    label: 'Redaktionell geprüfte HTML-Fassung der Quelle',
+    availability: 'versioned',
+    localSource: `Gesetze/${basename(fileName)}`,
+  }];
+}
+
 function buildRecords(parsed) {
   const configs = ISSUE_CONFIG[parsed.issue];
   const parsedNorms = [parsed, ...parsed.introducedNorms];
@@ -168,6 +178,7 @@ function buildRecords(parsed) {
       status,
       documentDate: parsed.documentDate,
       publicationDate: parsed.publicationDate,
+      sourceReferences: normSourceReferences(parsed.fileName),
       ...(effectiveDate ? { effectiveDate } : {}),
       ...(index === 0 && enactedNorms.length === 1 ? { enactedNorm: enactedNorms[0] } : {}),
       ...(index === 0 && enactedNorms.length > 1 ? { enactedNorms } : {}),
@@ -225,12 +236,13 @@ function buildConstitutionRecord(parsed) {
       documentDate: '2024-10-15',
       publicationDate: '2024-10-15',
       effectiveDate: '2024-10-15',
-      dateNote: 'Redaktionelle Lesefassung vom 21. Juli 2026. Artikel 121a gibt den bestätigten Wortlaut des Ersten Gesetzes zur Großen Staatsreform wieder.',
+      sourceReferences: normSourceReferences(parsed.fileName),
+      dateNote: 'Redaktionelle Lesefassung vom 21. Juli 2026. Der Wortlaut von Artikel 121a weicht vom Änderungstext in OGVBl. 2026 Nr. 53 ab; die Quellenklärung ist noch offen.',
     },
     history: {
       initialVersionId: null,
       entries: [
-        { date: '2024-10-15', type: 'initial', title: 'Ursprungsfassung verkündet; der vollständige Wortlaut ist nicht als versionierte Markdown-Quelle vorhanden.', citation, note: 'Keine historische Volltextfassung gespeichert.' },
+        { date: '2024-10-15', type: 'initial', title: 'Ursprungsfassung verkündet; der vollständige Wortlaut ist nicht als versionierte HTML-Quelle vorhanden.', citation, note: 'Keine historische Volltextfassung gespeichert.' },
         ['erstes-gesetz-zur-grossen-staatsreform', 'Erstes Gesetz zur Großen Staatsreform', '53'],
         ['zweites-gesetz-zur-grossen-staatsreform', 'Zweites Gesetz zur Großen Staatsreform', '54'],
         ['drittes-gesetz-zur-grossen-staatsreform', 'Drittes Gesetz zur Großen Staatsreform', '55'],
@@ -265,8 +277,8 @@ function publicationFrom(parsed, records) {
     date: parsed.publicationDate,
     publication: 'OGVBl.',
     sourceReferences: [{
-      kind: 'transcription',
-      label: 'Redaktionell geprüfte Markdown-Fassung der Ausgabe',
+      kind: 'structured-html-transcription',
+      label: 'Redaktionell geprüfte HTML-Fassung der Ausgabe',
       availability: 'versioned',
       localSource: `Gesetze/${basename(parsed.fileName)}`,
     }],
@@ -430,7 +442,7 @@ function compareGeneratedRecordToExisting(record, existing) {
   const version = existing.versions.find((entry) => entry.versionId === record.versions[0].versionId);
   if (!version) return { status: 'differs', issues: [`Fassung ${record.versions[0].versionId} fehlt`] };
   const issues = [];
-  if (existing.meta.title !== record.meta.title) issues.push('Titel weicht von der Markdown-Quelle ab');
+  if (existing.meta.title !== record.meta.title) issues.push('Titel weicht von der HTML-Quelle ab');
   if (existing.meta.documentDate !== record.meta.documentDate) issues.push('Dokumentdatum weicht ab');
   if (existing.meta.publicationDate !== record.meta.publicationDate) issues.push('Veröffentlichungsdatum weicht ab');
   if (JSON.stringify(version.body) !== JSON.stringify(record.versions[0].body)) issues.push('strukturierter Normtext weicht vom aktuellen Parsergebnis ab');
@@ -517,28 +529,42 @@ async function writeRecord(record, changes) {
 
 await access(sourceDir).catch(() => { throw new Error(`Quellverzeichnis fehlt: ${sourceDir}`); });
 const directoryEntries = await readdir(sourceDir, { withFileTypes: true });
-const markdownFiles = directoryEntries
-  .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+const htmlFiles = directoryEntries
+  .filter((entry) => entry.isFile() && entry.name.toLocaleLowerCase('de').endsWith('.html'))
   .map((entry) => entry.name)
   .filter((name) => selectedFiles.size === 0 || selectedFiles.has(name))
   .sort((left, right) => left.localeCompare(right, 'de'));
 
 if (selectedFiles.size > 0) {
-  const missing = [...selectedFiles].filter((name) => !markdownFiles.includes(name));
-  if (missing.length) throw new Error(`Ausgewählte Markdown-Quelle fehlt: ${missing.join(', ')}`);
+  const markdownSelection = [...selectedFiles].filter((name) => name.toLocaleLowerCase('de').endsWith('.md'));
+  if (markdownSelection.length > 0) throw new Error(`Markdown ist keine Normimportquelle: ${markdownSelection.join(', ')}`);
+  const missing = [...selectedFiles].filter((name) => !htmlFiles.includes(name));
+  if (missing.length) throw new Error(`Ausgewählte HTML-Quelle fehlt: ${missing.join(', ')}`);
 }
 
 const existingAuditRecords = await loadExistingAuditRecords();
-const report = { asOf, mode: shouldWrite ? 'incremental-write' : strictMode ? 'strict-audit' : 'audit-only', recognized: [], skipped: [], ambiguous: [], sourceAudit: [], changes: [] };
+const report = {
+  asOf,
+  mode: shouldWrite ? 'incremental-write' : strictMode ? 'strict-audit' : 'audit-only',
+  sourceFormat: 'structured-html',
+  legacyMarkdownIgnored: directoryEntries.filter((entry) => entry.isFile() && entry.name.toLocaleLowerCase('de').endsWith('.md')).map((entry) => entry.name).sort((left, right) => left.localeCompare(right, 'de')),
+  recognized: [], skipped: [], unsupported: [], ambiguous: [], sourceAudit: [], changes: [],
+};
 const records = [];
 const publications = [];
-for (const fileName of markdownFiles) {
+const recognizedConfiguredSources = new Map();
+for (const fileName of htmlFiles) {
   const sourcePath = join(sourceDir, fileName);
-  const markdown = await readFile(sourcePath, 'utf8');
-  const classification = classifyMarkdownSource(fileName, markdown);
+  const html = await readFile(sourcePath, 'utf8');
+  const classification = classifyHtmlSource(fileName, html);
   if (classification.kind === 'editorial') {
     report.skipped.push({ file: fileName, reason: classification.reason });
     report.sourceAudit.push({ file: fileName, classification: classification.kind, status: 'skipped-editorial', issues: [classification.reason] });
+    continue;
+  }
+  if (classification.kind === 'unsupported') {
+    report.unsupported.push({ file: fileName, reason: classification.reason });
+    report.sourceAudit.push({ file: fileName, classification: classification.kind, status: 'unsupported', issues: [classification.reason] });
     continue;
   }
   if (classification.kind === 'ambiguous') {
@@ -547,15 +573,26 @@ for (const fileName of markdownFiles) {
     continue;
   }
   if (classification.kind === 'consolidated') {
-    if (fileName === 'Staatsverfassung.md') {
-      const parsed = parseConsolidatedMarkdown(fileName, markdown, { title: 'Verfassung des Freistaates Ostdeutschland' });
+    if (fileName === 'Staatsverfassung.html') {
+      const parsed = parseConsolidatedHtml(fileName, html, { title: 'Verfassung des Freistaates Ostdeutschland' });
       const parserContractIssues = validateConstitutionParserContract(parsed);
       report.recognized.push({ file: fileName, classification: classification.kind, norms: [{ title: parsed.title, type: 'gesetz' }] });
       const record = buildConstitutionRecord(parsed);
       records.push(record);
+      recognizedConfiguredSources.set('constitution', fileName);
       report.sourceAudit.push({
         file: fileName,
         classification: classification.kind,
+        detectedIssue: null,
+        detectedNorms: [parsed.title],
+        documentDate: record.meta.documentDate,
+        publicationDate: record.meta.publicationDate,
+        startPage: null,
+        outerStructure: summarizeParsedSource(parsed)[0].outerArticles,
+        articleCount: summarizeParsedSource(parsed)[0].outerArticles.length,
+        paragraphCount: summarizeParsedSource(parsed)[0].outerParagraphs.length,
+        listCount: summarizeParsedSource(parsed)[0].listCount,
+        tableCount: summarizeParsedSource(parsed)[0].tableCount,
         parserContractIssues,
         norms: [{ slug: record.meta.slug, title: record.meta.title, ...compareGeneratedRecordToExisting(record, existingAuditRecords.get(record.meta.slug)) }],
       });
@@ -566,11 +603,16 @@ for (const fileName of markdownFiles) {
     continue;
   }
   try {
-    const parsed = parsePublicationMarkdown(fileName, markdown);
+    const parsed = parsePublicationHtml(fileName, html);
     const parserContractIssues = validatePublicationParserContract(parsed);
     const summaries = summarizeParsedSource(parsed);
+    const auditSummary = summarizeHtmlAudit(parsed);
     report.recognized.push({ file: fileName, classification: classification.kind, norms: summaries });
     if (ISSUE_CONFIG[parsed.issue]) {
+      if (recognizedConfiguredSources.has(parsed.issue)) {
+        throw new Error(`${fileName}: Ausgabe ${parsed.issue} wurde bereits aus ${recognizedConfiguredSources.get(parsed.issue)} erkannt; Quelle ist mehrdeutig.`);
+      }
+      recognizedConfiguredSources.set(parsed.issue, fileName);
       const issueRecords = buildRecords(parsed);
       issueRecords.forEach(validateRecord);
       records.push(...issueRecords);
@@ -578,6 +620,16 @@ for (const fileName of markdownFiles) {
       report.sourceAudit.push({
         file: fileName,
         classification: classification.kind,
+        detectedIssue: parsed.issue,
+        detectedNorms: summaries.map((summary) => summary.title),
+        documentDate: parsed.documentDate,
+        publicationDate: parsed.publicationDate,
+        startPage: parsed.startPage ?? null,
+        outerStructure: auditSummary.outerStructure,
+        articleCount: auditSummary.articleCount,
+        paragraphCount: auditSummary.paragraphCount,
+        listCount: auditSummary.listCount,
+        tableCount: auditSummary.tableCount,
         parserContractIssues,
         norms: issueRecords.map((record) => ({
           slug: record.meta.slug,
@@ -589,6 +641,16 @@ for (const fileName of markdownFiles) {
       report.sourceAudit.push({
         file: fileName,
         classification: classification.kind,
+        detectedIssue: parsed.issue,
+        detectedNorms: summaries.map((summary) => summary.title),
+        documentDate: parsed.documentDate,
+        publicationDate: parsed.publicationDate,
+        startPage: parsed.startPage ?? null,
+        outerStructure: auditSummary.outerStructure,
+        articleCount: auditSummary.articleCount,
+        paragraphCount: auditSummary.paragraphCount,
+        listCount: auditSummary.listCount,
+        tableCount: auditSummary.tableCount,
         norms: [parsed, ...parsed.introducedNorms].map((norm) => ({
           title: norm.title,
           ...compareParsedNormToExisting(norm, parsed.issue, existingAuditRecords),
@@ -643,17 +705,30 @@ if (shouldWrite) {
 }
 
 const configuredSourceFiles = new Set([
-  ...Object.keys(ISSUE_CONFIG).map((issue) => `OGVBl. 2026 Nr. ${issue}.md`),
-  'Staatsverfassung.md',
+  ...Object.keys(ISSUE_CONFIG).map((issue) => `OGVBl. 2026 Nr. ${issue}.html`),
+  'Staatsverfassung.html',
 ]);
 const strictFiles = selectedFiles.size > 0
-  ? new Set([...selectedFiles].filter((fileName) => configuredSourceFiles.has(fileName)))
+  ? new Set(selectedFiles)
   : configuredSourceFiles;
 const strictFailures = [];
 if (strictMode) {
   for (const fileName of strictFiles) {
-    if (!markdownFiles.includes(fileName)) strictFailures.push(`${fileName}: konfigurierte Quelle fehlt`);
+    if (fileName === 'Staatsverfassung.html' && !htmlFiles.includes(fileName)) {
+      strictFailures.push(`${fileName}: konfigurierte HTML-Quelle fehlt`);
+      continue;
+    }
+    const configuredIssue = fileName.match(/^OGVBl\.\s*2026\s*Nr\.\s*(4[6-9]|5[0-8])\.html$/iu)?.[1];
+    if (configuredIssue && !recognizedConfiguredSources.has(configuredIssue)) {
+      strictFailures.push(`${fileName}: konfigurierte Ausgabe wurde in keiner HTML-Quelle anhand interner Metadaten erkannt`);
+    } else if (selectedFiles.size > 0 && !htmlFiles.includes(fileName)) {
+      strictFailures.push(`${fileName}: ausgewählte HTML-Quelle fehlt`);
+    }
   }
+  for (const issue of Object.keys(ISSUE_CONFIG)) {
+    if (selectedFiles.size === 0 && !recognizedConfiguredSources.has(issue)) strictFailures.push(`OGVBl. 2026 Nr. ${issue}: konfigurierte Norm wurde in keiner HTML-Quelle erkannt`);
+  }
+  if (selectedFiles.size === 0 && !recognizedConfiguredSources.has('constitution')) strictFailures.push('Staatsverfassung.html: konsolidierte Verfassung wurde nicht erkannt');
   for (const audit of report.sourceAudit.filter((entry) => strictFiles.has(entry.file))) {
     for (const issue of audit.parserContractIssues ?? []) strictFailures.push(`${audit.file}: Parservertrag: ${issue}`);
     if (audit.status === 'parse-error' || audit.status === 'needs-review') {
@@ -674,7 +749,7 @@ if (strictMode) {
 }
 
 if (quietMode) {
-  console.log(`Normquellen-Audit: ${report.recognized.length} erkannt, ${report.skipped.length} übersprungen, ${report.ambiguous.length} mehrdeutig${strictMode ? `, ${strictFailures.length} strikte Abweichungen` : ''}.`);
+  console.log(`Normquellen-Audit (HTML): ${report.recognized.length} erkannt, ${report.skipped.length} redaktionell, ${report.unsupported.length} nicht unterstützt, ${report.ambiguous.length} mehrdeutig${strictMode ? `, ${strictFailures.length} strikte Abweichungen` : ''}.`);
 } else {
   console.log(JSON.stringify(report, null, 2));
 }
