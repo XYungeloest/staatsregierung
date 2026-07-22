@@ -111,14 +111,14 @@ const relatedPressReleases = pressReleases
       { label: 'Inhalt', href: '#norm-inhalt' },
       { label: 'Text', href: '#normtext' },
       { label: 'Daten', href: '#normdaten' },
-      { label: 'Historie', href: '#normhistorie' },
+      { label: 'Historie', href: getNormHistoryUrl(norm.meta.slug) },
       ...(relatedNorms.length > 0 ? [{ label: 'Verwandte Vorschriften', href: '#normverwandt' }] : []),
     ]}
   />
 
   <NormStatusNotice norm={norm} version={currentVersion} />
 
-  <div class="content-grid">
+  <div class="content-grid norm-detail-layout">
     <div class="content-stack">
       <div id="norm-inhalt"><NormOutline items={outline} /></div>
       <section class="section" id="normtext" data-visual-section="norm-text">
@@ -130,26 +130,39 @@ const relatedPressReleases = pressReleases
       </section>
     </div>
 
-    <aside class="content-stack">
+    <div class="content-stack norm-sidebar" data-visual-section="norm-sidebar">
       <NormMetaCard
         norm={norm}
         version={currentVersion}
-        relatedNorms={relatedNorms}
         publicationReference={publicationReference}
       />
-      {relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
-        <section class="section">
+      {relatedNorms.length > 0 || relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
+        <section class="section norm-sidebar__portal-links" data-visual-section="norm-portal-relations">
           <div class="section-header section-header--compact">
-            <h2>Bezüge im Portal</h2>
+            <h2>Weiterführende Bezüge</h2>
           </div>
+          {relatedNorms.length > 0 ? (
+            <>
+              <h3 id="normverwandt">Verwandte Vorschriften</h3>
+              <ul class="norm-sidebar__link-list">
+                {relatedNorms.map(({ norm: entry, relation }) => (
+                  <li>
+                    <a class="inline-link" href={getNormUrl(entry.meta.slug)}>
+                      {toDisplayText(entry.meta.shortTitle || entry.meta.title)}
+                    </a>
+                    <span>{relation}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
           {relatedTopics.length > 0 ? (
             <>
               <h3>Themen</h3>
-              <ul class="record-list">
+              <ul class="norm-sidebar__link-list">
                 {relatedTopics.map((topic) => (
-                  <li class="record-list__item">
+                  <li>
                     <a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a>
-                    <span>{topic.teaser}</span>
                   </li>
                 ))}
               </ul>
@@ -161,11 +174,11 @@ const relatedPressReleases = pressReleases
           {relatedPressReleases.length > 0 ? (
             <>
               <h3>Presse</h3>
-              <ul class="record-list">
+              <ul class="norm-sidebar__link-list">
                 {relatedPressReleases.map((release) => (
-                  <li class="record-list__item">
+                  <li>
                     <a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a>
-                    <span><time datetime={release.date}>{formatDate(release.date)}</time> · {release.ressort}</span>
+                    <time datetime={release.date}>{formatDate(release.date)}</time>
                   </li>
                 ))}
               </ul>
@@ -176,6 +189,6 @@ const relatedPressReleases = pressReleases
           ) : null}
         </section>
       ) : null}
-    </aside>
+    </div>
   </div>
 </BaseLayout>
