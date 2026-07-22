@@ -365,7 +365,7 @@ Die Ostdeutsche Staatsverfassung vom 15\. Oktober 2024 (OGVBl. II/2024), die zul
       ,,**Artikel 121a**  
       **Überleitung anlässlich der Großen Staatsreform**
 
-1) Achte Volkskammer ist der achte Landtag. Die Wahl zur neunten Volkskammer findet Ende August statt.  
+1) Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.  
 2) Erster Staatsrat ist bis zur Wahl eines Staatsrates nach Artikel 60 Absatz 2 die Staatsregierung, die zum Zeitpunkt des Inkrafttretens wirksam gewählt und ernannt war.  
 3) Erster Staatspräsident ist der Ministerpräsident, der zum Zeitpunkt des Inkrafttretens wirksam gewählt worden ist.”  
    8. Artikel 122 wird aufgehoben.
