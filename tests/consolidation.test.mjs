@@ -147,6 +147,53 @@ test('Ladenöffnungsgesetz erhält Ausgangs- und vollständige Folgefassung ohne
   assert.equal(history.entries.at(-1).relatedNorm, 'viertes-gesetz-zur-anderung-des-ladenoffnungsgesetzes');
 });
 
+test('Archivgesetz bewahrt Gliederung und bleibt wegen widersprüchlicher §-Kennzeichnung gesperrt', async () => {
+  const config = await readJson('data/recht/consolidation-sources.json');
+  const source = config.targets.archivgesetz;
+  const bytes = await readFile(source.snapshot);
+  assert.equal(createHash('sha256').update(bytes).digest('hex'), source.sourceSha256);
+  const parsed = await readJson('data/recht/parsed/revosax/archivgesetz.json');
+  assert.deepEqual(
+    parsed.body.filter((block) => block.type === 'section').map((block) => block.label),
+    ['Erster Abschnitt', 'Zweiter Abschnitt', 'Dritter Abschnitt', 'Vierter Abschnitt'],
+  );
+  assert.deepEqual(
+    flatten(parsed.body).filter((block) => block.type === 'paragraph').slice(-3).map((block) => block.label),
+    ['§ 17', '§ 18', '§ 17'],
+  );
+  await assert.rejects(
+    readFile('content/normen/archivgesetz/meta.json'),
+    (error) => error.code === 'ENOENT',
+  );
+});
+
+test('Patch-Ziele können gleich bezeichnete Absätze über ihre Elternvorschrift unterscheiden', () => {
+  const state = {
+    title: 'Testgesetz',
+    body: [
+      { type: 'paragraph', label: '§ 1', children: [{ type: 'subparagraph', label: '(2)', text: 'eins', children: [] }] },
+      { type: 'paragraph', label: '§ 2', children: [{ type: 'subparagraph', label: '(2)', text: 'zwei', children: [] }] },
+    ],
+  };
+  const recipe = {
+    amendmentAct: 'test-aenderung',
+    effectiveDate: '2026-01-02',
+    operations: [{
+      op: 'replaceText',
+      target: { type: 'subparagraph', label: '(2)', parentType: 'paragraph', parentLabel: '§ 2' },
+      expectedOld: 'zwei',
+      expectedMatches: 1,
+      value: 'geändert',
+      source: 'Gesetze/Test.html',
+      sourceProvision: 'Artikel 1',
+      effectiveDate: '2026-01-02',
+    }],
+  };
+  const result = applyPatchRecipe(state, recipe);
+  assert.equal(result.body[0].children[0].text, 'eins');
+  assert.equal(result.body[1].children[0].text, 'geändert');
+});
+
 test('REVOSax-Tabellenparser erhält leere Zellen und die Spaltenzahl', () => {
   const html = `<!doctype html><html><body>
     <div id="content"><div class="law_show">
@@ -180,6 +227,7 @@ test('Konsolidierungsmanifest ist aktuell und kennzeichnet Quellenkonflikte', as
   const manifest = await readJson('data/recht/consolidation-manifest.json');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'ostdeutsches-feiertagsgesetz')?.status, 'complete');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'wappenverordnung')?.status, 'complete');
+  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'archivgesetz')?.status, 'blocked-source-conflict');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsisches-polizeigesetz')?.status, 'blocked-source-conflict');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'ostdeutsche-bezirksordnung')?.status, 'blocked-source-conflict');
 });

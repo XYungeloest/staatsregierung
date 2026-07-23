@@ -40,16 +40,18 @@ function walk(blocks, visitor, parent = null) {
   }
 }
 
-function matchesTarget(block, target) {
+function matchesTarget(block, target, parent) {
   return (!target.type || block.type === target.type) &&
     (!target.label || block.label === target.label) &&
-    (!target.title || block.title === target.title);
+    (!target.title || block.title === target.title) &&
+    (!target.parentType || parent?.type === target.parentType) &&
+    (!target.parentLabel || parent?.label === target.parentLabel);
 }
 
 function locateExactlyOne(body, target, operation) {
   const matches = [];
   walk(body, (block, location) => {
-    if (matchesTarget(block, target)) matches.push({ block, ...location });
+    if (matchesTarget(block, target, location.parent)) matches.push({ block, ...location });
   });
   if (matches.length !== 1) {
     throw new Error(`${operation}: Ziel ${JSON.stringify(target)} hat ${matches.length} statt genau einem Treffer`);
@@ -82,7 +84,7 @@ function assertExpectedBlock(block, operation) {
   if (operation.expectedHash && sha256(block) !== operation.expectedHash) {
     throw new Error(`${operation.op}: Zielhash weicht ab (${sha256(block)} statt ${operation.expectedHash})`);
   }
-  if (operation.expectedOld !== undefined) {
+  if (operation.expectedOld !== undefined && operation.op !== 'designationReplacement') {
     const field = operation.field ?? 'text';
     if (block[field] !== operation.expectedOld) {
       throw new Error(`${operation.op}: erwarteter alter Wert in ${field} wurde nicht gefunden`);

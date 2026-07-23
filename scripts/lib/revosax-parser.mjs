@@ -107,7 +107,15 @@ function directHeading(section) {
 
 function markerFromSection(section) {
   const source = attributes(section).title ?? textOf(directHeading(section), { breaks: true });
-  return parseStructureMarker(source);
+  const parsed = parseStructureMarker(source);
+  if (parsed) return parsed;
+  const match = normalizeText(source)
+    .replace(/\n+/gu, ' ')
+    .match(/^((?:Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter)\s+(?:Teil|Kapitel|Abschnitt|Unterabschnitt))\s*(?:[–—:-])?\s*(.*)$/iu);
+  if (!match) return null;
+  const suffix = match[1].split(/\s+/u).at(-1).toLocaleLowerCase('de');
+  const type = { teil: 'part', kapitel: 'chapter', abschnitt: 'section', unterabschnitt: 'subsection' }[suffix];
+  return { type, label: match[1], ...(match[2] ? { title: match[2] } : {}) };
 }
 
 function parseTable(table) {

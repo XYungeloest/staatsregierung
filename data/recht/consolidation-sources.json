@@ -74,9 +74,41 @@
       "snapshot": "data/recht/sources/revosax/saechsisches-ladenoeffnungsgesetz/11548.4.html",
       "retrievedAt": "2026-07-23",
       "sourceSha256": "b33772840aec5d06bb7a62d1b78602efc58de0e2e471ae405112b2442355ffc8"
+    },
+    "archivgesetz": {
+      "title": "Archivgesetz für den Freistaat Sachsen",
+      "resultShortTitle": "Archivgesetz für den Freistaat Ostdeutschland",
+      "aliases": [
+        "Archivgesetz für den Freistaat Sachsen",
+        "Archivgesetz für den Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": "2628",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Verwaltungsrecht"
+        ],
+        "keywords": [
+          "Archivwesen",
+          "Archivgut",
+          "Staatsarchiv"
+        ],
+        "summary": "Regelt die Archivierung, Sicherung und Nutzung von Unterlagen und Archivgut bei staatlichen und sonstigen öffentlichen Archiven."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2628.7",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/archivgesetz/2628.7.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "21b97529036dc82021d4cfaa8e657d0e92e2531398fd32fc5433d2bf2d3e4a6c"
     }
   },
   "blockedTargets": {
+    "archivgesetz": {
+      "reason": "Die REVOSax-Fassung 2628.7 nennt im Inhaltsverzeichnis § 19 „Inkrafttreten“ und weist in der Änderungshistorie die Umnummerierung des bisherigen § 17 zu § 19 nach. HTML-Normkörper und zugehörige PDF beschriften dieselbe Vorschrift dagegen erneut als § 17. Bis zur amtlichen Klärung wird aus dieser intern widersprüchlichen Ausgangsfassung keine Konsolidierung erzeugt."
+    },
     "saechsisches-polizeigesetz": {
       "reason": "Das bezeichnete Sächsische Polizeigesetz war am Ausgangsstichtag bereits außer Kraft. Die Änderung belegt keine Wiederinkraftsetzung und keine eindeutige Zuordnung zu SächsPVDG oder SächsPBG."
     },

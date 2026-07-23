@@ -22,7 +22,7 @@ Belegt:
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
-- Der Konsolidierungs-Audit erkennt derzeit 46 Zielnormen. Für 40 davon ist die am
+- Der Konsolidierungs-Audit erkennt derzeit 46 Zielnormen. Für 39 davon ist die am
   1. November 2023 geltende konkrete REVOSax-Fassung noch nicht als unveränderter Snapshot
   versioniert. Die vollständige Liste mit Änderungsvorschriften und nächstem Quellenschritt steht
   in `data/recht/consolidation-manifest.json`.
@@ -154,6 +154,11 @@ Belegt:
   außer Kraft getretene Sächsische Polizeigesetz als Ziel. Die Quelle belegt weder ein
   Wiederinkrafttreten noch eine eindeutige Zuordnung zum Sächsischen
   Polizeivollzugsdienstgesetz oder Polizeibehördengesetz.
+- Die am 1. November 2023 geltende REVOSax-Fassung 2628.7 des Archivgesetzes nennt in
+  Inhaltsübersicht und Änderungshinweis § 19 als Inkrafttretensvorschrift. Der Normkörper der
+  amtlichen HTML-Seite und die zugehörige REVOSax-PDF beschriften dieselbe Vorschrift dagegen
+  erneut als § 17. Der unveränderte HTML-Snapshot ist mit SHA-256 versioniert; wegen der doppelten
+  Paragraphenkennzeichnung wird keine Ausgangsfassung in den Normbestand übernommen.
 
 Schlussfolgerung:
 
@@ -167,9 +172,9 @@ Schlussfolgerung:
 - Beim Helsinki-Übereinkommen wird der 9. April 1992 als Dokumentdatum geführt. Die abweichenden
   Index- und Kopfangaben bleiben als Hinweis sichtbar.
 - Für Drucksache 07/27 wird kein unbelegtes Einbringungsdatum ergänzt.
-- Die Bezirksordnung und das bezeichnete alte Polizeigesetz bleiben im
-  Konsolidierungsmanifest `blocked-source-conflict`. Aus der Namensähnlichkeit wird keine
-  konsolidierte Folgefassung abgeleitet.
+- Die Bezirksordnung, das bezeichnete alte Polizeigesetz und das Archivgesetz bleiben im
+  Konsolidierungsmanifest `blocked-source-conflict`. Aus Namensähnlichkeit oder widersprüchlicher
+  interner Gliederung wird keine konsolidierte Folgefassung abgeleitet.
 
 ## 5. Nächster Aktualisierungsschritt
 
@@ -187,3 +192,5 @@ Schlussfolgerung:
    prüfen.
 6. OGVBl. I/2025 S. 7 zur dort bezeichneten Bezirksordnung beschaffen und den Konflikt zur
    Einführungsfassung aus OGVBl. 2026 Nr. 46 klären.
+7. Die amtliche Kennzeichnung der Inkrafttretensvorschrift des Archivgesetzes bei REVOSax klären;
+   erst danach die Ausgangsfassung 2628.7 konsolidieren.

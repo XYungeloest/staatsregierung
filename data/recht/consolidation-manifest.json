@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-23T08:36:32.337Z",
+  "generatedAt": "2026-07-23T08:52:21.913Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
     "recognizedAmendmentActs": 43,
     "recognizedTargetNorms": 46,
     "completeTargetNorms": 4,
-    "blockedSourceConflicts": 2,
-    "missingPrimarySources": 40
+    "blockedSourceConflicts": 3,
+    "missingPrimarySources": 39
   },
   "templateProblems": [
     "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
@@ -82,16 +82,18 @@
     },
     {
       "canonicalSlug": "archivgesetz",
-      "title": "Archivgesetz",
+      "title": "Archivgesetz für den Freistaat Sachsen",
       "aliases": [
+        "Archivgesetz für den Freistaat Ostdeutschland",
+        "Archivgesetz für den Freistaat Sachsen",
         "Archivgesetzes für den Freistaat Ostdeutschland"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "2628",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2628.7",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
+      "sourceValidFrom": "2023-01-01",
       "sourceValidTo": null,
-      "sourceSha256": null,
+      "sourceSha256": "21b97529036dc82021d4cfaa8e657d0e92e2531398fd32fc5433d2bf2d3e4a6c",
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -106,12 +108,11 @@
       "effectiveDates": [
         "2026-07-01"
       ],
-      "status": "missing-baseline",
+      "status": "blocked-source-conflict",
       "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Die REVOSax-Fassung 2628.7 nennt im Inhaltsverzeichnis § 19 „Inkrafttreten“ und weist in der Änderungshistorie die Umnummerierung des bisherigen § 17 zu § 19 nach. HTML-Normkörper und zugehörige PDF beschriften dieselbe Vorschrift dagegen erneut als § 17. Bis zur amtlichen Klärung wird aus dieser intern widersprüchlichen Ausgangsfassung keine Konsolidierung erzeugt."
       ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
     },
     {
       "canonicalSlug": "ausbildungs-und-pruefungsordnung-polizei",

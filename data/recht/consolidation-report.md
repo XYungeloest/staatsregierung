@@ -1,13 +1,13 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-07-23T08:36:32.337Z
+**Erzeugt:** 2026-07-23T08:52:21.913Z
 
 - Erkannte Änderungsvorschriften: 43
 - Erkannte Zielnormen: 46
 - Vollständig konsolidiert: 4
-- Blockierte Quellenkonflikte: 2
-- Fehlende Primärquellen: 40
+- Blockierte Quellenkonflikte: 3
+- Fehlende Primärquellen: 39
 
 ## Abschiebe-Aussetzungsverordnung
 
@@ -35,18 +35,17 @@
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
-## Archivgesetz
+## Archivgesetz für den Freistaat Sachsen
 
 - Slug: `archivgesetz`
-- Status: `missing-baseline`
+- Status: `blocked-source-conflict`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/2628.7
 - Einführung: keine
 - Änderungen: `gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj` (2026-07-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+  - Die REVOSax-Fassung 2628.7 nennt im Inhaltsverzeichnis § 19 „Inkrafttreten“ und weist in der Änderungshistorie die Umnummerierung des bisherigen § 17 zu § 19 nach. HTML-Normkörper und zugehörige PDF beschriften dieselbe Vorschrift dagegen erneut als § 17. Bis zur amtlichen Klärung wird aus dieser intern widersprüchlichen Ausgangsfassung keine Konsolidierung erzeugt.
 
 ## Ausbildungs- und Prüfungsordnung für die Polizei
 
