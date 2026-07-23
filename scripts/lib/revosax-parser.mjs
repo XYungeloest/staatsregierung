@@ -6,6 +6,7 @@ const DATE_DOTTED = /(\d{1,2})\.(\d{1,2})\.(\d{4})/u;
 const DATE_DOTTED_GLOBAL = /(\d{1,2})\.(\d{1,2})\.(\d{4})/gu;
 const FOOTNOTE_LINK = /^#FNID_/u;
 const SIGNATURE_START = /^(?:Dresden|Leipzig|Chemnitz),\s+den\s+/iu;
+const NON_NORM_SECTION = /^(?:Bekanntmachung|Gesetz|Verordnung)$/iu;
 const STRUCTURE_RANK = {
   part: 1,
   chapter: 2,
@@ -245,7 +246,14 @@ function parseSections(container) {
   for (const section of sections) {
     const marker = markerFromSection(section);
     if (!marker) {
-      throw new RevosaxParseError(`REVOSax-Abschnitt ohne erkennbare Gliederung: „${attributes(section).title ?? textOf(directHeading(section)).slice(0, 120)}“`);
+      const sectionTitle = normalizeText(
+        attributes(section).title ?? textOf(directHeading(section), { breaks: true }),
+      );
+      // REVOSax stellt Bekanntmachungs- und Identitätsblöcke im selben Container
+      // wie den Normkörper bereit. Sie gehören zur unveränderten Rohquelle und
+      // zur Fundstellenprüfung, sind aber keine Gliederungseinheit der Lesefassung.
+      if (NON_NORM_SECTION.test(sectionTitle)) continue;
+      throw new RevosaxParseError(`REVOSax-Abschnitt ohne erkennbare Gliederung: „${sectionTitle.slice(0, 120)}“`);
     }
     const block = {
       type: marker.type,

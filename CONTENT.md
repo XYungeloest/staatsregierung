@@ -980,10 +980,18 @@ data/recht/
   SHA-256 in `consolidation-sources.json`.
 - Nur `npm run norms:revosax:fetch` greift auf das Netz zu. Parser, Konsolidierung, Content-QA und
   Build arbeiten ausschließlich mit versionierten lokalen Quellen.
+- Ein unter `adoptedSources` gesicherter späterer sächsischer Zwischenstand ist nur zulässig, wenn
+  eine ostdeutsche Änderungsvorschrift genau diese Fassung bezeichnet. Neben Snapshot, URL,
+  Gültigkeitsintervall und Hash werden Änderungsvorschrift, Änderungsstelle und der wörtliche
+  Adoptionsbeleg gespeichert. Die Zwischenfassung erhält eine eigene unveränderliche Versions-ID.
+  Spätere sächsische Fassungen ohne solchen Beleg werden nicht in das ostdeutsche Recht übernommen.
 - Patch-Rezepte nennen für jede Operation Zielanker, erwarteten Alttext oder Hash, erwartete
   Trefferzahl, Änderungsquelle, Änderungsstelle und Wirksamkeitsdatum. Null oder mehrere Treffer
   sowie ein abweichender Hash brechen den Lauf ab; eine heuristische Änderung wird nicht
   geschrieben.
+- Wirken mehrere belegte Änderungen am selben Tag, muss jedes Rezept einen eindeutigen
+  `sameDayOrder` besitzen. Die Rezepte werden in dieser Reihenfolge angewendet, erzeugen genau eine
+  gemeinsame Volltextfassung und bleiben als getrennte Historieneinträge sichtbar.
 - Ohne `--write` bleibt `npm run norms:consolidate` ein Prüflauf. Das Schreibflag aktualisiert nur
   das ausgewählte Ziel und seine wechselseitigen Beziehungen. Vorhandene Slugs und
   versionsspezifische URLs bleiben stabil.

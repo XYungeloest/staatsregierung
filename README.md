@@ -122,7 +122,11 @@ unveränderliche Fassungen gespeichert. Für ausdrücklich geänderte übernomme
 die belegte Fassungsfolge mit dem am 1. November 2023 geltenden sächsischen Rechtsstand. Der
 Konsolidierungslauf verwendet ausschließlich versionierte amtliche REVOSax-Snapshots und
 redaktionell geprüfte, deterministische Patch-Rezepte; bei einem uneindeutigen Zielanker oder
-abweichenden Ausgangstext bricht er ab. `src/lib/norms/versions.ts` ordnet jede gespeicherte Fassung anhand ihres
+abweichenden Ausgangstext bricht er ab. Bezeichnet eine ostdeutsche Änderung ausdrücklich einen
+späteren sächsischen Zwischenstand, wird auch dieser als eigener Snapshot mit dem wörtlichen
+Adoptionsbeleg versioniert; sonstige spätere sächsische Änderungen werden nicht übernommen.
+Mehrere Änderungen mit demselben Wirksamkeitstag benötigen eine explizite Reihenfolge und erzeugen
+eine gemeinsame Folgefassung mit getrennten Historieneinträgen. `src/lib/norms/versions.ts` ordnet jede gespeicherte Fassung anhand ihres
 Gültigkeitsintervalls und des Stichtags aus `src/config/editorial.json` als geltend, künftig,
 historisch oder mit ungeklärtem Inkrafttreten ein. `isCurrent` bleibt nur als kompatibles
 Bestandsfeld erhalten und steuert keine öffentliche Bezeichnung mehr. Ein ausdrücklich als
@@ -179,6 +183,8 @@ npm run norms:consolidation:audit
 npm run norms:revosax:audit
 npm run norms:revosax:fetch -- --target <slug> --url <historische-revosax-url>
 npm run norms:revosax:parse -- --target <slug>
+npm run norms:revosax:fetch -- --target <slug> --snapshot-id <id> --url <historische-revosax-url>
+npm run norms:revosax:parse -- --target <slug> --snapshot-id <id>
 npm run norms:consolidate -- --target <slug>
 npm run norms:consolidate -- --target <slug> --write
 ```

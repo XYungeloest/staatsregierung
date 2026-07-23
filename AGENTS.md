@@ -104,6 +104,10 @@ Für ausdrücklich geänderte übernommene Stammnormen ist der sächsische Recht
 über den ausdrücklichen Fetch-Befehl abgerufen und unverändert samt SHA-256 versioniert. Eine
 Folgefassung darf nur aus einem redaktionell geprüften Patch-Rezept mit eindeutigem Zielanker,
 erwartetem Alttext oder Hash, Trefferzahl, Änderungsquelle und Wirksamkeitsdatum entstehen.
+Ein späterer sächsischer Zwischenstand darf nur übernommen werden, wenn ihn eine ostdeutsche
+Änderungsvorschrift wörtlich als Ausgangsfassung bezeichnet; der Adoptionsbeleg wird mit dem
+zusätzlichen Snapshot gespeichert. Gleichzeitige Änderungen brauchen eine explizite Reihenfolge
+und führen zu einer gemeinsamen Folgefassung mit getrennten Historieneinträgen.
 Konsolidierung und Build bleiben offline. Quellkonflikte erhalten einen Sperrstatus; sie werden
 nicht heuristisch aufgelöst.
 
