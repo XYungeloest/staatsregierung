@@ -146,11 +146,16 @@ const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
                         Überschrift: <del>{unit.beforeTitle}</del> <ins>{unit.afterTitle}</ins>
                       </p>
                     ) : null}
-                    <p>
-                      {unit.textDiff?.map((chunk) =>
-                        chunk.kind === 'insert' ? <ins>{chunk.text}</ins> : chunk.kind === 'delete' ? <del>{chunk.text}</del> : chunk.text,
-                      )}
-                    </p>
+                    <div class="norm-diff__sentences">
+                      {unit.sentenceChanges?.map((change) => (
+                        change.kind === 'unchanged' ? <p>{change.before}</p> : (
+                          <div class="norm-diff__change">
+                            {change.before ? <p><strong>Bisher</strong><del>{change.before}</del></p> : null}
+                            {change.after ? <p><strong>Neu</strong><ins>{change.after}</ins></p> : null}
+                          </div>
+                        )
+                      ))}
+                    </div>
                   </>
                 ) : null}
               </li>

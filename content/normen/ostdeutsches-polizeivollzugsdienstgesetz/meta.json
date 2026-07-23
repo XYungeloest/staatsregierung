@@ -1,0 +1,92 @@
+{
+  "id": "ostdeutsches-polizeivollzugsdienstgesetz",
+  "slug": "ostdeutsches-polizeivollzugsdienstgesetz",
+  "title": "Sächsisches Polizeivollzugsdienstgesetz",
+  "shortTitle": "Ostdeutsches Polizeivollzugsdienstgesetz",
+  "abbr": "SächsPVDG",
+  "shortTitleSource": "official",
+  "type": "gesetz",
+  "enactingBody": "Sächsischer Landtag",
+  "subjects": [
+    "Sicherheit und Ordnung"
+  ],
+  "keywords": [
+    "Polizeivollzugsdienst",
+    "Polizei",
+    "unmittelbarer Zwang",
+    "Sächsisches Polizeivollzugsdienstgesetz",
+    "SächsPVDG"
+  ],
+  "summary": "Regelt Aufgaben, Befugnisse und Organisation des Polizeivollzugsdienstes sowie Maßnahmen des unmittelbaren Zwangs.",
+  "initialCitation": "Sächsisches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), das zuletzt durch Artikel 2 des Gesetzes vom 24. Juni 2026 (SächsGVBl. S. 190) geändert worden ist",
+  "predecessor": null,
+  "successor": null,
+  "status": "in-force",
+  "documentDate": "2019-05-11",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2020-01-01 bis 2024-07-29",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/18193.1",
+      "retrievedAt": "2026-07-23",
+      "sha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501",
+      "lawId": "18193",
+      "sourceValidFrom": "2020-01-01",
+      "sourceValidTo": "2024-07-29"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 24",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 24.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 26",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 26.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 28",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 28.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 50",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 50.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 46",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe",
+    "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+    "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo",
+    "kasernierte-grenzpolizei-errichtungsgesetz",
+    "kreis-und-bezirksneuordnungsgesetz"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "schmerzgriffe-zielnorm-und-paragraf",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-07-23",
+      "issue": "Das Änderungsgesetz bezeichnet das außer Kraft getretene Polizeigesetz und § 32a.",
+      "publishedText": "Änderung des Polizeigesetzes; Einfügung eines § 32a.",
+      "resolvedApplication": "Der materielle Wortlaut wird als § 41a nach § 41 in das Polizeivollzugsdienstgesetz eingefügt.",
+      "rationale": "Die redaktionelle Entscheidung ordnet Zielnorm und Einordnungsstelle verbindlich dem geltenden Polizeivollzugsdienstgesetz zu.",
+      "evidence": [
+        "content/normen/gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe/versions/2026-03-23.json",
+        "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html"
+      ]
+    }
+  ]
+}

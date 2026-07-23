@@ -62,5 +62,21 @@
   "affectedByNorms": [
     "sportneuordnungsgesetz",
     "kreis-und-bezirksneuordnungsgesetz"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "sportneuordnung-bezirksordnung-neufassung",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-07-23",
+      "issue": "Artikel 8 bezeichnet die Bezirksordnung von 2025, setzt aber eine Aufgabenliste in § 13 und einen § 13a voraus, die erst die Neufassung 2026 besitzt.",
+      "publishedText": "Artikel 8 bezeichnet die Ostdeutsche Bezirksordnung vom 6. März 2025.",
+      "resolvedApplication": "Die Änderungen werden auf die strukturell passenden Vorschriften der ab 1. August 2026 geltenden Neufassung angewendet.",
+      "rationale": "Nur die Neufassung enthält die von den Änderungsbefehlen vorausgesetzten Zielanker.",
+      "evidence": [
+        "content/normen/sportneuordnungsgesetz/versions/2026-07-21.json",
+        "content/normen/ostdeutsche-bezirksordnung/versions/2025-03-12.json",
+        "content/normen/ostdeutsche-bezirksordnung/versions/2026-08-01.json"
+      ]
+    }
   ]
 }

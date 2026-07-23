@@ -1023,6 +1023,11 @@ data/recht/
 - `blocked-source-conflict` ist eine fachliche Sperre. Eine gesperrte Norm wird erst
   konsolidiert, wenn die im Manifest und in `CONTENT_GAPS.md` benannte Primärquellenfrage
   eindeutig geklärt ist.
+- Eine verbindlich redaktionell geklärte Abweichung erhält dagegen den Status
+  `resolved-source-conflict`. Entscheidung, verkündeter Wortlaut, angewendeter Zielanker,
+  Begründung, Entscheidungsdatum und Belege stehen maschinenlesbar in Normmetadaten,
+  Quellenkonfiguration und Patch-Rezept. Die Änderungsvorschrift selbst wird dabei nicht
+  umgeschrieben. Eine solche Auflösung ist ausdrücklich keine konfliktfreie Quellenlage.
 
 ## Seitengerüst und feste UI-Texte
 

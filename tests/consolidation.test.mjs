@@ -247,7 +247,7 @@ test('Haushaltsordnung übernimmt nur den ausdrücklich bezeichneten Zwischensta
   assert.equal(meta.abbr, 'LHO');
 });
 
-test('Archivgesetz bewahrt Gliederung und bleibt wegen widersprüchlicher §-Kennzeichnung gesperrt', async () => {
+test('Archivgesetz bewahrt den Snapshot und löst dessen doppelte §-Kennzeichnung transparent auf', async () => {
   const config = await readJson('data/recht/consolidation-sources.json');
   const source = config.targets.archivgesetz;
   const bytes = await readFile(source.snapshot);
@@ -261,9 +261,14 @@ test('Archivgesetz bewahrt Gliederung und bleibt wegen widersprüchlicher §-Ken
     flatten(parsed.body).filter((block) => block.type === 'paragraph').slice(-3).map((block) => block.label),
     ['§ 17', '§ 18', '§ 17'],
   );
-  await assert.rejects(
-    readFile('content/normen/archivgesetz/meta.json'),
-    (error) => error.code === 'ENOENT',
+  const [meta, baseline] = await Promise.all([
+    readJson('content/normen/archivgesetz/meta.json'),
+    readJson('content/normen/archivgesetz/versions/2023-11-01.json'),
+  ]);
+  assert.equal(meta.editorialResolutions[0].status, 'resolved-source-conflict');
+  assert.deepEqual(
+    flatten(baseline.body).filter((block) => block.type === 'paragraph').slice(-3).map((block) => block.label),
+    ['§ 17', '§ 18', '§ 19'],
   );
 });
 
@@ -319,7 +324,7 @@ test('REVOSax-Tabellenparser erhält leere Zellen und die Spaltenzahl', () => {
   ]);
 });
 
-test('Konsolidierungsmanifest ist aktuell und kennzeichnet Quellenkonflikte', async () => {
+test('Konsolidierungsmanifest ist aktuell und trennt aufgelöste von blockierten Quellenkonflikten', async () => {
   const result = spawnSync(process.execPath, ['scripts/audit-consolidation.mjs', '--check'], {
     encoding: 'utf8',
   });
@@ -327,10 +332,12 @@ test('Konsolidierungsmanifest ist aktuell und kennzeichnet Quellenkonflikte', as
   const manifest = await readJson('data/recht/consolidation-manifest.json');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'ostdeutsches-feiertagsgesetz')?.status, 'complete');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'wappenverordnung')?.status, 'complete');
-  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'archivgesetz')?.status, 'blocked-source-conflict');
-  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsisches-polizeigesetz')?.status, 'blocked-source-conflict');
+  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'archivgesetz')?.status, 'complete');
+  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'archivgesetz')?.editorialResolutions[0].status, 'resolved-source-conflict');
+  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'ostdeutsches-polizeivollzugsdienstgesetz')?.status, 'complete');
   const district = manifest.targets.find((target) => target.canonicalSlug === 'ostdeutsche-bezirksordnung');
   assert.equal(district?.status, 'complete');
   assert.deepEqual(district?.effectiveDates, ['2026-08-01']);
-  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsische-landkreisordnung')?.status, 'blocked-source-conflict');
+  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsische-landkreisordnung')?.status, 'complete');
+  assert.equal(manifest.counts.blockedSourceConflicts, 0);
 });

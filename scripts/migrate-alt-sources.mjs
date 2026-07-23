@@ -825,7 +825,7 @@ await writeSingleVersionNorm({
       htmlReference('Gesetze/Ostdeutsche Bezirksordnung 2025.html', 'Strukturierte Ursprungsfassung der Ostdeutschen Bezirksordnung', SOURCES.i25Pdf.path, '7-13'),
     ],
     enactedNorm: DISTRICT_SLUG,
-    affectedNorms: ['sachsische-landkreisordnung'],
+    affectedNorms: ['saechsische-landkreisordnung'],
     responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
   }),
   body: [
@@ -1118,12 +1118,12 @@ await writeJson(`content/normen/${DISTRICT_SLUG}/history.json`, {
 
 const districtIntroduction = await json('content/normen/ostdeutsches-bezirkseinfuehrungsgesetz/meta.json');
 districtIntroduction.enactedNorm = DISTRICT_SLUG;
-districtIntroduction.affectedNorms = [...new Set([...(districtIntroduction.affectedNorms ?? []), 'sachsische-landkreisordnung'])];
+districtIntroduction.affectedNorms = [...new Set([...(districtIntroduction.affectedNorms ?? []), 'saechsische-landkreisordnung'])];
 await writeJson('content/normen/ostdeutsches-bezirkseinfuehrungsgesetz/meta.json', districtIntroduction);
 
-const countyMeta = await json('content/normen/sachsische-landkreisordnung/meta.json');
+const countyMeta = await json('content/normen/saechsische-landkreisordnung/meta.json');
 countyMeta.affectedByNorms = [...new Set([...(countyMeta.affectedByNorms ?? []), 'ostdeutsches-bezirkseinfuehrungsgesetz'])];
-await writeJson('content/normen/sachsische-landkreisordnung/meta.json', countyMeta);
+await writeJson('content/normen/saechsische-landkreisordnung/meta.json', countyMeta);
 
 const upperSchoolMeta = await json('content/normen/oberstufenund-abiturprufungsverordnung/meta.json');
 upperSchoolMeta.affectedByNorms = [...new Set([...(upperSchoolMeta.affectedByNorms ?? []), 'verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024'])];

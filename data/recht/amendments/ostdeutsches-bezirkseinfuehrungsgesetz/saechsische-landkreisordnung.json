@@ -1,0 +1,39 @@
+{
+  "amendmentAct": "ostdeutsches-bezirkseinfuehrungsgesetz",
+  "effectiveDate": "2025-03-12",
+  "amendmentCitation": "Gesetz vom 6. März 2025 (OGVBl. I/2025 S. 7–14)",
+  "resultCitation": "Landkreisordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99), geändert durch Artikel 2 des Gesetzes vom 6. März 2025 (OGVBl. I/2025 S. 7)",
+  "changeNote": "Die Rechtsaufsichtsbehörde in § 65 Absatz 1 wurde dem jeweiligen Bezirk zugeordnet.",
+  "editorialResolution": {
+    "id": "landkreisordnung-zielanker-paragraf-65",
+    "publishedTarget": "§ 75",
+    "resolvedTarget": "§ 65 Absatz 1 Satz 1",
+    "decisionDate": "2026-07-23"
+  },
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. I/2025",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl I-25.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 65"
+      },
+      "field": "text",
+      "expectedOld": "¹Rechtsaufsichtsbehörde und obere Rechtsaufsichtsbehörde ist die Landesdirektion Sachsen. ²Oberste Rechtsaufsichtsbehörde ist das Staatsministerium des Innern.",
+      "value": "¹Rechtsaufsichtsbehörde und obere Rechtsaufsichtsbehörde ist der jeweilige Bezirk. ²Oberste Rechtsaufsichtsbehörde ist das Staatsministerium des Innern.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl I-25.html",
+      "sourceProvision": "Artikel 2; redaktionell geklärter Zielanker § 65",
+      "effectiveDate": "2025-03-12"
+    }
+  ]
+}

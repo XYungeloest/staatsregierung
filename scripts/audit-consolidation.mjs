@@ -235,7 +235,14 @@ async function main() {
     }
     for (const finding of findings) {
         const targetTitle = finding.title;
-        const canonical = finding.canonical ?? canonicalFor(targetTitle);
+        const editorialTarget = record.meta.slug === 'gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe'
+          ? {
+              canonicalSlug: 'ostdeutsches-polizeivollzugsdienstgesetz',
+              title: 'Ostdeutsches Polizeivollzugsdienstgesetz',
+              known: true,
+            }
+          : null;
+        const canonical = editorialTarget ?? finding.canonical ?? canonicalFor(targetTitle);
         if (!canonical) {
           ambiguousFindings.push({
             amendmentAct: record.meta.slug,
@@ -348,6 +355,19 @@ async function main() {
       sourceValidFrom: source.sourceValidFrom ?? null,
       sourceValidTo: source.sourceValidTo ?? null,
       sourceSha256: source.sourceSha256 ?? null,
+      editorialResolutions: [
+        ...(source.editorialResolutions ?? []),
+        ...(source.editorialSourceResolutions ?? []),
+      ].map(({ id, status, decisionDate, issue, publishedText, resolvedApplication, rationale, evidence }) => ({
+        id,
+        status,
+        decisionDate,
+        issue,
+        publishedText,
+        resolvedApplication,
+        rationale,
+        evidence,
+      })),
       existingStemNormSlug: stem?.meta.slug ?? null,
       enactingActs: enactingActs.sort((a, b) => (a.effectiveDate ?? '').localeCompare(b.effectiveDate ?? '')),
       amendmentActs: amendmentActsWithTargetDates.sort((a, b) =>
@@ -399,6 +419,14 @@ async function main() {
       `- Einführung: ${target.enactingActs.map((act) => `\`${act.slug}\` (${act.effectiveDate})`).join(', ') || 'keine'}`,
       `- Änderungen: ${target.amendmentActs.map((act) => `\`${act.slug}\` (${act.effectiveDate})`).join(', ') || 'keine'}`,
       `- Nächster Schritt: ${target.nextAction}`,
+      ...(target.editorialResolutions.length
+        ? [
+            '- Redaktionell aufgelöste Quellenabweichungen:',
+            ...target.editorialResolutions.map((resolution) =>
+              `  - \`${resolution.id}\` (${resolution.decisionDate}): ${resolution.resolvedApplication}`
+            ),
+          ]
+        : []),
       ...(target.problems.length ? ['- Probleme:', ...target.problems.map((problem) => `  - ${problem}`)] : []),
       '',
     ]),

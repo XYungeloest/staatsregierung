@@ -1,13 +1,13 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-07-23T12:12:40.506Z
+**Erzeugt:** 2026-07-23T13:51:55.929Z
 
 - Erkannte Änderungsvorschriften: 54
-- Erkannte Zielnormen: 72
-- Vollständig konsolidiert: 34
-- Blockierte Quellenkonflikte: 3
-- Fehlende Primärquellen: 35
+- Erkannte Zielnormen: 71
+- Vollständig konsolidiert: 37
+- Blockierte Quellenkonflikte: 0
+- Fehlende Primärquellen: 34
 
 ## Abschiebe-Aussetzungsverordnung
 
@@ -25,14 +25,14 @@
 ## Archivgesetz für den Freistaat Sachsen
 
 - Slug: `archivgesetz`
-- Status: `blocked-source-conflict`
-- Stammnorm: fehlt
+- Status: `complete`
+- Stammnorm: `archivgesetz`
 - REVOSax: https://www.revosax.sachsen.de/vorschrift/2628.7
 - Einführung: keine
 - Änderungen: `gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj` (2026-07-01)
-- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
-- Probleme:
-  - Die REVOSax-Fassung 2628.7 nennt im Inhaltsverzeichnis § 19 „Inkrafttreten“ und weist in der Änderungshistorie die Umnummerierung des bisherigen § 17 zu § 19 nach. HTML-Normkörper und zugehörige PDF beschriften dieselbe Vorschrift dagegen erneut als § 17. Bis zur amtlichen Klärung wird aus dieser intern widersprüchlichen Ausgangsfassung keine Konsolidierung erzeugt.
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+- Redaktionell aufgelöste Quellenabweichungen:
+  - `archivgesetz-doppelte-paragraf-17` (2026-07-23): Die Inkrafttretensvorschrift wird in der konsolidierten Fassung als § 19 geführt.
 
 ## Ausbildungs- und Prüfungsordnung für die Polizei
 
@@ -481,6 +481,8 @@
 - Einführung: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12)
 - Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21), `sportneuordnungsgesetz` (2026-07-21)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+- Redaktionell aufgelöste Quellenabweichungen:
+  - `sportneuordnung-bezirksordnung-neufassung` (2026-07-23): Die Änderungen werden auf die strukturell passenden Vorschriften der ab 1. August 2026 geltenden Neufassung angewendet.
 
 ## Ostdeutsches Justizgesetz
 
@@ -557,19 +559,6 @@
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
-## Ostdeutsches Polizeivollzugsdienstgesetz
-
-- Slug: `ostdeutsches-polizeivollzugsdienstgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb` (2026-03-25), `gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo` (2026-04-01), `kasernierte-grenzpolizei-errichtungsgesetz` (2026-07-21), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
 ## Ostdeutsches Tariftreue- und Vergabegesetz
 
 - Slug: `ostdeutsches-tariftreueund-vergabegesetz`
@@ -613,16 +602,14 @@
 ## Sächsische Landkreisordnung
 
 - Slug: `saechsische-landkreisordnung`
-- Status: `blocked-source-conflict`
-- Stammnorm: `sachsische-landkreisordnung`
+- Status: `complete`
+- Stammnorm: `saechsische-landkreisordnung`
 - REVOSax: https://www.revosax.sachsen.de/vorschrift/3264.23
 - Einführung: keine
 - Änderungen: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
-- Probleme:
-  - Artikel 2 des nun vollständig vorliegenden Ostdeutschen Bezirkseinführungsgesetzes vom 6. März 2025 ändert § 75 der Landkreisordnung vom 9. März 2018. Die gesicherte REVOSax-Ausgangsfassung zum 1. November 2023 besitzt jedoch keinen § 75 und enthält den erwarteten alten Wortlaut nicht. Offen ist damit nur noch die Identität beziehungsweise vollständige Ausgangsfassung der bezeichneten 2018er Norm; ein § 75 wird nicht frei eingefügt.
-  - Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
-  - Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+- Redaktionell aufgelöste Quellenabweichungen:
+  - `landkreisordnung-zielanker-paragraf-65` (2026-07-23): Die Ersetzung wird in § 65 Absatz 1 Satz 1 der Landkreisordnung angewendet.
 
 ## Sächsisches Abschiebungshaftvollzugsgesetz
 
@@ -670,17 +657,17 @@
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
-## Sächsisches Polizeigesetz
+## Sächsisches Polizeivollzugsdienstgesetz
 
-- Slug: `saechsisches-polizeigesetz`
-- Status: `blocked-source-conflict`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- Slug: `ostdeutsches-polizeivollzugsdienstgesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-polizeivollzugsdienstgesetz`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/18193.1
 - Einführung: keine
-- Änderungen: `gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe` (2026-03-24)
-- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
-- Probleme:
-  - Das bezeichnete Sächsische Polizeigesetz war am Ausgangsstichtag bereits außer Kraft. Die Änderung belegt keine Wiederinkraftsetzung und keine eindeutige Zuordnung zu SächsPVDG oder SächsPBG.
+- Änderungen: `gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe` (2026-03-24), `gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb` (2026-03-25), `gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo` (2026-04-01), `kasernierte-grenzpolizei-errichtungsgesetz` (2026-07-21), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+- Redaktionell aufgelöste Quellenabweichungen:
+  - `schmerzgriffe-zielnorm-und-paragraf` (2026-07-23): Der materielle Wortlaut wird als § 41a nach § 41 in das Polizeivollzugsdienstgesetz eingefügt.
 
 ## Sächsisches Verwaltungskostengesetz
 

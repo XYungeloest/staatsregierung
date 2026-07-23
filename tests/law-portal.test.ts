@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { buildStructuralVersionDiff, diffWords } from '../src/lib/norms/diff.ts';
+import { buildStructuralVersionDiff, diffSentences, diffWords } from '../src/lib/norms/diff.ts';
 import {
   getBlockAnchorId,
   getLegacyBlockAnchorId,
@@ -130,10 +131,63 @@ test('struktureller Vergleich kennzeichnet geänderte, neue und entfernte Einhei
   });
 
   const diff = buildStructuralVersionDiff(before, after);
-  assert.equal(diff.find((entry) => entry.label === '§ 1')?.kind, 'changed');
+  assert.equal(diff.find((entry) => entry.key.includes('paragraph:§ 1/paragraphText'))?.kind, 'changed');
   assert.equal(diff.find((entry) => entry.label === '§ 2')?.kind, 'removed');
   assert.equal(diff.find((entry) => entry.label === '§ 3')?.kind, 'added');
   assert.ok(diffWords('alte Regel', 'neue Regel').some((entry) => entry.kind === 'insert'));
+});
+
+test('vollständig ersetzte Sätze bleiben zusammenhängende Vergleichsblöcke', () => {
+  const changes = diffSentences(
+    'Die bisherige Regelung gilt uneingeschränkt.',
+    'Die neue Regelung gilt nur auf Antrag.',
+  );
+  assert.deepEqual(changes, [{
+    before: 'Die bisherige Regelung gilt uneingeschränkt.',
+    after: 'Die neue Regelung gilt nur auf Antrag.',
+    kind: 'changed',
+  }]);
+});
+
+test('redaktionell aufgelöste Quellenkonflikte sind vollständig und maschinenlesbar dokumentiert', () => {
+  const read = (path: string) => JSON.parse(readFileSync(path, 'utf8'));
+  const archiveMeta = read('content/normen/archivgesetz/meta.json');
+  const archiveBaseline = read('content/normen/archivgesetz/versions/2023-11-01.json');
+  const archiveParagraphs = archiveBaseline.body.flatMap(function flatten(block: any): any[] {
+    return [block, ...(block.children ?? []).flatMap(flatten)];
+  }).filter((block: any) => block.type === 'paragraph');
+  assert.deepEqual(
+    archiveParagraphs.filter((block: any) => /^§ (?:1[7-9])$/u.test(block.label)).map((block: any) => [block.label, block.title]),
+    [
+      ['§ 17', 'Besondere Kategorien personenbezogener Daten'],
+      ['§ 18', 'Einschränkung eines Grundrechts'],
+      ['§ 19', 'Inkrafttreten'],
+    ],
+  );
+  assert.equal(archiveParagraphs.filter((block: any) => block.label === '§ 17').length, 1);
+  assert.equal(archiveMeta.editorialResolutions[0].status, 'resolved-source-conflict');
+
+  const countyMeta = read('content/normen/saechsische-landkreisordnung/meta.json');
+  const county2025 = read('content/normen/saechsische-landkreisordnung/versions/2025-03-12.json');
+  const countyText = JSON.stringify(county2025.body);
+  assert.match(countyText, /§ 65/u);
+  assert.match(countyText, /der jeweilige Bezirk/u);
+  assert.doesNotMatch(countyText, /§ 75/u);
+  assert.equal(countyMeta.editorialResolutions[0].resolvedApplication.includes('§ 65'), true);
+
+  const policeMeta = read('content/normen/ostdeutsches-polizeivollzugsdienstgesetz/meta.json');
+  const police2026 = read('content/normen/ostdeutsches-polizeivollzugsdienstgesetz/versions/2026-03-24.json');
+  const policeParagraphs = police2026.body.flatMap(function flatten(block: any): any[] {
+    return [block, ...(block.children ?? []).flatMap(flatten)];
+  }).filter((block: any) => block.type === 'paragraph');
+  const labels = policeParagraphs.map((block: any) => block.label);
+  assert.equal(labels.indexOf('§ 41a'), labels.indexOf('§ 41') + 1);
+  assert.equal(labels[labels.indexOf('§ 41a') + 1], '§ 42');
+  assert.equal(labels.includes('§ 32a'), false);
+  assert.equal(policeMeta.editorialResolutions[0].status, 'resolved-source-conflict');
+
+  const districtMeta = read('content/normen/ostdeutsche-bezirksordnung/meta.json');
+  assert.equal(districtMeta.editorialResolutions[0].status, 'resolved-source-conflict');
 });
 
 function searchDocument(overrides: Partial<SearchIndexDocument> = {}): SearchIndexDocument {
