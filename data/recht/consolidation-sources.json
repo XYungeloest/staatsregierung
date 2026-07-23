@@ -75,6 +75,284 @@
       "retrievedAt": "2026-07-23",
       "sourceSha256": "b33772840aec5d06bb7a62d1b78602efc58de0e2e471ae405112b2442355ffc8"
     },
+    "saechsische-bauordnung": {
+      "title": "Sächsische Bauordnung",
+      "resultShortTitle": "Ostdeutsche Bauordnung",
+      "aliases": [
+        "Sächsische Bauordnung",
+        "Ostdeutsche Bauordnung"
+      ],
+      "revosaxLawId": "1779",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Wohnen und Bodenordnung"
+        ],
+        "keywords": [
+          "Bauordnung",
+          "Baurecht",
+          "Bauaufsicht"
+        ],
+        "summary": "Regelt die bauordnungsrechtlichen Anforderungen an Grundstücke, bauliche Anlagen, Bauprodukte und bauaufsichtliche Verfahren."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1779.14",
+      "baselineCitation": "Sächsische Bauordnung in der Fassung der Bekanntmachung vom 11. Mai 2016 (SächsGVBl. S. 186)",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2024-03-18",
+      "snapshot": "data/recht/sources/revosax/saechsische-bauordnung/1779.14.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "c342bc4ae041704e617d464afaad3564491f3ae07129e08eaa56cee7991e5e8d",
+      "adoptedSources": [
+        {
+          "id": "2024-03-19",
+          "versionDate": "2024-03-19",
+          "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1779.15",
+          "citation": "Sächsische Bauordnung in der Fassung der Bekanntmachung vom 11. Mai 2016 (SächsGVBl. S. 186), zuletzt geändert durch Gesetz vom 1. März 2024 (SächsGVBl. S. 169)",
+          "changeNote": "Späterer sächsischer Zwischenstand, den das ostdeutsche Änderungsgesetz ausdrücklich als maßgebliche Ausgangsfassung bezeichnet.",
+          "adoptionEvidence": {
+            "amendmentAct": "gesetz-zur-verbesserung-des-stadtbilds",
+            "sourceProvision": "Artikel 1 Einleitungssatz",
+            "text": "Die Ostdeutsche Bauordnung in der Fassung der Bekanntmachung vom 11. Mai 2016 (SächsGVBl. S. 186), die zuletzt durch Artikel 1 des Gesetzes vom 1. März 2024 (SächsGVBl. S. 169) geändert worden ist, wird wie folgt geändert:"
+          },
+          "revosaxLawId": "1779",
+          "sourceValidFrom": "2024-03-19",
+          "sourceValidTo": null,
+          "snapshot": "data/recht/sources/revosax/saechsische-bauordnung/1779.15.html",
+          "retrievedAt": "2026-07-23",
+          "sourceSha256": "880f1adabcb92fc8b945f4dcf0c0093f83a00d1a43b87a457ad3c0034f24351b"
+        }
+      ]
+    },
+    "saechsische-gemeindeordnung": {
+      "title": "Sächsische Gemeindeordnung",
+      "resultShortTitle": "Ostdeutsche Gemeindeordnung",
+      "aliases": [
+        "Sächsische Gemeindeordnung",
+        "Gemeindeordnung für den Freistaat Sachsen",
+        "Gemeindeordnung für den Freistaat Ostdeutschland",
+        "Gemeindeordnung für den Ostdeutschen Freistaat"
+      ],
+      "revosaxLawId": "2754",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Kommunal- und Verwaltungsrecht"
+        ],
+        "keywords": [
+          "Gemeinden",
+          "Kommunalrecht",
+          "Gemeinderat"
+        ],
+        "summary": "Regelt Rechtsstellung, Aufgaben, Organisation, Haushaltswirtschaft und wirtschaftliche Betätigung der Gemeinden."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2754.40",
+      "baselineCitation": "Sächsische Gemeindeordnung in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62)",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2023-12-30",
+      "snapshot": "data/recht/sources/revosax/saechsische-gemeindeordnung/2754.40.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "4809b39d1b1439bd2b9247900142091c81c44ffa09298fab969973b6216a8889",
+      "adoptedSources": [
+        {
+          "id": "2023-12-31",
+          "versionDate": "2023-12-31",
+          "citation": "Sächsische Gemeindeordnung in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62), zuletzt geändert durch Artikel 5 des Gesetzes vom 28. November 2023 (SächsGVBl. S. 870)",
+          "changeNote": "Späterer sächsischer Zwischenstand, den das ostdeutsche Gesetz über die kommunale Privatisierungsbremse ausdrücklich als maßgebliche Ausgangsfassung bezeichnet.",
+          "adoptionEvidence": {
+            "amendmentAct": "gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo",
+            "sourceProvision": "Artikel 1 Einleitungssatz",
+            "text": "Die Sächsische Gemeindeordnung in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62), die zuletzt durch Art. 5 des Gesetzes vom 28. November 2023 (SächsGVBl. S. 870) geändert worden ist, wird wie folgt geändert:"
+          },
+          "revosaxLawId": "2754",
+          "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2754.41",
+          "sourceValidFrom": "2023-12-31",
+          "sourceValidTo": "2023-12-31",
+          "snapshot": "data/recht/sources/revosax/saechsische-gemeindeordnung/2754.41.html",
+          "retrievedAt": "2026-07-23",
+          "sourceSha256": "b45488fecc8933291d6feb0687927267aedca3866bb2b66da5ed6f61eb1fc45f"
+        }
+      ]
+    },
+    "saechsische-landkreisordnung": {
+      "title": "Sächsische Landkreisordnung",
+      "resultShortTitle": "Ostdeutsche Landkreisordnung",
+      "aliases": [
+        "Sächsische Landkreisordnung",
+        "Landkreisordnung für den Freistaat Sachsen",
+        "Landkreisordnung für den Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": "3264",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Kommunal- und Verwaltungsrecht"
+        ],
+        "keywords": [
+          "Landkreise",
+          "Kommunalrecht",
+          "Kreistag"
+        ],
+        "summary": "Regelt Rechtsstellung, Aufgaben, Organisation, Haushaltswirtschaft und wirtschaftliche Betätigung der Landkreise."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3264.23",
+      "baselineCitation": "Sächsische Landkreisordnung in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99)",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2022-02-20",
+      "sourceValidTo": "2023-12-31",
+      "snapshot": "data/recht/sources/revosax/saechsische-landkreisordnung/3264.23.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89"
+    },
+    "saechsische-haushaltsordnung": {
+      "title": "Sächsische Haushaltsordnung",
+      "resultShortTitle": "Ostdeutsche Haushaltsordnung",
+      "resultAbbr": "LHO",
+      "aliases": [
+        "Sächsische Haushaltsordnung",
+        "Haushaltsordnung des Ostdeutschen Freistaates",
+        "Ostdeutsche Haushaltsordnung"
+      ],
+      "revosaxLawId": "4270",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Haushaltsrecht"
+        ],
+        "keywords": [
+          "Haushalt",
+          "Haushaltswirtschaft",
+          "Landesvermögen"
+        ],
+        "summary": "Regelt Aufstellung und Ausführung des Haushaltsplans, Zahlungen, Buchführung, Rechnungslegung und Prüfung der Haushaltswirtschaft."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/4270.12",
+      "baselineCitation": "Sächsische Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153)",
+      "documentDate": "2001-04-10",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2021-06-03",
+      "sourceValidTo": "2025-07-09",
+      "snapshot": "data/recht/sources/revosax/saechsische-haushaltsordnung/4270.12.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "12ad8cf603c92c7cb82b361a6b028800ea4a3f56fd235db14175c5bcb9784ffb",
+      "adoptedSources": [
+        {
+          "id": "2025-07-10",
+          "versionDate": "2025-07-10",
+          "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/4270.13",
+          "citation": "Sächsische Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), zuletzt geändert durch Gesetz vom 27. Juni 2025 (SächsGVBl. S. 285)",
+          "changeNote": "Späterer sächsischer Zwischenstand, den das ostdeutsche Änderungsgesetz ausdrücklich als maßgebliche Ausgangsfassung bezeichnet.",
+          "adoptionEvidence": {
+            "amendmentAct": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
+            "sourceProvision": "Artikel 2 Einleitungssatz",
+            "text": "Die Sächsische Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), die zuletzt durch Artikel 1 des Gesetzes vom 27. Juni 2025 (SächsGVBl. S. 285) geändert worden ist, wird wie folgt geändert:"
+          },
+          "revosaxLawId": "4270",
+          "sourceValidFrom": "2025-07-10",
+          "sourceValidTo": null,
+          "snapshot": "data/recht/sources/revosax/saechsische-haushaltsordnung/4270.13.html",
+          "retrievedAt": "2026-07-23",
+          "sourceSha256": "144a0416a247bce0f72182590e750dad46b801f4ef575099cebd8853eb356590"
+        }
+      ]
+    },
+    "saechsisches-verwaltungskostengesetz": {
+      "title": "Sächsisches Verwaltungskostengesetz",
+      "resultShortTitle": "Ostdeutsches Verwaltungskostengesetz",
+      "resultAbbr": "OstVwKG",
+      "aliases": [
+        "Sächsisches Verwaltungskostengesetz",
+        "Gesetz über die Gebühren und Beiträge der ostdeutschen Verwaltung",
+        "Ostdeutsches Verwaltungskostengesetz"
+      ],
+      "revosaxLawId": "18086",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Kommunal- und Verwaltungsrecht"
+        ],
+        "keywords": [
+          "Verwaltungskosten",
+          "Gebühren",
+          "Beiträge"
+        ],
+        "summary": "Regelt Gebühren und Auslagen für individuell zurechenbare öffentlich-rechtliche Leistungen sowie die Erhebung weiterer Verwaltungskosten."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18086.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-04-27",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/saechsisches-verwaltungskostengesetz/18086.1.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "93a9c4008bc46819f323b2331d04e75f0187953f33f0387019d629517fee9061"
+    },
+    "fluechtlingsaufnahmegesetz": {
+      "title": "Sächsisches Flüchtlingsaufnahmegesetz",
+      "resultShortTitle": "Ostdeutsches Flüchtlingsaufnahmegesetz",
+      "resultAbbr": "OstFlüAG",
+      "aliases": [
+        "Sächsisches Flüchtlingsaufnahmegesetz",
+        "Gesetz zur Aufnahme und Unterbringung von Flüchtlingen im Ostdeutschen Freistaat",
+        "Ostdeutsches Flüchtlingsaufnahmegesetz"
+      ],
+      "revosaxLawId": "9524",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Arbeit und Soziales"
+        ],
+        "keywords": [
+          "Flüchtlingsaufnahme",
+          "Unterbringung",
+          "Asyl"
+        ],
+        "summary": "Regelt Aufnahme, Verteilung und Unterbringung von Flüchtlingen sowie Zuständigkeiten und Kostenerstattung."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/9524.10",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-01-01",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/fluechtlingsaufnahmegesetz/9524.10.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "29f5c6dcd961da37db7b7b1c38bfad4d7a03f8e0002df832f95fcf47dacda33d"
+    },
+    "abschiebungshaftvollzugsgesetz": {
+      "title": "Sächsisches Abschiebungshaftvollzugsgesetz",
+      "aliases": [
+        "Sächsisches Abschiebungshaftvollzugsgesetz",
+        "Abschiebungshaftvollzugsgesetz"
+      ],
+      "revosaxLawId": "17767",
+      "resultAbbr": "SächsAHaftVollzG",
+      "baselineCitation": "Sächsisches Abschiebungshaftvollzugsgesetz vom 28. Juni 2018 (SächsGVBl. S. 458)",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Sicherheit und Ordnung"
+        ],
+        "keywords": [
+          "Abschiebungshaft",
+          "Ausreisegewahrsam",
+          "Vollzug"
+        ],
+        "summary": "Regelt den Vollzug der Abschiebungshaft und des Ausreisegewahrsams sowie Rechte, Versorgung und Schutz der untergebrachten Personen."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17767.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2018-07-26",
+      "sourceValidTo": "2025-08-15",
+      "snapshot": "data/recht/sources/revosax/abschiebungshaftvollzugsgesetz/17767.1.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "4b97b7f30f716088ef1ad3d09e63e6a20173dde2fa7ecc66b855c977fb063140"
+    },
     "archivgesetz": {
       "title": "Archivgesetz für den Freistaat Sachsen",
       "resultShortTitle": "Archivgesetz für den Freistaat Ostdeutschland",
@@ -114,6 +392,9 @@
     },
     "ostdeutsche-bezirksordnung": {
       "reason": "OGVBl. 2026 Nr. 46 führt eine Ostdeutsche Bezirksordnung mit Wirkung zum 1. August 2026 ein. Artikel 8 des Sportneuordnungsgesetzes bezeichnet dagegen eine Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. I/2025 S. 7). Ohne die dort genannte Primärquelle lässt sich nicht quellentreu entscheiden, welche Stammfassung geändert wird."
+    },
+    "saechsische-landkreisordnung": {
+      "reason": "Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt eine durch Artikel 2 des Gesetzes zur Einführung von Bezirken vom 6. März 2025 (OGVBl. I/2025 S. 7) geänderte Landkreisordnung voraus. Diese Primärquelle fehlt; insbesondere ist der dort vorausgesetzte § 75 in der gesicherten REVOSax-Ausgangsfassung zum 1. November 2023 nicht vorhanden. Die Folgefassung darf deshalb nicht aus der Fassung von 2023 frei rekonstruiert werden."
     },
     "mustergesetz": {
       "reason": "Der im NDR-Staatsvertrag enthaltene Text „Mustergesetz vom TT. MMMM JJJJ“ ist eine unausgefüllte Quellenvorlage und keine reale Zielnorm."

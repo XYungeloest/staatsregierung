@@ -22,10 +22,11 @@ Belegt:
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
-- Der Konsolidierungs-Audit erkennt derzeit 46 Zielnormen. Für 39 davon ist die am
-  1. November 2023 geltende konkrete REVOSax-Fassung noch nicht als unveränderter Snapshot
-  versioniert. Die vollständige Liste mit Änderungsvorschriften und nächstem Quellenschritt steht
-  in `data/recht/consolidation-manifest.json`.
+- Der Konsolidierungs-Audit erkennt derzeit 46 Zielnormen. Für 32 davon ist die maßgebliche
+  Primärquelle noch nicht als unveränderter Snapshot versioniert. Vier weitere Zielnormen sind
+  wegen eines konkret benannten Quellenkonflikts gesperrt. Die vollständige Liste mit
+  Änderungsvorschriften und nächstem Quellenschritt steht in
+  `data/recht/consolidation-manifest.json`.
 - Der NDR-Änderungs- und Überleitungsstaatsvertrag enthält eine unausgefüllte
   „Mustergesetz vom TT. MMMM JJJJ“-Vorlage. Sie ist keine verkündete Zielnorm und wird vom Audit
   ausdrücklich als Quellenmangel statt als Stammgesetz behandelt.
@@ -52,10 +53,11 @@ Schlussfolgerung:
   Normfassungen ergänzt.
 - Bei Änderungsgesetzen ohne vollständig belegte Ausgangsfassung wird keine frei rekonstruierte
   konsolidierte Fassung erstellt.
-- Feiertagsgesetz, Ladenöffnungsgesetz und Wappenverordnung besitzen geprüfte
-  REVOSax-Ausgangsfassungen. Das neu eingeführte Tariftreue- und Vergabegesetz benötigt keine
-  sächsische Ausgangsfassung. Diese vier Zielnormen sind im Konsolidierungsmanifest als vollständig
-  geführt.
+- Feiertagsgesetz, Ladenöffnungsgesetz, Wappenverordnung, Bauordnung, Gemeindeordnung,
+  Haushaltsordnung, Verwaltungskostengesetz, Flüchtlingsaufnahmegesetz und
+  Abschiebungshaftvollzugsgesetz besitzen geprüfte REVOSax-Ausgangsfassungen und vollständige
+  Folgefassungen. Das neu eingeführte Tariftreue- und Vergabegesetz benötigt keine sächsische
+  Ausgangsfassung. Diese zehn Zielnormen sind im Konsolidierungsmanifest als vollständig geführt.
 - Die drei bedingt wirksamen Staatsverträge bleiben veröffentlicht, aber ohne belegtes
   Inkrafttreten.
 - Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
@@ -144,6 +146,11 @@ Belegt:
   6. März 2025 (OGVBl. I/2025 S. 7). OGVBl. 2026 Nr. 46 führt dagegen eine gleichnamige
   Bezirksordnung mit Wirkung zum 1. August 2026 ein. Die im Änderungsgesetz genannte Ausgabe von
   2025 liegt nicht als vollständige Primärquelle vor.
+- Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt außerdem eine durch Artikel 2 des
+  Gesetzes zur Einführung von Bezirken vom 6. März 2025 geänderte Landkreisordnung voraus. Die
+  gesicherte REVOSax-Ausgangsfassung zum 1. November 2023 enthält den im Änderungsgesetz
+  vorausgesetzten § 75 noch nicht. Ohne OGVBl. I/2025 S. 7 kann die Zwischenfassung nicht
+  quellentreu hergestellt werden.
 - Das Gesetz zur Änderung des Feiertagsgesetzes vom 7. März 2024 bezeichnet die geänderten
   Einzelregelungen innerhalb seines Artikels als „Artikel“. Das spätere Reformgesetz verweist
   dagegen auf „§ 2 Nummer 3“, obwohl die gespeicherte 2024-Fassung den Regelungstext nicht als
@@ -172,9 +179,10 @@ Schlussfolgerung:
 - Beim Helsinki-Übereinkommen wird der 9. April 1992 als Dokumentdatum geführt. Die abweichenden
   Index- und Kopfangaben bleiben als Hinweis sichtbar.
 - Für Drucksache 07/27 wird kein unbelegtes Einbringungsdatum ergänzt.
-- Die Bezirksordnung, das bezeichnete alte Polizeigesetz und das Archivgesetz bleiben im
-  Konsolidierungsmanifest `blocked-source-conflict`. Aus Namensähnlichkeit oder widersprüchlicher
-  interner Gliederung wird keine konsolidierte Folgefassung abgeleitet.
+- Die Bezirksordnung, die Landkreisordnung, das bezeichnete alte Polizeigesetz und das Archivgesetz
+  bleiben im Konsolidierungsmanifest `blocked-source-conflict`. Aus Namensähnlichkeit, einer
+  fehlenden Zwischenfassung oder widersprüchlicher interner Gliederung wird keine konsolidierte
+  Folgefassung abgeleitet.
 
 ## 5. Nächster Aktualisierungsschritt
 
@@ -190,7 +198,8 @@ Schlussfolgerung:
    REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
    sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten
    prüfen.
-6. OGVBl. I/2025 S. 7 zur dort bezeichneten Bezirksordnung beschaffen und den Konflikt zur
-   Einführungsfassung aus OGVBl. 2026 Nr. 46 klären.
+6. OGVBl. I/2025 S. 7 zur dort bezeichneten Bezirksordnung und zur geänderten Landkreisordnung
+   beschaffen, die Zwischenfassungen prüfen und den Konflikt zur Einführungsfassung aus
+   OGVBl. 2026 Nr. 46 klären.
 7. Die amtliche Kennzeichnung der Inkrafttretensvorschrift des Archivgesetzes bei REVOSax klären;
    erst danach die Ausgangsfassung 2628.7 konsolidieren.

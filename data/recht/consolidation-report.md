@@ -1,13 +1,13 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-07-23T08:52:21.913Z
+**Erzeugt:** 2026-07-23T09:28:40.478Z
 
 - Erkannte Änderungsvorschriften: 43
 - Erkannte Zielnormen: 46
-- Vollständig konsolidiert: 4
-- Blockierte Quellenkonflikte: 3
-- Fehlende Primärquellen: 39
+- Vollständig konsolidiert: 10
+- Blockierte Quellenkonflikte: 4
+- Fehlende Primärquellen: 32
 
 ## Abschiebe-Aussetzungsverordnung
 
@@ -17,19 +17,6 @@
 - REVOSax: noch nicht belegt
 - Einführung: keine
 - Änderungen: `verordnung-zur-aufhebung-verfassungswidrig-erlassener-verordnungen` (2025-09-16)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Abschiebungshaftvollzugsgesetz
-
-- Slug: `abschiebungshaftvollzugsgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq` (2026-03-24)
 - Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
 - Probleme:
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
@@ -68,19 +55,6 @@
 - REVOSax: noch nicht belegt
 - Einführung: keine
 - Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Flüchtlingsaufnahmegesetz
-
-- Slug: `fluechtlingsaufnahmegesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq` (2026-03-24)
 - Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
 - Probleme:
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
@@ -339,54 +313,56 @@
 ## Sächsische Bauordnung
 
 - Slug: `saechsische-bauordnung`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- Status: `complete`
+- Stammnorm: `saechsische-bauordnung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/1779.14
 - Einführung: keine
 - Änderungen: `gesetz-zur-verbesserung-des-stadtbilds` (2026-03-24)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Sächsische Gemeindeordnung
 
 - Slug: `saechsische-gemeindeordnung`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- Status: `complete`
+- Stammnorm: `saechsische-gemeindeordnung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/2754.40
 - Einführung: keine
 - Änderungen: `gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo` (2026-03-25), `gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb` (2026-03-25), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Sächsische Haushaltsordnung
 
 - Slug: `saechsische-haushaltsordnung`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- Status: `complete`
+- Stammnorm: `saechsische-haushaltsordnung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/4270.12
 - Einführung: keine
 - Änderungen: `gesetz-zur-einfuhrung-der-landesbank-ostdeutschland` (2026-01-27)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Sächsische Landkreisordnung
 
 - Slug: `saechsische-landkreisordnung`
-- Status: `missing-baseline`
+- Status: `blocked-source-conflict`
 - Stammnorm: `sachsische-landkreisordnung`
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3264.23
 - Einführung: keine
 - Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt eine durch Artikel 2 des Gesetzes zur Einführung von Bezirken vom 6. März 2025 (OGVBl. I/2025 S. 7) geänderte Landkreisordnung voraus. Diese Primärquelle fehlt; insbesondere ist der dort vorausgesetzte § 75 in der gesicherten REVOSax-Ausgangsfassung zum 1. November 2023 nicht vorhanden. Die Folgefassung darf deshalb nicht aus der Fassung von 2023 frei rekonstruiert werden.
   - Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
+  - Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
+
+## Sächsisches Abschiebungshaftvollzugsgesetz
+
+- Slug: `abschiebungshaftvollzugsgesetz`
+- Status: `complete`
+- Stammnorm: `abschiebungshaftvollzugsgesetz`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/17767.1
+- Einführung: keine
+- Änderungen: `gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq` (2026-03-24)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Sächsisches Bestattungsgesetz
 
@@ -400,6 +376,16 @@
 - Probleme:
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Flüchtlingsaufnahmegesetz
+
+- Slug: `fluechtlingsaufnahmegesetz`
+- Status: `complete`
+- Stammnorm: `fluechtlingsaufnahmegesetz`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/9524.10
+- Einführung: keine
+- Änderungen: `gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq` (2026-03-24)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Sächsisches Gleichstellungsgesetz
 
@@ -429,15 +415,12 @@
 ## Sächsisches Verwaltungskostengesetz
 
 - Slug: `saechsisches-verwaltungskostengesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- Status: `complete`
+- Stammnorm: `saechsisches-verwaltungskostengesetz`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/18086.1
 - Einführung: keine
 - Änderungen: `erstes-gesetz-zur-anderung-des-verwaltungskostengesetzes` (2026-01-27)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Schulgesetz
 

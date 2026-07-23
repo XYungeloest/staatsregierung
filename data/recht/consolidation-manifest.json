@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-23T08:52:21.913Z",
+  "generatedAt": "2026-07-23T09:28:40.478Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
     "recognizedAmendmentActs": 43,
     "recognizedTargetNorms": 46,
-    "completeTargetNorms": 4,
-    "blockedSourceConflicts": 3,
-    "missingPrimarySources": 39
+    "completeTargetNorms": 10,
+    "blockedSourceConflicts": 4,
+    "missingPrimarySources": 32
   },
   "templateProblems": [
     "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
@@ -38,40 +38,6 @@
       ],
       "effectiveDates": [
         "2025-09-16"
-      ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
-    },
-    {
-      "canonicalSlug": "abschiebungshaftvollzugsgesetz",
-      "title": "Abschiebungshaftvollzugsgesetz",
-      "aliases": [
-        "Sächsische Abschiebungshaftvollzugsgesetz",
-        "Sächsischen Abschiebungshaftvollzugsgesetzes"
-      ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
-      "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "existingStemNormSlug": null,
-      "enactingActs": [],
-      "amendmentActs": [
-        {
-          "slug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
-          "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
-          "effectiveDate": "2026-03-24",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
-        }
-      ],
-      "effectiveDates": [
-        "2026-03-24"
       ],
       "status": "missing-baseline",
       "problems": [
@@ -172,39 +138,6 @@
       ],
       "effectiveDates": [
         "2026-07-21"
-      ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
-    },
-    {
-      "canonicalSlug": "fluechtlingsaufnahmegesetz",
-      "title": "Flüchtlingsaufnahmegesetz",
-      "aliases": [
-        "Ostdeutschen Flüchtlingsaufnahmegesetz"
-      ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
-      "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "existingStemNormSlug": null,
-      "enactingActs": [],
-      "amendmentActs": [
-        {
-          "slug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
-          "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
-          "effectiveDate": "2026-03-24",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
-        }
-      ],
-      "effectiveDates": [
-        "2026-03-24"
       ],
       "status": "missing-baseline",
       "problems": [
@@ -987,57 +920,59 @@
       "canonicalSlug": "saechsische-bauordnung",
       "title": "Sächsische Bauordnung",
       "aliases": [
-        "Ostdeutschen Bauordnung"
+        "Ostdeutsche Bauordnung",
+        "Ostdeutschen Bauordnung",
+        "Sächsische Bauordnung"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "1779",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1779.14",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "existingStemNormSlug": null,
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2024-03-18",
+      "sourceSha256": "c342bc4ae041704e617d464afaad3564491f3ae07129e08eaa56cee7991e5e8d",
+      "existingStemNormSlug": "saechsische-bauordnung",
       "enactingActs": [],
       "amendmentActs": [
         {
           "slug": "gesetz-zur-verbesserung-des-stadtbilds",
           "title": "Gesetz zur Verbesserung des Stadtbilds",
           "effectiveDate": "2026-03-24",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
         }
       ],
       "effectiveDates": [
         "2026-03-24"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsische-gemeindeordnung",
       "title": "Sächsische Gemeindeordnung",
       "aliases": [
         "Gemeindeordnung",
-        "Gemeindeordnung für den Freistaat Ostdeutschland"
+        "Gemeindeordnung für den Freistaat Ostdeutschland",
+        "Gemeindeordnung für den Freistaat Sachsen",
+        "Gemeindeordnung für den Ostdeutschen Freistaat",
+        "Sächsische Gemeindeordnung"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "2754",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2754.40",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "existingStemNormSlug": null,
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2023-12-30",
+      "sourceSha256": "4809b39d1b1439bd2b9247900142091c81c44ffa09298fab969973b6216a8889",
+      "existingStemNormSlug": "saechsische-gemeindeordnung",
       "enactingActs": [],
       "amendmentActs": [
         {
           "slug": "gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo",
           "title": "Gesetz über die Einführung einer kommunalen Privatisierungsbremse im Freistaat Ostdeutschland",
           "effectiveDate": "2026-03-25",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
         },
         {
           "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
@@ -1058,26 +993,26 @@
         "2026-03-25",
         "2026-07-21"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsische-haushaltsordnung",
       "title": "Sächsische Haushaltsordnung",
       "aliases": [
-        "Haushaltsordnung"
+        "Haushaltsordnung",
+        "Haushaltsordnung des Ostdeutschen Freistaates",
+        "Ostdeutsche Haushaltsordnung",
+        "Sächsische Haushaltsordnung"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "4270",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/4270.12",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "existingStemNormSlug": null,
+      "sourceValidFrom": "2021-06-03",
+      "sourceValidTo": "2025-07-09",
+      "sourceSha256": "12ad8cf603c92c7cb82b361a6b028800ea4a3f56fd235db14175c5bcb9784ffb",
+      "existingStemNormSlug": "saechsische-haushaltsordnung",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -1091,25 +1026,24 @@
       "effectiveDates": [
         "2026-01-27"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsische-landkreisordnung",
       "title": "Sächsische Landkreisordnung",
       "aliases": [
-        "Landkreisordnung für den Freistaat Ostdeutschland"
+        "Landkreisordnung für den Freistaat Ostdeutschland",
+        "Landkreisordnung für den Freistaat Sachsen",
+        "Sächsische Landkreisordnung"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "3264",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3264.23",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
+      "sourceValidFrom": "2022-02-20",
+      "sourceValidTo": "2023-12-31",
+      "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89",
       "existingStemNormSlug": "sachsische-landkreisordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -1124,12 +1058,46 @@
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "missing-baseline",
+      "status": "blocked-source-conflict",
       "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle."
+        "Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt eine durch Artikel 2 des Gesetzes zur Einführung von Bezirken vom 6. März 2025 (OGVBl. I/2025 S. 7) geänderte Landkreisordnung voraus. Diese Primärquelle fehlt; insbesondere ist der dort vorausgesetzte § 75 in der gesicherten REVOSax-Ausgangsfassung zum 1. November 2023 nicht vorhanden. Die Folgefassung darf deshalb nicht aus der Fassung von 2023 frei rekonstruiert werden.",
+        "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.",
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+    },
+    {
+      "canonicalSlug": "abschiebungshaftvollzugsgesetz",
+      "title": "Sächsisches Abschiebungshaftvollzugsgesetz",
+      "aliases": [
+        "Abschiebungshaftvollzugsgesetz",
+        "Sächsische Abschiebungshaftvollzugsgesetz",
+        "Sächsischen Abschiebungshaftvollzugsgesetzes",
+        "Sächsisches Abschiebungshaftvollzugsgesetz"
+      ],
+      "revosaxLawId": "17767",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17767.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2018-07-26",
+      "sourceValidTo": "2025-08-15",
+      "sourceSha256": "4b97b7f30f716088ef1ad3d09e63e6a20173dde2fa7ecc66b855c977fb063140",
+      "existingStemNormSlug": "abschiebungshaftvollzugsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
+          "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsisches-bestattungsgesetz",
@@ -1163,6 +1131,39 @@
         "Eigenständiger Stammnormdatensatz fehlt."
       ],
       "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "fluechtlingsaufnahmegesetz",
+      "title": "Sächsisches Flüchtlingsaufnahmegesetz",
+      "aliases": [
+        "Gesetz zur Aufnahme und Unterbringung von Flüchtlingen im Ostdeutschen Freistaat",
+        "Ostdeutschen Flüchtlingsaufnahmegesetz",
+        "Ostdeutsches Flüchtlingsaufnahmegesetz",
+        "Sächsisches Flüchtlingsaufnahmegesetz"
+      ],
+      "revosaxLawId": "9524",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/9524.10",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-01-01",
+      "sourceValidTo": null,
+      "sourceSha256": "29f5c6dcd961da37db7b7b1c38bfad4d7a03f8e0002df832f95fcf47dacda33d",
+      "existingStemNormSlug": "fluechtlingsaufnahmegesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
+          "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsisches-gleichstellungsgesetz",
@@ -1234,35 +1235,35 @@
       "canonicalSlug": "saechsisches-verwaltungskostengesetz",
       "title": "Sächsisches Verwaltungskostengesetz",
       "aliases": [
+        "Gesetz über die Gebühren und Beiträge der ostdeutschen Verwaltung",
+        "Ostdeutsches Verwaltungskostengesetz",
         "Sächsische Verwaltungskostengesetz",
+        "Sächsisches Verwaltungskostengesetz",
         "Verwaltungskostengesetzes"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "18086",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18086.1",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
+      "sourceValidFrom": "2019-04-27",
       "sourceValidTo": null,
-      "sourceSha256": null,
-      "existingStemNormSlug": null,
+      "sourceSha256": "93a9c4008bc46819f323b2331d04e75f0187953f33f0387019d629517fee9061",
+      "existingStemNormSlug": "saechsisches-verwaltungskostengesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
           "slug": "erstes-gesetz-zur-anderung-des-verwaltungskostengesetzes",
           "title": "Erstes Gesetz zur Änderung des Verwaltungskostengesetzes",
           "effectiveDate": "2026-01-27",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
         }
       ],
       "effectiveDates": [
         "2026-01-27"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-schulgesetz",

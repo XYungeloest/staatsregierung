@@ -1,0 +1,86 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
+  "effectiveDate": "2026-01-27",
+  "versionId": "2026-01-27",
+  "amendmentCitation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 8)",
+  "resultCitation": "Haushaltsordnung des Ostdeutschen Freistaates in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), zuletzt geändert durch Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 8)",
+  "changeNote": "Bezeichnung und § 112 geändert durch das Gesetz zur Einführung der Landesbank Ostdeutschland.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 8",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 8.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsische Haushaltsordnung",
+      "expectedMatches": 1,
+      "value": "Haushaltsordnung des Ostdeutschen Freistaates",
+      "source": "Gesetze/OGVBl. 2026 Nr. 8.html",
+      "sourceProvision": "Artikel 2 Nummer 1",
+      "effectiveDate": "2026-01-27"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 112"
+      },
+      "expectedHash": "99b1e17032905d407ba837f7cd789bfd1e5aff8b392d05390566cf9bd8129f46",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 112",
+        "title": "Sonderregelungen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Die §§ 105 bis 111 finden keine Anwendung auf die Haushalts- und Wirtschaftsführung der",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "unter das Gesetz über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe fallenden Sparkassen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "landesunmittelbaren Träger der gesetzlichen Krankenversicherung, der gesetzlichen Unfallversicherung und der gesetzlichen Rentenversicherung einschließlich der Altershilfe für Landwirte; dies gilt auch für die Verbände der genannten Sozialversicherungsträger und für sonstige Vereinigungen auf dem Gebiet der Sozialversicherung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Landesbank an der Elbe.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "²Andere gesetzliche Vorschriften, die die Prüfung durch den Rechnungshof bei Stellen außerhalb der Staatsverwaltung regeln, bleiben unberührt."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "¹Auf Unternehmen in der Rechtsform einer landesunmittelbaren juristischen Person des öffentlichen Rechts sind unabhängig von der Höhe der Beteiligung des Staates § 65 Abs. 1 Nr. 3 und 4 sowie Abs. 2, § 68 Abs. 1 und § 69 entsprechend, § 111 unmittelbar anzuwenden. ²Für Unternehmen in der Rechtsform einer juristischen Person des privaten Rechts, an denen die in Satz 1 genannten Unternehmen unmittelbar oder mittelbar mit Mehrheit beteiligt sind, gelten die §§ 53 und 54 des Haushaltsgrundsätzegesetzes und die §§ 65 bis 69 entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 8.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-01-27"
+    }
+  ]
+}

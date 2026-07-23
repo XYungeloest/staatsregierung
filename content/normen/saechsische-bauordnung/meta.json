@@ -1,0 +1,65 @@
+{
+  "id": "saechsische-bauordnung",
+  "slug": "saechsische-bauordnung",
+  "title": "Ostdeutsche Bauordnung",
+  "shortTitle": "Ostdeutsche Bauordnung",
+  "shortTitleSource": "official",
+  "type": "gesetz",
+  "enactingBody": "Sächsischer Landtag",
+  "subjects": [
+    "Wohnen und Bodenordnung"
+  ],
+  "keywords": [
+    "Bauordnung",
+    "Baurecht",
+    "Bauaufsicht",
+    "Sächsische Bauordnung"
+  ],
+  "summary": "Regelt die bauordnungsrechtlichen Anforderungen an Grundstücke, bauliche Anlagen, Bauprodukte und bauaufsichtliche Verfahren.",
+  "initialCitation": "Sächsische Bauordnung in der Fassung der Bekanntmachung vom 11. Mai 2016 (SächsGVBl. S. 186)",
+  "predecessor": null,
+  "successor": null,
+  "status": "in-force",
+  "documentDate": "2016-05-11",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2023-01-01 bis 2024-03-18",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/saechsische-bauordnung/1779.14.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1779.14",
+      "retrievedAt": "2026-07-23",
+      "sha256": "c342bc4ae041704e617d464afaad3564491f3ae07129e08eaa56cee7991e5e8d",
+      "lawId": "1779",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2024-03-18"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2024-03-19",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/saechsische-bauordnung/1779.15.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1779.15",
+      "retrievedAt": "2026-07-23",
+      "sha256": "880f1adabcb92fc8b945f4dcf0c0093f83a00d1a43b87a457ad3c0034f24351b",
+      "lawId": "1779",
+      "sourceValidFrom": "2024-03-19"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 22 S. 2 bis 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 22.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 38 S. 2 bis 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 38.html"
+    }
+  ],
+  "affectedByNorms": [
+    "erstes-gesetz-betreffend-die-bereinigung-ostdeutschen-landesrechts",
+    "gesetz-zur-verbesserung-des-stadtbilds"
+  ]
+}
