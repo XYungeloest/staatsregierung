@@ -387,6 +387,17 @@ test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änd
   await expect(page.locator('#fassungen .timeline-list > li')).toHaveCount(1);
   await expect(page.locator('#historieneintraege')).toContainText('Aufgehoben durch Artikel 3');
   await expect(page.locator('#historieneintraege')).toContainText('24. März 2026');
+
+  await page.goto('/recht/norm/saechsische-gemeindeordnung/history/');
+  await expect(page.locator('#fassungen .timeline-list > li')).toHaveCount(4);
+  await expect(page.locator('#historieneintraege')).toContainText('kommunalen Privatisierungsbremse');
+  await expect(page.locator('#historieneintraege')).toContainText('Bundeshauptstadt Berlin');
+  await expect(page.locator('#historieneintraege')).toContainText('Kreis- und Bezirksneuordnungsgesetz');
+
+  await page.goto('/recht/norm/gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes/');
+  await expect(
+    page.locator('a[href="/recht/norm/ostdeutsches-tariftreueund-vergabegesetz/"]').first(),
+  ).toContainText('Ostdeutsches Tariftreue- und Vergabegesetz');
 });
 
 test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page }) => {

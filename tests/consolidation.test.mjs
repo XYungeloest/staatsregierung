@@ -147,6 +147,106 @@ test('Ladenöffnungsgesetz erhält Ausgangs- und vollständige Folgefassung ohne
   assert.equal(history.entries.at(-1).relatedNorm, 'viertes-gesetz-zur-anderung-des-ladenoffnungsgesetzes');
 });
 
+test('umfangreiche REVOSax-Fassungen schließen Bekanntmachung und Präsentationsüberschriften aus', async () => {
+  for (const slug of [
+    'saechsische-bauordnung',
+    'saechsische-gemeindeordnung',
+    'saechsische-haushaltsordnung',
+  ]) {
+    const parsed = await readJson(`data/recht/parsed/revosax/${slug}.json`);
+    const fullText = JSON.stringify(parsed.body);
+    assert.doesNotMatch(fullText, /Bekanntmachung der Neufassung|Rechtsbereinigt mit Stand|Inhaltsübersicht/iu, slug);
+    assert.ok(flatten(parsed.body).some((block) => block.type === 'paragraph'), `${slug}: Paragraphen fehlen`);
+  }
+});
+
+test('Verwaltungskosten-, Flüchtlingsaufnahme- und Abschiebungshaftrecht sind vollständig konsolidiert', async () => {
+  const cases = [
+    {
+      slug: 'saechsisches-verwaltungskostengesetz',
+      dates: ['2023-11-01', '2026-01-27'],
+      expected: ['§ 3a'],
+    },
+    {
+      slug: 'fluechtlingsaufnahmegesetz',
+      dates: ['2023-11-01', '2026-03-24'],
+      expected: ['§ 3', '§ 4', '§ 11', '§ 11a'],
+    },
+    {
+      slug: 'abschiebungshaftvollzugsgesetz',
+      dates: ['2023-11-01', '2026-03-24'],
+      expected: ['§ 2a', '§ 6a'],
+    },
+  ];
+  for (const entry of cases) {
+    const versions = await Promise.all(entry.dates.map((date) =>
+      readJson(`content/normen/${entry.slug}/versions/${date}.json`)
+    ));
+    assert.deepEqual(versions.map((version) => version.validFrom), entry.dates, entry.slug);
+    const labels = flatten(versions.at(-1).body).map((block) => block.label).filter(Boolean);
+    for (const expected of entry.expected) assert.ok(labels.includes(expected), `${entry.slug}: ${expected} fehlt`);
+    assert.doesNotMatch(JSON.stringify(versions), /u\s*n\s*v\s*e\s*r\s*ä\s*n\s*d\s*e\s*r\s*t/iu, entry.slug);
+  }
+});
+
+test('Bauordnung führt zwei Änderungen desselben Tages in genau einer Folgefassung zusammen', async () => {
+  const dates = ['2023-11-01', '2024-03-19', '2026-03-24'];
+  const versions = await Promise.all(dates.map((date) =>
+    readJson(`content/normen/saechsische-bauordnung/versions/${date}.json`)
+  ));
+  assert.deepEqual(versions.map((version) => version.validFrom), dates);
+  const paragraph8 = flatten(versions.at(-1).body).find((block) => block.label === '§ 8');
+  assert.match(JSON.stringify(paragraph8), /Schotter- und Kiesgärten/iu);
+
+  const history = await readJson('content/normen/saechsische-bauordnung/history.json');
+  const sameDayChanges = history.entries.filter((entry) =>
+    entry.date === '2026-03-24' && entry.type === 'amendment'
+  );
+  assert.equal(sameDayChanges.length, 2);
+  assert.deepEqual([...new Set(sameDayChanges.map((entry) => entry.affectingVersionId))], ['2026-03-24']);
+});
+
+test('Gemeindeordnung bewahrt Zwischenstand, gleichzeitige Änderungen und künftige Kreisreformfassung', async () => {
+  const dates = ['2023-11-01', '2023-12-31', '2026-03-25', '2026-08-01'];
+  const versions = await Promise.all(dates.map((date) =>
+    readJson(`content/normen/saechsische-gemeindeordnung/versions/${date}.json`)
+  ));
+  assert.deepEqual(versions.map((version) => version.validFrom), dates);
+  const marchBlocks = flatten(versions[2].body);
+  assert.ok(marchBlocks.some((block) => block.label === '§ 71b'));
+  assert.ok(marchBlocks.some((block) => block.label === '§ 71f'));
+  assert.match(JSON.stringify(marchBlocks.find((block) => block.label === '§ 90')), /beherrschenden Einfluss/u);
+  const augustBlocks = flatten(versions[3].body);
+  assert.ok(augustBlocks.some((block) => block.label === '§ 71g'));
+  assert.match(JSON.stringify(augustBlocks.find((block) => block.label === '§ 3')), /kreisfreie Städte/u);
+
+  const history = await readJson('content/normen/saechsische-gemeindeordnung/history.json');
+  const sameDayChanges = history.entries.filter((entry) =>
+    entry.date === '2026-03-25' && entry.type === 'amendment'
+  );
+  assert.deepEqual(
+    sameDayChanges.map((entry) => entry.relatedNorm),
+    [
+      'gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo',
+      'gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb',
+    ],
+  );
+  assert.deepEqual([...new Set(sameDayChanges.map((entry) => entry.affectingVersionId))], ['2026-03-25']);
+});
+
+test('Haushaltsordnung übernimmt nur den ausdrücklich bezeichneten Zwischenstand und § 112', async () => {
+  const dates = ['2023-11-01', '2025-07-10', '2026-01-27'];
+  const versions = await Promise.all(dates.map((date) =>
+    readJson(`content/normen/saechsische-haushaltsordnung/versions/${date}.json`)
+  ));
+  assert.deepEqual(versions.map((version) => version.validFrom), dates);
+  const paragraph112 = flatten(versions.at(-1).body).find((block) => block.label === '§ 112');
+  assert.match(JSON.stringify(paragraph112), /die Landesbank an der Elbe/u);
+  const meta = await readJson('content/normen/saechsische-haushaltsordnung/meta.json');
+  assert.equal(meta.title, 'Haushaltsordnung des Ostdeutschen Freistaates');
+  assert.equal(meta.abbr, 'LHO');
+});
+
 test('Archivgesetz bewahrt Gliederung und bleibt wegen widersprüchlicher §-Kennzeichnung gesperrt', async () => {
   const config = await readJson('data/recht/consolidation-sources.json');
   const source = config.targets.archivgesetz;
@@ -230,4 +330,5 @@ test('Konsolidierungsmanifest ist aktuell und kennzeichnet Quellenkonflikte', as
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'archivgesetz')?.status, 'blocked-source-conflict');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsisches-polizeigesetz')?.status, 'blocked-source-conflict');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'ostdeutsche-bezirksordnung')?.status, 'blocked-source-conflict');
+  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsische-landkreisordnung')?.status, 'blocked-source-conflict');
 });
