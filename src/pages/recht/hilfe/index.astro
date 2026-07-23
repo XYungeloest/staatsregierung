@@ -49,7 +49,14 @@ import {
         <p>
           Die einfache Suche findet Begriffe in Titel, Kurztitel, Abkürzung, Metadaten und
           Normtext. Die erweiterten Filter grenzen Treffer nach Normtyp, Ressort, Sachgebiet,
-          Status, Geltungsdatum und Fundstelle ein.
+          Status, Fassungsart, Geltungsdatum und Fundstelle ein. Mehrere Werte innerhalb einer
+          Filtergruppe werden alternativ berücksichtigt; verschiedene Filtergruppen grenzen die
+          Suche gemeinsam ein.
+        </p>
+        <p>
+          Ein Stern am Ende eines Wortstamms dient als Präfix-Platzhalter: <code>Kranken*</code>
+          findet beispielsweise Wörter, die mit „Kranken“ beginnen. Ohne Stern bleibt die
+          gewohnte Teilwortsuche erhalten.
         </p>
         <p class="section-link-row"><a class="inline-link" href={getSearchUrl()}>Zur Normensuche</a></p>
       </section>
@@ -83,9 +90,11 @@ import {
           <h2>Fassungen und Historie</h2>
         </div>
         <p>
-          Die Normseite unter dem allgemeinen Normlink zeigt die aktuelle Fassung. Gespeicherte
-          frühere Fassungen haben eigene, unveränderliche Fassungslinks. Die Historienseite nennt
-          Stammfassung, Änderungsbezüge und die gespeicherten Fassungen.
+          Der allgemeine Normlink zeigt dynamisch die zum redaktionellen Stichtag geltende
+          Fassung. Ist eine Norm noch nicht in Kraft, werden Veröffentlichung und künftiges oder
+          noch nicht belegtes Inkrafttreten ausdrücklich ausgewiesen. Jede gespeicherte Fassung
+          besitzt zusätzlich einen unveränderlichen Fassungslink. Zukünftige Fassungen werden
+          nicht als historische Fassungen bezeichnet.
         </p>
       </section>
 
@@ -94,14 +103,28 @@ import {
           <h2>Vorschriftentext</h2>
         </div>
         <p>
-          Vorschriftentexte werden mit Inhaltsübersicht, Normtext und Metadaten dargestellt. Die
-          Marginalspalte nennt unter anderem Vollzitat, Gültigkeitszeitraum, Status, Sachgebiete
-          und Links zu Fassungen oder Historie.
+          Vorschriftentexte werden mit Inhaltsübersicht, einzeln auf- und zuklappbaren
+          Paragraphen oder Artikeln und kompakten Vorschriftendaten dargestellt. Die
+          Textwerkzeuge öffnen oder schließen alle Einheiten, führen zur Fassungswahl und bieten
+          Gesamt- sowie Einzeldruck. Ein Link zu einer konkreten Stelle bleibt über den
+          semantischen Anker direkt aufrufbar.
         </p>
         <p>
           Eindeutige Verweise auf Vorschriften im eigenen Rechtsbereich werden im Text verlinkt.
           Ausgewählte Verweise auf Bundesrecht führen zu den amtlichen Texten bei
           gesetze-im-internet.de.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="section-header">
+          <h2>Drucken und Quellen</h2>
+        </div>
+        <p>
+          Die Druckansicht ist eine aufbereitete Portalansicht und keine eigenständige amtliche
+          Verkündung. Soweit eine Originalausgabe als belegte PDF-Datei vorhanden ist, wird sie
+          gesondert verlinkt. Andernfalls bleibt die zugehörige Verkündungsseite mit Fundstelle
+          erreichbar. Die Zitierempfehlung übernimmt ausschließlich die gespeicherten Metadaten.
         </p>
       </section>
     </div>

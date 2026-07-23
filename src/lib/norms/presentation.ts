@@ -246,16 +246,46 @@ export function renderLinkedDisplayText(
   return chunks.join('');
 }
 
-export function getBlockAnchorId(path: number[], block: NormBodyBlock): string {
-  const base = block.label ?? block.title ?? block.type;
-  const slug = base
+function anchorSlug(value: string): string {
+  return value
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase()
+    .replace(/§§?/g, 'paragraph')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
+}
+
+export function getLegacyBlockAnchorId(path: number[], block: NormBodyBlock): string {
+  const base = block.label ?? block.title ?? block.type;
+  const slug = anchorSlug(base);
 
   return `block-${path.join('-')}-${slug || block.type}`;
+}
+
+export function getBlockAnchorId(
+  path: number[],
+  block: NormBodyBlock,
+  namespace = '',
+): string {
+  const semanticBase = anchorSlug(block.label ?? block.title ?? '');
+  const typePrefix: Partial<Record<NormBodyBlock['type'], string>> = {
+    paragraph: 'paragraph',
+    article: 'artikel',
+    section: 'abschnitt',
+    subsection: 'unterabschnitt',
+    part: 'teil',
+    chapter: 'kapitel',
+    annex: 'anlage',
+  };
+  const prefix = typePrefix[block.type] ?? block.type.toLowerCase();
+  const semantic = semanticBase
+    ? semanticBase.startsWith(prefix)
+      ? semanticBase
+      : `${prefix}-${semanticBase}`
+    : `${prefix}-${path.join('-')}`;
+
+  return namespace ? `${namespace}-${semantic}` : semantic;
 }
 
 export function getHeadingTag(parentLevel: number): 'h3' | 'h4' | 'h5' | 'h6' {

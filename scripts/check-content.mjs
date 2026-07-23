@@ -400,6 +400,9 @@ for (const { file, json } of records) {
     if (!Array.isArray(json.subjects) || json.subjects.length === 0) {
       addProblem(file, 'subjects muss mindestens ein Sachgebiet enthalten');
     }
+    if (json.primarySubject && !json.subjects?.includes(json.primarySubject)) {
+      addProblem(file, 'primarySubject muss zugleich in subjects enthalten sein');
+    }
 
     if (!Array.isArray(json.keywords) || json.keywords.length === 0) {
       addProblem(file, 'keywords muss mindestens ein Stichwort enthalten');
@@ -613,6 +616,11 @@ for (const [sourceFile, owners] of publicationSourceOwners) {
 const normMetaRecords = byPrefix('normen/').filter(({ file }) => basename(file) === 'meta.json');
 const normMetaBySlug = new Map(normMetaRecords.map(({ json }) => [json.slug, json]));
 for (const { file, json } of normMetaRecords) {
+  for (const relationField of ['predecessorSlug', 'successorSlug']) {
+    if (json[relationField] && !normSlugs.has(json[relationField])) {
+      addProblem(file, `${relationField} verweist auf unbekannte Norm: ${json[relationField]}`);
+    }
+  }
   if (json.publicationDate && !json.documentDate && !json.dateNote) {
     addProblem(file, 'publicationDate ist gesetzt, aber documentDate oder eine begründete dateNote fehlt');
   }
@@ -648,6 +656,29 @@ for (const { file, json } of normMetaRecords) {
     const parent = normMetaBySlug.get(json.enactingNorm);
     const reciprocal = parent?.enactedNorm === json.slug || parent?.enactedNorms?.includes(json.slug);
     if (parent && !reciprocal) addProblem(file, `enactingNorm ist bei ${json.enactingNorm} nicht wechselseitig hinterlegt`);
+  }
+}
+
+for (const slug of normSlugs) {
+  const versions = byPrefix(`normen/${slug}/versions/`)
+    .map(({ file, json }) => ({ file, json }))
+    .sort((left, right) => String(left.json.validFrom).localeCompare(String(right.json.validFrom)));
+  const expiryDate = normMetaBySlug.get(slug)?.expiryDate;
+  const lastVersion = versions.at(-1);
+  if (expiryDate && lastVersion?.json.validTo !== expiryDate) {
+    addProblem(
+      lastVersion?.file ?? join(contentRoot, 'normen', slug),
+      `validTo der letzten Fassung muss dem belegten expiryDate ${expiryDate} entsprechen`,
+    );
+  }
+  for (const [index, { file, json }] of versions.entries()) {
+    if (json.validTo && json.validTo < json.validFrom) {
+      addProblem(file, 'validTo liegt vor validFrom');
+    }
+    const next = versions[index + 1];
+    if (next && (!json.validTo || json.validTo >= next.json.validFrom)) {
+      addProblem(file, `Gültigkeitsintervall überlappt mit ${relative(contentRoot, next.file)}`);
+    }
   }
 }
 

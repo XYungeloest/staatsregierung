@@ -1,4 +1,5 @@
 import { loadAllNorms } from '../norms/content.ts';
+import { getApplicableVersion } from '../norms/versions.ts';
 import { loadAllVerkuendungen } from '../norms/publications.ts';
 import { getNormUrl, getPublicationUrl as getLawPublicationDetailUrl } from '../norms/routes.ts';
 import { toDisplayText } from '../norms/presentation.ts';
@@ -327,7 +328,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
         norm.meta.keywords.map(toDisplayText),
         toDisplayText(norm.meta.initialCitation),
       ]),
-      date: norm.versions.find((version) => version.isCurrent)?.validFrom,
+      date: getApplicableVersion(norm)?.validFrom,
     })),
     ...publications.map((publication) => ({
       id: `law-publication:${publication.slug}`,

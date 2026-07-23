@@ -1,77 +1,15 @@
-type SearchScope = 'all' | 'title' | 'metadata' | 'body';
-type VersionScope = 'all' | 'current' | 'historical';
-type SortKey = 'relevance' | 'title' | 'rechtsstand';
+import {
+  normalizeSearchText,
+  parseQueryTokens,
+  runNormSearch,
+  type NormSearchState,
+  type SearchScope,
+  type SortKey,
+  type VersionScope,
+} from '../lib/norms/search-query.ts';
+import type { SearchIndexDocument, SearchIndexPayload } from '../lib/norms/search.ts';
 
-interface SearchState {
-  q: string;
-  exclude: string;
-  exact: string;
-  scope: SearchScope;
-  type: string;
-  ministry: string;
-  subject: string;
-  status: string;
-  versionScope: VersionScope;
-  geltungstag: string;
-  validFrom: string;
-  validTo: string;
-  citation: string;
-  sort: SortKey;
-}
-
-interface SearchHitUnit {
-  type: string;
-  label: string;
-  title: string;
-  text: string;
-  anchor: string;
-}
-
-interface SearchDocument {
-  id: string;
-  slug: string;
-  versionId: string;
-  url: string;
-  currentUrl: string;
-  isCurrent: boolean;
-  title: string;
-  shortTitle: string;
-  abbr: string;
-  type: string;
-  typeLabel: string;
-  ministry: string;
-  subjects: string[];
-  keywords: string[];
-  status: string;
-  statusLabel: string;
-  summary: string;
-  initialCitation: string;
-  citation: string;
-  publication: string;
-  publicationSlug?: string;
-  publicationUrl?: string;
-  publicationTitle?: string;
-  publicationDate?: string;
-  publicationIssue?: string;
-  publicationEntryTitle?: string;
-  changeNote: string;
-  validFrom: string;
-  validTo: string | null;
-  bodyText: string;
-  contexts: string[];
-  hitUnits: SearchHitUnit[];
-  resultLabel: string;
-}
-
-interface SearchPayload {
-  documents: SearchDocument[];
-}
-
-interface SearchResultEntry {
-  documentEntry: SearchDocument;
-  score: number;
-}
-
+const PAGE_SIZE = 20;
 const root = document.querySelector<HTMLElement>('[data-search-root]');
 const form = document.querySelector<HTMLFormElement>('[data-search-form]');
 const queryInput = document.querySelector<HTMLInputElement>('[data-search-query]');
@@ -80,29 +18,18 @@ const filterInputs = Array.from(
 );
 const summary = document.querySelector<HTMLElement>('[data-search-summary]');
 const resultsContainer = document.querySelector<HTMLElement>('[data-search-results]');
+const moreButton = document.querySelector<HTMLButtonElement>('[data-search-more]');
 const indexUrl = root?.dataset.indexUrl ?? '';
+let visibleGroups = PAGE_SIZE;
+let lastResults: SearchIndexDocument[] = [];
+let lastState: NormSearchState | undefined;
+
 const dateFormatter = new Intl.DateTimeFormat('de-DE', {
   day: 'numeric',
   month: 'long',
   year: 'numeric',
   timeZone: 'UTC',
 });
-
-function normalizeSearchText(value: string): string {
-  return value
-    .toLocaleLowerCase('de-DE')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/ß/g, 'ss')
-    .replace(/[^a-z0-9]+/g, ' ')
-    .trim()
-    .replace(/\s+/g, ' ');
-}
-
-function splitTokens(value: string): string[] {
-  const normalized = normalizeSearchText(value);
-  return normalized ? [...new Set(normalized.split(' '))] : [];
-}
 
 function escapeHtml(value: string): string {
   return value
@@ -117,539 +44,328 @@ function formatDate(value: string): string {
   return dateFormatter.format(new Date(Date.UTC(year, month - 1, day)));
 }
 
-function getEmptyState(): SearchState {
-  return {
-    q: '',
-    exclude: '',
-    exact: '',
-    scope: 'all',
-    type: '',
-    ministry: '',
-    subject: '',
-    status: '',
-    versionScope: 'all',
-    geltungstag: '',
-    validFrom: '',
-    validTo: '',
-    citation: '',
-    sort: 'relevance',
-  };
-}
-
 function normalizeScope(value: string): SearchScope {
   return value === 'title' || value === 'metadata' || value === 'body' ? value : 'all';
 }
 
 function normalizeVersionScope(value: string): VersionScope {
-  return value === 'current' || value === 'historical' ? value : 'all';
+  return value === 'future'
+    || value === 'historical'
+    || value === 'unknown-effective'
+    || value === 'all'
+    ? value
+    : 'current';
 }
 
-function normalizeSortKey(value: string): SortKey {
+function normalizeSort(value: string): SortKey {
   return value === 'title' || value === 'rechtsstand' ? value : 'relevance';
 }
 
-function getFormState(): SearchState {
-  if (!form) {
-    return getEmptyState();
-  }
+function formValues(data: FormData, name: string): string[] {
+  return data.getAll(name).map(String).map((value) => value.trim()).filter(Boolean);
+}
 
-  const formData = new FormData(form);
+function emptyState(): NormSearchState {
   return {
-    q: String(formData.get('q') ?? '').trim(),
-    exclude: String(formData.get('exclude') ?? '').trim(),
-    exact: String(formData.get('exact') ?? '').trim(),
-    scope: normalizeScope(String(formData.get('scope') ?? 'all')),
-    type: String(formData.get('type') ?? '').trim(),
-    ministry: String(formData.get('ministry') ?? '').trim(),
-    subject: String(formData.get('subject') ?? '').trim(),
-    status: String(formData.get('status') ?? '').trim(),
-    versionScope: normalizeVersionScope(String(formData.get('versionScope') ?? 'all')),
-    geltungstag: String(formData.get('geltungstag') ?? '').trim(),
-    validFrom: String(formData.get('validFrom') ?? '').trim(),
-    validTo: String(formData.get('validTo') ?? '').trim(),
-    citation: String(formData.get('citation') ?? '').trim(),
-    sort: normalizeSortKey(String(formData.get('sort') ?? 'relevance')),
+    q: '',
+    exclude: '',
+    exact: '',
+    scope: 'all',
+    types: [],
+    ministries: [],
+    subjects: [],
+    statuses: [],
+    versionScope: 'current',
+    includeAmendments: false,
+    geltungstag: '',
+    validFrom: '',
+    validTo: '',
+    citation: '',
+    publicationSources: [],
+    publicationYears: [],
+    publicationIssue: '',
+    publicationPage: '',
+    sort: 'relevance',
   };
 }
 
-function applyStateToForm(state: SearchState): void {
-  if (!(queryInput instanceof HTMLInputElement)) {
-    return;
-  }
-
-  queryInput.value = state.q;
-
-  for (const input of filterInputs) {
-    const key = input.name as keyof SearchState;
-    input.value = state[key] ?? '';
-  }
+function getFormState(): NormSearchState {
+  if (!form) return emptyState();
+  const data = new FormData(form);
+  return {
+    q: String(data.get('q') ?? '').trim(),
+    exclude: String(data.get('exclude') ?? '').trim(),
+    exact: String(data.get('exact') ?? '').trim(),
+    scope: normalizeScope(String(data.get('scope') ?? 'all')),
+    types: formValues(data, 'type'),
+    ministries: formValues(data, 'ministry'),
+    subjects: formValues(data, 'subject'),
+    statuses: formValues(data, 'status'),
+    versionScope: normalizeVersionScope(String(data.get('versionScope') ?? 'current')),
+    includeAmendments: data.get('includeAmendments') === '1',
+    geltungstag: String(data.get('geltungstag') ?? ''),
+    validFrom: String(data.get('validFrom') ?? ''),
+    validTo: String(data.get('validTo') ?? ''),
+    citation: String(data.get('citation') ?? '').trim(),
+    publicationSources: formValues(data, 'publicationSource'),
+    publicationYears: formValues(data, 'publicationYear'),
+    publicationIssue: String(data.get('publicationIssue') ?? '').trim(),
+    publicationPage: String(data.get('publicationPage') ?? '').trim(),
+    sort: normalizeSort(String(data.get('sort') ?? 'relevance')),
+  };
 }
 
-function readStateFromUrl(): SearchState {
+function readStateFromUrl(): NormSearchState {
   const params = new URLSearchParams(window.location.search);
   return {
     q: params.get('q') ?? '',
     exclude: params.get('exclude') ?? '',
     exact: params.get('exact') ?? '',
     scope: normalizeScope(params.get('scope') ?? 'all'),
-    type: params.get('type') ?? '',
-    ministry: params.get('ministry') ?? '',
-    subject: params.get('subject') ?? '',
-    status: params.get('status') ?? '',
-    versionScope: normalizeVersionScope(params.get('versionScope') ?? 'all'),
+    types: params.getAll('type'),
+    ministries: params.getAll('ministry'),
+    subjects: params.getAll('subject'),
+    statuses: params.getAll('status'),
+    versionScope: normalizeVersionScope(params.get('versionScope') ?? 'current'),
+    includeAmendments: params.get('includeAmendments') === '1',
     geltungstag: params.get('geltungstag') ?? '',
     validFrom: params.get('validFrom') ?? '',
     validTo: params.get('validTo') ?? '',
     citation: params.get('citation') ?? '',
-    sort: normalizeSortKey(params.get('sort') ?? 'relevance'),
+    publicationSources: params.getAll('publicationSource'),
+    publicationYears: params.getAll('publicationYear'),
+    publicationIssue: params.get('publicationIssue') ?? '',
+    publicationPage: params.get('publicationPage') ?? '',
+    sort: normalizeSort(params.get('sort') ?? 'relevance'),
   };
 }
 
-function writeStateToUrl(state: SearchState): void {
+function applyStateToForm(state: NormSearchState): void {
+  if (!form) return;
+  const values: Record<string, string | string[] | boolean> = {
+    q: state.q,
+    exclude: state.exclude,
+    exact: state.exact,
+    scope: state.scope,
+    type: state.types,
+    ministry: state.ministries,
+    subject: state.subjects,
+    status: state.statuses,
+    versionScope: state.versionScope,
+    includeAmendments: state.includeAmendments,
+    geltungstag: state.geltungstag,
+    validFrom: state.validFrom,
+    validTo: state.validTo,
+    citation: state.citation,
+    publicationSource: state.publicationSources,
+    publicationYear: state.publicationYears,
+    publicationIssue: state.publicationIssue,
+    publicationPage: state.publicationPage,
+    sort: state.sort,
+  };
+  for (const element of Array.from(form.elements)) {
+    if (!(element instanceof HTMLInputElement || element instanceof HTMLSelectElement) || !element.name) continue;
+    const value = values[element.name];
+    if (element instanceof HTMLInputElement && element.type === 'checkbox') {
+      element.checked = value === true || (Array.isArray(value) && value.includes(element.value));
+    } else if (element instanceof HTMLSelectElement && element.multiple) {
+      const selected = Array.isArray(value) ? value : [];
+      Array.from(element.options).forEach((option) => {
+        option.selected = selected.includes(option.value);
+      });
+    } else if (typeof value === 'string') {
+      element.value = value;
+    }
+  }
+}
+
+function appendValues(params: URLSearchParams, key: string, values: string[]): void {
+  values.forEach((value) => params.append(key, value));
+}
+
+function writeStateToUrl(state: NormSearchState, push = false): void {
   const params = new URLSearchParams();
-
-  for (const [key, value] of Object.entries(state) as Array<[keyof SearchState, string]>) {
-    if (
-      value &&
-      !(key === 'scope' && value === 'all') &&
-      !(key === 'versionScope' && value === 'all') &&
-      !(key === 'sort' && value === 'relevance')
-    ) {
-      params.set(key, value);
-    }
-  }
-
-  const query = params.toString();
-  const target = query ? `${window.location.pathname}?${query}` : window.location.pathname;
-  window.history.replaceState({}, '', target);
+  if (state.q) params.set('q', state.q);
+  if (state.exclude) params.set('exclude', state.exclude);
+  if (state.exact) params.set('exact', state.exact);
+  if (state.scope !== 'all') params.set('scope', state.scope);
+  appendValues(params, 'type', state.types);
+  appendValues(params, 'ministry', state.ministries);
+  appendValues(params, 'subject', state.subjects);
+  appendValues(params, 'status', state.statuses);
+  if (state.versionScope !== 'current') params.set('versionScope', state.versionScope);
+  if (state.includeAmendments) params.set('includeAmendments', '1');
+  if (state.geltungstag) params.set('geltungstag', state.geltungstag);
+  if (state.validFrom) params.set('validFrom', state.validFrom);
+  if (state.validTo) params.set('validTo', state.validTo);
+  if (state.citation) params.set('citation', state.citation);
+  appendValues(params, 'publicationSource', state.publicationSources);
+  appendValues(params, 'publicationYear', state.publicationYears);
+  if (state.publicationIssue) params.set('publicationIssue', state.publicationIssue);
+  if (state.publicationPage) params.set('publicationPage', state.publicationPage);
+  if (state.sort !== 'relevance') params.set('sort', state.sort);
+  const target = params.size > 0 ? `${window.location.pathname}?${params}` : window.location.pathname;
+  window.history[push ? 'pushState' : 'replaceState']({}, '', target);
 }
 
-function getNormalizedFields(documentEntry: SearchDocument): Record<SearchScope, string> {
-  const title = normalizeSearchText(
-    [documentEntry.title, documentEntry.shortTitle, documentEntry.abbr].join(' '),
-  );
-  const metadata = normalizeSearchText(
-    [
-      documentEntry.typeLabel,
-      documentEntry.ministry,
-      ...documentEntry.subjects,
-      ...documentEntry.keywords,
-      documentEntry.statusLabel,
-      documentEntry.summary,
-      documentEntry.initialCitation,
-      documentEntry.citation,
-      documentEntry.publication,
-      documentEntry.publicationTitle,
-      documentEntry.publicationDate,
-      documentEntry.publicationIssue,
-      documentEntry.publicationEntryTitle,
-      documentEntry.changeNote,
-    ].join(' '),
-  );
-  const body = normalizeSearchText(documentEntry.bodyText);
-
-  return {
-    all: `${title} ${metadata} ${body}`.trim(),
-    title,
-    metadata,
-    body,
-  };
-}
-
-function clipContext(text: string, tokens: string[]): string {
-  const trimmed = text.trim();
-  if (!trimmed) {
-    return '';
-  }
-
-  if (tokens.length === 0 && trimmed.length <= 240) {
-    return trimmed;
-  }
-
-  const normalized = normalizeSearchText(trimmed);
-  let index = -1;
-
-  for (const token of tokens) {
-    index = normalized.indexOf(token);
-    if (index >= 0) {
-      break;
-    }
-  }
-
-  if (index < 0) {
-    return trimmed.length > 240 ? `${trimmed.slice(0, 237).trimEnd()}...` : trimmed;
-  }
-
-  const start = Math.max(0, index - 80);
-  const end = Math.min(trimmed.length, start + 240);
-  const prefix = start > 0 ? '...' : '';
-  const suffix = end < trimmed.length ? '...' : '';
-
-  return `${prefix}${trimmed.slice(start, end).trim()}${suffix}`;
-}
-
-function buildContext(documentEntry: SearchDocument, tokens: string[]): string {
-  const contexts = [
+function clipContext(documentEntry: SearchIndexDocument, state: NormSearchState): string {
+  const tokens = parseQueryTokens(state.q || state.exact).map((token) => token.value);
+  const candidates = [
     ...documentEntry.hitUnits.map((unit) => unit.text),
     ...documentEntry.contexts,
     documentEntry.summary,
-    documentEntry.changeNote,
-    documentEntry.citation,
   ].filter(Boolean);
-
-  if (tokens.length === 0) {
-    return clipContext(contexts[0] ?? documentEntry.summary, []);
-  }
-
-  for (const context of contexts) {
-    const normalized = normalizeSearchText(context);
-    if (tokens.every((token) => normalized.includes(token)) || tokens.some((token) => normalized.includes(token))) {
-      return clipContext(context, tokens);
-    }
-  }
-
-  return clipContext(documentEntry.summary || documentEntry.bodyText, tokens);
+  const source = candidates.find((entry) => {
+    const normalized = normalizeSearchText(entry);
+    return tokens.some((token) => normalized.includes(token));
+  }) ?? candidates[0] ?? '';
+  if (source.length <= 260) return source;
+  return `${source.slice(0, 257).trimEnd()}…`;
 }
 
-function findHitUnits(documentEntry: SearchDocument, tokens: string[]): SearchHitUnit[] {
-  if (tokens.length === 0) {
-    return [];
-  }
-
-  return documentEntry.hitUnits
-    .filter((unit) => {
-      const normalized = normalizeSearchText(`${unit.label} ${unit.title} ${unit.text}`);
-      return tokens.some((token) => normalized.includes(token));
-    })
-    .slice(0, 3);
+function hitLinks(documentEntry: SearchIndexDocument, state: NormSearchState): string {
+  const tokens = parseQueryTokens(state.q || state.exact).map((token) => token.value);
+  if (tokens.length === 0) return '';
+  const units = documentEntry.hitUnits.filter((unit) => {
+    const text = normalizeSearchText(`${unit.label} ${unit.title} ${unit.text}`);
+    return tokens.some((token) => text.includes(token));
+  }).slice(0, 3);
+  if (units.length === 0) return '';
+  return `<p class="search-hit__meta">Trefferstellen: ${units.map((unit) => {
+    const label = escapeHtml([unit.label, unit.title].filter(Boolean).join(' '));
+    return `<a class="inline-link" href="${escapeHtml(documentEntry.url)}#${escapeHtml(unit.anchor)}">${label}</a>`;
+  }).join('; ')}</p>`;
 }
 
-function isDateInRange(date: string, start: string, end: string | null): boolean {
-  return start <= date && (!end || date <= end);
+function badgeClass(entry: SearchIndexDocument): string {
+  if (entry.versionKind === 'current') return 'status-badge--green';
+  if (entry.versionKind === 'future' || entry.versionKind === 'unknown-effective') return 'status-badge--blue';
+  return 'status-badge--amber';
 }
 
-function matchesFilters(documentEntry: SearchDocument, state: SearchState): boolean {
-  if (state.type && documentEntry.type !== state.type) {
-    return false;
-  }
-
-  if (state.ministry && documentEntry.ministry !== state.ministry) {
-    return false;
-  }
-
-  if (state.subject && !documentEntry.subjects.includes(state.subject)) {
-    return false;
-  }
-
-  if (state.status && documentEntry.status !== state.status) {
-    return false;
-  }
-
-  if (state.versionScope === 'current' && !documentEntry.isCurrent) {
-    return false;
-  }
-
-  if (state.versionScope === 'historical' && documentEntry.isCurrent) {
-    return false;
-  }
-
-  if (state.geltungstag && !isDateInRange(state.geltungstag, documentEntry.validFrom, documentEntry.validTo)) {
-    return false;
-  }
-
-  if (state.validFrom && documentEntry.validTo && documentEntry.validTo < state.validFrom) {
-    return false;
-  }
-
-  if (state.validTo && documentEntry.validFrom > state.validTo) {
-    return false;
-  }
-
-  if (state.citation) {
-    const citation = normalizeSearchText(
-      [
-        documentEntry.citation,
-        documentEntry.initialCitation,
-        documentEntry.publication,
-        documentEntry.publicationTitle,
-        documentEntry.publicationDate,
-        documentEntry.publicationIssue,
-        documentEntry.publicationEntryTitle,
-      ].join(' '),
-    );
-    if (!splitTokens(state.citation).every((token) => citation.includes(token))) {
-      return false;
-    }
-  }
-
-  return true;
+function validityLabel(entry: SearchIndexDocument): string {
+  const from = formatDate(entry.validFrom);
+  if (entry.validTo) return `${from} bis ${formatDate(entry.validTo)}`;
+  if (entry.versionKind === 'historical') return `ab ${from}; Gültigkeitsende nicht gespeichert`;
+  if (entry.versionKind === 'unknown-effective') return `veröffentlicht ab ${from}; Inkrafttreten nicht belegt`;
+  return `ab ${from}; Gültigkeitsende offen`;
 }
 
-function scoreDocument(
-  documentEntry: SearchDocument,
-  state: SearchState,
-  normalizedQuery: string,
-  tokens: string[],
-): number {
-  const fields = getNormalizedFields(documentEntry);
-  const searchable = fields[state.scope];
-
-  if (normalizedQuery && !tokens.every((token) => searchable.includes(token))) {
-    return -1;
-  }
-
-  const exact = normalizeSearchText(state.exact);
-  if (exact && !searchable.includes(exact)) {
-    return -1;
-  }
-
-  const excludedTokens = splitTokens(state.exclude);
-  if (excludedTokens.some((token) => fields.all.includes(token))) {
-    return -1;
-  }
-
-  let score = 0;
-
-  for (const token of tokens) {
-    if (normalizeSearchText(documentEntry.abbr).includes(token)) {
-      score += 18;
-    }
-
-    if (fields.title.includes(token)) {
-      score += 14;
-    }
-
-    if (fields.metadata.includes(token)) {
-      score += 6;
-    }
-
-    if (fields.body.includes(token)) {
-      score += 2;
-    }
-  }
-
-  if (normalizedQuery) {
-    if (fields.title.includes(normalizedQuery)) {
-      score += 18;
-    }
-
-    if (fields.metadata.includes(normalizedQuery)) {
-      score += 8;
-    }
-
-    if (fields.body.includes(normalizedQuery)) {
-      score += 4;
-    }
-  }
-
-  if (documentEntry.isCurrent) {
-    score += 2;
-  }
-
-  return score;
-}
-
-function getResultBadgeClass(result: SearchDocument): string {
-  if (result.status === 'repealed') {
-    return 'status-badge--amber';
-  }
-
-  if (result.status === 'historical' || result.status === 'one-time-act') {
-    return 'status-badge--amber';
-  }
-
-  if (result.status === 'planned' || result.status === 'future-effective' || result.status === 'pending-effective') {
-    return 'status-badge--blue';
-  }
-
-  return result.isCurrent ? 'status-badge--green' : 'status-badge--blue';
-}
-
-function compareResults(left: SearchResultEntry, right: SearchResultEntry, state: SearchState): number {
-  if (state.sort === 'title') {
-    if (left.documentEntry.title !== right.documentEntry.title) {
-      return left.documentEntry.title.localeCompare(right.documentEntry.title, 'de');
-    }
-
-    return right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
-  }
-
-  if (state.sort === 'rechtsstand') {
-    if (left.documentEntry.validFrom !== right.documentEntry.validFrom) {
-      return right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
-    }
-
-    return left.documentEntry.title.localeCompare(right.documentEntry.title, 'de');
-  }
-
-  if (right.score !== left.score) {
-    return right.score - left.score;
-  }
-
-  if (left.documentEntry.title !== right.documentEntry.title) {
-    return left.documentEntry.title.localeCompare(right.documentEntry.title, 'de');
-  }
-
-  return right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
-}
-
-function renderResults(results: SearchDocument[], state: SearchState): void {
-  if (!summary || !resultsContainer) {
-    return;
-  }
-
-  const hasQuery = Boolean(state.q.trim() || state.exact.trim() || state.exclude.trim());
-  const hasFilters = Boolean(
-    state.type ||
-      state.ministry ||
-      state.subject ||
-      state.status ||
-      state.versionScope !== 'all' ||
-      state.geltungstag ||
-      state.validFrom ||
-      state.validTo ||
-      state.citation ||
-      state.sort !== 'relevance',
-  );
-
-  if (!hasQuery && !hasFilters) {
-    summary.textContent = 'Bitte geben Sie einen Suchbegriff ein oder wählen Sie mindestens einen Filter.';
-    resultsContainer.innerHTML = '';
-    return;
-  }
-
-  if (results.length === 0) {
-    summary.textContent = 'Keine Treffer für die aktuelle Suchanfrage.';
-    resultsContainer.innerHTML = '';
-    return;
-  }
-
-  const label = results.length === 1 ? '1 Treffer' : `${results.length} Treffer`;
-  summary.textContent = `${label} gefunden.`;
-
-  resultsContainer.innerHTML = `
-    <ol class="record-list search-results__list">
-      ${results
-        .map((result) => {
-          const tokens = splitTokens(state.q || state.exact);
-          const context = buildContext(result, tokens);
-          const hitUnits = findHitUnits(result, tokens);
-          const validFromLabel = formatDate(result.validFrom);
-          const validUntilLabel = result.validTo ? formatDate(result.validTo) : 'aktuell';
-          const publicationLabel = result.publicationTitle
-            ? `${result.publicationTitle}${result.publicationDate ? `, ${formatDate(result.publicationDate)}` : ''}`
-            : result.publication;
-          const publicationMarkup =
-            publicationLabel && result.publicationUrl
-              ? `<a class="inline-link" href="${escapeHtml(result.publicationUrl)}">${escapeHtml(publicationLabel)}</a>`
-              : escapeHtml(publicationLabel);
-
-          return `
-            <li class="record-list__item search-hit">
-              <div class="search-hit__header">
-                <h3><a class="inline-link" href="${result.url}">${escapeHtml(result.title)}</a></h3>
-                <span class="status-badge ${getResultBadgeClass(result)}">${escapeHtml(result.resultLabel)} · ${escapeHtml(result.statusLabel)}</span>
-              </div>
-              <dl class="search-hit__facts">
-                <div><dt>Fundstelle</dt><dd>${escapeHtml(result.citation)}</dd></div>
-                <div><dt>Gültigkeit</dt><dd>${escapeHtml(validFromLabel)} bis ${escapeHtml(validUntilLabel)}</dd></div>
-                <div><dt>Normtyp</dt><dd>${escapeHtml(result.typeLabel)}</dd></div>
-                <div><dt>Ressort</dt><dd>${escapeHtml(result.ministry)}</dd></div>
-                ${
-                  publicationLabel
-                    ? `<div><dt>Verkündung</dt><dd>${publicationMarkup}</dd></div>`
-                    : ''
-                }
-              </dl>
-              <p class="search-hit__meta">
-                Status: ${escapeHtml(result.statusLabel)} | Sachgebiete: ${escapeHtml(result.subjects.join(', ')) || 'keine Zuordnung'}
-              </p>
-              ${
-                hitUnits.length > 0
-                  ? `<p class="search-hit__meta">Trefferstellen: ${hitUnits
-                      .map((unit) => {
-                        const label = escapeHtml([unit.label, unit.title].filter(Boolean).join(' '));
-                        const href = unit.anchor ? `${result.url}#${escapeHtml(unit.anchor)}` : result.url;
-                        return `<a class="inline-link" href="${href}">${label}</a>`;
-                      })
-                      .join('; ')}</p>`
-                  : ''
-              }
-              ${
-                result.isCurrent
-                  ? ''
-                  : `<p class="search-hit__meta"><a class="inline-link" href="${result.currentUrl}">Aktuelle Fassung öffnen</a></p>`
-              }
-              <p class="search-hit__context">${escapeHtml(context)}</p>
-            </li>
-          `;
-        })
-        .join('')}
-    </ol>
+function renderVersion(entry: SearchIndexDocument, state: NormSearchState, heading = true): string {
+  const publication = entry.publicationTitle && entry.publicationUrl
+    ? `<a class="inline-link" href="${escapeHtml(entry.publicationUrl)}">${escapeHtml(entry.publicationTitle)}</a>`
+    : escapeHtml(entry.publication);
+  return `
+    <article class="search-hit">
+      <div class="search-hit__header">
+        ${heading ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>` : `<h4><a class="inline-link" href="${escapeHtml(entry.url)}">Fassung vom ${escapeHtml(formatDate(entry.validFrom))}</a></h4>`}
+        <span class="status-badge ${badgeClass(entry)}">${escapeHtml(entry.resultLabel)}</span>
+      </div>
+      <dl class="search-hit__facts">
+        <div><dt>Fundstelle</dt><dd>${escapeHtml(entry.citation)}</dd></div>
+        <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
+        <div><dt>Normtyp</dt><dd>${escapeHtml(entry.typeLabel)}</dd></div>
+        <div><dt>Ressort</dt><dd>${escapeHtml(entry.ministry) || 'keine Zuordnung'}</dd></div>
+        ${entry.publication ? `<div><dt>Verkündung</dt><dd>${publication}</dd></div>` : ''}
+      </dl>
+      ${hitLinks(entry, state)}
+      <p class="search-hit__context">${escapeHtml(clipContext(entry, state))}</p>
+    </article>
   `;
 }
 
-async function setupSearch(): Promise<void> {
-  if (!root || !form || !queryInput || !summary || !resultsContainer || !indexUrl) {
+function groupResults(results: SearchIndexDocument[]): Array<{ slug: string; entries: SearchIndexDocument[] }> {
+  const groups = new Map<string, SearchIndexDocument[]>();
+  for (const result of results) groups.set(result.slug, [...(groups.get(result.slug) ?? []), result]);
+  return [...groups.entries()].map(([slug, entries]) => ({ slug, entries }));
+}
+
+function updateFacetCounts(results: SearchIndexDocument[]): void {
+  const facets: Record<string, (entry: SearchIndexDocument) => string[]> = {
+    type: (entry) => [entry.type],
+    ministry: (entry) => [entry.ministry],
+    subject: (entry) => entry.subjects,
+    status: (entry) => [entry.status],
+    publicationSource: (entry) => entry.publicationSource ? [entry.publicationSource] : [],
+    publicationYear: (entry) => entry.publicationYear ? [entry.publicationYear] : [],
+  };
+  document.querySelectorAll<HTMLSelectElement>('[data-search-facet]').forEach((select) => {
+    const getter = facets[select.dataset.searchFacet ?? ''];
+    if (!getter) return;
+    const counts = new Map<string, number>();
+    results.forEach((entry) => getter(entry).forEach((value) => counts.set(value, (counts.get(value) ?? 0) + 1)));
+    Array.from(select.options).forEach((option) => {
+      const label = option.dataset.baseLabel ?? option.textContent ?? option.value;
+      option.textContent = `${label} (${counts.get(option.value) ?? 0})`;
+    });
+  });
+}
+
+function renderResults(results: SearchIndexDocument[], state: NormSearchState): void {
+  if (!summary || !resultsContainer || !moreButton) return;
+  const groups = groupResults(results);
+  const visible = groups.slice(0, visibleGroups);
+  if (groups.length === 0) {
+    summary.textContent = 'Keine Treffer für die aktuelle Suchanfrage.';
+    resultsContainer.innerHTML = '';
+    moreButton.hidden = true;
     return;
   }
+  const versionLabel = results.length === 1 ? '1 passende Fassung' : `${results.length} passende Fassungen`;
+  const normLabel = groups.length === 1 ? 'einer Vorschrift' : `${groups.length} Vorschriften`;
+  summary.textContent = `${groups.length} Treffer: ${versionLabel} in ${normLabel}.`;
+  resultsContainer.innerHTML = `<ol class="record-list search-results__list">${visible.map((group) => {
+    const [primary, ...others] = group.entries;
+    return `<li class="record-list__item search-result-group">
+      ${renderVersion(primary, state)}
+      ${others.length > 0 ? `<details class="search-result-group__versions"><summary>${others.length} weitere passende ${others.length === 1 ? 'Fassung' : 'Fassungen'}</summary>${others.map((entry) => renderVersion(entry, state, false)).join('')}</details>` : ''}
+    </li>`;
+  }).join('')}</ol>`;
+  moreButton.hidden = visible.length >= groups.length;
+  if (!moreButton.hidden) moreButton.textContent = `Weitere Treffer laden (${groups.length - visible.length} verbleibend)`;
+}
 
-  const initialState = readStateFromUrl();
-  applyStateToForm(initialState);
-
-  let payload: SearchPayload;
-
+async function setupSearch(): Promise<void> {
+  if (!root || !form || !queryInput || !summary || !resultsContainer || !moreButton || !indexUrl) return;
+  applyStateToForm(readStateFromUrl());
+  let payload: SearchIndexPayload;
   try {
     const response = await fetch(indexUrl);
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    payload = (await response.json()) as SearchPayload;
-  } catch (error) {
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    payload = await response.json() as SearchIndexPayload;
+  } catch {
     summary.textContent = 'Der Suchindex konnte nicht geladen werden.';
-    resultsContainer.innerHTML = '';
     return;
   }
 
-  const runSearch = () => {
+  const run = (push = false) => {
     const state = getFormState();
-    writeStateToUrl(state);
-
-    const normalizedQuery = normalizeSearchText(state.q);
-    const tokens = splitTokens(state.q);
-
-    const results = payload.documents
-      .filter((documentEntry) => matchesFilters(documentEntry, state))
-      .map((documentEntry): SearchResultEntry => ({
-        documentEntry,
-        score: scoreDocument(documentEntry, state, normalizedQuery, tokens),
-      }))
-      .filter((entry: SearchResultEntry) => (normalizedQuery || state.exact || state.exclude ? entry.score >= 0 : true))
-      .sort((left: SearchResultEntry, right: SearchResultEntry) => compareResults(left, right, state))
-      .map((entry: SearchResultEntry) => entry.documentEntry);
-
-    renderResults(results, state);
+    writeStateToUrl(state, push);
+    visibleGroups = PAGE_SIZE;
+    const scored = runNormSearch(payload.documents, state);
+    lastResults = scored.map((entry) => entry.documentEntry);
+    lastState = state;
+    updateFacetCounts(lastResults);
+    renderResults(lastResults, state);
   };
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    runSearch();
+    run(true);
   });
-
-  queryInput.addEventListener('input', runSearch);
   for (const input of filterInputs) {
-    input.addEventListener('input', runSearch);
-    input.addEventListener('change', runSearch);
+    input.addEventListener('change', () => run());
   }
-
-  window.addEventListener('popstate', () => {
-    const state = readStateFromUrl();
-    applyStateToForm(state);
-    runSearch();
+  queryInput.addEventListener('input', () => run());
+  moreButton.addEventListener('click', () => {
+    visibleGroups += PAGE_SIZE;
+    if (lastState) renderResults(lastResults, lastState);
   });
-
-  runSearch();
+  window.addEventListener('popstate', () => {
+    applyStateToForm(readStateFromUrl());
+    run();
+  });
+  run();
 }
 
 void setupSearch();

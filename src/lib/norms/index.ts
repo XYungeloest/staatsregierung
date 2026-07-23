@@ -56,6 +56,7 @@ export {
 export {
   buildNormPublicationReferenceLookup,
   formatPublicationEntryType,
+  getLatestPublication,
   getNormPublicationReference,
   getPublicationLabel,
   listPublicationEntries,
@@ -74,6 +75,7 @@ export {
   formatNormStatus,
   formatNormType,
   getBlockAnchorId,
+  getLegacyBlockAnchorId,
   getHeadingTag,
   parseCitation,
   renderLinkedDisplayText,
@@ -82,6 +84,17 @@ export {
   type ParsedCitation,
   type TextLinkReference,
 } from './presentation.ts';
+export {
+  EDITORIAL_REFERENCE_DATE,
+  VERSION_TEMPORAL_KINDS,
+  classifyNormVersion,
+  classifyNormVersions,
+  formatVersionTemporalLabel,
+  getApplicableVersion,
+  validateVersionIntervals,
+  type ClassifiedNormVersion,
+  type VersionTemporalKind,
+} from './versions.ts';
 export {
   buildNormTextLinkReferences,
   getRelatedNormRecommendations,

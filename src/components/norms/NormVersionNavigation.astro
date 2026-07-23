@@ -1,0 +1,89 @@
+---
+import {
+  classifyNormVersions,
+  EDITORIAL_REFERENCE_DATE,
+} from '../../lib/norms/versions.ts';
+import {
+  getNormCompareUrl,
+  getNormHistoryUrl,
+  getNormUrl,
+  getNormVersionUrl,
+} from '../../lib/norms/routes.ts';
+import { formatDate } from '../../lib/norms/presentation.ts';
+import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
+
+interface Props {
+  norm: NormRecord;
+  version?: NormVersion;
+  currentPage?: 'norm' | 'history' | 'compare';
+}
+
+const { norm, version, currentPage = 'norm' } = Astro.props;
+const classified = classifyNormVersions(norm);
+const applicable = classified.find((entry) => entry.kind === 'current');
+const future = classified.filter((entry) => entry.kind === 'future');
+const historical = classified.filter((entry) => entry.kind === 'historical');
+const unknown = classified.filter((entry) => entry.kind === 'unknown-effective');
+
+function versionHref(entry: (typeof classified)[number]): string {
+  return entry.kind === 'current'
+    ? getNormUrl(norm.meta.slug)
+    : getNormVersionUrl(norm.meta.slug, entry.version.versionId);
+}
+
+function isSelected(entry: (typeof classified)[number]): boolean {
+  return currentPage === 'norm' && version?.versionId === entry.version.versionId;
+}
+---
+
+<nav class="norm-version-navigation" aria-label="Fassungen und Historie" data-version-navigation>
+  <p class="norm-version-navigation__title">Fassungen</p>
+  <ul>
+    <li>
+      <a href={getNormUrl(norm.meta.slug)} aria-current={currentPage === 'norm' && !version ? 'page' : undefined}>
+        Vorschrift
+      </a>
+    </li>
+    {applicable ? (
+      <li>
+        <a href={versionHref(applicable)} aria-current={isSelected(applicable) ? 'page' : undefined}>
+          Geltende Fassung zum <time datetime={EDITORIAL_REFERENCE_DATE}>{formatDate(EDITORIAL_REFERENCE_DATE)}</time>
+        </a>
+      </li>
+    ) : null}
+    {future.map((entry) => (
+      <li>
+        <a href={versionHref(entry)} aria-current={isSelected(entry) ? 'page' : undefined}>
+          Zukünftige Fassung · gültig ab <time datetime={entry.version.validFrom}>{formatDate(entry.version.validFrom)}</time>
+        </a>
+      </li>
+    ))}
+    {historical.map((entry) => (
+      <li>
+        <a href={versionHref(entry)} aria-current={isSelected(entry) ? 'page' : undefined}>
+          Historische Fassung · <time datetime={entry.version.validFrom}>{formatDate(entry.version.validFrom)}</time>
+          {entry.version.validTo ? <> bis <time datetime={entry.version.validTo}>{formatDate(entry.version.validTo)}</time></> : null}
+        </a>
+      </li>
+    ))}
+    {unknown.map((entry) => (
+      <li>
+        <a href={versionHref(entry)} aria-current={isSelected(entry) ? 'page' : undefined}>
+          Veröffentlichte Fassung · Inkrafttreten nicht belegt
+        </a>
+      </li>
+    ))}
+    <li>
+      <a href={getNormHistoryUrl(norm.meta.slug)} aria-current={currentPage === 'history' ? 'page' : undefined}>
+        Normenhistorie
+      </a>
+    </li>
+    {norm.versions.length >= 2 ? (
+      <li>
+        <a href={getNormCompareUrl(norm.meta.slug)} aria-current={currentPage === 'compare' ? 'page' : undefined}>
+          Fassungsvergleich
+        </a>
+      </li>
+    ) : null}
+  </ul>
+</nav>

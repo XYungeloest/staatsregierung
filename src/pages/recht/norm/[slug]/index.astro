@@ -5,6 +5,9 @@ import NormBody from '../../../../components/norms/NormBody.astro';
 import NormMetaCard from '../../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../components/norms/NormStatusNotice.astro';
+import NormDocumentTools from '../../../../components/norms/NormDocumentTools.astro';
+import NormPrintSources from '../../../../components/norms/NormPrintSources.astro';
+import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
 import SectionHero from '../../../../components/portal/SectionHero.astro';
 import SectionNavigation from '../../../../components/portal/SectionNavigation.astro';
 import { loadPressReleases, loadTopics } from '../../../../lib/portal/content.ts';
@@ -45,12 +48,16 @@ export async function getStaticPaths() {
       textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
       relatedNorms: getRelatedNormRecommendations(norm, norms),
       publicationReferences,
+      publications,
     },
   }));
 }
 
-const { norm, currentVersion, textReferences, relatedNorms, publicationReferences } = Astro.props;
+const { norm, currentVersion, textReferences, relatedNorms, publicationReferences, publications } = Astro.props;
 const publicationReference = publicationReferences.get(`${norm.meta.slug}:${currentVersion.versionId}`);
+const publication = publicationReference
+  ? publications.find((entry) => entry.slug === publicationReference.publicationSlug)
+  : undefined;
 const outline = buildNormOutline(currentVersion.body);
 const normTitle = toDisplayText(norm.meta.title);
 const normLabel = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
@@ -115,6 +122,7 @@ const relatedPressReleases = pressReleases
       ...(relatedNorms.length > 0 ? [{ label: 'Verwandte Vorschriften', href: '#normverwandt' }] : []),
     ]}
   />
+  <NormVersionNavigation norm={norm} version={currentVersion} />
 
   <NormStatusNotice norm={norm} version={currentVersion} />
 
@@ -126,8 +134,15 @@ const relatedPressReleases = pressReleases
           <h2>Vorschriftentext</h2>
           <p>{toDisplayText(currentVersion.changeNote)}</p>
         </div>
+        <NormDocumentTools norm={norm} />
         <NormBody blocks={currentVersion.body} references={textReferences} />
       </section>
+      <NormPrintSources
+        norm={norm}
+        version={currentVersion}
+        publicationReference={publicationReference}
+        publication={publication}
+      />
     </div>
 
     <div class="content-stack norm-sidebar" data-visual-section="norm-sidebar">

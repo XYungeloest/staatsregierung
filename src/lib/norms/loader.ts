@@ -13,6 +13,7 @@ import {
   type NormRecord,
   type NormVersion,
 } from './schema.ts';
+import { getApplicableVersion, validateVersionIntervals } from './versions.ts';
 
 const CONTENT_ROOT = resolve(process.cwd(), 'content', 'normen');
 
@@ -124,7 +125,9 @@ export async function loadNorm(slug: string): Promise<NormRecord> {
     loadNormVersions(slug),
   ]);
 
-  return validateNormRecord({ meta, history, versions }, slug);
+  const record = validateNormRecord({ meta, history, versions }, slug);
+  validateVersionIntervals(record);
+  return record;
 }
 
 export async function loadAllNorms(): Promise<NormRecord[]> {
@@ -135,13 +138,7 @@ export async function loadAllNorms(): Promise<NormRecord[]> {
 }
 
 export function getCurrentVersion(record: NormRecord): NormVersion {
-  const version = record.versions.find((entry) => entry.isCurrent);
-
-  if (!version) {
-    throw new ContentValidationError(`${record.meta.slug}: enthält keine aktuelle Fassung`);
-  }
-
-  return version;
+  return getApplicableVersion(record);
 }
 
 export function getVersionById(record: NormRecord, versionId: string): NormVersion | undefined {

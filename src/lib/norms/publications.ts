@@ -324,6 +324,24 @@ function compareIssues(left: string, right: string): number {
   return left.localeCompare(right, 'de', { numeric: true });
 }
 
+export function comparePublicationsNewestFirst(left: Verkuendung, right: Verkuendung): number {
+  if (left.date !== right.date) {
+    return right.date.localeCompare(left.date);
+  }
+
+  if (left.publication !== right.publication) {
+    return left.publication.localeCompare(right.publication, 'de');
+  }
+
+  return compareIssues(right.issue, left.issue);
+}
+
+export function getLatestPublication(
+  publications: Verkuendung[],
+): Verkuendung | undefined {
+  return [...publications].sort(comparePublicationsNewestFirst)[0];
+}
+
 export function getPublicationLabel(publication: Verkuendung): string {
   return `${publication.publication} ${publication.year} Nr. ${publication.issue}`;
 }
@@ -361,17 +379,7 @@ export async function loadAllVerkuendungen(): Promise<Verkuendung[]> {
     fileNames.map((fileName) => loadVerkuendung(fileName.replace(/\.json$/u, ''))),
   );
 
-  return publications.sort((left, right) => {
-    if (left.date !== right.date) {
-      return right.date.localeCompare(left.date);
-    }
-
-    if (left.publication !== right.publication) {
-      return left.publication.localeCompare(right.publication, 'de');
-    }
-
-    return compareIssues(right.issue, left.issue);
-  });
+  return publications.sort(comparePublicationsNewestFirst);
 }
 
 export function buildNormPublicationReferenceLookup(

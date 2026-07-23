@@ -8,6 +8,16 @@ export async function GET() {
   return new Response(
     JSON.stringify({
       generatedAt: new Date().toISOString(),
+      buildCommit: import.meta.env.PORTAL_BUILD_COMMIT,
+      latestPublication: publications[0]
+        ? {
+            slug: publications[0].slug,
+            date: publications[0].date,
+            publication: publications[0].publication,
+            year: publications[0].year,
+            issue: publications[0].issue,
+          }
+        : null,
       publications: publications.map((publication) => ({
         slug: publication.slug,
         title: publication.title,

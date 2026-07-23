@@ -139,6 +139,16 @@ Startseite, behalten aber ihre inhaltlich geeigneten Strukturen. Das Rechtsporta
 Lesbarkeit, Gliederung, zitierfähige Normtexte und stabile Verlinkung. Verkündungen, Fundstellen und
 Metadaten bleiben Listen, Tabellen oder Definitionen statt dekorativer Teaser.
 
+Die Fassungsnavigation ist ein kompaktes, umbrechendes Linkband und kein Tab-Widget. Geltende,
+zukünftige, historische und zeitlich ungeklärte Fassungen werden immer zusätzlich textlich
+bezeichnet. Normtextwerkzeuge stehen unmittelbar vor dem Text. Paragraphen, Artikel und Anlagen
+verwenden sprechende, deterministische Anker; kompatible alte Anker bleiben unsichtbare
+Sprungziele. Einzeldruck und kopierbare Stellenlinks gehören zur jeweiligen Gliederungseinheit.
+
+Fassungsvergleiche stellen Änderungen als gegliederte Liste dar. `ins` und `del`, Klartextlabels
+und unterschiedliche Flächen ergänzen sich, sodass Farbe nie die einzige Unterscheidung ist.
+Quellen- und Druckangebote bilden einen eigenen sachlichen Abschnitt unter dem Normtext.
+
 Breite Tabellen und Fachgrafiken erhalten klar abgegrenzte Scrollbereiche. Ihre wesentlichen
 Informationen müssen außerhalb der Tabelle oder Grafik zugänglich bleiben. Die Kreisreform-Suche
 liefert ein Textergebnis ohne gestartete Karte; die Karte wird auf kleinen Bildschirmen nur nach

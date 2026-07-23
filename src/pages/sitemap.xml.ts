@@ -59,6 +59,7 @@ import {
   loadTopics,
 } from '../lib/portal/content.ts';
 import {
+  classifyNormVersion,
   getNormCompareUrl,
   getNormHistoryUrl,
   getNormUrl,
@@ -171,7 +172,7 @@ export const GET: APIRoute = async ({ site }) => {
       getNormHistoryUrl(norm.meta.slug),
       ...(norm.versions.length > 1 ? [getNormCompareUrl(norm.meta.slug)] : []),
       ...norm.versions
-        .filter((version) => !version.isCurrent)
+        .filter((version) => classifyNormVersion(norm, version) !== 'current')
         .map((version) => getNormVersionUrl(norm.meta.slug, version.versionId)),
     ]),
     ...publications.map((publication) => getPublicationUrl(publication.slug)),
@@ -195,7 +196,7 @@ export const GET: APIRoute = async ({ site }) => {
     lastmodByPath.set(getNormUrl(norm.meta.slug), lastmod);
     lastmodByPath.set(getNormHistoryUrl(norm.meta.slug), lastmod);
     if (norm.versions.length > 1) lastmodByPath.set(getNormCompareUrl(norm.meta.slug), lastmod);
-    for (const version of norm.versions.filter((entry) => !entry.isCurrent)) {
+    for (const version of norm.versions.filter((entry) => classifyNormVersion(norm, entry) !== 'current')) {
       lastmodByPath.set(getNormVersionUrl(norm.meta.slug, version.versionId), version.validFrom);
     }
   }

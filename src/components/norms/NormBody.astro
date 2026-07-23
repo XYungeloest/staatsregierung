@@ -2,6 +2,7 @@
 import {
   getBlockAnchorId,
   getHeadingTag,
+  getLegacyBlockAnchorId,
   renderLinkedDisplayText,
   toDisplayText,
 } from '../../lib/norms/presentation.ts';
@@ -55,7 +56,9 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
           const block = run.block;
           const currentPath = [...path, run.index];
           const HeadingTag = getHeadingTag(headingLevel);
-          const anchorId = getBlockAnchorId(currentPath, block);
+          const anchorId = getBlockAnchorId(currentPath, block, quoted ? 'zitat' : '');
+          const legacyAnchorId = getLegacyBlockAnchorId(currentPath, block);
+          const headingId = block.title || block.label ? `${anchorId}-heading` : undefined;
           const childHeadingLevel = block.title
             ? Number.parseInt(HeadingTag.slice(1), 10)
             : headingLevel;
@@ -66,10 +69,11 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               block.type === 'chapter' ||
               block.type === 'section' ||
               block.type === 'subsection' ? (
-                <section class={`norm-division norm-division--${block.type}`} aria-labelledby={anchorId}>
+                <section id={anchorId} class={`norm-division norm-division--${block.type}`} aria-labelledby={headingId}>
+                  {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
                   <header class="norm-division__header">
-                    {block.label ? <p class="norm-label">{toDisplayText(block.label)}</p> : null}
-                    {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                    {block.label ? <p id={block.title ? undefined : headingId} class="norm-label">{toDisplayText(block.label)}</p> : null}
+                    {block.title ? <HeadingTag id={headingId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </header>
                   {block.children && block.children.length > 0 ? (
                     <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} />
@@ -79,21 +83,27 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
 
               {block.type === 'paragraph' || block.type === 'article' ? (
                 quoted ? (
-                  <section class={`norm-quoted-unit norm-quoted-unit--${block.type}`} aria-labelledby={anchorId}>
+                  <section id={anchorId} class={`norm-quoted-unit norm-quoted-unit--${block.type}`} aria-labelledby={headingId}>
                     <header class="norm-quoted-unit__header">
-                      {block.label ? <p class="norm-quoted-unit__label">{toDisplayText(block.label)}</p> : null}
-                      {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                      {block.label ? <p id={block.title ? undefined : headingId} class="norm-quoted-unit__label">{toDisplayText(block.label)}</p> : null}
+                      {block.title ? <HeadingTag id={headingId}>{toDisplayText(block.title)}</HeadingTag> : null}
                     </header>
                     {block.children && block.children.length > 0 ? (
                       <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={true} />
                     ) : null}
                   </section>
                 ) : (
-                  <details class={`norm-unit norm-unit--${block.type}`} aria-labelledby={anchorId} open>
+                  <details id={anchorId} class={`norm-unit norm-unit--${block.type}`} open>
+                    {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
                     <summary class="norm-unit__summary">
                       {block.label ? <p class="norm-unit__label">{toDisplayText(block.label)}</p> : null}
-                      {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                      {block.title ? <HeadingTag>{toDisplayText(block.title)}</HeadingTag> : null}
                     </summary>
+                    <nav class="norm-unit__tools" aria-label={`Werkzeuge für ${toDisplayText([block.label, block.title].filter(Boolean).join(' '))}`}>
+                      <button type="button" data-print-unit={anchorId}>Einzeldruck</button>
+                      <a href={`#${anchorId}`}>Link zu dieser Stelle</a>
+                      <button type="button" data-copy-anchor={anchorId}>Link kopieren</button>
+                    </nav>
                     {block.children && block.children.length > 0 ? (
                       <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} />
                     ) : null}
@@ -110,10 +120,11 @@ function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
               ) : null}
 
               {block.type === 'annex' ? (
-                <section class="norm-annex" aria-labelledby={anchorId}>
+                <section id={anchorId} class="norm-annex" aria-labelledby={headingId}>
+                  {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
                   <header class="norm-division__header">
-                    {block.label ? <p class="norm-label">{toDisplayText(block.label)}</p> : null}
-                    {block.title ? <HeadingTag id={anchorId}>{toDisplayText(block.title)}</HeadingTag> : null}
+                    {block.label ? <p id={block.title ? undefined : headingId} class="norm-label">{toDisplayText(block.label)}</p> : null}
+                    {block.title ? <HeadingTag id={headingId}>{toDisplayText(block.title)}</HeadingTag> : null}
                   </header>
                   {block.children && block.children.length > 0 ? (
                     <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} />

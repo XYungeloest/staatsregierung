@@ -50,6 +50,8 @@ const keywordGroups = [...keywordEntries.entries()]
     },
     [],
   );
+const availableLetters = [...new Set([...groups.map((group) => group.letter), ...keywordGroups.map((group) => group.letter)])]
+  .sort((left, right) => left.localeCompare(right, 'de'));
 ---
 
 <BaseLayout
@@ -79,8 +81,8 @@ const keywordGroups = [...keywordEntries.entries()]
   <LawNavigation />
   <section class="section" aria-label="Buchstabenauswahl">
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
-      {groups.map((group) => (
-        <a href={`#${group.letter}`}>{group.letter}</a>
+      {availableLetters.map((letter) => (
+        <a href={`#${encodeURIComponent(letter)}`}>{letter}</a>
       ))}
     </nav>
   </section>
@@ -106,13 +108,18 @@ const keywordGroups = [...keywordEntries.entries()]
       <h2>Stichwortindex</h2>
       <p>Abkürzungen, Kurztitel und redaktionelle Stichwörter führen zusätzlich in den Normenbestand.</p>
     </div>
+    <label class="search-field law-index-filter">
+      <span>Stichwörter lokal filtern</span>
+      <input type="search" autocomplete="off" data-index-filter placeholder="z. B. Kultur, Energie, Verwaltung" />
+    </label>
+    <p class="search-feedback" aria-live="polite" data-index-filter-status></p>
     <div class="content-grid content-grid--wide">
       {keywordGroups.map((group) => (
-        <section class="panel">
+        <section class="panel" id={groups.some((entry) => entry.letter === group.letter) ? undefined : group.letter}>
           <h3>{group.letter}</h3>
           <ul class="record-list">
-            {group.entries.slice(0, 24).map((entry) => (
-              <li class="record-list__item">
+            {group.entries.map((entry) => (
+              <li class="record-list__item" data-index-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
                 <strong>{entry.keyword}</strong>
                 <span>
                   {entry.norms.map((norm, index) => (
@@ -131,4 +138,18 @@ const keywordGroups = [...keywordEntries.entries()]
       ))}
     </div>
   </section>
+  <script>
+    const input = document.querySelector<HTMLInputElement>('[data-index-filter]');
+    const status = document.querySelector<HTMLElement>('[data-index-filter-status]');
+    const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-index-entry]'));
+    input?.addEventListener('input', () => {
+      const query = input.value.trim().toLocaleLowerCase('de-DE');
+      let visible = 0;
+      entries.forEach((entry) => {
+        entry.hidden = Boolean(query) && !(entry.dataset.indexEntry ?? '').includes(query);
+        if (!entry.hidden) visible += 1;
+      });
+      if (status) status.textContent = query ? `${visible} Stichwörter passen zum Filter.` : '';
+    });
+  </script>
 </BaseLayout>

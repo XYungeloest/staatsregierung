@@ -117,10 +117,22 @@ context/
   Tabellen und Anlagen geprüft, aber nicht automatisch als Volltext importiert. Nicht eindeutig
   auflösbare Abweichungen zwischen HTML, Legacy-Markdown und PDF werden nicht still harmonisiert.
 
-Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen gespeichert.
+Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen
+gespeichert. `src/lib/norms/versions.ts` ordnet jede gespeicherte Fassung anhand ihres
+Gültigkeitsintervalls und des Stichtags aus `src/config/editorial.json` als geltend, künftig,
+historisch oder mit ungeklärtem Inkrafttreten ein. `isCurrent` bleibt nur als kompatibles
+Bestandsfeld erhalten und steuert keine öffentliche Bezeichnung mehr. Ein ausdrücklich als
+historisch oder aufgehoben geführter Datensatz bleibt auch bei einem noch nicht gespeicherten
+Intervallende historisch; die Oberfläche benennt das fehlende Enddatum dann ausdrücklich.
 
 Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
-Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene statische URLs.
+Normlink ist dynamisch und führt zur am redaktionellen Stichtag geltenden Fassung. Gibt es noch
+keine geltende Fassung, zeigt er die nächste belegte zukünftige beziehungsweise die veröffentlichte
+Fassung mit ungeklärtem Inkrafttreten. Versionsspezifische Links bleiben unveränderlich. Die Suche
+verwendet standardmäßig geltende Fassungen; Fassungsart, Mehrfachfacetten, strukturierte
+Fundstellen und Präfix-Platzhalter mit `*` sind explizite Filter. Änderungsvorschriften werden
+über den Normtyp, belegte Einführungsbeziehungen oder eine eindeutige Änderungsbezeichnung im
+amtlichen Titel erkannt und standardmäßig getrennt angeboten.
 
 ## Zentrale Konfiguration
 
@@ -130,9 +142,16 @@ Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene sta
 - `src/config/analytics.ts`: Consent und Webanalyse-Konfiguration
 - `src/lib/portal/routes.ts`: zentrale Portalpfade
 - `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik
+- `src/config/law-subjects.ts`: redaktionelle Gruppierung der belegten Sachgebiete ohne erfundene Systemnummern
 - Der Rechtsbereich hat statische Einstiege für Suche, alphabetischen Index, Sachgebiete,
   Fundstellennachweise, Verkündungen, Förderrichtlinien und Hilfe. Neue Rechtspfade werden
   zentral über die Route-Helper gepflegt.
+
+Normseiten bieten eine gemeinsame Fassungsnavigation, einen strukturellen Vergleich gespeicherter
+Fassungen, semantische Sprungmarken mit kompatiblen Altankern sowie Gesamt- und Einzeldruck.
+PDF-Links werden nur ausgegeben, wenn eine entsprechende Datei oder externe Quelle im
+Verkündungsdatensatz belegt ist. Eine HTML-Druckansicht wird nicht als amtliche Verkündung
+bezeichnet.
 
 Für öffentliche Übersichten werden Termine und Stellenangebote über
 `src/lib/portal/dates.ts` gegen den redaktionellen Stichtag gefiltert. Vergangene Termine und

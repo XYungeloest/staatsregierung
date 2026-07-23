@@ -81,6 +81,10 @@ content/normen/[slug]/
 ```
 
 Historische Fassungen sind gespeicherte Fassungen, keine automatisch berechneten Konsolidierungen.
+Die öffentliche Fassungsart wird zentral aus Gültigkeitsintervall und redaktionellem Stichtag
+ermittelt. `isCurrent` ist nur ein kompatibles Bestandsfeld. Allgemeine Normlinks bleiben dynamisch;
+versionsspezifische Links bleiben unveränderlich. PDF- und Anlagenlinks dürfen nur aus belegten
+Quellenfeldern entstehen.
 
 Die versionierten HTML-Quellen unter `Gesetze/` sind die regulären Normimportquellen. Ist dieselbe
 Ausgabe intern als HTML erkennbar, öffnet der Importer den gleichartigen Markdown-Altbestand nicht.

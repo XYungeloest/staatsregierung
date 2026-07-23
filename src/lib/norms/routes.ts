@@ -16,6 +16,7 @@ import {
   withBase,
 } from '../portal/routes.ts';
 import type { NormRecord } from './schema.ts';
+import { lawSubjectAreas } from '../../config/law-subjects.ts';
 
 function normalizeForSlug(value: string): string {
   return value
@@ -112,39 +113,6 @@ export interface SubjectAreaGroup {
   normCount: number;
 }
 
-const SUBJECT_AREA_DEFINITIONS: Array<{ name: string; description: string; subjects: string[] }> = [
-  {
-    name: 'Staat, Verwaltung und Sicherheit',
-    description: 'Verfassung, Verwaltung, Transparenz, öffentliche Ordnung und allgemeines Landesrecht.',
-    subjects: [
-      'Landesrecht',
-      'Kommunal- und Verwaltungsrecht',
-      'Sicherheit und Ordnung',
-      'Transparenz und Informationszugang',
-      'Verordnungsrecht',
-    ],
-  },
-  {
-    name: 'Wirtschaft, Arbeit und soziale Sicherung',
-    description: 'Wirtschaftsrecht, Förderung, Arbeit, Soziales, Wohnen und Bodenordnung.',
-    subjects: ['Arbeit und Soziales', 'Wirtschaft und Förderung', 'Wohnen und Bodenordnung'],
-  },
-  {
-    name: 'Bildung, Kultur und Gesellschaft',
-    description: 'Bildung, Medien, Rundfunk, Feiertage und gesellschaftliches Leben.',
-    subjects: ['Bildung und Weiterbildung', 'Rundfunk und Medien', 'Feiertage und gesellschaftliches Leben'],
-  },
-  {
-    name: 'Umwelt, Raum und Nachbarschaft',
-    description: 'Umwelt, Energie, Raumordnung, Landesplanung, Staatsverträge und Nachbarschaftsrecht.',
-    subjects: [
-      'Umwelt, Energie und Klimaschutz',
-      'Raumordnung und Landesplanung',
-      'Völkerrecht und Staatsverträge',
-    ],
-  },
-];
-
 export function getSubjectGroups(norms: NormRecord[]): SubjectGroup[] {
   const groups = new Map<string, SubjectGroup>();
 
@@ -177,7 +145,7 @@ export function getSubjectGroups(norms: NormRecord[]): SubjectGroup[] {
 export function getSubjectAreaGroups(norms: NormRecord[]): SubjectAreaGroup[] {
   const subjectGroups = getSubjectGroups(norms);
   const knownSubjects = new Set<string>();
-  const areaGroups = SUBJECT_AREA_DEFINITIONS.map((definition) => {
+  const areaGroups = lawSubjectAreas.map((definition) => {
     const subjects = definition.subjects
       .map((subject) => subjectGroups.find((group) => group.name === subject))
       .filter((group): group is SubjectGroup => Boolean(group));
