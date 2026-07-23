@@ -179,6 +179,8 @@ aus.
 Die Konsolidierungswerkzeuge arbeiten offline, abgesehen vom ausdrücklich aufgerufenen Fetch:
 
 ```sh
+npm run norms:alt-sources:build
+npm run norms:alt-sources:migrate
 npm run norms:consolidation:audit
 npm run norms:revosax:audit
 npm run norms:revosax:fetch -- --target <slug> --url <historische-revosax-url>
@@ -188,6 +190,14 @@ npm run norms:revosax:parse -- --target <slug> --snapshot-id <id>
 npm run norms:consolidate -- --target <slug>
 npm run norms:consolidate -- --target <slug> --write
 ```
+
+`norms:alt-sources:build` erzeugt die redaktionell geprüften HTML-Transkriptionen der
+bildbasierten Ausgaben OGVBl. II/2024 und I/2025 aus den versionierten Teiltranskriptionen.
+`norms:alt-sources:migrate` prüft vor jeder Änderung die festgehaltenen SHA-256-Werte der
+Original-PDFs und des DOCX, validiert die Vollständigkeit der Verfassung und Bezirksordnung und
+schreibt anschließend ausschließlich den klar abgegrenzten Altquellenbestand. Beide Befehle
+arbeiten offline. PDF und DOCX werden über `sourceReferences` als interne Prüfquellen geführt;
+ein öffentlicher PDF-Link entsteht nur aus einer ausdrücklich öffentlich ausgelieferten Datei.
 
 Der Audit schreibt `data/recht/consolidation-manifest.json` und
 `data/recht/consolidation-report.md`. `npm run content:check` prüft diese Dateien im

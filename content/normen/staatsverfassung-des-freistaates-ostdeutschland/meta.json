@@ -18,7 +18,7 @@
     "Grundrechte",
     "Staatsziele"
   ],
-  "initialCitation": "Verfassung vom 15. Oktober 2024 (OGVBl. 2024 Nr. II S. 5)",
+  "initialCitation": "Verfassung des Ostdeutschen Freistaates vom 15. Oktober 2024 (OGVBl. 2024 Nr. II S. 5–32)",
   "predecessor": null,
   "successor": null,
   "summary": "Bestimmt die staatliche Ordnung, die Grundrechte, die Staatsziele und die Verfassungsorgane des Freistaates Ostdeutschland.",
@@ -29,16 +29,79 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
+      "label": "Redaktionell geprüfte strukturierte Ursprungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/Staatsverfassung-2024.html",
+      "mediaType": "text/html",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "pageRange": "5-32",
+      "derivedSource": "Gesetze/OGVBl II-24.pdf"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliches Original-PDF der Ursprungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl II-24.pdf",
+      "sha256": "9b9b5f8d691c8f4341711a5c30b4c1ac2a03a73a00cbf915688ef8a00b91a6fd",
+      "mediaType": "application/pdf",
+      "pageCount": 32,
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "visual-control",
+      "pageRange": "5-32",
+      "derivedSource": "Gesetze/Staatsverfassung-2024.html"
+    },
+    {
+      "kind": "structured-docx-source",
+      "label": "Strukturtragende DOCX-Quelle der Verfassung vor den Änderungen von 2026",
+      "availability": "versioned",
+      "localSource": "Gesetze/Verfassung.docx",
+      "sha256": "7eec0947e070da17710b0c52dacfbe9f1b682d9c6434519b51599cf902f56590",
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "derivedSource": "Gesetze/Staatsverfassung-2024.html"
+    },
+    {
+      "kind": "structured-html-transcription",
+      "label": "Strukturierte Lesefassung nach der Änderung vom 6. März 2025",
+      "availability": "versioned",
+      "localSource": "Gesetze/Staatsverfassung-2025.html",
+      "mediaType": "text/html",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "pageRange": "15",
+      "derivedSource": "Gesetze/OGVBl I-25.pdf"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliches Original-PDF des Änderungsgesetzes",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl I-25.pdf",
+      "sha256": "1c8362ccf1fa1f7d7be5c6a267c38ea0dc218efe27b77402eba4de8be72521d7",
+      "mediaType": "application/pdf",
+      "pageCount": 15,
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "visual-control",
+      "pageRange": "15",
+      "derivedSource": "Gesetze/Staatsverfassung-2025.html"
+    },
+    {
+      "kind": "structured-html-transcription",
       "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
       "availability": "versioned",
       "localSource": "Gesetze/Staatsverfassung.html"
     }
   ],
-  "dateNote": "Redaktionelle Lesefassung vom 21. Juli 2026.",
+  "dateNote": "Aktuelle redaktionelle Lesefassung vom 21. Juli 2026. Die amtliche Ursprungsbezeichnung lautet „Verfassung des Ostdeutschen Freistaates“. Der fehlerhafte Zielanker im Hoheitszeichengesetz vom 23. März 2026 wird als Einfügung vor dem Wort „Weiß“ ausgelegt.",
   "affectedByNorms": [
+    "gesetz-zur-aenderung-der-landesverfassung-2025",
+    "gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5",
+    "gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes",
     "erstes-gesetz-zur-grossen-staatsreform",
     "zweites-gesetz-zur-grossen-staatsreform",
     "drittes-gesetz-zur-grossen-staatsreform",
     "viertes-gesetz-zur-grossen-staatsreform"
-  ]
+  ],
+  "enactingNorm": "gesetz-zur-einsetzung-einer-neuen-landesverfassung"
 }

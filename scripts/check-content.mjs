@@ -294,6 +294,8 @@ async function validateNormSourceReference(file, source, sourcePath) {
     'legacy-markdown-transcription': /\.md$/iu,
     'revosax-snapshot': /\.html$/iu,
     'amendment-source': /\.(?:html|md|pdf)$/iu,
+    'primary-pdf': /\.pdf$/iu,
+    'structured-docx-source': /\.docx$/iu,
   }[source.kind];
   if (!extensionPattern) {
     addProblem(file, `${sourcePath}.kind ist für eine Normquelle unbekannt: ${source.kind}`);
@@ -307,6 +309,40 @@ async function validateNormSourceReference(file, source, sourcePath) {
     return;
   }
   await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
+
+  if (['primary-pdf', 'structured-docx-source'].includes(source.kind)) {
+    const expectedMediaType = source.kind === 'primary-pdf'
+      ? 'application/pdf'
+      : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+    if (source.mediaType !== expectedMediaType) {
+      addProblem(file, `${sourcePath}.mediaType muss ${expectedMediaType} sein`);
+    }
+    if (typeof source.verifiedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(source.verifiedAt)) {
+      addProblem(file, `${sourcePath}.verifiedAt muss als ISO-Datum dokumentiert sein`);
+    }
+    if (!['structure-bearing', 'visual-control'].includes(source.sourceRole)) {
+      addProblem(file, `${sourcePath}.sourceRole muss structure-bearing oder visual-control sein`);
+    }
+    if (source.kind === 'primary-pdf' && (!Number.isInteger(source.pageCount) || source.pageCount < 1)) {
+      addProblem(file, `${sourcePath}.pageCount muss die Seitenzahl des PDFs enthalten`);
+    }
+    if (source.derivedSource !== undefined) {
+      await validateVersionedSource(file, `${sourcePath}.derivedSource`, source.derivedSource);
+    }
+  }
+
+  if (['primary-pdf', 'structured-docx-source', 'revosax-snapshot'].includes(source.kind)) {
+    if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
+      addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
+    } else if (await exists(resolve(root, source.localSource))) {
+      const actualHash = createHash('sha256')
+        .update(await readFile(resolve(root, source.localSource)))
+        .digest('hex');
+      if (actualHash !== source.sha256) {
+        addProblem(file, `${sourcePath}.sha256 stimmt nicht mit der unveränderten Quelle überein`);
+      }
+    }
+  }
 
   if (source.kind !== 'revosax-snapshot') return;
   if (typeof source.url !== 'string' || !/^https:\/\/www\.revosax\.sachsen\.de\/vorschrift\/\d+(?:\.\d+)?$/u.test(source.url)) {
@@ -323,16 +359,6 @@ async function validateNormSourceReference(file, source, sourcePath) {
   if (source.sourceValidTo !== undefined &&
       (typeof source.sourceValidTo !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(source.sourceValidTo))) {
     addProblem(file, `${sourcePath}.sourceValidTo muss als ISO-Datum dokumentiert sein`);
-  }
-  if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
-    addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
-  } else if (await exists(resolve(root, source.localSource))) {
-    const actualHash = createHash('sha256')
-      .update(await readFile(resolve(root, source.localSource)))
-      .digest('hex');
-    if (actualHash !== source.sha256) {
-      addProblem(file, `${sourcePath}.sha256 stimmt nicht mit dem unveränderten Snapshot überein`);
-    }
   }
 }
 
@@ -540,6 +566,34 @@ for (const { file, json } of records) {
         addProblem(file, `${sourcePath}.availability ist unbekannt: ${source.availability}`);
       } else if (source.availability === 'versioned') {
         await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
+        if (['primary-pdf', 'structured-docx-source'].includes(source.kind)) {
+          const expectedExtension = source.kind === 'primary-pdf' ? /\.pdf$/iu : /\.docx$/iu;
+          if (typeof source.localSource !== 'string' || !expectedExtension.test(source.localSource)) {
+            addProblem(file, `${sourcePath}.localSource besitzt nicht das für ${source.kind} erwartete Format`);
+          }
+          if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
+            addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
+          } else if (await exists(resolve(root, source.localSource))) {
+            const actualHash = createHash('sha256')
+              .update(await readFile(resolve(root, source.localSource)))
+              .digest('hex');
+            if (actualHash !== source.sha256) {
+              addProblem(file, `${sourcePath}.sha256 stimmt nicht mit der unveränderten Quelle überein`);
+            }
+          }
+          if (typeof source.verifiedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(source.verifiedAt)) {
+            addProblem(file, `${sourcePath}.verifiedAt muss als ISO-Datum dokumentiert sein`);
+          }
+          if (!['structure-bearing', 'visual-control'].includes(source.sourceRole)) {
+            addProblem(file, `${sourcePath}.sourceRole muss structure-bearing oder visual-control sein`);
+          }
+          if (source.kind === 'primary-pdf' && (!Number.isInteger(source.pageCount) || source.pageCount < 1)) {
+            addProblem(file, `${sourcePath}.pageCount muss die Seitenzahl des PDFs enthalten`);
+          }
+          if (source.derivedSource !== undefined) {
+            await validateVersionedSource(file, `${sourcePath}.derivedSource`, source.derivedSource);
+          }
+        }
       } else if (source.availability === 'external') {
         if (typeof source.url !== 'string' || !/^https:\/\//u.test(source.url)) {
           addProblem(file, `${sourcePath}.url muss für eine externe Quelle eine HTTPS-URL enthalten`);
@@ -609,10 +663,14 @@ for (const { file, json } of records) {
           const meta = byPrefix('normen/').find(({ file: normFile, json: normJson }) =>
             basename(normFile) === 'meta.json' && normJson.slug === entry.normSlug,
           )?.json;
-          if (entry.documentDate && meta?.documentDate && entry.documentDate !== meta.documentDate) {
+          const history = byPrefix(`normen/${entry.normSlug}/`).find(({ file: normFile }) =>
+            basename(normFile) === 'history.json',
+          )?.json;
+          const referencesInitialVersion = !entry.versionId || history?.initialVersionId === entry.versionId;
+          if (referencesInitialVersion && entry.documentDate && meta?.documentDate && entry.documentDate !== meta.documentDate) {
             addProblem(file, `${entryPath}.documentDate weicht vom Normdatensatz ${entry.normSlug} ab`);
           }
-          if (meta?.publicationDate && meta.publicationDate !== json.date) {
+          if (referencesInitialVersion && meta?.publicationDate && meta.publicationDate !== json.date) {
             addProblem(file, `${entryPath} verweist auf eine Norm mit abweichendem Veröffentlichungsdatum`);
           }
         }

@@ -2,9 +2,9 @@
   "versionId": "2026-08-01",
   "validFrom": "2026-08-01",
   "validTo": null,
-  "isCurrent": true,
-  "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46)",
-  "changeNote": "Eingeführte Stammfassung.",
+  "isCurrent": false,
+  "citation": "Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–13), vollständig abgelöst durch Artikel 2 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46) und geändert durch Artikel 8 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
+  "changeNote": "Vollständige Ablösung der bisherigen Bezirksordnung durch Artikel 2 des Kreis- und Bezirksneuordnungsgesetzes; die ab 1. August 2026 geltende Neufassung wird zugleich durch Artikel 8 des Sportneuordnungsgesetzes geändert.",
   "body": [
     {
       "type": "paragraph",
@@ -875,10 +875,38 @@
         {
           "type": "item",
           "label": "10.",
+          "text": "bezirkliche Sportentwicklung und Sportkoordination nach Maßgabe des Ostdeutschen Sportfördergesetzes,",
+          "level": 0,
+          "listId": "rv07m0y0qarp",
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "11.",
           "text": "Zusammenarbeit mit Nachbarregionen, anderen Ländern und angrenzenden Staaten, soweit die Staatsregierung nicht zuständig ist.",
           "level": 0,
           "listId": "rv07m0y0qarp",
           "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 13a",
+      "title": "Bezirkliche Sportkoordination",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Der Bezirk koordiniert im Rahmen seiner Aufgaben die regionale Sportentwicklung.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die bezirkliche Sportkoordination begründet keine Weisungsbefugnis gegenüber Gemeinden, Landkreisen oder kreisfreien Städten, soweit gesetzlich nichts anderes bestimmt ist.",
           "children": []
         }
       ]
@@ -1528,6 +1556,20 @@
           "children": []
         }
       ]
+    }
+  ],
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    },
+    {
+      "kind": "structured-html-transcription",
+      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
     }
   ]
 }

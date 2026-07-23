@@ -689,12 +689,71 @@ function compareGeneratedRecordToExisting(record, existing) {
   if (!version) return { status: 'differs', issues: [`Fassung ${record.versions[0].versionId} fehlt`] };
   const issues = [];
   if (existing.meta.title !== record.meta.title) issues.push('Titel weicht von der HTML-Quelle ab');
-  if (existing.meta.documentDate !== record.meta.documentDate) issues.push('Dokumentdatum weicht ab');
-  if (existing.meta.publicationDate !== record.meta.publicationDate) issues.push('Veröffentlichungsdatum weicht ab');
-  if (JSON.stringify(version.body) !== JSON.stringify(record.versions[0].body)) issues.push('strukturierter Normtext weicht vom aktuellen Parsergebnis ab');
+  // OGVBl. 2026 Nr. 46 enthält eine vollständige Ablösung der bereits 2025
+  // eingeführten Bezirksordnung. Dokument- und Veröffentlichungsdatum des
+  // Stammnormdatensatzes bleiben daher auf der Ursprungsfassung; die Quelle
+  // wird gegen die unveränderliche Ersatzfassung vom 1. August 2026 geprüft.
+  const replacementOfExistingStem =
+    record.meta.slug === 'ostdeutsche-bezirksordnung' &&
+    record.versions[0].versionId === '2026-08-01';
+  if (!replacementOfExistingStem && existing.meta.documentDate !== record.meta.documentDate) issues.push('Dokumentdatum weicht ab');
+  if (!replacementOfExistingStem && existing.meta.publicationDate !== record.meta.publicationDate) issues.push('Veröffentlichungsdatum weicht ab');
+  let storedBodyForSourceComparison = version.body;
+  if (replacementOfExistingStem) {
+    try {
+      storedBodyForSourceComparison = districtReplacementBeforeSportAmendment(version.body);
+    } catch (error) {
+      issues.push(`kombinierte Bezirksfassung ist nicht nachvollziehbar: ${error.message}`);
+    }
+  }
+  if (JSON.stringify(storedBodyForSourceComparison) !== JSON.stringify(record.versions[0].body)) {
+    issues.push('strukturierter Normtext weicht vom aktuellen Parsergebnis ab');
+  }
   const storedText = JSON.stringify(version.body);
   if (hasNormContamination(storedText)) issues.push('Vorblatt-, Bild-, Inhaltsverzeichnis- oder Signaturtext im Normkörper');
   return { status: issues.length ? 'differs' : 'matches', issues };
+}
+
+function districtReplacementBeforeSportAmendment(body) {
+  const sourceBody = JSON.parse(JSON.stringify(body));
+  const paragraph13Index = sourceBody.findIndex((block) => block.label === '§ 13');
+  const paragraph13aIndex = sourceBody.findIndex((block) => block.label === '§ 13a');
+  if (paragraph13Index < 0 || paragraph13aIndex !== paragraph13Index + 1) {
+    throw new Error('§ 13 und der unmittelbar folgende § 13a fehlen');
+  }
+  const paragraph13 = sourceBody[paragraph13Index];
+  const items = paragraph13.children.filter((block) => block.type === 'item');
+  const sportItem = items.find((block) =>
+    block.label === '10.' &&
+    block.text === 'bezirkliche Sportentwicklung und Sportkoordination nach Maßgabe des Ostdeutschen Sportfördergesetzes,'
+  );
+  const renumberedItem = items.find((block) => block.label === '11.');
+  if (!sportItem || !renumberedItem) {
+    throw new Error('Sportnummer 10 oder die nach Nummer 11 verschobene Schlussnummer fehlt');
+  }
+  paragraph13.children.splice(paragraph13.children.indexOf(sportItem), 1);
+  renumberedItem.label = '10.';
+  sourceBody.splice(paragraph13aIndex, 1);
+  return sourceBody;
+}
+
+function preserveExistingHistoryForAudit(record, existing) {
+  if (!existing) return record;
+  if (
+    record.meta.slug !== 'staatsverfassung-des-freistaates-ostdeutschland' &&
+    record.meta.slug !== 'ostdeutsche-bezirksordnung' &&
+    record.meta.slug !== 'kreis-und-bezirksneuordnungsgesetz'
+  ) {
+    return record;
+  }
+  return {
+    source: record.source,
+    issue: record.issue,
+    startPage: record.startPage,
+    meta: existing.meta,
+    history: existing.history,
+    versions: existing.versions,
+  };
 }
 
 function compareParsedNormToExisting(norm, issue, existingRecords) {
@@ -850,7 +909,7 @@ for (const fileName of htmlFiles) {
       const parserContractIssues = validateConstitutionParserContract(parsed);
       report.recognized.push({ file: fileName, classification: classification.kind, norms: [{ title: parsed.title, type: 'gesetz' }] });
       const record = buildConstitutionRecord(parsed);
-      records.push(record);
+      records.push(preserveExistingHistoryForAudit(record, existingAuditRecords.get(record.meta.slug)));
       recognizedConfiguredSources.set('constitution', fileName);
       report.sourceAudit.push({
         file: fileName,
@@ -887,7 +946,8 @@ for (const fileName of htmlFiles) {
       recognizedConfiguredSources.set(parsed.issue, fileName);
       const issueRecords = buildRecords(parsed);
       issueRecords.forEach(validateRecord);
-      records.push(...issueRecords);
+      records.push(...issueRecords.map((record) =>
+        preserveExistingHistoryForAudit(record, existingAuditRecords.get(record.meta.slug))));
       publications.push(publicationFrom(parsed, issueRecords));
       report.sourceAudit.push({
         file: fileName,

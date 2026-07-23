@@ -56,7 +56,9 @@ export interface NormSourceReference {
     | 'structured-html-transcription'
     | 'legacy-markdown-transcription'
     | 'revosax-snapshot'
-    | 'amendment-source';
+    | 'amendment-source'
+    | 'primary-pdf'
+    | 'structured-docx-source';
   label: string;
   availability: 'versioned';
   localSource: string;
@@ -66,6 +68,12 @@ export interface NormSourceReference {
   lawId?: string;
   sourceValidFrom?: string;
   sourceValidTo?: string;
+  mediaType?: 'application/pdf' | 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' | 'text/html' | 'text/markdown';
+  pageCount?: number;
+  pageRange?: string;
+  verifiedAt?: string;
+  sourceRole?: 'structure-bearing' | 'visual-control' | 'official-snapshot' | 'amendment-evidence';
+  derivedSource?: string;
 }
 
 export interface NormSourceNote {
@@ -281,6 +289,8 @@ function parseNormSourceReference(value: unknown, path: string): NormSourceRefer
         'legacy-markdown-transcription',
         'revosax-snapshot',
         'amendment-source',
+        'primary-pdf',
+        'structured-docx-source',
       ] as const,
     ),
     label: expectString(object.label, `${path}.label`),
@@ -301,6 +311,15 @@ function parseNormSourceReference(value: unknown, path: string): NormSourceRefer
       object.sourceValidTo === undefined
         ? undefined
         : expectIsoDate(object.sourceValidTo, `${path}.sourceValidTo`),
+    mediaType: expectOptionalString(object.mediaType, `${path}.mediaType`) as NormSourceReference['mediaType'],
+    pageCount: expectOptionalInteger(object.pageCount, `${path}.pageCount`, { minimum: 1 }),
+    pageRange: expectOptionalString(object.pageRange, `${path}.pageRange`),
+    verifiedAt:
+      object.verifiedAt === undefined
+        ? undefined
+        : expectIsoDate(object.verifiedAt, `${path}.verifiedAt`),
+    sourceRole: expectOptionalString(object.sourceRole, `${path}.sourceRole`) as NormSourceReference['sourceRole'],
+    derivedSource: expectOptionalString(object.derivedSource, `${path}.derivedSource`),
   };
 }
 

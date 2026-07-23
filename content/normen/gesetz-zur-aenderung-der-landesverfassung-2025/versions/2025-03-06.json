@@ -1,0 +1,144 @@
+{
+  "versionId": "2025-03-06",
+  "validFrom": "2025-03-12",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Gesetz vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 15)",
+  "changeNote": "Amtlich verkündete Stammfassung.",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Redaktionell geprüfte strukturierte Transkription der Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl I-25.html",
+      "mediaType": "text/html",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "pageRange": "15",
+      "derivedSource": "Gesetze/OGVBl I-25.pdf"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliches Original-PDF der Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl I-25.pdf",
+      "sha256": "1c8362ccf1fa1f7d7be5c6a267c38ea0dc218efe27b77402eba4de8be72521d7",
+      "mediaType": "application/pdf",
+      "pageCount": 15,
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "visual-control",
+      "pageRange": "15",
+      "derivedSource": "Gesetze/OGVBl I-25.html"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 6. März 2025 folgendes Gesetz beschlossen."
+    },
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Änderung der Verfassung des Ostdeutschen Freistaates",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Verfassung des Ostdeutschen Freistaates vom 15.10.2024, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Der Artikel 114 wird wie folgt geändert:",
+          "level": 0,
+          "listId": "source-outline",
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Der Artikel wird in „Artikel 114 Demokratiegebot“ umbenannt.",
+              "level": 1,
+              "listId": "source-outline",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Der Absatz 1 wird wie folgt neu gefasst:",
+              "level": 1,
+              "listId": "source-outline",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(1)",
+                      "text": "Keinerlei Verfassungs- oder Gesetzes- oder Verordnungsänderung oder -einführung darf den Grundgedanken des demokratischen, republikanischen Rechtsstaates und der parlamentarischen Staatsform antasten.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Dem Artikel wird ein folgender Absatz 2 angefügt:",
+              "level": 1,
+              "listId": "source-outline",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(2)",
+                      "text": "Die Errichtung einer Diktatur, unabhängig der Form, ist verboten.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "d.",
+              "text": "Dem Artikel wird ein folgender Absatz 3 angefügt:",
+              "level": 1,
+              "listId": "source-outline",
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "quotedProvision",
+                  "children": [
+                    {
+                      "type": "subparagraph",
+                      "label": "(3)",
+                      "text": "Den in Absatz 1 und 2 genannten Vorschriften widersprechende Gesetze, Verordnungen und Beschlüsse sind nicht auszuarbeiten, nicht zu verkünden, oder, bei vorausgegangener Verkündung, nicht zu befolgen.",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Gesetz tritt am Tage seiner Verkündung in Kraft."
+        }
+      ]
+    }
+  ]
+}

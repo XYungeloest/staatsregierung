@@ -448,9 +448,62 @@ function nestedFlowNodes(container, output = []) {
   return output;
 }
 
+function textWithoutNestedLists(node) {
+  if (!node) return '';
+  if (node.nodeName === '#text') return node.value ?? '';
+  if (node.tagName === 'br') return '\n';
+  if (node.tagName === 'ol' || node.tagName === 'ul') return '';
+  return (node.childNodes ?? []).map(textWithoutNestedLists).join('');
+}
+
 function makeAtomicTokens(nodes, css, fileName) {
   const counters = new Map();
   const tokens = [];
+  let standardListSequence = 0;
+
+  const emitStandardList = (node, listId, level = 0) => {
+    const nodeAttrs = attrs(node);
+    const rawType = node.tagName === 'ul' ? 'bullet' : (nodeAttrs.type ?? '1');
+    const numberingStyle = {
+      '1': 'decimal',
+      a: 'lower-latin',
+      A: 'upper-latin',
+      i: 'lower-roman',
+      I: 'upper-roman',
+      bullet: 'bullet',
+    }[rawType];
+    if (!numberingStyle) {
+      throw new NormHtmlParseError(fileName, `nicht unterstützter HTML-Listentyp „${rawType}“`);
+    }
+    const explicitStart = nodeAttrs.start ? Number.parseInt(nodeAttrs.start, 10) : 1;
+    let counter = Number.isInteger(explicitStart) ? explicitStart : 1;
+    const items = elementChildren(node, 'li');
+    if (items.length === 0) throw new NormHtmlParseError(fileName, `leere Standardliste ${listId}, Ebene ${level}`);
+    for (const item of items) {
+      const parenthesized = nodeAttrs['data-label-style'] === 'parenthesized';
+      const visible = numberingStyle === 'bullet' ? '–' : formatCounter(counter, numberingStyle);
+      if (!visible) {
+        throw new NormHtmlParseError(fileName, `nicht auflösbarer HTML-Listenzähler ${listId}, Ebene ${level}`);
+      }
+      tokens.push({
+        kind: 'listItem',
+        listId,
+        level,
+        numberingStyle,
+        counterValue: numberingStyle === 'bullet' ? null : counter,
+        numberingPrefix: parenthesized ? '(' : '',
+        numberingSuffix: parenthesized ? ')' : numberingStyle === 'bullet' ? '' : '.',
+        label: parenthesized ? `(${visible})` : numberingStyle === 'bullet' ? visible : `${visible}.`,
+        text: normalizeHtmlText(textWithoutNestedLists(item)).replace(/\n+/gu, ' '),
+        startsList: counter === explicitStart,
+      });
+      for (const nested of elementChildren(item).filter((child) => child.tagName === 'ol' || child.tagName === 'ul')) {
+        emitStandardList(nested, listId, level + 1);
+      }
+      counter += 1;
+    }
+  };
+
   for (const node of nodes) {
     const text = textOf(node);
     if (!text && node.tagName !== 'table') continue;
@@ -461,7 +514,11 @@ function makeAtomicTokens(nodes, css, fileName) {
     if (node.tagName === 'ol' || node.tagName === 'ul') {
       const classes = attrs(node).class ?? '';
       const listMatch = classes.match(LIST_CLASS_PATTERN);
-      if (!listMatch) throw new NormHtmlParseError(fileName, `Liste ohne auswertbare Google-Docs-Listenkennung: „${text.slice(0, 80)}“`);
+      if (!listMatch) {
+        standardListSequence += 1;
+        emitStandardList(node, `standard-${standardListSequence}`);
+        continue;
+      }
       const [, listId, rawLevel] = listMatch;
       const level = Number.parseInt(rawLevel, 10);
       const key = `${listId}:${level}`;

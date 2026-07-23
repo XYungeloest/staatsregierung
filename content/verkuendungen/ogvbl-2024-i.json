@@ -19,10 +19,15 @@
   ],
   "sourceReferences": [
     {
-      "kind": "original",
+      "kind": "primary-pdf",
       "label": "Amtliches Original-PDF der Ausgabe",
-      "availability": "not-versioned",
-      "note": "Für die redaktionelle Erfassung lokal geprüft; nicht Bestandteil des Repositorys."
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl-03-24.pdf",
+      "sha256": "76b82af51dfd3e12e73645313a40db807205e61c5c659615890ea23ecfe58d40",
+      "mediaType": "application/pdf",
+      "pageCount": 2,
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "visual-control"
     },
     {
       "kind": "index",

@@ -1,17 +1,23 @@
 {
-  "generatedAt": "2026-07-23T09:28:40.478Z",
+  "generatedAt": "2026-07-23T12:12:40.506Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
-    "recognizedAmendmentActs": 43,
-    "recognizedTargetNorms": 46,
-    "completeTargetNorms": 10,
-    "blockedSourceConflicts": 4,
-    "missingPrimarySources": 32
+    "recognizedAmendmentActs": 54,
+    "recognizedTargetNorms": 72,
+    "completeTargetNorms": 34,
+    "blockedSourceConflicts": 3,
+    "missingPrimarySources": 35
   },
   "templateProblems": [
     "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
   ],
-  "ambiguousFindings": [],
+  "ambiguousFindings": [
+    {
+      "amendmentAct": "organisationserlass-aenderung-fachbereichszuteilung-2024",
+      "candidate": "Fachbereichszuteilungen",
+      "evidence": "Gliederungsüberschrift"
+    }
+  ],
   "targets": [
     {
       "canonicalSlug": "abschiebe-aussetzungsverordnung",
@@ -33,7 +39,8 @@
           "title": "Verordnung zur Aufhebung verfassungswidrig erlassener Verordnungen",
           "effectiveDate": "2025-09-16",
           "detectedType": "verordnung",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2025-09-16"
         }
       ],
       "effectiveDates": [
@@ -68,7 +75,8 @@
           "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
           "effectiveDate": "2026-07-01",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-01"
         }
       ],
       "effectiveDates": [
@@ -100,7 +108,8 @@
           "title": "Verordnung zur Änderung der Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
           "effectiveDate": "2026-01-30",
           "detectedType": "verordnung",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-01-30"
         }
       ],
       "effectiveDates": [
@@ -133,11 +142,130 @@
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
         "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "energie-und-waermefinanzierungsgesetz",
+      "title": "Gesetz über das Sondervermögen Energie- und Wärmevergesellschaftung",
+      "aliases": [
+        "Gesetz über das Sondervermögen Energie- und Wärmevergesellschaftung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "energie-und-waermefinanzierungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "energie-und-waermevergesellschaftungs-paketgesetz",
+          "title": "Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz",
+      "title": "Gesetz über das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost",
+      "aliases": [
+        "Gesetz über das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz",
+      "enactingActs": [
+        {
+          "slug": "boom-europe-umsetzungsgesetz",
+          "title": "Gesetz zur Umsetzung des Vorhabens „Boom Europe Leipzig/Halle“ und zur Errichtung eines Sondervermögens Hochgeschwindigkeitsluftfahrt Ost",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland",
+      "title": "Gesetz über den Anspruch auf Bildungsfreistellung im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über den Anspruch auf Bildungsfreistellung im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-eines-bildungsfreistellungsgesetzes",
+          "title": "Gesetz zur Einführung eines Bildungsfreistellungsgesetzes",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-kulturpassgesetz",
+      "title": "Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-uber-den-kulturpass-fur-junge-erwachsene-im-freistaat-ostdeutschland",
+          "title": "Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-04-03",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-04-03"
+        }
+      ],
+      "effectiveDates": [
+        "2026-04-03"
       ],
       "status": "missing-baseline",
       "problems": [
@@ -166,7 +294,8 @@
           "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -178,6 +307,152 @@
         "Eigenständiger Stammnormdatensatz fehlt."
       ],
       "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-fernsehfunkgesetz",
+      "title": "Gesetz über den Ostdeutschen Fernsehfunk",
+      "aliases": [
+        "Gesetz über den Ostdeutschen Fernsehfunk"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-fernsehfunkgesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
+          "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungsund Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-beteiligtendokumentationsund-lobbyregistergesetz",
+      "title": "Gesetz über die Beteiligtentransparenzdokumentation und das Lobbyregister beim Ostdeutschen Landtag",
+      "aliases": [
+        "Gesetz über die Beteiligtentransparenzdokumentation und das Lobbyregister beim Ostdeutschen Landtag"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-uber-die-beteiligtentransparenzdokumentation-und-das-17yyebh",
+          "title": "Gesetz über die Beteiligtentransparenzdokumentation und das Lobbyregister beim Ostdeutschen Landtag",
+          "effectiveDate": "2026-07-01",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-07-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "betriebssportgemeinschaftengesetz",
+      "title": "Gesetz über die Betriebssportgemeinschaften und die Förderung des Betriebssports im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Betriebssportgemeinschaften und die Förderung des Betriebssports im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "betriebssportgemeinschaftengesetz",
+      "enactingActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2",
+      "title": "Gesetz über die Feststellung des Haushaltsplanes des Freistaates Ostdeutschland für die Haushaltsjahre 2025 und 2026 (Haushaltsgesetz 2025/2026 – HG 2025/2026)",
+      "aliases": [
+        "Gesetz über die Feststellung des Haushaltsplanes des Freistaates Ostdeutschland für die Haushaltsjahre 2025 und 2026 (Haushaltsgesetz 2025/2026 – HG 2025/2026)"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2",
+      "enactingActs": [
+        {
+          "slug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib",
+          "title": "Gesetz über die Feststellung des Haushaltsplanes des Freistaates Ostdeutschland für die Haushaltsjahre 2025 und 2026",
+          "effectiveDate": "2025-01-01",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "athletenfoerder-und-versorgungsgesetz",
+      "title": "Gesetz über die Förderung und die Versorgung der Athleten",
+      "aliases": [
+        "Gesetz über die Förderung und die Versorgung der Athleten"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "athletenfoerder-und-versorgungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-hochschulgesetz",
@@ -200,21 +475,24 @@
           "title": "Gesetz zur Änderung des Hochschulmedizingesetzes",
           "effectiveDate": "2026-01-27",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-01-27"
         },
         {
           "slug": "gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht",
           "title": "Gesetz über die Einführung einer Zweitveröffentlichungspflicht",
           "effectiveDate": "2026-07-20",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-20"
         },
         {
           "slug": "sportneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -228,6 +506,230 @@
         "Eigenständiger Stammnormdatensatz fehlt."
       ],
       "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "kasernierte-grenzpolizei-gesetz",
+      "title": "Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates",
+      "aliases": [
+        "Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "kasernierte-grenzpolizei-gesetz",
+      "enactingActs": [
+        {
+          "slug": "kasernierte-grenzpolizei-errichtungsgesetz",
+          "title": "Gesetz zur Errichtung der Kasernierten Grenzpolizei des Ostdeutschen Freistaates",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "landesagentur-spitzensport-gesetz",
+      "title": "Gesetz über die Landesagentur Spitzensport Ost",
+      "aliases": [
+        "Gesetz über die Landesagentur Spitzensport Ost"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "landesagentur-spitzensport-gesetz",
+      "enactingActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-landesbankgesetz",
+      "title": "Gesetz über die Landesbank an der Elbe",
+      "aliases": [
+        "Gesetz über die Landesbank an der Elbe"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-landesbankgesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
+          "title": "Gesetz zur Einführung der Landesbank Ostdeutschland",
+          "effectiveDate": "2026-01-27",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-eisenbahngesetz",
+      "title": "Gesetz über die Ostdeutsche Eisenbahn",
+      "aliases": [
+        "Gesetz über die Ostdeutsche Eisenbahn"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-eisenbahngesetz",
+      "enactingActs": [
+        {
+          "slug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+          "title": "Gesetz zur Errichtung der Ostdeutschen Eisenbahn, zur Vergesellschaftung privater Verkehrsproduktionsmittel und zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-sportfoerdergesetz",
+      "title": "Gesetz über die Sportförderung im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Sportförderung im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-sportfoerdergesetz",
+      "enactingActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "sportstiftungs-und-sportfondsgesetz",
+      "title": "Gesetz über die Sportstiftung Ostdeutschland und den Sportfonds Ost",
+      "aliases": [
+        "Gesetz über die Sportstiftung Ostdeutschland und den Sportfonds Ost"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "sportstiftungs-und-sportfondsgesetz",
+      "enactingActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-transparenzund-informationsfreiheitsgesetz",
+      "title": "Gesetz über die Transparenz staatlichen Handelns und das Recht auf Informationszugang im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Transparenz staatlichen Handelns und das Recht auf Informationszugang im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-transparenzund-informationsfreiheitsgesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+          "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
+          "effectiveDate": "2026-07-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
+      "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar",
+          "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Krankenhausgesetzes",
+          "effectiveDate": "2026-04-01",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "kindertagesbetreuungsgesetz",
@@ -250,14 +752,16 @@
           "title": "Gesetz zur Änderung des Kindertagesbetreuungsgesetzes zur Abschaffung des Elternbeitrages",
           "effectiveDate": "2026-01-27",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-01-27"
         },
         {
           "slug": "sportneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -295,20 +799,84 @@
           "title": "Gesetz zur Änderung des Gesetzes über Sonn- und Feiertage im Freistaat Ostdeutschland",
           "effectiveDate": "2024-03-08",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2024-03-08"
         },
         {
           "slug": "gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland",
           "title": "Gesetz zur Reform gesetzlicher Feiertage im Freistaat Ostdeutschland",
           "effectiveDate": "2026-03-24",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-24"
         }
       ],
       "effectiveDates": [
         "2024-03-08",
         "2026-03-24"
       ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "weidetierund-herdenschutzversicherungsgesetz",
+      "title": "Gesetz zu einer verpflichtenden Weidetier- und Herdenschutzversicherung",
+      "aliases": [
+        "Gesetz zu einer verpflichtenden Weidetier- und Herdenschutzversicherung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zu-einer-verpflichtenden-weidetierund-herdenschutzversicherung",
+          "title": "Gesetz zu einer verpflichtenden Weidetier- und Herdenschutzversicherung",
+          "effectiveDate": "2026-05-01",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-05-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-05-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
+      "title": "Gesetz zur Beschleunigung luftfahrtindustrieller Vorhaben von besonderer Landesbedeutung am Standort Leipzig/Halle",
+      "aliases": [
+        "Gesetz zur Beschleunigung luftfahrtindustrieller Vorhaben von besonderer Landesbedeutung am Standort Leipzig/Halle"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
+      "enactingActs": [
+        {
+          "slug": "boom-europe-umsetzungsgesetz",
+          "title": "Gesetz zur Umsetzung des Vorhabens „Boom Europe Leipzig/Halle“ und zur Errichtung eines Sondervermögens Hochgeschwindigkeitsluftfahrt Ost",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -333,7 +901,8 @@
           "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungsund Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
           "effectiveDate": "2026-03-25",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-25"
         }
       ],
       "effectiveDates": [
@@ -345,6 +914,208 @@
         "Eigenständiger Stammnormdatensatz fehlt."
       ],
       "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "landesenergiewerke-gesetz",
+      "title": "Gesetz zur Errichtung der Landesenergiewerke Ost",
+      "aliases": [
+        "Gesetz zur Errichtung der Landesenergiewerke Ost"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "landesenergiewerke-gesetz",
+      "enactingActs": [
+        {
+          "slug": "energie-und-waermevergesellschaftungs-paketgesetz",
+          "title": "Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsche-netze-gesetz",
+      "title": "Gesetz zur Errichtung der Ostdeutsche Netze",
+      "aliases": [
+        "Gesetz zur Errichtung der Ostdeutsche Netze"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsche-netze-gesetz",
+      "enactingActs": [
+        {
+          "slug": "energie-und-waermevergesellschaftungs-paketgesetz",
+          "title": "Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-landesantidiskriminierungsgesetz",
+      "title": "Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln",
+      "aliases": [
+        "Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-forderung-der-gleichbehandlung-und-zum-schutz-vor-11l18kw",
+          "title": "Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-03-25"
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-25"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "verkehrsbindungsgesetz",
+      "title": "Gesetz zur gemeinwirtschaftlichen Bindung nicht vergesellschafteter privater Verkehrsunternehmen",
+      "aliases": [
+        "Gesetz zur gemeinwirtschaftlichen Bindung nicht vergesellschafteter privater Verkehrsunternehmen"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "verkehrsbindungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+          "title": "Gesetz zur Errichtung der Ostdeutschen Eisenbahn, zur Vergesellschaftung privater Verkehrsproduktionsmittel und zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
+      "title": "Gesetz zur Neugliederung der Bezirke und zur Neuordnung der Kreise im Freistaat Ostdeutschland",
+      "aliases": [
+        "Gesetz zur Neugliederung der Bezirke und zur Neuordnung der Kreise im Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "energie-und-waermevergesellschaftungsgesetz",
+      "title": "Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum",
+      "aliases": [
+        "Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "energie-und-waermevergesellschaftungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "energie-und-waermevergesellschaftungs-paketgesetz",
+          "title": "Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
+      "title": "Gesetz zur Vergesellschaftung privater Verkehrsproduktionsmittel",
+      "aliases": [
+        "Gesetz zur Vergesellschaftung privater Verkehrsproduktionsmittel"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+          "title": "Gesetz zur Errichtung der Ostdeutschen Eisenbahn, zur Vergesellschaftung privater Verkehrsproduktionsmittel und zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "kommunalwahlgesetz",
@@ -366,7 +1137,8 @@
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -400,14 +1172,16 @@
           "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
           "effectiveDate": "2026-03-25",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-25"
         },
         {
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -441,7 +1215,8 @@
           "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -470,14 +1245,24 @@
       "enactingActs": [],
       "amendmentActs": [
         {
+          "slug": "ostdeutsches-bezirkseinfuehrungsgesetz",
+          "title": "Gesetz zur Einführung von Bezirken",
+          "effectiveDate": "2025-03-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2025-03-12"
+        },
+        {
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
+        "2025-03-12",
         "2026-07-21"
       ],
       "status": "missing-baseline",
@@ -507,7 +1292,8 @@
           "title": "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
           "effectiveDate": "2026-03-24",
           "detectedType": "staatsvertrag",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-03-24"
         }
       ],
       "effectiveDates": [
@@ -540,14 +1326,16 @@
           "title": "Siebte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Ostdeutschen Arbeitszeitverordnung",
           "effectiveDate": "2026-02-20",
           "detectedType": "verordnung",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-02-20"
         },
         {
           "slug": "vierte-verordnung-des-ostdeutschen-staatsministeriums-fur-bildung-und-sportliche-ertuchtigung-zur-anderung-der",
           "title": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Bildung und sportliche Ertüchtigung zur Änderung der Ostdeutschen Lehrkräfte-Arbeitszeitverordnung",
           "effectiveDate": "2026-02-20",
           "detectedType": "verordnung",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-02-20"
         }
       ],
       "effectiveDates": [
@@ -564,6 +1352,7 @@
       "canonicalSlug": "ostdeutsche-bezirksordnung",
       "title": "Ostdeutsche Bezirksordnung",
       "aliases": [
+        "Ostdeutsche Bezirksordnung",
         "Ostdeutschen Bezirksordnung"
       ],
       "revosaxLawId": null,
@@ -575,30 +1364,37 @@
       "existingStemNormSlug": "ostdeutsche-bezirksordnung",
       "enactingActs": [
         {
-          "slug": "kreis-und-bezirksneuordnungsgesetz",
-          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
-          "effectiveDate": "2026-07-21",
+          "slug": "ostdeutsches-bezirkseinfuehrungsgesetz",
+          "title": "Gesetz zur Einführung von Bezirken",
+          "effectiveDate": "2025-03-12",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false
         }
       ],
       "amendmentActs": [
         {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-08-01"
+        },
+        {
           "slug": "sportneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "effectiveDates": [
-        "2026-07-21"
+        "2026-08-01"
       ],
-      "status": "blocked-source-conflict",
-      "problems": [
-        "OGVBl. 2026 Nr. 46 führt eine Ostdeutsche Bezirksordnung mit Wirkung zum 1. August 2026 ein. Artikel 8 des Sportneuordnungsgesetzes bezeichnet dagegen eine Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. I/2025 S. 7). Ohne die dort genannte Primärquelle lässt sich nicht quellentreu entscheiden, welche Stammfassung geändert wird."
-      ],
-      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-justizgesetz",
@@ -621,14 +1417,16 @@
           "title": "Gesetz zur Änderung des Justizgesetzes zur Anpassung an die Zusammenlegung der Bundesländer zum Freistaat Ostdeutschland",
           "effectiveDate": "2026-02-01",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-02-01"
         },
         {
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -663,14 +1461,16 @@
           "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Krankenhausgesetzes",
           "effectiveDate": "2026-04-01",
           "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-04-01"
         },
         {
           "slug": "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung",
           "title": "Gesetz zur Stärkung der psychologischen, psychotherapeutischen und psychiatrischen Versorgung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-20",
           "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-07-20"
         }
       ],
       "effectiveDates": [
@@ -706,7 +1506,8 @@
           "title": "Viertes Gesetz zur Änderung des Ladenöffnungsgesetzes",
           "effectiveDate": "2026-02-01",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-02-01"
         }
       ],
       "effectiveDates": [
@@ -736,7 +1537,8 @@
           "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
           "effectiveDate": "2026-07-01",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-01"
         }
       ],
       "effectiveDates": [
@@ -770,21 +1572,24 @@
           "title": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
           "effectiveDate": "2026-03-24",
           "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-03-24"
         },
         {
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         },
         {
           "slug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
           "title": "Gesetz zur Errichtung der Ostdeutschen Eisenbahn, zur Vergesellschaftung privater Verkehrsproduktionsmittel und zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -818,7 +1623,8 @@
           "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
           "effectiveDate": "2026-03-25",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-25"
         }
       ],
       "effectiveDates": [
@@ -852,28 +1658,32 @@
           "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
           "effectiveDate": "2026-03-25",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-25"
         },
         {
           "slug": "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo",
           "title": "Gesetz über die unabhängige Polizei-Beschwerde- und Ermittlungsstelle und die verpflichtende Nutzung körpernah getragener Bild- und Tonaufzeichnungsgeräte",
           "effectiveDate": "2026-04-01",
           "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-04-01"
         },
         {
           "slug": "kasernierte-grenzpolizei-errichtungsgesetz",
           "title": "Gesetz zur Errichtung der Kasernierten Grenzpolizei des Ostdeutschen Freistaates",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         },
         {
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
@@ -892,6 +1702,7 @@
       "canonicalSlug": "ostdeutsches-tariftreueund-vergabegesetz",
       "title": "Ostdeutsches Tariftreue- und Vergabegesetz",
       "aliases": [
+        "Gesetz über die Sicherung von Sozialstandards, Tariftreue und fairen Löhnen bei der Vergabe öffentlicher Aufträge im Ostdeutschen Freistaat",
         "Sächsischen Vergabegesetzes"
       ],
       "revosaxLawId": null,
@@ -938,7 +1749,8 @@
           "title": "Gesetz zur Verbesserung des Stadtbilds",
           "effectiveDate": "2026-03-24",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-24"
         }
       ],
       "effectiveDates": [
@@ -972,26 +1784,29 @@
           "title": "Gesetz über die Einführung einer kommunalen Privatisierungsbremse im Freistaat Ostdeutschland",
           "effectiveDate": "2026-03-25",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-25"
         },
         {
           "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
           "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
           "effectiveDate": "2026-03-25",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-25"
         },
         {
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "effectiveDates": [
         "2026-03-25",
-        "2026-07-21"
+        "2026-08-01"
       ],
       "status": "complete",
       "problems": [],
@@ -1020,7 +1835,8 @@
           "title": "Gesetz zur Einführung der Landesbank Ostdeutschland",
           "effectiveDate": "2026-01-27",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-01-27"
         }
       ],
       "effectiveDates": [
@@ -1034,6 +1850,7 @@
       "canonicalSlug": "saechsische-landkreisordnung",
       "title": "Sächsische Landkreisordnung",
       "aliases": [
+        "Landkreisordnung des ostdeutschen Freistaates",
         "Landkreisordnung für den Freistaat Ostdeutschland",
         "Landkreisordnung für den Freistaat Sachsen",
         "Sächsische Landkreisordnung"
@@ -1048,19 +1865,29 @@
       "enactingActs": [],
       "amendmentActs": [
         {
+          "slug": "ostdeutsches-bezirkseinfuehrungsgesetz",
+          "title": "Gesetz zur Einführung von Bezirken",
+          "effectiveDate": "2025-03-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2025-03-12"
+        },
+        {
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
+        "2025-03-12",
         "2026-07-21"
       ],
       "status": "blocked-source-conflict",
       "problems": [
-        "Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt eine durch Artikel 2 des Gesetzes zur Einführung von Bezirken vom 6. März 2025 (OGVBl. I/2025 S. 7) geänderte Landkreisordnung voraus. Diese Primärquelle fehlt; insbesondere ist der dort vorausgesetzte § 75 in der gesicherten REVOSax-Ausgangsfassung zum 1. November 2023 nicht vorhanden. Die Folgefassung darf deshalb nicht aus der Fassung von 2023 frei rekonstruiert werden.",
+        "Artikel 2 des nun vollständig vorliegenden Ostdeutschen Bezirkseinführungsgesetzes vom 6. März 2025 ändert § 75 der Landkreisordnung vom 9. März 2018. Die gesicherte REVOSax-Ausgangsfassung zum 1. November 2023 besitzt jedoch keinen § 75 und enthält den erwarteten alten Wortlaut nicht. Offen ist damit nur noch die Identität beziehungsweise vollständige Ausgangsfassung der bezeichneten 2018er Norm; ein § 75 wird nicht frei eingefügt.",
         "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.",
         "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
@@ -1089,7 +1916,8 @@
           "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
           "effectiveDate": "2026-03-24",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-24"
         }
       ],
       "effectiveDates": [
@@ -1119,7 +1947,8 @@
           "title": "Elftes Gesetz zur Änderung des Bestattungsgesetzes",
           "effectiveDate": "2026-01-27",
           "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-01-27"
         }
       ],
       "effectiveDates": [
@@ -1155,7 +1984,8 @@
           "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
           "effectiveDate": "2026-03-24",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-24"
         }
       ],
       "effectiveDates": [
@@ -1186,7 +2016,8 @@
           "title": "Gesetz zur Änderung des Gleichstellungsgesetzes",
           "effectiveDate": "2026-04-01",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-04-01"
         }
       ],
       "effectiveDates": [
@@ -1219,7 +2050,8 @@
           "title": "Gesetz zur Änderung des Polizeigesetzes zur Regelung der Schmerzgriffe",
           "effectiveDate": "2026-03-24",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-24"
         }
       ],
       "effectiveDates": [
@@ -1255,7 +2087,8 @@
           "title": "Erstes Gesetz zur Änderung des Verwaltungskostengesetzes",
           "effectiveDate": "2026-01-27",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-01-27"
         }
       ],
       "effectiveDates": [
@@ -1285,14 +2118,16 @@
           "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         },
         {
           "slug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
           "title": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems",
           "effectiveDate": "2026-08-01",
           "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "effectiveDates": [
@@ -1326,7 +2161,8 @@
           "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
           "effectiveDate": "2026-09-01",
           "detectedType": "verordnung",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-09-01"
         }
       ],
       "effectiveDates": [
@@ -1359,7 +2195,8 @@
           "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
           "effectiveDate": "2026-09-01",
           "detectedType": "verordnung",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-09-01"
         }
       ],
       "effectiveDates": [
@@ -1392,7 +2229,8 @@
           "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
           "effectiveDate": "2026-09-01",
           "detectedType": "verordnung",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-09-01"
         }
       ],
       "effectiveDates": [
@@ -1410,7 +2248,9 @@
       "title": "Verfassung des Freistaates Ostdeutschland",
       "aliases": [
         "Staatsverfassung",
-        "Verfassung"
+        "Verfassung",
+        "Verfassung des Freistaates Ostdeutschland",
+        "Verfassung des Ostdeutschen Freistaates"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -1419,61 +2259,82 @@
       "sourceValidTo": null,
       "sourceSha256": null,
       "existingStemNormSlug": "staatsverfassung-des-freistaates-ostdeutschland",
-      "enactingActs": [],
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
+          "title": "Gesetz zur Einsetzung einer neuen Landesverfassung",
+          "effectiveDate": "2024-10-15",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
       "amendmentActs": [
+        {
+          "slug": "gesetz-zur-aenderung-der-landesverfassung-2025",
+          "title": "Gesetz zur Änderung der Landesverfassung",
+          "effectiveDate": "2025-03-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2025-03-12"
+        },
         {
           "slug": "gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5",
           "title": "Gesetz zur Veränderung der Verfassung zur Änderung der Verkündungsregeln und zur Einführung eines Verkündungsgesetz",
           "effectiveDate": "2026-01-28",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-01-28"
         },
         {
           "slug": "gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes",
           "title": "Gesetz zur Einführung eines Hoheitszeichengesetzes",
           "effectiveDate": "2026-03-24",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-24"
         },
         {
           "slug": "drittes-gesetz-zur-grossen-staatsreform",
           "title": "Drittes Gesetz zur Großen Staatsreform zum Zwecke der Stärkung der Staatsziele",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         },
         {
           "slug": "erstes-gesetz-zur-grossen-staatsreform",
           "title": "Erstes Gesetz zur Großen Staatsreform zum Zwecke der Neuordnung des Staatswesens",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         },
         {
           "slug": "viertes-gesetz-zur-grossen-staatsreform",
           "title": "Viertes Gesetz zur Großen Staatsreform zur Neuordnung des Bildungswesens und der Religionsverfassung",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         },
         {
           "slug": "zweites-gesetz-zur-grossen-staatsreform",
           "title": "Zweites Gesetz zur Großen Staatsreform zum Zwecke der Neuordnung der Finanzverfassung",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
+        "2025-03-12",
         "2026-01-28",
         "2026-03-24",
         "2026-07-21"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "vermessungs-und-katastergesetz",
@@ -1495,7 +2356,8 @@
           "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
           "effectiveDate": "2026-03-25",
           "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-03-25"
         }
       ],
       "effectiveDates": [
@@ -1528,7 +2390,8 @@
           "title": "Verwaltungsvorschrift des Staatsministeriums für Rechtsstaatlichkeit und Angelegenheiten des Staates zur Änderung der Verschlusssachenanweisung",
           "effectiveDate": "2026-03-28",
           "detectedType": "verwaltungsvorschrift",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-03-28"
         }
       ],
       "effectiveDates": [
@@ -1557,14 +2420,24 @@
       "enactingActs": [],
       "amendmentActs": [
         {
+          "slug": "ostdeutsches-bezirkseinfuehrungsgesetz",
+          "title": "Gesetz zur Einführung von Bezirken",
+          "effectiveDate": "2025-03-12",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2025-03-12"
+        },
+        {
           "slug": "kreis-und-bezirksneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
         }
       ],
       "effectiveDates": [
+        "2025-03-12",
         "2026-07-21"
       ],
       "status": "missing-baseline",
@@ -1594,7 +2467,8 @@
           "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
           "effectiveDate": "2026-07-01",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-01"
         }
       ],
       "effectiveDates": [
@@ -1627,7 +2501,8 @@
           "title": "Gesetz zur Einführung eines Hoheitszeichengesetzes",
           "effectiveDate": "2026-03-24",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-24"
         }
       ],
       "effectiveDates": [
@@ -1657,7 +2532,8 @@
           "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
           "effectiveDate": "2026-07-01",
           "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-01"
         }
       ],
       "effectiveDates": [
@@ -1691,7 +2567,8 @@
           "title": "Gesetz zur Stärkung des Schutzes von Wohnraum und zur Verbesserung des Vollzugs des Ostdeutschen Zweckentfremdungsverbotsgesetzes",
           "effectiveDate": "2026-03-25",
           "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-03-25"
         }
       ],
       "effectiveDates": [

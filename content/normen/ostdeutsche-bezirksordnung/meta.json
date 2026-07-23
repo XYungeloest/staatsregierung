@@ -18,14 +18,38 @@
     "Ostdeutsche",
     "Bezirksordnung"
   ],
-  "initialCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46)",
+  "initialCitation": "Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–13)",
   "predecessor": null,
   "successor": null,
   "summary": "Bestimmt Rechtsstellung, Aufgaben, Organe, Verwaltung und Aufsicht der Bezirke.",
-  "status": "future-effective",
-  "documentDate": "2026-07-20",
-  "publicationDate": "2026-07-20",
+  "status": "in-force",
+  "documentDate": "2025-03-06",
+  "publicationDate": "2025-03-12",
   "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Strukturierte Ursprungsfassung der Ostdeutschen Bezirksordnung",
+      "availability": "versioned",
+      "localSource": "Gesetze/Ostdeutsche Bezirksordnung 2025.html",
+      "mediaType": "text/html",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "pageRange": "7-13",
+      "derivedSource": "Gesetze/OGVBl I-25.pdf"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliches Original-PDF der Ursprungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl I-25.pdf",
+      "sha256": "1c8362ccf1fa1f7d7be5c6a267c38ea0dc218efe27b77402eba4de8be72521d7",
+      "mediaType": "application/pdf",
+      "pageCount": 15,
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "visual-control",
+      "pageRange": "7-13",
+      "derivedSource": "Gesetze/Ostdeutsche Bezirksordnung 2025.html"
+    },
     {
       "kind": "structured-html-transcription",
       "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
@@ -33,6 +57,10 @@
       "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
     }
   ],
-  "effectiveDate": "2026-08-01",
-  "enactingNorm": "kreis-und-bezirksneuordnungsgesetz"
+  "effectiveDate": "2025-03-12",
+  "enactingNorm": "ostdeutsches-bezirkseinfuehrungsgesetz",
+  "affectedByNorms": [
+    "sportneuordnungsgesetz",
+    "kreis-und-bezirksneuordnungsgesetz"
+  ]
 }

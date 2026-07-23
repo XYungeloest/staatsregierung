@@ -1,0 +1,117 @@
+{
+  "checkedAt": "2026-07-23",
+  "sources": [
+    {
+      "id": "ogvbl-ii-2024",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland, OGVBl Nr. II/24",
+      "localSource": "Gesetze/OGVBl II-24.pdf",
+      "mediaType": "application/pdf",
+      "sha256": "9b9b5f8d691c8f4341711a5c30b4c1ac2a03a73a00cbf915688ef8a00b91a6fd",
+      "pageCount": 32,
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl II-24.html",
+      "verifiedAt": "2026-07-23",
+      "documents": [
+        {
+          "normSlug": "verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024",
+          "title": "Verordnung über die Änderung der Oberstufen- und Abiturprüfungsverordnung",
+          "pages": "2"
+        },
+        {
+          "normSlug": "organisationserlass-aenderung-fachbereichszuteilung-2024",
+          "title": "Organisationserlass über die Änderung der Fachbereichszuteilung zu den Staatsministerien",
+          "pages": "3"
+        },
+        {
+          "normSlug": "dienstanordnung-momentane-terrorgefahr-2024",
+          "title": "Dienstanordnung anlässlich der momentanen Terrorgefahr",
+          "pages": "4"
+        },
+        {
+          "normSlug": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
+          "title": "Gesetz zur Einsetzung einer neuen Landesverfassung",
+          "pages": "5-32"
+        }
+      ]
+    },
+    {
+      "id": "ogvbl-i-2025",
+      "title": "Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland, Ausgabe 1, GVBl Nr. I/25",
+      "localSource": "Gesetze/OGVBl I-25.pdf",
+      "mediaType": "application/pdf",
+      "sha256": "1c8362ccf1fa1f7d7be5c6a267c38ea0dc218efe27b77402eba4de8be72521d7",
+      "pageCount": 15,
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl I-25.html",
+      "verifiedAt": "2026-07-23",
+      "documents": [
+        {
+          "normSlug": "organisationserlass-neueinteilung-fachbereiche-2024",
+          "title": "Organisationserlass über die Neueinteilung der Fachbereiche von Staatsministerien",
+          "pages": "2"
+        },
+        {
+          "normSlug": "bekanntmachung-verbot-sachsen-den-sachsen-deutschland-den-deutschen",
+          "title": "Bekanntmachung des Verbotes der Vereinigung „Sachsen den Sachsen, Deutschland den Deutschen e.V.“",
+          "pages": "3"
+        },
+        {
+          "normSlug": "dienstanordnung-schutz-gefluechtetenunterkuenfte-2024",
+          "title": "Dienstanordnung zum Schutze der Geflüchtetenunterkünfte im Lande",
+          "pages": "4"
+        },
+        {
+          "normSlug": "dienstanordnung-silvesternacht-2024",
+          "title": "Dienstanordnung zur Sicherung der öffentlichen Sicherheit in der Silvesternacht",
+          "pages": "5"
+        },
+        {
+          "normSlug": "organisationserlass-neugliederung-ministerien-2025",
+          "title": "Organisationserlass über die Neugliederung einiger Ministerien",
+          "pages": "6"
+        },
+        {
+          "normSlug": "ostdeutsches-bezirkseinfuehrungsgesetz",
+          "title": "Gesetz zur Einführung von Bezirken (Ostdeutsches Bezirkseinführungsgesetz)",
+          "pages": "7-14"
+        },
+        {
+          "normSlug": "gesetz-zur-aenderung-der-landesverfassung-2025",
+          "title": "Gesetz zur Änderung der Landesverfassung",
+          "pages": "15"
+        }
+      ]
+    },
+    {
+      "id": "staatsverfassung-docx",
+      "title": "Strukturtragende DOCX-Quelle der Verfassung vor den Änderungen 2026",
+      "localSource": "Gesetze/Verfassung.docx",
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "sha256": "7eec0947e070da17710b0c52dacfbe9f1b682d9c6434519b51599cf902f56590",
+      "sourceRole": "structure-bearing",
+      "derivedSources": [
+        "Gesetze/Staatsverfassung-2024.html",
+        "Gesetze/Staatsverfassung-2025.html"
+      ],
+      "verifiedAt": "2026-07-23",
+      "notes": [
+        "Das DOCX umfasst in der geprüften Word-Darstellung 37 Seiten.",
+        "Der DOCX-Titel weicht von der amtlichen PDF-Bezeichnung ab.",
+        "Artikel 114 entspricht bereits dem Änderungsstand vom 12. März 2025 und wurde für die Ursprungsfassung anhand des PDF zurückgeführt."
+      ]
+    },
+    {
+      "id": "ogvbl-i-2024",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2024 Nr. I",
+      "localSource": "Gesetze/OGVBl-03-24.pdf",
+      "mediaType": "application/pdf",
+      "sha256": "76b82af51dfd3e12e73645313a40db807205e61c5c659615890ea23ecfe58d40",
+      "pageCount": 2,
+      "sourceRole": "amendment-evidence",
+      "verifiedAt": "2026-07-23",
+      "notes": [
+        "Die ungewöhnliche äußere Gliederung Artikel 1, Artikel 2, Artikel 3 und Artikel 6 wurde gegen das Original bestätigt."
+      ]
+    }
+  ]
+}

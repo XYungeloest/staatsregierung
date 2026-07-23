@@ -132,14 +132,19 @@ test('Staatsreform, Verfassung und Verkündungen sind zum 21. Juli verknüpft', 
   const constitution = normMap.get('staatsverfassung-des-freistaates-ostdeutschland');
   assert.ok(constitution);
   assert.equal(constitution.meta.status, 'in-force');
-  const consolidatedText = JSON.stringify(constitution.versions[0].body);
+  const consolidatedText = JSON.stringify(
+    constitution.versions.find((version) => version.versionId === '2026-07-21')?.body,
+  );
   assert.match(consolidatedText, /Siebte Volkskammer ist der siebte Landtag/u);
   assert.match(consolidatedText, /Wahl zur achten Volkskammer/u);
-  assert.equal(constitution.history.initialVersionId, null);
+  assert.equal(constitution.history.initialVersionId, '2024-10-15');
   const amendments = constitution.history.entries.filter((entry) => entry.type === 'amendment');
   assert.deepEqual(
     amendments.map((entry) => entry.relatedNorm),
     [
+      'gesetz-zur-aenderung-der-landesverfassung-2025',
+      'gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5',
+      'gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes',
       'erstes-gesetz-zur-grossen-staatsreform',
       'zweites-gesetz-zur-grossen-staatsreform',
       'drittes-gesetz-zur-grossen-staatsreform',
