@@ -1,6 +1,28 @@
 {
   "baselineSnapshotDate": "2023-11-01",
   "targets": {
+    "ostdeutsche-bezirksordnung": {
+      "title": "Ostdeutsche Bezirksordnung",
+      "aliases": [
+        "Ostdeutsche Bezirksordnung"
+      ],
+      "editorialResolutions": [
+        {
+          "id": "sportneuordnung-bezirksordnung-neufassung",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-07-23",
+          "issue": "Artikel 8 bezeichnet die Bezirksordnung von 2025, setzt aber eine Aufgabenliste in § 13 und einen § 13a voraus, die erst die Neufassung 2026 besitzt.",
+          "publishedText": "Artikel 8 bezeichnet die Ostdeutsche Bezirksordnung vom 6. März 2025.",
+          "resolvedApplication": "Die Änderungen werden auf die strukturell passenden Vorschriften der ab 1. August 2026 geltenden Neufassung angewendet.",
+          "rationale": "Nur die Neufassung enthält die von den Änderungsbefehlen vorausgesetzten Zielanker.",
+          "evidence": [
+            "content/normen/sportneuordnungsgesetz/versions/2026-07-21.json",
+            "content/normen/ostdeutsche-bezirksordnung/versions/2025-03-12.json",
+            "content/normen/ostdeutsche-bezirksordnung/versions/2026-08-01.json"
+          ]
+        }
+      ]
+    },
     "ostdeutsches-feiertagsgesetz": {
       "title": "Gesetz über Sonn- und Feiertage im Ostdeutschen Freistaat",
       "aliases": [
@@ -207,6 +229,22 @@
       "snapshot": "data/recht/sources/revosax/saechsische-landkreisordnung/3264.23.html",
       "retrievedAt": "2026-07-23",
       "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89"
+      ,
+      "editorialResolutions": [
+        {
+          "id": "landkreisordnung-zielanker-paragraf-65",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-07-23",
+          "issue": "Artikel 2 des Ostdeutschen Bezirkseinführungsgesetzes nennt § 75.",
+          "publishedText": "In § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
+          "resolvedApplication": "Die Ersetzung wird in § 65 Absatz 1 Satz 1 der Landkreisordnung angewendet.",
+          "rationale": "Nur § 65 trägt die bezeichnete Aufsichtsregelung und enthält die zu ersetzende Behördenbezeichnung.",
+          "evidence": [
+            "content/normen/ostdeutsches-bezirkseinfuehrungsgesetz/versions/2025-03-06.json",
+            "data/recht/sources/revosax/saechsische-landkreisordnung/3264.23.html"
+          ]
+        }
+      ]
     },
     "saechsische-haushaltsordnung": {
       "title": "Sächsische Haushaltsordnung",
@@ -380,19 +418,76 @@
       "sourceValidTo": null,
       "snapshot": "data/recht/sources/revosax/archivgesetz/2628.7.html",
       "retrievedAt": "2026-07-23",
-      "sourceSha256": "21b97529036dc82021d4cfaa8e657d0e92e2531398fd32fc5433d2bf2d3e4a6c"
+      "sourceSha256": "21b97529036dc82021d4cfaa8e657d0e92e2531398fd32fc5433d2bf2d3e4a6c",
+      "editorialSourceResolutions": [
+        {
+          "id": "archivgesetz-doppelte-paragraf-17",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-07-23",
+          "issue": "Der REVOSax-Normkörper beschriftet die Inkrafttretensvorschrift erneut als § 17.",
+          "publishedText": "§ 17 Inkrafttreten",
+          "resolvedApplication": "Die Inkrafttretensvorschrift wird in der konsolidierten Fassung als § 19 geführt.",
+          "rationale": "Das Änderungsgesetz vom 18. Dezember 2013 ordnet die Umnummerierung des bisherigen § 17 zu § 19 sowie die Einfügung neuer §§ 17 und 18 an; die Inhaltsübersicht bestätigt §§ 1 bis 19.",
+          "evidence": [
+            "data/recht/sources/revosax/archivgesetz/2628.7.html",
+            "Gesetz zur Änderung des Archivgesetzes vom 18. Dezember 2013"
+          ],
+          "operation": "relabelProvision",
+          "target": {
+            "type": "paragraph",
+            "label": "§ 17",
+            "title": "Inkrafttreten"
+          },
+          "resolvedLabel": "§ 19"
+        }
+      ]
+    },
+    "ostdeutsches-polizeivollzugsdienstgesetz": {
+      "title": "Sächsisches Polizeivollzugsdienstgesetz",
+      "resultShortTitle": "Ostdeutsches Polizeivollzugsdienstgesetz",
+      "aliases": [
+        "Sächsisches Polizeivollzugsdienstgesetz",
+        "Ostdeutsches Polizeivollzugsdienstgesetz"
+      ],
+      "revosaxLawId": "18193",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Sicherheit und Ordnung"
+        ],
+        "keywords": [
+          "Polizeivollzugsdienst",
+          "Polizei",
+          "unmittelbarer Zwang"
+        ],
+        "summary": "Regelt Aufgaben, Befugnisse und Organisation des Polizeivollzugsdienstes sowie Maßnahmen des unmittelbaren Zwangs."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18193.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2020-01-01",
+      "sourceValidTo": "2024-07-29",
+      "snapshot": "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501",
+      "editorialResolutions": [
+        {
+          "id": "schmerzgriffe-zielnorm-und-paragraf",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-07-23",
+          "issue": "Das Änderungsgesetz bezeichnet das außer Kraft getretene Polizeigesetz und § 32a.",
+          "publishedText": "Änderung des Polizeigesetzes; Einfügung eines § 32a.",
+          "resolvedApplication": "Der materielle Wortlaut wird als § 41a nach § 41 in das Polizeivollzugsdienstgesetz eingefügt.",
+          "rationale": "Die redaktionelle Entscheidung ordnet Zielnorm und Einordnungsstelle verbindlich dem geltenden Polizeivollzugsdienstgesetz zu.",
+          "evidence": [
+            "content/normen/gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe/versions/2026-03-23.json",
+            "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html"
+          ]
+        }
+      ]
     }
   },
   "blockedTargets": {
-    "archivgesetz": {
-      "reason": "Die REVOSax-Fassung 2628.7 nennt im Inhaltsverzeichnis § 19 „Inkrafttreten“ und weist in der Änderungshistorie die Umnummerierung des bisherigen § 17 zu § 19 nach. HTML-Normkörper und zugehörige PDF beschriften dieselbe Vorschrift dagegen erneut als § 17. Bis zur amtlichen Klärung wird aus dieser intern widersprüchlichen Ausgangsfassung keine Konsolidierung erzeugt."
-    },
-    "saechsisches-polizeigesetz": {
-      "reason": "Das bezeichnete Sächsische Polizeigesetz war am Ausgangsstichtag bereits außer Kraft. Die Änderung belegt keine Wiederinkraftsetzung und keine eindeutige Zuordnung zu SächsPVDG oder SächsPBG."
-    },
-    "saechsische-landkreisordnung": {
-      "reason": "Artikel 2 des nun vollständig vorliegenden Ostdeutschen Bezirkseinführungsgesetzes vom 6. März 2025 ändert § 75 der Landkreisordnung vom 9. März 2018. Die gesicherte REVOSax-Ausgangsfassung zum 1. November 2023 besitzt jedoch keinen § 75 und enthält den erwarteten alten Wortlaut nicht. Offen ist damit nur noch die Identität beziehungsweise vollständige Ausgangsfassung der bezeichneten 2018er Norm; ein § 75 wird nicht frei eingefügt."
-    },
     "mustergesetz": {
       "reason": "Der im NDR-Staatsvertrag enthaltene Text „Mustergesetz vom TT. MMMM JJJJ“ ist eine unausgefüllte Quellenvorlage und keine reale Zielnorm."
     }

@@ -870,6 +870,10 @@ const consolidationManagedSources = new Map([
     'Ostdeutsches Feiertagsgesetz.md',
     'durch vollständige, quellengesicherte Fassungsfolge aus REVOSax-Snapshot und Änderungsvorschriften ersetzt',
   ],
+  [
+    'Sächsische Landkreisordnung.md',
+    'durch vollständige, quellengesicherte Fassungsfolge aus REVOSax-Snapshot und redaktionell geprüften Änderungsvorschriften ersetzt',
+  ],
 ]);
 
 const existingAuditRecords = await loadExistingAuditRecords();

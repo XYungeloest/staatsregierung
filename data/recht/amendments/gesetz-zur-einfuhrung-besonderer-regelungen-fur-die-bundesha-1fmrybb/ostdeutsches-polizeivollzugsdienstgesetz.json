@@ -1,0 +1,26 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+  "effectiveDate": "2026-03-25",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 26)",
+  "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), zuletzt geändert durch Artikel 3 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 26)",
+  "changeNote": "Für Berlin wurde eine Polizeidirektion mit großstadtspezifischer Organisation vorgesehen.",
+  "sourceReferences": [{"kind":"amendment-source","label":"OGVBl. 2026 Nr. 26","availability":"versioned","localSource":"Gesetze/OGVBl. 2026 Nr. 26.html"}],
+  "operations": [
+    {
+      "op": "insertParagraph",
+      "target": {"type":"paragraph","label":"§ 97"},
+      "expectedHash": "b85a7a47b49c2fe78134c799f2c2395fe86d9714378d9b23ae8cc3da718b0ac8",
+      "expectedMatches": 1,
+      "position": "end",
+      "value": {
+        "type": "subparagraph",
+        "label": "(3)",
+        "text": "Für das Gebiet der Bundeshauptstadt Berlin ist eine Polizeidirektion Berlin einzurichten. Sie soll in ihrer inneren Organisation so gegliedert werden, dass eine flächendeckende Präsenz sowie eine wirksame Führung in Großschadenslagen, bei Großveranstaltungen und in kriminalitätsbelasteten Räumen gewährleistet sind.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 3 Nummer 1",
+      "effectiveDate": "2026-03-25"
+    }
+  ]
+}

@@ -31,6 +31,8 @@ export default defineConfig({
   redirects: {
     '/presse/termine/einbringung-kreis-und-bezirksreform-2027/':
       '/presse/termine/einbringung-kreis-und-bezirksreform-2026/',
+    '/recht/norm/sachsische-landkreisordnung/':
+      '/recht/norm/saechsische-landkreisordnung/',
   },
   session: {
     // Phase 1 verwendet keine serverseitigen Sessions.

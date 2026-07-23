@@ -21,13 +21,13 @@ Belegt:
   wurden am 23. Juli 2026 vollständig gerendert und visuell geprüft. Die elf enthaltenen
   Dokumente liegen nun als redaktionell geprüfte strukturierte HTML-Transkriptionen und
   eigenständige Normdatensätze vor.
-- Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
+- Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
-- Der Konsolidierungs-Audit erkennt derzeit 72 Zielnormen einschließlich explizit verknüpfter
-  neu eingeführter Stammnormen. Für 35 davon ist die maßgebliche Primärquelle noch nicht als
-  unveränderter Snapshot versioniert. Vier weitere Zielnormen sind
-  wegen eines konkret benannten Quellenkonflikts gesperrt. Die vollständige Liste mit
+- Der Konsolidierungs-Audit erkennt derzeit 71 Zielnormen einschließlich explizit verknüpfter
+  neu eingeführter Stammnormen. Für 34 davon ist die maßgebliche Primärquelle noch nicht als
+  unveränderter Snapshot versioniert. Kein Ziel ist derzeit wegen eines Quellenkonflikts
+  gesperrt; redaktionell aufgelöste Abweichungen bleiben gesondert ausgewiesen. Die vollständige Liste mit
   Änderungsvorschriften und nächstem Quellenschritt steht in
   `data/recht/consolidation-manifest.json`.
 - Der NDR-Änderungs- und Überleitungsstaatsvertrag enthält eine unausgefüllte
@@ -147,12 +147,10 @@ Belegt:
   lokalen Originals den 14. Juli 1992 und der Vertragstext den 9. April 1992 als Abschlussdatum.
 - Die lokale Entwurfsdatei zu Drucksache 07/27 nennt den 15. Juli 2025, obwohl der Vorgang der
   siebten Wahlperiode im Juli 2026 zugeordnet ist.
-- Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt außerdem eine durch Artikel 2 des
-  Gesetzes zur Einführung von Bezirken vom 6. März 2025 geänderte Landkreisordnung voraus. Die
-  gesicherte REVOSax-Ausgangsfassung zum 1. November 2023 enthält den im Änderungsgesetz
-  vorausgesetzten § 75 nicht. Der Änderungsbefehl von 2025 ist nun vollständig belegt; offen
-  bleibt die dazu passende vollständige Ausgangsfassung beziehungsweise die Identität der
-  bezeichneten Landkreisordnung vom 9. März 2018.
+- Redaktionelle Entscheidung vom 23. Juli 2026: Der in Artikel 2 des Gesetzes zur Einführung
+  von Bezirken verkündete Zielanker „§ 75“ wird bei der Konsolidierung als § 65 Absatz 1 Satz 1
+  der Landkreisordnung behandelt. Nur § 65 enthält die bezeichnete Aufsichtsregelung und den
+  ersetzbaren Behördennamen. Der verkündete Wortlaut des Änderungsgesetzes bleibt unverändert.
 - Das DOCX bezeichnet die Verfassung als „Verfassung des Freistaates Ostdeutschland“ und enthält
   bereits die Änderung von Artikel 114 aus dem Jahr 2025. Das PDF OGVBl. II/2024 bezeichnet die
   Ursprungsfassung dagegen als „Verfassung des Ostdeutschen Freistaates“ und enthält Artikel 114
@@ -176,15 +174,17 @@ Belegt:
   nummerierte Liste ausweist. Die konsolidierte Entfernung beruht auf dem vollständig zitierten
   Wortlaut des späteren Änderungsgesetzes; die abweichende Gliederungsbezeichnung bleibt hier
   dokumentiert.
-- Das Gesetz zur Regelung der Schmerzgriffe bezeichnet das bereits vor dem Ausgangsstichtag
-  außer Kraft getretene Sächsische Polizeigesetz als Ziel. Die Quelle belegt weder ein
-  Wiederinkrafttreten noch eine eindeutige Zuordnung zum Sächsischen
-  Polizeivollzugsdienstgesetz oder Polizeibehördengesetz.
+- Redaktionelle Entscheidung vom 23. Juli 2026: Der materielle Wortlaut des Gesetzes zur
+  Regelung der Schmerzgriffe wird als § 41a in das Polizeivollzugsdienstgesetz eingeordnet.
+  Die verkündeten Angaben „Polizeigesetz“ und „§ 32a“ bleiben im Änderungsgesetz unverändert;
+  das außer Kraft getretene Polizeigesetz wird nicht wieder in Kraft gesetzt.
 - Die am 1. November 2023 geltende REVOSax-Fassung 2628.7 des Archivgesetzes nennt in
   Inhaltsübersicht und Änderungshinweis § 19 als Inkrafttretensvorschrift. Der Normkörper der
   amtlichen HTML-Seite und die zugehörige REVOSax-PDF beschriften dieselbe Vorschrift dagegen
-  erneut als § 17. Der unveränderte HTML-Snapshot ist mit SHA-256 versioniert; wegen der doppelten
-  Paragraphenkennzeichnung wird keine Ausgangsfassung in den Normbestand übernommen.
+  erneut als § 17. Redaktionelle Entscheidung vom 23. Juli 2026: Der unveränderte HTML-Snapshot
+  bleibt erhalten; die konsolidierte Ausgangsfassung führt diese Vorschrift als § 19. Beleg sind
+  die ausdrückliche Umnummerierung des bisherigen § 17 und die Einfügung der neuen §§ 17 und 18
+  durch das Änderungsgesetz vom 18. Dezember 2013.
 
 Schlussfolgerung:
 
@@ -203,10 +203,10 @@ Schlussfolgerung:
   Ablauf des 31. Juli 2026. Zum 1. August 2026 wird sie durch Artikel 2 des Kreis- und
   Bezirksneuordnungsgesetzes vollständig abgelöst; Artikel 8 des Sportneuordnungsgesetzes wird
   entsprechend der ausdrücklich geklärten zeitlichen Zuordnung auf diese Neufassung angewendet.
-  Beide Änderungen sind derselben vollständigen Folgefassung zugeordnet.
-- Die Landkreisordnung, das bezeichnete alte Polizeigesetz und das Archivgesetz bleiben im
-  Konsolidierungsmanifest `blocked-source-conflict`. Aus einem fehlenden Zielanker oder
-  widersprüchlicher interner Gliederung wird dort keine konsolidierte Folgefassung abgeleitet.
+  Die Abweichung wird als `resolved-source-conflict` ausgewiesen und nicht als konfliktfreie
+  Quellenlage dargestellt.
+- Archivgesetz, Landkreisordnung und Schmerzgriffregelung sind nicht mehr blockiert. Die
+  redaktionellen Entscheidungen sind in Manifest, Provenienz und Patch-Rezepten dokumentiert.
 
 ## 5. Nächster Aktualisierungsschritt
 
@@ -222,6 +222,5 @@ Schlussfolgerung:
    REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
    sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten
    prüfen.
-6. Die Identität der Landkreisordnung vom 9. März 2018 amtlich klären.
-7. Die amtliche Kennzeichnung der Inkrafttretensvorschrift des Archivgesetzes bei REVOSax klären;
-   erst danach die Ausgangsfassung 2628.7 konsolidieren.
+6. Weitere unabhängig offene Stammnormquellen anhand der im Konsolidierungsbericht
+   priorisierten Liste sichern und konsolidieren.

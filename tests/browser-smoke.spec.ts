@@ -359,8 +359,13 @@ test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änd
   await page.goto('/recht/norm/ostdeutsches-feiertagsgesetz/');
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
-  await expect(versionNavigation.getByRole('link', { name: /Geltende Fassung/u })).toBeVisible();
-  await expect(versionNavigation.getByRole('link', { name: /Historische Fassung/u })).toHaveCount(2);
+  await expect(versionNavigation.locator('.norm-version-navigation__primary > li')).toHaveCount(3);
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 21. Juli 2026');
+  await versionNavigation.locator('.norm-version-picker').evaluate((details: HTMLDetailsElement) => {
+    details.open = true;
+  });
+  await expect(versionNavigation.locator('.norm-version-picker a')).toHaveCount(3);
+  await expect(versionNavigation.locator('.norm-version-picker a[aria-current="page"]')).toHaveCount(1);
   await expect(page.locator('details.norm-unit')).toHaveCount(13);
 
   await versionNavigation.getByRole('link', { name: 'Normenhistorie' }).click();
@@ -377,6 +382,15 @@ test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änd
   await expect(page.locator('[data-compare-from] option')).toHaveCount(3);
   await expect(page.locator('[data-compare-to] option')).toHaveCount(3);
   await expect(page.locator('[data-compare-pair]:not([hidden])')).toBeVisible();
+  await expect(page.locator('[data-compare-pair]:not([hidden]) .norm-diff__change').first()).toContainText('Bisher');
+  await expect(page.locator('[data-compare-pair]:not([hidden]) .norm-diff__change').first()).toContainText('Neu');
+  await expect(page.locator('[data-compare-pair]:not([hidden]) del').first()).toBeVisible();
+  await expect(page.locator('[data-compare-pair]:not([hidden]) ins').first()).toBeVisible();
+
+  await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
+  await expect(page.locator('.norm-subparagraph__label').first()).toHaveCSS('font-weight', '400');
+  await expect(page.locator('.norm-amendment-item__label').first()).toHaveCSS('font-weight', '400');
+  await expect(page.locator('.norm-unit__label').first()).toHaveCSS('font-weight', '750');
 
   await page.goto('/recht/norm/gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland/');
   await expect(

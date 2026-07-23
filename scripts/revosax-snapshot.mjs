@@ -129,6 +129,10 @@ async function auditSnapshots() {
   const targets = target ? [[target, requireTarget(config)]] : Object.entries(config.targets);
   const failures = [];
   for (const [slug, configuredTarget] of targets) {
+    if (!configuredTarget.snapshot && configuredTarget.editorialResolutions?.length) {
+      console.log(`${slug}: redaktionelle Quellenauflösung ohne REVOSax-Ausgangssnapshot dokumentiert`);
+      continue;
+    }
     const sources = snapshotId
       ? [[snapshotId, requireConfiguredSource(configuredTarget)]]
       : [['baseline', configuredTarget], ...(configuredTarget.adoptedSources ?? []).map((entry) => [entry.id, entry])];

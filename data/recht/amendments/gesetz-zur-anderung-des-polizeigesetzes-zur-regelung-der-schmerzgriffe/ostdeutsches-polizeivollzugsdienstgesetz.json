@@ -1,0 +1,48 @@
+{
+  "amendmentAct": "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe",
+  "effectiveDate": "2026-03-24",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 24)",
+  "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 24)",
+  "changeNote": "Die Schmerzgriffregelung wurde redaktionell geklärt als § 41a in das Polizeivollzugsdienstgesetz eingeordnet.",
+  "editorialResolution": {
+    "id": "schmerzgriffe-zielnorm-und-paragraf",
+    "publishedTarget": "Polizeigesetz des Freistaates Sachsen, § 32a",
+    "resolvedTarget": "Ostdeutsches Polizeivollzugsdienstgesetz, § 41a",
+    "decisionDate": "2026-07-23"
+  },
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 24",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 24.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 41"
+      },
+      "expectedHash": "410d096b7528ac9815fa7965f1eeb3921cb1878c0f4f905fb83b068732ff0880",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 41a",
+        "title": "Schmerzgriffe",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Nervendruck-, Druckpunkt- oder Quetschtechniken oder solche die ihnen ähneln, deren Zweck oder vorhersehbare Wirkung die Zufügung erheblicher Schmerzen ist (Schmerzgriffe), stellen besonders eingriffsintensive Maßnahmen des unmittelbaren Zwangs dar und sind deshalb unzulässig.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 24.html",
+      "sourceProvision": "Artikel 1 Nummer 4; redaktionell geklärte Einordnung § 41a",
+      "effectiveDate": "2026-03-24"
+    }
+  ]
+}

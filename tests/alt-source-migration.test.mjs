@@ -158,17 +158,19 @@ test('Sportänderung gilt ab 1. August für die neue Bezirksordnung', async () =
   );
 });
 
-test('Landkreis-, Archiv- und Polizeikonflikte bleiben quellengebunden blockiert', async () => {
+test('Landkreis-, Archiv- und Polizeikonflikte sind redaktionell aufgelöst und bleiben transparent', async () => {
   const [manifest, countyBaseline] = await Promise.all([
     readJson('data/recht/consolidation-manifest.json'),
     readJson('data/recht/parsed/revosax/saechsische-landkreisordnung.json'),
   ]);
   const bySlug = new Map(manifest.targets.map((entry) => [entry.canonicalSlug, entry]));
-  assert.equal(bySlug.get('saechsische-landkreisordnung')?.status, 'blocked-source-conflict');
-  assert.match(bySlug.get('saechsische-landkreisordnung')?.problems.join(' ') ?? '', /§ 75/u);
+  assert.equal(bySlug.get('saechsische-landkreisordnung')?.status, 'complete');
+  assert.equal(bySlug.get('saechsische-landkreisordnung')?.editorialResolutions[0].status, 'resolved-source-conflict');
   assert.equal(flatten(countyBaseline.body).some((block) => block.label === '§ 75'), false);
-  assert.equal(bySlug.get('archivgesetz')?.status, 'blocked-source-conflict');
-  assert.equal(bySlug.get('saechsisches-polizeigesetz')?.status, 'blocked-source-conflict');
+  assert.equal(bySlug.get('archivgesetz')?.status, 'complete');
+  assert.equal(bySlug.get('archivgesetz')?.editorialResolutions[0].status, 'resolved-source-conflict');
+  assert.equal(bySlug.get('ostdeutsches-polizeivollzugsdienstgesetz')?.status, 'complete');
+  assert.equal(bySlug.has('saechsisches-polizeigesetz'), false);
   assert.notEqual(bySlug.get('ostdeutsche-bezirksordnung')?.status, 'blocked-source-conflict');
 });
 

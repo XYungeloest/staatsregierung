@@ -2761,7 +2761,8 @@ article.panel > p:last-child > a.inline-link:hover {
 .norm-label,
 .norm-unit__label {
   margin: 0 0 0.3rem;
-  color: var(--color-text-muted);
+  color: var(--color-heading);
+  font-weight: 750;
 }
 
 .norm-division--part,
@@ -2804,8 +2805,9 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .norm-subparagraph__label {
   min-width: 2rem;
-  color: var(--color-primary);
-  font-weight: 700;
+  color: var(--color-ink);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
 }
 
 .norm-text__children,
@@ -2854,8 +2856,8 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .norm-amendment-item__label {
-  color: var(--color-primary);
-  font-weight: 700;
+  color: var(--color-ink);
+  font-weight: 400;
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
@@ -2874,12 +2876,12 @@ article.panel > p:last-child > a.inline-link:hover {
 }
 
 .norm-amendment-item__children .norm-amendment-item__label {
-  color: var(--color-text-muted);
-  font-weight: 600;
+  color: var(--color-ink);
+  font-weight: 400;
 }
 
 .norm-amendment-item__children .norm-amendment-item__children .norm-amendment-item__label {
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .norm-quoted-provision {
@@ -2909,8 +2911,8 @@ article.panel > p:last-child > a.inline-link:hover {
 
 .norm-quoted-unit__label {
   margin: 0 0 0.2rem;
-  color: var(--color-primary);
-  font-weight: 700;
+  color: var(--color-heading);
+  font-weight: 750;
 }
 
 .norm-quoted-provision .norm-unit,

@@ -92,11 +92,52 @@ function snapshotReference(source) {
   };
 }
 
+function applyEditorialSourceResolutions(slug, parsed, resolutions = []) {
+  const body = structuredClone(parsed.body);
+  const walk = (blocks, visitor) => {
+    for (const block of blocks) {
+      visitor(block);
+      if (block.children) walk(block.children, visitor);
+    }
+  };
+  for (const resolution of resolutions) {
+    if (resolution.operation !== 'relabelProvision') {
+      throw new Error(`${slug}: unbekannte redaktionelle Quellenauflösung ${resolution.operation}`);
+    }
+    const matches = [];
+    walk(body, (block) => {
+      if (block.type === resolution.target.type &&
+          block.label === resolution.target.label &&
+          block.title === resolution.target.title) matches.push(block);
+    });
+    if (matches.length !== 1) {
+      throw new Error(`${slug}/${resolution.id}: ${matches.length} statt genau einer Quelleneinheit gefunden`);
+    }
+    matches[0].label = resolution.resolvedLabel;
+  }
+  return { ...parsed, body };
+}
+
+function publicEditorialResolutions(source) {
+  return [...(source.editorialResolutions ?? []), ...(source.editorialSourceResolutions ?? [])]
+    .map(({ id, status, decisionDate, issue, publishedText, resolvedApplication, rationale, evidence }) => ({
+      id,
+      status,
+      decisionDate,
+      issue,
+      publishedText,
+      resolvedApplication,
+      rationale,
+      evidence,
+    }));
+}
+
 async function consolidate(slug, config) {
   const source = config.targets[slug];
   if (!source?.snapshot || !source.sourceSha256) throw new Error(`${slug}: geprüfter REVOSax-Snapshot fehlt`);
   const snapshot = await readFile(resolve(ROOT, source.snapshot), 'utf8');
-  const parsed = parseRevosaxSnapshot(snapshot, { url: source.baselineUrl });
+  const rawParsed = parseRevosaxSnapshot(snapshot, { url: source.baselineUrl });
+  const parsed = applyEditorialSourceResolutions(slug, rawParsed, source.editorialSourceResolutions);
   const baselineCitation = source.baselineCitation ?? parsed.fullCitation;
   const recipes = await Promise.all((await recipeFiles(slug)).map(async (path) => ({
     ...await readJson(path),
@@ -271,6 +312,9 @@ async function consolidate(slug, config) {
       ...adoptedSources.map(({ source: adoptedSource }) => snapshotReference(adoptedSource)),
       ...recipes.flatMap((recipe) => recipe.sourceReferences ?? []),
     ],
+    editorialResolutions: publicEditorialResolutions(source).length
+      ? publicEditorialResolutions(source)
+      : meta.editorialResolutions,
   };
   const history = {
     ...existingHistory,

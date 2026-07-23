@@ -134,6 +134,18 @@ Overlay stellt die Lesbarkeit des Hero-Texts sicher.
 
 ## Fach- und Rechtsseiten
 
+Die Fassungsnavigation trennt die dauerhaften Hauptansichten „Vorschrift“,
+„Normenhistorie“ und „Fassungsvergleich“ von den gespeicherten Fassungen. Die
+Fassungen stehen in einem kompakten, ohne JavaScript bedienbaren
+`details`-Wähler und sind nach geltend, historisch, zukünftig und ungeklärtem
+Inkrafttreten gruppiert. Im Fassungsvergleich werden größere Änderungen
+strukturell und satzweise als getrennte Blöcke „Bisher“ und „Neu“ dargestellt;
+Ein-Wort-Wechsel sind nicht die Standarddarstellung.
+
+Paragraphen- und Artikelüberschriften bleiben typografisch hervorgehoben.
+Absatz-, Nummern- und Buchstabenkennzeichnungen gehören dagegen zum Fließtext
+und verwenden normales Schriftgewicht bei fester Labelspalte.
+
 Fachseiten verwenden denselben Kopf, dieselben Tokens und dieselbe Servicezone wie die
 Startseite, behalten aber ihre inhaltlich geeigneten Strukturen. Das Rechtsportal priorisiert
 Lesbarkeit, Gliederung, zitierfähige Normtexte und stabile Verlinkung. Verkündungen, Fundstellen und

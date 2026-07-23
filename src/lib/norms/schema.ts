@@ -81,6 +81,17 @@ export interface NormSourceNote {
   text: string;
 }
 
+export interface NormEditorialResolution {
+  id: string;
+  status: 'resolved-source-conflict';
+  decisionDate: string;
+  issue: string;
+  publishedText: string;
+  resolvedApplication: string;
+  rationale: string;
+  evidence: string[];
+}
+
 export interface NormMeta {
   id: string;
   slug: string;
@@ -114,6 +125,7 @@ export interface NormMeta {
   expiryDate?: string;
   dateNote?: string;
   sourceReferences?: NormSourceReference[];
+  editorialResolutions?: NormEditorialResolution[];
 }
 
 export interface NormBodyBlock {
@@ -328,6 +340,20 @@ function parseNormSourceNote(value: unknown, path: string): NormSourceNote {
   return {
     label: expectString(object.label, `${path}.label`),
     text: expectString(object.text, `${path}.text`),
+  };
+}
+
+function parseEditorialResolution(value: unknown, path: string): NormEditorialResolution {
+  const object = expectObject(value, path);
+  return {
+    id: expectSlug(object.id, `${path}.id`),
+    status: expectEnumValue(object.status, `${path}.status`, ['resolved-source-conflict'] as const),
+    decisionDate: expectIsoDate(object.decisionDate, `${path}.decisionDate`),
+    issue: expectString(object.issue, `${path}.issue`),
+    publishedText: expectString(object.publishedText, `${path}.publishedText`),
+    resolvedApplication: expectString(object.resolvedApplication, `${path}.resolvedApplication`),
+    rationale: expectString(object.rationale, `${path}.rationale`),
+    evidence: expectStringArray(object.evidence, `${path}.evidence`),
   };
 }
 
@@ -621,6 +647,16 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
           if (!Array.isArray(object.sourceReferences)) fail(`${path}.sourceReferences`, 'muss ein Array sein');
           return object.sourceReferences.map((entry, index) =>
             parseNormSourceReference(entry, `${path}.sourceReferences[${index}]`),
+          );
+        })(),
+    editorialResolutions: object.editorialResolutions === undefined
+      ? undefined
+      : (() => {
+          if (!Array.isArray(object.editorialResolutions)) {
+            fail(`${path}.editorialResolutions`, 'muss ein Array sein');
+          }
+          return object.editorialResolutions.map((entry, index) =>
+            parseEditorialResolution(entry, `${path}.editorialResolutions[${index}]`),
           );
         })(),
   };

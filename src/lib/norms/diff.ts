@@ -12,6 +12,7 @@ export interface NormDiffUnit {
   afterText?: string;
   kind: NormDiffKind;
   textDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
+  sentenceChanges?: Array<{ before?: string; after?: string; kind: NormDiffKind }>;
 }
 
 interface FlatUnit {
@@ -22,16 +23,13 @@ interface FlatUnit {
   text: string;
 }
 
-const UNIT_TYPES = new Set(['paragraph', 'article', 'section', 'subsection', 'annex']);
+const UNIT_TYPES = new Set([
+  'paragraph', 'article', 'section', 'subsection', 'annex', 'subparagraph',
+  'paragraphText', 'item', 'subitem', 'tableRow', 'tableCell', 'tableHeaderCell',
+]);
 
-function collectText(block: NormBodyBlock, quoted = false): string {
-  return [
-    block.text,
-    ...(block.children?.flatMap((child) => {
-      if (!quoted && UNIT_TYPES.has(child.type)) return [];
-      return collectText(child, quoted || child.type === 'quotedProvision');
-    }) ?? []),
-  ]
+function directText(block: NormBodyBlock): string {
+  return [block.text]
     .filter(Boolean)
     .join('\n')
     .replace(/\s+/gu, ' ')
@@ -42,15 +40,16 @@ export function flattenVersionUnits(version: Pick<NormVersion, 'body'>): FlatUni
   const units: FlatUnit[] = [];
   const occurrence = new Map<string, number>();
 
-  function visit(blocks: NormBodyBlock[], quoted = false): void {
-    for (const block of blocks) {
+  function visit(blocks: NormBodyBlock[], path: string[] = [], quoted = false): void {
+    for (const [index, block] of blocks.entries()) {
       if (block.type === 'quotedProvision') {
         continue;
       }
 
       if (!quoted && UNIT_TYPES.has(block.type)) {
         const label = block.label ?? '';
-        const base = `${block.type}:${label || block.title || 'ohne-bezeichnung'}`;
+        const identity = label || block.title || `${block.type}-${index + 1}`;
+        const base = [...path, `${block.type}:${identity}`].join('/');
         const count = (occurrence.get(base) ?? 0) + 1;
         occurrence.set(base, count);
         units.push({
@@ -58,16 +57,46 @@ export function flattenVersionUnits(version: Pick<NormVersion, 'body'>): FlatUni
           type: block.type,
           label,
           title: block.title ?? '',
-          text: collectText(block),
+          text: directText(block),
         });
       }
 
-      if (block.children) visit(block.children, quoted);
+      if (block.children) {
+        const parentIdentity = block.label || block.title || `${block.type}-${index + 1}`;
+        visit(block.children, [...path, `${block.type}:${parentIdentity}`], quoted);
+      }
     }
   }
 
   visit(version.body);
   return units;
+}
+
+export function segmentSentences(value: string): string[] {
+  const normalized = value.replace(/\s+/gu, ' ').trim();
+  if (!normalized) return [];
+  if (typeof Intl !== 'undefined' && 'Segmenter' in Intl) {
+    return [...new Intl.Segmenter('de', { granularity: 'sentence' }).segment(normalized)]
+      .map((entry) => entry.segment.trim())
+      .filter(Boolean);
+  }
+  return normalized.match(/.+?(?:[.!?](?=\s|$)|$)/gu)?.map((entry) => entry.trim()).filter(Boolean) ?? [normalized];
+}
+
+export function diffSentences(
+  before: string,
+  after: string,
+): Array<{ before?: string; after?: string; kind: NormDiffKind }> {
+  const left = segmentSentences(before);
+  const right = segmentSentences(after);
+  return Array.from({ length: Math.max(left.length, right.length) }, (_, index) => {
+    const beforeSentence = left[index];
+    const afterSentence = right[index];
+    if (beforeSentence === afterSentence) return { before: beforeSentence, after: afterSentence, kind: 'unchanged' };
+    if (beforeSentence === undefined) return { after: afterSentence, kind: 'added' };
+    if (afterSentence === undefined) return { before: beforeSentence, kind: 'removed' };
+    return { before: beforeSentence, after: afterSentence, kind: 'changed' };
+  });
 }
 
 function tokenize(value: string): string[] {
@@ -164,7 +193,7 @@ export function buildStructuralVersionDiff(
       beforeText: beforeUnit!.text,
       afterText: afterUnit!.text,
       kind: titleChanged || textChanged ? 'changed' : 'unchanged',
-      textDiff: textChanged ? diffWords(beforeUnit!.text, afterUnit!.text) : undefined,
+      sentenceChanges: textChanged ? diffSentences(beforeUnit!.text, afterUnit!.text) : undefined,
     };
   });
 }

@@ -1,0 +1,63 @@
+{
+  "id": "archivgesetz",
+  "slug": "archivgesetz",
+  "title": "Archivgesetz für den Freistaat Sachsen",
+  "shortTitle": "Archivgesetz für den Freistaat Ostdeutschland",
+  "abbr": "SächsArchivG",
+  "shortTitleSource": "official",
+  "type": "gesetz",
+  "enactingBody": "Sächsischer Landtag",
+  "subjects": [
+    "Verwaltungsrecht"
+  ],
+  "keywords": [
+    "Archivwesen",
+    "Archivgut",
+    "Staatsarchiv",
+    "Archivgesetz für den Freistaat Sachsen",
+    "SächsArchivG"
+  ],
+  "summary": "Regelt die Archivierung, Sicherung und Nutzung von Unterlagen und Archivgut bei staatlichen und sonstigen öffentlichen Archiven.",
+  "initialCitation": "Archivgesetz für den Freistaat Sachsen vom 17. Mai 1993 (SächsGVBl. S. 449), das zuletzt durch Artikel 2 Absatz 3 des Gesetzes vom 19. August 2022 (SächsGVBl. S. 486) geändert worden ist",
+  "predecessor": null,
+  "successor": null,
+  "status": "in-force",
+  "documentDate": "1993-05-17",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2023-01-01",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/archivgesetz/2628.7.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/2628.7",
+      "retrievedAt": "2026-07-23",
+      "sha256": "21b97529036dc82021d4cfaa8e657d0e92e2531398fd32fc5433d2bf2d3e4a6c",
+      "lawId": "2628",
+      "sourceValidFrom": "2023-01-01"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 32",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 32.html"
+    }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "archivgesetz-doppelte-paragraf-17",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-07-23",
+      "issue": "Der REVOSax-Normkörper beschriftet die Inkrafttretensvorschrift erneut als § 17.",
+      "publishedText": "§ 17 Inkrafttreten",
+      "resolvedApplication": "Die Inkrafttretensvorschrift wird in der konsolidierten Fassung als § 19 geführt.",
+      "rationale": "Das Änderungsgesetz vom 18. Dezember 2013 ordnet die Umnummerierung des bisherigen § 17 zu § 19 sowie die Einfügung neuer §§ 17 und 18 an; die Inhaltsübersicht bestätigt §§ 1 bis 19.",
+      "evidence": [
+        "data/recht/sources/revosax/archivgesetz/2628.7.html",
+        "Gesetz zur Änderung des Archivgesetzes vom 18. Dezember 2013"
+      ]
+    }
+  ]
+}

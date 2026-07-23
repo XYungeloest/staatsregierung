@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-23T12:12:40.506Z",
+  "generatedAt": "2026-07-23T13:51:55.929Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
     "recognizedAmendmentActs": 54,
-    "recognizedTargetNorms": 72,
-    "completeTargetNorms": 34,
-    "blockedSourceConflicts": 3,
-    "missingPrimarySources": 35
+    "recognizedTargetNorms": 71,
+    "completeTargetNorms": 37,
+    "blockedSourceConflicts": 0,
+    "missingPrimarySources": 34
   },
   "templateProblems": [
     "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
@@ -31,6 +31,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -67,7 +68,22 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": null,
       "sourceSha256": "21b97529036dc82021d4cfaa8e657d0e92e2531398fd32fc5433d2bf2d3e4a6c",
-      "existingStemNormSlug": null,
+      "editorialResolutions": [
+        {
+          "id": "archivgesetz-doppelte-paragraf-17",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-07-23",
+          "issue": "Der REVOSax-Normkörper beschriftet die Inkrafttretensvorschrift erneut als § 17.",
+          "publishedText": "§ 17 Inkrafttreten",
+          "resolvedApplication": "Die Inkrafttretensvorschrift wird in der konsolidierten Fassung als § 19 geführt.",
+          "rationale": "Das Änderungsgesetz vom 18. Dezember 2013 ordnet die Umnummerierung des bisherigen § 17 zu § 19 sowie die Einfügung neuer §§ 17 und 18 an; die Inhaltsübersicht bestätigt §§ 1 bis 19.",
+          "evidence": [
+            "data/recht/sources/revosax/archivgesetz/2628.7.html",
+            "Gesetz zur Änderung des Archivgesetzes vom 18. Dezember 2013"
+          ]
+        }
+      ],
+      "existingStemNormSlug": "archivgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -82,11 +98,9 @@
       "effectiveDates": [
         "2026-07-01"
       ],
-      "status": "blocked-source-conflict",
-      "problems": [
-        "Die REVOSax-Fassung 2628.7 nennt im Inhaltsverzeichnis § 19 „Inkrafttreten“ und weist in der Änderungshistorie die Umnummerierung des bisherigen § 17 zu § 19 nach. HTML-Normkörper und zugehörige PDF beschriften dieselbe Vorschrift dagegen erneut als § 17. Bis zur amtlichen Klärung wird aus dieser intern widersprüchlichen Ausgangsfassung keine Konsolidierung erzeugt."
-      ],
-      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ausbildungs-und-pruefungsordnung-polizei",
@@ -100,6 +114,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -134,6 +149,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -168,6 +184,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "energie-und-waermefinanzierungsgesetz",
       "enactingActs": [
         {
@@ -196,6 +213,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz",
       "enactingActs": [
         {
@@ -224,6 +242,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland",
       "enactingActs": [
         {
@@ -252,6 +271,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -286,6 +306,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -320,6 +341,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-fernsehfunkgesetz",
       "enactingActs": [
         {
@@ -348,6 +370,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -382,6 +405,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "betriebssportgemeinschaftengesetz",
       "enactingActs": [
         {
@@ -410,6 +434,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2",
       "enactingActs": [
         {
@@ -438,6 +463,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "athletenfoerder-und-versorgungsgesetz",
       "enactingActs": [
         {
@@ -467,6 +493,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -519,6 +546,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "kasernierte-grenzpolizei-gesetz",
       "enactingActs": [
         {
@@ -547,6 +575,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "landesagentur-spitzensport-gesetz",
       "enactingActs": [
         {
@@ -575,6 +604,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-landesbankgesetz",
       "enactingActs": [
         {
@@ -603,6 +633,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-eisenbahngesetz",
       "enactingActs": [
         {
@@ -631,6 +662,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-sportfoerdergesetz",
       "enactingActs": [
         {
@@ -659,6 +691,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "sportstiftungs-und-sportfondsgesetz",
       "enactingActs": [
         {
@@ -687,6 +720,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-transparenzund-informationsfreiheitsgesetz",
       "enactingActs": [
         {
@@ -715,6 +749,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
       "enactingActs": [
         {
@@ -744,6 +779,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -791,6 +827,7 @@
       "sourceValidFrom": "2013-02-10",
       "sourceValidTo": "2025-05-06",
       "sourceSha256": "16f86a9d3c195798f52d4c6a9d57265bf05a64be2a7a7357a44c336efdde3ac7",
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-feiertagsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -831,6 +868,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -865,6 +903,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
       "enactingActs": [
         {
@@ -893,6 +932,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -927,6 +967,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "landesenergiewerke-gesetz",
       "enactingActs": [
         {
@@ -955,6 +996,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsche-netze-gesetz",
       "enactingActs": [
         {
@@ -983,6 +1025,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1017,6 +1060,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "verkehrsbindungsgesetz",
       "enactingActs": [
         {
@@ -1045,6 +1089,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
       "enactingActs": [
         {
@@ -1073,6 +1118,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "energie-und-waermevergesellschaftungsgesetz",
       "enactingActs": [
         {
@@ -1101,6 +1147,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
       "enactingActs": [
         {
@@ -1129,6 +1176,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1164,6 +1212,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1207,6 +1256,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1241,6 +1291,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "landesplanungsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -1284,6 +1335,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1318,6 +1370,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1361,6 +1414,22 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [
+        {
+          "id": "sportneuordnung-bezirksordnung-neufassung",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-07-23",
+          "issue": "Artikel 8 bezeichnet die Bezirksordnung von 2025, setzt aber eine Aufgabenliste in § 13 und einen § 13a voraus, die erst die Neufassung 2026 besitzt.",
+          "publishedText": "Artikel 8 bezeichnet die Ostdeutsche Bezirksordnung vom 6. März 2025.",
+          "resolvedApplication": "Die Änderungen werden auf die strukturell passenden Vorschriften der ab 1. August 2026 geltenden Neufassung angewendet.",
+          "rationale": "Nur die Neufassung enthält die von den Änderungsbefehlen vorausgesetzten Zielanker.",
+          "evidence": [
+            "content/normen/sportneuordnungsgesetz/versions/2026-07-21.json",
+            "content/normen/ostdeutsche-bezirksordnung/versions/2025-03-12.json",
+            "content/normen/ostdeutsche-bezirksordnung/versions/2026-08-01.json"
+          ]
+        }
+      ],
       "existingStemNormSlug": "ostdeutsche-bezirksordnung",
       "enactingActs": [
         {
@@ -1409,6 +1478,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1453,6 +1523,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1498,6 +1569,7 @@
       "sourceValidFrom": "2020-12-01",
       "sourceValidTo": null,
       "sourceSha256": "b33772840aec5d06bb7a62d1b78602efc58de0e2e471ae405112b2442355ffc8",
+      "editorialResolutions": [],
       "existingStemNormSlug": "saechsisches-ladenoeffnungsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -1529,6 +1601,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1564,6 +1637,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1615,6 +1689,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1638,67 +1713,6 @@
       "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
     },
     {
-      "canonicalSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
-      "title": "Ostdeutsches Polizeivollzugsdienstgesetz",
-      "aliases": [
-        "Ostdeutsche Polizeivollzugsdienstgesetz",
-        "Ostdeutschen Polizeivollzugsdienstgesetzes"
-      ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
-      "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "existingStemNormSlug": null,
-      "enactingActs": [],
-      "amendmentActs": [
-        {
-          "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
-          "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
-          "effectiveDate": "2026-03-25",
-          "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-03-25"
-        },
-        {
-          "slug": "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo",
-          "title": "Gesetz über die unabhängige Polizei-Beschwerde- und Ermittlungsstelle und die verpflichtende Nutzung körpernah getragener Bild- und Tonaufzeichnungsgeräte",
-          "effectiveDate": "2026-04-01",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true,
-          "targetEffectiveDate": "2026-04-01"
-        },
-        {
-          "slug": "kasernierte-grenzpolizei-errichtungsgesetz",
-          "title": "Gesetz zur Errichtung der Kasernierten Grenzpolizei des Ostdeutschen Freistaates",
-          "effectiveDate": "2026-07-21",
-          "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
-        },
-        {
-          "slug": "kreis-und-bezirksneuordnungsgesetz",
-          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
-          "effectiveDate": "2026-07-21",
-          "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
-        }
-      ],
-      "effectiveDates": [
-        "2026-03-25",
-        "2026-04-01",
-        "2026-07-21"
-      ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
-    },
-    {
       "canonicalSlug": "ostdeutsches-tariftreueund-vergabegesetz",
       "title": "Ostdeutsches Tariftreue- und Vergabegesetz",
       "aliases": [
@@ -1711,6 +1725,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-tariftreueund-vergabegesetz",
       "enactingActs": [
         {
@@ -1741,6 +1756,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-03-18",
       "sourceSha256": "c342bc4ae041704e617d464afaad3564491f3ae07129e08eaa56cee7991e5e8d",
+      "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-bauordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -1776,6 +1792,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2023-12-30",
       "sourceSha256": "4809b39d1b1439bd2b9247900142091c81c44ffa09298fab969973b6216a8889",
+      "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-gemeindeordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -1827,6 +1844,7 @@
       "sourceValidFrom": "2021-06-03",
       "sourceValidTo": "2025-07-09",
       "sourceSha256": "12ad8cf603c92c7cb82b361a6b028800ea4a3f56fd235db14175c5bcb9784ffb",
+      "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-haushaltsordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -1861,7 +1879,22 @@
       "sourceValidFrom": "2022-02-20",
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89",
-      "existingStemNormSlug": "sachsische-landkreisordnung",
+      "editorialResolutions": [
+        {
+          "id": "landkreisordnung-zielanker-paragraf-65",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-07-23",
+          "issue": "Artikel 2 des Ostdeutschen Bezirkseinführungsgesetzes nennt § 75.",
+          "publishedText": "In § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
+          "resolvedApplication": "Die Ersetzung wird in § 65 Absatz 1 Satz 1 der Landkreisordnung angewendet.",
+          "rationale": "Nur § 65 trägt die bezeichnete Aufsichtsregelung und enthält die zu ersetzende Behördenbezeichnung.",
+          "evidence": [
+            "content/normen/ostdeutsches-bezirkseinfuehrungsgesetz/versions/2025-03-06.json",
+            "data/recht/sources/revosax/saechsische-landkreisordnung/3264.23.html"
+          ]
+        }
+      ],
+      "existingStemNormSlug": "saechsische-landkreisordnung",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -1878,20 +1911,16 @@
           "effectiveDate": "2026-07-21",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-07-21"
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "effectiveDates": [
         "2025-03-12",
-        "2026-07-21"
+        "2026-08-01"
       ],
-      "status": "blocked-source-conflict",
-      "problems": [
-        "Artikel 2 des nun vollständig vorliegenden Ostdeutschen Bezirkseinführungsgesetzes vom 6. März 2025 ändert § 75 der Landkreisordnung vom 9. März 2018. Die gesicherte REVOSax-Ausgangsfassung zum 1. November 2023 besitzt jedoch keinen § 75 und enthält den erwarteten alten Wortlaut nicht. Offen ist damit nur noch die Identität beziehungsweise vollständige Ausgangsfassung der bezeichneten 2018er Norm; ein § 75 wird nicht frei eingefügt.",
-        "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.",
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "abschiebungshaftvollzugsgesetz",
@@ -1908,6 +1937,7 @@
       "sourceValidFrom": "2018-07-26",
       "sourceValidTo": "2025-08-15",
       "sourceSha256": "4b97b7f30f716088ef1ad3d09e63e6a20173dde2fa7ecc66b855c977fb063140",
+      "editorialResolutions": [],
       "existingStemNormSlug": "abschiebungshaftvollzugsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -1939,6 +1969,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -1976,6 +2007,7 @@
       "sourceValidFrom": "2019-01-01",
       "sourceValidTo": null,
       "sourceSha256": "29f5c6dcd961da37db7b7b1c38bfad4d7a03f8e0002df832f95fcf47dacda33d",
+      "editorialResolutions": [],
       "existingStemNormSlug": "fluechtlingsaufnahmegesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -2008,6 +2040,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2031,18 +2064,37 @@
       "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
     },
     {
-      "canonicalSlug": "saechsisches-polizeigesetz",
-      "title": "Sächsisches Polizeigesetz",
+      "canonicalSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+      "title": "Sächsisches Polizeivollzugsdienstgesetz",
       "aliases": [
-        "Polizeigesetzes"
+        "Ostdeutsche Polizeivollzugsdienstgesetz",
+        "Ostdeutschen Polizeivollzugsdienstgesetzes",
+        "Ostdeutsches Polizeivollzugsdienstgesetz",
+        "Polizeigesetzes",
+        "Sächsisches Polizeivollzugsdienstgesetz"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "18193",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18193.1",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
-      "existingStemNormSlug": null,
+      "sourceValidFrom": "2020-01-01",
+      "sourceValidTo": "2024-07-29",
+      "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501",
+      "editorialResolutions": [
+        {
+          "id": "schmerzgriffe-zielnorm-und-paragraf",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-07-23",
+          "issue": "Das Änderungsgesetz bezeichnet das außer Kraft getretene Polizeigesetz und § 32a.",
+          "publishedText": "Änderung des Polizeigesetzes; Einfügung eines § 32a.",
+          "resolvedApplication": "Der materielle Wortlaut wird als § 41a nach § 41 in das Polizeivollzugsdienstgesetz eingefügt.",
+          "rationale": "Die redaktionelle Entscheidung ordnet Zielnorm und Einordnungsstelle verbindlich dem geltenden Polizeivollzugsdienstgesetz zu.",
+          "evidence": [
+            "content/normen/gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe/versions/2026-03-23.json",
+            "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html"
+          ]
+        }
+      ],
+      "existingStemNormSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2052,16 +2104,50 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-03-24"
+        },
+        {
+          "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+          "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-25"
+        },
+        {
+          "slug": "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo",
+          "title": "Gesetz über die unabhängige Polizei-Beschwerde- und Ermittlungsstelle und die verpflichtende Nutzung körpernah getragener Bild- und Tonaufzeichnungsgeräte",
+          "effectiveDate": "2026-04-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-04-01"
+        },
+        {
+          "slug": "kasernierte-grenzpolizei-errichtungsgesetz",
+          "title": "Gesetz zur Errichtung der Kasernierten Grenzpolizei des Ostdeutschen Freistaates",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-07-21"
+        },
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-08-01"
         }
       ],
       "effectiveDates": [
-        "2026-03-24"
+        "2026-03-24",
+        "2026-03-25",
+        "2026-04-01",
+        "2026-07-21",
+        "2026-08-01"
       ],
-      "status": "blocked-source-conflict",
-      "problems": [
-        "Das bezeichnete Sächsische Polizeigesetz war am Ausgangsstichtag bereits außer Kraft. Die Änderung belegt keine Wiederinkraftsetzung und keine eindeutige Zuordnung zu SächsPVDG oder SächsPBG."
-      ],
-      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsisches-verwaltungskostengesetz",
@@ -2079,6 +2165,7 @@
       "sourceValidFrom": "2019-04-27",
       "sourceValidTo": null,
       "sourceSha256": "93a9c4008bc46819f323b2331d04e75f0187953f33f0387019d629517fee9061",
+      "editorialResolutions": [],
       "existingStemNormSlug": "saechsisches-verwaltungskostengesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -2110,6 +2197,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2153,6 +2241,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2187,6 +2276,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2221,6 +2311,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2258,6 +2349,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "staatsverfassung-des-freistaates-ostdeutschland",
       "enactingActs": [
         {
@@ -2348,6 +2440,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2382,6 +2475,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2416,6 +2510,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": "sachsisches-verwaltungsorganisationsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -2459,6 +2554,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2493,6 +2589,7 @@
       "sourceValidFrom": "2005-03-22",
       "sourceValidTo": null,
       "sourceSha256": "8f6d44bb0e5fffae83bb2663bd493ae7efda4c635325fb63b3448ea8c2ae8615",
+      "editorialResolutions": [],
       "existingStemNormSlug": "wappenverordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -2524,6 +2621,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
@@ -2559,6 +2657,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [

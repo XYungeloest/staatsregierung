@@ -1,0 +1,20 @@
+{
+  "amendmentAct": "kasernierte-grenzpolizei-errichtungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 50 S. 2)",
+  "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), zuletzt geändert durch Artikel 2 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 50 S. 2)",
+  "changeNote": "Die Kasernierte Grenzpolizei wurde in die Dienst- und Fachaufsicht einbezogen.",
+  "sourceReferences": [{"kind":"amendment-source","label":"OGVBl. 2026 Nr. 50","availability":"versioned","localSource":"Gesetze/OGVBl. 2026 Nr. 50.html"}],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {"type":"subparagraph","label":"(1)","parentType":"paragraph","parentLabel":"§ 101"},
+      "expectedOld": "Die Dienst- und Fachaufsicht über das Landeskriminalamt, das Präsidium der Bereitschaftspolizei, das Polizeiverwaltungsamt und die Polizeidirektionen übt das Staatsministerium des Innern aus.",
+      "value": "Die Dienst- und Fachaufsicht über das Landeskriminalamt, das Polizeiverwaltungsamt, das Präsidium der Bereitschaftspolizei, die Kasernierte Grenzpolizei und die Polizeidirektionen übt das Staatsministerium für Staats- und Grenzsicherheit aus.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 50.html",
+      "sourceProvision": "Artikel 2 Nummer 4",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}
