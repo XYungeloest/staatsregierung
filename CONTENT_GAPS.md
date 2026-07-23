@@ -22,6 +22,13 @@ Belegt:
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
+- Der Konsolidierungs-Audit erkennt derzeit 46 Zielnormen. Für 40 davon ist die am
+  1. November 2023 geltende konkrete REVOSax-Fassung noch nicht als unveränderter Snapshot
+  versioniert. Die vollständige Liste mit Änderungsvorschriften und nächstem Quellenschritt steht
+  in `data/recht/consolidation-manifest.json`.
+- Der NDR-Änderungs- und Überleitungsstaatsvertrag enthält eine unausgefüllte
+  „Mustergesetz vom TT. MMMM JJJJ“-Vorlage. Sie ist keine verkündete Zielnorm und wird vom Audit
+  ausdrücklich als Quellenmangel statt als Stammgesetz behandelt.
 - Die Organisationserlasse 09/2025 und 12/2025 werden im Portal als historische
   Organisationsstände geführt. Ein genaues Außerkrafttretensdatum ist in den gespeicherten
   Fassungen nicht belegt; der Organisationserlass 05/2026 ordnet ausdrücklich an, dass 12/2025
@@ -45,6 +52,10 @@ Schlussfolgerung:
   Normfassungen ergänzt.
 - Bei Änderungsgesetzen ohne vollständig belegte Ausgangsfassung wird keine frei rekonstruierte
   konsolidierte Fassung erstellt.
+- Feiertagsgesetz, Ladenöffnungsgesetz und Wappenverordnung besitzen geprüfte
+  REVOSax-Ausgangsfassungen. Das neu eingeführte Tariftreue- und Vergabegesetz benötigt keine
+  sächsische Ausgangsfassung. Diese vier Zielnormen sind im Konsolidierungsmanifest als vollständig
+  geführt.
 - Die drei bedingt wirksamen Staatsverträge bleiben veröffentlicht, aber ohne belegtes
   Inkrafttreten.
 - Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
@@ -91,6 +102,10 @@ Belegt:
   denselben Fortsetzungsfall.
 - Der Normimport läuft standardmäßig nur als Audit. Schreiben erfordert `--write` und eine gezielte
   `--file`-Angabe; vorhandene Normen werden erst mit `--update-existing` verändert.
+- Amtliche REVOSax-Ausgangsseiten liegen unverändert unter
+  `data/recht/sources/revosax/[zielnorm]/`. Abruf, Parser und Konsolidierung sind getrennte
+  Befehle; nur der ausdrückliche Abruf benötigt Netzwerk. Snapshot-URL, Quellgültigkeit,
+  Abrufdatum und SHA-256 werden im Quellenmanifest gespeichert und offline geprüft.
 - OABl. 2025 Nr. 2 bleibt unverändert: In der Markdown-Datei wurden Nummerierung und Normtext in
   getrennte Zellen einer einzigen Layouttabelle zusammengezogen; eine belastbare Eltern-Kind-
   Zuordnung ist daraus nicht möglich. `StAnzO. 2026 Nr. 2.html` bezeichnet sich intern dagegen als
@@ -125,6 +140,20 @@ Belegt:
   lokalen Originals den 14. Juli 1992 und der Vertragstext den 9. April 1992 als Abschlussdatum.
 - Die lokale Entwurfsdatei zu Drucksache 07/27 nennt den 15. Juli 2025, obwohl der Vorgang der
   siebten Wahlperiode im Juli 2026 zugeordnet ist.
+- Artikel 8 des Sportneuordnungsgesetzes bezeichnet eine Ostdeutsche Bezirksordnung vom
+  6. März 2025 (OGVBl. I/2025 S. 7). OGVBl. 2026 Nr. 46 führt dagegen eine gleichnamige
+  Bezirksordnung mit Wirkung zum 1. August 2026 ein. Die im Änderungsgesetz genannte Ausgabe von
+  2025 liegt nicht als vollständige Primärquelle vor.
+- Das Gesetz zur Änderung des Feiertagsgesetzes vom 7. März 2024 bezeichnet die geänderten
+  Einzelregelungen innerhalb seines Artikels als „Artikel“. Das spätere Reformgesetz verweist
+  dagegen auf „§ 2 Nummer 3“, obwohl die gespeicherte 2024-Fassung den Regelungstext nicht als
+  nummerierte Liste ausweist. Die konsolidierte Entfernung beruht auf dem vollständig zitierten
+  Wortlaut des späteren Änderungsgesetzes; die abweichende Gliederungsbezeichnung bleibt hier
+  dokumentiert.
+- Das Gesetz zur Regelung der Schmerzgriffe bezeichnet das bereits vor dem Ausgangsstichtag
+  außer Kraft getretene Sächsische Polizeigesetz als Ziel. Die Quelle belegt weder ein
+  Wiederinkrafttreten noch eine eindeutige Zuordnung zum Sächsischen
+  Polizeivollzugsdienstgesetz oder Polizeibehördengesetz.
 
 Schlussfolgerung:
 
@@ -138,6 +167,9 @@ Schlussfolgerung:
 - Beim Helsinki-Übereinkommen wird der 9. April 1992 als Dokumentdatum geführt. Die abweichenden
   Index- und Kopfangaben bleiben als Hinweis sichtbar.
 - Für Drucksache 07/27 wird kein unbelegtes Einbringungsdatum ergänzt.
+- Die Bezirksordnung und das bezeichnete alte Polizeigesetz bleiben im
+  Konsolidierungsmanifest `blocked-source-conflict`. Aus der Namensähnlichkeit wird keine
+  konsolidierte Folgefassung abgeleitet.
 
 ## 5. Nächster Aktualisierungsschritt
 
@@ -149,3 +181,9 @@ Schlussfolgerung:
    Transkriptionen erstellen; bis dahin die PDF-Gegenprüfung und Legacy-Fixtures beibehalten.
 4. Austauschdaten der Notifikationen beziehungsweise Ratifikationsurkunden für die drei
    Staatsverträge belegen.
+5. Die in `data/recht/consolidation-manifest.json` aufgelisteten historischen
+   REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
+   sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten
+   prüfen.
+6. OGVBl. I/2025 S. 7 zur dort bezeichneten Bezirksordnung beschaffen und den Konflikt zur
+   Einführungsfassung aus OGVBl. 2026 Nr. 46 klären.

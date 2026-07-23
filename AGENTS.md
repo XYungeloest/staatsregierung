@@ -99,6 +99,14 @@ Listenfortsetzungen, zitierten Neufassungen, Tabellen und Anlagen heranzuziehen.
 nicht eindeutig auflösbare Strukturkonflikte werden in `CONTENT_GAPS.md` dokumentiert; mehrdeutige
 Fälle dürfen im strikten Audit nicht still als geprüft gelten.
 
+Für ausdrücklich geänderte übernommene Stammnormen ist der sächsische Rechtsstand am
+1. November 2023 der verbindliche Ausgangspunkt. Amtliche historische REVOSax-Seiten werden nur
+über den ausdrücklichen Fetch-Befehl abgerufen und unverändert samt SHA-256 versioniert. Eine
+Folgefassung darf nur aus einem redaktionell geprüften Patch-Rezept mit eindeutigem Zielanker,
+erwartetem Alttext oder Hash, Trefferzahl, Änderungsquelle und Wirksamkeitsdatum entstehen.
+Konsolidierung und Build bleiben offline. Quellkonflikte erhalten einen Sperrstatus; sie werden
+nicht heuristisch aufgelöst.
+
 Verkündungen liegen unter:
 
 ```text

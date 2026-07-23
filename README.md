@@ -117,8 +117,12 @@ context/
   Tabellen und Anlagen geprüft, aber nicht automatisch als Volltext importiert. Nicht eindeutig
   auflösbare Abweichungen zwischen HTML, Legacy-Markdown und PDF werden nicht still harmonisiert.
 
-Historische Normfassungen werden nicht automatisch konsolidiert. Sie werden als eigene Fassungen
-gespeichert. `src/lib/norms/versions.ts` ordnet jede gespeicherte Fassung anhand ihres
+Historische Normfassungen werden nicht zur Laufzeit berechnet. Sie werden als vollständige,
+unveränderliche Fassungen gespeichert. Für ausdrücklich geänderte übernommene Stammnormen beginnt
+die belegte Fassungsfolge mit dem am 1. November 2023 geltenden sächsischen Rechtsstand. Der
+Konsolidierungslauf verwendet ausschließlich versionierte amtliche REVOSax-Snapshots und
+redaktionell geprüfte, deterministische Patch-Rezepte; bei einem uneindeutigen Zielanker oder
+abweichenden Ausgangstext bricht er ab. `src/lib/norms/versions.ts` ordnet jede gespeicherte Fassung anhand ihres
 Gültigkeitsintervalls und des Stichtags aus `src/config/editorial.json` als geltend, künftig,
 historisch oder mit ungeklärtem Inkrafttreten ein. `isCurrent` bleibt nur als kompatibles
 Bestandsfeld erhalten und steuert keine öffentliche Bezeichnung mehr. Ein ausdrücklich als
@@ -167,6 +171,23 @@ mit dem zusätzlichen Flag `--update-existing` verändert. Der Import löscht de
 Norm- und Verkündungsdaten und beendet den Prozess bei Abweichungen mit einem Fehlercode.
 `npm run content:check` führt diesen strikten Abgleich vor den übrigen Inhaltsprüfungen automatisch
 aus.
+
+Die Konsolidierungswerkzeuge arbeiten offline, abgesehen vom ausdrücklich aufgerufenen Fetch:
+
+```sh
+npm run norms:consolidation:audit
+npm run norms:revosax:audit
+npm run norms:revosax:fetch -- --target <slug> --url <historische-revosax-url>
+npm run norms:revosax:parse -- --target <slug>
+npm run norms:consolidate -- --target <slug>
+npm run norms:consolidate -- --target <slug> --write
+```
+
+Der Audit schreibt `data/recht/consolidation-manifest.json` und
+`data/recht/consolidation-report.md`. `npm run content:check` prüft diese Dateien im
+schreibfreien `--check`-Modus, validiert Snapshot-Hashes und verhindert dadurch, dass ein neuer
+Änderungsfund oder ein Quellenkonflikt unbemerkt bleibt. Ein Vollaufbau aller Normen ist bewusst
+nicht vorgesehen.
 
 Jeder Produktionsbuild trägt den vollständigen Git-Commit als `meta[name="build-commit"]` in
 HTML-Seiten und als Antwortheader `X-Portal-Commit` auf allen Routen. In CI wird die Kennung aus

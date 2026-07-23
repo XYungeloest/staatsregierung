@@ -355,6 +355,40 @@ test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwer
   await expect(page.getByText(/keine belegte PDF-Datei/iu)).toBeVisible();
 });
 
+test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änderungsvorschriften', async ({ page }) => {
+  await page.goto('/recht/norm/ostdeutsches-feiertagsgesetz/');
+
+  const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+  await expect(versionNavigation.getByRole('link', { name: /Geltende Fassung/u })).toBeVisible();
+  await expect(versionNavigation.getByRole('link', { name: /Historische Fassung/u })).toHaveCount(2);
+  await expect(page.locator('details.norm-unit')).toHaveCount(13);
+
+  await versionNavigation.getByRole('link', { name: 'Normenhistorie' }).click();
+  await expect(page.getByRole('heading', { name: 'Fassungen', exact: true })).toBeVisible();
+  await expect(page.locator('#fassungen .timeline-list > li')).toHaveCount(3);
+  await expect(page.locator('#historieneintraege')).toContainText(
+    'Gesetz zur Änderung des Gesetzes über Sonn- und Feiertage im Freistaat Ostdeutschland',
+  );
+  await expect(page.locator('#historieneintraege')).toContainText(
+    'Gesetz zur Reform gesetzlicher Feiertage im Freistaat Ostdeutschland',
+  );
+
+  await versionNavigation.getByRole('link', { name: 'Fassungsvergleich' }).click();
+  await expect(page.locator('[data-compare-from] option')).toHaveCount(3);
+  await expect(page.locator('[data-compare-to] option')).toHaveCount(3);
+  await expect(page.locator('[data-compare-pair]:not([hidden])')).toBeVisible();
+
+  await page.goto('/recht/norm/gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland/');
+  await expect(
+    page.locator('a[href="/recht/norm/ostdeutsches-feiertagsgesetz/"]').first(),
+  ).toContainText('Ostdeutsches Feiertagsgesetz');
+
+  await page.goto('/recht/norm/wappenverordnung/history/');
+  await expect(page.locator('#fassungen .timeline-list > li')).toHaveCount(1);
+  await expect(page.locator('#historieneintraege')).toContainText('Aufgehoben durch Artikel 3');
+  await expect(page.locator('#historieneintraege')).toContainText('24. März 2026');
+});
+
 test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page }) => {
   await page.goto('/recht/suche/?q=Kranken*&type=gesetz&type=verordnung');
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
