@@ -14,7 +14,7 @@ const PLACEHOLDER_PATTERN = /^(?:§{1,2}\s*[\d\sabisund,.-]+\s*)?u?\s*n\s*v\s*e\
 const ELLIPSIS_CITATION_PATTERN = /zuletzt\s+durch\s+(?:…|\.{3})\s+geändert/iu;
 
 const CANONICAL_GROUPS = [
-  ['staatsverfassung-des-freistaates-ostdeutschland', 'Verfassung des Freistaates Ostdeutschland', /Staatsverfassung|Verfassung des Freistaates|^Verfassung$/iu],
+  ['staatsverfassung-des-freistaates-ostdeutschland', 'Verfassung des Freistaates Ostdeutschland', /Staatsverfassung|Landesverfassung|Verfassung des (?:Freistaates|Ostdeutschen Freistaates)|^Verfassung$/iu],
   ['ostdeutsches-feiertagsgesetz', 'Gesetz über Sonn- und Feiertage', /Sonn- und Feiertage|Feiertagsgesetz/iu],
   ['saechsische-bauordnung', 'Sächsische Bauordnung', /Bauordnung/iu],
   ['saechsisches-ladenoeffnungsgesetz', 'Sächsisches Ladenöffnungsgesetz', /Ladenöffnungsgesetz/iu],
@@ -170,7 +170,7 @@ function hasPlaceholder(record) {
   })) ?? false;
 }
 
-function completeIntervals(record, effectiveDates) {
+function completeIntervals(record, effectiveDates, baselineDate = BASELINE_DATE) {
   if (!record) return false;
   const repealDates = record.history.entries
     .filter((entry) => entry.type === 'repeal')
@@ -178,7 +178,7 @@ function completeIntervals(record, effectiveDates) {
   const amendmentDates = effectiveDates.filter((date) => !repealDates.includes(date));
   if (record.versions.length < amendmentDates.length + 1) return false;
   const versions = [...record.versions].sort((a, b) => a.validFrom.localeCompare(b.validFrom));
-  if (versions[0].validFrom !== BASELINE_DATE) return false;
+  if (versions[0].validFrom !== baselineDate) return false;
   return versions.every((version, index) => {
     const next = versions[index + 1];
     if (!next) {
@@ -218,9 +218,24 @@ async function main() {
     const findings = bodyFindings.length > 0
       ? bodyFindings
       : [targetFromActTitle(record.meta.title)].filter(Boolean);
+    for (const targetSlug of [
+      record.meta.enactedNorm,
+      ...(record.meta.enactedNorms ?? []),
+    ].filter(Boolean)) {
+      const targetRecord = norms.find((candidate) => candidate.meta.slug === targetSlug);
+      if (!targetRecord) continue;
+      findings.push({
+        title: targetRecord.meta.title,
+        evidence: 'explizite Einführungsbeziehung',
+        canonical: canonicalFor(targetRecord.meta.title) ?? {
+          canonicalSlug: targetRecord.meta.slug,
+          title: targetRecord.meta.title,
+        },
+      });
+    }
     for (const finding of findings) {
         const targetTitle = finding.title;
-        const canonical = canonicalFor(targetTitle);
+        const canonical = finding.canonical ?? canonicalFor(targetTitle);
         if (!canonical) {
           ambiguousFindings.push({
             amendmentAct: record.meta.slug,
@@ -267,8 +282,24 @@ async function main() {
     const amendmentActs = target.amendmentActs.filter((act) =>
       !enactingActs.some((enactingAct) => enactingAct.slug === act.slug)
     );
-    const effectiveDates = [...new Set(amendmentActs.map((act) => act.effectiveDate).filter(Boolean))].sort();
+    const amendmentActsWithTargetDates = amendmentActs.map((act) => {
+      const historyEntry = stem?.history.entries.find((entry) =>
+        entry.relatedNorm === act.slug &&
+        entry.affectingVersionId &&
+        entry.type === 'amendment'
+      );
+      return {
+        ...act,
+        targetEffectiveDate: historyEntry?.date ?? act.effectiveDate,
+      };
+    });
+    const effectiveDates = [...new Set(
+      amendmentActsWithTargetDates.map((act) => act.targetEffectiveDate).filter(Boolean),
+    )].sort();
     const introducedStem = enactingActs.length > 0;
+    const requiredBaseline = introducedStem
+      ? stem?.versions.map((version) => version.validFrom).sort()[0] ?? stem?.meta.effectiveDate ?? BASELINE_DATE
+      : BASELINE_DATE;
     const problems = [...target.problems];
     if (blocked) problems.push(blocked.reason);
     if (!source.snapshot && !blocked && !introducedStem) {
@@ -276,10 +307,15 @@ async function main() {
     }
     if (!stem && !blocked) problems.push('Eigenständiger Stammnormdatensatz fehlt.');
     if (hasPlaceholder(stem)) problems.push('Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.');
-    if (source.snapshot && stem && !completeIntervals(stem, effectiveDates)) {
+    if ((source.snapshot || introducedStem) && stem && !completeIntervals(stem, effectiveDates, requiredBaseline)) {
       problems.push('Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.');
     }
-    if (introducedStem && amendmentActs.length > 0 && !blocked) {
+    if (
+      introducedStem &&
+      amendmentActs.length > 0 &&
+      !blocked &&
+      !completeIntervals(stem, effectiveDates, requiredBaseline)
+    ) {
       problems.push('Neu eingeführte Stammnorm besitzt weitere Änderungen; deren vollständige Folgefassung ist noch zu prüfen.');
     }
     const status = blocked
@@ -292,7 +328,7 @@ async function main() {
             ? 'incomplete-placeholder'
             : introducedStem && amendmentActs.length === 0
               ? 'complete'
-              : completeIntervals(stem, effectiveDates)
+              : completeIntervals(stem, effectiveDates, requiredBaseline)
               ? 'complete'
               : 'incomplete-placeholder';
     const nextAction = {
@@ -314,7 +350,9 @@ async function main() {
       sourceSha256: source.sourceSha256 ?? null,
       existingStemNormSlug: stem?.meta.slug ?? null,
       enactingActs: enactingActs.sort((a, b) => (a.effectiveDate ?? '').localeCompare(b.effectiveDate ?? '')),
-      amendmentActs: amendmentActs.sort((a, b) => (a.effectiveDate ?? '').localeCompare(b.effectiveDate ?? '')),
+      amendmentActs: amendmentActsWithTargetDates.sort((a, b) =>
+        (a.targetEffectiveDate ?? '').localeCompare(b.targetEffectiveDate ?? '')
+      ),
       effectiveDates,
       status,
       problems,

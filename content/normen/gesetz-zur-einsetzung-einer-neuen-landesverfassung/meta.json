@@ -1,0 +1,75 @@
+{
+  "id": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
+  "slug": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
+  "title": "Gesetz zur Einsetzung einer neuen Landesverfassung",
+  "shortTitle": "Gesetz zur Einsetzung einer neuen Landesverfassung",
+  "shortTitleSource": "official",
+  "type": "aenderungsvorschrift",
+  "enactingBody": "Landtag des Freistaates Ostdeutschland",
+  "responsibleMinistry": "Staatskanzlei des Freistaates Ostdeutschland",
+  "subjects": [
+    "Staats- und Verfassungsrecht"
+  ],
+  "keywords": [
+    "Landesverfassung",
+    "Verfassung",
+    "Einsetzung"
+  ],
+  "initialCitation": "Gesetz vom 14. Oktober 2024 (OGVBl. 2024 Nr. II S. 5–32)",
+  "predecessor": null,
+  "successor": null,
+  "summary": "Hebt die zuvor geltende Landesverfassung auf und setzt die vollständig verkündete Verfassung des Ostdeutschen Freistaates in Kraft.",
+  "status": "one-time-act",
+  "documentDate": "2024-10-14",
+  "publicationDate": "2024-10-15",
+  "effectiveDate": "2024-10-15",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Redaktionell geprüfte strukturierte Transkription der Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl II-24.html",
+      "mediaType": "text/html",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "pageRange": "5-32",
+      "derivedSource": "Gesetze/OGVBl II-24.pdf"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliches Original-PDF der Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl II-24.pdf",
+      "sha256": "9b9b5f8d691c8f4341711a5c30b4c1ac2a03a73a00cbf915688ef8a00b91a6fd",
+      "mediaType": "application/pdf",
+      "pageCount": 32,
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "visual-control",
+      "pageRange": "5-32",
+      "derivedSource": "Gesetze/OGVBl II-24.html"
+    },
+    {
+      "kind": "structured-html-transcription",
+      "label": "Strukturierte Ursprungsfassung der Verfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/Staatsverfassung-2024.html",
+      "mediaType": "text/html",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "pageRange": "5-32",
+      "derivedSource": "Gesetze/OGVBl II-24.pdf"
+    },
+    {
+      "kind": "structured-docx-source",
+      "label": "Strukturtragende DOCX-Quelle der Verfassung vor den Änderungen von 2026",
+      "availability": "versioned",
+      "localSource": "Gesetze/Verfassung.docx",
+      "sha256": "7eec0947e070da17710b0c52dacfbe9f1b682d9c6434519b51599cf902f56590",
+      "mediaType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "derivedSource": "Gesetze/Staatsverfassung-2024.html"
+    }
+  ],
+  "enactedNorm": "staatsverfassung-des-freistaates-ostdeutschland"
+}

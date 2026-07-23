@@ -27,9 +27,15 @@
   "sourceReferences": [
     {
       "kind": "amendment-source",
-      "label": "Amtliche Ausgabe OGVBl. 2024 Nr. I",
+      "label": "Amtliches Original-PDF OGVBl. 2024 Nr. I",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl-03-24.pdf"
+      "localSource": "Gesetze/OGVBl-03-24.pdf",
+      "sha256": "76b82af51dfd3e12e73645313a40db807205e61c5c659615890ea23ecfe58d40",
+      "mediaType": "application/pdf",
+      "pageCount": 2,
+      "pageRange": "1-2",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "amendment-evidence"
     }
   ],
   "affectedNorms": [

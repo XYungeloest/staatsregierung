@@ -1,13 +1,13 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-07-23T09:28:40.478Z
+**Erzeugt:** 2026-07-23T12:12:40.506Z
 
-- Erkannte Änderungsvorschriften: 43
-- Erkannte Zielnormen: 46
-- Vollständig konsolidiert: 10
-- Blockierte Quellenkonflikte: 4
-- Fehlende Primärquellen: 32
+- Erkannte Änderungsvorschriften: 54
+- Erkannte Zielnormen: 72
+- Vollständig konsolidiert: 34
+- Blockierte Quellenkonflikte: 3
+- Fehlende Primärquellen: 35
 
 ## Abschiebe-Aussetzungsverordnung
 
@@ -60,6 +60,49 @@
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
+## Gesetz über das Sondervermögen Energie- und Wärmevergesellschaftung
+
+- Slug: `energie-und-waermefinanzierungsgesetz`
+- Status: `complete`
+- Stammnorm: `energie-und-waermefinanzierungsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `energie-und-waermevergesellschaftungs-paketgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost
+
+- Slug: `hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz`
+- Status: `complete`
+- Stammnorm: `hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `boom-europe-umsetzungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über den Anspruch auf Bildungsfreistellung im Freistaat Ostdeutschland
+
+- Slug: `gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland`
+- Status: `complete`
+- Stammnorm: `gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland`
+- REVOSax: noch nicht belegt
+- Einführung: `gesetz-zur-einfuhrung-eines-bildungsfreistellungsgesetzes` (2026-03-25)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland
+
+- Slug: `ostdeutsches-kulturpassgesetz`
+- Status: `missing-baseline`
+- Stammnorm: fehlt
+- REVOSax: noch nicht belegt
+- Einführung: keine
+- Änderungen: `gesetz-uber-den-kulturpass-fur-junge-erwachsene-im-freistaat-ostdeutschland` (2026-04-03)
+- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Probleme:
+  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Eigenständiger Stammnormdatensatz fehlt.
+
 ## Gesetz über den öffentlichen Gesundheitsdienst
 
 - Slug: `gesundheitsdienstgesetz`
@@ -73,6 +116,59 @@
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
+## Gesetz über den Ostdeutschen Fernsehfunk
+
+- Slug: `ostdeutsches-fernsehfunkgesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-fernsehfunkgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w` (2026-03-25)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Beteiligtentransparenzdokumentation und das Lobbyregister beim Ostdeutschen Landtag
+
+- Slug: `ostdeutsches-beteiligtendokumentationsund-lobbyregistergesetz`
+- Status: `missing-baseline`
+- Stammnorm: fehlt
+- REVOSax: noch nicht belegt
+- Einführung: keine
+- Änderungen: `gesetz-uber-die-beteiligtentransparenzdokumentation-und-das-17yyebh` (2026-07-01)
+- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Probleme:
+  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Gesetz über die Betriebssportgemeinschaften und die Förderung des Betriebssports im Freistaat Ostdeutschland
+
+- Slug: `betriebssportgemeinschaftengesetz`
+- Status: `complete`
+- Stammnorm: `betriebssportgemeinschaftengesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `sportneuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Feststellung des Haushaltsplanes des Freistaates Ostdeutschland für die Haushaltsjahre 2025 und 2026 (Haushaltsgesetz 2025/2026 – HG 2025/2026)
+
+- Slug: `gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2`
+- Status: `complete`
+- Stammnorm: `gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2`
+- REVOSax: noch nicht belegt
+- Einführung: `gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib` (2025-01-01)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Förderung und die Versorgung der Athleten
+
+- Slug: `athletenfoerder-und-versorgungsgesetz`
+- Status: `complete`
+- Stammnorm: `athletenfoerder-und-versorgungsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `sportneuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
 ## Gesetz über die Hochschulen
 
 - Slug: `ostdeutsches-hochschulgesetz`
@@ -85,6 +181,86 @@
 - Probleme:
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
+
+## Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates
+
+- Slug: `kasernierte-grenzpolizei-gesetz`
+- Status: `complete`
+- Stammnorm: `kasernierte-grenzpolizei-gesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `kasernierte-grenzpolizei-errichtungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Landesagentur Spitzensport Ost
+
+- Slug: `landesagentur-spitzensport-gesetz`
+- Status: `complete`
+- Stammnorm: `landesagentur-spitzensport-gesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `sportneuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Landesbank an der Elbe
+
+- Slug: `ostdeutsches-landesbankgesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-landesbankgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `gesetz-zur-einfuhrung-der-landesbank-ostdeutschland` (2026-01-27)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Ostdeutsche Eisenbahn
+
+- Slug: `ostdeutsches-eisenbahngesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-eisenbahngesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `ostdeutsche-eisenbahn-neuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Sportförderung im Freistaat Ostdeutschland
+
+- Slug: `ostdeutsches-sportfoerdergesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-sportfoerdergesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `sportneuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Sportstiftung Ostdeutschland und den Sportfonds Ost
+
+- Slug: `sportstiftungs-und-sportfondsgesetz`
+- Status: `complete`
+- Stammnorm: `sportstiftungs-und-sportfondsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `sportneuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über die Transparenz staatlichen Handelns und das Recht auf Informationszugang im Freistaat Ostdeutschland
+
+- Slug: `ostdeutsches-transparenzund-informationsfreiheitsgesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-transparenzund-informationsfreiheitsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj` (2026-07-01)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland
+
+- Slug: `ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar` (2026-04-01)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Gesetz über Kindertagesbetreuung
 
@@ -109,6 +285,29 @@
 - Änderungen: `gesetz-zur-anderung-des-gesetzes-uber-sonn-und-feiertage-im-freistaat-ostdeutschland` (2024-03-08), `gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland` (2026-03-24)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
+## Gesetz zu einer verpflichtenden Weidetier- und Herdenschutzversicherung
+
+- Slug: `weidetierund-herdenschutzversicherungsgesetz`
+- Status: `missing-baseline`
+- Stammnorm: fehlt
+- REVOSax: noch nicht belegt
+- Einführung: keine
+- Änderungen: `gesetz-zu-einer-verpflichtenden-weidetierund-herdenschutzversicherung` (2026-05-01)
+- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Probleme:
+  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Gesetz zur Beschleunigung luftfahrtindustrieller Vorhaben von besonderer Landesbedeutung am Standort Leipzig/Halle
+
+- Slug: `hochgeschwindigkeitsluftfahrt-standortgesetz`
+- Status: `complete`
+- Stammnorm: `hochgeschwindigkeitsluftfahrt-standortgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `boom-europe-umsetzungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
 ## Gesetz zur Durchführung des Medienstaatsvertrages und des Rundfunkbeitragsstaatsvertrages
 
 - Slug: `gesetz-zur-durchfuehrung-des-medienstaatsvertrages-und-des-rundfunkbeitragsstaatsvertrages`
@@ -121,6 +320,79 @@
 - Probleme:
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
+
+## Gesetz zur Errichtung der Landesenergiewerke Ost
+
+- Slug: `landesenergiewerke-gesetz`
+- Status: `complete`
+- Stammnorm: `landesenergiewerke-gesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `energie-und-waermevergesellschaftungs-paketgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz zur Errichtung der Ostdeutsche Netze
+
+- Slug: `ostdeutsche-netze-gesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsche-netze-gesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `energie-und-waermevergesellschaftungs-paketgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln
+
+- Slug: `ostdeutsches-landesantidiskriminierungsgesetz`
+- Status: `missing-baseline`
+- Stammnorm: fehlt
+- REVOSax: noch nicht belegt
+- Einführung: keine
+- Änderungen: `gesetz-zur-forderung-der-gleichbehandlung-und-zum-schutz-vor-11l18kw` (2026-03-25)
+- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Probleme:
+  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Gesetz zur gemeinwirtschaftlichen Bindung nicht vergesellschafteter privater Verkehrsunternehmen
+
+- Slug: `verkehrsbindungsgesetz`
+- Status: `complete`
+- Stammnorm: `verkehrsbindungsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `ostdeutsche-eisenbahn-neuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz zur Neugliederung der Bezirke und zur Neuordnung der Kreise im Freistaat Ostdeutschland
+
+- Slug: `ostdeutsches-kreis-und-bezirksneuordnungsgesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-kreis-und-bezirksneuordnungsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum
+
+- Slug: `energie-und-waermevergesellschaftungsgesetz`
+- Status: `complete`
+- Stammnorm: `energie-und-waermevergesellschaftungsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `energie-und-waermevergesellschaftungs-paketgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Gesetz zur Vergesellschaftung privater Verkehrsproduktionsmittel
+
+- Slug: `ostdeutsches-verkehrsvergesellschaftungsgesetz`
+- Status: `complete`
+- Stammnorm: `ostdeutsches-verkehrsvergesellschaftungsgesetz`
+- REVOSax: noch nicht belegt
+- Einführung: `ostdeutsche-eisenbahn-neuordnungsgesetz` (2026-07-21)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Kommunalwahlgesetz
 
@@ -168,7 +440,7 @@
 - Stammnorm: `landesplanungsgesetz`
 - REVOSax: noch nicht belegt
 - Einführung: keine
-- Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Änderungen: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
 - Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
 - Probleme:
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
@@ -203,14 +475,12 @@
 ## Ostdeutsche Bezirksordnung
 
 - Slug: `ostdeutsche-bezirksordnung`
-- Status: `blocked-source-conflict`
+- Status: `complete`
 - Stammnorm: `ostdeutsche-bezirksordnung`
 - REVOSax: noch nicht belegt
-- Einführung: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Änderungen: `sportneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
-- Probleme:
-  - OGVBl. 2026 Nr. 46 führt eine Ostdeutsche Bezirksordnung mit Wirkung zum 1. August 2026 ein. Artikel 8 des Sportneuordnungsgesetzes bezeichnet dagegen eine Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. I/2025 S. 7). Ohne die dort genannte Primärquelle lässt sich nicht quellentreu entscheiden, welche Stammfassung geändert wird.
+- Einführung: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12)
+- Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21), `sportneuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Ostdeutsches Justizgesetz
 
@@ -347,10 +617,10 @@
 - Stammnorm: `sachsische-landkreisordnung`
 - REVOSax: https://www.revosax.sachsen.de/vorschrift/3264.23
 - Einführung: keine
-- Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Änderungen: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
 - Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 - Probleme:
-  - Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt eine durch Artikel 2 des Gesetzes zur Einführung von Bezirken vom 6. März 2025 (OGVBl. I/2025 S. 7) geänderte Landkreisordnung voraus. Diese Primärquelle fehlt; insbesondere ist der dort vorausgesetzte § 75 in der gesicherten REVOSax-Ausgangsfassung zum 1. November 2023 nicht vorhanden. Die Folgefassung darf deshalb nicht aus der Fassung von 2023 frei rekonstruiert werden.
+  - Artikel 2 des nun vollständig vorliegenden Ostdeutschen Bezirkseinführungsgesetzes vom 6. März 2025 ändert § 75 der Landkreisordnung vom 9. März 2018. Die gesicherte REVOSax-Ausgangsfassung zum 1. November 2023 besitzt jedoch keinen § 75 und enthält den erwarteten alten Wortlaut nicht. Offen ist damit nur noch die Identität beziehungsweise vollständige Ausgangsfassung der bezeichneten 2018er Norm; ein § 75 wird nicht frei eingefügt.
   - Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
   - Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
 
@@ -477,14 +747,12 @@
 ## Verfassung des Freistaates Ostdeutschland
 
 - Slug: `staatsverfassung-des-freistaates-ostdeutschland`
-- Status: `missing-baseline`
+- Status: `complete`
 - Stammnorm: `staatsverfassung-des-freistaates-ostdeutschland`
 - REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5` (2026-01-28), `gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes` (2026-03-24), `drittes-gesetz-zur-grossen-staatsreform` (2026-07-21), `erstes-gesetz-zur-grossen-staatsreform` (2026-07-21), `viertes-gesetz-zur-grossen-staatsreform` (2026-07-21), `zweites-gesetz-zur-grossen-staatsreform` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+- Einführung: `gesetz-zur-einsetzung-einer-neuen-landesverfassung` (2024-10-15)
+- Änderungen: `gesetz-zur-aenderung-der-landesverfassung-2025` (2025-03-12), `gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5` (2026-01-28), `gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes` (2026-03-24), `drittes-gesetz-zur-grossen-staatsreform` (2026-07-21), `erstes-gesetz-zur-grossen-staatsreform` (2026-07-21), `viertes-gesetz-zur-grossen-staatsreform` (2026-07-21), `zweites-gesetz-zur-grossen-staatsreform` (2026-07-21)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Vermessungs- und Katastergesetz
 
@@ -519,7 +787,7 @@
 - Stammnorm: `sachsisches-verwaltungsorganisationsgesetz`
 - REVOSax: noch nicht belegt
 - Einführung: keine
-- Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Änderungen: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
 - Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
 - Probleme:
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
@@ -577,4 +845,8 @@
 ## Nicht als Zielnorm behandelte Vorlagen
 
 - staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm
+
+## Redaktionell zu prüfende Erkennungsfunde
+
+- `organisationserlass-aenderung-fachbereichszuteilung-2024`: „Fachbereichszuteilungen“ (Gliederungsüberschrift)
 

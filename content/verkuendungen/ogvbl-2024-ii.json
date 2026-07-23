@@ -5,52 +5,72 @@
   "issue": "II",
   "date": "2024-10-15",
   "publication": "OGVBl.",
+  "originalIssueDesignation": "OGVBl Nr. II/24",
+  "alternativeIssueDesignation": "OGVBl. 2024 Nr. II",
   "entries": [
     {
-      "id": "verordnung-uber-die-anderung-der-oberstufen-und-abiturprufungsverordnung",
+      "id": "verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024",
       "title": "Verordnung über die Änderung der Oberstufen- und Abiturprüfungsverordnung",
       "type": "verordnung",
       "citation": "Verordnung vom 16. September 2024 (OGVBl. 2024 Nr. II S. 2)",
       "pages": "2",
-      "documentDate": "2024-09-16"
+      "documentDate": "2024-09-16",
+      "normSlug": "verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024",
+      "versionId": "2024-09-16"
     },
     {
-      "id": "organisationserlass-uber-die-anderung-der-fachbereichszuteilung-zu-den-s",
+      "id": "organisationserlass-aenderung-fachbereichszuteilung-2024",
       "title": "Organisationserlass über die Änderung der Fachbereichszuteilung zu den Staatsministerien",
       "type": "verwaltungsvorschrift",
-      "citation": "Verwaltungsvorschrift vom 23. September 2024 (OGVBl. 2024 Nr. II S. 3)",
+      "citation": "Organisationserlass vom 23. September 2024 (OGVBl. 2024 Nr. II S. 3)",
       "pages": "3",
-      "documentDate": "2024-09-23"
+      "documentDate": "2024-09-23",
+      "normSlug": "organisationserlass-aenderung-fachbereichszuteilung-2024",
+      "versionId": "2024-09-23"
     },
     {
-      "id": "dienstanordnung-anlasslich-der-momentanen-terrorgefahr",
+      "id": "dienstanordnung-momentane-terrorgefahr-2024",
       "title": "Dienstanordnung anlässlich der momentanen Terrorgefahr",
       "type": "verwaltungsvorschrift",
-      "citation": "Verwaltungsvorschrift vom 2. Oktober 2024 (OGVBl. 2024 Nr. II S. 4)",
+      "citation": "Dienstanordnung vom 2. Oktober 2024 (OGVBl. 2024 Nr. II S. 4)",
       "pages": "4",
-      "documentDate": "2024-10-02"
+      "documentDate": "2024-10-02",
+      "normSlug": "dienstanordnung-momentane-terrorgefahr-2024",
+      "versionId": "2024-10-02"
     },
     {
       "id": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
       "title": "Gesetz zur Einsetzung einer neuen Landesverfassung",
       "type": "gesetz",
-      "citation": "Gesetz vom 14. Oktober 2024 (OGVBl. 2024 Nr. II S. 5)",
+      "citation": "Gesetz vom 14. Oktober 2024 (OGVBl. 2024 Nr. II S. 5–32)",
       "pages": "5-32",
-      "documentDate": "2024-10-14"
+      "documentDate": "2024-10-14",
+      "normSlug": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
+      "versionId": "2024-10-14"
     }
   ],
   "sourceReferences": [
     {
-      "kind": "original",
-      "label": "Amtliches Original-PDF der Ausgabe",
-      "availability": "not-versioned",
-      "note": "Für die redaktionelle Erfassung lokal geprüft; nicht Bestandteil des Repositorys."
+      "kind": "structured-html-transcription",
+      "label": "Redaktionell geprüfte strukturierte Transkription der vollständigen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl II-24.html",
+      "mediaType": "text/html",
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "structure-bearing",
+      "derivedSource": "Gesetze/OGVBl II-24.pdf"
     },
     {
-      "kind": "index",
-      "label": "Festgeschriebene Liste der amtlichen Verkündungsblätter",
-      "availability": "external",
-      "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
+      "kind": "primary-pdf",
+      "label": "Amtliches Original-PDF der Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl II-24.pdf",
+      "sha256": "9b9b5f8d691c8f4341711a5c30b4c1ac2a03a73a00cbf915688ef8a00b91a6fd",
+      "mediaType": "application/pdf",
+      "pageCount": 32,
+      "verifiedAt": "2026-07-23",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl II-24.html"
     }
   ]
 }

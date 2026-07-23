@@ -23,11 +23,18 @@ export type PublicationSourceAvailability = 'versioned' | 'external' | 'not-vers
 
 export interface PublicationSourceReference {
   label: string;
-  kind: 'original' | 'index' | 'transcription' | 'structured-html-transcription' | 'legacy-markdown-transcription';
+  kind: 'original' | 'index' | 'transcription' | 'structured-html-transcription' | 'legacy-markdown-transcription' | 'primary-pdf' | 'structured-docx-source';
   availability: PublicationSourceAvailability;
   localSource?: string;
   url?: string;
   note?: string;
+  sha256?: string;
+  mediaType?: string;
+  pageCount?: number;
+  pageRange?: string;
+  verifiedAt?: string;
+  sourceRole?: 'structure-bearing' | 'visual-control' | 'official-snapshot';
+  derivedSource?: string;
 }
 
 export interface VerkuendungEntry {
@@ -49,6 +56,8 @@ export interface Verkuendung {
   issue: string;
   date: string;
   publication: string;
+  originalIssueDesignation?: string;
+  alternativeIssueDesignation?: string;
   pdf?: string;
   sourceFiles?: string[];
   sourceReferences?: PublicationSourceReference[];
@@ -215,12 +224,28 @@ function parseSourceReference(value: unknown, path: string): PublicationSourceRe
     kind: expectEnumValue(
       object.kind,
       `${path}.kind`,
-      ['original', 'index', 'transcription', 'structured-html-transcription', 'legacy-markdown-transcription'] as const,
+      ['original', 'index', 'transcription', 'structured-html-transcription', 'legacy-markdown-transcription', 'primary-pdf', 'structured-docx-source'] as const,
     ),
     availability,
     localSource,
     url,
     note: expectOptionalString(object.note, `${path}.note`),
+    sha256: expectOptionalString(object.sha256, `${path}.sha256`),
+    mediaType: expectOptionalString(object.mediaType, `${path}.mediaType`),
+    pageCount: object.pageCount === undefined
+      ? undefined
+      : (() => {
+          if (!Number.isInteger(object.pageCount) || Number(object.pageCount) < 1) {
+            fail(`${path}.pageCount`, 'muss eine positive ganze Zahl sein');
+          }
+          return Number(object.pageCount);
+        })(),
+    pageRange: expectOptionalString(object.pageRange, `${path}.pageRange`),
+    verifiedAt: object.verifiedAt === undefined
+      ? undefined
+      : expectIsoDate(object.verifiedAt, `${path}.verifiedAt`),
+    sourceRole: expectOptionalString(object.sourceRole, `${path}.sourceRole`) as PublicationSourceReference['sourceRole'],
+    derivedSource: expectOptionalString(object.derivedSource, `${path}.derivedSource`),
   };
 }
 
@@ -259,6 +284,8 @@ export function parseVerkuendung(value: unknown, path = 'verkuendung.json'): Ver
     issue: expectString(object.issue, `${path}.issue`),
     date,
     publication: expectString(object.publication, `${path}.publication`),
+    originalIssueDesignation: expectOptionalString(object.originalIssueDesignation, `${path}.originalIssueDesignation`),
+    alternativeIssueDesignation: expectOptionalString(object.alternativeIssueDesignation, `${path}.alternativeIssueDesignation`),
     pdf: expectOptionalString(object.pdf, `${path}.pdf`),
     sourceFiles: object.sourceFiles === undefined
       ? undefined

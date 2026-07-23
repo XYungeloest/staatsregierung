@@ -17,13 +17,16 @@ Belegt:
 - Die Ausgaben OGVBl. 2026 Nr. 46 bis 58 liegen als redaktionell geprüfte HTML-Transkriptionen und
   mit den zugehörigen Original-PDFs unter `Gesetze/` vor. Die PDFs sind visuelle Kontrollquellen,
   keine strukturtragenden Importquellen.
-- `OGVBl II-24.pdf` und `OGVBl I-25.pdf` sind bildbasierte Alt-Ausgaben. Für elf darin enthaltene
-  ältere Dokumente liegt weiterhin kein redaktionell geprüfter maschinenlesbarer Volltext vor.
+- `OGVBl II-24.pdf` und `OGVBl I-25.pdf` sind bildbasierte Alt-Ausgaben. Alle 47 PDF-Seiten
+  wurden am 23. Juli 2026 vollständig gerendert und visuell geprüft. Die elf enthaltenen
+  Dokumente liegen nun als redaktionell geprüfte strukturierte HTML-Transkriptionen und
+  eigenständige Normdatensätze vor.
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
-- Der Konsolidierungs-Audit erkennt derzeit 46 Zielnormen. Für 32 davon ist die maßgebliche
-  Primärquelle noch nicht als unveränderter Snapshot versioniert. Vier weitere Zielnormen sind
+- Der Konsolidierungs-Audit erkennt derzeit 72 Zielnormen einschließlich explizit verknüpfter
+  neu eingeführter Stammnormen. Für 35 davon ist die maßgebliche Primärquelle noch nicht als
+  unveränderter Snapshot versioniert. Vier weitere Zielnormen sind
   wegen eines konkret benannten Quellenkonflikts gesperrt. Die vollständige Liste mit
   Änderungsvorschriften und nächstem Quellenschritt steht in
   `data/recht/consolidation-manifest.json`.
@@ -34,11 +37,10 @@ Belegt:
   Organisationsstände geführt. Ein genaues Außerkrafttretensdatum ist in den gespeicherten
   Fassungen nicht belegt; der Organisationserlass 05/2026 ordnet ausdrücklich an, dass 12/2025
   fortgilt, soweit er keine abweichenden Regelungen trifft.
-- Die Veröffentlichungsliste weist die Ursprungsfassung der Staatsverfassung ab Seite 5 der
-  Ausgabe OGVBl. 2024 Nr. II nach. Eine versionierte HTML-Quelle dieser historischen Ausgabe mit
-  ihrem vollständigen Wortlaut liegt nicht vor. `Staatsverfassung.html` ist eine konsolidierte
-  Lesefassung. Deshalb kann derzeit keine belastbare historische Volltextfassung von 2024
-  gespeichert werden.
+- Die Ursprungsfassung der Staatsverfassung ist aus OGVBl. II/2024, Seiten 5 bis 32, vollständig
+  belegt. `Verfassung.docx` dient als strukturtragende Arbeitsquelle; Titel und Artikel 114
+  wurden für die Ursprungsfassung nach dem Original-PDF korrigiert. Vollständige Fassungen sind
+  zum 15. Oktober 2024, 12. März 2025, 28. Januar 2026, 24. März 2026 und 21. Juli 2026 gespeichert.
 - Für das polnische und das tschechische Grenzraumabkommen ist der für das Inkrafttreten
   erforderliche Austausch der Notifikationen nicht nachgewiesen. Für den NDR-Änderungs- und
   Überleitungsstaatsvertrag ist der Austausch der Ratifikationsurkunden nicht nachgewiesen.
@@ -49,15 +51,14 @@ Schlussfolgerung:
   gepflegt. Eine PDF-Extraktion wird nicht als Ersatzquelle verwendet.
 - Die Verkündungsblätter 46 bis 57 belegen Beschluss und Verkündung der zwölf zuvor angesetzten
   Vorhaben. Nicht belegte Abstimmungsverläufe oder Stimmenzahlen werden nicht ergänzt.
-- Die Alt-Ausgaben werden erst nach einer redaktionell geprüften Transkription als vollständige
-  Normfassungen ergänzt.
+- Weitere bildbasierte Alt-Ausgaben werden erst nach einer redaktionell geprüften Transkription
+  als vollständige Normfassungen ergänzt.
 - Bei Änderungsgesetzen ohne vollständig belegte Ausgangsfassung wird keine frei rekonstruierte
   konsolidierte Fassung erstellt.
-- Feiertagsgesetz, Ladenöffnungsgesetz, Wappenverordnung, Bauordnung, Gemeindeordnung,
-  Haushaltsordnung, Verwaltungskostengesetz, Flüchtlingsaufnahmegesetz und
-  Abschiebungshaftvollzugsgesetz besitzen geprüfte REVOSax-Ausgangsfassungen und vollständige
-  Folgefassungen. Das neu eingeführte Tariftreue- und Vergabegesetz benötigt keine sächsische
-  Ausgangsfassung. Diese zehn Zielnormen sind im Konsolidierungsmanifest als vollständig geführt.
+- Geprüfte REVOSax-Ausgangsfassungen und vollständig verknüpfte, neu eingeführte Stammnormen
+  werden im Konsolidierungsmanifest gemeinsam als vollständig geführt. Der aktuelle Audit weist
+  34 vollständige Zielnormen aus. Neu eingeführte Normen benötigen keine künstliche sächsische
+  Ausgangsfassung; ihre Einführungsbeziehung muss stattdessen wechselseitig belegt sein.
 - Die drei bedingt wirksamen Staatsverträge bleiben veröffentlicht, aber ohne belegtes
   Inkrafttreten.
 - Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
@@ -87,7 +88,7 @@ Schlussfolgerung:
 
 Belegt:
 
-- Unter `Gesetze/` liegen 79 HTML-Dateien und 98 ältere Markdown-Dateien. Sämtliche eindeutig einem
+- Unter `Gesetze/` liegen 84 HTML-Dateien und 98 ältere Markdown-Dateien. Sämtliche eindeutig einem
   Bestandsdatensatz zuordenbaren HTML-Ausgaben sowie `Staatsverfassung.html` dienen als lokale
   strukturtragende Importquellen. Markdown bleibt Altbestand und wird bei vorhandener HTML-Ausgabe
   nicht geöffnet. 17 Normen ohne HTML wurden nach PDF-/Quellvergleich mit dem getrennten
@@ -102,6 +103,10 @@ Belegt:
   Nr. 3, 17, 46, 47, 52, 53, 54 und 58. Bei Nr. 53 belegen insbesondere die Seiten 2 und 3 die
   Fortsetzung `a.` bis `e.` trotz des technischen HTML-Zählerneustarts; bei Nr. 54 belegt Seite 4
   denselben Fortsetzungsfall.
+- Das Quelleninventar `data/recht/alt-source-inventory.json` hält für OGVBl. II/2024,
+  OGVBl. I/2025, OGVBl. I/2024 und `Verfassung.docx` lokale Pfade, SHA-256, Seitenzahlen
+  beziehungsweise Renderumfang, Prüfdatum, Quellenrolle und abgeleitete HTML-Transkriptionen
+  fest. Content-Check und Build benötigen dafür keinen Netzwerkzugriff.
 - Der Normimport läuft standardmäßig nur als Audit. Schreiben erfordert `--write` und eine gezielte
   `--file`-Angabe; vorhandene Normen werden erst mit `--update-existing` verändert.
 - Amtliche REVOSax-Ausgangsseiten liegen unverändert unter
@@ -142,15 +147,29 @@ Belegt:
   lokalen Originals den 14. Juli 1992 und der Vertragstext den 9. April 1992 als Abschlussdatum.
 - Die lokale Entwurfsdatei zu Drucksache 07/27 nennt den 15. Juli 2025, obwohl der Vorgang der
   siebten Wahlperiode im Juli 2026 zugeordnet ist.
-- Artikel 8 des Sportneuordnungsgesetzes bezeichnet eine Ostdeutsche Bezirksordnung vom
-  6. März 2025 (OGVBl. I/2025 S. 7). OGVBl. 2026 Nr. 46 führt dagegen eine gleichnamige
-  Bezirksordnung mit Wirkung zum 1. August 2026 ein. Die im Änderungsgesetz genannte Ausgabe von
-  2025 liegt nicht als vollständige Primärquelle vor.
 - Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt außerdem eine durch Artikel 2 des
   Gesetzes zur Einführung von Bezirken vom 6. März 2025 geänderte Landkreisordnung voraus. Die
   gesicherte REVOSax-Ausgangsfassung zum 1. November 2023 enthält den im Änderungsgesetz
-  vorausgesetzten § 75 noch nicht. Ohne OGVBl. I/2025 S. 7 kann die Zwischenfassung nicht
-  quellentreu hergestellt werden.
+  vorausgesetzten § 75 nicht. Der Änderungsbefehl von 2025 ist nun vollständig belegt; offen
+  bleibt die dazu passende vollständige Ausgangsfassung beziehungsweise die Identität der
+  bezeichneten Landkreisordnung vom 9. März 2018.
+- Das DOCX bezeichnet die Verfassung als „Verfassung des Freistaates Ostdeutschland“ und enthält
+  bereits die Änderung von Artikel 114 aus dem Jahr 2025. Das PDF OGVBl. II/2024 bezeichnet die
+  Ursprungsfassung dagegen als „Verfassung des Ostdeutschen Freistaates“ und enthält Artikel 114
+  als „Widerstandsrecht“. Für die Ursprungsfassung ist der PDF-Wortlaut maßgeblich; beide
+  Abweichungen bleiben in der Quellenprovenienz dokumentiert.
+- Artikel 1 des Hoheitszeichengesetzes vom 23. März 2026 verlangt in Artikel 2 Absatz 2 der
+  Staatsverfassung eine Einfügung nach dem Wort „nach“. Die vollständig belegte Vorfassung
+  „Die Landesfarben sind Weiß und Grün.“ enthält dieses Wort nicht. Der Änderungssatz wird nach
+  ausdrücklicher redaktioneller Klärung als Einfügung vor dem Wort „Weiß“ angewendet. Das
+  Änderungsgesetz selbst bleibt quellentreu und unverändert gespeichert.
+- Bei der Dienstanordnung anlässlich der momentanen Terrorgefahr nennt das Inhaltsverzeichnis
+  den 2. Oktober 2024, der Einleitungssatz dagegen den 23. September 2024.
+- Der Organisationserlass vom 22. Januar 2025 hebt einen Erlass vom 8. November 2024 auf; die
+  veröffentlichte Vorgängerquelle trägt das Dokumentdatum 8. Oktober 2024.
+- Die Silvesterdienstanordnung bezeichnet den Zeitpunkt 1. Januar 2025 um 08:00 Uhr im
+  Schlusswortlaut erneut als „in Kraft“. Überschrift und Regelungszusammenhang weisen ihn als
+  Geltungsende aus; der abweichende Originalwortlaut bleibt unverändert im Normkörper sichtbar.
 - Das Gesetz zur Änderung des Feiertagsgesetzes vom 7. März 2024 bezeichnet die geänderten
   Einzelregelungen innerhalb seines Artikels als „Artikel“. Das spätere Reformgesetz verweist
   dagegen auf „§ 2 Nummer 3“, obwohl die gespeicherte 2024-Fassung den Regelungstext nicht als
@@ -171,18 +190,23 @@ Schlussfolgerung:
 
 - Das Erste Staatsreformgesetz und die konsolidierte Lesefassung werden jeweils quellentreu aus
   ihren HTML-Dateien gespeichert; der Importer nimmt keine sprachliche Harmonisierung vor.
-- `initialVersionId` der Verfassung bleibt leer, solange keine belastbare historische
-  Volltextfassung vorliegt; die konsolidierte Fassung vom 21. Juli 2026 wird nicht als
-  Ursprungsfassung ausgegeben.
+- `initialVersionId` der Verfassung verweist auf die vollständige Ursprungsfassung vom
+  15. Oktober 2024. Der fehlerhafte Zielanker des Hoheitszeichen-Änderungsbefehls wird entsprechend
+  der ausdrücklich geklärten Lesart als Einfügung vor dem Wort „Weiß“ angewendet; die
+  Änderungsvorschrift selbst bleibt unverändert gespeichert.
 - Bei StAnzO. 2026 Nr. 13 wird das Ausgabedatum als Veröffentlichungsdatum verwendet; ein
   eindeutiges Dokumentdatum wird nicht erfunden.
 - Beim Helsinki-Übereinkommen wird der 9. April 1992 als Dokumentdatum geführt. Die abweichenden
   Index- und Kopfangaben bleiben als Hinweis sichtbar.
 - Für Drucksache 07/27 wird kein unbelegtes Einbringungsdatum ergänzt.
-- Die Bezirksordnung, die Landkreisordnung, das bezeichnete alte Polizeigesetz und das Archivgesetz
-  bleiben im Konsolidierungsmanifest `blocked-source-conflict`. Aus Namensähnlichkeit, einer
-  fehlenden Zwischenfassung oder widersprüchlicher interner Gliederung wird keine konsolidierte
-  Folgefassung abgeleitet.
+- Die Bezirksordnung ist nicht mehr blockiert: Die vollständige Fassung von 2025 gilt bis zum
+  Ablauf des 31. Juli 2026. Zum 1. August 2026 wird sie durch Artikel 2 des Kreis- und
+  Bezirksneuordnungsgesetzes vollständig abgelöst; Artikel 8 des Sportneuordnungsgesetzes wird
+  entsprechend der ausdrücklich geklärten zeitlichen Zuordnung auf diese Neufassung angewendet.
+  Beide Änderungen sind derselben vollständigen Folgefassung zugeordnet.
+- Die Landkreisordnung, das bezeichnete alte Polizeigesetz und das Archivgesetz bleiben im
+  Konsolidierungsmanifest `blocked-source-conflict`. Aus einem fehlenden Zielanker oder
+  widersprüchlicher interner Gliederung wird dort keine konsolidierte Folgefassung abgeleitet.
 
 ## 5. Nächster Aktualisierungsschritt
 
@@ -198,8 +222,6 @@ Schlussfolgerung:
    REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
    sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten
    prüfen.
-6. OGVBl. I/2025 S. 7 zur dort bezeichneten Bezirksordnung und zur geänderten Landkreisordnung
-   beschaffen, die Zwischenfassungen prüfen und den Konflikt zur Einführungsfassung aus
-   OGVBl. 2026 Nr. 46 klären.
+6. Die Identität der Landkreisordnung vom 9. März 2018 amtlich klären.
 7. Die amtliche Kennzeichnung der Inkrafttretensvorschrift des Archivgesetzes bei REVOSax klären;
    erst danach die Ausgangsfassung 2628.7 konsolidieren.

@@ -1,13 +1,30 @@
 {
-  "initialVersionId": "2026-08-01",
+  "initialVersionId": "2025-03-12",
   "entries": [
     {
-      "date": "2026-07-20",
+      "date": "2025-03-12",
       "type": "initial",
-      "title": "Stammfassung verkündet.",
+      "title": "Stammfassung durch das Ostdeutsche Bezirkseinführungsgesetz eingeführt.",
+      "citation": "Gesetz vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–14)",
+      "affectingVersionId": "2025-03-12",
+      "relatedNorm": "ostdeutsches-bezirkseinfuehrungsgesetz"
+    },
+    {
+      "date": "2026-08-01",
+      "type": "amendment",
+      "title": "Bisherige Bezirksordnung vollständig abgelöst.",
       "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46)",
       "affectingVersionId": "2026-08-01",
       "relatedNorm": "kreis-und-bezirksneuordnungsgesetz"
+    },
+    {
+      "date": "2026-08-01",
+      "type": "amendment",
+      "title": "Bezirkliche Sportentwicklung und Sportkoordination ergänzt.",
+      "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
+      "note": "Artikel 8 wird entsprechend der geklärten zeitlichen Zuordnung auf die ab 1. August 2026 geltende Ablösungsfassung angewendet.",
+      "affectingVersionId": "2026-08-01",
+      "relatedNorm": "sportneuordnungsgesetz"
     }
   ]
 }

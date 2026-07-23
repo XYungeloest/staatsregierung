@@ -15,6 +15,8 @@
     "norms:revosax:fetch": "node scripts/revosax-snapshot.mjs fetch",
     "norms:revosax:parse": "node scripts/revosax-snapshot.mjs parse",
     "norms:consolidate": "node scripts/consolidate-norms.mjs",
+    "norms:alt-sources:build": "node scripts/build-alt-source-transcriptions.mjs",
+    "norms:alt-sources:migrate": "node scripts/migrate-alt-sources.mjs",
     "test:parser": "node --test tests/norm-html-parser.test.mjs tests/norm-markdown-parser.test.mjs tests/import-audit.test.mjs",
     "kreisreform:prepare": "node scripts/prepare-kreisreform-map.mjs",
     "images:generate": "node scripts/generate-responsive-images.mjs",

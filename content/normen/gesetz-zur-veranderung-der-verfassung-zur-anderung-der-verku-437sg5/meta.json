@@ -4,7 +4,7 @@
   "title": "Gesetz zur Veränderung der Verfassung zur Änderung der Verkündungsregeln und zur Einführung eines Verkündungsgesetz",
   "shortTitle": "Gesetz zur Veränderung der Verfassung zur Änderung der Verkündungsregeln und zur Einführung eines Verkündungsgesetz",
   "abbr": "VVÄVEeV",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "ministry": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
     "Landesrecht"
@@ -34,5 +34,8 @@
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 9.html"
     }
+  ],
+  "affectedNorms": [
+    "staatsverfassung-des-freistaates-ostdeutschland"
   ]
 }

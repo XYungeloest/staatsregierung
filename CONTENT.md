@@ -103,6 +103,8 @@ Pflichtfelder:
 Optionale Felder:
 
 - `pdf`
+- `originalIssueDesignation`
+- `alternativeIssueDesignation`
 - `sourceFiles`
 - `sourceReferences`
 - `entries[].documentDate`
@@ -144,6 +146,11 @@ Format:
 ```
 
 `date` ist das Ausgabedatum und damit das Veröffentlichungsdatum der Ausgabe.
+`originalIssueDesignation` gibt ausschließlich die im Original sichtbare Ausgabenbezeichnung
+wieder. Eine zusätzlich im Portal verwendete, nicht im Original stehende Bezeichnung wird getrennt
+als `alternativeIssueDesignation` gespeichert. Das optionale Feld `pdf` ist einem tatsächlich
+öffentlich erreichbaren Download vorbehalten; eine nur intern versionierte Kontrollquelle wird
+nicht automatisch öffentlich verlinkt.
 `entries[].documentDate` bezeichnet dagegen das Ausfertigungs- beziehungsweise Dokumentdatum.
 Beide Werte werden getrennt gepflegt und dürfen nicht aus Bequemlichkeit gleichgesetzt werden.
 `entries[].citation` enthält Normart, Dokumentdatum und die belegte Fundstelle. `startPage` bezeichnet
@@ -172,6 +179,11 @@ Gegenprüfung, werden aber nicht als strukturtragende Importquelle behandelt. Di
 umfasst insbesondere Gliederungstiefe, Einrückung, Nummerierungs- und Fortsetzungsfolgen, zitierte
 Neufassungen, Tabellenkopf- und Zellenstruktur sowie die Zuordnung von Anlagen. Mehrdeutige
 Abweichungen werden weder sprachlich noch strukturell still harmonisiert.
+Bei binären Prüfquellen dokumentiert `sourceReferences` zusätzlich Medientyp, SHA-256, PDF-
+Seitenzahl, Prüfdatum, Quellenrolle und die zugehörige abgeleitete Transkription. `structure-bearing`
+kennzeichnet die strukturtragende Textquelle; `visual-control` die maßgebliche visuelle
+Gegenprüfung. Stimmen beide nicht überein, hat die Primärquelle Vorrang und die Abweichung wird in
+`CONTENT_GAPS.md` festgehalten.
 
 Erlaubte Eintragstypen:
 
@@ -948,6 +960,8 @@ Parserfall als `needs-review`.
 ```sh
 npm run norms:audit
 npm run norms:audit -- --strict
+npm run norms:alt-sources:build
+npm run norms:alt-sources:migrate
 npm run norms:import -- --write --file "Gesetze/OGVBl. 2026 Nr. 58.html"
 npm run norms:import -- --write --update-existing --file "Gesetze/OGVBl. 2026 Nr. 44.md"
 npm run test:parser
@@ -957,6 +971,14 @@ Der strikte Audit ist schreibfrei und prüft die konfigurierten HTML-Primärquel
 gespeicherten Normfassungen und Verkündungsdatensätze. Er schlägt bei fehlenden Normen,
 abweichenden Titeln oder Datumswerten, Parser-Vertragsverletzungen und geplanten Änderungen fehl.
 Er ist Bestandteil von `npm run content:check` und der CI-Qualitätsprüfung.
+
+Die Altquellen-Befehle sind ein enger, reproduzierbarer Migrationspfad für OGVBl. II/2024,
+OGVBl. I/2025 und die dazugehörige Verfassungsquelle. Der Build-Befehl setzt die vollständigen
+Ausgaben aus redaktionell geprüften Teiltranskriptionen zusammen. Der Migrationsbefehl validiert
+zunächst Hashes, Seiteninventar und Struktur und aktualisiert dann die elf Einzelakte,
+Verkündungsdatensätze sowie die belegten Verfassungs- und Bezirksfassungen. Das dazugehörige
+Prüfinventar liegt unter `data/recht/alt-source-inventory.json`; weder Migration noch Content-Check
+benötigen Netzwerkzugriff.
 
 ### Konsolidierung übernommener Stammnormen
 

@@ -329,6 +329,8 @@ test('Konsolidierungsmanifest ist aktuell und kennzeichnet Quellenkonflikte', as
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'wappenverordnung')?.status, 'complete');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'archivgesetz')?.status, 'blocked-source-conflict');
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsisches-polizeigesetz')?.status, 'blocked-source-conflict');
-  assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'ostdeutsche-bezirksordnung')?.status, 'blocked-source-conflict');
+  const district = manifest.targets.find((target) => target.canonicalSlug === 'ostdeutsche-bezirksordnung');
+  assert.equal(district?.status, 'complete');
+  assert.deepEqual(district?.effectiveDates, ['2026-08-01']);
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsische-landkreisordnung')?.status, 'blocked-source-conflict');
 });
