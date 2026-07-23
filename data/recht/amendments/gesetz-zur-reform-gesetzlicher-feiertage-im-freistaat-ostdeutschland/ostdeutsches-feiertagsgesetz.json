@@ -1,0 +1,187 @@
+{
+  "amendmentAct": "gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland",
+  "effectiveDate": "2026-03-24",
+  "versionId": "2026-03-23",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 20 S. 2)",
+  "resultCitation": "Gesetz über Sonn- und Feiertage im Freistaat Ostdeutschland vom 10. November 1992 (SächsGVBl. S. 536), zuletzt geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 20 S. 2)",
+  "changeNote": "Vollständige Fassung nach dem Gesetz zur Reform gesetzlicher Feiertage.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Ausgabe OGVBl. 2026 Nr. 20",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 20.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 1"
+      },
+      "expectedHash": "2dbe5125c64928504704e1d13cf31062260361dbfb8922489a65da96608dfdc7",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 1",
+        "title": "Gesetzliche Feiertage",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Gesetzliche Feiertage sind:\nNeujahr (1. Januar),\nWeltfrauentag (8. März),\nTag der Märzrevolution und Demokratie (18. März)\nKarfreitag,\nOstermontag,\nTag der Arbeit (1. Mai),\nTag der Befreiung vom Nationalsozialismus und der Beendigung des Zweiten Weltkriegs in Europa (8. Mai),\nTag des Arbeiteraufstands (17. Juni),\nTag der Deutschen Einheit (3. Oktober),\nTag der Friedlichen Revolution (9. November),\n1. Weihnachtstag (25. Dezember),\n2. Weihnachtstag (26. Dezember).",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die gesetzlichen Feiertage nach Absatz 1 sind Feiertage im Sinne bundes- und landesrechtlicher Vorschriften.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Fallen die in Absatz 1 datumsfest bestimmten gesetzlichen Feiertage auf einen Sonnabend oder Sonntag wird für jeden dieser Tage am nächstmöglichen Wochenarbeitstag in der jeweiligen Folgewoche ein arbeitsfreier Tag gewährt (Ersatzfeiertag). Für den jeweiligen Ersatzfeiertag gelten die Bestimmungen des § 4.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 20.html",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 1"
+      },
+      "expectedHash": "46a88c5469538ab33fbc5f8ad0afd179e259ddf6a5b80d19665e4d5181132ec1",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 1a",
+        "title": "Persönliche Feiertage",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Arbeitnehmer:innen mit gewöhnlichem Arbeitsort im Freistaat Ostdeutschland haben in jedem Kalenderjahr Anspruch auf drei persönliche Feiertage.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der persönliche Feiertag ist ein vom Arbeitnehmer frei gewählter Kalendertag. Er ist dem Arbeitgeber spätestens 14 Kalendertage vor dem beabsichtigten Zeitpunkt in Textform anzuzeigen. Eine Begründung ist nicht erforderlich.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der Arbeitnehmer hat das Recht, an persönlichen Feiertagen der Arbeit fernzubleiben, wenn keine zwingenden betrieblichen Erfordernisse entgegenstehen. Im Fall zwingender betrieblicher Erfordernisse hat der Arbeitgeber unverzüglich einen Ersatztermin zu ermöglichen; der Ersatztermin ist innerhalb von drei Monaten zu gewähren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Persönliche Feiertage gelten ausschließlich im Verhältnis Arbeitgeber zu Arbeitnehmer:innen als gesetzliche Feiertage im Sinne von § 9 Arbeitszeitgesetz und § 2 Entgeltfortzahlungsgesetz.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die §§ 4 bis 7 dieses Gesetzes finden auf persönliche Feiertage keine Anwendung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Absätze 1 bis 5 gelten nicht für Schüler:innen sowie Auszubildende.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 20.html",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "675cd2050a3d737e35bcae6ddaba0e4c853f755760f3d7ca9112c5de1844cda7",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 2",
+        "title": "Gedenk- und Trauertage",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Gedenk- und Trauertage im Sinne dieses Gesetzes sind der Luxemburg-Liebknecht-Gedenktag (15. Januar) und der Volkstrauertag (vorletzter Sonntag vor dem 1. Advent)."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 20.html",
+      "sourceProvision": "Artikel 1 Nummer 3",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 3"
+      },
+      "expectedHash": "a3bb0f4c24b7d3b6a540ff2b4984cfb75818ad22bd0e0d91c63e032541303c94",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3",
+        "title": "Religiöse Feiertage",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Religiöse Feiertage im Sinne dieses Gesetzes sind:\nErscheinungsfest (6. Januar),\nFrühjahrsbußtag (7. Mittwoch vor Ostern),\nGründonnerstag,\nTag des Fastenbrechens,\nChristi Himmelfahrt,\nPfingstmontag,\nFronleichnam,\nJom Kippur, (Zweiter Tag)\nVesakhfest,\nJohannestag (24. Juni),\nPeter und Paul (29. Juni),\nMariä Himmelfahrt (15. August),\nTag des Guru Nanak,\nLakshmi Puja,\nReformationstag (31. Oktober),\nAllerheiligen (1. November),\nMariä Empfängnis (8. Dezember).",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Staatsregierung wird ermächtigt, durch Rechtsverordnung weitere religiöse Feiertage festzulegen, soweit hierfür aufgrund der Bedeutung einer Religionsgemeinschaft nach Tradition oder Mitgliederzahl ein Bedürfnis besteht.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "An den in Absatz 1 genannten und den nach Absatz 2 festgelegten religiösen Feiertagen haben",
+            "children": [
+              {
+                "type": "item",
+                "label": "1.",
+                "text": "Schüler und Auszubildende das Recht, dem Unterricht oder der Ausbildung fernzubleiben,",
+                "level": 0,
+                "numberingStyle": "decimal",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "2.",
+                "text": "Personen, die in einem Beschäftigungsverhältnis stehen, das Recht, der Arbeit fernzubleiben, soweit und solange dies erforderlich ist, um am Hauptgottesdienst oder den Feierlichkeiten ihrer Religionsgemeinschaft teilzunehmen.",
+                "level": 0,
+                "numberingStyle": "decimal",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 20.html",
+      "sourceProvision": "Artikel 1 Nummer 4",
+      "effectiveDate": "2026-03-24"
+    }
+  ]
+}

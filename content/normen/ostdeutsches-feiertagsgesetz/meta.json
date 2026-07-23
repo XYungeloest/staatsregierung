@@ -1,7 +1,7 @@
 {
   "id": "ostdeutsches-feiertagsgesetz",
   "slug": "ostdeutsches-feiertagsgesetz",
-  "title": "Gesetz über Sonn- und Feiertage im Ostdeutschen Freistaat",
+  "title": "Gesetz über Sonn- und Feiertage im Freistaat Ostdeutschland",
   "shortTitle": "Ostdeutsches Feiertagsgesetz",
   "abbr": "OstFSG",
   "type": "gesetz",
@@ -22,17 +22,40 @@
     "Freistaat",
     "OstFSG"
   ],
-  "initialCitation": "Gesetz vom 23. März 2026 (Ostdeutsches Feiertagsgesetz)",
+  "initialCitation": "Gesetz über Sonn- und Feiertage im Freistaat Sachsen vom 10. November 1992 (SächsGVBl. S. 536), zuletzt geändert durch Gesetz vom 30. Januar 2013 (SächsGVBl. S. 2)",
   "predecessor": null,
   "successor": null,
   "summary": "§ 1 – Gesetzliche Feiertage, 1) Gesetzliche Feiertage sind: Neujahr (1. Januar), Weltfrauentag (8. März), Tag der Märzrevolution und Demokratie (18. März) Karfreitag, Ostermontag, Tag der Arbeit (1. Mai), Tag der...",
   "status": "in-force",
   "sourceReferences": [
     {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription (Altbestand)",
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2013-02-10 bis 2025-05-06",
       "availability": "versioned",
-      "localSource": "Gesetze/Ostdeutsches Feiertagsgesetz.md"
+      "localSource": "data/recht/sources/revosax/ostdeutsches-feiertagsgesetz/3997.5.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3997.5",
+      "retrievedAt": "2026-07-23",
+      "sha256": "16f86a9d3c195798f52d4c6a9d57265bf05a64be2a7a7357a44c336efdde3ac7",
+      "lawId": "3997",
+      "sourceValidFrom": "2013-02-10",
+      "sourceValidTo": "2025-05-06"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Ausgabe OGVBl. 2024 Nr. I",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl-03-24.pdf"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Ausgabe OGVBl. 2026 Nr. 20",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 20.html"
     }
+  ],
+  "documentDate": "1992-11-10",
+  "affectedByNorms": [
+    "gesetz-zur-anderung-des-gesetzes-uber-sonn-und-feiertage-im-freistaat-ostdeutschland",
+    "gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland"
   ]
 }

@@ -1,0 +1,148 @@
+{
+  "amendmentAct": "gesetz-zur-anderung-des-gesetzes-uber-sonn-und-feiertage-im-freistaat-ostdeutschland",
+  "effectiveDate": "2024-03-08",
+  "versionId": "2024-03-07",
+  "amendmentCitation": "Gesetz vom 7. März 2024 (OGVBl. 2024 Nr. I S. 1)",
+  "resultCitation": "Gesetz über Sonn- und Feiertage im Freistaat Ostdeutschland vom 10. November 1992 (SächsGVBl. S. 536), geändert durch Gesetz vom 7. März 2024 (OGVBl. 2024 Nr. I S. 1)",
+  "changeNote": "Vollständige Fassung nach der Änderung vom 7. März 2024.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Ausgabe OGVBl. 2024 Nr. I",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl-03-24.pdf"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Gesetz über Sonn- und Feiertage im Freistaat Sachsen",
+      "value": "Gesetz über Sonn- und Feiertage im Freistaat Ostdeutschland",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl-03-24.pdf",
+      "sourceProvision": "Artikel 1, Überschrift der geänderten Vorschrift",
+      "effectiveDate": "2024-03-08"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 1"
+      },
+      "expectedHash": "2d25567a7cee1de2b7f7a249855bbae5ecf7262a37991608fd67803aeb088433",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 1",
+        "title": "Gesetzliche Feiertage",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Gesetzliche Feiertage sind:\nNeujahr (1. Januar),\nWeltfrauentag (8. März),\nKarfreitag,\nOstermontag,\nTag des Fastenbrechens,\nTag der Arbeit (1. Mai),\nChristi Himmelfahrt,\nPfingstmontag,\nFronleichnam (nur in den vom Staatsministerium des Innern durch Rechtsverordnung bestimmten Regionen),\nJom Kippur, (Zweiter Tag)\nWeltkindertag (20. September),\nTag der Deutschen Einheit (3. Oktober),\nReformationstag (31. Oktober),\n1. Weihnachtstag (25. Dezember),\n2. Weihnachtstag (26. Dezember).",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die gesetzlichen Feiertage sind Feiertage im Sinne bundes- und landesrechtlicher Vorschriften.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl-03-24.pdf",
+      "sourceProvision": "Artikel 1, Artikel 1",
+      "effectiveDate": "2024-03-08"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "1ff775158570de89e3e56e512890e8630c1cd29f5b16c817454c596334a7f83c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 2",
+        "title": "Gedenk- und Trauertage",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Gedenk- und Trauertage im Sinne dieses Gesetzes sind der Luxemburg-Liebknecht-Gedenktag (15. Januar), Volkstrauertag (vorletzter Sonntag vor dem 1. Advent) und der Totensonntag (letzter Sonntag vor dem 1. Advent)."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl-03-24.pdf",
+      "sourceProvision": "Artikel 1, Artikel 2",
+      "effectiveDate": "2024-03-08"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 3"
+      },
+      "expectedHash": "c7e2e9d6f449a69f24abb725b3873670205c0ef10f6ee3eeede19bbc953d72aa",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3",
+        "title": "Religiöse Feiertage",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Religiöse Feiertage im Sinne dieses Gesetzes sind:\nErscheinungsfest (6. Januar),\nFrühjahrsbußtag (7. Mittwoch vor Ostern),\nGründonnerstag,\nFronleichnam (soweit nicht gesetzlicher Feiertag),\nVesakhfest,\nJohannestag (24. Juni),\nPeter und Paul (29. Juni),\nMariä Himmelfahrt (15. August),\nTag des Guru Nanak,\nLakshmi Puja,\nAllerheiligen (1. November),\nMariä Empfängnis (8. Dezember).",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Staatsregierung wird ermächtigt, durch Rechtsverordnung weitere religiöse Feiertage festzulegen, soweit hierfür aufgrund der Bedeutung einer Religionsgemeinschaft nach Tradition oder Mitgliederzahl ein Bedürfnis besteht.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "An den in Absatz 1 genannten und den nach Absatz 2 festgelegten religiösen Feiertagen haben",
+            "children": [
+              {
+                "type": "item",
+                "label": "1.",
+                "text": "Schüler und Auszubildende das Recht, dem Unterricht oder der Ausbildung fernzubleiben,",
+                "level": 0,
+                "numberingStyle": "decimal",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "2.",
+                "text": "Personen, die in einem Beschäftigungsverhältnis stehen, das Recht, der Arbeit fernzubleiben, soweit und solange dies erforderlich ist, um am Hauptgottesdienst oder den Feierlichkeiten ihrer Religionsgemeinschaft teilzunehmen.",
+                "level": 0,
+                "numberingStyle": "decimal",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl-03-24.pdf",
+      "sourceProvision": "Artikel 1, Artikel 3",
+      "effectiveDate": "2024-03-08"
+    },
+    {
+      "op": "repealProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 6"
+      },
+      "expectedHash": "974ccf10c0991b0a52eb514499d71cfe86cd2a582bbc86e50e23579866b16500",
+      "expectedMatches": 1,
+      "value": "(weggefallen)",
+      "source": "Gesetze/OGVBl-03-24.pdf",
+      "sourceProvision": "Artikel 1, Artikel 6",
+      "effectiveDate": "2024-03-08"
+    }
+  ]
+}

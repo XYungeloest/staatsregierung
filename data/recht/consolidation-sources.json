@@ -1,0 +1,90 @@
+{
+  "baselineSnapshotDate": "2023-11-01",
+  "targets": {
+    "ostdeutsches-feiertagsgesetz": {
+      "title": "Gesetz über Sonn- und Feiertage im Ostdeutschen Freistaat",
+      "aliases": [
+        "Gesetz über Sonn- und Feiertage im Freistaat Sachsen",
+        "Gesetz über Sonn- und Feiertage im Freistaat Ostdeutschland",
+        "Ostdeutsches Feiertagsgesetz"
+      ],
+      "revosaxLawId": "3997",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3997.5",
+      "baselineCitation": "Gesetz über Sonn- und Feiertage im Freistaat Sachsen vom 10. November 1992 (SächsGVBl. S. 536), zuletzt geändert durch Gesetz vom 30. Januar 2013 (SächsGVBl. S. 2)",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2013-02-10",
+      "sourceValidTo": "2025-05-06",
+      "snapshot": "data/recht/sources/revosax/ostdeutsches-feiertagsgesetz/3997.5.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "16f86a9d3c195798f52d4c6a9d57265bf05a64be2a7a7357a44c336efdde3ac7"
+    },
+    "wappenverordnung": {
+      "title": "Wappenverordnung",
+      "aliases": [
+        "Wappenverordnung"
+      ],
+      "revosaxLawId": "1695",
+      "createMeta": {
+        "type": "verordnung",
+        "enactingBody": "Sächsische Staatsregierung",
+        "effectiveDate": "2005-03-22",
+        "subjects": [
+          "Staats- und Verfassungsrecht"
+        ],
+        "keywords": [
+          "Staatswappen",
+          "Hoheitszeichen",
+          "Wappenführung"
+        ],
+        "summary": "Regelt die Führung und Verwendung des Wappens des Freistaates Sachsen sowie die zuständigen Stellen."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1695.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2005-03-22",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/wappenverordnung/1695.1.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "8f6d44bb0e5fffae83bb2663bd493ae7efda4c635325fb63b3448ea8c2ae8615"
+    },
+    "saechsisches-ladenoeffnungsgesetz": {
+      "title": "Ostdeutsches Ladenöffnungsgesetz",
+      "resultShortTitle": "Ostdeutsches Ladenöffnungsgesetz",
+      "aliases": [
+        "Sächsisches Ladenöffnungsgesetz",
+        "Ostdeutsches Ladenöffnungsgesetz"
+      ],
+      "revosaxLawId": "11548",
+      "createMeta": {
+        "type": "gesetz",
+        "enactingBody": "Sächsischer Landtag",
+        "subjects": [
+          "Wirtschaft und Förderung"
+        ],
+        "keywords": [
+          "Ladenöffnung",
+          "Öffnungszeiten",
+          "Verkaufsoffene Sonntage"
+        ],
+        "summary": "Regelt die Öffnung von Verkaufsstellen, besondere Öffnungszeiten sowie den Schutz von Sonn- und Feiertagen."
+      },
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/11548.4",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2020-12-01",
+      "sourceValidTo": null,
+      "snapshot": "data/recht/sources/revosax/saechsisches-ladenoeffnungsgesetz/11548.4.html",
+      "retrievedAt": "2026-07-23",
+      "sourceSha256": "b33772840aec5d06bb7a62d1b78602efc58de0e2e471ae405112b2442355ffc8"
+    }
+  },
+  "blockedTargets": {
+    "saechsisches-polizeigesetz": {
+      "reason": "Das bezeichnete Sächsische Polizeigesetz war am Ausgangsstichtag bereits außer Kraft. Die Änderung belegt keine Wiederinkraftsetzung und keine eindeutige Zuordnung zu SächsPVDG oder SächsPBG."
+    },
+    "ostdeutsche-bezirksordnung": {
+      "reason": "OGVBl. 2026 Nr. 46 führt eine Ostdeutsche Bezirksordnung mit Wirkung zum 1. August 2026 ein. Artikel 8 des Sportneuordnungsgesetzes bezeichnet dagegen eine Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. I/2025 S. 7). Ohne die dort genannte Primärquelle lässt sich nicht quellentreu entscheiden, welche Stammfassung geändert wird."
+    },
+    "mustergesetz": {
+      "reason": "Der im NDR-Staatsvertrag enthaltene Text „Mustergesetz vom TT. MMMM JJJJ“ ist eine unausgefüllte Quellenvorlage und keine reale Zielnorm."
+    }
+  }
+}

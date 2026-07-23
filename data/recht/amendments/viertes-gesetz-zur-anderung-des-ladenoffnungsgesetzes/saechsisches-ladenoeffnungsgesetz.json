@@ -1,0 +1,230 @@
+{
+  "amendmentAct": "viertes-gesetz-zur-anderung-des-ladenoffnungsgesetzes",
+  "effectiveDate": "2026-02-01",
+  "versionId": "2026-02-01",
+  "amendmentCitation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 4 S. 2)",
+  "resultCitation": "Ostdeutsches Ladenöffnungsgesetz vom 1. Dezember 2010 (SächsGVBl. S. 338), zuletzt geändert durch Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 4 S. 2)",
+  "changeNote": "Geändert durch das Vierte Gesetz zur Änderung des Ladenöffnungsgesetzes.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 4 S. 2 bis 5",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 4.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsisches Ladenöffnungsgesetz",
+      "expectedMatches": 1,
+      "value": "Ostdeutsches Ladenöffnungsgesetz",
+      "source": "Gesetze/OGVBl. 2026 Nr. 4.html",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-02-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 3"
+      },
+      "expectedHash": "8453ab7ae50929dd917cfd36bc119bf3ed2f16d9d2e950f7322f10c47ef398b8",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3",
+        "title": "Öffnungszeiten",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Montags bis Samstags dürfen Verkaufsstellen von 5 bis 23 Uhr geöffnet haben. An Sonntagen dürfen Verkaufsstellen von 6 bis 14 Uhr geöffnet haben. Fällt der Vortag des Weihnachtsfestes (24. Dezember) auf einen Werktag, so hat er gleich einen Sonntag geöffnet.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Außerhalb der in Absatz 1 genannten Zeiten sind die Öffnung von Verkaufsstellen und das gewerbliche Anbieten von Waren außerhalb von Verkaufsstellen zum Verkauf an jedermann verboten, soweit nicht durch dieses Gesetz oder aufgrund dieses Gesetzes etwas anderes bestimmt wird (allgemeine Ladenschlusszeiten).",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Abweichend von Absatz 2 darf der Verkauf von Backwaren an Werktagen ab 5 Uhr beginnen, Tageszeitungen dürfen außerhalb von Verkaufsstellen während des ganzen Tages angeboten werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "¹Abweichend von Absatz 2 können Verkaufsstellen zur Durchführung von Einkaufsveranstaltungen an bis zu fünf Werktagen im Jahr bis spätestens 6 Uhr des folgenden Tages geöffnet sein, an Sonnabenden und an Werktagen vor Feiertagen jedoch nur bis spätestens 24 Uhr. ²Die Tage und der Zeitraum werden von den Verkaufsstelleninhabern festgelegt und sind der Gemeinde spätestens vier Wochen im Voraus anzuzeigen. ³Widerspricht die Gemeinde nicht spätestens zwei Wochen nach dem Eingang der Anzeige, so darf die Veranstaltung durchgeführt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die bei Ladenschluss anwesenden Kunden dürfen noch bedient werden.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 4.html",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-02-01"
+    },
+    {
+      "op": "insertProvisionBefore",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "2c2eac240d24955a29d6826e47f13023131dc15659ddbdc6c623ccf6b1d04aaa",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3a",
+        "title": "Spätverkaufsstelle",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Abweichend von § 3 Absatz 1 Satz 2 und 3 dürfen öffnen",
+            "children": [
+              {
+                "type": "item",
+                "label": "a.",
+                "text": "Verkaufsstelle, die für den Bedarf von Touristen ausschließlich Andenken, Straßenkarten, Stadtpläne, Reiseführer, Tabakwaren, Verkaufsmaterial für Film- und Fotozwecke, Bedarfsartikel für den alsbaldigen Verbrauch sowie Lebens- und Genussmittel zum sofortigen Verzehr anbieten von 8 bis 20 Uhr,",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "b.",
+                "text": "Verkaufsstellen zur Versorgung der Besucherinnen und Besucher auf dem Gelände oder im Gebäude einer Veranstaltung oder eines Museums mit themenbezogenen Waren oder mit Lebens- und Genussmitteln zum sofortigen Verzehr während der Veranstaltungs- und Öffnungsdauer,",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "c.",
+                "text": "Verkaufsstellen, deren Angebot ausschließlich aus einer oder mehreren der Warengruppen Blumen und Pflanzen, Zeitungen und Zeitschriften, Back- und Konditorwaren, Milch und MIlcherzeugnisse besteht von 7 bis 15 Uhr und",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "d.",
+                "text": "Kunst- und Gebrauchtwarenmärkte von 7 bis 18 Uhr.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "In Verkaufsstellen",
+            "children": [
+              {
+                "type": "item",
+                "label": "a.",
+                "text": "darf leicht verderbliches Obst und Gemüse und Erzeuger angeboten werden an Sonn- und Feiertagen und am 24. Dezember, wenn dieser Tag auf einen Adventssonntag fällt von 6 bis 15 Uhr und",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "b.",
+                "text": "dürfen Weihnachtsbäume angeboten werden an Adventssonntagen und am 24. Dezember von 6 bis 20 Uhr.",
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 4.html",
+      "sourceProvision": "Artikel 1 Nummer 4",
+      "effectiveDate": "2026-02-01"
+    },
+    {
+      "op": "insertProvisionBefore",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "2c2eac240d24955a29d6826e47f13023131dc15659ddbdc6c623ccf6b1d04aaa",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3b",
+        "title": "Personallos betriebene Kleinstsupermärkte",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Personallos betrieben Kleinstsupermärkte mit einer unmittelbar dem Verkauf dienenden Grundfläche von bis zu 150 m2, in denen kein persönlicher Kundenkontakt stattfindet und die Auswahl, Übergabe und Bezahlung der Waren mittels eines oder mehrerer Warenautomatenoder mittels Selbstbedienung erfolgt, dürfen abweichend von den Vorschriften des § 3 an allen Tagen während des ganzen Tages geöffnet sein.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Abweichend von Absatz 1 darf die zuständige Ortspolizeibehörde an Sonn- und Feiertagen die Dauer und die Lage der zugelassenen Öffnungszeiten eines personallos betriebenen Kleinstsupermarktes einschränken, jedoch nicht unter einer Dauer von acht zusammenhängenden Stunden.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 4.html",
+      "sourceProvision": "Artikel 1 Nummer 4",
+      "effectiveDate": "2026-02-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 8"
+      },
+      "expectedHash": "7ee74598e4562cbde7e2bc039f5a8e2ff52f4863a44894cbb5440801143bcaba",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 8",
+        "title": "Verkaufsoffene Sonntage",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "¹Die Gemeinden werden ermächtigt, abweichend von § 3 Absatz 2, die Öffnung von Verkaufsstellen im Gemeindegebiet aus besonderem Anlass an jährlich bis zu fünf Sonntagen wie an einem Werktag durch Rechtsverordnung zu gestatten. ²Einem verkaufsoffenen Sonntag nach Satz 1 kann maximal ein weiterer verkaufsoffener Sonntag unmittelbar folgen. ³Werden zwei aufeinanderfolgende Sonntage für die Öffnung von Verkaufsstellen freigegeben, ist die Öffnung von Verkaufsstellen an den diesen Sonntagen vorangehenden und nachfolgenden zwei aufeinanderfolgenden Sonntagen unzulässig. ⁴Die Freigabe kann auf bestimmte Ortsteile und Handelszweige beschränkt werden. ⁵Wird die Öffnung von Verkaufsstellen derart beschränkt, ist diese Möglichkeit der Sonntagsöffnung für das gesamte Gemeindegebiet verbraucht."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 4.html",
+      "sourceProvision": "Artikel 1 Nummer 3",
+      "effectiveDate": "2026-02-01"
+    },
+    {
+      "op": "insertProvisionBefore",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 9"
+      },
+      "expectedHash": "986eee28b48262e7e60d94fd9ce150a5cb59514af3316695027724259c29dab4",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 8a",
+        "title": "Besonderer Schutz des Hauptgottestdienstes",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "An den Sonn- und Feiertagen mit kirchlichem Charakter sind in der Nähe von religiösen Einrichtungen, die dem Gottesdienst dienen oder an Orten, an denen ein Gottesdienst stattfindet das Handeltreiben oder die Öffnung einer Verkaufsstelle während der Dauer des Gottesdienstes verboten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die kommunalen Ordnungsbehörden haben durch Satzung Umfang, Art und Dauer des nach Absatz 1 vorgeschriebenen Verbotes bekannt zu machen. Hat eine Gemeinde nicht nach Satz 1 eine Bestimmung getroffen, so gilt das Verbot für die Dauer des Tages im gesamten Gemeindegebiet.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 4.html",
+      "sourceProvision": "Artikel 1 Nummer 5",
+      "effectiveDate": "2026-02-01"
+    }
+  ]
+}
