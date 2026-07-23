@@ -1,6 +1,6 @@
 ---
 import { formatDate, toDisplayText } from '../../lib/norms/presentation.ts';
-import { getNormHistoryUrl, getNormUrl, getNormVersionUrl } from '../../lib/norms/routes.ts';
+import { classifyNormVersion } from '../../lib/norms/versions.ts';
 import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
 
 interface Props {
@@ -9,8 +9,9 @@ interface Props {
   historical?: boolean;
 }
 
-const { norm, version, historical = false } = Astro.props;
-const historicalVersions = norm.versions.filter((entry) => !entry.isCurrent);
+const { norm, version } = Astro.props;
+const temporalKind = classifyNormVersion(norm, version);
+const historical = temporalKind === 'historical';
 const status = norm.meta.status;
 const effectiveDate = norm.meta.effectiveDate ?? version.validFrom;
 const expiryDate = norm.meta.expiryDate ?? version.validTo;
@@ -18,28 +19,24 @@ const expiryDate = norm.meta.expiryDate ?? version.validTo;
 
 <aside class:list={['status-notice', historical ? 'status-notice--historical' : 'status-notice--current']} data-visual-section="norm-legal-status">
   <h2>{historical ? 'Hinweis zur historischen Fassung' : 'Rechtsstand'}</h2>
-  {historical ? (
+  {temporalKind === 'historical' ? (
     <p>
-      Dies ist eine historische Fassung. Sie galt vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> bis{' '}
-      {version.validTo ? <time datetime={version.validTo}>{formatDate(version.validTo)}</time> : 'heute'}.
+      Dies ist eine historische Fassung. Sie galt ab <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>
+      {expiryDate
+        ? <> bis <time datetime={expiryDate}>{formatDate(expiryDate)}</time></>
+        : '; ein genaues Gültigkeitsende ist im Fassungsdatensatz nicht belegt'}.
     </p>
-  ) : status === 'future-effective' ? (
+  ) : temporalKind === 'future' ? (
     <p>
       Diese Vorschrift ist verkündet und tritt am{' '}
       <time datetime={effectiveDate}>{formatDate(effectiveDate)}</time> in Kraft. Bis dahin gehört sie
       noch nicht zum geltenden Rechtsstand.
     </p>
-  ) : status === 'pending-effective' ? (
+  ) : temporalKind === 'unknown-effective' ? (
     <p>
       Diese Vorschrift ist veröffentlicht. Der Eintritt der im Text genannten Bedingung für das
       Inkrafttreten ist durch die vorliegenden Quellen noch nicht belegt. Sie wird daher nicht als
       geltender Rechtsstand ausgewiesen.
-    </p>
-  ) : status === 'repealed' || status === 'historical' ? (
-    <p>
-      Diese Vorschrift ist außer Kraft
-      {expiryDate ? <> seit <time datetime={expiryDate}>{formatDate(expiryDate)}</time></> : null}.
-      Die zuletzt veröffentlichte Fassung bleibt zu Dokumentationszwecken verfügbar.
     </p>
   ) : status === 'one-time-act' ? (
     <p>Dieser einmalige Rechtsakt ist abgeschlossen und bleibt zu Dokumentationszwecken verfügbar.</p>
@@ -47,14 +44,4 @@ const expiryDate = norm.meta.expiryDate ?? version.validTo;
     <p>Dies ist die aktuelle Fassung mit Rechtsstand vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>.</p>
   )}
   <p>{toDisplayText(version.changeNote)}</p>
-  <nav class="link-list link-list--inline" aria-label="Rechtsstandslinks">
-    {historical ? <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a> : null}
-    <a href={getNormHistoryUrl(norm.meta.slug)}>Zur Historie</a>
-    {!historical &&
-      historicalVersions.map((entry) => (
-        <a href={getNormVersionUrl(norm.meta.slug, entry.versionId)}>
-          Historische Fassung vom <time datetime={entry.validFrom}>{formatDate(entry.validFrom)}</time>
-        </a>
-      ))}
-  </nav>
 </aside>

@@ -1,7 +1,7 @@
 # Offene Quellenfragen
 
 **Redaktioneller Stand:** 21. Juli 2026
-**Zuletzt geprüft:** 22. Juli 2026
+**Zuletzt geprüft:** 23. Juli 2026
 
 Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
 nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
@@ -22,6 +22,10 @@ Belegt:
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz, Landkreisordnung und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
+- Die Organisationserlasse 09/2025 und 12/2025 werden im Portal als historische
+  Organisationsstände geführt. Ein genaues Außerkrafttretensdatum ist in den gespeicherten
+  Fassungen nicht belegt; der Organisationserlass 05/2026 ordnet ausdrücklich an, dass 12/2025
+  fortgilt, soweit er keine abweichenden Regelungen trifft.
 - Die Veröffentlichungsliste weist die Ursprungsfassung der Staatsverfassung ab Seite 5 der
   Ausgabe OGVBl. 2024 Nr. II nach. Eine versionierte HTML-Quelle dieser historischen Ausgabe mit
   ihrem vollständigen Wortlaut liegt nicht vor. `Staatsverfassung.html` ist eine konsolidierte
@@ -43,6 +47,8 @@ Schlussfolgerung:
   konsolidierte Fassung erstellt.
 - Die drei bedingt wirksamen Staatsverträge bleiben veröffentlicht, aber ohne belegtes
   Inkrafttreten.
+- Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
+  eindeutige Aufhebungs- oder Übergangsquelle vorliegt.
 
 ## 2. Nicht belegte parlamentarische Einzelergebnisse
 

@@ -39,7 +39,7 @@ const searchPayload = await buildSearchIndexPayload();
   <SectionHero
     eyebrow="Rechtsportal"
     title="Normensuche"
-    lead="Titel, Metadaten, Fundstellen und Normtexte aller gespeicherten Fassungen durchsuchen."
+    lead="Titel, Metadaten, Fundstellen und Normtexte recherchieren. Standardmäßig werden die zum redaktionellen Stichtag geltenden Fassungen durchsucht."
     variant="law"
     facts={[{ label: 'Durchsuchbare Normfassungen', value: String(searchPayload.documentCount) }]}
   />
@@ -67,9 +67,15 @@ const searchPayload = await buildSearchIndexPayload();
             type="search"
             name="q"
             autocomplete="off"
+            list="norm-search-suggestions"
             placeholder="z. B. Polizei, Förderung, Datenpakt"
             data-search-query
           />
+          <datalist id="norm-search-suggestions">
+            {[...new Set(searchPayload.documents.flatMap((entry) => [entry.title, entry.shortTitle, entry.abbr, ...entry.keywords]).filter(Boolean))]
+              .sort((left, right) => left.localeCompare(right, 'de'))
+              .map((suggestion) => <option value={suggestion} />)}
+          </datalist>
         </label>
         <label class="search-field">
           <span>Suchbereich</span>
@@ -99,43 +105,42 @@ const searchPayload = await buildSearchIndexPayload();
         </label>
       </div>
 
+      <p class="detail-line" id="multiple-filter-hint">
+        In Mehrfachauswahlen lassen sich mehrere Werte mit Strg beziehungsweise Cmd auswählen.
+      </p>
       <div class="search-form__filters">
         <label class="search-field">
-          <span>Normtyp</span>
-          <select name="type" data-search-filter="type">
-            <option value="">Alle</option>
+          <span>Normtypen</span>
+          <select name="type" multiple size="5" aria-describedby="multiple-filter-hint" data-search-filter="type" data-search-facet="type">
             {searchPayload.filters.types.map((option) => (
-              <option value={option.value}>{option.label}</option>
+              <option value={option.value} data-base-label={option.label}>{option.label}</option>
             ))}
           </select>
         </label>
 
         <label class="search-field">
           <span>Ressort</span>
-          <select name="ministry" data-search-filter="ministry">
-            <option value="">Alle</option>
+          <select name="ministry" multiple size="5" aria-describedby="multiple-filter-hint" data-search-filter="ministry" data-search-facet="ministry">
             {searchPayload.filters.ministries.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} data-base-label={option}>{option}</option>
             ))}
           </select>
         </label>
 
         <label class="search-field">
           <span>Sachgebiet</span>
-          <select name="subject" data-search-filter="subject">
-            <option value="">Alle</option>
+          <select name="subject" multiple size="5" aria-describedby="multiple-filter-hint" data-search-filter="subject" data-search-facet="subject">
             {searchPayload.filters.subjects.map((option) => (
-              <option value={option}>{option}</option>
+              <option value={option} data-base-label={option}>{option}</option>
             ))}
           </select>
         </label>
 
         <label class="search-field">
           <span>Status</span>
-          <select name="status" data-search-filter="status">
-            <option value="">Alle</option>
+          <select name="status" multiple size="5" aria-describedby="multiple-filter-hint" data-search-filter="status" data-search-facet="status">
             {searchPayload.filters.statuses.map((option) => (
-              <option value={option.value}>{option.label}</option>
+              <option value={option.value} data-base-label={option.label}>{option.label}</option>
             ))}
           </select>
         </label>
@@ -143,9 +148,11 @@ const searchPayload = await buildSearchIndexPayload();
         <label class="search-field">
           <span>Fassung</span>
           <select name="versionScope" data-search-filter="versionScope">
+            <option value="current" selected>Zum Stichtag geltende Fassungen</option>
+            <option value="future">Zukünftige Fassungen</option>
+            <option value="historical">Historische Fassungen</option>
+            <option value="unknown-effective">Ohne belegtes Inkrafttreten</option>
             <option value="all">Alle gespeicherten Fassungen</option>
-            <option value="current">Nur aktuelle Fassungen</option>
-            <option value="historical">Nur historische Fassungen</option>
           </select>
         </label>
 
@@ -160,6 +167,11 @@ const searchPayload = await buildSearchIndexPayload();
       </div>
 
       <div class="search-form__filters">
+        <label class="search-field search-field--checkbox">
+          <span>Änderungsvorschriften</span>
+          <span><input type="checkbox" name="includeAmendments" value="1" data-search-filter="includeAmendments" /> In die Suche einbeziehen</span>
+        </label>
+
         <label class="search-field">
           <span>Geltungstag</span>
           <input type="date" name="geltungstag" data-search-filter="geltungstag" />
@@ -175,6 +187,36 @@ const searchPayload = await buildSearchIndexPayload();
           <input type="date" name="validTo" data-search-filter="validTo" />
         </label>
       </div>
+
+      <fieldset class="search-form__citation">
+        <legend>Strukturierte Fundstelle</legend>
+        <div class="search-form__filters">
+          <label class="search-field">
+            <span>Verkündungsblatt</span>
+            <select name="publicationSource" multiple size="4" aria-describedby="multiple-filter-hint" data-search-filter="publicationSource" data-search-facet="publicationSource">
+              {searchPayload.filters.publications.map((option) => (
+                <option value={option} data-base-label={option}>{option}</option>
+              ))}
+            </select>
+          </label>
+          <label class="search-field">
+            <span>Jahr</span>
+            <select name="publicationYear" multiple size="4" aria-describedby="multiple-filter-hint" data-search-filter="publicationYear" data-search-facet="publicationYear">
+              {searchPayload.filters.years.map((option) => (
+                <option value={option} data-base-label={option}>{option}</option>
+              ))}
+            </select>
+          </label>
+          <label class="search-field">
+            <span>Ausgabennummer</span>
+            <input type="text" name="publicationIssue" inputmode="numeric" data-search-filter="publicationIssue" />
+          </label>
+          <label class="search-field">
+            <span>Seite</span>
+            <input type="text" name="publicationPage" inputmode="numeric" data-search-filter="publicationPage" />
+          </label>
+        </div>
+      </fieldset>
 
       <div class="search-form__actions">
         <button class="button-link" type="submit">Suchen</button>
@@ -203,6 +245,9 @@ const searchPayload = await buildSearchIndexPayload();
     </noscript>
 
     <div class="search-results" data-search-results></div>
+    <button class="button-link button-link--secondary search-load-more" type="button" data-search-more hidden>
+      Weitere Treffer laden
+    </button>
   </section>
   <script>
     import "../../scripts/search-page.ts";

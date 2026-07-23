@@ -71,10 +71,13 @@ export interface NormMeta {
   enactingBody?: string;
   responsibleMinistry?: string;
   subjects: string[];
+  primarySubject?: string;
   keywords: string[];
   initialCitation: string;
   predecessor: string | null;
   successor: string | null;
+  predecessorSlug?: string;
+  successorSlug?: string;
   enactingNorm?: string;
   enactedNorm?: string;
   enactedNorms?: string[];
@@ -433,6 +436,12 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
   const object = expectObject(value, path);
   const rawType = expectString(object.type, `${path}.type`).toLowerCase();
   const rawStatus = expectString(object.status, `${path}.status`).toLowerCase();
+  const subjects = expectStringArray(object.subjects, `${path}.subjects`);
+  const primarySubject = expectOptionalString(object.primarySubject, `${path}.primarySubject`);
+
+  if (primarySubject && !subjects.includes(primarySubject)) {
+    fail(`${path}.primarySubject`, 'muss zugleich in subjects enthalten sein');
+  }
 
   const normalizedTypeMap: Record<string, NormType> = {
     gesetz: 'gesetz',
@@ -483,11 +492,18 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     ministry: expectOptionalString(object.ministry, `${path}.ministry`),
     enactingBody: expectOptionalString(object.enactingBody, `${path}.enactingBody`),
     responsibleMinistry: expectOptionalString(object.responsibleMinistry, `${path}.responsibleMinistry`),
-    subjects: expectStringArray(object.subjects, `${path}.subjects`),
+    subjects,
+    primarySubject,
     keywords: expectStringArray(object.keywords, `${path}.keywords`),
     initialCitation: expectString(object.initialCitation, `${path}.initialCitation`),
     predecessor: expectNullableString(object.predecessor, `${path}.predecessor`),
     successor: expectNullableString(object.successor, `${path}.successor`),
+    predecessorSlug: object.predecessorSlug === undefined
+      ? undefined
+      : expectSlug(object.predecessorSlug, `${path}.predecessorSlug`),
+    successorSlug: object.successorSlug === undefined
+      ? undefined
+      : expectSlug(object.successorSlug, `${path}.successorSlug`),
     enactingNorm: expectOptionalString(object.enactingNorm, `${path}.enactingNorm`),
     enactedNorm: expectOptionalString(object.enactedNorm, `${path}.enactedNorm`),
     enactedNorms:
@@ -708,11 +724,6 @@ export function validateNormRecord(record: NormRecord, context = record.meta.slu
     fail(`${context}/versions`, 'muss mindestens eine Fassung enthalten');
   }
 
-  const currentVersions = record.versions.filter((version) => version.isCurrent);
-  if (currentVersions.length !== 1) {
-    fail(`${context}/versions`, 'muss genau eine aktuelle Fassung enthalten');
-  }
-
   const knownVersionIds = new Set<string>();
   for (const version of record.versions) {
     if (knownVersionIds.has(version.versionId)) {
@@ -721,16 +732,6 @@ export function validateNormRecord(record: NormRecord, context = record.meta.slu
 
     knownVersionIds.add(version.versionId);
 
-    if (version.isCurrent && version.validTo !== null) {
-      fail(`${context}/versions/${version.versionId}.json.validTo`, 'muss bei aktueller Fassung null sein');
-    }
-
-    if (!version.isCurrent && version.validTo === null) {
-      fail(
-        `${context}/versions/${version.versionId}.json.validTo`,
-        'muss bei historischer Fassung gesetzt sein',
-      );
-    }
   }
 
   if (record.history.initialVersionId !== null && !knownVersionIds.has(record.history.initialVersionId)) {

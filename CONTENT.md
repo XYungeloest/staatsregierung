@@ -624,7 +624,10 @@ content/normen/[slug]/
 Historische Fassungen sind gespeicherte Fassungen. Sie werden nicht automatisch aus Änderungen berechnet. Jede Fassung muss vollständig genug sein, um eigenständig angezeigt zu werden.
 
 Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
-Normlink führt zur aktuellen Fassung, historische Fassungen behalten eigene statische URLs.
+Normlink führt dynamisch zu der am zentralen redaktionellen Stichtag geltenden Fassung.
+Versionsspezifische URLs verweisen unveränderlich auf genau eine gespeicherte Fassung.
+`src/lib/norms/versions.ts` unterscheidet `current`, `future`, `historical` und
+`unknown-effective` aus Gültigkeitsintervall, Normstatus und Stichtag.
 
 Normtexte können kontrollierte Links enthalten, die zur Laufzeit aus eindeutigen Abkürzungen und
 Kurztiteln im vorhandenen Normenbestand erzeugt werden. Externe Bundesrechtsverweise sind bewusst
@@ -640,9 +643,7 @@ Pflichtfelder:
 - `slug`
 - `title`
 - `shortTitle`
-- `abbr`
 - `type`
-- `ministry`
 - `subjects`
 - `keywords`
 - `initialCitation`
@@ -650,6 +651,12 @@ Pflichtfelder:
 - `successor`
 - `summary`
 - `status`
+
+`abbr`, `ministry`, `enactingBody` und `responsibleMinistry` sind optional. Eine Abkürzung darf nur
+bei belastbarer Quelle gepflegt werden. Neue Normen trennen das erlassende Organ von der fachlichen
+Zuständigkeit. `predecessorSlug` und `successorSlug` können zusätzlich gesetzt werden, wenn die
+Beziehung auf einen eindeutig geprüften Normdatensatz verweist; nur dann wird sie als Normlink
+ausgegeben.
 
 Erlaubte Werte für `type`:
 
@@ -757,10 +764,38 @@ Pflichtfelder:
 
 Regeln:
 
-- Es muss genau eine Fassung mit `isCurrent: true` geben.
-- Bei der aktuellen Fassung ist `validTo` immer `null`.
-- Bei historischen Fassungen ist `validTo` gesetzt.
+- `isCurrent` ist ein rückwärtskompatibles Bestandsfeld. Öffentliche Statusangaben und Filter
+  dürfen daraus nicht abgeleitet werden.
+- `validFrom` und `validTo` bilden ein geschlossenes Gültigkeitsintervall; `validTo: null` bedeutet
+  bei geltenden oder zukünftigen Fassungen ein offenes Ende.
+- Gespeicherte Intervalle derselben Norm dürfen sich nicht überlappen.
+- Bei ausdrücklich historischen oder aufgehobenen Datensätzen ohne belegtes Enddatum bleibt
+  `validTo` leer; die öffentliche Anzeige weist die Bestandslücke aus, statt „bis heute“ zu
+  behaupten.
+- Ist `meta.expiryDate` belegt, muss `validTo` der letzten gespeicherten Fassung diesem Datum
+  entsprechen.
+- Eine zukünftige Fassung wird aus `validFrom` nach dem redaktionellen Stichtag ermittelt und nie
+  als historische Fassung bezeichnet.
+- Bei `pending-effective` wird die Fassung unabhängig vom Bestandsfeld als „Inkrafttreten nicht
+  belegt“ behandelt.
 - `versionId` ist innerhalb einer Norm eindeutig.
+
+### Normlinks, Suche und Druck
+
+- `/recht/norm/[slug]/` ist der dynamische Hauptlink.
+- `/recht/norm/[slug]/version/[versionId]/` ist der unveränderliche Fassungslink.
+- Die Fassungsnavigation erscheint auf Normtext, statischer Fassung, Historie und Vergleich.
+- Der Vergleich speichert die Auswahl in `von` und `bis`; ohne JavaScript bleibt der voreingestellte
+  Vergleich lesbar.
+- Suchparameter mit mehreren Werten werden wiederholt, etwa `type=gesetz&type=verordnung`.
+  Verschiedene Facetten sind UND-verknüpft, Werte derselben Facette ODER-verknüpft.
+- `versionScope` unterstützt `current`, `future`, `historical`, `unknown-effective` und `all`.
+- Ein Stern am Wortende ist ein Präfix-Platzhalter; die normale Teilwortsuche bleibt bestehen.
+- Druckansichten sind Portalansichten. Ein PDF- oder Anlagenlink wird nur aus einem belegten
+  Quellenfeld erzeugt.
+- Mehrere `subjects` bleiben zulässig. `primarySubject` kann optional eine primäre Zuordnung
+  festlegen, muss aber zugleich in `subjects` enthalten sein; die übergeordnete redaktionelle
+  Gruppierung stammt aus `src/config/law-subjects.ts` und verwendet keine erfundenen Nummern.
 
 Format:
 

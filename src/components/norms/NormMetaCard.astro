@@ -10,6 +10,7 @@ import {
   formatNormType,
   toDisplayText,
 } from '../../lib/norms/presentation.ts';
+import { classifyNormVersion } from '../../lib/norms/versions.ts';
 import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
 import type { NormPublicationReference } from '../../lib/norms/publications.ts';
 
@@ -24,6 +25,14 @@ const { norm, version, historical = false, publicationReference } = Astro.props;
 const effectiveFrom = norm.meta.effectiveDate ?? version.validFrom;
 const effectiveUntil = norm.meta.expiryDate ?? version.validTo;
 const hasDistinctInitialCitation = norm.meta.initialCitation.trim() !== version.citation.trim();
+const temporalKind = classifyNormVersion(norm, version);
+const temporalStatus = temporalKind === 'current'
+  ? 'zum redaktionellen Stichtag geltend'
+  : temporalKind === 'future'
+    ? 'zukünftige Fassung'
+    : temporalKind === 'historical'
+      ? 'historische Fassung'
+      : 'Inkrafttreten nicht belegt';
 ---
 
 <aside id="normdaten" class="section meta-panel norm-meta-panel" data-visual-section="norm-metadata">
@@ -57,7 +66,11 @@ const hasDistinctInitialCitation = norm.meta.initialCitation.trim() !== version.
     <h3 id="norm-rechtsstand">Rechtsstand</h3>
     <dl class="meta-list meta-list--compact">
       <div>
-        <dt>Status</dt>
+        <dt>Fassungsstand</dt>
+        <dd>{temporalStatus}</dd>
+      </div>
+      <div>
+        <dt>Normstatus</dt>
         <dd>{formatNormStatus(norm.meta.status)}</dd>
       </div>
       {norm.meta.documentDate ? (
@@ -72,10 +85,17 @@ const hasDistinctInitialCitation = norm.meta.initialCitation.trim() !== version.
           <dd><time datetime={norm.meta.publicationDate}>{formatDate(norm.meta.publicationDate)}</time></dd>
         </div>
       ) : null}
-      <div>
-        <dt>In Kraft ab</dt>
-        <dd><time datetime={effectiveFrom}>{formatDate(effectiveFrom)}</time></dd>
-      </div>
+      {temporalKind === 'unknown-effective' ? (
+        <div>
+          <dt>Inkrafttreten</dt>
+          <dd>nicht belegt</dd>
+        </div>
+      ) : (
+        <div>
+          <dt>In Kraft ab</dt>
+          <dd><time datetime={effectiveFrom}>{formatDate(effectiveFrom)}</time></dd>
+        </div>
+      )}
       {effectiveUntil ? (
         <div>
           <dt>In Kraft bis</dt>

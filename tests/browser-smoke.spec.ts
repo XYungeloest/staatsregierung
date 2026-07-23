@@ -42,6 +42,8 @@ test('alle ausgelieferten Routentypen tragen dieselbe vollständige Buildkennung
     '/recht/norm/sero-verordnung/',
     '/recht/verkuendungen/ogvbl-2026-53/',
     '/recht/verkuendungen/ogvbl-2026-58/',
+    '/recht/search-index.json',
+    '/recht/verkuendungen/index.json',
     '/sitemap.xml',
     '/search-index.json',
   ];
@@ -295,6 +297,86 @@ test('Normtabellen geben nur belastbare Kopfzellen-Scope-Werte aus', async ({ pa
   await expect(headerCells).toHaveCount(3);
   await expect(page.locator('.norm-table th[scope="col"]')).toHaveCount(3);
   await expect(page.locator('.norm-table th[scope="row"], .norm-table th[scope="colgroup"], .norm-table th[scope="rowgroup"]')).toHaveCount(0);
+});
+
+test('Rechtsportal verwendet auf Übersichten und Suchindex dieselbe jüngste Verkündung', async ({ page, request }) => {
+  await page.goto('/recht/');
+  const latestHomePublication = page.getByRole('heading', { name: 'Neue Verkündungen' })
+    .locator('xpath=following::ul[1]')
+    .locator('li')
+    .first();
+  await expect(latestHomePublication).toContainText('2026 Nr. 58');
+
+  await page.goto('/recht/verkuendungen/');
+  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 58');
+
+  const searchIndex = await (await request.get('/recht/search-index.json')).json();
+  const publicationIndex = await (await request.get('/recht/verkuendungen/index.json')).json();
+  expect(searchIndex.latestPublication.slug).toBe('ogvbl-2026-58');
+  expect(publicationIndex.latestPublication.slug).toBe('ogvbl-2026-58');
+});
+
+test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwerkzeuge', async ({ page }) => {
+  await page.goto('/recht/norm/sero-verordnung/');
+
+  const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+  await expect(versionNavigation).toBeVisible();
+  await expect(versionNavigation.getByRole('link', { name: /Geltende Fassung/u })).toBeVisible();
+
+  const firstUnit = page.locator('details.norm-unit').first();
+  await expect(firstUnit).toHaveAttribute('id', /^paragraph-|^artikel-/u);
+  const semanticId = await firstUnit.getAttribute('id');
+  expect(semanticId).toBeTruthy();
+  await expect(firstUnit.locator('.legacy-anchor')).toHaveAttribute('id', /^block-/u);
+
+  await page.getByRole('button', { name: 'Alle Paragraphen schließen' }).click();
+  await expect(page.locator('details.norm-unit[open]')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Alle Paragraphen öffnen' }).click();
+  await expect(page.locator('details.norm-unit[open]').first()).toBeVisible();
+
+  await page.evaluate(() => {
+    const testWindow = window as Window & { __printCalls?: number };
+    testWindow.__printCalls = 0;
+    window.print = () => {
+      testWindow.__printCalls = (testWindow.__printCalls ?? 0) + 1;
+    };
+  });
+  await page.getByRole('button', { name: 'Drucken', exact: true }).click();
+  await expect.poll(() => page.evaluate(() => (window as Window & { __printCalls?: number }).__printCalls)).toBe(1);
+
+  const unitTools = firstUnit.getByRole('navigation', { name: /Werkzeuge für/u });
+  const singlePrint = unitTools.getByRole('button', { name: 'Einzeldruck' });
+  await expect(singlePrint).toBeVisible();
+  await singlePrint.click();
+  await expect.poll(() => page.evaluate(() => (window as Window & { __printCalls?: number }).__printCalls)).toBe(2);
+  await expect(page.locator('body')).not.toHaveClass(/print-single-norm-unit/u);
+  await expect(unitTools.getByRole('link', { name: 'Link zu dieser Stelle' })).toHaveAttribute('href', `#${semanticId}`);
+  await expect(page.getByRole('heading', { name: 'Drucken und Quellen' })).toBeVisible();
+  await expect(page.getByText(/keine belegte PDF-Datei/iu)).toBeVisible();
+});
+
+test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page }) => {
+  await page.goto('/recht/suche/?q=Kranken*&type=gesetz&type=verordnung');
+  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+  await expect(page.locator('select[name="type"] option:checked')).toHaveCount(2);
+
+  await page.locator('select[name="versionScope"]').selectOption('historical');
+  await expect(page).toHaveURL(/versionScope=historical/u);
+  await expect(page.locator('[data-search-summary]')).toContainText(/Treffer|Keine Treffer/u);
+
+  await page.locator('select[name="versionScope"]').selectOption('current');
+  await page.locator('[data-search-query]').fill('Kulturpass');
+  await expect.poll(() => page.locator('[data-search-results] .search-result-group').count()).toBeGreaterThan(0);
+  await expect(page.locator('[data-search-results]')).toContainText('Kulturpass');
+});
+
+test('A–Z-Stichwortindex zeigt mehr als 24 Einträge und lässt sich lokal filtern', async ({ page }) => {
+  await page.goto('/recht/archiv/');
+  const entries = page.locator('[data-index-entry]');
+  expect(await entries.count()).toBeGreaterThan(24);
+  await page.locator('[data-index-filter]').fill('Kultur');
+  await expect(page.locator('[data-index-filter-status]')).toContainText('Stichwörter');
+  expect(await entries.evaluateAll((nodes) => nodes.filter((node) => !(node as HTMLElement).hidden).length)).toBeGreaterThan(0);
 });
 
 test('Wappen kennzeichnet die Wortmarke in Kopf und Fuß', async ({ page }) => {

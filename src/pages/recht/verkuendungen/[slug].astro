@@ -14,6 +14,7 @@ import {
   getReferencesUrl,
   loadAllVerkuendungen,
   toDisplayText,
+  classifyNormVersion,
 } from '../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../lib/norms/content.ts';
 
@@ -41,7 +42,9 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
   }
 
   const version = versionId ? norm.versions.find((entry) => entry.versionId === versionId) : undefined;
-  return !version || version.isCurrent ? getNormUrl(normSlug) : getNormVersionUrl(normSlug, version.versionId);
+  return !version || classifyNormVersion(norm, version) === 'current'
+    ? getNormUrl(normSlug)
+    : getNormVersionUrl(normSlug, version.versionId);
 }
 ---
 

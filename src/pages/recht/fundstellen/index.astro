@@ -16,6 +16,7 @@ import {
   listPublicationEntries,
   loadAllVerkuendungen,
   toDisplayText,
+  classifyNormVersion,
 } from '../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../lib/norms/content.ts';
 
@@ -34,6 +35,8 @@ const entries = listPublicationEntries(publications).sort((left, right) => {
 const publicationNames = [...new Set(publications.map((publication) => publication.publication))].sort((left, right) =>
   left.localeCompare(right, 'de'),
 );
+const years = [...new Set(publications.map((publication) => publication.year))].sort((left, right) => right - left);
+const entryTypes = [...new Set(entries.map(({ entry }) => entry.type))].sort();
 const normBySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
 
 function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
@@ -47,7 +50,9 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
   }
 
   const version = versionId ? norm.versions.find((entry) => entry.versionId === versionId) : undefined;
-  return !version || version.isCurrent ? getNormUrl(normSlug) : getNormVersionUrl(normSlug, version.versionId);
+  return !version || classifyNormVersion(norm, version) === 'current'
+    ? getNormUrl(normSlug)
+    : getNormVersionUrl(normSlug, version.versionId);
 }
 ---
 
@@ -81,6 +86,22 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
   />
   <LawNavigation />
 
+  <div data-law-list-filter>
+    <section class="section law-list-filter" aria-labelledby="fundstellen-filter">
+      <div class="section-header section-header--compact">
+        <h2 id="fundstellen-filter">Fundstellen filtern</h2>
+      </div>
+      <form class="search-form__filters" data-law-filter-form>
+        <label class="search-field"><span>Verkündungsblatt</span><select name="publication"><option value="">Alle</option>{publicationNames.map((entry) => <option value={entry}>{entry}</option>)}</select></label>
+        <label class="search-field"><span>Jahr</span><select name="year"><option value="">Alle</option>{years.map((entry) => <option value={String(entry)}>{entry}</option>)}</select></label>
+        <label class="search-field"><span>Ausgabennummer</span><input name="issue" inputmode="numeric" /></label>
+        <label class="search-field"><span>Normtyp</span><select name="type"><option value="">Alle</option>{entryTypes.map((entry) => <option value={entry}>{formatPublicationEntryType(entry)}</option>)}</select></label>
+        <label class="search-field"><span>Titel oder Suchbegriff</span><input type="search" name="q" /></label>
+        <button class="button-link" type="submit">Filtern</button>
+      </form>
+      <p class="search-feedback" aria-live="polite" data-law-filter-summary></p>
+    </section>
+
   {publicationNames.map((publicationName) => {
     const publicationEntries = entries.filter((entry) => entry.publication.publication === publicationName);
 
@@ -105,7 +126,14 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
                 const normUrl = getEntryNormUrl(entry.normSlug, entry.versionId);
 
                 return (
-                  <tr>
+                  <tr
+                    data-law-filter-entry
+                    data-publication={publication.publication}
+                    data-year={String(publication.year)}
+                    data-issue={publication.issue}
+                    data-type={entry.type}
+                    data-q={`${entry.title} ${entry.citation}`}
+                  >
                     <td>
                       <strong>
                         <a class="inline-link" href={`${getPublicationUrl(publication.slug)}#${entry.id}`}>
@@ -137,4 +165,8 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
       </section>
     );
   })}
+  </div>
+  <script>
+    import "../../../scripts/law-list-filter.ts";
+  </script>
 </BaseLayout>

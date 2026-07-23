@@ -1,6 +1,7 @@
 import { getNormUrl } from './routes.ts';
 import type { NormRecord } from './schema.ts';
 import { toDisplayText, type TextLinkReference } from './presentation.ts';
+import { getApplicableVersion } from './versions.ts';
 
 const FEDERAL_REFERENCES: TextLinkReference[] = [
   {
@@ -135,7 +136,7 @@ export interface RelatedNormRecommendation {
 }
 
 function collectBodyText(norm: NormRecord): string {
-  const currentVersion = norm.versions.find((version) => version.isCurrent) ?? norm.versions[0];
+  const currentVersion = getApplicableVersion(norm);
   const parts: string[] = [];
 
   const visit = (blocks: typeof currentVersion.body): void => {

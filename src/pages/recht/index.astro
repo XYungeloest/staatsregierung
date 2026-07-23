@@ -13,6 +13,7 @@ import {
   getHelpUrl,
   getHomeUrl,
   getIndexUrl,
+  getLatestPublication,
   getLawConstitutionUrl,
   getLawPortalUrl,
   getNormUrl,
@@ -35,7 +36,10 @@ const latestUpdates = [...norms]
   .filter((entry) => entry.meta.status === 'in-force')
   .sort((left, right) => getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom))
   .slice(0, 4);
-const latestPublications = publications.slice(0, 3);
+const latestPublication = getLatestPublication(publications);
+const latestPublications = latestPublication
+  ? [latestPublication, ...publications.filter((entry) => entry.slug !== latestPublication.slug).slice(0, 2)]
+  : [];
 const portalEntrances = [
   {
     title: 'Erweiterte Suche',

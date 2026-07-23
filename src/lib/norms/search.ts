@@ -13,6 +13,11 @@ import {
 } from './publications.ts';
 import { getNormUrl, getNormVersionUrl, getPublicationUrl } from './routes.ts';
 import type { NormBodyBlock, NormRecord, NormVersion } from './schema.ts';
+import {
+  classifyNormVersion,
+  EDITORIAL_REFERENCE_DATE,
+  type VersionTemporalKind,
+} from './versions.ts';
 
 export interface SearchIndexDocument {
   id: string;
@@ -21,6 +26,8 @@ export interface SearchIndexDocument {
   url: string;
   currentUrl: string;
   isCurrent: boolean;
+  versionKind: VersionTemporalKind;
+  isAmendment: boolean;
   title: string;
   shortTitle: string;
   abbr: string;
@@ -40,6 +47,9 @@ export interface SearchIndexDocument {
   publicationTitle?: string;
   publicationDate?: string;
   publicationIssue?: string;
+  publicationSource?: string;
+  publicationYear?: string;
+  publicationPage?: string;
   publicationEntryTitle?: string;
   changeNote: string;
   validFrom: string;
@@ -63,11 +73,22 @@ export interface SearchFilterOptions {
   ministries: string[];
   subjects: string[];
   statuses: Array<{ value: string; label: string }>;
+  versionKinds: Array<{ value: VersionTemporalKind; label: string }>;
+  publications: string[];
+  years: string[];
 }
 
 export interface SearchIndexPayload {
   generatedAt: string;
+  buildCommit: string;
   documentCount: number;
+  latestPublication?: {
+    slug: string;
+    date: string;
+    publication: string;
+    year: number;
+    issue: string;
+  };
   filters: SearchFilterOptions;
   documents: SearchIndexDocument[];
 }
@@ -98,6 +119,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
     entries: NormBodyBlock[],
     path: number[] = [],
     currentUnit?: SearchHitUnit & { textParts: string[] },
+    quoted = false,
   ) => {
     for (const [index, block] of entries.entries()) {
       const currentPath = [...path, index];
@@ -111,12 +133,12 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
         currentUnit?.textParts.push(heading);
       }
 
-      const isHitUnit =
+      const isHitUnit = !quoted && (
         block.type === 'paragraph' ||
         block.type === 'article' ||
         block.type === 'section' ||
         block.type === 'subsection' ||
-        block.type === 'annex';
+        block.type === 'annex');
       const nextUnit = isHitUnit
         ? {
             type: block.type,
@@ -138,7 +160,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
       }
 
       if (block.children) {
-        visit(block.children, currentPath, nextUnit);
+        visit(block.children, currentPath, nextUnit, quoted || block.type === 'quotedProvision');
       }
 
       if (isHitUnit && nextUnit && nextUnit.textParts.length > 0) {
@@ -180,34 +202,41 @@ function compareStrings(left: string, right: string): number {
   return left.localeCompare(right, 'de');
 }
 
+export function isAmendmentRecord(record: Pick<NormRecord, 'meta'>): boolean {
+  if (record.meta.type === 'aenderungsvorschrift') return true;
+  if (record.meta.enactedNorm || record.meta.enactedNorms?.length) return true;
+  return /(?:^|[^\p{L}\p{N}])(?:Änderung|Aenderung|Veränderung|Veraenderung|Bereinigung|Aufhebung)(?:$|[^\p{L}\p{N}])/iu.test(
+    record.meta.title,
+  );
+}
+
 function buildSearchDocument(
   record: NormRecord,
   version: NormVersion,
   publicationReference?: NormPublicationReference,
 ): SearchIndexDocument {
   const { textParts, contexts, hitUnits } = collectBodyContent(version.body);
-  const isApplicableCurrentVersion = version.isCurrent && record.meta.status === 'in-force';
-  const resultLabel = version.isCurrent
-    ? record.meta.status === 'future-effective'
-      ? `Verkündet; tritt am ${formatDate(record.meta.effectiveDate ?? version.validFrom)} in Kraft`
-      : record.meta.status === 'pending-effective'
-        ? 'Verkündet; Inkrafttreten noch nicht belegt'
-      : record.meta.status === 'repealed' || record.meta.status === 'historical'
-        ? `Letzte Fassung vom ${formatDate(version.validFrom)}`
-        : record.meta.status === 'one-time-act'
-          ? 'Abgeschlossener einmaliger Rechtsakt'
-          : 'Aktuelle Fassung'
-    : `Historische Fassung vom ${formatDate(version.validFrom)}`;
+  const versionKind = classifyNormVersion(record, version);
+  const isApplicableCurrentVersion = versionKind === 'current';
+  const resultLabel = versionKind === 'future'
+    ? `Zukünftige Fassung ab ${formatDate(version.validFrom)}`
+    : versionKind === 'unknown-effective'
+      ? 'Veröffentlicht; Inkrafttreten noch nicht belegt'
+      : versionKind === 'historical'
+        ? `Historische Fassung vom ${formatDate(version.validFrom)}`
+        : `Geltende Fassung zum ${formatDate(EDITORIAL_REFERENCE_DATE)}`;
 
   return {
     id: `${record.meta.slug}:${version.versionId}`,
     slug: record.meta.slug,
     versionId: version.versionId,
-    url: version.isCurrent
+    url: versionKind === 'current'
       ? getNormUrl(record.meta.slug)
       : getNormVersionUrl(record.meta.slug, version.versionId),
     currentUrl: getNormUrl(record.meta.slug),
     isCurrent: isApplicableCurrentVersion,
+    versionKind,
+    isAmendment: isAmendmentRecord(record),
     title: toDisplayText(record.meta.title),
     shortTitle: toDisplayText(record.meta.shortTitle),
     abbr: toDisplayText(record.meta.abbr),
@@ -229,6 +258,9 @@ function buildSearchDocument(
     publicationTitle: publicationReference ? toDisplayText(publicationReference.publicationTitle) : undefined,
     publicationDate: publicationReference?.publicationDate,
     publicationIssue: publicationReference?.issue,
+    publicationSource: publicationReference?.publication,
+    publicationYear: publicationReference?.publicationDate.slice(0, 4),
+    publicationPage: publicationReference?.pages ?? publicationReference?.startPage,
     publicationEntryTitle: publicationReference ? toDisplayText(publicationReference.entryTitle) : undefined,
     changeNote: toDisplayText(version.changeNote),
     validFrom: version.validFrom,
@@ -266,6 +298,14 @@ function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
     statuses: [...statuses.entries()]
       .map(([value, label]) => ({ value, label }))
       .sort(compareLabelValuePairs),
+    versionKinds: [
+      { value: 'current', label: 'Zum Stichtag geltend' },
+      { value: 'future', label: 'Zukünftige Fassungen' },
+      { value: 'historical', label: 'Historische Fassungen' },
+      { value: 'unknown-effective', label: 'Inkrafttreten nicht belegt' },
+    ],
+    publications: [],
+    years: [],
   };
 }
 
@@ -289,11 +329,24 @@ export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
 
       return right.validFrom.localeCompare(left.validFrom);
     });
+  const filters = buildFilterOptions(records);
+  filters.publications = [...new Set(documents.map((entry) => entry.publicationSource).filter(Boolean) as string[])].sort(compareStrings);
+  filters.years = [...new Set(documents.map((entry) => entry.publicationYear).filter(Boolean) as string[])].sort((left, right) => right.localeCompare(left));
 
   return {
     generatedAt: new Date().toISOString(),
+    buildCommit: import.meta.env?.PORTAL_BUILD_COMMIT ?? process.env.PORTAL_BUILD_COMMIT ?? 'development',
     documentCount: documents.length,
-    filters: buildFilterOptions(records),
+    latestPublication: publications[0]
+      ? {
+          slug: publications[0].slug,
+          date: publications[0].date,
+          publication: publications[0].publication,
+          year: publications[0].year,
+          issue: publications[0].issue,
+        }
+      : undefined,
+    filters,
     documents,
   };
 }

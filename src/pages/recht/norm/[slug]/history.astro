@@ -3,8 +3,11 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import SectionHero from '../../../../components/portal/SectionHero.astro';
 import SectionNavigation from '../../../../components/portal/SectionNavigation.astro';
+import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
 import { formatDate, toDisplayText } from '../../../../lib/norms/presentation.ts';
 import {
+  classifyNormVersion,
+  getNormCompareUrl,
   getHomeUrl,
   getLawPortalUrl,
   getNormUrl,
@@ -32,7 +35,7 @@ const initialVersionLabel = initialVersion
   ? formatDate(initialVersion.validFrom)
   : norm.history.initialVersionId ?? 'Stammfassung nicht als Volltext gespeichert';
 const initialVersionUrl = initialVersion
-  ? initialVersion.isCurrent
+  ? classifyNormVersion(norm, initialVersion) === 'current'
     ? getNormUrl(norm.meta.slug)
     : getNormVersionUrl(norm.meta.slug, initialVersion.versionId)
   : undefined;
@@ -45,6 +48,11 @@ const historyTypeLabels: Record<string, string> = {
   repeal: 'Aufhebung',
   notice: 'Hinweis',
 };
+const amendmentEntries = norm.history.entries.filter((entry) => entry.type === 'amendment');
+const repealEntries = norm.history.entries.filter((entry) => entry.type === 'repeal');
+const noticeEntries = norm.history.entries.filter((entry) => entry.type === 'notice');
+const predecessorSlug = norm.meta.predecessorSlug;
+const successorSlug = norm.meta.successorSlug;
 ---
 
 <BaseLayout
@@ -77,8 +85,12 @@ const historyTypeLabels: Record<string, string> = {
       { label: 'Historieneinträge', value: String(norm.history.entries.length) },
       { label: 'Aktueller Rechtsstand', value: formatDate(currentVersion.validFrom) },
     ]}
-    actions={[{ label: 'Aktuelle Fassung', href: getNormUrl(norm.meta.slug), primary: true }]}
+    actions={[
+      { label: 'Vorschrift öffnen', href: getNormUrl(norm.meta.slug), primary: true },
+      ...(norm.versions.length >= 2 ? [{ label: 'Fassungen vergleichen', href: getNormCompareUrl(norm.meta.slug) }] : []),
+    ]}
   />
+  <NormVersionNavigation norm={norm} currentPage="history" />
   <SectionNavigation
     label="Normenhistorie"
     variant="law"
@@ -98,14 +110,29 @@ const historyTypeLabels: Record<string, string> = {
         {norm.versions.map((version) => (
           <li>
             <strong>
-              {version.isCurrent ? (
+              {classifyNormVersion(norm, version) === 'current' ? (
                 <a class="inline-link" href={getNormUrl(norm.meta.slug)}><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></a>
               ) : (
                 <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></a>
               )}
             </strong>
-            <span>{version.isCurrent ? 'Aktuelle Fassung' : 'Historische Fassung'}</span>
-            <span>Gültig von <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> bis {version.validTo ? <time datetime={version.validTo}>{formatDate(version.validTo)}</time> : 'aktuell'}</span>
+            <span>
+              {classifyNormVersion(norm, version) === 'current'
+                ? 'Zum redaktionellen Stichtag geltende Fassung'
+                : classifyNormVersion(norm, version) === 'future'
+                  ? 'Zukünftige Fassung'
+                  : classifyNormVersion(norm, version) === 'historical'
+                    ? 'Historische Fassung'
+                    : 'Inkrafttreten nicht belegt'}
+            </span>
+            <span>
+              Gültig ab <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>
+              {version.validTo
+                ? <> bis <time datetime={version.validTo}>{formatDate(version.validTo)}</time></>
+                : classifyNormVersion(norm, version) === 'historical'
+                  ? '; Gültigkeitsende nicht gespeichert'
+                  : '; Gültigkeitsende offen'}
+            </span>
             <span>Fundstelle: {toDisplayText(version.citation)}</span>
             <span>{toDisplayText(version.changeNote)}</span>
           </li>
@@ -117,8 +144,9 @@ const historyTypeLabels: Record<string, string> = {
       <div class="section-header">
         <h2>Historieneinträge</h2>
       </div>
+      <h3>Stammfassung</h3>
       <ul class="timeline-list">
-        {norm.history.entries.map((entry) => (
+        {norm.history.entries.filter((entry) => entry.type === 'initial').map((entry) => (
           <li>
             <strong><time datetime={entry.date}>{formatDate(entry.date)}</time> · {historyTypeLabels[entry.type] ?? entry.type}</strong>
             <span>{toDisplayText(entry.title)}</span>
@@ -127,7 +155,7 @@ const historyTypeLabels: Record<string, string> = {
             {entry.affectingVersionId ? (
               <span>
                 Fassung:{' '}
-                {getVersionById(norm, entry.affectingVersionId)?.isCurrent ? (
+                {getVersionById(norm, entry.affectingVersionId) && classifyNormVersion(norm, getVersionById(norm, entry.affectingVersionId)!) === 'current' ? (
                   <a class="inline-link" href={getNormUrl(norm.meta.slug)}>
                     <time datetime={getVersionById(norm, entry.affectingVersionId)!.validFrom}>{formatDate(getVersionById(norm, entry.affectingVersionId)!.validFrom)}</time>
                   </a>
@@ -155,6 +183,47 @@ const historyTypeLabels: Record<string, string> = {
           </li>
         ))}
       </ul>
+      <h3>Änderungsvorschriften</h3>
+      {amendmentEntries.length > 0 ? (
+        <ul class="timeline-list">
+          {amendmentEntries.map((entry) => (
+            <li>
+              <strong><time datetime={entry.date}>{formatDate(entry.date)}</time> · Änderung</strong>
+              <span>{toDisplayText(entry.title)}</span>
+              <span>Fundstelle: {toDisplayText(entry.citation)}</span>
+              {entry.relatedNorm && relatedNormLabels[entry.relatedNorm] ? (
+                <span>Änderungsvorschrift: <a class="inline-link" href={getNormUrl(entry.relatedNorm)}>{relatedNormLabels[entry.relatedNorm]}</a></span>
+              ) : entry.relatedNorm ? <span>Bezug: {toDisplayText(entry.relatedNorm)}</span> : null}
+            </li>
+          ))}
+        </ul>
+      ) : <p>Keine Änderungsvorschrift ist im Datenbestand nachgewiesen.</p>}
+      <h3>Aufhebung</h3>
+      {repealEntries.length > 0 ? (
+        <ul class="timeline-list">
+          {repealEntries.map((entry) => (
+            <li>
+              <strong><time datetime={entry.date}>{formatDate(entry.date)}</time> · Aufhebung</strong>
+              <span>{toDisplayText(entry.title)}</span>
+              <span>Fundstelle: {toDisplayText(entry.citation)}</span>
+            </li>
+          ))}
+        </ul>
+      ) : <p>Keine Aufhebung ist im Datenbestand nachgewiesen.</p>}
+      {noticeEntries.length > 0 ? (
+        <>
+          <h3>Weitere Hinweise</h3>
+          <ul class="timeline-list">
+            {noticeEntries.map((entry) => (
+              <li>
+                <strong><time datetime={entry.date}>{formatDate(entry.date)}</time></strong>
+                <span>{toDisplayText(entry.title)}</span>
+                {entry.note ? <span>{toDisplayText(entry.note)}</span> : null}
+              </li>
+            ))}
+          </ul>
+        </>
+      ) : null}
     </section>
 
     <section id="stammdaten" class="section">
@@ -186,11 +255,11 @@ const historyTypeLabels: Record<string, string> = {
         </div>
         <div>
           <dt>Vorgänger</dt>
-          <dd>{norm.meta.predecessor ? toDisplayText(norm.meta.predecessor) : 'keiner'}</dd>
+          <dd>{predecessorSlug ? <a class="inline-link" href={getNormUrl(predecessorSlug)}>{toDisplayText(norm.meta.predecessor ?? relatedNormLabels[predecessorSlug] ?? predecessorSlug)}</a> : norm.meta.predecessor ? toDisplayText(norm.meta.predecessor) : 'keiner'}</dd>
         </div>
         <div>
           <dt>Nachfolger</dt>
-          <dd>{norm.meta.successor ? toDisplayText(norm.meta.successor) : 'keiner'}</dd>
+          <dd>{successorSlug ? <a class="inline-link" href={getNormUrl(successorSlug)}>{toDisplayText(norm.meta.successor ?? relatedNormLabels[successorSlug] ?? successorSlug)}</a> : norm.meta.successor ? toDisplayText(norm.meta.successor) : 'keiner'}</dd>
         </div>
       </dl>
     </section>
