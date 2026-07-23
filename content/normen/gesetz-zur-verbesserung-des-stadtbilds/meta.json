@@ -4,7 +4,7 @@
   "title": "Gesetz zur Verbesserung des Stadtbilds",
   "shortTitle": "Gesetz zur Verbesserung des Stadtbilds",
   "abbr": "Gesetz zur Verbesserung des Stadtbilds",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "ministry": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
     "Landesrecht"
@@ -28,5 +28,8 @@
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 38.html"
     }
+  ],
+  "affectedNorms": [
+    "saechsische-bauordnung"
   ]
 }

@@ -4,7 +4,7 @@
   "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
   "shortTitle": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
   "abbr": "SMFVA",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "ministry": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
     "Landesrecht"
@@ -32,5 +32,9 @@
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 21.html"
     }
+  ],
+  "affectedNorms": [
+    "fluechtlingsaufnahmegesetz",
+    "abschiebungshaftvollzugsgesetz"
   ]
 }

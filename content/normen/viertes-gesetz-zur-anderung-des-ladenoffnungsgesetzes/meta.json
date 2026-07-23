@@ -3,9 +3,9 @@
   "slug": "viertes-gesetz-zur-anderung-des-ladenoffnungsgesetzes",
   "title": "Viertes Gesetz zur Änderung des Ladenöffnungsgesetzes",
   "shortTitle": "Viertes Gesetz zur Änderung des Ladenöffnungsgesetzes",
-  "abbr": "Viertes Gesetz zur Änderung des Ladenöffnungsgesetzes",
-  "type": "gesetz",
-  "ministry": "Landtag des Freistaates Ostdeutschland",
+  "type": "aenderungsvorschrift",
+  "enactingBody": "Landtag des Freistaates Ostdeutschland",
+  "responsibleMinistry": "Staatssekretariat für Wirtschaft und Arbeit",
   "subjects": [
     "Staats- und Verfassungsrecht"
   ],
@@ -15,14 +15,14 @@
     "anderung",
     "ladenoffnungsgesetzes"
   ],
-  "initialCitation": "Gesetz vom 27. Januar 2026 (OGVBl. 2026 Nr. 4)",
+  "initialCitation": "Gesetz vom 26. Januar 2026 (OGVBl. 2026 Nr. 4 S. 2)",
   "predecessor": null,
   "successor": null,
-  "summary": "OGVBl. Nr. 4 27. Januar 2026 Viertes Gesetz zur Änderung des Ladenöffnungsgesetzes vom 26. Januar 2026 Der Ostdeutsche Landtag hat am 26. Januar 2026 das folgende Gesetz beschlossen: Artikel 1 Änderung des Ladenöffnungsgesetzes Das Sächsische Ladenöffnungsgesetz vom 1. Dezember 2010 (SächsGVBl. S. 338), das zuletzt durch das Gesetz vom 5. November 2020 (SächsGVBl. S. 589) geändert worden ist, wird wie folgt…",
+  "summary": "Ändert Bezeichnung und Öffnungszeiten des Ladenöffnungsgesetzes und ergänzt Regelungen für Spätverkaufsstellen, personallose Kleinstsupermärkte und den Schutz des Hauptgottesdienstes.",
   "status": "one-time-act",
-  "documentDate": "2026-01-27",
+  "documentDate": "2026-01-26",
   "publicationDate": "2026-01-27",
-  "effectiveDate": "2026-01-27",
+  "effectiveDate": "2026-02-01",
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
@@ -30,5 +30,8 @@
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 4.html"
     }
+  ],
+  "affectedNorms": [
+    "saechsisches-ladenoeffnungsgesetz"
   ]
 }

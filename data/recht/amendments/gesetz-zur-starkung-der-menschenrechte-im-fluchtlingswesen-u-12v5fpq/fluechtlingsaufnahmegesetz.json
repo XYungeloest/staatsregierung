@@ -1,0 +1,411 @@
+{
+  "amendmentAct": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
+  "effectiveDate": "2026-03-24",
+  "versionId": "2026-03-24",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 21 S. 2)",
+  "resultCitation": "Gesetz zur Aufnahme und Unterbringung von Flüchtlingen im Ostdeutschen Freistaat (Ostdeutsches Flüchtlingsaufnahmegesetz – OstFlüAG) vom 25. Juni 2007 (SächsGVBl. S. 190), zuletzt geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 21 S. 2)",
+  "changeNote": "Geändert durch das Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 21 S. 2 bis 11",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 21.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsisches Flüchtlingsaufnahmegesetz",
+      "expectedMatches": 1,
+      "value": "Gesetz zur Aufnahme und Unterbringung von Flüchtlingen im Ostdeutschen Freistaat",
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 3"
+      },
+      "expectedHash": "c296ae99daf51a82d9028798bbb90458814460b40a4a07440b5ac0a3cb0fa5bb",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3",
+        "title": "Einrichtungen der Unterbringung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Unterbringung erfolgt vorrangig dezentral in Wohnungen im allgemeinen Wohnungsmarkt. Gemeinschaftsunterkünfte und sonstige Sammelunterkünfte sind nur zulässig, soweit und solange eine dezentrale Unterbringung aus tatsächlichen Gründen nicht möglich ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Unterbringungseinrichtungen sind:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Aufnahmeeinrichtungen nach § 44 Absatz 1 des Asylgesetzes,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Gemeinschaftsunterkünfte,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "sonstige Unterkünfte, soweit sie den Anforderungen des § 3a entsprechen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Aufnahmeeinrichtungen werden von den höheren Unterbringungsbehörden, die übrigen Unterbringungseinrichtungen von den unteren Unterbringungsbehörden geschaffen und betrieben. Die Unterbringungsbehörden sollen bei der Schaffung und Betreibung dezentraler Unterkünfte mit Gemeinden, Wohnungsunternehmen und gemeinnützigen Trägern zusammenarbeiten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Bei der Auswahl der Unterkünfte sind insbesondere die Belange von",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Familien mit minderjährigen Kindern,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "alleinstehenden Frauen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "LSBTIQ-Personen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "älteren Menschen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "Menschen mit Behinderung, chronisch Kranken und Traumatisierten",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "in besonderer Weise zu berücksichtigen. Diese Personengruppen sind, soweit möglich, vorrangig dezentral unterzubringen."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Eine Unterbringung allein zu dem Zweck, die Ausreise zu erzwingen oder zu überwachen, ist unzulässig.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Die Landkreise und Kreisfreien Städte können die Benutzung der Unterbringungseinrichtungen durch Satzung regeln; dabei sind die Grundsätze der Absätze 1 bis 5 zu beachten.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 1 Nummer 2 (§ 3)",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "b70c4332e911874c05db8bda1fdcc26359445226ed45af426b116dd1490177d2",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 4",
+        "title": "Mindeststandards der Unterbringung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Unterkünfte müssen insbesondere gewährleisten:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "ausreichende Wohn- und Schlafraumflächen je untergebrachter Person,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Zugang zu getrennten, hygienischen Sanitäranlagen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Möglichkeit der Zubereitung oder Ausgabe von bedarfsgerechter und kultursensibler Verpflegung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "angemessene Barrierefreiheit entsprechend den Bedürfnissen der untergebrachten Menschen mit Behinderung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "die Versorgung mit Strom, Wasser und Wärme sowie",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "sichere Rückzugsräume insbesondere für Frauen, Kinder und LSBTIQ-Personen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Bei Unterbringung in Gemeinschaftsunterkünften ist eine Überbelegung unzulässig. Die Zahl der Personen pro Schlafraum ist so zu begrenzen, dass ein Mindestmaß an Privatsphäre gewahrt bleibt; näheres kann durch Rechtsverordnung geregelt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Unterbringungsbehörden stellen sicher, dass in allen Unterkünften",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "niedrigschwellige psychosoziale Beratungsangebote,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Informationen in verständlicher Sprache über Rechte und Pflichten auch in den Fremdsprachen der betroffenen Gruppen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Zugang zu Beratungsstellen, insbesondere für Opfer von Gewalt,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "vorgehalten oder vermittelt werden."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Das zuständige Staatsministerium wird ermächtigt, im Einvernehmen mit dem Staatsministerium für soziale und gesundheitliche Fürsorge durch Rechtsverordnung nähere Anforderungen an die Mindeststandards der Unterbringung festzulegen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 1 Nummer 2 (§ 4)",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 11"
+      },
+      "expectedHash": "1383f17e129a56646064f96c1e43c1b7891a12e4126987ffd4a7284548533419",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 11",
+        "title": "Datenverarbeitung, Datensparsamkeit und Zweckbindung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Unterbringungsbehörden dürfen zur Erfüllung der Aufgaben nach diesem Gesetz personenbezogene Daten nur verarbeiten, soweit dies erforderlich ist. Dabei sind insbesondere die Grundsätze der Datensparsamkeit und Zweckbindung zu beachten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Daten über Gesundheit, Religion, Weltanschauung, sexuelle Orientierung oder Zugehörigkeit zu einer Gewerkschaft dürfen nur verarbeitet werden, soweit dies",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "zur Sicherstellung einer bedarfsgerechten Unterbringung oder Versorgung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "zur Abwehr einer konkreten Gefahr für Leib oder Leben der betroffenen Person oder Dritter",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "unerlässlich ist."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Daten, die im Rahmen von Bildungs-, Sozial- und Gesundheitsleistungen erhoben werden, dürfen nicht zum Zweck der Durchsetzung aufenthaltsbeendender Maßnahmen übermittelt werden, soweit nicht zwingende bundesrechtliche Vorschriften entgegenstehen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die betroffenen Personen sind in einer für sie verständlichen Sprache über Art, Umfang, Zwecke und Rechtsgrundlagen der Datenverarbeitung sowie über ihre Rechte nach den datenschutzrechtlichen Vorschriften zu informieren.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 1 Nummer 4",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "insertProvisionBefore",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 12"
+      },
+      "expectedHash": "11592f6f19d3afd0872215f8e58fb9cc707902b95a877f02b6f16bef274ae9df",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 11a",
+        "title": "Mitwirkung, Mitbestimmung und Beschwerderecht der Bewohner",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "In Unterkünften mit mehr als 50 Plätzen ist ein Bewohnerbeirat zu bilden. Die Unterbringungsbehörde hat dessen Wahl oder Benennung zu ermöglichen und zu unterstützen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Beirat ist insbesondere vor wichtigen Entscheidungen zu beteiligen, die",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Hausordnungen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Verpflegung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Freizeitangebote,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Sicherheits- und Schutzkonzepte",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "betreffen. Die Unterbringungsbehörde hat ihm Gelegenheit zur Stellungnahme zu geben."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Unterbringungsbehörden stellen ein unabhängiges Beschwerdeverfahren sicher. Beschwerden können anonym oder unter Namensnennung in Textform oder mündlich vorgebracht werden. Die Beschwerde ist innerhalb einer angemessenen Frist zu prüfen und zu beantworten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Unterkünfte haben gut sichtbar in mehreren Sprachen über die Möglichkeiten der Beschwerde und über externe unabhängige Beratungsstellen zu informieren.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 1 Nummer 5",
+      "effectiveDate": "2026-03-24"
+    }
+  ]
+}

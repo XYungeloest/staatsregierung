@@ -96,6 +96,13 @@ test('überlappende oder widersprüchliche Gültigkeitsintervalle werden abgewie
     () => validateVersionIntervals(record([version('a', '2026-08-01', '2026-07-01')])),
     /validTo liegt vor validFrom/u,
   );
+  assert.throws(
+    () => validateVersionIntervals(record([
+      version('a', '2026-01-01', '2026-06-29'),
+      version('b', '2026-07-01', null),
+    ])),
+    /Gültigkeitslücke/u,
+  );
 });
 
 test('semantische Anker bleiben unabhängig von der Blockposition und alte Anker bleiben ableitbar', () => {

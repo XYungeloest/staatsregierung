@@ -1,0 +1,410 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+  "effectiveDate": "2026-03-25",
+  "versionId": "2026-03-25",
+  "sameDayOrder": 2,
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 26 S. 2)",
+  "resultCitation": "Gemeindeordnung für den Ostdeutschen Freistaat in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62), zuletzt geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 26 S. 2)",
+  "changeNote": "§§ 71b bis 71f eingefügt durch das Gesetz über besondere Regelungen für die Bundeshauptstadt Berlin.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 26 S. 2 bis 9",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 26.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 71a"
+      },
+      "expectedHash": "262e8a1213f402a6fcbf663f3e2bb6271a5ad097cc6009756bf833c66a072f24",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 71f",
+        "title": "Kulturelle Einrichtungen von überregionaler Bedeutung, Anstaltslösung; Verordnungsermächtigung; Evaluierung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Zur Sicherung und Entwicklung kultureller Einrichtungen und Maßnahmen von überregionaler Bedeutung kann die Bundeshauptstadt Berlin solche Einrichtungen",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "als Eigenbetrieb,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "als kommunales Unternehmen oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "als rechtsfähige Anstalt des öffentlichen Rechts",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "organisieren, zusammenführen oder in einen Verbund überführen. Die Organisationsform ist so zu wählen, dass künstlerische Freiheit, wirtschaftliche Steuerungsfähigkeit und demokratische Kontrolle angemessen gewährleistet sind."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Das Staatsministerium des Innern wird ermächtigt, im Einvernehmen mit dem Staatsministerium der Finanzen und dem Staatsministerium für Wissenschaft und Kultur durch Rechtsverordnung nähere Bestimmungen zu treffen über",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Mindeststandards für die Gliederung der Bundeshauptstadt Berlin in Stadtbezirke,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Anforderungen an Aufgabenverteilung, Service-Standards und digitale Verwaltungsverfahren,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Grundsätze zur Ausgestaltung gesamtstädtischer Serviceeinheiten nach § 71e Absatz 4,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Berichtspflichten der Bundeshauptstadt Berlin zur Steuerung der Verwaltungs- und Leistungsfähigkeit.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Staatsregierung berichtet dem Landtag spätestens fünf Jahre nach Inkrafttreten dieses Gesetzes über die Auswirkungen der §§ 71b bis 71f auf die Verwaltungs- und Leistungsfähigkeit der Bundeshauptstadt Berlin sowie über etwaigen Anpassungsbedarf.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 1 Nummer 1 (§ 71f)",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 71a"
+      },
+      "expectedHash": "262e8a1213f402a6fcbf663f3e2bb6271a5ad097cc6009756bf833c66a072f24",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 71e",
+        "title": "Hauptverwaltung, Beigeordnete, besondere Behördenorganisation",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Hauptverwaltung der Bundeshauptstadt Berlin dient der einheitlichen Steuerung, Standardsetzung und Aufgabenwahrnehmung der Gesamtstadt. Sie stellt insbesondere den einheitlichen Vollzug von Weisungsaufgaben, die gesamtstädtische Planung und die gesamtstädtische Daseinsvorsorge sicher.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Abweichend von § 55 Absatz 1 Satz 3 darf die Zahl der Beigeordneten in der Bundeshauptstadt Berlin höchstens zwölf betragen. Die Hauptsatzung kann für Beigeordnete die Amtsbezeichnung Bürgermeister zulassen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der Oberbürgermeister der Bundeshauptstadt Berlin kann die Bezeichnung „Regierender Bürgermeister“ führen; hierdurch wird weder eine Stellung als Landeshauptstadt noch eine landesverfassungsrechtliche Sonderstellung begründet.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Zur Sicherstellung leistungsfähiger Verwaltungsstrukturen kann die Bundeshauptstadt Berlin zentrale Dienste als gesamtstädtische Serviceeinheiten organisieren (insbesondere IT-Betrieb, Personal- und Organisationsdienstleistungen, Vergabe, Gebäudemanagement, Kassen- und Zahlungsverkehr), sofern eine hinreichende Steuerung und Kontrolle gewährleistet ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Abweichend von § 29 Absatz 2 und 3 kann die Hauptsatzung der Bundeshauptstadt Berlin die Zahl der Stadträte bis zu neunzig festsetzen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 1 Nummer 1 (§ 71e)",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 71a"
+      },
+      "expectedHash": "262e8a1213f402a6fcbf663f3e2bb6271a5ad097cc6009756bf833c66a072f24",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 71d",
+        "title": "Aufgabenverteilung, Entscheidungsbefugnisse und Bezirksbudget",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Durch Hauptsatzung können den Bezirksversammlungen über § 70 Absatz 2 Satz 3 hinaus weitere Angelegenheiten zur dauernden Erledigung übertragen werden, soweit",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "der Stadtrat nicht nach § 28 Absatz 2 ausschließlich zuständig ist,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die Angelegenheit nicht kraft Gesetzes dem Oberbürgermeister obliegt und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Einheitlichkeit der Verwaltung der Bundeshauptstadt Berlin nicht zwingend entgegensteht.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Insbesondere können übertragen werden:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Bürgerdienste und Melde-, Pass-, Ausländer- und sonstige Serviceleistungen, soweit diese nicht landesrechtlich anderen Behörden zugewiesen sind,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "soziale, kulturelle und sportliche Einrichtungen mit überwiegend bezirklicher Bedeutung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "bezirkliche Grün- und Freiflächen, Spiel- und Sportanlagen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "bezirkliche Straßen- und Wegeangelegenheiten, soweit diese nicht dem überörtlichen Verkehr von wesentlicher Bedeutung dienen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "Mitwirkung bei Planungs- und Genehmigungsverfahren der Gesamtstadt nach Maßgabe allgemeiner Richtlinien.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Bundeshauptstadt Berlin stellt den Stadtbezirken zur Erfüllung der übertragenen Aufgaben angemessene Haushaltsmittel (Bezirksbudgets) zur Verfügung. Bezirksbudgets sind im Haushaltsplan der Bundeshauptstadt Berlin gesondert auszuweisen; das Nähere bestimmt die Haushaltssatzung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Bundeshauptstadt Berlin richtet bürgernahe Verwaltungsstellen in den Stadtbezirken in dem Umfang ein, der zur Aufgabenerfüllung erforderlich ist. Mehrere Stadtbezirke können für einzelne Aufgaben gemeinsame Verwaltungsstellen betreiben.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 1 Nummer 1 (§ 71d)",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 71a"
+      },
+      "expectedHash": "262e8a1213f402a6fcbf663f3e2bb6271a5ad097cc6009756bf833c66a072f24",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 71c",
+        "title": "Bezirksorgane, Wahl und Stellung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "In jedem Stadtbezirk sind einzurichten:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "eine Bezirksversammlung als Stadtbezirksbeirat,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "ein Bezirksamt als örtliche Verwaltungsstelle des Stadtbezirks.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Abweichend von § 70 Absatz 1 Satz 1 werden die Mitglieder der Bezirksversammlung in unmittelbarer Wahl nach den für die Wahl des Stadtrats geltenden Vorschriften gewählt. Die Wahl findet regelmäßig zusammen mit der Wahl des Stadtrats statt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Vorsitzender der Bezirksversammlung ist ein aus ihrer Mitte zu wählender Vorsitzender; § 70 Absatz 4 Satz 1 findet insoweit keine Anwendung. Das Nähere bestimmt die Hauptsatzung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Das Bezirksamt wird von einem Bezirksbürgermeister geleitet. Der Bezirksbürgermeister wird auf Vorschlag der Bezirksversammlung vom Oberbürgermeister bestellt und abberufen. Die Hauptsatzung kann bestimmen, dass der Bezirksbürgermeister hauptamtlich wahrgenommen wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Das Bezirksamt wirkt bei der Erfüllung der Aufgaben des Stadtbezirks mit, führt Beschlüsse der Bezirksversammlung aus und nimmt die dem Stadtbezirk übertragenen Aufgaben der laufenden Verwaltung wahr. Es ist an die allgemeinen Richtlinien des Stadtrats und die Weisungen des Oberbürgermeisters gebunden, soweit gesetzlich nichts anderes bestimmt ist.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 1 Nummer 1 (§ 71c)",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 71a"
+      },
+      "expectedHash": "262e8a1213f402a6fcbf663f3e2bb6271a5ad097cc6009756bf833c66a072f24",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 71b",
+        "title": "Bundeshauptstadt Berlin; Abgrenzung zur Landeshauptstadt",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Dresden ist die Landeshauptstadt des Freistaates Ostdeutschland. Die Kreisfreie Stadt Berlin ist Bundeshauptstadt der Bundesrepublik Deutschland; ihr Status als Bundeshauptstadt bleibt von diesem Gesetz unberührt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Kreisfreie Stadt Berlin kann die Bezeichnung „Bundeshauptstadt Berlin“ führen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Abweichend von § 70 Absatz 1 Satz 1 ist in der Bundeshauptstadt Berlin die Stadtbezirksverfassung für das gesamte Stadtgebiet einzuführen. Die Bundeshauptstadt Berlin ist hierfür in Stadtbezirke zu gliedern. Stadtbezirke im Sinne dieses Gesetzes sind Stadtbezirke nach § 70.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Hauptsatzung regelt insbesondere",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Zahl, Abgrenzung und Bezeichnung der Stadtbezirke,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die Grundsätze der Aufgabenverteilung zwischen Gesamtstadt und Stadtbezirken,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Mindestanforderungen an eine flächendeckende bürgernahe Verwaltung (Bürgerdienste).",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Soweit in den §§ 71c bis 71f nichts Abweichendes bestimmt ist, gelten für die Stadtbezirke die §§ 70 und 71a entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 1 Nummer 1 (§ 71b)",
+      "effectiveDate": "2026-03-25"
+    }
+  ]
+}

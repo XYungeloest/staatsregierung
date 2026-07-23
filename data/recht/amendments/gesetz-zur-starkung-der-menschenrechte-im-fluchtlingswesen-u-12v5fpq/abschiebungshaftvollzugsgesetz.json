@@ -1,0 +1,98 @@
+{
+  "amendmentAct": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
+  "effectiveDate": "2026-03-24",
+  "versionId": "2026-03-24",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 21 S. 2)",
+  "resultCitation": "Sächsisches Abschiebungshaftvollzugsgesetz vom 28. Juni 2018 (SächsGVBl. S. 458), zuletzt geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 21 S. 2)",
+  "changeNote": "Geändert durch das Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 21 S. 2 bis 11",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 21.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "dcae1f7911daff9b67a2374dc0741574371b4b128eaf42c4ee93082e55f3db2f",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 2a",
+        "title": "Vorrang milderer Mittel und Ultima-Ratio-Grundsatz",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Abschiebungshaft und Ausreisegewahrsam sind nur zulässig, wenn mildere Mittel zur Sicherung der Ausreise im Einzelfall nicht ausreichen. Mildere Mittel sind insbesondere die Anordnung von Meldeauflagen, Wohnsitzauflagen, Sicherheitsleistungen oder vergleichbaren Maßnahmen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die zuständige Behörde hat vor Beantragung oder Anordnung von Abschiebungshaft oder Ausreisegewahrsam sämtliche in Betracht kommenden milderen Mittel zu prüfen und die Gründe für deren Ungeeignetheit oder Unzulänglichkeit zu dokumentieren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Haftdauer ist auf das unbedingt erforderliche Maß zu begrenzen. Verlängerungen dürfen nur angeordnet werden, wenn neue Umstände vorliegen, die eine Fortdauer rechtfertigen, und erneut nach Absatz 2 geprüft und dokumentiert wurde, dass mildere Mittel nicht ausreichen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 1",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 6"
+      },
+      "expectedHash": "020c425cde61ad3b420ed05ea86554bd9e1fab97cfddc1a76b980fec071b5dd2",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 6a",
+        "title": "Besondere Schutzbedürftigkeit; Verbot der Inhaftierung Minderjähriger und Familien mit Kindern",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Minderjährige dürfen nicht in Abschiebungshaft oder Ausreisegewahrsam genommen werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "In Familien, in denen mindestens ein minderjähriges Kind lebt, darf kein Familienmitglied zum Zwecke der Abschiebung in Abschiebungshaft oder Ausreisegewahrsam genommen werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Für besonders schutzbedürftige Personen, insbesondere Schwangere, Alleinerziehende, Menschen mit Behinderung, Menschen im hohen Alter, chronisch Kranke, Traumatisierte und LSBTIQ*-Personen, ist Abschiebungshaft oder Ausreisegewahrsam nur zulässig, wenn außergewöhnliche Umstände vorliegen und eine alternative Unterbringung nicht möglich ist. In diesen Fällen sind die haftvermeidenden Alternativen nach § 2a vorzuziehen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Liegen Anhaltspunkte für eine besondere Schutzbedürftigkeit vor, ist unverzüglich eine fachkundige Einschätzung einzuholen. Bis zu deren Vorliegen sind vollzugslockernde Maßnahmen zu prüfen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 21.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-03-24"
+    }
+  ]
+}

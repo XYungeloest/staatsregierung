@@ -1,55 +1,44 @@
 {
   "versionId": "2026-03-23",
-  "validFrom": "2026-03-23",
+  "validFrom": "2026-03-24",
   "validTo": null,
   "isCurrent": true,
-  "citation": "Gesetz vom 23. März 2026 (Ostdeutsches Feiertagsgesetz)",
-  "changeNote": "Bekanntmachung der geltenden Fassung.",
+  "citation": "Gesetz über Sonn- und Feiertage im Freistaat Ostdeutschland vom 10. November 1992 (SächsGVBl. S. 536), zuletzt geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 20 S. 2)",
+  "changeNote": "Vollständige Fassung nach dem Gesetz zur Reform gesetzlicher Feiertage.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Ausgabe OGVBl. 2026 Nr. 20",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 20.html"
+    }
+  ],
   "body": [
+    {
+      "type": "paragraphText",
+      "text": "Der Sächsische Landtag hat am 13. Oktober 1992 das folgende Gesetz beschlossen:"
+    },
     {
       "type": "paragraph",
       "label": "§ 1",
-      "title": "Gesetzliche Feiertage,",
+      "title": "Gesetzliche Feiertage",
       "children": [
         {
-          "type": "item",
-          "label": "1)",
-          "text": "Gesetzliche Feiertage sind: Neujahr (1. Januar), Weltfrauentag (8. März), Tag der Märzrevolution und Demokratie (18. März) Karfreitag, Ostermontag, Tag der Arbeit (1. Mai), Tag der Befreiung vom Nationalsozialismus und der Beendigung des Zweiten Weltkriegs in Europa (8. Mai), Tag des Arbeiteraufstands (17. Juni), Tag der Deutschen Einheit (3. Oktober), Tag der Friedlichen Revolution (9. November),",
-          "numberingStyle": "decimal",
-          "level": 0,
-          "children": [
-            {
-              "type": "item",
-              "label": "a.",
-              "text": "Weihnachtstag (25. Dezember),",
-              "numberingStyle": "lower-latin",
-              "level": 1,
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "b.",
-              "text": "Weihnachtstag (26. Dezember).",
-              "numberingStyle": "lower-latin",
-              "level": 1,
-              "children": []
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "label": "2)",
-          "text": "Die gesetzlichen Feiertage nach Absatz 1 sind Feiertage im Sinne bundes- und landesrechtlicher Vorschriften.",
-          "numberingStyle": "decimal",
-          "level": 0,
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Gesetzliche Feiertage sind:\nNeujahr (1. Januar),\nWeltfrauentag (8. März),\nTag der Märzrevolution und Demokratie (18. März)\nKarfreitag,\nOstermontag,\nTag der Arbeit (1. Mai),\nTag der Befreiung vom Nationalsozialismus und der Beendigung des Zweiten Weltkriegs in Europa (8. Mai),\nTag des Arbeiteraufstands (17. Juni),\nTag der Deutschen Einheit (3. Oktober),\nTag der Friedlichen Revolution (9. November),\n1. Weihnachtstag (25. Dezember),\n2. Weihnachtstag (26. Dezember).",
           "children": []
         },
         {
-          "type": "item",
-          "label": "3)",
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die gesetzlichen Feiertage nach Absatz 1 sind Feiertage im Sinne bundes- und landesrechtlicher Vorschriften.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
           "text": "Fallen die in Absatz 1 datumsfest bestimmten gesetzlichen Feiertage auf einen Sonnabend oder Sonntag wird für jeden dieser Tage am nächstmöglichen Wochenarbeitstag in der jeweiligen Folgewoche ein arbeitsfreier Tag gewährt (Ersatzfeiertag). Für den jeweiligen Ersatzfeiertag gelten die Bestimmungen des § 4.",
-          "numberingStyle": "decimal",
-          "level": 0,
           "children": []
         }
       ]
@@ -60,51 +49,39 @@
       "title": "Persönliche Feiertage",
       "children": [
         {
-          "type": "item",
-          "label": "1)",
+          "type": "subparagraph",
+          "label": "(1)",
           "text": "Arbeitnehmer:innen mit gewöhnlichem Arbeitsort im Freistaat Ostdeutschland haben in jedem Kalenderjahr Anspruch auf drei persönliche Feiertage.",
-          "numberingStyle": "decimal",
-          "level": 0,
           "children": []
         },
         {
-          "type": "item",
-          "label": "2)",
+          "type": "subparagraph",
+          "label": "(2)",
           "text": "Der persönliche Feiertag ist ein vom Arbeitnehmer frei gewählter Kalendertag. Er ist dem Arbeitgeber spätestens 14 Kalendertage vor dem beabsichtigten Zeitpunkt in Textform anzuzeigen. Eine Begründung ist nicht erforderlich.",
-          "numberingStyle": "decimal",
-          "level": 0,
           "children": []
         },
         {
-          "type": "item",
-          "label": "3)",
+          "type": "subparagraph",
+          "label": "(3)",
           "text": "Der Arbeitnehmer hat das Recht, an persönlichen Feiertagen der Arbeit fernzubleiben, wenn keine zwingenden betrieblichen Erfordernisse entgegenstehen. Im Fall zwingender betrieblicher Erfordernisse hat der Arbeitgeber unverzüglich einen Ersatztermin zu ermöglichen; der Ersatztermin ist innerhalb von drei Monaten zu gewähren.",
-          "numberingStyle": "decimal",
-          "level": 0,
           "children": []
         },
         {
-          "type": "item",
-          "label": "4)",
+          "type": "subparagraph",
+          "label": "(4)",
           "text": "Persönliche Feiertage gelten ausschließlich im Verhältnis Arbeitgeber zu Arbeitnehmer:innen als gesetzliche Feiertage im Sinne von § 9 Arbeitszeitgesetz und § 2 Entgeltfortzahlungsgesetz.",
-          "numberingStyle": "decimal",
-          "level": 0,
           "children": []
         },
         {
-          "type": "item",
-          "label": "5)",
+          "type": "subparagraph",
+          "label": "(5)",
           "text": "Die §§ 4 bis 7 dieses Gesetzes finden auf persönliche Feiertage keine Anwendung.",
-          "numberingStyle": "decimal",
-          "level": 0,
           "children": []
         },
         {
-          "type": "item",
-          "label": "6)",
+          "type": "subparagraph",
+          "label": "(6)",
           "text": "Absätze 1 bis 5 gelten nicht für Schüler:innen sowie Auszubildende.",
-          "numberingStyle": "decimal",
-          "level": 0,
           "children": []
         }
       ]
@@ -112,90 +89,215 @@
     {
       "type": "paragraph",
       "label": "§ 2",
-      "title": "Gedenk und Trauetage",
+      "title": "Gedenk- und Trauertage",
       "children": [
         {
           "type": "paragraphText",
-          "text": "Gedenk. und Trauertage im Sinne dieses Gesetzes sind:"
-        },
+          "text": "Gedenk- und Trauertage im Sinne dieses Gesetzes sind der Luxemburg-Liebknecht-Gedenktag (15. Januar) und der Volkstrauertag (vorletzter Sonntag vor dem 1. Advent)."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 2a",
+      "title": "Örtlicher Gedenktag an die friedliche Revolution 1989",
+      "children": [
         {
-          "type": "item",
-          "label": "1.",
-          "text": "der Volkstrauertag (vorletzter Sonntag vor dem 1. Advent),",
-          "numberingStyle": "decimal",
-          "level": 0,
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "2.",
-          "text": "der Totensonntag (letzter Sonntag vor dem 1. Advent),",
-          "numberingStyle": "decimal",
-          "level": 0,
-          "children": []
+          "type": "paragraphText",
+          "text": "Die Gemeinden können einen örtlichen Gedenktag zur Erinnerung an die friedliche Revolution des Jahres 1989 durch Satzung bestimmen."
         }
       ]
     },
     {
       "type": "paragraph",
       "label": "§ 3",
-      "title": "Religiöse Feiertage,",
+      "title": "Religiöse Feiertage",
       "children": [
         {
-          "type": "item",
-          "label": "1)",
-          "text": "Religiöse Feiertage im Sinne dieses Gesetzes sind: Erscheinungsfest (6. Januar), Frühjahrsbußtag (7. Mittwoch vor Ostern), Gründonnerstag, Tag des Fastenbrechens, Christi Himmelfahrt, Pfingstmontag, Fronleichnam, Jom Kippur, (Zweiter Tag) Vesakhfest, Johannestag (24. Juni), Peter und Paul (29. Juni), Mariä Himmelfahrt (15. August), Tag des Guru Nanak, Lakshmi Puja, Reformationstag (31. Oktober), Allerheiligen (1. November), Mariä Empfängnis (8. Dezember).",
-          "numberingStyle": "decimal",
-          "level": 0,
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Religiöse Feiertage im Sinne dieses Gesetzes sind:\nErscheinungsfest (6. Januar),\nFrühjahrsbußtag (7. Mittwoch vor Ostern),\nGründonnerstag,\nTag des Fastenbrechens,\nChristi Himmelfahrt,\nPfingstmontag,\nFronleichnam,\nJom Kippur, (Zweiter Tag)\nVesakhfest,\nJohannestag (24. Juni),\nPeter und Paul (29. Juni),\nMariä Himmelfahrt (15. August),\nTag des Guru Nanak,\nLakshmi Puja,\nReformationstag (31. Oktober),\nAllerheiligen (1. November),\nMariä Empfängnis (8. Dezember).",
           "children": []
         },
         {
-          "type": "item",
-          "label": "2)",
+          "type": "subparagraph",
+          "label": "(2)",
           "text": "Die Staatsregierung wird ermächtigt, durch Rechtsverordnung weitere religiöse Feiertage festzulegen, soweit hierfür aufgrund der Bedeutung einer Religionsgemeinschaft nach Tradition oder Mitgliederzahl ein Bedürfnis besteht.",
-          "numberingStyle": "decimal",
-          "level": 0,
           "children": []
         },
         {
-          "type": "item",
-          "label": "3)",
+          "type": "subparagraph",
+          "label": "(3)",
           "text": "An den in Absatz 1 genannten und den nach Absatz 2 festgelegten religiösen Feiertagen haben",
-          "numberingStyle": "decimal",
-          "level": 0,
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Schüler und Auszubildende das Recht, dem Unterricht oder der Ausbildung fernzubleiben,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Personen, die in einem Beschäftigungsverhältnis stehen, das Recht, der Arbeit fernzubleiben, soweit und solange dies erforderlich ist, um am Hauptgottesdienst oder den Feierlichkeiten ihrer Religionsgemeinschaft teilzunehmen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4",
+      "title": "Allgemeine Schutzvorschrift",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Sonntage und die gesetzlichen Feiertage sind als Tage der Arbeitsruhe und seelischen Erhebung nach Maßgabe der gewerbe- und arbeitsrechtlichen Vorschriften sowie der Bestimmungen dieses Gesetzes geschützt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "An den Sonntagen und den gesetzlichen Feiertagen sind öffentlich bemerkbare Arbeiten und sonstige Handlungen, die geeignet sind, die Ruhe des Tages zu beeinträchtigen, verboten, soweit nicht durch Gesetz oder aufgrund eines Gesetzes etwas anderes bestimmt ist.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "¹Absatz 2 gilt nicht für",
           "children": []
         },
         {
           "type": "item",
           "label": "1.",
-          "text": "Schüler und Auszubildende das Recht, dem Unterricht oder der Ausbildung fernzubleiben,",
-          "numberingStyle": "decimal",
+          "text": "den Betrieb der Post, der Eisenbahnen und sonstiger Unternehmen, die der Personenbeförderung dienen, sowie der Hilfseinrichtungen des Verkehrs mit der Maßgabe, daß Instandsetzungsarbeiten an Kraftfahrzeugen nur vorgenommen werden dürfen, soweit sie für die Weiterfahrt erforderlich sind;",
           "level": 0,
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "2.",
-          "text": "Personen, die in einem Beschäftigungsverhältnis stehen, das Recht, der Arbeit fernzubleiben, soweit und solange dies erforderlich ist, um am Hauptgottesdienst oder den Feierlichkeiten ihrer Religionsgemeinschaft teilzunehmen.",
-          "numberingStyle": "decimal",
+          "text": "unaufschiebbare Arbeiten, die erforderlich sind",
           "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "zur Abwendung eines Schadens an Gesundheit oder Eigentum,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "zur Befriedigung häuslicher Bedürfnisse,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "in landwirtschaftlichen Betrieben, insbesondere zur Ernte,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "zur Be- oder Verarbeitung leicht verderblicher Nahrungsmittel und zur Versorgung der Bevölkerung mit Milch;",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "leichte Arbeiten nicht gewerblicher Art in Gärten, die keine störenden Geräusche verursachen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "den Betrieb von Videotheken an den Sonntagen zwischen 12.00 und 20.00 Uhr.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "den Betrieb von",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "vollautomatischen, gemeinsam mit Tankstellen betriebenen, Waschanlagen in geschlossener Bauform für Personenkraftwagen an den Sonntagen zwischen 8.00 und 20.00 Uhr,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "gemeinsam mit Tankstellen betriebenen Selbstwaschanlagen für Personenkraftwagen an den Sonntagen zwischen 12.00 und 20.00 Uhr,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "automatischen Waschanlagen und Selbstwaschanlagen für Personenkraftwagen in durch Bebauungsplan festgesetzten Gewerbe- und Industriegebieten an den Sonntagen zwischen 12.00 und 20.00 Uhr.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraphText",
+          "text": "²Satz 1 Nr. 4 und 5 gilt nicht für den Ostersonntag und Pfingstsonntag sowie für solche Sonntage, auf die ein gesetzlicher Feiertag nach § 1 Abs. 1 oder ein Gedenk- und Trauertag nach § 2 fällt."
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Soweit Arbeiten an Sonntagen und gesetzlichen Feiertagen zulässig sind, ist auf das Wesen des Tages Rücksicht zu nehmen.",
           "children": []
         }
       ]
     },
     {
       "type": "paragraph",
-      "label": "§§ 4 und 5",
+      "label": "§ 5",
+      "title": "Schutz religiöser Veranstaltungen",
       "children": [
         {
           "type": "paragraphText",
-          "text": "u n v e r ä n d e r t"
+          "text": "¹An den Sonntagen, religiösen und gesetzlichen Feiertagen, mit Ausnahme des 1. Mai und des 3. Oktober, sind in der Nähe von Kirchen und anderen Gebäuden, die religiösen Zwecken dienen, alle Handlungen zu unterlassen, die geeignet sind, religiöse Veranstaltungen zu stören. ²Dasselbe gilt am 24. Dezember für die Zeit ab 14.00 Uhr."
         }
       ]
     },
     {
       "type": "paragraph",
       "label": "§ 6",
+      "title": "Besondere Schutzvorschriften",
       "children": [
         {
           "type": "paragraphText",
@@ -205,11 +307,126 @@
     },
     {
       "type": "paragraph",
-      "label": "§§ 7 bis 11",
+      "label": "§ 7",
+      "title": "Befreiungen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die Kreispolizeibehörden können im Einzelfall aus wichtigem Grund von den Verbotsvorschriften der §§ 4 und 6 befreien.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "¹Vor der Erteilung einer Befreiung sind die betroffenen Religionsgemeinschaften zu hören. ²Dies gilt nicht, soweit sich die Befreiung auf den 1. Mai oder den 3. Oktober bezieht.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 8",
+      "title": "Ordnungswidrigkeiten",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Ordnungswidrig handelt, wer vorsätzlich oder fahrlässig den Vorschriften über das Verbot",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "öffentlich bemerkbarer Arbeiten und sonstiger Handlungen (§ 4 Abs. 2),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "von Handlungen, die geeignet sind, religiöse Veranstaltungen zu stören (§ 5),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "bestimmter Veranstaltungen an besonders geschützten Tagen (§ 6)",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Ordnungswidrigkeit kann mit einer Geldbuße bis zu 5 000 EUR geahndet werden.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Verwaltungsbehörden im Sinne des § 36 Abs. 1 Nr. 1 des Gesetzes über Ordnungswidrigkeiten sind die Ortspolizeibehörden.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 9",
+      "title": "Grundrechtseinschränkung",
       "children": [
         {
           "type": "paragraphText",
-          "text": "u n v e r ä n d e r t"
+          "text": "Das Grundrecht der Versammlungsfreiheit (Artikel 8 Abs. 2 des Grundgesetzes und Artikel 23 Abs. 2 der Verfassung des Freistaates Sachsen) wird nach Maßgabe der §§ 5 und 6 eingeschränkt."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 10",
+      "title": "Außerkrafttreten von Rechtsvorschriften",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Folgende Rechtsvorschriften treten außer Kraft:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "§ 168 Abs. 2 des Arbeitsgesetzbuches der Deutschen Demokratischen Republik vom 16. Juni 1977 (GBl. I Nr. 18 S. 185), zuletzt geändert durch Gesetz vom 22. Juni 1990 (GBl. I Nr. 35 S. 371),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Verordnung über die Einführung gesetzlicher Feiertage vom 16. Mai 1990 (GBl. I Nr. 27 S. 248),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Erste Durchführungsbestimmung vom 7. Juni 1990 zur Verordnung über die Einführung gesetzlicher Feiertage (GBl. I Nr. 31 S.281).",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 11",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Dieses Gesetz tritt am Tage nach seiner Verkündung in Kraft."
         }
       ]
     }

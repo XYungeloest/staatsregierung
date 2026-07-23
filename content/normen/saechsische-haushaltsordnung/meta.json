@@ -1,0 +1,59 @@
+{
+  "id": "saechsische-haushaltsordnung",
+  "slug": "saechsische-haushaltsordnung",
+  "title": "Haushaltsordnung des Ostdeutschen Freistaates",
+  "shortTitle": "Ostdeutsche Haushaltsordnung",
+  "shortTitleSource": "official",
+  "type": "gesetz",
+  "enactingBody": "Sächsischer Landtag",
+  "subjects": [
+    "Haushaltsrecht"
+  ],
+  "keywords": [
+    "Haushalt",
+    "Haushaltswirtschaft",
+    "Landesvermögen",
+    "Sächsische Haushaltsordnung"
+  ],
+  "summary": "Regelt Aufstellung und Ausführung des Haushaltsplans, Zahlungen, Buchführung, Rechnungslegung und Prüfung der Haushaltswirtschaft.",
+  "initialCitation": "Sächsische Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153)",
+  "predecessor": null,
+  "successor": null,
+  "status": "in-force",
+  "documentDate": "2001-04-10",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2021-06-03 bis 2025-07-09",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/saechsische-haushaltsordnung/4270.12.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4270.12",
+      "retrievedAt": "2026-07-23",
+      "sha256": "12ad8cf603c92c7cb82b361a6b028800ea4a3f56fd235db14175c5bcb9784ffb",
+      "lawId": "4270",
+      "sourceValidFrom": "2021-06-03",
+      "sourceValidTo": "2025-07-09"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2025-07-10",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/saechsische-haushaltsordnung/4270.13.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4270.13",
+      "retrievedAt": "2026-07-23",
+      "sha256": "144a0416a247bce0f72182590e750dad46b801f4ef575099cebd8853eb356590",
+      "lawId": "4270",
+      "sourceValidFrom": "2025-07-10"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 8",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 8.html"
+    }
+  ],
+  "abbr": "LHO",
+  "affectedByNorms": [
+    "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland"
+  ]
+}

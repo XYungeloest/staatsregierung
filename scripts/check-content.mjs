@@ -1,6 +1,7 @@
 import { access, readdir, readFile, stat } from 'node:fs/promises';
 import { basename, dirname, extname, join, relative, resolve } from 'node:path';
 import { execFile } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { promisify } from 'node:util';
 
 const root = resolve(process.cwd());
@@ -55,6 +56,8 @@ const allowedNormMinistries = new Set([
   'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
 ]);
 const allowedEnactingBodies = new Set([
+  'Sächsischer Landtag',
+  'Sächsische Staatsregierung',
   'Landtag des Freistaates Ostdeutschland',
   'Volkskammer des Freistaates Ostdeutschland',
   'Staatsregierung des Freistaates Ostdeutschland',
@@ -280,6 +283,59 @@ async function validateVersionedSource(file, fieldPath, sourcePath) {
   }
 }
 
+async function validateNormSourceReference(file, source, sourcePath) {
+  if (!source || typeof source !== 'object' || Array.isArray(source)) {
+    addProblem(file, `${sourcePath} muss ein Objekt sein`);
+    return;
+  }
+
+  const extensionPattern = {
+    'structured-html-transcription': /\.html$/iu,
+    'legacy-markdown-transcription': /\.md$/iu,
+    'revosax-snapshot': /\.html$/iu,
+    'amendment-source': /\.(?:html|md|pdf)$/iu,
+  }[source.kind];
+  if (!extensionPattern) {
+    addProblem(file, `${sourcePath}.kind ist für eine Normquelle unbekannt: ${source.kind}`);
+    return;
+  }
+  if (source.availability !== 'versioned') {
+    addProblem(file, `${sourcePath}.availability muss versioned sein`);
+  }
+  if (typeof source.localSource !== 'string' || !extensionPattern.test(source.localSource)) {
+    addProblem(file, `${sourcePath}.localSource besitzt kein für ${source.kind} zulässiges Quellformat`);
+    return;
+  }
+  await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
+
+  if (source.kind !== 'revosax-snapshot') return;
+  if (typeof source.url !== 'string' || !/^https:\/\/www\.revosax\.sachsen\.de\/vorschrift\/\d+(?:\.\d+)?$/u.test(source.url)) {
+    addProblem(file, `${sourcePath}.url muss eine konkrete amtliche REVOSax-Fassungs-URL sein`);
+  }
+  if (typeof source.lawId !== 'string' || !/^\d+$/u.test(source.lawId)) {
+    addProblem(file, `${sourcePath}.lawId muss die REVOSax-Vorschriften-ID enthalten`);
+  }
+  for (const field of ['retrievedAt', 'sourceValidFrom']) {
+    if (typeof source[field] !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(source[field])) {
+      addProblem(file, `${sourcePath}.${field} muss als ISO-Datum dokumentiert sein`);
+    }
+  }
+  if (source.sourceValidTo !== undefined &&
+      (typeof source.sourceValidTo !== 'string' || !/^\d{4}-\d{2}-\d{2}$/u.test(source.sourceValidTo))) {
+    addProblem(file, `${sourcePath}.sourceValidTo muss als ISO-Datum dokumentiert sein`);
+  }
+  if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
+    addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
+  } else if (await exists(resolve(root, source.localSource))) {
+    const actualHash = createHash('sha256')
+      .update(await readFile(resolve(root, source.localSource)))
+      .digest('hex');
+    if (actualHash !== source.sha256) {
+      addProblem(file, `${sourcePath}.sha256 stimmt nicht mit dem unveränderten Snapshot überein`);
+    }
+  }
+}
+
 const files = await listJsonFiles(contentRoot);
 const records = [];
 
@@ -385,7 +441,7 @@ for (const { file, json } of records) {
     }
 
     const responsibility = json.responsibleMinistry ?? json.ministry;
-    if (!allowedNormMinistries.has(responsibility)) {
+    if (responsibility !== undefined && !allowedNormMinistries.has(responsibility)) {
       addProblem(file, `fachliche Zuständigkeit ist nicht als Norm-Ressort zugelassen: ${responsibility}`);
     }
 
@@ -415,23 +471,7 @@ for (const { file, json } of records) {
     }
 
     for (const [index, source] of (json.sourceReferences ?? []).entries()) {
-      const sourcePath = `sourceReferences[${index}]`;
-      if (!source || typeof source !== 'object' || Array.isArray(source)) {
-        addProblem(file, `${sourcePath} muss ein Objekt sein`);
-        continue;
-      }
-      if (!['structured-html-transcription', 'legacy-markdown-transcription'].includes(source.kind)) {
-        addProblem(file, `${sourcePath}.kind ist für eine Normquelle unbekannt: ${source.kind}`);
-      }
-      if (source.availability !== 'versioned') {
-        addProblem(file, `${sourcePath}.availability muss versioned sein`);
-      }
-      const requiredExtension = source.kind === 'legacy-markdown-transcription' ? '.md' : '.html';
-      if (typeof source.localSource !== 'string' || !source.localSource.endsWith(requiredExtension)) {
-        addProblem(file, `${sourcePath}.localSource muss für ${source.kind} auf eine ${requiredExtension}-Datei verweisen`);
-      } else {
-        await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
-      }
+      await validateNormSourceReference(file, source, `sourceReferences[${index}]`);
     }
   }
 
@@ -443,9 +483,14 @@ for (const { file, json } of records) {
     }
   }
 
-  if (rel.startsWith('normen/') && rel.includes('/versions/') && typeof json.citation === 'string'
-    && /^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(json.citation.trim())) {
-    addProblem(file, 'citation darf nicht nur aus der Fundstelle bestehen; Normart und Dokumentdatum müssen erhalten bleiben');
+  if (rel.startsWith('normen/') && rel.includes('/versions/')) {
+    if (typeof json.citation === 'string'
+      && /^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(json.citation.trim())) {
+      addProblem(file, 'citation darf nicht nur aus der Fundstelle bestehen; Normart und Dokumentdatum müssen erhalten bleiben');
+    }
+    for (const [index, source] of (json.sourceReferences ?? []).entries()) {
+      await validateNormSourceReference(file, source, `sourceReferences[${index}]`);
+    }
   }
 
   if (rel.startsWith('verkuendungen/')) {
@@ -657,6 +702,42 @@ for (const { file, json } of normMetaRecords) {
     const reciprocal = parent?.enactedNorm === json.slug || parent?.enactedNorms?.includes(json.slug);
     if (parent && !reciprocal) addProblem(file, `enactingNorm ist bei ${json.enactingNorm} nicht wechselseitig hinterlegt`);
   }
+  for (const targetSlug of json.affectedNorms ?? []) {
+    const target = normMetaBySlug.get(targetSlug);
+    if (!target) {
+      addProblem(file, `affectedNorms verweist auf unbekannte Norm: ${targetSlug}`);
+    } else if (!target.affectedByNorms?.includes(json.slug)) {
+      addProblem(file, `affectedNorms ist bei ${targetSlug} nicht wechselseitig als affectedByNorms hinterlegt`);
+    }
+  }
+  for (const amendmentSlug of json.affectedByNorms ?? []) {
+    const amendment = normMetaBySlug.get(amendmentSlug);
+    if (!amendment) {
+      addProblem(file, `affectedByNorms verweist auf unbekannte Norm: ${amendmentSlug}`);
+    } else if (!amendment.affectedNorms?.includes(json.slug)) {
+      addProblem(file, `affectedByNorms ist bei ${amendmentSlug} nicht wechselseitig als affectedNorms hinterlegt`);
+    }
+  }
+}
+
+for (const { file, json } of byPrefix('normen/').filter(({ file }) => basename(file) === 'history.json')) {
+  const normSlug = relative(contentRoot, file).split('/')[1];
+  const versionIds = normVersionIds.get(normSlug) ?? new Set();
+  if (json.initialVersionId !== null && !versionIds.has(json.initialVersionId)) {
+    addProblem(file, `initialVersionId verweist auf unbekannte Fassung: ${json.initialVersionId}`);
+  }
+  for (const [index, entry] of (json.entries ?? []).entries()) {
+    if (entry.affectingVersionId && !versionIds.has(entry.affectingVersionId)) {
+      addProblem(file, `entries[${index}].affectingVersionId verweist auf unbekannte Fassung: ${entry.affectingVersionId}`);
+    }
+    if (!entry.relatedNorm) continue;
+    const amendment = normMetaBySlug.get(entry.relatedNorm);
+    if (!amendment) {
+      addProblem(file, `entries[${index}].relatedNorm verweist auf unbekannte Norm: ${entry.relatedNorm}`);
+    } else if (entry.type === 'amendment' && !amendment.affectedNorms?.includes(normSlug)) {
+      addProblem(file, `entries[${index}].relatedNorm ist nicht wechselseitig über affectedNorms verknüpft`);
+    }
+  }
 }
 
 for (const slug of normSlugs) {
@@ -678,6 +759,12 @@ for (const slug of normSlugs) {
     const next = versions[index + 1];
     if (next && (!json.validTo || json.validTo >= next.json.validFrom)) {
       addProblem(file, `Gültigkeitsintervall überlappt mit ${relative(contentRoot, next.file)}`);
+    } else if (next) {
+      const expectedValidTo = new Date(`${next.json.validFrom}T00:00:00Z`);
+      expectedValidTo.setUTCDate(expectedValidTo.getUTCDate() - 1);
+      if (json.validTo !== expectedValidTo.toISOString().slice(0, 10)) {
+        addProblem(file, `Gültigkeitsintervall besitzt eine Lücke vor ${relative(contentRoot, next.file)}`);
+      }
     }
   }
 }

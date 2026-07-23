@@ -1,0 +1,189 @@
+{
+  "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
+  "effectiveDate": "2026-08-01",
+  "versionId": "2026-08-01",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
+  "resultCitation": "Gemeindeordnung für den Ostdeutschen Freistaat in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62), zuletzt geändert durch Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
+  "changeNote": "Gemeindearten und die Berliner Bezirksregelungen geändert durch das Kreis- und Bezirksneuordnungsgesetz.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 46, Beginn auf S. 2",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 3"
+      },
+      "expectedHash": "ef8fd9f3679707a756819959aa32e4832c251c5110c92e292d880a3f450690ce",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3",
+        "title": "Gemeindearten; kreisfreie Städte",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Gemeinden im Sinne dieses Gesetzes sind die kreisangehörigen Städte und Gemeinden sowie die kreisfreien Städte.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "kreisfreie Städte sind Gemeinden, die zugleich die Aufgaben eines Landkreises wahrnehmen, soweit gesetzlich nichts anderes bestimmt ist. Die Verleihung und Aberkennung der Rechtsstellung als kreisfreie Stadt bedürfen eines Gesetzes.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Große Kreisstädte sind kreisangehörige Gemeinden. Der Umfang der von ihnen zusätzlich wahrzunehmenden Aufgaben wird durch Gesetz oder auf Grund gesetzlicher Ermächtigung durch Rechtsverordnung bestimmt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die kreisfreien Städte sind, soweit gesetzlich nichts anderes bestimmt ist, untere Verwaltungsbehörden im Sinne bundes- und landesrechtlicher Vorschriften.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 4 Nummer 2",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 71b"
+      },
+      "expectedHash": "6c700682d1a7e1430cc36f8465d0bf0dfbb793e93d1d45469b7a59f033d5e938",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 71b",
+        "title": "Bundeshauptstadt Berlin; Abgrenzung zur Landeshauptstadt",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Dresden ist die Landeshauptstadt des Freistaates Ostdeutschland. Die kreisfreie Stadt Berlin ist Bundeshauptstadt der Bundesrepublik Deutschland und zugleich Bezirk Berlin nach der Ostdeutschen Bezirksordnung. Ihr Status als Bundeshauptstadt bleibt unberührt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Kreisfreie Stadt Berlin kann die Bezeichnung „Bundeshauptstadt Berlin“ führen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Abweichend von § 70 Absatz 1 Satz 1 ist in der Bundeshauptstadt Berlin die Stadtbezirksverfassung für das gesamte Stadtgebiet einzuführen. Die Bundeshauptstadt Berlin ist hierfür in Stadtbezirke zu gliedern. Stadtbezirke im Sinne der §§ 70 bis 71f sind innerstädtische Verwaltungseinheiten der Bundeshauptstadt Berlin und keine Bezirke im Sinne der Ostdeutschen Bezirksordnung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Hauptsatzung regelt insbesondere",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Zahl, Abgrenzung und Bezeichnung der Stadtbezirke,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die Grundsätze der Aufgabenverteilung zwischen Gesamtstadt und Stadtbezirken,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Mindestanforderungen an eine flächendeckende bürgernahe Verwaltung (Bürgerdienste).",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Soweit in den §§ 71c bis 71f nichts Abweichendes bestimmt ist, gelten für die Stadtbezirke die §§ 70 und 71a entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 4 Nummer 3",
+      "effectiveDate": "2026-08-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 71f"
+      },
+      "expectedHash": "8791af9a404993b31f540ad310c11d1ec5390d99317c25baea89b584929532fe",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 71g",
+        "title": "Berlin als Bezirk",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Organe der Bundeshauptstadt Berlin nehmen die Aufgaben der Organe des Bezirks Berlin nach Maßgabe der Ostdeutschen Bezirksordnung in Personalunion wahr.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Stadtrat der Bundeshauptstadt Berlin nimmt die Aufgaben des Bezirkstags Berlin wahr. Angelegenheiten des Bezirks Berlin sind in der Tagesordnung und in den Beschlüssen als solche zu bezeichnen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Der/die Oberbürgermeister:in und die Beigeordneten der Bundeshauptstadt Berlin nehmen die Aufgaben des Rates des Bezirkes Berlin wahr.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Der/die Oberbürgermeister:in der Bundeshauptstadt Berlin nimmt die Aufgaben des/der Vorsitzenden des Rates des Bezirkes Berlin wahr.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die Hauptverwaltung der Bundeshauptstadt Berlin nimmt die Aufgaben der Bezirksverwaltung Berlin wahr.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Die Stadtbezirksversammlungen und Bezirksämter der Stadtbezirke bleiben Organe der innerstädtischen Verwaltung der Bundeshauptstadt Berlin. Ihre Zuständigkeiten richten sich nach den §§ 71b bis 71f und der Hauptsatzung.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 4 Nummer 4",
+      "effectiveDate": "2026-08-01"
+    }
+  ]
+}

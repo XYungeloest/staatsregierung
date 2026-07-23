@@ -1,0 +1,70 @@
+{
+  "amendmentAct": "erstes-gesetz-zur-anderung-des-verwaltungskostengesetzes",
+  "effectiveDate": "2026-01-27",
+  "versionId": "2026-01-27",
+  "amendmentCitation": "Gesetz vom 27. Januar 2026 (OGVBl. 2026 Nr. 10 S. 2)",
+  "resultCitation": "Gesetz über die Gebühren und Beiträge der ostdeutschen Verwaltung (Ostdeutsches Verwaltungskostengesetz – OstVwKG) vom 5. April 2019 (SächsGVBl. S. 245), zuletzt geändert durch Gesetz vom 27. Januar 2026 (OGVBl. 2026 Nr. 10 S. 2)",
+  "changeNote": "Geändert durch das Erste Gesetz zur Änderung des Verwaltungskostengesetzes.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 10 S. 2 bis 4",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 10.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsisches Verwaltungskostengesetz",
+      "expectedMatches": 1,
+      "value": "Gesetz über die Gebühren und Beiträge der ostdeutschen Verwaltung",
+      "source": "Gesetze/OGVBl. 2026 Nr. 10.html",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-01-27"
+    },
+    {
+      "op": "insertProvisionBefore",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "8303f2eddc8806d07b7886f0ff9b2122614840403bc77ce93436d1ac765239b9",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3a",
+        "title": "Gebühren bei Großveranstaltungen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Eine Gebühr wird von Veranstalter:innen erhoben, die eine gewinnorientierte Veranstaltung durchführen, an der voraussichtlich mehr als 5 000 Personen zeitgleich teilnehmen werden, wenn wegen erfahrungsgemäß zu erwartender Gewalthandlungen vor, während oder nach der Veranstaltung am Veranstaltungsort, an den Zugangs- oder Abgangswegen oder sonst im räumlichen Umfeld der Einsatz von zusätzlichen Polizeikräften vorhersehbar erforderlich wird. Die Gebühr ist nach dem Mehraufwand zu berechnen, der aufgrund der zusätzlichen Bereitstellung von Polizeikräften entsteht. Die Veranstalter:in ist vor der Veranstaltung über die voraussichtliche Gebührenpflicht zu unterrichten. Die Gebühr kann nach den tatsächlichen Mehrkosten oder als Pauschalgebühr berechnet werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Bei Veranstaltungen nach Absatz 1, bei denen mit voraussichtlich mehr als 15 000 Personen gerechnet wird ist die zuständige Behörde das zuständige Staatsministerium.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Gegen einen nicht begünstigenden Verwaltungsakt nach Absatz 2 kann die Betroffene innerhalb von einem Monat direkt vor dem zuständigen Verwaltungsgericht klagen; ein Vorverfahren findet nicht statt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Eine Veranstalter:in kann sich von der Gebührenpflicht nach Absatz 1 und 2 befreien lassen, wenn sie präventive Maßnahmen zur Förderung einer aufgeschlossenen, gewaltfreien, demokratischen und weltoffenen Haltung ihrer Fans umsetzen. Die Maßnahmen nach Satz 1 müssen zur Umsetzung einer solchen Fankultur in einem nicht unerheblichen Maß beitragen. Die Veranstalter:in hat solche Maßnahmen nachzuweisen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 10.html",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-01-27"
+    }
+  ]
+}

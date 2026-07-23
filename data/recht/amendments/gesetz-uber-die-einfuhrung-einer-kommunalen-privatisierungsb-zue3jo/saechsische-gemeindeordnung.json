@@ -1,0 +1,133 @@
+{
+  "amendmentAct": "gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo",
+  "effectiveDate": "2026-03-25",
+  "versionId": "2026-03-25",
+  "sameDayOrder": 1,
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 19 S. 2)",
+  "resultCitation": "Gemeindeordnung für den Ostdeutschen Freistaat in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 62), zuletzt geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 19 S. 2)",
+  "changeNote": "Bezeichnung und § 90 geändert durch das Gesetz über die Einführung einer kommunalen Privatisierungsbremse.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 19 S. 2 bis 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 19.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsische Gemeindeordnung",
+      "expectedMatches": 1,
+      "value": "Gemeindeordnung für den Ostdeutschen Freistaat",
+      "source": "Gesetze/OGVBl. 2026 Nr. 19.html",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 90"
+      },
+      "expectedHash": "96115aa768235d27a10b0e4e33af3e022309217f39db9a79eced582b88ab08b8",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 90",
+        "title": "Veräußerung von Vermögen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Die Gemeinde darf Vermögensgegenstände veräußern, wenn sie sie zur Erfüllung ihrer Aufgaben nicht braucht und Gründe des Wohls der Allgemeinheit nicht entgegenstehen. ²Vermögensgegenstände dürfen in der Regel nur zu ihrem vollen Wert veräußert werden. ³Ausnahmen sind im besonderen öffentlichen Interesse zulässig. ⁴Dies gilt insbesondere für Veräußerungen zur Förderung von sozialen Einrichtungen, des sozialen Wohnungsbaus, des Denkmalschutzes und der Bildung privaten Eigentums unter sozialen Gesichtspunkten. ⁵Ein besonderes öffentliches Interesse liegt auch dann vor, wenn hierdurch die Umsiedlung aus Überschwemmungsgebieten gefördert wird. ⁶Vor dem Unterwertverkauf eines Grundstücks an Unternehmen ist die Vereinbarkeit der Vergünstigung mit dem Binnenmarkt sicherzustellen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Für die Überlassung der Nutzung von Vermögensgegenständen gilt Absatz 1 entsprechend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "¹Der Genehmigung der Rechtsaufsichtsbehörde bedürfen Rechtsgeschäfte, in denen sich die Gemeinde verpflichtet,",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Grundstücke oder grundstücksgleiche Rechte sowie andere Vermögensgegenstände unentgeltlich oder unter ihrem vollen Wert zu veräußern, sofern sie nicht geringwertig sind,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Vermögensgegenstände mit besonderem wissenschaftlichen, geschichtlichen, künstlerischen oder denkmalpflegerischen Wert zu veräußern.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "²Die Genehmigung nach Satz 1 gilt als erteilt, wenn die Rechtsaufsichtsbehörde nicht innerhalb von sechs Wochen nach dem vollständigen Eingang der Antragsunterlagen die Genehmigung ablehnt oder dem Antragsteller schriftlich mitteilt, welche Gründe einer abschließenden Entscheidung über den Antrag entgegenstehen. ³Die Rechtsaufsichtsbehörde hat dem Antragsteller innerhalb von zwei Wochen nach Eingang des Antrags mitzuteilen, ob die Antragsunterlagen vollständig sind; nach Verstreichen der Frist ohne eine Mitteilung ist von der Vollständigkeit der Antragsunterlagen auszugehen."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Ein Beschluss der Gemeinde zur Veräußerung von Unternehmen darf erst nach Ablauf von drei Monaten vollzogen werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Durch Satzung kann die Gemeinde Unternehmen veräußern, auf welche sie aufgrund Eigentum, finanzieller Beteiligung, Satzung oder sonstiger Bestimmungen, welche die Tätigkeit des Unternehmens regeln, unmittelbar oder mittelbar einen beherrschenden Einfluss ausübt und die",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Verkehrsleistungen oder Leistungen der Abfall- oder Abwasserentsorgung oder der Energie- oder Wasserversorgung für die Allgemeinheit erbringen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "wesentliche Beiträge zur wirtschaftlichen, verkehrlichen, städtebaulichen oder kulturellen Infrastruktur leisten,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "geeignet sind, die Sicherung der Versorgung mit angemessenem Wohnraum zu fördern oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "der allgemeinen Versorgung der Bevölkerung mit Krankenhäusern dienen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Der Beschluss über eine solche Satzung bedarf der Mehrheit von zwei Dritteln der Gemeinderäte oder eines erfolgreichen Bürgerentscheids nach § 24. Sie tritt nicht vor Ablauf von sechs Monaten nach ihrer Bekanntgabe in Kraft. Als Veräußerung gilt jedes Rechtsgeschäft, welches den beherrschenden Einfluss der Gemeinde beseitigt. Auf kleine Kapitalgesellschaften im Sinne des § 267 Absatz 1 des Handelsgesetzbuchs findet diese Vorschrift keine Anwendung. Gleiches gilt, wenn die Veräußerung bei Entstehen der Beherrschung beabsichtigt war und zeitnah erfolgt."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 19.html",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-03-25"
+    }
+  ]
+}

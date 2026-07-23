@@ -537,6 +537,8 @@ function mergeWithExisting(record, existing) {
       : record.meta.summary,
     predecessor: existing.meta.predecessor ?? record.meta.predecessor,
     successor: existing.meta.successor ?? record.meta.successor,
+    affectedNorms: existing.meta.affectedNorms ?? record.meta.affectedNorms,
+    affectedByNorms: existing.meta.affectedByNorms ?? record.meta.affectedByNorms,
   };
   const generatedEntryKeys = new Set(record.history.entries.map((entry) => JSON.stringify([
     entry.date,
@@ -804,6 +806,12 @@ for (const fileName of allHtmlFiles) {
   }
 }
 const htmlStems = new Set(allHtmlFiles.map((name) => name.replace(/\.html$/iu, '').replace(/[ .]/gu, '').toLocaleLowerCase('de')));
+const consolidationManagedSources = new Map([
+  [
+    'Ostdeutsches Feiertagsgesetz.md',
+    'durch vollständige, quellengesicherte Fassungsfolge aus REVOSax-Snapshot und Änderungsvorschriften ersetzt',
+  ],
+]);
 
 const existingAuditRecords = await loadExistingAuditRecords();
 const existingPublications = await loadExistingPublications();
@@ -954,6 +962,18 @@ for (const fileName of htmlFiles) {
 }
 
 for (const fileName of markdownFiles) {
+  if (consolidationManagedSources.has(fileName)) {
+    const reason = consolidationManagedSources.get(fileName);
+    report.legacyMarkdownIgnored.push({ file: fileName, reason });
+    report.sourceAudit.push({
+      file: fileName,
+      classification: 'legacy-markdown',
+      status: 'superseded-by-consolidation',
+      issues: [reason],
+    });
+    if (selectedFiles.has(fileName)) throw new Error(`${fileName}: ${reason}`);
+    continue;
+  }
   const stem = fileName.replace(/\.md$/iu, '').replace(/[ .]/gu, '').toLocaleLowerCase('de');
   const filePublicationIdentity = publicationIdentityFromLegacyFileName(fileName);
   if (htmlStems.has(stem) || (filePublicationIdentity && htmlPublicationIdentities.has(filePublicationIdentity))) {

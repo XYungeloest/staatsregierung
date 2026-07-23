@@ -4,7 +4,7 @@
   "title": "Erstes Gesetz betreffend die Bereinigung ostdeutschen Landesrechts",
   "shortTitle": "Erstes Gesetz betreffend die Bereinigung ostdeutschen Landesrechts",
   "abbr": "Erstes Gesetz betreffend die Bereinigung ostdeutschen Landesrechts",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "ministry": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
     "Staats- und Verfassungsrecht"
@@ -32,5 +32,8 @@
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 22.html"
     }
+  ],
+  "affectedNorms": [
+    "saechsische-bauordnung"
   ]
 }
