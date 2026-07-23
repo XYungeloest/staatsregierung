@@ -1,0 +1,70 @@
+{
+  "amendmentAct": "gesetz-zur-verbesserung-des-stadtbilds",
+  "effectiveDate": "2026-03-24",
+  "versionId": "2026-03-24",
+  "sameDayOrder": 2,
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 38 S. 2)",
+  "resultCitation": "Ostdeutsche Bauordnung in der Fassung der Bekanntmachung vom 11. Mai 2016 (SächsGVBl. S. 186), zuletzt geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 38 S. 2)",
+  "changeNote": "Geändert durch das Gesetz zur Verbesserung des Stadtbilds.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 38 S. 2 bis 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 38.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 8"
+      },
+      "expectedHash": "2f4018cf7e8238095a559f448ff76090636347f9e9cefbe1690670233246c2f8",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 8",
+        "title": "Nicht überbaute Flächen der bebauten Grundstücke, Kinderspielplätze",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Die nicht mit Gebäuden oder vergleichbaren baulichen Anlagen überbauten Flächen der bebauten Grundstücke sind",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "wasseraufnahmefähig zu belassen oder herzustellen und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "zu begrünen oder zu bepflanzen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "soweit dem nicht die Erfordernisse einer anderen zulässigen Verwendung der Flächen entgegenstehen. ²Schotterungen sowie vergleichbare flächenhafte Gestaltungen, bei denen die Vegetation nicht überwiegt, insbesondere Schotter- und Kiesgärten sowie Steinvorgärten, sind keine andere zulässige Verwendung im Sinne des Satzes 1. ³Satz 1 findet keine Anwendung, soweit Bebauungspläne oder andere Satzungen Festsetzungen zu den nicht überbauten Flächen treffen."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "¹Bei der Errichtung von Gebäuden mit mehr als drei Wohnungen ist auf dem Baugrundstück oder in unmittelbarer Nähe auf einem anderen geeigneten Grundstück, dessen dauerhafte Nutzung für diesen Zweck rechtlich gesichert sein muss, ein ausreichend großer Spielplatz für Kleinkinder anzulegen. ²Dies gilt nicht, wenn in unmittelbarer Nähe eine Gemeinschaftsanlage oder ein sonstiger für die Kinder nutzbarer Spielplatz geschaffen wird oder vorhanden oder ein solcher Spielplatz wegen der Art und der Lage der Wohnung nicht erforderlich ist. ³Bei bestehenden Gebäuden nach Satz 1 kann die Herstellung von Spielplätzen für Kleinkinder verlangt werden, wenn dies die Gesundheit und der Schutz der Kinder erfordern.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 38.html",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-03-24"
+    }
+  ]
+}

@@ -621,7 +621,9 @@ content/normen/[slug]/
   versions/[versionId].json
 ```
 
-Historische Fassungen sind gespeicherte Fassungen. Sie werden nicht automatisch aus Änderungen berechnet. Jede Fassung muss vollständig genug sein, um eigenständig angezeigt zu werden.
+Historische Fassungen sind gespeicherte Fassungen. Sie werden nicht bei einem Seitenaufruf aus
+Änderungstexten berechnet. Jede Fassung muss vollständig genug sein, um eigenständig angezeigt zu
+werden; Platzhalter wie „unverändert“ oder zusammengefasste Paragraphenbereiche sind unzulässig.
 
 Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
 Normlink führt dynamisch zu der am zentralen redaktionellen Stichtag geltenden Fassung.
@@ -709,6 +711,10 @@ Format:
 `enactedNorm`, `enactedNorms` und `enactingNorm` kennzeichnen die wechselseitige Beziehung zwischen einem
 Einführungs- oder Mantelgesetz und der dadurch eingeführten Stammnorm. Diese Beziehung ist keine
 Vorgänger-/Nachfolgerbeziehung und keine Berechtigung, beide Rechtsakte zusammenzuführen.
+`affectedNorms` und `affectedByNorms` kennzeichnen entsprechend die wechselseitige Beziehung
+zwischen Änderungsvorschrift und geänderter Stammnorm. Der Historieneintrag der Stammnorm nennt
+zusätzlich die Änderungsvorschrift und die betroffene Folgefassung; bei einer vollständigen
+Aufhebung endet die letzte Volltextfassung am letzten Geltungstag.
 
 ### Norm-Historie
 
@@ -951,6 +957,50 @@ Der strikte Audit ist schreibfrei und prüft die konfigurierten HTML-Primärquel
 gespeicherten Normfassungen und Verkündungsdatensätze. Er schlägt bei fehlenden Normen,
 abweichenden Titeln oder Datumswerten, Parser-Vertragsverletzungen und geplanten Änderungen fehl.
 Er ist Bestandteil von `npm run content:check` und der CI-Qualitätsprüfung.
+
+### Konsolidierung übernommener Stammnormen
+
+Der verbindliche Ausgangsstichtag für sächsische Stammnormen ist der 1. November 2023. Die
+Konsolidierung verwendet genau die an diesem Tag geltende historische REVOSax-Fassung. Für
+Stammnormen, die erst später nachweislich eingeführt wurden, gilt stattdessen die belegte
+Einführungsfassung; sie erhalten keine künstliche REVOSax-Ausgangsfassung.
+
+```text
+data/recht/
+  consolidation-sources.json
+  consolidation-manifest.json
+  consolidation-report.md
+  sources/revosax/[zielnorm]/[fassungs-id].html
+  parsed/revosax/[zielnorm].json
+  amendments/[aenderungsvorschrift]/[zielnorm].json
+```
+
+- `sources/revosax/` enthält unveränderte amtliche HTML-Snapshots. Jeder Snapshot hat
+  Vorschriften-ID, konkrete Fassungs-URL, tatsächlichen Quellgültigkeitszeitraum, Abrufdatum und
+  SHA-256 in `consolidation-sources.json`.
+- Nur `npm run norms:revosax:fetch` greift auf das Netz zu. Parser, Konsolidierung, Content-QA und
+  Build arbeiten ausschließlich mit versionierten lokalen Quellen.
+- Ein unter `adoptedSources` gesicherter späterer sächsischer Zwischenstand ist nur zulässig, wenn
+  eine ostdeutsche Änderungsvorschrift genau diese Fassung bezeichnet. Neben Snapshot, URL,
+  Gültigkeitsintervall und Hash werden Änderungsvorschrift, Änderungsstelle und der wörtliche
+  Adoptionsbeleg gespeichert. Die Zwischenfassung erhält eine eigene unveränderliche Versions-ID.
+  Spätere sächsische Fassungen ohne solchen Beleg werden nicht in das ostdeutsche Recht übernommen.
+- Patch-Rezepte nennen für jede Operation Zielanker, erwarteten Alttext oder Hash, erwartete
+  Trefferzahl, Änderungsquelle, Änderungsstelle und Wirksamkeitsdatum. Null oder mehrere Treffer
+  sowie ein abweichender Hash brechen den Lauf ab; eine heuristische Änderung wird nicht
+  geschrieben.
+- Wirken mehrere belegte Änderungen am selben Tag, muss jedes Rezept einen eindeutigen
+  `sameDayOrder` besitzen. Die Rezepte werden in dieser Reihenfolge angewendet, erzeugen genau eine
+  gemeinsame Volltextfassung und bleiben als getrennte Historieneinträge sichtbar.
+- Ohne `--write` bleibt `npm run norms:consolidate` ein Prüflauf. Das Schreibflag aktualisiert nur
+  das ausgewählte Ziel und seine wechselseitigen Beziehungen. Vorhandene Slugs und
+  versionsspezifische URLs bleiben stabil.
+- `npm run norms:consolidation:audit` erkennt Änderungsvorschriften und Zielnormen rekursiv und
+  erzeugt Manifest und Bericht. `npm run content:check` verwendet `--check` und schlägt fehl, wenn
+  der gespeicherte Audit nicht mehr dem Content entspricht.
+- `blocked-source-conflict` ist eine fachliche Sperre. Eine gesperrte Norm wird erst
+  konsolidiert, wenn die im Manifest und in `CONTENT_GAPS.md` benannte Primärquellenfrage
+  eindeutig geklärt ist.
 
 ## Seitengerüst und feste UI-Texte
 

@@ -98,6 +98,14 @@ export function validateVersionIntervals(
         `${record.meta.slug}/versions: Gültigkeitsintervalle ${version.versionId} und ${next.versionId} überlappen`,
       );
     }
+
+    const expectedValidTo = new Date(`${next.validFrom}T00:00:00Z`);
+    expectedValidTo.setUTCDate(expectedValidTo.getUTCDate() - 1);
+    if (version.validTo !== expectedValidTo.toISOString().slice(0, 10)) {
+      throw new ContentValidationError(
+        `${record.meta.slug}/versions: zwischen ${version.versionId} und ${next.versionId} besteht eine Gültigkeitslücke`,
+      );
+    }
   }
 }
 

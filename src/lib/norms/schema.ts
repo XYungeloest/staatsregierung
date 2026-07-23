@@ -52,10 +52,25 @@ export type StructureType = (typeof STRUCTURE_TYPES)[number];
 export type TableHeaderScope = (typeof TABLE_HEADER_SCOPES)[number];
 
 export interface NormSourceReference {
-  kind: 'structured-html-transcription' | 'legacy-markdown-transcription';
+  kind:
+    | 'structured-html-transcription'
+    | 'legacy-markdown-transcription'
+    | 'revosax-snapshot'
+    | 'amendment-source';
   label: string;
   availability: 'versioned';
   localSource: string;
+  url?: string;
+  retrievedAt?: string;
+  sha256?: string;
+  lawId?: string;
+  sourceValidFrom?: string;
+  sourceValidTo?: string;
+}
+
+export interface NormSourceNote {
+  label: string;
+  text: string;
 }
 
 export interface NormMeta {
@@ -81,6 +96,8 @@ export interface NormMeta {
   enactingNorm?: string;
   enactedNorm?: string;
   enactedNorms?: string[];
+  affectedNorms?: string[];
+  affectedByNorms?: string[];
   summary: string;
   status: NormStatus;
   documentDate?: string;
@@ -118,6 +135,8 @@ export interface NormVersion {
   isCurrent: boolean;
   citation: string;
   changeNote: string;
+  sourceReferences?: NormSourceReference[];
+  sourceNotes?: NormSourceNote[];
   body: NormBodyBlock[];
 }
 
@@ -243,13 +262,53 @@ function expectStringArray(value: unknown, path: string): string[] {
   return value.map((entry, index) => expectString(entry, `${path}[${index}]`));
 }
 
+function expectSlugArray(value: unknown, path: string): string[] {
+  if (!Array.isArray(value)) {
+    fail(path, 'muss ein Slug-Array sein');
+  }
+
+  return value.map((entry, index) => expectSlug(entry, `${path}[${index}]`));
+}
+
 function parseNormSourceReference(value: unknown, path: string): NormSourceReference {
   const object = expectObject(value, path);
   return {
-    kind: expectEnumValue(object.kind, `${path}.kind`, ['structured-html-transcription', 'legacy-markdown-transcription'] as const),
+    kind: expectEnumValue(
+      object.kind,
+      `${path}.kind`,
+      [
+        'structured-html-transcription',
+        'legacy-markdown-transcription',
+        'revosax-snapshot',
+        'amendment-source',
+      ] as const,
+    ),
     label: expectString(object.label, `${path}.label`),
     availability: expectEnumValue(object.availability, `${path}.availability`, ['versioned'] as const),
     localSource: expectString(object.localSource, `${path}.localSource`),
+    url: expectOptionalString(object.url, `${path}.url`),
+    retrievedAt:
+      object.retrievedAt === undefined
+        ? undefined
+        : expectIsoDate(object.retrievedAt, `${path}.retrievedAt`),
+    sha256: expectOptionalString(object.sha256, `${path}.sha256`),
+    lawId: expectOptionalString(object.lawId, `${path}.lawId`),
+    sourceValidFrom:
+      object.sourceValidFrom === undefined
+        ? undefined
+        : expectIsoDate(object.sourceValidFrom, `${path}.sourceValidFrom`),
+    sourceValidTo:
+      object.sourceValidTo === undefined
+        ? undefined
+        : expectIsoDate(object.sourceValidTo, `${path}.sourceValidTo`),
+  };
+}
+
+function parseNormSourceNote(value: unknown, path: string): NormSourceNote {
+  const object = expectObject(value, path);
+  return {
+    label: expectString(object.label, `${path}.label`),
+    text: expectString(object.text, `${path}.text`),
   };
 }
 
@@ -510,6 +569,14 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
       object.enactedNorms === undefined
         ? undefined
         : expectStringArray(object.enactedNorms, `${path}.enactedNorms`),
+    affectedNorms:
+      object.affectedNorms === undefined
+        ? undefined
+        : expectSlugArray(object.affectedNorms, `${path}.affectedNorms`),
+    affectedByNorms:
+      object.affectedByNorms === undefined
+        ? undefined
+        : expectSlugArray(object.affectedByNorms, `${path}.affectedByNorms`),
     summary: expectString(object.summary, `${path}.summary`),
     status: normalizedStatusMap[rawStatus],
     documentDate:
@@ -553,6 +620,26 @@ export function parseNormVersion(value: unknown, path = 'version.json'): NormVer
     isCurrent: expectBoolean(object.isCurrent, `${path}.isCurrent`),
     citation: expectString(object.citation, `${path}.citation`),
     changeNote: expectString(object.changeNote, `${path}.changeNote`),
+    sourceReferences: object.sourceReferences === undefined
+      ? undefined
+      : (() => {
+          if (!Array.isArray(object.sourceReferences)) {
+            fail(`${path}.sourceReferences`, 'muss ein Array sein');
+          }
+          return object.sourceReferences.map((entry, index) =>
+            parseNormSourceReference(entry, `${path}.sourceReferences[${index}]`),
+          );
+        })(),
+    sourceNotes: object.sourceNotes === undefined
+      ? undefined
+      : (() => {
+          if (!Array.isArray(object.sourceNotes)) {
+            fail(`${path}.sourceNotes`, 'muss ein Array sein');
+          }
+          return object.sourceNotes.map((entry, index) =>
+            parseNormSourceNote(entry, `${path}.sourceNotes[${index}]`),
+          );
+        })(),
     body: normalizeBodyBlocks(parseRawBodyBlocks(object.body, `${path}.body`), `${path}.body`),
   };
 }

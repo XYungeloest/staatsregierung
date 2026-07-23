@@ -4,7 +4,7 @@
   "title": "Gesetz zur Reform gesetzlicher Feiertage im Freistaat Ostdeutschland",
   "shortTitle": "Gesetz zur Reform gesetzlicher Feiertage im Freistaat Ostdeutschland",
   "abbr": "RgFFO",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "ministry": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
     "Feiertage und gesellschaftliches Leben"
@@ -21,8 +21,8 @@
   "initialCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 20)",
   "predecessor": null,
   "successor": null,
-  "summary": "Regelt Gesetz zur Reform gesetzlicher Feiertage im Freistaat Ostdeutschland.",
-  "status": "in-force",
+  "summary": "Ändert die gesetzlichen Feiertage, führt persönliche Feiertage ein, streicht den Totensonntag aus den Gedenk- und Trauertagen und fasst die religiösen Feiertage neu.",
+  "status": "one-time-act",
   "documentDate": "2026-03-23",
   "publicationDate": "2026-03-24",
   "effectiveDate": "2026-03-24",
@@ -33,5 +33,8 @@
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 20.html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-feiertagsgesetz"
   ]
 }

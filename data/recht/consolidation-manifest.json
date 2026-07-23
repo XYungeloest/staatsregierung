@@ -1,0 +1,1708 @@
+{
+  "generatedAt": "2026-07-23T09:28:40.478Z",
+  "baselineSnapshotDate": "2023-11-01",
+  "counts": {
+    "recognizedAmendmentActs": 43,
+    "recognizedTargetNorms": 46,
+    "completeTargetNorms": 10,
+    "blockedSourceConflicts": 4,
+    "missingPrimarySources": 32
+  },
+  "templateProblems": [
+    "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
+  ],
+  "ambiguousFindings": [],
+  "targets": [
+    {
+      "canonicalSlug": "abschiebe-aussetzungsverordnung",
+      "title": "Abschiebe-Aussetzungsverordnung",
+      "aliases": [
+        "Abschiebe-Aussetzungsverordnung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-aufhebung-verfassungswidrig-erlassener-verordnungen",
+          "title": "Verordnung zur Aufhebung verfassungswidrig erlassener Verordnungen",
+          "effectiveDate": "2025-09-16",
+          "detectedType": "verordnung",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2025-09-16"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "archivgesetz",
+      "title": "Archivgesetz für den Freistaat Sachsen",
+      "aliases": [
+        "Archivgesetz für den Freistaat Ostdeutschland",
+        "Archivgesetz für den Freistaat Sachsen",
+        "Archivgesetzes für den Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": "2628",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2628.7",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": null,
+      "sourceSha256": "21b97529036dc82021d4cfaa8e657d0e92e2531398fd32fc5433d2bf2d3e4a6c",
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+          "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
+          "effectiveDate": "2026-07-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-01"
+      ],
+      "status": "blocked-source-conflict",
+      "problems": [
+        "Die REVOSax-Fassung 2628.7 nennt im Inhaltsverzeichnis § 19 „Inkrafttreten“ und weist in der Änderungshistorie die Umnummerierung des bisherigen § 17 zu § 19 nach. HTML-Normkörper und zugehörige PDF beschriften dieselbe Vorschrift dagegen erneut als § 17. Bis zur amtlichen Klärung wird aus dieser intern widersprüchlichen Ausgangsfassung keine Konsolidierung erzeugt."
+      ],
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+    },
+    {
+      "canonicalSlug": "ausbildungs-und-pruefungsordnung-polizei",
+      "title": "Ausbildungs- und Prüfungsordnung für die Polizei",
+      "aliases": [
+        "Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k",
+          "title": "Verordnung zur Änderung der Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
+          "effectiveDate": "2026-01-30",
+          "detectedType": "verordnung",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-01-30"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "finanzausgleichsgesetz",
+      "title": "Finanzausgleichsgesetz",
+      "aliases": [
+        "Finanzausgleichsgesetzes für den Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "gesundheitsdienstgesetz",
+      "title": "Gesetz über den öffentlichen Gesundheitsdienst",
+      "aliases": [
+        "Gesetzes über den öffentlichen Gesundheitsdienst"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-hochschulgesetz",
+      "title": "Gesetz über die Hochschulen",
+      "aliases": [
+        "Gesetzes über die Hochschulen im Freistaat Ostdeutschland",
+        "Hochschulgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-anderung-des-hochschulmedizingesetzes",
+          "title": "Gesetz zur Änderung des Hochschulmedizingesetzes",
+          "effectiveDate": "2026-01-27",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht",
+          "title": "Gesetz über die Einführung einer Zweitveröffentlichungspflicht",
+          "effectiveDate": "2026-07-20",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-01-27",
+        "2026-07-20",
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "kindertagesbetreuungsgesetz",
+      "title": "Gesetz über Kindertagesbetreuung",
+      "aliases": [
+        "Gesetzes über Kindertagesbetreuung",
+        "Kindertages- betreuungsgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w",
+          "title": "Gesetz zur Änderung des Kindertagesbetreuungsgesetzes zur Abschaffung des Elternbeitrages",
+          "effectiveDate": "2026-01-27",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-01-27",
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-feiertagsgesetz",
+      "title": "Gesetz über Sonn- und Feiertage im Ostdeutschen Freistaat",
+      "aliases": [
+        "Gesetz über Sonn- und Feiertage im Freistaat Ostdeutschland",
+        "Gesetz über Sonn- und Feiertage im Freistaat Sachsen",
+        "Gesetzes über Sonn- und Feiertage im Freistaat Ostdeutschland",
+        "Gesetzes über Sonn- und Feiertage im Freistaat Sachsen",
+        "Ostdeutsches Feiertagsgesetz"
+      ],
+      "revosaxLawId": "3997",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3997.5",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2013-02-10",
+      "sourceValidTo": "2025-05-06",
+      "sourceSha256": "16f86a9d3c195798f52d4c6a9d57265bf05a64be2a7a7357a44c336efdde3ac7",
+      "existingStemNormSlug": "ostdeutsches-feiertagsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-anderung-des-gesetzes-uber-sonn-und-feiertage-im-freistaat-ostdeutschland",
+          "title": "Gesetz zur Änderung des Gesetzes über Sonn- und Feiertage im Freistaat Ostdeutschland",
+          "effectiveDate": "2024-03-08",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland",
+          "title": "Gesetz zur Reform gesetzlicher Feiertage im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2024-03-08",
+        "2026-03-24"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "gesetz-zur-durchfuehrung-des-medienstaatsvertrages-und-des-rundfunkbeitragsstaatsvertrages",
+      "title": "Gesetz zur Durchführung des Medienstaatsvertrages und des Rundfunkbeitragsstaatsvertrages",
+      "aliases": [
+        "Gesetzes zur Durchführung des Medienstaatsvertrages und des Rundfunkbeitragsstaatsvertrages"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w",
+          "title": "Gesetz zur Errichtung des Ostdeutschen Fernsehfunks, zur Zustimmung zum NDR-Änderungsund Überleitungsstaatsvertrag und zur Bereinigung rundfunkrechtlicher Vorschriften",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-25"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "kommunalwahlgesetz",
+      "title": "Kommunalwahlgesetz",
+      "aliases": [
+        "Kommunalwahlgesetzes für den Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "kulturraumgesetz",
+      "title": "Kulturraumgesetz",
+      "aliases": [
+        "Gesetzes über die Kulturräume in Ostdeutschland",
+        "Ostdeutschen Kulturraumgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+          "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-25",
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "landesbeamtengesetz",
+      "title": "Landesbeamtengesetz",
+      "aliases": [
+        "Landesbeamtengesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "landesplanungsgesetz",
+      "title": "Landesplanungsgesetz",
+      "aliases": [
+        "Gesetzes zur Raumordnung und Landesplanung des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "landesplanungsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ndr-staatsvertrag",
+      "title": "NDR-Staatsvertrag",
+      "aliases": [
+        "NDR-Staatsvertrages (Vertragsparteien, Gremien, Finanzierung)"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
+          "title": "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "staatsvertrag",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsche-arbeitszeitverordnung",
+      "title": "Ostdeutsche Arbeitszeitverordnung",
+      "aliases": [
+        "Ostdeutschen Arbeitszeitverordnung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "siebte-verordnung-der-ostdeutschen-staatsregierung-zur-anderung-der-ostdeutschen-arbeitszeitverordnung",
+          "title": "Siebte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Ostdeutschen Arbeitszeitverordnung",
+          "effectiveDate": "2026-02-20",
+          "detectedType": "verordnung",
+          "typeCorrectionNeeded": true
+        },
+        {
+          "slug": "vierte-verordnung-des-ostdeutschen-staatsministeriums-fur-bildung-und-sportliche-ertuchtigung-zur-anderung-der",
+          "title": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Bildung und sportliche Ertüchtigung zur Änderung der Ostdeutschen Lehrkräfte-Arbeitszeitverordnung",
+          "effectiveDate": "2026-02-20",
+          "detectedType": "verordnung",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-02-20"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsche-bezirksordnung",
+      "title": "Ostdeutsche Bezirksordnung",
+      "aliases": [
+        "Ostdeutschen Bezirksordnung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsche-bezirksordnung",
+      "enactingActs": [
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21"
+      ],
+      "status": "blocked-source-conflict",
+      "problems": [
+        "OGVBl. 2026 Nr. 46 führt eine Ostdeutsche Bezirksordnung mit Wirkung zum 1. August 2026 ein. Artikel 8 des Sportneuordnungsgesetzes bezeichnet dagegen eine Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. I/2025 S. 7). Ohne die dort genannte Primärquelle lässt sich nicht quellentreu entscheiden, welche Stammfassung geändert wird."
+      ],
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-justizgesetz",
+      "title": "Ostdeutsches Justizgesetz",
+      "aliases": [
+        "Justizgesetzes",
+        "Ostdeutschen Justizgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh",
+          "title": "Gesetz zur Änderung des Justizgesetzes zur Anpassung an die Zusammenlegung der Bundesländer zum Freistaat Ostdeutschland",
+          "effectiveDate": "2026-02-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-02-01",
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-krankenhausgesetz",
+      "title": "Ostdeutsches Krankenhausgesetz",
+      "aliases": [
+        "Ostdeutsche Krankenhausgesetz",
+        "Ostdeutschen Krankenhausgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar",
+          "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Krankenhausgesetzes",
+          "effectiveDate": "2026-04-01",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        },
+        {
+          "slug": "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung",
+          "title": "Gesetz zur Stärkung der psychologischen, psychotherapeutischen und psychiatrischen Versorgung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-20",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-04-01",
+        "2026-07-20"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "saechsisches-ladenoeffnungsgesetz",
+      "title": "Ostdeutsches Ladenöffnungsgesetz",
+      "aliases": [
+        "Ladenöffnungsgesetzes",
+        "Ostdeutsches Ladenöffnungsgesetz",
+        "Sächsisches Ladenöffnungsgesetz"
+      ],
+      "revosaxLawId": "11548",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/11548.4",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2020-12-01",
+      "sourceValidTo": null,
+      "sourceSha256": "b33772840aec5d06bb7a62d1b78602efc58de0e2e471ae405112b2442355ffc8",
+      "existingStemNormSlug": "saechsisches-ladenoeffnungsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "viertes-gesetz-zur-anderung-des-ladenoffnungsgesetzes",
+          "title": "Viertes Gesetz zur Änderung des Ladenöffnungsgesetzes",
+          "effectiveDate": "2026-02-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-02-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-normenkontrollratsgesetz",
+      "title": "Ostdeutsches Normenkontrollratsgesetz",
+      "aliases": [
+        "Ostdeutschen Normenkontrollratsgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+          "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
+          "effectiveDate": "2026-07-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-personennahverkehrsgesetz",
+      "title": "Ostdeutsches Personennahverkehrsgesetz",
+      "aliases": [
+        "Gesetzes über den öffentlichen Personennahverkehr",
+        "Ostdeutschen Personennahverkehrsgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr",
+          "title": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        },
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+          "title": "Gesetz zur Errichtung der Ostdeutschen Eisenbahn, zur Vergesellschaftung privater Verkehrsproduktionsmittel und zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24",
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-polizeibehoerdengesetz",
+      "title": "Ostdeutsches Polizeibehördengesetz",
+      "aliases": [
+        "Ostdeutschen Polizeibehördengesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+          "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-25"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
+      "title": "Ostdeutsches Polizeivollzugsdienstgesetz",
+      "aliases": [
+        "Ostdeutsche Polizeivollzugsdienstgesetz",
+        "Ostdeutschen Polizeivollzugsdienstgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+          "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo",
+          "title": "Gesetz über die unabhängige Polizei-Beschwerde- und Ermittlungsstelle und die verpflichtende Nutzung körpernah getragener Bild- und Tonaufzeichnungsgeräte",
+          "effectiveDate": "2026-04-01",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        },
+        {
+          "slug": "kasernierte-grenzpolizei-errichtungsgesetz",
+          "title": "Gesetz zur Errichtung der Kasernierten Grenzpolizei des Ostdeutschen Freistaates",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-25",
+        "2026-04-01",
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-tariftreueund-vergabegesetz",
+      "title": "Ostdeutsches Tariftreue- und Vergabegesetz",
+      "aliases": [
+        "Sächsischen Vergabegesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "ostdeutsches-tariftreueund-vergabegesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes",
+          "title": "Gesetz zur Einführung eines Tariftreue- und Vergabegesetzes",
+          "effectiveDate": "2026-02-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "saechsische-bauordnung",
+      "title": "Sächsische Bauordnung",
+      "aliases": [
+        "Ostdeutsche Bauordnung",
+        "Ostdeutschen Bauordnung",
+        "Sächsische Bauordnung"
+      ],
+      "revosaxLawId": "1779",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1779.14",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2024-03-18",
+      "sourceSha256": "c342bc4ae041704e617d464afaad3564491f3ae07129e08eaa56cee7991e5e8d",
+      "existingStemNormSlug": "saechsische-bauordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-verbesserung-des-stadtbilds",
+          "title": "Gesetz zur Verbesserung des Stadtbilds",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "saechsische-gemeindeordnung",
+      "title": "Sächsische Gemeindeordnung",
+      "aliases": [
+        "Gemeindeordnung",
+        "Gemeindeordnung für den Freistaat Ostdeutschland",
+        "Gemeindeordnung für den Freistaat Sachsen",
+        "Gemeindeordnung für den Ostdeutschen Freistaat",
+        "Sächsische Gemeindeordnung"
+      ],
+      "revosaxLawId": "2754",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2754.40",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2023-12-30",
+      "sourceSha256": "4809b39d1b1439bd2b9247900142091c81c44ffa09298fab969973b6216a8889",
+      "existingStemNormSlug": "saechsische-gemeindeordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-uber-die-einfuhrung-einer-kommunalen-privatisierungsb-zue3jo",
+          "title": "Gesetz über die Einführung einer kommunalen Privatisierungsbremse im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+          "title": "Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin und zur Änderung kommunal-, kultur- und polizeirechtlicher Vorschriften",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-25",
+        "2026-07-21"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "saechsische-haushaltsordnung",
+      "title": "Sächsische Haushaltsordnung",
+      "aliases": [
+        "Haushaltsordnung",
+        "Haushaltsordnung des Ostdeutschen Freistaates",
+        "Ostdeutsche Haushaltsordnung",
+        "Sächsische Haushaltsordnung"
+      ],
+      "revosaxLawId": "4270",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/4270.12",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2021-06-03",
+      "sourceValidTo": "2025-07-09",
+      "sourceSha256": "12ad8cf603c92c7cb82b361a6b028800ea4a3f56fd235db14175c5bcb9784ffb",
+      "existingStemNormSlug": "saechsische-haushaltsordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-der-landesbank-ostdeutschland",
+          "title": "Gesetz zur Einführung der Landesbank Ostdeutschland",
+          "effectiveDate": "2026-01-27",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-01-27"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "saechsische-landkreisordnung",
+      "title": "Sächsische Landkreisordnung",
+      "aliases": [
+        "Landkreisordnung für den Freistaat Ostdeutschland",
+        "Landkreisordnung für den Freistaat Sachsen",
+        "Sächsische Landkreisordnung"
+      ],
+      "revosaxLawId": "3264",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3264.23",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2022-02-20",
+      "sourceValidTo": "2023-12-31",
+      "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89",
+      "existingStemNormSlug": "sachsische-landkreisordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21"
+      ],
+      "status": "blocked-source-conflict",
+      "problems": [
+        "Artikel 3 des Kreis- und Bezirksneuordnungsgesetzes setzt eine durch Artikel 2 des Gesetzes zur Einführung von Bezirken vom 6. März 2025 (OGVBl. I/2025 S. 7) geänderte Landkreisordnung voraus. Diese Primärquelle fehlt; insbesondere ist der dort vorausgesetzte § 75 in der gesicherten REVOSax-Ausgangsfassung zum 1. November 2023 nicht vorhanden. Die Folgefassung darf deshalb nicht aus der Fassung von 2023 frei rekonstruiert werden.",
+        "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.",
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
+      ],
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+    },
+    {
+      "canonicalSlug": "abschiebungshaftvollzugsgesetz",
+      "title": "Sächsisches Abschiebungshaftvollzugsgesetz",
+      "aliases": [
+        "Abschiebungshaftvollzugsgesetz",
+        "Sächsische Abschiebungshaftvollzugsgesetz",
+        "Sächsischen Abschiebungshaftvollzugsgesetzes",
+        "Sächsisches Abschiebungshaftvollzugsgesetz"
+      ],
+      "revosaxLawId": "17767",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17767.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2018-07-26",
+      "sourceValidTo": "2025-08-15",
+      "sourceSha256": "4b97b7f30f716088ef1ad3d09e63e6a20173dde2fa7ecc66b855c977fb063140",
+      "existingStemNormSlug": "abschiebungshaftvollzugsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
+          "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "saechsisches-bestattungsgesetz",
+      "title": "Sächsisches Bestattungsgesetz",
+      "aliases": [
+        "Bestattungsgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "elftes-gesetz-zur-anderung-des-bestattungsgesetzes",
+          "title": "Elftes Gesetz zur Änderung des Bestattungsgesetzes",
+          "effectiveDate": "2026-01-27",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-01-27"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "fluechtlingsaufnahmegesetz",
+      "title": "Sächsisches Flüchtlingsaufnahmegesetz",
+      "aliases": [
+        "Gesetz zur Aufnahme und Unterbringung von Flüchtlingen im Ostdeutschen Freistaat",
+        "Ostdeutschen Flüchtlingsaufnahmegesetz",
+        "Ostdeutsches Flüchtlingsaufnahmegesetz",
+        "Sächsisches Flüchtlingsaufnahmegesetz"
+      ],
+      "revosaxLawId": "9524",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/9524.10",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-01-01",
+      "sourceValidTo": null,
+      "sourceSha256": "29f5c6dcd961da37db7b7b1c38bfad4d7a03f8e0002df832f95fcf47dacda33d",
+      "existingStemNormSlug": "fluechtlingsaufnahmegesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq",
+          "title": "Gesetz zur Stärkung der Menschenrechte im Flüchtlingswesen und im Vollzug der Abschiebungshaft",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "saechsisches-gleichstellungsgesetz",
+      "title": "Sächsisches Gleichstellungsgesetz",
+      "aliases": [
+        "Sächsischen Gleichstellungsgesetzes",
+        "Sächsisches Gleichstellungsgesetz"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-anderung-des-gleichstellungsgesetzes",
+          "title": "Gesetz zur Änderung des Gleichstellungsgesetzes",
+          "effectiveDate": "2026-04-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-04-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "saechsisches-polizeigesetz",
+      "title": "Sächsisches Polizeigesetz",
+      "aliases": [
+        "Polizeigesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe",
+          "title": "Gesetz zur Änderung des Polizeigesetzes zur Regelung der Schmerzgriffe",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24"
+      ],
+      "status": "blocked-source-conflict",
+      "problems": [
+        "Das bezeichnete Sächsische Polizeigesetz war am Ausgangsstichtag bereits außer Kraft. Die Änderung belegt keine Wiederinkraftsetzung und keine eindeutige Zuordnung zu SächsPVDG oder SächsPBG."
+      ],
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+    },
+    {
+      "canonicalSlug": "saechsisches-verwaltungskostengesetz",
+      "title": "Sächsisches Verwaltungskostengesetz",
+      "aliases": [
+        "Gesetz über die Gebühren und Beiträge der ostdeutschen Verwaltung",
+        "Ostdeutsches Verwaltungskostengesetz",
+        "Sächsische Verwaltungskostengesetz",
+        "Sächsisches Verwaltungskostengesetz",
+        "Verwaltungskostengesetzes"
+      ],
+      "revosaxLawId": "18086",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18086.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2019-04-27",
+      "sourceValidTo": null,
+      "sourceSha256": "93a9c4008bc46819f323b2331d04e75f0187953f33f0387019d629517fee9061",
+      "existingStemNormSlug": "saechsisches-verwaltungskostengesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "erstes-gesetz-zur-anderung-des-verwaltungskostengesetzes",
+          "title": "Erstes Gesetz zur Änderung des Verwaltungskostengesetzes",
+          "effectiveDate": "2026-01-27",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-01-27"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-schulgesetz",
+      "title": "Schulgesetz",
+      "aliases": [
+        "Ostdeutschen Schulgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "sportneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
+          "title": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems",
+          "effectiveDate": "2026-08-01",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21",
+        "2026-08-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "schulordnung-foerderschulen",
+      "title": "Schulordnung Förderschulen",
+      "aliases": [
+        "Schulordnung Förderschulen"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n",
+          "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
+          "effectiveDate": "2026-09-01",
+          "detectedType": "verordnung",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "schulordnung-gemeinschaftsschulen",
+      "title": "Schulordnung Gemeinschaftsschulen",
+      "aliases": [
+        "Schulordnung Gemeinschaftsschulen"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n",
+          "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
+          "effectiveDate": "2026-09-01",
+          "detectedType": "verordnung",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "schulordnung-grundschulen",
+      "title": "Schulordnung Grundschulen",
+      "aliases": [
+        "Schulordnung Grundschulen"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n",
+          "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
+          "effectiveDate": "2026-09-01",
+          "detectedType": "verordnung",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+      "title": "Verfassung des Freistaates Ostdeutschland",
+      "aliases": [
+        "Staatsverfassung",
+        "Verfassung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5",
+          "title": "Gesetz zur Veränderung der Verfassung zur Änderung der Verkündungsregeln und zur Einführung eines Verkündungsgesetz",
+          "effectiveDate": "2026-01-28",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        },
+        {
+          "slug": "gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes",
+          "title": "Gesetz zur Einführung eines Hoheitszeichengesetzes",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "drittes-gesetz-zur-grossen-staatsreform",
+          "title": "Drittes Gesetz zur Großen Staatsreform zum Zwecke der Stärkung der Staatsziele",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "erstes-gesetz-zur-grossen-staatsreform",
+          "title": "Erstes Gesetz zur Großen Staatsreform zum Zwecke der Neuordnung des Staatswesens",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "viertes-gesetz-zur-grossen-staatsreform",
+          "title": "Viertes Gesetz zur Großen Staatsreform zur Neuordnung des Bildungswesens und der Religionsverfassung",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        },
+        {
+          "slug": "zweites-gesetz-zur-grossen-staatsreform",
+          "title": "Zweites Gesetz zur Großen Staatsreform zum Zwecke der Neuordnung der Finanzverfassung",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-01-28",
+        "2026-03-24",
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "vermessungs-und-katastergesetz",
+      "title": "Vermessungs- und Katastergesetz",
+      "aliases": [
+        "Vermessungs- und Katastergesetz"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+          "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-25"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "verschlusssachenanweisung",
+      "title": "Verschlusssachenanweisung",
+      "aliases": [
+        "Verschlusssachenanweisung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verwaltungsvorschrift-des-staatsministeriums-fur-rechtsstaat-13k3zjo",
+          "title": "Verwaltungsvorschrift des Staatsministeriums für Rechtsstaatlichkeit und Angelegenheiten des Staates zur Änderung der Verschlusssachenanweisung",
+          "effectiveDate": "2026-03-28",
+          "detectedType": "verwaltungsvorschrift",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-28"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "sachsisches-verwaltungsorganisationsgesetz",
+      "title": "Verwaltungsorganisationsgesetz",
+      "aliases": [
+        "Gesetzes über die Verwaltungsorganisation des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": "sachsisches-verwaltungsorganisationsgesetz",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "kreis-und-bezirksneuordnungsgesetz",
+          "title": "Gesetz zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften",
+          "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-21"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "waldgesetz",
+      "title": "Waldgesetz",
+      "aliases": [
+        "Waldgesetzes für den Freistaat Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+          "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
+          "effectiveDate": "2026-07-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "wappenverordnung",
+      "title": "Wappenverordnung",
+      "aliases": [
+        "Wappenverordnung"
+      ],
+      "revosaxLawId": "1695",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1695.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2005-03-22",
+      "sourceValidTo": null,
+      "sourceSha256": "8f6d44bb0e5fffae83bb2663bd493ae7efda4c635325fb63b3448ea8c2ae8615",
+      "existingStemNormSlug": "wappenverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes",
+          "title": "Gesetz zur Einführung eines Hoheitszeichengesetzes",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-24"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "zehntes-ostdeutsches-kostenverzeichnis",
+      "title": "Zehntes Ostdeutsches Kostenverzeichnis",
+      "aliases": [
+        "Zehnten Ostdeutschen Kostenverzeichnisses"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+          "title": "Gesetz zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes",
+          "effectiveDate": "2026-07-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "effectiveDates": [
+        "2026-07-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "zweckentfremdungsverbotsgesetz",
+      "title": "Zweckentfremdungsverbotsgesetz",
+      "aliases": [
+        "Sächsische Zweckentfremdungsverbotsgesetz",
+        "Zweckentfremdungsverbotsgesetzes"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx",
+          "title": "Gesetz zur Stärkung des Schutzes von Wohnraum und zur Verbesserung des Vollzugs des Ostdeutschen Zweckentfremdungsverbotsgesetzes",
+          "effectiveDate": "2026-03-25",
+          "detectedType": "gesetz",
+          "typeCorrectionNeeded": true
+        }
+      ],
+      "effectiveDates": [
+        "2026-03-25"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    }
+  ]
+}
