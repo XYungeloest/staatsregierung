@@ -1,0 +1,786 @@
+{
+  "asOf": "2026-07-21",
+  "institutions": [
+    {
+      "id": "inst-volkskammer",
+      "title": "Volkskammer",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gewählte Volksvertretung und Nachfolgerin des Ostdeutschen Landtags.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Artikel 38 ff.",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsaufbau",
+          "locator": "Abschnitt Volkskammer",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-landtag",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "constitutional-organ",
+        "parliament"
+      ],
+      "notes": [],
+      "aliases": [
+        "Ostdeutsche Volkskammer",
+        "7. Volkskammer"
+      ],
+      "type": "constitutional-organ",
+      "predecessorId": "inst-landtag",
+      "successorId": null
+    },
+    {
+      "id": "inst-landtag",
+      "title": "Ostdeutscher Landtag",
+      "status": "historical",
+      "validFrom": null,
+      "validTo": "2026-07-20",
+      "asOf": "2026-07-21",
+      "summary": "Frühere Bezeichnung der Volksvertretung; die siebte Wahlperiode wurde ohne Unterbrechung als siebte Volkskammer fortgeführt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Inkrafttreten und Kontinuität",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis erster-staatsrat",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "constitutional-organ",
+        "parliament",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [
+        "Landtag",
+        "7. Ostdeutscher Landtag"
+      ],
+      "type": "constitutional-organ",
+      "predecessorId": null,
+      "successorId": "inst-volkskammer"
+    },
+    {
+      "id": "inst-staatsrat",
+      "title": "Staatsrat",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Kollegial organisierte Spitze der vollziehenden Gewalt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Artikel 55 ff.",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-staatspraesident"
+      ],
+      "tags": [
+        "constitutional-organ",
+        "executive"
+      ],
+      "notes": [],
+      "aliases": [
+        "Erster Staatsrat",
+        "Staatsrat des Ostdeutschen Freistaates"
+      ],
+      "type": "constitutional-organ",
+      "predecessorId": "inst-staatsregierung",
+      "successorId": null
+    },
+    {
+      "id": "inst-staatsregierung",
+      "title": "Staatsregierung",
+      "status": "historical",
+      "validFrom": null,
+      "validTo": "2026-07-20",
+      "asOf": "2026-07-21",
+      "summary": "Frühere Bezeichnung der obersten Exekutive; am 21. Juli 2026 zum Staatsrat übergeleitet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-agents",
+          "locator": "Inhalt und Redaktion",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-kabinett-honecker-i",
+        "inst-kabinett-honecker-ii"
+      ],
+      "tags": [
+        "executive",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [
+        "Ostdeutsche Staatsregierung"
+      ],
+      "type": "executive",
+      "predecessorId": null,
+      "successorId": "inst-staatsrat"
+    },
+    {
+      "id": "inst-staatspraesident",
+      "title": "Staatspräsident",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Aus der Mitte des Staatsrates bestimmtes Amt mit Vorsitz, Sitzungsleitung und Außenvertretung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Artikel 58",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsaufbau",
+          "locator": "Abschnitt Staatspräsident",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "constitutional-office"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatspräsident des Freistaates"
+      ],
+      "type": "constitutional-office",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-verfassungsgerichtshof",
+      "title": "Verfassungsgerichtshof",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Verfassungsorgan mit sechs Richter:innen; je drei werden von Volkskammer und Staatsrat bestimmt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Abschnitt Verfassungsgerichtsbarkeit",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsaufbau",
+          "locator": "Abschnitt Verfassungsgerichtshof",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "constitutional-organ",
+        "court"
+      ],
+      "notes": [],
+      "aliases": [
+        "Ostdeutscher Verfassungsgerichtshof"
+      ],
+      "type": "court",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-rechnungshof",
+      "title": "Rechnungshof",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Unabhängige Finanzkontrollinstitution; der Wissenshub enthält derzeit keine bestätigte Besetzungs- oder Organisationschronologie.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Vorschriften zum Rechnungshof",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "constitutional-organ",
+        "audit"
+      ],
+      "notes": [],
+      "aliases": [
+        "Ostdeutscher Rechnungshof"
+      ],
+      "type": "independent-body",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-staatskanzlei",
+      "title": "Staatskanzlei",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Zentrale Koordinierungsstelle des Staatsrates.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-site-config",
+          "locator": "contact.postalAddress",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-emma-current",
+          "locator": "currentOffices",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-emma-mueller"
+      ],
+      "tags": [
+        "administration",
+        "central-office"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatskanzlei des Ostdeutschen Freistaates"
+      ],
+      "type": "central-office",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-finanzen",
+      "title": "Staatssekretariat der Finanzen",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Finanzen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-karl-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium der Finanzen"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-inneres-wohnen",
+      "title": "Staatssekretariat des Innern und für Wohnungswirtschaft",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Inneres und Wohnungswirtschaft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-volker-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-volker-bagdadi"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium des Innern und für Wohnungswirtschaft"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-rechtsstaat-kultur",
+      "title": "Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Rechtsstaatlichkeit und kulturelle Emanzipation.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-mateo-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-mateo-delgado"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Rechtsstaatlichkeit und kulturelle Emanzipation"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-voelkerfreundschaft",
+      "title": "Staatssekretariat für Völkerfreundschaft und Nachbarschaftspolitik",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Völkerfreundschaft und Nachbarschaftspolitik.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-tim-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-tim-dieter"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Völkerfreundschaft und Nachbarschaftspolitik"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-nachhaltigkeit-energie",
+      "title": "Staatssekretariat für Nachhaltigkeit und Energie",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Nachhaltigkeit und Energie.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-yannik-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-yannik-schmaele"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Nachhaltigkeit und Energie"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-staats-grenzsicherheit",
+      "title": "Staatssekretariat für Staats- und Grenzsicherheit",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Staats- und Grenzsicherheit.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-yannik-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-yannik-schmaele"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Staats- und Grenzsicherheit"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-gesundheit-soziales",
+      "title": "Staatssekretariat für Gesundheits- und Sozialwesen",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Gesundheits- und Sozialwesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-lucia-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-lucia-liebknecht"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Gesundheits- und Sozialwesen"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-mobilitaet-regionen",
+      "title": "Staatssekretariat für Mobilität und regionale Entwicklung",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Mobilität und regionale Entwicklung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-vincent-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-vincent-flick"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Mobilität und regionale Entwicklung"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-volksbildung-wissenschaft",
+      "title": "Staatssekretariat für Volksbildung und Wissenschaft",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Volksbildung und Wissenschaft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-carl-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-carl-ulbricht"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Volksbildung und Wissenschaft"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-land-forst-kueste",
+      "title": "Staatssekretariat für Land-, Forst- und Küstenwirtschaft",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Land-, Forst- und Küstenwirtschaft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-endo-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-endo-meyer-raucht"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Land-, Forst- und Küstenwirtschaft"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-sek-wirtschaft-arbeit",
+      "title": "Staatssekretariat für Wirtschaft und Arbeit",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Oberste Landesbehörde für den Geschäftsbereich Wirtschaft und Arbeit.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-max-current",
+          "locator": "currentOffices",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Neuordnung des Staatswesens",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-max-peterson"
+      ],
+      "tags": [
+        "administration",
+        "state-secretariat"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatsministerium für Wirtschaft und Arbeit"
+      ],
+      "type": "state-secretariat",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-kabinett-honecker-i",
+      "title": "Kabinett Honecker I",
+      "status": "historical",
+      "validFrom": "2025-12-20",
+      "validTo": "2026-05-04",
+      "asOf": "2026-07-21",
+      "summary": "Erste von Dr. Karl Honecker geführte Staatsregierung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kabinett-honecker-i",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker",
+        "party-volksfront",
+        "party-demos"
+      ],
+      "tags": [
+        "government",
+        "cabinet",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "type": "government",
+      "predecessorId": null,
+      "successorId": "inst-kabinett-honecker-ii"
+    },
+    {
+      "id": "inst-kabinett-honecker-ii",
+      "title": "Kabinett Honecker II",
+      "status": "historical",
+      "validFrom": "2026-05-04",
+      "validTo": "2026-07-20",
+      "asOf": "2026-07-21",
+      "summary": "Zweite von Dr. Karl Honecker geführte Staatsregierung; am 21. Juli 2026 in den ersten Staatsrat übergeleitet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignisse kabinett-honecker-ii und erster-staatsrat",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment.predecessor",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-i",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "government",
+        "cabinet",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "type": "government",
+      "predecessorId": "inst-kabinett-honecker-i",
+      "successorId": "inst-staatsrat"
+    },
+    {
+      "id": "inst-grenzpolizei",
+      "title": "Kasernierte Grenzpolizei",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch Gesetz errichtete Sicherheitsbehörde; eine Bund-Länder-Vereinbarung zur Zusammenarbeit ist im Wissensstand nicht als wirksam belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-grenzpolizei-law",
+          "locator": "Gesetzesfassung 2026-07-21",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "offene Vereinbarungs- und Primärquellenfragen",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund"
+      ],
+      "tags": [
+        "security",
+        "agency"
+      ],
+      "notes": [],
+      "aliases": [
+        "Grenzpolizei"
+      ],
+      "type": "agency",
+      "predecessorId": null,
+      "successorId": null
+    }
+  ]
+}

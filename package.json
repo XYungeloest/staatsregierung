@@ -7,7 +7,9 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "content:check": "node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/revosax-snapshot.mjs audit && node scripts/audit-consolidation.mjs --check && node scripts/check-content.mjs",
+    "content:check": "node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/revosax-snapshot.mjs audit && node scripts/audit-consolidation.mjs --check && node scripts/check-content.mjs && node scripts/knowledge.mjs check",
+    "knowledge:check": "node scripts/knowledge.mjs check",
+    "knowledge:build": "node scripts/knowledge.mjs build",
     "norms:audit": "node scripts/import-normen.mjs --source-dir Gesetze",
     "norms:import": "node scripts/import-normen.mjs --source-dir Gesetze",
     "norms:consolidation:audit": "node scripts/audit-consolidation.mjs",

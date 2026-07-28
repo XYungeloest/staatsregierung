@@ -14,6 +14,7 @@ Quellenfragen stehen in `CONTENT_GAPS.md`.
 - Astro und TypeScript
 - Cloudflare Workers als Zielplattform
 - dateibasierte Inhalte unter `content/`
+- interner Wissenshub unter `knowledge/`
 - Rechtsportal unter `/recht/` mit Normen, Fassungen, Historien, Sachgebieten, Fundstellen,
   Verkündungen und Rechtssuche
 
@@ -28,6 +29,8 @@ Impressum enthält zusätzlich die rechtlich erforderliche ausführliche Einordn
 npm install
 npm run dev
 npm run content:check
+npm run knowledge:check
+npm run knowledge:build
 npm run check
 npm run test:unit
 npm run build
@@ -68,6 +71,16 @@ content/
   themen/
   verkuendungen/
 
+knowledge/
+  entities/
+  generated/
+  AUDIT.md
+  SOURCE_POLICY.md
+  current-state.json
+  timeline.json
+  projects.json
+  proceedings.json
+
 public/
   data/kreisreform/
   images/
@@ -87,6 +100,14 @@ context/
 ```
 
 `context/` bleibt bewusst erhalten. Alte Planungs- und Zwischendokumente im Repository-Root wurden in diese README und `AGENTS.md` verdichtet.
+
+## Interner Wissenshub
+
+`knowledge/` ist ein interner, nicht öffentlich ausgelieferter Quellen-, Beziehungs- und Zeitindex für die Politiksimulation. Er ersetzt weder die öffentlichen Inhalte unter `content/` noch die Rechtsquellen unter `Gesetze/` und kopiert keine Normvolltexte.
+
+Der zentrale Einstieg steht in `knowledge/README.md`. Bestätigte Einträge benötigen konkrete Quellenreferenzen und, soweit bekannt, Gültigkeitszeiträume. Gesprächswissen bleibt bis zur Prüfung in `knowledge/conversation-candidates.json`. Als externe Wikiquelle ist ausschließlich das PolitikSim-Wiki auf Miraheze zulässig; andere Wikihoster werden nicht übernommen.
+
+Die Dateien unter `knowledge/generated/` werden ausschließlich mit `npm run knowledge:build` erzeugt und nicht manuell gepflegt. `npm run knowledge:check` prüft Quellen, IDs, Datumswerte, Querverweise, Rollenintervalle und die Übereinstimmung der generierten Dateien.
 
 ## Content-Regeln
 
@@ -278,6 +299,9 @@ Vor relevanten Änderungen:
 
 ```sh
 npm run content:check
+npm run knowledge:check
+npm run knowledge:build
+npm run knowledge:check
 npm run check
 npm run test:unit
 npm run build

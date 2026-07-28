@@ -1,0 +1,89 @@
+{
+  "asOf": "2026-07-21",
+  "parties": [
+    {
+      "id": "party-volksfront",
+      "title": "Volksfront",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Koalitionspartei des ersten Staatsrates.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment.coalitionParties",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-karl-current",
+          "locator": "party",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "party-demos"
+      ],
+      "tags": [
+        "party",
+        "coalition"
+      ],
+      "notes": [],
+      "aliases": [
+        "VF"
+      ],
+      "name": "Volksfront",
+      "abbreviation": "VF",
+      "historicalNames": [],
+      "parliamentaryStatus": "coalition",
+      "predecessorIds": [],
+      "successorIds": []
+    },
+    {
+      "id": "party-demos",
+      "title": "Bündnis Demokratie Europa",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Koalitionspartei. Die aktuelle Konfiguration bezeichnet sie als „DEMOS an der Elbe“, während Personenprofile „Bündnis Demokratie Europa (DEMOS)“ verwenden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment.coalitionParties",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-mateo-current",
+          "locator": "party",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "party-volksfront",
+        "question-demos-name"
+      ],
+      "tags": [
+        "party",
+        "coalition",
+        "naming-conflict"
+      ],
+      "notes": [],
+      "aliases": [
+        "DEMOS",
+        "DEMOS an der Elbe",
+        "DEMOS Ost"
+      ],
+      "name": "Bündnis Demokratie Europa",
+      "abbreviation": "DEMOS",
+      "historicalNames": [
+        "DEMOS Ost"
+      ],
+      "parliamentaryStatus": "coalition",
+      "predecessorIds": [],
+      "successorIds": []
+    }
+  ]
+}
