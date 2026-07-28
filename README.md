@@ -300,3 +300,10 @@ Checks ergänzen, ersetzen aber nicht den manuellen Tastatur- und Screenreader-K
 Karten- und Statistikfreigaben, Zoom und reduzierte Bewegung. `npm run test:browsers` führt die
 zentralen Interaktionen zusätzlich in Chromium, Firefox und WebKit aus; `npm run seo:check` prüft
 Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten und Sitemap.
+
+## To Do
+
+- Auf der Rechtsseite werden Abschnitt nicht richtig angezeigt
+- Übersichtliche Bündelung zu Berlin
+- Kreisreform in Kraft -> daraus ergebende Folgeänderungen
+- Irgendwas zur neuen Grenzpolizei
