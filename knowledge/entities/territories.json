@@ -1,0 +1,803 @@
+{
+  "asOf": "2026-07-21",
+  "territories": [
+    {
+      "id": "territory-freistaat",
+      "title": "Freistaat Ostdeutschland",
+      "status": "confirmed-official",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gliedstaat mit Regierungssitz und Landeshauptstadt Dresden; die Gründung am 1. Dezember 2023 ist redaktionell strukturiert, nicht in diesem Hub als eigenständige Gründungsurkunde nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-geschichte",
+          "locator": "Gründung und Rechtsüberleitung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment.seatOfGovernment",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-bezirk-berlin"
+      ],
+      "tags": [
+        "state"
+      ],
+      "notes": [],
+      "aliases": [
+        "Ostdeutscher Freistaat",
+        "Ostdeutschland"
+      ],
+      "type": "state",
+      "capital": "Dresden",
+      "parentId": null
+    },
+    {
+      "id": "territory-bezirk-berlin",
+      "title": "Berlin",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Berlin ist Bezirk, kreisfreie Stadt und Bundeshauptstadt; die Sonderstellung bleibt über die Neuordnung hinaus bestehen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Abschnitte Übergang und Berlin",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "federal-capital",
+        "special-status"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Berlin"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "current"
+    },
+    {
+      "id": "territory-bezirk-brandenburg",
+      "title": "Brandenburg",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": "2026-07-31",
+      "asOf": "2026-07-21",
+      "summary": "Bis zum Ablauf des 31. Juli 2026 bestehender Bezirk Brandenburg.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Abschnitte Übergang und Berlin",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "territory",
+        "district"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Brandenburg"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "current-until-2026-07-31"
+    },
+    {
+      "id": "territory-bezirk-mecklenburg-vorpommern",
+      "title": "Mecklenburg-Vorpommern",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": "2026-07-31",
+      "asOf": "2026-07-21",
+      "summary": "Bis zum Ablauf des 31. Juli 2026 bestehender Bezirk Mecklenburg-Vorpommern.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Abschnitte Übergang und Berlin",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "territory",
+        "district"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Mecklenburg-Vorpommern"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "current-until-2026-07-31"
+    },
+    {
+      "id": "territory-bezirk-niederlausitz",
+      "title": "Niederlausitz",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": "2026-07-31",
+      "asOf": "2026-07-21",
+      "summary": "Bis zum Ablauf des 31. Juli 2026 bestehender Bezirk Niederlausitz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Abschnitte Übergang und Berlin",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "territory",
+        "district"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Niederlausitz"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "current-until-2026-07-31"
+    },
+    {
+      "id": "territory-bezirk-oberlausitz",
+      "title": "Oberlausitz",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": "2026-07-31",
+      "asOf": "2026-07-21",
+      "summary": "Bis zum Ablauf des 31. Juli 2026 bestehender Bezirk Oberlausitz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Abschnitte Übergang und Berlin",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "territory",
+        "district"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Oberlausitz"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "current-until-2026-07-31"
+    },
+    {
+      "id": "territory-bezirk-sachsen",
+      "title": "Sachsen",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": "2026-07-31",
+      "asOf": "2026-07-21",
+      "summary": "Bis zum Ablauf des 31. Juli 2026 bestehender Bezirk Sachsen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Abschnitte Übergang und Berlin",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "territory",
+        "district"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Sachsen"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "current-until-2026-07-31"
+    },
+    {
+      "id": "territory-bezirk-sachsen-anhalt",
+      "title": "Sachsen-Anhalt",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": "2026-07-31",
+      "asOf": "2026-07-21",
+      "summary": "Bis zum Ablauf des 31. Juli 2026 bestehender Bezirk Sachsen-Anhalt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Abschnitte Übergang und Berlin",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "territory",
+        "district"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Sachsen-Anhalt"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "current-until-2026-07-31"
+    },
+    {
+      "id": "territory-bezirk-thueringen",
+      "title": "Thüringen",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": "2026-07-31",
+      "asOf": "2026-07-21",
+      "summary": "Bis zum Ablauf des 31. Juli 2026 bestehender Bezirk Thüringen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Abschnitte Übergang und Berlin",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "territory",
+        "district"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Thüringen"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "current-until-2026-07-31"
+    },
+    {
+      "id": "territory-bezirk-elbsachsen",
+      "title": "Elbsachsen",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Elbsachsen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Elbsachsen"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-lausitz",
+      "title": "Lausitz",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Lausitz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Lausitz"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-leipzig-mittelsachsen",
+      "title": "Leipzig-Mittelsachsen",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Leipzig-Mittelsachsen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Leipzig-Mittelsachsen"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-magdeburg-anhalt",
+      "title": "Magdeburg-Anhalt",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Magdeburg-Anhalt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Magdeburg-Anhalt"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-mecklenburg-schwerin",
+      "title": "Mecklenburg-Schwerin",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Mecklenburg-Schwerin.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Mecklenburg-Schwerin"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-mittelmark-flaeming",
+      "title": "Mittelmark-Fläming",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Mittelmark-Fläming.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Mittelmark-Fläming"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-nordmark",
+      "title": "Nordmark",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Nordmark.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Nordmark"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-oderland-uckermark",
+      "title": "Oderland-Uckermark",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Oderland-Uckermark.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Oderland-Uckermark"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-saale-harz",
+      "title": "Saale-Harz",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Saale-Harz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Saale-Harz"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-saale-pleisse",
+      "title": "Saale-Pleiße",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Saale-Pleiße.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Saale-Pleiße"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-thueringer-wald-eichsfeld",
+      "title": "Thüringer Wald-Eichsfeld",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Thüringer Wald-Eichsfeld.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Thüringer Wald-Eichsfeld"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-vogtland-erzgebirge",
+      "title": "Vogtland-Erzgebirge",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Vogtland-Erzgebirge.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Vogtland-Erzgebirge"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    },
+    {
+      "id": "territory-bezirk-vorpommern",
+      "title": "Vorpommern",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Durch die verkündete Neuordnung ab 1. August 2026 vorgesehener Bezirk Vorpommern.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Gebietszuordnung und Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.neueBezirke",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "territory",
+        "district",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bezirk Vorpommern"
+      ],
+      "type": "district",
+      "parentId": "territory-freistaat",
+      "effectiveStatus": "future-from-2026-08-01"
+    }
+  ]
+}

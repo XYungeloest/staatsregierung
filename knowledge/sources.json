@@ -1,0 +1,830 @@
+{
+  "asOf": "2026-07-28",
+  "sources": [
+    {
+      "id": "source-readme",
+      "type": "structured-content",
+      "path": "README.md",
+      "title": "Repository-README",
+      "date": "2026-07-23",
+      "status": "secondary",
+      "scope": [
+        "website",
+        "law",
+        "editorial"
+      ],
+      "notes": "Zentrale Projektdokumentation und redaktioneller Stand."
+    },
+    {
+      "id": "source-agents",
+      "type": "editorial-decision",
+      "path": "AGENTS.md",
+      "title": "Agentenregeln des Repositories",
+      "date": "2026-07-23",
+      "status": "secondary",
+      "scope": [
+        "government",
+        "editorial",
+        "law"
+      ],
+      "notes": "Enthält verbindliche redaktionelle Feststellungen, darunter den Übergang zum ersten Staatsrat."
+    },
+    {
+      "id": "source-content-guide",
+      "type": "editorial-decision",
+      "path": "CONTENT.md",
+      "title": "Content-Pflege",
+      "date": "2026-07-23",
+      "status": "secondary",
+      "scope": [
+        "website",
+        "law",
+        "editorial"
+      ],
+      "notes": "Kanonische Pflege- und Importregeln."
+    },
+    {
+      "id": "source-content-gaps",
+      "type": "editorial-decision",
+      "path": "CONTENT_GAPS.md",
+      "title": "Offene Quellenfragen",
+      "date": "2026-07-23",
+      "status": "secondary",
+      "scope": [
+        "law",
+        "proceedings",
+        "conflicts"
+      ],
+      "notes": "Kanonische Sammlung belegter Quellenmängel und Konflikte."
+    },
+    {
+      "id": "source-editorial-config",
+      "type": "structured-content",
+      "path": "src/config/editorial.json",
+      "title": "Redaktioneller Stichtag",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "editorial"
+      ],
+      "notes": "Maschinenlesbarer zentraler Stichtag."
+    },
+    {
+      "id": "source-site-config",
+      "type": "structured-content",
+      "path": "src/config/site.ts",
+      "title": "Zentrale Portalkonfiguration",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "government",
+        "parliament",
+        "parties",
+        "website"
+      ],
+      "notes": "Aktueller Regierungsstand, Koalition und Portalkonfiguration."
+    },
+    {
+      "id": "source-staatsaufbau",
+      "type": "structured-content",
+      "path": "content/freistaat/staatsaufbau.json",
+      "title": "Staatsaufbau",
+      "date": "2026-07-21",
+      "status": "secondary",
+      "scope": [
+        "constitution",
+        "institutions"
+      ],
+      "notes": "Aktuelle strukturierte öffentliche Darstellung."
+    },
+    {
+      "id": "source-geschichte",
+      "type": "structured-content",
+      "path": "content/freistaat/geschichte.json",
+      "title": "Geschichte und Erinnerungspolitik",
+      "date": "2026-07-21",
+      "status": "secondary",
+      "scope": [
+        "history",
+        "state"
+      ],
+      "notes": "Redaktionelle Übersicht zur Gründung und Staatsentwicklung."
+    },
+    {
+      "id": "source-staatsreform",
+      "type": "structured-content",
+      "path": "content/freistaat/grosse-staatsreform.json",
+      "title": "Große Staatsreform",
+      "date": "2026-07-21",
+      "status": "secondary",
+      "scope": [
+        "constitution",
+        "government",
+        "history"
+      ],
+      "notes": "Verknüpft die vier Reformgesetze und Übergangswirkungen."
+    },
+    {
+      "id": "source-bezirke",
+      "type": "structured-content",
+      "path": "content/freistaat/bezirke.json",
+      "title": "Bezirke",
+      "date": "2026-07-21",
+      "status": "secondary",
+      "scope": [
+        "territory",
+        "administration"
+      ],
+      "notes": "Trennt acht bestehende von vierzehn künftigen Bezirken."
+    },
+    {
+      "id": "source-government-timeline",
+      "type": "structured-content",
+      "path": "src/data/dashboard/timeline.ts",
+      "title": "Portal-Timeline",
+      "date": "2026-07-21",
+      "status": "secondary",
+      "scope": [
+        "history",
+        "government",
+        "law",
+        "projects"
+      ],
+      "notes": "Redaktionell gepflegte Ereignisauswahl, nicht für unbelegte Abstimmungsdetails maßgeblich."
+    },
+    {
+      "id": "source-action-plan",
+      "type": "structured-content",
+      "path": "src/data/dashboard/action-plan.ts",
+      "title": "15-Punkte-Plan II, Dashboarddaten",
+      "date": "2026-07-21",
+      "status": "secondary",
+      "scope": [
+        "projects",
+        "government"
+      ],
+      "notes": "Politische Arbeitsgrundlage mit Statusangaben."
+    },
+    {
+      "id": "source-kabinett-honecker-i",
+      "type": "official-document",
+      "path": "content/regierung/archiv/kabinett-honecker-i.json",
+      "title": "Kabinett Honecker I",
+      "date": "2026-05-04",
+      "status": "historical",
+      "scope": [
+        "government",
+        "history"
+      ],
+      "notes": "Strukturierter historischer Kabinettsdatensatz."
+    },
+    {
+      "id": "source-karl-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/karl-honecker.json",
+      "title": "Profil Dr. Karl Honecker",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": "Aktuelle Rollenchronologie im Portal."
+    },
+    {
+      "id": "source-karl-honecker-i",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/honecker-i/mitglieder/karl-honecker.json",
+      "title": "Historisches Profil Dr. Karl Honecker",
+      "date": "2026-05-04",
+      "status": "historical",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": "Belegt Regierungsführung seit 20. Dezember 2025."
+    },
+    {
+      "id": "source-mateo-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/mateo-delgado.json",
+      "title": "Profil Dr. Mateo Delgado",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-volker-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/volker-bagdadi.json",
+      "title": "Profil Volker Bagdadi",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-tim-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/tim-dieter.json",
+      "title": "Profil Tim Dieter",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-yannik-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/yannik-schmaele.json",
+      "title": "Profil Yannik Schmäle",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-lucia-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/lucia-liebknecht.json",
+      "title": "Profil Lucia Liebknecht",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-vincent-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/vincent-flick.json",
+      "title": "Profil Vincent Flick",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-carl-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/carl-ulbricht.json",
+      "title": "Profil Carl Ulbricht",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-endo-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/endo-meyer-raucht.json",
+      "title": "Profil Endo Meyer-Raucht",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-max-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/max-peterson.json",
+      "title": "Profil Max Peterson",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-emma-current",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/emma-mueller.json",
+      "title": "Profil Emma Müller",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-mia-history",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/mia-wollrath.json",
+      "title": "Historisches Profil Mia Wollrath",
+      "date": "2026-05-19",
+      "status": "historical",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-barlow-history",
+      "type": "structured-content",
+      "path": "content/regierung/mitglieder/thomas-henry-barlow.json",
+      "title": "Historisches Profil Thomas Henry Barlow",
+      "date": "2026-07-20",
+      "status": "historical",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-alexandrija-history",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/honecker-i/mitglieder/alexandrija-dunvjiak.json",
+      "title": "Historisches Profil Alexandrija Dunvjiak",
+      "date": "2026-05-04",
+      "status": "historical",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-simon-history",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/honecker-i/mitglieder/simon-kellermann.json",
+      "title": "Historisches Profil Simon Kellermann",
+      "date": "2026-05-04",
+      "status": "historical",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-freya-history",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/honecker-i/mitglieder/freya-warnecke.json",
+      "title": "Historisches Profil Freya Warnecke",
+      "date": "2026-05-04",
+      "status": "historical",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-friedrich-history",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/honecker-i/mitglieder/friedrich-ritter.json",
+      "title": "Historisches Profil Friedrich Ritter",
+      "date": "2026-05-04",
+      "status": "historical",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-elizabeth-history",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/honecker-i/mitglieder/elizabeth-eberhardt.json",
+      "title": "Historisches Profil Elizabeth Eberhardt",
+      "date": "2026-05-04",
+      "status": "historical",
+      "scope": [
+        "persons",
+        "government"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-constitution-meta",
+      "type": "structured-content",
+      "path": "content/normen/staatsverfassung-des-freistaates-ostdeutschland/meta.json",
+      "title": "Metadaten der Staatsverfassung",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "constitution"
+      ],
+      "notes": "Verweist auf die gespeicherten Fassungen und Änderungsnormen."
+    },
+    {
+      "id": "source-constitution-history",
+      "type": "structured-content",
+      "path": "content/normen/staatsverfassung-des-freistaates-ostdeutschland/history.json",
+      "title": "Normenhistorie der Staatsverfassung",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "constitution",
+        "history"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-constitution-current",
+      "type": "law",
+      "path": "content/normen/staatsverfassung-des-freistaates-ostdeutschland/versions/2026-07-21.json",
+      "title": "Staatsverfassung, Fassung vom 21. Juli 2026",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "constitution"
+      ],
+      "notes": "Für rechtliche Detailfragen maßgeblich."
+    },
+    {
+      "id": "source-sero",
+      "type": "law",
+      "path": "content/normen/sero-verordnung/meta.json",
+      "title": "SERO-Verordnung",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects"
+      ],
+      "notes": "Erste im Repository belegte selbstständige Rechtsverordnung nach der Staatsreform."
+    },
+    {
+      "id": "source-kreis-manifest",
+      "type": "structured-content",
+      "path": "public/data/kreisreform/manifest.json",
+      "title": "Manifest der Kreis- und Bezirksreform",
+      "date": "2026-05-26",
+      "status": "primary",
+      "scope": [
+        "territory",
+        "geodata"
+      ],
+      "notes": "Maschinenlesbare Gebiets- und Wirksamkeitsdaten."
+    },
+    {
+      "id": "source-kreis-procedure",
+      "type": "official-document",
+      "path": "content/gesetzgebung/kreis-und-bezirksneuordnungsgesetz.json",
+      "title": "Gesetzgebungsverfahren Kreis- und Bezirksneuordnung",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "parliament",
+        "territory"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-kreis-norm",
+      "type": "law",
+      "path": "content/normen/kreis-und-bezirksneuordnungsgesetz/versions/2026-07-21.json",
+      "title": "Kreis- und Bezirksneuordnungsgesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "territory"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-grenzpolizei-procedure",
+      "type": "official-document",
+      "path": "content/gesetzgebung/kasernierte-grenzpolizei.json",
+      "title": "Gesetzgebungsverfahren Kasernierte Grenzpolizei",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "security",
+        "parliament"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-grenzpolizei-law",
+      "type": "law",
+      "path": "content/normen/kasernierte-grenzpolizei-gesetz/versions/2026-07-21.json",
+      "title": "Kasernierte-Grenzpolizei-Gesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "security"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-boom-procedure",
+      "type": "official-document",
+      "path": "content/gesetzgebung/boom-europe-leipzig-halle.json",
+      "title": "Gesetzgebungsverfahren Boom Europe Leipzig/Halle",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects",
+        "parliament"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-boom-implementation",
+      "type": "law",
+      "path": "content/normen/boom-europe-umsetzungsgesetz/versions/2026-07-21.json",
+      "title": "Boom-Europe-Umsetzungsgesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-boom-site-law",
+      "type": "law",
+      "path": "content/normen/hochgeschwindigkeitsluftfahrt-standortgesetz/versions/2026-07-21.json",
+      "title": "Hochgeschwindigkeitsluftfahrt-Standortgesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-boom-fund",
+      "type": "law",
+      "path": "content/normen/hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz/versions/2026-07-21.json",
+      "title": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "budget",
+        "projects"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-ogvbl-53",
+      "type": "publication",
+      "path": "content/verkuendungen/ogvbl-2026-53.json",
+      "title": "OGVBl. 2026 Nr. 53",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "constitution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-ogvbl-54",
+      "type": "publication",
+      "path": "content/verkuendungen/ogvbl-2026-54.json",
+      "title": "OGVBl. 2026 Nr. 54",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "constitution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-ogvbl-55",
+      "type": "publication",
+      "path": "content/verkuendungen/ogvbl-2026-55.json",
+      "title": "OGVBl. 2026 Nr. 55",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "constitution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-ogvbl-56",
+      "type": "publication",
+      "path": "content/verkuendungen/ogvbl-2026-56.json",
+      "title": "OGVBl. 2026 Nr. 56",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "constitution"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-ogvbl-58",
+      "type": "publication",
+      "path": "content/verkuendungen/ogvbl-2026-58.json",
+      "title": "OGVBl. 2026 Nr. 58",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects"
+      ],
+      "notes": "Die sichtbare Nummer des kontrollierenden PDFs ist als Konflikt in CONTENT_GAPS.md dokumentiert."
+    },
+    {
+      "id": "source-consolidation-manifest",
+      "type": "structured-content",
+      "path": "data/recht/consolidation-manifest.json",
+      "title": "Konsolidierungsmanifest",
+      "date": "2026-07-23",
+      "status": "primary",
+      "scope": [
+        "law",
+        "conflicts"
+      ],
+      "notes": "Maschinenlesbarer Gesamtstand der Zielnormen und Quellenkonflikte."
+    },
+    {
+      "id": "source-consolidation-report",
+      "type": "official-document",
+      "path": "data/recht/consolidation-report.md",
+      "title": "Konsolidierungsbericht",
+      "date": "2026-07-23",
+      "status": "secondary",
+      "scope": [
+        "law",
+        "conflicts"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-miraheze",
+      "type": "wiki",
+      "path": "https://politiksim.miraheze.org/wiki/",
+      "title": "PolitikSim-Wiki auf Miraheze",
+      "date": null,
+      "status": "candidate",
+      "scope": [
+        "history",
+        "persons",
+        "parties",
+        "federal"
+      ],
+      "notes": "Ausschließlich als ergänzende Sekundärquelle. Beim Audit am 28. Juli 2026 war der automatisierte Abruf teilweise mit HTTP 403 blockiert; deshalb wurden daraus keine unbestätigten Fakten übernommen."
+    },
+    {
+      "id": "source-conversation-task",
+      "type": "conversation",
+      "path": "conversation://knowledge-audit-2026-07-28",
+      "title": "Gesprächskandidaten aus dem Wissensaudit",
+      "date": "2026-07-28",
+      "status": "candidate",
+      "scope": [
+        "all"
+      ],
+      "notes": "Suchhinweise, niemals alleinige Grundlage für current-state.json."
+    },
+    {
+      "id": "source-eisenbahn-procedure",
+      "type": "official-document",
+      "path": "content/gesetzgebung/ostdeutsche-eisenbahn.json",
+      "title": "Gesetzgebungsverfahren Ostdeutsche Eisenbahn",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects",
+        "parliament"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-eisenbahn-law",
+      "type": "law",
+      "path": "content/normen/ostdeutsche-eisenbahn-neuordnungsgesetz/versions/2026-07-21.json",
+      "title": "Ostdeutsche-Eisenbahn-Neuordnungsgesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-energy-procedure",
+      "type": "official-document",
+      "path": "content/gesetzgebung/energie-waermevergesellschaftung.json",
+      "title": "Gesetzgebungsverfahren Energie- und Wärmevergesellschaftung",
+      "date": "2026-07-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects",
+        "parliament"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-energy-law",
+      "type": "law",
+      "path": "content/normen/energie-und-waermevergesellschaftungsgesetz/versions/2026-07-21.json",
+      "title": "Energie- und Wärmevergesellschaftungsgesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-housing-topic",
+      "type": "structured-content",
+      "path": "content/themen/wohnen-und-vergesellschaftung.json",
+      "title": "Thema Wohnen und Vergesellschaftung",
+      "date": "2026-07-21",
+      "status": "secondary",
+      "scope": [
+        "projects",
+        "housing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-housing-law",
+      "type": "law",
+      "path": "content/normen/wohnvergesellschaftungsgesetz/meta.json",
+      "title": "Wohnvergesellschaftungsgesetz",
+      "date": "2026-03-23",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects",
+        "housing"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-hospital-law",
+      "type": "law",
+      "path": "content/normen/ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz/meta.json",
+      "title": "Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
+      "date": "2026-03-23",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects",
+        "budget"
+      ],
+      "notes": ""
+    },
+    {
+      "id": "source-broadcast-law",
+      "type": "law",
+      "path": "content/normen/ostdeutsches-fernsehfunkgesetz/versions/2026-03-23.json",
+      "title": "Ostdeutsches Fernsehfunkgesetz",
+      "date": "2026-03-23",
+      "status": "primary",
+      "scope": [
+        "law",
+        "projects",
+        "media"
+      ],
+      "notes": ""
+    }
+  ]
+}

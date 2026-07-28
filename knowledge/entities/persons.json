@@ -1,0 +1,1233 @@
+{
+  "asOf": "2026-07-21",
+  "persons": [
+    {
+      "id": "person-karl-honecker",
+      "title": "Dr. Karl Honecker",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-20",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Erster Staatspräsident, Vorsitzender des ersten Staatsrates und Staatsrat der Finanzen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-karl-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-karl-honecker-i",
+          "locator": "Kurzbiografie",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatspraesident",
+        "inst-staatsrat",
+        "inst-sek-finanzen",
+        "party-volksfront"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [
+        "Karl Honecker"
+      ],
+      "name": "Dr. Karl Honecker",
+      "nameVariants": [
+        "Karl Honecker"
+      ],
+      "partyIds": [
+        "party-volksfront"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Ministerpräsident",
+          "validFrom": "2025-12-20",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-karl-honecker-i",
+            "locator": "Kurzbiografie"
+          },
+          "terminationSource": {
+            "sourceId": "source-karl-current",
+            "locator": "formerOffices[0]"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-finanzen",
+          "officeTitle": "Staatsminister der Finanzen",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-karl-current",
+            "locator": "formerOffices[1]"
+          },
+          "terminationSource": {
+            "sourceId": "source-karl-current",
+            "locator": "formerOffices[1]"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-staatspraesident",
+          "officeTitle": "Staatspräsident",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-karl-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-finanzen",
+          "officeTitle": "Staatsrat der Finanzen",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-karl-current",
+            "locator": "currentOffices[1]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-mateo-delgado",
+      "title": "Dr. Mateo Delgado",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-mateo-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-sek-rechtsstaat-kultur",
+        "party-demos"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [
+        "Mateo Delgado"
+      ],
+      "name": "Dr. Mateo Delgado",
+      "nameVariants": [
+        "Mateo Delgado"
+      ],
+      "partyIds": [
+        "party-demos"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Stellvertretender Ministerpräsident und Staatsminister für Rechtsstaatlichkeit und kulturelle Emanzipation",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-mateo-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-mateo-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-rechtsstaat-kultur",
+          "officeTitle": "Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-mateo-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-volker-bagdadi",
+      "title": "Volker Bagdadi",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Staatsrat des Innern und für Wohnungswirtschaft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-volker-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-staatsregierung",
+        "inst-sek-inneres-wohnen",
+        "party-volksfront"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Volker Bagdadi",
+      "nameVariants": [],
+      "partyIds": [
+        "party-volksfront"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister für Nachhaltigkeit und Energie",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-07",
+          "appointmentSource": {
+            "sourceId": "source-volker-current",
+            "locator": "formerOffices[1]"
+          },
+          "terminationSource": {
+            "sourceId": "source-volker-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister des Innern und für Wohnungswirtschaft",
+          "validFrom": "2026-07-07",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-volker-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-volker-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-inneres-wohnen",
+          "officeTitle": "Staatsrat des Innern und für Wohnungswirtschaft",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-volker-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-tim-dieter",
+      "title": "Tim Dieter",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-tim-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-sek-voelkerfreundschaft",
+        "party-volksfront"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Tim Dieter",
+      "nameVariants": [],
+      "partyIds": [
+        "party-volksfront"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister für Völkerfreundschaft und Nachbarschaftspolitik",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-tim-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-tim-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-voelkerfreundschaft",
+          "officeTitle": "Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-tim-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-yannik-schmaele",
+      "title": "Yannik Schmäle",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-07",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Staatsrat für zwei eigenständige Geschäftsbereiche.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-yannik-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-sek-staats-grenzsicherheit",
+        "party-demos"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [
+        "Yannik Schmaele"
+      ],
+      "name": "Yannik Schmäle",
+      "nameVariants": [
+        "Yannik Schmaele"
+      ],
+      "partyIds": [
+        "party-demos"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister für Nachhaltigkeit und Energie",
+          "validFrom": "2026-07-07",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-yannik-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-yannik-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-nachhaltigkeit-energie",
+          "officeTitle": "Staatsrat für Nachhaltigkeit und Energie",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-yannik-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-staats-grenzsicherheit",
+          "officeTitle": "Staatsrat für Staats- und Grenzsicherheit",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-yannik-current",
+            "locator": "currentOffices[1]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": [
+            "parallelOfficeAllowed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "person-lucia-liebknecht",
+      "title": "Lucia Liebknecht",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Staatsrätin für Gesundheits- und Sozialwesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-lucia-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-sek-gesundheit-soziales",
+        "party-demos"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Lucia Liebknecht",
+      "nameVariants": [],
+      "partyIds": [
+        "party-demos"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsministerin für Gesundheits- und Sozialwesen",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-lucia-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-lucia-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-gesundheit-soziales",
+          "officeTitle": "Staatsrätin für Gesundheits- und Sozialwesen",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-lucia-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-vincent-flick",
+      "title": "Vincent Flick",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Staatsrat für Mobilität und regionale Entwicklung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-vincent-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-sek-mobilitaet-regionen",
+        "party-volksfront"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Vincent Flick",
+      "nameVariants": [],
+      "partyIds": [
+        "party-volksfront"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister für Mobilität und regionale Entwicklung",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-vincent-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-vincent-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-mobilitaet-regionen",
+          "officeTitle": "Staatsrat für Mobilität und regionale Entwicklung",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-vincent-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-carl-ulbricht",
+      "title": "Carl Ulbricht",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Staatsrat für Volksbildung und Wissenschaft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-carl-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-sek-volksbildung-wissenschaft",
+        "party-volksfront"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Carl Ulbricht",
+      "nameVariants": [],
+      "partyIds": [
+        "party-volksfront"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister für Volksbildung und Wissenschaft",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-carl-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-carl-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-volksbildung-wissenschaft",
+          "officeTitle": "Staatsrat für Volksbildung und Wissenschaft",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-carl-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-endo-meyer-raucht",
+      "title": "Endo Meyer-Raucht",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Staatsrat für Land-, Forst- und Küstenwirtschaft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-endo-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-sek-land-forst-kueste",
+        "party-volksfront"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Endo Meyer-Raucht",
+      "nameVariants": [],
+      "partyIds": [
+        "party-volksfront"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister für Land-, Forst- und Küstenwirtschaft",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-endo-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-endo-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-land-forst-kueste",
+          "officeTitle": "Staatsrat für Land-, Forst- und Küstenwirtschaft",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-endo-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-max-peterson",
+      "title": "Max Peterson",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Staatsrat für Wirtschaft und Arbeit.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-max-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-sek-wirtschaft-arbeit",
+        "party-volksfront"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Max Peterson",
+      "nameVariants": [],
+      "partyIds": [
+        "party-volksfront"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister für Wirtschaft und Arbeit",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-max-current",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-max-current",
+            "locator": "formerOffices"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-sek-wirtschaft-arbeit",
+          "officeTitle": "Staatsrat für Wirtschaft und Arbeit",
+          "validFrom": "2026-07-21",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-max-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-emma-mueller",
+      "title": "Emma Müller",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Chefin der Staatskanzlei.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-emma-current",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatskanzlei"
+      ],
+      "tags": [
+        "person",
+        "government"
+      ],
+      "notes": [],
+      "aliases": [
+        "Emma Mueller"
+      ],
+      "name": "Emma Müller",
+      "nameVariants": [
+        "Emma Mueller"
+      ],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-staatskanzlei",
+          "officeTitle": "Chefin der Staatskanzlei",
+          "validFrom": "2026-05-04",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-emma-current",
+            "locator": "currentOffices[0]"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-mia-wollrath",
+      "title": "Mia Wollrath",
+      "status": "historical",
+      "validFrom": "2026-05-04",
+      "validTo": "2026-05-19",
+      "asOf": "2026-07-21",
+      "summary": "Mitglied des Kabinetts Honecker II bis 19. Mai 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-mia-history",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-staatsregierung",
+        "party-demos"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Mia Wollrath",
+      "nameVariants": [],
+      "partyIds": [
+        "party-demos"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsministerin des Innern und für Wohnungswirtschaft",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-05-19",
+          "appointmentSource": {
+            "sourceId": "source-mia-history",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-mia-history",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsministerin für Staats- und Grenzsicherheit (geschäftsführend)",
+          "validFrom": "2026-05-04",
+          "validTo": "2026-05-19",
+          "appointmentSource": {
+            "sourceId": "source-mia-history",
+            "locator": "formerOffices[1]"
+          },
+          "terminationSource": {
+            "sourceId": "source-mia-history",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-thomas-henry-barlow",
+      "title": "Thomas Henry Barlow",
+      "status": "historical",
+      "validFrom": "2026-05-19",
+      "validTo": "2026-07-07",
+      "asOf": "2026-07-21",
+      "summary": "Mitglied des Kabinetts Honecker II vom 19. Mai bis 20. Juli 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-barlow-history",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "inst-staatsregierung",
+        "party-demos"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Thomas Henry Barlow",
+      "nameVariants": [],
+      "partyIds": [
+        "party-demos"
+      ],
+      "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister für Staats- und Grenzsicherheit",
+          "validFrom": "2026-05-19",
+          "validTo": "2026-07-20",
+          "appointmentSource": {
+            "sourceId": "source-barlow-history",
+            "locator": "formerOffices[0]"
+          },
+          "terminationSource": {
+            "sourceId": "source-barlow-history",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        },
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Staatsminister des Innern und für Wohnungswirtschaft",
+          "validFrom": "2026-05-19",
+          "validTo": "2026-07-07",
+          "appointmentSource": {
+            "sourceId": "source-barlow-history",
+            "locator": "formerOffices[1]"
+          },
+          "terminationSource": {
+            "sourceId": "source-barlow-history",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-alexandrija-dunvjiak",
+      "title": "Alexandrija Dunvjiak",
+      "status": "historical",
+      "validFrom": "2025-12-20",
+      "validTo": "2026-05-04",
+      "asOf": "2026-07-21",
+      "summary": "Historische Staatsministerin im Kabinett Honecker I.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-alexandrija-history",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-i"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Alexandrija Dunvjiak",
+      "nameVariants": [],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-kabinett-honecker-i",
+          "officeTitle": "Staatsministerin für Grenzschutz, Faschismusbekämpfung und bewaffnete Organe",
+          "validFrom": "2025-12-20",
+          "validTo": "2026-05-04",
+          "appointmentSource": {
+            "sourceId": "source-alexandrija-history",
+            "locator": "Profil im Kabinettsarchiv"
+          },
+          "terminationSource": {
+            "sourceId": "source-kabinett-honecker-i",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-simon-kellermann",
+      "title": "Simon Kellermann",
+      "status": "historical",
+      "validFrom": "2025-12-20",
+      "validTo": "2026-05-04",
+      "asOf": "2026-07-21",
+      "summary": "Historischer Staatsminister im Kabinett Honecker I.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-simon-history",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-i"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Simon Kellermann",
+      "nameVariants": [],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-kabinett-honecker-i",
+          "officeTitle": "Staatsminister für soziale und gesundheitliche Fürsorge",
+          "validFrom": "2025-12-20",
+          "validTo": "2026-05-04",
+          "appointmentSource": {
+            "sourceId": "source-simon-history",
+            "locator": "Profil im Kabinettsarchiv"
+          },
+          "terminationSource": {
+            "sourceId": "source-kabinett-honecker-i",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-freya-warnecke",
+      "title": "Freya Warnecke",
+      "status": "historical",
+      "validFrom": "2025-12-20",
+      "validTo": "2026-05-04",
+      "asOf": "2026-07-21",
+      "summary": "Historische Staatsministerin im Kabinett Honecker I.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-freya-history",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-i"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Freya Warnecke",
+      "nameVariants": [],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-kabinett-honecker-i",
+          "officeTitle": "Staatsministerin für Kultur, Wissenschaft und Tourismus",
+          "validFrom": "2025-12-20",
+          "validTo": "2026-05-04",
+          "appointmentSource": {
+            "sourceId": "source-freya-history",
+            "locator": "Profil im Kabinettsarchiv"
+          },
+          "terminationSource": {
+            "sourceId": "source-kabinett-honecker-i",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-friedrich-ritter",
+      "title": "Friedrich Ritter",
+      "status": "historical",
+      "validFrom": "2025-12-20",
+      "validTo": "2026-05-04",
+      "asOf": "2026-07-21",
+      "summary": "Historischer Staatsminister im Kabinett Honecker I.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-friedrich-history",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-i"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Friedrich Ritter",
+      "nameVariants": [],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-kabinett-honecker-i",
+          "officeTitle": "Staatsminister für Bildung und sportliche Ertüchtigung",
+          "validFrom": "2025-12-20",
+          "validTo": "2026-05-04",
+          "appointmentSource": {
+            "sourceId": "source-friedrich-history",
+            "locator": "Profil im Kabinettsarchiv"
+          },
+          "terminationSource": {
+            "sourceId": "source-kabinett-honecker-i",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-elizabeth-eberhardt",
+      "title": "Elizabeth Eberhardt",
+      "status": "historical",
+      "validFrom": "2025-12-20",
+      "validTo": "2026-05-04",
+      "asOf": "2026-07-21",
+      "summary": "Historische Staatsministerin im Kabinett Honecker I.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-elizabeth-history",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-i"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "name": "Elizabeth Eberhardt",
+      "nameVariants": [],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-kabinett-honecker-i",
+          "officeTitle": "Staatsministerin für Küste, Fischerei, Forst und Landwirtschaft",
+          "validFrom": "2025-12-20",
+          "validTo": "2026-05-04",
+          "appointmentSource": {
+            "sourceId": "source-elizabeth-history",
+            "locator": "Profil im Kabinettsarchiv"
+          },
+          "terminationSource": {
+            "sourceId": "source-kabinett-honecker-i",
+            "locator": "Amtsende/Kabinettsende"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": []
+        }
+      ]
+    }
+  ]
+}

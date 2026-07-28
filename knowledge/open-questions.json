@@ -1,0 +1,620 @@
+{
+  "asOf": "2026-07-28",
+  "questions": [
+    {
+      "id": "question-demos-name",
+      "title": "Welche Bezeichnung und Namenschronologie der DEMOS-Partei ist amtlich?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Konfiguration und Personenprofile verwenden „DEMOS an der Elbe“, „Bündnis Demokratie Europa (DEMOS)“ und historisch „DEMOS Ost“.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment.coalition",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-mateo-current",
+          "locator": "party",
+          "role": "conflicting"
+        },
+        {
+          "sourceId": "source-kabinett-honecker-i",
+          "locator": "coalition",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "party-demos"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche Bezeichnung und Namenschronologie der DEMOS-Partei ist amtlich?",
+      "affectedIds": [
+        "party-demos"
+      ],
+      "reason": "Die Quellen belegen unterschiedliche Bezeichnungen, aber keine ausdrückliche Umbenennung oder Aliasentscheidung.",
+      "requiredSource": "Parteibeschluss, Wahlunterlagen oder redaktionelle Entscheidung mit Gültigkeitszeitraum.",
+      "publicContentImpact": "Parteinamen in Regierungs- und Koalitionsseiten können voneinander abweichen.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-ogvbl-58-number",
+      "title": "Welche amtliche Ausgabenummer trägt die SERO-Verordnung?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "PDF und HTML-/Verkündungsdatensatz weisen unterschiedliche Ausgabenummern aus.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Widerspruch OGVBl. Nr. 58",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-58",
+          "locator": "Ausgabenmetadaten",
+          "role": "conflicting"
+        }
+      ],
+      "relatedIds": [
+        "project-sero",
+        "proceeding-ogvbl-58-conflict"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche amtliche Ausgabenummer trägt die SERO-Verordnung?",
+      "affectedIds": [
+        "project-sero",
+        "proceeding-ogvbl-58-conflict"
+      ],
+      "reason": "Die PDF zeigt Nr. 57, die strukturtragende HTML-Fassung und der Datensatz Nr. 58.",
+      "requiredSource": "Korrigiertes amtliches Original oder verbindliche redaktionelle Entscheidung.",
+      "publicContentImpact": "Fundstelle und PDF-Verlinkung der SERO-Verordnung.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-ovv-ticket-chain",
+      "title": "Welche Normen und Beschlüsse bilden OVV und 29-Euro-Ticket vollständig ab?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Das Vorhaben ist programmatisch vorhanden, aber nicht als vollständiger Rechts- und Umsetzungsverbund modelliert.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-action-plan",
+          "locator": "mobilitaet-und-digitale-teilhabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 17",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "project-ovv-ticket"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche Normen und Beschlüsse bilden OVV und 29-Euro-Ticket vollständig ab?",
+      "affectedIds": [
+        "project-ovv-ticket"
+      ],
+      "reason": "Normslugs, Tarifbeschlüsse, Inkrafttreten und organisatorische Zuständigkeit sind nicht gemeinsam nachgewiesen.",
+      "requiredSource": "Verkündete Normen, Verbundbeschluss und datierter Tarifnachweis.",
+      "publicContentImpact": "Projektstatus und Bürgerinformationen zum Tarif.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-boden-project-status",
+      "title": "Welcher Rechts- und Umsetzungsstand gilt für Volksacker, Flächenfonds und Bodenfonds Ost?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der Komplex ist programmatisch benannt, aber im strukturierten Bestand nicht vollständig zugeordnet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-action-plan",
+          "locator": "zweite-wohn-und-bodenoffensive",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 17",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "project-boden-volksacker"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welcher Rechts- und Umsetzungsstand gilt für Volksacker, Flächenfonds und Bodenfonds Ost?",
+      "affectedIds": [
+        "project-boden-volksacker"
+      ],
+      "reason": "Es fehlen eindeutig zugeordnete Primärnormen und Umsetzungsschritte.",
+      "requiredSource": "Gesetze, Errichtungsakte, Haushaltsansätze oder Projektbeschlüsse.",
+      "publicContentImpact": "Themen- und Projektseiten dürfen keinen höheren Umsetzungsstand behaupten.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-grenzpolizei-agreement",
+      "title": "Ist die Vereinbarung mit Bund oder Bundespolizei abgeschlossen und wirksam?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Das Grenzpolizeirecht ist verkündet, die externe Kooperationsvereinbarung aber nicht als wirksam belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "offene Vertragsbedingungen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 19",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund",
+        "inst-grenzpolizei"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Ist die Vereinbarung mit Bund oder Bundespolizei abgeschlossen und wirksam?",
+      "affectedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund",
+        "inst-grenzpolizei"
+      ],
+      "reason": "Entwurf, Verhandlungsgrundlage und wirksame Vereinbarung sind zu trennen.",
+      "requiredSource": "Unterzeichnete Vereinbarung, Zustimmungsakte und Inkrafttretensregelung.",
+      "publicContentImpact": "Darstellung der praktischen Befugnisse und Zusammenarbeit.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-ndr-ratification",
+      "title": "Wurden die Ratifikationsurkunden des NDR-Vertrags ausgetauscht?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der erforderliche Ratifikationsaustausch ist nicht nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "NDR-Ratifikationsnachweis",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-rundfunk",
+        "proceeding-ndr-ratification"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Wurden die Ratifikationsurkunden des NDR-Vertrags ausgetauscht?",
+      "affectedIds": [
+        "project-rundfunk",
+        "proceeding-ndr-ratification"
+      ],
+      "reason": "Ohne Nachweis kann das Inkrafttreten nicht behauptet werden.",
+      "requiredSource": "Ratifikationsurkunden oder amtliche Inkrafttretensbekanntmachung.",
+      "publicContentImpact": "Status des Staatsvertrags und Rundfunküberleitung.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-poland-notification",
+      "title": "Wurde das polnische Grenzraumabkommen wirksam notifiziert?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der Austausch der Notifikationen ist nicht nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "polnisches Grenzraumabkommen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-poland-notification"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Wurde das polnische Grenzraumabkommen wirksam notifiziert?",
+      "affectedIds": [
+        "proceeding-poland-notification"
+      ],
+      "reason": "Die Wirksamkeitsbedingung ist offen.",
+      "requiredSource": "Notifikationsnachweise oder amtliche Bekanntmachung.",
+      "publicContentImpact": "Vertragsstatus auf Rechts- und Nachbarschaftsseiten.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-czech-notification",
+      "title": "Wurde das tschechische Grenzraumabkommen wirksam notifiziert?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der Austausch der Notifikationen ist nicht nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "tschechisches Grenzraumabkommen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-czech-notification"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Wurde das tschechische Grenzraumabkommen wirksam notifiziert?",
+      "affectedIds": [
+        "proceeding-czech-notification"
+      ],
+      "reason": "Die Wirksamkeitsbedingung ist offen.",
+      "requiredSource": "Notifikationsnachweise oder amtliche Bekanntmachung.",
+      "publicContentImpact": "Vertragsstatus auf Rechts- und Nachbarschaftsseiten.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-plenary-record",
+      "title": "Liegt ein Plenarprotokoll der Sitzung vom 20. Juli 2026 vor?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Beschlüsse sind durch Verkündungen belegt, Beratungsverlauf und Abstimmungszahlen nicht.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "nicht belegte parlamentarische Einzelergebnisse",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-third-plenary-evidence"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Liegt ein Plenarprotokoll der Sitzung vom 20. Juli 2026 vor?",
+      "affectedIds": [
+        "proceeding-third-plenary-evidence"
+      ],
+      "reason": "Tagesordnung und Verkündungen ersetzen kein Plenarprotokoll.",
+      "requiredSource": "Plenarprotokoll, Abstimmungslisten und Beschlussempfehlungen 07/18 bis 07/21.",
+      "publicContentImpact": "Parlamentarische Chronik und konkrete Abstimmungsangaben.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-boom-agreement-details",
+      "title": "Welche Vertrags-, Finanzierungs- und Organisationsdaten gelten für Boom Europe Leipzig/Halle?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Die Gesetze sind zugeordnet, aber Laufzeit, Standortvertrag, Projektstelle und Lenkungsausschuss sind noch nicht vollständig extrahiert.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-boom-procedure",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-site-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-fund",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-boom-europe",
+        "proceeding-boom-implementation"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche Vertrags-, Finanzierungs- und Organisationsdaten gelten für Boom Europe Leipzig/Halle?",
+      "affectedIds": [
+        "project-boom-europe",
+        "proceeding-boom-implementation"
+      ],
+      "reason": "Der Hub soll Gesetzeskomplex und praktische Projektorganisation getrennt modellieren.",
+      "requiredSource": "Standortvertrag beziehungsweise Memorandum und einschlägige Vollnormen mit konkreten Paragraphen.",
+      "publicContentImpact": "Projektseite, Haushalt und Zeitplan.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-hoheitszeichen-current-law",
+      "title": "Welche konsolidierte Hoheitszeichenregelung gilt nach der Staatsreform?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Verfassung, älteres Hoheitszeichengesetz, besonderes Gesetz, Anlagen und Wappenentscheidung sind noch nicht vollständig widerspruchsfrei verknüpft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Artikel 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Hoheitszeichen-Zielankerkonflikt",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 16",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "project-hoheitszeichen"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche konsolidierte Hoheitszeichenregelung gilt nach der Staatsreform?",
+      "affectedIds": [
+        "project-hoheitszeichen"
+      ],
+      "reason": "Rechtslage und spätere politische Gestaltungsentscheidung dürfen nicht vermischt werden.",
+      "requiredSource": "Verkündetes besonderes Gesetz, geltende Verordnung, Anlagen und verbindliche Wappenbeschreibung.",
+      "publicContentImpact": "Flaggen-, Wappen- und Verfassungsseiten.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-feiertage",
+      "title": "Welche neuen Feiertage sind verkündet und seit wann wirksam?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Mehrere Feiertage wurden im Gespräch genannt, aber im Audit noch nicht normgenau zugeordnet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 17",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-feiertage"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche neuen Feiertage sind verkündet und seit wann wirksam?",
+      "affectedIds": [
+        "project-feiertage"
+      ],
+      "reason": "Gesprächswissen genügt nicht für Rechtsstand oder Kalenderangaben.",
+      "requiredSource": "Feiertagsgesetz beziehungsweise Änderungsgesetze und Inkrafttretensdaten.",
+      "publicContentImpact": "Servicekalender und Rechtsportal.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-federal-council-case",
+      "title": "Welche Akten und Daten belegen den Bundesratszugangs- oder Stimmrechtsstreit?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der Konflikt ist nur als Gesprächskandidat erfasst.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidaten 20 bis 23",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-federal-council-access"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche Akten und Daten belegen den Bundesratszugangs- oder Stimmrechtsstreit?",
+      "affectedIds": [
+        "proceeding-federal-council-access"
+      ],
+      "reason": "Beteiligte, Streitgegenstand, Beginn, Anträge und Entscheidung sind nicht repositorybasiert belegt.",
+      "requiredSource": "Schriftsätze, gerichtliche Entscheidungen oder amtliche Bundesratsdokumente.",
+      "publicContentImpact": "Biografien, Bundesbeziehungen und Verfahrensübersicht.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-state-crisis-2025",
+      "title": "Wie verlief die Staatskrise 2025 genau?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Rücktritt von Tom Kurzschluss, mögliche Misstrauensvoten und Regierungsbildungen sind nicht strukturiert belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 14",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "fehlender Zeitraum",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-2025-state-crisis"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Wie verlief die Staatskrise 2025 genau?",
+      "affectedIds": [
+        "proceeding-2025-state-crisis"
+      ],
+      "reason": "Die vorhandene Timeline setzt erst im Dezember 2025 ein.",
+      "requiredSource": "Amtliche Rücktritts-, Ernennungs-, Wahl- und Parlamentsdokumente.",
+      "publicContentImpact": "Historische Regierungs- und Parlamentschronik.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-missing-revosax-snapshots",
+      "title": "Welche 34 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der Konsolidierungsaudit weist 34 noch nicht vollständig gesicherte Zielnormen aus.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "71 Zielnormen, 34 fehlende Snapshots",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-consolidation-manifest",
+          "locator": "Zielnormliste",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-law-consolidation"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche 34 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
+      "affectedIds": [
+        "proceeding-law-consolidation"
+      ],
+      "reason": "Ohne Ausgangssnapshot darf keine freie Konsolidierung erfolgen.",
+      "requiredSource": "Amtliche historische REVOSax-Fassungen mit Gültigkeitszeitraum und SHA-256.",
+      "publicContentImpact": "Vollständigkeit und historische Fassungen im Rechtsportal.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-bundesrat-presidency-start",
+      "title": "Seit wann übt Karl Honecker die Bundesratspräsidentschaft aus?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Bisherige Gesprächsangaben nennen unterschiedliche Beginnzeitpunkte; der aktuelle Repositorybestand wurde noch nicht mit einer Primärquelle verknüpft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 20",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Seit wann übt Karl Honecker die Bundesratspräsidentschaft aus?",
+      "affectedIds": [
+        "person-karl-honecker"
+      ],
+      "reason": "Eine aktuelle Bundesrolle darf nicht aus Erinnerung übernommen werden.",
+      "requiredSource": "Amtliche Bundesratswahl, Präsidiumsdokument oder protokollierter Amtsbeginn.",
+      "publicContentImpact": "Biografie und Bund-Länder-Beziehungen.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-gerhardt-lehrmann",
+      "title": "Welche historische Rolle hatte Gerhardt Lehrmann?",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "AGENTS.md untersagt ein neues aktuelles Profil, enthält aber keine vollständige historische Rollenchronologie.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-agents",
+          "locator": "Kein neues Profil für Gerhardt Lehrmann",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidaten 12 und 13",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "open-question"
+      ],
+      "notes": [],
+      "question": "Welche historische Rolle hatte Gerhardt Lehrmann?",
+      "affectedIds": [],
+      "reason": "Das Fehlen eines aktuellen Profils belegt keine konkrete frühere Amtszeit.",
+      "requiredSource": "Historischer Ernennungs- oder Kabinettsnachweis.",
+      "publicContentImpact": "Nur interner Personenindex; kein aktuelles öffentliches Profil ohne Quelle.",
+      "priority": "low",
+      "questionStatus": "open"
+    }
+  ]
+}

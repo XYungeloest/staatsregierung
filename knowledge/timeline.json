@@ -1,0 +1,851 @@
+{
+  "asOf": "2026-07-21",
+  "events": [
+    {
+      "id": "event-state-foundation",
+      "title": "Entstehung des Freistaates Ostdeutschland",
+      "status": "editorially-confirmed",
+      "validFrom": "2023-12-01",
+      "validTo": "2023-12-01",
+      "asOf": "2026-07-21",
+      "summary": "Der strukturierte Geschichtstext setzt die Entstehung des Freistaates auf den 1. Dezember 2023; eine eigenständige Gründungsurkunde ist im Hub noch nicht verknüpft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-geschichte",
+          "locator": "Gründung und Rechtsüberleitung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "timeline",
+        "state"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2023-12-01",
+      "eventType": "state-foundation",
+      "normRefs": []
+    },
+    {
+      "id": "event-constitution-origin",
+      "title": "Ursprungsfassung der Staatsverfassung tritt in Kraft",
+      "status": "confirmed-primary",
+      "validFrom": "2024-10-15",
+      "validTo": "2024-10-15",
+      "asOf": "2026-07-21",
+      "summary": "Die Ursprungsfassung der Verfassung wird verkündet und gilt ab 15. Oktober 2024.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-history",
+          "locator": "Eintrag 2024-10-15",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-constitution-meta",
+          "locator": "initialCitation",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2024-10-15",
+      "eventType": "constitutional-change",
+      "normRefs": [
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2024-10-15"
+        }
+      ]
+    },
+    {
+      "id": "event-constitution-2025",
+      "title": "Demokratiegebot in Artikel 114 neu gefasst",
+      "status": "confirmed-primary",
+      "validFrom": "2025-03-12",
+      "validTo": "2025-03-12",
+      "asOf": "2026-07-21",
+      "summary": "Die Verfassungsfassung vom 12. März 2025 berücksichtigt die Änderung vom 6. März 2025.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-history",
+          "locator": "Eintrag 2025-03-12",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2025-03-12",
+      "eventType": "constitutional-change",
+      "normRefs": [
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2025-03-12"
+        }
+      ]
+    },
+    {
+      "id": "event-honecker-i",
+      "title": "Kabinett Honecker I wird gebildet",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-20",
+      "validTo": "2025-12-20",
+      "asOf": "2026-07-21",
+      "summary": "Dr. Karl Honecker übernimmt die Regierungsführung; Koalition aus Volksfront und DEMOS Ost.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kabinett-honecker-i",
+          "locator": "formedOn, coalition, headOfGovernment",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-karl-honecker-i",
+          "locator": "Kurzbiografie",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-i",
+        "person-karl-honecker",
+        "party-volksfront",
+        "party-demos"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2025-12-20",
+      "eventType": "government-formation",
+      "normRefs": []
+    },
+    {
+      "id": "event-constitution-january-2026",
+      "title": "Verkündungsregeln der Verfassung geändert",
+      "status": "confirmed-primary",
+      "validFrom": "2026-01-28",
+      "validTo": "2026-01-28",
+      "asOf": "2026-07-21",
+      "summary": "Artikel 76 wird geändert; eine neue gespeicherte Verfassungsfassung beginnt am 28. Januar 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-history",
+          "locator": "Eintrag 2026-01-28",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-01-28",
+      "eventType": "constitutional-change",
+      "normRefs": [
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2026-01-28"
+        }
+      ]
+    },
+    {
+      "id": "event-poland-agreement",
+      "title": "Grenzraumabkommen mit Polen veröffentlicht",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-05",
+      "validTo": "2026-03-05",
+      "asOf": "2026-07-21",
+      "summary": "Das Abkommen ist als Rechtsquelle vorhanden; der Notifikationsaustausch und damit das Inkrafttreten sind nicht nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis abkommen-polen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Notifikationsnachweis",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-poland-notification",
+        "inst-sek-voelkerfreundschaft"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-05",
+      "eventType": "state-treaty",
+      "normRefs": []
+    },
+    {
+      "id": "event-ndr-treaty",
+      "title": "NDR-Neuordnung staatsvertraglich angelegt",
+      "status": "confirmed-official",
+      "validFrom": "2026-03-08",
+      "validTo": "2026-03-08",
+      "asOf": "2026-07-21",
+      "summary": "Der Rundfunkkomplex erhält eine staatsvertragliche Grundlage; der Ratifikationsaustausch bleibt offen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis ndr-staatsvertrag",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Ratifikationsnachweis",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "project-rundfunk",
+        "proceeding-ndr-ratification"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-08",
+      "eventType": "state-treaty",
+      "normRefs": []
+    },
+    {
+      "id": "event-budget",
+      "title": "Doppelhaushalt 2025/2026 wird wirksam",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-23",
+      "validTo": "2026-03-23",
+      "asOf": "2026-07-21",
+      "summary": "Das Haushaltsgesetz setzt den Finanzrahmen für die Haushaltsjahre 2025 und 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis haushaltsgesetz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-haushalt-2025-2026"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-23",
+      "eventType": "law-enacted",
+      "normRefs": []
+    },
+    {
+      "id": "event-culturepass",
+      "title": "Kulturpassgesetz tritt in Kraft",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-23",
+      "validTo": "2026-03-23",
+      "asOf": "2026-07-21",
+      "summary": "Der Ostdeutsche Kulturpass wird gesetzlich eingeführt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis kulturpassgesetz",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-kulturpass"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-23",
+      "eventType": "law-enacted",
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-kulturpassgesetz",
+          "versionId": null
+        }
+      ]
+    },
+    {
+      "id": "event-transparency",
+      "title": "Transparenz- und Lobbyregisterpaket abgeschlossen",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-23",
+      "validTo": "2026-03-23",
+      "asOf": "2026-07-21",
+      "summary": "Informationszugang, Transparenz und Beteiligtendokumentation werden rechtlich umgesetzt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis transparenzpaket",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-transparenz"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-23",
+      "eventType": "law-enacted",
+      "normRefs": []
+    },
+    {
+      "id": "event-hospital-fund",
+      "title": "Krankenhausfonds gesetzlich errichtet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-23",
+      "validTo": "2026-03-23",
+      "asOf": "2026-07-21",
+      "summary": "Ein Sondervermögen zur Sicherung und Rekommunalisierung von Krankenhäusern wird errichtet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-hospital-law",
+          "locator": "Metadaten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-krankenhausfonds"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-23",
+      "eventType": "institution-created",
+      "normRefs": []
+    },
+    {
+      "id": "event-housing-rules",
+      "title": "Wohnvergesellschaftung durch Vollzugsrecht konkretisiert",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "asOf": "2026-07-21",
+      "summary": "Durchführungs-, Übergangs- und Bewertungsregeln konkretisieren die Wohnungsvergesellschaftung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis wohnvollzug",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-housing-topic",
+          "locator": "gesamter Datensatz",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-wohnen"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-24",
+      "eventType": "regulation-issued",
+      "normRefs": []
+    },
+    {
+      "id": "event-coat-colour-amendment",
+      "title": "Landesfarbe Blau in Artikel 2 ergänzt",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "asOf": "2026-07-21",
+      "summary": "Die Verfassungsfassung vom 24. März 2026 berücksichtigt das Hoheitszeichengesetz; der fehlerhafte Zielanker ist redaktionell dokumentiert.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-history",
+          "locator": "Eintrag 2026-03-24",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Hoheitszeichenkonflikt",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "project-hoheitszeichen"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-24",
+      "eventType": "constitutional-change",
+      "normRefs": [
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2026-03-24"
+        }
+      ]
+    },
+    {
+      "id": "event-honecker-i-end",
+      "title": "Kabinett Honecker I endet",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": "2026-05-04",
+      "asOf": "2026-07-21",
+      "summary": "Die erste Aufbauphase endet und der historische Kabinettsdatensatz wird abgeschlossen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kabinett-honecker-i",
+          "locator": "endedOn",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-i"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-05-04",
+      "eventType": "government-formation",
+      "normRefs": []
+    },
+    {
+      "id": "event-honecker-ii",
+      "title": "Kabinett Honecker II nimmt die Arbeit auf",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-04",
+      "validTo": "2026-05-04",
+      "asOf": "2026-07-21",
+      "summary": "Die zweite von Dr. Karl Honecker geführte Staatsregierung beginnt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis kabinett-honecker-ii",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment.predecessor",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-kabinett-honecker-ii",
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-05-04",
+      "eventType": "government-formation",
+      "normRefs": []
+    },
+    {
+      "id": "event-cabinet-change-may",
+      "title": "Erste personelle Veränderungen im Kabinett Honecker II",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-19",
+      "validTo": "2026-05-19",
+      "asOf": "2026-07-21",
+      "summary": "Mia Wollrath scheidet aus; Thomas Henry Barlow übernimmt Staats- und Grenzsicherheit und zeitweise das Innenressort.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis kabinett-honecker-ii-erste-veraenderungen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-mia-history",
+          "locator": "Amtszeiten",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-barlow-history",
+          "locator": "Amtszeiten",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "person-mia-wollrath",
+        "person-thomas-henry-barlow",
+        "inst-kabinett-honecker-ii"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-05-19",
+      "eventType": "cabinet-reshuffle",
+      "normRefs": []
+    },
+    {
+      "id": "event-coalition-majority",
+      "title": "Koalition verfügt über elf von fünfzehn Sitzen",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-05",
+      "validTo": "2026-07-05",
+      "asOf": "2026-07-21",
+      "summary": "Die Portalquellen führen seit 5. Juli 2026 eine Koalitionsmehrheit von 11 der 15 Sitze.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment.coalitionSeats",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis koalitionsmehrheit-juli-2026",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "party-volksfront",
+        "party-demos",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-05",
+      "eventType": "coalition-change",
+      "normRefs": []
+    },
+    {
+      "id": "event-cabinet-change-july",
+      "title": "Kabinett Honecker II wird umgebildet",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-07",
+      "validTo": "2026-07-07",
+      "asOf": "2026-07-21",
+      "summary": "Volker Bagdadi wechselt ins Innen- und Wohnungsressort; Yannik Schmäle übernimmt Nachhaltigkeit und Energie.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis kabinett-honecker-ii-umbildung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-volker-current",
+          "locator": "formerOffices",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-yannik-current",
+          "locator": "formerOffices",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "person-volker-bagdadi",
+        "person-yannik-schmaele",
+        "inst-kabinett-honecker-ii"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-07",
+      "eventType": "cabinet-reshuffle",
+      "normRefs": []
+    },
+    {
+      "id": "event-third-plenary",
+      "title": "Zwölf Gesetze werden verkündet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-20",
+      "validTo": "2026-07-20",
+      "asOf": "2026-07-21",
+      "summary": "Die Ausgaben 46 bis 57 belegen zwölf verkündete Vorhaben; einzelne Abstimmungsergebnisse sind nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis dritte-plenarsitzung-gesetzespaket",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "parlamentarische Einzelergebnisse",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "proceeding-third-plenary-evidence"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-20",
+      "eventType": "parliamentary-event",
+      "normRefs": []
+    },
+    {
+      "id": "event-barlow-dismissal",
+      "title": "Thomas Henry Barlow scheidet aus der Staatsorganisation aus",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-20",
+      "validTo": "2026-07-20",
+      "asOf": "2026-07-21",
+      "summary": "Thomas Henry Barlow wird entlassen und gehört dem ersten Staatsrat nicht an.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-barlow-history",
+          "locator": "servingTo und Kurzbiografie",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-agents",
+          "locator": "Personalhinweis",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "person-thomas-henry-barlow",
+        "inst-kabinett-honecker-ii"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-20",
+      "eventType": "resignation",
+      "normRefs": []
+    },
+    {
+      "id": "event-staatsreform-enacted",
+      "title": "Vier Gesetze zur Großen Staatsreform werden verkündet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-20",
+      "validTo": "2026-07-20",
+      "asOf": "2026-07-21",
+      "summary": "Die vier Reformgesetze werden in OGVBl. 2026 Nr. 53 bis 56 verkündet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-53",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-54",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-55",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-56",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-staatsreform",
+        "proceeding-staatsreform"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-20",
+      "eventType": "constitutional-change",
+      "normRefs": []
+    },
+    {
+      "id": "event-first-state-council",
+      "title": "Erster Staatsrat nimmt die Arbeit auf",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": "2026-07-21",
+      "asOf": "2026-07-21",
+      "summary": "Staatsregierung und Landtag werden nach den Übergangsvorschriften als Staatsrat und Volkskammer fortgeführt; Dr. Karl Honecker wird erster Staatspräsident.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Artikel 121a",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-agents",
+          "locator": "Inhalt und Redaktion",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer",
+        "inst-staatspraesident",
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-21",
+      "eventType": "institution-renamed",
+      "normRefs": []
+    },
+    {
+      "id": "event-sero",
+      "title": "SERO-Verordnung tritt in Kraft",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": "2026-07-21",
+      "asOf": "2026-07-21",
+      "summary": "Der Staatsrat erlässt die SERO-Verordnung als selbstständige Rechtsverordnung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sero",
+          "locator": "effectiveDate",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis sero-verordnung",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-sero",
+        "inst-sek-nachhaltigkeit-energie"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-21",
+      "eventType": "regulation-issued",
+      "normRefs": [
+        {
+          "normSlug": "sero-verordnung",
+          "versionId": "2026-07-21"
+        }
+      ]
+    },
+    {
+      "id": "event-major-july-projects",
+      "title": "Verkehrs-, Energie-, Grenzpolizei- und Boom-Europe-Gesetze treten in Kraft",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": "2026-07-21",
+      "asOf": "2026-07-21",
+      "summary": "Mehrere große Projektkomplexe erreichen den verkündeten Rechtsstand.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-energy-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-grenzpolizei-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-implementation",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-eisenbahn-verkehr",
+        "project-energie-waerme",
+        "project-grenzpolizei",
+        "project-boom-europe"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-21",
+      "eventType": "law-enacted",
+      "normRefs": []
+    },
+    {
+      "id": "event-future-territorial-reform",
+      "title": "Neue Kreis- und Bezirksstruktur wird wirksam",
+      "status": "planned",
+      "validFrom": "2026-08-01",
+      "validTo": "2026-08-01",
+      "asOf": "2026-07-21",
+      "summary": "Vierzehn Bezirke und die neue Kreisstruktur sollen nach der verkündeten Inkrafttretensregelung wirksam werden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.wirksamAb",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-kreisreform",
+        "proceeding-kreisreform-transition"
+      ],
+      "tags": [
+        "timeline",
+        "future"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-08-01",
+      "eventType": "territorial-reform",
+      "normRefs": []
+    }
+  ]
+}

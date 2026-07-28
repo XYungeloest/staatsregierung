@@ -1,0 +1,1032 @@
+{
+  "asOf": "2026-07-21",
+  "projects": [
+    {
+      "id": "project-staatsreform",
+      "title": "Große Staatsreform",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Vier Verfassungsänderungsgesetze ordneten Staatswesen, Finanzverfassung, Staatsziele, Bildungswesen und Religionsverfassung zum 21. Juli 2026 neu.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-history",
+          "locator": "Einträge 2026-07-21",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-53",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-54",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-55",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-56",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "project",
+        "constitution"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-staatsrat",
+        "inst-volkskammer"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "erstes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "zweites-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "drittes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "viertes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-07-20",
+          "title": "Verkündung der vier Reformgesetze"
+        },
+        {
+          "date": "2026-07-21",
+          "title": "Inkrafttreten und institutioneller Übergang"
+        }
+      ],
+      "nextSteps": [
+        "Nachgeordnetes Recht und besondere Gesetze anpassen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-kreisreform",
+      "title": "Kreis- und Bezirksneuordnung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Die am 20. Juli 2026 verkündete Neuordnung ersetzt zum 1. August 2026 die acht bisherigen durch vierzehn Bezirke und ordnet die Kreisstruktur neu.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Inkrafttreten und Gebietszuordnung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "project",
+        "territory"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "enacted-future-effective",
+      "responsibleInstitutionIds": [
+        "inst-volkskammer"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "kreis-und-bezirksneuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsche-bezirksordnung",
+          "versionId": "2026-08-01"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-07-20",
+          "title": "Verkündung"
+        },
+        {
+          "date": "2026-08-01",
+          "title": "Wirksamwerden der neuen Gebietsstruktur"
+        }
+      ],
+      "nextSteps": [
+        "Übergangsorgane und Rechtsnachfolge umsetzen"
+      ],
+      "dependencies": [
+        "proceeding-kreisreform-transition"
+      ],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-sero",
+      "title": "SERO-System",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Selbstständige Rechtsverordnung zur Sekundärrohstoff-Erfassung und landeseigenen Kreislaufwirtschaftsinfrastruktur.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sero",
+          "locator": "Metadaten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-58",
+          "locator": "Verkündung",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-nachhaltigkeit-energie",
+        "question-ogvbl-58-number"
+      ],
+      "tags": [
+        "project",
+        "regulation",
+        "circular-economy"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-nachhaltigkeit-energie"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "sero-verordnung",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-07-21",
+          "title": "Inkrafttreten"
+        }
+      ],
+      "nextSteps": [
+        "Vollzug und Infrastrukturaufbau dokumentieren"
+      ],
+      "dependencies": [],
+      "openQuestionIds": [
+        "question-ogvbl-58-number"
+      ]
+    },
+    {
+      "id": "project-eisenbahn-verkehr",
+      "title": "Ostdeutsche Eisenbahn und Verkehrsvergesellschaftung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gesetzespaket zur Neuordnung der Ostdeutschen Eisenbahn und zur öffentlichen Sicherung von Verkehrsleistungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eisenbahn-procedure",
+          "locator": "Verfahrensdatensatz",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-mobilitaet-regionen"
+      ],
+      "tags": [
+        "project",
+        "transport",
+        "public-economy"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-mobilitaet-regionen"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsches-eisenbahngesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "verkehrsbindungsgesetz",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-07-21",
+          "title": "Gesetzespaket tritt in Kraft"
+        }
+      ],
+      "nextSteps": [
+        "Umsetzungsstand der errichteten Träger und Beteiligungsmaßnahmen ergänzen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-ovv-ticket",
+      "title": "Ostdeutscher Verkehrsverbund und 29-Euro-Ticket",
+      "status": "editorially-confirmed",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Politischer Mobilitätskomplex aus Verkehrsverbund, öffentlicher Mobilität und sozialem Tarif. Der Hub enthält noch keine vollständig verknüpfte Normenkette zum 29-Euro-Ticket.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-action-plan",
+          "locator": "mobilitaet-und-digitale-teilhabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 17",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-mobilitaet-regionen",
+        "question-ovv-ticket-chain"
+      ],
+      "tags": [
+        "project",
+        "transport",
+        "fare"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "partly-implemented",
+      "responsibleInstitutionIds": [
+        "inst-sek-mobilitaet-regionen"
+      ],
+      "normRefs": [],
+      "milestones": [],
+      "nextSteps": [
+        "Normen, Tarifbeschlüsse und Umsetzungsdaten eindeutig zuordnen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": [
+        "question-ovv-ticket-chain"
+      ]
+    },
+    {
+      "id": "project-energie-waerme",
+      "title": "Energie- und Wärmevergesellschaftung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gesetzespaket zu öffentlichen Energie- und Wärmeinfrastrukturen, Finanzierung und Landesenergiewerken.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-energy-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-energy-procedure",
+          "locator": "Verfahrensdatensatz",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-nachhaltigkeit-energie"
+      ],
+      "tags": [
+        "project",
+        "energy",
+        "public-economy"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-nachhaltigkeit-energie"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "energie-und-waermevergesellschaftungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "landesenergiewerke-gesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "energie-und-waermefinanzierungsgesetz",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-07-21",
+          "title": "Gesetzespaket tritt in Kraft"
+        }
+      ],
+      "nextSteps": [
+        "Praktische Übernahmen, Finanzierung und Sozialtarife als Meilensteine erfassen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-wohnen",
+      "title": "Wohnungsvergesellschaftung und Gemeingut Wohnen",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Rechtskomplex aus Vergesellschaftung, öffentlichem Wohnträger, Durchführung und Schuldverschreibungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-housing-law",
+          "locator": "Metadaten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-housing-topic",
+          "locator": "gesamter Datensatz",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-inneres-wohnen"
+      ],
+      "tags": [
+        "project",
+        "housing",
+        "public-economy"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-implementation",
+      "responsibleInstitutionIds": [
+        "inst-sek-inneres-wohnen"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "wohnvergesellschaftungsgesetz",
+          "versionId": null
+        },
+        {
+          "normSlug": "gemeingut-wohnen-gesetz",
+          "versionId": "2026-03-23"
+        },
+        {
+          "normSlug": "wohnvergesellschaftungs-durchfuhrungsverordnung",
+          "versionId": "2026-03-24"
+        },
+        {
+          "normSlug": "wohnvergesellschaftungs-schuldverschreibungsverordnung",
+          "versionId": "2026-03-24"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-03-23",
+          "title": "Kernnormen verkündet"
+        },
+        {
+          "date": "2026-03-24",
+          "title": "Durchführungs- und Übergangsrecht"
+        }
+      ],
+      "nextSteps": [
+        "Vollzugsfälle und Übertragungsstände erfassen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-boden-volksacker",
+      "title": "Volksacker, Flächenfonds und Bodenfonds Ost",
+      "status": "planned",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Koalitionsvorhaben zur Sicherung von Boden und gemeinwohlorientierter Flächennutzung. Eine abgeschlossene, strukturierte Normenkette ist im Audit nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-action-plan",
+          "locator": "zweite-wohn-und-bodenoffensive",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 17",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-inneres-wohnen",
+        "inst-sek-land-forst-kueste",
+        "question-boden-project-status"
+      ],
+      "tags": [
+        "project",
+        "land",
+        "planned"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "coalition-project",
+      "responsibleInstitutionIds": [
+        "inst-sek-inneres-wohnen",
+        "inst-sek-land-forst-kueste"
+      ],
+      "normRefs": [],
+      "milestones": [],
+      "nextSteps": [
+        "Primärquellen und konkrete Projektstände ergänzen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": [
+        "question-boden-project-status"
+      ]
+    },
+    {
+      "id": "project-krankenhausfonds",
+      "title": "Krankenhaussicherung und Rekommunalisierung",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Sondervermögen zur Sicherung wohnortnaher Krankenhausversorgung und zur Rekommunalisierung gefährdeter Standorte.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-hospital-law",
+          "locator": "Metadaten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-action-plan",
+          "locator": "gesundheit-und-pflege",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-gesundheit-soziales"
+      ],
+      "tags": [
+        "project",
+        "health",
+        "fund"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-implementation",
+      "responsibleInstitutionIds": [
+        "inst-sek-gesundheit-soziales"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
+          "versionId": null
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-03-23",
+          "title": "Fonds gesetzlich errichtet"
+        }
+      ],
+      "nextSteps": [
+        "Bewilligungen, Fondsvolumen und Rekommunalisierungen datiert erfassen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-grenzpolizei",
+      "title": "Kasernierte Grenzpolizei",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gesetzlich errichtete Grenzpolizei. Die praktische Zusammenarbeit mit Bund und Bundespolizei ist als gesondertes Verfahren offen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-grenzpolizei-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-grenzpolizei-procedure",
+          "locator": "Verfahrensdatensatz",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-staats-grenzsicherheit",
+        "inst-grenzpolizei",
+        "question-grenzpolizei-agreement"
+      ],
+      "tags": [
+        "project",
+        "security",
+        "agency"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-implementation",
+      "responsibleInstitutionIds": [
+        "inst-sek-staats-grenzsicherheit",
+        "inst-grenzpolizei"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "kasernierte-grenzpolizei-gesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "kasernierte-grenzpolizei-errichtungsgesetz",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-07-21",
+          "title": "Errichtungs- und Fachgesetz treten in Kraft"
+        }
+      ],
+      "nextSteps": [
+        "Aufbauorganisation und Bund-Länder-Vereinbarung klären"
+      ],
+      "dependencies": [
+        "proceeding-grenzpolizei-bund"
+      ],
+      "openQuestionIds": [
+        "question-grenzpolizei-agreement"
+      ]
+    },
+    {
+      "id": "project-schulreform",
+      "title": "Schulneuordnung mit POS und EOS",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Neuordnung des Schulsystems mit Polytechnischer Oberschule, Erweiterter Oberschule und flankierendem Schulrecht.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-action-plan",
+          "locator": "bildungsreform-und-wissenschaft",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsreform",
+          "locator": "Bildung und Religionsverfassung",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-volksbildung-wissenschaft"
+      ],
+      "tags": [
+        "project",
+        "education"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-implementation",
+      "responsibleInstitutionIds": [
+        "inst-sek-volksbildung-wissenschaft"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
+          "versionId": null
+        }
+      ],
+      "milestones": [],
+      "nextSteps": [
+        "Nachgeordnete Verordnungen und tatsächliche Umstellung der Schulen zeitlich erfassen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-rundfunk",
+      "title": "Ostdeutscher Rundfunk und NDR-Überleitung",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung; der Ratifikationsaustausch des NDR-Vertrags ist nicht nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-broadcast-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "NDR-Ratifikationsnachweis",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-rechtsstaat-kultur",
+        "question-ndr-ratification"
+      ],
+      "tags": [
+        "project",
+        "media"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-implementation",
+      "responsibleInstitutionIds": [
+        "inst-sek-rechtsstaat-kultur"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-fernsehfunkgesetz",
+          "versionId": "2026-03-23"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-03-23",
+          "title": "Ostdeutsches Fernsehfunkgesetz verkündet"
+        }
+      ],
+      "nextSteps": [
+        "Ratifikationsurkunden des NDR-Vertrags nachweisen"
+      ],
+      "dependencies": [
+        "proceeding-ndr-ratification"
+      ],
+      "openQuestionIds": [
+        "question-ndr-ratification"
+      ]
+    },
+    {
+      "id": "project-kulturpass",
+      "title": "Ostdeutscher Kulturpass",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gesetzlich geregelter Kulturpass für junge Erwachsene.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis kulturpassgesetz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-action-plan",
+          "locator": "kultur-erinnerung-medien",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-rechtsstaat-kultur"
+      ],
+      "tags": [
+        "project",
+        "culture"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-rechtsstaat-kultur"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-kulturpassgesetz",
+          "versionId": null
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-03-23",
+          "title": "Kulturpassgesetz tritt in Kraft"
+        }
+      ],
+      "nextSteps": [
+        "Ausgabe- und Nutzungszahlen nur mit datierter Quelle ergänzen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-boom-europe",
+      "title": "Boom Europe Leipzig/Halle",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit Standortgesetz, Sondervermögen und Umsetzungsgesetz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-boom-procedure",
+          "locator": "Verfahrensdatensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-implementation",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-site-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-fund",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-finanzen",
+        "question-boom-agreement-details"
+      ],
+      "tags": [
+        "project",
+        "industry",
+        "fund"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-implementation",
+      "responsibleInstitutionIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-finanzen"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "boom-europe-umsetzungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-07-21",
+          "title": "Gesetzespaket tritt in Kraft"
+        }
+      ],
+      "nextSteps": [
+        "Projektorganisation, Vertrag, Finanzierung und Laufzeit anhand der Vollquellen erschließen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": [
+        "question-boom-agreement-details"
+      ]
+    },
+    {
+      "id": "project-transparenz",
+      "title": "Transparenz- und Informationsfreiheit",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Reformpaket zu Informationszugang, Transparenz und Lobbyregister.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis transparenzpaket",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-rechtsstaat-kultur"
+      ],
+      "tags": [
+        "project",
+        "transparency"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-rechtsstaat-kultur"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-transparenzund-informationsfreiheitsgesetz",
+          "versionId": null
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-03-23",
+          "title": "Transparenzpaket abgeschlossen"
+        }
+      ],
+      "nextSteps": [
+        "Vollzug und Portalumsetzung getrennt dokumentieren"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-haushalt-2025-2026",
+      "title": "Doppelhaushalt 2025/2026",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Verbindlicher Finanzrahmen für die Haushaltsjahre 2025 und 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis haushaltsgesetz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-readme",
+          "locator": "Abschnitt Haushaltsbereich",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-finanzen"
+      ],
+      "tags": [
+        "project",
+        "budget"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": [
+        "inst-sek-finanzen"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2",
+          "versionId": null
+        }
+      ],
+      "milestones": [
+        {
+          "date": "2026-03-23",
+          "title": "Haushaltsgesetz wird wirksam"
+        }
+      ],
+      "nextSteps": [
+        "Kennzahlen nur aus der zentralen Haushaltsdatenbasis mit Bezugsjahr übernehmen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-hoheitszeichen",
+      "title": "Hoheitszeichenreform",
+      "status": "disputed",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Artikel 2 der Verfassung verweist auf ein besonderes Gesetz. Gesetzesstand, Anlagen und die Frage eines einzigen Kleinen Staatswappens sind noch nicht vollständig widerspruchsfrei modelliert.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Artikel 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "bekannte Widersprüche",
+          "role": "context"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 16",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "question-hoheitszeichen-current-law"
+      ],
+      "tags": [
+        "project",
+        "symbols",
+        "conflict"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "in-implementation",
+      "responsibleInstitutionIds": [
+        "inst-staatsrat"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes",
+          "versionId": null
+        }
+      ],
+      "milestones": [],
+      "nextSteps": [
+        "Besonderes Gesetz, Verordnungsermächtigung, Anlagen und Wappenbeschreibung konsolidiert nachweisen"
+      ],
+      "dependencies": [],
+      "openQuestionIds": [
+        "question-hoheitszeichen-current-law"
+      ]
+    },
+    {
+      "id": "project-feiertage",
+      "title": "Neue Feiertage",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gesprächskandidat zu mehreren neuen Feiertagen. Im Wissensaudit wurde noch keine belastbare strukturierte Projekt- oder Normzuordnung hergestellt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 17",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "question-feiertage"
+      ],
+      "tags": [
+        "project",
+        "calendar",
+        "candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "candidate",
+      "responsibleInstitutionIds": [
+        "inst-staatsrat"
+      ],
+      "normRefs": [],
+      "milestones": [],
+      "nextSteps": [
+        "Primärquellen und genaue Wirksamkeitsdaten recherchieren"
+      ],
+      "dependencies": [],
+      "openQuestionIds": [
+        "question-feiertage"
+      ]
+    }
+  ]
+}

@@ -21,10 +21,27 @@ Primäre Projektdokumentation ist jetzt:
 - `AGENTS.md`
 - `CONTENT.md`
 - `DESIGN.md`
+- `knowledge/README.md` für den internen Wissenshub
 - der tatsächliche Code- und Content-Zustand
 - `context/` als erhaltenes Ausgangs- und Simulationsmaterial
 
 Alte Root-Spezifikationen und Zwischenpläne sind nicht mehr kanonisch.
+
+## Interner Wissenshub
+
+`knowledge/` erschließt den politischen, institutionellen und zeitlichen Zusammenhang der vorhandenen Quellen. Der Hub ist interne Repositorydokumentation und darf nicht über Astro-Routen öffentlich ausgeliefert werden. Er ersetzt weder `content/` noch `Gesetze/` oder das Rechtsportal.
+
+Bestätigte Wissenseinträge benötigen konkrete Quellenreferenzen und, soweit bekannt, Gültigkeitszeiträume. Gesprächswissen bleibt bis zur Prüfung ausschließlich in `knowledge/conversation-candidates.json`. Alte Wiki- und Kontextdateien dürfen nicht ungeprüft als aktueller Stand übernommen werden. Als externe Wikiquelle ist ausschließlich `https://politiksim.miraheze.org/wiki/` zulässig.
+
+Nach Änderungen am Wissenshub ausführen:
+
+```sh
+npm run knowledge:check
+npm run knowledge:build
+npm run knowledge:check
+```
+
+Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 
 ## Arbeitsweise
 
@@ -48,6 +65,8 @@ Wichtige Befehle:
 
 ```sh
 npm run content:check
+npm run knowledge:check
+npm run knowledge:build
 npm run check
 npm run build
 npm run links:check
@@ -140,4 +159,4 @@ Normfassungen. Norm-JSONs bleiben dadurch unabhängig von später gepflegten Amt
 
 ## Bei Unsicherheit
 
-Den vorhandenen Code, `README.md`, `AGENTS.md` und `context/` heranziehen. Wenn mehrere Wege möglich sind, die einfache, robuste und am wenigsten invasive Lösung wählen.
+Den vorhandenen Code, `README.md`, `AGENTS.md`, `knowledge/` und `context/` heranziehen. Wenn mehrere Wege möglich sind, die einfache, robuste und am wenigsten invasive Lösung wählen.

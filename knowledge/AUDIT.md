@@ -1,0 +1,173 @@
+# Wissensaudit zur Politiksimulation und zum Freistaat Ostdeutschland
+
+**Repositorystand:** `9aa406f7baebdd264d3ed824be65b43413a9dd9a`  
+**Redaktioneller Stichtag:** 21. Juli 2026  
+**Auditstand:** 28. Juli 2026
+
+## Methode und Grenzen
+
+Geprüft wurden insbesondere `README.md`, `AGENTS.md`, `CONTENT.md`, `CONTENT_GAPS.md`, die zentralen Konfigurationen, strukturierte Freistaats-, Regierungs-, Themen-, Gesetzgebungs-, Norm- und Verkündungsdaten, Dashboarddaten, das Konsolidierungsmanifest, der Konsolidierungsbericht, Kreisreformdaten sowie ausgewählte historische Dateien unter `context/`.
+
+Der öffentliche Produktionsstand wurde nicht als automatisch kanonisch behandelt. Maßgeblich ist der auditierten Repositorystand. Das PolitikSim-Wiki auf Miraheze wurde als zulässige ergänzende Sekundärquelle registriert. Der automatisierte Abruf war am Auditdatum teilweise durch HTTP 403 blockiert, deshalb wurden daraus keine alleinstehenden Tatsachen übernommen. Andere Wikihoster wurden nicht verwendet.
+
+## Quellen- und Abdeckungsmatrix
+
+| Bereich | Vorhandene Quellen | Bereits strukturiert | Nur Fließtext oder Altquelle | Gesprächswissen vorhanden | Konflikte | Fehlende Informationen | Empfehlung |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
+| A. Staat und Verfassungsordnung | Verfassungsfassungen, Normhistorie, Staatsaufbau, Große Staatsreform | hoch | mittel | hoch | mittel | mittel | Verfassungsereignisse, Organaliase und Übergänge dauerhaft über IDs verknüpfen |
+| B. Regierung und Verwaltung | Zentrale Konfiguration, aktuelle und historische Profile, Ressorts, Organisationserlasse | hoch für 2025/2026 | mittel | hoch | mittel | hoch vor Dezember 2025 | Rollenchronologie statt aktueller Dateipfade als Wahrheit verwenden |
+| C. Personen | Aktuelle Profile, Kabinettsarchiv, alte Wiki-Snapshots | mittel | hoch | hoch | mittel | hoch bei Bundes- und Parteifunktionen | Nur belegte Amtsintervalle übernehmen, übrige Namen als Kandidaten führen |
+| D. Parteien, Fraktionen und Mehrheiten | Koalitionskonfiguration, Profile, Kabinettsdaten | mittel | mittel | hoch | hoch | mittel | DEMOS-Namenschronologie und Fraktionswechsel mit Primärakten klären |
+| E. Gesetzgebung und Rechtsordnung | Normen, Verkündungen, Gesetzgebungsverfahren, Konsolidierungsmanifest | sehr hoch | mittel | hoch | hoch | 34 Ausgangssnapshots | Rechtsdetail weiterhin im Rechtsportal belassen, Hub als Beziehungs- und Verfahrensindex nutzen |
+| F. Politische Vorhaben und Staatsprojekte | Themen, Aktionsplan, Normkomplexe, Presse und Verfahren | mittel bis hoch | hoch | sehr hoch | mittel | mittel | Projektverbünde mit Status, Normen, Institutionen, Finanzierung und Meilensteinen modellieren |
+| G. Parlamentarische Geschichte | Gesetzgebungsverfahren, Tagesordnungen, Verkündungen | mittel | hoch | hoch | gering | hoch | Plenarprotokolle, Abstimmungen und frühere Wahlperioden beschaffen |
+| H. Gerichtsverfahren und Verfassungskonflikte | einzelne Normen und Gesprächshinweise | gering | mittel | sehr hoch | unbekannt | sehr hoch | Keine Verfahren ohne Aktenzeichen und Primärdokument in den bestätigten Bestand übernehmen |
+| I. Bund, Länder und internationale Beziehungen | Staatsverträge, Themen, CONTENT_GAPS | mittel | hoch | sehr hoch | mittel | hoch | Ratifikation, Notifikation, Bundesrollen und Bund-Länder-Vereinbarungen getrennt erfassen |
+| J. Gebiet, Bezirke und Kommunalstruktur | Bezirksseite, Gesetz, Verfahrensdaten, GeoJSON-Manifest | sehr hoch | mittel | hoch | gering | mittel | Acht aktuelle und vierzehn künftige Bezirke mit Gültigkeitsintervallen führen |
+| K. Haushalt und öffentliche Unternehmen | Haushaltslogik, CSV/ZIP, Normen, Fonds- und Unternehmensgesetze | mittel | mittel | hoch | gering | mittel | Zahlen nur mit Bezugsjahr und Datenquelle übernehmen, Institutionen projektbezogen verknüpfen |
+| L. Politische Kommunikation und Positionen | Pressemitteilungen, Reden, Timeline, Themen | hoch | hoch | sehr hoch | gering | mittel | Tatsachen, Ankündigungen und politische Begründungen getrennt modellieren |
+| M. Website, Rechtsportal und Simulationskonventionen | README, AGENTS, CONTENT, DESIGN, Code, Tests | sehr hoch | mittel | hoch | gering | gering | Wissenshub intern halten und Validierung in den Qualitätslauf integrieren |
+
+## Bereits zuverlässig über `content/` abrufbar
+
+Zuverlässig strukturiert sind insbesondere:
+
+1. aktuelle und historische Regierungsprofile ab dem Kabinett Honecker I,
+2. der erste Staatsrat und seine aktuellen Geschäftsbereiche,
+3. Freistaatsseiten zu Staatsaufbau, Geschichte, Bezirken und Großer Staatsreform,
+4. Themenseiten mit Ressort- und Normverweisen,
+5. Gesetzgebungsverfahren,
+6. Normmetadaten, vollständige gespeicherte Fassungen und Normhistorien,
+7. Verkündungen mit `normSlug` und `versionId`,
+8. Pressemitteilungen, Reden und Termine,
+9. Haushalts- und Serviceinhalte.
+
+Diese Inhalte werden im Wissenshub nicht vollständig kopiert. Gespeichert werden Beziehungen, Gültigkeitszeiträume, Status, Konflikte und stabile Verweise.
+
+## Informationen, die vor allem in `Gesetze/` vorkommen
+
+`Gesetze/` enthält die strukturtragenden HTML-Transkriptionen der Verkündungsblätter und Einzelnormen sowie PDF- und DOCX-Prüfquellen. Dort liegen insbesondere genaue Gesetzeswortlaute, Anlagen, Tabellen, Schlussvorschriften und historische Ursprungsfassungen.
+
+Nach den Repositoryregeln sind HTML-Dateien die regulären Importquellen. Markdown bleibt Altbestand, soweit eine entsprechende HTML-Quelle existiert. Der Wissenshub verweist auf Norm- und Verkündungsdatensätze und kopiert diese Volltexte nicht.
+
+## Informationen, die nur in `context/` oder alten Wiki-Texten vorkommen
+
+Vor allem ältere Regierungslisten, biografische Erzählungen, Entwürfe, politische Planungen, Reden, Standortvereinbarungen und historische Wikiartikel liegen unter `context/`. Diese Quellen sind wichtig für die Suche, aber nicht automatisch aktuell oder kanonisch.
+
+Besonders prüfbedürftig sind:
+
+* frühere Regierungen vor Dezember 2025,
+* Staatskrise und Regierungswechsel 2025,
+* Bundesrats- und Bundespräsidentenrollen,
+* Parteiämter und Parteiwechsel,
+* konkrete Gerichtsverfahren,
+* nicht abgeschlossene Verträge und Verwaltungsvereinbarungen,
+* Projektorganisationen, die nur in Entwürfen beschrieben werden.
+
+## Mehrfach oder widersprüchlich gespeicherte Angaben
+
+1. Die Koalitionspartei DEMOS erscheint als „DEMOS an der Elbe“, „Bündnis Demokratie Europa (DEMOS)“ und historisch „DEMOS Ost“.
+2. Die Ursprungsbezeichnung der Verfassung und spätere strukturtragende Arbeitsfassungen weichen in Titel und Artikel 114 voneinander ab.
+3. Das Hoheitszeichengesetz verwendet einen fehlerhaften Zielanker.
+4. Die Kontroll-PDF zur SERO-Verordnung zeigt Nr. 57, während HTML und Datensatz Nr. 58 führen.
+5. Organisationserlasse 09/2025 und 12/2025 besitzen kein vollständig belegtes Außerkrafttretensdatum.
+6. Verschiedene historische und aktuelle Regierungsdateien verwenden alte und neue Amtsbezeichnungen ohne gemeinsame Rollenchronologie.
+7. Der öffentliche Produktionsstand kann hinter dem Repositorystand zurückliegen und ist deshalb kein Ersatz für den redaktionellen Stichtag.
+
+## Wahrscheinlich veraltete Angaben
+
+Wahrscheinlich veraltet sind alte Wiki- und `context/`-Angaben zu Regierung, Ressorts, Parlament, Bezirken und Verfassungsorganen, sofern sie keinen Gültigkeitszeitraum besitzen. Auch öffentliche Texte zum Kabinett Honecker II sind nach dem 21. Juli 2026 nur noch historisch richtig.
+
+Planungsdokumente zu Transparenzportal, Zuständigkeitsfinder, Haushaltsnavigator oder weiteren Portalfunktionen sind nur dann als umgesetzt zu behandeln, wenn Route, Inhalt und Funktion im aktuellen Code vorhanden sind.
+
+## Wichtige bisher nicht ausreichend strukturierte historische Ereignisse
+
+* Gründung und früheste Regierungsbildungen des Freistaates,
+* Wahlen und Wahlperioden vor der siebten Wahlperiode,
+* Staatskrise 2025,
+* Rücktritt von Tom Kurzschluss,
+* Misstrauensvoten und Regierungswechsel,
+* vollständige Chronologie der Verfassungsänderungen als politische Ereignisse,
+* Partei- und Fraktionswechsel,
+* Bundesratspräsidentschaft und mögliche Vertretung der Bundespräsidentin,
+* Gerichtsverfahren und Organstreitigkeiten.
+
+## Gesprächsinformationen mit zusätzlichem Prüfbedarf
+
+Die nicht hinreichend belegten Gesprächsinformationen stehen ausschließlich in `conversation-candidates.json`. Dazu gehören Bundesrollen, Gerichtsverfahren, die Staatskrise 2025, mehrere Personenrollen, Feiertage, OVV und 29-Euro-Ticket, Bodenprojekte, die Grenzpolizeivereinbarung sowie konkrete Details von Boom Europe Leipzig/Halle.
+
+## Nicht zu übernehmende Inhalte
+
+Nicht in den bestätigten Wissensbestand gehören:
+
+1. Normvolltexte und vollständige öffentliche Seiten,
+2. ungeprüfte Gesprächserinnerungen,
+3. bloße Sitzungstermine als Beleg eines Beschlusses,
+4. politische Ankündigungen als Beleg praktischer Umsetzung,
+5. nicht ratifizierte oder nicht notifizierte Verträge als wirksames Recht,
+6. Schätzungen unbekannter Amts- oder Inkrafttretensdaten,
+7. aktuelle Angaben aus alten Wiki- oder Kontextdateien ohne Zeitbezug,
+8. Inhalte anderer Wikihoster als Miraheze,
+9. genaue Abstimmungszahlen ohne Protokoll oder Abstimmungsnachweis.
+
+## Künftig kanonische Quellen
+
+Kanonisch für den jeweiligen Zweck sind:
+
+* `src/config/editorial.json` für den redaktionellen Stichtag,
+* `content/normen/` und `content/verkuendungen/` für strukturierte Rechtsstände,
+* `Gesetze/*.html` als reguläre strukturtragende Importquellen,
+* `data/recht/consolidation-manifest.json` für den Konsolidierungsstand,
+* aktuelle strukturierte Personen- und Ressortdateien für den redaktionell bestätigten Regierungsstand,
+* datierte Ernennungs-, Entlassungs-, Vertrags-, Gerichts- und Parlamentsdokumente für politische Realität,
+* `knowledge/` als interner Beziehungs-, Zeit- und Konfliktindex.
+
+## Nur historisch zu behandelnde Quellen
+
+* `context/` ohne ausdrückliche aktuelle Bestätigung,
+* alte Wiki-Texte,
+* archivierte Kabinetts- und Ressortdateien,
+* alte Organisationserlasse,
+* Markdown-Altbestand bei vorhandener HTML-Quelle,
+* frühere Produktionsstände der Website.
+
+## Klassifikation der 30 Gesprächshinweise
+
+| Nr. | Ergebnis | Begründung |
+| ---: | --- | --- |
+| 1 | bereits weitgehend vorhanden | Gründungsdatum und sächsische Ausgangsordnung stehen in Geschichte und Repositoryregeln; eigenständige Gründungsurkunde fehlt |
+| 2 | bereits vorhanden | Dresden und Berliner Sonderstellung sind strukturiert |
+| 3 | vollständig mit Zeitlogik vorhanden | acht Bezirke gelten am Stichtag, vierzehn ab 1. August 2026 |
+| 4 | vollständig vorhanden | Übergänge Landtag, Staatsregierung und Ministerien sind in Verfassung und Staatsreform belegt |
+| 5 | vollständig vorhanden | erster Staatsrat seit 21. Juli 2026 |
+| 6 | vollständig vorhanden | selbstständige Rechtsverordnungen und SERO-Verordnung sind belegt |
+| 7 | vollständig vorhanden | sechs gespeicherte Verfassungsfassungen und alle vier Reformgesetze sind verknüpft |
+| 8 | vollständig vorhanden | Regierungsführung seit 20. Dezember 2025, Staatspräsident seit 21. Juli 2026 |
+| 9 | teilweise vorhanden | Regierungsbiografie vorhanden, Parteiwechsel und Parteifunktionen fehlen |
+| 10 | vollständig vorhanden | Volksfront und DEMOS tragen den Staatsrat |
+| 11 | teilweise vorhanden | 11 von 15 Sitzen seit 5. Juli 2026 belegt, einzelne Wechsel nicht |
+| 12 | teilweise vorhanden | viele aktuelle und historische Profile vorhanden, mehrere Namen ungeklärt |
+| 13 | vollständig vorhanden | Barlow, Schmäle und Lehrmann-Hinweis stehen in AGENTS und Profilen |
+| 14 | nicht ausreichend vorhanden | Staatskrise 2025 fehlt als belastbare Timeline |
+| 15 | weitgehend vorhanden | Reformkomplexe sind in Verfassung, Reformseite und Normen abgebildet |
+| 16 | widersprüchlich oder unvollständig | Artikel 2, besonderes Gesetz und spätere Wappenentscheidung benötigen Klärung |
+| 17 | überwiegend vorhanden | viele Gesetzeskomplexe sind strukturiert, Boden, Feiertage und Tarifverbund benötigen Nacharbeit |
+| 18 | teilweise vorhanden | drei Boom-Europe-Gesetze und Verfahren belegt, Detailorganisation noch zu extrahieren |
+| 19 | nicht belegbar | wirksame Bund- beziehungsweise Bundespolizeivereinbarung fehlt |
+| 20 | widersprüchlich oder nicht belegt | Beginn der Bundesratspräsidentschaft fehlt als Primärquelle |
+| 21 | nicht vorhanden | Bundesratszugangs- oder Stimmrechtsstreit nicht aktenförmig modelliert |
+| 22 | nicht vorhanden | Vertretung der Bundespräsidentin und Einzelakte nicht belegt |
+| 23 | nicht vorhanden | genannte Gerichtsverfahren fehlen mit Aktenzeichen und Entscheidungen |
+| 24 | teilweise vorhanden | Notifikations- und Ratifikationslücken sind ausdrücklich dokumentiert |
+| 25 | vollständig vorhanden | Portalrollen sind im Code und Content sichtbar |
+| 26 | teilweise vorhanden | einige Funktionen umgesetzt, alte Planungen nicht systematisch klassifiziert |
+| 27 | vollständig vorhanden | HTML ist reguläre Importquelle, Markdown Altbestand |
+| 28 | vollständig vorhanden | sächsischer Stichtag 1. November 2023 ist verbindlich dokumentiert |
+| 29 | weitgehend vorhanden | historische Verfassungsfassungen und reproduzierbare Konsolidierung existieren, 34 Ausgangssnapshots fehlen |
+| 30 | als neues Wissenselement sinnvoll | nichtrechtliche Realitätsänderungen werden nun über Rollen, Timeline und Verfahren modelliert |
+
+## Ergebnis des Audits
+
+Der Repositorybestand ist im Rechtsbereich bereits stark strukturiert. Die größte Lücke liegt nicht bei Normtexten, sondern bei der politischen Realität zwischen den Normen: historische Regierungen, Personenrollen, Parteien, Koalitionsänderungen, externe Beziehungen, Gerichtsverfahren und Projektmeilensteine.
+
+Der Wissenshub verwendet deshalb keine zweite Normdatenbank. Er bildet stabile Querverbindungen, Zeitintervalle, Provenienz, Konflikte und offene Prüfaufträge.

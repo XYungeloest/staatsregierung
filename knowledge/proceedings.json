@@ -1,0 +1,558 @@
+{
+  "asOf": "2026-07-21",
+  "proceedings": [
+    {
+      "id": "proceeding-staatsreform",
+      "title": "Verfassungsänderungsverfahren Große Staatsreform",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-20",
+      "validTo": "2026-07-21",
+      "asOf": "2026-07-21",
+      "summary": "Vier Verfassungsänderungsgesetze wurden am 20. Juli 2026 verkündet und traten am 21. Juli 2026 in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-53",
+          "locator": "Verkündung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-54",
+          "locator": "Verkündung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-55",
+          "locator": "Verkündung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-56",
+          "locator": "Verkündung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "inst-staatsrat"
+      ],
+      "tags": [
+        "proceeding",
+        "legislation",
+        "constitution"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "legislation",
+      "stage": "completed",
+      "participantIds": [
+        "inst-volkskammer",
+        "inst-staatsrat"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "erstes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "zweites-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "drittes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "viertes-gesetz-zur-grossen-staatsreform",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "decision": "Verkündung und Inkrafttreten belegt.",
+      "nextAction": null,
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-kreisreform-transition",
+      "title": "Übergang zur neuen Kreis- und Bezirksstruktur",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Die Neuordnung ist verkündet, wird jedoch erst am 1. August 2026 wirksam.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kreis-norm",
+          "locator": "Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats.wirksamAb",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "proceeding",
+        "territory"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "awaiting-effective-date",
+      "participantIds": [
+        "inst-staatsrat",
+        "inst-volkskammer"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "kreis-und-bezirksneuordnungsgesetz",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Zum 1. August 2026 Übergangs- und Rechtsnachfolgeschritte dokumentieren.",
+      "openQuestionIds": []
+    },
+    {
+      "id": "proceeding-grenzpolizei-bund",
+      "title": "Vereinbarung mit Bund und Bundespolizei zur Grenzpolizei",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Eine Vereinbarung ist als Verhandlungs- oder Entwurfsgegenstand bekannt, aber im Repository nicht als wirksam abgeschlossene Vereinbarung belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "offene Primärquellen und Vertragsbedingungen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 19",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "inst-grenzpolizei",
+        "inst-sek-staats-grenzsicherheit",
+        "question-grenzpolizei-agreement"
+      ],
+      "tags": [
+        "proceeding",
+        "agreement",
+        "security"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "administrative-agreement",
+      "stage": "source-required",
+      "participantIds": [
+        "inst-grenzpolizei",
+        "inst-sek-staats-grenzsicherheit"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "kasernierte-grenzpolizei-gesetz",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Unterzeichnete Fassung, Zustimmungslage und Inkrafttreten nachweisen.",
+      "openQuestionIds": [
+        "question-grenzpolizei-agreement"
+      ]
+    },
+    {
+      "id": "proceeding-ndr-ratification",
+      "title": "Ratifikation des NDR-Änderungs- und Überleitungsstaatsvertrags",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der Austausch der Ratifikationsurkunden ist nicht nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Abschnitt redaktionell offene Primärquellen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-rechtsstaat-kultur",
+        "question-ndr-ratification"
+      ],
+      "tags": [
+        "proceeding",
+        "treaty",
+        "media"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "ratification",
+      "stage": "awaiting-proof",
+      "participantIds": [
+        "inst-sek-rechtsstaat-kultur"
+      ],
+      "normRefs": [],
+      "decision": null,
+      "nextAction": "Ratifikationsurkunden oder amtliche Bekanntmachung des Inkrafttretens beibringen.",
+      "openQuestionIds": [
+        "question-ndr-ratification"
+      ]
+    },
+    {
+      "id": "proceeding-poland-notification",
+      "title": "Notifikation des Grenzraumabkommens mit Polen",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der für das Inkrafttreten erforderliche Austausch der Notifikationen ist nicht nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Abschnitt redaktionell offene Primärquellen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-voelkerfreundschaft",
+        "question-poland-notification"
+      ],
+      "tags": [
+        "proceeding",
+        "international",
+        "notification"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "notification",
+      "stage": "awaiting-proof",
+      "participantIds": [
+        "inst-sek-voelkerfreundschaft"
+      ],
+      "normRefs": [],
+      "decision": null,
+      "nextAction": "Notifikationsaustausch oder amtliche Inkrafttretensbekanntmachung nachweisen.",
+      "openQuestionIds": [
+        "question-poland-notification"
+      ]
+    },
+    {
+      "id": "proceeding-czech-notification",
+      "title": "Notifikation des Grenzraumabkommens mit Tschechien",
+      "status": "unresolved",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der für das Inkrafttreten erforderliche Austausch der Notifikationen ist nicht nachgewiesen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Abschnitt redaktionell offene Primärquellen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-voelkerfreundschaft",
+        "question-czech-notification"
+      ],
+      "tags": [
+        "proceeding",
+        "international",
+        "notification"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "notification",
+      "stage": "awaiting-proof",
+      "participantIds": [
+        "inst-sek-voelkerfreundschaft"
+      ],
+      "normRefs": [],
+      "decision": null,
+      "nextAction": "Notifikationsaustausch oder amtliche Inkrafttretensbekanntmachung nachweisen.",
+      "openQuestionIds": [
+        "question-czech-notification"
+      ]
+    },
+    {
+      "id": "proceeding-third-plenary-evidence",
+      "title": "Nachweis der dritten Plenarsitzung vom 20. Juli 2026",
+      "status": "unresolved",
+      "validFrom": "2026-07-20",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Verkündungen belegen zwölf beschlossene Vorhaben, aber Plenarprotokoll, Einzelabstimmungen und Stimmenzahlen fehlen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "Abschnitt nicht belegte parlamentarische Einzelergebnisse",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Ereignis dritte-plenarsitzung-gesetzespaket",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "question-plenary-record"
+      ],
+      "tags": [
+        "proceeding",
+        "parliament"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "parliamentary-record",
+      "stage": "records-missing",
+      "participantIds": [
+        "inst-volkskammer"
+      ],
+      "normRefs": [],
+      "decision": "Beschluss und Verkündung der zwölf Vorhaben belegt; Beratungsverlauf und Stimmenzahlen offen.",
+      "nextAction": "Plenarprotokoll und Abstimmungslisten ergänzen, sofern verfügbar.",
+      "openQuestionIds": [
+        "question-plenary-record"
+      ]
+    },
+    {
+      "id": "proceeding-boom-implementation",
+      "title": "Umsetzung Boom Europe Leipzig/Halle",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gesetzliche Grundlagen sind in Kraft; konkrete Vertrags-, Finanzierungs- und Projektorganisationsdetails müssen aus den Vollquellen weiter erschlossen werden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-boom-procedure",
+          "locator": "Verfahrensdatensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-implementation",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-site-law",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-boom-fund",
+          "locator": "Gesetzesfassung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-finanzen",
+        "question-boom-agreement-details"
+      ],
+      "tags": [
+        "proceeding",
+        "implementation",
+        "industry"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "implementation",
+      "stage": "implementation",
+      "participantIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-finanzen"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "boom-europe-umsetzungsgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Meilensteine, Laufzeit, Projektstelle und Lenkungsausschuss aus Primärquellen extrahieren.",
+      "openQuestionIds": [
+        "question-boom-agreement-details"
+      ]
+    },
+    {
+      "id": "proceeding-federal-council-access",
+      "title": "Bundesratszugangs- oder Stimmrechtsstreit",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gesprächskandidat zu einem bundesverfassungsrechtlichen Konflikt. Im auditierten Repository wurde noch keine belastbare strukturierte Verfahrensakte zugeordnet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidaten 20 bis 23",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker",
+        "question-federal-council-case"
+      ],
+      "tags": [
+        "proceeding",
+        "court",
+        "federal",
+        "candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "constitutional-dispute",
+      "stage": "candidate",
+      "participantIds": [
+        "person-karl-honecker"
+      ],
+      "normRefs": [],
+      "decision": null,
+      "nextAction": "Primärdokumente, Aktenzeichen, Beteiligte und Verfahrensstand bestimmen.",
+      "openQuestionIds": [
+        "question-federal-council-case"
+      ]
+    },
+    {
+      "id": "proceeding-2025-state-crisis",
+      "title": "Staatskrise und Regierungswechsel 2025",
+      "status": "unverified",
+      "validFrom": "2025-01-01",
+      "validTo": "2025-12-19",
+      "asOf": "2026-07-21",
+      "summary": "Gesprächskandidat zu Rücktritt, Misstrauensvotum und früheren Regierungsbildungen. Die aktuelle Timeline beginnt erst mit dem Kabinett Honecker I.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Kandidat 14",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "Beginn der Timeline",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "question-state-crisis-2025"
+      ],
+      "tags": [
+        "proceeding",
+        "history",
+        "candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "historical-event",
+      "stage": "candidate",
+      "participantIds": [],
+      "normRefs": [],
+      "decision": null,
+      "nextAction": "Primärquellen und exakte Ereignisfolge ermitteln.",
+      "openQuestionIds": [
+        "question-state-crisis-2025"
+      ]
+    },
+    {
+      "id": "proceeding-law-consolidation",
+      "title": "Konsolidierung übernommener und geänderter Stammnormen",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der Audit erkennt 71 Zielnormen; für 34 fehlt noch ein versionierter maßgeblicher Ausgangssnapshot.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "redaktionell offene Primärquellen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-consolidation-manifest",
+          "locator": "gesamter Datensatz",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "question-missing-revosax-snapshots"
+      ],
+      "tags": [
+        "proceeding",
+        "law",
+        "editorial"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "editorial-audit",
+      "stage": "ongoing",
+      "participantIds": [],
+      "normRefs": [],
+      "decision": null,
+      "nextAction": "Priorisierte Ausgangsquellen sichern und deterministisch konsolidieren.",
+      "openQuestionIds": [
+        "question-missing-revosax-snapshots"
+      ]
+    },
+    {
+      "id": "proceeding-ogvbl-58-conflict",
+      "title": "Ausgabenummer der SERO-Verkündung",
+      "status": "disputed",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Die PDF-Kontrolldatei zeigt sichtbar Nr. 57, während HTML-Transkription und Datensatz Nr. 58 ausweisen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "bekannte Widersprüche",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-58",
+          "locator": "gesamter Datensatz",
+          "role": "conflicting"
+        }
+      ],
+      "relatedIds": [
+        "question-ogvbl-58-number"
+      ],
+      "tags": [
+        "proceeding",
+        "source-conflict"
+      ],
+      "notes": [],
+      "aliases": [],
+      "proceedingType": "source-conflict",
+      "stage": "unresolved",
+      "participantIds": [],
+      "normRefs": [
+        {
+          "normSlug": "sero-verordnung",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "decision": null,
+      "nextAction": "Amtliche Ausgabenummer klären; PDF bis dahin nur als Strukturkontrolle verwenden.",
+      "openQuestionIds": [
+        "question-ogvbl-58-number"
+      ],
+      "conflictGroup": "conflict-ogvbl-58"
+    }
+  ]
+}

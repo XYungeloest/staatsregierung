@@ -1,0 +1,403 @@
+{
+  "asOf": "2026-07-21",
+  "editorialDateSourceId": "source-editorial-config",
+  "sections": [
+    {
+      "id": "state-current-identity",
+      "title": "Staat und redaktioneller Stand",
+      "status": "editorially-confirmed",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 21. Juli 2026; Regierungssitz Dresden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-config",
+          "locator": "referenceDate",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-site-config",
+          "locator": "portalTitle und currentGovernment.seatOfGovernment",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-freistaat"
+      ],
+      "tags": [
+        "current-state",
+        "state"
+      ],
+      "notes": [],
+      "stateId": "territory-freistaat",
+      "capital": "Dresden",
+      "editorialAsOf": "2026-07-21"
+    },
+    {
+      "id": "state-current-constitution",
+      "title": "Geltende Verfassungsfassung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Gespeicherte Fassung der Staatsverfassung vom 21. Juli 2026 unter Einbeziehung aller vier Gesetze zur Großen Staatsreform.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-meta",
+          "locator": "affectedByNorms",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-constitution-history",
+          "locator": "vier Einträge 2026-07-21",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "gesamte Fassung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-staatsreform"
+      ],
+      "tags": [
+        "current-state",
+        "constitution"
+      ],
+      "notes": [],
+      "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+      "versionId": "2026-07-21"
+    },
+    {
+      "id": "state-current-organs",
+      "title": "Aktuelle Staatsorgane",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Volkskammer, Staatsrat, Staatspräsident, Verfassungsgerichtshof und Rechnungshof bilden den belegten aktuellen Organkern.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-constitution-current",
+          "locator": "Organisationsvorschriften",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsaufbau",
+          "locator": "gesamter Datensatz",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "inst-staatsrat",
+        "inst-staatspraesident",
+        "inst-verfassungsgerichtshof",
+        "inst-rechnungshof"
+      ],
+      "tags": [
+        "current-state",
+        "institutions"
+      ],
+      "notes": [],
+      "institutionIds": [
+        "inst-volkskammer",
+        "inst-staatsrat",
+        "inst-staatspraesident",
+        "inst-verfassungsgerichtshof",
+        "inst-rechnungshof"
+      ]
+    },
+    {
+      "id": "state-current-government",
+      "title": "Erster Staatsrat",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Erster Staatsrat seit 21. Juli 2026 unter Vorsitz von Dr. Karl Honecker; Stellvertreter ist Dr. Mateo Delgado.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-karl-current",
+          "locator": "currentOffices",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-mateo-current",
+          "locator": "currentOffices",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "person-karl-honecker",
+        "person-mateo-delgado",
+        "person-volker-bagdadi",
+        "person-tim-dieter",
+        "person-yannik-schmaele",
+        "person-lucia-liebknecht",
+        "person-vincent-flick",
+        "person-carl-ulbricht",
+        "person-endo-meyer-raucht",
+        "person-max-peterson",
+        "person-emma-mueller"
+      ],
+      "tags": [
+        "current-state",
+        "government"
+      ],
+      "notes": [],
+      "governmentId": "inst-staatsrat",
+      "headPersonId": "person-karl-honecker",
+      "deputyPersonId": "person-mateo-delgado",
+      "memberPersonIds": [
+        "person-karl-honecker",
+        "person-mateo-delgado",
+        "person-volker-bagdadi",
+        "person-tim-dieter",
+        "person-yannik-schmaele",
+        "person-lucia-liebknecht",
+        "person-vincent-flick",
+        "person-carl-ulbricht",
+        "person-endo-meyer-raucht",
+        "person-max-peterson"
+      ],
+      "chiefOfChancelleryPersonId": "person-emma-mueller",
+      "stateSecretariatIds": [
+        "inst-sek-finanzen",
+        "inst-sek-inneres-wohnen",
+        "inst-sek-rechtsstaat-kultur",
+        "inst-sek-voelkerfreundschaft",
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-sek-staats-grenzsicherheit",
+        "inst-sek-gesundheit-soziales",
+        "inst-sek-mobilitaet-regionen",
+        "inst-sek-volksbildung-wissenschaft",
+        "inst-sek-land-forst-kueste",
+        "inst-sek-wirtschaft-arbeit"
+      ]
+    },
+    {
+      "id": "state-current-parliament",
+      "title": "Siebte Volkskammer und Mehrheitsverhältnisse",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-site-config",
+          "locator": "currentGovernment.legislature und Sitzzahlen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-staatsaufbau",
+          "locator": "Fortführung der Wahlperiode",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "party-volksfront",
+        "party-demos"
+      ],
+      "tags": [
+        "current-state",
+        "parliament",
+        "coalition"
+      ],
+      "notes": [],
+      "legislature": "7. Volkskammer",
+      "totalSeats": 15,
+      "coalitionSeats": 11,
+      "coalitionPartyIds": [
+        "party-volksfront",
+        "party-demos"
+      ],
+      "seatCountAsOf": "2026-07-05"
+    },
+    {
+      "id": "state-current-territory",
+      "title": "Gebietsstand am Stichtag",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Am 21. Juli 2026 bestehen noch acht Bezirke. Die verkündete Struktur mit vierzehn Bezirken wird erst am 1. August 2026 wirksam.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-bezirke",
+          "locator": "Übergang zum 1. August 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-kreis-manifest",
+          "locator": "stats",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "territory-bezirk-berlin",
+        "territory-bezirk-brandenburg",
+        "territory-bezirk-mecklenburg-vorpommern",
+        "territory-bezirk-niederlausitz",
+        "territory-bezirk-oberlausitz",
+        "territory-bezirk-sachsen",
+        "territory-bezirk-sachsen-anhalt",
+        "territory-bezirk-thueringen",
+        "territory-bezirk-elbsachsen",
+        "territory-bezirk-lausitz",
+        "territory-bezirk-leipzig-mittelsachsen",
+        "territory-bezirk-magdeburg-anhalt",
+        "territory-bezirk-mecklenburg-schwerin",
+        "territory-bezirk-mittelmark-flaeming",
+        "territory-bezirk-nordmark",
+        "territory-bezirk-oderland-uckermark",
+        "territory-bezirk-saale-harz",
+        "territory-bezirk-saale-pleisse",
+        "territory-bezirk-thueringer-wald-eichsfeld",
+        "territory-bezirk-vogtland-erzgebirge",
+        "territory-bezirk-vorpommern",
+        "project-kreisreform"
+      ],
+      "tags": [
+        "current-state",
+        "territory"
+      ],
+      "notes": [],
+      "currentDistrictIds": [
+        "territory-bezirk-berlin",
+        "territory-bezirk-brandenburg",
+        "territory-bezirk-mecklenburg-vorpommern",
+        "territory-bezirk-niederlausitz",
+        "territory-bezirk-oberlausitz",
+        "territory-bezirk-sachsen",
+        "territory-bezirk-sachsen-anhalt",
+        "territory-bezirk-thueringen"
+      ],
+      "futureDistrictIds": [
+        "territory-bezirk-berlin",
+        "territory-bezirk-elbsachsen",
+        "territory-bezirk-lausitz",
+        "territory-bezirk-leipzig-mittelsachsen",
+        "territory-bezirk-magdeburg-anhalt",
+        "territory-bezirk-mecklenburg-schwerin",
+        "territory-bezirk-mittelmark-flaeming",
+        "territory-bezirk-nordmark",
+        "territory-bezirk-oderland-uckermark",
+        "territory-bezirk-saale-harz",
+        "territory-bezirk-saale-pleisse",
+        "territory-bezirk-thueringer-wald-eichsfeld",
+        "territory-bezirk-vogtland-erzgebirge",
+        "territory-bezirk-vorpommern"
+      ],
+      "futureEffectiveDate": "2026-08-01"
+    },
+    {
+      "id": "state-current-projects",
+      "title": "Zentrale laufende und geltende Vorhaben",
+      "status": "editorially-confirmed",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, ohne Normvolltexte zu duplizieren.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-action-plan",
+          "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-government-timeline",
+          "locator": "gesamter Datensatz",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-staatsreform",
+        "project-kreisreform",
+        "project-sero",
+        "project-eisenbahn-verkehr",
+        "project-energie-waerme",
+        "project-wohnen",
+        "project-krankenhausfonds",
+        "project-grenzpolizei",
+        "project-schulreform",
+        "project-rundfunk",
+        "project-kulturpass",
+        "project-boom-europe",
+        "project-transparenz",
+        "project-haushalt-2025-2026"
+      ],
+      "tags": [
+        "current-state",
+        "projects"
+      ],
+      "notes": [],
+      "projectIds": [
+        "project-staatsreform",
+        "project-kreisreform",
+        "project-sero",
+        "project-eisenbahn-verkehr",
+        "project-energie-waerme",
+        "project-wohnen",
+        "project-krankenhausfonds",
+        "project-grenzpolizei",
+        "project-schulreform",
+        "project-rundfunk",
+        "project-kulturpass",
+        "project-boom-europe",
+        "project-transparenz",
+        "project-haushalt-2025-2026"
+      ]
+    },
+    {
+      "id": "state-current-open-proceedings",
+      "title": "Belegte offene Verfahren und Wirksamkeitsbedingungen",
+      "status": "confirmed-official",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-21",
+      "summary": "Offen sind insbesondere Ratifikation beziehungsweise Notifikationen bei NDR, Polen und Tschechien, parlamentarische Detailnachweise sowie weitere Normkonsolidierungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "offene Primärquellen und parlamentarische Einzelergebnisse",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-consolidation-manifest",
+          "locator": "Gesamtstand",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-ndr-ratification",
+        "proceeding-poland-notification",
+        "proceeding-czech-notification",
+        "proceeding-third-plenary-evidence",
+        "proceeding-law-consolidation"
+      ],
+      "tags": [
+        "current-state",
+        "proceedings"
+      ],
+      "notes": [],
+      "proceedingIds": [
+        "proceeding-ndr-ratification",
+        "proceeding-poland-notification",
+        "proceeding-czech-notification",
+        "proceeding-third-plenary-evidence",
+        "proceeding-law-consolidation"
+      ]
+    }
+  ]
+}

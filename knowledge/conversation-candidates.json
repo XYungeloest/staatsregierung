@@ -1,0 +1,543 @@
+{
+  "asOf": "2026-07-28",
+  "candidates": [
+    {
+      "id": "candidate-honecker-biography",
+      "title": "Biografie und Parteifunktionen Karl Honeckers",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Regierungsämter sind gut belegt; Parteiwechsel, Politbüromitgliedschaft und konkrete Parteifunktionen sind im auditierten Regierungsrepository nicht hinreichend strukturiert.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Biografie und Parteifunktionen Karl Honeckers",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "partly-present",
+      "searchTargets": [
+        "Miraheze-Wiki mit konkreter Revision",
+        "amtliche Parteidokumente",
+        "biografische Primärquelle"
+      ],
+      "priority": "medium",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-fraktionswechsel-details",
+      "title": "Fraktionswechsel zur Koalitionsmehrheit im Juli 2026",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "11 von 15 Sitzen seit 5. Juli 2026 sind strukturiert belegt; Namen, Ausgangsfraktionen und einzelne Wechselakte nicht.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Fraktionswechsel zur Koalitionsmehrheit im Juli 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "party-volksfront",
+        "party-demos",
+        "inst-volkskammer"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "partly-present",
+      "searchTargets": [
+        "Parlamentsmitteilung",
+        "Fraktionsanzeigen",
+        "Abgeordnetenverzeichnis mit Stichtag"
+      ],
+      "priority": "medium",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-unresolved-persons",
+      "title": "Rollen weiterer genannter Personen",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Für Gerhardt Lehrmann, Louis Hahne-Eichinger und Tom Kurzschluss fehlt im Hub eine belastbare Rollenchronologie; für mehrere andere Namen liegen nur historische Profile vor.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Rollen weiterer genannter Personen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "partly-present",
+      "searchTargets": [
+        "Ernennungs- und Entlassungsakte",
+        "historische Kabinettslisten",
+        "Miraheze-Revisionen"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-state-crisis-2025",
+      "title": "Staatskrise 2025 und Rücktritt Tom Kurzschluss",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Ereignisfolge, Rücktritt, Misstrauensvotum und frühere Regierungsbildungen sind nicht strukturiert belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Staatskrise 2025 und Rücktritt Tom Kurzschluss",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-2025-state-crisis"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "not-present",
+      "searchTargets": [
+        "Parlamentsprotokolle",
+        "Rücktrittserklärung",
+        "Ernennungs- und Wahlakte"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-boden-institutions",
+      "title": "Volksacker, Flächenfonds und Bodenfonds Ost",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Der politische Komplex ist programmatisch angedeutet, aber Rechtsgrundlagen, Institutionen und Umsetzungsstand sind offen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Volksacker, Flächenfonds und Bodenfonds Ost",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-boden-volksacker"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "only-indirect",
+      "searchTargets": [
+        "Gesetze und Verordnungen",
+        "Haushaltsplan",
+        "Errichtungsbeschlüsse"
+      ],
+      "priority": "medium",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-ovv-ticket",
+      "title": "OVV und 29-Euro-Ticket",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Mobilitätsziele und Verkehrsrechtskomplexe sind vorhanden; die vollständige Tarif- und Verbundkette fehlt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "OVV und 29-Euro-Ticket",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-ovv-ticket"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "only-indirect",
+      "searchTargets": [
+        "Verbundsatzung",
+        "Tarifbeschluss",
+        "Ticketgesetz oder Verordnung"
+      ],
+      "priority": "medium",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-feiertage",
+      "title": "Neue Feiertage",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Genannte Feiertage sind noch nicht mit konkreten Normslugs, Verkündungen und Inkrafttretensdaten verknüpft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Neue Feiertage",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-feiertage"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "not-linked",
+      "searchTargets": [
+        "Feiertagsgesetz",
+        "Änderungsgesetze",
+        "Verkündungsdaten"
+      ],
+      "priority": "medium",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-boom-details",
+      "title": "Projektorganisation Boom Europe Leipzig/Halle",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Gesetzespaket und Verfahren sind vorhanden; Standortvertrag, Memorandum, Laufzeit, Projektstelle und Lenkungsausschuss sollen noch paragraphengenau erschlossen werden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Projektorganisation Boom Europe Leipzig/Halle",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-boom-europe"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "partly-present",
+      "searchTargets": [
+        "Volltexte der drei Gesetze",
+        "Standortvertrag oder Memorandum",
+        "Haushaltsunterlagen"
+      ],
+      "priority": "medium",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-grenzpolizei-agreement",
+      "title": "Bundesvereinbarung zur Grenzpolizei",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Es ist nicht belegt, ob eine Grundlage, ein Entwurf oder eine wirksame Vereinbarung vorliegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Bundesvereinbarung zur Grenzpolizei",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-grenzpolizei-bund"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "not-present",
+      "searchTargets": [
+        "unterzeichnete Verwaltungsvereinbarung",
+        "Bundespolizei-Abkommen",
+        "Zustimmungs- und Inkrafttretensnachweis"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-bundesrat-presidency",
+      "title": "Bundesratspräsidentschaft Karl Honeckers",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Beginn, Dauer und amtliche Grundlage der Bundesratspräsidentschaft sind im Repository nicht quellenfest modelliert.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Bundesratspräsidentschaft Karl Honeckers",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker",
+        "question-bundesrat-presidency-start"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "conflicting",
+      "searchTargets": [
+        "Bundesratsprotokoll",
+        "Wahl des Präsidiums",
+        "amtliche Funktionsübersicht"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-bundesrat-access-dispute",
+      "title": "Bundesratszugangs- oder Stimmrechtsstreit",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Der behauptete Konflikt ist ohne Aktenzeichen, Schriftsätze oder Entscheidung im Repository.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Bundesratszugangs- oder Stimmrechtsstreit",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-federal-council-access"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "not-present",
+      "searchTargets": [
+        "Bundesverfassungsgerichtliche Akte",
+        "Bundesratsdokumente",
+        "Schriftsätze"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-acting-federal-president",
+      "title": "Vertretung der Bundespräsidentin durch den Bundesratspräsidenten",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Zeitpunkt, Vertretungsgrund und konkrete Ernennungs- oder Verkündungsakte sind nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Vertretung der Bundespräsidentin durch den Bundesratspräsidenten",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "not-present",
+      "searchTargets": [
+        "Bundespräsidialamt",
+        "Bundesgesetzblatt",
+        "Ernennungsurkunden"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-court-cases",
+      "title": "Hauer-Verfahren, Erdbebenhilfegesetz und weitere Verfassungskonflikte",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Die genannten Verfahren sind nicht mit Aktenzeichen, Beteiligten, Anträgen und Entscheidungen strukturiert belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Hauer-Verfahren, Erdbebenhilfegesetz und weitere Verfassungskonflikte",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "not-present",
+      "searchTargets": [
+        "Gerichtsentscheidungen",
+        "Verfahrensregister",
+        "amtliche Pressemitteilungen"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-hoheitszeichen-decision",
+      "title": "Nur noch ein Kleines Staatswappen",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Die Verfassung und der ältere Hoheitszeichenkomplex sind belegt; eine spätere verbindliche Entscheidung über nur ein Kleines Staatswappen ist noch nicht als Primärquelle verknüpft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Nur noch ein Kleines Staatswappen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-hoheitszeichen"
+      ],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "partly-present",
+      "searchTargets": [
+        "besonderes Hoheitszeichengesetz",
+        "Verordnung und Anlagen",
+        "amtliche Wappenbeschreibung"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-external-wiki",
+      "title": "Ergänzende Fakten aus dem PolitikSim-Wiki auf Miraheze",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Der automatisierte Zugriff auf die Miraheze-Seiten war teilweise durch HTTP 403 blockiert. Es wurden deshalb keine Tatsachen allein aus Suchtreffern oder anderen Wikihostern übernommen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Ergänzende Fakten aus dem PolitikSim-Wiki auf Miraheze",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [
+        "Andere Wikihoster sind ausdrücklich keine zulässige Quelle."
+      ],
+      "aliases": [],
+      "classification": "not-verifiable-during-audit",
+      "searchTargets": [
+        "konkrete Miraheze-Seitenrevisionen",
+        "exportierte Wikitexte oder Permalinks"
+      ],
+      "priority": "medium",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-website-plans",
+      "title": "Frühere Portalplanungen",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Transparenzportal, Gesetzgebungsmonitor, Zuständigkeitsfinder und Haushaltsnavigator müssen nach tatsächlich umgesetzt, geplant oder verworfen getrennt werden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Frühere Portalplanungen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "partly-present",
+      "searchTargets": [
+        "Routen und Komponenten",
+        "aktuelle Feature-Konfiguration",
+        "historische Planungsdokumente"
+      ],
+      "priority": "low",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    },
+    {
+      "id": "candidate-political-reality-events",
+      "title": "Nichtrechtliche Änderungen der politischen Realität",
+      "status": "unverified",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-28",
+      "summary": "Rücktritte, Ernennungen, Partei- und Fraktionswechsel, Vereinbarungen und Projektmeilensteine benötigen dauerhaft eine eigene Timeline- und Rollenpflege.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-conversation-task",
+          "locator": "Nichtrechtliche Änderungen der politischen Realität",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "conversation-candidate"
+      ],
+      "notes": [],
+      "aliases": [],
+      "classification": "new-knowledge-element-useful",
+      "searchTargets": [
+        "amtliche Mitteilungen",
+        "Ernennungs- und Rücktrittsakte",
+        "Parlaments- und Projektunterlagen"
+      ],
+      "priority": "high",
+      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+    }
+  ]
+}
