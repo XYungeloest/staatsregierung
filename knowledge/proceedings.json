@@ -118,50 +118,72 @@
     },
     {
       "id": "proceeding-grenzpolizei-bund",
-      "title": "Vereinbarung mit Bund und Bundespolizei zur Grenzpolizei",
-      "status": "editorially-confirmed",
-      "validFrom": null,
+      "title": "Verwaltungsabkommen zur Wahrnehmung grenzpolizeilicher Aufgaben",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-28",
       "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist nicht unterzeichnet oder wirksam; sie befindet sich in Ausarbeitung.",
+      "asOf": "2026-08-01",
+      "summary": "Das Verwaltungsabkommen wurde am 28. Juli 2026 in Leipzig geschlossen und am 29. Juli 2026 im Gemeinsamen Ministerialblatt veröffentlicht. Die Verhandlung und der Abschluss sind beendet; der veröffentlichte § 7 enthält kein ausdrückliches Inkrafttretensdatum.",
       "sourceRefs": [
         {
-          "sourceId": "source-editorial-clarifications-2026-07-29",
-          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Seiten 2–6, insbesondere Schlussformel und § 7",
           "role": "primary"
         },
         {
-          "sourceId": "source-grenzpolizei-law",
-          "locator": "Gesetzesfassung 2026-07-21",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "historischer, durch die Primärquelle überholter Stand im Abschnitt Rechts- und Vertragsstand",
           "role": "context"
+        },
+        {
+          "sourceId": "source-gmbl-clarification-2026-07-29",
+          "locator": "gesamte quellenbasierte Aktualisierung",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
+        "inst-bundesministerium-innern-heimat",
+        "inst-staatsrat",
         "inst-grenzpolizei",
-        "inst-sek-staats-grenzsicherheit"
+        "inst-sek-staats-grenzsicherheit",
+        "person-yannik-schmaele",
+        "project-grenzpolizei"
       ],
       "tags": [
         "proceeding",
         "agreement",
         "security"
       ],
-      "notes": [],
+      "notes": [
+        "Die frühere redaktionelle Angabe „in Ausarbeitung“ bleibt als überholter Stand mit Provenienz erhalten.",
+        "Die fehlende ausdrückliche Wirksamkeitsklausel ist ein Quellenkonflikt, keine Fortsetzung der Vertragsverhandlungen."
+      ],
       "aliases": [],
       "proceedingType": "administrative-agreement",
-      "stage": "drafting",
+      "stage": "completed",
       "participantIds": [
-        "inst-grenzpolizei",
-        "inst-sek-staats-grenzsicherheit"
+        "inst-bundesministerium-innern-heimat",
+        "inst-staatsrat"
       ],
       "normRefs": [
         {
+          "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
+          "versionId": "2026-07-29"
+        },
+        {
           "normSlug": "kasernierte-grenzpolizei-gesetz",
+          "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "kasernierte-grenzpolizei-errichtungsgesetz",
           "versionId": "2026-07-21"
         }
       ],
-      "decision": "Noch keine wirksame Vereinbarung; Entwurf in Ausarbeitung.",
-      "nextAction": "Entwurf fertigstellen, mit Bund beziehungsweise Bundespolizei abstimmen, unterzeichnen und Inkrafttreten dokumentieren.",
-      "openQuestionIds": []
+      "decision": "Am 28. Juli 2026 in Leipzig geschlossen und am 29. Juli 2026 in GMBl. 2026 Nr. 14 veröffentlicht; Verhandlung und Abschluss beendet.",
+      "nextAction": null,
+      "openQuestionIds": [
+        "question-grenzpolizei-effective-date"
+      ]
     },
     {
       "id": "proceeding-ndr-ratification",

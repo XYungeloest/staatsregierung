@@ -240,6 +240,16 @@ const timelineEntrySeed: TimelineEntry[] = [
     href: getNormUrl('sero-verordnung'),
   },
   {
+    id: 'verwaltungsabkommen-kasernierte-grenzpolizei',
+    date: '2026-07-29',
+    title: 'Verwaltungsabkommen zur Grenzpolizei wird veröffentlicht',
+    type: 'gesetz',
+    summary:
+      'Das am 28. Juli 2026 in Leipzig geschlossene Verwaltungsabkommen wird im Gemeinsamen Ministerialblatt veröffentlicht. Es regelt die Wahrnehmung grenzpolizeilicher Aufgaben und die Zusammenarbeit mit Bundespolizei und Zoll.',
+    ressort: 'Staats- und Grenzsicherheit',
+    href: getNormUrl('verwaltungsabkommen-kasernierte-grenzpolizei'),
+  },
+  {
     id: 'kreis-und-bezirksneuordnung-wirksam',
     date: '2026-08-01',
     title: 'Neue Kreis- und Bezirksordnung tritt in Kraft',

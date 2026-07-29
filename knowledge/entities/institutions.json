@@ -93,11 +93,18 @@
           "sourceId": "source-site-config",
           "locator": "currentGovernment",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Vertragspartner und Präambel",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
         "inst-staatsregierung",
-        "inst-staatspraesident"
+        "inst-staatspraesident",
+        "inst-bundesministerium-innern-heimat",
+        "proceeding-grenzpolizei-bund"
       ],
       "tags": [
         "constitutional-organ",
@@ -487,18 +494,26 @@
           "sourceId": "source-editorial-clarifications-2026-07-29",
           "locator": "Abschnitt Rechts- und Vertragsstand",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Präambel und Unterschriftszeile",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
-        "person-yannik-schmaele"
+        "person-yannik-schmaele",
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund"
       ],
       "tags": [
         "administration",
         "state-secretariat"
       ],
       "notes": [
-        "„Staatssekretariat für Staats- und Grenzschutz“ ist keine maßgebliche Bezeichnung."
+        "Die kanonische aktuelle Amtsbezeichnung lautet „Staatssekretariat für Staats- und Grenzsicherheit“.",
+        "GMBl. 2026 Nr. 14 verwendet quellentreu in der Präambel „Staatsrat für Staats- und Grenzssicherheit“ und in der Unterschriftszeile „Staatsrat für Staats- und Grenzschutz“; beide Formen sind als Druck- oder Schreibabweichungen dokumentiert."
       ],
       "aliases": [
         "Staatsministerium für Staats- und Grenzsicherheit"
@@ -759,8 +774,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Durch Gesetz errichtete Sicherheitsbehörde; eine Bund-Länder-Vereinbarung zur Zusammenarbeit ist im Wissensstand nicht als wirksam belegt.",
+      "asOf": "2026-08-01",
+      "summary": "Durch Gesetz errichtete Sicherheitsbehörde. Das am 28. Juli 2026 geschlossene und am 29. Juli 2026 veröffentlichte Verwaltungsabkommen regelt die übertragenen grenzpolizeilichen Aufgaben und die Zusammenarbeit mit Bundespolizei und Zoll; die praktische Umsetzung ist nicht als abgeschlossen belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-grenzpolizei-law",
@@ -768,14 +783,16 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-content-gaps",
-          "locator": "offene Vereinbarungs- und Primärquellenfragen",
-          "role": "context"
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Seiten 2–6",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "project-grenzpolizei",
-        "proceeding-grenzpolizei-bund"
+        "proceeding-grenzpolizei-bund",
+        "inst-bundesministerium-innern-heimat",
+        "inst-sek-staats-grenzsicherheit"
       ],
       "tags": [
         "security",
@@ -786,6 +803,40 @@
         "Grenzpolizei"
       ],
       "type": "agency",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-bundesministerium-innern-heimat",
+      "title": "Bundesministerium des Innern und für Heimat",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-29",
+      "summary": "Bundesressort und Vertragspartner des Verwaltungsabkommens zur Wahrnehmung grenzpolizeilicher Aufgaben in Ostdeutschland.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Titel, Präambel und Unterschriftszeile",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-grenzpolizei",
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund"
+      ],
+      "tags": [
+        "federal",
+        "ministry",
+        "agreement-party"
+      ],
+      "notes": [],
+      "aliases": [
+        "BMI"
+      ],
+      "type": "federal-ministry",
       "predecessorId": null,
       "successorId": null
     },

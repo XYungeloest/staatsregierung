@@ -9,7 +9,7 @@ const AMENDMENT_REFERENCE_PATTERN = /\b(?:wird|werden)\b[^:]*\b(?:geändert|aufg
 const INTRODUCTION_PATTERN = /^(?:Das\s+nachstehende\s+wird\s+(Gesetz|Verordnung):|.+?wird\s+durch\s+die\s+nachstehende\s+(.+?)\s+abgelöst:)$/iu;
 const OPENING_QUOTE_PATTERN = /^(?:„|“|‚|‘|,,|")/u;
 const CLOSING_QUOTE_PATTERN = /(?:“|”|’|''|")\s*$/u;
-const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Organisationserlass|Erlass|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
+const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Organisationserlass|Erlass|Verwaltungsabkommen|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
 const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Neufassung|Übergangsbestimmungen?|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Rechtsbereinigung)/iu;
 const EMBEDDED_NORM_TITLE_PATTERN = /^(?:Gesetz|Verordnung|Satzung|Staatsvertrag|Abkommen|Übereinkommen)\b/iu;
 const TABLE_HEADER_SCOPES = new Set(['col', 'row', 'colgroup', 'rowgroup']);
@@ -281,6 +281,7 @@ function parseIdentity(heading, rawTitle) {
 function sourceTypeFromHeading(heading, title) {
   if (/Verordnung/iu.test(heading)) return 'verordnung';
   if (/Verwaltungsvorschrift/iu.test(heading)) return 'verwaltungsvorschrift';
+  if (/Verwaltungsabkommen/iu.test(heading)) return 'verwaltungsabkommen';
   if (/Förderrichtlinie/iu.test(heading)) return 'foerderrichtlinie';
   if (/Allgemeinverfügung/iu.test(heading)) return 'allgemeinverfuegung';
   if (/Bekanntmachung/iu.test(heading)) return 'bekanntmachung';
@@ -969,9 +970,13 @@ function parsedDocument(fileName, html) {
 
 export function classifyHtmlSource(fileName, html) {
   const { documentText } = parsedDocument(fileName, html);
-  const lead = documentText.slice(0, 5000);
+  // Bundesblätter können vor der Inhaltsübersicht einen deutlich längeren
+  // Herausgeberkopf als die ostdeutschen Verkündungsreihen führen.
+  const lead = documentText.slice(0, 20000);
   const publicationIdentity = detectPublicationIdentity(lead);
-  const publication = publicationIdentity && /Ausgegeben\s+zu/iu.test(lead) && /Inhaltsverzeichnis/iu.test(lead);
+  const publication = publicationIdentity &&
+    /Ausgegeben\s+zu/iu.test(lead) &&
+    (publicationIdentity.publication === 'GMBl.' ? /INHALT/iu.test(lead) : /Inhaltsverzeichnis/iu.test(lead));
   const editorial = /\b(?:Pressemitteilung|Begründung|Vorblatt|Erläuterung|Begleittext)\b/iu.test(lead) || /^PM[-_. ]/iu.test(fileName);
   const structureCount = (documentText.match(/(?:^|\s)(?:Artikel\s+\d+[a-z]?|§{1,2}\s*\d+[a-z]?)/giu) ?? []).length;
   const consolidated = /Staatsverfassung/iu.test(fileName) || /Nichtamtliches Inhaltsverzeichnis/iu.test(lead) || structureCount >= 3;
@@ -984,6 +989,9 @@ export function classifyHtmlSource(fileName, html) {
 
 function detectPublicationIdentity(value) {
   const text = String(value ?? '');
+  if (/\b(?:GMBl\.|Gemeinsames\s+Ministerialblatt)/iu.test(text)) {
+    return { publication: 'GMBl.', longName: 'Gemeinsames Ministerialblatt' };
+  }
   if (/\b(?:OVertrBl\.|Vertragsblatt\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu.test(text)) {
     return { publication: 'OVertrBl.', longName: 'Vertragsblatt' };
   }
@@ -1044,10 +1052,84 @@ function preferTocTitle(identity, tocTitle) {
   return identity;
 }
 
+function normalizeAdministrativeAgreementBody(body) {
+  const paragraphOne = body.find((block) => block.type === 'paragraph' && block.label === '§ 1');
+  const firstSubparagraphIndex = paragraphOne?.children?.findIndex((block) =>
+    block.type === 'subparagraph' && block.label === '(1)'
+  ) ?? -1;
+  if (firstSubparagraphIndex < 0) return body;
+  const numberedItems = paragraphOne.children.slice(firstSubparagraphIndex + 1, firstSubparagraphIndex + 5);
+  if (
+    numberedItems.length !== 4 ||
+    numberedItems.some((block, index) => block.type !== 'item' || block.label !== `${index + 1}.`)
+  ) {
+    return body;
+  }
+  const firstSubparagraph = paragraphOne.children[firstSubparagraphIndex];
+  firstSubparagraph.children = numberedItems;
+  paragraphOne.children.splice(firstSubparagraphIndex + 1, numberedItems.length);
+  return body;
+}
+
+function parseFederalMinisterialGazette(fileName, nodes, css, classification) {
+  const tocIndex = nodes.findIndex((node) => /^INHALT$/u.test(textOf(node)));
+  if (tocIndex < 0) throw new NormHtmlParseError(fileName, 'Inhaltsübersicht „INHALT“ fehlt');
+  const headerText = nodes.slice(0, tocIndex).map(textOf).join(' ');
+  const issueMatch = headerText.match(/\bNr\.\s*(\d+)\b/u);
+  const publicationDate = parseGermanDate(headerText.match(/Ausgegeben\s+zu[\s\S]{0,120}/iu)?.[0] ?? headerText);
+  if (!issueMatch || !publicationDate) {
+    throw new NormHtmlParseError(fileName, 'Ausgabenummer oder Ausgabedatum konnte nicht aus dem GMBl.-Kopf bestimmt werden');
+  }
+
+  const headingIndex = nodes.findIndex((node, index) =>
+    index > tocIndex &&
+    node.tagName !== 'table' &&
+    /^Verwaltungsabkommen\s+zwischen\b/iu.test(textOf(node))
+  );
+  if (headingIndex < 0) {
+    throw new NormHtmlParseError(fileName, 'Verwaltungsabkommen nach der GMBl.-Inhaltsübersicht fehlt');
+  }
+  const title = normalizeHeadingText(textOf(nodes[headingIndex]));
+  const signatureIndex = nodes.findIndex((node, index) =>
+    index > headingIndex && /^Leipzig,\s+den\s+\d{1,2}\./iu.test(textOf(node))
+  );
+  const documentDate = parseGermanDate(signatureIndex >= 0 ? textOf(nodes[signatureIndex]) : '');
+  if (!documentDate) throw new NormHtmlParseError(fileName, 'Unterzeichnungsdatum in der Leipziger Schlussformel fehlt');
+
+  const bodyNodes = sanitizeNormNodes(nodes.slice(headingIndex + 1))
+    .filter((node) => node.tagName !== 'table' || textOf(node).length > 0);
+  const body = normalizeAdministrativeAgreementBody(
+    parseTokens(makeAtomicTokens(bodyNodes, css, fileName), fileName),
+  );
+  validateBody(fileName, title, body);
+  const tocText = nodes.slice(tocIndex + 1, headingIndex).map(textOf).join(' ');
+  const startPage = tocText.match(/Verwaltungsabkommen[\s\S]*?Ostdeutschland\s+(\d+)\b/iu)?.[1] ?? '2';
+  return {
+    kind: 'publication',
+    fileName,
+    issue: issueMatch[1],
+    publication: classification.publication,
+    year: Number(publicationDate.slice(0, 4)),
+    publicationDate,
+    effectiveDate: null,
+    heading: 'Verwaltungsabkommen',
+    title,
+    shortTitle: title,
+    documentDate,
+    type: 'verwaltungsabkommen',
+    startPage,
+    body,
+    introducedNorms: [],
+  };
+}
+
 export function parsePublicationHtml(fileName, html) {
   const classification = classifyHtmlSource(fileName, html);
   if (classification.kind !== 'publication') throw new NormHtmlParseError(fileName, `Quelle ist kein Verkündungsblatt (${classification.reason})`);
   const { nodes, css } = parsedDocument(fileName, html);
+  if (classification.publication === 'GMBl.') {
+    return parseFederalMinisterialGazette(fileName, nodes, css, classification);
+  }
   const headerText = nodes.slice(0, 10).map(textOf).join(' ');
   const issueMatch = headerText.match(/\bNr\.\s*(\d+)\b/u);
   const publicationDate = parseGermanDate(headerText.match(/Ausgegeben\s+zu[\s\S]{0,120}/iu)?.[0] ?? headerText);

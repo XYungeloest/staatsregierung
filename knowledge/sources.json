@@ -546,6 +546,35 @@
       "notes": ""
     },
     {
+      "id": "source-gmbl-2026-14",
+      "type": "ministerial-gazette",
+      "path": "Gesetze/GMBl-14-2026.html",
+      "paths": {
+        "html": "Gesetze/GMBl-14-2026.html",
+        "pdf": "Gesetze/GMBl-14-2026.pdf",
+        "markdown": "Gesetze/GMBl-14-2026.md"
+      },
+      "title": "Gemeinsames Ministerialblatt 2026 Nr. 14",
+      "date": "2026-07-29",
+      "documentDate": "2026-07-28",
+      "publicationDate": "2026-07-29",
+      "pages": "2–6",
+      "status": "primary",
+      "scope": [
+        "law",
+        "security",
+        "agreements",
+        "federal"
+      ],
+      "sourceRole": "official-publication",
+      "verificationHierarchy": [
+        "HTML: vollständige strukturtragende Importquelle",
+        "PDF: amtliche visuelle Veröffentlichungs- und Kontrollquelle",
+        "Markdown: zusätzliche Transkription und Fallback"
+      ],
+      "notes": "Amtliche Primärquelle für Abschluss und Veröffentlichung des Verwaltungsabkommens. § 7 enthält trotz der Überschrift „Inkrafttreten“ ausschließlich die Kündigungsregel."
+    },
+    {
       "id": "source-boom-procedure",
       "type": "official-document",
       "path": "content/gesetzgebung/boom-europe-leipzig-halle.json",
@@ -840,7 +869,22 @@
         "federal",
         "source-conflicts"
       ],
-      "notes": "Verbindliche Auskunft des Projektverantwortlichen; formale Primärquellen bleiben dort erforderlich, wo die Datei dies ausdrücklich vermerkt."
+      "notes": "Verbindliche Auskunft des Projektverantwortlichen. Die dortige Aussage zum noch in Ausarbeitung befindlichen Grenzpolizeiabkommen ist durch GMBl. 2026 Nr. 14 überholt und bleibt nur als historischer redaktioneller Stand erhalten."
+    },
+    {
+      "id": "source-gmbl-clarification-2026-07-29",
+      "type": "source-based-clarification",
+      "path": "knowledge/clarifications/2026-07-29-gmbl-14.md",
+      "title": "Quellenbasierte Aktualisierung zu GMBl. 2026 Nr. 14",
+      "date": "2026-07-29",
+      "status": "secondary",
+      "scope": [
+        "law",
+        "security",
+        "agreements",
+        "source-conflicts"
+      ],
+      "notes": "Ordnet den Vorrang der amtlichen Primärquelle, die Wirksamkeitsfrage und die abweichenden Amtsbezeichnungen ein."
     },
     {
       "id": "source-overtrbl-2026-02",

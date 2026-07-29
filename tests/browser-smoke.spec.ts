@@ -42,6 +42,8 @@ test('alle ausgelieferten Routentypen tragen dieselbe vollständige Buildkennung
     '/recht/norm/sero-verordnung/',
     '/recht/verkuendungen/ogvbl-2026-53/',
     '/recht/verkuendungen/ogvbl-2026-58/',
+    '/recht/verkuendungen/gmbl-2026-14/',
+    '/recht/norm/verwaltungsabkommen-kasernierte-grenzpolizei/',
     '/recht/search-index.json',
     '/recht/verkuendungen/index.json',
     '/sitemap.xml',
@@ -221,7 +223,7 @@ test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 1. August 2026 ab', a
   await expect(page.getByText(/in Kraft/u).first()).toBeVisible();
 });
 
-test('Berlin und Grenzpolizei sind mit geltendem und offenem Stand erklärt', async ({ page }) => {
+test('Berlin und Grenzpolizei sind mit geltendem und umzusetzendem Stand erklärt', async ({ page }) => {
   await page.goto('/freistaat/berlin/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Berlin im Freistaat');
   await expect(page.getByText(/vierzehn Bezirke/u).first()).toBeVisible();
@@ -230,10 +232,20 @@ test('Berlin und Grenzpolizei sind mit geltendem und offenem Stand erklärt', as
 
   await page.goto('/themen/demokratie-und-sicherheit/');
   await expect(page.getByText(/gesetzlich als Landesbehörde errichtet/u)).toBeVisible();
-  await expect(page.getByText(/nicht unterzeichnet und nicht wirksam/u)).toBeVisible();
-  const agreementFaq = page.locator('details').filter({ hasText: /keine darauf beruhende Aufgabenübertragung/u });
+  await expect(page.getByText(/28\. Juli 2026 in Leipzig geschlossen/u).first()).toBeVisible();
+  await expect(page.getByText(/nicht unterzeichnet und nicht wirksam/u)).toHaveCount(0);
+  const agreementFaq = page.locator('details').filter({ hasText: /Hat der Bund bereits Aufgaben/u });
   await agreementFaq.locator('summary').click();
-  await expect(agreementFaq.getByText(/keine darauf beruhende Aufgabenübertragung/u)).toBeVisible();
+  await expect(agreementFaq.getByText(/29\. Juli 2026 veröffentlicht/u)).toBeVisible();
+
+  await page.goto('/recht/norm/verwaltungsabkommen-kasernierte-grenzpolizei/');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('Verwaltungsabkommen');
+  await expect(page.getByText('GMBl. 2026 Nr. 14', { exact: false }).first()).toBeVisible();
+  await expect(page.getByText(/keinen ausdrücklichen Inkrafttretenssatz/u).first()).toBeVisible();
+  await expect(page.getByRole('heading', { name: /§ 7 Inkrafttreten/u })).toBeVisible();
+  await expect(
+    page.locator('.norm-text').filter({ hasText: /mit einer Frist von sechs Monaten/u }),
+  ).toBeVisible();
 });
 
 test('Normgliederung besitzt eindeutige IDs und deckungsgleiche Inhaltsanker', async ({ page }) => {
@@ -348,15 +360,15 @@ test('Rechtsportal verwendet auf Übersichten und Suchindex dieselbe jüngste Ve
     .locator('xpath=following::ul[1]')
     .locator('li')
     .first();
-  await expect(latestHomePublication).toContainText('2026 Nr. 58');
+  await expect(latestHomePublication).toContainText('2026 Nr. 14');
 
   await page.goto('/recht/verkuendungen/');
-  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 58');
+  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 14');
 
   const searchIndex = await (await request.get('/recht/search-index.json')).json();
   const publicationIndex = await (await request.get('/recht/verkuendungen/index.json')).json();
-  expect(searchIndex.latestPublication.slug).toBe('ogvbl-2026-58');
-  expect(publicationIndex.latestPublication.slug).toBe('ogvbl-2026-58');
+  expect(searchIndex.latestPublication.slug).toBe('gmbl-2026-14');
+  expect(publicationIndex.latestPublication.slug).toBe('gmbl-2026-14');
 });
 
 test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwerkzeuge', async ({ page }) => {

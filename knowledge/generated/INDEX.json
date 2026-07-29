@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-07-29",
   "editorialAsOf": "2026-08-01",
-  "count": 222,
+  "count": 230,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -85,6 +85,20 @@
       ],
       "validFrom": null,
       "validTo": null,
+      "target": "knowledge/conversation-candidates.json"
+    },
+    {
+      "id": "candidate-grenzpolizei-agreement-draft-status",
+      "title": "Früherer Redaktionsstand zum Grenzpolizeiabkommen",
+      "type": "conversation-candidate",
+      "aliases": [],
+      "tags": [
+        "conversation-candidate",
+        "superseded",
+        "agreement"
+      ],
+      "validFrom": null,
+      "validTo": "2026-07-29",
       "target": "knowledge/conversation-candidates.json"
     },
     {
@@ -341,6 +355,35 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-grenzpolizei-agreement-published",
+      "title": "Verwaltungsabkommen wird in GMBl. 2026 Nr. 14 veröffentlicht",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "agreement",
+        "security",
+        "source-conflict"
+      ],
+      "validFrom": "2026-07-29",
+      "validTo": "2026-07-29",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-grenzpolizei-agreement-signed",
+      "title": "Verwaltungsabkommen zur Grenzpolizei wird in Leipzig unterzeichnet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "agreement",
+        "security"
+      ],
+      "validFrom": "2026-07-28",
+      "validTo": "2026-07-28",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-honecker-i",
       "title": "Kabinett Honecker I wird gebildet",
       "type": "timeline-event",
@@ -520,6 +563,22 @@
       "validFrom": "2026-03-23",
       "validTo": "2026-03-23",
       "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "inst-bundesministerium-innern-heimat",
+      "title": "Bundesministerium des Innern und für Heimat",
+      "type": "institution",
+      "aliases": [
+        "BMI"
+      ],
+      "tags": [
+        "federal",
+        "ministry",
+        "agreement-party"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
     },
     {
       "id": "inst-bundesrat",
@@ -1209,7 +1268,7 @@
     },
     {
       "id": "proceeding-grenzpolizei-bund",
-      "title": "Vereinbarung mit Bund und Bundespolizei zur Grenzpolizei",
+      "title": "Verwaltungsabkommen zur Wahrnehmung grenzpolizeilicher Aufgaben",
       "type": "proceeding",
       "aliases": [],
       "tags": [
@@ -1217,7 +1276,7 @@
         "agreement",
         "security"
       ],
-      "validFrom": null,
+      "validFrom": "2026-07-28",
       "validTo": null,
       "target": "knowledge/proceedings.json"
     },
@@ -1621,6 +1680,20 @@
         "open-question"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-grenzpolizei-effective-date",
+      "title": "Wie ist das Wirksamkeitsdatum des Verwaltungsabkommens ausdrücklich belegt?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "source-conflict",
+        "agreement"
+      ],
+      "validFrom": "2026-07-29",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -2094,6 +2167,36 @@
         "state"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-gmbl-2026-14",
+      "title": "Gemeinsames Ministerialblatt 2026 Nr. 14",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "security",
+        "agreements",
+        "federal"
+      ],
+      "validFrom": "2026-07-29",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-gmbl-clarification-2026-07-29",
+      "title": "Quellenbasierte Aktualisierung zu GMBl. 2026 Nr. 14",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "security",
+        "agreements",
+        "source-conflicts"
+      ],
+      "validFrom": "2026-07-29",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2590,6 +2693,20 @@
         "government"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-grenzpolizei-agreement",
+      "title": "Verwaltungsabkommen zur Kasernierten Grenzpolizei",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "security",
+        "agreement"
+      ],
+      "validFrom": "2026-07-29",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

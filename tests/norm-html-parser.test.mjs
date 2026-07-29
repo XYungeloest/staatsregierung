@@ -43,6 +43,40 @@ test('Ausgaben 46 bis 58 werden ausschließlich aus HTML mit intern erkannten Au
   }
 });
 
+test('GMBl. 2026 Nr. 14 nutzt den Bundesblattpfad und erhält alle sieben Paragraphen quellentreu', async () => {
+  const fileName = 'GMBl-14-2026.html';
+  const html = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
+  assert.deepEqual(classifyHtmlSource(fileName, html), {
+    kind: 'publication',
+    publication: 'GMBl.',
+    reason: 'Gemeinsames Ministerialblatt mit internem Ausgabekopf und Inhaltsverzeichnis',
+  });
+  const parsed = parsePublicationHtml(fileName, html);
+  assert.equal(parsed.publication, 'GMBl.');
+  assert.equal(parsed.issue, '14');
+  assert.equal(parsed.type, 'verwaltungsabkommen');
+  assert.equal(parsed.documentDate, '2026-07-28');
+  assert.equal(parsed.publicationDate, '2026-07-29');
+  assert.equal(parsed.effectiveDate, null);
+  assert.deepEqual(
+    parsed.body.filter((block) => block.type === 'paragraph').map((block) => block.label),
+    ['§ 1', '§ 2', '§ 3', '§ 4', '§ 5', '§ 6', '§ 7'],
+  );
+  const paragraphOne = parsed.body.find((block) => block.label === '§ 1');
+  const paragraphSeven = parsed.body.find((block) => block.label === '§ 7');
+  assert.deepEqual(
+    paragraphOne.children.find((block) => block.label === '(1)').children.map((block) => block.label),
+    ['1.', '2.', '3.', '4.'],
+  );
+  assert.equal(paragraphSeven.title, 'Inkrafttreten');
+  assert.deepEqual(paragraphSeven.children, [{
+    type: 'paragraphText',
+    text: 'Dieses Verwaltungsabkommen kann mit einer Frist von sechs Monaten zum Ablauf eines Kalenderjahres gekündigt werden.',
+  }]);
+  assert.doesNotMatch(bodyText(parsed), /tritt\s+am|tritt\s+mit/u);
+  assert.doesNotMatch(bodyText(parsed), /Leipzig,\s+den|David König|Yannik Schmäle/u);
+});
+
 test('Ausgabe 46 trennt Mantelgesetz, OstKrBzNG und Bezirksordnung', async () => {
   const parsed = await issue(46);
   const summary = summarizeParsedSource(parsed);

@@ -555,8 +555,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Gesetzlich errichtete Grenzpolizei. Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist noch nicht wirksam und befindet sich in Ausarbeitung.",
+      "asOf": "2026-08-01",
+      "summary": "Gesetzlich errichtete Grenzpolizei mit am 28. Juli 2026 geschlossenem und am 29. Juli 2026 veröffentlichtem Verwaltungsabkommen. Die technische, organisatorische und operative Umsetzung der übertragenen Aufgaben bleibt im Aufbau.",
       "sourceRefs": [
         {
           "sourceId": "source-grenzpolizei-law",
@@ -569,14 +569,21 @@
           "role": "corroborating"
         },
         {
-          "sourceId": "source-editorial-clarifications-2026-07-29",
-          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Seiten 2–6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-gmbl-clarification-2026-07-29",
+          "locator": "Abschnitte Abschluss und Veröffentlichung sowie Wirksamkeitsangabe",
           "role": "corroborating"
         }
       ],
       "relatedIds": [
         "inst-sek-staats-grenzsicherheit",
-        "inst-grenzpolizei"
+        "inst-grenzpolizei",
+        "inst-bundesministerium-innern-heimat",
+        "proceeding-grenzpolizei-bund"
       ],
       "tags": [
         "project",
@@ -598,22 +605,39 @@
         {
           "normSlug": "kasernierte-grenzpolizei-errichtungsgesetz",
           "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
+          "versionId": "2026-07-29"
         }
       ],
       "milestones": [
         {
           "date": "2026-07-21",
           "title": "Errichtungs- und Fachgesetz treten in Kraft"
+        },
+        {
+          "date": "2026-07-28",
+          "title": "Verwaltungsabkommen wird in Leipzig geschlossen"
+        },
+        {
+          "date": "2026-07-29",
+          "title": "Verwaltungsabkommen wird in GMBl. 2026 Nr. 14 veröffentlicht"
         }
       ],
       "nextSteps": [
-        "Aufbauorganisation fortführen",
-        "Vereinbarung mit Bund beziehungsweise Bundespolizei fertigstellen und unterzeichnen"
+        "Technische und organisatorische Umsetzung fortführen",
+        "Zuständige zentrale Dienststelle benennen",
+        "Zusammenarbeit mit Bundespolizei und Zoll ausgestalten",
+        "Gesetzlich zulässige System- und Registerzugänge einrichten",
+        "Übertragene Aufgaben operativ umsetzen"
       ],
       "dependencies": [
         "proceeding-grenzpolizei-bund"
       ],
-      "openQuestionIds": []
+      "openQuestionIds": [
+        "question-grenzpolizei-effective-date"
+      ]
     },
     {
       "id": "project-schulreform",

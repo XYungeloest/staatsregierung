@@ -1,7 +1,7 @@
 # Offene Quellenfragen
 
 **Redaktioneller Stand:** 1. August 2026
-**Zuletzt geprüft:** 29. Juli 2026
+**Zuletzt geprüft:** 1. August 2026
 
 Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
 nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
@@ -17,6 +17,10 @@ Belegt:
 - Die Ausgaben OGVBl. 2026 Nr. 46 bis 58 liegen als redaktionell geprüfte HTML-Transkriptionen und
   mit den zugehörigen Original-PDFs unter `Gesetze/` vor. Die PDFs sind visuelle Kontrollquellen,
   keine strukturtragenden Importquellen.
+- Das Gemeinsame Ministerialblatt 2026 Nr. 14 liegt vollständig als HTML, PDF und Markdown unter
+  `Gesetze/` vor. Die HTML-Fassung ist die strukturtragende Importquelle, das sechsseitige PDF die
+  amtliche visuelle Veröffentlichungs- und Kontrollquelle und Markdown eine zusätzliche
+  Transkription. Das Verwaltungsabkommen belegt die Seiten 2 bis 6.
 - `OGVBl II-24.pdf` und `OGVBl I-25.pdf` sind bildbasierte Alt-Ausgaben. Alle 47 PDF-Seiten
   wurden am 23. Juli 2026 vollständig gerendert und visuell geprüft. Die elf enthaltenen
   Dokumente liegen nun als redaktionell geprüfte strukturierte HTML-Transkriptionen und
@@ -59,10 +63,13 @@ Schlussfolgerung:
   konsolidierte Fassung erstellt.
 - Geprüfte REVOSax-Ausgangsfassungen und vollständig verknüpfte, neu eingeführte Stammnormen
   werden im Konsolidierungsmanifest gemeinsam als vollständig geführt. Der aktuelle Audit weist
-  34 vollständige Zielnormen aus. Neu eingeführte Normen benötigen keine künstliche sächsische
+  37 vollständige Zielnormen aus. Neu eingeführte Normen benötigen keine künstliche sächsische
   Ausgangsfassung; ihre Einführungsbeziehung muss stattdessen wechselseitig belegt sein.
 - Die drei zuvor bedingt wirksamen Staatsverträge werden mit Inkrafttreten am 24. März 2026
   geführt. Die redaktionelle Klarstellung wird im Wissenshub als eigene Quelle dokumentiert.
+- Das Verwaltungsabkommen zur Kasernierten Grenzpolizei wird als eigener Dokumenttyp geführt.
+  Abschluss am 28. Juli und Veröffentlichung am 29. Juli 2026 sind amtlich belegt; die technische
+  und organisatorische Umsetzung wird nicht als abgeschlossen behauptet.
 - Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
   eindeutige Aufhebungs- oder Übergangsquelle vorliegt.
 
@@ -90,11 +97,14 @@ Schlussfolgerung:
 
 Belegt:
 
-- Unter `Gesetze/` liegen 84 HTML-Dateien und 98 ältere Markdown-Dateien. Sämtliche eindeutig einem
+- Unter `Gesetze/` liegen 85 HTML-Dateien und 99 Markdown-Dateien. Sämtliche eindeutig einem
   Bestandsdatensatz zuordenbaren HTML-Ausgaben sowie `Staatsverfassung.html` dienen als lokale
   strukturtragende Importquellen. Markdown bleibt Altbestand und wird bei vorhandener HTML-Ausgabe
   nicht geöffnet. 17 Normen ohne HTML wurden nach PDF-/Quellvergleich mit dem getrennten
   Legacy-Parser aktualisiert und als `legacy-markdown-transcription` gekennzeichnet.
+- `GMBl-14-2026.html` wird über einen eigenen Bundesblatt-Pfad erkannt. Der Importer verlangt
+  weder einen OGVBl.-Kopf noch dessen Inhaltsverzeichnis- und Datumsaufbau; die Bundesblattstruktur
+  mit dem Ausgabekopf „Ausgegeben zu Bonn“ und der Übersicht „INHALT“ wird separat geprüft.
 - Ein `sourceFiles`-Eintrag ist nur zulässig, wenn die angegebene Datei im Git-Bestand und im
   Checkout vorhanden ist. Der Content-Checker prüft beides.
 - HTML-migrierte Ausgabedatensätze verweisen über `sourceReferences` auf die versionierte
@@ -109,6 +119,8 @@ Belegt:
   OGVBl. I/2025, OGVBl. I/2024 und `Verfassung.docx` lokale Pfade, SHA-256, Seitenzahlen
   beziehungsweise Renderumfang, Prüfdatum, Quellenrolle und abgeleitete HTML-Transkriptionen
   fest. Content-Check und Build benötigen dafür keinen Netzwerkzugriff.
+- Dasselbe Inventar hält für GMBl. 2026 Nr. 14 alle drei lokalen Pfade, SHA-256-Werte,
+  Seitenumfang, Quellenrollen und den geprüften Normbezug fest.
 - Der Normimport läuft standardmäßig nur als Audit. Schreiben erfordert `--write` und eine gezielte
   `--file`-Angabe; vorhandene Normen werden erst mit `--update-existing` verändert.
 - Amtliche REVOSax-Ausgangsseiten liegen unverändert unter
@@ -164,6 +176,16 @@ Belegt:
   „Die Landesfarben sind Weiß und Grün.“ enthält dieses Wort nicht. Der Änderungssatz wird nach
   ausdrücklicher redaktioneller Klärung als Einfügung vor dem Wort „Weiß“ angewendet. Das
   Änderungsgesetz selbst bleibt quellentreu und unverändert gespeichert.
+- Der veröffentlichte § 7 des Verwaltungsabkommens trägt die Überschrift „Inkrafttreten“, enthält
+  aber keinen ausdrücklichen Inkrafttretenssatz und kein konkretes Datum. Sein vollständiger
+  Regelungsgegenstand ist die Kündigung mit einer Frist von sechs Monaten zum Ablauf eines
+  Kalenderjahres. Das Portal modelliert den 29. Juli 2026 entsprechend der Veröffentlichung als
+  Wirksamkeitsdatum und zeigt den fehlenden ausdrücklichen Quellenbeleg weiterhin an.
+- GMBl. 2026 Nr. 14 nennt in der Präambel „Staatsrat für Staats- und Grenzssicherheit“ und in der
+  Unterschriftszeile „Staatsrat für Staats- und Grenzschutz“. Der Originaltext bleibt in allen
+  Quellen unverändert; strukturierte Metadaten verwenden die kanonische Amtsbezeichnung
+  „Staatsrat für Staats- und Grenzsicherheit“. Bloße typografische Unterschiede der drei
+  Fassungen werden nicht als weiterer Rechtskonflikt geführt.
 - Bei der Dienstanordnung anlässlich der momentanen Terrorgefahr nennt das Inhaltsverzeichnis
   den 2. Oktober 2024, der Einleitungssatz dagegen den 23. September 2024.
 - Der Organisationserlass vom 22. Januar 2025 hebt einen Erlass vom 8. November 2024 auf; die
@@ -213,21 +235,23 @@ Schlussfolgerung:
 
 ## 5. Nächster Aktualisierungsschritt
 
-1. Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und `StAnzO. 2026 Nr. 2.html`
+1. Eine amtliche Berichtigung oder Ergänzung zum fehlenden Inkrafttretenssatz in § 7 des
+   Verwaltungsabkommens nachreichen, falls eine solche veröffentlicht wird.
+2. Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und `StAnzO. 2026 Nr. 2.html`
    technisch zusammenführen; Dokumentkopf und internes Datum sind dabei kanonisch.
-2. Plenarprotokoll und Einzelabstimmungsergebnisse vom 20. Juli 2026 nachreichen und ausschließlich
+3. Plenarprotokoll und Einzelabstimmungsergebnisse vom 20. Juli 2026 nachreichen und ausschließlich
    für die noch offenen Beratungsdetails auswerten.
-3. Für die weiterhin nur als Markdown vorliegenden Altquellen schrittweise strukturierte HTML-
+4. Für die weiterhin nur als Markdown vorliegenden Altquellen schrittweise strukturierte HTML-
    Transkriptionen erstellen; bis dahin die PDF-Gegenprüfung und Legacy-Fixtures beibehalten.
-4. Klage und gerichtliche Entscheidung zum Bundesratszugangsstreit sowie den angekündigten
+5. Klage und gerichtliche Entscheidung zum Bundesratszugangsstreit sowie den angekündigten
    Wikiartikel zur Vertretung der Bundespräsidentin als Primär- beziehungsweise Sekundärquellen ablegen.
-5. Die in `data/recht/consolidation-manifest.json` aufgelisteten historischen
+6. Die in `data/recht/consolidation-manifest.json` aufgelisteten historischen
    REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
    sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten
    prüfen.
-6. Insbesondere die Ausgangsfassungen des Kulturraumgesetzes und des Ostdeutschen
+7. Insbesondere die Ausgangsfassungen des Kulturraumgesetzes und des Ostdeutschen
    Polizeibehördengesetzes sichern und konsolidieren. Bis dahin verweist die Berlin-Übersicht
    für die belegten Änderungen auf das Berlin-Änderungsgesetz; eine eigenständige aktuelle
    Stammnormfassung wird nicht vorgetäuscht.
-7. Weitere unabhängig offene Stammnormquellen anhand der im Konsolidierungsbericht
+8. Weitere unabhängig offene Stammnormquellen anhand der im Konsolidierungsbericht
    priorisierten Liste sichern und konsolidieren.

@@ -175,6 +175,7 @@ const relatedProcedures = topic
             <li class="record-list__item">
               <strong>{procedure.shortTitle}</strong>
               <span>Drucksache {procedure.documentNumber} · {procedure.statusLabel}</span>
+              {procedure.dateNote ? <span>{procedure.dateNote}</span> : null}
               {procedure.recommendation ? <span>Beschlussempfehlung {procedure.recommendation.documentNumber}: Annahme empfohlen</span> : null}
               {procedure.proposedCommittee ? <span>Bei Einbringung vorgeschlagene Überweisung: {procedure.proposedCommittee}</span> : null}
             </li>

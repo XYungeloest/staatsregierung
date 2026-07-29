@@ -103,6 +103,8 @@ Pflichtfelder:
 Optionale Felder:
 
 - `pdf`
+- `place`
+- `publisher`
 - `originalIssueDesignation`
 - `alternativeIssueDesignation`
 - `sourceFiles`
@@ -164,11 +166,20 @@ Normmetadaten trennen das erlassende Organ (`enactingBody`) vom fachlich zustän
 `abbr` ist optional und darf ausschließlich aus einer Primärquelle übernommen werden. Redaktionelle
 Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht.
 
+Verwaltungsabkommen werden als eigener Normtyp `verwaltungsabkommen` geführt und nicht als
+Staatsvertrag oder Verwaltungsvorschrift klassifiziert. Vertragspartner, Unterzeichner,
+Abschlussort, Rechtsgrundlagen und quellentreue Abweichungen stehen in `agreementDetails`.
+Ein modelliertes Wirksamkeitsdatum darf einen fehlenden ausdrücklichen Inkrafttretenssatz nicht
+verdecken; der Quellenhinweis wird zusätzlich in `dateNote` und `versions[].sourceNotes` geführt.
+
 Bei HTML-migrierten Normen dokumentiert `meta.json` dieselbe strukturtragende Datei zusätzlich in
 `sourceReferences`. Verkündungsdatensatz und Normmetadaten müssen dabei auf denselben `.html`-Pfad
 zeigen; die Content-QA prüft diese Beziehung. Nur bei einer Altquelle ohne zuordenbare HTML-Ausgabe
 darf stattdessen `legacy-markdown-transcription` mit einem `.md`-Pfad verwendet werden. Auch dann
 müssen Verkündungsdatensatz und Normmetadaten dieselbe strukturtragende Datei nennen.
+Eine parallel bereitgestellte Markdown-Transkription wird bei vollständigem HTML als
+`supplementary-markdown-transcription` dokumentiert und bleibt gegenüber HTML und amtlicher
+PDF-Kontrolle nachrangig.
 
 `sourceFiles` und `sourceReferences[].localSource` dürfen ausschließlich relative Pfade zu
 tatsächlich versionierten Dateien enthalten. Externe Quellen verwenden eine HTTPS-URL und

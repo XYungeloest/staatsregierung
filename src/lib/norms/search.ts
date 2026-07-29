@@ -218,6 +218,18 @@ function buildSearchDocument(
   publicationReference?: NormPublicationReference,
 ): SearchIndexDocument {
   const { textParts, contexts, hitUnits } = collectBodyContent(version.body);
+  const agreementText = record.meta.agreementDetails
+    ? [
+        ...record.meta.agreementDetails.parties.map((party) => party.name),
+        ...record.meta.agreementDetails.signatories.flatMap((signatory) => [
+          signatory.name,
+          signatory.office,
+          signatory.representingParty,
+        ]),
+        ...record.meta.agreementDetails.legalBases.flatMap((basis) => [basis.label, basis.title]),
+        record.meta.agreementDetails.signedAt,
+      ].map(toDisplayText)
+    : [];
   const versionKind = classifyNormVersion(record, version);
   const isApplicableCurrentVersion = versionKind === 'current';
   const resultLabel = versionKind === 'future'
@@ -253,7 +265,7 @@ function buildSearchDocument(
     initialCitation: toDisplayText(record.meta.initialCitation),
     citation: toDisplayText(version.citation),
     publication: publicationReference
-      ? `${publicationReference.publication} ${publicationReference.publicationDate} Nr. ${publicationReference.issue}`
+      ? `${publicationReference.publication} ${publicationReference.publicationDate.slice(0, 4)} Nr. ${publicationReference.issue}`
       : extractPublication(version.citation),
     publicationSlug: publicationReference?.publicationSlug,
     publicationUrl: publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined,
@@ -267,7 +279,7 @@ function buildSearchDocument(
     changeNote: toDisplayText(version.changeNote),
     validFrom: version.validFrom,
     validTo: version.validTo,
-    bodyText: textParts.join('\n\n'),
+    bodyText: [...agreementText, ...textParts].join('\n\n'),
     contexts,
     hitUnits,
     resultLabel,

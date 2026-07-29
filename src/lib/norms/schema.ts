@@ -6,6 +6,7 @@ export const NORM_TYPES = [
   'allgemeinverfuegung',
   'bekanntmachung',
   'staatsvertrag',
+  'verwaltungsabkommen',
   'zustimmungsgesetz',
   'aenderungsvorschrift',
 ] as const;
@@ -55,6 +56,7 @@ export interface NormSourceReference {
   kind:
     | 'structured-html-transcription'
     | 'legacy-markdown-transcription'
+    | 'supplementary-markdown-transcription'
     | 'revosax-snapshot'
     | 'amendment-source'
     | 'primary-pdf'
@@ -72,13 +74,52 @@ export interface NormSourceReference {
   pageCount?: number;
   pageRange?: string;
   verifiedAt?: string;
-  sourceRole?: 'structure-bearing' | 'visual-control' | 'official-snapshot' | 'amendment-evidence';
+  sourceRole?: 'structure-bearing' | 'visual-control' | 'supplementary-transcription' | 'official-snapshot' | 'amendment-evidence';
   derivedSource?: string;
 }
 
 export interface NormSourceNote {
   label: string;
   text: string;
+}
+
+export interface AgreementPartyReference {
+  name: string;
+  institutionId?: string;
+}
+
+export interface AgreementSignatoryReference {
+  name: string;
+  personId?: string;
+  office: string;
+  representingParty: string;
+}
+
+export interface AgreementLegalBasisReference {
+  label: string;
+  title: string;
+  url?: string;
+}
+
+export interface AgreementSourceDiscrepancy {
+  location: string;
+  originalText: string;
+  canonicalText: string;
+  note: string;
+}
+
+export interface AdministrativeAgreementDetails {
+  signedOn: string;
+  signedAt: string;
+  publishedOn: string;
+  effectiveOn: string;
+  effectivenessNote: string;
+  parties: AgreementPartyReference[];
+  signatories: AgreementSignatoryReference[];
+  legalBases: AgreementLegalBasisReference[];
+  responsibleInstitutionId?: string;
+  projectIds?: string[];
+  sourceDiscrepancies?: AgreementSourceDiscrepancy[];
 }
 
 export interface NormEditorialResolution {
@@ -117,6 +158,7 @@ export interface NormMeta {
   enactedNorms?: string[];
   affectedNorms?: string[];
   affectedByNorms?: string[];
+  relatedNorms?: string[];
   summary: string;
   status: NormStatus;
   documentDate?: string;
@@ -124,6 +166,7 @@ export interface NormMeta {
   effectiveDate?: string;
   expiryDate?: string;
   dateNote?: string;
+  agreementDetails?: AdministrativeAgreementDetails;
   sourceReferences?: NormSourceReference[];
   editorialResolutions?: NormEditorialResolution[];
 }
@@ -299,6 +342,7 @@ function parseNormSourceReference(value: unknown, path: string): NormSourceRefer
       [
         'structured-html-transcription',
         'legacy-markdown-transcription',
+        'supplementary-markdown-transcription',
         'revosax-snapshot',
         'amendment-source',
         'primary-pdf',
@@ -340,6 +384,97 @@ function parseNormSourceNote(value: unknown, path: string): NormSourceNote {
   return {
     label: expectString(object.label, `${path}.label`),
     text: expectString(object.text, `${path}.text`),
+  };
+}
+
+function parseAgreementParty(value: unknown, path: string): AgreementPartyReference {
+  const object = expectObject(value, path);
+  return {
+    name: expectString(object.name, `${path}.name`),
+    institutionId: expectOptionalString(object.institutionId, `${path}.institutionId`),
+  };
+}
+
+function parseAgreementSignatory(value: unknown, path: string): AgreementSignatoryReference {
+  const object = expectObject(value, path);
+  return {
+    name: expectString(object.name, `${path}.name`),
+    personId: expectOptionalString(object.personId, `${path}.personId`),
+    office: expectString(object.office, `${path}.office`),
+    representingParty: expectString(object.representingParty, `${path}.representingParty`),
+  };
+}
+
+function parseAgreementLegalBasis(value: unknown, path: string): AgreementLegalBasisReference {
+  const object = expectObject(value, path);
+  return {
+    label: expectString(object.label, `${path}.label`),
+    title: expectString(object.title, `${path}.title`),
+    url: expectOptionalString(object.url, `${path}.url`),
+  };
+}
+
+function parseAgreementSourceDiscrepancy(
+  value: unknown,
+  path: string,
+): AgreementSourceDiscrepancy {
+  const object = expectObject(value, path);
+  return {
+    location: expectString(object.location, `${path}.location`),
+    originalText: expectString(object.originalText, `${path}.originalText`),
+    canonicalText: expectString(object.canonicalText, `${path}.canonicalText`),
+    note: expectString(object.note, `${path}.note`),
+  };
+}
+
+function parseAdministrativeAgreementDetails(
+  value: unknown,
+  path: string,
+): AdministrativeAgreementDetails {
+  const object = expectObject(value, path);
+  const parties = object.parties;
+  const signatories = object.signatories;
+  const legalBases = object.legalBases;
+  if (!Array.isArray(parties) || parties.length < 2) {
+    fail(`${path}.parties`, 'muss mindestens zwei Vertragspartner enthalten');
+  }
+  if (!Array.isArray(signatories) || signatories.length < 2) {
+    fail(`${path}.signatories`, 'muss mindestens zwei Unterzeichner enthalten');
+  }
+  if (!Array.isArray(legalBases) || legalBases.length === 0) {
+    fail(`${path}.legalBases`, 'muss mindestens eine Rechtsgrundlage enthalten');
+  }
+
+  return {
+    signedOn: expectIsoDate(object.signedOn, `${path}.signedOn`),
+    signedAt: expectString(object.signedAt, `${path}.signedAt`),
+    publishedOn: expectIsoDate(object.publishedOn, `${path}.publishedOn`),
+    effectiveOn: expectIsoDate(object.effectiveOn, `${path}.effectiveOn`),
+    effectivenessNote: expectString(object.effectivenessNote, `${path}.effectivenessNote`),
+    parties: parties.map((entry, index) => parseAgreementParty(entry, `${path}.parties[${index}]`)),
+    signatories: signatories.map((entry, index) =>
+      parseAgreementSignatory(entry, `${path}.signatories[${index}]`),
+    ),
+    legalBases: legalBases.map((entry, index) =>
+      parseAgreementLegalBasis(entry, `${path}.legalBases[${index}]`),
+    ),
+    responsibleInstitutionId: expectOptionalString(
+      object.responsibleInstitutionId,
+      `${path}.responsibleInstitutionId`,
+    ),
+    projectIds: object.projectIds === undefined
+      ? undefined
+      : expectStringArray(object.projectIds, `${path}.projectIds`),
+    sourceDiscrepancies: object.sourceDiscrepancies === undefined
+      ? undefined
+      : (() => {
+          if (!Array.isArray(object.sourceDiscrepancies)) {
+            fail(`${path}.sourceDiscrepancies`, 'muss ein Array sein');
+          }
+          return object.sourceDiscrepancies.map((entry, index) =>
+            parseAgreementSourceDiscrepancy(entry, `${path}.sourceDiscrepancies[${index}]`),
+          );
+        })(),
   };
 }
 
@@ -557,6 +692,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     allgemeinverfügung: 'allgemeinverfuegung',
     bekanntmachung: 'bekanntmachung',
     staatsvertrag: 'staatsvertrag',
+    verwaltungsabkommen: 'verwaltungsabkommen',
     zustimmungsgesetz: 'zustimmungsgesetz',
     aenderungsvorschrift: 'aenderungsvorschrift',
     änderungsvorschrift: 'aenderungsvorschrift',
@@ -622,6 +758,10 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
       object.affectedByNorms === undefined
         ? undefined
         : expectSlugArray(object.affectedByNorms, `${path}.affectedByNorms`),
+    relatedNorms:
+      object.relatedNorms === undefined
+        ? undefined
+        : expectSlugArray(object.relatedNorms, `${path}.relatedNorms`),
     summary: expectString(object.summary, `${path}.summary`),
     status: normalizedStatusMap[rawStatus],
     documentDate:
@@ -641,6 +781,9 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
         ? undefined
         : expectIsoDate(object.expiryDate, `${path}.expiryDate`),
     dateNote: expectOptionalString(object.dateNote, `${path}.dateNote`),
+    agreementDetails: object.agreementDetails === undefined
+      ? undefined
+      : parseAdministrativeAgreementDetails(object.agreementDetails, `${path}.agreementDetails`),
     sourceReferences: object.sourceReferences === undefined
       ? undefined
       : (() => {
@@ -864,6 +1007,22 @@ export function validateNormRecord(record: NormRecord, context = record.meta.slu
 
   if (record.versions.length === 0) {
     fail(`${context}/versions`, 'muss mindestens eine Fassung enthalten');
+  }
+
+  if (record.meta.type === 'verwaltungsabkommen' && !record.meta.agreementDetails) {
+    fail(`${context}/meta.json.agreementDetails`, 'ist für ein Verwaltungsabkommen erforderlich');
+  }
+  if (record.meta.type === 'verwaltungsabkommen' && record.meta.agreementDetails) {
+    const details = record.meta.agreementDetails;
+    if (details.signedOn !== record.meta.documentDate) {
+      fail(`${context}/meta.json.agreementDetails.signedOn`, 'muss dem Abschlussdatum des Dokuments entsprechen');
+    }
+    if (details.publishedOn !== record.meta.publicationDate) {
+      fail(`${context}/meta.json.agreementDetails.publishedOn`, 'muss dem Veröffentlichungsdatum entsprechen');
+    }
+    if (details.effectiveOn !== record.meta.effectiveDate) {
+      fail(`${context}/meta.json.agreementDetails.effectiveOn`, 'muss dem modellierten Wirksamkeitsdatum entsprechen');
+    }
   }
 
   const knownVersionIds = new Set<string>();

@@ -75,7 +75,7 @@ const temporalStatus = temporalKind === 'current'
       </div>
       {norm.meta.documentDate ? (
         <div>
-          <dt>Normdatum</dt>
+          <dt>{norm.meta.type === 'verwaltungsabkommen' ? 'Abschlussdatum' : 'Normdatum'}</dt>
           <dd><time datetime={norm.meta.documentDate}>{formatDate(norm.meta.documentDate)}</time></dd>
         </div>
       ) : null}
@@ -110,6 +110,43 @@ const temporalStatus = temporalKind === 'current'
       ) : null}
     </dl>
   </section>
+
+  {norm.meta.agreementDetails ? (
+    <section class="norm-meta-panel__group" aria-labelledby="norm-vertrag">
+      <h3 id="norm-vertrag">Vertragsdaten</h3>
+      <dl class="meta-list meta-list--compact">
+        <div>
+          <dt>Abschlussort</dt>
+          <dd>{toDisplayText(norm.meta.agreementDetails.signedAt)}</dd>
+        </div>
+        <div class="meta-list__wide">
+          <dt>Vertragspartner</dt>
+          <dd>{norm.meta.agreementDetails.parties.map((party) => toDisplayText(party.name)).join(' · ')}</dd>
+        </div>
+        <div class="meta-list__wide">
+          <dt>Unterzeichner</dt>
+          <dd>
+            {norm.meta.agreementDetails.signatories.map((signatory) =>
+              `${toDisplayText(signatory.name)} (${toDisplayText(signatory.office)})`
+            ).join(' · ')}
+          </dd>
+        </div>
+        <div class="meta-list__wide">
+          <dt>Rechtsgrundlage</dt>
+          <dd>
+            {norm.meta.agreementDetails.legalBases.map((basis, index) => (
+              <>
+                {index > 0 ? ' · ' : ''}
+                {basis.url
+                  ? <a class="inline-link" href={basis.url}>{toDisplayText(basis.label)} – {toDisplayText(basis.title)}</a>
+                  : `${toDisplayText(basis.label)} – ${toDisplayText(basis.title)}`}
+              </>
+            ))}
+          </dd>
+        </div>
+      </dl>
+    </section>
+  ) : null}
 
   <section class="norm-meta-panel__group" aria-labelledby="norm-verkuendung">
     <h3 id="norm-verkuendung">Zitierweise und Verkündung</h3>

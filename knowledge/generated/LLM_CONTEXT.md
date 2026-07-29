@@ -49,7 +49,7 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **Wohnungsvergesellschaftung und Gemeingut Wohnen**: in-implementation. Rechtskomplex aus Vergesellschaftung, öffentlichem Wohnträger, Durchführung und Schuldverschreibungen.
 - **Volksacker, Flächenfonds und Bodenfonds Ost**: coalition-project. Koalitionsvorhaben zur Sicherung von Boden und gemeinwohlorientierter Flächennutzung. Eine abgeschlossene, strukturierte Normenkette ist im Audit nicht belegt.
 - **Krankenhaussicherung und Rekommunalisierung**: in-implementation. Sondervermögen zur Sicherung wohnortnaher Krankenhausversorgung und zur Rekommunalisierung gefährdeter Standorte.
-- **Kasernierte Grenzpolizei**: in-implementation. Gesetzlich errichtete Grenzpolizei. Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist noch nicht wirksam und befindet sich in Ausarbeitung.
+- **Kasernierte Grenzpolizei**: in-implementation. Gesetzlich errichtete Grenzpolizei mit am 28. Juli 2026 geschlossenem und am 29. Juli 2026 veröffentlichtem Verwaltungsabkommen. Die technische, organisatorische und operative Umsetzung der übertragenen Aufgaben bleibt im Aufbau.
 - **Schulneuordnung mit POS und EOS**: in-implementation. Neuordnung des Schulsystems mit Polytechnischer Oberschule, Erweiterter Oberschule und flankierendem Schulrecht.
 - **Ostdeutscher Rundfunk und NDR-Überleitung**: in-implementation. Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung. Der NDR-Änderungs- und Überleitungsstaatsvertrag trat am 24. März 2026 in Kraft.
 - **Ostdeutscher Kulturpass**: in-force. Gesetzlich geregelter Kulturpass für junge Erwachsene.
@@ -60,8 +60,6 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 
 ## Wichtigste historische Ereignisse
 
-- **2026-05-20: Karl Honecker wird Präsident des Bundesrates.** Nach dem Rücktritt des Vorgängers infolge dessen Wahl zur Bundespräsidentin wählt der Bundesrat Karl Honecker einstimmig zum Präsidenten.
-- **2026-07-05: Koalition verfügt über elf von fünfzehn Sitzen.** Die Portalquellen führen seit 5. Juli 2026 eine Koalitionsmehrheit von 11 der 15 Sitze.
 - **2026-07-07: Kabinett Honecker II wird umgebildet.** Volker Bagdadi wechselt ins Innen- und Wohnungsressort; Yannik Schmäle übernimmt Nachhaltigkeit und Energie.
 - **2026-07-20: Zwölf Gesetze werden verkündet.** Die Ausgaben 46 bis 57 belegen zwölf verkündete Vorhaben; einzelne Abstimmungsergebnisse sind nicht belegt.
 - **2026-07-20: Thomas Henry Barlow scheidet aus der Staatsorganisation aus.** Thomas Henry Barlow wird entlassen und gehört dem ersten Staatsrat nicht an.
@@ -69,12 +67,13 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **2026-07-21: Erster Staatsrat nimmt die Arbeit auf.** Staatsregierung und Landtag werden nach den Übergangsvorschriften als Staatsrat und Volkskammer fortgeführt; Dr. Karl Honecker wird erster Staatspräsident.
 - **2026-07-21: SERO-Verordnung tritt in Kraft.** Der Staatsrat erlässt die SERO-Verordnung als selbstständige Rechtsverordnung.
 - **2026-07-21: Verkehrs-, Energie-, Grenzpolizei- und Boom-Europe-Gesetze treten in Kraft.** Mehrere große Projektkomplexe erreichen den verkündeten Rechtsstand.
+- **2026-07-28: Verwaltungsabkommen zur Grenzpolizei wird in Leipzig unterzeichnet.** Das Bundesministerium des Innern und für Heimat und der Ostdeutsche Staatsrat schließen das Verwaltungsabkommen über die Wahrnehmung grenzpolizeilicher Aufgaben.
+- **2026-07-29: Verwaltungsabkommen wird in GMBl. 2026 Nr. 14 veröffentlicht.** Das Verwaltungsabkommen wird am 29. Juli 2026 veröffentlicht und im Datenmodell ab diesem Tag als wirksam geführt. Der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz.
 - **2026-08-01: Neue Kreis- und Bezirksstruktur wird wirksam.** Vierzehn Bezirke und die neue Kreisstruktur sind nach der verkündeten Inkrafttretensregelung wirksam geworden.
 
 ## Laufende Verfahren und Abhängigkeiten
 
 - **Übergang zur neuen Kreis- und Bezirksstruktur** (implementation): Die Neuordnung ist seit 1. August 2026 wirksam. Übergangsorgane, Rechtsnachfolge und weitere organisatorische Vollzugsschritte werden umgesetzt.
-- **Vereinbarung mit Bund und Bundespolizei zur Grenzpolizei** (drafting): Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist nicht unterzeichnet oder wirksam; sie befindet sich in Ausarbeitung.
 - **Nachweis der dritten Plenarsitzung vom 20. Juli 2026** (records-missing): Verkündungen belegen zwölf beschlossene Vorhaben, aber Plenarprotokoll, Einzelabstimmungen und Stimmenzahlen fehlen.
 - **Umsetzung Boom Europe Leipzig/Halle** (implementation): Gesetzliche Grundlagen sind in Kraft; konkrete Vertrags-, Finanzierungs- und Projektorganisationsdetails müssen aus den Vollquellen weiter erschlossen werden.
 - **Bundesratszugangs- oder Stimmrechtsstreit** (decision-details-missing): Ein Bundesratszugangs- beziehungsweise Mitwirkungsstreit mit dem westdeutschen Ministerpräsidenten Markus Hauer ist bestätigt. Eine einstweilige Anordnung führte zur Rücknahme der Zugangsbeschränkung; formale Verfahrensdaten fehlen noch.
@@ -92,6 +91,7 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **Welche neuen Feiertage sind verkündet und seit wann wirksam?**: Gesprächswissen genügt nicht für Rechtsstand oder Kalenderangaben.
 - **Welche Primärakten und Verfahrensdaten fehlen noch zum Bundesratszugangsstreit?**: Existenz, Beteiligung Markus Hauers und praktische Rücknahme der Zugangsbeschränkung sind geklärt; formale Verfahrensdaten und Primärakten fehlen.
 - **Welche 34 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?**: Ohne Ausgangssnapshot darf keine freie Konsolidierung erfolgen.
+- **Wie ist das Wirksamkeitsdatum des Verwaltungsabkommens ausdrücklich belegt?**: § 7 ist mit „Inkrafttreten“ überschrieben, regelt aber ausschließlich die Kündigung mit einer Frist von sechs Monaten zum Ablauf eines Kalenderjahres.
 
 ## Detaildateien
 

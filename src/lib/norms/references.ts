@@ -45,6 +45,11 @@ const FEDERAL_REFERENCES: TextLinkReference[] = [
     external: true,
   },
   {
+    label: 'Bundespolizeigesetz',
+    url: 'https://www.gesetze-im-internet.de/bgsg_1994/',
+    external: true,
+  },
+  {
     label: 'Strafgesetzbuch',
     url: 'https://www.gesetze-im-internet.de/stgb/',
     external: true,
@@ -165,7 +170,12 @@ function textMentionsNorm(text: string, norm: NormRecord): boolean {
 
 function explicitRelatedSlugs(norm: NormRecord): Set<string> {
   return new Set(
-    [norm.meta.predecessor, norm.meta.successor, ...norm.history.entries.map((entry) => entry.relatedNorm)]
+    [
+      norm.meta.predecessor,
+      norm.meta.successor,
+      ...(norm.meta.relatedNorms ?? []),
+      ...norm.history.entries.map((entry) => entry.relatedNorm),
+    ]
       .filter((slug): slug is string => Boolean(slug)),
   );
 }

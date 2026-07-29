@@ -130,6 +130,7 @@ const NORM_TYPE_LABELS: Record<NormType, string> = {
   allgemeinverfuegung: 'Allgemeinverfügung',
   bekanntmachung: 'Bekanntmachung',
   staatsvertrag: 'Staatsvertrag',
+  verwaltungsabkommen: 'Verwaltungsabkommen',
   zustimmungsgesetz: 'Zustimmungsgesetz',
   aenderungsvorschrift: 'Änderungsvorschrift',
 };
@@ -178,7 +179,7 @@ export function formatDate(value: string): string {
 export function parseCitation(value: string): ParsedCitation | undefined {
   const displayValue = toDisplayText(value);
   const match = displayValue.match(
-    /\b(OGVBl\.|OABl\.|StAnzO\.|OVertrBl\.|SächsGVBl\.|BGBl\.)\s+(\d{4})\s+Nr\.\s+([A-Za-z0-9.-]+)(?:\s+S\.\s+([A-Za-z0-9.-]+))?/u,
+    /\b(OGVBl\.|OABl\.|StAnzO\.|OVertrBl\.|GMBl\.|SächsGVBl\.|BGBl\.)\s+(\d{4})\s+Nr\.\s+([A-Za-z0-9.-]+)(?:\s+S\.\s+([A-Za-z0-9.-]+))?/u,
   );
 
   if (!match) {
