@@ -413,12 +413,50 @@
       "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
     },
     {
+      "id": "candidate-grenzpolizei-agreement-draft-status",
+      "title": "Früherer Redaktionsstand zum Grenzpolizeiabkommen",
+      "status": "superseded",
+      "validFrom": null,
+      "validTo": "2026-07-29",
+      "asOf": "2026-07-29",
+      "summary": "Die frühere redaktionelle Aussage, das Abkommen sei noch in Ausarbeitung und nicht unterzeichnet oder wirksam, ist durch die amtliche Veröffentlichung in GMBl. 2026 Nr. 14 überholt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "historischer Stand im Abschnitt Rechts- und Vertragsstand",
+          "role": "context"
+        },
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Seiten 2–6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund"
+      ],
+      "tags": [
+        "conversation-candidate",
+        "superseded",
+        "agreement"
+      ],
+      "notes": [
+        "Die Provenienz des früheren Standes bleibt erhalten; er darf nicht mehr in den aktuellen Zustand übernommen werden."
+      ],
+      "aliases": [],
+      "classification": "superseded-by-primary-source",
+      "searchTargets": [],
+      "priority": "low",
+      "promotionRule": "Nicht in den aktuellen Zustand übernehmen; nur als historischer, überholter Redaktionsstand zitieren."
+    },
+    {
       "id": "candidate-political-reality-events",
       "title": "Nichtrechtliche Änderungen der politischen Realität",
       "status": "unverified",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-28",
+      "asOf": "2026-07-29",
       "summary": "Rücktritte, Ernennungen, Partei- und Fraktionswechsel, Vereinbarungen und Projektmeilensteine benötigen dauerhaft eine eigene Timeline- und Rollenpflege.",
       "sourceRefs": [
         {
@@ -431,7 +469,9 @@
       "tags": [
         "conversation-candidate"
       ],
-      "notes": [],
+      "notes": [
+        "Das Grenzpolizeiabkommen wurde nach Ablage von GMBl. 2026 Nr. 14 aus dem Kandidatenstatus in Verfahren, Projekt, Timeline und aktuellen Zustand übernommen."
+      ],
       "aliases": [],
       "classification": "new-knowledge-element-useful",
       "searchTargets": [

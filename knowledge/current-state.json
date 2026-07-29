@@ -365,13 +365,56 @@
       ]
     },
     {
+      "id": "state-current-grenzpolizei-agreement",
+      "title": "Verwaltungsabkommen zur Kasernierten Grenzpolizei",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-29",
+      "validTo": null,
+      "asOf": "2026-08-01",
+      "summary": "Das am 28. Juli 2026 in Leipzig geschlossene Verwaltungsabkommen wurde am 29. Juli 2026 in GMBl. 2026 Nr. 14 veröffentlicht. Es überträgt grenzpolizeiliche Aufgaben und regelt Steuerung, Zusammenarbeit und Kontrolle; die praktische Umsetzung ist nicht als abgeschlossen belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Seiten 2–6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-gmbl-clarification-2026-07-29",
+          "locator": "gesamte quellenbasierte Aktualisierung",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund",
+        "inst-grenzpolizei",
+        "inst-sek-staats-grenzsicherheit",
+        "person-yannik-schmaele",
+        "question-grenzpolizei-effective-date"
+      ],
+      "tags": [
+        "current-state",
+        "security",
+        "agreement"
+      ],
+      "notes": [
+        "Das Datenmodell führt den 29. Juli 2026 als Wirksamkeitsdatum; der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz."
+      ],
+      "normRefs": [
+        {
+          "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
+          "versionId": "2026-07-29"
+        }
+      ]
+    },
+    {
       "id": "state-current-open-proceedings",
       "title": "Belegte offene Verfahren und Wirksamkeitsbedingungen",
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-08-01",
-      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, die in Ausarbeitung befindliche Grenzpolizeivereinbarung, die noch nicht vollständig belegten Verfahrensdaten des Bundesratszugangsstreits, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
+      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, die gesonderte Quellenfrage zum nicht ausdrücklich formulierten Inkrafttreten des Grenzpolizeiabkommens, die noch nicht vollständig belegten Verfahrensdaten des Bundesratszugangsstreits, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
@@ -391,7 +434,7 @@
       ],
       "relatedIds": [
         "proceeding-kreisreform-transition",
-        "proceeding-grenzpolizei-bund",
+        "question-grenzpolizei-effective-date",
         "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",
         "proceeding-law-consolidation"
@@ -403,7 +446,6 @@
       "notes": [],
       "proceedingIds": [
         "proceeding-kreisreform-transition",
-        "proceeding-grenzpolizei-bund",
         "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",
         "proceeding-law-consolidation"

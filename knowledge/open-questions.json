@@ -337,6 +337,51 @@
       "questionStatus": "open"
     },
     {
+      "id": "question-grenzpolizei-effective-date",
+      "title": "Wie ist das Wirksamkeitsdatum des Verwaltungsabkommens ausdrücklich belegt?",
+      "status": "unresolved",
+      "validFrom": "2026-07-29",
+      "validTo": null,
+      "asOf": "2026-08-01",
+      "summary": "Das Portal modelliert den 29. Juli 2026 entsprechend der amtlichen Veröffentlichung als Wirksamkeitsdatum. Der veröffentlichte § 7 enthält trotz der Überschrift „Inkrafttreten“ keinen Inkrafttretenssatz und kein konkretes Datum.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "§ 7 und Ausgabekopf",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-gmbl-clarification-2026-07-29",
+          "locator": "Abschnitt Wirksamkeitsangabe",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund",
+        "state-current-grenzpolizei-agreement"
+      ],
+      "tags": [
+        "open-question",
+        "source-conflict",
+        "agreement"
+      ],
+      "notes": [
+        "Die Frage betrifft ausschließlich den ausdrücklichen Quellenbeleg der Wirksamkeit, nicht den abgeschlossenen Vertragsabschluss."
+      ],
+      "question": "Gibt es eine amtliche Berichtigung, Ergänzung oder andere Primärquelle, die das Inkrafttreten am 29. Juli 2026 ausdrücklich formuliert?",
+      "affectedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund",
+        "state-current-grenzpolizei-agreement"
+      ],
+      "reason": "§ 7 ist mit „Inkrafttreten“ überschrieben, regelt aber ausschließlich die Kündigung mit einer Frist von sechs Monaten zum Ablauf eines Kalenderjahres.",
+      "requiredSource": "Amtliche Berichtigung, ergänzende Bekanntmachung oder sonstige Primärquelle mit ausdrücklicher Wirksamkeitsangabe.",
+      "publicContentImpact": "Rechtsportal und Themenbeschreibung müssen das modellierte Datum zusammen mit dem fehlenden ausdrücklichen Inkrafttretenssatz erläutern.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
+    {
       "id": "question-gerhardt-lehrmann",
       "title": "Welche historische Rolle hatte Gerhardt Lehrmann?",
       "status": "unresolved",

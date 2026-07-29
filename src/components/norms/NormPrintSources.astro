@@ -45,6 +45,32 @@ const citation = toDisplayText(version.citation);
       </li>
     ) : null}
   </ul>
+  {norm.meta.sourceReferences && norm.meta.sourceReferences.length > 0 ? (
+    <div class="norm-citation-copy">
+      <h3>Quellenhierarchie</h3>
+      <ul>
+        {norm.meta.sourceReferences.map((source) => (
+          <li>
+            <strong>{toDisplayText(source.label)}</strong>
+            {source.pageRange ? ` · Seiten ${source.pageRange}` : ''}
+          </li>
+        ))}
+      </ul>
+    </div>
+  ) : null}
+  {version.sourceNotes && version.sourceNotes.length > 0 ? (
+    <div class="norm-citation-copy">
+      <h3>Quellenhinweise</h3>
+      <dl class="meta-list">
+        {version.sourceNotes.map((note) => (
+          <div>
+            <dt>{toDisplayText(note.label)}</dt>
+            <dd>{toDisplayText(note.text)}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  ) : null}
   <div class="norm-citation-copy">
     <label for={`citation-${norm.meta.slug}`}>Zitierempfehlung</label>
     <div>

@@ -11,6 +11,7 @@ export const PUBLICATION_ENTRY_TYPES = [
   'foerderrichtlinie',
   'bekanntmachung',
   'staatsvertrag',
+  'verwaltungsabkommen',
   'sonstiges',
 ] as const;
 
@@ -23,7 +24,7 @@ export type PublicationSourceAvailability = 'versioned' | 'external' | 'not-vers
 
 export interface PublicationSourceReference {
   label: string;
-  kind: 'original' | 'index' | 'transcription' | 'structured-html-transcription' | 'legacy-markdown-transcription' | 'primary-pdf' | 'structured-docx-source';
+  kind: 'original' | 'index' | 'transcription' | 'structured-html-transcription' | 'legacy-markdown-transcription' | 'supplementary-markdown-transcription' | 'primary-pdf' | 'structured-docx-source';
   availability: PublicationSourceAvailability;
   localSource?: string;
   url?: string;
@@ -33,7 +34,7 @@ export interface PublicationSourceReference {
   pageCount?: number;
   pageRange?: string;
   verifiedAt?: string;
-  sourceRole?: 'structure-bearing' | 'visual-control' | 'official-snapshot';
+  sourceRole?: 'structure-bearing' | 'visual-control' | 'supplementary-transcription' | 'official-snapshot';
   derivedSource?: string;
 }
 
@@ -56,6 +57,8 @@ export interface Verkuendung {
   issue: string;
   date: string;
   publication: string;
+  place?: string;
+  publisher?: string;
   originalIssueDesignation?: string;
   alternativeIssueDesignation?: string;
   pdf?: string;
@@ -89,6 +92,7 @@ const PUBLICATION_ENTRY_TYPE_LABELS: Record<PublicationEntryType, string> = {
   foerderrichtlinie: 'Förderrichtlinie',
   bekanntmachung: 'Bekanntmachung',
   staatsvertrag: 'Staatsvertrag',
+  verwaltungsabkommen: 'Verwaltungsabkommen',
   sonstiges: 'Sonstige Veröffentlichung',
 };
 
@@ -224,7 +228,7 @@ function parseSourceReference(value: unknown, path: string): PublicationSourceRe
     kind: expectEnumValue(
       object.kind,
       `${path}.kind`,
-      ['original', 'index', 'transcription', 'structured-html-transcription', 'legacy-markdown-transcription', 'primary-pdf', 'structured-docx-source'] as const,
+      ['original', 'index', 'transcription', 'structured-html-transcription', 'legacy-markdown-transcription', 'supplementary-markdown-transcription', 'primary-pdf', 'structured-docx-source'] as const,
     ),
     availability,
     localSource,
@@ -284,6 +288,8 @@ export function parseVerkuendung(value: unknown, path = 'verkuendung.json'): Ver
     issue: expectString(object.issue, `${path}.issue`),
     date,
     publication: expectString(object.publication, `${path}.publication`),
+    place: expectOptionalString(object.place, `${path}.place`),
+    publisher: expectOptionalString(object.publisher, `${path}.publisher`),
     originalIssueDesignation: expectOptionalString(object.originalIssueDesignation, `${path}.originalIssueDesignation`),
     alternativeIssueDesignation: expectOptionalString(object.alternativeIssueDesignation, `${path}.alternativeIssueDesignation`),
     pdf: expectOptionalString(object.pdf, `${path}.pdf`),

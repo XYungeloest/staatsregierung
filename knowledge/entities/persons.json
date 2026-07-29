@@ -371,12 +371,17 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-07",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Staatsrat für zwei eigenständige Geschäftsbereiche.",
+      "asOf": "2026-07-29",
+      "summary": "Staatsrat für zwei eigenständige Geschäftsbereiche und Unterzeichner des Verwaltungsabkommens zur Wahrnehmung grenzpolizeilicher Aufgaben.",
       "sourceRefs": [
         {
           "sourceId": "source-yannik-current",
           "locator": "gesamter Datensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Unterschriftszeile auf Seite 6",
           "role": "primary"
         }
       ],
@@ -384,13 +389,17 @@
         "inst-staatsregierung",
         "inst-sek-nachhaltigkeit-energie",
         "inst-sek-staats-grenzsicherheit",
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund",
         "party-demos"
       ],
       "tags": [
         "person",
         "government"
       ],
-      "notes": [],
+      "notes": [
+        "Die GMBl.-Unterschriftszeile verwendet quellentreu die abweichende Amtsbezeichnung „Staatsrat für Staats- und Grenzschutz“; die Personen- und Amtsentität bleibt eindeutig Yannik Schmäle als Staatsrat für Staats- und Grenzsicherheit zugeordnet."
+      ],
       "aliases": [
         "Yannik Schmaele"
       ],

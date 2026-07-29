@@ -35,6 +35,7 @@ import {
   loadAllVerkuendungen,
 } from '../../../../lib/norms/index.ts';
 import { getCurrentVersion, loadAllNorms } from '../../../../lib/norms/content.ts';
+import { buildLegislationJsonLd } from '../../../../lib/seo/index.ts';
 
 export async function getStaticPaths() {
   const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
@@ -65,6 +66,16 @@ const normStatusLabel = formatNormStatus(norm.meta.status);
 const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
 const responsibility = toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry);
 const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Status: ${normStatusLabel}.${responsibility ? ` Zuständiger Geschäftsbereich: ${responsibility}.` : ''}`;
+const structuredData = buildLegislationJsonLd({
+  name: normTitle,
+  alternateName: toDisplayText(norm.meta.shortTitle),
+  description: toDisplayText(norm.meta.summary),
+  url: getNormUrl(norm.meta.slug),
+  legislationType: formatNormType(norm.meta.type),
+  legislationDate: norm.meta.documentDate,
+  datePublished: norm.meta.publicationDate,
+  effectiveDate: norm.meta.effectiveDate,
+});
 const [topics, pressReleases] = await Promise.all([loadTopics(), loadPressReleases()]);
 const relatedTopics = topics.filter((topic) =>
   topic.rechtsgrundlagen.some((entry) => entry.normSlug === norm.meta.slug),
@@ -77,6 +88,7 @@ const relatedPressReleases = pressReleases
 <BaseLayout
   title={normLabel}
   description={currentDescription}
+  structuredData={structuredData}
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Recht', href: getLawPortalUrl() },

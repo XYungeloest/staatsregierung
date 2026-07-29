@@ -971,6 +971,88 @@
       ]
     },
     {
+      "id": "event-grenzpolizei-agreement-signed",
+      "title": "Verwaltungsabkommen zur Grenzpolizei wird in Leipzig unterzeichnet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-28",
+      "validTo": "2026-07-28",
+      "asOf": "2026-08-01",
+      "summary": "Das Bundesministerium des Innern und für Heimat und der Ostdeutsche Staatsrat schließen das Verwaltungsabkommen über die Wahrnehmung grenzpolizeilicher Aufgaben.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Schlussformel und Unterschriften auf Seite 6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund",
+        "inst-bundesministerium-innern-heimat",
+        "inst-staatsrat",
+        "person-yannik-schmaele"
+      ],
+      "tags": [
+        "timeline",
+        "agreement",
+        "security"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-28",
+      "eventType": "agreement-signed",
+      "normRefs": [
+        {
+          "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
+          "versionId": "2026-07-29"
+        }
+      ]
+    },
+    {
+      "id": "event-grenzpolizei-agreement-published",
+      "title": "Verwaltungsabkommen wird in GMBl. 2026 Nr. 14 veröffentlicht",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-29",
+      "validTo": "2026-07-29",
+      "asOf": "2026-08-01",
+      "summary": "Das Verwaltungsabkommen wird am 29. Juli 2026 veröffentlicht und im Datenmodell ab diesem Tag als wirksam geführt. Der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gmbl-2026-14",
+          "locator": "Ausgabekopf und § 7",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-gmbl-clarification-2026-07-29",
+          "locator": "Abschnitt Wirksamkeitsangabe",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-grenzpolizei",
+        "proceeding-grenzpolizei-bund",
+        "question-grenzpolizei-effective-date"
+      ],
+      "tags": [
+        "timeline",
+        "agreement",
+        "security",
+        "source-conflict"
+      ],
+      "notes": [
+        "Das modellierte Wirksamkeitsdatum verdeckt die fehlende ausdrückliche Klausel nicht."
+      ],
+      "aliases": [],
+      "date": "2026-07-29",
+      "eventType": "agreement-published",
+      "normRefs": [
+        {
+          "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
+          "versionId": "2026-07-29"
+        }
+      ]
+    },
+    {
       "id": "event-bundesrat-presidency",
       "title": "Karl Honecker wird Präsident des Bundesrates",
       "status": "editorially-confirmed",

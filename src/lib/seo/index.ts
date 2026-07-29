@@ -190,6 +190,38 @@ export function buildDatasetJsonLd(
   };
 }
 
+export interface LegislationJsonLdInput {
+  name: string;
+  alternateName?: string;
+  description: string;
+  url: string;
+  legislationType: string;
+  legislationDate?: string;
+  datePublished?: string;
+  effectiveDate?: string;
+  jurisdiction?: string;
+}
+
+export function buildLegislationJsonLd(
+  input: LegislationJsonLdInput,
+  site?: URL,
+): StructuredData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Legislation',
+    name: input.name,
+    alternateName: input.alternateName,
+    description: input.description,
+    url: toAbsoluteUrl(input.url, site),
+    inLanguage: 'de-DE',
+    legislationType: input.legislationType,
+    legislationDate: input.legislationDate,
+    datePublished: input.datePublished,
+    legislationDateVersion: input.effectiveDate,
+    jurisdiction: input.jurisdiction ?? 'Freistaat Ostdeutschland',
+  };
+}
+
 export function buildFaqPageJsonLd(
   entries: Array<{ question: string; answer: string }>,
 ): StructuredData {

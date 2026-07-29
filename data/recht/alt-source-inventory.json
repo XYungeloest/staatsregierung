@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-07-23",
+  "checkedAt": "2026-07-29",
   "sources": [
     {
       "id": "ogvbl-ii-2024",
@@ -111,6 +111,38 @@
       "verifiedAt": "2026-07-23",
       "notes": [
         "Die ungewöhnliche äußere Gliederung Artikel 1, Artikel 2, Artikel 3 und Artikel 6 wurde gegen das Original bestätigt."
+      ]
+    },
+    {
+      "id": "gmbl-2026-14",
+      "title": "Gemeinsames Ministerialblatt 2026 Nr. 14",
+      "localSource": "Gesetze/GMBl-14-2026.pdf",
+      "mediaType": "application/pdf",
+      "sha256": "e361abb85f2bfdbd7828383b3a010de5335ff6a883d3f07dd744addccfbe69dc",
+      "pageCount": 6,
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/GMBl-14-2026.html",
+      "derivedSourceSha256": "439fa5db34e577b60e93bb0beb46b745ae427cd1b124553415986b83537c562f",
+      "supplementarySources": [
+        {
+          "localSource": "Gesetze/GMBl-14-2026.md",
+          "mediaType": "text/markdown",
+          "sha256": "b38ce507aa9d8b3487569e718401c21142669b6aa5127ab79c1cfe16e8be452f",
+          "sourceRole": "supplementary-transcription"
+        }
+      ],
+      "verifiedAt": "2026-07-29",
+      "documents": [
+        {
+          "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
+          "title": "Verwaltungsabkommen zur Kasernierten Grenzpolizei",
+          "pages": "2-6"
+        }
+      ],
+      "notes": [
+        "Die vollständige HTML-Fassung ist strukturtragend; das PDF wurde auf allen sechs Seiten visuell geprüft.",
+        "§ 7 enthält trotz der Überschrift „Inkrafttreten“ ausschließlich die Kündigungsregel.",
+        "Abweichende Amtsbezeichnungen bleiben im Originalwortlaut erhalten und werden in den strukturierten Metadaten dokumentiert."
       ]
     }
   ]

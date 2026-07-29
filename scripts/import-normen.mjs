@@ -109,6 +109,47 @@ const ISSUE_SUBJECTS = {
   '58': ['Umwelt, Energie und Klimaschutz', 'Kreislaufwirtschaft'],
 };
 
+const GMBL_AGREEMENT_SLUG = 'verwaltungsabkommen-kasernierte-grenzpolizei';
+const GMBL_SOURCE_FILE = 'GMBl-14-2026.html';
+const GMBL_SOURCE_REFERENCES = [
+  {
+    kind: 'structured-html-transcription',
+    label: 'Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe',
+    availability: 'versioned',
+    localSource: 'Gesetze/GMBl-14-2026.html',
+    sha256: '439fa5db34e577b60e93bb0beb46b745ae427cd1b124553415986b83537c562f',
+    mediaType: 'text/html',
+    pageRange: '2–6',
+    verifiedAt: '2026-07-29',
+    sourceRole: 'structure-bearing',
+  },
+  {
+    kind: 'primary-pdf',
+    label: 'Amtliche visuelle Veröffentlichungsfassung',
+    availability: 'versioned',
+    localSource: 'Gesetze/GMBl-14-2026.pdf',
+    sha256: 'e361abb85f2bfdbd7828383b3a010de5335ff6a883d3f07dd744addccfbe69dc',
+    mediaType: 'application/pdf',
+    pageCount: 6,
+    pageRange: '2–6',
+    verifiedAt: '2026-07-29',
+    sourceRole: 'visual-control',
+    derivedSource: 'Gesetze/GMBl-14-2026.html',
+  },
+  {
+    kind: 'supplementary-markdown-transcription',
+    label: 'Zusätzliche Markdown-Transkription der amtlichen Ausgabe',
+    availability: 'versioned',
+    localSource: 'Gesetze/GMBl-14-2026.md',
+    sha256: 'b38ce507aa9d8b3487569e718401c21142669b6aa5127ab79c1cfe16e8be452f',
+    mediaType: 'text/markdown',
+    pageRange: '2–6',
+    verifiedAt: '2026-07-29',
+    sourceRole: 'supplementary-transcription',
+    derivedSource: 'Gesetze/GMBl-14-2026.html',
+  },
+];
+
 // Frühere Importläufe hatten diese rein redaktionell gebildeten Kürzel als
 // amtliche Suchbegriffe gespeichert. Sie sind in den Primärquellen nicht
 // belegt und werden deshalb auch beim Zusammenführen mit Bestandsdaten entfernt.
@@ -418,6 +459,150 @@ function buildRecords(parsed) {
   });
 }
 
+function buildGmblAgreementRecord(parsed) {
+  const citation = 'Verwaltungsabkommen vom 28. Juli 2026 (GMBl. 2026 Nr. 14 S. 2)';
+  const versionId = '2026-07-29';
+  const meta = {
+    id: GMBL_AGREEMENT_SLUG,
+    slug: GMBL_AGREEMENT_SLUG,
+    title: parsed.title,
+    shortTitle: 'Verwaltungsabkommen zur Kasernierten Grenzpolizei',
+    shortTitleSource: 'editorial',
+    type: 'verwaltungsabkommen',
+    enactingBody: 'Bundesministerium des Innern und für Heimat und Ostdeutscher Staatsrat',
+    responsibleMinistry: 'Staatssekretariat für Staats- und Grenzsicherheit',
+    subjects: [
+      'Grenzpolizei',
+      'Polizei- und Ordnungsrecht',
+      'Bund-Länder-Zusammenarbeit',
+      'Grenzschutz',
+      'Sicherheit und Ordnung',
+    ],
+    primarySubject: 'Grenzpolizei',
+    keywords: [
+      'Verwaltungsabkommen',
+      'Grenzpolizei',
+      'GMBl. 2026 Nr. 14',
+      'Bundespolizei',
+      'grenzpolizeilicher Einzeldienst',
+      'Zollverwaltung',
+      'Grenzübergangsstellen',
+      'Luft- und Wasserdienst',
+    ],
+    initialCitation: citation,
+    predecessor: null,
+    successor: null,
+    relatedNorms: [
+      'kasernierte-grenzpolizei-errichtungsgesetz',
+      'kasernierte-grenzpolizei-gesetz',
+    ],
+    summary: 'Regelt die Wahrnehmung grenzpolizeilicher Aufgaben durch die Kasernierte Grenzpolizei, die fachliche Steuerung durch den Bund und die Zusammenarbeit mit Bundespolizei und Zoll.',
+    status: 'in-force',
+    documentDate: '2026-07-28',
+    publicationDate: '2026-07-29',
+    effectiveDate: '2026-07-29',
+    dateNote: 'Das Portal führt den 29. Juli 2026 entsprechend der amtlichen Veröffentlichung als Wirksamkeitsdatum. Der veröffentlichte § 7 ist zwar mit „Inkrafttreten“ überschrieben, enthält aber keinen ausdrücklichen Inkrafttretenssatz und kein konkretes Datum, sondern ausschließlich die Kündigungsregel.',
+    agreementDetails: {
+      signedOn: '2026-07-28',
+      signedAt: 'Leipzig',
+      publishedOn: '2026-07-29',
+      effectiveOn: '2026-07-29',
+      effectivenessNote: 'Mit der amtlichen Veröffentlichung am 29. Juli 2026 als wirksam modelliert; ein ausdrücklicher Inkrafttretenssatz fehlt im veröffentlichten § 7.',
+      parties: [
+        {
+          name: 'Bundesministerium des Innern und für Heimat',
+          institutionId: 'inst-bundesministerium-innern-heimat',
+        },
+        {
+          name: 'Ostdeutscher Staatsrat',
+          institutionId: 'inst-staatsrat',
+        },
+      ],
+      signatories: [
+        {
+          name: 'David König',
+          office: 'Bundesminister des Innern und für Heimat',
+          representingParty: 'Bundesministerium des Innern und für Heimat',
+        },
+        {
+          name: 'Yannik Schmäle',
+          personId: 'person-yannik-schmaele',
+          office: 'Staatsrat für Staats- und Grenzsicherheit',
+          representingParty: 'Ostdeutscher Staatsrat',
+        },
+      ],
+      legalBases: [
+        {
+          label: '§§ 2 und 61 BPolG',
+          title: 'Bundespolizeigesetz',
+          url: 'https://www.gesetze-im-internet.de/bgsg_1994/',
+        },
+      ],
+      responsibleInstitutionId: 'inst-sek-staats-grenzsicherheit',
+      projectIds: ['project-grenzpolizei'],
+      sourceDiscrepancies: [
+        {
+          location: 'Präambel',
+          originalText: 'Staatsrat für Staats- und Grenzssicherheit',
+          canonicalText: 'Staatsrat für Staats- und Grenzsicherheit',
+          note: 'Quellentreue Druck- oder Schreibabweichung der Amtsbezeichnung; der Originalwortlaut bleibt unverändert.',
+        },
+        {
+          location: 'Unterschriftszeile',
+          originalText: 'Staatsrat für Staats- und Grenzschutz',
+          canonicalText: 'Staatsrat für Staats- und Grenzsicherheit',
+          note: 'Quellentreue Druck- oder Schreibabweichung der Amtsbezeichnung; Yannik Schmäle ist mit seiner bestehenden Personen- und Amtsentität verknüpft.',
+        },
+      ],
+    },
+    sourceReferences: GMBL_SOURCE_REFERENCES,
+  };
+  return {
+    source: parsed.fileName,
+    issue: parsed.issue,
+    startPage: parsed.startPage,
+    meta,
+    history: {
+      initialVersionId: versionId,
+      entries: [
+        {
+          date: '2026-07-29',
+          type: 'initial',
+          title: 'Abschluss und amtliche Veröffentlichung.',
+          citation,
+          note: 'Am 28. Juli 2026 in Leipzig unterzeichnet und am 29. Juli 2026 veröffentlicht. § 7 enthält trotz der Überschrift „Inkrafttreten“ ausschließlich die Kündigungsregel.',
+          affectingVersionId: versionId,
+        },
+      ],
+    },
+    versions: [
+      {
+        versionId,
+        validFrom: versionId,
+        validTo: null,
+        isCurrent: true,
+        citation,
+        changeNote: 'Am 28. Juli 2026 geschlossene und am 29. Juli 2026 amtlich veröffentlichte Fassung.',
+        sourceNotes: [
+          {
+            label: '§ 7 „Inkrafttreten“',
+            text: 'Der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz und kein konkretes Inkrafttretensdatum. Sein vollständiger Regelungsgehalt ist die Kündigung mit einer Frist von sechs Monaten zum Ablauf eines Kalenderjahres.',
+          },
+          {
+            label: 'Amtsbezeichnungen in der Originalquelle',
+            text: 'Die Präambel nennt „Staatsrat für Staats- und Grenzssicherheit“, die Unterschriftszeile „Staatsrat für Staats- und Grenzschutz“. Beide Varianten bleiben im Originalwortlaut unverändert; strukturierte Metadaten verwenden die kanonische Amtsbezeichnung „Staatsrat für Staats- und Grenzsicherheit“.',
+          },
+          {
+            label: 'Transkriptionshierarchie',
+            text: 'Die vollständige HTML-Fassung ist strukturtragend, das PDF dient der amtlichen visuellen Kontrolle und die Markdown-Fassung als zusätzliche Transkription. Bloße typografische Unterschiede werden nicht als eigener Rechtskonflikt geführt.',
+          },
+        ],
+        body: parsed.body,
+      },
+    ],
+  };
+}
+
 function buildConstitutionRecord(parsed) {
   const slug = 'staatsverfassung-des-freistaates-ostdeutschland';
   const versionId = '2026-07-21';
@@ -494,6 +679,33 @@ function publicationFrom(parsed, records) {
       normSlug: record.meta.slug,
       versionId: record.versions[0].versionId,
     })),
+  };
+}
+
+function gmblPublicationFrom(record) {
+  return {
+    slug: 'gmbl-2026-14',
+    title: 'Gemeinsames Ministerialblatt 2026 Nr. 14',
+    year: 2026,
+    issue: '14',
+    date: '2026-07-29',
+    publication: 'GMBl.',
+    place: 'Bonn',
+    publisher: 'Bundesministerium des Innern und für Heimat',
+    pdf: '/assets/recht/GMBl-14-2026.pdf',
+    sourceReferences: GMBL_SOURCE_REFERENCES,
+    entries: [
+      {
+        id: GMBL_AGREEMENT_SLUG,
+        title: record.meta.title,
+        type: 'verwaltungsabkommen',
+        citation: record.meta.initialCitation,
+        pages: '2–6',
+        documentDate: '2026-07-28',
+        normSlug: GMBL_AGREEMENT_SLUG,
+        versionId: '2026-07-29',
+      },
+    ],
   };
 }
 
@@ -943,7 +1155,37 @@ for (const fileName of htmlFiles) {
     const summaries = summarizeParsedSource(parsed);
     const auditSummary = summarizeHtmlAudit(parsed);
     report.recognized.push({ file: fileName, classification: classification.kind, norms: summaries });
-    if (ISSUE_CONFIG[parsed.issue]) {
+    if (parsed.publication === 'GMBl.' && parsed.year === 2026 && parsed.issue === '14') {
+      const sourceKey = 'gmbl-2026-14';
+      if (recognizedConfiguredSources.has(sourceKey)) {
+        throw new Error(`${fileName}: GMBl. 2026 Nr. 14 wurde bereits aus ${recognizedConfiguredSources.get(sourceKey)} erkannt; Quelle ist mehrdeutig.`);
+      }
+      recognizedConfiguredSources.set(sourceKey, fileName);
+      const agreementRecord = buildGmblAgreementRecord(parsed);
+      validateRecord(agreementRecord);
+      records.push(agreementRecord);
+      publications.push(gmblPublicationFrom(agreementRecord));
+      report.sourceAudit.push({
+        file: fileName,
+        classification: classification.kind,
+        detectedIssue: parsed.issue,
+        detectedNorms: summaries.map((summary) => summary.title),
+        documentDate: parsed.documentDate,
+        publicationDate: parsed.publicationDate,
+        startPage: parsed.startPage ?? null,
+        outerStructure: auditSummary.outerStructure,
+        articleCount: auditSummary.articleCount,
+        paragraphCount: auditSummary.paragraphCount,
+        listCount: auditSummary.listCount,
+        tableCount: auditSummary.tableCount,
+        parserContractIssues,
+        norms: [{
+          slug: agreementRecord.meta.slug,
+          title: agreementRecord.meta.title,
+          ...compareGeneratedRecordToExisting(agreementRecord, existingAuditRecords.get(agreementRecord.meta.slug)),
+        }],
+      });
+    } else if (ISSUE_CONFIG[parsed.issue]) {
       if (recognizedConfiguredSources.has(parsed.issue)) {
         throw new Error(`${fileName}: Ausgabe ${parsed.issue} wurde bereits aus ${recognizedConfiguredSources.get(parsed.issue)} erkannt; Quelle ist mehrdeutig.`);
       }
@@ -1215,6 +1457,7 @@ if (shouldWrite) {
 
 const configuredSourceFiles = new Set([
   ...Object.keys(ISSUE_CONFIG).map((issue) => `OGVBl. 2026 Nr. ${issue}.html`),
+  GMBL_SOURCE_FILE,
   'Staatsverfassung.html',
 ]);
 const strictFiles = selectedFiles.size > 0
@@ -1228,7 +1471,9 @@ if (strictMode) {
       continue;
     }
     const configuredIssue = fileName.match(/^OGVBl\.\s*2026\s*Nr\.\s*(4[6-9]|5[0-8])\.html$/iu)?.[1];
-    if (configuredIssue && !recognizedConfiguredSources.has(configuredIssue)) {
+    if (fileName === GMBL_SOURCE_FILE && !recognizedConfiguredSources.has('gmbl-2026-14')) {
+      strictFailures.push(`${fileName}: konfigurierte GMBl.-Ausgabe wurde nicht anhand ihrer internen Bundesblatt-Metadaten erkannt`);
+    } else if (configuredIssue && !recognizedConfiguredSources.has(configuredIssue)) {
       strictFailures.push(`${fileName}: konfigurierte Ausgabe wurde in keiner HTML-Quelle anhand interner Metadaten erkannt`);
     } else if (selectedFiles.size > 0 && !htmlFiles.includes(fileName) && !markdownFiles.includes(fileName)) {
       strictFailures.push(`${fileName}: ausgewählte Normquelle fehlt`);
@@ -1236,6 +1481,9 @@ if (strictMode) {
   }
   for (const issue of Object.keys(ISSUE_CONFIG)) {
     if (selectedFiles.size === 0 && !recognizedConfiguredSources.has(issue)) strictFailures.push(`OGVBl. 2026 Nr. ${issue}: konfigurierte Norm wurde in keiner HTML-Quelle erkannt`);
+  }
+  if (selectedFiles.size === 0 && !recognizedConfiguredSources.has('gmbl-2026-14')) {
+    strictFailures.push('GMBl. 2026 Nr. 14: konfiguriertes Verwaltungsabkommen wurde nicht in der HTML-Quelle erkannt');
   }
   if (selectedFiles.size === 0 && !recognizedConfiguredSources.has('constitution')) strictFailures.push('Staatsverfassung.html: konsolidierte Verfassung wurde nicht erkannt');
   for (const audit of report.sourceAudit.filter((entry) => strictFiles.has(entry.file))) {

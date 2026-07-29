@@ -6,6 +6,7 @@ import { buildStructuralVersionDiff, diffSentences, diffWords } from '../src/lib
 import {
   getBlockAnchorId,
   getLegacyBlockAnchorId,
+  parseCitation,
 } from '../src/lib/norms/presentation.ts';
 import {
   normalizeSearchText,
@@ -298,12 +299,19 @@ test('ein primäres Sachgebiet muss Teil der belegten Mehrfachzuordnung sein', (
   );
 });
 
+test('Fundstellenparser erkennt das Gemeinsame Ministerialblatt', () => {
+  assert.deepEqual(
+    parseCitation('Verwaltungsabkommen vom 28. Juli 2026 (GMBl. 2026 Nr. 14 S. 2)'),
+    { source: 'GMBl.', year: '2026', issue: '14', page: '2' },
+  );
+});
+
 test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung', async () => {
   const publications = await loadAllVerkuendungen();
   const latest = getLatestPublication(publications);
   const searchIndex = await buildSearchIndexPayload();
   assert.ok(latest);
-  assert.equal(latest.slug, 'ogvbl-2026-58');
+  assert.equal(latest.slug, 'gmbl-2026-14');
   assert.deepEqual(searchIndex.latestPublication, {
     slug: latest.slug,
     date: latest.date,

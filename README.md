@@ -137,6 +137,10 @@ Die Dateien unter `knowledge/generated/` werden ausschließlich mit `npm run kno
   visuell gegen Gliederungstiefe, Einrückung, Nummerierungsfolge, Listenfortsetzungen, Zitate,
   Tabellen und Anlagen geprüft, aber nicht automatisch als Volltext importiert. Nicht eindeutig
   auflösbare Abweichungen zwischen HTML, Legacy-Markdown und PDF werden nicht still harmonisiert.
+  Bundesblätter können einen eigenen, ausdrücklich geprüften Layoutpfad verwenden. Für
+  `GMBl. 2026 Nr. 14` erkennt der Importer den Bundesblattkopf und die Übersicht `INHALT`
+  unabhängig von der OGVBl.-Struktur; der enthaltene Dokumenttyp lautet
+  `verwaltungsabkommen`.
 
 Historische Normfassungen werden nicht zur Laufzeit berechnet. Sie werden als vollständige,
 unveränderliche Fassungen gespeichert. Für ausdrücklich geänderte übernommene Stammnormen beginnt

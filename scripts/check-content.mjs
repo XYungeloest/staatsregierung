@@ -19,6 +19,7 @@ const allowedNormTypes = new Set([
   'allgemeinverfuegung',
   'bekanntmachung',
   'staatsvertrag',
+  'verwaltungsabkommen',
   'zustimmungsgesetz',
   'aenderungsvorschrift',
 ]);
@@ -62,6 +63,7 @@ const allowedEnactingBodies = new Set([
   'Volkskammer des Freistaates Ostdeutschland',
   'Staatsregierung des Freistaates Ostdeutschland',
   'Staatsrat des Freistaates Ostdeutschland',
+  'Bundesministerium des Innern und für Heimat und Ostdeutscher Staatsrat',
 ]);
 const unverifiedGeneratedAbbreviations = new Set([
   'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',
@@ -292,6 +294,7 @@ async function validateNormSourceReference(file, source, sourcePath) {
   const extensionPattern = {
     'structured-html-transcription': /\.html$/iu,
     'legacy-markdown-transcription': /\.md$/iu,
+    'supplementary-markdown-transcription': /\.md$/iu,
     'revosax-snapshot': /\.html$/iu,
     'amendment-source': /\.(?:html|md|pdf)$/iu,
     'primary-pdf': /\.pdf$/iu,
@@ -309,6 +312,21 @@ async function validateNormSourceReference(file, source, sourcePath) {
     return;
   }
   await validateVersionedSource(file, `${sourcePath}.localSource`, source.localSource);
+
+  if (source.kind === 'structured-html-transcription' && source.sourceRole !== undefined && source.sourceRole !== 'structure-bearing') {
+    addProblem(file, `${sourcePath}.sourceRole muss für die strukturierte HTML-Fassung structure-bearing sein`);
+  }
+  if (source.kind === 'supplementary-markdown-transcription' && source.sourceRole !== 'supplementary-transcription') {
+    addProblem(file, `${sourcePath}.sourceRole muss für die zusätzliche Markdown-Fassung supplementary-transcription sein`);
+  }
+  const expectedTextMediaType = {
+    'structured-html-transcription': 'text/html',
+    'legacy-markdown-transcription': 'text/markdown',
+    'supplementary-markdown-transcription': 'text/markdown',
+  }[source.kind];
+  if (source.mediaType !== undefined && expectedTextMediaType && source.mediaType !== expectedTextMediaType) {
+    addProblem(file, `${sourcePath}.mediaType muss ${expectedTextMediaType} sein`);
+  }
 
   if (['primary-pdf', 'structured-docx-source'].includes(source.kind)) {
     const expectedMediaType = source.kind === 'primary-pdf'
@@ -331,7 +349,7 @@ async function validateNormSourceReference(file, source, sourcePath) {
     }
   }
 
-  if (['primary-pdf', 'structured-docx-source', 'revosax-snapshot'].includes(source.kind)) {
+  if (source.sha256 !== undefined || ['primary-pdf', 'structured-docx-source', 'revosax-snapshot'].includes(source.kind)) {
     if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
       addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
     } else if (await exists(resolve(root, source.localSource))) {
@@ -492,18 +510,41 @@ for (const { file, json } of records) {
 
     if (typeof json.initialCitation !== 'string' || json.initialCitation.trim().length === 0) {
       addProblem(file, 'initialCitation fehlt oder ist leer');
-    } else if (/^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(json.initialCitation.trim())) {
+    } else if (/^(?:OGVBl|StAnzO|OABl|OVertrBl|GMBl)\./u.test(json.initialCitation.trim())) {
       addProblem(file, 'initialCitation darf nicht nur aus der Fundstelle bestehen; Normart und Dokumentdatum müssen erhalten bleiben');
     }
 
     for (const [index, source] of (json.sourceReferences ?? []).entries()) {
       await validateNormSourceReference(file, source, `sourceReferences[${index}]`);
     }
+    if (json.type === 'verwaltungsabkommen') {
+      const details = json.agreementDetails;
+      if (!details || typeof details !== 'object' || Array.isArray(details)) {
+        addProblem(file, 'agreementDetails ist für ein Verwaltungsabkommen erforderlich');
+      } else {
+        for (const [field, expected] of [
+          ['signedOn', json.documentDate],
+          ['publishedOn', json.publicationDate],
+          ['effectiveOn', json.effectiveDate],
+        ]) {
+          if (details[field] !== expected) {
+            addProblem(file, `agreementDetails.${field} muss mit dem zugehörigen Normdatum übereinstimmen`);
+          }
+        }
+        if (details.signedAt !== 'Leipzig') addProblem(file, 'agreementDetails.signedAt muss den belegten Unterzeichnungsort Leipzig enthalten');
+        if (!Array.isArray(details.parties) || details.parties.length < 2) addProblem(file, 'agreementDetails.parties muss beide Vertragspartner enthalten');
+        if (!Array.isArray(details.signatories) || details.signatories.length < 2) addProblem(file, 'agreementDetails.signatories muss beide Unterzeichner enthalten');
+        if (!Array.isArray(details.legalBases) || details.legalBases.length === 0) addProblem(file, 'agreementDetails.legalBases muss die Rechtsgrundlage enthalten');
+        for (const [index, basis] of (details.legalBases ?? []).entries()) {
+          if (basis.url && !/^https:\/\//u.test(basis.url)) addProblem(file, `agreementDetails.legalBases[${index}].url muss eine HTTPS-URL sein`);
+        }
+      }
+    }
   }
 
   if (rel.startsWith('normen/') && basename(file) === 'history.json') {
     for (const [index, entry] of (json.entries ?? []).entries()) {
-      if (typeof entry.citation === 'string' && /^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(entry.citation.trim())) {
+      if (typeof entry.citation === 'string' && /^(?:OGVBl|StAnzO|OABl|OVertrBl|GMBl)\./u.test(entry.citation.trim())) {
         addProblem(file, `entries[${index}].citation darf nicht nur aus der Fundstelle bestehen; Normart und Dokumentdatum müssen erhalten bleiben`);
       }
     }
@@ -511,7 +552,7 @@ for (const { file, json } of records) {
 
   if (rel.startsWith('normen/') && rel.includes('/versions/')) {
     if (typeof json.citation === 'string'
-      && /^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(json.citation.trim())) {
+      && /^(?:OGVBl|StAnzO|OABl|OVertrBl|GMBl)\./u.test(json.citation.trim())) {
       addProblem(file, 'citation darf nicht nur aus der Fundstelle bestehen; Normart und Dokumentdatum müssen erhalten bleiben');
     }
     for (const [index, source] of (json.sourceReferences ?? []).entries()) {
@@ -594,6 +635,27 @@ for (const { file, json } of records) {
             await validateVersionedSource(file, `${sourcePath}.derivedSource`, source.derivedSource);
           }
         }
+        if (source.kind === 'structured-html-transcription' && source.sourceRole !== undefined && source.sourceRole !== 'structure-bearing') {
+          addProblem(file, `${sourcePath}.sourceRole muss für die strukturierte HTML-Fassung structure-bearing sein`);
+        }
+        if (source.kind === 'supplementary-markdown-transcription' && source.sourceRole !== 'supplementary-transcription') {
+          addProblem(file, `${sourcePath}.sourceRole muss für die zusätzliche Markdown-Fassung supplementary-transcription sein`);
+        }
+        if (source.derivedSource !== undefined) {
+          await validateVersionedSource(file, `${sourcePath}.derivedSource`, source.derivedSource);
+        }
+        if (source.sha256 !== undefined) {
+          if (typeof source.sha256 !== 'string' || !/^[a-f0-9]{64}$/u.test(source.sha256)) {
+            addProblem(file, `${sourcePath}.sha256 muss einen SHA-256 enthalten`);
+          } else if (await exists(resolve(root, source.localSource))) {
+            const actualHash = createHash('sha256')
+              .update(await readFile(resolve(root, source.localSource)))
+              .digest('hex');
+            if (actualHash !== source.sha256) {
+              addProblem(file, `${sourcePath}.sha256 stimmt nicht mit der unveränderten Quelle überein`);
+            }
+          }
+        }
       } else if (source.availability === 'external') {
         if (typeof source.url !== 'string' || !/^https:\/\//u.test(source.url)) {
           addProblem(file, `${sourcePath}.url muss für eine externe Quelle eine HTTPS-URL enthalten`);
@@ -605,6 +667,15 @@ for (const { file, json } of records) {
 
     if (!Array.isArray(json.entries) || json.entries.length === 0) {
       addProblem(file, 'entries muss mindestens einen Eintrag enthalten');
+    }
+    if (json.publication === 'GMBl.') {
+      if (json.place !== 'Bonn') addProblem(file, 'place muss für GMBl. 2026 Nr. 14 den Ausgabeort Bonn enthalten');
+      if (json.publisher !== 'Bundesministerium des Innern und für Heimat') {
+        addProblem(file, 'publisher muss das herausgebende Bundesministerium enthalten');
+      }
+      const requiredKinds = new Set(['structured-html-transcription', 'primary-pdf', 'supplementary-markdown-transcription']);
+      for (const source of json.sourceReferences ?? []) requiredKinds.delete(source.kind);
+      if (requiredKinds.size > 0) addProblem(file, `GMBl.-Ausgabe enthält nicht alle drei Quellenrollen: ${[...requiredKinds].join(', ')}`);
     }
 
     const entryIds = new Set();
@@ -644,7 +715,7 @@ for (const { file, json } of records) {
 
       if (typeof entry.citation !== 'string' || entry.citation.trim().length === 0) {
         addProblem(file, `${entryPath}.citation fehlt oder ist leer`);
-      } else if (/^(?:OGVBl|StAnzO|OABl|OVertrBl)\./u.test(entry.citation.trim())) {
+      } else if (/^(?:OGVBl|StAnzO|OABl|OVertrBl|GMBl)\./u.test(entry.citation.trim())) {
         addProblem(file, `${entryPath}.citation darf nicht nur aus der Fundstelle bestehen; Normart und Dokumentdatum müssen erhalten bleiben`);
       } else if (entry.documentDate && !/\bvom \d{1,2}\. [A-ZÄÖÜ][a-zäöüß]+ \d{4} \(/u.test(entry.citation)) {
         addProblem(file, `${entryPath}.citation muss Normart, Dokumentdatum und Fundstelle enthalten`);
@@ -753,6 +824,11 @@ for (const { file, json } of normMetaRecords) {
       addProblem(file, `enactedNorms verweist auf unbekannte Norm: ${targetSlug}`);
     } else if (target.enactingNorm !== json.slug) {
       addProblem(file, `enactedNorms ist bei ${targetSlug} nicht wechselseitig als enactingNorm hinterlegt`);
+    }
+  }
+  for (const targetSlug of json.relatedNorms ?? []) {
+    if (!normSlugs.has(targetSlug)) {
+      addProblem(file, `relatedNorms verweist auf unbekannte Norm: ${targetSlug}`);
     }
   }
   if (json.enactingNorm) {

@@ -88,7 +88,7 @@ test('Berlin-Seite ist strukturiert, verlinkt und über die Suche auffindbar', a
   assert.match(routes, /getFreestatePageUrl\('berlin'\)/u);
 });
 
-test('Grenzpolizei trennt geltendes Recht, Aufbau und ausstehende Bundesvereinbarung', async () => {
+test('Grenzpolizei trennt geltendes Recht, geschlossenes Verwaltungsabkommen und praktische Umsetzung', async () => {
   const topic = (await loadTopics()).find((entry) => entry.slug === 'demokratie-und-sicherheit');
   assert.ok(topic);
   const implemented = topic.umgesetzt.join(' ');
@@ -96,10 +96,15 @@ test('Grenzpolizei trennt geltendes Recht, Aufbau und ausstehende Bundesvereinba
   const faq = topic.faq.map((entry) => `${entry.question} ${entry.answer}`).join(' ');
   assert.match(implemented, /gesetzlich als Landesbehörde errichtet/u);
   assert.match(implemented, /organisatorische Aufbau/u);
-  assert.match(nextSteps, /nicht unterzeichnet und nicht wirksam/u);
-  assert.match(faq, /keine.*Aufgaben/u);
+  assert.doesNotMatch(`${implemented} ${nextSteps} ${faq}`, /in Ausarbeitung|nicht unterzeichnet|nicht wirksam/u);
+  assert.match(implemented, /Verwaltungsabkommen/u);
+  assert.match(nextSteps, /System- und Registerzugänge/u);
+  assert.match(faq, /28\. Juli 2026/u);
+  assert.match(faq, /29\. Juli 2026/u);
+  assert.match(faq, /keinen ausdrücklichen Inkrafttretenssatz/u);
   assert.ok(topic.rechtsgrundlagen.some((entry) => entry.normSlug === 'kasernierte-grenzpolizei-errichtungsgesetz'));
   assert.ok(topic.rechtsgrundlagen.some((entry) => entry.normSlug === 'kasernierte-grenzpolizei-gesetz'));
+  assert.ok(topic.rechtsgrundlagen.some((entry) => entry.normSlug === 'verwaltungsabkommen-kasernierte-grenzpolizei'));
   assert.ok(topic.rechtsgrundlagen.some((entry) => entry.normSlug === 'ostdeutsches-polizeivollzugsdienstgesetz'));
 });
 
