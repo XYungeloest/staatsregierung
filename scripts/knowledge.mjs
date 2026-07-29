@@ -412,7 +412,7 @@ function buildContext(model) {
   lines.push('');
   lines.push('## Parteien und Mehrheiten');
   lines.push('');
-  lines.push(`${parliament?.legislature}: Koalition aus ${parties.filter((party) => parliament?.coalitionPartyIds?.includes(party.id)).map((party) => party.title).join(' und ')}, ${parliament?.coalitionSeats} von ${parliament?.totalSeats} Sitzen seit ${parliament?.seatCountAsOf}. Die unterschiedlichen DEMOS-Bezeichnungen bleiben als offene Namensfrage dokumentiert.`);
+  lines.push(`${parliament?.legislature}: Koalition aus ${parties.filter((party) => parliament?.coalitionPartyIds?.includes(party.id)).map((party) => party.title).join(' und ')}, ${parliament?.coalitionSeats} von ${parliament?.totalSeats} Sitzen seit ${parliament?.seatCountAsOf}. Bundesparteiname und ostdeutsche Listenbezeichnungen der DEMOS werden getrennt mit ihrem jeweiligen Zeit- und Wahlbezug geführt.`);
   lines.push('');
   lines.push('## Geltende Verfassungsfassung');
   lines.push('');

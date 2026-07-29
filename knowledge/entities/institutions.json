@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-21",
+  "asOf": "2026-07-29",
   "institutions": [
     {
       "id": "inst-volkskammer",
@@ -470,7 +470,7 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
+      "asOf": "2026-07-29",
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Staats- und Grenzsicherheit.",
       "sourceRefs": [
         {
@@ -482,6 +482,11 @@
           "sourceId": "source-staatsreform",
           "locator": "Neuordnung des Staatswesens",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -492,7 +497,9 @@
         "administration",
         "state-secretariat"
       ],
-      "notes": [],
+      "notes": [
+        "„Staatssekretariat für Staats- und Grenzschutz“ ist keine maßgebliche Bezeichnung."
+      ],
       "aliases": [
         "Staatsministerium für Staats- und Grenzsicherheit"
       ],
@@ -779,6 +786,37 @@
         "Grenzpolizei"
       ],
       "type": "agency",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-bundesrat",
+      "title": "Bundesrat",
+      "status": "editorially-confirmed",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-07-29",
+      "summary": "Verfassungsorgan des Bundes, dessen Präsident Karl Honecker seit 20. Mai 2026 ist.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Bundesebene und historische Vorgänge",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker",
+        "proceeding-federal-council-access"
+      ],
+      "tags": [
+        "federal",
+        "constitutional-organ"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bundesrat der Bundesrepublik Deutschland"
+      ],
+      "type": "federal-constitutional-organ",
       "predecessorId": null,
       "successorId": null
     }

@@ -1,7 +1,7 @@
 # Offene Quellenfragen
 
 **Redaktioneller Stand:** 21. Juli 2026
-**Zuletzt geprüft:** 23. Juli 2026
+**Zuletzt geprüft:** 29. Juli 2026
 
 Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
 nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
@@ -41,9 +41,11 @@ Belegt:
   belegt. `Verfassung.docx` dient als strukturtragende Arbeitsquelle; Titel und Artikel 114
   wurden für die Ursprungsfassung nach dem Original-PDF korrigiert. Vollständige Fassungen sind
   zum 15. Oktober 2024, 12. März 2025, 28. Januar 2026, 24. März 2026 und 21. Juli 2026 gespeichert.
-- Für das polnische und das tschechische Grenzraumabkommen ist der für das Inkrafttreten
-  erforderliche Austausch der Notifikationen nicht nachgewiesen. Für den NDR-Änderungs- und
-  Überleitungsstaatsvertrag ist der Austausch der Ratifikationsurkunden nicht nachgewiesen.
+- Redaktionelle Klarstellung vom 29. Juli 2026: Die Notifikationen zum polnischen und zum
+  tschechischen Grenzraumabkommen sowie die Ratifikationsurkunden zum NDR-Änderungs- und
+  Überleitungsstaatsvertrag wurden jeweils am 24. März 2026 ausgetauscht. Die drei Verträge
+  traten am selben Tag in Kraft. Die Veröffentlichungsdaten der OVertrBl. 2026 Nr. 2 bis 4
+  bestätigen den gemeinsamen Stichtag.
 
 Schlussfolgerung:
 
@@ -59,8 +61,8 @@ Schlussfolgerung:
   werden im Konsolidierungsmanifest gemeinsam als vollständig geführt. Der aktuelle Audit weist
   34 vollständige Zielnormen aus. Neu eingeführte Normen benötigen keine künstliche sächsische
   Ausgangsfassung; ihre Einführungsbeziehung muss stattdessen wechselseitig belegt sein.
-- Die drei bedingt wirksamen Staatsverträge bleiben veröffentlicht, aber ohne belegtes
-  Inkrafttreten.
+- Die drei zuvor bedingt wirksamen Staatsverträge werden mit Inkrafttreten am 24. März 2026
+  geführt. Die redaktionelle Klarstellung wird im Wissenshub als eigene Quelle dokumentiert.
 - Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
   eindeutige Aufhebungs- oder Übergangsquelle vorliegt.
 
@@ -113,11 +115,12 @@ Belegt:
   `data/recht/sources/revosax/[zielnorm]/`. Abruf, Parser und Konsolidierung sind getrennte
   Befehle; nur der ausdrückliche Abruf benötigt Netzwerk. Snapshot-URL, Quellgültigkeit,
   Abrufdatum und SHA-256 werden im Quellenmanifest gespeichert und offline geprüft.
-- OABl. 2025 Nr. 2 bleibt unverändert: In der Markdown-Datei wurden Nummerierung und Normtext in
-  getrennte Zellen einer einzigen Layouttabelle zusammengezogen; eine belastbare Eltern-Kind-
-  Zuordnung ist daraus nicht möglich. `StAnzO. 2026 Nr. 2.html` bezeichnet sich intern dagegen als
-  OABl. Nr. 2 vom 3. März 2026 und kollidiert damit mit dem vorhandenen StAnzO.-Datensatz. Beide
-  Fälle werden im Audit ausdrücklich ausgewiesen und nicht automatisch geschrieben.
+- Redaktionelle Klarstellung vom 29. Juli 2026: `OABl. 2025 Nr. 2` und
+  `StAnzO. 2026 Nr. 2.html` betreffen dasselbe zugrunde liegende Dokument unter unterschiedlichen
+  Bezeichnungen. Die Markdown-Datei bleibt wegen ihrer zusammengezogenen Layouttabelle technisch
+  prüfbedürftig. Bei der künftigen Zusammenführung sind Dokumentkopf und internes Datum als
+  kanonische Metadaten zu verwenden; abweichende Datei- und Datensatznamen bleiben als
+  Provenienzhinweis erhalten.
 
 Schlussfolgerung:
 
@@ -139,10 +142,10 @@ Belegt:
 - StAnzO. 2026 Nr. 13 enthält 19. Mai 2026 im Kopf beziehungsweise Inhaltsverzeichnis, 27. Mai 2026
   in der Überschrift und 19. Mai 2026 in der Unterschriftszeile. Das Ausgabedatum ist der
   27. Mai 2026.
-- Die unter `OGVBl. 2026 Nr. 58.pdf` bereitgestellte PDF zeigt im sichtbaren Ausgabenkopf
-  `Nr. 57`, während die gleichnamige HTML-Transkription intern `Nr. 58` ausweist. Titel und
-  Norminhalt der PDF entsprechen der SERO-Verordnung. Bis zur Klärung dient die PDF für diese Norm
-  nur als visuelle Strukturkontrolle, nicht als Nachweis der Ausgabenummer.
+- Redaktionelle Entscheidung vom 29. Juli 2026: Die SERO-Verordnung trägt amtlich die Fundstelle
+  `OGVBl. 2026 Nr. 58`. Die sichtbare Angabe `Nr. 57` im PDF-Kopf ist ein Druckfehler. HTML-
+  Transkription und Verkündungsdatensatz bleiben maßgeblich; das PDF wird bis zu einer Berichtigung
+  mit einem ausdrücklichen Druckfehlerhinweis als visuelle Strukturkontrolle geführt.
 - Beim Helsinki-Übereinkommen nennt das Verkündungsblattregister den 14. Juli 1994, der Kopf des
   lokalen Originals den 14. Juli 1992 und der Vertragstext den 9. April 1992 als Abschlussdatum.
 - Die lokale Entwurfsdatei zu Drucksache 07/27 nennt den 15. Juli 2025, obwohl der Vorgang der
@@ -210,14 +213,14 @@ Schlussfolgerung:
 
 ## 5. Nächster Aktualisierungsschritt
 
-1. OABl. 2025 Nr. 2 neu und strukturerhaltend als HTML transkribieren sowie die interne Identität
-   von `StAnzO. 2026 Nr. 2.html` redaktionell klären.
+1. Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und `StAnzO. 2026 Nr. 2.html`
+   technisch zusammenführen; Dokumentkopf und internes Datum sind dabei kanonisch.
 2. Plenarprotokoll und Einzelabstimmungsergebnisse vom 20. Juli 2026 nachreichen und ausschließlich
    für die noch offenen Beratungsdetails auswerten.
 3. Für die weiterhin nur als Markdown vorliegenden Altquellen schrittweise strukturierte HTML-
    Transkriptionen erstellen; bis dahin die PDF-Gegenprüfung und Legacy-Fixtures beibehalten.
-4. Austauschdaten der Notifikationen beziehungsweise Ratifikationsurkunden für die drei
-   Staatsverträge belegen.
+4. Klage und gerichtliche Entscheidung zum Bundesratszugangsstreit sowie den angekündigten
+   Wikiartikel zur Vertretung der Bundespräsidentin als Primär- beziehungsweise Sekundärquellen ablegen.
 5. Die in `data/recht/consolidation-manifest.json` aufgelisteten historischen
    REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
    sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten

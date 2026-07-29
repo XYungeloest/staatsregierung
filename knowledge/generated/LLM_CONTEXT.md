@@ -14,7 +14,7 @@ Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, V
 
 ## Aktueller Staatsrat
 
-- **Dr. Karl Honecker:** Staatspräsident; Staatsrat der Finanzen
+- **Dr. Karl Honecker:** Staatspräsident; Staatsrat der Finanzen; Präsident des Bundesrates
 - **Dr. Mateo Delgado:** Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation
 - **Volker Bagdadi:** Staatsrat des Innern und für Wohnungswirtschaft
 - **Tim Dieter:** Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik
@@ -28,7 +28,7 @@ Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, V
 
 ## Parteien und Mehrheiten
 
-7. Volkskammer: Koalition aus Volksfront und Bündnis Demokratie Europa, 11 von 15 Sitzen seit 2026-07-05. Die unterschiedlichen DEMOS-Bezeichnungen bleiben als offene Namensfrage dokumentiert.
+7. Volkskammer: Koalition aus Volksfront und Das Bündnis Demokratie Europa, 11 von 15 Sitzen seit 2026-07-05. Bundesparteiname und ostdeutsche Listenbezeichnungen der DEMOS werden getrennt mit ihrem jeweiligen Zeit- und Wahlbezug geführt.
 
 ## Geltende Verfassungsfassung
 
@@ -49,9 +49,9 @@ Am Stichtag bestehen acht Bezirke: Berlin, Brandenburg, Mecklenburg-Vorpommern, 
 - **Wohnungsvergesellschaftung und Gemeingut Wohnen**: in-implementation. Rechtskomplex aus Vergesellschaftung, öffentlichem Wohnträger, Durchführung und Schuldverschreibungen.
 - **Volksacker, Flächenfonds und Bodenfonds Ost**: coalition-project. Koalitionsvorhaben zur Sicherung von Boden und gemeinwohlorientierter Flächennutzung. Eine abgeschlossene, strukturierte Normenkette ist im Audit nicht belegt.
 - **Krankenhaussicherung und Rekommunalisierung**: in-implementation. Sondervermögen zur Sicherung wohnortnaher Krankenhausversorgung und zur Rekommunalisierung gefährdeter Standorte.
-- **Kasernierte Grenzpolizei**: in-implementation. Gesetzlich errichtete Grenzpolizei. Die praktische Zusammenarbeit mit Bund und Bundespolizei ist als gesondertes Verfahren offen.
+- **Kasernierte Grenzpolizei**: in-implementation. Gesetzlich errichtete Grenzpolizei. Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist noch nicht wirksam und befindet sich in Ausarbeitung.
 - **Schulneuordnung mit POS und EOS**: in-implementation. Neuordnung des Schulsystems mit Polytechnischer Oberschule, Erweiterter Oberschule und flankierendem Schulrecht.
-- **Ostdeutscher Rundfunk und NDR-Überleitung**: in-implementation. Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung; der Ratifikationsaustausch des NDR-Vertrags ist nicht nachgewiesen.
+- **Ostdeutscher Rundfunk und NDR-Überleitung**: in-implementation. Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung. Der NDR-Änderungs- und Überleitungsstaatsvertrag trat am 24. März 2026 in Kraft.
 - **Ostdeutscher Kulturpass**: in-force. Gesetzlich geregelter Kulturpass für junge Erwachsene.
 - **Boom Europe Leipzig/Halle**: in-implementation. Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit Standortgesetz, Sondervermögen und Umsetzungsgesetz.
 - **Transparenz- und Informationsfreiheit**: in-force. Reformpaket zu Informationszugang, Transparenz und Lobbyregister.
@@ -60,7 +60,7 @@ Am Stichtag bestehen acht Bezirke: Berlin, Brandenburg, Mecklenburg-Vorpommern, 
 
 ## Wichtigste historische Ereignisse
 
-- **2026-05-19: Erste personelle Veränderungen im Kabinett Honecker II.** Mia Wollrath scheidet aus; Thomas Henry Barlow übernimmt Staats- und Grenzsicherheit und zeitweise das Innenressort.
+- **2026-05-20: Karl Honecker wird Präsident des Bundesrates.** Nach dem Rücktritt des Vorgängers infolge dessen Wahl zur Bundespräsidentin wählt der Bundesrat Karl Honecker einstimmig zum Präsidenten.
 - **2026-07-05: Koalition verfügt über elf von fünfzehn Sitzen.** Die Portalquellen führen seit 5. Juli 2026 eine Koalitionsmehrheit von 11 der 15 Sitze.
 - **2026-07-07: Kabinett Honecker II wird umgebildet.** Volker Bagdadi wechselt ins Innen- und Wohnungsressort; Yannik Schmäle übernimmt Nachhaltigkeit und Energie.
 - **2026-07-20: Zwölf Gesetze werden verkündet.** Die Ausgaben 46 bis 57 belegen zwölf verkündete Vorhaben; einzelne Abstimmungsergebnisse sind nicht belegt.
@@ -74,31 +74,24 @@ Am Stichtag bestehen acht Bezirke: Berlin, Brandenburg, Mecklenburg-Vorpommern, 
 ## Laufende Verfahren und Abhängigkeiten
 
 - **Übergang zur neuen Kreis- und Bezirksstruktur** (awaiting-effective-date): Die Neuordnung ist verkündet, wird jedoch erst am 1. August 2026 wirksam.
-- **Vereinbarung mit Bund und Bundespolizei zur Grenzpolizei** (source-required): Eine Vereinbarung ist als Verhandlungs- oder Entwurfsgegenstand bekannt, aber im Repository nicht als wirksam abgeschlossene Vereinbarung belegt.
-- **Ratifikation des NDR-Änderungs- und Überleitungsstaatsvertrags** (awaiting-proof): Der Austausch der Ratifikationsurkunden ist nicht nachgewiesen.
-- **Notifikation des Grenzraumabkommens mit Polen** (awaiting-proof): Der für das Inkrafttreten erforderliche Austausch der Notifikationen ist nicht nachgewiesen.
-- **Notifikation des Grenzraumabkommens mit Tschechien** (awaiting-proof): Der für das Inkrafttreten erforderliche Austausch der Notifikationen ist nicht nachgewiesen.
+- **Vereinbarung mit Bund und Bundespolizei zur Grenzpolizei** (drafting): Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist nicht unterzeichnet oder wirksam; sie befindet sich in Ausarbeitung.
 - **Nachweis der dritten Plenarsitzung vom 20. Juli 2026** (records-missing): Verkündungen belegen zwölf beschlossene Vorhaben, aber Plenarprotokoll, Einzelabstimmungen und Stimmenzahlen fehlen.
 - **Umsetzung Boom Europe Leipzig/Halle** (implementation): Gesetzliche Grundlagen sind in Kraft; konkrete Vertrags-, Finanzierungs- und Projektorganisationsdetails müssen aus den Vollquellen weiter erschlossen werden.
-- **Bundesratszugangs- oder Stimmrechtsstreit** (candidate): Gesprächskandidat zu einem bundesverfassungsrechtlichen Konflikt. Im auditierten Repository wurde noch keine belastbare strukturierte Verfahrensakte zugeordnet.
-- **Staatskrise und Regierungswechsel 2025** (candidate): Gesprächskandidat zu Rücktritt, Misstrauensvotum und früheren Regierungsbildungen. Die aktuelle Timeline beginnt erst mit dem Kabinett Honecker I.
+- **Bundesratszugangs- oder Stimmrechtsstreit** (decision-details-missing): Ein Bundesratszugangs- beziehungsweise Mitwirkungsstreit mit dem westdeutschen Ministerpräsidenten Markus Hauer ist bestätigt. Eine einstweilige Anordnung führte zur Rücknahme der Zugangsbeschränkung; formale Verfahrensdaten fehlen noch.
+- **Historischer Regierungswechsel und Rücktritt Tom Kurzschlusses 2025** (historical-details-missing): Ein Rücktritt Tom Kurzschlusses und ein außergewöhnlicher Regierungswechsel beziehungsweise ein Misstrauensvotum sind bestätigt; die genaue Ereignisfolge bleibt unerschlossen.
 - **Konsolidierung übernommener und geänderter Stammnormen** (ongoing): Der Audit erkennt 71 Zielnormen; für 34 fehlt noch ein versionierter maßgeblicher Ausgangssnapshot.
-- **Ausgabenummer der SERO-Verkündung** (unresolved): Die PDF-Kontrolldatei zeigt sichtbar Nr. 57, während HTML-Transkription und Datensatz Nr. 58 ausweisen.
+- **Ausgabenummer der SERO-Verkündung** (resolved): Der Nummernkonflikt ist redaktionell geklärt: Amtlich maßgeblich ist OGVBl. 2026 Nr. 58; die sichtbare Nr. 57 in der PDF ist ein Druckfehler.
 
 ## Bekannte Konflikte und offene Fragen
 
-- **Welche Bezeichnung und Namenschronologie der DEMOS-Partei ist amtlich?**: Die Quellen belegen unterschiedliche Bezeichnungen, aber keine ausdrückliche Umbenennung oder Aliasentscheidung.
-- **Welche amtliche Ausgabenummer trägt die SERO-Verordnung?**: Die PDF zeigt Nr. 57, die strukturtragende HTML-Fassung und der Datensatz Nr. 58.
 - **Welche Normen und Beschlüsse bilden OVV und 29-Euro-Ticket vollständig ab?**: Normslugs, Tarifbeschlüsse, Inkrafttreten und organisatorische Zuständigkeit sind nicht gemeinsam nachgewiesen.
 - **Welcher Rechts- und Umsetzungsstand gilt für Volksacker, Flächenfonds und Bodenfonds Ost?**: Es fehlen eindeutig zugeordnete Primärnormen und Umsetzungsschritte.
-- **Ist die Vereinbarung mit Bund oder Bundespolizei abgeschlossen und wirksam?**: Entwurf, Verhandlungsgrundlage und wirksame Vereinbarung sind zu trennen.
-- **Wurden die Ratifikationsurkunden des NDR-Vertrags ausgetauscht?**: Ohne Nachweis kann das Inkrafttreten nicht behauptet werden.
-- **Wurde das polnische Grenzraumabkommen wirksam notifiziert?**: Die Wirksamkeitsbedingung ist offen.
-- **Wurde das tschechische Grenzraumabkommen wirksam notifiziert?**: Die Wirksamkeitsbedingung ist offen.
 - **Liegt ein Plenarprotokoll der Sitzung vom 20. Juli 2026 vor?**: Tagesordnung und Verkündungen ersetzen kein Plenarprotokoll.
 - **Welche Vertrags-, Finanzierungs- und Organisationsdaten gelten für Boom Europe Leipzig/Halle?**: Der Hub soll Gesetzeskomplex und praktische Projektorganisation getrennt modellieren.
 - **Welche konsolidierte Hoheitszeichenregelung gilt nach der Staatsreform?**: Rechtslage und spätere politische Gestaltungsentscheidung dürfen nicht vermischt werden.
 - **Welche neuen Feiertage sind verkündet und seit wann wirksam?**: Gesprächswissen genügt nicht für Rechtsstand oder Kalenderangaben.
+- **Welche Primärakten und Verfahrensdaten fehlen noch zum Bundesratszugangsstreit?**: Existenz, Beteiligung Markus Hauers und praktische Rücknahme der Zugangsbeschränkung sind geklärt; formale Verfahrensdaten und Primärakten fehlen.
+- **Welche 34 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?**: Ohne Ausgangssnapshot darf keine freie Konsolidierung erfolgen.
 
 ## Detaildateien
 

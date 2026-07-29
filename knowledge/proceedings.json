@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-21",
+  "asOf": "2026-07-29",
   "proceedings": [
     {
       "id": "proceeding-staatsreform",
@@ -119,27 +119,26 @@
     {
       "id": "proceeding-grenzpolizei-bund",
       "title": "Vereinbarung mit Bund und Bundespolizei zur Grenzpolizei",
-      "status": "unresolved",
+      "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Eine Vereinbarung ist als Verhandlungs- oder Entwurfsgegenstand bekannt, aber im Repository nicht als wirksam abgeschlossene Vereinbarung belegt.",
+      "asOf": "2026-07-29",
+      "summary": "Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist nicht unterzeichnet oder wirksam; sie befindet sich in Ausarbeitung.",
       "sourceRefs": [
         {
-          "sourceId": "source-content-gaps",
-          "locator": "offene Primärquellen und Vertragsbedingungen",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
           "role": "primary"
         },
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 19",
+          "sourceId": "source-grenzpolizei-law",
+          "locator": "Gesetzesfassung 2026-07-21",
           "role": "context"
         }
       ],
       "relatedIds": [
         "inst-grenzpolizei",
-        "inst-sek-staats-grenzsicherheit",
-        "question-grenzpolizei-agreement"
+        "inst-sek-staats-grenzsicherheit"
       ],
       "tags": [
         "proceeding",
@@ -149,7 +148,7 @@
       "notes": [],
       "aliases": [],
       "proceedingType": "administrative-agreement",
-      "stage": "source-required",
+      "stage": "drafting",
       "participantIds": [
         "inst-grenzpolizei",
         "inst-sek-staats-grenzsicherheit"
@@ -160,125 +159,147 @@
           "versionId": "2026-07-21"
         }
       ],
-      "decision": null,
-      "nextAction": "Unterzeichnete Fassung, Zustimmungslage und Inkrafttreten nachweisen.",
-      "openQuestionIds": [
-        "question-grenzpolizei-agreement"
-      ]
+      "decision": "Noch keine wirksame Vereinbarung; Entwurf in Ausarbeitung.",
+      "nextAction": "Entwurf fertigstellen, mit Bund beziehungsweise Bundespolizei abstimmen, unterzeichnen und Inkrafttreten dokumentieren.",
+      "openQuestionIds": []
     },
     {
       "id": "proceeding-ndr-ratification",
       "title": "Ratifikation des NDR-Änderungs- und Überleitungsstaatsvertrags",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der Austausch der Ratifikationsurkunden ist nicht nachgewiesen.",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "asOf": "2026-07-29",
+      "summary": "Ratifikationsurkunden wurden am 24. März 2026 ausgetauscht; der Vertrag trat am selben Tag in Kraft.",
       "sourceRefs": [
         {
-          "sourceId": "source-content-gaps",
-          "locator": "Abschnitt redaktionell offene Primärquellen",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-04",
+          "locator": "Veröffentlichungsdatum 2026-03-24",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "inst-sek-rechtsstaat-kultur",
-        "question-ndr-ratification"
+        "inst-sek-rechtsstaat-kultur"
       ],
       "tags": [
         "proceeding",
         "treaty",
-        "media"
+        "media",
+        "historical"
       ],
       "notes": [],
       "aliases": [],
       "proceedingType": "ratification",
-      "stage": "awaiting-proof",
+      "stage": "completed",
       "participantIds": [
         "inst-sek-rechtsstaat-kultur"
       ],
-      "normRefs": [],
-      "decision": null,
-      "nextAction": "Ratifikationsurkunden oder amtliche Bekanntmachung des Inkrafttretens beibringen.",
-      "openQuestionIds": [
-        "question-ndr-ratification"
-      ]
+      "normRefs": [
+        {
+          "normSlug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
+          "versionId": "2026-03-08"
+        }
+      ],
+      "decision": "Ratifikationsurkunden am 24. März 2026 ausgetauscht; Inkrafttreten am selben Tag.",
+      "nextAction": null,
+      "openQuestionIds": []
     },
     {
       "id": "proceeding-poland-notification",
       "title": "Notifikation des Grenzraumabkommens mit Polen",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der für das Inkrafttreten erforderliche Austausch der Notifikationen ist nicht nachgewiesen.",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "asOf": "2026-07-29",
+      "summary": "Notifikationen wurden am 24. März 2026 ausgetauscht; der Vertrag trat am selben Tag in Kraft.",
       "sourceRefs": [
         {
-          "sourceId": "source-content-gaps",
-          "locator": "Abschnitt redaktionell offene Primärquellen",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-02",
+          "locator": "Veröffentlichungsdatum 2026-03-24",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "inst-sek-voelkerfreundschaft",
-        "question-poland-notification"
+        "inst-sek-voelkerfreundschaft"
       ],
       "tags": [
         "proceeding",
         "international",
-        "notification"
+        "notification",
+        "historical"
       ],
       "notes": [],
       "aliases": [],
       "proceedingType": "notification",
-      "stage": "awaiting-proof",
+      "stage": "completed",
       "participantIds": [
         "inst-sek-voelkerfreundschaft"
       ],
-      "normRefs": [],
-      "decision": null,
-      "nextAction": "Notifikationsaustausch oder amtliche Inkrafttretensbekanntmachung nachweisen.",
-      "openQuestionIds": [
-        "question-poland-notification"
-      ]
+      "normRefs": [
+        {
+          "normSlug": "zwischen-dem-freistaat-ostdeutschland-und-der-republik-polen-1p4h4x1",
+          "versionId": "2026-03-05"
+        }
+      ],
+      "decision": "Notifikationen am 24. März 2026 ausgetauscht; Inkrafttreten am selben Tag.",
+      "nextAction": null,
+      "openQuestionIds": []
     },
     {
       "id": "proceeding-czech-notification",
       "title": "Notifikation des Grenzraumabkommens mit Tschechien",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der für das Inkrafttreten erforderliche Austausch der Notifikationen ist nicht nachgewiesen.",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "asOf": "2026-07-29",
+      "summary": "Notifikationen wurden am 24. März 2026 ausgetauscht; der Vertrag trat am selben Tag in Kraft.",
       "sourceRefs": [
         {
-          "sourceId": "source-content-gaps",
-          "locator": "Abschnitt redaktionell offene Primärquellen",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-03",
+          "locator": "Veröffentlichungsdatum 2026-03-24",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "inst-sek-voelkerfreundschaft",
-        "question-czech-notification"
+        "inst-sek-voelkerfreundschaft"
       ],
       "tags": [
         "proceeding",
         "international",
-        "notification"
+        "notification",
+        "historical"
       ],
       "notes": [],
       "aliases": [],
       "proceedingType": "notification",
-      "stage": "awaiting-proof",
+      "stage": "completed",
       "participantIds": [
         "inst-sek-voelkerfreundschaft"
       ],
-      "normRefs": [],
-      "decision": null,
-      "nextAction": "Notifikationsaustausch oder amtliche Inkrafttretensbekanntmachung nachweisen.",
-      "openQuestionIds": [
-        "question-czech-notification"
-      ]
+      "normRefs": [
+        {
+          "normSlug": "zwischen-dem-freistaat-ostdeutschland-und-der-tschechischen-nmd9np",
+          "versionId": "2026-03-07"
+        }
+      ],
+      "decision": "Notifikationen am 24. März 2026 ausgetauscht; Inkrafttreten am selben Tag.",
+      "nextAction": null,
+      "openQuestionIds": []
     },
     {
       "id": "proceeding-third-plenary-evidence",
@@ -393,16 +414,21 @@
     {
       "id": "proceeding-federal-council-access",
       "title": "Bundesratszugangs- oder Stimmrechtsstreit",
-      "status": "unverified",
+      "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Gesprächskandidat zu einem bundesverfassungsrechtlichen Konflikt. Im auditierten Repository wurde noch keine belastbare strukturierte Verfahrensakte zugeordnet.",
+      "asOf": "2026-07-29",
+      "summary": "Ein Bundesratszugangs- beziehungsweise Mitwirkungsstreit mit dem westdeutschen Ministerpräsidenten Markus Hauer ist bestätigt. Eine einstweilige Anordnung führte zur Rücknahme der Zugangsbeschränkung; formale Verfahrensdaten fehlen noch.",
       "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Bundesebene und historische Vorgänge",
+          "role": "primary"
+        },
         {
           "sourceId": "source-conversation-task",
           "locator": "Kandidaten 20 bis 23",
-          "role": "primary"
+          "role": "context"
         }
       ],
       "relatedIds": [
@@ -412,40 +438,39 @@
       "tags": [
         "proceeding",
         "court",
-        "federal",
-        "candidate"
+        "federal"
       ],
       "notes": [],
       "aliases": [],
       "proceedingType": "constitutional-dispute",
-      "stage": "candidate",
+      "stage": "decision-details-missing",
       "participantIds": [
         "person-karl-honecker"
       ],
       "normRefs": [],
-      "decision": null,
-      "nextAction": "Primärdokumente, Aktenzeichen, Beteiligte und Verfahrensstand bestimmen.",
+      "decision": "Zugangsbeschränkung nach einstweiliger Anordnung rückgängig gemacht; Gericht, Aktenzeichen, Datum und genauer Tenor noch offen.",
+      "nextAction": "Klage und gerichtliche Entscheidung als Primärquellen ablegen und Verfahrensdaten ergänzen.",
       "openQuestionIds": [
         "question-federal-council-case"
       ]
     },
     {
       "id": "proceeding-2025-state-crisis",
-      "title": "Staatskrise und Regierungswechsel 2025",
-      "status": "unverified",
+      "title": "Historischer Regierungswechsel und Rücktritt Tom Kurzschlusses 2025",
+      "status": "editorially-confirmed",
       "validFrom": "2025-01-01",
       "validTo": "2025-12-19",
-      "asOf": "2026-07-21",
-      "summary": "Gesprächskandidat zu Rücktritt, Misstrauensvotum und früheren Regierungsbildungen. Die aktuelle Timeline beginnt erst mit dem Kabinett Honecker I.",
+      "asOf": "2026-07-29",
+      "summary": "Ein Rücktritt Tom Kurzschlusses und ein außergewöhnlicher Regierungswechsel beziehungsweise ein Misstrauensvotum sind bestätigt; die genaue Ereignisfolge bleibt unerschlossen.",
       "sourceRefs": [
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 14",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Bundesebene und historische Vorgänge",
           "role": "primary"
         },
         {
           "sourceId": "source-government-timeline",
-          "locator": "Beginn der Timeline",
+          "locator": "fehlender Zeitraum vor Dezember 2025",
           "role": "context"
         }
       ],
@@ -455,16 +480,16 @@
       "tags": [
         "proceeding",
         "history",
-        "candidate"
+        "historical"
       ],
       "notes": [],
       "aliases": [],
       "proceedingType": "historical-event",
-      "stage": "candidate",
+      "stage": "historical-details-missing",
       "participantIds": [],
       "normRefs": [],
       "decision": null,
-      "nextAction": "Primärquellen und exakte Ereignisfolge ermitteln.",
+      "nextAction": "Nur bei späterer historischer Aufarbeitung Wendepunkt-Bericht und amtliche Akte ergänzen.",
       "openQuestionIds": [
         "question-state-crisis-2025"
       ]
@@ -512,34 +537,38 @@
     {
       "id": "proceeding-ogvbl-58-conflict",
       "title": "Ausgabenummer der SERO-Verkündung",
-      "status": "disputed",
+      "status": "editorially-confirmed",
       "validFrom": "2026-07-21",
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Die PDF-Kontrolldatei zeigt sichtbar Nr. 57, während HTML-Transkription und Datensatz Nr. 58 ausweisen.",
+      "validTo": "2026-07-29",
+      "asOf": "2026-07-29",
+      "summary": "Der Nummernkonflikt ist redaktionell geklärt: Amtlich maßgeblich ist OGVBl. 2026 Nr. 58; die sichtbare Nr. 57 in der PDF ist ein Druckfehler.",
       "sourceRefs": [
         {
-          "sourceId": "source-content-gaps",
-          "locator": "bekannte Widersprüche",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
           "role": "primary"
         },
         {
           "sourceId": "source-ogvbl-58",
-          "locator": "gesamter Datensatz",
-          "role": "conflicting"
+          "locator": "HTML- und Datensatzmetadaten",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-content-gaps",
+          "locator": "bisheriger Quellenkonflikt",
+          "role": "context"
         }
       ],
-      "relatedIds": [
-        "question-ogvbl-58-number"
-      ],
+      "relatedIds": [],
       "tags": [
         "proceeding",
-        "source-conflict"
+        "source-conflict",
+        "historical"
       ],
       "notes": [],
       "aliases": [],
       "proceedingType": "source-conflict",
-      "stage": "unresolved",
+      "stage": "resolved",
       "participantIds": [],
       "normRefs": [
         {
@@ -547,11 +576,9 @@
           "versionId": "2026-07-21"
         }
       ],
-      "decision": null,
-      "nextAction": "Amtliche Ausgabenummer klären; PDF bis dahin nur als Strukturkontrolle verwenden.",
-      "openQuestionIds": [
-        "question-ogvbl-58-number"
-      ],
+      "decision": "OGVBl. 2026 Nr. 58 ist maßgeblich; Nr. 57 im PDF-Kopf ist ein Druckfehler.",
+      "nextAction": "PDF bei Gelegenheit berichtigen oder dauerhaft mit Druckfehlerhinweis versehen.",
+      "openQuestionIds": [],
       "conflictGroup": "conflict-ogvbl-58"
     }
   ]

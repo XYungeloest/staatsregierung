@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-21",
+  "asOf": "2026-07-29",
   "parties": [
     {
       "id": "party-volksfront",
@@ -42,48 +42,102 @@
     },
     {
       "id": "party-demos",
-      "title": "Bündnis Demokratie Europa",
-      "status": "derived",
-      "validFrom": null,
+      "title": "Das Bündnis Demokratie Europa",
+      "status": "editorially-confirmed",
+      "validFrom": "2025-09-03",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Koalitionspartei. Die aktuelle Konfiguration bezeichnet sie als „DEMOS an der Elbe“, während Personenprofile „Bündnis Demokratie Europa (DEMOS)“ verwenden.",
+      "asOf": "2026-07-29",
+      "summary": "Aktuelle Bundespartei „Das Bündnis Demokratie Europa (DEMOS)“. Frühere Bundesnamen und die wechselnden ostdeutschen Listenbezeichnungen werden getrennt geführt.",
       "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Parteien",
+          "role": "primary"
+        },
         {
           "sourceId": "source-site-config",
           "locator": "currentGovernment.coalitionParties",
-          "role": "primary"
+          "role": "corroborating"
         },
         {
           "sourceId": "source-mateo-current",
           "locator": "party",
-          "role": "corroborating"
+          "role": "context"
         }
       ],
       "relatedIds": [
         "inst-staatsrat",
-        "party-volksfront",
-        "question-demos-name"
+        "party-volksfront"
       ],
       "tags": [
         "party",
-        "coalition",
-        "naming-conflict"
+        "coalition"
       ],
-      "notes": [],
+      "notes": [
+        "Die ostdeutschen Wahlbezeichnungen sind keine dauerhaften Umbenennungen der Bundespartei."
+      ],
       "aliases": [
         "DEMOS",
+        "Bündnis Demokratie Europa",
         "DEMOS an der Elbe",
-        "DEMOS Ost"
+        "DEMOS Ost",
+        "SGB"
       ],
-      "name": "Bündnis Demokratie Europa",
+      "name": "Das Bündnis Demokratie Europa",
       "abbreviation": "DEMOS",
       "historicalNames": [
-        "DEMOS Ost"
+        "Bündnis Demokratie Europa – für Mitbestimmung, Ökologie und Solidarität",
+        "Sozialdemokratisch Grüne Bewegung – die Europapartei"
       ],
       "parliamentaryStatus": "coalition",
       "predecessorIds": [],
-      "successorIds": []
+      "successorIds": [],
+      "nameHistory": [
+        {
+          "name": "Bündnis Demokratie Europa – für Mitbestimmung, Ökologie und Solidarität",
+          "abbreviation": "DEMOS",
+          "validFrom": "2024-03-26",
+          "validTo": "2025-03-22",
+          "scope": "federal-party"
+        },
+        {
+          "name": "Sozialdemokratisch Grüne Bewegung – die Europapartei",
+          "abbreviation": "SGB",
+          "validFrom": "2025-03-23",
+          "validTo": "2025-09-02",
+          "scope": "federal-party"
+        },
+        {
+          "name": "Das Bündnis Demokratie Europa",
+          "abbreviation": "DEMOS",
+          "validFrom": "2025-09-03",
+          "validTo": null,
+          "scope": "federal-party"
+        }
+      ],
+      "electionListNames": [
+        {
+          "election": "5. Ostdeutsche Landtagswahl",
+          "electionDate": null,
+          "reportedDayRange": "16.–17. August",
+          "name": "DEMOS Ostdeutschland",
+          "abbreviation": "DEMOS Ost"
+        },
+        {
+          "election": "6. Ostdeutsche Landtagswahl",
+          "electionDate": "2025-11-29",
+          "electionEndDate": "2025-11-30",
+          "name": "Bündnis Demokratie Europa für Mitbestimmung, Ökologie und Solidarität im Ostdeutschen Freistaat",
+          "abbreviation": "DEMOS Ost"
+        },
+        {
+          "election": "7. Ostdeutsche Landtagswahl",
+          "electionDate": null,
+          "reportedDayRange": "18.–19. April",
+          "name": "Bündnis Demokratie Europa für Mitbestimmung, Ökologie und Solidarität an der Elbe",
+          "abbreviation": "DEMOS an der Elbe"
+        }
+      ]
     }
   ]
 }

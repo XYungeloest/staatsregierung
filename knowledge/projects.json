@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-21",
+  "asOf": "2026-07-29",
   "projects": [
     {
       "id": "project-staatsreform",
@@ -168,18 +168,24 @@
           "sourceId": "source-ogvbl-58",
           "locator": "Verkündung",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "inst-sek-nachhaltigkeit-energie",
-        "question-ogvbl-58-number"
+        "inst-sek-nachhaltigkeit-energie"
       ],
       "tags": [
         "project",
         "regulation",
         "circular-economy"
       ],
-      "notes": [],
+      "notes": [
+        "Amtliche Fundstelle OGVBl. 2026 Nr. 58; Nr. 57 im PDF-Kopf ist ein Druckfehler."
+      ],
       "aliases": [],
       "projectStage": "in-force",
       "responsibleInstitutionIds": [
@@ -201,9 +207,7 @@
         "Vollzug und Infrastrukturaufbau dokumentieren"
       ],
       "dependencies": [],
-      "openQuestionIds": [
-        "question-ogvbl-58-number"
-      ]
+      "openQuestionIds": []
     },
     {
       "id": "project-eisenbahn-verkehr",
@@ -551,8 +555,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Gesetzlich errichtete Grenzpolizei. Die praktische Zusammenarbeit mit Bund und Bundespolizei ist als gesondertes Verfahren offen.",
+      "asOf": "2026-07-29",
+      "summary": "Gesetzlich errichtete Grenzpolizei. Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist noch nicht wirksam und befindet sich in Ausarbeitung.",
       "sourceRefs": [
         {
           "sourceId": "source-grenzpolizei-law",
@@ -563,12 +567,16 @@
           "sourceId": "source-grenzpolizei-procedure",
           "locator": "Verfahrensdatensatz",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
         "inst-sek-staats-grenzsicherheit",
-        "inst-grenzpolizei",
-        "question-grenzpolizei-agreement"
+        "inst-grenzpolizei"
       ],
       "tags": [
         "project",
@@ -599,14 +607,13 @@
         }
       ],
       "nextSteps": [
-        "Aufbauorganisation und Bund-Länder-Vereinbarung klären"
+        "Aufbauorganisation fortführen",
+        "Vereinbarung mit Bund beziehungsweise Bundespolizei fertigstellen und unterzeichnen"
       ],
       "dependencies": [
         "proceeding-grenzpolizei-bund"
       ],
-      "openQuestionIds": [
-        "question-grenzpolizei-agreement"
-      ]
+      "openQuestionIds": []
     },
     {
       "id": "project-schulreform",
@@ -660,8 +667,8 @@
       "status": "confirmed-primary",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung; der Ratifikationsaustausch des NDR-Vertrags ist nicht nachgewiesen.",
+      "asOf": "2026-07-29",
+      "summary": "Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung. Der NDR-Änderungs- und Überleitungsstaatsvertrag trat am 24. März 2026 in Kraft.",
       "sourceRefs": [
         {
           "sourceId": "source-broadcast-law",
@@ -669,14 +676,18 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-content-gaps",
-          "locator": "NDR-Ratifikationsnachweis",
-          "role": "context"
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-04",
+          "locator": "Veröffentlichungsdatum 2026-03-24",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "inst-sek-rechtsstaat-kultur",
-        "question-ndr-ratification"
+        "inst-sek-rechtsstaat-kultur"
       ],
       "tags": [
         "project",
@@ -698,17 +709,17 @@
         {
           "date": "2026-03-23",
           "title": "Ostdeutsches Fernsehfunkgesetz verkündet"
+        },
+        {
+          "date": "2026-03-24",
+          "title": "Ratifikationsurkunden ausgetauscht; Staatsvertrag tritt in Kraft"
         }
       ],
       "nextSteps": [
-        "Ratifikationsurkunden des NDR-Vertrags nachweisen"
+        "Praktische Überleitung der NDR-Strukturen dokumentieren"
       ],
-      "dependencies": [
-        "proceeding-ndr-ratification"
-      ],
-      "openQuestionIds": [
-        "question-ndr-ratification"
-      ]
+      "dependencies": [],
+      "openQuestionIds": []
     },
     {
       "id": "project-kulturpass",

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-28",
+  "asOf": "2026-07-29",
   "candidates": [
     {
       "id": "candidate-honecker-biography",
@@ -99,16 +99,16 @@
     },
     {
       "id": "candidate-state-crisis-2025",
-      "title": "Staatskrise 2025 und Rücktritt Tom Kurzschluss",
+      "title": "Historische Regierungsereignisse 2025",
       "status": "unverified",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Ereignisfolge, Rücktritt, Misstrauensvotum und frühere Regierungsbildungen sind nicht strukturiert belegt.",
+      "asOf": "2026-07-29",
+      "summary": "Rücktritt Tom Kurzschlusses und außergewöhnlicher Regierungswechsel beziehungsweise Misstrauensvotum sind redaktionell bestätigt; Details bleiben als niedrig priorisierte historische Lücke offen.",
       "sourceRefs": [
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Staatskrise 2025 und Rücktritt Tom Kurzschluss",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Bundesebene und historische Vorgänge",
           "role": "primary"
         }
       ],
@@ -120,13 +120,13 @@
       ],
       "notes": [],
       "aliases": [],
-      "classification": "not-present",
+      "classification": "partly-confirmed-historical",
       "searchTargets": [
-        "Parlamentsprotokolle",
+        "Wendepunkt-Artikel",
         "Rücktrittserklärung",
-        "Ernennungs- und Wahlakte"
+        "Misstrauensvotums- und Ernennungsakte"
       ],
-      "priority": "high",
+      "priority": "low",
       "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
     },
     {
@@ -258,114 +258,17 @@
       "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
     },
     {
-      "id": "candidate-grenzpolizei-agreement",
-      "title": "Bundesvereinbarung zur Grenzpolizei",
-      "status": "unverified",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Es ist nicht belegt, ob eine Grundlage, ein Entwurf oder eine wirksame Vereinbarung vorliegt.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Bundesvereinbarung zur Grenzpolizei",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "proceeding-grenzpolizei-bund"
-      ],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "notes": [],
-      "aliases": [],
-      "classification": "not-present",
-      "searchTargets": [
-        "unterzeichnete Verwaltungsvereinbarung",
-        "Bundespolizei-Abkommen",
-        "Zustimmungs- und Inkrafttretensnachweis"
-      ],
-      "priority": "high",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
-    },
-    {
-      "id": "candidate-bundesrat-presidency",
-      "title": "Bundesratspräsidentschaft Karl Honeckers",
-      "status": "unverified",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Beginn, Dauer und amtliche Grundlage der Bundesratspräsidentschaft sind im Repository nicht quellenfest modelliert.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Bundesratspräsidentschaft Karl Honeckers",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "person-karl-honecker",
-        "question-bundesrat-presidency-start"
-      ],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "notes": [],
-      "aliases": [],
-      "classification": "conflicting",
-      "searchTargets": [
-        "Bundesratsprotokoll",
-        "Wahl des Präsidiums",
-        "amtliche Funktionsübersicht"
-      ],
-      "priority": "high",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
-    },
-    {
-      "id": "candidate-bundesrat-access-dispute",
-      "title": "Bundesratszugangs- oder Stimmrechtsstreit",
-      "status": "unverified",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Der behauptete Konflikt ist ohne Aktenzeichen, Schriftsätze oder Entscheidung im Repository.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Bundesratszugangs- oder Stimmrechtsstreit",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "proceeding-federal-council-access"
-      ],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "notes": [],
-      "aliases": [],
-      "classification": "not-present",
-      "searchTargets": [
-        "Bundesverfassungsgerichtliche Akte",
-        "Bundesratsdokumente",
-        "Schriftsätze"
-      ],
-      "priority": "high",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
-    },
-    {
       "id": "candidate-acting-federal-president",
       "title": "Vertretung der Bundespräsidentin durch den Bundesratspräsidenten",
       "status": "unverified",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Zeitpunkt, Vertretungsgrund und konkrete Ernennungs- oder Verkündungsakte sind nicht belegt.",
+      "asOf": "2026-07-29",
+      "summary": "Eine zeitweise Vertretung der Bundespräsidentin und die Vornahme von Ernennungs-, Entlassungs- und Verkündungsakten werden redaktionell behauptet; Zeitraum, Anlass und Einzelakte sind mangels angekündigtem Wikiartikel beziehungsweise Primärquelle weiterhin offen.",
       "sourceRefs": [
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Vertretung der Bundespräsidentin durch den Bundesratspräsidenten",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Bundesebene und historische Vorgänge",
           "role": "primary"
         }
       ],
@@ -377,7 +280,7 @@
       ],
       "notes": [],
       "aliases": [],
-      "classification": "not-present",
+      "classification": "partly-confirmed-details-missing",
       "searchTargets": [
         "Bundespräsidialamt",
         "Bundesgesetzblatt",
