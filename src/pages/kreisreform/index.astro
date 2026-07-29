@@ -7,6 +7,7 @@ import SectionHero from '../../components/portal/SectionHero.astro';
 import SectionNavigation from '../../components/portal/SectionNavigation.astro';
 import {
   getFreestateUrl,
+  getFreestatePageUrl,
   getHomeUrl,
   getLawHomeUrl,
   getTopicsUrl,
@@ -20,6 +21,7 @@ import {
 import { buildFaqPageJsonLd } from '../../lib/seo/index.ts';
 import type {
   GeoJsonFeatureCollection,
+  AlterBezirkProperties,
   KreisreformManifest,
   NeuerBezirkProperties,
   NeuerKreisProperties,
@@ -36,6 +38,7 @@ function readMapData<T>(fileName: string): T {
 const manifest = readMapData<KreisreformManifest>('manifest.json');
 const kreiseCollection = readMapData<GeoJsonFeatureCollection<NeuerKreisProperties>>('neue-kreise.geojson');
 const bezirkeCollection = readMapData<GeoJsonFeatureCollection<NeuerBezirkProperties>>('neue-bezirke.geojson');
+const alteBezirkeCollection = readMapData<GeoJsonFeatureCollection<AlterBezirkProperties>>('alte-bezirke.geojson');
 
 const neueKreise = [...kreiseCollection.features]
   .map((feature) => feature.properties)
@@ -49,21 +52,14 @@ const oldLayersAvailable =
   manifest.layers.alteKreise.available ||
   manifest.layers.alteBezirke.available ||
   manifest.layers.alteBundeslaender.available;
-const bisherigeBezirke = [
-  'Berlin',
-  'Brandenburg',
-  'Mecklenburg-Vorpommern',
-  'Niederlausitz',
-  'Oberlausitz',
-  'Sachsen',
-  'Sachsen-Anhalt',
-  'Thüringen',
-];
+const bisherigeBezirke = [...alteBezirkeCollection.features]
+  .map((feature) => feature.properties.name)
+  .sort((left, right) => left.localeCompare(right, 'de'));
 const kreisreformFaq = [
-  { question: 'Muss ich meine Adresse ändern?', answer: 'Das Gesetz ändert keine Gemeindegrenzen oder postalischen Anschriften. Die neuen Kreis- und Bezirkszuordnungen werden zum 1. August 2026 wirksam.' },
+  { question: 'Muss ich meine Adresse ändern?', answer: 'Das Gesetz ändert keine Gemeindegrenzen oder postalischen Anschriften. Die geltenden Kreis- und Bezirkszuordnungen bestehen seit 1. August 2026.' },
   { question: 'Ändern sich Kfz-Kennzeichen?', answer: 'Die Regelungen zu Kfz-Kennzeichen werden gesondert bekannt gemacht. Bestehende Kennzeichen werden durch die Gebietszuordnung nicht unmittelbar ungültig.' },
-  { question: 'Welche Behörde ist künftig zuständig?', answer: 'Die Gebietssuche zeigt den neuen Kreis und Bezirk. Für einzelne Aufgaben gelten bis zum Abschluss der Übergangsregelungen die jeweils bekannt gemachten Zuständigkeiten.' },
-  { question: 'Wann gilt die neue Zuordnung?', answer: 'Die neue Kreis- und Bezirksgliederung wird am 1. August 2026 wirksam.' },
+  { question: 'Welche Behörde ist zuständig?', answer: 'Die Gebietssuche zeigt den geltenden Kreis und Bezirk. Für einzelne Aufgaben gelten während der organisatorischen Übergänge die jeweils bekannt gemachten Zuständigkeiten.' },
+  { question: 'Seit wann gilt die neue Zuordnung?', answer: 'Die geltende Kreis- und Bezirksgliederung ist am 1. August 2026 wirksam geworden.' },
   { question: 'Was passiert mit bisherigen Landkreisen?', answer: 'Die bisherigen Kreise bleiben für Rechtsnachfolge, Übergangsaufgaben und die Bereinigung bestehender Regelungen bedeutsam. Die Einzelheiten ergeben sich aus dem Gesetz und seinen Anlagen.' },
   { question: 'Wo finde ich die Rechtsgrundlagen?', answer: 'Die verkündeten Gesetze, ihre Fundstellen und vollständigen Fassungen sind im Rechtsportal veröffentlicht.' },
 ];
@@ -71,7 +67,7 @@ const kreisreformFaq = [
 
 <BaseLayout
   title="Kreis- und Bezirksreform 2026"
-  description="Interaktive Übersicht zur Kreis- und Bezirksreform mit Karte, Bezirken, Kreisen, Tabellen und Rechtsgrundlagen."
+  description="Seit 1. August 2026 geltende Kreis- und Bezirksordnung mit Gebietssuche, Karte, Bezirken, Kreisen, historischen Vergleichen und Rechtsgrundlagen."
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
     { label: 'Themen & Projekte', href: getTopicsUrl() },
@@ -90,13 +86,13 @@ const kreisreformFaq = [
   <SectionHero
     eyebrow="Gebietsordnung"
     title="Kreis- und Bezirksreform 2026"
-    lead="Suchen Sie Ihre Gemeinde und sehen Sie, welchem Kreis und Bezirk sie künftig zugeordnet ist."
-    status="Verkündet · neue Gliederung ab 1. August 2026"
+    lead="Suchen Sie Ihre Gemeinde und sehen Sie, welchem geltenden Kreis und Bezirk sie zugeordnet ist."
+    status="In Kraft seit 1. August 2026"
     variant="reform"
     facts={[
-      { label: 'Neue Bezirke', value: formatInteger(manifest.stats.neueBezirke) },
-      { label: 'Neue Kreise', value: formatInteger(manifest.stats.neueKreise) },
-      { label: 'Vorgesehen ab', value: formatLongDate(manifest.stats.wirksamAb) },
+      { label: 'Bezirke', value: formatInteger(manifest.stats.neueBezirke) },
+      { label: 'Kreise', value: formatInteger(manifest.stats.neueKreise) },
+      { label: 'In Kraft seit', value: formatLongDate(manifest.stats.wirksamAb) },
     ]}
   >
     <div
@@ -156,8 +152,8 @@ const kreisreformFaq = [
     <div class="section-header">
       <h2 id="kartenueberschrift">Interaktive Karte</h2>
       <p>
-        Standardmäßig sind die neuen Kreise und die neuen Bezirksgrenzen sichtbar. Die bisherigen
-        Kreise, Bezirke und Länder können als zurückhaltende Vergleichsebenen zugeschaltet werden.
+        Standardmäßig sind die geltenden Kreise und Bezirksgrenzen sichtbar. Frühere Kreise,
+        Bezirke und Länder können als historische Vergleichsebenen zugeschaltet werden.
       </p>
     </div>
 
@@ -182,34 +178,34 @@ const kreisreformFaq = [
               <div class="kreisreform-layer-list">
                 <label class="kreisreform-layer-toggle">
                   <input type="checkbox" data-layer-toggle="neueKreise" checked />
-                  <span>Neue Kreise</span>
+                  <span>Geltende Kreise</span>
                   <small data-layer-note></small>
                 </label>
                 <label class="kreisreform-layer-toggle">
                   <input type="checkbox" data-layer-toggle="neueBezirke" checked />
-                  <span>Neue Bezirke</span>
+                  <span>Geltende Bezirke</span>
                   <small data-layer-note></small>
                 </label>
                 <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteKreise.available && 'is-disabled']}>
                   <input type="checkbox" data-layer-toggle="alteKreise" disabled={!manifest.layers.alteKreise.available} />
-                  <span>Alte Kreise</span>
+                  <span>Frühere Kreise</span>
                   <small data-layer-note>{manifest.layers.alteKreise.available ? '' : 'derzeit nicht verfügbar'}</small>
                 </label>
                 <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteBezirke.available && 'is-disabled']}>
                   <input type="checkbox" data-layer-toggle="alteBezirke" disabled={!manifest.layers.alteBezirke.available} />
-                  <span>Alte Bezirke</span>
+                  <span>Frühere Bezirke</span>
                   <small data-layer-note>{manifest.layers.alteBezirke.available ? '' : 'derzeit nicht verfügbar'}</small>
                 </label>
                 <label class:list={['kreisreform-layer-toggle', !manifest.layers.alteBundeslaender.available && 'is-disabled']}>
                   <input type="checkbox" data-layer-toggle="alteBundeslaender" disabled={!manifest.layers.alteBundeslaender.available} />
-                  <span>Alte Länder</span>
+                  <span>Frühere Länder</span>
                   <small data-layer-note>{manifest.layers.alteBundeslaender.available ? '' : 'derzeit nicht verfügbar'}</small>
                 </label>
               </div>
             </details>
 
             <button class="button-link button-link--secondary" type="button" data-map-reset>
-              Auf neue Ordnung zurücksetzen
+              Auf geltende Ordnung zurücksetzen
             </button>
           </div>
 
@@ -225,9 +221,9 @@ const kreisreformFaq = [
           </p>
 
           <div class="kreisreform-legend" aria-label="Legende">
-            <span><i class="legend-fill"></i> Neue Kreise</span>
-            <span><i class="legend-line"></i> Neue Bezirksgrenzen</span>
-            <span><i class="legend-dashed"></i> Bisherige Kreisgrenzen</span>
+            <span><i class="legend-fill"></i> Geltende Kreise</span>
+            <span><i class="legend-line"></i> Geltende Bezirksgrenzen</span>
+            <span><i class="legend-dashed"></i> Frühere Kreisgrenzen</span>
           </div>
 
           <div class="status-notice kreisreform-map-notice">
@@ -254,35 +250,35 @@ const kreisreformFaq = [
   <section id="aenderungen" class="section" aria-labelledby="aenderungen-ueberschrift">
     <div class="section-header">
       <h2 id="aenderungen-ueberschrift">Was ändert sich?</h2>
-      <p>Das verkündete Gesetz verbindet eine neue Bezirksordnung mit einer neuen Kreisgliederung.</p>
+      <p>Seit 1. August 2026 gelten die neue Bezirksordnung und die neu geordnete Kreisgliederung.</p>
     </div>
     <div class="compare-grid">
       <article>
         <h3>Bisherige Bezirke</h3>
         <p>
-          Bis zum Ablauf des <time datetime="2026-07-31">31. Juli 2026</time> bestehen acht Bezirke: {bisherigeBezirke.join(', ')}. Sie beruhen auf dem bisherigen Bezirkseinführungsgesetz.
+          Bis zum Ablauf des <time datetime="2026-07-31">31. Juli 2026</time> bestand die frühere Ordnung aus acht Bezirken: {bisherigeBezirke.join(', ')}. Sie ist nur noch als historischer Vergleichsstand maßgeblich; Berlin besteht in der neuen Ordnung fort.
         </p>
       </article>
       <article>
-        <h3>Neue Bezirke</h3>
+        <h3>Geltende Bezirke</h3>
         <p>
-          Das verkündete Recht sieht ab <time datetime={manifest.stats.wirksamAb}>{formatLongDate(manifest.stats.wirksamAb)}</time> vierzehn Bezirke mit festen Sitzen, einer neuen Bezirksordnung und klar zugeordneten Kreisen vor.
+          Seit <time datetime={manifest.stats.wirksamAb}>{formatLongDate(manifest.stats.wirksamAb)}</time> bestehen vierzehn Bezirke mit festen Sitzen, einer geltenden Bezirksordnung und klar zugeordneten Kreisen.
         </p>
       </article>
       <article>
         <h3>Bisherige Kreise</h3>
         <p>
-          Die bisherigen Landkreise und kreisfreien Städte bleiben für Übergänge, Rechtsnachfolge
-          und örtliche Zuordnung wichtig. Ihre Grenzen werden aus den amtlichen VG250-Daten des
+          Die früheren Landkreise und kreisfreien Städte bleiben für Übergänge, Rechtsnachfolge
+          und den historischen Vergleich wichtig. Ihre Grenzen werden aus den amtlichen VG250-Daten des
           Bundesamtes für Kartographie und Geodäsie abgeleitet.
         </p>
       </article>
       <article>
-        <h3>Neue Kreise</h3>
+        <h3>Geltende Kreise</h3>
         <p>
-          Die neue Ordnung umfasst {formatInteger(manifest.stats.neueKreise)} Landkreise und
-          Kreisfreie Städte. Berlin bleibt Sonderfall: Die Stadt ist zugleich Bezirk, Kreisfreie
-          Stadt und Bundeshauptstadt; Stadt- und Bezirksorgane werden in Personalunion geführt.
+          Die geltende Ordnung umfasst {formatInteger(manifest.stats.neueKreise)} Landkreise und
+          kreisfreie Städte. Berlin bleibt Sonderfall: Die Stadt ist zugleich Bezirk, kreisfreie
+          Stadt und Bundeshauptstadt. <a class="inline-link" href={getFreestatePageUrl('berlin')}>Zur Berlin-Übersicht</a>
         </p>
       </article>
     </div>
@@ -298,7 +294,7 @@ const kreisreformFaq = [
     <div class="section-header">
       <h2 id="tabellenueberschrift">Tabellarische Übersicht</h2>
       <p>
-        Die Tabellen bieten eine nicht-kartografische Übersicht über die neuen Bezirke und Kreise.
+        Die Tabellen bieten eine nicht-kartografische Übersicht über die geltenden Bezirke und Kreise.
       </p>
     </div>
 
@@ -328,9 +324,9 @@ const kreisreformFaq = [
     <p class="table-scroll-hint" id="bezirke-scroll-hint">
       Auf kleinen Bildschirmen können Sie die Tabelle innerhalb dieses Bereichs horizontal verschieben.
     </p>
-    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der neuen Bezirke" aria-describedby="bezirke-scroll-hint">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der geltenden Bezirke" aria-describedby="bezirke-scroll-hint">
       <table class="data-table">
-        <caption>Neue Bezirke</caption>
+        <caption>Geltende Bezirke</caption>
         <thead>
           <tr>
             <th scope="col">Bezirk</th>
@@ -357,9 +353,9 @@ const kreisreformFaq = [
     <p class="table-scroll-hint" id="kreise-scroll-hint">
       Auf kleinen Bildschirmen können Sie die Tabelle innerhalb dieses Bereichs horizontal verschieben.
     </p>
-    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der neuen Kreise und Kreisfreien Städte" aria-describedby="kreise-scroll-hint">
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Tabelle der geltenden Kreise und kreisfreien Städte" aria-describedby="kreise-scroll-hint">
       <table class="data-table">
-        <caption>Neue Kreise und Kreisfreie Städte</caption>
+        <caption>Geltende Kreise und kreisfreie Städte</caption>
         <thead>
           <tr>
             <th scope="col">Kreis</th>
@@ -401,15 +397,15 @@ const kreisreformFaq = [
       </li>
       <li class="record-list__item">
         <strong><a class="inline-link" href={getNormUrl('ostdeutsches-kreis-und-bezirksneuordnungsgesetz')}>Ostdeutsches Kreis- und Bezirksneuordnungsgesetz</a></strong>
-        <span>Die neue Gebietsstruktur wird zum 1. August 2026 wirksam.</span>
+        <span>Die Gebietsstruktur ist seit 1. August 2026 wirksam.</span>
       </li>
       <li class="record-list__item">
         <strong><a class="inline-link" href={getNormUrl('ostdeutsche-bezirksordnung')}>Ostdeutsche Bezirksordnung</a></strong>
-        <span>Verkündet am 20. Juli 2026; tritt am 1. August 2026 in Kraft.</span>
+        <span>Verkündet am 20. Juli 2026; seit 1. August 2026 in Kraft.</span>
       </li>
       <li class="record-list__item">
         <strong>Ostdeutsches Bezirkseinführungsgesetz</strong>
-        <span>Grundlage der bisherigen acht Bezirke bis zum Wirksamwerden der Neuordnung.</span>
+        <span>Historische Grundlage der früheren acht Bezirke bis zum Ablauf des 31. Juli 2026.</span>
       </li>
       <li class="record-list__item">
         <strong>Digitale Grenzdaten</strong>
@@ -429,14 +425,14 @@ const kreisreformFaq = [
   <section id="kreisreform-faq" class="section section-muted" aria-labelledby="kreisreform-faq-ueberschrift">
     <div class="section-header">
       <h2 id="kreisreform-faq-ueberschrift">Häufige Fragen</h2>
-      <p>Antworten zur verkündeten Neuordnung und zum Wirksamwerden am <time datetime="2026-08-01">1. August 2026</time>.</p>
+      <p>Antworten zur seit <time datetime="2026-08-01">1. August 2026</time> geltenden Neuordnung und zu laufenden Übergangsaufgaben.</p>
     </div>
     <div class="faq-accordion" data-faq-root data-allow-multiple="false">
       {kreisreformFaq.map((entry) => (
         <details class="faq-accordion__item">
           <summary class="faq-accordion__summary">{entry.question}</summary>
           <div class="faq-accordion__body">
-            <p>{entry.question === 'Wo finde ich die Rechtsgrundlagen?' ? <>Die verkündeten Gesetze, Fassungen und Fundstellen sind im <a class="inline-link" href={getLawHomeUrl()}>Rechtsportal</a> veröffentlicht.</> : entry.question === 'Wann gilt die neue Zuordnung?' ? <>Die neue Kreis- und Bezirksgliederung wird am <time datetime="2026-08-01">1. August 2026</time> wirksam.</> : entry.answer}</p>
+            <p>{entry.question === 'Wo finde ich die Rechtsgrundlagen?' ? <>Die verkündeten Gesetze, Fassungen und Fundstellen sind im <a class="inline-link" href={getLawHomeUrl()}>Rechtsportal</a> veröffentlicht.</> : entry.question === 'Seit wann gilt die neue Zuordnung?' ? <>Die geltende Kreis- und Bezirksgliederung ist am <time datetime="2026-08-01">1. August 2026</time> wirksam geworden.</> : entry.answer}</p>
           </div>
         </details>
       ))}

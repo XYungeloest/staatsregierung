@@ -70,17 +70,20 @@ export {
 } from './publications.ts';
 
 export {
+  buildNormAnchorMap,
   buildNormOutline,
   formatDate,
   formatNormStatus,
   formatNormType,
   getBlockAnchorId,
   getLegacyBlockAnchorId,
+  getResolvedBlockAnchorId,
   getHeadingTag,
   parseCitation,
   renderLinkedDisplayText,
   toDisplayText,
   type NormOutlineItem,
+  type NormAnchorMap,
   type ParsedCitation,
   type TextLinkReference,
 } from './presentation.ts';

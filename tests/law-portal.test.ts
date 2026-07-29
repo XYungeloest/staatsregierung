@@ -72,13 +72,13 @@ function record(versions: NormVersion[], status: NormRecord['meta']['status'] = 
 
 test('Fassungen werden zum redaktionellen Stichtag zentral eingeordnet', () => {
   const historical = version('alt', '2026-01-01', '2026-06-30');
-  const current = version('geltend', '2026-07-01', '2026-07-31');
-  const future = version('kuenftig', '2026-08-01', null);
-  const norm = record([historical, current, future]);
+  const formerlyCurrent = version('bis-juli', '2026-07-01', '2026-07-31');
+  const current = version('geltend', '2026-08-01', null);
+  const norm = record([historical, formerlyCurrent, current]);
 
   assert.equal(classifyNormVersion(norm, historical), 'historical');
+  assert.equal(classifyNormVersion(norm, formerlyCurrent), 'historical');
   assert.equal(classifyNormVersion(norm, current), 'current');
-  assert.equal(classifyNormVersion(norm, future), 'future');
   assert.equal(getApplicableVersion(norm).versionId, 'geltend');
   assert.equal(classifyNormVersion(record([current], 'pending-effective'), current), 'unknown-effective');
   const historicalWithoutEnd = version('dokumentiert', '2025-01-01', null);

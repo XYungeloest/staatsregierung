@@ -239,6 +239,16 @@ const timelineEntrySeed: TimelineEntry[] = [
     ressort: 'Nachhaltigkeit und Energie',
     href: getNormUrl('sero-verordnung'),
   },
+  {
+    id: 'kreis-und-bezirksneuordnung-wirksam',
+    date: '2026-08-01',
+    title: 'Neue Kreis- und Bezirksordnung tritt in Kraft',
+    type: 'gesetz',
+    summary:
+      'Vierzehn Bezirke und die neu geordneten Kreise bilden den geltenden Gebietsstand. Die frühere Ordnung bleibt als historischer Vergleich erreichbar.',
+    ressort: 'Inneres und Wohnungswirtschaft',
+    href: getTopicUrl('kommunen-regionen-und-berlin'),
+  },
 ];
 
 export const timelineEntries = [...timelineEntrySeed].sort((left, right) =>

@@ -52,12 +52,6 @@ function stableJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
 }
 
-function activeOn(entry, date) {
-  if (entry.validFrom && entry.validFrom > date) return false;
-  if (entry.validTo && entry.validTo < date) return false;
-  return true;
-}
-
 function loadModel() {
   const sourcesDoc = readJson('knowledge/sources.json');
   const collections = dataSpecs.map(([file, key, type]) => {
@@ -421,8 +415,8 @@ function buildContext(model) {
   lines.push('## Gebiet');
   lines.push('');
   const currentDistricts = (territoryState?.currentDistrictIds ?? []).map((id) => territories.find((item) => item.id === id)?.title).filter(Boolean);
-  const futureDistricts = (territoryState?.futureDistrictIds ?? []).map((id) => territories.find((item) => item.id === id)?.title).filter(Boolean);
-  lines.push(`Am Stichtag bestehen acht Bezirke: ${currentDistricts.join(', ')}. Ab ${territoryState?.futureEffectiveDate} ist eine Struktur mit vierzehn Bezirken verkündet: ${futureDistricts.join(', ')}.`);
+  const historicalDistricts = (territoryState?.historicalDistrictIds ?? []).map((id) => territories.find((item) => item.id === id)?.title).filter(Boolean);
+  lines.push(`Am Stichtag bestehen vierzehn Bezirke: ${currentDistricts.join(', ')}. Die mit Ablauf des 31. Juli 2026 aufgehobenen Flächenbezirke werden als historischer Gebietsstand geführt: ${historicalDistricts.join(', ')}.`);
   lines.push('');
   lines.push('## Zentrale Gesetzes- und Projektkomplexe');
   lines.push('');

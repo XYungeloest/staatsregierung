@@ -111,6 +111,14 @@ const legalLinksByPage: Record<string, RelatedLink[]> = {
     { label: 'Ostdeutsches Kreis- und Bezirksneuordnungsgesetz', href: getNormUrl('ostdeutsches-kreis-und-bezirksneuordnungsgesetz') },
     { label: 'Ostdeutsche Bezirksordnung', href: getNormUrl('ostdeutsche-bezirksordnung') },
   ],
+  'berlin': [
+    { label: 'Sächsische Gemeindeordnung – aktuelle Fassung', href: getNormUrl('saechsische-gemeindeordnung') },
+    { label: 'Ostdeutsche Bezirksordnung – aktuelle Fassung', href: getNormUrl('ostdeutsche-bezirksordnung') },
+    { label: 'Ostdeutsches Kreis- und Bezirksneuordnungsgesetz', href: getNormUrl('ostdeutsches-kreis-und-bezirksneuordnungsgesetz') },
+    { label: 'Kreis- und Bezirksneuordnungsgesetz', href: getNormUrl('kreis-und-bezirksneuordnungsgesetz') },
+    { label: 'Berlin-Änderungsgesetz', href: getNormUrl('gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb') },
+    { label: 'Ostdeutsches Polizeivollzugsdienstgesetz – aktuelle Fassung', href: getNormUrl('ostdeutsches-polizeivollzugsdienstgesetz') },
+  ],
   'landesfarben-und-hoheitszeichen': [
     { label: 'Verfassung im Rechtsportal', href: getLawConstitutionUrl() },
     { label: 'Hoheitszeichenverordnung', href: getNormUrl('hoheitszeichenverordnung') },
@@ -164,13 +172,16 @@ const legalLinks = legalLinksByPage[page.slug] ?? [
       {page.slug === 'bezirke' ? (
         <>
           <div class="section-header">
-            <h2>Sitze der Bezirksverwaltungen ab 1. August 2026</h2>
+            <h2>Sitze der Bezirksverwaltungen</h2>
           </div>
           <div class="tag-list">
             {districtCapitals.map((entry) => (
               <span class="tag">{entry}</span>
             ))}
           </div>
+          <p class="section-link-row">
+            <a class="inline-link" href={getFreestatePageUrl('berlin')}>Zur Übersicht über Berlins Sonderstellung</a>
+          </p>
         </>
       ) : null}
 
@@ -199,7 +210,7 @@ const legalLinks = legalLinksByPage[page.slug] ?? [
             </article>
             <article class="panel">
               <h3>Berlin</h3>
-              <p>Bundeshauptstadt, kreisfreie Stadt und eigener Bezirk mit rechtlich abgesicherter Sonderstellung.</p>
+              <p>Bundeshauptstadt, kreisfreie Stadt und eigener Bezirk mit rechtlich abgesicherter Sonderstellung. <a class="inline-link" href={getFreestatePageUrl('berlin')}>Berlin im Freistaat</a></p>
             </article>
           </div>
         </>

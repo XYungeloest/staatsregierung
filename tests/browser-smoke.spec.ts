@@ -82,6 +82,8 @@ test('Kernnavigation, Suche und Kontaktwegweiser funktionieren', async ({ page }
 
 test('Kreisreform bleibt ohne Karte nutzbar', async ({ page }) => {
   await page.goto('/kreisreform/');
+  await expect(page.locator('.section-hero')).toContainText('In Kraft seit 1. August 2026');
+  await expect(page.getByRole('link', { name: 'Zur Berlin-Übersicht' })).toHaveAttribute('href', '/freistaat/berlin/');
   await expect(page.locator('[data-map-load]')).toBeVisible();
   await expect(page.locator('[data-kreisreform-map]')).toBeHidden();
   await page.locator('#kreisreform-table-query').fill('Berlin');
@@ -187,12 +189,12 @@ test('Erster Staatsrat und historische Amtszeiten bleiben nachvollziehbar', asyn
   await expect(page.getByText(/bis zum 19\. Mai 2026/iu).first()).toBeVisible();
 });
 
-test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 21. Juli 2026 ab', async ({ page }) => {
+test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 1. August 2026 ab', async ({ page }) => {
   await page.goto('/recht/norm/verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n/');
   await expect(page.getByText(/außer Kraft seit/iu).first()).toBeVisible();
 
   await page.goto('/recht/norm/verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel/');
-  await expect(page.getByText(/ist verkündet und tritt am/iu).first()).toBeVisible();
+  await expect(page.getByText(/in Kraft/iu).first()).toBeVisible();
 
   await page.goto('/suche/?q=07%2F17&type=legislation');
   await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
@@ -217,6 +219,47 @@ test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 21. Juli 2026 ab', as
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Sekundärrohstoff-Erfassung');
   await expect(page.getByText('SERO-Verordnung', { exact: true }).first()).toBeVisible();
   await expect(page.getByText(/in Kraft/u).first()).toBeVisible();
+});
+
+test('Berlin und Grenzpolizei sind mit geltendem und offenem Stand erklärt', async ({ page }) => {
+  await page.goto('/freistaat/berlin/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Berlin im Freistaat');
+  await expect(page.getByText(/vierzehn Bezirke/u).first()).toBeVisible();
+  await expect(page.getByText(/Polizeidirektion Berlin/u).first()).toBeVisible();
+  await expect(page.getByRole('link', { name: /Sächsische Gemeindeordnung/u })).toBeVisible();
+
+  await page.goto('/themen/demokratie-und-sicherheit/');
+  await expect(page.getByText(/gesetzlich als Landesbehörde errichtet/u)).toBeVisible();
+  await expect(page.getByText(/nicht unterzeichnet und nicht wirksam/u)).toBeVisible();
+  const agreementFaq = page.locator('details').filter({ hasText: /keine darauf beruhende Aufgabenübertragung/u });
+  await agreementFaq.locator('summary').click();
+  await expect(agreementFaq.getByText(/keine darauf beruhende Aufgabenübertragung/u)).toBeVisible();
+});
+
+test('Normgliederung besitzt eindeutige IDs und deckungsgleiche Inhaltsanker', async ({ page }) => {
+  for (const path of [
+    '/recht/norm/saechsische-gemeindeordnung/',
+    '/recht/norm/ostdeutsche-bezirksordnung/',
+    '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
+  ]) {
+    await page.goto(path);
+    const result = await page.evaluate(() => {
+      const ids = [...document.querySelectorAll<HTMLElement>('[id]')].map((element) => element.id);
+      const outlineAnchors = [...document.querySelectorAll<HTMLAnchorElement>('.norm-outline a')]
+        .map((link) => decodeURIComponent(link.hash.slice(1)));
+      const missingLabels = [...document.querySelectorAll<HTMLElement>('[aria-labelledby]')]
+        .map((element) => element.getAttribute('aria-labelledby') ?? '')
+        .filter((id) => id && !document.getElementById(id));
+      return {
+        duplicateIds: ids.filter((id, index) => ids.indexOf(id) !== index),
+        unresolvedOutlineAnchors: outlineAnchors.filter((id) => !document.getElementById(id)),
+        missingLabels,
+      };
+    });
+    expect(result.duplicateIds, path).toEqual([]);
+    expect(result.unresolvedOutlineAnchors, path).toEqual([]);
+    expect(result.missingLabels, path).toEqual([]);
+  }
 });
 
 test('OGVBl. 2026 Nr. 53 trennt äußere Artikel und zitierte Neufassungen', async ({ page }) => {
@@ -321,7 +364,9 @@ test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwer
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
   await expect(versionNavigation).toBeVisible();
-  await expect(versionNavigation.getByRole('link', { name: /Geltende Fassung/u })).toBeVisible();
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 1. August 2026');
+  await versionNavigation.locator('.norm-version-picker summary').click();
+  await expect(versionNavigation.getByRole('link', { name: /Geltend am 1. August 2026/u })).toBeVisible();
 
   const firstUnit = page.locator('details.norm-unit').first();
   await expect(firstUnit).toHaveAttribute('id', /^paragraph-|^artikel-/u);
@@ -360,7 +405,7 @@ test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änd
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
   await expect(versionNavigation.locator('.norm-version-navigation__primary > li')).toHaveCount(3);
-  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 21. Juli 2026');
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 1. August 2026');
   await versionNavigation.locator('.norm-version-picker').evaluate((details: HTMLDetailsElement) => {
     details.open = true;
   });

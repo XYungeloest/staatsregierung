@@ -8,6 +8,8 @@ export interface NormOutlineItem {
   children: NormOutlineItem[];
 }
 
+export type NormAnchorMap = ReadonlyMap<string, string>;
+
 export interface ParsedCitation {
   source: string;
   year: string;
@@ -288,6 +290,67 @@ export function getBlockAnchorId(
   return namespace ? `${namespace}-${semantic}` : semantic;
 }
 
+function getBlockPathKey(path: number[]): string {
+  return path.join('.');
+}
+
+function isAnchoredBlock(block: NormBodyBlock): boolean {
+  return (
+    block.type === 'part' ||
+    block.type === 'chapter' ||
+    block.type === 'section' ||
+    block.type === 'subsection' ||
+    block.type === 'paragraph' ||
+    block.type === 'article' ||
+    block.type === 'annex'
+  );
+}
+
+export function buildNormAnchorMap(blocks: NormBodyBlock[]): NormAnchorMap {
+  const anchors = new Map<string, string>();
+  const usedAnchors = new Set<string>();
+
+  function visit(entries: NormBodyBlock[], path: number[] = [], quoted = false): void {
+    entries.forEach((block, index) => {
+      const currentPath = [...path, index];
+      const isQuoted = quoted || block.type === 'quotedProvision';
+
+      if (isAnchoredBlock(block)) {
+        const baseAnchor = getBlockAnchorId(currentPath, block, isQuoted ? 'zitat' : '');
+        let anchor = baseAnchor;
+
+        if (usedAnchors.has(anchor)) {
+          anchor = `${baseAnchor}--${currentPath.join('-')}`;
+          let collisionIndex = 2;
+          while (usedAnchors.has(anchor)) {
+            anchor = `${baseAnchor}--${currentPath.join('-')}-${collisionIndex}`;
+            collisionIndex += 1;
+          }
+        }
+
+        usedAnchors.add(anchor);
+        anchors.set(getBlockPathKey(currentPath), anchor);
+      }
+
+      if (block.children) {
+        visit(block.children, currentPath, isQuoted);
+      }
+    });
+  }
+
+  visit(blocks);
+  return anchors;
+}
+
+export function getResolvedBlockAnchorId(
+  anchors: NormAnchorMap,
+  path: number[],
+  block: NormBodyBlock,
+  namespace = '',
+): string {
+  return anchors.get(getBlockPathKey(path)) ?? getBlockAnchorId(path, block, namespace);
+}
+
 export function getHeadingTag(parentLevel: number): 'h3' | 'h4' | 'h5' | 'h6' {
   const level = Math.min(Math.max(parentLevel + 1, 3), 6);
   return `h${level}` as 'h3' | 'h4' | 'h5' | 'h6';
@@ -295,35 +358,33 @@ export function getHeadingTag(parentLevel: number): 'h3' | 'h4' | 'h5' | 'h6' {
 
 export function buildNormOutline(
   blocks: NormBodyBlock[],
-  path: number[] = [],
-  level = 0,
 ): NormOutlineItem[] {
-  return blocks.flatMap((block, index) => {
-    const currentPath = [...path, index];
-    if (block.type === 'quotedProvision') return [];
-    const shouldInclude =
-      block.type === 'part' ||
-      block.type === 'chapter' ||
-      block.type === 'section' ||
-      block.type === 'subsection' ||
-      block.type === 'paragraph' ||
-      block.type === 'article' ||
-      block.type === 'annex';
+  const anchors = buildNormAnchorMap(blocks);
 
-    const children = block.children ? buildNormOutline(block.children, currentPath, level + 1) : [];
+  function visit(entries: NormBodyBlock[], path: number[] = [], level = 0): NormOutlineItem[] {
+    return entries.flatMap((block, index) => {
+      const currentPath = [...path, index];
+      if (block.type === 'quotedProvision') return [];
+      const shouldInclude = isAnchoredBlock(block);
+      const children = block.children
+        ? visit(block.children, currentPath, shouldInclude ? level + 1 : level)
+        : [];
 
-    if (!shouldInclude) {
-      return children;
-    }
+      if (!shouldInclude) {
+        return children;
+      }
 
-    return [
-      {
-        anchor: getBlockAnchorId(currentPath, block),
-        label: block.label ? toDisplayText(block.label) : undefined,
-        title: toDisplayText(block.title ?? block.label ?? 'Unbenannt'),
-        level,
-        children,
-      },
-    ];
-  });
+      return [
+        {
+          anchor: getResolvedBlockAnchorId(anchors, currentPath, block),
+          label: block.label ? toDisplayText(block.label) : undefined,
+          title: toDisplayText(block.title ?? block.label ?? 'Unbenannt'),
+          level,
+          children,
+        },
+      ];
+    });
+  }
+
+  return visit(blocks);
 }
