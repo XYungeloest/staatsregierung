@@ -11,7 +11,9 @@ import NormVersionNavigation from '../../../../../components/norms/NormVersionNa
 import { buildNormOutline, formatDate, toDisplayText } from '../../../../../lib/norms/presentation.ts';
 import {
   buildNormTextLinkReferences,
+  buildNormFullCitation,
   buildNormPublicationReferenceLookup,
+  buildNormRecordLookup,
   getHomeUrl,
   getLawPortalUrl,
   getNormHistoryUrl,
@@ -24,6 +26,7 @@ import { loadAllNorms } from '../../../../../lib/norms/content.ts';
 export async function getStaticPaths() {
   const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
   const publicationReferences = buildNormPublicationReferenceLookup(publications);
+  const normLookup = buildNormRecordLookup(norms);
 
   return norms.flatMap((norm) =>
     norm.versions
@@ -33,6 +36,7 @@ export async function getStaticPaths() {
         props: {
           norm,
           version,
+          fullCitation: buildNormFullCitation(norm, version, normLookup),
           textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
           publicationReferences,
           publications,
@@ -41,7 +45,7 @@ export async function getStaticPaths() {
   );
 }
 
-const { norm, version, textReferences, publicationReferences, publications } = Astro.props;
+const { norm, version, fullCitation, textReferences, publicationReferences, publications } = Astro.props;
 const publicationReference = publicationReferences.get(`${norm.meta.slug}:${version.versionId}`);
 const publication = publicationReference
   ? publications.find((entry) => entry.slug === publicationReference.publicationSlug)
@@ -107,6 +111,7 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
       <NormPrintSources
         norm={norm}
         version={version}
+        fullCitation={fullCitation}
         publicationReference={publicationReference}
         publication={publication}
       />
@@ -115,6 +120,7 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
     <NormMetaCard
       norm={norm}
       version={version}
+      fullCitation={fullCitation}
       historical={true}
       publicationReference={publicationReference}
     />

@@ -30,7 +30,9 @@ import {
   getNormHistoryUrl,
   getNormUrl,
   buildNormTextLinkReferences,
+  buildNormFullCitation,
   buildNormPublicationReferenceLookup,
+  buildNormRecordLookup,
   getRelatedNormRecommendations,
   loadAllVerkuendungen,
 } from '../../../../lib/norms/index.ts';
@@ -40,25 +42,39 @@ import { buildLegislationJsonLd } from '../../../../lib/seo/index.ts';
 export async function getStaticPaths() {
   const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
   const publicationReferences = buildNormPublicationReferenceLookup(publications);
+  const normLookup = buildNormRecordLookup(norms);
 
-  return norms.map((norm) => ({
-    params: { slug: norm.meta.slug },
-    props: {
-      norm,
-      currentVersion: getCurrentVersion(norm),
-      textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
-      relatedNorms: getRelatedNormRecommendations(norm, norms),
-      publicationReferences,
-      publications,
-    },
-  }));
+  return norms.map((norm) => {
+    const currentVersion = getCurrentVersion(norm);
+    return {
+      params: { slug: norm.meta.slug },
+      props: {
+        norm,
+        currentVersion,
+        fullCitation: buildNormFullCitation(norm, currentVersion, normLookup),
+        textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
+        relatedNorms: getRelatedNormRecommendations(norm, norms),
+        publicationReferences,
+        publications,
+      },
+    };
+  });
 }
 
-const { norm, currentVersion, textReferences, relatedNorms, publicationReferences, publications } = Astro.props;
+const { norm, currentVersion, fullCitation, textReferences, relatedNorms, publicationReferences, publications } = Astro.props;
 const publicationReference = publicationReferences.get(`${norm.meta.slug}:${currentVersion.versionId}`);
 const publication = publicationReference
   ? publications.find((entry) => entry.slug === publicationReference.publicationSlug)
   : undefined;
+const currentReference = publicationReference
+  ? `${toDisplayText(publicationReference.publication)} ${publicationReference.publicationDate.slice(0, 4)} Nr. ${toDisplayText(publicationReference.issue)}${
+      publicationReference.pages
+        ? ` S. ${toDisplayText(publicationReference.pages)}`
+        : publicationReference.startPage
+          ? ` S. ${toDisplayText(publicationReference.startPage)}`
+          : ''
+    }`
+  : toDisplayText(currentVersion.citation);
 const outline = buildNormOutline(currentVersion.body);
 const normTitle = toDisplayText(norm.meta.title);
 const normLabel = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
@@ -69,6 +85,7 @@ const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeu
 const structuredData = buildLegislationJsonLd({
   name: normTitle,
   alternateName: toDisplayText(norm.meta.shortTitle),
+  identifier: toDisplayText(fullCitation),
   description: toDisplayText(norm.meta.summary),
   url: getNormUrl(norm.meta.slug),
   legislationType: formatNormType(norm.meta.type),
@@ -119,7 +136,7 @@ const relatedPressReleases = pressReleases
     facts={[
       ...(norm.meta.abbr ? [{ label: 'Abkürzung', value: toDisplayText(norm.meta.abbr) }] : []),
       { label: 'Normtyp', value: formatNormType(norm.meta.type) },
-      { label: 'Fundstelle', value: toDisplayText(currentVersion.citation) },
+      { label: 'Fundstelle dieser Fassung', value: currentReference },
     ]}
     actions={[{ label: 'Normenhistorie', href: getNormHistoryUrl(norm.meta.slug), primary: true }]}
   />
@@ -152,6 +169,7 @@ const relatedPressReleases = pressReleases
       <NormPrintSources
         norm={norm}
         version={currentVersion}
+        fullCitation={fullCitation}
         publicationReference={publicationReference}
         publication={publication}
       />
@@ -161,6 +179,7 @@ const relatedPressReleases = pressReleases
       <NormMetaCard
         norm={norm}
         version={currentVersion}
+        fullCitation={fullCitation}
         publicationReference={publicationReference}
       />
       {relatedNorms.length > 0 || relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (

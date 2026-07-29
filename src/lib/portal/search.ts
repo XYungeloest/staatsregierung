@@ -1,4 +1,5 @@
 import { loadAllNorms } from '../norms/content.ts';
+import { buildNormFullCitation, buildNormRecordLookup } from '../norms/citation.ts';
 import { getApplicableVersion } from '../norms/versions.ts';
 import { loadAllVerkuendungen } from '../norms/publications.ts';
 import { getNormUrl, getPublicationUrl as getLawPublicationDetailUrl } from '../norms/routes.ts';
@@ -98,6 +99,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
     loadLegislativeProcedures(),
   ]);
 
+  const normLookup = buildNormRecordLookup(norms);
   const entries: PortalSearchEntry[] = [
     {
       id: 'kreisreform',
@@ -327,6 +329,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
         norm.meta.subjects.map(toDisplayText),
         norm.meta.keywords.map(toDisplayText),
         toDisplayText(norm.meta.initialCitation),
+        buildNormFullCitation(norm, getApplicableVersion(norm), normLookup),
         norm.meta.agreementDetails?.parties.map((party) => party.name),
         norm.meta.agreementDetails?.signatories.flatMap((signatory) => [
           signatory.name,

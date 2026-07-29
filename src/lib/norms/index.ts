@@ -88,6 +88,11 @@ export {
   type TextLinkReference,
 } from './presentation.ts';
 export {
+  buildNormFullCitation,
+  buildNormRecordLookup,
+  type NormRecordLookup,
+} from './citation.ts';
+export {
   EDITORIAL_REFERENCE_DATE,
   VERSION_TEMPORAL_KINDS,
   classifyNormVersion,

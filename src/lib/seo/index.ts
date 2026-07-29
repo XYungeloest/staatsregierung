@@ -193,6 +193,7 @@ export function buildDatasetJsonLd(
 export interface LegislationJsonLdInput {
   name: string;
   alternateName?: string;
+  identifier?: string;
   description: string;
   url: string;
   legislationType: string;
@@ -211,6 +212,7 @@ export function buildLegislationJsonLd(
     '@type': 'Legislation',
     name: input.name,
     alternateName: input.alternateName,
+    legislationIdentifier: input.identifier,
     description: input.description,
     url: toAbsoluteUrl(input.url, site),
     inLanguage: 'de-DE',
