@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-21",
+  "asOf": "2026-07-29",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -190,8 +190,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt.",
+      "asOf": "2026-07-29",
+      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt. Die Wahl zur achten Volkskammer findet Ende August 2026 statt; ein exakter Wahltag ist noch nicht festgelegt.",
       "sourceRefs": [
         {
           "sourceId": "source-site-config",
@@ -201,6 +201,11 @@
         {
           "sourceId": "source-staatsaufbau",
           "locator": "Fortführung der Wahlperiode",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Staat und Verfassung",
           "role": "corroborating"
         }
       ],
@@ -222,7 +227,9 @@
         "party-volksfront",
         "party-demos"
       ],
-      "seatCountAsOf": "2026-07-05"
+      "seatCountAsOf": "2026-07-05",
+      "nextElectionTiming": "Ende August 2026",
+      "nextElectionDate": null
     },
     {
       "id": "state-current-territory",
@@ -365,13 +372,18 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Offen sind insbesondere Ratifikation beziehungsweise Notifikationen bei NDR, Polen und Tschechien, parlamentarische Detailnachweise sowie weitere Normkonsolidierungen.",
+      "asOf": "2026-07-29",
+      "summary": "Offen sind insbesondere die in Ausarbeitung befindliche Grenzpolizeivereinbarung, die noch nicht vollständig belegten Verfahrensdaten des Bundesratszugangsstreits, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
       "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitte Rechts- und Vertragsstand sowie Bundesebene",
+          "role": "primary"
+        },
         {
           "sourceId": "source-content-gaps",
           "locator": "offene Primärquellen und parlamentarische Einzelergebnisse",
-          "role": "primary"
+          "role": "corroborating"
         },
         {
           "sourceId": "source-consolidation-manifest",
@@ -380,9 +392,8 @@
         }
       ],
       "relatedIds": [
-        "proceeding-ndr-ratification",
-        "proceeding-poland-notification",
-        "proceeding-czech-notification",
+        "proceeding-grenzpolizei-bund",
+        "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",
         "proceeding-law-consolidation"
       ],
@@ -392,9 +403,8 @@
       ],
       "notes": [],
       "proceedingIds": [
-        "proceeding-ndr-ratification",
-        "proceeding-poland-notification",
-        "proceeding-czech-notification",
+        "proceeding-grenzpolizei-bund",
+        "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",
         "proceeding-law-consolidation"
       ]

@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-21",
+  "asOf": "2026-07-29",
   "events": [
     {
       "id": "event-state-foundation",
@@ -168,7 +168,7 @@
       "validFrom": "2026-03-05",
       "validTo": "2026-03-05",
       "asOf": "2026-07-21",
-      "summary": "Das Abkommen ist als Rechtsquelle vorhanden; der Notifikationsaustausch und damit das Inkrafttreten sind nicht nachgewiesen.",
+      "summary": "Das Grenzraumabkommen mit Polen wurde am 5. März 2026 geschlossen; Notifikationsaustausch und Inkrafttreten folgten am 24. März 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-government-timeline",
@@ -179,6 +179,11 @@
           "sourceId": "source-content-gaps",
           "locator": "Notifikationsnachweis",
           "role": "context"
+        },
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -201,7 +206,7 @@
       "validFrom": "2026-03-08",
       "validTo": "2026-03-08",
       "asOf": "2026-07-21",
-      "summary": "Der Rundfunkkomplex erhält eine staatsvertragliche Grundlage; der Ratifikationsaustausch bleibt offen.",
+      "summary": "Der NDR-Änderungs- und Überleitungsstaatsvertrag wurde am 8. März 2026 geschlossen; Ratifikationsaustausch und Inkrafttreten folgten am 24. März 2026.",
       "sourceRefs": [
         {
           "sourceId": "source-government-timeline",
@@ -212,6 +217,11 @@
           "sourceId": "source-content-gaps",
           "locator": "Ratifikationsnachweis",
           "role": "context"
+        },
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -845,6 +855,149 @@
       "aliases": [],
       "date": "2026-08-01",
       "eventType": "territorial-reform",
+      "normRefs": []
+    },
+    {
+      "id": "event-ndr-treaty-effective",
+      "title": "NDR-Änderungs- und Überleitungsstaatsvertrag tritt in Kraft",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "asOf": "2026-07-29",
+      "summary": "Die Ratifikationsurkunden werden ausgetauscht; der Staatsvertrag tritt am selben Tag in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-04",
+          "locator": "Veröffentlichungsdatum 2026-03-24",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "project-rundfunk",
+        "proceeding-ndr-ratification"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-24",
+      "eventType": "treaty-effective",
+      "normRefs": [
+        {
+          "normSlug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
+          "versionId": "2026-03-08"
+        }
+      ]
+    },
+    {
+      "id": "event-poland-agreement-effective",
+      "title": "Grenzraumabkommen mit Polen tritt in Kraft",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "asOf": "2026-07-29",
+      "summary": "Die Notifikationen werden ausgetauscht; das Abkommen tritt am selben Tag in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-02",
+          "locator": "Veröffentlichungsdatum 2026-03-24",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-poland-notification",
+        "inst-sek-voelkerfreundschaft"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-24",
+      "eventType": "treaty-effective",
+      "normRefs": [
+        {
+          "normSlug": "zwischen-dem-freistaat-ostdeutschland-und-der-republik-polen-1p4h4x1",
+          "versionId": "2026-03-05"
+        }
+      ]
+    },
+    {
+      "id": "event-czech-agreement-effective",
+      "title": "Grenzraumabkommen mit Tschechien tritt in Kraft",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "asOf": "2026-07-29",
+      "summary": "Die Notifikationen werden ausgetauscht; das Abkommen tritt am selben Tag in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-03",
+          "locator": "Veröffentlichungsdatum 2026-03-24",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-czech-notification",
+        "inst-sek-voelkerfreundschaft"
+      ],
+      "tags": [
+        "timeline"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-24",
+      "eventType": "treaty-effective",
+      "normRefs": [
+        {
+          "normSlug": "zwischen-dem-freistaat-ostdeutschland-und-der-tschechischen-nmd9np",
+          "versionId": "2026-03-07"
+        }
+      ]
+    },
+    {
+      "id": "event-bundesrat-presidency",
+      "title": "Karl Honecker wird Präsident des Bundesrates",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-05-20",
+      "validTo": "2026-05-20",
+      "asOf": "2026-07-29",
+      "summary": "Nach dem Rücktritt des Vorgängers infolge dessen Wahl zur Bundespräsidentin wählt der Bundesrat Karl Honecker einstimmig zum Präsidenten.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Bundesebene und historische Vorgänge",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker",
+        "inst-bundesrat"
+      ],
+      "tags": [
+        "timeline",
+        "federal"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-05-20",
+      "eventType": "federal-office",
       "normRefs": []
     }
   ]

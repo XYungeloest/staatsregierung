@@ -1,87 +1,6 @@
 {
-  "asOf": "2026-07-28",
+  "asOf": "2026-07-29",
   "questions": [
-    {
-      "id": "question-demos-name",
-      "title": "Welche Bezeichnung und Namenschronologie der DEMOS-Partei ist amtlich?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Konfiguration und Personenprofile verwenden „DEMOS an der Elbe“, „Bündnis Demokratie Europa (DEMOS)“ und historisch „DEMOS Ost“.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment.coalition",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-mateo-current",
-          "locator": "party",
-          "role": "conflicting"
-        },
-        {
-          "sourceId": "source-kabinett-honecker-i",
-          "locator": "coalition",
-          "role": "context"
-        }
-      ],
-      "relatedIds": [
-        "party-demos"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Welche Bezeichnung und Namenschronologie der DEMOS-Partei ist amtlich?",
-      "affectedIds": [
-        "party-demos"
-      ],
-      "reason": "Die Quellen belegen unterschiedliche Bezeichnungen, aber keine ausdrückliche Umbenennung oder Aliasentscheidung.",
-      "requiredSource": "Parteibeschluss, Wahlunterlagen oder redaktionelle Entscheidung mit Gültigkeitszeitraum.",
-      "publicContentImpact": "Parteinamen in Regierungs- und Koalitionsseiten können voneinander abweichen.",
-      "priority": "medium",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-ogvbl-58-number",
-      "title": "Welche amtliche Ausgabenummer trägt die SERO-Verordnung?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "PDF und HTML-/Verkündungsdatensatz weisen unterschiedliche Ausgabenummern aus.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "Widerspruch OGVBl. Nr. 58",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-ogvbl-58",
-          "locator": "Ausgabenmetadaten",
-          "role": "conflicting"
-        }
-      ],
-      "relatedIds": [
-        "project-sero",
-        "proceeding-ogvbl-58-conflict"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Welche amtliche Ausgabenummer trägt die SERO-Verordnung?",
-      "affectedIds": [
-        "project-sero",
-        "proceeding-ogvbl-58-conflict"
-      ],
-      "reason": "Die PDF zeigt Nr. 57, die strukturtragende HTML-Fassung und der Datensatz Nr. 58.",
-      "requiredSource": "Korrigiertes amtliches Original oder verbindliche redaktionelle Entscheidung.",
-      "publicContentImpact": "Fundstelle und PDF-Verlinkung der SERO-Verordnung.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
     {
       "id": "question-ovv-ticket-chain",
       "title": "Welche Normen und Beschlüsse bilden OVV und 29-Euro-Ticket vollständig ab?",
@@ -154,145 +73,6 @@
       "requiredSource": "Gesetze, Errichtungsakte, Haushaltsansätze oder Projektbeschlüsse.",
       "publicContentImpact": "Themen- und Projektseiten dürfen keinen höheren Umsetzungsstand behaupten.",
       "priority": "medium",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-grenzpolizei-agreement",
-      "title": "Ist die Vereinbarung mit Bund oder Bundespolizei abgeschlossen und wirksam?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Das Grenzpolizeirecht ist verkündet, die externe Kooperationsvereinbarung aber nicht als wirksam belegt.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "offene Vertragsbedingungen",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 19",
-          "role": "context"
-        }
-      ],
-      "relatedIds": [
-        "project-grenzpolizei",
-        "proceeding-grenzpolizei-bund",
-        "inst-grenzpolizei"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Ist die Vereinbarung mit Bund oder Bundespolizei abgeschlossen und wirksam?",
-      "affectedIds": [
-        "project-grenzpolizei",
-        "proceeding-grenzpolizei-bund",
-        "inst-grenzpolizei"
-      ],
-      "reason": "Entwurf, Verhandlungsgrundlage und wirksame Vereinbarung sind zu trennen.",
-      "requiredSource": "Unterzeichnete Vereinbarung, Zustimmungsakte und Inkrafttretensregelung.",
-      "publicContentImpact": "Darstellung der praktischen Befugnisse und Zusammenarbeit.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-ndr-ratification",
-      "title": "Wurden die Ratifikationsurkunden des NDR-Vertrags ausgetauscht?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der erforderliche Ratifikationsaustausch ist nicht nachgewiesen.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "NDR-Ratifikationsnachweis",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "project-rundfunk",
-        "proceeding-ndr-ratification"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Wurden die Ratifikationsurkunden des NDR-Vertrags ausgetauscht?",
-      "affectedIds": [
-        "project-rundfunk",
-        "proceeding-ndr-ratification"
-      ],
-      "reason": "Ohne Nachweis kann das Inkrafttreten nicht behauptet werden.",
-      "requiredSource": "Ratifikationsurkunden oder amtliche Inkrafttretensbekanntmachung.",
-      "publicContentImpact": "Status des Staatsvertrags und Rundfunküberleitung.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-poland-notification",
-      "title": "Wurde das polnische Grenzraumabkommen wirksam notifiziert?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der Austausch der Notifikationen ist nicht nachgewiesen.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "polnisches Grenzraumabkommen",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "proceeding-poland-notification"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Wurde das polnische Grenzraumabkommen wirksam notifiziert?",
-      "affectedIds": [
-        "proceeding-poland-notification"
-      ],
-      "reason": "Die Wirksamkeitsbedingung ist offen.",
-      "requiredSource": "Notifikationsnachweise oder amtliche Bekanntmachung.",
-      "publicContentImpact": "Vertragsstatus auf Rechts- und Nachbarschaftsseiten.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-czech-notification",
-      "title": "Wurde das tschechische Grenzraumabkommen wirksam notifiziert?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der Austausch der Notifikationen ist nicht nachgewiesen.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "tschechisches Grenzraumabkommen",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "proceeding-czech-notification"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Wurde das tschechische Grenzraumabkommen wirksam notifiziert?",
-      "affectedIds": [
-        "proceeding-czech-notification"
-      ],
-      "reason": "Die Wirksamkeitsbedingung ist offen.",
-      "requiredSource": "Notifikationsnachweise oder amtliche Bekanntmachung.",
-      "publicContentImpact": "Vertragsstatus auf Rechts- und Nachbarschaftsseiten.",
-      "priority": "high",
       "questionStatus": "open"
     },
     {
@@ -447,17 +227,22 @@
     },
     {
       "id": "question-federal-council-case",
-      "title": "Welche Akten und Daten belegen den Bundesratszugangs- oder Stimmrechtsstreit?",
+      "title": "Welche Primärakten und Verfahrensdaten fehlen noch zum Bundesratszugangsstreit?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der Konflikt ist nur als Gesprächskandidat erfasst.",
+      "asOf": "2026-07-29",
+      "summary": "Der Konflikt mit Markus Hauer und die Aufhebung der Zugangsbeschränkung durch einstweilige Anordnung sind redaktionell bestätigt; Klage, Entscheidung und genaue Verfahrensdaten sind noch nicht im Repository abgelegt.",
       "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Bundesebene und historische Vorgänge",
+          "role": "primary"
+        },
         {
           "sourceId": "source-conversation-task",
           "locator": "Kandidaten 20 bis 23",
-          "role": "primary"
+          "role": "context"
         }
       ],
       "relatedIds": [
@@ -467,28 +252,28 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Welche Akten und Daten belegen den Bundesratszugangs- oder Stimmrechtsstreit?",
+      "question": "Welches Gericht entschied den Bundesratszugangsstreit, wie lauten Aktenzeichen, Entscheidungsdatum und genauer Tenor, und wo liegen Klage und Entscheidung?",
       "affectedIds": [
         "proceeding-federal-council-access"
       ],
-      "reason": "Beteiligte, Streitgegenstand, Beginn, Anträge und Entscheidung sind nicht repositorybasiert belegt.",
-      "requiredSource": "Schriftsätze, gerichtliche Entscheidungen oder amtliche Bundesratsdokumente.",
+      "reason": "Existenz, Beteiligung Markus Hauers und praktische Rücknahme der Zugangsbeschränkung sind geklärt; formale Verfahrensdaten und Primärakten fehlen.",
+      "requiredSource": "Klage beziehungsweise Antrag, einstweilige Anordnung oder Urteil und amtliche Bundesratsdokumente.",
       "publicContentImpact": "Biografien, Bundesbeziehungen und Verfahrensübersicht.",
       "priority": "high",
       "questionStatus": "open"
     },
     {
       "id": "question-state-crisis-2025",
-      "title": "Wie verlief die Staatskrise 2025 genau?",
+      "title": "Welche historischen Regierungsereignisse führten 2025 zum Rücktritt Tom Kurzschlusses?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Rücktritt von Tom Kurzschluss, mögliche Misstrauensvoten und Regierungsbildungen sind nicht strukturiert belegt.",
+      "asOf": "2026-07-29",
+      "summary": "Ein Rücktritt Tom Kurzschlusses und ein außergewöhnlicher Regierungswechsel beziehungsweise ein Misstrauensvotum sind redaktionell bestätigt; die genaue Ereignisfolge ist nicht erschlossen.",
       "sourceRefs": [
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 14",
+          "sourceId": "source-editorial-clarifications-2026-07-29",
+          "locator": "Abschnitt Bundesebene und historische Vorgänge",
           "role": "primary"
         },
         {
@@ -504,14 +289,14 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Wie verlief die Staatskrise 2025 genau?",
+      "question": "Wann und aus welchem Grund trat Tom Kurzschluss zurück, welches Misstrauensvotum fand statt und welche Regierung folgte?",
       "affectedIds": [
         "proceeding-2025-state-crisis"
       ],
-      "reason": "Die vorhandene Timeline setzt erst im Dezember 2025 ein.",
-      "requiredSource": "Amtliche Rücktritts-, Ernennungs-, Wahl- und Parlamentsdokumente.",
-      "publicContentImpact": "Historische Regierungs- und Parlamentschronik.",
-      "priority": "high",
+      "reason": "Der historische Vorgang ist bestätigt, für den aktuellen Staatsstand aber nachrangig; Daten, Beteiligte und Primärquellen fehlen.",
+      "requiredSource": "Wendepunkt-Artikel, Rücktrittserklärung, Wahl- oder Misstrauensvotumsunterlagen und Ernennungsakte.",
+      "publicContentImpact": "Nur historische Regierungs- und Parlamentschronik.",
+      "priority": "low",
       "questionStatus": "open"
     },
     {
@@ -549,38 +334,6 @@
       "requiredSource": "Amtliche historische REVOSax-Fassungen mit Gültigkeitszeitraum und SHA-256.",
       "publicContentImpact": "Vollständigkeit und historische Fassungen im Rechtsportal.",
       "priority": "high",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-bundesrat-presidency-start",
-      "title": "Seit wann übt Karl Honecker die Bundesratspräsidentschaft aus?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Bisherige Gesprächsangaben nennen unterschiedliche Beginnzeitpunkte; der aktuelle Repositorybestand wurde noch nicht mit einer Primärquelle verknüpft.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 20",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "person-karl-honecker"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Seit wann übt Karl Honecker die Bundesratspräsidentschaft aus?",
-      "affectedIds": [
-        "person-karl-honecker"
-      ],
-      "reason": "Eine aktuelle Bundesrolle darf nicht aus Erinnerung übernommen werden.",
-      "requiredSource": "Amtliche Bundesratswahl, Präsidiumsdokument oder protokollierter Amtsbeginn.",
-      "publicContentImpact": "Biografie und Bund-Länder-Beziehungen.",
-      "priority": "medium",
       "questionStatus": "open"
     },
     {

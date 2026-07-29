@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-28",
+  "asOf": "2026-07-29",
   "sources": [
     {
       "id": "source-readme",
@@ -825,6 +825,64 @@
         "media"
       ],
       "notes": ""
+    },
+    {
+      "id": "source-editorial-clarifications-2026-07-29",
+      "type": "editorial-clarification",
+      "path": "knowledge/clarifications/2026-07-29.md",
+      "title": "Redaktionelle Klarstellungen vom 29. Juli 2026",
+      "date": "2026-07-29",
+      "status": "editorial",
+      "scope": [
+        "political-reality",
+        "parties",
+        "treaties",
+        "federal",
+        "source-conflicts"
+      ],
+      "notes": "Verbindliche Auskunft des Projektverantwortlichen; formale Primärquellen bleiben dort erforderlich, wo die Datei dies ausdrücklich vermerkt."
+    },
+    {
+      "id": "source-overtrbl-2026-02",
+      "type": "treaty-gazette",
+      "path": "content/verkuendungen/overtrbl-2026-02.json",
+      "title": "Ostdeutsches Vertragsblatt 2026 Nr. 2",
+      "date": "2026-03-24",
+      "status": "primary",
+      "scope": [
+        "law",
+        "international",
+        "poland"
+      ],
+      "notes": "Veröffentlichung des polnischen Grenzraumabkommens und Zustimmungsgesetzes."
+    },
+    {
+      "id": "source-overtrbl-2026-03",
+      "type": "treaty-gazette",
+      "path": "content/verkuendungen/overtrbl-2026-03.json",
+      "title": "Ostdeutsches Vertragsblatt 2026 Nr. 3",
+      "date": "2026-03-24",
+      "status": "primary",
+      "scope": [
+        "law",
+        "international",
+        "czechia"
+      ],
+      "notes": "Veröffentlichung des tschechischen Grenzraumabkommens und Zustimmungsgesetzes."
+    },
+    {
+      "id": "source-overtrbl-2026-04",
+      "type": "treaty-gazette",
+      "path": "content/verkuendungen/overtrbl-2026-04.json",
+      "title": "Ostdeutsches Vertragsblatt 2026 Nr. 4",
+      "date": "2026-03-24",
+      "status": "primary",
+      "scope": [
+        "law",
+        "media",
+        "ndr"
+      ],
+      "notes": "Veröffentlichung des NDR-Änderungs- und Überleitungsstaatsvertrags."
     }
   ]
 }

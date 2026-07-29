@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-21",
+  "asOf": "2026-07-29",
   "persons": [
     {
       "id": "person-karl-honecker",
@@ -7,8 +7,8 @@
       "status": "confirmed-official",
       "validFrom": "2025-12-20",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Erster Staatspräsident, Vorsitzender des ersten Staatsrates und Staatsrat der Finanzen.",
+      "asOf": "2026-07-29",
+      "summary": "Erster Staatspräsident, Vorsitzender des ersten Staatsrates, Staatsrat der Finanzen und seit 20. Mai 2026 Präsident des Bundesrates.",
       "sourceRefs": [
         {
           "sourceId": "source-karl-current",
@@ -25,7 +25,8 @@
         "inst-staatspraesident",
         "inst-staatsrat",
         "inst-sek-finanzen",
-        "party-volksfront"
+        "party-volksfront",
+        "inst-bundesrat"
       ],
       "tags": [
         "person",
@@ -112,6 +113,24 @@
           "predecessor": null,
           "successor": null,
           "notes": []
+        },
+        {
+          "institutionId": "inst-bundesrat",
+          "officeTitle": "Präsident des Bundesrates",
+          "validFrom": "2026-05-20",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-editorial-clarifications-2026-07-29",
+            "locator": "Abschnitt Bundesebene und historische Vorgänge"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": [
+            "Einstimmige Personenwahl nach Rücktritt des Vorgängers infolge dessen Wahl zur Bundespräsidentin."
+          ]
         }
       ]
     },

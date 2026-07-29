@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-28",
+  "generatedAt": "2026-07-29",
   "editorialAsOf": "2026-07-21",
-  "count": 223,
+  "count": 222,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -30,30 +30,6 @@
     {
       "id": "candidate-boom-details",
       "title": "Projektorganisation Boom Europe Leipzig/Halle",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-bundesrat-access-dispute",
-      "title": "Bundesratszugangs- oder Stimmrechtsstreit",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-bundesrat-presidency",
-      "title": "Bundesratspräsidentschaft Karl Honeckers",
       "type": "conversation-candidate",
       "aliases": [],
       "tags": [
@@ -102,18 +78,6 @@
     {
       "id": "candidate-fraktionswechsel-details",
       "title": "Fraktionswechsel zur Koalitionsmehrheit im Juli 2026",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-grenzpolizei-agreement",
-      "title": "Bundesvereinbarung zur Grenzpolizei",
       "type": "conversation-candidate",
       "aliases": [],
       "tags": [
@@ -173,7 +137,7 @@
     },
     {
       "id": "candidate-state-crisis-2025",
-      "title": "Staatskrise 2025 und Rücktritt Tom Kurzschluss",
+      "title": "Historische Regierungsereignisse 2025",
       "type": "conversation-candidate",
       "aliases": [],
       "tags": [
@@ -229,6 +193,19 @@
       ],
       "validFrom": "2026-03-23",
       "validTo": "2026-03-23",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-bundesrat-presidency",
+      "title": "Karl Honecker wird Präsident des Bundesrates",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "federal"
+      ],
+      "validFrom": "2026-05-20",
+      "validTo": "2026-05-20",
       "target": "knowledge/timeline.json"
     },
     {
@@ -325,6 +302,18 @@
       ],
       "validFrom": "2026-03-23",
       "validTo": "2026-03-23",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-czech-agreement-effective",
+      "title": "Grenzraumabkommen mit Tschechien tritt in Kraft",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline"
+      ],
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
       "target": "knowledge/timeline.json"
     },
     {
@@ -437,6 +426,18 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-ndr-treaty-effective",
+      "title": "NDR-Änderungs- und Überleitungsstaatsvertrag tritt in Kraft",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline"
+      ],
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-poland-agreement",
       "title": "Grenzraumabkommen mit Polen veröffentlicht",
       "type": "timeline-event",
@@ -446,6 +447,18 @@
       ],
       "validFrom": "2026-03-05",
       "validTo": "2026-03-05",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-poland-agreement-effective",
+      "title": "Grenzraumabkommen mit Polen tritt in Kraft",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline"
+      ],
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
       "target": "knowledge/timeline.json"
     },
     {
@@ -508,6 +521,21 @@
       "validFrom": "2026-03-23",
       "validTo": "2026-03-23",
       "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "inst-bundesrat",
+      "title": "Bundesrat",
+      "type": "institution",
+      "aliases": [
+        "Bundesrat der Bundesrepublik Deutschland"
+      ],
+      "tags": [
+        "federal",
+        "constitutional-organ"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
     },
     {
       "id": "inst-grenzpolizei",
@@ -842,19 +870,20 @@
     },
     {
       "id": "party-demos",
-      "title": "Bündnis Demokratie Europa",
+      "title": "Das Bündnis Demokratie Europa",
       "type": "party",
       "aliases": [
         "DEMOS",
+        "Bündnis Demokratie Europa",
         "DEMOS an der Elbe",
-        "DEMOS Ost"
+        "DEMOS Ost",
+        "SGB"
       ],
       "tags": [
         "party",
-        "coalition",
-        "naming-conflict"
+        "coalition"
       ],
-      "validFrom": null,
+      "validFrom": "2025-09-03",
       "validTo": null,
       "target": "knowledge/entities/parties.json"
     },
@@ -1124,13 +1153,13 @@
     },
     {
       "id": "proceeding-2025-state-crisis",
-      "title": "Staatskrise und Regierungswechsel 2025",
+      "title": "Historischer Regierungswechsel und Rücktritt Tom Kurzschlusses 2025",
       "type": "proceeding",
       "aliases": [],
       "tags": [
         "proceeding",
         "history",
-        "candidate"
+        "historical"
       ],
       "validFrom": "2025-01-01",
       "validTo": "2025-12-19",
@@ -1158,10 +1187,11 @@
       "tags": [
         "proceeding",
         "international",
-        "notification"
+        "notification",
+        "historical"
       ],
-      "validFrom": null,
-      "validTo": null,
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
       "target": "knowledge/proceedings.json"
     },
     {
@@ -1172,8 +1202,7 @@
       "tags": [
         "proceeding",
         "court",
-        "federal",
-        "candidate"
+        "federal"
       ],
       "validFrom": null,
       "validTo": null,
@@ -1228,10 +1257,11 @@
       "tags": [
         "proceeding",
         "treaty",
-        "media"
+        "media",
+        "historical"
       ],
-      "validFrom": null,
-      "validTo": null,
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
       "target": "knowledge/proceedings.json"
     },
     {
@@ -1241,10 +1271,11 @@
       "aliases": [],
       "tags": [
         "proceeding",
-        "source-conflict"
+        "source-conflict",
+        "historical"
       ],
       "validFrom": "2026-07-21",
-      "validTo": null,
+      "validTo": "2026-07-29",
       "target": "knowledge/proceedings.json"
     },
     {
@@ -1255,10 +1286,11 @@
       "tags": [
         "proceeding",
         "international",
-        "notification"
+        "notification",
+        "historical"
       ],
-      "validFrom": null,
-      "validTo": null,
+      "validFrom": "2026-03-24",
+      "validTo": "2026-03-24",
       "target": "knowledge/proceedings.json"
     },
     {
@@ -1558,44 +1590,8 @@
       "target": "knowledge/open-questions.json"
     },
     {
-      "id": "question-bundesrat-presidency-start",
-      "title": "Seit wann übt Karl Honecker die Bundesratspräsidentschaft aus?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-czech-notification",
-      "title": "Wurde das tschechische Grenzraumabkommen wirksam notifiziert?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-demos-name",
-      "title": "Welche Bezeichnung und Namenschronologie der DEMOS-Partei ist amtlich?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
       "id": "question-federal-council-case",
-      "title": "Welche Akten und Daten belegen den Bundesratszugangs- oder Stimmrechtsstreit?",
+      "title": "Welche Primärakten und Verfahrensdaten fehlen noch zum Bundesratszugangsstreit?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -1630,18 +1626,6 @@
       "target": "knowledge/open-questions.json"
     },
     {
-      "id": "question-grenzpolizei-agreement",
-      "title": "Ist die Vereinbarung mit Bund oder Bundespolizei abgeschlossen und wirksam?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
       "id": "question-hoheitszeichen-current-law",
       "title": "Welche konsolidierte Hoheitszeichenregelung gilt nach der Staatsreform?",
       "type": "open-question",
@@ -1656,30 +1640,6 @@
     {
       "id": "question-missing-revosax-snapshots",
       "title": "Welche 34 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-ndr-ratification",
-      "title": "Wurden die Ratifikationsurkunden des NDR-Vertrags ausgetauscht?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-ogvbl-58-number",
-      "title": "Welche amtliche Ausgabenummer trägt die SERO-Verordnung?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -1714,20 +1674,8 @@
       "target": "knowledge/open-questions.json"
     },
     {
-      "id": "question-poland-notification",
-      "title": "Wurde das polnische Grenzraumabkommen wirksam notifiziert?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
       "id": "question-state-crisis-2025",
-      "title": "Wie verlief die Staatskrise 2025 genau?",
+      "title": "Welche historischen Regierungsereignisse führten 2025 zum Rücktritt Tom Kurzschlusses?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -1987,6 +1935,22 @@
         "all"
       ],
       "validFrom": "2026-07-28",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-editorial-clarifications-2026-07-29",
+      "title": "Redaktionelle Klarstellungen vom 29. Juli 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "political-reality",
+        "parties",
+        "treaties",
+        "federal",
+        "source-conflicts"
+      ],
+      "validFrom": "2026-07-29",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2425,6 +2389,48 @@
         "projects"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-overtrbl-2026-02",
+      "title": "Ostdeutsches Vertragsblatt 2026 Nr. 2",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "international",
+        "poland"
+      ],
+      "validFrom": "2026-03-24",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-overtrbl-2026-03",
+      "title": "Ostdeutsches Vertragsblatt 2026 Nr. 3",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "international",
+        "czechia"
+      ],
+      "validFrom": "2026-03-24",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-overtrbl-2026-04",
+      "title": "Ostdeutsches Vertragsblatt 2026 Nr. 4",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "media",
+        "ndr"
+      ],
+      "validFrom": "2026-03-24",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
