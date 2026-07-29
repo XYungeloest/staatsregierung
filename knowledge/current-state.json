@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-29",
+  "asOf": "2026-08-01",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -8,8 +8,8 @@
       "status": "editorially-confirmed",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 21. Juli 2026; Regierungssitz Dresden.",
+      "asOf": "2026-08-01",
+      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 1. August 2026; Regierungssitz Dresden.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-config",
@@ -32,7 +32,7 @@
       "notes": [],
       "stateId": "territory-freistaat",
       "capital": "Dresden",
-      "editorialAsOf": "2026-07-21"
+      "editorialAsOf": "2026-08-01"
     },
     {
       "id": "state-current-constitution",
@@ -237,8 +237,8 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Am 21. Juli 2026 bestehen noch acht Bezirke. Die verkündete Struktur mit vierzehn Bezirken wird erst am 1. August 2026 wirksam.",
+      "asOf": "2026-08-01",
+      "summary": "Am 1. August 2026 bestehen vierzehn Bezirke. Die sieben früheren Flächenbezirke wurden mit Ablauf des 31. Juli 2026 aufgehoben; Berlin besteht mit seiner Sonderstellung fort.",
       "sourceRefs": [
         {
           "sourceId": "source-bezirke",
@@ -282,16 +282,6 @@
       "notes": [],
       "currentDistrictIds": [
         "territory-bezirk-berlin",
-        "territory-bezirk-brandenburg",
-        "territory-bezirk-mecklenburg-vorpommern",
-        "territory-bezirk-niederlausitz",
-        "territory-bezirk-oberlausitz",
-        "territory-bezirk-sachsen",
-        "territory-bezirk-sachsen-anhalt",
-        "territory-bezirk-thueringen"
-      ],
-      "futureDistrictIds": [
-        "territory-bezirk-berlin",
         "territory-bezirk-elbsachsen",
         "territory-bezirk-lausitz",
         "territory-bezirk-leipzig-mittelsachsen",
@@ -306,7 +296,15 @@
         "territory-bezirk-vogtland-erzgebirge",
         "territory-bezirk-vorpommern"
       ],
-      "futureEffectiveDate": "2026-08-01"
+      "historicalDistrictIds": [
+        "territory-bezirk-brandenburg",
+        "territory-bezirk-mecklenburg-vorpommern",
+        "territory-bezirk-niederlausitz",
+        "territory-bezirk-oberlausitz",
+        "territory-bezirk-sachsen",
+        "territory-bezirk-sachsen-anhalt",
+        "territory-bezirk-thueringen"
+      ]
     },
     {
       "id": "state-current-projects",
@@ -314,7 +312,7 @@
       "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
+      "asOf": "2026-08-01",
       "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, ohne Normvolltexte zu duplizieren.",
       "sourceRefs": [
         {
@@ -372,8 +370,8 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Offen sind insbesondere die in Ausarbeitung befindliche Grenzpolizeivereinbarung, die noch nicht vollständig belegten Verfahrensdaten des Bundesratszugangsstreits, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
+      "asOf": "2026-08-01",
+      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, die in Ausarbeitung befindliche Grenzpolizeivereinbarung, die noch nicht vollständig belegten Verfahrensdaten des Bundesratszugangsstreits, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
@@ -392,6 +390,7 @@
         }
       ],
       "relatedIds": [
+        "proceeding-kreisreform-transition",
         "proceeding-grenzpolizei-bund",
         "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",
@@ -403,6 +402,7 @@
       ],
       "notes": [],
       "proceedingIds": [
+        "proceeding-kreisreform-transition",
         "proceeding-grenzpolizei-bund",
         "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",

@@ -9,6 +9,7 @@ import { formatTopicStatus } from '../../lib/portal/presentation.ts';
 import { loadLegislativeProcedures } from '../../lib/portal/legislation.ts';
 import {
   getContactUrl,
+  getFreestatePageUrl,
   getHomeUrl,
   getMinistryUrl,
   getPortalSearchUrl,
@@ -95,6 +96,7 @@ const relatedProcedures = topic
       ]}
       actions={[
         ...(leadMinistry ? [{ label: 'Zum zuständigen Ressort', href: getMinistryUrl(leadMinistry.slug), primary: true }] : []),
+        ...(topic.slug === 'kommunen-regionen-und-berlin' ? [{ label: 'Berlin im Freistaat', href: getFreestatePageUrl('berlin') }] : []),
         { label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' },
       ]}
     />
@@ -166,7 +168,7 @@ const relatedProcedures = topic
       <section id="gesetzgebung" class="section section-muted" aria-labelledby="gesetzgebung-title">
         <div class="section-header">
           <h2 id="gesetzgebung-title">Rechtsstand der Vorhaben</h2>
-          <p>Bestätigter Stand am 21. Juli 2026. Beschluss, Verkündung und Inkrafttreten werden getrennt ausgewiesen.</p>
+          <p>Bestätigter Stand am 1. August 2026. Beschluss, Verkündung und Inkrafttreten werden getrennt ausgewiesen.</p>
         </div>
         <ul class="record-list">
           {relatedProcedures.map((procedure) => (
@@ -249,6 +251,9 @@ const relatedProcedures = topic
       </div>
       <nav class="hero-actions" aria-label="Weiterführende Schritte">
         <a class="button-link" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
+        {topic.slug === 'kommunen-regionen-und-berlin' ? (
+          <a class="button-link button-link--secondary" href={getFreestatePageUrl('berlin')}>Berlin-Übersicht öffnen</a>
+        ) : null}
         {leadMinistry ? (
           <a class="button-link button-link--secondary" href={getMinistryUrl(leadMinistry.slug)}>Zuständiges Ressort öffnen</a>
         ) : null}

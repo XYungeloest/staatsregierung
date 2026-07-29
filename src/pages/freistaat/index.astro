@@ -21,6 +21,7 @@ const orderedPages = [
   'grosse-staatsreform',
   'verfassung-und-staatsziele',
   'bezirke',
+  'berlin',
   'landesfarben-und-hoheitszeichen',
   'hauptstaedte',
   'geschichte',
@@ -44,7 +45,7 @@ const orderedPages = [
       { label: 'Landeshauptstadt', value: siteConfig.currentGovernment.seatOfGovernment },
       { label: 'Volksvertretung', value: siteConfig.currentGovernment.legislature },
       { label: 'Vollziehende Gewalt', value: siteConfig.currentGovernment.cabinetName },
-      { label: 'Bezirke', value: '14 ab 1. August 2026' },
+      { label: 'Bezirke', value: '14' },
     ]}
     image={{
       src: siteConfig.officialFlagAssetPath,
@@ -71,6 +72,10 @@ const orderedPages = [
       <li>
         <strong>Große Staatsreform</strong>
         <span><a class="inline-link" href={getFreestatePageUrl('grosse-staatsreform')}>Neuordnung seit dem 21. Juli 2026</a></span>
+      </li>
+      <li>
+        <strong>Berlin</strong>
+        <span><a class="inline-link" href={getFreestatePageUrl('berlin')}>Bundeshauptstadt, Stadtbezirke und Sonderregeln</a></span>
       </li>
       <li>
         <strong>Staatsrat</strong>

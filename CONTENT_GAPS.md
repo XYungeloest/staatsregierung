@@ -1,6 +1,6 @@
 # Offene Quellenfragen
 
-**Redaktioneller Stand:** 21. Juli 2026
+**Redaktioneller Stand:** 1. August 2026
 **Zuletzt geprüft:** 29. Juli 2026
 
 Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
@@ -203,7 +203,7 @@ Schlussfolgerung:
   Index- und Kopfangaben bleiben als Hinweis sichtbar.
 - Für Drucksache 07/27 wird kein unbelegtes Einbringungsdatum ergänzt.
 - Die Bezirksordnung ist nicht mehr blockiert: Die vollständige Fassung von 2025 gilt bis zum
-  Ablauf des 31. Juli 2026. Zum 1. August 2026 wird sie durch Artikel 2 des Kreis- und
+  Ablauf des 31. Juli 2026. Zum 1. August 2026 wurde sie durch Artikel 2 des Kreis- und
   Bezirksneuordnungsgesetzes vollständig abgelöst; Artikel 8 des Sportneuordnungsgesetzes wird
   entsprechend der ausdrücklich geklärten zeitlichen Zuordnung auf diese Neufassung angewendet.
   Die Abweichung wird als `resolved-source-conflict` ausgewiesen und nicht als konfliktfreie
@@ -225,5 +225,9 @@ Schlussfolgerung:
    REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
    sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten
    prüfen.
-6. Weitere unabhängig offene Stammnormquellen anhand der im Konsolidierungsbericht
+6. Insbesondere die Ausgangsfassungen des Kulturraumgesetzes und des Ostdeutschen
+   Polizeibehördengesetzes sichern und konsolidieren. Bis dahin verweist die Berlin-Übersicht
+   für die belegten Änderungen auf das Berlin-Änderungsgesetz; eine eigenständige aktuelle
+   Stammnormfassung wird nicht vorgetäuscht.
+7. Weitere unabhängig offene Stammnormquellen anhand der im Konsolidierungsbericht
    priorisierten Liste sichern und konsolidieren.

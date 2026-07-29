@@ -81,6 +81,15 @@ export interface AlterKreisProperties {
   quelle: string;
 }
 
+export interface AlterBezirkProperties {
+  id: string;
+  name: string;
+  typ: string;
+  sitz: string;
+  kreise: string[];
+  quelle: string;
+}
+
 export interface GeoJsonFeature<TProperties> {
   type: 'Feature';
   id?: string;

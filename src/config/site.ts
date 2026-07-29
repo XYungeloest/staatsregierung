@@ -121,9 +121,9 @@ export const siteConfig = {
   currentGovernment: {
     cabinetName: 'Erster Staatsrat',
     formedOn: '2026-07-21',
-    coalition: 'Volksfront und DEMOS an der Elbe',
-    coalitionShort: 'Volksfront · DEMOS an der Elbe',
-    coalitionParties: ['Volksfront', 'DEMOS an der Elbe'],
+    coalition: 'Volksfront und Bündnis Demokratie Europa (DEMOS)',
+    coalitionShort: 'Volksfront · DEMOS',
+    coalitionParties: ['Volksfront', 'Bündnis Demokratie Europa (DEMOS)'],
     headOfGovernment: 'Dr. Karl Honecker',
     deputyHead: 'Dr. Mateo Delgado',
     legislature: '7. Volkskammer',

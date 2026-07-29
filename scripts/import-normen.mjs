@@ -391,7 +391,7 @@ function buildRecords(parsed) {
       ...(index === 0 && enactedNorms.length > 1 ? { enactedNorms } : {}),
       ...(index > 0 ? { enactingNorm: outerSlug } : {}),
       ...(parsed.issue === '46' && index === 1
-        ? { dateNote: 'Das Gesetz gilt seit 21. Juli 2026; wesentliche Gebietsänderungen werden am 1. August 2026 wirksam.' }
+        ? { dateNote: 'Das Gesetz gilt seit 21. Juli 2026; die wesentlichen Gebietsänderungen sind seit 1. August 2026 wirksam.' }
         : {}),
     };
     const version = {

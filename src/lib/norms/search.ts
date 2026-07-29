@@ -1,9 +1,10 @@
 import { loadAllNorms } from './loader.ts';
 import {
+  buildNormAnchorMap,
   formatDate,
   formatNormStatus,
   formatNormType,
-  getBlockAnchorId,
+  getResolvedBlockAnchorId,
   toDisplayText,
 } from './presentation.ts';
 import {
@@ -114,6 +115,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   const textParts: string[] = [];
   const contexts: string[] = [];
   const hitUnits: SearchHitUnit[] = [];
+  const anchors = buildNormAnchorMap(blocks);
 
   const visit = (
     entries: NormBodyBlock[],
@@ -145,7 +147,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
             label: toDisplayText(block.label ?? ''),
             title: toDisplayText(block.title ?? block.label ?? ''),
             text: '',
-            anchor: getBlockAnchorId(currentPath, block),
+            anchor: getResolvedBlockAnchorId(anchors, currentPath, block),
             textParts: headingParts.length > 0 ? [headingParts.join(' ')] : [],
           }
         : currentUnit;

@@ -13,9 +13,9 @@ import {
   loadMinistries,
 } from '../src/lib/portal/content.ts';
 
-const cutoff = '2026-07-21';
+const cutoff = '2026-08-01';
 
-test('Stichtag und aktuelle Staatsorganisation sind zentral auf den 21. Juli gesetzt', async () => {
+test('Stichtag und aktuelle Staatsorganisation sind zentral auf den 1. August gesetzt', async () => {
   assert.equal(PORTAL_REFERENCE_DATE, cutoff);
   assert.equal(siteConfig.currentGovernment.legislature, '7. Volkskammer');
   assert.equal(siteConfig.currentGovernment.cabinetName, 'Erster Staatsrat');
@@ -74,24 +74,24 @@ test('der erste Staatsrat besitzt zehn aktive Mitglieder und eindeutige Staatsse
   assert.ok(schmaele?.currentOffices.every((office) => office.ministry?.startsWith('Staatssekretariat')));
 });
 
-test('befristete und künftig wirksame Normen werden zeitlich korrekt eingeordnet', async () => {
+test('befristete und am 1. August wirksam gewordene Normen werden zeitlich korrekt eingeordnet', async () => {
   const norms = new Map((await loadAllNorms()).map((entry) => [entry.meta.slug, entry.meta]));
   const earthquake = norms.get('verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n');
   const worldCup = norms.get('verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb');
   const schedules = norms.get('verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel');
   assert.equal(earthquake?.status, 'repealed');
   assert.equal(earthquake?.expiryDate, '2026-05-27');
-  assert.equal(worldCup?.status, 'in-force');
+  assert.equal(worldCup?.status, 'repealed');
   assert.equal(worldCup?.expiryDate, '2026-07-31');
-  assert.equal(schedules?.status, 'future-effective');
+  assert.equal(schedules?.status, 'in-force');
   assert.equal(schedules?.effectiveDate, '2026-08-01');
   const schoolSystem = norms.get('gesetz-zur-neuordnung-des-ostdeutschen-schulsystems');
-  assert.equal(schoolSystem?.status, 'future-effective');
+  assert.equal(schoolSystem?.status, 'in-force');
   assert.equal(schoolSystem?.effectiveDate, '2026-08-01');
 
   const polishAgreement = norms.get('zwischen-dem-freistaat-ostdeutschland-und-der-republik-polen-1p4h4x1');
-  assert.equal(polishAgreement?.status, 'pending-effective');
-  assert.equal(polishAgreement?.effectiveDate, undefined);
+  assert.equal(polishAgreement?.status, 'in-force');
+  assert.equal(polishAgreement?.effectiveDate, '2026-03-24');
 });
 
 test('vollständige Normzitate behalten Normart und Dokumentdatum', async () => {

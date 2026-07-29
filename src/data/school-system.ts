@@ -1082,7 +1082,7 @@ export const schoolTypes: SchoolTypeInfo[] = [
     title: 'Übergänge aus bisherigen Schularten',
     text: [
       'Bisherige Grundschulen, Oberschulen, Gymnasien und Gemeinschaftsschulen werden nach den Übergangsregelungen in die neue Struktur überführt.',
-      'Maßgeblich sind künftig die Polytechnische Oberschule in Primarstufe und Sekundarstufe I sowie die Erweiterte Oberschule in der Sekundarstufe II.',
+      'Maßgeblich sind die Polytechnische Oberschule in Primarstufe und Sekundarstufe I sowie die Erweiterte Oberschule in der Sekundarstufe II.',
     ],
   },
   {

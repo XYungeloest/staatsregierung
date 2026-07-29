@@ -28,7 +28,7 @@ Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, V
 
 ## Parteien und Mehrheiten
 
-7. Volkskammer: Koalition aus Volksfront und Das Bündnis Demokratie Europa, 11 von 15 Sitzen seit 2026-07-05. Bundesparteiname und ostdeutsche Listenbezeichnungen der DEMOS werden getrennt mit ihrem jeweiligen Zeit- und Wahlbezug geführt.
+7. Volkskammer: Koalition aus Volksfront und Bündnis Demokratie Europa, 11 von 15 Sitzen seit 2026-07-05. Bundesparteiname und ostdeutsche Listenbezeichnungen der DEMOS werden getrennt mit ihrem jeweiligen Zeit- und Wahlbezug geführt.
 
 ## Geltende Verfassungsfassung
 
@@ -36,12 +36,12 @@ Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, V
 
 ## Gebiet
 
-Am Stichtag bestehen acht Bezirke: Berlin, Brandenburg, Mecklenburg-Vorpommern, Niederlausitz, Oberlausitz, Sachsen, Sachsen-Anhalt, Thüringen. Ab 2026-08-01 ist eine Struktur mit vierzehn Bezirken verkündet: Berlin, Elbsachsen, Lausitz, Leipzig-Mittelsachsen, Magdeburg-Anhalt, Mecklenburg-Schwerin, Mittelmark-Fläming, Nordmark, Oderland-Uckermark, Saale-Harz, Saale-Pleiße, Thüringer Wald-Eichsfeld, Vogtland-Erzgebirge, Vorpommern.
+Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mittelsachsen, Magdeburg-Anhalt, Mecklenburg-Schwerin, Mittelmark-Fläming, Nordmark, Oderland-Uckermark, Saale-Harz, Saale-Pleiße, Thüringer Wald-Eichsfeld, Vogtland-Erzgebirge, Vorpommern. Die mit Ablauf des 31. Juli 2026 aufgehobenen Flächenbezirke werden als historischer Gebietsstand geführt: Brandenburg, Mecklenburg-Vorpommern, Niederlausitz, Oberlausitz, Sachsen, Sachsen-Anhalt, Thüringen.
 
 ## Zentrale Gesetzes- und Projektkomplexe
 
 - **Große Staatsreform**: in-force. Vier Verfassungsänderungsgesetze ordneten Staatswesen, Finanzverfassung, Staatsziele, Bildungswesen und Religionsverfassung zum 21. Juli 2026 neu.
-- **Kreis- und Bezirksneuordnung**: enacted-future-effective. Die am 20. Juli 2026 verkündete Neuordnung ersetzt zum 1. August 2026 die acht bisherigen durch vierzehn Bezirke und ordnet die Kreisstruktur neu.
+- **Kreis- und Bezirksneuordnung**: in-implementation. Die am 20. Juli 2026 verkündete Neuordnung ist seit 1. August 2026 wirksam. Vierzehn Bezirke und die neu geordnete Kreisstruktur bilden den geltenden Gebietsstand; organisatorische Übergangsarbeiten laufen weiter.
 - **SERO-System**: in-force. Selbstständige Rechtsverordnung zur Sekundärrohstoff-Erfassung und landeseigenen Kreislaufwirtschaftsinfrastruktur.
 - **Ostdeutsche Eisenbahn und Verkehrsvergesellschaftung**: in-force. Gesetzespaket zur Neuordnung der Ostdeutschen Eisenbahn und zur öffentlichen Sicherung von Verkehrsleistungen.
 - **Ostdeutscher Verkehrsverbund und 29-Euro-Ticket**: partly-implemented. Politischer Mobilitätskomplex aus Verkehrsverbund, öffentlicher Mobilität und sozialem Tarif. Der Hub enthält noch keine vollständig verknüpfte Normenkette zum 29-Euro-Ticket.
@@ -69,11 +69,11 @@ Am Stichtag bestehen acht Bezirke: Berlin, Brandenburg, Mecklenburg-Vorpommern, 
 - **2026-07-21: Erster Staatsrat nimmt die Arbeit auf.** Staatsregierung und Landtag werden nach den Übergangsvorschriften als Staatsrat und Volkskammer fortgeführt; Dr. Karl Honecker wird erster Staatspräsident.
 - **2026-07-21: SERO-Verordnung tritt in Kraft.** Der Staatsrat erlässt die SERO-Verordnung als selbstständige Rechtsverordnung.
 - **2026-07-21: Verkehrs-, Energie-, Grenzpolizei- und Boom-Europe-Gesetze treten in Kraft.** Mehrere große Projektkomplexe erreichen den verkündeten Rechtsstand.
-- **2026-08-01: Neue Kreis- und Bezirksstruktur wird wirksam.** Vierzehn Bezirke und die neue Kreisstruktur sollen nach der verkündeten Inkrafttretensregelung wirksam werden.
+- **2026-08-01: Neue Kreis- und Bezirksstruktur wird wirksam.** Vierzehn Bezirke und die neue Kreisstruktur sind nach der verkündeten Inkrafttretensregelung wirksam geworden.
 
 ## Laufende Verfahren und Abhängigkeiten
 
-- **Übergang zur neuen Kreis- und Bezirksstruktur** (awaiting-effective-date): Die Neuordnung ist verkündet, wird jedoch erst am 1. August 2026 wirksam.
+- **Übergang zur neuen Kreis- und Bezirksstruktur** (implementation): Die Neuordnung ist seit 1. August 2026 wirksam. Übergangsorgane, Rechtsnachfolge und weitere organisatorische Vollzugsschritte werden umgesetzt.
 - **Vereinbarung mit Bund und Bundespolizei zur Grenzpolizei** (drafting): Die Vereinbarung mit Bund beziehungsweise Bundespolizei ist nicht unterzeichnet oder wirksam; sie befindet sich in Ausarbeitung.
 - **Nachweis der dritten Plenarsitzung vom 20. Juli 2026** (records-missing): Verkündungen belegen zwölf beschlossene Vorhaben, aber Plenarprotokoll, Einzelabstimmungen und Stimmenzahlen fehlen.
 - **Umsetzung Boom Europe Leipzig/Halle** (implementation): Gesetzliche Grundlagen sind in Kraft; konkrete Vertrags-, Finanzierungs- und Projektorganisationsdetails müssen aus den Vollquellen weiter erschlossen werden.
