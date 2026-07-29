@@ -17,11 +17,12 @@ import type { NormPublicationReference } from '../../lib/norms/publications.ts';
 interface Props {
   norm: NormRecord;
   version: NormVersion;
+  fullCitation: string;
   historical?: boolean;
   publicationReference?: NormPublicationReference;
 }
 
-const { norm, version, historical = false, publicationReference } = Astro.props;
+const { norm, version, fullCitation, historical = false, publicationReference } = Astro.props;
 const effectiveFrom = norm.meta.effectiveDate ?? version.validFrom;
 const effectiveUntil = norm.meta.expiryDate ?? version.validTo;
 const hasDistinctInitialCitation = norm.meta.initialCitation.trim() !== version.citation.trim();
@@ -152,8 +153,8 @@ const temporalStatus = temporalKind === 'current'
     <h3 id="norm-verkuendung">Zitierweise und Verkündung</h3>
     <dl class="meta-list">
       <div>
-        <dt>{historical ? 'Fundstelle dieser Fassung' : 'Zitierweise'}</dt>
-        <dd>{toDisplayText(version.citation)}</dd>
+        <dt>{historical ? 'Vollzitat dieser Fassung' : 'Vollzitat'}</dt>
+        <dd>{toDisplayText(fullCitation)}</dd>
       </div>
       {hasDistinctInitialCitation ? (
         <div>

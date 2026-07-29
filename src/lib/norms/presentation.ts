@@ -24,6 +24,7 @@ export interface TextLinkReference {
 }
 
 const DISPLAY_REPLACEMENTS: Array<[RegExp, string]> = [
+  [/\\-/g, '-'],
   [/\bAbkuerzung\b/g, 'Abkürzung'],
   [/\bAenderungsvorschrift\b/g, 'Änderungsvorschrift'],
   [/\bAenderungsgesetz\b/g, 'Änderungsgesetz'],

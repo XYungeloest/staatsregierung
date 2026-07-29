@@ -177,6 +177,7 @@
 }
 
 .norm-citation-copy input,
+.norm-citation-copy textarea,
 .norm-citation-copy button {
   min-height: 2.75rem;
   border: 1px solid var(--color-border);
@@ -186,15 +187,28 @@
   font: inherit;
 }
 
-.norm-citation-copy input {
+.norm-citation-copy input,
+.norm-citation-copy textarea {
   min-width: 0;
   padding: 0.65rem 0.8rem;
+}
+
+.norm-citation-copy textarea {
+  resize: vertical;
+  line-height: 1.5;
 }
 
 .norm-citation-copy button {
   padding-inline: 0.9rem;
   color: var(--color-primary);
   font-weight: 650;
+}
+
+.norm-citation-copy__note {
+  max-width: 72ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
 }
 
 .copy-feedback {

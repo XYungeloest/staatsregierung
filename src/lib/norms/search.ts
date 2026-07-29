@@ -1,5 +1,10 @@
 import { loadAllNorms } from './loader.ts';
 import {
+  buildNormFullCitation,
+  buildNormRecordLookup,
+  type NormRecordLookup,
+} from './citation.ts';
+import {
   buildNormAnchorMap,
   formatDate,
   formatNormStatus,
@@ -215,6 +220,7 @@ export function isAmendmentRecord(record: Pick<NormRecord, 'meta'>): boolean {
 function buildSearchDocument(
   record: NormRecord,
   version: NormVersion,
+  recordsBySlug: NormRecordLookup,
   publicationReference?: NormPublicationReference,
 ): SearchIndexDocument {
   const { textParts, contexts, hitUnits } = collectBodyContent(version.body);
@@ -263,7 +269,7 @@ function buildSearchDocument(
     statusLabel: formatNormStatus(record.meta.status),
     summary: toDisplayText(record.meta.summary),
     initialCitation: toDisplayText(record.meta.initialCitation),
-    citation: toDisplayText(version.citation),
+    citation: buildNormFullCitation(record, version, recordsBySlug),
     publication: publicationReference
       ? `${publicationReference.publication} ${publicationReference.publicationDate.slice(0, 4)} Nr. ${publicationReference.issue}`
       : extractPublication(version.citation),
@@ -325,6 +331,7 @@ function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
 
 export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
   const [records, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+  const recordsBySlug = buildNormRecordLookup(records);
   const publicationReferences = buildNormPublicationReferenceLookup(publications);
   const documents = records
     .flatMap((record) =>
@@ -332,6 +339,7 @@ export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
         buildSearchDocument(
           record,
           version,
+          recordsBySlug,
           publicationReferences.get(`${record.meta.slug}:${version.versionId}`),
         ),
       ),

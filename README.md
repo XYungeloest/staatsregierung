@@ -167,6 +167,12 @@ Fundstellen und Präfix-Platzhalter mit `*` sind explizite Filter. Änderungsvor
 über den Normtyp, belegte Einführungsbeziehungen oder eine eindeutige Änderungsbezeichnung im
 amtlichen Titel erkannt und standardmäßig getrennt angeboten.
 
+Öffentliche Vollzitate werden fassungsspezifisch aus dem vollständigen Normtitel, der gespeicherten
+Stammfundstelle und dem letzten Historieneintrag mit zugeordneter Änderungsvorschrift gebildet.
+`initialCitation`, die Zitierangaben der Fassungen und die Fundstellen in den Verkündungsdatensätzen
+bleiben dabei unveränderte Quellen- und Provenienzfelder. Fehlt wegen eines dokumentierten
+Quellenkonflikts ein Normdatum, ergänzt die Zitierlogik kein vermeintlich eindeutiges Datum.
+
 ## Zentrale Konfiguration
 
 - `src/config/site.ts`: Portaltexte, Pfade, Navigation, Kontakt, Regierungsstammdaten

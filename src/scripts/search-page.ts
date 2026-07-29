@@ -262,7 +262,7 @@ function renderVersion(entry: SearchIndexDocument, state: NormSearchState, headi
         <span class="status-badge ${badgeClass(entry)}">${escapeHtml(entry.resultLabel)}</span>
       </div>
       <dl class="search-hit__facts">
-        <div><dt>Fundstelle</dt><dd>${escapeHtml(entry.citation)}</dd></div>
+        <div><dt>Vollzitat</dt><dd>${escapeHtml(entry.citation)}</dd></div>
         <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
         <div><dt>Normtyp</dt><dd>${escapeHtml(entry.typeLabel)}</dd></div>
         <div><dt>Ressort</dt><dd>${escapeHtml(entry.ministry) || 'keine Zuordnung'}</dd></div>

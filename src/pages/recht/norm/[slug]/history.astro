@@ -6,6 +6,8 @@ import SectionNavigation from '../../../../components/portal/SectionNavigation.a
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
 import { formatDate, toDisplayText } from '../../../../lib/norms/presentation.ts';
 import {
+  buildNormFullCitation,
+  buildNormRecordLookup,
   classifyNormVersion,
   getNormCompareUrl,
   getHomeUrl,
@@ -17,17 +19,28 @@ import { getCurrentVersion, getVersionById, loadAllNorms } from '../../../../lib
 
 export async function getStaticPaths() {
   const norms = await loadAllNorms();
+  const normLookup = buildNormRecordLookup(norms);
   const relatedNormLabels = Object.fromEntries(
     norms.map((entry) => [entry.meta.slug, toDisplayText(entry.meta.title)]),
   );
 
   return norms.map((norm) => ({
     params: { slug: norm.meta.slug },
-    props: { norm, currentVersion: getCurrentVersion(norm), relatedNormLabels },
+    props: {
+      norm,
+      currentVersion: getCurrentVersion(norm),
+      relatedNormLabels,
+      fullCitations: Object.fromEntries(
+        norm.versions.map((version) => [
+          version.versionId,
+          buildNormFullCitation(norm, version, normLookup),
+        ]),
+      ),
+    },
   }));
 }
 
-const { norm, currentVersion, relatedNormLabels } = Astro.props;
+const { norm, currentVersion, relatedNormLabels, fullCitations } = Astro.props;
 const initialVersion = norm.history.initialVersionId
   ? getVersionById(norm, norm.history.initialVersionId)
   : undefined;
@@ -133,7 +146,7 @@ const successorSlug = norm.meta.successorSlug;
                   ? '; Gültigkeitsende nicht gespeichert'
                   : '; Gültigkeitsende offen'}
             </span>
-            <span>Fundstelle: {toDisplayText(version.citation)}</span>
+            <span>Vollzitat: {toDisplayText(fullCitations[version.versionId])}</span>
             <span>{toDisplayText(version.changeNote)}</span>
           </li>
         ))}

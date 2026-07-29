@@ -412,6 +412,26 @@ test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwer
   await expect(page.getByText(/keine belegte PDF-Datei/iu)).toBeVisible();
 });
 
+test('Zitierfunktion kopiert vollständige Normtitel und fassungsspezifische Änderungen', async ({ page }) => {
+  await page.goto('/recht/norm/ostdeutsches-bezirkseinfuehrungsgesetz/');
+  const initialCitation = page.getByLabel('Vollzitat dieser Fassung');
+  await expect(initialCitation).toHaveValue(
+    'Gesetz zur Einführung von Bezirken vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–14)',
+  );
+
+  await page.goto('/recht/norm/saechsische-gemeindeordnung/');
+  const currentCitation = page.getByLabel('Vollzitat dieser Fassung');
+  await expect(currentCitation).toHaveValue(
+    /Gemeindeordnung für den Ostdeutschen Freistaat .* zuletzt geändert durch das Gesetz zur Neuordnung der Kreise und Bezirke .* vom 20\. Juli 2026/u,
+  );
+
+  await page.goto('/recht/norm/saechsische-gemeindeordnung/version/2026-03-25/');
+  const historicalCitation = page.getByLabel('Vollzitat dieser Fassung');
+  await expect(historicalCitation).toHaveValue(
+    /zuletzt geändert durch das Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin .* vom 23\. März 2026/u,
+  );
+});
+
 test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änderungsvorschriften', async ({ page }) => {
   await page.goto('/recht/norm/ostdeutsches-feiertagsgesetz/');
 
