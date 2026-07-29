@@ -327,7 +327,7 @@ Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten und Sitemap.
 
 ## To Do
 
-- Auf der Rechtsseite werden Abschnitt nicht richtig angezeigt
-- Übersichtliche Bündelung zu Berlin
-- Kreisreform in Kraft -> daraus ergebende Folgeänderungen
-- Irgendwas zur neuen Grenzpolizei
+- Auf der Rechtsseite werden Abschnitte von Gesetzen nicht richtig angezeigt
+- Übersichtliche Bündelung zu Berlin, welche Sonderreglung gilt in Kommunal und Bezirksrecht etc?
+- Kreisreform in Kraft -> daraus ergebende Folgeänderungen auf der entsprechenden Seite ab 1. August
+- Irgendwas zur neuen Grenzpolizei, Abkommen in Arbeit mit Bundesinnenministerium
