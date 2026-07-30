@@ -107,13 +107,22 @@ function walkDates(value, location, errors) {
   }
 }
 
-function validateEntry(entry, file, sourceIds, errors) {
+function validateEntry(entry, file, documentAsOf, sourceIds, errors) {
   const location = `${file}:${entry.id ?? '<ohne-id>'}`;
   for (const field of ['id', 'title', 'status', 'asOf', 'summary', 'sourceRefs', 'relatedIds', 'tags', 'notes']) {
     if (!(field in entry)) errors.push(`${location}: Pflichtfeld ${field} fehlt.`);
   }
   if (!statuses.has(entry.status)) errors.push(`${location}: unbekannter Status ${entry.status}.`);
   validateDate(entry.asOf, `${location}.asOf`, errors);
+  if (
+    typeof documentAsOf === 'string' &&
+    asOfPattern.test(documentAsOf) &&
+    typeof entry.asOf === 'string' &&
+    asOfPattern.test(entry.asOf) &&
+    entry.asOf > documentAsOf
+  ) {
+    errors.push(`${location}: asOf ${entry.asOf} liegt nach dem Datensatzstand ${documentAsOf}.`);
+  }
   validateDate(entry.validFrom, `${location}.validFrom`, errors);
   validateDate(entry.validTo, `${location}.validTo`, errors);
   if (entry.validFrom && entry.validTo && entry.validFrom > entry.validTo) {
@@ -181,7 +190,7 @@ function validateModel(model, compareGenerated) {
   for (const collection of model.collections) {
     walkDates(collection.document, collection.file, errors);
     for (const entry of collection.entries) {
-      validateEntry(entry, collection.file, sourceIds, errors);
+      validateEntry(entry, collection.file, collection.document.asOf, sourceIds, errors);
       if (idMap.has(entry.id)) {
         errors.push(`Doppelte Wissens-ID ${entry.id} in ${collection.file} und ${idMap.get(entry.id).file}.`);
       } else {

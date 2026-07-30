@@ -299,11 +299,43 @@ test('ein primäres Sachgebiet muss Teil der belegten Mehrfachzuordnung sein', (
   );
 });
 
-test('Fundstellenparser erkennt das Gemeinsame Ministerialblatt', () => {
-  assert.deepEqual(
-    parseCitation('Verwaltungsabkommen vom 28. Juli 2026 (GMBl. 2026 Nr. 14 S. 2)'),
-    { source: 'GMBl.', year: '2026', issue: '14', page: '2' },
-  );
+test('Fundstellenparser erhält Nummern- und Seitenbereiche vollständig', () => {
+  const citations = [
+    {
+      citation: 'Gesetz vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–14)',
+      expected: { source: 'OGVBl.', year: '2025', issue: '1–7', page: '7–14' },
+    },
+    {
+      citation: 'Bundesrecht (BGBl. 2026 I Nr. 64–74)',
+      expected: { source: 'BGBl.', year: '2026', part: 'I', issue: '64–74' },
+    },
+    {
+      citation: 'Verwaltungsabkommen vom 28. Juli 2026 (GMBl. 2026 Nr. 14 S. 2)',
+      expected: { source: 'GMBl.', year: '2026', issue: '14', page: '2' },
+    },
+    {
+      citation: 'Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 50 S. 2)',
+      expected: { source: 'OGVBl.', year: '2026', issue: '50', page: '2' },
+    },
+  ];
+
+  for (const { citation, expected } of citations) {
+    assert.deepEqual(parseCitation(citation), expected, citation);
+  }
+});
+
+test('Fundstellenparser unterstützt Bindestrich, Gedankenstriche und Schrägstrich', () => {
+  for (const separator of ['-', '–', '—', '/']) {
+    assert.deepEqual(
+      parseCitation(`Gesetz (OGVBl. 2025 Nr. 1${separator}7 S. 7${separator}14)`),
+      {
+        source: 'OGVBl.',
+        year: '2025',
+        issue: `1${separator}7`,
+        page: `7${separator}14`,
+      },
+    );
+  }
 });
 
 test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung', async () => {

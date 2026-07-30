@@ -13,6 +13,7 @@ for await (const file of glob('dist/client/**/*.html')) {
   const description = html.match(/<meta\s+name="description"\s+content="([^"]+)"/iu)?.[1]?.trim();
   const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]+)"/iu)?.[1]?.trim();
   const h1Count = count(html, /<h1(?:\s[^>]*)?>/giu);
+  const structuredData = [];
 
   if (!title) failures.push(`${file}: Titel fehlt`);
   if (!description) failures.push(`${file}: Meta-Description fehlt`);
@@ -31,9 +32,26 @@ for await (const file of glob('dist/client/**/*.html')) {
 
   for (const match of html.matchAll(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/giu)) {
     try {
-      JSON.parse(match[1]);
+      structuredData.push(JSON.parse(match[1]));
     } catch (error) {
       failures.push(`${file}: ungültiges JSON-LD (${error instanceof Error ? error.message : 'Parsefehler'})`);
+    }
+  }
+
+  if (/^dist\/client\/recht\/norm\/[^/]+\/index\.html$/u.test(file)) {
+    const legislation = structuredData.find((entry) => entry?.['@type'] === 'Legislation');
+    if (!legislation) {
+      failures.push(`${file}: strukturierte Gesetzesdaten fehlen`);
+    } else {
+      if (!legislation.name) failures.push(`${file}: Legislation.name fehlt`);
+      if (!legislation.description) failures.push(`${file}: Legislation.description fehlt`);
+      if (!legislation.legislationType) failures.push(`${file}: Legislation.legislationType fehlt`);
+      if (!legislation.legislationIdentifier) {
+        failures.push(`${file}: Vollzitat als Legislation.legislationIdentifier fehlt`);
+      }
+      if (legislation.url !== canonical) {
+        failures.push(`${file}: Legislation.url weicht vom Canonical ab`);
+      }
     }
   }
 }

@@ -1,8 +1,24 @@
-import { toDisplayText } from './presentation.ts';
+import { NORM_TYPES } from './schema.ts';
+import { formatNormType, toDisplayText } from './presentation.ts';
 import type { NormHistoryEntry, NormRecord, NormVersion } from './schema.ts';
 
-const GENERIC_DOCUMENT_LEAD =
-  /^(?:Gesetz|Verordnung|Verfassung|Staatsvertrag|Verwaltungsabkommen|Verwaltungsvorschrift|Bekanntmachung|Organisationserlass|Dienstanordnung|Anordnung|Richtlinie|Allgemeinverfügung|Übereinkommen|Vereinbarung|Erlass)\s*(?=vom\b|in der Fassung\b|\()/u;
+const ADDITIONAL_GENERIC_DOCUMENT_LEADS = [
+  'Verfassung',
+  'Organisationserlass',
+  'Dienstanordnung',
+  'Anordnung',
+  'Richtlinie',
+  'Übereinkommen',
+  'Vereinbarung',
+  'Erlass',
+] as const;
+
+const GENERIC_DOCUMENT_LEADS = [
+  ...new Set([
+    ...NORM_TYPES.map((type) => formatNormType(type)),
+    ...ADDITIONAL_GENERIC_DOCUMENT_LEADS,
+  ]),
+].toSorted((left, right) => right.length - left.length);
 
 const CHANGE_CLAUSE =
   /,\s*(?:(?:das\s+)?zuletzt\s+durch|(?:zuletzt\s+)?geändert\s+durch|vollständig\s+abgelöst\s+durch)/iu;
@@ -23,10 +39,13 @@ function stripChangeClause(value: string): string {
 
 function normalizeGenericDocumentLead(norm: NormRecord, value: string): string {
   const displayValue = toDisplayText(value).trim();
-  const match = displayValue.match(GENERIC_DOCUMENT_LEAD);
-  if (!match) return displayValue;
+  const genericLead = GENERIC_DOCUMENT_LEADS.find((label) => {
+    if (!displayValue.startsWith(label)) return false;
+    return /^\s*(?:vom\b|in der Fassung\b|\()/u.test(displayValue.slice(label.length));
+  });
+  if (!genericLead) return displayValue;
 
-  return `${toDisplayText(norm.meta.title)} ${displayValue.slice(match[0].length)}`;
+  return `${toDisplayText(norm.meta.title)} ${displayValue.slice(genericLead.length).trimStart()}`;
 }
 
 function initialPublicationReference(norm: NormRecord): string | undefined {
@@ -55,6 +74,7 @@ function latestAmendmentForVersion(
       && entry.affectingVersionId === version.versionId
       && entry.relatedNorm,
     )
+    .toSorted((left, right) => left.date.localeCompare(right.date))
     .at(-1);
 }
 

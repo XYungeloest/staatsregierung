@@ -13,6 +13,7 @@ export type NormAnchorMap = ReadonlyMap<string, string>;
 export interface ParsedCitation {
   source: string;
   year: string;
+  part?: string;
   issue: string;
   page?: string;
 }
@@ -180,7 +181,7 @@ export function formatDate(value: string): string {
 export function parseCitation(value: string): ParsedCitation | undefined {
   const displayValue = toDisplayText(value);
   const match = displayValue.match(
-    /\b(OGVBl\.|OABl\.|StAnzO\.|OVertrBl\.|GMBl\.|SächsGVBl\.|BGBl\.)\s+(\d{4})\s+Nr\.\s+([A-Za-z0-9.-]+)(?:\s+S\.\s+([A-Za-z0-9.-]+))?/u,
+    /\b(OGVBl\.|OABl\.|StAnzO\.|OVertrBl\.|GMBl\.|SächsGVBl\.|BGBl\.)\s+(\d{4})(?:\s+([IVX]+))?\s+Nr\.\s+([\p{L}\p{N}]+(?:[./\-–—][\p{L}\p{N}]+)*)(?:\s+S\.\s+([\p{L}\p{N}]+(?:[./\-–—][\p{L}\p{N}]+)*))?/u,
   );
 
   if (!match) {
@@ -190,8 +191,9 @@ export function parseCitation(value: string): ParsedCitation | undefined {
   return {
     source: match[1],
     year: match[2],
-    issue: match[3],
-    page: match[4],
+    ...(match[3] ? { part: match[3] } : {}),
+    issue: match[4],
+    ...(match[5] ? { page: match[5] } : {}),
   };
 }
 
