@@ -3,6 +3,24 @@
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
+      "id": "state-current-federal-president-representation",
+      "title": "Wahrnehmung der Bundespräsidentenbefugnisse durch Karl Honecker",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-06-01",
+      "validTo": null,
+      "asOf": "2026-08-01",
+      "summary": "Karl Honecker nahm die Befugnisse des Bundespräsidenten vom 1. Juni bis 15. Juli 2026 wegen der Verhinderung Manuela Dreyers wahr und setzt die Vertretung seit ihrem Rücktritt am 16. Juli wegen der vorzeitigen Erledigung des Amtes fort. Ein Enddatum ist nicht belegt.",
+      "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}],
+      "relatedIds": ["person-karl-honecker", "person-manuela-dreyer", "inst-bundesrat", "inst-bundespraesident", "question-honecker-federal-president-acts-and-end"],
+      "tags": ["current-state", "federal", "constitutional-office"],
+      "notes": ["Personal- und Gesetzesakte werden erst nach konkretem Nachweis einzeln benannt; Gegenzeichnung und Ausfertigung werden nicht gleichgesetzt."],
+      "representativePersonId": "person-karl-honecker",
+      "phases": [
+        {"validFrom": "2026-06-01", "validTo": "2026-07-15", "reason": "Verhinderung der Bundespräsidentin"},
+        {"validFrom": "2026-07-16", "validTo": null, "reason": "Vorzeitige Erledigung des Amtes durch Rücktritt"}
+      ]
+    },
+    {
       "id": "state-current-identity",
       "title": "Staat und redaktioneller Stand",
       "status": "editorially-confirmed",
@@ -185,8 +203,8 @@
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt. Die Wahl zur achten Volkskammer findet Ende August 2026 statt; ein exakter Wahltag ist noch nicht festgelegt.",
+      "asOf": "2026-08-01",
+      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt. Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-governments",
@@ -199,15 +217,17 @@
           "role": "corroborating"
         },
         {
-          "sourceId": "source-editorial-clarifications-2026-07-29",
-          "locator": "Abschnitt Staat und Verfassung",
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Abschnitt Wahl zur achten Volkskammer",
           "role": "corroborating"
         }
       ],
       "relatedIds": [
         "inst-volkskammer",
         "party-volksfront",
-        "party-demos"
+        "party-demos",
+        "proceeding-eighth-volkskammer-election",
+        "event-volkskammer-election-2026"
       ],
       "tags": [
         "current-state",
@@ -223,8 +243,9 @@
         "party-demos"
       ],
       "seatCountAsOf": "2026-07-05",
-      "nextElectionTiming": "Ende August 2026",
-      "nextElectionDate": null
+      "nextElectionTiming": "5. und 6. September 2026",
+      "nextElectionDate": "2026-09-05",
+      "nextElectionEndDate": "2026-09-06"
     },
     {
       "id": "state-current-territory",

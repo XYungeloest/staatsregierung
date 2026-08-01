@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-07-29",
+  "generatedAt": "2026-08-01",
   "editorialAsOf": "2026-08-01",
-  "count": 233,
+  "count": 258,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -12,7 +12,7 @@
         "conversation-candidate"
       ],
       "validFrom": null,
-      "validTo": null,
+      "validTo": "2026-08-01",
       "target": "knowledge/conversation-candidates.json"
     },
     {
@@ -331,6 +331,125 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-dreyer-candidacy-2026",
+      "title": "Manuela Dreyer erklärt ihre Kandidatur",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "federal"
+      ],
+      "validFrom": "2026-05-08",
+      "validTo": "2026-05-08",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-dreyer-discovery-2026",
+      "title": "Medienbericht über den Aufenthaltsort Manuela Dreyers",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "media-report"
+      ],
+      "validFrom": "2026-07-09",
+      "validTo": "2026-07-09",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-dreyer-election-2026",
+      "title": "Wahl Manuela Dreyers zur Bundespräsidentin",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "election",
+        "federal"
+      ],
+      "validFrom": "2026-05-16",
+      "validTo": "2026-05-17",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-dreyer-impeachment-motion-2026",
+      "title": "Antrag auf Präsidentenanklage",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "federal-proceeding"
+      ],
+      "validFrom": "2026-07-09",
+      "validTo": "2026-07-09",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-dreyer-impeachment-vote-2026",
+      "title": "Bundestag beschließt die Präsidentenanklage",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "federal-proceeding"
+      ],
+      "validFrom": "2026-07-12",
+      "validTo": "2026-07-12",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-dreyer-inauguration-2026",
+      "title": "Amtsantritt Manuela Dreyers",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "federal-office"
+      ],
+      "validFrom": "2026-05-18",
+      "validTo": "2026-05-18",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-dreyer-indictment-filed-2026",
+      "title": "Anklageschrift wird beim Bundesverfassungsgericht eingereicht",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "federal-proceeding"
+      ],
+      "validFrom": "2026-07-12",
+      "validTo": "2026-07-12",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-dreyer-prevention-2026",
+      "title": "Verhinderung der Bundespräsidentin und Beginn der Vertretung",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "federal"
+      ],
+      "validFrom": "2026-06-01",
+      "validTo": "2026-06-01",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-dreyer-resignation-2026",
+      "title": "Rücktritt Manuela Dreyers",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "resignation",
+        "federal"
+      ],
+      "validFrom": "2026-07-16",
+      "validTo": "2026-07-16",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-first-state-council",
       "title": "Erster Staatsrat nimmt die Arbeit auf",
       "type": "timeline-event",
@@ -381,6 +500,19 @@
       ],
       "validFrom": "2026-07-28",
       "validTo": "2026-07-28",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-honecker-federal-president-representation-2026",
+      "title": "Vertretungsgrund wechselt nach Dreyers Rücktritt",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "federal-office-representation"
+      ],
+      "validFrom": "2026-07-16",
+      "validTo": "2026-07-16",
       "target": "knowledge/timeline.json"
     },
     {
@@ -565,6 +697,22 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-volkskammer-election-2026",
+      "title": "Wahl zur achten Volkskammer",
+      "type": "timeline-event",
+      "aliases": [
+        "Wahl zur 8. Volkskammer"
+      ],
+      "tags": [
+        "timeline",
+        "election",
+        "scheduled"
+      ],
+      "validFrom": "2026-09-05",
+      "validTo": "2026-09-06",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "inst-bundesministerium-innern-heimat",
       "title": "Bundesministerium des Innern und für Heimat",
       "type": "institution",
@@ -581,6 +729,22 @@
       "target": "knowledge/entities/institutions.json"
     },
     {
+      "id": "inst-bundespraesident",
+      "title": "Amt des Bundespräsidenten",
+      "type": "institution",
+      "aliases": [
+        "Bundespräsident",
+        "Bundespräsidentin"
+      ],
+      "tags": [
+        "federal",
+        "constitutional-organ"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
       "id": "inst-bundesrat",
       "title": "Bundesrat",
       "type": "institution",
@@ -590,6 +754,36 @@
       "tags": [
         "federal",
         "constitutional-organ"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-bundesverfassungsgericht",
+      "title": "Bundesverfassungsgericht",
+      "type": "institution",
+      "aliases": [
+        "BVerfG"
+      ],
+      "tags": [
+        "federal",
+        "court"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-deutscher-bundestag",
+      "title": "Deutscher Bundestag",
+      "type": "institution",
+      "aliases": [
+        "Bundestag"
+      ],
+      "tags": [
+        "federal",
+        "parliament"
       ],
       "validFrom": null,
       "validTo": null,
@@ -1030,6 +1224,19 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-felix-von-luxemburg-vorarlberg",
+      "title": "Felix von Luxemburg-Vorarlberg",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "federal"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-freya-warnecke",
       "title": "Freya Warnecke",
       "type": "person",
@@ -1073,6 +1280,32 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-liam-fluesterbein",
+      "title": "Liam Flüsterbein",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "federal"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
+      "id": "person-liam-von-starnberg",
+      "title": "Liam von Starnberg",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "federal"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-lucia-liebknecht",
       "title": "Lucia Liebknecht",
       "type": "person",
@@ -1083,6 +1316,20 @@
       ],
       "validFrom": "2026-05-04",
       "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
+      "id": "person-manuela-dreyer",
+      "title": "Manuela Dreyer",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "federal",
+        "historical"
+      ],
+      "validFrom": "2026-05-18",
+      "validTo": "2026-07-16",
       "target": "knowledge/entities/persons.json"
     },
     {
@@ -1165,6 +1412,19 @@
         "government"
       ],
       "validFrom": "2026-05-04",
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
+      "id": "person-tom-kaufmann",
+      "title": "Tom Kaufmann",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "media-report"
+      ],
+      "validFrom": null,
       "validTo": null,
       "target": "knowledge/entities/persons.json"
     },
@@ -1253,6 +1513,22 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-eighth-volkskammer-election",
+      "title": "Wahl zur achten Volkskammer",
+      "type": "proceeding",
+      "aliases": [
+        "Wahl zur 8. Volkskammer"
+      ],
+      "tags": [
+        "proceeding",
+        "election",
+        "parliament"
+      ],
+      "validFrom": "2026-08-01",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "proceeding-federal-council-access",
       "title": "Bundesratszugangs- oder Stimmrechtsstreit",
       "type": "proceeding",
@@ -1263,6 +1539,20 @@
         "federal"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-federal-president-dreyer-impeachment",
+      "title": "Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "federal",
+        "constitutional-law"
+      ],
+      "validFrom": "2026-07-09",
       "validTo": null,
       "target": "knowledge/proceedings.json"
     },
@@ -1648,6 +1938,20 @@
       "target": "knowledge/open-questions.json"
     },
     {
+      "id": "question-dreyer-impeachment-final-disposition",
+      "title": "Formeller Abschluss der Präsidentenanklage gegen Manuela Dreyer",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "federal",
+        "constitutional-law"
+      ],
+      "validFrom": "2026-07-16",
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
       "id": "question-federal-council-case",
       "title": "Welche Primärakten und Verfahrensdaten fehlen noch zum Bundesratszugangsstreit?",
       "type": "open-question",
@@ -1706,6 +2010,19 @@
         "open-question"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-honecker-federal-president-acts-and-end",
+      "title": "Einzelakte und Ende der Bundespräsidentenvertretung Karl Honeckers",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "federal"
+      ],
+      "validFrom": "2026-06-01",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -2007,6 +2324,21 @@
         "all"
       ],
       "validFrom": "2026-07-28",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-editorial-clarification-dreyer-election-2026-08-01",
+      "title": "Redaktionelle Klarstellung zu Dreyer und zur Wahl der achten Volkskammer",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "federal-constitution",
+        "persons",
+        "elections",
+        "parliament"
+      ],
+      "validFrom": "2026-08-01",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2718,6 +3050,20 @@
         "constitution"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-federal-president-representation",
+      "title": "Wahrnehmung der Bundespräsidentenbefugnisse durch Karl Honecker",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "federal",
+        "constitutional-office"
+      ],
+      "validFrom": "2026-06-01",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

@@ -2,6 +2,15 @@
   "asOf": "2026-08-01",
   "institutions": [
     {
+      "id": "inst-bundespraesident", "title": "Amt des Bundespräsidenten", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Bundesverfassungsamt; seine Befugnisse werden bei Verhinderung oder vorzeitiger Erledigung nach Artikel 57 GG durch den Präsidenten des Bundesrates wahrgenommen.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}], "relatedIds": ["person-manuela-dreyer", "person-karl-honecker"], "tags": ["federal", "constitutional-organ"], "notes": [], "aliases": ["Bundespräsident", "Bundespräsidentin"], "type": "federal-constitutional-organ", "predecessorId": null, "successorId": null
+    },
+    {
+      "id": "inst-bundesverfassungsgericht", "title": "Bundesverfassungsgericht", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Bundesverfassungsgericht, bei dem am 12. Juli 2026 die Präsidentenanklage eingereicht wurde.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["proceeding-federal-president-dreyer-impeachment"], "tags": ["federal", "court"], "notes": [], "aliases": ["BVerfG"], "type": "federal-constitutional-organ", "predecessorId": null, "successorId": null
+    },
+    {
+      "id": "inst-deutscher-bundestag", "title": "Deutscher Bundestag", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Bundesparlament, das am 12. Juli 2026 die Präsidentenanklage mit der erforderlichen Zweidrittelmehrheit beschloss.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["proceeding-federal-president-dreyer-impeachment"], "tags": ["federal", "parliament"], "notes": [], "aliases": ["Bundestag"], "type": "federal-constitutional-organ", "predecessorId": null, "successorId": null
+    },
+    {
       "id": "inst-volkskammer",
       "title": "Volkskammer",
       "status": "confirmed-primary",
