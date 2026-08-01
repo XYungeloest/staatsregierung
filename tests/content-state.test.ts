@@ -9,6 +9,7 @@ import { PORTAL_REFERENCE_DATE } from '../src/lib/portal/dates.ts';
 import { buildPortalSearchEntries } from '../src/lib/portal/search.ts';
 import {
   loadCurrentGovernmentMembers,
+  loadCurrentGovernment,
   loadEvents,
   loadMinistries,
 } from '../src/lib/portal/content.ts';
@@ -17,8 +18,9 @@ const cutoff = '2026-08-01';
 
 test('Stichtag und aktuelle Staatsorganisation sind zentral auf den 1. August gesetzt', async () => {
   assert.equal(PORTAL_REFERENCE_DATE, cutoff);
-  assert.equal(siteConfig.currentGovernment.legislature, '7. Volkskammer');
-  assert.equal(siteConfig.currentGovernment.cabinetName, 'Erster Staatsrat');
+  const currentGovernment = await loadCurrentGovernment();
+  assert.equal(currentGovernment.legislature, '7. Volkskammer');
+  assert.equal(currentGovernment.title, 'Erster Staatsrat');
   assert.match(siteConfig.authorityName, /Staatsrat/u);
   const searchEntries = await buildPortalSearchEntries();
   assert.ok(searchEntries.filter((entry) => entry.type === 'government' && !['Thomas Henry Barlow', 'Mia Wollrath'].includes(entry.title)).every((entry) => entry.typeLabel === 'Staatsrat'));

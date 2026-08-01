@@ -10,8 +10,11 @@ import {
   getHomeUrl,
   getPreviousCabinetsUrl,
 } from '../../../lib/portal/index.ts';
+import { loadCurrentGovernment } from '../../../lib/portal/content.ts';
 
 import archive from '../../../../content/regierung/archiv/kabinett-honecker-i.json';
+
+const currentGovernment = await loadCurrentGovernment();
 ---
 
 <BaseLayout
@@ -32,7 +35,7 @@ import archive from '../../../../content/regierung/archiv/kabinett-honecker-i.js
     lead="Abgeschlossene Staatsregierungen mit Amtszeit, Zusammensetzung und politischen Schwerpunkten."
     variant="government"
     facts={[
-      { label: 'Aktuelles Kabinett', value: siteConfig.currentGovernment.cabinetName, href: getCabinetUrl() },
+      { label: 'Aktuelles Kabinett', value: currentGovernment.title, href: getCabinetUrl() },
       { label: 'Archivierter Bestand', value: archive.cabinetName },
       { label: 'Amtszeit', value: `${siteConfig.date.formatLong(archive.formedOn)} bis ${siteConfig.date.formatLong(archive.endedOn)}` },
     ]}

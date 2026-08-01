@@ -90,8 +90,8 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat]",
           "role": "corroborating"
         },
         {
@@ -270,8 +270,8 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-emma-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-staatskanzlei",
           "role": "corroborating"
         }
       ],
@@ -301,8 +301,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Finanzen.",
       "sourceRefs": [
         {
-          "sourceId": "source-karl-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-finanzen",
           "role": "primary"
         },
         {
@@ -337,8 +337,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Inneres und Wohnungswirtschaft.",
       "sourceRefs": [
         {
-          "sourceId": "source-volker-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-inneres-wohnen",
           "role": "primary"
         },
         {
@@ -373,8 +373,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Rechtsstaatlichkeit und kulturelle Emanzipation.",
       "sourceRefs": [
         {
-          "sourceId": "source-mateo-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-rechtsstaat-kultur",
           "role": "primary"
         },
         {
@@ -409,8 +409,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Völkerfreundschaft und Nachbarschaftspolitik.",
       "sourceRefs": [
         {
-          "sourceId": "source-tim-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-voelkerfreundschaft",
           "role": "primary"
         },
         {
@@ -445,8 +445,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Nachhaltigkeit und Energie.",
       "sourceRefs": [
         {
-          "sourceId": "source-yannik-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-nachhaltigkeit-energie",
           "role": "primary"
         },
         {
@@ -481,8 +481,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Staats- und Grenzsicherheit.",
       "sourceRefs": [
         {
-          "sourceId": "source-yannik-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-staats-grenzsicherheit",
           "role": "primary"
         },
         {
@@ -532,8 +532,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Gesundheits- und Sozialwesen.",
       "sourceRefs": [
         {
-          "sourceId": "source-lucia-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-gesundheit-soziales",
           "role": "primary"
         },
         {
@@ -568,8 +568,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Mobilität und regionale Entwicklung.",
       "sourceRefs": [
         {
-          "sourceId": "source-vincent-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-mobilitaet-regionen",
           "role": "primary"
         },
         {
@@ -604,8 +604,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Volksbildung und Wissenschaft.",
       "sourceRefs": [
         {
-          "sourceId": "source-carl-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-volksbildung-wissenschaft",
           "role": "primary"
         },
         {
@@ -640,8 +640,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Land-, Forst- und Küstenwirtschaft.",
       "sourceRefs": [
         {
-          "sourceId": "source-endo-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-land-forst-kueste",
           "role": "primary"
         },
         {
@@ -676,8 +676,8 @@
       "summary": "Oberste Landesbehörde für den Geschäftsbereich Wirtschaft und Arbeit.",
       "sourceRefs": [
         {
-          "sourceId": "source-max-current",
-          "locator": "currentOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "institutionId=inst-sek-wirtschaft-arbeit",
           "role": "primary"
         },
         {
@@ -748,8 +748,8 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment.predecessor",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat].predecessor",
           "role": "corroborating"
         }
       ],

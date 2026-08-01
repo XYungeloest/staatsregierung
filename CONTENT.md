@@ -6,7 +6,7 @@ Diese Datei beschreibt den aktuellen kanonischen Weg, Inhalte der Website einzup
 
 Öffentliche Website-Inhalte werden in der Regel dateibasiert als JSON unter `content/` gepflegt. Eine Inhaltsdatei ist immer ein JSON-Objekt, kein Markdown-Dokument und keine Liste als Wurzelwert. Textabsätze werden meist als String-Arrays gepflegt.
 
-Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuellen Stand nicht an die Website angebunden; Inhalte werden über JSON-Dateien, TypeScript-Dashboarddaten und Bilddateien unter `public/images/` bereitgestellt.
+Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffentliche Inhaltsauslieferung angebunden; Inhalte werden über validierte JSON-Dateien und Bilddateien unter `public/images/` bereitgestellt. Das Redaktionsstudio reicht dieselben Dateien als Pull Request ein und ist keine zweite Inhaltsquelle.
 
 ## Allgemeine Regeln
 
@@ -36,6 +36,7 @@ Das Portal wird derzeit dateibasiert gepflegt. Cloudflare D1/R2 sind im aktuelle
 
 ```text
 content/
+  dashboard/
   gesetzgebung/*.json
   freistaat/*.json
   haushalt/*.json
@@ -43,11 +44,18 @@ content/
     meta.json
     history.json
     versions/[versionId].json
+  organisation/
+    governments.json
+    offices.json
+    assignments.json
+    snapshots/[datum].json
+  portal/home.json
   presse/
     mitteilungen/*.json
     reden/*.json
     termine/*.json
   regierung/
+    cabinet-page.json
     archiv/
       kabinett-honecker-i.json
       honecker-i/
@@ -70,9 +78,9 @@ public/data/
     gemeinden-zur-suche.json
 
 src/data/dashboard/
-  action-plan.ts
-  legislation.ts
-  timeline.ts
+  action-plan.ts       # reiner JSON-Leseadapter
+  legislation.ts       # Darstellung aus content/gesetzgebung
+  timeline.ts          # reiner JSON-Leseadapter
 
 public/images/
   jobs/
@@ -282,18 +290,54 @@ Format:
 
 `federfuehrendesRessort` und `mitzeichnungsressorts` verweisen auf Slugs in `content/ressorts/`. `rechtsgrundlagen[].normSlug` verweist auf einen Norm-Slug unter `content/normen/`.
 
+### Regierungsorganisation
+
+Pfade:
+
+```text
+content/organisation/governments.json
+content/organisation/offices.json
+content/organisation/assignments.json
+```
+
+Diese drei Dateien sind die einzige öffentliche Quelle für Regierungschef, Stellvertretung,
+Mitgliedschaft, aktuelle Ämter, Ressortleitungen und Mitgliederzahl. Eine Zuordnung enthält
+mindestens Person, Amt, Regierung, Gültigkeitsintervall und – bei einer Ressortleitung – den
+Ressort-Slug. Mehrere gleichzeitige Zuordnungen sind zulässig.
+
+```json
+{
+  "id": "2026-07-21-wirtschaft-max-peterson",
+  "personSlug": "max-peterson",
+  "officeSlug": "staatsratsmitglied",
+  "ministrySlug": "wirtschaft-arbeitsmarkt-und-beschaeftigung",
+  "governmentSlug": "erster-staatsrat",
+  "title": "Staatsrat für Wirtschaft und Arbeit",
+  "validFrom": "2026-07-21",
+  "validTo": null,
+  "sortOrder": 100,
+  "sourceRefs": ["redaktionelle-quelle"]
+}
+```
+
+Kabinettsänderungen werden atomar über das Redaktionsstudio oder die Funktion
+`applyCabinetReshuffle` in `src/lib/portal/organization.ts` durchgeführt. Sie beendet die bisherige
+Leitung, legt die neue Zuordnung an, prüft alle Invarianten und liefert Diff, Dateien und Routen.
+`content/organisation/snapshots/` enthält ausdrücklich datierte Test-Snapshots und ist keine zweite
+öffentliche Datenquelle.
+
 ### Ressorts
 
 Pfad: `content/ressorts/[slug].json`
 
-Ressorts beschreiben die aktuellen Staatssekretariate, Zuständigkeiten, Kontakt und Verknüpfungen.
+Ressorts beschreiben Staatssekretariate, Zuständigkeiten, Kontakt und Verknüpfungen. Die aktuelle
+Leitung wird aus `content/organisation/assignments.json` abgeleitet und darf hier nicht gepflegt werden.
 
 Pflichtfelder:
 
 - `slug`
 - `name`
 - `kurzname`
-- `leitung`
 - `teaser`
 - `aufgaben`
 - `kontakt`
@@ -313,7 +357,6 @@ Format:
   "slug": "staatskanzlei",
   "name": "Staatskanzlei des Ostdeutschen Freistaates",
   "kurzname": "Staatskanzlei",
-  "leitung": "Staatsrätin Beispiel",
   "teaser": "Kurze Beschreibung.",
   "aufgaben": ["Aufgabe"],
   "kontakt": {
@@ -339,26 +382,19 @@ Format:
 
 Pfad: `content/regierung/mitglieder/[slug].json`
 
-Mitglieder werden nach `reihenfolge` sortiert. Aktueller Stand ist der erste Staatsrat, der am
-21. Juli 2026 aus dem Kabinett Honecker II hervorging. Emma Müller wird als Chefin der Staatskanzlei
-separat geführt und nicht als Mitglied des Staatsrates gezählt. Thomas Henry Barlow ist historisch
-erreichbar, aber nicht aktiv. Yannik Schmäle besitzt zwei gleichzeitige Einträge in `currentOffices`.
-Gerhardt Lehrmann ist kein aktives Mitglied und erhält kein neues Profil.
+Personendateien enthalten Biografie, Kontakt, Bild und Darstellungsangaben. Sortierung, aktueller
+Status, Ämter, Ressorts und Mitgliedschaft werden aus dem Organisationsmodell abgeleitet. Emma
+Müller kann dadurch als aktive Chefin der Staatskanzlei erscheinen, ohne Mitglied des Staatsrats zu
+sein; mehrere gleichzeitige Ämter werden ohne Freitextduplikate unterstützt.
 
 Pflichtfelder:
 
 - `slug`
 - `name`
-- `amt`
-- `ressort`
-- `reihenfolge`
 - `kurzbiografie`
 - `langbiografie`
 - `bild`
 - `bildnachweis`
-- `current`
-- `currentOffices`
-- `formerOffices`
 
 Optionale Felder:
 
@@ -372,23 +408,11 @@ Format:
 {
   "slug": "max-mustermann",
   "name": "Max Mustermann",
-  "amt": "Staatsrat",
-  "ressort": "Bezeichnung des Ressorts",
-  "reihenfolge": 10,
   "kurzbiografie": "Kurze Zusammenfassung.",
   "langbiografie": ["Absatz eins.", "Absatz zwei."],
   "bild": "/images/regierung/max-mustermann.jpg",
   "bildAlt": "Porträt von Max Mustermann",
   "bildnachweis": "Staatsrat",
-  "current": true,
-  "currentOffices": [
-    {
-      "title": "Staatsrat für einen Geschäftsbereich",
-      "ministry": "Staatssekretariat für einen Geschäftsbereich",
-      "servingFrom": "2026-07-21"
-    }
-  ],
-  "formerOffices": [],
   "kontakt": {
     "email": "max.mustermann@example.test",
     "telefon": "+49 351 100-0000"
@@ -912,14 +936,15 @@ erledigt
 
 ## Dashboard- und Modul-Daten
 
-Nicht alle sichtbaren Inhalte liegen unter `content/`. Einige kompakte Dashboarddaten werden als TypeScript gepflegt:
+Häufig redigierte Dashboarddaten liegen als validiertes JSON vor:
 
-- `src/data/dashboard/action-plan.ts`: 15-Punkte-Plan
+- `content/dashboard/action-plan.json`: 15-Punkte-Plan
+- `content/dashboard/timeline.json`: Zeitachse
 - `src/data/haushalt.ts`: Gesamtplan, Einzelpläne, Kapitelangaben und Sondervermögen
 - `src/data/dashboard/legislation.ts`: Darstellung der Vorgänge aus `content/gesetzgebung/`
-- `src/data/dashboard/timeline.ts`: Zeitachse auf Startseite und 15-Punkte-Plan
 
-Diese Dateien sind kein Bürgertext-Content im JSON-Modell, sondern strukturierte Moduldaten. Änderungen dort müssen typkompatibel sein. Die erlaubten Typen stehen in `src/lib/portal/modules.ts`.
+Die gleichnamigen Dateien unter `src/data/dashboard/` laden nur das JSON. Die erlaubten Typen und
+Parser stehen in `src/lib/portal/dashboard-content.ts`.
 
 Wichtige Werte:
 
@@ -943,7 +968,7 @@ Bezirk-Karten und Tabellen erreichbar bleiben.
 
 Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfigurationsdateien:
 
-- `src/config/site.ts`: Portalname, Pfade, Navigation, Kontakt, Regierungsstammdaten
+- `src/config/site.ts`: Portalname, Pfade, Navigation und Kontakt
 - `src/config/editorial.json`: redaktioneller Stichtag
 - `src/config/features.ts`: Feature-Schalter für die optionale Webanalyse
 - `src/config/analytics.ts`: Analyse- und Consent-Konfiguration
@@ -1124,7 +1149,7 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 
 ## Empfohlener Ablauf
 
-1. Passenden Content-Typ und Pfad bestimmen.
+1. Bevorzugt das Redaktionsstudio öffnen und den passenden Inhaltstyp wählen.
 2. Bestehende Datei als Vorlage nutzen.
 3. `slug` und Dateiname konsistent halten.
 4. Pflichtfelder vollständig ausfüllen.
@@ -1141,6 +1166,9 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 | Themenseite | `content/themen/[slug].json` | JSON-Objekt |
 | Ressort | `content/ressorts/[slug].json` | JSON-Objekt |
 | Regierungsmitglied | `content/regierung/mitglieder/[slug].json` | JSON-Objekt |
+| Regierungsorganisation | `content/organisation/*.json` | normalisierte JSON-Objekte |
+| Startseite | `content/portal/home.json` | JSON-Objekt |
+| Kabinettsseite | `content/regierung/cabinet-page.json` | JSON-Objekt |
 | Pressemitteilung | `content/presse/mitteilungen/[slug].json` | JSON-Objekt |
 | Rede | `content/presse/reden/[slug].json` | JSON-Objekt |
 | Termin | `content/presse/termine/[slug].json` | JSON-Objekt |
@@ -1149,7 +1177,7 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 | Freistaat-Seite | `content/freistaat/[slug].json` | JSON-Objekt |
 | Haushaltsdaten | `src/data/haushalt.ts` | Buildzeitbasiertes TypeScript-Datenmodell aus CSV und Archivblättern |
 | Norm | `content/normen/[slug]/` | `meta.json`, `history.json`, `versions/*.json` |
-| 15-Punkte-Plan | `src/data/dashboard/action-plan.ts` | TypeScript-Daten |
+| 15-Punkte-Plan | `content/dashboard/action-plan.json` | JSON-Objekt |
 | Gesetzgebungsverfahren | `content/gesetzgebung/[slug].json` | JSON-Objekt |
 | Gesetzgebungsdarstellung | `src/data/dashboard/legislation.ts` | TypeScript-Adapter |
-| Timeline | `src/data/dashboard/timeline.ts` | TypeScript-Daten |
+| Timeline | `content/dashboard/timeline.json` | JSON-Objekt |

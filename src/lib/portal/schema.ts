@@ -46,6 +46,19 @@ export interface RegierungMitglied {
   appointmentSource?: string;
 }
 
+export interface RegierungProfil {
+  slug: string;
+  name: string;
+  kurzbiografie: string;
+  langbiografie: string[];
+  bild: string;
+  bildAlt?: string;
+  bildnachweis?: string;
+  kontakt?: PortalContact;
+  zitat?: string;
+  party?: string;
+}
+
 export interface Ministerium {
   slug: string;
   name: string;
@@ -60,6 +73,8 @@ export interface Ministerium {
   themen: string[];
   verknuepfteLinks: PortalLink[];
 }
+
+export type MinisteriumProfil = Omit<Ministerium, 'leitung'>;
 
 export type Themenstatus =
   | 'geplant'
@@ -117,6 +132,7 @@ export interface Rede {
   title: string;
   date: string;
   sprecher: string;
+  speakerPersonSlug?: string;
   teaser: string;
   body: string[];
 }
@@ -125,6 +141,8 @@ export interface Termin {
   slug: string;
   title: string;
   date: string;
+  start?: string;
+  end?: string;
   location: string;
   teaser: string;
   body: string[];
@@ -169,6 +187,46 @@ export interface AccessibilityAudit {
   scope: string[];
   methods: string[];
   knownLimitations: string[];
+}
+
+export type PortalEditorialIcon = 'law' | 'topics' | 'map' | 'budget' | 'government' | 'ministry' | 'press';
+export type PortalNoticeIcon = Exclude<PortalEditorialIcon, 'ministry'>;
+
+export interface HomeContent {
+  hero: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    image: string;
+    imageAlt: string;
+    searchLabel: string;
+    searchPlaceholder: string;
+  };
+  portalAccesses: Array<{
+    title: string;
+    description: string;
+    href: string;
+    icon: PortalEditorialIcon;
+  }>;
+  importantItems: Array<{
+    id: string;
+    title?: string;
+    governmentSlug?: string;
+    description?: string;
+    href: string;
+    icon: PortalNoticeIcon;
+  }>;
+  featuredTopicSlugs: string[];
+}
+
+export interface CabinetPageContent {
+  slug: string;
+  title: string;
+  lead: string;
+  politicalContext: string[];
+  chronologyTitle: string;
+  chronology: Array<{ date: string; text: string }>;
+  topicHighlightSlugs: string[];
 }
 
 function createPath(prefix: string, key: string): string {
@@ -223,6 +281,15 @@ function expectDate(value: unknown, path: string): string {
   }
 
   return date;
+}
+
+function expectOptionalDateTime(value: unknown, path: string): string | undefined {
+  if (value === undefined || value === null || value === '') return undefined;
+  const dateTime = expectString(value, path);
+  if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2})?(?:Z|[+-]\d{2}:\d{2})?$/u.test(dateTime) || Number.isNaN(Date.parse(dateTime))) {
+    throw new PortalContentValidationError(`${path}: muss ein gültiger ISO-Datums- und Zeitwert sein`);
+  }
+  return dateTime;
 }
 
 function expectSlug(value: unknown, path: string): string {
@@ -367,6 +434,23 @@ export function parseRegierungMitglied(value: unknown, path: string): RegierungM
   };
 }
 
+export function parseRegierungProfil(value: unknown, path: string): RegierungProfil {
+  const entry = expectRecord(value, path);
+
+  return {
+    slug: expectSlug(entry.slug, createPath(path, 'slug')),
+    name: expectString(entry.name, createPath(path, 'name')),
+    kurzbiografie: expectString(entry.kurzbiografie, createPath(path, 'kurzbiografie')),
+    langbiografie: expectStringArray(entry.langbiografie, createPath(path, 'langbiografie')),
+    bild: expectString(entry.bild, createPath(path, 'bild')),
+    bildAlt: expectOptionalString(entry.bildAlt, createPath(path, 'bildAlt')),
+    bildnachweis: expectOptionalString(entry.bildnachweis, createPath(path, 'bildnachweis')),
+    kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')),
+    zitat: expectOptionalString(entry.zitat, createPath(path, 'zitat')),
+    party: expectOptionalString(entry.party, createPath(path, 'party')),
+  };
+}
+
 export function parseMinisterium(value: unknown, path: string): Ministerium {
   const entry = expectRecord(value, path);
 
@@ -375,6 +459,24 @@ export function parseMinisterium(value: unknown, path: string): Ministerium {
     name: expectString(entry.name, createPath(path, 'name')),
     kurzname: expectString(entry.kurzname, createPath(path, 'kurzname')),
     leitung: expectString(entry.leitung, createPath(path, 'leitung')),
+    teaser: expectString(entry.teaser, createPath(path, 'teaser')),
+    aufgaben: expectStringArray(entry.aufgaben, createPath(path, 'aufgaben')),
+    kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')) ?? {},
+    bild: expectString(entry.bild, createPath(path, 'bild')),
+    bildAlt: expectOptionalString(entry.bildAlt, createPath(path, 'bildAlt')),
+    bildnachweis: expectOptionalString(entry.bildnachweis, createPath(path, 'bildnachweis')),
+    themen: expectStringArray(entry.themen, createPath(path, 'themen')),
+    verknuepfteLinks: parseLinks(entry.verknuepfteLinks, createPath(path, 'verknuepfteLinks')),
+  };
+}
+
+export function parseMinisteriumProfil(value: unknown, path: string): MinisteriumProfil {
+  const entry = expectRecord(value, path);
+
+  return {
+    slug: expectSlug(entry.slug, createPath(path, 'slug')),
+    name: expectString(entry.name, createPath(path, 'name')),
+    kurzname: expectString(entry.kurzname, createPath(path, 'kurzname')),
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     aufgaben: expectStringArray(entry.aufgaben, createPath(path, 'aufgaben')),
     kontakt: parseContact(entry.kontakt, createPath(path, 'kontakt')) ?? {},
@@ -488,6 +590,9 @@ export function parseRede(value: unknown, path: string): Rede {
     title: expectString(entry.title, createPath(path, 'title')),
     date: expectDate(entry.date, createPath(path, 'date')),
     sprecher: expectString(entry.sprecher, createPath(path, 'sprecher')),
+    speakerPersonSlug: entry.speakerPersonSlug === undefined
+      ? undefined
+      : expectSlug(entry.speakerPersonSlug, createPath(path, 'speakerPersonSlug')),
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     body: expectStringArray(entry.body, createPath(path, 'body')),
   };
@@ -500,6 +605,8 @@ export function parseTermin(value: unknown, path: string): Termin {
     slug: expectSlug(entry.slug, createPath(path, 'slug')),
     title: expectString(entry.title, createPath(path, 'title')),
     date: expectDate(entry.date, createPath(path, 'date')),
+    start: expectOptionalDateTime(entry.start, createPath(path, 'start')),
+    end: expectOptionalDateTime(entry.end, createPath(path, 'end')),
     location: expectString(entry.location, createPath(path, 'location')),
     teaser: expectString(entry.teaser, createPath(path, 'teaser')),
     body: expectStringArray(entry.body, createPath(path, 'body')),
@@ -576,5 +683,83 @@ function parseAccessibilityAudit(value: unknown, path: string): AccessibilityAud
       entry.knownLimitations,
       createPath(path, 'knownLimitations'),
     ),
+  };
+}
+
+function expectEditorialIcon(value: unknown, path: string): PortalEditorialIcon {
+  const icon = expectString(value, path) as PortalEditorialIcon;
+  const allowed: PortalEditorialIcon[] = ['law', 'topics', 'map', 'budget', 'government', 'ministry', 'press'];
+  if (!allowed.includes(icon)) throw new PortalContentValidationError(`${path}: unbekanntes Portal-Icon`);
+  return icon;
+}
+
+function expectNoticeIcon(value: unknown, path: string): PortalNoticeIcon {
+  const icon = expectEditorialIcon(value, path);
+  if (icon === 'ministry') {
+    throw new PortalContentValidationError(`${path}: das Icon ministry ist im Hinweisband nicht zulässig`);
+  }
+  return icon;
+}
+
+export function parseHomeContent(value: unknown, path = 'content/portal/home.json'): HomeContent {
+  const entry = expectRecord(value, path);
+  const hero = expectRecord(entry.hero, createPath(path, 'hero'));
+  if (!Array.isArray(entry.portalAccesses) || !Array.isArray(entry.importantItems)) {
+    throw new PortalContentValidationError(`${path}: portalAccesses und importantItems müssen Listen sein`);
+  }
+  return {
+    hero: {
+      eyebrow: expectString(hero.eyebrow, `${path}.hero.eyebrow`),
+      title: expectString(hero.title, `${path}.hero.title`),
+      lead: expectString(hero.lead, `${path}.hero.lead`),
+      image: expectString(hero.image, `${path}.hero.image`),
+      imageAlt: expectString(hero.imageAlt, `${path}.hero.imageAlt`),
+      searchLabel: expectString(hero.searchLabel, `${path}.hero.searchLabel`),
+      searchPlaceholder: expectString(hero.searchPlaceholder, `${path}.hero.searchPlaceholder`),
+    },
+    portalAccesses: entry.portalAccesses.map((raw, index) => {
+      const item = expectRecord(raw, `${path}.portalAccesses[${index}]`);
+      return {
+        title: expectString(item.title, `${path}.portalAccesses[${index}].title`),
+        description: expectString(item.description, `${path}.portalAccesses[${index}].description`),
+        href: expectString(item.href, `${path}.portalAccesses[${index}].href`),
+        icon: expectEditorialIcon(item.icon, `${path}.portalAccesses[${index}].icon`),
+      };
+    }),
+    importantItems: entry.importantItems.map((raw, index) => {
+      const item = expectRecord(raw, `${path}.importantItems[${index}]`);
+      const title = expectOptionalString(item.title, `${path}.importantItems[${index}].title`);
+      const governmentSlug = item.governmentSlug === undefined ? undefined : expectSlug(item.governmentSlug, `${path}.importantItems[${index}].governmentSlug`);
+      if (!title && !governmentSlug) throw new PortalContentValidationError(`${path}.importantItems[${index}]: title oder governmentSlug ist erforderlich`);
+      return {
+        id: expectSlug(item.id, `${path}.importantItems[${index}].id`),
+        title,
+        governmentSlug,
+        description: expectOptionalString(item.description, `${path}.importantItems[${index}].description`),
+        href: expectString(item.href, `${path}.importantItems[${index}].href`),
+        icon: expectNoticeIcon(item.icon, `${path}.importantItems[${index}].icon`),
+      };
+    }),
+    featuredTopicSlugs: expectOptionalSlugArray(entry.featuredTopicSlugs, `${path}.featuredTopicSlugs`) ?? [],
+  };
+}
+
+export function parseCabinetPageContent(value: unknown, path = 'content/regierung/cabinet-page.json'): CabinetPageContent {
+  const entry = expectRecord(value, path);
+  if (!Array.isArray(entry.chronology)) throw new PortalContentValidationError(`${path}.chronology: muss eine Liste sein`);
+  return {
+    slug: expectSlug(entry.slug, `${path}.slug`),
+    title: expectString(entry.title, `${path}.title`),
+    lead: expectString(entry.lead, `${path}.lead`),
+    politicalContext: expectStringArray(entry.politicalContext, `${path}.politicalContext`),
+    chronologyTitle: expectString(entry.chronologyTitle, `${path}.chronologyTitle`),
+    chronology: entry.chronology.map((raw, index) => {
+      const item = expectRecord(raw, `${path}.chronology[${index}]`);
+      return {
+        date: expectDate(item.date, `${path}.chronology[${index}].date`),
+        text: expectString(item.text, `${path}.chronology[${index}].text`),
+      };
+    }),
+    topicHighlightSlugs: expectOptionalSlugArray(entry.topicHighlightSlugs, `${path}.topicHighlightSlugs`) ?? [],
   };
 }

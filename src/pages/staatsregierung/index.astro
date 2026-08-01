@@ -19,16 +19,17 @@ import {
 } from '../../lib/portal/index.ts';
 import {
   loadCurrentGovernmentMembers,
+  loadCurrentGovernment,
   loadMinistries,
   loadTopics,
 } from '../../lib/portal/content.ts';
 
-const [members, topics, ministries] = await Promise.all([
+const [members, topics, ministries, currentGovernment] = await Promise.all([
   loadCurrentGovernmentMembers(),
   loadTopics(),
   loadMinistries(),
+  loadCurrentGovernment(),
 ]);
-const currentGovernment = siteConfig.currentGovernment;
 const stateSecretariatCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
 const headOfGovernment = members[0];
 const featuredMembers = members.slice(0, 6);
@@ -55,7 +56,7 @@ const flagshipTopics = [
     lead="Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor und leitet die vollziehende Gewalt des Freistaates."
     variant="government"
     facts={[
-      { label: 'Staatsorgan', value: currentGovernment.cabinetName },
+      { label: 'Staatsorgan', value: currentGovernment.title },
       { label: 'Staatspräsident', value: currentGovernment.headOfGovernment, href: getMinisterPresidentUrl() },
       { label: 'Koalition', value: currentGovernment.coalitionShort, href: getCoalitionUrl() },
       { label: 'Staatssekretariate', value: String(stateSecretariatCount), href: getCabinetUrl() },
@@ -132,7 +133,7 @@ const flagshipTopics = [
   <section class="section" aria-labelledby="ministerien" data-visual-section="government-ministry-directory">
     <div class="section-header">
       <h2 id="ministerien">Staatssekretariate</h2>
-      <p>Leitung und zentrale Aufgaben der Geschäftsbereiche des {currentGovernment.cabinetName}.</p>
+      <p>Leitung und zentrale Aufgaben der Geschäftsbereiche des {currentGovernment.title}.</p>
     </div>
     <MinistryDirectory ministries={ministries} />
   </section>

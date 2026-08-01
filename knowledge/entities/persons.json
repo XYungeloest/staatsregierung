@@ -54,8 +54,8 @@
             "locator": "Kurzbiografie"
           },
           "terminationSource": {
-            "sourceId": "source-karl-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=karl-honecker; officeTitle=Ministerpräsident; validFrom=2025-12-20"
           },
           "acting": false,
           "permanent": true,
@@ -69,12 +69,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-karl-current",
-            "locator": "formerOffices[1]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=karl-honecker; officeTitle=Staatsminister der Finanzen; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-karl-current",
-            "locator": "formerOffices[1]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=karl-honecker; officeTitle=Staatsminister der Finanzen; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -88,8 +88,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-karl-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=karl-honecker; officeTitle=Staatspräsident; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -104,8 +104,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-karl-current",
-            "locator": "currentOffices[1]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=karl-honecker; officeTitle=Staatsrat der Finanzen; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -176,12 +176,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-mateo-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=mateo-delgado; officeTitle=Stellvertretender Ministerpräsident und Staatsminister für Rechtsstaatlichkeit und kulturelle Emanzipation; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-mateo-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=mateo-delgado; officeTitle=Stellvertretender Ministerpräsident und Staatsminister für Rechtsstaatlichkeit und kulturelle Emanzipation; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -195,8 +195,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-mateo-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=mateo-delgado; officeTitle=Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -246,12 +246,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-07",
           "appointmentSource": {
-            "sourceId": "source-volker-current",
-            "locator": "formerOffices[1]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=volker-bagdadi; officeTitle=Staatsminister für Nachhaltigkeit und Energie; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-volker-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=volker-bagdadi; officeTitle=Staatsminister für Nachhaltigkeit und Energie; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -265,12 +265,12 @@
           "validFrom": "2026-07-07",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-volker-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=volker-bagdadi; officeTitle=Staatsminister des Innern und für Wohnungswirtschaft; validFrom=2026-07-07"
           },
           "terminationSource": {
-            "sourceId": "source-volker-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=volker-bagdadi; officeTitle=Staatsminister des Innern und für Wohnungswirtschaft; validFrom=2026-07-07"
           },
           "acting": false,
           "permanent": true,
@@ -284,8 +284,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-volker-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=volker-bagdadi; officeTitle=Staatsrat des Innern und für Wohnungswirtschaft; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -334,12 +334,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-tim-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=tim-dieter; officeTitle=Staatsminister für Völkerfreundschaft und Nachbarschaftspolitik; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-tim-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=tim-dieter; officeTitle=Staatsminister für Völkerfreundschaft und Nachbarschaftspolitik; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -353,8 +353,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-tim-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=tim-dieter; officeTitle=Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -417,12 +417,12 @@
           "validFrom": "2026-07-07",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-yannik-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=yannik-schmaele; officeTitle=Staatsminister für Nachhaltigkeit und Energie; validFrom=2026-07-07"
           },
           "terminationSource": {
-            "sourceId": "source-yannik-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=yannik-schmaele; officeTitle=Staatsminister für Nachhaltigkeit und Energie; validFrom=2026-07-07"
           },
           "acting": false,
           "permanent": true,
@@ -436,8 +436,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-yannik-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=yannik-schmaele; officeTitle=Staatsrat für Nachhaltigkeit und Energie; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -452,8 +452,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-yannik-current",
-            "locator": "currentOffices[1]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=yannik-schmaele; officeTitle=Staatsrat für Staats- und Grenzsicherheit; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -504,12 +504,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-lucia-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=lucia-liebknecht; officeTitle=Staatsministerin für Gesundheits- und Sozialwesen; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-lucia-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=lucia-liebknecht; officeTitle=Staatsministerin für Gesundheits- und Sozialwesen; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -523,8 +523,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-lucia-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=lucia-liebknecht; officeTitle=Staatsrätin für Gesundheits- und Sozialwesen; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -573,12 +573,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-vincent-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=vincent-flick; officeTitle=Staatsminister für Mobilität und regionale Entwicklung; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-vincent-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=vincent-flick; officeTitle=Staatsminister für Mobilität und regionale Entwicklung; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -592,8 +592,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-vincent-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=vincent-flick; officeTitle=Staatsrat für Mobilität und regionale Entwicklung; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -642,12 +642,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-carl-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=carl-ulbricht; officeTitle=Staatsminister für Volksbildung und Wissenschaft; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-carl-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=carl-ulbricht; officeTitle=Staatsminister für Volksbildung und Wissenschaft; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -661,8 +661,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-carl-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=carl-ulbricht; officeTitle=Staatsrat für Volksbildung und Wissenschaft; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -711,12 +711,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-endo-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=endo-meyer-raucht; officeTitle=Staatsminister für Land-, Forst- und Küstenwirtschaft; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-endo-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=endo-meyer-raucht; officeTitle=Staatsminister für Land-, Forst- und Küstenwirtschaft; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -730,8 +730,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-endo-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=endo-meyer-raucht; officeTitle=Staatsrat für Land-, Forst- und Küstenwirtschaft; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -780,12 +780,12 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-max-current",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=max-peterson; officeTitle=Staatsminister für Wirtschaft und Arbeit; validFrom=2026-05-04"
           },
           "terminationSource": {
-            "sourceId": "source-max-current",
-            "locator": "formerOffices"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=max-peterson; officeTitle=Staatsminister für Wirtschaft und Arbeit; validFrom=2026-05-04"
           },
           "acting": false,
           "permanent": true,
@@ -799,8 +799,8 @@
           "validFrom": "2026-07-21",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-max-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=max-peterson; officeTitle=Staatsrat für Wirtschaft und Arbeit; validFrom=2026-07-21"
           },
           "terminationSource": null,
           "acting": false,
@@ -849,8 +849,8 @@
           "validFrom": "2026-05-04",
           "validTo": null,
           "appointmentSource": {
-            "sourceId": "source-emma-current",
-            "locator": "currentOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=emma-mueller; officeTitle=Chefin der Staatskanzlei; validFrom=2026-05-04"
           },
           "terminationSource": null,
           "acting": false,
@@ -900,8 +900,8 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-05-19",
           "appointmentSource": {
-            "sourceId": "source-mia-history",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=mia-wollrath; officeTitle=Staatsministerin des Innern und für Wohnungswirtschaft; validFrom=2026-05-04"
           },
           "terminationSource": {
             "sourceId": "source-mia-history",
@@ -919,8 +919,8 @@
           "validFrom": "2026-05-04",
           "validTo": "2026-05-19",
           "appointmentSource": {
-            "sourceId": "source-mia-history",
-            "locator": "formerOffices[1]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=mia-wollrath; officeTitle=Staatsministerin für Staats- und Grenzsicherheit (geschäftsführend); validFrom=2026-05-04"
           },
           "terminationSource": {
             "sourceId": "source-mia-history",
@@ -973,8 +973,8 @@
           "validFrom": "2026-05-19",
           "validTo": "2026-07-20",
           "appointmentSource": {
-            "sourceId": "source-barlow-history",
-            "locator": "formerOffices[0]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=thomas-henry-barlow; officeTitle=Staatsminister für Staats- und Grenzsicherheit; validFrom=2026-05-19"
           },
           "terminationSource": {
             "sourceId": "source-barlow-history",
@@ -992,8 +992,8 @@
           "validFrom": "2026-05-19",
           "validTo": "2026-07-07",
           "appointmentSource": {
-            "sourceId": "source-barlow-history",
-            "locator": "formerOffices[1]"
+            "sourceId": "source-organization-assignments",
+            "locator": "personSlug=thomas-henry-barlow; officeTitle=Staatsminister des Innern und für Wohnungswirtschaft; validFrom=2026-05-19"
           },
           "terminationSource": {
             "sourceId": "source-barlow-history",

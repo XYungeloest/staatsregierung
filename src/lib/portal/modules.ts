@@ -1,31 +1,15 @@
-export type ActionPlanStatus = 'umgesetzt' | 'teilweise_umgesetzt' | 'angelegt';
+import type {
+  ActionPlanStatus,
+  TimelineEntryType,
+} from './dashboard-content.ts';
 
-export interface ActionPlanReference {
-  label: string;
-  normSlug: string;
-}
-
-export interface ActionPlanItem {
-  id: string;
-  title: string;
-  description: string;
-  status: ActionPlanStatus;
-  ressort: string;
-  href: string;
-  references?: ActionPlanReference[];
-}
-
-export type TimelineEntryType = 'gesetz' | 'projekt' | 'kabinett' | 'presse' | 'haushalt';
-
-export interface TimelineEntry {
-  id: string;
-  date: string;
-  title: string;
-  type: TimelineEntryType;
-  summary: string;
-  ressort?: string;
-  href?: string;
-}
+export type {
+  ActionPlanItem,
+  ActionPlanReference,
+  ActionPlanStatus,
+  TimelineEntry,
+  TimelineEntryType,
+} from './dashboard-content.ts';
 
 import {
   formatLegislativeProcedureStage,

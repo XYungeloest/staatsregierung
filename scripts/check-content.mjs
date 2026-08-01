@@ -230,6 +230,10 @@ function validateGenderedLanguage(file, rel, json) {
   }
 
   for (const entry of collectStrings(json)) {
+    // Technische Enum-, ID- und Referenzwerte sind keine öffentlichen Personenbezeichnungen.
+    if (/(?:^|\.)(?:id|slug|status|type|icon|kind|normSlug|personSlug|officeSlug|ministrySlug|governmentSlug)$/u.test(entry.path)) {
+      continue;
+    }
     for (const { pattern, label } of disallowedGenderForms) {
       pattern.lastIndex = 0;
       const match = pattern.exec(entry.value);
@@ -1036,38 +1040,19 @@ for (const { file, json } of byPrefix('presse/termine/')) {
   }
 }
 
-const currentMembers = governmentMemberRecords.filter(({ json }) => json.current === true);
-const currentStateCouncilMembers = currentMembers.filter(({ json }) =>
-  (json.currentOffices ?? []).some((office) => /Staatsrat|Staatsrätin|Staatspräsident/u.test(office.title)),
-);
-if (currentStateCouncilMembers.length !== 10) {
-  addProblem(join(contentRoot, 'regierung', 'mitglieder'), `muss nach Barlows Entlassung zehn aktive Mitglieder des ersten Staatsrates enthalten, gefunden: ${currentStateCouncilMembers.length}`);
+const legacyGovernmentFields = ['amt', 'ressort', 'reihenfolge', 'current', 'servingFrom', 'servingTo', 'currentOffices', 'formerOffices', 'appointmentSource'];
+for (const { file, json } of governmentMemberRecords) {
+  for (const field of legacyGovernmentFields) {
+    if (Object.hasOwn(json, field)) addProblem(file, `${field} wird aus content/organisation abgeleitet und darf nicht im Personenprofil gepflegt werden`);
+  }
 }
-if (currentMembers.some(({ json }) => json.slug === 'mia-wollrath')) {
-  addProblem(join(contentRoot, 'regierung', 'mitglieder', 'mia-wollrath.json'), 'darf nicht als aktuelles Kabinettsmitglied geführt werden');
-}
-const expectedLeaders = new Map([
-  ['inneres-bau-und-kommunale-angelegenheiten', 'Volker Bagdadi'],
-  ['umwelt-energie-und-klimaschutz', 'Yannik Schmäle'],
-  ['grenzschutz-faschismusbekaempfung-und-bewaffnete-organe', 'Yannik Schmäle'],
-]);
 for (const { file, json } of ministryRecords) {
-  const matchingLeaders = currentMembers.filter(({ json: member }) => json.leitung?.includes(member.name));
-  if (matchingLeaders.length !== 1) addProblem(file, `muss genau eine aktive Leitung haben, gefunden: ${matchingLeaders.length}`);
-  const expectedLeader = expectedLeaders.get(json.slug);
-  if (expectedLeader && !json.leitung?.includes(expectedLeader)) addProblem(file, `aktuelle Leitung muss ${expectedLeader} sein`);
-}
-const emma = currentMembers.find(({ json }) => json.slug === 'emma-mueller')?.json;
-if (!emma || emma.amt !== 'Chefin der Staatskanzlei') {
-  addProblem(join(contentRoot, 'regierung', 'mitglieder', 'emma-mueller.json'), 'muss getrennt als Chefin der Staatskanzlei geführt werden');
-}
-if (currentMembers.some(({ json }) => json.slug === 'thomas-henry-barlow')) {
-  addProblem(join(contentRoot, 'regierung', 'mitglieder', 'thomas-henry-barlow.json'), 'darf nach der Entlassung am 20. Juli 2026 nicht aktuell sein');
-}
-const schmaele = currentMembers.find(({ json }) => json.slug === 'yannik-schmaele')?.json;
-const schmaeleOffices = new Set((schmaele?.currentOffices ?? []).map((office) => office.ministry));
-for (const ministry of ['Staatssekretariat für Nachhaltigkeit und Energie', 'Staatssekretariat für Staats- und Grenzsicherheit']) {
-  if (!schmaeleOffices.has(ministry)) addProblem(join(contentRoot, 'regierung', 'mitglieder', 'yannik-schmaele.json'), `aktueller Geschäftsbereich fehlt: ${ministry}`);
+  if (Object.hasOwn(json, 'leitung')) addProblem(file, 'leitung wird aus content/organisation abgeleitet und darf nicht im Ressortprofil gepflegt werden');
+  for (const link of json.verknuepfteLinks ?? []) {
+    if (/^\/staatsregierung\/mitglieder\//u.test(link.href ?? '')) {
+      addProblem(file, 'Leitungsprofile werden aus content/organisation abgeleitet und dürfen nicht als Ressortlink gepflegt werden');
+    }
+  }
 }
 
 for (let issue = 46; issue <= 58; issue += 1) {

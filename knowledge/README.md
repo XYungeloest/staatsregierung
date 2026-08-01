@@ -10,6 +10,8 @@ Diese Dateien bilden einen internen, nicht öffentlich ausgelieferten Wissenshub
 `knowledge/` enthält Querverbindungen, Rollenchronologien, Zustände, Projekte, Verfahren, Konflikte und Suchkandidaten.
 
 Der Wissenshub ist keine zweite Website und kein Ersatz für das Rechtsportal. Normvolltexte und öffentliche Seiten werden nicht kopiert.
+Aktuelle Regierungsbesetzungen werden in `content/organisation/` kanonisch gepflegt; Knowledge-Einträge
+referenzieren diese IDs und Quellen, ergänzen aber weiterhin Provenienz, Zusammenhänge und Zeiträume.
 
 ## Einstieg
 

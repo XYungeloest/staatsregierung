@@ -7,9 +7,12 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "content:check": "node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/revosax-snapshot.mjs audit && node scripts/audit-consolidation.mjs --check && node scripts/check-content.mjs && node scripts/knowledge.mjs check",
+    "content:check": "node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/revosax-snapshot.mjs audit && node scripts/audit-consolidation.mjs --check && node --experimental-strip-types scripts/check-organization.ts && node scripts/check-content.mjs && node scripts/knowledge.mjs check",
+    "content:migrate-editorial-v2": "node scripts/migrate-editorial-v2.mjs",
+    "content:migrate-dashboard": "node --experimental-strip-types scripts/migrate-dashboard-content.ts",
     "knowledge:check": "node scripts/knowledge.mjs check",
     "knowledge:build": "node scripts/knowledge.mjs build",
+    "knowledge:migrate-editorial-v2": "node scripts/migrate-knowledge-organization.mjs",
     "norms:audit": "node scripts/import-normen.mjs --source-dir Gesetze",
     "norms:import": "node scripts/import-normen.mjs --source-dir Gesetze",
     "norms:consolidation:audit": "node scripts/audit-consolidation.mjs",
@@ -37,6 +40,9 @@
     "preview": "astro preview",
     "deploy": "wrangler deploy",
     "deploy:staging": "wrangler deploy --env staging",
+    "editorial:dev": "wrangler dev --config wrangler.editorial.jsonc --env local",
+    "editorial:check": "wrangler deploy --dry-run --config wrangler.editorial.jsonc --env=\"\" --outdir .wrangler/editorial-dry-run",
+    "editorial:deploy": "wrangler deploy --config wrangler.editorial.jsonc",
     "astro": "astro"
   },
   "dependencies": {

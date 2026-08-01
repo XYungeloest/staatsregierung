@@ -77,12 +77,9 @@
       "date": "2026-07-21",
       "status": "primary",
       "scope": [
-        "government",
-        "parliament",
-        "parties",
         "website"
       ],
-      "notes": "Aktueller Regierungsstand, Koalition und Portalkonfiguration."
+      "notes": "Technische Portalkonfiguration; keine Quelle für Regierungsbesetzungen."
     },
     {
       "id": "source-staatsaufbau",
@@ -140,7 +137,7 @@
     {
       "id": "source-government-timeline",
       "type": "structured-content",
-      "path": "src/data/dashboard/timeline.ts",
+      "path": "content/dashboard/timeline.json",
       "title": "Portal-Timeline",
       "date": "2026-07-21",
       "status": "secondary",
@@ -155,7 +152,7 @@
     {
       "id": "source-action-plan",
       "type": "structured-content",
-      "path": "src/data/dashboard/action-plan.ts",
+      "path": "content/dashboard/action-plan.json",
       "title": "15-Punkte-Plan II, Dashboarddaten",
       "date": "2026-07-21",
       "status": "secondary",
@@ -927,6 +924,47 @@
         "ndr"
       ],
       "notes": "Veröffentlichung des NDR-Änderungs- und Überleitungsstaatsvertrags."
+    },
+    {
+      "id": "source-organization-governments",
+      "type": "structured-content",
+      "path": "content/organisation/governments.json",
+      "title": "Regierungen und Kabinette",
+      "date": "2026-07-31",
+      "status": "primary",
+      "scope": [
+        "government",
+        "parliament",
+        "coalitions"
+      ],
+      "notes": "Kanonische zeitliche Definition der Regierungen und Kabinette."
+    },
+    {
+      "id": "source-organization-offices",
+      "type": "structured-content",
+      "path": "content/organisation/offices.json",
+      "title": "Ämter und Funktionen",
+      "date": "2026-07-31",
+      "status": "primary",
+      "scope": [
+        "government",
+        "institutions"
+      ],
+      "notes": "Kanonische Definition von Ämtern, Funktionen und Exklusivität."
+    },
+    {
+      "id": "source-organization-assignments",
+      "type": "structured-content",
+      "path": "content/organisation/assignments.json",
+      "title": "Zeitliche Amts- und Ressortzuweisungen",
+      "date": "2026-07-31",
+      "status": "primary",
+      "scope": [
+        "government",
+        "persons",
+        "institutions"
+      ],
+      "notes": "Kanonische Quelle für aktuelle und historische Besetzungen sowie Ressortleitungen."
     }
   ]
 }
