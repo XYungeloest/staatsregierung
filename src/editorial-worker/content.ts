@@ -69,7 +69,8 @@ async function parseCollection<T>(
   revision: string,
 ): Promise<T[]> {
   const paths = (await repository.listFiles(prefix, revision)).filter((path) => path.endsWith('.json'));
-  return Promise.all(paths.map(async (path) => parser(parseJson(await repository.readFile(path, revision), path), path)));
+  const files = await repository.readFiles(paths, revision);
+  return paths.map((path) => parser(parseJson(files[path], path), path));
 }
 
 async function assertReferences(

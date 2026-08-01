@@ -38,6 +38,7 @@ export interface EditorialSubmissionResult {
 export interface EditorialRepository {
   getBaseRevision(): Promise<string>;
   readFile(path: string, revision?: string): Promise<string | undefined>;
+  readFiles(paths: string[], revision?: string): Promise<Record<string, string | undefined>>;
   listFiles(prefix: string, revision?: string): Promise<string[]>;
   submit(submission: EditorialSubmission): Promise<EditorialSubmissionResult>;
 }
@@ -76,10 +77,50 @@ function decodeBase64(value: string): string {
   return new TextDecoder().decode(Uint8Array.from(atob(value.replace(/\s/gu, '')), (character) => character.charCodeAt(0)));
 }
 
-function privateKeyBytes(pem: string): Uint8Array {
-  const normalized = pem.replace(/\\n/gu, '\n').replace(/-----BEGIN PRIVATE KEY-----|-----END PRIVATE KEY-----|\s/gu, '');
+function joinBytes(...parts: Uint8Array[]): Uint8Array {
+  const result = new Uint8Array(parts.reduce((sum, part) => sum + part.length, 0));
+  let offset = 0;
+  for (const part of parts) {
+    result.set(part, offset);
+    offset += part.length;
+  }
+  return result;
+}
+
+function derLength(length: number): Uint8Array {
+  if (length < 0x80) return Uint8Array.of(length);
+  const bytes: number[] = [];
+  for (let value = length; value > 0; value >>>= 8) bytes.unshift(value & 0xff);
+  return Uint8Array.of(0x80 | bytes.length, ...bytes);
+}
+
+function derValue(tag: number, content: Uint8Array): Uint8Array {
+  return joinBytes(Uint8Array.of(tag), derLength(content.length), content);
+}
+
+function pkcs1ToPkcs8(pkcs1: Uint8Array): Uint8Array {
+  const version = Uint8Array.of(0x02, 0x01, 0x00);
+  const rsaAlgorithm = Uint8Array.of(
+    0x30, 0x0d,
+    0x06, 0x09, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0x0d, 0x01, 0x01, 0x01,
+    0x05, 0x00,
+  );
+  return derValue(0x30, joinBytes(version, rsaAlgorithm, derValue(0x04, pkcs1)));
+}
+
+function decodePemBody(body: string): Uint8Array {
+  const normalized = body.replace(/\s/gu, '');
   if (!normalized) throw new GitHubAdapterError('Der private Schlüssel der GitHub App ist leer.', 'configuration', 503);
   return Uint8Array.from(atob(normalized), (character) => character.charCodeAt(0));
+}
+
+function privateKeyBytes(pem: string): Uint8Array {
+  const normalized = pem.replace(/\\n/gu, '\n').trim();
+  const pkcs8 = normalized.match(/-----BEGIN PRIVATE KEY-----([\s\S]+?)-----END PRIVATE KEY-----/u);
+  if (pkcs8) return decodePemBody(pkcs8[1]);
+  const pkcs1 = normalized.match(/-----BEGIN RSA PRIVATE KEY-----([\s\S]+?)-----END RSA PRIVATE KEY-----/u);
+  if (pkcs1) return pkcs1ToPkcs8(decodePemBody(pkcs1[1]));
+  throw new GitHubAdapterError('Der private Schlüssel der GitHub App hat kein unterstütztes PEM-Format.', 'configuration', 503);
 }
 
 function assertConfiguration(env: GitHubEditorialEnv): asserts env is GitHubEditorialEnv & Required<Pick<GitHubEditorialEnv, 'GITHUB_APP_ID' | 'GITHUB_APP_INSTALLATION_ID' | 'GITHUB_APP_PRIVATE_KEY' | 'GITHUB_OWNER' | 'GITHUB_REPOSITORY'>> {
@@ -95,6 +136,7 @@ interface GitHubResponseError {
 
 export class GitHubAppRepository implements EditorialRepository {
   private installationToken?: { value: string; expiresAt: number };
+  private readonly treeCache = new Map<string, Promise<string[]>>();
   private readonly baseUrl = 'https://api.github.com';
 
   private readonly env: GitHubEditorialEnv;
@@ -134,7 +176,8 @@ export class GitHubAppRepository implements EditorialRepository {
     if (!force && this.installationToken && this.installationToken.expiresAt > Date.now() + 60_000) {
       return this.installationToken.value;
     }
-    const response = await this.fetcher(`${this.baseUrl}/app/installations/${this.env.GITHUB_APP_INSTALLATION_ID}/access_tokens`, {
+    const fetchRequest = this.fetcher;
+    const response = await fetchRequest(`${this.baseUrl}/app/installations/${this.env.GITHUB_APP_INSTALLATION_ID}/access_tokens`, {
       method: 'POST',
       headers: {
         accept: 'application/vnd.github+json',
@@ -153,7 +196,8 @@ export class GitHubAppRepository implements EditorialRepository {
 
   private async request<T>(path: string, init: RequestInit = {}, retry = true): Promise<T> {
     const token = await this.getInstallationToken();
-    const response = await this.fetcher(`${this.baseUrl}${path}`, {
+    const fetchRequest = this.fetcher;
+    const response = await fetchRequest(`${this.baseUrl}${path}`, {
       ...init,
       headers: {
         accept: 'application/vnd.github+json',
@@ -203,10 +247,41 @@ export class GitHubAppRepository implements EditorialRepository {
     }
   }
 
+  async readFiles(paths: string[], revision = this.baseBranch): Promise<Record<string, string | undefined>> {
+    const uniquePaths = [...new Set(paths)];
+    const result: Record<string, string | undefined> = {};
+    for (let offset = 0; offset < uniquePaths.length; offset += 50) {
+      const chunk = uniquePaths.slice(offset, offset + 50);
+      const fields = chunk.map((path, index) =>
+        `f${index}: object(expression: ${JSON.stringify(`${revision}:${path}`)}) { ... on Blob { text isBinary } }`,
+      ).join('\n');
+      const response = await this.request<{
+        data?: { repository?: Record<string, { text?: string | null; isBinary?: boolean } | null> };
+        errors?: Array<{ message?: string }>;
+      }>('/graphql', {
+        method: 'POST',
+        body: JSON.stringify({ query: `query { repository(owner: ${JSON.stringify(this.owner)}, name: ${JSON.stringify(this.repository)}) { ${fields} } }` }),
+      });
+      if (response.errors?.length) throw new GitHubAdapterError(`GitHub GraphQL: ${response.errors[0].message ?? 'Dateien konnten nicht gelesen werden.'}`, 'api');
+      const repository = response.data?.repository;
+      if (!repository) throw new GitHubAdapterError('GitHub GraphQL lieferte kein Repository.', 'api');
+      chunk.forEach((path, index) => {
+        const blob = repository[`f${index}`];
+        result[path] = blob && !blob.isBinary && typeof blob.text === 'string' ? blob.text : undefined;
+      });
+    }
+    return result;
+  }
+
   async listFiles(prefix: string, revision?: string): Promise<string[]> {
     const sha = revision ?? await this.getBaseRevision();
-    const tree = await this.request<{ tree: Array<{ path: string; type: string }> }>(`/repos/${this.owner}/${this.repository}/git/trees/${sha}?recursive=1`);
-    return tree.tree.filter((entry) => entry.type === 'blob' && entry.path.startsWith(prefix)).map((entry) => entry.path).sort();
+    let paths = this.treeCache.get(sha);
+    if (!paths) {
+      paths = this.request<{ tree: Array<{ path: string; type: string }> }>(`/repos/${this.owner}/${this.repository}/git/trees/${sha}?recursive=1`)
+        .then((tree) => tree.tree.filter((entry) => entry.type === 'blob').map((entry) => entry.path).sort());
+      this.treeCache.set(sha, paths);
+    }
+    return (await paths).filter((path) => path.startsWith(prefix));
   }
 
   async submit(submission: EditorialSubmission): Promise<EditorialSubmissionResult> {
@@ -307,6 +382,9 @@ export class MemoryEditorialRepository implements EditorialRepository {
 
   async getBaseRevision(): Promise<string> { return this.revision; }
   async readFile(path: string): Promise<string | undefined> { return this.files.get(path); }
+  async readFiles(paths: string[]): Promise<Record<string, string | undefined>> {
+    return Object.fromEntries(paths.map((path) => [path, this.files.get(path)]));
+  }
   async listFiles(prefix: string): Promise<string[]> { return [...this.files.keys()].filter((path) => path.startsWith(prefix)).sort(); }
 
   async submit(submission: EditorialSubmission): Promise<EditorialSubmissionResult> {
