@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-29",
+  "asOf": "2026-08-01",
   "candidates": [
     {
       "id": "candidate-honecker-biography",
@@ -260,34 +260,35 @@
     {
       "id": "candidate-acting-federal-president",
       "title": "Vertretung der Bundespräsidentin durch den Bundesratspräsidenten",
-      "status": "unverified",
+      "status": "superseded",
       "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Eine zeitweise Vertretung der Bundespräsidentin und die Vornahme von Ernennungs-, Entlassungs- und Verkündungsakten werden redaktionell behauptet; Zeitraum, Anlass und Einzelakte sind mangels angekündigtem Wikiartikel beziehungsweise Primärquelle weiterhin offen.",
+      "validTo": "2026-08-01",
+      "asOf": "2026-08-01",
+      "summary": "Der frühere allgemeine Kandidat ist durch die redaktionelle Klarstellung vom 1. August 2026 überholt: Vertretung und Gründe sind nun zeitlich modelliert; nur Einzelakte, Enddatum und formeller Verfahrensausgang bleiben offen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
           "locator": "Abschnitt Bundesebene und historische Vorgänge",
           "role": "primary"
-        }
+        },
+        {"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "corroborating"}
       ],
       "relatedIds": [
-        "person-karl-honecker"
+        "person-karl-honecker", "inst-bundespraesident", "question-honecker-federal-president-acts-and-end"
       ],
       "tags": [
         "conversation-candidate"
       ],
       "notes": [],
       "aliases": [],
-      "classification": "partly-confirmed-details-missing",
+      "classification": "promoted-details-open",
       "searchTargets": [
         "Bundespräsidialamt",
         "Bundesgesetzblatt",
         "Ernennungsurkunden"
       ],
       "priority": "high",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+      "promotionRule": "In strukturierte Wissensdaten übernommen; Detailfragen werden ausschließlich mit zusätzlichen Nachweisen ergänzt."
     },
     {
       "id": "candidate-court-cases",

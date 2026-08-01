@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-07-29",
+  "asOf": "2026-08-01",
   "persons": [
     {
       "id": "person-karl-honecker",
@@ -131,8 +131,55 @@
           "notes": [
             "Einstimmige Personenwahl nach Rücktritt des Vorgängers infolge dessen Wahl zur Bundespräsidentin."
           ]
+        },
+        {
+          "institutionId": "inst-bundespraesident",
+          "officeTitle": "Wahrnehmung der Befugnisse des Bundespräsidenten",
+          "validFrom": "2026-06-01",
+          "validTo": "2026-07-15",
+          "appointmentSource": {"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung, Phase 1"},
+          "terminationSource": {"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Rücktritt am 16. Juli 2026"},
+          "acting": true,
+          "permanent": false,
+          "predecessor": null,
+          "successor": null,
+          "representationReason": "Verhinderung der Bundespräsidentin",
+          "notes": ["Vertretung nach Artikel 57 GG; einzelne Personal- und Gesetzesakte sind nicht vollständig erschlossen."]
+        },
+        {
+          "institutionId": "inst-bundespraesident",
+          "officeTitle": "Wahrnehmung der Befugnisse des Bundespräsidenten",
+          "validFrom": "2026-07-16",
+          "validTo": null,
+          "appointmentSource": {"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Rücktritt und Vertretung, Phase 2"},
+          "terminationSource": null,
+          "acting": true,
+          "permanent": false,
+          "predecessor": null,
+          "successor": null,
+          "representationReason": "Vorzeitige Erledigung des Amtes durch Rücktritt",
+          "notes": ["Kein Enddatum belegt; die Nachfolgeperson und deren Amtsantritt sind noch nicht erschlossen."]
         }
       ]
+    },
+    {
+      "id": "person-manuela-dreyer", "title": "Manuela Dreyer", "status": "editorially-confirmed", "validFrom": "2026-05-18", "validTo": "2026-07-16", "asOf": "2026-08-01",
+      "summary": "Bundespräsidentin vom 18. Mai bis zu ihrem Rücktritt am 16. Juli 2026; erste Frau an der Spitze der Bundesrepublik Deutschland.",
+      "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl und Amtszeit", "role": "primary"}],
+      "relatedIds": ["inst-bundespraesident", "proceeding-federal-president-dreyer-impeachment"], "tags": ["person", "federal", "historical"], "notes": [], "aliases": [], "name": "Manuela Dreyer", "nameVariants": [], "partyIds": [],
+      "roles": [{"institutionId": "inst-bundespraesident", "officeTitle": "Bundespräsidentin", "validFrom": "2026-05-18", "validTo": "2026-07-16", "appointmentSource": {"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Amtsantritt am 18. Mai 2026"}, "terminationSource": {"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Rücktritt am 16. Juli 2026"}, "acting": false, "permanent": true, "predecessor": "Liam Flüsterbein", "successor": null, "notes": []}]
+    },
+    {
+      "id": "person-liam-fluesterbein", "title": "Liam Flüsterbein", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Vorgänger Manuela Dreyers im Bundespräsidentenamt und Antragsteller der Präsidentenanklage.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl und Präsidentenanklage", "role": "primary"}], "relatedIds": ["proceeding-federal-president-dreyer-impeachment"], "tags": ["person", "federal"], "notes": [], "aliases": [], "name": "Liam Flüsterbein", "nameVariants": [], "partyIds": [], "roles": []
+    },
+    {
+      "id": "person-liam-von-starnberg", "title": "Liam von Starnberg", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Bundestagspräsident, der die Anklageschrift am 12. Juli 2026 beim Bundesverfassungsgericht einreichte.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["inst-deutscher-bundestag", "proceeding-federal-president-dreyer-impeachment"], "tags": ["person", "federal"], "notes": [], "aliases": [], "name": "Liam von Starnberg", "nameVariants": [], "partyIds": [], "roles": []
+    },
+    {
+      "id": "person-felix-von-luxemburg-vorarlberg", "title": "Felix von Luxemburg-Vorarlberg", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Laut redaktioneller Quelle Präsident des Bundesverfassungsgerichts im Präsidentenanklageverfahren.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["inst-bundesverfassungsgericht"], "tags": ["person", "federal"], "notes": [], "aliases": [], "name": "Felix von Luxemburg-Vorarlberg", "nameVariants": [], "partyIds": [], "roles": []
+    },
+    {
+      "id": "person-tom-kaufmann", "title": "Tom Kaufmann", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Veröffentlichte laut Artikel am 9. Juli 2026 Drohnenaufnahmen, die Manuela Dreyer auf einem Weingut zeigen sollen.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Aufspürung und politische Reaktion", "role": "primary"}], "relatedIds": ["event-dreyer-discovery-2026"], "tags": ["person", "media-report"], "notes": ["Sekundärquellenbericht, keine amtliche Feststellung."], "aliases": [], "name": "Tom Kaufmann", "nameVariants": [], "partyIds": [], "roles": []
     },
     {
       "id": "person-mateo-delgado",

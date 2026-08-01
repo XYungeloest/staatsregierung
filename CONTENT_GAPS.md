@@ -150,7 +150,9 @@ Belegt:
 - Die HTML-Ausgabe OGVBl. 2026 Nr. 53 und die konsolidierte Quelle `Staatsverfassung.html`
   enthalten in Artikel 121a übereinstimmend „Siebte Volkskammer ist der siebte Landtag. Die Wahl
   zur achten Volkskammer findet Ende August statt.“ Der frühere Markdown-Altbestand lautet an
-  dieser Stelle gleich; er wird bei vorhandenem HTML dennoch nicht importiert.
+  dieser Stelle gleich; er wird bei vorhandenem HTML dennoch nicht importiert. Redaktionell ist
+  die Wahl inzwischen verbindlich auf den 5. und 6. September 2026 festgelegt. Die Abweichung
+  zwischen Verfassungswortlaut und tatsächlicher Terminierung bleibt als echter Quellenkonflikt offen.
 - StAnzO. 2026 Nr. 13 enthält 19. Mai 2026 im Kopf beziehungsweise Inhaltsverzeichnis, 27. Mai 2026
   in der Überschrift und 19. Mai 2026 in der Unterschriftszeile. Das Ausgabedatum ist der
   27. Mai 2026.
@@ -243,8 +245,11 @@ Schlussfolgerung:
    für die noch offenen Beratungsdetails auswerten.
 4. Für die weiterhin nur als Markdown vorliegenden Altquellen schrittweise strukturierte HTML-
    Transkriptionen erstellen; bis dahin die PDF-Gegenprüfung und Legacy-Fixtures beibehalten.
-5. Klage und gerichtliche Entscheidung zum Bundesratszugangsstreit sowie den angekündigten
-   Wikiartikel zur Vertretung der Bundespräsidentin als Primär- beziehungsweise Sekundärquellen ablegen.
+5. Klage und gerichtliche Entscheidung zum Bundesratszugangsstreit sowie konkrete Ausfertigungen,
+   Ernennungs- und Entlassungsakte aus Karl Honeckers Bundespräsidentenvertretung belegen. Für die
+   Präsidentenanklage gegen Manuela Dreyer fehlen weiterhin Antrag, Anklageschrift, Rücktrittsschreiben
+   und ein amtlicher Nachweis des formellen Verfahrensabschlusses. Der Artikelinhalt selbst ist als
+   redaktionelle Klarstellung vom 1. August 2026 erfasst; Wiki-URL und Revisionskennung sind nicht belegt.
 6. Die in `data/recht/consolidation-manifest.json` aufgelisteten historischen
    REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
    sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten

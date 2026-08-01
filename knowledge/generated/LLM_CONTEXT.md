@@ -14,7 +14,7 @@ Der Freistaat wird am Stichtag durch Volkskammer, Staatsrat, Staatspräsident, V
 
 ## Aktueller Staatsrat
 
-- **Dr. Karl Honecker:** Staatspräsident; Staatsrat der Finanzen; Präsident des Bundesrates
+- **Dr. Karl Honecker:** Staatspräsident; Staatsrat der Finanzen; Präsident des Bundesrates; Wahrnehmung der Befugnisse des Bundespräsidenten
 - **Dr. Mateo Delgado:** Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation
 - **Volker Bagdadi:** Staatsrat des Innern und für Wohnungswirtschaft
 - **Tim Dieter:** Staatsrat für Völkerfreundschaft und Nachbarschaftspolitik
@@ -60,7 +60,6 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 
 ## Wichtigste historische Ereignisse
 
-- **2026-07-07: Kabinett Honecker II wird umgebildet.** Volker Bagdadi wechselt ins Innen- und Wohnungsressort; Yannik Schmäle übernimmt Nachhaltigkeit und Energie.
 - **2026-07-20: Zwölf Gesetze werden verkündet.** Die Ausgaben 46 bis 57 belegen zwölf verkündete Vorhaben; einzelne Abstimmungsergebnisse sind nicht belegt.
 - **2026-07-20: Thomas Henry Barlow scheidet aus der Staatsorganisation aus.** Thomas Henry Barlow wird entlassen und gehört dem ersten Staatsrat nicht an.
 - **2026-07-20: Vier Gesetze zur Großen Staatsreform werden verkündet.** Die vier Reformgesetze werden in OGVBl. 2026 Nr. 53 bis 56 verkündet.
@@ -70,9 +69,12 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **2026-07-28: Verwaltungsabkommen zur Grenzpolizei wird in Leipzig unterzeichnet.** Das Bundesministerium des Innern und für Heimat und der Ostdeutsche Staatsrat schließen das Verwaltungsabkommen über die Wahrnehmung grenzpolizeilicher Aufgaben.
 - **2026-07-29: Verwaltungsabkommen wird in GMBl. 2026 Nr. 14 veröffentlicht.** Das Verwaltungsabkommen wird am 29. Juli 2026 veröffentlicht und im Datenmodell ab diesem Tag als wirksam geführt. Der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz.
 - **2026-08-01: Neue Kreis- und Bezirksstruktur wird wirksam.** Vierzehn Bezirke und die neue Kreisstruktur sind nach der verkündeten Inkrafttretensregelung wirksam geworden.
+- **2026-09-05: Wahl zur achten Volkskammer.** Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.
 
 ## Laufende Verfahren und Abhängigkeiten
 
+- **Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer** (formal-outcome-unresolved): Nach dem Antrag vom 9. Juli beschloss der Bundestag am 12. Juli 2026 die Präsidentenanklage und reichte sie beim Bundesverfassungsgericht ein. Dreyer trat am 16. Juli zurück; der formelle Verfahrensausgang ist nicht belegt.
+- **Wahl zur achten Volkskammer** (scheduled): Die Wahl zur achten Volkskammer ist für den 5. und 6. September 2026 angesetzt.
 - **Übergang zur neuen Kreis- und Bezirksstruktur** (implementation): Die Neuordnung ist seit 1. August 2026 wirksam. Übergangsorgane, Rechtsnachfolge und weitere organisatorische Vollzugsschritte werden umgesetzt.
 - **Nachweis der dritten Plenarsitzung vom 20. Juli 2026** (records-missing): Verkündungen belegen zwölf beschlossene Vorhaben, aber Plenarprotokoll, Einzelabstimmungen und Stimmenzahlen fehlen.
 - **Umsetzung Boom Europe Leipzig/Halle** (implementation): Gesetzliche Grundlagen sind in Kraft; konkrete Vertrags-, Finanzierungs- und Projektorganisationsdetails müssen aus den Vollquellen weiter erschlossen werden.
@@ -83,6 +85,8 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 
 ## Bekannte Konflikte und offene Fragen
 
+- **Formeller Abschluss der Präsidentenanklage gegen Manuela Dreyer**: Weder Rücknahme, gerichtliche Einstellung, Fortsetzung noch sonstige amtliche Erledigung sind belegt.
+- **Einzelakte und Ende der Bundespräsidentenvertretung Karl Honeckers**: Einzelakte und Amtsantritt der Nachfolgeperson sind nicht dokumentiert.
 - **Welche Normen und Beschlüsse bilden OVV und 29-Euro-Ticket vollständig ab?**: Normslugs, Tarifbeschlüsse, Inkrafttreten und organisatorische Zuständigkeit sind nicht gemeinsam nachgewiesen.
 - **Welcher Rechts- und Umsetzungsstand gilt für Volksacker, Flächenfonds und Bodenfonds Ost?**: Es fehlen eindeutig zugeordnete Primärnormen und Umsetzungsschritte.
 - **Liegt ein Plenarprotokoll der Sitzung vom 20. Juli 2026 vor?**: Tagesordnung und Verkündungen ersetzen kein Plenarprotokoll.

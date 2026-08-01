@@ -2,6 +2,19 @@
   "asOf": "2026-08-01",
   "proceedings": [
     {
+      "id": "proceeding-federal-president-dreyer-impeachment", "title": "Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer", "status": "editorially-confirmed", "validFrom": "2026-07-09", "validTo": null, "asOf": "2026-08-01",
+      "summary": "Nach dem Antrag vom 9. Juli beschloss der Bundestag am 12. Juli 2026 die Präsidentenanklage und reichte sie beim Bundesverfassungsgericht ein. Dreyer trat am 16. Juli zurück; der formelle Verfahrensausgang ist nicht belegt.",
+      "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage und Rücktritt", "role": "primary"}],
+      "relatedIds": ["person-manuela-dreyer", "person-liam-fluesterbein", "person-liam-von-starnberg", "person-felix-von-luxemburg-vorarlberg", "person-karl-honecker", "person-mateo-delgado", "inst-deutscher-bundestag", "inst-bundesverfassungsgericht", "inst-bundesrat", "inst-bundespraesident", "question-dreyer-impeachment-final-disposition"],
+      "tags": ["proceeding", "federal", "constitutional-law"], "notes": ["Aktenzeichen und Abstimmungsdetails sind redaktionell bestätigt, aber nicht durch die Anklageschrift als Primärquelle belegt."], "aliases": [],
+      "proceedingType": "federal-constitutional-proceeding", "stage": "formal-outcome-unresolved", "participantIds": ["person-manuela-dreyer", "person-liam-fluesterbein", "person-liam-von-starnberg", "person-felix-von-luxemburg-vorarlberg", "person-karl-honecker", "person-mateo-delgado", "inst-deutscher-bundestag", "inst-bundesverfassungsgericht", "inst-bundesrat", "inst-bundespraesident"], "normRefs": [],
+      "decision": "Der Bundestag erreichte am 12. Juli 2026 die erforderliche Zweidrittelmehrheit; die Anklageschrift wurde beim Bundesverfassungsgericht eingereicht.", "nextAction": "Amtlichen Nachweis zum formellen Verfahrensabschluss erschließen.", "openQuestionIds": ["question-dreyer-impeachment-final-disposition"],
+      "motionDate": "2026-07-09", "parliamentaryDecisionDate": "2026-07-12", "indictmentFiledDate": "2026-07-12", "caseNumber": "7 BvD 001-26", "caseNumberEvidence": "editorially-confirmed", "hearingOriginallyScheduledOn": "2026-07-16", "hearingStatus": "postponed", "resignationDate": "2026-07-16"
+    },
+    {
+      "id": "proceeding-eighth-volkskammer-election", "title": "Wahl zur achten Volkskammer", "status": "editorially-confirmed", "validFrom": "2026-08-01", "validTo": null, "asOf": "2026-08-01", "summary": "Die Wahl zur achten Volkskammer ist für den 5. und 6. September 2026 angesetzt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl zur achten Volkskammer", "role": "primary"}], "relatedIds": ["inst-volkskammer", "event-volkskammer-election-2026"], "tags": ["proceeding", "election", "parliament"], "notes": [], "aliases": ["Wahl zur 8. Volkskammer"], "proceedingType": "election", "stage": "scheduled", "participantIds": ["inst-volkskammer"], "normRefs": [], "decision": "Wahltage sind der 5. und 6. September 2026.", "nextAction": "Durchführung der Wahl an den festgelegten Wahltagen.", "openQuestionIds": [], "electionStartDate": "2026-09-05", "electionEndDate": "2026-09-06"
+    },
+    {
       "id": "proceeding-staatsreform",
       "title": "Verfassungsänderungsverfahren Große Staatsreform",
       "status": "confirmed-primary",
