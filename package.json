@@ -42,7 +42,7 @@
     "deploy:staging": "wrangler deploy --env staging",
     "editorial:dev": "wrangler dev --config wrangler.editorial.jsonc --env local",
     "editorial:check": "wrangler deploy --dry-run --config wrangler.editorial.jsonc --env=\"\" --outdir .wrangler/editorial-dry-run",
-    "editorial:deploy": "wrangler deploy --config wrangler.editorial.jsonc",
+    "editorial:deploy": "wrangler deploy --config wrangler.editorial.jsonc --env=\"\"",
     "astro": "astro"
   },
   "dependencies": {

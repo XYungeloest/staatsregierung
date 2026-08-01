@@ -10,7 +10,9 @@ import {
   type GitHubEditorialEnv,
 } from '../src/editorial-worker/github.ts';
 
-const privateKey = generateKeyPairSync('rsa', { modulusLength: 2048 }).privateKey.export({ type: 'pkcs8', format: 'pem' }).toString();
+const testKey = generateKeyPairSync('rsa', { modulusLength: 2048 }).privateKey;
+const privateKey = testKey.export({ type: 'pkcs8', format: 'pem' }).toString();
+const githubPrivateKey = testKey.export({ type: 'pkcs1', format: 'pem' }).toString();
 const env: GitHubEditorialEnv = {
   APP_ENV: 'test',
   GITHUB_APP_ID: '123',
@@ -101,6 +103,60 @@ test('Tokenfehler der GitHub App werden eindeutig gemeldet', async () => {
   const fetcher: typeof fetch = async () => jsonResponse({ message: 'Bad credentials' }, 401);
   const repository = new GitHubAppRepository(env, fetcher);
   await assert.rejects(() => repository.getBaseRevision(), (error: unknown) => error instanceof GitHubAdapterError && error.code === 'token' && error.status === 401);
+});
+
+test('der von GitHub ausgegebene RSA-PEM-Schlüssel wird akzeptiert', async () => {
+  const fetcher: typeof fetch = async (input) => {
+    const url = String(input);
+    if (url.includes('/app/installations/')) return jsonResponse({ token: 'token', expires_at: new Date(Date.now() + 3600_000).toISOString() });
+    if (url.endsWith('/git/ref/heads/main')) return jsonResponse({ object: { sha: 'sha-base' } });
+    return jsonResponse({ message: 'Unerwartet' }, 500);
+  };
+  const repository = new GitHubAppRepository({ ...env, GITHUB_APP_PRIVATE_KEY: githubPrivateKey }, fetcher);
+  assert.equal(await repository.getBaseRevision(), 'sha-base');
+});
+
+test('der GitHub-Client ruft Worker-fetch ohne fremde this-Bindung auf', async () => {
+  const fetcher = function (this: unknown, input: RequestInfo | URL): Promise<Response> {
+    assert.equal(this, undefined);
+    const url = String(input);
+    if (url.includes('/app/installations/')) return Promise.resolve(jsonResponse({ token: 'token', expires_at: new Date(Date.now() + 3600_000).toISOString() }));
+    if (url.endsWith('/git/ref/heads/main')) return Promise.resolve(jsonResponse({ object: { sha: 'sha-base' } }));
+    return Promise.resolve(jsonResponse({ message: 'Unerwartet' }, 500));
+  } as typeof fetch;
+  assert.equal(await new GitHubAppRepository(env, fetcher).getBaseRevision(), 'sha-base');
+});
+
+test('Dateilisten werden gecacht und redaktionelle JSON-Dateien gebündelt gelesen', async () => {
+  let treeRequests = 0;
+  let graphRequests = 0;
+  const fetcher: typeof fetch = async (input, init = {}) => {
+    const url = String(input);
+    if (url.includes('/app/installations/')) return jsonResponse({ token: 'token', expires_at: new Date(Date.now() + 3600_000).toISOString() });
+    if (url.endsWith('/git/ref/heads/main')) return jsonResponse({ object: { sha: 'sha-base' } });
+    if (url.includes('/git/trees/sha-base')) {
+      treeRequests += 1;
+      return jsonResponse({ tree: [
+        { path: 'content/regierung/mitglieder/a.json', type: 'blob' },
+        { path: 'content/ressorts/b.json', type: 'blob' },
+      ] });
+    }
+    if (url.endsWith('/graphql')) {
+      graphRequests += 1;
+      assert.match(String(init.body), /content\/regierung\/mitglieder\/a\.json/u);
+      return jsonResponse({ data: { repository: { f0: { text: '{"slug":"a"}', isBinary: false } } } });
+    }
+    return jsonResponse({ message: 'Unerwartet' }, 500);
+  };
+  const repository = new GitHubAppRepository(env, fetcher);
+  const revision = await repository.getBaseRevision();
+  assert.deepEqual(await repository.listFiles('content/regierung/', revision), ['content/regierung/mitglieder/a.json']);
+  assert.deepEqual(await repository.listFiles('content/ressorts/', revision), ['content/ressorts/b.json']);
+  assert.deepEqual(await repository.readFiles(['content/regierung/mitglieder/a.json'], revision), {
+    'content/regierung/mitglieder/a.json': '{"slug":"a"}',
+  });
+  assert.equal(treeRequests, 1);
+  assert.equal(graphRequests, 1);
 });
 
 test('bei einem Basiswechsel nach den Blob-Uploads entsteht kein Teil-Commit', async () => {

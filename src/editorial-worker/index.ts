@@ -124,16 +124,17 @@ async function listContent(repository: EditorialRepository, type: EditorialConte
   if (definition.singletonPath) return json({ items: [{ slug: definition.id, label: definition.label }] });
   const revision = await repository.getBaseRevision();
   const paths = (await repository.listFiles(`${definition.directory}/`, revision)).filter((path) => path.endsWith('.json'));
-  const items = await Promise.all(paths.map(async (path) => {
+  const files = await repository.readFiles(paths, revision);
+  const items = paths.map((path) => {
     const slug = path.split('/').pop()!.replace(/\.json$/u, '');
-    const raw = await repository.readFile(path, revision);
+    const raw = files[path];
     let label = slug;
     try {
       const value = JSON.parse(raw ?? '{}') as Record<string, unknown>;
       label = String(value.title ?? value.name ?? value.kurzname ?? slug);
     } catch { /* Die Inhaltsvalidierung meldet beschädigte Dateien beim Öffnen. */ }
     return { slug, label };
-  }));
+  });
   return json({ items: items.sort((left, right) => left.label.localeCompare(right.label, 'de')) });
 }
 
@@ -141,12 +142,13 @@ async function loadOptions(repository: EditorialRepository): Promise<Response> {
   const revision = await repository.getBaseRevision();
   async function collection(prefix: string, labelKeys: string[]): Promise<Array<{ value: string; label: string }>> {
     const paths = (await repository.listFiles(prefix, revision)).filter((path) => path.endsWith('.json'));
-    return Promise.all(paths.map(async (path) => {
-      const value = JSON.parse(await repository.readFile(path, revision) ?? '{}') as Record<string, unknown>;
+    const files = await repository.readFiles(paths, revision);
+    return paths.map((path) => {
+      const value = JSON.parse(files[path] ?? '{}') as Record<string, unknown>;
       const slug = String(value.slug ?? path.split('/').pop()!.replace(/\.json$/u, ''));
       const label = labelKeys.map((key) => value[key]).find((entry) => typeof entry === 'string') ?? slug;
       return { value: slug, label: String(label) };
-    }));
+    });
   }
   const [persons, ministries, topics, images, governmentsRaw, officesRaw, normFiles] = await Promise.all([
     collection('content/regierung/mitglieder/', ['name']),
