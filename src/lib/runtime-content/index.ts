@@ -1,9 +1,9 @@
 import { parseNormMeta } from '../norms/schema.ts';
 import { toDisplayText } from '../norms/presentation.ts';
 import {
-  parseMinisterium,
+  parseMinisteriumProfil,
   parseRede,
-  parseRegierungMitglied,
+  parseRegierungProfil,
   parseSeite,
   parseThemenseite,
   type Ministerium,
@@ -12,6 +12,18 @@ import {
   type Seite,
   type Themenseite,
 } from '../portal/schema.ts';
+import {
+  deriveGovernmentMember,
+  deriveMinistry,
+  parseGovernmentAssignments,
+  parseGovernmentOffices,
+  parseGovernments,
+  validateOrganization,
+} from '../portal/organization.ts';
+import { PORTAL_REFERENCE_DATE } from '../portal/dates.ts';
+import governmentsData from '../../../content/organisation/governments.json';
+import officesData from '../../../content/organisation/offices.json';
+import assignmentsData from '../../../content/organisation/assignments.json';
 
 interface RuntimeTopicSummary {
   slug: string;
@@ -78,12 +90,25 @@ const runtimeServicePages = Object.entries(servicePageModules)
   .map(([filePath, value]) => parseSeite(value, toContentPath(filePath)))
   .sort((left, right) => left.title.localeCompare(right.title, 'de'));
 
-const runtimeMinistries = Object.entries(ministryModules)
-  .map(([filePath, value]) => parseMinisterium(value, toContentPath(filePath)))
+const runtimeMinistryProfiles = Object.entries(ministryModules)
+  .map(([filePath, value]) => parseMinisteriumProfil(value, toContentPath(filePath)));
+
+const runtimeGovernmentProfiles = Object.entries(governmentMemberModules)
+  .map(([filePath, value]) => parseRegierungProfil(value, toContentPath(filePath)));
+
+const runtimeOrganization = {
+  governments: parseGovernments(governmentsData),
+  offices: parseGovernmentOffices(officesData),
+  assignments: parseGovernmentAssignments(assignmentsData),
+};
+validateOrganization(runtimeOrganization, runtimeGovernmentProfiles, runtimeMinistryProfiles, PORTAL_REFERENCE_DATE);
+
+const runtimeMinistries = runtimeMinistryProfiles
+  .map((ministry) => deriveMinistry(ministry, runtimeOrganization, runtimeGovernmentProfiles, PORTAL_REFERENCE_DATE))
   .sort((left, right) => left.name.localeCompare(right.name, 'de'));
 
-const runtimeGovernmentMembers = Object.entries(governmentMemberModules)
-  .map(([filePath, value]) => parseRegierungMitglied(value, toContentPath(filePath)))
+const runtimeGovernmentMembers = runtimeGovernmentProfiles
+  .map((profile) => deriveGovernmentMember(profile, runtimeOrganization, runtimeMinistryProfiles, PORTAL_REFERENCE_DATE))
   .sort((left, right) => left.reihenfolge - right.reihenfolge);
 
 const runtimeNormSummaries = Object.entries(normMetaModules).map(([filePath, value]) => {

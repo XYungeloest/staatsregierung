@@ -3,23 +3,40 @@ import { readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
 import { portalCollections } from './collections.ts';
-import { isCurrentOrFuture } from './dates.ts';
+import { isCurrentOrFuture, PORTAL_REFERENCE_DATE } from './dates.ts';
+import {
+  deriveCurrentGovernment,
+  deriveGovernmentMember,
+  deriveMinistry,
+  parseGovernmentAssignments,
+  parseGovernmentOffices,
+  parseGovernments,
+  validateOrganization,
+  type CurrentGovernmentState,
+  type OrganizationData,
+} from './organization.ts';
 import {
   parseHaushaltsseite,
+  parseHomeContent,
+  parseCabinetPageContent,
   PortalContentValidationError,
   parseRede,
-  parseMinisterium,
+  parseMinisteriumProfil,
   parsePressemitteilung,
-  parseRegierungMitglied,
+  parseRegierungProfil,
   parseSeite,
   parseStellenangebot,
   parseTermin,
   parseThemenseite,
   type Haushaltsseite,
+  type HomeContent,
+  type CabinetPageContent,
   type Ministerium,
+  type MinisteriumProfil,
   type Pressemitteilung,
   type Rede,
   type RegierungMitglied,
+  type RegierungProfil,
   type Seite,
   type Stellenangebot,
   type Termin,
@@ -77,34 +94,84 @@ async function loadCollection<T>(
   return entries;
 }
 
-export async function loadGovernmentMembers(): Promise<RegierungMitglied[]> {
-  const entries = await loadCollection(
+export async function loadGovernmentProfiles(): Promise<RegierungProfil[]> {
+  return loadCollection(
     portalCollections.regierungMitglied.directorySegments,
-    parseRegierungMitglied,
+    parseRegierungProfil,
   );
-  return entries.sort((left, right) => left.reihenfolge - right.reihenfolge);
 }
 
-export async function loadCurrentGovernmentMembers(): Promise<RegierungMitglied[]> {
-  const entries = await loadGovernmentMembers();
+export async function loadMinistryProfiles(): Promise<MinisteriumProfil[]> {
+  return loadCollection(portalCollections.ressort.directorySegments, parseMinisteriumProfil);
+}
+
+export async function loadOrganizationData(): Promise<OrganizationData> {
+  const organizationRoot = join(CONTENT_ROOT, 'organisation');
+  const [governmentsValue, officesValue, assignmentsValue] = await Promise.all([
+    readJsonFile(join(organizationRoot, 'governments.json')),
+    readJsonFile(join(organizationRoot, 'offices.json')),
+    readJsonFile(join(organizationRoot, 'assignments.json')),
+  ]);
+  return {
+    governments: parseGovernments(governmentsValue),
+    offices: parseGovernmentOffices(officesValue),
+    assignments: parseGovernmentAssignments(assignmentsValue),
+  };
+}
+
+async function loadOrganizationContext(referenceDate = PORTAL_REFERENCE_DATE) {
+  const [organization, profiles, ministries] = await Promise.all([
+    loadOrganizationData(),
+    loadGovernmentProfiles(),
+    loadMinistryProfiles(),
+  ]);
+  validateOrganization(organization, profiles, ministries, referenceDate);
+  return { organization, profiles, ministries };
+}
+
+export async function loadGovernmentMembers(referenceDate = PORTAL_REFERENCE_DATE): Promise<RegierungMitglied[]> {
+  const { organization, profiles, ministries } = await loadOrganizationContext(referenceDate);
+  return profiles
+    .map((profile) => deriveGovernmentMember(profile, organization, ministries, referenceDate))
+    .sort((left, right) => left.reihenfolge - right.reihenfolge || left.name.localeCompare(right.name, 'de'));
+}
+
+export async function loadCurrentGovernmentMembers(referenceDate = PORTAL_REFERENCE_DATE): Promise<RegierungMitglied[]> {
+  const entries = await loadGovernmentMembers(referenceDate);
   return entries.filter((entry) => entry.current);
 }
 
 export async function loadGovernmentMemberBySlug(
   slug: string,
+  referenceDate = PORTAL_REFERENCE_DATE,
 ): Promise<RegierungMitglied | undefined> {
-  const entries = await loadGovernmentMembers();
+  const entries = await loadGovernmentMembers(referenceDate);
   return entries.find((entry) => entry.slug === slug);
 }
 
-export async function loadMinistries(): Promise<Ministerium[]> {
-  const entries = await loadCollection(portalCollections.ressort.directorySegments, parseMinisterium);
-  return entries.sort((left, right) => left.name.localeCompare(right.name, 'de'));
+export async function loadMinistries(referenceDate = PORTAL_REFERENCE_DATE): Promise<Ministerium[]> {
+  const { organization, profiles, ministries } = await loadOrganizationContext(referenceDate);
+  return ministries
+    .map((ministry) => deriveMinistry(ministry, organization, profiles, referenceDate))
+    .sort((left, right) => left.name.localeCompare(right.name, 'de'));
 }
 
-export async function loadMinistryBySlug(slug: string): Promise<Ministerium | undefined> {
-  const entries = await loadMinistries();
+export async function loadMinistryBySlug(slug: string, referenceDate = PORTAL_REFERENCE_DATE): Promise<Ministerium | undefined> {
+  const entries = await loadMinistries(referenceDate);
   return entries.find((entry) => entry.slug === slug);
+}
+
+export async function loadCurrentGovernment(referenceDate = PORTAL_REFERENCE_DATE): Promise<CurrentGovernmentState> {
+  const { organization, profiles, ministries } = await loadOrganizationContext(referenceDate);
+  return deriveCurrentGovernment(organization, profiles, ministries, referenceDate);
+}
+
+export async function loadHomeContent(): Promise<HomeContent> {
+  return parseHomeContent(await readJsonFile(join(CONTENT_ROOT, 'portal', 'home.json')));
+}
+
+export async function loadCabinetPageContent(): Promise<CabinetPageContent> {
+  return parseCabinetPageContent(await readJsonFile(join(CONTENT_ROOT, 'regierung', 'cabinet-page.json')));
 }
 
 export async function loadPressReleases(): Promise<Pressemitteilung[]> {

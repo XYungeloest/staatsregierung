@@ -1,0 +1,89 @@
+{
+  "hero": {
+    "eyebrow": "Regierungsportal des Ostdeutschen Freistaates",
+    "title": "Schnell zur richtigen Information",
+    "lead": "Finden Sie Gesetze, Reformvorhaben, Haushaltsdaten, Pressemitteilungen und die zuständigen Ressorts.",
+    "image": "/images/ministerien/staatskanzlei.jpg",
+    "imageAlt": "Blick über die Elbe auf das Regierungsviertel in Dresden",
+    "searchLabel": "Womit können wir Ihnen helfen?",
+    "searchPlaceholder": "z. B. Kreisreform, Verfassung, Haushalt, Ressort oder Pressemitteilung"
+  },
+  "portalAccesses": [
+    {
+      "title": "Recht & Vorschriften",
+      "description": "Gesetze, Fassungen und Verkündungen durchsuchen",
+      "href": "/recht/",
+      "icon": "law"
+    },
+    {
+      "title": "Themen & Reformen",
+      "description": "Politische Vorhaben, Umsetzung und nächste Schritte",
+      "href": "/themen/",
+      "icon": "topics"
+    },
+    {
+      "title": "Kreisreform",
+      "description": "Gemeinden, geltende Kreise und Bezirke finden",
+      "href": "/kreisreform/",
+      "icon": "map"
+    },
+    {
+      "title": "Haushalt",
+      "description": "Ausgaben, Einzelpläne und Sondervermögen",
+      "href": "/haushalt/",
+      "icon": "budget"
+    },
+    {
+      "title": "Staatsrat",
+      "description": "Mitglieder, Geschäftsbereiche und politische Vorhaben",
+      "href": "/staatsregierung/",
+      "icon": "government"
+    },
+    {
+      "title": "Staatssekretariate",
+      "description": "Geschäftsbereiche, Zuständigkeiten und Kontaktwege",
+      "href": "/staatsregierung/kabinett/",
+      "icon": "ministry"
+    },
+    {
+      "title": "Presse & Termine",
+      "description": "Mitteilungen, Reden, Termine, RSS und Kalender",
+      "href": "/presse/",
+      "icon": "press"
+    }
+  ],
+  "importantItems": [
+    {
+      "id": "kreisreform",
+      "title": "Kreis- und Bezirksreform 2026",
+      "description": "Neue Gebietsstruktur seit 1. August 2026 in Kraft",
+      "href": "/kreisreform/",
+      "icon": "map"
+    },
+    {
+      "id": "aktuelle-regierung",
+      "governmentSlug": "erster-staatsrat",
+      "href": "/staatsregierung/",
+      "icon": "government"
+    },
+    {
+      "id": "gesetze-juli-2026",
+      "title": "Gesetze vom 20. Juli 2026",
+      "description": "Zwölf Vorhaben beschlossen und verkündet",
+      "href": "/presse/termine/dritte-plenarsitzung-7-landtag/",
+      "icon": "press"
+    },
+    {
+      "id": "doppelhaushalt-2025-2026",
+      "title": "Doppelhaushalt 2025/2026",
+      "description": "Kennzahlen, Einzelpläne und Vergleiche",
+      "href": "/haushalt/",
+      "icon": "budget"
+    }
+  ],
+  "featuredTopicSlugs": [
+    "bildungsreform",
+    "energie-und-klima",
+    "wohnen-und-vergesellschaftung"
+  ]
+}

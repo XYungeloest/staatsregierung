@@ -461,8 +461,8 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment.predecessor",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat].predecessor",
           "role": "corroborating"
         }
       ],
@@ -528,8 +528,8 @@
       "summary": "Die Portalquellen führen seit 5. Juli 2026 eine Koalitionsmehrheit von 11 der 15 Sitze.",
       "sourceRefs": [
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment.coalitionSeats",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat].coalitionSeats",
           "role": "primary"
         },
         {
@@ -567,13 +567,13 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-volker-current",
-          "locator": "formerOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "assignments (zeitlich passende Zuordnung)",
           "role": "corroborating"
         },
         {
-          "sourceId": "source-yannik-current",
-          "locator": "formerOffices",
+          "sourceId": "source-organization-assignments",
+          "locator": "assignments (zeitlich passende Zuordnung)",
           "role": "corroborating"
         }
       ],
@@ -720,8 +720,8 @@
           "role": "corroborating"
         },
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat]",
           "role": "corroborating"
         }
       ],

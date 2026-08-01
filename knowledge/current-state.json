@@ -17,8 +17,8 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-site-config",
-          "locator": "portalTitle und currentGovernment.seatOfGovernment",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat].seatOfGovernment",
           "role": "corroborating"
         }
       ],
@@ -120,19 +120,14 @@
       "summary": "Erster Staatsrat seit 21. Juli 2026 unter Vorsitz von Dr. Karl Honecker; Stellvertreter ist Dr. Mateo Delgado.",
       "sourceRefs": [
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat]",
           "role": "primary"
         },
         {
-          "sourceId": "source-karl-current",
-          "locator": "currentOffices",
-          "role": "corroborating"
-        },
-        {
-          "sourceId": "source-mateo-current",
-          "locator": "currentOffices",
-          "role": "corroborating"
+          "sourceId": "source-organization-assignments",
+          "locator": "assignments[governmentSlug=erster-staatsrat]",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -194,8 +189,8 @@
       "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt. Die Wahl zur achten Volkskammer findet Ende August 2026 statt; ein exakter Wahltag ist noch nicht festgelegt.",
       "sourceRefs": [
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment.legislature und Sitzzahlen",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat].legislature und Sitzzahlen",
           "role": "primary"
         },
         {

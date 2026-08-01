@@ -14,6 +14,8 @@ Quellenfragen stehen in `CONTENT_GAPS.md`.
 - Astro und TypeScript
 - Cloudflare Workers als Zielplattform
 - dateibasierte Inhalte unter `content/`
+- normalisierte Regierungsorganisation unter `content/organisation/`
+- getrenntes, Access-geschütztes Git-Redaktionsstudio unter `/redaktion/`
 - interner Wissenshub unter `knowledge/`
 - Rechtsportal unter `/recht/` mit Normen, Fassungen, Historien, Sachgebieten, Fundstellen,
   Verkündungen und Rechtssuche
@@ -40,6 +42,7 @@ npm run test:visual
 npm run test:a11y
 npm run test:quality
 npm run test:browsers
+npm run editorial:check
 ```
 
 Weitere wichtige Befehle:
@@ -48,6 +51,7 @@ Weitere wichtige Befehle:
 npm run preview
 npm run deploy:staging
 npm run deploy
+npm run editorial:dev
 ```
 
 `SITE_URL` und `BASE_PATH` steuern Canonicals, Sitemap, Robots und Pfadauflösung:
@@ -60,10 +64,13 @@ SITE_URL=https://freistaat-ostdeutschland.de BASE_PATH=/ npm run build
 
 ```text
 content/
+  dashboard/
   gesetzgebung/
   freistaat/
   haushalt/
   normen/
+  organisation/
+  portal/
   presse/
   regierung/
   ressorts/
@@ -88,6 +95,7 @@ public/
 src/
   components/
   config/
+  editorial-worker/
   data/
   layouts/
   lib/
@@ -98,6 +106,10 @@ src/
 context/
   externe Ausgangstexte und Simulationsmaterial
 ```
+
+Architektur, externe Einrichtung und Bedienung des Redaktionsstudios stehen in
+`docs/EDITORIAL_ARCHITECTURE.md`, `docs/EDITORIAL_SETUP.md` und
+`docs/EDITORIAL_RUNBOOK.md`.
 
 `context/` bleibt bewusst erhalten. Alte Planungs- und Zwischendokumente im Repository-Root wurden in diese README und `AGENTS.md` verdichtet.
 
@@ -116,6 +128,10 @@ Die Dateien unter `knowledge/generated/` werden ausschließlich mit `npm run kno
 - Datumsdarstellung auf Seiten bevorzugt `TT. Monat JJJJ`.
 - Regierungsmitglieder liegen unter `content/regierung/mitglieder/`.
 - Ressorts liegen unter `content/ressorts/`.
+- Aktuelle Ämter, Mitgliedschaft und Ressortleitungen werden ausschließlich aus
+  `content/organisation/governments.json`, `offices.json` und `assignments.json` abgeleitet.
+- Startseite, Kabinettschronologie, Aktionsplan und Timeline liegen unter `content/portal/`,
+  `content/regierung/cabinet-page.json` und `content/dashboard/`.
 - Themenseiten verweisen über `federfuehrendesRessort` und `rechtsgrundlagen[].normSlug` auf Ressorts und Normen.
 - Pressemitteilungen können über `relatedTopicSlugs`, `relatedNormSlugs` und `relatedPressSlugs` querverlinkt werden.
 - Stellenangebote liegen unter `content/service/stellen/`.
@@ -175,7 +191,7 @@ Quellenkonflikts ein Normdatum, ergänzt die Zitierlogik kein vermeintlich einde
 
 ## Zentrale Konfiguration
 
-- `src/config/site.ts`: Portaltexte, Pfade, Navigation, Kontakt, Regierungsstammdaten
+- `src/config/site.ts`: Portalname, Pfade, Navigation und Kontakt
 - `src/config/editorial.json`: zentraler redaktioneller Stichtag
 - `src/config/features.ts`: Feature-Flag für die optionale Webanalyse
 - `src/config/analytics.ts`: Consent und Webanalyse-Konfiguration

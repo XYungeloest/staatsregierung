@@ -58,6 +58,7 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 - TypeScript
 - Cloudflare Workers
 - keine aktiven D1/R2-Bindings im aktuellen Portalstand
+- getrenntes Editorial Worker Entry unter `src/editorial-worker/`; öffentliche Seiten bleiben statisch
 - klare Utility-Funktionen statt unnötiger Klassenhierarchien
 - Build- und Content-Checks vor Abschluss ausführen, sofern möglich
 
@@ -68,6 +69,7 @@ npm run content:check
 npm run knowledge:check
 npm run knowledge:build
 npm run check
+npm run editorial:check
 npm run build
 npm run links:check
 npm run test:visual
@@ -87,6 +89,11 @@ npm run test:a11y
 - Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor. Max Peterson leitet als Staatsrat das Staatssekretariat für Wirtschaft und Arbeit.
 - Thomas Henry Barlow ist seit dem 20. Juli 2026 nicht mehr aktiv. Yannik Schmäle leitet seit dem 21. Juli 2026 sowohl Nachhaltigkeit und Energie als auch Staats- und Grenzsicherheit.
 - Kein neues Profil für Gerhardt Lehrmann anlegen.
+- Regierungschef, Stellvertretung, Mitgliedschaft, Ämter und Ressortleitungen werden ausschließlich
+  aus `content/organisation/` abgeleitet. Personen- und Ressortprofile enthalten diese Felder nicht.
+- Das Studio unter `/redaktion/` schreibt nie direkt nach `main`, sondern erstellt über die GitHub
+  App einen atomaren Commit und einen Draft Pull Request. D1 und R2 sind keine öffentlichen
+  Inhaltsquellen.
 
 ## Rechtsportal
 

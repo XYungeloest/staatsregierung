@@ -1,0 +1,48 @@
+{
+  "governments": [
+    {
+      "slug": "kabinett-honecker-ii",
+      "title": "Kabinett Honecker II",
+      "kind": "cabinet",
+      "validFrom": "2026-05-04",
+      "validTo": "2026-07-20",
+      "coalition": "Volksfront und Bündnis Demokratie Europa (DEMOS)",
+      "coalitionShort": "Volksfront · DEMOS",
+      "coalitionParties": [
+        "Volksfront",
+        "Bündnis Demokratie Europa (DEMOS)"
+      ],
+      "legislature": "7. Ostdeutscher Landtag",
+      "predecessor": "Kabinett Honecker I",
+      "seatOfGovernment": "Dresden",
+      "coalitionSeats": 11,
+      "parliamentSeats": 15,
+      "sourceRefs": [
+        "Kabinett Honecker II, festgeschriebene Wiki-Revision 19690",
+        "content/regierung/mitglieder"
+      ]
+    },
+    {
+      "slug": "erster-staatsrat",
+      "title": "Erster Staatsrat",
+      "kind": "state-council",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "coalition": "Volksfront und Bündnis Demokratie Europa (DEMOS)",
+      "coalitionShort": "Volksfront · DEMOS",
+      "coalitionParties": [
+        "Volksfront",
+        "Bündnis Demokratie Europa (DEMOS)"
+      ],
+      "legislature": "7. Volkskammer",
+      "predecessor": "Kabinett Honecker II",
+      "seatOfGovernment": "Dresden",
+      "coalitionSeats": 11,
+      "parliamentSeats": 15,
+      "sourceRefs": [
+        "Artikel 121a der konsolidierten Staatsverfassung",
+        "knowledge/current-state.json#state-current-government"
+      ]
+    }
+  ]
+}

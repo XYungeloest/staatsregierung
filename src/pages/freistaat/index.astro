@@ -11,10 +11,10 @@ import {
   getHomeUrl,
   getTopicsUrl,
 } from '../../lib/portal/index.ts';
-import { loadFreestatePages } from '../../lib/portal/content.ts';
+import { loadCurrentGovernment, loadFreestatePages } from '../../lib/portal/content.ts';
 import { getLawConstitutionUrl } from '../../lib/norms/index.ts';
 
-const pages = await loadFreestatePages();
+const [pages, currentGovernment] = await Promise.all([loadFreestatePages(), loadCurrentGovernment()]);
 const orderedPages = [
   'land-und-leute',
   'staatsaufbau',
@@ -42,9 +42,9 @@ const orderedPages = [
     lead="Land und Leute, Staatsaufbau, Verfassung, Regionen, Hoheitszeichen und Geschichte im Überblick."
     variant="freestate"
     facts={[
-      { label: 'Landeshauptstadt', value: siteConfig.currentGovernment.seatOfGovernment },
-      { label: 'Volksvertretung', value: siteConfig.currentGovernment.legislature },
-      { label: 'Vollziehende Gewalt', value: siteConfig.currentGovernment.cabinetName },
+      { label: 'Landeshauptstadt', value: currentGovernment.seatOfGovernment },
+      { label: 'Volksvertretung', value: currentGovernment.legislature },
+      { label: 'Vollziehende Gewalt', value: currentGovernment.title },
       { label: 'Bezirke', value: '14' },
     ]}
     image={{

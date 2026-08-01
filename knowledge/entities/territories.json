@@ -16,8 +16,8 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment.seatOfGovernment",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat].seatOfGovernment",
           "role": "corroborating"
         }
       ],

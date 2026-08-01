@@ -7,6 +7,7 @@ import { loadAllNorms } from '../src/lib/norms/loader.ts';
 import { getApplicableVersion } from '../src/lib/norms/versions.ts';
 import {
   loadCurrentGovernmentMembers,
+  loadCurrentGovernment,
   loadFreestatePages,
   loadTopics,
 } from '../src/lib/portal/content.ts';
@@ -16,11 +17,12 @@ import { buildPortalSearchEntries } from '../src/lib/portal/search.ts';
 const referenceDate = '2026-08-01';
 const readJson = <T>(path: string): T => JSON.parse(readFileSync(path, 'utf8')) as T;
 
-test('der öffentliche Gegenwartsstand verwendet den 1. August 2026', () => {
+test('der öffentliche Gegenwartsstand verwendet den 1. August 2026', async () => {
   assert.equal(PORTAL_REFERENCE_DATE, referenceDate);
-  assert.equal(siteConfig.currentGovernment.coalition, 'Volksfront und Bündnis Demokratie Europa (DEMOS)');
-  assert.ok(!siteConfig.currentGovernment.coalition.includes('Das Bündnis'));
-  assert.ok(!siteConfig.currentGovernment.coalition.includes('DEMOS an der Elbe'));
+  const currentGovernment = await loadCurrentGovernment();
+  assert.equal(currentGovernment.coalition, 'Volksfront und Bündnis Demokratie Europa (DEMOS)');
+  assert.ok(!currentGovernment.coalition.includes('Das Bündnis'));
+  assert.ok(!currentGovernment.coalition.includes('DEMOS an der Elbe'));
 });
 
 test('vierzehn Bezirke sind aktuell und die aufgehobenen Flächenbezirke historisch', () => {

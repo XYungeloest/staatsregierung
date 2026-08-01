@@ -18,112 +18,56 @@ import {
   getCareerUrl,
   getContactUrl,
   getFreestateUrl,
-  getGovernmentUrl,
   getKreisreformUrl,
   getLawConstitutionUrl,
   getLawHomeUrl,
-  getMinistriesUrl,
   getPortalSearchUrl,
   getPressUrl,
   getTopicUrl,
   getTopicsUrl,
+  resolvePortalPath,
 } from '../lib/portal/index.ts';
 import {
   loadCurrentJobOffers,
+  loadCurrentGovernment,
+  loadHomeContent,
   loadMinistries,
   loadRecentPressReleases,
   loadTopics,
 } from '../lib/portal/content.ts';
 
-const [ministries, topics, latestReleases, publications, currentJobs] = await Promise.all([
+const [ministries, topics, latestReleases, publications, currentJobs, currentGovernment, homeContent] = await Promise.all([
   loadMinistries(),
   loadTopics(),
   loadRecentPressReleases(3),
   loadAllVerkuendungen(),
   loadCurrentJobOffers(1),
+  loadCurrentGovernment(),
+  loadHomeContent(),
 ]);
 
-const currentGovernment = siteConfig.currentGovernment;
 const latestPublication = publications[0];
 const latestJob = currentJobs[0];
 const publicationEntryLabel = (count: number) => count === 1 ? 'Eintrag' : 'Einträge';
-const featuredTopics = ['bildungsreform', 'energie-und-klima', 'wohnen-und-vergesellschaftung']
+const featuredTopics = homeContent.featuredTopicSlugs
   .flatMap((slug) => {
     const topic = topics.find((entry) => entry.slug === slug);
     return topic ? [topic] : [];
   });
 
-const portalAccesses = [
-  {
-    title: 'Recht & Vorschriften',
-    description: 'Gesetze, Fassungen und Verkündungen durchsuchen',
-    href: getLawHomeUrl(),
-    icon: 'law' as const,
-  },
-  {
-    title: 'Themen & Reformen',
-    description: 'Politische Vorhaben, Umsetzung und nächste Schritte',
-    href: getTopicsUrl(),
-    icon: 'topics' as const,
-  },
-  {
-    title: 'Kreisreform',
-    description: 'Gemeinden, geltende Kreise und Bezirke finden',
-    href: getKreisreformUrl(),
-    icon: 'map' as const,
-  },
-  {
-    title: 'Haushalt',
-    description: 'Ausgaben, Einzelpläne und Sondervermögen',
-    href: getBudgetUrl(),
-    icon: 'budget' as const,
-  },
-  {
-    title: 'Staatsrat',
-    description: 'Mitglieder, Geschäftsbereiche und politische Vorhaben',
-    href: getGovernmentUrl(),
-    icon: 'government' as const,
-  },
-  {
-    title: 'Staatssekretariate',
-    description: 'Geschäftsbereiche, Zuständigkeiten und Kontaktwege',
-    href: getMinistriesUrl(),
-    icon: 'ministry' as const,
-  },
-  {
-    title: 'Presse & Termine',
-    description: 'Mitteilungen, Reden, Termine, RSS und Kalender',
-    href: getPressUrl(),
-    icon: 'press' as const,
-  },
-];
+const portalAccesses = homeContent.portalAccesses.map((item) => ({
+  ...item,
+  href: resolvePortalPath(item.href),
+}));
 
-const importantItems = [
-  {
-    title: 'Kreis- und Bezirksreform 2026',
-    description: 'Neue Gebietsstruktur seit 1. August 2026 in Kraft',
-    href: getKreisreformUrl(),
-    icon: 'map' as const,
-  },
-  {
-    title: currentGovernment.cabinetName,
-    description: `Übergang am ${siteConfig.date.formatLong(currentGovernment.formedOn)}`,
-    href: getGovernmentUrl(),
-    icon: 'government' as const,
-  },
-  {
-    title: 'Gesetze vom 20. Juli 2026',
-    description: 'Zwölf Vorhaben beschlossen und verkündet',
-    href: `${getPressUrl()}termine/dritte-plenarsitzung-7-landtag/`,
-    icon: 'press' as const,
-  },
-  {
-    title: 'Doppelhaushalt 2025/2026',
-    description: 'Kennzahlen, Einzelpläne und Vergleiche',
-    href: getBudgetUrl(),
-    icon: 'budget' as const,
-  },
-];
+const importantItems = homeContent.importantItems.map((item) => ({
+  title: item.governmentSlug ? currentGovernment.title : item.title ?? '',
+  description: item.governmentSlug
+    ? `Übergang am ${siteConfig.date.formatLong(currentGovernment.formedOn)}`
+    : item.description ?? '',
+  href: resolvePortalPath(item.href),
+  icon: item.icon,
+}));
 ---
 
 <BaseLayout
@@ -137,8 +81,8 @@ const importantItems = [
     <section class="home-hero" aria-labelledby="home-hero-title">
       <ResponsivePicture
         className="home-hero__image"
-        src="/images/ministerien/staatskanzlei.jpg"
-        alt="Blick über die Elbe auf das Regierungsviertel in Dresden"
+        src={homeContent.hero.image}
+        alt={homeContent.hero.imageAlt}
         width={960}
         height={720}
         widths={[480, 720, 960]}
@@ -148,21 +92,18 @@ const importantItems = [
       />
       <div class="container home-hero__inner">
         <div class="home-hero__content">
-          <p class="eyebrow">Regierungsportal des Ostdeutschen Freistaates</p>
-          <h1 id="home-hero-title">Schnell zur richtigen Information</h1>
-          <p class="home-hero__lead">
-            Finden Sie Gesetze, Reformvorhaben, Haushaltsdaten, Pressemitteilungen und die
-            zuständigen Ressorts.
-          </p>
+          <p class="eyebrow">{homeContent.hero.eyebrow}</p>
+          <h1 id="home-hero-title">{homeContent.hero.title}</h1>
+          <p class="home-hero__lead">{homeContent.hero.lead}</p>
           <form class="home-hero-search" action={getPortalSearchUrl()} method="get" role="search" aria-label="Portalsuche auf der Startseite">
-            <label for="home-portal-search">Womit können wir Ihnen helfen?</label>
+            <label for="home-portal-search">{homeContent.hero.searchLabel}</label>
             <div class="home-hero-search__control">
               <input
                 id="home-portal-search"
                 type="search"
                 name="q"
                 autocomplete="off"
-                placeholder="z. B. Kreisreform, Verfassung, Haushalt, Ressort oder Pressemitteilung"
+                placeholder={homeContent.hero.searchPlaceholder}
               />
               <button type="submit"><PortalIcon name="search" /><span>Suchen</span></button>
             </div>

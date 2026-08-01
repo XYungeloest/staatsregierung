@@ -15,14 +15,16 @@ import {
 } from '../../../lib/portal/index.ts';
 import {
   loadCurrentGovernmentMembers,
+  loadCurrentGovernment,
   loadMinistries,
   loadTopics,
 } from '../../../lib/portal/content.ts';
 
-const [members, ministries, topics] = await Promise.all([
+const [members, ministries, topics, currentGovernment] = await Promise.all([
   loadCurrentGovernmentMembers(),
   loadMinistries(),
   loadTopics(),
+  loadCurrentGovernment(),
 ]);
 const ministerPresident = members[0];
 const leadershipMinistries = ministries.filter((ministry) =>
@@ -55,9 +57,9 @@ const topPriorities = topics
     lead="Der Staatspräsident führt den Vorsitz im Staatsrat, bestimmt die Richtlinien der Politik und vertritt den Freistaat nach außen."
     variant="government"
     facts={[
-      { label: 'Amtsträger', value: siteConfig.currentGovernment.headOfGovernment },
-      { label: 'Staatsrat', value: siteConfig.currentGovernment.cabinetName },
-      { label: 'Sitz', value: siteConfig.currentGovernment.seatOfGovernment },
+      { label: 'Amtsträger', value: currentGovernment.headOfGovernment },
+      { label: 'Staatsrat', value: currentGovernment.title },
+      { label: 'Sitz', value: currentGovernment.seatOfGovernment },
     ]}
     actions={ministerPresident ? [{ label: 'Zum persönlichen Profil', href: getGovernmentMemberUrl(ministerPresident.slug), primary: true }] : []}
     image={ministerPresident ? {
@@ -82,7 +84,7 @@ const topPriorities = topics
         </p>
         <p>
           Der Übergang zum ersten Staatsrat erfolgte am{' '}
-          <time datetime={siteConfig.currentGovernment.formedOn}>{siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn)}</time>.
+          <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time>.
           Seitdem gilt die neue Staatsorganisation.
         </p>
         <p>
@@ -99,15 +101,15 @@ const topPriorities = topics
         <dl class="meta-list">
           <div>
             <dt>Amtsträger</dt>
-            <dd>{siteConfig.currentGovernment.headOfGovernment}</dd>
+            <dd>{currentGovernment.headOfGovernment}</dd>
           </div>
           <div>
             <dt>Staatsrat</dt>
-            <dd>{siteConfig.currentGovernment.cabinetName}</dd>
+            <dd>{currentGovernment.title}</dd>
           </div>
           <div>
             <dt>Koalition</dt>
-            <dd>{siteConfig.currentGovernment.coalitionShort}</dd>
+            <dd>{currentGovernment.coalitionShort}</dd>
           </div>
         </dl>
         <p><a class="inline-link" href={getCabinetUrl()}>Zum ersten Staatsrat</a></p>

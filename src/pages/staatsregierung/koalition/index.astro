@@ -10,8 +10,10 @@ import {
   getHomeUrl,
   getTopicsUrl,
 } from '../../../lib/portal/index.ts';
+import { loadCurrentGovernment } from '../../../lib/portal/content.ts';
 
-const coalitionParties = siteConfig.currentGovernment.coalitionParties;
+const currentGovernment = await loadCurrentGovernment();
+const coalitionParties = currentGovernment.coalitionParties;
 const priorities = [
   'soziale Sicherheit und öffentliche Daseinsvorsorge',
   'gute Arbeit, öffentliche Wirtschaft und regionale Wertschöpfung',
@@ -32,13 +34,13 @@ const priorities = [
   <SectionHero
     eyebrow="Parlamentarische Grundlage"
     title="Koalition"
-    lead={`Die Koalition aus ${siteConfig.currentGovernment.coalition} trägt den ersten Staatsrat.`}
+    lead={`Die Koalition aus ${currentGovernment.coalition} trägt den ersten Staatsrat.`}
     variant="government"
     facts={[
-      { label: 'Kurzbezeichnung', value: siteConfig.currentGovernment.coalitionShort },
-      { label: 'Übergang zum Staatsrat', value: siteConfig.date.formatLong(siteConfig.currentGovernment.formedOn) },
-      { label: 'Legislatur', value: siteConfig.currentGovernment.legislature },
-      { label: 'Sitze seit 5. Juli 2026', value: `${siteConfig.currentGovernment.coalitionSeats} von ${siteConfig.currentGovernment.parliamentSeats}` },
+      { label: 'Kurzbezeichnung', value: currentGovernment.coalitionShort },
+      { label: 'Übergang zum Staatsrat', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
+      { label: 'Legislatur', value: currentGovernment.legislature },
+      { label: 'Sitze seit 5. Juli 2026', value: `${currentGovernment.coalitionSeats} von ${currentGovernment.parliamentSeats}` },
     ]}
     actions={[{ label: '15-Punkte-Plan II', href: getActionPlanUrl(), primary: true }]}
   />

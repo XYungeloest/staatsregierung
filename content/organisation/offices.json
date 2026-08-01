@@ -1,0 +1,76 @@
+{
+  "offices": [
+    {
+      "slug": "ministerpraesident",
+      "label": "Ministerpräsident",
+      "role": "head",
+      "membership": "member",
+      "exclusive": true,
+      "canLeadMinistry": false,
+      "requiresMinistry": false
+    },
+    {
+      "slug": "stellvertretender-ministerpraesident",
+      "label": "Stellvertretender Ministerpräsident",
+      "role": "deputy",
+      "membership": "member",
+      "exclusive": true,
+      "canLeadMinistry": true,
+      "requiresMinistry": true
+    },
+    {
+      "slug": "staatsminister",
+      "label": "Staatsminister:in",
+      "role": "member",
+      "membership": "member",
+      "exclusive": false,
+      "canLeadMinistry": true,
+      "requiresMinistry": true
+    },
+    {
+      "slug": "staatspraesident",
+      "label": "Staatspräsident",
+      "role": "head",
+      "membership": "member",
+      "exclusive": true,
+      "canLeadMinistry": false,
+      "requiresMinistry": false
+    },
+    {
+      "slug": "stellvertretender-staatspraesident",
+      "label": "Stellvertretender Staatspräsident",
+      "role": "deputy",
+      "membership": "member",
+      "exclusive": true,
+      "canLeadMinistry": true,
+      "requiresMinistry": true
+    },
+    {
+      "slug": "staatsratsmitglied",
+      "label": "Mitglied des Staatsrates",
+      "role": "member",
+      "membership": "member",
+      "exclusive": false,
+      "canLeadMinistry": true,
+      "requiresMinistry": true
+    },
+    {
+      "slug": "chef-staatskanzlei",
+      "label": "Leitung der Staatskanzlei",
+      "role": "other",
+      "membership": "leadership-outside",
+      "exclusive": true,
+      "canLeadMinistry": true,
+      "requiresMinistry": true
+    },
+    {
+      "slug": "bundesratspraesident",
+      "label": "Präsident des Bundesrates",
+      "role": "other",
+      "membership": "external",
+      "exclusive": true,
+      "canLeadMinistry": false,
+      "requiresMinistry": false
+    }
+  ]
+}

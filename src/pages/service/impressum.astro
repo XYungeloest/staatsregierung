@@ -3,8 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../config/site.ts';
 import { getAccessibilityUrl, getHomeUrl, getPrivacyUrl, getServiceUrl } from '../../lib/portal/index.ts';
+import { loadCurrentGovernment } from '../../lib/portal/content.ts';
 
-const { contact, currentGovernment } = siteConfig;
+const { contact } = siteConfig;
+const currentGovernment = await loadCurrentGovernment();
 const citizenPhoneHref = `tel:${contact.citizenService.phone.replace(/\s+/gu, '')}`;
 const pressPhoneHref = `tel:${contact.pressOffice.phone.replace(/\s+/gu, '')}`;
 const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;

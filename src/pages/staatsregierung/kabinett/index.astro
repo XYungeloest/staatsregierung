@@ -16,26 +16,24 @@ import {
 } from '../../../lib/portal/index.ts';
 import {
   loadCurrentGovernmentMembers,
+  loadCurrentGovernment,
+  loadCabinetPageContent,
   loadMinistries,
   loadTopics,
 } from '../../../lib/portal/content.ts';
 
-const [members, ministries, topics] = await Promise.all([
+const [members, ministries, topics, currentGovernment, cabinetPage] = await Promise.all([
   loadCurrentGovernmentMembers(),
   loadMinistries(),
   loadTopics(),
+  loadCurrentGovernment(),
+  loadCabinetPageContent(),
 ]);
-const currentGovernment = siteConfig.currentGovernment;
 const stateCouncilMembers = members.filter((member) => member.slug !== 'emma-mueller');
 const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
 const stateSecretariatCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
-const topicHighlights = [
-  'wohnen-und-vergesellschaftung',
-  'gute-arbeit',
-  'oepnv-und-mobilitaet',
-  'kultur-erinnerung-und-medien',
-].flatMap((slug) => {
+const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
   const topic = topics.find((entry) => entry.slug === slug);
   return topic ? [topic] : [];
 });
@@ -52,8 +50,8 @@ const topicHighlights = [
 
   <SectionHero
     eyebrow="Staatsrat"
-    title={currentGovernment.cabinetName}
-    lead={`Seit dem ${siteConfig.date.formatLong(currentGovernment.formedOn)} leitet der erste Staatsrat die vollziehende Gewalt und seine Staatssekretariate.`}
+    title={currentGovernment.title}
+    lead={cabinetPage.lead}
     variant="government"
     facts={[
       { label: 'Übergang', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
@@ -73,15 +71,7 @@ const topicHighlights = [
         <h2>Politische Einordnung</h2>
       </div>
       <div class="body-copy">
-        <p>
-          Der erste Staatsrat ging am 21. Juli 2026 unmittelbar aus dem {currentGovernment.predecessor}
-          hervor. Die bisherigen Mitglieder wurden nach der Übergangsvorschrift der Staatsverfassung
-          bis zur Wahl eines Staatsrates in das neue Verfassungsorgan übergeleitet.
-        </p>
-        <p>
-          Leitung, Ressorts und politische Vorhaben werden gemeinsam dargestellt. So werden
-          Zuständigkeiten und politische Verantwortung unmittelbar nachvollziehbar.
-        </p>
+        {cabinetPage.politicalContext.map((paragraph) => <p>{paragraph}</p>)}
         <p>
           Der <a class="inline-link" href={getNormUrl('erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-05-2026')}>Organisationserlass 05/2026</a> vom <time datetime="2026-05-04">4. Mai 2026</time> benennt mehrere Staatsministerien neu
           und löst das bisherige Kultur-, Wissenschafts- und Tourismusressort auf. Wissenschaft
@@ -115,15 +105,15 @@ const topicHighlights = [
 
   <section class="section section-muted" aria-labelledby="kabinett-chronologie">
     <div class="section-header">
-      <h2 id="kabinett-chronologie">Chronologie des Kabinetts Honecker II</h2>
+      <h2 id="kabinett-chronologie">{cabinetPage.chronologyTitle}</h2>
     </div>
     <ol class="record-list">
-      <li class="record-list__item"><strong><time datetime="2026-05-04">4. Mai 2026</time></strong><span>Bildung des Kabinetts Honecker II.</span></li>
-      <li class="record-list__item"><strong><time datetime="2026-05-19">19. Mai 2026</time></strong><span>Thomas Henry Barlow übernimmt Staats- und Grenzsicherheit sowie vorübergehend das Innenressort; Mia Wollrath scheidet aus dem Kabinett aus.</span></li>
-      <li class="record-list__item"><strong><time datetime="2026-07-05">5. Juli 2026</time></strong><span>Die Koalition verfügt nach den dokumentierten Fraktionsübertritten über elf von fünfzehn Sitzen.</span></li>
-      <li class="record-list__item"><strong><time datetime="2026-07-07">7. Juli 2026</time></strong><span>Volker Bagdadi übernimmt Inneres und Wohnungswirtschaft; Yannik Schmäle übernimmt Nachhaltigkeit und Energie.</span></li>
-      <li class="record-list__item"><strong><time datetime="2026-07-20">20. Juli 2026</time></strong><span>Thomas Henry Barlow wird entlassen und gehört dem ersten Staatsrat nicht an.</span></li>
-      <li class="record-list__item"><strong><time datetime="2026-07-21">21. Juli 2026</time></strong><span>Das Kabinett Honecker II geht in den ersten Staatsrat über; Yannik Schmäle übernimmt zusätzlich Staats- und Grenzsicherheit.</span></li>
+      {cabinetPage.chronology.map((entry) => (
+        <li class="record-list__item">
+          <strong><time datetime={entry.date}>{siteConfig.date.formatLong(entry.date)}</time></strong>
+          <span>{entry.text}</span>
+        </li>
+      ))}
     </ol>
   </section>
 

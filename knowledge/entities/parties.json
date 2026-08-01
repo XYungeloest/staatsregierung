@@ -11,8 +11,8 @@
       "summary": "Koalitionspartei des ersten Staatsrates.",
       "sourceRefs": [
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment.coalitionParties",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat].coalitionParties",
           "role": "primary"
         },
         {
@@ -55,8 +55,8 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-site-config",
-          "locator": "currentGovernment.coalitionParties",
+          "sourceId": "source-organization-governments",
+          "locator": "governments[id=erster-staatsrat].coalitionParties",
           "role": "corroborating"
         },
         {

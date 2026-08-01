@@ -53,6 +53,7 @@ jobs:
         run: |
           npm run content:check
           npm run check
+          npm run editorial:check
           npm run test:unit
           npm run build
 

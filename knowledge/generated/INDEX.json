@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-07-29",
   "editorialAsOf": "2026-08-01",
-  "count": 230,
+  "count": 233,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -2495,6 +2495,47 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-organization-assignments",
+      "title": "Zeitliche Amts- und Ressortzuweisungen",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "government",
+        "persons",
+        "institutions"
+      ],
+      "validFrom": "2026-07-31",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-organization-governments",
+      "title": "Regierungen und Kabinette",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "government",
+        "parliament",
+        "coalitions"
+      ],
+      "validFrom": "2026-07-31",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-organization-offices",
+      "title": "Ämter und Funktionen",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "government",
+        "institutions"
+      ],
+      "validFrom": "2026-07-31",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-overtrbl-2026-02",
       "title": "Ostdeutsches Vertragsblatt 2026 Nr. 2",
       "type": "source",
@@ -2582,9 +2623,6 @@
       "type": "source",
       "aliases": [],
       "tags": [
-        "government",
-        "parliament",
-        "parties",
         "website"
       ],
       "validFrom": "2026-07-21",
