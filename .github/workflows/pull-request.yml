@@ -151,13 +151,26 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          OUTPUT="$(npx wrangler versions upload --config wrangler.jsonc --preview-alias "pr-${PR_NUMBER}")"
+          OUTPUT="$(npx wrangler versions upload --config wrangler.jsonc --env="" --preview-alias "pr-${PR_NUMBER}")"
           PREVIEW_URL="$(printf '%s\n' "$OUTPUT" | grep -Eo 'https://[^[:space:]]+' | tail -n 1 | sed 's/[),.]$//')"
           if [ -z "$PREVIEW_URL" ]; then
             printf '%s\n' "$OUTPUT" >&2
             exit 1
           fi
           printf 'preview_url=%s\n' "$PREVIEW_URL" >> "$GITHUB_OUTPUT"
+      - name: Vorschau erreichbar prüfen
+        env:
+          PREVIEW_URL: ${{ steps.cloudflare_preview.outputs.preview_url }}
+        run: |
+          HTTP_STATUS="$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' "$PREVIEW_URL")"
+          case "$HTTP_STATUS" in
+            2??|3??)
+              ;;
+            *)
+              printf 'Die Vorschau %s antwortet mit HTTP %s.\n' "$PREVIEW_URL" "$HTTP_STATUS" >&2
+              exit 1
+              ;;
+          esac
       - name: Vorschau im Pull Request verlinken
         uses: actions/github-script@v7
         env:
