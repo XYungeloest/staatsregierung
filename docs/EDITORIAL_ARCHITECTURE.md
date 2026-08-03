@@ -57,7 +57,7 @@ Die GitHub App verwendet ein signiertes App-JWT nur serverseitig, tauscht es geg
 
 ## Vorschau und Deployment
 
-`wrangler.jsonc` aktiviert Worker Preview URLs. Die Pull-Request-CI lädt nach vollständiger Qualitätsprüfung mit `wrangler versions upload --preview-alias ...` eine unveröffentlichte Worker-Version hoch und verlinkt sie im Pull Request. Cloudflare beschreibt Version Preview URLs und Alias-Vorschauen in der [offiziellen Dokumentation](https://developers.cloudflare.com/workers/versions-and-deployments/preview-urls/). Preview URLs sind von sich aus öffentlich; deshalb muss die passende Preview-Domain zusätzlich durch Cloudflare Access geschützt werden.
+`wrangler.jsonc` aktiviert Worker Preview URLs. Die Pull-Request-CI lädt nach vollständiger Qualitätsprüfung mit `wrangler versions upload --preview-alias ...` eine unveröffentlichte Worker-Version hoch und verlinkt sie im Pull Request. Die dabei erzeugten Versions-IDs werden im technischen Teil des PR-Kommentars gesammelt. Beim Schließen oder Mergen löscht ein eigener Cleanup-Job alle registrierten Versionen, sodass weder der Alias noch ältere versionsgebundene Vorschauen dauerhaft erreichbar bleiben. Cloudflare beschreibt Version Preview URLs und Alias-Vorschauen in der [offiziellen Dokumentation](https://developers.cloudflare.com/workers/versions-and-deployments/preview-urls/). Preview URLs sind von sich aus öffentlich; deshalb muss die passende Preview-Domain zusätzlich durch Cloudflare Access geschützt werden.
 
 Der Produktionsdeploy bleibt ausschließlich im bestehenden Workflow für `main` beziehungsweise den ausdrücklich gestarteten Workflow. Die Preview-Pipeline führt kein Produktionsdeployment aus.
 
