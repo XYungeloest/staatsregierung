@@ -39,7 +39,7 @@ Vorhandene Bilder aus `public/images/` im Bildfeld auswählen. Für ein neues Bi
 
 ## Diff und Vorschau prüfen
 
-Vor der Einreichung zeigt das Studio alle betroffenen Dateien und öffentlichen Routen. Den Diff auf unbeabsichtigte Löschungen und insbesondere Referenzen, Datumswerte, Alternativtexte und Reihenfolge prüfen. Nach Einreichung wartet die PR-CI auf Content-, Knowledge-, Typ-, Unit-, Build-, Link-, SEO-, Accessibility-, Browser- und Visual-Prüfungen. Ist Cloudflare Preview eingerichtet, erscheint die geschützte URL als PR-Kommentar.
+Vor der Einreichung zeigt das Studio alle betroffenen Dateien und öffentlichen Routen. Den Diff auf unbeabsichtigte Löschungen und insbesondere Referenzen, Datumswerte, Alternativtexte und Reihenfolge prüfen. Reine Content-, Knowledge- und Bildänderungen erhalten Content-, Knowledge-, Typ-, Unit-, Build-, Link- und SEO-Prüfungen. Bei Änderungen an Code, Layout, Styles, Tests oder Infrastruktur kommen Studio-, Accessibility-, Browser- und Visual-Prüfungen hinzu. Ist Cloudflare Preview eingerichtet, erscheint die geschützte URL nach den jeweils erforderlichen erfolgreichen Prüfungen als PR-Kommentar.
 
 ## Git-Konflikt behandeln
 

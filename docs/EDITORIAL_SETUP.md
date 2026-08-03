@@ -64,6 +64,8 @@ Das Token benötigt nur die zum Hochladen einer Worker-Version erforderlichen Re
 
 Ohne die Repositoryvariable bleibt der Preview-Job übersprungen, während alle Qualitätsprüfungen weiterlaufen. Fehlende Preview-Secrets führen somit nicht zu einem unsicheren Ersatzdeployment.
 
+Der Workflow klassifiziert reine Änderungen unter `content/`, `knowledge/` und `public/images/` als redaktionelle Änderungen. Dafür laufen Content-, Knowledge-, Typ-, Unit-, Build-, Link- und SEO-Prüfungen. Änderungen an Code, Layout, Styles, Tests oder Infrastruktur erhalten zusätzlich Studio-, Accessibility-, Browser- und Visual-Prüfungen. Die Vorschau wartet jeweils nur auf die für den Änderungstyp erforderlichen erfolgreichen Jobs.
+
 ## 5. Abnahme
 
 - Zugriff ohne Access-Sitzung liefert 401/Access-Anmeldung.

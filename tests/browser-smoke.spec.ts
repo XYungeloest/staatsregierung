@@ -212,8 +212,8 @@ test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 1. August 2026 ab', a
 
   await page.goto('/recht/verfassung/');
   await expect(page.getByRole('heading', { name: 'Quellenstand zu Artikel 121a' })).toBeVisible();
-  await expect(page.getByText(/Das am 20\. Juli 2026 verkündete Erste Gesetz/u)).toContainText('achten Volkskammer');
-  await expect(page.getByText(/Das am 20\. Juli 2026 verkündete Erste Gesetz/u)).toContainText('siebte Volkskammer');
+  await expect(page.getByText(/Das am 20\. Juli 2026 verkündete Erste Gesetz/u)).toContainText('achte Volkskammer');
+  await expect(page.getByText(/Das am 20\. Juli 2026 verkündete Erste Gesetz/u)).toContainText('siebten Volkskammer');
   await expect(page.locator('.record-list')).toContainText('Erstes Gesetz zur Großen Staatsreform');
   await expect(page.locator('.record-list')).toContainText('Viertes Gesetz zur Großen Staatsreform');
 
