@@ -1,6 +1,44 @@
 {
-  "asOf": "2026-08-01",
+  "asOf": "2026-08-08",
   "events": [
+    {
+      "id": "event-gemeingut-wohnen-guideline-2026",
+      "title": "Gemeingut Wohnen beschließt Leitlinie zur Mietpreisbildung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-08",
+      "validTo": "2026-08-08",
+      "asOf": "2026-08-08",
+      "summary": "Der Verwaltungsrat beschließt die gemeinwirtschaftliche Kostenmiete und eine Senkung der am 31. August geschuldeten Nettokaltmieten um 25 Prozent zum 1. September 2026. Die Bekanntmachung erscheint in StAnzO. 2026 Nr. 15.",
+      "sourceRefs": [
+        {"sourceId": "source-stanzo-2026-15", "locator": "Seiten 2–3", "role": "primary"},
+        {"sourceId": "source-pm-2026-08-08-04", "locator": "gesamte Pressemitteilung", "role": "corroborating"}
+      ],
+      "relatedIds": ["project-wohnen", "inst-gemeingut-wohnen"],
+      "tags": ["timeline", "housing", "public-economy"],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-08-08",
+      "eventType": "guideline-published",
+      "normRefs": [{"normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung", "versionId": "2026-09-01"}]
+    },
+    {
+      "id": "event-gemeingut-wohnen-rent-reduction-2026",
+      "title": "Mietsenkung und Kostenmiete bei Gemeingut Wohnen treten in Kraft",
+      "status": "planned",
+      "validFrom": "2026-09-01",
+      "validTo": "2026-09-01",
+      "asOf": "2026-08-08",
+      "summary": "Zum 1. September 2026 sinken die Bestandsmieten von Amts wegen um 25 Prozent; zugleich gilt das Prinzip der gemeinwirtschaftlichen Kostenmiete.",
+      "sourceRefs": [{"sourceId": "source-stanzo-2026-15", "locator": "Nummern 2, 3 und 5", "role": "primary"}],
+      "relatedIds": ["project-wohnen", "inst-gemeingut-wohnen"],
+      "tags": ["timeline", "housing", "scheduled"],
+      "notes": ["Am Wissensstand 8. August 2026 handelt es sich um einen fest bestimmten künftigen Wirksamkeitstermin."],
+      "aliases": [],
+      "date": "2026-09-01",
+      "eventType": "effective-date",
+      "eventStatus": "scheduled",
+      "normRefs": [{"normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung", "versionId": "2026-09-01"}]
+    },
     {
       "id": "event-dreyer-candidacy-2026", "title": "Manuela Dreyer erklärt ihre Kandidatur", "status": "editorially-confirmed", "validFrom": "2026-05-08", "validTo": "2026-05-08", "asOf": "2026-08-01", "summary": "Manuela Dreyer erklärt am 8. Mai 2026 ihre Kandidatur für das Bundespräsidentenamt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl und Amtszeit", "role": "primary"}], "relatedIds": ["person-manuela-dreyer"], "tags": ["timeline", "federal"], "notes": [], "aliases": [], "date": "2026-05-08", "eventType": "candidacy", "normRefs": []
     },

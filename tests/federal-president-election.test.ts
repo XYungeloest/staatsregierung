@@ -45,8 +45,11 @@ test('Wahl zur achten Volkskammer ist für den 5. und 6. September angesetzt', (
 });
 
 test('aktuelle strukturierte und öffentliche Inhalte führen keinen offenen August-Wahltermin', () => {
+  const election = timeline.find((entry: { id: string }) => entry.id === 'event-volkskammer-election-2026');
+  assert.doesNotMatch(JSON.stringify(election), /Ende August|30\.\/31\.|30\. August|31\. August/u);
+
   const currentPaths = [
-    'knowledge/current-state.json', 'knowledge/proceedings.json', 'knowledge/timeline.json', 'knowledge/open-questions.json',
+    'knowledge/current-state.json', 'knowledge/proceedings.json', 'knowledge/open-questions.json',
     'content/freistaat/staatsaufbau.json', 'content/regierung/mitglieder/karl-honecker.json',
     'content/presse/termine/wahl-achte-volkskammer-2026.json', 'src/pages/recht/verfassung/index.astro',
   ];

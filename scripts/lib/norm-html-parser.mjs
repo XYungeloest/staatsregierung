@@ -560,7 +560,12 @@ function makeAtomicTokens(nodes, css, fileName) {
       continue;
     }
     const rawText = normalizeHtmlText(textWithBreaks(node));
-    const marker = parseStructureMarker(rawText);
+    const numberedHeading = /^h[1-6]$/u.test(node.tagName)
+      ? rawText.match(/^(\d+)\.\s+(.+)$/u)
+      : null;
+    const marker = numberedHeading
+      ? { type: 'section', label: `${numberedHeading[1]}.`, title: numberedHeading[2] }
+      : parseStructureMarker(rawText);
     const amendmentInstruction = QUOTE_TRIGGER_PATTERN.test(text);
     const amendmentReference = marker && ['article', 'paragraph'].includes(marker.type) && AMENDMENT_REFERENCE_PATTERN.test(marker.title ?? '');
     const printedItem = !marker ? parsePrintedListItem(text) : null;

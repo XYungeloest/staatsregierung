@@ -343,7 +343,7 @@ test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung',
   const latest = getLatestPublication(publications);
   const searchIndex = await buildSearchIndexPayload();
   assert.ok(latest);
-  assert.equal(latest.slug, 'gmbl-2026-14');
+  assert.equal(latest.slug, 'stanzo-2026-15');
   assert.deepEqual(searchIndex.latestPublication, {
     slug: latest.slug,
     date: latest.date,

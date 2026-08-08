@@ -46,7 +46,7 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **Ostdeutsche Eisenbahn und Verkehrsvergesellschaftung**: in-force. Gesetzespaket zur Neuordnung der Ostdeutschen Eisenbahn und zur öffentlichen Sicherung von Verkehrsleistungen.
 - **Ostdeutscher Verkehrsverbund und 29-Euro-Ticket**: partly-implemented. Politischer Mobilitätskomplex aus Verkehrsverbund, öffentlicher Mobilität und sozialem Tarif. Der Hub enthält noch keine vollständig verknüpfte Normenkette zum 29-Euro-Ticket.
 - **Energie- und Wärmevergesellschaftung**: in-force. Gesetzespaket zu öffentlichen Energie- und Wärmeinfrastrukturen, Finanzierung und Landesenergiewerken.
-- **Wohnungsvergesellschaftung und Gemeingut Wohnen**: in-implementation. Rechtskomplex aus Vergesellschaftung, öffentlichem Wohnträger, Durchführung und Schuldverschreibungen.
+- **Wohnungsvergesellschaftung und Gemeingut Wohnen**: in-implementation. Rechtskomplex aus Vergesellschaftung, öffentlichem Wohnträger, Durchführung und Schuldverschreibungen. Der Verwaltungsrat von Gemeingut Wohnen hat die gemeinwirtschaftliche Kostenmiete beschlossen; zum 1. September 2026 werden die Bestandsmieten von Amts wegen um 25 Prozent gesenkt.
 - **Volksacker, Flächenfonds und Bodenfonds Ost**: coalition-project. Koalitionsvorhaben zur Sicherung von Boden und gemeinwohlorientierter Flächennutzung. Eine abgeschlossene, strukturierte Normenkette ist im Audit nicht belegt.
 - **Krankenhaussicherung und Rekommunalisierung**: in-implementation. Sondervermögen zur Sicherung wohnortnaher Krankenhausversorgung und zur Rekommunalisierung gefährdeter Standorte.
 - **Kasernierte Grenzpolizei**: in-implementation. Gesetzlich errichtete Grenzpolizei mit am 28. Juli 2026 geschlossenem und am 29. Juli 2026 veröffentlichtem Verwaltungsabkommen. Die technische, organisatorische und operative Umsetzung der übertragenen Aufgaben bleibt im Aufbau.
@@ -60,8 +60,6 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 
 ## Wichtigste historische Ereignisse
 
-- **2026-07-20: Zwölf Gesetze werden verkündet.** Die Ausgaben 46 bis 57 belegen zwölf verkündete Vorhaben; einzelne Abstimmungsergebnisse sind nicht belegt.
-- **2026-07-20: Thomas Henry Barlow scheidet aus der Staatsorganisation aus.** Thomas Henry Barlow wird entlassen und gehört dem ersten Staatsrat nicht an.
 - **2026-07-20: Vier Gesetze zur Großen Staatsreform werden verkündet.** Die vier Reformgesetze werden in OGVBl. 2026 Nr. 53 bis 56 verkündet.
 - **2026-07-21: Erster Staatsrat nimmt die Arbeit auf.** Staatsregierung und Landtag werden nach den Übergangsvorschriften als Staatsrat und Volkskammer fortgeführt; Dr. Karl Honecker wird erster Staatspräsident.
 - **2026-07-21: SERO-Verordnung tritt in Kraft.** Der Staatsrat erlässt die SERO-Verordnung als selbstständige Rechtsverordnung.
@@ -69,6 +67,8 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **2026-07-28: Verwaltungsabkommen zur Grenzpolizei wird in Leipzig unterzeichnet.** Das Bundesministerium des Innern und für Heimat und der Ostdeutsche Staatsrat schließen das Verwaltungsabkommen über die Wahrnehmung grenzpolizeilicher Aufgaben.
 - **2026-07-29: Verwaltungsabkommen wird in GMBl. 2026 Nr. 14 veröffentlicht.** Das Verwaltungsabkommen wird am 29. Juli 2026 veröffentlicht und im Datenmodell ab diesem Tag als wirksam geführt. Der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz.
 - **2026-08-01: Neue Kreis- und Bezirksstruktur wird wirksam.** Vierzehn Bezirke und die neue Kreisstruktur sind nach der verkündeten Inkrafttretensregelung wirksam geworden.
+- **2026-08-08: Gemeingut Wohnen beschließt Leitlinie zur Mietpreisbildung.** Der Verwaltungsrat beschließt die gemeinwirtschaftliche Kostenmiete und eine Senkung der am 31. August geschuldeten Nettokaltmieten um 25 Prozent zum 1. September 2026. Die Bekanntmachung erscheint in StAnzO. 2026 Nr. 15.
+- **2026-09-01: Mietsenkung und Kostenmiete bei Gemeingut Wohnen treten in Kraft.** Zum 1. September 2026 sinken die Bestandsmieten von Amts wegen um 25 Prozent; zugleich gilt das Prinzip der gemeinwirtschaftlichen Kostenmiete.
 - **2026-09-05: Wahl zur achten Volkskammer.** Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.
 
 ## Laufende Verfahren und Abhängigkeiten

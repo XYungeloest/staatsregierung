@@ -150,6 +150,34 @@ const GMBL_SOURCE_REFERENCES = [
   },
 ];
 
+const STANZO_HOUSING_GUIDELINE_SLUG = 'bekanntmachung-gemeingut-wohnen-mietpreisbildung';
+const STANZO_HOUSING_SOURCE_REFERENCES = [
+  {
+    kind: 'structured-html-transcription',
+    label: 'Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe',
+    availability: 'versioned',
+    localSource: 'Gesetze/StAnzO. 2026 Nr. 15.html',
+    sha256: '5eff7d2526fd8b17e458bb8badcc1c9ee7c1ee712562b77e56ad1d8e86226fe7',
+    mediaType: 'text/html',
+    pageRange: '2–3',
+    verifiedAt: '2026-08-08',
+    sourceRole: 'structure-bearing',
+  },
+  {
+    kind: 'primary-pdf',
+    label: 'Amtliche visuelle Veröffentlichungsfassung',
+    availability: 'versioned',
+    localSource: 'Gesetze/StAnzO. 2026 Nr. 15.pdf',
+    sha256: '13c5e0932e90647e64ff850b0f1c0f84521c77f4343e8bd7f099a0afdfa4ac5c',
+    mediaType: 'application/pdf',
+    pageCount: 3,
+    pageRange: '2–3',
+    verifiedAt: '2026-08-08',
+    sourceRole: 'visual-control',
+    derivedSource: 'Gesetze/StAnzO. 2026 Nr. 15.html',
+  },
+];
+
 // Frühere Importläufe hatten diese rein redaktionell gebildeten Kürzel als
 // amtliche Suchbegriffe gespeichert. Sie sind in den Primärquellen nicht
 // belegt und werden deshalb auch beim Zusammenführen mit Bestandsdaten entfernt.
@@ -603,6 +631,58 @@ function buildGmblAgreementRecord(parsed) {
   };
 }
 
+function buildStAnZOHousingGuidelineRecord(parsed) {
+  const citation = 'Bekanntmachung vom 8. August 2026 (StAnzO. 2026 Nr. 15 S. 2)';
+  return {
+    source: parsed.fileName,
+    issue: parsed.issue,
+    startPage: parsed.startPage,
+    meta: {
+      id: STANZO_HOUSING_GUIDELINE_SLUG,
+      slug: STANZO_HOUSING_GUIDELINE_SLUG,
+      title: parsed.title,
+      shortTitle: 'Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung',
+      shortTitleSource: 'official',
+      type: 'bekanntmachung',
+      enactingBody: 'Verwaltungsrat der Gemeingut Wohnen AöR',
+      responsibleMinistry: 'Gemeingut Wohnen AöR',
+      subjects: ['Wohnen und Bodenordnung', 'Öffentliche Wirtschaft'],
+      primarySubject: 'Wohnen und Bodenordnung',
+      keywords: ['Gemeingut Wohnen', 'Kostenmiete', 'Mietsenkung', 'Bestandsmieten', 'Nettokaltmiete', '25 Prozent', '5,50 Euro'],
+      initialCitation: citation,
+      predecessor: null,
+      successor: null,
+      relatedNorms: ['gemeingut-wohnen-gesetz'],
+      summary: 'Legt die gemeinwirtschaftliche Kostenmiete für Gemeingut Wohnen fest und senkt die am 31. August 2026 geschuldeten Nettokaltmieten zum 1. September 2026 von Amts wegen um 25 Prozent.',
+      status: 'future-effective',
+      documentDate: '2026-08-08',
+      publicationDate: '2026-08-08',
+      effectiveDate: '2026-09-01',
+      dateNote: 'Die Bekanntmachung wurde am 8. August 2026 veröffentlicht; die Leitlinie und die Mietsenkung treten am 1. September 2026 in Kraft.',
+      sourceReferences: STANZO_HOUSING_SOURCE_REFERENCES,
+    },
+    history: {
+      initialVersionId: '2026-09-01',
+      entries: [{
+        date: '2026-08-08',
+        type: 'initial',
+        title: 'Bekanntmachung im Staatsanzeiger.',
+        citation,
+        affectingVersionId: '2026-09-01',
+      }],
+    },
+    versions: [{
+      versionId: '2026-09-01',
+      validFrom: '2026-09-01',
+      validTo: null,
+      isCurrent: true,
+      citation,
+      changeNote: 'Veröffentlichte Stammfassung; Inkrafttreten am 1. September 2026.',
+      body: parsed.body,
+    }],
+  };
+}
+
 function buildConstitutionRecord(parsed) {
   const slug = 'staatsverfassung-des-freistaates-ostdeutschland';
   const versionId = '2026-07-21';
@@ -706,6 +786,31 @@ function gmblPublicationFrom(record) {
         versionId: '2026-07-29',
       },
     ],
+  };
+}
+
+function stanzoHousingPublicationFrom(record) {
+  return {
+    slug: 'stanzo-2026-15',
+    title: 'Staatsanzeiger Ostdeutschland 2026 Nr. 15',
+    year: 2026,
+    issue: '15',
+    date: '2026-08-08',
+    publication: 'StAnzO.',
+    place: 'Dresden',
+    publisher: 'Freistaat Ostdeutschland',
+    pdf: '/assets/recht/StAnzO. 2026 Nr. 15.pdf',
+    sourceReferences: STANZO_HOUSING_SOURCE_REFERENCES,
+    entries: [{
+      id: STANZO_HOUSING_GUIDELINE_SLUG,
+      title: record.meta.title,
+      type: 'bekanntmachung',
+      citation: record.meta.initialCitation,
+      pages: '2–3',
+      documentDate: '2026-08-08',
+      normSlug: STANZO_HOUSING_GUIDELINE_SLUG,
+      versionId: '2026-09-01',
+    }],
   };
 }
 
@@ -1183,6 +1288,36 @@ for (const fileName of htmlFiles) {
           slug: agreementRecord.meta.slug,
           title: agreementRecord.meta.title,
           ...compareGeneratedRecordToExisting(agreementRecord, existingAuditRecords.get(agreementRecord.meta.slug)),
+        }],
+      });
+    } else if (parsed.publication === 'StAnzO.' && parsed.year === 2026 && parsed.issue === '15') {
+      const sourceKey = 'stanzo-2026-15';
+      if (recognizedConfiguredSources.has(sourceKey)) {
+        throw new Error(`${fileName}: StAnzO. 2026 Nr. 15 wurde bereits aus ${recognizedConfiguredSources.get(sourceKey)} erkannt; Quelle ist mehrdeutig.`);
+      }
+      recognizedConfiguredSources.set(sourceKey, fileName);
+      const record = buildStAnZOHousingGuidelineRecord(parsed);
+      validateRecord(record);
+      records.push(record);
+      publications.push(stanzoHousingPublicationFrom(record));
+      report.sourceAudit.push({
+        file: fileName,
+        classification: classification.kind,
+        detectedIssue: parsed.issue,
+        detectedNorms: summaries.map((summary) => summary.title),
+        documentDate: parsed.documentDate,
+        publicationDate: parsed.publicationDate,
+        startPage: parsed.startPage ?? null,
+        outerStructure: auditSummary.outerStructure,
+        articleCount: auditSummary.articleCount,
+        paragraphCount: auditSummary.paragraphCount,
+        listCount: auditSummary.listCount,
+        tableCount: auditSummary.tableCount,
+        parserContractIssues,
+        norms: [{
+          slug: record.meta.slug,
+          title: record.meta.title,
+          ...compareGeneratedRecordToExisting(record, existingAuditRecords.get(record.meta.slug)),
         }],
       });
     } else if (ISSUE_CONFIG[parsed.issue]) {

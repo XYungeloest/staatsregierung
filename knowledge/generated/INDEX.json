@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-01",
+  "generatedAt": "2026-08-08",
   "editorialAsOf": "2026-08-01",
-  "count": 258,
+  "count": 263,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -474,6 +474,34 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-gemeingut-wohnen-guideline-2026",
+      "title": "Gemeingut Wohnen beschließt Leitlinie zur Mietpreisbildung",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "housing",
+        "public-economy"
+      ],
+      "validFrom": "2026-08-08",
+      "validTo": "2026-08-08",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-gemeingut-wohnen-rent-reduction-2026",
+      "title": "Mietsenkung und Kostenmiete bei Gemeingut Wohnen treten in Kraft",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "housing",
+        "scheduled"
+      ],
+      "validFrom": "2026-09-01",
+      "validTo": "2026-09-01",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-grenzpolizei-agreement-published",
       "title": "Verwaltungsabkommen wird in GMBl. 2026 Nr. 14 veröffentlicht",
       "type": "timeline-event",
@@ -786,6 +814,23 @@
         "parliament"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-gemeingut-wohnen",
+      "title": "Gemeingut Wohnen",
+      "type": "institution",
+      "aliases": [
+        "Gemeingut Wohnen AöR"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "housing",
+        "public-economy"
+      ],
+      "validFrom": "2026-03-23",
       "validTo": null,
       "target": "knowledge/entities/institutions.json"
     },
@@ -2910,6 +2955,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-pm-2026-08-08-04",
+      "title": "25 Prozent weniger Miete: Gemeingut Wohnen senkt Bestandsmieten zum 1. September",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "press",
+        "housing",
+        "public-economy",
+        "projects"
+      ],
+      "validFrom": "2026-08-08",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-readme",
       "title": "Repository-README",
       "type": "source",
@@ -2985,6 +3045,21 @@
         "history"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-15",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 15",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "housing",
+        "public-economy",
+        "projects"
+      ],
+      "validFrom": "2026-08-08",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
