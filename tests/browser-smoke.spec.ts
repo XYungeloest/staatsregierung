@@ -360,15 +360,15 @@ test('Rechtsportal verwendet auf Übersichten und Suchindex dieselbe jüngste Ve
     .locator('xpath=following::ul[1]')
     .locator('li')
     .first();
-  await expect(latestHomePublication).toContainText('2026 Nr. 14');
+  await expect(latestHomePublication).toContainText('2026 Nr. 15');
 
   await page.goto('/recht/verkuendungen/');
-  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 14');
+  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 15');
 
   const searchIndex = await (await request.get('/recht/search-index.json')).json();
   const publicationIndex = await (await request.get('/recht/verkuendungen/index.json')).json();
-  expect(searchIndex.latestPublication.slug).toBe('gmbl-2026-14');
-  expect(publicationIndex.latestPublication.slug).toBe('gmbl-2026-14');
+  expect(searchIndex.latestPublication.slug).toBe('stanzo-2026-15');
+  expect(publicationIndex.latestPublication.slug).toBe('stanzo-2026-15');
 });
 
 test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwerkzeuge', async ({ page }) => {

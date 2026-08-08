@@ -1,6 +1,26 @@
 {
-  "asOf": "2026-08-01",
+  "asOf": "2026-08-08",
   "institutions": [
+    {
+      "id": "inst-gemeingut-wohnen",
+      "title": "Gemeingut Wohnen",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-23",
+      "validTo": null,
+      "asOf": "2026-08-08",
+      "summary": "Anstalt des öffentlichen Rechts für die gemeinwirtschaftliche Bewirtschaftung vergesellschafteter Wohnungsbestände. Ihr Verwaltungsrat beschloss am 8. August 2026 die Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung.",
+      "sourceRefs": [
+        {"sourceId": "source-housing-law", "locator": "Errichtung und Aufgaben", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-15", "locator": "Seiten 2–3", "role": "primary"}
+      ],
+      "relatedIds": ["project-wohnen", "inst-sek-inneres-wohnen"],
+      "tags": ["institution", "public-law-entity", "housing", "public-economy"],
+      "notes": [],
+      "aliases": ["Gemeingut Wohnen AöR"],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
     {
       "id": "inst-bundespraesident", "title": "Amt des Bundespräsidenten", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Bundesverfassungsamt; seine Befugnisse werden bei Verhinderung oder vorzeitiger Erledigung nach Artikel 57 GG durch den Präsidenten des Bundesrates wahrgenommen.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}], "relatedIds": ["person-manuela-dreyer", "person-karl-honecker"], "tags": ["federal", "constitutional-organ"], "notes": [], "aliases": ["Bundespräsident", "Bundespräsidentin"], "type": "federal-constitutional-organ", "predecessorId": null, "successorId": null
     },

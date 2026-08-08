@@ -1,6 +1,47 @@
 {
-  "asOf": "2026-08-01",
+  "asOf": "2026-08-08",
   "sources": [
+    {
+      "id": "source-stanzo-2026-15",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 15.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 15.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 15.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 15",
+      "date": "2026-08-08",
+      "documentDate": "2026-08-08",
+      "publicationDate": "2026-08-08",
+      "pages": "2–3",
+      "status": "primary",
+      "scope": ["law", "housing", "public-economy", "projects"],
+      "sourceRole": "official-publication",
+      "verificationHierarchy": [
+        "HTML: vollständige strukturtragende Importquelle",
+        "PDF: amtliche visuelle Veröffentlichungs- und Kontrollquelle"
+      ],
+      "notes": "Amtliche Primärquelle der Bekanntmachung zur gemeinwirtschaftlichen Mietpreisbildung; Grundlage ist § 16 des Gemeingut-Wohnen-Gesetzes."
+    },
+    {
+      "id": "source-pm-2026-08-08-04",
+      "type": "press-release",
+      "path": "Gesetze/PM-08082026-04.html",
+      "paths": {
+        "html": "Gesetze/PM-08082026-04.html",
+        "pdf": "Gesetze/PM-08082026-04.pdf"
+      },
+      "title": "25 Prozent weniger Miete: Gemeingut Wohnen senkt Bestandsmieten zum 1. September",
+      "date": "2026-08-08",
+      "status": "primary",
+      "scope": ["press", "housing", "public-economy", "projects"],
+      "sourceRole": "official-press-release",
+      "verificationHierarchy": [
+        "HTML: vollständige Textquelle",
+        "PDF: visuelle Kontrollquelle"
+      ],
+      "notes": "Die Originale bleiben unverändert. Die PM enthält den Schreibfehler „Samsatg“ sowie auf Seite 1 das abweichende Fußzeilendatum 21. Juli 2026; Kopf, Folgeseiten und Dokumentkennung belegen den 8. August 2026."
+    },
     {
       "id": "source-editorial-clarification-dreyer-election-2026-08-01",
       "type": "editorial-clarification",
