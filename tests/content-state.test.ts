@@ -14,9 +14,9 @@ import {
   loadMinistries,
 } from '../src/lib/portal/content.ts';
 
-const cutoff = '2026-08-01';
+const cutoff = '2026-08-09';
 
-test('Stichtag und aktuelle Staatsorganisation sind zentral auf den 1. August gesetzt', async () => {
+test('Stichtag und aktuelle Staatsorganisation sind zentral auf den 9. August gesetzt', async () => {
   assert.equal(PORTAL_REFERENCE_DATE, cutoff);
   const currentGovernment = await loadCurrentGovernment();
   assert.equal(currentGovernment.legislature, '7. Volkskammer');
@@ -107,7 +107,7 @@ test('vollständige Normzitate behalten Normart und Dokumentdatum', async () => 
 
 test('Verkündungen unterscheiden versionierte und nicht mitversionierte Quellen ehrlich', async () => {
   const publications = await loadAllVerkuendungen();
-  assert.equal(publications.length, 96);
+  assert.equal(publications.length, 97);
   assert.ok(publications.every((publication) => !publication.sourceFiles?.length));
   const newPublications = publications.filter((publication) => Number(publication.issue) >= 46 && Number(publication.issue) <= 58 && publication.year === 2026);
   assert.equal(newPublications.length, 13);

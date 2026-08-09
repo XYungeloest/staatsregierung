@@ -1,6 +1,49 @@
 {
-  "asOf": "2026-08-08",
+  "asOf": "2026-08-09",
   "sources": [
+    {
+      "id": "source-ogvbl-2026-59",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl.2026Nr.59.html",
+      "paths": {
+        "html": "Gesetze/OGVBl.2026Nr.59.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 59.pdf",
+        "markdown": "Gesetze/OGVBl. 2026 Nr. 59.md"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 59",
+      "date": "2026-08-09",
+      "documentDate": "2026-08-09",
+      "publicationDate": "2026-08-09",
+      "pages": "2–7",
+      "status": "primary",
+      "scope": ["law", "elections", "political-participation", "proceedings"],
+      "sourceRole": "official-publication",
+      "verificationHierarchy": [
+        "HTML: vollständige strukturtragende Importquelle",
+        "PDF: amtliche visuelle Veröffentlichungs- und Kontrollquelle",
+        "Markdown: zusätzliche Transkription und Fallback"
+      ],
+      "notes": "Amtliche Primärquelle der Volksbefragungsverordnung 2026. HTML und Markdown ergeben nach dem Parservergleich denselben strukturierten Normtext; alle sieben PDF-Seiten wurden visuell kontrolliert."
+    },
+    {
+      "id": "source-pm-2026-08-09-05",
+      "type": "press-release",
+      "path": "Gesetze/PM-09082026-05.md",
+      "paths": {
+        "markdown": "Gesetze/PM-09082026-05.md",
+        "pdf": "Gesetze/PM-09082026-05.pdf"
+      },
+      "title": "Staatsrat ordnet Volksbefragung zur weiteren Entwicklung des Freistaates an",
+      "date": "2026-08-09",
+      "status": "primary",
+      "scope": ["press", "elections", "political-participation", "proceedings"],
+      "sourceRole": "official-press-release",
+      "verificationHierarchy": [
+        "Markdown: vollständige Textquelle der Pressemitteilung",
+        "PDF: visuelle Kontrollquelle"
+      ],
+      "notes": "Amtliche Pressemitteilung zur Anordnung, zu den fünf Fragen und zum vorgesehenen Ablauf. Sie wird für die öffentliche Einordnung verwendet; für den Rechtswortlaut ist OGVBl. 2026 Nr. 59 maßgeblich."
+    },
     {
       "id": "source-stanzo-2026-15",
       "type": "official-gazette",
@@ -57,7 +100,7 @@
       "type": "structured-content",
       "path": "README.md",
       "title": "Repository-README",
-      "date": "2026-07-23",
+      "date": "2026-08-09",
       "status": "secondary",
       "scope": [
         "website",
@@ -71,7 +114,7 @@
       "type": "editorial-decision",
       "path": "AGENTS.md",
       "title": "Agentenregeln des Repositories",
-      "date": "2026-07-23",
+      "date": "2026-08-09",
       "status": "secondary",
       "scope": [
         "government",
@@ -85,7 +128,7 @@
       "type": "editorial-decision",
       "path": "CONTENT.md",
       "title": "Content-Pflege",
-      "date": "2026-07-23",
+      "date": "2026-08-09",
       "status": "secondary",
       "scope": [
         "website",
@@ -99,7 +142,7 @@
       "type": "editorial-decision",
       "path": "CONTENT_GAPS.md",
       "title": "Offene Quellenfragen",
-      "date": "2026-07-23",
+      "date": "2026-08-09",
       "status": "secondary",
       "scope": [
         "law",
@@ -113,7 +156,7 @@
       "type": "structured-content",
       "path": "src/config/editorial.json",
       "title": "Redaktioneller Stichtag",
-      "date": "2026-07-21",
+      "date": "2026-08-09",
       "status": "primary",
       "scope": [
         "editorial"
@@ -177,20 +220,20 @@
       "type": "structured-content",
       "path": "content/freistaat/bezirke.json",
       "title": "Bezirke",
-      "date": "2026-07-21",
+      "date": "2026-08-09",
       "status": "secondary",
       "scope": [
         "territory",
         "administration"
       ],
-      "notes": "Trennt acht bestehende von vierzehn künftigen Bezirken."
+      "notes": "Dokumentiert die seit 1. August 2026 geltenden vierzehn Bezirke und grenzt die sieben aufgehobenen Flächenbezirke als historischen Stand ab; Berlin besteht fort."
     },
     {
       "id": "source-government-timeline",
       "type": "structured-content",
       "path": "content/dashboard/timeline.json",
       "title": "Portal-Timeline",
-      "date": "2026-07-21",
+      "date": "2026-08-09",
       "status": "secondary",
       "scope": [
         "history",

@@ -95,7 +95,13 @@
     {
       "type": "article",
       "label": "Artikel 2",
-      "children": []
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verordnung tritt am Tage ihrer Verkündung in Kraft."
+        }
+      ]
     }
   ]
 }

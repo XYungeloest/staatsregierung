@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-08",
-  "editorialAsOf": "2026-08-01",
-  "count": 263,
+  "generatedAt": "2026-08-09",
+  "editorialAsOf": "2026-08-09",
+  "count": 272,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -725,6 +725,62 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-volksbefragung-2026",
+      "title": "Volksbefragung 2026",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "scheduled"
+      ],
+      "validFrom": "2026-09-05",
+      "validTo": "2026-09-06",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-volksbefragung-information-deadline-2026",
+      "title": "Amtliche Informationen zur Volksbefragung",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "scheduled"
+      ],
+      "validFrom": "2026-08-22",
+      "validTo": "2026-08-22",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-volksbefragung-ordered-2026",
+      "title": "Volksbefragungsverordnung 2026 wird verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "law"
+      ],
+      "validFrom": "2026-08-09",
+      "validTo": "2026-08-09",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-volksbefragung-result-deadline-2026",
+      "title": "Vorgesehene Bekanntmachung des Befragungsergebnisses",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "scheduled"
+      ],
+      "validFrom": "2026-09-10",
+      "validTo": "2026-09-10",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-volkskammer-election-2026",
       "title": "Wahl zur achten Volkskammer",
       "type": "timeline-event",
@@ -797,6 +853,19 @@
       "tags": [
         "federal",
         "court"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-bundeswahlleiter",
+      "title": "Bundeswahlleiter",
+      "type": "institution",
+      "aliases": [],
+      "tags": [
+        "election-authority",
+        "political-participation"
       ],
       "validFrom": null,
       "validTo": null,
@@ -1714,6 +1783,22 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-volksbefragung-2026",
+      "title": "Allgemeine Volksbefragung anlässlich der achten Volkskammerwahl",
+      "type": "proceeding",
+      "aliases": [
+        "Volksbefragung 2026"
+      ],
+      "tags": [
+        "proceeding",
+        "political-participation",
+        "election"
+      ],
+      "validFrom": "2026-08-09",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "project-boden-volksacker",
       "title": "Volksacker, Flächenfonds und Bodenfonds Ost",
       "type": "project",
@@ -2142,7 +2227,7 @@
         "editorial",
         "law"
       ],
-      "validFrom": "2026-07-23",
+      "validFrom": "2026-08-09",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2181,7 +2266,7 @@
         "territory",
         "administration"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-08-09",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2342,7 +2427,7 @@
         "proceedings",
         "conflicts"
       ],
-      "validFrom": "2026-07-23",
+      "validFrom": "2026-08-09",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2356,7 +2441,7 @@
         "law",
         "editorial"
       ],
-      "validFrom": "2026-07-23",
+      "validFrom": "2026-08-09",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2411,7 +2496,7 @@
       "tags": [
         "editorial"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-08-09",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2588,7 +2673,7 @@
         "law",
         "projects"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": "2026-08-09",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2807,6 +2892,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-ogvbl-2026-59",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 59",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "elections",
+        "political-participation",
+        "proceedings"
+      ],
+      "validFrom": "2026-08-09",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-ogvbl-53",
       "title": "OGVBl. 2026 Nr. 53",
       "type": "source",
@@ -2970,6 +3070,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-pm-2026-08-09-05",
+      "title": "Staatsrat ordnet Volksbefragung zur weiteren Entwicklung des Freistaates an",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "press",
+        "elections",
+        "political-participation",
+        "proceedings"
+      ],
+      "validFrom": "2026-08-09",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-readme",
       "title": "Repository-README",
       "type": "source",
@@ -2979,7 +3094,7 @@
         "law",
         "editorial"
       ],
-      "validFrom": "2026-07-23",
+      "validFrom": "2026-08-09",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -3245,6 +3360,20 @@
         "territory"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-volksbefragung-2026",
+      "title": "Angeordnete Volksbefragung 2026",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "political-participation",
+        "election"
+      ],
+      "validFrom": "2026-08-09",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

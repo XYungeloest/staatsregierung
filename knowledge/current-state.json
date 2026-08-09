@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-01",
+  "asOf": "2026-08-09",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -8,7 +8,7 @@
       "status": "editorially-confirmed",
       "validFrom": "2026-06-01",
       "validTo": null,
-      "asOf": "2026-08-01",
+      "asOf": "2026-08-09",
       "summary": "Karl Honecker nahm die Befugnisse des Bundespräsidenten vom 1. Juni bis 15. Juli 2026 wegen der Verhinderung Manuela Dreyers wahr und setzt die Vertretung seit ihrem Rücktritt am 16. Juli wegen der vorzeitigen Erledigung des Amtes fort. Ein Enddatum ist nicht belegt.",
       "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}],
       "relatedIds": ["person-karl-honecker", "person-manuela-dreyer", "inst-bundesrat", "inst-bundespraesident", "question-honecker-federal-president-acts-and-end"],
@@ -26,8 +26,8 @@
       "status": "editorially-confirmed",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 1. August 2026; Regierungssitz Dresden.",
+      "asOf": "2026-08-09",
+      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 9. August 2026; Regierungssitz Dresden.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-config",
@@ -50,7 +50,7 @@
       "notes": [],
       "stateId": "territory-freistaat",
       "capital": "Dresden",
-      "editorialAsOf": "2026-08-01"
+      "editorialAsOf": "2026-08-09"
     },
     {
       "id": "state-current-constitution",
@@ -198,13 +198,60 @@
       ]
     },
     {
+      "id": "state-current-volksbefragung-2026",
+      "title": "Angeordnete Volksbefragung 2026",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-09",
+      "validTo": null,
+      "asOf": "2026-08-09",
+      "summary": "Die Volksbefragungsverordnung 2026 ist am 9. August 2026 verkündet worden und in Kraft getreten. Die freiwillige, rechtlich nicht bindende Befragung zu fünf politischen Grundsatzfragen findet am 5. und 6. September 2026 parallel zur Wahl der achten Volkskammer statt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "Seiten 2–7, insbesondere §§ 1, 2 und 11",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-09-05",
+          "locator": "gesamte Pressemitteilung",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer",
+        "inst-bundeswahlleiter",
+        "proceeding-volksbefragung-2026",
+        "event-volksbefragung-2026"
+      ],
+      "tags": [
+        "current-state",
+        "political-participation",
+        "election"
+      ],
+      "notes": [
+        "Die Befragung ist kein Volksentscheid; ein Beteiligungs- oder Zustimmungsquorum besteht nicht.",
+        "Durchführung, Ergebnisbekanntmachung und Bericht werden nicht vorweggenommen."
+      ],
+      "normRefs": [
+        {
+          "normSlug": "volksbefragungsverordnung-2026",
+          "versionId": "2026-08-09"
+        }
+      ],
+      "consultationStartDate": "2026-09-05",
+      "consultationEndDate": "2026-09-06",
+      "participation": "voluntary",
+      "legalEffect": "non-binding"
+    },
+    {
       "id": "state-current-parliament",
       "title": "Siebte Volkskammer und Mehrheitsverhältnisse",
       "status": "confirmed-official",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt. Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.",
+      "asOf": "2026-08-09",
+      "summary": "Die siebte Volkskammer führt die siebte Landtagswahlperiode fort. Die Koalition aus Volksfront und DEMOS wird seit 5. Juli 2026 mit 11 von 15 Sitzen geführt. Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt; parallel ist eine freiwillige und rechtlich nicht bindende Volksbefragung angeordnet.",
       "sourceRefs": [
         {
           "sourceId": "source-organization-governments",
@@ -220,6 +267,11 @@
           "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
           "locator": "Abschnitt Wahl zur achten Volkskammer",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "§ 1",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -227,7 +279,9 @@
         "party-volksfront",
         "party-demos",
         "proceeding-eighth-volkskammer-election",
-        "event-volkskammer-election-2026"
+        "event-volkskammer-election-2026",
+        "proceeding-volksbefragung-2026",
+        "event-volksbefragung-2026"
       ],
       "tags": [
         "current-state",

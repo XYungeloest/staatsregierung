@@ -1,7 +1,7 @@
 # Offene Quellenfragen
 
-**Redaktioneller Stand:** 1. August 2026
-**Zuletzt geprüft:** 1. August 2026
+**Redaktioneller Stand:** 9. August 2026
+**Quellenbestand zuletzt geprüft:** 9. August 2026
 
 Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
 nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
@@ -21,6 +21,11 @@ Belegt:
   `Gesetze/` vor. Die HTML-Fassung ist die strukturtragende Importquelle, das sechsseitige PDF die
   amtliche visuelle Veröffentlichungs- und Kontrollquelle und Markdown eine zusätzliche
   Transkription. Das Verwaltungsabkommen belegt die Seiten 2 bis 6.
+- OGVBl. 2026 Nr. 59 liegt vollständig als HTML, PDF und Markdown unter `Gesetze/` vor. Die
+  HTML-Fassung ist die strukturtragende Importquelle, das siebenseitige PDF die amtliche visuelle
+  Veröffentlichungs- und Kontrollquelle und Markdown eine zusätzliche Transkription. Alle drei
+  Fassungen belegen die Volksbefragungsverordnung 2026 auf den Seiten 2 bis 7. Die zugehörige
+  Pressemitteilung liegt als Markdown und dreiseitiges PDF vor.
 - `OGVBl II-24.pdf` und `OGVBl I-25.pdf` sind bildbasierte Alt-Ausgaben. Alle 47 PDF-Seiten
   wurden am 23. Juli 2026 vollständig gerendert und visuell geprüft. Die elf enthaltenen
   Dokumente liegen nun als redaktionell geprüfte strukturierte HTML-Transkriptionen und
@@ -70,6 +75,10 @@ Schlussfolgerung:
 - Das Verwaltungsabkommen zur Kasernierten Grenzpolizei wird als eigener Dokumenttyp geführt.
   Abschluss am 28. Juli und Veröffentlichung am 29. Juli 2026 sind amtlich belegt; die technische
   und organisatorische Umsetzung wird nicht als abgeschlossen behauptet.
+- Die Volksbefragungsverordnung 2026 wird als Rechtsverordnung im Rechtsportal geführt. Sie
+  ordnet eine freiwillige und rechtlich nicht bindende Befragung am 5. und 6. September 2026 an;
+  die künftige Durchführung, Ergebnisbekanntmachung und politische Auswertung werden nicht als
+  bereits erfolgt dargestellt.
 - Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
   eindeutige Aufhebungs- oder Übergangsquelle vorliegt.
 
@@ -97,7 +106,7 @@ Schlussfolgerung:
 
 Belegt:
 
-- Unter `Gesetze/` liegen 85 HTML-Dateien und 99 Markdown-Dateien. Sämtliche eindeutig einem
+- Unter `Gesetze/` liegen 88 HTML-Dateien und 101 Markdown-Dateien. Sämtliche eindeutig einem
   Bestandsdatensatz zuordenbaren HTML-Ausgaben sowie `Staatsverfassung.html` dienen als lokale
   strukturtragende Importquellen. Markdown bleibt Altbestand und wird bei vorhandener HTML-Ausgabe
   nicht geöffnet. 17 Normen ohne HTML wurden nach PDF-/Quellvergleich mit dem getrennten
@@ -121,6 +130,8 @@ Belegt:
   fest. Content-Check und Build benötigen dafür keinen Netzwerkzugriff.
 - Dasselbe Inventar hält für GMBl. 2026 Nr. 14 alle drei lokalen Pfade, SHA-256-Werte,
   Seitenumfang, Quellenrollen und den geprüften Normbezug fest.
+- Für OGVBl. 2026 Nr. 59 hält das Inventar ebenfalls HTML-, PDF- und Markdown-Pfad,
+  SHA-256-Werte, Seitenumfang, Quellenrollen und den Bezug zur Volksbefragungsverordnung fest.
 - Der Normimport läuft standardmäßig nur als Audit. Schreiben erfordert `--write` und eine gezielte
   `--file`-Angabe; vorhandene Normen werden erst mit `--update-existing` verändert.
 - Amtliche REVOSax-Ausgangsseiten liegen unverändert unter

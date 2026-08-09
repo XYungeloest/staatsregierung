@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-01",
+  "asOf": "2026-08-09",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment", "title": "Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer", "status": "editorially-confirmed", "validFrom": "2026-07-09", "validTo": null, "asOf": "2026-08-01",
@@ -13,6 +13,80 @@
     },
     {
       "id": "proceeding-eighth-volkskammer-election", "title": "Wahl zur achten Volkskammer", "status": "editorially-confirmed", "validFrom": "2026-08-01", "validTo": null, "asOf": "2026-08-01", "summary": "Die Wahl zur achten Volkskammer ist für den 5. und 6. September 2026 angesetzt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl zur achten Volkskammer", "role": "primary"}], "relatedIds": ["inst-volkskammer", "event-volkskammer-election-2026"], "tags": ["proceeding", "election", "parliament"], "notes": [], "aliases": ["Wahl zur 8. Volkskammer"], "proceedingType": "election", "stage": "scheduled", "participantIds": ["inst-volkskammer"], "normRefs": [], "decision": "Wahltage sind der 5. und 6. September 2026.", "nextAction": "Durchführung der Wahl an den festgelegten Wahltagen.", "openQuestionIds": [], "electionStartDate": "2026-09-05", "electionEndDate": "2026-09-06"
+    },
+    {
+      "id": "proceeding-volksbefragung-2026",
+      "title": "Allgemeine Volksbefragung anlässlich der achten Volkskammerwahl",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-09",
+      "validTo": null,
+      "asOf": "2026-08-09",
+      "summary": "Der Staatsrat hat eine freiwillige und rechtlich nicht bindende Volksbefragung zu fünf politischen Grundsatzfragen angeordnet. Sie wird am 5. und 6. September 2026 parallel zur Volkskammerwahl durchgeführt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "Seiten 2–7, insbesondere §§ 1, 2 und 6–11",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-09-05",
+          "locator": "gesamte Pressemitteilung",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer",
+        "inst-bundeswahlleiter",
+        "proceeding-eighth-volkskammer-election",
+        "event-volksbefragung-ordered-2026",
+        "event-volksbefragung-information-deadline-2026",
+        "event-volksbefragung-2026",
+        "event-volksbefragung-result-deadline-2026"
+      ],
+      "tags": [
+        "proceeding",
+        "political-participation",
+        "election"
+      ],
+      "notes": [
+        "Die Volksbefragung ist ausdrücklich kein Volksentscheid im Sinne des Artikels 72 der Staatsverfassung und entfaltet keine unmittelbare rechtliche Bindungswirkung.",
+        "Ein Beteiligungs- oder Zustimmungsquorum besteht nicht."
+      ],
+      "aliases": [
+        "Volksbefragung 2026"
+      ],
+      "proceedingType": "public-consultation",
+      "stage": "scheduled",
+      "participantIds": [
+        "inst-staatsrat",
+        "inst-volkskammer",
+        "inst-bundeswahlleiter"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "volksbefragungsverordnung-2026",
+          "versionId": "2026-08-09"
+        },
+        {
+          "normSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+          "versionId": "2026-07-21"
+        }
+      ],
+      "decision": "Anordnung durch die am 9. August 2026 verkündete Volksbefragungsverordnung 2026.",
+      "nextAction": "Amtliche Information bis 22. August, Durchführung am 5. und 6. September, Ergebnisbekanntmachung bis 10. September und anschließender Bericht des Staatsrates.",
+      "openQuestionIds": [],
+      "consultationStartDate": "2026-09-05",
+      "consultationEndDate": "2026-09-06",
+      "participation": "voluntary",
+      "legalEffect": "non-binding",
+      "questions": [
+        "Sollte der Freistaat seine Politik darauf ausrichten, dauerhaft im Rahmen seiner verfassungsrechtlichen Möglichkeiten den demokratischen Sozialismus aufzubauen oder zu erhalten?",
+        "Befürworten Sie die durch die Große Staatsreform geschaffene staatliche Ordnung mit Volkskammer, Staatsrat und Staatspräsident?",
+        "Sollen zentrale Bereiche der Daseinsvorsorge, wie Wohnen, Energie, Boden, Verkehr und Gesundheitsversorgung, überwiegend in öffentlicher oder gemeinwirtschaftlicher Verantwortung organisiert werden?",
+        "Soll der Freistaat weiterhin durch öffentliche Investitionen, Wirtschaftslenkung und -planung, eigene Unternehmen und eine aktive Industriepolitik Arbeitsplätze sichern, strukturschwache Regionen stärken und die Infrastruktur modernisieren?",
+        "Soll der Freistaat Ostdeutschland die Bewerbung um die Ausrichtung Olympischer und Paralympischer Spiele weiter verfolgen?"
+      ]
     },
     {
       "id": "proceeding-staatsreform",

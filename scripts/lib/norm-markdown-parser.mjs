@@ -185,8 +185,14 @@ function sanitizeBodyLines(lines, startIndex, endIndex) {
       continue;
     }
     if (SIGNATURE_OFFICE.test(line.text)) {
-      while (result.at(-1)?.blank) result.pop();
-      if (result.at(-1) && !parseStructureMarker(result.at(-1).raw)) result.pop();
+      // Steht der Orts- und Datumsblock bereits vor der Unterschrift, wurden
+      // Name und Amtszeile noch gar nicht in den Normkörper übernommen. Nur
+      // Quellen ohne diesen Block benötigen die rückwärts gerichtete Entfernung
+      // der unmittelbar vorangestellten Namenszeile.
+      if (!inSignatureBlock) {
+        while (result.at(-1)?.blank) result.pop();
+        if (result.at(-1) && !parseStructureMarker(result.at(-1).raw)) result.pop();
+      }
       inSignatureBlock = true;
       continue;
     }
