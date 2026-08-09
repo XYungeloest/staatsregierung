@@ -1,6 +1,36 @@
 {
-  "asOf": "2026-08-08",
+  "asOf": "2026-08-09",
   "institutions": [
+    {
+      "id": "inst-bundeswahlleiter",
+      "title": "Bundeswahlleiter",
+      "status": "confirmed-primary",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-09",
+      "summary": "Zuständige Wahlbehörde für die amtliche Information, einheitliche Durchführungsbestimmungen, Feststellung und Bekanntmachung des Gesamtergebnisses der Volksbefragung 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "§§ 6, 7 und 9",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer",
+        "proceeding-volksbefragung-2026"
+      ],
+      "tags": [
+        "election-authority",
+        "political-participation"
+      ],
+      "notes": [
+        "Die Verordnung belegt die Funktionen im Zusammenhang mit der Volksbefragung, nicht den Zeitpunkt der Errichtung der Institution."
+      ],
+      "aliases": [],
+      "type": "election-authority"
+    },
     {
       "id": "inst-gemeingut-wohnen",
       "title": "Gemeingut Wohnen",

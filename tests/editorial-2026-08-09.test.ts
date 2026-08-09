@@ -14,10 +14,10 @@ import {
 import { PORTAL_REFERENCE_DATE } from '../src/lib/portal/dates.ts';
 import { buildPortalSearchEntries } from '../src/lib/portal/search.ts';
 
-const referenceDate = '2026-08-01';
+const referenceDate = '2026-08-09';
 const readJson = <T>(path: string): T => JSON.parse(readFileSync(path, 'utf8')) as T;
 
-test('der öffentliche Gegenwartsstand verwendet den 1. August 2026', async () => {
+test('der öffentliche Gegenwartsstand verwendet den 9. August 2026', async () => {
   assert.equal(PORTAL_REFERENCE_DATE, referenceDate);
   const currentGovernment = await loadCurrentGovernment();
   assert.equal(currentGovernment.coalition, 'Volksfront und Bündnis Demokratie Europa (DEMOS)');
@@ -59,7 +59,7 @@ test('Kreisreform ist in Kraft, während organisatorische Übergangsarbeit weite
   assert.match(transition?.nextAction ?? '', /Rechtsnachfolge/u);
 });
 
-test('am 1. August beginnende Fassungen sind im Rechtsportal anwendbar', async () => {
+test('am 1. August beginnende Fassungen sind am Stichtag im Rechtsportal anwendbar', async () => {
   const norms = new Map((await loadAllNorms()).map((entry) => [entry.meta.slug, entry]));
   for (const slug of [
     'ostdeutsche-bezirksordnung',
@@ -68,7 +68,7 @@ test('am 1. August beginnende Fassungen sind im Rechtsportal anwendbar', async (
   ]) {
     const norm = norms.get(slug);
     assert.ok(norm, slug);
-    assert.equal(getApplicableVersion(norm, referenceDate)?.validFrom, referenceDate, slug);
+    assert.equal(getApplicableVersion(norm, referenceDate)?.validFrom, '2026-08-01', slug);
   }
   assert.equal(norms.get('gesetz-zur-neuordnung-des-ostdeutschen-schulsystems')?.meta.status, 'in-force');
 });

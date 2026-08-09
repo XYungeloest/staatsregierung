@@ -22,7 +22,15 @@ import {
   loadRuntimeTopics,
 } from '../../lib/runtime-content/index.ts';
 import { getNormUrl } from '../../lib/norms/index.ts';
+import { PORTAL_REFERENCE_DATE } from '../../lib/portal/dates.ts';
 import type { Themenseite } from '../../lib/portal/index.ts';
+
+const referenceDateLabel = new Intl.DateTimeFormat('de-DE', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(`${PORTAL_REFERENCE_DATE}T00:00:00Z`));
 
 export function getStaticPaths() {
   return loadRuntimeTopics().map((topic) => ({
@@ -168,7 +176,7 @@ const relatedProcedures = topic
       <section id="gesetzgebung" class="section section-muted" aria-labelledby="gesetzgebung-title">
         <div class="section-header">
           <h2 id="gesetzgebung-title">Rechtsstand der Vorhaben</h2>
-          <p>Bestätigter Stand am 1. August 2026. Beschluss, Verkündung und Inkrafttreten werden getrennt ausgewiesen.</p>
+          <p>Bestätigter Stand am {referenceDateLabel}. Beschluss, Verkündung und Inkrafttreten werden getrennt ausgewiesen.</p>
         </div>
         <ul class="record-list">
           {relatedProcedures.map((procedure) => (

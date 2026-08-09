@@ -1,7 +1,7 @@
 # Quellenhierarchie des internen Wissenshubs
 
-**Redaktioneller Stand:** 1. August 2026
-**Auditstand:** 28. Juli 2026
+**Redaktioneller Stand:** 9. August 2026
+**Auditstand:** 9. August 2026
 
 ## Grundsatz
 

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-07-29",
+  "checkedAt": "2026-08-09",
   "sources": [
     {
       "id": "ogvbl-ii-2024",
@@ -143,6 +143,38 @@
         "Die vollständige HTML-Fassung ist strukturtragend; das PDF wurde auf allen sechs Seiten visuell geprüft.",
         "§ 7 enthält trotz der Überschrift „Inkrafttreten“ ausschließlich die Kündigungsregel.",
         "Abweichende Amtsbezeichnungen bleiben im Originalwortlaut erhalten und werden in den strukturierten Metadaten dokumentiert."
+      ]
+    },
+    {
+      "id": "ogvbl-2026-59",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 59",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 59.pdf",
+      "mediaType": "application/pdf",
+      "sha256": "d5ce883378a5b35c5641649e51bf0468632ed6c3e85dbebf4bf507adcfe423b1",
+      "pageCount": 7,
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.59.html",
+      "derivedSourceSha256": "a1d509c069aab78a3e851aed95af09941e2229af10415e2cc0ae3796240beeef",
+      "supplementarySources": [
+        {
+          "localSource": "Gesetze/OGVBl. 2026 Nr. 59.md",
+          "mediaType": "text/markdown",
+          "sha256": "b104ff9399357b22509f17dcb45c479ada909c17562c9f73ed80985f6af15a30",
+          "sourceRole": "supplementary-transcription"
+        }
+      ],
+      "verifiedAt": "2026-08-09",
+      "documents": [
+        {
+          "normSlug": "volksbefragungsverordnung-2026",
+          "title": "Volksbefragungsverordnung 2026",
+          "pages": "2-7"
+        }
+      ],
+      "notes": [
+        "Die HTML-Fassung ist strukturtragend; alle sieben PDF-Seiten wurden visuell kontrolliert.",
+        "HTML und Markdown ergeben nach dem strukturierten Parservergleich denselben vollständigen Normtext mit den §§ 1 bis 11.",
+        "Die Markdown-Fassung ist nur ergänzende Transkription und wird bei vorhandener HTML-Ausgabe nicht importiert."
       ]
     }
   ]

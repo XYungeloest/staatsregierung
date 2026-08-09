@@ -68,13 +68,18 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **2026-07-29: Verwaltungsabkommen wird in GMBl. 2026 Nr. 14 veröffentlicht.** Das Verwaltungsabkommen wird am 29. Juli 2026 veröffentlicht und im Datenmodell ab diesem Tag als wirksam geführt. Der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz.
 - **2026-08-01: Neue Kreis- und Bezirksstruktur wird wirksam.** Vierzehn Bezirke und die neue Kreisstruktur sind nach der verkündeten Inkrafttretensregelung wirksam geworden.
 - **2026-08-08: Gemeingut Wohnen beschließt Leitlinie zur Mietpreisbildung.** Der Verwaltungsrat beschließt die gemeinwirtschaftliche Kostenmiete und eine Senkung der am 31. August geschuldeten Nettokaltmieten um 25 Prozent zum 1. September 2026. Die Bekanntmachung erscheint in StAnzO. 2026 Nr. 15.
+- **2026-08-09: Volksbefragungsverordnung 2026 wird verkündet.** Der Staatsrat ordnet die Volksbefragung an; die Verordnung wird in OGVBl. 2026 Nr. 59 verkündet und tritt am Tag der Verkündung in Kraft.
+- **2026-08-22: Amtliche Informationen zur Volksbefragung.** Spätestens an diesem Tag soll der Bundeswahlleiter Fragen, Antwortmöglichkeiten, rechtliche Bedeutung, Verfahrenshinweise und eine sachliche Gegenstandsdarstellung veröffentlichen.
 - **2026-09-01: Mietsenkung und Kostenmiete bei Gemeingut Wohnen treten in Kraft.** Zum 1. September 2026 sinken die Bestandsmieten von Amts wegen um 25 Prozent; zugleich gilt das Prinzip der gemeinwirtschaftlichen Kostenmiete.
+- **2026-09-05: Volksbefragung 2026.** Die freiwillige und rechtlich nicht bindende Befragung zu fünf politischen Grundsatzfragen findet parallel zur Wahl der achten Volkskammer statt.
 - **2026-09-05: Wahl zur achten Volkskammer.** Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.
+- **2026-09-10: Vorgesehene Bekanntmachung des Befragungsergebnisses.** Das endgültige Ergebnis soll nach der Verordnung spätestens am 10. September 2026 öffentlich bekannt gemacht werden.
 
 ## Laufende Verfahren und Abhängigkeiten
 
 - **Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer** (formal-outcome-unresolved): Nach dem Antrag vom 9. Juli beschloss der Bundestag am 12. Juli 2026 die Präsidentenanklage und reichte sie beim Bundesverfassungsgericht ein. Dreyer trat am 16. Juli zurück; der formelle Verfahrensausgang ist nicht belegt.
 - **Wahl zur achten Volkskammer** (scheduled): Die Wahl zur achten Volkskammer ist für den 5. und 6. September 2026 angesetzt.
+- **Allgemeine Volksbefragung anlässlich der achten Volkskammerwahl** (scheduled): Der Staatsrat hat eine freiwillige und rechtlich nicht bindende Volksbefragung zu fünf politischen Grundsatzfragen angeordnet. Sie wird am 5. und 6. September 2026 parallel zur Volkskammerwahl durchgeführt.
 - **Übergang zur neuen Kreis- und Bezirksstruktur** (implementation): Die Neuordnung ist seit 1. August 2026 wirksam. Übergangsorgane, Rechtsnachfolge und weitere organisatorische Vollzugsschritte werden umgesetzt.
 - **Nachweis der dritten Plenarsitzung vom 20. Juli 2026** (records-missing): Verkündungen belegen zwölf beschlossene Vorhaben, aber Plenarprotokoll, Einzelabstimmungen und Stimmenzahlen fehlen.
 - **Umsetzung Boom Europe Leipzig/Halle** (implementation): Gesetzliche Grundlagen sind in Kraft; konkrete Vertrags-, Finanzierungs- und Projektorganisationsdetails müssen aus den Vollquellen weiter erschlossen werden.

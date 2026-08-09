@@ -91,6 +91,7 @@ const ISSUE_CONFIG = {
   '56': [{ slug: 'viertes-gesetz-zur-grossen-staatsreform', shortTitle: 'Viertes Gesetz zur Großen Staatsreform', responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Ändert die Verfassungsvorschriften zu Bildung, Schulwesen, Wissenschaft und Religion.' }],
   '57': [{ slug: 'gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht', shortTitle: 'Gesetz über die Einführung einer Zweitveröffentlichungspflicht', responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Ergänzt das Hochschulgesetz um eine satzungsrechtlich auszugestaltende Zweitveröffentlichungspflicht.' }],
   '58': [{ slug: 'sero-verordnung', shortTitle: 'SERO-Verordnung', responsibleMinistry: 'Staatssekretariat für Nachhaltigkeit und Energie', summary: 'Ordnet die Erfassung von Sekundärrohstoffen und die landeseigene Infrastruktur für Wiederverwendung, Reparatur und Kreislaufwirtschaft.' }],
+  '59': [{ slug: 'volksbefragungsverordnung-2026', shortTitle: 'Volksbefragungsverordnung 2026', responsibleMinistry: 'Staatsrat des Freistaates Ostdeutschland', summary: 'Ordnet für den 5. und 6. September 2026 eine freiwillige, rechtlich nicht bindende Volksbefragung mit fünf Fragen an und regelt Information, Durchführung, Ergebnisermittlung und politische Auswertung.' }],
 };
 
 const ISSUE_SUBJECTS = {
@@ -107,7 +108,47 @@ const ISSUE_SUBJECTS = {
   '56': ['Staats- und Verfassungsrecht', 'Bildung und Weiterbildung'],
   '57': ['Bildung und Weiterbildung', 'Rundfunk und Medien'],
   '58': ['Umwelt, Energie und Klimaschutz', 'Kreislaufwirtschaft'],
+  '59': ['Staats- und Verfassungsrecht', 'Wahlrecht und politische Beteiligung'],
 };
+
+const OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES = [
+  {
+    kind: 'structured-html-transcription',
+    label: 'Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe',
+    availability: 'versioned',
+    localSource: 'Gesetze/OGVBl.2026Nr.59.html',
+    sha256: 'a1d509c069aab78a3e851aed95af09941e2229af10415e2cc0ae3796240beeef',
+    mediaType: 'text/html',
+    pageRange: '2–7',
+    verifiedAt: '2026-08-09',
+    sourceRole: 'structure-bearing',
+  },
+  {
+    kind: 'primary-pdf',
+    label: 'Amtliche visuelle Veröffentlichungsfassung',
+    availability: 'versioned',
+    localSource: 'Gesetze/OGVBl. 2026 Nr. 59.pdf',
+    sha256: 'd5ce883378a5b35c5641649e51bf0468632ed6c3e85dbebf4bf507adcfe423b1',
+    mediaType: 'application/pdf',
+    pageCount: 7,
+    pageRange: '2–7',
+    verifiedAt: '2026-08-09',
+    sourceRole: 'visual-control',
+    derivedSource: 'Gesetze/OGVBl.2026Nr.59.html',
+  },
+  {
+    kind: 'supplementary-markdown-transcription',
+    label: 'Zusätzliche Markdown-Transkription der amtlichen Ausgabe',
+    availability: 'versioned',
+    localSource: 'Gesetze/OGVBl. 2026 Nr. 59.md',
+    sha256: 'b104ff9399357b22509f17dcb45c479ada909c17562c9f73ed80985f6af15a30',
+    mediaType: 'text/markdown',
+    pageRange: '2–7',
+    verifiedAt: '2026-08-09',
+    sourceRole: 'supplementary-transcription',
+    derivedSource: 'Gesetze/OGVBl.2026Nr.59.html',
+  },
+];
 
 const GMBL_AGREEMENT_SLUG = 'verwaltungsabkommen-kasernierte-grenzpolizei';
 const GMBL_SOURCE_FILE = 'GMBl-14-2026.html';
@@ -431,7 +472,7 @@ function buildRecords(parsed) {
     const citation = citationFor({ ...parsed, type: norm.type }, startPage);
     const status = deriveStatus(recordNorm, index);
     const versionId = effectiveDate ?? parsed.publicationDate;
-    const enactingBody = parsed.issue === '58'
+    const enactingBody = ['58', '59'].includes(parsed.issue)
       ? 'Staatsrat des Freistaates Ostdeutschland'
       : 'Landtag des Freistaates Ostdeutschland';
     const abbr = norm.abbr;
@@ -454,8 +495,31 @@ function buildRecords(parsed) {
       status,
       documentDate: parsed.documentDate,
       publicationDate: parsed.publicationDate,
-      sourceReferences: normSourceReferences(parsed.fileName),
+      sourceReferences: parsed.issue === '59'
+        ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES
+        : normSourceReferences(parsed.fileName),
       ...(effectiveDate ? { effectiveDate } : {}),
+      ...(parsed.issue === '59' ? {
+        expiryDate: '2026-12-31',
+        primarySubject: 'Staats- und Verfassungsrecht',
+        relatedNorms: [
+          'staatsverfassung-des-freistaates-ostdeutschland',
+          'erstes-gesetz-zur-grossen-staatsreform',
+        ],
+        keywords: [
+          'VBefrVO 2026',
+          'Volksbefragung',
+          'Volkskammerwahl',
+          '5. September 2026',
+          '6. September 2026',
+          'Bundeswahlleiter',
+          'politische Willensbildung',
+          'freiwillig',
+          'nicht bindend',
+          'Olympische und Paralympische Spiele',
+        ],
+        dateNote: 'Die Verordnung wurde am 9. August 2026 verkündet, tritt nach § 11 am selben Tag in Kraft und mit Ablauf des 31. Dezember 2026 außer Kraft.',
+      } : {}),
       ...(index === 0 && enactedNorms.length === 1 ? { enactedNorm: enactedNorms[0] } : {}),
       ...(index === 0 && enactedNorms.length > 1 ? { enactedNorms } : {}),
       ...(index > 0 ? { enactingNorm: outerSlug } : {}),
@@ -466,7 +530,7 @@ function buildRecords(parsed) {
     const version = {
       versionId,
       validFrom: versionId,
-      validTo: null,
+      validTo: parsed.issue === '59' ? '2026-12-31' : null,
       isCurrent: true,
       citation,
       changeNote: index === 0 ? 'Verkündete Fassung.' : 'Eingeführte Stammfassung.',
@@ -741,6 +805,7 @@ function buildConstitutionRecord(parsed) {
 }
 
 function publicationFrom(parsed, records) {
+  const isVolksbefragung = parsed.issue === '59';
   return {
     slug: `ogvbl-2026-${parsed.issue}`,
     title: `Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. ${parsed.issue}`,
@@ -748,13 +813,21 @@ function publicationFrom(parsed, records) {
     issue: parsed.issue,
     date: parsed.publicationDate,
     publication: 'OGVBl.',
-    sourceReferences: [publicationSourceReference(parsed.fileName)],
+    ...(isVolksbefragung ? {
+      place: 'Dresden',
+      publisher: 'Freistaat Ostdeutschland',
+      pdf: '/assets/recht/OGVBl. 2026 Nr. 59.pdf',
+    } : {}),
+    sourceReferences: isVolksbefragung
+      ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES
+      : [publicationSourceReference(parsed.fileName)],
     entries: records.map((record) => ({
       id: record.meta.slug,
       title: record.meta.title,
       type: record.meta.type === 'verordnung' ? 'verordnung' : 'gesetz',
       citation: record.meta.initialCitation,
-      ...(record.startPage ? { startPage: record.startPage } : {}),
+      ...(!isVolksbefragung && record.startPage ? { startPage: record.startPage } : {}),
+      ...(isVolksbefragung ? { pages: '2–7' } : {}),
       documentDate: record.meta.documentDate,
       normSlug: record.meta.slug,
       versionId: record.versions[0].versionId,
@@ -1496,20 +1569,41 @@ for (const fileName of markdownFiles) {
       if (selectedFiles.has(fileName)) throw new Error(`${fileName}: ${reason}`);
       continue;
     }
-    const publicationCandidates = existingPublications.get(identity) ?? [];
-    const exactPublicationCandidates = publicationCandidates.filter(({ publication }) => publication.date === parsed.publicationDate);
-    const existingPublication = exactPublicationCandidates.length === 1 ? exactPublicationCandidates[0].publication : null;
     const structuralIssues = legacyMarkdownStructureIssues(parsed);
     if (selectedFiles.has(fileName) && structuralIssues.length > 0) {
       throw new Error(`${fileName}: ${structuralIssues.join('; ')}`);
     }
-    const resolved = structuralIssues.length === 0
-      ? resolveLegacySourceRecords(parsed, existingPublication, existingAuditRecords)
-      : { records: [], publication: null, issues: structuralIssues };
-    if (resolved.records.length > 0 && resolved.publication) {
-      resolved.records.forEach(validateRecord);
-      records.push(...resolved.records);
-      publications.push(resolved.publication);
+    const publicationCandidates = existingPublications.get(identity) ?? [];
+    const exactPublicationCandidates = publicationCandidates.filter(({ publication }) => publication.date === parsed.publicationDate);
+    const existingPublication = exactPublicationCandidates.length === 1 ? exactPublicationCandidates[0].publication : null;
+    let resolved;
+    if (
+      structuralIssues.length === 0 &&
+      parsed.publication === 'OGVBl.' &&
+      parsed.year === 2026 &&
+      ISSUE_CONFIG[parsed.issue]
+    ) {
+      if (recognizedConfiguredSources.has(parsed.issue)) {
+        throw new Error(`${fileName}: Ausgabe ${parsed.issue} wurde bereits aus ${recognizedConfiguredSources.get(parsed.issue)} erkannt; Quelle ist mehrdeutig.`);
+      }
+      recognizedConfiguredSources.set(parsed.issue, fileName);
+      const issueRecords = buildRecords(parsed);
+      issueRecords.forEach(validateRecord);
+      const preservedRecords = issueRecords.map((record) =>
+        preserveExistingHistoryForAudit(record, existingAuditRecords.get(record.meta.slug)));
+      const publication = publicationFrom(parsed, issueRecords);
+      records.push(...preservedRecords);
+      publications.push(publication);
+      resolved = { records: preservedRecords, publication, issues: [] };
+    } else {
+      resolved = structuralIssues.length === 0
+        ? resolveLegacySourceRecords(parsed, existingPublication, existingAuditRecords)
+        : { records: [], publication: null, issues: structuralIssues };
+      if (resolved.records.length > 0 && resolved.publication) {
+        resolved.records.forEach(validateRecord);
+        records.push(...resolved.records);
+        publications.push(resolved.publication);
+      }
     }
     const summaries = summarizeMarkdownSource(parsed);
     const auditSummary = summarizeLegacyMarkdownAudit(parsed);
@@ -1541,7 +1635,9 @@ for (const fileName of markdownFiles) {
         ...resolved.issues,
       ],
       writeStatus: resolved.records.length > 0
-        ? 'stabile Bestandszuordnung; gezielte Legacy-Aktualisierung mit --write --update-existing möglich'
+        ? existingPublication
+          ? 'stabile Bestandszuordnung; gezielte Legacy-Aktualisierung mit --write --update-existing möglich'
+          : 'stabile Importkonfiguration; gezielter Erstimport mit --write möglich'
         : 'keine eindeutige Bestandszuordnung; Altbestand bleibt unverändert',
     });
   } catch (error) {
@@ -1591,7 +1687,9 @@ if (shouldWrite) {
 }
 
 const configuredSourceFiles = new Set([
-  ...Object.keys(ISSUE_CONFIG).map((issue) => `OGVBl. 2026 Nr. ${issue}.html`),
+  ...Object.keys(ISSUE_CONFIG).map((issue) => issue === '59'
+    ? 'OGVBl.2026Nr.59.html'
+    : `OGVBl. 2026 Nr. ${issue}.html`),
   GMBL_SOURCE_FILE,
   'Staatsverfassung.html',
 ]);
@@ -1605,17 +1703,17 @@ if (strictMode) {
       strictFailures.push(`${fileName}: konfigurierte HTML-Quelle fehlt`);
       continue;
     }
-    const configuredIssue = fileName.match(/^OGVBl\.\s*2026\s*Nr\.\s*(4[6-9]|5[0-8])\.html$/iu)?.[1];
+    const configuredIssue = fileName.match(/^OGVBl\.\s*2026\s*Nr\.\s*(4[6-9]|5\d)\.(?:html|md)$/iu)?.[1];
     if (fileName === GMBL_SOURCE_FILE && !recognizedConfiguredSources.has('gmbl-2026-14')) {
       strictFailures.push(`${fileName}: konfigurierte GMBl.-Ausgabe wurde nicht anhand ihrer internen Bundesblatt-Metadaten erkannt`);
     } else if (configuredIssue && !recognizedConfiguredSources.has(configuredIssue)) {
-      strictFailures.push(`${fileName}: konfigurierte Ausgabe wurde in keiner HTML-Quelle anhand interner Metadaten erkannt`);
+      strictFailures.push(`${fileName}: konfigurierte Ausgabe wurde in keiner strukturierten Quelle anhand interner Metadaten erkannt`);
     } else if (selectedFiles.size > 0 && !htmlFiles.includes(fileName) && !markdownFiles.includes(fileName)) {
       strictFailures.push(`${fileName}: ausgewählte Normquelle fehlt`);
     }
   }
   for (const issue of Object.keys(ISSUE_CONFIG)) {
-    if (selectedFiles.size === 0 && !recognizedConfiguredSources.has(issue)) strictFailures.push(`OGVBl. 2026 Nr. ${issue}: konfigurierte Norm wurde in keiner HTML-Quelle erkannt`);
+    if (selectedFiles.size === 0 && !recognizedConfiguredSources.has(issue)) strictFailures.push(`OGVBl. 2026 Nr. ${issue}: konfigurierte Norm wurde in keiner strukturierten Quelle erkannt`);
   }
   if (selectedFiles.size === 0 && !recognizedConfiguredSources.has('gmbl-2026-14')) {
     strictFailures.push('GMBl. 2026 Nr. 14: konfiguriertes Verwaltungsabkommen wurde nicht in der HTML-Quelle erkannt');

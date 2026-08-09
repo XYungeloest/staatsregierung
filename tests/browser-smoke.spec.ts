@@ -191,7 +191,7 @@ test('Erster Staatsrat und historische Amtszeiten bleiben nachvollziehbar', asyn
   await expect(page.getByText(/bis zum 19\. Mai 2026/iu).first()).toBeVisible();
 });
 
-test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 1. August 2026 ab', async ({ page }) => {
+test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 9. August 2026 ab', async ({ page }) => {
   await page.goto('/recht/norm/verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n/');
   await expect(page.getByText(/außer Kraft seit/iu).first()).toBeVisible();
 
@@ -360,15 +360,27 @@ test('Rechtsportal verwendet auf Übersichten und Suchindex dieselbe jüngste Ve
     .locator('xpath=following::ul[1]')
     .locator('li')
     .first();
-  await expect(latestHomePublication).toContainText('2026 Nr. 15');
+  await expect(latestHomePublication).toContainText('2026 Nr. 59');
 
   await page.goto('/recht/verkuendungen/');
-  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 15');
+  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 59');
 
   const searchIndex = await (await request.get('/recht/search-index.json')).json();
   const publicationIndex = await (await request.get('/recht/verkuendungen/index.json')).json();
-  expect(searchIndex.latestPublication.slug).toBe('stanzo-2026-15');
-  expect(publicationIndex.latestPublication.slug).toBe('stanzo-2026-15');
+  expect(searchIndex.latestPublication.slug).toBe('ogvbl-2026-59');
+  expect(publicationIndex.latestPublication.slug).toBe('ogvbl-2026-59');
+});
+
+test('Volksbefragung ist öffentlich eingeordnet und mit dem vollständigen Verordnungstext verknüpft', async ({ page }) => {
+  await page.goto('/themen/volksbefragung-2026/');
+  await expect(page.getByRole('heading', { name: 'Volksbefragung 2026', level: 1 })).toBeVisible();
+  await expect(page.getByText(/freiwillig, rechtlich nicht bindend und kein Volksentscheid/u)).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Volksbefragungsverordnung 2026' })).toBeVisible();
+
+  await page.getByRole('link', { name: 'Volksbefragungsverordnung 2026' }).click();
+  await expect(page).toHaveURL(/\/recht\/norm\/volksbefragungsverordnung-2026\/$/u);
+  await expect(page.getByRole('heading', { name: 'Inkrafttreten und Außerkrafttreten' })).toBeVisible();
+  await expect(page.getByText(/Diese Verordnung tritt am Tag ihrer Verkündung in Kraft/u)).toBeVisible();
 });
 
 test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwerkzeuge', async ({ page }) => {
@@ -376,9 +388,9 @@ test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwer
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
   await expect(versionNavigation).toBeVisible();
-  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 1. August 2026');
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 9. August 2026');
   await versionNavigation.locator('.norm-version-picker summary').click();
-  await expect(versionNavigation.getByRole('link', { name: /Geltend am 1. August 2026/u })).toBeVisible();
+  await expect(versionNavigation.getByRole('link', { name: /Geltend am 9. August 2026/u })).toBeVisible();
 
   const firstUnit = page.locator('details.norm-unit').first();
   await expect(firstUnit).toHaveAttribute('id', /^paragraph-|^artikel-/u);
@@ -437,7 +449,7 @@ test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änd
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
   await expect(versionNavigation.locator('.norm-version-navigation__primary > li')).toHaveCount(3);
-  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 1. August 2026');
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 9. August 2026');
   await versionNavigation.locator('.norm-version-picker').evaluate((details: HTMLDetailsElement) => {
     details.open = true;
   });

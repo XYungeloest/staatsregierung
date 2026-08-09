@@ -24,7 +24,7 @@ Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffen
 - Der sichtbare Hinweis zur politischen Simulation bleibt auf obere Hinweisleiste und Footer
   beschränkt. Das Impressum enthält die ausführliche rechtliche Einordnung; in normalen
   Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation ergänzen.
-- Für aktuelle Übersichten gilt der redaktionelle Stichtag 1. August 2026. Termine davor sind
+- Für aktuelle Übersichten gilt der redaktionelle Stichtag 9. August 2026. Termine davor sind
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
@@ -999,6 +999,7 @@ npm run norms:audit -- --strict
 npm run norms:alt-sources:build
 npm run norms:alt-sources:migrate
 npm run norms:import -- --write --file "Gesetze/OGVBl. 2026 Nr. 58.html"
+npm run norms:import -- --write --file "Gesetze/OGVBl.2026Nr.59.html"
 npm run norms:import -- --write --update-existing --file "Gesetze/OGVBl. 2026 Nr. 44.md"
 npm run test:parser
 ```
@@ -1007,6 +1008,10 @@ Der strikte Audit ist schreibfrei und prüft die konfigurierten HTML-Primärquel
 gespeicherten Normfassungen und Verkündungsdatensätze. Er schlägt bei fehlenden Normen,
 abweichenden Titeln oder Datumswerten, Parser-Vertragsverletzungen und geplanten Änderungen fehl.
 Er ist Bestandteil von `npm run content:check` und der CI-Qualitätsprüfung.
+
+Für OGVBl. 2026 Nr. 59 ist die vollständige HTML-Fassung die strukturtragende Importquelle.
+Das amtliche PDF dient der visuellen Kontrolle; die inhaltlich identische Markdown-Fassung bleibt
+als zusätzliche Transkription versioniert und wird bei vorhandener HTML-Ausgabe nicht importiert.
 
 Die Altquellen-Befehle sind ein enger, reproduzierbarer Migrationspfad für OGVBl. II/2024,
 OGVBl. I/2025 und die dazugehörige Verfassungsquelle. Der Build-Befehl setzt die vollständigen

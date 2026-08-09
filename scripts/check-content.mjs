@@ -754,7 +754,7 @@ for (const { file, json } of records) {
       }
     }
 
-    if (/^ogvbl-2026-(?:4[6-9]|5[0-8])$/u.test(json.slug)) {
+    if (/^ogvbl-2026-(?:4[6-9]|5\d)$/u.test(json.slug)) {
       for (const [page, owners] of startPageOwners) {
         if (owners.length > 1) addProblem(file, `Anfangsseite ${page} wurde pauschal mehreren Einträgen zugeordnet`);
       }
@@ -909,7 +909,7 @@ for (const slug of normSlugs) {
   }
 }
 
-for (const { file, json } of byPrefix('verkuendungen/').filter(({ json }) => /^ogvbl-2026-(?:4[6-9]|5[0-8])$/u.test(json.slug))) {
+for (const { file, json } of byPrefix('verkuendungen/').filter(({ json }) => /^ogvbl-2026-(?:4[6-9]|5\d)$/u.test(json.slug))) {
   const publicationSource = json.sourceReferences?.find((source) => source.kind === 'structured-html-transcription')?.localSource;
   for (const [index, entry] of (json.entries ?? []).entries()) {
     const meta = normMetaBySlug.get(entry.normSlug);
