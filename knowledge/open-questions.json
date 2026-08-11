@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-09",
+  "asOf": "2026-08-11",
   "questions": [
     {
       "id": "question-dreyer-impeachment-final-disposition", "title": "Formeller Abschluss der Präsidentenanklage gegen Manuela Dreyer", "status": "unresolved", "validFrom": "2026-07-16", "validTo": null, "asOf": "2026-08-01", "summary": "Der Rücktritt und die Verschiebung der Hauptverhandlung sind bestätigt; die formelle Erledigung des Verfahrens ist nicht belegt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["proceeding-federal-president-dreyer-impeachment"], "tags": ["open-question", "federal", "constitutional-law"], "notes": ["Ein Rücktritt beendet eine Präsidentenanklage nicht ohne belegten Verfahrensakt automatisch."], "question": "Wie wurde das Präsidentenanklageverfahren nach dem Rücktritt Manuela Dreyers formal beendet?", "affectedIds": ["proceeding-federal-president-dreyer-impeachment"], "reason": "Weder Rücknahme, gerichtliche Einstellung, Fortsetzung noch sonstige amtliche Erledigung sind belegt.", "requiredSource": "Beschluss des Bundestages, gerichtlicher Einstellungs- oder Erledigungsbeschluss, spätere Entscheidung oder sonstige amtliche Verfahrensmitteilung.", "publicContentImpact": "Keine Aussage über eine automatische Erledigung, Rücknahme oder Einstellung.", "priority": "high", "questionStatus": "open"
@@ -9,12 +9,12 @@
     },
     {
       "id": "question-ovv-ticket-chain",
-      "title": "Welche Normen und Beschlüsse bilden OVV und 29-Euro-Ticket vollständig ab?",
+      "title": "Welche Tarifdetails gelten für die OVV-Anerkennung und werden Fernverkehrsrelationen reaktiviert?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Das Vorhaben ist programmatisch vorhanden, aber nicht als vollständiger Rechts- und Umsetzungsverbund modelliert.",
+      "asOf": "2026-08-11",
+      "summary": "Die Ticketanerkennung in IC/ICE für 57 Millionen Euro ist bestätigt. Geltungsbeginn und Tarifdetails fehlen; für die sechs im März vorgeschlagenen Reaktivierungsrelationen gibt es keinen Bestellungs- oder Betriebsnachweis.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -22,9 +22,14 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 17",
-          "role": "context"
+          "sourceId": "source-fernverkehr-ovv-letter-2026-03-15",
+          "locator": "Schreiben und Anlage mit sechs Reaktivierungs- und 18 Bestandsrelationen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "16.07.2026 20:25–20:55; 57 Millionen Euro ausdrücklich nur für Ticketanerkennung; Messages 1527380585633419425 bis 1527388238602436661",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -34,12 +39,12 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Welche Normen und Beschlüsse bilden OVV und 29-Euro-Ticket vollständig ab?",
+      "question": "Ab wann und nach welchen Tarifbedingungen gilt die 57-Millionen-Euro-Ticketanerkennung, und wurde eine der sechs vorgeschlagenen Fernverkehrsrelationen tatsächlich bestellt oder in Betrieb genommen?",
       "affectedIds": [
         "project-ovv-ticket"
       ],
-      "reason": "Normslugs, Tarifbeschlüsse, Inkrafttreten und organisatorische Zuständigkeit sind nicht gemeinsam nachgewiesen.",
-      "requiredSource": "Verkündete Normen, Verbundbeschluss und datierter Tarifnachweis.",
+      "reason": "Der EAG-Deal trennt die Ticketanerkennung ausdrücklich von der Wiederherstellung fehlender Verbindungen. Ein Vertrag, Tarifblatt oder Betriebsnachweis liegt nicht vor.",
+      "requiredSource": "Datierter Vertrag oder Tarifnachweis zur Ticketanerkennung sowie Bestellungs-, Fahrplan- oder Betriebsaufnahmenachweis für jede reaktivierte Relation.",
       "publicContentImpact": "Projektstatus und Bürgerinformationen zum Tarif.",
       "priority": "medium",
       "questionStatus": "open"
@@ -115,12 +120,12 @@
     },
     {
       "id": "question-boom-agreement-details",
-      "title": "Welche Vertrags-, Finanzierungs- und Organisationsdaten gelten für Boom Europe Leipzig/Halle?",
+      "title": "Wann begann die operative Umsetzung des Boom-Europe-Standorts?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Die Gesetze sind zugeordnet, aber Laufzeit, Standortvertrag, Projektstelle und Lenkungsausschuss sind noch nicht vollständig extrahiert.",
+      "asOf": "2026-08-11",
+      "summary": "Das Boom Europe Leipzig/Halle Agreement wurde am 14. Mai 2026 rechtskräftig unterzeichnet und trat an diesem Tag in Kraft. Standorteröffnung, Baubeginn und konkrete Vollzugsorganisation bleiben offen.",
       "sourceRefs": [
         {
           "sourceId": "source-boom-procedure",
@@ -136,6 +141,21 @@
           "sourceId": "source-boom-fund",
           "locator": "Gesetzesfassung",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "13.–14.05.2026; Messages 1504146280841216063, 1504390126107885659 und 1504492779634425937",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-boom-agreement-eag-2026-05-14",
+          "locator": "leere Datums- und Unterschriftszeile",
+          "role": "context"
+        },
+        {
+          "sourceId": "source-boom-agreement-dated-2026-05-14",
+          "locator": "rechtskräftig unterzeichnete Fassung; Inkrafttreten am 14. Mai 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -146,13 +166,13 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Welche Vertrags-, Finanzierungs- und Organisationsdaten gelten für Boom Europe Leipzig/Halle?",
+      "question": "Wann begannen Baumaßnahmen oder der operative Standortbetrieb von Boom Europe Leipzig/Halle, und wie wurde die Projektorganisation umgesetzt?",
       "affectedIds": [
         "project-boom-europe",
         "proceeding-boom-implementation"
       ],
-      "reason": "Der Hub soll Gesetzeskomplex und praktische Projektorganisation getrennt modellieren.",
-      "requiredSource": "Standortvertrag beziehungsweise Memorandum und einschlägige Vollnormen mit konkreten Paragraphen.",
+      "reason": "Das rechtskräftige Agreement belegt Vertragsschluss und Inkrafttreten, aber nicht automatisch Baubeginn, Standorteröffnung oder Betriebsaufnahme.",
+      "requiredSource": "Amtliche Vollzugsmitteilung, Bau- oder Betriebsnachweis; ergänzend Vollnormen zur Projektorganisation.",
       "publicContentImpact": "Projektseite, Haushalt und Zeitplan.",
       "priority": "medium",
       "questionStatus": "open"
@@ -275,7 +295,7 @@
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-07-29",
-      "summary": "Ein Rücktritt Tom Kurzschlusses und ein außergewöhnlicher Regierungswechsel beziehungsweise ein Misstrauensvotum sind redaktionell bestätigt; die genaue Ereignisfolge ist nicht erschlossen.",
+      "summary": "Delgados Amtszeit vom 4. September bis 19. Dezember 2025 ist nun modelliert. Rücktritt Tom Kurzschlusses, ein mögliches Misstrauensvotum und die genaue Übergangsfolge vor dem 4. September bleiben nicht erschlossen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
@@ -286,6 +306,11 @@
           "sourceId": "source-government-timeline",
           "locator": "fehlender Zeitraum",
           "role": "context"
+        },
+        {
+          "sourceId": "source-minister-president-list-context",
+          "locator": "Tom Kurzschluss ab 5. Juni 2025; Mateo Delgado ab 4. September 2025",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -295,11 +320,11 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Wann und aus welchem Grund trat Tom Kurzschluss zurück, welches Misstrauensvotum fand statt und welche Regierung folgte?",
+      "question": "Wann und aus welchem Grund endete Tom Kurzschlusses Amtszeit, welches Misstrauensvotum fand statt und wie erfolgte der Übergang zum Kabinett Delgado?",
       "affectedIds": [
         "proceeding-2025-state-crisis"
       ],
-      "reason": "Der historische Vorgang ist bestätigt, für den aktuellen Staatsstand aber nachrangig; Daten, Beteiligte und Primärquellen fehlen.",
+      "reason": "Der Folgestand ab 4. September 2025 ist geklärt; für den Übergang selbst fehlen Daten, Beteiligte und Primärquellen.",
       "requiredSource": "Wendepunkt-Artikel, Rücktrittserklärung, Wahl- oder Misstrauensvotumsunterlagen und Ernennungsakte.",
       "publicContentImpact": "Nur historische Regierungs- und Parlamentschronik.",
       "priority": "low",
@@ -418,6 +443,89 @@
       "requiredSource": "Historischer Ernennungs- oder Kabinettsnachweis.",
       "publicContentImpact": "Nur interner Personenindex; kein aktuelles öffentliches Profil ohne Quelle.",
       "priority": "low",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-historical-commissioners-end",
+      "title": "Wann endeten die Bevollmächtigtenämter von Claus Weselsky und Gregor Gysi?",
+      "status": "unresolved",
+      "validFrom": "2025-10-06",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Die Ernennungen am 6. Oktober und 10. Dezember 2025 sind urkundlich belegt. Abberufung, Ende oder Überleitung nach der Staatsreform sind nicht dokumentiert.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-appointment-weselsky-2025-10-06",
+          "locator": "Ernennungsurkunde ohne Enddatum",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-appointment-gysi-2025-12-10",
+          "locator": "Ernennungsurkunde ohne Enddatum",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["person-claus-weselsky", "person-gregor-gysi", "inst-staatskanzlei"],
+      "tags": ["open-question", "persons", "government"],
+      "notes": [],
+      "question": "Wurden Claus Weselsky und Gregor Gysi abberufen, endeten ihre Funktionen mit der Staatsreform oder wurden sie übergeleitet?",
+      "affectedIds": ["person-claus-weselsky", "person-gregor-gysi"],
+      "reason": "Die Urkunden enthalten kein Enddatum und eine spätere Abberufungs- oder Überleitungsquelle wurde nicht gefunden.",
+      "requiredSource": "Abberufungsurkunde, Organisationserlass, Überleitungsentscheidung oder amtlicher aktueller Funktionsnachweis.",
+      "publicContentImpact": "Die Rollen werden nicht als aktueller Staatsratsstand ausgegeben.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-eag-procurements-delivery",
+      "title": "Welche EAG-bestätigten Vergaben und Beschaffungen wurden tatsächlich ausgeliefert oder in Betrieb genommen?",
+      "status": "unresolved",
+      "validFrom": "2025-09-30",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Zuschlag beziehungsweise Vereinbarung sind für E-Jura, vier Hovercrafts, NVIDIA und einen Zeppelin NT bestätigt. Der Hovercraft-Gesamtpreis von 30 Millionen Euro ist bezahlt; Anbieter, Lieferung, Bau oder Betriebsaufnahme bleiben je nach Vorhaben offen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-eag-2026-08-11",
+          "locator": "Abschnitte Vergaben, Unternehmen und Beschaffungen sowie Nur geplant oder weiter offen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-e-jura-procurement", "project-hovercraft-procurement", "project-nvidia-settlement", "project-zeppelin-nt"],
+      "tags": ["open-question", "procurement", "projects"],
+      "notes": ["Eine EAG-Annahme oder Preisvereinbarung ist nicht automatisch ein Liefer- oder Eröffnungsnachweis."],
+      "question": "Wer erhielt den E-Jura-Zuschlag, und welche Liefer-, Bau- oder Betriebsnachweise bestehen für Hovercrafts, NVIDIA und den ersten Zeppelin NT?",
+      "affectedIds": ["project-e-jura-procurement", "project-hovercraft-procurement", "project-nvidia-settlement", "project-zeppelin-nt"],
+      "reason": "Der Discordverlauf endet bei Zuschlag, Bestellung oder angenommener Ansiedlung und enthält keine eindeutigen Vollzugsbelege.",
+      "requiredSource": "Zuschlagsmitteilung, Vertrag, Abnahme, Lieferung, Baugenehmigung, Baubeginn oder Betriebsmitteilung je Vorhaben.",
+      "publicContentImpact": "Keine Lieferung, Werkseröffnung oder Betriebsaufnahme behaupten.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-eag-outcomes-completion",
+      "title": "Welche bestätigten EAG-Vorgänge benötigen noch einen Vollzugs- oder Detailbeleg?",
+      "status": "unresolved",
+      "validFrom": "2024-11-25",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Offen sind das Ende des Personenschutzes, die Fertigstellung des Luxemburg-Liebknecht-Denkmals, die Durchführung der Norwegenreise, der genaue Ohlinger-Ausgang und der ursprüngliche Israel-Beschluss.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-eag-2026-08-11",
+          "locator": "Abschnitte Bestätigte Befunde und Nur geplant oder weiter offen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-luxemburg-liebknecht-memorial", "proceeding-ohlinger-traffic", "proceeding-israel-cooperation-end"],
+      "tags": ["open-question", "simulation", "completion"],
+      "notes": [],
+      "question": "Welche späteren Primärquellen belegen Ende, Durchführung oder konkreten Ausgang der noch offenen EAG-Vorgänge?",
+      "affectedIds": ["project-luxemburg-liebknecht-memorial", "proceeding-ohlinger-traffic", "proceeding-israel-cooperation-end"],
+      "reason": "Die EAG bestätigte Grundentscheidungen, der Export enthält aber nicht in allen Fällen Abschluss, Enddatum oder genaue Rechtsfolge.",
+      "requiredSource": "Datierte amtliche Vollzugsmitteilung, Bescheid, Reisebericht, Abberufung oder ursprünglicher Regierungsbeschluss je Vorgang.",
+      "publicContentImpact": "Keine Fertigstellung, Reise, Sanktion oder über den belegten Umfang hinausgehende Beendigung behaupten.",
+      "priority": "medium",
       "questionStatus": "open"
     }
   ]

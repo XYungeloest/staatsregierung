@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-09",
+  "asOf": "2026-08-11",
   "projects": [
     {
       "id": "project-staatsreform",
@@ -215,8 +215,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Gesetzespaket zur Neuordnung der Ostdeutschen Eisenbahn und zur öffentlichen Sicherung von Verkehrsleistungen.",
+      "asOf": "2026-08-11",
+      "summary": "Gesetzespaket zur Neuordnung der Ostdeutschen Eisenbahn und zur Vergesellschaftung privater Verkehrsproduktionsmittel. Die gesetzliche Überführung zielte hauptsächlich auf die ODEG; sie war kein Unternehmenskauf.",
       "sourceRefs": [
         {
           "sourceId": "source-eisenbahn-law",
@@ -237,7 +237,10 @@
         "transport",
         "public-economy"
       ],
-      "notes": [],
+      "notes": [
+        "Die vom Ostdeutschen Verkehrsvergesellschaftungsgesetz erfassten betriebsnotwendigen Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes zugunsten der Ostdeutschen Eisenbahn in Gemeineigentum überführt.",
+        "Die EAG-Wertauskunft von ungefähr 250 Millionen Euro war kein Kaufpreis und führte nicht zu einem Erwerb der ODEG."
+      ],
       "aliases": [],
       "projectStage": "in-force",
       "responsibleInstitutionIds": [
@@ -264,7 +267,7 @@
       "milestones": [
         {
           "date": "2026-07-21",
-          "title": "Gesetzespaket tritt in Kraft"
+          "title": "Gesetzespaket tritt in Kraft und bewirkt die Verkehrsvergesellschaftung"
         }
       ],
       "nextSteps": [
@@ -276,11 +279,11 @@
     {
       "id": "project-ovv-ticket",
       "title": "Ostdeutscher Verkehrsverbund und 29-Euro-Ticket",
-      "status": "editorially-confirmed",
+      "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Politischer Mobilitätskomplex aus Verkehrsverbund, öffentlicher Mobilität und sozialem Tarif. Der Hub enthält noch keine vollständig verknüpfte Normenkette zum 29-Euro-Ticket.",
+      "asOf": "2026-08-11",
+      "summary": "Politischer Mobilitätskomplex aus Verkehrsverbund und sozialem Tarif. Für 57 Millionen Euro ist die Anerkennung ostdeutscher Verbundfahrausweise in IC- und ICE-Verbindungen bestätigt; die sechs im März 2026 vorgeschlagenen Fernverkehrsreaktivierungen sind nicht als bestellt oder in Betrieb belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -288,13 +291,20 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 17",
-          "role": "context"
+          "sourceId": "source-fernverkehr-ovv-letter-2026-03-15",
+          "locator": "Schreiben und Anlage: sechs Reaktivierungsrelationen und 18 Bestandsrelationen zur Ticketanerkennung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "16.07.2026 20:25–20:55; Messages 1527380585633419425, 1527382276093116501, 1527383248517206087, 1527387346192830605 und 1527388238602436661; Attachment 644d03e0-b933-4c15-ac8c-0f6dbebf8c09.png",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-sek-mobilitaet-regionen",
+        "inst-db-fernverkehr",
+        "proceeding-ovv-db-ticket-recognition",
         "question-ovv-ticket-chain"
       ],
       "tags": [
@@ -302,20 +312,60 @@
         "transport",
         "fare"
       ],
-      "notes": [],
+      "notes": [
+        "Der 57-Millionen-Euro-Deal betrifft ausdrücklich nur die Ticketanerkennung und ist kein Vollzugsbeleg für Bestellung oder Betriebsaufnahme fehlender Fernverkehrsverbindungen."
+      ],
       "aliases": [],
       "projectStage": "partly-implemented",
       "responsibleInstitutionIds": [
         "inst-sek-mobilitaet-regionen"
       ],
       "normRefs": [],
-      "milestones": [],
+      "milestones": [
+        {
+          "date": "2026-03-15",
+          "title": "Getrennte Anträge zu Fernverkehrsrelationen und Ticketanerkennung"
+        },
+        {
+          "date": "2026-07-16",
+          "title": "Ticketanerkennung mit DB Fernverkehr für 57 Millionen Euro vereinbart"
+        }
+      ],
       "nextSteps": [
-        "Normen, Tarifbeschlüsse und Umsetzungsdaten eindeutig zuordnen"
+        "Tarif- und Geltungsbeginn der Ticketanerkennung mit belastbarem Vertrags- oder Tarifnachweis ergänzen",
+        "Reaktivierungen nur nach Bestellungs- oder Betriebsnachweis als umgesetzt führen"
       ],
       "dependencies": [],
       "openQuestionIds": [
         "question-ovv-ticket-chain"
+      ],
+      "requestedServiceRelations": [
+        "Berlin – Riesa – Chemnitz",
+        "Chemnitz – Zwickau – Plauen – Hof",
+        "Angermünde – Tantow – Szczecin",
+        "Leipzig – Halle – Eisleben – Sangerhausen – Nordhausen – Leinefelde – Heiligenstadt",
+        "Jena-Göschwitz – Jena Paradies – Großheringen – Weimar",
+        "Halle – Naumburg"
+      ],
+      "existingTicketRecognitionRelations": [
+        {"relation": "Binz – Bergen – Stralsund – Greifswald – Züssow – Anklam – Pasewalk – Prenzlau – Eberswalde/Angermünde – Berlin", "services": ["ICE 15", "ICE 28"]},
+        {"relation": "Rostock – Waren (Müritz) – Neustrelitz – Oranienburg – Berlin", "services": ["IC 17"]},
+        {"relation": "Rostock – Bützow – Bad Kleinen – Schwerin – Ludwigslust/Wittenberge – Magdeburg", "services": ["IC 57"]},
+        {"relation": "Hamburg – Ludwigslust – Wittenberge – Berlin", "services": ["ICE 18", "ICE 27", "ICE 28", "IC 29"]},
+        {"relation": "Berlin – Stendal – Wolfsburg/Hannover", "services": ["ICE 10", "ICE 13"]},
+        {"relation": "Berlin – Potsdam – Brandenburg – Magdeburg", "services": ["IC 56"]},
+        {"relation": "Berlin – Königs Wusterhausen – Lübben – Lübbenau – Cottbus", "services": ["IC 56"]},
+        {"relation": "Berlin – BER – Doberlug-Kirchhain – Elsterwerda – Dresden", "services": ["IC 17"]},
+        {"relation": "Berlin – Doberlug-Kirchhain – Elsterwerda – Dresden – Bad Schandau", "services": ["ICE 27"]},
+        {"relation": "Berlin – Wittenberg – Leipzig", "services": ["ICE 11", "ICE 28"]},
+        {"relation": "Berlin – Bitterfeld – Halle – Erfurt", "services": ["ICE 18", "ICE 15", "ICE 29"]},
+        {"relation": "Dresden – Riesa – Leipzig – Erfurt – Gotha – Eisenach", "services": ["ICE 50"]},
+        {"relation": "Dresden – Riesa – Leipzig – Leipzig/Halle Flughafen – Halle – Köthen – Magdeburg", "services": ["IC 55"]},
+        {"relation": "Dresden – Freiberg – Chemnitz", "services": ["IC 17"]},
+        {"relation": "Gera – Hermsdorf-Klosterlausnitz – Stadtroda – Jena-Göschwitz – Jena West – Weimar – Erfurt – Gotha – Eisenach", "services": ["IC 51"]},
+        {"relation": "Leipzig – Weißenfels – Naumburg – Jena Paradies – Jena-Göschwitz – Rudolstadt – Saalfeld", "services": ["IC 61", "ICE 28"]},
+        {"relation": "Binz/Stralsund – Velgast – Ribnitz-Damgarten – Rostock – Schwerin", "services": ["ICE 43"]},
+        {"relation": "Eisenach – Gotha – Erfurt – Halle – Bitterfeld – Berlin", "services": ["ICE 15"]}
       ]
     },
     {
@@ -524,8 +574,8 @@
       "status": "confirmed-primary",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Sondervermögen zur Sicherung wohnortnaher Krankenhausversorgung und zur Rekommunalisierung gefährdeter Standorte.",
+      "asOf": "2026-08-11",
+      "summary": "Sondervermögen zur Sicherung wohnortnaher Krankenhausversorgung und zur Rekommunalisierung gefährdeter Standorte. Das Fondsmodell ersetzte die zuvor erwogene unmittelbare flächendeckende Übernahme privater Krankenhäuser.",
       "sourceRefs": [
         {
           "sourceId": "source-hospital-law",
@@ -536,6 +586,16 @@
           "sourceId": "source-action-plan",
           "locator": "gesundheit-und-pflege",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "04.03.2026 15:38–15:39; Messages 1478763525928386651 und 1478763731516395734",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-private-hospital-register-extract-2026-03-04",
+          "locator": "207 Datensätze der Trägerart 3",
+          "role": "context"
         }
       ],
       "relatedIds": [
@@ -546,7 +606,9 @@
         "health",
         "fund"
       ],
-      "notes": [],
+      "notes": [
+        "Der KHV-Auszug beschreibt den geprüften Umfang der verworfenen Direktkaufidee und belegt keine Übernahme einzelner Häuser."
+      ],
       "aliases": [],
       "projectStage": "in-implementation",
       "responsibleInstitutionIds": [
@@ -559,6 +621,10 @@
         }
       ],
       "milestones": [
+        {
+          "date": "2026-03-04",
+          "title": "Direkter flächendeckender Erwerb zugunsten eines Förderfonds verworfen"
+        },
         {
           "date": "2026-03-23",
           "title": "Fonds gesetzlich errichtet"
@@ -823,8 +889,8 @@
       "status": "confirmed-primary",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit Standortgesetz, Sondervermögen und Umsetzungsgesetz.",
+      "asOf": "2026-08-11",
+      "summary": "Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit rechtskräftigem Boom Europe Leipzig/Halle Agreement, Standortgesetz, Sondervermögen und Umsetzungsgesetz. Das Agreement wurde am 14. Mai 2026 unterzeichnet und trat an diesem Tag in Kraft; eine spätere Standorteröffnung ist nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-boom-procedure",
@@ -845,6 +911,21 @@
           "sourceId": "source-boom-fund",
           "locator": "Gesetzesfassung",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "13.–14.05.2026; Messages 1504146280841216063, 1504390126107885659 und 1504492779634425937",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-boom-agreement-eag-2026-05-14",
+          "locator": "Discordfassung mit leerer Datums- und Unterschriftszeile",
+          "role": "context"
+        },
+        {
+          "sourceId": "source-boom-agreement-dated-2026-05-14",
+          "locator": "rechtskräftig unterzeichnete Fassung; Inkrafttreten am 14. Mai 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -857,7 +938,10 @@
         "industry",
         "fund"
       ],
-      "notes": [],
+      "notes": [
+        "Die erste EAG-Ablehnung vom 13. Mai 2026 ist durch die Freigabe „Go for it“ am 14. Mai 2026 überholt.",
+        "Die datierte Fassung des Agreements ist für Vertragsschluss und Inkrafttreten maßgeblich; die Discordfassung dokumentiert nur den vorherigen Vorlagezustand."
+      ],
       "aliases": [],
       "projectStage": "in-implementation",
       "responsibleInstitutionIds": [
@@ -880,12 +964,21 @@
       ],
       "milestones": [
         {
+          "date": "2026-05-13",
+          "title": "Erste Ablehnung, später überholt"
+        },
+        {
+          "date": "2026-05-14",
+          "title": "Vorhaben zugelassen; Agreement rechtskräftig unterzeichnet und in Kraft getreten"
+        },
+        {
           "date": "2026-07-21",
           "title": "Gesetzespaket tritt in Kraft"
         }
       ],
       "nextSteps": [
-        "Projektorganisation, Vertrag, Finanzierung und Laufzeit anhand der Vollquellen erschließen"
+        "Standorteröffnung und operative Umsetzung nur anhand späterer Vollzugsquellen ergänzen",
+        "Projektorganisation, Finanzierung und Laufzeit anhand der geltenden Vollnormen erschließen"
       ],
       "dependencies": [],
       "openQuestionIds": [
@@ -1083,6 +1176,259 @@
       "openQuestionIds": [
         "question-feiertage"
       ]
+    },
+    {
+      "id": "project-50hertz-acquisition",
+      "title": "Schrittweise Übernahme der Elia-Beteiligung an 50Hertz",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-02",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Vereinbarte Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz Transmission für 3,8 Milliarden Euro in drei Jahresraten ab dem Haushaltsjahr 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-pm-50hertz-2025-12-02",
+          "locator": "Seiten 1–2: schrittweise Übernahme, 1,5/1,3/1,0 Milliarden Euro und Beginn im Haushaltsjahr 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "15.11.–04.12.2025; Messages 1439272492136009748, 1440600608129159209, 1445201805666418748, 1445455091673862164 und 1446198527720951980",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-50hertz",
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-sek-finanzen"
+      ],
+      "tags": ["project", "energy", "public-economy", "acquisition"],
+      "notes": [
+        "Der Preis von 3,8 Milliarden Euro betrifft die Elia-Beteiligung von 80 Prozent.",
+        "Der Erwerb der KfW-Anteile und der Verkauf Hamburger Anlagen sind nicht belegt."
+      ],
+      "aliases": [],
+      "projectStage": "staged-acquisition",
+      "responsibleInstitutionIds": ["inst-sek-nachhaltigkeit-energie", "inst-sek-finanzen"],
+      "normRefs": [],
+      "milestones": [
+        {"date": "2025-12-02", "title": "Einigung über 3,8 Milliarden Euro bestätigt"},
+        {"date": "2025-12-04", "title": "Gesellschafterversammlung zur neuen Geschäftsführung einberufen"}
+      ],
+      "nextSteps": ["Jahresraten und Eigentumsübergang nur mit datierten Vollzugsquellen fortschreiben"],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-e-jura-procurement",
+      "title": "Elektronisches juristisches Prüfungssystem",
+      "status": "confirmed-official",
+      "validFrom": "2025-09-30",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Vergabe eines Systems für elektronische juristische Klausuren mit Gesetzeszugriff und Gutachtenerstellung. Die EAG bestätigte rückblickend einen Zuschlag; Anbieter und Auslieferung sind unbekannt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-e-jura-tender-2025-09-30",
+          "locator": "vollständige Vergabeunterlage",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "30.09.2025 10:21, Message 1422498555880542239; rückblickende Zuschlagsbestätigung 14.03.2026, Message 1482307472659187326",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["inst-staatsregierung", "question-eag-procurements-delivery"],
+      "tags": ["project", "procurement", "digitalization", "justice"],
+      "notes": ["Die rückwärts liegende Ausführungsfrist 30. Juni 2025 in der Vergabeunterlage wird nicht als Lieferdatum übernommen."],
+      "aliases": ["E-Jura-Programm"],
+      "projectStage": "award-confirmed-delivery-unresolved",
+      "responsibleInstitutionIds": ["inst-staatsregierung"],
+      "normRefs": [],
+      "milestones": [
+        {"date": "2025-09-30", "title": "Vergabeunterlage vorgelegt"},
+        {"date": "2026-03-14", "title": "Zuschlag rückblickend EAG-seitig bestätigt"}
+      ],
+      "nextSteps": ["Zuschlagsempfänger und Abnahme- oder Betriebsnachweis beschaffen"],
+      "dependencies": [],
+      "openQuestionIds": ["question-eag-procurements-delivery"]
+    },
+    {
+      "id": "project-hovercraft-procurement",
+      "title": "Beschaffung von vier Hovercrafts Griffon 8100 TD",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-21",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Akzeptierte und für insgesamt 30 Millionen Euro bezahlte Beschaffung von zwei Grenzschutz- und zwei militärischen Ausführungen des Griffon 8100 TD. Die Lieferung ist nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "20.–21.12.2025; Messages 1452071239018479808, 1452071401094647808, 1452071510570438757, 1452074016251580599 und 1452075382793830642",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-clarification-eag-2026-08-11",
+          "locator": "Abschnitt Vergaben, Unternehmen und Beschaffungen; redaktionelle Nachklärung zum bezahlten Gesamtpreis",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["inst-sek-staats-grenzsicherheit", "inst-sek-finanzen", "question-eag-procurements-delivery"],
+      "tags": ["project", "procurement", "security", "defence"],
+      "notes": ["Der verbindliche und bezahlte Gesamtpreis betrug 30 Millionen Euro."],
+      "aliases": [],
+      "projectStage": "order-agreed-delivery-unresolved",
+      "responsibleInstitutionIds": ["inst-sek-staats-grenzsicherheit", "inst-sek-finanzen"],
+      "normRefs": [],
+      "milestones": [{"date": "2025-12-21", "title": "Stückzahl, Ausführungen und Gesamtpreis von 30 Millionen Euro vereinbart und bezahlt"}],
+      "nextSteps": ["Lieferung oder Abnahme belegen"],
+      "dependencies": [],
+      "openQuestionIds": ["question-eag-procurements-delivery"]
+    },
+    {
+      "id": "project-nvidia-settlement",
+      "title": "NVIDIA-Ansiedlung in Ostdeutschland",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-21",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "NVIDIA nahm das ostdeutsche Ansiedlungsangebot an. Als spätere Ausgestaltung wurden 900 Millionen Euro Förderung und das frühere Intel-Gelände akzeptiert; eine Betriebsaufnahme ist nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "21.12.2025 02:07, Message 1452105215590273175; 08.03.2026 22:16–22:17, Messages 1480313349504897105 und 1480313416022360196",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["inst-sek-wirtschaft-arbeit", "inst-sek-finanzen", "question-eag-procurements-delivery"],
+      "tags": ["project", "industry", "investment", "semiconductors"],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "site-offer-accepted",
+      "responsibleInstitutionIds": ["inst-sek-wirtschaft-arbeit", "inst-sek-finanzen"],
+      "normRefs": [],
+      "milestones": [
+        {"date": "2025-12-21", "title": "Ansiedlungsangebot angenommen"},
+        {"date": "2026-03-08", "title": "Förderung und Gelände konkretisiert"}
+      ],
+      "nextSteps": ["Vertrag, Baubeginn oder Betriebsaufnahme belegen"],
+      "dependencies": [],
+      "openQuestionIds": ["question-eag-procurements-delivery"]
+    },
+    {
+      "id": "project-zeppelin-nt",
+      "title": "Zeppelin NT für den Freistaat",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-21",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Ein Zeppelin NT einschließlich Infrastruktur und Helium wurde für insgesamt 15 Millionen Euro vereinbart. Eine Lieferung ist nicht belegt; weitere Zeppelinvarianten sind nicht Teil der Beschaffung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "21.12.2025 01:50–01:59; Messages 1452100880982741164, 1452101515924865217 und 1452103268196159508",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["inst-staatskanzlei", "inst-sek-finanzen", "question-eag-procurements-delivery"],
+      "tags": ["project", "procurement", "aviation"],
+      "notes": [
+        "Ein zweiter Zeppelin wurde am 3. Januar 2026 wegen ausgelasteter Produktionskapazitäten abgelehnt.",
+        "Wasserstoffzeppelin, historische Wasserstoffzeppeline und weitere Passagierzeppeline wurden nicht genehmigt beziehungsweise nicht verkauft."
+      ],
+      "aliases": [],
+      "projectStage": "purchase-agreed-delivery-unresolved",
+      "responsibleInstitutionIds": ["inst-staatskanzlei", "inst-sek-finanzen"],
+      "normRefs": [],
+      "milestones": [
+        {"date": "2025-12-21", "title": "Gesamtpreis von 15 Millionen Euro vereinbart"},
+        {"date": "2026-01-03", "title": "Zweites Exemplar abgelehnt"}
+      ],
+      "nextSteps": ["Liefer- oder Abnahmenachweis für das erste Exemplar beschaffen"],
+      "dependencies": [],
+      "openQuestionIds": ["question-eag-procurements-delivery"]
+    },
+    {
+      "id": "project-airport-carl-ulbricht-name",
+      "title": "Ehrenname Carl Ulbricht für den Flughafen Leipzig/Halle",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-28",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Das zuständige Unternehmensgremium bestätigte die Bezeichnung „Flughafen Leipzig/Halle Carl Ulbricht“ und eine schrittweise Umsetzung im Außenauftritt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "28.05.2026 09:18–09:41; Messages 1509455912203583591 und 1509461712271573113",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["inst-sek-mobilitaet-regionen"],
+      "tags": ["project", "transport", "renaming"],
+      "notes": ["Die Firmenbezeichnung der Flughafen Leipzig/Halle GmbH bleibt nach dem Antrag unberührt."],
+      "aliases": [],
+      "projectStage": "decision-confirmed",
+      "responsibleInstitutionIds": ["inst-sek-mobilitaet-regionen"],
+      "normRefs": [],
+      "milestones": [{"date": "2026-05-28", "title": "Unternehmensentscheidung bestätigt"}],
+      "nextSteps": [],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-luxemburg-liebknecht-memorial",
+      "title": "Luxemburg-Liebknecht-Denkmal auf dem Platz der Republik",
+      "status": "confirmed-official",
+      "validFrom": "2026-06-05",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Genehmigtes zehn Meter hohes Denkmal mit Rosa Luxemburg und Karl Liebknecht, Reliefs der Arbeiterschaft und der Inschrift „Der Deutschen Arbeiterschaft“; Kosten 7,4 Millionen Euro. Eine Fertigstellung ist nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "05.06.2026 22:50–23:13; Messages 1512559258066092104, 1512560587735826592 und 1512565111162671304; Attachment ChatGPT_Image_5._Juni_2026_22_55_35.png",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["inst-sek-rechtsstaat-kultur", "question-eag-outcomes-completion"],
+      "tags": ["project", "culture", "memorial"],
+      "notes": ["Die bestätigte simulierte Bauzeit von 1,5 Monaten ist kein Fertigstellungsnachweis."],
+      "aliases": [],
+      "projectStage": "approved-construction-unresolved",
+      "responsibleInstitutionIds": ["inst-sek-rechtsstaat-kultur"],
+      "normRefs": [],
+      "milestones": [{"date": "2026-06-05", "title": "Errichtung, Kosten und Ausgestaltung genehmigt"}],
+      "nextSteps": ["Fertigstellung nur mit datierter Vollzugsquelle ergänzen"],
+      "dependencies": [],
+      "openQuestionIds": ["question-eag-outcomes-completion"]
+    },
+    {
+      "id": "project-heckler-koch-settlement",
+      "title": "Ansiedlung eines Heckler-&-Koch-Werks",
+      "status": "historical",
+      "validFrom": "2025-12-20",
+      "validTo": "2025-12-21",
+      "asOf": "2026-08-11",
+      "summary": "Das mit steuerlichen Vergünstigungen vorgeschlagene ostdeutsche Werk wurde von der EAG abgelehnt und nicht umgesetzt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "Anfrage 20.12.2025 23:54, Message 1452071667122700461; Ablehnung 21.12.2025 02:47, Message 1452115169454063758",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["inst-staatsregierung"],
+      "tags": ["project", "industry", "rejected", "historical"],
+      "notes": [],
+      "aliases": [],
+      "projectStage": "rejected",
+      "responsibleInstitutionIds": ["inst-staatsregierung"],
+      "normRefs": [],
+      "milestones": [{"date": "2025-12-21", "title": "Ansiedlung abgelehnt"}],
+      "nextSteps": [],
+      "dependencies": [],
+      "openQuestionIds": []
     }
   ]
 }

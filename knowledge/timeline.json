@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-09",
+  "asOf": "2026-08-11",
   "events": [
     {
       "id": "event-volksbefragung-ordered-2026",
@@ -1227,6 +1227,455 @@
       "date": "2026-05-20",
       "eventType": "federal-office",
       "normRefs": []
+    },
+    {
+      "id": "event-delgado-government-formation",
+      "title": "Kabinett Delgado nimmt die Arbeit auf",
+      "status": "historical",
+      "validFrom": "2025-09-04",
+      "validTo": "2025-09-04",
+      "asOf": "2026-08-11",
+      "summary": "Mateo Delgado tritt am 4. September 2025 das Amt des Ministerpräsidenten an; seine Amtszeit endet am 19. Dezember 2025.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-minister-president-list-context",
+          "locator": "Mateo Delgado: Amtsantritt 4. September 2025, Amtsdauer 107 Tage; Karl Honecker ab 20. Dezember 2025",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-appointment-weselsky-2025-10-06",
+          "locator": "Mateo Delgado zeichnet am 6. Oktober 2025 als Ministerpräsident",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-appointment-gysi-2025-12-10",
+          "locator": "Mateo Delgado zeichnet am 10. Dezember 2025 als Ministerpräsident",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "person-mateo-delgado",
+        "inst-kabinett-delgado",
+        "inst-staatsregierung"
+      ],
+      "tags": ["timeline", "government", "historical"],
+      "notes": [],
+      "aliases": [],
+      "date": "2025-09-04",
+      "eventType": "government-formation",
+      "normRefs": []
+    },
+    {
+      "id": "event-helsinki-negotiations-concluded",
+      "title": "Helsinki-Verhandlungen mit der Bundesregierung abgeschlossen",
+      "status": "confirmed-official",
+      "validFrom": "2025-10-04",
+      "validTo": "2025-10-04",
+      "asOf": "2026-08-11",
+      "summary": "Die Verhandlungen über die ostdeutsche Mitwirkung am Helsinki-Übereinkommen werden am 4. Oktober 2025 abgeschlossen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-pm-helsinki-2025-10-06",
+          "locator": "Seite 2: Abschluss der Verhandlungen mit der Bundesregierung am 4. Oktober 2025",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["proceeding-helsinki-participation", "inst-helcom"],
+      "tags": ["timeline", "international", "helcom"],
+      "notes": [],
+      "aliases": [],
+      "date": "2025-10-04",
+      "eventType": "negotiations-concluded",
+      "normRefs": []
+    },
+    {
+      "id": "event-helsinki-amendment-signed",
+      "title": "Helsinki-Änderungsurkunde wird unterzeichnet",
+      "status": "confirmed-primary",
+      "validFrom": "2025-10-06",
+      "validTo": "2025-10-06",
+      "asOf": "2026-08-11",
+      "summary": "Ostdeutschland unterzeichnet am 6. Oktober 2025 in Helsinki die Änderungsurkunde beziehungsweise das Übereinkommen. Das spätere Zustimmungsgesetz bestätigt das Datum; wirksam wird der ostdeutsche Beitritt mit der Verkündung am 27. Januar 2026.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-overtrbl-2026-01",
+          "locator": "Zustimmungsgesetz vom 26. Januar 2026, Artikel 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-helsinki-2025-10-06",
+          "locator": "Seite 1: Unterzeichnung am 6. Oktober 2025 in Helsinki",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": ["proceeding-helsinki-participation", "inst-helcom"],
+      "tags": ["timeline", "international", "agreement-signed"],
+      "notes": ["Die Vertragsfassung stammt aus dem Jahr 1992; Unterzeichnung und ostdeutsches Inkrafttreten werden getrennt geführt."],
+      "aliases": [],
+      "date": "2025-10-06",
+      "eventType": "agreement-signed",
+      "normRefs": [
+        {
+          "normSlug": "gesetz-zu-dem-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets",
+          "versionId": "2026-01-26"
+        },
+        {
+          "normSlug": "helsinki-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets",
+          "versionId": "1992-07-14"
+        }
+      ]
+    },
+    {
+      "id": "event-weselsky-appointed",
+      "title": "Claus Weselsky wird Bevollmächtigter für Meeres- und Küstenumweltschutz",
+      "status": "confirmed-primary",
+      "validFrom": "2025-10-06",
+      "validTo": "2025-10-06",
+      "asOf": "2026-08-11",
+      "summary": "Ministerpräsident Mateo Delgado ernennt Claus Weselsky im Range eines Ministerialdirektors und ordnet ihn unmittelbar der Staatskanzlei zu.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-appointment-weselsky-2025-10-06",
+          "locator": "Ernennungsurkunde vom 6. Oktober 2025",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-helsinki-2025-10-06",
+          "locator": "Seiten 1–3: Ernennung und Aufgaben",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": ["person-claus-weselsky", "person-mateo-delgado", "inst-staatskanzlei", "inst-helcom"],
+      "tags": ["timeline", "appointment", "government"],
+      "notes": [],
+      "aliases": [],
+      "date": "2025-10-06",
+      "eventType": "appointment",
+      "normRefs": []
+    },
+    {
+      "id": "event-50hertz-acquisition-agreement",
+      "title": "Einigung über die Elia-Beteiligung an 50Hertz",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-02",
+      "validTo": "2025-12-02",
+      "asOf": "2026-08-11",
+      "summary": "Der Freistaat und Elia verständigen sich auf die schrittweise Übernahme der 80-Prozent-Beteiligung für 3,8 Milliarden Euro über drei Jahre.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-pm-50hertz-2025-12-02",
+          "locator": "Seiten 1–2: Einigung, Gesamtpreis und Zahlungsplan",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "02.12.2025 00:56 und 17:42; Messages 1445201805666418748 und 1445455091673862164",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": ["project-50hertz-acquisition", "inst-50hertz"],
+      "tags": ["timeline", "energy", "acquisition"],
+      "notes": ["KfW-Anteile und Hamburger Anlagen sind nicht Teil des belegten Vollzugs."],
+      "aliases": [],
+      "date": "2025-12-02",
+      "eventType": "acquisition-agreement",
+      "normRefs": []
+    },
+    {
+      "id": "event-gysi-appointed",
+      "title": "Gregor Gysi wird Bevollmächtigter für Bienenvolk und Imker:innen",
+      "status": "confirmed-primary",
+      "validFrom": "2025-12-10",
+      "validTo": "2025-12-10",
+      "asOf": "2026-08-11",
+      "summary": "Ministerpräsident Mateo Delgado ernennt Gregor Gysi im Range eines Ministerialdirektors.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-appointment-gysi-2025-12-10",
+          "locator": "Ernennungsurkunde vom 10. Dezember 2025; Originaltitel mit Imker*innen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["person-gregor-gysi", "person-mateo-delgado", "inst-staatskanzlei"],
+      "tags": ["timeline", "appointment", "government"],
+      "notes": [],
+      "aliases": [],
+      "date": "2025-12-10",
+      "eventType": "appointment",
+      "normRefs": []
+    },
+    {
+      "id": "event-nvidia-offer-accepted",
+      "title": "NVIDIA nimmt das ostdeutsche Ansiedlungsangebot an",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-21",
+      "validTo": "2025-12-21",
+      "asOf": "2026-08-11",
+      "summary": "Die EAG legt fest, dass NVIDIA das Ansiedlungsangebot annimmt; eine spätere Ausgestaltung nennt 900 Millionen Euro Förderung und das frühere Intel-Gelände.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "21.12.2025 02:07, Alex Grantis, Message 1452105215590273175; 08.03.2026 22:16–22:17, Messages 1480313349504897105 und 1480313416022360196",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-nvidia-settlement"],
+      "tags": ["timeline", "industry", "simulation-adjudication"],
+      "notes": ["Eine Werkseröffnung ist nicht belegt."],
+      "aliases": [],
+      "date": "2025-12-21",
+      "eventType": "company-decision",
+      "normRefs": []
+    },
+    {
+      "id": "event-hospital-policy-fund-choice",
+      "title": "Krankenhauspolitik wird auf einen Rekommunalisierungsfonds umgestellt",
+      "status": "confirmed-official",
+      "validFrom": "2026-03-04",
+      "validTo": "2026-03-04",
+      "asOf": "2026-08-11",
+      "summary": "Die Idee eines flächendeckenden direkten Kaufs privater Krankenhäuser wird zugunsten eines Förder- und Rekommunalisierungsfonds aufgegeben.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "04.03.2026 15:38–15:39; Messages 1478763525928386651 und 1478763731516395734",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-krankenhausfonds"],
+      "tags": ["timeline", "health", "superseded-policy"],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-03-04",
+      "eventType": "policy-change",
+      "normRefs": []
+    },
+    {
+      "id": "event-fernverkehr-ovv-letter",
+      "title": "Staatsregierung trennt Fernverkehrsreaktivierung und Ticketanerkennung",
+      "status": "planned",
+      "validFrom": "2026-03-15",
+      "validTo": "2026-03-15",
+      "asOf": "2026-08-11",
+      "summary": "Der Brief an den Bundesverkehrsminister schlägt sechs Bestellungs- oder Reaktivierungsrelationen vor und beantragt getrennt die OVV-Anerkennung auf 18 Bestandsrelationen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-fernverkehr-ovv-letter-2026-03-15",
+          "locator": "Schreiben und Anlage vom 15. März 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-ovv-ticket", "question-ovv-ticket-chain"],
+      "tags": ["timeline", "transport", "planned"],
+      "notes": ["Der spätere 57-Millionen-Euro-Deal bestätigt nur die Ticketanerkennung."],
+      "aliases": [],
+      "date": "2026-03-15",
+      "eventType": "official-request",
+      "normRefs": []
+    },
+    {
+      "id": "event-airport-carl-ulbricht-name",
+      "title": "Flughafen Leipzig/Halle erhält den Ehrennamen Carl Ulbricht",
+      "status": "confirmed-official",
+      "validFrom": "2026-05-28",
+      "validTo": "2026-05-28",
+      "asOf": "2026-08-11",
+      "summary": "Das zuständige Unternehmensgremium bestätigt den Namen „Flughafen Leipzig/Halle Carl Ulbricht“.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "28.05.2026 09:18–09:41; Dr. Karl Honecker und Carl Ulbricht; Messages 1509455912203583591 und 1509461712271573113",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-airport-carl-ulbricht-name"],
+      "tags": ["timeline", "transport", "company-decision"],
+      "notes": ["Die Firmenbezeichnung der Betreibergesellschaft ist nicht automatisch geändert."],
+      "aliases": [],
+      "date": "2026-05-28",
+      "eventType": "renaming",
+      "normRefs": []
+    },
+    {
+      "id": "event-luxemburg-liebknecht-memorial-approved",
+      "title": "Luxemburg-Liebknecht-Denkmal wird genehmigt",
+      "status": "confirmed-official",
+      "validFrom": "2026-06-05",
+      "validTo": "2026-06-05",
+      "asOf": "2026-08-11",
+      "summary": "Die EAG genehmigt das Denkmal auf dem Platz der Republik mit Gesamtkosten von 7,4 Millionen Euro und 1,5 Monaten simulierter Bauzeit.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "05.06.2026 22:50–23:13; Messages 1512559258066092104, 1512560587735826592 und 1512565111162671304; Attachment ChatGPT_Image_5._Juni_2026_22_55_35.png",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-luxemburg-liebknecht-memorial"],
+      "tags": ["timeline", "culture", "simulation-adjudication"],
+      "notes": ["Eine Fertigstellung ist nicht belegt."],
+      "aliases": [],
+      "date": "2026-06-05",
+      "eventType": "project-approved",
+      "normRefs": []
+    },
+    {
+      "id": "event-sabine-bergmann-pohl-square-approved",
+      "title": "Sabine-Bergmann-Pohl-Platz wird genehmigt",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-15",
+      "validTo": "2026-07-15",
+      "asOf": "2026-08-11",
+      "summary": "Die EAG genehmigt die Umbenennung des Bernhard-von-Lindenau-Platzes in Dresden.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "15.07.2026 20:07–22:56; Messages 1527013867043946657 und 1527056373794472037",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": ["timeline", "renaming", "simulation-adjudication"],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-15",
+      "eventType": "renaming",
+      "normRefs": []
+    },
+    {
+      "id": "event-ovv-db-ticket-recognition-deal",
+      "title": "OVV-Ticketanerkennung mit DB Fernverkehr vereinbart",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-16",
+      "validTo": "2026-07-16",
+      "asOf": "2026-08-11",
+      "summary": "Für 57 Millionen Euro wird die Anerkennung ostdeutscher Verbundfahrausweise in IC- und ICE-Verbindungen vereinbart; Fernverkehrsreaktivierungen sind nicht Teil des Deals.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "16.07.2026 20:25–20:55; Messages 1527380585633419425, 1527382276093116501, 1527383248517206087, 1527387346192830605 und 1527388238602436661; Attachment 644d03e0-b933-4c15-ac8c-0f6dbebf8c09.png",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-ovv-ticket", "proceeding-ovv-db-ticket-recognition", "inst-db-fernverkehr"],
+      "tags": ["timeline", "transport", "agreement"],
+      "notes": ["Die sechs im März vorgeschlagenen fehlenden Relationen bleiben ohne Bestellungs- oder Betriebsnachweis."],
+      "aliases": [],
+      "date": "2026-07-16",
+      "eventType": "operational-agreement",
+      "normRefs": []
+    },
+    {
+      "id": "event-hovercraft-procurement-paid",
+      "title": "Vier Hovercrafts für 30 Millionen Euro bezahlt",
+      "status": "editorially-confirmed",
+      "validFrom": "2025-12-21",
+      "validTo": "2025-12-21",
+      "asOf": "2026-08-11",
+      "summary": "Zwei Grenzschutz- und zwei militärische Griffon 8100 TD werden zu einem Gesamtpreis von 30 Millionen Euro vereinbart und bezahlt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-eag-2026-08-11",
+          "locator": "Abschnitt Vergaben, Unternehmen und Beschaffungen; redaktionelle Nachklärung zum bezahlten Gesamtpreis",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "20.–21.12.2025; Messages 1452071239018479808 bis 1452075382793830642",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": ["project-hovercraft-procurement"],
+      "tags": ["timeline", "procurement", "security"],
+      "notes": ["Eine Lieferung ist nicht belegt."],
+      "aliases": [],
+      "date": "2025-12-21",
+      "eventType": "procurement-payment",
+      "normRefs": []
+    },
+    {
+      "id": "event-helsinki-entry-into-force",
+      "title": "Helsinki-Übereinkommen tritt für Ostdeutschland in Kraft",
+      "status": "confirmed-primary",
+      "validFrom": "2026-01-27",
+      "validTo": "2026-01-27",
+      "asOf": "2026-08-11",
+      "summary": "Mit der Verkündung des Zustimmungsgesetzes und des Übereinkommens von 1992 im Ostdeutschen Vertragsblatt tritt der ostdeutsche Beitritt am 27. Januar 2026 in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-overtrbl-2026-01",
+          "locator": "Verkündung am 27. Januar 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["proceeding-helsinki-participation", "inst-helcom"],
+      "tags": ["timeline", "international", "helcom", "entry-into-force"],
+      "notes": ["Das Übereinkommen selbst stammt aus dem Jahr 1992."],
+      "aliases": [],
+      "date": "2026-01-27",
+      "eventType": "treaty-entry-into-force",
+      "normRefs": [
+        {
+          "normSlug": "helsinki-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets",
+          "versionId": "1992-07-14"
+        }
+      ]
+    },
+    {
+      "id": "event-boom-agreement-in-force",
+      "title": "Boom Europe Leipzig/Halle Agreement tritt in Kraft",
+      "status": "confirmed-primary",
+      "validFrom": "2026-05-14",
+      "validTo": "2026-05-14",
+      "asOf": "2026-08-11",
+      "summary": "Das Boom Europe Leipzig/Halle Agreement wird am 14. Mai 2026 rechtskräftig unterzeichnet und tritt an diesem Tag in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-boom-agreement-dated-2026-05-14",
+          "locator": "Unterzeichnung und Inkrafttreten am 14. Mai 2026",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["project-boom-europe", "proceeding-boom-implementation"],
+      "tags": ["timeline", "industry", "aviation", "agreement"],
+      "notes": ["Eine spätere Standorteröffnung ist nicht automatisch durch den Vertragsschluss belegt."],
+      "aliases": [],
+      "date": "2026-05-14",
+      "eventType": "agreement-entered-into-force",
+      "normRefs": []
+    },
+    {
+      "id": "event-odeg-socialisation",
+      "title": "ODEG-Verkehrsproduktionsmittel werden vergesellschaftet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": "2026-07-21",
+      "asOf": "2026-08-11",
+      "summary": "Mit dem Eisenbahngesetzespaket werden die erfassten betriebsnotwendigen Verkehrsproduktionsmittel der ODEG kraft Gesetzes in Gemeineigentum überführt. Die Vergesellschaftung war kein Erwerb des Unternehmens.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Ostdeutsches Verkehrsvergesellschaftungsgesetz; gesetzliche Überführung in Gemeineigentum",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-eag-2026-08-11",
+          "locator": "Bestätigter Befund zur hauptsächlich auf die ODEG zielenden Vergesellschaftung",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": ["project-eisenbahn-verkehr", "inst-sek-mobilitaet-regionen"],
+      "tags": ["timeline", "transport", "socialisation"],
+      "notes": ["Der gesetzliche Überführungsstichtag ist der 1. Juli 2026; das Gesetzespaket trat am 21. Juli 2026 in Kraft."],
+      "aliases": [],
+      "date": "2026-07-21",
+      "eventType": "socialisation",
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
+          "versionId": "2026-07-21"
+        }
+      ]
     }
   ]
 }

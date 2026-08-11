@@ -1,7 +1,7 @@
 # Quellenhierarchie des internen Wissenshubs
 
 **Redaktioneller Stand:** 9. August 2026
-**Auditstand:** 9. August 2026
+**Auditstand:** 11. August 2026
 
 ## Grundsatz
 
@@ -17,10 +17,11 @@ Bei einem Konflikt gewinnt nicht mechanisch die jüngere Datei. Maßgeblich sind
 4. Aktuelle strukturierte Websiteinhalte unter `content/`.
 5. Aktuelle zentrale Konfigurationen unter `src/config/` sowie validierte Dashboarddaten.
 6. Historische Regierungs-, Parlaments- und Organisationsdokumente.
-7. Dateien unter `context/`.
-8. Alte Wiki-Texte und redaktionelle Zusammenfassungen.
-9. Angaben aus bisherigen Gesprächen.
-10. Redaktionelle Ableitungen aus mehreren Quellen.
+7. Kanonische EAG- beziehungsweise Simulationsausspielungen, soweit sie den Ausgang eines Vorgangs eindeutig festlegen.
+8. Sonstige historische Dateien und Entwürfe unter `context/`.
+9. Alte Wiki-Texte und redaktionelle Zusammenfassungen.
+10. Bloße Regierungsanfragen, sonstige Angaben aus bisherigen Gesprächen und ungeprüftes Gesprächswissen.
+11. Redaktionelle Ableitungen aus mehreren Quellen.
 
 ## Besondere Regeln
 
@@ -46,6 +47,23 @@ Unterzeichnung, Zustimmung, Ratifikation, Notifikation, Austausch von Urkunden u
 
 Pressemitteilungen, Reden und öffentliche Erklärungen belegen, dass eine Position vertreten oder eine Ankündigung gemacht wurde. Sie belegen nicht ohne weitere Quelle, dass das angekündigte Vorhaben beschlossen oder praktisch umgesetzt wurde.
 
+### EAG- und Simulationsausspielungen
+
+Der EAG-Chat enthält sowohl Regierungsanfragen als auch Entscheidungen der simulierten Außenwelt. Diese beiden Quellenrollen sind strikt zu trennen:
+
+1. Eine Anfrage, Idee, Absicht, Verhandlungseröffnung oder Behauptung eines Regierungsaccounts belegt nur Planung beziehungsweise Antragstellung.
+2. Eine eindeutige Entscheidung der EAG über den Ausgang eines Vorgangs ist eine kanonische Simulationsquelle. Kurze Antworten wie „NVIDIA nimmt an“, „Wird genehmigt“, „Deal“, „Erledigt“, „Geht klar“ oder „Jo ist raus“ können genügen, wenn Antwortbezug und Gesprächskontext eindeutig sind.
+3. Ablehnungen sind ebenfalls kanonisch. Ein abgelehntes Vorhaben wird nicht als umgesetzt geführt, solange keine spätere belastbare Quelle die Ablehnung überholt.
+4. Eine spätere ausdrückliche Korrektur, Rücknahme oder Retcon-Aussage setzt den älteren Stand auf `superseded`; der spätere Stand ist maßgeblich.
+5. Scherze, Memes, bloße Reaktionen, Spekulationen und ungeklärte Rückfragen sind keine Bestätigung.
+6. Nachrichten werden mit Reply-Bezug sowie den unmittelbar vorhergehenden und nachfolgenden Nachrichten gelesen. Einzelne Sätze werden nicht aus dem Verlauf gelöst.
+7. Bildanhänge werden visuell ausgewertet. Relevanter Text, Account, sichtbares Datum, Attachment-Dateiname und Discord-Message-ID werden mit dem Gesprächskontext verbunden. Dateiname und Alt-Text allein reichen nicht.
+8. Ist ein Anhang technisch nicht zugänglich, wird keine Aussage daraus abgeleitet. Stattdessen entsteht eine konkrete offene Quellenfrage mit Message-ID und Dateiname.
+9. EAG-Locators enthalten möglichst Datum und Uhrzeit, Message-ID, Autor, Antwortbezug und gegebenenfalls Attachment-Dateiname.
+10. Verkündete Normen, Verträge, Ernennungsurkunden und andere amtliche Primärquellen sowie offizielle Pressemitteilungen bleiben für ihren jeweiligen Gegenstand vorrangig.
+
+Die redaktionelle Anwendung dieser Regeln auf den Export des Staatsregierungskanals ist in `clarifications/2026-08-11-eag-kanon.md` dokumentiert.
+
 ### Externe Wikis
 
 Als externe Wikiquelle ist ausschließlich `https://politiksim.miraheze.org/wiki/` zulässig. Inhalte werden nur mit konkreter Seite, Revision oder Permalink und nach Abgleich mit höher priorisierten Quellen übernommen. Andere Wikihoster werden nicht als Quelle verwendet.
@@ -58,4 +76,4 @@ Redaktionell aufgelöste Quellenabweichungen bleiben als solche dokumentiert. Ei
 
 ## Gesprächswissen
 
-Gesprächskandidaten stehen ausschließlich in `conversation-candidates.json`. Sie dürfen erst in `current-state.json`, Entitäten, Projekte, Verfahren oder Timeline übernommen werden, wenn eine höher priorisierte Quelle vorliegt. `knowledge:check` verhindert, dass reine Gesprächsquellen den aktuellen Stand tragen.
+Ungeprüfte Gesprächskandidaten stehen ausschließlich in `conversation-candidates.json`. Sie dürfen erst in `current-state.json`, Entitäten, Projekte, Verfahren oder Timeline übernommen werden, wenn eine höher priorisierte Quelle oder eine nach den vorstehenden Regeln eindeutig kanonische EAG-Ausspielung vorliegt. `knowledge:check` verhindert, dass reine Gesprächsquellen den aktuellen Stand tragen.

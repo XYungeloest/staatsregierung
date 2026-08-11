@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-09",
+  "asOf": "2026-08-11",
   "persons": [
     {
       "id": "person-karl-honecker",
@@ -185,19 +185,35 @@
       "id": "person-mateo-delgado",
       "title": "Dr. Mateo Delgado",
       "status": "confirmed-official",
-      "validFrom": "2026-05-04",
+      "validFrom": "2025-09-04",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation.",
+      "asOf": "2026-08-11",
+      "summary": "Ministerpräsident vom 4. September bis 19. Dezember 2025; seit 21. Juli 2026 Stellvertretender Staatspräsident und Staatsrat für Rechtsstaatlichkeit und kulturelle Emanzipation.",
       "sourceRefs": [
         {
           "sourceId": "source-mateo-current",
           "locator": "gesamter Datensatz",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-minister-president-list-context",
+          "locator": "Mateo Delgado: Amtsantritt 4. September 2025, Amtsdauer 107 Tage; Karl Honecker ab 20. Dezember 2025",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-appointment-weselsky-2025-10-06",
+          "locator": "Urkunde: Mateo Delgado zeichnet am 6. Oktober 2025 als Ministerpräsident",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-appointment-gysi-2025-12-10",
+          "locator": "Urkunde: Mateo Delgado zeichnet am 10. Dezember 2025 als Ministerpräsident",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
         "inst-staatsregierung",
+        "inst-kabinett-delgado",
         "inst-sek-rechtsstaat-kultur",
         "party-demos"
       ],
@@ -217,6 +233,27 @@
         "party-demos"
       ],
       "roles": [
+        {
+          "institutionId": "inst-staatsregierung",
+          "officeTitle": "Ministerpräsident",
+          "validFrom": "2025-09-04",
+          "validTo": "2025-12-19",
+          "appointmentSource": {
+            "sourceId": "source-minister-president-list-context",
+            "locator": "Mateo Delgado: Amtsantritt 4. September 2025"
+          },
+          "terminationSource": {
+            "sourceId": "source-minister-president-list-context",
+            "locator": "Amtsdauer 107 Tage; Nachfolger Karl Honecker ab 20. Dezember 2025"
+          },
+          "acting": false,
+          "permanent": true,
+          "predecessor": "Tom Kurzschluss",
+          "successor": "Dr. Karl Honecker",
+          "notes": [
+            "Die Amtsstellung am 6. Oktober und 10. Dezember 2025 wird zusätzlich durch zwei von Delgado gezeichnete Ernennungsurkunden bestätigt."
+          ]
+        },
         {
           "institutionId": "inst-staatsregierung",
           "officeTitle": "Stellvertretender Ministerpräsident und Staatsminister für Rechtsstaatlichkeit und kulturelle Emanzipation",
@@ -1301,6 +1338,122 @@
           "predecessor": null,
           "successor": null,
           "notes": []
+        }
+      ]
+    },
+    {
+      "id": "person-claus-weselsky",
+      "title": "Claus Weselsky",
+      "status": "confirmed-primary",
+      "validFrom": "2025-10-06",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Am 6. Oktober 2025 zum Bevollmächtigten der Staatsregierung für Meeres- und Küstenumweltschutz im Range eines Ministerialdirektors ernannt. Ein Enddatum oder der Fortbestand nach der Staatsreform ist nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-appointment-weselsky-2025-10-06",
+          "locator": "Ernennungsurkunde vom 6. Oktober 2025; Originaltitel: Bevollmächtigten der Ostdeutschen Staatsregierung für Meeres- und Küstenumweltschutzes",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-helsinki-2025-10-06",
+          "locator": "Seiten 1–3: Ernennung, unmittelbare Zuordnung zur Staatskanzlei, Leitung der HELCOM-Delegation und Koordinierungsaufgaben",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "person-mateo-delgado",
+        "inst-staatsregierung",
+        "inst-staatskanzlei",
+        "inst-helcom",
+        "question-historical-commissioners-end"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical-appointment",
+        "helcom"
+      ],
+      "notes": [
+        "Die Urkunde verwendet grammatisch die Form „Meeres- und Küstenumweltschutzes“, die Pressemitteilung „Meeres- und Küstenumweltschutz“."
+      ],
+      "aliases": [],
+      "name": "Claus Weselsky",
+      "nameVariants": [],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-staatskanzlei",
+          "officeTitle": "Bevollmächtigter der Ostdeutschen Staatsregierung für Meeres- und Küstenumweltschutzes",
+          "validFrom": "2025-10-06",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-appointment-weselsky-2025-10-06",
+            "locator": "Ernennungsurkunde vom 6. Oktober 2025"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": [
+            "Rang eines Ministerialdirektors; unmittelbar der Staatskanzlei zugeordnet. Ein Enddatum ist nicht belegt."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "person-gregor-gysi",
+      "title": "Gregor Gysi",
+      "status": "confirmed-primary",
+      "validFrom": "2025-12-10",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Am 10. Dezember 2025 zum Bevollmächtigten der Staatsregierung für das Bienenvolk und die Imker:innen im Range eines Ministerialdirektors ernannt. Ein Enddatum oder der Fortbestand nach der Staatsreform ist nicht belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-appointment-gysi-2025-12-10",
+          "locator": "Ernennungsurkunde vom 10. Dezember 2025; Originaltitel: Bevollmächtigten der Ostdeutschen Staatsregierung für das Bienenvolk und die Imker*innen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-mateo-delgado",
+        "inst-staatsregierung",
+        "inst-staatskanzlei",
+        "question-historical-commissioners-end"
+      ],
+      "tags": [
+        "person",
+        "government",
+        "historical-appointment",
+        "apiculture"
+      ],
+      "notes": [
+        "Die Amtsbezeichnung ist trotz ihres ungewöhnlichen Inhalts als kanonischer Urkundentitel erfasst."
+      ],
+      "aliases": [],
+      "name": "Gregor Gysi",
+      "nameVariants": [],
+      "partyIds": [],
+      "roles": [
+        {
+          "institutionId": "inst-staatskanzlei",
+          "officeTitle": "Bevollmächtigter der Ostdeutschen Staatsregierung für das Bienenvolk und die Imker*innen",
+          "validFrom": "2025-12-10",
+          "validTo": null,
+          "appointmentSource": {
+            "sourceId": "source-appointment-gysi-2025-12-10",
+            "locator": "Ernennungsurkunde vom 10. Dezember 2025"
+          },
+          "terminationSource": null,
+          "acting": false,
+          "permanent": true,
+          "predecessor": null,
+          "successor": null,
+          "notes": [
+            "Rang eines Ministerialdirektors. Ein Enddatum ist nicht belegt."
+          ]
         }
       ]
     }

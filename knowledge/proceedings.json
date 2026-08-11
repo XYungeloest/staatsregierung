@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-09",
+  "asOf": "2026-08-11",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment", "title": "Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer", "status": "editorially-confirmed", "validFrom": "2026-07-09", "validTo": null, "asOf": "2026-08-01",
@@ -458,8 +458,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Gesetzliche Grundlagen sind in Kraft; konkrete Vertrags-, Finanzierungs- und Projektorganisationsdetails müssen aus den Vollquellen weiter erschlossen werden.",
+      "asOf": "2026-08-11",
+      "summary": "Das Boom Europe Leipzig/Halle Agreement ist seit dem 14. Mai 2026 rechtskräftig unterzeichnet und in Kraft. Die gesetzlichen Grundlagen traten am 21. Juli 2026 hinzu; die spätere Standorteröffnung ist nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-boom-procedure",
@@ -480,6 +480,21 @@
           "sourceId": "source-boom-fund",
           "locator": "Gesetzesfassung",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "13.–14.05.2026; Messages 1504146280841216063, 1504390126107885659 und 1504492779634425937",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-boom-agreement-eag-2026-05-14",
+          "locator": "leere Datums- und Unterschriftszeile",
+          "role": "context"
+        },
+        {
+          "sourceId": "source-boom-agreement-dated-2026-05-14",
+          "locator": "rechtskräftig unterzeichnete Fassung; Inkrafttreten am 14. Mai 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -492,7 +507,10 @@
         "implementation",
         "industry"
       ],
-      "notes": [],
+      "notes": [
+        "Die erste Ablehnung ist `superseded`; sie darf nicht als aktueller Verfahrensausgang erscheinen.",
+        "Die Discordfassung dokumentiert den Vorlagezustand; für Vertragsschluss und Inkrafttreten ist die datierte Fassung maßgeblich."
+      ],
       "aliases": [],
       "proceedingType": "implementation",
       "stage": "implementation",
@@ -514,8 +532,8 @@
           "versionId": "2026-07-21"
         }
       ],
-      "decision": null,
-      "nextAction": "Meilensteine, Laufzeit, Projektstelle und Lenkungsausschuss aus Primärquellen extrahieren.",
+      "decision": "Agreement am 14. Mai 2026 rechtskräftig geschlossen und in Kraft; Gesetzespaket seit 21. Juli 2026 in Kraft. Standorteröffnung nicht nachgewiesen.",
+      "nextAction": "Operative Standortumsetzung belegen und Projektorganisation aus den Vollnormen vervollständigen.",
       "openQuestionIds": [
         "question-boom-agreement-details"
       ]
@@ -689,6 +707,158 @@
       "nextAction": "PDF bei Gelegenheit berichtigen oder dauerhaft mit Druckfehlerhinweis versehen.",
       "openQuestionIds": [],
       "conflictGroup": "conflict-ogvbl-58"
+    },
+    {
+      "id": "proceeding-helsinki-participation",
+      "title": "Ostdeutsche Mitwirkung am Helsinki-Übereinkommen und in HELCOM",
+      "status": "confirmed-primary",
+      "validFrom": "2025-10-04",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Das Helsinki-Übereinkommen stammt aus dem Jahr 1992. Ostdeutschland unterzeichnete am 6. Oktober 2025, stimmte innerstaatlich am 26. Januar 2026 zu und setzte den Beitritt mit der Verkündung im Vertragsblatt am 27. Januar 2026 in Kraft.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-overtrbl-2026-01",
+          "locator": "Zustimmungsgesetz vom 26. Januar 2026, Artikel 1 und Artikel 2 Absatz 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-helsinki-2025-10-06",
+          "locator": "Seiten 1–3: Verhandlungsabschluss, Unterzeichnung, institutionelle Mitwirkung und Aufgaben Weselskys",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-appointment-weselsky-2025-10-06",
+          "locator": "Ernennungsurkunde vom 6. Oktober 2025",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-helsinki-amendment-draft-2025-10-02",
+          "locator": "Artikel 23 Absatz 3 des Entwurfs: kein eigenes Stimmrecht; Übertragung deutscher Stimmrechte nur für ostdeutsche Zuständigkeitsbereiche",
+          "role": "context"
+        }
+      ],
+      "relatedIds": [
+        "inst-helcom",
+        "inst-staatskanzlei",
+        "person-claus-weselsky",
+        "person-mateo-delgado"
+      ],
+      "tags": ["proceeding", "international", "helcom", "ratification"],
+      "notes": [
+        "Die Pressemitteilung spricht von Vertretung mit eigener Stimme; der vorgelegte Änderungsentwurf schließt ein eigenes Stimmrecht aus. Ohne endgültige Änderungsurkunde wird kein allgemeines eigenes Stimmrecht modelliert.",
+        "Die Vertragsfassung stammt aus dem Jahr 1992; der ostdeutsche Beitritt wurde am 27. Januar 2026 wirksam."
+      ],
+      "aliases": [],
+      "proceedingType": "treaty-participation",
+      "stage": "in-force",
+      "participantIds": ["inst-helcom", "inst-staatskanzlei"],
+      "normRefs": [
+        {
+          "normSlug": "gesetz-zu-dem-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets",
+          "versionId": "2026-01-26"
+        },
+        {
+          "normSlug": "helsinki-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets",
+          "versionId": "1992-07-14"
+        }
+      ],
+      "decision": "Ostdeutscher Beitritt mit der Verkündung im Vertragsblatt am 27. Januar 2026 in Kraft; politisch-institutionelle HELCOM-Mitwirkung dokumentiert.",
+      "nextAction": "Praktische HELCOM-Mitwirkung und spätere Änderungen fortlaufend dokumentieren.",
+      "openQuestionIds": [],
+      "stages": [
+        {"date": "2025-10-04", "title": "Verhandlungen mit der Bundesregierung abgeschlossen", "status": "confirmed-official"},
+        {"date": "2025-10-06", "title": "Änderungsurkunde beziehungsweise Übereinkommen unterzeichnet", "status": "confirmed-primary"},
+        {"date": "2025-10-06", "title": "Politische und institutionelle HELCOM-Mitwirkung laut Pressemitteilung", "status": "confirmed-official"},
+        {"date": "2026-01-26", "title": "Zustimmung des Ostdeutschen Landtags", "status": "confirmed-primary"},
+        {"date": "2026-01-27", "title": "Beitritt mit Verkündung im Ostdeutschen Vertragsblatt in Kraft", "status": "confirmed-primary"}
+      ]
+    },
+    {
+      "id": "proceeding-ovv-db-ticket-recognition",
+      "title": "Anerkennung ostdeutscher Verbundfahrausweise bei DB Fernverkehr",
+      "status": "confirmed-official",
+      "validFrom": "2026-07-16",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "DB Fernverkehr und die ostdeutsche Seite vereinbarten für 57 Millionen Euro die Ticketanerkennung in IC- und ICE-Verbindungen. Der Deal umfasst keine Reaktivierung fehlender Fernverkehrsrelationen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "16.07.2026 20:25–20:55; Messages 1527380585633419425, 1527382276093116501, 1527383248517206087, 1527387346192830605 und 1527388238602436661; Attachment 644d03e0-b933-4c15-ac8c-0f6dbebf8c09.png",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-fernverkehr-ovv-letter-2026-03-15",
+          "locator": "Anlage: getrennte Bestandsrelationen für die Ticketanerkennung",
+          "role": "context"
+        }
+      ],
+      "relatedIds": ["project-ovv-ticket", "inst-db-fernverkehr", "question-ovv-ticket-chain"],
+      "tags": ["proceeding", "transport", "agreement", "fare"],
+      "notes": ["Geltungsbeginn, Tarifbestimmungen und Abrechnung sind nicht in einem gesonderten Vertragsdokument belegt."],
+      "aliases": [],
+      "proceedingType": "operational-agreement",
+      "stage": "deal-confirmed-details-unresolved",
+      "participantIds": ["inst-db-fernverkehr", "inst-sek-mobilitaet-regionen"],
+      "normRefs": [],
+      "decision": "Ticketanerkennung für 57 Millionen Euro vereinbart.",
+      "nextAction": "Tarif- oder Vertragsdokument mit Geltungsbeginn beschaffen; Reaktivierungen getrennt halten.",
+      "openQuestionIds": ["question-ovv-ticket-chain"]
+    },
+    {
+      "id": "proceeding-ohlinger-traffic",
+      "title": "Verkehrsrechtliche Bearbeitung des Vorgangs Ohlinger",
+      "status": "confirmed-official",
+      "validFrom": "2026-03-30",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Die EAG erklärte die angeforderte Bearbeitung für erledigt. Ein konkreter Bußgeldbescheid, ein Fahrverbot oder der Ausgang eines möglichen Strafverfahrens liegen nicht vor.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "30.03.2026 11:40–12:17; Dr. Karl Honecker und Carl Ulbricht; Messages 1488110762542108784 und 1488120082067357737",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["question-eag-outcomes-completion"],
+      "tags": ["proceeding", "traffic", "simulation-adjudication"],
+      "notes": ["„Erledigt“ belegt die Bearbeitung, nicht einen bestimmten Sanktionstenor."],
+      "aliases": [],
+      "proceedingType": "traffic-enforcement",
+      "stage": "processed-outcome-details-missing",
+      "participantIds": [],
+      "normRefs": [],
+      "decision": "Bearbeitung erledigt; genauer Ausgang unbekannt.",
+      "nextAction": "Bescheid oder anderweitigen Nachweis des konkreten Ausgangs beschaffen.",
+      "openQuestionIds": ["question-eag-outcomes-completion"]
+    },
+    {
+      "id": "proceeding-israel-cooperation-end",
+      "title": "Beendigung ostdeutscher Kooperationen mit Israel",
+      "status": "confirmed-official",
+      "validFrom": "2026-06-02",
+      "validTo": null,
+      "asOf": "2026-08-11",
+      "summary": "Die EAG-Reaktion bestätigt als betroffenen Umfang wissenschaftliche Kooperationen, Schüleraustausch und politischen Dialog. Der ursprüngliche Regierungsakt fehlt als lokale Primärquelle.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "02.06.2026 14:24, BPK & MP West | Hauer, Message 1511344797754065048; ursprünglicher Regierungsakt nur über nicht lokal enthaltenen Link referenziert",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": ["question-eag-outcomes-completion"],
+      "tags": ["proceeding", "international", "cooperation"],
+      "notes": ["Der Umfang wird nicht über die drei ausdrücklich genannten Bereiche hinaus erweitert."],
+      "aliases": [],
+      "proceedingType": "international-cooperation",
+      "stage": "decision-confirmed-primary-act-missing",
+      "participantIds": ["inst-sek-voelkerfreundschaft"],
+      "normRefs": [],
+      "decision": "Wissenschaftliche Kooperationen, Schüleraustausch und Dialog beendet.",
+      "nextAction": "Ursprünglichen Regierungsbeschluss oder amtliche Veröffentlichung archivieren.",
+      "openQuestionIds": ["question-eag-outcomes-completion"]
     }
   ]
 }
