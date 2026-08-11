@@ -494,13 +494,56 @@
       ]
     },
     {
+      "id": "state-current-helsinki-participation",
+      "title": "Geltende Mitwirkung am Helsinki-Übereinkommen und in HELCOM",
+      "status": "confirmed-primary",
+      "validFrom": "2026-01-27",
+      "validTo": null,
+      "asOf": "2026-08-09",
+      "summary": "Das Helsinki-Übereinkommen von 1992 ist für Ostdeutschland seit der Verkündung des Zustimmungsgesetzes und des Übereinkommens am 27. Januar 2026 in Kraft. Die politische und institutionelle Mitwirkung in HELCOM besteht fort.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-overtrbl-2026-01",
+          "locator": "Verkündung am 27. Januar 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-helsinki-2025-10-06",
+          "locator": "Seiten 1–3: institutionelle Mitwirkung und Aufgaben Weselskys",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-helsinki-participation",
+        "inst-helcom",
+        "person-claus-weselsky"
+      ],
+      "tags": [
+        "current-state",
+        "international",
+        "helcom"
+      ],
+      "notes": [
+        "Die Vertragsfassung stammt aus dem Jahr 1992; der ostdeutsche Beitritt wurde am 27. Januar 2026 wirksam."
+      ],
+      "proceedingIds": [
+        "proceeding-helsinki-participation"
+      ],
+      "normRefs": [
+        {
+          "normSlug": "helsinki-ubereinkommen-uber-den-schutz-der-meeresumwelt-des-ostseegebiets",
+          "versionId": "1992-07-14"
+        }
+      ]
+    },
+    {
       "id": "state-current-open-proceedings",
       "title": "Belegte offene Verfahren und Wirksamkeitsbedingungen",
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-08-09",
-      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, die Wirksamkeitsfragen zum Grenzpolizeiabkommen und zum Helsinki-Übereinkommen, Tarifdetails der OVV-/DB-Ticketanerkennung, der Bundesratszugangsstreit, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
+      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, die Wirksamkeitsfragen zum Grenzpolizeiabkommen, Tarifdetails der OVV-/DB-Ticketanerkennung, der Bundesratszugangsstreit, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
@@ -518,11 +561,6 @@
           "role": "corroborating"
         },
         {
-          "sourceId": "source-overtrbl-2026-01",
-          "locator": "Zustimmungsgesetz zum Helsinki-Übereinkommen, Artikel 2 Absatz 2",
-          "role": "corroborating"
-        },
-        {
           "sourceId": "source-eag-staatsregierung-ost-2024-2026",
           "locator": "OVV-/DB-Ticketdeal am 16. Juli 2026 ohne gesondertes Vertrags- oder Tarifdokument",
           "role": "corroborating"
@@ -531,8 +569,6 @@
       "relatedIds": [
         "proceeding-kreisreform-transition",
         "question-grenzpolizei-effective-date",
-        "proceeding-helsinki-participation",
-        "question-helsinki-entry-into-force",
         "proceeding-ovv-db-ticket-recognition",
         "question-ovv-ticket-chain",
         "proceeding-federal-council-access",
@@ -546,7 +582,6 @@
       "notes": [],
       "proceedingIds": [
         "proceeding-kreisreform-transition",
-        "proceeding-helsinki-participation",
         "proceeding-ovv-db-ticket-recognition",
         "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",

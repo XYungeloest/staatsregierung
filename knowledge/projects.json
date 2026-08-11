@@ -215,8 +215,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Gesetzespaket zur Neuordnung der Ostdeutschen Eisenbahn und zur öffentlichen Sicherung von Verkehrsleistungen.",
+      "asOf": "2026-08-11",
+      "summary": "Gesetzespaket zur Neuordnung der Ostdeutschen Eisenbahn und zur Vergesellschaftung privater Verkehrsproduktionsmittel. Die gesetzliche Überführung zielte hauptsächlich auf die ODEG; sie war kein Unternehmenskauf.",
       "sourceRefs": [
         {
           "sourceId": "source-eisenbahn-law",
@@ -237,7 +237,10 @@
         "transport",
         "public-economy"
       ],
-      "notes": [],
+      "notes": [
+        "Die vom Ostdeutschen Verkehrsvergesellschaftungsgesetz erfassten betriebsnotwendigen Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes zugunsten der Ostdeutschen Eisenbahn in Gemeineigentum überführt.",
+        "Die EAG-Wertauskunft von ungefähr 250 Millionen Euro war kein Kaufpreis und führte nicht zu einem Erwerb der ODEG."
+      ],
       "aliases": [],
       "projectStage": "in-force",
       "responsibleInstitutionIds": [
@@ -264,7 +267,7 @@
       "milestones": [
         {
           "date": "2026-07-21",
-          "title": "Gesetzespaket tritt in Kraft"
+          "title": "Gesetzespaket tritt in Kraft und bewirkt die Verkehrsvergesellschaftung"
         }
       ],
       "nextSteps": [
@@ -887,7 +890,7 @@
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-08-11",
-      "summary": "Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit Standortgesetz, Sondervermögen und Umsetzungsgesetz. Die EAG ließ das Vorhaben nach einer überholten Ablehnung grundsätzlich zu; ein Agreement liegt vor, eine beiderseitige Unterzeichnung oder Standorteröffnung ist nicht belegt.",
+      "summary": "Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit rechtskräftigem Boom Europe Leipzig/Halle Agreement, Standortgesetz, Sondervermögen und Umsetzungsgesetz. Das Agreement wurde am 14. Mai 2026 unterzeichnet und trat an diesem Tag in Kraft; eine spätere Standorteröffnung ist nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-boom-procedure",
@@ -921,8 +924,8 @@
         },
         {
           "sourceId": "source-boom-agreement-dated-2026-05-14",
-          "locator": "Datierte, aber nicht unterschriebene Fassung",
-          "role": "context"
+          "locator": "rechtskräftig unterzeichnete Fassung; Inkrafttreten am 14. Mai 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -937,7 +940,7 @@
       ],
       "notes": [
         "Die erste EAG-Ablehnung vom 13. Mai 2026 ist durch die Freigabe „Go for it“ am 14. Mai 2026 überholt.",
-        "Die Formulierung „Unterzeichnet am 14. Mai 2026“ in einer Fassung ersetzt ohne Unterschriften oder weitere Vollzugsquelle keinen Nachweis des Vertragsschlusses."
+        "Die datierte Fassung des Agreements ist für Vertragsschluss und Inkrafttreten maßgeblich; die Discordfassung dokumentiert nur den vorherigen Vorlagezustand."
       ],
       "aliases": [],
       "projectStage": "in-implementation",
@@ -966,7 +969,7 @@
         },
         {
           "date": "2026-05-14",
-          "title": "Vorhaben grundsätzlich zugelassen und Agreement zum Unterschreiben vorgelegt"
+          "title": "Vorhaben zugelassen; Agreement rechtskräftig unterzeichnet und in Kraft getreten"
         },
         {
           "date": "2026-07-21",
@@ -974,7 +977,7 @@
         }
       ],
       "nextSteps": [
-        "Beiderseitige Unterzeichnung und Standorteröffnung nur anhand einer späteren Primärquelle ergänzen",
+        "Standorteröffnung und operative Umsetzung nur anhand späterer Vollzugsquellen ergänzen",
         "Projektorganisation, Finanzierung und Laufzeit anhand der geltenden Vollnormen erschließen"
       ],
       "dependencies": [],
@@ -1258,23 +1261,28 @@
       "validFrom": "2025-12-21",
       "validTo": null,
       "asOf": "2026-08-11",
-      "summary": "Akzeptierte Beschaffung von zwei Grenzschutz- und zwei militärischen Ausführungen des Griffon 8100 TD. Der verlangte Rabatt und die Lieferung sind nicht belegt.",
+      "summary": "Akzeptierte und für insgesamt 30 Millionen Euro bezahlte Beschaffung von zwei Grenzschutz- und zwei militärischen Ausführungen des Griffon 8100 TD. Die Lieferung ist nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-eag-staatsregierung-ost-2024-2026",
           "locator": "20.–21.12.2025; Messages 1452071239018479808, 1452071401094647808, 1452071510570438757, 1452074016251580599 und 1452075382793830642",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-clarification-eag-2026-08-11",
+          "locator": "Abschnitt Vergaben, Unternehmen und Beschaffungen; redaktionelle Nachklärung zum bezahlten Gesamtpreis",
           "role": "primary"
         }
       ],
       "relatedIds": ["inst-sek-staats-grenzsicherheit", "inst-sek-finanzen", "question-eag-procurements-delivery"],
       "tags": ["project", "procurement", "security", "defence"],
-      "notes": ["Die EAG-Ausgangslage nennt 32 Millionen Euro; die Regierungsforderung von 30 Millionen Euro wurde nicht ausdrücklich angenommen."],
+      "notes": ["Der verbindliche und bezahlte Gesamtpreis betrug 30 Millionen Euro."],
       "aliases": [],
       "projectStage": "order-agreed-delivery-unresolved",
       "responsibleInstitutionIds": ["inst-sek-staats-grenzsicherheit", "inst-sek-finanzen"],
       "normRefs": [],
-      "milestones": [{"date": "2025-12-21", "title": "Stückzahl und Ausführungen akzeptiert"}],
-      "nextSteps": ["Endpreis, Vertrag und Lieferung belegen"],
+      "milestones": [{"date": "2025-12-21", "title": "Stückzahl, Ausführungen und Gesamtpreis von 30 Millionen Euro vereinbart und bezahlt"}],
+      "nextSteps": ["Lieferung oder Abnahme belegen"],
       "dependencies": [],
       "openQuestionIds": ["question-eag-procurements-delivery"]
     },

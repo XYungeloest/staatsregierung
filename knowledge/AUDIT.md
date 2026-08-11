@@ -94,7 +94,7 @@ Planungsdokumente zu Transparenzportal, Zuständigkeitsfinder, Haushaltsnavigato
 
 ## Gesprächsinformationen mit zusätzlichem Prüfbedarf
 
-Die nicht hinreichend belegten Gesprächsinformationen stehen ausschließlich in `conversation-candidates.json`. Durch die Fortschreibung vom 11. August 2026 wurden Delgados Amtszeit, die OVV-/DB-Ticketanerkennung und der EAG-Ausgang zu Boom Europe aus dem allgemeinen Kandidatenstand herausgelöst. Offen bleiben unter anderem die Übergangsdetails der Staatskrise 2025, Feiertage, Bodenprojekte, Tarif- und Reaktivierungsdetails sowie Unterzeichnung und Eröffnung von Boom Europe.
+Die nicht hinreichend belegten Gesprächsinformationen stehen ausschließlich in `conversation-candidates.json`. Durch die Fortschreibung vom 11. August 2026 wurden Delgados Amtszeit, die OVV-/DB-Ticketanerkennung und der EAG-Ausgang zu Boom Europe aus dem allgemeinen Kandidatenstand herausgelöst. Das Boom Europe Leipzig/Halle Agreement ist als rechtskräftig unterzeichnet und in Kraft bestätigt. Offen bleiben unter anderem die Übergangsdetails der Staatskrise 2025, Feiertage, Bodenprojekte, Tarif- und Reaktivierungsdetails sowie die operative Standorteröffnung von Boom Europe.
 
 ## Nicht zu übernehmende Inhalte
 
@@ -182,7 +182,7 @@ Neu belastbar modelliert sind insbesondere:
 
 - Mateo Delgados Amtszeit als Ministerpräsident vom 4. September bis 19. Dezember 2025,
 - die Ernennungen von Claus Weselsky und Gregor Gysi,
-- die fünf Stufen des Helsinki-Komplexes mit offenem völkerrechtlichem Inkrafttreten,
+- die fünf Stufen des Helsinki-Komplexes bis zum Inkrafttreten des ostdeutschen Beitritts am 27. Januar 2026,
 - die schrittweise Übernahme der Elia-Beteiligung an 50Hertz,
 - bestätigte Vergabe-, Unternehmens- und Beschaffungsentscheidungen mit getrennten offenen Lieferfragen,
 - die Ablösung des direkten Krankenhauskaufs durch den Rekommunalisierungsfonds,
@@ -190,4 +190,4 @@ Neu belastbar modelliert sind insbesondere:
 - EAG-bestätigte Umbenennungen und Denkmalentscheidung,
 - abgelehnte, zurückgenommene und überholte Vorhaben.
 
-Der bisherige Rechtsportalstatus des Helsinki-Übereinkommens wurde als Quellenkonflikt erkannt: Das historische Vertragsdatum 1992 belegt nicht das Inkrafttreten für Ostdeutschland. Da Artikel 2 Absatz 2 des Zustimmungsgesetzes eine gesonderte Bekanntmachung verlangt und keine solche Quelle gefunden wurde, wird der Vertrag als `pending-effective` geführt.
+Das Helsinki-Übereinkommen ist eine Vertragsfassung von 1992. Ostdeutschland unterzeichnete am 6. Oktober 2025 und setzte den Beitritt mit der Verkündung von Zustimmungsgesetz und Übereinkommen im Ostdeutschen Vertragsblatt am 27. Januar 2026 in Kraft. Der Rechtsportalstatus wird deshalb als `in-force` mit diesem ostdeutschen Wirksamkeitsdatum geführt.

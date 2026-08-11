@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-08-11",
   "editorialAsOf": "2026-08-09",
-  "count": 325,
+  "count": 329,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -223,6 +223,21 @@
       ],
       "validFrom": "2026-07-20",
       "validTo": "2026-07-20",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-boom-agreement-in-force",
+      "title": "Boom Europe Leipzig/Halle Agreement tritt in Kraft",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "industry",
+        "aviation",
+        "agreement"
+      ],
+      "validFrom": "2026-05-14",
+      "validTo": "2026-05-14",
       "target": "knowledge/timeline.json"
     },
     {
@@ -615,6 +630,21 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-helsinki-entry-into-force",
+      "title": "Helsinki-Übereinkommen tritt für Ostdeutschland in Kraft",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "international",
+        "helcom",
+        "entry-into-force"
+      ],
+      "validFrom": "2026-01-27",
+      "validTo": "2026-01-27",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-helsinki-negotiations-concluded",
       "title": "Helsinki-Verhandlungen mit der Bundesregierung abgeschlossen",
       "type": "timeline-event",
@@ -716,6 +746,20 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-hovercraft-procurement-paid",
+      "title": "Vier Hovercrafts für 30 Millionen Euro bezahlt",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "procurement",
+        "security"
+      ],
+      "validFrom": "2025-12-21",
+      "validTo": "2025-12-21",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-luxemburg-liebknecht-memorial-approved",
       "title": "Luxemburg-Liebknecht-Denkmal wird genehmigt",
       "type": "timeline-event",
@@ -777,6 +821,20 @@
       ],
       "validFrom": "2025-12-21",
       "validTo": "2025-12-21",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-odeg-socialisation",
+      "title": "ODEG-Verkehrsproduktionsmittel werden vergesellschaftet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "transport",
+        "socialisation"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": "2026-07-21",
       "target": "knowledge/timeline.json"
     },
     {
@@ -2506,7 +2564,7 @@
     },
     {
       "id": "question-boom-agreement-details",
-      "title": "Wurde das Boom-Europe-Agreement beiderseits unterzeichnet und der Standort eröffnet?",
+      "title": "Wann begann die operative Umsetzung des Boom-Europe-Standorts?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -2605,21 +2663,6 @@
         "agreement"
       ],
       "validFrom": "2026-07-29",
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-helsinki-entry-into-force",
-      "title": "Wann trat das Helsinki-Übereinkommen für Ostdeutschland völkerrechtlich in Kraft?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question",
-        "international",
-        "treaty",
-        "helcom"
-      ],
-      "validFrom": "2026-01-26",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -3067,7 +3110,7 @@
     },
     {
       "id": "source-eag-staatsregierung-ost-2024-2026",
-      "title": "EAG-Discordexport des Kanals staatsregierung-ost mit lokalen Anhängen",
+      "title": "EAG-Discordexport des Kanals staatsregierung-ost mit ausgewerteten Beleganhängen",
       "type": "source",
       "aliases": [],
       "tags": [
@@ -4054,6 +4097,20 @@
         "agreement"
       ],
       "validFrom": "2026-07-29",
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-helsinki-participation",
+      "title": "Geltende Mitwirkung am Helsinki-Übereinkommen und in HELCOM",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "international",
+        "helcom"
+      ],
+      "validFrom": "2026-01-27",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

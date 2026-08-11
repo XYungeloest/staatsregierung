@@ -459,7 +459,7 @@
       "validFrom": "2026-07-21",
       "validTo": null,
       "asOf": "2026-08-11",
-      "summary": "Gesetzliche Grundlagen sind in Kraft. Die EAG-Freigabe überholte eine frühere Ablehnung; ein ausgearbeitetes Agreement liegt vor, aber beiderseitige Unterzeichnung und Standorteröffnung sind nicht belegt.",
+      "summary": "Das Boom Europe Leipzig/Halle Agreement ist seit dem 14. Mai 2026 rechtskräftig unterzeichnet und in Kraft. Die gesetzlichen Grundlagen traten am 21. Juli 2026 hinzu; die spätere Standorteröffnung ist nicht belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-boom-procedure",
@@ -493,8 +493,8 @@
         },
         {
           "sourceId": "source-boom-agreement-dated-2026-05-14",
-          "locator": "datierte, aber nicht unterschriebene Fassung",
-          "role": "context"
+          "locator": "rechtskräftig unterzeichnete Fassung; Inkrafttreten am 14. Mai 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -508,7 +508,8 @@
         "industry"
       ],
       "notes": [
-        "Die erste Ablehnung ist `superseded`; sie darf nicht als aktueller Verfahrensausgang erscheinen."
+        "Die erste Ablehnung ist `superseded`; sie darf nicht als aktueller Verfahrensausgang erscheinen.",
+        "Die Discordfassung dokumentiert den Vorlagezustand; für Vertragsschluss und Inkrafttreten ist die datierte Fassung maßgeblich."
       ],
       "aliases": [],
       "proceedingType": "implementation",
@@ -531,8 +532,8 @@
           "versionId": "2026-07-21"
         }
       ],
-      "decision": "Vorhaben EAG-seitig grundsätzlich zugelassen; Gesetzespaket in Kraft. Vertragsschluss und Standorteröffnung nicht nachgewiesen.",
-      "nextAction": "Unterschrifts- oder sonstigen Vollzugsbeleg beschaffen und Projektorganisation aus den Vollnormen vervollständigen.",
+      "decision": "Agreement am 14. Mai 2026 rechtskräftig geschlossen und in Kraft; Gesetzespaket seit 21. Juli 2026 in Kraft. Standorteröffnung nicht nachgewiesen.",
+      "nextAction": "Operative Standortumsetzung belegen und Projektorganisation aus den Vollnormen vervollständigen.",
       "openQuestionIds": [
         "question-boom-agreement-details"
       ]
@@ -714,7 +715,7 @@
       "validFrom": "2025-10-04",
       "validTo": null,
       "asOf": "2026-08-11",
-      "summary": "Verhandlungen, Unterzeichnung, politische institutionelle Mitwirkung und innerstaatliche Zustimmung sind belegt. Das formale völkerrechtliche Inkrafttreten für Ostdeutschland bleibt mangels gesonderter Bekanntmachung offen.",
+      "summary": "Das Helsinki-Übereinkommen stammt aus dem Jahr 1992. Ostdeutschland unterzeichnete am 6. Oktober 2025, stimmte innerstaatlich am 26. Januar 2026 zu und setzte den Beitritt mit der Verkündung im Vertragsblatt am 27. Januar 2026 in Kraft.",
       "sourceRefs": [
         {
           "sourceId": "source-overtrbl-2026-01",
@@ -741,17 +742,16 @@
         "inst-helcom",
         "inst-staatskanzlei",
         "person-claus-weselsky",
-        "person-mateo-delgado",
-        "question-helsinki-entry-into-force"
+        "person-mateo-delgado"
       ],
       "tags": ["proceeding", "international", "helcom", "ratification"],
       "notes": [
         "Die Pressemitteilung spricht von Vertretung mit eigener Stimme; der vorgelegte Änderungsentwurf schließt ein eigenes Stimmrecht aus. Ohne endgültige Änderungsurkunde wird kein allgemeines eigenes Stimmrecht modelliert.",
-        "Die historischen Vertragsdaten von 1992 sind kein ostdeutsches Inkrafttretensdatum."
+        "Die Vertragsfassung stammt aus dem Jahr 1992; der ostdeutsche Beitritt wurde am 27. Januar 2026 wirksam."
       ],
       "aliases": [],
       "proceedingType": "treaty-participation",
-      "stage": "consent-completed-entry-into-force-unresolved",
+      "stage": "in-force",
       "participantIds": ["inst-helcom", "inst-staatskanzlei"],
       "normRefs": [
         {
@@ -763,15 +763,15 @@
           "versionId": "1992-07-14"
         }
       ],
-      "decision": "Innerstaatliche Zustimmung erteilt; politisch-institutionelle HELCOM-Mitwirkung dokumentiert; formales Inkrafttreten nicht nachgewiesen.",
-      "nextAction": "Bekanntmachung des Inkrafttretens oder anderen belastbaren völkerrechtlichen Vollzugsbeleg beschaffen.",
-      "openQuestionIds": ["question-helsinki-entry-into-force"],
+      "decision": "Ostdeutscher Beitritt mit der Verkündung im Vertragsblatt am 27. Januar 2026 in Kraft; politisch-institutionelle HELCOM-Mitwirkung dokumentiert.",
+      "nextAction": "Praktische HELCOM-Mitwirkung und spätere Änderungen fortlaufend dokumentieren.",
+      "openQuestionIds": [],
       "stages": [
         {"date": "2025-10-04", "title": "Verhandlungen mit der Bundesregierung abgeschlossen", "status": "confirmed-official"},
         {"date": "2025-10-06", "title": "Änderungsurkunde beziehungsweise Übereinkommen unterzeichnet", "status": "confirmed-primary"},
         {"date": "2025-10-06", "title": "Politische und institutionelle HELCOM-Mitwirkung laut Pressemitteilung", "status": "confirmed-official"},
         {"date": "2026-01-26", "title": "Zustimmung des Ostdeutschen Landtags", "status": "confirmed-primary"},
-        {"date": null, "title": "Formales völkerrechtliches Inkrafttreten für Ostdeutschland", "status": "unresolved"}
+        {"date": "2026-01-27", "title": "Beitritt mit Verkündung im Ostdeutschen Vertragsblatt in Kraft", "status": "confirmed-primary"}
       ]
     },
     {

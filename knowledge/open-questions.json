@@ -120,12 +120,12 @@
     },
     {
       "id": "question-boom-agreement-details",
-      "title": "Wurde das Boom-Europe-Agreement beiderseits unterzeichnet und der Standort eröffnet?",
+      "title": "Wann begann die operative Umsetzung des Boom-Europe-Standorts?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-08-11",
-      "summary": "Die EAG-Freigabe und zwei Fassungen des Agreements liegen vor. Eine Discordfassung ist undatiert und unterschriftsleer; die andere nennt den 14. Mai 2026, enthält aber ebenfalls keine Unterschriften. Standorteröffnung und konkrete Vollzugsorganisation bleiben offen.",
+      "summary": "Das Boom Europe Leipzig/Halle Agreement wurde am 14. Mai 2026 rechtskräftig unterzeichnet und trat an diesem Tag in Kraft. Standorteröffnung, Baubeginn und konkrete Vollzugsorganisation bleiben offen.",
       "sourceRefs": [
         {
           "sourceId": "source-boom-procedure",
@@ -154,8 +154,8 @@
         },
         {
           "sourceId": "source-boom-agreement-dated-2026-05-14",
-          "locator": "datierte, aber nicht unterschriebene Fassung",
-          "role": "context"
+          "locator": "rechtskräftig unterzeichnete Fassung; Inkrafttreten am 14. Mai 2026",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -166,13 +166,13 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Liegt eine beiderseits unterzeichnete Fassung des Agreements oder ein anderer Vollzugsbeleg vor, und wann wurde der Standort tatsächlich eröffnet?",
+      "question": "Wann begannen Baumaßnahmen oder der operative Standortbetrieb von Boom Europe Leipzig/Halle, und wie wurde die Projektorganisation umgesetzt?",
       "affectedIds": [
         "project-boom-europe",
         "proceeding-boom-implementation"
       ],
-      "reason": "Ein fertig vorgelegter oder datierter Vertragstext beweist ohne Unterschriften oder spätere Vollzugsquelle keinen Vertragsschluss und keine Standorteröffnung.",
-      "requiredSource": "Beiderseits unterzeichnetes Agreement, amtliche Vollzugsmitteilung oder belastbarer Eröffnungsnachweis; ergänzend Vollnormen zur Projektorganisation.",
+      "reason": "Das rechtskräftige Agreement belegt Vertragsschluss und Inkrafttreten, aber nicht automatisch Baubeginn, Standorteröffnung oder Betriebsaufnahme.",
+      "requiredSource": "Amtliche Vollzugsmitteilung, Bau- oder Betriebsnachweis; ergänzend Vollnormen zur Projektorganisation.",
       "publicContentImpact": "Projektseite, Haushalt und Zeitplan.",
       "priority": "medium",
       "questionStatus": "open"
@@ -446,37 +446,6 @@
       "questionStatus": "open"
     },
     {
-      "id": "question-helsinki-entry-into-force",
-      "title": "Wann trat das Helsinki-Übereinkommen für Ostdeutschland völkerrechtlich in Kraft?",
-      "status": "unresolved",
-      "validFrom": "2026-01-26",
-      "validTo": null,
-      "asOf": "2026-08-11",
-      "summary": "Unterzeichnung am 6. Oktober 2025 und innerstaatliche Zustimmung am 26. Januar 2026 sind belegt. Das Zustimmungsgesetz verlangt eine gesonderte Bekanntmachung des Inkrafttretens; diese fehlt.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-overtrbl-2026-01",
-          "locator": "Zustimmungsgesetz, Artikel 1 und Artikel 2 Absatz 2",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-pm-helsinki-2025-10-06",
-          "locator": "Unterzeichnung und politische institutionelle Mitwirkung am 6. Oktober 2025",
-          "role": "corroborating"
-        }
-      ],
-      "relatedIds": ["proceeding-helsinki-participation", "inst-helcom", "person-claus-weselsky"],
-      "tags": ["open-question", "international", "treaty", "helcom"],
-      "notes": ["Die historischen Daten des Übereinkommens von 1992 sind kein ostdeutsches Inkrafttretensdatum."],
-      "question": "Gibt es eine Bekanntmachung oder andere belastbare Primärquelle für den Tag, an dem das Übereinkommen für Ostdeutschland völkerrechtlich in Kraft trat?",
-      "affectedIds": ["proceeding-helsinki-participation", "inst-helcom"],
-      "reason": "Artikel 2 Absatz 2 des Zustimmungsgesetzes ordnet eine gesonderte Bekanntmachung an; im Repository ist sie nicht vorhanden.",
-      "requiredSource": "Amtliche Inkrafttretensbekanntmachung, Depositar-Mitteilung oder gleichwertiger völkerrechtlicher Vollzugsbeleg.",
-      "publicContentImpact": "Rechtsportal und Themeninhalte dürfen Unterzeichnung, Zustimmung und Inkrafttreten nicht gleichsetzen.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
-    {
       "id": "question-historical-commissioners-end",
       "title": "Wann endeten die Bevollmächtigtenämter von Claus Weselsky und Gregor Gysi?",
       "status": "unresolved",
@@ -514,7 +483,7 @@
       "validFrom": "2025-09-30",
       "validTo": null,
       "asOf": "2026-08-11",
-      "summary": "Zuschlag beziehungsweise Vereinbarung sind für E-Jura, vier Hovercrafts, NVIDIA und einen Zeppelin NT bestätigt. Anbieter, Endpreis, Lieferung, Bau oder Betriebsaufnahme bleiben je nach Vorhaben offen.",
+      "summary": "Zuschlag beziehungsweise Vereinbarung sind für E-Jura, vier Hovercrafts, NVIDIA und einen Zeppelin NT bestätigt. Der Hovercraft-Gesamtpreis von 30 Millionen Euro ist bezahlt; Anbieter, Lieferung, Bau oder Betriebsaufnahme bleiben je nach Vorhaben offen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarification-eag-2026-08-11",
@@ -525,7 +494,7 @@
       "relatedIds": ["project-e-jura-procurement", "project-hovercraft-procurement", "project-nvidia-settlement", "project-zeppelin-nt"],
       "tags": ["open-question", "procurement", "projects"],
       "notes": ["Eine EAG-Annahme oder Preisvereinbarung ist nicht automatisch ein Liefer- oder Eröffnungsnachweis."],
-      "question": "Wer erhielt den E-Jura-Zuschlag, welcher Hovercraft-Endpreis galt, und welche Liefer-, Bau- oder Betriebsnachweise bestehen für Hovercrafts, NVIDIA und den ersten Zeppelin NT?",
+      "question": "Wer erhielt den E-Jura-Zuschlag, und welche Liefer-, Bau- oder Betriebsnachweise bestehen für Hovercrafts, NVIDIA und den ersten Zeppelin NT?",
       "affectedIds": ["project-e-jura-procurement", "project-hovercraft-procurement", "project-nvidia-settlement", "project-zeppelin-nt"],
       "reason": "Der Discordverlauf endet bei Zuschlag, Bestellung oder angenommener Ansiedlung und enthält keine eindeutigen Vollzugsbelege.",
       "requiredSource": "Zuschlagsmitteilung, Vertrag, Abnahme, Lieferung, Baugenehmigung, Baubeginn oder Betriebsmitteilung je Vorhaben.",
@@ -540,7 +509,7 @@
       "validFrom": "2024-11-25",
       "validTo": null,
       "asOf": "2026-08-11",
-      "summary": "Offen sind das Ende des Personenschutzes, ein Papstbesuch, die Fertigstellung des Luxemburg-Liebknecht-Denkmals, die Durchführung der Norwegenreise, der genaue Ohlinger-Ausgang und der ursprüngliche Israel-Beschluss.",
+      "summary": "Offen sind das Ende des Personenschutzes, die Fertigstellung des Luxemburg-Liebknecht-Denkmals, die Durchführung der Norwegenreise, der genaue Ohlinger-Ausgang und der ursprüngliche Israel-Beschluss.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarification-eag-2026-08-11",
