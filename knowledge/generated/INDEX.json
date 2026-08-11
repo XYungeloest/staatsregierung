@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-09",
+  "generatedAt": "2026-08-11",
   "editorialAsOf": "2026-08-09",
-  "count": 272,
+  "count": 325,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -186,6 +186,34 @@
       "target": "knowledge/conversation-candidates.json"
     },
     {
+      "id": "event-50hertz-acquisition-agreement",
+      "title": "Einigung über die Elia-Beteiligung an 50Hertz",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "energy",
+        "acquisition"
+      ],
+      "validFrom": "2025-12-02",
+      "validTo": "2025-12-02",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-airport-carl-ulbricht-name",
+      "title": "Flughafen Leipzig/Halle erhält den Ehrennamen Carl Ulbricht",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "transport",
+        "company-decision"
+      ],
+      "validFrom": "2026-05-28",
+      "validTo": "2026-05-28",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-barlow-dismissal",
       "title": "Thomas Henry Barlow scheidet aus der Staatsorganisation aus",
       "type": "timeline-event",
@@ -331,6 +359,20 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-delgado-government-formation",
+      "title": "Kabinett Delgado nimmt die Arbeit auf",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "government",
+        "historical"
+      ],
+      "validFrom": "2025-09-04",
+      "validTo": "2025-09-04",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-dreyer-candidacy-2026",
       "title": "Manuela Dreyer erklärt ihre Kandidatur",
       "type": "timeline-event",
@@ -450,6 +492,20 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-fernverkehr-ovv-letter",
+      "title": "Staatsregierung trennt Fernverkehrsreaktivierung und Ticketanerkennung",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "transport",
+        "planned"
+      ],
+      "validFrom": "2026-03-15",
+      "validTo": "2026-03-15",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-first-state-council",
       "title": "Erster Staatsrat nimmt die Arbeit auf",
       "type": "timeline-event",
@@ -531,6 +587,48 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-gysi-appointed",
+      "title": "Gregor Gysi wird Bevollmächtigter für Bienenvolk und Imker:innen",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "appointment",
+        "government"
+      ],
+      "validFrom": "2025-12-10",
+      "validTo": "2025-12-10",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-helsinki-amendment-signed",
+      "title": "Helsinki-Änderungsurkunde wird unterzeichnet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "international",
+        "agreement-signed"
+      ],
+      "validFrom": "2025-10-06",
+      "validTo": "2025-10-06",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-helsinki-negotiations-concluded",
+      "title": "Helsinki-Verhandlungen mit der Bundesregierung abgeschlossen",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "international",
+        "helcom"
+      ],
+      "validFrom": "2025-10-04",
+      "validTo": "2025-10-04",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-honecker-federal-president-representation-2026",
       "title": "Vertretungsgrund wechselt nach Dreyers Rücktritt",
       "type": "timeline-event",
@@ -592,6 +690,20 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-hospital-policy-fund-choice",
+      "title": "Krankenhauspolitik wird auf einen Rekommunalisierungsfonds umgestellt",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "health",
+        "superseded-policy"
+      ],
+      "validFrom": "2026-03-04",
+      "validTo": "2026-03-04",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-housing-rules",
       "title": "Wohnvergesellschaftung durch Vollzugsrecht konkretisiert",
       "type": "timeline-event",
@@ -601,6 +713,20 @@
       ],
       "validFrom": "2026-03-24",
       "validTo": "2026-03-24",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-luxemburg-liebknecht-memorial-approved",
+      "title": "Luxemburg-Liebknecht-Denkmal wird genehmigt",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "culture",
+        "simulation-adjudication"
+      ],
+      "validFrom": "2026-06-05",
+      "validTo": "2026-06-05",
       "target": "knowledge/timeline.json"
     },
     {
@@ -640,6 +766,34 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-nvidia-offer-accepted",
+      "title": "NVIDIA nimmt das ostdeutsche Ansiedlungsangebot an",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "industry",
+        "simulation-adjudication"
+      ],
+      "validFrom": "2025-12-21",
+      "validTo": "2025-12-21",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-ovv-db-ticket-recognition-deal",
+      "title": "OVV-Ticketanerkennung mit DB Fernverkehr vereinbart",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "transport",
+        "agreement"
+      ],
+      "validFrom": "2026-07-16",
+      "validTo": "2026-07-16",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-poland-agreement",
       "title": "Grenzraumabkommen mit Polen veröffentlicht",
       "type": "timeline-event",
@@ -661,6 +815,20 @@
       ],
       "validFrom": "2026-03-24",
       "validTo": "2026-03-24",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-sabine-bergmann-pohl-square-approved",
+      "title": "Sabine-Bergmann-Pohl-Platz wird genehmigt",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "renaming",
+        "simulation-adjudication"
+      ],
+      "validFrom": "2026-07-15",
+      "validTo": "2026-07-15",
       "target": "knowledge/timeline.json"
     },
     {
@@ -797,6 +965,36 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-weselsky-appointed",
+      "title": "Claus Weselsky wird Bevollmächtigter für Meeres- und Küstenumweltschutz",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "appointment",
+        "government"
+      ],
+      "validFrom": "2025-10-06",
+      "validTo": "2025-10-06",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "inst-50hertz",
+      "title": "50Hertz Transmission",
+      "type": "institution",
+      "aliases": [
+        "50Hertz"
+      ],
+      "tags": [
+        "energy",
+        "company",
+        "public-economy"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
       "id": "inst-bundesministerium-innern-heimat",
       "title": "Bundesministerium des Innern und für Heimat",
       "type": "institution",
@@ -872,6 +1070,20 @@
       "target": "knowledge/entities/institutions.json"
     },
     {
+      "id": "inst-db-fernverkehr",
+      "title": "DB Fernverkehr",
+      "type": "institution",
+      "aliases": [],
+      "tags": [
+        "transport",
+        "rail",
+        "company"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
       "id": "inst-deutscher-bundestag",
       "title": "Deutscher Bundestag",
       "type": "institution",
@@ -916,6 +1128,36 @@
       ],
       "validFrom": "2026-07-21",
       "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-helcom",
+      "title": "Helsinki-Kommission (HELCOM)",
+      "type": "institution",
+      "aliases": [
+        "Baltic Marine Environment Protection Commission"
+      ],
+      "tags": [
+        "international",
+        "environment",
+        "commission"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-kabinett-delgado",
+      "title": "Kabinett Delgado",
+      "type": "institution",
+      "aliases": [],
+      "tags": [
+        "government",
+        "cabinet",
+        "historical"
+      ],
+      "validFrom": "2025-09-04",
+      "validTo": "2025-12-19",
       "target": "knowledge/entities/institutions.json"
     },
     {
@@ -1154,7 +1396,7 @@
         "administration",
         "central-office"
       ],
-      "validFrom": "2026-07-21",
+      "validFrom": null,
       "validTo": null,
       "target": "knowledge/entities/institutions.json"
     },
@@ -1296,6 +1538,21 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-claus-weselsky",
+      "title": "Claus Weselsky",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "government",
+        "historical-appointment",
+        "helcom"
+      ],
+      "validFrom": "2025-10-06",
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-elizabeth-eberhardt",
       "title": "Elizabeth Eberhardt",
       "type": "person",
@@ -1379,6 +1636,21 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-gregor-gysi",
+      "title": "Gregor Gysi",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "government",
+        "historical-appointment",
+        "apiculture"
+      ],
+      "validFrom": "2025-12-10",
+      "validTo": null,
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-karl-honecker",
       "title": "Dr. Karl Honecker",
       "type": "person",
@@ -1457,7 +1729,7 @@
         "person",
         "government"
       ],
-      "validFrom": "2026-05-04",
+      "validFrom": "2025-09-04",
       "validTo": null,
       "target": "knowledge/entities/persons.json"
     },
@@ -1685,6 +1957,35 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "proceeding-helsinki-participation",
+      "title": "Ostdeutsche Mitwirkung am Helsinki-Übereinkommen und in HELCOM",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "international",
+        "helcom",
+        "ratification"
+      ],
+      "validFrom": "2025-10-04",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-israel-cooperation-end",
+      "title": "Beendigung ostdeutscher Kooperationen mit Israel",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "international",
+        "cooperation"
+      ],
+      "validFrom": "2026-06-02",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
       "id": "proceeding-kreisreform-transition",
       "title": "Übergang zur neuen Kreis- und Bezirksstruktur",
       "type": "proceeding",
@@ -1738,6 +2039,35 @@
       ],
       "validFrom": "2026-07-21",
       "validTo": "2026-07-29",
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-ohlinger-traffic",
+      "title": "Verkehrsrechtliche Bearbeitung des Vorgangs Ohlinger",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "traffic",
+        "simulation-adjudication"
+      ],
+      "validFrom": "2026-03-30",
+      "validTo": null,
+      "target": "knowledge/proceedings.json"
+    },
+    {
+      "id": "proceeding-ovv-db-ticket-recognition",
+      "title": "Anerkennung ostdeutscher Verbundfahrausweise bei DB Fernverkehr",
+      "type": "proceeding",
+      "aliases": [],
+      "tags": [
+        "proceeding",
+        "transport",
+        "agreement",
+        "fare"
+      ],
+      "validFrom": "2026-07-16",
+      "validTo": null,
       "target": "knowledge/proceedings.json"
     },
     {
@@ -1799,6 +2129,35 @@
       "target": "knowledge/proceedings.json"
     },
     {
+      "id": "project-50hertz-acquisition",
+      "title": "Schrittweise Übernahme der Elia-Beteiligung an 50Hertz",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "energy",
+        "public-economy",
+        "acquisition"
+      ],
+      "validFrom": "2025-12-02",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-airport-carl-ulbricht-name",
+      "title": "Ehrenname Carl Ulbricht für den Flughafen Leipzig/Halle",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "transport",
+        "renaming"
+      ],
+      "validFrom": "2026-05-28",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
       "id": "project-boden-volksacker",
       "title": "Volksacker, Flächenfonds und Bodenfonds Ost",
       "type": "project",
@@ -1823,6 +2182,23 @@
         "fund"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-e-jura-procurement",
+      "title": "Elektronisches juristisches Prüfungssystem",
+      "type": "project",
+      "aliases": [
+        "E-Jura-Programm"
+      ],
+      "tags": [
+        "project",
+        "procurement",
+        "digitalization",
+        "justice"
+      ],
+      "validFrom": "2025-09-30",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -1896,6 +2272,21 @@
       "target": "knowledge/projects.json"
     },
     {
+      "id": "project-heckler-koch-settlement",
+      "title": "Ansiedlung eines Heckler-&-Koch-Werks",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "industry",
+        "rejected",
+        "historical"
+      ],
+      "validFrom": "2025-12-20",
+      "validTo": "2025-12-21",
+      "target": "knowledge/projects.json"
+    },
+    {
       "id": "project-hoheitszeichen",
       "title": "Hoheitszeichenreform",
       "type": "project",
@@ -1906,6 +2297,21 @@
         "conflict"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-hovercraft-procurement",
+      "title": "Beschaffung von vier Hovercrafts Griffon 8100 TD",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "procurement",
+        "security",
+        "defence"
+      ],
+      "validFrom": "2025-12-21",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -1946,6 +2352,35 @@
         "culture"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-luxemburg-liebknecht-memorial",
+      "title": "Luxemburg-Liebknecht-Denkmal auf dem Platz der Republik",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "culture",
+        "memorial"
+      ],
+      "validFrom": "2026-06-05",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-nvidia-settlement",
+      "title": "NVIDIA-Ansiedlung in Ostdeutschland",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "industry",
+        "investment",
+        "semiconductors"
+      ],
+      "validFrom": "2025-12-21",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -2044,6 +2479,20 @@
       "target": "knowledge/projects.json"
     },
     {
+      "id": "project-zeppelin-nt",
+      "title": "Zeppelin NT für den Freistaat",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "procurement",
+        "aviation"
+      ],
+      "validFrom": "2025-12-21",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
       "id": "question-boden-project-status",
       "title": "Welcher Rechts- und Umsetzungsstand gilt für Volksacker, Flächenfonds und Bodenfonds Ost?",
       "type": "open-question",
@@ -2057,7 +2506,7 @@
     },
     {
       "id": "question-boom-agreement-details",
-      "title": "Welche Vertrags-, Finanzierungs- und Organisationsdaten gelten für Boom Europe Leipzig/Halle?",
+      "title": "Wurde das Boom-Europe-Agreement beiderseits unterzeichnet und der Standort eröffnet?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -2078,6 +2527,34 @@
         "constitutional-law"
       ],
       "validFrom": "2026-07-16",
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-eag-outcomes-completion",
+      "title": "Welche bestätigten EAG-Vorgänge benötigen noch einen Vollzugs- oder Detailbeleg?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "simulation",
+        "completion"
+      ],
+      "validFrom": "2024-11-25",
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-eag-procurements-delivery",
+      "title": "Welche EAG-bestätigten Vergaben und Beschaffungen wurden tatsächlich ausgeliefert oder in Betrieb genommen?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "procurement",
+        "projects"
+      ],
+      "validFrom": "2025-09-30",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -2132,6 +2609,35 @@
       "target": "knowledge/open-questions.json"
     },
     {
+      "id": "question-helsinki-entry-into-force",
+      "title": "Wann trat das Helsinki-Übereinkommen für Ostdeutschland völkerrechtlich in Kraft?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "international",
+        "treaty",
+        "helcom"
+      ],
+      "validFrom": "2026-01-26",
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-historical-commissioners-end",
+      "title": "Wann endeten die Bevollmächtigtenämter von Claus Weselsky und Gregor Gysi?",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "persons",
+        "government"
+      ],
+      "validFrom": "2025-10-06",
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
       "id": "question-hoheitszeichen-current-law",
       "title": "Welche konsolidierte Hoheitszeichenregelung gilt nach der Staatsreform?",
       "type": "open-question",
@@ -2170,7 +2676,7 @@
     },
     {
       "id": "question-ovv-ticket-chain",
-      "title": "Welche Normen und Beschlüsse bilden OVV und 29-Euro-Ticket vollständig ab?",
+      "title": "Welche Tarifdetails gelten für die OVV-Anerkennung und werden Fernverkehrsrelationen reaktiviert?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -2245,6 +2751,35 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-appointment-gysi-2025-12-10",
+      "title": "Ernennungsurkunde Gregor Gysi",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "persons",
+        "government",
+        "apiculture"
+      ],
+      "validFrom": "2025-12-10",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-appointment-weselsky-2025-10-06",
+      "title": "Ernennungsurkunde Claus Weselsky",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "persons",
+        "government",
+        "helcom",
+        "environment"
+      ],
+      "validFrom": "2025-10-06",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-barlow-history",
       "title": "Historisches Profil Thomas Henry Barlow",
       "type": "source",
@@ -2267,6 +2802,36 @@
         "administration"
       ],
       "validFrom": "2026-08-09",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-boom-agreement-dated-2026-05-14",
+      "title": "Boom Europe Leipzig/Halle Agreement, datierte Fassung",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "projects",
+        "industry",
+        "aviation",
+        "agreements"
+      ],
+      "validFrom": "2026-05-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-boom-agreement-eag-2026-05-14",
+      "title": "Boom Europe Leipzig/Halle Agreement, Discordfassung",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "projects",
+        "industry",
+        "aviation",
+        "agreements"
+      ],
+      "validFrom": "2026-05-14",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2458,6 +3023,66 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-e-jura-tender-2025-09-30",
+      "title": "Vergabeverfahren E-Jura-Programm",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "procurement",
+        "digitalization",
+        "justice",
+        "education"
+      ],
+      "validFrom": "2025-09-30",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-eag-czech-agreement-2026-03-05",
+      "title": "Grenzraumabkommen mit Tschechien, EAG-Anhang",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "international",
+        "czechia",
+        "agreements"
+      ],
+      "validFrom": "2026-03-05",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-eag-poland-agreement-2026-03-05",
+      "title": "Grenzraumabkommen mit Polen, EAG-Anhang",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "international",
+        "poland",
+        "agreements"
+      ],
+      "validFrom": "2026-03-05",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-eag-staatsregierung-ost-2024-2026",
+      "title": "EAG-Discordexport des Kanals staatsregierung-ost mit lokalen Anhängen",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "simulation",
+        "government",
+        "projects",
+        "procurement",
+        "international",
+        "transport"
+      ],
+      "validFrom": "2026-08-11",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-editorial-clarification-dreyer-election-2026-08-01",
       "title": "Redaktionelle Klarstellung zu Dreyer und zur Wahl der achten Volkskammer",
       "type": "source",
@@ -2469,6 +3094,23 @@
         "parliament"
       ],
       "validFrom": "2026-08-01",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-editorial-clarification-eag-2026-08-11",
+      "title": "Redaktionelle Klarstellung zu EAG-Ausspielungen und zum Staatsregierungskanal",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "simulation",
+        "government",
+        "projects",
+        "persons",
+        "international",
+        "transport"
+      ],
+      "validFrom": "2026-08-11",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2594,6 +3236,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-fernverkehr-ovv-letter-2026-03-15",
+      "title": "Brief an den Bundesverkehrsminister zu Fernverkehr und OVV-Ticketanerkennung",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "transport",
+        "rail",
+        "projects",
+        "fare"
+      ],
+      "validFrom": "2026-03-15",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-freya-history",
       "title": "Historisches Profil Freya Warnecke",
       "type": "source",
@@ -2705,6 +3362,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-helsinki-amendment-draft-2025-10-02",
+      "title": "Entwurf zur Änderung des Helsinki-Übereinkommens",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "international",
+        "helcom",
+        "law",
+        "draft"
+      ],
+      "validFrom": "2025-10-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-hospital-law",
       "title": "Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
       "type": "source",
@@ -2742,6 +3414,19 @@
         "housing"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-kabinett-delgado",
+      "title": "Kabinett Delgado",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "government",
+        "history"
+      ],
+      "validFrom": "2025-09-04",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -2873,6 +3558,20 @@
         "government"
       ],
       "validFrom": "2026-05-19",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-minister-president-list-context",
+      "title": "Historische Liste der Ministerpräsidenten Ostdeutschlands",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "validFrom": null,
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -3013,6 +3712,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-overtrbl-2026-01",
+      "title": "Ostdeutsches Vertragsblatt 2026 Nr. 1",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "international",
+        "helcom",
+        "environment"
+      ],
+      "validFrom": "2026-01-27",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-overtrbl-2026-02",
       "title": "Ostdeutsches Vertragsblatt 2026 Nr. 2",
       "type": "source",
@@ -3081,6 +3795,51 @@
         "proceedings"
       ],
       "validFrom": "2026-08-09",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-pm-50hertz-2025-12-02",
+      "title": "Einigung bei 50Hertz erzielt – Ostdeutsches Netz in ostdeutsche Hand",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "press",
+        "energy",
+        "public-economy",
+        "projects"
+      ],
+      "validFrom": "2025-12-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-pm-helsinki-2025-10-06",
+      "title": "Ostdeutscher Freistaat wirkte bei der Änderung des Helsinki-Übereinkommens mit",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "press",
+        "international",
+        "helcom",
+        "persons",
+        "environment"
+      ],
+      "validFrom": "2025-10-06",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-private-hospital-register-extract-2026-03-04",
+      "title": "Auszug privater Krankenhäuser aus dem Krankenhausverzeichnis",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "health",
+        "hospitals",
+        "projects"
+      ],
+      "validFrom": "2026-03-04",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -3175,6 +3934,20 @@
         "projects"
       ],
       "validFrom": "2026-08-08",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-steelworks-valuation-2026-03-14",
+      "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "industry",
+        "valuation",
+        "projects"
+      ],
+      "validFrom": "2026-03-14",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

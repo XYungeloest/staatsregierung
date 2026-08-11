@@ -382,8 +382,8 @@
       "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, ohne Normvolltexte zu duplizieren.",
+      "asOf": "2026-08-09",
+      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich der schrittweisen 50Hertz-Übernahme, der OVV-Ticketanerkennung und der angenommenen NVIDIA-Ansiedlung, ohne Normvolltexte zu duplizieren.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -393,6 +393,16 @@
         {
           "sourceId": "source-government-timeline",
           "locator": "gesamter Datensatz",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-pm-50hertz-2025-12-02",
+          "locator": "schrittweise Übernahme über drei Jahre ab dem Haushaltsjahr 2026",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "NVIDIA-Annahme und OVV-/DB-Ticketdeal; Messages 1452105215590273175 sowie 1527380585633419425 bis 1527388238602436661",
           "role": "corroborating"
         }
       ],
@@ -409,6 +419,9 @@
         "project-rundfunk",
         "project-kulturpass",
         "project-boom-europe",
+        "project-50hertz-acquisition",
+        "project-ovv-ticket",
+        "project-nvidia-settlement",
         "project-transparenz",
         "project-haushalt-2025-2026"
       ],
@@ -430,6 +443,9 @@
         "project-rundfunk",
         "project-kulturpass",
         "project-boom-europe",
+        "project-50hertz-acquisition",
+        "project-ovv-ticket",
+        "project-nvidia-settlement",
         "project-transparenz",
         "project-haushalt-2025-2026"
       ]
@@ -483,8 +499,8 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, die gesonderte Quellenfrage zum nicht ausdrücklich formulierten Inkrafttreten des Grenzpolizeiabkommens, die noch nicht vollständig belegten Verfahrensdaten des Bundesratszugangsstreits, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
+      "asOf": "2026-08-09",
+      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, die Wirksamkeitsfragen zum Grenzpolizeiabkommen und zum Helsinki-Übereinkommen, Tarifdetails der OVV-/DB-Ticketanerkennung, der Bundesratszugangsstreit, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
@@ -500,11 +516,25 @@
           "sourceId": "source-consolidation-manifest",
           "locator": "Gesamtstand",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-overtrbl-2026-01",
+          "locator": "Zustimmungsgesetz zum Helsinki-Übereinkommen, Artikel 2 Absatz 2",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "OVV-/DB-Ticketdeal am 16. Juli 2026 ohne gesondertes Vertrags- oder Tarifdokument",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
         "proceeding-kreisreform-transition",
         "question-grenzpolizei-effective-date",
+        "proceeding-helsinki-participation",
+        "question-helsinki-entry-into-force",
+        "proceeding-ovv-db-ticket-recognition",
+        "question-ovv-ticket-chain",
         "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",
         "proceeding-law-consolidation"
@@ -516,6 +546,8 @@
       "notes": [],
       "proceedingIds": [
         "proceeding-kreisreform-transition",
+        "proceeding-helsinki-participation",
+        "proceeding-ovv-db-ticket-recognition",
         "proceeding-federal-council-access",
         "proceeding-third-plenary-evidence",
         "proceeding-law-consolidation"
