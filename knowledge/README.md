@@ -23,7 +23,7 @@ referenzieren diese IDs und Quellen, ergänzen aber weiterhin Provenienz, Zusamm
 | Wie entwickelte sich die Regierung seit 2025? | `timeline.json`, `entities/persons.json`, `entities/institutions.json` |
 | Welche Verfahren sind offen? | `proceedings.json`, `open-questions.json` |
 | Welche Vereinbarungen mit Bund oder Nachbarstaaten bestehen? | `proceedings.json` |
-| Welche Aussage stammt nur aus einem Gespräch? | `conversation-candidates.json` |
+| Welche Aussage stammt nur aus einem Gespräch? | `conversation-candidates.json`; für EAG-Ausspielungen zusätzlich `SOURCE_POLICY.md` |
 | Welche Quelle ist für eine Detailfrage maßgeblich? | `SOURCE_POLICY.md`, `sources.json` |
 
 ## Dateien
@@ -97,4 +97,4 @@ Generierte Dateien werden nicht manuell bearbeitet.
 
 ## Quellenpflicht
 
-Bestätigte Fakten benötigen mindestens eine `sourceRef`. Reine Gesprächsquellen dürfen nicht in `current-state.json` stehen. Externe Wikiangaben werden nur mit konkreter Miraheze-Seite oder Revision und nach Quellenabgleich übernommen.
+Bestätigte Fakten benötigen mindestens eine `sourceRef`. Reine Gesprächsquellen dürfen nicht in `current-state.json` stehen. Eindeutige EAG-Ausspielungen sind nach vollständiger Kontextprüfung kanonische Simulationsquellen; bloße Regierungsanfragen und ungeklärte Chatbeiträge bleiben Gesprächskandidaten. Anhänge werden visuell gelesen und mit Message-ID sowie Dateiname lokalisiert. Externe Wikiangaben werden nur mit konkreter Miraheze-Seite oder Revision und nach Quellenabgleich übernommen.

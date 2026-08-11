@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-09",
+  "asOf": "2026-08-11",
   "candidates": [
     {
       "id": "candidate-honecker-biography",
@@ -103,13 +103,18 @@
       "status": "unverified",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Rücktritt Tom Kurzschlusses und außergewöhnlicher Regierungswechsel beziehungsweise Misstrauensvotum sind redaktionell bestätigt; Details bleiben als niedrig priorisierte historische Lücke offen.",
+      "asOf": "2026-08-11",
+      "summary": "Delgados Amtszeit vom 4. September bis 19. Dezember 2025 ist durch historische Liste und zwei Urkunden abgesichert. Nur die genaue Übergangsfolge von Tom Kurzschluss zu Delgado, insbesondere Rücktritt oder Misstrauensvotum, bleibt offen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
           "locator": "Abschnitt Bundesebene und historische Vorgänge",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-minister-president-list-context",
+          "locator": "Tom Kurzschluss ab 5. Juni 2025; Mateo Delgado ab 4. September 2025",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -120,7 +125,7 @@
       ],
       "notes": [],
       "aliases": [],
-      "classification": "partly-confirmed-historical",
+      "classification": "transition-details-only",
       "searchTargets": [
         "Wendepunkt-Artikel",
         "Rücktrittserklärung",
@@ -164,15 +169,20 @@
     {
       "id": "candidate-ovv-ticket",
       "title": "OVV und 29-Euro-Ticket",
-      "status": "unverified",
+      "status": "superseded",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Mobilitätsziele und Verkehrsrechtskomplexe sind vorhanden; die vollständige Tarif- und Verbundkette fehlt.",
+      "asOf": "2026-08-11",
+      "summary": "Der frühere allgemeine Gesprächskandidat ist überholt: Der 57-Millionen-Euro-Deal zur IC-/ICE-Ticketanerkennung ist bestätigt und in Projekt sowie Verfahren modelliert. Nur Tarifdetails, Geltungsbeginn und mögliche Streckenreaktivierungen bleiben offen.",
       "sourceRefs": [
         {
           "sourceId": "source-conversation-task",
           "locator": "OVV und 29-Euro-Ticket",
+          "role": "context"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "16.07.2026 20:25–20:55; Ticketanerkennung für 57 Millionen Euro",
           "role": "primary"
         }
       ],
@@ -184,14 +194,14 @@
       ],
       "notes": [],
       "aliases": [],
-      "classification": "only-indirect",
+      "classification": "promoted-partly-open",
       "searchTargets": [
         "Verbundsatzung",
         "Tarifbeschluss",
         "Ticketgesetz oder Verordnung"
       ],
       "priority": "medium",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+      "promotionRule": "Bestätigter Teil ist übernommen; offene Tarif- und Reaktivierungsfragen bleiben in question-ovv-ticket-chain."
     },
     {
       "id": "candidate-feiertage",
@@ -228,15 +238,20 @@
     {
       "id": "candidate-boom-details",
       "title": "Projektorganisation Boom Europe Leipzig/Halle",
-      "status": "unverified",
+      "status": "superseded",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Gesetzespaket und Verfahren sind vorhanden; Standortvertrag, Memorandum, Laufzeit, Projektstelle und Lenkungsausschuss sollen noch paragraphengenau erschlossen werden.",
+      "asOf": "2026-08-11",
+      "summary": "Der frühere allgemeine Kandidat ist überholt: EAG-Freigabe und rechtskräftiges Agreement sind ausgewertet. Standorteröffnung und einzelne Organisationsdetails bleiben als konkrete offene Frage bestehen.",
       "sourceRefs": [
         {
           "sourceId": "source-conversation-task",
           "locator": "Projektorganisation Boom Europe Leipzig/Halle",
+          "role": "context"
+        },
+        {
+          "sourceId": "source-editorial-clarification-eag-2026-08-11",
+          "locator": "Abschnitt Überholte Vorgänge",
           "role": "primary"
         }
       ],
@@ -248,14 +263,14 @@
       ],
       "notes": [],
       "aliases": [],
-      "classification": "partly-present",
+      "classification": "promoted-partly-open",
       "searchTargets": [
         "Volltexte der drei Gesetze",
         "Standortvertrag oder Memorandum",
         "Haushaltsunterlagen"
       ],
       "priority": "medium",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+      "promotionRule": "Vertragsschluss und Inkrafttreten sind übernommen; Eröffnung und Detailorganisation bleiben in question-boom-agreement-details."
     },
     {
       "id": "candidate-acting-federal-president",

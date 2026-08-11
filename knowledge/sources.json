@@ -1,6 +1,190 @@
 {
-  "asOf": "2026-08-09",
+  "asOf": "2026-08-11",
   "sources": [
+    {
+      "id": "source-editorial-clarification-eag-2026-08-11",
+      "type": "source-based-clarification",
+      "path": "knowledge/clarifications/2026-08-11-eag-kanon.md",
+      "title": "Redaktionelle Klarstellung zu EAG-Ausspielungen und zum Staatsregierungskanal",
+      "date": "2026-08-11",
+      "status": "primary",
+      "scope": ["simulation", "government", "projects", "persons", "international", "transport"],
+      "notes": "Dokumentiert die vollständige chronologische Auswertung von 1.689 Nachrichten und 46 Anhängen, die redaktionellen Nachklärungen vom 11. August 2026 sowie die Trennung in bestätigte, geplante, abgelehnte, überholte und offene Befunde."
+    },
+    {
+      "id": "source-eag-staatsregierung-ost-2024-2026",
+      "type": "simulation-adjudication",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/PS _ Deutsche Presse-Agentur - 🗣     A U S T A U S C H - ➽・staatsregierung-ost [1218687555340599457].html",
+      "title": "EAG-Discordexport des Kanals staatsregierung-ost mit ausgewerteten Beleganhängen",
+      "date": "2026-08-11",
+      "status": "primary",
+      "scope": ["simulation", "government", "projects", "procurement", "international", "transport"],
+      "sourceRole": "simulation-adjudication",
+      "attachmentRoot": "context/eag/staatsregierung-ost-1218687555340599457/attachments",
+      "notes": "Exportzeitraum 9. April 2024 bis 11. August 2026. Alle 1.689 Nachrichten und 46 Anhänge wurden chronologisch beziehungsweise technisch ausgewertet. Dauerhaft archiviert bleiben nur Anhänge mit eigenständigem fachlichem Belegwert; Reaktions-GIFs, Memes, bloße Symbolbilder und sachlich redundante Screenshots wurden nach der Auswertung entfernt. Eine EAG-Entscheidung ist nur nach den Regeln der Quellenrichtlinie kanonisch."
+    },
+    {
+      "id": "source-appointment-weselsky-2025-10-06",
+      "type": "appointment-certificate",
+      "path": "context/amtliche-dokumente/2025-10-06/ClausWeselsky-2.pdf",
+      "title": "Ernennungsurkunde Claus Weselsky",
+      "date": "2025-10-06",
+      "status": "primary",
+      "scope": ["persons", "government", "helcom", "environment"],
+      "notes": "Originaldatei unverändert archiviert; Urkunde von Ministerpräsident Mateo Delgado."
+    },
+    {
+      "id": "source-pm-helsinki-2025-10-06",
+      "type": "press-release",
+      "path": "context/amtliche-dokumente/2025-10-06/PM-06102025-11.pdf",
+      "title": "Ostdeutscher Freistaat wirkte bei der Änderung des Helsinki-Übereinkommens mit",
+      "date": "2025-10-06",
+      "status": "primary",
+      "scope": ["press", "international", "helcom", "persons", "environment"],
+      "sourceRole": "official-press-release",
+      "notes": "Das Dokument trägt den 6. Oktober 2025. Die im Dokumenttitel sichtbare Kennung PM-01082025-11 und abweichende Dateinamensbestandteile werden nicht als Datumsquelle verwendet."
+    },
+    {
+      "id": "source-appointment-gysi-2025-12-10",
+      "type": "appointment-certificate",
+      "path": "context/amtliche-dokumente/2025-12-10/GregorGysi.pdf",
+      "title": "Ernennungsurkunde Gregor Gysi",
+      "date": "2025-12-10",
+      "status": "primary",
+      "scope": ["persons", "government", "apiculture"],
+      "notes": "Originaldatei unverändert archiviert; der amtliche Originaltitel verwendet die Schreibweise Imker*innen."
+    },
+    {
+      "id": "source-fernverkehr-ovv-letter-2026-03-15",
+      "type": "official-letter",
+      "path": "context/amtliche-dokumente/2026-03-15/Brief an den Verkehrsminister (1).pdf",
+      "title": "Brief an den Bundesverkehrsminister zu Fernverkehr und OVV-Ticketanerkennung",
+      "date": "2026-03-15",
+      "status": "primary",
+      "scope": ["transport", "rail", "projects", "fare"],
+      "notes": "Enthält sechs vorgeschlagene Bestellungs- oder Reaktivierungsrelationen und getrennt davon 18 Bestandsrelationen für die Anerkennung von OVV-Fahrausweisen."
+    },
+    {
+      "id": "source-boom-agreement-dated-2026-05-14",
+      "type": "signed-agreement",
+      "path": "context/amtliche-dokumente/2026-05-14/Boom_Europe_Leipzig_Halle_Agreement.pdf",
+      "title": "Boom Europe Leipzig/Halle Agreement, datierte Fassung",
+      "date": "2026-05-14",
+      "status": "primary",
+      "scope": ["projects", "industry", "aviation", "agreements"],
+      "notes": "Rechtskräftig unterzeichnete und seit dem 14. Mai 2026 in Kraft befindliche Fassung des Boom Europe Leipzig/Halle Agreement."
+    },
+    {
+      "id": "source-helsinki-amendment-draft-2025-10-02",
+      "type": "official-draft",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/attachments/1424503322660044850/Anderung_Helsinki-Vertrag-2.pdf",
+      "title": "Entwurf zur Änderung des Helsinki-Übereinkommens",
+      "date": "2025-10-02",
+      "status": "context",
+      "scope": ["international", "helcom", "law", "draft"],
+      "notes": "Bundestagsentwurf mit Platzhaltern; belegt den vorgesehenen Änderungsmechanismus und die Beschränkung des Stimmrechts, nicht den endgültigen Wortlaut oder das Inkrafttreten."
+    },
+    {
+      "id": "source-e-jura-tender-2025-09-30",
+      "type": "procurement-document",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/attachments/1422498555880542239/Vergabeverfahren_E-Jura-Programm.pdf",
+      "title": "Vergabeverfahren E-Jura-Programm",
+      "date": "2025-09-30",
+      "status": "primary",
+      "scope": ["procurement", "digitalization", "justice", "education"],
+      "notes": "Die Unterlage nennt bei der Ausführungsfrist widersprüchlich den bereits vergangenen 30. Juni 2025. Anbieter und tatsächlicher Liefertermin sind nicht enthalten."
+    },
+    {
+      "id": "source-pm-50hertz-2025-12-02",
+      "type": "press-release",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/attachments/1445423384203624490/Pressemitteilung_02-12-2025.pdf",
+      "title": "Einigung bei 50Hertz erzielt – Ostdeutsches Netz in ostdeutsche Hand",
+      "date": "2025-12-02",
+      "status": "primary",
+      "scope": ["press", "energy", "public-economy", "projects"],
+      "sourceRole": "official-press-release",
+      "notes": "Belegt die Verständigung über die schrittweise Übernahme der Elia-Beteiligung für 3,8 Milliarden Euro. KfW-Anteile und Hamburger Anlagen werden nur als spätere Ziele beschrieben."
+    },
+    {
+      "id": "source-eag-poland-agreement-2026-03-05",
+      "type": "treaty-document",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/attachments/1479196180071321745/Polen_Vertrag.pdf",
+      "title": "Grenzraumabkommen mit Polen, EAG-Anhang",
+      "date": "2026-03-05",
+      "status": "context",
+      "scope": ["international", "poland", "agreements"],
+      "notes": "Archiviertes Original aus dem Discordverlauf. Für den Rechtsstand hat OVertrBl. 2026 Nr. 2 Vorrang."
+    },
+    {
+      "id": "source-eag-czech-agreement-2026-03-05",
+      "type": "treaty-document",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/attachments/1479196180071321745/Tschechien_Vertrag.pdf",
+      "title": "Grenzraumabkommen mit Tschechien, EAG-Anhang",
+      "date": "2026-03-05",
+      "status": "context",
+      "scope": ["international", "czechia", "agreements"],
+      "notes": "Archiviertes Original aus dem Discordverlauf. Für den Rechtsstand hat OVertrBl. 2026 Nr. 3 Vorrang."
+    },
+    {
+      "id": "source-boom-agreement-eag-2026-05-14",
+      "type": "unsigned-agreement-document",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/attachments/1504492779634425937/Boom_Europe_Leipzig_Halle_Agreement.pdf",
+      "title": "Boom Europe Leipzig/Halle Agreement, Discordfassung",
+      "date": "2026-05-14",
+      "status": "context",
+      "scope": ["projects", "industry", "aviation", "agreements"],
+      "notes": "Als fertiges Agreement zum Unterschreiben eingereicht; Datumszeile und Unterschriftenfelder sind leer."
+    },
+    {
+      "id": "source-private-hospital-register-extract-2026-03-04",
+      "type": "official-data-extract",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/attachments/1478730475756326933/Auszug_Krankenhausverzeichnis.xlsx",
+      "title": "Auszug privater Krankenhäuser aus dem Krankenhausverzeichnis",
+      "date": "2026-03-04",
+      "status": "context",
+      "scope": ["health", "hospitals", "projects"],
+      "notes": "207 Datensätze mit Trägerart 3 in den sechs ostdeutschen Ländern; belegt den betrachteten Umfang der verworfenen Erwerbsidee, keinen Kauf."
+    },
+    {
+      "id": "source-steelworks-valuation-2026-03-14",
+      "type": "valuation-document",
+      "path": "context/eag/staatsregierung-ost-1218687555340599457/attachments/1482288514333933618/Preisvorstellung_Stahlwerk_Eisenhuettenstadt_BL-Ostdeutschland_1.docx",
+      "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
+      "date": "2026-03-14",
+      "status": "context",
+      "scope": ["industry", "valuation", "projects"],
+      "notes": "Empfiehlt nur eine Verhandlungsspanne von 350 bis 500 Millionen Euro; kein Angebot und kein Erwerbsbeleg."
+    },
+    {
+      "id": "source-minister-president-list-context",
+      "type": "historical-wiki-export",
+      "path": "context/liste_mps.wiki",
+      "title": "Historische Liste der Ministerpräsidenten Ostdeutschlands",
+      "date": null,
+      "status": "historical",
+      "scope": ["history", "government", "persons"],
+      "notes": "Historische Kontextquelle für Delgados Amtsbeginn am 4. September 2025, eine Amtsdauer von 107 Tagen und die Nachfolge Karl Honeckers am 20. Dezember 2025; durch zwei datierte Ernennungsurkunden für Delgados Amtsstellung im Oktober und Dezember 2025 gestützt."
+    },
+    {
+      "id": "source-kabinett-delgado",
+      "type": "structured-content",
+      "path": "content/regierung/archiv/kabinett-delgado.json",
+      "title": "Kabinett Delgado",
+      "date": "2025-09-04",
+      "status": "historical",
+      "scope": ["government", "history"],
+      "notes": "Konservativer Archivdatensatz mit dem belegten Amtszeitintervall und ohne Erfindung einer nicht belegten vollständigen Kabinettsstruktur."
+    },
+    {
+      "id": "source-overtrbl-2026-01",
+      "type": "treaty-gazette",
+      "path": "content/verkuendungen/overtrbl-2026-01.json",
+      "title": "Ostdeutsches Vertragsblatt 2026 Nr. 1",
+      "date": "2026-01-27",
+      "status": "primary",
+      "scope": ["law", "international", "helcom", "environment"],
+      "notes": "Veröffentlicht das Zustimmungsgesetz vom 26. Januar 2026 und das Übereinkommen von 1992. Mit der Verkündung am 27. Januar 2026 trat der ostdeutsche Beitritt in Kraft."
+    },
     {
       "id": "source-ogvbl-2026-59",
       "type": "official-gazette",

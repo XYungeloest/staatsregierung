@@ -2,7 +2,7 @@
 
 **Repositorystand:** `9aa406f7baebdd264d3ed824be65b43413a9dd9a`  
 **Redaktioneller Stichtag:** 21. Juli 2026  
-**Auditstand:** 28. Juli 2026
+**Auditstand:** 28. Juli 2026, fortgeschrieben am 11. August 2026
 
 ## Methode und Grenzen
 
@@ -94,7 +94,7 @@ Planungsdokumente zu Transparenzportal, Zuständigkeitsfinder, Haushaltsnavigato
 
 ## Gesprächsinformationen mit zusätzlichem Prüfbedarf
 
-Die nicht hinreichend belegten Gesprächsinformationen stehen ausschließlich in `conversation-candidates.json`. Dazu gehören Bundesrollen, Gerichtsverfahren, die Staatskrise 2025, mehrere Personenrollen, Feiertage, OVV und 29-Euro-Ticket, Bodenprojekte, die Grenzpolizeivereinbarung sowie konkrete Details von Boom Europe Leipzig/Halle.
+Die nicht hinreichend belegten Gesprächsinformationen stehen ausschließlich in `conversation-candidates.json`. Durch die Fortschreibung vom 11. August 2026 wurden Delgados Amtszeit, die OVV-/DB-Ticketanerkennung und der EAG-Ausgang zu Boom Europe aus dem allgemeinen Kandidatenstand herausgelöst. Das Boom Europe Leipzig/Halle Agreement ist als rechtskräftig unterzeichnet und in Kraft bestätigt. Offen bleiben unter anderem die Übergangsdetails der Staatskrise 2025, Feiertage, Bodenprojekte, Tarif- und Reaktivierungsdetails sowie die operative Standorteröffnung von Boom Europe.
 
 ## Nicht zu übernehmende Inhalte
 
@@ -171,3 +171,23 @@ Kanonisch für den jeweiligen Zweck sind:
 Der Repositorybestand ist im Rechtsbereich bereits stark strukturiert. Die größte Lücke liegt nicht bei Normtexten, sondern bei der politischen Realität zwischen den Normen: historische Regierungen, Personenrollen, Parteien, Koalitionsänderungen, externe Beziehungen, Gerichtsverfahren und Projektmeilensteine.
 
 Der Wissenshub verwendet deshalb keine zweite Normdatenbank. Er bildet stabile Querverbindungen, Zeitintervalle, Provenienz, Konflikte und offene Prüfaufträge.
+
+## Fortschreibung: EAG-Ausspielungen und amtliche Dokumente vom 11. August 2026
+
+Der Discordexport des Kanals `staatsregierung-ost` wurde vollständig chronologisch ausgewertet. Er umfasst 1.689 Nachrichten und 46 Anhänge vom 9. April 2024 bis 11. August 2026. Alle Anhänge waren technisch zugänglich. Bilder wurden visuell gelesen; PDF- und DOCX-Dokumente wurden gerendert und kontrolliert; die beigefügte Krankenhaustabelle wurde strukturell ausgewertet. Die redaktionelle Befundliste mit Message-IDs, Reply-Bezügen und Attachment-Dateinamen steht in `clarifications/2026-08-11-eag-kanon.md`.
+
+Die Quellenrichtlinie unterscheidet nun ausdrücklich zwischen bloßen Regierungsanfragen und kanonischen EAG-Entscheidungen über die simulierte Außenwelt. Ablehnungen sind bindend, spätere Retcons setzen frühere Aussagen auf `superseded`, und Scherze oder unklare Reaktionen sind keine Bestätigung.
+
+Neu belastbar modelliert sind insbesondere:
+
+- Mateo Delgados Amtszeit als Ministerpräsident vom 4. September bis 19. Dezember 2025,
+- die Ernennungen von Claus Weselsky und Gregor Gysi,
+- die fünf Stufen des Helsinki-Komplexes bis zum Inkrafttreten des ostdeutschen Beitritts am 27. Januar 2026,
+- die schrittweise Übernahme der Elia-Beteiligung an 50Hertz,
+- bestätigte Vergabe-, Unternehmens- und Beschaffungsentscheidungen mit getrennten offenen Lieferfragen,
+- die Ablösung des direkten Krankenhauskaufs durch den Rekommunalisierungsfonds,
+- 57 Millionen Euro für die OVV-Ticketanerkennung bei DB Fernverkehr, ausdrücklich ohne automatischen Reaktivierungsnachweis,
+- EAG-bestätigte Umbenennungen und Denkmalentscheidung,
+- abgelehnte, zurückgenommene und überholte Vorhaben.
+
+Das Helsinki-Übereinkommen ist eine Vertragsfassung von 1992. Ostdeutschland unterzeichnete am 6. Oktober 2025 und setzte den Beitritt mit der Verkündung von Zustimmungsgesetz und Übereinkommen im Ostdeutschen Vertragsblatt am 27. Januar 2026 in Kraft. Der Rechtsportalstatus wird deshalb als `in-force` mit diesem ostdeutschen Wirksamkeitsdatum geführt.
