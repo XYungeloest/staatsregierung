@@ -49,7 +49,7 @@ test('die Registry enthält deutsche Feldangaben, Referenzen, Listen, Bilder und
   const definitions = Object.values(editorialRegistry);
   assert.ok(definitions.every((definition) => definition.label && definition.description && definition.publicRoutes.length > 0));
   const fieldTypes = new Set(definitions.flatMap((definition) => definition.fields.map((field) => field.type)));
-  for (const type of ['text', 'textarea', 'date', 'datetime', 'boolean', 'enum', 'slug', 'person-reference', 'ministry-reference', 'reference-list', 'sortable-list', 'object-list', 'image', 'image-alt', 'image-credit']) {
+  for (const type of ['text', 'textarea', 'number', 'date', 'datetime', 'boolean', 'enum', 'slug', 'person-reference', 'ministry-reference', 'reference-list', 'sortable-list', 'object-list', 'image', 'image-alt', 'image-credit']) {
     assert.ok(fieldTypes.has(type as never), type);
   }
   assert.equal(editorialRegistry.topic.fields.find((field) => field.name === 'federfuehrendesRessort')?.referenceTarget, 'ministry');
@@ -68,6 +68,7 @@ test('die Diff-Vorschau zeigt Datei und Route und prüft Referenzen', async () =
   const paths = [
     'content/portal/home.json',
     'content/organisation/governments.json',
+    'content/presse/termine/dritte-plenarsitzung-7-landtag.json',
     ...await collectionFiles('content/themen'),
     ...await collectionFiles('content/ressorts'),
   ];
@@ -80,13 +81,13 @@ test('die Diff-Vorschau zeigt Datei und Route und prüft Referenzen', async () =
   assert.deepEqual(preview.routes, ['/']);
   assert.match(preview.diff, /Geprüfte neue Überschrift/u);
 
-  const invalid = structuredClone(home);
-  invalid.featuredTopicSlugs = ['gibt-es-nicht'];
-  await assert.rejects(() => prepareDocumentChange(repository, 'home', invalid, 'home'), /Unbekannte Themenreferenz/u);
-
   const topic = JSON.parse(await readFile('content/themen/bildungsreform.json', 'utf8')) as Record<string, unknown>;
   topic.mitzeichnungsressorts = ['gibt-es-nicht'];
   await assert.rejects(() => prepareDocumentChange(repository, 'topic', topic, 'bildungsreform'), /Unbekannte Ressortreferenz/u);
+
+  const event = JSON.parse(await readFile('content/presse/termine/dritte-plenarsitzung-7-landtag.json', 'utf8')) as Record<string, unknown>;
+  event.relatedTopicSlugs = ['gibt-es-nicht'];
+  await assert.rejects(() => prepareDocumentChange(repository, 'event', event, 'dritte-plenarsitzung-7-landtag'), /Unbekannte Themenreferenz/u);
 });
 
 test('der geführte Kabinettsvorgang erzeugt genau eine atomare Organisationsdatei', async () => {

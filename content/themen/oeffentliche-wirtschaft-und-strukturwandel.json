@@ -1,25 +1,60 @@
 {
   "slug": "oeffentliche-wirtschaft-und-strukturwandel",
   "title": "Öffentliche Wirtschaft & Strukturwandel",
-  "teaser": "Rekommunalisierung, öffentliche Beteiligungen und Transformationspakete sollen regionale Arbeitsplätze, Versorgung und Wertschöpfung sichern.",
+  "teaser": "Öffentliche Beteiligungen, Vergesellschaftungsgesetze und bestätigte Industrieansiedlungen verbinden Versorgungssicherung mit regionalem Strukturwandel.",
   "status": "in-umsetzung",
+  "cluster": "wirtschaft-arbeit",
+  "priority": 84,
+  "featured": true,
+  "updatedAt": "2026-07-21",
+  "relatedTopicSlugs": ["energie-und-klima", "oepnv-und-mobilitaet", "wohnen-und-vergesellschaftung"],
+  "knowledgeProjectRefs": ["project-boom-europe", "project-50hertz-acquisition", "project-nvidia-settlement", "project-boden-volksacker"],
   "hero": "Der Freistaat will Strukturwandel aktiv gestalten. Öffentliche Beteiligungen, Gemeinwohlkriterien, Anwendungsgesetze und regionale Transformationspakete sollen wirtschaftliche Souveränität stärken.",
   "beschlossen": [
     "Der Koalitionsvertrag legt öffentliche Wirtschaft und strategische Industriepolitik als Kerninstrumente fest.",
     "Eine Landesbeteiligungsholding und eine Industriestiftung Ost sollen vorbereitet werden.",
     "Förderung soll künftig stärker an Standort, Tarifbindung, Mitbestimmung und Gemeinwohl gebunden werden.",
-    "Die Anwendungsgesetze für Mobilität sowie Energie- und Wärmeinfrastruktur sind seit dem 21. Juli 2026 in Kraft."
+    "Die Anwendungsgesetze für Mobilität sowie Energie- und Wärmeinfrastruktur sind seit dem 21. Juli 2026 in Kraft.",
+    "Das Boom Europe Leipzig/Halle Agreement wurde am 14. Mai 2026 rechtskräftig unterzeichnet und trat am selben Tag in Kraft; das zugehörige Gesetzespaket gilt seit 21. Juli 2026.",
+    "NVIDIA nahm das ostdeutsche Ansiedlungsangebot an. Förderung und Gelände sind konkretisiert; eine Betriebsaufnahme ist nicht belegt."
   ],
   "umgesetzt": [
     "Landesbank, Vergesellschaftungsrahmen und Vergaberecht bilden vorhandene finanz- und wirtschaftspolitische Grundlagen.",
-    "Die Gesetze zur Ostdeutschen Eisenbahn sowie zur Energie- und Wärmeinfrastruktur schaffen weitere Anwendungsbereiche gemeinwirtschaftlicher Ordnung.",
+    "Die Gesetze zur Ostdeutschen Eisenbahn sowie zur Energie- und Wärmeinfrastruktur haben weitere Anwendungsbereiche gemeinwirtschaftlicher Ordnung geschaffen.",
+    "Die schrittweise Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz ist für 3,8 Milliarden Euro vereinbart; die einzelnen Jahresraten und Eigentumsübergänge werden nur nach Vollzugsnachweis fortgeschrieben.",
     "Die Zuständigkeit liegt im Staatssekretariat für Wirtschaft und Arbeit mit enger finanzpolitischer, mobilitäts- und energiepolitischer Begleitung."
   ],
   "naechsteSchritte": [
-    "Ressortübergreifende Umsetzung der neuen Anwendungsgesetze zum Vergesellschaftungsrahmen.",
+    "Ressortübergreifende Umsetzung der neuen Anwendungsgesetze zum Vergesellschaftungsrahmen und Dokumentation der tatsächlichen Überführungen.",
+    "Boom-Europe-Standortaufbau und NVIDIA-Ansiedlung nur anhand belastbarer Vertrags-, Bau- oder Betriebsnachweise fortschreiben.",
     "Erarbeitung eines Subventionsrückholgesetzes und eines Gemeinwohl-TÜV für Förderempfänger.",
     "Vorbereitung eines Transformationsrates Ost für Strukturfördermittel.",
     "Entwicklung eines Ostdeutschen Produktionsplans 2040 als indikative Planungsgrundlage."
+  ],
+  "modules": [
+    {
+      "type": "facts",
+      "id": "industrieprojekte",
+      "title": "Bestätigte Industrie- und Beteiligungsvorhaben",
+      "intro": "Vereinbarter Projektstand und tatsächliche Betriebsaufnahme werden getrennt ausgewiesen.",
+      "items": [
+        {
+          "label": "50Hertz",
+          "value": "80 Prozent für 3,8 Mrd. Euro",
+          "note": "Vereinbarte schrittweise Übernahme der Elia-Beteiligung in drei Jahresraten ab dem Haushaltsjahr 2026."
+        },
+        {
+          "label": "NVIDIA",
+          "value": "Ansiedlungsangebot angenommen",
+          "note": "900 Millionen Euro Förderung und das frühere Intel-Gelände wurden akzeptiert; eine Betriebsaufnahme ist nicht belegt."
+        },
+        {
+          "label": "Boom Europe Leipzig/Halle",
+          "value": "Abkommen in Kraft",
+          "note": "Seit 14. Mai 2026; eine spätere Standorteröffnung ist nicht belegt."
+        }
+      ]
+    }
   ],
   "rechtsgrundlagen": [
     {
@@ -29,6 +64,14 @@
     {
       "label": "Energie- und Wärmevergesellschaftungs-Paketgesetz",
       "normSlug": "energie-und-waermevergesellschaftungs-paketgesetz"
+    },
+    {
+      "label": "Boom-Europe-Umsetzungsgesetz",
+      "normSlug": "boom-europe-umsetzungsgesetz"
+    },
+    {
+      "label": "Hochgeschwindigkeitsluftfahrt-Standortgesetz",
+      "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz"
     },
     {
       "label": "Vergesellschaftungsrahmengesetz",

@@ -1,22 +1,28 @@
 {
   "slug": "energie-und-klima",
   "title": "Energie & Klima",
-  "teaser": "Der Freistaat will Energie, Wärme, Wasser und Kreislaufwirtschaft stärker öffentlich steuern, Versorgung sichern und soziale Preise vorbereiten.",
+  "teaser": "Seit Juli 2026 gelten die Gesetze für öffentliche Energie- und Wärmeinfrastruktur, Landesenergiewerke, Netzträger und die Finanzierung der Überführung.",
   "status": "in-umsetzung",
-  "hero": "Klimaschutz, Energieversorgung und Kreislaufwirtschaft werden sozial, öffentlich und planbar organisiert. Der Staatsrat verbindet Versorgungssicherheit, stabile Preise und ökologische Transformation.",
+  "cluster": "umwelt-versorgung",
+  "priority": 88,
+  "featured": true,
+  "updatedAt": "2026-07-21",
+  "relatedTopicSlugs": ["kreislaufwirtschaft", "oeffentliche-wirtschaft-und-strukturwandel", "nachbarschaft-und-europa"],
+  "knowledgeProjectRefs": ["project-energie-waerme", "project-sero", "project-50hertz-acquisition"],
+  "hero": "Der Freistaat ordnet Energie-, Wärme- und Kreislaufwirtschaft schrittweise gemeinwirtschaftlich. Der Rechtsrahmen ist in Kraft; praktische Übernahmen, Finanzierung und Sozialtarife werden weiter umgesetzt.",
   "beschlossen": [
-    "Der 15-Punkte-Plan II sieht ein Landesklimaschutzgesetz, öffentliche Energie- und Wärmegesellschaften und soziale Energiepreise vor.",
+    "Das Gesetzespaket errichtet den Rechtsrahmen für öffentliche Energie- und Wärmeinfrastrukturen, Landesenergiewerke, Netzträger und ein Sondervermögen.",
     "Wasser, Kreislaufwirtschaft, Reparaturstrukturen und Klimaanpassung werden als staatliche Schwerpunktfelder gesetzt.",
     "Kommunale und genossenschaftliche Beteiligung an erneuerbaren Energien soll gestärkt werden.",
     "Das Gesetzespaket zur Überführung von Energie- und Wärmeinfrastruktur in Gemeineigentum wurde am 20. Juli 2026 verkündet."
   ],
   "umgesetzt": [
-    "Umwelt- und Energieförderung sowie bestehende Klimaschutzinstrumente bilden den Ausgangspunkt.",
-    "Die Zuständigkeit liegt im Staatssekretariat für Nachhaltigkeit und Energie.",
-    "Die Energie- und Wärmegesetze sowie die SERO-Verordnung sind in Kraft."
+    "Die Energie- und Wärmegesetze sowie die SERO-Verordnung sind seit 21. Juli 2026 in Kraft.",
+    "Landesenergiewerke Ost und Ostdeutsche Netze sind gesetzlich errichtet; daraus folgt noch kein vollständig abgeschlossener operativer Aufbau.",
+    "Die schrittweise Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz ist für 3,8 Milliarden Euro vereinbart. Die einzelnen Eigentumsübergänge werden nur nach datiertem Vollzugsnachweis fortgeschrieben."
   ],
   "naechsteSchritte": [
-    "Aufbau öffentlicher Energie- und Wärmeträger mit kommunaler und genossenschaftlicher Beteiligung.",
+    "Landesenergiewerke Ost und Ostdeutsche Netze organisatorisch aufbauen und die gesetzlich vorgesehenen Überführungen vollziehen.",
     "Umsetzung der SERO-Verordnung und Aufbau der landeseigenen Kreislaufwirtschaftsinfrastruktur.",
     "Ausbau von Programmen für Wasserschutz, Reparatur und Klimaanpassung."
   ],
@@ -28,6 +34,18 @@
     {
       "label": "Energie- und Wärmevergesellschaftungsgesetz",
       "normSlug": "energie-und-waermevergesellschaftungsgesetz"
+    },
+    {
+      "label": "Landesenergiewerke-Gesetz",
+      "normSlug": "landesenergiewerke-gesetz"
+    },
+    {
+      "label": "Ostdeutsche-Netze-Gesetz",
+      "normSlug": "ostdeutsche-netze-gesetz"
+    },
+    {
+      "label": "Energie- und Wärmefinanzierungsgesetz",
+      "normSlug": "energie-und-waermefinanzierungsgesetz"
     },
     {
       "label": "SERO-Verordnung",
@@ -49,8 +67,8 @@
   ],
   "faq": [
     {
-      "question": "Was umfasst der neue Entwurf zur Energie- und Wärmeinfrastruktur?",
-      "answer": "Der Entwurf zielt auf öffentliche Trägerstrukturen für Netze, Wärme, Erzeugung und Speicher sowie auf soziale Sicherung bei Energiepreisen."
+      "question": "Was gilt für die Energie- und Wärmeinfrastruktur bereits?",
+      "answer": "Das Gesetzespaket ist seit 21. Juli 2026 in Kraft. Es schafft öffentliche Träger- und Finanzierungsstrukturen; der praktische Aufbau und einzelne Überführungen laufen weiter."
     },
     {
       "question": "Bleiben vorhandene Rechtsgrundlagen erreichbar?",

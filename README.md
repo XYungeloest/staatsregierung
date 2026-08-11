@@ -132,7 +132,11 @@ Die Dateien unter `knowledge/generated/` werden ausschließlich mit `npm run kno
   `content/organisation/governments.json`, `offices.json` und `assignments.json` abgeleitet.
 - Startseite, Kabinettschronologie, Aktionsplan und Timeline liegen unter `content/portal/`,
   `content/regierung/cabinet-page.json` und `content/dashboard/`.
-- Themenseiten verweisen über `federfuehrendesRessort` und `rechtsgrundlagen[].normSlug` auf Ressorts und Normen.
+- Themenseiten verweisen über `federfuehrendesRessort`, `rechtsgrundlagen[].normSlug` und
+  `knowledgeProjectRefs` auf Ressorts, Normen und eingeordnete Wissenshub-Projekte. Ihre
+  zeitlich begrenzte Hervorhebung speist Startseite und Themenübersicht gemeinsam.
+- `content/portal/topic-coverage.json` ordnet Wissenshub-Projekte und Gegenwartsstände einer
+  öffentlichen Oberfläche oder einer begründeten redaktionellen Ausnahme zu.
 - Pressemitteilungen können über `relatedTopicSlugs`, `relatedNormSlugs` und `relatedPressSlugs` querverlinkt werden.
 - Stellenangebote liegen unter `content/service/stellen/`.
 - Personenbezeichnungen werden durchgehend mit Doppelpunkt gegendert, zum Beispiel `Bürger:innen`

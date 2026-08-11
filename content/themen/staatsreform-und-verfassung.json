@@ -3,6 +3,12 @@
   "title": "Staatsreform & Verfassung",
   "teaser": "Vier getrennte Reformgesetze ordnen Staatswesen, Finanzverfassung, Staatsziele sowie Bildungs- und Religionsverfassung neu.",
   "status": "in-umsetzung",
+  "cluster": "staat-demokratie",
+  "priority": 94,
+  "featured": true,
+  "updatedAt": "2026-07-21",
+  "relatedTopicSlugs": ["volksbefragung-2026", "transparenz-und-lobbyregister"],
+  "knowledgeProjectRefs": ["project-staatsreform"],
   "hero": "Die vier Gesetze zur Großen Staatsreform sind seit dem 21. Juli 2026 in Kraft. Sie ordnen Staatswesen, Finanzverfassung, Staatsziele sowie Bildungs- und Religionsverfassung neu.",
   "beschlossen": [
     "Die vier Reformgesetze wurden am 20. Juli 2026 verkündet und traten am 21. Juli 2026 in Kraft.",
@@ -15,6 +21,43 @@
   "naechsteSchritte": [
     "Umsetzung der neuen Staatsorganisation und der Übergangsvorschriften.",
     "Anpassung nachgeordneten Rechts an die neue Verfassungsordnung."
+  ],
+  "keyDates": [
+    {
+      "date": "2026-07-20",
+      "label": "Verkündung der vier Reformgesetze"
+    },
+    {
+      "date": "2026-07-21",
+      "label": "Inkrafttreten und institutioneller Übergang"
+    }
+  ],
+  "modules": [
+    {
+      "type": "comparison",
+      "id": "institutioneller-uebergang",
+      "title": "Institutioneller Übergang",
+      "intro": "Die Reform setzt bestehende Wahl- und Regierungsperioden fort, ordnet aber zentrale Verfassungsorgane neu.",
+      "beforeLabel": "Bis 20. Juli 2026",
+      "afterLabel": "Seit 21. Juli 2026",
+      "items": [
+        {
+          "label": "Parlament",
+          "before": "Siebter Landtag",
+          "after": "Siebte Volkskammer; die Wahlperiode wird fortgeführt"
+        },
+        {
+          "label": "Regierung",
+          "before": "Staatsregierung",
+          "after": "Erster Staatsrat"
+        },
+        {
+          "label": "Staatsoberhaupt und Regierungsleitung",
+          "before": "Ministerpräsident an der Spitze der Staatsregierung",
+          "after": "Staatspräsident an der Spitze des Staatsrates"
+        }
+      ]
+    }
   ],
   "rechtsgrundlagen": [
     {

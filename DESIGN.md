@@ -177,7 +177,9 @@ und unterscheiden sich nur durch zurückhaltende Akzentfarben, Medienanteil und 
 Zusatzinhalte.
 
 - Staatsregierung nutzt Porträts, Leitung, Koalition und Ressortbezüge.
-- Themen zeigen Status, Zuständigkeit und nächsten Schritt.
+- Themen zeigen direkt nach dem Bereichskopf fachlichen Stand, Status, wichtigen Termin,
+  Zuständigkeit, Beschlossenes, bereits Geltendes und den nächsten Schritt. Inhaltsspezifische
+  Fragen-, Zeitstrahl-, Fakten- und Vergleichsmodule ergänzen diesen gemeinsamen Überblick.
 - Recht stellt Suche, Rechtsstand und strukturierte Dokumente vor dekorative Flächen.
 - Haushalt priorisiert Jahre, echte Kennzahlen, Vergleiche und Tabellen.
 - Kreisreform beginnt mit der textlich nutzbaren Gebietssuche; die Karte bleibt nachgeordnet.
@@ -196,8 +198,9 @@ Fakten und Aktionen.
 semantisches `nav` mit beschreibendem Label, echten Links und `aria-current`; sie täuscht keine
 Registerkartensteuerung vor. Auf großen Bildschirmen ist sie kompakt horizontal angeordnet, auf
 kleinen Bildschirmen bricht sie kontrolliert um. Dort wird sie nicht fixiert. Lange Themen- und
-Fachseiten ergänzen Anker zu Überblick, Änderungen, Umsetzungsstand, nächsten Schritten,
-Rechtsgrundlagen, FAQ und Zuständigkeit.
+Fachseiten ergänzen Anker zu Überblick, inhaltsspezifischen Modulen, Rechtsgrundlagen, aktuellen
+Bezügen, FAQ und Zuständigkeit. Das gemeinsame Themen-Briefing ersetzt mehrfach wiederholte
+Teaser- und Statusabschnitte.
 
 ## Fakten, Status und wiederholte Einheiten
 
@@ -211,6 +214,12 @@ Servicezugängen. Ministerien werden als scanbares, datenbasiertes Verzeichnis d
 Inhaltsabschnitte verwenden vorrangig Typografie, Listen und gezielte Hintergrundgruppen. Grün und
 Gold tragen normale Akzente; Rot ist Warnungen und kritischen Zuständen vorbehalten. Durchgehende
 Trennlinien, große Schatten und lange Leerräume werden vermieden.
+
+Die Themenübersicht gliedert sich in zeitlich begrenzte aktuelle Vorhaben, dauerhafte
+Schwerpunkte und ein vollständiges, fachlich gruppiertes Verzeichnis. Startseite und Übersicht
+verwenden dieselbe Hervorhebungslogik aus den Themendaten; es gibt keine zweite manuelle
+Startseitenliste. Fachliche Daten aus dem Wissenshub und redaktionelle Sichtbarkeit bleiben durch
+das Coverage-Register ausdrücklich voneinander getrennt.
 
 ## Personen und Bilder auf Unterseiten
 
