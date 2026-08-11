@@ -102,7 +102,7 @@ export const studioClientScript = `
       input=document.createElement('select'); input.append(new Option('Kein Bild',''));
       (state.options?.images||[]).forEach(item=>input.append(new Option(item.label,item.value))); if(current && ![...input.options].some(option=>option.value===current))input.append(new Option(current,current)); input.value=current||'';
       const upload=document.createElement('input'); upload.type='file'; upload.accept='image/jpeg,image/png,image/webp,image/avif'; upload.dataset.uploadFor=field.name; wrapper.append(input,upload);
-    } else { input=document.createElement('input'); input.type=field.type==='date'?'date':field.type==='datetime'?'datetime-local':'text'; input.value=current||''; }
+    } else { input=document.createElement('input'); input.type=field.type==='date'?'date':field.type==='datetime'?'datetime-local':field.type==='number'?'number':'text'; input.value=current??''; }
     input.id='field-'+field.name.replaceAll('.','-'); input.dataset.field=field.name; input.dataset.fieldType=field.type; if(field.required) input.required=true;
     if(!wrapper.contains(input)) wrapper.append(input);
     return wrapper;
@@ -138,6 +138,7 @@ export const studioClientScript = `
       if(input.type==='checkbox') fieldValue=input.checked;
       else if(input.multiple) fieldValue=[...input.selectedOptions].map(option=>option.value);
       else if(['sortable-list','object-list'].includes(input.dataset.fieldType)){try{fieldValue=JSON.parse(input.value);}catch{throw new Error('Das Feld „'+input.dataset.field+'“ enthält ungültiges JSON.');}}
+      else if(input.dataset.fieldType==='number') fieldValue=input.value===''?undefined:Number(input.value);
       else fieldValue=input.value||undefined;
       setPath(value,input.dataset.field,fieldValue);
     });

@@ -481,6 +481,14 @@ for (const { file, json } of records) {
     }
   }
 
+  if (rel.startsWith('presse/termine/')) {
+    for (const slug of json.relatedTopicSlugs ?? []) {
+      if (!topicSlugs.has(slug)) {
+        addProblem(file, `relatedTopicSlugs verweist auf unbekanntes Thema: ${slug}`);
+      }
+    }
+  }
+
   if (rel.startsWith('normen/') && basename(file) === 'meta.json') {
     if (!allowedNormTypes.has(json.type)) {
       addProblem(file, `type ist kein erlaubter Normtyp: ${json.type}`);

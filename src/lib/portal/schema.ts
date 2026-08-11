@@ -84,6 +84,17 @@ export type Themenstatus =
   | 'in-umsetzung'
   | 'abgeschlossen';
 
+export const THEMENCLUSTER = [
+  'staat-demokratie',
+  'bildung-gesellschaft',
+  'wirtschaft-arbeit',
+  'infrastruktur-wohnen',
+  'umwelt-versorgung',
+  'nachbarschaft-europa',
+] as const;
+
+export type Themencluster = (typeof THEMENCLUSTER)[number];
+
 export interface ThemenRechtsgrundlage {
   label: string;
   normSlug?: string;
@@ -94,6 +105,70 @@ export interface ThemenFaqEintrag {
   question: string;
   answer: string;
 }
+
+export interface ThemenDatum {
+  date: string;
+  endDate?: string;
+  label: string;
+  note?: string;
+}
+
+export interface ThemenFragenModul {
+  type: 'questions';
+  id: string;
+  title: string;
+  intro?: string;
+  items: Array<{
+    number: string;
+    title: string;
+    text: string;
+  }>;
+}
+
+export interface ThemenTimelineModul {
+  type: 'timeline';
+  id: string;
+  title: string;
+  intro?: string;
+  items: Array<{
+    date: string;
+    endDate?: string;
+    title: string;
+    text: string;
+  }>;
+}
+
+export interface ThemenFaktenModul {
+  type: 'facts';
+  id: string;
+  title: string;
+  intro?: string;
+  items: Array<{
+    label: string;
+    value: string;
+    note?: string;
+  }>;
+}
+
+export interface ThemenVergleichsModul {
+  type: 'comparison';
+  id: string;
+  title: string;
+  intro?: string;
+  beforeLabel: string;
+  afterLabel: string;
+  items: Array<{
+    label: string;
+    before: string;
+    after: string;
+  }>;
+}
+
+export type ThemenModul =
+  | ThemenFragenModul
+  | ThemenTimelineModul
+  | ThemenFaktenModul
+  | ThemenVergleichsModul;
 
 export interface Themenseite {
   slug: string;
@@ -108,6 +183,16 @@ export interface Themenseite {
   faq: ThemenFaqEintrag[];
   federfuehrendesRessort: string;
   mitzeichnungsressorts?: string[];
+  cluster: Themencluster;
+  priority: number;
+  featured: boolean;
+  highlightFrom?: string;
+  highlightUntil?: string;
+  updatedAt: string;
+  keyDates: ThemenDatum[];
+  modules: ThemenModul[];
+  relatedTopicSlugs?: string[];
+  knowledgeProjectRefs: string[];
 }
 
 export interface Pressemitteilung {
@@ -147,6 +232,7 @@ export interface Termin {
   teaser: string;
   body: string[];
   relatedLegislationSlugs?: string[];
+  relatedTopicSlugs?: string[];
 }
 
 export interface Haushaltsseite {
@@ -216,7 +302,6 @@ export interface HomeContent {
     href: string;
     icon: PortalNoticeIcon;
   }>;
-  featuredTopicSlugs: string[];
 }
 
 export interface CabinetPageContent {
@@ -265,6 +350,14 @@ function expectNumber(value: unknown, path: string): number {
   return value;
 }
 
+function expectIntegerInRange(value: unknown, path: string, minimum: number, maximum: number): number {
+  const number = expectNumber(value, path);
+  if (!Number.isInteger(number) || number < minimum || number > maximum) {
+    throw new PortalContentValidationError(`${path}: muss eine ganze Zahl zwischen ${minimum} und ${maximum} sein`);
+  }
+  return number;
+}
+
 function expectBoolean(value: unknown, path: string): boolean {
   if (typeof value !== 'boolean') {
     throw new PortalContentValidationError(`${path}: muss true oder false sein`);
@@ -281,6 +374,11 @@ function expectDate(value: unknown, path: string): string {
   }
 
   return date;
+}
+
+function expectOptionalDate(value: unknown, path: string): string | undefined {
+  if (value === undefined || value === null || value === '') return undefined;
+  return expectDate(value, path);
 }
 
 function expectOptionalDateTime(value: unknown, path: string): string | undefined {
@@ -338,6 +436,14 @@ function expectTopicStatus(value: unknown, path: string): Themenstatus {
   }
 
   return status;
+}
+
+function expectTopicCluster(value: unknown, path: string): Themencluster {
+  const cluster = expectString(value, path) as Themencluster;
+  if (!THEMENCLUSTER.includes(cluster)) {
+    throw new PortalContentValidationError(`${path}: enthält einen unbekannten Themencluster`);
+  }
+  return cluster;
 }
 
 function parseContact(value: unknown, path: string): PortalContact | undefined {
@@ -522,8 +628,140 @@ function parseThemenFaq(value: unknown, path: string): ThemenFaqEintrag[] {
   });
 }
 
+function parseThemenDaten(value: unknown, path: string): ThemenDatum[] {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value)) {
+    throw new PortalContentValidationError(`${path}: muss ein Array sein`);
+  }
+
+  return value.map((entry, index) => {
+    const itemPath = `${path}[${index}]`;
+    const record = expectRecord(entry, itemPath);
+    const date = expectDate(record.date, `${itemPath}.date`);
+    const endDate = expectOptionalDate(record.endDate, `${itemPath}.endDate`);
+    if (endDate && endDate < date) {
+      throw new PortalContentValidationError(`${itemPath}.endDate: darf nicht vor date liegen`);
+    }
+    return {
+      date,
+      endDate,
+      label: expectString(record.label, `${itemPath}.label`),
+      note: expectOptionalString(record.note, `${itemPath}.note`),
+    };
+  });
+}
+
+function parseThemenModule(value: unknown, path: string): ThemenModul[] {
+  if (value === undefined || value === null) return [];
+  if (!Array.isArray(value)) {
+    throw new PortalContentValidationError(`${path}: muss ein Array sein`);
+  }
+
+  return value.map((entry, index) => {
+    const itemPath = `${path}[${index}]`;
+    const record = expectRecord(entry, itemPath);
+    const type = expectString(record.type, `${itemPath}.type`);
+    const id = expectSlug(record.id, `${itemPath}.id`);
+    const title = expectString(record.title, `${itemPath}.title`);
+    const intro = expectOptionalString(record.intro, `${itemPath}.intro`);
+    if (!Array.isArray(record.items) || record.items.length === 0) {
+      throw new PortalContentValidationError(`${itemPath}.items: muss mindestens einen Eintrag enthalten`);
+    }
+
+    if (type === 'questions') {
+      return {
+        type,
+        id,
+        title,
+        intro,
+        items: record.items.map((raw, itemIndex) => {
+          const entryPath = `${itemPath}.items[${itemIndex}]`;
+          const item = expectRecord(raw, entryPath);
+          return {
+            number: expectString(item.number, `${entryPath}.number`),
+            title: expectString(item.title, `${entryPath}.title`),
+            text: expectString(item.text, `${entryPath}.text`),
+          };
+        }),
+      } satisfies ThemenFragenModul;
+    }
+
+    if (type === 'timeline') {
+      return {
+        type,
+        id,
+        title,
+        intro,
+        items: record.items.map((raw, itemIndex) => {
+          const entryPath = `${itemPath}.items[${itemIndex}]`;
+          const item = expectRecord(raw, entryPath);
+          const date = expectDate(item.date, `${entryPath}.date`);
+          const endDate = expectOptionalDate(item.endDate, `${entryPath}.endDate`);
+          if (endDate && endDate < date) {
+            throw new PortalContentValidationError(`${entryPath}.endDate: darf nicht vor date liegen`);
+          }
+          return {
+            date,
+            endDate,
+            title: expectString(item.title, `${entryPath}.title`),
+            text: expectString(item.text, `${entryPath}.text`),
+          };
+        }),
+      } satisfies ThemenTimelineModul;
+    }
+
+    if (type === 'facts') {
+      return {
+        type,
+        id,
+        title,
+        intro,
+        items: record.items.map((raw, itemIndex) => {
+          const entryPath = `${itemPath}.items[${itemIndex}]`;
+          const item = expectRecord(raw, entryPath);
+          return {
+            label: expectString(item.label, `${entryPath}.label`),
+            value: expectString(item.value, `${entryPath}.value`),
+            note: expectOptionalString(item.note, `${entryPath}.note`),
+          };
+        }),
+      } satisfies ThemenFaktenModul;
+    }
+
+    if (type === 'comparison') {
+      return {
+        type,
+        id,
+        title,
+        intro,
+        beforeLabel: expectString(record.beforeLabel, `${itemPath}.beforeLabel`),
+        afterLabel: expectString(record.afterLabel, `${itemPath}.afterLabel`),
+        items: record.items.map((raw, itemIndex) => {
+          const entryPath = `${itemPath}.items[${itemIndex}]`;
+          const item = expectRecord(raw, entryPath);
+          return {
+            label: expectString(item.label, `${entryPath}.label`),
+            before: expectString(item.before, `${entryPath}.before`),
+            after: expectString(item.after, `${entryPath}.after`),
+          };
+        }),
+      } satisfies ThemenVergleichsModul;
+    }
+
+    throw new PortalContentValidationError(`${itemPath}.type: unbekannter Modultyp ${type}`);
+  });
+}
+
 export function parseThemenseite(value: unknown, path: string): Themenseite {
   const entry = expectRecord(value, path);
+  const highlightFrom = expectOptionalDate(entry.highlightFrom, createPath(path, 'highlightFrom'));
+  const highlightUntil = expectOptionalDate(entry.highlightUntil, createPath(path, 'highlightUntil'));
+  if (highlightUntil && !highlightFrom) {
+    throw new PortalContentValidationError(`${path}.highlightUntil: setzt highlightFrom voraus`);
+  }
+  if (highlightFrom && highlightUntil && highlightUntil < highlightFrom) {
+    throw new PortalContentValidationError(`${path}.highlightUntil: darf nicht vor highlightFrom liegen`);
+  }
 
   return {
     slug: expectSlug(entry.slug, createPath(path, 'slug')),
@@ -549,6 +787,16 @@ export function parseThemenseite(value: unknown, path: string): Themenseite {
     mitzeichnungsressorts: Array.isArray(entry.mitzeichnungsressorts)
       ? expectStringArray(entry.mitzeichnungsressorts, createPath(path, 'mitzeichnungsressorts'))
       : undefined,
+    cluster: expectTopicCluster(entry.cluster, createPath(path, 'cluster')),
+    priority: expectIntegerInRange(entry.priority, createPath(path, 'priority'), 0, 100),
+    featured: expectBoolean(entry.featured, createPath(path, 'featured')),
+    highlightFrom,
+    highlightUntil,
+    updatedAt: expectDate(entry.updatedAt, createPath(path, 'updatedAt')),
+    keyDates: parseThemenDaten(entry.keyDates, createPath(path, 'keyDates')),
+    modules: parseThemenModule(entry.modules, createPath(path, 'modules')),
+    relatedTopicSlugs: expectOptionalSlugArray(entry.relatedTopicSlugs, createPath(path, 'relatedTopicSlugs')),
+    knowledgeProjectRefs: expectOptionalSlugArray(entry.knowledgeProjectRefs, createPath(path, 'knowledgeProjectRefs')) ?? [],
   };
 }
 
@@ -613,6 +861,10 @@ export function parseTermin(value: unknown, path: string): Termin {
     relatedLegislationSlugs: expectOptionalSlugArray(
       entry.relatedLegislationSlugs,
       createPath(path, 'relatedLegislationSlugs'),
+    ),
+    relatedTopicSlugs: expectOptionalSlugArray(
+      entry.relatedTopicSlugs,
+      createPath(path, 'relatedTopicSlugs'),
     ),
   };
 }
@@ -740,7 +992,6 @@ export function parseHomeContent(value: unknown, path = 'content/portal/home.jso
         icon: expectNoticeIcon(item.icon, `${path}.importantItems[${index}].icon`),
       };
     }),
-    featuredTopicSlugs: expectOptionalSlugArray(entry.featuredTopicSlugs, `${path}.featuredTopicSlugs`) ?? [],
   };
 }
 

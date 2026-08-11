@@ -127,5 +127,5 @@ test('Verträge sind in Kraft und die Volkskammerwahl hat kein erfundenes Tagesd
     JSON.stringify(await loadTopics()),
   ].join('\n');
   assert.doesNotMatch(publicState, /(?:30|31)\. August 2026/u);
-  assert.doesNotMatch(publicState, /2026-08-(?:30|31)/u);
+  assert.doesNotMatch(publicState, /(?:Volkskammerwahl|Wahl zur achten Volkskammer)[^}]{0,240}2026-08-(?:30|31)/u);
 });

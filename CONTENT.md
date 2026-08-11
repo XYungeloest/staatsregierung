@@ -228,7 +228,10 @@ Die folgenden Content-Typen liegen jeweils als einzelne JSON-Datei. Pflichtfelde
 
 Pfad: `content/themen/[slug].json`
 
-Themenseiten sind die fachlichen Portalseiten zu politischen Schwerpunkten. Sie verknüpfen Ressorts und Rechtsgrundlagen.
+Themenseiten sind die fachlichen Portalseiten zu politischen Schwerpunkten. Sie verknüpfen Ressorts,
+Rechtsgrundlagen und – soweit vorhanden – Wissenshub-Projekte. Der fachliche Status und die
+redaktionelle Priorisierung bleiben getrennte Angaben: `status` beschreibt das Vorhaben,
+`priority`, `featured` und der Hervorhebungszeitraum steuern nur seine Auffindbarkeit.
 
 Pflichtfelder:
 
@@ -236,17 +239,35 @@ Pflichtfelder:
 - `title`
 - `teaser`
 - `status`
+- `cluster`
+- `priority`
+- `featured`
+- `updatedAt`
 - `beschlossen`
 - `umgesetzt`
 - `naechsteSchritte`
 - `rechtsgrundlagen`
 - `faq`
 - `federfuehrendesRessort`
+- `knowledgeProjectRefs`
 
 Optionale Felder:
 
 - `hero`
 - `mitzeichnungsressorts`
+- `highlightFrom`
+- `highlightUntil`
+- `relatedTopicSlugs`
+- `keyDates`
+- `modules`
+
+`cluster` ordnet jedes Thema genau einem Bereich zu. Erlaubt sind `staat-demokratie`,
+`bildung-gesellschaft`, `wirtschaft-arbeit`, `infrastruktur-wohnen`, `umwelt-versorgung` und
+`nachbarschaft-europa`. `priority` liegt zwischen 0 und 100. `featured` kennzeichnet einen
+dauerhaften Schwerpunkt. Ein Thema wird im Zeitraum von `highlightFrom` bis einschließlich
+`highlightUntil` im Bereich „Aktuell“ der Themenübersicht und auf der Startseite hervorgehoben.
+Fehlt `highlightUntil`, bleibt die Hervorhebung offen; das ist nur für tatsächlich dauerhaft
+aktuelle Vorhaben sinnvoll. `updatedAt` ist ein fachliches Redaktionsdatum, kein Build-Zeitpunkt.
 
 Erlaubte Werte für `status`:
 
@@ -267,6 +288,12 @@ Format:
   "title": "Beispielthema",
   "teaser": "Kurzer Einstiegstext für Übersichten.",
   "status": "in-umsetzung",
+  "cluster": "infrastruktur-wohnen",
+  "priority": 80,
+  "featured": true,
+  "highlightFrom": "2026-08-01",
+  "highlightUntil": "2026-08-31",
+  "updatedAt": "2026-08-09",
   "hero": "Ein längerer Einstieg für die Detailseite.",
   "beschlossen": ["Beschlossener Punkt."],
   "umgesetzt": ["Umgesetzter Punkt."],
@@ -284,11 +311,27 @@ Format:
     }
   ],
   "federfuehrendesRessort": "slug-des-ressorts",
-  "mitzeichnungsressorts": ["weiteres-ressort"]
+  "mitzeichnungsressorts": ["weiteres-ressort"],
+  "relatedTopicSlugs": ["verwandtes-thema"],
+  "keyDates": [
+    {
+      "date": "2026-08-22",
+      "label": "Nächster fachlicher Termin",
+      "kind": "deadline"
+    }
+  ],
+  "modules": [],
+  "knowledgeProjectRefs": ["project-beispiel"]
 }
 ```
 
 `federfuehrendesRessort` und `mitzeichnungsressorts` verweisen auf Slugs in `content/ressorts/`. `rechtsgrundlagen[].normSlug` verweist auf einen Norm-Slug unter `content/normen/`.
+`keyDates` speichert belegte fachliche Termine. `modules` erlaubt die Typen `questions`,
+`timeline`, `facts` und `comparison`; sie werden nur verwendet, wenn die jeweilige Darstellung
+einen inhaltlichen Mehrwert hat. Projekt- und Gegenwartsstände des Wissenshubs werden in
+`content/portal/topic-coverage.json` redaktionell öffentlichen Themen oder anderen Portalwegen
+zugeordnet. Neue Wissenshub-IDs müssen dort eingeordnet werden; eine Ausnahme ohne eigene
+Oberfläche benötigt eine Begründung.
 
 ### Regierungsorganisation
 
@@ -1142,9 +1185,17 @@ Folgende Verknüpfungen werden in der Content-QA geprüft:
 
 - `content/themen/*.json`: `federfuehrendesRessort` muss auf ein vorhandenes Ressort zeigen.
 - `content/themen/*.json`: `rechtsgrundlagen[].normSlug` muss auf eine vorhandene Norm zeigen.
+- `content/themen/*.json`: `relatedTopicSlugs` muss auf vorhandene Themen zeigen.
+- `content/themen/*.json`: `knowledgeProjectRefs` muss wechselseitig zum Coverage-Register passen.
 - `content/presse/mitteilungen/*.json`: `relatedTopicSlugs` muss auf vorhandene Themen zeigen.
 - `content/presse/mitteilungen/*.json`: `relatedNormSlugs` muss auf vorhandene Normen zeigen.
 - `content/presse/mitteilungen/*.json`: `relatedPressSlugs` muss auf vorhandene Pressemitteilungen zeigen.
+- `content/presse/termine/*.json`: `relatedTopicSlugs` muss auf vorhandene Themen zeigen.
+
+`npm run content:check` führt zusätzlich `scripts/check-topic-coverage.mjs` aus. Der Check verlangt
+für alle Wissenshub-Projekte und Gegenwartsstände eine redaktionelle Einordnung, prüft die
+wechselseitigen Projektbezüge, verhindert eine zweite Startseiten-Themenliste und stellt sicher,
+dass am redaktionellen Stichtag mindestens ein aktuelles Thema auffindbar ist.
 
 Die Content-QA prüft außerhalb von `content/normen/` außerdem verbreitete Paar-, Schrägstrich-,
 Sternchen-, Binnen-I- und Unterstrichformen. Öffentliche Personenbezeichnungen werden mit
@@ -1173,6 +1224,7 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 | Regierungsmitglied | `content/regierung/mitglieder/[slug].json` | JSON-Objekt |
 | Regierungsorganisation | `content/organisation/*.json` | normalisierte JSON-Objekte |
 | Startseite | `content/portal/home.json` | JSON-Objekt |
+| Themen-Coverage | `content/portal/topic-coverage.json` | JSON-Objekt |
 | Kabinettsseite | `content/regierung/cabinet-page.json` | JSON-Objekt |
 | Pressemitteilung | `content/presse/mitteilungen/[slug].json` | JSON-Objekt |
 | Rede | `content/presse/reden/[slug].json` | JSON-Objekt |

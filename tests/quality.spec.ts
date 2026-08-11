@@ -12,6 +12,8 @@ const viewports = [
 
 const overflowPages = [
   '/',
+  '/themen/',
+  '/themen/volksbefragung-2026/',
   '/kreisreform/',
   '/themen/kommunen-regionen-und-berlin/',
   '/themen/demokratie-und-sicherheit/',

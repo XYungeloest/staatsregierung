@@ -15,6 +15,7 @@ const visualPages = [
   { name: 'haushalt-einzelplan-03', path: '/haushalt/einzelplaene/03/' },
   { name: 'haushalt-sondervermoegen', path: '/haushalt/sondervermoegen/' },
   { name: 'themen', path: '/themen/' },
+  { name: 'thema-volksbefragung', path: '/themen/volksbefragung-2026/' },
   { name: 'thema-kulturpass', path: '/themen/kulturpass/' },
   { name: 'kreisreform', path: '/kreisreform/' },
   { name: 'portalsuche', path: '/suche/' },
@@ -74,6 +75,11 @@ async function expectSectionScreenshot(locator: Locator, name: string): Promise<
 
 const componentVisualPages = [
   {
+    name: 'startseite-aktuell-module',
+    path: '/',
+    shots: [['startseite-aktuelles-vorhaben', '[data-visual-section="home-current-topics"]']],
+  },
+  {
     name: 'staatsregierung-module',
     path: '/staatsregierung/',
     shots: [
@@ -112,13 +118,15 @@ const componentVisualPages = [
   {
     name: 'themen-module',
     path: '/themen/',
-    shots: [['themen-weitere', '[data-visual-section="topics-additional"] .topic-card:first-child']],
+    shots: [['themen-aktuell', '[data-visual-section="topics-current"] .topic-card:first-child']],
   },
   {
     name: 'themendetail-module',
-    path: '/themen/kulturpass/',
+    path: '/themen/volksbefragung-2026/',
     shots: [
-      ['thema-naechste-schritte', '[data-visual-section="topic-next-steps"]'],
+      ['thema-briefing', '[data-visual-section="topic-briefing"]'],
+      ['thema-fragen', '[data-topic-module="questions"]'],
+      ['thema-ablauf', '[data-topic-module="timeline"]'],
       ['thema-rechtsgrundlagen', '[data-visual-section="topic-legal-bases"]'],
     ],
   },

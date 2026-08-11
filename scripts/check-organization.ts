@@ -63,7 +63,7 @@ const [home, cabinetPage, topics, actionPlanRaw, timelineRaw] = await Promise.al
 parseActionPlanData(JSON.parse(actionPlanRaw));
 parseTimelineData(JSON.parse(timelineRaw));
 const topicSlugs = new Set(topics.map((topic) => topic.slug));
-for (const slug of [...home.featuredTopicSlugs, ...cabinetPage.topicHighlightSlugs]) {
+for (const slug of cabinetPage.topicHighlightSlugs) {
   if (!topicSlugs.has(slug)) throw new Error(`Redaktionelle Themenreferenz verweist auf unbekannten Slug: ${slug}`);
 }
 const governmentSlugs = new Set(organization.governments.map((government) => government.slug));

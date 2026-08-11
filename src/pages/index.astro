@@ -18,6 +18,8 @@ import {
   getCareerUrl,
   getContactUrl,
   getFreestateUrl,
+  getActiveTopicHighlights,
+  getNextTopicDate,
   getKreisreformUrl,
   getLawConstitutionUrl,
   getLawHomeUrl,
@@ -27,6 +29,7 @@ import {
   getTopicsUrl,
   resolvePortalPath,
 } from '../lib/portal/index.ts';
+import { PORTAL_REFERENCE_DATE } from '../lib/portal/dates.ts';
 import {
   loadCurrentJobOffers,
   loadCurrentGovernment,
@@ -49,11 +52,10 @@ const [ministries, topics, latestReleases, publications, currentJobs, currentGov
 const latestPublication = publications[0];
 const latestJob = currentJobs[0];
 const publicationEntryLabel = (count: number) => count === 1 ? 'Eintrag' : 'Einträge';
-const featuredTopics = homeContent.featuredTopicSlugs
-  .flatMap((slug) => {
-    const topic = topics.find((entry) => entry.slug === slug);
-    return topic ? [topic] : [];
-  });
+const currentTopics = getActiveTopicHighlights(topics, PORTAL_REFERENCE_DATE, 3);
+const homeLeadTopic = currentTopics[0];
+const homeLeadDate = homeLeadTopic ? getNextTopicDate(homeLeadTopic, PORTAL_REFERENCE_DATE) : undefined;
+const homeSecondaryTopics = currentTopics.slice(1);
 
 const portalAccesses = homeContent.portalAccesses.map((item) => ({
   ...item,
@@ -147,40 +149,44 @@ const importantItems = homeContent.importantItems.map((item) => ({
       </div>
     </section>
 
-    <section class="home-band home-priority-section" aria-labelledby="home-priority-title">
+    <section class="home-band home-priority-section" aria-labelledby="home-priority-title" data-visual-section="home-current-topics">
       <div class="container">
         <header class="home-section-heading">
           <div>
-            <p class="eyebrow">Reformen und Vorhaben</p>
-            <h2 id="home-priority-title">Was den Freistaat jetzt bewegt</h2>
-            <p>Aktueller Stand, nächste Schritte und die verantwortlichen Ressorts.</p>
+            <p class="eyebrow">Aktuelles Regierungshandeln</p>
+            <h2 id="home-priority-title">Was im Freistaat jetzt passiert</h2>
+            <p>Zeitkritische Vorhaben und jüngste Statusänderungen – mit Termin, Rechtsstand und nächstem Schritt.</p>
           </div>
           <a href={getTopicsUrl()}>Alle Themen und Reformen <span aria-hidden="true">→</span></a>
         </header>
         <div class="home-priority-grid">
-          <article class="home-lead-feature">
-            <div class="home-lead-feature__icon"><PortalIcon name="map" /></div>
-            <p class="eyebrow">Leitthema</p>
-            <h3>Kreis- und Bezirksreform 2026</h3>
-            <p>
-              Suchen Sie Gemeinden und sehen Sie die geltende Zuordnung zu Kreisen und Bezirken.
-              Textliche Ergebnisse stehen auch ohne geöffnete Karte bereit.
-            </p>
-            <dl class="home-lead-feature__facts">
-              <div><dt>Rechtsstand</dt><dd>in Kraft</dd></div>
-              <div><dt>Wirksam seit</dt><dd>1. August 2026</dd></div>
-            </dl>
-            <a class="button-link" href={`${getKreisreformUrl()}#bezirk-suche`}>Gemeinde suchen <PortalIcon name="arrow" /></a>
-          </article>
+          {homeLeadTopic ? (
+            <article class="home-lead-feature">
+              <div class="home-lead-feature__icon"><PortalIcon name="topics" /></div>
+              <div class="home-lead-feature__status"><StatusBadge status={homeLeadTopic.status} /><span>Fachstand {siteConfig.date.formatLong(homeLeadTopic.updatedAt)}</span></div>
+              <p class="eyebrow">Aktuelles Vorhaben</p>
+              <h3>{homeLeadTopic.title}</h3>
+              <p>{homeLeadTopic.teaser}</p>
+              <dl class="home-lead-feature__facts">
+                {homeLeadDate ? <div><dt>Nächster Termin</dt><dd><time datetime={homeLeadDate.date}>{siteConfig.date.formatLong(homeLeadDate.date)}</time><span>{homeLeadDate.label}</span></dd></div> : null}
+                <div><dt>Nächster Schritt</dt><dd>{homeLeadTopic.naechsteSchritte[0]}</dd></div>
+              </dl>
+              <a class="button-link" href={getTopicUrl(homeLeadTopic.slug)}>{homeLeadTopic.title} öffnen <PortalIcon name="arrow" /></a>
+            </article>
+          ) : null}
           <div class="home-topic-list">
-            {featuredTopics.map((topic) => (
+            {homeSecondaryTopics.map((topic) => {
+              const nextDate = getNextTopicDate(topic, PORTAL_REFERENCE_DATE);
+              return (
               <article>
                 <div><StatusBadge status={topic.status} /></div>
                 <h3><a href={getTopicUrl(topic.slug)}>{topic.title}</a></h3>
                 <p>{topic.teaser}</p>
+                {nextDate ? <p class="home-topic-list__date"><time datetime={nextDate.date}>{siteConfig.date.formatLong(nextDate.date)}</time> · {nextDate.label}</p> : null}
                 <a class="home-topic-list__link" href={getTopicUrl(topic.slug)} aria-label={`${topic.title} ansehen`}><PortalIcon name="arrow" /></a>
               </article>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

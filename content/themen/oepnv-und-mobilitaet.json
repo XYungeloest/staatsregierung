@@ -1,8 +1,14 @@
 {
   "slug": "oepnv-und-mobilitaet",
   "title": "ÖPNV & Mobilität",
-  "teaser": "Das Land baut Regionalverbindungen, Taktangebote und öffentliche Verkehrsproduktion schrittweise aus.",
+  "teaser": "Die Ostdeutsche Eisenbahn ist gesetzlich errichtet, Verkehrsproduktionsmittel wurden vergesellschaftet und die OVV-Ticketanerkennung im Fernverkehr ist vereinbart.",
   "status": "in-umsetzung",
+  "cluster": "infrastruktur-wohnen",
+  "priority": 85,
+  "featured": true,
+  "updatedAt": "2026-07-21",
+  "relatedTopicSlugs": ["oeffentliche-wirtschaft-und-strukturwandel", "kommunen-regionen-und-berlin"],
+  "knowledgeProjectRefs": ["project-eisenbahn-verkehr", "project-ovv-ticket", "project-boom-europe"],
   "hero": "Der Staatsrat setzt einen verlässlichen Mobilitätsrahmen mit öffentlichen Investitionen, landesplanerischer Steuerung, öffentlicher Verkehrsproduktion und stufenweiser Verdichtung des Angebots um.",
   "beschlossen": [
     "Mobilität und Infrastruktur wurden als eigenständiger Schwerpunkt der Regierungsarbeit verankert.",
@@ -13,15 +19,42 @@
   "umgesetzt": [
     "Die Ressortstruktur für Mobilität, Infrastruktur und Landesentwicklung ist eingerichtet.",
     "Landesplanung, Vergabe und Haushaltsgrundlagen bieten bereits einen belastbaren Rahmen für Ausbauprogramme.",
-    "Ein erster Portfolioaufbau für Reaktivierung, Tarifintegration und Netzkoordination ist fachlich vorbereitet.",
-    "Die gesetzlichen Grundlagen für die Ostdeutsche Eisenbahn und die Vergesellschaftung privater Verkehrsproduktionsmittel sind in Kraft."
+    "Die gesetzlichen Grundlagen für die Ostdeutsche Eisenbahn und die Vergesellschaftung privater Verkehrsproduktionsmittel sind seit 21. Juli 2026 in Kraft.",
+    "Die betriebsnotwendigen Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes zugunsten der Ostdeutschen Eisenbahn in Gemeineigentum überführt. Die ODEG wurde nicht als Unternehmen gekauft.",
+    "Mit DB Fernverkehr wurde eine Entschädigung von 57 Millionen Euro für die Anerkennung von OVV-Fahrausweisen in IC- und ICE-Verbindungen vereinbart. Tarifdetails und Geltungsbeginn sind noch nicht durch einen belastbaren Vertrags- oder Tarifnachweis geklärt."
   ],
   "naechsteSchritte": [
-    "Aufbau der Ostdeutschen Eisenbahn und Umsetzung der gesetzlichen Überführungs- und Bindungsregeln.",
-    "Umsetzung der Standort- und Sondervermögensgesetze für das Vorhaben Boom Europe Leipzig/Halle.",
+    "Ostdeutsche Eisenbahn organisatorisch aufbauen und die gesetzlichen Überführungs- und Bindungsregeln praktisch umsetzen.",
+    "Das rechtskräftig unterzeichnete Boom-Europe-Abkommen sowie Standort- und Sondervermögensgesetze umsetzen; eine Standorteröffnung ist noch nicht belegt.",
+    "Tarif- und Geltungsbeginn der OVV-Ticketanerkennung belastbar dokumentieren.",
     "Weiterentwicklung des Verkehrsverbundes zu einem Mobilitätskombinat Ost.",
     "Vorbereitung eines stufenweisen Nulltarifs für junge Menschen, Auszubildende, Studierende, Ältere und Menschen mit geringem Einkommen.",
-    "Ausbau des Ostdeutschlandtakts, Reaktivierungen und barrierefreier Haltepunkte in der Fläche."
+    "Ausbau des Ostdeutschlandtakts und barrierefreier Haltepunkte vorbereiten. Die im März vorgeschlagenen Fernverkehrsreaktivierungen gelten erst nach Bestellungs- oder Betriebsnachweis als umgesetzt."
+  ],
+  "modules": [
+    {
+      "type": "facts",
+      "id": "verkehrsstand",
+      "title": "Belegter Verkehrsstand",
+      "intro": "Vereinbarte Tariföffnung und vorgeschlagene Streckenreaktivierungen sind getrennte Vorhaben.",
+      "items": [
+        {
+          "label": "OVV und DB Fernverkehr",
+          "value": "57 Mio. Euro",
+          "note": "Vereinbarte Entschädigung für die Anerkennung ostdeutscher Verbundfahrausweise in IC und ICE."
+        },
+        {
+          "label": "Vorgeschlagene Reaktivierungen",
+          "value": "6 Relationen",
+          "note": "Für keine dieser Relationen ist durch den Deal automatisch eine Bestellung oder Betriebsaufnahme belegt."
+        },
+        {
+          "label": "ODEG",
+          "value": "Vergesellschaftung statt Kauf",
+          "note": "Überführt wurden die erfassten betriebsnotwendigen Verkehrsproduktionsmittel, nicht das Unternehmen als solches."
+        }
+      ]
+    }
   ],
   "rechtsgrundlagen": [
     {
@@ -39,6 +72,14 @@
     {
       "label": "Boom-Europe-Umsetzungsgesetz",
       "normSlug": "boom-europe-umsetzungsgesetz"
+    },
+    {
+      "label": "Hochgeschwindigkeitsluftfahrt-Standortgesetz",
+      "normSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz"
+    },
+    {
+      "label": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
+      "normSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz"
     },
     {
       "label": "Vergesellschaftungsrahmengesetz",
@@ -63,7 +104,7 @@
   "faq": [
     {
       "question": "Welche Rolle spielt die geplante Ostdeutsche Eisenbahn?",
-      "answer": "Sie soll öffentliche Verkehrsleistungen, Fahrzeuge, Werkstätten und weitere betriebsnotwendige Mittel dauerhaft gemeinwirtschaftlich sichern und stärker mit dem Verkehrsverbund verzahnen."
+      "answer": "Sie soll öffentliche Verkehrsleistungen, Fahrzeuge, Werkstätten und weitere betriebsnotwendige Mittel dauerhaft gemeinwirtschaftlich sichern. Die erfassten Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes überführt; ein Unternehmenskauf fand nicht statt."
     },
     {
       "question": "Welche Rolle spielt Dresden dabei?",

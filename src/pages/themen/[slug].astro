@@ -3,34 +3,42 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import MinistryCard from '../../components/portal/MinistryCard.astro';
+import PortalIcon from '../../components/portal/PortalIcon.astro';
 import SectionHero from '../../components/portal/SectionHero.astro';
 import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import TopicBriefing from '../../components/portal/TopicBriefing.astro';
+import TopicCard from '../../components/portal/TopicCard.astro';
+import TopicModule from '../../components/portal/TopicModule.astro';
+import { siteConfig } from '../../config/site.ts';
+import { formatNormStatus, toDisplayText } from '../../lib/norms/presentation.ts';
+import { getNormUrl } from '../../lib/norms/routes.ts';
+import { loadAllNorms } from '../../lib/norms/loader.ts';
+import {
+  getPublicationLabel,
+  loadAllVerkuendungen,
+} from '../../lib/norms/publications.ts';
+import { getPublicationUrl } from '../../lib/norms/routes.ts';
 import { formatTopicStatus } from '../../lib/portal/presentation.ts';
 import { loadLegislativeProcedures } from '../../lib/portal/legislation.ts';
 import {
-  getContactUrl,
+  getEventUrl,
   getFreestatePageUrl,
   getHomeUrl,
+  getKreisreformUrl,
   getMinistryUrl,
-  getPortalSearchUrl,
-  getTopicUrl,
+  getPressReleaseUrl,
   getTopicsUrl,
 } from '../../lib/portal/index.ts';
 import {
-  getRuntimeNormLookup,
+  loadEvents,
+  loadPressReleases,
+} from '../../lib/portal/content.ts';
+import {
   loadRuntimeMinistries,
   loadRuntimeTopics,
 } from '../../lib/runtime-content/index.ts';
-import { getNormUrl } from '../../lib/norms/index.ts';
 import { PORTAL_REFERENCE_DATE } from '../../lib/portal/dates.ts';
 import type { Themenseite } from '../../lib/portal/index.ts';
-
-const referenceDateLabel = new Intl.DateTimeFormat('de-DE', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-  timeZone: 'UTC',
-}).format(new Date(`${PORTAL_REFERENCE_DATE}T00:00:00Z`));
 
 export function getStaticPaths() {
   return loadRuntimeTopics().map((topic) => ({
@@ -40,35 +48,73 @@ export function getStaticPaths() {
 }
 
 const { topic } = Astro.props as { topic: Themenseite };
-
 const topics = loadRuntimeTopics();
 const ministries = loadRuntimeMinistries();
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
-const normLookup = getRuntimeNormLookup();
 const leadMinistry = topic ? ministryLookup.get(topic.federfuehrendesRessort) : undefined;
 const coMinistries = (topic?.mitzeichnungsressorts ?? [])
-  .map((entrySlug) => ministryLookup.get(entrySlug))
+  .map((slug) => ministryLookup.get(slug))
   .filter((entry): entry is NonNullable<typeof entry> => Boolean(entry));
+
+const [norms, publications, pressReleases, events, legislativeProcedures] = topic
+  ? await Promise.all([
+      loadAllNorms(),
+      loadAllVerkuendungen(),
+      loadPressReleases(),
+      loadEvents(),
+      loadLegislativeProcedures(),
+    ])
+  : [[], [], [], [], []];
+const normLookup = new Map(norms.map((norm) => [norm.meta.slug, norm]));
+const publicationByNormSlug = new Map<string, (typeof publications)[number]>();
+for (const publication of publications) {
+  for (const entry of publication.entries) {
+    if (entry.normSlug && !publicationByNormSlug.has(entry.normSlug)) {
+      publicationByNormSlug.set(entry.normSlug, publication);
+    }
+  }
+}
 const legalReferences = (topic?.rechtsgrundlagen ?? []).map((entry) => ({
   ...entry,
   norm: entry.normSlug ? normLookup.get(entry.normSlug) : undefined,
+  publication: entry.normSlug ? publicationByNormSlug.get(entry.normSlug) : undefined,
 }));
-const relatedTopics = topic
-  ? topics
-      .filter((entry) => entry.slug !== topic.slug)
-      .filter(
-        (entry) =>
-          entry.federfuehrendesRessort === topic.federfuehrendesRessort ||
-          (entry.mitzeichnungsressorts ?? []).includes(topic.federfuehrendesRessort),
-      )
-      .slice(0, 3)
-  : [];
-const pressSearchUrl = topic
-  ? `${getPortalSearchUrl()}?${new URLSearchParams({ q: topic.title, type: 'press' }).toString()}`
-  : getPortalSearchUrl();
+const visibleLegalReferences = legalReferences.slice(0, 6);
+const additionalLegalReferences = legalReferences.slice(6);
 const relatedProcedures = topic
-  ? (await loadLegislativeProcedures()).filter((procedure) => procedure.relatedTopics.includes(topic.slug))
+  ? legislativeProcedures.filter((procedure) => procedure.relatedTopics.includes(topic.slug))
   : [];
+const relatedPress = topic
+  ? pressReleases.filter((release) => release.relatedTopicSlugs?.includes(topic.slug)).slice(0, 3)
+  : [];
+const relatedEvents = topic
+  ? events.filter((event) => event.relatedTopicSlugs?.includes(topic.slug)).slice(0, 3)
+  : [];
+const relatedPublications = [...new Map(
+  legalReferences
+    .flatMap((entry) => entry.publication ? [[entry.publication.slug, entry.publication] as const] : []),
+).values()].slice(0, 3);
+const relatedTopics = topic
+  ? (topic.relatedTopicSlugs?.length
+      ? topic.relatedTopicSlugs.flatMap((slug) => {
+          const match = topics.find((entry) => entry.slug === slug);
+          return match ? [match] : [];
+        })
+      : topics.filter((entry) => entry.slug !== topic.slug && entry.cluster === topic.cluster).slice(0, 3))
+  : [];
+const hasFurtherInformation = relatedProcedures.length > 0
+  || relatedPress.length > 0
+  || relatedEvents.length > 0
+  || relatedPublications.length > 0;
+const heroActions = topic ? [
+  ...(topic.modules.some((module) => module.type === 'questions')
+    ? [{ label: 'Zu den Fragen', href: '#fragen', primary: true }]
+    : []),
+  ...(topic.slug === 'kommunen-regionen-und-berlin'
+    ? [{ label: 'Gebietssuche öffnen', href: `${getKreisreformUrl()}#bezirk-suche`, primary: true }]
+    : []),
+  { label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' },
+] : [];
 ---
 
 {topic ? (
@@ -97,179 +143,172 @@ const relatedProcedures = topic
       lead={topic.hero ?? topic.teaser}
       status={formatTopicStatus(topic.status)}
       variant="topics"
-      facts={[
-        ...(leadMinistry ? [{ label: 'Federführendes Ressort', value: leadMinistry.kurzname, href: getMinistryUrl(leadMinistry.slug) }] : []),
-        { label: 'Nächster Schritt', value: topic.naechsteSchritte[0] },
-        { label: 'Rechtsgrundlagen', value: String(topic.rechtsgrundlagen.length), href: '#rechtsgrundlagen' },
-      ]}
-      actions={[
-        ...(leadMinistry ? [{ label: 'Zum zuständigen Ressort', href: getMinistryUrl(leadMinistry.slug), primary: true }] : []),
-        ...(topic.slug === 'kommunen-regionen-und-berlin' ? [{ label: 'Berlin im Freistaat', href: getFreestatePageUrl('berlin') }] : []),
-        { label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' },
-      ]}
+      actions={heroActions}
     />
+
+    <TopicBriefing
+      topic={topic}
+      ministryName={leadMinistry?.kurzname}
+      ministryHref={leadMinistry ? getMinistryUrl(leadMinistry.slug) : undefined}
+      referenceDate={PORTAL_REFERENCE_DATE}
+    />
+
     <SectionNavigation
       label="Auf dieser Seite"
       variant="topics"
       items={[
-        { label: 'Auf einen Blick', href: '#auf-einen-blick' },
-        { label: 'Was ändert sich?', href: '#was-aendert-sich' },
-        { label: 'Umsetzungsstand', href: '#umsetzung' },
-        { label: 'Nächste Schritte', href: '#naechste-schritte' },
-        ...(relatedProcedures.length > 0 ? [{ label: 'Gesetzgebung', href: '#gesetzgebung' }] : []),
+        { label: 'Überblick', href: '#ueberblick' },
+        ...topic.modules.map((module) => ({ label: module.title, href: `#${module.id}` })),
         { label: 'Rechtsgrundlagen', href: '#rechtsgrundlagen' },
+        ...(hasFurtherInformation ? [{ label: 'Aktuelle Bezüge', href: '#aktuelle-bezuege' }] : []),
         { label: 'FAQ', href: '#faq' },
-        { label: 'Zuständiges Ressort', href: '#ressort' },
+        { label: 'Zuständigkeit', href: '#zustaendigkeit' },
       ]}
     />
 
-    <section id="auf-einen-blick" class="section topic-orientation" aria-labelledby="themen-ueberblick">
-      <div class="section-header">
-        <h2 id="themen-ueberblick">Auf einen Blick</h2>
-        <p>Die Kurzstruktur führt direkt zu den wichtigsten Informationen und weiterführenden Bereichen.</p>
-      </div>
-      <dl class="topic-overview-list">
-        <div><dt>Kurzfassung</dt><dd>{topic.teaser}</dd></div>
-        <div><dt>Was ändert sich?</dt><dd>{topic.beschlossen[0]}</dd></div>
-        <div><dt>Nächster Schritt</dt><dd>{topic.naechsteSchritte[0]}</dd></div>
-        <div><dt>Federführung</dt><dd>{leadMinistry ? <a class="inline-link" href={getMinistryUrl(leadMinistry.slug)}>{leadMinistry.kurzname}</a> : 'Keine Angabe'}</dd></div>
-      </dl>
-    </section>
+    {topic.modules.map((module) => <TopicModule module={module} referenceDate={PORTAL_REFERENCE_DATE} />)}
 
-    <section id="was-aendert-sich" class="section">
-      <div class="section-header">
-        <h2>Was ändert sich?</h2>
-        <p>{topic.teaser}</p>
-      </div>
-      <ul class="record-list">
-        {topic.beschlossen.map((entry) => (
-          <li class="record-list__item"><span>{entry}</span></li>
-        ))}
-      </ul>
-    </section>
-
-    <section id="umsetzung" class="section section-muted">
-      <div class="section-header">
-        <h2>Was ist umgesetzt?</h2>
-        <p>Der Stand bildet bereits erreichte und rechtlich abgesicherte Schritte des Vorhabens ab.</p>
-      </div>
-      <ul class="record-list">
-        {topic.umgesetzt.map((entry) => (
-          <li class="record-list__item"><span>{entry}</span></li>
-        ))}
-      </ul>
-    </section>
-
-    <section id="naechste-schritte" class="section" data-visual-section="topic-next-steps">
-      <div class="section-header">
-        <h2>Nächste Schritte</h2>
-        <p>Diese Punkte kennzeichnen laufende oder vorbereitete Ausbauschritte innerhalb des Themas.</p>
-      </div>
-      <ol class="topic-timeline">
-        {topic.naechsteSchritte.map((entry) => (
-          <li><p>{entry}</p></li>
-        ))}
-      </ol>
-    </section>
-
-    {relatedProcedures.length > 0 ? (
-      <section id="gesetzgebung" class="section section-muted" aria-labelledby="gesetzgebung-title">
-        <div class="section-header">
-          <h2 id="gesetzgebung-title">Rechtsstand der Vorhaben</h2>
-          <p>Bestätigter Stand am {referenceDateLabel}. Beschluss, Verkündung und Inkrafttreten werden getrennt ausgewiesen.</p>
+    <section id="rechtsgrundlagen" class="section topic-legal-section" aria-labelledby="rechtsgrundlagen-title" data-visual-section="topic-legal-bases">
+      <div class="section-header topic-section-heading">
+        <div>
+          <p class="eyebrow">Rechtlicher Rahmen</p>
+          <h2 id="rechtsgrundlagen-title">Rechtsgrundlagen</h2>
+          <p>Beschluss, Verkündung und Inkrafttreten werden getrennt ausgewiesen. Verlinkt ist jeweils der aktuelle Datensatz im Rechtsportal.</p>
         </div>
-        <ul class="record-list">
-          {relatedProcedures.map((procedure) => (
-            <li class="record-list__item">
-              <strong>{procedure.shortTitle}</strong>
-              <span>Drucksache {procedure.documentNumber} · {procedure.statusLabel}</span>
-              {procedure.dateNote ? <span>{procedure.dateNote}</span> : null}
-              {procedure.recommendation ? <span>Beschlussempfehlung {procedure.recommendation.documentNumber}: Annahme empfohlen</span> : null}
-              {procedure.proposedCommittee ? <span>Bei Einbringung vorgeschlagene Überweisung: {procedure.proposedCommittee}</span> : null}
-            </li>
-          ))}
-        </ul>
+        <PortalIcon name="law" />
+      </div>
+      <div class="topic-legal-grid">
+        {visibleLegalReferences.map((entry) => (
+          <article class="topic-legal-card">
+            <p class="topic-legal-card__type">{entry.norm ? formatNormStatus(entry.norm.meta.status) : 'Quellenhinweis'}</p>
+            <h3>
+              {entry.norm ? <a href={getNormUrl(entry.norm.meta.slug)}>{entry.label}</a> : entry.label}
+            </h3>
+            {entry.note ? <p>{entry.note}</p> : entry.norm ? <p>{toDisplayText(entry.norm.meta.summary)}</p> : null}
+            {entry.norm?.meta.effectiveDate ? (
+              <p class="topic-legal-card__date">Wirksam seit <time datetime={entry.norm.meta.effectiveDate}>{siteConfig.date.formatLong(entry.norm.meta.effectiveDate)}</time></p>
+            ) : null}
+            {entry.publication ? <a class="topic-legal-card__publication" href={getPublicationUrl(entry.publication.slug)}>{getPublicationLabel(entry.publication)}</a> : null}
+          </article>
+        ))}
+      </div>
+      {additionalLegalReferences.length > 0 ? (
+        <details class="topic-more-references">
+          <summary>{additionalLegalReferences.length} weitere Rechtsgrundlagen anzeigen</summary>
+          <ul>
+            {additionalLegalReferences.map((entry) => (
+              <li>
+                {entry.norm ? <a href={getNormUrl(entry.norm.meta.slug)}>{entry.label}</a> : <span>{entry.label}</span>}
+                {entry.note ? <small>{entry.note}</small> : null}
+              </li>
+            ))}
+          </ul>
+        </details>
+      ) : null}
+    </section>
+
+    {hasFurtherInformation ? (
+      <section id="aktuelle-bezuege" class="section section-muted topic-relations" aria-labelledby="aktuelle-bezuege-title">
+        <div class="section-header">
+          <p class="eyebrow">Zusammenhänge</p>
+          <h2 id="aktuelle-bezuege-title">Aktuelle Verfahren, Termine und Veröffentlichungen</h2>
+          <p>Diese Bezüge werden aus den vorhandenen Themen-, Rechts- und Presseverknüpfungen abgeleitet.</p>
+        </div>
+        <div class="topic-relations-grid">
+          {relatedEvents.length > 0 ? (
+            <section aria-labelledby="termine-title">
+              <h3 id="termine-title"><PortalIcon name="calendar" /> Termine</h3>
+              <ul>
+                {relatedEvents.map((event) => (
+                  <li><time datetime={event.date}>{siteConfig.date.formatLong(event.date)}</time><a href={getEventUrl(event.slug)}>{event.title}</a><p>{event.teaser}</p></li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          {relatedPress.length > 0 ? (
+            <section aria-labelledby="presse-title">
+              <h3 id="presse-title"><PortalIcon name="press" /> Presse</h3>
+              <ul>
+                {relatedPress.map((release) => (
+                  <li><time datetime={release.date}>{siteConfig.date.formatLong(release.date)}</time><a href={getPressReleaseUrl(release.slug)}>{release.title}</a></li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          {relatedPublications.length > 0 ? (
+            <section aria-labelledby="verkuendungen-title">
+              <h3 id="verkuendungen-title"><PortalIcon name="law" /> Verkündungen</h3>
+              <ul>
+                {relatedPublications.map((publication) => (
+                  <li><time datetime={publication.date}>{siteConfig.date.formatLong(publication.date)}</time><a href={getPublicationUrl(publication.slug)}>{getPublicationLabel(publication)}</a></li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+          {relatedProcedures.length > 0 ? (
+            <section aria-labelledby="verfahren-title">
+              <h3 id="verfahren-title"><PortalIcon name="government" /> Gesetzgebung</h3>
+              <ul>
+                {relatedProcedures.slice(0, 4).map((procedure) => (
+                  <li><span>Drucksache {procedure.documentNumber}</span><strong>{procedure.shortTitle}</strong><p>{procedure.statusLabel}</p></li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+        </div>
       </section>
     ) : null}
 
-    <section id="rechtsgrundlagen" class="section section-muted" data-visual-section="topic-legal-bases">
+    <section id="faq" class="section" aria-labelledby="faq-title">
       <div class="section-header">
-        <h2>Rechtsgrundlagen</h2>
-        <p>Hier finden Sie die einschlägigen Gesetze, Verordnungen und Richtlinien.</p>
-      </div>
-      <ul class="record-list">
-        {legalReferences.map((entry) => (
-          <li class="record-list__item">
-            {entry.norm ? (
-              <strong><a class="inline-link" href={getNormUrl(entry.norm.slug)}>{entry.label}</a></strong>
-            ) : (
-              <strong>{entry.label}</strong>
-            )}
-            {entry.note ? <span>{entry.note}</span> : null}
-          </li>
-        ))}
-      </ul>
-    </section>
-
-    <section id="faq" class="section">
-      <div class="section-header">
-        <h2>FAQ</h2>
-        <p>Antworten auf häufige Fragen zum Vorhaben.</p>
+        <p class="eyebrow">Fragen und Antworten</p>
+        <h2 id="faq-title">Häufige Fragen</h2>
       </div>
       <FaqAccordion items={topic.faq} />
     </section>
 
-    <section id="ressort" class="section section-muted">
+    <section id="zustaendigkeit" class="section section-muted topic-responsibility" aria-labelledby="zustaendigkeit-title">
       <div class="section-header">
-        <h2>Zuständiges Ressort</h2>
-        <p>Dieses Ressort ist für das Vorhaben zuständig.</p>
+        <p class="eyebrow">Verantwortung</p>
+        <h2 id="zustaendigkeit-title">Zuständiges Ressort</h2>
+        <p>Die Federführung und mitwirkenden Ressorts stammen aus dem aktuellen Organisationsmodell.</p>
       </div>
       {leadMinistry ? <MinistryCard ministry={leadMinistry} /> : null}
       {coMinistries.length > 0 ? (
-        <>
-          <p class="detail-line">Mitzeichnende Ressorts</p>
-          <div class="tag-list">
-            {coMinistries.map((ministry) => (
-              <a class="tag" href={getMinistryUrl(ministry.slug)}>{ministry.kurzname}</a>
-            ))}
-          </div>
-        </>
+        <div class="topic-co-ministries">
+          <h3>Mitwirkende Ressorts</h3>
+          <ul>
+            {coMinistries.map((ministry) => <li><a href={getMinistryUrl(ministry.slug)}>{ministry.kurzname}</a></li>)}
+          </ul>
+        </div>
       ) : null}
     </section>
 
     {relatedTopics.length > 0 ? (
-      <section class="section">
+      <section class="section topic-related" aria-labelledby="verwandte-themen-title">
         <div class="section-header">
-          <h2>Verwandte Themen</h2>
+          <p class="eyebrow">Weiterlesen</p>
+          <h2 id="verwandte-themen-title">Verwandte Vorhaben</h2>
         </div>
-        <ul class="record-list">
+        <div class="card-grid card-grid--three">
           {relatedTopics.map((entry) => (
-            <li class="record-list__item">
-              <a class="inline-link" href={getTopicUrl(entry.slug)}>{entry.title}</a>
-              <span>{entry.teaser}</span>
-            </li>
+            <TopicCard topic={entry} ministryName={ministryLookup.get(entry.federfuehrendesRessort)?.kurzname} variant="compact" />
           ))}
-        </ul>
+        </div>
       </section>
     ) : null}
 
-    <section class="section topic-next-actions" aria-labelledby="was-jetzt">
-      <div class="section-header">
-        <h2 id="was-jetzt">Was können Sie jetzt tun?</h2>
-        <p>Nutzen Sie die weiterführenden Informationen zum Vorhaben.</p>
-      </div>
-      <nav class="hero-actions" aria-label="Weiterführende Schritte">
-        <a class="button-link" href="#rechtsgrundlagen">Rechtsgrundlagen lesen</a>
-        {topic.slug === 'kommunen-regionen-und-berlin' ? (
-          <a class="button-link button-link--secondary" href={getFreestatePageUrl('berlin')}>Berlin-Übersicht öffnen</a>
-        ) : null}
-        {leadMinistry ? (
-          <a class="button-link button-link--secondary" href={getMinistryUrl(leadMinistry.slug)}>Zuständiges Ressort öffnen</a>
-        ) : null}
-        <a class="button-link button-link--secondary" href={pressSearchUrl}>Presse zum Thema durchsuchen</a>
-        <a class="button-link button-link--secondary" href={getContactUrl()}>Kontakt aufnehmen</a>
-      </nav>
-    </section>
+    {topic.slug === 'kommunen-regionen-und-berlin' ? (
+      <section class="section topic-special-link" aria-labelledby="kreisreform-link-title">
+        <div>
+          <p class="eyebrow">Gebietsreform</p>
+          <h2 id="kreisreform-link-title">Gemeinde, Kreis und Bezirk finden</h2>
+          <p>Die zentrale Gebietssuche und die Kartenansicht stehen auf der eigenständigen Kreisreform-Seite bereit.</p>
+        </div>
+        <a class="button-link" href={`${getKreisreformUrl()}#bezirk-suche`}>Gebietssuche öffnen</a>
+        <a class="button-link button-link--secondary" href={getFreestatePageUrl('berlin')}>Berlin im Freistaat</a>
+      </section>
+    ) : null}
   </BaseLayout>
 ) : (
   <BaseLayout
@@ -281,14 +320,7 @@ const relatedProcedures = topic
       { label: 'Nicht gefunden' },
     ]}
   >
-    <Breadcrumbs
-      items={[
-        { label: 'Startseite', href: getHomeUrl() },
-        { label: 'Themen & Projekte', href: getTopicsUrl() },
-        { label: 'Nicht gefunden' },
-      ]}
-    />
-
+    <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Themen & Projekte', href: getTopicsUrl() }, { label: 'Nicht gefunden' }]} />
     <section class="section">
       <div class="status-notice status-notice--warning">
         <h1>Themenseite nicht gefunden</h1>

@@ -47,8 +47,20 @@ export {
   type Stellenangebot,
   type Termin,
   type Themenseite,
+  type Themencluster,
+  type ThemenDatum,
+  type ThemenModul,
   type Themenstatus,
 } from './schema.ts';
+
+export {
+  getActiveTopicHighlights,
+  getFeaturedTopics,
+  getNextTopicDate,
+  groupTopicsByCluster,
+  isTopicHighlightActive,
+  TOPIC_CLUSTER_LABELS,
+} from './topics.ts';
 
 export {
   applyCabinetReshuffle,

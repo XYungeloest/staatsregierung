@@ -3,15 +3,18 @@
   "title": "Volksbefragung 2026",
   "teaser": "Am 5. und 6. September 2026 werden die Wahlberechtigten parallel zur Volkskammerwahl freiwillig zu fünf politischen Grundsatzfragen befragt.",
   "status": "in-umsetzung",
+  "cluster": "staat-demokratie",
+  "priority": 100,
+  "featured": false,
+  "highlightFrom": "2026-08-09",
+  "highlightUntil": "2026-09-10",
+  "updatedAt": "2026-08-09",
+  "relatedTopicSlugs": ["staatsreform-und-verfassung"],
+  "knowledgeProjectRefs": [],
   "hero": "Die Volksbefragung gibt den Wahlberechtigten Gelegenheit, zu fünf Fragen der weiteren politischen Entwicklung Stellung zu nehmen. Sie ist freiwillig, rechtlich nicht bindend und kein Volksentscheid.",
   "beschlossen": [
     "Die Befragung findet am Samstag, dem 5. September, und am Sonntag, dem 6. September 2026 gleichzeitig mit der Wahl zur achten Volkskammer statt.",
-    "Frage 1 – Politische Grundrichtung: „Sollte der Freistaat seine Politik darauf ausrichten, dauerhaft im Rahmen seiner verfassungsrechtlichen Möglichkeiten den demokratischen Sozialismus aufzubauen oder zu erhalten?“",
-    "Frage 2 – Große Staatsreform: „Befürworten Sie die durch die Große Staatsreform geschaffene staatliche Ordnung mit Volkskammer, Staatsrat und Staatspräsident?“",
-    "Frage 3 – Öffentliches und gemeinwirtschaftliches Eigentum: „Sollen zentrale Bereiche der Daseinsvorsorge, wie Wohnen, Energie, Boden, Verkehr und Gesundheitsversorgung, überwiegend in öffentlicher oder gemeinwirtschaftlicher Verantwortung organisiert werden?“",
-    "Frage 4 – Öffentliche Investitionen und wirtschaftliche Entwicklung: „Soll der Freistaat weiterhin durch öffentliche Investitionen, Wirtschaftslenkung und -planung, eigene Unternehmen und eine aktive Industriepolitik Arbeitsplätze sichern, strukturschwache Regionen stärken und die Infrastruktur modernisieren?“",
-    "Frage 5 – Olympische und Paralympische Spiele: „Soll der Freistaat Ostdeutschland die Bewerbung um die Ausrichtung Olympischer und Paralympischer Spiele weiter verfolgen?“",
-    "Über jede Frage wird getrennt mit Ja oder Nein abgestimmt. Eine nicht beantwortete Frage gilt als nicht abgegebene Stimme; die anderen Antworten bleiben davon unberührt.",
+    "Die Verordnung legt fünf politische Grundsatzfragen fest. Eine nicht beantwortete Frage gilt als nicht abgegebene Stimme; die anderen Antworten bleiben davon unberührt.",
     "Ein Beteiligungs- oder Zustimmungsquorum besteht nicht. Eine Frage gilt als mehrheitlich befürwortet, wenn mehr Ja- als Nein-Stimmen abgegeben wurden."
   ],
   "umgesetzt": [
@@ -25,6 +28,70 @@
     "Die Volksbefragung wird am 5. und 6. September 2026 gemeinsam mit der Volkskammerwahl durchgeführt; die Auszählung der Wahl hat Vorrang.",
     "Das endgültige Befragungsergebnis soll spätestens am 10. September 2026 öffentlich bekannt gemacht werden.",
     "Innerhalb von dreißig Tagen nach Feststellung des endgültigen Ergebnisses legt der Staatsrat einen öffentlichen Bericht mit den politischen Schlussfolgerungen vor."
+  ],
+  "modules": [
+    {
+      "type": "questions",
+      "id": "fragen",
+      "title": "Die fünf Fragen",
+      "intro": "Über jede Frage wird einzeln mit Ja oder Nein abgestimmt. Nicht beantwortete Fragen bleiben ohne Stimme; die übrigen Antworten bleiben gültig.",
+      "items": [
+        {
+          "number": "1",
+          "title": "Politische Grundrichtung",
+          "text": "Sollte der Freistaat seine Politik darauf ausrichten, dauerhaft im Rahmen seiner verfassungsrechtlichen Möglichkeiten den demokratischen Sozialismus aufzubauen oder zu erhalten?"
+        },
+        {
+          "number": "2",
+          "title": "Große Staatsreform",
+          "text": "Befürworten Sie die durch die Große Staatsreform geschaffene staatliche Ordnung mit Volkskammer, Staatsrat und Staatspräsident?"
+        },
+        {
+          "number": "3",
+          "title": "Öffentliches und gemeinwirtschaftliches Eigentum",
+          "text": "Sollen zentrale Bereiche der Daseinsvorsorge, wie Wohnen, Energie, Boden, Verkehr und Gesundheitsversorgung, überwiegend in öffentlicher oder gemeinwirtschaftlicher Verantwortung organisiert werden?"
+        },
+        {
+          "number": "4",
+          "title": "Öffentliche Investitionen und wirtschaftliche Entwicklung",
+          "text": "Soll der Freistaat weiterhin durch öffentliche Investitionen, Wirtschaftslenkung und -planung, eigene Unternehmen und eine aktive Industriepolitik Arbeitsplätze sichern, strukturschwache Regionen stärken und die Infrastruktur modernisieren?"
+        },
+        {
+          "number": "5",
+          "title": "Olympische und Paralympische Spiele",
+          "text": "Soll der Freistaat Ostdeutschland die Bewerbung um die Ausrichtung Olympischer und Paralympischer Spiele weiter verfolgen?"
+        }
+      ]
+    },
+    {
+      "type": "timeline",
+      "id": "ablauf",
+      "title": "Ablauf und Fristen",
+      "intro": "Die Verordnung trennt Information, Abstimmung, Ergebnis und politische Auswertung klar voneinander.",
+      "items": [
+        {
+          "date": "2026-08-09",
+          "title": "Anordnung und Verkündung",
+          "text": "Der Staatsrat erlässt die Volksbefragungsverordnung; sie wird im OGVBl. 2026 Nr. 59 verkündet und tritt in Kraft."
+        },
+        {
+          "date": "2026-08-22",
+          "title": "Vollständige Informationen",
+          "text": "Der Bundeswahlleiter veröffentlicht spätestens an diesem Tag Fragen, Antwortmöglichkeiten, Verfahrenshinweise und sachliche Informationen."
+        },
+        {
+          "date": "2026-09-05",
+          "endDate": "2026-09-06",
+          "title": "Volksbefragung und Volkskammerwahl",
+          "text": "Die freiwillige Befragung findet in den Wahlräumen parallel zur Wahl statt; die ordnungsgemäße Durchführung und Auszählung der Wahl haben Vorrang."
+        },
+        {
+          "date": "2026-09-10",
+          "title": "Ergebnisbekanntmachung",
+          "text": "Das endgültige Befragungsergebnis soll spätestens an diesem Tag öffentlich bekannt gemacht werden."
+        }
+      ]
+    }
   ],
   "rechtsgrundlagen": [
     {

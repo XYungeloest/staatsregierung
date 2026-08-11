@@ -372,11 +372,21 @@ test('Rechtsportal verwendet auf Übersichten und Suchindex dieselbe jüngste Ve
 });
 
 test('Volksbefragung ist öffentlich eingeordnet und mit dem vollständigen Verordnungstext verknüpft', async ({ page }) => {
-  await page.goto('/themen/volksbefragung-2026/');
+  await page.goto('/');
+  const currentWork = page.locator('[data-visual-section="home-current-topics"]');
+  await expect(currentWork.getByRole('heading', { name: 'Volksbefragung 2026' })).toBeVisible();
+  await currentWork.getByRole('link', { name: /Volksbefragung 2026 öffnen/u }).click();
   await expect(page.getByRole('heading', { name: 'Volksbefragung 2026', level: 1 })).toBeVisible();
   await expect(page.getByText(/freiwillig, rechtlich nicht bindend und kein Volksentscheid/u)).toBeVisible();
+  await expect(page.locator('.topic-question-grid > li')).toHaveCount(5);
+  await expect(page.getByRole('heading', { name: 'Ablauf und Fristen' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Volksbefragungsverordnung 2026' })).toBeVisible();
 
+  await page.goto('/themen/');
+  const currentTopics = page.locator('[data-visual-section="topics-current"]');
+  await expect(currentTopics.getByRole('link', { name: 'Volksbefragung 2026', exact: true })).toBeVisible();
+
+  await page.goto('/themen/volksbefragung-2026/');
   await page.getByRole('link', { name: 'Volksbefragungsverordnung 2026' }).click();
   await expect(page).toHaveURL(/\/recht\/norm\/volksbefragungsverordnung-2026\/$/u);
   await expect(page.getByRole('heading', { name: 'Inkrafttreten und Außerkrafttreten' })).toBeVisible();
