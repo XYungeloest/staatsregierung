@@ -195,7 +195,7 @@ jobs:
               ;;
           esac
       - name: Vorschau im Pull Request verlinken
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           PREVIEW_URL: ${{ steps.cloudflare_preview.outputs.preview_url }}
           VERSION_ID: ${{ steps.cloudflare_preview.outputs.version_id }}
@@ -226,7 +226,7 @@ jobs:
     steps:
       - name: Preview-Version ermitteln
         id: preview
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const marker = '<!-- ostrecht-cloudflare-preview -->';
@@ -263,7 +263,7 @@ jobs:
           done
       - name: Preview-Kommentar aktualisieren
         if: ${{ steps.preview.outputs.found == 'true' }}
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         env:
           COMMENT_ID: ${{ steps.preview.outputs.comment_id }}
         with:
