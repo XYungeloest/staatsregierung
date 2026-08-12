@@ -354,3 +354,85 @@ Checks ergänzen, ersetzen aber nicht den manuellen Tastatur- und Screenreader-K
 Karten- und Statistikfreigaben, Zoom und reduzierte Bewegung. `npm run test:browsers` führt die
 zentralen Interaktionen zusätzlich in Chromium, Firefox und WebKit aus; `npm run seo:check` prüft
 Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten und Sitemap.
+
+## TODO
+
+Diese Liste bündelt noch offene Arbeiten auf Projektebene. Quellenbezogene Detailfragen werden
+weiterhin vollständig in `CONTENT_GAPS.md`, `knowledge/open-questions.json` und
+`data/recht/consolidation-report.md` gepflegt; die README ersetzt diese Nachweise nicht.
+
+### Portal und Betrieb
+
+- [ ] Die vorhandene 404-Seite um eine gepflegte Liste belegter Alt- und Tippadressen ergänzen.
+  Nur eindeutig zuordenbare Adressen dürfen weitergeleitet werden; beliebige unbekannte URLs
+  müssen weiterhin mit Status 404, `noindex`, Suche und hilfreichen Einstiegen antworten. Bekannte
+  Weiterleitungen und das Verhalten der Fehlerseite durch automatisierte Tests absichern.
+- [ ] Den aktuellen Repositorystand produktiv ausrollen und anschließend auf den in der
+  Qualitätssicherung genannten Portal- und Rechtsseiten prüfen, dass HTML-Metadatum,
+  `X-Portal-Commit`, Sitemap und Suchindex dieselbe vollständige Commitkennung ausgeben. Danach den
+  inzwischen historischen Hinweis auf den Produktionsstand vom 22. Juli 2026 aus dieser README
+  entfernen oder aktualisieren.
+- [ ] In Cloudflare prüfen und dokumentieren, dass die automatische Webanalyse deaktiviert ist und
+  Statistik ausschließlich nach ausdrücklicher Einwilligung geladen wird.
+- [ ] Die trotz bestehender `.gitignore` versehentlich versionierte `.github/.DS_Store` aus dem
+  Git-Bestand entfernen und prüfen, ob weitere Betriebssystemdateien verfolgt werden.
+
+### Redaktionsstudio und Vorschauen
+
+- [ ] Die in `docs/EDITORIAL_SETUP.md` beschriebene GitHub App, Installation, Worker-Secrets,
+  Cloudflare-Access-Anwendung und produktive Worker-Route vollständig einrichten und mit einem
+  nicht berechtigten sowie einem berechtigten Konto abnehmen.
+- [ ] Geschützte Pull-Request-Vorschauen betrieblich aktivieren: Repositoryvariable und Secrets
+  setzen, Alias- und Versionsdomains mit Cloudflare Access schützen und Upload, PR-Kommentar sowie
+  das Löschen aller Preview-Versionen nach Merge oder Schließen in einem echten Test-PR prüfen.
+- [ ] Einen vollständigen Studio-Testvorgang durchführen: Inhalt laden, atomaren Commit auf einem
+  `redaktion/...`-Branch erzeugen, Draft Pull Request aktualisieren, SHA-Konflikt behandeln,
+  Vorschau prüfen und erst nach Review über den normalen `main`-Workflow veröffentlichen.
+
+### Rechtsportal und Primärquellen
+
+- [ ] Die 34 im Konsolidierungsbericht als `missing-baseline` geführten Zielnormen priorisiert mit
+  amtlichen historischen REVOSax-Fassungen, Gültigkeitszeitraum und unverändertem Snapshot sichern
+  und anschließend über geprüfte Patch-Rezepte konsolidieren. Kulturraumgesetz und Ostdeutsches
+  Polizeibehördengesetz sind wegen der Berlin-Darstellung zuerst zu bearbeiten.
+- [ ] Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und
+  `StAnzO. 2026 Nr. 2.html` technisch zusammenführen; Dokumentkopf und internes Datum bleiben
+  kanonisch.
+- [ ] Für die noch ausschließlich als Markdown vorliegenden Altquellen schrittweise geprüfte
+  strukturierte HTML-Transkriptionen erstellen und bis dahin PDF-Gegenprüfung und Legacy-Fixtures
+  erhalten.
+- [ ] Eine amtliche Berichtigung oder Ergänzung zum fehlenden Inkrafttretenssatz in § 7 des
+  Verwaltungsabkommens zur Kasernierten Grenzpolizei einpflegen, sobald eine Primärquelle vorliegt.
+- [ ] Plenarprotokoll, Abstimmungslisten und Beschlussempfehlungen 07/18 bis 07/21 zur Sitzung vom
+  20. Juli 2026 nachreichen und ausschließlich damit Beratungsverlauf und Einzelabstimmungen
+  ergänzen.
+- [ ] Die geltende Hoheitszeichenregelung mit besonderem Gesetz, Verordnung, Anlagen und
+  verbindlicher Wappenbeschreibung widerspruchsfrei belegen und konsolidieren.
+- [ ] Feiertagsgesetz beziehungsweise Änderungsgesetze und ihre Inkrafttretensdaten normgenau
+  zuordnen.
+
+### Politische Realität und öffentliche Inhalte
+
+- [ ] Primärakten zum Bundesratszugangsstreit, zum formellen Abschluss der Präsidentenanklage gegen
+  Manuela Dreyer sowie zu den Einzelakten und zum Ende von Karl Honeckers Vertretung der
+  Bundespräsidentin sichern. Bis dahin keine Aktenzeichen, Entscheidungsdaten oder Rechtsfolgen
+  ergänzen.
+- [ ] Für bestätigte, aber praktisch noch nicht belegte EAG-Vorgänge die Vollzugsnachweise
+  nachpflegen. Dazu gehören insbesondere Auslieferung oder Inbetriebnahme von Beschaffungen,
+  operative Umsetzung des Boom-Europe-Standorts, Tarifdetails und mögliche
+  Fernverkehrsreaktivierungen sowie Status von Volksacker, Flächenfonds und Bodenfonds Ost.
+- [ ] Das Ende der historischen Bevollmächtigtenämter von Claus Weselsky und Gregor Gysi sowie die
+  Übergänge der Staatskrise 2025 mit Ernennungs-, Entlassungs-, Wahl- oder Organisationsakten
+  vervollständigen. Für Gerhardt Lehrmann weiterhin kein aktuelles Personenprofil anlegen.
+
+### Dokumentation und laufende Qualität
+
+- [ ] `knowledge/AUDIT.md` auf den Stichtag 9. August 2026 fortschreiben: Die dort noch als aktuell
+  bezeichneten acht Bezirke klar als historischen Stand einordnen und den auditgeschichtlichen
+  Stand vom heutigen Gegenwartsstand trennen.
+- [ ] Nach jeder Erledigung eine vollständige Dokumentationsrunde über README, `CONTENT.md`,
+  `CONTENT_GAPS.md`, `DESIGN.md`, `docs/` und `knowledge/` durchführen, erledigte Punkte entfernen
+  und generierte Wissensdateien ausschließlich mit `npm run knowledge:build` aktualisieren.
+- [ ] Vor Produktionsfreigaben neben den automatisierten Prüfungen einen kurzen manuellen
+  Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-, Tablet- und
+  Desktopbreiten dokumentieren.
