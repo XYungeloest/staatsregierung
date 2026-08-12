@@ -331,7 +331,12 @@ Format:
 einen inhaltlichen Mehrwert hat. Projekt- und Gegenwartsstände des Wissenshubs werden in
 `content/portal/topic-coverage.json` redaktionell öffentlichen Themen oder anderen Portalwegen
 zugeordnet. Neue Wissenshub-IDs müssen dort eingeordnet werden; eine Ausnahme ohne eigene
-Oberfläche benötigt eine Begründung.
+Oberfläche benötigt eine Begründung. Dasselbe Register enthält unter `discoverability` die
+zentrale Mindestzahl laufender Hervorhebungen und – nur für einen ausdrücklich datierten
+redaktionellen Zeitraum – das führende aktuelle Thema. Dadurch muss eine zeitkritische
+Priorisierung weder in der Startseite noch in der Themenübersicht doppelt gepflegt werden. Vor dem
+Fortschreiben des redaktionellen Stichtags ist ein ausgelaufener Zeitraum durch eine neue belegte
+Hervorhebung oder eine redaktionell beschlossene Nachfolge zu ersetzen.
 
 ### Regierungsorganisation
 
@@ -1195,7 +1200,10 @@ Folgende Verknüpfungen werden in der Content-QA geprüft:
 `npm run content:check` führt zusätzlich `scripts/check-topic-coverage.mjs` aus. Der Check verlangt
 für alle Wissenshub-Projekte und Gegenwartsstände eine redaktionelle Einordnung, prüft die
 wechselseitigen Projektbezüge, verhindert eine zweite Startseiten-Themenliste und stellt sicher,
-dass am redaktionellen Stichtag mindestens ein aktuelles Thema auffindbar ist.
+dass am redaktionellen Stichtag mindestens die unter `discoverability.minimumActiveHighlights`
+festgelegte Zahl aktueller Themen auffindbar ist. Eine zeitlich begrenzte Spitzenpriorität wird
+über `discoverability.editorialLead` mit Thema, Beginn und Ende gepflegt; außerhalb dieses
+Zeitraums gilt sie nicht mehr.
 
 Die Content-QA prüft außerhalb von `content/normen/` außerdem verbreitete Paar-, Schrägstrich-,
 Sternchen-, Binnen-I- und Unterstrichformen. Öffentliche Personenbezeichnungen werden mit

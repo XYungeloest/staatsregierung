@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { getServiceOverviewUrl } from '../lib/portal/index.ts';
+import { legacyRouteHelpLinks } from '../config/legacy-routes.mjs';
+import { getServiceOverviewUrl, resolvePortalPath } from '../lib/portal/index.ts';
 import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '../lib/norms/index.ts';
 ---
 
@@ -27,5 +28,20 @@ import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '../lib/no
       <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum alphabetischen Index</a>
       <a class="button-link button-link--secondary" href={getSubjectsUrl()}>Zu den Sachgebieten</a>
     </nav>
+  </section>
+
+  <section class="section section-muted error-page" aria-labelledby="former-addresses-title">
+    <div class="section-header section-header--compact">
+      <p class="eyebrow">Geänderte Adressen</p>
+      <h2 id="former-addresses-title">Häufig gesuchte Bereiche</h2>
+      <p>Einige frühere Portaladressen führen heute in neu geordnete Bereiche.</p>
+    </div>
+    <ul class="record-list">
+      {legacyRouteHelpLinks.map((route) => (
+        <li class="record-list__item">
+          <a class="inline-link" href={resolvePortalPath(route.target)}>{route.label}</a>
+        </li>
+      ))}
+    </ul>
   </section>
 </BaseLayout>

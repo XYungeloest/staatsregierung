@@ -1,6 +1,7 @@
 import { defineConfig, sessionDrivers } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import { resolveBuildCommit } from './scripts/lib/build-commit.mjs';
+import { legacyRedirects } from './src/config/legacy-routes.mjs';
 
 const defaultSiteUrl = 'https://freistaat-ostdeutschland.de';
 const buildCommit = resolveBuildCommit();
@@ -28,12 +29,7 @@ export default defineConfig({
       'import.meta.env.PORTAL_BUILD_COMMIT': JSON.stringify(buildCommit),
     },
   },
-  redirects: {
-    '/presse/termine/einbringung-kreis-und-bezirksreform-2027/':
-      '/presse/termine/einbringung-kreis-und-bezirksreform-2026/',
-    '/recht/norm/sachsische-landkreisordnung/':
-      '/recht/norm/saechsische-landkreisordnung/',
-  },
+  redirects: legacyRedirects,
   session: {
     // Phase 1 verwendet keine serverseitigen Sessions.
     driver: sessionDrivers.null(),

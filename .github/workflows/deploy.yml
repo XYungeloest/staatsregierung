@@ -32,16 +32,19 @@ jobs:
 
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Node.js einrichten
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
 
       - name: Abhängigkeiten installieren
         run: npm ci
+
+      - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen
+        run: npm audit --audit-level=high
 
       - name: Playwright-Browser installieren
         run: npx playwright install --with-deps chromium firefox webkit
@@ -73,14 +76,14 @@ jobs:
         run: npm run test:browsers
 
   visual:
-    runs-on: macos-latest
+    runs-on: macos-26
 
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Node.js einrichten
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -88,11 +91,23 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
+      - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen
+        run: npm audit --audit-level=high
+
       - name: Chromium installieren
         run: npx playwright install chromium
 
       - name: Visuelle Regressionen prüfen
         run: npm run test:visual
+
+      - name: Abweichungsbilder sichern
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: visual-diffs-${{ github.sha }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14
 
   deploy:
     needs:
@@ -102,16 +117,19 @@ jobs:
 
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Node.js einrichten
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
 
       - name: Abhängigkeiten installieren
         run: npm ci
+
+      - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen
+        run: npm audit --audit-level=high
 
       - name: Deployment-Metadaten ermitteln
         id: deployment_meta

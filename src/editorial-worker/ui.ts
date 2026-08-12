@@ -71,7 +71,7 @@ export const studioClientScript = `
   }
   function getPath(object, path) { return path.split('.').reduce((value,key) => value?.[key], object); }
   function setPath(object, path, value) { const keys=path.split('.'); let cursor=object; keys.slice(0,-1).forEach(key => cursor=cursor[key] ||= {}); cursor[keys.at(-1)] = value; }
-  function optionList(target) { const key=target==='ministry'?'ministries':target+'s'; return state.options?.[key] || []; }
+  function optionList(target) { const key=target==='ministry'?'ministries':target==='knowledge-project'?'knowledgeProjects':target+'s'; return state.options?.[key] || []; }
   function renderField(field) {
     const wrapper=document.createElement('div'); wrapper.className='field '+(['textarea','sortable-list','object-list','reference-list','image'].includes(field.type)?'field--wide':'');
     const label=document.createElement('label'); label.htmlFor='field-'+field.name.replaceAll('.','-'); label.textContent=field.label+(field.required?' *':''); wrapper.append(label);

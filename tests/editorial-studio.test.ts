@@ -53,6 +53,7 @@ test('die Registry enthält deutsche Feldangaben, Referenzen, Listen, Bilder und
     assert.ok(fieldTypes.has(type as never), type);
   }
   assert.equal(editorialRegistry.topic.fields.find((field) => field.name === 'federfuehrendesRessort')?.referenceTarget, 'ministry');
+  assert.equal(editorialRegistry.topic.fields.find((field) => field.name === 'knowledgeProjectRefs')?.referenceTarget, 'knowledge-project');
   assert.deepEqual(editorialRegistry.ministry.publicRoutes, ['/staatsregierung/kabinett/{slug}/', '/staatsregierung/kabinett/']);
   assert.deepEqual(editorialRegistry['press-release'].publicRoutes, ['/presse/pressemitteilungen/{slug}/']);
   assert.deepEqual(editorialRegistry['action-plan'].publicRoutes, ['/staatsregierung/15-punkte-plan/']);
@@ -88,6 +89,35 @@ test('die Diff-Vorschau zeigt Datei und Route und prüft Referenzen', async () =
   const event = JSON.parse(await readFile('content/presse/termine/dritte-plenarsitzung-7-landtag.json', 'utf8')) as Record<string, unknown>;
   event.relatedTopicSlugs = ['gibt-es-nicht'];
   await assert.rejects(() => prepareDocumentChange(repository, 'event', event, 'dritte-plenarsitzung-7-landtag'), /Unbekannte Themenreferenz/u);
+});
+
+test('Themenseite und Wissenshub-Coverage werden atomar und wechselseitig geändert', async () => {
+  const paths = [
+    'knowledge/projects.json',
+    'content/portal/topic-coverage.json',
+    'content/themen/bildungsreform.json',
+    ...await collectionFiles('content/themen'),
+    ...await collectionFiles('content/ressorts'),
+  ];
+  const repository = new MemoryEditorialRepository(await actualFileMap([...new Set(paths)]), 'basis-thema');
+  const topic = JSON.parse(await readFile('content/themen/bildungsreform.json', 'utf8')) as Record<string, unknown>;
+  topic.knowledgeProjectRefs = ['project-kulturpass'];
+
+  const preview = await prepareDocumentChange(repository, 'topic', topic, 'bildungsreform', 'basis-thema');
+  assert.deepEqual(preview.changes.map((entry) => entry.path), [
+    'content/themen/bildungsreform.json',
+    'content/portal/topic-coverage.json',
+  ]);
+  assert.deepEqual(preview.routes, ['/themen/bildungsreform/', '/', '/themen/']);
+
+  const coverageChange = preview.changes.find((entry) => entry.path === 'content/portal/topic-coverage.json');
+  assert.equal(typeof coverageChange?.content, 'string');
+  const coverage = JSON.parse(coverageChange?.content as string) as {
+    projectCoverage: Array<{ id: string; topicSlugs?: string[] }>;
+  };
+  assert.equal(coverage.projectCoverage.find((entry) => entry.id === 'project-schulreform')?.topicSlugs?.includes('bildungsreform') ?? false, false);
+  assert.equal(coverage.projectCoverage.find((entry) => entry.id === 'project-kulturpass')?.topicSlugs?.includes('bildungsreform'), true);
+  assert.match(preview.diff, /content\/portal\/topic-coverage\.json/u);
 });
 
 test('der geführte Kabinettsvorgang erzeugt genau eine atomare Organisationsdatei', async () => {

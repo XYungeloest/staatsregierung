@@ -110,6 +110,8 @@ context/
 Architektur, externe Einrichtung und Bedienung des Redaktionsstudios stehen in
 `docs/EDITORIAL_ARCHITECTURE.md`, `docs/EDITORIAL_SETUP.md` und
 `docs/EDITORIAL_RUNBOOK.md`.
+Veröffentlichung, Fehleranalyse, Wiederanlauf und Produktionsnachkontrolle sind in
+`docs/DEPLOYMENT_RUNBOOK.md` beschrieben.
 
 `context/` bleibt bewusst erhalten. Alte Planungs- und Zwischendokumente im Repository-Root wurden in diese README und `AGENTS.md` verdichtet.
 
@@ -368,39 +370,17 @@ entfernt statt dauerhaft abgehakt stehen gelassen.
 
 ### P0: Veröffentlichung und Sicherheit
 
-- [ ] Die 23 visuellen Abweichungen des Main-Workflows
-  [`31608327036`](https://github.com/XYungeloest/staatsregierung/actions/runs/31608327036)
-  einzeln prüfen. Betroffen sind insbesondere Presse-, Ministeriums-, Rechts- und
-  Normseitenmodule auf mehreren Viewports. Tatsächliche Regressionen beheben; Baselines nur nach
-  visueller Abnahme aktualisieren. Den macOS-Runner beziehungsweise die Screenshotumgebung so
-  festlegen, dass Plattformwechsel nicht ungeprüft neue Referenzbilder erzeugen.
 - [ ] Nach grünem Quality- und Visual-Job den aktuellen `main`-Stand über den vorhandenen
   Cloudflare-Workflow produktiv ausrollen. Anschließend HTML-Metadatum, `X-Portal-Commit`, Sitemap
-  und Suchindex auf den oben genannten Portal- und Rechtsseiten gegen denselben vollständigen
-  Commit prüfen. Der Stand `14caae6c` ist derzeit öffentlich, der jüngste Main-Workflow wurde vor
-  dem Deployment abgebrochen.
-- [ ] Den aktuellen `npm audit`-Befund von 13 Abhängigkeitsschwachstellen, darunter 11 mit
-  Einstufung `high`, fachlich bewerten und beheben. Insbesondere die Astro-/Cloudflare-, Wrangler-,
-  Sharp-, Undici-, PostCSS- und Transitivabhängigkeiten auf gepatchte Versionen bringen; den
-  notwendigen Astro-/Adapter-Majorsprung als eigene Migration mit vollständiger Testmatrix
-  behandeln und kein ungeprüftes `npm audit fix --force` verwenden.
+  und Suchindex auf den zentralen Portal- und Rechtsseiten gegen denselben vollständigen Commit
+  prüfen. Den zuvor ausgelieferten Stand und die neue Produktionskennung dabei nach dem
+  Betriebsrunbook erfassen, statt einen flüchtigen Commitstand dauerhaft in dieser Liste zu
+  pflegen.
 
 ### Portal und Betrieb
 
-- [ ] Die vorhandene 404-Seite um eine gepflegte Liste belegter Alt- und Tippadressen ergänzen.
-  Nur eindeutig zuordenbare Adressen dürfen weitergeleitet werden; beliebige unbekannte URLs
-  müssen weiterhin mit Status 404, `noindex`, Suche und hilfreichen Einstiegen antworten. Bekannte
-  Weiterleitungen und das Verhalten der Fehlerseite durch automatisierte Tests absichern.
 - [ ] In Cloudflare prüfen und dokumentieren, dass die automatische Webanalyse deaktiviert ist und
   Statistik ausschließlich nach ausdrücklicher Einwilligung geladen wird.
-- [ ] Die GitHub-Actions-Versionen aktualisieren, deren Node-20-Laufzeit inzwischen nur noch
-  erzwungen unter Node 24 ausgeführt wird. Danach beide Workflows vollständig testen und eine
-  regelmäßige, reviewpflichtige Abhängigkeitsaktualisierung samt dokumentierter Auditregel
-  einrichten.
-- [ ] Ein kleines Betriebsrunbook für fehlgeschlagene Main-Deployments ergänzen: Fehlerklasse
-  bestimmen, letzten nachweislich ausgelieferten Commit feststellen, Korrektur über Pull Request
-  veröffentlichen und Produktionskennung sowie zentrale Routen nachprüfen. Kein manuelles
-  Überschreiben des Workers außerhalb des dokumentierten Workflows.
 
 ### Redaktionsstudio und Vorschauen
 
@@ -414,10 +394,11 @@ entfernt statt dauerhaft abgehakt stehen gelassen.
   `redaktion/...`-Branch erzeugen, Draft Pull Request aktualisieren, SHA-Konflikt behandeln,
   Vorschau prüfen und erst nach Review über den normalen `main`-Workflow veröffentlichen.
 - [ ] Das Redaktionsstudio für das erweiterte Themenmodell fachlich abnehmen und vervollständigen.
-  `priority`, Highlight-Zeitraum, Termine, Module und verwandte Themen müssen ohne Roh-JSON
-  verständlich pflegbar sein; Änderungen an `knowledgeProjectRefs` müssen atomar mit
-  `content/portal/topic-coverage.json` möglich sein. Runbook und Mockdaten danach an die
-  automatische Startseiten- und Themenhervorhebung anpassen.
+  Termine und Module müssen noch ohne Roh-JSON verständlich pflegbar sein; die bereits
+  strukturierten Felder für Priorität, Highlight-Zeitraum, verwandte Themen und Wissensprojekte
+  dabei praktisch abnehmen. Die atomare Gegenpflege von `knowledgeProjectRefs` in
+  `content/portal/topic-coverage.json` ist durch Unit-Tests abgesichert, muss aber im vollständigen
+  Studio-Testvorgang mitgeprüft werden.
 
 ### Rechtsportal und Primärquellen
 
@@ -451,11 +432,6 @@ entfernt statt dauerhaft abgehakt stehen gelassen.
   Durchführung am 5. und 6. September sowie Ergebnisbekanntmachung bis 10. September erst nach
   Eingang der jeweiligen Primärquelle übernehmen. Danach Hervorhebungen, nächste Schritte,
   Terminarchive und Rechtsverknüpfungen gemeinsam aktualisieren.
-- [ ] Die Discoverability-Prüfung vom einzelnen Referenzfall entkoppeln. Die derzeit fest
-  codierte Spitzenstellung der Volksbefragung muss beim nächsten redaktionellen Stichtag durch
-  eine datums- oder konfigurationsgestützte Regel ersetzt werden; zusätzlich den Übergang nach
-  Ablauf aller `highlightUntil`-Werte testen, damit Startseite und `/themen/` nie unbeabsichtigt
-  ohne aktuellen Einstieg bleiben.
 - [ ] Boom Europe, OVV/DB und die Bodenprojekte getrennt weiterführen: operative Standorteröffnung
   und Projektorganisation von Boom, Beginn und Tarifbedingungen der 57-Millionen-Euro-
   Ticketanerkennung, etwaige tatsächliche Fernverkehrsreaktivierungen sowie Rechts- und
@@ -497,9 +473,6 @@ entfernt statt dauerhaft abgehakt stehen gelassen.
 
 ### Dokumentation und laufende Qualität
 
-- [ ] `knowledge/AUDIT.md` auf den Stichtag 9. August 2026 fortschreiben: Die dort noch als aktuell
-  bezeichneten acht Bezirke klar als historischen Stand einordnen und den auditgeschichtlichen
-  Stand vom heutigen Gegenwartsstand trennen.
 - [ ] Nach jeder Erledigung eine vollständige Dokumentationsrunde über README, `CONTENT.md`,
   `CONTENT_GAPS.md`, `DESIGN.md`, `docs/` und `knowledge/` durchführen, erledigte Punkte entfernen
   und generierte Wissensdateien ausschließlich mit `npm run knowledge:build` aktualisieren.

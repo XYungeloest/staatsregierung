@@ -25,9 +25,22 @@ Den passenden Inhaltstyp wählen, „Neuen Inhalt anlegen“ verwenden und einen
 
 ## Startseite und Themenseiten bearbeiten
 
-„Startseite“ enthält Hero, Direkteinstiege, wichtige Hinweise und die referenzierten hervorgehobenen Themen. Regierungsinformationen in einem wichtigen Hinweis werden über `governmentSlug` abgeleitet und nicht als Name wiederholt. Themen- und Ressortreferenzen werden über Auswahlfelder gesetzt und auf vorhandene Slugs geprüft.
+„Startseite“ enthält Hero, Direkteinstiege und wichtige Hinweise. Die aktuellen Themen werden dort
+nicht separat ausgewählt, sondern aus `priority`, `highlightFrom` und `highlightUntil` der
+Themenseiten abgeleitet. Regierungsinformationen in einem wichtigen Hinweis werden über
+`governmentSlug` abgeleitet und nicht als Name wiederholt. Themen- und Ressortreferenzen werden
+über Auswahlfelder gesetzt und auf vorhandene Slugs geprüft.
 
-Auf Themenseiten werden Status, federführendes Ressort, mitzeichnende Ressorts, beschlossene und umgesetzte Punkte, nächste Schritte, Rechtsgrundlagen und FAQ strukturiert gepflegt.
+Auf Themenseiten werden Status, fachlicher Stand, redaktionelle Priorität, Hervorhebungszeitraum,
+federführendes Ressort, mitzeichnende Ressorts, beschlossene und umgesetzte Punkte, nächste
+Schritte, Termine, Module, verwandte Themen, Rechtsgrundlagen und FAQ strukturiert gepflegt. Vor
+dem Fortschreiben des redaktionellen Stichtags muss mindestens ein Hervorhebungszeitraum den neuen
+Stichtag einschließen; `npm run content:check` verhindert sonst eine unbeabsichtigt leere
+Startseiten- und Themenhervorhebung. Eine befristete redaktionelle Spitzenposition wird zentral in
+`content/portal/topic-coverage.json` dokumentiert und endet mit ihrem dortigen Ablaufdatum.
+Wissenshub-Projekte werden im Studio aus einer Liste gewählt. Beim Prüfen und Einreichen einer
+Themenseite aktualisiert der Worker die wechselseitige Zuordnung in
+`content/portal/topic-coverage.json` automatisch als zweite Datei desselben atomaren Commits.
 
 ## Dashboard bearbeiten
 
