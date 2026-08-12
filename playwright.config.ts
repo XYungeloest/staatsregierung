@@ -32,7 +32,7 @@ export default defineConfig({
     { name: 'mobile-360', use: { viewport: { width: 360, height: 800 } } },
   ],
   webServer: {
-    command: 'npm run preview -- --host 127.0.0.1 --port 4321',
+    command: 'ASTRO_PREVIEW_BACKGROUND=0 npm run preview -- --host 127.0.0.1 --port 4321',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,

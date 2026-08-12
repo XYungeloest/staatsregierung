@@ -1,14 +1,20 @@
 # Wissensaudit zur Politiksimulation und zum Freistaat Ostdeutschland
 
-**Repositorystand:** `9aa406f7baebdd264d3ed824be65b43413a9dd9a`  
-**Redaktioneller Stichtag:** 21. Juli 2026  
-**Auditstand:** 28. Juli 2026, fortgeschrieben am 11. August 2026
+**Ausgangsstand des Erstaudits:** `9aa406f7baebdd264d3ed824be65b43413a9dd9a`
+
+**Redaktioneller Stichtag des Gegenwartsstands:** 9. August 2026
+**Auditstand:** 28. Juli 2026, fortgeschrieben am 12. August 2026
 
 ## Methode und Grenzen
 
 Geprüft wurden insbesondere `README.md`, `AGENTS.md`, `CONTENT.md`, `CONTENT_GAPS.md`, die zentralen Konfigurationen, strukturierte Freistaats-, Regierungs-, Themen-, Gesetzgebungs-, Norm- und Verkündungsdaten, Dashboarddaten, das Konsolidierungsmanifest, der Konsolidierungsbericht, Kreisreformdaten sowie ausgewählte historische Dateien unter `context/`.
 
-Der öffentliche Produktionsstand wurde nicht als automatisch kanonisch behandelt. Maßgeblich ist der auditierten Repositorystand. Das PolitikSim-Wiki auf Miraheze wurde als zulässige ergänzende Sekundärquelle registriert. Der automatisierte Abruf war am Auditdatum teilweise durch HTTP 403 blockiert, deshalb wurden daraus keine alleinstehenden Tatsachen übernommen. Andere Wikihoster wurden nicht verwendet.
+Der öffentliche Produktionsstand wurde nicht als automatisch kanonisch behandelt. Maßgeblich ist
+der jeweils geprüfte Repositorystand zum oben genannten redaktionellen Stichtag. Der festgehaltene
+Ausgangscommit dokumentiert den Erstaudit, nicht den heutigen Repository-HEAD. Das PolitikSim-Wiki
+auf Miraheze wurde als zulässige ergänzende Sekundärquelle registriert. Der automatisierte Abruf
+war am Auditdatum teilweise durch HTTP 403 blockiert, deshalb wurden daraus keine alleinstehenden
+Tatsachen übernommen. Andere Wikihoster wurden nicht verwendet.
 
 ## Quellen- und Abdeckungsmatrix
 
@@ -23,7 +29,7 @@ Der öffentliche Produktionsstand wurde nicht als automatisch kanonisch behandel
 | G. Parlamentarische Geschichte | Gesetzgebungsverfahren, Tagesordnungen, Verkündungen | mittel | hoch | hoch | gering | hoch | Plenarprotokolle, Abstimmungen und frühere Wahlperioden beschaffen |
 | H. Gerichtsverfahren und Verfassungskonflikte | einzelne Normen und Gesprächshinweise | gering | mittel | sehr hoch | unbekannt | sehr hoch | Keine Verfahren ohne Aktenzeichen und Primärdokument in den bestätigten Bestand übernehmen |
 | I. Bund, Länder und internationale Beziehungen | Staatsverträge, Themen, CONTENT_GAPS | mittel | hoch | sehr hoch | mittel | hoch | Ratifikation, Notifikation, Bundesrollen und Bund-Länder-Vereinbarungen getrennt erfassen |
-| J. Gebiet, Bezirke und Kommunalstruktur | Bezirksseite, Gesetz, Verfahrensdaten, GeoJSON-Manifest | sehr hoch | mittel | hoch | gering | mittel | Acht aktuelle und vierzehn künftige Bezirke mit Gültigkeitsintervallen führen |
+| J. Gebiet, Bezirke und Kommunalstruktur | Bezirksseite, Gesetz, Verfahrensdaten, GeoJSON-Manifest | sehr hoch | mittel | hoch | gering | mittel | Vierzehn seit 1. August 2026 geltende Bezirke und die acht historischen Flächenbezirke mit Gültigkeitsintervallen führen |
 | K. Haushalt und öffentliche Unternehmen | Haushaltslogik, CSV/ZIP, Normen, Fonds- und Unternehmensgesetze | mittel | mittel | hoch | gering | mittel | Zahlen nur mit Bezugsjahr und Datenquelle übernehmen, Institutionen projektbezogen verknüpfen |
 | L. Politische Kommunikation und Positionen | Pressemitteilungen, Reden, Timeline, Themen | hoch | hoch | sehr hoch | gering | mittel | Tatsachen, Ankündigungen und politische Begründungen getrennt modellieren |
 | M. Website, Rechtsportal und Simulationskonventionen | README, AGENTS, CONTENT, DESIGN, Code, Tests | sehr hoch | mittel | hoch | gering | gering | Wissenshub intern halten und Validierung in den Qualitätslauf integrieren |
@@ -76,7 +82,11 @@ Besonders prüfbedürftig sind:
 
 ## Wahrscheinlich veraltete Angaben
 
-Wahrscheinlich veraltet sind alte Wiki- und `context/`-Angaben zu Regierung, Ressorts, Parlament, Bezirken und Verfassungsorganen, sofern sie keinen Gültigkeitszeitraum besitzen. Auch öffentliche Texte zum Kabinett Honecker II sind nach dem 21. Juli 2026 nur noch historisch richtig.
+Wahrscheinlich veraltet sind alte Wiki- und `context/`-Angaben zu Regierung, Ressorts, Parlament,
+Bezirken und Verfassungsorganen, sofern sie keinen Gültigkeitszeitraum besitzen. Die acht früheren
+Flächenbezirke endeten mit Ablauf des 31. Juli 2026; seit 1. August gelten vierzehn Bezirke. Auch
+öffentliche Texte zum Kabinett Honecker II sind seit der Bildung des ersten Staatsrates am
+21. Juli 2026 nur noch historisch richtig.
 
 Planungsdokumente zu Transparenzportal, Zuständigkeitsfinder, Haushaltsnavigator oder weiteren Portalfunktionen sind nur dann als umgesetzt zu behandeln, wenn Route, Inhalt und Funktion im aktuellen Code vorhanden sind.
 
@@ -118,7 +128,7 @@ Kanonisch für den jeweiligen Zweck sind:
 * `content/normen/` und `content/verkuendungen/` für strukturierte Rechtsstände,
 * `Gesetze/*.html` als reguläre strukturtragende Importquellen,
 * `data/recht/consolidation-manifest.json` für den Konsolidierungsstand,
-* aktuelle strukturierte Personen- und Ressortdateien für den redaktionell bestätigten Regierungsstand,
+* `content/organisation/` für den redaktionell bestätigten aktuellen und historischen Regierungsstand,
 * datierte Ernennungs-, Entlassungs-, Vertrags-, Gerichts- und Parlamentsdokumente für politische Realität,
 * `knowledge/` als interner Beziehungs-, Zeit- und Konfliktindex.
 
@@ -137,7 +147,7 @@ Kanonisch für den jeweiligen Zweck sind:
 | ---: | --- | --- |
 | 1 | bereits weitgehend vorhanden | Gründungsdatum und sächsische Ausgangsordnung stehen in Geschichte und Repositoryregeln; eigenständige Gründungsurkunde fehlt |
 | 2 | bereits vorhanden | Dresden und Berliner Sonderstellung sind strukturiert |
-| 3 | vollständig mit Zeitlogik vorhanden | acht Bezirke gelten am Stichtag, vierzehn ab 1. August 2026 |
+| 3 | vollständig mit Zeitlogik vorhanden | vierzehn Bezirke gelten am Stichtag seit 1. August 2026; die acht früheren Flächenbezirke sind historisch |
 | 4 | vollständig vorhanden | Übergänge Landtag, Staatsregierung und Ministerien sind in Verfassung und Staatsreform belegt |
 | 5 | vollständig vorhanden | erster Staatsrat seit 21. Juli 2026 |
 | 6 | vollständig vorhanden | selbstständige Rechtsverordnungen und SERO-Verordnung sind belegt |

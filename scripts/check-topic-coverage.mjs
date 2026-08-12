@@ -1,5 +1,6 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
+import { validateDiscoverability } from './lib/topic-discoverability.mjs';
 
 const root = resolve(process.cwd());
 const problems = [];
@@ -111,15 +112,13 @@ for (const entry of coverage.projectCoverage ?? []) {
 if ('featuredTopicSlugs' in home) {
   problems.push('content/portal/home.json: featuredTopicSlugs ist eine parallele Themenpriorisierung; Hervorhebungen gehören in den Themendatensatz');
 }
-const activeHighlights = topics
-  .filter((topic) => topic.highlightFrom && topic.highlightFrom <= editorial.referenceDate && (!topic.highlightUntil || topic.highlightUntil >= editorial.referenceDate))
-  .sort((left, right) => right.priority - left.priority || right.updatedAt.localeCompare(left.updatedAt));
-if (activeHighlights.length === 0) {
-  problems.push(`Themendiscoverability: am Stichtag ${editorial.referenceDate} ist kein aktuelles Vorhaben hervorgehoben`);
-}
-if (activeHighlights[0]?.slug !== 'volksbefragung-2026') {
-  problems.push('Themendiscoverability: Volksbefragung 2026 muss am Stichtag das höchst priorisierte aktuelle Vorhaben sein');
-}
+const discoverability = validateDiscoverability({
+  topics,
+  referenceDate: editorial.referenceDate,
+  policy: coverage.discoverability,
+});
+problems.push(...discoverability.problems);
+const activeHighlights = discoverability.activeHighlights;
 
 if (problems.length > 0) {
   console.error('Themen-Coverage fehlgeschlagen:');

@@ -1,5 +1,34 @@
 import { expect, test } from '@playwright/test';
 
+test('belegte Altadressen werden gezielt weitergeleitet und unbekannte Pfade bleiben 404', async ({ page, request }) => {
+  const aliases = [
+    ['/uebersicht/', '/service/uebersicht/'],
+    ['/karriere/stellen/', '/service/karriere/'],
+    [
+      '/karriere/stellen/referentin-vergesellschaftungsrecht',
+      '/service/karriere/referentin-vergesellschaftungsrecht/index.html',
+    ],
+    ['/ministerien/', '/staatsregierung/kabinett/'],
+    [
+      '/ministerien/wirtschaft-arbeitsmarkt-und-beschaeftigung',
+      '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/index.html',
+    ],
+  ];
+
+  for (const [source, target] of aliases) {
+    const response = await request.get(source, { maxRedirects: 0 });
+    expect(response.status(), source).toBeGreaterThanOrEqual(300);
+    expect(response.status(), source).toBeLessThan(400);
+    expect(response.headers().location, source).toBe(target);
+  }
+
+  const missing = await page.goto('/diese-adresse-ist-nicht-belegt/');
+  expect(missing?.status()).toBe(404);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Seite nicht gefunden');
+  await expect(page.getByRole('heading', { name: 'Häufig gesuchte Bereiche' })).toBeVisible();
+});
+
 test('Startseite bietet Suche, Ministerien, mobile Navigation und 115-Orientierung', async ({ page }) => {
   await page.addInitScript(() => {
     window.localStorage.setItem('ostrecht-portal-analytics-consent', 'rejected');

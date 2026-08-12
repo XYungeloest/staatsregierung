@@ -94,6 +94,9 @@ async function assertReferences(
     } else if (target === 'norm') {
       const paths = await repository.listFiles('content/normen/', revision);
       known = new Set(paths.filter((path) => path.endsWith('/meta.json')).map((path) => path.split('/')[2]));
+    } else if (target === 'knowledge-project') {
+      const projects = parseJson(await repository.readFile('knowledge/projects.json', revision), 'knowledge/projects.json') as { projects?: Array<{ id?: unknown }> };
+      known = new Set((projects.projects ?? []).flatMap((project) => typeof project.id === 'string' ? [project.id] : []));
     } else {
       const paths = await repository.listFiles(prefixes[target], revision);
       known = new Set(paths.filter((path) => path.endsWith('.json')).map((path) => path.split('/').pop()!.replace(/\.json$/u, '')));
@@ -104,11 +107,12 @@ async function assertReferences(
   function valueAtPath(path: string): unknown {
     return path.split('.').reduce<unknown>((current, key) => current && typeof current === 'object' && !Array.isArray(current) ? (current as Record<string, unknown>)[key] : undefined, document);
   }
-  const targetLabels = { person: 'Personen', ministry: 'Ressort', government: 'Regierung', topic: 'Themen', norm: 'Norm' } as const;
+  const targetLabels = { person: 'Personen', ministry: 'Ressort', government: 'Regierung', topic: 'Themen', norm: 'Norm', 'knowledge-project': 'Wissenshub-Projekt' } as const;
   for (const field of referenceFields) {
     const target = field.referenceTarget!;
     const raw = valueAtPath(field.name);
     const values = Array.isArray(raw) ? raw : raw === undefined || raw === '' ? [] : [raw];
+    if (values.length === 0) continue;
     const known = await knownReferences(target);
     for (const reference of values) {
       if (typeof reference !== 'string' || !known.has(reference)) {
@@ -140,13 +144,57 @@ export async function prepareDocumentChange(
   const before = await repository.readFile(path, baseSha) ?? '';
   await assertReferences(repository, type, value, baseSha);
   const after = serializeEditorialDocument(type, value, path);
+  const changes: EditorialFileChange[] = [{ path, content: after, mediaType: 'application/json' }];
+  const diffs = [unifiedDiff(path, before, after)];
+  const routes = resolveEditorialRoutes(type, inferredSlug);
+
+  if (type === 'topic') {
+    const topic = JSON.parse(after) as { slug: string; knowledgeProjectRefs: string[] };
+    const coveragePath = 'content/portal/topic-coverage.json';
+    const coverageBefore = await repository.readFile(coveragePath, baseSha);
+    const coverage = parseJson(coverageBefore, coveragePath) as {
+      projectCoverage?: Array<Record<string, unknown> & { id?: unknown; topicSlugs?: unknown }>;
+    };
+    const selectedProjects = new Set(topic.knowledgeProjectRefs);
+    const knownCoverageProjects = new Set<string>();
+    let coverageChanged = false;
+    coverage.projectCoverage = (coverage.projectCoverage ?? []).map((entry) => {
+      if (typeof entry.id !== 'string') return entry;
+      knownCoverageProjects.add(entry.id);
+      const existingSlugs = Array.isArray(entry.topicSlugs)
+        ? entry.topicSlugs.filter((slug): slug is string => typeof slug === 'string')
+        : [];
+      const wasSelected = existingSlugs.includes(topic.slug);
+      const isSelected = selectedProjects.has(entry.id);
+      if (wasSelected !== isSelected) coverageChanged = true;
+      const nextSlugs = existingSlugs.filter((slug) => slug !== topic.slug);
+      if (isSelected) nextSlugs.push(topic.slug);
+      const normalizedSlugs = [...new Set(nextSlugs)];
+      if (normalizedSlugs.length === 0) {
+        const { topicSlugs: _topicSlugs, ...withoutTopicSlugs } = entry;
+        return withoutTopicSlugs;
+      }
+      return { ...entry, topicSlugs: normalizedSlugs };
+    });
+    for (const projectId of selectedProjects) {
+      if (!knownCoverageProjects.has(projectId)) {
+        throw new Error(`Wissenshub-Projekt ${projectId} fehlt im Coverage-Register.`);
+      }
+    }
+    const coverageAfter = `${JSON.stringify(coverage, null, 2)}\n`;
+    if (coverageChanged) {
+      changes.push({ path: coveragePath, content: coverageAfter, mediaType: 'application/json' });
+      diffs.push(unifiedDiff(coveragePath, coverageBefore!, coverageAfter));
+    }
+    routes.push('/', '/themen/');
+  }
   return {
     type,
     slug: inferredSlug,
     baseSha,
-    changes: [{ path, content: after, mediaType: 'application/json' }],
-    routes: resolveEditorialRoutes(type, inferredSlug),
-    diff: unifiedDiff(path, before, after),
+    changes,
+    routes: [...new Set(routes)],
+    diff: diffs.join('\n\n'),
   };
 }
 

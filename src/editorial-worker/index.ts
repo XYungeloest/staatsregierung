@@ -150,7 +150,7 @@ async function loadOptions(repository: EditorialRepository): Promise<Response> {
       return { value: slug, label: String(label) };
     });
   }
-  const [persons, ministries, topics, images, governmentsRaw, officesRaw, normFiles] = await Promise.all([
+  const [persons, ministries, topics, images, governmentsRaw, officesRaw, normFiles, projectsRaw] = await Promise.all([
     collection('content/regierung/mitglieder/', ['name']),
     collection('content/ressorts/', ['kurzname', 'name']),
     collection('content/themen/', ['title']),
@@ -158,9 +158,11 @@ async function loadOptions(repository: EditorialRepository): Promise<Response> {
     repository.readFile('content/organisation/governments.json', revision),
     repository.readFile('content/organisation/offices.json', revision),
     repository.listFiles('content/normen/', revision),
+    repository.readFile('knowledge/projects.json', revision),
   ]);
   const governmentsDocument = JSON.parse(governmentsRaw ?? '{"governments":[]}') as { governments: Array<{ slug: string; title: string }> };
   const officesDocument = JSON.parse(officesRaw ?? '{"offices":[]}') as { offices: Array<{ slug: string; title: string; canLeadMinistry: boolean }> };
+  const projectsDocument = JSON.parse(projectsRaw ?? '{"projects":[]}') as { projects: Array<{ id: string; title: string }> };
   const normSlugs = [...new Set(normFiles.filter((path) => path.endsWith('/meta.json')).map((path) => path.split('/')[2]))].sort();
   return json({
     persons: persons.sort((left, right) => left.label.localeCompare(right.label, 'de')),
@@ -169,6 +171,7 @@ async function loadOptions(repository: EditorialRepository): Promise<Response> {
     governments: governmentsDocument.governments.map((entry) => ({ value: entry.slug, label: entry.title })),
     offices: officesDocument.offices.map((entry) => ({ value: entry.slug, label: entry.title, canLeadMinistry: entry.canLeadMinistry })),
     norms: normSlugs.map((slug) => ({ value: slug, label: slug })),
+    knowledgeProjects: projectsDocument.projects.map((project) => ({ value: project.id, label: project.title })).sort((left, right) => left.label.localeCompare(right.label, 'de')),
     images: images.filter((path) => /\.(?:avif|jpe?g|png|webp)$/iu.test(path)).map((path) => ({ value: `/${path.replace(/^public\//u, '')}`, label: path.replace(/^public\//u, '') })),
   });
 }

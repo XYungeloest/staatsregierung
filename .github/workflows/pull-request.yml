@@ -26,7 +26,7 @@ jobs:
       full_ui: ${{ steps.paths.outputs.full_ui }}
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Änderungstyp bestimmen
@@ -53,14 +53,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Node.js einrichten
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
       - name: Abhängigkeiten installieren
         run: npm ci
+      - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen
+        run: npm audit --audit-level=high
       - name: Inhalte und Wissenshub prüfen
         run: |
           npm run content:check
@@ -91,9 +93,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Node.js einrichten
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -113,12 +115,12 @@ jobs:
     needs:
       - classify
       - quality
-    runs-on: macos-latest
+    runs-on: macos-26
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Node.js einrichten
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -129,6 +131,15 @@ jobs:
       - name: Visuelle Regressionen prüfen
         run: npm run test:visual
 
+      - name: Abweichungsbilder sichern
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: visual-diffs-${{ github.event.pull_request.number }}-${{ github.sha }}
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 14
+
   preview:
     if: ${{ always() && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && needs.quality.result == 'success' && (needs.ui.result == 'success' || needs.ui.result == 'skipped') && (needs.visual.result == 'success' || needs.visual.result == 'skipped') }}
     needs:
@@ -138,9 +149,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Node.js einrichten
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           cache: npm
@@ -184,7 +195,7 @@ jobs:
               ;;
           esac
       - name: Vorschau im Pull Request verlinken
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           PREVIEW_URL: ${{ steps.cloudflare_preview.outputs.preview_url }}
           VERSION_ID: ${{ steps.cloudflare_preview.outputs.version_id }}
@@ -215,7 +226,7 @@ jobs:
     steps:
       - name: Preview-Version ermitteln
         id: preview
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const marker = '<!-- ostrecht-cloudflare-preview -->';
@@ -252,7 +263,7 @@ jobs:
           done
       - name: Preview-Kommentar aktualisieren
         if: ${{ steps.preview.outputs.found == 'true' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           COMMENT_ID: ${{ steps.preview.outputs.comment_id }}
         with:
