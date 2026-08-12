@@ -259,11 +259,11 @@ nicht vorgesehen.
 Jeder Produktionsbuild trägt den vollständigen Git-Commit als `meta[name="build-commit"]` in
 HTML-Seiten und als Antwortheader `X-Portal-Commit` auf allen Routen. In CI wird die Kennung aus
 `GITHUB_SHA` über `PORTAL_BUILD_COMMIT` übernommen; lokale Builds verwenden den aktuellen `HEAD`.
-Der bekannte öffentlich ausgelieferte Produktionsstand ist am 22. Juli 2026 weiterhin
-`59adee4659992b96d55812fbf4e3612a3541e126`; Abweichungen zum aktuellen Repository sind deshalb
-kein Cachehinweis. Vor einem späteren Deployment müssen `/`, `/recht/`, `/recht/verfassung/`, die
-Normseiten des Ersten Staatsreformgesetzes und der SERO-Verordnung, die Verkündungsseiten Nr. 53
-und 58 sowie `/sitemap.xml` und `/search-index.json` dieselbe neue vollständige Kennung ausgeben.
+Der öffentlich ausgelieferte Produktionsstand wird nicht dauerhaft in dieser README festgeschrieben.
+Vor und nach einem Deployment müssen `/`, `/recht/`, `/recht/verfassung/`, die Normseiten des
+Ersten Staatsreformgesetzes und der SERO-Verordnung, die Verkündungsseiten Nr. 53 und 58 sowie
+`/sitemap.xml` und `/search-index.json` dieselbe vollständige Kennung des freigegebenen Commits
+ausgeben.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter
@@ -357,9 +357,33 @@ Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten und Sitemap.
 
 ## TODO
 
-Diese Liste bündelt noch offene Arbeiten auf Projektebene. Quellenbezogene Detailfragen werden
-weiterhin vollständig in `CONTENT_GAPS.md`, `knowledge/open-questions.json` und
-`data/recht/consolidation-report.md` gepflegt; die README ersetzt diese Nachweise nicht.
+**Zuletzt abgeglichen:** 12. August 2026
+
+Diese Liste ist der zentrale Projektbacklog. Jede noch offene Aufgabe muss hier mindestens als
+Sammelpunkt erscheinen. Quellenlocators, Einzelkonflikte und maschinenlesbare Zustände werden
+weiterhin in `CONTENT_GAPS.md`, `knowledge/open-questions.json`,
+`content/portal/topic-coverage.json` und `data/recht/consolidation-report.md` gepflegt; diese
+Dateien liefern die Nachweise, bilden aber keine parallele Aufgabenliste. Erledigte Punkte werden
+entfernt statt dauerhaft abgehakt stehen gelassen.
+
+### P0: Veröffentlichung und Sicherheit
+
+- [ ] Die 23 visuellen Abweichungen des Main-Workflows
+  [`31608327036`](https://github.com/XYungeloest/staatsregierung/actions/runs/31608327036)
+  einzeln prüfen. Betroffen sind insbesondere Presse-, Ministeriums-, Rechts- und
+  Normseitenmodule auf mehreren Viewports. Tatsächliche Regressionen beheben; Baselines nur nach
+  visueller Abnahme aktualisieren. Den macOS-Runner beziehungsweise die Screenshotumgebung so
+  festlegen, dass Plattformwechsel nicht ungeprüft neue Referenzbilder erzeugen.
+- [ ] Nach grünem Quality- und Visual-Job den aktuellen `main`-Stand über den vorhandenen
+  Cloudflare-Workflow produktiv ausrollen. Anschließend HTML-Metadatum, `X-Portal-Commit`, Sitemap
+  und Suchindex auf den oben genannten Portal- und Rechtsseiten gegen denselben vollständigen
+  Commit prüfen. Der Stand `14caae6c` ist derzeit öffentlich, der jüngste Main-Workflow wurde vor
+  dem Deployment abgebrochen.
+- [ ] Den aktuellen `npm audit`-Befund von 13 Abhängigkeitsschwachstellen, darunter 11 mit
+  Einstufung `high`, fachlich bewerten und beheben. Insbesondere die Astro-/Cloudflare-, Wrangler-,
+  Sharp-, Undici-, PostCSS- und Transitivabhängigkeiten auf gepatchte Versionen bringen; den
+  notwendigen Astro-/Adapter-Majorsprung als eigene Migration mit vollständiger Testmatrix
+  behandeln und kein ungeprüftes `npm audit fix --force` verwenden.
 
 ### Portal und Betrieb
 
@@ -367,15 +391,16 @@ weiterhin vollständig in `CONTENT_GAPS.md`, `knowledge/open-questions.json` und
   Nur eindeutig zuordenbare Adressen dürfen weitergeleitet werden; beliebige unbekannte URLs
   müssen weiterhin mit Status 404, `noindex`, Suche und hilfreichen Einstiegen antworten. Bekannte
   Weiterleitungen und das Verhalten der Fehlerseite durch automatisierte Tests absichern.
-- [ ] Den aktuellen Repositorystand produktiv ausrollen und anschließend auf den in der
-  Qualitätssicherung genannten Portal- und Rechtsseiten prüfen, dass HTML-Metadatum,
-  `X-Portal-Commit`, Sitemap und Suchindex dieselbe vollständige Commitkennung ausgeben. Danach den
-  inzwischen historischen Hinweis auf den Produktionsstand vom 22. Juli 2026 aus dieser README
-  entfernen oder aktualisieren.
 - [ ] In Cloudflare prüfen und dokumentieren, dass die automatische Webanalyse deaktiviert ist und
   Statistik ausschließlich nach ausdrücklicher Einwilligung geladen wird.
-- [ ] Die trotz bestehender `.gitignore` versehentlich versionierte `.github/.DS_Store` aus dem
-  Git-Bestand entfernen und prüfen, ob weitere Betriebssystemdateien verfolgt werden.
+- [ ] Die GitHub-Actions-Versionen aktualisieren, deren Node-20-Laufzeit inzwischen nur noch
+  erzwungen unter Node 24 ausgeführt wird. Danach beide Workflows vollständig testen und eine
+  regelmäßige, reviewpflichtige Abhängigkeitsaktualisierung samt dokumentierter Auditregel
+  einrichten.
+- [ ] Ein kleines Betriebsrunbook für fehlgeschlagene Main-Deployments ergänzen: Fehlerklasse
+  bestimmen, letzten nachweislich ausgelieferten Commit feststellen, Korrektur über Pull Request
+  veröffentlichen und Produktionskennung sowie zentrale Routen nachprüfen. Kein manuelles
+  Überschreiben des Workers außerhalb des dokumentierten Workflows.
 
 ### Redaktionsstudio und Vorschauen
 
@@ -388,6 +413,11 @@ weiterhin vollständig in `CONTENT_GAPS.md`, `knowledge/open-questions.json` und
 - [ ] Einen vollständigen Studio-Testvorgang durchführen: Inhalt laden, atomaren Commit auf einem
   `redaktion/...`-Branch erzeugen, Draft Pull Request aktualisieren, SHA-Konflikt behandeln,
   Vorschau prüfen und erst nach Review über den normalen `main`-Workflow veröffentlichen.
+- [ ] Das Redaktionsstudio für das erweiterte Themenmodell fachlich abnehmen und vervollständigen.
+  `priority`, Highlight-Zeitraum, Termine, Module und verwandte Themen müssen ohne Roh-JSON
+  verständlich pflegbar sein; Änderungen an `knowledgeProjectRefs` müssen atomar mit
+  `content/portal/topic-coverage.json` möglich sein. Runbook und Mockdaten danach an die
+  automatische Startseiten- und Themenhervorhebung anpassen.
 
 ### Rechtsportal und Primärquellen
 
@@ -410,20 +440,60 @@ weiterhin vollständig in `CONTENT_GAPS.md`, `knowledge/open-questions.json` und
   verbindlicher Wappenbeschreibung widerspruchsfrei belegen und konsolidieren.
 - [ ] Feiertagsgesetz beziehungsweise Änderungsgesetze und ihre Inkrafttretensdaten normgenau
   zuordnen.
+- [ ] Die Organisationserlasse 09/2025 und 12/2025 mit eindeutigen Aufhebungs- oder
+  Übergangsquellen vervollständigen. Bis dahin keine präzisen Außerkrafttretensdaten erfinden und
+  die Fortgeltung von 12/2025 neben dem Organisationserlass 05/2026 transparent halten.
 
-### Politische Realität und öffentliche Inhalte
+### Aktuelle Vorhaben und öffentliche Inhalte
+
+- [ ] Die Volksbefragung und die Wahl zur achten Volkskammer entlang der belegten Termine
+  fortschreiben: vollständige Unterlagen nach der vorgesehenen Veröffentlichung am 22. August,
+  Durchführung am 5. und 6. September sowie Ergebnisbekanntmachung bis 10. September erst nach
+  Eingang der jeweiligen Primärquelle übernehmen. Danach Hervorhebungen, nächste Schritte,
+  Terminarchive und Rechtsverknüpfungen gemeinsam aktualisieren.
+- [ ] Die Discoverability-Prüfung vom einzelnen Referenzfall entkoppeln. Die derzeit fest
+  codierte Spitzenstellung der Volksbefragung muss beim nächsten redaktionellen Stichtag durch
+  eine datums- oder konfigurationsgestützte Regel ersetzt werden; zusätzlich den Übergang nach
+  Ablauf aller `highlightUntil`-Werte testen, damit Startseite und `/themen/` nie unbeabsichtigt
+  ohne aktuellen Einstieg bleiben.
+- [ ] Boom Europe, OVV/DB und die Bodenprojekte getrennt weiterführen: operative Standorteröffnung
+  und Projektorganisation von Boom, Beginn und Tarifbedingungen der 57-Millionen-Euro-
+  Ticketanerkennung, etwaige tatsächliche Fernverkehrsreaktivierungen sowie Rechts- und
+  Umsetzungsstand von Volksacker, Flächenfonds und Bodenfonds Ost nur mit Vollzugsbelegen
+  aktualisieren.
+- [ ] Für bestätigte Beschaffungs- und Unternehmensentscheidungen die noch fehlende praktische
+  Umsetzung belegen. Dazu gehören Zuschlagsempfänger sowie Lieferung und Betrieb des E-Jura-
+  Systems, Auslieferung der vier Hovercrafts, NVIDIA-Standortumsetzung, Lieferung des ersten
+  Zeppelin NT und Errichtung des Luxemburg-Liebknecht-Denkmals. Abgelehnte oder zurückgezogene
+  Varianten bleiben als solche abgeschlossen.
+- [ ] Die Beendigung der ostdeutschen Kooperationen mit Israel durch den ursprünglichen
+  Regierungsakt oder eine gleichwertige Primärquelle absichern und den genauen Umfang erst danach
+  in öffentlichen Inhalten nachführen.
+- [ ] Den praktischen Umsetzungsstand des Transparenz- und Informationsfreiheitsrechts klären.
+  Ein öffentliches Transparenzportal oder ein Zuständigkeitsfinder darf erst als verfügbar
+  erscheinen, wenn Route, Datenpflege, Zuständigkeit und Betrieb tatsächlich vorhanden und
+  belegt sind. Ältere Planungen zu Transparenzportal, Zuständigkeitsfinder und Haushaltsnavigator
+  einzeln als umgesetzt, weiterhin geplant, verworfen oder unbelegt klassifizieren.
+
+### Politische Geschichte und Wissenshub
 
 - [ ] Primärakten zum Bundesratszugangsstreit, zum formellen Abschluss der Präsidentenanklage gegen
   Manuela Dreyer sowie zu den Einzelakten und zum Ende von Karl Honeckers Vertretung der
   Bundespräsidentin sichern. Bis dahin keine Aktenzeichen, Entscheidungsdaten oder Rechtsfolgen
   ergänzen.
-- [ ] Für bestätigte, aber praktisch noch nicht belegte EAG-Vorgänge die Vollzugsnachweise
-  nachpflegen. Dazu gehören insbesondere Auslieferung oder Inbetriebnahme von Beschaffungen,
-  operative Umsetzung des Boom-Europe-Standorts, Tarifdetails und mögliche
-  Fernverkehrsreaktivierungen sowie Status von Volksacker, Flächenfonds und Bodenfonds Ost.
 - [ ] Das Ende der historischen Bevollmächtigtenämter von Claus Weselsky und Gregor Gysi sowie die
   Übergänge der Staatskrise 2025 mit Ernennungs-, Entlassungs-, Wahl- oder Organisationsakten
-  vervollständigen. Für Gerhardt Lehrmann weiterhin kein aktuelles Personenprofil anlegen.
+  vervollständigen. Die historische Rolle Gerhardt Lehrmanns nur nach Quellenklärung modellieren
+  und weiterhin kein aktuelles Personenprofil für ihn anlegen.
+- [ ] Die politische Chronologie vor Dezember 2025 vervollständigen: frühere Regierungen und
+  Wahlperioden, Ende der Amtszeit Tom Kurzschlusses, Misstrauensvoten, Partei- und Fraktionswechsel,
+  Honeckers belegte Biografie sowie die Namensgeschichte von DEMOS. Rollenintervalle und
+  Mehrheitsangaben nur aus datierten Primärakten oder klar gekennzeichneten historischen Quellen
+  übernehmen.
+- [ ] Die verbleibenden unbestimmten Personen, Gerichtsverfahren und nichtrechtlichen
+  Realitätsereignisse aus `knowledge/conversation-candidates.json` einzeln prüfen. Bestätigte
+  Befunde in Personenrollen, Timeline oder Proceedings überführen, Widerlegtes verwerfen und
+  unprüfbares Gesprächswissen nicht in den Gegenwartsstand übernehmen.
 
 ### Dokumentation und laufende Qualität
 
@@ -433,6 +503,10 @@ weiterhin vollständig in `CONTENT_GAPS.md`, `knowledge/open-questions.json` und
 - [ ] Nach jeder Erledigung eine vollständige Dokumentationsrunde über README, `CONTENT.md`,
   `CONTENT_GAPS.md`, `DESIGN.md`, `docs/` und `knowledge/` durchführen, erledigte Punkte entfernen
   und generierte Wissensdateien ausschließlich mit `npm run knowledge:build` aktualisieren.
+- [ ] Beim Fortschreiben des redaktionellen Stichtags alle zeitabhängigen Oberflächen gemeinsam
+  prüfen: aktuelle Termine und Stellen, Highlight-Zeiträume, Verfahren, Normfassungen,
+  Regierungszuordnungen, Gebietsstände, Timeline und Suchindex. Ein technisches Builddatum darf
+  dabei keinen fachlichen Aktualitätsstand ersetzen.
 - [ ] Vor Produktionsfreigaben neben den automatisierten Prüfungen einen kurzen manuellen
   Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-, Tablet- und
   Desktopbreiten dokumentieren.
