@@ -368,15 +368,6 @@ weiterhin in `CONTENT_GAPS.md`, `knowledge/open-questions.json`,
 Dateien liefern die Nachweise, bilden aber keine parallele Aufgabenliste. Erledigte Punkte werden
 entfernt statt dauerhaft abgehakt stehen gelassen.
 
-### P0: Veröffentlichung und Sicherheit
-
-- [ ] Nach grünem Quality- und Visual-Job den aktuellen `main`-Stand über den vorhandenen
-  Cloudflare-Workflow produktiv ausrollen. Anschließend HTML-Metadatum, `X-Portal-Commit`, Sitemap
-  und Suchindex auf den zentralen Portal- und Rechtsseiten gegen denselben vollständigen Commit
-  prüfen. Den zuvor ausgelieferten Stand und die neue Produktionskennung dabei nach dem
-  Betriebsrunbook erfassen, statt einen flüchtigen Commitstand dauerhaft in dieser Liste zu
-  pflegen.
-
 ### Portal und Betrieb
 
 - [ ] In Cloudflare prüfen und dokumentieren, dass die automatische Webanalyse deaktiviert ist und
