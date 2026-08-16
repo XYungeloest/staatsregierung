@@ -1,0 +1,49 @@
+{
+  "slug": "stanzo-2026-26",
+  "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 26",
+  "year": 2026,
+  "issue": "26",
+  "date": "2026-08-16",
+  "publication": "StAnzO.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/StAnzO. 2026 Nr. 26.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 26.html",
+      "sha256": "fcd85ee53b2270f732e157f5b28ff557c90339295e257febb11ae2ec39d7901d",
+      "mediaType": "text/html",
+      "pageRange": "2–4",
+      "verifiedAt": "2026-08-16",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 26.pdf",
+      "sha256": "fd180c03d2530ebd2f384aaa472ffef4206a8ccb7635af983733395a307679bd",
+      "mediaType": "application/pdf",
+      "pageCount": 4,
+      "pageRange": "2–4",
+      "verifiedAt": "2026-08-16",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/StAnzO. 2026 Nr. 26.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "vwv-ostdeutsche-sportschulen",
+      "title": "Verwaltungsvorschrift des Staatssekretariats für Volksbildung und Wissenschaft über Ostdeutsche Sportschulen",
+      "type": "verwaltungsvorschrift",
+      "citation": "Verwaltungsvorschrift vom 16. August 2026 (StAnzO. 2026 Nr. 26 S. 2)",
+      "pages": "2–4",
+      "documentDate": "2026-08-16",
+      "normSlug": "vwv-ostdeutsche-sportschulen",
+      "versionId": "2026-09-01"
+    }
+  ]
+}

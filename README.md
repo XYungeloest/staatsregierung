@@ -5,7 +5,7 @@ Website des fiktiven Staatsrates des Ostdeutschen Freistaates mit Staatsportal, 
 Die öffentliche Website soll sachlich, ruhig und behördennah wirken. Architektur- und Entwicklungsbegriffe gehören nicht in öffentliche Seitentexte; operative Hinweise bleiben in Code, README, AGENTS oder `CONTENT.md`.
 
 Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
-Der aktuelle redaktionelle Stand ist der 9. August 2026. Der frühere Stichtagsimport vom
+Der aktuelle redaktionelle Stand ist der 16. August 2026. Der frühere Stichtagsimport vom
 19. Juli 2026 bleibt in `CONTENT_UPDATE_2026-07-19.md` historisch dokumentiert; aktuelle offene
 Quellenfragen stehen in `CONTENT_GAPS.md`.
 
@@ -217,7 +217,7 @@ bezeichnet.
 Für öffentliche Übersichten werden Termine und Stellenangebote über
 `src/lib/portal/dates.ts` gegen den redaktionellen Stichtag gefiltert. Vergangene Termine und
 abgelaufene Fristen bleiben im Archiv erreichbar, werden aber nicht als aktuell ausgegeben.
-Der derzeitige Stichtag ist der 9. August 2026.
+Der derzeitige Stichtag ist der 16. August 2026.
 
 Der Normimport ist standardmäßig ein schreibfreier Audit. `npm run norms:audit` klassifiziert die
 Quellen und zeigt erkannte Normen und geplante Änderungen. Schreiben ist nur gezielt mit
@@ -368,6 +368,10 @@ weiterhin in `CONTENT_GAPS.md`, `knowledge/open-questions.json`,
 Dateien liefern die Nachweise, bilden aber keine parallele Aufgabenliste. Erledigte Punkte werden
 entfernt statt dauerhaft abgehakt stehen gelassen.
 
+Alle dafür noch benötigten externen Einstellungen, fachlichen Entscheidungen und Primärquellen
+sind ausfüllbar im [`docs/ZUARBEITSFORMULAR.md`](docs/ZUARBEITSFORMULAR.md) gebündelt. Das Formular
+dient nur der Übergabe von Zuarbeit; der Aufgabenstatus wird weiterhin ausschließlich hier gepflegt.
+
 ### Portal und Betrieb
 
 - [ ] In Cloudflare prüfen und dokumentieren, dass die automatische Webanalyse deaktiviert ist und
@@ -494,7 +498,7 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
 
 ### Rechtsportal und Primärquellen
 
-- [ ] Die 34 im Konsolidierungsbericht als `missing-baseline` geführten Zielnormen priorisiert mit
+- [ ] Die 33 im Konsolidierungsbericht als `missing-baseline` geführten Zielnormen priorisiert mit
   amtlichen historischen REVOSax-Fassungen, Gültigkeitszeitraum und unverändertem Snapshot sichern
   und anschließend über geprüfte Patch-Rezepte konsolidieren. Kulturraumgesetz und Ostdeutsches
   Polizeibehördengesetz sind wegen der Berlin-Darstellung zuerst zu bearbeiten.

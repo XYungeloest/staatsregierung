@@ -1,0 +1,978 @@
+{
+  "amendmentAct": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+  "effectiveDate": "2026-09-01",
+  "versionId": "2026-09-01",
+  "amendmentCitation": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "resultCitation": "Ostdeutsche Schulnetzplanungsverordnung, geändert durch Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "changeNote": "Schularten, Zuständigkeiten, Bezeichnungen und Planungsregeln an das ostdeutsche Schulrecht angepasst.",
+  "commandCoverage": [
+    "Artikel 1 § 2 Nummern 1 bis 13"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 67.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsische Schulnetzplanungsverordnung",
+      "expectedMatches": 1,
+      "value": "Ostdeutsche Schulnetzplanungsverordnung",
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 Nummer 1",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 3"
+      },
+      "expectedHash": "a18eabde579b86e123dc42e3f156e0fed2fc466a53e830ff4b90fb9c187ac745",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3",
+        "title": "Bestandteile der Teilschulnetzpläne",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Teilschulnetzpläne enthalten",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "einen Schulnetzbericht,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "eine mittel- und langfristige Bedarfsprognose,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "eine langfristige Zielplanung mit Ausführungsmaßnahmen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "einen Standortplan und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "einen Nachweis über die Abstimmung mit der Jugendhilfeplanung nach § 23a Absatz 1 Satz 1 des Ostdeutschen Schulgesetzes.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Über die in Absatz 1 genannten Bestandteile hinaus enthalten die Teilschulnetzpläne für die allgemeinbildenden Schulen und die Schulen des zweiten Bildungsweges",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "eine Schülerzahlvorausberechnung der Schulaufsichtsbehörde für jede Schule und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Nachweise über die erforderlichen Beteiligungen nach § 23a Absatz 4 des Ostdeutschen Schulgesetzes und nach § 10.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Über die in Absatz 1 genannten Bestandteile hinaus enthält der Teilschulnetzplan für die berufsbildenden Schulen",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "eine Absolventenzahlprognose der obersten Schulaufsichtsbehörde für Förderschulen, Polytechnische Oberschulen und Erweiterte Oberschulen für jeden Landkreis und jede kreisfreie Stadt sowie",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Nachweise über die erforderlichen Beteiligungen nach § 23a Absatz 7 des Ostdeutschen Schulgesetzes.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 3)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "9fe841a693a3c47648373dcc10015b2501708e1d388b431d5883ff25c562e13d",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 4",
+        "title": "Schulnetzbericht",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Im Schulnetzbericht sind die vorhandenen Schulen einschließlich der Schulen in freier Trägerschaft darzustellen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Für jede Schule sind mindestens aufzuführen:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "der Schulträger,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "bei Gemeinden die zentralörtliche Funktion des Schulträgers,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Standorte der genutzten Schulgebäude und Schulsportstätten einschließlich der Angabe der darin befindlichen Schulart und der Adresse,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "eine Gebäudeanalyse mit Darstellung jedes Raumes unter Angabe von Fläche und Nutzungsart, Aussagen zur Doppel- oder Fremdnutzung und gebäudegebundenen Ausstattung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "bei allgemeinbildenden Schulen mit vertiefter Ausbildung, berufsbildenden Schulen und Schulen des zweiten Bildungsweges Aussagen zur Internatsunterbringung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "vorhandene Betreuungsangebote nach § 16 Absatz 2 des Ostdeutschen Schulgesetzes einschließlich der Benennung der Kapazitäten nach Betriebserlaubnis und Angaben zur Auslastung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "Standorte der Heimunterbringung nach § 13 Absatz 3 des Ostdeutschen Schulgesetzes einschließlich der Benennung der Kapazitäten nach Betriebserlaubnis und Angaben zur Auslastung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "8.",
+            "text": "eine Darstellung zum Umfang der Bildungsangebote,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "9.",
+            "text": "die Einzugsbereiche bei Einrichtung von Schulen und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "10.",
+            "text": "bestehende Formen der kommunalen Zusammenarbeit.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Träger der öffentlichen Schulen sind verpflichtet, dem Träger der Schulnetzplanung, sofern dieser nicht selbst Schulträger ist, für den Schulnetzbericht nach Absatz 1 die Angaben nach Absatz 2 mit Ausnahme der Nummern 1 und 2 zu übermitteln.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Träger von Schulen in freier Trägerschaft sind verpflichtet, dem Träger der Schulnetzplanung für den Schulnetzbericht nach Absatz 1 die Angaben nach Absatz 2 Nummer 1, 3 und 8 zu übermitteln.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 4)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "02070ecc65284e1075983a93dce61657d41adaeeb5b3c0e3eece43d3aa759288",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5",
+        "title": "Bedarfsprognose",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Auf der Grundlage des Schulnetzberichtes und der Schülerzahlvorausberechnung oder der Absolventenzahlfortschreibung ist die mittel- und langfristige Bedarfsprognose zu erstellen. ²Absehbare lokale oder regionale Entwicklungen zur Bedarfs- und Nachfrageentwicklung entgegen der in Satz 1 genannten Vorausberechnung oder Prognose sind zu benennen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die mittelfristige Bedarfsprognose umfasst einen Zeitraum von fünf Jahren und die langfristige Bedarfsprognose umfasst einen Zeitraum von zehn Jahren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Bedarfsprognosen beinhalten eine Modellrechnung zur künftigen Klassenbildung je Klassen- oder Jahrgangstufe unter Zugrundelegung eines Planungsrichtwertes.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Der Planungsrichtwert an den öffentlichen Schulen beträgt 25 Schülerinnen und Schüler je Klasse, soweit in der Anlage nichts Abweichendes bestimmt ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Für jede Schule ist anzugeben, ob die Mindestvoraussetzungen für die Fortführung der Schule insgesamt oder von Teilen derselben nach § 4a des Ostdeutschen Schulgesetzes und der Ostdeutschen Klassenbildungsverordnung erfüllt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "¹Bei Schulen mit Schulbezirk ist für den jeweiligen Schulbezirk und ansonsten für jede Schule oder jedes Planungsgebiet anzugeben, ob der Bedarf an Schulplätzen gedeckt werden kann. ²Planungsgebiet ist eine von der Kreisfreien Stadt als Träger der Schulnetzplanung festgelegte Teilfläche ihres Gebiets.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 5)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 6"
+      },
+      "expectedHash": "fab4e4d86b58f8135b71cdeef6ff73570aab77c1010fa5a9bc8c09beb94815f5",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 6",
+        "title": "Langfristige Zielplanung mit den Ausführungsmaßnahmen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Ausgehend von der Bedarfsprognose sind für die nächsten zehn Jahre in der langfristigen Zielplanung die abzuleitenden Ausführungsmaßnahmen wie die Einrichtung, Änderung oder Aufhebung von Schulen oder Teilen von ihnen, Schulbezirksänderungen, Formen der kommunalen Zusammenarbeit sowie Angaben zur Erweiterung oder Verringerung von Schulstandorten und deren zeitliche Abfolge anzugeben und zu erläutern. ²Die Angabe von Handlungsoptionen ist möglich.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "¹Können Bildungsangebote im Gebiet des Trägers der Schulnetzplanung nicht sinnvoll befriedigt werden, ist darzustellen, durch wen, wo und durch welche Maßnahmen Abhilfe geschaffen werden kann. ²Bevor eine öffentliche Schule neu eingerichtet wird, ist darzulegen, dass weder freie Raumkapazitäten an zumutbar entfernten Schulen bestehen, noch der Bedarf im Schulträgergebiet durch Zusammenarbeit von Schulträgern nach § 22 Absatz 4 des Ostdeutschen Schulgesetzes im Sinne der Nachhaltigkeit gesichert werden kann. ³Dies gilt ebenso für Erweiterungen von Schulen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Änderungen der genehmigten Kapazitäten von Betreuungsangeboten nach § 16 Absatz 2 des\nOstdeutschen Schulgesetzes und der Heimunterbringung nach § 13 Absatz 3 des Ostdeutschen Schulgesetzes sind zu benennen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 6)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 7"
+      },
+      "expectedHash": "ef6017e718ff02169e89f3be341a2ad399246bcdc5423f9744751c07ce4d8186",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 7",
+        "title": "Standortplan",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "¹Im Standortplan ist auf Grundlage der langfristigen Zielplanung mit den Ausführungsmaßnahmen auszuweisen, welche Schularten und Bildungsgänge an welchem Schulstandort für jedes der folgenden zehn Schuljahre vorhanden sein sollen einschließlich der Betreuungsangebote nach § 16 Absatz 2 des Ostdeutschen Schulgesetzes und der Standorte der Heimunterbringung nach § 13 Absatz 3 des Ostdeutschen Schulgesetzes. ²Die Landkreise benennen im Standortplan als Schulstandorte Gemeinden. ³Soweit die Landkreise Schulträger sind, ist zusätzlich die Schule zu benennen. ⁴Die Kreisfreien Städte benennen als Schulstandort Planungsgebiete nach § 5 Absatz 6 Satz 2 oder die einzelne Schule. ⁵Die Nutzung von Bildungsangeboten, die im Gebiet des Trägers der Schulnetzplanung selbst nicht vorgehalten werden, ist darzustellen."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 7)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 11"
+      },
+      "expectedHash": "620282cfa2ad7c576dfb018a3369dac417ee0992c9a4989370f1d428d64a6010",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 11",
+        "title": "Genehmigungsverfahren",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Der Teilschulnetzplan ist über die Schulaufsichtsbehörde bei der obersten Schulaufsichtsbehörde einzureichen. ²Die Schulaufsichtsbehörde prüft den Teilschulnetzplan, erstellt eine Stellungnahme und leitet diese mit dem Teilschulnetzplan an die oberste Schulaufsichtsbehörde zur Genehmigung weiter.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "¹Die Verordnung über sorbische Schulen und sorbischen Unterricht im Freistaat Ostdeutschland bleibt unberührt.²Ebenso bleiben Entscheidungen der Schulaufsichtsbehörde über die Anzahl der schuljährlich zu bildenden Klassen, Gruppen und Kurse je Klassen- oder Jahrgangsstufe und Schule unberührt.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 11)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 12"
+      },
+      "expectedHash": "0c2daacba3d4af4e679aba51bf0b7cec5c4019b6727cd4614fe945bc31d21305",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 12",
+        "title": "Vollständigkeit der Unterlagen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Nach Eingang der Unterlagen zum Schulnetzplan des Landkreises oder der Kreisfreien Stadt bei der obersten Schulaufsichtsbehörde prüft diese die Unterlagen unverzüglich auf deren Vollständigkeit und erteilt eine Eingangsbestätigung in schriftlicher Form. ²Die inhaltliche Prüfung und Bewertung bleibt dem Genehmigungsverfahren durch die oberste Schulaufsichtsbehörde vorbehalten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Eingangsbestätigung ergeht an den Landkreis oder die Kreisfreie Stadt",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "mit der Bestätigung, dass die eingereichten Unterlagen und Daten in formaler Hinsicht vollständig sind, oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "mit der Mitteilung, dass weitere Unterlagen oder Daten zur Bearbeitung des Teilschulnetzplanes erforderlich sind.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die Mitteilung nach Absatz 2 Nummer 2 muss eine genaue Bezeichnung der Unterlagen oder Daten enthalten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Ab dem Datum der Bestätigung der Vollständigkeit durch die oberste Schulaufsichtsbehörde beginnt der Lauf der Frist nach § 23a Absatz 6 Satz 2 des Ostdeutschen Schulgesetzes.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 12)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 13"
+      },
+      "expectedHash": "ce711b432562a4ee6f89daa215f0b213f0160c3764662e6fdbd482d2ca0691b7",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 13",
+        "title": "Aufstellung des Teilschulnetzplanes",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die oberste Schulaufsichtsbehörde stellt den Teilschulnetzplan des Freistaates Ostdeutschland für die berufsbildenden Schulen nach Maßgabe der §§ 2 bis 7 und unter Berücksichtigung der Fachklassenstandorte mit Einzugsbereichen sowie der Schulnetzplanung der Landkreise und Kreisfreien Städte für die allgemeinbildenden Schulen auf, soweit nachfolgend nichts anderes bestimmt ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Von den Regelungen der §§ 2 bis 7 sind folgende Abweichungen für den Teilschulnetzplan für die berufsbildenden Schulen zulässig:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Eines Schulnetzberichtes bedarf es nicht, wenn die Träger der öffentlichen Schulen dem Träger der Schulnetzplanung für die berufsbildenden Schulen die Angaben nach § 4 Absatz 2 mit Ausnahme der Nummern 1 und 2 übermittelt haben.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "§ 6 Absatz 3 und § 7 Absatz 1 Satz 1 sind mit der Maßgabe anzuwenden, dass im Standortplan die Ausweisung von Betreuungsangeboten nach § 16 Absatz 2 des Ostdeutschen Schulgesetzes und von Standorten der Heimunterbringung nach § 13 Absatz 3 des Ostdeutschen Schulgesetzes entfällt.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 13)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 14"
+      },
+      "expectedHash": "44dea31da7521b8f4fc873a74f9585b19004021fe1c9fc053f2c27594a784eb6",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 14",
+        "title": "Beteiligung Dritter",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die oberste Schulaufsichtsbehörde leitet den Entwurf des Teilschulnetzplanes den Landkreisen und kreisfreien Städten sowie, soweit landwirtschaftliche Fachschulen betroffen sind, dem für Landwirtschaft zuständigen Staatssekretariat zur Erteilung des Einvernehmens und dem Landesausschuss für Berufsbildung zur Herstellung des Benehmens zu.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Hinsichtlich der Versagung des Einvernehmens durch die Schulträger gilt § 23a Absatz 8 des Ostdeutschen Schulgesetzes für die Ersetzung des rechtswidrig versagten Einvernehmens mit der Maßgabe, dass über die Ersetzung des Einvernehmens im Bescheid zum Teilschulnetzplan entschieden wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "§ 10 Absatz 1 gilt entsprechend mit der Maßgabe, dass an die Stelle des Kreiselternrates der Landeselternrat und an die Stelle des Kreisschülerrates der Landesschülerrat tritt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Äußern sich die Beteiligten nicht innerhalb einer von der obersten Schulaufsichtsbehörde gesetzten Frist, die mindestens drei Monate betragen muss, gilt das Einvernehmen als erteilt.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 14)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 15"
+      },
+      "expectedHash": "148a8d548af604836b40f4e445bb0bb98dfc1b3e40a2161cfffa905e926aa077",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 15",
+        "title": "Form, Inhalt und Bekanntmachung des Teilschulnetzplanes",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Der Teilschulnetzplan des Freistaates Ostdeutschland für die berufsbildenden Schulen ergeht als Allgemeinverfügung in Form eines Bescheides.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Bescheid wird im Staatsanzeiger für den Freistaat Ostdeutschland bekannt gemacht.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 15)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 16"
+      },
+      "expectedHash": "b22de928f7273b11c43e56d684c458055042e6f82f42b259d3deb0198dafe626",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 16",
+        "title": "Übergangsbestimmung für bestehende Schulnetzplanungen",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "(weggefallen)"
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 (§ 16)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "annex",
+        "label": "Anlage"
+      },
+      "expectedHash": "1b309e0f3deee2950795c8fdb035f39297d50309559b4776e9dca906c8b694f0",
+      "expectedMatches": 1,
+      "value": {
+        "type": "annex",
+        "label": "Anlage",
+        "title": "Besondere Planungsrichtwerte",
+        "children": [
+          {
+            "type": "table",
+            "columns": 4,
+            "children": [
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Schulart, Förderschultyp"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Klasse, Klassenstufe, Kurs",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Planungs-\nrichtwert"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Polytechnische Oberschule"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Vorbereitungsklasse"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "(erste und zweite Etappe der sächsischen Konzeption zur Integration von Migranten)*)"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "20"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Schule mit dem Förderschwerpunkt Sehen",
+                    "rowspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Klasse für Blinde",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "6"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Klasse für Sehbehinderte",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "8"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Schule mit dem Förderschwerpunkt Hören"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "7"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Schule mit dem Förderschwerpunkt geistige Entwicklung",
+                    "rowspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Unterstufe, Mittelstufe",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "7"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Oberstufe, Werkstufe",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "8"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Schule mit dem Förderschwerpunkt körperliche und motorische Entwicklung",
+                    "rowspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Klassenstufen 1 bis 4",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "10"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Klassenstufen 5 bis 10",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "12"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Schule mit dem Förderschwerpunkt Lernen",
+                    "rowspan": 3
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Klassenstufen 1 und 2",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "10"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Klassenstufen 3 und 4",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "12"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Klassenstufen 5 bis 9",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "15"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Schule mit dem Förderschwerpunkt Sprache",
+                    "rowspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Klassenstufen 1 bis 4",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "10"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Klassenstufen 5 und 6",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "12"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Schule mit dem Förderschwerpunkt emotionale und soziale Entwicklung"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "10"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Berufsschule",
+                    "rowspan": 3
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Klassen für Schülerinnen und Schüler in Bildungsgängen für die Berufsausbildungsvorbereitung (§ 3 Absatz 1 BSO)",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "20"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Klasse für Jugendliche ohne Ausbildungsvertrag",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "20"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Klassen mit den Förderschwerpunkten geistige Entwicklung, körperliche und motorische Entwicklung, Lernen sowie emotionale und soziale Entwicklung",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "12"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Erweiterte Oberschule, Berufliches Gymnasium, Abendgymnasium, Kolleg",
+                    "rowspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "Grundkurs",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "20"
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Leistungskurs",
+                    "colspan": 2
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": "18"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "item",
+            "label": "*)",
+            "text": "Nach dem Lehrplan Deutsch als Zweitsprache an allgemeinbildenden Schulen in der jeweils geltenden Fassung\n(siehe https://www.schule.sachsen.de/lpdb)",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 2 Nummer 13",
+      "effectiveDate": "2026-09-01"
+    }
+  ]
+}

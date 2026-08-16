@@ -1,0 +1,975 @@
+{
+  "amendmentAct": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+  "effectiveDate": "2026-09-01",
+  "versionId": "2026-09-01",
+  "amendmentCitation": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "resultCitation": "Ostdeutsche Klassenbildungsverordnung, geändert durch Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "changeNote": "Bezeichnung, Gewichtungsregel und Anlage neu gefasst; § 4 aufgehoben.",
+  "commandCoverage": [
+    "Artikel 1 § 1 Nummern 1 bis 4"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 67.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsische Klassenbildungsverordnung",
+      "expectedMatches": 1,
+      "value": "Ostdeutsche Klassenbildungsverordnung",
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 1 Nummer 1",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "9b17f3cadb43bae29177fffbdb1e027c4257afed5dab510facf3526d5d5546a6",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 2",
+        "title": "Gewichtung bei inklusivem Unterricht",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Bei der Bildung von Klassen, Gruppen und Kursen werden hinsichtlich der Obergrenze Schülerinnen und Schüler mit sonderpädagogischem Förderbedarf höher gewichtet. ²Der Gewichtungszuschlag beträgt für inklusiv unterrichtete Schülerinnen und Schüler mit sonderpädagogischem Förderbedarf",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "in den Förderschwerpunkten Sehen, Hören, körperliche und motorische Entwicklung sowie Sprache 0,5 pro Schülerin oder Schüler,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "im Förderschwerpunkt Lernen 1,0 pro Schülerin oder Schüler und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "in den Förderschwerpunkten geistige Entwicklung sowie emotionale und soziale Entwicklung 1,5 pro Schülerin oder Schüler.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Bei Schülerinnen und Schülern mit sonderpädagogischem Förderbedarf in mehreren Förderschwerpunkten ist der Förderschwerpunkt mit dem höchsten Gewichtungszuschlag maßgebend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "¹Die Gewichtungszuschläge der bei der Klassen-, Gruppen- und Kursbildung zu berücksichtigenden Schülerinnen und Schüler mit sonderpädagogischem Förderbedarf sollen in der Summe den Wert 5 nicht überschreiten. ²Ausnahmen sind insbesondere zulässig, wenn die Unterrichtung einer größeren Zahl von Schülerinnen und Schülern mit sonderpädagogischem Förderbedarf in bestimmten Förderschwerpunkten fachlich und pädagogisch begründet ist; § 4a Absatz 2 Satz 2 des Sächsischen Schulgesetzes gilt entsprechend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Absätze 1 bis 3 finden auf Förderschulen und auf LRS-Klassen in der Primarstufe der Polytechnischen Oberschule keine Anwendung.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 1 Nummer 2",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "55b9a9b4d43d7160d6e63e5cffda9c981a396df792c4873173893d3ba3d05a24",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 4",
+        "title": "Übergangsregelungen",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "(weggefallen)"
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 1 Nummer 3",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "annex",
+        "label": "Anlage"
+      },
+      "expectedHash": "4ecb0fb331aaa03207185ccbb89075c15a61396af230dd94f8fe005399a5643c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "annex",
+        "label": "Anlage (zu §§ 1 und 3)",
+        "children": [
+          {
+            "type": "section",
+            "label": "Abschnitt 1",
+            "title": "Mindestschülerzahlen und Obergrenzen",
+            "children": [
+              {
+                "type": "table",
+                "children": [
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Schulart/Förderschultyp"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Stufe, Klasse, Kurs oder Gruppe"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Mindestzahl"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Obergrenze"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "POS, Primarstufe"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "LRS-Klasse"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "16"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "POS, Primarstufe"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Gruppe, insbesondere Werken, Schulgarten, Schwimmen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "16"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "POS, Sekundarstufe I"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Gruppe in Technik und Computer"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "16"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "POS, Sekundarstufe I"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Gruppe im Schwimmunterricht"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "20"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "POS, Sekundarstufe I"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Gruppe in polytechnischen Fächern"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "16"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "POS, Sekundarstufe I"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "sonstige Gruppe, insbesondere im Förderunterricht"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "16"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "EOS"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Grundkurs"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "24"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "EOS"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Leistungskurs"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "20"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Sehen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klasse für Blinde, Klassenstufen 1 und 2"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "4"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "8"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Sehen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klasse für Blinde, Klassenstufen 3 bis 10"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "5"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "10"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Sehen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klasse für Sehbehinderte"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "5"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "10"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Hören"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klasse"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "5"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "9"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt geistige Entwicklung"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Unter- und Mittelstufe"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "6"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "9"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt geistige Entwicklung"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Oberstufe"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "6"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "11"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt geistige Entwicklung"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Werkstufe"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "8"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "11"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt körperliche und motorische Entwicklung"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 1 bis 4"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "8"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "12"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt körperliche und motorische Entwicklung"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 5 bis 10"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "10"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "14"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Lernen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 1 und 2"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "10"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "12"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Lernen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 3 und 4"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "12"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "15"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Lernen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 5 bis 9"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "15"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "18"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Lernen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen H 8 bis H 10"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "12"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Lernen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Gruppe in Hauswirtschaft, Werken, Arbeitslehre oder Informatik"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "9¹"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Sprache"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 1 bis 4"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "10"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "12"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt Sprache"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 5 und 6"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "12"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "15"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt emotionale und soziale Entwicklung"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 1 bis 4"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "8"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "10"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Förderschwerpunkt emotionale und soziale Entwicklung"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klassenstufen 5 bis 10"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "10"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "12"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Berufsbildende Schulen, soweit nachfolgend nichts Besonderes bestimmt ist"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Gruppe"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "16"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Berufsschule"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Berufsausbildungsvorbereitung oder Jugendliche ohne Ausbildungsvertrag"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "22"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Berufsschule"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klasse Förderschwerpunkt Sehen"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "5"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "10"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Berufsschule"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klasse Förderschwerpunkt Hören oder Sprache"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "6"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "12"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Berufsschule"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Klasse in anderen Förderschwerpunkten"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "8"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "16"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Berufliches Gymnasium, Jahrgangsstufen 12 und 13"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Grundkurs/Leistungskurs"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "24/20"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Abendoberschule"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Regelklasse"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "20"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Abendgymnasium und Kolleg"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Vorkurs oder Einführungsphase"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "20"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Abendgymnasium und Kolleg"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Grundkurs/Leistungskurs"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "–"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "24/20"
+                      }
+                    ]
+                  }
+                ],
+                "columns": 4
+              }
+            ]
+          },
+          {
+            "type": "section",
+            "label": "Abschnitt 2",
+            "title": "Obergrenzen für Vorbereitungsklassen und -gruppen",
+            "children": [
+              {
+                "type": "table",
+                "children": [
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Schulart"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Organisationsform"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Obergrenze"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "POS"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Vorbereitungsklasse/Vorbereitungsgruppe"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "23/12"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "tableRow",
+                    "children": [
+                      {
+                        "type": "tableCell",
+                        "text": "Berufsschule"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "Vorbereitungsklasse"
+                      },
+                      {
+                        "type": "tableCell",
+                        "text": "22"
+                      }
+                    ]
+                  }
+                ],
+                "columns": 3
+              },
+              {
+                "type": "paragraphText",
+                "text": "¹ Die Mindestschülerzahl kann in besonders gelagerten Einzelfällen unterschritten werden."
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 1 § 1 Nummer 4",
+      "effectiveDate": "2026-09-01"
+    }
+  ]
+}

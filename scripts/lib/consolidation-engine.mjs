@@ -160,7 +160,13 @@ export function applyPatchRecipe(input, recipe) {
       const index = operation.position === 'start' ? 0 : location.block.children.length;
       location.block.children.splice(index, 0, clone(operation.value));
     } else if (operation.op === 'repealProvision') {
-      location.block.children = [{ type: 'paragraphText', text: operation.value ?? '(weggefallen)' }];
+      const replacement = operation.value ?? '(weggefallen)';
+      if (Object.hasOwn(location.block, 'text')) {
+        location.block.text = replacement;
+        location.block.children = [];
+      } else {
+        location.block.children = [{ type: 'paragraphText', text: replacement }];
+      }
     } else if (operation.op === 'renameProvision') {
       location.block.label = operation.value;
     } else if (operation.op === 'replaceHeading') {

@@ -60,6 +60,8 @@ const allowedNormMinistries = new Set([
 const allowedEnactingBodies = new Set([
   'Sächsischer Landtag',
   'Sächsische Staatsregierung',
+  'Sächsisches Staatsministerium für Kultus',
+  'Sächsisches Staatsministerium für Kultus und Sächsisches Staatsministerium des Innern',
   'Landtag des Freistaates Ostdeutschland',
   'Volkskammer des Freistaates Ostdeutschland',
   'Staatsregierung des Freistaates Ostdeutschland',

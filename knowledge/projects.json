@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-11",
+  "asOf": "2026-08-16",
   "projects": [
     {
       "id": "project-staatsreform",
@@ -730,10 +730,10 @@
       "id": "project-schulreform",
       "title": "Schulneuordnung mit POS und EOS",
       "status": "confirmed-primary",
-      "validFrom": null,
+      "validFrom": "2026-03-23",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Neuordnung des Schulsystems mit Polytechnischer Oberschule, Erweiterter Oberschule und flankierendem Schulrecht.",
+      "asOf": "2026-08-16",
+      "summary": "Die Neuordnung mit Polytechnischer Oberschule, Erweiterter Oberschule, zweitem Bildungsweg und flankierendem Schulrecht ist gesetzlich beschlossen. Das zusammengehörige Verordnungs- und Verwaltungsvorschriftenpaket wurde vom 14. bis 16. August 2026 verkündet und tritt überwiegend am 1. September 2026 in Kraft.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -744,6 +744,31 @@
           "sourceId": "source-staatsreform",
           "locator": "Bildung und Religionsverfassung",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-60",
+          "locator": "SOPOS, Inkrafttreten am 1. September 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-61",
+          "locator": "SOEOSA, Inkrafttreten am 1. September 2026",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-67",
+          "locator": "Artikel 1 bis 6, insbesondere Artikel 5 und 6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-16",
+          "locator": "VwV Stundentafel EOS",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-31",
+          "locator": "ÄndVwV Radfahrausbildung",
+          "role": "primary"
         }
       ],
       "relatedIds": [
@@ -763,14 +788,48 @@
         {
           "normSlug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
           "versionId": null
+        },
+        {
+          "normSlug": "schulordnung-polytechnische-oberschulen",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "schulordnung-abendoberschulen",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "abendgymnasien-und-kollegverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "sorbische-schulverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "ethik-und-religionsunterrichtverordnung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "versionId": "2026-08-31"
         }
       ],
-      "milestones": [],
+      "milestones": [
+        {"date": "2026-08-14", "title": "SOPOS und SOEOSA verkündet"},
+        {"date": "2026-08-15", "title": "Weiteres Schulordnungsrecht verkündet"},
+        {"date": "2026-08-16", "title": "Bereinigungsverordnung und 16 Verwaltungsvorschriften verkündet"},
+        {"date": "2026-09-01", "title": "Überwiegendes Inkrafttreten des Schulrechtspakets"}
+      ],
       "nextSteps": [
-        "Nachgeordnete Verordnungen und tatsächliche Umstellung der Schulen zeitlich erfassen"
+        "Schulen und Schulaufsicht stellen die Verfahren zum 1. September 2026 auf das neue Schulordnungsrecht um.",
+        "Die drei dokumentierten Quellkonflikte der Konsolidierung müssen durch belastbare Ausgangstexte oder eine ausdrückliche redaktionelle Quellenentscheidung geklärt werden."
       ],
       "dependencies": [],
-      "openQuestionIds": []
+      "openQuestionIds": ["question-school-law-source-conflicts-2026"]
     },
     {
       "id": "project-rundfunk",

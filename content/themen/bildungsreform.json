@@ -6,25 +6,26 @@
   "cluster": "bildung-gesellschaft",
   "priority": 86,
   "featured": true,
-  "updatedAt": "2026-08-01",
+  "updatedAt": "2026-08-16",
   "knowledgeProjectRefs": ["project-schulreform"],
-  "hero": "Der Staatsrat führt Bildung als sichtbares Kernfeld des Landesaufbaus fort. Die Verfassungsreform und bestehende Fachnormen ordnen Schule, Kita, Wissenschaft und Religionsverfassung neu.",
+  "hero": "Das neue Schulrecht ist verkündet: Polytechnische und Erweiterte Oberschule, zweiter Bildungsweg und die fachlichen Verwaltungsvorschriften bilden ab September ein zusammenhängendes System.",
   "beschlossen": [
     "Das Schulsystem wurde gesetzlich neu geordnet und organisatorisch auf den Freistaat zugeschnitten.",
     "Die Abschaffung des Elternbeitrags in der Kindertagesbetreuung wurde beschlossen.",
-    "Digitale und prüfungsbezogene Standards wurden über Verordnungen und Verwaltungsvorschriften flankiert.",
+    "Die Schulordnungen für POS, EOS, Abendoberschule, Abendgymnasium, Kolleg, sorbische Schulen sowie Ethik- und freiwilligen Religionsunterricht sind amtlich verkündet.",
+    "Sechzehn Verwaltungsvorschriften regeln unter anderem Stundentafeln, Prüfungen, Zeugnisse, sonderpädagogische Formulare und das Schuljahr 2026/2027.",
     "Das Vierte Gesetz zur Großen Staatsreform trat am 21. Juli 2026 in Kraft."
   ],
   "umgesetzt": [
     "Das Gesetz zur Neuordnung des Ostdeutschen Schulsystems ist als aktuelle Fassung verfügbar.",
     "Die Kita-Beitragsfreiheit wurde gesetzlich umgesetzt.",
-    "Mit Endgeräte-Regelungen, Oberstufenrecht und flankierenden Verwaltungsvorschriften liegen zentrale Umsetzungsinstrumente vor."
+    "Das Umsetzungs- und Bereinigungspaket wurde vom 14. bis 16. August 2026 verkündet. Es tritt überwiegend am 1. September 2026 in Kraft.",
+    "Die bisherigen Schulordnungen für Grundschulen, Ober- und Abendoberschulen, Gemeinschaftsschulen und allgemeinbildende Gymnasien bleiben bis einschließlich 31. August 2026 historisch abrufbar und treten danach außer Kraft."
   ],
   "naechsteSchritte": [
-    "Die seit 1. August 2026 geltenden Stundentafeln und ihre Änderung in der Unterrichtsorganisation anwenden.",
-    "Weiterentwicklung der Unterrichtsorganisation und der Lehrkräftekapazitäten.",
-    "Vertiefung digitaler Standards und Ausbau landesweiter Unterstützungsstrukturen.",
-    "Fortlaufende Anpassung der Bildungswege an regionale und soziale Bedarfe."
+    "Schulen und Schulaufsicht stellen Unterricht, Aufnahme- und Prüfungsverfahren zum 1. September 2026 auf die neuen Vorschriften um.",
+    "Übergangsfälle werden nach den besonderen Regeln der schulrechtlichen Bereinigungsverordnung abgeschlossen.",
+    "Drei technische Zieltextkonflikte bei der Konsolidierung älterer Stammnormen bleiben als Quellenfragen kenntlich; die amtlichen Änderungsvorschriften selbst sind davon unberührt."
   ],
   "rechtsgrundlagen": [
     {
@@ -37,11 +38,15 @@
     },
     { "label": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems", "normSlug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems" },
     { "label": "Gesetz zur Abschaffung des Elternbeitrags", "normSlug": "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w" },
-    { "label": "Verordnung über private mobile Endgeräte in der Primarstufe", "normSlug": "verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n" },
-    { "label": "Oberstufen- und Abiturprüfungsverordnung", "normSlug": "oberstufenund-abiturprufungsverordnung" },
+    { "label": "Schulordnung Polytechnische Oberschulen (SOPOS)", "normSlug": "schulordnung-polytechnische-oberschulen", "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026." },
+    { "label": "Schulordnung Erweiterte Oberschulen und Abiturprüfung (SOEOSA)", "normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung", "note": "Verkündet am 14. August 2026; Inkrafttreten am 1. September 2026." },
+    { "label": "Schulordnung Abendoberschulen (SOAbO)", "normSlug": "schulordnung-abendoberschulen" },
+    { "label": "Abendgymnasien- und Kollegverordnung (AGyKoVO)", "normSlug": "abendgymnasien-und-kollegverordnung" },
+    { "label": "Sorbische Schulverordnung", "normSlug": "sorbische-schulverordnung" },
+    { "label": "Ethik und Religionsunterrichtverordnung", "normSlug": "ethik-und-religionsunterrichtverordnung" },
+    { "label": "Bereinigung des allgemeinbildenden Schulordnungsrechts", "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026" },
     { "label": "Schulmilcherlass", "normSlug": "schulmilcherlass" },
-    { "label": "VwV Stundentafeln POS", "normSlug": "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel", "note": "Verkündet am 13. Juli 2026; seit 1. August 2026 in Kraft." },
-    { "label": "Änderung der VwV Stundentafel", "normSlug": "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf", "note": "Verkündet am 13. Juli 2026; seit 1. August 2026 in Kraft." },
+    { "label": "VwV Stundentafel EOS", "normSlug": "vwv-stundentafel-eos", "note": "Verkündet am 16. August 2026; Inkrafttreten am 1. September 2026." },
     { "label": "Bildungsfreistellungsgesetz", "normSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland" }
   ],
   "faq": [

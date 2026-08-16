@@ -1,7 +1,7 @@
 # Offene Quellenfragen
 
-**Redaktioneller Stand:** 9. August 2026
-**Quellenbestand zuletzt geprüft:** 9. August 2026
+**Redaktioneller Stand:** 16. August 2026
+**Quellenbestand zuletzt geprüft:** 16. August 2026
 
 Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
 nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
@@ -26,6 +26,12 @@ Belegt:
   Veröffentlichungs- und Kontrollquelle und Markdown eine zusätzliche Transkription. Alle drei
   Fassungen belegen die Volksbefragungsverordnung 2026 auf den Seiten 2 bis 7. Die zugehörige
   Pressemitteilung liegt als Markdown und dreiseitiges PDF vor.
+- OGVBl. 2026 Nr. 60 bis 67 und StAnzO. 2026 Nr. 16 bis 31 liegen vollständig als HTML und
+  amtliche PDF-Fassung unter `Gesetze/` vor. Alle 176 PDF-Seiten wurden am 16. August 2026
+  gerendert und visuell kontrolliert. Die HTML-Fassungen sind die strukturtragenden
+  Importquellen; die PDFs bleiben die maßgeblichen amtlichen Verkündungs- und Kontrollquellen.
+  Die separat verlinkte REVOSax-Anlage 2 der VwV Schulformulare ist unverändert samt SHA-256
+  archiviert und wurde ebenfalls visuell geprüft.
 - `OGVBl II-24.pdf` und `OGVBl I-25.pdf` sind bildbasierte Alt-Ausgaben. Alle 47 PDF-Seiten
   wurden am 23. Juli 2026 vollständig gerendert und visuell geprüft. Die elf enthaltenen
   Dokumente liegen nun als redaktionell geprüfte strukturierte HTML-Transkriptionen und
@@ -33,10 +39,11 @@ Belegt:
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
-- Der Konsolidierungs-Audit erkennt derzeit 71 Zielnormen einschließlich explizit verknüpfter
-  neu eingeführter Stammnormen. Für 34 davon ist die maßgebliche Primärquelle noch nicht als
-  unveränderter Snapshot versioniert. Kein Ziel ist derzeit wegen eines Quellenkonflikts
-  gesperrt; redaktionell aufgelöste Abweichungen bleiben gesondert ausgewiesen. Die vollständige Liste mit
+- Der Konsolidierungs-Audit erkennt derzeit 84 Zielnormen einschließlich explizit verknüpfter
+  neu eingeführter Stammnormen. Für 33 davon ist die maßgebliche Primärquelle noch nicht als
+  unveränderter Snapshot versioniert. Drei schulrechtliche Zielnormen sind wegen nicht
+  eindeutig auflösbarer Quellenkonflikte gesperrt; redaktionell aufgelöste Abweichungen bleiben
+  gesondert ausgewiesen. Die vollständige Liste mit
   Änderungsvorschriften und nächstem Quellenschritt steht in
   `data/recht/consolidation-manifest.json`.
 - Der NDR-Änderungs- und Überleitungsstaatsvertrag enthält eine unausgefüllte
@@ -68,7 +75,7 @@ Schlussfolgerung:
   konsolidierte Fassung erstellt.
 - Geprüfte REVOSax-Ausgangsfassungen und vollständig verknüpfte, neu eingeführte Stammnormen
   werden im Konsolidierungsmanifest gemeinsam als vollständig geführt. Der aktuelle Audit weist
-  37 vollständige Zielnormen aus. Neu eingeführte Normen benötigen keine künstliche sächsische
+  48 vollständige Zielnormen aus. Neu eingeführte Normen benötigen keine künstliche sächsische
   Ausgangsfassung; ihre Einführungsbeziehung muss stattdessen wechselseitig belegt sein.
 - Die drei zuvor bedingt wirksamen Staatsverträge werden mit Inkrafttreten am 24. März 2026
   geführt. Die redaktionelle Klarstellung wird im Wissenshub als eigene Quelle dokumentiert.
@@ -79,6 +86,13 @@ Schlussfolgerung:
   ordnet eine freiwillige und rechtlich nicht bindende Befragung am 5. und 6. September 2026 an;
   die künftige Durchführung, Ergebnisbekanntmachung und politische Auswertung werden nicht als
   bereits erfolgt dargestellt.
+- Das Schulrechtspaket ist vollständig als verkündeter Normbestand erfasst. Elf Stammnormen
+  besitzen geprüfte historische Fassungsbeziehungen: vier bisherige Schulordnungen enden mit
+  Ablauf des 31. August 2026; vier weitere Schulverordnungen und drei Verwaltungsvorschriften
+  besitzen getrennte Fassungen zum 1. November 2023 und zum 1. September 2026. Die SOFS, BSO und
+  BGySO werden nicht scheinbar konsolidiert: Bei ihnen passen einzelne Änderungsanker nicht auf
+  die nach der Quellenrichtlinie verbindliche Ausgangsfassung. Die amtlichen Änderungsvorschriften
+  bleiben davon unberührt und vollständig abrufbar.
 - Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
   eindeutige Aufhebungs- oder Übergangsquelle vorliegt.
 

@@ -1,0 +1,122 @@
+{
+  "amendmentAct": "aendvwv-radfahrausbildung-2026",
+  "effectiveDate": "2026-09-01",
+  "versionId": "2026-09-01",
+  "amendmentCitation": "Verwaltungsvorschrift vom 16. August 2026 (StAnzO. 2026 Nr. 31 S. 2)",
+  "resultCitation": "VwV Radfahrausbildung, geändert durch Verwaltungsvorschrift vom 16. August 2026 (StAnzO. 2026 Nr. 31 S. 2)",
+  "changeNote": "Lehrplan-, Schulaufsichts- und Polizeibezeichnungen aktualisiert.",
+  "commandCoverage": [
+    "Nummern 1 bis 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Verwaltungsvorschrift vom 16. August 2026 (StAnzO. 2026 Nr. 31 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 31.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "section",
+        "label": "I."
+      },
+      "expectedHash": "47b1328a5d192f27f59a5b678383cdb5e693c33e65ca340b12820a0c2dd2d198",
+      "expectedMatches": 1,
+      "value": {
+        "type": "section",
+        "label": "I.",
+        "title": "Zielgruppe und Zweck",
+        "children": [
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Die Durchführung des praktischen Teils der Radfahrausbildung erfolgt im Rahmen der schulischen Verkehrserziehung nach dem Lehrplan der Primarstufe der Polytechnischen Oberschule für die Klassenstufen 1 bis 4 und nach dem Lehrplan der Schule mit dem Förderschwerpunkt Lernen für Deutsch – Heimatkunde/Sachunterricht in den Klassenstufen 1 bis 4, an Schulen mit dem Förderschwerpunkt Lernen anlassbezogen auch in den Klassenstufen 5 und 6.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Im Freistaat Sachsen sind stationäre und mobile Jugendverkehrsschulen eingerichtet, die dazu dienen, das Verhalten von Kindern als Fußgängerin und Fußgänger sowie Radfahrerin und Radfahrer im öffentlichen Straßenverkehr zu schulen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Eigentümer beziehungsweise Betreiber der Jugendverkehrsschulen sind in der Regel die örtlichen Verkehrswachten.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/StAnzO. 2026 Nr. 31.html",
+      "sourceProvision": "Nummern 1 bis 3 (I.)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "section",
+        "label": "VI."
+      },
+      "expectedHash": "40eb4d7695009f809abf81f0e2ff248c4a00541a9b70e230d3e0b0591bf965f3",
+      "expectedMatches": 1,
+      "value": {
+        "type": "section",
+        "label": "VI.",
+        "title": "Jahresbelegungsplan",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Für jede Jugendverkehrsschule ist ein Jahresbelegungsplan aufzustellen. Verantwortlich dafür sind die jeweiligen Schulaufsichtsbehörden in Abstimmung mit den zuständigen Polizeidirektionen und den Eigentümern beziehungsweise Betreibern der Jugendverkehrsschulen."
+          }
+        ]
+      },
+      "source": "Gesetze/StAnzO. 2026 Nr. 31.html",
+      "sourceProvision": "Nummern 1 bis 3 (VI.)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "section",
+        "label": "X."
+      },
+      "expectedHash": "48fb189976f291c6a04967836ddb2bdf5cb7d07747e46aedaf419df97729f259",
+      "expectedMatches": 1,
+      "value": {
+        "type": "section",
+        "label": "X.",
+        "title": "Information der Erziehungsberechtigten",
+        "children": [
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Die Erziehungsberechtigten sind vor der Radfahrausbildung von der Schule schriftlich mit Rückbestätigung von Zielen, Inhalten und Organisationsform des Ausbildungsprogramms in Kenntnis zu setzen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Den Schülerinnen und Schülern wird die Teilnahme an der praktischen Radfahrausbildung mit Hinweisen für die Eltern zur Kenntnisnahme gegeben. Dafür wird der von der zuständigen Polizeibehörde bereitgestellte Fahrradpass verwendet.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/StAnzO. 2026 Nr. 31.html",
+      "sourceProvision": "Nummern 1 bis 3 (X.)",
+      "effectiveDate": "2026-09-01"
+    }
+  ]
+}

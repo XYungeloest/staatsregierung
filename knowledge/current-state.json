@@ -1,7 +1,30 @@
 {
-  "asOf": "2026-08-09",
+  "asOf": "2026-08-16",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
+    {
+      "id": "state-current-school-law-package-2026",
+      "title": "Verkündetes Schulrechtspaket zum 1. September 2026",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "asOf": "2026-08-16",
+      "summary": "Die neuen Schulordnungen und 16 Verwaltungsvorschriften sind amtlich verkündet. Bis zum 31. August 2026 gilt grundsätzlich noch das bisherige Schulordnungsrecht; das neue Paket gilt überwiegend ab 1. September 2026.",
+      "sourceRefs": [
+        {"sourceId": "source-ogvbl-2026-60", "locator": "SOPOS und Inkrafttreten", "role": "primary"},
+        {"sourceId": "source-ogvbl-2026-67", "locator": "Artikel 5 und 6", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-16", "locator": "VwV Stundentafel EOS", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-31", "locator": "ÄndVwV Radfahrausbildung", "role": "primary"}
+      ],
+      "relatedIds": ["project-schulreform", "inst-sek-volksbildung-wissenschaft", "question-school-law-source-conflicts-2026"],
+      "tags": ["current-state", "education", "law"],
+      "notes": ["Artikel 4 der Bereinigungsverordnung gilt ab 31. August 2026; das übrige Paket überwiegend ab 1. September 2026."],
+      "normRefs": [
+        {"normSlug": "schulordnung-polytechnische-oberschulen", "versionId": "2026-09-01"},
+        {"normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung", "versionId": "2026-09-01"},
+        {"normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026", "versionId": "2026-08-31"}
+      ]
+    },
     {
       "id": "state-current-federal-president-representation",
       "title": "Wahrnehmung der Bundespräsidentenbefugnisse durch Karl Honecker",
@@ -26,8 +49,8 @@
       "status": "editorially-confirmed",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-08-09",
-      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 9. August 2026; Regierungssitz Dresden.",
+      "asOf": "2026-08-16",
+      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 16. August 2026; Regierungssitz Dresden.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-config",
@@ -50,7 +73,7 @@
       "notes": [],
       "stateId": "territory-freistaat",
       "capital": "Dresden",
-      "editorialAsOf": "2026-08-09"
+      "editorialAsOf": "2026-08-16"
     },
     {
       "id": "state-current-constitution",

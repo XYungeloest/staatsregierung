@@ -339,5 +339,20 @@ test('Konsolidierungsmanifest ist aktuell und trennt aufgelöste von blockierten
   assert.equal(district?.status, 'complete');
   assert.deepEqual(district?.effectiveDates, ['2026-08-01']);
   assert.equal(manifest.targets.find((target) => target.canonicalSlug === 'saechsische-landkreisordnung')?.status, 'complete');
-  assert.equal(manifest.counts.blockedSourceConflicts, 0);
+  assert.equal(manifest.counts.blockedSourceConflicts, 3);
+  for (const slug of [
+    'schulordnung-foerderschulen',
+    'schulordnung-berufsschule',
+    'schulordnung-berufliche-gymnasien',
+  ]) {
+    assert.equal(manifest.targets.find((target) => target.canonicalSlug === slug)?.status, 'blocked-source-conflict');
+  }
+  for (const slug of [
+    'schulordnung-grundschulen',
+    'schulordnung-ober-und-abendoberschulen',
+    'schulordnung-gemeinschaftsschulen',
+    'schulordnung-gymnasien-abiturpruefung',
+  ]) {
+    assert.equal(manifest.targets.find((target) => target.canonicalSlug === slug)?.status, 'complete');
+  }
 });

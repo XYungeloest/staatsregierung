@@ -2,7 +2,7 @@
 
 import { createHash } from 'node:crypto';
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
-import { basename, dirname, resolve } from 'node:path';
+import { basename, dirname, extname, resolve } from 'node:path';
 
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 
@@ -112,6 +112,53 @@ async function fetchSnapshot() {
   console.log(`${target}${snapshotId ? `/${snapshotId}` : ''}: ${bytes.length} Byte gespeichert, SHA-256 ${hash(bytes)}`);
 }
 
+async function fetchAttachment() {
+  const config = await readConfig();
+  const configuredTarget = requireTarget(config);
+  if (!target || !urlArgument) {
+    throw new Error('fetch-attachment: --target <slug> und --url <amtliche-attachment-url> sind erforderlich');
+  }
+  const url = new URL(urlArgument);
+  if (url.protocol !== 'https:' || url.hostname !== 'www.revosax.sachsen.de' || !/^\/attachments\/\d+$/u.test(url.pathname)) {
+    throw new Error(`fetch-attachment: nur amtliche REVOSax-Anlagen sind zulässig: ${urlArgument}`);
+  }
+  if (!snapshotId) throw new Error('fetch-attachment: --snapshot-id <stabile-id> fehlt');
+  const response = await fetch(url, {
+    redirect: 'follow',
+    headers: {
+      accept: 'application/pdf,application/octet-stream',
+      'accept-encoding': 'identity',
+      'user-agent': 'Ostrecht-Portal Quellenarchiv/1.0',
+    },
+  });
+  if (!response.ok) throw new Error(`fetch-attachment: REVOSax antwortet mit HTTP ${response.status}`);
+  const bytes = Buffer.from(await response.arrayBuffer());
+  const contentType = response.headers.get('content-type') ?? '';
+  if (!bytes.subarray(0, 5).equals(Buffer.from('%PDF-')) && !contentType.includes('pdf')) {
+    throw new Error(`fetch-attachment: Anlage ist kein PDF (${contentType || 'unbekannter Inhaltstyp'})`);
+  }
+  const extension = extname(new URL(response.url).pathname) || '.pdf';
+  const snapshot = `data/recht/sources/revosax/${target}/${snapshotId}${extension}`;
+  const snapshotPath = resolve(ROOT, snapshot);
+  await mkdir(dirname(snapshotPath), { recursive: true });
+  await writeFile(snapshotPath, bytes);
+  const attachment = {
+    id: snapshotId,
+    url: url.toString(),
+    snapshot,
+    retrievedAt: new Date().toISOString().slice(0, 10),
+    sourceSha256: hash(bytes),
+    contentType: 'application/pdf',
+  };
+  configuredTarget.sourceAttachments = [
+    ...(configuredTarget.sourceAttachments ?? []).filter((entry) => entry.id !== snapshotId),
+    attachment,
+  ].sort((left, right) => left.id.localeCompare(right.id));
+  config.targets[target] = configuredTarget;
+  await writeJson(CONFIG_PATH, config);
+  console.log(`${target}/${snapshotId}: ${bytes.length} Byte gespeichert, SHA-256 ${attachment.sourceSha256}`);
+}
+
 async function parseSnapshot() {
   const config = await readConfig();
   const configuredTarget = requireTarget(config);
@@ -155,6 +202,22 @@ async function auditSnapshots() {
       failures.push(`${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}: ${error.message}`);
     }
     }
+    for (const attachment of configuredTarget.sourceAttachments ?? []) {
+      try {
+        if (!attachment.id || !attachment.snapshot || !attachment.url || !attachment.sourceSha256) {
+          throw new Error('unvollständige Anlagenprovenienz');
+        }
+        const url = new URL(attachment.url);
+        if (url.protocol !== 'https:' || url.hostname !== 'www.revosax.sachsen.de' || !/^\/attachments\/\d+$/u.test(url.pathname)) {
+          throw new Error('unzulässige Anlagen-URL');
+        }
+        const bytes = await readFile(resolve(ROOT, attachment.snapshot));
+        if (hash(bytes) !== attachment.sourceSha256) throw new Error('SHA-256 stimmt nicht');
+        console.log(`${slug}/${attachment.id}: Anlage und Provenienz gültig`);
+      } catch (error) {
+        failures.push(`${slug}/${attachment.id ?? 'anlage'}: ${error.message}`);
+      }
+    }
   }
   if (failures.length) {
     failures.forEach((failure) => console.error(failure));
@@ -163,6 +226,7 @@ async function auditSnapshots() {
 }
 
 if (command === 'fetch') await fetchSnapshot();
+else if (command === 'fetch-attachment') await fetchAttachment();
 else if (command === 'parse') await parseSnapshot();
 else if (command === 'audit') await auditSnapshots();
 else throw new Error(`Unbekannter Befehl ${command}; erwartet: audit, fetch oder parse`);

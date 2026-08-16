@@ -7,6 +7,7 @@ import { applyPatchRecipe, previousIsoDate } from './lib/consolidation-engine.mj
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 
 const ROOT = process.cwd();
+const editorialConfig = await readJson(resolve(ROOT, 'src/config/editorial.json'));
 const args = process.argv.slice(2);
 const valueAfter = (flag) => {
   const index = args.indexOf(flag);
@@ -304,7 +305,11 @@ async function consolidate(slug, config) {
     initialCitation: baselineCitation,
     documentDate: source.documentDate ?? parsed.documentDate,
     type: meta.type,
-    status: repealRecipe ? 'repealed' : meta.status,
+    status: repealRecipe
+      ? previousIsoDate(repealRecipe.effectiveDate) <= editorialConfig.referenceDate
+        ? 'repealed'
+        : 'in-force'
+      : meta.status,
     ...(repealRecipe ? { expiryDate: previousIsoDate(repealRecipe.effectiveDate) } : {}),
     affectedByNorms: recipes.map((recipe) => recipe.amendmentAct),
     sourceReferences: [

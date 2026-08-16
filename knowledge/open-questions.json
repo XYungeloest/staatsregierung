@@ -1,6 +1,29 @@
 {
-  "asOf": "2026-08-11",
+  "asOf": "2026-08-16",
   "questions": [
+    {
+      "id": "question-school-law-source-conflicts-2026",
+      "title": "Zieltextkonflikte bei drei schulrechtlichen Konsolidierungen",
+      "status": "unresolved",
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "asOf": "2026-08-16",
+      "summary": "Einzelne Änderungsbefehle der OGVBl. 2026 Nr. 64 und 67 passen nicht auf die nach der Quellenrichtlinie verbindlichen Ausgangsfassungen der SOFS, BSO und BGySO.",
+      "sourceRefs": [
+        {"sourceId": "source-ogvbl-2026-64", "locator": "Artikel 1 Nummer 6 zu § 8 Absatz 2 SOFS", "role": "primary"},
+        {"sourceId": "source-ogvbl-2026-67", "locator": "Artikel 2 § 3 Nummer 8 und § 4 Nummer 1 Buchstabe d", "role": "primary"}
+      ],
+      "relatedIds": ["project-schulreform"],
+      "tags": ["open-question", "law", "education", "consolidation"],
+      "notes": ["Die Änderungsvorschriften selbst sind vollständig veröffentlicht. Gesperrt ist nur die nicht eindeutig ableitbare konsolidierte Folgefassung der drei Stammnormen."],
+      "question": "Welche exakte Ausgangsfassung beziehungsweise redaktionelle Quellenentscheidung ist für die widersprüchlichen Änderungsanker maßgeblich?",
+      "affectedIds": ["project-schulreform"],
+      "reason": "Die vorhandenen Zieltexte enthalten die von den Änderungsbefehlen vorausgesetzten Wortlaute oder Einordnungsstellen nicht.",
+      "requiredSource": "Amtliche vollständige Ausgangsfassung, Berichtigung der Verkündung oder ausdrückliche redaktionelle Quellenauflösung mit eindeutiger Einordnungsstelle.",
+      "publicContentImpact": "Keine scheinbar konsolidierte Fassung der SOFS, BSO oder BGySO als gesicherten Rechtsstand veröffentlichen; die amtlichen Änderungsvorschriften und der Konflikthinweis bleiben zugänglich.",
+      "priority": "high",
+      "questionStatus": "open"
+    },
     {
       "id": "question-dreyer-impeachment-final-disposition", "title": "Formeller Abschluss der Präsidentenanklage gegen Manuela Dreyer", "status": "unresolved", "validFrom": "2026-07-16", "validTo": null, "asOf": "2026-08-01", "summary": "Der Rücktritt und die Verschiebung der Hauptverhandlung sind bestätigt; die formelle Erledigung des Verfahrens ist nicht belegt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["proceeding-federal-president-dreyer-impeachment"], "tags": ["open-question", "federal", "constitutional-law"], "notes": ["Ein Rücktritt beendet eine Präsidentenanklage nicht ohne belegten Verfahrensakt automatisch."], "question": "Wie wurde das Präsidentenanklageverfahren nach dem Rücktritt Manuela Dreyers formal beendet?", "affectedIds": ["proceeding-federal-president-dreyer-impeachment"], "reason": "Weder Rücknahme, gerichtliche Einstellung, Fortsetzung noch sonstige amtliche Erledigung sind belegt.", "requiredSource": "Beschluss des Bundestages, gerichtlicher Einstellungs- oder Erledigungsbeschluss, spätere Entscheidung oder sonstige amtliche Verfahrensmitteilung.", "publicContentImpact": "Keine Aussage über eine automatische Erledigung, Rücknahme oder Einstellung.", "priority": "high", "questionStatus": "open"
     },
@@ -332,16 +355,16 @@
     },
     {
       "id": "question-missing-revosax-snapshots",
-      "title": "Welche 34 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
+      "title": "Welche 33 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der Konsolidierungsaudit weist 34 noch nicht vollständig gesicherte Zielnormen aus.",
+      "asOf": "2026-08-16",
+      "summary": "Der Konsolidierungsaudit weist 33 Zielnormen ohne versionierten maßgeblichen Ausgangssnapshot aus.",
       "sourceRefs": [
         {
           "sourceId": "source-content-gaps",
-          "locator": "71 Zielnormen, 34 fehlende Snapshots",
+          "locator": "84 Zielnormen, 48 vollständig konsolidiert, 3 Quellenkonflikte und 33 fehlende Snapshots",
           "role": "primary"
         },
         {
@@ -357,7 +380,7 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Welche 34 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
+      "question": "Welche 33 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
       "affectedIds": [
         "proceeding-law-consolidation"
       ],

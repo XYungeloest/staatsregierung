@@ -1,0 +1,447 @@
+{
+  "amendmentAct": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+  "effectiveDate": "2026-09-01",
+  "versionId": "2026-09-01",
+  "amendmentCitation": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "resultCitation": "Freie-Träger-Schulverordnung, geändert durch Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "changeNote": "Genehmigungs-, Anerkennungs- und Übergangsrecht an die neuen Schularten angepasst.",
+  "commandCoverage": [
+    "Artikel 2 § 1 Nummern 1 bis 5"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 67.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsische Freie-Träger-Schulverordnung",
+      "expectedMatches": 1,
+      "value": "Freie-Träger-Schulverordnung",
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 1 Nummer 1",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 1"
+      },
+      "expectedHash": "372358f23f7e7c3540d8f3c5ede5178a44f0c80ce81c4815ec8f24e158ab51ab",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 1",
+        "title": "Geltungsbereich",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Diese Verordnung gilt für Schulen in freier Trägerschaft im Freistaat Ostdeutschland mit Ausnahme der Fachschulen in den Berufen der Land-, Forst- und Hauswirtschaft sowie des Garten- und Landschaftsbaus."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 1 (§ 1)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "17ca3996f3629fecd091ccd064bd395f36ac47009f3bc9457023deac93d08515",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 2",
+        "title": "Genehmigungsverfahren für Ersatzschulen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Der Antrag auf Genehmigung nach § 4 Absatz 1 und 2 des Sächsischen Gesetzes über Schulen in freier Trägerschaft ist bei der Schulaufsichtsbehörde bis zum 1. Dezember des Kalenderjahres zu stellen, das dem Kalenderjahr vorangeht, in dem der Schulbetrieb aufgenommen werden soll. ²Die Genehmigung kann nur für den Beginn eines Schuljahres beantragt werden. ³Ein Antrag, der nach dem 1. Dezember eingeht, gilt für den Beginn des übernächsten Schuljahres gestellt. ⁴In begründeten Ausnahmefällen kann davon abgewichen werden. ⁵Dazu zählen insbesondere",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Berufsfachschulen für bundesrechtlich geregelte Gesundheitsfachberufe, soweit für sie bundesrechtliche Sonderregelungen zum Unterrichtsbeginn bestehen, und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Vorbereitungsklassen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Der Antrag muss die folgenden Angaben enthalten:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Bezeichnung des Schulträgers",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": [
+              {
+                "type": "item",
+                "label": "a)",
+                "text": "bei natürlichen Personen Name, Vorname, Geburtstag und Anschrift,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "b)",
+                "text": "bei Personengesellschaften Name, Vorname, Geburtstag und Anschrift der vertretungsberechtigten Personen sowie",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "c)",
+                "text": "bei juristischen Personen Name, Rechtsform, Sitz und vertretungsberechtigte Personen mit Name, Vorname, Geburtstag und Anschrift,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Bezeichnung der Schule und der Schulart sowie gegebenenfalls des Bildungsganges und des Förderschultyps,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Anschrift des Schulstandortes,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": [
+              {
+                "type": "item",
+                "label": "a)",
+                "text": "die pädagogische Konzeption der Schule mit Angaben über die Inhalte, die Methoden sowie die Organisation von Unterricht und Erziehung,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "b)",
+                "text": "bei einer Polytechnischen Oberschule, die bei Aufnahme des Schulbetriebs zunächst nur die Primarstufe führt, zusätzlich eine Begründung des besonderen pädagogischen Interesses, sofern sie nicht als Bekenntnis- oder Weltanschauungsschule errichtet werden soll,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "Benennung der Schulleitung und der Lehrkräfte unter Angabe von Namen, Vornamen und Geburtstag, der Qualifikation und des geplanten Einsatzes,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "Angaben zu den Formen der Mitwirkung der Schüler,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "Angaben zur gesundheitlichen Betreuung der Schüler,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "8.",
+            "text": "Angaben zur Anzahl, Größe und Ausstattung der Unterrichtsräume und anderer zur Nutzung vorgesehener Räumlichkeiten sowie zur Größe und Beschaffenheit der Außenanlagen und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "9.",
+            "text": "Angaben zur Finanzierung des Schulbetriebes und, soweit ein Schulgeld erhoben wird, Angaben zu dessen Höhe sowie zur Schulgeldbefreiung und Schulgeldermäßigung.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Dem Antrag sind die folgenden Unterlagen beizufügen:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "a)",
+            "text": "bei natürlichen Personen als Schulträger deren tabellarischer Lebenslauf,",
+            "level": 1,
+            "numberingStyle": "lower-latin",
+            "children": [
+              {
+                "type": "item",
+                "label": "b)",
+                "text": "bei Personengesellschaften oder juristischen Personen als Schulträger deren Satzung oder Gesellschaftsvertrag, gegebenenfalls ein Auszug aus dem Vereins- oder Handelsregister und tabellarische Lebensläufe der vertretungsberechtigten Personen,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "c)",
+                "text": "bei Stiftungen als Schulträger abweichend von Buchstabe b deren Satzung, ein Nachweis über die Anerkennung der Rechtsfähigkeit sowie tabellarische Lebensläufe der vertretungsberechtigten Personen sowie",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
+              {
+                "type": "item",
+                "label": "d)",
+                "text": "bei Kirchen oder Religionsgesellschaften als Schulträger abweichend von Buchstabe b der Nachweis über die Rechtsstellung einer Körperschaft des öffentlichen Rechts,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "für die Schulleitung und die Lehrkräfte Nachweise über die Ausbildung, die Teilnahme an Fort- und Weiterbildungen und den beruflichen Werdegang im Original oder in amtlich beglaubigter Kopie,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die mit der Schulleitung und den Lehrkräften vorgesehenen Arbeits- und Honorarverträge sowie die entsprechenden Verträge unverzüglich nach Vertragsschluss im Original oder in amtlich beglaubigter Kopie,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Erklärungen und Unterlagen zum Umfang der Verwendung der für Schulen in öffentlicher Trägerschaft geltenden Lehrpläne und zu anderen curricularen Vorgaben, insbesondere für die Umsetzung einer besonderen pädagogischen Konzeption, für zusätzlichen Unterricht bei einer Schwerpunktbildung oder für den Unterricht in Fächern, die nicht in der für Schulen in öffentlicher Trägerschaft geltenden Stundentafel enthalten sind,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "ein Nachweis über die Nutzungsrechte an den Unterrichtsräumen und anderen zur Nutzung vorgesehenen Räumlichkeiten,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "die Abnahmeprotokolle der zuständigen Behörden für die Bau-, Gesundheits-, Arbeitsschutz- und Brandschutzabnahme der Räumlichkeiten gemäß Nummer 5 sowie",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "die Erklärung des Schulträgers, dass die Einhaltung der Rechtsvorschriften zur Gesundheitsfürsorge für die Schüler gewährleistet wird.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Soll eine Polytechnische Oberschule, die zunächst nur die Primarstufe führt, als Bekenntnis- oder Weltanschauungsschule errichtet werden, sind Bekenntnis oder Weltanschauung im Antrag zu bezeichnen und ihre Verwirklichung im pädagogischen Konzept darzustellen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 1 (§ 2)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "e001c92028a069ee4b198d7d71bc7f30d174cb4e89d8359ca0b049905f7a6efc",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5",
+        "title": "Anerkennungsverfahren für Ersatzschulen und Inhalt der Anerkennung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Ersatzschulen können frühestens nach drei Jahren ununterbrochenen Betriebes anerkannt werden. ²Abweichend davon können berufsbildende Ersatzschulen mit ein- oder zweijährigen Bildungsgängen, für die eine Abschlussprüfung für Schulfremde vorgesehen ist, anerkannt werden, wenn ein Schülerjahrgang die berufsbildende Ersatzschule durchlaufen hat und mindestens 80 Prozent der zur Prüfung zugelassenen Schüler dieses Jahrganges die Abschlussprüfung für Schulfremde bestanden haben.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "¹Der Antrag auf Anerkennung nach § 8 Absatz 1 und 2 des Sächsischen Gesetzes über Schulen in freier Trägerschaft ist bei der Schulaufsichtsbehörde bis zum 30. September des Kalenderjahres zu stellen, das dem Kalenderjahr vorangeht, in dem die Anerkennung erfolgen soll. ²Die Anerkennung kann nur für den Beginn eines Schuljahres beantragt werden. ³Ein Antrag, der nach dem 30. September eingeht, gilt für den Beginn des übernächsten Schuljahres gestellt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "¹Abweichend von Absatz 1 können Ersatzschulen, die als Berufsschule geführt werden, frühestens sechs Monate vor Ablauf der in der Ausbildungs- und Prüfungsordnung für den jeweiligen Bildungsgang festgelegten Ausbildungsdauer anerkannt werden. ²Absatz 2 Satz 1 gilt mit der Maßgabe, dass der Antrag bis zum 30. November des Kalenderjahres zu stellen ist, das dem Kalenderjahr vorangeht, in dem die Anerkennung erfolgen soll. ³Absatz 2 Satz 2 und 3 gilt nicht.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Der Antrag muss die Angaben gemäß § 2 Absatz 2 Nummer 1 bis 3 enthalten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Dem Antrag sind die folgenden Unterlagen beizufügen:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "eine Darstellung der Schülerzahlentwicklung, gegliedert nach Schülerjahrgängen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "ein Nachweis über die Umsetzung der Stundentafeln der jeweiligen Schulart und des jeweiligen Bildungsganges, bei berufsbildenden Schulen einschließlich der Umsetzung der Praktikumsvorgaben,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "eine Übersicht über die beim Schulträger angestellten oder als Honorarkräfte tätigen Lehrkräfte, die Angabe des Unterrichtseinsatzes der Lehrkraft gemäß Stundentafel sowie Anzahl, Umfang und Inhalt der von den Lehrkräften absolvierten Fortbildungen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "die mit der Schulleitung und den Lehrkräften abgeschlossenen Arbeits- und Honorarverträge im Original oder in amtlich beglaubigter Kopie,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "eine Darstellung über die Entwicklung der sächlichen Ausstattung, einschließlich der Unterrichtsmittel,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "eine Selbstevaluation zum Stand der Entwicklung der pädagogischen Konzeption, soweit der Genehmigung Abweichungen von den Regelungen einer entsprechenden Schule in öffentlicher Trägerschaft oder eine besondere pädagogische Konzeption zu Grunde lagen, und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "die Erklärung des Schulträgers, dass ihm bekannt ist, dass für die Anerkennung der Ersatzschule die für die Schulart und den Bildungsgang der entsprechenden Schule in öffentlicher Trägerschaft geltenden Regelungen über die Aufnahme und Versetzung von Schülern, die Prüfungen sowie die Zeugniserteilung einschließlich des Erwerbs der Abschlüsse einzuhalten sind.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "(weggefallen)",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(7)",
+            "text": "§ 3 Absatz 1 gilt entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 1 (§ 5)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 11"
+      },
+      "expectedHash": "05ff244a87bd26f96f4ed215a121b507ea17181b129cab5b46148a3747401d1c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 11",
+        "title": "Übergang bestehender Genehmigungen und Anerkennungen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Genehmigungen und Anerkennungen ehemaliger Grundschulen, Oberschulen und Gemeinschaftsschulen gelten für die funktional entsprechenden Klassenstufen der Polytechnischen Oberschule, solche ehemaliger allgemeinbildender Gymnasien für die Klassenstufen 5 bis 10 der Polytechnischen Oberschule und die Jahrgangsstufen 11 und 12 der Erweiterten Oberschule fort.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Schulaufsichtsbehörde stellt die neue Bezeichnung von Amts wegen fest. Eine erneute Genehmigung ist nur erforderlich, wenn Träger, Standort, Abschlussniveau oder pädagogisches Konzept wesentlich geändert werden.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 1 (§ 11)",
+      "effectiveDate": "2026-09-01"
+    }
+  ]
+}

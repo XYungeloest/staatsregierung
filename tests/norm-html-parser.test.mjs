@@ -21,6 +21,11 @@ async function issue(number) {
   return parsePublicationHtml(fileName, html);
 }
 
+async function officialIssue(fileName) {
+  const html = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
+  return parsePublicationHtml(fileName, html);
+}
+
 function flatten(blocks, output = [], insideQuote = false) {
   for (const block of blocks ?? []) {
     output.push({ block, insideQuote });
@@ -41,6 +46,39 @@ test('Ausgaben 46 bis 58 werden ausschließlich aus HTML mit intern erkannten Au
     assert.equal(parsed.publicationDate, number === 58 ? '2026-07-21' : '2026-07-20');
     assert.deepEqual(validatePublicationParserContract(parsed), []);
   }
+});
+
+test('neues Schulrecht erhält Paragraphen, Bereinigungsartikel und gestaffeltes Inkrafttreten', async () => {
+  const eveningSchool = await officialIssue('OGVBl. 2026 Nr. 62.html');
+  assert.deepEqual(
+    summarizeParsedSource(eveningSchool)[0].outerParagraphs,
+    Array.from({ length: 24 }, (_, index) => `§ ${index + 1}`),
+  );
+  assert.equal(eveningSchool.effectiveDate, '2026-09-01');
+
+  const cleanup = await officialIssue('OGVBl. 2026 Nr. 67.html');
+  assert.deepEqual(
+    cleanup.body.filter((block) => block.type === 'article').map((block) => block.label),
+    ['Artikel 1', 'Artikel 2', 'Artikel 3', 'Artikel 4', 'Artikel 5', 'Artikel 6'],
+  );
+  const articleSix = cleanup.body.find((block) => block.label === 'Artikel 6');
+  assert.deepEqual(articleSix.children.map((block) => block.label), ['(1)', '(2)']);
+  assert.match(JSON.stringify(articleSix), /Artikel 4 tritt am 31\. August 2026 in Kraft/u);
+  assert.match(JSON.stringify(articleSix), /Im Übrigen tritt diese Verordnung am 1\. September 2026 in Kraft/u);
+  assert.equal(cleanup.effectiveDate, '2026-08-31');
+  assert.deepEqual(validatePublicationParserContract(cleanup), []);
+});
+
+test('ÄndVwV Schulformulare erhält alle sechs Änderungsnummern und Zitattexte', async () => {
+  const parsed = await officialIssue('StAnzO. 2026 Nr. 23.html');
+  const outerNumbers = parsed.body
+    .filter((block) => block.type === 'item' && /^\d+\.$/u.test(block.label))
+    .map((block) => block.label);
+  assert.deepEqual(outerNumbers, ['1.', '2.', '3.', '4.', '5.', '6.']);
+  assert.match(bodyText(parsed), /Religionszugehörigkeit: nein\/ja/u);
+  assert.match(bodyText(parsed), /Formularen ERW-1 und ERW-2/u);
+  assert.equal(parsed.effectiveDate, '2026-09-01');
+  assert.deepEqual(validatePublicationParserContract(parsed), []);
 });
 
 test('GMBl. 2026 Nr. 14 nutzt den Bundesblattpfad und erhält alle sieben Paragraphen quellentreu', async () => {

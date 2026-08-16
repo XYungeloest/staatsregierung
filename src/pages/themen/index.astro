@@ -4,6 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import TopicCard from '../../components/portal/TopicCard.astro';
 import SectionHero from '../../components/portal/SectionHero.astro';
 import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import { siteConfig } from '../../config/site.ts';
 import {
   getActionPlanUrl,
   getActiveTopicHighlights,
@@ -62,7 +63,7 @@ const topicGroups = groupTopicsByCluster(topics);
         <h2 id="topics-current-title">Was jetzt wichtig ist</h2>
         <p>Zeitkritische Vorhaben und jüngste Statusänderungen. Der Zeitraum wird direkt im jeweiligen Themendatensatz gepflegt.</p>
       </div>
-      <p class="topics-reference-date">Stand <time datetime={PORTAL_REFERENCE_DATE}>9. August 2026</time></p>
+      <p class="topics-reference-date">Stand <time datetime={PORTAL_REFERENCE_DATE}>{siteConfig.date.formatLong(PORTAL_REFERENCE_DATE)}</time></p>
     </div>
     {currentTopics.length > 0 ? (
       <div class:list={['topics-current-grid', currentTopics.length >= 3 && 'topics-current-grid--lead-layout']}>
