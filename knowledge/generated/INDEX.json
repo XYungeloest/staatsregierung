@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-11",
-  "editorialAsOf": "2026-08-09",
-  "count": 329,
+  "generatedAt": "2026-08-16",
+  "editorialAsOf": "2026-08-16",
+  "count": 356,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -887,6 +887,21 @@
       ],
       "validFrom": "2026-07-15",
       "validTo": "2026-07-15",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-school-law-package-promulgated-2026",
+      "title": "Schulrechtliches Umsetzungs- und Bereinigungspaket vollständig verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "education",
+        "law",
+        "promulgation"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": "2026-08-16",
       "target": "knowledge/timeline.json"
     },
     {
@@ -2478,7 +2493,7 @@
         "project",
         "education"
       ],
-      "validFrom": null,
+      "validFrom": "2026-03-23",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -2707,7 +2722,7 @@
     },
     {
       "id": "question-missing-revosax-snapshots",
-      "title": "Welche 34 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
+      "title": "Welche 33 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -2738,6 +2753,21 @@
         "open-question"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "question-school-law-source-conflicts-2026",
+      "title": "Zieltextkonflikte bei drei schulrechtlichen Konsolidierungen",
+      "type": "open-question",
+      "aliases": [],
+      "tags": [
+        "open-question",
+        "law",
+        "education",
+        "consolidation"
+      ],
+      "validFrom": "2026-08-16",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -3649,6 +3679,112 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-ogvbl-2026-60",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 60",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-61",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 61",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-62",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 62",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-15",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-63",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 63",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-15",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-64",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 64",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-15",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-65",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 65",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education",
+        "sorbian"
+      ],
+      "validFrom": "2026-08-15",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-66",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 66",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education",
+        "religion"
+      ],
+      "validFrom": "2026-08-15",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ogvbl-2026-67",
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 67",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-ogvbl-53",
       "title": "OGVBl. 2026 Nr. 53",
       "type": "source",
@@ -3981,6 +4117,217 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-stanzo-2026-16",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 16",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-17",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 17",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education",
+        "religion"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-18",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 18",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-19",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 19",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-20",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 20",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-21",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 21",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-22",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 22",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-23",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 23",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-24",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 24",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-25",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 25",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-26",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 26",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education",
+        "sport"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-27",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 27",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-28",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 28",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-29",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 29",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-30",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 30",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-31",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 31",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education",
+        "security"
+      ],
+      "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-steelworks-valuation-2026-03-14",
       "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
       "type": "source",
@@ -4177,6 +4524,20 @@
         "projects"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-school-law-package-2026",
+      "title": "Verkündetes Schulrechtspaket zum 1. September 2026",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "education",
+        "law"
+      ],
+      "validFrom": "2026-08-16",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

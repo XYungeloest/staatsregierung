@@ -55,6 +55,10 @@ test('aktuelle strukturierte und öffentliche Inhalte führen keinen offenen Aug
   ];
   for (const path of currentPaths) {
     const text = readFileSync(path, 'utf8');
-    assert.doesNotMatch(text, /Ende August|30\.\/31\.|30\. August|31\. August/u, path);
+    assert.doesNotMatch(
+      text,
+      /(?:Volkskammerwahl|Wahl zur achten Volkskammer|Wahltermin)[^}\n]{0,240}(?:Ende August|30\.\/31\.|30\. August|31\. August)/u,
+      path,
+    );
   }
 });

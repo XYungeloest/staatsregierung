@@ -6,7 +6,7 @@ const DATE_DOTTED = /(\d{1,2})\.(\d{1,2})\.(\d{4})/u;
 const DATE_DOTTED_GLOBAL = /(\d{1,2})\.(\d{1,2})\.(\d{4})/gu;
 const FOOTNOTE_LINK = /^#FNID_/u;
 const SIGNATURE_START = /^(?:Dresden|Leipzig|Chemnitz),\s+den\s+/iu;
-const NON_NORM_SECTION = /^(?:Bekanntmachung|Gesetz|Verordnung)$/iu;
+const NON_NORM_SECTION = /^(?:Bekanntmachung|Gesetz|Verordnung|Inhaltsübersicht)$/iu;
 const STRUCTURE_RANK = {
   part: 1,
   chapter: 2,
@@ -110,6 +110,8 @@ function markerFromSection(section) {
   const source = attributes(section).title ?? textOf(directHeading(section), { breaks: true });
   const parsed = parseStructureMarker(source);
   if (parsed) return parsed;
+  const numeric = normalizeText(source).replace(/\n+/gu, ' ').match(/^(\d+(?:\.\d+)*\.?)\s+(.+)$/u);
+  if (numeric) return { type: 'section', label: numeric[1], title: numeric[2] };
   const match = normalizeText(source)
     .replace(/\n+/gu, ' ')
     .match(/^((?:Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter)\s+(?:Teil|Kapitel|Abschnitt|Unterabschnitt))\s*(?:[–—:-])?\s*(.*)$/iu);
@@ -136,12 +138,32 @@ function parseTable(table) {
         };
       }),
   }));
-  const width = rows.reduce((maximum, row) =>
-    Math.max(maximum, row.children.reduce((sum, cell) => sum + (cell.colspan ?? 1), 0)), 0);
-  for (const [index, row] of rows.entries()) {
-    const rowWidth = row.children.reduce((sum, cell) => sum + (cell.colspan ?? 1), 0);
+  const occupied = [];
+  let width = 0;
+  for (let rowIndex = 0; rowIndex < rows.length; rowIndex += 1) {
+    occupied[rowIndex] ??= [];
+    let column = 0;
+    for (const cell of rows[rowIndex].children) {
+      while (occupied[rowIndex][column]) column += 1;
+      const rowspan = cell.rowspan ?? 1;
+      const colspan = cell.colspan ?? 1;
+      for (let rowOffset = 0; rowOffset < rowspan; rowOffset += 1) {
+        occupied[rowIndex + rowOffset] ??= [];
+        for (let columnOffset = 0; columnOffset < colspan; columnOffset += 1) {
+          if (occupied[rowIndex + rowOffset][column + columnOffset]) {
+            throw new RevosaxParseError(`Tabelle enthält überlappende Zellen in Zeile ${rowIndex + 1}`);
+          }
+          occupied[rowIndex + rowOffset][column + columnOffset] = true;
+        }
+      }
+      column += colspan;
+    }
+    width = Math.max(width, occupied[rowIndex].length);
+  }
+  for (let rowIndex = 0; rowIndex < occupied.length; rowIndex += 1) {
+    const rowWidth = occupied[rowIndex].filter(Boolean).length;
     if (rowWidth !== width) {
-      throw new RevosaxParseError(`Tabelle verliert in Zeile ${index + 1} Spalten (${rowWidth} statt ${width})`);
+      throw new RevosaxParseError(`Tabelle verliert in Zeile ${rowIndex + 1} Spalten (${rowWidth} statt ${width})`);
     }
   }
   return { type: 'table', columns: width, children: rows };
@@ -341,7 +363,7 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
     .flatMap(function flatten(block) {
       return [block, ...(block.children ?? []).flatMap(flatten)];
     })
-    .filter((block) => block.type === 'paragraph' || block.type === 'article')
+    .filter((block) => ['paragraph', 'article', 'section'].includes(block.type))
     .map((block) => block.label);
   if (provisionLabels.length === 0) throw new RevosaxParseError('keine Paragraphen oder Artikel erkannt');
 

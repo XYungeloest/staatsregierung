@@ -68,7 +68,7 @@ test('HTML, PDF und Markdown bilden eine gehashte Quellenhierarchie', async () =
     ['primary-pdf', 'visual-control'],
     ['supplementary-markdown-transcription', 'supplementary-transcription'],
   ]);
-  assert.equal(sha256('Gesetze/OGVBl.2026Nr.59.html'), 'a1d509c069aab78a3e851aed95af09941e2229af10415e2cc0ae3796240beeef');
+  assert.equal(sha256('Gesetze/OGVBl. 2026 Nr. 59.html'), 'fe9661c8f84c05e00f1601db47ef390ada23c12e0ab7a2e8eb504f7179b97404');
   assert.equal(sha256('Gesetze/OGVBl. 2026 Nr. 59.pdf'), 'd5ce883378a5b35c5641649e51bf0468632ed6c3e85dbebf4bf507adcfe423b1');
   assert.equal(sha256('Gesetze/OGVBl. 2026 Nr. 59.md'), 'b104ff9399357b22509f17dcb45c479ada909c17562c9f73ed80985f6af15a30');
   assert.equal(sha256('Gesetze/PM-09082026-05.pdf'), '88c8c9aeac8d8df62b13492adacb4cdcee11e1c62fe2051b2e8ca462857ddcf6');
@@ -77,7 +77,7 @@ test('HTML, PDF und Markdown bilden eine gehashte Quellenhierarchie', async () =
 });
 
 test('HTML und Markdown ergeben denselben vollständigen Normtext mit elf Paragraphen', () => {
-  const html = parsePublicationHtml('OGVBl.2026Nr.59.html', readFileSync('Gesetze/OGVBl.2026Nr.59.html', 'utf8'));
+  const html = parsePublicationHtml('OGVBl. 2026 Nr. 59.html', readFileSync('Gesetze/OGVBl. 2026 Nr. 59.html', 'utf8'));
   const markdown = parsePublicationMarkdown('OGVBl. 2026 Nr. 59.md', readFileSync('Gesetze/OGVBl. 2026 Nr. 59.md', 'utf8'));
   assert.deepEqual(withoutSourceListIds(html.body as Block[]), withoutSourceListIds(markdown.body as Block[]));
   const paragraphs = (html.body as Block[]).filter((block) => block.type === 'paragraph');

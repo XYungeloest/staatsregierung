@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-07-23T13:51:55.929Z",
+  "generatedAt": "2026-08-16T17:16:00.073Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
-    "recognizedAmendmentActs": 54,
-    "recognizedTargetNorms": 71,
-    "completeTargetNorms": 37,
-    "blockedSourceConflicts": 0,
-    "missingPrimarySources": 34
+    "recognizedAmendmentActs": 60,
+    "recognizedTargetNorms": 84,
+    "completeTargetNorms": 48,
+    "blockedSourceConflicts": 3,
+    "missingPrimarySources": 33
   },
   "templateProblems": [
     "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
@@ -1743,6 +1743,38 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "pruefungsverordnung-waldorfschulen",
+      "title": "Prüfungsverordnung Waldorfschulen",
+      "aliases": [
+        "Prüfungsverordnung Waldorfschulen"
+      ],
+      "revosaxLawId": "1373",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1373",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-01",
+      "sourceValidTo": null,
+      "sourceSha256": "e0fc453a634af2fe22483a96b4ec898649f9a88529d4a8f98bfd4a5896c1c92f",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "pruefungsverordnung-waldorfschulen",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "saechsische-bauordnung",
       "title": "Sächsische Bauordnung",
       "aliases": [
@@ -1761,6 +1793,14 @@
       "enactingActs": [],
       "amendmentActs": [
         {
+          "slug": "erstes-gesetz-betreffend-die-bereinigung-ostdeutschen-landesrechts",
+          "title": "Erstes Gesetz betreffend die Bereinigung ostdeutschen Landesrechts",
+          "effectiveDate": "2026-03-24",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-03-24"
+        },
+        {
           "slug": "gesetz-zur-verbesserung-des-stadtbilds",
           "title": "Gesetz zur Verbesserung des Stadtbilds",
           "effectiveDate": "2026-03-24",
@@ -1771,6 +1811,39 @@
       ],
       "effectiveDates": [
         "2026-03-24"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "freie-trager-schulverordnung",
+      "title": "Sächsische Freie-Träger-Schulverordnung",
+      "aliases": [
+        "Freie-Träger-Schulverordnung",
+        "Sächsische Freie-Träger-Schulverordnung"
+      ],
+      "revosaxLawId": "17118",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17118.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2020-08-01",
+      "sourceValidTo": "2024-07-31",
+      "sourceSha256": "da26b64d487a51edd347f4f0ae1f3257e307e167ed644d0dc308bd7d2446ece9",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "freie-trager-schulverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
       ],
       "status": "complete",
       "problems": [],
@@ -1865,6 +1938,39 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "saechsische-klassenbildungsverordnung",
+      "title": "Sächsische Klassenbildungsverordnung",
+      "aliases": [
+        "Ostdeutsche Klassenbildungsverordnung",
+        "Sächsische Klassenbildungsverordnung"
+      ],
+      "revosaxLawId": "17344",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17344.4",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-01",
+      "sourceValidTo": "2024-07-31",
+      "sourceSha256": "6c4d15f6d8ea0a222839474b4d4ea23de1ea42d5a3667af0faff1cebb0f625fe",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "saechsische-klassenbildungsverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "saechsische-landkreisordnung",
       "title": "Sächsische Landkreisordnung",
       "aliases": [
@@ -1921,6 +2027,75 @@
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "schulnetzplanungsverordnung",
+      "title": "Sächsische Schulnetzplanungsverordnung",
+      "aliases": [
+        "Ostdeutsche Schulnetzplanungsverordnung",
+        "Sächsische Schulnetzplanungsverordnung",
+        "Sächsischen Schulnetzplanungsverordnung"
+      ],
+      "revosaxLawId": "17346",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17346",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-01",
+      "sourceValidTo": null,
+      "sourceSha256": "ad99dbb5e0bb74f8bc3eb61a6e8e1d1af504f4a75116eb483f2dfc2a98c7ba7d",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "schulnetzplanungsverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "klassenbildungsverordnung",
+      "title": "Sächsischen Klassenbildungsverordnung",
+      "aliases": [
+        "Sächsische Klassenbildungsverordnung",
+        "Sächsischen Klassenbildungsverordnung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "saechsische-klassenbildungsverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
     },
     {
       "canonicalSlug": "abschiebungshaftvollzugsgesetz",
@@ -2230,39 +2405,107 @@
       "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
     },
     {
-      "canonicalSlug": "schulordnung-foerderschulen",
-      "title": "Schulordnung Förderschulen",
+      "canonicalSlug": "schulordnung-berufliche-gymnasien",
+      "title": "Schulordnung Berufliche Gymnasien",
       "aliases": [
-        "Schulordnung Förderschulen"
+        "Schulordnung berufliche Gymnasien",
+        "Schulordnung Berufliche Gymnasien"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "3349",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3349.16",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
+      "sourceValidFrom": "2021-05-13",
+      "sourceValidTo": "2024-07-31",
+      "sourceSha256": "33650dae89a25665a7f72321b12cb8da19278a6ad8480d6109c0b6c345f2c707",
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
       "amendmentActs": [
         {
-          "slug": "verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n",
-          "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
-          "effectiveDate": "2026-09-01",
-          "detectedType": "verordnung",
-          "typeCorrectionNeeded": true,
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-01"
         }
       ],
       "effectiveDates": [
         "2026-09-01"
       ],
-      "status": "missing-baseline",
+      "status": "blocked-source-conflict",
       "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Quellenkonflikt in OGVBl. 2026 Nr. 67: Artikel 2 § 4 Nummer 1 Buchstabe d setzt im neuen § 4 Absatz 4 Satz 2 einen Verweis auf § 4 Absatz 6 Satz 1 voraus, der in der verbindlichen Ausgangsfassung nicht vorhanden ist. Eine spätere sächsische Fassung wird nicht wörtlich als Ausgangsfassung adoptiert."
       ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+    },
+    {
+      "canonicalSlug": "schulordnung-berufsschule",
+      "title": "Schulordnung Berufsschule",
+      "aliases": [
+        "Schulordnung Berufsschule"
+      ],
+      "revosaxLawId": "19923",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19923.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-01",
+      "sourceValidTo": "2024-07-31",
+      "sourceSha256": "6344b0c26d34a7a5f5ee63a832b0fdfd79a573dcb818904f57088e8beee717a5",
+      "editorialResolutions": [],
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "blocked-source-conflict",
+      "problems": [
+        "Quellenkonflikt in OGVBl. 2026 Nr. 67: Artikel 2 § 3 Nummer 8 ordnet die Einfügung nach § 31 an; die verbindliche Ausgangsfassung vom 1. November 2023 endet bei § 30. Eine spätere sächsische Fassung wird nicht wörtlich als Ausgangsfassung adoptiert."
+      ],
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+    },
+    {
+      "canonicalSlug": "schulordnung-foerderschulen",
+      "title": "Schulordnung Förderschulen",
+      "aliases": [
+        "Schulordnung Förderschulen"
+      ],
+      "revosaxLawId": "3887",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3887.13",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-29",
+      "sourceValidTo": "2026-01-31",
+      "sourceSha256": "413659283b4df78b9c59a5037430cc66abfe9982016ba6cf95660b019e47c544",
+      "editorialResolutions": [],
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026",
+          "title": "Verordnung zur Änderung der Schulordnung Förderschulen",
+          "effectiveDate": "2026-09-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "blocked-source-conflict",
+      "problems": [
+        "Quellenkonflikt in OGVBl. 2026 Nr. 64: Mindestens der Änderungsbefehl zu § 8 Absatz 2 setzt die Wörter „Klassenstufen 1 bis 4 der Grundschule“ voraus; diese stehen nicht in der durch die Änderungsvorschrift selbst bezeichneten Ausgangsfassung. Eine heuristische Umdeutung auf den vorhandenen Lehrplanverweis ist unzulässig."
+      ],
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
     },
     {
       "canonicalSlug": "schulordnung-gemeinschaftsschulen",
@@ -2270,34 +2513,31 @@
       "aliases": [
         "Schulordnung Gemeinschaftsschulen"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "19224",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19224.2",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
+      "sourceValidFrom": "2023-08-01",
+      "sourceValidTo": "2026-01-31",
+      "sourceSha256": "7bc458d51dfe04806902101fab1a613f22536254568dffe0ab8b3274a8f89953",
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "schulordnung-gemeinschaftsschulen",
       "enactingActs": [],
       "amendmentActs": [
         {
-          "slug": "verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n",
-          "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
-          "effectiveDate": "2026-09-01",
-          "detectedType": "verordnung",
-          "typeCorrectionNeeded": true,
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-01"
         }
       ],
       "effectiveDates": [
         "2026-09-01"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "schulordnung-grundschulen",
@@ -2305,34 +2545,95 @@
       "aliases": [
         "Schulordnung Grundschulen"
       ],
-      "revosaxLawId": null,
-      "baselineUrl": null,
+      "revosaxLawId": "3886",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3886.12",
       "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
+      "sourceValidFrom": "2021-08-01",
+      "sourceValidTo": "2026-01-31",
+      "sourceSha256": "ba9892c8bdbcad359c9305833ddd889eb14eadf63bf927beaad8694e032dedd1",
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "schulordnung-grundschulen",
       "enactingActs": [],
       "amendmentActs": [
         {
-          "slug": "verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n",
-          "title": "Verordnung des Staatsministeriums für Bildung und sportliche Ertüchtigung über die Nutzung privater mobiler Endgeräte in der Primarstufe",
-          "effectiveDate": "2026-09-01",
-          "detectedType": "verordnung",
-          "typeCorrectionNeeded": true,
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-01"
         }
       ],
       "effectiveDates": [
         "2026-09-01"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "schulordnung-gymnasien-abiturpruefung",
+      "title": "Schulordnung Gymnasien Abiturprüfung",
+      "aliases": [
+        "Schulordnung Gymnasien Abiturprüfung"
       ],
-      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+      "revosaxLawId": "20003",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/20003.1",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-01",
+      "sourceValidTo": "2024-07-31",
+      "sourceSha256": "2abcd4e8dde17af5e558f176463f4ac23959431b5302bb8f0511041e5b619053",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "schulordnung-gymnasien-abiturpruefung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "schulordnung-ober-und-abendoberschulen",
+      "title": "Schulordnung Ober- und Abendoberschulen",
+      "aliases": [
+        "Schulordnung Ober- und Abendoberschulen"
+      ],
+      "revosaxLawId": "12053",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/12053.12",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2023-08-29",
+      "sourceValidTo": "2026-07-31",
+      "sourceSha256": "4e17c0852491650a6aa5579ea2bb2ff82c12c14652b201c245d49701321a9afe",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "schulordnung-ober-und-abendoberschulen",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-08-31",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "staatsverfassung-des-freistaates-ostdeutschland",
@@ -2539,6 +2840,142 @@
       "problems": [
         "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
         "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle."
+      ],
+      "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
+    },
+    {
+      "canonicalSlug": "vwv-beratungslehrer",
+      "title": "VwV Beratungslehrer",
+      "aliases": [
+        "Verwaltungsvorschrift über Beratungslehrer an öffentlichen Schulen",
+        "VwV Beratungslehrer"
+      ],
+      "revosaxLawId": "1225",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1225",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2004-08-26",
+      "sourceValidTo": null,
+      "sourceSha256": "6df198f3a61bea306d57a3ff7ffc08429779eefde6a41af2484f65a7795bc0ff",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "vwv-beratungslehrer",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "aendvwv-beratungslehrer-2026",
+          "title": "Verwaltungsvorschrift des Staatssekretariats für Volksbildung und Wissenschaft zur Änderung der Verwaltungsvorschrift über Beratungslehrer an öffentlichen Schulen",
+          "effectiveDate": "2026-09-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "vwv-radfahrausbildung",
+      "title": "VwV Radfahrausbildung",
+      "aliases": [
+        "Gemeinsame Verwaltungsvorschrift über die Durchführung der Radfahrausbildung",
+        "VwV Radfahrausbildung"
+      ],
+      "revosaxLawId": "19216",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19216",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2021-07-09",
+      "sourceValidTo": null,
+      "sourceSha256": "bf2c0b1791af4b5bce0761c15d77e3e34a79d82b13b1abc88bbe50fa4569f7e7",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "vwv-radfahrausbildung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "aendvwv-radfahrausbildung-2026",
+          "title": "Gemeinsame Verwaltungsvorschrift des Staatssekretariats für Volksbildung und Wissenschaft und des Staatssekretariats für Staats- und Grenzsicherheit zur Änderung der Gemeinsame Verwaltungsvorschrift über die Durchführung der Radfahrausbildung",
+          "effectiveDate": "2026-09-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "vwv-schulformulare",
+      "title": "VwV Schulformulare",
+      "aliases": [
+        "Verwaltungsvorschrift zur Verwendung von Formularen für die schulische Verwaltung",
+        "Verwaltungsvorschrift zur Verwendung von Formularen für die schulische Verwaltung an allgemeinbildenden Schulen und Schulen des zweiten Bildungsweges im Freistaat Ostdeutschland",
+        "Verwaltungsvorschrift zur Verwendung von Formularen für die schulische Verwaltung an allgemeinbildenden Schulen und Schulen des zweiten Bildungsweges im Freistaat Ostdeutschland (VwV Schulformulare)",
+        "VwV Schulformulare"
+      ],
+      "revosaxLawId": "19353",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19353",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2021-10-08",
+      "sourceValidTo": null,
+      "sourceSha256": "2899f05dd63dc21eef0b2df621283121c18cda3a1b299b8968f17f4ffadcc0ad",
+      "editorialResolutions": [],
+      "existingStemNormSlug": "vwv-schulformulare",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "aendvwv-schulformulare-2026",
+          "title": "Verwaltungsvorschrift des Staatssekretariats für Volksbildung und Wissenschaft zur Änderung der Verwaltungsvorschrift zur Verwendung von Formularen für die schulische Verwaltung an allgemeinbildenden Schulen und Schulen des zweiten Bildungsweges im Freistaat Ostdeutschland",
+          "effectiveDate": "2026-09-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-09-01"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "vwv-stundentafeln",
+      "title": "VwV Stundentafeln",
+      "aliases": [
+        "VwV Stundentafel"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "editorialResolutions": [],
+      "existingStemNormSlug": null,
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf",
+          "title": "Verwaltungsvorschrift des Staatsministeriums für Volksbildung und Wissenschaft zur Änderung der VwV Stundentafel",
+          "effectiveDate": "2026-08-01",
+          "detectedType": "verwaltungsvorschrift",
+          "typeCorrectionNeeded": true,
+          "targetEffectiveDate": "2026-08-01"
+        }
+      ],
+      "effectiveDates": [
+        "2026-08-01"
+      ],
+      "status": "missing-baseline",
+      "problems": [
+        "Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.",
+        "Eigenständiger Stammnormdatensatz fehlt."
       ],
       "nextAction": "Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen."
     },

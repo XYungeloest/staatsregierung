@@ -1,13 +1,13 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-07-23T13:51:55.929Z
+**Erzeugt:** 2026-08-16T17:16:00.073Z
 
-- Erkannte Änderungsvorschriften: 54
-- Erkannte Zielnormen: 71
-- Vollständig konsolidiert: 37
-- Blockierte Quellenkonflikte: 0
-- Fehlende Primärquellen: 34
+- Erkannte Änderungsvorschriften: 60
+- Erkannte Zielnormen: 84
+- Vollständig konsolidiert: 48
+- Blockierte Quellenkonflikte: 3
+- Fehlende Primärquellen: 33
 
 ## Abschiebe-Aussetzungsverordnung
 
@@ -569,6 +569,16 @@
 - Änderungen: keine
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
+## Prüfungsverordnung Waldorfschulen
+
+- Slug: `pruefungsverordnung-waldorfschulen`
+- Status: `complete`
+- Stammnorm: `pruefungsverordnung-waldorfschulen`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/1373
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
 ## Sächsische Bauordnung
 
 - Slug: `saechsische-bauordnung`
@@ -576,7 +586,17 @@
 - Stammnorm: `saechsische-bauordnung`
 - REVOSax: https://www.revosax.sachsen.de/vorschrift/1779.14
 - Einführung: keine
-- Änderungen: `gesetz-zur-verbesserung-des-stadtbilds` (2026-03-24)
+- Änderungen: `erstes-gesetz-betreffend-die-bereinigung-ostdeutschen-landesrechts` (2026-03-24), `gesetz-zur-verbesserung-des-stadtbilds` (2026-03-24)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Sächsische Freie-Träger-Schulverordnung
+
+- Slug: `freie-trager-schulverordnung`
+- Status: `complete`
+- Stammnorm: `freie-trager-schulverordnung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/17118.3
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Sächsische Gemeindeordnung
@@ -599,6 +619,16 @@
 - Änderungen: `gesetz-zur-einfuhrung-der-landesbank-ostdeutschland` (2026-01-27)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
+## Sächsische Klassenbildungsverordnung
+
+- Slug: `saechsische-klassenbildungsverordnung`
+- Status: `complete`
+- Stammnorm: `saechsische-klassenbildungsverordnung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/17344.4
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
 ## Sächsische Landkreisordnung
 
 - Slug: `saechsische-landkreisordnung`
@@ -610,6 +640,28 @@
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 - Redaktionell aufgelöste Quellenabweichungen:
   - `landkreisordnung-zielanker-paragraf-65` (2026-07-23): Die Ersetzung wird in § 65 Absatz 1 Satz 1 der Landkreisordnung angewendet.
+
+## Sächsische Schulnetzplanungsverordnung
+
+- Slug: `schulnetzplanungsverordnung`
+- Status: `complete`
+- Stammnorm: `schulnetzplanungsverordnung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/17346
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Sächsischen Klassenbildungsverordnung
+
+- Slug: `klassenbildungsverordnung`
+- Status: `missing-baseline`
+- Stammnorm: `saechsische-klassenbildungsverordnung`
+- REVOSax: noch nicht belegt
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Probleme:
+  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
 
 ## Sächsisches Abschiebungshaftvollzugsgesetz
 
@@ -692,44 +744,81 @@
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
+## Schulordnung Berufliche Gymnasien
+
+- Slug: `schulordnung-berufliche-gymnasien`
+- Status: `blocked-source-conflict`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3349.16
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
+- Probleme:
+  - Quellenkonflikt in OGVBl. 2026 Nr. 67: Artikel 2 § 4 Nummer 1 Buchstabe d setzt im neuen § 4 Absatz 4 Satz 2 einen Verweis auf § 4 Absatz 6 Satz 1 voraus, der in der verbindlichen Ausgangsfassung nicht vorhanden ist. Eine spätere sächsische Fassung wird nicht wörtlich als Ausgangsfassung adoptiert.
+
+## Schulordnung Berufsschule
+
+- Slug: `schulordnung-berufsschule`
+- Status: `blocked-source-conflict`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/19923.1
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
+- Probleme:
+  - Quellenkonflikt in OGVBl. 2026 Nr. 67: Artikel 2 § 3 Nummer 8 ordnet die Einfügung nach § 31 an; die verbindliche Ausgangsfassung vom 1. November 2023 endet bei § 30. Eine spätere sächsische Fassung wird nicht wörtlich als Ausgangsfassung adoptiert.
+
 ## Schulordnung Förderschulen
 
 - Slug: `schulordnung-foerderschulen`
-- Status: `missing-baseline`
+- Status: `blocked-source-conflict`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3887.13
 - Einführung: keine
-- Änderungen: `verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n` (2026-09-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Änderungen: `verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026` (2026-09-01)
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+  - Quellenkonflikt in OGVBl. 2026 Nr. 64: Mindestens der Änderungsbefehl zu § 8 Absatz 2 setzt die Wörter „Klassenstufen 1 bis 4 der Grundschule“ voraus; diese stehen nicht in der durch die Änderungsvorschrift selbst bezeichneten Ausgangsfassung. Eine heuristische Umdeutung auf den vorhandenen Lehrplanverweis ist unzulässig.
 
 ## Schulordnung Gemeinschaftsschulen
 
 - Slug: `schulordnung-gemeinschaftsschulen`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- Status: `complete`
+- Stammnorm: `schulordnung-gemeinschaftsschulen`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/19224.2
 - Einführung: keine
-- Änderungen: `verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n` (2026-09-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Schulordnung Grundschulen
 
 - Slug: `schulordnung-grundschulen`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- Status: `complete`
+- Stammnorm: `schulordnung-grundschulen`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3886.12
 - Einführung: keine
-- Änderungen: `verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n` (2026-09-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Schulordnung Gymnasien Abiturprüfung
+
+- Slug: `schulordnung-gymnasien-abiturpruefung`
+- Status: `complete`
+- Stammnorm: `schulordnung-gymnasien-abiturpruefung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/20003.1
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Schulordnung Ober- und Abendoberschulen
+
+- Slug: `schulordnung-ober-und-abendoberschulen`
+- Status: `complete`
+- Stammnorm: `schulordnung-ober-und-abendoberschulen`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/12053.12
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Verfassung des Freistaates Ostdeutschland
 
@@ -779,6 +868,49 @@
 - Probleme:
   - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
+
+## VwV Beratungslehrer
+
+- Slug: `vwv-beratungslehrer`
+- Status: `complete`
+- Stammnorm: `vwv-beratungslehrer`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/1225
+- Einführung: keine
+- Änderungen: `aendvwv-beratungslehrer-2026` (2026-09-01)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## VwV Radfahrausbildung
+
+- Slug: `vwv-radfahrausbildung`
+- Status: `complete`
+- Stammnorm: `vwv-radfahrausbildung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/19216
+- Einführung: keine
+- Änderungen: `aendvwv-radfahrausbildung-2026` (2026-09-01)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## VwV Schulformulare
+
+- Slug: `vwv-schulformulare`
+- Status: `complete`
+- Stammnorm: `vwv-schulformulare`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/19353
+- Einführung: keine
+- Änderungen: `aendvwv-schulformulare-2026` (2026-09-01)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## VwV Stundentafeln
+
+- Slug: `vwv-stundentafeln`
+- Status: `missing-baseline`
+- Stammnorm: fehlt
+- REVOSax: noch nicht belegt
+- Einführung: keine
+- Änderungen: `verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf` (2026-08-01)
+- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Probleme:
+  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Waldgesetz
 

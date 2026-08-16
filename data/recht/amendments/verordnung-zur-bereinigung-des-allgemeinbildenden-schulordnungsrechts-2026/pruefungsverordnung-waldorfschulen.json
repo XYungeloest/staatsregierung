@@ -1,0 +1,593 @@
+{
+  "amendmentAct": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+  "effectiveDate": "2026-09-01",
+  "versionId": "2026-09-01",
+  "amendmentCitation": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "resultCitation": "Prüfungsverordnung Waldorfschulen, geändert durch Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "changeNote": "Abschluss- und Abiturprüfungsrecht an SOPOS und SOEOSA angepasst.",
+  "commandCoverage": [
+    "Artikel 2 § 2 Nummern 1 bis 14"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 67.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 1"
+      },
+      "expectedHash": "218140833ccd93cfca4bea2a6fb81faf112ac39555231715776fccb0d4ac02d5",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 1",
+        "title": "Geltungsbereich",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "¹Diese Verordnung regelt den Erwerb des Hauptschulabschlusses, des qualifizierenden Hauptschulabschlusses, des Realschulabschlusses und der allgemeinen Hochschulreife durch Schüler von Waldorfschulen. ²Diese Verordnung sichert die Gleichwertigkeit der erworbenen Abschlüsse mit den entsprechenden Schulfremdenprüfungen an Polytechnischen und Erweiterten Oberschulen."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 1)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "d6e640a100cc60e40f8349d7527ea0f03d5fbb7bb65e8019fc29f7455380dd31",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 4",
+        "title": "Prüfungsgegenstände für den Erwerb des Hauptschulabschlusses",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die schriftliche Prüfung erstreckt sich auf die Fächer Deutsch und Mathematik.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "¹Die mündliche Prüfung erstreckt sich auf drei der Fächer Gemeinschaftskunde/Rechtserziehung, Geographie, Geschichte, eine Fremdsprache, Biologie oder Physik der Polytechnischen Oberschule und kann fachpraktische Teile enthalten. ²Bei der Festlegung der Fächer soll der Prüfungsausschuss die Wünsche des Prüfungsteilnehmers berücksichtigen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "¹In einem Fach der mündlichen Prüfung können waldorfspezifische Unterrichtsinhalte berücksichtigt werden, wenn der Prüfungsteilnehmer dies beantragt. ²In dem Antrag ist anzugeben, in welchem Fach der mündlichen Prüfung die Berücksichtigung erfolgen soll.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 4)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 9"
+      },
+      "expectedHash": "b8047dcfec7752163eba757e1d3182e28292b849505d589f73b6964f0373ad8b",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 9",
+        "title": "Bewertung der Prüfungsleistungen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Jede schriftliche Prüfungsarbeit wird zuerst von einer Lehrkraft der Waldorfschule mit staatlicher Lehrbefähigung für die Sekundarstufe I in dem betreffenden Fach und danach von einer von der Schulaufsichtsbehörde bestimmten Lehrkraft des betreffenden Faches an einer Polytechnischen Oberschule bewertet.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Weichen die Bewertungen um eine oder mehr Noten voneinander ab und können sich die beiden Lehrer nicht einigen, wird die Note vom Vorsitzenden des Prüfungsausschusses festgesetzt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "¹In Fächern, in denen eine schriftliche und eine mündliche Prüfung durchgeführt wurde, bildet der Fachausschuss die Prüfungsnote aus den Ergebnissen der schriftlichen und mündlichen Prüfungen, die zu gleichen Teilen einfließen. ²Im Zweifel kommt dem Ergebnis der schriftlichen Prüfungsleistung dabei ein höheres Gewicht zu.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 9)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 10"
+      },
+      "expectedHash": "a8fbfe33785adc65c8c4fa4e7d101c07c1730c3962d82e1c1bdd8d15096616bb",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 10",
+        "title": "Bestehen der Prüfung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Prüfung zum Erwerb des Abschlusses der Polytechnischen Oberschule nach Klassenstufe 9 ist bestanden, wenn alle Prüfungsnoten mindestens 4 sind oder höchstens zwei Noten 5 nach folgenden Maßgaben ausgeglichen werden: Eine Note 5 in Deutsche Literatur und Sprache, Mathematik, Englisch, Physik, Chemie oder einem polytechnischen Pflichtfach setzt mindestens die Note 2 in einem anderen dieser Fächer voraus. Eine Note 5 in einem anderen Fach setzt mindestens die Note 3 in einem weiteren Fach voraus. Dieselbe Fachnote darf nur einmal zum Ausgleich herangezogen werden. Liegt in Deutsche Literatur und Sprache und Mathematik jeweils die Note 5 vor, ist ein Ausgleich ausgeschlossen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Prüfung zum Erwerb des Abschlusses der Polytechnischen Oberschule nach Klassenstufe 10 ist bestanden, wenn alle Prüfungsnoten mindestens 4 sind oder eine Prüfungsnote 5 durch eine Prüfungsnote 2 oder besser in einem anderen Fach ausgeglichen wird. Eine Prüfungsnote 5 in Deutsche Literatur und Sprache, Mathematik, Englisch oder dem nach § 6 Absatz 1 Satz 1 gewählten naturwissenschaftlichen Fach ist nicht ausgleichbar. Mehr als eine Prüfungsnote 5 schließt das Bestehen aus.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "¹Über das Bestehen der Prüfung entscheidet der Prüfungsausschuss in einer Schlusssitzung. ²Den Prüfungsteilnehmern ist das Ergebnis der Prüfung durch den Vorsitzenden des Prüfungsausschusses mitzuteilen. ³Besteht ein Schüler die Prüfung nicht, wird ihm dies schriftlich durch den Prüfungsausschuss unter Hinweis auf eine eventuelle Wiederholbarkeit der Prüfung bekanntgegeben.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 10)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 12"
+      },
+      "expectedHash": "4450dbbee30a31134edd01c52c283f4743764c9f91bdd6d679bde3f65e458c0e",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 12",
+        "title": "Wiederholung der Prüfung",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Die nicht bestandene Prüfung kann frühestens ein Jahr nach dem ersten Versuch, nur einmal und insgesamt im Rahmen der Prüfung zum Erwerb des Hauptschulabschlusses, des qualifizierenden Hauptschulabschlusses oder des Realschulabschlusses für Schulfremde an Polytechnischen Oberschulen in öffentlicher Trägerschaft an der Waldorfschule wiederholt werden."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 12)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 14"
+      },
+      "expectedHash": "9eb2100feb6a1ced115c9c6cd03203f36e6207cd7dd08ae415e0564f47e51f9c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 14",
+        "title": "Durchführung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Schüler:innen der Jahrgangsstufe 11, die das Abitur erlangen wollen, nehmen an der landeseinheitlichen besonderen Leistungsfeststellung nach diesem Abschnitt teil. Aufgaben und Termin bestimmt die oberste Schulaufsichtsbehörde.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "¹In den Fächern Deutsch, Mathematik und Englisch sind schriftliche Arbeiten anzufertigen. ²Die Bearbeitungszeit beträgt jeweils 90 Minuten.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 14)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 15"
+      },
+      "expectedHash": "32bc685a901fb620e5d285d24d05a5e8c1d23f5ca1e79f3364739584d240b18b",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 15",
+        "title": "Korrektur der Arbeiten",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Jede Arbeit wird zuerst von einer Lehrkraft der Waldorfschule mit staatlicher Lehrbefähigung für die Sekundarstufe II im betreffenden Fach und danach von einer von der Schulaufsichtsbehörde bestimmten Lehrkraft des betreffenden Faches an einer Erweiterten Oberschule korrigiert und bewertet."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 15)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 17"
+      },
+      "expectedHash": "aa84820cf3a54e2ebdaa80338397e566b34de1c334a6df79da7aee4e984813af",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 17",
+        "title": "Anerkennung des mittleren Schulabschlusses",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Ein dem Realschulabschluss gleichgestellter mittlerer Schulabschluss wird einem Schüler der Waldorfschule nachträglich zuerkannt, wenn"
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "er an der besonderen Leistungsfeststellung in der Jahrgangsstufe 11 teilgenommen und in jeder der drei Arbeiten mindestens die Note 4 erreicht hat und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "bei den schriftlichen Prüfungen zur allgemeinen Hochschulreife mit oder ohne Besonderer Lernleistung gemäß § 24 Absatz 1 bis 3, 5 und 6 mindestens 165 Punkte erreicht wurden.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 17)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 18"
+      },
+      "expectedHash": "2004ebbc603f4e7b38403e5d165937d97ce97b0ad8276401607cdcacf9e5df34",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 18",
+        "title": "Gliederung der Prüfung, Prüfungsfächer",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "¹Die Abiturprüfung gliedert sich in einen schriftlichen und einen mündlichen Teil. ²Die Dauer der schriftlichen Prüfungen richtet sich für Fächer auf erhöhtem und grundlegendem Anforderungsniveau nach § 29 Absatz 2 der Schulordnung Erweiterte Oberschulen und Abiturprüfung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "¹Der schriftliche Teil umfasst die Prüfung in vier Fächern. ²Es müssen Kenntnisse in zwei Fächern auf erhöhtem Anforderungsniveau (Leistungskursfächer) und in zwei Fächern auf grundlegendem Anforderungsniveau (Grundkursfächer) nachgewiesen werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Für die Leistungskursfächer sind folgende Kombinationen zulässig:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Deutsch – Mathematik;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Deutsch – Fremdsprache;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Deutsch – Chemie, Physik oder Biologie;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Deutsch – Geschichte;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "Deutsch – Musik oder Kunst;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "Mathematik – Fremdsprache;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "Mathematik – Chemie, Physik oder Biologie;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "8.",
+            "text": "Mathematik – Geschichte;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "9.",
+            "text": "Mathematik – Musik oder Kunst.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "¹Durch die vier schriftlichen Prüfungsfächer müssen die Aufgabenfelder nach § 10 Absatz 1 der Schulordnung Erweiterte Oberschulen und Abiturprüfung abgedeckt sein.²Unter den Fächern der schriftlichen Prüfung müssen sich die Fächer Mathematik und Deutsch befinden. ³Als Grundkursfächer können Deutsch, Mathematik, Geschichte, Geographie, Gemeinschaftskunde/Rechtserziehung/Wirtschaft, Biologie, Chemie und Physik schriftliche Prüfungsfächer sein.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "¹Der mündliche Teil umfasst die Prüfung in vier, nicht bereits schriftlich geprüften Fächern. ²Zugelassen werden nur Prüfungsteilnehmer, die den schriftlichen Teil gemäß § 24 Absatz 6 Nummer 1 bestanden haben. ³In zwei mündlichen Prüfungsfächern können auf Antrag des Prüfungsteilnehmers an die Stelle der mündlichen Prüfung die Leistungen der Jahrgangsstufe 13 treten. ⁴Dies gilt nicht für die Fremdsprache. ⁵Die Entscheidung trifft die Schulaufsichtsbehörde.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Unter den Fächern, die Gegenstand der schriftlichen oder mündlichen Prüfung sind, müssen sich zwei Fremdsprachen sowie eines der Fächer Physik, Chemie oder Biologie befinden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(7)",
+            "text": "Fächer der mündlichen Prüfung können nur den Aufgabenfeldern nach § 10 Absatz 1 der Schulordnung Erweiterte Oberschulen und Abiturprüfung zugeordnete Fächer sowie Sport sein. Freiwilliger Religions- oder Weltanschauungsunterricht ist kein Prüfungsfach.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(8)",
+            "text": "¹In einem Prüfungsfach findet zusätzlich eine mündliche Prüfung statt, wenn",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die Leistung des Prüfungsteilnehmers in diesem Fach mit null Punkten bewertet worden ist oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "der Prüfungsteilnehmer die mündliche Prüfung beantragt.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "²§ 33 Absatz 2 der Schulordnung Erweiterte Oberschulen und Abiturprüfung gilt entsprechend."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 18)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 19"
+      },
+      "expectedHash": "e2db9c30dd1f67b5430e047bf5c0185fe893f3285920ad8699dc765f2bb3dfc4",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 19",
+        "title": "Besondere Lernleistung",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Für die Erstellung und Einbringung einer Besonderen Lernleistung in die Abiturprüfung gilt § 25 der Schulordnung Erweiterte Oberschulen und Abiturprüfung, mit folgenden Maßgaben:"
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die Besondere Lernleistung ist in den Jahrgangsstufen 12 und 13 zu erstellen;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die Besondere Lernleistung wird zuerst von einem Lehrer der Waldorfschule, welcher die staatliche Lehrbefähigung für die gymnasiale Oberstufe besitzt, und danach von einem Lehrer einer Erweiterten Oberschule, das von der Schulaufsichtsbehörde bestimmt wird, bewertet;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die zu bildende Fachprüfungskommission besteht aus den beiden Korrektoren der Arbeit sowie dem Vorsitzenden des Prüfungsausschusses.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 19)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 22"
+      },
+      "expectedHash": "add22c276a6deef0f28c3b8c03df5074a2b015abbfea8ad91754253b9727965b",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 22",
+        "title": "Korrektur der Prüfungsarbeiten",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Jede Prüfungsarbeit wird zuerst von einer Lehrkraft der Waldorfschule mit staatlicher Lehrbefähigung für die Sekundarstufe II im betreffenden Fach und danach von einer von der Schulaufsichtsbehörde bestimmten Lehrkraft des betreffenden Faches an einer Erweiterten Oberschule bewertet.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Für Korrektur, abweichende Bewertungen und Festsetzung des Ergebnisses gilt § 32 Absatz 2 bis 5 der Schulordnung Erweiterte Oberschulen und Abiturprüfung entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 22)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 23"
+      },
+      "expectedHash": "967bc34093230c1c03f07da78dc1d48111dea350548b3c15248160e6c5bd64f0",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 23",
+        "title": "Bekanntgabe und Reihenfolge der mündlichen Prüfungen",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Die mündlichen Prüfungen beginnen frühestens vier Tage nach Bekanntgabe der Ergebnisse der schriftlichen Prüfungen. Innerhalb des Zeitraums der mündlichen Prüfungen finden zuerst die zusätzlichen mündlichen Prüfungen nach § 18 Absatz 8 statt."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 23)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 25"
+      },
+      "expectedHash": "7ed5dfeb4860adf2848de1f0fdcb29ca4d6f38b438ac6dc45dc05a9e94762766",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 25",
+        "title": "Wiederholung der Abiturprüfung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Besteht ein Schüler die Abiturprüfung nicht, wird ihm dies schriftlich durch den Prüfungsausschuss unter Hinweis auf eine eventuelle Wiederholbarkeit der Abiturprüfung bekanntgegeben.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die nicht bestandene Abiturprüfung kann frühestens ein Jahr nach dem ersten Versuch, nur einmal und insgesamt im Rahmen der Abiturprüfung an Erweiterten Oberschulen in öffentlicher Trägerschaft an der Waldorfschule wiederholt werden.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 25)",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 26"
+      },
+      "expectedHash": "9881ec6dc65b8990c8e073917e4841a191d7e4615a73cb74c3d66f7e46cc353c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 26",
+        "title": "Entsprechende Anwendung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Soweit diese Verordnung für die Prüfungen zum Erwerb des Abschlusses der Polytechnischen Oberschule nach Klassenstufe 9 oder des Abschlusses der Polytechnischen Oberschule nach Klassenstufe 10 keine Bestimmung enthält, gelten die §§ 34 bis 42 der Schulordnung Polytechnische Oberschulen entsprechend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Soweit diese Verordnung für die Abiturprüfung keine Bestimmung enthält, gelten die §§ 30 bis 38 und die Anlagen 1 bis 3 der Schulordnung Erweiterte Oberschulen und Abiturprüfung entsprechend.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 2 (§ 26)",
+      "effectiveDate": "2026-09-01"
+    }
+  ]
+}

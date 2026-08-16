@@ -1,0 +1,30 @@
+{
+  "amendmentAct": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+  "effectiveDate": "2026-09-01",
+  "versionId": "2026-09-01",
+  "amendmentCitation": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+  "resultCitation": "Schulordnung Grundschulen vom 3. August 2004 (SächsGVBl. S. 312), die zuletzt durch Artikel 1 der Verordnung vom 20. November 2025 (SächsGVBl. S. 434) geändert worden ist",
+  "changeNote": "Mit Ablauf des 31. August 2026 außer Kraft getreten.",
+  "commandCoverage": [
+    "Artikel 5 Absatz 1 Nummer 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 67.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "repealLaw",
+      "expectedHash": "b3883ec1a043795690aae7d1777855ecb1812ae15a3d7cf3d345d39e2e5854f3",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 5 Absatz 1 Nummer 1",
+      "effectiveDate": "2026-09-01"
+    }
+  ],
+  "repealsLaw": true
+}

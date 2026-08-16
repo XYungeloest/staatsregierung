@@ -10,7 +10,7 @@ const INTRODUCTION_PATTERN = /^(?:Das\s+nachstehende\s+wird\s+(Gesetz|Verordnung
 const OPENING_QUOTE_PATTERN = /^(?:„|“|‚|‘|,,|")/u;
 const CLOSING_QUOTE_PATTERN = /(?:“|”|’|''|")\s*$/u;
 const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Organisationserlass|Erlass|Verwaltungsabkommen|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
-const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Neufassung|Übergangsbestimmungen?|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Rechtsbereinigung)/iu;
+const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Folgeänderungen?|Neufassung|Übergangsbestimmungen?|Übergangsrecht|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Bereinigung|Rechtsbereinigung)/iu;
 const EMBEDDED_NORM_TITLE_PATTERN = /^(?:Gesetz|Verordnung|Satzung|Staatsvertrag|Abkommen|Übereinkommen)\b/iu;
 const TABLE_HEADER_SCOPES = new Set(['col', 'row', 'colgroup', 'rowgroup']);
 
@@ -566,10 +566,17 @@ function makeAtomicTokens(nodes, css, fileName) {
     const marker = numberedHeading
       ? { type: 'section', label: `${numberedHeading[1]}.`, title: numberedHeading[2] }
       : parseStructureMarker(rawText);
+    const inlineParagraphReference = marker?.type === 'paragraph' &&
+      !/^h[1-6]$/u.test(node.tagName) &&
+      !rawText.includes('\n') &&
+      !isBold(node, css) &&
+      !isCentered(node, css) &&
+      /\b(?:gilt|gelten|findet|finden|bleibt|bleiben|ist|sind|tritt|treten|wird|werden)\b/iu.test(marker.title ?? '');
+    const markerLooksLikeHeading = marker && !inlineParagraphReference;
     const amendmentInstruction = QUOTE_TRIGGER_PATTERN.test(text);
     const amendmentReference = marker && ['article', 'paragraph'].includes(marker.type) && AMENDMENT_REFERENCE_PATTERN.test(marker.title ?? '');
-    const printedItem = !marker ? parsePrintedListItem(text) : null;
-    if (marker && !amendmentReference && !(amendmentInstruction && ['article', 'paragraph'].includes(marker.type))) {
+    const printedItem = !markerLooksLikeHeading ? parsePrintedListItem(text) : null;
+    if (markerLooksLikeHeading && !amendmentReference && !(amendmentInstruction && ['article', 'paragraph'].includes(marker.type))) {
       tokens.push({
         kind: 'structure', marker, text: rawText, rawText,
         tagName: node.tagName, bold: isBold(node, css), centered: isCentered(node, css),
@@ -634,11 +641,19 @@ function groupAmendmentQuotes(tokens) {
       if (candidate.kind === 'listItem' && candidate.listId === token.listId && candidate.level <= token.level) break;
       if (
         sawContent &&
-        isOuterArticleToken(candidate) &&
+        candidate.kind === 'structure' &&
+        ['article', 'paragraph'].includes(candidate.marker.type) &&
         (
           CLOSING_QUOTE_PATTERN.test(tokens[end - 1]?.text ?? tokens[end - 1]?.rawText ?? '') ||
           OUTER_ARTICLE_TITLE_PATTERN.test(candidate.marker.title ?? '')
         )
+      ) break;
+      if (
+        sawContent &&
+        candidate.kind === 'listItem' &&
+        candidate.level <= token.level &&
+        candidate.numberingStyle === 'decimal' &&
+        CLOSING_QUOTE_PATTERN.test(tokens[end - 1]?.text ?? tokens[end - 1]?.rawText ?? '')
       ) break;
       sawContent = true;
       end += 1;
@@ -994,22 +1009,17 @@ export function classifyHtmlSource(fileName, html) {
 
 function detectPublicationIdentity(value) {
   const text = String(value ?? '');
-  if (/\b(?:GMBl\.|Gemeinsames\s+Ministerialblatt)/iu.test(text)) {
-    return { publication: 'GMBl.', longName: 'Gemeinsames Ministerialblatt' };
-  }
-  if (/\b(?:OVertrBl\.|Vertragsblatt\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu.test(text)) {
-    return { publication: 'OVertrBl.', longName: 'Vertragsblatt' };
-  }
-  if (/\b(?:StAnzO\.|Staatsanzeiger\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu.test(text)) {
-    return { publication: 'StAnzO.', longName: 'Staatsanzeiger' };
-  }
-  if (/\b(?:OABl\.|Amtsblatt\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu.test(text)) {
-    return { publication: 'OABl.', longName: 'Amtsblatt' };
-  }
-  if (/\b(?:OGVBl\.|Gesetz-\s*und\s+Verordnungsblatt)/iu.test(text)) {
-    return { publication: 'OGVBl.', longName: 'Gesetz- und Verordnungsblatt' };
-  }
-  return null;
+  const identities = [
+    { publication: 'GMBl.', longName: 'Gemeinsames Ministerialblatt', pattern: /\b(?:GMBl\.|Gemeinsames\s+Ministerialblatt)/iu },
+    { publication: 'OVertrBl.', longName: 'Vertragsblatt', pattern: /\b(?:OVertrBl\.|Vertragsblatt\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu },
+    { publication: 'StAnzO.', longName: 'Staatsanzeiger', pattern: /\b(?:StAnzO\.|Staatsanzeiger\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu },
+    { publication: 'OABl.', longName: 'Amtsblatt', pattern: /\b(?:OABl\.|Amtsblatt\s*für\s+den\s+Freistaat\s+Ostdeutschland)/iu },
+    { publication: 'OGVBl.', longName: 'Gesetz- und Verordnungsblatt', pattern: /\b(?:OGVBl\.|Gesetz-\s*und\s+Verordnungsblatt)/iu },
+  ];
+  return identities
+    .map(({ pattern, ...identity }) => ({ ...identity, index: text.search(pattern) }))
+    .filter(({ index }) => index >= 0)
+    .sort((left, right) => left.index - right.index)[0] ?? null;
 }
 
 function parseHeadingRange(range, fileName) {

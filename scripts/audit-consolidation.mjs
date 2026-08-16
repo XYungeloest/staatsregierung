@@ -23,6 +23,12 @@ const CANONICAL_GROUPS = [
   ['schulordnung-grundschulen', 'Schulordnung Grundschulen', /\bSchulordnung\s+Grundschulen\b/iu],
   ['schulordnung-gemeinschaftsschulen', 'Schulordnung Gemeinschaftsschulen', /\bSchulordnung\s+Gemeinschaftsschulen\b/iu],
   ['schulordnung-foerderschulen', 'Schulordnung Förderschulen', /\bSchulordnung\s+Förderschulen\b/iu],
+  ['pruefungsverordnung-waldorfschulen', 'Prüfungsverordnung Waldorfschulen', /\bPrüfungsverordnung\s+Waldorfschulen\b/iu],
+  ['schulordnung-berufsschule', 'Schulordnung Berufsschule', /\bSchulordnung\s+Berufsschule\b/iu],
+  ['schulordnung-berufliche-gymnasien', 'Schulordnung Berufliche Gymnasien', /\bSchulordnung\s+Berufliche\s+Gymnasien\b/iu],
+  ['vwv-schulformulare', 'VwV Schulformulare', /\b(?:VwV|Verwaltungsvorschrift)[^\n.]{0,180}\bSchulformulare\b|\bVerwaltungsvorschrift\s+zur\s+Verwendung\s+von\s+Formularen\s+für\s+die\s+schulische\s+Verwaltung\b/iu],
+  ['vwv-beratungslehrer', 'VwV Beratungslehrer', /\b(?:VwV|Verwaltungsvorschrift)[^\n.]{0,180}\bBeratungslehrer\b/iu],
+  ['vwv-radfahrausbildung', 'VwV Radfahrausbildung', /\b(?:VwV|Verwaltungsvorschrift)[^\n.]{0,180}\bRadfahrausbildung\b/iu],
   ['vwv-stundentafeln', 'VwV Stundentafeln', /VwV\s+Stundentafel|Stundentafeln/iu],
   ['saechsische-haushaltsordnung', 'Sächsische Haushaltsordnung', /Haushaltsordnung/iu],
   ['saechsisches-gleichstellungsgesetz', 'Sächsisches Gleichstellungsgesetz', /Gleichstellungsgesetz/iu],
@@ -123,14 +129,14 @@ function targetFromBlock(block) {
   const text = `${block.text ?? ''}`;
   if (block.type !== 'paragraphText' || text.length > 600) return null;
   const sentence = text.match(
-    /^(?:Das|Die)\s+([^.\n:]{2,320}?(?:gesetz|ordnung|verordnung|anweisung|staatsvertrag|kostenverzeichnis|verfassung)(?:\s+für\s+den\s+Freistaat\s+(?:Sachsen|Ostdeutschland))?)(?:\s+vom\s+[^,\n]{3,100})?,?\s+wird\s+(?:wie folgt\s+)?(?:geändert|neu gefasst|aufgehoben)\b/iu,
+    /^(?:Das|Die)\s+([^.\n:]{2,320}?(?:gesetz|ordnung|verordnung|verwaltungsvorschrift|vwv|anweisung|staatsvertrag|kostenverzeichnis|verfassung)(?:\s+für\s+den\s+Freistaat\s+(?:Sachsen|Ostdeutschland))?)(?:\s+vom\s+[^,\n]{3,100})?,?\s+wird\s+(?:wie folgt\s+)?(?:geändert|neu gefasst|aufgehoben)\b/iu,
   );
   return sentence ? { title: sentence[1].trim(), evidence: 'Änderungssatz' } : null;
 }
 
 function targetFromActTitle(title) {
   const match = String(title ?? '').match(
-    /^(?:Gesetz|Verordnung)\s+zur\s+(?:[A-Za-zÄÖÜäöüß-]+\s+)?Änderung\s+(?:des|der)\s+(.+)$/u,
+    /^(?:Gesetz|Verordnung|(?:Gemeinsame\s+)?Verwaltungsvorschrift(?:\s+[^\n]{0,220}?)?)\s+zur\s+(?:[A-Za-zÄÖÜäöüß-]+\s+)?Änderung\s+(?:des|der)\s+(.+)$/u,
   );
   return match ? { title: match[1].trim(), evidence: 'Titel der Änderungsvorschrift' } : null;
 }
@@ -214,10 +220,13 @@ async function main() {
       const problem = `${record.meta.slug}: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm`;
       if (!templateProblems.includes(problem)) templateProblems.push(problem);
     }
-    const bodyFindings = flatBlocks.map(targetFromBlock).filter(Boolean);
-    const findings = bodyFindings.length > 0
-      ? bodyFindings
-      : [targetFromActTitle(record.meta.title)].filter(Boolean);
+    const neverTookEffect = record.meta.status === 'historical' && record.meta.effectiveDate == null;
+    const bodyFindings = neverTookEffect ? [] : flatBlocks.map(targetFromBlock).filter(Boolean);
+    const findings = neverTookEffect
+      ? []
+      : bodyFindings.length > 0
+        ? bodyFindings
+        : [targetFromActTitle(record.meta.title)].filter(Boolean);
     for (const targetSlug of [
       record.meta.enactedNorm,
       ...(record.meta.enactedNorms ?? []),
@@ -230,6 +239,20 @@ async function main() {
         canonical: canonicalFor(targetRecord.meta.title) ?? {
           canonicalSlug: targetRecord.meta.slug,
           title: targetRecord.meta.title,
+        },
+      });
+    }
+    for (const targetSlug of record.meta.affectedNorms ?? []) {
+      if (!config.targets[targetSlug] && !config.blockedTargets[targetSlug]) continue;
+      const targetRecord = norms.find((candidate) => candidate.meta.slug === targetSlug);
+      if (!targetRecord) continue;
+      findings.push({
+        title: targetRecord.meta.title,
+        evidence: 'explizite Änderungsbeziehung',
+        canonical: {
+          canonicalSlug: targetRecord.meta.slug,
+          title: targetRecord.meta.title,
+          known: true,
         },
       });
     }
@@ -292,12 +315,11 @@ async function main() {
     const amendmentActsWithTargetDates = amendmentActs.map((act) => {
       const historyEntry = stem?.history.entries.find((entry) =>
         entry.relatedNorm === act.slug &&
-        entry.affectingVersionId &&
-        entry.type === 'amendment'
+        ['amendment', 'repeal'].includes(entry.type)
       );
       return {
         ...act,
-        targetEffectiveDate: historyEntry?.date ?? act.effectiveDate,
+        targetEffectiveDate: historyEntry?.date ?? blocked?.effectiveDate ?? act.effectiveDate,
       };
     });
     const effectiveDates = [...new Set(

@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync } from 'node:fs';
 import { access, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, join, relative, resolve } from 'node:path';
 
@@ -50,7 +52,7 @@ const ISSUE_CONFIG = {
   '46': [
     { slug: 'kreis-und-bezirksneuordnungsgesetz', shortTitle: 'Kreis- und Bezirksneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Führt die Kreis- und Bezirksneuordnung ein, ersetzt die Bezirksordnung und passt kommunal- und verwaltungsrechtliche Vorschriften an.' },
     { slug: 'ostdeutsches-kreis-und-bezirksneuordnungsgesetz', shortTitle: 'Ostdeutsches Kreis- und Bezirksneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Ordnet die Bezirke und Kreise neu und bestimmt deren Errichtung, Zuordnung, Rechtsnachfolge und Übergang zum 1. August 2026.' },
-    { slug: 'ostdeutsche-bezirksordnung', shortTitle: 'Ostdeutsche Bezirksordnung', effectiveOverride: '2026-08-01', responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Bestimmt Rechtsstellung, Aufgaben, Organe, Verwaltung und Aufsicht der Bezirke.' },
+    { slug: 'ostdeutsche-bezirksordnung', shortTitle: 'Ostdeutsche Bezirksordnung', effectiveOverride: '2026-08-01', replacesExistingStem: true, responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft', summary: 'Bestimmt Rechtsstellung, Aufgaben, Organe, Verwaltung und Aufsicht der Bezirke.' },
   ],
   '47': [
     { slug: 'ostdeutsche-eisenbahn-neuordnungsgesetz', shortTitle: 'Gesetz zur gemeinwirtschaftlichen Neuordnung des öffentlichen Verkehrs', responsibleMinistry: 'Staatssekretariat für Mobilität und regionale Entwicklung', summary: 'Errichtet die Ostdeutsche Eisenbahn und schafft die gesetzlichen Grundlagen für Verkehrsvergesellschaftung und dauerhafte Gemeinwohlbindung.' },
@@ -111,16 +113,119 @@ const ISSUE_SUBJECTS = {
   '59': ['Staats- und Verfassungsrecht', 'Wahlrecht und politische Beteiligung'],
 };
 
+const SCHOOL_LAW_SUBJECTS = ['Bildung und Weiterbildung', 'Schulrecht'];
+const NEW_PUBLICATION_CONFIG = {
+  'OGVBl.|2026|60': [{
+    slug: 'schulordnung-polytechnische-oberschulen', shortTitle: 'Schulordnung Polytechnische Oberschulen', abbr: 'SOPOS', type: 'verordnung', pageCount: 20,
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Regelt Auftrag, Aufbau, Unterricht, Leistungsbewertung, Versetzung und Abschlüsse der Polytechnischen Oberschule in den Klassenstufen 1 bis 10.',
+    effectiveOverride: '2026-09-01', relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems', 'verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026'],
+    dateNote: 'Am 14. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die Ablösung bisheriger allgemeinbildender Schulordnungen wird ergänzend durch OGVBl. 2026 Nr. 67 geregelt.',
+  }],
+  'OGVBl.|2026|61': [{
+    slug: 'schulordnung-erweiterte-oberschulen-und-abiturpruefung', shortTitle: 'Schulordnung Erweiterte Oberschulen und Abiturprüfung', abbr: 'SOEOSA', type: 'verordnung', pageCount: 23,
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Regelt Aufnahme, Einführungs- und Qualifikationsphase sowie die Abiturprüfung an Erweiterten Oberschulen.',
+    effectiveOverride: '2026-09-01', relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems', 'verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026'],
+    dateNote: 'Am 14. August 2026 verkündet; Inkrafttreten am 1. September 2026. Übergang und Außerkrafttreten alter Gymnasial- und Abiturregelungen bestimmt ergänzend OGVBl. 2026 Nr. 67.',
+  }],
+  'OGVBl.|2026|62': [{
+    slug: 'schulordnung-abendoberschulen', shortTitle: 'Schulordnung Abendoberschulen', abbr: 'SOAbO', type: 'verordnung', pageCount: 8,
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Regelt Aufnahme, Ausbildung, Leistungsbewertung und Abschlussprüfungen an Abendoberschulen.',
+    effectiveOverride: '2026-09-01', predecessor: 'Schulordnung Ober- und Abendoberschulen', relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems', 'verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026'],
+    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige Schulordnung Ober- und Abendoberschulen tritt nach OGVBl. 2026 Nr. 67 mit Ablauf des 31. August 2026 außer Kraft.',
+  }],
+  'OGVBl.|2026|63': [{
+    slug: 'abendgymnasien-und-kollegverordnung', shortTitle: 'Abendgymnasien- und Kollegverordnung', abbr: 'AGyKoVO', type: 'verordnung', pageCount: 8,
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Regelt Ausbildung, Leistungsbewertung und Abiturprüfung an Abendgymnasien und Kollegs.',
+    effectiveOverride: '2026-09-01', predecessor: 'Abendgymnasien- und Kollegverordnung vom 8. September 2008', relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'],
+    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die Abendgymnasien- und Kollegverordnung vom 8. September 2008 tritt mit Ablauf des 31. August 2026 außer Kraft.',
+  }],
+  'OGVBl.|2026|64': [{
+    slug: 'verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026', shortTitle: 'Änderungsverordnung Schulordnung Förderschulen 2026', type: 'aenderungsvorschrift', pageCount: 13,
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Passt die Schulordnung Förderschulen an das neue Schulrecht, die Polytechnische und Erweiterte Oberschule sowie die neue Abschluss- und Prüfungsstruktur an.',
+    effectiveOverride: '2026-09-01',
+    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.',
+  }],
+  'OGVBl.|2026|65': [{
+    slug: 'sorbische-schulverordnung', shortTitle: 'Sorbische Schulverordnung', abbr: 'SorbSchulVO', type: 'verordnung', pageCount: 5,
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Regelt sorbische Schulen, Sorbischunterricht, zweisprachige Angebote und Beteiligungsrechte im sorbischen Siedlungsgebiet.',
+    effectiveOverride: '2026-09-01', predecessor: 'Verordnung über die Arbeit an sorbischen und anderen Schulen im deutsch-sorbischen Gebiet vom 22. Juni 1992', relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems'],
+    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die Verordnung vom 22. Juni 1992 tritt mit Ablauf des 31. August 2026 außer Kraft.',
+  }],
+  'OGVBl.|2026|66': [{
+    slug: 'ethik-und-religionsunterrichtverordnung', shortTitle: 'Ethik und Religionsunterrichtverordnung', abbr: 'ERWVO', type: 'verordnung', pageCount: 8,
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Regelt Ethik als Pflichtfach sowie freiwilligen Religions- und Weltanschauungsunterricht, Anerkennung, Teilnahme, Aufsicht und Datenschutz.',
+    effectiveOverride: '2026-09-01', relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems'],
+    dateNote: 'Am 15. August 2026 verkündet; Inkrafttreten am 1. September 2026.',
+  }],
+  'OGVBl.|2026|67': [{
+    slug: 'verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026', shortTitle: 'Bereinigungsverordnung Schulordnungsrecht 2026', type: 'aenderungsvorschrift', pageCount: 22,
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Bereinigt das allgemeinbildende Schulordnungsrecht, passt fortgeltende Schulverordnungen an und regelt Übergang, Außerkrafttreten alter Schulordnungen und den Rechtsstand der früheren Oberstufen- und Abiturprüfungsverordnung.',
+    effectiveOverride: '2026-08-31', affectedNorms: [
+      'verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n',
+      'oberstufenund-abiturprufungsverordnung',
+      'saechsische-klassenbildungsverordnung',
+      'schulnetzplanungsverordnung',
+      'freie-trager-schulverordnung',
+      'pruefungsverordnung-waldorfschulen',
+      'schulordnung-grundschulen',
+      'schulordnung-ober-und-abendoberschulen',
+      'schulordnung-gemeinschaftsschulen',
+      'schulordnung-gymnasien-abiturpruefung',
+    ],
+    relatedNorms: ['gesetz-zur-neuordnung-des-ostdeutschen-schulsystems', 'schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung', 'schulordnung-abendoberschulen'],
+    dateNote: 'Am 16. August 2026 verkündet. Artikel 4 tritt am 31. August 2026, die übrige Verordnung am 1. September 2026 in Kraft.',
+  }],
+  'StAnzO.|2026|16': [{ slug: 'vwv-stundentafel-eos', shortTitle: 'VwV Stundentafel EOS', abbr: 'VwV Stundentafel EOS', type: 'verwaltungsvorschrift', pageCount: 6, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Bestimmt Lehrpläne und Stundentafeln für Einführungsphase und Erweiterte Oberschule.', effectiveOverride: '2026-09-01', relatedNorms: ['schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026.' }],
+  'StAnzO.|2026|17': [{ slug: 'vwv-ethik-religion-und-weltanschauung', shortTitle: 'VwV Ethik, Religion und Weltanschauung', abbr: 'VwV Ethik, Religion und Weltanschauung', type: 'verwaltungsvorschrift', pageCount: 6, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Konkretisiert den Vollzug von Ethik sowie Religions- und Weltanschauungsunterricht.', effectiveOverride: '2026-09-01', predecessor: 'VwV Religion und Ethik vom 29. September 2004', relatedNorms: ['ethik-und-religionsunterrichtverordnung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026, jedoch nicht vor der ERWVO. Die bisherige VwV Religion und Ethik tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|18': [{ slug: 'vwv-klassenarbeiten-pos', shortTitle: 'VwV Klassenarbeiten POS', abbr: 'VwV Klassenarbeiten POS', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Klassenarbeiten, komplexe Leistungen, Belastungssteuerung, Bewertung und Nachteilsausgleich an Polytechnischen Oberschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Klassenarbeiten Oberschulen vom 9. Juni 2016', relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die VwV Klassenarbeiten Oberschulen tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|19': [{ slug: 'vwv-abschlusspruefungen-pos', shortTitle: 'VwV Abschlussprüfungen POS', abbr: 'VwV Abschlussprüfungen POS', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Planung, Durchführung, Korrektur und Feststellung der POS-Abschlussprüfungen nach den Klassenstufen 9 und 10.', effectiveOverride: '2026-09-01', predecessor: 'VwV Abschlussprüfung Haupt- und Realschulabschluss vom 20. August 2018', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-abendoberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV Abschlussprüfung tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|20': [{ slug: 'vwv-pruefungsdokumentation-pos', shortTitle: 'VwV Prüfungsdokumentation POS', abbr: 'VwV Prüfungsdokumentation POS', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Bestimmt Formblätter, Führung, Berichtigung und Aufbewahrung der Dokumentation für POS-Abschlussprüfungen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Prüfungsdokumentation vom 31. Juli 2023', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'vwv-abschlusspruefungen-pos'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die VwV Prüfungsdokumentation vom 31. Juli 2023 tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|21': [{ slug: 'vwv-eos-abitur', shortTitle: 'VwV EOS-Abitur', abbr: 'VwV EOS-Abitur', type: 'verwaltungsvorschrift', pageCount: 6, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Qualifikationsphase, Abiturprüfung, Formulare, Korrektur, Ergebnisfeststellung und Übergang an Erweiterten Oberschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Durchführung Oberstufe und Abiturprüfung in der am 1. November 2023 übernommenen Fassung', relatedNorms: ['schulordnung-erweiterte-oberschulen-und-abiturpruefung', 'abendgymnasien-und-kollegverordnung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Für bestimmte Übergangskohorten gelten die bisherigen Formulare und Maßstäbe fort.' }],
+  'StAnzO.|2026|22': [{ slug: 'vwv-zeugnismuster', shortTitle: 'VwV Zeugnismuster', abbr: 'VwV Zeugnismuster', type: 'verwaltungsvorschrift', pageCount: 6, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Gestaltung, Muster, Abschlussformeln und besondere Angaben auf Zeugnissen allgemeinbildender Schulen und des zweiten Bildungsweges.', effectiveOverride: '2026-09-01', predecessor: 'VwV Zeugnisformulare/Zeugnismuster in der am 1. November 2023 geltenden Fassung', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung', 'schulordnung-abendoberschulen', 'abendgymnasien-und-kollegverordnung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV Zeugnisformulare/Zeugnismuster tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|23': [{ slug: 'aendvwv-schulformulare-2026', shortTitle: 'ÄndVwV Schulformulare', abbr: 'ÄndVwV Schulformulare', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die Verwaltungsvorschrift über Schulformulare an Polytechnische und Erweiterte Oberschulen sowie den Ethik-, Religions- und Weltanschauungsunterricht an.', effectiveOverride: '2026-09-01', dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.' }],
+  'StAnzO.|2026|24': [{ slug: 'vwv-sonderpaedagogische-formulare', shortTitle: 'VwV Sonderpädagogische Formulare', abbr: 'VwV Sonderpädagogische Formulare', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Bestimmt Muster, Formulare und Verfahrensgrundsätze zur Feststellung sonderpädagogischen Förderbedarfs und zur Beratung.', effectiveOverride: '2026-09-01', predecessor: 'VwV Muster sonderpädagogischer Förderbedarf und Beratung vom 13. Juli 2018', relatedNorms: ['verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|25': [{ slug: 'vwv-produktives-lernen-pos', shortTitle: 'VwV Produktives Lernen POS', abbr: 'VwV Produktives Lernen POS', type: 'verwaltungsvorschrift', pageCount: 5, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Aufnahme, Organisation, Lernen in der Praxis, Leistungsbewertung und Abschlüsse im Produktiven Lernen an Polytechnischen Oberschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Produktives Lernen vom 11. Juli 2018', relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV Produktives Lernen tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|26': [{ slug: 'vwv-ostdeutsche-sportschulen', shortTitle: 'VwV Ostdeutsche Sportschulen', abbr: 'VwV Ostdeutsche Sportschulen', type: 'verwaltungsvorschrift', pageCount: 4, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Anerkennung, Aufnahme, Unterricht, Training, Schutz und Leistungsbewertung an Ostdeutschen Sportschulen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Sportbetonte Schulen vom 17. August 2022', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die VwV Sportbetonte Schulen tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|27': [{ slug: 'vwv-lrs-foerderung', shortTitle: 'VwV LRS-Förderung', abbr: 'VwV LRS-Förderung', type: 'verwaltungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Diagnostik, Förderung, Leistungsbewertung und Nachteilsausgleich bei Schwierigkeiten im Lesen und Rechtschreiben.', effectiveOverride: '2026-09-01', predecessor: 'VwV LRS-Förderung vom 29. Juni 2006', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die bisherige VwV LRS-Förderung tritt mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|28': [{ slug: 'vwv-abschlussbildungsgang-lernen', shortTitle: 'VwV Abschlussbildungsgang Lernen', abbr: 'VwV Abschlussbildungsgang Lernen', type: 'verwaltungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt die Empfehlung für einen lernzielgleichen Abschlussbildungsgang bei festgestelltem Förderschwerpunkt Lernen.', effectiveOverride: '2026-09-01', predecessor: 'VwV Bildungsempfehlung und Empfehlung Hauptschulbildungsgang vom 14. Dezember 2018', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Die in der Vorschrift bezeichneten Teile der bisherigen VwV treten teils ersatzlos, im Übrigen mit Ablauf des 31. August 2026 außer Kraft.' }],
+  'StAnzO.|2026|29': [{ slug: 'vwv-bedarf-2026-2027', shortTitle: 'VwV Bedarf 2026/2027', abbr: 'VwV Bedarf 2026/2027', type: 'verwaltungsvorschrift', pageCount: 5, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Bedarfsermittlung, Unterrichtsversorgung, Klassen- und Kursbildung sowie Schuljahresablauf für das Schuljahr 2026/2027.', effectiveOverride: '2026-09-01', expiryDate: '2027-07-31', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026 und Außerkrafttreten mit Ablauf des 31. Juli 2027.' }],
+  'StAnzO.|2026|30': [{ slug: 'aendvwv-beratungslehrer-2026', shortTitle: 'ÄndVwV Beratungslehrer', abbr: 'ÄndVwV Beratungslehrer', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die VwV Beratungslehrer an die neue Schulstruktur und die heutige Schulaufsicht an.', effectiveOverride: '2026-09-01', dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.' }],
+  'StAnzO.|2026|31': [{ slug: 'aendvwv-radfahrausbildung-2026', shortTitle: 'ÄndVwV Radfahrausbildung', abbr: 'ÄndVwV Radfahrausbildung', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die gemeinsame Verwaltungsvorschrift zur Radfahrausbildung an die Primarstufe der Polytechnischen Oberschule und an die neue Schulaufsicht an.', effectiveOverride: '2026-09-01', relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.' }],
+};
+
+function publicationConfigKey(parsed) {
+  return publicationIdentityKey(parsed.publication, parsed.year, parsed.issue);
+}
+
+function configuredNormsFor(parsed) {
+  return NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)] ??
+    (parsed.publication === 'OGVBl.' && parsed.year === 2026 ? ISSUE_CONFIG[parsed.issue] : undefined);
+}
+
+function configuredSubjectsFor(parsed) {
+  return NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]
+    ? SCHOOL_LAW_SUBJECTS
+    : ISSUE_SUBJECTS[parsed.issue];
+}
+
 const OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES = [
   {
     kind: 'structured-html-transcription',
     label: 'Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe',
     availability: 'versioned',
-    localSource: 'Gesetze/OGVBl.2026Nr.59.html',
-    sha256: 'a1d509c069aab78a3e851aed95af09941e2229af10415e2cc0ae3796240beeef',
+    localSource: 'Gesetze/OGVBl. 2026 Nr. 59.html',
+    sha256: 'fe9661c8f84c05e00f1601db47ef390ada23c12e0ab7a2e8eb504f7179b97404',
     mediaType: 'text/html',
     pageRange: '2–7',
-    verifiedAt: '2026-08-09',
+    verifiedAt: '2026-08-16',
     sourceRole: 'structure-bearing',
   },
   {
@@ -134,7 +239,7 @@ const OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES = [
     pageRange: '2–7',
     verifiedAt: '2026-08-09',
     sourceRole: 'visual-control',
-    derivedSource: 'Gesetze/OGVBl.2026Nr.59.html',
+    derivedSource: 'Gesetze/OGVBl. 2026 Nr. 59.html',
   },
   {
     kind: 'supplementary-markdown-transcription',
@@ -146,7 +251,7 @@ const OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES = [
     pageRange: '2–7',
     verifiedAt: '2026-08-09',
     sourceRole: 'supplementary-transcription',
-    derivedSource: 'Gesetze/OGVBl.2026Nr.59.html',
+    derivedSource: 'Gesetze/OGVBl. 2026 Nr. 59.html',
   },
 ];
 
@@ -234,8 +339,12 @@ function formatGermanDate(isoDate) {
 }
 
 function citationFor(parsed, startPage) {
-  const label = parsed.type === 'verordnung' ? 'Verordnung' : 'Gesetz';
-  return `${label} vom ${formatGermanDate(parsed.documentDate)} (OGVBl. 2026 Nr. ${parsed.issue}${startPage ? ` S. ${startPage}` : ''})`;
+  const label = /Verwaltungsvorschrift/iu.test(parsed.heading ?? '')
+    ? 'Verwaltungsvorschrift'
+    : /Verordnung/iu.test(parsed.heading ?? '') || parsed.type === 'verordnung'
+      ? 'Verordnung'
+      : 'Gesetz';
+  return `${label} vom ${formatGermanDate(parsed.documentDate)} (${parsed.publication} ${parsed.year} Nr. ${parsed.issue}${startPage ? ` S. ${startPage}` : ''})`;
 }
 
 function deriveStatus(norm, index) {
@@ -256,6 +365,49 @@ function normSourceReferences(fileName) {
     availability: 'versioned',
     localSource: `Gesetze/${basename(fileName)}`,
   }];
+}
+
+function sha256ForLocalSource(localSource) {
+  return createHash('sha256').update(readFileSync(resolve(ROOT, localSource))).digest('hex');
+}
+
+function officialIssueSourceReferences(parsed, config) {
+  if (parsed.publication === 'OGVBl.' && parsed.year === 2026 && parsed.issue === '59') {
+    return OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES;
+  }
+  const htmlSource = `Gesetze/${basename(parsed.fileName)}`;
+  const pdfFileName = basename(parsed.fileName).replace(/\.html$/iu, '.pdf');
+  const pdfSource = `Gesetze/${pdfFileName}`;
+  const pageRange = parsed.startPage && config.pageCount
+    ? `${parsed.startPage}${Number(parsed.startPage) === config.pageCount ? '' : `–${config.pageCount}`}`
+    : undefined;
+  const references = [{
+    kind: 'structured-html-transcription',
+    label: 'Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe',
+    availability: 'versioned',
+    localSource: htmlSource,
+    sha256: sha256ForLocalSource(htmlSource),
+    mediaType: 'text/html',
+    ...(pageRange ? { pageRange } : {}),
+    verifiedAt: '2026-08-16',
+    sourceRole: 'structure-bearing',
+  }];
+  if (existsSync(resolve(ROOT, pdfSource))) {
+    references.push({
+      kind: 'primary-pdf',
+      label: 'Amtliche visuelle Veröffentlichungsfassung',
+      availability: 'versioned',
+      localSource: pdfSource,
+      sha256: sha256ForLocalSource(pdfSource),
+      mediaType: 'application/pdf',
+      pageCount: config.pageCount,
+      ...(pageRange ? { pageRange } : {}),
+      verifiedAt: '2026-08-16',
+      sourceRole: 'visual-control',
+      derivedSource: htmlSource,
+    });
+  }
+  return references;
 }
 
 function publicationSourceReference(fileName) {
@@ -455,50 +607,66 @@ function resolveLegacyConsolidatedRecord(parsed, existingRecords) {
 }
 
 function buildRecords(parsed) {
-  const configs = ISSUE_CONFIG[parsed.issue];
+  const configs = configuredNormsFor(parsed);
   const parsedNorms = [parsed, ...parsed.introducedNorms];
-  if (!configs) throw new Error(`${parsed.fileName}: Für Ausgabe ${parsed.issue} fehlt eine stabile Importkonfiguration.`);
+  if (!configs) throw new Error(`${parsed.fileName}: Für ${parsed.publication} ${parsed.year} Nr. ${parsed.issue} fehlt eine stabile Importkonfiguration.`);
   if (configs.length !== parsedNorms.length) {
     throw new Error(`${parsed.fileName}: ${parsedNorms.length} Normen erkannt, aber ${configs.length} stabile Slug-Zuordnungen hinterlegt.`);
   }
   const outerSlug = configs[0].slug;
-  const enactedNorms = configs.slice(1).map((config) => config.slug);
+  const enactedNorms = configs
+    .slice(1)
+    .filter((config) => !config.replacesExistingStem)
+    .map((config) => config.slug);
   return parsedNorms.map((norm, index) => {
     const config = configs[index];
     const { slug, shortTitle, responsibleMinistry, summary } = config;
     const effectiveDate = config.effectiveOverride ?? norm.effectiveDate;
-    const recordNorm = { ...norm, effectiveDate };
+    const recordType = config.type ?? norm.type;
+    const recordNorm = { ...norm, type: recordType, effectiveDate };
     const startPage = index === 0 ? parsed.startPage : undefined;
-    const citation = citationFor({ ...parsed, type: norm.type }, startPage);
+    const citation = citationFor({ ...parsed, type: recordType }, startPage);
     const status = deriveStatus(recordNorm, index);
     const versionId = effectiveDate ?? parsed.publicationDate;
-    const enactingBody = ['58', '59'].includes(parsed.issue)
+    const enactingBody = config.enactingBody ?? (NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)] || ['58', '59'].includes(parsed.issue)
       ? 'Staatsrat des Freistaates Ostdeutschland'
-      : 'Landtag des Freistaates Ostdeutschland';
-    const abbr = norm.abbr;
+      : 'Landtag des Freistaates Ostdeutschland');
+    const abbr = config.abbr ?? norm.abbr;
+    const officialTitleSuffix = abbr ? ` (${abbr})` : '';
+    const officialTitle = NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)] && officialTitleSuffix && norm.title.endsWith(officialTitleSuffix)
+      ? norm.title.slice(0, -officialTitleSuffix.length).trim()
+      : norm.title;
+    const sourceReferences = NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]
+      ? officialIssueSourceReferences(parsed, config)
+      : parsed.issue === '59'
+        ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES
+        : normSourceReferences(parsed.fileName);
     const meta = {
       id: slug,
       slug,
-      title: norm.title,
+      title: officialTitle,
       shortTitle,
-      shortTitleSource: norm.shortTitle === shortTitle ? 'official' : 'editorial',
+      shortTitleSource: config.abbr || norm.shortTitle === shortTitle ? 'official' : 'editorial',
       ...(abbr ? { abbr } : {}),
-      type: norm.type,
+      type: recordType,
       enactingBody,
       responsibleMinistry,
-      subjects: ISSUE_SUBJECTS[parsed.issue],
-      keywords: [...new Set([abbr, shortTitle, ...shortTitle.split(/\s+/u).filter((word) => word.length >= 5)].filter(Boolean))].slice(0, 12),
+      subjects: config.subjects ?? configuredSubjectsFor(parsed),
+      ...(config.primarySubject ? { primarySubject: config.primarySubject } : {}),
+      keywords: [...new Set([abbr, shortTitle, ...(config.keywords ?? []), ...shortTitle.split(/\s+/u).filter((word) => word.length >= 5)].filter(Boolean))].slice(0, 16),
       initialCitation: citation,
-      predecessor: null,
-      successor: null,
+      predecessor: config.predecessor ?? null,
+      successor: config.successor ?? null,
+      ...(config.affectedNorms ? { affectedNorms: config.affectedNorms } : {}),
+      ...(config.relatedNorms ? { relatedNorms: config.relatedNorms } : {}),
       summary,
       status,
       documentDate: parsed.documentDate,
       publicationDate: parsed.publicationDate,
-      sourceReferences: parsed.issue === '59'
-        ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES
-        : normSourceReferences(parsed.fileName),
+      sourceReferences,
       ...(effectiveDate ? { effectiveDate } : {}),
+      ...(config.expiryDate ? { expiryDate: config.expiryDate } : {}),
+      ...(config.dateNote ? { dateNote: config.dateNote } : {}),
       ...(parsed.issue === '59' ? {
         expiryDate: '2026-12-31',
         primarySubject: 'Staats- und Verfassungsrecht',
@@ -530,7 +698,7 @@ function buildRecords(parsed) {
     const version = {
       versionId,
       validFrom: versionId,
-      validTo: parsed.issue === '59' ? '2026-12-31' : null,
+      validTo: parsed.issue === '59' ? '2026-12-31' : config.expiryDate ?? null,
       isCurrent: true,
       citation,
       changeNote: index === 0 ? 'Verkündete Fassung.' : 'Eingeführte Stammfassung.',
@@ -806,28 +974,43 @@ function buildConstitutionRecord(parsed) {
 
 function publicationFrom(parsed, records) {
   const isVolksbefragung = parsed.issue === '59';
+  const isNewOfficialIssue = Boolean(NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]);
+  const config = configuredNormsFor(parsed)?.[0] ?? {};
+  const longName = parsed.publication === 'StAnzO.'
+    ? 'Staatsanzeiger Ostdeutschland'
+    : 'Ostdeutsches Gesetz- und Verordnungsblatt';
+  const publicationSlugPrefix = parsed.publication === 'StAnzO.' ? 'stanzo' : 'ogvbl';
+  const pageRange = parsed.startPage && config.pageCount
+    ? `${parsed.startPage}${Number(parsed.startPage) === config.pageCount ? '' : `–${config.pageCount}`}`
+    : undefined;
   return {
-    slug: `ogvbl-2026-${parsed.issue}`,
-    title: `Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. ${parsed.issue}`,
-    year: 2026,
+    slug: `${publicationSlugPrefix}-${parsed.year}-${parsed.issue}`,
+    title: `${longName} ${parsed.year} Nr. ${parsed.issue}`,
+    year: parsed.year,
     issue: parsed.issue,
     date: parsed.publicationDate,
-    publication: 'OGVBl.',
-    ...(isVolksbefragung ? {
+    publication: parsed.publication,
+    ...(isVolksbefragung || isNewOfficialIssue ? {
       place: 'Dresden',
       publisher: 'Freistaat Ostdeutschland',
-      pdf: '/assets/recht/OGVBl. 2026 Nr. 59.pdf',
+      pdf: `/assets/recht/${basename(parsed.fileName).replace(/\.html$/iu, '.pdf')}`,
     } : {}),
     sourceReferences: isVolksbefragung
       ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES
-      : [publicationSourceReference(parsed.fileName)],
+      : isNewOfficialIssue
+        ? officialIssueSourceReferences(parsed, config)
+        : [publicationSourceReference(parsed.fileName)],
     entries: records.map((record) => ({
       id: record.meta.slug,
       title: record.meta.title,
-      type: record.meta.type === 'verordnung' ? 'verordnung' : 'gesetz',
+      type: isNewOfficialIssue
+        ? record.meta.type === 'aenderungsvorschrift'
+          ? parsed.publication === 'StAnzO.' ? 'verwaltungsvorschrift' : 'verordnung'
+          : record.meta.type
+        : record.meta.type === 'verordnung' ? 'verordnung' : 'gesetz',
       citation: record.meta.initialCitation,
-      ...(!isVolksbefragung && record.startPage ? { startPage: record.startPage } : {}),
-      ...(isVolksbefragung ? { pages: '2–7' } : {}),
+      ...(!isVolksbefragung && !isNewOfficialIssue && record.startPage ? { startPage: record.startPage } : {}),
+      ...(isVolksbefragung ? { pages: '2–7' } : pageRange ? { pages: pageRange } : {}),
       documentDate: record.meta.documentDate,
       normSlug: record.meta.slug,
       versionId: record.versions[0].versionId,
@@ -927,7 +1110,12 @@ function mergeWithExisting(record, existing) {
       : record.meta.summary,
     predecessor: existing.meta.predecessor ?? record.meta.predecessor,
     successor: existing.meta.successor ?? record.meta.successor,
-    affectedNorms: existing.meta.affectedNorms ?? record.meta.affectedNorms,
+    ...((existing.meta.affectedNorms?.length || record.meta.affectedNorms?.length) ? {
+      affectedNorms: [...new Set([
+        ...(existing.meta.affectedNorms ?? []),
+        ...(record.meta.affectedNorms ?? []),
+      ])],
+    } : {}),
     affectedByNorms: existing.meta.affectedByNorms ?? record.meta.affectedByNorms,
   };
   const generatedEntryKeys = new Set(record.history.entries.map((entry) => JSON.stringify([
@@ -1131,8 +1319,7 @@ function preserveExistingHistoryForAudit(record, existing) {
   if (!existing) return record;
   if (
     record.meta.slug !== 'staatsverfassung-des-freistaates-ostdeutschland' &&
-    record.meta.slug !== 'ostdeutsche-bezirksordnung' &&
-    record.meta.slug !== 'kreis-und-bezirksneuordnungsgesetz'
+    record.meta.slug !== 'ostdeutsche-bezirksordnung'
   ) {
     return record;
   }
@@ -1393,11 +1580,14 @@ for (const fileName of htmlFiles) {
           ...compareGeneratedRecordToExisting(record, existingAuditRecords.get(record.meta.slug)),
         }],
       });
-    } else if (ISSUE_CONFIG[parsed.issue]) {
-      if (recognizedConfiguredSources.has(parsed.issue)) {
-        throw new Error(`${fileName}: Ausgabe ${parsed.issue} wurde bereits aus ${recognizedConfiguredSources.get(parsed.issue)} erkannt; Quelle ist mehrdeutig.`);
+    } else if (configuredNormsFor(parsed)) {
+      const sourceKey = NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]
+        ? publicationConfigKey(parsed)
+        : parsed.issue;
+      if (recognizedConfiguredSources.has(sourceKey)) {
+        throw new Error(`${fileName}: ${parsed.publication} ${parsed.year} Nr. ${parsed.issue} wurde bereits aus ${recognizedConfiguredSources.get(sourceKey)} erkannt; Quelle ist mehrdeutig.`);
       }
-      recognizedConfiguredSources.set(parsed.issue, fileName);
+      recognizedConfiguredSources.set(sourceKey, fileName);
       const issueRecords = buildRecords(parsed);
       issueRecords.forEach(validateRecord);
       records.push(...issueRecords.map((record) =>
@@ -1579,9 +1769,7 @@ for (const fileName of markdownFiles) {
     let resolved;
     if (
       structuralIssues.length === 0 &&
-      parsed.publication === 'OGVBl.' &&
-      parsed.year === 2026 &&
-      ISSUE_CONFIG[parsed.issue]
+      configuredNormsFor(parsed)
     ) {
       if (recognizedConfiguredSources.has(parsed.issue)) {
         throw new Error(`${fileName}: Ausgabe ${parsed.issue} wurde bereits aus ${recognizedConfiguredSources.get(parsed.issue)} erkannt; Quelle ist mehrdeutig.`);
@@ -1688,8 +1876,12 @@ if (shouldWrite) {
 
 const configuredSourceFiles = new Set([
   ...Object.keys(ISSUE_CONFIG).map((issue) => issue === '59'
-    ? 'OGVBl.2026Nr.59.html'
+    ? 'OGVBl. 2026 Nr. 59.html'
     : `OGVBl. 2026 Nr. ${issue}.html`),
+  ...Object.keys(NEW_PUBLICATION_CONFIG).map((key) => {
+    const [publication, year, issue] = key.split('|');
+    return `${publication} ${year} Nr. ${issue}.html`;
+  }),
   GMBL_SOURCE_FILE,
   'Staatsverfassung.html',
 ]);
@@ -1704,9 +1896,12 @@ if (strictMode) {
       continue;
     }
     const configuredIssue = fileName.match(/^OGVBl\.\s*2026\s*Nr\.\s*(4[6-9]|5\d)\.(?:html|md)$/iu)?.[1];
+    const configuredPublicationKey = publicationIdentityFromLegacyFileName(fileName);
     if (fileName === GMBL_SOURCE_FILE && !recognizedConfiguredSources.has('gmbl-2026-14')) {
       strictFailures.push(`${fileName}: konfigurierte GMBl.-Ausgabe wurde nicht anhand ihrer internen Bundesblatt-Metadaten erkannt`);
     } else if (configuredIssue && !recognizedConfiguredSources.has(configuredIssue)) {
+      strictFailures.push(`${fileName}: konfigurierte Ausgabe wurde in keiner strukturierten Quelle anhand interner Metadaten erkannt`);
+    } else if (NEW_PUBLICATION_CONFIG[configuredPublicationKey] && !recognizedConfiguredSources.has(configuredPublicationKey)) {
       strictFailures.push(`${fileName}: konfigurierte Ausgabe wurde in keiner strukturierten Quelle anhand interner Metadaten erkannt`);
     } else if (selectedFiles.size > 0 && !htmlFiles.includes(fileName) && !markdownFiles.includes(fileName)) {
       strictFailures.push(`${fileName}: ausgewählte Normquelle fehlt`);
@@ -1714,6 +1909,9 @@ if (strictMode) {
   }
   for (const issue of Object.keys(ISSUE_CONFIG)) {
     if (selectedFiles.size === 0 && !recognizedConfiguredSources.has(issue)) strictFailures.push(`OGVBl. 2026 Nr. ${issue}: konfigurierte Norm wurde in keiner strukturierten Quelle erkannt`);
+  }
+  for (const key of Object.keys(NEW_PUBLICATION_CONFIG)) {
+    if (selectedFiles.size === 0 && !recognizedConfiguredSources.has(key)) strictFailures.push(`${key.replaceAll('|', ' ')}: konfigurierte Norm wurde in keiner strukturierten Quelle erkannt`);
   }
   if (selectedFiles.size === 0 && !recognizedConfiguredSources.has('gmbl-2026-14')) {
     strictFailures.push('GMBl. 2026 Nr. 14: konfiguriertes Verwaltungsabkommen wurde nicht in der HTML-Quelle erkannt');

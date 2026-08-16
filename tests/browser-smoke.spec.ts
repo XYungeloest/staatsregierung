@@ -220,7 +220,7 @@ test('Erster Staatsrat und historische Amtszeiten bleiben nachvollziehbar', asyn
   await expect(page.getByText(/bis zum 19\. Mai 2026/iu).first()).toBeVisible();
 });
 
-test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 9. August 2026 ab', async ({ page }) => {
+test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 16. August 2026 ab', async ({ page }) => {
   await page.goto('/recht/norm/verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n/');
   await expect(page.getByText(/außer Kraft seit/iu).first()).toBeVisible();
 
@@ -389,15 +389,15 @@ test('Rechtsportal verwendet auf Übersichten und Suchindex dieselbe jüngste Ve
     .locator('xpath=following::ul[1]')
     .locator('li')
     .first();
-  await expect(latestHomePublication).toContainText('2026 Nr. 59');
+  await expect(latestHomePublication).toContainText('2026 Nr. 67');
 
   await page.goto('/recht/verkuendungen/');
-  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 59');
+  await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 67');
 
   const searchIndex = await (await request.get('/recht/search-index.json')).json();
   const publicationIndex = await (await request.get('/recht/verkuendungen/index.json')).json();
-  expect(searchIndex.latestPublication.slug).toBe('ogvbl-2026-59');
-  expect(publicationIndex.latestPublication.slug).toBe('ogvbl-2026-59');
+  expect(searchIndex.latestPublication.slug).toBe('ogvbl-2026-67');
+  expect(publicationIndex.latestPublication.slug).toBe('ogvbl-2026-67');
 });
 
 test('Volksbefragung ist öffentlich eingeordnet und mit dem vollständigen Verordnungstext verknüpft', async ({ page }) => {
@@ -427,9 +427,9 @@ test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwer
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
   await expect(versionNavigation).toBeVisible();
-  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 9. August 2026');
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 16. August 2026');
   await versionNavigation.locator('.norm-version-picker summary').click();
-  await expect(versionNavigation.getByRole('link', { name: /Geltend am 9. August 2026/u })).toBeVisible();
+  await expect(versionNavigation.getByRole('link', { name: /Geltend am 16. August 2026/u })).toBeVisible();
 
   const firstUnit = page.locator('details.norm-unit').first();
   await expect(firstUnit).toHaveAttribute('id', /^paragraph-|^artikel-/u);
@@ -488,7 +488,7 @@ test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änd
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
   await expect(versionNavigation.locator('.norm-version-navigation__primary > li')).toHaveCount(3);
-  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 9. August 2026');
+  await expect(versionNavigation.locator('.norm-version-picker summary')).toContainText('Geltend am 16. August 2026');
   await versionNavigation.locator('.norm-version-picker').evaluate((details: HTMLDetailsElement) => {
     details.open = true;
   });
