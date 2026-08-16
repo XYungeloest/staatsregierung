@@ -16,6 +16,7 @@ const auditPages = [
   '/haushalt/sondervermoegen/',
   '/themen/kulturpass/',
   '/themen/volksbefragung-2026/',
+  '/themen/bildung-und-schule/schulsystem/',
   '/themen/kommunen-regionen-und-berlin/',
   '/themen/demokratie-und-sicherheit/',
   '/themen/',

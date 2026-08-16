@@ -19,7 +19,7 @@ import { getNormUrl } from '../../../../lib/norms/index.ts';
 
 const title = 'Schulsystem des Ostdeutschen Freistaates | Bildung und Schule';
 const pageTitle = 'Schulsystem des Ostdeutschen Freistaates';
-const description = 'Überblick über Schularten, Bildungswege, Abschlüsse und Übergänge im Schulsystem des Ostdeutschen Freistaates.';
+const description = 'Überblick über Polytechnische und Erweiterte Oberschule, berufliche Bildungswege, Abschlüsse und Übergänge im Freistaat Ostdeutschland.';
 const breadcrumbs = [
   { label: 'Startseite', href: getHomeUrl() },
   { label: 'Themen', href: getTopicsUrl() },
@@ -42,8 +42,8 @@ const breadcrumbs = [
     <p class="eyebrow">Bildung und Schule</p>
     <h1>{pageTitle}</h1>
     <p class="lead">
-      Das Schulsystem führt von der frühkindlichen Bildung über die allgemeinbildenden Schulen
-      bis zu beruflicher Bildung, Hochschulzugang und Weiterbildung.
+      Die Polytechnische Oberschule führt als gemeinsame Schulart von Klasse 1 bis 10. Daran
+      schließen die Erweiterte Oberschule, berufliche Bildungswege und der zweite Bildungsweg an.
     </p>
     <nav class="hero-actions" aria-label="Direkteinstiege Schulsystem">
       <a class="button-link" href="#grafik">Übersicht zum Schulsystem ansehen</a>
@@ -57,25 +57,33 @@ const breadcrumbs = [
     <div class="section-header">
       <h2 id="ueberblick-title">Überblick</h2>
       <p>
-        Das Schulsystem des Ostdeutschen Freistaates bietet verschiedene Bildungswege und
-        Abschlüsse. Schüler:innen können entsprechend ihrer Entwicklung, Interessen und
-        Leistungsstände unterschiedliche Schularten besuchen und zwischen Bildungswegen
-        wechseln.
+        Die Polytechnische Oberschule (POS) umfasst die Primarstufe in den Klassen 1 bis 4 und
+        die Sekundarstufe I in den Klassen 5 bis 10. Beide Stufen gehören zu derselben Schulart;
+        der Übergang nach Klasse 4 ist kein Schulartwechsel.
       </p>
     </div>
     <p>
-      Die Übersicht zeigt die wichtigsten Schularten, Abschlüsse und Übergänge in vereinfachter
-      Form. Sonderwege, individuelle Fördermaßnahmen, Schulen in freier Trägerschaft und der
-      zweite Bildungsweg werden ergänzend erläutert.
+      Die Erweiterte Oberschule (EOS) umfasst die Jahrgangsstufen 11 und 12 und führt zur
+      allgemeinen Hochschulreife. Förderschulen und die beruflichen Schularten bleiben
+      eigenständige Bestandteile des Schulsystems.
     </p>
+    <aside class="panel school-system-status" aria-labelledby="rechtsstand-title">
+      <p class="eyebrow">Rechts- und Umsetzungsstand</p>
+      <h3 id="rechtsstand-title">Schulstruktur seit 1. August 2026</h3>
+      <p>
+        Die neue Schulstruktur gilt seit dem 1. August 2026. Die dazugehörigen Schulordnungen
+        wurden vom 14. bis 16. August 2026 verkündet und treten überwiegend am 1. September 2026
+        in Kraft. Bis zum 31. August gelten die jeweiligen Übergangsbestimmungen.
+      </p>
+    </aside>
   </section>
 
   <section id="grafik" class="section school-system-section-muted school-system-chart-section" aria-labelledby="grafik-title" data-visual-section="school-system-chart">
     <div class="section-header">
       <h2 id="grafik-title">Bildungswege im Überblick</h2>
       <p>
-        Die Übersicht ordnet Schularten nach Stufen, Abschlüssen und Übergängen und zeigt die
-        wichtigsten Wege in allgemeinbildende, berufliche und hochschulische Bildung.
+        Die Übersicht zeigt die POS als eine Schulart von Klasse 1 bis 10, die Brückenfunktion
+        ihrer Klasse 10 zur EOS sowie berufliche und zweite Bildungswege.
       </p>
     </div>
     <SchoolSystemChart />
@@ -86,8 +94,8 @@ const breadcrumbs = [
     <div class="section-header">
       <h2 id="allgemeinbildende-title">Allgemeinbildende Schulen</h2>
       <p>
-        Allgemeinbildende Schulen vermitteln grundlegende und weiterführende Bildung und führen
-        zu schulischen Abschlüssen der Sekundarstufe I und II.
+        POS, EOS und Förderschulen bilden die allgemeinbildende Schulstruktur. Primar- und
+        Sekundarstufe I sind innerhalb der POS verbunden.
       </p>
     </div>
     <SchoolTypeCards group="Allgemeinbildende Schulen" />
@@ -108,33 +116,74 @@ const breadcrumbs = [
     <div class="section-header">
       <h2 id="abschluesse-title">Abschlüsse und Übergänge</h2>
       <p>
-        Bildungswege bleiben durchlässig. Nach den Abschlüssen der Polytechnischen
-        Oberschule, der Fachhochschulreife oder der allgemeinen Hochschulreife schließen sich
-        berufliche Ausbildung, berufliche Weiterbildung oder Hochschulzugang an.
+        Die ab 1. September 2026 geltende Schulordnung verwendet eigene ostdeutsche
+        Abschlussbezeichnungen. Die herkömmlichen Begriffe erläutern nur, welchen Berechtigungen
+        die POS-Abschlüsse gleichgestellt sind.
       </p>
     </div>
     <ul class="record-list">
       <li class="record-list__item">
-        <strong>Abschluss nach Klassenstufe 9</strong>
-        <span>Eröffnet Wege in Ausbildung, Berufsvorbereitung und weiterführende schulische Bildung.</span>
+        <strong>Abschluss der Polytechnischen Oberschule nach Klassenstufe 9</strong>
+        <span>Er ist in seinen Berechtigungen dem Hauptschulabschluss gleichgestellt.</span>
       </li>
       <li class="record-list__item">
-        <strong>Abschluss nach Klassenstufe 10</strong>
-        <span>Ermöglicht den Übergang in die Erweiterte Oberschule sowie in berufs- und studienqualifizierende Bildungsgänge.</span>
+        <strong>Abschluss der Polytechnischen Oberschule nach Klassenstufe 10</strong>
+        <span>Er ist in seinen Berechtigungen dem mittleren Schulabschluss (Realschulabschluss) gleichgestellt.</span>
       </li>
       <li class="record-list__item">
-        <strong>Fachhochschulreife und allgemeine Hochschulreife</strong>
-        <span>Eröffnen den Hochschulzugang und können mit beruflichen Qualifizierungen verbunden sein.</span>
+        <strong>Klasse 10 als Brücke zur EOS</strong>
+        <span>Für Schüler:innen mit angestrebtem EOS-Übergang übernimmt sie die Funktion der Einführungsphase. Sie bleibt rechtlich, organisatorisch und schulartbezogen Teil der POS.</span>
+      </li>
+      <li class="record-list__item">
+        <strong>Allgemeine Hochschulreife</strong>
+        <span>Sie wird nach der Qualifikationsphase der EOS und der Abiturprüfung erworben.</span>
       </li>
     </ul>
+  </section>
+
+  <section id="schulprofil-und-bewertung" class="section school-system-section-muted" aria-labelledby="profil-title">
+    <div class="section-header">
+      <h2 id="profil-title">Schulprofil und Leistungsbewertung</h2>
+      <p>
+        Die überwiegend ab 1. September 2026 geltenden Schulordnungen regeln gemeinsame Bildung,
+        Praxisbezug, Leistungsbewertung und die Stellung von Ethik, Religion und Weltanschauung.
+      </p>
+    </div>
+    <div class="card-grid card-grid--three school-system-facts">
+      <article class="panel">
+        <h3>Polytechnische Bildung</h3>
+        <p>
+          Allgemeinbildung wird mit technischen, wirtschaftlichen und berufspraktischen
+          Lernbereichen verbunden. Berufliche Orientierung, praktische Lernleistungen und das
+          Produktive Lernen unterstützen den Übergang in Ausbildung und Beruf.
+        </p>
+      </article>
+      <article class="panel">
+        <h3>Noten und Punkte</h3>
+        <p>
+          Das allgemeine Schulnotenrecht verwendet die Noten 1 „sehr gut“, 2 „gut“,
+          3 „befriedigend“, 4 „genügend“ und 5 „ungenügend“. In der Qualifikationsphase der EOS
+          gilt weiterhin das System von 0 bis 15 Punkten.
+        </p>
+      </article>
+      <article class="panel">
+        <h3>Ethik als Pflichtfach</h3>
+        <p>
+          Öffentliche Schulen sind bekenntnisfrei. Ethik ist Pflichtfach. Religions- oder
+          Weltanschauungsunterricht kann freiwillig zusätzlich angeboten werden, ersetzt Ethik
+          aber nicht und ist nicht versetzungs-, abschluss-, aufnahme- oder
+          gesamtqualifikationsrelevant.
+        </p>
+      </article>
+    </div>
   </section>
 
   <section id="zweiter-bildungsweg" class="section school-system-section-muted" aria-labelledby="zweiter-title">
     <div class="section-header">
       <h2 id="zweiter-title">Zweiter Bildungsweg</h2>
       <p>
-        Der zweite Bildungsweg richtet sich an Erwachsene, die einen Schulabschluss nachholen
-        oder einen höheren Abschluss erreichen möchten.
+        Abendoberschule, Abendgymnasium und Kolleg ermöglichen Erwachsenen, einen Schulabschluss
+        nachzuholen oder die allgemeine Hochschulreife zu erwerben.
       </p>
     </div>
     <SchoolTypeCards group="Weitere Bildungswege" ids={['zweiter-bildungsweg-card']} />
@@ -182,8 +231,8 @@ const breadcrumbs = [
     <div class="section-header">
       <h2 id="rechtsgrundlagen-title">Rechtsgrundlagen</h2>
       <p>
-        Das Rechtsportal enthält einschlägige Vorschriften und gespeicherte Fassungen zu Schule,
-        Oberstufe, Unterstützung und Weiterbildung.
+        Das Rechtsportal dokumentiert die verkündeten Vorschriften und ihre gespeicherten
+        Fassungen. Angezeigt ist hier eine nutzerorientierte Auswahl für den Überblick.
       </p>
     </div>
     <ul class="record-list">
@@ -192,20 +241,44 @@ const breadcrumbs = [
         <span>Zentrale schulrechtliche Grundlage im Rechtsportal.</span>
       </li>
       <li class="record-list__item">
-        <strong><a class="inline-link" href={getNormUrl('oberstufenund-abiturprufungsverordnung')}>Oberstufen- und Abiturprüfungsverordnung</a></strong>
-        <span>Regelungen zur Sekundarstufe II und Abiturprüfung.</span>
+        <strong><a class="inline-link" href={getNormUrl('schulordnung-polytechnische-oberschulen')}>Schulordnung Polytechnische Oberschulen</a></strong>
+        <span>Regelt Aufbau, Unterricht, Leistungsbewertung und Abschlüsse der POS.</span>
       </li>
       <li class="record-list__item">
-        <strong><a class="inline-link" href={getNormUrl('verordnung-des-staatsministerium-fur-bildung-und-sportliche-193i80n')}>Verordnung über private mobile Endgeräte in der Primarstufe</a></strong>
-        <span>Vorschrift mit Bezug zur Primarstufe.</span>
+        <strong><a class="inline-link" href={getNormUrl('schulordnung-erweiterte-oberschulen-und-abiturpruefung')}>Schulordnung Erweiterte Oberschulen und Abiturprüfung</a></strong>
+        <span>Regelt Qualifikationsphase und Abiturprüfung der EOS.</span>
       </li>
       <li class="record-list__item">
-        <strong><a class="inline-link" href={getNormUrl('schulmilcherlass')}>Schulmilcherlass</a></strong>
-        <span>Verwaltungsvorschrift zur Unterstützung im Schulalltag.</span>
+        <strong><a class="inline-link" href={getNormUrl('schulordnung-abendoberschulen')}>Schulordnung Abendoberschulen</a></strong>
+        <span>Regelt die POS-Abschlüsse im zweiten Bildungsweg.</span>
       </li>
       <li class="record-list__item">
-        <strong><a class="inline-link" href={getNormUrl('gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland')}>Bildungsfreistellungsgesetz</a></strong>
-        <span>Rechtsgrundlage für Weiterbildung im Erwerbsleben.</span>
+        <strong><a class="inline-link" href={getNormUrl('abendgymnasien-und-kollegverordnung')}>Abendgymnasien- und Kollegverordnung</a></strong>
+        <span>Regelt die Bildungsgänge zur allgemeinen Hochschulreife für Erwachsene.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026')}>Änderung der Schulordnung Förderschulen</a></strong>
+        <span>Passt das Förderschulrecht an die neue Schulstruktur an.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('sorbische-schulverordnung')}>Sorbische Schulverordnung</a></strong>
+        <span>Regelt sorbische Schulen und sorbischen Unterricht.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('ethik-und-religionsunterrichtverordnung')}>Ethik und Religionsunterrichtverordnung</a></strong>
+        <span>Regelt Ethik sowie freiwilligen Religions- und Weltanschauungsunterricht.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026')}>Bereinigung des allgemeinbildenden Schulordnungsrechts</a></strong>
+        <span>Bereinigt Übergangsrecht und überholte Vorschriften zum 31. August und 1. September 2026.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('vwv-stundentafel-eos')}>VwV Stundentafel EOS</a></strong>
+        <span>Enthält Lehrpläne und Stundentafeln für die Einführungsfunktion und die EOS.</span>
+      </li>
+      <li class="record-list__item">
+        <strong><a class="inline-link" href={getNormUrl('vwv-produktives-lernen-pos')}>VwV Produktives Lernen POS</a></strong>
+        <span>Regelt die besondere Verbindung von schulischem und praktischem Lernen.</span>
       </li>
     </ul>
   </section>

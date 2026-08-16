@@ -57,6 +57,9 @@ async function prepareLocator(locator: Locator): Promise<void> {
   await expect(locator).toBeVisible();
   await locator.locator('img').evaluateAll(async (images) => {
     await Promise.all((images as HTMLImageElement[]).map(async (image) => {
+      if (image.getClientRects().length === 0) {
+        return;
+      }
       if (!image.complete) {
         await new Promise<void>((resolve) => {
           image.addEventListener('load', () => resolve(), { once: true });
