@@ -74,6 +74,7 @@ export const siteConfig = {
     { label: 'Freistaat', pathKey: 'freestate' },
     { label: 'Staatsrat', pathKey: 'government' },
     { label: 'Themen', pathKey: 'topics' },
+    { label: 'Schulsystem', pathKey: 'schoolSystem' },
     { label: 'Recht', pathKey: 'lawHome' },
     { label: 'Kreisreform', pathKey: 'kreisreform' },
     { label: 'Haushalt', pathKey: 'budget' },

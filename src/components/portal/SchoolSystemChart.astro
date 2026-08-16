@@ -13,23 +13,59 @@ const chartImageSrc = '/images/ui/schulsystem.svg';
   </div>
 
   <p id="school-system-chart-description" class="school-system-chart__summary">
-    Die Grafik zeigt die Bildungswege von der Polytechnischen Oberschule über die Erweiterte
-    Oberschule bis zu beruflicher Bildung, Hochschulzugang und Weiterbildung.
+    Die Grafik zeigt die Polytechnische Oberschule als eine Schulart von Klasse 1 bis 10. Nach
+    Klasse 9 oder 10 führen Wege in die berufliche Bildung; Klasse 10 kann außerdem zur
+    Erweiterten Oberschule in den Jahrgangsstufen 11 und 12 führen.
   </p>
 
-  <p class="school-system-chart__scroll-hint">
-    Auf kleineren Bildschirmen kann die Grafik seitlich verschoben werden.
-  </p>
-
-  <div class="school-system-chart__scroll" tabindex="0" role="region" aria-label="Schulsystemgrafik horizontal verschieben">
+  <div class="school-system-chart__desktop">
     <img
       class="school-system-chart__image"
       src={chartImageSrc}
-      alt="Grafische Übersicht über die Bildungswege im Schulsystem des Ostdeutschen Freistaates"
-      width="1153"
-      height="1075"
+      alt="Grafische Übersicht der Polytechnischen Oberschule, Erweiterten Oberschule, Förderschule und beruflichen Schulen nach Schulbesuchsjahren und Anschlusswegen"
+      width="1180"
+      height="1094"
       loading="lazy"
       decoding="async"
     />
+  </div>
+
+  <div class="school-system-chart__mobile" role="group" aria-label="Bildungswege in schematischer Reihenfolge">
+    <article class="school-path-card school-path-card--pos">
+      <p class="school-path-card__stage">Eine Schulart</p>
+      <h3>Polytechnische Oberschule (POS)</h3>
+      <div class="school-path-card__stages">
+        <p><strong>Klassen 1–4</strong><span>Primarstufe</span></p>
+        <p><strong>Klassen 5–10</strong><span>Sekundarstufe I</span></p>
+      </div>
+      <p class="school-path-card__note">Nach Klasse 4 kein Schulartwechsel</p>
+      <ul>
+        <li>Abschluss der Polytechnischen Oberschule nach Klassenstufe 9</li>
+        <li>Abschluss der Polytechnischen Oberschule nach Klassenstufe 10</li>
+      </ul>
+    </article>
+    <p class="school-path-arrow" aria-hidden="true">↓</p>
+    <p class="school-path-bridge"><strong>Klasse 10:</strong> Einführungsfunktion für den EOS-Weg, bleibt aber Teil der POS</p>
+    <p class="school-path-arrow" aria-hidden="true">↓</p>
+    <article class="school-path-card school-path-card--eos">
+      <p class="school-path-card__stage">Sekundarstufe II</p>
+      <h3>Erweiterte Oberschule (EOS)</h3>
+      <p><strong>Jahrgangsstufen 11–12</strong><br />Kurshalbjahre 11/I bis 12/II</p>
+      <p class="school-path-card__result">Allgemeine Hochschulreife</p>
+    </article>
+    <div class="school-path-card-grid">
+      <article class="school-path-card">
+        <h3>Berufliche Schulen</h3>
+        <p>Berufsschule, Berufsfachschule, Fachoberschule, Berufliches Gymnasium und Fachschule</p>
+      </article>
+      <article class="school-path-card">
+        <h3>Förderschule</h3>
+        <p>Eigenständige Schulart mit möglichen Übergängen und lernzielgleichen Bildungsgängen</p>
+      </article>
+      <article class="school-path-card">
+        <h3>Zweiter Bildungsweg</h3>
+        <p>Abendoberschule, Abendgymnasium und Kolleg</p>
+      </article>
+    </div>
   </div>
 </figure>

@@ -75,15 +75,22 @@ function isActivePath(targetPath: string, exact = false): boolean {
     : currentPath === targetPath || currentPath.startsWith(targetPath);
 }
 
-const mainNavLinks = siteConfig.mainNavigation.map((entry) => {
+const mainNavTargets = siteConfig.mainNavigation.map((entry) => {
   const href = getSiteUrl(entry.pathKey);
 
   return {
     href,
     label: entry.label,
-    isActive: isActivePath(getPathname(href)),
+    pathname: getPathname(href),
   };
 });
+const activeMainNavPath = mainNavTargets
+  .filter((link) => isActivePath(link.pathname))
+  .sort((left, right) => right.pathname.length - left.pathname.length)[0]?.pathname;
+const mainNavLinks = mainNavTargets.map(({ pathname, ...link }) => ({
+  ...link,
+  isActive: pathname === activeMainNavPath,
+}));
 
 const serviceLinks = [
   { href: getHomeUrl(), label: 'Startseite' },

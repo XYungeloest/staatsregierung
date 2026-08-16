@@ -124,9 +124,9 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       type: 'topic',
       typeLabel: 'Bildung',
       title: 'Schulsystem des Ostdeutschen Freistaates',
-      description: 'Überblick über Schularten, Bildungswege, Abschlüsse und Übergänge im Schulsystem des Ostdeutschen Freistaates.',
+      description: 'POS von Klasse 1 bis 10, EOS in den Jahrgangsstufen 11 und 12 sowie berufliche und zweite Bildungswege.',
       url: getSchoolSystemUrl(),
-      text: 'Schule Schulsystem Bildung Polytechnische Oberschule POS Erweiterte Oberschule EOS Primarstufe Sekundarstufe Förderschule Berufsschule Berufsfachschule Fachoberschule Berufliches Gymnasium Fachschule Hochschulreife Berufsausbildung Zweiter Bildungsweg FOS DUBAS Studienqualifizierung Fachhochschulreife Grundschule Oberschule Gymnasium Gemeinschaftsschule Realschulabschluss Hauptschulabschluss',
+      text: 'Schule Schulsystem Bildung Polytechnische Oberschule POS Erweiterte Oberschule EOS Primarstufe Sekundarstufe Förderschule Berufsschule Berufsfachschule Fachoberschule Berufliches Gymnasium Fachschule Hochschulreife Berufsausbildung Zweiter Bildungsweg Abendoberschule Abendgymnasium Kolleg Studienqualifizierung Fachhochschulreife Realschulabschluss Hauptschulabschluss Ethik Religion Weltanschauung Produktives Lernen',
     },
     {
       id: 'law-publications',
