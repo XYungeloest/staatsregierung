@@ -1,7 +1,6 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import LawNavigation from '../../../components/portal/LawNavigation.astro';
 import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatDate,
@@ -81,7 +80,6 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
       { label: 'Verkündungsblätter', value: String(publicationNames.length) },
     ]}
   />
-  <LawNavigation />
 
   <div data-law-list-filter>
     <section class="section law-list-filter" aria-labelledby="fundstellen-filter">

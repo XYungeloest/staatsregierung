@@ -1,7 +1,6 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import LawNavigation from '../../../components/portal/LawNavigation.astro';
 import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   getLawPortalUrl,
@@ -39,7 +38,6 @@ const areaGroups = getSubjectAreaGroups(norms);
     variant="law"
     facts={[{ label: 'Sachgebiete', value: String(groups.length) }, { label: 'Vorschriften', value: String(norms.length) }]}
   />
-  <LawNavigation />
 
   <section class="section">
     <div class="section-header">

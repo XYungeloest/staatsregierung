@@ -1,7 +1,6 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import LawNavigation from '../../../components/portal/LawNavigation.astro';
 import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatDate,
@@ -61,7 +60,6 @@ const statuses = [...new Set(norms.map((norm) => norm.meta.status))]
     variant="law"
     facts={originKinds.map((kind) => ({ label: formatNormOriginKind(kind), value: String(counts[kind]) }))}
   />
-  <LawNavigation />
 
   <section class="section law-development" data-law-development>
     <div class="section-header">

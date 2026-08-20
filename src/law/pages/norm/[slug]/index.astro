@@ -2,6 +2,7 @@
 import LawLayout from '../../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import NormBody from '../../../../components/norms/NormBody.astro';
+import NormCitationBlock from '../../../../components/norms/NormCitationBlock.astro';
 import NormMetaCard from '../../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../components/norms/NormStatusNotice.astro';
@@ -144,6 +145,12 @@ const relatedPressReleases = pressReleases
     ]}
     actions={[{ label: 'Normenhistorie', href: getNormHistoryUrl(norm.meta.slug), primary: true }]}
   />
+  <NormCitationBlock
+    norm={norm}
+    version={currentVersion}
+    fullCitation={fullCitation}
+    publicationReference={publicationReference}
+  />
   <SectionNavigation
     label="Vorschrift"
     variant="law"
@@ -209,9 +216,10 @@ const relatedPressReleases = pressReleases
               </ul>
             </>
           ) : null}
+          {relatedTopics.length > 0 || relatedPressReleases.length > 0 ? <h3 class="norm-sidebar__portal-heading">Im Staatsportal</h3> : null}
           {relatedTopics.length > 0 ? (
             <>
-              <h3>Themen</h3>
+              <h4>Themen und Projekte</h4>
               <ul class="norm-sidebar__link-list">
                 {relatedTopics.map((topic) => (
                   <li>
@@ -226,7 +234,7 @@ const relatedPressReleases = pressReleases
           ) : null}
           {relatedPressReleases.length > 0 ? (
             <>
-              <h3>Presse</h3>
+              <h4>Pressemitteilungen</h4>
               <ul class="norm-sidebar__link-list">
                 {relatedPressReleases.map((release) => (
                   <li>

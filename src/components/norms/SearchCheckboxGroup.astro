@@ -1,0 +1,35 @@
+---
+interface Option {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  legend: string;
+  name: string;
+  facet: string;
+  options: Option[];
+}
+
+const { legend, name, facet, options } = Astro.props;
+---
+
+<fieldset class="search-filter-group">
+  <legend>{legend}</legend>
+  <div class="search-filter-group__options">
+    {options.map((option) => (
+      <label class="search-filter-option">
+        <input
+          type="checkbox"
+          name={name}
+          value={option.value}
+          data-search-filter={name}
+          data-search-facet={facet}
+          data-base-label={option.label}
+        />
+        <span data-search-facet-label>{option.label}</span>
+        <span class="search-filter-option__count" data-search-facet-count aria-hidden="true"></span>
+      </label>
+    ))}
+  </div>
+</fieldset>

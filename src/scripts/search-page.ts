@@ -19,6 +19,10 @@ const filterInputs = Array.from(
 const summary = document.querySelector<HTMLElement>('[data-search-summary]');
 const resultsContainer = document.querySelector<HTMLElement>('[data-search-results]');
 const moreButton = document.querySelector<HTMLButtonElement>('[data-search-more]');
+const activeFilters = document.querySelector<HTMLElement>('[data-search-active-filters]');
+const activeFilterList = document.querySelector<HTMLElement>('[data-search-active-list]');
+const clearFiltersButton = document.querySelector<HTMLButtonElement>('[data-search-clear-filters]');
+const filterPanels = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-search-filter-panel]'));
 const indexUrl = root?.dataset.indexUrl ?? '';
 let visibleGroups = PAGE_SIZE;
 let lastResults: SearchIndexDocument[] = [];
@@ -183,6 +187,117 @@ function applyStateToForm(state: NormSearchState): void {
   }
 }
 
+const filterDefaults: Record<string, string> = {
+  scope: 'all',
+  versionScope: 'current',
+  sort: 'relevance',
+};
+
+const filterLabels: Record<string, string> = {
+  scope: 'Suchbereich',
+  exclude: 'Ohne Begriff',
+  exact: 'Exakte Wortfolge',
+  citation: 'Fundstelle',
+  type: 'Normtyp',
+  ministry: 'Ressort',
+  subject: 'Sachgebiet',
+  status: 'Status',
+  origin: 'Rechtsherkunft',
+  versionScope: 'Fassung',
+  sort: 'Sortierung',
+  includeAmendments: 'Änderungsvorschriften',
+  geltungstag: 'Geltungstag',
+  validFrom: 'Gültig ab',
+  validTo: 'Gültig bis',
+  publicationSource: 'Verkündungsblatt',
+  publicationYear: 'Jahr',
+  publicationIssue: 'Ausgabennummer',
+  publicationPage: 'Seite',
+};
+
+interface ActiveFilter {
+  name: string;
+  value: string;
+  label: string;
+}
+
+function isActiveFilter(element: HTMLInputElement | HTMLSelectElement): boolean {
+  if (element.name === 'q') return false;
+  if (element instanceof HTMLInputElement && element.type === 'checkbox') return element.checked;
+  return Boolean(element.value) && element.value !== filterDefaults[element.name];
+}
+
+function filterValueLabel(element: HTMLInputElement | HTMLSelectElement): string {
+  if (element instanceof HTMLInputElement && element.type === 'checkbox') {
+    return element.dataset.baseLabel
+      ?? element.closest('label')?.querySelector<HTMLElement>('[data-search-facet-label]')?.textContent?.trim()
+      ?? (element.name === 'includeAmendments' ? 'einbezogen' : element.value);
+  }
+  if (element instanceof HTMLSelectElement) {
+    return element.selectedOptions[0]?.textContent?.trim() ?? element.value;
+  }
+  return element.value;
+}
+
+function collectActiveFilters(elements: Array<HTMLInputElement | HTMLSelectElement> = filterInputs): ActiveFilter[] {
+  return elements.filter(isActiveFilter).map((element) => ({
+    name: element.name,
+    value: element.value,
+    label: `${filterLabels[element.name] ?? element.name}: ${filterValueLabel(element)}`,
+  }));
+}
+
+function updateActiveFilterControls(): void {
+  if (!activeFilters || !activeFilterList) return;
+  const entries = collectActiveFilters();
+  activeFilters.hidden = entries.length === 0;
+  activeFilterList.replaceChildren(...entries.map((entry) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'search-filter-chip';
+    button.dataset.searchRemoveFilter = entry.name;
+    button.dataset.searchRemoveValue = entry.value;
+    button.textContent = `${entry.label} ×`;
+    button.setAttribute('aria-label', `Filter entfernen: ${entry.label}`);
+    return button;
+  }));
+
+  for (const panel of filterPanels) {
+    const count = collectActiveFilters(Array.from(panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-search-filter]'))).length;
+    const countElement = panel.querySelector<HTMLElement>('[data-search-panel-count]');
+    if (countElement) countElement.textContent = count > 0 ? `${count} aktiv` : '';
+  }
+}
+
+function openPanelsWithActiveFilters(): void {
+  for (const panel of filterPanels) {
+    const entries = Array.from(panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-search-filter]'));
+    if (collectActiveFilters(entries).length > 0) panel.open = true;
+  }
+}
+
+function clearFilter(name: string, value: string): void {
+  if (!form) return;
+  for (const element of Array.from(form.elements)) {
+    if (!(element instanceof HTMLInputElement || element instanceof HTMLSelectElement) || element.name !== name) continue;
+    if (element instanceof HTMLInputElement && element.type === 'checkbox') {
+      if (element.value === value) element.checked = false;
+    } else {
+      element.value = filterDefaults[name] ?? '';
+    }
+  }
+}
+
+function clearAllFilters(): void {
+  for (const element of filterInputs) {
+    if (element instanceof HTMLInputElement && element.type === 'checkbox') {
+      element.checked = false;
+    } else {
+      element.value = filterDefaults[element.name] ?? '';
+    }
+  }
+}
+
 function appendValues(params: URLSearchParams, key: string, values: string[]): void {
   values.forEach((value) => params.append(key, value));
 }
@@ -296,15 +411,14 @@ function updateFacetCounts(results: SearchIndexDocument[]): void {
     publicationSource: (entry) => entry.publicationSource ? [entry.publicationSource] : [],
     publicationYear: (entry) => entry.publicationYear ? [entry.publicationYear] : [],
   };
-  document.querySelectorAll<HTMLSelectElement>('[data-search-facet]').forEach((select) => {
-    const getter = facets[select.dataset.searchFacet ?? ''];
+  document.querySelectorAll<HTMLInputElement>('[data-search-facet]').forEach((input) => {
+    const getter = facets[input.dataset.searchFacet ?? ''];
     if (!getter) return;
     const counts = new Map<string, number>();
     results.forEach((entry) => getter(entry).forEach((value) => counts.set(value, (counts.get(value) ?? 0) + 1)));
-    Array.from(select.options).forEach((option) => {
-      const label = option.dataset.baseLabel ?? option.textContent ?? option.value;
-      option.textContent = `${label} (${counts.get(option.value) ?? 0})`;
-    });
+    const count = counts.get(input.value) ?? 0;
+    const countElement = input.closest('label')?.querySelector<HTMLElement>('[data-search-facet-count]');
+    if (countElement) countElement.textContent = `(${count})`;
   });
 }
 
@@ -353,6 +467,7 @@ async function setupSearch(): Promise<void> {
     lastResults = scored.map((entry) => entry.documentEntry);
     lastState = state;
     updateFacetCounts(lastResults);
+    updateActiveFilterControls();
     renderResults(lastResults, state);
   };
 
@@ -361,17 +476,31 @@ async function setupSearch(): Promise<void> {
     run(true);
   });
   for (const input of filterInputs) {
-    input.addEventListener('change', () => run());
+    input.addEventListener('change', () => run(true));
   }
   queryInput.addEventListener('input', () => run());
+  activeFilterList?.addEventListener('click', (event) => {
+    if (!(event.target instanceof HTMLButtonElement)) return;
+    const name = event.target.dataset.searchRemoveFilter;
+    const value = event.target.dataset.searchRemoveValue;
+    if (!name || value === undefined) return;
+    clearFilter(name, value);
+    run(true);
+  });
+  clearFiltersButton?.addEventListener('click', () => {
+    clearAllFilters();
+    run(true);
+  });
   moreButton.addEventListener('click', () => {
     visibleGroups += PAGE_SIZE;
     if (lastState) renderResults(lastResults, lastState);
   });
   window.addEventListener('popstate', () => {
     applyStateToForm(readStateFromUrl());
+    openPanelsWithActiveFilters();
     run();
   });
+  openPanelsWithActiveFilters();
   run();
 }
 
