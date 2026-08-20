@@ -199,6 +199,33 @@ const NEW_PUBLICATION_CONFIG = {
   'StAnzO.|2026|29': [{ slug: 'vwv-bedarf-2026-2027', shortTitle: 'VwV Bedarf 2026/2027', abbr: 'VwV Bedarf 2026/2027', type: 'verwaltungsvorschrift', pageCount: 5, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Regelt Bedarfsermittlung, Unterrichtsversorgung, Klassen- und Kursbildung sowie Schuljahresablauf für das Schuljahr 2026/2027.', effectiveOverride: '2026-09-01', expiryDate: '2027-07-31', relatedNorms: ['schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026 und Außerkrafttreten mit Ablauf des 31. Juli 2027.' }],
   'StAnzO.|2026|30': [{ slug: 'aendvwv-beratungslehrer-2026', shortTitle: 'ÄndVwV Beratungslehrer', abbr: 'ÄndVwV Beratungslehrer', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die VwV Beratungslehrer an die neue Schulstruktur und die heutige Schulaufsicht an.', effectiveOverride: '2026-09-01', dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.' }],
   'StAnzO.|2026|31': [{ slug: 'aendvwv-radfahrausbildung-2026', shortTitle: 'ÄndVwV Radfahrausbildung', abbr: 'ÄndVwV Radfahrausbildung', type: 'aenderungsvorschrift', pageCount: 3, responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Passt die gemeinsame Verwaltungsvorschrift zur Radfahrausbildung an die Primarstufe der Polytechnischen Oberschule und an die neue Schulaufsicht an.', effectiveOverride: '2026-09-01', relatedNorms: ['schulordnung-polytechnische-oberschulen'], dateNote: 'Am 16. August 2026 verkündet; Inkrafttreten am 1. September 2026. Eine konsolidierte Stammfassung kann erst nach Bereitstellung und Prüfung der übernommenen amtlichen Ausgangsfassung veröffentlicht werden.' }],
+  'StAnzO.|2026|32': [{
+    slug: 'erlass-lehrplan-geschichte-2026',
+    shortTitle: 'Erlass Lehrpläne Geschichte 2026',
+    type: 'verwaltungsvorschrift',
+    pageCount: 28,
+    pdfFileName: 'StAnzO. 2026 Nr. 32.pdf',
+    verifiedAt: '2026-08-20',
+    responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
+    summary: 'Führt die Lehrpläne Geschichte für die Polytechnische und die Erweiterte Oberschule fort und erweitert sie um Arbeiterbewegung, DDR-Geschichte sowie Friedliche Revolution und ostdeutsche Transformationsgeschichte.',
+    effectiveOverride: '2026-09-01',
+    relatedNorms: ['verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel', 'vwv-stundentafel-eos', 'schulordnung-polytechnische-oberschulen', 'schulordnung-erweiterte-oberschulen-und-abiturpruefung'],
+    dateNote: 'Am 19. August 2026 verkündet; Inkrafttreten am 1. September 2026. Der Erlass ist eine curriculare Verwaltungsvorschrift: Die fortgeführten Lehrpläne werden als fachliche Vorgaben dokumentiert, aber nicht als eigenständige Normen oder REVOSax-Stammnormen geführt.',
+    sourceNotes: [
+      {
+        label: 'Ausgangslehrplan Polytechnische Oberschule',
+        text: 'Der Erlass führt den Lehrplan Oberschule Geschichte 2004/2009/2019 fort und passt ihn für die Polytechnische Oberschule an. Die zugrunde liegende öffentliche Lehrplanfassung ist in der Lehrplan-Datenbank des sächsischen Schulportals dokumentiert: https://www.schulportal.sachsen.de/lplandb/index.php?lplanid=66&lplansc=gDx5PLSmVdrE0vN7n3G3&token=2f45b705e1df9828dc0200f3b43521a2 (abgerufen am 20. August 2026).',
+      },
+      {
+        label: 'Ausgangslehrplan Erweiterte Oberschule',
+        text: 'Der Erlass übernimmt Teile des Lehrplans Gymnasium Geschichte 2004/2007/2009/2011/2019 und führt sie für die Erweiterte Oberschule fort. Die zugrunde liegende öffentliche Lehrplanfassung ist in der Lehrplan-Datenbank des sächsischen Schulportals dokumentiert: https://www.schulportal.sachsen.de/lplandb/index.php?lplanid=65&lplansc=aCaTu4iKflh2vcW3XobR&token=9779f15fb00bd4de5c8df39a8982e3f1 (abgerufen am 20. August 2026).',
+      },
+      {
+        label: 'Rechtsnatur der Lehrplanfassungen',
+        text: 'Die beiden Lehrpläne sind fachliche Verwaltungsvorgaben und keine eigenständigen REVOSax-Stammnormen. Veröffentlichungs- und Änderungsnachweis des Portals ist deshalb der verkündete Erlass; konsolidierte Lesefassungen werden nur als nachgeordnete Arbeitsfassungen angekündigt.',
+      },
+    ],
+  }],
 };
 
 function publicationConfigKey(parsed) {
@@ -339,7 +366,9 @@ function formatGermanDate(isoDate) {
 }
 
 function citationFor(parsed, startPage) {
-  const label = /Verwaltungsvorschrift/iu.test(parsed.heading ?? '')
+  const label = /Erlass/iu.test(parsed.heading ?? '')
+    ? 'Erlass'
+    : /Verwaltungsvorschrift/iu.test(parsed.heading ?? '')
     ? 'Verwaltungsvorschrift'
     : /Verordnung/iu.test(parsed.heading ?? '') || parsed.type === 'verordnung'
       ? 'Verordnung'
@@ -376,7 +405,7 @@ function officialIssueSourceReferences(parsed, config) {
     return OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES;
   }
   const htmlSource = `Gesetze/${basename(parsed.fileName)}`;
-  const pdfFileName = basename(parsed.fileName).replace(/\.html$/iu, '.pdf');
+  const pdfFileName = config.pdfFileName ?? basename(parsed.fileName).replace(/\.html$/iu, '.pdf');
   const pdfSource = `Gesetze/${pdfFileName}`;
   const pageRange = parsed.startPage && config.pageCount
     ? `${parsed.startPage}${Number(parsed.startPage) === config.pageCount ? '' : `–${config.pageCount}`}`
@@ -389,7 +418,7 @@ function officialIssueSourceReferences(parsed, config) {
     sha256: sha256ForLocalSource(htmlSource),
     mediaType: 'text/html',
     ...(pageRange ? { pageRange } : {}),
-    verifiedAt: '2026-08-16',
+    verifiedAt: config.verifiedAt ?? '2026-08-16',
     sourceRole: 'structure-bearing',
   }];
   if (existsSync(resolve(ROOT, pdfSource))) {
@@ -402,7 +431,7 @@ function officialIssueSourceReferences(parsed, config) {
       mediaType: 'application/pdf',
       pageCount: config.pageCount,
       ...(pageRange ? { pageRange } : {}),
-      verifiedAt: '2026-08-16',
+      verifiedAt: config.verifiedAt ?? '2026-08-16',
       sourceRole: 'visual-control',
       derivedSource: htmlSource,
     });
@@ -702,6 +731,7 @@ function buildRecords(parsed) {
       isCurrent: true,
       citation,
       changeNote: index === 0 ? 'Verkündete Fassung.' : 'Eingeführte Stammfassung.',
+      ...(config.sourceNotes ? { sourceNotes: config.sourceNotes } : {}),
       body: norm.body,
     };
     const history = {
@@ -976,6 +1006,7 @@ function publicationFrom(parsed, records) {
   const isVolksbefragung = parsed.issue === '59';
   const isNewOfficialIssue = Boolean(NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]);
   const config = configuredNormsFor(parsed)?.[0] ?? {};
+  const pdfFileName = config.pdfFileName ?? basename(parsed.fileName).replace(/\.html$/iu, '.pdf');
   const longName = parsed.publication === 'StAnzO.'
     ? 'Staatsanzeiger Ostdeutschland'
     : 'Ostdeutsches Gesetz- und Verordnungsblatt';
@@ -993,7 +1024,7 @@ function publicationFrom(parsed, records) {
     ...(isVolksbefragung || isNewOfficialIssue ? {
       place: 'Dresden',
       publisher: 'Freistaat Ostdeutschland',
-      pdf: `/assets/recht/${basename(parsed.fileName).replace(/\.html$/iu, '.pdf')}`,
+      pdf: `/assets/recht/${pdfFileName}`,
     } : {}),
     sourceReferences: isVolksbefragung
       ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES
