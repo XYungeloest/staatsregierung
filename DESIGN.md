@@ -1,6 +1,6 @@
-# Design-System: Freistaat Ostdeutschland
+# Design-System: Freistaat Ostdeutschland und OstRecht
 
-Dieses Dokument beschreibt die visuelle Leitlinie des Portals. Maßgeblich bleibt der tatsächliche
+Dieses Dokument beschreibt die visuelle Leitlinie beider öffentlichen Anwendungen. Maßgeblich bleibt der tatsächliche
 Stand in `src/styles/global.css`; dieses Dokument hält die gestalterischen Entscheidungen und ihre
 Anwendung fest.
 
@@ -17,7 +17,8 @@ aus den bestehenden Routen und dateibasierten Quellen abgeleitet.
 
 ## Stylesheet-Struktur
 
-`src/styles/global.css` hält nur die stabile Importreihenfolge. Die Kaskade ist nach Verantwortung
+`src/styles/global.css` hält nur die stabile Importreihenfolge. `src/styles/law-portal.css`
+ergänzt den eigenständigen OstRecht-Shell und die Normdarstellung. Die Kaskade ist nach Verantwortung
 gegliedert: `foundation.css` enthält Tokens, Basis-, Layout- und allgemeine Fachregeln,
 `section-system.css` die Bereichsheros und lokale Orientierung, `portal-shell.css` Behördenkopf,
 Serviceband und Footer, `home.css` die Startseite und `content-layout.css` die abschließende
@@ -64,18 +65,22 @@ umbrechen.
 
 ## Layoutsystem
 
-`BaseLayout.astro` kennt zwei Hauptvarianten:
+Das Staatsportal verwendet `BaseLayout.astro` mit zwei Hauptvarianten:
 
-- `contained` für Fach-, Rechts- und Inhaltsseiten mit einem begrenzten Hauptcontainer
+- `contained` für Fach- und Inhaltsseiten mit einem begrenzten Hauptcontainer
 - `full` für die Startseite mit vollbreiten Farbbändern und jeweils innen begrenzten Containern
 
 Der maximale Inhaltscontainer ist 84 Rem breit. Vollbreite Bereiche behalten stets ausreichende
 Innenabstände. Wiederholte Einheiten nutzen Grid oder strukturierte Listen; ganze Fachabschnitte
 werden nicht ohne Grund in schwebende Karten verwandelt.
 
-## Globaler Kopfbereich
+OstRecht verwendet das getrennte `LawLayout.astro`. Es teilt Typografie, Tokens, Skip-Link,
+Fokusregeln und fachliche Normkomponenten mit dem Staatsportal, kontrolliert aber Header,
+OstRecht-Wortmarke, Recherche-Navigation, Suche, Breadcrumb-Kontext und Footer selbstständig.
 
-Der gemeinsame Header besteht aus:
+## Kopfbereiche
+
+Der Header des Staatsportals besteht aus:
 
 1. sichtbarer Simulations-Hinweisleiste,
 2. Wortmarke mit Staatsflagge,
@@ -86,6 +91,11 @@ Der gemeinsame Header besteht aus:
 Auf kleineren Bildschirmen bleiben Suche und Servicelinks direkt in der geöffneten
 Menünavigation erreichbar. Das Menü verwendet native, tastaturbedienbare Elemente. Der Skip-Link
 führt unmittelbar zum Hauptinhalt.
+
+OstRecht besitzt einen kompakteren Recherchekopf mit der Marke „OstRecht“, dem Untertitel
+„Rechtsportal des Ostdeutschen Freistaates“, einer eigenen Hauptnavigation und einem sichtbaren,
+aber nachgeordneten Rückweg zum Staatsportal. Politische Teaser- und Pressenavigation gehören nicht
+in seine Primärnavigation.
 
 ## Startseite
 
@@ -148,8 +158,8 @@ Paragraphen- und Artikelüberschriften bleiben typografisch hervorgehoben.
 Absatz-, Nummern- und Buchstabenkennzeichnungen gehören dagegen zum Fließtext
 und verwenden normales Schriftgewicht bei fester Labelspalte.
 
-Fachseiten verwenden denselben Kopf, dieselben Tokens und dieselbe Servicezone wie die
-Startseite, behalten aber ihre inhaltlich geeigneten Strukturen. Das Rechtsportal priorisiert
+Fachseiten des Staatsportals verwenden dessen Kopf, Tokens und Servicezone. OstRecht bleibt durch
+gemeinsame Tokens gestalterisch verwandt, verwendet jedoch den eigenen Layoutkontext. Es priorisiert
 Lesbarkeit, Gliederung, zitierfähige Normtexte und stabile Verlinkung. Verkündungen, Fundstellen und
 Metadaten bleiben Listen, Tabellen oder Definitionen statt dekorativer Teaser.
 

@@ -1,8 +1,8 @@
 import type { APIRoute } from 'astro';
-import { siteConfig } from '../config/site.ts';
+import { siteUrls } from '../config/site.ts';
 import {
-  getActionPlanUrl,
   getAccessibilityUrl,
+  getActionPlanUrl,
   getBudgetPageUrl,
   getBudgetUrl,
   getCabinetUrl,
@@ -23,13 +23,7 @@ import {
   getImprintUrl,
   getJobUrl,
   getKreisreformUrl,
-  getLawConstitutionUrl,
-  getLawFundingUrl,
-  getLawHelpUrl,
-  getLawHomeUrl,
-  getLawIndexUrl,
-  getLawPublicationsUrl,
-  getLawReferencesUrl,
+  getLawBridgeUrl,
   getMinistryUrl,
   getMinisterPresidentUrl,
   getPressReleaseIndexUrl,
@@ -46,7 +40,7 @@ import {
   getSpeechUrl,
   getTopicUrl,
   getTopicsUrl,
-} from '../lib/portal/index.ts';
+} from '../lib/portal/routes.ts';
 import {
   loadBudgetPages,
   loadEvents,
@@ -58,26 +52,6 @@ import {
   loadSpeeches,
   loadTopics,
 } from '../lib/portal/content.ts';
-import {
-  classifyNormVersion,
-  getNormCompareUrl,
-  getNormHistoryUrl,
-  getNormUrl,
-  getNormVersionUrl,
-  getPublicationUrl,
-  getSubjectGroups,
-  getSubjectUrl,
-} from '../lib/norms/index.ts';
-import { loadAllNorms } from '../lib/norms/content.ts';
-import { loadAllVerkuendungen } from '../lib/norms/publications.ts';
-
-function unique(values: string[]): string[] {
-  return [...new Set(values)];
-}
-
-function toAbsoluteUrl(path: string, site: URL): string {
-  return new URL(path, site).toString();
-}
 
 function escapeXml(value: string): string {
   return value
@@ -89,20 +63,8 @@ function escapeXml(value: string): string {
 }
 
 export const GET: APIRoute = async ({ site }) => {
-  const baseUrl = site ?? new URL(siteConfig.seo.siteUrl);
-  const [
-    governmentMembers,
-    ministries,
-    topics,
-    pressReleases,
-    speeches,
-    events,
-    budgetPages,
-    freestatePages,
-    jobOffers,
-    norms,
-    publications,
-  ] = await Promise.all([
+  const baseUrl = site ?? new URL(siteUrls.portal);
+  const [governmentMembers, ministries, topics, pressReleases, speeches, events, budgetPages, freestatePages, jobOffers] = await Promise.all([
     loadGovernmentMembers(),
     loadMinistries(),
     loadTopics(),
@@ -112,51 +74,17 @@ export const GET: APIRoute = async ({ site }) => {
     loadBudgetPages(),
     loadFreestatePages(),
     loadJobOffers(),
-    loadAllNorms(),
-    loadAllVerkuendungen(),
   ]);
 
   const staticPaths = [
-    getHomeUrl(),
-    getGovernmentUrl(),
-    getGovernmentMembersUrl(),
-    getMinisterPresidentUrl(),
-    getCabinetUrl(),
-    getCoalitionUrl(),
-    getActionPlanUrl(),
-    getKreisreformUrl(),
-    getTopicsUrl(),
-    getEducationAndSchoolUrl(),
-    getSchoolSystemUrl(),
-    getPressUrl(),
-    getPressReleaseIndexUrl(),
-    getSpeechIndexUrl(),
-    getEventIndexUrl(),
-    getBudgetUrl(),
-    getFreestateUrl(),
-    getServiceUrl(),
-    getServiceOverviewUrl(),
-    getCareerUrl(),
-    getContactUrl(),
-    getFaqUrl(),
-    getPublicationsUrl(),
-    getEasyLanguageUrl(),
-    getSignLanguageUrl(),
-    getAccessibilityUrl(),
-    getImprintUrl(),
-    getPrivacyUrl(),
-    getLawHomeUrl(),
-    getLawIndexUrl(),
-    getLawFundingUrl(),
-    getLawReferencesUrl(),
-    getLawPublicationsUrl(),
-    getLawConstitutionUrl(),
-    getLawHelpUrl(),
-    `${getLawHomeUrl()}sachgebiete/`,
-    getPreviousCabinetsUrl(),
-    `${getPreviousCabinetsUrl()}honecker-i/`,
+    getHomeUrl(), getGovernmentUrl(), getGovernmentMembersUrl(), getMinisterPresidentUrl(),
+    getCabinetUrl(), getCoalitionUrl(), getActionPlanUrl(), getKreisreformUrl(), getTopicsUrl(),
+    getEducationAndSchoolUrl(), getSchoolSystemUrl(), getPressUrl(), getPressReleaseIndexUrl(),
+    getSpeechIndexUrl(), getEventIndexUrl(), getBudgetUrl(), getFreestateUrl(), getServiceUrl(),
+    getServiceOverviewUrl(), getCareerUrl(), getContactUrl(), getFaqUrl(), getPublicationsUrl(),
+    getEasyLanguageUrl(), getSignLanguageUrl(), getAccessibilityUrl(), getImprintUrl(), getPrivacyUrl(),
+    getLawBridgeUrl(), getPreviousCabinetsUrl(), `${getPreviousCabinetsUrl()}honecker-i/`,
   ];
-
   const dynamicPaths = [
     ...governmentMembers.map((entry) => getGovernmentMemberUrl(entry.slug)),
     ...ministries.map((entry) => getMinistryUrl(entry.slug)),
@@ -167,57 +95,24 @@ export const GET: APIRoute = async ({ site }) => {
     ...budgetPages.map((entry) => getBudgetPageUrl(entry.slug)),
     ...freestatePages.map((entry) => getFreestatePageUrl(entry.slug)),
     ...jobOffers.map((entry) => getJobUrl(entry.slug)),
-    ...norms.flatMap((norm) => [
-      getNormUrl(norm.meta.slug),
-      getNormHistoryUrl(norm.meta.slug),
-      ...(norm.versions.length > 1 ? [getNormCompareUrl(norm.meta.slug)] : []),
-      ...norm.versions
-        .filter((version) => classifyNormVersion(norm, version) !== 'current')
-        .map((version) => getNormVersionUrl(norm.meta.slug, version.versionId)),
-    ]),
-    ...publications.map((publication) => getPublicationUrl(publication.slug)),
-    ...getSubjectGroups(norms).map((group) => getSubjectUrl(group.name)),
   ];
-
   const lastmodByPath = new Map<string, string>();
   for (const entry of pressReleases) lastmodByPath.set(getPressReleaseUrl(entry.slug), entry.date);
   for (const entry of speeches) lastmodByPath.set(getSpeechUrl(entry.slug), entry.date);
   for (const entry of events) lastmodByPath.set(getEventUrl(entry.slug), entry.date);
   for (const entry of jobOffers) lastmodByPath.set(getJobUrl(entry.slug), entry.datePosted);
-  for (const publication of publications) {
-    lastmodByPath.set(getPublicationUrl(publication.slug), publication.date);
-  }
-  for (const norm of norms) {
-    const lastmod = [
-      ...norm.versions.map((version) => version.validFrom),
-      ...norm.history.entries.map((entry) => entry.date),
-    ].sort().at(-1);
-    if (!lastmod) continue;
-    lastmodByPath.set(getNormUrl(norm.meta.slug), lastmod);
-    lastmodByPath.set(getNormHistoryUrl(norm.meta.slug), lastmod);
-    if (norm.versions.length > 1) lastmodByPath.set(getNormCompareUrl(norm.meta.slug), lastmod);
-    for (const version of norm.versions.filter((entry) => classifyNormVersion(norm, entry) !== 'current')) {
-      lastmodByPath.set(getNormVersionUrl(norm.meta.slug, version.versionId), version.validFrom);
-    }
-  }
 
-  const paths = unique([...staticPaths, ...dynamicPaths]).filter(
-    (path) => path !== siteConfig.paths.lawSearch,
-  );
-
+  const paths = [...new Set([...staticPaths, ...dynamicPaths])];
   const xml = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ...paths.map((path) => {
       const lastmod = lastmodByPath.get(path);
-      return `  <url><loc>${escapeXml(toAbsoluteUrl(path, baseUrl))}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`;
+      const absoluteUrl = new URL(path, baseUrl).toString();
+      return `  <url><loc>${escapeXml(absoluteUrl)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`;
     }),
     '</urlset>',
   ].join('\n');
 
-  return new Response(xml, {
-    headers: {
-      'Content-Type': 'application/xml; charset=utf-8',
-    },
-  });
+  return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
 };

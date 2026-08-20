@@ -14,7 +14,7 @@ import {
   getLawSubjectsUrl,
   getPrivacyUrl,
   getServiceOverviewUrl,
-  withBase,
+  getLawUrl,
 } from '../portal/routes.ts';
 import type { NormRecord } from './schema.ts';
 import { lawSubjectAreas } from '../../config/law-subjects.ts';
@@ -29,19 +29,19 @@ function normalizeForSlug(value: string): string {
 }
 
 export function getNormUrl(slug: string): string {
-  return withBase(`/recht/norm/${slug}/`);
+  return getLawUrl(`/norm/${slug}/`);
 }
 
 export function getNormHistoryUrl(slug: string): string {
-  return withBase(`/recht/norm/${slug}/history/`);
+  return getLawUrl(`/norm/${slug}/history/`);
 }
 
 export function getNormVersionUrl(slug: string, versionId: string): string {
-  return withBase(`/recht/norm/${slug}/version/${versionId}/`);
+  return getLawUrl(`/norm/${slug}/version/${versionId}/`);
 }
 
 export function getNormCompareUrl(slug: string): string {
-  return withBase(`/recht/norm/${slug}/vergleich/`);
+  return getLawUrl(`/norm/${slug}/vergleich/`);
 }
 
 export function getSearchUrl(): string {
@@ -69,7 +69,7 @@ export function getPublicationsUrl(): string {
 }
 
 export function getPublicationUrl(slug: string): string {
-  return withBase(`/recht/verkuendungen/${slug}/`);
+  return getLawUrl(`/verkuendungen/${slug}/`);
 }
 
 export function getHelpUrl(): string {
@@ -98,7 +98,7 @@ export function getNormCompareDataUrl(
   fromVersionId: string,
   toVersionId: string,
 ): string {
-  return withBase(`/recht/norm/${slug}/vergleich/${fromVersionId}/${toVersionId}.json`);
+  return getLawUrl(`/norm/${slug}/vergleich/${fromVersionId}/${toVersionId}.json`);
 }
 
 export {
@@ -120,7 +120,7 @@ export function getSubjectSlug(subject: string): string {
 }
 
 export function getSubjectUrl(subject: string): string {
-  return withBase(`/recht/sachgebiete/${getSubjectSlug(subject)}/`);
+  return getLawUrl(`/sachgebiete/${getSubjectSlug(subject)}/`);
 }
 
 export interface SubjectGroup {

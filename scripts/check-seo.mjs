@@ -1,77 +1,102 @@
 import { glob, readFile } from 'node:fs/promises';
 
+const sites = [
+  {
+    name: 'Staatsportal',
+    root: 'dist/portal/client',
+    origin: new URL(process.env.PORTAL_SITE_URL ?? 'https://freistaat-ostdeutschland.de').origin,
+    siteName: 'Freistaat Ostdeutschland',
+  },
+  {
+    name: 'OstRecht',
+    root: 'dist/law/client',
+    origin: new URL(process.env.LAW_SITE_URL ?? 'https://recht.freistaat-ostdeutschland.de').origin,
+    siteName: 'OstRecht – Rechtsportal des Ostdeutschen Freistaates',
+    normPattern: /^dist\/law\/client\/norm\/[^/]+\/index\.html$/u,
+  },
+];
+
 const failures = [];
-const titles = new Map();
 
 function count(source, pattern) {
   return [...source.matchAll(pattern)].length;
 }
 
-for await (const file of glob('dist/client/**/*.html')) {
-  const html = await readFile(file, 'utf8');
-  const title = html.match(/<title>([^<]+)<\/title>/iu)?.[1]?.trim();
-  const description = html.match(/<meta\s+name="description"\s+content="([^"]+)"/iu)?.[1]?.trim();
-  const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]+)"/iu)?.[1]?.trim();
-  const h1Count = count(html, /<h1(?:\s[^>]*)?>/giu);
-  const structuredData = [];
+for (const site of sites) {
+  const titles = new Map();
+  for await (const file of glob(`${site.root}/**/*.html`)) {
+    const html = await readFile(file, 'utf8');
+    const title = html.match(/<title>([^<]+)<\/title>/iu)?.[1]?.trim();
+    const description = html.match(/<meta\s+name="description"\s+content="([^"]+)"/iu)?.[1]?.trim();
+    const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]+)"/iu)?.[1]?.trim();
+    const ogSiteName = html.match(/<meta\s+property="og:site_name"\s+content="([^"]+)"/iu)?.[1]?.trim();
+    const h1Count = count(html, /<h1(?:\s[^>]*)?>/giu);
+    const structuredData = [];
 
-  if (!title) failures.push(`${file}: Titel fehlt`);
-  if (!description) failures.push(`${file}: Meta-Description fehlt`);
-  if (!canonical) failures.push(`${file}: Canonical fehlt`);
-  if (h1Count !== 1) failures.push(`${file}: ${h1Count} H1-Elemente`);
-  if (/<a\s+[^>]*href="\s*"/iu.test(html)) failures.push(`${file}: leerer Link`);
-  if (!/property="og:image"\s+content="https:\/\//iu.test(html)) failures.push(`${file}: absolutes og:image fehlt`);
-  if (!/name="twitter:image"\s+content="https:\/\//iu.test(html)) failures.push(`${file}: twitter:image fehlt`);
-  if (/GovernmentOrganization/u.test(html)) failures.push(`${file}: GovernmentOrganization ist nicht zulässig`);
+    if (!title) failures.push(`${file}: Titel fehlt`);
+    if (!description) failures.push(`${file}: Meta-Description fehlt`);
+    if (!canonical) failures.push(`${file}: Canonical fehlt`);
+    else if (!canonical.startsWith(`${site.origin}/`) && canonical !== site.origin) failures.push(`${file}: Canonical verwendet nicht ${site.origin}`);
+    if (ogSiteName !== site.siteName) failures.push(`${file}: falscher OpenGraph-Site-Name`);
+    if (h1Count !== 1) failures.push(`${file}: ${h1Count} H1-Elemente`);
+    if (/<a\s+[^>]*href="\s*"/iu.test(html)) failures.push(`${file}: leerer Link`);
+    if (!/property="og:image"\s+content="https:\/\//iu.test(html)) failures.push(`${file}: absolutes og:image fehlt`);
+    if (!/name="twitter:image"\s+content="https:\/\//iu.test(html)) failures.push(`${file}: twitter:image fehlt`);
+    if (/GovernmentOrganization/u.test(html)) failures.push(`${file}: GovernmentOrganization ist nicht zulässig`);
+    if (site.name === 'OstRecht' && canonical?.includes('/recht/')) failures.push(`${file}: altes /recht/-Präfix im Canonical`);
 
-  if (title && !/dist\/client\/(?:404|500)\.html$/u.test(file)) {
-    const duplicates = titles.get(title) ?? [];
-    duplicates.push(file);
-    titles.set(title, duplicates);
-  }
+    if (title && !/(?:404|500)\.html$/u.test(file)) {
+      const duplicates = titles.get(title) ?? [];
+      duplicates.push(file);
+      titles.set(title, duplicates);
+    }
 
-  for (const match of html.matchAll(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/giu)) {
-    try {
-      structuredData.push(JSON.parse(match[1]));
-    } catch (error) {
-      failures.push(`${file}: ungültiges JSON-LD (${error instanceof Error ? error.message : 'Parsefehler'})`);
+    for (const match of html.matchAll(/<script\s+type="application\/ld\+json">([\s\S]*?)<\/script>/giu)) {
+      try {
+        structuredData.push(JSON.parse(match[1]));
+      } catch (error) {
+        failures.push(`${file}: ungültiges JSON-LD (${error instanceof Error ? error.message : 'Parsefehler'})`);
+      }
+    }
+
+    if (site.normPattern?.test(file)) {
+      const legislation = structuredData.find((entry) => entry?.['@type'] === 'Legislation');
+      if (!legislation) failures.push(`${file}: strukturierte Gesetzesdaten fehlen`);
+      else {
+        if (!legislation.name) failures.push(`${file}: Legislation.name fehlt`);
+        if (!legislation.description) failures.push(`${file}: Legislation.description fehlt`);
+        if (!legislation.legislationType) failures.push(`${file}: Legislation.legislationType fehlt`);
+        if (!legislation.legislationIdentifier) failures.push(`${file}: Legislation.legislationIdentifier fehlt`);
+        if (legislation.url !== canonical) failures.push(`${file}: Legislation.url weicht vom Canonical ab`);
+      }
     }
   }
 
-  if (/^dist\/client\/recht\/norm\/[^/]+\/index\.html$/u.test(file)) {
-    const legislation = structuredData.find((entry) => entry?.['@type'] === 'Legislation');
-    if (!legislation) {
-      failures.push(`${file}: strukturierte Gesetzesdaten fehlen`);
-    } else {
-      if (!legislation.name) failures.push(`${file}: Legislation.name fehlt`);
-      if (!legislation.description) failures.push(`${file}: Legislation.description fehlt`);
-      if (!legislation.legislationType) failures.push(`${file}: Legislation.legislationType fehlt`);
-      if (!legislation.legislationIdentifier) {
-        failures.push(`${file}: Vollzitat als Legislation.legislationIdentifier fehlt`);
-      }
-      if (legislation.url !== canonical) {
-        failures.push(`${file}: Legislation.url weicht vom Canonical ab`);
-      }
-    }
+  for (const [title, files] of titles) {
+    if (files.length > 1) failures.push(`${site.name}: Titel mehrfach verwendet: „${title}“ (${files.join(', ')})`);
+  }
+
+  const searchHtml = await readFile(`${site.root}/suche/index.html`, 'utf8');
+  if (!/<meta\s+name="robots"\s+content="noindex, follow"/iu.test(searchHtml)) failures.push(`${site.root}/suche/index.html: noindex, follow fehlt`);
+
+  const sitemap = await readFile(`${site.root}/sitemap.xml`, 'utf8');
+  const robots = await readFile(`${site.root}/robots.txt`, 'utf8');
+  if (!sitemap.includes('<lastmod>')) failures.push(`${site.root}/sitemap.xml: lastmod fehlt vollständig`);
+  if (sitemap.includes('/suche/')) failures.push(`${site.root}/sitemap.xml: nicht indexierbare Suche enthalten`);
+  if ([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].some((match) => !match[1].startsWith(`${site.origin}/`))) failures.push(`${site.root}/sitemap.xml: fremde Origin enthalten`);
+  if (!robots.includes(`Sitemap: ${site.origin}/sitemap.xml`)) failures.push(`${site.root}/robots.txt: falsche Sitemap-URL`);
+
+  if (site.name === 'Staatsportal') {
+    if (/\/recht\/(?:norm|verkuendungen|sachgebiete)\//u.test(sitemap)) failures.push('Portal-Sitemap enthält Rechtsdetails');
+    if (!sitemap.includes(`${site.origin}/recht/`)) failures.push('Portal-Sitemap enthält die Brückenseite nicht');
+  } else if (sitemap.includes('/recht/')) {
+    failures.push('OstRecht-Sitemap enthält das alte /recht/-Präfix');
   }
 }
-
-for (const [title, files] of titles) {
-  if (files.length > 1) failures.push(`Titel mehrfach verwendet: „${title}“ (${files.join(', ')})`);
-}
-
-const searchHtml = await readFile('dist/client/suche/index.html', 'utf8');
-if (!/<meta\s+name="robots"\s+content="noindex, follow"/iu.test(searchHtml)) {
-  failures.push('dist/client/suche/index.html: noindex, follow fehlt');
-}
-
-const sitemap = await readFile('dist/client/sitemap.xml', 'utf8');
-if (!sitemap.includes('<lastmod>')) failures.push('dist/sitemap.xml: lastmod fehlt vollständig');
-if (sitemap.includes('/suche/')) failures.push('dist/sitemap.xml: nicht indexierbare Suche enthalten');
 
 if (failures.length > 0) {
   console.error(failures.join('\n'));
   process.exitCode = 1;
 } else {
-  console.log('SEO-QA erfolgreich.');
+  console.log('SEO-QA für Staatsportal und OstRecht erfolgreich.');
 }

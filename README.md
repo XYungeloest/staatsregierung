@@ -1,6 +1,6 @@
 # Staatsrat des Ostdeutschen Freistaates
 
-Website des fiktiven Staatsrates des Ostdeutschen Freistaates mit Staatsportal, Rechtsbereich, Presse, Haushalt und Service.
+Website des fiktiven Staatsrates des Ostdeutschen Freistaates mit Staatsportal, eigenständigem Rechtsportal, Presse, Haushalt und Service.
 
 Die öffentliche Website soll sachlich, ruhig und behördennah wirken. Architektur- und Entwicklungsbegriffe gehören nicht in öffentliche Seitentexte; operative Hinweise bleiben in Code, README, AGENTS oder `CONTENT.md`.
 
@@ -17,7 +17,7 @@ Quellenfragen stehen in `CONTENT_GAPS.md`.
 - normalisierte Regierungsorganisation unter `content/organisation/`
 - getrenntes, Access-geschütztes Git-Redaktionsstudio unter `/redaktion/`
 - interner Wissenshub unter `knowledge/`
-- Rechtsportal unter `/recht/` mit Normen, Fassungen, Historien, Rechtsherkunft,
+- eigenständiges Rechtsportal OstRecht unter `https://recht.freistaat-ostdeutschland.de` mit Normen, Fassungen, Historien, Rechtsherkunft,
   Rechtsentwicklung, Sachgebieten, Fundstellen, Verkündungen und Rechtssuche
 
 Das Projekt ist eine politische Simulation. Es stellt keine echte amtliche Veröffentlichung dar.
@@ -25,17 +25,26 @@ Der dafür notwendige Hinweis erscheint sichtbar in der oberen Hinweisleiste und
 Impressum enthält zusätzlich die rechtlich erforderliche ausführliche Einordnung; weitere
 öffentliche Texte sollen die Simulation nicht wiederholen.
 
+Grundentscheidung: **Ein Repository, ein gemeinsamer Daten- und Wissensbestand, zwei öffentliche
+Anwendungen.** Das Staatsportal läuft unter `https://freistaat-ostdeutschland.de`; OstRecht läuft
+unter `https://recht.freistaat-ostdeutschland.de`. Beide Builds lesen dieselben Verzeichnisse
+`content/`, `Gesetze/` und `knowledge/`, wobei `knowledge/` in keinem öffentlichen Artefakt
+ausgeliefert wird. Das Staatsportal behält unter `/recht/` nur eine redaktionelle Brückenseite.
+
 ## Entwicklung
 
 ```sh
 npm install
 npm run dev
+npm run dev:recht
 npm run content:check
 npm run knowledge:check
 npm run knowledge:build
 npm run check
 npm run test:unit
 npm run build
+npm run build:portal
+npm run build:recht
 npm run links:check
 npm run seo:check
 npm run test:visual
@@ -49,16 +58,25 @@ Weitere wichtige Befehle:
 
 ```sh
 npm run preview
+npm run preview:recht
 npm run deploy:staging
 npm run deploy
+npm run deploy:portal
+npm run deploy:recht
 npm run editorial:dev
 ```
 
-`SITE_URL` und `BASE_PATH` steuern Canonicals, Sitemap, Robots und Pfadauflösung:
+`PORTAL_SITE_URL` und `LAW_SITE_URL` steuern die beiden Origins zentral. Produktionsdefaults sind
+`https://freistaat-ostdeutschland.de` und `https://recht.freistaat-ostdeutschland.de`:
 
 ```sh
-SITE_URL=https://freistaat-ostdeutschland.de BASE_PATH=/ npm run build
+PORTAL_SITE_URL=https://portal.example LAW_SITE_URL=https://recht.example npm run build
 ```
+
+`npm run build:portal` schreibt nach `dist/portal/`, `npm run build:recht` nach `dist/law/`.
+`wrangler.jsonc` deployt das erste Artefakt auf den bestehenden Worker `ostrecht-portal`,
+`wrangler.recht.jsonc` das zweite auf `ostrecht-recht`. `npm run deploy` veröffentlicht beide
+Artefakte desselben Commits; die Staging-Varianten tun dies mit den jeweiligen Wrangler-Umgebungen.
 
 ## Wichtige Verzeichnisse
 
@@ -96,6 +114,7 @@ src/
   components/
   config/
   editorial-worker/
+  law/pages/
   data/
   layouts/
   lib/
@@ -188,7 +207,7 @@ ostdeutscher Verkündung beziehungsweise eindeutig verknüpfter Änderungsvorsch
 nach dem Ausgangsstichtag erstmals verkündete Norm wird nur bei eigener ostdeutscher
 Veröffentlichungsgrundlage als eigenständig neu geschaffen eingeordnet. Fehlt ein solcher Beleg,
 bleibt die Herkunft ausdrücklich ungeklärt. Die Einordnung wird für Normseiten, Fassungen, Suche
-und `/recht/rechtsentwicklung/` aus derselben Funktion erzeugt.
+und `/rechtsentwicklung/` auf OstRecht aus derselben Funktion erzeugt.
 
 Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
 Normlink ist dynamisch und führt zur am redaktionellen Stichtag geltenden Fassung. Gibt es noch
@@ -207,14 +226,14 @@ Quellenkonflikts ein Normdatum, ergänzt die Zitierlogik kein vermeintlich einde
 
 ## Zentrale Konfiguration
 
-- `src/config/site.ts`: Portalname, Pfade, Navigation und Kontakt
+- `src/config/site.ts`: beide Site-Origins, Site-Namen, Pfade, Navigationen und Kontakt
 - `src/config/editorial.json`: zentraler redaktioneller Stichtag
 - `src/config/features.ts`: Feature-Flag für die optionale Webanalyse
 - `src/config/analytics.ts`: Consent und Webanalyse-Konfiguration
-- `src/lib/portal/routes.ts`: zentrale Portalpfade
-- `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik
+- `src/lib/portal/routes.ts`: zentrale Portalpfade und absolute Cross-Site-Links
+- `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik ohne öffentliches `/recht/`-Präfix
 - `src/config/law-subjects.ts`: redaktionelle Gruppierung der belegten Sachgebiete ohne erfundene Systemnummern
-- Der Rechtsbereich hat statische Einstiege für Suche, alphabetischen Index, Sachgebiete,
+- OstRecht hat statische Einstiege für Suche, alphabetischen Index, Sachgebiete,
   Rechtsentwicklung, Fundstellennachweise, Verkündungen, Förderrichtlinien und Hilfe. Neue Rechtspfade werden
   zentral über die Route-Helper gepflegt.
 
@@ -277,10 +296,9 @@ Jeder Produktionsbuild trägt den vollständigen Git-Commit als `meta[name="buil
 HTML-Seiten und als Antwortheader `X-Portal-Commit` auf allen Routen. In CI wird die Kennung aus
 `GITHUB_SHA` über `PORTAL_BUILD_COMMIT` übernommen; lokale Builds verwenden den aktuellen `HEAD`.
 Der öffentlich ausgelieferte Produktionsstand wird nicht dauerhaft in dieser README festgeschrieben.
-Vor und nach einem Deployment müssen `/`, `/recht/`, `/recht/verfassung/`, die Normseiten des
-Ersten Staatsreformgesetzes und der SERO-Verordnung, die Verkündungsseiten Nr. 53 und 58 sowie
-`/sitemap.xml` und `/search-index.json` dieselbe vollständige Kennung des freigegebenen Commits
-ausgeben.
+Vor und nach einem Deployment müssen die Portalseiten `/` und `/recht/` sowie OstRechts `/`,
+`/verfassung/`, zentrale Norm- und Verkündungsseiten, `/sitemap.xml` und `/search-index.json`
+dieselbe vollständige Kennung des freigegebenen Commits ausgeben.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter
@@ -308,16 +326,17 @@ Analytics wird erst nach Zustimmung nachgeladen. Eine etwaige automatische Einbi
 Cloudflare Web Analytics muss zusätzlich in der Cloudflare-Projektkonfiguration deaktiviert
 bleiben, weil sie außerhalb des Repository-Builds erfolgen kann.
 
-Die allgemeine Suche unter `/suche/` unterscheidet einen leeren Ausgangszustand, Laden, Treffer,
-keine Treffer und Fehler. Die Suche und ihre Filter bleiben per Tastatur bedienbar; Status und
-Trefferzahl werden zugänglich ausgegeben. Im Rechtsbereich sind Suche, Index, Sachgebiete,
-Verkündungen, Fundstellen, Verfassung, Förderrichtlinien und Hilfe eigenständige Einstiege.
+Die allgemeine Portalsuche unter `/suche/` unterscheidet einen leeren Ausgangszustand, Laden,
+Treffer, keine Treffer und Fehler. Die Suche und ihre Filter bleiben per Tastatur bedienbar; Status
+und Trefferzahl werden zugänglich ausgegeben. Rechtsfundstellen verweisen auf OstRecht. Dort sind
+Suche, Index, Sachgebiete, Verkündungen, Fundstellen, Verfassung, Förderrichtlinien und Hilfe
+eigenständige Einstiege; deren Suchtreffer bleiben auf der Rechts-Origin.
 
-Jede Seite verwendet das gemeinsame Layout mit Skip-Link, sichtbaren Fokuszuständen,
-Breadcrumbs und individuellen Metadaten. Für Pressemitteilungen werden passende Artikel- und
+Beide Sites teilen Basiskomponenten und Accessibility-Regeln, verwenden aber getrennte Layouts:
+`BaseLayout.astro` für das Staatsportal und `LawLayout.astro` für OstRecht. Für Pressemitteilungen werden passende Artikel- und
 Breadcrumb-Strukturdaten erzeugt; die Organisationsdaten kennzeichnen das Portal ausdrücklich als
-fiktive Politiksimulation. Das gemeinsame Social-Media-Bild liegt unter
-`public/images/social/portal-preview.png`.
+fiktive Politiksimulation. Die getrennten Social-Media-Bilder liegen unter
+`public/images/social/portal-preview.png` und `public/images/social/recht-preview.png`.
 
 `BaseLayout.astro` stellt mit `mainWidth="contained"` den begrenzten Hauptcontainer für Fachseiten
 und mit `mainWidth="full"` vollbreite Inhaltsbänder mit inneren Containern bereit. Die Startseite
@@ -327,7 +346,16 @@ gestalterischen Regeln stehen in `DESIGN.md`.
 
 ## Laufzeit und Cloudflare
 
-Das Portal wird weiterhin für Cloudflare Workers gebaut, nutzt aktuell aber keine D1- oder R2-Bindings. Pressemitteilungen, Termine, Stellenangebote, Projektstatus und Medien werden dateibasiert aus `content/`, `src/data/dashboard/` und `public/images/` erzeugt.
+Beide öffentlichen Anwendungen werden als getrennte statische Artefakte für Cloudflare Workers
+gebaut und nutzen aktuell keine D1- oder R2-Bindings. Pressemitteilungen, Termine,
+Stellenangebote, Projektstatus und Rechtsdaten werden dateibasiert aus den gemeinsamen Quellen
+erzeugt. GitHub Actions baut und deployt beide Worker nach gemeinsamer QA aus demselben Commit.
+
+Alte Detailadressen unter `freistaat-ostdeutschland.de/recht/...` werden über die beim Portalbuild
+erzeugte `_redirects`-Datei permanent auf die konfigurierte `LAW_SITE_URL` übertragen. `/recht/`
+selbst bleibt die Brückenseite. Ein späterer Domainwechsel erfordert damit im Wesentlichen die neue
+`LAW_SITE_URL`, eine angepasste Wrangler-Custom-Domain und einen Redirect des bisherigen Hosts;
+Normdaten, Wissenshub und Themenseiten bleiben unverändert.
 
 Die produktiven Sicherheitsheader einschließlich HSTS, CSP, Framing-, Referrer-, MIME- und
 Permissions-Schutz werden über `public/_headers` für Cloudflare Static Assets ausgeliefert. Die CSP
@@ -362,7 +390,8 @@ Nach öffentlichen Textänderungen zusätzlich gezielt nach Entwicklerbegriffen 
 Bei Layout-, Karten- oder Header-Änderungen die Startseite und `/kreisreform/` zusätzlich bei den
 definierten mobilen, Tablet- und Desktopbreiten prüfen.
 
-`npm run links:check` prüft nach dem Build alle statisch ausgegebenen internen Verweise.
+`npm run links:check` prüft nach dem Build alle statisch ausgegebenen internen und bekannten
+Cross-Site-Verweise beider Anwendungen.
 `npm run test:visual` erzeugt und vergleicht Chromium-Screenshots dieser Ansichten. Die externen
 Basiskacheln der Kreisreform werden dabei unterdrückt, damit die Baselines reproduzierbar bleiben.
 `npm run test:a11y` führt zusätzlich einen automatisierten Accessibility-Smoke-Test aus. Beide
@@ -370,7 +399,7 @@ Checks ergänzen, ersetzen aber nicht den manuellen Tastatur- und Screenreader-K
 `npm run test:quality` prüft unter anderem die acht Abnahme-Viewports auf Dokumentüberlauf sowie
 Karten- und Statistikfreigaben, Zoom und reduzierte Bewegung. `npm run test:browsers` führt die
 zentralen Interaktionen zusätzlich in Chromium, Firefox und WebKit aus; `npm run seo:check` prüft
-Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten und Sitemap.
+Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten, Sitemaps und robots.txt beider Sites.
 
 ## TODO
 

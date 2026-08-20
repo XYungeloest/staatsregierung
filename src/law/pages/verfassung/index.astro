@@ -1,0 +1,93 @@
+---
+import LawLayout from '../../../layouts/LawLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  getLawPortalUrl,
+  getNormUrl,
+  getPublicationUrl,
+  toDisplayText,
+} from '../../../lib/norms/index.ts';
+import { buildNormPublicationReferenceLookup, loadAllVerkuendungen } from '../../../lib/norms/publications.ts';
+import { formatDate } from '../../../lib/norms/presentation.ts';
+import { getCurrentVersion, loadAllNorms } from '../../../lib/norms/content.ts';
+
+const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+const currentConstitution = norms.find(
+  (norm) => norm.meta.slug === 'staatsverfassung-des-freistaates-ostdeutschland',
+);
+const normBySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
+const publicationReferences = buildNormPublicationReferenceLookup(publications);
+const amendmentNorms = currentConstitution
+  ? currentConstitution.history.entries
+      .filter((entry) => entry.type === 'amendment' && entry.relatedNorm)
+      .map((entry) => entry.relatedNorm ? normBySlug.get(entry.relatedNorm) : undefined)
+      .filter((norm): norm is NonNullable<typeof norm> => Boolean(norm))
+  : [];
+const amendmentRows = amendmentNorms.map((norm) => {
+  const version = getCurrentVersion(norm);
+  return {
+    norm,
+    version,
+    publication: publicationReferences.get(`${norm.meta.slug}:${version.versionId}`),
+  };
+});
+---
+
+<LawLayout title="Verfassung" description="Zugang zu verfassungsbezogenen Inhalten des Rechtsbereichs.">
+  <Breadcrumbs
+    items={[
+      { label: 'OstRecht', href: getLawPortalUrl() },
+      { label: 'Verfassung' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rechtsbereich</p>
+    <h1>Verfassung</h1>
+    <p class="lead">
+      Hier finden Sie die seit dem 21. Juli 2026 geltende Lesefassung und die verfassungsändernden Gesetze.
+    </p>
+  </section>
+
+  <section class="section">
+    {currentConstitution ? (
+      <article class="panel">
+        <p class="eyebrow">Aktuelle Lesefassung</p>
+        <h2><a class="inline-link" href={getNormUrl(currentConstitution.meta.slug)}>{toDisplayText(currentConstitution.meta.title)}</a></h2>
+        <p>{currentConstitution.meta.initialCitation}</p>
+        <p><strong>Stand:</strong> Redaktionelle konsolidierte Lesefassung vom 21. Juli 2026.</p>
+        <aside class="notice-card" aria-labelledby="artikel-121a-quellenstand">
+          <h3 id="artikel-121a-quellenstand">Quellenstand zu Artikel 121a</h3>
+          <p>
+            Das am 20. Juli 2026 verkündete Erste Gesetz zur Großen Staatsreform und die konsolidierte
+            Lesefassung stimmen in der Übergangsregel zur siebten Volkskammer überein. Der inzwischen
+            festgelegte Wahltermin für die achte Volkskammer ist der 5. und 6. September 2026.
+          </p>
+        </aside>
+      </article>
+    ) : null}
+    {amendmentRows.length > 0 ? (
+      <ul class="record-list">
+        {amendmentRows.map(({ norm, version, publication }) => (
+          <li class="record-list__item">
+            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
+            <span>In Kraft seit <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></span>
+            {publication ? (
+              <span>
+                <a class="inline-link" href={getPublicationUrl(publication.publicationSlug)}>
+                  {publication.publication} {publication.publicationDate.slice(0, 4)} Nr. {publication.issue}
+                </a>
+                {publication.startPage ? ` · Beginn auf Seite ${publication.startPage}` : ''}
+              </span>
+            ) : null}
+          </li>
+        ))}
+      </ul>
+    ) : !currentConstitution ? (
+      <article class="panel">
+        <h2>Keine verfassungsbezogenen Vorschriften gefunden</h2>
+        <p>Derzeit sind keine passenden Vorschriften vorhanden.</p>
+      </article>
+    ) : null}
+  </section>
+</LawLayout>

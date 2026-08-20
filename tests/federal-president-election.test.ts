@@ -51,7 +51,7 @@ test('aktuelle strukturierte und öffentliche Inhalte führen keinen offenen Aug
   const currentPaths = [
     'knowledge/current-state.json', 'knowledge/proceedings.json', 'knowledge/open-questions.json',
     'content/freistaat/staatsaufbau.json', 'content/regierung/mitglieder/karl-honecker.json',
-    'content/presse/termine/wahl-achte-volkskammer-2026.json', 'src/pages/recht/verfassung/index.astro',
+    'content/presse/termine/wahl-achte-volkskammer-2026.json', 'src/law/pages/verfassung/index.astro',
   ];
   for (const path of currentPaths) {
     const text = readFileSync(path, 'utf8');

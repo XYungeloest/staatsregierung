@@ -1,4 +1,11 @@
-import { siteConfig, type SitePathKey } from '../../config/site.ts';
+import {
+  isLawSite,
+  lawSiteConfig,
+  siteConfig,
+  siteUrls,
+  type LawSitePathKey,
+  type SitePathKey,
+} from '../../config/site.ts';
 
 const base = import.meta.env?.BASE_URL ?? '/';
 const specialProtocolPattern = /^(?:[a-z][a-z0-9+.-]*:|\/\/|#)/iu;
@@ -11,16 +18,36 @@ export function withBase(path: string): string {
   return `${base}${path.replace(/^\//, '')}`;
 }
 
+function absoluteUrl(origin: string, path: string): string {
+  return new URL(path, `${origin}/`).toString();
+}
+
+export function getPortalUrl(path: string): string {
+  return isLawSite ? absoluteUrl(siteUrls.portal, path) : withBase(path);
+}
+
+export function getLawUrl(path: string): string {
+  return isLawSite ? withBase(path) : absoluteUrl(siteUrls.law, path);
+}
+
 export function resolvePortalPath(path: string): string {
   if (!path || specialProtocolPattern.test(path) || !path.startsWith('/')) {
     return path;
   }
 
-  return withBase(path);
+  if (path.startsWith('/recht/') && path !== siteConfig.paths.lawBridge) {
+    return getLawUrl(path.slice('/recht'.length));
+  }
+
+  return getPortalUrl(path);
 }
 
 export function getSiteUrl(pathKey: SitePathKey): string {
-  return withBase(siteConfig.paths[pathKey]);
+  return getPortalUrl(siteConfig.paths[pathKey]);
+}
+
+export function getLawSiteUrl(pathKey: LawSitePathKey): string {
+  return getLawUrl(lawSiteConfig.paths[pathKey]);
 }
 
 export function getHomeUrl(): string {
@@ -40,7 +67,7 @@ export function getGovernmentMembersUrl(): string {
 }
 
 export function getGovernmentMemberUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.governmentMembers}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.governmentMembers}${slug}/`);
 }
 
 export function getMinisterPresidentUrl(): string {
@@ -72,7 +99,7 @@ export function getMinistriesUrl(): string {
 }
 
 export function getMinistryUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.cabinet}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.cabinet}${slug}/`);
 }
 
 export function getTopicsUrl(): string {
@@ -80,7 +107,7 @@ export function getTopicsUrl(): string {
 }
 
 export function getTopicUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.topics}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.topics}${slug}/`);
 }
 
 export function getEducationAndSchoolUrl(): string {
@@ -100,7 +127,7 @@ export function getPressReleaseIndexUrl(): string {
 }
 
 export function getPressReleaseUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.pressReleases}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.pressReleases}${slug}/`);
 }
 
 export function getSpeechIndexUrl(): string {
@@ -108,7 +135,7 @@ export function getSpeechIndexUrl(): string {
 }
 
 export function getSpeechUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.pressSpeeches}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.pressSpeeches}${slug}/`);
 }
 
 export function getEventIndexUrl(): string {
@@ -116,7 +143,7 @@ export function getEventIndexUrl(): string {
 }
 
 export function getEventUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.pressDates}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.pressDates}${slug}/`);
 }
 
 export function getBudgetUrl(): string {
@@ -124,11 +151,11 @@ export function getBudgetUrl(): string {
 }
 
 export function getBudgetPageUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.budget}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.budget}${slug}/`);
 }
 
 export function getBudgetPlanUrl(planNumber: string): string {
-  return withBase(`${siteConfig.paths.budget}einzelplaene/${planNumber.padStart(2, '0')}/`);
+  return getPortalUrl(`${siteConfig.paths.budget}einzelplaene/${planNumber.padStart(2, '0')}/`);
 }
 
 export function getFreestateUrl(): string {
@@ -136,7 +163,7 @@ export function getFreestateUrl(): string {
 }
 
 export function getFreestatePageUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.freestate}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.freestate}${slug}/`);
 }
 
 export function getServiceUrl(): string {
@@ -152,7 +179,7 @@ export function getServiceOverviewUrl(): string {
 }
 
 export function getJobUrl(slug: string): string {
-  return withBase(`${siteConfig.paths.career}${slug}/`);
+  return getPortalUrl(`${siteConfig.paths.career}${slug}/`);
 }
 
 export function getContactUrl(): string {
@@ -176,43 +203,47 @@ export function getAccessibilityUrl(): string {
 }
 
 export function getLawHomeUrl(): string {
-  return getSiteUrl('lawHome');
+  return getLawSiteUrl('home');
+}
+
+export function getLawBridgeUrl(): string {
+  return getSiteUrl('lawBridge');
 }
 
 export function getLawSearchUrl(): string {
-  return getSiteUrl('lawSearch');
+  return getLawSiteUrl('search');
 }
 
 export function getLawIndexUrl(): string {
-  return getSiteUrl('lawIndex');
+  return getLawSiteUrl('index');
 }
 
 export function getLawSubjectsUrl(): string {
-  return getSiteUrl('lawSubjects');
+  return getLawSiteUrl('subjects');
 }
 
 export function getLawFundingUrl(): string {
-  return getSiteUrl('lawFunding');
+  return getLawSiteUrl('funding');
 }
 
 export function getLawReferencesUrl(): string {
-  return getSiteUrl('lawReferences');
+  return getLawSiteUrl('references');
 }
 
 export function getLawPublicationsUrl(): string {
-  return getSiteUrl('lawPublications');
+  return getLawSiteUrl('publications');
 }
 
 export function getLawConstitutionUrl(): string {
-  return getSiteUrl('lawConstitution');
+  return getLawSiteUrl('constitution');
 }
 
 export function getLawDevelopmentUrl(): string {
-  return getSiteUrl('lawDevelopment');
+  return getLawSiteUrl('development');
 }
 
 export function getLawHelpUrl(): string {
-  return getSiteUrl('lawHelp');
+  return getLawSiteUrl('help');
 }
 
 export function getEasyLanguageUrl(): string {

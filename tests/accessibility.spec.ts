@@ -1,6 +1,8 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
+const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+
 const auditPages = [
   '/',
   '/staatsregierung/',
@@ -24,19 +26,20 @@ const auditPages = [
   '/freistaat/bezirke/',
   '/freistaat/berlin/',
   '/suche/',
-  '/recht/norm/ostdeutsches-kulturpassgesetz/',
-  '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
-  '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/',
-  '/recht/norm/saechsische-gemeindeordnung/',
-  '/recht/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01',
-  '/recht/norm/ostdeutsche-bezirksordnung/',
-  '/recht/norm/sero-verordnung/',
-  '/recht/norm/sero-verordnung/history/',
-  '/recht/suche/',
-  '/recht/archiv/',
-  '/recht/verkuendungen/',
-  '/recht/fundstellen/',
-  '/recht/rechtsentwicklung/',
+  lawUrl('/norm/ostdeutsches-kulturpassgesetz/'),
+  lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'),
+  lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/'),
+  lawUrl('/norm/saechsische-gemeindeordnung/'),
+  lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
+  lawUrl('/norm/ostdeutsche-bezirksordnung/'),
+  lawUrl('/norm/sero-verordnung/'),
+  lawUrl('/norm/sero-verordnung/history/'),
+  lawUrl('/suche/'),
+  lawUrl('/archiv/'),
+  lawUrl('/verkuendungen/'),
+  lawUrl('/fundstellen/'),
+  lawUrl('/rechtsentwicklung/'),
+  lawUrl('/'),
   '/recht/',
   '/service/',
   '/service/kontakt/',

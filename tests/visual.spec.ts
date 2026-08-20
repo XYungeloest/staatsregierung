@@ -1,5 +1,7 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
 
+const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+
 const visualPages = [
   { name: 'startseite', path: '/' },
   { name: 'staatsregierung', path: '/staatsregierung/' },
@@ -19,10 +21,11 @@ const visualPages = [
   { name: 'thema-kulturpass', path: '/themen/kulturpass/' },
   { name: 'kreisreform', path: '/kreisreform/' },
   { name: 'portalsuche', path: '/suche/' },
-  { name: 'recht', path: '/recht/' },
-  { name: 'norm-kulturpass', path: '/recht/norm/ostdeutsches-kulturpassgesetz/' },
-  { name: 'norm-staatsverfassung', path: '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/' },
-  { name: 'norm-sero-verordnung', path: '/recht/norm/sero-verordnung/' },
+  { name: 'recht-bruecke', path: '/recht/' },
+  { name: 'ostrecht', path: lawUrl('/') },
+  { name: 'norm-kulturpass', path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/') },
+  { name: 'norm-staatsverfassung', path: lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/') },
+  { name: 'norm-sero-verordnung', path: lawUrl('/norm/sero-verordnung/') },
   { name: 'presse', path: '/presse/' },
   { name: 'kontakt', path: '/service/kontakt/' },
   { name: 'service', path: '/service/' },
@@ -135,7 +138,7 @@ const componentVisualPages = [
   },
   {
     name: 'recht-module',
-    path: '/recht/',
+    path: lawUrl('/'),
     shots: [
       ['recht-recherchewege', '[data-visual-section="law-research-paths"]'],
       ['recht-rechtsstaende', '[data-visual-section="law-latest-status"] .record-list__item:first-child'],
@@ -143,16 +146,16 @@ const componentVisualPages = [
   },
   {
     name: 'rechtsentwicklung-module',
-    path: '/recht/rechtsentwicklung/',
+    path: lawUrl('/rechtsentwicklung/'),
     shots: [
       ['rechtsentwicklung-kennzahlen', '.section-hero__facts'],
       ['rechtsentwicklung-filter', '[data-development-filter-form]'],
-      ['rechtsentwicklung-uebernommen', '[data-development-item]:has(a[href="/recht/norm/archivgesetz/"])'],
+      ['rechtsentwicklung-uebernommen', '[data-development-item]:has(a[href="/norm/archivgesetz/"])'],
     ],
   },
   {
     name: 'fassungsvergleich-module',
-    path: '/recht/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01',
+    path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
     shots: [
       ['fassungsvergleich-auswahl', '[data-version-compare] > .norm-compare__form'],
       ['fassungsvergleich-zusammenfassung', '.norm-diff__summary'],
@@ -161,7 +164,7 @@ const componentVisualPages = [
   },
   {
     name: 'norm-module',
-    path: '/recht/norm/ostdeutsches-kulturpassgesetz/',
+    path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/'),
     shots: [
       ['norm-rechtsstand', '[data-visual-section="norm-legal-status"]'],
       ['norm-navigation', '.section-navigation'],
@@ -170,7 +173,7 @@ const componentVisualPages = [
   },
   {
     name: 'norm-sidebar-module',
-    path: '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
+    path: lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'),
     shots: [
       ['norm-vorschriftendaten', '[data-visual-section="norm-metadata"]'],
       ['norm-weiterfuehrende-bezuege', '[data-visual-section="norm-portal-relations"]'],

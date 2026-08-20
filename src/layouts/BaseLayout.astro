@@ -1,21 +1,17 @@
 ---
 import '../styles/global.css';
 import AnalyticsConsentBanner from '../components/analytics/AnalyticsConsentBanner.astro';
+import PageHead from '../components/PageHead.astro';
 import PortalIcon from '../components/portal/PortalIcon.astro';
 import ServiceBand from '../components/portal/ServiceBand.astro';
 import { isAnalyticsEnabled } from '../config/analytics.ts';
 import { siteConfig } from '../config/site.ts';
-import {
-  buildBreadcrumbJsonLd,
-  buildCanonicalUrl,
-  buildPageTitle,
-  type SeoBreadcrumbItem,
-  type SeoImage,
-  type StructuredData,
-  toAbsoluteUrl,
-} from '../lib/seo/index.ts';
+import type { SeoBreadcrumbItem, SeoImage, StructuredData } from '../lib/seo/index.ts';
 import {
   getHomeUrl,
+  getLawIndexUrl,
+  getLawPublicationsUrl,
+  getLawReferencesUrl,
   getLawSearchUrl,
   getPortalSearchUrl,
   getSiteUrl,
@@ -46,20 +42,11 @@ const {
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const pageTitle = buildPageTitle(title);
 const base = import.meta.env.BASE_URL;
-const canonicalUrl = buildCanonicalUrl(Astro.url, Astro.site);
-const robotsContent = noindex ? 'noindex, follow' : 'index, follow';
 const smallFlagAssetUrl = `${base}${siteConfig.officialFlagSmallAssetPath.replace(/^\//, '')}`;
 const coatOfArmsAssetUrl = `${base}${siteConfig.officialCoatOfArmsAssetPath.replace(/^\//, '')}`;
 const analyticsEnabled = isAnalyticsEnabled();
 const loadPortalModules = scripts.includes('portal-modules');
-const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbs, currentPath, Astro.site);
-const structuredDataItems = [
-  ...(structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : []),
-  ...(breadcrumbJsonLd ? [breadcrumbJsonLd] : []),
-];
-const ogImageUrl = ogImage ? toAbsoluteUrl(ogImage.url, Astro.site) : undefined;
 
 function getPathname(href: string): string {
   return new URL(href, Astro.url).pathname;
@@ -141,9 +128,9 @@ const footerServiceLinks = [
 
 const footerLegalLinks = [
   { href: getLawSearchUrl(), label: 'Rechtssuche' },
-  { href: getSiteUrl('lawIndex'), label: 'Alphabetischer Index' },
-  { href: getSiteUrl('lawReferences'), label: 'Fundstellennachweise' },
-  { href: getSiteUrl('lawPublications'), label: 'Verkündungen' },
+  { href: getLawIndexUrl(), label: 'Alphabetischer Index' },
+  { href: getLawReferencesUrl(), label: 'Fundstellennachweise' },
+  { href: getLawPublicationsUrl(), label: 'Verkündungen' },
   { href: getSiteUrl('faq'), label: 'FAQ' },
   { href: getSiteUrl('imprint'), label: 'Impressum' },
   { href: getSiteUrl('privacy'), label: 'Datenschutz' },
@@ -157,43 +144,7 @@ const footerLegalLinks = [
 <!doctype html>
 <html lang="de">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="build-commit" content={import.meta.env.PORTAL_BUILD_COMMIT} />
-    <meta name="description" content={description} />
-    <meta name="robots" content={robotsContent} />
-    <link rel="canonical" href={canonicalUrl} />
-    <meta property="og:locale" content={siteConfig.seo.locale} />
-    <meta property="og:site_name" content={siteConfig.seo.siteName} />
-    <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
-    <meta name="twitter:title" content={pageTitle} />
-    <meta name="twitter:description" content={description} />
-    {ogImageUrl ? (
-      <>
-        <meta property="og:image" content={ogImageUrl} />
-        <meta name="twitter:image" content={ogImageUrl} />
-        {ogImage?.width ? <meta property="og:image:width" content={String(ogImage.width)} /> : null}
-        {ogImage?.height ? <meta property="og:image:height" content={String(ogImage.height)} /> : null}
-        {ogImage?.type ? <meta property="og:image:type" content={ogImage.type} /> : null}
-        {ogImage?.alt ? (
-          <>
-            <meta property="og:image:alt" content={ogImage.alt} />
-            <meta name="twitter:image:alt" content={ogImage.alt} />
-          </>
-        ) : null}
-      </>
-    ) : null}
-    <link rel="icon" type="image/svg+xml" sizes="any" href={`${import.meta.env.BASE_URL}favicon.svg`} />
-    <link rel="alternate icon" type="image/x-icon" href={`${import.meta.env.BASE_URL}favicon.ico`} />
-    <title>{pageTitle}</title>
-    {structuredDataItems.map((entry) => (
-      <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />
-    ))}
+    <PageHead {title} {description} {breadcrumbs} {structuredData} {noindex} {ogType} {ogImage} />
   </head>
   <body>
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>

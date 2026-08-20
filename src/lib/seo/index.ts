@@ -1,4 +1,4 @@
-import { siteConfig } from '../../config/site.ts';
+import { activeSiteConfig, isLawSite, lawSiteConfig, siteConfig } from '../../config/site.ts';
 
 export interface SeoBreadcrumbItem {
   label: string;
@@ -16,7 +16,7 @@ export interface SeoImage {
 export type StructuredData = Record<string, unknown>;
 
 function getBaseUrl(site?: URL): URL {
-  return site ?? new URL(siteConfig.seo.siteUrl);
+  return site ?? new URL(activeSiteConfig.seo.siteUrl);
 }
 
 export function toAbsoluteUrl(path: string, site?: URL): string {
@@ -33,12 +33,13 @@ export function buildCanonicalUrl(currentUrl: URL, site?: URL): string {
 
 export function buildPageTitle(title: string): string {
   const trimmedTitle = title.trim();
+  const identityName = isLawSite ? lawSiteConfig.brand : siteConfig.authorityName;
 
-  if (trimmedTitle === siteConfig.seo.siteName || trimmedTitle === siteConfig.authorityName) {
+  if (trimmedTitle === activeSiteConfig.seo.siteName || trimmedTitle === identityName) {
     return trimmedTitle;
   }
 
-  return `${trimmedTitle} | ${siteConfig.authorityName}`;
+  return `${trimmedTitle} | ${identityName}`;
 }
 
 export function buildWebSiteJsonLd(site?: URL): StructuredData {
@@ -47,14 +48,14 @@ export function buildWebSiteJsonLd(site?: URL): StructuredData {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: siteConfig.seo.siteName,
-    alternateName: siteConfig.authorityName,
-    description: siteConfig.seo.simulationDescription,
+    name: activeSiteConfig.seo.siteName,
+    alternateName: isLawSite ? lawSiteConfig.subtitle : siteConfig.authorityName,
+    description: activeSiteConfig.seo.simulationDescription,
     url: absoluteSiteUrl,
     inLanguage: 'de-DE',
     potentialAction: {
       '@type': 'SearchAction',
-      target: `${toAbsoluteUrl(siteConfig.paths.search, site)}?q={search_term_string}`,
+      target: `${toAbsoluteUrl(isLawSite ? lawSiteConfig.paths.search : siteConfig.paths.search, site)}?q={search_term_string}`,
       'query-input': 'required name=search_term_string',
     },
   };

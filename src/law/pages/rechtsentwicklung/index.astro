@@ -1,0 +1,217 @@
+---
+import LawLayout from '../../../layouts/LawLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import LawNavigation from '../../../components/portal/LawNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
+import {
+  formatDate,
+  formatNormOriginKind,
+  formatNormStatus,
+  formatNormType,
+  getLawDevelopmentOverviewUrl,
+  getLawPortalUrl,
+  getNormCompareSelectionUrl,
+  getNormOriginInfo,
+  getNormUrl,
+  LEGAL_BASELINE_DATE,
+  type NormOriginKind,
+} from '../../../lib/norms/index.ts';
+import { getCurrentVersion, loadAllNorms } from '../../../lib/norms/content.ts';
+
+const norms = await loadAllNorms();
+const records = norms.map((norm) => ({
+  norm,
+  version: getCurrentVersion(norm),
+  origin: getNormOriginInfo(norm, norms),
+}));
+const originKinds: NormOriginKind[] = [
+  'ostdeutsch-original',
+  'inherited-amended',
+  'inherited-unchanged',
+  'origin-unresolved',
+];
+const counts = Object.fromEntries(originKinds.map((kind) => [
+  kind,
+  records.filter((entry) => entry.origin.kind === kind).length,
+]));
+const types = [...new Set(norms.map((norm) => norm.meta.type))]
+  .sort((left, right) => formatNormType(left).localeCompare(formatNormType(right), 'de'));
+const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects))].sort((left, right) => left.localeCompare(right, 'de'));
+const statuses = [...new Set(norms.map((norm) => norm.meta.status))]
+  .sort((left, right) => formatNormStatus(left).localeCompare(formatNormStatus(right), 'de'));
+---
+
+<LawLayout
+  title="Rechtsentwicklung seit 1. November 2023"
+  description="Übersicht über eigenständig geschaffenes, übernommenes und fortentwickeltes Landesrecht."
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: 'Rechtsentwicklung', href: getLawDevelopmentOverviewUrl() },
+  ]}
+>
+  <Breadcrumbs items={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: 'Rechtsentwicklung' },
+  ]} />
+
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title="Rechtsentwicklung seit 1. November 2023"
+    lead="Ausgangspunkt für übernommenes sächsisches Landesrecht ist grundsätzlich der am 1. November 2023 geltende Rechtsstand. Seitdem wird der Rechtsbestand des Freistaates eigenständig fortentwickelt."
+    variant="law"
+    facts={originKinds.map((kind) => ({ label: formatNormOriginKind(kind), value: String(counts[kind]) }))}
+  />
+  <LawNavigation />
+
+  <section class="section law-development" data-law-development>
+    <div class="section-header">
+      <h2>Vorschriften recherchieren</h2>
+      <p>Die Einordnung wird aus gespeicherten Fassungen, Quellen und Rechtsbeziehungen abgeleitet.</p>
+    </div>
+    <form class="law-list-filter law-development__filters" data-development-filter-form>
+      <div class="search-form__filters">
+        <label class="search-field">
+          <span>Freitext</span>
+          <input type="search" name="q" autocomplete="off" placeholder="Titel, Abkürzung oder Sachgebiet" data-development-filter="q" />
+        </label>
+        <label class="search-field">
+          <span>Rechtsentwicklung</span>
+          <select name="origin" data-development-filter="origin">
+            <option value="">Alle Kategorien</option>
+            {originKinds.map((kind) => <option value={kind}>{formatNormOriginKind(kind)}</option>)}
+          </select>
+        </label>
+        <label class="search-field">
+          <span>Normtyp</span>
+          <select name="type" data-development-filter="type">
+            <option value="">Alle Normtypen</option>
+            {types.map((type) => <option value={type}>{formatNormType(type)}</option>)}
+          </select>
+        </label>
+        <label class="search-field">
+          <span>Sachgebiet</span>
+          <select name="subject" data-development-filter="subject">
+            <option value="">Alle Sachgebiete</option>
+            {subjects.map((subject) => <option value={subject}>{subject}</option>)}
+          </select>
+        </label>
+        <label class="search-field">
+          <span>Status</span>
+          <select name="status" data-development-filter="status">
+            <option value="">Alle Status</option>
+            {statuses.map((status) => <option value={status}>{formatNormStatus(status)}</option>)}
+          </select>
+        </label>
+      </div>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Filtern</button>
+        <a class="button-link button-link--secondary" href={getLawDevelopmentOverviewUrl()}>Zurücksetzen</a>
+      </div>
+    </form>
+
+    <p class="search-feedback" aria-live="polite" data-development-count>{records.length} Vorschriften werden angezeigt.</p>
+    <ol class="record-list law-development__list">
+      {records.map(({ norm, version, origin }) => {
+        const baselineVersion = origin.baselineVersionId
+          ? norm.versions.find((entry) => entry.versionId === origin.baselineVersionId)
+          : undefined;
+        const compareUrl = baselineVersion && baselineVersion.versionId !== version.versionId
+          ? getNormCompareSelectionUrl(norm.meta.slug, baselineVersion.versionId, version.versionId)
+          : undefined;
+        return (
+          <li
+            class="record-list__item law-development__item"
+            data-development-item
+            data-origin={origin.kind}
+            data-type={norm.meta.type}
+            data-status={norm.meta.status}
+            data-subjects={norm.meta.subjects.join('|')}
+            data-search={[norm.meta.title, norm.meta.shortTitle, norm.meta.abbr, ...norm.meta.subjects, ...norm.meta.keywords].filter(Boolean).join(' ').toLocaleLowerCase('de-DE')}
+          >
+            <div class="law-development__item-heading">
+              <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></h3>
+              <span class="status-badge status-badge--blue">{formatNormOriginKind(origin.kind)}</span>
+            </div>
+            {norm.meta.abbr ? <p class="detail-line">Abkürzung: {norm.meta.abbr}</p> : null}
+            <dl class="law-development__facts">
+              <div><dt>Normtyp</dt><dd>{formatNormType(norm.meta.type)}</dd></div>
+              <div><dt>Status</dt><dd>{formatNormStatus(norm.meta.status)}</dd></div>
+              <div><dt>Fassungsstand</dt><dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd></div>
+              {origin.lastOwnChangeDate ? <div><dt>Letzte eigene Rechtsänderung</dt><dd><time datetime={origin.lastOwnChangeDate}>{formatDate(origin.lastOwnChangeDate)}</time></dd></div> : null}
+            </dl>
+            <nav class="link-list link-list--inline" aria-label={`Recherchewege zu ${norm.meta.shortTitle || norm.meta.title}`}>
+              <a href={getNormUrl(norm.meta.slug)}>Vorschrift öffnen</a>
+              {compareUrl ? <a href={compareUrl}>Mit Ausgangsrecht vergleichen</a> : null}
+            </nav>
+          </li>
+        );
+      })}
+    </ol>
+    <p data-development-empty hidden>Für die gewählte Filterkombination wurden keine Vorschriften gefunden.</p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Zwei verschiedene Stichtage</h2>
+    </div>
+    <p>
+      Der <time datetime={LEGAL_BASELINE_DATE}>1. November 2023</time> bezeichnet den Ausgangsrechtsstand für übernommenes sächsisches Recht.
+      Welcher gespeicherte Rechtsstand derzeit als geltend angezeigt wird, richtet sich getrennt davon nach dem redaktionellen Stichtag des Portals.
+    </p>
+  </section>
+
+  <script>
+    const root = document.querySelector<HTMLElement>('[data-law-development]');
+    const form = root?.querySelector<HTMLFormElement>('[data-development-filter-form]');
+    const inputs = Array.from(root?.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-development-filter]') ?? []);
+    const items = Array.from(root?.querySelectorAll<HTMLElement>('[data-development-item]') ?? []);
+    const count = root?.querySelector<HTMLElement>('[data-development-count]');
+    const empty = root?.querySelector<HTMLElement>('[data-development-empty]');
+    const read = () => {
+      if (!form) return { q: '', origin: '', type: '', subject: '', status: '' };
+      const data = new FormData(form);
+      return {
+        q: String(data.get('q') ?? '').trim().toLocaleLowerCase('de-DE'),
+        origin: String(data.get('origin') ?? ''),
+        type: String(data.get('type') ?? ''),
+        subject: String(data.get('subject') ?? ''),
+        status: String(data.get('status') ?? ''),
+      };
+    };
+    const updateUrl = (state: ReturnType<typeof read>, push = false) => {
+      const params = new URLSearchParams();
+      Object.entries(state).forEach(([key, value]) => { if (value) params.set(key, value); });
+      const target = params.size ? `${window.location.pathname}?${params}` : window.location.pathname;
+      window.history[push ? 'pushState' : 'replaceState']({}, '', target);
+    };
+    const apply = (push = false) => {
+      if (!form) return;
+      const state = read();
+      let visible = 0;
+      items.forEach((item) => {
+        const show = (!state.q || item.dataset.search?.includes(state.q))
+          && (!state.origin || item.dataset.origin === state.origin)
+          && (!state.type || item.dataset.type === state.type)
+          && (!state.subject || item.dataset.subjects?.split('|').includes(state.subject))
+          && (!state.status || item.dataset.status === state.status);
+        item.hidden = !show;
+        if (show) visible += 1;
+      });
+      if (count) count.textContent = `${visible} ${visible === 1 ? 'Vorschrift wird' : 'Vorschriften werden'} angezeigt.`;
+      if (empty) empty.hidden = visible !== 0;
+      updateUrl(state, push);
+    };
+    const applyUrl = () => {
+      if (!form) return;
+      const params = new URLSearchParams(window.location.search);
+      inputs.forEach((input) => { input.value = params.get(input.name) ?? ''; });
+    };
+    if (form) {
+      applyUrl();
+      apply();
+      form.addEventListener('submit', (event) => { event.preventDefault(); apply(true); });
+      inputs.forEach((input) => input.addEventListener('change', () => apply()));
+      window.addEventListener('popstate', () => { applyUrl(); apply(); });
+    }
+  </script>
+</LawLayout>

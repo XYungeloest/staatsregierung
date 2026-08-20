@@ -30,10 +30,6 @@ export const legacyRoutes = [
     source: '/presse/termine/einbringung-kreis-und-bezirksreform-2027/',
     target: '/presse/termine/einbringung-kreis-und-bezirksreform-2026/',
   },
-  {
-    source: '/recht/norm/sachsische-landkreisordnung/',
-    target: '/recht/norm/saechsische-landkreisordnung/',
-  },
 ];
 
 export const legacyRedirects = Object.fromEntries(

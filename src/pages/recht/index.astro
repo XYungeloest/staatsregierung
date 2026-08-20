@@ -1,192 +1,85 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import FaqAccordion from '../../components/portal/FaqAccordion.astro';
 import LegislationTracker from '../../components/portal/LegislationTracker.astro';
-import LawNavigation from '../../components/portal/LawNavigation.astro';
 import SectionHero from '../../components/portal/SectionHero.astro';
 import { loadLegislationTrackerItems } from '../../data/dashboard/legislation.ts';
 import {
-  formatDate,
-  formatNormType,
-  getFundingUrl,
-  getHelpUrl,
   getHomeUrl,
-  getIndexUrl,
-  getLatestPublication,
+  getLawBridgeUrl,
+} from '../../lib/portal/routes.ts';
+import {
   getLawConstitutionUrl,
-  getLawDevelopmentOverviewUrl,
   getLawPortalUrl,
   getNormUrl,
-  getPublicationUrl,
   getPublicationsUrl,
-  getReferencesUrl,
   getSearchUrl,
-  getSubjectsUrl,
-  loadAllVerkuendungen,
-  formatNormOriginKind,
-  getNormOriginInfo,
-} from '../../lib/norms/index.ts';
-import { getCurrentVersion, loadAllNorms } from '../../lib/norms/content.ts';
+} from '../../lib/norms/routes.ts';
 
-const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
 const legislationTrackerItems = await loadLegislationTrackerItems();
-const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
-const originInfos = norms.map((norm) => getNormOriginInfo(norm, norms));
-const originKinds = ['ostdeutsch-original', 'inherited-amended', 'inherited-unchanged', 'origin-unresolved'] as const;
-const originCounts = Object.fromEntries(originKinds.map((kind) => [kind, originInfos.filter((entry) => entry.kind === kind).length]));
-const subjectCount = new Set(norms.flatMap((entry) => entry.meta.subjects)).size;
-const typeCount = new Set(norms.map((entry) => entry.meta.type)).size;
-const publicationEntryCount = publications.reduce((sum, publication) => sum + publication.entries.length, 0);
-const latestUpdates = [...norms]
-  .filter((entry) => entry.meta.status === 'in-force')
-  .sort((left, right) => getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom))
-  .slice(0, 4);
-const latestPublication = getLatestPublication(publications);
-const latestPublications = latestPublication
-  ? [latestPublication, ...publications.filter((entry) => entry.slug !== latestPublication.slug).slice(0, 2)]
-  : [];
-const portalEntrances = [
+const researchEntrances = [
   {
-    title: 'Rechtsentwicklung',
-    text: 'Eigenständig geschaffenes und übernommenes Landesrecht seit dem 1. November 2023 unterscheiden.',
-    href: getLawDevelopmentOverviewUrl(),
-  },
-  {
-    title: 'Erweiterte Suche',
-    text: 'Volltext, Fundstellen, Ressorts, Vorschriftentypen, Sachgebiete und Geltungsdaten durchsuchen.',
+    title: 'Geltendes Recht',
+    text: 'Gesetze, Verordnungen und Verwaltungsvorschriften mit ihrem dokumentierten Rechtsstand aufrufen.',
     href: getSearchUrl(),
-  },
-  {
-    title: 'Alphabetischer Index',
-    text: 'Alle Vorschriften nach Anfangsbuchstaben geordnet aufrufen.',
-    href: getIndexUrl(),
-  },
-  {
-    title: 'Sachgebiete',
-    text: 'Normen nach fachlicher Zuordnung und Themenbereichen erschließen.',
-    href: getSubjectsUrl(),
-  },
-  {
-    title: 'Fundstellennachweise',
-    text: 'Fundstellen nach Verkündungsblatt, Ausgabe, Datum und zugeordneter Fassung prüfen.',
-    href: getReferencesUrl(),
-  },
-  {
-    title: 'Verkündungen',
-    text: 'Ausgaben des Gesetz- und Verordnungsblatts, Staatsanzeigers und Vertragsblatts öffnen.',
-    href: getPublicationsUrl(),
-  },
-  {
-    title: 'Förderrichtlinien',
-    text: 'Richtlinien zu Förderprogrammen gebündelt anzeigen.',
-    href: getFundingUrl(),
   },
   {
     title: 'Verfassung',
-    text: 'Verfassungsbezogene Vorschriften und Änderungsgesetze finden.',
+    text: 'Die Verfassung und verfassungsändernde Vorschriften im Rechtsportal recherchieren.',
     href: getLawConstitutionUrl(),
   },
   {
-    title: 'Hilfe',
-    text: 'Hinweise zur Recherche, zu Fassungen, Historie und Trefferlisten lesen.',
-    href: getHelpUrl(),
-  },
-];
-const faqItems = [
-  {
-    question: 'Wo finde ich aktuelle und historische Fassungen?',
-    answer:
-      'Auf jeder Normseite sind die aktuelle Fassung, die Historienseite und gegebenenfalls gespeicherte historische Fassungen direkt erreichbar.',
-    href: getIndexUrl(),
-    hrefLabel: 'Zum Archiv und zu den Historien',
-  },
-  {
-    question: 'Wie funktioniert die Suche im Rechtsbereich?',
-    answer:
-      'Die Suche wertet Titel, Metadaten, Sachgebiete und Normtexte aus und führt direkt zu den passenden Fassungen.',
-    href: getSearchUrl(),
-    hrefLabel: 'Zur Normensuche',
-  },
-  {
-    question: 'Bleibt das Rechtsportal eigenständig nutzbar?',
-    answer:
-      'Ja. Alle Rechtsangebote sind im Rechtsbereich gebündelt und zugleich über den Staatsrat und die Themenbereiche erreichbar.',
+    title: 'Verkündungen',
+    text: 'Ausgaben, Fundstellen und die damit verknüpften Normfassungen einsehen.',
+    href: getPublicationsUrl(),
   },
 ];
 ---
 
 <BaseLayout
-  title="Recht"
-  description="Rechtsportal mit aktuellen Fassungen, Normenhistorien, Fundstellen, Verkündungen und Suche im Ostdeutschen Freistaat."
+  title="Recht und Gesetzgebung"
+  description="Einstieg des Staatsportals in Recht, Verkündungen und politische Gesetzgebungsverfahren des Ostdeutschen Freistaates."
   breadcrumbs={[
     { label: 'Startseite', href: getHomeUrl() },
-    { label: 'Recht', href: getLawPortalUrl() },
+    { label: 'Recht und Gesetzgebung', href: getLawBridgeUrl() },
   ]}
-  scripts={['portal-modules']}
 >
-  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Recht' }]} />
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Recht und Gesetzgebung' }]} />
 
   <SectionHero
-    eyebrow="Rechtsportal"
-    title="Recht recherchieren"
-    lead="Aktuelle und historische Fassungen, Fundstellen, Verkündungen und Sachgebiete des Ostdeutschen Freistaates."
+    eyebrow="Staatsportal"
+    title="Recht und Gesetzgebung"
+    lead="OstRecht ist das eigenständige Rechtsportal des Ostdeutschen Freistaates. Dort finden Sie geltende und historische Fassungen, Fundstellen und Verkündungen."
     variant="law"
-    facts={[
-      { label: 'Normen', value: String(norms.length) },
-      { label: 'Aktuelle Fassungen', value: String(currentNorms.length) },
-      { label: 'Sachgebiete', value: String(subjectCount) },
-      { label: 'Vorschriftentypen', value: String(typeCount) },
-      { label: 'Verkündungseinträge', value: String(publicationEntryCount) },
-    ]}
   >
+    <div class="section-hero__actions">
+      <a class="button-link" href={getLawPortalUrl()}>Zum Rechtsportal</a>
+    </div>
+  </SectionHero>
+
+  <section class="section law-bridge-search" aria-labelledby="law-bridge-search-title">
+    <div class="section-header">
+      <h2 id="law-bridge-search-title">Direkt im Recht suchen</h2>
+      <p>Die Recherche wird im eigenständigen Rechtsportal geöffnet.</p>
+    </div>
     <form class="search-form search-form--hero" action={getSearchUrl()} method="get" role="search">
       <label class="search-field">
-        <span>Rechtsvorschriften suchen</span>
-        <input
-          type="search"
-          name="q"
-          autocomplete="off"
-          placeholder="z. B. Wohnraum, Polizei, Förderung"
-        />
+        <span>Gesetze, Verordnungen und Verwaltungsvorschriften durchsuchen</span>
+        <input type="search" name="q" autocomplete="off" placeholder="z. B. Verfassung, Schule, Haushalt" />
       </label>
       <div class="search-form__actions">
-        <button class="button-link" type="submit">Suchen</button>
-        <a class="button-link button-link--secondary" href={getSearchUrl()}>Erweiterte Suche</a>
+        <button class="button-link" type="submit">Recht durchsuchen</button>
       </div>
     </form>
-  </SectionHero>
-  <LawNavigation />
-
-  <section class="section section-muted law-development-summary" data-visual-section="law-development-summary">
-    <div class="section-header">
-      <h2>Rechtsentwicklung seit 1. November 2023</h2>
-      <p>Erkennen, welche Vorschriften auf übernommenem Ausgangsrecht beruhen und welche seitdem eigenständig geschaffen oder geändert wurden.</p>
-    </div>
-    <dl class="law-development-summary__grid">
-      {originKinds.slice(0, 3).map((kind) => (
-        <div>
-          <dt>{formatNormOriginKind(kind)}</dt>
-          <dd>{originCounts[kind]}</dd>
-        </div>
-      ))}
-      {originCounts['origin-unresolved'] > 0 ? (
-        <div>
-          <dt>{formatNormOriginKind('origin-unresolved')}</dt>
-          <dd>{originCounts['origin-unresolved']}</dd>
-        </div>
-      ) : null}
-    </dl>
-    <p class="section-link-row"><a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Zur vollständigen Rechtsentwicklung</a></p>
   </section>
 
-  <section class="section" data-visual-section="law-research-paths">
+  <section class="section section-muted">
     <div class="section-header">
-      <h2>Einstiege</h2>
-      <p>Die wichtigsten Recherchewege im Rechtsbereich.</p>
+      <h2>Rechtsrecherche</h2>
+      <p>Direkte Wege zu den wichtigsten rechtlichen Veröffentlichungen.</p>
     </div>
     <ul class="law-entry-list">
-      {portalEntrances.map((entry) => (
+      {researchEntrances.map((entry) => (
         <li>
           <h3><a href={entry.href}>{entry.title}</a></h3>
           <p>{entry.text}</p>
@@ -195,64 +88,38 @@ const faqItems = [
     </ul>
   </section>
 
-  <section class="section section-muted" data-visual-section="law-latest-status">
-    <div class="section-header">
-      <h2>Letzte Änderungen</h2>
-      <p>Die zuletzt in Kraft getretenen Fassungen im Normenbestand.</p>
-    </div>
-    <ul class="record-list">
-      {latestUpdates.map((norm) => {
-        const currentVersion = getCurrentVersion(norm);
-
-        return (
-          <li class="record-list__item">
-            <strong><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></strong>
-            <span>{norm.meta.summary}</span>
-            <span class="detail-line">
-              {formatNormType(norm.meta.type)} · Rechtsstand seit <time datetime={currentVersion.validFrom}>{formatDate(currentVersion.validFrom)}</time>
-            </span>
-          </li>
-        );
-      })}
-    </ul>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Neue Verkündungen</h2>
-      <p>Zuletzt geführte Ausgaben mit verlinkten Fundstellen und Normfassungen.</p>
-    </div>
-    <ul class="record-list">
-      {latestPublications.map((publication) => (
-        <li class="record-list__item">
-          <strong>
-            <a class="inline-link" href={getPublicationUrl(publication.slug)}>{publication.title}</a>
-          </strong>
-          <span>
-            <time datetime={publication.date}>{formatDate(publication.date)}</time> · {publication.publication} {publication.year} Nr. {publication.issue} ·{' '}
-            {publication.entries.length} {publication.entries.length === 1 ? 'Eintrag' : 'Einträge'}
-          </span>
-        </li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Gesetzgebungs-Tracker</h2>
+  <section class="section split-grid">
+    <div>
+      <div class="section-header">
+        <h2>Gesetzgebung und geltendes Recht</h2>
+      </div>
       <p>
-        Laufende und kürzlich abgeschlossene Vorhaben werden mit Ressortbezug, Statuskette und
-        direkter Verlinkung in Themen- oder Normseiten dargestellt.
+        Das Staatsportal erklärt politische Vorhaben und laufende Gesetzgebungsverfahren. Ein
+        politischer Beschluss allein ist noch keine geltende Rechtsnorm. Für die rechtliche
+        Einordnung sind insbesondere Ausfertigung, Verkündung, Inkrafttreten und die jeweils
+        dokumentierte Fassung maßgeblich.
       </p>
+      <p>
+        OstRecht stellt diese juristische Perspektive in den Mittelpunkt und verknüpft
+        Verkündungen mit den gespeicherten Normfassungen.
+      </p>
+      <p><a class="inline-link" href={getNormUrl('staatsverfassung-des-freistaates-ostdeutschland')}>Verfassung als Norm aufrufen</a></p>
+    </div>
+    <aside class="info-box" aria-labelledby="law-bridge-orientation-title">
+      <h2 id="law-bridge-orientation-title">Welcher Einstieg passt?</h2>
+      <dl>
+        <div><dt>Politisches Vorhaben</dt><dd>Themen und Verfahren im Staatsportal</dd></div>
+        <div><dt>Verkündeter Rechtsakt</dt><dd>Ausgabe und Fundstelle in OstRecht</dd></div>
+        <div><dt>Geltender Wortlaut</dt><dd>Norm und Rechtsstand in OstRecht</dd></div>
+      </dl>
+    </aside>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Laufende Gesetzgebung</h2>
+      <p>Politische Verfahren mit ihrem jeweils belegten Stand.</p>
     </div>
     <LegislationTracker items={legislationTrackerItems} />
-  </section>
-
-  <section class="section section-muted">
-    <div class="section-header">
-      <h2>Häufige Fragen zum Rechtsbereich</h2>
-      <p>Antworten auf häufige Fragen zur Recherche im Rechtsbereich.</p>
-    </div>
-    <FaqAccordion items={faqItems} />
   </section>
 </BaseLayout>

@@ -1,0 +1,129 @@
+---
+import LawLayout from '../../../../../layouts/LawLayout.astro';
+import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
+import NormBody from '../../../../../components/norms/NormBody.astro';
+import NormMetaCard from '../../../../../components/norms/NormMetaCard.astro';
+import NormOutline from '../../../../../components/norms/NormOutline.astro';
+import NormStatusNotice from '../../../../../components/norms/NormStatusNotice.astro';
+import NormOriginNotice from '../../../../../components/norms/NormOriginNotice.astro';
+import NormDocumentTools from '../../../../../components/norms/NormDocumentTools.astro';
+import NormPrintSources from '../../../../../components/norms/NormPrintSources.astro';
+import NormVersionNavigation from '../../../../../components/norms/NormVersionNavigation.astro';
+import { buildNormOutline, formatDate, toDisplayText } from '../../../../../lib/norms/presentation.ts';
+import {
+  buildNormTextLinkReferences,
+  buildNormFullCitation,
+  buildNormPublicationReferenceLookup,
+  buildNormRecordLookup,
+  getLawPortalUrl,
+  getNormHistoryUrl,
+  getNormUrl,
+  loadAllVerkuendungen,
+  classifyNormVersion,
+  getNormOriginInfo,
+} from '../../../../../lib/norms/index.ts';
+import { loadAllNorms } from '../../../../../lib/norms/content.ts';
+
+export async function getStaticPaths() {
+  const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+  const publicationReferences = buildNormPublicationReferenceLookup(publications);
+  const normLookup = buildNormRecordLookup(norms);
+
+  return norms.flatMap((norm) =>
+    norm.versions
+      .filter((version) => classifyNormVersion(norm, version) !== 'current')
+      .map((version) => ({
+        params: { slug: norm.meta.slug, versionId: version.versionId },
+        props: {
+          norm,
+          version,
+          fullCitation: buildNormFullCitation(norm, version, normLookup),
+          textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
+          publicationReferences,
+          publications,
+          origin: getNormOriginInfo(norm, norms),
+        },
+      })),
+  );
+}
+
+const { norm, version, fullCitation, textReferences, publicationReferences, publications, origin } = Astro.props;
+const publicationReference = publicationReferences.get(`${norm.meta.slug}:${version.versionId}`);
+const publication = publicationReference
+  ? publications.find((entry) => entry.slug === publicationReference.publicationSlug)
+  : undefined;
+const temporalKind = classifyNormVersion(norm, version);
+const outline = buildNormOutline(version.body);
+const normTitle = toDisplayText(norm.meta.title);
+const normSeoTitle = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
+const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : temporalKind === 'historical' ? 'Historische' : 'Veröffentlichte'} Fassung von ${normTitle} mit Stand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
+---
+
+<LawLayout
+  title={`${normSeoTitle} ${version.versionId}`}
+  description={versionDescription}
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+    { label: `Fassung vom ${formatDate(version.validFrom)}` },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'OstRecht', href: getLawPortalUrl() },
+      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+      { label: `Fassung vom ${formatDate(version.validFrom)}` },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">{temporalKind === 'future' ? 'Zukünftige Fassung' : temporalKind === 'historical' ? 'Historische Fassung' : 'Veröffentlichte Fassung'}</p>
+    <h1>{toDisplayText(norm.meta.title)}</h1>
+    <p class="lead">Gespeicherte Fassung mit Stand vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>.</p>
+    <p class="status-line">
+      Gültig ab <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>
+      {version.validTo
+        ? <> bis <time datetime={version.validTo}>{formatDate(version.validTo)}</time></>
+        : temporalKind === 'historical'
+          ? '; Gültigkeitsende nicht im Fassungsdatensatz belegt'
+          : '; Gültigkeitsende offen'}
+    </p>
+    <nav class="link-list link-list--inline" aria-label="Seitennavigation">
+      <a href={getNormUrl(norm.meta.slug)}>Zur aktuellen Fassung</a>
+      <a href={getNormHistoryUrl(norm.meta.slug)}>Zur Historie</a>
+    </nav>
+  </section>
+  <NormVersionNavigation norm={norm} version={version} />
+
+  <NormStatusNotice norm={norm} version={version} />
+  <NormOriginNotice norm={norm} version={version} origin={origin} />
+
+  <div class="content-grid norm-detail-layout">
+    <div class="content-stack">
+      <NormOutline items={outline} />
+      <section class="section" id="normtext">
+        <div class="section-header">
+          <h2>{temporalKind === 'future' ? 'Zukünftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
+          <p>{toDisplayText(version.changeNote)}</p>
+        </div>
+        <NormDocumentTools norm={norm} />
+        <NormBody blocks={version.body} references={textReferences} />
+      </section>
+      <NormPrintSources
+        norm={norm}
+        version={version}
+        fullCitation={fullCitation}
+        publicationReference={publicationReference}
+        publication={publication}
+      />
+    </div>
+
+    <NormMetaCard
+      norm={norm}
+      version={version}
+      fullCitation={fullCitation}
+      historical={true}
+      publicationReference={publicationReference}
+    />
+  </div>
+</LawLayout>

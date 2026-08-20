@@ -1,6 +1,7 @@
 import { defineConfig } from '@playwright/test';
 
 const baseURL = 'http://127.0.0.1:4321';
+const lawURL = 'http://127.0.0.1:4322';
 
 export default defineConfig({
   testDir: './tests',
@@ -31,10 +32,18 @@ export default defineConfig({
     { name: 'mobile-390', use: { viewport: { width: 390, height: 844 } } },
     { name: 'mobile-360', use: { viewport: { width: 360, height: 800 } } },
   ],
-  webServer: {
-    command: 'ASTRO_PREVIEW_BACKGROUND=0 npm run preview -- --host 127.0.0.1 --port 4321',
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 30_000,
-  },
+  webServer: [
+    {
+      command: 'node scripts/serve-site.mjs dist/portal/client 4321',
+      url: baseURL,
+      reuseExistingServer: !process.env.CI,
+      timeout: 30_000,
+    },
+    {
+      command: 'node scripts/serve-site.mjs dist/law/client 4322',
+      url: lawURL,
+      reuseExistingServer: !process.env.CI,
+      timeout: 30_000,
+    },
+  ],
 });

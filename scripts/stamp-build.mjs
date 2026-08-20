@@ -6,7 +6,9 @@ import { resolve } from 'node:path';
 import { resolveBuildCommit, withBuildCommitHeader } from './lib/build-commit.mjs';
 
 const commit = resolveBuildCommit();
-const candidates = [resolve('dist/client/_headers'), resolve('dist/_headers')];
+const target = process.argv[2];
+const targetRoot = target === 'portal' || target === 'law' ? resolve('dist', target) : resolve('dist');
+const candidates = [resolve(targetRoot, 'client/_headers'), resolve(targetRoot, '_headers')];
 let headerPath = null;
 for (const candidate of candidates) {
   if (await access(candidate).then(() => true).catch(() => false)) {
