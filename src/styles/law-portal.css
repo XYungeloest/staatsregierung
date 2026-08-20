@@ -225,14 +225,9 @@
 }
 
 .law-footer__brand img {
-  width: 2.8rem;
-  height: 3.3rem;
-  padding: 0.3rem;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: var(--radius-sm);
-  background: #fff;
+  width: 2.55rem;
+  height: 3rem;
   object-fit: contain;
-  box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.18);
 }
 
 .law-footer__brand strong {

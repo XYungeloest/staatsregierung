@@ -404,6 +404,13 @@ Karten- und Statistikfreigaben, Zoom und reduzierte Bewegung. `npm run test:brow
 zentralen Interaktionen zusätzlich in Chromium, Firefox und WebKit aus; `npm run seo:check` prüft
 Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten, Sitemaps und robots.txt beider Sites.
 
+In GitHub Actions wird jede Site pro Workflowlauf genau einmal gebaut. Link-, SEO-, Accessibility-,
+Layout-, Browser- und visuelle Prüfungen verwenden anschließend parallel dasselbe kurzlebige
+Build-Artefakt; genau dieses geprüfte Artefakt wird auch deployt. Die Skripte mit dem Suffix `:run`
+setzen deshalb einen vorhandenen Build unter `dist/` voraus. Die öffentlichen Komfortbefehle ohne
+Suffix bauen lokal weiterhin selbst. Die CI-Accessibility-Prüfung verwendet mit Desktop und Mobil
+zwei repräsentative Viewports; `npm run test:a11y` behält lokal den vollständigen Viewportsatz bei.
+
 ## TODO
 
 **Zuletzt abgeglichen:** 14. August 2026

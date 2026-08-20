@@ -82,6 +82,7 @@ async function expectSectionScreenshot(locator: Locator, name: string): Promise<
       footer.style.position = 'absolute';
       footer.style.inset = '0 0 auto';
       footer.style.width = '100%';
+      footer.style.zIndex = '2147483647';
     });
   }
   await prepareLocator(locator);

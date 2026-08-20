@@ -55,6 +55,26 @@ test('Produktions-Smoketest prüft beide Sites, Altpfad und gemeinsame Commitken
   });
 });
 
+test('Produktions-Smoketest kennzeichnet seine Abrufe und umgeht keine veralteten Cacheantworten', async () => {
+  const requests = [];
+  const baseFetch = createFetch();
+  await checkDeployment({
+    portalSiteUrl: portalOrigin,
+    lawSiteUrl: lawOrigin,
+    expectedCommit: commit,
+    fetchImpl: async (input, init) => {
+      requests.push(init);
+      return baseFetch(input, init);
+    },
+  });
+
+  assert.ok(requests.length > 0);
+  for (const request of requests) {
+    assert.match(request.headers.get('user-agent'), /^OstRecht-Deployment-Smoke\//u);
+    assert.equal(request.headers.get('cache-control'), 'no-cache');
+  }
+});
+
 test('unterschiedliche ausgelieferte Commits lassen den Smoketest klar scheitern', async () => {
   await assert.rejects(
     checkDeployment({
