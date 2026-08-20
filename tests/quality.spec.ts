@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+
 const viewports = [
   { width: 360, height: 800 },
   { width: 390, height: 844 },
@@ -20,32 +22,32 @@ const overflowPages = [
   '/freistaat/bezirke/',
   '/freistaat/berlin/',
   '/suche/?q=Gesetz',
-  '/recht/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/',
-  '/recht/norm/verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb/',
+  lawUrl('/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/'),
+  lawUrl('/norm/verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb/'),
   '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
   '/staatsregierung/kabinett/grenzschutz-faschismusbekaempfung-und-bewaffnete-organe/',
   '/staatsregierung/mitglieder/max-peterson/',
   '/staatsregierung/mitglieder/yannik-schmaele/',
   '/staatsregierung/mitglieder/thomas-henry-barlow/',
-  '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/',
-  '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
-  '/recht/norm/saechsische-gemeindeordnung/',
-  '/recht/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01',
-  '/recht/rechtsentwicklung/',
-  '/recht/norm/ostdeutsche-bezirksordnung/',
-  '/recht/norm/sero-verordnung/',
+  lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/'),
+  lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'),
+  lawUrl('/norm/saechsische-gemeindeordnung/'),
+  lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
+  lawUrl('/rechtsentwicklung/'),
+  lawUrl('/norm/ostdeutsche-bezirksordnung/'),
+  lawUrl('/norm/sero-verordnung/'),
   '/themen/energie-und-klima/',
   '/service/',
 ];
 
 test('lange Norm- und Ressorttitel bleiben innerhalb ihres Bereichskopfes', async ({ page }) => {
   for (const path of [
-    '/recht/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/',
-    '/recht/norm/verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb/',
+    lawUrl('/norm/gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland/'),
+    lawUrl('/norm/verordnung-der-staatsregierung-des-freistaates-ostdeutschland-uber-den-larmschutz-bei-offentlichen-fernsehdarb/'),
     '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
     '/staatsregierung/kabinett/grenzschutz-faschismusbekaempfung-und-bewaffnete-organe/',
-    '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/',
-    '/recht/norm/sero-verordnung/',
+    lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/'),
+    lawUrl('/norm/sero-verordnung/'),
   ]) {
     await page.setViewportSize({ width: 360, height: 800 });
     await page.goto(path);
@@ -143,6 +145,22 @@ test('SEO-Metadaten und strukturierte Simulationskennzeichnung sind konsistent',
   const sitemapText = await sitemap.text();
   expect(sitemapText).toContain('<lastmod>');
   expect(sitemapText).not.toContain('/suche/');
+
+  await page.goto(lawUrl('/norm/ostdeutsches-kulturpassgesetz/'));
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+    'href',
+    'https://recht.freistaat-ostdeutschland.de/norm/ostdeutsches-kulturpassgesetz/',
+  );
+  await expect(page.locator('meta[property="og:site_name"]')).toHaveAttribute(
+    'content',
+    'OstRecht – Rechtsportal des Ostdeutschen Freistaates',
+  );
+
+  const lawSitemap = await request.get(lawUrl('/sitemap.xml'));
+  expect(lawSitemap.ok()).toBe(true);
+  const lawSitemapText = await lawSitemap.text();
+  expect(lawSitemapText).toContain('https://recht.freistaat-ostdeutschland.de/norm/');
+  expect(lawSitemapText).not.toContain('/recht/');
 });
 
 test('200-Prozent-Zoom und reduzierte Bewegung bewahren die Kernfunktionen', async ({ page }) => {

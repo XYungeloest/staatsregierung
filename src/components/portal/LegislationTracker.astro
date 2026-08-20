@@ -6,6 +6,7 @@ import {
   type LegislativeTrackerItem,
 } from '../../lib/portal/modules.ts';
 import { siteConfig } from '../../config/site.ts';
+import { resolvePortalPath } from '../../lib/portal/routes.ts';
 
 interface Props {
   items: LegislativeTrackerItem[];
@@ -57,7 +58,7 @@ const ressorts = [...new Set(items.map((item) => item.ressort))].sort((left, rig
             </span>
           </div>
           <h3>
-            {item.href ? <a class="inline-link" href={item.href}>{item.title}</a> : item.title}
+            {item.href ? <a class="inline-link" href={resolvePortalPath(item.href)}>{item.title}</a> : item.title}
           </h3>
           <p class="detail-line">Drucksache {item.documentNumber}</p>
           <p>{item.description}</p>

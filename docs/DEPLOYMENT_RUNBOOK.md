@@ -1,7 +1,8 @@
 # Betriebsrunbook für Veröffentlichungen
 
-Das Portal wird ausschließlich über den Workflow `Deploy to Cloudflare Workers` veröffentlicht.
-Ein manuelles Überschreiben des produktiven Workers ist kein Wiederherstellungsweg.
+Staatsportal und OstRecht werden ausschließlich über den Workflow `Deploy to Cloudflare Workers`
+aus demselben Commit veröffentlicht. Ein manuelles Überschreiben eines produktiven Workers ist kein
+Wiederherstellungsweg.
 
 ## Regulärer Ablauf
 
@@ -12,9 +13,9 @@ Ein manuelles Überschreiben des produktiven Workers ist kein Wiederherstellungs
 4. Nach dem Deployment die Produktionskennung und die zentralen Routen nach dem unten
    beschriebenen Verfahren prüfen.
 
-Ein manuell gestarteter Workflow verwendet standardmäßig `staging`. Dafür muss eine vollständige
-`site_url` angegeben werden. `production` ist nur für eine bewusst freigegebene Veröffentlichung
-zu wählen.
+Ein manuell gestarteter Workflow verwendet standardmäßig `staging`. Dafür müssen vollständige
+`portal_site_url` und `law_site_url` angegeben werden. `production` ist nur für eine bewusst
+freigegebene Veröffentlichung zu wählen.
 
 ## Fehlerklasse bestimmen
 
@@ -35,6 +36,8 @@ Die HTML-Seiten tragen `meta[name="build-commit"]`; alle ausgelieferten Routen t
 ```sh
 curl -fsSI https://freistaat-ostdeutschland.de/ | sed -n '/^x-portal-commit:/Ip'
 curl -fsS https://freistaat-ostdeutschland.de/ | grep -o 'meta name="build-commit" content="[0-9a-f]\{40\}"'
+curl -fsSI https://recht.freistaat-ostdeutschland.de/ | sed -n '/^x-portal-commit:/Ip'
+curl -fsS https://recht.freistaat-ostdeutschland.de/ | grep -o 'meta name="build-commit" content="[0-9a-f]\{40\}"'
 ```
 
 Die ermittelte Kennung mit dem freigegebenen Commit auf `main` und dem letzten erfolgreichen
@@ -60,20 +63,25 @@ Die folgenden Routen müssen dieselbe vollständige Kennung liefern und erfolgre
 ```text
 /
 /recht/
-/recht/verfassung/
-/recht/norm/erstes-gesetz-zur-grossen-staatsreform/
-/recht/norm/sero-verordnung/
-/recht/verkuendungen/ogvbl-2026-53/
-/recht/verkuendungen/ogvbl-2026-58/
 /sitemap.xml
 /search-index.json
+
+https://recht.freistaat-ostdeutschland.de/
+https://recht.freistaat-ostdeutschland.de/verfassung/
+https://recht.freistaat-ostdeutschland.de/norm/erstes-gesetz-zur-grossen-staatsreform/
+https://recht.freistaat-ostdeutschland.de/norm/sero-verordnung/
+https://recht.freistaat-ostdeutschland.de/verkuendungen/ogvbl-2026-53/
+https://recht.freistaat-ostdeutschland.de/verkuendungen/ogvbl-2026-58/
+https://recht.freistaat-ostdeutschland.de/sitemap.xml
+https://recht.freistaat-ostdeutschland.de/search-index.json
 ```
 
 Zusätzlich kurz prüfen:
 
 - Startseite, Themenübersicht und aktuelles Leitthema,
-- Rechtssuche und eine geltende Normfassung,
-- `robots.txt`, Sitemap und Suchindex,
+- Rechtssuche und eine geltende Normfassung auf OstRecht,
+- `robots.txt`, Sitemap und Suchindex beider Origins,
+- einen alten Portalpfad unter `/recht/norm/...` auf den permanenten Cross-Origin-Redirect,
 - auf Mobilbreite Navigation, Suche und die Einwilligungsentscheidung,
 - dass keine Webanalyse ohne Zustimmung geladen wird.
 

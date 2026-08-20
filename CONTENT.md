@@ -707,6 +707,14 @@ Die fachlichen Haushaltsseiten liegen unter `/haushalt/`, `/haushalt/gesamtplan/
 
 ## Rechtsportal und Normen
 
+OstRecht ist unter `https://recht.freistaat-ostdeutschland.de` eine eigenständige öffentliche
+Anwendung. Es verwendet ohne Contentkopie dieselben Verzeichnisse `content/normen/`,
+`content/verkuendungen/`, `content/gesetzgebung/` und `Gesetze/` wie das Staatsportal. Das interne
+`knowledge/` bleibt ebenfalls gemeinsam, wird aber in keinem öffentlichen Build ausgeliefert.
+Öffentliche URLs werden ausschließlich durch die zentralen Route-Helper erzeugt; Normdatensätze
+enthalten deshalb keine Site-Origin. Das Staatsportal behält `/recht/` als Brückenseite und leitet
+frühere Detailadressen permanent auf die konfigurierbare `LAW_SITE_URL` weiter.
+
 Normen sind der empfindlichste Content-Bereich. Sie liegen nicht als einzelne Datei, sondern immer als Ordner:
 
 ```text
@@ -899,14 +907,14 @@ Regeln:
 
 ### Normlinks, Suche und Druck
 
-- `/recht/norm/[slug]/` ist der dynamische Hauptlink.
-- `/recht/norm/[slug]/version/[versionId]/` ist der unveränderliche Fassungslink.
+- `/norm/[slug]/` auf der OstRecht-Origin ist der dynamische Hauptlink.
+- `/norm/[slug]/version/[versionId]/` auf der OstRecht-Origin ist der unveränderliche Fassungslink.
 - Die Fassungsnavigation erscheint auf Normtext, statischer Fassung, Historie und Vergleich.
 - Der Vergleich speichert die Auswahl in `von` und `bis`; ohne JavaScript bleibt der voreingestellte
   Vergleich zur vorherigen Fassung lesbar. Bei übernommenem Recht wird zusätzlich ein direkter
   Vergleich mit der belegten Ausgangsfassung angeboten. Weitere Paarungen werden aus statisch
   erzeugten Vergleichsdaten geladen; die Normseiten betten nicht alle Fassungs-Paare ein.
-- `/recht/rechtsentwicklung/` bündelt Herkunft, Ausgangsfassung, eigene Änderungen und den
+- `/rechtsentwicklung/` auf der OstRecht-Origin bündelt Herkunft, Ausgangsfassung, eigene Änderungen und den
   anwendbaren Stand. Filter für Suchtext, Herkunft, Normtyp, Sachgebiet und Status bleiben in der
   Adresse erhalten.
 - Suchparameter mit mehreren Werten werden wiederholt, etwa `type=gesetz&type=verordnung`.

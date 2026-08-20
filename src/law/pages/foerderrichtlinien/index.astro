@@ -1,0 +1,98 @@
+---
+import LawLayout from '../../../layouts/LawLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import {
+  formatDate,
+  getFundingUrl,
+  getLawPortalUrl,
+  getNormUrl,
+  getSubjectGroups,
+  getSubjectUrl,
+  toDisplayText,
+} from '../../../lib/norms/index.ts';
+import { getCurrentVersion, loadAllNorms } from '../../../lib/norms/content.ts';
+
+const norms = await loadAllNorms();
+const fundingNorms = norms.filter((norm) => norm.meta.type === 'foerderrichtlinie');
+const subjectGroups = getSubjectGroups(fundingNorms);
+const latestFunding = [...fundingNorms]
+  .sort((left, right) => getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom))
+  .slice(0, 4);
+---
+
+<LawLayout
+  title="Förderrichtlinien"
+  description="Systematischer Einstieg zu Förderrichtlinien im Rechtsbereich des Freistaates Ostdeutschland."
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: 'Förderrichtlinien', href: getFundingUrl() },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'OstRecht', href: getLawPortalUrl() },
+      { label: 'Förderrichtlinien' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Rechtsbereich</p>
+    <h1>Förderrichtlinien</h1>
+    <p class="lead">
+      Dieser Einstieg bündelt die im Rechtsbereich veröffentlichten Förderrichtlinien und ordnet
+      sie nach Sachgebieten.
+    </p>
+    <p class="status-line">{fundingNorms.length} Förderrichtlinien im Normenbestand.</p>
+  </section>
+
+  {latestFunding.length > 0 ? (
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Aktuelle Förderrichtlinien</h2>
+        <p>Die zuletzt in Kraft getretenen Förderrichtlinien im Überblick.</p>
+      </div>
+      <div class="card-grid">
+        {latestFunding.map((norm) => {
+          const version = getCurrentVersion(norm);
+
+          return (
+            <article class="panel">
+              <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.shortTitle || norm.meta.title)}</a></h3>
+              <p>{toDisplayText(norm.meta.summary)}</p>
+              <p class="detail-line">Gültig seit <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> · {toDisplayText(norm.meta.ministry)}</p>
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  ) : null}
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Systematische Liste</h2>
+      <p>Die Zuordnung folgt den vorhandenen Sachgebieten der veröffentlichten Richtlinien.</p>
+    </div>
+    {subjectGroups.length > 0 ? (
+      <div class="content-grid content-grid--wide">
+        {subjectGroups.map((group) => (
+          <section class="panel">
+            <h3><a class="inline-link" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)}</a></h3>
+            <ul class="record-list">
+              {group.norms.map((norm) => (
+                <li class="record-list__item">
+                  <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.shortTitle || norm.meta.title)}</a>
+                  <span>{toDisplayText(norm.meta.ministry)}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+    ) : (
+      <article class="panel">
+        <h2>Keine Förderrichtlinien veröffentlicht</h2>
+        <p>Im aktuellen Normenbestand sind noch keine Förderrichtlinien erfasst.</p>
+      </article>
+    )}
+  </section>
+</LawLayout>

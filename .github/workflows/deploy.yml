@@ -14,8 +14,12 @@ on:
         options:
           - staging
           - production
-      site_url:
-        description: Vollständige URL für Canonical, Sitemap und robots.txt. Für staging erforderlich.
+      portal_site_url:
+        description: Vollständige Staatsportal-URL für Canonical, Sitemap und robots.txt. Für staging erforderlich.
+        required: false
+        type: string
+      law_site_url:
+        description: Vollständige OstRecht-URL für Canonical, Sitemap und robots.txt. Für staging erforderlich.
         required: false
         type: string
 
@@ -135,29 +139,37 @@ jobs:
         id: deployment_meta
         env:
           DEFAULT_PRODUCTION_SITE_URL: https://freistaat-ostdeutschland.de
+          DEFAULT_PRODUCTION_LAW_SITE_URL: https://recht.freistaat-ostdeutschland.de
           EVENT_NAME: ${{ github.event_name }}
           INPUT_ENVIRONMENT: ${{ github.event.inputs.environment }}
-          INPUT_SITE_URL: ${{ github.event.inputs.site_url }}
+          INPUT_PORTAL_SITE_URL: ${{ github.event.inputs.portal_site_url }}
+          INPUT_LAW_SITE_URL: ${{ github.event.inputs.law_site_url }}
         run: |
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             DEPLOY_ENV="$INPUT_ENVIRONMENT"
-            SITE_URL="$INPUT_SITE_URL"
+            PORTAL_SITE_URL="$INPUT_PORTAL_SITE_URL"
+            LAW_SITE_URL="$INPUT_LAW_SITE_URL"
           else
             DEPLOY_ENV="production"
-            SITE_URL="$DEFAULT_PRODUCTION_SITE_URL"
+            PORTAL_SITE_URL="$DEFAULT_PRODUCTION_SITE_URL"
+            LAW_SITE_URL="$DEFAULT_PRODUCTION_LAW_SITE_URL"
           fi
 
-          if [ "$DEPLOY_ENV" = "staging" ] && [ -z "$SITE_URL" ]; then
-            echo "Für ein Staging-Deployment muss workflow_dispatch.site_url gesetzt werden." >&2
+          if [ "$DEPLOY_ENV" = "staging" ] && { [ -z "$PORTAL_SITE_URL" ] || [ -z "$LAW_SITE_URL" ]; }; then
+            echo "Für ein Staging-Deployment müssen portal_site_url und law_site_url gesetzt werden." >&2
             exit 1
           fi
 
-          if [ -z "$SITE_URL" ]; then
-            SITE_URL="$DEFAULT_PRODUCTION_SITE_URL"
+          if [ -z "$PORTAL_SITE_URL" ]; then
+            PORTAL_SITE_URL="$DEFAULT_PRODUCTION_SITE_URL"
+          fi
+          if [ -z "$LAW_SITE_URL" ]; then
+            LAW_SITE_URL="$DEFAULT_PRODUCTION_LAW_SITE_URL"
           fi
 
           echo "deploy_env=$DEPLOY_ENV" >> "$GITHUB_OUTPUT"
-          echo "site_url=$SITE_URL" >> "$GITHUB_OUTPUT"
+          echo "portal_site_url=$PORTAL_SITE_URL" >> "$GITHUB_OUTPUT"
+          echo "law_site_url=$LAW_SITE_URL" >> "$GITHUB_OUTPUT"
 
       - name: Type-Check
         run: npm run check
@@ -171,7 +183,8 @@ jobs:
       - name: Build für Cloudflare erzeugen
         run: npm run build
         env:
-          SITE_URL: ${{ steps.deployment_meta.outputs.site_url }}
+          PORTAL_SITE_URL: ${{ steps.deployment_meta.outputs.portal_site_url }}
+          LAW_SITE_URL: ${{ steps.deployment_meta.outputs.law_site_url }}
           PORTAL_BUILD_COMMIT: ${{ github.sha }}
 
       - name: Nach Cloudflare deployen

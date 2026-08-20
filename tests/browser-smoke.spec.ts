@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
 
+const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+
 test('belegte Altadressen werden gezielt weitergeleitet und unbekannte Pfade bleiben 404', async ({ page, request }) => {
   const aliases = [
     ['/uebersicht/', '/service/uebersicht/'],
@@ -66,15 +68,16 @@ test('alle ausgelieferten Routentypen tragen dieselbe vollständige Buildkennung
   const routes = [
     '/',
     '/recht/',
-    '/recht/verfassung/',
-    '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
-    '/recht/norm/sero-verordnung/',
-    '/recht/verkuendungen/ogvbl-2026-53/',
-    '/recht/verkuendungen/ogvbl-2026-58/',
-    '/recht/verkuendungen/gmbl-2026-14/',
-    '/recht/norm/verwaltungsabkommen-kasernierte-grenzpolizei/',
-    '/recht/search-index.json',
-    '/recht/verkuendungen/index.json',
+    lawUrl('/'),
+    lawUrl('/verfassung/'),
+    lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'),
+    lawUrl('/norm/sero-verordnung/'),
+    lawUrl('/verkuendungen/ogvbl-2026-53/'),
+    lawUrl('/verkuendungen/ogvbl-2026-58/'),
+    lawUrl('/verkuendungen/gmbl-2026-14/'),
+    lawUrl('/norm/verwaltungsabkommen-kasernierte-grenzpolizei/'),
+    lawUrl('/search-index.json'),
+    lawUrl('/verkuendungen/index.json'),
     '/sitemap.xml',
     '/search-index.json',
   ];
@@ -88,7 +91,7 @@ test('alle ausgelieferten Routentypen tragen dieselbe vollständige Buildkennung
     expect(routeCommit, route).toBe(buildCommit);
   }
 
-  await page.goto('/recht/verfassung/');
+  await page.goto(lawUrl('/verfassung/'));
   await expect(page.locator('meta[name="build-commit"]')).toHaveAttribute('content', buildCommit);
 });
 
@@ -189,7 +192,7 @@ test('115 bleibt ein Informationsweg ohne behauptete Erreichbarkeit oder Direktw
 });
 
 test('Rechts- und Portalsuche liefern weiterhin Treffer', async ({ page }) => {
-  await page.goto('/recht/suche/?q=Kulturpass');
+  await page.goto(lawUrl('/suche/?q=Kulturpass'));
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
   await expect(page.locator('[data-search-results] .search-hit')).not.toHaveCount(0);
 
@@ -221,32 +224,32 @@ test('Erster Staatsrat und historische Amtszeiten bleiben nachvollziehbar', asyn
 });
 
 test('Rechtsstatus und Gesetzgebungssuche bilden den Stand 16. August 2026 ab', async ({ page }) => {
-  await page.goto('/recht/norm/verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n/');
+  await page.goto(lawUrl('/norm/verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n/'));
   await expect(page.getByText(/außer Kraft seit/iu).first()).toBeVisible();
 
-  await page.goto('/recht/norm/verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel/');
+  await page.goto(lawUrl('/norm/verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel/'));
   await expect(page.getByText(/in Kraft/iu).first()).toBeVisible();
 
   await page.goto('/suche/?q=07%2F17&type=legislation');
   await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
   await expect(page.locator('.search-hit').first()).toContainText('Beschlossen und am 20. Juli 2026 verkündet');
 
-  await page.goto('/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/');
+  await page.goto(lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/'));
   await expect(page.getByText(/Siebte Volkskammer ist der siebte Landtag/u)).toBeVisible();
   await expect(page.getByText(/Artikel 75a/u).first()).toBeVisible();
 
-  await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
+  await page.goto(lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'));
   await expect(page.getByText(/Siebte Volkskammer ist der siebte Landtag/u)).toBeVisible();
   await expect(page.getByText(/Wahl zur achten Volkskammer/u)).toBeVisible();
 
-  await page.goto('/recht/verfassung/');
+  await page.goto(lawUrl('/verfassung/'));
   await expect(page.getByRole('heading', { name: 'Quellenstand zu Artikel 121a' })).toBeVisible();
   await expect(page.getByText(/Das am 20\. Juli 2026 verkündete Erste Gesetz/u)).toContainText('achte Volkskammer');
   await expect(page.getByText(/Das am 20\. Juli 2026 verkündete Erste Gesetz/u)).toContainText('siebten Volkskammer');
   await expect(page.locator('.record-list')).toContainText('Erstes Gesetz zur Großen Staatsreform');
   await expect(page.locator('.record-list')).toContainText('Viertes Gesetz zur Großen Staatsreform');
 
-  await page.goto('/recht/norm/sero-verordnung/');
+  await page.goto(lawUrl('/norm/sero-verordnung/'));
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Sekundärrohstoff-Erfassung');
   await expect(page.getByText('SERO-Verordnung', { exact: true }).first()).toBeVisible();
   await expect(page.getByText(/in Kraft/u).first()).toBeVisible();
@@ -267,7 +270,7 @@ test('Berlin und Grenzpolizei sind mit geltendem und umzusetzendem Stand erklär
   await agreementFaq.locator('summary').click();
   await expect(agreementFaq.getByText(/29\. Juli 2026 veröffentlicht/u)).toBeVisible();
 
-  await page.goto('/recht/norm/verwaltungsabkommen-kasernierte-grenzpolizei/');
+  await page.goto(lawUrl('/norm/verwaltungsabkommen-kasernierte-grenzpolizei/'));
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Verwaltungsabkommen');
   await expect(page.getByText('GMBl. 2026 Nr. 14', { exact: false }).first()).toBeVisible();
   await expect(page.getByText(/keinen ausdrücklichen Inkrafttretenssatz/u).first()).toBeVisible();
@@ -279,9 +282,9 @@ test('Berlin und Grenzpolizei sind mit geltendem und umzusetzendem Stand erklär
 
 test('Normgliederung besitzt eindeutige IDs und deckungsgleiche Inhaltsanker', async ({ page }) => {
   for (const path of [
-    '/recht/norm/saechsische-gemeindeordnung/',
-    '/recht/norm/ostdeutsche-bezirksordnung/',
-    '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
+    lawUrl('/norm/saechsische-gemeindeordnung/'),
+    lawUrl('/norm/ostdeutsche-bezirksordnung/'),
+    lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'),
   ]) {
     await page.goto(path);
     const result = await page.evaluate(() => {
@@ -304,7 +307,7 @@ test('Normgliederung besitzt eindeutige IDs und deckungsgleiche Inhaltsanker', a
 });
 
 test('OGVBl. 2026 Nr. 53 trennt äußere Artikel und zitierte Neufassungen', async ({ page }) => {
-  await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
+  await page.goto(lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'));
 
   const outline = page.getByRole('navigation', { name: 'Inhaltsübersicht' });
   await expect(outline.getByRole('link', { name: /Artikel 1 Änderung der Staatsverfassung/u })).toBeVisible();
@@ -336,7 +339,7 @@ test('OGVBl. 2026 Nr. 53 trennt äußere Artikel und zitierte Neufassungen', asy
 
 test('Vorschriftendaten und weiterführende Bezüge überlappen nicht', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
+  await page.goto(lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'));
 
   const metadata = page.locator('[data-visual-section="norm-metadata"]');
   const relations = page.locator('[data-visual-section="norm-portal-relations"]');
@@ -375,7 +378,7 @@ test('Vorschriftendaten und weiterführende Bezüge überlappen nicht', async ({
 });
 
 test('Normtabellen geben nur belastbare Kopfzellen-Scope-Werte aus', async ({ page }) => {
-  await page.goto('/recht/norm/gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh/');
+  await page.goto(lawUrl('/norm/gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh/'));
 
   const headerCells = page.locator('.norm-table th');
   await expect(headerCells).toHaveCount(3);
@@ -384,18 +387,18 @@ test('Normtabellen geben nur belastbare Kopfzellen-Scope-Werte aus', async ({ pa
 });
 
 test('Rechtsportal verwendet auf Übersichten und Suchindex dieselbe jüngste Verkündung', async ({ page, request }) => {
-  await page.goto('/recht/');
+  await page.goto(lawUrl('/'));
   const latestHomePublication = page.getByRole('heading', { name: 'Neue Verkündungen' })
     .locator('xpath=following::ul[1]')
     .locator('li')
     .first();
   await expect(latestHomePublication).toContainText('2026 Nr. 67');
 
-  await page.goto('/recht/verkuendungen/');
+  await page.goto(lawUrl('/verkuendungen/'));
   await expect(page.locator('[data-law-filter-entry]').first()).toContainText('2026 Nr. 67');
 
-  const searchIndex = await (await request.get('/recht/search-index.json')).json();
-  const publicationIndex = await (await request.get('/recht/verkuendungen/index.json')).json();
+  const searchIndex = await (await request.get(lawUrl('/search-index.json'))).json();
+  const publicationIndex = await (await request.get(lawUrl('/verkuendungen/index.json'))).json();
   expect(searchIndex.latestPublication.slug).toBe('ogvbl-2026-67');
   expect(publicationIndex.latestPublication.slug).toBe('ogvbl-2026-67');
 });
@@ -416,14 +419,17 @@ test('Volksbefragung ist öffentlich eingeordnet und mit dem vollständigen Vero
   await expect(currentTopics.getByRole('link', { name: 'Volksbefragung 2026', exact: true })).toBeVisible();
 
   await page.goto('/themen/volksbefragung-2026/');
-  await page.getByRole('link', { name: 'Volksbefragungsverordnung 2026' }).click();
-  await expect(page).toHaveURL(/\/recht\/norm\/volksbefragungsverordnung-2026\/$/u);
+  await expect(page.getByRole('link', { name: 'Volksbefragungsverordnung 2026' })).toHaveAttribute(
+    'href',
+    'https://recht.freistaat-ostdeutschland.de/norm/volksbefragungsverordnung-2026/',
+  );
+  await page.goto(lawUrl('/norm/volksbefragungsverordnung-2026/'));
   await expect(page.getByRole('heading', { name: 'Inkrafttreten und Außerkrafttreten' })).toBeVisible();
   await expect(page.getByText(/Diese Verordnung tritt am Tag ihrer Verkündung in Kraft/u)).toBeVisible();
 });
 
 test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwerkzeuge', async ({ page }) => {
-  await page.goto('/recht/norm/sero-verordnung/');
+  await page.goto(lawUrl('/norm/sero-verordnung/'));
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
   await expect(versionNavigation).toBeVisible();
@@ -464,19 +470,19 @@ test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwer
 });
 
 test('Zitierfunktion kopiert vollständige Normtitel und fassungsspezifische Änderungen', async ({ page }) => {
-  await page.goto('/recht/norm/ostdeutsches-bezirkseinfuehrungsgesetz/');
+  await page.goto(lawUrl('/norm/ostdeutsches-bezirkseinfuehrungsgesetz/'));
   const initialCitation = page.getByLabel('Vollzitat dieser Fassung');
   await expect(initialCitation).toHaveValue(
     'Gesetz zur Einführung von Bezirken vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–14)',
   );
 
-  await page.goto('/recht/norm/saechsische-gemeindeordnung/');
+  await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/'));
   const currentCitation = page.getByLabel('Vollzitat dieser Fassung');
   await expect(currentCitation).toHaveValue(
     /Gemeindeordnung für den Ostdeutschen Freistaat .* zuletzt geändert durch das Gesetz zur Neuordnung der Kreise und Bezirke .* vom 20\. Juli 2026/u,
   );
 
-  await page.goto('/recht/norm/saechsische-gemeindeordnung/version/2026-03-25/');
+  await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/version/2026-03-25/'));
   const historicalCitation = page.getByLabel('Vollzitat dieser Fassung');
   await expect(historicalCitation).toHaveValue(
     /zuletzt geändert durch das Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin .* vom 23\. März 2026/u,
@@ -484,7 +490,7 @@ test('Zitierfunktion kopiert vollständige Normtitel und fassungsspezifische Än
 });
 
 test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änderungsvorschriften', async ({ page }) => {
-  await page.goto('/recht/norm/ostdeutsches-feiertagsgesetz/');
+  await page.goto(lawUrl('/norm/ostdeutsches-feiertagsgesetz/'));
 
   const versionNavigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
   await expect(versionNavigation.locator('.norm-version-navigation__primary > li')).toHaveCount(3);
@@ -515,35 +521,35 @@ test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änd
   await expect(page.locator('[data-compare-pair]:not([hidden]) del').first()).toBeVisible();
   await expect(page.locator('[data-compare-pair]:not([hidden]) ins').first()).toBeVisible();
 
-  await page.goto('/recht/norm/erstes-gesetz-zur-grossen-staatsreform/');
+  await page.goto(lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'));
   await expect(page.locator('.norm-subparagraph__label').first()).toHaveCSS('font-weight', '400');
   await expect(page.locator('.norm-amendment-item__label').first()).toHaveCSS('font-weight', '400');
   await expect(page.locator('.norm-unit__label').first()).toHaveCSS('font-weight', '750');
 
-  await page.goto('/recht/norm/gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland/');
+  await page.goto(lawUrl('/norm/gesetz-zur-reform-gesetzlicher-feiertage-im-freistaat-ostdeutschland/'));
   await expect(
-    page.locator('a[href="/recht/norm/ostdeutsches-feiertagsgesetz/"]').first(),
+    page.locator('a[href="/norm/ostdeutsches-feiertagsgesetz/"]').first(),
   ).toContainText('Ostdeutsches Feiertagsgesetz');
 
-  await page.goto('/recht/norm/wappenverordnung/history/');
+  await page.goto(lawUrl('/norm/wappenverordnung/history/'));
   await expect(page.locator('#fassungen .timeline-list > li')).toHaveCount(1);
   await expect(page.locator('#historieneintraege')).toContainText('Aufgehoben durch Artikel 3');
   await expect(page.locator('#historieneintraege')).toContainText('24. März 2026');
 
-  await page.goto('/recht/norm/saechsische-gemeindeordnung/history/');
+  await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/history/'));
   await expect(page.locator('#fassungen .timeline-list > li')).toHaveCount(4);
   await expect(page.locator('#historieneintraege')).toContainText('kommunalen Privatisierungsbremse');
   await expect(page.locator('#historieneintraege')).toContainText('Bundeshauptstadt Berlin');
   await expect(page.locator('#historieneintraege')).toContainText('Kreis- und Bezirksneuordnungsgesetz');
 
-  await page.goto('/recht/norm/gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes/');
+  await page.goto(lawUrl('/norm/gesetz-zur-einfuhrung-eines-tariftreueund-vergabegesetzes/'));
   await expect(
-    page.locator('a[href="/recht/norm/ostdeutsches-tariftreueund-vergabegesetz/"]').first(),
+    page.locator('a[href="/norm/ostdeutsches-tariftreueund-vergabegesetz/"]').first(),
   ).toContainText('Ostdeutsches Tariftreue- und Vergabegesetz');
 });
 
 test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page }) => {
-  await page.goto('/recht/suche/?q=Kranken*&type=gesetz&type=verordnung');
+  await page.goto(lawUrl('/suche/?q=Kranken*&type=gesetz&type=verordnung'));
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
   await expect(page.locator('select[name="type"] option:checked')).toHaveCount(2);
 
@@ -558,7 +564,7 @@ test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und
 });
 
 test('A–Z-Stichwortindex zeigt mehr als 24 Einträge und lässt sich lokal filtern', async ({ page }) => {
-  await page.goto('/recht/archiv/');
+  await page.goto(lawUrl('/archiv/'));
   const entries = page.locator('[data-index-entry]');
   expect(await entries.count()).toBeGreaterThan(24);
   await page.locator('[data-index-filter]').fill('Kultur');
@@ -584,7 +590,13 @@ test('Kalender, Sitemap und strukturierte Termindaten enthalten den neuen Stand'
   const sitemapText = await sitemap.text();
   expect(sitemapText).toContain('/presse/termine/dritte-plenarsitzung-7-landtag/');
   expect(sitemapText).toContain('/themen/staatsreform-und-verfassung/');
-  expect(sitemapText).toContain('/recht/norm/verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel/');
+  expect(sitemapText).not.toContain('/recht/norm/');
+
+  const lawSitemap = await request.get(lawUrl('/sitemap.xml'));
+  expect(lawSitemap.ok()).toBe(true);
+  expect(await lawSitemap.text()).toContain(
+    'https://recht.freistaat-ostdeutschland.de/norm/verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-uber-lehrplane-und-stundentafel/',
+  );
 
   await page.goto('/presse/termine/dritte-plenarsitzung-7-landtag/');
   const structuredData = await page.locator('script[type="application/ld+json"]').evaluateAll((scripts) =>

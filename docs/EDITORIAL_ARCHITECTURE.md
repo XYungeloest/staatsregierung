@@ -18,7 +18,10 @@ Redakteur:in
   -> bestehender statischer Produktionsbuild
 ```
 
-Das Rechtsportal unter `/recht/` nutzt weiterhin seine bisherigen Daten, Routen und Buildpfade. Die neue Registry enthält bewusst keinen Rechtseditor.
+Das eigenständige Rechtsportal OstRecht nutzt weiterhin denselben dateibasierten Datenbestand und
+wird getrennt vom Staatsportal gebaut. Die Registry enthält bewusst keinen zweiten Rechtseditor;
+das Studio bleibt Teil der Staatsportal-Infrastruktur und Änderungen durchlaufen denselben
+Pull-Request-Prozess.
 
 ## Normalisiertes Organisationsmodell
 

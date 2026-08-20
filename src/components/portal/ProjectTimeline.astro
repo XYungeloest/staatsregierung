@@ -1,5 +1,6 @@
 ---
 import { siteConfig } from '../../config/site.ts';
+import { resolvePortalPath } from '../../lib/portal/routes.ts';
 import {
   formatTimelineEntryType,
   type TimelineEntry,
@@ -53,7 +54,7 @@ const ressorts = [...new Set(entries.map((entry) => entry.ressort).filter(Boolea
         <div class="timeline__body">
           <p class="timeline__type">{formatTimelineEntryType(entry.type)}</p>
           <h3>
-            {entry.href ? <a class="inline-link" href={entry.href}>{entry.title}</a> : entry.title}
+            {entry.href ? <a class="inline-link" href={resolvePortalPath(entry.href)}>{entry.title}</a> : entry.title}
           </h3>
           <p>{entry.summary}</p>
           {entry.ressort ? <p class="detail-line">Federführend: {entry.ressort}</p> : null}
@@ -66,4 +67,3 @@ const ressorts = [...new Set(entries.map((entry) => entry.ressort).filter(Boolea
     Für diese Auswahl sind derzeit keine Zeitachseneinträge sichtbar.
   </p>
 </section>
-

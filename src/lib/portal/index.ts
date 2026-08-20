@@ -111,6 +111,7 @@ export {
   getLawConstitutionUrl,
   getLawFundingUrl,
   getLawHelpUrl,
+  getLawBridgeUrl,
   getLawHomeUrl,
   getLawIndexUrl,
   getLawPublicationsUrl,

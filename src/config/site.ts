@@ -1,12 +1,33 @@
 import { formatDate } from '../lib/norms/presentation.ts';
 
+const DEFAULT_PORTAL_SITE_URL = 'https://freistaat-ostdeutschland.de';
+const DEFAULT_LAW_SITE_URL = 'https://recht.freistaat-ostdeutschland.de';
+
+function readBuildEnvironment(name: string, fallback: string): string {
+  const metaEnvironment = (import.meta as ImportMeta & { env?: Record<string, string | undefined> }).env;
+  const processEnvironment = typeof process !== 'undefined' ? process.env?.[name] : undefined;
+  return metaEnvironment?.[name]?.trim() || processEnvironment?.trim() || fallback;
+}
+
+function normalizeSiteUrl(value: string): string {
+  return value.replace(/\/+$/u, '');
+}
+
+export const siteUrls = {
+  portal: normalizeSiteUrl(readBuildEnvironment('PORTAL_SITE_URL', DEFAULT_PORTAL_SITE_URL)),
+  law: normalizeSiteUrl(readBuildEnvironment('LAW_SITE_URL', DEFAULT_LAW_SITE_URL)),
+} as const;
+
+export const siteTarget = readBuildEnvironment('SITE_TARGET', 'portal') === 'law' ? 'law' : 'portal';
+export const isLawSite = siteTarget === 'law';
+
 export const siteConfig = {
   authorityName: 'Staatsrat des Ostdeutschen Freistaates',
   portalTitle: 'Freistaat Ostdeutschland',
   portalSubtitle: 'Website des Staatsrates mit Recht, Themen, Presse, Haushalt und Service',
   seo: {
     siteName: 'Freistaat Ostdeutschland',
-    siteUrl: 'https://freistaat-ostdeutschland.de',
+    siteUrl: siteUrls.portal,
     locale: 'de_DE',
     defaultDescription:
       'Staatsportal des Ostdeutschen Freistaates mit Staatsrat, Reformprojekten, Rechtsportal, Presse und Service.',
@@ -22,7 +43,7 @@ export const siteConfig = {
   },
   simulationNotice:
     'Dies ist eine fiktive Website innerhalb einer politischen Simulation des Ostdeutschen Freistaates.',
-  footerNote: 'Website des Staatsrates des Ostdeutschen Freistaates mit integriertem Rechtsbereich.',
+  footerNote: 'Staatsportal des Ostdeutschen Freistaates.',
   officialFlagAssetPath: '/images/ui/ost-flagge.png',
   officialFlagSmallAssetPath: '/images/generated/ui/ost-flagge-480.webp',
   officialCoatOfArmsAssetPath: '/favicon.svg',
@@ -53,16 +74,7 @@ export const siteConfig = {
     serviceOverview: '/service/uebersicht/',
     career: '/service/karriere/',
     faq: '/service/faq/',
-    lawHome: '/recht/',
-    lawSearch: '/recht/suche/',
-    lawIndex: '/recht/archiv/',
-    lawSubjects: '/recht/sachgebiete/',
-    lawFunding: '/recht/foerderrichtlinien/',
-    lawReferences: '/recht/fundstellen/',
-    lawPublications: '/recht/verkuendungen/',
-    lawConstitution: '/recht/verfassung/',
-    lawDevelopment: '/recht/rechtsentwicklung/',
-    lawHelp: '/recht/hilfe/',
+    lawBridge: '/recht/',
     contact: '/service/kontakt/',
     easyLanguage: '/service/leichte-sprache/',
     signLanguage: '/service/gebaerdensprache/',
@@ -76,7 +88,7 @@ export const siteConfig = {
     { label: 'Staatsrat', pathKey: 'government' },
     { label: 'Themen', pathKey: 'topics' },
     { label: 'Schulsystem', pathKey: 'schoolSystem' },
-    { label: 'Recht', pathKey: 'lawHome' },
+    { label: 'Recht', pathKey: 'lawBridge' },
     { label: 'Kreisreform', pathKey: 'kreisreform' },
     { label: 'Haushalt', pathKey: 'budget' },
     { label: 'Presse', pathKey: 'press' },
@@ -125,5 +137,57 @@ export const siteConfig = {
   },
 } as const;
 
+export const lawSiteConfig = {
+  brand: 'OstRecht',
+  subtitle: 'Rechtsportal des Ostdeutschen Freistaates',
+  authorityName: siteConfig.authorityName,
+  seo: {
+    siteName: 'OstRecht – Rechtsportal des Ostdeutschen Freistaates',
+    siteUrl: siteUrls.law,
+    locale: siteConfig.seo.locale,
+    defaultDescription:
+      'OstRecht erschließt geltendes und historisches Recht, Fassungen, Fundstellen und Verkündungen des Ostdeutschen Freistaates.',
+    simulationDescription: siteConfig.seo.simulationDescription,
+    defaultSocialImage: {
+      url: '/images/social/recht-preview.png',
+      alt: 'OstRecht – Rechtsportal des Ostdeutschen Freistaates',
+      width: 1200,
+      height: 630,
+      type: 'image/png',
+    },
+  },
+  simulationNotice: siteConfig.simulationNotice,
+  footerNote: 'Rechtsportal des Ostdeutschen Freistaates.',
+  officialCoatOfArmsAssetPath: siteConfig.officialCoatOfArmsAssetPath,
+  officialFlagSmallAssetPath: siteConfig.officialFlagSmallAssetPath,
+  officialFlagText: siteConfig.officialFlagText,
+  searchLabel: 'Recht durchsuchen',
+  searchPlaceholder: 'Gesetze, Verordnungen und Verwaltungsvorschriften durchsuchen',
+  paths: {
+    home: '/',
+    search: '/suche/',
+    index: '/archiv/',
+    subjects: '/sachgebiete/',
+    funding: '/foerderrichtlinien/',
+    references: '/fundstellen/',
+    publications: '/verkuendungen/',
+    constitution: '/verfassung/',
+    development: '/rechtsentwicklung/',
+    help: '/hilfe/',
+  },
+  mainNavigation: [
+    { label: 'Suche', pathKey: 'search' },
+    { label: 'A–Z', pathKey: 'index' },
+    { label: 'Sachgebiete', pathKey: 'subjects' },
+    { label: 'Verkündungen', pathKey: 'publications' },
+    { label: 'Fundstellen', pathKey: 'references' },
+    { label: 'Verfassung', pathKey: 'constitution' },
+    { label: 'Rechtsentwicklung', pathKey: 'development' },
+  ],
+} as const;
+
+export const activeSiteConfig = isLawSite ? lawSiteConfig : siteConfig;
+
 export type SiteConfig = typeof siteConfig;
 export type SitePathKey = keyof typeof siteConfig.paths;
+export type LawSitePathKey = keyof typeof lawSiteConfig.paths;

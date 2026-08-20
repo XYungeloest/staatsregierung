@@ -2,12 +2,12 @@
 
 ## Grundregel
 
-Dieses Repository ist das Portal des fiktiven Staatsrates mit integriertem Rechtsbereich. Die öffentliche Website soll wie eine sachliche staatliche Website wirken, nicht wie eine Entwicklerdemo.
+Dieses Repository enthält das Staatsportal und das eigenständige Rechtsportal des fiktiven Ostdeutschen Freistaates. Beide öffentlichen Websites sollen sachlich und staatlich wirken, nicht wie Entwicklerdemos.
 
 Prioritäten:
 
 1. Öffentliches Portal behördennah, ruhig und verständlich halten.
-2. Rechtsportal unter `/recht/` funktional erhalten.
+2. Eigenständiges Rechtsportal OstRecht unter `recht.freistaat-ostdeutschland.de` funktional erhalten; `/recht/` im Staatsportal bleibt die Brückenseite.
 3. Inhalte möglichst dateibasiert und nachvollziehbar pflegen.
 4. Cloudflare-Deploymentlogik respektieren.
 5. Keine unnötige neue Architektur oder Bibliothek einführen.
@@ -57,6 +57,11 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 - Astro
 - TypeScript
 - Cloudflare Workers
+- ein Repository, ein gemeinsamer Daten- und Wissensbestand, zwei öffentliche Anwendungen
+- Staatsportal: `freistaat-ostdeutschland.de`, Build `npm run build:portal`, Worker `ostrecht-portal`
+- Rechtsportal: `recht.freistaat-ostdeutschland.de`, Build `npm run build:recht`, Worker `ostrecht-recht`
+- öffentliche Rechtsrouten liegen auf der Rechtsdomain ohne zusätzliches `/recht/`-Präfix
+- Cross-Site-Links werden über `src/lib/portal/routes.ts` und `src/lib/norms/routes.ts` erzeugt; die Origins stammen aus `PORTAL_SITE_URL` und `LAW_SITE_URL`
 - keine aktiven D1/R2-Bindings im aktuellen Portalstand
 - getrenntes Editorial Worker Entry unter `src/editorial-worker/`; öffentliche Seiten bleiben statisch
 - klare Utility-Funktionen statt unnötiger Klassenhierarchien
@@ -96,6 +101,12 @@ npm run test:a11y
   Inhaltsquellen.
 
 ## Rechtsportal
+
+Das Rechtsportal ist eine getrennte öffentliche Astro-Anwendung mit `LawLayout.astro` und den
+Seiteneinstiegen unter `src/law/pages/`. Es liest denselben kanonischen Bestand wie das Staatsportal.
+Alte Detailadressen unter `/recht/...` werden permanent auf die Rechts-Origin weitergeleitet;
+`/recht/` selbst bleibt im Staatsportal eine inhaltliche Brückenseite. Ein Domainwechsel darf keine
+Migration der Normdaten oder des Wissenshubs erfordern.
 
 Normen liegen unter:
 
