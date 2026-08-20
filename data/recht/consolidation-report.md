@@ -1,7 +1,7 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-08-20T08:55:57.721Z
+**Erzeugt:** 2026-08-20T16:33:25.131Z
 
 - Erkannte Änderungsvorschriften: 60
 - Erkannte Zielnormen: 84
@@ -967,5 +967,7 @@
 
 ## Redaktionell zu prüfende Erkennungsfunde
 
+- `erlass-lehrplan-geschichte-2026`: „Lehrplans Polytechnische Oberschule – Geschichte“ (Gliederungsüberschrift)
+- `erlass-lehrplan-geschichte-2026`: „Lehrplans Erweiterte Oberschule – Geschichte“ (Gliederungsüberschrift)
 - `organisationserlass-aenderung-fachbereichszuteilung-2024`: „Fachbereichszuteilungen“ (Gliederungsüberschrift)
 

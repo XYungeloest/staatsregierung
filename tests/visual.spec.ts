@@ -204,6 +204,7 @@ const componentVisualPages = [
     path: '/haushalt/',
     shots: [
       ['haushalt-jahreswahl-kennzahlen', '[data-visual-section="budget-year-kpis"]'],
+      ['haushalt-aufgabenbereiche', '[data-visual-section="budget-task-areas"]'],
       ['haushalt-tabelle', '[data-visual-section="budget-table"] .table-wrap'],
     ],
   },

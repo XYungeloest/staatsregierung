@@ -107,7 +107,7 @@ test('vollständige Normzitate behalten Normart und Dokumentdatum', async () => 
 
 test('Verkündungen unterscheiden versionierte und nicht mitversionierte Quellen ehrlich', async () => {
   const publications = await loadAllVerkuendungen();
-  assert.equal(publications.length, 121);
+  assert.equal(publications.length, 122);
   assert.ok(publications.every((publication) => !publication.sourceFiles?.length));
   const newPublications = publications.filter((publication) => Number(publication.issue) >= 46 && Number(publication.issue) <= 58 && publication.year === 2026);
   assert.equal(newPublications.length, 13);
@@ -120,9 +120,9 @@ test('Verkündungen unterscheiden versionierte und nicht mitversionierte Quellen
   const schoolPackage = publications.filter((publication) => (
     publication.publication === 'OGVBl.' && publication.year === 2026 && Number(publication.issue) >= 59 && Number(publication.issue) <= 67
   ) || (
-    publication.publication === 'StAnzO.' && publication.year === 2026 && Number(publication.issue) >= 16 && Number(publication.issue) <= 31
+    publication.publication === 'StAnzO.' && publication.year === 2026 && Number(publication.issue) >= 16 && Number(publication.issue) <= 32
   ));
-  assert.equal(schoolPackage.length, 25);
+  assert.equal(schoolPackage.length, 26);
   assert.ok(schoolPackage.every((publication) => publication.pdf && publication.sourceReferences?.some(
     (source) => source.kind === 'primary-pdf' && source.availability === 'versioned',
   )));
