@@ -24,8 +24,14 @@ export function extractHtmlBuildCommit(html) {
 
 async function checkedFetch(fetchImpl, url, init = {}) {
   let response;
+  const headers = new Headers(init.headers);
+  if (!headers.has('user-agent')) {
+    headers.set('user-agent', 'OstRecht-Deployment-Smoke/1.0 (+https://github.com/XYungeloest/staatsregierung)');
+  }
+  if (!headers.has('accept')) headers.set('accept', 'text/html,application/xhtml+xml,application/xml;q=0.9,text/plain;q=0.8,*/*;q=0.5');
+  if (!headers.has('cache-control')) headers.set('cache-control', 'no-cache');
   try {
-    response = await fetchImpl(url, { ...init, signal: AbortSignal.timeout(15_000) });
+    response = await fetchImpl(url, { ...init, headers, signal: AbortSignal.timeout(15_000) });
   } catch (error) {
     throw new Error(`${url} konnte nicht abgerufen werden: ${error instanceof Error ? error.message : String(error)}`);
   }
@@ -104,8 +110,8 @@ async function main() {
   const portalSiteUrl = process.env.PORTAL_SITE_URL ?? '';
   const lawSiteUrl = process.env.LAW_SITE_URL ?? '';
   const expectedCommit = process.env.EXPECTED_COMMIT ?? '';
-  const attempts = Number.parseInt(process.env.DEPLOYMENT_SMOKE_ATTEMPTS ?? '6', 10);
-  const retryDelayMs = Number.parseInt(process.env.DEPLOYMENT_SMOKE_RETRY_MS ?? '5000', 10);
+  const attempts = Number.parseInt(process.env.DEPLOYMENT_SMOKE_ATTEMPTS ?? '12', 10);
+  const retryDelayMs = Number.parseInt(process.env.DEPLOYMENT_SMOKE_RETRY_MS ?? '10000', 10);
   let lastError;
 
   for (let attempt = 1; attempt <= attempts; attempt += 1) {

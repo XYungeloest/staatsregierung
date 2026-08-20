@@ -304,7 +304,11 @@ test('OstRecht-Navigation und farbiges Footerwappen bleiben mobil nutzbar', asyn
   const footer = page.locator('.law-footer');
   const coatOfArms = footer.locator('.law-footer__brand img');
   await expect(coatOfArms).toHaveAttribute('src', /favicon\.svg$/u);
-  expect(await coatOfArms.evaluate((image) => getComputedStyle(image).filter)).toBe('none');
+  const coatOfArmsStyle = await coatOfArms.evaluate((image) => {
+    const style = getComputedStyle(image);
+    return { filter: style.filter, backgroundColor: style.backgroundColor, padding: style.padding };
+  });
+  expect(coatOfArmsStyle).toEqual({ filter: 'none', backgroundColor: 'rgba(0, 0, 0, 0)', padding: '0px' });
   await expect(footer.getByRole('navigation', { name: 'Recherchewege im Footer' }).getByRole('link')).toHaveCount(5);
 
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
