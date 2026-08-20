@@ -24,7 +24,7 @@ Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffen
 - Der sichtbare Hinweis zur politischen Simulation bleibt auf obere Hinweisleiste und Footer
   beschränkt. Das Impressum enthält die ausführliche rechtliche Einordnung; in normalen
   Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation ergänzen.
-- Für aktuelle Übersichten gilt der redaktionelle Stichtag 9. August 2026. Termine davor sind
+- Für aktuelle Übersichten gilt der redaktionelle Stichtag 16. August 2026. Termine davor sind
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
@@ -726,6 +726,22 @@ Versionsspezifische URLs verweisen unveränderlich auf genau eine gespeicherte F
 `src/lib/norms/versions.ts` unterscheidet `current`, `future`, `historical` und
 `unknown-effective` aus Gültigkeitsintervall, Normstatus und Stichtag.
 
+Die Rechtsherkunft wird nicht als freies Redaktionslabel gepflegt. `src/lib/norms/origin.ts`
+ermittelt sie aus den vorhandenen Quellen- und Historienfeldern nach diesen Regeln:
+
+- „Übernommen“ setzt eine Fassung ab dem 1. November 2023 und einen fassungsspezifischen
+  `revosax-snapshot` voraus, dessen `sourceValidFrom`/`sourceValidTo` diesen Tag abdeckt.
+- Spätere ostdeutsche `amendment`- und `repeal`-Einträge zählen nur mit belegter ostdeutscher
+  Fundstelle oder eindeutig verknüpfter eigener Änderungsvorschrift.
+- Eine nach dem Ausgangsstichtag beginnende Norm gilt nur dann als eigenständig neu geschaffen,
+  wenn ihre eigene Verkündung oder die verknüpfte Einführungsvorschrift belegt ist und keine
+  sächsische Übernahmequelle vorliegt.
+- Unvollständige Belege führen zu „Herkunft nicht abschließend belegt“; sie werden nicht aus Titel,
+  Sachgebiet oder einer bloßen zeitlichen Nähe erraten.
+- Ein später ausdrücklich übernommener sächsischer Zwischenstand bleibt bis zur ersten eigenen
+  Änderung als übernommene Zwischenfassung erkennbar. Die Ausgangsfassung und jede geänderte
+  Fassung werden fassungsspezifisch beschriftet.
+
 Normtexte können kontrollierte Links enthalten, die zur Laufzeit aus eindeutigen Abkürzungen und
 Kurztiteln im vorhandenen Normenbestand erzeugt werden. Externe Bundesrechtsverweise sind bewusst
 auf eine kleine gepflegte Liste beschränkt.
@@ -887,10 +903,17 @@ Regeln:
 - `/recht/norm/[slug]/version/[versionId]/` ist der unveränderliche Fassungslink.
 - Die Fassungsnavigation erscheint auf Normtext, statischer Fassung, Historie und Vergleich.
 - Der Vergleich speichert die Auswahl in `von` und `bis`; ohne JavaScript bleibt der voreingestellte
-  Vergleich lesbar.
+  Vergleich zur vorherigen Fassung lesbar. Bei übernommenem Recht wird zusätzlich ein direkter
+  Vergleich mit der belegten Ausgangsfassung angeboten. Weitere Paarungen werden aus statisch
+  erzeugten Vergleichsdaten geladen; die Normseiten betten nicht alle Fassungs-Paare ein.
+- `/recht/rechtsentwicklung/` bündelt Herkunft, Ausgangsfassung, eigene Änderungen und den
+  anwendbaren Stand. Filter für Suchtext, Herkunft, Normtyp, Sachgebiet und Status bleiben in der
+  Adresse erhalten.
 - Suchparameter mit mehreren Werten werden wiederholt, etwa `type=gesetz&type=verordnung`.
   Verschiedene Facetten sind UND-verknüpft, Werte derselben Facette ODER-verknüpft.
 - `versionScope` unterstützt `current`, `future`, `historical`, `unknown-effective` und `all`.
+- `origin` unterstützt `ostdeutsch-original`, `inherited-unchanged`, `inherited-amended` und
+  `origin-unresolved` und verwendet dieselbe zentrale Einordnung wie die Normseiten.
 - Ein Stern am Wortende ist ein Präfix-Platzhalter; die normale Teilwortsuche bleibt bestehen.
 - Druckansichten sind Portalansichten. Ein PDF- oder Anlagenlink wird nur aus einem belegten
   Quellenfeld erzeugt.

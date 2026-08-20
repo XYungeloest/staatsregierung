@@ -2,7 +2,13 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { buildStructuralVersionDiff, diffSentences, diffWords } from '../src/lib/norms/diff.ts';
+import { buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '../src/lib/norms/diff.ts';
+import {
+  LEGAL_BASELINE_DATE,
+  classifyNormOriginVersion,
+  getNormOriginInfo,
+} from '../src/lib/norms/origin.ts';
+import { buildNormRelations } from '../src/lib/norms/relations.ts';
 import {
   getBlockAnchorId,
   getLegacyBlockAnchorId,
@@ -19,6 +25,7 @@ import {
   type SearchIndexDocument,
 } from '../src/lib/norms/search.ts';
 import { getLatestPublication, loadAllVerkuendungen } from '../src/lib/norms/publications.ts';
+import { loadAllNorms } from '../src/lib/norms/loader.ts';
 import {
   ContentValidationError,
   parseNormMeta,
@@ -150,6 +157,151 @@ test('vollständig ersetzte Sätze bleiben zusammenhängende Vergleichsblöcke',
   }]);
 });
 
+test('Diff-Zusammenfassung zählt dieselben strukturellen Einheiten wie der Vergleich', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].children = [{ type: 'paragraphText', text: 'Die alte Regel gilt.' }];
+  const after = version('b', '2026-07-01', null);
+  after.body[0].title = 'Neue Überschrift';
+  after.body[0].children = [
+    { type: 'paragraphText', text: 'Die neue Regel gilt.' },
+    { type: 'item', label: '1.', text: 'Neue Nummer' },
+  ];
+  const diff = buildStructuralVersionDiff(before, after);
+  const summary = summarizeNormDiff(diff);
+
+  assert.equal(Object.values(summary).reduce((sum, value) => sum + value, 0), diff.length);
+  assert.ok(summary.changed >= 1);
+  assert.ok(summary.added >= 1);
+  assert.ok(diff.some((unit) => unit.textDiff?.some((chunk) => chunk.kind === 'insert')));
+
+  const reversed = buildStructuralVersionDiff(after, before);
+  assert.equal(summarizeNormDiff(reversed).removed, summary.added);
+});
+
+test('Rechtsherkunft trennt neue, unveränderte, geänderte und ungeklärte Normen', () => {
+  const baseline = version(LEGAL_BASELINE_DATE, LEGAL_BASELINE_DATE, null);
+  baseline.citation = 'Sächsisches Ausgangsrecht';
+  baseline.sourceReferences = [{
+    kind: 'revosax-snapshot',
+    label: 'Amtliche REVOSax-Fassung',
+    availability: 'versioned',
+    localSource: 'data/recht/sources/revosax/test/1.html',
+    url: 'https://www.revosax.sachsen.de/vorschrift/1',
+    sourceValidFrom: '2023-01-01',
+  }];
+  const inherited = record([baseline]);
+  inherited.meta.slug = 'uebernommene-norm';
+  inherited.meta.id = inherited.meta.slug;
+  inherited.meta.initialCitation = 'Sächsisches Ausgangsrecht';
+  inherited.history = {
+    initialVersionId: baseline.versionId,
+    entries: [{
+      date: LEGAL_BASELINE_DATE,
+      type: 'initial',
+      title: 'Ausgangsfassung',
+      citation: 'Sächsisches Ausgangsrecht',
+      affectingVersionId: baseline.versionId,
+    }],
+  };
+
+  const laterSaxon = version('2023-12-31', '2023-12-31', null);
+  laterSaxon.citation = 'Späterer ausdrücklich übernommener sächsischer Zwischenstand';
+  laterSaxon.sourceReferences = [{
+    ...baseline.sourceReferences[0],
+    localSource: 'data/recht/sources/revosax/test/2.html',
+    sourceValidFrom: '2023-12-31',
+  }];
+  const inheritedWithIntermediate = {
+    ...inherited,
+    versions: [baseline, laterSaxon],
+  };
+
+  const amendmentAct = record([version('2026-01-01', '2026-01-01', null)]);
+  amendmentAct.meta.slug = 'ostdeutsches-aenderungsgesetz';
+  amendmentAct.meta.id = amendmentAct.meta.slug;
+  amendmentAct.meta.initialCitation = 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)';
+  const amended = structuredClone(inherited);
+  amended.meta.slug = 'geaenderte-norm';
+  amended.meta.id = amended.meta.slug;
+  amended.history.entries.push({
+    date: '2026-01-02',
+    type: 'amendment',
+    title: 'Geändert',
+    citation: 'Gesetz vom 1. Januar 2026 (OGVBl. 2026 Nr. 1)',
+    affectingVersionId: baseline.versionId,
+    relatedNorm: amendmentAct.meta.slug,
+  });
+
+  const original = record([version('2024-10-15', '2024-10-15', null)]);
+  original.meta.slug = 'neue-ostdeutsche-norm';
+  original.meta.id = original.meta.slug;
+  original.history.entries = [{
+    date: '2024-10-15',
+    type: 'initial',
+    title: 'Ursprungsfassung',
+    citation: 'Gesetz vom 15. Oktober 2024 (OGVBl. 2024 Nr. II)',
+    affectingVersionId: '2024-10-15',
+  }];
+
+  const unresolved = record([version('ungeklaert', '2026-01-01', null)]);
+  unresolved.meta.slug = 'ungeklaerte-norm';
+  unresolved.meta.id = unresolved.meta.slug;
+  unresolved.meta.initialCitation = 'Ausgangsquelle nicht belegt';
+  unresolved.versions[0].citation = 'Ausgangsquelle nicht belegt';
+  unresolved.history.entries = [];
+
+  assert.equal(getNormOriginInfo(original, [original]).kind, 'ostdeutsch-original');
+  assert.equal(getNormOriginInfo(inherited, [inherited]).kind, 'inherited-unchanged');
+  assert.equal(getNormOriginInfo(amended, [amended, amendmentAct]).kind, 'inherited-amended');
+  assert.equal(getNormOriginInfo(unresolved, [unresolved]).kind, 'origin-unresolved');
+  const intermediateOrigin = getNormOriginInfo(inheritedWithIntermediate, [inheritedWithIntermediate]);
+  assert.equal(intermediateOrigin.kind, 'inherited-unchanged');
+  assert.equal(classifyNormOriginVersion(intermediateOrigin, laterSaxon), 'inherited-intermediate');
+});
+
+test('gerichtete Normrelationen werden aus einer Richtung und mehreren Historieneinträgen abgeleitet', () => {
+  const target = record([version('2026-07-21', '2026-07-21', null)]);
+  target.meta.slug = 'stammnorm';
+  target.meta.id = target.meta.slug;
+  const first = record([version('erstes', '2026-07-20', null)]);
+  first.meta.slug = 'erstes-aenderungsgesetz';
+  first.meta.id = first.meta.slug;
+  first.meta.affectedNorms = [target.meta.slug];
+  const second = record([version('zweites', '2026-07-20', null)]);
+  second.meta.slug = 'zweites-aenderungsgesetz';
+  second.meta.id = second.meta.slug;
+  target.history.entries = [first, second].map((act) => ({
+    date: '2026-07-21',
+    type: 'amendment' as const,
+    title: `${act.meta.shortTitle} berücksichtigt`,
+    citation: 'Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 53)',
+    affectingVersionId: '2026-07-21',
+    relatedNorm: act.meta.slug,
+  }));
+
+  const relations = buildNormRelations([target, first, second]);
+  assert.equal(relations.get(target.meta.slug)?.filter((entry) => entry.kind === 'amended-by').length, 2);
+  assert.equal(relations.get(second.meta.slug)?.filter((entry) => entry.kind === 'amends').length, 1);
+  assert.equal(relations.get(second.meta.slug)?.find((entry) => entry.kind === 'amends')?.resultingVersionId, '2026-07-21');
+});
+
+test('Verfassung und Gemeindeordnung erfüllen die realen Herkunftsregressionen', async () => {
+  const norms = await loadAllNorms();
+  const constitution = norms.find((entry) => entry.meta.slug === 'staatsverfassung-des-freistaates-ostdeutschland');
+  const municipality = norms.find((entry) => entry.meta.slug === 'saechsische-gemeindeordnung');
+  assert.ok(constitution);
+  assert.ok(municipality);
+
+  const constitutionOrigin = getNormOriginInfo(constitution, norms);
+  const municipalityOrigin = getNormOriginInfo(municipality, norms);
+  assert.equal(constitutionOrigin.kind, 'ostdeutsch-original');
+  assert.equal(constitutionOrigin.baselineVersionId, undefined);
+  assert.equal(municipalityOrigin.kind, 'inherited-amended');
+  assert.equal(municipalityOrigin.baselineVersionId, '2023-11-01');
+  assert.equal(municipalityOrigin.ownAmendmentCount, 3);
+  assert.ok(municipality.versions.some((entry) => entry.versionId === '2023-12-31'));
+});
+
 test('redaktionell aufgelöste Quellenkonflikte sind vollständig und maschinenlesbar dokumentiert', () => {
   const read = (path: string) => JSON.parse(readFileSync(path, 'utf8'));
   const archiveMeta = read('content/normen/archivgesetz/meta.json');
@@ -201,6 +353,8 @@ function searchDocument(overrides: Partial<SearchIndexDocument> = {}): SearchInd
     isCurrent: true,
     versionKind: 'current',
     isAmendment: false,
+    origin: 'ostdeutsch-original',
+    originLabel: 'Eigenständig neu geschaffen',
     title: 'Straßen- und Krankenhausgesetz',
     shortTitle: 'Straßengesetz',
     abbr: 'StrG',
@@ -240,6 +394,7 @@ function searchState(overrides: Partial<NormSearchState> = {}): NormSearchState 
     ministries: [],
     subjects: [],
     statuses: [],
+    origins: [],
     versionScope: 'current',
     includeAmendments: false,
     geltungstag: '',
@@ -274,6 +429,7 @@ test('Suche verknüpft Facetten mit UND und mehrere Werte derselben Facette mit 
   assert.equal(runNormSearch(documents, searchState({ types: ['gesetz', 'verordnung'] })).length, 2);
   assert.equal(runNormSearch(documents, searchState({ types: ['gesetz'], publicationYears: ['2025'] })).length, 0);
   assert.equal(runNormSearch(documents, searchState({ versionScope: 'historical' })).length, 1);
+  assert.equal(runNormSearch(documents, searchState({ origins: ['inherited-amended'] })).length, 0);
   assert.equal(runNormSearch(documents, searchState()).some((entry) => entry.documentEntry.isAmendment), false);
   assert.equal(runNormSearch(documents, searchState({ includeAmendments: true })).length, 3);
 });

@@ -20,6 +20,7 @@ function searchState(q: string): NormSearchState {
     ministries: [],
     subjects: [],
     statuses: [],
+    origins: [],
     versionScope: 'current',
     includeAmendments: false,
     geltungstag: '',

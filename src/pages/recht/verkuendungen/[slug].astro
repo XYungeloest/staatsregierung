@@ -15,7 +15,9 @@ import {
   loadAllVerkuendungen,
   toDisplayText,
   classifyNormVersion,
+  buildNormRelations,
 } from '../../../lib/norms/index.ts';
+import type { NormRelation } from '../../../lib/norms/relations.ts';
 import { loadAllNorms } from '../../../lib/norms/content.ts';
 
 export async function getStaticPaths() {
@@ -30,6 +32,7 @@ export async function getStaticPaths() {
 const { publication } = Astro.props;
 const norms = await loadAllNorms();
 const normBySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
+const relationLookup = buildNormRelations(norms);
 
 function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
   if (!normSlug) {
@@ -45,6 +48,15 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
   return !version || classifyNormVersion(norm, version) === 'current'
     ? getNormUrl(normSlug)
     : getNormVersionUrl(normSlug, version.versionId);
+}
+
+function getResultingVersionUrl(relation: NormRelation): string | undefined {
+  if (!relation.resultingNorm || !relation.resultingVersionId) return undefined;
+  const version = relation.resultingNorm.versions.find((entry) => entry.versionId === relation.resultingVersionId);
+  if (!version) return undefined;
+  return classifyNormVersion(relation.resultingNorm, version) === 'current'
+    ? getNormUrl(relation.resultingNorm.meta.slug)
+    : getNormVersionUrl(relation.resultingNorm.meta.slug, version.versionId);
 }
 ---
 
@@ -105,6 +117,9 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
         <tbody>
           {publication.entries.map((entry) => {
             const normUrl = getEntryNormUrl(entry.normSlug, entry.versionId);
+            const legalRelations = entry.normSlug
+              ? (relationLookup.get(entry.normSlug) ?? []).filter((relation) => relation.kind === 'amends' || relation.kind === 'repeals')
+              : [];
 
             return (
               <tr id={entry.id}>
@@ -120,9 +135,25 @@ function getEntryNormUrl(normSlug: string | undefined, versionId: string | undef
                 <td>{formatPublicationEntryType(entry.type)}</td>
                 <td>
                   {normUrl ? (
-                    <a class="inline-link" href={normUrl}>
-                      {entry.versionId ? `Fassung ${entry.versionId}` : 'Norm öffnen'}
-                    </a>
+                    <>
+                      <a class="inline-link" href={normUrl}>
+                        {entry.versionId ? `Fassung ${entry.versionId}` : 'Norm öffnen'}
+                      </a>
+                      {legalRelations.length > 0 ? (
+                        <ul class="publication-relation-list">
+                          {legalRelations.map((relation) => {
+                            const resultingUrl = getResultingVersionUrl(relation);
+                            return (
+                              <li>
+                                {relation.kind === 'repeals' ? 'Hebt auf: ' : 'Ändert: '}
+                                <a class="inline-link" href={getNormUrl(relation.norm.meta.slug)}>{toDisplayText(relation.norm.meta.shortTitle || relation.norm.meta.title)}</a>
+                                {resultingUrl ? <> · <a class="inline-link" href={resultingUrl}>entstandene Fassung</a></> : null}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      ) : null}
+                    </>
                   ) : (
                     <span>Keine Normfassung zugeordnet</span>
                   )}

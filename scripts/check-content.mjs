@@ -810,6 +810,9 @@ for (const { file, json } of normMetaRecords) {
     if (json[relationField] && !normSlugs.has(json[relationField])) {
       addProblem(file, `${relationField} verweist auf unbekannte Norm: ${json[relationField]}`);
     }
+    if (json[relationField] === json.slug) {
+      addProblem(file, `${relationField} darf nicht auf die Vorschrift selbst verweisen`);
+    }
   }
   if (json.publicationDate && !json.documentDate && !json.dateNote) {
     addProblem(file, 'publicationDate ist gesetzt, aber documentDate oder eine begründete dateNote fehlt');
@@ -824,49 +827,41 @@ for (const { file, json } of normMetaRecords) {
     addProblem(file, 'repealed setzt ein Außerkrafttreten am oder vor dem Stichtag voraus');
   }
 
-  for (const [relation, inverse] of [['enactedNorm', 'enactingNorm']]) {
+  for (const relation of ['enactedNorm', 'enactingNorm']) {
     const targetSlug = json[relation];
     if (!targetSlug) continue;
     const target = normMetaBySlug.get(targetSlug);
     if (!target) {
       addProblem(file, `${relation} verweist auf unbekannte Norm: ${targetSlug}`);
-    } else if (target[inverse] !== json.slug) {
-      addProblem(file, `${relation} ist bei ${targetSlug} nicht wechselseitig als ${inverse} hinterlegt`);
     }
+    if (targetSlug === json.slug) addProblem(file, `${relation} darf nicht auf die Vorschrift selbst verweisen`);
   }
   for (const targetSlug of json.enactedNorms ?? []) {
     const target = normMetaBySlug.get(targetSlug);
     if (!target) {
       addProblem(file, `enactedNorms verweist auf unbekannte Norm: ${targetSlug}`);
-    } else if (target.enactingNorm !== json.slug) {
-      addProblem(file, `enactedNorms ist bei ${targetSlug} nicht wechselseitig als enactingNorm hinterlegt`);
     }
+    if (targetSlug === json.slug) addProblem(file, 'enactedNorms darf die Vorschrift selbst nicht enthalten');
   }
   for (const targetSlug of json.relatedNorms ?? []) {
     if (!normSlugs.has(targetSlug)) {
       addProblem(file, `relatedNorms verweist auf unbekannte Norm: ${targetSlug}`);
     }
-  }
-  if (json.enactingNorm) {
-    const parent = normMetaBySlug.get(json.enactingNorm);
-    const reciprocal = parent?.enactedNorm === json.slug || parent?.enactedNorms?.includes(json.slug);
-    if (parent && !reciprocal) addProblem(file, `enactingNorm ist bei ${json.enactingNorm} nicht wechselseitig hinterlegt`);
+    if (targetSlug === json.slug) addProblem(file, 'relatedNorms darf die Vorschrift selbst nicht enthalten');
   }
   for (const targetSlug of json.affectedNorms ?? []) {
     const target = normMetaBySlug.get(targetSlug);
     if (!target) {
       addProblem(file, `affectedNorms verweist auf unbekannte Norm: ${targetSlug}`);
-    } else if (!target.affectedByNorms?.includes(json.slug)) {
-      addProblem(file, `affectedNorms ist bei ${targetSlug} nicht wechselseitig als affectedByNorms hinterlegt`);
     }
+    if (targetSlug === json.slug) addProblem(file, 'affectedNorms darf die Vorschrift selbst nicht enthalten');
   }
   for (const amendmentSlug of json.affectedByNorms ?? []) {
     const amendment = normMetaBySlug.get(amendmentSlug);
     if (!amendment) {
       addProblem(file, `affectedByNorms verweist auf unbekannte Norm: ${amendmentSlug}`);
-    } else if (!amendment.affectedNorms?.includes(json.slug)) {
-      addProblem(file, `affectedByNorms ist bei ${amendmentSlug} nicht wechselseitig als affectedNorms hinterlegt`);
     }
+    if (amendmentSlug === json.slug) addProblem(file, 'affectedByNorms darf die Vorschrift selbst nicht enthalten');
   }
 }
 
@@ -884,9 +879,8 @@ for (const { file, json } of byPrefix('normen/').filter(({ file }) => basename(f
     const amendment = normMetaBySlug.get(entry.relatedNorm);
     if (!amendment) {
       addProblem(file, `entries[${index}].relatedNorm verweist auf unbekannte Norm: ${entry.relatedNorm}`);
-    } else if (entry.type === 'amendment' && !amendment.affectedNorms?.includes(normSlug)) {
-      addProblem(file, `entries[${index}].relatedNorm ist nicht wechselseitig über affectedNorms verknüpft`);
     }
+    if (entry.relatedNorm === normSlug) addProblem(file, `entries[${index}].relatedNorm darf nicht auf die Vorschrift selbst verweisen`);
   }
 }
 

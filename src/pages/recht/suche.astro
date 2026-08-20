@@ -146,6 +146,15 @@ const searchPayload = await buildSearchIndexPayload();
         </label>
 
         <label class="search-field">
+          <span>Rechtsherkunft</span>
+          <select name="origin" multiple size="5" aria-describedby="multiple-filter-hint" data-search-filter="origin" data-search-facet="origin">
+            {searchPayload.filters.origins.map((option) => (
+              <option value={option.value} data-base-label={option.label}>{option.label}</option>
+            ))}
+          </select>
+        </label>
+
+        <label class="search-field">
           <span>Fassung</span>
           <select name="versionScope" data-search-filter="versionScope">
             <option value="current" selected>Zum Stichtag geltende Fassungen</option>

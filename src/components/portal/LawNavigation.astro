@@ -3,6 +3,7 @@ import SectionNavigation from './SectionNavigation.astro';
 import {
   getIndexUrl,
   getLawPortalUrl,
+  getLawDevelopmentOverviewUrl,
   getPublicationsUrl,
   getReferencesUrl,
   getSearchUrl,
@@ -16,6 +17,7 @@ import {
   items={[
     { label: 'Überblick', href: getLawPortalUrl() },
     { label: 'Suche', href: getSearchUrl() },
+    { label: 'Rechtsentwicklung', href: getLawDevelopmentOverviewUrl() },
     { label: 'Sachgebiete', href: getSubjectsUrl() },
     { label: 'A–Z', href: getIndexUrl() },
     { label: 'Verkündungen', href: getPublicationsUrl() },

@@ -24,6 +24,11 @@ import {
   EDITORIAL_REFERENCE_DATE,
   type VersionTemporalKind,
 } from './versions.ts';
+import {
+  formatNormOriginKind,
+  getNormOriginInfo,
+  type NormOriginKind,
+} from './origin.ts';
 
 export interface SearchIndexDocument {
   id: string;
@@ -34,6 +39,8 @@ export interface SearchIndexDocument {
   isCurrent: boolean;
   versionKind: VersionTemporalKind;
   isAmendment: boolean;
+  origin: NormOriginKind;
+  originLabel: string;
   title: string;
   shortTitle: string;
   abbr: string;
@@ -79,6 +86,7 @@ export interface SearchFilterOptions {
   ministries: string[];
   subjects: string[];
   statuses: Array<{ value: string; label: string }>;
+  origins: Array<{ value: NormOriginKind; label: string }>;
   versionKinds: Array<{ value: VersionTemporalKind; label: string }>;
   publications: string[];
   years: string[];
@@ -237,6 +245,7 @@ function buildSearchDocument(
       ].map(toDisplayText)
     : [];
   const versionKind = classifyNormVersion(record, version);
+  const origin = getNormOriginInfo(record, [...recordsBySlug.values()]);
   const isApplicableCurrentVersion = versionKind === 'current';
   const resultLabel = versionKind === 'future'
     ? `Zukünftige Fassung ab ${formatDate(version.validFrom)}`
@@ -257,6 +266,8 @@ function buildSearchDocument(
     isCurrent: isApplicableCurrentVersion,
     versionKind,
     isAmendment: isAmendmentRecord(record),
+    origin: origin.kind,
+    originLabel: formatNormOriginKind(origin.kind),
     title: toDisplayText(record.meta.title),
     shortTitle: toDisplayText(record.meta.shortTitle),
     abbr: toDisplayText(record.meta.abbr),
@@ -318,6 +329,12 @@ function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
     statuses: [...statuses.entries()]
       .map(([value, label]) => ({ value, label }))
       .sort(compareLabelValuePairs),
+    origins: ([
+      'ostdeutsch-original',
+      'inherited-amended',
+      'inherited-unchanged',
+      'origin-unresolved',
+    ] as NormOriginKind[]).map((value) => ({ value, label: formatNormOriginKind(value) })),
     versionKinds: [
       { value: 'current', label: 'Zum Stichtag geltend' },
       { value: 'future', label: 'Zukünftige Fassungen' },

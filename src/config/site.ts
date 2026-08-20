@@ -61,6 +61,7 @@ export const siteConfig = {
     lawReferences: '/recht/fundstellen/',
     lawPublications: '/recht/verkuendungen/',
     lawConstitution: '/recht/verfassung/',
+    lawDevelopment: '/recht/rechtsentwicklung/',
     lawHelp: '/recht/hilfe/',
     contact: '/service/kontakt/',
     easyLanguage: '/service/leichte-sprache/',
