@@ -1,7 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { loadAllNorms } from '../src/lib/norms/loader.ts';
 import {
   getRelatedNormRecommendations,
   type NormRelationKind,
@@ -96,17 +95,4 @@ test('ausdrückliche und textliche Beziehungen werden nachvollziehbar bezeichnet
 
   assert.equal(relations.get('aenderung'), 'ändert');
   assert.equal(relations.get('ausfuehrung'), 'führt aus');
-});
-
-test('beim Bildungsfreistellungsgesetz erscheinen keine zufälligen Ressortempfehlungen', async () => {
-  const norms = await loadAllNorms();
-  const source = norms.find(
-    (entry) =>
-      entry.meta.slug ===
-      'gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland',
-  );
-  assert.ok(source);
-
-  const slugs = getRelatedNormRecommendations(source, norms).map((entry) => entry.norm.meta.slug);
-  assert.ok(!slugs.some((slug) => /auszeichnung|familienstartdarlehen|meisterkredit/u.test(slug)));
 });

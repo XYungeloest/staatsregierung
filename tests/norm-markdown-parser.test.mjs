@@ -111,15 +111,6 @@ test('Markdown-only-Änderungsverordnung kapselt den eingefügten Paragraphen al
   assert.match(JSON.stringify(parsed.body.find((block) => block.label === 'Artikel 2')), /Diese Verordnung tritt am Tage ihrer Verkündung in Kraft/u);
 });
 
-test('Orts- und Unterschriftsblock entfernt nicht den letzten Normsatz', async () => {
-  const fileName = 'OGVBl. 2026 Nr. 44.md';
-  const markdown = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
-  const parsed = parsePublicationMarkdown(fileName, markdown);
-  const finalParagraph = parsed.body.find((block) => block.label === '§ 10');
-  assert.ok(finalParagraph);
-  assert.match(JSON.stringify(finalParagraph), /Die Staatsregierung kann das Außerkrafttreten durch Rechtsverordnung um höchstens vierzehn Tage hinausschieben/u);
-});
-
 test('Ausgabe 55 bewahrt verschachtelte Änderungsanweisungen und Zitate', async () => {
   const parsed = await issue(55);
   assert.match(bodyText(parsed), /Artikel 12b/u);

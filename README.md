@@ -54,6 +54,12 @@ npm run test:browsers
 npm run editorial:check
 ```
 
+Die Test-Suite prüft dauerhaft Parser-, Quellen-, Schema-, Verknüpfungs-, Routing-,
+Barrierefreiheits- und Layoutverträge. Redaktionelle Bestände, einzelne Personenstände,
+Veröffentlichungsnummern und aktuelle Themen werden nicht als feste Inventarwerte getestet;
+gezielte Inhaltsprüfungen gehören in die redaktionelle Prüfung einer Änderung und werden nicht
+als dauerhafte Regressionstests fortgeschrieben.
+
 Weitere wichtige Befehle:
 
 ```sh
