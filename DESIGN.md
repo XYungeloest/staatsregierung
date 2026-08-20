@@ -138,9 +138,11 @@ Die Fassungsnavigation trennt die dauerhaften Hauptansichten „Vorschrift“,
 „Normenhistorie“ und „Fassungsvergleich“ von den gespeicherten Fassungen. Die
 Fassungen stehen in einem kompakten, ohne JavaScript bedienbaren
 `details`-Wähler und sind nach geltend, historisch, zukünftig und ungeklärtem
-Inkrafttreten gruppiert. Im Fassungsvergleich werden größere Änderungen
-strukturell und satzweise als getrennte Blöcke „Bisher“ und „Neu“ dargestellt;
-Ein-Wort-Wechsel sind nicht die Standarddarstellung.
+Inkrafttreten gruppiert. Der Fassungsvergleich stellt geänderte Einheiten auf breiten Bildschirmen
+nebeneinander als „Bisher“ und „Neu“ dar und stapelt beide Seiten auf kleinen Bildschirmen.
+Wortgenaue Hervorhebungen ergänzen die vollständigen Textseiten; Überschriftenänderungen bleiben
+gesondert sichtbar. Eine kompakte Zusammenfassung nennt geänderte, neue, entfallene und
+unveränderte Struktureinheiten.
 
 Paragraphen- und Artikelüberschriften bleiben typografisch hervorgehoben.
 Absatz-, Nummern- und Buchstabenkennzeichnungen gehören dagegen zum Fließtext
@@ -159,6 +161,9 @@ Sprungziele. Einzeldruck und kopierbare Stellenlinks gehören zur jeweiligen Gli
 
 Fassungsvergleiche stellen Änderungen als gegliederte Liste dar. `ins` und `del`, Klartextlabels
 und unterschiedliche Flächen ergänzen sich, sodass Farbe nie die einzige Unterscheidung ist.
+Schnelleinstiege führen zur vorherigen und, soweit belegt, zur übernommenen Ausgangsfassung; eine
+freie Auswahl bleibt möglich. Herkunftshinweise und gerichtete Rechtsbeziehungen stehen sachlich
+bei den Fassungs- und Historienangaben und verwenden auf allen Rechtsseiten dieselbe Benennung.
 Quellen- und Druckangebote bilden einen eigenen sachlichen Abschnitt unter dem Normtext.
 
 Breite Tabellen und Fachgrafiken erhalten klar abgegrenzte Scrollbereiche. Ihre wesentlichen

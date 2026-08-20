@@ -30,6 +30,8 @@ const overflowPages = [
   '/recht/norm/staatsverfassung-des-freistaates-ostdeutschland/',
   '/recht/norm/erstes-gesetz-zur-grossen-staatsreform/',
   '/recht/norm/saechsische-gemeindeordnung/',
+  '/recht/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01',
+  '/recht/rechtsentwicklung/',
   '/recht/norm/ostdeutsche-bezirksordnung/',
   '/recht/norm/sero-verordnung/',
   '/themen/energie-und-klima/',

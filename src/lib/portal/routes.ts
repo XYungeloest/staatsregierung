@@ -207,6 +207,10 @@ export function getLawConstitutionUrl(): string {
   return getSiteUrl('lawConstitution');
 }
 
+export function getLawDevelopmentUrl(): string {
+  return getSiteUrl('lawDevelopment');
+}
+
 export function getLawHelpUrl(): string {
   return getSiteUrl('lawHelp');
 }

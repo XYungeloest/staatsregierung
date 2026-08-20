@@ -3,6 +3,7 @@ import {
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
+  getLawDevelopmentUrl,
   getLawFundingUrl,
   getLawHomeUrl,
   getLawHelpUrl,
@@ -79,11 +80,33 @@ export function getLawPortalUrl(): string {
   return getLawHomeUrl();
 }
 
+export function getLawDevelopmentOverviewUrl(): string {
+  return getLawDevelopmentUrl();
+}
+
+export function getNormCompareSelectionUrl(
+  slug: string,
+  fromVersionId: string,
+  toVersionId: string,
+): string {
+  const params = new URLSearchParams({ von: fromVersionId, bis: toVersionId });
+  return `${getNormCompareUrl(slug)}?${params}`;
+}
+
+export function getNormCompareDataUrl(
+  slug: string,
+  fromVersionId: string,
+  toVersionId: string,
+): string {
+  return withBase(`/recht/norm/${slug}/vergleich/${fromVersionId}/${toVersionId}.json`);
+}
+
 export {
   getAccessibilityUrl,
   getHomeUrl,
   getImprintUrl,
   getLawConstitutionUrl,
+  getLawDevelopmentUrl,
   getLawFundingUrl,
   getLawHelpUrl,
   getLawPublicationsUrl,

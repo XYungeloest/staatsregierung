@@ -3,16 +3,25 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
 import SectionHero from '../../../../components/portal/SectionHero.astro';
-import { buildStructuralVersionDiff } from '../../../../lib/norms/diff.ts';
+import {
+  buildStructuralVersionDiff,
+  summarizeNormDiff,
+  type NormDiffUnit,
+} from '../../../../lib/norms/diff.ts';
 import {
   formatDate,
+  formatNormOriginKind,
+  getBaselineVersion,
   getHomeUrl,
   getLawPortalUrl,
+  getNormCompareDataUrl,
+  getNormCompareSelectionUrl,
   getNormCompareUrl,
+  getNormOriginInfo,
   getNormUrl,
   toDisplayText,
 } from '../../../../lib/norms/index.ts';
-import { loadAllNorms } from '../../../../lib/norms/content.ts';
+import { getCurrentVersion, loadAllNorms } from '../../../../lib/norms/content.ts';
 
 export async function getStaticPaths() {
   const norms = await loadAllNorms();
@@ -23,31 +32,36 @@ export async function getStaticPaths() {
       const versions = [...norm.versions].sort((left, right) =>
         left.validFrom.localeCompare(right.validFrom),
       );
-      const pairs = versions.flatMap((fromVersion) =>
-        versions.filter((toVersion) => toVersion.versionId !== fromVersion.versionId).map((toVersion) => ({
-          fromVersion,
-          toVersion,
-          diff: buildStructuralVersionDiff(fromVersion, toVersion),
-        })),
-      );
+      const defaultTo = getCurrentVersion(norm);
+      const defaultToIndex = versions.findIndex((version) => version.versionId === defaultTo.versionId);
+      const defaultFrom = versions[Math.max(0, defaultToIndex - 1)] ?? versions[0];
+      const defaultDiff = buildStructuralVersionDiff(defaultFrom, defaultTo);
 
       return {
         params: { slug: norm.meta.slug },
         props: {
           norm,
           versions,
-          pairs,
-          defaultFrom: versions.at(-2)!,
-          defaultTo: versions.at(-1)!,
+          defaultFrom,
+          defaultTo,
+          defaultDiff,
+          defaultSummary: summarizeNormDiff(defaultDiff),
+          origin: getNormOriginInfo(norm, norms),
         },
       };
     });
 }
 
-const { norm, versions, pairs, defaultFrom, defaultTo } = Astro.props;
+const { norm, versions, defaultFrom, defaultTo, defaultDiff, defaultSummary, origin } = Astro.props;
 const normTitle = toDisplayText(norm.meta.title);
 const normSeoTitle = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
+const baselineVersion = getBaselineVersion(norm);
 const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
+
+function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
+  return (unit.textDiff ?? [])
+    .filter((chunk) => chunk.kind === 'same' || (side === 'before' ? chunk.kind === 'delete' : chunk.kind === 'insert'));
+}
 ---
 
 <BaseLayout
@@ -75,20 +89,37 @@ const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
     titleSize="long"
     lead="Gespeicherte Fassungen strukturell vergleichen. Maßgeblich bleiben die einzeln gespeicherten Normfassungen."
     variant="law"
+    facts={[{ label: 'Rechtsherkunft', value: formatNormOriginKind(origin.kind) }]}
   />
   <NormVersionNavigation norm={norm} currentPage="compare" />
 
   <section class="section norm-compare" data-version-compare>
     <div class="section-header">
-      <h2>Fassungen auswählen</h2>
-      <p>Die Auswahl wird über die Parameter <code>von</code> und <code>bis</code> in der URL festgehalten.</p>
+      <h2>Vergleichsweg wählen</h2>
+      <p>Schnelleinstiege und freie Auswahl führen zu reproduzierbaren Vergleichsadressen.</p>
     </div>
+    <nav class="norm-compare__quick-links" aria-label="Schnelleinstiege zum Fassungsvergleich">
+      <a class="button-link button-link--secondary" href={getNormCompareSelectionUrl(norm.meta.slug, defaultFrom.versionId, defaultTo.versionId)}>
+        Änderungen zur vorherigen Fassung
+      </a>
+      {baselineVersion && baselineVersion.versionId !== defaultTo.versionId ? (
+        <a class="button-link button-link--secondary" href={getNormCompareSelectionUrl(norm.meta.slug, baselineVersion.versionId, defaultTo.versionId)}>
+          Mit Ausgangsrecht vergleichen
+        </a>
+      ) : null}
+    </nav>
+
+    <h3>Fassungen frei vergleichen</h3>
     <form class="norm-compare__form" action={getNormCompareUrl(norm.meta.slug)} method="get" data-compare-form>
       <label class="search-field">
-        <span>Ausgangsfassung</span>
+        <span>Frühere oder Ausgangsfassung</span>
         <select name="von" data-compare-from>
           {versions.map((version) => (
-            <option value={version.versionId} selected={version.versionId === defaultFrom.versionId}>
+            <option
+              value={version.versionId}
+              selected={version.versionId === defaultFrom.versionId}
+              data-diff-prefix={getNormCompareDataUrl(norm.meta.slug, version.versionId, '__TO__')}
+            >
               {formatDate(version.validFrom)} · {toDisplayText(version.changeNote)}
             </option>
           ))}
@@ -109,108 +140,192 @@ const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
 
     <p class="status-line" data-compare-feedback aria-live="polite"></p>
 
-    {pairs.map(({ fromVersion, toVersion, diff }) => {
-      const pairKey = `${fromVersion.versionId}::${toVersion.versionId}`;
-      return (
-        <section
-          class="norm-diff"
-          data-compare-pair={pairKey}
-          hidden={pairKey !== defaultPairKey}
-          aria-label={`Vergleich ${formatDate(fromVersion.validFrom)} mit ${formatDate(toVersion.validFrom)}`}
-        >
-          <header class="norm-diff__header">
-            <h3>
-              <time datetime={fromVersion.validFrom}>{formatDate(fromVersion.validFrom)}</time>
-              {' '}mit{' '}
-              <time datetime={toVersion.validFrom}>{formatDate(toVersion.validFrom)}</time>
-            </h3>
-            <p>
-              <span class="diff-key diff-key--added">Hinzugefügt</span>
-              <span class="diff-key diff-key--removed">Entfernt</span>
-              <span class="diff-key diff-key--changed">Geändert</span>
+    <section
+      class="norm-diff"
+      data-compare-output
+      data-compare-pair={defaultPairKey}
+      aria-label={`Vergleich ${formatDate(defaultFrom.validFrom)} mit ${formatDate(defaultTo.validFrom)}`}
+    >
+      <header class="norm-diff__header">
+        <div>
+          <h3>
+            <time datetime={defaultFrom.validFrom}>{formatDate(defaultFrom.validFrom)}</time>
+            {' '}mit{' '}
+            <time datetime={defaultTo.validFrom}>{formatDate(defaultTo.validFrom)}</time>
+          </h3>
+          <p class="detail-line">Strukturelle Einheiten der beiden gespeicherten Fassungen.</p>
+        </div>
+        <p>
+          <span class="diff-key diff-key--added">Neu</span>
+          <span class="diff-key diff-key--removed">Entfallen</span>
+          <span class="diff-key diff-key--changed">Geändert</span>
+        </p>
+      </header>
+      <dl class="norm-diff__summary" aria-label="Zusammenfassung des Fassungsvergleichs">
+        <div><dt>Geändert</dt><dd>{defaultSummary.changed}</dd></div>
+        <div><dt>Neu</dt><dd>{defaultSummary.added}</dd></div>
+        <div><dt>Entfallen</dt><dd>{defaultSummary.removed}</dd></div>
+        <div><dt>Unverändert</dt><dd>{defaultSummary.unchanged}</dd></div>
+      </dl>
+      <ol class="norm-diff__list">
+        {defaultDiff.filter((unit) => unit.kind !== 'unchanged').map((unit) => (
+          <li class:list={['norm-diff__unit', `norm-diff__unit--${unit.kind}`]}>
+            <h4>{[unit.label, unit.afterTitle || unit.beforeTitle || unit.contextTitle].filter(Boolean).join(' ') || 'Textänderung'}</h4>
+            <p class="visually-hidden">
+              {unit.kind === 'added' ? 'Neue Einheit' : unit.kind === 'removed' ? 'Entfallene Einheit' : 'Geänderte Einheit'}
             </p>
-          </header>
-          <ol class="norm-diff__list">
-            {diff.filter((unit) => unit.kind !== 'unchanged').map((unit) => (
-              <li class:list={['norm-diff__unit', `norm-diff__unit--${unit.kind}`]}>
-                <h4>{[unit.label, unit.afterTitle || unit.beforeTitle].filter(Boolean).join(' ')}</h4>
-                <p class="visually-hidden">
-                  {unit.kind === 'added' ? 'Hinzugefügte Einheit' : unit.kind === 'removed' ? 'Entfernte Einheit' : 'Geänderte Einheit'}
-                </p>
-                {unit.kind === 'added' ? <p><ins>{unit.afterText}</ins></p> : null}
-                {unit.kind === 'removed' ? <p><del>{unit.beforeText}</del></p> : null}
-                {unit.kind === 'changed' ? (
-                  <>
-                    {unit.beforeTitle !== unit.afterTitle ? (
-                      <p class="norm-diff__title-change">
-                        Überschrift: <del>{unit.beforeTitle}</del> <ins>{unit.afterTitle}</ins>
-                      </p>
-                    ) : null}
-                    <div class="norm-diff__sentences">
-                      {unit.sentenceChanges?.map((change) => (
-                        change.kind === 'unchanged' ? <p>{change.before}</p> : (
-                          <div class="norm-diff__change">
-                            {change.before ? <p><strong>Bisher</strong><del>{change.before}</del></p> : null}
-                            {change.after ? <p><strong>Neu</strong><ins>{change.after}</ins></p> : null}
-                          </div>
-                        )
-                      ))}
-                    </div>
-                  </>
+            {unit.kind === 'added' ? <p><ins>{unit.afterText}</ins></p> : null}
+            {unit.kind === 'removed' ? <p><del>{unit.beforeText}</del></p> : null}
+            {unit.kind === 'changed' ? (
+              <>
+                {unit.beforeTitle !== unit.afterTitle ? (
+                  <div class="norm-diff__change norm-diff__title-change">
+                    <p><strong>Bisherige Überschrift</strong><del>{unit.beforeTitle}</del></p>
+                    <p><strong>Neue Überschrift</strong><ins>{unit.afterTitle}</ins></p>
+                  </div>
                 ) : null}
-              </li>
-            ))}
-          </ol>
-          {diff.every((unit) => unit.kind === 'unchanged') ? <p>Zwischen diesen Fassungen wurden keine strukturellen Textänderungen erkannt.</p> : null}
-        </section>
-      );
-    })}
+                {unit.beforeText !== unit.afterText ? (
+                  <div class="norm-diff__change norm-diff__change--columns">
+                    <p>
+                      <strong>Bisher</strong>
+                      <span class="norm-diff__text-side">
+                        {unit.textDiff ? renderDiffText(unit, 'before').map((chunk) => chunk.kind === 'delete' ? <del>{chunk.text}</del> : chunk.text) : <del>{unit.beforeText}</del>}
+                      </span>
+                    </p>
+                    <p>
+                      <strong>Neu</strong>
+                      <span class="norm-diff__text-side">
+                        {unit.textDiff ? renderDiffText(unit, 'after').map((chunk) => chunk.kind === 'insert' ? <ins>{chunk.text}</ins> : chunk.text) : <ins>{unit.afterText}</ins>}
+                      </span>
+                    </p>
+                  </div>
+                ) : null}
+              </>
+            ) : null}
+          </li>
+        ))}
+      </ol>
+      {defaultDiff.every((unit) => unit.kind === 'unchanged') ? <p>Zwischen diesen Fassungen wurden keine strukturellen Textänderungen erkannt.</p> : null}
+    </section>
   </section>
 
   <script>
-    const form = document.querySelector<HTMLFormElement>('[data-compare-form]');
-    const fromSelect = document.querySelector<HTMLSelectElement>('[data-compare-from]');
-    const toSelect = document.querySelector<HTMLSelectElement>('[data-compare-to]');
-    const feedback = document.querySelector<HTMLElement>('[data-compare-feedback]');
-    const pairs = Array.from(document.querySelectorAll<HTMLElement>('[data-compare-pair]'));
+    type DiffChunk = { kind: 'same' | 'insert' | 'delete'; text: string };
+    type DiffUnit = {
+      kind: 'added' | 'removed' | 'changed' | 'unchanged';
+      label: string;
+      beforeTitle?: string;
+      afterTitle?: string;
+      contextTitle?: string;
+      beforeText?: string;
+      afterText?: string;
+      textDiff?: DiffChunk[];
+    };
+    type DiffPayload = {
+      fromVersion: { versionId: string; validFrom: string };
+      toVersion: { versionId: string; validFrom: string };
+      summary: Record<'changed' | 'added' | 'removed' | 'unchanged', number>;
+      diff: DiffUnit[];
+    };
 
-    function showPair(updateUrl = false): void {
-      if (!form || !fromSelect || !toSelect) return;
-      const key = `${fromSelect.value}::${toSelect.value}`;
-      const selected = pairs.find((entry) => entry.dataset.comparePair === key);
-      pairs.forEach((entry) => {
-        entry.hidden = entry !== selected;
-      });
-      if (feedback) {
-        feedback.textContent = selected
-          ? ''
-          : 'Bitte wählen Sie zwei unterschiedliche gespeicherte Fassungen.';
-      }
-      if (updateUrl && selected) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('von', fromSelect.value);
-        url.searchParams.set('bis', toSelect.value);
-        window.history.pushState({}, '', url);
-      }
-    }
+    const root = document.querySelector<HTMLElement>('[data-version-compare]');
+    const form = root?.querySelector<HTMLFormElement>('[data-compare-form]');
+    const fromSelect = root?.querySelector<HTMLSelectElement>('[data-compare-from]');
+    const toSelect = root?.querySelector<HTMLSelectElement>('[data-compare-to]');
+    const feedback = root?.querySelector<HTMLElement>('[data-compare-feedback]');
+    const output = root?.querySelector<HTMLElement>('[data-compare-output]');
+    const dateFormatter = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
-    if (form && fromSelect && toSelect) {
+    const escapeHtml = (value = '') => value
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;');
+    const formatClientDate = (value: string) => {
+      const [year, month, day] = value.split('-').map(Number);
+      return dateFormatter.format(new Date(Date.UTC(year, month - 1, day)));
+    };
+    const renderWordSide = (unit: DiffUnit, side: 'before' | 'after') => {
+      if (!unit.textDiff) {
+        const value = escapeHtml(side === 'before' ? unit.beforeText : unit.afterText);
+        return side === 'before' ? `<del>${value}</del>` : `<ins>${value}</ins>`;
+      }
+      return unit.textDiff
+        .filter((chunk) => chunk.kind === 'same' || (side === 'before' ? chunk.kind === 'delete' : chunk.kind === 'insert'))
+        .map((chunk) => {
+          const value = escapeHtml(chunk.text);
+          if (chunk.kind === 'delete') return `<del>${value}</del>`;
+          if (chunk.kind === 'insert') return `<ins>${value}</ins>`;
+          return value;
+        }).join('');
+    };
+    const renderUnit = (unit: DiffUnit) => {
+      if (unit.kind === 'unchanged') return '';
+      const heading = escapeHtml([unit.label, unit.afterTitle || unit.beforeTitle || unit.contextTitle].filter(Boolean).join(' ') || 'Textänderung');
+      const label = unit.kind === 'added' ? 'Neue Einheit' : unit.kind === 'removed' ? 'Entfallene Einheit' : 'Geänderte Einheit';
+      let body = '';
+      if (unit.kind === 'added') body = `<p><ins>${escapeHtml(unit.afterText)}</ins></p>`;
+      if (unit.kind === 'removed') body = `<p><del>${escapeHtml(unit.beforeText)}</del></p>`;
+      if (unit.kind === 'changed') {
+        if (unit.beforeTitle !== unit.afterTitle) {
+          body += `<div class="norm-diff__change norm-diff__title-change"><p><strong>Bisherige Überschrift</strong><del>${escapeHtml(unit.beforeTitle)}</del></p><p><strong>Neue Überschrift</strong><ins>${escapeHtml(unit.afterTitle)}</ins></p></div>`;
+        }
+        if (unit.beforeText !== unit.afterText) {
+          body += `<div class="norm-diff__change norm-diff__change--columns"><p><strong>Bisher</strong><span class="norm-diff__text-side">${renderWordSide(unit, 'before')}</span></p><p><strong>Neu</strong><span class="norm-diff__text-side">${renderWordSide(unit, 'after')}</span></p></div>`;
+        }
+      }
+      return `<li class="norm-diff__unit norm-diff__unit--${unit.kind}"><h4>${heading}</h4><p class="visually-hidden">${label}</p>${body}</li>`;
+    };
+    const renderPayload = (payload: DiffPayload) => {
+      if (!output) return;
+      const changedUnits = payload.diff.filter((unit) => unit.kind !== 'unchanged');
+      output.dataset.comparePair = `${payload.fromVersion.versionId}::${payload.toVersion.versionId}`;
+      output.setAttribute('aria-label', `Vergleich ${formatClientDate(payload.fromVersion.validFrom)} mit ${formatClientDate(payload.toVersion.validFrom)}`);
+      output.innerHTML = `
+        <header class="norm-diff__header"><div><h3><time datetime="${escapeHtml(payload.fromVersion.validFrom)}">${escapeHtml(formatClientDate(payload.fromVersion.validFrom))}</time> mit <time datetime="${escapeHtml(payload.toVersion.validFrom)}">${escapeHtml(formatClientDate(payload.toVersion.validFrom))}</time></h3><p class="detail-line">Strukturelle Einheiten der beiden gespeicherten Fassungen.</p></div><p><span class="diff-key diff-key--added">Neu</span><span class="diff-key diff-key--removed">Entfallen</span><span class="diff-key diff-key--changed">Geändert</span></p></header>
+        <dl class="norm-diff__summary" aria-label="Zusammenfassung des Fassungsvergleichs"><div><dt>Geändert</dt><dd>${payload.summary.changed}</dd></div><div><dt>Neu</dt><dd>${payload.summary.added}</dd></div><div><dt>Entfallen</dt><dd>${payload.summary.removed}</dd></div><div><dt>Unverändert</dt><dd>${payload.summary.unchanged}</dd></div></dl>
+        <ol class="norm-diff__list">${changedUnits.map(renderUnit).join('')}</ol>
+        ${changedUnits.length === 0 ? '<p>Zwischen diesen Fassungen wurden keine strukturellen Textänderungen erkannt.</p>' : ''}`;
+    };
+    const loadPair = async (updateUrl = false) => {
+      if (!fromSelect || !toSelect || !output) return;
+      if (fromSelect.value === toSelect.value) {
+        if (feedback) feedback.textContent = 'Bitte wählen Sie zwei unterschiedliche gespeicherte Fassungen.';
+        return;
+      }
+      const pairKey = `${fromSelect.value}::${toSelect.value}`;
+      if (feedback) feedback.textContent = 'Vergleich wird geladen.';
+      try {
+        if (output.dataset.comparePair !== pairKey) {
+          const prefix = fromSelect.selectedOptions[0]?.dataset.diffPrefix ?? '';
+          const response = await fetch(prefix.replace('__TO__', encodeURIComponent(toSelect.value)));
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          renderPayload(await response.json() as DiffPayload);
+        }
+        if (feedback) feedback.textContent = '';
+        if (updateUrl) {
+          const url = new URL(window.location.href);
+          url.searchParams.set('von', fromSelect.value);
+          url.searchParams.set('bis', toSelect.value);
+          window.history.pushState({}, '', url);
+        }
+      } catch {
+        if (feedback) feedback.textContent = 'Der ausgewählte Vergleich konnte nicht geladen werden.';
+      }
+    };
+    const applyUrlSelection = () => {
+      if (!fromSelect || !toSelect) return;
       const params = new URLSearchParams(window.location.search);
       const from = params.get('von');
       const to = params.get('bis');
       if (from && Array.from(fromSelect.options).some((option) => option.value === from)) fromSelect.value = from;
       if (to && Array.from(toSelect.options).some((option) => option.value === to)) toSelect.value = to;
-      showPair();
-      form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        showPair(true);
-      });
-      window.addEventListener('popstate', () => {
-        const next = new URLSearchParams(window.location.search);
-        fromSelect.value = next.get('von') ?? fromSelect.value;
-        toSelect.value = next.get('bis') ?? toSelect.value;
-        showPair();
-      });
+    };
+    if (form && fromSelect && toSelect) {
+      applyUrlSelection();
+      void loadPair();
+      form.addEventListener('submit', (event) => { event.preventDefault(); void loadPair(true); });
+      window.addEventListener('popstate', () => { applyUrlSelection(); void loadPair(); });
     }
   </script>
 </BaseLayout>

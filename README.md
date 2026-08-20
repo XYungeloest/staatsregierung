@@ -17,8 +17,8 @@ Quellenfragen stehen in `CONTENT_GAPS.md`.
 - normalisierte Regierungsorganisation unter `content/organisation/`
 - getrenntes, Access-geschütztes Git-Redaktionsstudio unter `/redaktion/`
 - interner Wissenshub unter `knowledge/`
-- Rechtsportal unter `/recht/` mit Normen, Fassungen, Historien, Sachgebieten, Fundstellen,
-  Verkündungen und Rechtssuche
+- Rechtsportal unter `/recht/` mit Normen, Fassungen, Historien, Rechtsherkunft,
+  Rechtsentwicklung, Sachgebieten, Fundstellen, Verkündungen und Rechtssuche
 
 Das Projekt ist eine politische Simulation. Es stellt keine echte amtliche Veröffentlichung dar.
 Der dafür notwendige Hinweis erscheint sichtbar in der oberen Hinweisleiste und im Footer. Das
@@ -180,12 +180,22 @@ Bestandsfeld erhalten und steuert keine öffentliche Bezeichnung mehr. Ein ausdr
 historisch oder aufgehoben geführter Datensatz bleibt auch bei einem noch nicht gespeicherten
 Intervallende historisch; die Oberfläche benennt das fehlende Enddatum dann ausdrücklich.
 
+`src/lib/norms/origin.ts` leitet die Rechtsherkunft einheitlich aus den gespeicherten Quellen- und
+Historienfeldern ab. Als übernommene Ausgangsfassung gilt nur eine am 1. November 2023 beginnende
+Fassung mit einem amtlichen REVOSax-Snapshot, dessen Quellenzeitraum diesen Tag umfasst.
+Ostdeutsche Änderungen werden aus datierten Änderungs- und Aufhebungseinträgen mit belegter
+ostdeutscher Verkündung beziehungsweise eindeutig verknüpfter Änderungsvorschrift bestimmt. Eine
+nach dem Ausgangsstichtag erstmals verkündete Norm wird nur bei eigener ostdeutscher
+Veröffentlichungsgrundlage als eigenständig neu geschaffen eingeordnet. Fehlt ein solcher Beleg,
+bleibt die Herkunft ausdrücklich ungeklärt. Die Einordnung wird für Normseiten, Fassungen, Suche
+und `/recht/rechtsentwicklung/` aus derselben Funktion erzeugt.
+
 Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
 Normlink ist dynamisch und führt zur am redaktionellen Stichtag geltenden Fassung. Gibt es noch
 keine geltende Fassung, zeigt er die nächste belegte zukünftige beziehungsweise die veröffentlichte
 Fassung mit ungeklärtem Inkrafttreten. Versionsspezifische Links bleiben unveränderlich. Die Suche
 verwendet standardmäßig geltende Fassungen; Fassungsart, Mehrfachfacetten, strukturierte
-Fundstellen und Präfix-Platzhalter mit `*` sind explizite Filter. Änderungsvorschriften werden
+Fundstellen, Rechtsherkunft und Präfix-Platzhalter mit `*` sind explizite Filter. Änderungsvorschriften werden
 über den Normtyp, belegte Einführungsbeziehungen oder eine eindeutige Änderungsbezeichnung im
 amtlichen Titel erkannt und standardmäßig getrennt angeboten.
 
@@ -205,11 +215,16 @@ Quellenkonflikts ein Normdatum, ergänzt die Zitierlogik kein vermeintlich einde
 - `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik
 - `src/config/law-subjects.ts`: redaktionelle Gruppierung der belegten Sachgebiete ohne erfundene Systemnummern
 - Der Rechtsbereich hat statische Einstiege für Suche, alphabetischen Index, Sachgebiete,
-  Fundstellennachweise, Verkündungen, Förderrichtlinien und Hilfe. Neue Rechtspfade werden
+  Rechtsentwicklung, Fundstellennachweise, Verkündungen, Förderrichtlinien und Hilfe. Neue Rechtspfade werden
   zentral über die Route-Helper gepflegt.
 
 Normseiten bieten eine gemeinsame Fassungsnavigation, einen strukturellen Vergleich gespeicherter
-Fassungen, semantische Sprungmarken mit kompatiblen Altankern sowie Gesamt- und Einzeldruck.
+Fassungen, eine fassungsspezifische Herkunftseinordnung, gerichtete Beziehungen zu Einführungs-,
+Änderungs- und Aufhebungsvorschriften, semantische Sprungmarken mit kompatiblen Altankern sowie
+Gesamt- und Einzeldruck. Die Vergleichsseite rendert nur den üblichen Vergleich zur vorherigen
+Fassung vor; weitere Fassungs-Paare werden als kleine statische JSON-Dateien geladen. Dadurch
+bleiben freie Auswahl und stabile `von`-/`bis`-Adressen erhalten, ohne sämtliche Paarungen in eine
+Seite einzubetten.
 PDF-Links werden nur ausgegeben, wenn eine entsprechende Datei oder externe Quelle im
 Verkündungsdatensatz belegt ist. Eine HTML-Druckansicht wird nicht als amtliche Verkündung
 bezeichnet.

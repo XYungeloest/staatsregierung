@@ -15,6 +15,7 @@ import {
   getIndexUrl,
   getLatestPublication,
   getLawConstitutionUrl,
+  getLawDevelopmentOverviewUrl,
   getLawPortalUrl,
   getNormUrl,
   getPublicationUrl,
@@ -23,12 +24,17 @@ import {
   getSearchUrl,
   getSubjectsUrl,
   loadAllVerkuendungen,
+  formatNormOriginKind,
+  getNormOriginInfo,
 } from '../../lib/norms/index.ts';
 import { getCurrentVersion, loadAllNorms } from '../../lib/norms/content.ts';
 
 const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
 const legislationTrackerItems = await loadLegislationTrackerItems();
 const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
+const originInfos = norms.map((norm) => getNormOriginInfo(norm, norms));
+const originKinds = ['ostdeutsch-original', 'inherited-amended', 'inherited-unchanged', 'origin-unresolved'] as const;
+const originCounts = Object.fromEntries(originKinds.map((kind) => [kind, originInfos.filter((entry) => entry.kind === kind).length]));
 const subjectCount = new Set(norms.flatMap((entry) => entry.meta.subjects)).size;
 const typeCount = new Set(norms.map((entry) => entry.meta.type)).size;
 const publicationEntryCount = publications.reduce((sum, publication) => sum + publication.entries.length, 0);
@@ -41,6 +47,11 @@ const latestPublications = latestPublication
   ? [latestPublication, ...publications.filter((entry) => entry.slug !== latestPublication.slug).slice(0, 2)]
   : [];
 const portalEntrances = [
+  {
+    title: 'Rechtsentwicklung',
+    text: 'Eigenständig geschaffenes und übernommenes Landesrecht seit dem 1. November 2023 unterscheiden.',
+    href: getLawDevelopmentOverviewUrl(),
+  },
   {
     title: 'Erweiterte Suche',
     text: 'Volltext, Fundstellen, Ressorts, Vorschriftentypen, Sachgebiete und Geltungsdaten durchsuchen.',
@@ -146,6 +157,28 @@ const faqItems = [
     </form>
   </SectionHero>
   <LawNavigation />
+
+  <section class="section section-muted law-development-summary" data-visual-section="law-development-summary">
+    <div class="section-header">
+      <h2>Rechtsentwicklung seit 1. November 2023</h2>
+      <p>Erkennen, welche Vorschriften auf übernommenem Ausgangsrecht beruhen und welche seitdem eigenständig geschaffen oder geändert wurden.</p>
+    </div>
+    <dl class="law-development-summary__grid">
+      {originKinds.slice(0, 3).map((kind) => (
+        <div>
+          <dt>{formatNormOriginKind(kind)}</dt>
+          <dd>{originCounts[kind]}</dd>
+        </div>
+      ))}
+      {originCounts['origin-unresolved'] > 0 ? (
+        <div>
+          <dt>{formatNormOriginKind('origin-unresolved')}</dt>
+          <dd>{originCounts['origin-unresolved']}</dd>
+        </div>
+      ) : null}
+    </dl>
+    <p class="section-link-row"><a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Zur vollständigen Rechtsentwicklung</a></p>
+  </section>
 
   <section class="section" data-visual-section="law-research-paths">
     <div class="section-header">

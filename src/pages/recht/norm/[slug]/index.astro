@@ -5,6 +5,8 @@ import NormBody from '../../../../components/norms/NormBody.astro';
 import NormMetaCard from '../../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../components/norms/NormStatusNotice.astro';
+import NormOriginNotice from '../../../../components/norms/NormOriginNotice.astro';
+import NormLegalRelations from '../../../../components/norms/NormLegalRelations.astro';
 import NormDocumentTools from '../../../../components/norms/NormDocumentTools.astro';
 import NormPrintSources from '../../../../components/norms/NormPrintSources.astro';
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
@@ -33,6 +35,8 @@ import {
   buildNormFullCitation,
   buildNormPublicationReferenceLookup,
   buildNormRecordLookup,
+  buildNormRelations,
+  getNormOriginInfo,
   getRelatedNormRecommendations,
   loadAllVerkuendungen,
 } from '../../../../lib/norms/index.ts';
@@ -43,6 +47,7 @@ export async function getStaticPaths() {
   const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
   const publicationReferences = buildNormPublicationReferenceLookup(publications);
   const normLookup = buildNormRecordLookup(norms);
+  const relationLookup = buildNormRelations(norms);
 
   return norms.map((norm) => {
     const currentVersion = getCurrentVersion(norm);
@@ -56,12 +61,14 @@ export async function getStaticPaths() {
         relatedNorms: getRelatedNormRecommendations(norm, norms),
         publicationReferences,
         publications,
+        origin: getNormOriginInfo(norm, norms),
+        relations: relationLookup.get(norm.meta.slug) ?? [],
       },
     };
   });
 }
 
-const { norm, currentVersion, fullCitation, textReferences, relatedNorms, publicationReferences, publications } = Astro.props;
+const { norm, currentVersion, fullCitation, textReferences, relatedNorms, publicationReferences, publications, origin, relations } = Astro.props;
 const publicationReference = publicationReferences.get(`${norm.meta.slug}:${currentVersion.versionId}`);
 const publication = publicationReference
   ? publications.find((entry) => entry.slug === publicationReference.publicationSlug)
@@ -147,6 +154,7 @@ const relatedPressReleases = pressReleases
       { label: 'Inhalt', href: '#norm-inhalt' },
       { label: 'Text', href: '#normtext' },
       { label: 'Daten', href: '#normdaten' },
+      ...(relations.length > 0 ? [{ label: 'Rechtsbeziehungen', href: '#normrelationen' }] : []),
       { label: 'Historie', href: getNormHistoryUrl(norm.meta.slug) },
       ...(relatedNorms.length > 0 ? [{ label: 'Verwandte Vorschriften', href: '#normverwandt' }] : []),
     ]}
@@ -154,6 +162,7 @@ const relatedPressReleases = pressReleases
   <NormVersionNavigation norm={norm} version={currentVersion} />
 
   <NormStatusNotice norm={norm} version={currentVersion} />
+  <NormOriginNotice norm={norm} version={currentVersion} origin={origin} />
 
   <div class="content-grid norm-detail-layout">
     <div class="content-stack">
@@ -173,6 +182,7 @@ const relatedPressReleases = pressReleases
         publicationReference={publicationReference}
         publication={publication}
       />
+      <NormLegalRelations norm={norm} relations={relations} />
     </div>
 
     <div class="content-stack norm-sidebar" data-visual-section="norm-sidebar">

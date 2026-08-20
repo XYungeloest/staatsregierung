@@ -224,6 +224,13 @@
   align-items: end;
 }
 
+.norm-compare__quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+}
+
 .norm-diff {
   margin-top: 1.5rem;
 }
@@ -239,6 +246,38 @@
 .norm-diff__header h3,
 .norm-diff__header p {
   margin: 0;
+}
+
+.norm-diff__summary,
+.law-development-summary__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1rem 0;
+}
+
+.norm-diff__summary div,
+.law-development-summary__grid div {
+  min-width: 0;
+  padding: 0.8rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+}
+
+.norm-diff__summary dt,
+.law-development-summary__grid dt {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+.norm-diff__summary dd,
+.law-development-summary__grid dd {
+  margin: 0.2rem 0 0;
+  color: var(--color-heading);
+  font-size: 1.5rem;
+  font-weight: 750;
 }
 
 .diff-key {
@@ -310,6 +349,27 @@
 .norm-diff__change p {
   display: grid;
   gap: 0.2rem;
+}
+
+.norm-diff__change--columns {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.norm-diff__text-side {
+  display: block;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 0.65rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  white-space: pre-wrap;
+}
+
+.norm-diff__text-side ins,
+.norm-diff__text-side del {
+  display: inline;
+  padding: 0.05em 0.1em;
 }
 
 .norm-diff__change strong {
@@ -396,6 +456,72 @@
   border-bottom: 1px solid var(--color-border);
 }
 
+.norm-origin-notice {
+  margin-top: 1rem;
+}
+
+.norm-origin-notice--origin-unresolved {
+  border-inline-start-color: var(--color-gold);
+}
+
+.norm-origin-notice__links {
+  margin-top: 0.7rem;
+}
+
+.norm-relations__groups {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.norm-relations__groups > section + section {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.publication-relation-list {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.65rem 0 0;
+  padding-inline-start: 1.1rem;
+}
+
+.law-development__filters {
+  margin-bottom: 1rem;
+}
+
+.law-development__item-heading {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.law-development__item-heading h3 {
+  margin: 0;
+}
+
+.law-development__facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 0.75rem 0;
+}
+
+.law-development__facts div {
+  min-width: 0;
+}
+
+.law-development__facts dt {
+  color: var(--color-text-muted);
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+
+.law-development__facts dd {
+  margin: 0.15rem 0 0;
+}
+
 .law-list-filter .search-form__filters {
   align-items: end;
 }
@@ -448,6 +574,24 @@
 
   .norm-citation-copy > div,
   .norm-compare__form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .norm-diff__summary,
+  .law-development-summary__grid,
+  .law-development__facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .norm-diff__change--columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 430px) {
+  .norm-diff__summary,
+  .law-development-summary__grid,
+  .law-development__facts {
     grid-template-columns: minmax(0, 1fr);
   }
 }

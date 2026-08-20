@@ -297,6 +297,11 @@ function expectNullableString(value: unknown, path: string): string | null {
   return expectString(value, path);
 }
 
+function expectNullableSlug(value: unknown, path: string): string | null {
+  if (value === null || value === undefined) return null;
+  return expectSlug(value, path);
+}
+
 function expectBoolean(value: unknown, path: string): boolean {
   if (typeof value !== 'boolean') {
     fail(path, 'muss ein Boolean sein');
@@ -744,12 +749,16 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     successorSlug: object.successorSlug === undefined
       ? undefined
       : expectSlug(object.successorSlug, `${path}.successorSlug`),
-    enactingNorm: expectOptionalString(object.enactingNorm, `${path}.enactingNorm`),
-    enactedNorm: expectOptionalString(object.enactedNorm, `${path}.enactedNorm`),
+    enactingNorm: object.enactingNorm === undefined
+      ? undefined
+      : expectSlug(object.enactingNorm, `${path}.enactingNorm`),
+    enactedNorm: object.enactedNorm === undefined
+      ? undefined
+      : expectSlug(object.enactedNorm, `${path}.enactedNorm`),
     enactedNorms:
       object.enactedNorms === undefined
         ? undefined
-        : expectStringArray(object.enactedNorms, `${path}.enactedNorms`),
+        : expectSlugArray(object.enactedNorms, `${path}.enactedNorms`),
     affectedNorms:
       object.affectedNorms === undefined
         ? undefined
@@ -857,7 +866,7 @@ function parseHistoryEntry(value: unknown, path: string): NormHistoryEntry {
     relatedNorm:
       object.relatedNorm === undefined
         ? undefined
-        : expectNullableString(object.relatedNorm, `${path}.relatedNorm`),
+        : expectNullableSlug(object.relatedNorm, `${path}.relatedNorm`),
   };
 }
 
@@ -909,7 +918,7 @@ export function parseNormHistory(value: unknown, path = 'history.json'): NormHis
       relatedNorm:
         rawEntry.relatedNormSlug === undefined
           ? undefined
-          : expectNullableString(rawEntry.relatedNormSlug, `${entryPath}.relatedNormSlug`),
+          : expectNullableSlug(rawEntry.relatedNormSlug, `${entryPath}.relatedNormSlug`),
     } satisfies NormHistoryEntry;
   });
 

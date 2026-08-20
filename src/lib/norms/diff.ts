@@ -8,6 +8,7 @@ export interface NormDiffUnit {
   label: string;
   beforeTitle?: string;
   afterTitle?: string;
+  contextTitle?: string;
   beforeText?: string;
   afterText?: string;
   kind: NormDiffKind;
@@ -15,16 +16,24 @@ export interface NormDiffUnit {
   sentenceChanges?: Array<{ before?: string; after?: string; kind: NormDiffKind }>;
 }
 
+export interface NormDiffSummary {
+  changed: number;
+  added: number;
+  removed: number;
+  unchanged: number;
+}
+
 interface FlatUnit {
   key: string;
   type: string;
   label: string;
   title: string;
+  contextTitle: string;
   text: string;
 }
 
 const UNIT_TYPES = new Set([
-  'paragraph', 'article', 'section', 'subsection', 'annex', 'subparagraph',
+  'part', 'chapter', 'paragraph', 'article', 'section', 'subsection', 'annex', 'subparagraph',
   'paragraphText', 'item', 'subitem', 'tableRow', 'tableCell', 'tableHeaderCell',
 ]);
 
@@ -40,14 +49,20 @@ export function flattenVersionUnits(version: Pick<NormVersion, 'body'>): FlatUni
   const units: FlatUnit[] = [];
   const occurrence = new Map<string, number>();
 
-  function visit(blocks: NormBodyBlock[], path: string[] = [], quoted = false): void {
+  function visit(
+    blocks: NormBodyBlock[],
+    path: string[] = [],
+    quoted = false,
+    inheritedLabel = '',
+    inheritedTitle = '',
+  ): void {
     for (const [index, block] of blocks.entries()) {
       if (block.type === 'quotedProvision') {
         continue;
       }
 
       if (!quoted && UNIT_TYPES.has(block.type)) {
-        const label = block.label ?? '';
+        const label = block.label ?? inheritedLabel;
         const identity = label || block.title || `${block.type}-${index + 1}`;
         const base = [...path, `${block.type}:${identity}`].join('/');
         const count = (occurrence.get(base) ?? 0) + 1;
@@ -57,19 +72,46 @@ export function flattenVersionUnits(version: Pick<NormVersion, 'body'>): FlatUni
           type: block.type,
           label,
           title: block.title ?? '',
+          contextTitle: block.title ?? inheritedTitle,
           text: directText(block),
         });
       }
 
       if (block.children) {
         const parentIdentity = block.label || block.title || `${block.type}-${index + 1}`;
-        visit(block.children, [...path, `${block.type}:${parentIdentity}`], quoted);
+        visit(
+          block.children,
+          [...path, `${block.type}:${parentIdentity}`],
+          quoted,
+          block.label ?? inheritedLabel,
+          block.title ?? inheritedTitle,
+        );
       }
     }
   }
 
   visit(version.body);
   return units;
+}
+
+export function summarizeNormDiff(diff: NormDiffUnit[]): NormDiffSummary {
+  return diff.reduce<NormDiffSummary>((summary, unit) => {
+    summary[unit.kind] += 1;
+    return summary;
+  }, { changed: 0, added: 0, removed: 0, unchanged: 0 });
+}
+
+function hasReadableWordDiff(
+  chunks: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>,
+  before: string,
+  after: string,
+): boolean {
+  const longest = Math.max(before.length, after.length);
+  if (longest === 0 || longest > 2_000) return false;
+  const sameLength = chunks
+    .filter((chunk) => chunk.kind === 'same')
+    .reduce((sum, chunk) => sum + chunk.text.length, 0);
+  return sameLength / longest >= 0.35;
 }
 
 export function segmentSentences(value: string): string[] {
@@ -167,6 +209,7 @@ export function buildStructuralVersionDiff(
         type: afterUnit.type,
         label: afterUnit.label,
         afterTitle: afterUnit.title,
+        contextTitle: afterUnit.contextTitle,
         afterText: afterUnit.text,
         kind: 'added',
       };
@@ -177,6 +220,7 @@ export function buildStructuralVersionDiff(
         type: beforeUnit.type,
         label: beforeUnit.label,
         beforeTitle: beforeUnit.title,
+        contextTitle: beforeUnit.contextTitle,
         beforeText: beforeUnit.text,
         kind: 'removed',
       };
@@ -184,15 +228,20 @@ export function buildStructuralVersionDiff(
 
     const titleChanged = beforeUnit!.title !== afterUnit!.title;
     const textChanged = beforeUnit!.text !== afterUnit!.text;
+    const textDiff = textChanged ? diffWords(beforeUnit!.text, afterUnit!.text) : undefined;
     return {
       key,
       type: beforeUnit!.type,
       label: beforeUnit!.label,
       beforeTitle: beforeUnit!.title,
       afterTitle: afterUnit!.title,
+      contextTitle: afterUnit!.contextTitle || beforeUnit!.contextTitle,
       beforeText: beforeUnit!.text,
       afterText: afterUnit!.text,
       kind: titleChanged || textChanged ? 'changed' : 'unchanged',
+      textDiff: textDiff && hasReadableWordDiff(textDiff, beforeUnit!.text, afterUnit!.text)
+        ? textDiff
+        : undefined,
       sentenceChanges: textChanged ? diffSentences(beforeUnit!.text, afterUnit!.text) : undefined,
     };
   });

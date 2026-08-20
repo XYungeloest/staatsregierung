@@ -75,6 +75,7 @@ function emptyState(): NormSearchState {
     ministries: [],
     subjects: [],
     statuses: [],
+    origins: [],
     versionScope: 'current',
     includeAmendments: false,
     geltungstag: '',
@@ -101,6 +102,7 @@ function getFormState(): NormSearchState {
     ministries: formValues(data, 'ministry'),
     subjects: formValues(data, 'subject'),
     statuses: formValues(data, 'status'),
+    origins: formValues(data, 'origin'),
     versionScope: normalizeVersionScope(String(data.get('versionScope') ?? 'current')),
     includeAmendments: data.get('includeAmendments') === '1',
     geltungstag: String(data.get('geltungstag') ?? ''),
@@ -126,6 +128,7 @@ function readStateFromUrl(): NormSearchState {
     ministries: params.getAll('ministry'),
     subjects: params.getAll('subject'),
     statuses: params.getAll('status'),
+    origins: params.getAll('origin'),
     versionScope: normalizeVersionScope(params.get('versionScope') ?? 'current'),
     includeAmendments: params.get('includeAmendments') === '1',
     geltungstag: params.get('geltungstag') ?? '',
@@ -151,6 +154,7 @@ function applyStateToForm(state: NormSearchState): void {
     ministry: state.ministries,
     subject: state.subjects,
     status: state.statuses,
+    origin: state.origins,
     versionScope: state.versionScope,
     includeAmendments: state.includeAmendments,
     geltungstag: state.geltungstag,
@@ -193,6 +197,7 @@ function writeStateToUrl(state: NormSearchState, push = false): void {
   appendValues(params, 'ministry', state.ministries);
   appendValues(params, 'subject', state.subjects);
   appendValues(params, 'status', state.statuses);
+  appendValues(params, 'origin', state.origins);
   if (state.versionScope !== 'current') params.set('versionScope', state.versionScope);
   if (state.includeAmendments) params.set('includeAmendments', '1');
   if (state.geltungstag) params.set('geltungstag', state.geltungstag);
@@ -265,6 +270,7 @@ function renderVersion(entry: SearchIndexDocument, state: NormSearchState, headi
         <div><dt>Vollzitat</dt><dd>${escapeHtml(entry.citation)}</dd></div>
         <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
         <div><dt>Normtyp</dt><dd>${escapeHtml(entry.typeLabel)}</dd></div>
+        <div><dt>Rechtsherkunft</dt><dd>${escapeHtml(entry.originLabel)}</dd></div>
         <div><dt>Ressort</dt><dd>${escapeHtml(entry.ministry) || 'keine Zuordnung'}</dd></div>
         ${entry.publication ? `<div><dt>Verkündung</dt><dd>${publication}</dd></div>` : ''}
       </dl>
@@ -286,6 +292,7 @@ function updateFacetCounts(results: SearchIndexDocument[]): void {
     ministry: (entry) => [entry.ministry],
     subject: (entry) => entry.subjects,
     status: (entry) => [entry.status],
+    origin: (entry) => [entry.origin],
     publicationSource: (entry) => entry.publicationSource ? [entry.publicationSource] : [],
     publicationYear: (entry) => entry.publicationYear ? [entry.publicationYear] : [],
   };

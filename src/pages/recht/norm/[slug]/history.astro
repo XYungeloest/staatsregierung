@@ -4,6 +4,7 @@ import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import SectionHero from '../../../../components/portal/SectionHero.astro';
 import SectionNavigation from '../../../../components/portal/SectionNavigation.astro';
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
+import NormOriginNotice from '../../../../components/norms/NormOriginNotice.astro';
 import { formatDate, toDisplayText } from '../../../../lib/norms/presentation.ts';
 import {
   buildNormFullCitation,
@@ -14,6 +15,7 @@ import {
   getLawPortalUrl,
   getNormUrl,
   getNormVersionUrl,
+  getNormOriginInfo,
 } from '../../../../lib/norms/index.ts';
 import { getCurrentVersion, getVersionById, loadAllNorms } from '../../../../lib/norms/content.ts';
 
@@ -30,6 +32,7 @@ export async function getStaticPaths() {
       norm,
       currentVersion: getCurrentVersion(norm),
       relatedNormLabels,
+      origin: getNormOriginInfo(norm, norms),
       fullCitations: Object.fromEntries(
         norm.versions.map((version) => [
           version.versionId,
@@ -40,7 +43,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const { norm, currentVersion, relatedNormLabels, fullCitations } = Astro.props;
+const { norm, currentVersion, relatedNormLabels, fullCitations, origin } = Astro.props;
 const initialVersion = norm.history.initialVersionId
   ? getVersionById(norm, norm.history.initialVersionId)
   : undefined;
@@ -104,6 +107,7 @@ const successorSlug = norm.meta.successorSlug;
     ]}
   />
   <NormVersionNavigation norm={norm} currentPage="history" />
+  <NormOriginNotice norm={norm} version={currentVersion} origin={origin} />
   <SectionNavigation
     label="Normenhistorie"
     variant="law"
@@ -207,6 +211,19 @@ const successorSlug = norm.meta.successorSlug;
               {entry.relatedNorm && relatedNormLabels[entry.relatedNorm] ? (
                 <span>Änderungsvorschrift: <a class="inline-link" href={getNormUrl(entry.relatedNorm)}>{relatedNormLabels[entry.relatedNorm]}</a></span>
               ) : entry.relatedNorm ? <span>Bezug: {toDisplayText(entry.relatedNorm)}</span> : null}
+              {entry.affectingVersionId && getVersionById(norm, entry.affectingVersionId) ? (
+                <span>
+                  Entstandene Fassung:{' '}
+                  <a
+                    class="inline-link"
+                    href={classifyNormVersion(norm, getVersionById(norm, entry.affectingVersionId)!) === 'current'
+                      ? getNormUrl(norm.meta.slug)
+                      : getNormVersionUrl(norm.meta.slug, entry.affectingVersionId)}
+                  >
+                    <time datetime={getVersionById(norm, entry.affectingVersionId)!.validFrom}>{formatDate(getVersionById(norm, entry.affectingVersionId)!.validFrom)}</time>
+                  </a>
+                </span>
+              ) : null}
             </li>
           ))}
         </ul>

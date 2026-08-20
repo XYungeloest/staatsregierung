@@ -142,6 +142,24 @@ const componentVisualPages = [
     ],
   },
   {
+    name: 'rechtsentwicklung-module',
+    path: '/recht/rechtsentwicklung/',
+    shots: [
+      ['rechtsentwicklung-kennzahlen', '.section-hero__facts'],
+      ['rechtsentwicklung-filter', '[data-development-filter-form]'],
+      ['rechtsentwicklung-uebernommen', '[data-development-item]:has(a[href="/recht/norm/archivgesetz/"])'],
+    ],
+  },
+  {
+    name: 'fassungsvergleich-module',
+    path: '/recht/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01',
+    shots: [
+      ['fassungsvergleich-auswahl', '[data-version-compare] > .norm-compare__form'],
+      ['fassungsvergleich-zusammenfassung', '.norm-diff__summary'],
+      ['fassungsvergleich-aenderung', '.norm-diff__list > .norm-diff__unit:nth-child(2)'],
+    ],
+  },
+  {
     name: 'norm-module',
     path: '/recht/norm/ostdeutsches-kulturpassgesetz/',
     shots: [

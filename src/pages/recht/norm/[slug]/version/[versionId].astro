@@ -5,6 +5,7 @@ import NormBody from '../../../../../components/norms/NormBody.astro';
 import NormMetaCard from '../../../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../../components/norms/NormStatusNotice.astro';
+import NormOriginNotice from '../../../../../components/norms/NormOriginNotice.astro';
 import NormDocumentTools from '../../../../../components/norms/NormDocumentTools.astro';
 import NormPrintSources from '../../../../../components/norms/NormPrintSources.astro';
 import NormVersionNavigation from '../../../../../components/norms/NormVersionNavigation.astro';
@@ -20,6 +21,7 @@ import {
   getNormUrl,
   loadAllVerkuendungen,
   classifyNormVersion,
+  getNormOriginInfo,
 } from '../../../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../../../lib/norms/content.ts';
 
@@ -40,12 +42,13 @@ export async function getStaticPaths() {
           textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
           publicationReferences,
           publications,
+          origin: getNormOriginInfo(norm, norms),
         },
       })),
   );
 }
 
-const { norm, version, fullCitation, textReferences, publicationReferences, publications } = Astro.props;
+const { norm, version, fullCitation, textReferences, publicationReferences, publications, origin } = Astro.props;
 const publicationReference = publicationReferences.get(`${norm.meta.slug}:${version.versionId}`);
 const publication = publicationReference
   ? publications.find((entry) => entry.slug === publicationReference.publicationSlug)
@@ -96,6 +99,7 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
   <NormVersionNavigation norm={norm} version={version} />
 
   <NormStatusNotice norm={norm} version={version} />
+  <NormOriginNotice norm={norm} version={version} origin={origin} />
 
   <div class="content-grid norm-detail-layout">
     <div class="content-stack">

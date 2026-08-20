@@ -1,0 +1,78 @@
+---
+import {
+  classifyNormOriginVersion,
+  LEGAL_BASELINE_DATE,
+  type NormOriginInfo,
+} from '../../lib/norms/origin.ts';
+import {
+  getNormCompareSelectionUrl,
+  getNormUrl,
+  getNormVersionUrl,
+} from '../../lib/norms/routes.ts';
+import { formatDate } from '../../lib/norms/presentation.ts';
+import { classifyNormVersion } from '../../lib/norms/versions.ts';
+import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
+
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  origin: NormOriginInfo;
+}
+
+const { norm, version, origin } = Astro.props;
+const versionKind = classifyNormOriginVersion(origin, version);
+const baselineVersion = origin.baselineVersionId
+  ? norm.versions.find((entry) => entry.versionId === origin.baselineVersionId)
+  : undefined;
+const baselineUrl = baselineVersion
+  ? classifyNormVersion(norm, baselineVersion) === 'current'
+    ? getNormUrl(norm.meta.slug)
+    : getNormVersionUrl(norm.meta.slug, baselineVersion.versionId)
+  : undefined;
+const compareUrl = baselineVersion && baselineVersion.versionId !== version.versionId
+  ? getNormCompareSelectionUrl(norm.meta.slug, baselineVersion.versionId, version.versionId)
+  : undefined;
+const heading = versionKind === 'ostdeutsch-original'
+  ? 'Eigenständiges ostdeutsches Landesrecht'
+  : versionKind === 'baseline'
+    ? origin.kind === 'inherited-unchanged' ? 'Übernommenes Recht' : 'Ausgangsfassung des übernommenen Rechts'
+    : versionKind === 'inherited-intermediate'
+      ? 'Übernommener Rechtsstand vor der eigenen Fortentwicklung'
+      : versionKind === 'inherited-amended'
+        ? 'Übernommenes Recht, später geändert'
+        : 'Herkunft des Rechtsstands noch nicht vollständig belegt';
+---
+
+<aside class:list={['status-notice', 'norm-origin-notice', `norm-origin-notice--${origin.kind}`]} aria-labelledby={`norm-origin-${norm.meta.slug}-${version.versionId}`}>
+  <h2 id={`norm-origin-${norm.meta.slug}-${version.versionId}`}>{heading}</h2>
+  {versionKind === 'ostdeutsch-original' ? (
+    <p>Diese Vorschrift wurde nach dem <time datetime={LEGAL_BASELINE_DATE}>{formatDate(LEGAL_BASELINE_DATE)}</time> im Freistaat Ostdeutschland neu geschaffen.</p>
+  ) : versionKind === 'baseline' ? (
+    origin.kind === 'inherited-unchanged' ? (
+      <p>Die Vorschrift beruht auf dem am <time datetime={LEGAL_BASELINE_DATE}>{formatDate(LEGAL_BASELINE_DATE)}</time> geltenden sächsischen Rechtsstand und wurde im Freistaat bislang nicht geändert.</p>
+    ) : (
+      <p>Diese Fassung bildet den am <time datetime={LEGAL_BASELINE_DATE}>{formatDate(LEGAL_BASELINE_DATE)}</time> geltenden sächsischen Ausgangsrechtsstand ab.</p>
+    )
+  ) : versionKind === 'inherited-intermediate' ? (
+    <p>Diese gespeicherte Fassung beruht noch auf übernommenem sächsischem Recht. Sie liegt vor der ersten nachgewiesenen ostdeutschen Änderung der Vorschrift.</p>
+  ) : versionKind === 'inherited-amended' ? (
+    <p>
+      Ausgangspunkt ist der am <time datetime={LEGAL_BASELINE_DATE}>{formatDate(LEGAL_BASELINE_DATE)}</time> geltende sächsische Rechtsstand.
+      Die Vorschrift wurde seitdem im Freistaat Ostdeutschland geändert.
+      {origin.ownAmendmentCount > 0
+        ? ` Nachgewiesen sind ${origin.ownAmendmentCount} ${origin.ownAmendmentCount === 1 ? 'Änderung' : 'Änderungen'}.`
+        : ''}
+      {origin.lastOwnChangeDate ? <> Letzte Rechtsänderung: <time datetime={origin.lastOwnChangeDate}>{formatDate(origin.lastOwnChangeDate)}</time>.</> : null}
+    </p>
+  ) : (
+    <p>Die vorliegenden Quellen reichen für eine sichere Zuordnung zu Ausgangsrecht oder eigenständig geschaffenem Landesrecht noch nicht aus.</p>
+  )}
+
+  {baselineUrl || origin.baselineSourceUrl || compareUrl ? (
+    <nav class="link-list link-list--inline norm-origin-notice__links" aria-label="Ausgangsrecht und Fassungsvergleich">
+      {baselineUrl ? <a href={baselineUrl}>Ausgangsfassung öffnen</a> : null}
+      {compareUrl ? <a href={compareUrl}>Mit Ausgangsrecht vergleichen</a> : null}
+      {origin.baselineSourceUrl ? <a href={origin.baselineSourceUrl}>Amtliche sächsische Quelle</a> : null}
+    </nav>
+  ) : null}
+</aside>

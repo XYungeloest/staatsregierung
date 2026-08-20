@@ -14,6 +14,7 @@ export interface NormSearchState {
   ministries: string[];
   subjects: string[];
   statuses: string[];
+  origins: string[];
   versionScope: VersionScope;
   includeAmendments: boolean;
   geltungstag: string;
@@ -75,6 +76,7 @@ function normalizedFields(documentEntry: SearchIndexDocument): Record<SearchScop
       ...documentEntry.subjects,
       ...documentEntry.keywords,
       documentEntry.statusLabel,
+      documentEntry.originLabel,
       documentEntry.summary,
       documentEntry.initialCitation,
       documentEntry.citation,
@@ -111,6 +113,7 @@ export function matchesNormSearchFilters(
   if (!anySelected(state.ministries, documentEntry.ministry)) return false;
   if (!anySubjectSelected(state.subjects, documentEntry.subjects)) return false;
   if (!anySelected(state.statuses, documentEntry.status)) return false;
+  if (!anySelected(state.origins, documentEntry.origin)) return false;
   if (state.versionScope !== 'all' && documentEntry.versionKind !== state.versionScope) return false;
   if (state.geltungstag && !isDateInRange(state.geltungstag, documentEntry.validFrom, documentEntry.validTo)) return false;
   if (state.validFrom && documentEntry.validTo && documentEntry.validTo < state.validFrom) return false;

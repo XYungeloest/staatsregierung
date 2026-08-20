@@ -29,12 +29,16 @@ export {
   getIndexUrl,
   getIndexGroups,
   getLawConstitutionUrl,
+  getLawDevelopmentOverviewUrl,
+  getLawDevelopmentUrl,
   getLawFundingUrl,
   getLawHelpUrl,
   getLawPublicationsUrl,
   getLawReferencesUrl,
   getLawPortalUrl,
   getNormCompareUrl,
+  getNormCompareDataUrl,
+  getNormCompareSelectionUrl,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
@@ -103,6 +107,36 @@ export {
   type ClassifiedNormVersion,
   type VersionTemporalKind,
 } from './versions.ts';
+export {
+  LEGAL_BASELINE_DATE,
+  NORM_ORIGIN_KINDS,
+  classifyNormOriginVersion,
+  formatNormOriginKind,
+  getBaselineVersion,
+  getNormOriginInfo,
+  getOwnNormChanges,
+  type NormOriginInfo,
+  type NormOriginKind,
+  type NormOriginVersionKind,
+  type OwnNormChange,
+} from './origin.ts';
+export {
+  NORM_RELATION_KINDS,
+  buildNormRelations,
+  type NormRelation,
+  type NormRelationKind,
+  type NormRelationLookup,
+} from './relations.ts';
+export {
+  buildStructuralVersionDiff,
+  diffSentences,
+  diffWords,
+  flattenVersionUnits,
+  summarizeNormDiff,
+  type NormDiffKind,
+  type NormDiffSummary,
+  type NormDiffUnit,
+} from './diff.ts';
 export {
   buildNormTextLinkReferences,
   getRelatedNormRecommendations,
