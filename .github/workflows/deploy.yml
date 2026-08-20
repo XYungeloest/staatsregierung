@@ -109,7 +109,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: visual-diffs-${{ github.sha }}
-          path: test-results/
+          path: |
+            test-results/
+            playwright-report/
           if-no-files-found: ignore
           retention-days: 14
 
@@ -194,7 +196,17 @@ jobs:
           DEPLOY_ENV: ${{ steps.deployment_meta.outputs.deploy_env }}
         run: |
           if [ "$DEPLOY_ENV" = "staging" ]; then
-            npm run deploy:staging
+            npm run deploy:recht:staging
+            npm run deploy:portal:staging
           else
-            npm run deploy
+            npm run deploy:recht
+            npm run deploy:portal
           fi
+
+      - name: Produktionsstand und gemeinsame Commitkennung prüfen
+        if: ${{ steps.deployment_meta.outputs.deploy_env == 'production' }}
+        env:
+          PORTAL_SITE_URL: ${{ steps.deployment_meta.outputs.portal_site_url }}
+          LAW_SITE_URL: ${{ steps.deployment_meta.outputs.law_site_url }}
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: npm run test:deployment:production

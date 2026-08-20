@@ -2,6 +2,7 @@
 import LawLayout from '../../../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../../../components/Breadcrumbs.astro';
 import NormBody from '../../../../../components/norms/NormBody.astro';
+import NormCitationBlock from '../../../../../components/norms/NormCitationBlock.astro';
 import NormMetaCard from '../../../../../components/norms/NormMetaCard.astro';
 import NormOutline from '../../../../../components/norms/NormOutline.astro';
 import NormStatusNotice from '../../../../../components/norms/NormStatusNotice.astro';
@@ -30,20 +31,18 @@ export async function getStaticPaths() {
   const normLookup = buildNormRecordLookup(norms);
 
   return norms.flatMap((norm) =>
-    norm.versions
-      .filter((version) => classifyNormVersion(norm, version) !== 'current')
-      .map((version) => ({
-        params: { slug: norm.meta.slug, versionId: version.versionId },
-        props: {
-          norm,
-          version,
-          fullCitation: buildNormFullCitation(norm, version, normLookup),
-          textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
-          publicationReferences,
-          publications,
-          origin: getNormOriginInfo(norm, norms),
-        },
-      })),
+    norm.versions.map((version) => ({
+      params: { slug: norm.meta.slug, versionId: version.versionId },
+      props: {
+        norm,
+        version,
+        fullCitation: buildNormFullCitation(norm, version, normLookup),
+        textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
+        publicationReferences,
+        publications,
+        origin: getNormOriginInfo(norm, norms),
+      },
+    })),
   );
 }
 
@@ -93,6 +92,13 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
       <a href={getNormHistoryUrl(norm.meta.slug)}>Zur Historie</a>
     </nav>
   </section>
+  <NormCitationBlock
+    norm={norm}
+    version={version}
+    fullCitation={fullCitation}
+    publicationReference={publicationReference}
+    immutableLink
+  />
   <NormVersionNavigation norm={norm} version={version} />
 
   <NormStatusNotice norm={norm} version={version} />

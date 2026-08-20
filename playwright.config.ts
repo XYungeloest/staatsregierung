@@ -8,7 +8,9 @@ export default defineConfig({
   timeout: 45_000,
   fullyParallel: false,
   forbidOnly: Boolean(process.env.CI),
-  reporter: process.env.CI ? 'github' : 'list',
+  reporter: process.env.CI
+    ? [['github'], ['html', { open: 'never', outputFolder: 'playwright-report' }]]
+    : 'list',
   expect: {
     timeout: 10_000,
     toHaveScreenshot: {

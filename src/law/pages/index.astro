@@ -2,10 +2,7 @@
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import FaqAccordion from '../../components/portal/FaqAccordion.astro';
-import LegislationTracker from '../../components/portal/LegislationTracker.astro';
-import LawNavigation from '../../components/portal/LawNavigation.astro';
 import SectionHero from '../../components/portal/SectionHero.astro';
-import { loadLegislationTrackerItems } from '../../data/dashboard/legislation.ts';
 import {
   formatDate,
   formatNormType,
@@ -30,14 +27,11 @@ import {
 import { getCurrentVersion, loadAllNorms } from '../../lib/norms/content.ts';
 
 const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
-const legislationTrackerItems = await loadLegislationTrackerItems();
 const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
+const storedVersionCount = norms.reduce((sum, norm) => sum + norm.versions.length, 0);
 const originInfos = norms.map((norm) => getNormOriginInfo(norm, norms));
 const originKinds = ['ostdeutsch-original', 'inherited-amended', 'inherited-unchanged', 'origin-unresolved'] as const;
 const originCounts = Object.fromEntries(originKinds.map((kind) => [kind, originInfos.filter((entry) => entry.kind === kind).length]));
-const subjectCount = new Set(norms.flatMap((entry) => entry.meta.subjects)).size;
-const typeCount = new Set(norms.map((entry) => entry.meta.type)).size;
-const publicationEntryCount = publications.reduce((sum, publication) => sum + publication.entries.length, 0);
 const latestUpdates = [...norms]
   .filter((entry) => entry.meta.status === 'in-force')
   .sort((left, right) => getCurrentVersion(right).validFrom.localeCompare(getCurrentVersion(left).validFrom))
@@ -46,12 +40,12 @@ const latestPublication = getLatestPublication(publications);
 const latestPublications = latestPublication
   ? [latestPublication, ...publications.filter((entry) => entry.slug !== latestPublication.slug).slice(0, 2)]
   : [];
+const heroFacts = [
+  { label: 'Geltende Vorschriften', value: String(currentNorms.length) },
+  { label: 'Gespeicherte Fassungen', value: String(storedVersionCount) },
+  ...(latestPublication ? [{ label: 'Letzte Verkündung', value: formatDate(latestPublication.date) }] : []),
+];
 const portalEntrances = [
-  {
-    title: 'Rechtsentwicklung',
-    text: 'Eigenständig geschaffenes und übernommenes Landesrecht seit dem 1. November 2023 unterscheiden.',
-    href: getLawDevelopmentOverviewUrl(),
-  },
   {
     title: 'Erweiterte Suche',
     text: 'Volltext, Fundstellen, Ressorts, Vorschriftentypen, Sachgebiete und Geltungsdaten durchsuchen.',
@@ -86,6 +80,11 @@ const portalEntrances = [
     title: 'Verfassung',
     text: 'Verfassungsbezogene Vorschriften und Änderungsgesetze finden.',
     href: getLawConstitutionUrl(),
+  },
+  {
+    title: 'Rechtsentwicklung',
+    text: 'Eigenständig geschaffenes und übernommenes Landesrecht seit dem 1. November 2023 unterscheiden.',
+    href: getLawDevelopmentOverviewUrl(),
   },
   {
     title: 'Hilfe',
@@ -132,13 +131,7 @@ const faqItems = [
     title="Recht des Ostdeutschen Freistaates recherchieren"
     lead="Geltende und historische Fassungen, Fundstellen, Verkündungen und Sachgebiete zuverlässig erschließen."
     variant="law"
-    facts={[
-      { label: 'Normen', value: String(norms.length) },
-      { label: 'Aktuelle Fassungen', value: String(currentNorms.length) },
-      { label: 'Sachgebiete', value: String(subjectCount) },
-      { label: 'Vorschriftentypen', value: String(typeCount) },
-      { label: 'Verkündungseinträge', value: String(publicationEntryCount) },
-    ]}
+    facts={heroFacts}
   >
     <form class="search-form search-form--hero" action={getSearchUrl()} method="get" role="search">
       <label class="search-field">
@@ -156,34 +149,11 @@ const faqItems = [
       </div>
     </form>
   </SectionHero>
-  <LawNavigation />
-
-  <section class="section section-muted law-development-summary" data-visual-section="law-development-summary">
-    <div class="section-header">
-      <h2>Rechtsentwicklung seit 1. November 2023</h2>
-      <p>Erkennen, welche Vorschriften auf übernommenem Ausgangsrecht beruhen und welche seitdem eigenständig geschaffen oder geändert wurden.</p>
-    </div>
-    <dl class="law-development-summary__grid">
-      {originKinds.slice(0, 3).map((kind) => (
-        <div>
-          <dt>{formatNormOriginKind(kind)}</dt>
-          <dd>{originCounts[kind]}</dd>
-        </div>
-      ))}
-      {originCounts['origin-unresolved'] > 0 ? (
-        <div>
-          <dt>{formatNormOriginKind('origin-unresolved')}</dt>
-          <dd>{originCounts['origin-unresolved']}</dd>
-        </div>
-      ) : null}
-    </dl>
-    <p class="section-link-row"><a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Zur vollständigen Rechtsentwicklung</a></p>
-  </section>
 
   <section class="section" data-visual-section="law-research-paths">
     <div class="section-header">
-      <h2>Einstiege</h2>
-      <p>Die wichtigsten Recherchewege im Rechtsbereich.</p>
+      <h2>Recht recherchieren</h2>
+      <p>Direkter Zugang zu Suche, Rechtsgebieten, Fundstellen und gespeicherten Fassungen.</p>
     </div>
     <ul class="law-entry-list">
       {portalEntrances.map((entry) => (
@@ -237,15 +207,26 @@ const faqItems = [
     </ul>
   </section>
 
-  <section class="section">
+  <section class="section section-muted law-development-summary" data-visual-section="law-development-summary">
     <div class="section-header">
-      <h2>Gesetzgebungs-Tracker</h2>
-      <p>
-        Laufende und kürzlich abgeschlossene Vorhaben werden mit Ressortbezug, Statuskette und
-        direkter Verlinkung in Themen- oder Normseiten dargestellt.
-      </p>
+      <h2>Rechtsentwicklung seit 1. November 2023</h2>
+      <p>Erkennen, welche Vorschriften auf übernommenem Ausgangsrecht beruhen und welche seitdem eigenständig geschaffen oder geändert wurden.</p>
     </div>
-    <LegislationTracker items={legislationTrackerItems} />
+    <dl class="law-development-summary__grid">
+      {originKinds.slice(0, 3).map((kind) => (
+        <div>
+          <dt>{formatNormOriginKind(kind)}</dt>
+          <dd>{originCounts[kind]}</dd>
+        </div>
+      ))}
+      {originCounts['origin-unresolved'] > 0 ? (
+        <div>
+          <dt>{formatNormOriginKind('origin-unresolved')}</dt>
+          <dd>{originCounts['origin-unresolved']}</dd>
+        </div>
+      ) : null}
+    </dl>
+    <p class="section-link-row"><a class="inline-link" href={getLawDevelopmentOverviewUrl()}>Zur vollständigen Rechtsentwicklung</a></p>
   </section>
 
   <section class="section section-muted">

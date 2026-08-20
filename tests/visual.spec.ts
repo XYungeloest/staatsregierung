@@ -23,6 +23,7 @@ const visualPages = [
   { name: 'portalsuche', path: '/suche/' },
   { name: 'recht-bruecke', path: '/recht/' },
   { name: 'ostrecht', path: lawUrl('/') },
+  { name: 'ostrecht-suche', path: lawUrl('/suche/?q=Kulturpass') },
   { name: 'norm-kulturpass', path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/') },
   { name: 'norm-staatsverfassung', path: lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/') },
   { name: 'norm-sero-verordnung', path: lawUrl('/norm/sero-verordnung/') },
@@ -75,6 +76,14 @@ async function prepareLocator(locator: Locator): Promise<void> {
 }
 
 async function expectSectionScreenshot(locator: Locator, name: string): Promise<void> {
+  if (name === 'recht-footer.png') {
+    await locator.evaluate((element) => {
+      const footer = element as HTMLElement;
+      footer.style.position = 'absolute';
+      footer.style.inset = '0 0 auto';
+      footer.style.width = '100%';
+    });
+  }
   await prepareLocator(locator);
   await expect(locator).toHaveScreenshot(name);
 }
@@ -142,6 +151,15 @@ const componentVisualPages = [
     shots: [
       ['recht-recherchewege', '[data-visual-section="law-research-paths"]'],
       ['recht-rechtsstaende', '[data-visual-section="law-latest-status"] .record-list__item:first-child'],
+      ['recht-footer', '.law-footer'],
+    ],
+  },
+  {
+    name: 'rechtssuche-module',
+    path: lawUrl('/suche/?q=Kulturpass'),
+    shots: [
+      ['rechtssuche-kopf', '.law-search-form > .search-form__primary'],
+      ['rechtssuche-filter', '[data-search-filter-panel="more"]'],
     ],
   },
   {
@@ -167,6 +185,7 @@ const componentVisualPages = [
     path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/'),
     shots: [
       ['norm-rechtsstand', '[data-visual-section="norm-legal-status"]'],
+      ['norm-zitieren-rechtsstand', '[data-visual-section="norm-citation-status"]'],
       ['norm-navigation', '.section-navigation'],
       ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
     ],
@@ -224,6 +243,15 @@ for (const entry of visualPages) {
     await expect(page).toHaveScreenshot(`${entry.name}.png`);
   });
 }
+
+test('Komponenten-Basislinie: mobile OstRecht-Navigation', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-390', 'Die geöffnete mobile Navigation wird einmal bei 390 Pixeln geprüft.');
+  await preparePage(page);
+  await page.goto(lawUrl('/'));
+  await page.locator('.law-mobile-nav > summary').click();
+  await expectSectionScreenshot(page.locator('.law-mobile-nav__panel'), 'recht-mobile-navigation.png');
+  await verifyViewport(page);
+});
 
 for (const entry of componentVisualPages) {
   test(`Komponenten-Basislinien: ${entry.name}`, async ({ page }) => {

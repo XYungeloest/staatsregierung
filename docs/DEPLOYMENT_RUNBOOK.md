@@ -9,9 +9,10 @@ Wiederherstellungsweg.
 1. Änderung über einen geprüften Pull Request nach `main` übernehmen.
 2. Im Main-Workflow zuerst `quality` und `visual` prüfen. Der Job `deploy` startet erst nach beiden
    erfolgreichen Prüfungen.
-3. Den im Workflow ausgewiesenen vollständigen Commit notieren.
-4. Nach dem Deployment die Produktionskennung und die zentralen Routen nach dem unten
-   beschriebenen Verfahren prüfen.
+3. Der Workflow veröffentlicht zuerst OstRecht und danach das Staatsportal. So verweist die
+   Portalbrücke erst nach der erfolgreichen Aktualisierung des Rechtsportals auf den neuen Stand.
+4. Den im Workflow ausgewiesenen vollständigen Commit notieren. Bei Produktion prüft der Job danach
+   automatisch Routen, Altpfad-Redirect sowie Header- und HTML-Kennung beider Origins.
 
 Ein manuell gestarteter Workflow verwendet standardmäßig `staging`. Dafür müssen vollständige
 `portal_site_url` und `law_site_url` angegeben werden. `production` ist nur für eine bewusst
@@ -58,22 +59,31 @@ Dadurch bleibt jeder ausgelieferte Stand einem Git-Commit zuordenbar.
 
 ## Nachkontrolle
 
+In Produktion führt der Workflow `npm run test:deployment:production` aus. Der Test wiederholt die
+Prüfung während der kurzen Ausbreitungsphase und schlägt mit Route, HTTP-Status oder abweichender
+Commitkennung fehl. Manuell kann derselbe Test so gestartet werden:
+
+```sh
+PORTAL_SITE_URL=https://freistaat-ostdeutschland.de \
+LAW_SITE_URL=https://recht.freistaat-ostdeutschland.de \
+EXPECTED_COMMIT=<vollständiger-commit> \
+npm run test:deployment:production
+```
+
 Die folgenden Routen müssen dieselbe vollständige Kennung liefern und erfolgreich antworten:
 
 ```text
 /
 /recht/
 /sitemap.xml
-/search-index.json
+/robots.txt
 
 https://recht.freistaat-ostdeutschland.de/
-https://recht.freistaat-ostdeutschland.de/verfassung/
+https://recht.freistaat-ostdeutschland.de/suche/
 https://recht.freistaat-ostdeutschland.de/norm/erstes-gesetz-zur-grossen-staatsreform/
-https://recht.freistaat-ostdeutschland.de/norm/sero-verordnung/
-https://recht.freistaat-ostdeutschland.de/verkuendungen/ogvbl-2026-53/
-https://recht.freistaat-ostdeutschland.de/verkuendungen/ogvbl-2026-58/
+https://recht.freistaat-ostdeutschland.de/verkuendungen/
 https://recht.freistaat-ostdeutschland.de/sitemap.xml
-https://recht.freistaat-ostdeutschland.de/search-index.json
+https://recht.freistaat-ostdeutschland.de/robots.txt
 ```
 
 Zusätzlich kurz prüfen:

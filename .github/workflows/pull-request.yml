@@ -136,7 +136,9 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: visual-diffs-${{ github.event.pull_request.number }}-${{ github.sha }}
-          path: test-results/
+          path: |
+            test-results/
+            playwright-report/
           if-no-files-found: ignore
           retention-days: 14
 

@@ -76,7 +76,8 @@ PORTAL_SITE_URL=https://portal.example LAW_SITE_URL=https://recht.example npm ru
 `npm run build:portal` schreibt nach `dist/portal/`, `npm run build:recht` nach `dist/law/`.
 `wrangler.jsonc` deployt das erste Artefakt auf den bestehenden Worker `ostrecht-portal`,
 `wrangler.recht.jsonc` das zweite auf `ostrecht-recht`. `npm run deploy` veröffentlicht beide
-Artefakte desselben Commits; die Staging-Varianten tun dies mit den jeweiligen Wrangler-Umgebungen.
+Artefakte desselben Commits verbindlich in der Reihenfolge OstRecht, dann Staatsportal; die
+Staging-Varianten verwenden dieselbe Reihenfolge mit den jeweiligen Wrangler-Umgebungen.
 
 ## Wichtige Verzeichnisse
 
@@ -296,9 +297,11 @@ Jeder Produktionsbuild trägt den vollständigen Git-Commit als `meta[name="buil
 HTML-Seiten und als Antwortheader `X-Portal-Commit` auf allen Routen. In CI wird die Kennung aus
 `GITHUB_SHA` über `PORTAL_BUILD_COMMIT` übernommen; lokale Builds verwenden den aktuellen `HEAD`.
 Der öffentlich ausgelieferte Produktionsstand wird nicht dauerhaft in dieser README festgeschrieben.
-Vor und nach einem Deployment müssen die Portalseiten `/` und `/recht/` sowie OstRechts `/`,
-`/verfassung/`, zentrale Norm- und Verkündungsseiten, `/sitemap.xml` und `/search-index.json`
-dieselbe vollständige Kennung des freigegebenen Commits ausgeben.
+Nach einem Produktionsdeployment prüft der Workflow automatisch die Portalseiten `/` und `/recht/`,
+beide Sitemaps und `robots.txt`, OstRechts Startseite, Suche, eine repräsentative Norm und die
+Verkündungsübersicht sowie einen permanenten Altpfad-Redirect. `X-Portal-Commit` und
+`meta[name="build-commit"]` müssen auf beiden Origins dieselbe vollständige Kennung des
+freigegebenen Commits ausgeben; andernfalls schlägt der Deployment-Job fehl.
 
 Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
 Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter

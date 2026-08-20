@@ -1,9 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import LegislationTracker from '../../components/portal/LegislationTracker.astro';
 import SectionHero from '../../components/portal/SectionHero.astro';
-import { loadLegislationTrackerItems } from '../../data/dashboard/legislation.ts';
 import {
   getHomeUrl,
   getLawBridgeUrl,
@@ -16,7 +14,6 @@ import {
   getSearchUrl,
 } from '../../lib/norms/routes.ts';
 
-const legislationTrackerItems = await loadLegislationTrackerItems();
 const researchEntrances = [
   {
     title: 'Geltendes Recht',
@@ -113,13 +110,5 @@ const researchEntrances = [
         <div><dt>Geltender Wortlaut</dt><dd>Norm und Rechtsstand in OstRecht</dd></div>
       </dl>
     </aside>
-  </section>
-
-  <section class="section">
-    <div class="section-header">
-      <h2>Laufende Gesetzgebung</h2>
-      <p>Politische Verfahren mit ihrem jeweils belegten Stand.</p>
-    </div>
-    <LegislationTracker items={legislationTrackerItems} />
   </section>
 </BaseLayout>

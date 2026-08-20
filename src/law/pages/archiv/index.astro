@@ -1,7 +1,6 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import LawNavigation from '../../../components/portal/LawNavigation.astro';
 import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatNormType,
@@ -75,7 +74,6 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
     variant="law"
     facts={[{ label: 'Normen', value: String(norms.length) }, { label: 'Buchstabengruppen', value: String(groups.length) }]}
   />
-  <LawNavigation />
   <section class="section" aria-label="Buchstabenauswahl">
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
       {availableLetters.map((letter) => (

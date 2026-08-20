@@ -60,7 +60,7 @@ const mainNavLinks = lawSiteConfig.mainNavigation.map((entry) => {
 });
 
 const footerResearchLinks = [
-  ...mainNavLinks,
+  ...mainNavLinks.filter((link) => ['Suche', 'A–Z', 'Sachgebiete', 'Verkündungen'].includes(link.label)),
   { href: getHelpUrl(), label: 'Hilfe', isActive: isActivePath(lawSiteConfig.paths.help) },
 ];
 const footerStateLinks = [

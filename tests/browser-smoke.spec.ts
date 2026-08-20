@@ -31,6 +31,49 @@ test('belegte Altadressen werden gezielt weitergeleitet und unbekannte Pfade ble
   await expect(page.getByRole('heading', { name: 'Häufig gesuchte Bereiche' })).toBeVisible();
 });
 
+test('alte Rechtspfade führen ohne Kette permanent zur funktional gleichen OstRecht-Adresse', async ({ request }) => {
+  const redirects = [
+    ['/recht/suche/', '/suche/'],
+    ['/recht/archiv/', '/archiv/'],
+    ['/recht/verfassung/', '/verfassung/'],
+    ['/recht/norm/sero-verordnung/', '/norm/sero-verordnung/'],
+    ['/recht/norm/sero-verordnung/history/', '/norm/sero-verordnung/history/'],
+    ['/recht/norm/sero-verordnung/version/2026-07-21/', '/norm/sero-verordnung/version/2026-07-21/'],
+    ['/recht/norm/saechsische-gemeindeordnung/vergleich/', '/norm/saechsische-gemeindeordnung/vergleich/'],
+    ['/recht/verkuendungen/ogvbl-2026-58/', '/verkuendungen/ogvbl-2026-58/'],
+    ['/recht/sachgebiete/bildung-und-schule/', '/sachgebiete/bildung-und-schule/'],
+  ];
+
+  for (const [source, target] of redirects) {
+    const response = await request.get(source, { maxRedirects: 0 });
+    expect(response.status(), source).toBe(301);
+    expect(response.headers().location, source).toBe(`https://recht.freistaat-ostdeutschland.de${target}`);
+  }
+});
+
+test('Rechtsbrücke trennt OstRecht-Recherche von Gesetzgebung im Staatsportal', async ({ page }) => {
+  await page.goto('/recht/');
+  const main = page.locator('#main-content');
+  await expect(main.getByRole('heading', { name: 'Rechtsrecherche' })).toBeVisible();
+  await expect(main.getByRole('heading', { name: 'Gesetzgebung und geltendes Recht' })).toBeVisible();
+  await expect(main.getByRole('link', { name: 'Geltendes Recht', exact: true })).toHaveAttribute(
+    'href',
+    'https://recht.freistaat-ostdeutschland.de/suche/',
+  );
+  await expect(main.getByRole('link', { name: 'Verfassung', exact: true })).toHaveAttribute(
+    'href',
+    'https://recht.freistaat-ostdeutschland.de/verfassung/',
+  );
+  await expect(main.getByRole('link', { name: 'Verkündungen', exact: true })).toHaveAttribute(
+    'href',
+    'https://recht.freistaat-ostdeutschland.de/verkuendungen/',
+  );
+  await expect(main.locator('form[role="search"]')).toHaveAttribute(
+    'action',
+    'https://recht.freistaat-ostdeutschland.de/suche/',
+  );
+});
+
 test('Startseite bietet Suche, Ministerien, mobile Navigation und 115-Orientierung', async ({ page }) => {
   await page.addInitScript(() => {
     window.localStorage.setItem('ostrecht-portal-analytics-consent', 'rejected');
@@ -198,6 +241,74 @@ test('Rechts- und Portalsuche liefern weiterhin Treffer', async ({ page }) => {
 
   await page.goto('/suche/?q=Kreisreform');
   await expect(page.locator('[data-portal-search-status]')).toContainText('Treffer');
+});
+
+test('OstRecht-Suche hält URL, Filterchips und Browserverlauf synchron', async ({ page }) => {
+  await page.goto(lawUrl('/suche/?q=Kulturpass&type=gesetz'));
+
+  await expect(page.locator('[data-search-query]')).toHaveValue('Kulturpass');
+  await expect(page.getByRole('button', { name: 'Suchen', exact: true })).toBeVisible();
+  await expect(page.getByLabel('Suchbereich')).toBeVisible();
+  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+  const lawType = page.locator('input[name="type"][value="gesetz"]');
+  await expect(lawType).toBeChecked();
+  await expect(page.getByRole('button', { name: /Filter entfernen: Normtyp: Gesetz/u })).toBeVisible();
+
+  const inForce = page.locator('input[name="status"][value="in-force"]');
+  await inForce.check();
+  await expect(page).toHaveURL(/type=gesetz.*status=in-force|status=in-force.*type=gesetz/u);
+  await page.reload();
+  await expect(lawType).toBeChecked();
+  await expect(inForce).toBeChecked();
+
+  await page.getByRole('button', { name: /Filter entfernen: Normtyp: Gesetz/u }).click();
+  await expect(page).not.toHaveURL(/type=gesetz/u);
+  await page.goBack();
+  await expect(lawType).toBeChecked();
+  await expect(inForce).toBeChecked();
+
+  await page.getByRole('button', { name: 'Alle Filter löschen' }).click();
+  await expect(page).toHaveURL(`${lawUrl('/suche/')}?q=Kulturpass`);
+  await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
+});
+
+test('Normkopf unterscheidet allgemeinen und fassungsspezifischen Link und kennzeichnet Staatsportal-Bezüge', async ({ page }) => {
+  await page.goto(lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'));
+  const citationBlock = page.locator('[data-visual-section="norm-citation-status"]');
+  await expect(citationBlock).toBeVisible();
+  await expect(citationBlock).toContainText('Vollzitat');
+  await expect(citationBlock).toContainText('Fassungsstatus');
+  await expect(citationBlock.getByRole('button', { name: 'Link zur Vorschrift kopieren' })).toBeVisible();
+
+  const portalRelations = page.locator('[data-visual-section="norm-portal-relations"]');
+  await expect(portalRelations.getByRole('heading', { name: 'Im Staatsportal' })).toBeVisible();
+  const crossSiteLinks = portalRelations.locator('a[href^="https://freistaat-ostdeutschland.de/"]');
+  await expect(crossSiteLinks.first()).toBeVisible();
+
+  await page.goto(lawUrl('/norm/ostdeutsches-kulturpassgesetz/version/2026-03-23/'));
+  await expect(page.getByRole('button', { name: 'Link zu dieser Fassung kopieren' })).toBeVisible();
+
+  await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'));
+  await expect(page.getByRole('button', { name: 'Link zu dieser Fassung kopieren' })).toBeVisible();
+  await expect(page.getByText('Dieser Link bleibt der gespeicherten Fassung zugeordnet.')).toBeVisible();
+});
+
+test('OstRecht-Navigation und farbiges Footerwappen bleiben mobil nutzbar', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto(lawUrl('/'));
+  const mobileNavigation = page.locator('.law-mobile-nav');
+  await mobileNavigation.locator('summary').click();
+  await expect(mobileNavigation.locator('.law-mobile-nav__panel')).toBeVisible();
+  await expect(mobileNavigation.getByRole('link', { name: 'Suche', exact: true })).toBeVisible();
+
+  const footer = page.locator('.law-footer');
+  const coatOfArms = footer.locator('.law-footer__brand img');
+  await expect(coatOfArms).toHaveAttribute('src', /favicon\.svg$/u);
+  expect(await coatOfArms.evaluate((image) => getComputedStyle(image).filter)).toBe('none');
+  await expect(footer.getByRole('navigation', { name: 'Recherchewege im Footer' }).getByRole('link')).toHaveCount(5);
+
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
 });
 
 test('Erster Staatsrat und historische Amtszeiten bleiben nachvollziehbar', async ({ page }) => {
@@ -551,7 +662,7 @@ test('konsolidierte Stammnormen verknüpfen Volltextfassungen, Historie und Änd
 test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page }) => {
   await page.goto(lawUrl('/suche/?q=Kranken*&type=gesetz&type=verordnung'));
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
-  await expect(page.locator('select[name="type"] option:checked')).toHaveCount(2);
+  await expect(page.locator('input[name="type"]:checked')).toHaveCount(2);
 
   await page.locator('select[name="versionScope"]').selectOption('historical');
   await expect(page).toHaveURL(/versionScope=historical/u);
