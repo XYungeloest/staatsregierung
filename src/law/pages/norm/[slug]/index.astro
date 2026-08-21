@@ -11,8 +11,8 @@ import NormLegalRelations from '../../../../components/norms/NormLegalRelations.
 import NormDocumentTools from '../../../../components/norms/NormDocumentTools.astro';
 import NormPrintSources from '../../../../components/norms/NormPrintSources.astro';
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
-import SectionHero from '../../../../components/portal/SectionHero.astro';
-import SectionNavigation from '../../../../components/portal/SectionNavigation.astro';
+import NormPageHeader from '../../../../components/norms/NormPageHeader.astro';
+import NormHistorySummary from '../../../../components/norms/NormHistorySummary.astro';
 import { loadPressReleases, loadTopics } from '../../../../lib/portal/content.ts';
 import {
   getPressReleaseIndexUrl,
@@ -29,8 +29,8 @@ import {
 } from '../../../../lib/norms/presentation.ts';
 import {
   getLawPortalUrl,
-  getNormHistoryUrl,
   getNormUrl,
+  getPublicationUrl,
   buildNormTextLinkReferences,
   buildNormFullCitation,
   buildNormPublicationReferenceLookup,
@@ -125,11 +125,10 @@ const relatedPressReleases = pressReleases
     ]}
   />
 
-  <SectionHero
+  <NormPageHeader
+    norm={norm}
+    version={currentVersion}
     eyebrow={norm.meta.status === 'in-force' ? 'Aktuelle Fassung' : 'Veröffentlichte Fassung'}
-    title={toDisplayText(norm.meta.title)}
-    titleSize="long"
-    lead={toDisplayText(norm.meta.summary)}
     status={norm.meta.status === 'future-effective'
       ? `Verkündet · Inkrafttreten am ${formatDate(statusDate)}`
       : norm.meta.status === 'pending-effective'
@@ -137,40 +136,17 @@ const relatedPressReleases = pressReleases
       : norm.meta.status === 'repealed' || norm.meta.status === 'historical'
         ? `${normStatusLabel}${norm.meta.expiryDate ? ` seit ${formatDate(norm.meta.expiryDate)}` : ''}`
         : `${normStatusLabel} seit ${formatDate(statusDate)}`}
-    variant="law"
-    facts={[
-      ...(norm.meta.abbr ? [{ label: 'Abkürzung', value: toDisplayText(norm.meta.abbr) }] : []),
-      { label: 'Normtyp', value: formatNormType(norm.meta.type) },
-      { label: 'Fundstelle dieser Fassung', value: currentReference },
-    ]}
-    actions={[{ label: 'Normenhistorie', href: getNormHistoryUrl(norm.meta.slug), primary: true }]}
-  />
-  <NormCitationBlock
-    norm={norm}
-    version={currentVersion}
-    fullCitation={fullCitation}
-    publicationReference={publicationReference}
-  />
-  <SectionNavigation
-    label="Vorschrift"
-    variant="law"
-    items={[
-      { label: 'Inhalt', href: '#norm-inhalt' },
-      { label: 'Text', href: '#normtext' },
-      { label: 'Daten', href: '#normdaten' },
-      ...(relations.length > 0 ? [{ label: 'Rechtsbeziehungen', href: '#normrelationen' }] : []),
-      { label: 'Historie', href: getNormHistoryUrl(norm.meta.slug) },
-      ...(relatedNorms.length > 0 ? [{ label: 'Verwandte Vorschriften', href: '#normverwandt' }] : []),
-    ]}
+    reference={currentReference}
+    referenceUrl={publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined}
+    publicationPdf={publication?.pdf}
   />
   <NormVersionNavigation norm={norm} version={currentVersion} />
+  <div class="norm-workspace">
+    <aside class="norm-toc-column" id="norm-inhalt"><NormOutline items={outline} /></aside>
 
-  <NormStatusNotice norm={norm} version={currentVersion} />
-  <NormOriginNotice norm={norm} version={currentVersion} origin={origin} />
-
-  <div class="content-grid norm-detail-layout">
-    <div class="content-stack">
-      <div id="norm-inhalt"><NormOutline items={outline} /></div>
+    <article class="norm-document-column">
+      <NormStatusNotice norm={norm} version={currentVersion} />
+      <NormOriginNotice norm={norm} version={currentVersion} origin={origin} />
       <section class="section" id="normtext" data-visual-section="norm-text">
         <div class="section-header">
           <h2>Vorschriftentext</h2>
@@ -187,17 +163,27 @@ const relatedPressReleases = pressReleases
         publication={publication}
       />
       <NormLegalRelations norm={norm} relations={relations} />
-    </div>
+    </article>
 
-    <div class="content-stack norm-sidebar" data-visual-section="norm-sidebar">
-      <NormMetaCard
-        norm={norm}
-        version={currentVersion}
-        fullCitation={fullCitation}
-        publicationReference={publicationReference}
-      />
-      {relatedNorms.length > 0 || relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
-        <section class="section norm-sidebar__portal-links" data-visual-section="norm-portal-relations">
+    <aside class="norm-info-column" data-visual-section="norm-sidebar">
+      <details class="norm-info-panel" open>
+        <summary>Rechtsstand und weitere Informationen</summary>
+        <div class="content-stack norm-sidebar">
+          <NormCitationBlock
+            norm={norm}
+            version={currentVersion}
+            fullCitation={fullCitation}
+            publicationReference={publicationReference}
+          />
+          <NormMetaCard
+            norm={norm}
+            version={currentVersion}
+            fullCitation={fullCitation}
+            publicationReference={publicationReference}
+          />
+          <NormHistorySummary norm={norm} />
+          {relatedNorms.length > 0 || relatedTopics.length > 0 || relatedPressReleases.length > 0 ? (
+            <section class="section norm-sidebar__portal-links" data-visual-section="norm-portal-relations">
           <div class="section-header section-header--compact">
             <h2>Weiterführende Bezüge</h2>
           </div>
@@ -248,8 +234,10 @@ const relatedPressReleases = pressReleases
               </p>
             </>
           ) : null}
-        </section>
-      ) : null}
-    </div>
+            </section>
+          ) : null}
+        </div>
+      </details>
+    </aside>
   </div>
 </LawLayout>

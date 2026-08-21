@@ -1,0 +1,64 @@
+---
+import {
+  formatDate,
+  formatNormType,
+  getNormCompareUrl,
+  getNormHistoryUrl,
+  getNormUrl,
+  toDisplayText,
+  type NormRecord,
+  type NormVersion,
+} from '../../lib/norms/index.ts';
+
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  eyebrow: string;
+  status: string;
+  reference: string;
+  referenceUrl?: string;
+  publicationPdf?: string;
+  historical?: boolean;
+}
+
+const { norm, version, eyebrow, status, reference, referenceUrl, publicationPdf, historical = false } = Astro.props;
+---
+
+<header class="section-hero section-hero--law norm-page-header">
+  <div class="norm-page-header__main">
+    <p class="eyebrow">{eyebrow}</p>
+    <p class="norm-page-header__status"><span aria-hidden="true"></span>{status}</p>
+    <h1 class="section-hero__title--long">{toDisplayText(norm.meta.title)}</h1>
+    {norm.meta.abbr ? <p class="norm-page-header__abbr">{toDisplayText(norm.meta.abbr)}</p> : null}
+    <p class="norm-page-header__summary">{toDisplayText(norm.meta.summary)}</p>
+    <p class="norm-page-header__reference">
+      <strong>Fundstelle:</strong>{' '}
+      {referenceUrl ? <a href={referenceUrl}>{reference}</a> : reference}
+    </p>
+    <dl class="norm-page-header__facts">
+      <div><dt>Normtyp</dt><dd>{formatNormType(norm.meta.type)}</dd></div>
+      <div><dt>Fassungsstand</dt><dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd></div>
+    </dl>
+  </div>
+  <nav class="norm-page-header__actions" aria-label="Werkzeuge zur Vorschrift">
+    {publicationPdf ? <a href={publicationPdf}>PDF</a> : null}
+    <a href="#normtext">HTML</a>
+    <button type="button" data-copy-page-url>Link kopieren</button>
+    {norm.versions.length >= 2 ? <a href={getNormCompareUrl(norm.meta.slug)}>Version vergleichen</a> : null}
+    {historical ? <a href={getNormUrl(norm.meta.slug)}>Aktuelle Fassung</a> : <a href={getNormHistoryUrl(norm.meta.slug)}>Fassungen</a>}
+  </nav>
+  <p class="copy-feedback norm-page-header__feedback" aria-live="polite" data-copy-page-feedback></p>
+</header>
+
+<script>
+  document.addEventListener('click', async (event) => {
+    if (!(event.target instanceof HTMLButtonElement) || !event.target.matches('[data-copy-page-url]')) return;
+    const feedback = event.target.closest<HTMLElement>('.norm-page-header')?.querySelector<HTMLElement>('[data-copy-page-feedback]');
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      if (feedback) feedback.textContent = 'Link wurde kopiert.';
+    } catch {
+      if (feedback) feedback.textContent = 'Der Link kann aus der Adresszeile kopiert werden.';
+    }
+  });
+</script>

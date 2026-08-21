@@ -151,7 +151,7 @@ const componentVisualPages = [
     path: lawUrl('/'),
     shots: [
       ['recht-recherchewege', '[data-visual-section="law-research-paths"]'],
-      ['recht-rechtsstaende', '[data-visual-section="law-latest-status"] .record-list__item:first-child'],
+      ['recht-rechtsstaende', '[data-visual-section="law-latest-status"] .law-dashboard-list > li:first-child'],
       ['recht-footer', '.law-footer'],
     ],
   },
@@ -187,7 +187,7 @@ const componentVisualPages = [
     shots: [
       ['norm-rechtsstand', '[data-visual-section="norm-legal-status"]'],
       ['norm-zitieren-rechtsstand', '[data-visual-section="norm-citation-status"]'],
-      ['norm-navigation', '.section-navigation'],
+      ['norm-navigation', '.norm-version-navigation'],
       ['normtext-beginn', '[data-visual-section="norm-text"] .norm-unit:first-of-type'],
     ],
   },
@@ -262,6 +262,18 @@ for (const entry of componentVisualPages) {
     await page.evaluate(async () => {
       await document.fonts.ready;
     });
+
+    if (entry.name === 'rechtssuche-module') {
+      await page.locator('.law-search-filters-panel').evaluate((element) => {
+        (element as HTMLDetailsElement).open = true;
+      });
+    }
+
+    if (entry.name === 'norm-module' || entry.name === 'norm-sidebar-module') {
+      await page.locator('.norm-info-panel').evaluate((element) => {
+        (element as HTMLDetailsElement).open = true;
+      });
+    }
 
     for (const [name, selector] of entry.shots) {
       await expectSectionScreenshot(page.locator(selector), `${name}.png`);

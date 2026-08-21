@@ -48,6 +48,18 @@ export function getSearchUrl(): string {
   return getLawSearchUrl();
 }
 
+export function getLawsUrl(): string {
+  return getLawUrl('/gesetze/');
+}
+
+export function getRegulationsUrl(): string {
+  return getLawUrl('/verordnungen/');
+}
+
+export function getAdministrativeRulesUrl(): string {
+  return getLawUrl('/verwaltungsvorschriften/');
+}
+
 export function getIndexUrl(): string {
   return getLawIndexUrl();
 }

@@ -95,7 +95,9 @@ führt unmittelbar zum Hauptinhalt.
 OstRecht besitzt einen kompakteren Recherchekopf mit der Marke „OstRecht“, dem Untertitel
 „Rechtsportal des Ostdeutschen Freistaates“, einer eigenen Hauptnavigation und einem sichtbaren,
 aber nachgeordneten Rückweg zum Staatsportal. Politische Teaser- und Pressenavigation gehören nicht
-in seine Primärnavigation.
+in seine Primärnavigation. Die Primärnavigation führt zu Gesetzen, Verordnungen,
+Verwaltungsvorschriften, Verfassung, Verkündungen und Themen. Verkündungen bleiben dabei ein eigenständiger,
+zentraler Portalweg und werden nicht unter einem allgemeinen Recherche- oder Servicepunkt verborgen.
 
 ## Startseite
 
@@ -162,6 +164,13 @@ Fachseiten des Staatsportals verwenden dessen Kopf, Tokens und Servicezone. OstR
 gemeinsame Tokens gestalterisch verwandt, verwendet jedoch den eigenen Layoutkontext. Es priorisiert
 Lesbarkeit, Gliederung, zitierfähige Normtexte und stabile Verlinkung. Verkündungen, Fundstellen und
 Metadaten bleiben Listen, Tabellen oder Definitionen statt dekorativer Teaser.
+
+Die OstRecht-Startseite verbindet die Volltextsuche mit einem horizontalen Schnellzugriff sowie
+aktuellen Änderungen und Verkündungen aus dem kanonischen Bestand. Die Rechtssuche verwendet auf
+breiten Bildschirmen die Abfolge Filter, Trefferliste und Suchhinweise; auf kleinen Bildschirmen
+werden die Filter als bedienbares `details`-Element vorangestellt. Normseiten gliedern sich in
+Inhaltsübersicht, lesbaren Normtext und Vorschriftendaten. Inhaltsübersicht und Vorschriftendaten
+werden mobil ebenfalls zu nativen, ohne JavaScript erreichbaren Aufklappbereichen.
 
 Die Fassungsnavigation ist ein kompaktes, umbrechendes Linkband und kein Tab-Widget. Geltende,
 zukünftige, historische und zeitlich ungeklärte Fassungen werden immer zusätzlich textlich

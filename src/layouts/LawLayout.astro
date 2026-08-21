@@ -60,7 +60,9 @@ const mainNavLinks = lawSiteConfig.mainNavigation.map((entry) => {
 });
 
 const footerResearchLinks = [
-  ...mainNavLinks.filter((link) => ['Suche', 'A–Z', 'Sachgebiete', 'Verkündungen'].includes(link.label)),
+  { href: getSearchUrl(), label: 'Rechtssuche', isActive: isActivePath(lawSiteConfig.paths.search) },
+  ...mainNavLinks,
+  { href: `${base}${lawSiteConfig.paths.index.replace(/^\//, '')}`, label: 'A–Z', isActive: isActivePath(lawSiteConfig.paths.index) },
   { href: getHelpUrl(), label: 'Hilfe', isActive: isActivePath(lawSiteConfig.paths.help) },
 ];
 const footerStateLinks = [
@@ -89,7 +91,7 @@ const footerStateLinks = [
       </div>
 
       <header class="law-header">
-        <div class="container law-header__identity">
+        <div class="container law-header__bar">
           <a class="law-wordmark" href={getLawPortalUrl()} aria-label="Startseite OstRecht">
             <img src={coatOfArmsAssetUrl} alt="" width="596" height="694" />
             <span>
@@ -97,46 +99,41 @@ const footerStateLinks = [
               <small>{lawSiteConfig.subtitle}</small>
             </span>
           </a>
-          <a class="law-header__state-link" href={getHomeUrl()}>
-            <PortalIcon name="arrow" />
-            <span>Staatsportal</span>
-          </a>
-        </div>
 
-        <div class="law-header__navigation">
-          <div class="container law-header__navigation-inner">
-            <nav class="law-main-nav" aria-label="Hauptnavigation Rechtsportal">
-              <a href={getLawPortalUrl()} aria-current={currentPath === '/' ? 'page' : undefined}>Start</a>
-              {mainNavLinks.map((link) => (
-                <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
-              ))}
-            </nav>
-            <form class="law-header-search" action={getSearchUrl()} method="get" role="search">
-              <label class="visually-hidden" for="law-header-search">{lawSiteConfig.searchLabel}</label>
-              <input id="law-header-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" />
-              <button type="submit" aria-label="Rechtssuche starten"><PortalIcon name="search" /></button>
-            </form>
-            <details class="law-mobile-nav">
-              <summary><PortalIcon name="menu" /><span>Menü</span></summary>
-              <div class="law-mobile-nav__panel">
-                <form action={getSearchUrl()} method="get" role="search">
-                  <label for="law-mobile-search">{lawSiteConfig.searchLabel}</label>
-                  <div>
-                    <input id="law-mobile-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" />
-                    <button type="submit">Suchen</button>
-                  </div>
-                </form>
-                <nav aria-label="Mobile Navigation Rechtsportal">
-                  <a href={getLawPortalUrl()} aria-current={currentPath === '/' ? 'page' : undefined}>Start</a>
-                  {mainNavLinks.map((link) => (
-                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
-                  ))}
-                  <a href={getHelpUrl()} aria-current={isActivePath(lawSiteConfig.paths.help) ? 'page' : undefined}>Hilfe</a>
-                  <a href={getHomeUrl()}>Staatsportal</a>
-                </nav>
-              </div>
-            </details>
+          <nav class="law-main-nav" aria-label="Hauptnavigation Rechtsportal">
+            <a href={getLawPortalUrl()} aria-current={currentPath === '/' ? 'page' : undefined}>Start</a>
+            {mainNavLinks.map((link) => (
+              <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+            ))}
+          </nav>
+
+          <div class="law-header__utilities">
+            <a href={getAccessibilityUrl()}><PortalIcon name="accessibility" /><span>Barrierefreiheit</span></a>
+            <a href={getHomeUrl()}><PortalIcon name="arrow" /><span>Staatsportal</span></a>
           </div>
+
+          <details class="law-mobile-nav">
+            <summary><PortalIcon name="menu" /><span>Menü</span></summary>
+            <div class="law-mobile-nav__panel">
+              <form action={getSearchUrl()} method="get" role="search">
+                <label for="law-mobile-search">{lawSiteConfig.searchLabel}</label>
+                <div>
+                  <input id="law-mobile-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" />
+                  <button type="submit">Suchen</button>
+                </div>
+              </form>
+              <nav aria-label="Mobile Navigation Rechtsportal">
+                <a href={getLawPortalUrl()} aria-current={currentPath === '/' ? 'page' : undefined}>Start</a>
+                {mainNavLinks.map((link) => (
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                ))}
+                <a href={getSearchUrl()} aria-current={isActivePath(lawSiteConfig.paths.search) ? 'page' : undefined}>Rechtssuche</a>
+                <a href={getHelpUrl()} aria-current={isActivePath(lawSiteConfig.paths.help) ? 'page' : undefined}>Hilfe</a>
+                <a href={getAccessibilityUrl()}>Barrierefreiheit</a>
+                <a href={getHomeUrl()}>Staatsportal</a>
+              </nav>
+            </div>
+          </details>
         </div>
       </header>
 

@@ -55,21 +55,16 @@ function versionLabel(entry: (typeof classified)[number]): string {
   <ul class="norm-version-navigation__primary">
     <li>
       <a href={getNormUrl(norm.meta.slug)} aria-current={currentPage === 'norm' ? 'page' : undefined}>
-        Vorschrift
+        Aktuelle Fassung
       </a>
     </li>
     <li>
       <a href={getNormHistoryUrl(norm.meta.slug)} aria-current={currentPage === 'history' ? 'page' : undefined}>
-        Normenhistorie
+        Historische Fassungen
       </a>
     </li>
-    {norm.versions.length >= 2 ? (
-      <li>
-        <a href={getNormCompareUrl(norm.meta.slug)} aria-current={currentPage === 'compare' ? 'page' : undefined}>
-          Fassungsvergleich
-        </a>
-      </li>
-    ) : null}
+    <li><a href={`${getNormHistoryUrl(norm.meta.slug)}#historieneintraege`}>Änderungsverlauf</a></li>
+    {currentPage === 'compare' ? <li><a href={getNormCompareUrl(norm.meta.slug)} aria-current="page">Fassungsvergleich</a></li> : null}
   </ul>
 
   {selectedEntry ? (

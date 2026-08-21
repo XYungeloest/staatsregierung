@@ -166,6 +166,9 @@ export const lawSiteConfig = {
   paths: {
     home: '/',
     search: '/suche/',
+    laws: '/gesetze/',
+    regulations: '/verordnungen/',
+    administrativeRules: '/verwaltungsvorschriften/',
     index: '/archiv/',
     subjects: '/sachgebiete/',
     funding: '/foerderrichtlinien/',
@@ -176,13 +179,12 @@ export const lawSiteConfig = {
     help: '/hilfe/',
   },
   mainNavigation: [
-    { label: 'Suche', pathKey: 'search' },
-    { label: 'A–Z', pathKey: 'index' },
-    { label: 'Sachgebiete', pathKey: 'subjects' },
-    { label: 'Verkündungen', pathKey: 'publications' },
-    { label: 'Fundstellen', pathKey: 'references' },
+    { label: 'Gesetze', pathKey: 'laws' },
+    { label: 'Verordnungen', pathKey: 'regulations' },
+    { label: 'Verwaltungsvorschriften', pathKey: 'administrativeRules' },
     { label: 'Verfassung', pathKey: 'constitution' },
-    { label: 'Rechtsentwicklung', pathKey: 'development' },
+    { label: 'Verkündungen', pathKey: 'publications' },
+    { label: 'Themen', pathKey: 'subjects' },
   ],
 } as const;
 
