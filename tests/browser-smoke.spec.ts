@@ -306,7 +306,7 @@ test('OstRecht-Navigation und farbiges Footerwappen bleiben mobil nutzbar', asyn
   const mobileNavigation = page.locator('.law-mobile-nav');
   await mobileNavigation.locator('summary').click();
   await expect(mobileNavigation.locator('.law-mobile-nav__panel')).toBeVisible();
-  await expect(mobileNavigation.getByRole('link', { name: 'Suche', exact: true })).toBeVisible();
+  await expect(mobileNavigation.getByRole('link', { name: 'Rechtssuche', exact: true })).toBeVisible();
 
   const footer = page.locator('.law-footer');
   const coatOfArms = footer.locator('.law-footer__brand img');
@@ -378,7 +378,7 @@ test('Vorschriftendaten und weiterführende Bezüge überlappen nicht', async ({
   expect(overlap).toBe(0);
 
   await page.setViewportSize({ width: 1024, height: 900 });
-  expect(await page.locator('.norm-detail-layout').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length)).toBe(1);
+  expect(await page.locator('.norm-workspace').evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(' ').length)).toBe(1);
 
   await page.setViewportSize({ width: 390, height: 844 });
   const widths = await page.evaluate(() => ({
@@ -407,8 +407,8 @@ test('Rechtsportal verwendet auf Übersichten und Suchindex dieselbe jüngste Ve
   const latestPublicationLabel = `${latestPublication.publication} ${latestPublication.year} Nr. ${latestPublication.issue}`;
 
   await page.goto(lawUrl('/'));
-  const latestHomePublication = page.getByRole('heading', { name: 'Neue Verkündungen' })
-    .locator('xpath=following::ul[1]')
+  const latestHomePublication = page.getByRole('heading', { name: 'Neu verkündet' })
+    .locator('xpath=following::ol[1]')
     .locator('li')
     .first();
   await expect(latestHomePublication).toContainText(latestPublicationLabel);
