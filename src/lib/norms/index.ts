@@ -22,6 +22,7 @@ export {
 
 export {
   getAccessibilityUrl,
+  getAdministrativeRulesUrl,
   getFundingUrl,
   getHomeUrl,
   getHelpUrl,
@@ -36,6 +37,7 @@ export {
   getLawPublicationsUrl,
   getLawReferencesUrl,
   getLawPortalUrl,
+  getLawsUrl,
   getNormCompareUrl,
   getNormCompareDataUrl,
   getNormCompareSelectionUrl,
@@ -44,6 +46,7 @@ export {
   getNormVersionUrl,
   getPublicationUrl,
   getPublicationsUrl,
+  getRegulationsUrl,
   getPrivacyUrl,
   getReferencesUrl,
   getServiceOverviewUrl,

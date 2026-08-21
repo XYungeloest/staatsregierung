@@ -1336,6 +1336,10 @@ article.panel > p:last-child > a.inline-link:hover {
   text-decoration: none;
 }
 
+.law-bridge-search .button-link {
+  transition: none;
+}
+
 .button-link--secondary {
   border-color: var(--color-border-strong);
   background: var(--color-surface);

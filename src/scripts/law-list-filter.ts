@@ -16,17 +16,16 @@ for (const root of roots) {
 
   const apply = (push = false) => {
     const data = new FormData(form);
-    const filters = {
-      publication: String(data.get('publication') ?? '').toLocaleLowerCase('de-DE'),
-      year: String(data.get('year') ?? ''),
-      issue: String(data.get('issue') ?? '').toLocaleLowerCase('de-DE'),
-      type: String(data.get('type') ?? '').toLocaleLowerCase('de-DE'),
-      q: String(data.get('q') ?? '').trim().toLocaleLowerCase('de-DE'),
-    };
+    const filters: Record<string, string> = {};
+    for (const element of Array.from(form.elements)) {
+      if (!(element instanceof HTMLInputElement || element instanceof HTMLSelectElement) || !element.name) continue;
+      const value = String(data.get(element.name) ?? '').trim().toLocaleLowerCase('de-DE');
+      if (value) filters[element.name] = value;
+    }
     let visible = 0;
     entries.forEach((entry) => {
       const matches = Object.entries(filters).every(([key, value]) =>
-        !value || (entry.dataset[key] ?? '').toLocaleLowerCase('de-DE').includes(value),
+        value.split('|').some((candidate) => (entry.dataset[key] ?? '').toLocaleLowerCase('de-DE').includes(candidate)),
       );
       entry.hidden = !matches;
       if (matches) visible += 1;

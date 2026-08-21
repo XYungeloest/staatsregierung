@@ -378,9 +378,13 @@ function renderVersion(entry: SearchIndexDocument, state: NormSearchState, headi
   return `
     <article class="search-hit">
       <div class="search-hit__header">
-        ${heading ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>` : `<h4><a class="inline-link" href="${escapeHtml(entry.url)}">Fassung vom ${escapeHtml(formatDate(entry.validFrom))}</a></h4>`}
+        <div class="search-hit__title">
+          <span class="law-type-label">${escapeHtml(entry.typeLabel)}</span>
+          ${heading ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>${entry.abbr ? `<p>${escapeHtml(entry.abbr)}</p>` : ''}` : `<h4><a class="inline-link" href="${escapeHtml(entry.url)}">Fassung vom ${escapeHtml(formatDate(entry.validFrom))}</a></h4>`}
+        </div>
         <span class="status-badge ${badgeClass(entry)}">${escapeHtml(entry.resultLabel)}</span>
       </div>
+      ${entry.summary ? `<p class="search-hit__summary">${escapeHtml(entry.summary)}</p>` : ''}
       <dl class="search-hit__facts">
         <div><dt>Vollzitat</dt><dd>${escapeHtml(entry.citation)}</dd></div>
         <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
@@ -391,6 +395,11 @@ function renderVersion(entry: SearchIndexDocument, state: NormSearchState, headi
       </dl>
       ${hitLinks(entry, state)}
       <p class="search-hit__context">${escapeHtml(clipContext(entry, state))}</p>
+      <nav class="search-hit__actions" aria-label="Aktionen für ${escapeHtml(entry.shortTitle || entry.title)}">
+        <a href="${escapeHtml(entry.url)}">Öffnen</a>
+        ${entry.publicationUrl ? `<a href="${escapeHtml(entry.publicationUrl)}">Fundstelle</a>` : ''}
+        <a href="${escapeHtml(`${entry.currentUrl}history/`)}">Änderungen anzeigen</a>
+      </nav>
     </article>
   `;
 }
