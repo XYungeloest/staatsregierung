@@ -26,12 +26,20 @@ for (const site of sites) {
   const titles = new Map();
   for await (const file of glob(`${site.root}/**/*.html`)) {
     const html = await readFile(file, 'utf8');
+    const isRedirectDocument = /<meta\s+http-equiv="refresh"\s+content="0;url=[^"]+"/iu.test(html)
+      && /<meta\s+name="robots"\s+content="noindex"/iu.test(html);
     const title = html.match(/<title>([^<]+)<\/title>/iu)?.[1]?.trim();
     const description = html.match(/<meta\s+name="description"\s+content="([^"]+)"/iu)?.[1]?.trim();
     const canonical = html.match(/<link\s+rel="canonical"\s+href="([^"]+)"/iu)?.[1]?.trim();
     const ogSiteName = html.match(/<meta\s+property="og:site_name"\s+content="([^"]+)"/iu)?.[1]?.trim();
     const h1Count = count(html, /<h1(?:\s[^>]*)?>/giu);
     const structuredData = [];
+
+    if (isRedirectDocument) {
+      if (!canonical) failures.push(`${file}: Redirect-Canonical fehlt`);
+      else if (!canonical.startsWith(`${site.origin}/`) && canonical !== site.origin) failures.push(`${file}: Redirect-Canonical verwendet nicht ${site.origin}`);
+      continue;
+    }
 
     if (!title) failures.push(`${file}: Titel fehlt`);
     if (!description) failures.push(`${file}: Meta-Description fehlt`);

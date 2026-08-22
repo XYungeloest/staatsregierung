@@ -55,7 +55,9 @@ const allowedNormMinistries = new Set([
   'Staatssekretariat für Volksbildung und Wissenschaft',
   'Staatssekretariat für Staats- und Grenzsicherheit',
   'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
+  'Büro des Staatspräsidenten',
   'Gemeingut Wohnen AöR',
+  'Landesenergiewerke Ost AöR',
 ]);
 const allowedEnactingBodies = new Set([
   'Sächsischer Landtag',
@@ -66,8 +68,10 @@ const allowedEnactingBodies = new Set([
   'Volkskammer des Freistaates Ostdeutschland',
   'Staatsregierung des Freistaates Ostdeutschland',
   'Staatsrat des Freistaates Ostdeutschland',
+  'Staatspräsident des Freistaates Ostdeutschland',
   'Bundesministerium des Innern und für Heimat und Ostdeutscher Staatsrat',
   'Verwaltungsrat der Gemeingut Wohnen AöR',
+  'Verwaltungsrat der Landesenergiewerke Ost',
 ]);
 const unverifiedGeneratedAbbreviations = new Set([
   'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',

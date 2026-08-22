@@ -35,7 +35,7 @@ test('alte Rechtspfade führen ohne Kette permanent zur funktional gleichen OstR
   const redirects = [
     ['/recht/suche/', '/suche/'],
     ['/recht/archiv/', '/archiv/'],
-    ['/recht/verfassung/', '/verfassung/'],
+    ['/recht/verfassung/', '/norm/staatsverfassung-des-freistaates-ostdeutschland/'],
     ['/recht/norm/sero-verordnung/', '/norm/sero-verordnung/'],
     ['/recht/norm/sero-verordnung/history/', '/norm/sero-verordnung/history/'],
     ['/recht/norm/sero-verordnung/version/2026-07-21/', '/norm/sero-verordnung/version/2026-07-21/'],
@@ -62,7 +62,7 @@ test('Rechtsbrücke trennt OstRecht-Recherche von Gesetzgebung im Staatsportal',
   );
   await expect(main.getByRole('link', { name: 'Verfassung', exact: true })).toHaveAttribute(
     'href',
-    'https://recht.freistaat-ostdeutschland.de/verfassung/',
+    'https://recht.freistaat-ostdeutschland.de/norm/staatsverfassung-des-freistaates-ostdeutschland/',
   );
   await expect(main.getByRole('link', { name: 'Verkündungen', exact: true })).toHaveAttribute(
     'href',

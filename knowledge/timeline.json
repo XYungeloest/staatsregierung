@@ -1,6 +1,53 @@
 {
-  "asOf": "2026-08-16",
+  "asOf": "2026-08-22",
   "events": [
+    {
+      "id": "event-energy-heat-price-guidelines-promulgated-2026",
+      "title": "Gemeinwirtschaftliche Strom- und Wärmepreisleitlinien verkündet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-22",
+      "validTo": "2026-08-22",
+      "asOf": "2026-08-22",
+      "summary": "Der Verwaltungsrat der Landesenergiewerke Ost veröffentlicht die gemeinwirtschaftlichen Strom- und Wärmepreisleitlinien. Beide treten am 1. September 2026 in Kraft und führen Regel- sowie vergünstigte Grundbedarfstarife ein.",
+      "sourceRefs": [
+        {"sourceId": "source-stanzo-2026-34", "locator": "gesamte Ausgabe, insbesondere Abschnitt IX", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-35", "locator": "gesamte Ausgabe, insbesondere Abschnitt IX", "role": "primary"},
+        {"sourceId": "source-pm-2026-08-22-09", "locator": "Einordnung und Vergleichswerte", "role": "corroborating"}
+      ],
+      "relatedIds": ["project-energie-waerme", "inst-landesenergiewerke-ost", "inst-sek-nachhaltigkeit-energie"],
+      "tags": ["timeline", "energy", "heating", "public-economy", "tariffs", "promulgation"],
+      "notes": ["Am 22. August 2026 sind die Leitlinien verkündet, aber noch nicht in Kraft; der Geltungsbeginn ist der 1. September 2026."],
+      "aliases": [],
+      "date": "2026-08-22",
+      "eventType": "guidelines-promulgated",
+      "normRefs": [
+        {"normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie", "versionId": "2026-09-01"},
+        {"normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie", "versionId": "2026-09-01"}
+      ]
+    },
+    {
+      "id": "event-monschau-medal-founded-2026",
+      "title": "Einsatzmedaille Monschau 2026 gestiftet und Ordensrecht angepasst",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-21",
+      "validTo": "2026-08-21",
+      "asOf": "2026-08-22",
+      "summary": "Der Staatspräsident stiftet die Einsatzmedaille Monschau 2026. Zugleich wird die Bekanntmachung über staatliche Auszeichnungen an Staatspräsident, Staatsrat, Volkskammer, Büro des Staatspräsidenten und Staatssekretariate angepasst; 18 verletzte ostdeutsche Einsatzkräfte erhalten die Medaille unabhängig von ihrer Einsatzdauer.",
+      "sourceRefs": [
+        {"sourceId": "source-stanzo-2026-33", "locator": "Abschnitte I bis XII", "role": "primary"},
+        {"sourceId": "source-pm-2026-08-21-08", "locator": "gesamte Pressemitteilung", "role": "corroborating"}
+      ],
+      "relatedIds": ["project-state-awards", "inst-staatspraesident", "person-karl-honecker"],
+      "tags": ["timeline", "state-awards", "civil-protection", "monschau"],
+      "notes": ["Die Einsatzmedaille ist eine eigenständige anlassbezogene Staatsauszeichnung; Abschnitt I derselben Bekanntmachung erzeugt außerdem eine neue konsolidierte Fassung der allgemeinen Auszeichnungsbekanntmachung."],
+      "aliases": [],
+      "date": "2026-08-21",
+      "eventType": "state-award-founded",
+      "normRefs": [
+        {"normSlug": "bekanntmachung-einsatzmedaille-monschau-2026", "versionId": "2026-08-21"},
+        {"normSlug": "bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu", "versionId": "2026-08-21"}
+      ]
+    },
     {
       "id": "event-school-law-package-promulgated-2026",
       "title": "Schulrechtliches Umsetzungs- und Bereinigungspaket vollständig verkündet",

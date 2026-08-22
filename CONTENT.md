@@ -24,7 +24,7 @@ Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffen
 - Der sichtbare Hinweis zur politischen Simulation bleibt auf obere Hinweisleiste und Footer
   beschränkt. Das Impressum enthält die ausführliche rechtliche Einordnung; in normalen
   Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation ergänzen.
-- Für aktuelle Übersichten gilt der redaktionelle Stichtag 16. August 2026. Termine davor sind
+- Für aktuelle Übersichten gilt der redaktionelle Stichtag 22. August 2026. Termine davor sind
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
@@ -1253,6 +1253,31 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 7. Öffentliche Texte auf behördennahen Ton und technische Begriffe prüfen.
 8. `npm run content:check` ausführen.
 9. Bei strukturellen Änderungen zusätzlich `npm run check` und `npm run build` ausführen.
+
+### Vollständiger Eingang aus `temp-neu/`
+
+Die Anweisung „`temp-neu` einpflegen“ genügt künftig als Kurzform für den gesamten Ablauf:
+
+1. Neue Dateien inventarisieren und zusammengehörige HTML-, PDF-, Markdown- und Bildquellen erkennen.
+2. Amtliche PDFs vollständig rendern und gegen Überschriften, Gliederung, Listenfortsetzungen,
+   Seitenzahlen, Tabellen, Anlagen und Signaturen der strukturtragenden HTML-Quelle prüfen.
+3. Geprüfte amtliche Quellen nach `Gesetze/` übernehmen; öffentlich verlinkte PDFs zusätzlich unter
+   `public/assets/recht/` ablegen.
+4. Für jede neue Ausgabe eine stabile Importkonfiguration ergänzen, zunächst auditieren und erst
+   danach gezielt mit `--write --file` importieren. Bereits vorhandene Normen werden nur mit
+   `--update-existing` geändert.
+5. Pressemitteilungen aus dem Eingang in das Content-Schema übertragen, redaktionell kürzen oder
+   gliedern und mit Themen, Normen sowie verwandten Meldungen verbinden.
+6. Bilder nur bei inhaltlicher Übereinstimmung und ohne sichtbare Beschriftungsfehler veröffentlichen;
+   andernfalls im Eingang belassen und den Konflikt melden.
+7. Betroffene Themen-, Timeline-, Dashboard- und andere Gegenwartsangaben sowie den zentralen
+   redaktionellen Stichtag gemeinsam fortschreiben.
+8. `npm run content:check`, `npm run check`, beide Builds, Linkprüfung, Browser-Smoke-Tests,
+   Accessibility-Tests und die betroffenen visuellen Tests ausführen. Screenshot-Baselines erst
+   nach Sichtprüfung aktualisieren.
+
+Dieser Ablauf verändert oder leert `temp-neu/` nicht. Das Verzeichnis bleibt der wiederverwendbare
+Benutzereingang und ist nicht Teil der öffentlichen Auslieferung.
 
 ## Schnellreferenz
 

@@ -27,17 +27,45 @@
   "initialCitation": "Bekanntmachung vom 31. März 2026 (StAnzO. 2026 Nr. 8)",
   "predecessor": null,
   "successor": null,
+  "relatedNorms": [
+    "bekanntmachung-einsatzmedaille-monschau-2026"
+  ],
   "summary": "I. Der Freistaat Ostdeutschland stiftet zur öffentlichen Anerkennung herausragender Verdienste um das Gemeinwohl, den Staat, die Gesellschaft, Wissenschaft, Kultur, Wirtschaft und den sozialen Zusammenhalt folgende...",
   "status": "in-force",
   "documentDate": "2026-03-31",
   "publicationDate": "2026-03-31",
   "effectiveDate": "2026-03-31",
+  "lastAmendedDate": "2026-08-21",
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
       "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
       "availability": "versioned",
       "localSource": "Gesetze/StAnzO. 2026 Nr. 8.html"
+    },
+    {
+      "kind": "structured-html-transcription",
+      "label": "Änderungsbekanntmachung im Staatsanzeiger Ostdeutschland 2026 Nr. 33",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO.2026Nr.33.html",
+      "sha256": "a4c628ea459dda6a955fc9aefb4bf170ea67ae2131fb75ab3e28d458446c6a5e",
+      "mediaType": "text/html",
+      "pageRange": "2",
+      "verifiedAt": "2026-08-22",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung der Änderung",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 33.pdf",
+      "sha256": "d82ab3225876d07bb56e987c9f6b5a5e85faaaf7488363c08ffa2e8c882b954f",
+      "mediaType": "application/pdf",
+      "pageCount": 6,
+      "pageRange": "2",
+      "verifiedAt": "2026-08-22",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/StAnzO.2026Nr.33.html"
     }
   ]
 }

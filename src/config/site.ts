@@ -174,7 +174,7 @@ export const lawSiteConfig = {
     funding: '/foerderrichtlinien/',
     references: '/fundstellen/',
     publications: '/verkuendungen/',
-    constitution: '/verfassung/',
+    constitution: '/norm/staatsverfassung-des-freistaates-ostdeutschland/',
     development: '/rechtsentwicklung/',
     help: '/hilfe/',
   },

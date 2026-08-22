@@ -226,6 +226,61 @@ const NEW_PUBLICATION_CONFIG = {
       },
     ],
   }],
+  'StAnzO.|2026|33': [{
+    slug: 'bekanntmachung-einsatzmedaille-monschau-2026',
+    shortTitle: 'Einsatzmedaille „Monschau 2026“',
+    type: 'bekanntmachung',
+    pageCount: 6,
+    pdfFileName: 'StAnzO. 2026 Nr. 33.pdf',
+    verifiedAt: '2026-08-22',
+    enactingBody: 'Staatspräsident des Freistaates Ostdeutschland',
+    responsibleMinistry: 'Büro des Staatspräsidenten',
+    subjects: ['Landesrecht', 'Sicherheit und Ordnung'],
+    summary: 'Stiftet die Einsatzmedaille „Monschau 2026“ für besondere Verdienste bei der Waldbrandkatastrophe vom 18. bis 20. August 2026 und regelt Voraussetzungen, Gestaltung und Verleihungsverfahren.',
+    effectiveOverride: '2026-08-21',
+    relatedNorms: ['bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu'],
+    dateNote: 'Am 21. August 2026 verkündet und am selben Tag in Kraft getreten.',
+    additionalPublicationEntries: [{
+      id: 'bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu',
+      title: 'Bekanntmachung des Staatspräsidenten über die Stiftung staatlicher Auszeichnungen des Freistaates Ostdeutschland',
+      type: 'bekanntmachung',
+      citation: 'Geändert durch Abschnitt I der Bekanntmachung vom 21. August 2026 (StAnzO. 2026 Nr. 33 S. 2)',
+      pages: '2',
+      documentDate: '2026-08-21',
+      normSlug: 'bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu',
+      versionId: '2026-08-21',
+    }],
+  }],
+  'StAnzO.|2026|34': [{
+    slug: 'bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie',
+    shortTitle: 'Gemeinwirtschaftliche Strompreisleitlinie',
+    type: 'bekanntmachung',
+    pageCount: 5,
+    pdfFileName: 'StAnzO. 2026 Nr. 34.pdf',
+    verifiedAt: '2026-08-22',
+    enactingBody: 'Verwaltungsrat der Landesenergiewerke Ost',
+    responsibleMinistry: 'Landesenergiewerke Ost AöR',
+    subjects: ['Umwelt, Energie und Klimaschutz', 'Öffentliche Wirtschaft'],
+    summary: 'Legt die gemeinwirtschaftliche Strompreisbildung der Landesenergiewerke Ost fest und führt zum 1. September 2026 den Ost-Stromtarif sowie einen vergünstigten Grundbedarfstarif ein.',
+    effectiveOverride: '2026-09-01',
+    relatedNorms: ['landesenergiewerke-gesetz', 'energie-und-waermevergesellschaftungsgesetz'],
+    dateNote: 'Am 22. August 2026 verkündet; Inkrafttreten am 1. September 2026.',
+  }],
+  'StAnzO.|2026|35': [{
+    slug: 'bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie',
+    shortTitle: 'Gemeinwirtschaftliche Wärmepreisleitlinie',
+    type: 'bekanntmachung',
+    pageCount: 5,
+    pdfFileName: 'StAnzO. 2026 Nr. 35.pdf',
+    verifiedAt: '2026-08-22',
+    enactingBody: 'Verwaltungsrat der Landesenergiewerke Ost',
+    responsibleMinistry: 'Landesenergiewerke Ost AöR',
+    subjects: ['Umwelt, Energie und Klimaschutz', 'Öffentliche Wirtschaft'],
+    summary: 'Legt die gemeinwirtschaftliche Wärmepreisbildung der Landesenergiewerke Ost fest, senkt Haushaltswärmepreise und führt zum 1. September 2026 einen vergünstigten Grundwärmetarif ein.',
+    effectiveOverride: '2026-09-01',
+    relatedNorms: ['landesenergiewerke-gesetz', 'energie-und-waermevergesellschaftungsgesetz', 'energie-und-waermefinanzierungsgesetz'],
+    dateNote: 'Am 22. August 2026 verkündet; Inkrafttreten am 1. September 2026.',
+  }],
 };
 
 function publicationConfigKey(parsed) {
@@ -370,6 +425,8 @@ function citationFor(parsed, startPage) {
     ? 'Erlass'
     : /Verwaltungsvorschrift/iu.test(parsed.heading ?? '')
     ? 'Verwaltungsvorschrift'
+    : /Bekanntmachung/iu.test(parsed.heading ?? '') || parsed.type === 'bekanntmachung'
+      ? 'Bekanntmachung'
     : /Verordnung/iu.test(parsed.heading ?? '') || parsed.type === 'verordnung'
       ? 'Verordnung'
       : 'Gesetz';
@@ -1031,7 +1088,7 @@ function publicationFrom(parsed, records) {
       : isNewOfficialIssue
         ? officialIssueSourceReferences(parsed, config)
         : [publicationSourceReference(parsed.fileName)],
-    entries: records.map((record) => ({
+    entries: [...records.map((record) => ({
       id: record.meta.slug,
       title: record.meta.title,
       type: isNewOfficialIssue
@@ -1045,7 +1102,7 @@ function publicationFrom(parsed, records) {
       documentDate: record.meta.documentDate,
       normSlug: record.meta.slug,
       versionId: record.versions[0].versionId,
-    })),
+    })), ...(config.additionalPublicationEntries ?? [])],
   };
 }
 
@@ -1147,7 +1204,19 @@ function mergeWithExisting(record, existing) {
         ...(record.meta.affectedNorms ?? []),
       ])],
     } : {}),
-    affectedByNorms: existing.meta.affectedByNorms ?? record.meta.affectedByNorms,
+    ...((existing.meta.affectedByNorms || record.meta.affectedByNorms) ? {
+      affectedByNorms: existing.meta.affectedByNorms ?? record.meta.affectedByNorms,
+    } : {}),
+    sourceReferences: [
+      ...(existing.meta.sourceReferences ?? []),
+      ...(record.meta.sourceReferences ?? []).filter((reference) =>
+        !(existing.meta.sourceReferences ?? []).some((candidate) =>
+          candidate.kind === reference.kind &&
+          candidate.localSource === reference.localSource &&
+          candidate.url === reference.url
+        )
+      ),
+    ],
   };
   const generatedEntryKeys = new Set(record.history.entries.map((entry) => JSON.stringify([
     entry.date,
@@ -1350,7 +1419,8 @@ function preserveExistingHistoryForAudit(record, existing) {
   if (!existing) return record;
   if (
     record.meta.slug !== 'staatsverfassung-des-freistaates-ostdeutschland' &&
-    record.meta.slug !== 'ostdeutsche-bezirksordnung'
+    record.meta.slug !== 'ostdeutsche-bezirksordnung' &&
+    record.meta.slug !== 'bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu'
   ) {
     return record;
   }

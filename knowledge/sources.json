@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-16",
+  "asOf": "2026-08-22",
   "sources": [
     {
       "id": "source-editorial-clarification-eag-2026-08-11",
@@ -1339,6 +1339,73 @@
         "institutions"
       ],
       "notes": "Kanonische Quelle für aktuelle und historische Besetzungen sowie Ressortleitungen."
+    },
+    {
+      "id": "source-stanzo-2026-33",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO.2026Nr.33.html",
+      "paths": {
+        "html": "Gesetze/StAnzO.2026Nr.33.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 33.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 33",
+      "date": "2026-08-21",
+      "status": "primary",
+      "scope": ["law", "state-awards", "civil-protection", "government"],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Stiftung der Einsatzmedaille Monschau 2026 und Anpassung der bestehenden Bekanntmachung über staatliche Auszeichnungen an die durch die Große Staatsreform geänderte Staatsorganisation; alle sechs PDF-Seiten visuell kontrolliert."
+    },
+    {
+      "id": "source-stanzo-2026-34",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO.2026Nr.34.html",
+      "paths": {
+        "html": "Gesetze/StAnzO.2026Nr.34.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 34.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 34",
+      "date": "2026-08-22",
+      "status": "primary",
+      "scope": ["law", "energy", "public-economy", "tariffs"],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Bekanntmachung der gemeinwirtschaftlichen Strompreisleitlinie mit Inkrafttreten am 1. September 2026; alle fünf PDF-Seiten visuell kontrolliert."
+    },
+    {
+      "id": "source-stanzo-2026-35",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO.2026Nr.35.html",
+      "paths": {
+        "html": "Gesetze/StAnzO.2026Nr.35.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 35.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 35",
+      "date": "2026-08-22",
+      "status": "primary",
+      "scope": ["law", "heating", "public-economy", "tariffs"],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Bekanntmachung der gemeinwirtschaftlichen Wärmepreisleitlinie mit Inkrafttreten am 1. September 2026; alle fünf PDF-Seiten visuell kontrolliert."
+    },
+    {
+      "id": "source-pm-2026-08-21-08",
+      "type": "press-release",
+      "path": "content/presse/mitteilungen/einsatzmedaille-monschau-2026-gestiftet.json",
+      "title": "Staatspräsident stiftet Einsatzmedaille Monschau 2026",
+      "date": "2026-08-21",
+      "status": "primary",
+      "scope": ["press", "state-awards", "civil-protection", "persons"],
+      "sourceRole": "official-press-release",
+      "notes": "Belegt die Stiftung, die Auszeichnung der 18 verletzten ostdeutschen Einsatzkräfte und den länderübergreifenden Charakter der Medaille."
+    },
+    {
+      "id": "source-pm-2026-08-22-09",
+      "type": "press-release",
+      "path": "content/presse/mitteilungen/gemeineigentum-senkt-mieten-strom-und-waermekosten.json",
+      "title": "Gemeineigentum senkt Mieten, Strom- und Wärmekosten",
+      "date": "2026-08-22",
+      "status": "primary",
+      "scope": ["press", "energy", "heating", "housing", "public-economy"],
+      "sourceRole": "official-press-release",
+      "notes": "Amtliche Einordnung der ab 1. September 2026 geltenden gemeinwirtschaftlichen Strom- und Wärmetarife im Zusammenhang mit der bereits verkündeten Mietsenkung."
     }
   ]
 }
