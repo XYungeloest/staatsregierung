@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-16",
-  "editorialAsOf": "2026-08-16",
-  "count": 356,
+  "generatedAt": "2026-08-22",
+  "editorialAsOf": "2026-08-22",
+  "count": 367,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -507,6 +507,23 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "event-energy-heat-price-guidelines-promulgated-2026",
+      "title": "Gemeinwirtschaftliche Strom- und Wärmepreisleitlinien verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "energy",
+        "heating",
+        "public-economy",
+        "tariffs",
+        "promulgation"
+      ],
+      "validFrom": "2026-08-22",
+      "validTo": "2026-08-22",
+      "target": "knowledge/timeline.json"
+    },
+    {
       "id": "event-fernverkehr-ovv-letter",
       "title": "Staatsregierung trennt Fernverkehrsreaktivierung und Ticketanerkennung",
       "type": "timeline-event",
@@ -783,6 +800,21 @@
       ],
       "validFrom": "2026-07-21",
       "validTo": "2026-07-21",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-monschau-medal-founded-2026",
+      "title": "Einsatzmedaille Monschau 2026 gestiftet und Ordensrecht angepasst",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "state-awards",
+        "civil-protection",
+        "monschau"
+      ],
+      "validFrom": "2026-08-21",
+      "validTo": "2026-08-21",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1259,6 +1291,25 @@
       ],
       "validFrom": "2026-05-04",
       "validTo": "2026-07-20",
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-landesenergiewerke-ost",
+      "title": "Landesenergiewerke Ost",
+      "type": "institution",
+      "aliases": [
+        "Landesenergiewerke Ost AöR",
+        "LEWO"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "energy",
+        "heating",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
       "target": "knowledge/entities/institutions.json"
     },
     {
@@ -2521,6 +2572,23 @@
         "constitution"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
+      "id": "project-state-awards",
+      "title": "Staatliche Auszeichnungen und Einsatzmedaille Monschau 2026",
+      "type": "project",
+      "aliases": [
+        "Ordenswesen des Freistaates"
+      ],
+      "tags": [
+        "project",
+        "state-awards",
+        "civil-protection",
+        "government"
+      ],
+      "validFrom": "2026-03-31",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -3978,6 +4046,37 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-pm-2026-08-21-08",
+      "title": "Staatspräsident stiftet Einsatzmedaille Monschau 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "press",
+        "state-awards",
+        "civil-protection",
+        "persons"
+      ],
+      "validFrom": "2026-08-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-pm-2026-08-22-09",
+      "title": "Gemeineigentum senkt Mieten, Strom- und Wärmekosten",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "press",
+        "energy",
+        "heating",
+        "housing",
+        "public-economy"
+      ],
+      "validFrom": "2026-08-22",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-pm-50hertz-2025-12-02",
       "title": "Einigung bei 50Hertz erzielt – Ostdeutsches Netz in ostdeutsche Hand",
       "type": "source",
@@ -4328,6 +4427,51 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-stanzo-2026-33",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 33",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "state-awards",
+        "civil-protection",
+        "government"
+      ],
+      "validFrom": "2026-08-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-34",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 34",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "energy",
+        "public-economy",
+        "tariffs"
+      ],
+      "validFrom": "2026-08-22",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-35",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 35",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "heating",
+        "public-economy",
+        "tariffs"
+      ],
+      "validFrom": "2026-08-22",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-steelworks-valuation-2026-03-14",
       "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
       "type": "source",
@@ -4403,6 +4547,22 @@
         "constitution"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-energy-heat-tariffs-2026",
+      "title": "Verkündete Strom- und Wärmetarife zum 1. September 2026",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "energy",
+        "heating",
+        "tariffs",
+        "public-economy"
+      ],
+      "validFrom": "2026-08-22",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },
@@ -4538,6 +4698,20 @@
         "law"
       ],
       "validFrom": "2026-08-16",
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-state-awards-2026",
+      "title": "Staatliche Auszeichnungen und Einsatzmedaille Monschau 2026",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "state-awards",
+        "civil-protection"
+      ],
+      "validFrom": "2026-08-21",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

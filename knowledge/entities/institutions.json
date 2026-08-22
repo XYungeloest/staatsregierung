@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-11",
+  "asOf": "2026-08-22",
   "institutions": [
     {
       "id": "inst-bundeswahlleiter",
@@ -47,6 +47,27 @@
       "tags": ["institution", "public-law-entity", "housing", "public-economy"],
       "notes": [],
       "aliases": ["Gemeingut Wohnen AöR"],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-landesenergiewerke-ost",
+      "title": "Landesenergiewerke Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-22",
+      "summary": "Landesunmittelbare Anstalt des öffentlichen Rechts für gemeinwirtschaftliche Energie- und Wärmeversorgung. Ihr Verwaltungsrat beschloss die zum 1. September 2026 geltenden Strom- und Wärmepreisleitlinien.",
+      "sourceRefs": [
+        {"sourceId": "source-energy-law", "locator": "Errichtung und Aufgaben der Landesenergiewerke", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-34", "locator": "Strompreisleitlinie, Abschnitte I und IX", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-35", "locator": "Wärmepreisleitlinie, Abschnitte I und IX", "role": "primary"}
+      ],
+      "relatedIds": ["project-energie-waerme", "inst-sek-nachhaltigkeit-energie"],
+      "tags": ["institution", "public-law-entity", "energy", "heating", "public-economy"],
+      "notes": [],
+      "aliases": ["Landesenergiewerke Ost AöR", "LEWO"],
       "type": "public-law-institution",
       "predecessorId": null,
       "successorId": null

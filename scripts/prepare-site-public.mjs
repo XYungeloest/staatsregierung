@@ -40,7 +40,7 @@ if (target === 'portal') {
     `/recht/foerderrichtlinien/ ${lawSiteUrl}/foerderrichtlinien/ 301`,
     `/recht/fundstellen/ ${lawSiteUrl}/fundstellen/ 301`,
     `/recht/verkuendungen/ ${lawSiteUrl}/verkuendungen/ 301`,
-    `/recht/verfassung/ ${lawSiteUrl}/verfassung/ 301`,
+    `/recht/verfassung/ ${lawSiteUrl}/norm/staatsverfassung-des-freistaates-ostdeutschland/ 301`,
     `/recht/rechtsentwicklung/ ${lawSiteUrl}/rechtsentwicklung/ 301`,
     `/recht/hilfe/ ${lawSiteUrl}/hilfe/ 301`,
     `/recht/search-index.json ${lawSiteUrl}/search-index.json 301`,

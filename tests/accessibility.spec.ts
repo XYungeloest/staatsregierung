@@ -38,7 +38,6 @@ const auditPages = [
   lawUrl('/gesetze/'),
   lawUrl('/verordnungen/'),
   lawUrl('/verwaltungsvorschriften/'),
-  lawUrl('/verfassung/'),
   lawUrl('/archiv/'),
   lawUrl('/verkuendungen/'),
   lawUrl('/fundstellen/'),

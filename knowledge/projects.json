@@ -1,6 +1,36 @@
 {
-  "asOf": "2026-08-16",
+  "asOf": "2026-08-22",
   "projects": [
+    {
+      "id": "project-state-awards",
+      "title": "Staatliche Auszeichnungen und Einsatzmedaille Monschau 2026",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-31",
+      "validTo": null,
+      "asOf": "2026-08-22",
+      "summary": "Die allgemeine Bekanntmachung über staatliche Auszeichnungen begründet Sigmund-Jähn-Orden, Verdienstorden und Verdienstmedaille. Seit 21. August 2026 ist sie an die Staatsorganisation nach der Großen Staatsreform angepasst; zusätzlich besteht die anlassbezogene Einsatzmedaille Monschau 2026.",
+      "sourceRefs": [
+        {"sourceId": "source-stanzo-2026-33", "locator": "Abschnitt I und Abschnitte II bis XII", "role": "primary"},
+        {"sourceId": "source-pm-2026-08-21-08", "locator": "Stiftung und erste Verleihungen", "role": "corroborating"}
+      ],
+      "relatedIds": ["inst-staatspraesident", "person-karl-honecker", "event-monschau-medal-founded-2026"],
+      "tags": ["project", "state-awards", "civil-protection", "government"],
+      "notes": ["Das Büro des Staatspräsidenten bleibt Ordenskanzlei und führt das Ordensregister."],
+      "aliases": ["Ordenswesen des Freistaates"],
+      "projectStage": "in-force",
+      "responsibleInstitutionIds": ["inst-staatspraesident"],
+      "normRefs": [
+        {"normSlug": "bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu", "versionId": "2026-08-21"},
+        {"normSlug": "bekanntmachung-einsatzmedaille-monschau-2026", "versionId": "2026-08-21"}
+      ],
+      "milestones": [
+        {"date": "2026-03-31", "title": "Allgemeine staatliche Auszeichnungen gestiftet"},
+        {"date": "2026-08-21", "title": "Organbezeichnungen angepasst und Einsatzmedaille Monschau 2026 gestiftet"}
+      ],
+      "nextSteps": ["Weitere Verleihungen und Änderungen nur bei amtlichem Nachweis ergänzen"],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
     {
       "id": "project-staatsreform",
       "title": "Große Staatsreform",
@@ -374,8 +404,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Gesetzespaket zu öffentlichen Energie- und Wärmeinfrastrukturen, Finanzierung und Landesenergiewerken.",
+      "asOf": "2026-08-22",
+      "summary": "Gesetzespaket zu öffentlichen Energie- und Wärmeinfrastrukturen, Finanzierung und Landesenergiewerken. Die am 22. August 2026 verkündeten gemeinwirtschaftlichen Strom- und Wärmepreisleitlinien konkretisieren die Tarifbildung und treten am 1. September 2026 in Kraft.",
       "sourceRefs": [
         {
           "sourceId": "source-energy-law",
@@ -386,21 +416,33 @@
           "sourceId": "source-energy-procedure",
           "locator": "Verfahrensdatensatz",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-34",
+          "locator": "Strompreisleitlinie",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-35",
+          "locator": "Wärmepreisleitlinie",
+          "role": "primary"
         }
       ],
       "relatedIds": [
-        "inst-sek-nachhaltigkeit-energie"
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-landesenergiewerke-ost"
       ],
       "tags": [
         "project",
         "energy",
         "public-economy"
       ],
-      "notes": [],
+      "notes": ["Die Leitlinien sind am 22. August 2026 verkündet, gelten aber erst ab 1. September 2026."],
       "aliases": [],
       "projectStage": "in-force",
       "responsibleInstitutionIds": [
-        "inst-sek-nachhaltigkeit-energie"
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-landesenergiewerke-ost"
       ],
       "normRefs": [
         {
@@ -418,16 +460,32 @@
         {
           "normSlug": "energie-und-waermefinanzierungsgesetz",
           "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie",
+          "versionId": "2026-09-01"
         }
       ],
       "milestones": [
         {
           "date": "2026-07-21",
           "title": "Gesetzespaket tritt in Kraft"
+        },
+        {
+          "date": "2026-08-22",
+          "title": "Strom- und Wärmepreisleitlinien verkündet"
+        },
+        {
+          "date": "2026-09-01",
+          "title": "Gemeinwirtschaftliche Strom- und Wärmetarife treten in Kraft"
         }
       ],
       "nextSteps": [
-        "Praktische Übernahmen, Finanzierung und Sozialtarife als Meilensteine erfassen"
+        "Vollzug der Tarifumstellung und praktische Übernahmen bei amtlichem Nachweis ergänzen"
       ],
       "dependencies": [],
       "openQuestionIds": []

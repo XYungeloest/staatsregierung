@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-16",
+  "asOf": "2026-08-22",
   "discoverability": {
     "minimumActiveHighlights": 1,
     "editorialLead": {
@@ -9,6 +9,15 @@
     }
   },
   "currentStateCoverage": [
+    {
+      "id": "state-current-energy-heat-tariffs-2026",
+      "topicSlugs": ["energie-und-klima"],
+      "publicPaths": ["/presse/pressemitteilungen/gemeineigentum-senkt-mieten-strom-und-waermekosten/"]
+    },
+    {
+      "id": "state-current-state-awards-2026",
+      "publicPaths": ["/presse/pressemitteilungen/einsatzmedaille-monschau-2026-gestiftet/"]
+    },
     {
       "id": "state-current-federal-president-representation",
       "publicPaths": ["/staatsregierung/mitglieder/karl-honecker/"]
@@ -67,6 +76,7 @@
     }
   ],
   "projectCoverage": [
+    { "id": "project-state-awards", "publicPaths": ["/presse/pressemitteilungen/einsatzmedaille-monschau-2026-gestiftet/"] },
     { "id": "project-staatsreform", "topicSlugs": ["staatsreform-und-verfassung"] },
     { "id": "project-kreisreform", "topicSlugs": ["kommunen-regionen-und-berlin"], "publicPaths": ["/kreisreform/"] },
     { "id": "project-sero", "topicSlugs": ["kreislaufwirtschaft", "energie-und-klima"] },

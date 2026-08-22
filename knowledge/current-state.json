@@ -1,7 +1,48 @@
 {
-  "asOf": "2026-08-16",
+  "asOf": "2026-08-22",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
+    {
+      "id": "state-current-energy-heat-tariffs-2026",
+      "title": "Verkündete Strom- und Wärmetarife zum 1. September 2026",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-22",
+      "validTo": null,
+      "asOf": "2026-08-22",
+      "summary": "Die gemeinwirtschaftlichen Strom- und Wärmepreisleitlinien sind am 22. August 2026 verkündet. Sie führen bei den Landesenergiewerken Ost zum 1. September 2026 Regel- und vergünstigte Grundbedarfstarife ein.",
+      "sourceRefs": [
+        {"sourceId": "source-stanzo-2026-34", "locator": "Abschnitte II bis IX", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-35", "locator": "Abschnitte II bis IX", "role": "primary"},
+        {"sourceId": "source-pm-2026-08-22-09", "locator": "amtliche Einordnung", "role": "corroborating"}
+      ],
+      "relatedIds": ["project-energie-waerme", "inst-landesenergiewerke-ost", "event-energy-heat-price-guidelines-promulgated-2026"],
+      "tags": ["current-state", "energy", "heating", "tariffs", "public-economy"],
+      "notes": ["Die Verkündung ist gegenwärtiger Rechtsstand; die Tarife selbst gelten erst ab 1. September 2026."],
+      "normRefs": [
+        {"normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie", "versionId": "2026-09-01"},
+        {"normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie", "versionId": "2026-09-01"}
+      ]
+    },
+    {
+      "id": "state-current-state-awards-2026",
+      "title": "Staatliche Auszeichnungen und Einsatzmedaille Monschau 2026",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-21",
+      "validTo": null,
+      "asOf": "2026-08-22",
+      "summary": "Die allgemeine Auszeichnungsbekanntmachung liegt seit 21. August 2026 in einer an die Große Staatsreform angepassten Fassung vor. Die zugleich gestiftete Einsatzmedaille Monschau 2026 ist in Kraft; das Büro des Staatspräsidenten führt als Ordenskanzlei das Ordensregister.",
+      "sourceRefs": [
+        {"sourceId": "source-stanzo-2026-33", "locator": "Abschnitte I bis XII", "role": "primary"},
+        {"sourceId": "source-pm-2026-08-21-08", "locator": "Stiftung und Verleihung an verletzte Einsatzkräfte", "role": "corroborating"}
+      ],
+      "relatedIds": ["project-state-awards", "inst-staatspraesident", "event-monschau-medal-founded-2026"],
+      "tags": ["current-state", "state-awards", "civil-protection"],
+      "notes": [],
+      "normRefs": [
+        {"normSlug": "bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu", "versionId": "2026-08-21"},
+        {"normSlug": "bekanntmachung-einsatzmedaille-monschau-2026", "versionId": "2026-08-21"}
+      ]
+    },
     {
       "id": "state-current-school-law-package-2026",
       "title": "Verkündetes Schulrechtspaket zum 1. September 2026",
@@ -49,8 +90,8 @@
       "status": "editorially-confirmed",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-08-16",
-      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 16. August 2026; Regierungssitz Dresden.",
+      "asOf": "2026-08-22",
+      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 22. August 2026; Regierungssitz Dresden.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-config",
@@ -73,7 +114,7 @@
       "notes": [],
       "stateId": "territory-freistaat",
       "capital": "Dresden",
-      "editorialAsOf": "2026-08-16"
+      "editorialAsOf": "2026-08-22"
     },
     {
       "id": "state-current-constitution",
@@ -405,8 +446,8 @@
       "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-09",
-      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich der schrittweisen 50Hertz-Übernahme, der OVV-Ticketanerkennung und der angenommenen NVIDIA-Ansiedlung, ohne Normvolltexte zu duplizieren.",
+      "asOf": "2026-08-22",
+      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich der gemeinwirtschaftlichen Energie- und Wärmetarife, des staatlichen Auszeichnungswesens, der schrittweisen 50Hertz-Übernahme, der OVV-Ticketanerkennung und der angenommenen NVIDIA-Ansiedlung, ohne Normvolltexte zu duplizieren.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -427,10 +468,26 @@
           "sourceId": "source-eag-staatsregierung-ost-2024-2026",
           "locator": "NVIDIA-Annahme und OVV-/DB-Ticketdeal; Messages 1452105215590273175 sowie 1527380585633419425 bis 1527388238602436661",
           "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-33",
+          "locator": "staatliche Auszeichnungen und Einsatzmedaille",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-34",
+          "locator": "gemeinwirtschaftliche Strompreisleitlinie",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-35",
+          "locator": "gemeinwirtschaftliche Wärmepreisleitlinie",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "project-staatsreform",
+        "project-state-awards",
         "project-kreisreform",
         "project-sero",
         "project-eisenbahn-verkehr",
@@ -455,6 +512,7 @@
       "notes": [],
       "projectIds": [
         "project-staatsreform",
+        "project-state-awards",
         "project-kreisreform",
         "project-sero",
         "project-eisenbahn-verkehr",

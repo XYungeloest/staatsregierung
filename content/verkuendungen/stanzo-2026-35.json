@@ -1,0 +1,49 @@
+{
+  "slug": "stanzo-2026-35",
+  "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 35",
+  "year": 2026,
+  "issue": "35",
+  "date": "2026-08-22",
+  "publication": "StAnzO.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/StAnzO. 2026 Nr. 35.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO.2026Nr.35.html",
+      "sha256": "e296c702f0e154240beee8aa1843c227395d8a691ac5f307a34834dad523cce5",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-22",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 35.pdf",
+      "sha256": "dc27306a1524c2198d718774f495712db1bcb284f1389fd445c0581a493974b0",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-22",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/StAnzO.2026Nr.35.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie",
+      "title": "Bekanntmachung der Landesenergiewerke Ost über die gemeinwirtschaftliche Wärmepreisleitlinie und die Absenkung der Haushaltswärmepreise",
+      "type": "bekanntmachung",
+      "citation": "Bekanntmachung vom 22. August 2026 (StAnzO. 2026 Nr. 35 S. 2)",
+      "pages": "2–5",
+      "documentDate": "2026-08-22",
+      "normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie",
+      "versionId": "2026-09-01"
+    }
+  ]
+}

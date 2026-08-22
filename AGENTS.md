@@ -89,7 +89,7 @@ npm run test:a11y
 - Öffentliche Texte erklären weder Gestaltung noch Umsetzung der Website. Formulierungen über Platzhalter, Designabsichten, technische Zustände oder die eigene Seitenstruktur vermeiden.
 - Geschlechtergerechte Personenbezeichnungen einheitlich mit Doppelpunkt schreiben, zum Beispiel `Bürger:innen` oder `Referent:in`. Keine Paarformen, Sterne, Binnen-I oder Unterstriche verwenden.
 - Der Hinweis auf die politische Simulation bleibt sichtbar in der oberen Hinweisleiste und im Footer. Außerhalb dieser festen Hinweise bleiben öffentliche Texte frei von Wiederholungen; das Impressum enthält die erforderliche ausführliche Einordnung des fiktiven Internetangebots.
-- Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote ist der 16. August 2026. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote.
+- Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote ist der 22. August 2026. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote.
 - Operative technische Begriffe sind in interner Doku und Code zulässig.
 - Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor. Max Peterson leitet als Staatsrat das Staatssekretariat für Wirtschaft und Arbeit.
 - Thomas Henry Barlow ist seit dem 20. Juli 2026 nicht mehr aktiv. Yannik Schmäle leitet seit dem 21. Juli 2026 sowohl Nachhaltigkeit und Energie als auch Staats- und Grenzsicherheit.
@@ -156,6 +156,20 @@ content/verkuendungen/[slug].json
 
 Sie verknüpfen Fundstellen über `entries[].normSlug` und `entries[].versionId` mit gespeicherten
 Normfassungen. Norm-JSONs bleiben dadurch unabhängig von später gepflegten Amtsblatt-Ausgaben.
+
+## Eingang aus `temp-neu/`
+
+Die kurze Arbeitsanweisung „`temp-neu` einpflegen“ bezeichnet den vollständigen redaktionellen
+Eingangsablauf. Dazu gehören ohne weitere Einzelerklärung: Dateien inventarisieren, HTML und PDF
+gegeneinander prüfen, amtliche Quellen nach `Gesetze/` und öffentliche PDFs nach
+`public/assets/recht/` übernehmen, Normen und Verkündungen gezielt importieren, mitgelieferte
+Pressemitteilungen in `content/presse/mitteilungen/` übertragen, belastbare Bilder unter
+`public/images/` ablegen, Beziehungen zu Normen, Themen und Pressemitteilungen pflegen sowie
+betroffene Gegenwartsstände und den redaktionellen Stichtag aktualisieren. Anschließend sind
+Content-, Build-, Link-, Browser-, Accessibility- und betroffene visuelle Prüfungen auszuführen;
+geänderte Screenshot-Baselines werden nur nach Sichtprüfung übernommen. Widersprüchliche oder
+fehlerhafte Bildmotive werden nicht als amtliche Darstellung veröffentlicht. `temp-neu/` bleibt
+unverändert als Benutzereingang bestehen.
 
 ## UI-Stil
 

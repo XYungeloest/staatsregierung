@@ -6,10 +6,10 @@
   "cluster": "umwelt-versorgung",
   "priority": 88,
   "featured": true,
-  "updatedAt": "2026-07-21",
+  "updatedAt": "2026-08-22",
   "relatedTopicSlugs": ["kreislaufwirtschaft", "oeffentliche-wirtschaft-und-strukturwandel", "nachbarschaft-und-europa"],
   "knowledgeProjectRefs": ["project-energie-waerme", "project-sero", "project-50hertz-acquisition"],
-  "hero": "Der Freistaat ordnet Energie-, Wärme- und Kreislaufwirtschaft schrittweise gemeinwirtschaftlich. Der Rechtsrahmen ist in Kraft; praktische Übernahmen, Finanzierung und Sozialtarife werden weiter umgesetzt.",
+  "hero": "Der Freistaat ordnet Energie-, Wärme- und Kreislaufwirtschaft schrittweise gemeinwirtschaftlich. Der Rechtsrahmen ist in Kraft; ab 1. September 2026 gelten bei den Landesenergiewerken Ost gemeinwirtschaftliche Strom- und Wärmepreise mit vergünstigten Grundbedarfstarifen.",
   "beschlossen": [
     "Das Gesetzespaket errichtet den Rechtsrahmen für öffentliche Energie- und Wärmeinfrastrukturen, Landesenergiewerke, Netzträger und ein Sondervermögen.",
     "Wasser, Kreislaufwirtschaft, Reparaturstrukturen und Klimaanpassung werden als staatliche Schwerpunktfelder gesetzt.",
@@ -18,7 +18,8 @@
   ],
   "umgesetzt": [
     "Die Energie- und Wärmegesetze sowie die SERO-Verordnung sind seit 21. Juli 2026 in Kraft.",
-    "Landesenergiewerke Ost und Ostdeutsche Netze sind gesetzlich errichtet; daraus folgt noch kein vollständig abgeschlossener operativer Aufbau.",
+    "Landesenergiewerke Ost und Ostdeutsche Netze sind gesetzlich errichtet; der weitere operative Aufbau und die Überführung von Infrastruktur bleiben laufende Aufgaben.",
+    "Die Strom- und Wärmepreisleitlinien der Landesenergiewerke Ost wurden am 22. August 2026 veröffentlicht. Sie senken die Belastung der Haushalte ab 1. September 2026 und führen vergünstigte Grundbedarfstarife ein.",
     "Die schrittweise Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz ist für 3,8 Milliarden Euro vereinbart. Die einzelnen Eigentumsübergänge werden nur nach datiertem Vollzugsnachweis fortgeschrieben."
   ],
   "naechsteSchritte": [
@@ -38,6 +39,14 @@
     {
       "label": "Landesenergiewerke-Gesetz",
       "normSlug": "landesenergiewerke-gesetz"
+    },
+    {
+      "label": "Gemeinwirtschaftliche Strompreisleitlinie",
+      "normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie"
+    },
+    {
+      "label": "Gemeinwirtschaftliche Wärmepreisleitlinie",
+      "normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie"
     },
     {
       "label": "Ostdeutsche-Netze-Gesetz",
