@@ -67,33 +67,49 @@ const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
     ]}
   />
 
-  <section class="section">
-    <div class="meta-grid">
-      <div class="meta-card">
-        <span class="meta-label">Vorschriften</span>
-        <strong>{group.norms.length}</strong>
+  <section class="law-subject-overview" aria-labelledby="subject-overview-title">
+    <div class="law-subject-overview__intro">
+      <span class="section-eyebrow">Bestand im Überblick</span>
+      <h2 id="subject-overview-title">Recht in diesem Sachgebiet</h2>
+      <p>Die Vorschriften sind nach ihrem geltenden Titel erschlossen und führen direkt zum aktuellen Rechtsstand.</p>
+    </div>
+    <dl class="law-subject-stats">
+      <div class="law-subject-stats__total">
+        <dt>Vorschriften insgesamt</dt>
+        <dd>{group.norms.length}</dd>
       </div>
       {typeCounts.map(([type, count]) => (
-        <div class="meta-card">
-          <span class="meta-label">{formatNormType(type as NormType)}</span>
-          <strong>{count}</strong>
+        <div>
+          <dt>{formatNormType(type as NormType)}</dt>
+          <dd>{count}</dd>
         </div>
       ))}
-    </div>
+    </dl>
   </section>
 
-  <section class="section">
-    <div class="section-header">
-      <h2>Vorschriften</h2>
-      <p>Aktuelle und gespeicherte Normen mit Ressortbezug.</p>
+  <section class="law-subject-records">
+    <div class="law-subject-records__header">
+      <div>
+        <span class="section-eyebrow">Zugeordnete Rechtsgrundlagen</span>
+        <h2>Vorschriften</h2>
+        <p>Aktuelle und gespeicherte Normen mit fachlicher Zuständigkeit.</p>
+      </div>
+      <a class="button button--secondary" href={`${getSearchUrl()}?subject=${encodeURIComponent(group.name)}`}>Ergebnisse filtern</a>
     </div>
-    <ul class="record-list">
+    <ul class="law-subject-record-list">
       {group.norms.map((norm) => {
         const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
         return (
-        <li class="record-list__item">
-          <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a>
-          <span>{[identity.abbr, toDisplayText(norm.meta.responsibleMinistry)].filter(Boolean).join(' · ')}</span>
+        <li>
+          <div class="law-subject-record-list__type">
+            <span>{formatNormType(norm.meta.type)}</span>
+            {identity.abbr ? <strong>{toDisplayText(identity.abbr)}</strong> : null}
+          </div>
+          <div class="law-subject-record-list__content">
+            <a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a>
+            <span>{toDisplayText(norm.meta.responsibleMinistry)}</span>
+          </div>
+          <span class="law-subject-record-list__arrow" aria-hidden="true">→</span>
         </li>
         );
       })}

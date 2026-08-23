@@ -32,6 +32,9 @@ const visualPages = [
   { name: 'ostrecht-verkuendungen', path: lawUrl('/verkuendungen/') },
   { name: 'ostrecht-fundstellen', path: lawUrl('/fundstellen/') },
   { name: 'ostrecht-rechtsentwicklung', path: lawUrl('/rechtsentwicklung/') },
+  { name: 'ostrecht-verkuendung-detail', path: lawUrl('/verkuendungen/stanzo-2026-33/') },
+  { name: 'ostrecht-sachgebiet-detail', path: lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/') },
+  { name: 'ostrecht-hilfe', path: lawUrl('/hilfe/') },
   { name: 'norm-kulturpass', path: lawUrl('/norm/ostdeutsches-kulturpassgesetz/') },
   { name: 'norm-gemeindeordnung-historisch', path: lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/') },
   { name: 'norm-sero-historie', path: lawUrl('/norm/sero-verordnung/history/') },
@@ -190,6 +193,16 @@ const componentVisualPages = [
       ['fassungsvergleich-auswahl', '[data-version-compare] .norm-compare__controls'],
       ['fassungsvergleich-zusammenfassung', '.norm-diff__summary'],
       ['fassungsvergleich-aenderung', '.norm-diff__list > .norm-diff__unit:nth-child(2)'],
+    ],
+  },
+  {
+    name: 'normhistorie-module',
+    path: lawUrl('/norm/saechsische-gemeindeordnung/history/'),
+    shots: [
+      ['normhistorie-einstieg', '.norm-history-intro'],
+      ['normhistorie-fassung', '.norm-history__version-list > .norm-history__version:last-child'],
+      ['normhistorie-aenderung', '.norm-history__event--amendment:first-of-type'],
+      ['normhistorie-stammdaten', '.norm-history-panel--data'],
     ],
   },
   {

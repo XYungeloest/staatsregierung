@@ -210,6 +210,18 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
                 ) : null}
               </>
             ) : null}
+            {unit.beforeProvisionText || unit.afterProvisionText ? (
+              <section class="norm-diff__context" aria-label="Vollständige Vorschrift im Zusammenhang">
+                <header>
+                  <span>Kontext</span>
+                  <strong>{[unit.provisionLabel, unit.provisionTitle].filter(Boolean).join(' ') || 'Vollständiger Paragraph oder Artikel'}</strong>
+                </header>
+                <div class="norm-diff__context-columns">
+                  {unit.beforeProvisionText ? <div><b>Ausgangsfassung</b><p>{unit.beforeProvisionText}</p></div> : null}
+                  {unit.afterProvisionText ? <div><b>Vergleichsfassung</b><p>{unit.afterProvisionText}</p></div> : null}
+                </div>
+              </section>
+            ) : null}
           </li>
         ))}
       </ol>
@@ -228,6 +240,10 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
       beforeText?: string;
       afterText?: string;
       textDiff?: DiffChunk[];
+      provisionLabel?: string;
+      provisionTitle?: string;
+      beforeProvisionText?: string;
+      afterProvisionText?: string;
     };
     type DiffPayload = {
       fromVersion: { versionId: string; validFrom: string };
@@ -281,6 +297,12 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
         if (unit.beforeText !== unit.afterText) {
           body += `<div class="norm-diff__change norm-diff__change--columns"><div class="norm-diff__side norm-diff__side--before"><strong>Ausgangsfassung</strong><span class="norm-diff__text-side">${renderWordSide(unit, 'before')}</span></div><div class="norm-diff__side norm-diff__side--after"><strong>Vergleichsfassung</strong><span class="norm-diff__text-side">${renderWordSide(unit, 'after')}</span></div></div>`;
         }
+      }
+      if (unit.beforeProvisionText || unit.afterProvisionText) {
+        const contextHeading = escapeHtml([unit.provisionLabel, unit.provisionTitle].filter(Boolean).join(' ') || 'Vollständiger Paragraph oder Artikel');
+        const beforeContext = unit.beforeProvisionText ? `<div><b>Ausgangsfassung</b><p>${escapeHtml(unit.beforeProvisionText)}</p></div>` : '';
+        const afterContext = unit.afterProvisionText ? `<div><b>Vergleichsfassung</b><p>${escapeHtml(unit.afterProvisionText)}</p></div>` : '';
+        body += `<section class="norm-diff__context" aria-label="Vollständige Vorschrift im Zusammenhang"><header><span>Kontext</span><strong>${contextHeading}</strong></header><div class="norm-diff__context-columns">${beforeContext}${afterContext}</div></section>`;
       }
       const status = unit.kind === 'added' ? 'Neu' : unit.kind === 'removed' ? 'Entfallen' : 'Geändert';
       return `<li class="norm-diff__unit norm-diff__unit--${unit.kind}"><header class="norm-diff__unit-header"><span>${status}</span><h4>${heading}</h4></header><p class="visually-hidden">${label}</p>${body}</li>`;
