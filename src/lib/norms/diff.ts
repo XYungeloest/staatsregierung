@@ -14,6 +14,10 @@ export interface NormDiffUnit {
   kind: NormDiffKind;
   textDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
   sentenceChanges?: Array<{ before?: string; after?: string; kind: NormDiffKind }>;
+  provisionLabel?: string;
+  provisionTitle?: string;
+  beforeProvisionText?: string;
+  afterProvisionText?: string;
 }
 
 export interface NormDiffSummary {
@@ -30,6 +34,9 @@ interface FlatUnit {
   title: string;
   contextTitle: string;
   text: string;
+  provisionLabel: string;
+  provisionTitle: string;
+  provisionText: string;
 }
 
 const UNIT_TYPES = new Set([
@@ -45,6 +52,19 @@ function directText(block: NormBodyBlock): string {
     .trim();
 }
 
+function fullProvisionText(block: NormBodyBlock): string {
+  const lines: string[] = [];
+  const visit = (entry: NormBodyBlock, includeHeading: boolean) => {
+    const heading = includeHeading ? [entry.label, entry.title].filter(Boolean).join(' ') : '';
+    if (heading) lines.push(heading);
+    const text = directText(entry);
+    if (text) lines.push([includeHeading ? '' : entry.label, text].filter(Boolean).join(' '));
+    entry.children?.forEach((child) => visit(child, false));
+  };
+  visit(block, true);
+  return lines.join('\n').trim();
+}
+
 export function flattenVersionUnits(version: Pick<NormVersion, 'body'>): FlatUnit[] {
   const units: FlatUnit[] = [];
   const occurrence = new Map<string, number>();
@@ -55,11 +75,16 @@ export function flattenVersionUnits(version: Pick<NormVersion, 'body'>): FlatUni
     quoted = false,
     inheritedLabel = '',
     inheritedTitle = '',
+    provision: { label: string; title: string; text: string } = { label: '', title: '', text: '' },
   ): void {
     for (const [index, block] of blocks.entries()) {
       if (block.type === 'quotedProvision') {
         continue;
       }
+
+      const currentProvision = block.type === 'paragraph' || block.type === 'article'
+        ? { label: block.label ?? '', title: block.title ?? '', text: fullProvisionText(block) }
+        : provision;
 
       if (!quoted && UNIT_TYPES.has(block.type)) {
         const label = block.label ?? inheritedLabel;
@@ -74,6 +99,9 @@ export function flattenVersionUnits(version: Pick<NormVersion, 'body'>): FlatUni
           title: block.title ?? '',
           contextTitle: block.title ?? inheritedTitle,
           text: directText(block),
+          provisionLabel: currentProvision.label,
+          provisionTitle: currentProvision.title,
+          provisionText: currentProvision.text,
         });
       }
 
@@ -85,6 +113,7 @@ export function flattenVersionUnits(version: Pick<NormVersion, 'body'>): FlatUni
           quoted,
           block.label ?? inheritedLabel,
           block.title ?? inheritedTitle,
+          currentProvision,
         );
       }
     }
@@ -211,6 +240,9 @@ export function buildStructuralVersionDiff(
         afterTitle: afterUnit.title,
         contextTitle: afterUnit.contextTitle,
         afterText: afterUnit.text,
+        provisionLabel: afterUnit.provisionLabel,
+        provisionTitle: afterUnit.provisionTitle,
+        afterProvisionText: afterUnit.provisionText,
         kind: 'added',
       };
     }
@@ -222,6 +254,9 @@ export function buildStructuralVersionDiff(
         beforeTitle: beforeUnit.title,
         contextTitle: beforeUnit.contextTitle,
         beforeText: beforeUnit.text,
+        provisionLabel: beforeUnit.provisionLabel,
+        provisionTitle: beforeUnit.provisionTitle,
+        beforeProvisionText: beforeUnit.provisionText,
         kind: 'removed',
       };
     }
@@ -243,6 +278,10 @@ export function buildStructuralVersionDiff(
         ? textDiff
         : undefined,
       sentenceChanges: textChanged ? diffSentences(beforeUnit!.text, afterUnit!.text) : undefined,
+      provisionLabel: afterUnit!.provisionLabel || beforeUnit!.provisionLabel,
+      provisionTitle: afterUnit!.provisionTitle || beforeUnit!.provisionTitle,
+      beforeProvisionText: beforeUnit!.provisionText,
+      afterProvisionText: afterUnit!.provisionText,
     };
   });
 }

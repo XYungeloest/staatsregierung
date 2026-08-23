@@ -520,6 +520,15 @@ test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwer
   await expect(page.getByRole('heading', { name: 'Drucken und Quellen' })).toBeVisible();
 });
 
+test('Fassungsvergleich zeigt geänderte Einheiten im vollständigen Paragraphenkontext', async ({ page }) => {
+  await page.goto('http://127.0.0.1:4322/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01');
+  const changedUnit = page.locator('.norm-diff__unit--changed').first();
+  await expect(changedUnit.locator('.norm-diff__context')).toBeVisible();
+  await expect(changedUnit.locator('.norm-diff__context')).toContainText('§ 3');
+  await expect(changedUnit.locator('.norm-diff__context')).toContainText('Ausgangsfassung');
+  await expect(changedUnit.locator('.norm-diff__context')).toContainText('Vergleichsfassung');
+});
+
 test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page }) => {
   await page.goto(lawUrl('/suche/?q=Kranken*&type=gesetz&type=verordnung'));
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');

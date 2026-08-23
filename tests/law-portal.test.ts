@@ -196,6 +196,9 @@ test('Diff-Zusammenfassung zählt dieselben strukturellen Einheiten wie der Verg
   assert.ok(summary.changed >= 1);
   assert.ok(summary.added >= 1);
   assert.ok(diff.some((unit) => unit.textDiff?.some((chunk) => chunk.kind === 'insert')));
+  const changedParagraphText = diff.find((unit) => unit.type === 'paragraphText' && unit.kind === 'changed');
+  assert.match(changedParagraphText?.beforeProvisionText ?? '', /§ 1 Geltung[\s\S]*Die alte Regel gilt\./);
+  assert.match(changedParagraphText?.afterProvisionText ?? '', /§ 1 Neue Überschrift[\s\S]*Die neue Regel gilt\.[\s\S]*1\. Neue Nummer/);
 
   const reversed = buildStructuralVersionDiff(after, before);
   assert.equal(summarizeNormDiff(reversed).removed, summary.added);
