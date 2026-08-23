@@ -34,11 +34,8 @@ const allowedNormStatuses = new Set([
 ]);
 const allowedEmailDomains = new Set(['freistaat-ostdeutschland.de']);
 const allowedNormMinistries = new Set([
-  'Freistaat Ostdeutschland',
   'Staatsregierung des Freistaates Ostdeutschland',
   'Staatsrat des Freistaates Ostdeutschland',
-  'Landtag des Freistaates Ostdeutschland',
-  'Volkskammer des Freistaates Ostdeutschland',
   'Staatskanzlei des Freistaates Ostdeutschland',
   'Staatsministerium für Volksbildung und Wissenschaft',
   'Staatsministerium des Innern, Bau und für kommunale Angelegenheiten',
@@ -504,13 +501,33 @@ for (const { file, json } of records) {
       addProblem(file, `status ist kein erlaubter Normstatus: ${json.status}`);
     }
 
-    const responsibility = json.responsibleMinistry ?? json.ministry;
+    if (json.ministry !== undefined) {
+      addProblem(file, 'das unspezifische Altbestandsfeld ministry ist unzulässig; enactingBody und responsibleMinistry getrennt pflegen');
+    }
+
+    const responsibility = json.responsibleMinistry;
     if (responsibility !== undefined && !allowedNormMinistries.has(responsibility)) {
       addProblem(file, `fachliche Zuständigkeit ist nicht als Norm-Ressort zugelassen: ${responsibility}`);
     }
 
     if (json.enactingBody && !allowedEnactingBodies.has(json.enactingBody)) {
       addProblem(file, `enactingBody ist nicht als erlassendes Organ zugelassen: ${json.enactingBody}`);
+    }
+
+    if (typeof json.summary !== 'string' || json.summary.trim().length < 24) {
+      addProblem(file, 'summary muss eine verständliche redaktionelle Kurzbeschreibung enthalten');
+    } else {
+      const summary = json.summary.trim();
+      if (/^(?:§|Abschnitt\b|Artikel\b|OABl\.|OGVBl\.|StAnzO\.|GVBl\.|Aufgrund\b|Auf Grund\b|\d+\.)/u.test(summary)) {
+        addProblem(file, 'summary beginnt mit einem typischen Normtext- oder Verkündungsfragment');
+      }
+      if (/(?:\.\.\.|…)$/u.test(summary)) {
+        addProblem(file, 'summary endet als abgeschnittener Importtext');
+      }
+      if (/§§?\s*\d+[\s\S]*\bunverändert\b/iu.test(summary)
+        || /(?:Der (?:Ostdeutsche )?Landtag hat|wird wie folgt geändert|Dresden, den|Seite \d)/iu.test(summary)) {
+        addProblem(file, 'summary enthält eine typische Verkündungsformel oder Änderungsanweisung');
+      }
     }
 
     if (json.abbr && unverifiedGeneratedAbbreviations.has(json.abbr)) {

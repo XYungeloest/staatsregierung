@@ -10,6 +10,7 @@ import { formatNormType, toDisplayText } from '../src/lib/norms/presentation.ts'
 import { buildSearchIndexPayload } from '../src/lib/norms/search.ts';
 import { NORM_TYPES } from '../src/lib/norms/schema.ts';
 import { getApplicableVersion } from '../src/lib/norms/versions.ts';
+import { getNormVersionIdentity } from '../src/lib/norms/identity.ts';
 
 const genericCitationLead =
   /^(?:Gesetz|Verordnung|Verfassung|Staatsvertrag|Verwaltungsabkommen|Verwaltungsvorschrift|Bekanntmachung|Organisationserlass|Dienstanordnung|Anordnung|Richtlinie|Allgemeinverfügung|Übereinkommen|Vereinbarung|Erlass)\s+vom\b/u;
@@ -41,7 +42,7 @@ test('Vollzitate ersetzen die generische Einleitung jedes zentralen Normtyps', a
 
     assert.equal(
       buildNormFullCitation(norm, version, lookup),
-      `${toDisplayText(norm.meta.title)} vom 1. Januar 2026 (OGVBl. 2026 Nr. 1 S. 1)`,
+      `${toDisplayText(getNormVersionIdentity(norm, version).title)} vom 1. Januar 2026 (OGVBl. 2026 Nr. 1 S. 1)`,
       type,
     );
   }

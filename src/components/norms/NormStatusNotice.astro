@@ -13,8 +13,8 @@ const { norm, version } = Astro.props;
 const temporalKind = classifyNormVersion(norm, version);
 const historical = temporalKind === 'historical';
 const status = norm.meta.status;
-const effectiveDate = norm.meta.effectiveDate ?? version.validFrom;
-const expiryDate = norm.meta.expiryDate ?? version.validTo;
+const effectiveDate = version.validFrom;
+const expiryDate = version.validTo;
 ---
 
 <aside class:list={['status-notice', historical ? 'status-notice--historical' : 'status-notice--current']} data-visual-section="norm-legal-status">

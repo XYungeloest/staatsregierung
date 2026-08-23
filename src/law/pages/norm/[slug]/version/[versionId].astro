@@ -24,6 +24,7 @@ import {
   loadAllVerkuendungen,
   classifyNormVersion,
   getNormOriginInfo,
+  getNormVersionIdentity,
 } from '../../../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../../../lib/norms/content.ts';
 
@@ -55,8 +56,10 @@ const publication = publicationReference
   : undefined;
 const temporalKind = classifyNormVersion(norm, version);
 const outline = buildNormOutline(version.body);
-const normTitle = toDisplayText(norm.meta.title);
-const normSeoTitle = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
+const identity = getNormVersionIdentity(norm, version);
+const currentIdentity = getNormVersionIdentity(norm, norm.versions.find((entry) => classifyNormVersion(norm, entry) === 'current') ?? version);
+const normTitle = toDisplayText(identity.title);
+const normSeoTitle = identity.abbr ? `${normTitle} (${toDisplayText(identity.abbr)})` : normTitle;
 const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : temporalKind === 'historical' ? 'Historische' : 'Veröffentlichte'} Fassung von ${normTitle} mit Stand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
 ---
 
@@ -65,14 +68,14 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
   description={versionDescription}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+    { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
     { label: `Fassung vom ${formatDate(version.validFrom)}` },
   ]}
 >
   <Breadcrumbs
     items={[
       { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+      { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
       { label: `Fassung vom ${formatDate(version.validFrom)}` },
     ]}
   />
@@ -120,7 +123,7 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
             publicationReference={publicationReference}
             immutableLink
           />
-          <NormMetaCard norm={norm} version={version} fullCitation={fullCitation} historical={true} publicationReference={publicationReference} />
+          <NormMetaCard norm={norm} version={version} publicationReference={publicationReference} />
           <NormHistorySummary norm={norm} />
         </div>
       </details>

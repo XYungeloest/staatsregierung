@@ -18,6 +18,8 @@ import {
 } from '../portal/routes.ts';
 import type { NormRecord } from './schema.ts';
 import { lawSubjectAreas } from '../../config/law-subjects.ts';
+import { getApplicableVersion } from './versions.ts';
+import { getNormVersionIdentity } from './identity.ts';
 
 function normalizeForSlug(value: string): string {
   return value
@@ -172,7 +174,11 @@ export function getSubjectGroups(norms: NormRecord[]): SubjectGroup[] {
   return [...groups.values()]
     .map((group) => ({
       ...group,
-      norms: [...group.norms].sort((left, right) => left.meta.title.localeCompare(right.meta.title)),
+      norms: [...group.norms].sort((left, right) => {
+        const leftTitle = getNormVersionIdentity(left, getApplicableVersion(left)).title;
+        const rightTitle = getNormVersionIdentity(right, getApplicableVersion(right)).title;
+        return leftTitle.localeCompare(rightTitle, 'de');
+      }),
     }))
     .sort((left, right) => left.name.localeCompare(right.name));
 }
@@ -214,8 +220,8 @@ export function getIndexGroups(norms: NormRecord[]): Array<{ letter: string; nor
   const groups = new Map<string, NormRecord[]>();
 
   for (const norm of norms) {
-    const letter = norm.meta.title.charAt(0).toUpperCase();
-    const key = /[A-Z]/.test(letter) ? letter : '#';
+    const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+    const key = getGermanIndexLetter(identity.title);
     const existing = groups.get(key);
 
     if (existing) {
@@ -229,6 +235,17 @@ export function getIndexGroups(norms: NormRecord[]): Array<{ letter: string; nor
     .sort(([left], [right]) => left.localeCompare(right))
     .map(([letter, entries]) => ({
       letter,
-      norms: [...entries].sort((left, right) => left.meta.title.localeCompare(right.meta.title)),
+      norms: [...entries].sort((left, right) => {
+        const leftTitle = getNormVersionIdentity(left, getApplicableVersion(left)).title;
+        const rightTitle = getNormVersionIdentity(right, getApplicableVersion(right)).title;
+        return leftTitle.localeCompare(rightTitle, 'de');
+      }),
     }));
+}
+
+/** Ä, Ö und Ü werden wie A, O und U gruppiert; # bleibt nichtalphabetischen Anfängen vorbehalten. */
+export function getGermanIndexLetter(value: string): string {
+  const letter = value.trim().charAt(0).toLocaleUpperCase('de-DE');
+  const folded = ({ Ä: 'A', Ö: 'O', Ü: 'U' } as Record<string, string>)[letter] ?? letter;
+  return /[A-Z]/u.test(folded) ? folded : '#';
 }

@@ -1,6 +1,7 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatDate,
   getFundingUrl,
@@ -8,6 +9,7 @@ import {
   getNormUrl,
   getSubjectGroups,
   getSubjectUrl,
+  getNormVersionIdentity,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
 import { getCurrentVersion, loadAllNorms } from '../../../lib/norms/content.ts';
@@ -35,15 +37,13 @@ const latestFunding = [...fundingNorms]
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Rechtsbereich</p>
-    <h1>Förderrichtlinien</h1>
-    <p class="lead">
-      Dieser Einstieg bündelt die im Rechtsbereich veröffentlichten Förderrichtlinien und ordnet
-      sie nach Sachgebieten.
-    </p>
-    <p class="status-line">{fundingNorms.length} Förderrichtlinien im Normenbestand.</p>
-  </section>
+  <SectionHero
+    eyebrow="OstRecht"
+    title="Förderrichtlinien"
+    lead="Dieser Einstieg bündelt die veröffentlichten Förderrichtlinien und ordnet sie nach Sachgebieten."
+    variant="law"
+    facts={[{ label: 'Im Normenbestand', value: String(fundingNorms.length) }]}
+  />
 
   {latestFunding.length > 0 ? (
     <section class="section section-muted">
@@ -54,12 +54,13 @@ const latestFunding = [...fundingNorms]
       <div class="card-grid">
         {latestFunding.map((norm) => {
           const version = getCurrentVersion(norm);
+          const identity = getNormVersionIdentity(norm, version);
 
           return (
             <article class="panel">
-              <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.shortTitle || norm.meta.title)}</a></h3>
-              <p>{toDisplayText(norm.meta.summary)}</p>
-              <p class="detail-line">Gültig seit <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time> · {toDisplayText(norm.meta.ministry)}</p>
+              <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h3>
+              <p>{toDisplayText(identity.summary)}</p>
+              <p class="detail-line">Gültig seit <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>{norm.meta.responsibleMinistry ? ` · ${toDisplayText(norm.meta.responsibleMinistry)}` : ''}</p>
             </article>
           );
         })}
@@ -78,12 +79,15 @@ const latestFunding = [...fundingNorms]
           <section class="panel">
             <h3><a class="inline-link" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)}</a></h3>
             <ul class="record-list">
-              {group.norms.map((norm) => (
+              {group.norms.map((norm) => {
+                const identity = getNormVersionIdentity(norm, getCurrentVersion(norm));
+                return (
                 <li class="record-list__item">
-                  <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.shortTitle || norm.meta.title)}</a>
-                  <span>{toDisplayText(norm.meta.ministry)}</span>
+                  <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a>
+                  {norm.meta.responsibleMinistry ? <span>{toDisplayText(norm.meta.responsibleMinistry)}</span> : null}
                 </li>
-              ))}
+                );
+              })}
             </ul>
           </section>
         ))}

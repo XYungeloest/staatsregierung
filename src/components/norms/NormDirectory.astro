@@ -9,6 +9,7 @@ import {
   getIndexGroups,
   getLawPortalUrl,
   getNormUrl,
+  getNormVersionIdentity,
   getSearchUrl,
   toDisplayText,
   type NormRecord,
@@ -25,7 +26,7 @@ interface Props {
 const { title, lead, href, norms } = Astro.props;
 const groups = getIndexGroups(norms);
 const groupLookup = new Map(groups.map((group) => [group.letter, group]));
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '#'];
 const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects.map(toDisplayText)))].sort((left, right) => left.localeCompare(right, 'de'));
 ---
 
@@ -49,8 +50,8 @@ const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects.map(toDi
         <h2 id="directory-filter-title">Alphabet und Filter</h2>
         <nav class="letter-nav" aria-label="Buchstaben-Navigation">
           {alphabet.map((letter) => groupLookup.has(letter)
-            ? <a href={`#directory-${letter}`}>{letter}</a>
-            : <span aria-disabled="true">{letter}</span>)}
+            ? <a href={`#directory-${letter}`} data-law-filter-letter={letter}>{letter}</a>
+            : <span aria-disabled="true" data-law-filter-letter={letter}>{letter}</span>)}
         </nav>
       </div>
       <form class="law-directory-filters" data-law-filter-form>
@@ -64,23 +65,24 @@ const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects.map(toDi
 
     <div class="law-directory-list">
       {groups.map((group) => (
-        <section id={`directory-${group.letter}`} class="law-directory-group">
+        <section id={`directory-${group.letter}`} class="law-directory-group" data-law-filter-group={group.letter}>
           <h2>{group.letter}</h2>
           <ol>
             {group.norms.map((norm) => {
               const version = getCurrentVersion(norm);
+              const identity = getNormVersionIdentity(norm, version);
               return (
                 <li
                   data-law-filter-entry
-                  data-q={`${norm.meta.title} ${norm.meta.shortTitle} ${norm.meta.abbr ?? ''}`}
+                  data-q={`${identity.title} ${identity.shortTitle} ${identity.abbr ?? ''}`}
                   data-subject={norm.meta.subjects.join(' ')}
                   data-status={norm.meta.status}
                 >
                   <div>
                     <span class="law-type-label">{formatNormType(norm.meta.type)}</span>
-                    <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a></h3>
-                    {norm.meta.abbr ? <p class="law-directory-group__abbr">{toDisplayText(norm.meta.abbr)}</p> : null}
-                    <p>{toDisplayText(norm.meta.summary)}</p>
+                    <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a></h3>
+                    {identity.abbr ? <p class="law-directory-group__abbr">{toDisplayText(identity.abbr)}</p> : null}
+                    <p>{toDisplayText(identity.summary)}</p>
                   </div>
                   <dl>
                     <div><dt>Rechtsstand</dt><dd>{formatNormStatus(norm.meta.status)}</dd></div>

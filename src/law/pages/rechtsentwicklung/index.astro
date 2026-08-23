@@ -11,6 +11,7 @@ import {
   getLawPortalUrl,
   getNormCompareSelectionUrl,
   getNormOriginInfo,
+  getNormVersionIdentity,
   getNormUrl,
   LEGAL_BASELINE_DATE,
   type NormOriginKind,
@@ -56,6 +57,7 @@ const statuses = [...new Set(norms.map((norm) => norm.meta.status))]
   <SectionHero
     eyebrow="Rechtsportal"
     title="Rechtsentwicklung seit 1. November 2023"
+    titleSize="long"
     lead="Ausgangspunkt für übernommenes sächsisches Landesrecht ist grundsätzlich der am 1. November 2023 geltende Rechtsstand. Seitdem wird der Rechtsbestand des Freistaates eigenständig fortentwickelt."
     variant="law"
     facts={originKinds.map((kind) => ({ label: formatNormOriginKind(kind), value: String(counts[kind]) }))}
@@ -110,6 +112,7 @@ const statuses = [...new Set(norms.map((norm) => norm.meta.status))]
     <p class="search-feedback" aria-live="polite" data-development-count>{records.length} Vorschriften werden angezeigt.</p>
     <ol class="record-list law-development__list">
       {records.map(({ norm, version, origin }) => {
+        const identity = getNormVersionIdentity(norm, version);
         const baselineVersion = origin.baselineVersionId
           ? norm.versions.find((entry) => entry.versionId === origin.baselineVersionId)
           : undefined;
@@ -124,20 +127,20 @@ const statuses = [...new Set(norms.map((norm) => norm.meta.status))]
             data-type={norm.meta.type}
             data-status={norm.meta.status}
             data-subjects={norm.meta.subjects.join('|')}
-            data-search={[norm.meta.title, norm.meta.shortTitle, norm.meta.abbr, ...norm.meta.subjects, ...norm.meta.keywords].filter(Boolean).join(' ').toLocaleLowerCase('de-DE')}
+            data-search={[identity.title, identity.shortTitle, identity.abbr, ...norm.meta.subjects, ...norm.meta.keywords].filter(Boolean).join(' ').toLocaleLowerCase('de-DE')}
           >
             <div class="law-development__item-heading">
-              <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{norm.meta.title}</a></h3>
+              <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{identity.title}</a></h3>
               <span class="status-badge status-badge--blue">{formatNormOriginKind(origin.kind)}</span>
             </div>
-            {norm.meta.abbr ? <p class="detail-line">Abkürzung: {norm.meta.abbr}</p> : null}
+            {identity.abbr ? <p class="detail-line">Abkürzung: {identity.abbr}</p> : null}
             <dl class="law-development__facts">
               <div><dt>Normtyp</dt><dd>{formatNormType(norm.meta.type)}</dd></div>
               <div><dt>Status</dt><dd>{formatNormStatus(norm.meta.status)}</dd></div>
               <div><dt>Fassungsstand</dt><dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd></div>
               {origin.lastOwnChangeDate ? <div><dt>Letzte eigene Rechtsänderung</dt><dd><time datetime={origin.lastOwnChangeDate}>{formatDate(origin.lastOwnChangeDate)}</time></dd></div> : null}
             </dl>
-            <nav class="link-list link-list--inline" aria-label={`Recherchewege zu ${norm.meta.shortTitle || norm.meta.title}`}>
+            <nav class="link-list link-list--inline" aria-label={`Recherchewege zu ${identity.shortTitle}`}>
               <a href={getNormUrl(norm.meta.slug)}>Vorschrift öffnen</a>
               {compareUrl ? <a href={compareUrl}>Mit Ausgangsrecht vergleichen</a> : null}
             </nav>

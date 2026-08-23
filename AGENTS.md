@@ -166,7 +166,11 @@ gegeneinander prüfen, amtliche Quellen nach `Gesetze/` und öffentliche PDFs na
 Pressemitteilungen in `content/presse/mitteilungen/` übertragen, belastbare Bilder unter
 `public/images/` ablegen, Beziehungen zu Normen, Themen und Pressemitteilungen pflegen sowie
 betroffene Gegenwartsstände und den redaktionellen Stichtag aktualisieren. Anschließend sind
-Content-, Build-, Link-, Browser-, Accessibility- und betroffene visuelle Prüfungen auszuführen;
+für jede übernommene Normquelle der kanonische Ablauf aus `docs/NORM_WORKFLOW.md` mit
+`npm run norms:workflow -- --file "…html" --write` auszuführen. Er verbindet den gezielten
+Import, die Konsolidierungs- und Metadatenprüfungen, den Wissenshub sowie die vollständige
+Content-, Build-, Link-, SEO-, Browser-, Accessibility- und visuelle QA. `--quick` ist nur für
+Zwischenprüfungen zulässig und ersetzt den vollständigen Abschlusslauf nicht;
 geänderte Screenshot-Baselines werden nur nach Sichtprüfung übernommen. Widersprüchliche oder
 fehlerhafte Bildmotive werden nicht als amtliche Darstellung veröffentlicht. `temp-neu/` bleibt
 unverändert als Benutzereingang bestehen.

@@ -7,6 +7,7 @@ import {
   getSubjectAreaGroups,
   getSubjectUrl,
   getSubjectGroups,
+  getSubjectSlug,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../lib/norms/content.ts';
@@ -46,7 +47,7 @@ const areaGroups = getSubjectAreaGroups(norms);
     </div>
     <div class="content-grid content-grid--wide">
       {areaGroups.map((area) => (
-        <section class="panel">
+        <section class="panel" id={`subject-area-${getSubjectSlug(area.name)}`}>
           <h3>{area.name}</h3>
           <p>{area.description}</p>
           <p class="detail-line">{area.normCount} Vorschriften in {area.subjects.length} Sachgebieten</p>

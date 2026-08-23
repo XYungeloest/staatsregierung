@@ -2,6 +2,7 @@ import { getNormUrl } from './routes.ts';
 import type { NormRecord } from './schema.ts';
 import { toDisplayText, type TextLinkReference } from './presentation.ts';
 import { getApplicableVersion } from './versions.ts';
+import { getNormVersionIdentity } from './identity.ts';
 
 const FEDERAL_REFERENCES: TextLinkReference[] = [
   {
@@ -98,8 +99,10 @@ export function buildNormTextLinkReferences(
       url: getNormUrl(norm.meta.slug),
     };
 
-    if (norm.meta.abbr) addUniqueReference(references, norm.meta.abbr, reference);
-    addUniqueReference(references, norm.meta.shortTitle, reference);
+    const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+
+    if (identity.abbr) addUniqueReference(references, identity.abbr, reference);
+    addUniqueReference(references, identity.shortTitle, reference);
   }
 
   return [
@@ -119,7 +122,10 @@ export function getRelatedNormsBySubjects(norm: NormRecord, norms: NormRecord[])
     .sort(
       (left, right) =>
         right.sharedSubjects - left.sharedSubjects ||
-        left.entry.meta.title.localeCompare(right.entry.meta.title, 'de'),
+        getNormVersionIdentity(left.entry, getApplicableVersion(left.entry)).title.localeCompare(
+          getNormVersionIdentity(right.entry, getApplicableVersion(right.entry)).title,
+          'de',
+        ),
     )
     .slice(0, 5)
     .map(({ entry }) => entry);
@@ -158,7 +164,8 @@ function collectBodyText(norm: NormRecord): string {
 }
 
 function aliases(norm: NormRecord): string[] {
-  return [norm.meta.abbr, norm.meta.shortTitle, norm.meta.title]
+  const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+  return [identity.abbr, identity.shortTitle, identity.title]
     .filter((value): value is string => Boolean(value))
     .map((value) => value.trim().normalize('NFKC').toLocaleLowerCase('de'))
     .filter((value, index, values) => value.length >= 4 && values.indexOf(value) === index);
@@ -264,7 +271,10 @@ export function getRelatedNormRecommendations(
     .sort(
       (left, right) =>
         right.score - left.score ||
-        left.norm.meta.title.localeCompare(right.norm.meta.title, 'de'),
+        getNormVersionIdentity(left.norm, getApplicableVersion(left.norm)).title.localeCompare(
+          getNormVersionIdentity(right.norm, getApplicableVersion(right.norm)).title,
+          'de',
+        ),
     )
     .slice(0, limit);
 }

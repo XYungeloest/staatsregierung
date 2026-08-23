@@ -1,4 +1,5 @@
 import { NORM_TYPES } from './schema.ts';
+import { getNormVersionIdentity } from './identity.ts';
 import { formatNormType, toDisplayText } from './presentation.ts';
 import type { NormHistoryEntry, NormRecord, NormVersion } from './schema.ts';
 
@@ -37,7 +38,7 @@ function stripChangeClause(value: string): string {
   return marker >= 0 ? value.slice(0, marker).trim() : value.trim();
 }
 
-function normalizeGenericDocumentLead(norm: NormRecord, value: string): string {
+function normalizeGenericDocumentLead(norm: NormRecord, value: string, version?: NormVersion): string {
   const displayValue = toDisplayText(value).trim();
   const genericLead = GENERIC_DOCUMENT_LEADS.find((label) => {
     if (!displayValue.startsWith(label)) return false;
@@ -45,7 +46,8 @@ function normalizeGenericDocumentLead(norm: NormRecord, value: string): string {
   });
   if (!genericLead) return displayValue;
 
-  return `${toDisplayText(norm.meta.title)} ${displayValue.slice(genericLead.length).trimStart()}`;
+  const title = version ? getNormVersionIdentity(norm, version).title : norm.meta.title;
+  return `${toDisplayText(title)} ${displayValue.slice(genericLead.length).trimStart()}`;
 }
 
 function initialPublicationReference(norm: NormRecord): string | undefined {
@@ -53,7 +55,7 @@ function initialPublicationReference(norm: NormRecord): string | undefined {
 }
 
 function citationBaseForVersion(norm: NormRecord, version: NormVersion): string {
-  const base = normalizeGenericDocumentLead(norm, stripChangeClause(version.citation));
+  const base = normalizeGenericDocumentLead(norm, stripChangeClause(version.citation), version);
   if (/\([^)]+\)/u.test(base)) return base;
 
   const publicationReference = initialPublicationReference(norm);
@@ -155,7 +157,7 @@ export function buildNormFullCitation(
     : undefined;
 
   if (!amendment) {
-    return normalizeGenericDocumentLead(norm, version.citation);
+    return normalizeGenericDocumentLead(norm, version.citation, version);
   }
 
   return `${citationBaseForVersion(norm, version)}, zuletzt geändert durch ${amendmentReference(amendment, version.citation)}`;

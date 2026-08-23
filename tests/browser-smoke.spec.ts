@@ -279,6 +279,64 @@ test('OstRecht-Suche hält URL, Filterchips und Browserverlauf synchron', async 
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
 });
 
+test('exakter ÖPNV-Änderungsvorschlag aktiviert den nötigen Suchfilter', async ({ page }) => {
+  await page.goto(lawUrl('/suche/'));
+  const query = page.locator('[data-search-query]');
+  await query.fill('Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr');
+  await page.getByRole('button', { name: 'Suchen', exact: true }).click();
+  await expect(page.locator('[data-search-filter="includeAmendments"]')).toBeChecked();
+  await expect(page).toHaveURL(/includeAmendments=1/u);
+  await expect(page.locator('[data-search-results]')).toContainText('Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr');
+});
+
+test('Normverzeichnis stellt Filter, leere Buchstaben und Browserverlauf gemeinsam wieder her', async ({ page }) => {
+  await page.goto(lawUrl('/gesetze/'));
+  const query = page.locator('[data-law-filter-form] input[name="q"]');
+  await query.fill('Kulturpass');
+  await page.locator('[data-law-filter-form]').getByRole('button', { name: 'Filtern' }).click();
+  await expect(page).toHaveURL(/q=kulturpass/u);
+  await expect(page.locator('[data-law-filter-summary]')).toContainText(/Eintr(?:ag|äge)/u);
+  await expect(page.locator('[data-law-filter-entry]:visible').first()).toContainText('Kulturpass');
+  const state = await page.evaluate(() => ({
+    groups: [...document.querySelectorAll<HTMLElement>('[data-law-filter-group]')].filter((entry) => !entry.hidden).map((entry) => entry.dataset.lawFilterGroup),
+    letters: [...document.querySelectorAll<HTMLElement>('[data-law-filter-letter]')].filter((entry) => !entry.hidden).map((entry) => entry.dataset.lawFilterLetter),
+  }));
+  expect(state.letters).toEqual(state.groups);
+
+  await query.fill('Verfassung');
+  await page.locator('[data-law-filter-form]').getByRole('button', { name: 'Filtern' }).click();
+  await page.goBack();
+  await expect(query).toHaveValue('kulturpass');
+  await expect(page.locator('[data-law-filter-entry]:visible').first()).toContainText('Kulturpass');
+});
+
+test('Fassungstitel, Gültigkeitsdaten und künftige Änderungen folgen dem redaktionellen Stichtag', async ({ page }) => {
+  await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'));
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sächsische Gemeindeordnung');
+  const metadata = page.locator('[data-visual-section="norm-metadata"]');
+  await expect(metadata).toContainText('1. November 2023');
+  await expect(metadata).toContainText('30. Dezember 2023');
+
+  await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/'));
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Gemeindeordnung für den Ostdeutschen Freistaat');
+
+  await page.goto(lawUrl('/'));
+  await expect(page.getByRole('heading', { name: 'Künftige Änderungen' })).toBeVisible();
+  await expect(page.locator('.law-dashboard-card__future')).toContainText('tritt künftig in Kraft');
+});
+
+test('Rechtssuche ist auf jeder OstRecht-Seite im Desktop-Kopf direkt nutzbar', async ({ page }) => {
+  await page.goto(lawUrl('/norm/ostdeutsches-kulturpassgesetz/'));
+  const search = page.locator('.law-header-search--compact');
+  await expect(search).toBeVisible();
+  await search.locator('input[name="q"]').fill('Verfassung');
+  await Promise.all([
+    page.waitForURL(/\/suche\/\?q=Verfassung/u),
+    search.getByRole('button', { name: 'Suchen' }).click(),
+  ]);
+  await expect(page.locator('[data-search-results]')).toContainText('Verfassung');
+});
+
 test('Normkopf unterscheidet allgemeinen und fassungsspezifischen Link und kennzeichnet Staatsportal-Bezüge', async ({ page }) => {
   await page.goto(lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'));
   const citationBlock = page.locator('[data-visual-section="norm-citation-status"]');
@@ -475,6 +533,20 @@ test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und
   await page.locator('[data-search-query]').fill('Kulturpass');
   await expect.poll(() => page.locator('[data-search-results] .search-result-group').count()).toBeGreaterThan(0);
   await expect(page.locator('[data-search-results]')).toContainText('Kulturpass');
+});
+
+test('Rechtssuche verwendet ohne URL-Vorgabe die neueste Verkündung als Standardsortierung', async ({ page }) => {
+  await page.goto(lawUrl('/suche/'));
+  await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
+  await expect(page).not.toHaveURL(/sort=/u);
+  const publicationDates = await page.locator('[data-search-results] .search-hit__facts').evaluateAll((lists) =>
+    lists.map((list) => {
+      const values = [...list.querySelectorAll('div')];
+      return values.find((value) => value.querySelector('dt')?.textContent?.trim() === 'Verkündung')
+        ?.querySelector('dd')?.textContent?.trim() ?? '';
+    }),
+  );
+  expect(publicationDates.length).toBeGreaterThan(1);
 });
 
 test('A–Z-Stichwortindex ist nicht leer und lässt sich lokal filtern', async ({ page }) => {

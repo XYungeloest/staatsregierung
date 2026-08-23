@@ -22,6 +22,7 @@ const moreButton = document.querySelector<HTMLButtonElement>('[data-search-more]
 const activeFilters = document.querySelector<HTMLElement>('[data-search-active-filters]');
 const activeFilterList = document.querySelector<HTMLElement>('[data-search-active-list]');
 const clearFiltersButton = document.querySelector<HTMLButtonElement>('[data-search-clear-filters]');
+const includeAmendmentsInput = document.querySelector<HTMLInputElement>('[data-search-filter="includeAmendments"]');
 const filterPanels = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-search-filter-panel]'));
 const indexUrl = root?.dataset.indexUrl ?? '';
 let visibleGroups = PAGE_SIZE;
@@ -62,7 +63,7 @@ function normalizeVersionScope(value: string): VersionScope {
 }
 
 function normalizeSort(value: string): SortKey {
-  return value === 'title' || value === 'rechtsstand' ? value : 'relevance';
+  return value === 'relevance' || value === 'title' || value === 'rechtsstand' ? value : 'publication';
 }
 
 function formValues(data: FormData, name: string): string[] {
@@ -90,7 +91,7 @@ function emptyState(): NormSearchState {
     publicationYears: [],
     publicationIssue: '',
     publicationPage: '',
-    sort: 'relevance',
+    sort: 'publication',
   };
 }
 
@@ -143,7 +144,7 @@ function readStateFromUrl(): NormSearchState {
     publicationYears: params.getAll('publicationYear'),
     publicationIssue: params.get('publicationIssue') ?? '',
     publicationPage: params.get('publicationPage') ?? '',
-    sort: normalizeSort(params.get('sort') ?? 'relevance'),
+    sort: normalizeSort(params.get('sort') ?? 'publication'),
   };
 }
 
@@ -190,7 +191,7 @@ function applyStateToForm(state: NormSearchState): void {
 const filterDefaults: Record<string, string> = {
   scope: 'all',
   versionScope: 'current',
-  sort: 'relevance',
+  sort: 'publication',
 };
 
 const filterLabels: Record<string, string> = {
@@ -323,7 +324,7 @@ function writeStateToUrl(state: NormSearchState, push = false): void {
   appendValues(params, 'publicationYear', state.publicationYears);
   if (state.publicationIssue) params.set('publicationIssue', state.publicationIssue);
   if (state.publicationPage) params.set('publicationPage', state.publicationPage);
-  if (state.sort !== 'relevance') params.set('sort', state.sort);
+  if (state.sort !== 'publication') params.set('sort', state.sort);
   const target = params.size > 0 ? `${window.location.pathname}?${params}` : window.location.pathname;
   window.history[push ? 'pushState' : 'replaceState']({}, '', target);
 }
@@ -468,7 +469,19 @@ async function setupSearch(): Promise<void> {
     return;
   }
 
-  const run = (push = false) => {
+  const enableAmendmentsForExactSuggestion = () => {
+    if (!includeAmendmentsInput || includeAmendmentsInput.checked) return;
+    const query = normalizeSearchText(queryInput.value);
+    if (!query) return;
+    const selectedAmendment = payload.documents.some((entry) => entry.isAmendment
+      && entry.versionKind === 'current'
+      && [entry.title, entry.shortTitle, entry.abbr, ...entry.keywords]
+        .some((value) => normalizeSearchText(value) === query));
+    if (selectedAmendment) includeAmendmentsInput.checked = true;
+  };
+
+  const run = (push = false, synchronizeSuggestion = false) => {
+    if (synchronizeSuggestion) enableAmendmentsForExactSuggestion();
     const state = getFormState();
     writeStateToUrl(state, push);
     visibleGroups = PAGE_SIZE;
@@ -482,12 +495,12 @@ async function setupSearch(): Promise<void> {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    run(true);
+    run(true, true);
   });
   for (const input of filterInputs) {
     input.addEventListener('change', () => run(true));
   }
-  queryInput.addEventListener('input', () => run());
+  queryInput.addEventListener('input', () => run(false, true));
   activeFilterList?.addEventListener('click', (event) => {
     if (!(event.target instanceof HTMLButtonElement)) return;
     const name = event.target.dataset.searchRemoveFilter;
