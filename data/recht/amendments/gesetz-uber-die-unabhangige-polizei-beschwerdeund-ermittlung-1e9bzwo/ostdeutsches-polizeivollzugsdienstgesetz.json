@@ -4,24 +4,64 @@
   "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 28)",
   "resultCitation": "Ostdeutsches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), zuletzt geändert durch Artikel 1 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 28)",
   "changeNote": "§ 57a über Trage- und Aktivierungspflichten für Bodycams wurde eingefügt.",
-  "sourceReferences": [{"kind":"amendment-source","label":"OGVBl. 2026 Nr. 28","availability":"versioned","localSource":"Gesetze/OGVBl. 2026 Nr. 28.html"}],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 28",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 28.html"
+    }
+  ],
   "operations": [
     {
       "op": "insertProvisionAfter",
-      "target": {"type":"paragraph","label":"§ 57"},
-      "expectedHash": "2ef8f41b976ee73c7ab18e781d1662f0d7a01906a8ead23fef7ecc2ec88dfd67",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 57"
+      },
+      "expectedHash": "a5d37718dd741fd2fdafe8c18b55a5e73b2c4334b899e6463a5ae35db93c54a8",
       "expectedMatches": 1,
       "value": {
         "type": "paragraph",
         "label": "§ 57a",
         "title": "Körpernah getragene Bild- und Tonaufzeichnungsgeräte (Bodycams); Trage- und Aktivierungspflicht",
         "children": [
-          {"type":"subparagraph","label":"(1)","text":"Polizeibedienstete, die im Streifen- und Einsatzdienst uniformiert Dienst verrichten, haben ein einsatzbereites körpernah getragenes Bild- und Tonaufzeichnungsgerät (Bodycam) offen mitzuführen (Tragepflicht), soweit sie nach Ausstattung und Einsatzgebiet mit Bodycams ausgerüstet sind.","children":[]},
-          {"type":"subparagraph","label":"(2)","text":"Die Bodycam ist nach Maßgabe des § 57 Absatz 4 und 5 zu aktivieren, sobald im Einzelfall aufgrund konkreter Umstände hinreichend wahrscheinlich ist, dass zur Durchsetzung polizeilicher Maßnahmen unmittelbarer Zwang angewendet werden wird, eine Gefahr für Leib oder Leben der Polizeibediensteten oder Dritter besteht oder eine Situation unmittelbar in eine solche Lage umzuschlagen droht (eskalationsgefährdete Lage).","children":[]},
-          {"type":"subparagraph","label":"(3)","text":"Vor Beginn der Aufzeichnung ist, soweit hierdurch der Zweck der Maßnahme nicht gefährdet wird, in geeigneter Weise darauf hinzuweisen, dass eine Aufzeichnung erfolgt; im Übrigen gilt § 57 Absatz 6 entsprechend.","children":[]},
-          {"type":"subparagraph","label":"(4)","text":"Von der Aktivierung ist abzusehen oder die Aufzeichnung ist zu unterbrechen, soweit und solange überwiegende schutzwürdige Interessen, ein gesetzliches Aufzeichnungsverbot oder technische Gründe entgegenstehen. Die wesentlichen Gründe sind zu dokumentieren.","children":[]},
-          {"type":"subparagraph","label":"(5)","text":"Die Tragepflicht nach Absatz 1 besteht nicht, soweit das Mitführen im Einzelfall objektiv ungeeignet oder unzumutbar ist; die Gründe sind zu dokumentieren.","children":[]},
-          {"type":"subparagraph","label":"(6)","text":"Im Übrigen gelten § 57 Absatz 4 bis 8 entsprechend; insbesondere gelten die Vorschriften über Erkennbarkeit, Dokumentation, Manipulationssicherheit, Einsichtnahme Betroffener und Löschung.","children":[]}
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Polizeibedienstete, die im Streifen- und Einsatzdienst uniformiert Dienst verrichten, haben ein einsatzbereites körpernah getragenes Bild- und Tonaufzeichnungsgerät (Bodycam) offen mitzuführen (Tragepflicht), soweit sie nach Ausstattung und Einsatzgebiet mit Bodycams ausgerüstet sind.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Bodycam ist nach Maßgabe des § 57 Absatz 4 und 5 zu aktivieren, sobald im Einzelfall aufgrund konkreter Umstände hinreichend wahrscheinlich ist, dass zur Durchsetzung polizeilicher Maßnahmen unmittelbarer Zwang angewendet werden wird, eine Gefahr für Leib oder Leben der Polizeibediensteten oder Dritter besteht oder eine Situation unmittelbar in eine solche Lage umzuschlagen droht (eskalationsgefährdete Lage).",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Vor Beginn der Aufzeichnung ist, soweit hierdurch der Zweck der Maßnahme nicht gefährdet wird, in geeigneter Weise darauf hinzuweisen, dass eine Aufzeichnung erfolgt; im Übrigen gilt § 57 Absatz 6 entsprechend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Von der Aktivierung ist abzusehen oder die Aufzeichnung ist zu unterbrechen, soweit und solange überwiegende schutzwürdige Interessen, ein gesetzliches Aufzeichnungsverbot oder technische Gründe entgegenstehen. Die wesentlichen Gründe sind zu dokumentieren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die Tragepflicht nach Absatz 1 besteht nicht, soweit das Mitführen im Einzelfall objektiv ungeeignet oder unzumutbar ist; die Gründe sind zu dokumentieren.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Im Übrigen gelten § 57 Absatz 4 bis 8 entsprechend; insbesondere gelten die Vorschriften über Erkennbarkeit, Dokumentation, Manipulationssicherheit, Einsichtnahme Betroffener und Löschung.",
+            "children": []
+          }
         ]
       },
       "source": "Gesetze/OGVBl. 2026 Nr. 28.html",

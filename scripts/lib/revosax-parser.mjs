@@ -7,6 +7,7 @@ const DATE_DOTTED_GLOBAL = /(\d{1,2})\.(\d{1,2})\.(\d{4})/gu;
 const FOOTNOTE_LINK = /^#FNID_/u;
 const SIGNATURE_START = /^(?:Dresden|Leipzig|Chemnitz),\s+den\s+/iu;
 const NON_NORM_SECTION = /^(?:Bekanntmachung|Gesetz|Verordnung|Inhaltsübersicht)$/iu;
+const SATZZAHL_MARKER = '\uE000';
 const STRUCTURE_RANK = {
   part: 1,
   chapter: 2,
@@ -56,7 +57,25 @@ function findElement(node, predicate) {
 }
 
 function normalizeText(value) {
-  return String(value ?? '')
+  const source = String(value ?? '');
+  let withoutSentenceNumbers = '';
+  for (let index = 0; index < source.length; index += 1) {
+    if (source[index] !== SATZZAHL_MARKER) {
+      withoutSentenceNumbers += source[index];
+      continue;
+    }
+
+    const before = withoutSentenceNumbers.at(-1);
+    const after = source.slice(index + 1).match(/[^\uE000]/u)?.[0];
+    if (before && after && !/\s/u.test(before) && !/\s/u.test(after)) {
+      const beforeWord = /[\p{L}\p{N})\]}]/u.test(before);
+      const afterWord = /[\p{L}\p{N}([{]/u.test(after);
+      if (beforeWord && afterWord) withoutSentenceNumbers += ' ';
+      else if (/[.!?;:)]/u.test(before) && /[\p{L}\p{N}]/u.test(after)) withoutSentenceNumbers += ' ';
+    }
+  }
+
+  return withoutSentenceNumbers
     .replace(/\r\n?/gu, '\n')
     .replace(/[\u00a0\u202f]/gu, ' ')
     .replace(/[\u200b\u200c\u200d\u2060\ufeff]/gu, '')
@@ -66,14 +85,6 @@ function normalizeText(value) {
     .trim();
 }
 
-function superscript(value) {
-  const characters = {
-    0: '⁰', 1: '¹', 2: '²', 3: '³', 4: '⁴',
-    5: '⁵', 6: '⁶', 7: '⁷', 8: '⁸', 9: '⁹',
-  };
-  return String(value).replace(/\d/gu, (digit) => characters[digit] ?? digit);
-}
-
 function nodeText(node, { breaks = false, skipFootnoteLinks = true } = {}) {
   if (!node) return '';
   if (node.nodeName === '#text') return node.value ?? '';
@@ -81,7 +92,7 @@ function nodeText(node, { breaks = false, skipFootnoteLinks = true } = {}) {
   const nodeAttributes = attributes(node);
   if (skipFootnoteLinks && node.tagName === 'a' && FOOTNOTE_LINK.test(nodeAttributes.href ?? '')) return '';
   if (node.tagName === 'sup' && hasClass(node, 'satzzahl')) {
-    return superscript((node.childNodes ?? []).map((child) => nodeText(child, { breaks, skipFootnoteLinks })).join(''));
+    return SATZZAHL_MARKER;
   }
   return (node.childNodes ?? [])
     .map((child) => {

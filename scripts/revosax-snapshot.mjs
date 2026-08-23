@@ -18,6 +18,7 @@ const valueAfter = (flag) => {
 const target = valueAfter('--target');
 const urlArgument = valueAfter('--url');
 const snapshotId = valueAfter('--snapshot-id');
+const all = args.includes('--all');
 
 function hash(buffer) {
   return createHash('sha256').update(buffer).digest('hex');
@@ -180,16 +181,38 @@ async function fetchAttachment() {
   console.log(`${target}/${snapshotId}: ${bytes.length} Byte gespeichert, SHA-256 ${attachment.sourceSha256}`);
 }
 
+async function parseOneSnapshot(slug, configured, sourceId = 'baseline') {
+  if (!configured?.snapshot) throw new Error(`${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}: Snapshot fehlt`);
+  const bytes = await readFile(resolve(ROOT, configured.snapshot));
+  if (hash(bytes) !== configured.sourceSha256) {
+    throw new Error(`${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}: Snapshot-Hash weicht von der Quellenkonfiguration ab`);
+  }
+  const parsed = parseRevosaxSnapshot(bytes.toString('utf8'), { url: configured.baselineUrl });
+  const output = resolve(ROOT, `data/recht/parsed/revosax/${slug}${sourceId === 'baseline' ? '' : `--${sourceId}`}.json`);
+  await writeJson(output, parsed);
+  console.log(`${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}: ${parsed.body.length} äußere Blöcke nach ${output.replace(`${ROOT}/`, '')} geschrieben`);
+}
+
 async function parseSnapshot() {
   const config = await readConfig();
+  if (all) {
+    if (target || snapshotId) throw new Error('parse: --all darf nicht mit --target oder --snapshot-id kombiniert werden');
+    const sources = [];
+    for (const [slug, configuredTarget] of Object.entries(config.targets)) {
+      if (configuredTarget.snapshot) sources.push([slug, 'baseline', configuredTarget]);
+      for (const adopted of configuredTarget.adoptedSources ?? []) {
+        if (adopted.snapshot) sources.push([slug, adopted.id, adopted]);
+      }
+    }
+    for (const [slug, sourceId, configured] of sources) {
+      await parseOneSnapshot(slug, configured, sourceId);
+    }
+    console.log(`${sources.length} REVOSax-Snapshots neu geparst`);
+    return;
+  }
   const configuredTarget = requireTarget(config);
   const configured = requireConfiguredSource(configuredTarget);
-  const bytes = await readFile(resolve(ROOT, configured.snapshot));
-  if (hash(bytes) !== configured.sourceSha256) throw new Error(`${target}: Snapshot-Hash weicht von der Quellenkonfiguration ab`);
-  const parsed = parseRevosaxSnapshot(bytes.toString('utf8'), { url: configured.baselineUrl });
-  const output = resolve(ROOT, `data/recht/parsed/revosax/${target}${snapshotId ? `--${snapshotId}` : ''}.json`);
-  await writeJson(output, parsed);
-  console.log(`${target}${snapshotId ? `/${snapshotId}` : ''}: ${parsed.body.length} äußere Blöcke nach ${output.replace(`${ROOT}/`, '')} geschrieben`);
+  await parseOneSnapshot(target, configured, snapshotId ?? 'baseline');
 }
 
 async function auditSnapshots() {

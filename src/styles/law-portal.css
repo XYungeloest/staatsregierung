@@ -841,6 +841,7 @@
 
 .norm-diff__side {
   display: grid;
+  align-content: start;
   min-width: 0;
   overflow: hidden;
 }
@@ -884,6 +885,106 @@
 .norm-diff del {
   background: var(--color-info-gold);
   text-decoration-thickness: 0.12em;
+}
+
+.norm-diff-structure {
+  min-width: 0;
+  color: var(--color-ink);
+}
+
+.norm-diff-structure__provision {
+  min-width: 0;
+}
+
+.norm-diff-structure__provision-header {
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid rgba(23, 59, 107, 0.16);
+}
+
+.norm-diff-structure__provision-heading,
+.norm-diff-structure .norm-division__heading {
+  display: grid;
+  gap: 0.15rem;
+  margin: 0;
+  color: var(--law-blue-dark);
+  font-family: var(--law-serif);
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.norm-diff-structure .norm-division {
+  margin: 0;
+  padding-top: 0.65rem;
+}
+
+.norm-diff-structure .norm-division + .norm-division {
+  margin-top: 1rem;
+}
+
+.norm-diff-structure .norm-division__header {
+  margin-bottom: 0.65rem;
+}
+
+.norm-diff-structure .norm-text,
+.norm-diff-structure .norm-subparagraph,
+.norm-diff-structure .norm-amendment-item {
+  max-width: none;
+  font-size: 0.94rem;
+  line-height: 1.72;
+}
+
+.norm-diff-structure .norm-text {
+  margin-top: 0.55rem;
+}
+
+.norm-diff-structure .norm-text__label {
+  display: inline-block;
+  min-width: 2.2rem;
+  margin-inline-end: 0.35rem;
+  color: var(--law-blue-dark);
+  font-weight: 700;
+}
+
+.norm-diff-structure .norm-subparagraph {
+  margin-top: 0.55rem;
+}
+
+.norm-diff-structure .norm-text__children,
+.norm-diff-structure .norm-subparagraph__children {
+  margin-inline-start: 1.8rem;
+}
+
+.norm-diff-structure .norm-amendment-list {
+  margin-top: 0.65rem;
+  gap: 0.5rem;
+}
+
+.norm-diff-structure .norm-amendment-item {
+  grid-template-columns: 2.3rem minmax(0, 1fr);
+  column-gap: 0.55rem;
+}
+
+.norm-diff-structure .norm-quoted-provision {
+  max-width: none;
+  margin: 0.75rem 0;
+  padding: 0.75rem 0.9rem;
+}
+
+.norm-diff-structure__table {
+  max-width: 100%;
+  margin-top: 0.75rem;
+  overflow-x: auto;
+}
+
+.norm-diff-structure__table .norm-table {
+  min-width: 28rem;
+}
+
+.norm-diff-structure__list-item > .norm-amendment-item__content > span:empty,
+.norm-diff-structure__provision-heading .norm-label:empty,
+.norm-diff-structure__provision-heading .norm-title:empty {
+  display: none;
 }
 
 .search-form__citation {

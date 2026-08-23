@@ -25,7 +25,7 @@
     "norms:consolidate": "node scripts/consolidate-norms.mjs",
     "norms:alt-sources:build": "node scripts/build-alt-source-transcriptions.mjs",
     "norms:alt-sources:migrate": "node scripts/migrate-alt-sources.mjs",
-    "test:parser": "node --test tests/norm-html-parser.test.mjs tests/norm-markdown-parser.test.mjs tests/import-audit.test.mjs",
+    "test:parser": "node --test tests/norm-html-parser.test.mjs tests/norm-markdown-parser.test.mjs tests/import-audit.test.mjs tests/revosax-parser.test.mjs",
     "kreisreform:prepare": "node scripts/prepare-kreisreform-map.mjs",
     "images:generate": "node scripts/generate-responsive-images.mjs",
     "check:portal": "npm run public:portal && SITE_TARGET=portal astro check",
