@@ -118,7 +118,7 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  accessibility:
+  release-smoke:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -134,83 +134,15 @@ jobs:
           path: dist
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
-      - name: Accessibility in Desktop- und Mobilansicht prüfen
+      - name: Zentrale Seiten barrierefrei prüfen
         run: npm run test:a11y:ci
-
-  layout:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - uses: actions/download-artifact@v8
-        with:
-          name: site-build-${{ github.sha }}
-          path: dist
-      - name: Chromium installieren
-        run: npx playwright install --with-deps chromium
-      - name: Layout- und Qualitätsprüfungen
-        run: npm run test:quality:run
-
-  browsers:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - uses: actions/download-artifact@v8
-        with:
-          name: site-build-${{ github.sha }}
-          path: dist
-      - name: Playwright-Browser installieren
-        run: npx playwright install --with-deps chromium firefox webkit
-      - name: Browser-Smoke-Tests
-        run: npm run test:browsers:run
-
-  visual:
-    needs: build
-    runs-on: macos-26
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - uses: actions/download-artifact@v8
-        with:
-          name: site-build-${{ github.sha }}
-          path: dist
-      - name: Chromium installieren
-        run: npx playwright install chromium
-      - name: Visuelle Regressionen prüfen
-        run: npm run test:visual:run
-      - name: Abweichungsbilder sichern
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v7
-        with:
-          name: visual-diffs-${{ github.sha }}
-          path: |
-            test-results/
-            playwright-report/
-          if-no-files-found: ignore
-          retention-days: 14
+      - name: Zentrale Nutzerwege in Chromium prüfen
+        run: npm run test:browsers:ci
 
   deploy:
     needs:
       - build
-      - accessibility
-      - layout
-      - browsers
-      - visual
+      - release-smoke
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

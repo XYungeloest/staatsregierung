@@ -254,7 +254,7 @@ test('OstRecht-Suche hält URL, Filterchips und Browserverlauf synchron', async 
   await page.goto(lawUrl('/suche/?q=Kulturpass&type=gesetz'));
 
   await expect(page.locator('[data-search-query]')).toHaveValue('Kulturpass');
-  await expect(page.getByRole('button', { name: 'Suchen', exact: true })).toBeVisible();
+  await expect(page.getByLabel('Suchanfrage und Filter').getByRole('button', { name: 'Suchen' })).toBeVisible();
   await expect(page.getByLabel('Suchbereich')).toBeVisible();
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
   const lawType = page.locator('input[name="type"][value="gesetz"]');
@@ -283,7 +283,7 @@ test('exakter ÖPNV-Änderungsvorschlag aktiviert den nötigen Suchfilter', asyn
   await page.goto(lawUrl('/suche/'));
   const query = page.locator('[data-search-query]');
   await query.fill('Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr');
-  await page.getByRole('button', { name: 'Suchen', exact: true }).click();
+  await page.getByLabel('Suchanfrage und Filter').getByRole('button', { name: 'Suchen' }).click();
   await expect(page.locator('[data-search-filter="includeAmendments"]')).toBeChecked();
   await expect(page).toHaveURL(/includeAmendments=1/u);
   await expect(page.locator('[data-search-results]')).toContainText('Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr');

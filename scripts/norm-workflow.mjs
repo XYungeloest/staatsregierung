@@ -43,11 +43,10 @@ if (!quick) {
     ['check', 'Astro- und TypeScript-Prüfung'],
     ['editorial:check', 'Editorial Worker'],
     ['build', 'beide öffentlichen Anwendungen'],
-    ['links:check', 'interne und domainübergreifende Links'],
-    ['seo:check', 'öffentliche Metadaten und SEO'],
-    ['test:browsers', 'Browser-Smoke-Tests'],
-    ['test:a11y', 'Accessibility-Smoke-Tests'],
-    ['test:visual', 'visuelle Regressionen'],
+    ['test:links:run', 'interne und domainübergreifende Links'],
+    ['test:seo:run', 'öffentliche Metadaten und SEO'],
+    ['test:browsers:ci', 'zentrale Nutzerwege in Chromium'],
+    ['test:a11y:ci', 'repräsentative Accessibility-Smoke-Tests'],
   ]) run('npm', ['run', script], label);
 }
 

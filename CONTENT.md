@@ -1291,10 +1291,10 @@ Die Anweisung „`temp-neu` einpflegen“ genügt künftig als Kurzform für den
    andernfalls im Eingang belassen und den Konflikt melden.
 7. Betroffene Themen-, Timeline-, Dashboard- und andere Gegenwartsangaben sowie den zentralen
    redaktionellen Stichtag gemeinsam fortschreiben.
-8. Für Eingänge ohne Normquelle die entsprechenden Content-, Wissenshub-, Build-, Link-, SEO-,
-   Browser-, Accessibility- und visuellen Prüfungen separat ausführen. Bei Normquellen übernimmt
-   der vollständige `norms:workflow`-Lauf diese Prüfungen. Screenshot-Baselines erst nach
-   Sichtprüfung aktualisieren.
+8. Für Eingänge ohne Normquelle die entsprechenden Content-, Wissenshub-, Build-, Link- und
+   SEO-Prüfungen sowie die repräsentativen Browser- und Accessibility-Smokes separat ausführen.
+   Bei Normquellen übernimmt der vollständige `norms:workflow`-Lauf diese Prüfungen. Visuelle
+   Baselines nur bei tatsächlich betroffenen Oberflächen und erst nach Sichtprüfung aktualisieren.
 
 Dieser Ablauf verändert oder leert `temp-neu/` nicht. Das Verzeichnis bleibt der wiederverwendbare
 Benutzereingang und ist nicht Teil der öffentlichen Auslieferung.
