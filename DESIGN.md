@@ -300,10 +300,11 @@ Automatisierte Tests ergänzen den manuellen Tastatur-, Zoom- und Screenreader-K
 
 ## Qualitätssicherung
 
-Die visuellen Baselines decken zentrale Seiten bei Smartphone-, Tablet- und Desktopbreiten ab.
-Änderungen an Header, Startseite oder globalen Komponenten werden erst nach manueller Sichtprüfung
-in die Baselines übernommen. Content-, Type-, Build-, Link-, Accessibility-, Browser- und
-Overflow-Prüfungen bleiben Teil der Produktions-QA.
+Die visuellen Baselines unterstützen die gezielte Prüfung zentraler Seiten bei Smartphone-, Tablet-
+und Desktopbreiten. Änderungen an Header, Startseite oder globalen Komponenten werden erst nach
+manueller Sichtprüfung in die Baselines übernommen. Sie sind kein Deployment-Gate. Die automatische
+Produktions-QA konzentriert sich auf deterministische Content-, Type-, Unit-, Build-, Link- und
+SEO-Prüfungen sowie repräsentative Chromium- und Accessibility-Smokes.
 
 Ergänzend zu den vollständigen Seitenbaselines sichern kleine Locator-Screenshots wichtige
 Module unterhalb des ersten Viewports. Dazu gehören unter anderem Ministeriumsverzeichnisse,

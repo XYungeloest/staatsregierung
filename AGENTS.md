@@ -168,10 +168,11 @@ Pressemitteilungen in `content/presse/mitteilungen/` übertragen, belastbare Bil
 betroffene Gegenwartsstände und den redaktionellen Stichtag aktualisieren. Anschließend sind
 für jede übernommene Normquelle der kanonische Ablauf aus `docs/NORM_WORKFLOW.md` mit
 `npm run norms:workflow -- --file "…html" --write` auszuführen. Er verbindet den gezielten
-Import, die Konsolidierungs- und Metadatenprüfungen, den Wissenshub sowie die vollständige
-Content-, Build-, Link-, SEO-, Browser-, Accessibility- und visuelle QA. `--quick` ist nur für
-Zwischenprüfungen zulässig und ersetzt den vollständigen Abschlusslauf nicht;
-geänderte Screenshot-Baselines werden nur nach Sichtprüfung übernommen. Widersprüchliche oder
+Import, die Konsolidierungs- und Metadatenprüfungen, den Wissenshub sowie die technische
+Content-, Build-, Link- und SEO-QA. Repräsentative Browser- und Accessibility-Smokes gehören
+zum Release-Gate; breite Browsermatrizen und Screenshot-Vergleiche werden bei betroffenen
+Designänderungen gezielt manuell ausgeführt. `--quick` ist nur für Zwischenprüfungen zulässig.
+Geänderte Screenshot-Baselines werden nur nach Sichtprüfung übernommen. Widersprüchliche oder
 fehlerhafte Bildmotive werden nicht als amtliche Darstellung veröffentlicht. `temp-neu/` bleibt
 unverändert als Benutzereingang bestehen.
 
@@ -190,8 +191,9 @@ unverändert als Benutzereingang bestehen.
 - Die Kreisreform-Suche muss ohne geöffnete Karte ein textliches Ergebnis liefern; die Karte startet
   auf kleinen Bildschirmen nur nach ausdrücklichem Öffnen.
 - Statistik bleibt freiwillig: Nur notwendige Funktionen sind Standard, Webanalyse startet erst nach ausdrücklicher Zustimmung.
-- Screenshot-Baselines und Accessibility-Smoke-Tests sind Teil der Produktions-QA. Sie ergänzen
-  den manuellen Tastatur- und Screenreader-Kurztest.
+- Das Release-Gate verwendet repräsentative Chromium- und Accessibility-Smoke-Tests. Screenshot-
+  Baselines und die breite Browsermatrix sind gezielte manuelle Design- und Kompatibilitätswerkzeuge;
+  reine Pixelabweichungen blockieren kein Deployment.
 
 ## Bei Unsicherheit
 

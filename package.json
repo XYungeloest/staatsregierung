@@ -54,6 +54,7 @@
     "test:quality:run": "playwright test tests/quality.spec.ts --config=playwright.quality.config.ts --project=chromium",
     "test:browsers": "npm run build && npm run test:browsers:run",
     "test:browsers:run": "playwright test tests/browser-smoke.spec.ts --config=playwright.quality.config.ts",
+    "test:browsers:ci": "playwright test tests/browser-smoke.spec.ts --config=playwright.quality.config.ts --project=chromium",
     "preview": "npm run preview:portal",
     "preview:portal": "SITE_TARGET=portal astro preview",
     "preview:recht": "SITE_TARGET=law astro preview",

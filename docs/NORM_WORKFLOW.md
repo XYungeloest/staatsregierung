@@ -24,8 +24,8 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
    npm run norms:workflow -- --file "OGVBl. 2026 Nr. 60.html" --write
    ```
 
-Mehrere `--file`-Argumente sind zulässig. `--quick` lässt die lange Build-, Browser-, Visual- und
-Accessibility-Runde bewusst aus und ist nur für lokale Zwischenprüfungen gedacht.
+Mehrere `--file`-Argumente sind zulässig. `--quick` lässt Build und UI-Smokes bewusst aus und ist
+nur für lokale Zwischenprüfungen gedacht.
 
 ## Abbruchbedingungen
 
@@ -42,6 +42,7 @@ verwandte Normen, Themen, Pressemitteilungen sowie mittelbare Auswirkungen und Q
 prüfen. Bestätigtes Kontextwissen wird mit Quellen und Gültigkeitszeitraum in den Wissenshub
 überführt. Ungeprüftes Gesprächswissen verbleibt in `knowledge/conversation-candidates.json`.
 
-Der vollständige Lauf prüft Content, Wissenshub, Unit-Tests, Astro/TypeScript, Editorial Worker,
-beide Builds, Links, SEO, Browser, Accessibility und Visual-Baselines. Geänderte Screenshots
-werden weiterhin erst nach Sichtprüfung als neue Baseline übernommen.
+Der vollständige Lauf prüft Content, Wissenshub, Unit-Tests, Astro/TypeScript und Editorial Worker,
+baut beide Anwendungen einmal und prüft danach Links, SEO sowie repräsentative Chromium- und
+Accessibility-Smokes gegen diesen Build. Visuelle Baselines werden bei betroffenen Oberflächen
+separat und erst nach Sichtprüfung aktualisiert.

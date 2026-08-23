@@ -54,8 +54,8 @@ npm run test:browsers
 npm run editorial:check
 ```
 
-Die Test-Suite prüft dauerhaft Parser-, Quellen-, Schema-, Verknüpfungs-, Routing-,
-Barrierefreiheits- und Layoutverträge. Redaktionelle Bestände, einzelne Personenstände,
+Die Test-Suite prüft dauerhaft Parser-, Quellen-, Schema-, Verknüpfungs- und Routingverträge sowie
+repräsentative Nutzerwege und Barrierefreiheit. Redaktionelle Bestände, einzelne Personenstände,
 Veröffentlichungsnummern und aktuelle Themen werden nicht als feste Inventarwerte getestet;
 gezielte Inhaltsprüfungen gehören in die redaktionelle Prüfung einer Änderung und werden nicht
 als dauerhafte Regressionstests fortgeschrieben.
@@ -410,21 +410,24 @@ definierten mobilen, Tablet- und Desktopbreiten prüfen.
 
 `npm run links:check` prüft nach dem Build alle statisch ausgegebenen internen und bekannten
 Cross-Site-Verweise beider Anwendungen.
-`npm run test:visual` erzeugt und vergleicht Chromium-Screenshots dieser Ansichten. Die externen
-Basiskacheln der Kreisreform werden dabei unterdrückt, damit die Baselines reproduzierbar bleiben.
-`npm run test:a11y` führt zusätzlich einen automatisierten Accessibility-Smoke-Test aus. Beide
-Checks ergänzen, ersetzen aber nicht den manuellen Tastatur- und Screenreader-Kurztest.
+`npm run test:visual` erzeugt und vergleicht Chromium-Screenshots dieser Ansichten. Dieser bewusst
+manuelle Designcheck wird bei betroffenen Oberflächen eingesetzt und blockiert kein Deployment.
+Die externen Basiskacheln der Kreisreform werden dabei unterdrückt, damit die Baselines
+reproduzierbar bleiben. `npm run test:a11y` führt zusätzlich einen automatisierten
+Accessibility-Smoke-Test repräsentativer Seitentypen aus; er ersetzt nicht den manuellen Tastatur-
+und Screenreader-Kurztest.
 `npm run test:quality` prüft unter anderem die acht Abnahme-Viewports auf Dokumentüberlauf sowie
 Karten- und Statistikfreigaben, Zoom und reduzierte Bewegung. `npm run test:browsers` führt die
 zentralen Interaktionen zusätzlich in Chromium, Firefox und WebKit aus; `npm run seo:check` prüft
 Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten, Sitemaps und robots.txt beider Sites.
 
-In GitHub Actions wird jede Site pro Workflowlauf genau einmal gebaut. Link-, SEO-, Accessibility-,
-Layout-, Browser- und visuelle Prüfungen verwenden anschließend parallel dasselbe kurzlebige
-Build-Artefakt; genau dieses geprüfte Artefakt wird auch deployt. Die Skripte mit dem Suffix `:run`
-setzen deshalb einen vorhandenen Build unter `dist/` voraus. Die öffentlichen Komfortbefehle ohne
-Suffix bauen lokal weiterhin selbst. Die CI-Accessibility-Prüfung verwendet mit Desktop und Mobil
-zwei repräsentative Viewports; `npm run test:a11y` behält lokal den vollständigen Viewportsatz bei.
+In GitHub Actions wird jede Site pro Workflowlauf genau einmal gebaut. Deterministische Content-,
+Type-, Unit-, Build-, Link- und SEO-Prüfungen bilden das Haupt-Gate. Anschließend prüfen ein
+repräsentativer Accessibility-Lauf und die zentralen Nutzerwege in Chromium dasselbe kurzlebige
+Build-Artefakt; genau dieses Artefakt wird deployt. Pixel-Screenshots, Overflow-Sonderprüfungen und
+die zusätzliche Firefox-/WebKit-Matrix bleiben gezielte manuelle Werkzeuge. Die Skripte mit dem
+Suffix `:run` setzen einen vorhandenen Build unter `dist/` voraus; Komfortbefehle ohne Suffix bauen
+lokal selbst.
 
 ## TODO
 
