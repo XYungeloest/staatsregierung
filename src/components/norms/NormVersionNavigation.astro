@@ -16,9 +16,10 @@ interface Props {
   norm: NormRecord;
   version?: NormVersion;
   currentPage?: 'norm' | 'history' | 'compare';
+  showPicker?: boolean;
 }
 
-const { norm, version, currentPage = 'norm' } = Astro.props;
+const { norm, version, currentPage = 'norm', showPicker = true } = Astro.props;
 const classified = classifyNormVersions(norm);
 const applicable = classified.find((entry) => entry.kind === 'current');
 const future = classified.filter((entry) => entry.kind === 'future');
@@ -33,10 +34,8 @@ function versionHref(entry: (typeof classified)[number]): string {
 }
 
 function isSelected(entry: (typeof classified)[number]): boolean {
-  return currentPage === 'norm' && (
-    version?.versionId === entry.version.versionId ||
-    (!version && entry.kind === 'current')
-  );
+  return version?.versionId === entry.version.versionId ||
+    (!version && currentPage === 'norm' && entry.kind === 'current');
 }
 
 function versionLabel(entry: (typeof classified)[number]): string {
@@ -51,7 +50,7 @@ function versionLabel(entry: (typeof classified)[number]): string {
 }
 ---
 
-<nav class="norm-version-navigation" aria-label="Fassungen und Historie" data-version-navigation>
+<nav class:list={['norm-version-navigation', { 'norm-version-navigation--compact': !showPicker }]} aria-label="Fassungen und Historie" data-version-navigation>
   <ul class="norm-version-navigation__primary">
     <li>
       <a href={getNormUrl(norm.meta.slug)} aria-current={currentPage === 'norm' ? 'page' : undefined}>
@@ -64,10 +63,10 @@ function versionLabel(entry: (typeof classified)[number]): string {
       </a>
     </li>
     <li><a href={`${getNormHistoryUrl(norm.meta.slug)}#historieneintraege`}>Änderungsverlauf</a></li>
-    {currentPage === 'compare' ? <li><a href={getNormCompareUrl(norm.meta.slug)} aria-current="page">Fassungsvergleich</a></li> : null}
+    {norm.versions.length >= 2 ? <li><a href={getNormCompareUrl(norm.meta.slug)} aria-current={currentPage === 'compare' ? 'page' : undefined}>Fassungsvergleich</a></li> : null}
   </ul>
 
-  {selectedEntry ? (
+  {showPicker && selectedEntry ? (
     <details class="norm-version-picker">
       <summary><span>Fassung wählen</span><strong>{versionLabel(selectedEntry)}</strong></summary>
       <div class="norm-version-picker__content">

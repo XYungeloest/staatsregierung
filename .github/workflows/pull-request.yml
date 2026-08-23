@@ -93,7 +93,7 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  ui-smoke:
+  accessibility_smoke:
     if: ${{ needs.classify.outputs.full_ui == 'true' }}
     needs:
       - classify
@@ -117,14 +117,38 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Zentrale Seiten barrierefrei prüfen
         run: npm run test:a11y:ci
+
+  browser_smoke:
+    if: ${{ needs.classify.outputs.full_ui == 'true' }}
+    needs:
+      - classify
+      - quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v6
+      - name: Node.js einrichten
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Abhängigkeiten installieren
+        run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          name: pr-site-build-${{ github.event.pull_request.head.sha }}
+          path: dist
+      - name: Chromium installieren
+        run: npx playwright install --with-deps chromium
       - name: Zentrale Nutzerwege in Chromium prüfen
         run: npm run test:browsers:ci
 
   preview:
-    if: ${{ always() && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && needs.quality.result == 'success' && (needs.ui-smoke.result == 'success' || needs.ui-smoke.result == 'skipped') }}
+    if: ${{ always() && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
     needs:
       - quality
-      - ui-smoke
+      - accessibility_smoke
+      - browser_smoke
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken

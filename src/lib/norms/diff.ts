@@ -27,6 +27,14 @@ export interface NormDiffSummary {
   unchanged: number;
 }
 
+export interface NormProvisionDiff {
+  key: string;
+  kind: Exclude<NormDiffKind, 'unchanged'>;
+  beforeText?: string;
+  afterText?: string;
+  textDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
+}
+
 interface FlatUnit {
   key: string;
   type: string;
@@ -283,5 +291,44 @@ export function buildStructuralVersionDiff(
       beforeProvisionText: beforeUnit!.provisionText,
       afterProvisionText: afterUnit!.provisionText,
     };
+  });
+}
+
+function provisionKey(unit: NormDiffUnit): string {
+  const parts = unit.key.split('/');
+  const provisionIndex = parts.findIndex((part) => part.startsWith('paragraph:') || part.startsWith('article:'));
+  return provisionIndex >= 0 ? parts.slice(0, provisionIndex + 1).join('/') : unit.key;
+}
+
+export function buildProvisionVersionDiff(
+  before: Pick<NormVersion, 'body'>,
+  after: Pick<NormVersion, 'body'>,
+): NormProvisionDiff[] {
+  const provisions = new Map<string, { beforeText?: string; afterText?: string }>();
+
+  for (const unit of buildStructuralVersionDiff(before, after)) {
+    if (unit.kind === 'unchanged') continue;
+    const key = provisionKey(unit);
+    const entry = provisions.get(key) ?? {};
+    entry.beforeText ||= unit.beforeProvisionText || unit.beforeText;
+    entry.afterText ||= unit.afterProvisionText || unit.afterText;
+    provisions.set(key, entry);
+  }
+
+  return [...provisions].flatMap(([key, entry]) => {
+    if (entry.beforeText === entry.afterText) return [];
+    const kind = !entry.beforeText ? 'added' : !entry.afterText ? 'removed' : 'changed';
+    const textDiff = entry.beforeText && entry.afterText
+      ? diffWords(entry.beforeText, entry.afterText)
+      : undefined;
+    return [{
+      key,
+      kind,
+      beforeText: entry.beforeText,
+      afterText: entry.afterText,
+      textDiff: textDiff && hasReadableWordDiff(textDiff, entry.beforeText ?? '', entry.afterText ?? '')
+        ? textDiff
+        : undefined,
+    }];
   });
 }

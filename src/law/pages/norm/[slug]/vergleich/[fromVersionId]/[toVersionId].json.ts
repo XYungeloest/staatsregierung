@@ -1,8 +1,7 @@
 import type { APIRoute } from 'astro';
 
 import {
-  buildStructuralVersionDiff,
-  summarizeNormDiff,
+  buildProvisionVersionDiff,
 } from '../../../../../../lib/norms/diff.ts';
 import { loadAllNorms } from '../../../../../../lib/norms/content.ts';
 
@@ -25,7 +24,7 @@ export async function getStaticPaths() {
 
 export const GET: APIRoute = ({ props }) => {
   const { fromVersion, toVersion } = props;
-  const diff = buildStructuralVersionDiff(fromVersion, toVersion);
+  const provisions = buildProvisionVersionDiff(fromVersion, toVersion);
 
   return new Response(JSON.stringify({
     fromVersion: {
@@ -36,8 +35,7 @@ export const GET: APIRoute = ({ props }) => {
       versionId: toVersion.versionId,
       validFrom: toVersion.validFrom,
     },
-    summary: summarizeNormDiff(diff),
-    diff,
+    provisions,
   }), {
     headers: { 'Content-Type': 'application/json; charset=utf-8' },
   });

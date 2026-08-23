@@ -1,5 +1,4 @@
 ---
-import { getNormCompareUrl, getNormHistoryUrl } from '../../lib/norms/routes.ts';
 import type { NormRecord } from '../../lib/norms/schema.ts';
 
 interface Props {
@@ -7,15 +6,13 @@ interface Props {
   outlineId?: string;
 }
 
-const { norm, outlineId = 'norm-inhalt' } = Astro.props;
+const { outlineId = 'norm-inhalt' } = Astro.props;
 ---
 
 <nav class="norm-document-tools" aria-label="Werkzeuge für den Vorschriftentext">
   <button type="button" data-norm-open-all>Alle Paragraphen öffnen</button>
   <button type="button" data-norm-close-all>Alle Paragraphen schließen</button>
   <a href={`#${outlineId}`}>Inhaltsübersicht</a>
-  <a href={getNormHistoryUrl(norm.meta.slug)}>Fassung wählen</a>
-  {norm.versions.length >= 2 ? <a href={getNormCompareUrl(norm.meta.slug)}>Fassung vergleichen</a> : null}
   <button type="button" data-print-page>Drucken</button>
 </nav>
 

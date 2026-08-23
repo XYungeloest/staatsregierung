@@ -1,20 +1,16 @@
 ---
 import LawLayout from '../../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
-import SectionHero from '../../../../components/portal/SectionHero.astro';
-import SectionNavigation from '../../../../components/portal/SectionNavigation.astro';
+import NormPageHeader from '../../../../components/norms/NormPageHeader.astro';
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
-import NormOriginNotice from '../../../../components/norms/NormOriginNotice.astro';
-import { formatDate, toDisplayText } from '../../../../lib/norms/presentation.ts';
+import { formatDate, formatNormStatus, toDisplayText } from '../../../../lib/norms/presentation.ts';
 import {
   buildNormFullCitation,
   buildNormRecordLookup,
   classifyNormVersion,
-  getNormCompareUrl,
   getLawPortalUrl,
   getNormUrl,
   getNormVersionUrl,
-  getNormOriginInfo,
   getNormVersionIdentity,
 } from '../../../../lib/norms/index.ts';
 import { getCurrentVersion, getVersionById, loadAllNorms } from '../../../../lib/norms/content.ts';
@@ -35,7 +31,6 @@ export async function getStaticPaths() {
       norm,
       currentVersion: getCurrentVersion(norm),
       relatedNormLabels,
-      origin: getNormOriginInfo(norm, norms),
       fullCitations: Object.fromEntries(
         norm.versions.map((version) => [
           version.versionId,
@@ -46,7 +41,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const { norm, currentVersion, relatedNormLabels, fullCitations, origin } = Astro.props;
+const { norm, currentVersion, relatedNormLabels, fullCitations } = Astro.props;
 const initialVersion = norm.history.initialVersionId
   ? getVersionById(norm, norm.history.initialVersionId)
   : undefined;
@@ -73,6 +68,8 @@ const repealEntries = norm.history.entries.filter((entry) => entry.type === 'rep
 const noticeEntries = norm.history.entries.filter((entry) => entry.type === 'notice');
 const predecessorSlug = norm.meta.predecessorSlug;
 const successorSlug = norm.meta.successorSlug;
+const normStatusLabel = formatNormStatus(norm.meta.status);
+const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
 ---
 
 <LawLayout
@@ -92,55 +89,29 @@ const successorSlug = norm.meta.successorSlug;
     ]}
   />
 
-  <SectionHero
-    eyebrow="Normenhistorie"
-    title={normTitle}
-    titleSize="long"
-    lead="Stammfassung, Änderungsbezüge, Fundstellen und alle gespeicherten Fassungen."
-    variant="law"
-    facts={[
-      { label: 'Gespeicherte Fassungen', value: String(norm.versions.length) },
-      { label: 'Historieneinträge', value: String(norm.history.entries.length) },
-      { label: 'Aktueller Rechtsstand', value: formatDate(currentVersion.validFrom) },
-    ]}
-    actions={[
-      { label: 'Vorschrift öffnen', href: getNormUrl(norm.meta.slug), primary: true },
-      ...(norm.versions.length >= 2 ? [{ label: 'Fassungen vergleichen', href: getNormCompareUrl(norm.meta.slug) }] : []),
-    ]}
+  <NormPageHeader
+    norm={norm}
+    version={currentVersion}
+    eyebrow={norm.meta.status === 'in-force' ? 'Aktuelle Fassung' : 'Veröffentlichte Fassung'}
+    status={norm.meta.status === 'future-effective'
+      ? `Verkündet · Inkrafttreten am ${formatDate(statusDate)}`
+      : norm.meta.status === 'pending-effective'
+        ? 'Verkündet · Inkrafttreten noch nicht belegt'
+        : norm.meta.status === 'repealed' || norm.meta.status === 'historical'
+          ? `${normStatusLabel}${norm.meta.expiryDate ? ` seit ${formatDate(norm.meta.expiryDate)}` : ''}`
+          : `${normStatusLabel} seit ${formatDate(statusDate)}`}
+    reference={toDisplayText(currentVersion.citation)}
+    htmlHref={getNormUrl(norm.meta.slug)}
   />
   <NormVersionNavigation norm={norm} currentPage="history" />
-  <NormOriginNotice norm={norm} version={currentVersion} origin={origin} />
-  <SectionNavigation
-    label="Normenhistorie"
-    variant="law"
-    items={[
-      { label: 'Fassungen', href: '#fassungen' },
-      { label: 'Historieneinträge', href: '#historieneintraege' },
-      { label: 'Stammdaten', href: '#stammdaten' },
-    ]}
-  />
 
   <div class="norm-history-workspace">
-    <header class="norm-history-intro">
-      <div>
-        <span class="section-eyebrow">Chronologischer Überblick</span>
-        <h2>Rechtsstand nachvollziehen</h2>
-        <p>Gespeicherte Fassungen und amtlich belegte Änderungen werden getrennt dargestellt. Jede Fassung bleibt dauerhaft aufrufbar.</p>
-      </div>
-      <dl class="norm-history-intro__metrics" aria-label="Umfang der Normhistorie">
-        <div><dt>Fassungen</dt><dd>{norm.versions.length}</dd></div>
-        <div><dt>Änderungen</dt><dd>{amendmentEntries.length}</dd></div>
-        <div><dt>Hinweise</dt><dd>{noticeEntries.length}</dd></div>
-      </dl>
-    </header>
-
     <section id="fassungen" class="norm-history-panel norm-history-panel--versions">
       <div class="norm-history-panel__header">
         <div>
           <span class="section-eyebrow">Gespeicherte Rechtsstände</span>
           <h2>Fassungen</h2>
         </div>
-        {norm.versions.length >= 2 ? <a class="button button--secondary" href={getNormCompareUrl(norm.meta.slug)}>Fassungen vergleichen</a> : null}
       </div>
       <ol class="norm-history__version-list">
         {norm.versions.map((version) => (

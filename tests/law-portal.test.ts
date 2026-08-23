@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '../src/lib/norms/diff.ts';
+import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '../src/lib/norms/diff.ts';
 import {
   LEGAL_BASELINE_DATE,
   classifyNormOriginVersion,
@@ -178,6 +178,25 @@ test('vollständig ersetzte Sätze bleiben zusammenhängende Vergleichsblöcke',
     after: 'Die neue Regelung gilt nur auf Antrag.',
     kind: 'changed',
   }]);
+});
+
+test('Fassungsvergleich bündelt Änderungen einmal je vollständigem Paragraphen', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].children = [
+    { type: 'paragraphText', label: '(1)', text: 'Die alte Regel gilt.' },
+    { type: 'paragraphText', label: '(2)', text: 'Dieser Satz bleibt.' },
+  ];
+  const after = version('b', '2026-07-01', null);
+  after.body[0].children = [
+    { type: 'paragraphText', label: '(1)', text: 'Die neue Regel gilt.' },
+    { type: 'paragraphText', label: '(2)', text: 'Dieser Satz bleibt.' },
+  ];
+
+  const provisions = buildProvisionVersionDiff(before, after);
+  assert.equal(provisions.length, 1);
+  assert.match(provisions[0].beforeText ?? '', /§ 1 Geltung[\s\S]*\(1\) Die alte Regel gilt\.[\s\S]*\(2\) Dieser Satz bleibt\./);
+  assert.match(provisions[0].afterText ?? '', /§ 1 Geltung[\s\S]*\(1\) Die neue Regel gilt\.[\s\S]*\(2\) Dieser Satz bleibt\./);
+  assert.ok(provisions[0].textDiff?.some((chunk) => chunk.kind === 'insert'));
 });
 
 test('Diff-Zusammenfassung zählt dieselben strukturellen Einheiten wie der Vergleich', () => {

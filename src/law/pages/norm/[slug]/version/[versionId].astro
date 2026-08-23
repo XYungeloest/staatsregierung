@@ -88,9 +88,8 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
     reference={toDisplayText(version.citation)}
     referenceUrl={publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined}
     publicationPdf={publication?.pdf}
-    historical
   />
-  <NormVersionNavigation norm={norm} version={version} />
+  <NormVersionNavigation norm={norm} version={version} currentPage="history" />
   <div class="norm-workspace">
     <aside class="norm-toc-column"><NormOutline items={outline} /></aside>
     <article class="norm-document-column">
