@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-22",
+  "asOf": "2026-08-23",
   "projects": [
     {
       "id": "project-state-awards",
@@ -582,11 +582,11 @@
     {
       "id": "project-boden-volksacker",
       "title": "Volksacker, Flächenfonds und Bodenfonds Ost",
-      "status": "planned",
+      "status": "historical",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Koalitionsvorhaben zur Sicherung von Boden und gemeinwohlorientierter Flächennutzung. Eine abgeschlossene, strukturierte Normenkette ist im Audit nicht belegt.",
+      "asOf": "2026-08-23",
+      "summary": "Volksacker, Flächenfonds und Bodenfonds Ost wurden nicht als eigenständige Projekte oder öffentliche Einrichtungen errichtet. Die programmatische Überschrift im Aktionsplan begründet keinen Umsetzungsstand.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -594,37 +594,33 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 17",
-          "role": "context"
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-23",
+          "locator": "Abschnitt Aktuelle Vorhaben und Funktionen",
+          "role": "primary"
         }
       ],
       "relatedIds": [
         "inst-sek-inneres-wohnen",
-        "inst-sek-land-forst-kueste",
-        "question-boden-project-status"
+        "inst-sek-land-forst-kueste"
       ],
       "tags": [
         "project",
         "land",
-        "planned"
+        "not-established",
+        "historical"
       ],
       "notes": [],
       "aliases": [],
-      "projectStage": "coalition-project",
+      "projectStage": "rejected",
       "responsibleInstitutionIds": [
         "inst-sek-inneres-wohnen",
         "inst-sek-land-forst-kueste"
       ],
       "normRefs": [],
       "milestones": [],
-      "nextSteps": [
-        "Primärquellen und konkrete Projektstände ergänzen"
-      ],
+      "nextSteps": [],
       "dependencies": [],
-      "openQuestionIds": [
-        "question-boden-project-status"
-      ]
+      "openQuestionIds": []
     },
     {
       "id": "project-krankenhausfonds",
@@ -780,9 +776,7 @@
       "dependencies": [
         "proceeding-grenzpolizei-bund"
       ],
-      "openQuestionIds": [
-        "question-grenzpolizei-effective-date"
-      ]
+      "openQuestionIds": []
     },
     {
       "id": "project-schulreform",
@@ -1202,11 +1196,11 @@
     {
       "id": "project-hoheitszeichen",
       "title": "Hoheitszeichenreform",
-      "status": "disputed",
+      "status": "confirmed-primary",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Artikel 2 der Verfassung verweist auf ein besonderes Gesetz. Gesetzesstand, Anlagen und die Frage eines einzigen Kleinen Staatswappens sind noch nicht vollständig widerspruchsfrei modelliert.",
+      "asOf": "2026-08-23",
+      "summary": "Das am 23. März 2026 beschlossene Hoheitszeichengesetz und die Hoheitszeichenverordnung vom 28. März 2026 bilden den geltenden Bestand. Ein weiteres besonderes Gesetz im parlamentarischen Verfahren ist nicht in Kraft.",
       "sourceRefs": [
         {
           "sourceId": "source-constitution-current",
@@ -1214,24 +1208,23 @@
           "role": "primary"
         },
         {
-          "sourceId": "source-content-gaps",
-          "locator": "bekannte Widersprüche",
-          "role": "context"
+          "sourceId": "source-hoheitszeichenrecht-current",
+          "locator": "verkündete Fassung",
+          "role": "primary"
         },
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 16",
-          "role": "context"
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-23",
+          "locator": "Abschnitt Rechtsstand und Organisation",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
-        "inst-staatsrat",
-        "question-hoheitszeichen-current-law"
+        "inst-staatsrat"
       ],
       "tags": [
         "project",
         "symbols",
-        "conflict"
+        "law"
       ],
       "notes": [],
       "aliases": [],
@@ -1243,56 +1236,54 @@
         {
           "normSlug": "gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes",
           "versionId": null
+        },
+        {
+          "normSlug": "hoheitszeichenverordnung",
+          "versionId": null
         }
       ],
       "milestones": [],
-      "nextSteps": [
-        "Besonderes Gesetz, Verordnungsermächtigung, Anlagen und Wappenbeschreibung konsolidiert nachweisen"
-      ],
+      "nextSteps": ["Ein späteres besonderes Gesetz erst nach seiner Verkündung übernehmen"],
       "dependencies": [],
-      "openQuestionIds": [
-        "question-hoheitszeichen-current-law"
-      ]
+      "openQuestionIds": []
     },
     {
       "id": "project-feiertage",
       "title": "Neue Feiertage",
-      "status": "unverified",
-      "validFrom": null,
+      "status": "confirmed-primary",
+      "validFrom": "2024-03-08",
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Gesprächskandidat zu mehreren neuen Feiertagen. Im Wissensaudit wurde noch keine belastbare strukturierte Projekt- oder Normzuordnung hergestellt.",
+      "asOf": "2026-08-23",
+      "summary": "Das Feiertagsrecht ist vollständig historisiert. Die aktuelle Fassung des Ostdeutschen Feiertagsgesetzes gilt seit 24. März 2026 und folgt auf die Fassungen zum 1. November 2023 und ab 8. März 2024.",
       "sourceRefs": [
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 17",
+          "sourceId": "source-feiertagsrecht-current",
+          "locator": "Historieneinträge 2023-11-01, 2024-03-08 und 2026-03-24",
           "role": "primary"
         }
       ],
       "relatedIds": [
-        "inst-staatsrat",
-        "question-feiertage"
+        "inst-staatsrat"
       ],
       "tags": [
         "project",
         "calendar",
-        "candidate"
+        "law"
       ],
       "notes": [],
       "aliases": [],
-      "projectStage": "candidate",
+      "projectStage": "implemented",
       "responsibleInstitutionIds": [
         "inst-staatsrat"
       ],
-      "normRefs": [],
-      "milestones": [],
-      "nextSteps": [
-        "Primärquellen und genaue Wirksamkeitsdaten recherchieren"
+      "normRefs": [{"normSlug": "ostdeutsches-feiertagsgesetz", "versionId": "2026-03-23"}],
+      "milestones": [
+        {"date": "2024-03-08", "title": "Erste ostdeutsche Folgefassung tritt in Kraft"},
+        {"date": "2026-03-24", "title": "Reformfassung tritt in Kraft"}
       ],
+      "nextSteps": [],
       "dependencies": [],
-      "openQuestionIds": [
-        "question-feiertage"
-      ]
+      "openQuestionIds": []
     },
     {
       "id": "project-50hertz-acquisition",

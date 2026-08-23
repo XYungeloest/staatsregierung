@@ -76,7 +76,7 @@ Besonders prüfbedürftig sind:
 2. Die Ursprungsbezeichnung der Verfassung und spätere strukturtragende Arbeitsfassungen weichen in Titel und Artikel 114 voneinander ab.
 3. Das Hoheitszeichengesetz verwendet einen fehlerhaften Zielanker.
 4. Die Kontroll-PDF zur SERO-Verordnung zeigt Nr. 57, während HTML und Datensatz Nr. 58 führen.
-5. Organisationserlasse 09/2025 und 12/2025 besitzen kein vollständig belegtes Außerkrafttretensdatum.
+5. Die Organisationserlasse 09/2025, 12/2025 und 05/2026 sind über Neuordnung, partielle Fortgeltung und den Übergang zum Staatsrat historisch abgegrenzt.
 6. Verschiedene historische und aktuelle Regierungsdateien verwenden alte und neue Amtsbezeichnungen ohne gemeinsame Rollenchronologie.
 7. Der öffentliche Produktionsstand kann hinter dem Repositorystand zurückliegen und ist deshalb kein Ersatz für den redaktionellen Stichtag.
 
@@ -104,7 +104,7 @@ Planungsdokumente zu Transparenzportal, Zuständigkeitsfinder, Haushaltsnavigato
 
 ## Gesprächsinformationen mit zusätzlichem Prüfbedarf
 
-Die nicht hinreichend belegten Gesprächsinformationen stehen ausschließlich in `conversation-candidates.json`. Durch die Fortschreibung vom 11. August 2026 wurden Delgados Amtszeit, die OVV-/DB-Ticketanerkennung und der EAG-Ausgang zu Boom Europe aus dem allgemeinen Kandidatenstand herausgelöst. Das Boom Europe Leipzig/Halle Agreement ist als rechtskräftig unterzeichnet und in Kraft bestätigt. Offen bleiben unter anderem die Übergangsdetails der Staatskrise 2025, Feiertage, Bodenprojekte, Tarif- und Reaktivierungsdetails sowie die operative Standorteröffnung von Boom Europe.
+Die nicht hinreichend belegten Gesprächsinformationen stehen ausschließlich in `conversation-candidates.json`. Delgados Amtszeit, die OVV-/DB-Ticketanerkennung, der EAG-Ausgang zu Boom Europe, Feiertagsrecht, Hoheitszeichenrecht und der Nichtbestand der früher vermuteten Bodenprojekte sind inzwischen geklärt. Das Boom Europe Leipzig/Halle Agreement ist als rechtskräftig unterzeichnet und in Kraft bestätigt. Offen bleiben unter anderem Tarif- und Reaktivierungsdetails, einzelne frühe Regierungsdaten sowie die operative Standorteröffnung von Boom Europe.
 
 ## Nicht zu übernehmende Inhalte
 
@@ -160,10 +160,10 @@ Kanonisch für den jeweiligen Zweck sind:
 | 13 | vollständig vorhanden | Barlow, Schmäle und Lehrmann-Hinweis stehen in AGENTS und Profilen |
 | 14 | nicht ausreichend vorhanden | Staatskrise 2025 fehlt als belastbare Timeline |
 | 15 | weitgehend vorhanden | Reformkomplexe sind in Verfassung, Reformseite und Normen abgebildet |
-| 16 | widersprüchlich oder unvollständig | Artikel 2, besonderes Gesetz und spätere Wappenentscheidung benötigen Klärung |
-| 17 | überwiegend vorhanden | viele Gesetzeskomplexe sind strukturiert, Boden, Feiertage und Tarifverbund benötigen Nacharbeit |
+| 16 | weitgehend vorhanden | geltender Hoheitszeichenbestand ist geklärt; der fehlerhafte historische Änderungsanker bleibt dokumentiert |
+| 17 | überwiegend vorhanden | Bodenprojekte und Feiertagsrecht sind geklärt; Tarif- und Fernverkehrsvollzug benötigen Nacharbeit |
 | 18 | teilweise vorhanden | drei Boom-Europe-Gesetze und Verfahren belegt, Detailorganisation noch zu extrahieren |
-| 19 | nicht belegbar | wirksame Bund- beziehungsweise Bundespolizeivereinbarung fehlt |
+| 19 | weitgehend vorhanden | Grenzpolizeiabkommen gilt seit seiner Veröffentlichung; operative Umsetzung bleibt im Aufbau |
 | 20 | widersprüchlich oder nicht belegt | Beginn der Bundesratspräsidentschaft fehlt als Primärquelle |
 | 21 | nicht vorhanden | Bundesratszugangs- oder Stimmrechtsstreit nicht aktenförmig modelliert |
 | 22 | nicht vorhanden | Vertretung der Bundespräsidentin und Einzelakte nicht belegt |

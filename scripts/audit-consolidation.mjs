@@ -166,6 +166,8 @@ function existingStemFor(target, norms) {
     )
   );
   const stems = candidates.filter(({ meta }) => !meta.affectedNorms?.length && meta.type !== 'aenderungsvorschrift');
+  const canonicalStem = stems.find(({ meta }) => meta.slug === target.canonicalSlug);
+  if (canonicalStem) return canonicalStem;
   return stems.length === 1 ? stems[0] : null;
 }
 
@@ -308,7 +310,11 @@ async function main() {
     const stem = existingStemFor(target, norms);
     const enactingActs = stem?.meta.enactingNorm
       ? target.amendmentActs.filter((act) => act.slug === stem.meta.enactingNorm)
-      : [];
+      : target.amendmentActs.filter((act) =>
+          act.slug === stem?.meta.slug &&
+          act.detectedType !== 'aenderungsvorschrift' &&
+          !stem?.meta.affectedNorms?.length
+        );
     const amendmentActs = target.amendmentActs.filter((act) =>
       !enactingActs.some((enactingAct) => enactingAct.slug === act.slug)
     );
@@ -326,17 +332,19 @@ async function main() {
       amendmentActsWithTargetDates.map((act) => act.targetEffectiveDate).filter(Boolean),
     )].sort();
     const introducedStem = enactingActs.length > 0;
+    const adoptedPrimarySource = source.adoptedSources?.find((entry) => entry.snapshot && entry.sourceSha256);
+    const sourceAvailable = Boolean(source.snapshot || adoptedPrimarySource);
     const requiredBaseline = introducedStem
       ? stem?.versions.map((version) => version.validFrom).sort()[0] ?? stem?.meta.effectiveDate ?? BASELINE_DATE
-      : BASELINE_DATE;
+      : source.snapshot ? BASELINE_DATE : adoptedPrimarySource?.versionDate ?? BASELINE_DATE;
     const problems = [...target.problems];
     if (blocked) problems.push(blocked.reason);
-    if (!source.snapshot && !blocked && !introducedStem) {
-      problems.push('Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.');
+    if (!sourceAvailable && !blocked && !introducedStem) {
+      problems.push('Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.');
     }
     if (!stem && !blocked) problems.push('Eigenständiger Stammnormdatensatz fehlt.');
     if (hasPlaceholder(stem)) problems.push('Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.');
-    if ((source.snapshot || introducedStem) && stem && !completeIntervals(stem, effectiveDates, requiredBaseline)) {
+    if ((sourceAvailable || introducedStem) && stem && !completeIntervals(stem, effectiveDates, requiredBaseline)) {
       problems.push('Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.');
     }
     if (
@@ -349,7 +357,7 @@ async function main() {
     }
     const status = blocked
       ? 'blocked-source-conflict'
-      : !source.snapshot && !introducedStem
+      : !sourceAvailable && !introducedStem
         ? 'missing-baseline'
       : !stem
           ? 'missing-stem-record'
@@ -362,7 +370,7 @@ async function main() {
               : 'incomplete-placeholder';
     const nextAction = {
       'blocked-source-conflict': 'Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.',
-      'missing-baseline': 'Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.',
+      'missing-baseline': 'Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.',
       'missing-stem-record': 'Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.',
       'incomplete-placeholder': 'Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.',
       complete: 'Bei neuen Änderungsvorschriften erneut auditieren.',
@@ -372,11 +380,11 @@ async function main() {
       title: source.title ?? target.title,
       aliases: [...new Set([...(source.aliases ?? []), ...target.aliases])].sort((a, b) => a.localeCompare(b, 'de')),
       revosaxLawId: source.revosaxLawId ?? null,
-      baselineUrl: source.baselineUrl ?? null,
-      baselineSnapshotDate: source.baselineSnapshotDate ?? BASELINE_DATE,
-      sourceValidFrom: source.sourceValidFrom ?? null,
-      sourceValidTo: source.sourceValidTo ?? null,
-      sourceSha256: source.sourceSha256 ?? null,
+      baselineUrl: source.baselineUrl ?? adoptedPrimarySource?.baselineUrl ?? null,
+      baselineSnapshotDate: source.baselineSnapshotDate ?? adoptedPrimarySource?.versionDate ?? BASELINE_DATE,
+      sourceValidFrom: source.sourceValidFrom ?? adoptedPrimarySource?.sourceValidFrom ?? null,
+      sourceValidTo: source.sourceValidTo ?? adoptedPrimarySource?.sourceValidTo ?? null,
+      sourceSha256: source.sourceSha256 ?? adoptedPrimarySource?.sourceSha256 ?? null,
       editorialResolutions: [
         ...(source.editorialResolutions ?? []),
         ...(source.editorialSourceResolutions ?? []),

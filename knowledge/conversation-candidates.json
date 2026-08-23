@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-11",
+  "asOf": "2026-08-23",
   "candidates": [
     {
       "id": "candidate-honecker-biography",
@@ -73,8 +73,8 @@
       "status": "unverified",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Für Gerhardt Lehrmann, Louis Hahne-Eichinger und Tom Kurzschluss fehlt im Hub eine belastbare Rollenchronologie; für mehrere andere Namen liegen nur historische Profile vor.",
+      "asOf": "2026-08-23",
+      "summary": "Gerhardt Lehrmanns kurze Amtszeit ist inzwischen historisch modelliert. Für Louis Hahne-Eichinger und Teile der Rollenchronologie Tom Kurzschlusses fehlen weiterhin belastbare Quellen.",
       "sourceRefs": [
         {
           "sourceId": "source-conversation-task",
@@ -137,16 +137,21 @@
     {
       "id": "candidate-boden-institutions",
       "title": "Volksacker, Flächenfonds und Bodenfonds Ost",
-      "status": "unverified",
+      "status": "superseded",
       "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Der politische Komplex ist programmatisch angedeutet, aber Rechtsgrundlagen, Institutionen und Umsetzungsstand sind offen.",
+      "validTo": "2026-08-23",
+      "asOf": "2026-08-23",
+      "summary": "Die redaktionelle Zuarbeitung bestätigt, dass Volksacker, Flächenfonds und Bodenfonds Ost nie als eigenständige Projekte oder Einrichtungen bestanden.",
       "sourceRefs": [
         {
           "sourceId": "source-conversation-task",
           "locator": "Volksacker, Flächenfonds und Bodenfonds Ost",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-23",
+          "locator": "Nicht bestehende Vorhaben",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -157,14 +162,10 @@
       ],
       "notes": [],
       "aliases": [],
-      "classification": "only-indirect",
-      "searchTargets": [
-        "Gesetze und Verordnungen",
-        "Haushaltsplan",
-        "Errichtungsbeschlüsse"
-      ],
+      "classification": "resolved-not-established",
+      "searchTargets": [],
       "priority": "medium",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+      "promotionRule": "Erledigt; der Nichtbestand ist in project-boden-volksacker übernommen."
     },
     {
       "id": "candidate-ovv-ticket",
@@ -206,15 +207,15 @@
     {
       "id": "candidate-feiertage",
       "title": "Neue Feiertage",
-      "status": "unverified",
+      "status": "superseded",
       "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Genannte Feiertage sind noch nicht mit konkreten Normslugs, Verkündungen und Inkrafttretensdaten verknüpft.",
+      "validTo": "2026-08-23",
+      "asOf": "2026-08-23",
+      "summary": "Der Feiertagsrechtsstand ist mit Ausgangsfassung und den Änderungen von 2024 und 2026 vollständig historisiert.",
       "sourceRefs": [
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Neue Feiertage",
+          "sourceId": "source-feiertagsrecht-current",
+          "locator": "Fassungen 2023-11-01, 2024-03-08 und 2026-03-24",
           "role": "primary"
         }
       ],
@@ -226,14 +227,10 @@
       ],
       "notes": [],
       "aliases": [],
-      "classification": "not-linked",
-      "searchTargets": [
-        "Feiertagsgesetz",
-        "Änderungsgesetze",
-        "Verkündungsdaten"
-      ],
+      "classification": "promoted",
+      "searchTargets": [],
       "priority": "medium",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+      "promotionRule": "Erledigt; Normhistorie und Projektstand sind verknüpft."
     },
     {
       "id": "candidate-boom-details",
@@ -289,7 +286,7 @@
         {"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "corroborating"}
       ],
       "relatedIds": [
-        "person-karl-honecker", "inst-bundespraesident", "question-honecker-federal-president-acts-and-end"
+        "person-karl-honecker", "inst-bundespraesident"
       ],
       "tags": [
         "conversation-candidate"
@@ -308,7 +305,7 @@
     {
       "id": "candidate-court-cases",
       "title": "Hauer-Verfahren, Erdbebenhilfegesetz und weitere Verfassungskonflikte",
-      "status": "unverified",
+      "status": "superseded",
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-07-28",
@@ -338,15 +335,15 @@
     {
       "id": "candidate-hoheitszeichen-decision",
       "title": "Nur noch ein Kleines Staatswappen",
-      "status": "unverified",
+      "status": "superseded",
       "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Die Verfassung und der ältere Hoheitszeichenkomplex sind belegt; eine spätere verbindliche Entscheidung über nur ein Kleines Staatswappen ist noch nicht als Primärquelle verknüpft.",
+      "validTo": "2026-08-23",
+      "asOf": "2026-08-23",
+      "summary": "Der verkündete Hoheitszeichenbestand gilt fort. Ein späteres besonderes Hoheitszeichengesetz befindet sich noch im parlamentarischen Verfahren und ist nicht geltendes Recht.",
       "sourceRefs": [
         {
-          "sourceId": "source-conversation-task",
-          "locator": "Nur noch ein Kleines Staatswappen",
+          "sourceId": "source-hoheitszeichenrecht-current",
+          "locator": "geltender Normbestand und spätere parlamentarische Vorlage",
           "role": "primary"
         }
       ],
@@ -358,14 +355,10 @@
       ],
       "notes": [],
       "aliases": [],
-      "classification": "partly-present",
-      "searchTargets": [
-        "besonderes Hoheitszeichengesetz",
-        "Verordnung und Anlagen",
-        "amtliche Wappenbeschreibung"
-      ],
+      "classification": "resolved-current-law",
+      "searchTargets": [],
       "priority": "high",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
+      "promotionRule": "Erledigt; geltender und lediglich vorgeschlagener Stand sind getrennt modelliert."
     },
     {
       "id": "candidate-external-wiki",

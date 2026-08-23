@@ -8,6 +8,7 @@ import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 
 const ROOT = process.cwd();
 const CONFIG_PATH = resolve(ROOT, 'data/recht/consolidation-sources.json');
+const MANIFEST_PATH = resolve(ROOT, 'data/recht/consolidation-manifest.json');
 const args = process.argv.slice(2);
 const command = args[0] ?? 'audit';
 const valueAfter = (flag) => {
@@ -20,6 +21,16 @@ const snapshotId = valueAfter('--snapshot-id');
 
 function hash(buffer) {
   return createHash('sha256').update(buffer).digest('hex');
+}
+
+function comparableTitle(value) {
+  return String(value ?? '')
+    .toLocaleLowerCase('de')
+    .replace(/\b(?:sächsisch(?:e[rsnm]?)?|ostdeutsch(?:e[rsnm]?)?)\b/gu, '')
+    .replace(/\b(?:im|des)\s+freistaat(?:es)?\s+(?:sachsen|ostdeutschland)\b/gu, '')
+    .replace(/\bgesetz\s+(?:über|zur|zum)\b/gu, ' ')
+    .replace(/[^a-zäöüß0-9]+/gu, ' ')
+    .trim();
 }
 
 async function readConfig() {
@@ -47,6 +58,7 @@ function requireConfiguredSource(configuredTarget) {
 
 async function fetchSnapshot() {
   const config = await readConfig();
+  const manifest = JSON.parse(await readFile(MANIFEST_PATH, 'utf8'));
   const configuredTarget = config.targets[target] ?? {};
   const configured = requireConfiguredSource(configuredTarget);
   if (!target || !urlArgument) throw new Error('fetch: --target <slug> und --url <historische-url> sind erforderlich');
@@ -66,9 +78,18 @@ async function fetchSnapshot() {
   const bytes = Buffer.from(await response.arrayBuffer());
   const html = bytes.toString('utf8');
   const parsed = parseRevosaxSnapshot(html, { url: url.toString() });
-  if (!(configuredTarget.aliases ?? [configuredTarget.title]).filter(Boolean).some((alias) =>
-    parsed.sourceTitle.toLocaleLowerCase('de').includes(alias.toLocaleLowerCase('de').replace(/^gesetz\s+/iu, ''))
-  )) {
+  const manifestTarget = manifest.targets?.find((entry) => entry.canonicalSlug === target);
+  const expectedAliases = (configuredTarget.aliases ?? [configuredTarget.title]).filter(Boolean);
+  if (expectedAliases.length === 0) {
+    expectedAliases.push(...[manifestTarget?.title, ...(manifestTarget?.aliases ?? [])].filter(Boolean));
+  }
+  const comparableSourceTitle = comparableTitle(parsed.sourceTitle);
+  if (!expectedAliases.some((alias) => {
+    const comparableAlias = comparableTitle(alias);
+    return comparableAlias && (
+      comparableSourceTitle.includes(comparableAlias) || comparableAlias.includes(comparableSourceTitle)
+    );
+  })) {
     throw new Error(`fetch: Quelltitel „${parsed.sourceTitle}“ passt nicht zum Ziel ${target}`);
   }
   const snapshotDate = snapshotId ? configured.versionDate : config.baselineSnapshotDate;
@@ -182,7 +203,10 @@ async function auditSnapshots() {
     }
     const sources = snapshotId
       ? [[snapshotId, requireConfiguredSource(configuredTarget)]]
-      : [['baseline', configuredTarget], ...(configuredTarget.adoptedSources ?? []).map((entry) => [entry.id, entry])];
+      : [
+          ...(configuredTarget.snapshot ? [['baseline', configuredTarget]] : []),
+          ...(configuredTarget.adoptedSources ?? []).map((entry) => [entry.id, entry]),
+        ];
     for (const [sourceId, configured] of sources) {
     try {
       await access(resolve(ROOT, configured.snapshot));

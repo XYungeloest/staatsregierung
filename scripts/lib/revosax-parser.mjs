@@ -114,15 +114,40 @@ function markerFromSection(section) {
   if (numeric) return { type: 'section', label: numeric[1], title: numeric[2] };
   const match = normalizeText(source)
     .replace(/\n+/gu, ' ')
-    .match(/^((?:Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Achter|Neunter|Zehnter|Elfter|Zwölfter)\s+(?:Teil|Kapitel|Abschnitt|Unterabschnitt))\s*(?:[–—:-])?\s*(.*)$/iu);
+    .match(/^((?:Erster|Zweiter|Dritter|Vierter|Fünfter|Sechster|Siebter|Siebenter|Achter|Neunter|Zehnter|Elfter|Zwölfter)\s+(?:Teil|Kapitel|Abschnitt|Unterabschnitt))\s*(?:[–—:-])?\s*(.*)$/iu);
+  if (/^Muster$/iu.test(normalizeText(source))) {
+    return { type: 'annex', label: 'Muster' };
+  }
   if (!match) return null;
   const suffix = match[1].split(/\s+/u).at(-1).toLocaleLowerCase('de');
   const type = { teil: 'part', kapitel: 'chapter', abschnitt: 'section', unterabschnitt: 'subsection' }[suffix];
   return { type, label: match[1], ...(match[2] ? { title: match[2] } : {}) };
 }
 
+function tableRows(table) {
+  const rows = [];
+  const visit = (node) => {
+    for (const child of node?.childNodes ?? []) {
+      if (child.tagName === 'table' && child !== table) continue;
+      if (child.tagName === 'tr') rows.push(child);
+      else visit(child);
+    }
+  };
+  visit(table);
+  return rows.filter((row, index) => {
+    if (index === 0) return true;
+    const previous = rows[index - 1];
+    const comparable = (candidate) => elementChildren(candidate)
+      .filter((cell) => cell.tagName === 'td' || cell.tagName === 'th')
+      .map((cell) => textOf(cell, { breaks: true }).replace(/\s+/gu, ''))
+      .join('|');
+    const spansColumns = elementChildren(row).some((cell) => Number(attributes(cell).rowspan) > 1 || Number(attributes(cell).colspan) > 1);
+    return !(spansColumns && comparable(row) === comparable(previous));
+  });
+}
+
 function parseTable(table) {
-  const rows = descendants(table, (node) => node.tagName === 'tr').map((row) => ({
+  const rows = tableRows(table).map((row) => ({
     type: 'tableRow',
     children: elementChildren(row)
       .filter((cell) => cell.tagName === 'td' || cell.tagName === 'th')
@@ -163,7 +188,16 @@ function parseTable(table) {
   for (let rowIndex = 0; rowIndex < occupied.length; rowIndex += 1) {
     const rowWidth = occupied[rowIndex].filter(Boolean).length;
     if (rowWidth !== width) {
-      throw new RevosaxParseError(`Tabelle verliert in Zeile ${rowIndex + 1} Spalten (${rowWidth} statt ${width})`);
+      const hasInternalGap = occupied[rowIndex].slice(0, occupied[rowIndex].length).some((value) => !value);
+      if (hasInternalGap || rowWidth > width || !rows[rowIndex]) {
+        throw new RevosaxParseError(`Tabelle verliert in Zeile ${rowIndex + 1} Spalten (${rowWidth} statt ${width})`);
+      }
+      const missingColumns = width - rowWidth;
+      rows[rowIndex].children.push({
+        type: 'tableCell',
+        text: '',
+        ...(missingColumns > 1 ? { colspan: missingColumns } : {}),
+      });
     }
   }
   return { type: 'table', columns: width, children: rows };

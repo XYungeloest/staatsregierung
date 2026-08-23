@@ -2,6 +2,86 @@
   "asOf": "2026-08-22",
   "sources": [
     {
+      "id": "source-editorial-clarification-zuarbeit-2026-08-23",
+      "type": "editorial-clarification",
+      "path": "knowledge/clarifications/2026-08-23-zuarbeit.md",
+      "title": "Redaktionelle Klarstellungen aus der Zuarbeitung vom 23. August 2026",
+      "date": "2026-08-23",
+      "status": "primary",
+      "scope": ["law", "government", "projects", "persons", "elections"],
+      "notes": "Dokumentiert die fachlichen Antworten des Zuarbeitungsformulars; Primärquellen bleiben für Normwortlaut und amtliche Verkündungen vorrangig."
+    },
+    {
+      "id": "source-bundeswahlleitung-volksbefragung-2026-08-13",
+      "type": "official-announcement-transcription",
+      "path": "docs/ZUARBEITSFORMULAR.md",
+      "title": "Bekanntmachung der Bundeswahlleitung zur Volksbefragung 2026",
+      "date": "2026-08-13",
+      "status": "primary",
+      "scope": ["elections", "consultation", "government"],
+      "notes": "Im Zuarbeitungsformular vollständig übermittelte Bekanntmachung; bestätigt den Abstimmungszeitraum vom 5. September 2026, 18:00 Uhr, bis 6. September 2026, 18:00 Uhr, und gibt die fünf Fragen der VBefrVO 2026 wieder."
+    },
+    {
+      "id": "source-wiki-regierungschefs-revision-20620",
+      "type": "historical-wiki-revision",
+      "path": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_Regierungschefs&oldid=20620",
+      "title": "Liste der Regierungschefs, Revision 20620",
+      "date": "2026-08-17",
+      "status": "historical",
+      "scope": ["history", "government", "persons"],
+      "notes": "Vom Nutzer zur historischen Recherche freigegebene konkrete Miraheze-Revision. Die Tabellenangabe zum Amtsantritt Wolfgang Schmidts ist chronologisch widersprüchlich und wird nicht ungeprüft übernommen."
+    },
+    {
+      "id": "source-hoheitszeichenrecht-current",
+      "type": "structured-law",
+      "path": "content/normen/gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes/versions/2026-03-23.json",
+      "title": "Hoheitszeichengesetz in der verkündeten Fassung vom 23. März 2026",
+      "date": "2026-03-23",
+      "status": "primary",
+      "scope": ["law", "state-symbols"],
+      "notes": "Zusammen mit der Hoheitszeichenverordnung die geltende Regelung; ein späteres parlamentarisches Vorhaben ist nicht als geltendes Recht erfasst."
+    },
+    {
+      "id": "source-feiertagsrecht-current",
+      "type": "structured-law-history",
+      "path": "content/normen/ostdeutsches-feiertagsgesetz/history.json",
+      "title": "Historie des Ostdeutschen Feiertagsgesetzes",
+      "date": "2026-03-24",
+      "status": "primary",
+      "scope": ["law", "holidays"],
+      "notes": "Verknüpft die Ausgangsfassung zum 1. November 2023 mit den Folgefassungen ab 8. März 2024 und 24. März 2026."
+    },
+    {
+      "id": "source-organisationserlasse-2025-2026",
+      "type": "structured-law-set",
+      "path": "content/normen/erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-05-2026/versions/2026-05-04.json",
+      "title": "Organisationserlasse 09/2025, 12/2025 und 05/2026",
+      "date": "2026-05-04",
+      "status": "primary",
+      "scope": ["law", "government", "institutions"],
+      "notes": "Abschnitt VI des Organisationserlasses 05/2026 regelt die partielle Fortgeltung von 12/2025; die drei Erlasse werden mit der kanonischen Organisationschronologie gemeinsam ausgewertet."
+    },
+    {
+      "id": "source-kabinett-honecker-wiki-context",
+      "type": "historical-wiki-export",
+      "path": "context/kabinett_honecker.wiki",
+      "title": "Historischer Wiki-Kontext zum Kabinett Honecker",
+      "date": null,
+      "status": "historical",
+      "scope": ["history", "government", "persons"],
+      "notes": "Belegt in Verbindung mit der redaktionellen Zuarbeitung die Entlassung Gerhardt Lehrmanns zum 1. Januar 2026 und Karl Honeckers anschließende geschäftsführende Leitung des Wirtschaftsressorts."
+    },
+    {
+      "id": "source-stanzo-2026-12",
+      "type": "official-gazette",
+      "path": "content/verkuendungen/stanzo-2026-12.json",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 12",
+      "date": "2026-05-07",
+      "status": "primary",
+      "scope": ["law", "international", "government"],
+      "notes": "Amtliche Veröffentlichung der Verwaltungsvorschrift über die Aussetzung und Beendigung landesunmittelbarer Beziehungen mit Bezug zum Staat Israel."
+    },
+    {
       "id": "source-editorial-clarification-eag-2026-08-11",
       "type": "source-based-clarification",
       "path": "knowledge/clarifications/2026-08-11-eag-kanon.md",
