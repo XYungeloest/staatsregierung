@@ -529,6 +529,17 @@ test('Fassungsvergleich zeigt jeden geänderten Paragraphen einmal mit markierte
   await expect(page.locator('.norm-diff__context')).toHaveCount(0);
 });
 
+test('Fassungsvergleich markiert beim Archivgesetz nur den ergänzten Wortlaut', async ({ page }) => {
+  await page.goto(lawUrl('/norm/archivgesetz/vergleich/'));
+  const changedProvision = page.locator('.norm-diff__provision--changed');
+  await expect(changedProvision).toHaveCount(1);
+  await expect(changedProvision).toContainText('§ 10 Schutzfristen');
+  await expect(changedProvision.locator('.norm-diff__side--before del')).toHaveCount(0);
+  const insertion = changedProvision.locator('.norm-diff__side--after ins');
+  await expect(insertion).toHaveCount(1);
+  await expect(insertion).toContainText('oder im Transparenzportal nach dem Ostdeutschen Transparenz- und Informationsfreiheitsgesetz');
+});
+
 test('Fassungsleiste bleibt auf aktueller Fassung, Historie und Einzelfassung identisch', async ({ page }) => {
   for (const path of [
     '/norm/archivgesetz/',

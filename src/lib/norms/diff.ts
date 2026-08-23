@@ -144,7 +144,7 @@ function hasReadableWordDiff(
   after: string,
 ): boolean {
   const longest = Math.max(before.length, after.length);
-  if (longest === 0 || longest > 2_000) return false;
+  if (longest === 0) return false;
   const sameLength = chunks
     .filter((chunk) => chunk.kind === 'same')
     .reduce((sum, chunk) => sum + chunk.text.length, 0);

@@ -199,6 +199,20 @@ test('Fassungsvergleich bündelt Änderungen einmal je vollständigem Paragraphe
   assert.ok(provisions[0].textDiff?.some((chunk) => chunk.kind === 'insert'));
 });
 
+test('Fassungsvergleich markiert auch in langen Paragraphen nur die tatsächliche Änderung', () => {
+  const unchangedText = 'Dieser unveränderte Regelungstext bleibt vollständig bestehen. '.repeat(45);
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].children = [{ type: 'paragraphText', label: '(1)', text: `${unchangedText}Die Veröffentlichung erfolgt im Amtsblatt.` }];
+  const after = version('b', '2026-07-01', null);
+  after.body[0].children = [{ type: 'paragraphText', label: '(1)', text: `${unchangedText}Die Veröffentlichung erfolgt im Amtsblatt und im Transparenzportal.` }];
+
+  const [provision] = buildProvisionVersionDiff(before, after);
+  assert.ok((provision.beforeText?.length ?? 0) > 2_000);
+  assert.ok(provision.textDiff, 'Der Wortvergleich darf bei langen Paragraphen nicht verworfen werden.');
+  assert.ok(provision.textDiff?.some((chunk) => chunk.kind === 'insert' && chunk.text.includes('Transparenzportal')));
+  assert.ok(!provision.textDiff?.some((chunk) => chunk.kind === 'delete'));
+});
+
 test('Diff-Zusammenfassung zählt dieselben strukturellen Einheiten wie der Vergleich', () => {
   const before = version('a', '2026-01-01', '2026-06-30');
   before.body[0].children = [{ type: 'paragraphText', text: 'Die alte Regel gilt.' }];
