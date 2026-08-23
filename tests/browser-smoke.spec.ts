@@ -520,13 +520,31 @@ test('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwer
   await expect(page.getByRole('heading', { name: 'Drucken und Quellen' })).toBeVisible();
 });
 
-test('Fassungsvergleich zeigt geänderte Einheiten im vollständigen Paragraphenkontext', async ({ page }) => {
+test('Fassungsvergleich zeigt jeden geänderten Paragraphen einmal mit markiertem Volltext', async ({ page }) => {
   await page.goto('http://127.0.0.1:4322/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01');
-  const changedUnit = page.locator('.norm-diff__unit--changed').first();
-  await expect(changedUnit.locator('.norm-diff__context')).toBeVisible();
-  await expect(changedUnit.locator('.norm-diff__context')).toContainText('§ 3');
-  await expect(changedUnit.locator('.norm-diff__context')).toContainText('Ausgangsfassung');
-  await expect(changedUnit.locator('.norm-diff__context')).toContainText('Vergleichsfassung');
+  const changedProvision = page.locator('.norm-diff__provision--changed').first();
+  await expect(changedProvision).toContainText('§ 3');
+  await expect(changedProvision.locator('.norm-diff__side--before del')).toBeVisible();
+  await expect(changedProvision.locator('.norm-diff__side--after ins')).toBeVisible();
+  await expect(page.locator('.norm-diff__context')).toHaveCount(0);
+});
+
+test('Fassungsleiste bleibt auf aktueller Fassung, Historie und Einzelfassung identisch', async ({ page }) => {
+  for (const path of [
+    '/norm/archivgesetz/',
+    '/norm/archivgesetz/history/',
+    '/norm/archivgesetz/version/2023-11-01/',
+  ]) {
+    await page.goto(lawUrl(path));
+    const navigation = page.getByRole('navigation', { name: 'Fassungen und Historie' });
+    await expect(navigation.locator('.norm-version-navigation__primary a')).toHaveText([
+      'Aktuelle Fassung',
+      'Historische Fassungen',
+      'Änderungsverlauf',
+      'Fassungsvergleich',
+    ]);
+    await expect(page.getByRole('navigation', { name: 'Werkzeuge zur Vorschrift' }).getByText(/vergleich/iu)).toHaveCount(0);
+  }
 });
 
 test('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Platzhalter und URL-Zustand', async ({ page }) => {
