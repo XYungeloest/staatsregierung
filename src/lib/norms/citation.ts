@@ -22,7 +22,7 @@ const GENERIC_DOCUMENT_LEADS = [
 ].toSorted((left, right) => right.length - left.length);
 
 const CHANGE_CLAUSE =
-  /,\s*(?:(?:das\s+)?zuletzt\s+durch|(?:zuletzt\s+)?geändert\s+durch|vollständig\s+abgelöst\s+durch)/iu;
+  /,\s*(?:(?:(?:der|die|das)\s+)?zuletzt\s+durch|(?:zuletzt\s+)?geändert\s+durch|vollständig\s+abgelöst\s+durch)/iu;
 
 const ARTICLE_AMENDMENT =
   /(?:zuletzt\s+)?geändert\s+durch\s+(Artikel\s+\d+[a-z]?(?:\s+Absatz\s+\d+)?)\s+des\s+Gesetzes/giu;
@@ -123,6 +123,8 @@ function amendmentReference(
 ): string {
   const citation = splitCitationTitle(primaryCitationForNorm(amendment));
   if (!citation) return primaryCitationForNorm(amendment);
+  const sourceDocument = splitCitationTitle(toDisplayText(amendment.meta.initialCitation))?.title
+    ?? formatNormType(amendment.meta.type);
 
   const article = latestArticleReference(sourceCitation);
   const sourceDateAndReference = latestDatedReference(sourceCitation);
@@ -133,10 +135,25 @@ function amendmentReference(
     ? sourceDateAndReference
     : citation.dateAndSource;
   const title = article
-    ? `${article} des ${genitiveAmendmentTitle(citation.title)}`
-    : accusativeAmendmentTitle(citation.title);
+    ? `${article} des ${genitiveAmendmentTitle(sourceDocument)}`
+    : accusativeAmendmentTitle(sourceDocument);
 
   return `${title} ${dateAndSource}`;
+}
+
+function citationRelativePronoun(norm: NormRecord, version: NormVersion): 'der' | 'die' | 'das' {
+  const title = getNormVersionIdentity(norm, version).title;
+  const lead = title.split(/\s+(?:für|über|zur|zum|betreffend)\s+/iu)[0];
+  if (/(?:vertrag|erlass)$/iu.test(lead)) return 'der';
+  if (/(?:gesetz|abkommen|übereinkommen)$/iu.test(lead)) return 'das';
+  if (/(?:ordnung|verordnung|vorschrift|richtlinie|verfügung|bekanntmachung|anordnung|verfassung)$/iu.test(lead)) {
+    return 'die';
+  }
+  if (norm.meta.type === 'gesetz' || norm.meta.type === 'zustimmungsgesetz' || norm.meta.type === 'verwaltungsabkommen') {
+    return 'das';
+  }
+  if (norm.meta.type === 'staatsvertrag') return 'der';
+  return 'die';
 }
 
 /**
@@ -160,5 +177,5 @@ export function buildNormFullCitation(
     return normalizeGenericDocumentLead(norm, version.citation, version);
   }
 
-  return `${citationBaseForVersion(norm, version)}, zuletzt geändert durch ${amendmentReference(amendment, version.citation)}`;
+  return `${citationBaseForVersion(norm, version)}, ${citationRelativePronoun(norm, version)} zuletzt durch ${amendmentReference(amendment, version.citation)} geändert worden ist`;
 }

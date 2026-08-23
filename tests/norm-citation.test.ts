@@ -61,11 +61,11 @@ test('Vollzitate verwenden die letzte Änderung der ausgewählten Fassung', asyn
 
   assert.match(
     buildNormFullCitation(municipality, historical, lookup),
-    /zuletzt geändert durch das Gesetz zur Einführung besonderer Regelungen für die Bundeshauptstadt Berlin .* vom 23\. März 2026 \(OGVBl\. 2026 Nr\. 26 S\. 2\)$/u,
+    /die zuletzt durch das Gesetz vom 23\. März 2026 \(OGVBl\. 2026 Nr\. 26 S\. 2\) geändert worden ist$/u,
   );
   assert.match(
     buildNormFullCitation(municipality, current, lookup),
-    /zuletzt geändert durch das Gesetz zur Neuordnung der Kreise und Bezirke .* vom 20\. Juli 2026 \(OGVBl\. 2026 Nr\. 46 S\. 2\)$/u,
+    /die zuletzt durch das Gesetz vom 20\. Juli 2026 \(OGVBl\. 2026 Nr\. 46 S\. 2\) geändert worden ist$/u,
   );
 });
 
@@ -101,7 +101,7 @@ test('die letzte Änderung wird auch bei unsortierter Historie chronologisch bes
 
   assert.match(
     buildNormFullCitation(unsortedMunicipality, current, lookup),
-    /zuletzt geändert durch das Gesetz zur Neuordnung der Kreise und Bezirke/u,
+    /die zuletzt durch das Gesetz vom 20\. Juli 2026/u,
   );
 });
 
@@ -113,7 +113,19 @@ test('Artikelbezüge der letzten Änderung bleiben im Vollzitat erhalten', async
   assert.ok(districts);
   assert.equal(
     buildNormFullCitation(districts, getApplicableVersion(districts), lookup),
-    'Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–13), zuletzt geändert durch Artikel 8 des Gesetzes zur Neuordnung der Sportförderung im Freistaat Ostdeutschland vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 2)',
+    'Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. 2025 Nr. 1–7 S. 7–13), die zuletzt durch Artikel 8 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52 S. 2) geändert worden ist',
+  );
+});
+
+test('Vollzitate geänderter Gesetze folgen dem amtlichen REVOSax-Satzbau', async () => {
+  const norms = await loadAllNorms();
+  const lookup = buildNormRecordLookup(norms);
+  const archives = lookup.get('archivgesetz');
+  assert.ok(archives);
+
+  assert.equal(
+    buildNormFullCitation(archives, getApplicableVersion(archives), lookup),
+    'Archivgesetz für den Freistaat Ostdeutschland vom 17. Mai 1993 (SächsGVBl. S. 449), das zuletzt durch Artikel 2 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 32) geändert worden ist',
   );
 });
 
