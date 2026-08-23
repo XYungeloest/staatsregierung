@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-22",
+  "asOf": "2026-08-23",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -75,7 +75,7 @@
       "asOf": "2026-08-09",
       "summary": "Karl Honecker nahm die Befugnisse des Bundespräsidenten vom 1. Juni bis 15. Juli 2026 wegen der Verhinderung Manuela Dreyers wahr und setzt die Vertretung seit ihrem Rücktritt am 16. Juli wegen der vorzeitigen Erledigung des Amtes fort. Ein Enddatum ist nicht belegt.",
       "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}],
-      "relatedIds": ["person-karl-honecker", "person-manuela-dreyer", "inst-bundesrat", "inst-bundespraesident", "question-honecker-federal-president-acts-and-end"],
+      "relatedIds": ["person-karl-honecker", "person-manuela-dreyer", "inst-bundesrat", "inst-bundespraesident"],
       "tags": ["current-state", "federal", "constitutional-office"],
       "notes": ["Personal- und Gesetzesakte werden erst nach konkretem Nachweis einzeln benannt; Gegenzeichnung und Ausfertigung werden nicht gleichgesetzt."],
       "representativePersonId": "person-karl-honecker",
@@ -267,8 +267,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-08-09",
       "validTo": null,
-      "asOf": "2026-08-09",
-      "summary": "Die Volksbefragungsverordnung 2026 ist am 9. August 2026 verkündet worden und in Kraft getreten. Die freiwillige, rechtlich nicht bindende Befragung zu fünf politischen Grundsatzfragen findet am 5. und 6. September 2026 parallel zur Wahl der achten Volkskammer statt.",
+      "asOf": "2026-08-23",
+      "summary": "Die Volksbefragungsverordnung 2026 ist am 9. August 2026 verkündet worden und in Kraft getreten. Nach der Bekanntmachung der Bundeswahlleitung läuft die freiwillige, rechtlich nicht bindende Befragung vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Wahl der achten Volkskammer.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-59",
@@ -278,6 +278,11 @@
         {
           "sourceId": "source-pm-2026-08-09-05",
           "locator": "gesamte Pressemitteilung",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13",
+          "locator": "Abstimmungszeitraum und fünf Fragen",
           "role": "corroborating"
         }
       ],
@@ -537,8 +542,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-29",
       "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Das am 28. Juli 2026 in Leipzig geschlossene Verwaltungsabkommen wurde am 29. Juli 2026 in GMBl. 2026 Nr. 14 veröffentlicht. Es überträgt grenzpolizeiliche Aufgaben und regelt Steuerung, Zusammenarbeit und Kontrolle; die praktische Umsetzung ist nicht als abgeschlossen belegt.",
+      "asOf": "2026-08-23",
+      "summary": "Das am 28. Juli 2026 in Leipzig geschlossene Verwaltungsabkommen wurde am 29. Juli 2026 in GMBl. 2026 Nr. 14 veröffentlicht und ist seit diesem Tag wirksam. Es überträgt grenzpolizeiliche Aufgaben und regelt Steuerung, Zusammenarbeit und Kontrolle; die praktische Umsetzung ist nicht als abgeschlossen belegt.",
       "sourceRefs": [
         {
           "sourceId": "source-gmbl-2026-14",
@@ -556,17 +561,14 @@
         "proceeding-grenzpolizei-bund",
         "inst-grenzpolizei",
         "inst-sek-staats-grenzsicherheit",
-        "person-yannik-schmaele",
-        "question-grenzpolizei-effective-date"
+        "person-yannik-schmaele"
       ],
       "tags": [
         "current-state",
         "security",
         "agreement"
       ],
-      "notes": [
-        "Das Datenmodell führt den 29. Juli 2026 als Wirksamkeitsdatum; der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz."
-      ],
+      "notes": [],
       "normRefs": [
         {
           "normSlug": "verwaltungsabkommen-kasernierte-grenzpolizei",
@@ -624,7 +626,7 @@
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-08-09",
-      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, die Wirksamkeitsfragen zum Grenzpolizeiabkommen, Tarifdetails der OVV-/DB-Ticketanerkennung, der Bundesratszugangsstreit, parlamentarische Detailnachweise und weitere Normkonsolidierungen.",
+      "summary": "Offen sind insbesondere organisatorische Übergangsarbeiten der Kreisreform, Tarifdetails der OVV-/DB-Ticketanerkennung und weitere Normkonsolidierungen.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarifications-2026-07-29",
@@ -649,11 +651,8 @@
       ],
       "relatedIds": [
         "proceeding-kreisreform-transition",
-        "question-grenzpolizei-effective-date",
         "proceeding-ovv-db-ticket-recognition",
         "question-ovv-ticket-chain",
-        "proceeding-federal-council-access",
-        "proceeding-third-plenary-evidence",
         "proceeding-law-consolidation"
       ],
       "tags": [
@@ -664,8 +663,6 @@
       "proceedingIds": [
         "proceeding-kreisreform-transition",
         "proceeding-ovv-db-ticket-recognition",
-        "proceeding-federal-council-access",
-        "proceeding-third-plenary-evidence",
         "proceeding-law-consolidation"
       ]
     }

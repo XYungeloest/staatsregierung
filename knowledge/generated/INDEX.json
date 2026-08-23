@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-08-22",
   "editorialAsOf": "2026-08-22",
-  "count": 367,
+  "count": 365,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -24,7 +24,7 @@
         "conversation-candidate"
       ],
       "validFrom": null,
-      "validTo": null,
+      "validTo": "2026-08-23",
       "target": "knowledge/conversation-candidates.json"
     },
     {
@@ -72,7 +72,7 @@
         "conversation-candidate"
       ],
       "validFrom": null,
-      "validTo": null,
+      "validTo": "2026-08-23",
       "target": "knowledge/conversation-candidates.json"
     },
     {
@@ -110,7 +110,7 @@
         "conversation-candidate"
       ],
       "validFrom": null,
-      "validTo": null,
+      "validTo": "2026-08-23",
       "target": "knowledge/conversation-candidates.json"
     },
     {
@@ -597,8 +597,7 @@
       "tags": [
         "timeline",
         "agreement",
-        "security",
-        "source-conflict"
+        "security"
       ],
       "validFrom": "2026-07-29",
       "validTo": "2026-07-29",
@@ -1013,16 +1012,16 @@
     },
     {
       "id": "event-volksbefragung-information-deadline-2026",
-      "title": "Amtliche Informationen zur Volksbefragung",
+      "title": "Bundeswahlleitung macht Volksbefragung bekannt",
       "type": "timeline-event",
       "aliases": [],
       "tags": [
         "timeline",
         "political-participation",
-        "scheduled"
+        "official-announcement"
       ],
-      "validFrom": "2026-08-22",
-      "validTo": "2026-08-22",
+      "validFrom": "2026-08-13",
+      "validTo": "2026-08-13",
       "target": "knowledge/timeline.json"
     },
     {
@@ -1760,6 +1759,20 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-gerhardt-lehrmann",
+      "title": "Gerhardt Lehrmann",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "validFrom": "2025-12-20",
+      "validTo": "2025-12-31",
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-gregor-gysi",
       "title": "Gregor Gysi",
       "type": "person",
@@ -2105,7 +2118,7 @@
         "international",
         "cooperation"
       ],
-      "validFrom": "2026-06-02",
+      "validFrom": "2026-05-08",
       "validTo": null,
       "target": "knowledge/proceedings.json"
     },
@@ -2289,7 +2302,8 @@
       "tags": [
         "project",
         "land",
-        "planned"
+        "not-established",
+        "historical"
       ],
       "validFrom": null,
       "validTo": null,
@@ -2362,9 +2376,9 @@
       "tags": [
         "project",
         "calendar",
-        "candidate"
+        "law"
       ],
-      "validFrom": null,
+      "validFrom": "2024-03-08",
       "validTo": null,
       "target": "knowledge/projects.json"
     },
@@ -2418,7 +2432,7 @@
       "tags": [
         "project",
         "symbols",
-        "conflict"
+        "law"
       ],
       "validFrom": null,
       "validTo": null,
@@ -2634,18 +2648,6 @@
       "target": "knowledge/projects.json"
     },
     {
-      "id": "question-boden-project-status",
-      "title": "Welcher Rechts- und Umsetzungsstand gilt für Volksacker, Flächenfonds und Bodenfonds Ost?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
       "id": "question-boom-agreement-details",
       "title": "Wann begann die operative Umsetzung des Boom-Europe-Standorts?",
       "type": "open-question",
@@ -2654,20 +2656,6 @@
         "open-question"
       ],
       "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-dreyer-impeachment-final-disposition",
-      "title": "Formeller Abschluss der Präsidentenanklage gegen Manuela Dreyer",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question",
-        "federal",
-        "constitutional-law"
-      ],
-      "validFrom": "2026-07-16",
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -2700,97 +2688,8 @@
       "target": "knowledge/open-questions.json"
     },
     {
-      "id": "question-federal-council-case",
-      "title": "Welche Primärakten und Verfahrensdaten fehlen noch zum Bundesratszugangsstreit?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-feiertage",
-      "title": "Welche neuen Feiertage sind verkündet und seit wann wirksam?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-gerhardt-lehrmann",
-      "title": "Welche historische Rolle hatte Gerhardt Lehrmann?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-grenzpolizei-effective-date",
-      "title": "Wie ist das Wirksamkeitsdatum des Verwaltungsabkommens ausdrücklich belegt?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question",
-        "source-conflict",
-        "agreement"
-      ],
-      "validFrom": "2026-07-29",
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-historical-commissioners-end",
-      "title": "Wann endeten die Bevollmächtigtenämter von Claus Weselsky und Gregor Gysi?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question",
-        "persons",
-        "government"
-      ],
-      "validFrom": "2025-10-06",
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-hoheitszeichen-current-law",
-      "title": "Welche konsolidierte Hoheitszeichenregelung gilt nach der Staatsreform?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-honecker-federal-president-acts-and-end",
-      "title": "Einzelakte und Ende der Bundespräsidentenvertretung Karl Honeckers",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question",
-        "federal"
-      ],
-      "validFrom": "2026-06-01",
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
       "id": "question-missing-revosax-snapshots",
-      "title": "Welche 33 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
+      "title": "Wo sind die zwei noch fehlenden amtlichen Ausgangsfassungen?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -2813,18 +2712,6 @@
       "target": "knowledge/open-questions.json"
     },
     {
-      "id": "question-plenary-record",
-      "title": "Liegt ein Plenarprotokoll der Sitzung vom 20. Juli 2026 vor?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
       "id": "question-school-law-source-conflicts-2026",
       "title": "Zieltextkonflikte bei drei schulrechtlichen Konsolidierungen",
       "type": "open-question",
@@ -2836,18 +2723,6 @@
         "consolidation"
       ],
       "validFrom": "2026-08-16",
-      "validTo": null,
-      "target": "knowledge/open-questions.json"
-    },
-    {
-      "id": "question-state-crisis-2025",
-      "title": "Welche historischen Regierungsereignisse führten 2025 zum Rücktritt Tom Kurzschlusses?",
-      "type": "open-question",
-      "aliases": [],
-      "tags": [
-        "open-question"
-      ],
-      "validFrom": null,
       "validTo": null,
       "target": "knowledge/open-questions.json"
     },
@@ -3041,6 +2916,20 @@
         "media"
       ],
       "validFrom": "2026-03-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-bundeswahlleitung-volksbefragung-2026-08-13",
+      "title": "Bekanntmachung der Bundeswahlleitung zur Volksbefragung 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "elections",
+        "consultation",
+        "government"
+      ],
+      "validFrom": "2026-08-13",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -3256,6 +3145,22 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-editorial-clarification-zuarbeit-2026-08-23",
+      "title": "Redaktionelle Klarstellungen aus der Zuarbeitung vom 23. August 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "government",
+        "projects",
+        "persons",
+        "elections"
+      ],
+      "validFrom": "2026-08-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-editorial-clarifications-2026-07-29",
       "title": "Redaktionelle Klarstellungen vom 29. Juli 2026",
       "type": "source",
@@ -3373,6 +3278,19 @@
         "parliament"
       ],
       "validFrom": "2026-07-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-feiertagsrecht-current",
+      "title": "Historie des Ostdeutschen Feiertagsgesetzes",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "holidays"
+      ],
+      "validFrom": "2026-03-24",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -3518,6 +3436,19 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-hoheitszeichenrecht-current",
+      "title": "Hoheitszeichengesetz in der verkündeten Fassung vom 23. März 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "state-symbols"
+      ],
+      "validFrom": "2026-03-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-hospital-law",
       "title": "Krankenhaussicherungs- und Rekommunalisierungsfondsgesetz",
       "type": "source",
@@ -3581,6 +3512,20 @@
         "history"
       ],
       "validFrom": "2026-05-04",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-kabinett-honecker-wiki-context",
+      "title": "Historischer Wiki-Kontext zum Kabinett Honecker",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "validFrom": null,
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -3918,6 +3863,20 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-organisationserlasse-2025-2026",
+      "title": "Organisationserlasse 09/2025, 12/2025 und 05/2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "government",
+        "institutions"
+      ],
+      "validFrom": "2026-05-04",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-organization-assignments",
       "title": "Zeitliche Amts- und Ressortzuweisungen",
       "type": "source",
@@ -4197,6 +4156,20 @@
         "history"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-12",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 12",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "international",
+        "government"
+      ],
+      "validFrom": "2026-05-07",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -4521,6 +4494,20 @@
         "government"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-wiki-regierungschefs-revision-20620",
+      "title": "Liste der Regierungschefs, Revision 20620",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "validFrom": "2026-08-17",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

@@ -1,14 +1,14 @@
 {
-  "asOf": "2026-08-22",
+  "asOf": "2026-08-23",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment", "title": "Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer", "status": "editorially-confirmed", "validFrom": "2026-07-09", "validTo": null, "asOf": "2026-08-01",
       "summary": "Nach dem Antrag vom 9. Juli beschloss der Bundestag am 12. Juli 2026 die Präsidentenanklage und reichte sie beim Bundesverfassungsgericht ein. Dreyer trat am 16. Juli zurück; der formelle Verfahrensausgang ist nicht belegt.",
       "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage und Rücktritt", "role": "primary"}],
-      "relatedIds": ["person-manuela-dreyer", "person-liam-fluesterbein", "person-liam-von-starnberg", "person-felix-von-luxemburg-vorarlberg", "person-karl-honecker", "person-mateo-delgado", "inst-deutscher-bundestag", "inst-bundesverfassungsgericht", "inst-bundesrat", "inst-bundespraesident", "question-dreyer-impeachment-final-disposition"],
+      "relatedIds": ["person-manuela-dreyer", "person-liam-fluesterbein", "person-liam-von-starnberg", "person-felix-von-luxemburg-vorarlberg", "person-karl-honecker", "person-mateo-delgado", "inst-deutscher-bundestag", "inst-bundesverfassungsgericht", "inst-bundesrat", "inst-bundespraesident"],
       "tags": ["proceeding", "federal", "constitutional-law"], "notes": ["Aktenzeichen und Abstimmungsdetails sind redaktionell bestätigt, aber nicht durch die Anklageschrift als Primärquelle belegt."], "aliases": [],
       "proceedingType": "federal-constitutional-proceeding", "stage": "formal-outcome-unresolved", "participantIds": ["person-manuela-dreyer", "person-liam-fluesterbein", "person-liam-von-starnberg", "person-felix-von-luxemburg-vorarlberg", "person-karl-honecker", "person-mateo-delgado", "inst-deutscher-bundestag", "inst-bundesverfassungsgericht", "inst-bundesrat", "inst-bundespraesident"], "normRefs": [],
-      "decision": "Der Bundestag erreichte am 12. Juli 2026 die erforderliche Zweidrittelmehrheit; die Anklageschrift wurde beim Bundesverfassungsgericht eingereicht.", "nextAction": "Amtlichen Nachweis zum formellen Verfahrensabschluss erschließen.", "openQuestionIds": ["question-dreyer-impeachment-final-disposition"],
+      "decision": "Der Bundestag erreichte am 12. Juli 2026 die erforderliche Zweidrittelmehrheit; die Anklageschrift wurde beim Bundesverfassungsgericht eingereicht.", "nextAction": null, "openQuestionIds": [],
       "motionDate": "2026-07-09", "parliamentaryDecisionDate": "2026-07-12", "indictmentFiledDate": "2026-07-12", "caseNumber": "7 BvD 001-26", "caseNumberEvidence": "editorially-confirmed", "hearingOriginallyScheduledOn": "2026-07-16", "hearingStatus": "postponed", "resignationDate": "2026-07-16"
     },
     {
@@ -20,8 +20,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-08-09",
       "validTo": null,
-      "asOf": "2026-08-09",
-      "summary": "Der Staatsrat hat eine freiwillige und rechtlich nicht bindende Volksbefragung zu fünf politischen Grundsatzfragen angeordnet. Sie wird am 5. und 6. September 2026 parallel zur Volkskammerwahl durchgeführt.",
+      "asOf": "2026-08-23",
+      "summary": "Der Staatsrat hat eine freiwillige und rechtlich nicht bindende Volksbefragung zu fünf politischen Grundsatzfragen angeordnet. Sie wird vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Volkskammerwahl durchgeführt.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-59",
@@ -31,6 +31,11 @@
         {
           "sourceId": "source-pm-2026-08-09-05",
           "locator": "gesamte Pressemitteilung",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13",
+          "locator": "Abstimmungszeitraum und fünf Fragen",
           "role": "corroborating"
         }
       ],
@@ -74,7 +79,7 @@
         }
       ],
       "decision": "Anordnung durch die am 9. August 2026 verkündete Volksbefragungsverordnung 2026.",
-      "nextAction": "Amtliche Information bis 22. August, Durchführung am 5. und 6. September, Ergebnisbekanntmachung bis 10. September und anschließender Bericht des Staatsrates.",
+      "nextAction": "Durchführung vom 5. September um 18 Uhr bis 6. September um 18 Uhr, Ergebnisbekanntmachung bis 10. September und anschließender Bericht des Staatsrates.",
       "openQuestionIds": [],
       "consultationStartDate": "2026-09-05",
       "consultationEndDate": "2026-09-06",
@@ -242,8 +247,7 @@
         "security"
       ],
       "notes": [
-        "Die frühere redaktionelle Angabe „in Ausarbeitung“ bleibt als überholter Stand mit Provenienz erhalten.",
-        "Die fehlende ausdrückliche Wirksamkeitsklausel ist ein Quellenkonflikt, keine Fortsetzung der Vertragsverhandlungen."
+        "Die frühere redaktionelle Angabe „in Ausarbeitung“ bleibt als überholter Stand mit Provenienz erhalten."
       ],
       "aliases": [],
       "proceedingType": "administrative-agreement",
@@ -268,9 +272,7 @@
       ],
       "decision": "Am 28. Juli 2026 in Leipzig geschlossen und am 29. Juli 2026 in GMBl. 2026 Nr. 14 veröffentlicht; Verhandlung und Abschluss beendet.",
       "nextAction": null,
-      "openQuestionIds": [
-        "question-grenzpolizei-effective-date"
-      ]
+      "openQuestionIds": []
     },
     {
       "id": "proceeding-ndr-ratification",
@@ -431,8 +433,7 @@
         }
       ],
       "relatedIds": [
-        "inst-volkskammer",
-        "question-plenary-record"
+        "inst-volkskammer"
       ],
       "tags": [
         "proceeding",
@@ -447,10 +448,8 @@
       ],
       "normRefs": [],
       "decision": "Beschluss und Verkündung der zwölf Vorhaben belegt; Beratungsverlauf und Stimmenzahlen offen.",
-      "nextAction": "Plenarprotokoll und Abstimmungslisten ergänzen, sofern verfügbar.",
-      "openQuestionIds": [
-        "question-plenary-record"
-      ]
+      "nextAction": null,
+      "openQuestionIds": []
     },
     {
       "id": "proceeding-boom-implementation",
@@ -559,8 +558,7 @@
         }
       ],
       "relatedIds": [
-        "person-karl-honecker",
-        "question-federal-council-case"
+        "person-karl-honecker"
       ],
       "tags": [
         "proceeding",
@@ -576,10 +574,8 @@
       ],
       "normRefs": [],
       "decision": "Zugangsbeschränkung nach einstweiliger Anordnung rückgängig gemacht; Gericht, Aktenzeichen, Datum und genauer Tenor noch offen.",
-      "nextAction": "Klage und gerichtliche Entscheidung als Primärquellen ablegen und Verfahrensdaten ergänzen.",
-      "openQuestionIds": [
-        "question-federal-council-case"
-      ]
+      "nextAction": null,
+      "openQuestionIds": []
     },
     {
       "id": "proceeding-2025-state-crisis",
@@ -601,9 +597,7 @@
           "role": "context"
         }
       ],
-      "relatedIds": [
-        "question-state-crisis-2025"
-      ],
+      "relatedIds": [],
       "tags": [
         "proceeding",
         "history",
@@ -616,10 +610,8 @@
       "participantIds": [],
       "normRefs": [],
       "decision": null,
-      "nextAction": "Nur bei späterer historischer Aufarbeitung Wendepunkt-Bericht und amtliche Akte ergänzen.",
-      "openQuestionIds": [
-        "question-state-crisis-2025"
-      ]
+      "nextAction": null,
+      "openQuestionIds": []
     },
     {
       "id": "proceeding-law-consolidation",
@@ -627,8 +619,8 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-16",
-      "summary": "Der Audit erkennt 84 Zielnormen; 48 sind vollständig konsolidiert, drei wegen konkreter schulrechtlicher Quellenkonflikte gesperrt und für 33 fehlt noch ein versionierter maßgeblicher Ausgangssnapshot.",
+      "asOf": "2026-08-23",
+      "summary": "Der Audit erkennt 84 Zielnormen; 53 sind vollständig konsolidiert, 24 besitzen nun eine geprüfte Ausgangsquelle und benötigen noch Stammnormdatensätze, zwei Bestände enthalten noch Platzhalter, drei schulrechtliche Quellenkonflikte sind gesperrt und zwei Primärquellen fehlen weiterhin.",
       "sourceRefs": [
         {
           "sourceId": "source-content-gaps",
@@ -837,28 +829,33 @@
       "id": "proceeding-israel-cooperation-end",
       "title": "Beendigung ostdeutscher Kooperationen mit Israel",
       "status": "confirmed-official",
-      "validFrom": "2026-06-02",
+      "validFrom": "2026-05-08",
       "validTo": null,
-      "asOf": "2026-08-11",
-      "summary": "Die EAG-Reaktion bestätigt als betroffenen Umfang wissenschaftliche Kooperationen, Schüleraustausch und politischen Dialog. Der ursprüngliche Regierungsakt fehlt als lokale Primärquelle.",
+      "asOf": "2026-08-23",
+      "summary": "Die seit 8. Mai 2026 geltende Verwaltungsvorschrift regelt Aussetzung, Beendigung und Nichtverlängerung landesunmittelbarer Kooperationen, Förderungen, Delegations- und Dienstreisebeziehungen mit staatlichen oder staatlich kontrollierten israelischen Stellen. Schutz jüdischen Lebens, Antisemitismusbekämpfung, Erinnerungsarbeit und bestimmte Menschenrechtskontakte bleiben unberührt.",
       "sourceRefs": [
         {
-          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
-          "locator": "02.06.2026 14:24, BPK & MP West | Hauer, Message 1511344797754065048; ursprünglicher Regierungsakt nur über nicht lokal enthaltenen Link referenziert",
+          "sourceId": "source-stanzo-2026-12",
+          "locator": "Verwaltungsvorschrift vom 7. Mai 2026, Abschnitte I bis XIV",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-eag-staatsregierung-ost-2024-2026",
+          "locator": "02.06.2026 14:24, BPK & MP West | Hauer, Message 1511344797754065048",
+          "role": "corroborating"
         }
       ],
-      "relatedIds": ["question-eag-outcomes-completion"],
+      "relatedIds": [],
       "tags": ["proceeding", "international", "cooperation"],
       "notes": ["Der Umfang wird nicht über die drei ausdrücklich genannten Bereiche hinaus erweitert."],
       "aliases": [],
       "proceedingType": "international-cooperation",
-      "stage": "decision-confirmed-primary-act-missing",
+      "stage": "in-force",
       "participantIds": ["inst-sek-voelkerfreundschaft"],
-      "normRefs": [],
-      "decision": "Wissenschaftliche Kooperationen, Schüleraustausch und Dialog beendet.",
-      "nextAction": "Ursprünglichen Regierungsbeschluss oder amtliche Veröffentlichung archivieren.",
-      "openQuestionIds": ["question-eag-outcomes-completion"]
+      "normRefs": [{"normSlug": "verwaltungsvorschrift-der-staatsregierung-des-freistaates-ostdeutschland-uber-die-aussetzung-und-beendigung-la", "versionId": "2026-05-07"}],
+      "decision": "Umfang und Ausnahmen richten sich nach der in StAnzO. 2026 Nr. 12 veröffentlichten Verwaltungsvorschrift.",
+      "nextAction": null,
+      "openQuestionIds": []
     }
   ]
 }

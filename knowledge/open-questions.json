@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-22",
+  "asOf": "2026-08-23",
   "questions": [
     {
       "id": "question-school-law-source-conflicts-2026",
@@ -23,12 +23,6 @@
       "publicContentImpact": "Keine scheinbar konsolidierte Fassung der SOFS, BSO oder BGySO als gesicherten Rechtsstand veröffentlichen; die amtlichen Änderungsvorschriften und der Konflikthinweis bleiben zugänglich.",
       "priority": "high",
       "questionStatus": "open"
-    },
-    {
-      "id": "question-dreyer-impeachment-final-disposition", "title": "Formeller Abschluss der Präsidentenanklage gegen Manuela Dreyer", "status": "unresolved", "validFrom": "2026-07-16", "validTo": null, "asOf": "2026-08-01", "summary": "Der Rücktritt und die Verschiebung der Hauptverhandlung sind bestätigt; die formelle Erledigung des Verfahrens ist nicht belegt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["proceeding-federal-president-dreyer-impeachment"], "tags": ["open-question", "federal", "constitutional-law"], "notes": ["Ein Rücktritt beendet eine Präsidentenanklage nicht ohne belegten Verfahrensakt automatisch."], "question": "Wie wurde das Präsidentenanklageverfahren nach dem Rücktritt Manuela Dreyers formal beendet?", "affectedIds": ["proceeding-federal-president-dreyer-impeachment"], "reason": "Weder Rücknahme, gerichtliche Einstellung, Fortsetzung noch sonstige amtliche Erledigung sind belegt.", "requiredSource": "Beschluss des Bundestages, gerichtlicher Einstellungs- oder Erledigungsbeschluss, spätere Entscheidung oder sonstige amtliche Verfahrensmitteilung.", "publicContentImpact": "Keine Aussage über eine automatische Erledigung, Rücknahme oder Einstellung.", "priority": "high", "questionStatus": "open"
-    },
-    {
-      "id": "question-honecker-federal-president-acts-and-end", "title": "Einzelakte und Ende der Bundespräsidentenvertretung Karl Honeckers", "status": "unresolved", "validFrom": "2026-06-01", "validTo": null, "asOf": "2026-08-01", "summary": "Die Vertretung und ihre beiden Gründe sind bestätigt; konkrete Personal- und Gesetzesakte sowie ihr Ende nach Amtsantritt einer Nachfolgeperson sind offen.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}], "relatedIds": ["person-karl-honecker", "inst-bundespraesident"], "tags": ["open-question", "federal"], "notes": [], "question": "Welche konkreten Personalakte nahm Karl Honecker vor, welche Gesetze fertigte er aus und wann endete die Vertretung?", "affectedIds": ["person-karl-honecker", "inst-bundespraesident"], "reason": "Einzelakte und Amtsantritt der Nachfolgeperson sind nicht dokumentiert.", "requiredSource": "Ausfertigungen, Ernennungs- oder Entlassungsurkunden und Nachweis des Amtsantritts der Nachfolgeperson.", "publicContentImpact": "Keine konkreten Akte und kein Enddatum nennen.", "priority": "high", "questionStatus": "open"
     },
     {
       "id": "question-ovv-ticket-chain",
@@ -69,75 +63,6 @@
       "reason": "Der EAG-Deal trennt die Ticketanerkennung ausdrücklich von der Wiederherstellung fehlender Verbindungen. Ein Vertrag, Tarifblatt oder Betriebsnachweis liegt nicht vor.",
       "requiredSource": "Datierter Vertrag oder Tarifnachweis zur Ticketanerkennung sowie Bestellungs-, Fahrplan- oder Betriebsaufnahmenachweis für jede reaktivierte Relation.",
       "publicContentImpact": "Projektstatus und Bürgerinformationen zum Tarif.",
-      "priority": "medium",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-boden-project-status",
-      "title": "Welcher Rechts- und Umsetzungsstand gilt für Volksacker, Flächenfonds und Bodenfonds Ost?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Der Komplex ist programmatisch benannt, aber im strukturierten Bestand nicht vollständig zugeordnet.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-action-plan",
-          "locator": "zweite-wohn-und-bodenoffensive",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 17",
-          "role": "context"
-        }
-      ],
-      "relatedIds": [
-        "project-boden-volksacker"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Welcher Rechts- und Umsetzungsstand gilt für Volksacker, Flächenfonds und Bodenfonds Ost?",
-      "affectedIds": [
-        "project-boden-volksacker"
-      ],
-      "reason": "Es fehlen eindeutig zugeordnete Primärnormen und Umsetzungsschritte.",
-      "requiredSource": "Gesetze, Errichtungsakte, Haushaltsansätze oder Projektbeschlüsse.",
-      "publicContentImpact": "Themen- und Projektseiten dürfen keinen höheren Umsetzungsstand behaupten.",
-      "priority": "medium",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-plenary-record",
-      "title": "Liegt ein Plenarprotokoll der Sitzung vom 20. Juli 2026 vor?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Beschlüsse sind durch Verkündungen belegt, Beratungsverlauf und Abstimmungszahlen nicht.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "nicht belegte parlamentarische Einzelergebnisse",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "proceeding-third-plenary-evidence"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Liegt ein Plenarprotokoll der Sitzung vom 20. Juli 2026 vor?",
-      "affectedIds": [
-        "proceeding-third-plenary-evidence"
-      ],
-      "reason": "Tagesordnung und Verkündungen ersetzen kein Plenarprotokoll.",
-      "requiredSource": "Plenarprotokoll, Abstimmungslisten und Beschlussempfehlungen 07/18 bis 07/21.",
-      "publicContentImpact": "Parlamentarische Chronik und konkrete Abstimmungsangaben.",
       "priority": "medium",
       "questionStatus": "open"
     },
@@ -201,170 +126,17 @@
       "questionStatus": "open"
     },
     {
-      "id": "question-hoheitszeichen-current-law",
-      "title": "Welche konsolidierte Hoheitszeichenregelung gilt nach der Staatsreform?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Verfassung, älteres Hoheitszeichengesetz, besonderes Gesetz, Anlagen und Wappenentscheidung sind noch nicht vollständig widerspruchsfrei verknüpft.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-constitution-current",
-          "locator": "Artikel 2",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "Hoheitszeichen-Zielankerkonflikt",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 16",
-          "role": "context"
-        }
-      ],
-      "relatedIds": [
-        "project-hoheitszeichen"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Welche konsolidierte Hoheitszeichenregelung gilt nach der Staatsreform?",
-      "affectedIds": [
-        "project-hoheitszeichen"
-      ],
-      "reason": "Rechtslage und spätere politische Gestaltungsentscheidung dürfen nicht vermischt werden.",
-      "requiredSource": "Verkündetes besonderes Gesetz, geltende Verordnung, Anlagen und verbindliche Wappenbeschreibung.",
-      "publicContentImpact": "Flaggen-, Wappen- und Verfassungsseiten.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-feiertage",
-      "title": "Welche neuen Feiertage sind verkündet und seit wann wirksam?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Mehrere Feiertage wurden im Gespräch genannt, aber im Audit noch nicht normgenau zugeordnet.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidat 17",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [
-        "project-feiertage"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Welche neuen Feiertage sind verkündet und seit wann wirksam?",
-      "affectedIds": [
-        "project-feiertage"
-      ],
-      "reason": "Gesprächswissen genügt nicht für Rechtsstand oder Kalenderangaben.",
-      "requiredSource": "Feiertagsgesetz beziehungsweise Änderungsgesetze und Inkrafttretensdaten.",
-      "publicContentImpact": "Servicekalender und Rechtsportal.",
-      "priority": "medium",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-federal-council-case",
-      "title": "Welche Primärakten und Verfahrensdaten fehlen noch zum Bundesratszugangsstreit?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Der Konflikt mit Markus Hauer und die Aufhebung der Zugangsbeschränkung durch einstweilige Anordnung sind redaktionell bestätigt; Klage, Entscheidung und genaue Verfahrensdaten sind noch nicht im Repository abgelegt.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-editorial-clarifications-2026-07-29",
-          "locator": "Abschnitt Bundesebene und historische Vorgänge",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidaten 20 bis 23",
-          "role": "context"
-        }
-      ],
-      "relatedIds": [
-        "proceeding-federal-council-access"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Welches Gericht entschied den Bundesratszugangsstreit, wie lauten Aktenzeichen, Entscheidungsdatum und genauer Tenor, und wo liegen Klage und Entscheidung?",
-      "affectedIds": [
-        "proceeding-federal-council-access"
-      ],
-      "reason": "Existenz, Beteiligung Markus Hauers und praktische Rücknahme der Zugangsbeschränkung sind geklärt; formale Verfahrensdaten und Primärakten fehlen.",
-      "requiredSource": "Klage beziehungsweise Antrag, einstweilige Anordnung oder Urteil und amtliche Bundesratsdokumente.",
-      "publicContentImpact": "Biografien, Bundesbeziehungen und Verfahrensübersicht.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-state-crisis-2025",
-      "title": "Welche historischen Regierungsereignisse führten 2025 zum Rücktritt Tom Kurzschlusses?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-29",
-      "summary": "Delgados Amtszeit vom 4. September bis 19. Dezember 2025 ist nun modelliert. Rücktritt Tom Kurzschlusses, ein mögliches Misstrauensvotum und die genaue Übergangsfolge vor dem 4. September bleiben nicht erschlossen.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-editorial-clarifications-2026-07-29",
-          "locator": "Abschnitt Bundesebene und historische Vorgänge",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-government-timeline",
-          "locator": "fehlender Zeitraum",
-          "role": "context"
-        },
-        {
-          "sourceId": "source-minister-president-list-context",
-          "locator": "Tom Kurzschluss ab 5. Juni 2025; Mateo Delgado ab 4. September 2025",
-          "role": "corroborating"
-        }
-      ],
-      "relatedIds": [
-        "proceeding-2025-state-crisis"
-      ],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Wann und aus welchem Grund endete Tom Kurzschlusses Amtszeit, welches Misstrauensvotum fand statt und wie erfolgte der Übergang zum Kabinett Delgado?",
-      "affectedIds": [
-        "proceeding-2025-state-crisis"
-      ],
-      "reason": "Der Folgestand ab 4. September 2025 ist geklärt; für den Übergang selbst fehlen Daten, Beteiligte und Primärquellen.",
-      "requiredSource": "Wendepunkt-Artikel, Rücktrittserklärung, Wahl- oder Misstrauensvotumsunterlagen und Ernennungsakte.",
-      "publicContentImpact": "Nur historische Regierungs- und Parlamentschronik.",
-      "priority": "low",
-      "questionStatus": "open"
-    },
-    {
       "id": "question-missing-revosax-snapshots",
-      "title": "Welche 33 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
+      "title": "Wo sind die zwei noch fehlenden amtlichen Ausgangsfassungen?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-16",
-      "summary": "Der Konsolidierungsaudit weist 33 Zielnormen ohne versionierten maßgeblichen Ausgangssnapshot aus.",
+      "asOf": "2026-08-23",
+      "summary": "Nach dem freigegebenen REVOSax-Abruf fehlen nur noch die vollständige Abschiebe-Aussetzungsverordnung vom 1. März 2024 und die vollständige Ausgangsfassung des NDR-Staatsvertrags.",
       "sourceRefs": [
         {
           "sourceId": "source-content-gaps",
-          "locator": "84 Zielnormen, 48 vollständig konsolidiert, 3 Quellenkonflikte und 33 fehlende Snapshots",
+          "locator": "84 Zielnormen, 53 vollständig konsolidiert, 24 fehlende Stammnormdatensätze, 2 Platzhalterbestände, 3 Quellenkonflikte und 2 fehlende Primärquellen",
           "role": "primary"
         },
         {
@@ -380,7 +152,7 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Welche 33 Zielnormen benötigen noch einen maßgeblichen Ausgangssnapshot?",
+      "question": "Wo sind die vollständige Abschiebe-Aussetzungsverordnung vom 1. März 2024 und die vor der Änderung geltende vollständige Fassung des NDR-Staatsvertrags amtlich dokumentiert?",
       "affectedIds": [
         "proceeding-law-consolidation"
       ],
@@ -388,115 +160,6 @@
       "requiredSource": "Amtliche historische REVOSax-Fassungen mit Gültigkeitszeitraum und SHA-256.",
       "publicContentImpact": "Vollständigkeit und historische Fassungen im Rechtsportal.",
       "priority": "high",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-grenzpolizei-effective-date",
-      "title": "Wie ist das Wirksamkeitsdatum des Verwaltungsabkommens ausdrücklich belegt?",
-      "status": "unresolved",
-      "validFrom": "2026-07-29",
-      "validTo": null,
-      "asOf": "2026-08-01",
-      "summary": "Das Portal modelliert den 29. Juli 2026 entsprechend der amtlichen Veröffentlichung als Wirksamkeitsdatum. Der veröffentlichte § 7 enthält trotz der Überschrift „Inkrafttreten“ keinen Inkrafttretenssatz und kein konkretes Datum.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-gmbl-2026-14",
-          "locator": "§ 7 und Ausgabekopf",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-gmbl-clarification-2026-07-29",
-          "locator": "Abschnitt Wirksamkeitsangabe",
-          "role": "corroborating"
-        }
-      ],
-      "relatedIds": [
-        "project-grenzpolizei",
-        "proceeding-grenzpolizei-bund",
-        "state-current-grenzpolizei-agreement"
-      ],
-      "tags": [
-        "open-question",
-        "source-conflict",
-        "agreement"
-      ],
-      "notes": [
-        "Die Frage betrifft ausschließlich den ausdrücklichen Quellenbeleg der Wirksamkeit, nicht den abgeschlossenen Vertragsabschluss."
-      ],
-      "question": "Gibt es eine amtliche Berichtigung, Ergänzung oder andere Primärquelle, die das Inkrafttreten am 29. Juli 2026 ausdrücklich formuliert?",
-      "affectedIds": [
-        "project-grenzpolizei",
-        "proceeding-grenzpolizei-bund",
-        "state-current-grenzpolizei-agreement"
-      ],
-      "reason": "§ 7 ist mit „Inkrafttreten“ überschrieben, regelt aber ausschließlich die Kündigung mit einer Frist von sechs Monaten zum Ablauf eines Kalenderjahres.",
-      "requiredSource": "Amtliche Berichtigung, ergänzende Bekanntmachung oder sonstige Primärquelle mit ausdrücklicher Wirksamkeitsangabe.",
-      "publicContentImpact": "Rechtsportal und Themenbeschreibung müssen das modellierte Datum zusammen mit dem fehlenden ausdrücklichen Inkrafttretenssatz erläutern.",
-      "priority": "high",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-gerhardt-lehrmann",
-      "title": "Welche historische Rolle hatte Gerhardt Lehrmann?",
-      "status": "unresolved",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "AGENTS.md untersagt ein neues aktuelles Profil, enthält aber keine vollständige historische Rollenchronologie.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-agents",
-          "locator": "Kein neues Profil für Gerhardt Lehrmann",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Kandidaten 12 und 13",
-          "role": "context"
-        }
-      ],
-      "relatedIds": [],
-      "tags": [
-        "open-question"
-      ],
-      "notes": [],
-      "question": "Welche historische Rolle hatte Gerhardt Lehrmann?",
-      "affectedIds": [],
-      "reason": "Das Fehlen eines aktuellen Profils belegt keine konkrete frühere Amtszeit.",
-      "requiredSource": "Historischer Ernennungs- oder Kabinettsnachweis.",
-      "publicContentImpact": "Nur interner Personenindex; kein aktuelles öffentliches Profil ohne Quelle.",
-      "priority": "low",
-      "questionStatus": "open"
-    },
-    {
-      "id": "question-historical-commissioners-end",
-      "title": "Wann endeten die Bevollmächtigtenämter von Claus Weselsky und Gregor Gysi?",
-      "status": "unresolved",
-      "validFrom": "2025-10-06",
-      "validTo": null,
-      "asOf": "2026-08-11",
-      "summary": "Die Ernennungen am 6. Oktober und 10. Dezember 2025 sind urkundlich belegt. Abberufung, Ende oder Überleitung nach der Staatsreform sind nicht dokumentiert.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-appointment-weselsky-2025-10-06",
-          "locator": "Ernennungsurkunde ohne Enddatum",
-          "role": "primary"
-        },
-        {
-          "sourceId": "source-appointment-gysi-2025-12-10",
-          "locator": "Ernennungsurkunde ohne Enddatum",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": ["person-claus-weselsky", "person-gregor-gysi", "inst-staatskanzlei"],
-      "tags": ["open-question", "persons", "government"],
-      "notes": [],
-      "question": "Wurden Claus Weselsky und Gregor Gysi abberufen, endeten ihre Funktionen mit der Staatsreform oder wurden sie übergeleitet?",
-      "affectedIds": ["person-claus-weselsky", "person-gregor-gysi"],
-      "reason": "Die Urkunden enthalten kein Enddatum und eine spätere Abberufungs- oder Überleitungsquelle wurde nicht gefunden.",
-      "requiredSource": "Abberufungsurkunde, Organisationserlass, Überleitungsentscheidung oder amtlicher aktueller Funktionsnachweis.",
-      "publicContentImpact": "Die Rollen werden nicht als aktueller Staatsratsstand ausgegeben.",
-      "priority": "medium",
       "questionStatus": "open"
     },
     {
@@ -532,7 +195,7 @@
       "validFrom": "2024-11-25",
       "validTo": null,
       "asOf": "2026-08-11",
-      "summary": "Offen sind das Ende des Personenschutzes, die Fertigstellung des Luxemburg-Liebknecht-Denkmals, die Durchführung der Norwegenreise, der genaue Ohlinger-Ausgang und der ursprüngliche Israel-Beschluss.",
+      "summary": "Offen sind das Ende des Personenschutzes, die Fertigstellung des Luxemburg-Liebknecht-Denkmals, die Durchführung der Norwegenreise und der genaue Ohlinger-Ausgang.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarification-eag-2026-08-11",
@@ -540,13 +203,13 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-luxemburg-liebknecht-memorial", "proceeding-ohlinger-traffic", "proceeding-israel-cooperation-end"],
+      "relatedIds": ["project-luxemburg-liebknecht-memorial", "proceeding-ohlinger-traffic"],
       "tags": ["open-question", "simulation", "completion"],
       "notes": [],
       "question": "Welche späteren Primärquellen belegen Ende, Durchführung oder konkreten Ausgang der noch offenen EAG-Vorgänge?",
-      "affectedIds": ["project-luxemburg-liebknecht-memorial", "proceeding-ohlinger-traffic", "proceeding-israel-cooperation-end"],
+      "affectedIds": ["project-luxemburg-liebknecht-memorial", "proceeding-ohlinger-traffic"],
       "reason": "Die EAG bestätigte Grundentscheidungen, der Export enthält aber nicht in allen Fällen Abschluss, Enddatum oder genaue Rechtsfolge.",
-      "requiredSource": "Datierte amtliche Vollzugsmitteilung, Bescheid, Reisebericht, Abberufung oder ursprünglicher Regierungsbeschluss je Vorgang.",
+      "requiredSource": "Datierte amtliche Vollzugsmitteilung, Bescheid oder Reisebericht je Vorgang.",
       "publicContentImpact": "Keine Fertigstellung, Reise, Sanktion oder über den belegten Umfang hinausgehende Beendigung behaupten.",
       "priority": "medium",
       "questionStatus": "open"

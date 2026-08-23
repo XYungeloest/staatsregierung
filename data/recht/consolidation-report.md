@@ -1,13 +1,13 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-08-20T16:33:25.131Z
+**Erzeugt:** 2026-08-23T10:10:47.777Z
 
 - Erkannte Änderungsvorschriften: 60
 - Erkannte Zielnormen: 84
-- Vollständig konsolidiert: 48
+- Vollständig konsolidiert: 53
 - Blockierte Quellenkonflikte: 3
-- Fehlende Primärquellen: 33
+- Fehlende Primärquellen: 2
 
 ## Abschiebe-Aussetzungsverordnung
 
@@ -17,9 +17,9 @@
 - REVOSax: noch nicht belegt
 - Einführung: keine
 - Änderungen: `verordnung-zur-aufhebung-verfassungswidrig-erlassener-verordnungen` (2025-09-16)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Archivgesetz für den Freistaat Sachsen
@@ -33,32 +33,6 @@
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 - Redaktionell aufgelöste Quellenabweichungen:
   - `archivgesetz-doppelte-paragraf-17` (2026-07-23): Die Inkrafttretensvorschrift wird in der konsolidierten Fassung als § 19 geführt.
-
-## Ausbildungs- und Prüfungsordnung für die Polizei
-
-- Slug: `ausbildungs-und-pruefungsordnung-polizei`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k` (2026-01-30)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Finanzausgleichsgesetz
-
-- Slug: `finanzausgleichsgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Gesetz über das Sondervermögen Energie- und Wärmevergesellschaftung
 
@@ -93,27 +67,35 @@
 ## Gesetz über den Kulturpass für junge Erwachsene im Freistaat Ostdeutschland
 
 - Slug: `ostdeutsches-kulturpassgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
+- Status: `complete`
+- Stammnorm: `ostdeutsches-kulturpassgesetz`
 - REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-uber-den-kulturpass-fur-junge-erwachsene-im-freistaat-ostdeutschland` (2026-04-03)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Einführung: `gesetz-uber-den-kulturpass-fur-junge-erwachsene-im-freistaat-ostdeutschland` (2026-04-03)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
-## Gesetz über den öffentlichen Gesundheitsdienst
+## Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen
 
 - Slug: `gesundheitsdienstgesetz`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3348.12
 - Einführung: keine
 - Änderungen: `sportneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen
+
+- Slug: `ostdeutsches-personennahverkehrsgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3863.5
+- Einführung: keine
+- Änderungen: `erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr` (2026-03-24), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21), `ostdeutsche-eisenbahn-neuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Gesetz über den Ostdeutschen Fernsehfunk
@@ -129,15 +111,12 @@
 ## Gesetz über die Beteiligtentransparenzdokumentation und das Lobbyregister beim Ostdeutschen Landtag
 
 - Slug: `ostdeutsches-beteiligtendokumentationsund-lobbyregistergesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
+- Status: `complete`
+- Stammnorm: `ostdeutsches-beteiligtendokumentationsund-lobbyregistergesetz`
 - REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-uber-die-beteiligtentransparenzdokumentation-und-das-17yyebh` (2026-07-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Einführung: `gesetz-uber-die-beteiligtentransparenzdokumentation-und-das-17yyebh` (2026-07-01)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Gesetz über die Betriebssportgemeinschaften und die Förderung des Betriebssports im Freistaat Ostdeutschland
 
@@ -168,19 +147,6 @@
 - Einführung: `sportneuordnungsgesetz` (2026-07-21)
 - Änderungen: keine
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
-
-## Gesetz über die Hochschulen
-
-- Slug: `ostdeutsches-hochschulgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-anderung-des-hochschulmedizingesetzes` (2026-01-27), `gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht` (2026-07-20), `sportneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Gesetz über die Kasernierte Grenzpolizei des Ostdeutschen Freistaates
 
@@ -265,14 +231,13 @@
 ## Gesetz über Kindertagesbetreuung
 
 - Slug: `kindertagesbetreuungsgesetz`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/1079.16
 - Einführung: keine
 - Änderungen: `gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w` (2026-01-27), `sportneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Gesetz über Sonn- und Feiertage im Ostdeutschen Freistaat
@@ -288,15 +253,12 @@
 ## Gesetz zu einer verpflichtenden Weidetier- und Herdenschutzversicherung
 
 - Slug: `weidetierund-herdenschutzversicherungsgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
+- Status: `complete`
+- Stammnorm: `weidetierund-herdenschutzversicherungsgesetz`
 - REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zu-einer-verpflichtenden-weidetierund-herdenschutzversicherung` (2026-05-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Einführung: `gesetz-zu-einer-verpflichtenden-weidetierund-herdenschutzversicherung` (2026-05-01)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Gesetz zur Beschleunigung luftfahrtindustrieller Vorhaben von besonderer Landesbedeutung am Standort Leipzig/Halle
 
@@ -307,19 +269,6 @@
 - Einführung: `boom-europe-umsetzungsgesetz` (2026-07-21)
 - Änderungen: keine
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
-
-## Gesetz zur Durchführung des Medienstaatsvertrages und des Rundfunkbeitragsstaatsvertrages
-
-- Slug: `gesetz-zur-durchfuehrung-des-medienstaatsvertrages-und-des-rundfunkbeitragsstaatsvertrages`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w` (2026-03-25)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Gesetz zur Errichtung der Landesenergiewerke Ost
 
@@ -344,15 +293,12 @@
 ## Gesetz zur Förderung der Gleichbehandlung und zum Schutz vor Diskriminierung im öffentlich-rechtlichen Handeln
 
 - Slug: `ostdeutsches-landesantidiskriminierungsgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
+- Status: `complete`
+- Stammnorm: `ostdeutsches-landesantidiskriminierungsgesetz`
 - REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-forderung-der-gleichbehandlung-und-zum-schutz-vor-11l18kw` (2026-03-25)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Einführung: `gesetz-zur-forderung-der-gleichbehandlung-und-zum-schutz-vor-11l18kw` (2026-03-25)
+- Änderungen: keine
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Gesetz zur gemeinwirtschaftlichen Bindung nicht vergesellschafteter privater Verkehrsunternehmen
 
@@ -397,54 +343,27 @@
 ## Kommunalwahlgesetz
 
 - Slug: `kommunalwahlgesetz`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3818.17
 - Einführung: keine
 - Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Kulturraumgesetz
-
-- Slug: `kulturraumgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb` (2026-03-25), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Landesbeamtengesetz
-
-- Slug: `landesbeamtengesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `sportneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Landesplanungsgesetz
 
 - Slug: `landesplanungsgesetz`
-- Status: `missing-baseline`
+- Status: `incomplete-placeholder`
 - Stammnorm: `landesplanungsgesetz`
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/17907.5
 - Einführung: keine
 - Änderungen: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
+  - Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
 
 ## NDR-Staatsvertrag
 
@@ -454,22 +373,9 @@
 - REVOSax: noch nicht belegt
 - Einführung: keine
 - Änderungen: `staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt` (2026-03-24)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Ostdeutsche Arbeitszeitverordnung
-
-- Slug: `ostdeutsche-arbeitszeitverordnung`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `siebte-verordnung-der-ostdeutschen-staatsregierung-zur-anderung-der-ostdeutschen-arbeitszeitverordnung` (2026-02-20), `vierte-verordnung-des-ostdeutschen-staatsministeriums-fur-bildung-und-sportliche-ertuchtigung-zur-anderung-der` (2026-02-20)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Ostdeutsche Bezirksordnung
@@ -484,32 +390,6 @@
 - Redaktionell aufgelöste Quellenabweichungen:
   - `sportneuordnung-bezirksordnung-neufassung` (2026-07-23): Die Änderungen werden auf die strukturell passenden Vorschriften der ab 1. August 2026 geltenden Neufassung angewendet.
 
-## Ostdeutsches Justizgesetz
-
-- Slug: `ostdeutsches-justizgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh` (2026-02-01), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Ostdeutsches Krankenhausgesetz
-
-- Slug: `ostdeutsches-krankenhausgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar` (2026-04-01), `gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung` (2026-07-20)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
 ## Ostdeutsches Ladenöffnungsgesetz
 
 - Slug: `saechsisches-ladenoeffnungsgesetz`
@@ -519,45 +399,6 @@
 - Einführung: keine
 - Änderungen: `viertes-gesetz-zur-anderung-des-ladenoffnungsgesetzes` (2026-02-01)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
-
-## Ostdeutsches Normenkontrollratsgesetz
-
-- Slug: `ostdeutsches-normenkontrollratsgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj` (2026-07-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Ostdeutsches Personennahverkehrsgesetz
-
-- Slug: `ostdeutsches-personennahverkehrsgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr` (2026-03-24), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21), `ostdeutsche-eisenbahn-neuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Ostdeutsches Polizeibehördengesetz
-
-- Slug: `ostdeutsches-polizeibehoerdengesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb` (2026-03-25)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Ostdeutsches Tariftreue- und Vergabegesetz
 
@@ -578,6 +419,30 @@
 - Einführung: keine
 - Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Sächsische Arbeitszeitverordnung
+
+- Slug: `ostdeutsche-arbeitszeitverordnung`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/4721.11
+- Einführung: keine
+- Änderungen: `siebte-verordnung-der-ostdeutschen-staatsregierung-zur-anderung-der-ostdeutschen-arbeitszeitverordnung` (2026-02-20), `vierte-verordnung-des-ostdeutschen-staatsministeriums-fur-bildung-und-sportliche-ertuchtigung-zur-anderung-der` (2026-02-20)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei
+
+- Slug: `ausbildungs-und-pruefungsordnung-polizei`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/21006.2
+- Einführung: keine
+- Änderungen: `verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k` (2026-01-30)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Sächsische Bauordnung
 
@@ -621,6 +486,16 @@
 
 ## Sächsische Klassenbildungsverordnung
 
+- Slug: `klassenbildungsverordnung`
+- Status: `complete`
+- Stammnorm: `saechsische-klassenbildungsverordnung`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/17344.4
+- Einführung: keine
+- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
+
+## Sächsische Klassenbildungsverordnung
+
 - Slug: `saechsische-klassenbildungsverordnung`
 - Status: `complete`
 - Stammnorm: `saechsische-klassenbildungsverordnung`
@@ -651,18 +526,6 @@
 - Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
-## Sächsischen Klassenbildungsverordnung
-
-- Slug: `klassenbildungsverordnung`
-- Status: `missing-baseline`
-- Stammnorm: `saechsische-klassenbildungsverordnung`
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026` (2026-08-31)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-
 ## Sächsisches Abschiebungshaftvollzugsgesetz
 
 - Slug: `abschiebungshaftvollzugsgesetz`
@@ -673,17 +536,40 @@
 - Änderungen: `gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq` (2026-03-24)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
+## Sächsisches Beamtengesetz
+
+- Slug: `landesbeamtengesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/13871.15
+- Einführung: keine
+- Änderungen: `sportneuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
 ## Sächsisches Bestattungsgesetz
 
 - Slug: `saechsisches-bestattungsgesetz`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/4526.12
 - Einführung: keine
 - Änderungen: `elftes-gesetz-zur-anderung-des-bestattungsgesetzes` (2026-01-27)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Finanzausgleichsgesetz
+
+- Slug: `finanzausgleichsgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/5402.30
+- Einführung: keine
+- Änderungen: `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Sächsisches Flüchtlingsaufnahmegesetz
@@ -696,17 +582,100 @@
 - Änderungen: `gesetz-zur-starkung-der-menschenrechte-im-fluchtlingswesen-u-12v5fpq` (2026-03-24)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
+## Sächsisches Gesetz zur Durchführung des Medienstaatsvertrages und des Rundfunkbeitragsstaatsvertrages
+
+- Slug: `gesetz-zur-durchfuehrung-des-medienstaatsvertrages-und-des-rundfunkbeitragsstaatsvertrages`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/1068.14
+- Einführung: keine
+- Änderungen: `gesetz-zur-errichtung-des-ostdeutschen-fernsehfunks-zur-zust-jo350w` (2026-03-25)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
 ## Sächsisches Gleichstellungsgesetz
 
 - Slug: `saechsisches-gleichstellungsgesetz`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/20283.1
 - Einführung: keine
 - Änderungen: `gesetz-zur-anderung-des-gleichstellungsgesetzes` (2026-04-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Hochschulgesetz
+
+- Slug: `ostdeutsches-hochschulgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/19986.1
+- Einführung: keine
+- Änderungen: `gesetz-zur-anderung-des-hochschulmedizingesetzes` (2026-01-27), `gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht` (2026-07-20), `sportneuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Justizgesetz
+
+- Slug: `ostdeutsches-justizgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3393.23
+- Einführung: keine
+- Änderungen: `gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh` (2026-02-01), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Krankenhausgesetz
+
+- Slug: `ostdeutsches-krankenhausgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/19826.1
+- Einführung: keine
+- Änderungen: `gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar` (2026-04-01), `gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung` (2026-07-20)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Kulturraumgesetz
+
+- Slug: `kulturraumgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/3215.14
+- Einführung: keine
+- Änderungen: `gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb` (2026-03-25), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Normenkontrollratsgesetz
+
+- Slug: `ostdeutsches-normenkontrollratsgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/14060.5
+- Einführung: keine
+- Änderungen: `gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj` (2026-07-01)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Polizeibehördengesetz
+
+- Slug: `ostdeutsches-polizeibehoerdengesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/18194.1
+- Einführung: keine
+- Änderungen: `gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb` (2026-03-25)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Sächsisches Polizeivollzugsdienstgesetz
@@ -721,6 +690,30 @@
 - Redaktionell aufgelöste Quellenabweichungen:
   - `schmerzgriffe-zielnorm-und-paragraf` (2026-07-23): Der materielle Wortlaut wird als § 41a nach § 41 in das Polizeivollzugsdienstgesetz eingefügt.
 
+## Sächsisches Schulgesetz
+
+- Slug: `ostdeutsches-schulgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/4192.30
+- Einführung: keine
+- Änderungen: `sportneuordnungsgesetz` (2026-07-21), `gesetz-zur-neuordnung-des-ostdeutschen-schulsystems` (2026-08-01)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
+## Sächsisches Vermessungs- und Katastergesetz
+
+- Slug: `vermessungs-und-katastergesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/9851.7
+- Einführung: keine
+- Änderungen: `gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l` (2026-03-25)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
+  - Eigenständiger Stammnormdatensatz fehlt.
+
 ## Sächsisches Verwaltungskostengesetz
 
 - Slug: `saechsisches-verwaltungskostengesetz`
@@ -731,17 +724,29 @@
 - Änderungen: `erstes-gesetz-zur-anderung-des-verwaltungskostengesetzes` (2026-01-27)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
-## Schulgesetz
+## Sächsisches Verwaltungsorganisationsgesetz
 
-- Slug: `ostdeutsches-schulgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- Slug: `sachsisches-verwaltungsorganisationsgesetz`
+- Status: `incomplete-placeholder`
+- Stammnorm: `sachsisches-verwaltungsorganisationsgesetz`
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/4355.20
 - Einführung: keine
-- Änderungen: `sportneuordnungsgesetz` (2026-07-21), `gesetz-zur-neuordnung-des-ostdeutschen-schulsystems` (2026-08-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Änderungen: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
+- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
+  - Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
+  - Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
+
+## Sächsisches Zweckentfremdungsverbotsgesetz
+
+- Slug: `zweckentfremdungsverbotsgesetz`
+- Status: `missing-stem-record`
+- Stammnorm: fehlt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/20743.1
+- Einführung: keine
+- Änderungen: `gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx` (2026-03-25)
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
+- Probleme:
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Schulordnung Berufliche Gymnasien
@@ -830,44 +835,17 @@
 - Änderungen: `gesetz-zur-aenderung-der-landesverfassung-2025` (2025-03-12), `gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5` (2026-01-28), `gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes` (2026-03-24), `drittes-gesetz-zur-grossen-staatsreform` (2026-07-21), `erstes-gesetz-zur-grossen-staatsreform` (2026-07-21), `viertes-gesetz-zur-grossen-staatsreform` (2026-07-21), `zweites-gesetz-zur-grossen-staatsreform` (2026-07-21)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
-## Vermessungs- und Katastergesetz
-
-- Slug: `vermessungs-und-katastergesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l` (2026-03-25)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
 ## Verschlusssachenanweisung
 
 - Slug: `verschlusssachenanweisung`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/9786.1
 - Einführung: keine
 - Änderungen: `verwaltungsvorschrift-des-staatsministeriums-fur-rechtsstaat-13k3zjo` (2026-03-28)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
-
-## Verwaltungsorganisationsgesetz
-
-- Slug: `sachsisches-verwaltungsorganisationsgesetz`
-- Status: `missing-baseline`
-- Stammnorm: `sachsisches-verwaltungsorganisationsgesetz`
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `ostdeutsches-bezirkseinfuehrungsgesetz` (2025-03-12), `kreis-und-bezirksneuordnungsgesetz` (2026-07-21)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
 
 ## VwV Beratungslehrer
 
@@ -902,27 +880,25 @@
 ## VwV Stundentafeln
 
 - Slug: `vwv-stundentafeln`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/17744.4
 - Einführung: keine
 - Änderungen: `verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf` (2026-08-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
-## Waldgesetz
+## Waldgesetz für den Freistaat Sachsen
 
 - Slug: `waldgesetz`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/5405.17
 - Einführung: keine
 - Änderungen: `gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj` (2026-07-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Wappenverordnung
@@ -935,30 +911,16 @@
 - Änderungen: `gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes` (2026-03-24)
 - Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
-## Zehntes Ostdeutsches Kostenverzeichnis
+## Zehntes Sächsisches Kostenverzeichnis
 
 - Slug: `zehntes-ostdeutsches-kostenverzeichnis`
-- Status: `missing-baseline`
+- Status: `missing-stem-record`
 - Stammnorm: fehlt
-- REVOSax: noch nicht belegt
+- REVOSax: https://www.revosax.sachsen.de/vorschrift/19330.3
 - Einführung: keine
 - Änderungen: `gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj` (2026-07-01)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
+- Nächster Schritt: Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.
 - Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
-
-## Zweckentfremdungsverbotsgesetz
-
-- Slug: `zweckentfremdungsverbotsgesetz`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
-- REVOSax: noch nicht belegt
-- Einführung: keine
-- Änderungen: `gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx` (2026-03-25)
-- Nächster Schritt: Historische REVOSax-Fassung zum 1. November 2023 ermitteln, abrufen und prüfen.
-- Probleme:
-  - Amtliche REVOSax-Ausgangsfassung zum Stichtag ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
 
 ## Nicht als Zielnorm behandelte Vorlagen

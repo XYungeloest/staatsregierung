@@ -419,7 +419,7 @@ zwei repräsentative Viewports; `npm run test:a11y` behält lokal den vollständ
 
 ## TODO
 
-**Zuletzt abgeglichen:** 14. August 2026
+**Zuletzt abgeglichen:** 23. August 2026
 
 Diese Liste ist der zentrale Projektbacklog. Jede noch offene Aufgabe muss hier mindestens als
 Sammelpunkt erscheinen. Quellenlocators, Einzelkonflikte und maschinenlesbare Zustände werden
@@ -431,29 +431,6 @@ entfernt statt dauerhaft abgehakt stehen gelassen.
 Alle dafür noch benötigten externen Einstellungen, fachlichen Entscheidungen und Primärquellen
 sind ausfüllbar im [`docs/ZUARBEITSFORMULAR.md`](docs/ZUARBEITSFORMULAR.md) gebündelt. Das Formular
 dient nur der Übergabe von Zuarbeit; der Aufgabenstatus wird weiterhin ausschließlich hier gepflegt.
-
-### Portal und Betrieb
-
-- [ ] In Cloudflare prüfen und dokumentieren, dass die automatische Webanalyse deaktiviert ist und
-  Statistik ausschließlich nach ausdrücklicher Einwilligung geladen wird.
-
-### Redaktionsstudio und Vorschauen
-
-- [ ] Die in `docs/EDITORIAL_SETUP.md` beschriebene GitHub App, Installation, Worker-Secrets,
-  Cloudflare-Access-Anwendung und produktive Worker-Route vollständig einrichten und mit einem
-  nicht berechtigten sowie einem berechtigten Konto abnehmen.
-- [ ] Geschützte Pull-Request-Vorschauen betrieblich aktivieren: Repositoryvariable und Secrets
-  setzen, Alias- und Versionsdomains mit Cloudflare Access schützen und Upload, PR-Kommentar sowie
-  das Löschen aller Preview-Versionen nach Merge oder Schließen in einem echten Test-PR prüfen.
-- [ ] Einen vollständigen Studio-Testvorgang durchführen: Inhalt laden, atomaren Commit auf einem
-  `redaktion/...`-Branch erzeugen, Draft Pull Request aktualisieren, SHA-Konflikt behandeln,
-  Vorschau prüfen und erst nach Review über den normalen `main`-Workflow veröffentlichen.
-- [ ] Das Redaktionsstudio für das erweiterte Themenmodell fachlich abnehmen und vervollständigen.
-  Termine und Module müssen noch ohne Roh-JSON verständlich pflegbar sein; die bereits
-  strukturierten Felder für Priorität, Highlight-Zeitraum, verwandte Themen und Wissensprojekte
-  dabei praktisch abnehmen. Die atomare Gegenpflege von `knowledgeProjectRefs` in
-  `content/portal/topic-coverage.json` ist durch Unit-Tests abgesichert, muss aber im vollständigen
-  Studio-Testvorgang mitgeprüft werden.
 
 ### Sitzungsmediathek der Volkskammer
 
@@ -558,70 +535,50 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
 
 ### Rechtsportal und Primärquellen
 
-- [ ] Die 33 im Konsolidierungsbericht als `missing-baseline` geführten Zielnormen priorisiert mit
-  amtlichen historischen REVOSax-Fassungen, Gültigkeitszeitraum und unverändertem Snapshot sichern
-  und anschließend über geprüfte Patch-Rezepte konsolidieren. Kulturraumgesetz und Ostdeutsches
-  Polizeibehördengesetz sind wegen der Berlin-Darstellung zuerst zu bearbeiten.
+- [ ] Die 24 nach dem freigegebenen amtlichen REVOSax-Abruf als `missing-stem-record` geführten
+  Zielnormen aus den geprüften Snapshots als historisierte Stammnormen anlegen und ihre
+  ostdeutschen Änderungen über geprüfte Patch-Rezepte konsolidieren. Kulturraumgesetz und
+  Ostdeutsches Polizeibehördengesetz bleiben wegen der Berlin-Darstellung zuerst zu bearbeiten.
+- [ ] Für die zwei weiterhin als `missing-baseline` geführten Zielnormen die fehlenden
+  Primärquellen beschaffen: Abschiebe-Aussetzungsverordnung vom 1. März 2024 und vollständige
+  Ausgangsfassung des NDR-Staatsvertrags.
 - [ ] Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und
   `StAnzO. 2026 Nr. 2.html` technisch zusammenführen; Dokumentkopf und internes Datum bleiben
   kanonisch.
 - [ ] Für die noch ausschließlich als Markdown vorliegenden Altquellen schrittweise geprüfte
   strukturierte HTML-Transkriptionen erstellen und bis dahin PDF-Gegenprüfung und Legacy-Fixtures
   erhalten.
-- [ ] Eine amtliche Berichtigung oder Ergänzung zum fehlenden Inkrafttretenssatz in § 7 des
-  Verwaltungsabkommens zur Kasernierten Grenzpolizei einpflegen, sobald eine Primärquelle vorliegt.
-- [ ] Plenarprotokoll, Abstimmungslisten und Beschlussempfehlungen 07/18 bis 07/21 zur Sitzung vom
-  20. Juli 2026 nachreichen und ausschließlich damit Beratungsverlauf und Einzelabstimmungen
-  ergänzen.
-- [ ] Die geltende Hoheitszeichenregelung mit besonderem Gesetz, Verordnung, Anlagen und
-  verbindlicher Wappenbeschreibung widerspruchsfrei belegen und konsolidieren.
-- [ ] Feiertagsgesetz beziehungsweise Änderungsgesetze und ihre Inkrafttretensdaten normgenau
-  zuordnen.
-- [ ] Die Organisationserlasse 09/2025 und 12/2025 mit eindeutigen Aufhebungs- oder
-  Übergangsquellen vervollständigen. Bis dahin keine präzisen Außerkrafttretensdaten erfinden und
-  die Fortgeltung von 12/2025 neben dem Organisationserlass 05/2026 transparent halten.
 
 ### Aktuelle Vorhaben und öffentliche Inhalte
 
 - [ ] Die Volksbefragung und die Wahl zur achten Volkskammer entlang der belegten Termine
-  fortschreiben: vollständige Unterlagen nach der vorgesehenen Veröffentlichung am 22. August,
-  Durchführung am 5. und 6. September sowie Ergebnisbekanntmachung bis 10. September erst nach
-  Eingang der jeweiligen Primärquelle übernehmen. Danach Hervorhebungen, nächste Schritte,
-  Terminarchive und Rechtsverknüpfungen gemeinsam aktualisieren.
-- [ ] Boom Europe, OVV/DB und die Bodenprojekte getrennt weiterführen: operative Standorteröffnung
-  und Projektorganisation von Boom, Beginn und Tarifbedingungen der 57-Millionen-Euro-
-  Ticketanerkennung, etwaige tatsächliche Fernverkehrsreaktivierungen sowie Rechts- und
-  Umsetzungsstand von Volksacker, Flächenfonds und Bodenfonds Ost nur mit Vollzugsbelegen
-  aktualisieren.
+  fortschreiben: Durchführung vom 5. September um 18 Uhr bis 6. September um 18 Uhr,
+  Ergebnisbekanntmachung bis 10. September und spätere politische Folgebeschlüsse erst nach Eingang
+  der jeweiligen Primärquelle übernehmen. Danach Hervorhebungen, nächste Schritte, Terminarchive
+  und Rechtsverknüpfungen gemeinsam aktualisieren.
+- [ ] Boom Europe und OVV/DB getrennt weiterführen: operative Standorteröffnung und
+  Projektorganisation von Boom, Beginn und Tarifbedingungen der 57-Millionen-Euro-
+  Ticketanerkennung sowie etwaige tatsächliche Fernverkehrsreaktivierungen nur mit
+  Vollzugsbelegen aktualisieren. Volksacker, Flächenfonds und Bodenfonds Ost sind als nicht
+  eingerichtete Vorhaben abgeschlossen.
 - [ ] Für bestätigte Beschaffungs- und Unternehmensentscheidungen die noch fehlende praktische
   Umsetzung belegen. Dazu gehören Zuschlagsempfänger sowie Lieferung und Betrieb des E-Jura-
   Systems, Auslieferung der vier Hovercrafts, NVIDIA-Standortumsetzung, Lieferung des ersten
   Zeppelin NT und Errichtung des Luxemburg-Liebknecht-Denkmals. Abgelehnte oder zurückgezogene
   Varianten bleiben als solche abgeschlossen.
-- [ ] Die Beendigung der ostdeutschen Kooperationen mit Israel durch den ursprünglichen
-  Regierungsakt oder eine gleichwertige Primärquelle absichern und den genauen Umfang erst danach
-  in öffentlichen Inhalten nachführen.
 - [ ] Den praktischen Umsetzungsstand des Transparenz- und Informationsfreiheitsrechts klären.
   Ein öffentliches Transparenzportal oder ein Zuständigkeitsfinder darf erst als verfügbar
   erscheinen, wenn Route, Datenpflege, Zuständigkeit und Betrieb tatsächlich vorhanden und
-  belegt sind. Ältere Planungen zu Transparenzportal, Zuständigkeitsfinder und Haushaltsnavigator
-  einzeln als umgesetzt, weiterhin geplant, verworfen oder unbelegt klassifizieren.
+  belegt sind. Der Haushaltsnavigator unter `/haushalt/` ist umgesetzt und nicht mehr offen.
 
 ### Politische Geschichte und Wissenshub
 
-- [ ] Primärakten zum Bundesratszugangsstreit, zum formellen Abschluss der Präsidentenanklage gegen
-  Manuela Dreyer sowie zu den Einzelakten und zum Ende von Karl Honeckers Vertretung der
-  Bundespräsidentin sichern. Bis dahin keine Aktenzeichen, Entscheidungsdaten oder Rechtsfolgen
-  ergänzen.
-- [ ] Das Ende der historischen Bevollmächtigtenämter von Claus Weselsky und Gregor Gysi sowie die
-  Übergänge der Staatskrise 2025 mit Ernennungs-, Entlassungs-, Wahl- oder Organisationsakten
-  vervollständigen. Die historische Rolle Gerhardt Lehrmanns nur nach Quellenklärung modellieren
-  und weiterhin kein aktuelles Personenprofil für ihn anlegen.
 - [ ] Die politische Chronologie vor Dezember 2025 vervollständigen: frühere Regierungen und
   Wahlperioden, Ende der Amtszeit Tom Kurzschlusses, Misstrauensvoten, Partei- und Fraktionswechsel,
-  Honeckers belegte Biografie sowie die Namensgeschichte von DEMOS. Rollenintervalle und
-  Mehrheitsangaben nur aus datierten Primärakten oder klar gekennzeichneten historischen Quellen
-  übernehmen.
+  Honeckers belegte Biografie sowie die Namensgeschichte von DEMOS. Die Miraheze-Revision 20620
+  liefert eine historische Regierungschefliste; ihre chronologisch widersprüchliche Angabe zu
+  Wolfgang Schmidt darf nicht ungeprüft übernommen werden. Rollenintervalle und Mehrheitsangaben
+  nur aus datierten Primärakten oder klar gekennzeichneten historischen Quellen übernehmen.
 - [ ] Die verbleibenden unbestimmten Personen, Gerichtsverfahren und nichtrechtlichen
   Realitätsereignisse aus `knowledge/conversation-candidates.json` einzeln prüfen. Bestätigte
   Befunde in Personenrollen, Timeline oder Proceedings überführen, Widerlegtes verwerfen und
@@ -642,8 +599,19 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
 
 ### Rechtsportal
 
-- [ ] Den Ablauf der Einfügung von Gesetzen und Normen standardisieren. Nicht nur parsen, sondern auch Wissenshub aktualisieren, bei Änderungsnormen die ursprüngliche Fassung aus RevoSax importieren und eine neue Fassung erstellen oder bei bereits bestehender Fassung einfach eine neue machen. Prüfen, ob diese Änderung andere Auswirkungen hat und ebenfalls ändern und Tests zum deployen anpassen, vor allem visuell und co
-- [ ] Das neue Design einheitlich auf unterseiten erweitern, diese haben teilweise noch das alte design
-- [ ] Suche verbessern, es wird teilweise der gesuchte Titel vorgeschlagen, aber dann nicht gefünden (Bsp Änderung des ÖPNV Gesetzes)
-- [ ] Vollzitat vereinheitlichen, es steht aktuell oben und in der Infobox einer Norm, mit unterschiedlichen Inhalt und Schreibweise. Es soll dort die Form stehen, die man direkt in ein Änderungsgesetz übernhehmen kann, also ein rechtsförmliches Vollzitat.
-- [ ] Der Titel des Gesetzes muss sich bei Änderung anpassen. Aktuell gibt es Gesetze die noch "sächsisch" im Namen haben, obwohl dies zu "Ostdeutsch" geändert wurde. Der titel sollte immer der, der aktuellsten Fassung sein und nicht der, der ältesten. Sonst sieht man Titeländerungen nicht im Rechtsportal, außer über das aktuelle Vollzitat
+* [ ] **Import- und Änderungsworkflow für Normen standardisieren.** Einen einheitlichen, dokumentierten und möglichst weitgehend automatisierten Ablauf für neue Gesetze, Verordnungen, Verwaltungsvorschriften und Änderungsnormen schaffen. Der Workflow soll die amtliche Quelle sichern und parsen, betroffene Stammnormen bestimmen, bei der ersten ostdeutschen Änderung erforderliche REVOSax-Ausgangsfassungen importieren, neue unveränderliche Fassungen erzeugen, Gültigkeitsintervalle und Historie fortschreiben, Verkündungs- und Quellenbezüge setzen sowie relevante Beziehungen und den Wissenshub aktualisieren. Außerdem sind mittelbare Auswirkungen, Querverweise und Folgeregelungen zu prüfen. Fehlt eine notwendige Ausgangsfassung oder ist eine Änderung nicht eindeutig konsolidierbar, muss der Vorgang mit einem nachvollziehbaren Fehler abbrechen, statt einen unvollständigen Rechtsstand zu veröffentlichen. Abschließend müssen die einschlägigen Content-, Knowledge-, Unit-, Build-, Link-, SEO-, Visual-, Accessibility- und Browserprüfungen laufen.
+* [ ] **Titel, Kurztitel und Abkürzungen fassungsspezifisch führen.** Die öffentliche Bezeichnung einer Norm darf nicht dauerhaft aus der ursprünglichen oder ältesten `meta.json`-Bezeichnung stammen. Ändert eine spätere Vorschrift Titel, Kurztitel oder Abkürzung, müssen Normseite, Verzeichnisse, Suche, Breadcrumbs, SEO, Rechtsentwicklung und Vollzitat die für die jeweils angezeigte Fassung gültige Bezeichnung verwenden. Historische Fassungen behalten dagegen ihre damalige Bezeichnung. Bestehende Normen, bei denen ostdeutsche Änderungen insbesondere Bezeichnungen mit „Sächsisch“ oder „Sachsen“ geändert haben, auf veraltete Metadaten prüfen und bereinigen.
+* [ ] **Vollzitat zentralisieren und rechtsförmlich vereinheitlichen.** Für jede Fassung genau ein kanonisches Vollzitat aus einer gemeinsamen Funktion erzeugen. Es muss der rechtsförmlichen Form entsprechen, die unmittelbar als Vollzitat in einem Gesetz oder Änderungsgesetz verwendet werden kann. Die derzeit an mehreren Stellen dargestellten Vollzitate dürfen weder in Inhalt noch Schreibweise voneinander abweichen. `Vollzitat`, `Fundstelle`, `Stammfundstelle` und `Verkündung` fachlich sauber voneinander trennen und die doppelte Darstellung auf Normseiten auf ihre Notwendigkeit prüfen.
+* [ ] **Fassungsspezifische Gültigkeitsdaten auf Versionsseiten korrigieren.** Bei historischen und zukünftigen Fassungen müssen Angaben wie „In Kraft ab“, „In Kraft bis“ und „Fassungsstand“ aus dem Gültigkeitsintervall der konkret angezeigten Fassung stammen. Normweite Felder wie `effectiveDate` oder `expiryDate` dürfen die Datumsangaben einer historischen Einzelfassung nicht überschreiben. Kopfbereich, Zitierblock, Vorschriftendaten, Historie und Versionsnavigation müssen für dieselbe Fassung widerspruchsfreie Daten anzeigen.
+* [ ] **„Aktuelle Änderungen“ auf der Startseite zeitlich korrekt darstellen.** Änderungen und Aufhebungen mit einem nach dem redaktionellen Stichtag liegenden Wirksamkeitsdatum dürfen nicht wie bereits geltende aktuelle Änderungen erscheinen. Zukünftige Änderungen eindeutig als „tritt am … in Kraft“, „zukünftige Änderung“ oder in einem eigenen Bereich kennzeichnen. Entsprechend darf eine Norm vor dem tatsächlichen Außerkrafttretensdatum nicht bereits als außer Kraft dargestellt werden. Für die Berechnung den zentralen redaktionellen Stichtag verwenden, nicht das Laufzeitdatum des Browsers.
+* [ ] **Suchvorschläge und tatsächlich durchsuchten Bestand synchronisieren.** Jeder Titel, Kurztitel, jede Abkürzung und jedes Stichwort, das die Autovervollständigung anbietet, muss bei Auswahl auch mindestens einen passenden Treffer ergeben. Insbesondere dürfen Änderungsvorschriften nicht als Suchvorschlag erscheinen und anschließend wegen des standardmäßig deaktivierten Filters für Änderungsvorschriften verschwinden. Alternativ soll eine exakte Auswahl einer solchen Vorschrift den notwendigen Filter automatisch setzen. Den bekannten Fall der „Änderung des ÖPNV-Gesetzes“ als Regressionstest fest aufnehmen.
+* [ ] **Qualität der Kurzbeschreibungen und Suchtexte verbessern.** Automatisch übernommene Ausschnitte aus dem Normtext dürfen nicht als öffentliche `summary` verwendet werden. Formulierungen wie „§§ 1 bis 18 unverändert …“, alte Verkündungsformeln, bloße Änderungsanweisungen oder mitten im Satz abgeschnittene Textfragmente wirken auf Normseiten und in Verzeichnissen wie Importfehler. Bestehende Summaries systematisch bereinigen und für Normen kurze, verständliche redaktionelle Beschreibungen verwenden. `content:check` um Plausibilitätsprüfungen für typische Importfragmente ergänzen.
+* [ ] **Filter der Normverzeichnisse mit der Browsernavigation synchronisieren.** Auf `/gesetze/`, `/verordnungen/` und `/verwaltungsvorschriften/` verändern Filter die URL über die History API, reagieren derzeit aber nicht vollständig auf Zurück und Vorwärts im Browser. URL, Filterfelder, sichtbare Treffer und Trefferzahl müssen nach `popstate` gemeinsam wiederhergestellt werden. Das Verhalten analog zur bereits entsprechend behandelten Rechtsentwicklungsseite implementieren und testen.
+* [ ] **Leere Buchstabengruppen nach dem Filtern ausblenden.** Bleibt unter einem Buchstaben kein sichtbarer Treffer mehr übrig, dürfen weder eine leere Gruppenüberschrift noch ein weiterhin aktiver Alphabet-Link stehen bleiben. Buchstabennavigation, sichtbare Gruppen und Trefferzähler müssen sich dynamisch an das gefilterte Ergebnis anpassen.
+* [ ] **Alphabetische Gruppierung für deutsche Umlaute vereinheitlichen.** Normtitel mit Ä, Ö oder Ü dürfen nicht pauschal in der Sammelgruppe `#` landen, während Stichwörter gleichzeitig nach einer anderen Logik gruppiert werden. Eine einheitliche deutsche Sortier- und Gruppierungsregel für Normtitel, Kurztitel, Abkürzungen und Stichwörter festlegen und überall verwenden. `#` nur für tatsächlich nicht alphabetisch beginnende Einträge verwenden. Die gewählte Behandlung von Ä, Ö und Ü ausdrücklich durch Tests absichern.
+* [ ] **Themen-Schnellzugriffe auf der Startseite zielgenau verlinken.** Die dargestellten Hauptbereiche wie „Staat, Verwaltung und Sicherheit“ oder „Wirtschaft, Infrastruktur und öffentliche Daseinsvorsorge“ dürfen nicht alle lediglich dieselbe unfiltrierte Sachgebietsübersicht öffnen. Jeder Schnellzugriff soll unmittelbar zum betreffenden Hauptbereich führen, etwa über einen Anker, einen gesetzten Filter oder eine eigene Bereichsseite.
+* [ ] **Normmetadaten semantisch sauber trennen.** Erlassendes Organ, zuständiges Ressort und sonstige institutionelle Zuordnungen dürfen nicht aus demselben unspezifischen `ministry`-Feld abgeleitet werden. Insbesondere darf beispielsweise der Landtag nicht als „Zuständiger Geschäftsbereich“ einer Norm angezeigt werden. Datenmodell und Bestandsdaten entsprechend migrieren und Plausibilitätsprüfungen für unzulässige Kombinationen ergänzen.
+* [ ] **Das neue OstRecht-Design auf alle Unterseiten konsistent übertragen.** Sämtliche Rechtsportal-Routen systematisch gegen die neue Startseite, Suche und Normansicht prüfen. Insbesondere Normverzeichnisse, alphabetischer Index, Sachgebiete, Verkündungen, Fundstellen, Rechtsentwicklung sowie Historien-, Versions- und Vergleichsansichten sollen dieselbe Informationsarchitektur, Typografie, Abstandslogik, Statusdarstellung, Listen- und Kartenlogik sowie responsive Gestaltung verwenden. Alte Portal-Komponenten nicht lediglich farblich anpassen, sondern dort durch passende OstRecht-Komponenten ersetzen, wo Aufbau und Bedienung noch sichtbar aus dem früheren Design stammen.
+* [ ] **Normseiten auf widersprüchliche oder veraltete öffentliche Metadaten auditieren.** Für geltende Normen automatisiert und redaktionell prüfen, ob Titel, Kurztitel, Abkürzung, Zusammenfassung, zuständiger Geschäftsbereich, Rechtsstand, Fundstelle, Vollzitat und letzte Änderung zueinander und zur angezeigten Fassung passen. Typische Altbestandsreste wie sächsische Organbezeichnungen, überholte Ministerien, Importtexte und veraltete Bezeichnungen gezielt ausgeben, damit sie nicht nur zufällig bei der Benutzung auffallen.
+* [ ] **Für die gefundenen Nutzerfehler gezielte Regressionstests ergänzen.** Suchvorschläge ohne Treffer, standardmäßig ausgeblendete Änderungsvorschriften, Browser-Zurück bei Filtern, leere Buchstabengruppen, Umlaute im A–Z-Index, zukünftige Änderungen auf der Startseite, fassungsspezifische Titel und Datumsangaben sowie kanonische Vollzitate automatisiert abdecken. Die betroffenen OstRecht-Seiten zusätzlich in Visual-, Accessibility- und Browser-Smoke-Tests aufnehmen, damit funktionale oder gestalterische Rückschritte vor dem Deployment auffallen.
+* [ ] **Rechtssuche von jeder Seite aus unmittelbar erreichbar machen.** Das Redesign hat den früher dauerhaft sichtbaren Sucheinstieg im Kopfbereich entfernt. Die zentrale Rechtssuche soll wieder portalweit von jeder OstRecht-Seite aus mit einem einzigen Schritt erreichbar sein, unabhängig davon, ob sich Nutzer auf der Startseite, einer Norm, einer historischen Fassung, einem Verkündungsblatt oder einer Übersichtsseite befinden. Dafür im Desktop-Header einen dauerhaft sichtbaren Sucheinstieg beziehungsweise ein kompaktes Suchfeld vorsehen und die Suche auch in der mobilen Navigation prominent verfügbar halten. Der Einstieg soll die bestehende Suchseite verwenden und sich gestalterisch konsistent in das neue OstRecht-Design einfügen.

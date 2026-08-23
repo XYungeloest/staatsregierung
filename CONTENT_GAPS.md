@@ -1,7 +1,7 @@
 # Offene Quellenfragen
 
-**Redaktioneller Stand:** 16. August 2026
-**Quellenbestand zuletzt geprüft:** 16. August 2026
+**Redaktioneller Stand:** 23. August 2026
+**Quellenbestand zuletzt geprüft:** 23. August 2026
 
 Diese Datei trennt belegte Tatsachen von redaktionellen Schlussfolgerungen. Fehlende Angaben werden
 nicht ergänzt oder fortgeschrieben, bis eine hinreichende Primärquelle vorliegt.
@@ -40,8 +40,9 @@ Belegt:
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
 - Der Konsolidierungs-Audit erkennt derzeit 84 Zielnormen einschließlich explizit verknüpfter
-  neu eingeführter Stammnormen. Für 33 davon ist die maßgebliche Primärquelle noch nicht als
-  unveränderter Snapshot versioniert. Drei schulrechtliche Zielnormen sind wegen nicht
+  neu eingeführter Stammnormen. Für zwei davon fehlt weiterhin die maßgebliche Primärquelle:
+  die ostdeutsche Abschiebe-Aussetzungsverordnung vom 1. März 2024 und die vollständige
+  Ausgangsfassung des NDR-Staatsvertrags. Drei schulrechtliche Zielnormen sind wegen nicht
   eindeutig auflösbarer Quellenkonflikte gesperrt; redaktionell aufgelöste Abweichungen bleiben
   gesondert ausgewiesen. Die vollständige Liste mit
   Änderungsvorschriften und nächstem Quellenschritt steht in
@@ -49,10 +50,11 @@ Belegt:
 - Der NDR-Änderungs- und Überleitungsstaatsvertrag enthält eine unausgefüllte
   „Mustergesetz vom TT. MMMM JJJJ“-Vorlage. Sie ist keine verkündete Zielnorm und wird vom Audit
   ausdrücklich als Quellenmangel statt als Stammgesetz behandelt.
-- Die Organisationserlasse 09/2025 und 12/2025 werden im Portal als historische
-  Organisationsstände geführt. Ein genaues Außerkrafttretensdatum ist in den gespeicherten
-  Fassungen nicht belegt; der Organisationserlass 05/2026 ordnet ausdrücklich an, dass 12/2025
-  fortgilt, soweit er keine abweichenden Regelungen trifft.
+- Die Organisationserlasse 09/2025, 12/2025 und 05/2026 sind historisch abgeschlossen. 12/2025
+  löste die umfassend neu geordnete Ministerialstruktur aus 09/2025 ab. Der Organisationserlass
+  05/2026 ordnet ausdrücklich an, dass 12/2025 fortgilt, soweit er keine abweichenden Regelungen
+  trifft; beide ministeriellen Organisationsstände enden mit Ablauf des 20. Juli 2026 vor dem
+  Übergang zum Staatsrat.
 - Die Ursprungsfassung der Staatsverfassung ist aus OGVBl. II/2024, Seiten 5 bis 32, vollständig
   belegt. `Verfassung.docx` dient als strukturtragende Arbeitsquelle; Titel und Artikel 114
   wurden für die Ursprungsfassung nach dem Original-PDF korrigiert. Vollständige Fassungen sind
@@ -75,7 +77,9 @@ Schlussfolgerung:
   konsolidierte Fassung erstellt.
 - Geprüfte REVOSax-Ausgangsfassungen und vollständig verknüpfte, neu eingeführte Stammnormen
   werden im Konsolidierungsmanifest gemeinsam als vollständig geführt. Der aktuelle Audit weist
-  48 vollständige Zielnormen aus. Neu eingeführte Normen benötigen keine künstliche sächsische
+  53 vollständige Zielnormen, 24 noch anzulegende Stammnormdatensätze, zwei unvollständige
+  Platzhalterbestände, drei gesperrte Quellenkonflikte und zwei fehlende Primärquellen aus. Neu
+  eingeführte Normen benötigen keine künstliche sächsische
   Ausgangsfassung; ihre Einführungsbeziehung muss stattdessen wechselseitig belegt sein.
 - Die drei zuvor bedingt wirksamen Staatsverträge werden mit Inkrafttreten am 24. März 2026
   geführt. Die redaktionelle Klarstellung wird im Wissenshub als eigene Quelle dokumentiert.
@@ -93,8 +97,8 @@ Schlussfolgerung:
   BGySO werden nicht scheinbar konsolidiert: Bei ihnen passen einzelne Änderungsanker nicht auf
   die nach der Quellenrichtlinie verbindliche Ausgangsfassung. Die amtlichen Änderungsvorschriften
   bleiben davon unberührt und vollständig abrufbar.
-- Für die beiden historischen Organisationserlasse wird kein Gültigkeitsende behauptet, bis eine
-  eindeutige Aufhebungs- oder Übergangsquelle vorliegt.
+- Die Gültigkeitsintervalle der drei historischen Organisationserlasse sind aus ihren
+  Neuordnungs-, Fortgeltungs- und Überleitungsregeln sowie dem Übergang zum Staatsrat abgeleitet.
 
 ## 2. Nicht belegte parlamentarische Einzelergebnisse
 
@@ -203,11 +207,9 @@ Belegt:
   „Die Landesfarben sind Weiß und Grün.“ enthält dieses Wort nicht. Der Änderungssatz wird nach
   ausdrücklicher redaktioneller Klärung als Einfügung vor dem Wort „Weiß“ angewendet. Das
   Änderungsgesetz selbst bleibt quellentreu und unverändert gespeichert.
-- Der veröffentlichte § 7 des Verwaltungsabkommens trägt die Überschrift „Inkrafttreten“, enthält
-  aber keinen ausdrücklichen Inkrafttretenssatz und kein konkretes Datum. Sein vollständiger
-  Regelungsgegenstand ist die Kündigung mit einer Frist von sechs Monaten zum Ablauf eines
-  Kalenderjahres. Das Portal modelliert den 29. Juli 2026 entsprechend der Veröffentlichung als
-  Wirksamkeitsdatum und zeigt den fehlenden ausdrücklichen Quellenbeleg weiterhin an.
+- Das Verwaltungsabkommen zur Kasernierten Grenzpolizei wird entsprechend der redaktionellen
+  Quellenentscheidung vom 23. August 2026 seit seiner amtlichen Veröffentlichung am 29. Juli 2026
+  als wirksam geführt. Eine weitere offene Wirksamkeitsfrage wird nicht gepflegt.
 - GMBl. 2026 Nr. 14 nennt in der Präambel „Staatsrat für Staats- und Grenzssicherheit“ und in der
   Unterschriftszeile „Staatsrat für Staats- und Grenzschutz“. Der Originaltext bleibt in allen
   Quellen unverändert; strukturierte Metadaten verwenden die kanonische Amtsbezeichnung
@@ -262,26 +264,17 @@ Schlussfolgerung:
 
 ## 5. Nächster Aktualisierungsschritt
 
-1. Eine amtliche Berichtigung oder Ergänzung zum fehlenden Inkrafttretenssatz in § 7 des
-   Verwaltungsabkommens nachreichen, falls eine solche veröffentlicht wird.
-2. Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und `StAnzO. 2026 Nr. 2.html`
+1. Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und `StAnzO. 2026 Nr. 2.html`
    technisch zusammenführen; Dokumentkopf und internes Datum sind dabei kanonisch.
-3. Plenarprotokoll und Einzelabstimmungsergebnisse vom 20. Juli 2026 nachreichen und ausschließlich
-   für die noch offenen Beratungsdetails auswerten.
-4. Für die weiterhin nur als Markdown vorliegenden Altquellen schrittweise strukturierte HTML-
+2. Für die weiterhin nur als Markdown vorliegenden Altquellen schrittweise strukturierte HTML-
    Transkriptionen erstellen; bis dahin die PDF-Gegenprüfung und Legacy-Fixtures beibehalten.
-5. Klage und gerichtliche Entscheidung zum Bundesratszugangsstreit sowie konkrete Ausfertigungen,
-   Ernennungs- und Entlassungsakte aus Karl Honeckers Bundespräsidentenvertretung belegen. Für die
-   Präsidentenanklage gegen Manuela Dreyer fehlen weiterhin Antrag, Anklageschrift, Rücktrittsschreiben
-   und ein amtlicher Nachweis des formellen Verfahrensabschlusses. Der Artikelinhalt selbst ist als
-   redaktionelle Klarstellung vom 1. August 2026 erfasst; Wiki-URL und Revisionskennung sind nicht belegt.
-6. Die in `data/recht/consolidation-manifest.json` aufgelisteten historischen
+3. Die in `data/recht/consolidation-manifest.json` aufgelisteten historischen
    REVOSax-Fassungs-URLs fachlich bestimmen und jeweils mit Gültigkeitszeitraum und Snapshot
    sichern; anschließend die zugehörigen Änderungsvorschriften in chronologischen Patch-Rezepten
    prüfen.
-7. Insbesondere die Ausgangsfassungen des Kulturraumgesetzes und des Ostdeutschen
+4. Insbesondere die Ausgangsfassungen des Kulturraumgesetzes und des Ostdeutschen
    Polizeibehördengesetzes sichern und konsolidieren. Bis dahin verweist die Berlin-Übersicht
    für die belegten Änderungen auf das Berlin-Änderungsgesetz; eine eigenständige aktuelle
    Stammnormfassung wird nicht vorgetäuscht.
-8. Weitere unabhängig offene Stammnormquellen anhand der im Konsolidierungsbericht
+5. Weitere unabhängig offene Stammnormquellen anhand der im Konsolidierungsbericht
    priorisierten Liste sichern und konsolidieren.

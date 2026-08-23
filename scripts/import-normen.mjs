@@ -848,13 +848,13 @@ function buildGmblAgreementRecord(parsed) {
     documentDate: '2026-07-28',
     publicationDate: '2026-07-29',
     effectiveDate: '2026-07-29',
-    dateNote: 'Das Portal führt den 29. Juli 2026 entsprechend der amtlichen Veröffentlichung als Wirksamkeitsdatum. Der veröffentlichte § 7 ist zwar mit „Inkrafttreten“ überschrieben, enthält aber keinen ausdrücklichen Inkrafttretenssatz und kein konkretes Datum, sondern ausschließlich die Kündigungsregel.',
+    dateNote: 'Am 28. Juli 2026 in Leipzig geschlossen, am 29. Juli 2026 amtlich veröffentlicht und seit dem 29. Juli 2026 wirksam.',
     agreementDetails: {
       signedOn: '2026-07-28',
       signedAt: 'Leipzig',
       publishedOn: '2026-07-29',
       effectiveOn: '2026-07-29',
-      effectivenessNote: 'Mit der amtlichen Veröffentlichung am 29. Juli 2026 als wirksam modelliert; ein ausdrücklicher Inkrafttretenssatz fehlt im veröffentlichten § 7.',
+      effectivenessNote: 'Seit der amtlichen Veröffentlichung am 29. Juli 2026 wirksam.',
       parties: [
         {
           name: 'Bundesministerium des Innern und für Heimat',
@@ -917,7 +917,7 @@ function buildGmblAgreementRecord(parsed) {
           type: 'initial',
           title: 'Abschluss und amtliche Veröffentlichung.',
           citation,
-          note: 'Am 28. Juli 2026 in Leipzig unterzeichnet und am 29. Juli 2026 veröffentlicht. § 7 enthält trotz der Überschrift „Inkrafttreten“ ausschließlich die Kündigungsregel.',
+          note: 'Am 28. Juli 2026 in Leipzig unterzeichnet, am 29. Juli 2026 veröffentlicht und seit diesem Tag wirksam.',
           affectingVersionId: versionId,
         },
       ],
@@ -931,10 +931,6 @@ function buildGmblAgreementRecord(parsed) {
         citation,
         changeNote: 'Am 28. Juli 2026 geschlossene und am 29. Juli 2026 amtlich veröffentlichte Fassung.',
         sourceNotes: [
-          {
-            label: '§ 7 „Inkrafttreten“',
-            text: 'Der veröffentlichte § 7 enthält keinen ausdrücklichen Inkrafttretenssatz und kein konkretes Inkrafttretensdatum. Sein vollständiger Regelungsgehalt ist die Kündigung mit einer Frist von sechs Monaten zum Ablauf eines Kalenderjahres.',
-          },
           {
             label: 'Amtsbezeichnungen in der Originalquelle',
             text: 'Die Präambel nennt „Staatsrat für Staats- und Grenzssicherheit“, die Unterschriftszeile „Staatsrat für Staats- und Grenzschutz“. Beide Varianten bleiben im Originalwortlaut unverändert; strukturierte Metadaten verwenden die kanonische Amtsbezeichnung „Staatsrat für Staats- und Grenzsicherheit“.',
