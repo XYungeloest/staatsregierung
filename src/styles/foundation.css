@@ -288,8 +288,7 @@ h5 {
   min-width: 0;
 }
 
-.module-card h3,
-.legislation-card h3 {
+.module-card h3 {
   font-size: 1.16rem;
   line-height: 1.28;
 }
@@ -429,12 +428,6 @@ h5 {
   font-weight: 760;
   letter-spacing: 0.03em;
   text-transform: uppercase;
-}
-
-.legislation-card {
-  display: grid;
-  gap: 0.85rem;
-  min-width: 0;
 }
 
 .stage-chain {

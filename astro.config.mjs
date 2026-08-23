@@ -41,7 +41,7 @@ export default defineConfig({
   },
   redirects: siteTarget === 'portal' ? legacyRedirects : {},
   session: {
-    // Phase 1 verwendet keine serverseitigen Sessions.
+    // Die statischen Seiten benötigen keine serverseitigen Sessions.
     driver: sessionDrivers.null(),
   },
 });

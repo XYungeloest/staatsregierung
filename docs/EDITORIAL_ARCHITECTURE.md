@@ -1,6 +1,6 @@
-# Architekturentscheidung: Redaktionsstudio v2
+# Architektur des Redaktionsstudios
 
-Stand: 31. Juli 2026
+Stand: 23. August 2026
 
 ## Entscheidung
 
@@ -31,7 +31,7 @@ Die aktuelle und historische Regierungsorganisation wird aus drei Dateien abgele
 - `content/organisation/offices.json`: Ämter, Rollen, Exklusivität und Zulässigkeit zur Ressortleitung
 - `content/organisation/assignments.json`: zeitlich gültige Personen-, Amts-, Regierungs- und Ressortzuweisungen
 
-Personenprofile enthalten Biografie, Kontakt, Bild und Darstellungsinformationen. Ressortdateien enthalten Beschreibung, Aufgaben, Kontakt und Darstellung. Aktuelles Amt, Mitgliedschaft und Ressortleitung werden nur in `src/lib/portal/organization.ts` abgeleitet. `src/lib/portal/loader.ts` stellt daraus die bisherigen Objektformen für bestehende Komponenten bereit.
+Personenprofile enthalten Biografie, Kontakt, Bild und Darstellungsinformationen. Ressortdateien enthalten Beschreibung, Aufgaben, Kontakt und Darstellung. Aktuelles Amt, Mitgliedschaft und Ressortleitung werden nur in `src/lib/portal/organization.ts` abgeleitet. `src/lib/portal/loader.ts` stellt daraus typisierte Objektformen für Komponenten bereit.
 
 Der Snapshot `content/organisation/snapshots/2026-08-01.json` ist ausdrücklich eine zentrale Testbehauptung für diesen Stichtag, keine zweite öffentliche Datenquelle. Allgemeine Invarianten prüfen Referenzen, Intervalle, Exklusivität und eindeutige Ressortleitungen unabhängig von konkreten Namen.
 
@@ -64,12 +64,8 @@ Die GitHub App verwendet ein signiertes App-JWT nur serverseitig, tauscht es geg
 
 Der Produktionsdeploy bleibt ausschließlich im bestehenden Workflow für `main` beziehungsweise den ausdrücklich gestarteten Workflow. Die Preview-Pipeline führt kein Produktionsdeployment aus.
 
-## D1 und R2
+## Datenhaltung
 
-D1 und R2 werden in v2 nicht eingesetzt. Git enthält bereits die veröffentlichte Wahrheit, ermöglicht atomare Reviews und hält Bilder und Inhalte in derselben Änderung. D1 wäre später nur für kurzlebiges Autosave, Arbeitsstände oder ein Aktivitätsprotokoll vertretbar; R2 erst bei nachgewiesenem Medienvolumen. Beide dürften nie zu einer zweiten öffentlichen Inhalts- oder Medienquelle werden.
-
-## Lehren aus dem früheren Studio
-
-Der mit Commit `aba7536f9d60db337916a3cf3d0a0f2596436e6c` entfernte Stand und sein Parent wurden als Erfahrungsquelle untersucht.
-
-Wiederverwendet wurden die klare Trennung von öffentlicher Darstellung und Redaktionslogik, typisierte Inhaltstypen, Access als vorgelagerter Schutz sowie ein eigenständiger Medienpfad. Bewusst verworfen wurden D1-Live-Overrides, öffentliche Laufzeitinhalte aus einer Datenbank, parallele Git-/D1-Wahrheiten, ein pauschaler Rechtsportal-Editor und das Vertrauen auf nicht kryptografisch geprüfte Identitätsheader. Es wurde weder revertiert noch pauschal Code übernommen.
+Git ist die kanonische Quelle veröffentlichter Inhalte. D1 und R2 sind für die öffentliche
+Inhaltsauslieferung nicht konfiguriert; das Redaktionsstudio arbeitet mit den versionierten
+Dateien und Pull Requests.

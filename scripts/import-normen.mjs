@@ -406,9 +406,8 @@ const STANZO_HOUSING_SOURCE_REFERENCES = [
   },
 ];
 
-// Frühere Importläufe hatten diese rein redaktionell gebildeten Kürzel als
-// amtliche Suchbegriffe gespeichert. Sie sind in den Primärquellen nicht
-// belegt und werden deshalb auch beim Zusammenführen mit Bestandsdaten entfernt.
+// Nur in Primärquellen belegte Kürzel dürfen als amtliche Suchbegriffe erscheinen.
+// Diese redaktionell gebildeten Werte werden beim Zusammenführen mit Bestandsdaten entfernt.
 const UNVERIFIED_GENERATED_ABBREVIATIONS = new Set([
   'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',
   'PsychVersStG', '1. StaatsreformG', '2. StaatsreformG', '3. StaatsreformG',

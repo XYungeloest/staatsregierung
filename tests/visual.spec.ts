@@ -190,18 +190,18 @@ const componentVisualPages = [
     name: 'fassungsvergleich-module',
     path: lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
     shots: [
-      ['fassungsvergleich-auswahl', '[data-version-compare] .norm-compare__controls'],
-      ['fassungsvergleich-zusammenfassung', '.norm-diff__summary'],
-      ['fassungsvergleich-aenderung', '.norm-diff__list > .norm-diff__unit:nth-child(2)'],
+      ['fassungsvergleich-auswahl', '[data-version-compare] .norm-compare__form'],
+      ['fassungsvergleich-zusammenfassung', '.norm-diff__header'],
+      ['fassungsvergleich-aenderung', '.norm-diff__provision--changed:first-of-type'],
     ],
   },
   {
     name: 'normhistorie-module',
     path: lawUrl('/norm/saechsische-gemeindeordnung/history/'),
     shots: [
-      ['normhistorie-einstieg', '.norm-history-intro'],
+      ['normhistorie-einstieg', '.norm-history-panel--versions'],
       ['normhistorie-fassung', '.norm-history__version-list > .norm-history__version:last-child'],
-      ['normhistorie-aenderung', '.norm-history__event--amendment:first-of-type'],
+      ['normhistorie-aenderung', '.norm-history__event--amendment:first-child'],
       ['normhistorie-stammdaten', '.norm-history-panel--data'],
     ],
   },

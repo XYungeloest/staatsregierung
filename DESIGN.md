@@ -25,10 +25,7 @@ Serviceband und Footer, `home.css` die Startseite und `content-layout.css` die a
 Verdichtung gemeinsamer Inhaltsseiten. Responsive und druckspezifische Regeln bleiben jeweils bei
 ihrem fachlichen Block; ihre Reihenfolge darf nicht ohne visuelle Regressionstests verändert werden.
 
-Bei der Bereinigung am 19. Juli 2026 sank der Bestand von 6.257 Zeilen, 114.861 Byte und 982 Regeln
-auf 5.759 Zeilen, 106.128 Byte und 900 Regeln. Entfernt wurden die nicht mehr erreichbaren alten
-Header-Varianten, der ungenutzte Budget-Explorer sowie bytegleiche Deklarationsdubletten. Die
-gemeinsamen Root-Regeln für `.page-header` und `.panel` besitzen jeweils eine Basisdefinition und
+Gemeinsame Root-Regeln für `.page-header` und `.panel` besitzen jeweils eine Basisdefinition und
 höchstens eine bewusst spätere Inhaltsseiten-Verfeinerung; responsive Varianten bleiben getrennt.
 
 ## Design-Tokens
@@ -200,8 +197,8 @@ ausdrücklicher Freigabe geladen.
 
 Unterseiten folgen einer gemeinsamen, abgestuften Hierarchie: globaler Behördenkopf,
 bereichsbezogener Einstieg, lokale Orientierung, fachlich passende Inhaltsmodule sowie das
-gemeinsame Serviceband mit Footer. `SectionHero.astro` ersetzt die frühere universelle,
-schwebende Kopfkarte auf den zentralen Seitenfamilien. Die Varianten `government`, `topics`,
+gemeinsame Serviceband mit Footer. `SectionHero.astro` bildet den Einstieg der zentralen
+Seitenfamilien. Die Varianten `government`, `topics`,
 `law`, `budget`, `reform`, `press`, `service`, `freestate` und `plain` verwenden denselben Aufbau
 und unterscheiden sich nur durch zurückhaltende Akzentfarben, Medienanteil und fachliche
 Zusatzinhalte.

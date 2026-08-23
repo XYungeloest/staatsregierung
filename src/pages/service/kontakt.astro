@@ -11,11 +11,11 @@ import {
   getMinistryUrl,
   getServiceUrl,
 } from '../../lib/portal/index.ts';
-import { loadRuntimeMinistries, loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import { loadMinistries, loadPageBySlug } from '../../lib/portal/content.ts';
 
-const page = loadRuntimeServicePageBySlug('kontakt');
+const page = await loadPageBySlug('kontakt');
 const contact = siteConfig.contact;
-const ministries = loadRuntimeMinistries();
+const ministries = await loadMinistries();
 const citizenPhoneUrl = `tel:${contact.citizenService.phone.replace(/\s+/gu, '')}`;
 const pressPhoneUrl = `tel:${contact.pressOffice.phone.replace(/\s+/gu, '')}`;
 const routedContacts = [

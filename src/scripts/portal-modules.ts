@@ -65,37 +65,6 @@ function filterTimelineModule(root: HTMLElement): void {
   update();
 }
 
-function filterLegislationModule(root: HTMLElement): void {
-  const items = Array.from(root.querySelectorAll<HTMLElement>('[data-legislation-item]'));
-  const stageSelect = root.querySelector<HTMLSelectElement>('[data-legislation-filter="stage"]');
-  const ressortSelect = root.querySelector<HTMLSelectElement>('[data-legislation-filter="ressort"]');
-  const emptyNode = root.querySelector<HTMLElement>('[data-legislation-empty]');
-
-  const update = () => {
-    const stage = stageSelect?.value ?? '';
-    const ressort = ressortSelect?.value ?? '';
-    let visibleCount = 0;
-
-    for (const item of items) {
-      const matchesStage = !stage || item.dataset.stage === stage;
-      const matchesRessort = !ressort || item.dataset.ressort === ressort;
-      const visible = matchesStage && matchesRessort;
-      item.hidden = !visible;
-      if (visible) {
-        visibleCount += 1;
-      }
-    }
-
-    if (emptyNode) {
-      emptyNode.hidden = visibleCount > 0;
-    }
-  };
-
-  stageSelect?.addEventListener('change', update);
-  ressortSelect?.addEventListener('change', update);
-  update();
-}
-
 function filterBudgetModule(root: HTMLElement): void {
   const yearButtons = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-budget-year]'));
   const queryInput = root.querySelector<HTMLInputElement>('[data-budget-filter="query"]');
@@ -477,10 +446,6 @@ for (const root of document.querySelectorAll<HTMLElement>('[data-action-plan-roo
 
 for (const root of document.querySelectorAll<HTMLElement>('[data-timeline-root]')) {
   filterTimelineModule(root);
-}
-
-for (const root of document.querySelectorAll<HTMLElement>('[data-legislation-root]')) {
-  filterLegislationModule(root);
 }
 
 for (const root of document.querySelectorAll<HTMLElement>('[data-budget-root]')) {

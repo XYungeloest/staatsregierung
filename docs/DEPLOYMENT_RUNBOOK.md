@@ -7,8 +7,8 @@ Wiederherstellungsweg.
 ## Regulärer Ablauf
 
 1. Änderung über einen geprüften Pull Request nach `main` übernehmen.
-2. Im Main-Workflow zuerst `quality` und `visual` prüfen. Der Job `deploy` startet erst nach beiden
-   erfolgreichen Prüfungen.
+2. Im Main-Workflow zuerst den Build sowie Accessibility- und Browser-Smoke prüfen. Der Job
+   `deploy` startet erst nach allen drei erfolgreichen Prüfungen.
 3. Der Workflow veröffentlicht zuerst OstRecht und danach das Staatsportal. So verweist die
    Portalbrücke erst nach der erfolgreichen Aktualisierung des Rechtsportals auf den neuen Stand.
 4. Den im Workflow ausgewiesenen vollständigen Commit notieren. Bei Produktion prüft der Job danach
@@ -24,8 +24,8 @@ freigegebene Veröffentlichung zu wählen.
 | --- | --- | --- |
 | Inhalt oder Wissenshub | `content:check`, Normaudit, Knowledge-Check oder generierte Dateien schlagen fehl | Daten und Quelle im PR korrigieren; Validator nicht abschwächen |
 | Typen oder Build | `astro check`, Unit-Test oder Build schlägt fehl | Fehler im selben Branch reproduzieren und über Korrektur-PR beheben |
-| Browser oder Barrierefreiheit | Link-, SEO-, Accessibility-, Quality- oder Browser-Test schlägt fehl | betroffene Route und Viewport aus dem Testbericht prüfen |
-| Visuelle Regression | Visual-Job schlägt fehl | Artefakt `visual-diffs-…` laden, expected/actual/diff einzeln sichten; Baselines nur nach Abnahme ändern |
+| Browser oder Barrierefreiheit | Link-, SEO-, Accessibility- oder Browser-Test schlägt fehl | betroffene Route und Viewport aus dem Testbericht prüfen |
+| Visuelle Regression | gezielter Visual-Lauf schlägt fehl | Artefakt und Baseline einzeln sichten; Baselines nur nach Abnahme ändern |
 | Cloudflare-Upload | alle Prüfungen grün, aber `deploy` schlägt fehl | Token, Account-ID, Worker-Konfiguration und Wrangler-Ausgabe prüfen; keine lokale Ersatzveröffentlichung |
 | Nachkontrolle | Workflow grün, aber Commitkennung oder Route stimmt nicht | letzte tatsächlich ausgelieferte Kennung feststellen und Deployment erst nach Ursachenklärung erneut anstoßen |
 

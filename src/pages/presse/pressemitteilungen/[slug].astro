@@ -2,11 +2,9 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { siteConfig } from '../../../config/site.ts';
-import { loadPressReleases } from '../../../lib/portal/content.ts';
-import {
-  getRuntimeNormLookup,
-  getRuntimeTopicLookup,
-} from '../../../lib/runtime-content/index.ts';
+import { toDisplayText } from '../../../lib/norms/presentation.ts';
+import { loadAllNormMetas } from '../../../lib/norms/loader.ts';
+import { loadPressReleases, loadTopics } from '../../../lib/portal/content.ts';
 import { buildNewsArticleJsonLd } from '../../../lib/seo/index.ts';
 import {
   getHomeUrl,
@@ -28,10 +26,21 @@ export async function getStaticPaths() {
 }
 
 const { release } = Astro.props as { release: Pressemitteilung };
-const allReleases = await loadPressReleases();
+const [allReleases, topics, norms] = await Promise.all([
+  loadPressReleases(),
+  loadTopics(),
+  loadAllNormMetas(),
+]);
 const releaseLookup = new Map(allReleases.map((entry) => [entry.slug, entry]));
-const topicLookup = getRuntimeTopicLookup();
-const normLookup = getRuntimeNormLookup();
+const topicLookup = new Map(topics.map((topic) => [topic.slug, topic]));
+const normLookup = new Map(norms.map((meta) => [
+  meta.slug,
+  {
+    slug: meta.slug,
+    title: toDisplayText(meta.title),
+    summary: toDisplayText(meta.summary),
+  },
+]));
 
 const relatedTopics =
   release.relatedTopicSlugs

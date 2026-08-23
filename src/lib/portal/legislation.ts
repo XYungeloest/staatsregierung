@@ -210,20 +210,3 @@ export async function loadLegislativeProcedures(): Promise<LegislativeProcedure[
   }));
   return procedures.sort((left, right) => left.documentNumber.localeCompare(right.documentNumber, 'de', { numeric: true }));
 }
-
-export function formatLegislativeProcedureStage(stage: LegislativeProcedureStage): string {
-  const labels: Record<LegislativeProcedureStage, string> = {
-    eingebracht: 'Eingebracht',
-    'erste-lesung-angesetzt': 'Erste Lesung angesetzt',
-    'erste-lesung-abgeschlossen': 'Erste Lesung abgeschlossen',
-    ausschussberatung: 'Ausschussberatung',
-    'zweite-lesung-angesetzt': 'Zweite Lesung angesetzt',
-    'beschlussempfehlung-annahme': 'Annahme empfohlen',
-    'beschlussempfehlung-ablehnung': 'Ablehnung empfohlen',
-    beschlossen: 'Beschlossen',
-    verkuendet: 'Verkündet',
-    'in-kraft': 'In Kraft',
-    erledigt: 'Erledigt',
-  };
-  return labels[stage];
-}

@@ -998,10 +998,10 @@ Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `ar
 Pfad: `content/gesetzgebung/[slug].json`
 
 Parlamentarische Vorgänge werden als eigenständige, quellengebundene Inhaltsdatensätze gepflegt.
-`src/data/dashboard/legislation.ts` bereitet diese Daten nur noch für das vorhandene
-Übersichtsmodul auf. Ein Vorgang erhält seinen Status ausschließlich aus belegten Dokumenten;
-das Erreichen eines Sitzungstermins verändert ihn nicht automatisch. Eine Annahmeempfehlung ist
-weder Gesetzesbeschluss noch Verkündung.
+`src/lib/portal/legislation.ts` validiert und lädt diese Datensätze für die Portalansichten. Ein
+Vorgang erhält seinen Status ausschließlich aus belegten Dokumenten; das Erreichen eines
+Sitzungstermins verändert ihn nicht automatisch. Eine Annahmeempfehlung ist weder Gesetzesbeschluss
+noch Verkündung.
 
 Pflichtangaben sind Slug, vollständiger Titel, Kurztitel, Drucksachennummer, Initiator,
 Verfahrensstufe, verständlicher Statustext, nächste angesetzte Beratung, Quellen, Verknüpfungen
@@ -1036,7 +1036,6 @@ Häufig redigierte Dashboarddaten liegen als validiertes JSON vor:
 - `content/dashboard/action-plan.json`: 15-Punkte-Plan
 - `content/dashboard/timeline.json`: Zeitachse
 - `src/data/haushalt.ts`: Gesamtplan, Einzelpläne, Kapitelangaben und Sondervermögen
-- `src/data/dashboard/legislation.ts`: Darstellung der Vorgänge aus `content/gesetzgebung/`
 
 Die gleichnamigen Dateien unter `src/data/dashboard/` laden nur das JSON. Die erlaubten Typen und
 Parser stehen in `src/lib/portal/dashboard-content.ts`.
@@ -1320,5 +1319,4 @@ Benutzereingang und ist nicht Teil der öffentlichen Auslieferung.
 | Norm | `content/normen/[slug]/` | `meta.json`, `history.json`, `versions/*.json` |
 | 15-Punkte-Plan | `content/dashboard/action-plan.json` | JSON-Objekt |
 | Gesetzgebungsverfahren | `content/gesetzgebung/[slug].json` | JSON-Objekt |
-| Gesetzgebungsdarstellung | `src/data/dashboard/legislation.ts` | TypeScript-Adapter |
 | Timeline | `content/dashboard/timeline.json` | JSON-Objekt |
