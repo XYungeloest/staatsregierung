@@ -3,6 +3,29 @@
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
+      "id": "state-current-public-mobility-program-2026",
+      "title": "Sofortprogramm für die öffentliche Mobilität",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-23",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 monatlich 15 Euro. Ab 1. September gelten ein sozialer Nulltarif, grundsätzlich kostenfreie Fahrradmitnahme und verbindliche Anschlussstandards; die Betriebsgrundsätze der Ostdeutschen Eisenbahn sowie Landesnetz Ost und Ostdeutschlandtakt gelten ab 24. August.",
+      "sourceRefs": [
+        {"sourceId": "source-stanzo-2026-36", "locator": "Abschnitte 1 bis 9", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-37", "locator": "Abschnitte 1 bis 9", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-38", "locator": "Abschnitte 1 bis 11", "role": "primary"},
+        {"sourceId": "source-pm-2026-08-23-10", "locator": "amtliche Einordnung", "role": "corroborating"}
+      ],
+      "relatedIds": ["project-eisenbahn-verkehr", "project-ovv-ticket", "inst-sek-mobilitaet-regionen", "event-public-mobility-program-promulgated-2026"],
+      "tags": ["current-state", "transport", "fares", "public-economy", "planning"],
+      "notes": ["Die konkret für die IC-/ICE-Anerkennung freigegebenen Verbindungen und Bedingungen werden gesondert veröffentlicht; vorgeschlagene Reaktivierungen sind damit nicht als bestellt oder in Betrieb belegt."],
+      "normRefs": [
+        {"normSlug": "bekanntmachung-ode-betriebsgrundsaetze", "versionId": "2026-08-24"},
+        {"normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung", "versionId": "2026-08-01"},
+        {"normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt", "versionId": "2026-08-24"}
+      ]
+    },
+    {
       "id": "state-current-energy-heat-tariffs-2026",
       "title": "Verkündete Strom- und Wärmetarife zum 1. September 2026",
       "status": "confirmed-primary",
@@ -90,8 +113,8 @@
       "status": "editorially-confirmed",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-08-22",
-      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 22. August 2026; Regierungssitz Dresden.",
+      "asOf": "2026-08-23",
+      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 23. August 2026; Regierungssitz Dresden.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-config",
@@ -114,7 +137,7 @@
       "notes": [],
       "stateId": "territory-freistaat",
       "capital": "Dresden",
-      "editorialAsOf": "2026-08-22"
+      "editorialAsOf": "2026-08-23"
     },
     {
       "id": "state-current-constitution",
@@ -451,8 +474,8 @@
       "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-22",
-      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich der gemeinwirtschaftlichen Energie- und Wärmetarife, des staatlichen Auszeichnungswesens, der schrittweisen 50Hertz-Übernahme, der OVV-Ticketanerkennung und der angenommenen NVIDIA-Ansiedlung, ohne Normvolltexte zu duplizieren.",
+      "asOf": "2026-08-23",
+      "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich des neuen öffentlichen Mobilitätspakets, der gemeinwirtschaftlichen Energie- und Wärmetarife, des staatlichen Auszeichnungswesens, der schrittweisen 50Hertz-Übernahme und der angenommenen NVIDIA-Ansiedlung, ohne Normvolltexte zu duplizieren.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -487,6 +510,21 @@
         {
           "sourceId": "source-stanzo-2026-35",
           "locator": "gemeinwirtschaftliche Wärmepreisleitlinie",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-36",
+          "locator": "gemeinwirtschaftliche Betriebsgrundsätze der Ostdeutschen Eisenbahn",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-37",
+          "locator": "15-Euro-Ost-Ticket, sozialer Nulltarif und Anschlusssicherung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-38",
+          "locator": "Landesnetz Ost und Ostdeutschlandtakt",
           "role": "primary"
         }
       ],

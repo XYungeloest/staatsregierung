@@ -2,6 +2,32 @@
   "asOf": "2026-08-23",
   "events": [
     {
+      "id": "event-public-mobility-program-promulgated-2026",
+      "title": "Sofortprogramm für die öffentliche Mobilität verkündet",
+      "status": "confirmed-primary",
+      "validFrom": "2026-08-23",
+      "validTo": "2026-08-23",
+      "asOf": "2026-08-23",
+      "summary": "Drei Bekanntmachungen führen das rückwirkend seit 1. August geltende 15-Euro-Ost-Ticket, ab 1. September geltende soziale und betriebliche Tarifstandards sowie ab 24. August geltende Betriebs- und Taktplanungsgrundsätze ein.",
+      "sourceRefs": [
+        {"sourceId": "source-stanzo-2026-36", "locator": "gesamte Ausgabe", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-37", "locator": "gesamte Ausgabe", "role": "primary"},
+        {"sourceId": "source-stanzo-2026-38", "locator": "gesamte Ausgabe", "role": "primary"},
+        {"sourceId": "source-pm-2026-08-23-10", "locator": "amtliche Einordnung", "role": "corroborating"}
+      ],
+      "relatedIds": ["project-eisenbahn-verkehr", "project-ovv-ticket", "inst-sek-mobilitaet-regionen"],
+      "tags": ["timeline", "transport", "fares", "public-economy", "planning", "promulgation"],
+      "notes": ["Die konkret anerkannten IC-/ICE-Verbindungen und Bedingungen werden gesondert veröffentlicht; Fernverkehrsreaktivierungen sind nicht allein durch dieses Paket belegt."],
+      "aliases": [],
+      "date": "2026-08-23",
+      "eventType": "mobility-program-promulgated",
+      "normRefs": [
+        {"normSlug": "bekanntmachung-ode-betriebsgrundsaetze", "versionId": "2026-08-24"},
+        {"normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung", "versionId": "2026-08-01"},
+        {"normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt", "versionId": "2026-08-24"}
+      ]
+    },
+    {
       "id": "event-energy-heat-price-guidelines-promulgated-2026",
       "title": "Gemeinwirtschaftliche Strom- und Wärmepreisleitlinien verkündet",
       "status": "confirmed-primary",
