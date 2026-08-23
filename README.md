@@ -639,3 +639,11 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
 - [ ] Vor Produktionsfreigaben neben den automatisierten Prüfungen einen kurzen manuellen
   Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-, Tablet- und
   Desktopbreiten dokumentieren.
+
+### Rechtsportal
+
+- [ ] Den Ablauf der Einfügung von Gesetzen und Normen standardisieren. Nicht nur parsen, sondern auch Wissenshub aktualisieren, bei Änderungsnormen die ursprüngliche Fassung aus RevoSax importieren und eine neue Fassung erstellen oder bei bereits bestehender Fassung einfach eine neue machen. Prüfen, ob diese Änderung andere Auswirkungen hat und ebenfalls ändern und Tests zum deployen anpassen, vor allem visuell und co
+- [ ] Das neue Design einheitlich auf unterseiten erweitern, diese haben teilweise noch das alte design
+- [ ] Suche verbessern, es wird teilweise der gesuchte Titel vorgeschlagen, aber dann nicht gefünden (Bsp Änderung des ÖPNV Gesetzes)
+- [ ] Vollzitat vereinheitlichen, es steht aktuell oben und in der Infobox einer Norm, mit unterschiedlichen Inhalt und Schreibweise. Es soll dort die Form stehen, die man direkt in ein Änderungsgesetz übernhehmen kann, also ein rechtsförmliches Vollzitat.
+- [ ] Der Titel des Gesetzes muss sich bei Änderung anpassen. Aktuell gibt es Gesetze die noch "sächsisch" im Namen haben, obwohl dies zu "Ostdeutsch" geändert wurde. Der titel sollte immer der, der aktuellsten Fassung sein und nicht der, der ältesten. Sonst sieht man Titeländerungen nicht im Rechtsportal, außer über das aktuelle Vollzitat
