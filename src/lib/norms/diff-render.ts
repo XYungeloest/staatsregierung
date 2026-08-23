@@ -81,7 +81,7 @@ function renderHeading(node: NormDiffBlock, side: DiffSide, level: number, class
   const Tag = headingTag(level);
   const label = renderValue(node, side, 'label');
   const title = renderValue(node, side, 'title');
-  return `<${Tag} class="${className}">${label ? `<span class="norm-label">${label}</span>` : ''}${title ? `<span class="norm-title">${title}</span>` : ''}</${Tag}>`;
+  return `<${Tag} class="${className}">${label ? `<span class="norm-label">${label}</span> ` : ''}${title ? `<span class="norm-title">${title}</span>` : ''}</${Tag}>`;
 }
 
 function renderRuns(nodes: NormDiffBlock[], side: DiffSide, level: number, quoted: boolean): string {
