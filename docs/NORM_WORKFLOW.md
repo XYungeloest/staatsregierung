@@ -16,8 +16,15 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
 3. Importkonfiguration, Normtyp, Titel, Kurztitel, Abkürzung, Zusammenfassung,
    `enactingBody`, `responsibleMinistry`, Sachgebiete und Beziehungen redaktionell prüfen.
 4. Bei der ersten ostdeutschen Änderung einer übernommenen Stammnorm die am 1. November 2023
-   geltende REVOSax-Fassung mit `npm run norms:revosax:fetch` sichern und parsen. Eine Folgefassung
-   darf nur über ein geprüftes Rezept unter `data/recht/amendments/` entstehen.
+   geltende REVOSax-Fassung mit `npm run norms:revosax:fetch` sichern und parsen. Die gespeicherte
+   HTML-Datei unter `data/recht/sources/revosax/` ist unveränderliche Quellenbeweissicherung.
+   Beim Parsen werden ausschließlich die semantischen REVOSax-Anzeigeelemente
+   `<sup class="satzzahl">…</sup>` verworfen; gewöhnliche Hochstellungen und der übrige
+   Quelltext bleiben erhalten. Nach einer Parseränderung werden alle abgeleiteten Snapshots
+   kontrolliert mit `npm run norms:revosax:parse -- --all` neu erzeugt. Eine Folgefassung darf
+   nur über ein geprüftes Rezept unter `data/recht/amendments/` entstehen; die daraus abgeleiteten
+   Normfassungen werden anschließend mit `node scripts/consolidate-norms.mjs --all --write`
+   aktualisiert.
 5. Den gezielten Schreib- und vollständigen QA-Lauf ausführen:
 
    ```sh

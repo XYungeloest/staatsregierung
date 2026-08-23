@@ -3,6 +3,7 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '../src/lib/norms/diff.ts';
+import { renderNormDiffDocument } from '../src/lib/norms/diff-render.ts';
 import {
   LEGAL_BASELINE_DATE,
   classifyNormOriginVersion,
@@ -211,6 +212,128 @@ test('Fassungsvergleich markiert auch in langen Paragraphen nur die tatsächlich
   assert.ok(provision.textDiff, 'Der Wortvergleich darf bei langen Paragraphen nicht verworfen werden.');
   assert.ok(provision.textDiff?.some((chunk) => chunk.kind === 'insert' && chunk.text.includes('Transparenzportal')));
   assert.ok(!provision.textDiff?.some((chunk) => chunk.kind === 'delete'));
+});
+
+test('Fassungsvergleich markiert auch vollständig geänderte Paragraphenüberschriften', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].title = 'Bisherige Voraussetzungen';
+  const after = version('b', '2026-07-01', null);
+  after.body[0].title = 'Neue Zuständigkeiten';
+
+  const html = renderNormDiffDocument(buildProvisionVersionDiff(before, after), before.validFrom, after.validFrom);
+  assert.match(html, /<del>Bisherige Voraussetzungen<\/del>/u);
+  assert.match(html, /<ins>Neue Zuständigkeiten<\/ins>/u);
+});
+
+test('struktureller Fassungsvergleich erhält Absatzlabels und verschachtelte Listen', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].children = [{
+    type: 'subparagraph',
+    label: '(1)',
+    text: 'Die Behörde entscheidet.',
+    children: [
+      {
+        type: 'item',
+        label: '1.',
+        text: 'erste Voraussetzung',
+        children: [{ type: 'subitem', label: 'a)', text: 'Unterpunkt alt' }],
+      },
+      { type: 'item', label: '2.', text: 'zweite Voraussetzung' },
+    ],
+  }];
+  const after = version('b', '2026-07-01', null);
+  after.body[0].children = [{
+    type: 'subparagraph',
+    label: '(1)',
+    text: 'Die Behörde entscheidet verbindlich.',
+    children: [
+      {
+        type: 'item',
+        label: '1.',
+        text: 'erste Voraussetzung',
+        children: [{ type: 'subitem', label: 'a)', text: 'Unterpunkt neu' }],
+      },
+      { type: 'item', label: '2.', text: 'zweite Voraussetzung' },
+      { type: 'item', label: '3.', text: 'dritte Voraussetzung' },
+    ],
+  }];
+
+  const [provision] = buildProvisionVersionDiff(before, after);
+  const html = renderNormDiffDocument([provision], before.validFrom, after.validFrom);
+  assert.match(html, /norm-subparagraph__label[^>]*>\(1\)<\/span>/u);
+  assert.match(html, /norm-amendment-list/u);
+  assert.match(html, /norm-amendment-item__children/u);
+  assert.match(html, /Unterpunkt <ins>neu<\/ins>/u);
+  assert.match(html, /<ins>dritte Voraussetzung<\/ins>/u);
+  assert.doesNotMatch(html, /<p>[^<]*\(1\)[\s\S]*1\. erste Voraussetzung, 2\./u);
+});
+
+test('Fassungsvergleich stellt neue und entfallene Paragraphen strukturiert dar', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].children = [{ type: 'paragraphText', text: 'unverändert' }];
+  before.body.push({
+    type: 'paragraph',
+    label: '§ 2',
+    title: 'Entfallen',
+    children: [{ type: 'paragraphText', label: '(1)', text: 'Alte Regelung.' }],
+  });
+  const after = version('b', '2026-07-01', null);
+  after.body[0].children = [{ type: 'paragraphText', text: 'unverändert' }];
+  after.body.push({
+    type: 'paragraph',
+    label: '§ 3',
+    title: 'Neu',
+    children: [{ type: 'paragraphText', label: '(1)', text: 'Neue Regelung.' }],
+  });
+
+  const html = renderNormDiffDocument(buildProvisionVersionDiff(before, after), before.validFrom, after.validFrom);
+  assert.match(html, /norm-diff__provision--removed/u);
+  assert.match(html, /norm-diff__provision--added/u);
+  assert.match(html, /<del>Alte Regelung\.<\/del>/u);
+  assert.match(html, /<ins>Neue Regelung\.<\/ins>/u);
+  assert.match(html, /norm-text__label[^>]*>[\s\S]*?\(1\)[\s\S]*?<\/span>/u);
+});
+
+test('Whitespace-only changes erzeugen keinen Vergleichsblock', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].children = [{ type: 'paragraphText', label: '(1)', text: 'Eine Regel.' }];
+  const after = version('b', '2026-07-01', null);
+  after.body[0].children = [{ type: 'paragraphText', label: '(1)', text: '  Eine   Regel. ' }];
+
+  assert.deepEqual(buildProvisionVersionDiff(before, after), []);
+});
+
+test('Tabellen bleiben im strukturierten Vergleich als Tabellen erhalten', () => {
+  const before = version('a', '2026-01-01', '2026-06-30');
+  before.body[0].children = [{
+    type: 'table',
+    title: 'Grenzwerte',
+    children: [{
+      type: 'tableRow',
+      children: [
+        { type: 'tableHeaderCell', text: 'Bezeichnung', scope: 'col' },
+        { type: 'tableCell', text: 'alt' },
+      ],
+    }],
+  }];
+  const after = version('b', '2026-07-01', null);
+  after.body[0].children = [{
+    type: 'table',
+    title: 'Grenzwerte',
+    children: [{
+      type: 'tableRow',
+      children: [
+        { type: 'tableHeaderCell', text: 'Bezeichnung', scope: 'col' },
+        { type: 'tableCell', text: 'neu' },
+      ],
+    }],
+  }];
+
+  const html = renderNormDiffDocument(buildProvisionVersionDiff(before, after), before.validFrom, after.validFrom);
+  assert.match(html, /<table class="norm-table">/u);
+  assert.match(html, /<th scope="col">Bezeichnung<\/th>/u);
+  assert.match(html, /<td><del>alt<\/del><\/td>/u);
+  assert.match(html, /<td><ins>neu<\/ins><\/td>/u);
 });
 
 test('Diff-Zusammenfassung zählt dieselben strukturellen Einheiten wie der Vergleich', () => {

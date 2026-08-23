@@ -4,21 +4,46 @@
   "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
   "resultCitation": "Landkreisordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99), zuletzt geändert durch Artikel 3 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2)",
   "changeNote": "Die Rechtsaufsichtsregelung wurde als § 75 neu gefasst.",
-  "sourceReferences": [{"kind":"amendment-source","label":"OGVBl. 2026 Nr. 46","availability":"versioned","localSource":"Gesetze/OGVBl. 2026 Nr. 46.html"}],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 46",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
   "operations": [
     {
       "op": "replaceProvision",
-      "target": {"type":"paragraph","label":"§ 65"},
-      "expectedHash": "16b36ca81ad00393c772b2855b6e5b54e1feca1d16cf8a6ecaa09f7f3123fbf2",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 65"
+      },
+      "expectedHash": "578cdfc0d851a5527aa1dd4f2b094381bd1e85e52373a03a1776ea3e57eda810",
       "expectedMatches": 1,
       "value": {
         "type": "paragraph",
         "label": "§ 75",
         "title": "Rechtsaufsichtsbehörden",
         "children": [
-          {"type":"subparagraph","label":"(1)","text":"Rechtsaufsichtsbehörde der Landkreise ist die zuständige Bezirksverwaltung, soweit gesetzlich nichts anderes bestimmt ist.","children":[]},
-          {"type":"subparagraph","label":"(2)","text":"Obere Rechtsaufsichtsbehörde ist das für Inneres zuständige Staatsministerium.","children":[]},
-          {"type":"subparagraph","label":"(3)","text":"Soweit die Bezirksverwaltung selbst beteiligt oder aus tatsächlichen Gründen an der Wahrnehmung der Rechtsaufsicht gehindert ist, bestimmt das für Inneres zuständige Staatsministerium die zuständige Rechtsaufsichtsbehörde.","children":[]}
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Rechtsaufsichtsbehörde der Landkreise ist die zuständige Bezirksverwaltung, soweit gesetzlich nichts anderes bestimmt ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Obere Rechtsaufsichtsbehörde ist das für Inneres zuständige Staatsministerium.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Soweit die Bezirksverwaltung selbst beteiligt oder aus tatsächlichen Gründen an der Wahrnehmung der Rechtsaufsicht gehindert ist, bestimmt das für Inneres zuständige Staatsministerium die zuständige Rechtsaufsichtsbehörde.",
+            "children": []
+          }
         ]
       },
       "source": "Gesetze/OGVBl. 2026 Nr. 46.html",

@@ -24,6 +24,18 @@ async function readJson(path) {
   return JSON.parse(await readFile(path, 'utf8'));
 }
 
+async function existingVersionMetadata(normDirectory, versionId) {
+  try {
+    const existing = await readJson(join(normDirectory, 'versions', `${versionId}.json`));
+    return Object.fromEntries(['title', 'shortTitle', 'abbr']
+      .filter((field) => existing[field] !== undefined)
+      .map((field) => [field, existing[field]]));
+  } catch (error) {
+    if (error.code === 'ENOENT') return {};
+    throw error;
+  }
+}
+
 async function writeJson(path, value) {
   await mkdir(dirname(path), { recursive: true });
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
@@ -131,6 +143,18 @@ function publicEditorialResolutions(source) {
       rationale,
       evidence,
     }));
+}
+
+function historyEntryKey(entry) {
+  return JSON.stringify([
+    entry.date,
+    entry.type,
+    entry.title,
+    entry.citation,
+    entry.note,
+    entry.affectingVersionId,
+    entry.relatedNorm,
+  ]);
 }
 
 async function consolidate(slug, config) {
@@ -299,7 +323,9 @@ async function consolidate(slug, config) {
 
   const updatedMeta = {
     ...meta,
-    title: state.title,
+    // Die öffentliche Normbezeichnung gehört zur redaktionellen Metadatenebene.
+    // Der REVOSax-Ausgangstitel darf sie bei einer erneuten Konsolidierung nicht überschreiben.
+    title: meta.title ?? state.title,
     ...(source.resultShortTitle ? { shortTitle: source.resultShortTitle } : {}),
     ...(source.resultAbbr ? { abbr: source.resultAbbr } : {}),
     initialCitation: baselineCitation,
@@ -321,14 +347,16 @@ async function consolidate(slug, config) {
       ? publicEditorialResolutions(source)
       : meta.editorialResolutions,
   };
+  const retainedHistoryEntries = existingHistory.entries.filter((entry) =>
+    entry.type !== 'initial' && !recipes.some((recipe) => recipe.amendmentAct === entry.relatedNorm)
+  );
+  const retainedHistoryKeys = new Set(retainedHistoryEntries.map(historyEntryKey));
   const history = {
     ...existingHistory,
     initialVersionId: config.baselineSnapshotDate,
     entries: [
-      ...existingHistory.entries.filter((entry) =>
-        entry.type !== 'initial' && !recipes.some((recipe) => recipe.amendmentAct === entry.relatedNorm)
-      ),
-      ...historyEntries,
+      ...retainedHistoryEntries,
+      ...historyEntries.filter((entry) => !retainedHistoryKeys.has(historyEntryKey(entry))),
     ].sort((left, right) => left.date.localeCompare(right.date)),
   };
 
@@ -351,10 +379,15 @@ async function consolidate(slug, config) {
     console.error('Prüflauf: Schreiben erfordert --write.');
     return;
   }
+  const versionsWithMetadata = await Promise.all(versions.map(async (version) => ({
+    versionId: version.versionId,
+    ...await existingVersionMetadata(normDirectory, version.versionId),
+    ...version,
+  })));
   await Promise.all([
     writeJson(join(normDirectory, 'meta.json'), updatedMeta),
     writeJson(join(normDirectory, 'history.json'), history),
-    ...versions.map((version) => writeJson(join(normDirectory, 'versions', `${version.versionId}.json`), version)),
+    ...versionsWithMetadata.map((version) => writeJson(join(normDirectory, 'versions', `${version.versionId}.json`), version)),
     ...affectedActs.map(({ path, value }) => writeJson(path, value)),
   ]);
 }
@@ -363,11 +396,21 @@ const config = await readJson(resolve(ROOT, 'data/recht/consolidation-sources.js
 if (target && config.blockedTargets?.[target]) {
   throw new Error(`${target}: Konsolidierung gesperrt – ${config.blockedTargets[target].reason}`);
 }
-const targets = all
-  ? Object.keys(config.targets).filter((slug) => !config.blockedTargets?.[slug])
-  : [target];
-if (all) {
+if (!all) {
+  await consolidate(target, config);
+} else {
   const blocked = Object.keys(config.targets).filter((slug) => config.blockedTargets?.[slug]);
   if (blocked.length) console.error(`Gesperrte Ziele übersprungen: ${blocked.join(', ')}`);
+  for (const [slug, source] of Object.entries(config.targets)) {
+    if (config.blockedTargets?.[slug]) continue;
+    if (!source.snapshot) {
+      console.error(`${slug}: kein REVOSax-Ausgangssnapshot, Konsolidierung übersprungen`);
+      continue;
+    }
+    if ((await recipeFiles(slug)).length === 0) {
+      console.error(`${slug}: keine Änderungsrezepte, Konsolidierung übersprungen`);
+      continue;
+    }
+    await consolidate(slug, config);
+  }
 }
-for (const slug of targets) await consolidate(slug, config);

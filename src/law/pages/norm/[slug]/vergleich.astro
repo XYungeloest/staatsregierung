@@ -2,7 +2,8 @@
 import LawLayout from '../../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
 import NormVersionNavigation from '../../../../components/norms/NormVersionNavigation.astro';
-import { buildProvisionVersionDiff, type NormProvisionDiff } from '../../../../lib/norms/diff.ts';
+import { buildProvisionVersionDiff } from '../../../../lib/norms/diff.ts';
+import { renderNormDiffDocument } from '../../../../lib/norms/diff-render.ts';
 import {
   formatDate,
   getLawPortalUrl,
@@ -40,11 +41,6 @@ const normTitle = toDisplayText(currentIdentity.title);
 const normShortTitle = toDisplayText(currentIdentity.shortTitle || currentIdentity.title);
 const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;
 const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
-
-function renderProvisionSide(provision: NormProvisionDiff, side: 'before' | 'after'): NonNullable<NormProvisionDiff['textDiff']> {
-  return (provision.textDiff ?? []).filter((chunk) =>
-    chunk.kind === 'same' || (side === 'before' ? chunk.kind === 'delete' : chunk.kind === 'insert'));
-}
 ---
 
 <LawLayout
@@ -96,40 +92,19 @@ function renderProvisionSide(provision: NormProvisionDiff, side: 'before' | 'aft
 
     <p class="status-line" data-compare-feedback aria-live="polite"></p>
 
-    <section class="norm-diff" data-compare-output data-compare-pair={defaultPairKey} aria-label={`Vergleich ${formatDate(defaultFrom.validFrom)} mit ${formatDate(defaultTo.validFrom)}`}>
-      <header class="norm-diff__header">
-        <h2><time datetime={defaultFrom.validFrom}>{formatDate(defaultFrom.validFrom)}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime={defaultTo.validFrom}>{formatDate(defaultTo.validFrom)}</time></h2>
-        <p>{defaultProvisions.length} geänderte {defaultProvisions.length === 1 ? 'Vorschrift' : 'Vorschriften'}</p>
-      </header>
-      <ol class="norm-diff__list">
-        {defaultProvisions.map((provision) => (
-          <li class:list={['norm-diff__provision', `norm-diff__provision--${provision.kind}`]}>
-            <span class="norm-diff__status">{provision.kind === 'added' ? 'Neu' : provision.kind === 'removed' ? 'Entfallen' : 'Geändert'}</span>
-            <div class="norm-diff__provision-columns">
-              {provision.beforeText ? (
-                <section class="norm-diff__side norm-diff__side--before">
-                  <h3>Fassung vom {formatDate(defaultFrom.validFrom)}</h3>
-                  <p>{provision.textDiff ? renderProvisionSide(provision, 'before').map((chunk) => chunk.kind === 'delete' ? <del>{chunk.text}</del> : chunk.text) : <del>{provision.beforeText}</del>}</p>
-                </section>
-              ) : null}
-              {provision.afterText ? (
-                <section class="norm-diff__side norm-diff__side--after">
-                  <h3>Fassung vom {formatDate(defaultTo.validFrom)}</h3>
-                  <p>{provision.textDiff ? renderProvisionSide(provision, 'after').map((chunk) => chunk.kind === 'insert' ? <ins>{chunk.text}</ins> : chunk.text) : <ins>{provision.afterText}</ins>}</p>
-                </section>
-              ) : null}
-            </div>
-          </li>
-        ))}
-      </ol>
-      {defaultProvisions.length === 0 ? <p>Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p> : null}
-    </section>
+    <section
+      class="norm-diff"
+      data-compare-output
+      data-compare-pair={defaultPairKey}
+      aria-label={`Vergleich ${formatDate(defaultFrom.validFrom)} mit ${formatDate(defaultTo.validFrom)}`}
+      set:html={renderNormDiffDocument(defaultProvisions, defaultFrom.validFrom, defaultTo.validFrom)}
+    ></section>
   </section>
 
   <script>
-    type DiffChunk = { kind: 'same' | 'insert' | 'delete'; text: string };
-    type ProvisionDiff = { key: string; kind: 'added' | 'removed' | 'changed'; beforeText?: string; afterText?: string; textDiff?: DiffChunk[] };
-    type DiffPayload = { fromVersion: { versionId: string; validFrom: string }; toVersion: { versionId: string; validFrom: string }; provisions: ProvisionDiff[] };
+    import { renderNormDiffDocument } from '../../../../lib/norms/diff-render.ts';
+    import type { NormProvisionDiff } from '../../../../lib/norms/diff.ts';
+    type DiffPayload = { fromVersion: { versionId: string; validFrom: string }; toVersion: { versionId: string; validFrom: string }; provisions: NormProvisionDiff[] };
     const root = document.querySelector<HTMLElement>('[data-version-compare]');
     const form = root?.querySelector<HTMLFormElement>('[data-compare-form]');
     const fromSelect = root?.querySelector<HTMLSelectElement>('[data-compare-from]');
@@ -137,33 +112,11 @@ function renderProvisionSide(provision: NormProvisionDiff, side: 'before' | 'aft
     const feedback = root?.querySelector<HTMLElement>('[data-compare-feedback]');
     const output = root?.querySelector<HTMLElement>('[data-compare-output]');
     const dateFormatter = new Intl.DateTimeFormat('de-DE', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
-    const escapeHtml = (value = '') => value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
-    const formatClientDate = (value: string) => {
-      const [year, month, day] = value.split('-').map(Number);
-      return dateFormatter.format(new Date(Date.UTC(year, month - 1, day)));
-    };
-    const renderSide = (provision: ProvisionDiff, side: 'before' | 'after') => {
-      if (!provision.textDiff) {
-        const text = escapeHtml(side === 'before' ? provision.beforeText : provision.afterText);
-        return side === 'before' ? `<del>${text}</del>` : `<ins>${text}</ins>`;
-      }
-      return provision.textDiff.filter((chunk) => chunk.kind === 'same' || (side === 'before' ? chunk.kind === 'delete' : chunk.kind === 'insert')).map((chunk) => {
-        const text = escapeHtml(chunk.text);
-        return chunk.kind === 'delete' ? `<del>${text}</del>` : chunk.kind === 'insert' ? `<ins>${text}</ins>` : text;
-      }).join('');
-    };
-    const renderProvision = (provision: ProvisionDiff, fromDate: string, toDate: string) => {
-      const status = provision.kind === 'added' ? 'Neu' : provision.kind === 'removed' ? 'Entfallen' : 'Geändert';
-      const before = provision.beforeText ? `<section class="norm-diff__side norm-diff__side--before"><h3>Fassung vom ${escapeHtml(formatClientDate(fromDate))}</h3><p>${renderSide(provision, 'before')}</p></section>` : '';
-      const after = provision.afterText ? `<section class="norm-diff__side norm-diff__side--after"><h3>Fassung vom ${escapeHtml(formatClientDate(toDate))}</h3><p>${renderSide(provision, 'after')}</p></section>` : '';
-      return `<li class="norm-diff__provision norm-diff__provision--${provision.kind}"><span class="norm-diff__status">${status}</span><div class="norm-diff__provision-columns">${before}${after}</div></li>`;
-    };
     const renderPayload = (payload: DiffPayload) => {
       if (!output) return;
-      const count = payload.provisions.length;
       output.dataset.comparePair = `${payload.fromVersion.versionId}::${payload.toVersion.versionId}`;
-      output.setAttribute('aria-label', `Vergleich ${formatClientDate(payload.fromVersion.validFrom)} mit ${formatClientDate(payload.toVersion.validFrom)}`);
-      output.innerHTML = `<header class="norm-diff__header"><h2><time datetime="${escapeHtml(payload.fromVersion.validFrom)}">${escapeHtml(formatClientDate(payload.fromVersion.validFrom))}</time><span aria-hidden="true"> → </span><span class="visually-hidden">verglichen mit </span><time datetime="${escapeHtml(payload.toVersion.validFrom)}">${escapeHtml(formatClientDate(payload.toVersion.validFrom))}</time></h2><p>${count} geänderte ${count === 1 ? 'Vorschrift' : 'Vorschriften'}</p></header><ol class="norm-diff__list">${payload.provisions.map((provision) => renderProvision(provision, payload.fromVersion.validFrom, payload.toVersion.validFrom)).join('')}</ol>${count === 0 ? '<p>Zwischen diesen Fassungen wurden keine Textänderungen erkannt.</p>' : ''}`;
+      output.setAttribute('aria-label', `Vergleich ${dateFormatter.format(new Date(`${payload.fromVersion.validFrom}T00:00:00Z`))} mit ${dateFormatter.format(new Date(`${payload.toVersion.validFrom}T00:00:00Z`))}`);
+      output.innerHTML = renderNormDiffDocument(payload.provisions, payload.fromVersion.validFrom, payload.toVersion.validFrom);
     };
     const loadPair = async (updateUrl = false) => {
       if (!fromSelect || !toSelect || !output) return;

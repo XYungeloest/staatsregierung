@@ -1,4 +1,4 @@
-import type { NormBodyBlock, NormVersion } from './schema.ts';
+import type { NormBodyBlock, NormVersion, StructureType, TableHeaderScope } from './schema.ts';
 
 export type NormDiffKind = 'added' | 'removed' | 'changed' | 'unchanged';
 
@@ -29,9 +29,49 @@ export interface NormDiffSummary {
 
 export interface NormProvisionDiff {
   key: string;
+  type: StructureType;
   kind: Exclude<NormDiffKind, 'unchanged'>;
+  before?: NormDiffValue;
+  after?: NormDiffValue;
+  children: NormDiffBlock[];
+  /** Kompatibilitätsdarstellung für bestehende Verbraucher; die Vergleichsansicht nutzt children. */
   beforeText?: string;
   afterText?: string;
+  titleDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
+  labelDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
+  textDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
+}
+
+export interface NormDiffValue {
+  type: StructureType;
+  label?: string;
+  title?: string;
+  text?: string;
+  level?: number;
+  listId?: string;
+  numberingStyle?: string;
+  scope?: TableHeaderScope;
+  rowspan?: number;
+  colspan?: number;
+  columns?: number;
+}
+
+export interface NormDiffBlock {
+  key: string;
+  type: StructureType;
+  kind: NormDiffKind;
+  before?: NormDiffValue;
+  after?: NormDiffValue;
+  children: NormDiffBlock[];
+  beforeIndex?: number;
+  afterIndex?: number;
+  label?: string;
+  beforeTitle?: string;
+  afterTitle?: string;
+  beforeText?: string;
+  afterText?: string;
+  titleDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
+  labelDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
   textDiff?: Array<{ kind: 'same' | 'insert' | 'delete'; text: string }>;
 }
 
@@ -294,41 +334,217 @@ export function buildStructuralVersionDiff(
   });
 }
 
-function provisionKey(unit: NormDiffUnit): string {
-  const parts = unit.key.split('/');
-  const provisionIndex = parts.findIndex((part) => part.startsWith('paragraph:') || part.startsWith('article:'));
-  return provisionIndex >= 0 ? parts.slice(0, provisionIndex + 1).join('/') : unit.key;
+const DIFF_VALUE_FIELDS = [
+  'label', 'title', 'text', 'level', 'listId', 'numberingStyle',
+  'scope', 'rowspan', 'colspan', 'columns',
+] as const;
+
+function diffValue(block: NormBodyBlock): NormDiffValue {
+  const value: NormDiffValue = { type: block.type };
+  for (const field of DIFF_VALUE_FIELDS) {
+    const fieldValue = block[field];
+    if (fieldValue !== undefined) value[field] = fieldValue as never;
+  }
+  return value;
+}
+
+function comparableText(value: string | undefined): string {
+  return (value ?? '').replace(/\s+/gu, ' ').trim();
+}
+
+function blockSegment(block: NormBodyBlock, occurrences: Map<string, number>): string {
+  const identity = block.label ? `label:${block.label}` : `position:${block.type}`;
+  const count = (occurrences.get(identity) ?? 0) + 1;
+  occurrences.set(identity, count);
+  return `${block.type}:${identity}:${count}`;
+}
+
+function pairBlockLists(
+  before: NormBodyBlock[],
+  after: NormBodyBlock[],
+  parentKey: string,
+): NormDiffBlock[] {
+  const beforeOccurrences = new Map<string, number>();
+  const afterOccurrences = new Map<string, number>();
+  const beforeSegments = before.map((block) => blockSegment(block, beforeOccurrences));
+  const afterSegments = after.map((block) => blockSegment(block, afterOccurrences));
+  const usedAfter = new Set<number>();
+  const pairs: Array<{ before?: NormBodyBlock; after?: NormBodyBlock; beforeIndex?: number; afterIndex?: number; key: string }> = [];
+
+  const findMatch = (block: NormBodyBlock, index: number): number | undefined => {
+    const exact = after.findIndex((candidate, candidateIndex) =>
+      !usedAfter.has(candidateIndex) && candidate.type === block.type &&
+      Boolean(block.label) && candidate.label === block.label,
+    );
+    if (exact >= 0) return exact;
+
+    if (!block.label) {
+      const sameType = after.findIndex((candidate, candidateIndex) =>
+        !usedAfter.has(candidateIndex) && !candidate.label && candidate.type === block.type,
+      );
+      if (sameType >= 0) return sameType;
+    }
+
+    const samePosition = after[index];
+    if (samePosition && !usedAfter.has(index) && !block.label && !samePosition.label && samePosition.type === block.type) {
+      return index;
+    }
+    return undefined;
+  };
+
+  before.forEach((block, index) => {
+    const afterIndex = findMatch(block, index);
+    if (afterIndex === undefined) {
+      pairs.push({ before: block, beforeIndex: index, key: `${parentKey}/${beforeSegments[index]}` });
+      return;
+    }
+    usedAfter.add(afterIndex);
+    pairs.push({
+      before: block,
+      after: after[afterIndex],
+      beforeIndex: index,
+      afterIndex,
+      key: `${parentKey}/${beforeSegments[index]}`,
+    });
+  });
+
+  after.forEach((block, index) => {
+    if (usedAfter.has(index)) return;
+    pairs.push({ after: block, afterIndex: index, key: `${parentKey}/${afterSegments[index]}` });
+  });
+
+  pairs.sort((left, right) =>
+    Math.min(left.beforeIndex ?? Number.POSITIVE_INFINITY, left.afterIndex ?? Number.POSITIVE_INFINITY) -
+    Math.min(right.beforeIndex ?? Number.POSITIVE_INFINITY, right.afterIndex ?? Number.POSITIVE_INFINITY),
+  );
+
+  return pairs.map((pair) => buildDiffBlock(pair, parentKey));
+}
+
+function primitiveFieldsChanged(before: NormDiffValue, after: NormDiffValue): boolean {
+  return DIFF_VALUE_FIELDS.some((field) => {
+    if (field === 'text') return comparableText(before.text) !== comparableText(after.text);
+    return before[field] !== after[field];
+  });
+}
+
+function buildDiffBlock(
+  pair: { before?: NormBodyBlock; after?: NormBodyBlock; beforeIndex?: number; afterIndex?: number; key: string },
+  parentKey: string,
+): NormDiffBlock {
+  const before = pair.before;
+  const after = pair.after;
+  if (!before && !after) throw new Error(`Leerer Diff-Knoten ${parentKey}`);
+
+  if (!before || !after) {
+    const block = before ?? after!;
+    const kind = before ? 'removed' : 'added';
+    return {
+      key: pair.key,
+      type: block.type,
+      kind,
+      ...(before ? { before: diffValue(before) } : { after: diffValue(after!) }),
+      children: pairBlockLists(before?.children ?? [], after?.children ?? [], pair.key),
+      ...(pair.beforeIndex === undefined ? {} : { beforeIndex: pair.beforeIndex }),
+      ...(pair.afterIndex === undefined ? {} : { afterIndex: pair.afterIndex }),
+      label: block.label,
+      ...(before?.title ? { beforeTitle: before.title } : {}),
+      ...(after?.title ? { afterTitle: after.title } : {}),
+      ...(before?.text ? { beforeText: before.text } : {}),
+      ...(after?.text ? { afterText: after.text } : {}),
+    };
+  }
+
+  const beforeValue = diffValue(before);
+  const afterValue = diffValue(after);
+  const children = pairBlockLists(before.children ?? [], after.children ?? [], pair.key);
+  const textChanged = comparableText(before.text) !== comparableText(after.text);
+  const titleChanged = before.title !== after.title;
+  const labelChanged = before.label !== after.label;
+  const childrenChanged = children.some((child) => child.kind !== 'unchanged');
+  const kind: NormDiffKind = primitiveFieldsChanged(beforeValue, afterValue) || childrenChanged
+    ? 'changed'
+    : 'unchanged';
+  const textDiff = textChanged ? diffWords(comparableText(before.text), comparableText(after.text)) : undefined;
+  const titleDiff = titleChanged ? diffWords(before.title ?? '', after.title ?? '') : undefined;
+  const labelDiff = labelChanged ? diffWords(before.label ?? '', after.label ?? '') : undefined;
+
+  return {
+    key: pair.key,
+    type: after.type,
+    kind,
+    before: beforeValue,
+    after: afterValue,
+    children,
+    ...(pair.beforeIndex === undefined ? {} : { beforeIndex: pair.beforeIndex }),
+    ...(pair.afterIndex === undefined ? {} : { afterIndex: pair.afterIndex }),
+    label: after.label ?? before.label,
+    ...(before.title ? { beforeTitle: before.title } : {}),
+    ...(after.title ? { afterTitle: after.title } : {}),
+    ...(before.text ? { beforeText: before.text } : {}),
+    ...(after.text ? { afterText: after.text } : {}),
+    ...(textDiff && hasReadableWordDiff(textDiff, comparableText(before.text), comparableText(after.text)) ? { textDiff } : {}),
+    ...(titleDiff && hasReadableWordDiff(titleDiff, before.title ?? '', after.title ?? '') ? { titleDiff } : {}),
+    ...(labelDiff && hasReadableWordDiff(labelDiff, before.label ?? '', after.label ?? '') ? { labelDiff } : {}),
+  };
+}
+
+function summaryText(block: NormDiffBlock, side: 'before' | 'after', includeHeading = true): string {
+  const value = side === 'before' ? block.before : block.after;
+  if (!value) return '';
+  const heading = includeHeading ? [value.label, value.title].filter(Boolean).join(' ') : '';
+  const text = value.text ? [includeHeading ? '' : value.label, value.text].filter(Boolean).join(' ') : '';
+  const children = block.children
+    .slice()
+    .sort((left, right) => (side === 'before' ? left.beforeIndex ?? left.afterIndex ?? 0 : left.afterIndex ?? left.beforeIndex ?? 0) - (side === 'before' ? right.beforeIndex ?? right.afterIndex ?? 0 : right.afterIndex ?? right.beforeIndex ?? 0))
+    .map((child) => summaryText(child, side, false))
+    .filter(Boolean);
+  return [heading, text, ...children].filter(Boolean).join('\n').trim();
+}
+
+function isProvision(block: NormDiffBlock): boolean {
+  return block.type === 'paragraph' || block.type === 'article';
+}
+
+function toProvision(block: NormDiffBlock): NormProvisionDiff {
+  if (block.kind === 'unchanged') throw new Error(`Unveränderte Vorschrift ${block.key} darf nicht als Änderung ausgegeben werden`);
+  const beforeText = summaryText(block, 'before');
+  const afterText = summaryText(block, 'after');
+  const textDiff = beforeText && afterText ? diffWords(beforeText, afterText) : undefined;
+  return {
+    key: block.key,
+    type: block.type,
+    kind: block.kind,
+    ...(block.before ? { before: block.before } : {}),
+    ...(block.after ? { after: block.after } : {}),
+    children: block.children,
+    ...(beforeText ? { beforeText } : {}),
+    ...(afterText ? { afterText } : {}),
+    ...(block.titleDiff ? { titleDiff: block.titleDiff } : {}),
+    ...(block.labelDiff ? { labelDiff: block.labelDiff } : {}),
+    ...(textDiff && hasReadableWordDiff(textDiff, beforeText, afterText) ? { textDiff } : {}),
+  };
 }
 
 export function buildProvisionVersionDiff(
   before: Pick<NormVersion, 'body'>,
   after: Pick<NormVersion, 'body'>,
 ): NormProvisionDiff[] {
-  const provisions = new Map<string, { beforeText?: string; afterText?: string }>();
+  const root = pairBlockLists(before.body, after.body, 'body');
+  const provisions: NormProvisionDiff[] = [];
 
-  for (const unit of buildStructuralVersionDiff(before, after)) {
-    if (unit.kind === 'unchanged') continue;
-    const key = provisionKey(unit);
-    const entry = provisions.get(key) ?? {};
-    entry.beforeText ||= unit.beforeProvisionText || unit.beforeText;
-    entry.afterText ||= unit.afterProvisionText || unit.afterText;
-    provisions.set(key, entry);
+  function collect(block: NormDiffBlock): number {
+    if (block.kind === 'unchanged') return 0;
+    if (isProvision(block)) {
+      provisions.push(toProvision(block));
+      return 1;
+    }
+    const nested = block.children.reduce((count, child) => count + collect(child), 0);
+    if (nested > 0) return nested;
+    provisions.push(toProvision(block));
+    return 1;
   }
 
-  return [...provisions].flatMap(([key, entry]) => {
-    if (entry.beforeText === entry.afterText) return [];
-    const kind = !entry.beforeText ? 'added' : !entry.afterText ? 'removed' : 'changed';
-    const textDiff = entry.beforeText && entry.afterText
-      ? diffWords(entry.beforeText, entry.afterText)
-      : undefined;
-    return [{
-      key,
-      kind,
-      beforeText: entry.beforeText,
-      afterText: entry.afterText,
-      textDiff: textDiff && hasReadableWordDiff(textDiff, entry.beforeText ?? '', entry.afterText ?? '')
-        ? textDiff
-        : undefined,
-    }];
-  });
+  root.forEach(collect);
+  return provisions;
 }
