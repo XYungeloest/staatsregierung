@@ -71,16 +71,6 @@ export interface NeuerBezirkProperties {
   quelle: string;
 }
 
-export interface AlterKreisProperties {
-  id: string;
-  name: string;
-  typ: string;
-  bundeslandAlt: string;
-  bezirkAlt: string;
-  neueKreise: string[];
-  quelle: string;
-}
-
 export interface AlterBezirkProperties {
   id: string;
   name: string;

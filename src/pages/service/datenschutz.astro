@@ -2,11 +2,11 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
-import { loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import { loadPageBySlug } from '../../lib/portal/content.ts';
 import { isAnalyticsEnabled } from '../../config/analytics.ts';
 import { siteConfig } from '../../config/site.ts';
 
-const page = loadRuntimeServicePageBySlug('datenschutz');
+const page = await loadPageBySlug('datenschutz');
 const analyticsEnabled = isAnalyticsEnabled();
 ---
 

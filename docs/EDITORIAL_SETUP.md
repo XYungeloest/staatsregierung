@@ -10,7 +10,7 @@ Eine GitHub App für genau dieses Repository anlegen und installieren. Erforderl
 - Pull requests: Read and write
 - Metadata: Read-only
 
-Webhooks sind für v2 nicht erforderlich. Danach die folgenden Worker-Secrets setzen:
+Webhooks sind nicht erforderlich. Danach die folgenden Worker-Secrets setzen:
 
 ```sh
 npx wrangler secret put GITHUB_APP_ID --config wrangler.editorial.jsonc

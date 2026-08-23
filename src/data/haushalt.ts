@@ -70,14 +70,6 @@ export interface BudgetTaskArea {
   amounts: Record<BudgetYear, number>;
 }
 
-export const budgetDataSource = {
-  label: 'Staatshaushalt 2025/2026',
-  summaryFile: 'context/Staatshaushalt 2025_2026 - Zusammenfassung.csv',
-  detailArchive: 'context/Staatshaushalt 2025_2026.zip',
-  status: 'Haushaltsgesetz' as const,
-  note: 'Alle Beträge sind Eurobeträge. Kapitelpositionen werden nur dargestellt, wenn sie im Archiv ausgewiesen sind.',
-};
-
 function parseCsvLine(line: string): string[] {
   const values: string[] = [];
   let current = '';
@@ -270,10 +262,6 @@ export const budgetSpecialInstruments: BudgetSpecialInstrument[] = [
     topicSlug: 'nachbarschaft-und-europa',
   },
 ];
-
-export function getBudgetPlan(planNumber: string): BudgetPlan | undefined {
-  return budgetPlans.find((plan) => plan.number === planNumber.padStart(2, '0'));
-}
 
 export function getBudgetChange(plan: BudgetPlan, field: keyof BudgetAmounts = 'expenses') {
   const previous = plan.amounts['2025'][field];

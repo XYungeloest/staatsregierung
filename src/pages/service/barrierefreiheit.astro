@@ -2,10 +2,10 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import { getContactUrl, getHomeUrl, getServiceUrl } from '../../lib/portal/index.ts';
-import { loadRuntimeServicePageBySlug } from '../../lib/runtime-content/index.ts';
+import { loadPageBySlug } from '../../lib/portal/content.ts';
 import { siteConfig } from '../../config/site.ts';
 
-const page = loadRuntimeServicePageBySlug('barrierefreiheit');
+const page = await loadPageBySlug('barrierefreiheit');
 ---
 
 <BaseLayout title={page?.title ?? 'Barrierefreiheit'} description="Hinweise zur Barrierefreiheit des Regierungsportals.">

@@ -190,6 +190,5 @@ export const lawSiteConfig = {
 
 export const activeSiteConfig = isLawSite ? lawSiteConfig : siteConfig;
 
-export type SiteConfig = typeof siteConfig;
 export type SitePathKey = keyof typeof siteConfig.paths;
 export type LawSitePathKey = keyof typeof lawSiteConfig.paths;

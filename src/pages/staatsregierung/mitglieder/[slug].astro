@@ -8,12 +8,13 @@ import {
   getGovernmentUrl,
   getHomeUrl,
 } from '../../../lib/portal/index.ts';
-import { loadRuntimeGovernmentMembers } from '../../../lib/runtime-content/index.ts';
+import { loadGovernmentMembers } from '../../../lib/portal/content.ts';
 import type { RegierungMitglied } from '../../../lib/portal/index.ts';
 import { siteConfig } from '../../../config/site.ts';
 
-export function getStaticPaths() {
-  return loadRuntimeGovernmentMembers().map((member) => ({
+export async function getStaticPaths() {
+  const members = await loadGovernmentMembers();
+  return members.map((member) => ({
     params: { slug: member.slug },
     props: { member },
   }));

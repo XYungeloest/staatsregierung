@@ -115,7 +115,7 @@ export const studioClientScript = `
       container.append(renderField(field));
     });
     const rows=document.createElement('div'); rows.className='field field--wide'; rows.innerHTML='<h3>Neue Ressortzuweisungen</h3><div id="reshuffle-rows"></div>';
-    const add=document.createElement('button'); add.type='button'; add.textContent='Zuordnung ergänzen'; add.onclick=()=>{state.value.changes.push({ministrySlug:'',personSlug:'',officeSlug:state.options.offices.find(o=>o.canLeadMinistry)?.value||'',title:'',sortOrder:100,sourceRefs:['redaktionsstudio-v2']});renderRows();}; rows.append(add); container.append(rows); renderRows();
+    const add=document.createElement('button'); add.type='button'; add.textContent='Zuordnung ergänzen'; add.onclick=()=>{state.value.changes.push({ministrySlug:'',personSlug:'',officeSlug:state.options.offices.find(o=>o.canLeadMinistry)?.value||'',title:'',sortOrder:100,sourceRefs:['redaktionsstudio']});renderRows();}; rows.append(add); container.append(rows); renderRows();
   }
   function renderRows(){
     const holder=byId('reshuffle-rows'); if(!holder)return; holder.replaceChildren();

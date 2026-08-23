@@ -61,5 +61,3 @@ export const portalCollections = {
     directorySegments: ['normen'],
   },
 } as const satisfies Record<string, PortalCollectionDescriptor>;
-
-export type PortalCollectionKey = keyof typeof portalCollections;

@@ -2,6 +2,7 @@ export {
   getCurrentVersion,
   getNormContentRoot,
   getVersionById,
+  loadAllNormMetas,
   listNormSlugs,
   loadAllNorms,
   loadNorm,

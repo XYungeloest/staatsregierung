@@ -11,42 +11,12 @@ export type {
   TimelineEntryType,
 } from './dashboard-content.ts';
 
-import {
-  formatLegislativeProcedureStage,
-  LEGISLATIVE_STAGES,
-  type LegislativeProcedureStage,
-} from './legislation.ts';
-
-export type LegislativeStage = LegislativeProcedureStage;
-
-export interface LegislativeTrackerItem {
-  id: string;
-  title: string;
-  description: string;
-  ressort: string;
-  currentStage: LegislativeStage;
-  topic?: string;
-  href?: string;
-  documentNumber: string;
-  nextScheduledReading?: {
-    date: string;
-    reading: 'erste-lesung' | 'zweite-lesung';
-  };
-  recommendation?: {
-    documentNumber: string;
-    result: 'annahme' | 'ablehnung';
-  };
-  proposedCommittee?: string;
-}
-
 export interface FaqItem {
   question: string;
   answer: string;
   href?: string;
   hrefLabel?: string;
 }
-
-export const legislativeStages: LegislativeStage[] = [...LEGISLATIVE_STAGES];
 
 export function formatActionPlanStatus(status: ActionPlanStatus): string {
   switch (status) {
@@ -83,14 +53,6 @@ export function formatTimelineEntryType(type: TimelineEntryType): string {
     case 'haushalt':
       return 'Haushaltsereignis';
   }
-}
-
-export function formatLegislativeStage(stage: LegislativeStage): string {
-  return formatLegislativeProcedureStage(stage);
-}
-
-export function getLegislativeStageIndex(stage: LegislativeStage): number {
-  return legislativeStages.indexOf(stage);
 }
 
 export function formatEuroAmount(amount: number): string {

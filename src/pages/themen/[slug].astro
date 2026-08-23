@@ -31,25 +31,24 @@ import {
 } from '../../lib/portal/index.ts';
 import {
   loadEvents,
+  loadMinistries,
   loadPressReleases,
+  loadTopics,
 } from '../../lib/portal/content.ts';
-import {
-  loadRuntimeMinistries,
-  loadRuntimeTopics,
-} from '../../lib/runtime-content/index.ts';
 import { PORTAL_REFERENCE_DATE } from '../../lib/portal/dates.ts';
 import type { Themenseite } from '../../lib/portal/index.ts';
 
-export function getStaticPaths() {
-  return loadRuntimeTopics().map((topic) => ({
+export async function getStaticPaths() {
+  const topics = await loadTopics();
+  return topics.map((topic) => ({
     params: { slug: topic.slug },
     props: { topic },
   }));
 }
 
 const { topic } = Astro.props as { topic: Themenseite };
-const topics = loadRuntimeTopics();
-const ministries = loadRuntimeMinistries();
+const topics = await loadTopics();
+const ministries = await loadMinistries();
 const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
 const leadMinistry = topic ? ministryLookup.get(topic.federfuehrendesRessort) : undefined;
 const coMinistries = (topic?.mitzeichnungsressorts ?? [])

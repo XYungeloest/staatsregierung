@@ -88,6 +88,12 @@ export async function loadNormMeta(slug: string): Promise<NormMeta> {
   return meta;
 }
 
+export async function loadAllNormMetas(): Promise<NormMeta[]> {
+  const slugs = await listNormSlugs();
+  const metas = await Promise.all(slugs.map((slug) => loadNormMeta(slug)));
+  return metas.sort((left, right) => left.title.localeCompare(right.title));
+}
+
 export async function loadNormHistory(slug: string): Promise<NormHistory> {
   const filePath = join(CONTENT_ROOT, slug, 'history.json');
   const json = await readJsonFile(filePath);

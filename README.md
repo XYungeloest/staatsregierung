@@ -5,9 +5,8 @@ Website des fiktiven Staatsrates des Ostdeutschen Freistaates mit Staatsportal, 
 Die öffentliche Website soll sachlich, ruhig und behördennah wirken. Architektur- und Entwicklungsbegriffe gehören nicht in öffentliche Seitentexte; operative Hinweise bleiben in Code, README, AGENTS oder `CONTENT.md`.
 
 Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
-Der aktuelle redaktionelle Stand ist der 22. August 2026. Der frühere Stichtagsimport vom
-19. Juli 2026 bleibt in `CONTENT_UPDATE_2026-07-19.md` historisch dokumentiert; aktuelle offene
-Quellenfragen stehen in `CONTENT_GAPS.md`.
+Der aktuelle redaktionelle Stand ist der 22. August 2026. Aktuelle offene Quellenfragen stehen in
+`CONTENT_GAPS.md`.
 
 ## Projektkern
 
