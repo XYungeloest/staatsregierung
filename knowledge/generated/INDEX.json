@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-22",
-  "editorialAsOf": "2026-08-22",
-  "count": 365,
+  "generatedAt": "2026-08-23",
+  "editorialAsOf": "2026-08-23",
+  "count": 371,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -904,6 +904,23 @@
       ],
       "validFrom": "2026-03-24",
       "validTo": "2026-03-24",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-public-mobility-program-promulgated-2026",
+      "title": "Sofortprogramm für die öffentliche Mobilität verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "transport",
+        "fares",
+        "public-economy",
+        "planning",
+        "promulgation"
+      ],
+      "validFrom": "2026-08-23",
+      "validTo": "2026-08-23",
       "target": "knowledge/timeline.json"
     },
     {
@@ -2524,7 +2541,7 @@
     },
     {
       "id": "project-ovv-ticket",
-      "title": "Ostdeutscher Verkehrsverbund und 29-Euro-Ticket",
+      "title": "Ostdeutscher Verkehrsverbund und 15-Euro-Ost-Ticket",
       "type": "project",
       "aliases": [],
       "tags": [
@@ -4036,6 +4053,22 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-pm-2026-08-23-10",
+      "title": "15 Euro, mehr Takt, mehr Sicherheit: Freistaat startet Sofortprogramm für die öffentliche Mobilität",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "press",
+        "transport",
+        "fares",
+        "social-policy",
+        "public-economy"
+      ],
+      "validFrom": "2026-08-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-pm-50hertz-2025-12-02",
       "title": "Einigung bei 50Hertz erzielt – Ostdeutsches Netz in ostdeutsche Hand",
       "type": "source",
@@ -4445,6 +4478,53 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-stanzo-2026-36",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 36",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "transport",
+        "public-economy",
+        "rail"
+      ],
+      "validFrom": "2026-08-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-37",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 37",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "transport",
+        "fares",
+        "social-policy",
+        "rail"
+      ],
+      "validFrom": "2026-08-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-38",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 38",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "transport",
+        "planning",
+        "regions",
+        "rail"
+      ],
+      "validFrom": "2026-08-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-steelworks-valuation-2026-03-14",
       "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
       "type": "source",
@@ -4671,6 +4751,22 @@
         "projects"
       ],
       "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/current-state.json"
+    },
+    {
+      "id": "state-current-public-mobility-program-2026",
+      "title": "Sofortprogramm für die öffentliche Mobilität",
+      "type": "current-state",
+      "aliases": [],
+      "tags": [
+        "current-state",
+        "transport",
+        "fares",
+        "public-economy",
+        "planning"
+      ],
+      "validFrom": "2026-08-23",
       "validTo": null,
       "target": "knowledge/current-state.json"
     },

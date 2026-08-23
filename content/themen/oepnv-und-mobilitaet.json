@@ -1,15 +1,15 @@
 {
   "slug": "oepnv-und-mobilitaet",
   "title": "ÖPNV & Mobilität",
-  "teaser": "Die Ostdeutsche Eisenbahn ist gesetzlich errichtet, Verkehrsproduktionsmittel wurden vergesellschaftet und die OVV-Ticketanerkennung im Fernverkehr ist vereinbart.",
+  "teaser": "Das 15-Euro-Ost-Ticket, ein sozialer Nulltarif, gemeinwirtschaftliche Betriebsgrundsätze und der Ostdeutschlandtakt bilden den neuen öffentlichen Mobilitätsrahmen.",
   "status": "in-umsetzung",
   "cluster": "infrastruktur-wohnen",
   "priority": 85,
   "featured": true,
-  "updatedAt": "2026-07-21",
+  "updatedAt": "2026-08-23",
   "relatedTopicSlugs": ["oeffentliche-wirtschaft-und-strukturwandel", "kommunen-regionen-und-berlin"],
   "knowledgeProjectRefs": ["project-eisenbahn-verkehr", "project-ovv-ticket", "project-boom-europe"],
-  "hero": "Der Staatsrat setzt einen verlässlichen Mobilitätsrahmen mit öffentlichen Investitionen, landesplanerischer Steuerung, öffentlicher Verkehrsproduktion und stufenweiser Verdichtung des Angebots um.",
+  "hero": "Der Freistaat verbindet bezahlbare Tarife mit öffentlicher Verkehrsproduktion, verbindlicher Anschlusssicherung und einem landesweit abgestimmten Taktfahrplan.",
   "beschlossen": [
     "Mobilität und Infrastruktur wurden als eigenständiger Schwerpunkt der Regierungsarbeit verankert.",
     "Planungs- und Finanzierungsfragen werden ressortübergreifend mit Landesentwicklung und Haushaltssteuerung gekoppelt.",
@@ -21,27 +21,34 @@
     "Landesplanung, Vergabe und Haushaltsgrundlagen bieten bereits einen belastbaren Rahmen für Ausbauprogramme.",
     "Die gesetzlichen Grundlagen für die Ostdeutsche Eisenbahn und die Vergesellschaftung privater Verkehrsproduktionsmittel sind seit 21. Juli 2026 in Kraft.",
     "Die betriebsnotwendigen Verkehrsproduktionsmittel der ODEG wurden kraft Gesetzes zugunsten der Ostdeutschen Eisenbahn in Gemeineigentum überführt. Die ODEG wurde nicht als Unternehmen gekauft.",
-    "Mit DB Fernverkehr wurde eine Entschädigung von 57 Millionen Euro für die Anerkennung von OVV-Fahrausweisen in IC- und ICE-Verbindungen vereinbart. Tarifdetails und Geltungsbeginn sind noch nicht durch einen belastbaren Vertrags- oder Tarifnachweis geklärt."
+    "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 landesweit 15 Euro im Monat; zu viel gezahlte Augustbeträge werden erstattet oder gutgeschrieben.",
+    "Ab 1. September 2026 gelten der soziale Nulltarif und die grundsätzlich kostenfreie Fahrradmitnahme. Die Bekanntmachung regelt außerdem verbindliche Mindeststandards für Anschlusssicherung und Fahrgastinformation.",
+    "Mit DB Fernverkehr ist die Anerkennung von OVV-Fahrausweisen in IC- und ICE-Verbindungen vereinbart. Die konkret freigegebenen Verbindungen und Bedingungen werden gesondert veröffentlicht.",
+    "Die gemeinwirtschaftlichen Betriebsgrundsätze der Ostdeutschen Eisenbahn und die Planungsgrundsätze für Landesnetz Ost und Ostdeutschlandtakt gelten ab 24. August 2026."
   ],
   "naechsteSchritte": [
     "Ostdeutsche Eisenbahn organisatorisch aufbauen und die gesetzlichen Überführungs- und Bindungsregeln praktisch umsetzen.",
     "Das rechtskräftig unterzeichnete Boom-Europe-Abkommen sowie Standort- und Sondervermögensgesetze umsetzen; eine Standorteröffnung ist noch nicht belegt.",
-    "Tarif- und Geltungsbeginn der OVV-Ticketanerkennung belastbar dokumentieren.",
     "Weiterentwicklung des Verkehrsverbundes zu einem Mobilitätskombinat Ost.",
-    "Vorbereitung eines stufenweisen Nulltarifs für junge Menschen, Auszubildende, Studierende, Ältere und Menschen mit geringem Einkommen.",
-    "Ausbau des Ostdeutschlandtakts und barrierefreier Haltepunkte vorbereiten. Die im März vorgeschlagenen Fernverkehrsreaktivierungen gelten erst nach Bestellungs- oder Betriebsnachweis als umgesetzt."
+    "Die konkret für die OVV-Ticketanerkennung freigegebenen IC- und ICE-Verbindungen und Bedingungen gesondert veröffentlichen.",
+    "Landesnetz Ost und Ostdeutschlandtakt stufenweise umsetzen und barrierefreie Haltepunkte ausbauen. Die im März vorgeschlagenen Fernverkehrsreaktivierungen gelten erst nach Bestellungs- oder Betriebsnachweis als umgesetzt."
   ],
   "modules": [
     {
       "type": "facts",
       "id": "verkehrsstand",
       "title": "Belegter Verkehrsstand",
-      "intro": "Vereinbarte Tariföffnung und vorgeschlagene Streckenreaktivierungen sind getrennte Vorhaben.",
+      "intro": "Verkündete Tarife und Planungsgrundsätze sind vom praktischen Ausbau einzelner Verbindungen zu unterscheiden.",
       "items": [
         {
-          "label": "OVV und DB Fernverkehr",
-          "value": "57 Mio. Euro",
-          "note": "Vereinbarte Entschädigung für die Anerkennung ostdeutscher Verbundfahrausweise in IC und ICE."
+          "label": "Ost-Ticket",
+          "value": "15 Euro",
+          "note": "Landesweiter Monatspreis seit 1. August 2026; ab 1. September gilt für Berechtigte der soziale Nulltarif."
+        },
+        {
+          "label": "Landesnetz Ost",
+          "value": "5 bis 24 Uhr",
+          "note": "Planungszeitraum für den täglichen Taktverkehr mit abgestimmten Knoten und Anschlüssen."
         },
         {
           "label": "Vorgeschlagene Reaktivierungen",
@@ -57,6 +64,18 @@
     }
   ],
   "rechtsgrundlagen": [
+    {
+      "label": "Leitlinie gemeinwirtschaftlicher Eisenbahnbetrieb",
+      "normSlug": "bekanntmachung-ode-betriebsgrundsaetze"
+    },
+    {
+      "label": "OVV-Tarif und Anschlusssicherung",
+      "normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung"
+    },
+    {
+      "label": "Landesnetz Ost und Ostdeutschlandtakt",
+      "normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt"
+    },
     {
       "label": "Ostdeutsche-Eisenbahn-Neuordnungsgesetz",
       "normSlug": "ostdeutsche-eisenbahn-neuordnungsgesetz"

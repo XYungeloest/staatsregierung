@@ -7,7 +7,7 @@ import { loadLegislativeProcedures } from '../src/lib/portal/legislation.ts';
 import { PORTAL_REFERENCE_DATE } from '../src/lib/portal/dates.ts';
 import { loadEvents } from '../src/lib/portal/content.ts';
 
-const cutoff = '2026-08-22';
+const cutoff = '2026-08-23';
 
 test('der redaktionelle Stichtag bleibt zentral definiert', () => {
   assert.equal(PORTAL_REFERENCE_DATE, cutoff);

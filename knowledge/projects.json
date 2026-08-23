@@ -245,8 +245,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-07-21",
       "validTo": null,
-      "asOf": "2026-08-11",
-      "summary": "Gesetzespaket zur Neuordnung der Ostdeutschen Eisenbahn und zur Vergesellschaftung privater Verkehrsproduktionsmittel. Die gesetzliche Überführung zielte hauptsächlich auf die ODEG; sie war kein Unternehmenskauf.",
+      "asOf": "2026-08-23",
+      "summary": "Das Gesetzespaket hat die Ostdeutsche Eisenbahn errichtet und betriebsnotwendige Verkehrsproduktionsmittel vergesellschaftet. Seit 24. August 2026 gelten gemeinwirtschaftliche Betriebsgrundsätze sowie die Planungsgrundsätze für Landesnetz Ost und Ostdeutschlandtakt.",
       "sourceRefs": [
         {
           "sourceId": "source-eisenbahn-law",
@@ -256,6 +256,21 @@
         {
           "sourceId": "source-eisenbahn-procedure",
           "locator": "Verfahrensdatensatz",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-stanzo-2026-36",
+          "locator": "gemeinwirtschaftliche Betriebsgrundsätze",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-38",
+          "locator": "Landesnetz Ost und Ostdeutschlandtakt",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-23-10",
+          "locator": "amtliche Einordnung",
           "role": "corroborating"
         }
       ],
@@ -292,28 +307,40 @@
         {
           "normSlug": "verkehrsbindungsgesetz",
           "versionId": "2026-07-21"
+        },
+        {
+          "normSlug": "bekanntmachung-ode-betriebsgrundsaetze",
+          "versionId": "2026-08-24"
+        },
+        {
+          "normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt",
+          "versionId": "2026-08-24"
         }
       ],
       "milestones": [
         {
           "date": "2026-07-21",
           "title": "Gesetzespaket tritt in Kraft und bewirkt die Verkehrsvergesellschaftung"
+        },
+        {
+          "date": "2026-08-23",
+          "title": "Betriebsgrundsätze und Planungsgrundsätze für Landesnetz Ost werden verkündet"
         }
       ],
       "nextSteps": [
-        "Umsetzungsstand der errichteten Träger und Beteiligungsmaßnahmen ergänzen"
+        "Landesnetz Ost und Ostdeutschlandtakt praktisch umsetzen und die vorgesehenen Qualitätsberichte veröffentlichen"
       ],
       "dependencies": [],
       "openQuestionIds": []
     },
     {
       "id": "project-ovv-ticket",
-      "title": "Ostdeutscher Verkehrsverbund und 29-Euro-Ticket",
+      "title": "Ostdeutscher Verkehrsverbund und 15-Euro-Ost-Ticket",
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-11",
-      "summary": "Politischer Mobilitätskomplex aus Verkehrsverbund und sozialem Tarif. Für 57 Millionen Euro ist die Anerkennung ostdeutscher Verbundfahrausweise in IC- und ICE-Verbindungen bestätigt; die sechs im März 2026 vorgeschlagenen Fernverkehrsreaktivierungen sind nicht als bestellt oder in Betrieb belegt.",
+      "asOf": "2026-08-23",
+      "summary": "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 monatlich 15 Euro. Ab 1. September gelten ein sozialer Nulltarif, grundsätzlich kostenfreie Fahrradmitnahme und verbindliche Anschlussstandards. Die konkret für IC und ICE freigegebenen Verbindungen und Bedingungen werden gesondert veröffentlicht.",
       "sourceRefs": [
         {
           "sourceId": "source-action-plan",
@@ -329,6 +356,16 @@
           "sourceId": "source-eag-staatsregierung-ost-2024-2026",
           "locator": "16.07.2026 20:25–20:55; Messages 1527380585633419425, 1527382276093116501, 1527383248517206087, 1527387346192830605 und 1527388238602436661; Attachment 644d03e0-b933-4c15-ac8c-0f6dbebf8c09.png",
           "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-37",
+          "locator": "Tarifbestimmungen und Anschlusssicherung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-23-10",
+          "locator": "amtliche Einordnung",
+          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -350,7 +387,12 @@
       "responsibleInstitutionIds": [
         "inst-sek-mobilitaet-regionen"
       ],
-      "normRefs": [],
+      "normRefs": [
+        {
+          "normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung",
+          "versionId": "2026-08-01"
+        }
+      ],
       "milestones": [
         {
           "date": "2026-03-15",
@@ -359,10 +401,14 @@
         {
           "date": "2026-07-16",
           "title": "Ticketanerkennung mit DB Fernverkehr für 57 Millionen Euro vereinbart"
+        },
+        {
+          "date": "2026-08-23",
+          "title": "15-Euro-Ost-Ticket, sozialer Nulltarif und Anschlussstandards werden verkündet"
         }
       ],
       "nextSteps": [
-        "Tarif- und Geltungsbeginn der Ticketanerkennung mit belastbarem Vertrags- oder Tarifnachweis ergänzen",
+        "Konkret für die Ticketanerkennung freigegebene IC-/ICE-Verbindungen, Bedingungen und den Beginn der Anerkennung veröffentlichen",
         "Reaktivierungen nur nach Bestellungs- oder Betriebsnachweis als umgesetzt führen"
       ],
       "dependencies": [],

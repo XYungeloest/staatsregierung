@@ -55,6 +55,8 @@ const allowedNormMinistries = new Set([
   'Büro des Staatspräsidenten',
   'Gemeingut Wohnen AöR',
   'Landesenergiewerke Ost AöR',
+  'Ostdeutsche Eisenbahn AöR',
+  'Ostdeutscher Verkehrsverbund',
 ]);
 const allowedEnactingBodies = new Set([
   'Sächsischer Landtag',
@@ -69,6 +71,9 @@ const allowedEnactingBodies = new Set([
   'Bundesministerium des Innern und für Heimat und Ostdeutscher Staatsrat',
   'Verwaltungsrat der Gemeingut Wohnen AöR',
   'Verwaltungsrat der Landesenergiewerke Ost',
+  'Verwaltungsrat der Ostdeutschen Eisenbahn',
+  'Verbandsversammlung des Ostdeutschen Verkehrsverbundes',
+  'Staatssekretariat für Mobilität und regionale Entwicklung',
 ]);
 const unverifiedGeneratedAbbreviations = new Set([
   'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',

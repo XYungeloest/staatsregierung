@@ -29,7 +29,7 @@ run('node', ['scripts/audit-consolidation.mjs', '--check'], 'Patch-Rezepte und K
 
 if (write) {
   run('node', ['scripts/import-normen.mjs', '--source-dir', 'Gesetze', '--write', '--update-existing', ...selected], 'ausgewählte Quellen inkrementell importieren');
-  run('node', ['scripts/consolidate-norms.mjs', '--write'], 'geprüfte Folgefassungen erzeugen');
+  run('node', ['scripts/consolidate-norms.mjs', '--all', '--write'], 'geprüfte Folgefassungen erzeugen');
 }
 
 run('npm', ['run', 'content:check'], 'Content- und Metadatenprüfung');
