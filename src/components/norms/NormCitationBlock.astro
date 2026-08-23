@@ -6,6 +6,7 @@ import {
   toDisplayText,
 } from '../../lib/norms/presentation.ts';
 import { classifyNormVersion, EDITORIAL_REFERENCE_DATE } from '../../lib/norms/versions.ts';
+import { getNormVersionIdentity } from '../../lib/norms/identity.ts';
 import type { NormRecord, NormVersion } from '../../lib/norms/schema.ts';
 import type { NormPublicationReference } from '../../lib/norms/publications.ts';
 
@@ -18,6 +19,7 @@ interface Props {
 }
 
 const { norm, version, fullCitation, publicationReference, immutableLink = false } = Astro.props;
+const identity = getNormVersionIdentity(norm, version);
 const temporalKind = classifyNormVersion(norm, version);
 const statusLabel = temporalKind === 'current'
   ? `${formatNormStatus(norm.meta.status)} am ${formatDate(EDITORIAL_REFERENCE_DATE)}`
@@ -29,13 +31,8 @@ const statusLabel = temporalKind === 'current'
 const historyEntry = [...norm.history.entries]
   .filter((entry) => entry.affectingVersionId === version.versionId)
   .sort((left, right) => right.date.localeCompare(left.date))[0];
-const effectiveFrom = temporalKind === 'unknown-effective'
-  ? undefined
-  : temporalKind === 'current' && norm.meta.effectiveDate
-    ? norm.meta.effectiveDate
-    : version.validFrom;
-const expiryDate = norm.meta.expiryDate;
-const validTo = expiryDate ? undefined : version.validTo;
+const effectiveFrom = temporalKind === 'unknown-effective' ? undefined : version.validFrom;
+const validTo = version.validTo;
 const sourceReference = version.sourceReferences?.[0] ?? norm.meta.sourceReferences?.[0];
 const immutableVersion = immutableLink || temporalKind !== 'current';
 ---
@@ -43,7 +40,7 @@ const immutableVersion = immutableLink || temporalKind !== 'current';
 <section class="norm-citation-status" aria-labelledby={`citation-status-${norm.meta.slug}-${version.versionId}`} data-visual-section="norm-citation-status">
   <div class="norm-citation-status__heading">
     <p class="eyebrow">Zitieren und Rechtsstand</p>
-    <h2 id={`citation-status-${norm.meta.slug}-${version.versionId}`}>{toDisplayText(norm.meta.shortTitle || norm.meta.title)}</h2>
+    <h2 id={`citation-status-${norm.meta.slug}-${version.versionId}`}>{toDisplayText(identity.shortTitle || identity.title)}</h2>
   </div>
   <dl class="norm-citation-status__facts">
     <div class="norm-citation-status__citation">
@@ -66,12 +63,7 @@ const immutableVersion = immutableLink || temporalKind !== 'current';
         <dd><time datetime={effectiveFrom}>{formatDate(effectiveFrom)}</time></dd>
       </div>
     ) : null}
-    {expiryDate ? (
-      <div>
-        <dt>Außer Kraft seit</dt>
-        <dd><time datetime={expiryDate}>{formatDate(expiryDate)}</time></dd>
-      </div>
-    ) : validTo ? (
+    {validTo ? (
       <div>
         <dt>Fassung gültig bis</dt>
         <dd><time datetime={validTo}>{formatDate(validTo)}</time></dd>

@@ -37,6 +37,8 @@ import {
   getApplicableVersion,
   validateVersionIntervals,
 } from '../src/lib/norms/versions.ts';
+import { getNormVersionIdentity } from '../src/lib/norms/identity.ts';
+import { getGermanIndexLetter } from '../src/lib/norms/routes.ts';
 
 function version(versionId: string, validFrom: string, validTo: string | null): NormVersion {
   return {
@@ -91,6 +93,27 @@ test('Fassungen werden zum redaktionellen Stichtag zentral eingeordnet', () => {
   assert.equal(classifyNormVersion(record([current], 'pending-effective'), current), 'unknown-effective');
   const historicalWithoutEnd = version('dokumentiert', '2025-01-01', null);
   assert.equal(classifyNormVersion(record([historicalWithoutEnd], 'historical'), historicalWithoutEnd), 'historical');
+});
+
+test('deutsche Umlaute werden im A–Z-Index einheitlich gruppiert', () => {
+  assert.equal(getGermanIndexLetter('Änderungsgesetz'), 'A');
+  assert.equal(getGermanIndexLetter('ÖPNV-Gesetz'), 'O');
+  assert.equal(getGermanIndexLetter('Überleitungsverordnung'), 'U');
+  assert.equal(getGermanIndexLetter('123. Bekanntmachung'), '#');
+});
+
+test('historische und geltende Fassungen behalten ihre jeweilige öffentliche Bezeichnung', async () => {
+  const norms = await loadAllNorms();
+  const municipality = norms.find((norm) => norm.meta.slug === 'saechsische-gemeindeordnung');
+  assert.ok(municipality);
+  const historical = municipality.versions.find((version) => version.versionId === '2023-11-01');
+  const current = municipality.versions.find((version) => version.versionId === '2026-08-01');
+  assert.ok(historical);
+  assert.ok(current);
+  assert.equal(getNormVersionIdentity(municipality, historical).title, 'Sächsische Gemeindeordnung');
+  assert.equal(getNormVersionIdentity(municipality, current).title, 'Gemeindeordnung für den Ostdeutschen Freistaat');
+  assert.equal(historical.validTo, '2023-12-30');
+  assert.equal(current.validFrom, '2026-08-01');
 });
 
 test('überlappende oder widersprüchliche Gültigkeitsintervalle werden abgewiesen', () => {
@@ -432,6 +455,17 @@ test('Suche verknüpft Facetten mit UND und mehrere Werte derselben Facette mit 
   assert.equal(runNormSearch(documents, searchState({ origins: ['inherited-amended'] })).length, 0);
   assert.equal(runNormSearch(documents, searchState()).some((entry) => entry.documentEntry.isAmendment), false);
   assert.equal(runNormSearch(documents, searchState({ includeAmendments: true })).length, 3);
+});
+
+test('Standardsortierung stellt die jüngste Verkündung vor alphabetische Titel', () => {
+  const olderAlphabetical = searchDocument({
+    id: 'alt:1', slug: 'alt', title: 'Allgemeinverfügung', publicationDate: '2026-01-01', validFrom: '2026-01-01',
+  });
+  const newer = searchDocument({
+    id: 'neu:1', slug: 'neu', title: 'Zukunftsgesetz', publicationDate: '2026-08-20', validFrom: '2026-08-20',
+  });
+  const results = runNormSearch([olderAlphabetical, newer], searchState({ sort: 'publication' }));
+  assert.deepEqual(results.map((entry) => entry.documentEntry.slug), ['neu', 'alt']);
 });
 
 test('Änderungsvorschriften werden auch bei historisch grobem Normtyp erkannt', () => {

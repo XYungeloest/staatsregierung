@@ -43,7 +43,10 @@ const searchPayload = await buildSearchIndexPayload();
           <PortalIcon name="search" />
           <input type="search" name="q" autocomplete="off" list="norm-search-suggestions" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" data-search-query />
           <datalist id="norm-search-suggestions">
-            {[...new Set(searchPayload.documents.flatMap((entry) => [entry.title, entry.shortTitle, entry.abbr, ...entry.keywords]).filter(Boolean))]
+            {[...new Set(searchPayload.documents
+              .filter((entry) => entry.versionKind === 'current')
+              .flatMap((entry) => [entry.title, entry.shortTitle, entry.abbr, ...entry.keywords])
+              .filter(Boolean))]
               .sort((left, right) => left.localeCompare(right, 'de'))
               .map((suggestion) => <option value={suggestion} />)}
           </datalist>
@@ -90,6 +93,7 @@ const searchPayload = await buildSearchIndexPayload();
             <label class="search-field">
               <span>Sortierung</span>
               <select name="sort" data-search-filter="sort">
+                <option value="publication">Neueste Verkündung</option>
                 <option value="relevance">Relevanz</option>
                 <option value="title">Titel A–Z</option>
                 <option value="rechtsstand">Neuester Rechtsstand</option>

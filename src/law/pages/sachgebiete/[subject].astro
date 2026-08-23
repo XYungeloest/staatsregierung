@@ -1,6 +1,7 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatNormType,
   getLawPortalUrl,
@@ -9,6 +10,8 @@ import {
   getSubjectAreaGroups,
   getSubjectsUrl,
   getSubjectGroups,
+  getApplicableVersion,
+  getNormVersionIdentity,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
 import { loadAllNorms } from '../../../lib/norms/content.ts';
@@ -52,18 +55,17 @@ const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Rechtsbereich</p>
-    <h1>{toDisplayText(group.name)}</h1>
-    <p class="lead">
-      Diesem Sachgebiet sind aktuell {group.norms.length} Normen zugeordnet.
-      {area ? ` Es gehört zum Bereich ${area.name}.` : ''}
-    </p>
-    <nav class="link-list link-list--inline" aria-label="Sachgebietsaktionen">
-      <a href={`${getSearchUrl()}?subject=${encodeURIComponent(group.name)}`}>In diesem Sachgebiet suchen</a>
-      <a href={getSubjectsUrl()}>Alle Sachgebiete</a>
-    </nav>
-  </section>
+  <SectionHero
+    eyebrow="Sachgebiet"
+    title={toDisplayText(group.name)}
+    lead={`Diesem Sachgebiet sind aktuell ${group.norms.length} Normen zugeordnet.${area ? ` Es gehört zum Bereich ${area.name}.` : ''}`}
+    variant="law"
+    facts={[{ label: 'Vorschriften', value: String(group.norms.length) }]}
+    actions={[
+      { label: 'Sachgebiet durchsuchen', href: `${getSearchUrl()}?subject=${encodeURIComponent(group.name)}`, primary: true },
+      { label: 'Alle Sachgebiete', href: getSubjectsUrl() },
+    ]}
+  />
 
   <section class="section">
     <div class="meta-grid">
@@ -86,12 +88,15 @@ const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
       <p>Aktuelle und gespeicherte Normen mit Ressortbezug.</p>
     </div>
     <ul class="record-list">
-      {group.norms.map((norm) => (
+      {group.norms.map((norm) => {
+        const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+        return (
         <li class="record-list__item">
-          <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
-          <span>{[norm.meta.abbr, toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry)].filter(Boolean).join(' · ')}</span>
+          <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a>
+          <span>{[identity.abbr, toDisplayText(norm.meta.responsibleMinistry)].filter(Boolean).join(' · ')}</span>
         </li>
-      ))}
+        );
+      })}
     </ul>
   </section>
 </LawLayout>

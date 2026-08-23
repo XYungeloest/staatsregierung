@@ -196,6 +196,11 @@ export interface NormVersion {
   validFrom: string;
   validTo: string | null;
   isCurrent: boolean;
+  /** Öffentliche Bezeichnung dieser konkreten Fassung; fällt auf meta.json zurück. */
+  title?: string;
+  shortTitle?: string;
+  abbr?: string;
+  summary?: string;
   citation: string;
   changeNote: string;
   sourceReferences?: NormSourceReference[];
@@ -825,6 +830,10 @@ export function parseNormVersion(value: unknown, path = 'version.json'): NormVer
         ? null
         : expectIsoDate(object.validTo, `${path}.validTo`),
     isCurrent: expectBoolean(object.isCurrent, `${path}.isCurrent`),
+    title: expectOptionalString(object.title, `${path}.title`),
+    shortTitle: expectOptionalString(object.shortTitle, `${path}.shortTitle`),
+    abbr: expectOptionalString(object.abbr, `${path}.abbr`),
+    summary: expectOptionalString(object.summary, `${path}.summary`),
     citation: expectString(object.citation, `${path}.citation`),
     changeNote: expectString(object.changeNote, `${path}.changeNote`),
     sourceReferences: object.sourceReferences === undefined

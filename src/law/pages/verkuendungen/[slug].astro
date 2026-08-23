@@ -1,6 +1,7 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatDate,
   formatPublicationEntryType,
@@ -15,6 +16,8 @@ import {
   toDisplayText,
   classifyNormVersion,
   buildNormRelations,
+  getApplicableVersion,
+  getNormVersionIdentity,
 } from '../../../lib/norms/index.ts';
 import type { NormRelation } from '../../../lib/norms/relations.ts';
 import { loadAllNorms } from '../../../lib/norms/content.ts';
@@ -76,25 +79,24 @@ function getResultingVersionUrl(relation: NormRelation): string | undefined {
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Verkündung</p>
-    <h1>{toDisplayText(publication.title)}</h1>
-    <p class="lead">
-      {getPublicationLabel(publication)} vom <time datetime={publication.date}>{formatDate(publication.date)}</time> mit den verzeichneten
-      Veröffentlichungen und Verknüpfungen zu Normfassungen.
-    </p>
-    {publication.place || publication.publisher ? (
-      <p class="detail-line">
-        {publication.place ? `Ausgabeort: ${toDisplayText(publication.place)}.` : ''}
-        {publication.publisher ? ` Herausgegeben von ${toDisplayText(publication.publisher)}.` : ''}
-      </p>
-    ) : null}
-    <nav class="link-list link-list--inline" aria-label="Verkündungsnavigation">
-      <a href={getPublicationsUrl()}>Alle Verkündungen</a>
-      <a href={getReferencesUrl()}>Fundstellennachweise</a>
-      <button class="text-link-button" type="button" data-print-page>Seite drucken</button>
-    </nav>
-  </section>
+  <SectionHero
+    eyebrow="Verkündung"
+    title={toDisplayText(publication.title)}
+    lead={`${getPublicationLabel(publication)} vom ${formatDate(publication.date)} mit den verzeichneten Veröffentlichungen und Verknüpfungen zu Normfassungen.`}
+    variant="law"
+    facts={[
+      { label: 'Ausgabedatum', value: formatDate(publication.date) },
+      { label: 'Einträge', value: String(publication.entries.length) },
+      ...(publication.place ? [{ label: 'Ausgabeort', value: toDisplayText(publication.place) }] : []),
+    ]}
+    actions={[
+      { label: 'Alle Verkündungen', href: getPublicationsUrl(), primary: true },
+      { label: 'Fundstellen', href: getReferencesUrl() },
+    ]}
+  >
+    {publication.publisher ? <p>Herausgegeben von {toDisplayText(publication.publisher)}.</p> : null}
+    <button class="text-link-button" type="button" data-print-page>Seite drucken</button>
+  </SectionHero>
 
   <section class="section">
     <div class="section-header">
@@ -140,10 +142,11 @@ function getResultingVersionUrl(relation: NormRelation): string | undefined {
                         <ul class="publication-relation-list">
                           {legalRelations.map((relation) => {
                             const resultingUrl = getResultingVersionUrl(relation);
+                            const relationIdentity = getNormVersionIdentity(relation.norm, getApplicableVersion(relation.norm));
                             return (
                               <li>
                                 {relation.kind === 'repeals' ? 'Hebt auf: ' : 'Ändert: '}
-                                <a class="inline-link" href={getNormUrl(relation.norm.meta.slug)}>{toDisplayText(relation.norm.meta.shortTitle || relation.norm.meta.title)}</a>
+                                <a class="inline-link" href={getNormUrl(relation.norm.meta.slug)}>{toDisplayText(relationIdentity.shortTitle)}</a>
                                 {resultingUrl ? <> · <a class="inline-link" href={resultingUrl}>entstandene Fassung</a></> : null}
                               </li>
                             );

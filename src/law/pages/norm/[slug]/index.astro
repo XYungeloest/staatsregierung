@@ -37,6 +37,7 @@ import {
   buildNormRecordLookup,
   buildNormRelations,
   getNormOriginInfo,
+  getNormVersionIdentity,
   getRelatedNormRecommendations,
   loadAllVerkuendungen,
 } from '../../../../lib/norms/index.ts';
@@ -83,17 +84,18 @@ const currentReference = publicationReference
     }`
   : toDisplayText(currentVersion.citation);
 const outline = buildNormOutline(currentVersion.body);
-const normTitle = toDisplayText(norm.meta.title);
-const normLabel = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
+const identity = getNormVersionIdentity(norm, currentVersion);
+const normTitle = toDisplayText(identity.title);
+const normLabel = identity.abbr ? `${normTitle} (${toDisplayText(identity.abbr)})` : normTitle;
 const normStatusLabel = formatNormStatus(norm.meta.status);
 const statusDate = norm.meta.effectiveDate ?? currentVersion.validFrom;
-const responsibility = toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry);
+const responsibility = toDisplayText(norm.meta.responsibleMinistry);
 const currentDescription = `${normLabel} im Rechtsbereich des Freistaates Ostdeutschland. Status: ${normStatusLabel}.${responsibility ? ` Zuständiger Geschäftsbereich: ${responsibility}.` : ''}`;
 const structuredData = buildLegislationJsonLd({
   name: normTitle,
-  alternateName: toDisplayText(norm.meta.shortTitle),
+  alternateName: toDisplayText(identity.shortTitle),
   identifier: toDisplayText(fullCitation),
-  description: toDisplayText(norm.meta.summary),
+  description: toDisplayText(identity.summary),
   url: getNormUrl(norm.meta.slug),
   legislationType: formatNormType(norm.meta.type),
   legislationDate: norm.meta.documentDate,
@@ -115,13 +117,13 @@ const relatedPressReleases = pressReleases
   structuredData={structuredData}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+    { label: toDisplayText(identity.shortTitle || identity.title), href: getNormUrl(norm.meta.slug) },
   ]}
 >
   <Breadcrumbs
     items={[
       { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title) },
+      { label: toDisplayText(identity.shortTitle || identity.title) },
     ]}
   />
 
@@ -178,7 +180,6 @@ const relatedPressReleases = pressReleases
           <NormMetaCard
             norm={norm}
             version={currentVersion}
-            fullCitation={fullCitation}
             publicationReference={publicationReference}
           />
           <NormHistorySummary norm={norm} />
@@ -191,14 +192,17 @@ const relatedPressReleases = pressReleases
             <>
               <h3 id="normverwandt">Verwandte Vorschriften</h3>
               <ul class="norm-sidebar__link-list">
-                {relatedNorms.map(({ norm: entry, relation }) => (
-                  <li>
-                    <a class="inline-link" href={getNormUrl(entry.meta.slug)}>
-                      {toDisplayText(entry.meta.shortTitle || entry.meta.title)}
-                    </a>
-                    <span>{relation}</span>
-                  </li>
-                ))}
+                {relatedNorms.map(({ norm: entry, relation }) => {
+                  const relatedIdentity = getNormVersionIdentity(entry, getCurrentVersion(entry));
+                  return (
+                    <li>
+                      <a class="inline-link" href={getNormUrl(entry.meta.slug)}>
+                        {toDisplayText(relatedIdentity.shortTitle || relatedIdentity.title)}
+                      </a>
+                      <span>{relation}</span>
+                    </li>
+                  );
+                })}
               </ul>
             </>
           ) : null}

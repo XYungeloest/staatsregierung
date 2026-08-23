@@ -15,6 +15,7 @@ import {
   getNormUrl,
   getNormVersionUrl,
   getNormOriginInfo,
+  getNormVersionIdentity,
 } from '../../../../lib/norms/index.ts';
 import { getCurrentVersion, getVersionById, loadAllNorms } from '../../../../lib/norms/content.ts';
 
@@ -22,7 +23,10 @@ export async function getStaticPaths() {
   const norms = await loadAllNorms();
   const normLookup = buildNormRecordLookup(norms);
   const relatedNormLabels = Object.fromEntries(
-    norms.map((entry) => [entry.meta.slug, toDisplayText(entry.meta.title)]),
+    norms.map((entry) => {
+      const identity = getNormVersionIdentity(entry, getCurrentVersion(entry));
+      return [entry.meta.slug, toDisplayText(identity.shortTitle || identity.title)];
+    }),
   );
 
   return norms.map((norm) => ({
@@ -54,8 +58,9 @@ const initialVersionUrl = initialVersion
     ? getNormUrl(norm.meta.slug)
     : getNormVersionUrl(norm.meta.slug, initialVersion.versionId)
   : undefined;
-const normTitle = toDisplayText(norm.meta.title);
-const normSeoTitle = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
+const currentIdentity = getNormVersionIdentity(norm, currentVersion);
+const normTitle = toDisplayText(currentIdentity.title);
+const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;
 const historyDescription = `Historienseite zu ${normTitle} mit Stammfassung, gespeicherten Fassungen und Änderungshinweisen im Rechtsbereich des Freistaates Ostdeutschland.`;
 const historyTypeLabels: Record<string, string> = {
   initial: 'Stammfassung',
@@ -75,21 +80,21 @@ const successorSlug = norm.meta.successorSlug;
   description={historyDescription}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+    { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
     { label: 'Historie' },
   ]}
 >
   <Breadcrumbs
     items={[
       { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+      { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
       { label: 'Historie' },
     ]}
   />
 
   <SectionHero
     eyebrow="Normenhistorie"
-    title={toDisplayText(norm.meta.title)}
+    title={normTitle}
     titleSize="long"
     lead="Stammfassung, Änderungsbezüge, Fundstellen und alle gespeicherten Fassungen."
     variant="law"
@@ -130,6 +135,7 @@ const successorSlug = norm.meta.successorSlug;
                 <a class="inline-link" href={getNormVersionUrl(norm.meta.slug, version.versionId)}><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></a>
               )}
             </strong>
+            <span>{toDisplayText(getNormVersionIdentity(norm, version).title)}</span>
             <span>
               {classifyNormVersion(norm, version) === 'current'
                 ? 'Zum redaktionellen Stichtag geltende Fassung'

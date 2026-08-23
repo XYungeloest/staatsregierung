@@ -4,19 +4,22 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   formatNormType,
+  getGermanIndexLetter,
   getIndexGroups,
   getLawPortalUrl,
   getNormUrl,
+  getNormVersionIdentity,
   toDisplayText,
 } from '../../../lib/norms/index.ts';
-import { loadAllNorms } from '../../../lib/norms/content.ts';
+import { getCurrentVersion, loadAllNorms } from '../../../lib/norms/content.ts';
 
 const norms = await loadAllNorms();
 const groups = getIndexGroups(norms);
 const keywordEntries = new Map<string, typeof norms>();
 
 for (const norm of norms) {
-  for (const rawKeyword of [norm.meta.abbr, norm.meta.shortTitle, ...norm.meta.keywords].filter(Boolean)) {
+  const identity = getNormVersionIdentity(norm, getCurrentVersion(norm));
+  for (const rawKeyword of [identity.abbr, identity.shortTitle, ...norm.meta.keywords].filter(Boolean)) {
     const keyword = toDisplayText(rawKeyword).trim();
     if (!keyword || keyword.length < 2) {
       continue;
@@ -33,10 +36,13 @@ const keywordGroups = [...keywordEntries.entries()]
   .sort(([left], [right]) => left.localeCompare(right, 'de'))
   .reduce<Array<{ letter: string; entries: Array<{ keyword: string; norms: typeof norms }> }>>(
     (result, [keyword, keywordNorms]) => {
-      const letter = keyword.charAt(0).toUpperCase();
-      const key = /[A-ZÄÖÜ]/u.test(letter) ? letter : '#';
+      const key = getGermanIndexLetter(keyword);
       const group = result.find((entry) => entry.letter === key);
-      const entry = { keyword, norms: keywordNorms.sort((left, right) => left.meta.title.localeCompare(right.meta.title, 'de')) };
+      const entry = { keyword, norms: keywordNorms.sort((left, right) => {
+        const leftTitle = getNormVersionIdentity(left, getCurrentVersion(left)).title;
+        const rightTitle = getNormVersionIdentity(right, getCurrentVersion(right)).title;
+        return leftTitle.localeCompare(rightTitle, 'de');
+      }) };
 
       if (group) {
         group.entries.push(entry);
@@ -77,7 +83,7 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
   <section class="section" aria-label="Buchstabenauswahl">
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
       {availableLetters.map((letter) => (
-        <a href={`#${encodeURIComponent(letter)}`}>{letter}</a>
+        <a href={`#${encodeURIComponent(letter)}`} data-index-letter={letter}>{letter}</a>
       ))}
     </nav>
   </section>
@@ -88,12 +94,15 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
         <h2>{group.letter}</h2>
       </div>
       <ul class="record-list">
-        {group.norms.map((norm) => (
+        {group.norms.map((norm) => {
+          const identity = getNormVersionIdentity(norm, getCurrentVersion(norm));
+          return (
           <li class="record-list__item">
-            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.title)}</a>
-            <span>{[norm.meta.abbr, formatNormType(norm.meta.type)].filter(Boolean).join(' · ')}</span>
+            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a>
+            <span>{[identity.abbr, formatNormType(norm.meta.type)].filter(Boolean).join(' · ')}</span>
           </li>
-        ))}
+          );
+        })}
       </ul>
     </section>
   ))}
@@ -110,7 +119,7 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
     <p class="search-feedback" aria-live="polite" data-index-filter-status></p>
     <div class="content-grid content-grid--wide">
       {keywordGroups.map((group) => (
-        <section class="panel" id={groups.some((entry) => entry.letter === group.letter) ? undefined : group.letter}>
+        <section class="panel" id={groups.some((entry) => entry.letter === group.letter) ? undefined : group.letter} data-index-group={group.letter}>
           <h3>{group.letter}</h3>
           <ul class="record-list">
             {group.entries.map((entry) => (
@@ -121,7 +130,7 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
                     <Fragment>
                       {index > 0 ? ', ' : ''}
                       <a class="inline-link" href={getNormUrl(norm.meta.slug)}>
-                        {toDisplayText(norm.meta.shortTitle || norm.meta.title)}
+                        {toDisplayText(getNormVersionIdentity(norm, getCurrentVersion(norm)).shortTitle)}
                       </a>
                     </Fragment>
                   ))}
@@ -137,12 +146,25 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
     const input = document.querySelector<HTMLInputElement>('[data-index-filter]');
     const status = document.querySelector<HTMLElement>('[data-index-filter-status]');
     const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-index-entry]'));
+    const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-index-group]'));
+    const letters = Array.from(document.querySelectorAll<HTMLElement>('[data-index-letter]'));
     input?.addEventListener('input', () => {
       const query = input.value.trim().toLocaleLowerCase('de-DE');
       let visible = 0;
       entries.forEach((entry) => {
         entry.hidden = Boolean(query) && !(entry.dataset.indexEntry ?? '').includes(query);
         if (!entry.hidden) visible += 1;
+      });
+      const visibleLetters = new Set<string>();
+      groups.forEach((group) => {
+        const hasVisibleEntry = Array.from(group.querySelectorAll<HTMLElement>('[data-index-entry]')).some((entry) => !entry.hidden);
+        group.hidden = !hasVisibleEntry;
+        if (hasVisibleEntry && group.dataset.indexGroup) visibleLetters.add(group.dataset.indexGroup);
+      });
+      letters.forEach((letter) => {
+        const value = letter.dataset.indexLetter ?? '';
+        const belongsToNormGroup = document.getElementById(value)?.matches('.section');
+        letter.hidden = !belongsToNormGroup && !visibleLetters.has(value);
       });
       if (status) status.textContent = query ? `${visible} Stichwörter passen zum Filter.` : '';
     });

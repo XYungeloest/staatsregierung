@@ -18,6 +18,7 @@ import {
   type NormPublicationReference,
 } from './publications.ts';
 import { getNormUrl, getNormVersionUrl, getPublicationUrl } from './routes.ts';
+import { getNormVersionIdentity } from './identity.ts';
 import type { NormBodyBlock, NormRecord, NormVersion } from './schema.ts';
 import {
   classifyNormVersion,
@@ -231,6 +232,7 @@ function buildSearchDocument(
   recordsBySlug: NormRecordLookup,
   publicationReference?: NormPublicationReference,
 ): SearchIndexDocument {
+  const identity = getNormVersionIdentity(record, version);
   const { textParts, contexts, hitUnits } = collectBodyContent(version.body);
   const agreementText = record.meta.agreementDetails
     ? [
@@ -268,17 +270,17 @@ function buildSearchDocument(
     isAmendment: isAmendmentRecord(record),
     origin: origin.kind,
     originLabel: formatNormOriginKind(origin.kind),
-    title: toDisplayText(record.meta.title),
-    shortTitle: toDisplayText(record.meta.shortTitle),
-    abbr: toDisplayText(record.meta.abbr),
+    title: toDisplayText(identity.title),
+    shortTitle: toDisplayText(identity.shortTitle),
+    abbr: toDisplayText(identity.abbr),
     type: record.meta.type,
     typeLabel: formatNormType(record.meta.type),
-    ministry: toDisplayText(record.meta.responsibleMinistry ?? record.meta.ministry ?? record.meta.enactingBody),
+    ministry: toDisplayText(record.meta.responsibleMinistry),
     subjects: record.meta.subjects.map((subject) => toDisplayText(subject)),
     keywords: record.meta.keywords.map((keyword) => toDisplayText(keyword)),
     status: record.meta.status,
     statusLabel: formatNormStatus(record.meta.status),
-    summary: toDisplayText(record.meta.summary),
+    summary: toDisplayText(identity.summary),
     initialCitation: toDisplayText(record.meta.initialCitation),
     citation: buildNormFullCitation(record, version, recordsBySlug),
     publication: publicationReference
@@ -311,7 +313,7 @@ function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
 
   for (const record of records) {
     types.set(record.meta.type, formatNormType(record.meta.type));
-    const responsibility = toDisplayText(record.meta.responsibleMinistry ?? record.meta.ministry);
+    const responsibility = toDisplayText(record.meta.responsibleMinistry);
     if (responsibility) ministries.add(responsibility);
     statuses.set(record.meta.status, formatNormStatus(record.meta.status));
 

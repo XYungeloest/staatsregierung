@@ -17,6 +17,7 @@ import {
   getNormCompareSelectionUrl,
   getNormCompareUrl,
   getNormOriginInfo,
+  getNormVersionIdentity,
   getNormUrl,
   toDisplayText,
 } from '../../../../lib/norms/index.ts';
@@ -52,8 +53,9 @@ export async function getStaticPaths() {
 }
 
 const { norm, versions, defaultFrom, defaultTo, defaultDiff, defaultSummary, origin } = Astro.props;
-const normTitle = toDisplayText(norm.meta.title);
-const normSeoTitle = norm.meta.abbr ? `${normTitle} (${toDisplayText(norm.meta.abbr)})` : normTitle;
+const currentIdentity = getNormVersionIdentity(norm, defaultTo);
+const normTitle = toDisplayText(currentIdentity.title);
+const normSeoTitle = currentIdentity.abbr ? `${normTitle} (${toDisplayText(currentIdentity.abbr)})` : normTitle;
 const baselineVersion = getBaselineVersion(norm);
 const defaultPairKey = `${defaultFrom.versionId}::${defaultTo.versionId}`;
 
@@ -68,14 +70,14 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
   description={`Struktureller Vergleich gespeicherter Fassungen von ${normTitle}.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+    { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
     { label: 'Vergleich' },
   ]}
 >
   <Breadcrumbs
     items={[
       { label: 'OstRecht', href: getLawPortalUrl() },
-      { label: toDisplayText(norm.meta.shortTitle || norm.meta.title), href: getNormUrl(norm.meta.slug) },
+      { label: toDisplayText(currentIdentity.shortTitle || currentIdentity.title), href: getNormUrl(norm.meta.slug) },
       { label: 'Vergleich' },
     ]}
   />
@@ -91,49 +93,53 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
   <NormVersionNavigation norm={norm} currentPage="compare" />
 
   <section class="section norm-compare" data-version-compare>
-    <div class="section-header">
-      <h2>Vergleichsweg wählen</h2>
-      <p>Schnelleinstiege und freie Auswahl führen zu reproduzierbaren Vergleichsadressen.</p>
+    <div class="norm-compare__intro">
+      <p class="eyebrow">Vergleich konfigurieren</p>
+      <h2>Zwei Fassungen gegenüberstellen</h2>
+      <p>Wählen Sie Ausgangs- und Vergleichsfassung. Die Adresse des Vergleichs bleibt dauerhaft aufrufbar.</p>
     </div>
-    <nav class="norm-compare__quick-links" aria-label="Schnelleinstiege zum Fassungsvergleich">
-      <a class="button-link button-link--secondary" href={getNormCompareSelectionUrl(norm.meta.slug, defaultFrom.versionId, defaultTo.versionId)}>
-        Änderungen zur vorherigen Fassung
-      </a>
-      {baselineVersion && baselineVersion.versionId !== defaultTo.versionId ? (
-        <a class="button-link button-link--secondary" href={getNormCompareSelectionUrl(norm.meta.slug, baselineVersion.versionId, defaultTo.versionId)}>
-          Mit Ausgangsrecht vergleichen
+    <div class="norm-compare__controls">
+      <nav class="norm-compare__quick-links" aria-label="Schnelleinstiege zum Fassungsvergleich">
+        <span>Schnellauswahl</span>
+        <a href={getNormCompareSelectionUrl(norm.meta.slug, defaultFrom.versionId, defaultTo.versionId)}>
+          Vorherige mit geltender Fassung
         </a>
-      ) : null}
-    </nav>
+        {baselineVersion && baselineVersion.versionId !== defaultTo.versionId ? (
+          <a href={getNormCompareSelectionUrl(norm.meta.slug, baselineVersion.versionId, defaultTo.versionId)}>
+            Ausgangsrecht mit geltender Fassung
+          </a>
+        ) : null}
+      </nav>
 
-    <h3>Fassungen frei vergleichen</h3>
-    <form class="norm-compare__form" action={getNormCompareUrl(norm.meta.slug)} method="get" data-compare-form>
-      <label class="search-field">
-        <span>Frühere oder Ausgangsfassung</span>
-        <select name="von" data-compare-from>
-          {versions.map((version) => (
-            <option
-              value={version.versionId}
-              selected={version.versionId === defaultFrom.versionId}
-              data-diff-prefix={getNormCompareDataUrl(norm.meta.slug, version.versionId, '__TO__')}
-            >
-              {formatDate(version.validFrom)} · {toDisplayText(version.changeNote)}
-            </option>
-          ))}
-        </select>
-      </label>
-      <label class="search-field">
-        <span>Vergleichsfassung</span>
-        <select name="bis" data-compare-to>
-          {versions.map((version) => (
-            <option value={version.versionId} selected={version.versionId === defaultTo.versionId}>
-              {formatDate(version.validFrom)} · {toDisplayText(version.changeNote)}
-            </option>
-          ))}
-        </select>
-      </label>
-      <button class="button-link" type="submit">Vergleichen</button>
-    </form>
+      <form class="norm-compare__form" action={getNormCompareUrl(norm.meta.slug)} method="get" data-compare-form>
+        <label class="norm-compare__field norm-compare__field--from">
+          <span><small>Ausgangsfassung</small>Früherer Rechtsstand</span>
+          <select name="von" data-compare-from>
+            {versions.map((version) => (
+              <option
+                value={version.versionId}
+                selected={version.versionId === defaultFrom.versionId}
+                data-diff-prefix={getNormCompareDataUrl(norm.meta.slug, version.versionId, '__TO__')}
+              >
+                {formatDate(version.validFrom)} · {toDisplayText(getNormVersionIdentity(norm, version).shortTitle)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <span class="norm-compare__direction" aria-hidden="true">→</span>
+        <label class="norm-compare__field norm-compare__field--to">
+          <span><small>Vergleichsfassung</small>Späterer Rechtsstand</span>
+          <select name="bis" data-compare-to>
+            {versions.map((version) => (
+              <option value={version.versionId} selected={version.versionId === defaultTo.versionId}>
+                {formatDate(version.validFrom)} · {toDisplayText(getNormVersionIdentity(norm, version).shortTitle)}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button class="button-link norm-compare__submit" type="submit">Vergleich anzeigen</button>
+      </form>
+    </div>
 
     <p class="status-line" data-compare-feedback aria-live="polite"></p>
 
@@ -145,14 +151,16 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
     >
       <header class="norm-diff__header">
         <div>
+          <p class="eyebrow">Auswertung</p>
           <h3>
             <time datetime={defaultFrom.validFrom}>{formatDate(defaultFrom.validFrom)}</time>
-            {' '}mit{' '}
+            <span aria-hidden="true">→</span>
+            <span class="visually-hidden"> verglichen mit </span>
             <time datetime={defaultTo.validFrom}>{formatDate(defaultTo.validFrom)}</time>
           </h3>
-          <p class="detail-line">Strukturelle Einheiten der beiden gespeicherten Fassungen.</p>
+          <p>Änderungen zwischen den beiden gespeicherten Rechtsständen.</p>
         </div>
-        <p>
+        <p class="norm-diff__legend" aria-label="Legende">
           <span class="diff-key diff-key--added">Neu</span>
           <span class="diff-key diff-key--removed">Entfallen</span>
           <span class="diff-key diff-key--changed">Geändert</span>
@@ -167,12 +175,15 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
       <ol class="norm-diff__list">
         {defaultDiff.filter((unit) => unit.kind !== 'unchanged').map((unit) => (
           <li class:list={['norm-diff__unit', `norm-diff__unit--${unit.kind}`]}>
-            <h4>{[unit.label, unit.afterTitle || unit.beforeTitle || unit.contextTitle].filter(Boolean).join(' ') || 'Textänderung'}</h4>
+            <header class="norm-diff__unit-header">
+              <span>{unit.kind === 'added' ? 'Neu' : unit.kind === 'removed' ? 'Entfallen' : 'Geändert'}</span>
+              <h4>{[unit.label, unit.afterTitle || unit.beforeTitle || unit.contextTitle].filter(Boolean).join(' ') || 'Textänderung'}</h4>
+            </header>
             <p class="visually-hidden">
               {unit.kind === 'added' ? 'Neue Einheit' : unit.kind === 'removed' ? 'Entfallene Einheit' : 'Geänderte Einheit'}
             </p>
-            {unit.kind === 'added' ? <p><ins>{unit.afterText}</ins></p> : null}
-            {unit.kind === 'removed' ? <p><del>{unit.beforeText}</del></p> : null}
+            {unit.kind === 'added' ? <p class="norm-diff__single"><ins>{unit.afterText}</ins></p> : null}
+            {unit.kind === 'removed' ? <p class="norm-diff__single"><del>{unit.beforeText}</del></p> : null}
             {unit.kind === 'changed' ? (
               <>
                 {unit.beforeTitle !== unit.afterTitle ? (
@@ -183,18 +194,18 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
                 ) : null}
                 {unit.beforeText !== unit.afterText ? (
                   <div class="norm-diff__change norm-diff__change--columns">
-                    <p>
-                      <strong>Bisher</strong>
+                    <div class="norm-diff__side norm-diff__side--before">
+                      <strong>Ausgangsfassung</strong>
                       <span class="norm-diff__text-side">
                         {unit.textDiff ? renderDiffText(unit, 'before').map((chunk) => chunk.kind === 'delete' ? <del>{chunk.text}</del> : chunk.text) : <del>{unit.beforeText}</del>}
                       </span>
-                    </p>
-                    <p>
-                      <strong>Neu</strong>
+                    </div>
+                    <div class="norm-diff__side norm-diff__side--after">
+                      <strong>Vergleichsfassung</strong>
                       <span class="norm-diff__text-side">
                         {unit.textDiff ? renderDiffText(unit, 'after').map((chunk) => chunk.kind === 'insert' ? <ins>{chunk.text}</ins> : chunk.text) : <ins>{unit.afterText}</ins>}
                       </span>
-                    </p>
+                    </div>
                   </div>
                 ) : null}
               </>
@@ -261,17 +272,18 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
       const heading = escapeHtml([unit.label, unit.afterTitle || unit.beforeTitle || unit.contextTitle].filter(Boolean).join(' ') || 'Textänderung');
       const label = unit.kind === 'added' ? 'Neue Einheit' : unit.kind === 'removed' ? 'Entfallene Einheit' : 'Geänderte Einheit';
       let body = '';
-      if (unit.kind === 'added') body = `<p><ins>${escapeHtml(unit.afterText)}</ins></p>`;
-      if (unit.kind === 'removed') body = `<p><del>${escapeHtml(unit.beforeText)}</del></p>`;
+      if (unit.kind === 'added') body = `<p class="norm-diff__single"><ins>${escapeHtml(unit.afterText)}</ins></p>`;
+      if (unit.kind === 'removed') body = `<p class="norm-diff__single"><del>${escapeHtml(unit.beforeText)}</del></p>`;
       if (unit.kind === 'changed') {
         if (unit.beforeTitle !== unit.afterTitle) {
           body += `<div class="norm-diff__change norm-diff__title-change"><p><strong>Bisherige Überschrift</strong><del>${escapeHtml(unit.beforeTitle)}</del></p><p><strong>Neue Überschrift</strong><ins>${escapeHtml(unit.afterTitle)}</ins></p></div>`;
         }
         if (unit.beforeText !== unit.afterText) {
-          body += `<div class="norm-diff__change norm-diff__change--columns"><p><strong>Bisher</strong><span class="norm-diff__text-side">${renderWordSide(unit, 'before')}</span></p><p><strong>Neu</strong><span class="norm-diff__text-side">${renderWordSide(unit, 'after')}</span></p></div>`;
+          body += `<div class="norm-diff__change norm-diff__change--columns"><div class="norm-diff__side norm-diff__side--before"><strong>Ausgangsfassung</strong><span class="norm-diff__text-side">${renderWordSide(unit, 'before')}</span></div><div class="norm-diff__side norm-diff__side--after"><strong>Vergleichsfassung</strong><span class="norm-diff__text-side">${renderWordSide(unit, 'after')}</span></div></div>`;
         }
       }
-      return `<li class="norm-diff__unit norm-diff__unit--${unit.kind}"><h4>${heading}</h4><p class="visually-hidden">${label}</p>${body}</li>`;
+      const status = unit.kind === 'added' ? 'Neu' : unit.kind === 'removed' ? 'Entfallen' : 'Geändert';
+      return `<li class="norm-diff__unit norm-diff__unit--${unit.kind}"><header class="norm-diff__unit-header"><span>${status}</span><h4>${heading}</h4></header><p class="visually-hidden">${label}</p>${body}</li>`;
     };
     const renderPayload = (payload: DiffPayload) => {
       if (!output) return;
@@ -279,7 +291,7 @@ function renderDiffText(unit: NormDiffUnit, side: 'before' | 'after') {
       output.dataset.comparePair = `${payload.fromVersion.versionId}::${payload.toVersion.versionId}`;
       output.setAttribute('aria-label', `Vergleich ${formatClientDate(payload.fromVersion.validFrom)} mit ${formatClientDate(payload.toVersion.validFrom)}`);
       output.innerHTML = `
-        <header class="norm-diff__header"><div><h3><time datetime="${escapeHtml(payload.fromVersion.validFrom)}">${escapeHtml(formatClientDate(payload.fromVersion.validFrom))}</time> mit <time datetime="${escapeHtml(payload.toVersion.validFrom)}">${escapeHtml(formatClientDate(payload.toVersion.validFrom))}</time></h3><p class="detail-line">Strukturelle Einheiten der beiden gespeicherten Fassungen.</p></div><p><span class="diff-key diff-key--added">Neu</span><span class="diff-key diff-key--removed">Entfallen</span><span class="diff-key diff-key--changed">Geändert</span></p></header>
+        <header class="norm-diff__header"><div><p class="eyebrow">Auswertung</p><h3><time datetime="${escapeHtml(payload.fromVersion.validFrom)}">${escapeHtml(formatClientDate(payload.fromVersion.validFrom))}</time><span aria-hidden="true">→</span><span class="visually-hidden"> verglichen mit </span><time datetime="${escapeHtml(payload.toVersion.validFrom)}">${escapeHtml(formatClientDate(payload.toVersion.validFrom))}</time></h3><p>Änderungen zwischen den beiden gespeicherten Rechtsständen.</p></div><p class="norm-diff__legend" aria-label="Legende"><span class="diff-key diff-key--added">Neu</span><span class="diff-key diff-key--removed">Entfallen</span><span class="diff-key diff-key--changed">Geändert</span></p></header>
         <dl class="norm-diff__summary" aria-label="Zusammenfassung des Fassungsvergleichs"><div><dt>Geändert</dt><dd>${payload.summary.changed}</dd></div><div><dt>Neu</dt><dd>${payload.summary.added}</dd></div><div><dt>Entfallen</dt><dd>${payload.summary.removed}</dd></div><div><dt>Unverändert</dt><dd>${payload.summary.unchanged}</dd></div></dl>
         <ol class="norm-diff__list">${changedUnits.map(renderUnit).join('')}</ol>
         ${changedUnits.length === 0 ? '<p>Zwischen diesen Fassungen wurden keine strukturellen Textänderungen erkannt.</p>' : ''}`;

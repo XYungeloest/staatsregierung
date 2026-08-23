@@ -19,7 +19,11 @@ import {
   getSearchUrl,
   getSubjectAreaGroups,
   getSubjectsUrl,
+  getSubjectSlug,
+  getApplicableVersion,
+  getNormVersionIdentity,
   loadAllVerkuendungen,
+  EDITORIAL_REFERENCE_DATE,
   toDisplayText,
 } from '../../lib/norms/index.ts';
 import { loadAllNorms } from '../../lib/norms/content.ts';
@@ -29,10 +33,16 @@ const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
 const subjectAreas = getSubjectAreaGroups(norms).slice(0, 6);
 const latestChanges = norms
   .flatMap((norm) => norm.history.entries
-    .filter((entry) => entry.type === 'amendment' || entry.type === 'repeal')
+    .filter((entry) => (entry.type === 'amendment' || entry.type === 'repeal') && entry.date <= EDITORIAL_REFERENCE_DATE)
     .map((entry) => ({ norm, entry })))
   .sort((left, right) => right.entry.date.localeCompare(left.entry.date))
   .slice(0, 5);
+const futureChanges = norms
+  .flatMap((norm) => norm.history.entries
+    .filter((entry) => (entry.type === 'amendment' || entry.type === 'repeal') && entry.date > EDITORIAL_REFERENCE_DATE)
+    .map((entry) => ({ norm, entry })))
+  .sort((left, right) => left.entry.date.localeCompare(right.entry.date))
+  .slice(0, 3);
 const latestPublications = [...publications]
   .sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'))
   .slice(0, 4);
@@ -101,18 +111,41 @@ const quickAccess = [
         <a href={getLawDevelopmentOverviewUrl()}>Alle anzeigen</a>
       </header>
       <ol class="law-dashboard-list">
-        {latestChanges.map(({ norm, entry }) => (
+        {latestChanges.map(({ norm, entry }) => {
+          const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+          return (
           <li>
             <time datetime={entry.date}>{formatDate(entry.date)}</time>
             <span class="law-type-label">{formatNormType(norm.meta.type)}</span>
             <div>
-              <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(norm.meta.shortTitle || norm.meta.title)}</a></h3>
+              <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h3>
               <p>{toDisplayText(entry.title)}</p>
               <a class="law-row-link" href={getNormHistoryUrl(norm.meta.slug)}>Änderungsverlauf</a>
             </div>
           </li>
-        ))}
+          );
+        })}
       </ol>
+      {futureChanges.length > 0 ? (
+        <div class="law-dashboard-card__future">
+          <h3>Künftige Änderungen</h3>
+          <ol class="law-dashboard-list">
+            {futureChanges.map(({ norm, entry }) => {
+              const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+              return (
+              <li>
+                <time datetime={entry.date}>{formatDate(entry.date)}</time>
+                <span class="law-type-label">tritt künftig in Kraft</span>
+                <div>
+                  <h4><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h4>
+                  <p>{toDisplayText(entry.title)}</p>
+                </div>
+              </li>
+              );
+            })}
+          </ol>
+        </div>
+      ) : null}
     </section>
 
     <section class="law-dashboard-card law-dashboard-card--publications">
@@ -142,7 +175,7 @@ const quickAccess = [
         </header>
         <ul>
           {subjectAreas.map((area) => (
-            <li><a href={getSubjectsUrl()}>{area.name}<span>{area.normCount}</span></a></li>
+            <li><a href={`${getSubjectsUrl()}#subject-area-${getSubjectSlug(area.name)}`}>{area.name}<span>{area.normCount}</span></a></li>
           ))}
         </ul>
         <a class="law-card-footer-link" href={getSubjectsUrl()}>Alle Sachgebiete <PortalIcon name="arrow" /></a>

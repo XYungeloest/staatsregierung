@@ -17,14 +17,12 @@ import type { NormPublicationReference } from '../../lib/norms/publications.ts';
 interface Props {
   norm: NormRecord;
   version: NormVersion;
-  fullCitation: string;
-  historical?: boolean;
   publicationReference?: NormPublicationReference;
 }
 
-const { norm, version, fullCitation, historical = false, publicationReference } = Astro.props;
-const effectiveFrom = norm.meta.effectiveDate ?? version.validFrom;
-const effectiveUntil = norm.meta.expiryDate ?? version.validTo;
+const { norm, version, publicationReference } = Astro.props;
+const effectiveFrom = version.validFrom;
+const effectiveUntil = version.validTo;
 const hasDistinctInitialCitation = norm.meta.initialCitation.trim() !== version.citation.trim();
 const temporalKind = classifyNormVersion(norm, version);
 const temporalStatus = temporalKind === 'current'
@@ -54,10 +52,10 @@ const temporalStatus = temporalKind === 'current'
           <dd>{toDisplayText(norm.meta.enactingBody)}</dd>
         </div>
       ) : null}
-      {norm.meta.responsibleMinistry || norm.meta.ministry ? (
+      {norm.meta.responsibleMinistry ? (
         <div>
           <dt>Zuständiger Geschäftsbereich</dt>
-          <dd>{toDisplayText(norm.meta.responsibleMinistry ?? norm.meta.ministry)}</dd>
+          <dd>{toDisplayText(norm.meta.responsibleMinistry)}</dd>
         </div>
       ) : null}
     </dl>
@@ -152,10 +150,6 @@ const temporalStatus = temporalKind === 'current'
   <section class="norm-meta-panel__group" aria-labelledby="norm-verkuendung">
     <h3 id="norm-verkuendung">Zitierweise und Verkündung</h3>
     <dl class="meta-list">
-      <div>
-        <dt>{historical ? 'Vollzitat dieser Fassung' : 'Vollzitat'}</dt>
-        <dd>{toDisplayText(fullCitation)}</dd>
-      </div>
       {hasDistinctInitialCitation ? (
         <div>
           <dt>Stammfundstelle</dt>

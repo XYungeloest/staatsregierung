@@ -3,7 +3,7 @@ import type { VersionTemporalKind } from './versions.ts';
 
 export type SearchScope = 'all' | 'title' | 'metadata' | 'body';
 export type VersionScope = VersionTemporalKind | 'all';
-export type SortKey = 'relevance' | 'title' | 'rechtsstand';
+export type SortKey = 'publication' | 'relevance' | 'title' | 'rechtsstand';
 
 export interface NormSearchState {
   q: string;
@@ -169,6 +169,13 @@ export function compareNormSearchResults(
   right: ScoredSearchResult,
   sort: SortKey,
 ): number {
+  if (sort === 'publication') {
+    const leftDate = left.documentEntry.publicationDate ?? left.documentEntry.validFrom;
+    const rightDate = right.documentEntry.publicationDate ?? right.documentEntry.validFrom;
+    return rightDate.localeCompare(leftDate)
+      || left.documentEntry.title.localeCompare(right.documentEntry.title, 'de')
+      || right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
+  }
   if (sort === 'title') {
     return left.documentEntry.title.localeCompare(right.documentEntry.title, 'de')
       || right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);

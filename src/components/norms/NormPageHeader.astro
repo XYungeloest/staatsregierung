@@ -5,6 +5,7 @@ import {
   getNormCompareUrl,
   getNormHistoryUrl,
   getNormUrl,
+  getNormVersionIdentity,
   toDisplayText,
   type NormRecord,
   type NormVersion,
@@ -22,15 +23,16 @@ interface Props {
 }
 
 const { norm, version, eyebrow, status, reference, referenceUrl, publicationPdf, historical = false } = Astro.props;
+const identity = getNormVersionIdentity(norm, version);
 ---
 
 <header class="section-hero section-hero--law norm-page-header">
   <div class="norm-page-header__main">
     <p class="eyebrow">{eyebrow}</p>
     <p class="norm-page-header__status"><span aria-hidden="true"></span>{status}</p>
-    <h1 class="section-hero__title--long">{toDisplayText(norm.meta.title)}</h1>
-    {norm.meta.abbr ? <p class="norm-page-header__abbr">{toDisplayText(norm.meta.abbr)}</p> : null}
-    <p class="norm-page-header__summary">{toDisplayText(norm.meta.summary)}</p>
+    <h1 class="section-hero__title--long">{toDisplayText(identity.title)}</h1>
+    {identity.abbr ? <p class="norm-page-header__abbr">{toDisplayText(identity.abbr)}</p> : null}
+    <p class="norm-page-header__summary">{toDisplayText(identity.summary)}</p>
     <p class="norm-page-header__reference">
       <strong>Fundstelle:</strong>{' '}
       {referenceUrl ? <a href={referenceUrl}>{reference}</a> : reference}

@@ -29,6 +29,7 @@ export {
   getImprintUrl,
   getIndexUrl,
   getIndexGroups,
+  getGermanIndexLetter,
   getLawConstitutionUrl,
   getLawDevelopmentOverviewUrl,
   getLawDevelopmentUrl,
@@ -99,6 +100,10 @@ export {
   buildNormRecordLookup,
   type NormRecordLookup,
 } from './citation.ts';
+export {
+  getNormVersionIdentity,
+  type NormVersionIdentity,
+} from './identity.ts';
 export {
   EDITORIAL_REFERENCE_DATE,
   VERSION_TEMPORAL_KINDS,

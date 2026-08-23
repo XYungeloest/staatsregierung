@@ -1,6 +1,7 @@
 ---
 import LawLayout from '../../../layouts/LawLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
 import {
   getFundingUrl,
   getHelpUrl,
@@ -28,14 +29,12 @@ import {
     ]}
   />
 
-  <section class="section page-header">
-    <p class="eyebrow">Rechtsbereich</p>
-    <h1>Hilfe</h1>
-    <p class="lead">
-      Hinweise zur Recherche im Rechtsbereich, zu aktuellen und historischen Fassungen sowie zur
-      Einordnung nach Sachgebieten.
-    </p>
-  </section>
+  <SectionHero
+    eyebrow="OstRecht"
+    title="Hilfe"
+    lead="Hinweise zur Recherche im Rechtsportal, zu aktuellen und historischen Fassungen sowie zur Einordnung nach Sachgebieten."
+    variant="law"
+  />
 
   <div class="content-grid">
     <div class="content-stack">

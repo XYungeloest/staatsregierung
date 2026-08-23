@@ -170,7 +170,7 @@ nicht pauschal auf eingeführte Stammnormen übertragen werden. Auch im verknüp
 `Förderrichtlinie vom 6. März 2026 (StAnzO. 2026 Nr. 4)`.
 
 Normmetadaten trennen das erlassende Organ (`enactingBody`) vom fachlich zuständigen Geschäftsbereich
-(`responsibleMinistry`). Das ältere Feld `ministry` bleibt nur für vorhandene Bestandsdaten kompatibel.
+(`responsibleMinistry`). Das frühere Sammelfeld `ministry` ist in Normmetadaten nicht mehr zulässig.
 `abbr` ist optional und darf ausschließlich aus einer Primärquelle übernommen werden. Redaktionelle
 Kurztitel werden über `shortTitleSource: "editorial"` kenntlich gemacht.
 
@@ -773,7 +773,7 @@ Pflichtfelder:
 - `summary`
 - `status`
 
-`abbr`, `ministry`, `enactingBody` und `responsibleMinistry` sind optional. Eine Abkürzung darf nur
+`abbr`, `enactingBody` und `responsibleMinistry` sind optional. Eine Abkürzung darf nur
 bei belastbarer Quelle gepflegt werden. Neue Normen trennen das erlassende Organ von der fachlichen
 Zuständigkeit. `predecessorSlug` und `successorSlug` können zusätzlich gesetzt werden, wenn die
 Beziehung auf einen eindeutig geprüften Normdatensatz verweist; nur dann wird sie als Normlink
@@ -815,7 +815,8 @@ Format:
   "shortTitle": "Beispielgesetz",
   "abbr": "BspG",
   "type": "gesetz",
-  "ministry": "Volkskammer des Freistaates Ostdeutschland",
+  "enactingBody": "Volkskammer des Freistaates Ostdeutschland",
+  "responsibleMinistry": "Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation",
   "subjects": ["Landesrecht"],
   "keywords": ["Beispiel"],
   "initialCitation": "Gesetz vom 17. April 2026 (OGVBl. 2026 Nr. 20 S. 2)",
@@ -887,6 +888,13 @@ Pflichtfelder:
 - `changeNote`
 - `body`
 
+Optionale fassungsspezifische Identitätsfelder:
+
+- `title`
+- `shortTitle`
+- `abbr`
+- `summary`
+
 Regeln:
 
 - `isCurrent` ist ein rückwärtskompatibles Bestandsfeld. Öffentliche Statusangaben und Filter
@@ -904,6 +912,12 @@ Regeln:
 - Bei `pending-effective` wird die Fassung unabhängig vom Bestandsfeld als „Inkrafttreten nicht
   belegt“ behandelt.
 - `versionId` ist innerhalb einer Norm eindeutig.
+- Ändern sich Titel, Kurztitel, Abkürzung oder Kurzbeschreibung, werden die neuen Werte in der
+  betroffenen Fassung gespeichert. Historische Fassungen behalten ihre damalige Bezeichnung;
+  `meta.json` dient nur als Rückfallwert.
+- Das öffentliche Vollzitat wird ausschließlich zentral mit `buildNormFullCitation` für die
+  konkret angezeigte Fassung erzeugt. Stammfundstelle, einzelne Verkündung und Vollzitat bleiben
+  getrennte Angaben.
 
 ### Normlinks, Suche und Druck
 
@@ -923,6 +937,8 @@ Regeln:
 - `origin` unterstützt `ostdeutsch-original`, `inherited-unchanged`, `inherited-amended` und
   `origin-unresolved` und verwendet dieselbe zentrale Einordnung wie die Normseiten.
 - Ein Stern am Wortende ist ein Präfix-Platzhalter; die normale Teilwortsuche bleibt bestehen.
+- Ohne ausdrücklichen `sort`-Parameter werden Treffer nach dem maßgeblichen Verkündungsdatum
+  absteigend sortiert. `relevance`, `title` und `rechtsstand` bleiben wählbare Sortierungen.
 - Druckansichten sind Portalansichten. Ein PDF- oder Anlagenlink wird nur aus einem belegten
   Quellenfeld erzeugt.
 - Mehrere `subjects` bleiben zulässig. `primarySubject` kann optional eine primäre Zuordnung
@@ -1263,18 +1279,22 @@ Die Anweisung „`temp-neu` einpflegen“ genügt künftig als Kurzform für den
    Seitenzahlen, Tabellen, Anlagen und Signaturen der strukturtragenden HTML-Quelle prüfen.
 3. Geprüfte amtliche Quellen nach `Gesetze/` übernehmen; öffentlich verlinkte PDFs zusätzlich unter
    `public/assets/recht/` ablegen.
-4. Für jede neue Ausgabe eine stabile Importkonfiguration ergänzen, zunächst auditieren und erst
-   danach gezielt mit `--write --file` importieren. Bereits vorhandene Normen werden nur mit
-   `--update-existing` geändert.
+4. Für jede neue Ausgabe eine stabile Importkonfiguration ergänzen und den kanonischen Ablauf aus
+   [`docs/NORM_WORKFLOW.md`](docs/NORM_WORKFLOW.md) verwenden: zunächst mit
+   `npm run norms:workflow -- --file "…html" --quick` auditieren, danach mit
+   `npm run norms:workflow -- --file "…html" --write` gezielt importieren, konsolidieren und
+   vollständig prüfen. Der Workflow aktualisiert vorhandene Normen inkrementell; `--quick` ist
+   nur eine Zwischenprüfung und kein Abschlusslauf.
 5. Pressemitteilungen aus dem Eingang in das Content-Schema übertragen, redaktionell kürzen oder
    gliedern und mit Themen, Normen sowie verwandten Meldungen verbinden.
 6. Bilder nur bei inhaltlicher Übereinstimmung und ohne sichtbare Beschriftungsfehler veröffentlichen;
    andernfalls im Eingang belassen und den Konflikt melden.
 7. Betroffene Themen-, Timeline-, Dashboard- und andere Gegenwartsangaben sowie den zentralen
    redaktionellen Stichtag gemeinsam fortschreiben.
-8. `npm run content:check`, `npm run check`, beide Builds, Linkprüfung, Browser-Smoke-Tests,
-   Accessibility-Tests und die betroffenen visuellen Tests ausführen. Screenshot-Baselines erst
-   nach Sichtprüfung aktualisieren.
+8. Für Eingänge ohne Normquelle die entsprechenden Content-, Wissenshub-, Build-, Link-, SEO-,
+   Browser-, Accessibility- und visuellen Prüfungen separat ausführen. Bei Normquellen übernimmt
+   der vollständige `norms:workflow`-Lauf diese Prüfungen. Screenshot-Baselines erst nach
+   Sichtprüfung aktualisieren.
 
 Dieser Ablauf verändert oder leert `temp-neu/` nicht. Das Verzeichnis bleibt der wiederverwendbare
 Benutzereingang und ist nicht Teil der öffentlichen Auslieferung.
