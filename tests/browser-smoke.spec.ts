@@ -524,8 +524,8 @@ test('Fassungsvergleich zeigt jeden geänderten Paragraphen einmal mit markierte
   await page.goto('http://127.0.0.1:4322/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01');
   const changedProvision = page.locator('.norm-diff__provision--changed').first();
   await expect(changedProvision).toContainText('§ 3');
-  await expect(changedProvision.locator('.norm-diff__side--before del')).toBeVisible();
-  await expect(changedProvision.locator('.norm-diff__side--after ins')).toBeVisible();
+  await expect(changedProvision.locator('.norm-diff__side--before del').first()).toBeVisible();
+  await expect(changedProvision.locator('.norm-diff__side--after ins').first()).toBeVisible();
   await expect(page.locator('.norm-diff__context')).toHaveCount(0);
 });
 
@@ -533,7 +533,8 @@ test('Fassungsvergleich markiert beim Archivgesetz nur den ergänzten Wortlaut',
   await page.goto(lawUrl('/norm/archivgesetz/vergleich/'));
   const changedProvision = page.locator('.norm-diff__provision--changed');
   await expect(changedProvision).toHaveCount(1);
-  await expect(changedProvision).toContainText('§ 10 Schutzfristen');
+  await expect(changedProvision.locator('.norm-diff-structure__provision-heading .norm-label').first()).toContainText('§ 10');
+  await expect(changedProvision.locator('.norm-diff-structure__provision-heading .norm-title').first()).toContainText('Schutzfristen');
   await expect(changedProvision.locator('.norm-diff__side--before del')).toHaveCount(0);
   const insertion = changedProvision.locator('.norm-diff__side--after ins');
   await expect(insertion).toHaveCount(1);
