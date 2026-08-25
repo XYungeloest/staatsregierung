@@ -6,21 +6,6 @@
   "inheritanceDate": "2023-12-01",
   "facts": [
     {
-      "label": "Belegte Einzelpositionen",
-      "value": "666",
-      "note": "Mehrfachnennungen bei mehreren Herkunftsländern oder Beteiligungsstufen möglich"
-    },
-    {
-      "label": "Unmittelbare Positionen",
-      "value": "217",
-      "note": "Kapital-, Träger-, Mitgliedschafts- und Vermögenspositionen"
-    },
-    {
-      "label": "Mittelbar oder tiefer",
-      "value": "449",
-      "note": "Tochter-, Enkel-, Fonds- und Gemeinschaftspositionen"
-    },
-    {
       "label": "Neu seit dem Stichtag",
       "value": "9 Träger + 2 Sondervermögen",
       "note": "Durch ostdeutsches Recht errichtet"
@@ -28,7 +13,7 @@
   ],
   "introduction": [
     "Mit der Bildung des Freistaates gingen die konkreten gesellschaftsrechtlichen, trägerrechtlichen, gewährträgerrechtlichen, mitgliedschaftlichen und vermögensrechtlichen Positionen der sechs Vorgängerländer grundsätzlich auf den Freistaat über. Kommunale Beteiligungen blieben kommunal.",
-    "Die Zahl 666 bezeichnet belegte Einzelpositionen. Derselbe Rechtsträger kann mehrfach erscheinen, wenn mehrere Vorgängerländer beteiligt waren oder mehrere Beteiligungsstufen bestanden. Kapitalanteile, öffentlich-rechtliche Trägerschaft, Mitgliedschaften, Landesbetriebe und Sondervermögen werden getrennt behandelt.",
+    "Die Inventur bezeichnet belegte Einzelpositionen. Derselbe Rechtsträger kann mehrfach erscheinen, wenn mehrere Vorgängerländer beteiligt waren oder mehrere Beteiligungsstufen bestanden. Kapitalanteile, öffentlich-rechtliche Trägerschaft, Mitgliedschaften, Landesbetriebe und Sondervermögen werden getrennt behandelt.",
     "Reale Veränderungen der früheren Länder nach dem 1. Dezember 2023 gehören nicht automatisch zum heutigen Bestand. Berücksichtigt werden ostdeutsche Rechts- und Vollzugsakte sowie Vorgänge, die bereits am Stichtag verbindlich festgelegt waren."
   ],
   "sections": [
@@ -39,37 +24,30 @@
       "items": [
         {
           "title": "Berlin",
-          "label": "63 unmittelbar · 249 mittelbar",
           "text": "Dazu gehören sechs Wohnungsunternehmen, Berlinovo, BIM, BVG, BSR, Berliner Wasserbetriebe, IBB-Strukturen, Vivantes, Messe, Ver- und Entsorgung, Kultur, Wissenschaft sowie die Beteiligungen ihrer Tochtergesellschaften."
         },
         {
           "title": "Brandenburg",
-          "label": "23 unmittelbar · 23 mittelbar",
           "text": "Erfasst sind unter anderem ILB und ihre Töchter, Lotto- und Spielbankstrukturen, Wirtschaftsförderung, FBB, VBB, MEAB, SBB sowie eine Liquidations- und eine Genossenschaftsposition."
         },
         {
           "title": "Sachsen",
-          "label": "31 unmittelbar · 57 mittelbar",
           "text": "Der Bestand umfasst SAB und Beteiligungsfonds, Mitteldeutsche Flughafen AG, EEX, Leipziger Messe, Binnenhäfen, Wirtschaftsförderung, Kultur-, Glücksspiel- und weitere Landesgesellschaften."
         },
         {
           "title": "Sachsen-Anhalt",
-          "label": "40 unmittelbar · 40 mittelbar",
           "text": "Erfasst sind Investitionsbank und IBG-Strukturen, NORD/LB, NASA, Salus, Landgesellschaft, Universitätsklinika, Talsperrenbetrieb, Lotto, Anstalten und gemeinsame Länderpositionen."
         },
         {
           "title": "Thüringen",
-          "label": "25 unmittelbar · 10 mittelbar",
           "text": "Dazu gehören Thüringer Aufbaubank, Helaba, Fernwasserversorgung, LEG, Flughafen Erfurt, ThüringenForst, Staatslotterie und die bereits zur Auflösung bestimmte IBA Thüringen."
         },
         {
           "title": "Mecklenburg-Vorpommern",
-          "label": "35 unmittelbar · 36 mittelbar",
           "text": "Der Bestand umfasst DVZ, VMV, Landgesellschaft, Hafenunternehmen, Lotto, Landesforst, zwei Universitätsmedizinen mit Töchtern, Studierendenwerke und Landesbetriebe."
         },
         {
           "title": "MDR und rbb",
-          "label": "34 Beteiligungspositionen",
           "text": "Die Rundfunkanstalten waren keine gewöhnlichen Landesunternehmen. Ihre unmittelbaren und mittelbaren Beteiligungen wurden gesondert erfasst und gingen 2026 auf den Ostdeutschen Fernsehfunk über."
         }
       ]
@@ -81,77 +59,77 @@
       "items": [
         {
           "title": "Flughafen Berlin Brandenburg GmbH",
-          "label": "74 %",
+          "dataKey": "shared-flughafen-berlin-brandenburg-gmbh",
           "text": "Berlin und Brandenburg hielten jeweils 37 Prozent. Der Bund hält die verbleibenden 26 Prozent."
         },
         {
           "title": "Mitteldeutsche Flughafen AG",
-          "label": "95,83 %",
+          "dataKey": "shared-mitteldeutsche-flughafen-ag",
           "text": "77,29 Prozent aus Sachsen und 18,54 Prozent aus Sachsen-Anhalt vereinigen sich zu einer beherrschenden Position."
         },
         {
           "title": "MEAB",
-          "label": "100 %",
+          "dataKey": "shared-meab-markische-entsorgungsanlagen-betriebsgesellschaft-mbh",
           "text": "Die früheren hälftigen Beteiligungen Berlins und Brandenburgs vereinigen sich vollständig beim Freistaat."
         },
         {
           "title": "VBB",
-          "label": "Rund 66,66 %",
+          "dataKey": "shared-vbb-verkehrsverbund-berlin-brandenburg-gmbh",
           "text": "Die Länderanteile Berlins und Brandenburgs werden gebündelt. Die kommunalen Anteile bleiben unberührt."
         },
         {
           "title": "SBB Sonderabfallgesellschaft",
-          "label": "50 %",
+          "dataKey": "shared-sbb-sonderabfallgesellschaft-brandenburg-berlin-mbh",
           "text": "Berlin und Brandenburg hielten jeweils 25 Prozent."
         },
         {
           "title": "Amt für Statistik Berlin-Brandenburg",
-          "label": "Vereinigte Trägerschaft",
+          "dataKey": "shared-amt-fur-statistik-berlin-brandenburg-aor",
           "text": "Die beiden früheren Trägerpositionen liegen nun beim Freistaat. Die formale Anpassung der gemeinsamen Rechtsgrundlage wird getrennt verfolgt."
         },
         {
           "title": "Mitteldeutsche Medienförderung",
-          "label": "70 % unmittelbar · 90 % öffentlich",
+          "dataKey": "shared-mitteldeutsche-medienforderung-gmbh",
           "text": "Sachsen, Sachsen-Anhalt und Thüringen hielten zusammen 70 Prozent. Weitere 20 Prozent gingen mit der Rundfunk-Rechtsnachfolge auf den Ostdeutschen Fernsehfunk über."
         },
         {
           "title": "DEGES",
-          "label": "35,46 %",
+          "dataKey": "shared-deges-deutsche-einheit-fernstrassenplanungs-und-bau-gmbh",
           "text": "Sechs frühere Länderpositionen von jeweils rund 5,91 Prozent werden zusammengerechnet."
         },
         {
           "title": "FWU",
-          "label": "37,50 %",
+          "dataKey": "shared-fwu-institut-fur-film-und-bild-in-wissenschaft-und-unterricht-ggmbh",
           "text": "Aus sechs Länderpositionen von jeweils 6,25 Prozent ergibt sich die gebündelte Position."
         },
         {
           "title": "DZHW",
-          "label": "11,10 %",
+          "dataKey": "shared-deutsches-zentrum-fur-hochschul-und-wissenschaftsforschung-gmbh",
           "text": "Sechs Länderpositionen von jeweils rund 1,85 Prozent werden zusammengerechnet."
         },
         {
           "title": "Bundeskunsthalle",
-          "label": "14,64 %",
+          "dataKey": "shared-kunst-und-ausstellungshalle-der-bundesrepublik-deutschland-gmbh",
           "text": "Sechs Länderpositionen von jeweils rund 2,44 Prozent werden gebündelt."
         },
         {
           "title": "Kreditanstalt für Wiederaufbau",
-          "label": "3,97 %",
+          "dataKey": "shared-kreditanstalt-fur-wiederaufbau-aor",
           "text": "Die amtlich ausgewiesenen Länderpositionen von 0,79, 0,56, 1,07, 0,60, 0,54 und 0,41 Prozent ergeben zusammen 3,97 Prozent."
         },
         {
           "title": "Dataport",
-          "label": "20,59 % Trägeranteil",
+          "dataKey": "shared-dataport-aor",
           "text": "14,71 Prozent aus Sachsen-Anhalt und 5,88 Prozent aus Mecklenburg-Vorpommern werden zusammengeführt."
         },
         {
           "title": "PD – Berater der öffentlichen Hand",
-          "label": "Rund 5,198 %",
+          "dataKey": "shared-pd-berater-der-offentlichen-hand-gmbh",
           "text": "Unmittelbare Länderpositionen und die mittelbare Beteiligung der Sächsischen Aufbaubank werden gemeinsam ausgewiesen."
         },
         {
           "title": "GKL Gemeinsame Klassenlotterie",
-          "label": "Sechs Trägerpositionen",
+          "dataKey": "shared-gkl-gemeinsame-klassenlotterie-der-lander-aor",
           "text": "Die GKL hat keinen addierbaren Länder-Kapitalanteil. Stimmen folgen dem Königsteiner Schlüssel; Gewinnverteilung und Gewährträgerhaftung richten sich nach dem Lotterieumsatz."
         }
       ]

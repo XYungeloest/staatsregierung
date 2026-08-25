@@ -316,10 +316,11 @@ export interface CabinetPageContent {
 
 export interface BeteiligungsEintrag {
   title: string;
-  label: string;
+  label?: string;
   text: string;
   note?: string;
   normSlug?: string;
+  dataKey?: string;
 }
 
 export interface BeteiligungsAbschnitt {
@@ -356,6 +357,70 @@ export interface BeteiligungsUebersicht {
   unresolvedItems: string[];
   sourceNote: string;
   relatedNorms: Array<{ label: string; normSlug: string }>;
+}
+
+export type BeteiligungsEbene = 'direct' | 'indirect' | 'second-degree';
+export type BeteiligungsStichtagsstatus = 'active' | 'liquidation' | 'scheduled-liquidation' | 'insolvency';
+export type BeteiligungsGegenwartsstatus = 'active' | 'liquidation' | 'insolvency' | 'succeeded-to-off';
+
+export interface BeteiligungsInventarPosition {
+  key: string;
+  name: string;
+  origin: string;
+  level: BeteiligungsEbene;
+  parent: string | null;
+  parentKey: string | null;
+  relation: string;
+  stakePercent: number | null;
+  effectivePublicPercent: number | null;
+  currentStakePercent: number | null;
+  consolidatedInheritedPercent: number | null;
+  currentConsolidatedPercent: number | null;
+  consolidatedPosition: boolean;
+  legalForm: string;
+  legalFormGroup: string;
+  cutoffStatus: BeteiligungsStichtagsstatus;
+  currentStatus: BeteiligungsGegenwartsstatus;
+  change2023To2026: string | null;
+}
+
+export interface BeteiligungsInventarMehrlaenderposition {
+  key: string;
+  name: string;
+  relation: string;
+  inheritedPercent: number | null;
+  currentPercent: number | null;
+  components: string[];
+  status: string;
+}
+
+export interface BeteiligungsInventarZaehler {
+  value: string;
+  count: number;
+}
+
+export interface BeteiligungsInventar {
+  schemaVersion: number;
+  title: string;
+  description: string;
+  asOf: string;
+  inheritanceDate: string;
+  totals: {
+    positionRows: number;
+    distinctNames: number;
+    directRows: number;
+    indirectRows: number;
+    secondDegreeRows: number;
+    indirectAndSecondDegreeRows: number;
+    originTotals: Array<{ origin: string; total: number; direct: number; indirectOrDeeper: number }>;
+    legalFormGroups: BeteiligungsInventarZaehler[];
+    relations: BeteiligungsInventarZaehler[];
+    cutoffStatuses: BeteiligungsInventarZaehler[];
+    currentStatuses: BeteiligungsInventarZaehler[];
+    sharedPositions: number;
+  };
+  positions: BeteiligungsInventarPosition[];
+  sharedPositions: BeteiligungsInventarMehrlaenderposition[];
 }
 
 function createPath(prefix: string, key: string): string {
@@ -1063,10 +1128,11 @@ function parseBeteiligungsEintrag(value: unknown, path: string): BeteiligungsEin
   const entry = expectRecord(value, path);
   return {
     title: expectString(entry.title, `${path}.title`),
-    label: expectString(entry.label, `${path}.label`),
+    label: expectOptionalString(entry.label, `${path}.label`),
     text: expectString(entry.text, `${path}.text`),
     note: expectOptionalString(entry.note, `${path}.note`),
     normSlug: entry.normSlug === undefined ? undefined : expectSlug(entry.normSlug, `${path}.normSlug`),
+    dataKey: expectOptionalString(entry.dataKey, `${path}.dataKey`),
   };
 }
 
@@ -1136,4 +1202,137 @@ export function parseBeteiligungsUebersicht(
       };
     }),
   };
+}
+
+function expectNullablePercent(value: unknown, path: string): number | null {
+  if (value === null) return null;
+  const number = expectNumber(value, path);
+  if (number < 0 || number > 100) {
+    throw new PortalContentValidationError(`${path}: muss zwischen 0 und 100 liegen`);
+  }
+  return number;
+}
+
+function expectHoldingEnum<T extends string>(value: unknown, allowed: readonly T[], path: string): T {
+  const entry = expectString(value, path) as T;
+  if (!allowed.includes(entry)) {
+    throw new PortalContentValidationError(`${path}: enthält den unbekannten Wert ${entry}`);
+  }
+  return entry;
+}
+
+function parseHoldingCountList(value: unknown, path: string): BeteiligungsInventarZaehler[] {
+  if (!Array.isArray(value)) throw new PortalContentValidationError(`${path}: muss eine Liste sein`);
+  return value.map((raw, index) => {
+    const itemPath = `${path}[${index}]`;
+    const entry = expectRecord(raw, itemPath);
+    return {
+      value: expectString(entry.value, `${itemPath}.value`),
+      count: expectIntegerInRange(entry.count, `${itemPath}.count`, 0, 10000),
+    };
+  });
+}
+
+export function parseBeteiligungsInventar(
+  value: unknown,
+  path = 'content/regierung/beteiligungsinventar.json',
+): BeteiligungsInventar {
+  const entry = expectRecord(value, path);
+  const totals = expectRecord(entry.totals, `${path}.totals`);
+  if (!Array.isArray(entry.positions)) throw new PortalContentValidationError(`${path}.positions: muss eine Liste sein`);
+  if (!Array.isArray(entry.sharedPositions)) throw new PortalContentValidationError(`${path}.sharedPositions: muss eine Liste sein`);
+  if (!Array.isArray(totals.originTotals)) throw new PortalContentValidationError(`${path}.totals.originTotals: muss eine Liste sein`);
+
+  const positions = entry.positions.map((raw, index): BeteiligungsInventarPosition => {
+    const itemPath = `${path}.positions[${index}]`;
+    const item = expectRecord(raw, itemPath);
+    return {
+      key: expectString(item.key, `${itemPath}.key`),
+      name: expectString(item.name, `${itemPath}.name`),
+      origin: expectString(item.origin, `${itemPath}.origin`),
+      level: expectHoldingEnum(item.level, ['direct', 'indirect', 'second-degree'] as const, `${itemPath}.level`),
+      parent: item.parent === null ? null : expectString(item.parent, `${itemPath}.parent`),
+      parentKey: item.parentKey === null ? null : expectString(item.parentKey, `${itemPath}.parentKey`),
+      relation: expectString(item.relation, `${itemPath}.relation`),
+      stakePercent: expectNullablePercent(item.stakePercent, `${itemPath}.stakePercent`),
+      effectivePublicPercent: expectNullablePercent(item.effectivePublicPercent, `${itemPath}.effectivePublicPercent`),
+      currentStakePercent: expectNullablePercent(item.currentStakePercent, `${itemPath}.currentStakePercent`),
+      consolidatedInheritedPercent: expectNullablePercent(item.consolidatedInheritedPercent, `${itemPath}.consolidatedInheritedPercent`),
+      currentConsolidatedPercent: expectNullablePercent(item.currentConsolidatedPercent, `${itemPath}.currentConsolidatedPercent`),
+      consolidatedPosition: expectBoolean(item.consolidatedPosition, `${itemPath}.consolidatedPosition`),
+      legalForm: expectString(item.legalForm, `${itemPath}.legalForm`),
+      legalFormGroup: expectString(item.legalFormGroup, `${itemPath}.legalFormGroup`),
+      cutoffStatus: expectHoldingEnum(item.cutoffStatus, ['active', 'liquidation', 'scheduled-liquidation', 'insolvency'] as const, `${itemPath}.cutoffStatus`),
+      currentStatus: expectHoldingEnum(item.currentStatus, ['active', 'liquidation', 'insolvency', 'succeeded-to-off'] as const, `${itemPath}.currentStatus`),
+      change2023To2026: item.change2023To2026 === null
+        ? null
+        : expectString(item.change2023To2026, `${itemPath}.change2023To2026`),
+    };
+  });
+
+  const sharedPositions = entry.sharedPositions.map((raw, index): BeteiligungsInventarMehrlaenderposition => {
+    const itemPath = `${path}.sharedPositions[${index}]`;
+    const item = expectRecord(raw, itemPath);
+    return {
+      key: expectString(item.key, `${itemPath}.key`),
+      name: expectString(item.name, `${itemPath}.name`),
+      relation: expectString(item.relation, `${itemPath}.relation`),
+      inheritedPercent: expectNullablePercent(item.inheritedPercent, `${itemPath}.inheritedPercent`),
+      currentPercent: expectNullablePercent(item.currentPercent, `${itemPath}.currentPercent`),
+      components: expectStringArray(item.components, `${itemPath}.components`),
+      status: expectString(item.status, `${itemPath}.status`),
+    };
+  });
+
+  const parsed: BeteiligungsInventar = {
+    schemaVersion: expectIntegerInRange(entry.schemaVersion, `${path}.schemaVersion`, 1, 1),
+    title: expectString(entry.title, `${path}.title`),
+    description: expectString(entry.description, `${path}.description`),
+    asOf: expectDate(entry.asOf, `${path}.asOf`),
+    inheritanceDate: expectDate(entry.inheritanceDate, `${path}.inheritanceDate`),
+    totals: {
+      positionRows: expectIntegerInRange(totals.positionRows, `${path}.totals.positionRows`, 0, 10000),
+      distinctNames: expectIntegerInRange(totals.distinctNames, `${path}.totals.distinctNames`, 0, 10000),
+      directRows: expectIntegerInRange(totals.directRows, `${path}.totals.directRows`, 0, 10000),
+      indirectRows: expectIntegerInRange(totals.indirectRows, `${path}.totals.indirectRows`, 0, 10000),
+      secondDegreeRows: expectIntegerInRange(totals.secondDegreeRows, `${path}.totals.secondDegreeRows`, 0, 10000),
+      indirectAndSecondDegreeRows: expectIntegerInRange(totals.indirectAndSecondDegreeRows, `${path}.totals.indirectAndSecondDegreeRows`, 0, 10000),
+      originTotals: totals.originTotals.map((raw, index) => {
+        const itemPath = `${path}.totals.originTotals[${index}]`;
+        const item = expectRecord(raw, itemPath);
+        return {
+          origin: expectString(item.origin, `${itemPath}.origin`),
+          total: expectIntegerInRange(item.total, `${itemPath}.total`, 0, 10000),
+          direct: expectIntegerInRange(item.direct, `${itemPath}.direct`, 0, 10000),
+          indirectOrDeeper: expectIntegerInRange(item.indirectOrDeeper, `${itemPath}.indirectOrDeeper`, 0, 10000),
+        };
+      }),
+      legalFormGroups: parseHoldingCountList(totals.legalFormGroups, `${path}.totals.legalFormGroups`),
+      relations: parseHoldingCountList(totals.relations, `${path}.totals.relations`),
+      cutoffStatuses: parseHoldingCountList(totals.cutoffStatuses, `${path}.totals.cutoffStatuses`),
+      currentStatuses: parseHoldingCountList(totals.currentStatuses, `${path}.totals.currentStatuses`),
+      sharedPositions: expectIntegerInRange(totals.sharedPositions, `${path}.totals.sharedPositions`, 0, 10000),
+    },
+    positions,
+    sharedPositions,
+  };
+
+  const keys = new Set(positions.map((position) => position.key));
+  if (keys.size !== positions.length) throw new PortalContentValidationError(`${path}.positions: enthält doppelte Schlüssel`);
+  for (const position of positions) {
+    if (position.parentKey && !keys.has(position.parentKey)) {
+      throw new PortalContentValidationError(`${path}.positions.${position.key}.parentKey: verweist auf keine öffentliche Position`);
+    }
+  }
+  if (positions.length !== parsed.totals.positionRows) {
+    throw new PortalContentValidationError(`${path}.totals.positionRows: stimmt nicht mit der Positionsliste überein`);
+  }
+  if (parsed.totals.directRows + parsed.totals.indirectAndSecondDegreeRows !== parsed.totals.positionRows) {
+    throw new PortalContentValidationError(`${path}.totals: direkte und mittelbare Positionen ergeben nicht die Gesamtzahl`);
+  }
+  if (sharedPositions.length !== parsed.totals.sharedPositions) {
+    throw new PortalContentValidationError(`${path}.totals.sharedPositions: stimmt nicht mit der Mehrländerliste überein`);
+  }
+
+  return parsed;
 }

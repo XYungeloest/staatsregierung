@@ -2,47 +2,91 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import HoldingsCountryCards from '../../../components/portal/HoldingsCountryCards.astro';
+import HoldingsNavigator from '../../../components/portal/HoldingsNavigator.astro';
+import HoldingsSharedPositions from '../../../components/portal/HoldingsSharedPositions.astro';
 import SectionHero from '../../../components/portal/SectionHero.astro';
 import { siteConfig } from '../../../config/site.ts';
 import {
   getGovernmentUrl,
+  getHoldingsUrl,
   getHomeUrl,
 } from '../../../lib/portal/index.ts';
 import { getNormUrl } from '../../../lib/norms/routes.ts';
 import {
+  loadBeteiligungsInventar,
   loadBeteiligungsUebersicht,
   loadCurrentGovernment,
 } from '../../../lib/portal/content.ts';
+import { buildDatasetJsonLd } from '../../../lib/seo/index.ts';
+import type { BeteiligungsAbschnitt } from '../../../lib/portal/schema.ts';
 
-const [overview, currentGovernment] = await Promise.all([
+const [overview, inventory, currentGovernment] = await Promise.all([
   loadBeteiligungsUebersicht(),
+  loadBeteiligungsInventar(),
   loadCurrentGovernment(),
 ]);
 
+function requireSection(id: string): BeteiligungsAbschnitt {
+  const section = overview.sections.find((entry) => entry.id === id);
+  if (!section) throw new Error(`Beteiligungsabschnitt ${id} fehlt.`);
+  return section;
+}
+
+function getChangeKind(label: string): string {
+  const normalized = label.toLocaleLowerCase('de-DE');
+  if (normalized.includes('kapital')) return 'capital';
+  if (normalized.includes('erwerb') || normalized.includes('vereinbart')) return 'acquisition';
+  if (normalized.includes('rechtsnachfolge')) return 'succession';
+  if (normalized.includes('auflösung')) return 'dissolution';
+  return 'establishment';
+}
+
+const inheritedSection = requireSection('geerbt');
+const sharedSection = requireSection('zusammengefuehrt');
+const specialSection = requireSection('sonderlagen');
+const newSection = requireSection('neu-errichtet');
 const formatDate = (date: string) => siteConfig.date.formatLong(date);
 const getNormLink = (slug: string) => getNormUrl(slug);
+const csvUrl = `${import.meta.env.BASE_URL}staatsregierung/beteiligungen/daten.csv`;
+const heroFacts = [
+  { label: 'Belegte Positionszeilen', value: String(inventory.totals.positionRows) },
+  { label: 'Unmittelbar', value: String(inventory.totals.directRows) },
+  { label: 'Mittelbar oder tiefer', value: String(inventory.totals.indirectAndSecondDegreeRows) },
+  ...overview.facts.map((fact) => ({ label: fact.label, value: fact.value })),
+];
 ---
 
 <BaseLayout
-  title={overview.title}
-  description={overview.lead}
+  title="Beteiligungsnavigator"
+  description={inventory.description}
+  scripts={['holdings-navigator']}
+  structuredData={buildDatasetJsonLd({
+    name: inventory.title,
+    description: inventory.description,
+    url: getHoldingsUrl(),
+    distributionUrl: csvUrl,
+  }, Astro.site)}
 >
   <Breadcrumbs
     items={[
       { label: 'Startseite', href: getHomeUrl() },
       { label: 'Staatsrat', href: getGovernmentUrl() },
-      { label: overview.title },
+      { label: 'Beteiligungsnavigator' },
     ]}
   />
 
   <SectionHero
     eyebrow="Staatsrat"
-    title={overview.title}
+    title="Beteiligungsnavigator des Freistaates"
     titleSize="long"
     lead={overview.lead}
     variant="government"
-    facts={overview.facts.map((fact) => ({ label: fact.label, value: fact.value }))}
-    actions={[{ label: 'Zum Überblick des Staatsrates', href: getGovernmentUrl(), primary: true }]}
+    facts={heroFacts}
+    actions={[
+      { label: 'Beteiligungsdaten herunterladen', href: csvUrl, primary: true },
+      { label: 'Inventur durchsuchen', href: '#beteiligungsnavigator' },
+    ]}
   />
   <GovernmentNavigation />
 
@@ -69,6 +113,10 @@ const getNormLink = (slug: string) => getNormUrl(slug);
             <dd><time datetime={overview.asOf}>{formatDate(overview.asOf)}</time></dd>
           </div>
           <div>
+            <dt>Unterschiedliche Rechtsträger</dt>
+            <dd>{inventory.totals.distinctNames}</dd>
+          </div>
+          <div>
             <dt>Leitung</dt>
             <dd>{currentGovernment.title}</dd>
           </div>
@@ -77,55 +125,64 @@ const getNormLink = (slug: string) => getNormUrl(slug);
     </div>
   </section>
 
-  {overview.sections.map((section, index) => (
-    <section
-      id={section.id}
-      class:list={['section', index % 2 === 1 && 'section-muted']}
-    >
-      <div class="section-header">
-        <h2>{section.title}</h2>
-        <p>{section.intro}</p>
-      </div>
-      <div class="card-grid card-grid--three">
-        {section.items.map((item) => (
-          <article class="panel">
-            <p class="eyebrow">{item.label}</p>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            {item.note ? <p class="detail-line">{item.note}</p> : null}
-            {item.normSlug ? (
-              <p class="section-link-row">
-                <a class="inline-link" href={getNormLink(item.normSlug)}>Rechtsgrundlage</a>
-              </p>
-            ) : null}
-          </article>
-        ))}
-      </div>
-    </section>
-  ))}
+  <HoldingsCountryCards section={inheritedSection} originTotals={inventory.totals.originTotals} />
+  <HoldingsNavigator {inventory} />
+  <HoldingsSharedPositions section={sharedSection} sharedPositions={inventory.sharedPositions} />
 
-  <section id="veraenderungen" class="section section-muted">
+  <section id={specialSection.id} class="section section-muted holdings-special" aria-labelledby={`${specialSection.id}-title`}>
+    <div class="section-header">
+      <h2 id={`${specialSection.id}-title`}>Besondere Rechts- und Stichtagslagen</h2>
+      <p>{specialSection.intro}</p>
+    </div>
+    <div class="holdings-case-grid">
+      {specialSection.items.map((item) => (
+        <article class="holdings-case-card">
+          {item.label ? <p class="eyebrow">{item.label}</p> : null}
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          {item.note ? <p class="detail-line">{item.note}</p> : null}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id={newSection.id} class="section holdings-new" aria-labelledby={`${newSection.id}-title`}>
+    <div class="section-header">
+      <h2 id={`${newSection.id}-title`}>{newSection.title}</h2>
+      <p>{newSection.intro}</p>
+    </div>
+    <div class="holdings-new-grid">
+      {newSection.items.map((item) => (
+        <article class="panel holdings-new-card">
+          {item.label ? <p class="eyebrow">{item.label}</p> : null}
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          {item.normSlug ? (
+            <p class="section-link-row"><a class="inline-link" href={getNormLink(item.normSlug)}>Rechtsgrundlage</a></p>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="veraenderungen" class="section section-muted holdings-changes">
     <div class="section-header">
       <h2>Wichtige Veränderungen seit dem Ausgangsstichtag</h2>
-      <p>Errichtung, Rechtsnachfolge und laufende Erwerbsvorgänge werden getrennt ausgewiesen.</p>
+      <p>Errichtung, Rechtsnachfolge, Auflösung, Kapitalmaßnahmen und laufende Erwerbsvorgänge werden getrennt ausgewiesen.</p>
     </div>
-    <ol class="record-list">
+    <ol class="holdings-timeline">
       {overview.changes.map((change) => (
-        <li class="record-list__item">
-          <strong>
-            <time datetime={change.date}>{formatDate(change.date)}</time>
-            {' · '}
-            {change.label}
-          </strong>
-          <span>
-            <strong>{change.title}:</strong> {change.text}
-          </span>
-          {change.normSlug ? (
-            <p class="section-link-row">
-              <a class="inline-link" href={getNormLink(change.normSlug)}>Rechtsgrundlage</a>
-            </p>
-          ) : null}
-          {change.note ? <span>{change.note}</span> : null}
+        <li class={`holdings-timeline__item holdings-timeline__item--${getChangeKind(change.label)}`}>
+          <div class="holdings-timeline__date"><time datetime={change.date}>{formatDate(change.date)}</time></div>
+          <article>
+            <p class="eyebrow">{change.label}</p>
+            <h3>{change.title}</h3>
+            <p>{change.text}</p>
+            {change.normSlug ? (
+              <p class="section-link-row"><a class="inline-link" href={getNormLink(change.normSlug)}>Rechtsgrundlage</a></p>
+            ) : null}
+            {change.note ? <p class="detail-line">{change.note}</p> : null}
+          </article>
         </li>
       ))}
     </ol>
@@ -161,9 +218,7 @@ const getNormLink = (slug: string) => getNormUrl(slug);
       <p>{overview.sourceNote}</p>
     </div>
     <nav class="link-list link-list--inline" aria-label="Rechtsgrundlagen zu Beteiligungen und öffentlichen Trägern">
-      {overview.relatedNorms.map((norm) => (
-        <a href={getNormLink(norm.normSlug)}>{norm.label}</a>
-      ))}
+      {overview.relatedNorms.map((norm) => <a href={getNormLink(norm.normSlug)}>{norm.label}</a>)}
     </nav>
   </section>
 </BaseLayout>
