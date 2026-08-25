@@ -13,6 +13,7 @@ import {
   getCoalitionUrl,
   getGovernmentMembersUrl,
   getHomeUrl,
+  getHoldingsUrl,
   getMinisterPresidentUrl,
   getPreviousCabinetsUrl,
   getTopicsUrl,
@@ -107,6 +108,7 @@ const flagshipTopics = [
       <nav class="link-list">
         <a href={getMinisterPresidentUrl()}>Staatspräsident</a>
         <a href={getCabinetUrl()}>Staatsrat und Geschäftsbereiche</a>
+        <a href={getHoldingsUrl()}>Beteiligungen und öffentliche Träger</a>
         <a href={getCoalitionUrl()}>Koalition</a>
         <a href={getActionPlanUrl()}>15-Punkte-Plan</a>
         <a href={getGovernmentMembersUrl()}>Mitglieder des Staatsrates</a>
@@ -126,6 +128,7 @@ const flagshipTopics = [
     <ul class="direct-entry-list">
       <li><strong>Politische Leitung</strong><span><a class="inline-link" href={getMinisterPresidentUrl()}>Staatspräsident und Staatskanzlei</a></span></li>
       <li><strong>Staatsrat</strong><span><a class="inline-link" href={getCabinetUrl()}>Staatssekretariate, Zuständigkeiten und Mitglieder</a></span></li>
+      <li><strong>Öffentliche Wirtschaft</strong><span><a class="inline-link" href={getHoldingsUrl()}>Beteiligungen, Rechtsnachfolge und neue Träger</a></span></li>
       <li><strong>Arbeitsgrundlage</strong><span><a class="inline-link" href={getCoalitionUrl()}>Koalition</a> und <a class="inline-link" href={getActionPlanUrl()}>15-Punkte-Plan II</a></span></li>
     </ul>
   </section>

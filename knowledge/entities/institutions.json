@@ -1099,6 +1099,310 @@
       "type": "company",
       "predecessorId": null,
       "successorId": null
-    }
+    },
+  {
+    "id": "inst-landesbank-elbe",
+    "title": "Landesbank an der Elbe",
+    "status": "confirmed-primary",
+    "validFrom": "2026-01-27",
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts, ostdeutsche Universalbank und Zentralbank der Sparkassen im Freistaat.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-landesbank-elbe-law",
+        "locator": "§§ 1 und 2",
+        "role": "primary"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "bank",
+      "public-economy"
+    ],
+    "notes": [
+      "Bei Errichtung wurden 20 Milliarden Euro aus dem Landeshaushalt übertragen."
+    ],
+    "aliases": [
+      "Elbe LB",
+      "Aufbruchsbank"
+    ],
+    "type": "public-law-institution",
+    "predecessorId": null,
+    "successorId": null
+  },
+  {
+    "id": "inst-ostdeutscher-fernsehfunk",
+    "title": "Ostdeutscher Fernsehfunk",
+    "status": "confirmed-primary",
+    "validFrom": "2026-05-01",
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Rechtsfähige öffentlich-rechtliche Rundfunkanstalt mit Sitz in Potsdam und Gesamtrechtsnachfolger von MDR und RBB.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-broadcast-law",
+        "locator": "§§ 1, 7, 8, 14 und 16",
+        "role": "primary"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "media",
+      "broadcast"
+    ],
+    "notes": [
+      "Die Beteiligungen von MDR und RBB gingen kraft Gesetzes auf den OFF über."
+    ],
+    "aliases": [
+      "OFF"
+    ],
+    "type": "public-broadcaster",
+    "predecessorId": null,
+    "successorId": null
+  },
+  {
+    "id": "inst-ostdeutscher-verkehrsverbund",
+    "title": "Ostdeutscher Verkehrsverbund",
+    "status": "confirmed-primary",
+    "validFrom": "2026-03-24",
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Landesunmittelbare rechtsfähige Körperschaft des öffentlichen Rechts für landesweite Verkehrsplanung, Tarif, Vertrieb, Fahrgastinformation und Clearing.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ovv-law",
+        "locator": "§ 4 ÖPNVG",
+        "role": "primary"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "transport",
+      "ovv"
+    ],
+    "notes": [
+      "Mitglieder sind Freistaat, Bezirke, Landkreise und kreisfreie Städte."
+    ],
+    "aliases": [
+      "OVV"
+    ],
+    "type": "public-law-corporation",
+    "predecessorId": null,
+    "successorId": null
+  },
+  {
+    "id": "inst-ostdeutsche-eisenbahn",
+    "title": "Ostdeutsche Eisenbahn",
+    "status": "confirmed-primary",
+    "validFrom": "2026-07-21",
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für gemeinwirtschaftliche öffentliche Verkehrsleistungen und den öffentlichen Fahrzeug-, Werkstatt- und Infrastrukturpool.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-eisenbahn-law",
+        "locator": "Ostdeutsches Eisenbahngesetz §§ 1 bis 4",
+        "role": "primary"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "rail",
+      "transport",
+      "public-economy"
+    ],
+    "notes": [
+      "Die ODEG wurde nicht als Gesellschaft erworben; erfasste Verkehrsproduktionsmittel wurden gesetzlich überführt."
+    ],
+    "aliases": [
+      "ODB"
+    ],
+    "type": "public-law-institution",
+    "predecessorId": null,
+    "successorId": null
+  },
+  {
+    "id": "inst-ostdeutsche-netze",
+    "title": "Ostdeutsche Netze",
+    "status": "confirmed-primary",
+    "validFrom": "2026-07-21",
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Potsdam für öffentliche Energieinfrastruktur und als Trägerin überführter Netze.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-ostdeutsche-netze-law",
+        "locator": "§§ 1 und 2",
+        "role": "primary"
+      },
+      {
+        "sourceId": "source-energy-law",
+        "locator": "Trägerin des Gemeineigentums",
+        "role": "corroborating"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "energy",
+      "grid",
+      "public-economy"
+    ],
+    "notes": [],
+    "aliases": [
+      "Ostdeutsche Netze AöR"
+    ],
+    "type": "public-law-institution",
+    "predecessorId": null,
+    "successorId": null
+  },
+  {
+    "id": "inst-kreislaufwirtschafts-kombinat-ost",
+    "title": "Kreislaufwirtschafts-Kombinat Ost",
+    "status": "confirmed-primary",
+    "validFrom": "2026-07-21",
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts des Freistaates und Trägerin des SERO-Systems.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-sero",
+        "locator": "§§ 1 und 4",
+        "role": "primary"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "circular-economy",
+      "public-economy"
+    ],
+    "notes": [
+      "SERO-Bezirksbetriebe sind organisatorische Einheiten des KKO."
+    ],
+    "aliases": [
+      "KKO"
+    ],
+    "type": "public-law-institution",
+    "predecessorId": null,
+    "successorId": null
+  },
+  {
+    "id": "inst-landesagentur-spitzensport-ost",
+    "title": "Landesagentur Spitzensport Ost",
+    "status": "confirmed-primary",
+    "validFrom": "2026-07-21",
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für Aufgaben der Spitzensportförderung und des Athletenversorgungswerks.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-lasp-law",
+        "locator": "§§ 1 und 2",
+        "role": "primary"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "sport"
+    ],
+    "notes": [],
+    "aliases": [
+      "LASpO"
+    ],
+    "type": "public-law-institution",
+    "predecessorId": null,
+    "successorId": null
+  },
+  {
+    "id": "inst-wohnraumversorgung-berlin",
+    "title": "Wohnraumversorgung Berlin",
+    "status": "editorially-confirmed",
+    "validFrom": "2016-01-01",
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Nicht rechtsfähige Anstalt des öffentlichen Rechts und Teil der unmittelbaren Landesverwaltung; als Berliner Rechtsnachfolgebestand im erweiterten öffentlichen Trägerverzeichnis fortgeführt.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-berlin-wvb-errichtungsgesetz-2015",
+        "locator": "Artikel 3 § 1",
+        "role": "primary"
+      },
+      {
+        "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+        "locator": "Abschnitt 4, Wohnraumversorgung Berlin AöR",
+        "role": "corroborating"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "housing",
+      "berlin",
+      "succession"
+    ],
+    "notes": [
+      "Keine Kapitalbeteiligung; kein eigenes Vermögen; die reale Berliner Neuordnung 2024 wird nicht automatisch übernommen."
+    ],
+    "aliases": [
+      "WVB",
+      "Wohnraumversorgung Berlin AöR"
+    ],
+    "type": "non-legal-public-law-institution",
+    "predecessorId": null,
+    "successorId": null
+  },
+  {
+    "id": "inst-landesanstalt-schienenfahrzeuge-berlin",
+    "title": "Landesanstalt Schienenfahrzeuge Berlin",
+    "status": "derived",
+    "validFrom": null,
+    "validTo": null,
+    "asOf": "2026-08-23",
+    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts für Beschaffung, Verwaltung und Nutzungsüberlassung von Schienenfahrzeugen; aus dem Berliner Ausgangsbestand übernommen und bislang nicht ausdrücklich aufgehoben.",
+    "sourceRefs": [
+      {
+        "sourceId": "source-berlin-lsfb-errichtungsgesetz-2021",
+        "locator": "§§ 1 und 2",
+        "role": "primary"
+      },
+      {
+        "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+        "locator": "Abschnitt 4, Landesanstalt Schienenfahrzeuge Berlin",
+        "role": "corroborating"
+      }
+    ],
+    "relatedIds": [],
+    "tags": [
+      "institution",
+      "public-law-entity",
+      "rail",
+      "berlin",
+      "succession"
+    ],
+    "notes": [
+      "Eine Aufgabenüberschneidung mit der Ostdeutschen Eisenbahn begründet ohne Aufhebungsnorm keinen Untergang."
+    ],
+    "aliases": [
+      "LSFB"
+    ],
+    "type": "public-law-institution",
+    "predecessorId": null,
+    "successorId": null
+  }
   ]
 }

@@ -314,6 +314,50 @@ export interface CabinetPageContent {
   topicHighlightSlugs: string[];
 }
 
+export interface BeteiligungsEintrag {
+  title: string;
+  label: string;
+  text: string;
+  note?: string;
+  normSlug?: string;
+}
+
+export interface BeteiligungsAbschnitt {
+  id: string;
+  title: string;
+  intro: string;
+  items: BeteiligungsEintrag[];
+}
+
+export interface BeteiligungsAenderung {
+  date: string;
+  label: string;
+  title: string;
+  text: string;
+  note?: string;
+  normSlug?: string;
+}
+
+export interface BeteiligungsUebersicht {
+  slug: string;
+  title: string;
+  lead: string;
+  asOf: string;
+  inheritanceDate: string;
+  facts: Array<{ label: string; value: string; note?: string }>;
+  introduction: string[];
+  sections: BeteiligungsAbschnitt[];
+  changes: BeteiligungsAenderung[];
+  continuingTitle: string;
+  continuingIntro: string;
+  continuingItems: string[];
+  unresolvedTitle: string;
+  unresolvedIntro: string;
+  unresolvedItems: string[];
+  sourceNote: string;
+  relatedNorms: Array<{ label: string; normSlug: string }>;
+}
+
 function createPath(prefix: string, key: string): string {
   return `${prefix}.${key}`;
 }
@@ -1012,5 +1056,84 @@ export function parseCabinetPageContent(value: unknown, path = 'content/regierun
       };
     }),
     topicHighlightSlugs: expectOptionalSlugArray(entry.topicHighlightSlugs, `${path}.topicHighlightSlugs`) ?? [],
+  };
+}
+
+function parseBeteiligungsEintrag(value: unknown, path: string): BeteiligungsEintrag {
+  const entry = expectRecord(value, path);
+  return {
+    title: expectString(entry.title, `${path}.title`),
+    label: expectString(entry.label, `${path}.label`),
+    text: expectString(entry.text, `${path}.text`),
+    note: expectOptionalString(entry.note, `${path}.note`),
+    normSlug: entry.normSlug === undefined ? undefined : expectSlug(entry.normSlug, `${path}.normSlug`),
+  };
+}
+
+export function parseBeteiligungsUebersicht(
+  value: unknown,
+  path = 'content/regierung/beteiligungen.json',
+): BeteiligungsUebersicht {
+  const entry = expectRecord(value, path);
+  if (!Array.isArray(entry.facts)) throw new PortalContentValidationError(`${path}.facts: muss eine Liste sein`);
+  if (!Array.isArray(entry.introduction)) throw new PortalContentValidationError(`${path}.introduction: muss eine Liste sein`);
+  if (!Array.isArray(entry.sections)) throw new PortalContentValidationError(`${path}.sections: muss eine Liste sein`);
+  if (!Array.isArray(entry.changes)) throw new PortalContentValidationError(`${path}.changes: muss eine Liste sein`);
+  if (!Array.isArray(entry.continuingItems)) throw new PortalContentValidationError(`${path}.continuingItems: muss eine Liste sein`);
+  if (!Array.isArray(entry.unresolvedItems)) throw new PortalContentValidationError(`${path}.unresolvedItems: muss eine Liste sein`);
+  if (!Array.isArray(entry.relatedNorms)) throw new PortalContentValidationError(`${path}.relatedNorms: muss eine Liste sein`);
+
+  return {
+    slug: expectSlug(entry.slug, `${path}.slug`),
+    title: expectString(entry.title, `${path}.title`),
+    lead: expectString(entry.lead, `${path}.lead`),
+    asOf: expectDate(entry.asOf, `${path}.asOf`),
+    inheritanceDate: expectDate(entry.inheritanceDate, `${path}.inheritanceDate`),
+    facts: entry.facts.map((raw, index) => {
+      const item = expectRecord(raw, `${path}.facts[${index}]`);
+      return {
+        label: expectString(item.label, `${path}.facts[${index}].label`),
+        value: expectString(item.value, `${path}.facts[${index}].value`),
+        note: expectOptionalString(item.note, `${path}.facts[${index}].note`),
+      };
+    }),
+    introduction: expectStringArray(entry.introduction, `${path}.introduction`),
+    sections: entry.sections.map((raw, index) => {
+      const sectionPath = `${path}.sections[${index}]`;
+      const section = expectRecord(raw, sectionPath);
+      if (!Array.isArray(section.items)) throw new PortalContentValidationError(`${sectionPath}.items: muss eine Liste sein`);
+      return {
+        id: expectSlug(section.id, `${sectionPath}.id`),
+        title: expectString(section.title, `${sectionPath}.title`),
+        intro: expectString(section.intro, `${sectionPath}.intro`),
+        items: section.items.map((item, itemIndex) => parseBeteiligungsEintrag(item, `${sectionPath}.items[${itemIndex}]`)),
+      };
+    }),
+    changes: entry.changes.map((raw, index) => {
+      const changePath = `${path}.changes[${index}]`;
+      const change = expectRecord(raw, changePath);
+      return {
+        date: expectDate(change.date, `${changePath}.date`),
+        label: expectString(change.label, `${changePath}.label`),
+        title: expectString(change.title, `${changePath}.title`),
+        text: expectString(change.text, `${changePath}.text`),
+        note: expectOptionalString(change.note, `${changePath}.note`),
+        normSlug: change.normSlug === undefined ? undefined : expectSlug(change.normSlug, `${changePath}.normSlug`),
+      };
+    }),
+    continuingTitle: expectString(entry.continuingTitle, `${path}.continuingTitle`),
+    continuingIntro: expectString(entry.continuingIntro, `${path}.continuingIntro`),
+    continuingItems: expectStringArray(entry.continuingItems, `${path}.continuingItems`),
+    unresolvedTitle: expectString(entry.unresolvedTitle, `${path}.unresolvedTitle`),
+    unresolvedIntro: expectString(entry.unresolvedIntro, `${path}.unresolvedIntro`),
+    unresolvedItems: expectStringArray(entry.unresolvedItems, `${path}.unresolvedItems`),
+    sourceNote: expectString(entry.sourceNote, `${path}.sourceNote`),
+    relatedNorms: entry.relatedNorms.map((raw, index) => {
+      const item = expectRecord(raw, `${path}.relatedNorms[${index}]`);
+      return {
+        label: expectString(item.label, `${path}.relatedNorms[${index}].label`),
+        normSlug: expectSlug(item.normSlug, `${path}.relatedNorms[${index}].normSlug`),
+      };
+    }),
   };
 }

@@ -57,6 +57,7 @@ export const siteConfig = {
     governmentMembers: '/staatsregierung/mitglieder/',
     ministerPresident: '/staatsregierung/ministerpraesident/',
     cabinet: '/staatsregierung/kabinett/',
+    holdings: '/staatsregierung/beteiligungen/',
     previousCabinets: '/staatsregierung/fruehere-kabinette/',
     coalition: '/staatsregierung/koalition/',
     actionPlan: '/staatsregierung/15-punkte-plan/',

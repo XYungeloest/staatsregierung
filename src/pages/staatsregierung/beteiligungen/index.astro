@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '../../../components/portal/SectionHero.astro';
+import { siteConfig } from '../../../config/site.ts';
+import {
+  getGovernmentUrl,
+  getHomeUrl,
+} from '../../../lib/portal/index.ts';
+import { getNormUrl } from '../../../lib/norms/routes.ts';
+import {
+  loadBeteiligungsUebersicht,
+  loadCurrentGovernment,
+} from '../../../lib/portal/content.ts';
+
+const [overview, currentGovernment] = await Promise.all([
+  loadBeteiligungsUebersicht(),
+  loadCurrentGovernment(),
+]);
+
+const formatDate = (date: string) => siteConfig.date.formatLong(date);
+const getNormLink = (slug: string) => getNormUrl(slug);
+---
+
+<BaseLayout
+  title={overview.title}
+  description={overview.lead}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: overview.title },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Staatsrat"
+    title={overview.title}
+    titleSize="long"
+    lead={overview.lead}
+    variant="government"
+    facts={overview.facts.map((fact) => ({ label: fact.label, value: fact.value }))}
+    actions={[{ label: 'Zum Überblick des Staatsrates', href: getGovernmentUrl(), primary: true }]}
+  />
+  <GovernmentNavigation />
+
+  <section class="section">
+    <div class="content-grid">
+      <div class="body-copy">
+        <div class="section-header">
+          <h2>Einordnung</h2>
+        </div>
+        {overview.introduction.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Stand der Übersicht</h2>
+        </div>
+        <dl class="meta-list">
+          <div>
+            <dt>Ausgangsstichtag</dt>
+            <dd><time datetime={overview.inheritanceDate}>{formatDate(overview.inheritanceDate)}</time></dd>
+          </div>
+          <div>
+            <dt>Datenstand</dt>
+            <dd><time datetime={overview.asOf}>{formatDate(overview.asOf)}</time></dd>
+          </div>
+          <div>
+            <dt>Leitung</dt>
+            <dd>{currentGovernment.title}</dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  {overview.sections.map((section, index) => (
+    <section
+      id={section.id}
+      class:list={['section', index % 2 === 1 && 'section-muted']}
+    >
+      <div class="section-header">
+        <h2>{section.title}</h2>
+        <p>{section.intro}</p>
+      </div>
+      <div class="card-grid card-grid--three">
+        {section.items.map((item) => (
+          <article class="panel">
+            <p class="eyebrow">{item.label}</p>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            {item.note ? <p class="detail-line">{item.note}</p> : null}
+            {item.normSlug ? (
+              <p class="section-link-row">
+                <a class="inline-link" href={getNormLink(item.normSlug)}>Rechtsgrundlage</a>
+              </p>
+            ) : null}
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+
+  <section id="veraenderungen" class="section section-muted">
+    <div class="section-header">
+      <h2>Wichtige Veränderungen seit dem Ausgangsstichtag</h2>
+      <p>Errichtung, Rechtsnachfolge und laufende Erwerbsvorgänge werden getrennt ausgewiesen.</p>
+    </div>
+    <ol class="record-list">
+      {overview.changes.map((change) => (
+        <li class="record-list__item">
+          <strong>
+            <time datetime={change.date}>{formatDate(change.date)}</time>
+            {' · '}
+            {change.label}
+          </strong>
+          <span>
+            <strong>{change.title}:</strong> {change.text}
+          </span>
+          {change.normSlug ? (
+            <p class="section-link-row">
+              <a class="inline-link" href={getNormLink(change.normSlug)}>Rechtsgrundlage</a>
+            </p>
+          ) : null}
+          {change.note ? <span>{change.note}</span> : null}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--two">
+      <article class="panel">
+        <div class="section-header">
+          <h2>{overview.continuingTitle}</h2>
+          <p>{overview.continuingIntro}</p>
+        </div>
+        <ul class="record-list">
+          {overview.continuingItems.map((item) => <li class="record-list__item"><span>{item}</span></li>)}
+        </ul>
+      </article>
+
+      <article class="panel">
+        <div class="section-header">
+          <h2>{overview.unresolvedTitle}</h2>
+          <p>{overview.unresolvedIntro}</p>
+        </div>
+        <ul class="record-list">
+          {overview.unresolvedItems.map((item) => <li class="record-list__item"><span>{item}</span></li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Rechtsgrundlagen</h2>
+      <p>{overview.sourceNote}</p>
+    </div>
+    <nav class="link-list link-list--inline" aria-label="Rechtsgrundlagen zu Beteiligungen und öffentlichen Trägern">
+      {overview.relatedNorms.map((norm) => (
+        <a href={getNormLink(norm.normSlug)}>{norm.label}</a>
+      ))}
+    </nav>
+  </section>
+</BaseLayout>

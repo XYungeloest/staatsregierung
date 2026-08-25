@@ -5,6 +5,7 @@ const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString
 
 const auditPages = [
   '/',
+  '/staatsregierung/beteiligungen/',
   '/staatsregierung/kabinett/',
   '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
   '/staatsregierung/mitglieder/max-peterson/',

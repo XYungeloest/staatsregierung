@@ -7,6 +7,7 @@ import { toDisplayText } from '../norms/presentation.ts';
 import { loadLegislativeProcedures } from './legislation.ts';
 import {
   loadBudgetPages,
+  loadBeteiligungsUebersicht,
   loadEvents,
   loadFreestatePages,
   loadGovernmentMembers,
@@ -28,6 +29,7 @@ import {
   getLawReferencesUrl,
   getFreestatePageUrl,
   getGovernmentMemberUrl,
+  getHoldingsUrl,
   getImprintUrl,
   getJobUrl,
   getKreisreformUrl,
@@ -79,6 +81,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
     budgetPages,
     freestatePages,
     servicePages,
+    holdingsOverview,
     jobOffers,
     norms,
     publications,
@@ -93,6 +96,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
     loadBudgetPages(),
     loadFreestatePages(),
     loadPages(),
+    loadBeteiligungsUebersicht(),
     loadJobOffers(),
     loadAllNorms(),
     loadAllVerkuendungen(),
@@ -172,6 +176,26 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
       description: 'Verkündungen, Presseformate und zentrale Downloadangebote.',
       url: getPublicationsUrl(),
       text: 'Publikationen Downloads Verkündungen Presse RSS Kalender',
+    },
+    {
+      id: 'government-holdings',
+      type: 'government',
+      typeLabel: 'Staatsrat',
+      title: holdingsOverview.title,
+      description: holdingsOverview.lead,
+      url: getHoldingsUrl(),
+      text: joinText([
+        holdingsOverview.introduction,
+        holdingsOverview.sections.flatMap((section) => [
+          section.title,
+          section.intro,
+          ...section.items.flatMap((item) => [item.title, item.label, item.text, item.note ?? '']),
+        ]),
+        holdingsOverview.changes.flatMap((change) => [change.title, change.label, change.text]),
+        holdingsOverview.continuingItems,
+        holdingsOverview.unresolvedItems,
+      ]),
+      date: holdingsOverview.asOf,
     },
     ...members.map((member) => ({
       id: `government-member:${member.slug}`,
