@@ -1,0 +1,1082 @@
+{
+  "asOf": "2026-08-25",
+  "holdings": [
+    {
+      "id": "holding-rechtsnachfolge-2023",
+      "title": "Rechtsnachfolge in Beteiligungs- und Trägerpositionen zum 1. Dezember 2023",
+      "status": "editorially-confirmed",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der Freistaat Ostdeutschland trat redaktionell in die Beteiligungs-, Träger-, Gewährträger-, Mitgliedschafts- und Vermögenspositionen der sechs Vorgängerländer ein. Die Übernahme des sächsischen Rechtsstandes beseitigt diese konkreten Rechtspositionen nicht.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitte 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "succession",
+        "framework",
+        "key-holding"
+      ],
+      "notes": [
+        "Kommunale Beteiligungen bleiben kommunal.",
+        "Reale Änderungen der Nachfolgeländer nach dem 1. Dezember 2023 werden nicht ohne ostdeutschen Übernahme- oder Vollzugsakt fortgeschrieben.",
+        "Mittelbare Beteiligungen werden entlang der tatsächlichen Beteiligungskette zugerechnet."
+      ],
+      "kind": "framework",
+      "origin": [
+        "Berlin",
+        "Brandenburg",
+        "Mecklenburg-Vorpommern",
+        "Sachsen",
+        "Sachsen-Anhalt",
+        "Thüringen"
+      ]
+    },
+    {
+      "id": "holding-portfolio-berlin-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Berlin",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der Berliner Ausgangsbestand umfasst Kapitalgesellschaften, wirtschaftlich bedeutende AöR und weitere landesunmittelbare Einrichtungen. WVB und LSFB sind im erweiterten Verzeichnis gesondert zu berücksichtigen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2023",
+          "locator": "Gesamtportfolio und Unternehmensübersichten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-berlin-wvb-errichtungsgesetz-2015",
+          "locator": "Artikel 3 § 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 4",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "berlin",
+        "inherited-portfolio"
+      ],
+      "notes": [
+        "Die WVB ist eine nicht rechtsfähige AöR und keine Kapitalbeteiligung.",
+        "Die spätere reale Neuordnung zur Sicheres Wohnen AöR wird nicht automatisch übernommen.",
+        "Die reale spätere Übernahme der Berliner Energie und Wärme GmbH wird nicht als geerbte Position behandelt."
+      ],
+      "kind": "origin-portfolio",
+      "origin": "Berlin",
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#4-berliner-ausgangsbestand"
+    },
+    {
+      "id": "holding-portfolio-brandenburg-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Brandenburg",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der brandenburgische Bestand wird aus dem Beteiligungsbericht 2023 rekonstruiert; gemeinsame Berlin-Brandenburg-Positionen werden im aktuellen Bestand mit den Berliner Anteilen zusammengeführt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-brandenburg-beteiligungsbericht-2023",
+          "locator": "Beteiligungsübersicht",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 6",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "brandenburg",
+        "inherited-portfolio"
+      ],
+      "notes": [],
+      "kind": "origin-portfolio",
+      "origin": "Brandenburg",
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#6-brandenburgischer-ausgangsbestand"
+    },
+    {
+      "id": "holding-portfolio-sachsen-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Sachsen",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der sächsische Ausgangsbestand umfasst die unmittelbaren Beteiligungen des Freistaates Sachsen sowie die in mehreren Vorgängerländern parallel gehaltenen Länderpositionen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sachsen-beteiligungsbericht-2023",
+          "locator": "Beteiligungsübersicht",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 5",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "sachsen",
+        "inherited-portfolio"
+      ],
+      "notes": [],
+      "kind": "origin-portfolio",
+      "origin": "Sachsen",
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#5-saechsischer-ausgangsbestand"
+    },
+    {
+      "id": "holding-portfolio-sachsen-anhalt-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Sachsen-Anhalt",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der sachsen-anhaltinische Bestand umfasst Kapitalgesellschaften, Förder- und Landesbanken, Universitätsklinika, Anstalten und zahlreiche mittelbare Beteiligungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2023",
+          "locator": "Beteiligungsübersicht zum Geschäftsjahr 2022",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 8",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "sachsen-anhalt",
+        "inherited-portfolio"
+      ],
+      "notes": [
+        "Die NORD/LB-Kapitalmaßnahme Ende Dezember 2023 ist für den exakten Vereinigungsstichtag gesondert zu behandeln."
+      ],
+      "kind": "origin-portfolio",
+      "origin": "Sachsen-Anhalt",
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#8-sachsen-anhaltinischer-ausgangsbestand"
+    },
+    {
+      "id": "holding-portfolio-thueringen-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Thüringen",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der Thüringer Bestand umfasst 2023 aktive Kapitalbeteiligungen sowie weitere landesunmittelbare AöR wie ThüringenForst und die Thüringer Staatslotterie.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-thueringen-beteiligungsbericht-2023",
+          "locator": "Beteiligungsübersicht und ausgewählte AöR",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 7",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "thueringen",
+        "inherited-portfolio"
+      ],
+      "notes": [
+        "Die IBA Thüringen wird bis zur besonderen Bereinigung als historische beziehungsweise abzuwickelnde Rechtsposition behandelt."
+      ],
+      "kind": "origin-portfolio",
+      "origin": "Thüringen",
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#7-thueringer-ausgangsbestand"
+    },
+    {
+      "id": "holding-portfolio-mecklenburg-vorpommern-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Mecklenburg-Vorpommern",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der mecklenburg-vorpommerische Bestand umfasst ein großes Portfolio aus Landesgesellschaften, Hafen- und Infrastrukturunternehmen, Landesforst, Universitätsmedizinen, Studierendenwerken und mittelbaren Tochtergesellschaften.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-mv-beteiligungsbericht-2022-2023",
+          "locator": "Gesamtübersicht der Landesbeteiligungen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 9",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "mecklenburg-vorpommern",
+        "inherited-portfolio"
+      ],
+      "notes": [
+        "Spätere reale Neugründungen nach dem Vereinigungsstichtag werden nicht automatisch übernommen."
+      ],
+      "kind": "origin-portfolio",
+      "origin": "Mecklenburg-Vorpommern",
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#9-mecklenburg-vorpommerischer-ausgangsbestand"
+    },
+    {
+      "id": "holding-flughafen-berlin-brandenburg",
+      "title": "Flughafen Berlin Brandenburg GmbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die früheren Länderanteile Berlins und Brandenburgs von jeweils 37 Prozent vereinigen sich beim Freistaat zu 74 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2023",
+          "locator": "Flughafen Berlin Brandenburg GmbH",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-brandenburg-beteiligungsbericht-2023",
+          "locator": "Flughafen Berlin Brandenburg GmbH",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 3",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "aviation",
+        "consolidated",
+        "key-holding"
+      ],
+      "notes": [
+        "Der Bund hält die verbleibenden 26 Prozent."
+      ],
+      "kind": "capital-holding",
+      "stakePercent": 74.0,
+      "direct": true
+    },
+    {
+      "id": "holding-mitteldeutsche-flughafen-ag",
+      "title": "Mitteldeutsche Flughafen AG",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die früheren Länderanteile Sachsens von 77,29 Prozent und Sachsen-Anhalts von 18,54 Prozent vereinigen sich beim Freistaat zu 95,83 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sachsen-beteiligungsbericht-2023",
+          "locator": "Mitteldeutsche Flughafen AG",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2023",
+          "locator": "Mitteldeutsche Flughafen AG",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "aviation",
+        "consolidated",
+        "key-holding"
+      ],
+      "notes": [],
+      "kind": "capital-holding",
+      "stakePercent": 95.83,
+      "direct": true
+    },
+    {
+      "id": "holding-meab",
+      "title": "MEAB Märkische Entsorgungsanlagen-Betriebsgesellschaft mbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die früheren 50-Prozent-Anteile Berlins und Brandenburgs vereinigen sich beim Freistaat.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2023",
+          "locator": "MEAB",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-brandenburg-beteiligungsbericht-2023",
+          "locator": "MEAB",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "waste",
+        "consolidated",
+        "key-holding"
+      ],
+      "notes": [],
+      "kind": "capital-holding",
+      "stakePercent": 100.0,
+      "direct": true
+    },
+    {
+      "id": "holding-vbb",
+      "title": "VBB Verkehrsverbund Berlin-Brandenburg GmbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die früheren Länderanteile Berlins und Brandenburgs von jeweils 33,33 Prozent vereinigen sich beim Freistaat zu rund zwei Dritteln; kommunale Anteile bleiben unberührt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2023",
+          "locator": "VBB",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-brandenburg-beteiligungsbericht-2023",
+          "locator": "VBB",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "transport",
+        "consolidated",
+        "key-holding"
+      ],
+      "notes": [
+        "Der VBB besteht neben dem 2026 errichteten Ostdeutschen Verkehrsverbund fort, solange keine besondere Auflösung oder Überleitung erfolgt."
+      ],
+      "kind": "capital-holding",
+      "stakePercent": 66.66,
+      "direct": true
+    },
+    {
+      "id": "holding-sbb",
+      "title": "SBB Sonderabfallgesellschaft Brandenburg/Berlin mbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die früheren 25-Prozent-Anteile Berlins und Brandenburgs vereinigen sich beim Freistaat zu 50 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2023",
+          "locator": "SBB",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-brandenburg-beteiligungsbericht-2023",
+          "locator": "SBB",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "waste",
+        "consolidated"
+      ],
+      "notes": [],
+      "kind": "capital-holding",
+      "stakePercent": 50.0,
+      "direct": true
+    },
+    {
+      "id": "holding-amt-statistik-berlin-brandenburg",
+      "title": "Amt für Statistik Berlin-Brandenburg AöR",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der Freistaat vereinigt die bisherigen hälftigen Gewährträgerpositionen Berlins und Brandenburgs.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2023",
+          "locator": "Amt für Statistik Berlin-Brandenburg",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-brandenburg-beteiligungsbericht-2023",
+          "locator": "Amt für Statistik Berlin-Brandenburg",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "statistics",
+        "consolidated"
+      ],
+      "notes": [
+        "Die formale Anpassung der früher zweiländrigen Rechtsgrundlage ist gesondert zu prüfen."
+      ],
+      "kind": "guarantor-position",
+      "stakePercent": 100.0,
+      "direct": true
+    },
+    {
+      "id": "holding-mitteldeutsche-medienfoerderung",
+      "title": "Mitteldeutsche Medienförderung GmbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die unmittelbaren Länderanteile Sachsens, Sachsen-Anhalts und Thüringens ergeben 70 Prozent. Weitere 20 Prozent gingen 2026 vom MDR auf den Ostdeutschen Fernsehfunk über.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sachsen-beteiligungsbericht-2023",
+          "locator": "Mitteldeutsche Medienförderung GmbH",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2023",
+          "locator": "Mitteldeutsche Medienförderung GmbH",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-thueringen-beteiligungsbericht-2023",
+          "locator": "Mitteldeutsche Medienförderung GmbH",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-broadcast-law",
+          "locator": "§§ 7 und 8",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "media",
+        "consolidated",
+        "key-holding"
+      ],
+      "notes": [
+        "70 Prozent unmittelbar beim Freistaat; 20 Prozent mittelbar im öffentlichen Bereich über den OFF; 10 Prozent ZDF."
+      ],
+      "kind": "capital-holding",
+      "stakePercent": 70.0,
+      "publicSectorStakePercent": 90.0,
+      "direct": true
+    },
+    {
+      "id": "holding-deges",
+      "title": "DEGES Deutsche Einheit Fernstraßenplanungs- und -bau GmbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die sechs Vorgängerländer hielten jeweils rund 5,91 Prozent; kumuliert ergibt sich eine ostdeutsche unmittelbare Position von rund 35,46 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "transport",
+        "consolidated"
+      ],
+      "notes": [
+        "Quote aus sechs gleichartigen Länderpositionen rekonstruiert."
+      ],
+      "kind": "capital-holding",
+      "stakePercent": 35.46,
+      "direct": true
+    },
+    {
+      "id": "holding-fwu",
+      "title": "FWU Institut für Film und Bild in Wissenschaft und Unterricht gGmbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Aus sechs Länderpositionen von jeweils 6,25 Prozent ergibt sich eine kumulierte ostdeutsche Position von 37,50 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "education",
+        "consolidated"
+      ],
+      "notes": [],
+      "kind": "capital-holding",
+      "stakePercent": 37.5,
+      "direct": true
+    },
+    {
+      "id": "holding-dzhw",
+      "title": "Deutsches Zentrum für Hochschul- und Wissenschaftsforschung GmbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Aus sechs Länderpositionen von jeweils rund 1,85 Prozent ergibt sich eine kumulierte ostdeutsche Position von rund 11,10 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "science",
+        "consolidated"
+      ],
+      "notes": [],
+      "kind": "capital-holding",
+      "stakePercent": 11.1,
+      "direct": true
+    },
+    {
+      "id": "holding-bundeskunsthalle",
+      "title": "Kunst- und Ausstellungshalle der Bundesrepublik Deutschland GmbH",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Aus sechs Länderpositionen von jeweils rund 2,44 Prozent ergibt sich eine kumulierte ostdeutsche Position von rund 14,64 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "culture",
+        "consolidated"
+      ],
+      "notes": [],
+      "kind": "capital-holding",
+      "stakePercent": 14.64,
+      "direct": true
+    },
+    {
+      "id": "holding-kfw",
+      "title": "Kreditanstalt für Wiederaufbau",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die rekonstruierten sechs Länderpositionen ergeben zusammen rund 3,97 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 3",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "bank",
+        "consolidated"
+      ],
+      "notes": [
+        "Die exakte Quote ist bei einer späteren Vollinventur noch gegen die KfW-Trägerdaten zum 1. Dezember 2023 zu prüfen."
+      ],
+      "kind": "capital-holding",
+      "stakePercent": 3.97,
+      "direct": true
+    },
+    {
+      "id": "holding-gemeingut-wohnen",
+      "title": "Gemeingut Wohnen AöR",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-25",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Rechtsfähige AöR des Freistaates zur gemeinwirtschaftlichen Bewirtschaftung der nach dem Wohnvergesellschaftungsrecht überführten Wohnungsbestände.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gemeingut-wohnen-law",
+          "locator": "§§ 1 bis 6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-housing-law",
+          "locator": "Wohnvergesellschaftungsgesetz § 3 Nummer 1 und Überführungsregeln",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-gemeingut-wohnen"
+      ],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "housing",
+        "public-economy",
+        "key-holding"
+      ],
+      "notes": [
+        "Die geerbten landeseigenen Berliner Wohnungsunternehmen bestehen daneben fort."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-landesbank-elbe",
+      "title": "Landesbank an der Elbe",
+      "status": "confirmed-primary",
+      "validFrom": "2026-01-27",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Rechtsfähige AöR und ostdeutsche Universal- und Sparkassenzentralbank; bei Errichtung mit 20 Milliarden Euro aus dem Landeshaushalt ausgestattet.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-landesbank-elbe-law",
+          "locator": "§§ 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "bank",
+        "public-economy",
+        "key-holding"
+      ],
+      "notes": [
+        "Die Errichtung löste die geerbten Förderbanken nicht automatisch auf."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-ostdeutscher-fernsehfunk",
+      "title": "Ostdeutscher Fernsehfunk",
+      "status": "confirmed-primary",
+      "validFrom": "2026-05-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Rechtsfähige öffentlich-rechtliche Rundfunkanstalt und Gesamtrechtsnachfolger von MDR und RBB einschließlich deren Beteiligungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-broadcast-law",
+          "locator": "§§ 1, 7, 8, 14 und 16",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "media",
+        "public-economy",
+        "key-holding"
+      ],
+      "notes": [
+        "Keine Beteiligung des Freistaates im gesellschaftsrechtlichen Sinn; wegen Staatsferne als eigener öffentlich-rechtlicher Träger geführt."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": false
+    },
+    {
+      "id": "holding-ostdeutscher-verkehrsverbund",
+      "title": "Ostdeutscher Verkehrsverbund",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-24",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Landesunmittelbare rechtsfähige Körperschaft des öffentlichen Rechts mit dem Freistaat, Bezirken, Landkreisen und kreisfreien Städten als Mitgliedern.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ovv-law",
+          "locator": "§ 4 ÖPNVG",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "transport",
+        "public-economy",
+        "key-holding"
+      ],
+      "notes": [
+        "VBB, NASA und VMV sind dadurch nicht automatisch aufgelöst."
+      ],
+      "kind": "public-law-membership",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-ostdeutsche-eisenbahn",
+      "title": "Ostdeutsche Eisenbahn",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Rechtsfähige AöR für gemeinwirtschaftliche Schienen- und weitere öffentliche Verkehrsleistungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Ostdeutsches Eisenbahngesetz §§ 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "rail",
+        "transport",
+        "public-economy",
+        "key-holding"
+      ],
+      "notes": [
+        "Die ODEG wurde nicht als Gesellschaft erworben; erfasste Verkehrsproduktionsmittel wurden gesetzlich überführt."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-landesenergiewerke-ost",
+      "title": "Landesenergiewerke Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Rechtsfähige AöR für gemeinwirtschaftliche Energie- und Wärmeversorgung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-landesenergiewerke-law",
+          "locator": "§§ 1 bis 3",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-energy-law",
+          "locator": "Trägerin des Gemeineigentums",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "inst-landesenergiewerke-ost"
+      ],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "energy",
+        "heating",
+        "public-economy",
+        "key-holding"
+      ],
+      "notes": [
+        "Operativer Aufbau und einzelne Infrastrukturüberführungen sind vom Bestehen der Anstalt zu unterscheiden."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-ostdeutsche-netze",
+      "title": "Ostdeutsche Netze",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Rechtsfähige AöR und Trägerin der nach dem Energie- und Wärmevergesellschaftungsrecht überführten Netzinfrastruktur.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ostdeutsche-netze-law",
+          "locator": "§§ 1 und 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-energy-law",
+          "locator": "Trägerin des Gemeineigentums",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "energy",
+        "grid",
+        "public-economy",
+        "key-holding"
+      ],
+      "notes": [
+        "Die Anstalt ist errichtet; einzelne Überführungen können weiterhin Vollzugsakte erfordern."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-kreislaufwirtschafts-kombinat-ost",
+      "title": "Kreislaufwirtschafts-Kombinat Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Rechtsfähige AöR des Freistaates und Trägerin des SERO-Systems.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sero",
+          "locator": "§§ 1, 4 und 15",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "circular-economy",
+        "public-economy"
+      ],
+      "notes": [
+        "SERO-Bezirksbetriebe sind organisatorische Einheiten des KKO und keine selbstständigen Beteiligungen."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-landesagentur-spitzensport-ost",
+      "title": "Landesagentur Spitzensport Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Rechtsfähige AöR mit Sitz in Leipzig für Aufgaben der landesweiten Spitzensportförderung.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-lasp-law",
+          "locator": "§§ 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "sport",
+        "public-economy"
+      ],
+      "notes": [],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-wohnraumversorgung-berlin",
+      "title": "Wohnraumversorgung Berlin AöR",
+      "status": "confirmed-primary",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbte nicht rechtsfähige AöR und Teil der unmittelbaren Landesverwaltung; keine Kapitalbeteiligung und kein eigenes Vermögen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-wvb-errichtungsgesetz-2015",
+          "locator": "Artikel 3 § 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 4, Wohnraumversorgung Berlin AöR",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "housing",
+        "berlin",
+        "extended-register"
+      ],
+      "notes": [
+        "Die reale Berliner Neuordnung von 2024 wird nicht automatisch in den ostdeutschen Kanon übernommen."
+      ],
+      "kind": "non-legal-public-law-institution",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-landesanstalt-schienenfahrzeuge-berlin",
+      "title": "Landesanstalt Schienenfahrzeuge Berlin",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbte rechtsfähige AöR für den Berliner Schienenfahrzeugpool; eine ausdrückliche Auflösung durch das Ostdeutsche Eisenbahnrecht ist bislang nicht festgestellt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-lsfb-errichtungsgesetz-2021",
+          "locator": "§§ 1 und 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 4, Landesanstalt Schienenfahrzeuge Berlin",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "rail",
+        "berlin",
+        "extended-register"
+      ],
+      "notes": [
+        "Aufgabenüberschneidungen mit der Ostdeutschen Eisenbahn begründen ohne Aufhebungsnorm keinen Untergang."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-sondervermoegen-energie-waerme",
+      "title": "Sondervermögen Energie- und Wärmevergesellschaftung",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Nicht rechtsfähiges Sondervermögen des Freistaates für Entschädigungen, Infrastruktur, Transformation und Kapitalausstattung der öffentlichen Energie- und Netzträger.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-energy-finance-law",
+          "locator": "§§ 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "special-fund",
+        "energy",
+        "public-economy"
+      ],
+      "notes": [
+        "Kein selbstständiges Beteiligungsunternehmen."
+      ],
+      "kind": "special-fund",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-sondervermoegen-hochgeschwindigkeitsluftfahrt",
+      "title": "Sondervermögen Hochgeschwindigkeitsluftfahrt Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Nicht rechtsfähiges Sondervermögen des Freistaates für Infrastruktur, Förderung, Beteiligungen und Finanzierungsinstrumente im Bereich Hochgeschwindigkeitsluftfahrt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-hsl-sondervermoegen-law",
+          "locator": "§§ 1 bis 7",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "special-fund",
+        "aviation",
+        "public-economy"
+      ],
+      "notes": [
+        "Kein selbstständiges Beteiligungsunternehmen."
+      ],
+      "kind": "special-fund",
+      "stakePercent": null,
+      "direct": true
+    },
+    {
+      "id": "holding-50hertz-erwerb",
+      "title": "Schrittweise Übernahme der Elia-Beteiligung an 50Hertz",
+      "status": "confirmed-official",
+      "validFrom": "2025-12-02",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die Übernahme einer 80-Prozent-Beteiligung für 3,8 Milliarden Euro ist vereinbart; ein vollständiger Eigentumsübergang wird erst mit datiertem Vollzugsnachweis als aktuelle Beteiligung geführt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-pm-50hertz-2025-12-02",
+          "locator": "Seiten 1–2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 12",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "energy",
+        "acquisition",
+        "pending"
+      ],
+      "notes": [
+        "Nicht als bereits vollzogene 80-Prozent-Beteiligung ausgeben."
+      ],
+      "kind": "acquisition-in-progress",
+      "stakePercent": null,
+      "targetStakePercent": 80.0,
+      "direct": true
+    }
+  ]
+}

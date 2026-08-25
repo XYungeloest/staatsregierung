@@ -1,6 +1,7 @@
 export {
   loadBudgetPageBySlug,
   loadBudgetPages,
+  loadBeteiligungsUebersicht,
   loadCabinetPageContent,
   loadCurrentJobOffers,
   loadCurrentGovernmentMembers,

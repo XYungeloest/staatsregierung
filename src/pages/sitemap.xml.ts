@@ -19,6 +19,7 @@ import {
   getGovernmentMemberUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
+  getHoldingsUrl,
   getHomeUrl,
   getImprintUrl,
   getJobUrl,
@@ -77,7 +78,7 @@ export const GET: APIRoute = async ({ site }) => {
   ]);
 
   const staticPaths = [
-    getHomeUrl(), getGovernmentUrl(), getGovernmentMembersUrl(), getMinisterPresidentUrl(),
+    getHomeUrl(), getGovernmentUrl(), getGovernmentMembersUrl(), getHoldingsUrl(), getMinisterPresidentUrl(),
     getCabinetUrl(), getCoalitionUrl(), getActionPlanUrl(), getKreisreformUrl(), getTopicsUrl(),
     getEducationAndSchoolUrl(), getSchoolSystemUrl(), getPressUrl(), getPressReleaseIndexUrl(),
     getSpeechIndexUrl(), getEventIndexUrl(), getBudgetUrl(), getFreestateUrl(), getServiceUrl(),

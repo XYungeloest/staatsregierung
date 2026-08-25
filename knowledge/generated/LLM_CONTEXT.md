@@ -68,6 +68,23 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **Luxemburg-Liebknecht-Denkmal auf dem Platz der Republik**: approved-construction-unresolved. Genehmigtes zehn Meter hohes Denkmal mit Rosa Luxemburg und Karl Liebknecht, Reliefs der Arbeiterschaft und der Inschrift „Der Deutschen Arbeiterschaft“; Kosten 7,4 Millionen Euro. Eine Fertigstellung ist nicht belegt.
 - **Ansiedlung eines Heckler-&-Koch-Werks**: rejected. Das mit steuerlichen Vergünstigungen vorgeschlagene ostdeutsche Werk wurde von der EAG abgelehnt und nicht umgesetzt.
 
+## Öffentliche Wirtschaft und Beteiligungen
+
+Der Freistaat Ostdeutschland trat redaktionell in die Beteiligungs-, Träger-, Gewährträger-, Mitgliedschafts- und Vermögenspositionen der sechs Vorgängerländer ein. Die Übernahme des sächsischen Rechtsstandes beseitigt diese konkreten Rechtspositionen nicht.
+
+- **Flughafen Berlin Brandenburg GmbH**: Die früheren Länderanteile Berlins und Brandenburgs von jeweils 37 Prozent vereinigen sich beim Freistaat zu 74 Prozent.
+- **Mitteldeutsche Flughafen AG**: Die früheren Länderanteile Sachsens von 77,29 Prozent und Sachsen-Anhalts von 18,54 Prozent vereinigen sich beim Freistaat zu 95,83 Prozent.
+- **MEAB Märkische Entsorgungsanlagen-Betriebsgesellschaft mbH**: Die früheren 50-Prozent-Anteile Berlins und Brandenburgs vereinigen sich beim Freistaat.
+- **VBB Verkehrsverbund Berlin-Brandenburg GmbH**: Die früheren Länderanteile Berlins und Brandenburgs von jeweils 33,33 Prozent vereinigen sich beim Freistaat zu rund zwei Dritteln; kommunale Anteile bleiben unberührt.
+- **Mitteldeutsche Medienförderung GmbH**: Die unmittelbaren Länderanteile Sachsens, Sachsen-Anhalts und Thüringens ergeben 70 Prozent. Weitere 20 Prozent gingen 2026 vom MDR auf den Ostdeutschen Fernsehfunk über.
+- **Gemeingut Wohnen AöR**: Rechtsfähige AöR des Freistaates zur gemeinwirtschaftlichen Bewirtschaftung der nach dem Wohnvergesellschaftungsrecht überführten Wohnungsbestände.
+- **Landesbank an der Elbe**: Rechtsfähige AöR und ostdeutsche Universal- und Sparkassenzentralbank; bei Errichtung mit 20 Milliarden Euro aus dem Landeshaushalt ausgestattet.
+- **Ostdeutscher Fernsehfunk**: Rechtsfähige öffentlich-rechtliche Rundfunkanstalt und Gesamtrechtsnachfolger von MDR und RBB einschließlich deren Beteiligungen.
+- **Ostdeutscher Verkehrsverbund**: Landesunmittelbare rechtsfähige Körperschaft des öffentlichen Rechts mit dem Freistaat, Bezirken, Landkreisen und kreisfreien Städten als Mitgliedern.
+- **Ostdeutsche Eisenbahn**: Rechtsfähige AöR für gemeinwirtschaftliche Schienen- und weitere öffentliche Verkehrsleistungen.
+- **Landesenergiewerke Ost**: Rechtsfähige AöR für gemeinwirtschaftliche Energie- und Wärmeversorgung.
+- **Ostdeutsche Netze**: Rechtsfähige AöR und Trägerin der nach dem Energie- und Wärmevergesellschaftungsrecht überführten Netzinfrastruktur.
+
 ## Wichtigste historische Ereignisse
 
 - **2026-08-09: Volksbefragungsverordnung 2026 wird verkündet.** Der Staatsrat ordnet die Volksbefragung an; die Verordnung wird in OGVBl. 2026 Nr. 59 verkündet und tritt am Tag der Verkündung in Kraft.
@@ -114,6 +131,7 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - Personen, Institutionen, Parteien und Gebiete: `knowledge/entities/`
 - Ereignisse: `knowledge/timeline.json`
 - Projektverbünde: `knowledge/projects.json`
+- Beteiligungen und öffentliche Wirtschafts- und Vermögensträger: `knowledge/holdings.json`
 - Verfahren: `knowledge/proceedings.json`
 - Offene Fragen: `knowledge/open-questions.json`
 - Nur Gesprächswissen: `knowledge/conversation-candidates.json`

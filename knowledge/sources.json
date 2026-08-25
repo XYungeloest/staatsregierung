@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-23",
+  "asOf": "2026-08-25",
   "sources": [
     {
       "id": "source-editorial-clarification-zuarbeit-2026-08-23",
@@ -1542,6 +1542,253 @@
       "scope": ["press", "transport", "fares", "social-policy", "public-economy"],
       "sourceRole": "official-press-release",
       "notes": "Amtliche Einordnung des Tarif-, Betriebs- und Taktpakets; die vierseitige Ausgangs-PDF wurde visuell kontrolliert."
-    }
+    },
+  {
+    "id": "source-editorial-clarification-beteiligungen-2026-08-25",
+    "type": "editorial-clarification",
+    "path": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md",
+    "title": "Redaktionelle Klarstellung zu Beteiligungen und öffentlicher Wirtschaft",
+    "date": "2026-08-25",
+    "status": "primary",
+    "scope": [
+      "public-economy",
+      "holdings",
+      "succession",
+      "institutions",
+      "assets"
+    ],
+    "notes": "Kanonische redaktionelle Festlegung zur Rechtsnachfolge der sechs Vorgängerländer und zur Abgrenzung von Beteiligungen, AöR, Landesbetrieben und Sondervermögen."
+  },
+  {
+    "id": "source-berlin-beteiligungsbericht-2023",
+    "type": "official-participation-report",
+    "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsbericht/bb_2023_gesamt_web.pdf",
+    "title": "Beteiligungsbericht 2023 des Landes Berlin",
+    "date": null,
+    "status": "primary",
+    "scope": [
+      "public-economy",
+      "holdings",
+      "berlin"
+    ],
+    "notes": "Amtlicher Beteiligungsbericht; für den Vereinigungsstichtag zusammen mit datierten Änderungen und der redaktionellen Rechtsnachfolgeklarstellung auszuwerten."
+  },
+  {
+    "id": "source-berlin-wvb-errichtungsgesetz-2015",
+    "type": "official-gazette",
+    "path": "https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2015/ausgabe-nr-25-vom-5-12-2015-seite-421-bis-440.pdf",
+    "title": "Gesetz zur Errichtung der Wohnraumversorgung Berlin – Anstalt öffentlichen Rechts",
+    "date": "2015-11-24",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "housing",
+      "berlin"
+    ],
+    "notes": "Belegt die Errichtung der WVB als nicht rechtsfähige Anstalt öffentlichen Rechts."
+  },
+  {
+    "id": "source-berlin-lsfb-errichtungsgesetz-2021",
+    "type": "official-gazette",
+    "path": "https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2021/ausgabe_nr._40_vom_26.5.2021_s._501-512.pdf",
+    "title": "LSFB-Errichtungsgesetz",
+    "date": "2021-05-17",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "rail",
+      "berlin"
+    ],
+    "notes": "Belegt die Errichtung der Landesanstalt Schienenfahrzeuge Berlin als rechtsfähige AöR."
+  },
+  {
+    "id": "source-brandenburg-beteiligungsbericht-2023",
+    "type": "official-participation-report",
+    "path": "https://mdf.brandenburg.de/mdf/de/themen/beteiligungen-buergschaften-aufsichten-vermoegensfragen/landesbeteiligungen/",
+    "title": "Beteiligungsbericht 2023 des Landes Brandenburg",
+    "date": null,
+    "status": "primary",
+    "scope": [
+      "public-economy",
+      "holdings",
+      "brandenburg"
+    ],
+    "notes": "Amtliche Veröffentlichungsseite mit Beteiligungsbericht 2023."
+  },
+  {
+    "id": "source-sachsen-beteiligungsbericht-2023",
+    "type": "official-participation-report",
+    "path": "https://publikationen.sachsen.de/bdb/artikel/43602",
+    "title": "Beteiligungsbericht 2023 des Freistaates Sachsen",
+    "date": "2024-01-10",
+    "status": "primary",
+    "scope": [
+      "public-economy",
+      "holdings",
+      "sachsen"
+    ],
+    "notes": "Amtlicher Bericht mit Redaktionsschluss 10. Januar 2024 und Jahresabschlussdaten zum 31. Dezember 2022."
+  },
+  {
+    "id": "source-thueringen-beteiligungsbericht-2023",
+    "type": "official-participation-report",
+    "path": "https://finanzen.thueringen.de/fileadmin/medien_tfm/beteiligungen/beteiligungsbericht_2023_bf.pdf",
+    "title": "Beteiligungsbericht 2023 des Freistaats Thüringen",
+    "date": null,
+    "status": "primary",
+    "scope": [
+      "public-economy",
+      "holdings",
+      "thueringen"
+    ],
+    "notes": "Amtlicher Bericht über unmittelbare und mittelbare Kapitalbeteiligungen; enthält zusätzlich ausgewählte AöR ohne Kapitalbeteiligung."
+  },
+  {
+    "id": "source-sachsen-anhalt-beteiligungsbericht-2023",
+    "type": "official-participation-report",
+    "path": "https://mf.sachsen-anhalt.de/finanzen/page/zentrales-beteiligungsmanagement",
+    "title": "Beteiligungsbericht 2023 des Landes Sachsen-Anhalt",
+    "date": null,
+    "status": "primary",
+    "scope": [
+      "public-economy",
+      "holdings",
+      "sachsen-anhalt"
+    ],
+    "notes": "Amtliche Veröffentlichungsseite; Beteiligungsbericht 2023 für das Geschäftsjahr 2022."
+  },
+  {
+    "id": "source-mv-beteiligungsbericht-2022-2023",
+    "type": "official-participation-report",
+    "path": "https://www.regierung-mv.de/Landesregierung/fm/Blickpunkte/beteiligungsbericht/",
+    "title": "Beteiligungsbericht Mecklenburg-Vorpommern 2022/2023",
+    "date": null,
+    "status": "primary",
+    "scope": [
+      "public-economy",
+      "holdings",
+      "mecklenburg-vorpommern"
+    ],
+    "notes": "Amtliche Veröffentlichungsseite zum Beteiligungsbericht für die Geschäftsjahre 2022 und 2023."
+  },
+  {
+    "id": "source-landesbank-elbe-law",
+    "type": "law",
+    "path": "content/normen/ostdeutsches-landesbankgesetz/versions/2026-01-26.json",
+    "title": "Ostdeutsches Landesbankgesetz",
+    "date": "2026-01-26",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "bank"
+    ],
+    "notes": "Belegt Errichtung, Kapitalausstattung und Aufgaben der Landesbank an der Elbe."
+  },
+  {
+    "id": "source-ovv-law",
+    "type": "law",
+    "path": "content/normen/erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr/versions/2026-03-23.json",
+    "title": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
+    "date": "2026-03-23",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "transport",
+      "ovv"
+    ],
+    "notes": "Belegt Errichtung, Rechtsform und Mitgliederstruktur des Ostdeutschen Verkehrsverbundes."
+  },
+  {
+    "id": "source-lasp-law",
+    "type": "law",
+    "path": "content/normen/landesagentur-spitzensport-gesetz/versions/2026-07-21.json",
+    "title": "Landesagentur-Spitzensport-Gesetz",
+    "date": "2026-07-21",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "sport"
+    ],
+    "notes": "Belegt Errichtung und Aufgaben der Landesagentur Spitzensport Ost."
+  },
+  {
+    "id": "source-energy-finance-law",
+    "type": "law",
+    "path": "content/normen/energie-und-waermefinanzierungsgesetz/versions/2026-07-21.json",
+    "title": "Energie- und Wärmefinanzierungsgesetz",
+    "date": "2026-07-21",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "energy",
+      "special-fund"
+    ],
+    "notes": "Belegt das Sondervermögen Energie- und Wärmevergesellschaftung."
+  },
+  {
+    "id": "source-hsl-sondervermoegen-law",
+    "type": "law",
+    "path": "content/normen/hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz/versions/2026-07-21.json",
+    "title": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
+    "date": "2026-07-21",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "aviation",
+      "special-fund"
+    ],
+    "notes": "Belegt das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost."
+  },
+  {
+    "id": "source-gemeingut-wohnen-law",
+    "type": "law",
+    "path": "content/normen/gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l/versions/2026-03-23.json",
+    "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
+    "date": "2026-03-23",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "housing"
+    ],
+    "notes": "Enthält die Errichtung und Organisationsregelungen für Gemeingut Wohnen."
+  },
+  {
+    "id": "source-landesenergiewerke-law",
+    "type": "law",
+    "path": "content/normen/landesenergiewerke-gesetz/versions/2026-07-21.json",
+    "title": "Landesenergiewerke-Gesetz",
+    "date": "2026-07-21",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "energy",
+      "heating"
+    ],
+    "notes": "Belegt Errichtung, Rechtsstellung und Aufgaben der Landesenergiewerke Ost."
+  },
+  {
+    "id": "source-ostdeutsche-netze-law",
+    "type": "law",
+    "path": "content/normen/ostdeutsche-netze-gesetz/versions/2026-07-21.json",
+    "title": "Ostdeutsche-Netze-Gesetz",
+    "date": "2026-07-21",
+    "status": "primary",
+    "scope": [
+      "law",
+      "public-economy",
+      "energy",
+      "grid"
+    ],
+    "notes": "Belegt Errichtung, Rechtsstellung und Aufgaben der Ostdeutsche Netze AöR."
+  }
   ]
 }

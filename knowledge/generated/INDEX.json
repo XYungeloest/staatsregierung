@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-23",
+  "generatedAt": "2026-08-25",
   "editorialAsOf": "2026-08-23",
-  "count": 371,
+  "count": 430,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -1100,6 +1100,508 @@
       "target": "knowledge/timeline.json"
     },
     {
+      "id": "holding-50hertz-erwerb",
+      "title": "Schrittweise Übernahme der Elia-Beteiligung an 50Hertz",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "energy",
+        "acquisition",
+        "pending"
+      ],
+      "validFrom": "2025-12-02",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-amt-statistik-berlin-brandenburg",
+      "title": "Amt für Statistik Berlin-Brandenburg AöR",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "statistics",
+        "consolidated"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-bundeskunsthalle",
+      "title": "Kunst- und Ausstellungshalle der Bundesrepublik Deutschland GmbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "culture",
+        "consolidated"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-deges",
+      "title": "DEGES Deutsche Einheit Fernstraßenplanungs- und -bau GmbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "transport",
+        "consolidated"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-dzhw",
+      "title": "Deutsches Zentrum für Hochschul- und Wissenschaftsforschung GmbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "science",
+        "consolidated"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-flughafen-berlin-brandenburg",
+      "title": "Flughafen Berlin Brandenburg GmbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "aviation",
+        "consolidated",
+        "key-holding"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-fwu",
+      "title": "FWU Institut für Film und Bild in Wissenschaft und Unterricht gGmbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "education",
+        "consolidated"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-gemeingut-wohnen",
+      "title": "Gemeingut Wohnen AöR",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "housing",
+        "public-economy",
+        "key-holding"
+      ],
+      "validFrom": "2026-03-25",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-kfw",
+      "title": "Kreditanstalt für Wiederaufbau",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "bank",
+        "consolidated"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-kreislaufwirtschafts-kombinat-ost",
+      "title": "Kreislaufwirtschafts-Kombinat Ost",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "circular-economy",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-landesagentur-spitzensport-ost",
+      "title": "Landesagentur Spitzensport Ost",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "sport",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-landesanstalt-schienenfahrzeuge-berlin",
+      "title": "Landesanstalt Schienenfahrzeuge Berlin",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "rail",
+        "berlin",
+        "extended-register"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-landesbank-elbe",
+      "title": "Landesbank an der Elbe",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "bank",
+        "public-economy",
+        "key-holding"
+      ],
+      "validFrom": "2026-01-27",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-landesenergiewerke-ost",
+      "title": "Landesenergiewerke Ost",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "energy",
+        "heating",
+        "public-economy",
+        "key-holding"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-meab",
+      "title": "MEAB Märkische Entsorgungsanlagen-Betriebsgesellschaft mbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "waste",
+        "consolidated",
+        "key-holding"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-mitteldeutsche-flughafen-ag",
+      "title": "Mitteldeutsche Flughafen AG",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "aviation",
+        "consolidated",
+        "key-holding"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-mitteldeutsche-medienfoerderung",
+      "title": "Mitteldeutsche Medienförderung GmbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "media",
+        "consolidated",
+        "key-holding"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-ostdeutsche-eisenbahn",
+      "title": "Ostdeutsche Eisenbahn",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "rail",
+        "transport",
+        "public-economy",
+        "key-holding"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-ostdeutsche-netze",
+      "title": "Ostdeutsche Netze",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "energy",
+        "grid",
+        "public-economy",
+        "key-holding"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-ostdeutscher-fernsehfunk",
+      "title": "Ostdeutscher Fernsehfunk",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "media",
+        "public-economy",
+        "key-holding"
+      ],
+      "validFrom": "2026-05-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-ostdeutscher-verkehrsverbund",
+      "title": "Ostdeutscher Verkehrsverbund",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "transport",
+        "public-economy",
+        "key-holding"
+      ],
+      "validFrom": "2026-03-24",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-portfolio-berlin-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Berlin",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "berlin",
+        "inherited-portfolio"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-portfolio-brandenburg-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Brandenburg",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "brandenburg",
+        "inherited-portfolio"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-portfolio-mecklenburg-vorpommern-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Mecklenburg-Vorpommern",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "mecklenburg-vorpommern",
+        "inherited-portfolio"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-portfolio-sachsen-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Sachsen",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "sachsen",
+        "inherited-portfolio"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-portfolio-sachsen-anhalt-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Sachsen-Anhalt",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "sachsen-anhalt",
+        "inherited-portfolio"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-portfolio-thueringen-2023",
+      "title": "Geerbter Beteiligungs- und Trägerbestand Thüringen",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "thueringen",
+        "inherited-portfolio"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-rechtsnachfolge-2023",
+      "title": "Rechtsnachfolge in Beteiligungs- und Trägerpositionen zum 1. Dezember 2023",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-economy",
+        "succession",
+        "framework",
+        "key-holding"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-sbb",
+      "title": "SBB Sonderabfallgesellschaft Brandenburg/Berlin mbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "waste",
+        "consolidated"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-sondervermoegen-energie-waerme",
+      "title": "Sondervermögen Energie- und Wärmevergesellschaftung",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "special-fund",
+        "energy",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-sondervermoegen-hochgeschwindigkeitsluftfahrt",
+      "title": "Sondervermögen Hochgeschwindigkeitsluftfahrt Ost",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "special-fund",
+        "aviation",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-vbb",
+      "title": "VBB Verkehrsverbund Berlin-Brandenburg GmbH",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "transport",
+        "consolidated",
+        "key-holding"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
+      "id": "holding-wohnraumversorgung-berlin",
+      "title": "Wohnraumversorgung Berlin AöR",
+      "type": "holding",
+      "aliases": [],
+      "tags": [
+        "holding",
+        "public-law-entity",
+        "housing",
+        "berlin",
+        "extended-register"
+      ],
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "target": "knowledge/holdings.json"
+    },
+    {
       "id": "inst-50hertz",
       "title": "50Hertz Transmission",
       "type": "institution",
@@ -1310,6 +1812,75 @@
       "target": "knowledge/entities/institutions.json"
     },
     {
+      "id": "inst-kreislaufwirtschafts-kombinat-ost",
+      "title": "Kreislaufwirtschafts-Kombinat Ost",
+      "type": "institution",
+      "aliases": [
+        "KKO"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "circular-economy",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-landesagentur-spitzensport-ost",
+      "title": "Landesagentur Spitzensport Ost",
+      "type": "institution",
+      "aliases": [
+        "LASpO"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "sport"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-landesanstalt-schienenfahrzeuge-berlin",
+      "title": "Landesanstalt Schienenfahrzeuge Berlin",
+      "type": "institution",
+      "aliases": [
+        "LSFB"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "rail",
+        "berlin",
+        "succession"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-landesbank-elbe",
+      "title": "Landesbank an der Elbe",
+      "type": "institution",
+      "aliases": [
+        "Elbe LB",
+        "Aufbruchsbank"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "bank",
+        "public-economy"
+      ],
+      "validFrom": "2026-01-27",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
       "id": "inst-landesenergiewerke-ost",
       "title": "Landesenergiewerke Ost",
       "type": "institution",
@@ -1343,6 +1914,76 @@
       ],
       "validFrom": null,
       "validTo": "2026-07-20",
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-ostdeutsche-eisenbahn",
+      "title": "Ostdeutsche Eisenbahn",
+      "type": "institution",
+      "aliases": [
+        "ODB"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "rail",
+        "transport",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-ostdeutsche-netze",
+      "title": "Ostdeutsche Netze",
+      "type": "institution",
+      "aliases": [
+        "Ostdeutsche Netze AöR"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "energy",
+        "grid",
+        "public-economy"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-ostdeutscher-fernsehfunk",
+      "title": "Ostdeutscher Fernsehfunk",
+      "type": "institution",
+      "aliases": [
+        "OFF"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "media",
+        "broadcast"
+      ],
+      "validFrom": "2026-05-01",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-ostdeutscher-verkehrsverbund",
+      "title": "Ostdeutscher Verkehrsverbund",
+      "type": "institution",
+      "aliases": [
+        "OVV"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "transport",
+        "ovv"
+      ],
+      "validFrom": "2026-03-24",
+      "validTo": null,
       "target": "knowledge/entities/institutions.json"
     },
     {
@@ -1613,6 +2254,25 @@
         "parliament"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
+      "id": "inst-wohnraumversorgung-berlin",
+      "title": "Wohnraumversorgung Berlin",
+      "type": "institution",
+      "aliases": [
+        "WVB",
+        "Wohnraumversorgung Berlin AöR"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "housing",
+        "berlin",
+        "succession"
+      ],
+      "validFrom": "2016-01-01",
       "validTo": null,
       "target": "knowledge/entities/institutions.json"
     },
@@ -2826,6 +3486,50 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-berlin-beteiligungsbericht-2023",
+      "title": "Beteiligungsbericht 2023 des Landes Berlin",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "public-economy",
+        "holdings",
+        "berlin"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-berlin-lsfb-errichtungsgesetz-2021",
+      "title": "LSFB-Errichtungsgesetz",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "rail",
+        "berlin"
+      ],
+      "validFrom": "2021-05-17",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-berlin-wvb-errichtungsgesetz-2015",
+      "title": "Gesetz zur Errichtung der Wohnraumversorgung Berlin – Anstalt öffentlichen Rechts",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "housing",
+        "berlin"
+      ],
+      "validFrom": "2015-11-24",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-bezirke",
       "title": "Bezirke",
       "type": "source",
@@ -2919,6 +3623,20 @@
         "projects"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-brandenburg-beteiligungsbericht-2023",
+      "title": "Beteiligungsbericht 2023 des Landes Brandenburg",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "public-economy",
+        "holdings",
+        "brandenburg"
+      ],
+      "validFrom": null,
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -3130,6 +3848,22 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-editorial-clarification-beteiligungen-2026-08-25",
+      "title": "Redaktionelle Klarstellung zu Beteiligungen und öffentlicher Wirtschaft",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "public-economy",
+        "holdings",
+        "succession",
+        "institutions",
+        "assets"
+      ],
+      "validFrom": "2026-08-25",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-editorial-clarification-dreyer-election-2026-08-01",
       "title": "Redaktionelle Klarstellung zu Dreyer und zur Wahl der achten Volkskammer",
       "type": "source",
@@ -3272,6 +4006,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-energy-finance-law",
+      "title": "Energie- und Wärmefinanzierungsgesetz",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "energy",
+        "special-fund"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-energy-law",
       "title": "Energie- und Wärmevergesellschaftungsgesetz",
       "type": "source",
@@ -3349,6 +4098,20 @@
         "government"
       ],
       "validFrom": "2026-05-04",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-gemeingut-wohnen-law",
+      "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "housing"
+      ],
+      "validFrom": "2026-03-23",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -3507,6 +4270,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-hsl-sondervermoegen-law",
+      "title": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "aviation",
+        "special-fund"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-kabinett-delgado",
       "title": "Kabinett Delgado",
       "type": "source",
@@ -3613,6 +4391,49 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-landesbank-elbe-law",
+      "title": "Ostdeutsches Landesbankgesetz",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "bank"
+      ],
+      "validFrom": "2026-01-26",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-landesenergiewerke-law",
+      "title": "Landesenergiewerke-Gesetz",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "energy",
+        "heating"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-lasp-law",
+      "title": "Landesagentur-Spitzensport-Gesetz",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "sport"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-lucia-current",
       "title": "Profil Lucia Liebknecht",
       "type": "source",
@@ -3688,6 +4509,20 @@
         "persons",
         "parties",
         "federal"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-mv-beteiligungsbericht-2022-2023",
+      "title": "Beteiligungsbericht Mecklenburg-Vorpommern 2022/2023",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "public-economy",
+        "holdings",
+        "mecklenburg-vorpommern"
       ],
       "validFrom": null,
       "validTo": null,
@@ -3935,6 +4770,21 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-ostdeutsche-netze-law",
+      "title": "Ostdeutsche-Netze-Gesetz",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "energy",
+        "grid"
+      ],
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-overtrbl-2026-01",
       "title": "Ostdeutsches Vertragsblatt 2026 Nr. 1",
       "type": "source",
@@ -3988,6 +4838,21 @@
         "ndr"
       ],
       "validFrom": "2026-03-24",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-ovv-law",
+      "title": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "public-economy",
+        "transport",
+        "ovv"
+      ],
+      "validFrom": "2026-03-23",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -4124,6 +4989,34 @@
         "editorial"
       ],
       "validFrom": "2026-08-09",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-sachsen-anhalt-beteiligungsbericht-2023",
+      "title": "Beteiligungsbericht 2023 des Landes Sachsen-Anhalt",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "public-economy",
+        "holdings",
+        "sachsen-anhalt"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-sachsen-beteiligungsbericht-2023",
+      "title": "Beteiligungsbericht 2023 des Freistaates Sachsen",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "public-economy",
+        "holdings",
+        "sachsen"
+      ],
+      "validFrom": "2024-01-10",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -4535,6 +5428,20 @@
         "projects"
       ],
       "validFrom": "2026-03-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-thueringen-beteiligungsbericht-2023",
+      "title": "Beteiligungsbericht 2023 des Freistaats Thüringen",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "public-economy",
+        "holdings",
+        "thueringen"
+      ],
+      "validFrom": null,
       "validTo": null,
       "target": "knowledge/sources.json"
     },

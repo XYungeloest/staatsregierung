@@ -35,6 +35,7 @@ const dataSpecs = [
   ['knowledge/current-state.json', 'sections', 'current-state'],
   ['knowledge/timeline.json', 'events', 'timeline-event'],
   ['knowledge/projects.json', 'projects', 'project'],
+  ['knowledge/holdings.json', 'holdings', 'holding'],
   ['knowledge/proceedings.json', 'proceedings', 'proceeding'],
   ['knowledge/open-questions.json', 'questions', 'open-question'],
   ['knowledge/conversation-candidates.json', 'candidates', 'conversation-candidate'],
@@ -368,6 +369,7 @@ function buildContext(model) {
   const currentState = model.byType.get('current-state') ?? [];
   const persons = model.byType.get('person') ?? [];
   const projects = model.byType.get('project') ?? [];
+  const holdings = model.byType.get('holding') ?? [];
   const proceedings = model.byType.get('proceeding') ?? [];
   const timeline = model.byType.get('timeline-event') ?? [];
   const questions = model.byType.get('open-question') ?? [];
@@ -433,6 +435,17 @@ function buildContext(model) {
     lines.push(`- **${project.title}**: ${project.projectStage}. ${project.summary}`);
   }
   lines.push('');
+  lines.push('## Öffentliche Wirtschaft und Beteiligungen');
+  lines.push('');
+  const succession = holdings.find((item) => item.id === 'holding-rechtsnachfolge-2023');
+  if (succession) {
+    lines.push(succession.summary);
+    lines.push('');
+  }
+  for (const holding of holdings.filter((item) => item.tags?.includes('key-holding') && item.id !== 'holding-rechtsnachfolge-2023')) {
+    lines.push(`- **${holding.title}**: ${holding.summary}`);
+  }
+  lines.push('');
   lines.push('## Wichtigste historische Ereignisse');
   lines.push('');
   for (const event of [...timeline].sort((a, b) => a.date.localeCompare(b.date)).slice(-10)) {
@@ -458,6 +471,7 @@ function buildContext(model) {
   lines.push('- Personen, Institutionen, Parteien und Gebiete: `knowledge/entities/`');
   lines.push('- Ereignisse: `knowledge/timeline.json`');
   lines.push('- Projektverbünde: `knowledge/projects.json`');
+  lines.push('- Beteiligungen und öffentliche Wirtschafts- und Vermögensträger: `knowledge/holdings.json`');
   lines.push('- Verfahren: `knowledge/proceedings.json`');
   lines.push('- Offene Fragen: `knowledge/open-questions.json`');
   lines.push('- Nur Gesprächswissen: `knowledge/conversation-candidates.json`');

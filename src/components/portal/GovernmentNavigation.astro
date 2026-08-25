@@ -6,6 +6,7 @@ import {
   getCoalitionUrl,
   getGovernmentMembersUrl,
   getGovernmentUrl,
+  getHoldingsUrl,
   getMinisterPresidentUrl,
 } from '../../lib/portal/index.ts';
 ---
@@ -16,6 +17,7 @@ import {
   items={[
     { label: 'Überblick', href: getGovernmentUrl() },
     { label: 'Staatsrat & Geschäftsbereiche', href: getCabinetUrl() },
+    { label: 'Beteiligungen', href: getHoldingsUrl() },
     { label: 'Mitglieder', href: getGovernmentMembersUrl() },
     { label: 'Staatspräsident', href: getMinisterPresidentUrl() },
     { label: 'Koalition', href: getCoalitionUrl() },

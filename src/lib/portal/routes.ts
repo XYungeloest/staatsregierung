@@ -78,6 +78,10 @@ export function getCabinetUrl(): string {
   return getSiteUrl('cabinet');
 }
 
+export function getHoldingsUrl(): string {
+  return getSiteUrl('holdings');
+}
+
 export function getPreviousCabinetsUrl(): string {
   return getSiteUrl('previousCabinets');
 }
