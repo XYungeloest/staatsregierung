@@ -1,0 +1,198 @@
+---
+import HoldingsTable from './HoldingsTable.astro';
+import {
+  formatHoldingCurrentStatus,
+  formatHoldingCutoffStatus,
+  formatHoldingRelation,
+} from '../../lib/portal/holdings.ts';
+import type {
+  BeteiligungsGegenwartsstatus,
+  BeteiligungsInventar,
+  BeteiligungsStichtagsstatus,
+} from '../../lib/portal/schema.ts';
+
+interface Props {
+  inventory: BeteiligungsInventar;
+}
+
+const { inventory } = Astro.props as Props;
+const initialPositions = [...inventory.positions]
+  .sort((left, right) => left.name.localeCompare(right.name, 'de') || left.key.localeCompare(right.key, 'de'))
+  .slice(0, 25);
+const base = import.meta.env.BASE_URL;
+const dataUrl = `${base}staatsregierung/beteiligungen/daten.json`;
+const csvUrl = `${base}staatsregierung/beteiligungen/daten.csv`;
+const relationValues = new Set(inventory.totals.relations.map((entry) => entry.value));
+const cutoffValues = new Set(inventory.totals.cutoffStatuses.map((entry) => entry.value));
+const currentValues = new Set(inventory.totals.currentStatuses.map((entry) => entry.value));
+const getCutoffStatusLabel = (value: string) => formatHoldingCutoffStatus(value as BeteiligungsStichtagsstatus);
+const getCurrentStatusLabel = (value: string) => formatHoldingCurrentStatus(value as BeteiligungsGegenwartsstatus);
+---
+
+<section
+  id="beteiligungsnavigator"
+  class="section section-muted holdings-navigator"
+  aria-labelledby="beteiligungsnavigator-title"
+  data-holdings-root
+  data-source-url={dataUrl}
+  data-total={inventory.totals.positionRows}
+>
+  <div class="section-header holdings-navigator__header">
+    <div>
+      <p class="eyebrow">Vollständige öffentliche Inventur</p>
+      <h2 id="beteiligungsnavigator-title">Beteiligungsnavigator</h2>
+      <p>
+        Durchsuchen Sie den vollständigen öffentlich belegten Beteiligungs- und Trägerbestand. Derselbe Rechtsträger kann mehrfach erscheinen, wenn mehrere Vorgängerländer beteiligt waren oder verschiedene Beteiligungsstufen bestehen.
+      </p>
+    </div>
+    <nav class="holdings-downloads" aria-label="Beteiligungsdaten herunterladen">
+      <a class="button-link" href={csvUrl}>CSV herunterladen</a>
+      <a class="button-link button-link--secondary" href={dataUrl}>JSON herunterladen</a>
+    </nav>
+  </div>
+
+  <form class="holdings-filter-form" method="get" data-holdings-filter-form role="search" aria-label="Beteiligungsbestand durchsuchen und filtern">
+    <div class="holdings-search-field">
+      <label for="holdings-search">Rechtsträger und Beteiligungen durchsuchen</label>
+      <div class="holdings-search-field__control">
+        <input
+          id="holdings-search"
+          name="q"
+          type="search"
+          autocomplete="off"
+          placeholder="Zum Beispiel Vivantes, Flughafen, SAB oder Lotto"
+          data-holdings-search
+        />
+        <button type="submit" class="button-link">Suchen</button>
+      </div>
+    </div>
+
+    <details class="holdings-filter-panel" open data-holdings-filter-panel>
+      <summary>
+        <span>Filter</span>
+        <span class="holdings-filter-panel__summary" data-holdings-filter-summary>Alle Positionen</span>
+      </summary>
+      <div class="holdings-filter-grid">
+        <label>
+          <span>Herkunft</span>
+          <select name="origin" data-holdings-filter="origin">
+            <option value="">Alle Herkünfte</option>
+            {inventory.totals.originTotals.map((entry) => <option value={entry.origin}>{entry.origin} ({entry.total})</option>)}
+          </select>
+        </label>
+        <label>
+          <span>Beteiligungsstufe</span>
+          <select name="level" data-holdings-filter="level">
+            <option value="">Alle Stufen</option>
+            <option value="direct">unmittelbar</option>
+            <option value="indirect">mittelbar</option>
+            <option value="second-degree">zweite/tiefere Ebene</option>
+          </select>
+        </label>
+        <label>
+          <span>Rechtsform</span>
+          <select name="form" data-holdings-filter="form">
+            <option value="">Alle Rechtsformen</option>
+            {inventory.totals.legalFormGroups.map((entry) => <option value={entry.value}>{entry.value} ({entry.count})</option>)}
+          </select>
+        </label>
+        <label>
+          <span>Beziehungsart</span>
+          <select name="relation" data-holdings-filter="relation">
+            <option value="">Alle Beziehungsarten</option>
+            {inventory.totals.relations.filter((entry) => relationValues.has(entry.value)).map((entry) => (
+              <option value={entry.value}>{formatHoldingRelation(entry.value)} ({entry.count})</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Status am 1. Dezember 2023</span>
+          <select name="cutoff" data-holdings-filter="cutoff">
+            <option value="">Alle Stichtagsstatus</option>
+            {inventory.totals.cutoffStatuses.filter((entry) => cutoffValues.has(entry.value)).map((entry) => (
+              <option value={entry.value}>{getCutoffStatusLabel(entry.value)} ({entry.count})</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Aktueller Status</span>
+          <select name="current" data-holdings-filter="current">
+            <option value="">Alle aktuellen Status</option>
+            {inventory.totals.currentStatuses.filter((entry) => currentValues.has(entry.value)).map((entry) => (
+              <option value={entry.value}>{getCurrentStatusLabel(entry.value)} ({entry.count})</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          <span>Beteiligungshöhe am Stichtag</span>
+          <select name="stake" data-holdings-filter="stake">
+            <option value="">Alle Beteiligungshöhen</option>
+            <option value="full">100 %</option>
+            <option value="majority">Mehrheitsbeteiligung über 50 %</option>
+            <option value="blocking">25–50 %</option>
+            <option value="minority">unter 25 %</option>
+            <option value="not-applicable">kein Kapitalanteil / Trägerposition</option>
+          </select>
+        </label>
+      </div>
+      <div class="holdings-filter-actions">
+        <button type="button" class="text-link-button" data-holdings-reset>Filter zurücksetzen</button>
+      </div>
+    </details>
+  </form>
+
+  <div class="holdings-active-filters" data-holdings-active-filters hidden aria-label="Aktive Filter"></div>
+
+  <div class="holdings-results-toolbar">
+    <p class="holdings-result-count" data-holdings-result-count role="status" aria-live="polite">
+      {inventory.totals.positionRows} von {inventory.totals.positionRows} Positionen
+    </p>
+    <div class="holdings-view-tabs" role="tablist" aria-label="Darstellung des Beteiligungsbestands">
+      <button type="button" role="tab" id="holdings-tab-list" aria-controls="holdings-panel-list" aria-selected="true" tabindex="0" data-holdings-view="list">Liste</button>
+      <button type="button" role="tab" id="holdings-tab-tree" aria-controls="holdings-panel-tree" aria-selected="false" tabindex="-1" data-holdings-view="tree">Konzernstruktur</button>
+    </div>
+  </div>
+
+  <div class="holdings-list-controls" data-holdings-list-controls>
+    <label>
+      <span>Sortieren nach</span>
+      <select data-holdings-sort-select>
+        <option value="name">Name</option>
+        <option value="origin">Herkunft</option>
+        <option value="stake">Beteiligungshöhe</option>
+        <option value="legalForm">Rechtsform</option>
+        <option value="status">Status</option>
+      </select>
+    </label>
+    <button type="button" class="holdings-sort-direction" data-holdings-sort-direction value="asc" aria-label="Sortierreihenfolge aufsteigend">A–Z</button>
+    <label>
+      <span>Einträge pro Seite</span>
+      <select data-holdings-page-size>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </label>
+  </div>
+
+  <div id="holdings-panel-list" role="tabpanel" aria-labelledby="holdings-tab-list" data-holdings-panel="list">
+    <HoldingsTable positions={initialPositions} />
+    <nav class="holdings-pagination" aria-label="Seiten des Beteiligungsbestands" data-holdings-pagination>
+      <p><span data-holdings-range>1–25</span> von <span data-holdings-pagination-total>{inventory.totals.positionRows}</span></p>
+      <div>
+        <button type="button" data-page-action="previous" disabled>Zurück</button>
+        <span data-holdings-page-label>Seite 1 von {Math.ceil(inventory.totals.positionRows / 25)}</span>
+        <button type="button" data-page-action="next">Weiter</button>
+      </div>
+    </nav>
+  </div>
+
+  <div id="holdings-panel-tree" role="tabpanel" aria-labelledby="holdings-tab-tree" data-holdings-panel="tree" hidden>
+    <p class="holdings-tree-intro">Die Baumansicht ordnet mittelbare Positionen ihren belegten Mutterunternehmen zu. Wo nur ein öffentlicher Muttername belegt ist, erscheint er als beschrifteter Strukturknoten.</p>
+    <div class="holdings-tree" data-holdings-tree></div>
+  </div>
+
+  <noscript>
+    <p class="holdings-noscript">Die ersten 25 Positionen sind in der Tabelle sichtbar. Der vollständige Bestand steht als CSV- und JSON-Download bereit; Suche, Filter und Konzernstruktur benötigen JavaScript.</p>
+  </noscript>
+</section>

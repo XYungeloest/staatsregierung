@@ -16,6 +16,7 @@ export {
   parseHaushaltsseite,
   parseHomeContent,
   parseCabinetPageContent,
+  parseBeteiligungsInventar,
   parseBeteiligungsUebersicht,
   PortalContentValidationError,
   parseMinisterium,
@@ -31,6 +32,13 @@ export {
   type Haushaltsseite,
   type HomeContent,
   type CabinetPageContent,
+  type BeteiligungsEbene,
+  type BeteiligungsGegenwartsstatus,
+  type BeteiligungsInventar,
+  type BeteiligungsInventarMehrlaenderposition,
+  type BeteiligungsInventarPosition,
+  type BeteiligungsInventarZaehler,
+  type BeteiligungsStichtagsstatus,
   type BeteiligungsAbschnitt,
   type BeteiligungsAenderung,
   type BeteiligungsEintrag,
@@ -52,6 +60,19 @@ export {
   type ThemenModul,
   type Themenstatus,
 } from './schema.ts';
+
+export {
+  formatHoldingCurrentPercent,
+  formatHoldingCurrentStatus,
+  formatHoldingCutoffStatus,
+  formatHoldingLevel,
+  formatHoldingPercent,
+  formatHoldingRelation,
+  getHoldingStakeBand,
+  holdingCurrentStatusOptions,
+  holdingCutoffStatusOptions,
+  holdingRelationOptions,
+} from './holdings.ts';
 
 export {
   getActiveTopicHighlights,

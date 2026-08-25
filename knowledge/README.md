@@ -87,6 +87,12 @@ knowledge/generated/LLM_CONTEXT.md
 knowledge/generated/INDEX.json
 ```
 
+Zusätzlich erzeugt der Build aus `holding-positions.json` die öffentliche, strikt feldbegrenzte
+Projektion `content/regierung/beteiligungsinventar.json`. Sie enthält keine Quellen-IDs,
+Fundstellen, Dateipfade, Vertrauenswerte oder internen Notizen und bildet die Datengrundlage für
+den Beteiligungsnavigator sowie dessen CSV- und JSON-Download. Die Projektion wird nicht manuell
+gepflegt; `npm run holdings:check` prüft ihre Aktualität und Feldfreigabe.
+
 `knowledge:check` prüft JSON, IDs, Quellen, Pfade, Datumswerte, Statuswerte, Verweise, Rollenintervalle, den Ausschluss ungeprüfter Gesprächsfakten aus dem aktuellen Stand und die Übereinstimmung der generierten Dateien.
 
 Generierte Dateien werden nicht manuell bearbeitet.

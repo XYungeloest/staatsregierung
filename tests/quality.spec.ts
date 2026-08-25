@@ -29,6 +29,7 @@ const overflowPages = [
   '/staatsregierung/mitglieder/max-peterson/',
   '/staatsregierung/mitglieder/yannik-schmaele/',
   '/staatsregierung/mitglieder/thomas-henry-barlow/',
+  '/staatsregierung/beteiligungen/',
   lawUrl('/norm/staatsverfassung-des-freistaates-ostdeutschland/'),
   lawUrl('/norm/erstes-gesetz-zur-grossen-staatsreform/'),
   lawUrl('/norm/saechsische-gemeindeordnung/'),

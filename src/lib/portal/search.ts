@@ -189,7 +189,7 @@ export async function buildPortalSearchEntries(): Promise<PortalSearchEntry[]> {
         holdingsOverview.sections.flatMap((section) => [
           section.title,
           section.intro,
-          ...section.items.flatMap((item) => [item.title, item.label, item.text, item.note ?? '']),
+          ...section.items.flatMap((item) => [item.title, item.label ?? '', item.text, item.note ?? '']),
         ]),
         holdingsOverview.changes.flatMap((change) => [change.title, change.label, change.text]),
         holdingsOverview.continuingItems,

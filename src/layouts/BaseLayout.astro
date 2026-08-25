@@ -20,7 +20,7 @@ import {
 interface Props {
   title: string;
   description?: string;
-  scripts?: ('portal-modules')[];
+  scripts?: ('portal-modules' | 'holdings-navigator')[];
   breadcrumbs?: SeoBreadcrumbItem[];
   structuredData?: StructuredData | StructuredData[];
   noindex?: boolean;
@@ -47,6 +47,7 @@ const smallFlagAssetUrl = `${base}${siteConfig.officialFlagSmallAssetPath.replac
 const coatOfArmsAssetUrl = `${base}${siteConfig.officialCoatOfArmsAssetPath.replace(/^\//, '')}`;
 const analyticsEnabled = isAnalyticsEnabled();
 const loadPortalModules = scripts.includes('portal-modules');
+const loadHoldingsNavigator = scripts.includes('holdings-navigator');
 
 function getPathname(href: string): string {
   return new URL(href, Astro.url).pathname;
@@ -344,6 +345,11 @@ const footerLegalLinks = [
     {loadPortalModules ? (
       <script>
         import '../scripts/portal-modules.ts';
+      </script>
+    ) : null}
+    {loadHoldingsNavigator ? (
+      <script>
+        import '../scripts/holdings-navigator.ts';
       </script>
     ) : null}
     <script>

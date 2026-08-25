@@ -19,6 +19,7 @@ import {
   parseHaushaltsseite,
   parseHomeContent,
   parseCabinetPageContent,
+  parseBeteiligungsInventar,
   parseBeteiligungsUebersicht,
   PortalContentValidationError,
   parseRede,
@@ -32,6 +33,7 @@ import {
   type Haushaltsseite,
   type HomeContent,
   type CabinetPageContent,
+  type BeteiligungsInventar,
   type BeteiligungsUebersicht,
   type Ministerium,
   type MinisteriumProfil,
@@ -178,6 +180,12 @@ export async function loadCabinetPageContent(): Promise<CabinetPageContent> {
 
 export async function loadBeteiligungsUebersicht(): Promise<BeteiligungsUebersicht> {
   return parseBeteiligungsUebersicht(await readJsonFile(join(CONTENT_ROOT, 'regierung', 'beteiligungen.json')));
+}
+
+export async function loadBeteiligungsInventar(): Promise<BeteiligungsInventar> {
+  return parseBeteiligungsInventar(
+    await readJsonFile(join(CONTENT_ROOT, 'regierung', 'beteiligungsinventar.json')),
+  );
 }
 
 export async function loadPressReleases(): Promise<Pressemitteilung[]> {
