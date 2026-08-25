@@ -1,6 +1,66 @@
 {
-  "asOf": "2026-08-23",
+  "asOf": "2026-08-25",
   "events": [
+    {
+      "id": "event-off-holdings-succession-2026",
+      "title": "Beteiligungen von MDR und rbb gehen auf den OFF über",
+      "status": "confirmed-primary",
+      "validFrom": "2026-05-01",
+      "validTo": "2026-05-01",
+      "asOf": "2026-08-25",
+      "summary": "MDR und rbb werden aufgelöst; der Ostdeutsche Fernsehfunk tritt einschließlich ihrer unmittelbaren und mittelbaren Beteiligungen in die Rechtsnachfolge ein.",
+      "sourceRefs": [
+        {"sourceId": "source-broadcast-law", "locator": "Gesamtrechtsnachfolge, Vermögen und Beteiligungen", "role": "primary"},
+        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Zusammenführung und Fortschreibung", "role": "corroborating"}
+      ],
+      "relatedIds": ["holding-ostdeutscher-fernsehfunk", "inst-ostdeutscher-fernsehfunk"],
+      "tags": ["timeline", "holdings", "broadcasting", "historical"],
+      "notes": ["Rundfunkanstalten werden wegen ihrer Staatsferne nicht als gewöhnliche Landesunternehmen klassifiziert."],
+      "aliases": [],
+      "date": "2026-05-01",
+      "eventType": "universal-succession",
+      "normRefs": [{"normSlug": "ostdeutsches-fernsehfunkgesetz", "versionId": "2026-03-23"}]
+    },
+    {
+      "id": "event-prebound-holdings-changes-2023",
+      "title": "Vorgebundene NORD/LB-Kapitalmaßnahme und IBA-Auflösung treten ein",
+      "status": "derived",
+      "validFrom": "2023-12-31",
+      "validTo": "2023-12-31",
+      "asOf": "2026-08-25",
+      "summary": "Die NORD/LB-Quote sinkt aufgrund einer vor dem Vereinigungsstichtag verbindlich vereinbarten Kapitalmaßnahme von 6,31 auf 6,25 Prozent. Zugleich tritt die bereits gesellschaftsvertraglich bestimmte Auflösung der IBA Thüringen ein.",
+      "sourceRefs": [
+        {"sourceId": "source-nordlb-geschaeftsbericht-2023", "locator": "Kapitalerhöhung mit Wirkung zum 31. Dezember 2023", "role": "primary"},
+        {"sourceId": "source-nordlb-kapitalstaerkung-2019", "locator": "Vereinbarung zur Stammkapitalerhöhung aus Garantiegebühren", "role": "primary"},
+        {"sourceId": "source-thueringen-iba-gesellschaftsvertrag", "locator": "Auflösungsbestimmung zum 31. Dezember 2023", "role": "primary"}
+      ],
+      "relatedIds": ["holding-nordlb", "holding-iba-thueringen-abwicklung"],
+      "tags": ["timeline", "holdings", "bank", "liquidation", "historical"],
+      "notes": [],
+      "aliases": [],
+      "date": "2023-12-31",
+      "eventType": "pre-bound-change",
+      "normRefs": []
+    },
+    {
+      "id": "event-holdings-succession-2023",
+      "title": "Beteiligungs- und Trägerpositionen der sechs Vorgängerländer gehen über",
+      "status": "editorially-confirmed",
+      "validFrom": "2023-12-01",
+      "validTo": "2023-12-01",
+      "asOf": "2026-08-25",
+      "summary": "Der Freistaat übernimmt die konkreten Gesellschafts-, Träger-, Gewährträger-, Mitgliedschafts- und Vermögenspositionen der sechs Vorgängerländer. Die öffentlich belegte Inventur umfasst 666 Positionszeilen.",
+      "sourceRefs": [
+        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Verbindliche Einordnung und Ergebnis der Vollinventur", "role": "primary"}
+      ],
+      "relatedIds": ["holding-rechtsnachfolge-2023"],
+      "tags": ["timeline", "holdings", "succession", "historical"],
+      "notes": ["Kommunale Eigenpositionen bleiben kommunal."],
+      "aliases": [],
+      "date": "2023-12-01",
+      "eventType": "holdings-succession",
+      "normRefs": []
+    },
     {
       "id": "event-public-mobility-program-promulgated-2026",
       "title": "Sofortprogramm für die öffentliche Mobilität verkündet",

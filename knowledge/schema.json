@@ -56,6 +56,29 @@
         }
       }
     },
+    "holdingPositionRow": {
+      "type": "array",
+      "description": "Kompakte Positionszeile; die konkrete Spaltenfolge wird durch holding-positions.json.positionFields festgelegt und durch knowledge:check validiert.",
+      "minItems": 15,
+      "maxItems": 15,
+      "prefixItems": [
+        { "type": "string" },
+        { "type": "string" },
+        { "enum": ["direct", "indirect", "second-degree"] },
+        { "type": ["string", "null"] },
+        { "type": "string" },
+        { "type": ["number", "null"] },
+        { "type": ["number", "null"] },
+        { "type": "string" },
+        { "enum": ["active", "liquidation", "scheduled-liquidation", "insolvency"] },
+        { "enum": ["active", "liquidation", "insolvency", "succeeded-to-off"] },
+        { "type": "string" },
+        { "type": "string" },
+        { "type": ["string", "null"] },
+        { "type": ["number", "null"] },
+        { "type": ["string", "null"] }
+      ]
+    },
     "entry": {
       "type": "object",
       "required": [

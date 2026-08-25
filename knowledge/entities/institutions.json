@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-23",
+  "asOf": "2026-08-25",
   "institutions": [
     {
       "id": "inst-bundeswahlleiter",
@@ -40,13 +40,31 @@
       "asOf": "2026-08-08",
       "summary": "Anstalt des öffentlichen Rechts für die gemeinwirtschaftliche Bewirtschaftung vergesellschafteter Wohnungsbestände. Ihr Verwaltungsrat beschloss am 8. August 2026 die Leitlinie zur gemeinwirtschaftlichen Mietpreisbildung.",
       "sourceRefs": [
-        {"sourceId": "source-housing-law", "locator": "Errichtung und Aufgaben", "role": "primary"},
-        {"sourceId": "source-stanzo-2026-15", "locator": "Seiten 2–3", "role": "primary"}
+        {
+          "sourceId": "source-housing-law",
+          "locator": "Errichtung und Aufgaben",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-15",
+          "locator": "Seiten 2–3",
+          "role": "primary"
+        }
       ],
-      "relatedIds": ["project-wohnen", "inst-sek-inneres-wohnen"],
-      "tags": ["institution", "public-law-entity", "housing", "public-economy"],
+      "relatedIds": [
+        "project-wohnen",
+        "inst-sek-inneres-wohnen"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "housing",
+        "public-economy"
+      ],
       "notes": [],
-      "aliases": ["Gemeingut Wohnen AöR"],
+      "aliases": [
+        "Gemeingut Wohnen AöR"
+      ],
       "type": "public-law-institution",
       "predecessorId": null,
       "successorId": null
@@ -60,26 +78,133 @@
       "asOf": "2026-08-22",
       "summary": "Landesunmittelbare Anstalt des öffentlichen Rechts für gemeinwirtschaftliche Energie- und Wärmeversorgung. Ihr Verwaltungsrat beschloss die zum 1. September 2026 geltenden Strom- und Wärmepreisleitlinien.",
       "sourceRefs": [
-        {"sourceId": "source-energy-law", "locator": "Errichtung und Aufgaben der Landesenergiewerke", "role": "primary"},
-        {"sourceId": "source-stanzo-2026-34", "locator": "Strompreisleitlinie, Abschnitte I und IX", "role": "primary"},
-        {"sourceId": "source-stanzo-2026-35", "locator": "Wärmepreisleitlinie, Abschnitte I und IX", "role": "primary"}
+        {
+          "sourceId": "source-energy-law",
+          "locator": "Errichtung und Aufgaben der Landesenergiewerke",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-34",
+          "locator": "Strompreisleitlinie, Abschnitte I und IX",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-35",
+          "locator": "Wärmepreisleitlinie, Abschnitte I und IX",
+          "role": "primary"
+        }
       ],
-      "relatedIds": ["project-energie-waerme", "inst-sek-nachhaltigkeit-energie"],
-      "tags": ["institution", "public-law-entity", "energy", "heating", "public-economy"],
+      "relatedIds": [
+        "project-energie-waerme",
+        "inst-sek-nachhaltigkeit-energie"
+      ],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "energy",
+        "heating",
+        "public-economy"
+      ],
       "notes": [],
-      "aliases": ["Landesenergiewerke Ost AöR", "LEWO"],
+      "aliases": [
+        "Landesenergiewerke Ost AöR",
+        "LEWO"
+      ],
       "type": "public-law-institution",
       "predecessorId": null,
       "successorId": null
     },
     {
-      "id": "inst-bundespraesident", "title": "Amt des Bundespräsidenten", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Bundesverfassungsamt; seine Befugnisse werden bei Verhinderung oder vorzeitiger Erledigung nach Artikel 57 GG durch den Präsidenten des Bundesrates wahrgenommen.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}], "relatedIds": ["person-manuela-dreyer", "person-karl-honecker"], "tags": ["federal", "constitutional-organ"], "notes": [], "aliases": ["Bundespräsident", "Bundespräsidentin"], "type": "federal-constitutional-organ", "predecessorId": null, "successorId": null
+      "id": "inst-bundespraesident",
+      "title": "Amt des Bundespräsidenten",
+      "status": "editorially-confirmed",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-01",
+      "summary": "Bundesverfassungsamt; seine Befugnisse werden bei Verhinderung oder vorzeitiger Erledigung nach Artikel 57 GG durch den Präsidenten des Bundesrates wahrgenommen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Verhinderung und Vertretung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-manuela-dreyer",
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "federal",
+        "constitutional-organ"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bundespräsident",
+        "Bundespräsidentin"
+      ],
+      "type": "federal-constitutional-organ",
+      "predecessorId": null,
+      "successorId": null
     },
     {
-      "id": "inst-bundesverfassungsgericht", "title": "Bundesverfassungsgericht", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Bundesverfassungsgericht, bei dem am 12. Juli 2026 die Präsidentenanklage eingereicht wurde.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["proceeding-federal-president-dreyer-impeachment"], "tags": ["federal", "court"], "notes": [], "aliases": ["BVerfG"], "type": "federal-constitutional-organ", "predecessorId": null, "successorId": null
+      "id": "inst-bundesverfassungsgericht",
+      "title": "Bundesverfassungsgericht",
+      "status": "editorially-confirmed",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-01",
+      "summary": "Bundesverfassungsgericht, bei dem am 12. Juli 2026 die Präsidentenanklage eingereicht wurde.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Präsidentenanklage",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-federal-president-dreyer-impeachment"
+      ],
+      "tags": [
+        "federal",
+        "court"
+      ],
+      "notes": [],
+      "aliases": [
+        "BVerfG"
+      ],
+      "type": "federal-constitutional-organ",
+      "predecessorId": null,
+      "successorId": null
     },
     {
-      "id": "inst-deutscher-bundestag", "title": "Deutscher Bundestag", "status": "editorially-confirmed", "validFrom": null, "validTo": null, "asOf": "2026-08-01", "summary": "Bundesparlament, das am 12. Juli 2026 die Präsidentenanklage mit der erforderlichen Zweidrittelmehrheit beschloss.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["proceeding-federal-president-dreyer-impeachment"], "tags": ["federal", "parliament"], "notes": [], "aliases": ["Bundestag"], "type": "federal-constitutional-organ", "predecessorId": null, "successorId": null
+      "id": "inst-deutscher-bundestag",
+      "title": "Deutscher Bundestag",
+      "status": "editorially-confirmed",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-01",
+      "summary": "Bundesparlament, das am 12. Juli 2026 die Präsidentenanklage mit der erforderlichen Zweidrittelmehrheit beschloss.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Präsidentenanklage",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "proceeding-federal-president-dreyer-impeachment"
+      ],
+      "tags": [
+        "federal",
+        "parliament"
+      ],
+      "notes": [],
+      "aliases": [
+        "Bundestag"
+      ],
+      "type": "federal-constitutional-organ",
+      "predecessorId": null,
+      "successorId": null
     },
     {
       "id": "inst-volkskammer",
@@ -1100,309 +1225,831 @@
       "predecessorId": null,
       "successorId": null
     },
-  {
-    "id": "inst-landesbank-elbe",
-    "title": "Landesbank an der Elbe",
-    "status": "confirmed-primary",
-    "validFrom": "2026-01-27",
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts, ostdeutsche Universalbank und Zentralbank der Sparkassen im Freistaat.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-landesbank-elbe-law",
-        "locator": "§§ 1 und 2",
-        "role": "primary"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "bank",
-      "public-economy"
-    ],
-    "notes": [
-      "Bei Errichtung wurden 20 Milliarden Euro aus dem Landeshaushalt übertragen."
-    ],
-    "aliases": [
-      "Elbe LB",
-      "Aufbruchsbank"
-    ],
-    "type": "public-law-institution",
-    "predecessorId": null,
-    "successorId": null
-  },
-  {
-    "id": "inst-ostdeutscher-fernsehfunk",
-    "title": "Ostdeutscher Fernsehfunk",
-    "status": "confirmed-primary",
-    "validFrom": "2026-05-01",
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Rechtsfähige öffentlich-rechtliche Rundfunkanstalt mit Sitz in Potsdam und Gesamtrechtsnachfolger von MDR und RBB.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-broadcast-law",
-        "locator": "§§ 1, 7, 8, 14 und 16",
-        "role": "primary"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "media",
-      "broadcast"
-    ],
-    "notes": [
-      "Die Beteiligungen von MDR und RBB gingen kraft Gesetzes auf den OFF über."
-    ],
-    "aliases": [
-      "OFF"
-    ],
-    "type": "public-broadcaster",
-    "predecessorId": null,
-    "successorId": null
-  },
-  {
-    "id": "inst-ostdeutscher-verkehrsverbund",
-    "title": "Ostdeutscher Verkehrsverbund",
-    "status": "confirmed-primary",
-    "validFrom": "2026-03-24",
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Landesunmittelbare rechtsfähige Körperschaft des öffentlichen Rechts für landesweite Verkehrsplanung, Tarif, Vertrieb, Fahrgastinformation und Clearing.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-ovv-law",
-        "locator": "§ 4 ÖPNVG",
-        "role": "primary"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "transport",
-      "ovv"
-    ],
-    "notes": [
-      "Mitglieder sind Freistaat, Bezirke, Landkreise und kreisfreie Städte."
-    ],
-    "aliases": [
-      "OVV"
-    ],
-    "type": "public-law-corporation",
-    "predecessorId": null,
-    "successorId": null
-  },
-  {
-    "id": "inst-ostdeutsche-eisenbahn",
-    "title": "Ostdeutsche Eisenbahn",
-    "status": "confirmed-primary",
-    "validFrom": "2026-07-21",
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für gemeinwirtschaftliche öffentliche Verkehrsleistungen und den öffentlichen Fahrzeug-, Werkstatt- und Infrastrukturpool.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-eisenbahn-law",
-        "locator": "Ostdeutsches Eisenbahngesetz §§ 1 bis 4",
-        "role": "primary"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "rail",
-      "transport",
-      "public-economy"
-    ],
-    "notes": [
-      "Die ODEG wurde nicht als Gesellschaft erworben; erfasste Verkehrsproduktionsmittel wurden gesetzlich überführt."
-    ],
-    "aliases": [
-      "ODB"
-    ],
-    "type": "public-law-institution",
-    "predecessorId": null,
-    "successorId": null
-  },
-  {
-    "id": "inst-ostdeutsche-netze",
-    "title": "Ostdeutsche Netze",
-    "status": "confirmed-primary",
-    "validFrom": "2026-07-21",
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Potsdam für öffentliche Energieinfrastruktur und als Trägerin überführter Netze.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-ostdeutsche-netze-law",
-        "locator": "§§ 1 und 2",
-        "role": "primary"
-      },
-      {
-        "sourceId": "source-energy-law",
-        "locator": "Trägerin des Gemeineigentums",
-        "role": "corroborating"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "energy",
-      "grid",
-      "public-economy"
-    ],
-    "notes": [],
-    "aliases": [
-      "Ostdeutsche Netze AöR"
-    ],
-    "type": "public-law-institution",
-    "predecessorId": null,
-    "successorId": null
-  },
-  {
-    "id": "inst-kreislaufwirtschafts-kombinat-ost",
-    "title": "Kreislaufwirtschafts-Kombinat Ost",
-    "status": "confirmed-primary",
-    "validFrom": "2026-07-21",
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts des Freistaates und Trägerin des SERO-Systems.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-sero",
-        "locator": "§§ 1 und 4",
-        "role": "primary"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "circular-economy",
-      "public-economy"
-    ],
-    "notes": [
-      "SERO-Bezirksbetriebe sind organisatorische Einheiten des KKO."
-    ],
-    "aliases": [
-      "KKO"
-    ],
-    "type": "public-law-institution",
-    "predecessorId": null,
-    "successorId": null
-  },
-  {
-    "id": "inst-landesagentur-spitzensport-ost",
-    "title": "Landesagentur Spitzensport Ost",
-    "status": "confirmed-primary",
-    "validFrom": "2026-07-21",
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für Aufgaben der Spitzensportförderung und des Athletenversorgungswerks.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-lasp-law",
-        "locator": "§§ 1 und 2",
-        "role": "primary"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "sport"
-    ],
-    "notes": [],
-    "aliases": [
-      "LASpO"
-    ],
-    "type": "public-law-institution",
-    "predecessorId": null,
-    "successorId": null
-  },
-  {
-    "id": "inst-wohnraumversorgung-berlin",
-    "title": "Wohnraumversorgung Berlin",
-    "status": "editorially-confirmed",
-    "validFrom": "2016-01-01",
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Nicht rechtsfähige Anstalt des öffentlichen Rechts und Teil der unmittelbaren Landesverwaltung; als Berliner Rechtsnachfolgebestand im erweiterten öffentlichen Trägerverzeichnis fortgeführt.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-berlin-wvb-errichtungsgesetz-2015",
-        "locator": "Artikel 3 § 1",
-        "role": "primary"
-      },
-      {
-        "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-        "locator": "Abschnitt 4, Wohnraumversorgung Berlin AöR",
-        "role": "corroborating"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "housing",
-      "berlin",
-      "succession"
-    ],
-    "notes": [
-      "Keine Kapitalbeteiligung; kein eigenes Vermögen; die reale Berliner Neuordnung 2024 wird nicht automatisch übernommen."
-    ],
-    "aliases": [
-      "WVB",
-      "Wohnraumversorgung Berlin AöR"
-    ],
-    "type": "non-legal-public-law-institution",
-    "predecessorId": null,
-    "successorId": null
-  },
-  {
-    "id": "inst-landesanstalt-schienenfahrzeuge-berlin",
-    "title": "Landesanstalt Schienenfahrzeuge Berlin",
-    "status": "derived",
-    "validFrom": null,
-    "validTo": null,
-    "asOf": "2026-08-23",
-    "summary": "Rechtsfähige Anstalt des öffentlichen Rechts für Beschaffung, Verwaltung und Nutzungsüberlassung von Schienenfahrzeugen; aus dem Berliner Ausgangsbestand übernommen und bislang nicht ausdrücklich aufgehoben.",
-    "sourceRefs": [
-      {
-        "sourceId": "source-berlin-lsfb-errichtungsgesetz-2021",
-        "locator": "§§ 1 und 2",
-        "role": "primary"
-      },
-      {
-        "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-        "locator": "Abschnitt 4, Landesanstalt Schienenfahrzeuge Berlin",
-        "role": "corroborating"
-      }
-    ],
-    "relatedIds": [],
-    "tags": [
-      "institution",
-      "public-law-entity",
-      "rail",
-      "berlin",
-      "succession"
-    ],
-    "notes": [
-      "Eine Aufgabenüberschneidung mit der Ostdeutschen Eisenbahn begründet ohne Aufhebungsnorm keinen Untergang."
-    ],
-    "aliases": [
-      "LSFB"
-    ],
-    "type": "public-law-institution",
-    "predecessorId": null,
-    "successorId": null
-  }
+    {
+      "id": "inst-landesbank-elbe",
+      "title": "Landesbank an der Elbe",
+      "status": "confirmed-primary",
+      "validFrom": "2026-01-27",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts, ostdeutsche Universalbank und Zentralbank der Sparkassen im Freistaat.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-landesbank-elbe-law",
+          "locator": "§§ 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "bank",
+        "public-economy"
+      ],
+      "notes": [
+        "Bei Errichtung wurden 20 Milliarden Euro aus dem Landeshaushalt übertragen."
+      ],
+      "aliases": [
+        "Elbe LB",
+        "Aufbruchsbank"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-ostdeutscher-fernsehfunk",
+      "title": "Ostdeutscher Fernsehfunk",
+      "status": "confirmed-primary",
+      "validFrom": "2026-05-01",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Rechtsfähige öffentlich-rechtliche Rundfunkanstalt mit Sitz in Potsdam und Gesamtrechtsnachfolger von MDR und RBB.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-broadcast-law",
+          "locator": "§§ 1, 7, 8, 14 und 16",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "media",
+        "broadcast"
+      ],
+      "notes": [
+        "Die Beteiligungen von MDR und RBB gingen kraft Gesetzes auf den OFF über."
+      ],
+      "aliases": [
+        "OFF"
+      ],
+      "type": "public-broadcaster",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-ostdeutscher-verkehrsverbund",
+      "title": "Ostdeutscher Verkehrsverbund",
+      "status": "confirmed-primary",
+      "validFrom": "2026-03-24",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Landesunmittelbare rechtsfähige Körperschaft des öffentlichen Rechts für landesweite Verkehrsplanung, Tarif, Vertrieb, Fahrgastinformation und Clearing.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ovv-law",
+          "locator": "§ 4 ÖPNVG",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "transport",
+        "ovv"
+      ],
+      "notes": [
+        "Mitglieder sind Freistaat, Bezirke, Landkreise und kreisfreie Städte."
+      ],
+      "aliases": [
+        "OVV"
+      ],
+      "type": "public-law-corporation",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-ostdeutsche-eisenbahn",
+      "title": "Ostdeutsche Eisenbahn",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für gemeinwirtschaftliche öffentliche Verkehrsleistungen und den öffentlichen Fahrzeug-, Werkstatt- und Infrastrukturpool.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-eisenbahn-law",
+          "locator": "Ostdeutsches Eisenbahngesetz §§ 1 bis 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "rail",
+        "transport",
+        "public-economy"
+      ],
+      "notes": [
+        "Die ODEG wurde nicht als Gesellschaft erworben; erfasste Verkehrsproduktionsmittel wurden gesetzlich überführt."
+      ],
+      "aliases": [
+        "ODB"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-ostdeutsche-netze",
+      "title": "Ostdeutsche Netze",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Potsdam für öffentliche Energieinfrastruktur und als Trägerin überführter Netze.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-ostdeutsche-netze-law",
+          "locator": "§§ 1 und 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-energy-law",
+          "locator": "Trägerin des Gemeineigentums",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "energy",
+        "grid",
+        "public-economy"
+      ],
+      "notes": [],
+      "aliases": [
+        "Ostdeutsche Netze AöR"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-kreislaufwirtschafts-kombinat-ost",
+      "title": "Kreislaufwirtschafts-Kombinat Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts des Freistaates und Trägerin des SERO-Systems.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sero",
+          "locator": "§§ 1 und 4",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "circular-economy",
+        "public-economy"
+      ],
+      "notes": [
+        "SERO-Bezirksbetriebe sind organisatorische Einheiten des KKO."
+      ],
+      "aliases": [
+        "KKO"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-landesagentur-spitzensport-ost",
+      "title": "Landesagentur Spitzensport Ost",
+      "status": "confirmed-primary",
+      "validFrom": "2026-07-21",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts mit Sitz in Leipzig für Aufgaben der Spitzensportförderung und des Athletenversorgungswerks.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-lasp-law",
+          "locator": "§§ 1 und 2",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "sport"
+      ],
+      "notes": [],
+      "aliases": [
+        "LASpO"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-wohnraumversorgung-berlin",
+      "title": "Wohnraumversorgung Berlin",
+      "status": "editorially-confirmed",
+      "validFrom": "2016-01-01",
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Nicht rechtsfähige Anstalt des öffentlichen Rechts und Teil der unmittelbaren Landesverwaltung; als Berliner Rechtsnachfolgebestand im erweiterten öffentlichen Trägerverzeichnis fortgeführt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-wvb-errichtungsgesetz-2015",
+          "locator": "Artikel 3 § 1",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 4, Wohnraumversorgung Berlin AöR",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "housing",
+        "berlin",
+        "succession"
+      ],
+      "notes": [
+        "Keine Kapitalbeteiligung; kein eigenes Vermögen; die reale Berliner Neuordnung 2024 wird nicht automatisch übernommen."
+      ],
+      "aliases": [
+        "WVB",
+        "Wohnraumversorgung Berlin AöR"
+      ],
+      "type": "non-legal-public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-landesanstalt-schienenfahrzeuge-berlin",
+      "title": "Landesanstalt Schienenfahrzeuge Berlin",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Rechtsfähige Anstalt des öffentlichen Rechts für Beschaffung, Verwaltung und Nutzungsüberlassung von Schienenfahrzeugen; aus dem Berliner Ausgangsbestand übernommen und bislang nicht ausdrücklich aufgehoben.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-lsfb-errichtungsgesetz-2021",
+          "locator": "§§ 1 und 2",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Abschnitt 4, Landesanstalt Schienenfahrzeuge Berlin",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-law-entity",
+        "rail",
+        "berlin",
+        "succession"
+      ],
+      "notes": [
+        "Eine Aufgabenüberschneidung mit der Ostdeutschen Eisenbahn begründet ohne Aufhebungsnorm keinen Untergang."
+      ],
+      "aliases": [
+        "LSFB"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-ibb-unternehmensverwaltung",
+      "title": "IBB Unternehmensverwaltung AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Landesunmittelbare Trägeranstalt der Investitionsbank Berlin und weiterer Berliner Förder- und Beteiligungsgesellschaften.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2024",
+          "locator": "Einzelblatt IBB Unternehmensverwaltung AöR",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "IBB UV"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-investitionsbank-brandenburg",
+      "title": "Investitionsbank des Landes Brandenburg AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Förderinstitut und Trägerin zahlreicher brandenburgischer Finanzierungs- und Beteiligungsgesellschaften.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-brandenburg-beteiligungsbericht-2023",
+          "locator": "Einzelblatt ILB",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "ILB"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-saechsische-aufbaubank",
+      "title": "Sächsische Aufbaubank – Förderbank AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Förderbank des sächsischen Ausgangsbestands mit Beteiligungs-, Fonds- und Fördergesellschaften.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sachsen-beteiligungsbericht-2024",
+          "locator": "Einzelblatt SAB und mittelbare Beteiligungsübersicht",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "SAB"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-thueringer-aufbaubank",
+      "title": "Thüringer Aufbaubank AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Förderbank des Thüringer Ausgangsbestands; fünf verbundene Unternehmen sind für 2023 öffentlich belegt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-tab-geschaeftsbericht-2023",
+          "locator": "Verbundene Unternehmen 2023",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "TAB"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-investitionsbank-sachsen-anhalt",
+      "title": "Investitionsbank Sachsen-Anhalt AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Seit 1. März 2023 rechtsfähige Förderbank-Anstalt des öffentlichen Rechts; ihre FSIB-Tochter gehört zum geerbten Bestand.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2024",
+          "locator": "Anstalten und mittelbare Beteiligungen",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "IB"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-bvg",
+      "title": "Berliner Verkehrsbetriebe AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbter öffentlicher Verkehrs- und Infrastrukturträger mit sechs zum Stichtag ausgewiesenen unmittelbaren Beteiligungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2024",
+          "locator": "Einzelblatt Berliner Verkehrsbetriebe, S. 74 ff.",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "BVG"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-bsr",
+      "title": "Berliner Stadtreinigungsbetriebe AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbter öffentlich-rechtlicher Entsorgungsträger mit zehn zum Stichtag ausgewiesenen Beteiligungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2024",
+          "locator": "Einzelblatt Berliner Stadtreinigungsbetriebe, S. 70 ff.",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "BSR"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-berliner-wasserbetriebe",
+      "title": "Berliner Wasserbetriebe AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbter öffentlich-rechtlicher Wasser- und Abwasserträger mit acht zum Stichtag ausgewiesenen Beteiligungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-berlin-beteiligungsbericht-2024",
+          "locator": "Einzelblatt Berliner Wasserbetriebe, S. 78 ff.",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "BWB"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-uk-halle",
+      "title": "Universitätsklinikum Halle AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbtes Universitätsklinikum mit sieben öffentlich ausgewiesenen Tochter- und Beteiligungspositionen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2024",
+          "locator": "Anstalts- und Tochterübersicht Universitätsklinikum Halle",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "UK Halle"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-uk-magdeburg",
+      "title": "Universitätsklinikum Magdeburg AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbtes Universitätsklinikum mit drei öffentlich ausgewiesenen Tochtergesellschaften.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2024",
+          "locator": "Anstalts- und Tochterübersicht Universitätsklinikum Magdeburg",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "UK Magdeburg"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-universitaetsmedizin-greifswald",
+      "title": "Universitätsmedizin Greifswald KdöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbte Körperschaft des öffentlichen Rechts mit medizinischen, Service- und Gemeinschaftsbeteiligungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-mv-beteiligungsbericht-2022-2023",
+          "locator": "Übersicht Universitätsmedizin Greifswald und Tochtergesellschaften",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "UMG"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-universitaetsmedizin-rostock",
+      "title": "Universitätsmedizin Rostock KdöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbte Körperschaft des öffentlichen Rechts mit medizinischen, Service- und Gemeinschaftsbeteiligungen.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-mv-beteiligungsbericht-2022-2023",
+          "locator": "Übersicht Universitätsmedizin Rostock und Tochtergesellschaften",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "UMR"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-thueringenforst",
+      "title": "ThüringenForst AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbte landesunmittelbare Forstanstalt des öffentlichen Rechts.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-thueringen-beteiligungsbericht-2023",
+          "locator": "Ausgewählte Anstalten des öffentlichen Rechts",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "ThüringenForst"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-thueringer-staatslotterie",
+      "title": "Thüringer Staatslotterie AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbte landesunmittelbare Lotterieanstalt des öffentlichen Rechts.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-thueringen-beteiligungsbericht-2023",
+          "locator": "Ausgewählte Anstalten des öffentlichen Rechts",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "Staatslotterie Thüringen"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-landesforstanstalt-mv",
+      "title": "Landesforstanstalt Mecklenburg-Vorpommern AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Geerbte landesunmittelbare Forstanstalt des öffentlichen Rechts.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-mv-beteiligungsbericht-2022-2023",
+          "locator": "Übersicht öffentlich-rechtlicher Träger",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "Landesforst M-V"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-gkl",
+      "title": "GKL Gemeinsame Klassenlotterie der Länder AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Von allen 16 Ländern getragene Anstalt. Der Freistaat führt sechs geerbte Trägerpositionen; Stimmen, Gewinn und Haftung folgen unterschiedlichen Staatsvertragsschlüsseln.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gkl-staatsvertrag",
+          "locator": "§§ 1, 4, 9, 10 und 14",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "GKL"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-nordlb",
+      "title": "Norddeutsche Landesbank – Girozentrale AöR",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Öffentlich-rechtliche Landesbank; die geerbte sachsen-anhaltinische Trägerquote betrug am 1. Dezember 2023 6,31 Prozent und ist aufgrund vorgebundener Kapitalmaßnahmen auf 6,22 Prozent fortgeschrieben.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-nordlb-geschaeftsbericht-2023",
+          "locator": "Anteilsverhältnisse 2023",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "NORD/LB"
+      ],
+      "type": "public-law-institution",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-iba-thueringen-abwicklung",
+      "title": "IBA Thüringen GmbH in Abwicklung",
+      "status": "derived",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Am Vereinigungsstichtag bestehende 100-Prozent-Gesellschaft mit bereits vorab bestimmter Auflösung; mangels ostdeutschen Löschungsvollzugs wird sie als Abwicklungsposition geführt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-thueringen-iba-gesellschaftsvertrag",
+          "locator": "Auflösung zum 31. Dezember 2023",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "institution",
+        "public-economy",
+        "inherited-carrier"
+      ],
+      "notes": [],
+      "aliases": [
+        "IBA Thüringen"
+      ],
+      "type": "liquidation-position",
+      "predecessorId": null,
+      "successorId": null
+    }
   ]
 }

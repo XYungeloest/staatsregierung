@@ -24,7 +24,7 @@ referenzieren diese IDs und Quellen, ergänzen aber weiterhin Provenienz, Zusamm
 | Wer gehört aktuell dem Staatsrat an? | `current-state.json`, danach `entities/persons.json` |
 | Welche Verfassungsfassung galt an einem Datum? | `timeline.json`, `current-state.json`, danach Normhistorie unter `content/normen/` |
 | Welche Normen gehören zu einem politischen Komplex? | `projects.json` |
-| Welche Beteiligungen, AöR und öffentlichen Wirtschafts- oder Vermögensträger bestehen? | `holdings.json`, danach `entities/institutions.json` und die referenzierten Primärquellen |
+| Welche Beteiligungen, AöR und öffentlichen Wirtschafts- oder Vermögensträger bestehen? | `holdings.json` für die Einordnung, `holding-positions.json` für die vollständige Positionsinventur, danach `entities/institutions.json` und die referenzierten Primärquellen |
 | Wie entwickelte sich die Regierung seit 2025? | `timeline.json`, `entities/persons.json`, `entities/institutions.json` |
 | Welche Verfahren sind offen? | `proceedings.json`, `open-questions.json` |
 | Welche Vereinbarungen mit Bund oder Nachbarstaaten bestehen? | `proceedings.json` |
@@ -41,6 +41,7 @@ referenzieren diese IDs und Quellen, ergänzen aber weiterhin Provenienz, Zusamm
 `timeline.json` enthält datierte Ereignisse.  
 `projects.json` bündelt politische und rechtliche Gesamtkomplexe.  
 `holdings.json` enthält den rekonstruierten Beteiligungsbestand, Träger- und Gewährträgerpositionen, wichtige mittelbare Beteiligungen, Sondervermögen und die Rechtsnachfolgelogik seit dem 1. Dezember 2023.
+`holding-positions.json` enthält die maschinenprüfbare Vollinventur der öffentlich belegten unmittelbaren, mittelbaren und tieferliegenden Positionen. Die Spaltenreihenfolge steht in `positionFields`; Quellen gelten portfolioübergreifend, jede Zeile besitzt zusätzlich eine konkrete Fundstelle. Mehrländerpositionen, Fortschreibung und ausdrückliche Ausschlüsse stehen in eigenen Sammlungen derselben Datei.
 `proceedings.json` enthält Gesetzgebungs-, Vertrags-, Gerichts- und Umsetzungsverfahren.  
 `open-questions.json` enthält konkrete Klärungsaufträge.  
 `conversation-candidates.json` enthält noch nicht hinreichend bestätigtes Gesprächswissen.  

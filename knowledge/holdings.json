@@ -8,7 +8,7 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-25",
-      "summary": "Der Freistaat Ostdeutschland trat redaktionell in die Beteiligungs-, Träger-, Gewährträger-, Mitgliedschafts- und Vermögenspositionen der sechs Vorgängerländer ein. Die Übernahme des sächsischen Rechtsstandes beseitigt diese konkreten Rechtspositionen nicht.",
+      "summary": "Der Freistaat Ostdeutschland trat redaktionell in die Beteiligungs-, Träger-, Gewährträger-, Mitgliedschafts- und Vermögenspositionen der sechs Vorgängerländer ein. Die strukturierte Vollinventur enthält 666 öffentlich belegte Positionszeilen; spätere Realentwicklungen werden nur bei ostdeutschem Rechts- oder Vollzugsakt beziehungsweise vorbestehender Bindung fortgeschrieben.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
@@ -27,7 +27,8 @@
       "notes": [
         "Kommunale Beteiligungen bleiben kommunal.",
         "Reale Änderungen der Nachfolgeländer nach dem 1. Dezember 2023 werden nicht ohne ostdeutschen Übernahme- oder Vollzugsakt fortgeschrieben.",
-        "Mittelbare Beteiligungen werden entlang der tatsächlichen Beteiligungskette zugerechnet."
+        "Mittelbare Beteiligungen werden entlang der tatsächlichen Beteiligungskette zugerechnet.",
+        "Die vollständigen Positionszeilen und Quellenfundstellen stehen in knowledge/holding-positions.json."
       ],
       "kind": "framework",
       "origin": [
@@ -37,7 +38,8 @@
         "Sachsen",
         "Sachsen-Anhalt",
         "Thüringen"
-      ]
+      ],
+      "inventorySource": "knowledge/holding-positions.json"
     },
     {
       "id": "holding-portfolio-berlin-2023",
@@ -46,21 +48,21 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-25",
-      "summary": "Der Berliner Ausgangsbestand umfasst Kapitalgesellschaften, wirtschaftlich bedeutende AöR und weitere landesunmittelbare Einrichtungen. WVB und LSFB sind im erweiterten Verzeichnis gesondert zu berücksichtigen.",
+      "summary": "Die Vollinventur weist für Berlin 63 unmittelbare und 249 mittelbare beziehungsweise tieferliegende öffentlich belegte Positionszeilen aus; Abwicklung, Trägerschaft und bloße Mitgliedschaft sind gesondert typisiert.",
       "sourceRefs": [
         {
-          "sourceId": "source-berlin-beteiligungsbericht-2023",
-          "locator": "Gesamtportfolio und Unternehmensübersichten",
+          "sourceId": "source-berlin-beteiligungsbericht-2024",
+          "locator": "S. 14–15 sowie Einzelblätter und Beteiligungsübersichten zum 31. Dezember 2023",
           "role": "primary"
         },
         {
-          "sourceId": "source-berlin-wvb-errichtungsgesetz-2015",
-          "locator": "Artikel 3 § 1",
+          "sourceId": "source-berlin-beteiligungsdatenbank-gewobag",
+          "locator": "Datensatz Gewobag: 96,69 Prozent Land Berlin und 3,31 Prozent eigene Aktien",
           "role": "primary"
         },
         {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-          "locator": "Abschnitt 4",
+          "locator": "Länderabschnitt Berlin",
           "role": "corroborating"
         }
       ],
@@ -78,7 +80,8 @@
       ],
       "kind": "origin-portfolio",
       "origin": "Berlin",
-      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#4-berliner-ausgangsbestand"
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#4-berliner-ausgangsbestand",
+      "inventorySource": "knowledge/holding-positions.json#portfolio-berlin"
     },
     {
       "id": "holding-portfolio-brandenburg-2023",
@@ -87,16 +90,16 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-25",
-      "summary": "Der brandenburgische Bestand wird aus dem Beteiligungsbericht 2023 rekonstruiert; gemeinsame Berlin-Brandenburg-Positionen werden im aktuellen Bestand mit den Berliner Anteilen zusammengeführt.",
+      "summary": "Die Vollinventur weist für Brandenburg 23 unmittelbare und 23 mittelbare beziehungsweise tieferliegende öffentlich belegte Positionszeilen aus; Abwicklung, Trägerschaft und bloße Mitgliedschaft sind gesondert typisiert.",
       "sourceRefs": [
         {
           "sourceId": "source-brandenburg-beteiligungsbericht-2023",
-          "locator": "Beteiligungsübersicht",
+          "locator": "Beteiligungsübersicht und mittelbare Beteiligungen",
           "role": "primary"
         },
         {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-          "locator": "Abschnitt 6",
+          "locator": "Länderabschnitt Brandenburg",
           "role": "corroborating"
         }
       ],
@@ -110,7 +113,8 @@
       "notes": [],
       "kind": "origin-portfolio",
       "origin": "Brandenburg",
-      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#6-brandenburgischer-ausgangsbestand"
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#6-brandenburgischer-ausgangsbestand",
+      "inventorySource": "knowledge/holding-positions.json#portfolio-brandenburg"
     },
     {
       "id": "holding-portfolio-sachsen-2023",
@@ -119,16 +123,21 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-25",
-      "summary": "Der sächsische Ausgangsbestand umfasst die unmittelbaren Beteiligungen des Freistaates Sachsen sowie die in mehreren Vorgängerländern parallel gehaltenen Länderpositionen.",
+      "summary": "Die Vollinventur weist für Sachsen 31 unmittelbare und 57 mittelbare beziehungsweise tieferliegende öffentlich belegte Positionszeilen aus; Abwicklung, Trägerschaft und bloße Mitgliedschaft sind gesondert typisiert.",
       "sourceRefs": [
         {
-          "sourceId": "source-sachsen-beteiligungsbericht-2023",
-          "locator": "Beteiligungsübersicht",
+          "sourceId": "source-sachsen-beteiligungsbericht-2024",
+          "locator": "S. 35–39 und 248–252; Stand 31. Dezember 2023",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-eex-geschaeftsbericht-2023",
+          "locator": "EEX-Beteiligungsspiegel zum 31. Dezember 2023",
           "role": "primary"
         },
         {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-          "locator": "Abschnitt 5",
+          "locator": "Länderabschnitt Sachsen",
           "role": "corroborating"
         }
       ],
@@ -142,7 +151,8 @@
       "notes": [],
       "kind": "origin-portfolio",
       "origin": "Sachsen",
-      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#5-saechsischer-ausgangsbestand"
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#5-saechsischer-ausgangsbestand",
+      "inventorySource": "knowledge/holding-positions.json#portfolio-sachsen"
     },
     {
       "id": "holding-portfolio-sachsen-anhalt-2023",
@@ -151,16 +161,21 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-25",
-      "summary": "Der sachsen-anhaltinische Bestand umfasst Kapitalgesellschaften, Förder- und Landesbanken, Universitätsklinika, Anstalten und zahlreiche mittelbare Beteiligungen.",
+      "summary": "Die Vollinventur weist für Sachsen-Anhalt 40 unmittelbare und 40 mittelbare beziehungsweise tieferliegende öffentlich belegte Positionszeilen aus; Abwicklung, Trägerschaft und bloße Mitgliedschaft sind gesondert typisiert.",
       "sourceRefs": [
         {
-          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2023",
-          "locator": "Beteiligungsübersicht zum Geschäftsjahr 2022",
+          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2024",
+          "locator": "Beteiligungsübersichten und Veränderungsnachweise 2023",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-nordlb-geschaeftsbericht-2023",
+          "locator": "Anteilsverhältnisse und Kapitalerhöhung 2023",
           "role": "primary"
         },
         {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-          "locator": "Abschnitt 8",
+          "locator": "Länderabschnitt Sachsen-Anhalt",
           "role": "corroborating"
         }
       ],
@@ -176,7 +191,8 @@
       ],
       "kind": "origin-portfolio",
       "origin": "Sachsen-Anhalt",
-      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#8-sachsen-anhaltinischer-ausgangsbestand"
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#8-sachsen-anhaltinischer-ausgangsbestand",
+      "inventorySource": "knowledge/holding-positions.json#portfolio-sachsen-anhalt"
     },
     {
       "id": "holding-portfolio-thueringen-2023",
@@ -185,7 +201,7 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-25",
-      "summary": "Der Thüringer Bestand umfasst 2023 aktive Kapitalbeteiligungen sowie weitere landesunmittelbare AöR wie ThüringenForst und die Thüringer Staatslotterie.",
+      "summary": "Die Vollinventur weist für Thüringen 25 unmittelbare und 10 mittelbare beziehungsweise tieferliegende öffentlich belegte Positionszeilen aus; Abwicklung, Trägerschaft und bloße Mitgliedschaft sind gesondert typisiert.",
       "sourceRefs": [
         {
           "sourceId": "source-thueringen-beteiligungsbericht-2023",
@@ -193,8 +209,18 @@
           "role": "primary"
         },
         {
+          "sourceId": "source-tab-geschaeftsbericht-2023",
+          "locator": "Verbundene Unternehmen 2023",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-thueringen-iba-gesellschaftsvertrag",
+          "locator": "Auflösungsbestimmung zum 31. Dezember 2023",
+          "role": "primary"
+        },
+        {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-          "locator": "Abschnitt 7",
+          "locator": "Länderabschnitt Thüringen",
           "role": "corroborating"
         }
       ],
@@ -210,7 +236,8 @@
       ],
       "kind": "origin-portfolio",
       "origin": "Thüringen",
-      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#7-thueringer-ausgangsbestand"
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#7-thueringer-ausgangsbestand",
+      "inventorySource": "knowledge/holding-positions.json#portfolio-thueringen"
     },
     {
       "id": "holding-portfolio-mecklenburg-vorpommern-2023",
@@ -219,16 +246,16 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-25",
-      "summary": "Der mecklenburg-vorpommerische Bestand umfasst ein großes Portfolio aus Landesgesellschaften, Hafen- und Infrastrukturunternehmen, Landesforst, Universitätsmedizinen, Studierendenwerken und mittelbaren Tochtergesellschaften.",
+      "summary": "Die Vollinventur weist für Mecklenburg-Vorpommern 35 unmittelbare und 36 mittelbare beziehungsweise tieferliegende öffentlich belegte Positionszeilen aus; Abwicklung, Trägerschaft und bloße Mitgliedschaft sind gesondert typisiert.",
       "sourceRefs": [
         {
           "sourceId": "source-mv-beteiligungsbericht-2022-2023",
-          "locator": "Gesamtübersicht der Landesbeteiligungen",
+          "locator": "Gesamtübersicht zum 31. Dezember 2023",
           "role": "primary"
         },
         {
           "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-          "locator": "Abschnitt 9",
+          "locator": "Länderabschnitt Mecklenburg-Vorpommern",
           "role": "corroborating"
         }
       ],
@@ -244,7 +271,8 @@
       ],
       "kind": "origin-portfolio",
       "origin": "Mecklenburg-Vorpommern",
-      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#9-mecklenburg-vorpommerischer-ausgangsbestand"
+      "detailsSource": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md#9-mecklenburg-vorpommerischer-ausgangsbestand",
+      "inventorySource": "knowledge/holding-positions.json#portfolio-mecklenburg-vorpommern"
     },
     {
       "id": "holding-flughafen-berlin-brandenburg",
@@ -282,7 +310,7 @@
         "Der Bund hält die verbleibenden 26 Prozent."
       ],
       "kind": "capital-holding",
-      "stakePercent": 74.0,
+      "stakePercent": 74,
       "direct": true
     },
     {
@@ -346,7 +374,7 @@
       ],
       "notes": [],
       "kind": "capital-holding",
-      "stakePercent": 100.0,
+      "stakePercent": 100,
       "direct": true
     },
     {
@@ -411,7 +439,7 @@
       ],
       "notes": [],
       "kind": "capital-holding",
-      "stakePercent": 50.0,
+      "stakePercent": 50,
       "direct": true
     },
     {
@@ -445,7 +473,7 @@
         "Die formale Anpassung der früher zweiländrigen Rechtsgrundlage ist gesondert zu prüfen."
       ],
       "kind": "guarantor-position",
-      "stakePercent": 100.0,
+      "stakePercent": 100,
       "direct": true
     },
     {
@@ -489,8 +517,8 @@
         "70 Prozent unmittelbar beim Freistaat; 20 Prozent mittelbar im öffentlichen Bereich über den OFF; 10 Prozent ZDF."
       ],
       "kind": "capital-holding",
-      "stakePercent": 70.0,
-      "publicSectorStakePercent": 90.0,
+      "stakePercent": 70,
+      "publicSectorStakePercent": 90,
       "direct": true
     },
     {
@@ -606,11 +634,36 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-25",
-      "summary": "Die rekonstruierten sechs Länderpositionen ergeben zusammen rund 3,97 Prozent.",
+      "summary": "Die sechs amtlich ausgewiesenen Länderpositionen ergeben exakt in der verwendeten Berichtsgenauigkeit 3,97 Prozent (0,79 + 0,56 + 1,07 + 0,60 + 0,54 + 0,41).",
       "sourceRefs": [
         {
-          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
-          "locator": "Abschnitt 3",
+          "sourceId": "source-berlin-beteiligungsbericht-2024",
+          "locator": "KfW 0,79 Prozent",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-brandenburg-beteiligungsbericht-2023",
+          "locator": "KfW 0,56 Prozent",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-sachsen-beteiligungsbericht-2024",
+          "locator": "KfW 1,07 Prozent",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-sachsen-anhalt-beteiligungsbericht-2024",
+          "locator": "KfW 0,60 Prozent",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-thueringen-beteiligungsbericht-2023",
+          "locator": "KfW 0,54 Prozent",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-mv-beteiligungsbericht-2022-2023",
+          "locator": "KfW 0,41 Prozent",
           "role": "primary"
         }
       ],
@@ -621,11 +674,120 @@
         "consolidated"
       ],
       "notes": [
-        "Die exakte Quote ist bei einer späteren Vollinventur noch gegen die KfW-Trägerdaten zum 1. Dezember 2023 zu prüfen."
+        "Die Beteiligungen der KfW werden als mittelbare Kette geführt; Post und Telekom waren beispielsweise keine unmittelbaren Landesbeteiligungen Mecklenburg-Vorpommerns."
       ],
       "kind": "capital-holding",
       "stakePercent": 3.97,
       "direct": true
+    },
+    {
+      "id": "holding-gkl-traegerschaft",
+      "title": "GKL Gemeinsame Klassenlotterie der Länder AöR",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Sechs Trägerlandpositionen gingen auf den Freistaat über. Sie bilden keine addierbare Kapitalquote: Stimmen folgen dem Königsteiner Schlüssel, Gewinnverteilung und Gewährträgerhaftung dem Lotterieumsatz.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-gkl-staatsvertrag",
+          "locator": "§ 4 Absatz 2, §§ 9, 10 und 14",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "public-law",
+        "lottery",
+        "consolidated",
+        "key-holding"
+      ],
+      "notes": [
+        "Die in Länderberichten genannten Prozentwerte werden nur als jeweilige Berichts- oder Verteilungsschlüssel dokumentiert."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercent": null,
+      "direct": true,
+      "carrierPositions": 6,
+      "inventorySource": "knowledge/holding-positions.json"
+    },
+    {
+      "id": "holding-nordlb",
+      "title": "Norddeutsche Landesbank – Girozentrale AöR",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Sachsen-Anhalt hielt am Vereinigungsstichtag 6,31 Prozent. Aufgrund einer bereits vor dem Stichtag vertraglich gebundenen Kapitalmaßnahme sank die Quote zum 31. Dezember 2023 auf 6,25 Prozent; der zuletzt belegte fortgeschriebene Wert beträgt 6,22 Prozent.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-nordlb-geschaeftsbericht-2023",
+          "locator": "Anteilsverhältnisse und Anhangangabe zur Kapitalerhöhung mit Wirkung zum 31. Dezember 2023",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-nordlb-kapitalstaerkung-2019",
+          "locator": "Vertragliche Wiederanlage der Garantiegebühren als Stammkapital",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-nordlb-geschaeftsbericht-2025",
+          "locator": "Trägerstruktur: Sachsen-Anhalt 6,22 Prozent",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "bank",
+        "public-law",
+        "sachsen-anhalt",
+        "key-holding"
+      ],
+      "notes": [
+        "Die Fortschreibung ist die Ausnahme für ein vor dem Vereinigungsstichtag bindend festgelegtes Ereignis."
+      ],
+      "kind": "public-law-carrier",
+      "stakePercentAtInheritance": 6.31,
+      "stakePercent": 6.22,
+      "direct": true,
+      "inventorySource": "knowledge/holding-positions.json"
+    },
+    {
+      "id": "holding-iba-thueringen-abwicklung",
+      "title": "IBA Thüringen GmbH in Abwicklung",
+      "status": "derived",
+      "validFrom": "2023-12-31",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Am 1. Dezember 2023 bestand die IBA Thüringen GmbH zu 100 Prozent, war aber bereits gesellschaftsvertraglich zur Auflösung am 31. Dezember 2023 bestimmt. Der reale Verschmelzungs- und Löschungsvollzug 2024 wird ohne ostdeutschen Vollzugsakt nicht übernommen; kanonisch verbleibt eine Abwicklungsposition.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-thueringen-beteiligungsbericht-2023",
+          "locator": "Einzelblatt IBA Thüringen GmbH",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-thueringen-iba-gesellschaftsvertrag",
+          "locator": "Auflösungsbestimmung zum 31. Dezember 2023",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "holding",
+        "thueringen",
+        "liquidation",
+        "public-economy"
+      ],
+      "notes": [
+        "Nicht als fortgeführtes operatives Unternehmen und nicht als vollzogen erloschen ausgeben."
+      ],
+      "kind": "liquidation-position",
+      "stakePercent": 100,
+      "direct": true,
+      "inventorySource": "knowledge/holding-positions.json"
     },
     {
       "id": "holding-gemeingut-wohnen",
@@ -1075,7 +1237,7 @@
       ],
       "kind": "acquisition-in-progress",
       "stakePercent": null,
-      "targetStakePercent": 80.0,
+      "targetStakePercent": 80,
       "direct": true
     }
   ]

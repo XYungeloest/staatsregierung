@@ -1,6 +1,52 @@
 {
-  "asOf": "2026-08-23",
+  "asOf": "2026-08-25",
   "questions": [
+    {
+      "id": "question-holdings-undisclosed-deeper-tiers",
+      "title": "Welche nicht öffentlich ausgewiesenen tieferen Beteiligungsstufen bestanden am 1. Dezember 2023?",
+      "status": "unresolved",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die Vollinventur erfasst 666 in amtlichen Länder- und Rundfunkberichten belegte Positionszeilen. Einzelne Berichte begrenzen ihre Offenlegung auf unmittelbare oder mittelbare Beteiligungen ersten Grades; bei der Private Equity Thüringen Verwaltungs GmbH fehlt zudem eine öffentliche Quote.",
+      "sourceRefs": [
+        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Methodik und Restlücken", "role": "primary"},
+        {"sourceId": "source-tab-geschaeftsbericht-2023", "locator": "Verbundene Unternehmen", "role": "corroborating"}
+      ],
+      "relatedIds": ["holding-rechtsnachfolge-2023"],
+      "tags": ["open-question", "holdings", "subsidiaries", "source-coverage"],
+      "notes": ["Unbekannte Quoten bleiben null; nicht veröffentlichte Gesellschaften werden nicht geschätzt."],
+      "question": "Welche weiteren Tochter-, Enkel-, Fonds- oder Zweckgesellschaften waren am Stichtag rechtlich vorhanden, wurden aber in den öffentlichen Berichten nicht oder nur ohne Quote offengelegt?",
+      "affectedIds": ["holding-rechtsnachfolge-2023"],
+      "reason": "Öffentlich zugängliche Beteiligungsberichte sind je Land unterschiedlich tief; Handelsregister- und vollständige Konzernabschlussketten sind nicht für jede Position offen zugänglich.",
+      "requiredSource": "Stichtagsbezogene vollständige Beteiligungslisten, Konzernanhänge oder Registerauszüge mit Beteiligungskette und Quote.",
+      "publicContentImpact": "Die öffentliche Übersicht nennt belastbare Summen der belegten Positionszeilen, aber keine Vollständigkeit über nicht veröffentlichte Beteiligungstiefen hinaus.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
+    {
+      "id": "question-holdings-multistate-formal-adaptation",
+      "title": "Welche Staatsverträge und Satzungen gemeinsamer Träger wurden nach der Vereinigung formal angepasst?",
+      "status": "unresolved",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Die materiellen Trägerpositionen wurden übernommen. Für GKL, Amt für Statistik Berlin-Brandenburg und weitere Mehrländeranstalten ist jedoch kein vollständiges Paket formaler ostdeutscher Vertrags- und Satzungsanpassungen belegt.",
+      "sourceRefs": [
+        {"sourceId": "source-gkl-staatsvertrag", "locator": "Vertragsländer und Gewährträgerversammlung", "role": "primary"},
+        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Mehrländerpositionen und Rechtsnachfolge", "role": "primary"}
+      ],
+      "relatedIds": ["holding-gkl-traegerschaft", "holding-rechtsnachfolge-2023"],
+      "tags": ["open-question", "holdings", "state-treaty", "formal-adaptation"],
+      "notes": ["Die fehlende formale Anpassung beseitigt die redaktionell bestätigte materielle Rechtsnachfolge nicht."],
+      "question": "Welche Ratifikations-, Änderungs-, Beitritts- oder Satzungsakte wurden nach dem 1. Dezember 2023 für die zusammengeführten Trägerpositionen vollzogen?",
+      "affectedIds": ["holding-gkl-traegerschaft", "holding-rechtsnachfolge-2023"],
+      "reason": "Die vorhandenen Quellen belegen die Ausgangsverträge und die Rechtsnachfolge, aber nicht für alle gemeinsamen Einrichtungen die nachfolgende formale Bereinigung ihrer Länderbezeichnungen und Organstimmen.",
+      "requiredSource": "Ostdeutsche Zustimmungsgesetze, Vertragsänderungen, Satzungsbekanntmachungen oder amtliche Vollzugsmitteilungen.",
+      "publicContentImpact": "Trägerpositionen werden als fortbestehend ausgewiesen; eine abgeschlossene formale Vertragsbereinigung wird nicht behauptet.",
+      "priority": "medium",
+      "questionStatus": "open"
+    },
     {
       "id": "question-school-law-source-conflicts-2026",
       "title": "Zieltextkonflikte bei drei schulrechtlichen Konsolidierungen",
