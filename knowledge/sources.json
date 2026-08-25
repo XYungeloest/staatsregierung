@@ -1574,6 +1574,26 @@
     "notes": "Amtlicher Beteiligungsbericht; für den Vereinigungsstichtag zusammen mit datierten Änderungen und der redaktionellen Rechtsnachfolgeklarstellung auszuwerten."
   },
   {
+    "id": "source-berlin-beteiligungsbericht-2024",
+    "type": "official-participation-report",
+    "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsbericht/bb_2024_gesamt.pdf",
+    "title": "Beteiligungsbericht 2024 des Landes Berlin",
+    "date": "2024-12-31",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "berlin"],
+    "notes": "Amtlicher Bericht mit Beteiligungsstruktur und Einzelabschlüssen zum 31. Dezember 2023; maßgebliche stichtagsnahe Rückschau für den 1. Dezember 2023."
+  },
+  {
+    "id": "source-berlin-beteiligungsdatenbank-gewobag",
+    "type": "official-participation-database",
+    "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsdatenbank/index.php/detail/91",
+    "title": "Beteiligungsdatenbank Berlin: Gewobag Wohnungsbau-AG Berlin",
+    "date": null,
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "berlin", "housing"],
+    "notes": "Weist 96,69 Prozent Land Berlin und 3,31 Prozent eigene Aktien der Gewobag aus."
+  },
+  {
     "id": "source-berlin-wvb-errichtungsgesetz-2015",
     "type": "official-gazette",
     "path": "https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2015/ausgabe-nr-25-vom-5-12-2015-seite-421-bis-440.pdf",
@@ -1632,6 +1652,16 @@
     "notes": "Amtlicher Bericht mit Redaktionsschluss 10. Januar 2024 und Jahresabschlussdaten zum 31. Dezember 2022."
   },
   {
+    "id": "source-sachsen-beteiligungsbericht-2024",
+    "type": "official-participation-report",
+    "path": "https://publikationen.sachsen.de/bdb/artikel/46863",
+    "title": "Beteiligungsbericht 2024 des Freistaates Sachsen",
+    "date": "2025-01-10",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "sachsen"],
+    "notes": "Amtlicher Bericht mit unmittelbaren und mittelbaren Beteiligungen zum 31. Dezember 2023; die Zahl der unmittelbaren Positionen blieb 2021 bis 2023 unverändert."
+  },
+  {
     "id": "source-thueringen-beteiligungsbericht-2023",
     "type": "official-participation-report",
     "path": "https://finanzen.thueringen.de/fileadmin/medien_tfm/beteiligungen/beteiligungsbericht_2023_bf.pdf",
@@ -1660,6 +1690,16 @@
     "notes": "Amtliche Veröffentlichungsseite; Beteiligungsbericht 2023 für das Geschäftsjahr 2022."
   },
   {
+    "id": "source-sachsen-anhalt-beteiligungsbericht-2024",
+    "type": "official-participation-report",
+    "path": "https://mf.sachsen-anhalt.de/api/media/Beteiligungsbericht_BB%202024%20Gesamt%20fertig_2026-05-29.pdf?collection=document",
+    "title": "Beteiligungsbericht 2024 des Landes Sachsen-Anhalt",
+    "date": "2026-05-29",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "sachsen-anhalt"],
+    "notes": "Amtlicher Bericht mit Beteiligungsübersichten und Veränderungsnachweisen für 2023 und 2024; ermöglicht die Abgrenzung des Bestands am 1. Dezember 2023."
+  },
+  {
     "id": "source-mv-beteiligungsbericht-2022-2023",
     "type": "official-participation-report",
     "path": "https://www.regierung-mv.de/Landesregierung/fm/Blickpunkte/beteiligungsbericht/",
@@ -1672,6 +1712,146 @@
       "mecklenburg-vorpommern"
     ],
     "notes": "Amtliche Veröffentlichungsseite zum Beteiligungsbericht für die Geschäftsjahre 2022 und 2023."
+  },
+  {
+    "id": "source-gkl-staatsvertrag",
+    "type": "state-treaty",
+    "path": "https://www.gesetze-bayern.de/Content/Document/GKLStV/true",
+    "title": "Staatsvertrag über die Gründung der GKL Gemeinsame Klassenlotterie der Länder",
+    "date": "2012-07-01",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "public-law", "lottery"],
+    "notes": "Belegt die Trägerschaft aller 16 Länder, Stimmen nach Königsteiner Schlüssel sowie Gewinn-, Haftungs- und Abfindungsschlüssel; die Länderwerte sind keine gewöhnlichen Kapitalquoten."
+  },
+  {
+    "id": "source-nordlb-geschaeftsbericht-2023",
+    "type": "official-annual-report",
+    "path": "https://www.nordlb.de/fileadmin/redaktion/Investor_Relations/pdf/2023/NORDLB_Konzerngeschaeftsbericht_2023.pdf",
+    "title": "NORD/LB Konzerngeschäftsbericht 2023",
+    "date": "2023-12-31",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "bank", "sachsen-anhalt"],
+    "notes": "Belegt 6,31 Prozent Sachsen-Anhalt vor und 6,25 Prozent nach der Kapitalerhöhung mit Wirkung zum 31. Dezember 2023."
+  },
+  {
+    "id": "source-nordlb-geschaeftsbericht-2025",
+    "type": "official-annual-report",
+    "path": "https://www.nordlb.de/fileadmin/redaktion/Investor_Relations/pdf/2025/NORDLB_Konzerngeschaeftsbericht_2025.pdf",
+    "title": "NORD/LB Konzerngeschäftsbericht 2025",
+    "date": "2025-12-31",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "bank", "sachsen-anhalt"],
+    "notes": "Bestätigt die fortgeschriebene Trägerquote des Landes Sachsen-Anhalt von 6,22 Prozent."
+  },
+  {
+    "id": "source-nordlb-kapitalstaerkung-2019",
+    "type": "official-press-release",
+    "path": "https://www.stk.niedersachsen.de/startseite/presseinformationen/niedersachsen-wird-das-stammkapital-der-nord-lb-in-hohe-der-empfangenen-garantiegebuhren-erhohen-195079.html",
+    "title": "Vertragliche Kapitalstärkung der NORD/LB",
+    "date": "2019-12-23",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "bank"],
+    "notes": "Belegt die bereits vor dem Vereinigungsstichtag verbindlich vereinbarten Kapitalerhöhungen aus Garantiegebühren."
+  },
+  {
+    "id": "source-mdr-beteiligungsbericht-2023",
+    "type": "official-annual-report",
+    "path": "https://www.mdr.de/unternehmen/informationen/dokumente/geschaeftsbericht-mdr-zweitausenddreiundzwanzig-104.pdf",
+    "title": "Geschäftsbericht des Mitteldeutschen Rundfunks 2023",
+    "date": "2023-12-31",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "broadcasting", "mdr"],
+    "notes": "Belegt die unmittelbaren und mittelbaren Unternehmensbeteiligungen des MDR zum 31. Dezember 2023."
+  },
+  {
+    "id": "source-rbb-beteiligungsbericht-2023",
+    "type": "official-participation-report",
+    "path": "https://www.rbb-online.de/unternehmen/der_rbb/struktur/rbb_beteiligungen/beteiligungsbericht-2023.file.html/UTF-8Kurzversion_rbb_Beteiligungsbericht23_RGB_final.pdf",
+    "title": "Beteiligungsbericht des Rundfunk Berlin-Brandenburg 2023",
+    "date": "2023-12-31",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "broadcasting", "rbb"],
+    "notes": "Belegt unter anderem die seit dem 1. Januar 2023 bestehende 100-Prozent-Beteiligung an der ems gGmbH."
+  },
+  {
+    "id": "source-tab-geschaeftsbericht-2023",
+    "type": "official-annual-report",
+    "path": "https://www.aufbaubank.de/Download/TAB-Geschaeftsbericht-2023.pdf",
+    "title": "Geschäftsbericht der Thüringer Aufbaubank 2023",
+    "date": "2023-12-31",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "bank", "thueringen"],
+    "notes": "Amtlicher Geschäftsbericht; belegt fünf verbundene Unternehmen und die Liquidationsstände der Private-Equity-Fonds."
+  },
+  {
+    "id": "source-thueringen-iba-gesellschaftsvertrag",
+    "type": "official-corporate-document",
+    "path": "https://iba-thueringen.de/",
+    "title": "Gesellschaftsvertrag und Abschluss der IBA Thüringen GmbH",
+    "date": "2011-12-09",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "thueringen", "liquidation"],
+    "notes": "Belegt die gesellschaftsvertraglich bereits vor dem Stichtag angeordnete Auflösung zum 31. Dezember 2023; der reale spätere Verschmelzungsvollzug wird nicht ohne ostdeutschen Vollzugsakt übernommen."
+  },
+  {
+    "id": "source-mv-tbi-beteiligung",
+    "type": "official-participation-page",
+    "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/TBI-Technologie%E2%80%93-Beratungs%E2%80%93Institut-GmbH/",
+    "title": "Landesbeteiligung an der TBI Technologie-Beratungs-Institut GmbH",
+    "date": "2024-12-19",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "mecklenburg-vorpommern"],
+    "notes": "Belegt, dass die mittelbare Landesbeteiligung erst nach dem Vereinigungsstichtag entstand."
+  },
+  {
+    "id": "source-mv-tourismus-beteiligung",
+    "type": "official-participation-page",
+    "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/MV-Tourismus-GmbH/",
+    "title": "Landesbeteiligung an der MV-Tourismus GmbH",
+    "date": "2025-09-30",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "mecklenburg-vorpommern", "tourism"],
+    "notes": "Belegt, dass die unmittelbare 100-Prozent-Landesbeteiligung erst nach dem Vereinigungsstichtag entstand."
+  },
+  {
+    "id": "source-mv-energieland-beteiligung",
+    "type": "official-participation-page",
+    "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/EnergieLand-MV-GmbH/",
+    "title": "Mittelbare Landesbeteiligung an der EnergieLand MV GmbH",
+    "date": "2024-11-12",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "mecklenburg-vorpommern", "energy"],
+    "notes": "Belegt eine erst nach dem Vereinigungsstichtag entstandene mittelbare Beteiligung."
+  },
+  {
+    "id": "source-kfw-dena-sale-2023",
+    "type": "official-press-release",
+    "path": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_771584.html",
+    "title": "KfW veräußert dena-Anteil an den Bund",
+    "date": "2023-07-13",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "bank", "energy"],
+    "notes": "Belegt die vor dem Vereinigungsstichtag abgeschlossene Veräußerung der 26-Prozent-Beteiligung an der dena."
+  },
+  {
+    "id": "source-sab-tgfs-iii-2023",
+    "type": "official-press-release",
+    "path": "https://www.sab.sachsen.de/en/web/guest/w/mehr-eigenkapital-fur-die-sachsische-grunderszene-sachssische-aufbaubank-als-weiterer-investor-im-tgfs-technologiegrunderfonds-sachsen-der-dritten-generation",
+    "title": "SAB beteiligt sich am TGFS III",
+    "date": "2023-09-07",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "sachsen", "venture-capital"],
+    "notes": "Belegt den Erwerb vor dem Vereinigungsstichtag."
+  },
+  {
+    "id": "source-eex-geschaeftsbericht-2023",
+    "type": "official-annual-report",
+    "path": "https://www.lobbyregister.bundestag.de/media/1d/d5/484623/EEX-Jahresabschluss-2023.pdf",
+    "title": "Jahresabschluss der European Energy Exchange AG 2023",
+    "date": "2023-12-31",
+    "status": "primary",
+    "scope": ["public-economy", "holdings", "sachsen", "energy-exchange"],
+    "notes": "Belegt die EEX-Beteiligungen, darunter die bereits 2022 bestehende ADEX-Position und den 2023 erworbenen GET-Baltic-Anteil."
   },
   {
     "id": "source-landesbank-elbe-law",

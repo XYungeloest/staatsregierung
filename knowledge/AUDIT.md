@@ -2,8 +2,8 @@
 
 **Ausgangsstand des Erstaudits:** `9aa406f7baebdd264d3ed824be65b43413a9dd9a`
 
-**Redaktioneller Stichtag des Gegenwartsstands:** 9. August 2026
-**Auditstand:** 28. Juli 2026, fortgeschrieben am 12. August 2026
+**Redaktioneller Stichtag des Gegenwartsstands:** 25. August 2026
+**Auditstand:** 28. Juli 2026, fortgeschrieben am 25. August 2026
 
 ## Methode und Grenzen
 
@@ -15,6 +15,43 @@ Ausgangscommit dokumentiert den Erstaudit, nicht den heutigen Repository-HEAD. D
 auf Miraheze wurde als zulässige ergänzende Sekundärquelle registriert. Der automatisierte Abruf
 war am Auditdatum teilweise durch HTTP 403 blockiert, deshalb wurden daraus keine alleinstehenden
 Tatsachen übernommen. Andere Wikihoster wurden nicht verwendet.
+
+## Vollinventur Beteiligungen und öffentliche Wirtschafts-/Vermögensträger vom 25. August 2026
+
+Der Bestand der sechs Vorgängerländer wurde auf den exakten Rechtsnachfolgestichtag 1. Dezember
+2023 zurückgeführt und anschließend ausschließlich anhand ostdeutscher Rechts-/Vollzugsakte oder
+vor dem Stichtag verbindlich begründeter Vorgänge fortgeschrieben. Ausgewertet wurden die amtlichen
+Beteiligungsberichte Berlins, Brandenburgs, Sachsens, Sachsen-Anhalts, Thüringens und
+Mecklenburg-Vorpommerns, die Geschäfts- und Beteiligungsberichte von NORD/LB, TAB, MDR und rbb,
+der GKL-Staatsvertrag sowie punktuelle amtliche Unternehmens- und Ministeriumsquellen.
+
+Die maschinenprüfbare Matrix `holding-positions.json` enthält:
+
+- 666 belegte Positionszeilen,
+- 217 unmittelbare Kapital-, Träger-, Mitgliedschafts-, Eigenbetriebs- oder sonstige
+  Vermögenspositionen,
+- 449 mittelbare und tieferliegende Positionen,
+- 15 am Ausgangsstichtag bereits in Liquidation, zur Auflösung bestimmt oder insolvente Zeilen,
+- 15 konsolidierte Mehrländerpositionen und
+- 10 ausdrücklich ausgeschlossene nachstichtägliche Realentwicklungen.
+
+Die Länder- und Rundfunkabdeckung verteilt sich auf 312 Berliner, 46 brandenburgische, 88
+sächsische, 35 thüringische, 80 sachsen-anhaltinische, 71 mecklenburg-vorpommerische und 34
+Rundfunk-Positionszeilen. Mehrfachnennungen sind beabsichtigt, wenn mehrere Vorgängerländer oder
+Beteiligungsketten Rechte am selben Rechtsträger vermittelten.
+
+Abschließend geklärt wurden insbesondere Gewobag (96,69 Prozent Land Berlin plus 3,31 Prozent
+eigene Aktien), NORD/LB (6,31 Prozent am Stichtag; vorgebundene Fortschreibung auf 6,25 und zuletzt
+6,22 Prozent), die IBA Thüringen (ab 31. Dezember 2023 Abwicklungsposition), die GKL (keine
+addierbare Kapitalquote), die rbb-Tochter ems (seit 1. Januar 2023 100 Prozent), die fehlende
+unmittelbare Post-/Telekom-Position Mecklenburg-Vorpommerns sowie die Tochterportfolios der vier
+Universitätsklinika/-medizinen und der fünf Förderbankstrukturen.
+
+Als echte Restunsicherheiten verbleiben nur nicht öffentlich ausgewiesene tiefere
+Beteiligungsstufen oder Quoten und die vollständige formale Anpassung einzelner
+Mehrländer-Staatsverträge und Satzungen. Sie sind präzise in `open-questions.json` erfasst. Die
+Masterdarstellung unter `temp-neu/` und die redaktionelle Klarstellung dokumentieren Methodik,
+Korrekturen und den aktuellen Bestand menschenlesbar.
 
 ## Quellen- und Abdeckungsmatrix
 

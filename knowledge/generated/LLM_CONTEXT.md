@@ -59,7 +59,7 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **Doppelhaushalt 2025/2026**: in-force. Verbindlicher Finanzrahmen für die Haushaltsjahre 2025 und 2026.
 - **Hoheitszeichenreform**: in-implementation. Das am 23. März 2026 beschlossene Hoheitszeichengesetz und die Hoheitszeichenverordnung vom 28. März 2026 bilden den geltenden Bestand. Ein weiteres besonderes Gesetz im parlamentarischen Verfahren ist nicht in Kraft.
 - **Neue Feiertage**: implemented. Das Feiertagsrecht ist vollständig historisiert. Die aktuelle Fassung des Ostdeutschen Feiertagsgesetzes gilt seit 24. März 2026 und folgt auf die Fassungen zum 1. November 2023 und ab 8. März 2024.
-- **Schrittweise Übernahme der Elia-Beteiligung an 50Hertz**: staged-acquisition. Vereinbarte Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz Transmission für 3,8 Milliarden Euro in drei Jahresraten ab dem Haushaltsjahr 2026.
+- **Schrittweise Übernahme der Elia-Beteiligung an 50Hertz**: staged-acquisition. Vereinbarte Übernahme der von Elia gehaltenen 80-Prozent-Beteiligung an 50Hertz Transmission für 3,8 Milliarden Euro in drei Jahresraten ab dem Haushaltsjahr 2026. Ein datierter Teil- oder Gesamteigentumsübergang ist bis zum Stichtag nicht belegt; die Position ist deshalb noch keine aktuelle Beteiligung.
 - **Elektronisches juristisches Prüfungssystem**: award-confirmed-delivery-unresolved. Vergabe eines Systems für elektronische juristische Klausuren mit Gesetzeszugriff und Gutachtenerstellung. Die EAG bestätigte rückblickend einen Zuschlag; Anbieter und Auslieferung sind unbekannt.
 - **Beschaffung von vier Hovercrafts Griffon 8100 TD**: order-agreed-delivery-unresolved. Akzeptierte und für insgesamt 30 Millionen Euro bezahlte Beschaffung von zwei Grenzschutz- und zwei militärischen Ausführungen des Griffon 8100 TD. Die Lieferung ist nicht belegt.
 - **NVIDIA-Ansiedlung in Ostdeutschland**: site-offer-accepted. NVIDIA nahm das ostdeutsche Ansiedlungsangebot an. Als spätere Ausgestaltung wurden 900 Millionen Euro Förderung und das frühere Intel-Gelände akzeptiert; eine Betriebsaufnahme ist nicht belegt.
@@ -70,13 +70,17 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 
 ## Öffentliche Wirtschaft und Beteiligungen
 
-Der Freistaat Ostdeutschland trat redaktionell in die Beteiligungs-, Träger-, Gewährträger-, Mitgliedschafts- und Vermögenspositionen der sechs Vorgängerländer ein. Die Übernahme des sächsischen Rechtsstandes beseitigt diese konkreten Rechtspositionen nicht.
+Der Freistaat Ostdeutschland trat redaktionell in die Beteiligungs-, Träger-, Gewährträger-, Mitgliedschafts- und Vermögenspositionen der sechs Vorgängerländer ein. Die strukturierte Vollinventur enthält 666 öffentlich belegte Positionszeilen; spätere Realentwicklungen werden nur bei ostdeutschem Rechts- oder Vollzugsakt beziehungsweise vorbestehender Bindung fortgeschrieben.
+
+Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 unmittelbare sowie 449 mittelbare oder tieferliegende Positionen. 15 Zeilen waren am Ausgangsstichtag bereits in Liquidation, zur Auflösung bestimmt oder insolvent. Mehrländerpositionen werden in 15 konsolidierten Datensätzen zusammengeführt; 10 spätere Realentwicklungen sind ausdrücklich ausgeschlossen.
 
 - **Flughafen Berlin Brandenburg GmbH**: Die früheren Länderanteile Berlins und Brandenburgs von jeweils 37 Prozent vereinigen sich beim Freistaat zu 74 Prozent.
 - **Mitteldeutsche Flughafen AG**: Die früheren Länderanteile Sachsens von 77,29 Prozent und Sachsen-Anhalts von 18,54 Prozent vereinigen sich beim Freistaat zu 95,83 Prozent.
 - **MEAB Märkische Entsorgungsanlagen-Betriebsgesellschaft mbH**: Die früheren 50-Prozent-Anteile Berlins und Brandenburgs vereinigen sich beim Freistaat.
 - **VBB Verkehrsverbund Berlin-Brandenburg GmbH**: Die früheren Länderanteile Berlins und Brandenburgs von jeweils 33,33 Prozent vereinigen sich beim Freistaat zu rund zwei Dritteln; kommunale Anteile bleiben unberührt.
 - **Mitteldeutsche Medienförderung GmbH**: Die unmittelbaren Länderanteile Sachsens, Sachsen-Anhalts und Thüringens ergeben 70 Prozent. Weitere 20 Prozent gingen 2026 vom MDR auf den Ostdeutschen Fernsehfunk über.
+- **GKL Gemeinsame Klassenlotterie der Länder AöR**: Sechs Trägerlandpositionen gingen auf den Freistaat über. Sie bilden keine addierbare Kapitalquote: Stimmen folgen dem Königsteiner Schlüssel, Gewinnverteilung und Gewährträgerhaftung dem Lotterieumsatz.
+- **Norddeutsche Landesbank – Girozentrale AöR**: Sachsen-Anhalt hielt am Vereinigungsstichtag 6,31 Prozent. Aufgrund einer bereits vor dem Stichtag vertraglich gebundenen Kapitalmaßnahme sank die Quote zum 31. Dezember 2023 auf 6,25 Prozent; der zuletzt belegte fortgeschriebene Wert beträgt 6,22 Prozent.
 - **Gemeingut Wohnen AöR**: Rechtsfähige AöR des Freistaates zur gemeinwirtschaftlichen Bewirtschaftung der nach dem Wohnvergesellschaftungsrecht überführten Wohnungsbestände.
 - **Landesbank an der Elbe**: Rechtsfähige AöR und ostdeutsche Universal- und Sparkassenzentralbank; bei Errichtung mit 20 Milliarden Euro aus dem Landeshaushalt ausgestattet.
 - **Ostdeutscher Fernsehfunk**: Rechtsfähige öffentlich-rechtliche Rundfunkanstalt und Gesamtrechtsnachfolger von MDR und RBB einschließlich deren Beteiligungen.
@@ -117,6 +121,8 @@ Der Freistaat Ostdeutschland trat redaktionell in die Beteiligungs-, Träger-, G
 
 ## Bekannte Konflikte und offene Fragen
 
+- **Welche nicht öffentlich ausgewiesenen tieferen Beteiligungsstufen bestanden am 1. Dezember 2023?**: Öffentlich zugängliche Beteiligungsberichte sind je Land unterschiedlich tief; Handelsregister- und vollständige Konzernabschlussketten sind nicht für jede Position offen zugänglich.
+- **Welche Staatsverträge und Satzungen gemeinsamer Träger wurden nach der Vereinigung formal angepasst?**: Die vorhandenen Quellen belegen die Ausgangsverträge und die Rechtsnachfolge, aber nicht für alle gemeinsamen Einrichtungen die nachfolgende formale Bereinigung ihrer Länderbezeichnungen und Organstimmen.
 - **Zieltextkonflikte bei drei schulrechtlichen Konsolidierungen**: Die vorhandenen Zieltexte enthalten die von den Änderungsbefehlen vorausgesetzten Wortlaute oder Einordnungsstellen nicht.
 - **Welche Tarifdetails gelten für die OVV-Anerkennung und werden Fernverkehrsrelationen reaktiviert?**: Der EAG-Deal trennt die Ticketanerkennung ausdrücklich von der Wiederherstellung fehlender Verbindungen. Ein Vertrag, Tarifblatt oder Betriebsnachweis liegt nicht vor.
 - **Wann begann die operative Umsetzung des Boom-Europe-Standorts?**: Das rechtskräftige Agreement belegt Vertragsschluss und Inkrafttreten, aber nicht automatisch Baubeginn, Standorteröffnung oder Betriebsaufnahme.
@@ -132,6 +138,7 @@ Der Freistaat Ostdeutschland trat redaktionell in die Beteiligungs-, Träger-, G
 - Ereignisse: `knowledge/timeline.json`
 - Projektverbünde: `knowledge/projects.json`
 - Beteiligungen und öffentliche Wirtschafts- und Vermögensträger: `knowledge/holdings.json`
+- Vollinventur der unmittelbaren und mittelbaren Positionen: `knowledge/holding-positions.json`
 - Verfahren: `knowledge/proceedings.json`
 - Offene Fragen: `knowledge/open-questions.json`
 - Nur Gesprächswissen: `knowledge/conversation-candidates.json`

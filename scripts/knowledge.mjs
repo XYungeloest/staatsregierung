@@ -55,6 +55,7 @@ function stableJson(value) {
 
 function loadModel() {
   const sourcesDoc = readJson('knowledge/sources.json');
+  const holdingPositions = readJson('knowledge/holding-positions.json');
   const collections = dataSpecs.map(([file, key, type]) => {
     const document = readJson(file);
     if (!Array.isArray(document[key])) {
@@ -65,6 +66,7 @@ function loadModel() {
   return {
     sourcesDoc,
     sources: sourcesDoc.sources,
+    holdingPositions,
     collections,
     byType: new Map(collections.map((collection) => [collection.type, collection.entries])),
   };
@@ -185,6 +187,8 @@ function validateModel(model, compareGenerated) {
       }
     }
   }
+
+  validateHoldingPositions(model.holdingPositions, sourceIds, errors);
 
   const allEntries = [];
   const idMap = new Map();
@@ -328,6 +332,87 @@ function validateModel(model, compareGenerated) {
   return true;
 }
 
+function validateHoldingPositions(document, sourceIds, errors) {
+  const file = 'knowledge/holding-positions.json';
+  walkDates(document, file, errors);
+  if (!Array.isArray(document.positionFields) || document.positionFields.length === 0) {
+    errors.push(`${file}: positionFields muss ein nicht leeres Array sein.`);
+    return;
+  }
+  if (!Array.isArray(document.portfolios)) {
+    errors.push(`${file}: portfolios muss ein Array sein.`);
+    return;
+  }
+
+  const keyIndex = document.positionFields.indexOf('key');
+  const nameIndex = document.positionFields.indexOf('name');
+  const levelIndex = document.positionFields.indexOf('level');
+  const cutoffStatusIndex = document.positionFields.indexOf('cutoffStatus');
+  const currentStatusIndex = document.positionFields.indexOf('currentStatus');
+  const locatorIndex = document.positionFields.indexOf('sourceLocator');
+  for (const [field, index] of Object.entries({ key: keyIndex, name: nameIndex, level: levelIndex, cutoffStatus: cutoffStatusIndex, currentStatus: currentStatusIndex, sourceLocator: locatorIndex })) {
+    if (index < 0) errors.push(`${file}: Pflichtspalte ${field} fehlt.`);
+  }
+
+  const allowedLevels = new Set(['direct', 'indirect', 'second-degree']);
+  const allowedCutoffStatuses = new Set(['active', 'liquidation', 'scheduled-liquidation', 'insolvency']);
+  const allowedCurrentStatuses = new Set(['active', 'liquidation', 'insolvency', 'succeeded-to-off']);
+  const keys = new Set();
+  let rowCount = 0;
+  let directCount = 0;
+  let liquidationCount = 0;
+
+  for (const [portfolioIndex, portfolio] of document.portfolios.entries()) {
+    const location = `${file}.portfolios[${portfolioIndex}]`;
+    if (!portfolio.id || !portfolio.origin || !portfolio.cutoffMethod) {
+      errors.push(`${location}: id, origin oder cutoffMethod fehlt.`);
+    }
+    if (!Array.isArray(portfolio.sourceIds) || portfolio.sourceIds.length === 0) {
+      errors.push(`${location}: sourceIds muss ein nicht leeres Array sein.`);
+    } else {
+      for (const sourceId of portfolio.sourceIds) {
+        if (!sourceIds.has(sourceId)) errors.push(`${location}: unbekannte Quelle ${sourceId}.`);
+      }
+    }
+    if (!Array.isArray(portfolio.positions)) {
+      errors.push(`${location}: positions muss ein Array sein.`);
+      continue;
+    }
+    for (const [rowIndex, row] of portfolio.positions.entries()) {
+      const rowLocation = `${location}.positions[${rowIndex}]`;
+      if (!Array.isArray(row) || row.length !== document.positionFields.length) {
+        errors.push(`${rowLocation}: Zeilenlänge stimmt nicht mit positionFields überein.`);
+        continue;
+      }
+      rowCount += 1;
+      const key = row[keyIndex];
+      if (typeof key !== 'string' || !key || keys.has(key)) errors.push(`${rowLocation}: fehlender oder doppelter Schlüssel ${key}.`);
+      keys.add(key);
+      if (typeof row[nameIndex] !== 'string' || !row[nameIndex]) errors.push(`${rowLocation}: Name fehlt.`);
+      if (!allowedLevels.has(row[levelIndex])) errors.push(`${rowLocation}: unbekannte Ebene ${row[levelIndex]}.`);
+      if (row[levelIndex] === 'direct') directCount += 1;
+      if (!allowedCutoffStatuses.has(row[cutoffStatusIndex])) errors.push(`${rowLocation}: unbekannter Stichtagsstatus ${row[cutoffStatusIndex]}.`);
+      if (['liquidation', 'scheduled-liquidation', 'insolvency'].includes(row[cutoffStatusIndex])) liquidationCount += 1;
+      if (!allowedCurrentStatuses.has(row[currentStatusIndex])) errors.push(`${rowLocation}: unbekannter aktueller Status ${row[currentStatusIndex]}.`);
+      if (typeof row[locatorIndex] !== 'string' || !row[locatorIndex]) errors.push(`${rowLocation}: Quellenfundstelle fehlt.`);
+    }
+  }
+
+  const expected = document.totals ?? {};
+  const derived = {
+    portfolioCount: document.portfolios.length,
+    positionRows: rowCount,
+    directRows: directCount,
+    indirectAndSecondDegreeRows: rowCount - directCount,
+    cutoffLiquidationOrInsolvencyRows: liquidationCount,
+    consolidatedSharedPositions: document.consolidatedSharedPositions?.length ?? 0,
+    explicitExclusions: document.exclusions?.length ?? 0,
+  };
+  for (const [key, value] of Object.entries(derived)) {
+    if (expected[key] !== value) errors.push(`${file}.totals.${key}: erwartet ${value}, gefunden ${expected[key]}.`);
+  }
+}
+
 function buildIndex(model) {
   const items = [];
   for (const source of model.sources) {
@@ -356,6 +441,23 @@ function buildIndex(model) {
       });
     }
   }
+  const fields = model.holdingPositions.positionFields;
+  const keyIndex = fields.indexOf('key');
+  const nameIndex = fields.indexOf('name');
+  for (const portfolio of model.holdingPositions.portfolios) {
+    for (const row of portfolio.positions) {
+      items.push({
+        id: `holding-position-${row[keyIndex]}`,
+        title: row[nameIndex],
+        type: 'holding-position',
+        aliases: [],
+        tags: ['holding-position', portfolio.origin],
+        validFrom: model.holdingPositions.inheritanceAt,
+        validTo: null,
+        target: 'knowledge/holding-positions.json',
+      });
+    }
+  }
   items.sort((left, right) => left.id.localeCompare(right.id, 'de'));
   return stableJson({
     generatedAt: model.sourcesDoc.asOf,
@@ -375,6 +477,7 @@ function buildContext(model) {
   const questions = model.byType.get('open-question') ?? [];
   const parties = model.byType.get('party') ?? [];
   const territories = model.byType.get('territory') ?? [];
+  const inventory = model.holdingPositions;
 
   const government = currentState.find((entry) => entry.id === 'state-current-government');
   const parliament = currentState.find((entry) => entry.id === 'state-current-parliament');
@@ -442,6 +545,8 @@ function buildContext(model) {
     lines.push(succession.summary);
     lines.push('');
   }
+  lines.push(`Die strukturierte Stichtagsinventur enthält ${inventory.totals.positionRows} belegte Positionszeilen: ${inventory.totals.directRows} unmittelbare sowie ${inventory.totals.indirectAndSecondDegreeRows} mittelbare oder tieferliegende Positionen. ${inventory.totals.cutoffLiquidationOrInsolvencyRows} Zeilen waren am Ausgangsstichtag bereits in Liquidation, zur Auflösung bestimmt oder insolvent. Mehrländerpositionen werden in ${inventory.totals.consolidatedSharedPositions} konsolidierten Datensätzen zusammengeführt; ${inventory.totals.explicitExclusions} spätere Realentwicklungen sind ausdrücklich ausgeschlossen.`);
+  lines.push('');
   for (const holding of holdings.filter((item) => item.tags?.includes('key-holding') && item.id !== 'holding-rechtsnachfolge-2023')) {
     lines.push(`- **${holding.title}**: ${holding.summary}`);
   }
@@ -472,6 +577,7 @@ function buildContext(model) {
   lines.push('- Ereignisse: `knowledge/timeline.json`');
   lines.push('- Projektverbünde: `knowledge/projects.json`');
   lines.push('- Beteiligungen und öffentliche Wirtschafts- und Vermögensträger: `knowledge/holdings.json`');
+  lines.push('- Vollinventur der unmittelbaren und mittelbaren Positionen: `knowledge/holding-positions.json`');
   lines.push('- Verfahren: `knowledge/proceedings.json`');
   lines.push('- Offene Fragen: `knowledge/open-questions.json`');
   lines.push('- Nur Gesprächswissen: `knowledge/conversation-candidates.json`');

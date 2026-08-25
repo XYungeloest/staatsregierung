@@ -1,7 +1,33 @@
 {
-  "asOf": "2026-08-23",
+  "asOf": "2026-08-25",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
+    {
+      "id": "state-current-public-holdings-2026",
+      "title": "Beteiligungen und öffentliche Wirtschafts- und Vermögensträger",
+      "status": "derived",
+      "validFrom": "2023-12-01",
+      "validTo": null,
+      "asOf": "2026-08-25",
+      "summary": "Der öffentlich belegte Ausgangsbestand umfasst 666 Positionszeilen, darunter 217 unmittelbare und 449 mittelbare oder tieferliegende Positionen. Seitdem wurden neun gesamtostdeutsche Rechtsträger und zwei Sondervermögen neu errichtet; MDR und rbb gingen am 1. Mai 2026 durch Gesamtrechtsnachfolge im Ostdeutschen Fernsehfunk auf. Der 50Hertz-Erwerb ist noch nicht als vollzogen belegt.",
+      "sourceRefs": [
+        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Ergebnis der Vollinventur sowie Zusammenführung und Fortschreibung", "role": "primary"},
+        {"sourceId": "source-broadcast-law", "locator": "Gesamtrechtsnachfolge einschließlich Beteiligungen", "role": "corroborating"}
+      ],
+      "relatedIds": [
+        "holding-rechtsnachfolge-2023",
+        "holding-gkl-traegerschaft",
+        "holding-nordlb",
+        "holding-iba-thueringen-abwicklung",
+        "holding-50hertz-erwerb"
+      ],
+      "tags": ["current-state", "holdings", "public-economy", "assets"],
+      "notes": [
+        "Die Positionszeilen sind wegen Mehrländerpositionen und Beteiligungsketten nicht mit der Zahl unterschiedlicher Rechtsträger gleichzusetzen.",
+        "Der vollständige maschinenprüfbare Bestand steht in knowledge/holding-positions.json."
+      ],
+      "holdingInventory": "knowledge/holding-positions.json"
+    },
     {
       "id": "state-current-public-mobility-program-2026",
       "title": "Sofortprogramm für die öffentliche Mobilität",
