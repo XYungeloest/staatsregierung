@@ -52,7 +52,11 @@ const citation = toDisplayText(fullCitation);
       <ul>
         {norm.meta.sourceReferences.map((source) => (
           <li>
-            <strong>{toDisplayText(source.label)}</strong>
+            <strong>
+              {source.url ? (
+                <a class="inline-link" href={source.url}>{toDisplayText(source.label)}</a>
+              ) : toDisplayText(source.label)}
+            </strong>
             {source.pageRange ? ` · Seiten ${source.pageRange}` : ''}
           </li>
         ))}

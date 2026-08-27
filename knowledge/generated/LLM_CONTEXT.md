@@ -55,7 +55,7 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **Ostdeutscher Rundfunk und NDR-Überleitung**: in-implementation. Errichtung eines ostdeutschen öffentlich-rechtlichen Rundfunks und staatsvertragliche Neuordnung. Der NDR-Änderungs- und Überleitungsstaatsvertrag trat am 24. März 2026 in Kraft.
 - **Ostdeutscher Kulturpass**: in-force. Gesetzlich geregelter Kulturpass für junge Erwachsene.
 - **Boom Europe Leipzig/Halle**: in-implementation. Standort- und Umsetzungskomplex für Hochgeschwindigkeitsluftfahrt mit rechtskräftigem Boom Europe Leipzig/Halle Agreement, Standortgesetz, Sondervermögen und Umsetzungsgesetz. Das Agreement wurde am 14. Mai 2026 unterzeichnet und trat an diesem Tag in Kraft; eine spätere Standorteröffnung ist nicht belegt.
-- **Transparenz- und Informationsfreiheit**: in-force. Reformpaket zu Informationszugang, Transparenz und Lobbyregister.
+- **Transparenz- und Informationsfreiheit**: implemented. Reformpaket zu Informationszugang, Transparenz und Lobbyregister; das dazugehörige Transparenzportal ist kanonisch umgesetzt, wird aber außerhalb dieses Website-Repositories betrieben.
 - **Doppelhaushalt 2025/2026**: in-force. Verbindlicher Finanzrahmen für die Haushaltsjahre 2025 und 2026.
 - **Hoheitszeichenreform**: in-implementation. Das am 23. März 2026 beschlossene Hoheitszeichengesetz und die Hoheitszeichenverordnung vom 28. März 2026 bilden den geltenden Bestand. Ein weiteres besonderes Gesetz im parlamentarischen Verfahren ist nicht in Kraft.
 - **Neue Feiertage**: implemented. Das Feiertagsrecht ist vollständig historisiert. Die aktuelle Fassung des Ostdeutschen Feiertagsgesetzes gilt seit 24. März 2026 und folgt auf die Fassungen zum 1. November 2023 und ab 8. März 2024.
@@ -67,6 +67,7 @@ Am Stichtag bestehen vierzehn Bezirke: Berlin, Elbsachsen, Lausitz, Leipzig-Mitt
 - **Ehrenname Carl Ulbricht für den Flughafen Leipzig/Halle**: decision-confirmed. Das zuständige Unternehmensgremium bestätigte die Bezeichnung „Flughafen Leipzig/Halle Carl Ulbricht“ und eine schrittweise Umsetzung im Außenauftritt.
 - **Luxemburg-Liebknecht-Denkmal auf dem Platz der Republik**: approved-construction-unresolved. Genehmigtes zehn Meter hohes Denkmal mit Rosa Luxemburg und Karl Liebknecht, Reliefs der Arbeiterschaft und der Inschrift „Der Deutschen Arbeiterschaft“; Kosten 7,4 Millionen Euro. Eine Fertigstellung ist nicht belegt.
 - **Ansiedlung eines Heckler-&-Koch-Werks**: rejected. Das mit steuerlichen Vergünstigungen vorgeschlagene ostdeutsche Werk wurde von der EAG abgelehnt und nicht umgesetzt.
+- **Zuständigkeitsfinder**: implemented. Der Zuständigkeitsfinder ist im Kanon umgesetzt und wird außerhalb dieses Website-Repositories betrieben.
 
 ## Öffentliche Wirtschaft und Beteiligungen
 

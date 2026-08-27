@@ -20,11 +20,28 @@
   "predecessor": null,
   "successor": null,
   "summary": "Ordnet wegen einer benannten Terrorgefahr Heimarbeit für die Beschäftigten der Staatsregierung an.",
-  "status": "one-time-act",
+  "status": "repealed",
   "documentDate": "2024-10-02",
   "publicationDate": "2024-10-15",
-  "effectiveDate": "2024-10-15",
-  "dateNote": "Das Inhaltsverzeichnis nennt den 2. Oktober 2024; der Einleitungssatz nennt als Erlassdatum den 23. September 2024.",
+  "effectiveDate": "2024-10-02",
+  "expiryDate": "2024-10-06",
+  "dateNote": "Das zeitgenössische Einzeldokument und seine Discord-Veröffentlichung nennen den 2. Oktober 2024; die spätere Sammelausgabe gibt im Einleitungssatz abweichend den 23. September 2024 an und lässt das im Original bestimmte Außerkrafttreten am 6. Oktober 2024 aus. Für Datum und Geltungsende ist das zeitgenössische Original maßgeblich.",
+  "editorialResolutions": [
+    {
+      "id": "terrorgefahr-einzeldokument-vor-sammelausgabe",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-08-27",
+      "issue": "Die spätere Sammelausgabe nennt im Einleitungssatz den 23. September 2024 und enthält die Befristung des zeitgenössischen Originals nicht.",
+      "publishedText": "Einleitungssatz 23. September 2024; keine Befristung in der Sammelausgabe.",
+      "resolvedApplication": "Erlass und Inkrafttreten am 2. Oktober 2024; Außerkrafttreten am 6. Oktober 2024.",
+      "rationale": "Das zeitgenössische Originaldokument, dessen Dateimetadaten und die damalige Discord-Veröffentlichung stimmen überein und gehen dem unvollständigen späteren Nachdruck vor.",
+      "evidence": [
+        "Gesetze/Veordnung_24-03_MP.pdf",
+        "docs/ZUARBEITSFORMULAR.md",
+        "Gesetze/OGVBl II-24.pdf"
+      ]
+    }
+  ],
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
@@ -49,6 +66,19 @@
       "sourceRole": "visual-control",
       "pageRange": "4",
       "derivedSource": "Gesetze/OGVBl II-24.html"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Zeitgenössisches amtliches Einzeldokument",
+      "availability": "versioned",
+      "localSource": "Gesetze/Veordnung_24-03_MP.pdf",
+      "url": "/assets/recht/Veordnung_24-03_MP.pdf",
+      "sha256": "b5b1a81aea01146a774f9c3072dd67091e9a511f1e980528941d44cbc964ef43",
+      "mediaType": "application/pdf",
+      "pageCount": 1,
+      "pageRange": "1",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control"
     }
   ]
 }

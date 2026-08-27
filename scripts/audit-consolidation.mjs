@@ -306,6 +306,7 @@ async function main() {
 
   const manifestTargets = [...targets.values()].map((target) => {
     const source = config.targets[target.canonicalSlug] ?? {};
+    const historicalNonConsolidatable = source.historicalNonConsolidatable === true;
     const blocked = config.blockedTargets[target.canonicalSlug];
     const stem = existingStemFor(target, norms);
     const enactingActs = stem?.meta.enactingNorm
@@ -334,17 +335,17 @@ async function main() {
     const introducedStem = enactingActs.length > 0;
     const adoptedPrimarySource = source.adoptedSources?.find((entry) => entry.snapshot && entry.sourceSha256);
     const sourceAvailable = Boolean(source.snapshot || adoptedPrimarySource);
-    const requiredBaseline = introducedStem
+    const requiredBaseline = source.baselineVersionDate ?? (introducedStem
       ? stem?.versions.map((version) => version.validFrom).sort()[0] ?? stem?.meta.effectiveDate ?? BASELINE_DATE
-      : source.snapshot ? BASELINE_DATE : adoptedPrimarySource?.versionDate ?? BASELINE_DATE;
+      : source.snapshot ? BASELINE_DATE : adoptedPrimarySource?.versionDate ?? BASELINE_DATE);
     const problems = [...target.problems];
     if (blocked) problems.push(blocked.reason);
-    if (!sourceAvailable && !blocked && !introducedStem) {
+    if (!sourceAvailable && !blocked && !introducedStem && !historicalNonConsolidatable) {
       problems.push('Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.');
     }
     if (!stem && !blocked) problems.push('Eigenständiger Stammnormdatensatz fehlt.');
-    if (hasPlaceholder(stem)) problems.push('Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.');
-    if ((sourceAvailable || introducedStem) && stem && !completeIntervals(stem, effectiveDates, requiredBaseline)) {
+    if (hasPlaceholder(stem) && !historicalNonConsolidatable) problems.push('Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.');
+    if (!historicalNonConsolidatable && (sourceAvailable || introducedStem) && stem && !completeIntervals(stem, effectiveDates, requiredBaseline)) {
       problems.push('Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.');
     }
     if (
@@ -357,6 +358,8 @@ async function main() {
     }
     const status = blocked
       ? 'blocked-source-conflict'
+      : historicalNonConsolidatable
+        ? 'complete'
       : !sourceAvailable && !introducedStem
         ? 'missing-baseline'
       : !stem
@@ -368,13 +371,15 @@ async function main() {
               : completeIntervals(stem, effectiveDates, requiredBaseline)
               ? 'complete'
               : 'incomplete-placeholder';
-    const nextAction = {
+    const nextAction = historicalNonConsolidatable
+      ? 'Historischen, bereits unwirksamen Änderungsakt dokumentiert halten; keine künstliche Konsolidierung erzeugen.'
+      : {
       'blocked-source-conflict': 'Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.',
       'missing-baseline': 'Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.',
       'missing-stem-record': 'Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.',
       'incomplete-placeholder': 'Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.',
       complete: 'Bei neuen Änderungsvorschriften erneut auditieren.',
-    }[status];
+      }[status];
     return {
       canonicalSlug: target.canonicalSlug,
       title: source.title ?? target.title,
@@ -385,6 +390,7 @@ async function main() {
       sourceValidFrom: source.sourceValidFrom ?? adoptedPrimarySource?.sourceValidFrom ?? null,
       sourceValidTo: source.sourceValidTo ?? adoptedPrimarySource?.sourceValidTo ?? null,
       sourceSha256: source.sourceSha256 ?? adoptedPrimarySource?.sourceSha256 ?? null,
+      historicalNonConsolidatable,
       editorialResolutions: [
         ...(source.editorialResolutions ?? []),
         ...(source.editorialSourceResolutions ?? []),

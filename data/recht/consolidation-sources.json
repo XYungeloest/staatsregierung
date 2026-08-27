@@ -1,6 +1,44 @@
 {
   "baselineSnapshotDate": "2023-11-01",
   "targets": {
+    "abschiebe-aussetzungsverordnung": {
+      "title": "Abschiebe-Aussetzungsverordnung",
+      "aliases": [
+        "Abschiebe-Aussetzungsverordnung",
+        "Verordnung Aussetzung von Abschiebungen"
+      ],
+      "snapshot": "Gesetze/Abschiebe-Aussetzungsverordnung.html",
+      "sourceFormat": "editorial-structured-html",
+      "baselineVersionDate": "2024-03-01",
+      "baselineSnapshotDate": "2024-03-01",
+      "sourceValidFrom": "2024-03-01",
+      "sourceValidTo": "2025-09-15",
+      "sourceSha256": "c764e690f08cc2b2790517e681d4034633bdcbe4ed4eecb5ae9c6c637a496b5d"
+    },
+    "oberstufen-und-abiturprufungsverordnung": {
+      "title": "Oberstufen- und Abiturprüfungsverordnung",
+      "aliases": [
+        "Oberstufen- und Abiturprüfungsverordnung"
+      ],
+      "historicalNonConsolidatable": true,
+      "editorialResolutions": [
+        {
+          "id": "oavo-2024-keine-wiederinkraftsetzung",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-08-27",
+          "issue": "Der Änderungsakt vom 16. September 2024 bezog sich auf eine bereits seit 1. August 2008 außer Kraft getretene Verordnung.",
+          "publishedText": "Verordnung über die Änderung der Oberstufen- und Abiturprüfungsverordnung vom 16. September 2024",
+          "resolvedApplication": "Der Änderungsakt wird historisch dokumentiert, erzeugt aber weder eine Wiederinkraftsetzung noch eine zu konsolidierende Folgefassung.",
+          "rationale": "OGVBl. 2026 Nr. 67 stellt die frühere Aufhebung und die fehlende Wiederinkraftsetzung verbindlich klar; eine künstliche Ausgangs- oder Folgefassung wäre sachlich falsch.",
+          "evidence": [
+            "content/normen/oberstufenund-abiturprufungsverordnung/meta.json",
+            "content/normen/oberstufenund-abiturprufungsverordnung/history.json",
+            "content/normen/verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026/versions/2026-08-16.json",
+            "Gesetze/Veordnung_24-01_StMBFK.pdf"
+          ]
+        }
+      ]
+    },
     "ostdeutsche-bezirksordnung": {
       "title": "Ostdeutsche Bezirksordnung",
       "aliases": [

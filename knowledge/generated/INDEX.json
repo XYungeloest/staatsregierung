@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-08-25",
+  "generatedAt": "2026-08-27",
   "editorialAsOf": "2026-08-25",
-  "count": 1141,
+  "count": 1156,
   "items": [
     {
       "id": "candidate-acting-federal-president",
@@ -174,18 +174,6 @@
       "target": "knowledge/conversation-candidates.json"
     },
     {
-      "id": "candidate-website-plans",
-      "title": "Frühere Portalplanungen",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
       "id": "event-50hertz-acquisition-agreement",
       "title": "Einigung über die Elia-Beteiligung an 50Hertz",
       "type": "timeline-event",
@@ -197,6 +185,21 @@
       ],
       "validFrom": "2025-12-02",
       "validTo": "2025-12-02",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-abschiebe-aussetzungsverordnung-2024",
+      "title": "Abschiebe-Aussetzungsverordnung wird verkündet",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "law",
+        "migration",
+        "historical"
+      ],
+      "validFrom": "2024-03-01",
+      "validTo": "2024-03-01",
       "target": "knowledge/timeline.json"
     },
     {
@@ -981,6 +984,20 @@
       ],
       "validFrom": "2026-07-15",
       "validTo": "2026-07-15",
+      "target": "knowledge/timeline.json"
+    },
+    {
+      "id": "event-schmidt-government-formation",
+      "title": "Wolfgang Schmidt übernimmt das Amt des Ministerpräsidenten",
+      "type": "timeline-event",
+      "aliases": [],
+      "tags": [
+        "timeline",
+        "government",
+        "historical"
+      ],
+      "validFrom": "2025-04-14",
+      "validTo": "2025-04-14",
       "target": "knowledge/timeline.json"
     },
     {
@@ -10691,6 +10708,20 @@
       "target": "knowledge/entities/institutions.json"
     },
     {
+      "id": "inst-kabinett-schmidt",
+      "title": "Kabinett Schmidt",
+      "type": "institution",
+      "aliases": [],
+      "tags": [
+        "government",
+        "cabinet",
+        "historical"
+      ],
+      "validFrom": "2025-04-14",
+      "validTo": "2025-06-04",
+      "target": "knowledge/entities/institutions.json"
+    },
+    {
       "id": "inst-kreislaufwirtschafts-kombinat-ost",
       "title": "Kreislaufwirtschafts-Kombinat Ost",
       "type": "institution",
@@ -11694,6 +11725,20 @@
       "target": "knowledge/entities/persons.json"
     },
     {
+      "id": "person-wolfgang-schmidt",
+      "title": "Wolfgang Schmidt",
+      "type": "person",
+      "aliases": [],
+      "tags": [
+        "person",
+        "government",
+        "historical"
+      ],
+      "validFrom": "2025-04-14",
+      "validTo": "2025-06-04",
+      "target": "knowledge/entities/persons.json"
+    },
+    {
       "id": "person-yannik-schmaele",
       "title": "Yannik Schmäle",
       "type": "person",
@@ -12364,6 +12409,19 @@
       "target": "knowledge/projects.json"
     },
     {
+      "id": "project-zustaendigkeitsfinder",
+      "title": "Zuständigkeitsfinder",
+      "type": "project",
+      "aliases": [],
+      "tags": [
+        "project",
+        "administrative-services"
+      ],
+      "validFrom": null,
+      "validTo": null,
+      "target": "knowledge/projects.json"
+    },
+    {
       "id": "question-boom-agreement-details",
       "title": "Wann begann die operative Umsetzung des Boom-Europe-Standorts?",
       "type": "open-question",
@@ -12471,6 +12529,20 @@
       "validFrom": "2026-08-16",
       "validTo": null,
       "target": "knowledge/open-questions.json"
+    },
+    {
+      "id": "source-abschiebe-aussetzungsverordnung-2024-03-01",
+      "title": "Abschiebe-Aussetzungsverordnung in der Fassung der Bekanntmachung vom 1. März 2024",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "migration",
+        "security"
+      ],
+      "validFrom": "2024-03-01",
+      "validTo": null,
+      "target": "knowledge/sources.json"
     },
     {
       "id": "source-action-plan",
@@ -12886,6 +12958,48 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-dienstanordnung-gefluechtetenunterkuenfte-2024-11-20-original-pdf",
+      "title": "Direkte Einzelverkündung der Dienstanordnung zum Schutz von Geflüchtetenunterkünften",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "migration",
+        "security"
+      ],
+      "validFrom": "2024-11-20",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-dienstanordnung-silvesternacht-2024-12-31-original-pdf",
+      "title": "Direkte Einzelverkündung der Dienstanordnung zur Silvesternacht",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "security",
+        "emergency-services"
+      ],
+      "validFrom": "2024-12-31",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-dienstanordnung-terrorgefahr-2024-10-02-original-pdf",
+      "title": "Direkte Einzelverkündung der Dienstanordnung anlässlich der momentanen Terrorgefahr",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "government",
+        "security"
+      ],
+      "validFrom": "2024-10-02",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-e-jura-tender-2025-09-30",
       "title": "Vergabeverfahren E-Jura-Programm",
       "type": "source",
@@ -13006,6 +13120,21 @@
         "elections"
       ],
       "validFrom": "2026-08-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-editorial-clarification-zuarbeit-2026-08-27",
+      "title": "Redaktioneller Nachtrag zur Zuarbeitung und zu den PDF-Quellen vom 27. August 2026",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "government",
+        "projects",
+        "persons"
+      ],
+      "validFrom": "2026-08-27",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -13453,6 +13582,20 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-kabinett-schmidt",
+      "title": "Historischer Archivdatensatz zum Kabinett Schmidt",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "validFrom": "2025-04-14",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-karl-current",
       "title": "Profil Dr. Karl Honecker",
       "type": "source",
@@ -13775,6 +13918,19 @@
       "target": "knowledge/sources.json"
     },
     {
+      "id": "source-oavo-aenderungsverordnung-2024-09-16-original-pdf",
+      "title": "Direkte Einzelverkündung der Änderung der Oberstufen- und Abiturprüfungsverordnung",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "education"
+      ],
+      "validFrom": "2024-09-16",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
       "id": "source-ogvbl-2026-59",
       "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 59",
       "type": "source",
@@ -13957,6 +14113,46 @@
         "projects"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-organisationserlass-fachbereiche-2024-11-08-original-pdf",
+      "title": "Direkte Einzelverkündung des Organisationserlasses zur Neueinteilung der Fachbereiche",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "government"
+      ],
+      "validFrom": "2024-11-08",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-organisationserlass-fachbereichszuteilung-2024-09-23-original-pdf",
+      "title": "Direkte Einzelverkündung zur Änderung der Fachbereichszuteilung",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "government",
+        "sorbian-affairs"
+      ],
+      "validFrom": "2024-09-23",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-organisationserlass-neugliederung-ministerien-2025-01-22-original-pdf",
+      "title": "Direkte Einzelverkündung des Organisationserlasses zur Neugliederung einiger Ministerien",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "government"
+      ],
+      "validFrom": "2025-01-22",
       "validTo": null,
       "target": "knowledge/sources.json"
     },
@@ -14789,6 +14985,20 @@
         "government"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-vereinsverbot-sachsen-den-sachsen-2024-11-11-original-pdf",
+      "title": "Direkte Einzelverkündung des Vereinsverbots „Sachsen den Sachsen, Deutschland den Deutschen e.V.“",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "security",
+        "associations"
+      ],
+      "validFrom": "2024-11-11",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

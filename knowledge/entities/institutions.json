@@ -348,7 +348,8 @@
         "inst-staatsrat",
         "inst-kabinett-delgado",
         "inst-kabinett-honecker-i",
-        "inst-kabinett-honecker-ii"
+        "inst-kabinett-honecker-ii",
+        "inst-kabinett-schmidt"
       ],
       "tags": [
         "executive",
@@ -2048,6 +2049,41 @@
         "IBA Thüringen"
       ],
       "type": "liquidation-position",
+      "predecessorId": null,
+      "successorId": null
+    },
+    {
+      "id": "inst-kabinett-schmidt",
+      "title": "Kabinett Schmidt",
+      "status": "historical",
+      "validFrom": "2025-04-14",
+      "validTo": "2025-06-04",
+      "asOf": "2026-08-23",
+      "summary": "Von Wolfgang Schmidt geführte Staatsregierung vom 14. April bis 4. Juni 2025. Eine vollständige belastbare Mitglieder- und Ressortliste liegt nicht vor.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-kabinett-schmidt",
+          "locator": "gesamter Archivdatensatz",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-27",
+          "locator": "Abschnitt Historische Amtszeit Wolfgang Schmidts",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-wolfgang-schmidt",
+        "inst-staatsregierung"
+      ],
+      "tags": [
+        "government",
+        "cabinet",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "type": "government",
       "predecessorId": null,
       "successorId": null
     }

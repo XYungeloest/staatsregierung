@@ -39,10 +39,13 @@ Belegt:
 - Für mehrere ältere Stammnormen, darunter Landesplanungsgesetz und
   Verwaltungsorganisationsgesetz, fehlen vollständige Primärnachweise zu Normdatum,
   Veröffentlichung oder Inkrafttreten.
-- Der Konsolidierungs-Audit erkennt derzeit 84 Zielnormen einschließlich explizit verknüpfter
-  neu eingeführter Stammnormen. Für zwei davon fehlt weiterhin die maßgebliche Primärquelle:
-  die ostdeutsche Abschiebe-Aussetzungsverordnung vom 1. März 2024 und die vollständige
-  Ausgangsfassung des NDR-Staatsvertrags. Drei schulrechtliche Zielnormen sind wegen nicht
+- Der Konsolidierungs-Audit erkennt derzeit 85 Zielnormen einschließlich explizit verknüpfter
+  neu eingeführter Stammnormen. Nur für den NDR-Staatsvertrag fehlt weiterhin die maßgebliche
+  vollständige Ausgangsfassung. Der Änderungsakt zur bereits seit 1. August 2008 außer Kraft
+  getretenen OAVO von 2024 löst keine Wiederinkraftsetzung und keinen Konsolidierungsbedarf aus.
+  Die ostdeutsche
+  Abschiebe-Aussetzungsverordnung vom 1. März 2024 ist anhand der nachgereichten amtlichen
+  PDF-Lesefassung vollständig eingepflegt. Drei schulrechtliche Zielnormen sind wegen nicht
   eindeutig auflösbarer Quellenkonflikte gesperrt; redaktionell aufgelöste Abweichungen bleiben
   gesondert ausgewiesen. Die vollständige Liste mit
   Änderungsvorschriften und nächstem Quellenschritt steht in
@@ -77,8 +80,8 @@ Schlussfolgerung:
   konsolidierte Fassung erstellt.
 - Geprüfte REVOSax-Ausgangsfassungen und vollständig verknüpfte, neu eingeführte Stammnormen
   werden im Konsolidierungsmanifest gemeinsam als vollständig geführt. Der aktuelle Audit weist
-  53 vollständige Zielnormen, 24 noch anzulegende Stammnormdatensätze, zwei unvollständige
-  Platzhalterbestände, drei gesperrte Quellenkonflikte und zwei fehlende Primärquellen aus. Neu
+  55 vollständige Zielnormen, 24 noch anzulegende Stammnormdatensätze, zwei unvollständige
+  Platzhalterbestände, drei gesperrte Quellenkonflikte und eine fehlende Primärquelle aus. Neu
   eingeführte Normen benötigen keine künstliche sächsische
   Ausgangsfassung; ihre Einführungsbeziehung muss stattdessen wechselseitig belegt sein.
 - Die drei zuvor bedingt wirksamen Staatsverträge werden mit Inkrafttreten am 24. März 2026
@@ -215,10 +218,13 @@ Belegt:
   Quellen unverändert; strukturierte Metadaten verwenden die kanonische Amtsbezeichnung
   „Staatsrat für Staats- und Grenzsicherheit“. Bloße typografische Unterschiede der drei
   Fassungen werden nicht als weiterer Rechtskonflikt geführt.
-- Bei der Dienstanordnung anlässlich der momentanen Terrorgefahr nennt das Inhaltsverzeichnis
-  den 2. Oktober 2024, der Einleitungssatz dagegen den 23. September 2024.
-- Der Organisationserlass vom 22. Januar 2025 hebt einen Erlass vom 8. November 2024 auf; die
-  veröffentlichte Vorgängerquelle trägt das Dokumentdatum 8. Oktober 2024.
+- Bei der Dienstanordnung anlässlich der momentanen Terrorgefahr ist der frühere Quellenkonflikt
+  durch das direkte Original aufgelöst: maßgeblich sind die Verkündung am 2. Oktober 2024 und das
+  Außerkrafttreten mit Ablauf des 6. Oktober 2024. Die abweichende spätere Sammelfassung bleibt als
+  Quellenhinweis dokumentiert.
+- Beim Organisationserlass zur Neueinteilung der Fachbereiche ist der 8. November 2024 durch das
+  direkte Original und den aufhebenden Erlass vom 22. Januar 2025 doppelt belegt. Der
+  8. Oktober 2024 in der späteren Sammelausgabe wird als Übertragungsfehler behandelt.
 - Die Silvesterdienstanordnung bezeichnet den Zeitpunkt 1. Januar 2025 um 08:00 Uhr im
   Schlusswortlaut erneut als „in Kraft“. Überschrift und Regelungszusammenhang weisen ihn als
   Geltungsende aus; der abweichende Originalwortlaut bleibt unverändert im Normkörper sichtbar.

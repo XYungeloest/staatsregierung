@@ -283,10 +283,15 @@
           "locator": "Abschnitt Bundesebene und historische Vorgänge",
           "role": "primary"
         },
-        {"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "corroborating"}
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Verhinderung und Vertretung",
+          "role": "corroborating"
+        }
       ],
       "relatedIds": [
-        "person-karl-honecker", "inst-bundespraesident"
+        "person-karl-honecker",
+        "inst-bundespraesident"
       ],
       "tags": [
         "conversation-candidate"
@@ -389,36 +394,6 @@
         "exportierte Wikitexte oder Permalinks"
       ],
       "priority": "medium",
-      "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
-    },
-    {
-      "id": "candidate-website-plans",
-      "title": "Frühere Portalplanungen",
-      "status": "unverified",
-      "validFrom": null,
-      "validTo": null,
-      "asOf": "2026-07-28",
-      "summary": "Transparenzportal, Gesetzgebungsmonitor, Zuständigkeitsfinder und Haushaltsnavigator müssen nach tatsächlich umgesetzt, geplant oder verworfen getrennt werden.",
-      "sourceRefs": [
-        {
-          "sourceId": "source-conversation-task",
-          "locator": "Frühere Portalplanungen",
-          "role": "primary"
-        }
-      ],
-      "relatedIds": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "notes": [],
-      "aliases": [],
-      "classification": "partly-present",
-      "searchTargets": [
-        "Routen und Komponenten",
-        "aktuelle Feature-Konfiguration",
-        "historische Planungsdokumente"
-      ],
-      "priority": "low",
       "promotionRule": "Nur nach Bestätigung durch eine höher priorisierte Quelle in andere Wissensdateien übernehmen."
     },
     {

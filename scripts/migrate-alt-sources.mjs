@@ -14,12 +14,14 @@ const DISTRICT_SLUG = 'ostdeutsche-bezirksordnung';
 const SOURCES = {
   ii24Pdf: {
     path: 'Gesetze/OGVBl II-24.pdf',
+    publicUrl: '/assets/recht/OGVBl%20II-24.pdf',
     mediaType: 'application/pdf',
     pageCount: 32,
     sha256: '9b9b5f8d691c8f4341711a5c30b4c1ac2a03a73a00cbf915688ef8a00b91a6fd',
   },
   i25Pdf: {
     path: 'Gesetze/OGVBl I-25.pdf',
+    publicUrl: '/assets/recht/OGVBl%20I-25.pdf',
     mediaType: 'application/pdf',
     pageCount: 15,
     sha256: '1c8362ccf1fa1f7d7be5c6a267c38ea0dc218efe27b77402eba4de8be72521d7',
@@ -34,6 +36,46 @@ const SOURCES = {
     mediaType: 'application/pdf',
     pageCount: 2,
     sha256: '76b82af51dfd3e12e73645313a40db807205e61c5c659615890ea23ecfe58d40',
+  },
+  oavoOriginalPdf: {
+    path: 'Gesetze/Veordnung_24-01_StMBFK.pdf', publicUrl: '/assets/recht/Veordnung_24-01_StMBFK.pdf',
+    mediaType: 'application/pdf', pageCount: 1, verifiedAt: '2026-08-27',
+    sha256: 'ca7ae06819bd991f8cfd603cd9aa922b75276099678d486e9a63e986f0eb2d42',
+  },
+  sorbianOrganisationOriginalPdf: {
+    path: 'Gesetze/Veordnung_24-02_MP.pdf', publicUrl: '/assets/recht/Veordnung_24-02_MP.pdf',
+    mediaType: 'application/pdf', pageCount: 1, verifiedAt: '2026-08-27',
+    sha256: '7a31d4cd7343dafd651dd5c3ca6df7fc00a9c6c2ea6b25945b54dbd6ec66c171',
+  },
+  terrorOrderOriginalPdf: {
+    path: 'Gesetze/Veordnung_24-03_MP.pdf', publicUrl: '/assets/recht/Veordnung_24-03_MP.pdf',
+    mediaType: 'application/pdf', pageCount: 1, verifiedAt: '2026-08-27',
+    sha256: 'b5b1a81aea01146a774f9c3072dd67091e9a511f1e980528941d44cbc964ef43',
+  },
+  organisationNovemberOriginalPdf: {
+    path: 'Gesetze/VO_24-1.pdf', publicUrl: '/assets/recht/VO_24-1.pdf',
+    mediaType: 'application/pdf', pageCount: 1, verifiedAt: '2026-08-27',
+    sha256: '0b30a30af2fec143f0507cf8616c56ceeae9583d94b0b7a7c2a7311d5013ef77',
+  },
+  associationBanOriginalPdf: {
+    path: 'Gesetze/BKM_SMIJ_24-1.pdf', publicUrl: '/assets/recht/BKM_SMIJ_24-1.pdf',
+    mediaType: 'application/pdf', pageCount: 1, verifiedAt: '2026-08-27',
+    sha256: '4b69b514378b299c66a7f53a01477228868185556f84aabea88804a8f8d0c726',
+  },
+  refugeeOrderOriginalPdf: {
+    path: 'Gesetze/DAO_SMIJ_24-1.pdf', publicUrl: '/assets/recht/DAO_SMIJ_24-1.pdf',
+    mediaType: 'application/pdf', pageCount: 1, verifiedAt: '2026-08-27',
+    sha256: '0e2aa494860afdda141e7b84f04ef8241fdb4e03cecf1069527e9e5716e1dd41',
+  },
+  newYearsOrderOriginalPdf: {
+    path: 'Gesetze/DAO_SMIJ_24-2.pdf', publicUrl: '/assets/recht/DAO_SMIJ_24-2.pdf',
+    mediaType: 'application/pdf', pageCount: 1, verifiedAt: '2026-08-27',
+    sha256: '2afb9b60c95087345867aea6fbe8b88d7e911ea9dda10e7eb35e58e634a963d6',
+  },
+  organisationJanuaryOriginalPdf: {
+    path: 'Gesetze/ER_StK_25-01.pdf', publicUrl: '/assets/recht/ER_StK_25-01.pdf',
+    mediaType: 'application/pdf', pageCount: 1, verifiedAt: '2026-08-27',
+    sha256: '9c041e93b1d8accbf3e7dd68d2ce402ce7a9b82a503b7595ca2dcb1e4d0d9cd7',
   },
 };
 
@@ -94,8 +136,9 @@ function pdfReference(source, label, derivedSource, pageRange) {
     sha256: source.sha256,
     mediaType: source.mediaType,
     pageCount: source.pageCount,
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: source.verifiedAt ?? VERIFIED_AT,
     sourceRole: 'visual-control',
+    ...(source.publicUrl ? { url: source.publicUrl } : {}),
     ...(pageRange ? { pageRange } : {}),
     ...(derivedSource ? { derivedSource } : {}),
   };
@@ -137,8 +180,9 @@ function publicationPdfReference(source, label, derivedSource) {
     sha256: source.sha256,
     mediaType: source.mediaType,
     pageCount: source.pageCount,
-    verifiedAt: VERIFIED_AT,
+    verifiedAt: source.verifiedAt ?? VERIFIED_AT,
     sourceRole: 'visual-control',
+    ...(source.publicUrl ? { url: source.publicUrl } : {}),
     ...(derivedSource ? { derivedSource } : {}),
   };
 }
@@ -164,6 +208,7 @@ function normMeta({
   enactedNorms,
   affectedNorms,
   affectedByNorms,
+  enactingBody,
   responsibleMinistry,
 }) {
   return {
@@ -173,9 +218,9 @@ function normMeta({
     shortTitle,
     shortTitleSource: 'official',
     type,
-    enactingBody: type === 'verwaltungsvorschrift' || type === 'bekanntmachung'
+    enactingBody: enactingBody ?? (type === 'verwaltungsvorschrift' || type === 'bekanntmachung'
       ? 'Staatsregierung des Freistaates Ostdeutschland'
-      : 'Landtag des Freistaates Ostdeutschland',
+      : 'Landtag des Freistaates Ostdeutschland'),
     responsibleMinistry: responsibleMinistry ?? 'Staatskanzlei des Freistaates Ostdeutschland',
     subjects,
     keywords,
@@ -399,6 +444,7 @@ const ii24 = {
   publication: 'OGVBl.',
   originalIssueDesignation: 'OGVBl Nr. II/24',
   alternativeIssueDesignation: 'OGVBl. 2024 Nr. II',
+  pdf: '/assets/recht/OGVBl%20II-24.pdf',
   entries: [
     {
       id: 'verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024',
@@ -453,16 +499,17 @@ const i25 = {
   publication: 'OGVBl.',
   originalIssueDesignation: 'Ausgabe 1 · GVBl Nr. I/25',
   alternativeIssueDesignation: 'OGVBl. 2025 Nr. 1–7',
+  pdf: '/assets/recht/OGVBl%20I-25.pdf',
   entries: [
     {
       id: 'organisationserlass-neueinteilung-fachbereiche-2024',
       title: 'Organisationserlass über die Neueinteilung der Fachbereiche von Staatsministerien',
       type: 'verwaltungsvorschrift',
-      citation: 'Organisationserlass vom 8. Oktober 2024 (OGVBl. 2025 Nr. 1–7 S. 2)',
+      citation: 'Organisationserlass vom 8. November 2024 (OGVBl. 2025 Nr. 1–7 S. 2; Datumsberichtigung anhand der Einzelverkündung)',
       pages: '2',
-      documentDate: '2024-10-08',
+      documentDate: '2024-11-08',
       normSlug: 'organisationserlass-neueinteilung-fachbereiche-2024',
-      versionId: '2024-10-08',
+      versionId: '2024-11-08',
     },
     {
       id: 'bekanntmachung-verbot-sachsen-den-sachsen-deutschland-den-deutschen',
@@ -542,17 +589,19 @@ await writeSingleVersionNorm({
     citation: 'Verordnung vom 16. September 2024 (OGVBl. 2024 Nr. II S. 2)',
     documentDate: '2024-09-16',
     publicationDate: '2024-10-15',
-    effectiveDate: '2024-10-15',
-    summary: 'Ändert die zugelassenen Leistungskurskombinationen und trifft ergänzende Vorgaben für kleinere Schulen und das Schuljahr 2025/2026.',
+    effectiveDate: '2024-09-16',
+    dateNote: 'Die zeitgenössische Einzelverkündung erfolgte am 16. September 2024; die Sammelausgabe OGVBl. 2024 Nr. II folgte am 15. Oktober 2024. Artikel 5 Absatz 2 der Bereinigungsverordnung Schulordnungsrecht 2026 stellt klar, dass der Akt keine geltende Stammverordnung änderte und eine solche weder neu noch wieder in Kraft setzte.',
+    summary: 'Der 2024 verkündete Änderungsakt sollte Leistungskurskombinationen und ergänzende Vorgaben ändern, bezog sich aber auf eine bereits außer Kraft getretene Stammverordnung und entfaltete daher keine Änderungswirkung.',
     subjects: ['Bildung und Schule'],
     keywords: ['Oberstufe', 'Abiturprüfung', 'Leistungskurse'],
     sourceReferences: iiRefs('2'),
     affectedNorms: ['oberstufenund-abiturprufungsverordnung'],
+    enactingBody: 'Staatsregierung des Freistaates Ostdeutschland',
     responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
   }),
   body: [
     p('Die Ostdeutsche Staatsregierung hat am 16. September 2024 die folgende Verordnung erlassen:'),
-    paragraph('§ 1', 'Lorem Ipsum', [
+    paragraph('§ 1', 'Änderung der Oberstufen- und Abiturprüfungsverordnung', [
       p('Der Paragraph 9 der Oberstufen- und Abiturprüfungsverordnung wird wie folgt geändert:'),
       item('1.', 'Der Absatz 1 wird wie folgt geändert:', [quote([
         sub('(1)', 'Jeder Schüler mit Ausnahme der in Absatz 3 genannten Schüler wählt aus dem Angebot seiner Schule Leistungskurse in zwei Fächern des Pflichtbereichs. Erstes Leistungskursfach ist Deutsch, Mathematik oder eine fortgeführte Fremdsprache. Folgende Leistungskurskombinationen sind zulässig.', [
@@ -588,7 +637,8 @@ await writeSingleVersionNorm({
     citation: 'Organisationserlass vom 23. September 2024 (OGVBl. 2024 Nr. II S. 3)',
     documentDate: '2024-09-23',
     publicationDate: '2024-10-15',
-    effectiveDate: '2024-10-15',
+    effectiveDate: '2024-09-23',
+    dateNote: 'Die direkte Einzelverkündung erfolgte am 23. September 2024; die spätere Sammelausgabe bleibt als zusätzliche Fundstelle erhalten.',
     summary: 'Ordnet die Angelegenheiten der sorbischen Minderheit der Staatskanzlei zu.',
     subjects: ['Staatsorganisation', 'Sorbische Angelegenheiten'],
     keywords: ['Organisationserlass', 'Sorben', 'Staatskanzlei'],
@@ -609,21 +659,23 @@ await writeSingleVersionNorm({
     citation: 'Dienstanordnung vom 2. Oktober 2024 (OGVBl. 2024 Nr. II S. 4)',
     documentDate: '2024-10-02',
     publicationDate: '2024-10-15',
-    effectiveDate: '2024-10-15',
-    dateNote: 'Das Inhaltsverzeichnis nennt den 2. Oktober 2024; der Einleitungssatz nennt als Erlassdatum den 23. September 2024.',
+    effectiveDate: '2024-10-02',
+    expiryDate: '2024-10-06',
+    dateNote: 'Die direkte Einzelverkündung vom 2. Oktober 2024 ist maßgeblich und belegt das Außerkrafttreten mit Ablauf des 6. Oktober 2024; die spätere Sammelausgabe gibt den Einleitungssatz abweichend wieder und lässt die Befristung aus.',
     summary: 'Ordnet wegen einer benannten Terrorgefahr Heimarbeit für die Beschäftigten der Staatsregierung an.',
     subjects: ['Staatsorganisation', 'Innere Sicherheit'],
     keywords: ['Dienstanordnung', 'Terrorgefahr', 'Heimarbeit'],
+    status: 'repealed',
     sourceReferences: iiRefs('4'),
   }),
   body: [
-    p('Die Ostdeutsche Staatsregierung hat am 23. September 2024 die folgende Verordnung erlassen:'),
+    p('Die Ostdeutsche Staatsregierung hat am 2. Oktober 2024 die folgende Verordnung erlassen:'),
     paragraph('§ 1', 'Schutz von Mitarbeitern der Staatsregierung', [p('Alle Mitarbeiter der Staatsregierung werden dazu angewiesen aufgrund der imminenten Terrorgefahr gegen staatliche Einrichtungen von Zuhause zu arbeiten.')]),
-    paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage der Verkündung in Kraft.')]),
+    paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage der Verkündung in Kraft und mit Ablauf des 06. Oktober 2024 außer Kraft.')]),
   ],
   sourceNotes: [{
     label: 'Abweichende Datumsangaben',
-    text: 'Das Inhaltsverzeichnis nennt den 2. Oktober 2024, der Einleitungssatz im Normtext dagegen den 23. September 2024. Das Portal führt beide Angaben getrennt und nimmt keine stillschweigende Bereinigung vor.',
+    text: 'Das direkte Original vom 2. Oktober 2024 enthält die Befristung bis zum Ablauf des 6. Oktober 2024. Die spätere Sammelausgabe enthält abweichenden und unvollständigen Text; der Konflikt ist redaktionell zugunsten des direkten Originals aufgelöst.',
   }],
 });
 
@@ -663,12 +715,12 @@ await writeSingleVersionNorm({
     slug: 'organisationserlass-neueinteilung-fachbereiche-2024',
     title: 'Organisationserlass über die Neueinteilung der Fachbereiche von Staatsministerien',
     type: 'verwaltungsvorschrift',
-    citation: 'Organisationserlass vom 8. Oktober 2024 (OGVBl. 2025 Nr. 1–7 S. 2)',
-    documentDate: '2024-10-08',
+    citation: 'Organisationserlass vom 8. November 2024 (später abgedruckt in OGVBl. 2025 Nr. 1–7 S. 2)',
+    documentDate: '2024-11-08',
     publicationDate: '2025-03-12',
-    effectiveDate: '2024-10-08',
+    effectiveDate: '2024-11-08',
     expiryDate: '2025-01-22',
-    dateNote: 'Der Einleitungssatz bezeichnet den 8. Oktober 2024 als Tag der Verkündung; die Sammelausgabe wurde erst am 12. März 2025 ausgegeben. Der spätere Organisationserlass setzt den Vorgänger unter abweichender Datumsbezeichnung außer Kraft.',
+    dateNote: 'Das direkte Original und der aufhebende Organisationserlass vom 22. Januar 2025 belegen den 8. November 2024. Die Angabe 8. Oktober 2024 in der späteren Sammelausgabe wird als Übertragungsfehler behandelt.',
     summary: 'Löst das Umwelt-, Landwirtschafts- und Klimaschutzressort auf, überträgt seine Fachbereiche und benennt das Infrastrukturressort um.',
     subjects: ['Staatsorganisation'],
     keywords: ['Organisationserlass', 'Fachbereiche', 'Ministerien'],
@@ -676,14 +728,14 @@ await writeSingleVersionNorm({
     sourceReferences: iRefs('2'),
   }),
   body: [
-    p('Die Ostdeutsche Staatsregierung hat am 8. Oktober 2024 folgende Verordnung verkündet.'),
+    p('Die Ostdeutsche Staatsregierung hat am 8. November 2024 folgende Verordnung verkündet.'),
     paragraph('§ 1', 'Neueinteilung der Fachbereiche', [p('Das Staatsministerium für Umwelt, Landwirtschaft & Klimaschutz wird aufgelöst. Die Fachbereiche werden dem Staatsministerium Infrastruktur & Verkehr zugeteilt.')]),
     paragraph('§ 2', 'Umbenennung des Staatsministeriums für Infrastruktur & Verkehr', [p('Das Staatsministerium für Infrastruktur & Verkehr wird in Staatsministerium für Infrastruktur, Verkehr & Umweltschutz umbenannt.')]),
     paragraph('§ 3', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage ihrer Verkündung in Kraft.')]),
   ],
   sourceNotes: [{
     label: 'Spätere Aufhebung',
-    text: 'Der Organisationserlass vom 22. Januar 2025 setzt diesen Erlass außer Kraft, bezeichnet ihn dort jedoch abweichend als Erlass vom 8. November 2024.',
+    text: 'Der Organisationserlass vom 22. Januar 2025 setzt diesen Erlass außer Kraft und bestätigt ebenso wie das direkte Original das Datum 8. November 2024.',
   }],
 });
 
@@ -696,7 +748,7 @@ await writeSingleVersionNorm({
     documentDate: '2024-11-11',
     publicationDate: '2025-03-12',
     effectiveDate: '2024-11-11',
-    dateNote: 'Der Einleitungssatz bezeichnet den 11. November 2024 als Tag der Verkündung; die Sammelausgabe wurde am 12. März 2025 ausgegeben.',
+    dateNote: 'Die direkte Einzelverkündung erfolgte am 11. November 2024; die spätere Sammelausgabe bleibt als zusätzliche Fundstelle erhalten.',
     summary: 'Verbietet die benannte Vereinigung und ihre Teilorganisationen und regelt Kennzeichen-, Vermögens- und Ersatzorganisationsfolgen.',
     subjects: ['Vereinsrecht', 'Innere Sicherheit'],
     keywords: ['Vereinsverbot', 'Vereinigung', 'Beschlagnahme'],
@@ -715,7 +767,7 @@ await writeSingleVersionNorm({
       item('6.', 'Das Vermögen der Vereinigung und all ihrer Teilorganisationen wird beschlagnahmt und eingezogen.'),
       item('7.', 'Forderungen und Sachen Dritter werden beschlagnahmt und eingezogen, soweit der Berechtigte durch Überlassung der Sachen an die Vereinigung oder einer ihrer Teilorganisationen deren verfassungswidrige Bestreben vorsätzlich gefördert hat oder die Sachen zur Förderung dieser Bestrebungen bestimmt hat.'),
     ]),
-    paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Die Verordnung tritt am Tage ihrer Verkündung in Kraft.')]),
+    paragraph('§ 2', 'Inkrafttreten, Außerkrafttreten', [p('Diese Verfügung tritt sofort in Kraft und ist sofort vollziehbar.')]),
   ],
 });
 
@@ -727,9 +779,9 @@ await writeSingleVersionNorm({
     citation: 'Dienstanordnung vom 20. November 2024 (OGVBl. 2025 Nr. 1–7 S. 4)',
     documentDate: '2024-11-20',
     publicationDate: '2025-03-12',
-    effectiveDate: '2024-11-20',
+    effectiveDate: '2024-11-21',
     expiryDate: '2025-01-20',
-    dateNote: 'Die Quelle nennt ein Außerkrafttreten am 20. Januar 2025, obwohl die Ausgabe erst am 12. März 2025 ausgegeben wurde. Eine Verlängerung ist nicht belegt.',
+    dateNote: 'Das Dokument trägt das Datum 20. November 2024 und wurde am 21. November 2024 einzeln veröffentlicht. Die spätere Sammelausgabe bleibt als zusätzliche Fundstelle erhalten; eine Verlängerung über den 20. Januar 2025 ist nicht belegt.',
     summary: 'Ordnet Polizeipräsenz und eine Waffenverbotszone an Geflüchtetenunterkünften an und nennt den 20. Januar 2025 als Außerkrafttretensdatum.',
     subjects: ['Innere Sicherheit', 'Flüchtlingsaufnahme'],
     keywords: ['Geflüchtetenunterkünfte', 'Polizeipräsenz', 'Waffenverbot'],
@@ -1216,5 +1268,32 @@ await writeJson('data/recht/alt-source-inventory.json', {
     },
   ],
 });
+
+// Später bereitgestellte direkte Einzelverkündungen bleiben zusätzlich zu den
+// Sammelausgaben an Stamm- und Fassungsdaten verknüpft. Sie sind bei
+// Datums- oder Textabweichungen der nähere Originalnachweis.
+const directOriginals = [
+  ['verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024', '2024-09-16', SOURCES.oavoOriginalPdf, 'Direkte amtliche Einzelverkündung vom 16. September 2024'],
+  ['organisationserlass-aenderung-fachbereichszuteilung-2024', '2024-09-23', SOURCES.sorbianOrganisationOriginalPdf, 'Direkte amtliche Einzelverkündung vom 23. September 2024'],
+  ['dienstanordnung-momentane-terrorgefahr-2024', '2024-10-02', SOURCES.terrorOrderOriginalPdf, 'Direkte amtliche Einzelverkündung vom 2. Oktober 2024'],
+  ['organisationserlass-neueinteilung-fachbereiche-2024', '2024-11-08', SOURCES.organisationNovemberOriginalPdf, 'Direkte amtliche Einzelverkündung vom 8. November 2024'],
+  ['bekanntmachung-verbot-sachsen-den-sachsen-deutschland-den-deutschen', '2024-11-11', SOURCES.associationBanOriginalPdf, 'Direkte amtliche Einzelverkündung vom 11. November 2024'],
+  ['dienstanordnung-schutz-gefluechtetenunterkuenfte-2024', '2024-11-20', SOURCES.refugeeOrderOriginalPdf, 'Direkte amtliche Einzelverkündung vom 21. November 2024'],
+  ['dienstanordnung-silvesternacht-2024', '2024-12-31', SOURCES.newYearsOrderOriginalPdf, 'Direkte amtliche Einzelverkündung vom 31. Dezember 2024'],
+  ['organisationserlass-neugliederung-ministerien-2025', '2025-01-22', SOURCES.organisationJanuaryOriginalPdf, 'Direkte amtliche Einzelverkündung vom 22. Januar 2025'],
+];
+for (const [slug, versionId, source, label] of directOriginals) {
+  const metaPath = `content/normen/${slug}/meta.json`;
+  const versionPath = `content/normen/${slug}/versions/${versionId}.json`;
+  const [meta, version] = await Promise.all([json(metaPath), json(versionPath)]);
+  const reference = pdfReference(source, label, null, '1');
+  meta.sourceReferences = uniqueSourceReferences(meta.sourceReferences ?? [], [reference]);
+  version.sourceReferences = uniqueSourceReferences(version.sourceReferences ?? [], [reference]);
+  await Promise.all([writeJson(metaPath, meta), writeJson(versionPath, version)]);
+}
+
+const refugeeHistory = await json('content/normen/dienstanordnung-schutz-gefluechtetenunterkuenfte-2024/history.json');
+refugeeHistory.entries[0].date = '2024-11-21';
+await writeJson('content/normen/dienstanordnung-schutz-gefluechtetenunterkuenfte-2024/history.json', refugeeHistory);
 
 console.log('Altquellen, elf Einzelakte, Verfassungshistorie und belegte Bezirksfassungen wurden migriert.');

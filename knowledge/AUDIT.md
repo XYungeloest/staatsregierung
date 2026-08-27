@@ -125,7 +125,11 @@ Flächenbezirke endeten mit Ablauf des 31. Juli 2026; seit 1. August gelten vier
 öffentliche Texte zum Kabinett Honecker II sind seit der Bildung des ersten Staatsrates am
 21. Juli 2026 nur noch historisch richtig.
 
-Planungsdokumente zu Transparenzportal, Zuständigkeitsfinder, Haushaltsnavigator oder weiteren Portalfunktionen sind nur dann als umgesetzt zu behandeln, wenn Route, Inhalt und Funktion im aktuellen Code vorhanden sind.
+Planungsdokumente zu Portalfunktionen belegen für sich allein keine Umsetzung. Transparenzportal
+und Zuständigkeitsfinder sind durch die redaktionelle Zuarbeitung vom 27. August 2026 als außerhalb
+dieses Repositories betriebene Angebote bestätigt; der Haushaltsnavigator ist im aktuellen Code
+vorhanden. Für weitere Angebote bleiben Route, Inhalt, Funktion oder ein gleichwertiger externer
+Vollzugsbeleg erforderlich.
 
 ## Wichtige bisher nicht ausreichend strukturierte historische Ereignisse
 

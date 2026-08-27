@@ -1,26 +1,23 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-08-23T10:10:47.777Z
+**Erzeugt:** 2026-08-27T09:25:58.929Z
 
-- Erkannte Änderungsvorschriften: 60
-- Erkannte Zielnormen: 84
-- Vollständig konsolidiert: 53
+- Erkannte Änderungsvorschriften: 61
+- Erkannte Zielnormen: 85
+- Vollständig konsolidiert: 55
 - Blockierte Quellenkonflikte: 3
-- Fehlende Primärquellen: 2
+- Fehlende Primärquellen: 1
 
 ## Abschiebe-Aussetzungsverordnung
 
 - Slug: `abschiebe-aussetzungsverordnung`
-- Status: `missing-baseline`
-- Stammnorm: fehlt
+- Status: `complete`
+- Stammnorm: `abschiebe-aussetzungsverordnung`
 - REVOSax: noch nicht belegt
 - Einführung: keine
 - Änderungen: `verordnung-zur-aufhebung-verfassungswidrig-erlassener-verordnungen` (2025-09-16)
-- Nächster Schritt: Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.
-- Probleme:
-  - Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.
-  - Eigenständiger Stammnormdatensatz fehlt.
+- Nächster Schritt: Bei neuen Änderungsvorschriften erneut auditieren.
 
 ## Archivgesetz für den Freistaat Sachsen
 
@@ -377,6 +374,18 @@
 - Probleme:
   - Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.
   - Eigenständiger Stammnormdatensatz fehlt.
+
+## Oberstufen- und Abiturprüfungsverordnung
+
+- Slug: `oberstufen-und-abiturprufungsverordnung`
+- Status: `complete`
+- Stammnorm: `oberstufenund-abiturprufungsverordnung`
+- REVOSax: noch nicht belegt
+- Einführung: keine
+- Änderungen: `verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024` (2024-09-16)
+- Nächster Schritt: Historischen, bereits unwirksamen Änderungsakt dokumentiert halten; keine künstliche Konsolidierung erzeugen.
+- Redaktionell aufgelöste Quellenabweichungen:
+  - `oavo-2024-keine-wiederinkraftsetzung` (2026-08-27): Der Änderungsakt wird historisch dokumentiert, erzeugt aber weder eine Wiederinkraftsetzung noch eine zu konsolidierende Folgefassung.
 
 ## Ostdeutsche Bezirksordnung
 

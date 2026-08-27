@@ -10,16 +10,39 @@
       "asOf": "2026-08-25",
       "summary": "MDR und rbb werden aufgelöst; der Ostdeutsche Fernsehfunk tritt einschließlich ihrer unmittelbaren und mittelbaren Beteiligungen in die Rechtsnachfolge ein.",
       "sourceRefs": [
-        {"sourceId": "source-broadcast-law", "locator": "Gesamtrechtsnachfolge, Vermögen und Beteiligungen", "role": "primary"},
-        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Zusammenführung und Fortschreibung", "role": "corroborating"}
+        {
+          "sourceId": "source-broadcast-law",
+          "locator": "Gesamtrechtsnachfolge, Vermögen und Beteiligungen",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Zusammenführung und Fortschreibung",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["holding-ostdeutscher-fernsehfunk", "inst-ostdeutscher-fernsehfunk"],
-      "tags": ["timeline", "holdings", "broadcasting", "historical"],
-      "notes": ["Rundfunkanstalten werden wegen ihrer Staatsferne nicht als gewöhnliche Landesunternehmen klassifiziert."],
+      "relatedIds": [
+        "holding-ostdeutscher-fernsehfunk",
+        "inst-ostdeutscher-fernsehfunk"
+      ],
+      "tags": [
+        "timeline",
+        "holdings",
+        "broadcasting",
+        "historical"
+      ],
+      "notes": [
+        "Rundfunkanstalten werden wegen ihrer Staatsferne nicht als gewöhnliche Landesunternehmen klassifiziert."
+      ],
       "aliases": [],
       "date": "2026-05-01",
       "eventType": "universal-succession",
-      "normRefs": [{"normSlug": "ostdeutsches-fernsehfunkgesetz", "versionId": "2026-03-23"}]
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-fernsehfunkgesetz",
+          "versionId": "2026-03-23"
+        }
+      ]
     },
     {
       "id": "event-prebound-holdings-changes-2023",
@@ -30,12 +53,33 @@
       "asOf": "2026-08-25",
       "summary": "Die NORD/LB-Quote sinkt aufgrund einer vor dem Vereinigungsstichtag verbindlich vereinbarten Kapitalmaßnahme von 6,31 auf 6,25 Prozent. Zugleich tritt die bereits gesellschaftsvertraglich bestimmte Auflösung der IBA Thüringen ein.",
       "sourceRefs": [
-        {"sourceId": "source-nordlb-geschaeftsbericht-2023", "locator": "Kapitalerhöhung mit Wirkung zum 31. Dezember 2023", "role": "primary"},
-        {"sourceId": "source-nordlb-kapitalstaerkung-2019", "locator": "Vereinbarung zur Stammkapitalerhöhung aus Garantiegebühren", "role": "primary"},
-        {"sourceId": "source-thueringen-iba-gesellschaftsvertrag", "locator": "Auflösungsbestimmung zum 31. Dezember 2023", "role": "primary"}
+        {
+          "sourceId": "source-nordlb-geschaeftsbericht-2023",
+          "locator": "Kapitalerhöhung mit Wirkung zum 31. Dezember 2023",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-nordlb-kapitalstaerkung-2019",
+          "locator": "Vereinbarung zur Stammkapitalerhöhung aus Garantiegebühren",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-thueringen-iba-gesellschaftsvertrag",
+          "locator": "Auflösungsbestimmung zum 31. Dezember 2023",
+          "role": "primary"
+        }
       ],
-      "relatedIds": ["holding-nordlb", "holding-iba-thueringen-abwicklung"],
-      "tags": ["timeline", "holdings", "bank", "liquidation", "historical"],
+      "relatedIds": [
+        "holding-nordlb",
+        "holding-iba-thueringen-abwicklung"
+      ],
+      "tags": [
+        "timeline",
+        "holdings",
+        "bank",
+        "liquidation",
+        "historical"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2023-12-31",
@@ -51,11 +95,24 @@
       "asOf": "2026-08-25",
       "summary": "Der Freistaat übernimmt die konkreten Gesellschafts-, Träger-, Gewährträger-, Mitgliedschafts- und Vermögenspositionen der sechs Vorgängerländer. Die öffentlich belegte Inventur umfasst 666 Positionszeilen.",
       "sourceRefs": [
-        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Verbindliche Einordnung und Ergebnis der Vollinventur", "role": "primary"}
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Verbindliche Einordnung und Ergebnis der Vollinventur",
+          "role": "primary"
+        }
       ],
-      "relatedIds": ["holding-rechtsnachfolge-2023"],
-      "tags": ["timeline", "holdings", "succession", "historical"],
-      "notes": ["Kommunale Eigenpositionen bleiben kommunal."],
+      "relatedIds": [
+        "holding-rechtsnachfolge-2023"
+      ],
+      "tags": [
+        "timeline",
+        "holdings",
+        "succession",
+        "historical"
+      ],
+      "notes": [
+        "Kommunale Eigenpositionen bleiben kommunal."
+      ],
       "aliases": [],
       "date": "2023-12-01",
       "eventType": "holdings-succession",
@@ -70,21 +127,59 @@
       "asOf": "2026-08-23",
       "summary": "Drei Bekanntmachungen führen das rückwirkend seit 1. August geltende 15-Euro-Ost-Ticket, ab 1. September geltende soziale und betriebliche Tarifstandards sowie ab 24. August geltende Betriebs- und Taktplanungsgrundsätze ein.",
       "sourceRefs": [
-        {"sourceId": "source-stanzo-2026-36", "locator": "gesamte Ausgabe", "role": "primary"},
-        {"sourceId": "source-stanzo-2026-37", "locator": "gesamte Ausgabe", "role": "primary"},
-        {"sourceId": "source-stanzo-2026-38", "locator": "gesamte Ausgabe", "role": "primary"},
-        {"sourceId": "source-pm-2026-08-23-10", "locator": "amtliche Einordnung", "role": "corroborating"}
+        {
+          "sourceId": "source-stanzo-2026-36",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-37",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-38",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-23-10",
+          "locator": "amtliche Einordnung",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["project-eisenbahn-verkehr", "project-ovv-ticket", "inst-sek-mobilitaet-regionen"],
-      "tags": ["timeline", "transport", "fares", "public-economy", "planning", "promulgation"],
-      "notes": ["Die konkret anerkannten IC-/ICE-Verbindungen und Bedingungen werden gesondert veröffentlicht; Fernverkehrsreaktivierungen sind nicht allein durch dieses Paket belegt."],
+      "relatedIds": [
+        "project-eisenbahn-verkehr",
+        "project-ovv-ticket",
+        "inst-sek-mobilitaet-regionen"
+      ],
+      "tags": [
+        "timeline",
+        "transport",
+        "fares",
+        "public-economy",
+        "planning",
+        "promulgation"
+      ],
+      "notes": [
+        "Die konkret anerkannten IC-/ICE-Verbindungen und Bedingungen werden gesondert veröffentlicht; Fernverkehrsreaktivierungen sind nicht allein durch dieses Paket belegt."
+      ],
       "aliases": [],
       "date": "2026-08-23",
       "eventType": "mobility-program-promulgated",
       "normRefs": [
-        {"normSlug": "bekanntmachung-ode-betriebsgrundsaetze", "versionId": "2026-08-24"},
-        {"normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung", "versionId": "2026-08-01"},
-        {"normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt", "versionId": "2026-08-24"}
+        {
+          "normSlug": "bekanntmachung-ode-betriebsgrundsaetze",
+          "versionId": "2026-08-24"
+        },
+        {
+          "normSlug": "bekanntmachung-ovv-tarif-und-anschlusssicherung",
+          "versionId": "2026-08-01"
+        },
+        {
+          "normSlug": "bekanntmachung-landesnetz-ost-und-ostdeutschlandtakt",
+          "versionId": "2026-08-24"
+        }
       ]
     },
     {
@@ -96,19 +191,50 @@
       "asOf": "2026-08-22",
       "summary": "Der Verwaltungsrat der Landesenergiewerke Ost veröffentlicht die gemeinwirtschaftlichen Strom- und Wärmepreisleitlinien. Beide treten am 1. September 2026 in Kraft und führen Regel- sowie vergünstigte Grundbedarfstarife ein.",
       "sourceRefs": [
-        {"sourceId": "source-stanzo-2026-34", "locator": "gesamte Ausgabe, insbesondere Abschnitt IX", "role": "primary"},
-        {"sourceId": "source-stanzo-2026-35", "locator": "gesamte Ausgabe, insbesondere Abschnitt IX", "role": "primary"},
-        {"sourceId": "source-pm-2026-08-22-09", "locator": "Einordnung und Vergleichswerte", "role": "corroborating"}
+        {
+          "sourceId": "source-stanzo-2026-34",
+          "locator": "gesamte Ausgabe, insbesondere Abschnitt IX",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-35",
+          "locator": "gesamte Ausgabe, insbesondere Abschnitt IX",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-22-09",
+          "locator": "Einordnung und Vergleichswerte",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["project-energie-waerme", "inst-landesenergiewerke-ost", "inst-sek-nachhaltigkeit-energie"],
-      "tags": ["timeline", "energy", "heating", "public-economy", "tariffs", "promulgation"],
-      "notes": ["Am 22. August 2026 sind die Leitlinien verkündet, aber noch nicht in Kraft; der Geltungsbeginn ist der 1. September 2026."],
+      "relatedIds": [
+        "project-energie-waerme",
+        "inst-landesenergiewerke-ost",
+        "inst-sek-nachhaltigkeit-energie"
+      ],
+      "tags": [
+        "timeline",
+        "energy",
+        "heating",
+        "public-economy",
+        "tariffs",
+        "promulgation"
+      ],
+      "notes": [
+        "Am 22. August 2026 sind die Leitlinien verkündet, aber noch nicht in Kraft; der Geltungsbeginn ist der 1. September 2026."
+      ],
       "aliases": [],
       "date": "2026-08-22",
       "eventType": "guidelines-promulgated",
       "normRefs": [
-        {"normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie", "versionId": "2026-09-01"},
-        {"normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie", "versionId": "2026-09-01"}
+        {
+          "normSlug": "bekanntmachung-gemeinwirtschaftliche-strompreisleitlinie",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "bekanntmachung-gemeinwirtschaftliche-waermepreisleitlinie",
+          "versionId": "2026-09-01"
+        }
       ]
     },
     {
@@ -120,18 +246,43 @@
       "asOf": "2026-08-22",
       "summary": "Der Staatspräsident stiftet die Einsatzmedaille Monschau 2026. Zugleich wird die Bekanntmachung über staatliche Auszeichnungen an Staatspräsident, Staatsrat, Volkskammer, Büro des Staatspräsidenten und Staatssekretariate angepasst; 18 verletzte ostdeutsche Einsatzkräfte erhalten die Medaille unabhängig von ihrer Einsatzdauer.",
       "sourceRefs": [
-        {"sourceId": "source-stanzo-2026-33", "locator": "Abschnitte I bis XII", "role": "primary"},
-        {"sourceId": "source-pm-2026-08-21-08", "locator": "gesamte Pressemitteilung", "role": "corroborating"}
+        {
+          "sourceId": "source-stanzo-2026-33",
+          "locator": "Abschnitte I bis XII",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-21-08",
+          "locator": "gesamte Pressemitteilung",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["project-state-awards", "inst-staatspraesident", "person-karl-honecker"],
-      "tags": ["timeline", "state-awards", "civil-protection", "monschau"],
-      "notes": ["Die Einsatzmedaille ist eine eigenständige anlassbezogene Staatsauszeichnung; Abschnitt I derselben Bekanntmachung erzeugt außerdem eine neue konsolidierte Fassung der allgemeinen Auszeichnungsbekanntmachung."],
+      "relatedIds": [
+        "project-state-awards",
+        "inst-staatspraesident",
+        "person-karl-honecker"
+      ],
+      "tags": [
+        "timeline",
+        "state-awards",
+        "civil-protection",
+        "monschau"
+      ],
+      "notes": [
+        "Die Einsatzmedaille ist eine eigenständige anlassbezogene Staatsauszeichnung; Abschnitt I derselben Bekanntmachung erzeugt außerdem eine neue konsolidierte Fassung der allgemeinen Auszeichnungsbekanntmachung."
+      ],
       "aliases": [],
       "date": "2026-08-21",
       "eventType": "state-award-founded",
       "normRefs": [
-        {"normSlug": "bekanntmachung-einsatzmedaille-monschau-2026", "versionId": "2026-08-21"},
-        {"normSlug": "bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu", "versionId": "2026-08-21"}
+        {
+          "normSlug": "bekanntmachung-einsatzmedaille-monschau-2026",
+          "versionId": "2026-08-21"
+        },
+        {
+          "normSlug": "bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu",
+          "versionId": "2026-08-21"
+        }
       ]
     },
     {
@@ -143,23 +294,65 @@
       "asOf": "2026-08-16",
       "summary": "Mit OGVBl. 2026 Nr. 60 bis 67 und StAnzO. 2026 Nr. 16 bis 31 ist das zusammengehörige Schulordnungs- und Verwaltungsvorschriftenpaket amtlich verkündet. Es tritt überwiegend am 1. September 2026 in Kraft; Artikel 4 der Bereinigungsverordnung tritt bereits am 31. August 2026 in Kraft.",
       "sourceRefs": [
-        {"sourceId": "source-ogvbl-2026-60", "locator": "gesamte Ausgabe, insbesondere Inkrafttreten", "role": "primary"},
-        {"sourceId": "source-ogvbl-2026-67", "locator": "Artikel 1 bis 6", "role": "primary"},
-        {"sourceId": "source-stanzo-2026-16", "locator": "gesamte Ausgabe", "role": "primary"},
-        {"sourceId": "source-stanzo-2026-31", "locator": "gesamte Ausgabe", "role": "primary"}
+        {
+          "sourceId": "source-ogvbl-2026-60",
+          "locator": "gesamte Ausgabe, insbesondere Inkrafttreten",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-67",
+          "locator": "Artikel 1 bis 6",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-16",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-stanzo-2026-31",
+          "locator": "gesamte Ausgabe",
+          "role": "primary"
+        }
       ],
-      "relatedIds": ["project-schulreform", "inst-sek-volksbildung-wissenschaft", "question-school-law-source-conflicts-2026"],
-      "tags": ["timeline", "education", "law", "promulgation"],
-      "notes": ["Die drei gesperrten Konsolidierungen ändern nichts an der amtlichen Verkündung der Änderungsvorschriften selbst."],
+      "relatedIds": [
+        "project-schulreform",
+        "inst-sek-volksbildung-wissenschaft",
+        "question-school-law-source-conflicts-2026"
+      ],
+      "tags": [
+        "timeline",
+        "education",
+        "law",
+        "promulgation"
+      ],
+      "notes": [
+        "Die drei gesperrten Konsolidierungen ändern nichts an der amtlichen Verkündung der Änderungsvorschriften selbst."
+      ],
       "aliases": [],
       "date": "2026-08-16",
       "eventType": "law-package-promulgated",
       "normRefs": [
-        {"normSlug": "schulordnung-polytechnische-oberschulen", "versionId": "2026-09-01"},
-        {"normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung", "versionId": "2026-09-01"},
-        {"normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026", "versionId": "2026-08-31"},
-        {"normSlug": "vwv-stundentafel-eos", "versionId": "2026-09-01"},
-        {"normSlug": "aendvwv-radfahrausbildung-2026", "versionId": "2026-09-01"}
+        {
+          "normSlug": "schulordnung-polytechnische-oberschulen",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "schulordnung-erweiterte-oberschulen-und-abiturpruefung",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+          "versionId": "2026-08-31"
+        },
+        {
+          "normSlug": "vwv-stundentafel-eos",
+          "versionId": "2026-09-01"
+        },
+        {
+          "normSlug": "aendvwv-radfahrausbildung-2026",
+          "versionId": "2026-09-01"
+        }
       ]
     },
     {
@@ -171,16 +364,36 @@
       "asOf": "2026-08-09",
       "summary": "Der Staatsrat ordnet die Volksbefragung an; die Verordnung wird in OGVBl. 2026 Nr. 59 verkündet und tritt am Tag der Verkündung in Kraft.",
       "sourceRefs": [
-        {"sourceId": "source-ogvbl-2026-59", "locator": "Seiten 1–7, insbesondere § 11", "role": "primary"},
-        {"sourceId": "source-pm-2026-08-09-05", "locator": "gesamte Pressemitteilung", "role": "corroborating"}
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "Seiten 1–7, insbesondere § 11",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-09-05",
+          "locator": "gesamte Pressemitteilung",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["inst-staatsrat", "proceeding-volksbefragung-2026"],
-      "tags": ["timeline", "political-participation", "law"],
+      "relatedIds": [
+        "inst-staatsrat",
+        "proceeding-volksbefragung-2026"
+      ],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "law"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2026-08-09",
       "eventType": "ordinance-promulgated",
-      "normRefs": [{"normSlug": "volksbefragungsverordnung-2026", "versionId": "2026-08-09"}]
+      "normRefs": [
+        {
+          "normSlug": "volksbefragungsverordnung-2026",
+          "versionId": "2026-08-09"
+        }
+      ]
     },
     {
       "id": "event-volksbefragung-information-deadline-2026",
@@ -191,16 +404,36 @@
       "asOf": "2026-08-23",
       "summary": "Die Bundeswahlleitung veröffentlicht die fünf Fragen und legt den Abstimmungszeitraum vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr fest.",
       "sourceRefs": [
-        {"sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13", "locator": "vollständige Bekanntmachung", "role": "primary"},
-        {"sourceId": "source-ogvbl-2026-59", "locator": "§ 6 Absatz 1", "role": "corroborating"}
+        {
+          "sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13",
+          "locator": "vollständige Bekanntmachung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "§ 6 Absatz 1",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["inst-bundeswahlleiter", "proceeding-volksbefragung-2026"],
-      "tags": ["timeline", "political-participation", "official-announcement"],
+      "relatedIds": [
+        "inst-bundeswahlleiter",
+        "proceeding-volksbefragung-2026"
+      ],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "official-announcement"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2026-08-13",
       "eventType": "official-announcement",
-      "normRefs": [{"normSlug": "volksbefragungsverordnung-2026", "versionId": "2026-08-09"}]
+      "normRefs": [
+        {
+          "normSlug": "volksbefragungsverordnung-2026",
+          "versionId": "2026-08-09"
+        }
+      ]
     },
     {
       "id": "event-volksbefragung-2026",
@@ -211,19 +444,44 @@
       "asOf": "2026-08-23",
       "summary": "Die freiwillige und rechtlich nicht bindende Befragung zu fünf politischen Grundsatzfragen findet vom 5. September um 18 Uhr bis zum 6. September um 18 Uhr parallel zur Wahl der achten Volkskammer statt.",
       "sourceRefs": [
-        {"sourceId": "source-ogvbl-2026-59", "locator": "§§ 1 bis 5", "role": "primary"},
-        {"sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13", "locator": "Abstimmungszeitraum", "role": "corroborating"}
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "§§ 1 bis 5",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-bundeswahlleitung-volksbefragung-2026-08-13",
+          "locator": "Abstimmungszeitraum",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["inst-staatsrat", "inst-volkskammer", "inst-bundeswahlleiter", "proceeding-volksbefragung-2026", "event-volkskammer-election-2026"],
-      "tags": ["timeline", "political-participation", "scheduled"],
-      "notes": ["Kein Volksentscheid und keine unmittelbare rechtliche Bindungswirkung; die Teilnahme ist freiwillig."],
+      "relatedIds": [
+        "inst-staatsrat",
+        "inst-volkskammer",
+        "inst-bundeswahlleiter",
+        "proceeding-volksbefragung-2026",
+        "event-volkskammer-election-2026"
+      ],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "scheduled"
+      ],
+      "notes": [
+        "Kein Volksentscheid und keine unmittelbare rechtliche Bindungswirkung; die Teilnahme ist freiwillig."
+      ],
       "aliases": [],
       "date": "2026-09-05",
       "startDate": "2026-09-05",
       "endDate": "2026-09-06",
       "eventType": "public-consultation",
       "eventStatus": "scheduled",
-      "normRefs": [{"normSlug": "volksbefragungsverordnung-2026", "versionId": "2026-08-09"}]
+      "normRefs": [
+        {
+          "normSlug": "volksbefragungsverordnung-2026",
+          "versionId": "2026-08-09"
+        }
+      ]
     },
     {
       "id": "event-volksbefragung-result-deadline-2026",
@@ -233,15 +491,36 @@
       "validTo": "2026-09-10",
       "asOf": "2026-08-09",
       "summary": "Das endgültige Ergebnis soll nach der Verordnung spätestens am 10. September 2026 öffentlich bekannt gemacht werden.",
-      "sourceRefs": [{"sourceId": "source-ogvbl-2026-59", "locator": "§ 7 Absatz 6", "role": "primary"}],
-      "relatedIds": ["inst-bundeswahlleiter", "inst-staatsrat", "proceeding-volksbefragung-2026"],
-      "tags": ["timeline", "political-participation", "scheduled"],
-      "notes": ["Die Soll-Regelung wird nicht als bereits erfolgte Ergebnisbekanntmachung dargestellt."],
+      "sourceRefs": [
+        {
+          "sourceId": "source-ogvbl-2026-59",
+          "locator": "§ 7 Absatz 6",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-bundeswahlleiter",
+        "inst-staatsrat",
+        "proceeding-volksbefragung-2026"
+      ],
+      "tags": [
+        "timeline",
+        "political-participation",
+        "scheduled"
+      ],
+      "notes": [
+        "Die Soll-Regelung wird nicht als bereits erfolgte Ergebnisbekanntmachung dargestellt."
+      ],
       "aliases": [],
       "date": "2026-09-10",
       "eventType": "result-publication-target",
       "eventStatus": "scheduled",
-      "normRefs": [{"normSlug": "volksbefragungsverordnung-2026", "versionId": "2026-08-09"}]
+      "normRefs": [
+        {
+          "normSlug": "volksbefragungsverordnung-2026",
+          "versionId": "2026-08-09"
+        }
+      ]
     },
     {
       "id": "event-gemeingut-wohnen-guideline-2026",
@@ -252,16 +531,36 @@
       "asOf": "2026-08-08",
       "summary": "Der Verwaltungsrat beschließt die gemeinwirtschaftliche Kostenmiete und eine Senkung der am 31. August geschuldeten Nettokaltmieten um 25 Prozent zum 1. September 2026. Die Bekanntmachung erscheint in StAnzO. 2026 Nr. 15.",
       "sourceRefs": [
-        {"sourceId": "source-stanzo-2026-15", "locator": "Seiten 2–3", "role": "primary"},
-        {"sourceId": "source-pm-2026-08-08-04", "locator": "gesamte Pressemitteilung", "role": "corroborating"}
+        {
+          "sourceId": "source-stanzo-2026-15",
+          "locator": "Seiten 2–3",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-08-04",
+          "locator": "gesamte Pressemitteilung",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["project-wohnen", "inst-gemeingut-wohnen"],
-      "tags": ["timeline", "housing", "public-economy"],
+      "relatedIds": [
+        "project-wohnen",
+        "inst-gemeingut-wohnen"
+      ],
+      "tags": [
+        "timeline",
+        "housing",
+        "public-economy"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2026-08-08",
       "eventType": "guideline-published",
-      "normRefs": [{"normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung", "versionId": "2026-09-01"}]
+      "normRefs": [
+        {
+          "normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung",
+          "versionId": "2026-09-01"
+        }
+      ]
     },
     {
       "id": "event-gemeingut-wohnen-rent-reduction-2026",
@@ -271,48 +570,381 @@
       "validTo": "2026-09-01",
       "asOf": "2026-08-08",
       "summary": "Zum 1. September 2026 sinken die Bestandsmieten von Amts wegen um 25 Prozent; zugleich gilt das Prinzip der gemeinwirtschaftlichen Kostenmiete.",
-      "sourceRefs": [{"sourceId": "source-stanzo-2026-15", "locator": "Nummern 2, 3 und 5", "role": "primary"}],
-      "relatedIds": ["project-wohnen", "inst-gemeingut-wohnen"],
-      "tags": ["timeline", "housing", "scheduled"],
-      "notes": ["Am Wissensstand 8. August 2026 handelt es sich um einen fest bestimmten künftigen Wirksamkeitstermin."],
+      "sourceRefs": [
+        {
+          "sourceId": "source-stanzo-2026-15",
+          "locator": "Nummern 2, 3 und 5",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "project-wohnen",
+        "inst-gemeingut-wohnen"
+      ],
+      "tags": [
+        "timeline",
+        "housing",
+        "scheduled"
+      ],
+      "notes": [
+        "Am Wissensstand 8. August 2026 handelt es sich um einen fest bestimmten künftigen Wirksamkeitstermin."
+      ],
       "aliases": [],
       "date": "2026-09-01",
       "eventType": "effective-date",
       "eventStatus": "scheduled",
-      "normRefs": [{"normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung", "versionId": "2026-09-01"}]
+      "normRefs": [
+        {
+          "normSlug": "bekanntmachung-gemeingut-wohnen-mietpreisbildung",
+          "versionId": "2026-09-01"
+        }
+      ]
     },
     {
-      "id": "event-dreyer-candidacy-2026", "title": "Manuela Dreyer erklärt ihre Kandidatur", "status": "editorially-confirmed", "validFrom": "2026-05-08", "validTo": "2026-05-08", "asOf": "2026-08-01", "summary": "Manuela Dreyer erklärt am 8. Mai 2026 ihre Kandidatur für das Bundespräsidentenamt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl und Amtszeit", "role": "primary"}], "relatedIds": ["person-manuela-dreyer"], "tags": ["timeline", "federal"], "notes": [], "aliases": [], "date": "2026-05-08", "eventType": "candidacy", "normRefs": []
+      "id": "event-dreyer-candidacy-2026",
+      "title": "Manuela Dreyer erklärt ihre Kandidatur",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-05-08",
+      "validTo": "2026-05-08",
+      "asOf": "2026-08-01",
+      "summary": "Manuela Dreyer erklärt am 8. Mai 2026 ihre Kandidatur für das Bundespräsidentenamt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Wahl und Amtszeit",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-manuela-dreyer"
+      ],
+      "tags": [
+        "timeline",
+        "federal"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-05-08",
+      "eventType": "candidacy",
+      "normRefs": []
     },
     {
-      "id": "event-dreyer-election-2026", "title": "Wahl Manuela Dreyers zur Bundespräsidentin", "status": "editorially-confirmed", "validFrom": "2026-05-16", "validTo": "2026-05-17", "asOf": "2026-08-01", "summary": "Manuela Dreyer gewinnt die Wahl am 16. und 17. Mai 2026 mit 51,35 Prozent gegen Armin Waschelt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl und Amtszeit", "role": "primary"}], "relatedIds": ["person-manuela-dreyer"], "tags": ["timeline", "election", "federal"], "notes": ["CDP, FRP und LDP unterstützten die Kandidatur; „Veilchen-Parteien“ ist nur eine zeitgenössische Bezeichnung."], "aliases": [], "date": "2026-05-16", "startDate": "2026-05-16", "endDate": "2026-05-17", "eventType": "election", "normRefs": []
+      "id": "event-dreyer-election-2026",
+      "title": "Wahl Manuela Dreyers zur Bundespräsidentin",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-05-16",
+      "validTo": "2026-05-17",
+      "asOf": "2026-08-01",
+      "summary": "Manuela Dreyer gewinnt die Wahl am 16. und 17. Mai 2026 mit 51,35 Prozent gegen Armin Waschelt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Wahl und Amtszeit",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-manuela-dreyer"
+      ],
+      "tags": [
+        "timeline",
+        "election",
+        "federal"
+      ],
+      "notes": [
+        "CDP, FRP und LDP unterstützten die Kandidatur; „Veilchen-Parteien“ ist nur eine zeitgenössische Bezeichnung."
+      ],
+      "aliases": [],
+      "date": "2026-05-16",
+      "startDate": "2026-05-16",
+      "endDate": "2026-05-17",
+      "eventType": "election",
+      "normRefs": []
     },
     {
-      "id": "event-dreyer-inauguration-2026", "title": "Amtsantritt Manuela Dreyers", "status": "editorially-confirmed", "validFrom": "2026-05-18", "validTo": "2026-05-18", "asOf": "2026-08-01", "summary": "Manuela Dreyer tritt am 18. Mai 2026 als Nachfolgerin Liam Flüsterbeins das Amt der Bundespräsidentin an.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl und Amtszeit", "role": "primary"}], "relatedIds": ["person-manuela-dreyer", "person-liam-fluesterbein", "inst-bundespraesident"], "tags": ["timeline", "federal-office"], "notes": [], "aliases": [], "date": "2026-05-18", "eventType": "inauguration", "normRefs": []
+      "id": "event-dreyer-inauguration-2026",
+      "title": "Amtsantritt Manuela Dreyers",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-05-18",
+      "validTo": "2026-05-18",
+      "asOf": "2026-08-01",
+      "summary": "Manuela Dreyer tritt am 18. Mai 2026 als Nachfolgerin Liam Flüsterbeins das Amt der Bundespräsidentin an.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Wahl und Amtszeit",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-manuela-dreyer",
+        "person-liam-fluesterbein",
+        "inst-bundespraesident"
+      ],
+      "tags": [
+        "timeline",
+        "federal-office"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-05-18",
+      "eventType": "inauguration",
+      "normRefs": []
     },
     {
-      "id": "event-dreyer-prevention-2026", "title": "Verhinderung der Bundespräsidentin und Beginn der Vertretung", "status": "editorially-confirmed", "validFrom": "2026-06-01", "validTo": "2026-06-01", "asOf": "2026-08-01", "summary": "Bundeskanzler Mateo Delgado behandelt Dreyer ab 1. Juni als verhindert; Karl Honecker nimmt als Bundesratspräsident ihre Befugnisse wahr.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}], "relatedIds": ["person-manuela-dreyer", "person-karl-honecker", "person-mateo-delgado", "inst-bundesrat", "inst-bundespraesident"], "tags": ["timeline", "federal"], "notes": [], "aliases": [], "date": "2026-06-01", "eventType": "federal-office-representation", "normRefs": []
+      "id": "event-dreyer-prevention-2026",
+      "title": "Verhinderung der Bundespräsidentin und Beginn der Vertretung",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-06-01",
+      "validTo": "2026-06-01",
+      "asOf": "2026-08-01",
+      "summary": "Bundeskanzler Mateo Delgado behandelt Dreyer ab 1. Juni als verhindert; Karl Honecker nimmt als Bundesratspräsident ihre Befugnisse wahr.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Verhinderung und Vertretung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-manuela-dreyer",
+        "person-karl-honecker",
+        "person-mateo-delgado",
+        "inst-bundesrat",
+        "inst-bundespraesident"
+      ],
+      "tags": [
+        "timeline",
+        "federal"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-06-01",
+      "eventType": "federal-office-representation",
+      "normRefs": []
     },
     {
-      "id": "event-dreyer-discovery-2026", "title": "Medienbericht über den Aufenthaltsort Manuela Dreyers", "status": "editorially-confirmed", "validFrom": "2026-07-09", "validTo": "2026-07-09", "asOf": "2026-08-01", "summary": "Tom Kaufmann veröffentlicht laut Artikel Drohnenaufnahmen eines Weinguts in der Pfalz; Echo Media veröffentlicht ein weiteres Bild.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Aufspürung und politische Reaktion", "role": "primary"}], "relatedIds": ["person-manuela-dreyer", "person-tom-kaufmann"], "tags": ["timeline", "media-report"], "notes": ["Sekundärquellenbericht, keine amtlich festgestellte Tatsache."], "aliases": [], "date": "2026-07-09", "eventType": "media-report", "normRefs": []
+      "id": "event-dreyer-discovery-2026",
+      "title": "Medienbericht über den Aufenthaltsort Manuela Dreyers",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-07-09",
+      "validTo": "2026-07-09",
+      "asOf": "2026-08-01",
+      "summary": "Tom Kaufmann veröffentlicht laut Artikel Drohnenaufnahmen eines Weinguts in der Pfalz; Echo Media veröffentlicht ein weiteres Bild.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Aufspürung und politische Reaktion",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-manuela-dreyer",
+        "person-tom-kaufmann"
+      ],
+      "tags": [
+        "timeline",
+        "media-report"
+      ],
+      "notes": [
+        "Sekundärquellenbericht, keine amtlich festgestellte Tatsache."
+      ],
+      "aliases": [],
+      "date": "2026-07-09",
+      "eventType": "media-report",
+      "normRefs": []
     },
     {
-      "id": "event-dreyer-impeachment-motion-2026", "title": "Antrag auf Präsidentenanklage", "status": "editorially-confirmed", "validFrom": "2026-07-09", "validTo": "2026-07-09", "asOf": "2026-08-01", "summary": "Liam Flüsterbein reicht einen von elf Abgeordneten aus drei Fraktionen unterstützten Antrag ein.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["person-liam-fluesterbein", "person-manuela-dreyer", "proceeding-federal-president-dreyer-impeachment"], "tags": ["timeline", "federal-proceeding"], "notes": [], "aliases": [], "date": "2026-07-09", "eventType": "impeachment-motion", "normRefs": []
+      "id": "event-dreyer-impeachment-motion-2026",
+      "title": "Antrag auf Präsidentenanklage",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-07-09",
+      "validTo": "2026-07-09",
+      "asOf": "2026-08-01",
+      "summary": "Liam Flüsterbein reicht einen von elf Abgeordneten aus drei Fraktionen unterstützten Antrag ein.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Präsidentenanklage",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-liam-fluesterbein",
+        "person-manuela-dreyer",
+        "proceeding-federal-president-dreyer-impeachment"
+      ],
+      "tags": [
+        "timeline",
+        "federal-proceeding"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2026-07-09",
+      "eventType": "impeachment-motion",
+      "normRefs": []
     },
     {
-      "id": "event-dreyer-impeachment-vote-2026", "title": "Bundestag beschließt die Präsidentenanklage", "status": "editorially-confirmed", "validFrom": "2026-07-12", "validTo": "2026-07-12", "asOf": "2026-08-01", "summary": "Der Bundestag nimmt den Antrag mit der erforderlichen Zweidrittelmehrheit an.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["inst-deutscher-bundestag", "proceeding-federal-president-dreyer-impeachment"], "tags": ["timeline", "federal-proceeding"], "notes": ["Abstimmungsverhalten der Fraktionen ist redaktionell bestätigt."], "aliases": [], "date": "2026-07-12", "eventType": "impeachment-vote", "normRefs": []
+      "id": "event-dreyer-impeachment-vote-2026",
+      "title": "Bundestag beschließt die Präsidentenanklage",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-07-12",
+      "validTo": "2026-07-12",
+      "asOf": "2026-08-01",
+      "summary": "Der Bundestag nimmt den Antrag mit der erforderlichen Zweidrittelmehrheit an.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Präsidentenanklage",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-deutscher-bundestag",
+        "proceeding-federal-president-dreyer-impeachment"
+      ],
+      "tags": [
+        "timeline",
+        "federal-proceeding"
+      ],
+      "notes": [
+        "Abstimmungsverhalten der Fraktionen ist redaktionell bestätigt."
+      ],
+      "aliases": [],
+      "date": "2026-07-12",
+      "eventType": "impeachment-vote",
+      "normRefs": []
     },
     {
-      "id": "event-dreyer-indictment-filed-2026", "title": "Anklageschrift wird beim Bundesverfassungsgericht eingereicht", "status": "editorially-confirmed", "validFrom": "2026-07-12", "validTo": "2026-07-12", "asOf": "2026-08-01", "summary": "Bundestagspräsident Liam von Starnberg reicht die Anklageschrift ein; das nur redaktionell bestätigte Aktenzeichen lautet 7 BvD 001-26.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Präsidentenanklage", "role": "primary"}], "relatedIds": ["person-liam-von-starnberg", "person-felix-von-luxemburg-vorarlberg", "inst-bundesverfassungsgericht", "proceeding-federal-president-dreyer-impeachment"], "tags": ["timeline", "federal-proceeding"], "notes": ["Die Anklageschrift liegt nicht als Primärquelle vor."], "aliases": [], "date": "2026-07-12", "eventType": "indictment-filed", "normRefs": []
+      "id": "event-dreyer-indictment-filed-2026",
+      "title": "Anklageschrift wird beim Bundesverfassungsgericht eingereicht",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-07-12",
+      "validTo": "2026-07-12",
+      "asOf": "2026-08-01",
+      "summary": "Bundestagspräsident Liam von Starnberg reicht die Anklageschrift ein; das nur redaktionell bestätigte Aktenzeichen lautet 7 BvD 001-26.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Präsidentenanklage",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-liam-von-starnberg",
+        "person-felix-von-luxemburg-vorarlberg",
+        "inst-bundesverfassungsgericht",
+        "proceeding-federal-president-dreyer-impeachment"
+      ],
+      "tags": [
+        "timeline",
+        "federal-proceeding"
+      ],
+      "notes": [
+        "Die Anklageschrift liegt nicht als Primärquelle vor."
+      ],
+      "aliases": [],
+      "date": "2026-07-12",
+      "eventType": "indictment-filed",
+      "normRefs": []
     },
     {
-      "id": "event-dreyer-resignation-2026", "title": "Rücktritt Manuela Dreyers", "status": "editorially-confirmed", "validFrom": "2026-07-16", "validTo": "2026-07-16", "asOf": "2026-08-01", "summary": "Manuela Dreyer erklärt schriftlich ihren Rücktritt; die Hauptverhandlung wird verschoben.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Rücktritt", "role": "primary"}], "relatedIds": ["person-manuela-dreyer", "proceeding-federal-president-dreyer-impeachment"], "tags": ["timeline", "resignation", "federal"], "notes": ["Der formelle Ausgang der Präsidentenanklage bleibt offen."], "aliases": [], "date": "2026-07-16", "eventType": "resignation", "normRefs": []
+      "id": "event-dreyer-resignation-2026",
+      "title": "Rücktritt Manuela Dreyers",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-07-16",
+      "validTo": "2026-07-16",
+      "asOf": "2026-08-01",
+      "summary": "Manuela Dreyer erklärt schriftlich ihren Rücktritt; die Hauptverhandlung wird verschoben.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Rücktritt",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-manuela-dreyer",
+        "proceeding-federal-president-dreyer-impeachment"
+      ],
+      "tags": [
+        "timeline",
+        "resignation",
+        "federal"
+      ],
+      "notes": [
+        "Der formelle Ausgang der Präsidentenanklage bleibt offen."
+      ],
+      "aliases": [],
+      "date": "2026-07-16",
+      "eventType": "resignation",
+      "normRefs": []
     },
     {
-      "id": "event-honecker-federal-president-representation-2026", "title": "Vertretungsgrund wechselt nach Dreyers Rücktritt", "status": "editorially-confirmed", "validFrom": "2026-07-16", "validTo": "2026-07-16", "asOf": "2026-08-01", "summary": "Karl Honecker setzt die Wahrnehmung der Bundespräsidentenbefugnisse ab 16. Juli wegen der vorzeitigen Erledigung des Amtes fort.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Verhinderung und Vertretung", "role": "primary"}], "relatedIds": ["person-karl-honecker", "inst-bundespraesident"], "tags": ["timeline", "federal-office-representation"], "notes": ["Ein Enddatum ist nicht belegt."], "aliases": [], "date": "2026-07-16", "eventType": "federal-office-representation", "normRefs": []
+      "id": "event-honecker-federal-president-representation-2026",
+      "title": "Vertretungsgrund wechselt nach Dreyers Rücktritt",
+      "status": "editorially-confirmed",
+      "validFrom": "2026-07-16",
+      "validTo": "2026-07-16",
+      "asOf": "2026-08-01",
+      "summary": "Karl Honecker setzt die Wahrnehmung der Bundespräsidentenbefugnisse ab 16. Juli wegen der vorzeitigen Erledigung des Amtes fort.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Verhinderung und Vertretung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "person-karl-honecker",
+        "inst-bundespraesident"
+      ],
+      "tags": [
+        "timeline",
+        "federal-office-representation"
+      ],
+      "notes": [
+        "Ein Enddatum ist nicht belegt."
+      ],
+      "aliases": [],
+      "date": "2026-07-16",
+      "eventType": "federal-office-representation",
+      "normRefs": []
     },
     {
-      "id": "event-volkskammer-election-2026", "title": "Wahl zur achten Volkskammer", "status": "planned", "validFrom": "2026-09-05", "validTo": "2026-09-06", "asOf": "2026-08-01", "summary": "Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.", "sourceRefs": [{"sourceId": "source-editorial-clarification-dreyer-election-2026-08-01", "locator": "Wahl zur achten Volkskammer", "role": "primary"}], "relatedIds": ["inst-volkskammer", "proceeding-eighth-volkskammer-election"], "tags": ["timeline", "election", "scheduled"], "notes": [], "aliases": ["Wahl zur 8. Volkskammer"], "date": "2026-09-05", "startDate": "2026-09-05", "endDate": "2026-09-06", "eventType": "election", "eventStatus": "scheduled", "normRefs": []
+      "id": "event-volkskammer-election-2026",
+      "title": "Wahl zur achten Volkskammer",
+      "status": "planned",
+      "validFrom": "2026-09-05",
+      "validTo": "2026-09-06",
+      "asOf": "2026-08-01",
+      "summary": "Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-dreyer-election-2026-08-01",
+          "locator": "Wahl zur achten Volkskammer",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [
+        "inst-volkskammer",
+        "proceeding-eighth-volkskammer-election"
+      ],
+      "tags": [
+        "timeline",
+        "election",
+        "scheduled"
+      ],
+      "notes": [],
+      "aliases": [
+        "Wahl zur 8. Volkskammer"
+      ],
+      "date": "2026-09-05",
+      "startDate": "2026-09-05",
+      "endDate": "2026-09-06",
+      "eventType": "election",
+      "eventStatus": "scheduled",
+      "normRefs": []
     },
     {
       "id": "event-state-foundation",
@@ -1420,7 +2052,11 @@
         "inst-kabinett-delgado",
         "inst-staatsregierung"
       ],
-      "tags": ["timeline", "government", "historical"],
+      "tags": [
+        "timeline",
+        "government",
+        "historical"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2025-09-04",
@@ -1442,8 +2078,15 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["proceeding-helsinki-participation", "inst-helcom"],
-      "tags": ["timeline", "international", "helcom"],
+      "relatedIds": [
+        "proceeding-helsinki-participation",
+        "inst-helcom"
+      ],
+      "tags": [
+        "timeline",
+        "international",
+        "helcom"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2025-10-04",
@@ -1470,9 +2113,18 @@
           "role": "corroborating"
         }
       ],
-      "relatedIds": ["proceeding-helsinki-participation", "inst-helcom"],
-      "tags": ["timeline", "international", "agreement-signed"],
-      "notes": ["Die Vertragsfassung stammt aus dem Jahr 1992; Unterzeichnung und ostdeutsches Inkrafttreten werden getrennt geführt."],
+      "relatedIds": [
+        "proceeding-helsinki-participation",
+        "inst-helcom"
+      ],
+      "tags": [
+        "timeline",
+        "international",
+        "agreement-signed"
+      ],
+      "notes": [
+        "Die Vertragsfassung stammt aus dem Jahr 1992; Unterzeichnung und ostdeutsches Inkrafttreten werden getrennt geführt."
+      ],
       "aliases": [],
       "date": "2025-10-06",
       "eventType": "agreement-signed",
@@ -1507,8 +2159,17 @@
           "role": "corroborating"
         }
       ],
-      "relatedIds": ["person-claus-weselsky", "person-mateo-delgado", "inst-staatskanzlei", "inst-helcom"],
-      "tags": ["timeline", "appointment", "government"],
+      "relatedIds": [
+        "person-claus-weselsky",
+        "person-mateo-delgado",
+        "inst-staatskanzlei",
+        "inst-helcom"
+      ],
+      "tags": [
+        "timeline",
+        "appointment",
+        "government"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2025-10-06",
@@ -1535,9 +2196,18 @@
           "role": "corroborating"
         }
       ],
-      "relatedIds": ["project-50hertz-acquisition", "inst-50hertz"],
-      "tags": ["timeline", "energy", "acquisition"],
-      "notes": ["KfW-Anteile und Hamburger Anlagen sind nicht Teil des belegten Vollzugs."],
+      "relatedIds": [
+        "project-50hertz-acquisition",
+        "inst-50hertz"
+      ],
+      "tags": [
+        "timeline",
+        "energy",
+        "acquisition"
+      ],
+      "notes": [
+        "KfW-Anteile und Hamburger Anlagen sind nicht Teil des belegten Vollzugs."
+      ],
       "aliases": [],
       "date": "2025-12-02",
       "eventType": "acquisition-agreement",
@@ -1558,8 +2228,16 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["person-gregor-gysi", "person-mateo-delgado", "inst-staatskanzlei"],
-      "tags": ["timeline", "appointment", "government"],
+      "relatedIds": [
+        "person-gregor-gysi",
+        "person-mateo-delgado",
+        "inst-staatskanzlei"
+      ],
+      "tags": [
+        "timeline",
+        "appointment",
+        "government"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2025-12-10",
@@ -1581,9 +2259,17 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-nvidia-settlement"],
-      "tags": ["timeline", "industry", "simulation-adjudication"],
-      "notes": ["Eine Werkseröffnung ist nicht belegt."],
+      "relatedIds": [
+        "project-nvidia-settlement"
+      ],
+      "tags": [
+        "timeline",
+        "industry",
+        "simulation-adjudication"
+      ],
+      "notes": [
+        "Eine Werkseröffnung ist nicht belegt."
+      ],
       "aliases": [],
       "date": "2025-12-21",
       "eventType": "company-decision",
@@ -1604,8 +2290,14 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-krankenhausfonds"],
-      "tags": ["timeline", "health", "superseded-policy"],
+      "relatedIds": [
+        "project-krankenhausfonds"
+      ],
+      "tags": [
+        "timeline",
+        "health",
+        "superseded-policy"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2026-03-04",
@@ -1627,9 +2319,18 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-ovv-ticket", "question-ovv-ticket-chain"],
-      "tags": ["timeline", "transport", "planned"],
-      "notes": ["Der spätere 57-Millionen-Euro-Deal bestätigt nur die Ticketanerkennung."],
+      "relatedIds": [
+        "project-ovv-ticket",
+        "question-ovv-ticket-chain"
+      ],
+      "tags": [
+        "timeline",
+        "transport",
+        "planned"
+      ],
+      "notes": [
+        "Der spätere 57-Millionen-Euro-Deal bestätigt nur die Ticketanerkennung."
+      ],
       "aliases": [],
       "date": "2026-03-15",
       "eventType": "official-request",
@@ -1650,9 +2351,17 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-airport-carl-ulbricht-name"],
-      "tags": ["timeline", "transport", "company-decision"],
-      "notes": ["Die Firmenbezeichnung der Betreibergesellschaft ist nicht automatisch geändert."],
+      "relatedIds": [
+        "project-airport-carl-ulbricht-name"
+      ],
+      "tags": [
+        "timeline",
+        "transport",
+        "company-decision"
+      ],
+      "notes": [
+        "Die Firmenbezeichnung der Betreibergesellschaft ist nicht automatisch geändert."
+      ],
       "aliases": [],
       "date": "2026-05-28",
       "eventType": "renaming",
@@ -1673,9 +2382,17 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-luxemburg-liebknecht-memorial"],
-      "tags": ["timeline", "culture", "simulation-adjudication"],
-      "notes": ["Eine Fertigstellung ist nicht belegt."],
+      "relatedIds": [
+        "project-luxemburg-liebknecht-memorial"
+      ],
+      "tags": [
+        "timeline",
+        "culture",
+        "simulation-adjudication"
+      ],
+      "notes": [
+        "Eine Fertigstellung ist nicht belegt."
+      ],
       "aliases": [],
       "date": "2026-06-05",
       "eventType": "project-approved",
@@ -1697,7 +2414,11 @@
         }
       ],
       "relatedIds": [],
-      "tags": ["timeline", "renaming", "simulation-adjudication"],
+      "tags": [
+        "timeline",
+        "renaming",
+        "simulation-adjudication"
+      ],
       "notes": [],
       "aliases": [],
       "date": "2026-07-15",
@@ -1719,9 +2440,19 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-ovv-ticket", "proceeding-ovv-db-ticket-recognition", "inst-db-fernverkehr"],
-      "tags": ["timeline", "transport", "agreement"],
-      "notes": ["Die sechs im März vorgeschlagenen fehlenden Relationen bleiben ohne Bestellungs- oder Betriebsnachweis."],
+      "relatedIds": [
+        "project-ovv-ticket",
+        "proceeding-ovv-db-ticket-recognition",
+        "inst-db-fernverkehr"
+      ],
+      "tags": [
+        "timeline",
+        "transport",
+        "agreement"
+      ],
+      "notes": [
+        "Die sechs im März vorgeschlagenen fehlenden Relationen bleiben ohne Bestellungs- oder Betriebsnachweis."
+      ],
       "aliases": [],
       "date": "2026-07-16",
       "eventType": "operational-agreement",
@@ -1747,9 +2478,17 @@
           "role": "corroborating"
         }
       ],
-      "relatedIds": ["project-hovercraft-procurement"],
-      "tags": ["timeline", "procurement", "security"],
-      "notes": ["Eine Lieferung ist nicht belegt."],
+      "relatedIds": [
+        "project-hovercraft-procurement"
+      ],
+      "tags": [
+        "timeline",
+        "procurement",
+        "security"
+      ],
+      "notes": [
+        "Eine Lieferung ist nicht belegt."
+      ],
       "aliases": [],
       "date": "2025-12-21",
       "eventType": "procurement-payment",
@@ -1770,9 +2509,19 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["proceeding-helsinki-participation", "inst-helcom"],
-      "tags": ["timeline", "international", "helcom", "entry-into-force"],
-      "notes": ["Das Übereinkommen selbst stammt aus dem Jahr 1992."],
+      "relatedIds": [
+        "proceeding-helsinki-participation",
+        "inst-helcom"
+      ],
+      "tags": [
+        "timeline",
+        "international",
+        "helcom",
+        "entry-into-force"
+      ],
+      "notes": [
+        "Das Übereinkommen selbst stammt aus dem Jahr 1992."
+      ],
       "aliases": [],
       "date": "2026-01-27",
       "eventType": "treaty-entry-into-force",
@@ -1798,9 +2547,19 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-boom-europe", "proceeding-boom-implementation"],
-      "tags": ["timeline", "industry", "aviation", "agreement"],
-      "notes": ["Eine spätere Standorteröffnung ist nicht automatisch durch den Vertragsschluss belegt."],
+      "relatedIds": [
+        "project-boom-europe",
+        "proceeding-boom-implementation"
+      ],
+      "tags": [
+        "timeline",
+        "industry",
+        "aviation",
+        "agreement"
+      ],
+      "notes": [
+        "Eine spätere Standorteröffnung ist nicht automatisch durch den Vertragsschluss belegt."
+      ],
       "aliases": [],
       "date": "2026-05-14",
       "eventType": "agreement-entered-into-force",
@@ -1826,9 +2585,18 @@
           "role": "corroborating"
         }
       ],
-      "relatedIds": ["project-eisenbahn-verkehr", "inst-sek-mobilitaet-regionen"],
-      "tags": ["timeline", "transport", "socialisation"],
-      "notes": ["Der gesetzliche Überführungsstichtag ist der 1. Juli 2026; das Gesetzespaket trat am 21. Juli 2026 in Kraft."],
+      "relatedIds": [
+        "project-eisenbahn-verkehr",
+        "inst-sek-mobilitaet-regionen"
+      ],
+      "tags": [
+        "timeline",
+        "transport",
+        "socialisation"
+      ],
+      "notes": [
+        "Der gesetzliche Überführungsstichtag ist der 1. Juli 2026; das Gesetzespaket trat am 21. Juli 2026 in Kraft."
+      ],
       "aliases": [],
       "date": "2026-07-21",
       "eventType": "socialisation",
@@ -1836,6 +2604,74 @@
         {
           "normSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
           "versionId": "2026-07-21"
+        }
+      ]
+    },
+    {
+      "id": "event-schmidt-government-formation",
+      "title": "Wolfgang Schmidt übernimmt das Amt des Ministerpräsidenten",
+      "status": "editorially-confirmed",
+      "validFrom": "2025-04-14",
+      "validTo": "2025-04-14",
+      "asOf": "2026-08-23",
+      "summary": "Wolfgang Schmidt trat am 14. April 2025 das Amt des Ministerpräsidenten an; das Kabinett Schmidt amtierte bis zum 4. Juni 2025.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-27",
+          "locator": "Abschnitt Historische Amtszeit Wolfgang Schmidts",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-minister-president-list-context",
+          "locator": "Kabinett Schmidt; Amtsdauer 52 Tage; Nachfolger ab 5. Juni 2025",
+          "role": "corroborating"
+        }
+      ],
+      "relatedIds": [
+        "person-wolfgang-schmidt",
+        "inst-kabinett-schmidt"
+      ],
+      "tags": [
+        "timeline",
+        "government",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2025-04-14",
+      "eventType": "government-formation",
+      "normRefs": []
+    },
+    {
+      "id": "event-abschiebe-aussetzungsverordnung-2024",
+      "title": "Abschiebe-Aussetzungsverordnung wird verkündet",
+      "status": "confirmed-primary",
+      "validFrom": "2024-03-01",
+      "validTo": "2024-03-01",
+      "asOf": "2026-08-23",
+      "summary": "Die sofort in Kraft getretene Verordnung setzte Abschiebungen nach Syrien, Afghanistan, Irak, Somalia und Eritrea für drei Monate aus; 2025 wurde sie ausdrücklich aufgehoben.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-abschiebe-aussetzungsverordnung-2024-03-01",
+          "locator": "vollständige PDF-Lesefassung",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "timeline",
+        "law",
+        "migration",
+        "historical"
+      ],
+      "notes": [],
+      "aliases": [],
+      "date": "2024-03-01",
+      "eventType": "promulgation",
+      "normRefs": [
+        {
+          "normSlug": "abschiebe-aussetzungsverordnung",
+          "versionId": "2024-03-01"
         }
       ]
     }
