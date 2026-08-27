@@ -1,10 +1,11 @@
 # Zuarbeitsformular für offene Portalaufgaben
 
-**Stand:** 23. August 2026
+**Redaktioneller Stichtag:** 23. August 2026  
+**Repositoryprüfung:** 27. August 2026
 
-Dieses Formular enthält nur noch Punkte, für die tatsächlich externe Unterlagen oder eine
-inhaltliche Entscheidung benötigt werden. Erledigte Antworten wurden in Wissenshub, Portal und
-zentralem TODO verarbeitet. Der verbindliche Aufgabenstatus bleibt in der `README.md`.
+Dieses Formular enthält ausschließlich Punkte, für die aktuell externe Unterlagen oder eine
+inhaltliche Entscheidung benötigt werden. Der verbindliche Aufgabenstatus steht in der
+`README.md`.
 
 ## Sichere Übergabe
 
@@ -16,10 +17,10 @@ zentralem TODO verarbeitet. Der verbindliche Aufgabenstatus bleibt in der `READM
 
 ## Antwortkopf
 
-**Ausgefüllt von:**
-**Datum:**
-**Behandelte Kennungen:**
-**Dateien liegen unter:**
+**Ausgefüllt von:**  
+**Datum:**  
+**Behandelte Kennungen:**  
+**Dateien liegen unter:**  
 **Allgemeine Hinweise:**
 
 ---
@@ -30,42 +31,42 @@ Diese Angaben werden erst benötigt, wenn die Mediathek tatsächlich beauftragt 
 
 ### M-01 – Auftrag und Verantwortung
 
-**Fachlich verantwortliche Stelle:**
-**Technisch verantwortliche Stelle:**
-**Dauerhaft zuständige Redaktion:**
-**Veröffentlicht werden:** nur öffentliche Sitzungen / nur öffentliche Sitzungsteile / andere
-**Nichtöffentliche Teile werden vor Übergabe entfernt:** ja / nein
-**Mediathek in der Hauptnavigation:** ja / nein / nach Pilot entscheiden
+**Fachlich verantwortliche Stelle:**  
+**Technisch verantwortliche Stelle:**  
+**Dauerhaft zuständige Redaktion:**  
+**Veröffentlicht werden:** nur öffentliche Sitzungen / nur öffentliche Sitzungsteile / andere  
+**Nichtöffentliche Teile werden vor Übergabe entfernt:** ja / nein  
+**Mediathek in der Hauptnavigation:** ja / nein / nach Pilot entscheiden  
 **Livestreaming:** nicht vorgesehen / später gesondert prüfen
 
 ### M-02 – Formate und Umfang
 
-**Gewünschte Medien:** Video / Audio / beides
-**Eingangsformate:**
-**Download anbieten:** Video / Audio / beides / keinen Download
-**Typische und längste Sitzungsdauer:**
-**Erwartete Sitzungen pro Jahr und gleichzeitige Abrufe:**
-**Aufbewahrungsdauer:**
+**Gewünschte Medien:** Video / Audio / beides  
+**Eingangsformate:**  
+**Download anbieten:** Video / Audio / beides / keinen Download  
+**Typische und längste Sitzungsdauer:**  
+**Erwartete Sitzungen pro Jahr und gleichzeitige Abrufe:**  
+**Aufbewahrungsdauer:**  
 **Originaldateien intern erhalten:** ja / nein / Frist
 
 ### M-03 – Anbieter, Kosten und Datenschutz
 
-**Cloudflare Stream darf geprüft/genutzt werden:** ja / nein
-**Cloudflare R2 darf geprüft/genutzt werden:** ja / nein
-**Zulässige oder ausgeschlossene externe Plattformen:**
-**Monatliches Zielbudget und harte Kostengrenze:**
-**Warnschwellen:**
+**Cloudflare Stream darf geprüft/genutzt werden:** ja / nein  
+**Cloudflare R2 darf geprüft/genutzt werden:** ja / nein  
+**Zulässige oder ausgeschlossene externe Plattformen:**  
+**Monatliches Zielbudget und harte Kostengrenze:**  
+**Warnschwellen:**  
 **Vorgaben zu Datenstandort und Auftragsverarbeitung:**
 
 ### M-04 – Freigabe und Barrierefreiheit
 
-**Wer bestätigt Öffentlichkeit und Rechte:**
-**Wer prüft Untertitel und Transkript:**
-**WebVTT-Untertitel sind Pflicht:** ja / nein
-**Vollständiges Transkript ist Pflicht für:** Video / Audio / beides
-**Audiodeskription:** immer / bei Bedarf / offen
-**Wer entscheidet über Korrektur oder Depublikation:**
-**Kontaktweg und Reaktionsfrist bei Beanstandungen:**
+**Wer bestätigt Öffentlichkeit und Rechte:**  
+**Wer prüft Untertitel und Transkript:**  
+**WebVTT-Untertitel sind Pflicht:** ja / nein  
+**Vollständiges Transkript ist Pflicht für:** Video / Audio / beides  
+**Audiodeskription:** immer / bei Bedarf / offen  
+**Wer entscheidet über Korrektur oder Depublikation:**  
+**Kontaktweg und Reaktionsfrist bei Beanstandungen:**  
 **Lösch- und Protokollfristen:**
 
 ### M-05 – Pilotpaket
@@ -87,12 +88,8 @@ Bitte für eine längere öffentliche Sitzung bereitstellen:
 
 ### Q-01 – Vollständige Ausgangsfassung des NDR-Staatsvertrags
 
-Der freigegebene amtliche REVOSax-Abruf ist erledigt. Von 85 Audit-Zielnormen fehlen nur noch
-die folgende Primärquelle, weil sie nicht durch eine am Stichtag geltende REVOSax-Fassung ersetzt
-werden kann:
-
-- [ ] vollständige, vor der Änderung vom 8. März 2026 geltende Fassung des NDR-Staatsvertrags
-      einschließlich Anlagen
+Benötigt wird die vollständige, vor der Änderung vom 8. März 2026 geltende Fassung des
+NDR-Staatsvertrags einschließlich Anlagen.
 
 **Dateien oder amtliche URLs:**
 
@@ -101,8 +98,8 @@ werden kann:
 Die Anlage des NDR-Änderungs- und Überleitungsstaatsvertrags enthält eine unausgefüllte
 „Mustergesetz vom TT. MMMM JJJJ“-Angabe.
 
-**Wurde daneben ein konkretes Mustergesetz beschlossen oder verkündet:** ja / nein / unbekannt
-**Titel, Datum und Fundstelle:**
+**Wurde daneben ein konkretes Mustergesetz beschlossen oder verkündet:** ja / nein / unbekannt  
+**Titel, Datum und Fundstelle:**  
 **Vollständige Quelle:**
 
 ---
@@ -111,8 +108,7 @@ Die Anlage des NDR-Änderungs- und Überleitungsstaatsvertrags enthält eine una
 
 ### V-01 – Volksbefragung und achte Volkskammerwahl
 
-Termin, Uhrzeiten, Fragen und Rechtsgrundlage sind verarbeitet. Nach dem 5./6. September werden
-nur noch tatsächlich veröffentlichte Folgedokumente benötigt:
+Nach dem 5. und 6. September 2026 werden nur tatsächlich veröffentlichte Folgedokumente benötigt:
 
 - [ ] Durchführungsnachweis
 - [ ] amtliche Ergebnisbekanntmachung der Volksbefragung
@@ -121,21 +117,21 @@ nur noch tatsächlich veröffentlichte Folgedokumente benötigt:
 
 ### V-02 – Boom Europe Leipzig/Halle
 
-Das rechtskräftige Agreement ist verarbeitet. Für einen weitergehenden Umsetzungsstatus fehlen:
+Für einen weitergehenden Umsetzungsstatus werden benötigt:
 
-**Projektorganisation oder Betreibergesellschaft:**
-**Bau- oder Standortfreigabe und Baubeginn:**
-**Betriebs- oder Standorteröffnung:**
+**Projektorganisation oder Betreibergesellschaft:**  
+**Bau- oder Standortfreigabe und Baubeginn:**  
+**Betriebs- oder Standorteröffnung:**  
 **Dateien oder amtliche Mitteilungen:**
 
 ### V-03 – OVV-Ticketanerkennung und Fernverkehr
 
-**Vertrag/Tarifnachweis zur 57-Millionen-Euro-Ticketanerkennung:**
-**Beginn der Anerkennung, Tarifbedingungen und Ausschlüsse:**
-**Tatsächlich bestellte oder aufgenommene Fernverkehrsrelationen:**
+**Vertrag/Tarifnachweis zur 57-Millionen-Euro-Ticketanerkennung:**  
+**Beginn der Anerkennung, Tarifbedingungen und Ausschlüsse:**  
+**Tatsächlich bestellte oder aufgenommene Fernverkehrsrelationen:**  
 **Fahrplan- oder Betriebsnachweis je Relation:**
 
-Die Ticketanerkennung allein belegt weiterhin keine Streckenreaktivierung.
+Die Ticketanerkennung allein belegt keine Streckenreaktivierung.
 
 ### V-04 – Beschaffungen und Unternehmensentscheidungen
 
@@ -147,7 +143,7 @@ Die Ticketanerkennung allein belegt weiterhin keine Streckenreaktivierung.
 | erster Zeppelin NT | Lieferung, Zulassung und tatsächlicher Betrieb |
 | Luxemburg-Liebknecht-Denkmal | Fertigstellung, Abnahme und Eröffnung |
 
-### V-06 – Weitere EAG-Vollzugsfragen
+### V-05 – Weitere EAG-Vollzugsfragen
 
 | Vorgang | Benötigter Beleg |
 | --- | --- |
@@ -159,12 +155,12 @@ Die Ticketanerkennung allein belegt weiterhin keine Streckenreaktivierung.
 
 ## Quellenbegleitzettel
 
-**Kennung:**
-**Dateiname und Originaltitel:**
-**Herausgeber/ausstellende Stelle:**
-**Dokument- und Veröffentlichungsdatum:**
-**Fundstelle oder amtliche URL:**
-**Seite/Abschnitt/Message-ID/Attachment:**
-**Welche konkrete Tatsache belegt die Quelle:**
-**Vollständig und unverändert:** ja / nein / unbekannt
+**Kennung:**  
+**Dateiname und Originaltitel:**  
+**Herausgeber/ausstellende Stelle:**  
+**Dokument- und Veröffentlichungsdatum:**  
+**Fundstelle oder amtliche URL:**  
+**Seite/Abschnitt/Message-ID/Attachment:**  
+**Welche konkrete Tatsache belegt die Quelle:**  
+**Vollständig und unverändert:** ja / nein / unbekannt  
 **Spätere Änderungen, Rücknahmen oder Berichtigungen:**

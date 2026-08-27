@@ -433,6 +433,16 @@ async function main() {
     ambiguousFindings,
     targets: manifestTargets,
   };
+  const openTargets = manifestTargets.filter((target) => target.status !== 'complete');
+  const openTargetDetails = openTargets.flatMap((target) => [
+    `### ${target.title}`,
+    '',
+    `- Datensatz: \`${target.canonicalSlug}\``,
+    `- Status: \`${target.status}\``,
+    ...(target.problems.length ? target.problems.map((problem) => `- Problem: ${problem}`) : []),
+    `- Nächster Schritt: ${target.nextAction}`,
+    '',
+  ]);
   const report = [
     '# Konsolidierungs-Audit',
     '',
@@ -442,30 +452,18 @@ async function main() {
     `- Erkannte Änderungsvorschriften: ${manifest.counts.recognizedAmendmentActs}`,
     `- Erkannte Zielnormen: ${manifest.counts.recognizedTargetNorms}`,
     `- Vollständig konsolidiert: ${manifest.counts.completeTargetNorms}`,
+    `- Aktuell offene Zielnormen: ${openTargets.length}`,
+    '',
+    '## Offener Handlungsbedarf',
+    '',
+    `- Fehlende Stammnormdatensätze: ${openTargets.filter((target) => target.status === 'missing-stem-record').length}`,
+    `- Unvollständige Platzhalterbestände: ${openTargets.filter((target) => target.status === 'incomplete-placeholder').length}`,
     `- Blockierte Quellenkonflikte: ${manifest.counts.blockedSourceConflicts}`,
     `- Fehlende Primärquellen: ${manifest.counts.missingPrimarySources}`,
     '',
-    ...manifestTargets.flatMap((target) => [
-      `## ${target.title}`,
-      '',
-      `- Slug: \`${target.canonicalSlug}\``,
-      `- Status: \`${target.status}\``,
-      `- Stammnorm: ${target.existingStemNormSlug ? `\`${target.existingStemNormSlug}\`` : 'fehlt'}`,
-      `- REVOSax: ${target.baselineUrl ?? 'noch nicht belegt'}`,
-      `- Einführung: ${target.enactingActs.map((act) => `\`${act.slug}\` (${act.effectiveDate})`).join(', ') || 'keine'}`,
-      `- Änderungen: ${target.amendmentActs.map((act) => `\`${act.slug}\` (${act.effectiveDate})`).join(', ') || 'keine'}`,
-      `- Nächster Schritt: ${target.nextAction}`,
-      ...(target.editorialResolutions.length
-        ? [
-            '- Redaktionell aufgelöste Quellenabweichungen:',
-            ...target.editorialResolutions.map((resolution) =>
-              `  - \`${resolution.id}\` (${resolution.decisionDate}): ${resolution.resolvedApplication}`
-            ),
-          ]
-        : []),
-      ...(target.problems.length ? ['- Probleme:', ...target.problems.map((problem) => `  - ${problem}`)] : []),
-      '',
-    ]),
+    'Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solange eine Zielnorm noch nicht vollständig umgesetzt ist, bleibt sie mit Problem und nächstem Schritt hier sichtbar. Der vollständige maschinenlesbare Status steht zusätzlich in `data/recht/consolidation-manifest.json`; redaktionelle Quellenfragen werden in `CONTENT_GAPS.md` gebündelt.',
+    '',
+    ...(openTargetDetails.length ? ['## Offene Zielnormen', '', ...openTargetDetails] : []),
     ...(templateProblems.length ? ['## Nicht als Zielnorm behandelte Vorlagen', '', ...templateProblems.map((problem) => `- ${problem}`), ''] : []),
     ...(ambiguousFindings.length
       ? [
