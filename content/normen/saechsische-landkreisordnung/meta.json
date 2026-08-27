@@ -42,6 +42,13 @@
     },
     {
       "kind": "amendment-source",
+      "label": "Amtliche Berichtigung OGVBl. 2026 Nr. 68",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "amendment-source",
       "label": "OGVBl. 2026 Nr. 46",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
@@ -50,20 +57,5 @@
   "affectedByNorms": [
     "ostdeutsches-bezirkseinfuehrungsgesetz",
     "kreis-und-bezirksneuordnungsgesetz"
-  ],
-  "editorialResolutions": [
-    {
-      "id": "landkreisordnung-zielanker-paragraf-65",
-      "status": "resolved-source-conflict",
-      "decisionDate": "2026-07-23",
-      "issue": "Artikel 2 des Ostdeutschen Bezirkseinführungsgesetzes nennt § 75.",
-      "publishedText": "In § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
-      "resolvedApplication": "Die Ersetzung wird in § 65 Absatz 1 Satz 1 der Landkreisordnung angewendet.",
-      "rationale": "Nur § 65 trägt die bezeichnete Aufsichtsregelung und enthält die zu ersetzende Behördenbezeichnung.",
-      "evidence": [
-        "content/normen/ostdeutsches-bezirkseinfuehrungsgesetz/versions/2025-03-06.json",
-        "data/recht/sources/revosax/saechsische-landkreisordnung/3264.23.html"
-      ]
-    }
   ]
 }

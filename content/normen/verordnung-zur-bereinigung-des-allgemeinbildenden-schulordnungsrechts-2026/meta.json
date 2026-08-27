@@ -29,7 +29,9 @@
     "schulordnung-grundschulen",
     "schulordnung-ober-und-abendoberschulen",
     "schulordnung-gemeinschaftsschulen",
-    "schulordnung-gymnasien-abiturpruefung"
+    "schulordnung-gymnasien-abiturpruefung",
+    "schulordnung-berufsschule",
+    "schulordnung-berufliche-gymnasien"
   ],
   "relatedNorms": [
     "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
@@ -65,8 +67,35 @@
       "verifiedAt": "2026-08-16",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl. 2026 Nr. 67.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4–5)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4–5)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
   ],
   "effectiveDate": "2026-08-31",
-  "dateNote": "Am 16. August 2026 verkündet. Artikel 4 tritt am 31. August 2026, die übrige Verordnung am 1. September 2026 in Kraft."
+  "dateNote": "Am 16. August 2026 verkündet. Artikel 4 tritt am 31. August 2026, die übrige Verordnung am 1. September 2026 in Kraft.",
+  "affectedByNorms": [
+    "berichtigung-verschiedener-verkuendungen-2026"
+  ]
 }

@@ -1,0 +1,45 @@
+{
+  "correctionAct": "berichtigung-verschiedener-verkuendungen-2026",
+  "correctionCitation": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+  "correctionPublicationDate": "2026-08-27",
+  "legalEffect": "declaratory-correction",
+  "targetSlug": "dienstanordnung-momentane-terrorgefahr-2024",
+  "targetVersionId": "2024-10-02",
+  "effectiveDate": "2024-10-02",
+  "changeNote": "Datum und ausgelassenes Außerkrafttreten der nachgedruckten Dienstanordnung wurden amtlich berichtigt.",
+  "removeEditorialResolutionIds": [
+    "terrorgefahr-einzeldokument-vor-sammelausgabe"
+  ],
+  "resultAssertions": [
+    {
+      "target": {
+        "type": "paragraphText",
+        "text": "Die Dienstanordnung wurde am 2. Oktober 2024 verkündet."
+      },
+      "equals": "Die Dienstanordnung wurde am 2. Oktober 2024 verkündet."
+    },
+    {
+      "target": {
+        "type": "paragraphText",
+        "text": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft. Sie kann jederzeit verlängert werden."
+      },
+      "equals": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft. Sie kann jederzeit verlängert werden."
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Die Verordnung tritt am Tage der Verkündung in Kraft und am 06.10.2024 außer Kraft. Sie kann jederzeit verlängert werden."
+      },
+      "field": "text",
+      "expectedOld": "Die Verordnung tritt am Tage der Verkündung in Kraft und am 06.10.2024 außer Kraft. Sie kann jederzeit verlängert werden.",
+      "value": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft. Sie kann jederzeit verlängert werden.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Nummer 1",
+      "effectiveDate": "2024-10-02"
+    }
+  ]
+}

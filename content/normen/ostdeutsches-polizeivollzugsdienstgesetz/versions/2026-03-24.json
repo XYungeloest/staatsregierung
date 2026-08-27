@@ -7,13 +7,20 @@
   "validTo": "2026-03-24",
   "isCurrent": false,
   "citation": "Ostdeutsches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 24)",
-  "changeNote": "Die Schmerzgriffregelung wurde redaktionell geklärt als § 41a in das Polizeivollzugsdienstgesetz eingeordnet.",
+  "changeNote": "Die Schmerzgriffregelung wurde als § 41a in das Ostdeutsche Polizeivollzugsdienstgesetz eingefügt; Zielnorm, Einordnungsstelle und Wortlaut wurden durch OGVBl. 2026 Nr. 68 amtlich berichtigt.",
   "sourceReferences": [
     {
       "kind": "amendment-source",
       "label": "OGVBl. 2026 Nr. 24",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 24.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Berichtigung OGVBl. 2026 Nr. 68",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceRole": "amendment-evidence"
     }
   ],
   "body": [
@@ -2071,8 +2078,43 @@
                 {
                   "type": "subparagraph",
                   "label": "(1)",
-                  "text": "Nervendruck-, Druckpunkt- oder Quetschtechniken oder solche die ihnen ähneln, deren Zweck oder vorhersehbare Wirkung die Zufügung erheblicher Schmerzen ist (Schmerzgriffe), stellen besonders eingriffsintensive Maßnahmen des unmittelbaren Zwangs dar und sind deshalb unzulässig.",
+                  "text": "Nervendruck-, Druckpunkt- oder Quetschtechniken oder solche, die ihnen ähneln, deren Zweck oder vorhersehbare Wirkung die Zufügung erheblicher Schmerzen ist (Schmerzgriffe), stellen besonders eingriffsintensive Maßnahmen des unmittelbaren Zwangs dar und sind deshalb unzulässig.",
                   "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Abweichend von Absatz 1 dürfen solche Techniken ausschließlich eingesetzt werden, wenn",
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "1.",
+                      "text": "eine gegenwärtige, unmittelbar bevorstehende Gefahr für Leib oder Leben besteht,",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "2.",
+                      "text": "die Gefahr nicht anders als durch den sofortigen Einsatz der Maßnahme abgewehrt werden kann,",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "3.",
+                      "text": "mildere Mittel, insbesondere das Wegtragen, Abdrängen, Fixieren oder der Einsatz zusätzlicher Hilfskräfte, objektiv nicht zur Verfügung stehen oder offensichtlich ungeeignet sind und",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "4.",
+                      "text": "die betroffene Person durch aktiven körperlichen Widerstand die Gefahr selbst verursacht.",
+                      "children": []
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "Satz 1 gilt nicht zur Durchsetzung von Platzverweisen, Versammlungsbeschränkungen oder Versammlungsauflösungen. Der Einsatz einer Technik nach Satz 1 ist vorab unmissverständlich anzudrohen, es sei denn, der Eintritt der Gefahr lässt eine Androhung nicht zu; die Androhung selbst darf nicht zur Willensbeugung verwendet werden. Muss nach Satz 1 eine Technik angewendet werden, so dürfen Dauer, Intensität und Ausführung das Maß des Nötigsten nicht überschreiten und sind auf das Notwendigste zu beschränken, um die Gefahr abzuwenden."
+                    }
+                  ]
                 }
               ]
             },

@@ -42,12 +42,40 @@
       "pageRange": "1",
       "verifiedAt": "2026-08-27",
       "sourceRole": "visual-control"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
   ],
   "sourceNotes": [
     {
       "label": "Abweichende Nachdruckdatierung",
       "text": "Der zeitgenössische Erlass und die spätere Aufhebung nennen den 8. November 2024. Die Sammelausgabe OGVBl. 2025 Nr. 1–7 gibt abweichend den 8. Oktober 2024 an."
+    },
+    {
+      "label": "Amtliche Berichtigung",
+      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2): Das Datum des nachgedruckten Organisationserlasses wurde amtlich auf den 8. November 2024 berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2024-11-08."
     }
   ],
   "body": [

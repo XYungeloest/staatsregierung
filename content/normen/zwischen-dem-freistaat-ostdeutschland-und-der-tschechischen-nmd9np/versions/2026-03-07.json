@@ -673,34 +673,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "24h Grenzraum-Ticket (Korridorwahl)",
-          "level": 0,
-          "listId": "bv4g2f4swtiq",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "7-Tage Ticket",
-          "level": 0,
-          "listId": "bv4g2f4swtiq",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Monat Pendler (Namensbindung optional)",
-          "level": 0,
-          "listId": "bv4g2f4swtiq",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "24h Grenzraum-Ticket (Korridorwahl)",
+              "level": 1,
+              "listId": "bv4g2f4swtiq",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "7-Tage Ticket",
+              "level": 1,
+              "listId": "bv4g2f4swtiq",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Monat Pendler (Namensbindung optional)",
+              "level": 1,
+              "listId": "bv4g2f4swtiq",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -709,25 +710,26 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "primär Nutzungsereignisse, fallback Fahrzeugkilometer, notfalls Pauschal 50/50 je Korridor (max. 3 Monate)",
-          "level": 0,
-          "listId": "9cplz25set0i",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Abrechnung monatlich; Auszahlung bis Monatsende",
-          "level": 0,
-          "listId": "9cplz25set0i",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "primär Nutzungsereignisse, fallback Fahrzeugkilometer, notfalls Pauschal 50/50 je Korridor (max. 3 Monate)",
+              "level": 1,
+              "listId": "9cplz25set0i",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Abrechnung monatlich; Auszahlung bis Monatsende",
+              "level": 1,
+              "listId": "9cplz25set0i",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -736,34 +738,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "signierter QR/Token, offline prüfbar",
-          "level": 0,
-          "listId": "sukoia5qes5q",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "pseudonymisierte Nutzungsdaten",
-          "level": 0,
-          "listId": "sukoia5qes5q",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Löschfristen: Rohdaten 180 Tage, Abrechnungsdaten 10 Jahre",
-          "level": 0,
-          "listId": "sukoia5qes5q",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "signierter QR/Token, offline prüfbar",
+              "level": 1,
+              "listId": "sukoia5qes5q",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "pseudonymisierte Nutzungsdaten",
+              "level": 1,
+              "listId": "sukoia5qes5q",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Löschfristen: Rohdaten 180 Tage, Abrechnungsdaten 10 Jahre",
+              "level": 1,
+              "listId": "sukoia5qes5q",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -796,34 +799,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Primärleitstelle: Leitstelle, die den Notruf entgegennimmt und den Einsatz initial disponiert.",
-          "level": 0,
-          "listId": "uacbdway7juz",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Unterstützende Einheit: Rettungsmittel der anderen Vertragspartei, das grenzüberschreitend eingesetzt wird.",
-          "level": 0,
-          "listId": "uacbdway7juz",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Übergabepunkt: Ort der Patientenübergabe (Klinik/NEF-Treffpunkt/Grenzpunkt).",
-          "level": 0,
-          "listId": "uacbdway7juz",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Primärleitstelle: Leitstelle, die den Notruf entgegennimmt und den Einsatz initial disponiert.",
+              "level": 1,
+              "listId": "uacbdway7juz",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Unterstützende Einheit: Rettungsmittel der anderen Vertragspartei, das grenzüberschreitend eingesetzt wird.",
+              "level": 1,
+              "listId": "uacbdway7juz",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Übergabepunkt: Ort der Patientenübergabe (Klinik/NEF-Treffpunkt/Grenzpunkt).",
+              "level": 1,
+              "listId": "uacbdway7juz",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -963,7 +967,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Verwendung nationaler Rettungsprotokolle; ergänzend Übergabeformular „Cross-Border EMS“.",
           "level": 0,
           "listId": "f8eqxc1a50zk",
@@ -972,7 +976,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Digitale Übermittlung (wenn möglich), andernfalls Papier.",
           "level": 0,
           "listId": "f8eqxc1a50zk",
@@ -996,7 +1000,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "interne Haftungszuordnung nach nationalem Recht;",
           "level": 0,
           "listId": "r4kzr9d3tf4n",
@@ -1005,7 +1009,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "bilaterale Klärung über die Kontaktstellen binnen 60 Tagen;",
           "level": 0,
           "listId": "r4kzr9d3tf4n",
@@ -1014,7 +1018,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "keine Anerkennung von Haftungsansprüchen durch Einsatzpersonal vor Ort.",
           "level": 0,
           "listId": "r4kzr9d3tf4n",
@@ -1043,34 +1047,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "mindestens 1 gemeinsame Übung/Jahr pro Korridor",
-          "level": 0,
-          "listId": "2rmb111au19i",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "gemeinsame Nachbesprechung („After Action Review“) bei kritischen Ereignissen",
-          "level": 0,
-          "listId": "2rmb111au19i",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "jährlicher Qualitätsbericht an die Nachbarschaftskommission",
-          "level": 0,
-          "listId": "2rmb111au19i",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "mindestens 1 gemeinsame Übung/Jahr pro Korridor",
+              "level": 1,
+              "listId": "2rmb111au19i",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "gemeinsame Nachbesprechung („After Action Review“) bei kritischen Ereignissen",
+              "level": 1,
+              "listId": "2rmb111au19i",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "jährlicher Qualitätsbericht an die Nachbarschaftskommission",
+              "level": 1,
+              "listId": "2rmb111au19i",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -1099,34 +1104,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Standort 1: Dresden/Bad Schandau – Děčín/Ústí-Achse",
-          "level": 0,
-          "listId": "xagu6rcp54d6",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Standort 2: Zittau – Liberec-Achse",
-          "level": 0,
-          "listId": "xagu6rcp54d6",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Standort 3: Erzgebirge – Most/Chomutov-Achse",
-          "level": 0,
-          "listId": "xagu6rcp54d6",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Standort 1: Dresden/Bad Schandau – Děčín/Ústí-Achse",
+              "level": 1,
+              "listId": "xagu6rcp54d6",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Standort 2: Zittau – Liberec-Achse",
+              "level": 1,
+              "listId": "xagu6rcp54d6",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Standort 3: Erzgebirge – Most/Chomutov-Achse",
+              "level": 1,
+              "listId": "xagu6rcp54d6",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1273,34 +1279,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Eingangsbestätigung: 10 Werktage",
-          "level": 0,
-          "listId": "6shqa032wmsx",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Vollständigkeitsprüfung: 20 Werktage",
-          "level": 0,
-          "listId": "6shqa032wmsx",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Zielentscheidung: 60 Kalendertage nach Vollständigkeit",
-          "level": 0,
-          "listId": "6shqa032wmsx",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Eingangsbestätigung: 10 Werktage",
+              "level": 1,
+              "listId": "6shqa032wmsx",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Vollständigkeitsprüfung: 20 Werktage",
+              "level": 1,
+              "listId": "6shqa032wmsx",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Zielentscheidung: 60 Kalendertage nach Vollständigkeit",
+              "level": 1,
+              "listId": "6shqa032wmsx",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1309,34 +1316,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Identität, Ausbildungsnachweise, Stunden-/Curriculumübersicht",
-          "level": 0,
-          "listId": "73y43lyi5cye",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Berufserfahrung, Unbedenklichkeits-/Registerbescheinigung (soweit erforderlich)",
-          "level": 0,
-          "listId": "73y43lyi5cye",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Sprachkompetenz: Ziel B2 im Einsatzland (für Pflege/Rettung), B1 für ausgewählte Handwerksbereiche mit Auflagenmodell möglich",
-          "level": 0,
-          "listId": "73y43lyi5cye",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Identität, Ausbildungsnachweise, Stunden-/Curriculumübersicht",
+              "level": 1,
+              "listId": "73y43lyi5cye",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Berufserfahrung, Unbedenklichkeits-/Registerbescheinigung (soweit erforderlich)",
+              "level": 1,
+              "listId": "73y43lyi5cye",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Sprachkompetenz: Ziel B2 im Einsatzland (für Pflege/Rettung), B1 für ausgewählte Handwerksbereiche mit Auflagenmodell möglich",
+              "level": 1,
+              "listId": "73y43lyi5cye",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1458,34 +1466,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "getrennte sichere Bereiche, Zugangskontrolle, anonymisierte Registrierung möglich",
-          "level": 0,
-          "listId": "mqevinqfbbjo",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Notfallbudget für Kleidung/Verpflegung/Transport",
-          "level": 0,
-          "listId": "mqevinqfbbjo",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Dolmetschpool innerhalb von 2 Stunden erreichbar",
-          "level": 0,
-          "listId": "mqevinqfbbjo",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "getrennte sichere Bereiche, Zugangskontrolle, anonymisierte Registrierung möglich",
+              "level": 1,
+              "listId": "mqevinqfbbjo",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Notfallbudget für Kleidung/Verpflegung/Transport",
+              "level": 1,
+              "listId": "mqevinqfbbjo",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Dolmetschpool innerhalb von 2 Stunden erreichbar",
+              "level": 1,
+              "listId": "mqevinqfbbjo",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -1514,34 +1523,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Pegelstand, Abfluss, Niederschlag (Raster/Station), Bodenfeuchte (soweit verfügbar)",
-          "level": 0,
-          "listId": "c5eo3tq0t88u",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Prognosen 6/12/24/48/72h",
-          "level": 0,
-          "listId": "c5eo3tq0t88u",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Meldungen zu Deichzustand, Sperrungen, Evakuierungsstatus (Ereignislage)",
-          "level": 0,
-          "listId": "c5eo3tq0t88u",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Pegelstand, Abfluss, Niederschlag (Raster/Station), Bodenfeuchte (soweit verfügbar)",
+              "level": 1,
+              "listId": "c5eo3tq0t88u",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Prognosen 6/12/24/48/72h",
+              "level": 1,
+              "listId": "c5eo3tq0t88u",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Meldungen zu Deichzustand, Sperrungen, Evakuierungsstatus (Ereignislage)",
+              "level": 1,
+              "listId": "c5eo3tq0t88u",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1550,34 +1560,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Standard: WaterML 2.0 / JSON-Schema;",
-          "level": 0,
-          "listId": "u5oh0z58e123",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Transport: API (TLS), Fallback: gesicherter SFTP.",
-          "level": 0,
-          "listId": "u5oh0z58e123",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Verfügbarkeit: 99,5 % im Ereignisfall.",
-          "level": 0,
-          "listId": "u5oh0z58e123",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Standard: WaterML 2.0 / JSON-Schema;",
+              "level": 1,
+              "listId": "u5oh0z58e123",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Transport: API (TLS), Fallback: gesicherter SFTP.",
+              "level": 1,
+              "listId": "u5oh0z58e123",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Verfügbarkeit: 99,5 % im Ereignisfall.",
+              "level": 1,
+              "listId": "u5oh0z58e123",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",
@@ -1586,43 +1597,44 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Stufe 0 Normal",
-          "level": 0,
-          "listId": "w2ryj98n8fh7",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Stufe 1 Vorwarnung",
-          "level": 0,
-          "listId": "w2ryj98n8fh7",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Stufe 2 Alarm",
-          "level": 0,
-          "listId": "w2ryj98n8fh7",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "Stufe 3 Krisenmodus",
-          "level": 0,
-          "listId": "w2ryj98n8fh7",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Stufe 0 Normal",
+              "level": 1,
+              "listId": "w2ryj98n8fh7",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Stufe 1 Vorwarnung",
+              "level": 1,
+              "listId": "w2ryj98n8fh7",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Stufe 2 Alarm",
+              "level": 1,
+              "listId": "w2ryj98n8fh7",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "Stufe 3 Krisenmodus",
+              "level": 1,
+              "listId": "w2ryj98n8fh7",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         },
         {
           "type": "paragraphText",
@@ -1645,7 +1657,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Kartenlayern, Pegeln, Prognosen, Ereignismeldungen",
           "level": 0,
           "listId": "iqhjt7fzhv8a",
@@ -1654,7 +1666,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Rollen-/Rechtekonzept (Anhang 6 IT-Baseline)",
           "level": 0,
           "listId": "iqhjt7fzhv8a",
@@ -1668,34 +1680,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "mindestens 1 gemeinsame Stabsrahmenübung/Jahr",
-          "level": 0,
-          "listId": "6bcuc7du1v62",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "alle 2 Jahre eine Feldübung (Kommunikation, Evakuierung, Deichverteidigung)",
-          "level": 0,
-          "listId": "6bcuc7du1v62",
-          "numberingStyle": "literal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "●  ●",
-          "text": "standardisierte „Lessons Learned“ binnen 30 Tagen",
-          "level": 0,
-          "listId": "6bcuc7du1v62",
-          "numberingStyle": "literal",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "●",
+              "text": "mindestens 1 gemeinsame Stabsrahmenübung/Jahr",
+              "level": 1,
+              "listId": "6bcuc7du1v62",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "alle 2 Jahre eine Feldübung (Kommunikation, Evakuierung, Deichverteidigung)",
+              "level": 1,
+              "listId": "6bcuc7du1v62",
+              "numberingStyle": "literal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "●",
+              "text": "standardisierte „Lessons Learned“ binnen 30 Tagen",
+              "level": 1,
+              "listId": "6bcuc7du1v62",
+              "numberingStyle": "literal",
+              "children": []
+            }
+          ]
         }
       ]
     },
@@ -1732,7 +1745,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "MFA für Admins und sensible Rollen",
           "level": 0,
           "listId": "kwrnmfli62ad",
@@ -1741,7 +1754,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Rollenbasiertes Berechtigungskonzept (Least Privilege)",
           "level": 0,
           "listId": "kwrnmfli62ad",
@@ -1750,7 +1763,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "jährliche Rechte-Rezertifizierung",
           "level": 0,
           "listId": "kwrnmfli62ad",
@@ -1763,7 +1776,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "TLS für Daten in Transit",
           "level": 0,
           "listId": "o26aan3thvmz",
@@ -1772,7 +1785,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Verschlüsselung ruhender Daten (at rest) bei sensiblen Datensätzen",
           "level": 0,
           "listId": "o26aan3thvmz",
@@ -1781,7 +1794,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Schlüsselmanagement mit dokumentierten Verantwortlichkeiten",
           "level": 0,
           "listId": "o26aan3thvmz",
@@ -1794,7 +1807,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "manipulationssichere Logs (Write-Once/Immutable)",
           "level": 0,
           "listId": "ybnxq4g5nqhz",
@@ -1803,7 +1816,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Aufbewahrung: mindestens 180 Tage, bei Sicherheitsvorfällen 24 Monate",
           "level": 0,
           "listId": "ybnxq4g5nqhz",
@@ -1812,7 +1825,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Alarmierung bei Anomalien (z. B. Massenexport)",
           "level": 0,
           "listId": "ybnxq4g5nqhz",
@@ -1825,7 +1838,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "Patch-Ziel: kritisch < 14 Tage, hoch < 30 Tage",
           "level": 0,
           "listId": "53f18vszf147",
@@ -1834,7 +1847,7 @@
         },
         {
           "type": "item",
-          "label": "●  ●",
+          "label": "●",
           "text": "jährlicher Pen-Test für zentrale Plattformen",
           "level": 0,
           "listId": "53f18vszf147",

@@ -182,6 +182,9 @@ async function fetchAttachment() {
 }
 
 async function parseOneSnapshot(slug, configured, sourceId = 'baseline') {
+  if (configured.sourceFormat && configured.sourceFormat !== 'revosax-html') {
+    throw new Error(`${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}: Quelle ist kein REVOSax-Snapshot (${configured.sourceFormat})`);
+  }
   if (!configured?.snapshot) throw new Error(`${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}: Snapshot fehlt`);
   const bytes = await readFile(resolve(ROOT, configured.snapshot));
   if (hash(bytes) !== configured.sourceSha256) {
@@ -199,7 +202,9 @@ async function parseSnapshot() {
     if (target || snapshotId) throw new Error('parse: --all darf nicht mit --target oder --snapshot-id kombiniert werden');
     const sources = [];
     for (const [slug, configuredTarget] of Object.entries(config.targets)) {
-      if (configuredTarget.snapshot) sources.push([slug, 'baseline', configuredTarget]);
+      if (configuredTarget.snapshot && (!configuredTarget.sourceFormat || configuredTarget.sourceFormat === 'revosax-html')) {
+        sources.push([slug, 'baseline', configuredTarget]);
+      }
       for (const adopted of configuredTarget.adoptedSources ?? []) {
         if (adopted.snapshot) sources.push([slug, adopted.id, adopted]);
       }

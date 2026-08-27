@@ -33,6 +33,17 @@ function bodyText(norm) {
   return JSON.stringify(norm.body);
 }
 
+function hierarchyFixture(content, css = '') {
+  const html = `<!doctype html><html><head><style>${css}</style></head><body>
+    <p>Gesetz- und Verordnungsblatt für den Freistaat Ostdeutschland</p>
+    <p>Nr. 99</p><p>Ausgegeben zu Dresden am 27. August 2026</p>
+    <p>Inhaltsverzeichnis</p><p>27. August 2026 Richtlinie über einen Hierarchietest Seite 2</p>
+    <p>Richtlinie<br>über einen Hierarchietest<br>vom 27. August 2026</p>
+    <h2>I.<br>Prüfbereich</h2>${content}
+    <p>Dresden, den 27. August 2026</p></body></html>`;
+  return parsePublicationHtml('hierarchie-fixture.html', html).body.find((block) => block.label === 'I.');
+}
+
 test('Ausgaben 46 bis 58 werden ausschließlich aus HTML mit intern erkannten Ausgabedaten gelesen', async () => {
   for (let number = 46; number <= 58; number += 1) {
     const parsed = await issue(number);
@@ -143,6 +154,82 @@ test('Sequenzvalidierung meldet doppelte, rückwärts laufende und stilistisch g
   assert.match(validateListSequences([item('a.'), item('c.')])[0], /lückenhafte Nummerierungsfolge/u);
   assert.match(validateListSequences([item('a.'), item('ii.', 'lower-roman')])[0], /widersprüchliche Nummerierungsstile/u);
   assert.deepEqual(validateListSequences([item('a.'), { type: 'paragraphText', text: 'Neue Liste.' }, item('a.')]), []);
+});
+
+test('alphabetische Untergliederung endet vor der nächsten Dezimalnummer', () => {
+  const section = hierarchyFixture(`
+    <p>1. Elternpunkt</p>
+    <ol type="a"><li style="margin-left:36pt">Unterpunkt A</li><li style="margin-left:36pt">Unterpunkt B</li></ol>
+    <p>2. Nächster Elternpunkt</p>`);
+  const [one, two] = section.children.filter((block) => block.type === 'item');
+  assert.equal(one.label, '1.');
+  assert.deepEqual(one.children.map((block) => block.label), ['a.', 'b.']);
+  assert.equal(two.label, '2.');
+  assert.equal(two.level, 0);
+});
+
+test('Spiegelstriche nach einer eingerückten Einleitung bleiben Kinder des Elternpunkts', () => {
+  const section = hierarchyFixture(`
+    <p>2. Einleitung:</p>
+    <ul><li style="margin-left:36pt">Punkt A</li><li style="margin-left:36pt">Punkt B</li></ul>
+    <p>3. Nächster Elternpunkt</p>`);
+  const [two, three] = section.children.filter((block) => block.type === 'item');
+  assert.deepEqual(two.children.map((block) => block.label), ['–', '–']);
+  assert.equal(three.label, '3.');
+});
+
+test('Fließtext und alphabetische Unterpunkte werden semantisch demselben Elternpunkt zugeordnet', () => {
+  const section = hierarchyFixture(`
+    <p>3. Überschrift:</p>
+    <p>erläuternder Fließtext</p>
+    <ol type="a"><li style="margin-left:36pt">Unterpunkt A</li><li style="margin-left:36pt">Unterpunkt B</li></ol>
+    <p>4. Nächster Elternpunkt</p>`);
+  const [three, four] = section.children.filter((block) => block.type === 'item');
+  assert.equal(three.children[0].type, 'paragraphText');
+  assert.deepEqual(three.children.slice(1).map((block) => block.label), ['a.', 'b.']);
+  assert.equal(four.label, '4.');
+});
+
+test('CSS-Einrückung verbindet technisch verschiedene Google-Docs-Listen-IDs', () => {
+  const css = `
+    .lst-kix_parent-0>li:before{content:counter(lst-ctn-kix_parent-0,decimal) ". "}
+    .lst-kix_child-0>li:before{content:counter(lst-ctn-kix_child-0,lower-latin) ") "}
+    ol.lst-kix_parent-0.start{counter-reset:lst-ctn-kix_parent-0 0}
+    ol.lst-kix_child-0.start{counter-reset:lst-ctn-kix_child-0 0}`;
+  const section = hierarchyFixture(`
+    <ol class="lst-kix_parent-0 start"><li style="margin-left:0">Elternpunkt:</li></ol>
+    <ol class="lst-kix_child-0 start"><li style="margin-left:36pt">Unterpunkt A</li><li style="margin-left:36pt">Unterpunkt B</li></ol>`, css);
+  const parent = section.children.find((block) => block.type === 'item');
+  assert.equal(parent.listId, 'parent');
+  assert.deepEqual(parent.children.map((block) => block.label), ['a)', 'b)']);
+  assert.ok(parent.children.every((block) => block.listId === 'child'));
+});
+
+test('eine durch Fließtext getrennte neue Liste bleibt trotz neuer Listen-ID unabhängig', () => {
+  const section = hierarchyFixture(`
+    <p>1. Erster Punkt</p>
+    <p>Eigenständiger neuer Sachabschnitt.</p>
+    <ol type="a"><li style="margin-left:36pt">Unabhängiger Punkt A</li><li style="margin-left:36pt">Unabhängiger Punkt B</li></ol>`);
+  const one = section.children.find((block) => block.label === '1.');
+  assert.deepEqual(one.children, []);
+  assert.deepEqual(section.children.filter((block) => block.type === 'item').map((block) => block.label), ['1.', 'a.', 'b.']);
+});
+
+test('reale Förderrichtlinienstruktur erhält Eltern, Fortsetzungstext und Unterlisten', async () => {
+  const fileName = 'StAnzO. 2026 Nr. 5.html';
+  const html = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
+  const parsed = parsePublicationHtml(fileName, html);
+  const sections = Object.fromEntries(['I.', 'IV.', 'VI.', 'VII.'].map((label) => [
+    label,
+    parsed.body.find((block) => block.label === label && block.children?.some((child) => child.type === 'item')),
+  ]));
+  const item = (section, label) => sections[section].children.find((block) => block.label === label);
+  assert.deepEqual(item('I.', '2.').children.map((block) => block.label), ['-', '-', '-']);
+  assert.equal(item('IV.', '1.').children[0].type, 'paragraphText');
+  assert.deepEqual(item('IV.', '3.').children.slice(1).map((block) => block.label), ['a)', 'b)']);
+  assert.deepEqual(item('VI.', '2.').children.map((block) => block.label), ['a)', 'b)']);
+  assert.deepEqual(item('VII.', '1.').children.map((block) => block.label), ['a)', 'b)']);
+  assert.equal(item('IV.', '4.').level, 0);
 });
 
 test('Ausgabe 17 hält das eingebettete Hoheitszeichengesetz unter Artikel 4', async () => {

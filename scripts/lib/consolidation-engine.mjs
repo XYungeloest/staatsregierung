@@ -2,11 +2,13 @@ import { createHash } from 'node:crypto';
 
 export const CONSOLIDATION_OPERATIONS = [
   'replaceProvision',
+  'replaceSiblingRange',
   'replaceText',
   'insertProvisionBefore',
   'insertProvisionAfter',
   'insertParagraph',
   'repealProvision',
+  'deleteProvision',
   'renameProvision',
   'renameLaw',
   'replaceHeading',
@@ -44,6 +46,7 @@ function matchesTarget(block, target, parent) {
   return (!target.type || block.type === target.type) &&
     (!target.label || block.label === target.label) &&
     (!target.title || block.title === target.title) &&
+    (!target.text || block.text === target.text) &&
     (!target.parentType || parent?.type === target.parentType) &&
     (!target.parentLabel || parent?.label === target.parentLabel);
 }
@@ -125,6 +128,7 @@ export function applyPatchRecipe(input, recipe) {
       if (operation.expectedMatches !== 1) {
         throw new Error('renameLaw: genau ein Titeltreffer ist erforderlich');
       }
+      if (result.title === operation.value) continue;
       if (!operation.expectedOld || result.title !== operation.expectedOld) {
         throw new Error('renameLaw: erwarteter bisheriger Normtitel wurde nicht gefunden');
       }
@@ -147,6 +151,21 @@ export function applyPatchRecipe(input, recipe) {
     if (operation.op !== 'designationReplacement' && operation.expectedMatches !== 1) {
       throw new Error(`${operation.op}: genau ein Zieltreffer ist erforderlich`);
     }
+    if (operation.op === 'replaceSiblingRange') {
+      if (!operation.throughTarget || !Array.isArray(operation.value)) {
+        throw new Error('replaceSiblingRange: throughTarget und ein Array als value sind erforderlich');
+      }
+      const end = locateExactlyOne(result.body, operation.throughTarget, operation.op);
+      if (location.siblings !== end.siblings || end.index < location.index) {
+        throw new Error('replaceSiblingRange: Anfang und Ende müssen in derselben Geschwisterliste in richtiger Reihenfolge liegen');
+      }
+      const current = location.siblings.slice(location.index, end.index + 1);
+      if (!operation.expectedHash || sha256(current) !== operation.expectedHash) {
+        throw new Error(`replaceSiblingRange: Bereichshash weicht ab (${sha256(current)} statt ${operation.expectedHash})`);
+      }
+      location.siblings.splice(location.index, current.length, ...clone(operation.value));
+      continue;
+    }
     assertExpectedBlock(location.block, operation);
 
     if (operation.op === 'replaceProvision') {
@@ -159,6 +178,8 @@ export function applyPatchRecipe(input, recipe) {
       location.block.children ??= [];
       const index = operation.position === 'start' ? 0 : location.block.children.length;
       location.block.children.splice(index, 0, clone(operation.value));
+    } else if (operation.op === 'deleteProvision') {
+      location.siblings.splice(location.index, 1);
     } else if (operation.op === 'repealProvision') {
       const replacement = operation.value ?? '(weggefallen)';
       if (Object.hasOwn(location.block, 'text')) {
@@ -183,13 +204,27 @@ export function applyPatchRecipe(input, recipe) {
       const replacement = replaceInObject(location.block, operation.expectedOld, operation.value);
       const expectedMatches = operation.expectedMatches ?? 1;
       if (replacement.matches !== expectedMatches) {
-        throw new Error(`designationReplacement: ${replacement.matches} statt ${expectedMatches} Treffer`);
+        throw new Error(`designationReplacement (${operation.sourceProvision} / ${JSON.stringify(operation.expectedOld)}): ${replacement.matches} statt ${expectedMatches} Treffer`);
       }
       location.siblings.splice(location.index, 1, replacement.value);
     }
   }
 
   return result;
+}
+
+export function patchAssertionsMatch(input, assertions = []) {
+  if (assertions.length === 0) return false;
+  return assertions.every((assertion) => {
+    if (assertion.scope === 'title') return input.title === assertion.equals;
+    const matches = [];
+    walk(input.body ?? [], (block, location) => {
+      if (matchesTarget(block, assertion.target ?? {}, location.parent)) matches.push(block);
+    });
+    if (matches.length !== (assertion.expectedMatches ?? 1)) return false;
+    const field = assertion.field ?? 'text';
+    return matches.every((block) => block[field] === assertion.equals);
+  });
 }
 
 export function previousIsoDate(isoDate) {

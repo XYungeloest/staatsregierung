@@ -9,10 +9,11 @@ const AMENDMENT_REFERENCE_PATTERN = /\b(?:wird|werden)\b[^:]*\b(?:geändert|aufg
 const INTRODUCTION_PATTERN = /^(?:Das\s+nachstehende\s+wird\s+(Gesetz|Verordnung):|.+?wird\s+durch\s+die\s+nachstehende\s+(.+?)\s+abgelöst:)$/iu;
 const OPENING_QUOTE_PATTERN = /^(?:„|“|‚|‘|,,|")/u;
 const CLOSING_QUOTE_PATTERN = /(?:“|”|’|''|")\s*$/u;
-const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Organisationserlass|Erlass|Verwaltungsabkommen|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
+const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Berichtigung|Organisationserlass|Erlass|Verwaltungsabkommen|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
 const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Folgeänderungen?|Neufassung|Übergangsbestimmungen?|Übergangsrecht|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Bereinigung|Rechtsbereinigung)/iu;
 const EMBEDDED_NORM_TITLE_PATTERN = /^(?:Gesetz|Verordnung|Satzung|Staatsvertrag|Abkommen|Übereinkommen)\b/iu;
 const TABLE_HEADER_SCOPES = new Set(['col', 'row', 'colgroup', 'rowgroup']);
+const LIST_INTRO_END_PATTERN = /(?:folgende(?:n|r|s)?|insbesondere|wenn|soweit|bei|durch|wie folgt)\s*:?\s*$/iu;
 
 const STRUCTURE_RANK = {
   part: 1,
@@ -134,8 +135,8 @@ export function parseGoogleDocsCss(css) {
     const after = counterIndex >= 0 ? content.slice(counterIndex + counter[0].length) : '';
     listStyles.set(`${match[1]}:${match[2]}`, {
       numberingStyle: counter?.[1]?.toLocaleLowerCase('en') ?? 'literal',
-      prefix: quotedCssText(before),
-      suffix: quotedCssText(after).trimEnd(),
+      prefix: counter ? quotedCssText(before) : '',
+      suffix: counter ? quotedCssText(after).trimEnd() : '',
       literal: counter ? undefined : quotedCssText(content).trim(),
     });
   }
@@ -155,6 +156,19 @@ function nodeStyle(node, css) {
     Object.assign(own, css.classStyles.get(className) ?? {});
   }
   return own;
+}
+
+function cssLengthInPoints(value) {
+  const match = String(value ?? '').trim().match(/^(-?\d+(?:\.\d+)?)(pt|px|in|cm|mm)?$/iu);
+  if (!match) return null;
+  const amount = Number.parseFloat(match[1]);
+  const unit = (match[2] ?? 'pt').toLocaleLowerCase('en');
+  return amount * ({ pt: 1, px: 0.75, in: 72, cm: 72 / 2.54, mm: 72 / 25.4 }[unit] ?? 1);
+}
+
+function visualIndent(node, css, fallback = 0) {
+  const indent = cssLengthInPoints(nodeStyle(node, css)['margin-left']);
+  return indent ?? fallback;
 }
 
 function nodeHasPresentation(node, css, property, matcher) {
@@ -279,6 +293,7 @@ function parseIdentity(heading, rawTitle) {
 }
 
 function sourceTypeFromHeading(heading, title) {
+  if (/Berichtigung/iu.test(heading)) return 'berichtigung';
   if (/Verordnung/iu.test(heading)) return 'verordnung';
   if (/Verwaltungsvorschrift/iu.test(heading)) return 'verwaltungsvorschrift';
   if (/Verwaltungsabkommen/iu.test(heading)) return 'verwaltungsabkommen';
@@ -497,6 +512,7 @@ function makeAtomicTokens(nodes, css, fileName) {
         label: parenthesized ? `(${visible})` : numberingStyle === 'bullet' ? visible : `${visible}.`,
         text: normalizeHtmlText(textWithoutNestedLists(item)).replace(/\n+/gu, ' '),
         startsList: counter === explicitStart,
+        indent: visualIndent(item, css, level * 36),
       });
       for (const nested of elementChildren(item).filter((child) => child.tagName === 'ol' || child.tagName === 'ul')) {
         emitStandardList(nested, listId, level + 1);
@@ -549,6 +565,7 @@ function makeAtomicTokens(nodes, css, fileName) {
           label: `${style.prefix}${visible}${style.suffix}`.trim(),
           text: textOf(item),
           startsList: hasStartClass,
+          indent: visualIndent(item, css, level * 36),
         });
         counter += 1;
       }
@@ -588,9 +605,14 @@ function makeAtomicTokens(nodes, css, fileName) {
         listId: 'printed-outline',
         ...printedItem,
         startsList: printedItem.level === 0,
+        indent: visualIndent(node, css, printedItem.level * 36),
       });
     } else {
-      tokens.push({ kind: 'paragraph', text, rawText, tagName: node.tagName, bold: isBold(node, css), centered: isCentered(node, css) });
+      tokens.push({
+        kind: 'paragraph', text, rawText, tagName: node.tagName,
+        bold: isBold(node, css), centered: isCentered(node, css),
+        indent: visualIndent(node, css),
+      });
     }
   }
   return tokens;
@@ -675,7 +697,15 @@ function currentChildren(stack) {
   return stack.at(-1).children;
 }
 
-function parseTokens(tokens, fileName, { inQuote = false } = {}) {
+function numberingRank(style) {
+  if (style === 'decimal' || style === 'decimal-leading-zero') return 1;
+  if (style === 'lower-latin' || style === 'lower-alpha' || style === 'upper-latin' || style === 'upper-alpha') return 2;
+  if (style === 'lower-roman' || style === 'upper-roman') return 3;
+  if (style === 'bullet' || style === 'literal') return 4;
+  return 0;
+}
+
+function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes = true } = {}) {
   const root = [];
   const stack = [{ rank: 0, children: root }];
   const listParents = new Map();
@@ -690,7 +720,10 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
     return block;
   };
 
-  for (const token of groupAmendmentQuotes(groupIntroducedQuotes(tokens))) {
+  const groupedTokens = parseAmendmentQuotes
+    ? groupAmendmentQuotes(groupIntroducedQuotes(tokens))
+    : tokens;
+  for (const token of groupedTokens) {
     if (token.kind === 'structure') {
       const block = { type: token.marker.type, label: token.marker.label, ...(token.marker.title ? { title: token.marker.title } : {}), children: [] };
       const rank = STRUCTURE_RANK[block.type];
@@ -709,9 +742,30 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
         lastBlock.title = token.text.replace(/^[„“”'`,.]+/u, '').trim();
         continue;
       }
-      append(subparagraph
+      const paragraphBlock = subparagraph
         ? { type: 'subparagraph', label: `(${subparagraph[1]})`, text: subparagraph[2], children: [] }
-        : { type: 'paragraphText', text: token.text });
+        : { type: 'paragraphText', text: token.text };
+      const continuationOfListItem = !inQuote && !subparagraph && lastListState &&
+        !QUOTE_TRIGGER_PATTERN.test(lastListState.block.text ?? '') &&
+        !AMENDMENT_REFERENCE_PATTERN.test(lastListState.block.text ?? '') &&
+        (lastListState.continuationOpen || /:\s*$/u.test(lastListState.block.text ?? '')) &&
+        token.indent >= (lastListState.indent ?? 0) - 0.5;
+      const continuationAfterNestedCorrectionList = !parseAmendmentQuotes && !subparagraph && lastListState?.semanticLevel > 0 &&
+        token.indent >= (lastListState.indent ?? 0) - 0.5;
+      if (continuationOfListItem || continuationAfterNestedCorrectionList) {
+        if (continuationAfterNestedCorrectionList) {
+          lastListState.destination.push(paragraphBlock);
+          lastBlock = paragraphBlock;
+          continue;
+        }
+        lastListState.block.children ??= [];
+        lastListState.block.children.push(paragraphBlock);
+        lastListState.continuationOpen = true;
+        lastBlock = paragraphBlock;
+      } else {
+        append(paragraphBlock);
+        if (lastListState) lastListState.contextInterrupted = true;
+      }
       continue;
     }
     if (token.kind === 'table') {
@@ -742,6 +796,42 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
           parent.children ??= [];
           destination = parent.children;
         }
+      }
+      if (
+        !parseAmendmentQuotes && semanticLevel > 0 && lastListState &&
+        token.indent < (lastListState.indent ?? 0) - 0.5 &&
+        token.level < lastListState.sourceLevel
+      ) {
+        semanticLevel = 0;
+        destination = currentChildren(stack);
+        listBaselines.set(token.listId, token.level);
+        parents.clear();
+      }
+      const deeperVisualIndent = token.indent > (lastListState?.indent ?? 0) + 0.5;
+      const continuedAtSameIndent = !parseAmendmentQuotes && token.level > 0 &&
+        token.indent >= (lastListState?.indent ?? 0) - 0.5 &&
+        LIST_INTRO_END_PATTERN.test(lastListState?.block.text ?? '');
+      const mayUseVisualParent = !inQuote && (semanticLevel === 0 || continuedAtSameIndent) && lastListState &&
+        !QUOTE_TRIGGER_PATTERN.test(lastListState.block.text ?? '') &&
+        !AMENDMENT_REFERENCE_PATTERN.test(lastListState.block.text ?? '') &&
+        token.listId !== lastListState.semanticListId &&
+        (deeperVisualIndent || continuedAtSameIndent) &&
+        (
+          continuedAtSameIndent ||
+          lastListState.continuationOpen ||
+          /:\s*$/u.test(lastListState.block.text ?? '') ||
+          (
+            !lastListState.contextInterrupted &&
+            lastBlock === lastListState.block &&
+            numberingRank(token.numberingStyle) > numberingRank(lastListState.numberingStyle)
+          )
+        );
+      if (mayUseVisualParent) {
+        semanticLevel = lastListState.semanticLevel + 1;
+        lastListState.block.children ??= [];
+        destination = lastListState.block.children;
+        listBaselines.set(token.listId, token.level - semanticLevel);
+        parents.set(semanticLevel - 1, lastListState.block);
       }
       const continuesAfterQuote =
         lastListState &&
@@ -809,11 +899,14 @@ function parseTokens(tokens, fileName, { inQuote = false } = {}) {
         semanticListId,
         sourceLevel: token.level,
         structureParent: currentChildren(stack),
+        indent: token.indent,
+        continuationOpen: false,
+        contextInterrupted: false,
       };
       continue;
     }
     if (token.kind === 'quotedGroup') {
-      const children = parseTokens(token.tokens, fileName, { inQuote: true });
+      const children = parseTokens(token.tokens, fileName, { inQuote: true, parseAmendmentQuotes });
       if (children.length === 0) throw new NormHtmlParseError(fileName, 'zitierte Neufassung besitzt keinen Inhalt');
       const quote = { type: 'quotedProvision', children };
       if (token.attachToPrevious) {
@@ -912,7 +1005,12 @@ function sanitizeNormNodes(nodes) {
     }
     if (!text && node.tagName !== 'table') continue;
     if (/^(?:Seite|\d+)$/iu.test(text)) continue;
-    if (/Gesetz- und Verordnungsblatt/iu.test(text) && /Nr\.\s*\d+/u.test(text)) continue;
+    if (
+      !['ol', 'ul', 'table'].includes(node.tagName) &&
+      text.length <= 300 &&
+      /Gesetz- und Verordnungsblatt/iu.test(text) &&
+      /Nr\.\s*\d+/u.test(text)
+    ) continue;
     result.push(node);
   }
   return result;
@@ -1050,7 +1148,7 @@ function tocEntries(nodes, tocIndex, mainStart) {
       continue;
     }
     if (/^(?:Seite\s*)?\d+$/iu.test(candidate)) continue;
-    if (!/(?:Gesetz|Verordnung|Verwaltungsvorschrift|Förderrichtlinie|Richtlinie|Allgemeinverfügung|Anordnung|Bekanntmachung|Erlass|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu.test(candidate)) continue;
+    if (!/(?:Gesetz|Verordnung|Verwaltungsvorschrift|Förderrichtlinie|Richtlinie|Allgemeinverfügung|Anordnung|Bekanntmachung|Berichtigung|Erlass|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu.test(candidate)) continue;
     result.push({ title: candidate, documentDate: pendingDate });
     pendingDate = null;
   }
@@ -1164,7 +1262,9 @@ export function parsePublicationHtml(fileName, html) {
   const mainEnd = ranges[1]?.start ?? (undatedPublishedStart >= 0 ? undatedPublishedStart : nodes.length);
   const bodyNodes = sanitizeNormNodes(nodes.slice(mainRange.end + 1, mainEnd));
   const rawTokens = makeAtomicTokens(bodyNodes, css, fileName);
-  const body = parseTokens(rawTokens, fileName);
+  const body = parseTokens(rawTokens, fileName, {
+    parseAmendmentQuotes: sourceTypeFromHeading(mainIdentity.heading, mainIdentity.title) !== 'berichtigung',
+  });
   validateBody(fileName, mainIdentity.title, body);
   const effectiveDate = inferEffectiveDate(bodyNodes.map(textOf).join(' '), publicationDate);
   const publication = {

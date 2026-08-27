@@ -40,6 +40,30 @@
       "sourceRole": "structure-bearing",
       "pageRange": "7-13",
       "derivedSource": "Gesetze/OGVBl I-25.pdf"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
   ],
   "body": [
@@ -1167,7 +1191,7 @@
         {
           "type": "item",
           "label": "1.",
-          "text": "Im § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
+          "text": "In § 65 Absatz 1 Satz 1 werden die Wörter „die Landesdirektion Ostdeutschland“ durch die Wörter „der jeweilige Bezirk“ ersetzt.",
           "level": 0,
           "listId": "source-outline",
           "numberingStyle": "decimal",
@@ -1252,6 +1276,12 @@
           "text": "Das Gesetz tritt am Tage seiner Verkündung in Kraft."
         }
       ]
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "Amtliche Berichtigung",
+      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2): Der Zielanker in Artikel 2 Nummer 1 wurde amtlich als § 65 Absatz 1 Satz 1 berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2025-03-12."
     }
   ]
 }

@@ -75,34 +75,35 @@
               "level": 0,
               "listId": "umob7xa2bbb5",
               "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "1.",
-              "text": "Aufträge, die aufgrund besonderer gesetzlicher Vorschriften von einem förmlichen Vergabeverfahren befreit sind,",
-              "level": 0,
-              "listId": "xqk19yooloz1",
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "2.",
-              "text": "Aufträge im Bereich der Daseinsvorsorge, soweit zwingende Gründe des Gemeinwohls entgegenstehen und",
-              "level": 0,
-              "listId": "xqk19yooloz1",
-              "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "item",
-              "label": "3.",
-              "text": "Aufträge, die aus sicherheits- oder verteidigungspolitischen Gründen einer Geheimhaltung unterliegen.",
-              "level": 0,
-              "listId": "xqk19yooloz1",
-              "numberingStyle": "decimal",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Aufträge, die aufgrund besonderer gesetzlicher Vorschriften von einem förmlichen Vergabeverfahren befreit sind,",
+                  "level": 1,
+                  "listId": "xqk19yooloz1",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Aufträge im Bereich der Daseinsvorsorge, soweit zwingende Gründe des Gemeinwohls entgegenstehen und",
+                  "level": 1,
+                  "listId": "xqk19yooloz1",
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Aufträge, die aus sicherheits- oder verteidigungspolitischen Gründen einer Geheimhaltung unterliegen.",
+                  "level": 1,
+                  "listId": "xqk19yooloz1",
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "subparagraph",

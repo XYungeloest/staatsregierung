@@ -1,0 +1,161 @@
+{
+  "amendmentAct": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+  "effectiveDate": "2026-09-01",
+  "amendmentCitation": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67), berichtigt durch OGVBl. 2026 Nr. 68",
+  "resultCitation": "Schulordnung Berufsschule vom 14. März 2023 (SächsGVBl. S. 92), geändert durch Artikel 2 § 3 der Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67), berichtigt durch OGVBl. 2026 Nr. 68",
+  "changeNote": "Bezeichnung, Verweise, Datenverarbeitung, Ethikregelung und schulartspezifische Begriffe wurden an das ostdeutsche Schulrecht angepasst; § 31 wurde in amtlich berichtigter Fassung eingefügt.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 67",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 67.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Berichtigung OGVBl. 2026 Nr. 68",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceRole": "amendment-evidence"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Schulordnung Berufsschule",
+      "value": "Verordnung über die Berufsschule im Freistaat Ostdeutschland (Schulordnung Berufsschule – BSO)",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 3 Nummer 1",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement",
+      "target": { "type": "paragraph", "label": "§ 4" },
+      "expectedOld": "Oberschule",
+      "value": "Polytechnische Oberschule",
+      "expectedMatches": 2,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 3 Nummer 2",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "deleteProvision",
+      "target": { "type": "item", "label": "6.", "text": "die Religionszugehörigkeit, sofern die Teilnahme am evangelischen oder katholischen Religionsunterricht beabsichtigt ist," },
+      "field": "text",
+      "expectedOld": "die Religionszugehörigkeit, sofern die Teilnahme am evangelischen oder katholischen Religionsunterricht beabsichtigt ist,",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "sourceProvision": "Artikel 2 § 3 Nummer 3 Buchstabe a",
+      "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": { "type": "item", "label": "7.", "text": "die Art und der Grad einer Behinderung, einer chronischen Krankheit oder eines festgestellten sonderpädagogischen Förderbedarfs, soweit dies für den Besuch der Berufsschule von Bedeutung ist," },
+      "field": "label", "expectedOld": "7.", "value": "6.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 3 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": { "type": "item", "label": "8.", "text": "die an allgemein- oder berufsbildenden Schulen erworbenen Abschlüsse," },
+      "field": "label", "expectedOld": "8.", "value": "7.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 3 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": { "type": "item", "label": "9.", "text": "bei Bestehen eines Berufsausbildungsverhältnisses der Ausbildungsberuf einschließlich der Fachrichtung oder des Schwerpunktes," },
+      "field": "label", "expectedOld": "9.", "value": "8.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 3 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": { "type": "item", "label": "10.", "text": "der Name, die Anschrift und die Telefonnummer der für die Ausbildung verantwortlichen Person und des Ausbildungsbetriebs," },
+      "field": "label", "expectedOld": "10.", "value": "9.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 3 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": { "type": "item", "label": "11.", "text": "die Kontaktdaten einer Person, die im Notfall zu benachrichtigen ist, sowie" },
+      "field": "label", "expectedOld": "11.", "value": "10.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 3 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision",
+      "target": { "type": "item", "label": "12.", "text": "bei Minderjährigen Name, Anschrift und Telefonnummer der Eltern." },
+      "field": "label", "expectedOld": "12.", "value": "11.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 3 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText",
+      "target": { "type": "paragraphText", "text": "Für die Verarbeitung der Daten nach Satz 1 Nummer 6 und 7 muss die Einwilligung der anzumeldenden Person, bei Minderjährigen die Einwilligung der Eltern vorliegen. Werden im Fall von Satz 1 Nummer 11 nicht die Eltern angegeben, ist die Einwilligung der betreffenden Person erforderlich, die zu benachrichtigen ist. Widerspricht eine berechtigte Person einer weiteren Verwendung freiwilliger Angaben, insbesondere der Verwendung einer E-Mail-Adresse, sind diese Angaben von der Berufsschule unverzüglich zu löschen." },
+      "field": "text",
+      "expectedOld": "Für die Verarbeitung der Daten nach Satz 1 Nummer 6 und 7 muss die Einwilligung der anzumeldenden Person, bei Minderjährigen die Einwilligung der Eltern vorliegen. Werden im Fall von Satz 1 Nummer 11 nicht die Eltern angegeben, ist die Einwilligung der betreffenden Person erforderlich, die zu benachrichtigen ist. Widerspricht eine berechtigte Person einer weiteren Verwendung freiwilliger Angaben, insbesondere der Verwendung einer E-Mail-Adresse, sind diese Angaben von der Berufsschule unverzüglich zu löschen.",
+      "value": "Für die Verarbeitung der Daten nach Satz 1 Nummer 6 muss die Einwilligung der anzumeldenden Person, bei Minderjährigen die Einwilligung der Eltern vorliegen.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 3 Buchstabe c", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "paragraph", "label": "§ 8" },
+      "expectedOld": "Freistaat Sachsen", "value": "Freistaat Ostdeutschland", "expectedMatches": 2,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 4", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "paragraph", "label": "§ 12" },
+      "expectedOld": "Freistaates Sachsen", "value": "Freistaates Ostdeutschland", "expectedMatches": 2,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 5 Buchstabe a", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "replaceText", "target": { "type": "subparagraph", "label": "(3)", "parentType": "paragraph", "parentLabel": "§ 12" },
+      "field": "text",
+      "expectedOld": "Die Einzugsbereiche und die Fachklassenstandorte werden durch die oberste Schulaufsichtsbehörde auf der Grundlage des Teilnetzschulplanes für die Berufsbildenden Schulen im Freistaat Sachsen (Ministerialblatt des Sächsischen Staatsministeriums für Kultus vom 18. Juni 2021) festgelegt.",
+      "value": "Die Einzugsbereiche und die Fachklassenstandorte werden durch die oberste Schulaufsichtsbehörde auf der Grundlage des genehmigten Teilschulnetzplanes für die berufsbildenden Schulen im Freistaat Ostdeutschland festgelegt.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 5 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "subparagraph", "label": "(4)", "parentType": "paragraph", "parentLabel": "§ 12" },
+      "expectedOld": "Sächsischen Schulgesetzes", "value": "Ostdeutschen Schulgesetzes", "expectedMatches": 2,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 5 Buchstabe c", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "subparagraph", "label": "(4)", "parentType": "paragraph", "parentLabel": "§ 12" },
+      "expectedOld": "Freistaat Sachsen", "value": "Freistaat Ostdeutschland", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 5 Buchstabe c", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "subparagraph", "label": "(4)", "parentType": "paragraph", "parentLabel": "§ 26" },
+      "expectedOld": "Sächsischen Schulgesetzes", "value": "Ostdeutschen Schulgesetzes", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 6", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "paragraph", "label": "§ 28" },
+      "expectedOld": "Mit den Noten der Fächer Evangelische Religion, Katholische Religion, Ethik oder Sport ist kein Notenausgleich möglich.",
+      "value": "Mit den Noten der Fächer Ethik oder Sport ist kein Notenausgleich möglich.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 7 Buchstabe a", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "subparagraph", "label": "(2)", "parentType": "paragraph", "parentLabel": "§ 28" },
+      "expectedOld": "der Oberschule", "value": "der Polytechnischen Oberschule", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 3 Nummer 7 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": { "type": "paragraph", "label": "§ 30" },
+      "expectedHash": "59e7d297f8faa1bd50564df66958852222130b8776eb3b032df759825ffde5bd",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 31",
+        "title": "Ethik sowie freiwilliger Religions- und Weltanschauungsunterricht",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Ethik ist Pflichtfach. Freiwilliger Religions- oder Weltanschauungsunterricht kann nach Maßgabe der §§ 18 bis 20 des Ostdeutschen Schulgesetzes und der Verordnung über Ethik sowie Religions- und Weltanschauungsunterricht zusätzlich angeboten werden. Seine Bewertung bleibt für Abschluss- und Versetzungsentscheidungen unberücksichtigt."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl.2026Nr.68.html", "sourceProvision": "Artikel 2 § 3 Nummer 8 in der berichtigten Fassung", "effectiveDate": "2026-09-01"
+    }
+  ]
+}

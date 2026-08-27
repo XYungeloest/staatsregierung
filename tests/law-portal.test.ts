@@ -484,7 +484,7 @@ test('Verfassung und Gemeindeordnung erfüllen die realen Herkunftsregressionen'
   assert.ok(municipality.versions.some((entry) => entry.versionId === '2023-12-31'));
 });
 
-test('redaktionell aufgelöste Quellenkonflikte sind vollständig und maschinenlesbar dokumentiert', () => {
+test('amtlich berichtigte Wortlaute und verbleibende Quellenkonflikte sind vollständig dokumentiert', () => {
   const read = (path: string) => JSON.parse(readFileSync(path, 'utf8'));
   const archiveMeta = read('content/normen/archivgesetz/meta.json');
   const archiveBaseline = read('content/normen/archivgesetz/versions/2023-11-01.json');
@@ -508,7 +508,10 @@ test('redaktionell aufgelöste Quellenkonflikte sind vollständig und maschinenl
   assert.match(countyText, /§ 65/u);
   assert.match(countyText, /der jeweilige Bezirk/u);
   assert.doesNotMatch(countyText, /§ 75/u);
-  assert.equal(countyMeta.editorialResolutions[0].resolvedApplication.includes('§ 65'), true);
+  assert.equal(countyMeta.editorialResolutions, undefined);
+  assert.ok(countyMeta.sourceReferences.some((reference: any) =>
+    reference.localSource === 'Gesetze/OGVBl.2026Nr.68.html' && reference.sourceRole === 'amendment-evidence'
+  ));
 
   const policeMeta = read('content/normen/ostdeutsches-polizeivollzugsdienstgesetz/meta.json');
   const police2026 = read('content/normen/ostdeutsches-polizeivollzugsdienstgesetz/versions/2026-03-24.json');
@@ -519,10 +522,16 @@ test('redaktionell aufgelöste Quellenkonflikte sind vollständig und maschinenl
   assert.equal(labels.indexOf('§ 41a'), labels.indexOf('§ 41') + 1);
   assert.equal(labels[labels.indexOf('§ 41a') + 1], '§ 42');
   assert.equal(labels.includes('§ 32a'), false);
-  assert.equal(policeMeta.editorialResolutions[0].status, 'resolved-source-conflict');
+  assert.equal(policeMeta.editorialResolutions, undefined);
+  assert.ok(policeMeta.sourceReferences.some((reference: any) =>
+    reference.localSource === 'Gesetze/OGVBl.2026Nr.68.html' && reference.sourceRole === 'amendment-evidence'
+  ));
 
   const districtMeta = read('content/normen/ostdeutsche-bezirksordnung/meta.json');
-  assert.equal(districtMeta.editorialResolutions[0].status, 'resolved-source-conflict');
+  assert.equal(districtMeta.editorialResolutions, undefined);
+  assert.ok(districtMeta.sourceReferences.some((reference: any) =>
+    reference.localSource === 'Gesetze/OGVBl.2026Nr.68.html' && reference.sourceRole === 'amendment-evidence'
+  ));
 });
 
 function searchDocument(overrides: Partial<SearchIndexDocument> = {}): SearchIndexDocument {

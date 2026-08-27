@@ -1,0 +1,37 @@
+{
+  "correctionAct": "berichtigung-verschiedener-verkuendungen-2026",
+  "correctionCitation": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+  "correctionPublicationDate": "2026-08-27",
+  "legalEffect": "declaratory-correction",
+  "targetSlug": "staatsverfassung-des-freistaates-ostdeutschland",
+  "targetVersionId": "2026-07-21",
+  "effectiveDate": "2026-07-21",
+  "changeNote": "Der Wahltermin in Artikel 121a Absatz 1 wurde aufgrund der amtlichen Berichtigung richtiggestellt.",
+  "resultAssertions": [
+    {
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt."
+      },
+      "equals": "Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt."
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "text": "Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt."
+      },
+      "field": "text",
+      "expectedOld": "Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.",
+      "value": "Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Nummer 5",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

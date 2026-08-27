@@ -70,25 +70,26 @@
           "level": 0,
           "listId": "g8tknh4upkyg",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "der „Oberschule“ die „Polytechnische Oberschule“ und",
-          "level": 0,
-          "listId": "ik5jgq9kdg62",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "b)",
-          "text": "des „Gymnasiums“ oder der „gymnasialen Oberstufe“ die „Erweiterte Oberschule“,",
-          "level": 0,
-          "listId": "ik5jgq9kdg62",
-          "numberingStyle": "lower-latin",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "der „Oberschule“ die „Polytechnische Oberschule“ und",
+              "level": 1,
+              "listId": "ik5jgq9kdg62",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "des „Gymnasiums“ oder der „gymnasialen Oberstufe“ die „Erweiterte Oberschule“,",
+              "level": 1,
+              "listId": "ik5jgq9kdg62",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         },
         {
           "type": "paragraphText",

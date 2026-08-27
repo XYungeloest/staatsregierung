@@ -55,28 +55,37 @@
       "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
   ],
   "effectiveDate": "2025-03-12",
   "enactingNorm": "ostdeutsches-bezirkseinfuehrungsgesetz",
   "affectedByNorms": [
     "sportneuordnungsgesetz",
-    "kreis-und-bezirksneuordnungsgesetz"
-  ],
-  "editorialResolutions": [
-    {
-      "id": "sportneuordnung-bezirksordnung-neufassung",
-      "status": "resolved-source-conflict",
-      "decisionDate": "2026-07-23",
-      "issue": "Artikel 8 bezeichnet die Bezirksordnung von 2025, setzt aber eine Aufgabenliste in § 13 und einen § 13a voraus, die erst die Neufassung 2026 besitzt.",
-      "publishedText": "Artikel 8 bezeichnet die Ostdeutsche Bezirksordnung vom 6. März 2025.",
-      "resolvedApplication": "Die Änderungen werden auf die strukturell passenden Vorschriften der ab 1. August 2026 geltenden Neufassung angewendet.",
-      "rationale": "Nur die Neufassung enthält die von den Änderungsbefehlen vorausgesetzten Zielanker.",
-      "evidence": [
-        "content/normen/sportneuordnungsgesetz/versions/2026-07-21.json",
-        "content/normen/ostdeutsche-bezirksordnung/versions/2025-03-12.json",
-        "content/normen/ostdeutsche-bezirksordnung/versions/2026-08-01.json"
-      ]
-    }
+    "kreis-und-bezirksneuordnungsgesetz",
+    "berichtigung-verschiedener-verkuendungen-2026"
   ]
 }

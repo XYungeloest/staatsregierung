@@ -22,6 +22,7 @@ import {
   validateConstitutionParserContract,
   validatePublicationParserContract,
 } from './lib/norm-parser-contract.mjs';
+import { applyCorrectionsToRecord, loadCorrectionBundles } from './lib/correction-engine.mjs';
 
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
@@ -40,6 +41,7 @@ const allowExistingUpdate = args.includes('--update-existing');
 const selectedFiles = new Set(allValuesAfter('--file').flatMap((value) => value.split(',')).map((value) => basename(value.trim())));
 const editorialConfig = JSON.parse(await readFile(resolve(ROOT, 'src/config/editorial.json'), 'utf8'));
 const asOf = valueAfter('--as-of') ?? editorialConfig.referenceDate;
+const correctionBundles = await loadCorrectionBundles(ROOT);
 
 if (!/^\d{4}-\d{2}-\d{2}$/u.test(asOf)) {
   throw new Error(`Ungültiger Stichtag „${asOf}“. Erwartet wird --as-of JJJJ-MM-TT.`);
@@ -115,6 +117,36 @@ const ISSUE_SUBJECTS = {
 
 const SCHOOL_LAW_SUBJECTS = ['Bildung und Weiterbildung', 'Schulrecht'];
 const NEW_PUBLICATION_CONFIG = {
+  'OGVBl.|2026|68': [{
+    slug: 'berichtigung-verschiedener-verkuendungen-2026',
+    shortTitle: 'Berichtigung verschiedener Verkündungen',
+    type: 'berichtigung',
+    pageCount: 5,
+    pdfFileName: 'OGVBl. 2026 Nr. 68.pdf',
+    verifiedAt: '2026-08-27',
+    enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
+    responsibleMinistry: 'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
+    subjects: ['Landesrecht'],
+    summary: 'Berichtigt acht frühere Verkündungen, ohne einen neuen materiellen Änderungszeitpunkt für die betroffenen Rechtsvorschriften zu begründen.',
+    affectedNorms: [
+      'dienstanordnung-momentane-terrorgefahr-2024',
+      'organisationserlass-neueinteilung-fachbereiche-2024',
+      'ostdeutsches-bezirkseinfuehrungsgesetz',
+      'saechsische-landkreisordnung',
+      'gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe',
+      'ostdeutsches-polizeivollzugsdienstgesetz',
+      'erstes-gesetz-zur-grossen-staatsreform',
+      'staatsverfassung-des-freistaates-ostdeutschland',
+      'sportneuordnungsgesetz',
+      'ostdeutsche-bezirksordnung',
+      'verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026',
+      'schulordnung-foerderschulen',
+      'verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026',
+      'schulordnung-berufsschule',
+      'schulordnung-berufliche-gymnasien',
+    ],
+    dateNote: 'Am 27. August 2026 verkündet. Die Berichtigung stellt den richtigen Wortlaut früherer Verkündungen fest; sie erzeugt keinen eigenständigen materiellen Fassungswechsel zum Verkündungsdatum.',
+  }],
   'OGVBl.|2026|60': [{
     slug: 'schulordnung-polytechnische-oberschulen', shortTitle: 'Schulordnung Polytechnische Oberschulen', abbr: 'SOPOS', type: 'verordnung', pageCount: 20,
     responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft',
@@ -481,7 +513,9 @@ function formatGermanDate(isoDate) {
 }
 
 function citationFor(parsed, startPage) {
-  const label = /Erlass/iu.test(parsed.heading ?? '')
+  const label = /Berichtigung/iu.test(parsed.heading ?? '') || parsed.type === 'berichtigung'
+    ? 'Berichtigung'
+    : /Erlass/iu.test(parsed.heading ?? '')
     ? 'Erlass'
     : /Verwaltungsvorschrift/iu.test(parsed.heading ?? '')
     ? 'Verwaltungsvorschrift'
@@ -494,7 +528,7 @@ function citationFor(parsed, startPage) {
 }
 
 function deriveStatus(norm, index) {
-  if (index === 0 && norm.type === 'aenderungsvorschrift') return 'one-time-act';
+  if (index === 0 && ['aenderungsvorschrift', 'berichtigung'].includes(norm.type)) return 'one-time-act';
   if (!norm.effectiveDate) return 'pending-effective';
   return norm.effectiveDate > asOf ? 'future-effective' : 'in-force';
 }
@@ -605,6 +639,7 @@ function legacyEntryCitation(previous, meta, publication, documentDate) {
     foerderrichtlinie: 'Förderrichtlinie',
     allgemeinverfuegung: 'Allgemeinverfügung',
     bekanntmachung: 'Bekanntmachung',
+    berichtigung: 'Berichtigung',
     staatsvertrag: 'Staatsvertrag',
     zustimmungsgesetz: 'Gesetz',
     aenderungsvorschrift: 'Gesetz',
@@ -1242,6 +1277,19 @@ async function readExistingRecord(slug) {
 
 function mergeWithExisting(record, existing) {
   if (!existing) return record;
+  const inferredEnactingNorm = [
+    existing.meta.enactedNorm,
+    record.meta.enactedNorm,
+    ...(existing.meta.enactedNorms ?? []),
+    ...(record.meta.enactedNorms ?? []),
+  ].some(Boolean)
+    ? undefined
+    : existing.history.entries.find((entry) => entry.type === 'initial')?.relatedNorm;
+  const incomingHistoryEntries = record.history.entries.filter((entry) => !(
+    entry.type === 'initial' &&
+    !entry.affectingVersionId &&
+    existing.history.entries.some((candidate) => candidate.type === 'initial' && candidate.affectingVersionId)
+  ));
   const preservedMeta = {
     ...record.meta,
     subjects: [...new Set([...(record.meta.subjects ?? []), ...(existing.meta.subjects ?? [])])],
@@ -1252,6 +1300,18 @@ function mergeWithExisting(record, existing) {
     summary: existing.meta.summary && !/^Regelt\s/u.test(existing.meta.summary)
       ? existing.meta.summary
       : record.meta.summary,
+    ...((existing.meta.enactingNorm ?? record.meta.enactingNorm ?? inferredEnactingNorm)
+      ? { enactingNorm: existing.meta.enactingNorm ?? record.meta.enactingNorm ?? inferredEnactingNorm }
+      : {}),
+    ...((existing.meta.enactedNorm ?? record.meta.enactedNorm)
+      ? { enactedNorm: existing.meta.enactedNorm ?? record.meta.enactedNorm }
+      : {}),
+    ...((existing.meta.enactedNorms ?? record.meta.enactedNorms)
+      ? { enactedNorms: existing.meta.enactedNorms ?? record.meta.enactedNorms }
+      : {}),
+    ...((existing.meta.relatedNorms ?? record.meta.relatedNorms)
+      ? { relatedNorms: existing.meta.relatedNorms ?? record.meta.relatedNorms }
+      : {}),
     predecessor: existing.meta.predecessor ?? record.meta.predecessor,
     successor: existing.meta.successor ?? record.meta.successor,
     ...((existing.meta.affectedNorms?.length || record.meta.affectedNorms?.length) ? {
@@ -1274,24 +1334,29 @@ function mergeWithExisting(record, existing) {
       ),
     ],
   };
-  const generatedEntryKeys = new Set(record.history.entries.map((entry) => JSON.stringify([
+  const generatedEntryKeys = new Set(incomingHistoryEntries.map((entry) => JSON.stringify([
     entry.date,
     entry.type,
     entry.relatedNorm ?? null,
   ])));
+  const hasConcreteInitialEntry = existing.history.entries.some((entry) =>
+    entry.type === 'initial' && entry.affectingVersionId
+  );
   const preservedEntries = (existing.history.entries ?? []).filter((entry) => !generatedEntryKeys.has(JSON.stringify([
     entry.date,
     entry.type,
     entry.relatedNorm ?? null,
-  ])));
+  ])) && !(hasConcreteInitialEntry && entry.type === 'initial' && !entry.affectingVersionId));
   return {
     ...record,
     meta: preservedMeta,
     history: {
-      initialVersionId: record.history.initialVersionId === null
-        ? null
-        : existing.history.initialVersionId ?? record.history.initialVersionId,
-      entries: [...preservedEntries, ...record.history.entries]
+      initialVersionId:
+        existing.history.initialVersionId ??
+        record.history.initialVersionId ??
+        existing.history.entries.find((entry) => entry.type === 'initial' && entry.affectingVersionId)?.affectingVersionId ??
+        null,
+      entries: [...preservedEntries, ...incomingHistoryEntries]
         .sort((left, right) => left.date.localeCompare(right.date)),
     },
   };
@@ -1316,6 +1381,7 @@ function jsonEquals(left, right) {
 
 async function recordMatchesExisting(record, existing) {
   if (!existing) return false;
+  record = applyCorrectionsToRecord(record, correctionBundles).record;
   const merged = mergeWithExisting(record, existing);
   if (!jsonEquals(merged.meta, existing.meta) || !jsonEquals(merged.history, existing.history)) return false;
   for (const version of merged.versions) {
@@ -1418,6 +1484,7 @@ async function loadExistingPublications() {
 }
 
 function compareGeneratedRecordToExisting(record, existing) {
+  record = applyCorrectionsToRecord(record, correctionBundles).record;
   if (!existing) return { status: 'missing-content-record', issues: ['kein Datensatz unter dem stabilen Slug vorhanden'] };
   const version = existing.versions.find((entry) => entry.versionId === record.versions[0].versionId);
   if (!version) return { status: 'differs', issues: [`Fassung ${record.versions[0].versionId} fehlt`] };
@@ -1474,7 +1541,6 @@ function districtReplacementBeforeSportAmendment(body) {
 function preserveExistingHistoryForAudit(record, existing) {
   if (!existing) return record;
   if (
-    record.meta.slug !== 'staatsverfassung-des-freistaates-ostdeutschland' &&
     record.meta.slug !== 'ostdeutsche-bezirksordnung' &&
     record.meta.slug !== 'bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu'
   ) {
