@@ -434,6 +434,15 @@ async function main() {
     targets: manifestTargets,
   };
   const openTargets = manifestTargets.filter((target) => target.status !== 'complete');
+  const openTargetDetails = openTargets.flatMap((target) => [
+    `### ${target.title}`,
+    '',
+    `- Datensatz: \`${target.canonicalSlug}\``,
+    `- Status: \`${target.status}\``,
+    ...(target.problems.length ? target.problems.map((problem) => `- Problem: ${problem}`) : []),
+    `- Nächster Schritt: ${target.nextAction}`,
+    '',
+  ]);
   const report = [
     '# Konsolidierungs-Audit',
     '',
@@ -452,8 +461,9 @@ async function main() {
     `- Blockierte Quellenkonflikte: ${manifest.counts.blockedSourceConflicts}`,
     `- Fehlende Primärquellen: ${manifest.counts.missingPrimarySources}`,
     '',
-    'Der maschinenlesbare Einzelstatus mit betroffenen Zielnormen, Problemen, Quellen und nächsten Schritten steht in `data/recht/consolidation-manifest.json`. Redaktionelle Quellenfragen werden in `CONTENT_GAPS.md` gebündelt.',
+    'Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solange eine Zielnorm noch nicht vollständig umgesetzt ist, bleibt sie mit Problem und nächstem Schritt hier sichtbar. Der vollständige maschinenlesbare Status steht zusätzlich in `data/recht/consolidation-manifest.json`; redaktionelle Quellenfragen werden in `CONTENT_GAPS.md` gebündelt.',
     '',
+    ...(openTargetDetails.length ? ['## Offene Zielnormen', '', ...openTargetDetails] : []),
     ...(templateProblems.length ? ['## Nicht als Zielnorm behandelte Vorlagen', '', ...templateProblems.map((problem) => `- ${problem}`), ''] : []),
     ...(ambiguousFindings.length
       ? [
