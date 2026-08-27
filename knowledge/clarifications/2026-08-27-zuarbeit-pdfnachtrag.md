@@ -5,18 +5,17 @@ Diese Klarstellung dokumentiert die Auswertung der im Zuarbeitungsformular benan
 gegen die strukturierten Rechtsportalbestände geprüft. Für den Normwortlaut bleiben die archivierten
 Originaldokumente maßgeblich.
 
-## PDF-Nachtrag zu älteren Einzelverkündungen
+## Ältere Einzelverkündungen
 
 - Die Abschiebe-Aussetzungsverordnung wurde am 1. März 2024 verkündet und trat sofort in Kraft. Sie
   setzte Abschiebungen nach Syrien, Afghanistan, Irak, Somalia und Eritrea für drei Monate aus. Die
-  spätere Aufhebungsverordnung vom 16. September 2025 hob sie ausdrücklich auf. Die neue
-  Rechtsportaltranskription bildet die bereitgestellte amtliche Lesefassung vollständig ab.
+  Aufhebungsverordnung vom 16. September 2025 hob sie ausdrücklich auf.
 - Die Verordnung zur Änderung der Oberstufen- und Abiturprüfungsverordnung und der
-  Organisationserlass zur Fachbereichszuteilung wurden bereits am 16. beziehungsweise
-  23. September 2024 einzeln verkündet. Die spätere Sammelausgabe bleibt als weitere Fundstelle
-  erhalten. Die 2024 adressierte Oberstufen- und Abiturprüfungsverordnung war bereits seit dem
-  1. August 2008 außer Kraft; der Änderungsakt setzte sie nicht wieder in Kraft. Deshalb wird weder
-  eine künstliche damalige Ausgangsfassung angefordert noch eine Folgefassung konsolidiert.
+  Organisationserlass zur Fachbereichszuteilung wurden am 16. beziehungsweise 23. September 2024
+  einzeln verkündet. Die spätere Sammelausgabe bleibt als weitere Fundstelle erhalten. Die 2024
+  adressierte Oberstufen- und Abiturprüfungsverordnung war bereits seit dem 1. August 2008 außer
+  Kraft; der Änderungsakt setzte sie nicht wieder in Kraft. Deshalb wird keine künstliche damalige
+  Ausgangs- oder Folgefassung konsolidiert.
 - Die Dienstanordnung anlässlich der momentanen Terrorgefahr wurde am 2. Oktober 2024 verkündet und
   trat mit Ablauf des 6. Oktober 2024 außer Kraft. Der direkte Einzelnachweis enthält diese
   Befristung, die in der späteren Sammelausgabe fehlt.
@@ -31,22 +30,18 @@ Originaldokumente maßgeblich.
   Silvesterdienstanordnung wurde am 31. Dezember 2024 und der Organisationserlass zur Neugliederung
   einiger Ministerien am 22. Januar 2025 veröffentlicht.
 
-## Umgesetzte Verwaltungsangebote
+## Verwaltungsangebote
 
-Transparenzportal und Zuständigkeitsfinder sind nach der redaktionellen Zuarbeitung im Kanon
-umgesetzt. Sie sind keine Bestandteile dieses Website-Repositories. Deshalb werden weder erfundene
-Portalrouten noch unbestätigte öffentliche URLs angelegt; im Wissenshub wird nur der bestätigte
-Umsetzungsstand geführt.
+Transparenzportal und Zuständigkeitsfinder sind im Kanon umgesetzt und werden außerhalb dieses
+Website-Repositories betrieben. Deshalb werden im Repository weder erfundene Portalrouten noch
+unbestätigte öffentliche URLs angelegt.
 
 ## Historische Amtszeit Wolfgang Schmidts
 
-Die Datumsangabe 31. Januar 2024 in der historischen Regierungschefliste ist fehlerhaft. Wolfgang
-Schmidt trat das Amt des Ministerpräsidenten am 14. April 2025 an. In Verbindung mit der dort
-genannten Amtsdauer von 52 Tagen und dem Amtsantritt Tom Kurzschlusses am 5. Juni 2025 ergibt sich
-eine Amtszeit bis einschließlich 4. Juni 2025. Das Kabinett Schmidt wird entsprechend als
-historische Regierung modelliert.
+Wolfgang Schmidt war vom **14. April 2025 bis einschließlich 4. Juni 2025** Ministerpräsident. Das
+Kabinett Schmidt wird entsprechend als historische Regierung modelliert.
 
-## Weiterhin offen
+## Weiterhin offene Primärquelle
 
 Die vollständige Ausgangsfassung des NDR-Staatsvertrags vor der Änderung vom 8. März 2026 liegt
-weiterhin nicht vor. Aus den neuen PDF-Dateien wird hierzu nichts ergänzt.
+weiterhin nicht vor.
