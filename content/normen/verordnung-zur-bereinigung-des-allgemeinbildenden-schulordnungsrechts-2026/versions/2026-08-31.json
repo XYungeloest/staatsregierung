@@ -1269,25 +1269,26 @@
           "level": 0,
           "listId": "zcocdsp1ib78",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "in der Zeile zur Vorbereitungsklasse die Wörter „Grundschule, Oberschule, Gemeinschaftsschule“ durch die Wörter „Polytechnische Oberschule“ und",
-          "level": 0,
-          "listId": "txsawg1ppd3p",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "b)",
-          "text": "in den Zeilen zum Grund- und Leistungskurs die Wörter „Gymnasium, Gemeinschaftsschule, Berufliches Gymnasium, Abendgymnasium, Kolleg“ durch die Wörter „Erweiterte Oberschule, Berufliches Gymnasium, Abendgymnasium, Kolleg“",
-          "level": 0,
-          "listId": "txsawg1ppd3p",
-          "numberingStyle": "lower-latin",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "in der Zeile zur Vorbereitungsklasse die Wörter „Grundschule, Oberschule, Gemeinschaftsschule“ durch die Wörter „Polytechnische Oberschule“ und",
+              "level": 1,
+              "listId": "txsawg1ppd3p",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "in den Zeilen zum Grund- und Leistungskurs die Wörter „Gymnasium, Gemeinschaftsschule, Berufliches Gymnasium, Abendgymnasium, Kolleg“ durch die Wörter „Erweiterte Oberschule, Berufliches Gymnasium, Abendgymnasium, Kolleg“",
+              "level": 1,
+              "listId": "txsawg1ppd3p",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         },
         {
           "type": "paragraphText",
@@ -1945,7 +1946,7 @@
         {
           "type": "item",
           "label": "8.",
-          "text": "Nach § 31 wird folgender § 31a eingefügt:",
+          "text": "Nach § 30 wird folgender § 31 eingefügt:",
           "level": 0,
           "listId": "6mvc5fabw1yw",
           "numberingStyle": "decimal",
@@ -1955,7 +1956,7 @@
               "children": [
                 {
                   "type": "paragraph",
-                  "label": "§ 31a",
+                  "label": "§ 31",
                   "title": "Ethik sowie freiwilliger Religions- und Weltanschauungsunterricht",
                   "children": [
                     {
@@ -2010,15 +2011,6 @@
           "type": "item",
           "label": "c)",
           "text": "Im neuen Absatz 5 Satz 1 werden die Wörter „Absätzen 1 und 4“ durch die Wörter „Absätzen 1 und 3“ ersetzt.",
-          "level": 0,
-          "listId": "80c1kb5vt5az",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "d)",
-          "text": "Im neuen Absatz 4 Satz 2 werden die Wörter „Absatz 6 Satz 1“ durch die Wörter „Absatz 5 Satz 1“ ersetzt.",
           "level": 0,
           "listId": "80c1kb5vt5az",
           "numberingStyle": "lower-latin",
@@ -2434,6 +2426,38 @@
           "children": []
         }
       ]
+    }
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4–5)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4–5)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "Amtliche Berichtigung",
+      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4–5): Der Einfügungsbefehl für § 31 BSO und die überzählige Folgeänderung in § 4 Nummer 1 Buchstabe d wurden amtlich berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2026-08-31."
     }
   ]
 }

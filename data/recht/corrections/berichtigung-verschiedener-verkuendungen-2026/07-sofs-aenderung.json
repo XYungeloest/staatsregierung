@@ -1,0 +1,36 @@
+{
+  "correctionAct": "berichtigung-verschiedener-verkuendungen-2026",
+  "correctionCitation": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
+  "correctionPublicationDate": "2026-08-27",
+  "legalEffect": "declaratory-correction",
+  "targetSlug": "verordnung-zur-aenderung-der-schulordnung-foerderschulen-2026",
+  "targetVersionId": "2026-09-01",
+  "effectiveDate": "2026-09-01",
+  "changeNote": "Die Änderungsbefehle zu § 8 Absatz 2 und § 9 Absatz 2 wurden amtlich auf den vorhandenen Lehrplanverweis berichtigt.",
+  "resultAssertions": [
+    {
+      "target": {
+        "type": "item",
+        "label": "a)",
+        "text": "In Absatz 2 werden die Wörter „Lehrplänen für die Grundschule“ durch die Wörter „Lehrplänen für die Klassenstufen 1 bis 4 der Polytechnischen Oberschule“ ersetzt."
+      },
+      "equals": "In Absatz 2 werden die Wörter „Lehrplänen für die Grundschule“ durch die Wörter „Lehrplänen für die Klassenstufen 1 bis 4 der Polytechnischen Oberschule“ ersetzt.",
+      "expectedMatches": 2
+    }
+  ],
+  "operations": [
+    {
+      "op": "designationReplacement",
+      "target": {
+        "type": "article",
+        "label": "Artikel 1"
+      },
+      "expectedOld": "In Absatz 2 werden die Wörter „Klassenstufen 1 bis 4 der Grundschule“ durch die Wörter „Klassenstufen 1 bis 4 der Polytechnischen Oberschule“ ersetzt.",
+      "value": "In Absatz 2 werden die Wörter „Lehrplänen für die Grundschule“ durch die Wörter „Lehrplänen für die Klassenstufen 1 bis 4 der Polytechnischen Oberschule“ ersetzt.",
+      "expectedMatches": 2,
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Nummer 7 Buchstaben a und b",
+      "effectiveDate": "2026-09-01"
+    }
+  ]
+}

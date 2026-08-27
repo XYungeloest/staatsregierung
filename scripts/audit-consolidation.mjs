@@ -280,15 +280,28 @@ async function main() {
           templateProblems.push(`${record.meta.slug}: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm`);
           continue;
         }
-        recognizedActs.add(record.meta.slug);
         const target = targets.get(canonical.canonicalSlug) ?? {
           ...canonical,
           aliases: [],
           amendmentActs: [],
+          correctionActs: [],
           effectiveDates: [],
           problems: [],
         };
         if (!target.aliases.includes(targetTitle)) target.aliases.push(targetTitle);
+        if (record.meta.type === 'berichtigung') {
+          if (!target.correctionActs.some((act) => act.slug === record.meta.slug)) {
+            target.correctionActs.push({
+              slug: record.meta.slug,
+              title: record.meta.title,
+              publicationDate: record.meta.publicationDate ?? recordEffectiveDate,
+              detectedType: record.meta.type,
+            });
+          }
+          targets.set(canonical.canonicalSlug, target);
+          continue;
+        }
+        recognizedActs.add(record.meta.slug);
         if (!target.amendmentActs.some((act) => act.slug === record.meta.slug)) {
           target.amendmentActs.push({
             slug: record.meta.slug,
@@ -409,6 +422,9 @@ async function main() {
       amendmentActs: amendmentActsWithTargetDates.sort((a, b) =>
         (a.targetEffectiveDate ?? '').localeCompare(b.targetEffectiveDate ?? '')
       ),
+      correctionActs: [...(target.correctionActs ?? [])].sort((a, b) =>
+        (a.publicationDate ?? '').localeCompare(b.publicationDate ?? '')
+      ),
       effectiveDates,
       status,
       problems,
@@ -478,7 +494,7 @@ async function main() {
   ].join('\n');
 
   const manifestText = `${JSON.stringify(manifest, null, 2)}\n`;
-  const reportText = `${report}\n`;
+  const reportText = `${report.trimEnd()}\n`;
   if (CHECK_ONLY) {
     const [storedManifest, storedReport] = await Promise.all([
       readFile(MANIFEST_PATH, 'utf8').catch(() => ''),

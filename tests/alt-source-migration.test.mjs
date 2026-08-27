@@ -158,18 +158,21 @@ test('Sportänderung gilt ab 1. August für die neue Bezirksordnung', async () =
   );
 });
 
-test('Landkreis-, Archiv- und Polizeikonflikte sind redaktionell aufgelöst und bleiben transparent', async () => {
+test('Landkreis- und Polizeiwortlaut folgen der amtlichen Berichtigung; der Archivkonflikt bleibt transparent', async () => {
   const [manifest, countyBaseline] = await Promise.all([
     readJson('data/recht/consolidation-manifest.json'),
     readJson('data/recht/parsed/revosax/saechsische-landkreisordnung.json'),
   ]);
   const bySlug = new Map(manifest.targets.map((entry) => [entry.canonicalSlug, entry]));
   assert.equal(bySlug.get('saechsische-landkreisordnung')?.status, 'complete');
-  assert.equal(bySlug.get('saechsische-landkreisordnung')?.editorialResolutions[0].status, 'resolved-source-conflict');
+  assert.equal(bySlug.get('saechsische-landkreisordnung')?.editorialResolutions.length, 0);
+  assert.equal(bySlug.get('saechsische-landkreisordnung')?.correctionActs[0].slug, 'berichtigung-verschiedener-verkuendungen-2026');
   assert.equal(flatten(countyBaseline.body).some((block) => block.label === '§ 75'), false);
   assert.equal(bySlug.get('archivgesetz')?.status, 'complete');
   assert.equal(bySlug.get('archivgesetz')?.editorialResolutions[0].status, 'resolved-source-conflict');
   assert.equal(bySlug.get('ostdeutsches-polizeivollzugsdienstgesetz')?.status, 'complete');
+  assert.equal(bySlug.get('ostdeutsches-polizeivollzugsdienstgesetz')?.editorialResolutions.length, 0);
+  assert.equal(bySlug.get('ostdeutsches-polizeivollzugsdienstgesetz')?.correctionActs[0].slug, 'berichtigung-verschiedener-verkuendungen-2026');
   assert.equal(bySlug.has('saechsisches-polizeigesetz'), false);
   assert.notEqual(bySlug.get('ostdeutsche-bezirksordnung')?.status, 'blocked-source-conflict');
 });

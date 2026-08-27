@@ -41,34 +41,35 @@
       "level": 0,
       "listId": "printed-outline",
       "numberingStyle": "decimal",
-      "children": []
-    },
-    {
-      "type": "item",
-      "label": "a)",
-      "text": "das Wort „Regionalschulamt“ durch das Wort „Schulaufsichtsbehörde“,",
-      "level": 0,
-      "listId": "5o55pqdebhs5",
-      "numberingStyle": "lower-latin",
-      "children": []
-    },
-    {
-      "type": "item",
-      "label": "b)",
-      "text": "das Wort „Regionalschulamtes“ durch das Wort „Schulaufsichtsbehörde“ und",
-      "level": 0,
-      "listId": "5o55pqdebhs5",
-      "numberingStyle": "lower-latin",
-      "children": []
-    },
-    {
-      "type": "item",
-      "label": "c)",
-      "text": "das Wort „Regionalschulämter“ durch das Wort „Schulaufsichtsbehörden“",
-      "level": 0,
-      "listId": "5o55pqdebhs5",
-      "numberingStyle": "lower-latin",
-      "children": []
+      "children": [
+        {
+          "type": "item",
+          "label": "a)",
+          "text": "das Wort „Regionalschulamt“ durch das Wort „Schulaufsichtsbehörde“,",
+          "level": 1,
+          "listId": "5o55pqdebhs5",
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "das Wort „Regionalschulamtes“ durch das Wort „Schulaufsichtsbehörde“ und",
+          "level": 1,
+          "listId": "5o55pqdebhs5",
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "das Wort „Regionalschulämter“ durch das Wort „Schulaufsichtsbehörden“",
+          "level": 1,
+          "listId": "5o55pqdebhs5",
+          "numberingStyle": "lower-latin",
+          "children": []
+        }
+      ]
     },
     {
       "type": "paragraphText",

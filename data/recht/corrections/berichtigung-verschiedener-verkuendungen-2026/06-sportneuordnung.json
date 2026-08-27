@@ -1,0 +1,35 @@
+{
+  "correctionAct": "berichtigung-verschiedener-verkuendungen-2026",
+  "correctionCitation": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+  "correctionPublicationDate": "2026-08-27",
+  "legalEffect": "declaratory-correction",
+  "targetSlug": "sportneuordnungsgesetz",
+  "targetVersionId": "2026-07-21",
+  "effectiveDate": "2026-07-21",
+  "changeNote": "Der Einleitungssatz von Artikel 8 wurde amtlich auf die Neufassung der Bezirksordnung aus OGVBl. 2026 Nr. 46 berichtigt.",
+  "resultAssertions": [
+    {
+      "target": {
+        "type": "paragraphText",
+        "text": "Die Ostdeutsche Bezirksordnung in der Fassung des Artikels 2 des Gesetzes zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2) wird wie folgt geändert:"
+      },
+      "equals": "Die Ostdeutsche Bezirksordnung in der Fassung des Artikels 2 des Gesetzes zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2) wird wie folgt geändert:"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "paragraphText",
+        "text": "Die Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. I/2025 S. 7), die zuletzt durch … geändert worden ist, wird wie folgt geändert:"
+      },
+      "field": "text",
+      "expectedOld": "Die Ostdeutsche Bezirksordnung vom 6. März 2025 (OGVBl. I/2025 S. 7), die zuletzt durch … geändert worden ist, wird wie folgt geändert:",
+      "value": "Die Ostdeutsche Bezirksordnung in der Fassung des Artikels 2 des Gesetzes zur Neuordnung der Kreise und Bezirke und zur Anpassung bezirks- und kreisrechtlicher Vorschriften vom 20. Juli 2026 (OGVBl. 2026 Nr. 46 S. 2) wird wie folgt geändert:",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Nummer 6",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

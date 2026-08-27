@@ -64,6 +64,14 @@ async function amendmentActText(slug) {
   return (await Promise.all(files.map((file) => readFile(join(versionsDirectory, file), 'utf8')))).join('\n');
 }
 
+function normalizeEvidenceText(value) {
+  return String(value)
+    .normalize('NFKC')
+    .replace(/\s+/gu, ' ')
+    .trim()
+    .replace(/[:.]$/u, '');
+}
+
 async function parseAdoptedSource(slug, source) {
   if (!source.id || !source.versionDate || !source.citation || !source.changeNote) {
     throw new Error(`${slug}: Zusatzquelle benötigt id, versionDate, citation und changeNote`);
@@ -73,7 +81,7 @@ async function parseAdoptedSource(slug, source) {
     throw new Error(`${slug}/${source.id}: überprüfbare adoptionEvidence fehlt`);
   }
   const actText = await amendmentActText(evidence.amendmentAct);
-  if (!actText.includes(evidence.text)) {
+  if (!normalizeEvidenceText(actText).includes(normalizeEvidenceText(evidence.text))) {
     throw new Error(`${slug}/${source.id}: Adoptionsbeleg stimmt nicht mit ${evidence.amendmentAct} überein`);
   }
   const snapshot = await readFile(resolve(ROOT, source.snapshot), 'utf8');
@@ -159,11 +167,27 @@ function historyEntryKey(entry) {
 
 async function consolidate(slug, config) {
   const source = config.targets[slug];
-  if (!source?.snapshot || !source.sourceSha256) throw new Error(`${slug}: geprüfter REVOSax-Snapshot fehlt`);
-  const snapshot = await readFile(resolve(ROOT, source.snapshot), 'utf8');
-  const rawParsed = parseRevosaxSnapshot(snapshot, { url: source.baselineUrl });
+  if (!source) throw new Error(`${slug}: Quellenkonfiguration fehlt`);
+  let baselineSource = source;
+  let baselineVersionDate = source.baselineSnapshotDate ?? config.baselineSnapshotDate;
+  let rawParsed;
+  let seededAdoptedSourceId = null;
+  if (source.snapshot && source.sourceSha256) {
+    const snapshot = await readFile(resolve(ROOT, source.snapshot), 'utf8');
+    rawParsed = parseRevosaxSnapshot(snapshot, { url: source.baselineUrl });
+  } else {
+    const seed = [...(source.adoptedSources ?? [])]
+      .filter((entry) => entry.snapshot && entry.sourceSha256)
+      .sort((left, right) => left.versionDate.localeCompare(right.versionDate))[0];
+    if (!seed) throw new Error(`${slug}: geprüfter REVOSax-Ausgangssnapshot fehlt`);
+    const adopted = await parseAdoptedSource(slug, seed);
+    baselineSource = seed;
+    baselineVersionDate = seed.versionDate;
+    seededAdoptedSourceId = seed.id;
+    rawParsed = adopted.parsed;
+  }
   const parsed = applyEditorialSourceResolutions(slug, rawParsed, source.editorialSourceResolutions);
-  const baselineCitation = source.baselineCitation ?? parsed.fullCitation;
+  const baselineCitation = source.baselineCitation ?? baselineSource.citation ?? parsed.fullCitation;
   const recipes = await Promise.all((await recipeFiles(slug)).map(async (path) => ({
     ...await readJson(path),
     __file: path.replace(`${ROOT}/`, ''),
@@ -208,33 +232,38 @@ async function consolidate(slug, config) {
       predecessor: null,
       successor: null,
       status: 'in-force',
-      documentDate: source.documentDate ?? parsed.documentDate,
+      ...((source.documentDate ?? parsed.documentDate)
+        ? { documentDate: source.documentDate ?? parsed.documentDate }
+        : {}),
       ...(source.createMeta.effectiveDate ? { effectiveDate: source.createMeta.effectiveDate } : {}),
-      sourceReferences: [snapshotReference(source)],
+      sourceReferences: [snapshotReference(baselineSource)],
     };
     existingHistory = { initialVersionId: null, entries: [] };
   }
   let state = { title: parsed.sourceTitle, body: parsed.body };
   const versions = [{
-    versionId: config.baselineSnapshotDate,
-    validFrom: config.baselineSnapshotDate,
+    versionId: baselineVersionDate,
+    validFrom: baselineVersionDate,
     validTo: null,
     isCurrent: false,
     citation: baselineCitation,
-    changeNote: `Ausgangsfassung nach dem am ${config.baselineSnapshotDate} geltenden sächsischen Rechtsstand.`,
-    sourceReferences: [snapshotReference(source)],
+    changeNote: seededAdoptedSourceId
+      ? baselineSource.changeNote
+      : `Ausgangsfassung nach dem am ${baselineVersionDate} geltenden sächsischen Rechtsstand.`,
+    sourceReferences: [snapshotReference(baselineSource)],
     sourceNotes: parsed.sourceNotes,
     body: state.body,
   }];
   const historyEntries = [{
-    date: config.baselineSnapshotDate,
+    date: baselineVersionDate,
     type: 'initial',
     title: 'Vollständige Ausgangsfassung zum verbindlichen Stichtag.',
     citation: baselineCitation,
-    affectingVersionId: config.baselineSnapshotDate,
+    affectingVersionId: baselineVersionDate,
   }];
   const adoptedSources = await Promise.all(
     (source.adoptedSources ?? [])
+      .filter((entry) => entry.id !== seededAdoptedSourceId)
       .sort((left, right) => left.versionDate.localeCompare(right.versionDate))
       .map((entry) => parseAdoptedSource(slug, entry)),
   );
@@ -329,7 +358,9 @@ async function consolidate(slug, config) {
     ...(source.resultShortTitle ? { shortTitle: source.resultShortTitle } : {}),
     ...(source.resultAbbr ? { abbr: source.resultAbbr } : {}),
     initialCitation: baselineCitation,
-    documentDate: source.documentDate ?? parsed.documentDate,
+    ...((source.documentDate ?? parsed.documentDate)
+      ? { documentDate: source.documentDate ?? parsed.documentDate }
+      : {}),
     type: meta.type,
     status: repealRecipe
       ? previousIsoDate(repealRecipe.effectiveDate) <= editorialConfig.referenceDate
@@ -339,7 +370,7 @@ async function consolidate(slug, config) {
     ...(repealRecipe ? { expiryDate: previousIsoDate(repealRecipe.effectiveDate) } : {}),
     affectedByNorms: recipes.map((recipe) => recipe.amendmentAct),
     sourceReferences: [
-      snapshotReference(source),
+      snapshotReference(baselineSource),
       ...adoptedSources.map(({ source: adoptedSource }) => snapshotReference(adoptedSource)),
       ...recipes.flatMap((recipe) => recipe.sourceReferences ?? []),
     ],
@@ -347,13 +378,17 @@ async function consolidate(slug, config) {
       ? publicEditorialResolutions(source)
       : meta.editorialResolutions,
   };
+  for (const field of ['documentDate', 'publicationDate', 'effectiveDate', 'expiryDate']) {
+    if (updatedMeta[field] === null) delete updatedMeta[field];
+  }
+  if (publicEditorialResolutions(source).length === 0) delete updatedMeta.editorialResolutions;
   const retainedHistoryEntries = existingHistory.entries.filter((entry) =>
     entry.type !== 'initial' && !recipes.some((recipe) => recipe.amendmentAct === entry.relatedNorm)
   );
   const retainedHistoryKeys = new Set(retainedHistoryEntries.map(historyEntryKey));
   const history = {
     ...existingHistory,
-    initialVersionId: config.baselineSnapshotDate,
+    initialVersionId: baselineVersionDate,
     entries: [
       ...retainedHistoryEntries,
       ...historyEntries.filter((entry) => !retainedHistoryKeys.has(historyEntryKey(entry))),
@@ -403,7 +438,7 @@ if (!all) {
   if (blocked.length) console.error(`Gesperrte Ziele übersprungen: ${blocked.join(', ')}`);
   for (const [slug, source] of Object.entries(config.targets)) {
     if (config.blockedTargets?.[slug]) continue;
-    if (!source.snapshot) {
+    if (!source.snapshot && !(source.adoptedSources ?? []).some((entry) => entry.snapshot)) {
       console.error(`${slug}: kein REVOSax-Ausgangssnapshot, Konsolidierung übersprungen`);
       continue;
     }

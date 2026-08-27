@@ -1,0 +1,37 @@
+{
+  "correctionAct": "berichtigung-verschiedener-verkuendungen-2026",
+  "correctionCitation": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+  "correctionPublicationDate": "2026-08-27",
+  "legalEffect": "declaratory-correction",
+  "targetSlug": "ostdeutsches-bezirkseinfuehrungsgesetz",
+  "targetVersionId": "2025-03-06",
+  "effectiveDate": "2025-03-12",
+  "changeNote": "Der Zielanker in Artikel 2 Nummer 1 wurde amtlich als § 65 Absatz 1 Satz 1 berichtigt.",
+  "resultAssertions": [
+    {
+      "target": {
+        "type": "item",
+        "label": "1.",
+        "text": "In § 65 Absatz 1 Satz 1 werden die Wörter „die Landesdirektion Ostdeutschland“ durch die Wörter „der jeweilige Bezirk“ ersetzt."
+      },
+      "equals": "In § 65 Absatz 1 Satz 1 werden die Wörter „die Landesdirektion Ostdeutschland“ durch die Wörter „der jeweilige Bezirk“ ersetzt."
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "1.",
+        "text": "Im § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt."
+      },
+      "field": "text",
+      "expectedOld": "Im § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
+      "value": "In § 65 Absatz 1 Satz 1 werden die Wörter „die Landesdirektion Ostdeutschland“ durch die Wörter „der jeweilige Bezirk“ ersetzt.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Nummer 3",
+      "effectiveDate": "2025-03-12"
+    }
+  ]
+}

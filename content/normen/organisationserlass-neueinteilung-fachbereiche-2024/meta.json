@@ -25,23 +25,6 @@
   "effectiveDate": "2024-11-08",
   "expiryDate": "2025-01-22",
   "dateNote": "Das zeitgenössische Original, die Discord-Veröffentlichung und der aufhebende Organisationserlass vom 22. Januar 2025 nennen den 8. November 2024. Die erst am 12. März 2025 ausgegebene Sammelausgabe nennt abweichend den 8. Oktober 2024; dies wird als Nachdruckfehler behandelt.",
-  "editorialResolutions": [
-    {
-      "id": "organisationserlass-neueinteilung-datum-2024",
-      "status": "resolved-source-conflict",
-      "decisionDate": "2026-08-27",
-      "issue": "Die Sammelausgabe OGVBl. 2025 Nr. 1–7 nennt den 8. Oktober 2024, während das zeitgenössische Original und die spätere Aufhebung den 8. November 2024 nennen.",
-      "publishedText": "8. Oktober 2024 in der Sammelausgabe.",
-      "resolvedApplication": "8. November 2024 als Dokument-, Verkündungs- und Inkrafttretensdatum.",
-      "rationale": "Originaldokument, zeitgenössischer Veröffentlichungszeitpunkt und ausdrückliche Bezeichnung in der Aufhebungsnorm stimmen überein.",
-      "evidence": [
-        "Gesetze/VO_24-1.pdf",
-        "docs/ZUARBEITSFORMULAR.md",
-        "Gesetze/ER_StK_25-01.pdf",
-        "Gesetze/OGVBl I-25.pdf"
-      ]
-    }
-  ],
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
@@ -79,6 +62,33 @@
       "pageRange": "1",
       "verifiedAt": "2026-08-27",
       "sourceRole": "visual-control"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
+  ],
+  "affectedByNorms": [
+    "berichtigung-verschiedener-verkuendungen-2026"
   ]
 }

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-08-27T09:25:58.929Z",
+  "generatedAt": "2026-08-27T20:26:59.569Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
     "recognizedAmendmentActs": 61,
     "recognizedTargetNorms": 85,
-    "completeTargetNorms": 55,
-    "blockedSourceConflicts": 3,
+    "completeTargetNorms": 57,
+    "blockedSourceConflicts": 1,
     "missingPrimarySources": 1
   },
   "templateProblems": [
@@ -56,6 +56,7 @@
           "targetEffectiveDate": "2025-09-16"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2025-09-16"
       ],
@@ -105,6 +106,7 @@
           "targetEffectiveDate": "2026-07-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-01"
       ],
@@ -137,6 +139,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -167,6 +170,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -197,6 +201,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -227,6 +232,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -247,7 +253,7 @@
       "sourceSha256": "0c8e1875b1e1bd75bf545f49a80a5ce488ccef1fc2dbdd4e0792de2551ffaafc",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "gesundheitsdienstgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -259,14 +265,15 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-personennahverkehrsgesetz",
@@ -284,7 +291,7 @@
       "sourceSha256": "a1199f68ee4755d13a8b558a62096069b2818f408bb6771141278779d86dc340",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ostdeutsches-personennahverkehrsgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -312,15 +319,16 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-24",
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-fernsehfunkgesetz",
@@ -347,6 +355,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -377,6 +386,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -407,6 +417,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -437,6 +448,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -467,6 +479,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -497,6 +510,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -527,6 +541,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -557,6 +572,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -587,6 +603,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -617,6 +634,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -647,6 +665,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -677,6 +696,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -707,6 +727,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -728,7 +749,7 @@
       "sourceSha256": "0596508734b2a51e9a129dea12ec4f96f307a58e062b5a4a15444b6ff989cc11",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "kindertagesbetreuungsgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -748,15 +769,16 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-01-27",
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-feiertagsgesetz",
@@ -796,6 +818,7 @@
           "targetEffectiveDate": "2026-03-24"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2024-03-08",
         "2026-03-24"
@@ -829,6 +852,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -859,6 +883,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -889,6 +914,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -919,6 +945,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -949,6 +976,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -979,6 +1007,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -1009,6 +1038,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -1039,6 +1069,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -1069,6 +1100,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -1089,7 +1121,7 @@
       "sourceSha256": "1d8524bcea6b5b6c83f2544b2e75e77ba549a03f686813f352991d570b1887a7",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "kommunalwahlgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -1101,14 +1133,15 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "landesplanungsgesetz",
@@ -1145,6 +1178,7 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2025-03-12",
         "2026-07-21"
@@ -1182,6 +1216,7 @@
           "targetEffectiveDate": "2026-03-24"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-24"
       ],
@@ -1234,6 +1269,7 @@
           "targetEffectiveDate": "2024-09-16"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2024-09-16"
       ],
@@ -1255,22 +1291,7 @@
       "sourceValidTo": null,
       "sourceSha256": null,
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [
-        {
-          "id": "sportneuordnung-bezirksordnung-neufassung",
-          "status": "resolved-source-conflict",
-          "decisionDate": "2026-07-23",
-          "issue": "Artikel 8 bezeichnet die Bezirksordnung von 2025, setzt aber eine Aufgabenliste in § 13 und einen § 13a voraus, die erst die Neufassung 2026 besitzt.",
-          "publishedText": "Artikel 8 bezeichnet die Ostdeutsche Bezirksordnung vom 6. März 2025.",
-          "resolvedApplication": "Die Änderungen werden auf die strukturell passenden Vorschriften der ab 1. August 2026 geltenden Neufassung angewendet.",
-          "rationale": "Nur die Neufassung enthält die von den Änderungsbefehlen vorausgesetzten Zielanker.",
-          "evidence": [
-            "content/normen/sportneuordnungsgesetz/versions/2026-07-21.json",
-            "content/normen/ostdeutsche-bezirksordnung/versions/2025-03-12.json",
-            "content/normen/ostdeutsche-bezirksordnung/versions/2026-08-01.json"
-          ]
-        }
-      ],
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsche-bezirksordnung",
       "enactingActs": [
         {
@@ -1297,6 +1318,14 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
+        }
+      ],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
         }
       ],
       "effectiveDates": [
@@ -1334,6 +1363,7 @@
           "targetEffectiveDate": "2026-02-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-02-01"
       ],
@@ -1367,6 +1397,7 @@
         }
       ],
       "amendmentActs": [],
+      "correctionActs": [],
       "effectiveDates": [],
       "status": "complete",
       "problems": [],
@@ -1398,6 +1429,14 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
+        }
+      ],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -1420,7 +1459,7 @@
       "sourceSha256": "89f593175b1cfe94acc85863ca6dd86e0547a199aa9c1e9d5fe204b65d57af1c",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ostdeutsche-arbeitszeitverordnung",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -1440,14 +1479,15 @@
           "targetEffectiveDate": "2026-02-20"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-02-20"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ausbildungs-und-pruefungsordnung-polizei",
@@ -1465,7 +1505,7 @@
       "sourceSha256": "1f8dae48bb74d2ece743e009a0c77293c850ad724b2526cb682cf3524838bd60",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ausbildungs-und-pruefungsordnung-polizei",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -1477,14 +1517,15 @@
           "targetEffectiveDate": "2026-01-30"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-01-30"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "saechsische-bauordnung",
@@ -1522,6 +1563,7 @@
           "targetEffectiveDate": "2026-03-24"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-24"
       ],
@@ -1554,6 +1596,14 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-09-01"
+        }
+      ],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
         }
       ],
       "effectiveDates": [
@@ -1609,6 +1659,7 @@
           "targetEffectiveDate": "2026-08-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-25",
         "2026-08-01"
@@ -1646,6 +1697,7 @@
           "targetEffectiveDate": "2026-01-27"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-01-27"
       ],
@@ -1680,6 +1732,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -1714,6 +1767,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -1737,21 +1791,7 @@
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [
-        {
-          "id": "landkreisordnung-zielanker-paragraf-65",
-          "status": "resolved-source-conflict",
-          "decisionDate": "2026-07-23",
-          "issue": "Artikel 2 des Ostdeutschen Bezirkseinführungsgesetzes nennt § 75.",
-          "publishedText": "In § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
-          "resolvedApplication": "Die Ersetzung wird in § 65 Absatz 1 Satz 1 der Landkreisordnung angewendet.",
-          "rationale": "Nur § 65 trägt die bezeichnete Aufsichtsregelung und enthält die zu ersetzende Behördenbezeichnung.",
-          "evidence": [
-            "content/normen/ostdeutsches-bezirkseinfuehrungsgesetz/versions/2025-03-06.json",
-            "data/recht/sources/revosax/saechsische-landkreisordnung/3264.23.html"
-          ]
-        }
-      ],
+      "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-landkreisordnung",
       "enactingActs": [],
       "amendmentActs": [
@@ -1770,6 +1810,14 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
+        }
+      ],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
         }
       ],
       "effectiveDates": [
@@ -1808,6 +1856,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -1844,6 +1893,7 @@
           "targetEffectiveDate": "2026-03-24"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-24"
       ],
@@ -1866,7 +1916,7 @@
       "sourceSha256": "9e11330634a8bd9e6b396b20c201ad19c52fc538285bcc6e71a3f8e1387c0dd2",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "landesbeamtengesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -1878,14 +1928,15 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "saechsisches-bestattungsgesetz",
@@ -1902,7 +1953,7 @@
       "sourceSha256": "07442de73015a2fa881bd039b14165117cbe788b9dd22fbf02c5f0d7e7b9db46",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "saechsisches-bestattungsgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -1914,14 +1965,15 @@
           "targetEffectiveDate": "2026-01-27"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-01-27"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "finanzausgleichsgesetz",
@@ -1938,7 +1990,7 @@
       "sourceSha256": "9adc6fa29fb15c2e4eecc205fa5f28f651ab86b826462ef2852f958f87c35ddb",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "finanzausgleichsgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -1950,14 +2002,15 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "fluechtlingsaufnahmegesetz",
@@ -1988,6 +2041,7 @@
           "targetEffectiveDate": "2026-03-24"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-24"
       ],
@@ -2010,7 +2064,7 @@
       "sourceSha256": "7a62c22b2925b72b2216013c70ab559d74c6e17ac4b96576913a4930f96d1e89",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "gesetz-zur-durchfuehrung-des-medienstaatsvertrages-und-des-rundfunkbeitragsstaatsvertrages",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2022,14 +2076,15 @@
           "targetEffectiveDate": "2026-03-25"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-25"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "saechsisches-gleichstellungsgesetz",
@@ -2046,7 +2101,7 @@
       "sourceSha256": "0ed4e4e078ffe8dd0963212459035bd3b8db6c334ed3b9431669e0c8cb481492",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "saechsisches-gleichstellungsgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2058,14 +2113,15 @@
           "targetEffectiveDate": "2026-04-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-04-01"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-hochschulgesetz",
@@ -2083,7 +2139,7 @@
       "sourceSha256": "03bb52c8238633f751e5569d7f81ea3724dbac2271e7e88801cc0605f68f1be2",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ostdeutsches-hochschulgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2111,16 +2167,17 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-01-27",
         "2026-07-20",
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-justizgesetz",
@@ -2138,7 +2195,7 @@
       "sourceSha256": "7fa867f9d202f1155f2a9b1234c911a9422b5fd3722058369bc5f38f24dd37fa",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ostdeutsches-justizgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2158,15 +2215,16 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-02-01",
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-krankenhausgesetz",
@@ -2184,7 +2242,7 @@
       "sourceSha256": "b6426a79d1f6bd8b219f142360a6f3717b5f1de65ad8574673655a3710eca3ca",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ostdeutsches-krankenhausgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2204,15 +2262,16 @@
           "targetEffectiveDate": "2026-07-20"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-04-01",
         "2026-07-20"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "kulturraumgesetz",
@@ -2230,7 +2289,7 @@
       "sourceSha256": "245483f0407d1026fe19a30d3b405143bc90e79b4fb9ecb224a757acaada36f4",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "kulturraumgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2250,15 +2309,16 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-25",
         "2026-07-21"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-normenkontrollratsgesetz",
@@ -2275,7 +2335,7 @@
       "sourceSha256": "3a940a4ac1fb207b01703689efa1490180f055cbd9c1bcc5ea1ad6688c9dd125",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ostdeutsches-normenkontrollratsgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2287,14 +2347,15 @@
           "targetEffectiveDate": "2026-07-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-01"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-polizeibehoerdengesetz",
@@ -2311,7 +2372,7 @@
       "sourceSha256": "c74a5044b9f6d672a0f463352093c5111220e1c2d4b8e762b36cf07eceb3612b",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ostdeutsches-polizeibehoerdengesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2323,14 +2384,15 @@
           "targetEffectiveDate": "2026-03-25"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-25"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
@@ -2339,7 +2401,6 @@
         "Ostdeutsche Polizeivollzugsdienstgesetz",
         "Ostdeutschen Polizeivollzugsdienstgesetzes",
         "Ostdeutsches Polizeivollzugsdienstgesetz",
-        "Polizeigesetzes",
         "Sächsisches Polizeivollzugsdienstgesetz"
       ],
       "revosaxLawId": "18193",
@@ -2349,27 +2410,13 @@
       "sourceValidTo": "2024-07-29",
       "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [
-        {
-          "id": "schmerzgriffe-zielnorm-und-paragraf",
-          "status": "resolved-source-conflict",
-          "decisionDate": "2026-07-23",
-          "issue": "Das Änderungsgesetz bezeichnet das außer Kraft getretene Polizeigesetz und § 32a.",
-          "publishedText": "Änderung des Polizeigesetzes; Einfügung eines § 32a.",
-          "resolvedApplication": "Der materielle Wortlaut wird als § 41a nach § 41 in das Polizeivollzugsdienstgesetz eingefügt.",
-          "rationale": "Die redaktionelle Entscheidung ordnet Zielnorm und Einordnungsstelle verbindlich dem geltenden Polizeivollzugsdienstgesetz zu.",
-          "evidence": [
-            "content/normen/gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe/versions/2026-03-23.json",
-            "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html"
-          ]
-        }
-      ],
+      "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
           "slug": "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe",
-          "title": "Gesetz zur Änderung des Polizeigesetzes zur Regelung der Schmerzgriffe",
+          "title": "Gesetz zur Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes zur Regelung der Schmerzgriffe",
           "effectiveDate": "2026-03-24",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
@@ -2408,6 +2455,14 @@
           "targetEffectiveDate": "2026-08-01"
         }
       ],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
+        }
+      ],
       "effectiveDates": [
         "2026-03-24",
         "2026-03-25",
@@ -2434,7 +2489,7 @@
       "sourceSha256": "3d1792a483a1f733746bfe6c38744a10877dfb16398bbaa1dc7d525815719066",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "ostdeutsches-schulgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2454,15 +2509,16 @@
           "targetEffectiveDate": "2026-08-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-21",
         "2026-08-01"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "vermessungs-und-katastergesetz",
@@ -2479,7 +2535,7 @@
       "sourceSha256": "5c800fa5832e384cda765b312e87548f09d862da22b3f1e3c209a7ff93dcb1cf",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "vermessungs-und-katastergesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2491,14 +2547,15 @@
           "targetEffectiveDate": "2026-03-25"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-25"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "saechsisches-verwaltungskostengesetz",
@@ -2530,6 +2587,7 @@
           "targetEffectiveDate": "2026-01-27"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-01-27"
       ],
@@ -2572,6 +2630,7 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2025-03-12",
         "2026-07-21"
@@ -2600,7 +2659,7 @@
       "sourceSha256": "30483510f31c57b67bf7a5a0efcb05878db0d5d44717b2bf6e33107b2341e416",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "zweckentfremdungsverbotsgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2612,14 +2671,15 @@
           "targetEffectiveDate": "2026-03-25"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-25"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "schulordnung-berufliche-gymnasien",
@@ -2636,7 +2696,7 @@
       "sourceSha256": "33650dae89a25665a7f72321b12cb8da19278a6ad8480d6109c0b6c345f2c707",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "schulordnung-berufliche-gymnasien",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2648,14 +2708,20 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
+        }
+      ],
       "effectiveDates": [
         "2026-09-01"
       ],
-      "status": "blocked-source-conflict",
-      "problems": [
-        "Quellenkonflikt in OGVBl. 2026 Nr. 67: Artikel 2 § 4 Nummer 1 Buchstabe d setzt im neuen § 4 Absatz 4 Satz 2 einen Verweis auf § 4 Absatz 6 Satz 1 voraus, der in der verbindlichen Ausgangsfassung nicht vorhanden ist. Eine spätere sächsische Fassung wird nicht wörtlich als Ausgangsfassung adoptiert."
-      ],
-      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "schulordnung-berufsschule",
@@ -2671,7 +2737,7 @@
       "sourceSha256": "6344b0c26d34a7a5f5ee63a832b0fdfd79a573dcb818904f57088e8beee717a5",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "schulordnung-berufsschule",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2683,14 +2749,20 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
+        }
+      ],
       "effectiveDates": [
         "2026-09-01"
       ],
-      "status": "blocked-source-conflict",
-      "problems": [
-        "Quellenkonflikt in OGVBl. 2026 Nr. 67: Artikel 2 § 3 Nummer 8 ordnet die Einfügung nach § 31 an; die verbindliche Ausgangsfassung vom 1. November 2023 endet bei § 30. Eine spätere sächsische Fassung wird nicht wörtlich als Ausgangsfassung adoptiert."
-      ],
-      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "schulordnung-foerderschulen",
@@ -2706,7 +2778,7 @@
       "sourceSha256": "413659283b4df78b9c59a5037430cc66abfe9982016ba6cf95660b019e47c544",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "schulordnung-foerderschulen",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2718,12 +2790,21 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [
+        {
+          "slug": "berichtigung-verschiedener-verkuendungen-2026",
+          "title": "Berichtigung verschiedener Verkündungen",
+          "publicationDate": "2026-08-27",
+          "detectedType": "berichtigung"
+        }
+      ],
       "effectiveDates": [
         "2026-09-01"
       ],
       "status": "blocked-source-conflict",
       "problems": [
-        "Quellenkonflikt in OGVBl. 2026 Nr. 64: Mindestens der Änderungsbefehl zu § 8 Absatz 2 setzt die Wörter „Klassenstufen 1 bis 4 der Grundschule“ voraus; diese stehen nicht in der durch die Änderungsvorschrift selbst bezeichneten Ausgangsfassung. Eine heuristische Umdeutung auf den vorhandenen Lehrplanverweis ist unzulässig."
+        "Verbleibender Quellenkonflikt trotz OGVBl. 2026 Nr. 68: Artikel 1 Nummer 6 Buchstabe b der Änderungsverordnung verlangt in § 8 Absatz 3 die Wörter „Klassenstufen 5 und 6 der Oberschule“. Die verbindliche REVOSax-Ausgangsfassung enthält dort stattdessen „Lehrplänen für die Oberschule“. Die Berichtigung Nr. 68 erfasst nur die Befehle zu § 8 Absatz 2 und § 9 Absatz 2; eine heuristische Umdeutung des nicht berichtigten Befehls ist unzulässig.",
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
       "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
     },
@@ -2753,6 +2834,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -2786,6 +2868,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -2819,6 +2902,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -2852,6 +2936,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -2944,6 +3029,7 @@
           "targetEffectiveDate": "2026-07-21"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2025-03-12",
         "2026-01-28",
@@ -2968,7 +3054,7 @@
       "sourceSha256": "b502ee042bee56aeac2a38e286f23fae43a8045b6aaf34ecd43673031a03bdd2",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "verschlusssachenanweisung",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -2980,14 +3066,15 @@
           "targetEffectiveDate": "2026-03-28"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-28"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "vwv-beratungslehrer",
@@ -3016,6 +3103,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -3050,6 +3138,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -3086,6 +3175,7 @@
           "targetEffectiveDate": "2026-09-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-09-01"
       ],
@@ -3108,7 +3198,7 @@
       "sourceSha256": "8332c0df43be9973ade2dbf7aed6b73a29723ae6718142ea11cd916bf68a2bfa",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "vwv-stundentafeln",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -3120,14 +3210,15 @@
           "targetEffectiveDate": "2026-08-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-08-01"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "waldgesetz",
@@ -3144,7 +3235,7 @@
       "sourceSha256": "216e667a5c508d7b93e89d6a3b15b59c260800dd9a9d11c1c37447658a6fc970",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "waldgesetz",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -3156,14 +3247,15 @@
           "targetEffectiveDate": "2026-07-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-01"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     },
     {
       "canonicalSlug": "wappenverordnung",
@@ -3191,6 +3283,7 @@
           "targetEffectiveDate": "2026-03-24"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-03-24"
       ],
@@ -3213,7 +3306,7 @@
       "sourceSha256": "ed8ecdf59e0edf3d09c7d1c649808d5db55b63c000f151adbe4239889c65b20a",
       "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "zehntes-ostdeutsches-kostenverzeichnis",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -3225,14 +3318,15 @@
           "targetEffectiveDate": "2026-07-01"
         }
       ],
+      "correctionActs": [],
       "effectiveDates": [
         "2026-07-01"
       ],
-      "status": "missing-stem-record",
+      "status": "incomplete-placeholder",
       "problems": [
-        "Eigenständiger Stammnormdatensatz fehlt."
+        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen."
+      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
     }
   ]
 }

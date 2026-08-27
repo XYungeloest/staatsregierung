@@ -29,7 +29,14 @@ run('node', ['scripts/audit-consolidation.mjs', '--check'], 'Patch-Rezepte und K
 
 if (write) {
   run('node', ['scripts/import-normen.mjs', '--source-dir', 'Gesetze', '--write', '--update-existing', ...selected], 'ausgewählte Quellen inkrementell importieren');
+  run('node', ['scripts/apply-corrections.mjs', '--all', '--write'], 'amtliche Berichtigungen deklaratorisch anwenden');
+  run('node', ['scripts/audit-consolidation.mjs'], 'Konsolidierungsmanifest nach dem Import aktualisieren');
+  run('node', ['scripts/revosax-snapshot.mjs', 'parse', '--all'], 'alle REVOSax-Ausgangsquellen strukturiert erneuern');
+  run('node', ['scripts/materialize-revosax-norms.mjs', '--all', '--write'], 'fehlende REVOSax-Stammnormen materialisieren');
   run('node', ['scripts/consolidate-norms.mjs', '--all', '--write'], 'geprüfte Folgefassungen erzeugen');
+  run('node', ['scripts/apply-corrections.mjs', '--all', '--write'], 'Berichtigungsprovenienz nach der Konsolidierung sichern');
+  run('node', ['scripts/audit-consolidation.mjs'], 'Konsolidierungsmanifest und Bericht abschließend erneuern');
+  run('node', ['scripts/audit-consolidation.mjs', '--check'], 'Konsolidierungsmanifest und Bericht abschließend prüfen');
 }
 
 run('npm', ['run', 'content:check'], 'Content- und Metadatenprüfung');

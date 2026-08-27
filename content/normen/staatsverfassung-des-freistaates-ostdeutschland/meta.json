@@ -18,7 +18,7 @@
     "Grundrechte",
     "Staatsziele"
   ],
-  "initialCitation": "Verfassung des Ostdeutschen Freistaates vom 15. Oktober 2024 (OGVBl. 2024 Nr. II S. 5–32)",
+  "initialCitation": "Verfassung vom 15. Oktober 2024 (OGVBl. 2024 Nr. II S. 5)",
   "predecessor": null,
   "successor": null,
   "summary": "Bestimmt die staatliche Ordnung, die Grundrechte, die Staatsziele und die Verfassungsorgane des Freistaates Ostdeutschland.",
@@ -91,9 +91,34 @@
       "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
       "availability": "versioned",
       "localSource": "Gesetze/Staatsverfassung.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
   ],
-  "dateNote": "Aktuelle redaktionelle Lesefassung vom 21. Juli 2026. Die amtliche Ursprungsbezeichnung lautet „Verfassung des Ostdeutschen Freistaates“. Der fehlerhafte Zielanker im Hoheitszeichengesetz vom 23. März 2026 wird als Einfügung vor dem Wort „Weiß“ ausgelegt.",
+  "dateNote": "Redaktionelle Lesefassung vom 21. Juli 2026.",
+  "enactingNorm": "gesetz-zur-einsetzung-einer-neuen-landesverfassung",
   "affectedByNorms": [
     "gesetz-zur-aenderung-der-landesverfassung-2025",
     "gesetz-zur-veranderung-der-verfassung-zur-anderung-der-verku-437sg5",
@@ -101,7 +126,7 @@
     "erstes-gesetz-zur-grossen-staatsreform",
     "zweites-gesetz-zur-grossen-staatsreform",
     "drittes-gesetz-zur-grossen-staatsreform",
-    "viertes-gesetz-zur-grossen-staatsreform"
-  ],
-  "enactingNorm": "gesetz-zur-einsetzung-einer-neuen-landesverfassung"
+    "viertes-gesetz-zur-grossen-staatsreform",
+    "berichtigung-verschiedener-verkuendungen-2026"
+  ]
 }

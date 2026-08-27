@@ -8,6 +8,7 @@ import {
   applyPatchRecipe,
   sha256,
 } from '../scripts/lib/consolidation-engine.mjs';
+import { applyCorrectionToRecord } from '../scripts/lib/correction-engine.mjs';
 import { parseRevosaxSnapshot } from '../scripts/lib/revosax-parser.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
@@ -299,6 +300,68 @@ test('Patch-Ziele können gleich bezeichnete Absätze über ihre Elternvorschrif
   assert.equal(result.body[1].children[0].text, 'geändert');
 });
 
+test('amtliche Berichtigungen ändern den Wortlaut ohne künstlichen Fassungswechsel', () => {
+  const record = {
+    meta: {
+      slug: 'testgesetz',
+      title: 'Testgesetz',
+      sourceReferences: [],
+    },
+    history: { initialVersionId: '2026-01-01', entries: [] },
+    versions: [{
+      versionId: '2026-01-01',
+      validFrom: '2026-01-01',
+      validTo: null,
+      body: [{ type: 'paragraphText', text: 'unrichtiger Wortlaut' }],
+    }],
+  };
+  const correctionMeta = {
+    sourceReferences: [{
+      kind: 'structured-html-transcription',
+      label: 'Amtliche Berichtigung',
+      availability: 'versioned',
+      localSource: 'Gesetze/Test-Berichtigung.html',
+    }],
+  };
+  const recipe = {
+    correctionAct: 'test-berichtigung',
+    correctionCitation: 'Berichtigung vom 2. Februar 2026 (TestBl. S. 1)',
+    correctionPublicationDate: '2026-02-02',
+    legalEffect: 'declaratory-correction',
+    targetSlug: 'testgesetz',
+    targetVersionId: '2026-01-01',
+    effectiveDate: '2026-01-01',
+    changeNote: 'Der Wortlaut wurde berichtigt.',
+    resultAssertions: [{
+      target: { type: 'paragraphText', text: 'richtiger Wortlaut' },
+      equals: 'richtiger Wortlaut',
+    }],
+    operations: [{
+      op: 'replaceText',
+      target: { type: 'paragraphText', text: 'unrichtiger Wortlaut' },
+      field: 'text',
+      expectedOld: 'unrichtiger Wortlaut',
+      value: 'richtiger Wortlaut',
+      expectedMatches: 1,
+      source: 'Gesetze/Test-Berichtigung.html',
+      sourceProvision: 'Nummer 1',
+      effectiveDate: '2026-01-01',
+    }],
+  };
+  const first = applyCorrectionToRecord(record, recipe, correctionMeta);
+  assert.equal(first.applied, true);
+  assert.equal(first.alreadyCorrect, false);
+  assert.equal(first.record.versions.length, 1);
+  assert.equal(first.record.versions[0].validFrom, '2026-01-01');
+  assert.equal(first.record.versions[0].body[0].text, 'richtiger Wortlaut');
+  assert.deepEqual(first.record.history.entries.map((entry) => entry.type), ['notice']);
+
+  const second = applyCorrectionToRecord(first.record, recipe, correctionMeta);
+  assert.equal(second.alreadyCorrect, true);
+  assert.equal(second.record.versions.length, 1);
+  assert.equal(second.record.history.entries.length, 1);
+});
+
 test('REVOSax-Tabellenparser erhält leere Zellen und die Spaltenzahl', () => {
   const html = `<!doctype html><html><body>
     <div id="content"><div class="law_show">
@@ -341,4 +404,10 @@ test('Konsolidierungsmanifest ist aktuell und zählt seine Zielstatus konsistent
   );
   assert.ok(manifest.counts.recognizedTargetNorms >= manifest.targets.length);
   assert.ok(manifest.targets.every((target) => typeof target.canonicalSlug === 'string' && typeof target.status === 'string'));
+  assert.equal(manifest.targets.filter((target) => target.status === 'missing-stem-record').length, 0);
+  const berufsschule = manifest.targets.find((target) => target.canonicalSlug === 'schulordnung-berufsschule');
+  assert.equal(berufsschule.status, 'complete');
+  assert.deepEqual(berufsschule.effectiveDates, ['2026-09-01']);
+  assert.equal(berufsschule.correctionActs[0].slug, 'berichtigung-verschiedener-verkuendungen-2026');
+  assert.ok(!berufsschule.effectiveDates.includes('2026-08-27'));
 });

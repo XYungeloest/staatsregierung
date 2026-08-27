@@ -26,34 +26,35 @@
           "level": 0,
           "listId": "v5vq2lr6bg38",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "in den Angaben zu den §§ 3, 4 und 6 jeweils das Wort „Grundschulteil“ durch das Wort „Primarstufenteil“,",
-          "level": 0,
-          "listId": "atg6bkkf4tr3",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "b)",
-          "text": "in den Angaben zu den §§ 3, 4, 6, 8 und 9 jeweils das Wort „Oberschulteil“ durch das Wort „Sekundarstufenteil“ und",
-          "level": 0,
-          "listId": "atg6bkkf4tr3",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "c)",
-          "text": "die Angabe zu § 16 durch die Angabe „§ 16 Wechsel an eine Polytechnische oder Erweiterte Oberschule; Bildungswegempfehlung“",
-          "level": 0,
-          "listId": "atg6bkkf4tr3",
-          "numberingStyle": "lower-latin",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "in den Angaben zu den §§ 3, 4 und 6 jeweils das Wort „Grundschulteil“ durch das Wort „Primarstufenteil“,",
+              "level": 1,
+              "listId": "atg6bkkf4tr3",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "in den Angaben zu den §§ 3, 4, 6, 8 und 9 jeweils das Wort „Oberschulteil“ durch das Wort „Sekundarstufenteil“ und",
+              "level": 1,
+              "listId": "atg6bkkf4tr3",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "die Angabe zu § 16 durch die Angabe „§ 16 Wechsel an eine Polytechnische oder Erweiterte Oberschule; Bildungswegempfehlung“",
+              "level": 1,
+              "listId": "atg6bkkf4tr3",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         },
         {
           "type": "paragraphText",
@@ -173,7 +174,7 @@
         {
           "type": "item",
           "label": "a)",
-          "text": "In Absatz 2 werden die Wörter „Klassenstufen 1 bis 4 der Grundschule“ durch die Wörter „Klassenstufen 1 bis 4 der Polytechnischen Oberschule“ ersetzt.",
+          "text": "In Absatz 2 werden die Wörter „Lehrplänen für die Grundschule“ durch die Wörter „Lehrplänen für die Klassenstufen 1 bis 4 der Polytechnischen Oberschule“ ersetzt.",
           "level": 0,
           "listId": "llyrobgh2rch",
           "numberingStyle": "lower-latin",
@@ -200,7 +201,7 @@
         {
           "type": "item",
           "label": "a)",
-          "text": "In Absatz 2 werden die Wörter „Klassenstufen 1 bis 4 der Grundschule“ durch die Wörter „Klassenstufen 1 bis 4 der Polytechnischen Oberschule“ ersetzt.",
+          "text": "In Absatz 2 werden die Wörter „Lehrplänen für die Grundschule“ durch die Wörter „Lehrplänen für die Klassenstufen 1 bis 4 der Polytechnischen Oberschule“ ersetzt.",
           "level": 0,
           "listId": "cuekamby8af5",
           "numberingStyle": "lower-latin",
@@ -1097,6 +1098,38 @@
           "text": "Diese Verordnung tritt am 1. September 2026 in Kraft."
         }
       ]
+    }
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "Amtliche Berichtigung",
+      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 4): Die Änderungsbefehle zu § 8 Absatz 2 und § 9 Absatz 2 wurden amtlich auf den vorhandenen Lehrplanverweis berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2026-09-01."
     }
   ]
 }

@@ -44,6 +44,13 @@
     },
     {
       "kind": "amendment-source",
+      "label": "Amtliche Berichtigung OGVBl. 2026 Nr. 68",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "amendment-source",
       "label": "OGVBl. 2026 Nr. 26",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 26.html"
@@ -73,20 +80,5 @@
     "gesetz-uber-die-unabhangige-polizei-beschwerdeund-ermittlung-1e9bzwo",
     "kasernierte-grenzpolizei-errichtungsgesetz",
     "kreis-und-bezirksneuordnungsgesetz"
-  ],
-  "editorialResolutions": [
-    {
-      "id": "schmerzgriffe-zielnorm-und-paragraf",
-      "status": "resolved-source-conflict",
-      "decisionDate": "2026-07-23",
-      "issue": "Das Änderungsgesetz bezeichnet das außer Kraft getretene Polizeigesetz und § 32a.",
-      "publishedText": "Änderung des Polizeigesetzes; Einfügung eines § 32a.",
-      "resolvedApplication": "Der materielle Wortlaut wird als § 41a nach § 41 in das Polizeivollzugsdienstgesetz eingefügt.",
-      "rationale": "Die redaktionelle Entscheidung ordnet Zielnorm und Einordnungsstelle verbindlich dem geltenden Polizeivollzugsdienstgesetz zu.",
-      "evidence": [
-        "content/normen/gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe/versions/2026-03-23.json",
-        "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html"
-      ]
-    }
   ]
 }

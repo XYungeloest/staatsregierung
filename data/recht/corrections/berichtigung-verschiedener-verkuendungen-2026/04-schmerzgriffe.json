@@ -1,0 +1,134 @@
+{
+  "correctionAct": "berichtigung-verschiedener-verkuendungen-2026",
+  "correctionCitation": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2–3)",
+  "correctionPublicationDate": "2026-08-27",
+  "legalEffect": "declaratory-correction",
+  "targetSlug": "gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe",
+  "targetVersionId": "2026-03-23",
+  "effectiveDate": "2026-03-24",
+  "changeNote": "Titel, Zielnorm, Einordnungsstelle und vollständiger § 41a wurden amtlich berichtigt.",
+  "metaPatch": {
+    "title": {
+      "expectedOld": "Gesetz zur Änderung des Polizeigesetzes zur Regelung der Schmerzgriffe",
+      "value": "Gesetz zur Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes zur Regelung der Schmerzgriffe"
+    },
+    "shortTitle": {
+      "expectedOld": "Gesetz zur Änderung des Polizeigesetzes zur Regelung der Schmerzgriffe",
+      "value": "Gesetz zur Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes zur Regelung der Schmerzgriffe"
+    }
+  },
+  "resultAssertions": [
+    {
+      "scope": "title",
+      "equals": "Gesetz zur Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes zur Regelung der Schmerzgriffe"
+    },
+    {
+      "target": {
+        "type": "paragraph",
+        "label": "§ 41a",
+        "title": "Schmerzgriffe"
+      },
+      "field": "title",
+      "equals": "Schmerzgriffe"
+    },
+    {
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "text": "Abweichend von Absatz 1 dürfen solche Techniken ausschließlich eingesetzt werden, wenn"
+      },
+      "equals": "Abweichend von Absatz 1 dürfen solche Techniken ausschließlich eingesetzt werden, wenn"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Gesetz zur Änderung des Polizeigesetzes zur Regelung der Schmerzgriffe",
+      "value": "Gesetz zur Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes zur Regelung der Schmerzgriffe",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Nummer 4 Buchstabe a",
+      "effectiveDate": "2026-03-24"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "article",
+        "label": "Artikel 1"
+      },
+      "expectedHash": "ce6411e2744ce2feaaca8fee236b8d4df0ba23cc7caec0c7664f05bdb58cbb34",
+      "expectedMatches": 1,
+      "value": {
+        "type": "article",
+        "label": "Artikel 1",
+        "title": "Änderung des Ostdeutschen Polizeivollzugsdienstgesetzes",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Das Ostdeutsche Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358) wird wie folgt geändert:"
+          },
+          {
+            "type": "paragraphText",
+            "text": "Nach § 41 wird folgender § 41a eingefügt:"
+          },
+          {
+            "type": "quotedProvision",
+            "children": [
+              {
+                "type": "paragraph",
+                "label": "§ 41a",
+                "title": "Schmerzgriffe",
+                "children": [
+                  {
+                    "type": "subparagraph",
+                    "label": "(1)",
+                    "text": "Nervendruck-, Druckpunkt- oder Quetschtechniken oder solche, die ihnen ähneln, deren Zweck oder vorhersehbare Wirkung die Zufügung erheblicher Schmerzen ist (Schmerzgriffe), stellen besonders eingriffsintensive Maßnahmen des unmittelbaren Zwangs dar und sind deshalb unzulässig.",
+                    "children": []
+                  },
+                  {
+                    "type": "subparagraph",
+                    "label": "(2)",
+                    "text": "Abweichend von Absatz 1 dürfen solche Techniken ausschließlich eingesetzt werden, wenn",
+                    "children": [
+                      {
+                        "type": "item",
+                        "label": "1.",
+                        "text": "eine gegenwärtige, unmittelbar bevorstehende Gefahr für Leib oder Leben besteht,",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "2.",
+                        "text": "die Gefahr nicht anders als durch den sofortigen Einsatz der Maßnahme abgewehrt werden kann,",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "3.",
+                        "text": "mildere Mittel, insbesondere das Wegtragen, Abdrängen, Fixieren oder der Einsatz zusätzlicher Hilfskräfte, objektiv nicht zur Verfügung stehen oder offensichtlich ungeeignet sind und",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "4.",
+                        "text": "die betroffene Person durch aktiven körperlichen Widerstand die Gefahr selbst verursacht.",
+                        "children": []
+                      },
+                      {
+                        "type": "paragraphText",
+                        "text": "Satz 1 gilt nicht zur Durchsetzung von Platzverweisen, Versammlungsbeschränkungen oder Versammlungsauflösungen. Der Einsatz einer Technik nach Satz 1 ist vorab unmissverständlich anzudrohen, es sei denn, der Eintritt der Gefahr lässt eine Androhung nicht zu; die Androhung selbst darf nicht zur Willensbeugung verwendet werden. Muss nach Satz 1 eine Technik angewendet werden, so dürfen Dauer, Intensität und Ausführung das Maß des Nötigsten nicht überschreiten und sind auf das Notwendigste zu beschränken, um die Gefahr abzuwenden."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Nummer 4 Buchstabe b",
+      "effectiveDate": "2026-03-24"
+    }
+  ]
+}

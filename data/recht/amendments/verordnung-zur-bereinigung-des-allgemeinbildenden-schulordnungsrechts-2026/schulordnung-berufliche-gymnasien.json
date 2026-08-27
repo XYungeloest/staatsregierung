@@ -1,0 +1,157 @@
+{
+  "amendmentAct": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
+  "effectiveDate": "2026-09-01",
+  "amendmentCitation": "Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67), berichtigt durch OGVBl. 2026 Nr. 68",
+  "resultCitation": "Schulordnung Berufliche Gymnasien, geändert durch Artikel 2 § 4 der Verordnung vom 16. August 2026 (OGVBl. 2026 Nr. 67), berichtigt durch OGVBl. 2026 Nr. 68",
+  "changeNote": "Aufnahme, Datenschutz, Auswahlquoten und die Stellung des Ethikunterrichts wurden angepasst; der durch OGVBl. 2026 Nr. 68 gestrichene Änderungsbefehl wurde nicht angewandt.",
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 67",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 67.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Amtliche Berichtigung OGVBl. 2026 Nr. 68",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceRole": "amendment-evidence"
+    }
+  ],
+  "operations": [
+    {
+      "op": "deleteProvision",
+      "target": { "type": "subparagraph", "label": "(2)", "parentType": "paragraph", "parentLabel": "§ 4" },
+      "field": "text",
+      "expectedOld": "Schüler des allgemeinbildenden Gymnasiums erfüllen die Aufnahmevoraussetzungen, wenn sie mit der Versetzungsentscheidung von der Klassenstufe 10 in die Jahrgangsstufe 11 des allgemeinbildenden Gymnasiums an das Berufliche Gymnasium wechseln.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 1 Buchstabe a", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "subparagraph", "label": "(3)", "parentType": "paragraph", "parentLabel": "§ 4" },
+      "field": "label", "expectedOld": "(3)", "value": "(2)", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 1 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "subparagraph", "label": "(4)", "parentType": "paragraph", "parentLabel": "§ 4" },
+      "field": "label", "expectedOld": "(4)", "value": "(3)", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 1 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "subparagraph", "label": "(5)", "parentType": "paragraph", "parentLabel": "§ 4" },
+      "field": "label", "expectedOld": "(5)", "value": "(4)", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 1 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "subparagraph", "label": "(6)", "parentType": "paragraph", "parentLabel": "§ 4" },
+      "field": "label", "expectedOld": "(6)", "value": "(5)", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 1 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "subparagraph", "label": "(7)", "parentType": "paragraph", "parentLabel": "§ 4" },
+      "field": "label", "expectedOld": "(7)", "value": "(6)", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 1 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "subparagraph", "label": "(5)", "parentType": "paragraph", "parentLabel": "§ 4" },
+      "expectedOld": "Absätzen 1 und 4", "value": "Absätzen 1 und 3", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 1 Buchstabe c", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "item", "label": "4.", "text": "in den Fällen des § 4 Absatz 5 Satz 2 oder Absatz 6 Satz 1 eine schriftliche Erklärung über das Vorliegen der dort genannten Umstände." },
+      "expectedOld": "§ 4 Absatz 5 Satz 2 oder Absatz 6 Satz 1", "value": "§ 4 Absatz 4 Satz 2 oder Absatz 5 Satz 1", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 2 Buchstabe a", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "deleteProvision", "target": { "type": "item", "label": "9.", "text": "Religionszugehörigkeit;" },
+      "field": "text", "expectedOld": "Religionszugehörigkeit;", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 2 Buchstabe b Doppelbuchstabe aa", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "item", "label": "10.", "text": "Datum der Ersteinschulung sowie Angaben zur bisherigen Schullaufbahn und" },
+      "field": "label", "expectedOld": "10.", "value": "9.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 2 Buchstabe b Doppelbuchstabe bb", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "item", "label": "11.", "text": "Art und Grad einer Behinderung sowie chronische Krankheiten, soweit sie für den Schulbesuch von Bedeutung sind." },
+      "field": "label", "expectedOld": "11.", "value": "10.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 2 Buchstabe b Doppelbuchstabe bb", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "subparagraph", "label": "(5)", "parentType": "paragraph", "parentLabel": "§ 6" },
+      "expectedOld": "§ 4 Absatz 3", "value": "§ 4 Absatz 2", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 2 Buchstabe c", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "item", "label": "1.", "text": "75 Prozent für Bewerber mit Realschulabschluss oder einem gleichwertigen Abschluss einer allgemeinbildenden Schule gemäß § 4 Absatz 1 Satz 1 Nummer 1;" },
+      "expectedOld": "75 Prozent", "value": "85 Prozent", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 3 Buchstabe a", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "deleteProvision", "target": { "type": "item", "label": "2.", "text": "10 Prozent an Bewerber allgemeinbildender Gymnasien mit Versetzungszeugnis in die Jahrgangsstufe\n11 gemäß § 4 Absatz 2;" },
+      "field": "text", "expectedOld": "10 Prozent an Bewerber allgemeinbildender Gymnasien mit Versetzungszeugnis in die Jahrgangsstufe\n11 gemäß § 4 Absatz 2;", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 3 Buchstabe b", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "item", "label": "3.", "text": "10 Prozent an Bewerber mit Berufsabschluss gemäß § 4 Absatz 1 Satz 1 Nummer 2 und" },
+      "field": "label", "expectedOld": "3.", "value": "2.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 3 Buchstabe c", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "renameProvision", "target": { "type": "item", "label": "4.", "text": "5 Prozent an die Gruppe der Bewerber nach § 4 Absatz 5 und 6." },
+      "field": "label", "expectedOld": "4.", "value": "3.", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 3 Buchstabe c", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "item", "label": "3.", "text": "5 Prozent an die Gruppe der Bewerber nach § 4 Absatz 5 und 6." },
+      "expectedOld": "§ 4 Absatz 5 und 6", "value": "§ 4 Absatz 4 und 5", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 3 Buchstabe d", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "paragraph", "label": "§ 35" },
+      "expectedOld": "Die Fächer Sport, Evangelische Religion, Katholische Religion und Ethik sind als Fächer des Pflichtbereichs keinem Aufgabenfeld zugeordnet.",
+      "value": "Die Fächer Sport und Ethik sind als Fächer des Pflichtbereichs keinem Aufgabenfeld zugeordnet.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 4", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "item", "label": "9.", "text": "im Fach Evangelische Religion, Katholische Religion oder Ethik die vier Grundkurse der Jahrgangsstufen 12 und 13." },
+      "expectedOld": "Evangelische Religion, Katholische Religion oder Ethik", "value": "Ethik", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 5", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "item", "label": "3.", "text": "zwei Kurshalbjahresergebnisse im Fach Evangelische Religion, Katholische Religion oder Ethik und" },
+      "expectedOld": "Evangelische Religion, Katholische Religion oder Ethik", "value": "Ethik", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 6", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "item", "label": "8.", "text": "vier Grundkurse im Fach Evangelische Religion, Katholische Religion oder Ethik," },
+      "expectedOld": "Evangelische Religion, Katholische Religion oder Ethik", "value": "Ethik", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 7", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "designationReplacement", "target": { "type": "item", "label": "d)", "text": "zwei Kurshalbjahresergebnisse im Fach Evangelische Religion, Katholische Religion oder Ethik und" },
+      "expectedOld": "Evangelische Religion, Katholische Religion oder Ethik", "value": "Ethik", "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 8", "effectiveDate": "2026-09-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": { "type": "paragraph", "label": "§ 76" },
+      "expectedHash": "5d2a5ef431ad12f707a0725d7ec4f622ad506b0cd5837d2ae5ecf24aa219d587",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 76a",
+        "title": "Freiwilliger Religions- und Weltanschauungsunterricht",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Für freiwilligen Religions- und Weltanschauungsunterricht gelten die §§ 18 bis 20 des Ostdeutschen Schulgesetzes und die Verordnung über Ethik sowie Religions- und Weltanschauungsunterricht. Die Teilnahme ist kein Grund- oder Leistungskurs, begründet keine Beleg- oder Einbringungspflicht und bleibt für Versetzung, Zulassung, Gesamtqualifikation und Abschluss unberücksichtigt."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 67.html", "sourceProvision": "Artikel 2 § 4 Nummer 9", "effectiveDate": "2026-09-01"
+    }
+  ]
+}

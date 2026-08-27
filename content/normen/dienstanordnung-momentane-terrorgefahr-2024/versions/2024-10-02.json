@@ -42,12 +42,40 @@
       "pageRange": "1",
       "verifiedAt": "2026-08-27",
       "sourceRole": "visual-control"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
   ],
   "sourceNotes": [
     {
       "label": "Abweichende Datumsangaben",
       "text": "Das Inhaltsverzeichnis nennt den 2. Oktober 2024, der Einleitungssatz im Normtext dagegen den 23. September 2024. Das Portal führt beide Angaben getrennt und nimmt keine stillschweigende Bereinigung vor."
+    },
+    {
+      "label": "Amtliche Berichtigung",
+      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 2): Datum und ausgelassenes Außerkrafttreten der nachgedruckten Dienstanordnung wurden amtlich berichtigt. Die Gültigkeit dieser Fassung beginnt unverändert am 2024-10-02."
     }
   ],
   "body": [
@@ -73,7 +101,7 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Die Verordnung tritt am Tage der Verkündung in Kraft und am 06.10.2024 außer Kraft. Sie kann jederzeit verlängert werden."
+          "text": "Die Verordnung tritt am Tage der Verkündung in Kraft. Diese Dienstanordnung tritt mit Ablauf des 6. Oktober 2024 außer Kraft. Sie kann jederzeit verlängert werden."
         }
       ]
     }

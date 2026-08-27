@@ -18,34 +18,35 @@
           "level": 0,
           "listId": "printed-outline",
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "a)",
-          "text": "Lebens- und Gesundheitsschutz (Schutz vor Unterkühlung/Erfrierung, Unfallfolgen durch Glätte),",
-          "level": 0,
-          "listId": "frn9gdjejbdk",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "b)",
-          "text": "Sicherung der Erreichbarkeit kritischer Infrastruktur (Rettungswege, Kliniken, Leitstellen, Notunterkünfte),",
-          "level": 0,
-          "listId": "frn9gdjejbdk",
-          "numberingStyle": "lower-latin",
-          "children": []
-        },
-        {
-          "type": "item",
-          "label": "c)",
-          "text": "Stabilisierung von Winterdienst, Katastrophenschutz und Notstromversorgung.",
-          "level": 0,
-          "listId": "frn9gdjejbdk",
-          "numberingStyle": "lower-latin",
-          "children": []
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Lebens- und Gesundheitsschutz (Schutz vor Unterkühlung/Erfrierung, Unfallfolgen durch Glätte),",
+              "level": 1,
+              "listId": "frn9gdjejbdk",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Sicherung der Erreichbarkeit kritischer Infrastruktur (Rettungswege, Kliniken, Leitstellen, Notunterkünfte),",
+              "level": 1,
+              "listId": "frn9gdjejbdk",
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Stabilisierung von Winterdienst, Katastrophenschutz und Notstromversorgung.",
+              "level": 1,
+              "listId": "frn9gdjejbdk",
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
         },
         {
           "type": "item",

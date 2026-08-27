@@ -43,22 +43,6 @@
       "title": "Ostdeutsche Bezirksordnung",
       "aliases": [
         "Ostdeutsche Bezirksordnung"
-      ],
-      "editorialResolutions": [
-        {
-          "id": "sportneuordnung-bezirksordnung-neufassung",
-          "status": "resolved-source-conflict",
-          "decisionDate": "2026-07-23",
-          "issue": "Artikel 8 bezeichnet die Bezirksordnung von 2025, setzt aber eine Aufgabenliste in § 13 und einen § 13a voraus, die erst die Neufassung 2026 besitzt.",
-          "publishedText": "Artikel 8 bezeichnet die Ostdeutsche Bezirksordnung vom 6. März 2025.",
-          "resolvedApplication": "Die Änderungen werden auf die strukturell passenden Vorschriften der ab 1. August 2026 geltenden Neufassung angewendet.",
-          "rationale": "Nur die Neufassung enthält die von den Änderungsbefehlen vorausgesetzten Zielanker.",
-          "evidence": [
-            "content/normen/sportneuordnungsgesetz/versions/2026-07-21.json",
-            "content/normen/ostdeutsche-bezirksordnung/versions/2025-03-12.json",
-            "content/normen/ostdeutsche-bezirksordnung/versions/2026-08-01.json"
-          ]
-        }
       ]
     },
     "ostdeutsches-feiertagsgesetz": {
@@ -266,22 +250,7 @@
       "sourceValidTo": "2023-12-31",
       "snapshot": "data/recht/sources/revosax/saechsische-landkreisordnung/3264.23.html",
       "retrievedAt": "2026-07-23",
-      "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89",
-      "editorialResolutions": [
-        {
-          "id": "landkreisordnung-zielanker-paragraf-65",
-          "status": "resolved-source-conflict",
-          "decisionDate": "2026-07-23",
-          "issue": "Artikel 2 des Ostdeutschen Bezirkseinführungsgesetzes nennt § 75.",
-          "publishedText": "In § 75 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
-          "resolvedApplication": "Die Ersetzung wird in § 65 Absatz 1 Satz 1 der Landkreisordnung angewendet.",
-          "rationale": "Nur § 65 trägt die bezeichnete Aufsichtsregelung und enthält die zu ersetzende Behördenbezeichnung.",
-          "evidence": [
-            "content/normen/ostdeutsches-bezirkseinfuehrungsgesetz/versions/2025-03-06.json",
-            "data/recht/sources/revosax/saechsische-landkreisordnung/3264.23.html"
-          ]
-        }
-      ]
+      "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89"
     },
     "saechsische-haushaltsordnung": {
       "title": "Sächsische Haushaltsordnung",
@@ -927,22 +896,7 @@
       "sourceValidTo": "2024-07-29",
       "snapshot": "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html",
       "retrievedAt": "2026-07-23",
-      "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501",
-      "editorialResolutions": [
-        {
-          "id": "schmerzgriffe-zielnorm-und-paragraf",
-          "status": "resolved-source-conflict",
-          "decisionDate": "2026-07-23",
-          "issue": "Das Änderungsgesetz bezeichnet das außer Kraft getretene Polizeigesetz und § 32a.",
-          "publishedText": "Änderung des Polizeigesetzes; Einfügung eines § 32a.",
-          "resolvedApplication": "Der materielle Wortlaut wird als § 41a nach § 41 in das Polizeivollzugsdienstgesetz eingefügt.",
-          "rationale": "Die redaktionelle Entscheidung ordnet Zielnorm und Einordnungsstelle verbindlich dem geltenden Polizeivollzugsdienstgesetz zu.",
-          "evidence": [
-            "content/normen/gesetz-zur-anderung-des-polizeigesetzes-zur-regelung-der-schmerzgriffe/versions/2026-03-23.json",
-            "data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html"
-          ]
-        }
-      ]
+      "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501"
     },
     "finanzausgleichsgesetz": {
       "revosaxLawId": "5402",
@@ -1406,15 +1360,7 @@
       "reason": "Der im NDR-Staatsvertrag enthaltene Text „Mustergesetz vom TT. MMMM JJJJ“ ist eine unausgefüllte Quellenvorlage und keine reale Zielnorm."
     },
     "schulordnung-foerderschulen": {
-      "reason": "Quellenkonflikt in OGVBl. 2026 Nr. 64: Mindestens der Änderungsbefehl zu § 8 Absatz 2 setzt die Wörter „Klassenstufen 1 bis 4 der Grundschule“ voraus; diese stehen nicht in der durch die Änderungsvorschrift selbst bezeichneten Ausgangsfassung. Eine heuristische Umdeutung auf den vorhandenen Lehrplanverweis ist unzulässig.",
-      "effectiveDate": "2026-09-01"
-    },
-    "schulordnung-berufsschule": {
-      "reason": "Quellenkonflikt in OGVBl. 2026 Nr. 67: Artikel 2 § 3 Nummer 8 ordnet die Einfügung nach § 31 an; die verbindliche Ausgangsfassung vom 1. November 2023 endet bei § 30. Eine spätere sächsische Fassung wird nicht wörtlich als Ausgangsfassung adoptiert.",
-      "effectiveDate": "2026-09-01"
-    },
-    "schulordnung-berufliche-gymnasien": {
-      "reason": "Quellenkonflikt in OGVBl. 2026 Nr. 67: Artikel 2 § 4 Nummer 1 Buchstabe d setzt im neuen § 4 Absatz 4 Satz 2 einen Verweis auf § 4 Absatz 6 Satz 1 voraus, der in der verbindlichen Ausgangsfassung nicht vorhanden ist. Eine spätere sächsische Fassung wird nicht wörtlich als Ausgangsfassung adoptiert.",
+      "reason": "Verbleibender Quellenkonflikt trotz OGVBl. 2026 Nr. 68: Artikel 1 Nummer 6 Buchstabe b der Änderungsverordnung verlangt in § 8 Absatz 3 die Wörter „Klassenstufen 5 und 6 der Oberschule“. Die verbindliche REVOSax-Ausgangsfassung enthält dort stattdessen „Lehrplänen für die Oberschule“. Die Berichtigung Nr. 68 erfasst nur die Befehle zu § 8 Absatz 2 und § 9 Absatz 2; eine heuristische Umdeutung des nicht berichtigten Befehls ist unzulässig.",
       "effectiveDate": "2026-09-01"
     }
   }

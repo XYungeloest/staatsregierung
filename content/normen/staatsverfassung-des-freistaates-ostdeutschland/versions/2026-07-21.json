@@ -1,8 +1,5 @@
 {
   "versionId": "2026-07-21",
-  "title": "Verfassung des Freistaates Ostdeutschland",
-  "shortTitle": "Ostdeutsche Staatsverfassung",
-  "abbr": "OstVerf",
   "validFrom": "2026-07-21",
   "validTo": null,
   "isCurrent": true,
@@ -3272,15 +3269,16 @@
               "level": 0,
               "listId": "list_72",
               "numberingStyle": "decimal",
-              "children": []
-            },
-            {
-              "type": "paragraphText",
-              "text": "„Ich schwöre, dass ich mein Amt nach bestem Wissen und Können führen, Verfassung und Recht achten und verteidigen und Gerechtigkeit gegenüber allen üben werde.“"
-            },
-            {
-              "type": "paragraphText",
-              "text": "Der Eid kann auch mit der Beteuerung „So wahr mir Gott helfe“ geleistet werden."
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„Ich schwöre, dass ich mein Amt nach bestem Wissen und Können führen, Verfassung und Recht achten und verteidigen und Gerechtigkeit gegenüber allen üben werde.“"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Der Eid kann auch mit der Beteuerung „So wahr mir Gott helfe“ geleistet werden."
+                }
+              ]
             }
           ]
         }
@@ -4213,7 +4211,7 @@
             {
               "type": "subparagraph",
               "label": "(1)",
-              "text": "Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet Ende August statt.",
+              "text": "Siebte Volkskammer ist der siebte Landtag. Die Wahl zur achten Volkskammer findet am 5. und 6. September 2026 statt.",
               "level": 0,
               "listId": "dzt02ctc008",
               "numberingStyle": "decimal",
@@ -4254,14 +4252,34 @@
   ],
   "sourceReferences": [
     {
-      "kind": "structured-html-transcription",
-      "label": "Redaktionelle Lesefassung vom 21. Juli 2026",
+      "kind": "amendment-source",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
       "availability": "versioned",
-      "localSource": "Gesetze/Staatsverfassung.html",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html",
+      "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
       "mediaType": "text/html",
-      "verifiedAt": "2026-07-23",
-      "sourceRole": "structure-bearing",
-      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 53.html"
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "amendment-evidence"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung – Berichtigung Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 68.pdf",
+      "sha256": "4424c1ae079ae0ab0cd105de5192ac206b8bd325fc30b3fdfea2bcb7a91b385d",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "Amtliche Berichtigung",
+      "text": "Berichtigung vom 14. August 2026 (OGVBl. 2026 Nr. 68 S. 3): Der Wahltermin in Artikel 121a Absatz 1 wurde aufgrund der amtlichen Berichtigung richtiggestellt. Die Gültigkeit dieser Fassung beginnt unverändert am 2026-07-21."
     }
   ]
 }

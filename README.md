@@ -349,9 +349,11 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
 
 ### Rechtsportal und Primärquellen
 
-- [ ] Die 24 nach dem freigegebenen amtlichen REVOSax-Abruf als `missing-stem-record` geführten
-  Zielnormen aus den geprüften Snapshots als historisierte Stammnormen anlegen und ihre
-  ostdeutschen Änderungen über geprüfte Patch-Rezepte konsolidieren. Kulturraumgesetz und
+- [x] Die 24 nach dem freigegebenen amtlichen REVOSax-Abruf als `missing-stem-record` geführten
+  Zielnormen aus den geprüften Snapshots als historisierte Stammnormen anlegen und vorhandene
+  ostdeutsche Patch-Rezepte darauf anwenden.
+- [ ] Für die im Konsolidierungsmanifest noch als `incomplete-placeholder` geführten Zielnormen
+  die fehlenden ostdeutschen Patch-Rezepte quellenbasiert erarbeiten. Kulturraumgesetz und
   Ostdeutsches Polizeibehördengesetz bleiben wegen der Berlin-Darstellung zuerst zu bearbeiten.
 - [ ] Für die weiterhin als `missing-baseline` geführte Zielnorm die vollständige Ausgangsfassung
   des NDR-Staatsvertrags beschaffen.
