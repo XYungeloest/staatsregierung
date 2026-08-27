@@ -1,21 +1,28 @@
 # Interner Wissenshub
 
-Diese Dateien bilden einen internen, nicht öffentlich ausgelieferten Wissenshub für Menschen, ChatGPT, Codex und andere Agenten. Der Hub erschließt den vorhandenen Repositorybestand, verknüpft Quellen, ordnet Gültigkeitszeiträume ein und hält offene Fragen sichtbar.
+Diese Dateien bilden einen internen, nicht öffentlich ausgelieferten Wissenshub für Menschen,
+ChatGPT, Codex und andere Agenten. Der Hub erschließt den vorhandenen Repositorybestand, verknüpft
+Quellen, ordnet Gültigkeitszeiträume ein und hält tatsächlich offene Fragen sichtbar.
 
 ## Abgrenzung
 
 `content/` enthält öffentliche Websiteinhalte und strukturierte Rechtsdaten.  
 `Gesetze/` enthält strukturtragende Importquellen und visuelle Kontrollquellen.  
 `context/` enthält historische Ausgangstexte, Entwürfe und Simulationsmaterial.  
-`knowledge/` enthält Querverbindungen, Rollenchronologien, Zustände, Projekte, Verfahren, Konflikte und Suchkandidaten.
+`knowledge/` enthält Querverbindungen, Rollenchronologien, Zustände, Projekte, Verfahren,
+aktuelle Konflikte und Suchkandidaten.
 
-Der Wissenshub ist keine zweite Website und kein Ersatz für das Rechtsportal. Normvolltexte und öffentliche Seiten werden nicht kopiert.
+Der Wissenshub ist keine zweite Website und kein Ersatz für das Rechtsportal. Normvolltexte und
+öffentliche Seiten werden nicht kopiert.
+
 Für das Gesamtprojekt gilt: ein Repository, ein gemeinsamer Daten- und Wissensbestand, zwei
 öffentliche Anwendungen. Das Staatsportal unter `freistaat-ostdeutschland.de` und OstRecht unter
 `recht.freistaat-ostdeutschland.de` referenzieren denselben Hub; weder Portal- noch Rechtsbuild
 liefert `knowledge/` öffentlich aus.
-Aktuelle Regierungsbesetzungen werden in `content/organisation/` kanonisch gepflegt; Knowledge-Einträge
-referenzieren diese IDs und Quellen, ergänzen aber weiterhin Provenienz, Zusammenhänge und Zeiträume.
+
+Aktuelle Regierungsbesetzungen werden in `content/organisation/` kanonisch gepflegt;
+Knowledge-Einträge referenzieren diese IDs und Quellen, ergänzen aber weiterhin Provenienz,
+Zusammenhänge und Zeiträume.
 
 ## Einstieg
 
@@ -33,17 +40,24 @@ referenzieren diese IDs und Quellen, ergänzen aber weiterhin Provenienz, Zusamm
 
 ## Dateien
 
-`AUDIT.md` dokumentiert Quellenbestand, Abdeckung und Lücken.  
-`SOURCE_POLICY.md` legt die Quellenhierarchie fest.  
+`AUDIT.md` beschreibt den aktuellen Abdeckungsstand, dauerhafte Grenzen und noch offene
+Arbeitsfelder.  
+`SOURCE_POLICY.md` legt die Quellenhierarchie und das Konfliktverfahren fest.  
 `schema.json` beschreibt gemeinsame Provenienz- und Rollenfelder.  
 `sources.json` enthält stabile Quellen-IDs.  
 `current-state.json` enthält ausschließlich den am Stichtag belegten aktuellen Stand.  
 `timeline.json` enthält datierte Ereignisse.  
 `projects.json` bündelt politische und rechtliche Gesamtkomplexe.  
-`holdings.json` enthält den rekonstruierten Beteiligungsbestand, Träger- und Gewährträgerpositionen, wichtige mittelbare Beteiligungen, Sondervermögen und die Rechtsnachfolgelogik seit dem 1. Dezember 2023.
-`holding-positions.json` enthält die maschinenprüfbare Vollinventur der öffentlich belegten unmittelbaren, mittelbaren und tieferliegenden Positionen. Die Spaltenreihenfolge steht in `positionFields`; Quellen gelten portfolioübergreifend, jede Zeile besitzt zusätzlich eine konkrete Fundstelle. Mehrländerpositionen, Fortschreibung und ausdrückliche Ausschlüsse stehen in eigenen Sammlungen derselben Datei.
+`holdings.json` enthält den rekonstruierten Beteiligungsbestand, Träger- und
+Gewährträgerpositionen, wichtige mittelbare Beteiligungen, Sondervermögen und die
+Rechtsnachfolgelogik seit dem 1. Dezember 2023.  
+`holding-positions.json` enthält die maschinenprüfbare Vollinventur der öffentlich belegten
+unmittelbaren, mittelbaren und tieferliegenden Positionen. Die Spaltenreihenfolge steht in
+`positionFields`; Quellen gelten portfolioübergreifend, jede Zeile besitzt zusätzlich eine
+konkrete Fundstelle. Mehrländerpositionen, Fortschreibung und ausdrückliche Ausschlüsse stehen in
+eigenen Sammlungen derselben Datei.  
 `proceedings.json` enthält Gesetzgebungs-, Vertrags-, Gerichts- und Umsetzungsverfahren.  
-`open-questions.json` enthält konkrete Klärungsaufträge.  
+`open-questions.json` enthält konkrete, noch ungeklärte Klärungsaufträge.  
 `conversation-candidates.json` enthält noch nicht hinreichend bestätigtes Gesprächswissen.  
 `entities/` enthält Personen, Institutionen, Parteien und Gebiete.  
 `generated/` enthält ausschließlich automatisch erzeugte Dateien.
@@ -59,19 +73,29 @@ referenzieren diese IDs und Quellen, ergänzen aber weiterhin Provenienz, Zusamm
 | `planned` | politisch geplant oder angekündigt |
 | `historical` | für einen abgeschlossenen Zeitraum belegt |
 | `superseded` | durch späteren Stand überholt |
-| `disputed` | Quellen widersprechen sich |
+| `disputed` | Quellen widersprechen sich aktuell |
 | `unverified` | noch nicht hinreichend geprüft |
 | `unresolved` | konkrete offene Wirksamkeits- oder Quellenfrage |
 
 ## Zeitlogik
 
-Jeder Eintrag besitzt `asOf`. Bekannte Gültigkeitszeiträume werden mit `validFrom` und `validTo` gespeichert. Unbekannte Daten bleiben `null`. Ein später gespeicherter Datensatz hebt einen älteren nicht automatisch auf. Historische Amtsbezeichnungen bleiben für historische Ereignisse erhalten.
+Jeder Eintrag besitzt `asOf`. Bekannte Gültigkeitszeiträume werden mit `validFrom` und `validTo`
+gespeichert. Unbekannte Daten bleiben `null`. Ein später gespeicherter Datensatz hebt einen älteren
+nicht automatisch auf. Historische Amtsbezeichnungen bleiben für historische Ereignisse erhalten.
 
-Der redaktionelle Stichtag ist in `src/config/editorial.json` festgelegt. Ein künftiger, bereits verkündeter Zustand kann im Hub gespeichert werden, wird aber nicht als gegenwärtig ausgegeben.
+Der redaktionelle Stichtag ist in `src/config/editorial.json` festgelegt. Ein künftiger, bereits
+verkündeter Zustand kann im Hub gespeichert werden, wird aber nicht als gegenwärtig ausgegeben.
 
 ## Konflikte
 
-Widersprüchliche Aussagen werden nicht still harmonisiert. Beide Aussagen bleiben über Quellenreferenzen nachvollziehbar. Ein Konflikt erhält den Status `disputed` und eine Frage in `open-questions.json`. Änderungen an öffentlichen Inhalten oder Normfassungen erfolgen außerhalb dieses Audits und nur mit hinreichender Quelle.
+Widersprüchliche Aussagen werden nicht still harmonisiert. Solange der Konflikt offen ist, bleiben
+die betroffenen Aussagen über Quellenreferenzen nachvollziehbar, der Status lautet `disputed` und
+`open-questions.json` enthält eine konkrete Klärungsfrage.
+
+Nach einer fachlichen Auflösung werden aktive Konfliktmarker und offene Fragen entfernt. Eine
+Auflösungsentscheidung bleibt nur dann als dauerhafte technische Provenienz erhalten, wenn sie für
+die heutige Datenableitung weiterhin benötigt wird. Eine bloße Historie bereits beseitigter
+Konflikte gehört nicht in Audit-, Gap- oder Statusdokumente.
 
 ## Generierung und Validierung
 
@@ -93,7 +117,9 @@ Fundstellen, Dateipfade, Vertrauenswerte oder internen Notizen und bildet die Da
 den Beteiligungsnavigator sowie dessen CSV- und JSON-Download. Die Projektion wird nicht manuell
 gepflegt; `npm run holdings:check` prüft ihre Aktualität und Feldfreigabe.
 
-`knowledge:check` prüft JSON, IDs, Quellen, Pfade, Datumswerte, Statuswerte, Verweise, Rollenintervalle, den Ausschluss ungeprüfter Gesprächsfakten aus dem aktuellen Stand und die Übereinstimmung der generierten Dateien.
+`knowledge:check` prüft JSON, IDs, Quellen, Pfade, Datumswerte, Statuswerte, Verweise,
+Rollenintervalle, den Ausschluss ungeprüfter Gesprächsfakten aus dem aktuellen Stand und die
+Übereinstimmung der generierten Dateien.
 
 Generierte Dateien werden nicht manuell bearbeitet.
 
@@ -102,12 +128,17 @@ Generierte Dateien werden nicht manuell bearbeitet.
 1. Neue Primärquelle einpflegen.
 2. Bestehende strukturierte Inhalte aktualisieren.
 3. Betroffene Wissenseinträge aktualisieren.
-4. Timeline-Ereignis ergänzen.
-5. Offene Frage schließen oder aktualisieren.
+4. Timeline-Ereignis ergänzen, wenn das Ereignis selbst dauerhaft relevant ist.
+5. Offene Frage schließen oder aktualisieren; gelöste Fragen nicht als erledigte Einträge behalten.
 6. `npm run knowledge:check` ausführen.
 7. `npm run knowledge:build` ausführen.
 8. Bestehende Content-, TypeScript- und Buildprüfungen ausführen.
 
 ## Quellenpflicht
 
-Bestätigte Fakten benötigen mindestens eine `sourceRef`. Reine Gesprächsquellen dürfen nicht in `current-state.json` stehen. Eindeutige EAG-Ausspielungen sind nach vollständiger Kontextprüfung kanonische Simulationsquellen; bloße Regierungsanfragen und ungeklärte Chatbeiträge bleiben Gesprächskandidaten. Anhänge werden visuell gelesen und mit Message-ID sowie Dateiname lokalisiert. Externe Wikiangaben werden nur mit konkreter Miraheze-Seite oder Revision und nach Quellenabgleich übernommen.
+Bestätigte Fakten benötigen mindestens eine `sourceRef`. Reine Gesprächsquellen dürfen nicht in
+`current-state.json` stehen. Eindeutige EAG-Ausspielungen sind nach vollständiger Kontextprüfung
+kanonische Simulationsquellen; bloße Regierungsanfragen und ungeklärte Chatbeiträge bleiben
+Gesprächskandidaten. Anhänge werden visuell gelesen und mit Message-ID sowie Dateiname lokalisiert.
+Externe Wikiangaben werden nur mit konkreter Miraheze-Seite oder Revision und nach Quellenabgleich
+übernommen.
