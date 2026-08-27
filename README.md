@@ -1,14 +1,29 @@
 # Staatsrat des Ostdeutschen Freistaates
 
-Website des fiktiven Staatsrates des Ostdeutschen Freistaates mit Staatsportal, eigenständigem Rechtsportal, Presse, Haushalt und Service.
+Website des fiktiven Staatsrates des Ostdeutschen Freistaates mit Staatsportal, eigenständigem
+Rechtsportal, Presse, Haushalt und Service.
 
-Die öffentliche Website soll sachlich, ruhig und behördennah wirken. Architektur- und Entwicklungsbegriffe gehören nicht in öffentliche Seitentexte; operative Hinweise bleiben in Code, README, AGENTS oder `CONTENT.md`.
+Das Projekt ist eine politische Simulation und stellt keine echte amtliche Veröffentlichung dar.
+Der entsprechende Hinweis erscheint in der oberen Hinweisleiste, im Footer und ausführlich im
+Impressum.
 
-Die zentrale Anleitung zur Pflege der Website-Inhalte steht in `CONTENT.md`.
-Der aktuelle redaktionelle Stand ist der 23. August 2026. Aktuelle offene Quellenfragen stehen in
-`CONTENT_GAPS.md`.
+Der redaktionelle Stichtag ist in `src/config/editorial.json` festgelegt und liegt derzeit auf dem
+**23. August 2026**. Die Inhaltsformate und Pflegewege stehen in `CONTENT.md`. Aktuell offene
+Quellenfragen stehen in `CONTENT_GAPS.md`.
 
-## Projektkern
+## Architektur
+
+Grundentscheidung ist **ein Repository mit einem gemeinsamen Daten- und Wissensbestand und zwei
+öffentlichen Anwendungen**:
+
+- Staatsportal: `https://freistaat-ostdeutschland.de`
+- Rechtsportal OstRecht: `https://recht.freistaat-ostdeutschland.de`
+
+Beide Anwendungen lesen dieselben Bestände unter `content/`, `Gesetze/` und `knowledge/`.
+`knowledge/` wird nicht öffentlich ausgeliefert. Das Staatsportal behält unter `/recht/` nur eine
+redaktionelle Brückenseite; Rechtsdetailseiten liegen ausschließlich auf der Rechtsdomain.
+
+Technischer Kern:
 
 - Astro und TypeScript
 - Cloudflare Workers als Zielplattform
@@ -16,19 +31,10 @@ Der aktuelle redaktionelle Stand ist der 23. August 2026. Aktuelle offene Quelle
 - normalisierte Regierungsorganisation unter `content/organisation/`
 - getrenntes, Access-geschütztes Git-Redaktionsstudio unter `/redaktion/`
 - interner Wissenshub unter `knowledge/`
-- eigenständiges Rechtsportal OstRecht unter `https://recht.freistaat-ostdeutschland.de` mit Normen, Fassungen, Historien, Rechtsherkunft,
-  Rechtsentwicklung, Sachgebieten, Fundstellen, Verkündungen und Rechtssuche
+- keine aktiven D1- oder R2-Bindings für die öffentliche Inhaltsauslieferung
 
-Das Projekt ist eine politische Simulation. Es stellt keine echte amtliche Veröffentlichung dar.
-Der dafür notwendige Hinweis erscheint sichtbar in der oberen Hinweisleiste und im Footer. Das
-Impressum enthält zusätzlich die rechtlich erforderliche ausführliche Einordnung; weitere
-öffentliche Texte sollen die Simulation nicht wiederholen.
-
-Grundentscheidung: **Ein Repository, ein gemeinsamer Daten- und Wissensbestand, zwei öffentliche
-Anwendungen.** Das Staatsportal läuft unter `https://freistaat-ostdeutschland.de`; OstRecht läuft
-unter `https://recht.freistaat-ostdeutschland.de`. Beide Builds lesen dieselben Verzeichnisse
-`content/`, `Gesetze/` und `knowledge/`, wobei `knowledge/` in keinem öffentlichen Artefakt
-ausgeliefert wird. Das Staatsportal behält unter `/recht/` nur eine redaktionelle Brückenseite.
+Dauerhafte Gestaltungsregeln stehen in `DESIGN.md`. Agenten- und Repositoryregeln stehen in
+`AGENTS.md`.
 
 ## Entwicklung
 
@@ -53,12 +59,6 @@ npm run test:browsers
 npm run editorial:check
 ```
 
-Die Test-Suite prüft dauerhaft Parser-, Quellen-, Schema-, Verknüpfungs- und Routingverträge sowie
-repräsentative Nutzerwege und Barrierefreiheit. Redaktionelle Bestände, einzelne Personenstände,
-Veröffentlichungsnummern und aktuelle Themen werden nicht als feste Inventarwerte getestet;
-gezielte Inhaltsprüfungen gehören in die redaktionelle Prüfung einer Änderung und werden nicht
-als dauerhafte Regressionstests fortgeschrieben.
-
 Weitere wichtige Befehle:
 
 ```sh
@@ -71,18 +71,13 @@ npm run deploy:recht
 npm run editorial:dev
 ```
 
-`PORTAL_SITE_URL` und `LAW_SITE_URL` steuern die beiden Origins zentral. Produktionsdefaults sind
-`https://freistaat-ostdeutschland.de` und `https://recht.freistaat-ostdeutschland.de`:
+`PORTAL_SITE_URL` und `LAW_SITE_URL` steuern die beiden Origins. `npm run build:portal` schreibt
+nach `dist/portal/`, `npm run build:recht` nach `dist/law/`. Die Cloudflare-Konfigurationen liegen
+in `wrangler.jsonc` und `wrangler.recht.jsonc`.
 
-```sh
-PORTAL_SITE_URL=https://portal.example LAW_SITE_URL=https://recht.example npm run build
-```
-
-`npm run build:portal` schreibt nach `dist/portal/`, `npm run build:recht` nach `dist/law/`.
-`wrangler.jsonc` deployt das erste Artefakt auf den bestehenden Worker `ostrecht-portal`,
-`wrangler.recht.jsonc` das zweite auf `ostrecht-recht`. `npm run deploy` veröffentlicht beide
-Artefakte desselben Commits verbindlich in der Reihenfolge OstRecht, dann Staatsportal; die
-Staging-Varianten verwenden dieselbe Reihenfolge mit den jeweiligen Wrangler-Umgebungen.
+`npm run deploy` veröffentlicht beide Artefakte desselben Commits in der Reihenfolge OstRecht,
+danach Staatsportal. Details zu Veröffentlichung, Wiederanlauf und Produktionskontrolle stehen in
+`docs/DEPLOYMENT_RUNBOOK.md`.
 
 ## Wichtige Verzeichnisse
 
@@ -105,12 +100,17 @@ content/
 knowledge/
   entities/
   generated/
+  README.md
   AUDIT.md
   SOURCE_POLICY.md
   current-state.json
   timeline.json
   projects.json
   proceedings.json
+  open-questions.json
+
+Gesetze/
+  amtliche und redaktionell geprüfte Rechtsquellen
 
 public/
   data/kreisreform/
@@ -129,265 +129,91 @@ src/
   styles/
 
 context/
-  externe Ausgangstexte und Simulationsmaterial
+  historische Ausgangstexte, Entwürfe und Simulationsmaterial
 ```
 
-Architektur, externe Einrichtung und Bedienung des Redaktionsstudios stehen in
-`docs/EDITORIAL_ARCHITECTURE.md`, `docs/EDITORIAL_SETUP.md` und
-`docs/EDITORIAL_RUNBOOK.md`.
-Veröffentlichung, Fehleranalyse, Wiederanlauf und Produktionsnachkontrolle sind in
-`docs/DEPLOYMENT_RUNBOOK.md` beschrieben.
+Architektur, Einrichtung und Bedienung des Redaktionsstudios stehen in
+`docs/EDITORIAL_ARCHITECTURE.md`, `docs/EDITORIAL_SETUP.md` und `docs/EDITORIAL_RUNBOOK.md`.
 
-`context/` bleibt bewusst erhalten. Alte Planungs- und Zwischendokumente im Repository-Root wurden in diese README und `AGENTS.md` verdichtet.
+## Inhalts- und Wissenspflege
 
-## Interner Wissenshub
+Öffentliche Websiteinhalte werden grundsätzlich über die validierten Dateien unter `content/`
+gepflegt. Die vollständigen Felder, Dateiformate, Normstrukturen und redaktionellen Regeln stehen in
+`CONTENT.md`.
 
-`knowledge/` ist ein interner, nicht öffentlich ausgelieferter Quellen-, Beziehungs- und Zeitindex für die Politiksimulation. Er ersetzt weder die öffentlichen Inhalte unter `content/` noch die Rechtsquellen unter `Gesetze/` und kopiert keine Normvolltexte.
+Aktuelle Ämter, Mitgliedschaften und Ressortleitungen werden ausschließlich aus
+`content/organisation/governments.json`, `offices.json` und `assignments.json` abgeleitet.
+Personen- und Ressortprofile duplizieren diese Zustände nicht.
 
-Der zentrale Einstieg steht in `knowledge/README.md`. Bestätigte Einträge benötigen konkrete Quellenreferenzen und, soweit bekannt, Gültigkeitszeiträume. Gesprächswissen bleibt bis zur Prüfung in `knowledge/conversation-candidates.json`. Als externe Wikiquelle ist ausschließlich das PolitikSim-Wiki auf Miraheze zulässig; andere Wikihoster werden nicht übernommen.
+`knowledge/` bildet den internen Quellen-, Beziehungs- und Zeitindex. Der Einstieg steht in
+`knowledge/README.md`, die Quellenhierarchie in `knowledge/SOURCE_POLICY.md`. Bestätigte Einträge
+benötigen konkrete Quellenreferenzen und soweit bekannt Gültigkeitszeiträume. Ungeprüftes
+Gesprächswissen bleibt in `knowledge/conversation-candidates.json`.
 
-Die Dateien unter `knowledge/generated/` werden ausschließlich mit `npm run knowledge:build` erzeugt und nicht manuell gepflegt. `npm run knowledge:check` prüft Quellen, IDs, Datumswerte, Querverweise, Rollenintervalle und die Übereinstimmung der generierten Dateien.
+Die Dateien unter `knowledge/generated/` werden ausschließlich durch `npm run knowledge:build`
+erzeugt und nicht manuell gepflegt.
 
-## Content-Regeln
+## Normen und Rechtsportal
 
-- Die vollständige Pflegeanleitung für Inhaltsformate, JSON-Felder, Normfassungen und Dashboarddaten steht in `CONTENT.md`.
-- Öffentliche Inhalte werden deutschsprachig mit echten Umlauten gepflegt.
-- Datumsdarstellung auf Seiten bevorzugt `TT. Monat JJJJ`.
-- Regierungsmitglieder liegen unter `content/regierung/mitglieder/`.
-- Ressorts liegen unter `content/ressorts/`.
-- Aktuelle Ämter, Mitgliedschaft und Ressortleitungen werden ausschließlich aus
-  `content/organisation/governments.json`, `offices.json` und `assignments.json` abgeleitet.
-- Startseite, Kabinettschronologie, Aktionsplan und Timeline liegen unter `content/portal/`,
-  `content/regierung/cabinet-page.json` und `content/dashboard/`.
-- Themenseiten verweisen über `federfuehrendesRessort`, `rechtsgrundlagen[].normSlug` und
-  `knowledgeProjectRefs` auf Ressorts, Normen und eingeordnete Wissenshub-Projekte. Ihre
-  zeitlich begrenzte Hervorhebung speist Startseite und Themenübersicht gemeinsam.
-- `content/portal/topic-coverage.json` ordnet Wissenshub-Projekte und Gegenwartsstände einer
-  öffentlichen Oberfläche oder einer begründeten redaktionellen Ausnahme zu.
-- Pressemitteilungen können über `relatedTopicSlugs`, `relatedNormSlugs` und `relatedPressSlugs` querverlinkt werden.
-- Stellenangebote liegen unter `content/service/stellen/`.
-- Personenbezeichnungen werden durchgehend mit Doppelpunkt gegendert, zum Beispiel `Bürger:innen`
-  und `Referent:in`; Paarformen, Sternchen, Binnen-I und Unterstriche werden nicht verwendet.
-- Service-Grundseiten liegen unter `content/service/seiten/`.
-- Normen liegen unter `content/normen/[slug]/` mit `meta.json`, `history.json` und `versions/[versionId].json`.
-- Verkündungen liegen unter `content/verkuendungen/[slug].json` und verknüpfen Ausgaben über
-  `entries[].normSlug` und `entries[].versionId` mit gespeicherten Normfassungen.
-- Parlamentarische Verfahren liegen unter `content/gesetzgebung/[slug].json`. Ihr Status wird aus
-  belegten Drucksachen, Empfehlungen und Tagesordnungen gepflegt und ändert sich nicht allein mit
-  dem Ablauf eines angesetzten Sitzungstermins.
-- Die redaktionell geprüften HTML-Dateien unter `Gesetze/` sind die alleinigen regulären
-  Importquellen für Verkündungsblätter und konsolidierte Einzelnormen. Der Import liest sie mit
-  einem HTML5-Parser, rekonstruiert daraus strukturierte Normdaten und veröffentlicht niemals das
-  Quell-HTML direkt. Eine intern derselben Ausgabe zugeordnete Markdown-Datei wird nicht geöffnet.
-  Für Altquellen ohne HTML bleibt ein getrennter Legacy-Parser verfügbar; solche Datensätze sind als
-  `legacy-markdown-transcription` gekennzeichnet. Soweit vorhanden, wird die zugehörige PDF immer
-  visuell gegen Gliederungstiefe, Einrückung, Nummerierungsfolge, Listenfortsetzungen, Zitate,
-  Tabellen und Anlagen geprüft, aber nicht automatisch als Volltext importiert. Nicht eindeutig
-  auflösbare Abweichungen zwischen HTML, Legacy-Markdown und PDF werden nicht still harmonisiert.
-  Bundesblätter können einen eigenen, ausdrücklich geprüften Layoutpfad verwenden. Für
-  `GMBl. 2026 Nr. 14` erkennt der Importer den Bundesblattkopf und die Übersicht `INHALT`
-  unabhängig von der OGVBl.-Struktur; der enthaltene Dokumenttyp lautet
-  `verwaltungsabkommen`.
+Normen liegen unter:
 
-Historische Normfassungen werden nicht zur Laufzeit berechnet. Sie werden als vollständige,
-unveränderliche Fassungen gespeichert. Für ausdrücklich geänderte übernommene Stammnormen beginnt
-die belegte Fassungsfolge mit dem am 1. November 2023 geltenden sächsischen Rechtsstand. Der
-Konsolidierungslauf verwendet ausschließlich versionierte amtliche REVOSax-Snapshots und
-redaktionell geprüfte, deterministische Patch-Rezepte; bei einem uneindeutigen Zielanker oder
-abweichenden Ausgangstext bricht er ab. Bezeichnet eine ostdeutsche Änderung ausdrücklich einen
-späteren sächsischen Zwischenstand, wird auch dieser als eigener Snapshot mit dem wörtlichen
-Adoptionsbeleg versioniert; sonstige spätere sächsische Änderungen werden nicht übernommen.
-Mehrere Änderungen mit demselben Wirksamkeitstag benötigen eine explizite Reihenfolge und erzeugen
-eine gemeinsame Folgefassung mit getrennten Historieneinträgen. `src/lib/norms/versions.ts` ordnet jede gespeicherte Fassung anhand ihres
-Gültigkeitsintervalls und des Stichtags aus `src/config/editorial.json` als geltend, künftig,
-historisch oder mit ungeklärtem Inkrafttreten ein. `isCurrent` bleibt nur als kompatibles
-Bestandsfeld erhalten und steuert keine öffentliche Bezeichnung mehr. Ein ausdrücklich als
-historisch oder aufgehoben geführter Datensatz bleibt auch bei einem noch nicht gespeicherten
-Intervallende historisch; die Oberfläche benennt das fehlende Enddatum dann ausdrücklich.
+```text
+content/normen/[slug]/
+  meta.json
+  history.json
+  versions/[versionId].json
+```
 
-`src/lib/norms/origin.ts` leitet die Rechtsherkunft einheitlich aus den gespeicherten Quellen- und
-Historienfeldern ab. Als übernommene Ausgangsfassung gilt nur eine am 1. November 2023 beginnende
-Fassung mit einem amtlichen REVOSax-Snapshot, dessen Quellenzeitraum diesen Tag umfasst.
-Ostdeutsche Änderungen werden aus datierten Änderungs- und Aufhebungseinträgen mit belegter
-ostdeutscher Verkündung beziehungsweise eindeutig verknüpfter Änderungsvorschrift bestimmt. Eine
-nach dem Ausgangsstichtag erstmals verkündete Norm wird nur bei eigener ostdeutscher
-Veröffentlichungsgrundlage als eigenständig neu geschaffen eingeordnet. Fehlt ein solcher Beleg,
-bleibt die Herkunft ausdrücklich ungeklärt. Die Einordnung wird für Normseiten, Fassungen, Suche
-und `/rechtsentwicklung/` auf OstRecht aus derselben Funktion erzeugt.
+Verkündungen liegen unter `content/verkuendungen/[slug].json` und verknüpfen Fundstellen mit den
+gespeicherten Normfassungen. Historische Fassungen werden nicht zur Laufzeit berechnet, sondern als
+vollständige, unveränderliche Fassungen gespeichert.
 
-Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
-Normlink ist dynamisch und führt zur am redaktionellen Stichtag geltenden Fassung. Gibt es noch
-keine geltende Fassung, zeigt er die nächste belegte zukünftige beziehungsweise die veröffentlichte
-Fassung mit ungeklärtem Inkrafttreten. Versionsspezifische Links bleiben unveränderlich. Die Suche
-verwendet standardmäßig geltende Fassungen; Fassungsart, Mehrfachfacetten, strukturierte
-Fundstellen, Rechtsherkunft und Präfix-Platzhalter mit `*` sind explizite Filter. Änderungsvorschriften werden
-über den Normtyp, belegte Einführungsbeziehungen oder eine eindeutige Änderungsbezeichnung im
-amtlichen Titel erkannt und standardmäßig getrennt angeboten.
+Reguläre Importquellen sind die redaktionell geprüften HTML-Dateien unter `Gesetze/`. Vorhandene
+PDFs dienen der visuellen Gegenprüfung. Markdown wird nur für Altquellen ohne passende HTML-Fassung
+über den getrennten Legacy-Parser verwendet. Mehrdeutige Abweichungen werden nicht still
+harmonisiert.
 
-Öffentliche Vollzitate werden fassungsspezifisch aus dem vollständigen Normtitel, der gespeicherten
-Stammfundstelle und dem letzten Historieneintrag mit zugeordneter Änderungsvorschrift gebildet.
-`initialCitation`, die Zitierangaben der Fassungen und die Fundstellen in den Verkündungsdatensätzen
-bleiben dabei unveränderte Quellen- und Provenienzfelder. Fehlt wegen eines dokumentierten
-Quellenkonflikts ein Normdatum, ergänzt die Zitierlogik kein vermeintlich eindeutiges Datum.
+Für ausdrücklich geänderte übernommene Stammnormen bildet grundsätzlich der am 1. November 2023
+geltende sächsische Rechtsstand die Ausgangsfassung. REVOSax-Snapshots werden unverändert
+versioniert; Folgefassungen entstehen ausschließlich über geprüfte, deterministische Patch-Rezepte.
+Quellenkonflikte blockieren die Konsolidierung.
 
-## Zentrale Konfiguration
-
-- `src/config/site.ts`: beide Site-Origins, Site-Namen, Pfade, Navigationen und Kontakt
-- `src/config/editorial.json`: zentraler redaktioneller Stichtag
-- `src/config/features.ts`: Feature-Flag für die optionale Webanalyse
-- `src/config/analytics.ts`: Consent und Webanalyse-Konfiguration
-- `src/lib/portal/routes.ts`: zentrale Portalpfade und absolute Cross-Site-Links
-- `src/lib/norms/routes.ts`: zentrale Rechtspfadlogik ohne öffentliches `/recht/`-Präfix
-- `src/config/law-subjects.ts`: redaktionelle Gruppierung der belegten Sachgebiete ohne erfundene Systemnummern
-- OstRecht hat statische Einstiege für Suche, alphabetischen Index, Sachgebiete,
-  Rechtsentwicklung, Fundstellennachweise, Verkündungen, Förderrichtlinien und Hilfe. Neue Rechtspfade werden
-  zentral über die Route-Helper gepflegt.
-
-Normseiten bieten eine gemeinsame Fassungsnavigation, einen strukturellen Vergleich gespeicherter
-Fassungen, eine fassungsspezifische Herkunftseinordnung, gerichtete Beziehungen zu Einführungs-,
-Änderungs- und Aufhebungsvorschriften, semantische Sprungmarken mit kompatiblen Altankern sowie
-Gesamt- und Einzeldruck. Die Vergleichsseite rendert nur den üblichen Vergleich zur vorherigen
-Fassung vor; weitere Fassungs-Paare werden als kleine statische JSON-Dateien geladen. Dadurch
-bleiben freie Auswahl und stabile `von`-/`bis`-Adressen erhalten, ohne sämtliche Paarungen in eine
-Seite einzubetten.
-PDF-Links werden nur ausgegeben, wenn eine entsprechende Datei oder externe Quelle im
-Verkündungsdatensatz belegt ist. Eine HTML-Druckansicht wird nicht als amtliche Verkündung
-bezeichnet.
-
-Für öffentliche Übersichten werden Termine und Stellenangebote über
-`src/lib/portal/dates.ts` gegen den redaktionellen Stichtag gefiltert. Vergangene Termine und
-abgelaufene Fristen bleiben im Archiv erreichbar, werden aber nicht als aktuell ausgegeben.
-Der derzeitige Stichtag ist der 23. August 2026.
-
-Der Normimport ist standardmäßig ein schreibfreier Audit. `npm run norms:audit` klassifiziert die
-Quellen und zeigt erkannte Normen und geplante Änderungen. Schreiben ist nur gezielt mit
-`npm run norms:import -- --write --file "Gesetze/…html"` möglich; eine Markdown-only-Altquelle kann
-auf dieselbe Weise ausdrücklich mit einer `.md`-Datei ausgewählt werden. Vorhandene Datensätze werden nur
-mit dem zusätzlichen Flag `--update-existing` verändert. Der Import löscht den Normbestand nicht.
-`npm run norms:audit -- --strict` vergleicht die konfigurierten Primärquellen mit den gespeicherten
-Norm- und Verkündungsdaten und beendet den Prozess bei Abweichungen mit einem Fehlercode.
-`npm run content:check` führt diesen strikten Abgleich vor den übrigen Inhaltsprüfungen automatisch
-aus.
-
-Der kanonische Gesamtablauf ist in [`docs/NORM_WORKFLOW.md`](docs/NORM_WORKFLOW.md) beschrieben.
-`npm run norms:workflow -- --file "Gesetze/…html" --write` verbindet den gezielten Import, die
-REVOSax- und Konsolidierungsprüfungen, den Wissenshub sowie die vollständige technische QA. Ohne
-`--write` bleibt auch dieser Ablauf schreibfrei; `--quick` ist ausschließlich für lokale
-Zwischenprüfungen vorgesehen. `npm run norms:metadata:audit` prüft die öffentlich sichtbaren
-Bezeichnungen, Zuständigkeiten, Kurzbeschreibungen, Gültigkeitsintervalle und Änderungsstände.
-
-Die Konsolidierungswerkzeuge arbeiten offline, abgesehen vom ausdrücklich aufgerufenen Fetch:
+Der kanonische Ablauf für Import, REVOSax-Snapshots, Konsolidierung und technische Prüfung steht in
+`docs/NORM_WORKFLOW.md`.
 
 ```sh
-npm run norms:alt-sources:build
-npm run norms:alt-sources:migrate
+npm run norms:audit
 npm run norms:consolidation:audit
-npm run norms:revosax:audit
-npm run norms:revosax:fetch -- --target <slug> --url <historische-revosax-url>
-npm run norms:revosax:parse -- --target <slug>
-npm run norms:revosax:fetch -- --target <slug> --snapshot-id <id> --url <historische-revosax-url>
-npm run norms:revosax:parse -- --target <slug> --snapshot-id <id>
-npm run norms:consolidate -- --target <slug>
-npm run norms:consolidate -- --target <slug> --write
 npm run norms:metadata:audit
 npm run norms:workflow -- --file "Gesetze/…html" --write
 ```
 
-`norms:alt-sources:build` erzeugt die redaktionell geprüften HTML-Transkriptionen der
-bildbasierten Ausgaben OGVBl. II/2024 und I/2025 aus den versionierten Teiltranskriptionen.
-`norms:alt-sources:migrate` prüft vor jeder Änderung die festgehaltenen SHA-256-Werte der
-Original-PDFs und des DOCX, validiert die Vollständigkeit der Verfassung und Bezirksordnung und
-schreibt anschließend ausschließlich den klar abgegrenzten Altquellenbestand. Beide Befehle
-arbeiten offline. PDF und DOCX werden über `sourceReferences` als interne Prüfquellen geführt;
-ein öffentlicher PDF-Link entsteht nur aus einer ausdrücklich öffentlich ausgelieferten Datei.
+`data/recht/consolidation-manifest.json` enthält den maschinenlesbaren Einzelstatus der
+Konsolidierung. `data/recht/consolidation-report.md` ist die dazugehörige menschenlesbare
+Auditübersicht. Aktuelle redaktionelle Quellenfragen werden nicht parallel dort, im README und in
+weiteren Erledigt-Listen gepflegt, sondern in `CONTENT_GAPS.md` gebündelt.
 
-Der Audit schreibt `data/recht/consolidation-manifest.json` und
-`data/recht/consolidation-report.md`. `npm run content:check` prüft diese Dateien im
-schreibfreien `--check`-Modus, validiert Snapshot-Hashes und verhindert dadurch, dass ein neuer
-Änderungsfund oder ein Quellenkonflikt unbemerkt bleibt. Ein Vollaufbau aller Normen ist bewusst
-nicht vorgesehen.
+## Besondere Portalbereiche
 
-Jeder Produktionsbuild trägt den vollständigen Git-Commit als `meta[name="build-commit"]` in
-HTML-Seiten und als Antwortheader `X-Portal-Commit` auf allen Routen. In CI wird die Kennung aus
-`GITHUB_SHA` über `PORTAL_BUILD_COMMIT` übernommen; lokale Builds verwenden den aktuellen `HEAD`.
-Der öffentlich ausgelieferte Produktionsstand wird nicht dauerhaft in dieser README festgeschrieben.
-Nach einem Produktionsdeployment prüft der Workflow automatisch die Portalseiten `/` und `/recht/`,
-beide Sitemaps und `robots.txt`, OstRechts Startseite, Suche, eine repräsentative Norm und die
-Verkündungsübersicht sowie einen permanenten Altpfad-Redirect. `X-Portal-Commit` und
-`meta[name="build-commit"]` müssen auf beiden Origins dieselbe vollständige Kennung des
-freigegebenen Commits ausgeben; andernfalls schlägt der Deployment-Job fehl.
+Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar. Die Kartendaten liegen unter
+`public/data/kreisreform/`. Die Karte lädt externe OpenStreetMap-Kacheln erst nach ausdrücklicher
+Freigabe im aktuellen Seitenaufruf; Suche, Filter und Tabellen funktionieren ohne Kartenstart. Die
+Datenpipeline ist in `docs/KREISREFORM_KARTE.md` dokumentiert.
 
-Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar und zusätzlich in Hauptnavigation,
-Startseite und Themen-Einstiegen verlinkt. Die Kartendaten liegen unter
-`public/data/kreisreform/`. Die interaktive Karte wird auf keiner Viewportbreite automatisch
-gestartet: Erst die ausdrückliche Freigabe innerhalb des aktuellen Seitenaufrufs lädt Kacheln von
-OpenStreetMap. Gebietssuche, Bezirksübersichten, Filter und Tabellen funktionieren vollständig
-ohne Kartenstart.
+Der Haushaltsbereich verwendet `src/data/haushalt.ts` als zentrale Datenlogik. Gesamtplan,
+Einzelpläne und Sondervermögen verwenden dieselbe dateibasierte Haushaltsgrundlage. Die öffentliche
+CSV-Ausgabe steht unter `/haushalt/daten.csv` bereit.
 
-Der Bereich Bildung und Schule hat neben dem allgemeinen Einstieg unter
-`/themen/bildung-und-schule/` eine feste Unterseite zum Schulsystem unter
-`/themen/bildung-und-schule/schulsystem/`. Die Schulsystemgrafik wird als redaktionelles SVG unter
-`public/images/ui/schulsystem.svg` ausgeliefert; die bearbeitbare Ausgangsdatei bleibt in
-`context/schulsystem.drawio.svg`.
+Webanalyse ist optional und wird erst nach Zustimmung geladen. Eine außerhalb des Builds aktivierte
+Cloudflare Web Analytics muss ebenfalls deaktiviert bleiben, solange dafür keine gesonderte
+Einwilligungslogik besteht.
 
-Der Haushaltsbereich verwendet `src/data/haushalt.ts` als zentrale Datenlogik. Die Datei liest die
-Zusammenfassung unter `context/Staatshaushalt 2025_2026 - Zusammenfassung.csv` buildzeitbasiert
-ein und berechnet daraus Summen, Anteile und Jahresvergleiche. Ausgewählte Kapitel- und Titelangaben
-der Einzelpläne stammen aus `context/Staatshaushalt 2025_2026.zip`. Gesamtplan, Einzelpläne und
-Sondervermögen verwenden dieselbe Datenbasis; Sondervermögen werden nicht zu den Einzelplänen
-addiert. Die öffentliche CSV-Ausgabe steht unter `/haushalt/daten.csv` bereit.
-
-Webanalyse ist optional. Der Ausgangszustand nutzt nur notwendige Funktionen; eine Zustimmung wird
-lokal gespeichert und kann über die Datenschutzeinstellungen zurückgesetzt werden. Google
-Analytics wird erst nach Zustimmung nachgeladen. Eine etwaige automatische Einbindung von
-Cloudflare Web Analytics muss zusätzlich in der Cloudflare-Projektkonfiguration deaktiviert
-bleiben, weil sie außerhalb des Repository-Builds erfolgen kann.
-
-Die allgemeine Portalsuche unter `/suche/` unterscheidet einen leeren Ausgangszustand, Laden,
-Treffer, keine Treffer und Fehler. Die Suche und ihre Filter bleiben per Tastatur bedienbar; Status
-und Trefferzahl werden zugänglich ausgegeben. Rechtsfundstellen verweisen auf OstRecht. Dort sind
-Suche, Index, Sachgebiete, Verkündungen, Fundstellen, Verfassung, Förderrichtlinien und Hilfe
-eigenständige Einstiege; deren Suchtreffer bleiben auf der Rechts-Origin.
-
-Beide Sites teilen Basiskomponenten und Accessibility-Regeln, verwenden aber getrennte Layouts:
-`BaseLayout.astro` für das Staatsportal und `LawLayout.astro` für OstRecht. Für Pressemitteilungen werden passende Artikel- und
-Breadcrumb-Strukturdaten erzeugt; die Organisationsdaten kennzeichnen das Portal ausdrücklich als
-fiktive Politiksimulation. Die getrennten Social-Media-Bilder liegen unter
-`public/images/social/portal-preview.png` und `public/images/social/recht-preview.png`.
-
-`BaseLayout.astro` stellt mit `mainWidth="contained"` den begrenzten Hauptcontainer für Fachseiten
-und mit `mainWidth="full"` vollbreite Inhaltsbänder mit inneren Containern bereit. Die Startseite
-verwendet die volle Variante und setzt ihre wiederverwendbaren Zugangskarten, Informationslisten,
-Icons und das Serviceband aus `src/components/portal/` zusammen. Die dauerhaft gültigen
-gestalterischen Regeln stehen in `DESIGN.md`.
-
-## Laufzeit und Cloudflare
-
-Beide öffentlichen Anwendungen werden als getrennte statische Artefakte für Cloudflare Workers
-gebaut und nutzen aktuell keine D1- oder R2-Bindings. Pressemitteilungen, Termine,
-Stellenangebote, Projektstatus und Rechtsdaten werden dateibasiert aus den gemeinsamen Quellen
-erzeugt. GitHub Actions baut und deployt beide Worker nach gemeinsamer QA aus demselben Commit.
-
-Alte Detailadressen unter `freistaat-ostdeutschland.de/recht/...` werden über die beim Portalbuild
-erzeugte `_redirects`-Datei permanent auf die konfigurierte `LAW_SITE_URL` übertragen. `/recht/`
-selbst bleibt die Brückenseite. Ein späterer Domainwechsel erfordert damit im Wesentlichen die neue
-`LAW_SITE_URL`, eine angepasste Wrangler-Custom-Domain und einen Redirect des bisherigen Hosts;
-Normdaten, Wissenshub und Themenseiten bleiben unverändert.
-
-Die produktiven Sicherheitsheader einschließlich HSTS, CSP, Framing-, Referrer-, MIME- und
-Permissions-Schutz werden über `public/_headers` für Cloudflare Static Assets ausgeliefert. Die CSP
-erlaubt OpenStreetMap und Google-Analytics-Endpunkte nur als technisch mögliche, weiterhin durch
-die jeweilige Einwilligungslogik gesperrte Ziele.
-
-Responsive Regierungs-, Ressort- und Stellenbilder werden als AVIF, WebP und JPEG unter
-`public/images/generated/` abgelegt. `npm run images:generate` erzeugt die Varianten deterministisch
-aus den redaktionellen Originalbildern.
-
-Das Rechtsportal darf funktional nicht leichtfertig umgebaut werden.
+Beide Anwendungen teilen Basiskomponenten und Accessibility-Regeln, verwenden aber getrennte
+Layouts. Das Staatsportal nutzt `BaseLayout.astro`, OstRecht `LawLayout.astro`.
 
 ## Qualitätssicherung
 
-Vor relevanten Änderungen:
+Vor relevanten Änderungen mindestens:
 
 ```sh
 npm run content:check
@@ -399,212 +225,84 @@ npm run test:unit
 npm run build
 npm run links:check
 npm run seo:check
-npm run test:quality
-npm run test:browsers
 ```
 
-Nach öffentlichen Textänderungen zusätzlich gezielt nach Entwicklerbegriffen suchen und sicherstellen, dass sie nicht in Bürgerseiten erscheinen.
-Bei Layout-, Karten- oder Header-Änderungen die Startseite und `/kreisreform/` zusätzlich bei den
-definierten mobilen, Tablet- und Desktopbreiten prüfen.
-
-`npm run links:check` prüft nach dem Build alle statisch ausgegebenen internen und bekannten
-Cross-Site-Verweise beider Anwendungen.
-`npm run test:visual` erzeugt und vergleicht Chromium-Screenshots dieser Ansichten. Dieser bewusst
-manuelle Designcheck wird bei betroffenen Oberflächen eingesetzt und blockiert kein Deployment.
-Die externen Basiskacheln der Kreisreform werden dabei unterdrückt, damit die Baselines
-reproduzierbar bleiben. `npm run test:a11y` führt zusätzlich einen automatisierten
-Accessibility-Smoke-Test repräsentativer Seitentypen aus; er ersetzt nicht den manuellen Tastatur-
-und Screenreader-Kurztest.
-`npm run test:quality` prüft unter anderem die acht Abnahme-Viewports auf Dokumentüberlauf sowie
-Karten- und Statistikfreigaben, Zoom und reduzierte Bewegung. `npm run test:browsers` führt die
-zentralen Interaktionen zusätzlich in Chromium, Firefox und WebKit aus; `npm run seo:check` prüft
-Metadaten, Canonicals, H1, JSON-LD, Social Cards, Suchseiten, Sitemaps und robots.txt beider Sites.
-
-In GitHub Actions wird jede Site pro Workflowlauf genau einmal gebaut. Deterministische Content-,
-Type-, Unit-, Build-, Link- und SEO-Prüfungen bilden das Haupt-Gate. Anschließend prüfen ein
-repräsentativer Accessibility-Lauf und die zentralen Nutzerwege in Chromium dasselbe kurzlebige
-Build-Artefakt; genau dieses Artefakt wird deployt. Pixel-Screenshots, Overflow-Sonderprüfungen und
-die zusätzliche Firefox-/WebKit-Matrix bleiben gezielte manuelle Werkzeuge. Die Skripte mit dem
-Suffix `:run` setzen einen vorhandenen Build unter `dist/` voraus; Komfortbefehle ohne Suffix bauen
-lokal selbst.
+Bei betroffenen Oberflächen kommen die gezielten Visual-, Accessibility-, Qualitäts- und
+Browserprüfungen hinzu. Screenshot-Baselines werden nur nach Sichtprüfung aktualisiert. Die
+vollständige technische Releaseabfolge steht im Deployment-Runbook.
 
 ## TODO
 
-**Zuletzt abgeglichen:** 23. August 2026
-
-Diese Liste ist der zentrale Projektbacklog. Jede noch offene Aufgabe muss hier mindestens als
-Sammelpunkt erscheinen. Quellenlocators, Einzelkonflikte und maschinenlesbare Zustände werden
-weiterhin in `CONTENT_GAPS.md`, `knowledge/open-questions.json`,
-`content/portal/topic-coverage.json` und `data/recht/consolidation-report.md` gepflegt; diese
-Dateien liefern die Nachweise, bilden aber keine parallele Aufgabenliste. Erledigte Punkte werden
-entfernt statt dauerhaft abgehakt stehen gelassen.
-
-Alle dafür noch benötigten externen Einstellungen, fachlichen Entscheidungen und Primärquellen
-sind ausfüllbar im [`docs/ZUARBEITSFORMULAR.md`](docs/ZUARBEITSFORMULAR.md) gebündelt. Das Formular
-dient nur der Übergabe von Zuarbeit; der Aufgabenstatus wird weiterhin ausschließlich hier gepflegt.
+Diese Liste enthält ausschließlich aktuell offene Arbeit. Quellenlocators und maschinenlesbare
+Einzelzustände gehören in die jeweils zuständigen Datenbestände, nicht als parallele Aufgabenliste
+hierher. Für noch benötigte externe Unterlagen und fachliche Entscheidungen steht
+`docs/ZUARBEITSFORMULAR.md` bereit.
 
 ### Sitzungsmediathek der Volkskammer
 
-Der derzeitige Portalstand kann lange Sitzungsaufzeichnungen noch nicht sachgerecht aufnehmen.
-Workers Static Assets erlauben nur [25 MiB je Datei](https://developers.cloudflare.com/workers/platform/limits/),
-die Medien-CSP lässt ausschließlich die eigene Origin zu und das Redaktionsstudio ist nur für
-kleine Bilddateien ausgelegt. Große Audio- oder Videodateien dürfen deshalb weder unter `public/`
-noch als GitHub-Blob in einen Redaktions-PR gelangen. Die folgende Planung betrifft zunächst
-aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
-
-- [ ] Vor der Implementierung den fachlichen Auftrag mit der Volkskammer festlegen: zuständige
-  Redaktion, nur öffentliche Sitzungen beziehungsweise öffentliche Sitzungsteile, gewünschte
-  Audio- und Videoformate, Downloadangebot, Aufbewahrungsdauer, Korrektur- und Depublikationsweg,
-  erwartete Sitzungsdauer, jährliches Volumen und typische gleichzeitige Abrufe. Livestreaming als
-  getrennte spätere Ausbaustufe behandeln.
-- [ ] Eine kurze Architekturentscheidung mit Kostenprobe für mindestens drei Varianten erstellen:
-  Cloudflare Stream für Video, progressive Dateien beziehungsweise selbst erzeugtes HLS aus R2 und
-  eine externe Videoplattform. Als bevorzugten Prüfpfad Cloudflare Stream für Video sowie R2 für
-  reine Audiofassungen und gegebenenfalls freigegebene Downloads erproben. Stream übernimmt
-  Upload, Speicherung, Transcoding und adaptives HLS/DASH; eine bloße große MP4-Datei in R2 bietet
-  diese automatische Qualitätsanpassung nicht. Preise anhand realistischer Speicher- und
-  Abrufminuten kalkulieren und ein monatliches Kostenlimit samt Warnschwellen festlegen.
-- [ ] Die bestehende Quellenarchitektur bewusst erweitern: strukturierte, reviewbare Metadaten
-  bleiben unter einem neuen Contentbestand wie `content/volkskammer/sitzungen/` in Git; binäre
-  Aufzeichnungen liegen ausschließlich im gewählten Mediendienst. Stream-UID beziehungsweise
-  stabiler R2-Objektschlüssel, Prüfsumme, technische Dauer und Verarbeitungsstatus sind Referenzen,
-  keine zweite frei bearbeitbare Inhaltsdatenbank. Nach der Entscheidung README, `AGENTS.md`,
-  `CONTENT.md`, Architektur- und Betriebsdokumentation anpassen, da R2 derzeit ausdrücklich nicht
-  als öffentliche Inhaltsquelle vorgesehen ist.
-- [ ] Für Sitzungen ein validiertes Contentmodell entwerfen. Mindestens benötigt werden Wahlperiode,
-  Sitzungsnummer, Titel, Datum, Beginn und Ende, Ort, Veröffentlichungsstatus, öffentliche
-  Tagesordnung, Kapitel mit Zeitmarken, verknüpfte Drucksachen und Normen, Video- und Audioquelle,
-  Dauer, Vorschaubild, Untertitelsprachen, Transkript, barrierefreie Alternativen,
-  Veröffentlichungs- und Änderungsdatum sowie ein belegter Rechte- und Freigabestatus. Technische
-  Anbieterbegriffe und interne Objektkennungen dürfen auf Bürgerseiten nicht ungefiltert erscheinen.
-- [ ] Einen eigenen Portalbereich unter einer stabilen Route wie `/volkskammer/sitzungen/` in der
-  vorhandenen Astro-Architektur umsetzen: Übersicht, Sitzungsdetail, Breadcrumbs, Canonical, H1,
-  Suchindex, Sitemap und strukturierte Medienmetadaten. Sitzungen mit vorhandenen Terminen, Reden,
-  Gesetzgebungsverfahren, Drucksachen und Rechtsgrundlagen verknüpfen, ohne deren Inhalte zu
-  duplizieren. Vor Aufnahme in die Hauptnavigation zunächst die gemeinsame Nutzung und dauerhafte
-  redaktionelle Zuständigkeit bestätigen.
-- [ ] Einen barrierearmen Player als kleine wiederverwendbare Komponente entwickeln. Video soll
-  adaptiv über Stream ausgeliefert werden; Audio kann über ein natives `<audio>`-Element von einer
-  R2-Custom-Domain kommen. Kein Autoplay, keine ungefragte Vorabübertragung großer Datenmengen,
-  verständliche Beschriftungen, vollständige Tastaturbedienung, sichtbarer Fokus, Lautstärke,
-  Zeitsprung, Wiedergabegeschwindigkeit, Dauer, Fehlerzustand und ein textlicher Direktlink müssen
-  unabhängig vom Player funktionieren. Player und Medien erst nach Nutzeraktion beziehungsweise
-  außerhalb des sichtbaren Einstiegs zurückhaltend laden.
-- [ ] Barrierefreiheit als Veröffentlichungsvoraussetzung modellieren: deutschsprachige geprüfte
-  WebVTT-Untertitel für Video, vollständiges Transkript für reine Audioaufzeichnungen,
-  Sprecher:innenkennzeichnung und relevante nichtsprachliche Geräusche. Visuell vermittelte
-  sitzungsrelevante Informationen zusätzlich im Transkript beschreiben oder durch Audiodeskription
-  zugänglich machen. Automatisch erzeugte Untertitel dürfen erst nach redaktioneller Prüfung
-  freigegeben werden. Maßstab sind insbesondere die W3C-Anforderungen für
-  [Untertitel aufgezeichneter Medien](https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded)
-  und [Textalternativen für reine Audioaufzeichnungen](https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html).
-- [ ] Vor jeder Veröffentlichung Rechte, Datenschutz und Sitzungsöffentlichkeit prüfen und
-  dokumentieren. Nichtöffentliche Beratungen, Sitzungspausen, vertrauliche Einblendungen sowie
-  Personen ohne erforderliche Freigabe müssen vor Upload beziehungsweise Veröffentlichung sicher
-  getrennt oder entfernt sein. Zuständigkeit für Freigabe, Beanstandung, nachträgliche Sperrung,
-  Korrektur und endgültige Löschung einschließlich Protokollierung festlegen; eine bloße
-  technische Abrufbarkeit darf keinen Veröffentlichungsstatus begründen.
-- [ ] Einen geschützten, vom eigentlichen PR getrennten Uploadablauf entwerfen. Der Editorial
-  Worker darf nur kurzlebige Einmal-URLs ausstellen und keine dauerhaften Medien-API-Schlüssel an
-  den Browser geben. Für lange Videos die von Cloudflare vorgesehenen
-  [resumierbaren tus-Uploads](https://developers.cloudflare.com/stream/uploading-videos/direct-creator-uploads/)
-  verwenden; für große Audioobjekte einen resumierbaren R2-Multipart-Upload prüfen. Dateigröße,
-  MIME-Typ, Dateisignatur, Dauer, Prüfsumme, erlaubte Formate und Objektpfad serverseitig
-  validieren. Upload, technische Verarbeitung, Untertitelprüfung und Veröffentlichung als
-  getrennte Zustände behandeln.
-- [ ] Für Audio und Downloads einen privaten R2-Arbeitsbereich und einen ausdrücklich freigegebenen
-  Veröffentlichungsbereich planen. Öffentliche Dateien nur über eine
-  [eigene R2-Custom-Domain](https://developers.cloudflare.com/r2/buckets/public-buckets/) mit CDN,
-  passenden Cache-Headern, stabilen ETags und geprüft funktionierenden Byte-Range-Antworten
-  ausliefern; `r2.dev` nicht produktiv verwenden. Direkte Browseruploads nur mit kurzlebigen,
-  in Methode, Objektpfad, Content-Type und Größe begrenzten Berechtigungen sowie enger CORS-Regel
-  zulassen. Unvollständige Multipart-Uploads automatisch bereinigen und Originale nicht
-  versehentlich öffentlich schalten.
-- [ ] CSP, Permissions Policy und Datenschutzseite minimal für die gewählte Auslieferung anpassen.
-  Nur die konkrete Stream- beziehungsweise Medien-Domain in `frame-src`, `media-src` und soweit
-  erforderlich `connect-src` aufnehmen; keine pauschalen Wildcards. Prüfen, welche Abruf- und
-  Analysedaten Cloudflare Stream erzeugt, ob ein eigener Player oder der Stream-Iframe verwendet
-  wird und ob zustimmungsfreie technisch notwendige Auslieferung vertretbar ist. Medienabrufe
-  nicht mit der optionalen allgemeinen Webanalyse vermischen.
-- [ ] Veröffentlichungs- und Löschkonsistenz absichern: Eine Sitzungsseite darf erst erscheinen,
-  wenn Medienverarbeitung, Freigabe, Untertitel beziehungsweise Transkript und Vorschaubild
-  vollständig sind. Für fehlgeschlagene oder verwaiste Uploads, aus Git entfernte Metadaten,
-  ersetzte Fassungen und gesperrte Aufzeichnungen einen nachvollziehbaren Abgleich- und
-  Bereinigungsprozess schaffen. Dauerhafte öffentliche URLs nur kontrolliert ersetzen; Korrekturen
-  mit Änderungsdatum kenntlich machen.
-- [ ] Tests für Schema und Inhaltsvalidierung, Suche, Sitemap, Metadaten und Querverweise ergänzen.
-  Browserprüfungen müssen Video- und Audio-Wiedergabe, Kapitelmarken, Untertitel, Transkript,
-  Tastatursteuerung, kein Autoplay, verzögertes Laden, CSP/CORS, Byte-Range-Abrufe, langsame oder
-  unterbrochene Verbindungen sowie verständliche Fehlerzustände abdecken. Accessibility- und
-  Visual-Baselines für Mobil-, Tablet- und Desktopbreiten ergänzen.
-- [ ] Vor dem allgemeinen Start eine einzelne längere öffentliche Sitzung als Pilot veröffentlichen
-  und Uploadfortsetzung, Verarbeitungszeit, tatsächliche Bandbreite, mobile Wiedergabe,
-  Untertitelworkflow, Kosten, Löschung und Wiederherstellung praktisch messen. Erst nach
-  dokumentierter Abnahme entscheiden, ob die Mediathek dauerhaft betrieben und später um
-  Livestreaming, abonnierbare Audioangebote oder sitzungsübergreifende Transkriptsuche erweitert
-  wird.
+- [ ] Fachlichen Auftrag, Verantwortlichkeiten, veröffentlichte Sitzungsteile, Formate,
+  Aufbewahrung und Rechte anhand des Zuarbeitsformulars festlegen.
+- [ ] Architekturentscheidung mit Kostenprobe für Cloudflare Stream, R2-basierte Auslieferung und
+  eine externe Videoplattform treffen. Video-Transcoding, Audio, Downloads, Kostenlimits und
+  Wiederherstellung müssen dabei getrennt bewertet werden.
+- [ ] Reviewbare Sitzungsmetadaten als neuen Contentbestand modellieren. Große Medien bleiben
+  außerhalb von Git und Cloudflare Static Assets. Uploadrechte, CORS, Dateigrenzen und Bereinigung
+  unvollständiger Uploads sind eng zu begrenzen.
+- [ ] Veröffentlichung, Depublikation, Korrekturen, Untertitel, Transkript, Vorschaubilder,
+  Barrierefreiheit, Datenschutz und CSP für die gewählte Medienauslieferung definieren.
+- [ ] Schema-, Inhalts-, Such-, Sitemap-, Browser- und Accessibility-Tests ergänzen und vor einem
+  allgemeinen Start eine längere öffentliche Sitzung als Pilot vollständig durchspielen.
 
 ### Rechtsportal und Primärquellen
 
-- [ ] Die 24 nach dem freigegebenen amtlichen REVOSax-Abruf als `missing-stem-record` geführten
-  Zielnormen aus den geprüften Snapshots als historisierte Stammnormen anlegen und ihre
+- [ ] Die 24 im Konsolidierungsmanifest als `missing-stem-record` geführten Zielnormen aus den
+  bereits bestimmten Ausgangssnapshots als historisierte Stammnormen anlegen und ihre
   ostdeutschen Änderungen über geprüfte Patch-Rezepte konsolidieren. Kulturraumgesetz und
-  Ostdeutsches Polizeibehördengesetz bleiben wegen der Berlin-Darstellung zuerst zu bearbeiten.
-- [ ] Für die weiterhin als `missing-baseline` geführte Zielnorm die vollständige Ausgangsfassung
-  des NDR-Staatsvertrags beschaffen. Die Abschiebe-Aussetzungsverordnung vom 1. März 2024 ist
-  vollständig eingepflegt. Der Änderungsakt zur bereits außer Kraft getretenen OAVO von 2024 wird
-  historisch dokumentiert, erfordert aber keine künstliche Konsolidierung.
+  Ostdeutsches Polizeibehördengesetz bleiben vorrangig.
+- [ ] Die vollständige Ausgangsfassung des NDR-Staatsvertrags vor der Änderung vom 8. März 2026
+  einschließlich Anlagen beschaffen.
 - [ ] Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und
   `StAnzO. 2026 Nr. 2.html` technisch zusammenführen; Dokumentkopf und internes Datum bleiben
   kanonisch.
-- [ ] Für die noch ausschließlich als Markdown vorliegenden Altquellen schrittweise geprüfte
+- [ ] Für noch ausschließlich als Markdown vorliegende Altquellen schrittweise geprüfte
   strukturierte HTML-Transkriptionen erstellen und bis dahin PDF-Gegenprüfung und Legacy-Fixtures
   erhalten.
+- [ ] Die drei gesperrten schulrechtlichen Zieltextkonflikte bei SOFS, BSO und BGySO fachlich
+  klären und erst danach konsolidierte Folgefassungen erzeugen.
 
 ### Aktuelle Vorhaben und öffentliche Inhalte
 
-- [ ] Die Volksbefragung und die Wahl zur achten Volkskammer entlang der belegten Termine
-  fortschreiben: Durchführung vom 5. September um 18 Uhr bis 6. September um 18 Uhr,
-  Ergebnisbekanntmachung bis 10. September und spätere politische Folgebeschlüsse erst nach Eingang
-  der jeweiligen Primärquelle übernehmen. Danach Hervorhebungen, nächste Schritte, Terminarchive
-  und Rechtsverknüpfungen gemeinsam aktualisieren.
-- [ ] Boom Europe und OVV/DB getrennt weiterführen: operative Standorteröffnung und
-  Projektorganisation von Boom, Beginn und Tarifbedingungen der 57-Millionen-Euro-
-  Ticketanerkennung sowie etwaige tatsächliche Fernverkehrsreaktivierungen nur mit
-  Vollzugsbelegen aktualisieren. Volksacker, Flächenfonds und Bodenfonds Ost sind als nicht
-  eingerichtete Vorhaben abgeschlossen.
-- [ ] Für bestätigte Beschaffungs- und Unternehmensentscheidungen die noch fehlende praktische
-  Umsetzung belegen. Dazu gehören Zuschlagsempfänger sowie Lieferung und Betrieb des E-Jura-
-  Systems, Auslieferung der vier Hovercrafts, NVIDIA-Standortumsetzung, Lieferung des ersten
-  Zeppelin NT und Errichtung des Luxemburg-Liebknecht-Denkmals. Abgelehnte oder zurückgezogene
-  Varianten bleiben als solche abgeschlossen.
-- [x] Den praktischen Umsetzungsstand des Transparenz- und Informationsfreiheitsrechts klären.
-  Transparenzportal und Zuständigkeitsfinder sind kanonisch umgesetzt, werden aber außerhalb
-  dieses Website-Repositories betrieben. Deshalb werden hier keine unbelegten Routen oder URLs
-  angelegt. Der Haushaltsnavigator unter `/haushalt/` bleibt das portalinterne Angebot.
+- [ ] Volksbefragung und Wahl zur achten Volkskammer entlang der belegten Termine fortschreiben.
+  Durchführung, Ergebnisbekanntmachungen und politische Folgebeschlüsse erst nach Eingang der
+  jeweiligen Primärquelle übernehmen.
+- [ ] Für Boom Europe die operative Standortumsetzung und Projektorganisation belegen.
+- [ ] Für die OVV-/DB-Ticketanerkennung Geltungsbeginn und Tarifbedingungen belegen sowie
+  Fernverkehrsreaktivierungen nur mit Bestellungs-, Fahrplan- oder Betriebsnachweis führen.
+- [ ] Für noch offene Beschaffungs- und Unternehmensentscheidungen die praktische Umsetzung
+  belegen. Dazu gehören das E-Jura-System, vier Hovercrafts, die NVIDIA-Ansiedlung, der erste
+  Zeppelin NT und das Luxemburg-Liebknecht-Denkmal.
 
 ### Politische Geschichte und Wissenshub
 
-- [ ] Die politische Chronologie vor Dezember 2025 vervollständigen: frühere Regierungen und
-  Wahlperioden, Ende der Amtszeit Tom Kurzschlusses, Misstrauensvoten, Partei- und Fraktionswechsel,
-  Honeckers belegte Biografie sowie die Namensgeschichte von DEMOS. Wolfgang Schmidts korrigierte
-  Amtszeit vom 14. April bis 4. Juni 2025 ist inzwischen historisch modelliert. Weitere
-  Rollenintervalle und Mehrheitsangaben nur aus datierten Primärakten oder klar gekennzeichneten
-  historischen Quellen übernehmen.
-- [ ] Die verbleibenden unbestimmten Personen, Gerichtsverfahren und nichtrechtlichen
-  Realitätsereignisse aus `knowledge/conversation-candidates.json` einzeln prüfen. Bestätigte
-  Befunde in Personenrollen, Timeline oder Proceedings überführen, Widerlegtes verwerfen und
-  unprüfbares Gesprächswissen nicht in den Gegenwartsstand übernehmen.
+- [ ] Die politische Chronologie vor Dezember 2025 vervollständigen, insbesondere frühere
+  Regierungen und Wahlperioden, Ende der Amtszeit Tom Kurzschlusses, Misstrauensvoten, Partei- und
+  Fraktionswechsel, Honeckers belegte Biografie und die Namensgeschichte von DEMOS.
+- [ ] Verbleibende unbestimmte Personen, Gerichtsverfahren und nichtrechtliche Realitätsereignisse
+  aus `knowledge/conversation-candidates.json` einzeln prüfen. Bestätigtes in die zuständigen
+  Strukturen überführen, Widerlegtes entfernen und unprüfbares Gesprächswissen nicht in den
+  Gegenwartsstand übernehmen.
+- [ ] Die offenen Beteiligungsfragen in `knowledge/open-questions.json` bei neuen Primärquellen
+  weiterführen, insbesondere nicht öffentlich ausgewiesene tiefere Beteiligungsstufen und formale
+  Anpassungen gemeinsamer Träger.
 
-### Dokumentation und laufende Qualität
+### Laufende Qualität
 
-- [ ] Nach jeder Erledigung eine vollständige Dokumentationsrunde über README, `CONTENT.md`,
-  `CONTENT_GAPS.md`, `DESIGN.md`, `docs/` und `knowledge/` durchführen, erledigte Punkte entfernen
-  und generierte Wissensdateien ausschließlich mit `npm run knowledge:build` aktualisieren.
 - [ ] Beim Fortschreiben des redaktionellen Stichtags alle zeitabhängigen Oberflächen gemeinsam
-  prüfen: aktuelle Termine und Stellen, Highlight-Zeiträume, Verfahren, Normfassungen,
-  Regierungszuordnungen, Gebietsstände, Timeline und Suchindex. Ein technisches Builddatum darf
-  dabei keinen fachlichen Aktualitätsstand ersetzen.
-- [ ] Vor Produktionsfreigaben neben den automatisierten Prüfungen einen kurzen manuellen
+  prüfen: Termine, Stellen, Highlight-Zeiträume, Verfahren, Normfassungen, Regierungszuordnungen,
+  Gebietsstände, Timeline und Suchindex.
+- [ ] Nach Änderungen an Arbeits- und Prüfdokumentation erledigte Punkte vollständig entfernen und
+  keine Erledigt-Archive anlegen. Generierte Wissensdateien ausschließlich über ihre Generatoren
+  aktualisieren.
+- [ ] Vor Produktionsfreigaben zusätzlich zu den automatisierten Prüfungen einen kurzen manuellen
   Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-, Tablet- und
-  Desktopbreiten dokumentieren.
+  Desktopbreiten durchführen.
