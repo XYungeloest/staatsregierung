@@ -85,14 +85,12 @@ Bitte für eine längere öffentliche Sitzung bereitstellen:
 
 ## Q. Noch fehlende Rechtsquellen
 
-### Q-01 – Zwei vollständige Ausgangsfassungen
+### Q-01 – Vollständige Ausgangsfassung des NDR-Staatsvertrags
 
-Der freigegebene amtliche REVOSax-Abruf ist erledigt. Von 84 Audit-Zielnormen fehlen nur noch
-folgende Primärquellen, weil sie nicht durch eine am Stichtag geltende REVOSax-Fassung ersetzt
-werden können:
+Der freigegebene amtliche REVOSax-Abruf ist erledigt. Von 85 Audit-Zielnormen fehlen nur noch
+die folgende Primärquelle, weil sie nicht durch eine am Stichtag geltende REVOSax-Fassung ersetzt
+werden kann:
 
-- [ ] vollständige Abschiebe-Aussetzungsverordnung vom 1. März 2024 einschließlich Fundstelle und
-      Inkrafttretensregelung
 - [ ] vollständige, vor der Änderung vom 8. März 2026 geltende Fassung des NDR-Staatsvertrags
       einschließlich Anlagen
 
@@ -149,15 +147,6 @@ Die Ticketanerkennung allein belegt weiterhin keine Streckenreaktivierung.
 | erster Zeppelin NT | Lieferung, Zulassung und tatsächlicher Betrieb |
 | Luxemburg-Liebknecht-Denkmal | Fertigstellung, Abnahme und Eröffnung |
 
-### V-05 – Transparenzangebote
-
-Der Haushaltsnavigator ist bereits umgesetzt. Noch offen sind nur:
-
-| Angebot | umgesetzt / geplant / verworfen | öffentliche URL | zuständige Stelle |
-| --- | --- | --- | --- |
-| Transparenzportal |  |  |  |
-| Zuständigkeitsfinder |  |  |  |
-
 ### V-06 – Weitere EAG-Vollzugsfragen
 
 | Vorgang | Benötigter Beleg |
@@ -165,20 +154,6 @@ Der Haushaltsnavigator ist bereits umgesetzt. Noch offen sind nur:
 | erhöhter Personenschutz | Enddatum, Verlängerung oder fortbestehende Anordnung |
 | Norwegenreise des Staatspräsidenten | amtlicher Reisebericht oder Durchführungsnachweis |
 | Verkehrsverfahren Ohlinger | Bescheid oder genauer Erledigungsausgang |
-
----
-
-## H. Historische Chronologie
-
-### H-01 – Unklare Datierung Wolfgang Schmidts
-
-Die freigegebene Regierungschefliste wurde in der stabilen Revision 20620 ausgewertet. Der dort
-angegebene Amtsbeginn Wolfgang Schmidts am 31. Januar 2024 passt chronologisch nicht in die
-Tabellenfolge zwischen Liam Flüsterbein und Tom Kurzschluss und wurde deshalb nicht ungeprüft
-übernommen.
-
-**Primärquelle oder korrigierte Datierung:**
-**Weitere datierte Quellen zu frühen Regierungen, Parteiwechseln oder Misstrauensvoten:**
 
 ---
 

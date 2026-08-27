@@ -550,9 +550,10 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
   Zielnormen aus den geprüften Snapshots als historisierte Stammnormen anlegen und ihre
   ostdeutschen Änderungen über geprüfte Patch-Rezepte konsolidieren. Kulturraumgesetz und
   Ostdeutsches Polizeibehördengesetz bleiben wegen der Berlin-Darstellung zuerst zu bearbeiten.
-- [ ] Für die zwei weiterhin als `missing-baseline` geführten Zielnormen die fehlenden
-  Primärquellen beschaffen: Abschiebe-Aussetzungsverordnung vom 1. März 2024 und vollständige
-  Ausgangsfassung des NDR-Staatsvertrags.
+- [ ] Für die weiterhin als `missing-baseline` geführte Zielnorm die vollständige Ausgangsfassung
+  des NDR-Staatsvertrags beschaffen. Die Abschiebe-Aussetzungsverordnung vom 1. März 2024 ist
+  vollständig eingepflegt. Der Änderungsakt zur bereits außer Kraft getretenen OAVO von 2024 wird
+  historisch dokumentiert, erfordert aber keine künstliche Konsolidierung.
 - [ ] Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und
   `StAnzO. 2026 Nr. 2.html` technisch zusammenführen; Dokumentkopf und internes Datum bleiben
   kanonisch.
@@ -577,19 +578,19 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
   Systems, Auslieferung der vier Hovercrafts, NVIDIA-Standortumsetzung, Lieferung des ersten
   Zeppelin NT und Errichtung des Luxemburg-Liebknecht-Denkmals. Abgelehnte oder zurückgezogene
   Varianten bleiben als solche abgeschlossen.
-- [ ] Den praktischen Umsetzungsstand des Transparenz- und Informationsfreiheitsrechts klären.
-  Ein öffentliches Transparenzportal oder ein Zuständigkeitsfinder darf erst als verfügbar
-  erscheinen, wenn Route, Datenpflege, Zuständigkeit und Betrieb tatsächlich vorhanden und
-  belegt sind. Der Haushaltsnavigator unter `/haushalt/` ist umgesetzt und nicht mehr offen.
+- [x] Den praktischen Umsetzungsstand des Transparenz- und Informationsfreiheitsrechts klären.
+  Transparenzportal und Zuständigkeitsfinder sind kanonisch umgesetzt, werden aber außerhalb
+  dieses Website-Repositories betrieben. Deshalb werden hier keine unbelegten Routen oder URLs
+  angelegt. Der Haushaltsnavigator unter `/haushalt/` bleibt das portalinterne Angebot.
 
 ### Politische Geschichte und Wissenshub
 
 - [ ] Die politische Chronologie vor Dezember 2025 vervollständigen: frühere Regierungen und
   Wahlperioden, Ende der Amtszeit Tom Kurzschlusses, Misstrauensvoten, Partei- und Fraktionswechsel,
-  Honeckers belegte Biografie sowie die Namensgeschichte von DEMOS. Die Miraheze-Revision 20620
-  liefert eine historische Regierungschefliste; ihre chronologisch widersprüchliche Angabe zu
-  Wolfgang Schmidt darf nicht ungeprüft übernommen werden. Rollenintervalle und Mehrheitsangaben
-  nur aus datierten Primärakten oder klar gekennzeichneten historischen Quellen übernehmen.
+  Honeckers belegte Biografie sowie die Namensgeschichte von DEMOS. Wolfgang Schmidts korrigierte
+  Amtszeit vom 14. April bis 4. Juni 2025 ist inzwischen historisch modelliert. Weitere
+  Rollenintervalle und Mehrheitsangaben nur aus datierten Primärakten oder klar gekennzeichneten
+  historischen Quellen übernehmen.
 - [ ] Die verbleibenden unbestimmten Personen, Gerichtsverfahren und nichtrechtlichen
   Realitätsereignisse aus `knowledge/conversation-candidates.json` einzeln prüfen. Bestätigte
   Befunde in Personenrollen, Timeline oder Proceedings überführen, Widerlegtes verwerfen und

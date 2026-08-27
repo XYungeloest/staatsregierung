@@ -1,8 +1,8 @@
 {
   "versionId": "2024-10-02",
-  "validFrom": "2024-10-15",
-  "validTo": null,
-  "isCurrent": true,
+  "validFrom": "2024-10-02",
+  "validTo": "2024-10-06",
+  "isCurrent": false,
   "citation": "Dienstanordnung vom 2. Oktober 2024 (OGVBl. 2024 Nr. II S. 4)",
   "changeNote": "Amtlich verkündete Stammfassung.",
   "sourceReferences": [
@@ -29,6 +29,19 @@
       "sourceRole": "visual-control",
       "pageRange": "4",
       "derivedSource": "Gesetze/OGVBl II-24.html"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Zeitgenössisches amtliches Einzeldokument",
+      "availability": "versioned",
+      "localSource": "Gesetze/Veordnung_24-03_MP.pdf",
+      "url": "/assets/recht/Veordnung_24-03_MP.pdf",
+      "sha256": "b5b1a81aea01146a774f9c3072dd67091e9a511f1e980528941d44cbc964ef43",
+      "mediaType": "application/pdf",
+      "pageCount": 1,
+      "pageRange": "1",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control"
     }
   ],
   "sourceNotes": [
@@ -40,7 +53,7 @@
   "body": [
     {
       "type": "paragraphText",
-      "text": "Die Ostdeutsche Staatsregierung hat am 23. September 2024 die folgende Verordnung erlassen:"
+      "text": "Die Dienstanordnung wurde am 2. Oktober 2024 verkündet."
     },
     {
       "type": "paragraph",
@@ -60,7 +73,7 @@
       "children": [
         {
           "type": "paragraphText",
-          "text": "Die Verordnung tritt am Tage der Verkündung in Kraft."
+          "text": "Die Verordnung tritt am Tage der Verkündung in Kraft und am 06.10.2024 außer Kraft. Sie kann jederzeit verlängert werden."
         }
       ]
     }

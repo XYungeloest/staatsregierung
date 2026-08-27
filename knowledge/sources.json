@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-25",
+  "asOf": "2026-08-27",
   "sources": [
     {
       "id": "source-editorial-clarification-zuarbeit-2026-08-23",
@@ -8,7 +8,13 @@
       "title": "Redaktionelle Klarstellungen aus der Zuarbeitung vom 23. August 2026",
       "date": "2026-08-23",
       "status": "primary",
-      "scope": ["law", "government", "projects", "persons", "elections"],
+      "scope": [
+        "law",
+        "government",
+        "projects",
+        "persons",
+        "elections"
+      ],
       "notes": "Dokumentiert die fachlichen Antworten des Zuarbeitungsformulars; Primärquellen bleiben für Normwortlaut und amtliche Verkündungen vorrangig."
     },
     {
@@ -18,7 +24,11 @@
       "title": "Bekanntmachung der Bundeswahlleitung zur Volksbefragung 2026",
       "date": "2026-08-13",
       "status": "primary",
-      "scope": ["elections", "consultation", "government"],
+      "scope": [
+        "elections",
+        "consultation",
+        "government"
+      ],
       "notes": "Im Zuarbeitungsformular vollständig übermittelte Bekanntmachung; bestätigt den Abstimmungszeitraum vom 5. September 2026, 18:00 Uhr, bis 6. September 2026, 18:00 Uhr, und gibt die fünf Fragen der VBefrVO 2026 wieder."
     },
     {
@@ -28,8 +38,12 @@
       "title": "Liste der Regierungschefs, Revision 20620",
       "date": "2026-08-17",
       "status": "historical",
-      "scope": ["history", "government", "persons"],
-      "notes": "Vom Nutzer zur historischen Recherche freigegebene konkrete Miraheze-Revision. Die Tabellenangabe zum Amtsantritt Wolfgang Schmidts ist chronologisch widersprüchlich und wird nicht ungeprüft übernommen."
+      "scope": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "notes": "Vom Nutzer zur historischen Recherche freigegebene konkrete Miraheze-Revision. Der dortige Amtsbeginn Wolfgang Schmidts ist fehlerhaft; der redaktionell bestätigte 14. April 2025 ist maßgeblich."
     },
     {
       "id": "source-hoheitszeichenrecht-current",
@@ -38,7 +52,10 @@
       "title": "Hoheitszeichengesetz in der verkündeten Fassung vom 23. März 2026",
       "date": "2026-03-23",
       "status": "primary",
-      "scope": ["law", "state-symbols"],
+      "scope": [
+        "law",
+        "state-symbols"
+      ],
       "notes": "Zusammen mit der Hoheitszeichenverordnung die geltende Regelung; ein späteres parlamentarisches Vorhaben ist nicht als geltendes Recht erfasst."
     },
     {
@@ -48,7 +65,10 @@
       "title": "Historie des Ostdeutschen Feiertagsgesetzes",
       "date": "2026-03-24",
       "status": "primary",
-      "scope": ["law", "holidays"],
+      "scope": [
+        "law",
+        "holidays"
+      ],
       "notes": "Verknüpft die Ausgangsfassung zum 1. November 2023 mit den Folgefassungen ab 8. März 2024 und 24. März 2026."
     },
     {
@@ -58,7 +78,11 @@
       "title": "Organisationserlasse 09/2025, 12/2025 und 05/2026",
       "date": "2026-05-04",
       "status": "primary",
-      "scope": ["law", "government", "institutions"],
+      "scope": [
+        "law",
+        "government",
+        "institutions"
+      ],
       "notes": "Abschnitt VI des Organisationserlasses 05/2026 regelt die partielle Fortgeltung von 12/2025; die drei Erlasse werden mit der kanonischen Organisationschronologie gemeinsam ausgewertet."
     },
     {
@@ -68,7 +92,11 @@
       "title": "Historischer Wiki-Kontext zum Kabinett Honecker",
       "date": null,
       "status": "historical",
-      "scope": ["history", "government", "persons"],
+      "scope": [
+        "history",
+        "government",
+        "persons"
+      ],
       "notes": "Belegt in Verbindung mit der redaktionellen Zuarbeitung die Entlassung Gerhardt Lehrmanns zum 1. Januar 2026 und Karl Honeckers anschließende geschäftsführende Leitung des Wirtschaftsressorts."
     },
     {
@@ -78,7 +106,11 @@
       "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 12",
       "date": "2026-05-07",
       "status": "primary",
-      "scope": ["law", "international", "government"],
+      "scope": [
+        "law",
+        "international",
+        "government"
+      ],
       "notes": "Amtliche Veröffentlichung der Verwaltungsvorschrift über die Aussetzung und Beendigung landesunmittelbarer Beziehungen mit Bezug zum Staat Israel."
     },
     {
@@ -88,7 +120,14 @@
       "title": "Redaktionelle Klarstellung zu EAG-Ausspielungen und zum Staatsregierungskanal",
       "date": "2026-08-11",
       "status": "primary",
-      "scope": ["simulation", "government", "projects", "persons", "international", "transport"],
+      "scope": [
+        "simulation",
+        "government",
+        "projects",
+        "persons",
+        "international",
+        "transport"
+      ],
       "notes": "Dokumentiert die vollständige chronologische Auswertung von 1.689 Nachrichten und 46 Anhängen, die redaktionellen Nachklärungen vom 11. August 2026 sowie die Trennung in bestätigte, geplante, abgelehnte, überholte und offene Befunde."
     },
     {
@@ -98,7 +137,14 @@
       "title": "EAG-Discordexport des Kanals staatsregierung-ost mit ausgewerteten Beleganhängen",
       "date": "2026-08-11",
       "status": "primary",
-      "scope": ["simulation", "government", "projects", "procurement", "international", "transport"],
+      "scope": [
+        "simulation",
+        "government",
+        "projects",
+        "procurement",
+        "international",
+        "transport"
+      ],
       "sourceRole": "simulation-adjudication",
       "attachmentRoot": "context/eag/staatsregierung-ost-1218687555340599457/attachments",
       "notes": "Exportzeitraum 9. April 2024 bis 11. August 2026. Alle 1.689 Nachrichten und 46 Anhänge wurden chronologisch beziehungsweise technisch ausgewertet. Dauerhaft archiviert bleiben nur Anhänge mit eigenständigem fachlichem Belegwert; Reaktions-GIFs, Memes, bloße Symbolbilder und sachlich redundante Screenshots wurden nach der Auswertung entfernt. Eine EAG-Entscheidung ist nur nach den Regeln der Quellenrichtlinie kanonisch."
@@ -110,7 +156,12 @@
       "title": "Ernennungsurkunde Claus Weselsky",
       "date": "2025-10-06",
       "status": "primary",
-      "scope": ["persons", "government", "helcom", "environment"],
+      "scope": [
+        "persons",
+        "government",
+        "helcom",
+        "environment"
+      ],
       "notes": "Originaldatei unverändert archiviert; Urkunde von Ministerpräsident Mateo Delgado."
     },
     {
@@ -120,7 +171,13 @@
       "title": "Ostdeutscher Freistaat wirkte bei der Änderung des Helsinki-Übereinkommens mit",
       "date": "2025-10-06",
       "status": "primary",
-      "scope": ["press", "international", "helcom", "persons", "environment"],
+      "scope": [
+        "press",
+        "international",
+        "helcom",
+        "persons",
+        "environment"
+      ],
       "sourceRole": "official-press-release",
       "notes": "Das Dokument trägt den 6. Oktober 2025. Die im Dokumenttitel sichtbare Kennung PM-01082025-11 und abweichende Dateinamensbestandteile werden nicht als Datumsquelle verwendet."
     },
@@ -131,7 +188,11 @@
       "title": "Ernennungsurkunde Gregor Gysi",
       "date": "2025-12-10",
       "status": "primary",
-      "scope": ["persons", "government", "apiculture"],
+      "scope": [
+        "persons",
+        "government",
+        "apiculture"
+      ],
       "notes": "Originaldatei unverändert archiviert; der amtliche Originaltitel verwendet die Schreibweise Imker*innen."
     },
     {
@@ -141,7 +202,12 @@
       "title": "Brief an den Bundesverkehrsminister zu Fernverkehr und OVV-Ticketanerkennung",
       "date": "2026-03-15",
       "status": "primary",
-      "scope": ["transport", "rail", "projects", "fare"],
+      "scope": [
+        "transport",
+        "rail",
+        "projects",
+        "fare"
+      ],
       "notes": "Enthält sechs vorgeschlagene Bestellungs- oder Reaktivierungsrelationen und getrennt davon 18 Bestandsrelationen für die Anerkennung von OVV-Fahrausweisen."
     },
     {
@@ -151,7 +217,12 @@
       "title": "Boom Europe Leipzig/Halle Agreement, datierte Fassung",
       "date": "2026-05-14",
       "status": "primary",
-      "scope": ["projects", "industry", "aviation", "agreements"],
+      "scope": [
+        "projects",
+        "industry",
+        "aviation",
+        "agreements"
+      ],
       "notes": "Rechtskräftig unterzeichnete und seit dem 14. Mai 2026 in Kraft befindliche Fassung des Boom Europe Leipzig/Halle Agreement."
     },
     {
@@ -161,7 +232,12 @@
       "title": "Entwurf zur Änderung des Helsinki-Übereinkommens",
       "date": "2025-10-02",
       "status": "context",
-      "scope": ["international", "helcom", "law", "draft"],
+      "scope": [
+        "international",
+        "helcom",
+        "law",
+        "draft"
+      ],
       "notes": "Bundestagsentwurf mit Platzhaltern; belegt den vorgesehenen Änderungsmechanismus und die Beschränkung des Stimmrechts, nicht den endgültigen Wortlaut oder das Inkrafttreten."
     },
     {
@@ -171,7 +247,12 @@
       "title": "Vergabeverfahren E-Jura-Programm",
       "date": "2025-09-30",
       "status": "primary",
-      "scope": ["procurement", "digitalization", "justice", "education"],
+      "scope": [
+        "procurement",
+        "digitalization",
+        "justice",
+        "education"
+      ],
       "notes": "Die Unterlage nennt bei der Ausführungsfrist widersprüchlich den bereits vergangenen 30. Juni 2025. Anbieter und tatsächlicher Liefertermin sind nicht enthalten."
     },
     {
@@ -181,7 +262,12 @@
       "title": "Einigung bei 50Hertz erzielt – Ostdeutsches Netz in ostdeutsche Hand",
       "date": "2025-12-02",
       "status": "primary",
-      "scope": ["press", "energy", "public-economy", "projects"],
+      "scope": [
+        "press",
+        "energy",
+        "public-economy",
+        "projects"
+      ],
       "sourceRole": "official-press-release",
       "notes": "Belegt die Verständigung über die schrittweise Übernahme der Elia-Beteiligung für 3,8 Milliarden Euro. KfW-Anteile und Hamburger Anlagen werden nur als spätere Ziele beschrieben."
     },
@@ -192,7 +278,11 @@
       "title": "Grenzraumabkommen mit Polen, EAG-Anhang",
       "date": "2026-03-05",
       "status": "context",
-      "scope": ["international", "poland", "agreements"],
+      "scope": [
+        "international",
+        "poland",
+        "agreements"
+      ],
       "notes": "Archiviertes Original aus dem Discordverlauf. Für den Rechtsstand hat OVertrBl. 2026 Nr. 2 Vorrang."
     },
     {
@@ -202,7 +292,11 @@
       "title": "Grenzraumabkommen mit Tschechien, EAG-Anhang",
       "date": "2026-03-05",
       "status": "context",
-      "scope": ["international", "czechia", "agreements"],
+      "scope": [
+        "international",
+        "czechia",
+        "agreements"
+      ],
       "notes": "Archiviertes Original aus dem Discordverlauf. Für den Rechtsstand hat OVertrBl. 2026 Nr. 3 Vorrang."
     },
     {
@@ -212,7 +306,12 @@
       "title": "Boom Europe Leipzig/Halle Agreement, Discordfassung",
       "date": "2026-05-14",
       "status": "context",
-      "scope": ["projects", "industry", "aviation", "agreements"],
+      "scope": [
+        "projects",
+        "industry",
+        "aviation",
+        "agreements"
+      ],
       "notes": "Als fertiges Agreement zum Unterschreiben eingereicht; Datumszeile und Unterschriftenfelder sind leer."
     },
     {
@@ -222,7 +321,11 @@
       "title": "Auszug privater Krankenhäuser aus dem Krankenhausverzeichnis",
       "date": "2026-03-04",
       "status": "context",
-      "scope": ["health", "hospitals", "projects"],
+      "scope": [
+        "health",
+        "hospitals",
+        "projects"
+      ],
       "notes": "207 Datensätze mit Trägerart 3 in den sechs ostdeutschen Ländern; belegt den betrachteten Umfang der verworfenen Erwerbsidee, keinen Kauf."
     },
     {
@@ -232,7 +335,11 @@
       "title": "Unverbindliche Preisvorstellung Stahlwerk Eisenhüttenstadt",
       "date": "2026-03-14",
       "status": "context",
-      "scope": ["industry", "valuation", "projects"],
+      "scope": [
+        "industry",
+        "valuation",
+        "projects"
+      ],
       "notes": "Empfiehlt nur eine Verhandlungsspanne von 350 bis 500 Millionen Euro; kein Angebot und kein Erwerbsbeleg."
     },
     {
@@ -242,8 +349,12 @@
       "title": "Historische Liste der Ministerpräsidenten Ostdeutschlands",
       "date": null,
       "status": "historical",
-      "scope": ["history", "government", "persons"],
-      "notes": "Historische Kontextquelle für Delgados Amtsbeginn am 4. September 2025, eine Amtsdauer von 107 Tagen und die Nachfolge Karl Honeckers am 20. Dezember 2025; durch zwei datierte Ernennungsurkunden für Delgados Amtsstellung im Oktober und Dezember 2025 gestützt."
+      "scope": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "notes": "Historische Kontextquelle für Regierungsnamen, Amtsdauern und Nachfolgen. Wolfgang Schmidts fehlerhafter Amtsbeginn wurde redaktionell auf den 14. April 2025 korrigiert; Delgados Intervall wird zusätzlich durch zwei datierte Ernennungsurkunden gestützt."
     },
     {
       "id": "source-kabinett-delgado",
@@ -252,7 +363,10 @@
       "title": "Kabinett Delgado",
       "date": "2025-09-04",
       "status": "historical",
-      "scope": ["government", "history"],
+      "scope": [
+        "government",
+        "history"
+      ],
       "notes": "Konservativer Archivdatensatz mit dem belegten Amtszeitintervall und ohne Erfindung einer nicht belegten vollständigen Kabinettsstruktur."
     },
     {
@@ -262,7 +376,12 @@
       "title": "Ostdeutsches Vertragsblatt 2026 Nr. 1",
       "date": "2026-01-27",
       "status": "primary",
-      "scope": ["law", "international", "helcom", "environment"],
+      "scope": [
+        "law",
+        "international",
+        "helcom",
+        "environment"
+      ],
       "notes": "Veröffentlicht das Zustimmungsgesetz vom 26. Januar 2026 und das Übereinkommen von 1992. Mit der Verkündung am 27. Januar 2026 trat der ostdeutsche Beitritt in Kraft."
     },
     {
@@ -280,7 +399,12 @@
       "publicationDate": "2026-08-09",
       "pages": "2–7",
       "status": "primary",
-      "scope": ["law", "elections", "political-participation", "proceedings"],
+      "scope": [
+        "law",
+        "elections",
+        "political-participation",
+        "proceedings"
+      ],
       "sourceRole": "official-publication",
       "verificationHierarchy": [
         "HTML: vollständige strukturtragende Importquelle",
@@ -290,100 +414,441 @@
       "notes": "Amtliche Primärquelle der Volksbefragungsverordnung 2026. HTML und Markdown ergeben nach dem Parservergleich denselben strukturierten Normtext; alle sieben PDF-Seiten wurden visuell kontrolliert."
     },
     {
-      "id": "source-ogvbl-2026-60", "type": "official-gazette", "path": "Gesetze/OGVBl. 2026 Nr. 60.html",
-      "paths": {"html": "Gesetze/OGVBl. 2026 Nr. 60.html", "pdf": "Gesetze/OGVBl. 2026 Nr. 60.pdf"},
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 60", "date": "2026-08-14", "status": "primary",
-      "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der SOPOS; alle 20 PDF-Seiten visuell kontrolliert."
+      "id": "source-ogvbl-2026-60",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 60.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 60.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 60.pdf"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 60",
+      "date": "2026-08-14",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der SOPOS; alle 20 PDF-Seiten visuell kontrolliert."
     },
     {
-      "id": "source-ogvbl-2026-61", "type": "official-gazette", "path": "Gesetze/OGVBl. 2026 Nr. 61.html",
-      "paths": {"html": "Gesetze/OGVBl. 2026 Nr. 61.html", "pdf": "Gesetze/OGVBl. 2026 Nr. 61.pdf"},
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 61", "date": "2026-08-14", "status": "primary",
-      "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der SOEOSA; alle 23 PDF-Seiten visuell kontrolliert."
+      "id": "source-ogvbl-2026-61",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 61.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 61.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 61.pdf"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 61",
+      "date": "2026-08-14",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der SOEOSA; alle 23 PDF-Seiten visuell kontrolliert."
     },
     {
-      "id": "source-ogvbl-2026-62", "type": "official-gazette", "path": "Gesetze/OGVBl. 2026 Nr. 62.html",
-      "paths": {"html": "Gesetze/OGVBl. 2026 Nr. 62.html", "pdf": "Gesetze/OGVBl. 2026 Nr. 62.pdf"},
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 62", "date": "2026-08-15", "status": "primary",
-      "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der SOAbO; alle acht PDF-Seiten visuell kontrolliert."
+      "id": "source-ogvbl-2026-62",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 62.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 62.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 62.pdf"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 62",
+      "date": "2026-08-15",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der SOAbO; alle acht PDF-Seiten visuell kontrolliert."
     },
     {
-      "id": "source-ogvbl-2026-63", "type": "official-gazette", "path": "Gesetze/OGVBl. 2026 Nr. 63.html",
-      "paths": {"html": "Gesetze/OGVBl. 2026 Nr. 63.html", "pdf": "Gesetze/OGVBl. 2026 Nr. 63.pdf"},
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 63", "date": "2026-08-15", "status": "primary",
-      "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der AGyKoVO; alle acht PDF-Seiten visuell kontrolliert."
+      "id": "source-ogvbl-2026-63",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 63.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 63.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 63.pdf"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 63",
+      "date": "2026-08-15",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der AGyKoVO; alle acht PDF-Seiten visuell kontrolliert."
     },
     {
-      "id": "source-ogvbl-2026-64", "type": "official-gazette", "path": "Gesetze/OGVBl. 2026 Nr. 64.html",
-      "paths": {"html": "Gesetze/OGVBl. 2026 Nr. 64.html", "pdf": "Gesetze/OGVBl. 2026 Nr. 64.pdf"},
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 64", "date": "2026-08-15", "status": "primary",
-      "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Änderung der Schulordnung Förderschulen; alle 13 PDF-Seiten visuell kontrolliert. Der festgestellte Zieltextkonflikt sperrt die Konsolidierung."
+      "id": "source-ogvbl-2026-64",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 64.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 64.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 64.pdf"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 64",
+      "date": "2026-08-15",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Änderung der Schulordnung Förderschulen; alle 13 PDF-Seiten visuell kontrolliert. Der festgestellte Zieltextkonflikt sperrt die Konsolidierung."
     },
     {
-      "id": "source-ogvbl-2026-65", "type": "official-gazette", "path": "Gesetze/OGVBl. 2026 Nr. 65.html",
-      "paths": {"html": "Gesetze/OGVBl. 2026 Nr. 65.html", "pdf": "Gesetze/OGVBl. 2026 Nr. 65.pdf"},
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 65", "date": "2026-08-15", "status": "primary",
-      "scope": ["law", "education", "sorbian"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der SorbSchulVO; alle fünf PDF-Seiten visuell kontrolliert."
+      "id": "source-ogvbl-2026-65",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 65.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 65.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 65.pdf"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 65",
+      "date": "2026-08-15",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education",
+        "sorbian"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der SorbSchulVO; alle fünf PDF-Seiten visuell kontrolliert."
     },
     {
-      "id": "source-ogvbl-2026-66", "type": "official-gazette", "path": "Gesetze/OGVBl. 2026 Nr. 66.html",
-      "paths": {"html": "Gesetze/OGVBl. 2026 Nr. 66.html", "pdf": "Gesetze/OGVBl. 2026 Nr. 66.pdf"},
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 66", "date": "2026-08-15", "status": "primary",
-      "scope": ["law", "education", "religion"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der ERWVO; alle acht PDF-Seiten visuell kontrolliert."
+      "id": "source-ogvbl-2026-66",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 66.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 66.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 66.pdf"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 66",
+      "date": "2026-08-15",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education",
+        "religion"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der ERWVO; alle acht PDF-Seiten visuell kontrolliert."
     },
     {
-      "id": "source-ogvbl-2026-67", "type": "official-gazette", "path": "Gesetze/OGVBl. 2026 Nr. 67.html",
-      "paths": {"html": "Gesetze/OGVBl. 2026 Nr. 67.html", "pdf": "Gesetze/OGVBl. 2026 Nr. 67.pdf"},
-      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 67", "date": "2026-08-16", "status": "primary",
-      "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Schulordnungsbereinigung; alle 22 PDF-Seiten und sämtliche Artikel einzeln kontrolliert."
+      "id": "source-ogvbl-2026-67",
+      "type": "official-gazette",
+      "path": "Gesetze/OGVBl. 2026 Nr. 67.html",
+      "paths": {
+        "html": "Gesetze/OGVBl. 2026 Nr. 67.html",
+        "pdf": "Gesetze/OGVBl. 2026 Nr. 67.pdf"
+      },
+      "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 67",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Schulordnungsbereinigung; alle 22 PDF-Seiten und sämtliche Artikel einzeln kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-16", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 16.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 16.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 16.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 16", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Stundentafel EOS; sechs PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-16",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 16.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 16.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 16.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 16",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Stundentafel EOS; sechs PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-17", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 17.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 17.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 17.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 17", "date": "2026-08-16", "status": "primary", "scope": ["law", "education", "religion"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Ethik, Religion und Weltanschauung; sechs PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-17",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 17.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 17.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 17.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 17",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education",
+        "religion"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Ethik, Religion und Weltanschauung; sechs PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-18", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 18.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 18.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 18.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 18", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Klassenarbeiten POS; vier PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-18",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 18.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 18.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 18.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 18",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Klassenarbeiten POS; vier PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-19", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 19.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 19.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 19.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 19", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Abschlussprüfungen POS; vier PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-19",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 19.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 19.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 19.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 19",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Abschlussprüfungen POS; vier PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-20", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 20.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 20.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 20.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 20", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Prüfungsdokumentation POS; vier PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-20",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 20.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 20.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 20.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 20",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Prüfungsdokumentation POS; vier PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-21", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 21.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 21.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 21.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 21", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV EOS-Abitur; sechs PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-21",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 21.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 21.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 21.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 21",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV EOS-Abitur; sechs PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-22", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 22.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 22.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 22.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 22", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Zeugnismuster; sechs PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-22",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 22.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 22.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 22.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 22",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Zeugnismuster; sechs PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-23", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 23.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 23.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 23.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 23", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche ÄndVwV Schulformulare; drei PDF-Seiten sowie die separat archivierte REVOSax-Anlage 2 kontrolliert."
+      "id": "source-stanzo-2026-23",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 23.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 23.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 23.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 23",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche ÄndVwV Schulformulare; drei PDF-Seiten sowie die separat archivierte REVOSax-Anlage 2 kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-24", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 24.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 24.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 24.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 24", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Sonderpädagogische Formulare; vier PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-24",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 24.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 24.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 24.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 24",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Sonderpädagogische Formulare; vier PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-25", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 25.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 25.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 25.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 25", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Produktives Lernen POS; fünf PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-25",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 25.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 25.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 25.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 25",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Produktives Lernen POS; fünf PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-26", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 26.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 26.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 26.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 26", "date": "2026-08-16", "status": "primary", "scope": ["law", "education", "sport"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Ostdeutsche Sportschulen; vier PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-26",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 26.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 26.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 26.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 26",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education",
+        "sport"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Ostdeutsche Sportschulen; vier PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-27", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 27.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 27.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 27.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 27", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV LRS-Förderung; drei PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-27",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 27.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 27.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 27.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 27",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV LRS-Förderung; drei PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-28", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 28.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 28.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 28.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 28", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Abschlussbildungsgang Lernen; drei PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-28",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 28.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 28.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 28.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 28",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Abschlussbildungsgang Lernen; drei PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-29", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 29.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 29.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 29.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 29", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche Verkündung der VwV Bedarf 2026/2027; fünf PDF-Seiten kontrolliert."
+      "id": "source-stanzo-2026-29",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 29.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 29.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 29.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 29",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche Verkündung der VwV Bedarf 2026/2027; fünf PDF-Seiten kontrolliert."
     },
     {
-      "id": "source-stanzo-2026-30", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 30.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 30.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 30.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 30", "date": "2026-08-16", "status": "primary", "scope": ["law", "education"], "sourceRole": "official-publication", "notes": "Amtliche ÄndVwV Beratungslehrer; drei PDF-Seiten kontrolliert und historisierte Folgefassung erzeugt."
+      "id": "source-stanzo-2026-30",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 30.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 30.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 30.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 30",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche ÄndVwV Beratungslehrer; drei PDF-Seiten kontrolliert und historisierte Folgefassung erzeugt."
     },
     {
-      "id": "source-stanzo-2026-31", "type": "official-gazette", "path": "Gesetze/StAnzO. 2026 Nr. 31.html", "paths": {"html": "Gesetze/StAnzO. 2026 Nr. 31.html", "pdf": "Gesetze/StAnzO. 2026 Nr. 31.pdf"}, "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 31", "date": "2026-08-16", "status": "primary", "scope": ["law", "education", "security"], "sourceRole": "official-publication", "notes": "Amtliche ÄndVwV Radfahrausbildung; drei PDF-Seiten kontrolliert und historisierte Folgefassung erzeugt."
+      "id": "source-stanzo-2026-31",
+      "type": "official-gazette",
+      "path": "Gesetze/StAnzO. 2026 Nr. 31.html",
+      "paths": {
+        "html": "Gesetze/StAnzO. 2026 Nr. 31.html",
+        "pdf": "Gesetze/StAnzO. 2026 Nr. 31.pdf"
+      },
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 31",
+      "date": "2026-08-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education",
+        "security"
+      ],
+      "sourceRole": "official-publication",
+      "notes": "Amtliche ÄndVwV Radfahrausbildung; drei PDF-Seiten kontrolliert und historisierte Folgefassung erzeugt."
     },
     {
       "id": "source-pm-2026-08-09-05",
@@ -396,7 +861,12 @@
       "title": "Staatsrat ordnet Volksbefragung zur weiteren Entwicklung des Freistaates an",
       "date": "2026-08-09",
       "status": "primary",
-      "scope": ["press", "elections", "political-participation", "proceedings"],
+      "scope": [
+        "press",
+        "elections",
+        "political-participation",
+        "proceedings"
+      ],
       "sourceRole": "official-press-release",
       "verificationHierarchy": [
         "Markdown: vollständige Textquelle der Pressemitteilung",
@@ -418,7 +888,12 @@
       "publicationDate": "2026-08-08",
       "pages": "2–3",
       "status": "primary",
-      "scope": ["law", "housing", "public-economy", "projects"],
+      "scope": [
+        "law",
+        "housing",
+        "public-economy",
+        "projects"
+      ],
       "sourceRole": "official-publication",
       "verificationHierarchy": [
         "HTML: vollständige strukturtragende Importquelle",
@@ -437,7 +912,12 @@
       "title": "25 Prozent weniger Miete: Gemeingut Wohnen senkt Bestandsmieten zum 1. September",
       "date": "2026-08-08",
       "status": "primary",
-      "scope": ["press", "housing", "public-economy", "projects"],
+      "scope": [
+        "press",
+        "housing",
+        "public-economy",
+        "projects"
+      ],
       "sourceRole": "official-press-release",
       "verificationHierarchy": [
         "HTML: vollständige Textquelle",
@@ -452,7 +932,12 @@
       "title": "Redaktionelle Klarstellung zu Dreyer und zur Wahl der achten Volkskammer",
       "date": "2026-08-01",
       "status": "editorial",
-      "scope": ["federal-constitution", "persons", "elections", "parliament"],
+      "scope": [
+        "federal-constitution",
+        "persons",
+        "elections",
+        "parliament"
+      ],
       "notes": "Redaktionell bestätigter Artikelinhalt ohne im Repository belegte Wiki-URL oder Revisionskennung; keine Primärquelle für Antrag, Anklageschrift oder Rücktrittsschreiben."
     },
     {
@@ -1431,7 +1916,12 @@
       "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 33",
       "date": "2026-08-21",
       "status": "primary",
-      "scope": ["law", "state-awards", "civil-protection", "government"],
+      "scope": [
+        "law",
+        "state-awards",
+        "civil-protection",
+        "government"
+      ],
       "sourceRole": "official-publication",
       "notes": "Amtliche Stiftung der Einsatzmedaille Monschau 2026 und Anpassung der bestehenden Bekanntmachung über staatliche Auszeichnungen an die durch die Große Staatsreform geänderte Staatsorganisation; alle sechs PDF-Seiten visuell kontrolliert."
     },
@@ -1446,7 +1936,12 @@
       "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 34",
       "date": "2026-08-22",
       "status": "primary",
-      "scope": ["law", "energy", "public-economy", "tariffs"],
+      "scope": [
+        "law",
+        "energy",
+        "public-economy",
+        "tariffs"
+      ],
       "sourceRole": "official-publication",
       "notes": "Amtliche Bekanntmachung der gemeinwirtschaftlichen Strompreisleitlinie mit Inkrafttreten am 1. September 2026; alle fünf PDF-Seiten visuell kontrolliert."
     },
@@ -1461,7 +1956,12 @@
       "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 35",
       "date": "2026-08-22",
       "status": "primary",
-      "scope": ["law", "heating", "public-economy", "tariffs"],
+      "scope": [
+        "law",
+        "heating",
+        "public-economy",
+        "tariffs"
+      ],
       "sourceRole": "official-publication",
       "notes": "Amtliche Bekanntmachung der gemeinwirtschaftlichen Wärmepreisleitlinie mit Inkrafttreten am 1. September 2026; alle fünf PDF-Seiten visuell kontrolliert."
     },
@@ -1472,7 +1972,12 @@
       "title": "Staatspräsident stiftet Einsatzmedaille Monschau 2026",
       "date": "2026-08-21",
       "status": "primary",
-      "scope": ["press", "state-awards", "civil-protection", "persons"],
+      "scope": [
+        "press",
+        "state-awards",
+        "civil-protection",
+        "persons"
+      ],
       "sourceRole": "official-press-release",
       "notes": "Belegt die Stiftung, die Auszeichnung der 18 verletzten ostdeutschen Einsatzkräfte und den länderübergreifenden Charakter der Medaille."
     },
@@ -1483,7 +1988,13 @@
       "title": "Gemeineigentum senkt Mieten, Strom- und Wärmekosten",
       "date": "2026-08-22",
       "status": "primary",
-      "scope": ["press", "energy", "heating", "housing", "public-economy"],
+      "scope": [
+        "press",
+        "energy",
+        "heating",
+        "housing",
+        "public-economy"
+      ],
       "sourceRole": "official-press-release",
       "notes": "Amtliche Einordnung der ab 1. September 2026 geltenden gemeinwirtschaftlichen Strom- und Wärmetarife im Zusammenhang mit der bereits verkündeten Mietsenkung."
     },
@@ -1498,7 +2009,12 @@
       "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 36",
       "date": "2026-08-23",
       "status": "primary",
-      "scope": ["law", "transport", "public-economy", "rail"],
+      "scope": [
+        "law",
+        "transport",
+        "public-economy",
+        "rail"
+      ],
       "sourceRole": "official-publication",
       "notes": "Amtliche Bekanntmachung der gemeinwirtschaftlichen Betriebsgrundsätze der Ostdeutschen Eisenbahn; alle fünf PDF-Seiten visuell kontrolliert."
     },
@@ -1513,7 +2029,13 @@
       "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 37",
       "date": "2026-08-23",
       "status": "primary",
-      "scope": ["law", "transport", "fares", "social-policy", "rail"],
+      "scope": [
+        "law",
+        "transport",
+        "fares",
+        "social-policy",
+        "rail"
+      ],
       "sourceRole": "official-publication",
       "notes": "Amtliche Bekanntmachung des 15-Euro-Ost-Tickets, des sozialen Nulltarifs und verbindlicher Standards zur Anschlusssicherung; alle fünf PDF-Seiten visuell kontrolliert."
     },
@@ -1528,7 +2050,13 @@
       "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 38",
       "date": "2026-08-23",
       "status": "primary",
-      "scope": ["law", "transport", "planning", "regions", "rail"],
+      "scope": [
+        "law",
+        "transport",
+        "planning",
+        "regions",
+        "rail"
+      ],
       "sourceRole": "official-publication",
       "notes": "Amtliche Bekanntmachung des Landesnetzes Ost und der Planungsgrundsätze für den Ostdeutschlandtakt; alle sechs PDF-Seiten visuell kontrolliert."
     },
@@ -1539,436 +2067,679 @@
       "title": "15 Euro, mehr Takt, mehr Sicherheit: Freistaat startet Sofortprogramm für die öffentliche Mobilität",
       "date": "2026-08-23",
       "status": "primary",
-      "scope": ["press", "transport", "fares", "social-policy", "public-economy"],
+      "scope": [
+        "press",
+        "transport",
+        "fares",
+        "social-policy",
+        "public-economy"
+      ],
       "sourceRole": "official-press-release",
       "notes": "Amtliche Einordnung des Tarif-, Betriebs- und Taktpakets; die vierseitige Ausgangs-PDF wurde visuell kontrolliert."
     },
-  {
-    "id": "source-editorial-clarification-beteiligungen-2026-08-25",
-    "type": "editorial-clarification",
-    "path": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md",
-    "title": "Redaktionelle Klarstellung zu Beteiligungen und öffentlicher Wirtschaft",
-    "date": "2026-08-25",
-    "status": "primary",
-    "scope": [
-      "public-economy",
-      "holdings",
-      "succession",
-      "institutions",
-      "assets"
-    ],
-    "notes": "Kanonische redaktionelle Festlegung zur Rechtsnachfolge der sechs Vorgängerländer und zur Abgrenzung von Beteiligungen, AöR, Landesbetrieben und Sondervermögen."
-  },
-  {
-    "id": "source-berlin-beteiligungsbericht-2023",
-    "type": "official-participation-report",
-    "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsbericht/bb_2023_gesamt_web.pdf",
-    "title": "Beteiligungsbericht 2023 des Landes Berlin",
-    "date": null,
-    "status": "primary",
-    "scope": [
-      "public-economy",
-      "holdings",
-      "berlin"
-    ],
-    "notes": "Amtlicher Beteiligungsbericht; für den Vereinigungsstichtag zusammen mit datierten Änderungen und der redaktionellen Rechtsnachfolgeklarstellung auszuwerten."
-  },
-  {
-    "id": "source-berlin-beteiligungsbericht-2024",
-    "type": "official-participation-report",
-    "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsbericht/bb_2024_gesamt.pdf",
-    "title": "Beteiligungsbericht 2024 des Landes Berlin",
-    "date": "2024-12-31",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "berlin"],
-    "notes": "Amtlicher Bericht mit Beteiligungsstruktur und Einzelabschlüssen zum 31. Dezember 2023; maßgebliche stichtagsnahe Rückschau für den 1. Dezember 2023."
-  },
-  {
-    "id": "source-berlin-beteiligungsdatenbank-gewobag",
-    "type": "official-participation-database",
-    "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsdatenbank/index.php/detail/91",
-    "title": "Beteiligungsdatenbank Berlin: Gewobag Wohnungsbau-AG Berlin",
-    "date": null,
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "berlin", "housing"],
-    "notes": "Weist 96,69 Prozent Land Berlin und 3,31 Prozent eigene Aktien der Gewobag aus."
-  },
-  {
-    "id": "source-berlin-wvb-errichtungsgesetz-2015",
-    "type": "official-gazette",
-    "path": "https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2015/ausgabe-nr-25-vom-5-12-2015-seite-421-bis-440.pdf",
-    "title": "Gesetz zur Errichtung der Wohnraumversorgung Berlin – Anstalt öffentlichen Rechts",
-    "date": "2015-11-24",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "housing",
-      "berlin"
-    ],
-    "notes": "Belegt die Errichtung der WVB als nicht rechtsfähige Anstalt öffentlichen Rechts."
-  },
-  {
-    "id": "source-berlin-lsfb-errichtungsgesetz-2021",
-    "type": "official-gazette",
-    "path": "https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2021/ausgabe_nr._40_vom_26.5.2021_s._501-512.pdf",
-    "title": "LSFB-Errichtungsgesetz",
-    "date": "2021-05-17",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "rail",
-      "berlin"
-    ],
-    "notes": "Belegt die Errichtung der Landesanstalt Schienenfahrzeuge Berlin als rechtsfähige AöR."
-  },
-  {
-    "id": "source-brandenburg-beteiligungsbericht-2023",
-    "type": "official-participation-report",
-    "path": "https://mdf.brandenburg.de/mdf/de/themen/beteiligungen-buergschaften-aufsichten-vermoegensfragen/landesbeteiligungen/",
-    "title": "Beteiligungsbericht 2023 des Landes Brandenburg",
-    "date": null,
-    "status": "primary",
-    "scope": [
-      "public-economy",
-      "holdings",
-      "brandenburg"
-    ],
-    "notes": "Amtliche Veröffentlichungsseite mit Beteiligungsbericht 2023."
-  },
-  {
-    "id": "source-sachsen-beteiligungsbericht-2023",
-    "type": "official-participation-report",
-    "path": "https://publikationen.sachsen.de/bdb/artikel/43602",
-    "title": "Beteiligungsbericht 2023 des Freistaates Sachsen",
-    "date": "2024-01-10",
-    "status": "primary",
-    "scope": [
-      "public-economy",
-      "holdings",
-      "sachsen"
-    ],
-    "notes": "Amtlicher Bericht mit Redaktionsschluss 10. Januar 2024 und Jahresabschlussdaten zum 31. Dezember 2022."
-  },
-  {
-    "id": "source-sachsen-beteiligungsbericht-2024",
-    "type": "official-participation-report",
-    "path": "https://publikationen.sachsen.de/bdb/artikel/46863",
-    "title": "Beteiligungsbericht 2024 des Freistaates Sachsen",
-    "date": "2025-01-10",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "sachsen"],
-    "notes": "Amtlicher Bericht mit unmittelbaren und mittelbaren Beteiligungen zum 31. Dezember 2023; die Zahl der unmittelbaren Positionen blieb 2021 bis 2023 unverändert."
-  },
-  {
-    "id": "source-thueringen-beteiligungsbericht-2023",
-    "type": "official-participation-report",
-    "path": "https://finanzen.thueringen.de/fileadmin/medien_tfm/beteiligungen/beteiligungsbericht_2023_bf.pdf",
-    "title": "Beteiligungsbericht 2023 des Freistaats Thüringen",
-    "date": null,
-    "status": "primary",
-    "scope": [
-      "public-economy",
-      "holdings",
-      "thueringen"
-    ],
-    "notes": "Amtlicher Bericht über unmittelbare und mittelbare Kapitalbeteiligungen; enthält zusätzlich ausgewählte AöR ohne Kapitalbeteiligung."
-  },
-  {
-    "id": "source-sachsen-anhalt-beteiligungsbericht-2023",
-    "type": "official-participation-report",
-    "path": "https://mf.sachsen-anhalt.de/finanzen/page/zentrales-beteiligungsmanagement",
-    "title": "Beteiligungsbericht 2023 des Landes Sachsen-Anhalt",
-    "date": null,
-    "status": "primary",
-    "scope": [
-      "public-economy",
-      "holdings",
-      "sachsen-anhalt"
-    ],
-    "notes": "Amtliche Veröffentlichungsseite; Beteiligungsbericht 2023 für das Geschäftsjahr 2022."
-  },
-  {
-    "id": "source-sachsen-anhalt-beteiligungsbericht-2024",
-    "type": "official-participation-report",
-    "path": "https://mf.sachsen-anhalt.de/api/media/Beteiligungsbericht_BB%202024%20Gesamt%20fertig_2026-05-29.pdf?collection=document",
-    "title": "Beteiligungsbericht 2024 des Landes Sachsen-Anhalt",
-    "date": "2026-05-29",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "sachsen-anhalt"],
-    "notes": "Amtlicher Bericht mit Beteiligungsübersichten und Veränderungsnachweisen für 2023 und 2024; ermöglicht die Abgrenzung des Bestands am 1. Dezember 2023."
-  },
-  {
-    "id": "source-mv-beteiligungsbericht-2022-2023",
-    "type": "official-participation-report",
-    "path": "https://www.regierung-mv.de/Landesregierung/fm/Blickpunkte/beteiligungsbericht/",
-    "title": "Beteiligungsbericht Mecklenburg-Vorpommern 2022/2023",
-    "date": null,
-    "status": "primary",
-    "scope": [
-      "public-economy",
-      "holdings",
-      "mecklenburg-vorpommern"
-    ],
-    "notes": "Amtliche Veröffentlichungsseite zum Beteiligungsbericht für die Geschäftsjahre 2022 und 2023."
-  },
-  {
-    "id": "source-gkl-staatsvertrag",
-    "type": "state-treaty",
-    "path": "https://www.gesetze-bayern.de/Content/Document/GKLStV/true",
-    "title": "Staatsvertrag über die Gründung der GKL Gemeinsame Klassenlotterie der Länder",
-    "date": "2012-07-01",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "public-law", "lottery"],
-    "notes": "Belegt die Trägerschaft aller 16 Länder, Stimmen nach Königsteiner Schlüssel sowie Gewinn-, Haftungs- und Abfindungsschlüssel; die Länderwerte sind keine gewöhnlichen Kapitalquoten."
-  },
-  {
-    "id": "source-nordlb-geschaeftsbericht-2023",
-    "type": "official-annual-report",
-    "path": "https://www.nordlb.de/fileadmin/redaktion/Investor_Relations/pdf/2023/NORDLB_Konzerngeschaeftsbericht_2023.pdf",
-    "title": "NORD/LB Konzerngeschäftsbericht 2023",
-    "date": "2023-12-31",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "bank", "sachsen-anhalt"],
-    "notes": "Belegt 6,31 Prozent Sachsen-Anhalt vor und 6,25 Prozent nach der Kapitalerhöhung mit Wirkung zum 31. Dezember 2023."
-  },
-  {
-    "id": "source-nordlb-geschaeftsbericht-2025",
-    "type": "official-annual-report",
-    "path": "https://www.nordlb.de/fileadmin/redaktion/Investor_Relations/pdf/2025/NORDLB_Konzerngeschaeftsbericht_2025.pdf",
-    "title": "NORD/LB Konzerngeschäftsbericht 2025",
-    "date": "2025-12-31",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "bank", "sachsen-anhalt"],
-    "notes": "Bestätigt die fortgeschriebene Trägerquote des Landes Sachsen-Anhalt von 6,22 Prozent."
-  },
-  {
-    "id": "source-nordlb-kapitalstaerkung-2019",
-    "type": "official-press-release",
-    "path": "https://www.stk.niedersachsen.de/startseite/presseinformationen/niedersachsen-wird-das-stammkapital-der-nord-lb-in-hohe-der-empfangenen-garantiegebuhren-erhohen-195079.html",
-    "title": "Vertragliche Kapitalstärkung der NORD/LB",
-    "date": "2019-12-23",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "bank"],
-    "notes": "Belegt die bereits vor dem Vereinigungsstichtag verbindlich vereinbarten Kapitalerhöhungen aus Garantiegebühren."
-  },
-  {
-    "id": "source-mdr-beteiligungsbericht-2023",
-    "type": "official-annual-report",
-    "path": "https://www.mdr.de/unternehmen/informationen/dokumente/geschaeftsbericht-mdr-zweitausenddreiundzwanzig-104.pdf",
-    "title": "Geschäftsbericht des Mitteldeutschen Rundfunks 2023",
-    "date": "2023-12-31",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "broadcasting", "mdr"],
-    "notes": "Belegt die unmittelbaren und mittelbaren Unternehmensbeteiligungen des MDR zum 31. Dezember 2023."
-  },
-  {
-    "id": "source-rbb-beteiligungsbericht-2023",
-    "type": "official-participation-report",
-    "path": "https://www.rbb-online.de/unternehmen/der_rbb/struktur/rbb_beteiligungen/beteiligungsbericht-2023.file.html/UTF-8Kurzversion_rbb_Beteiligungsbericht23_RGB_final.pdf",
-    "title": "Beteiligungsbericht des Rundfunk Berlin-Brandenburg 2023",
-    "date": "2023-12-31",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "broadcasting", "rbb"],
-    "notes": "Belegt unter anderem die seit dem 1. Januar 2023 bestehende 100-Prozent-Beteiligung an der ems gGmbH."
-  },
-  {
-    "id": "source-tab-geschaeftsbericht-2023",
-    "type": "official-annual-report",
-    "path": "https://www.aufbaubank.de/Download/TAB-Geschaeftsbericht-2023.pdf",
-    "title": "Geschäftsbericht der Thüringer Aufbaubank 2023",
-    "date": "2023-12-31",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "bank", "thueringen"],
-    "notes": "Amtlicher Geschäftsbericht; belegt fünf verbundene Unternehmen und die Liquidationsstände der Private-Equity-Fonds."
-  },
-  {
-    "id": "source-thueringen-iba-gesellschaftsvertrag",
-    "type": "official-corporate-document",
-    "path": "https://iba-thueringen.de/",
-    "title": "Gesellschaftsvertrag und Abschluss der IBA Thüringen GmbH",
-    "date": "2011-12-09",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "thueringen", "liquidation"],
-    "notes": "Belegt die gesellschaftsvertraglich bereits vor dem Stichtag angeordnete Auflösung zum 31. Dezember 2023; der reale spätere Verschmelzungsvollzug wird nicht ohne ostdeutschen Vollzugsakt übernommen."
-  },
-  {
-    "id": "source-mv-tbi-beteiligung",
-    "type": "official-participation-page",
-    "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/TBI-Technologie%E2%80%93-Beratungs%E2%80%93Institut-GmbH/",
-    "title": "Landesbeteiligung an der TBI Technologie-Beratungs-Institut GmbH",
-    "date": "2024-12-19",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "mecklenburg-vorpommern"],
-    "notes": "Belegt, dass die mittelbare Landesbeteiligung erst nach dem Vereinigungsstichtag entstand."
-  },
-  {
-    "id": "source-mv-tourismus-beteiligung",
-    "type": "official-participation-page",
-    "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/MV-Tourismus-GmbH/",
-    "title": "Landesbeteiligung an der MV-Tourismus GmbH",
-    "date": "2025-09-30",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "mecklenburg-vorpommern", "tourism"],
-    "notes": "Belegt, dass die unmittelbare 100-Prozent-Landesbeteiligung erst nach dem Vereinigungsstichtag entstand."
-  },
-  {
-    "id": "source-mv-energieland-beteiligung",
-    "type": "official-participation-page",
-    "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/EnergieLand-MV-GmbH/",
-    "title": "Mittelbare Landesbeteiligung an der EnergieLand MV GmbH",
-    "date": "2024-11-12",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "mecklenburg-vorpommern", "energy"],
-    "notes": "Belegt eine erst nach dem Vereinigungsstichtag entstandene mittelbare Beteiligung."
-  },
-  {
-    "id": "source-kfw-dena-sale-2023",
-    "type": "official-press-release",
-    "path": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_771584.html",
-    "title": "KfW veräußert dena-Anteil an den Bund",
-    "date": "2023-07-13",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "bank", "energy"],
-    "notes": "Belegt die vor dem Vereinigungsstichtag abgeschlossene Veräußerung der 26-Prozent-Beteiligung an der dena."
-  },
-  {
-    "id": "source-sab-tgfs-iii-2023",
-    "type": "official-press-release",
-    "path": "https://www.sab.sachsen.de/en/web/guest/w/mehr-eigenkapital-fur-die-sachsische-grunderszene-sachssische-aufbaubank-als-weiterer-investor-im-tgfs-technologiegrunderfonds-sachsen-der-dritten-generation",
-    "title": "SAB beteiligt sich am TGFS III",
-    "date": "2023-09-07",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "sachsen", "venture-capital"],
-    "notes": "Belegt den Erwerb vor dem Vereinigungsstichtag."
-  },
-  {
-    "id": "source-eex-geschaeftsbericht-2023",
-    "type": "official-annual-report",
-    "path": "https://www.lobbyregister.bundestag.de/media/1d/d5/484623/EEX-Jahresabschluss-2023.pdf",
-    "title": "Jahresabschluss der European Energy Exchange AG 2023",
-    "date": "2023-12-31",
-    "status": "primary",
-    "scope": ["public-economy", "holdings", "sachsen", "energy-exchange"],
-    "notes": "Belegt die EEX-Beteiligungen, darunter die bereits 2022 bestehende ADEX-Position und den 2023 erworbenen GET-Baltic-Anteil."
-  },
-  {
-    "id": "source-landesbank-elbe-law",
-    "type": "law",
-    "path": "content/normen/ostdeutsches-landesbankgesetz/versions/2026-01-26.json",
-    "title": "Ostdeutsches Landesbankgesetz",
-    "date": "2026-01-26",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "bank"
-    ],
-    "notes": "Belegt Errichtung, Kapitalausstattung und Aufgaben der Landesbank an der Elbe."
-  },
-  {
-    "id": "source-ovv-law",
-    "type": "law",
-    "path": "content/normen/erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr/versions/2026-03-23.json",
-    "title": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
-    "date": "2026-03-23",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "transport",
-      "ovv"
-    ],
-    "notes": "Belegt Errichtung, Rechtsform und Mitgliederstruktur des Ostdeutschen Verkehrsverbundes."
-  },
-  {
-    "id": "source-lasp-law",
-    "type": "law",
-    "path": "content/normen/landesagentur-spitzensport-gesetz/versions/2026-07-21.json",
-    "title": "Landesagentur-Spitzensport-Gesetz",
-    "date": "2026-07-21",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "sport"
-    ],
-    "notes": "Belegt Errichtung und Aufgaben der Landesagentur Spitzensport Ost."
-  },
-  {
-    "id": "source-energy-finance-law",
-    "type": "law",
-    "path": "content/normen/energie-und-waermefinanzierungsgesetz/versions/2026-07-21.json",
-    "title": "Energie- und Wärmefinanzierungsgesetz",
-    "date": "2026-07-21",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "energy",
-      "special-fund"
-    ],
-    "notes": "Belegt das Sondervermögen Energie- und Wärmevergesellschaftung."
-  },
-  {
-    "id": "source-hsl-sondervermoegen-law",
-    "type": "law",
-    "path": "content/normen/hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz/versions/2026-07-21.json",
-    "title": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
-    "date": "2026-07-21",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "aviation",
-      "special-fund"
-    ],
-    "notes": "Belegt das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost."
-  },
-  {
-    "id": "source-gemeingut-wohnen-law",
-    "type": "law",
-    "path": "content/normen/gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l/versions/2026-03-23.json",
-    "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
-    "date": "2026-03-23",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "housing"
-    ],
-    "notes": "Enthält die Errichtung und Organisationsregelungen für Gemeingut Wohnen."
-  },
-  {
-    "id": "source-landesenergiewerke-law",
-    "type": "law",
-    "path": "content/normen/landesenergiewerke-gesetz/versions/2026-07-21.json",
-    "title": "Landesenergiewerke-Gesetz",
-    "date": "2026-07-21",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "energy",
-      "heating"
-    ],
-    "notes": "Belegt Errichtung, Rechtsstellung und Aufgaben der Landesenergiewerke Ost."
-  },
-  {
-    "id": "source-ostdeutsche-netze-law",
-    "type": "law",
-    "path": "content/normen/ostdeutsche-netze-gesetz/versions/2026-07-21.json",
-    "title": "Ostdeutsche-Netze-Gesetz",
-    "date": "2026-07-21",
-    "status": "primary",
-    "scope": [
-      "law",
-      "public-economy",
-      "energy",
-      "grid"
-    ],
-    "notes": "Belegt Errichtung, Rechtsstellung und Aufgaben der Ostdeutsche Netze AöR."
-  }
+    {
+      "id": "source-editorial-clarification-beteiligungen-2026-08-25",
+      "type": "editorial-clarification",
+      "path": "knowledge/clarifications/2026-08-25-beteiligungen-rechtsnachfolge.md",
+      "title": "Redaktionelle Klarstellung zu Beteiligungen und öffentlicher Wirtschaft",
+      "date": "2026-08-25",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "succession",
+        "institutions",
+        "assets"
+      ],
+      "notes": "Kanonische redaktionelle Festlegung zur Rechtsnachfolge der sechs Vorgängerländer und zur Abgrenzung von Beteiligungen, AöR, Landesbetrieben und Sondervermögen."
+    },
+    {
+      "id": "source-berlin-beteiligungsbericht-2023",
+      "type": "official-participation-report",
+      "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsbericht/bb_2023_gesamt_web.pdf",
+      "title": "Beteiligungsbericht 2023 des Landes Berlin",
+      "date": null,
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "berlin"
+      ],
+      "notes": "Amtlicher Beteiligungsbericht; für den Vereinigungsstichtag zusammen mit datierten Änderungen und der redaktionellen Rechtsnachfolgeklarstellung auszuwerten."
+    },
+    {
+      "id": "source-berlin-beteiligungsbericht-2024",
+      "type": "official-participation-report",
+      "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsbericht/bb_2024_gesamt.pdf",
+      "title": "Beteiligungsbericht 2024 des Landes Berlin",
+      "date": "2024-12-31",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "berlin"
+      ],
+      "notes": "Amtlicher Bericht mit Beteiligungsstruktur und Einzelabschlüssen zum 31. Dezember 2023; maßgebliche stichtagsnahe Rückschau für den 1. Dezember 2023."
+    },
+    {
+      "id": "source-berlin-beteiligungsdatenbank-gewobag",
+      "type": "official-participation-database",
+      "path": "https://www.berlin.de/sen/finanzen/vermoegen/beteiligungen/beteiligungsdatenbank/index.php/detail/91",
+      "title": "Beteiligungsdatenbank Berlin: Gewobag Wohnungsbau-AG Berlin",
+      "date": null,
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "berlin",
+        "housing"
+      ],
+      "notes": "Weist 96,69 Prozent Land Berlin und 3,31 Prozent eigene Aktien der Gewobag aus."
+    },
+    {
+      "id": "source-berlin-wvb-errichtungsgesetz-2015",
+      "type": "official-gazette",
+      "path": "https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2015/ausgabe-nr-25-vom-5-12-2015-seite-421-bis-440.pdf",
+      "title": "Gesetz zur Errichtung der Wohnraumversorgung Berlin – Anstalt öffentlichen Rechts",
+      "date": "2015-11-24",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "housing",
+        "berlin"
+      ],
+      "notes": "Belegt die Errichtung der WVB als nicht rechtsfähige Anstalt öffentlichen Rechts."
+    },
+    {
+      "id": "source-berlin-lsfb-errichtungsgesetz-2021",
+      "type": "official-gazette",
+      "path": "https://www.berlin.de/sen/justiz/service/gesetze-und-verordnungen/2021/ausgabe_nr._40_vom_26.5.2021_s._501-512.pdf",
+      "title": "LSFB-Errichtungsgesetz",
+      "date": "2021-05-17",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "rail",
+        "berlin"
+      ],
+      "notes": "Belegt die Errichtung der Landesanstalt Schienenfahrzeuge Berlin als rechtsfähige AöR."
+    },
+    {
+      "id": "source-brandenburg-beteiligungsbericht-2023",
+      "type": "official-participation-report",
+      "path": "https://mdf.brandenburg.de/mdf/de/themen/beteiligungen-buergschaften-aufsichten-vermoegensfragen/landesbeteiligungen/",
+      "title": "Beteiligungsbericht 2023 des Landes Brandenburg",
+      "date": null,
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "brandenburg"
+      ],
+      "notes": "Amtliche Veröffentlichungsseite mit Beteiligungsbericht 2023."
+    },
+    {
+      "id": "source-sachsen-beteiligungsbericht-2023",
+      "type": "official-participation-report",
+      "path": "https://publikationen.sachsen.de/bdb/artikel/43602",
+      "title": "Beteiligungsbericht 2023 des Freistaates Sachsen",
+      "date": "2024-01-10",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "sachsen"
+      ],
+      "notes": "Amtlicher Bericht mit Redaktionsschluss 10. Januar 2024 und Jahresabschlussdaten zum 31. Dezember 2022."
+    },
+    {
+      "id": "source-sachsen-beteiligungsbericht-2024",
+      "type": "official-participation-report",
+      "path": "https://publikationen.sachsen.de/bdb/artikel/46863",
+      "title": "Beteiligungsbericht 2024 des Freistaates Sachsen",
+      "date": "2025-01-10",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "sachsen"
+      ],
+      "notes": "Amtlicher Bericht mit unmittelbaren und mittelbaren Beteiligungen zum 31. Dezember 2023; die Zahl der unmittelbaren Positionen blieb 2021 bis 2023 unverändert."
+    },
+    {
+      "id": "source-thueringen-beteiligungsbericht-2023",
+      "type": "official-participation-report",
+      "path": "https://finanzen.thueringen.de/fileadmin/medien_tfm/beteiligungen/beteiligungsbericht_2023_bf.pdf",
+      "title": "Beteiligungsbericht 2023 des Freistaats Thüringen",
+      "date": null,
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "thueringen"
+      ],
+      "notes": "Amtlicher Bericht über unmittelbare und mittelbare Kapitalbeteiligungen; enthält zusätzlich ausgewählte AöR ohne Kapitalbeteiligung."
+    },
+    {
+      "id": "source-sachsen-anhalt-beteiligungsbericht-2023",
+      "type": "official-participation-report",
+      "path": "https://mf.sachsen-anhalt.de/finanzen/page/zentrales-beteiligungsmanagement",
+      "title": "Beteiligungsbericht 2023 des Landes Sachsen-Anhalt",
+      "date": null,
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "sachsen-anhalt"
+      ],
+      "notes": "Amtliche Veröffentlichungsseite; Beteiligungsbericht 2023 für das Geschäftsjahr 2022."
+    },
+    {
+      "id": "source-sachsen-anhalt-beteiligungsbericht-2024",
+      "type": "official-participation-report",
+      "path": "https://mf.sachsen-anhalt.de/api/media/Beteiligungsbericht_BB%202024%20Gesamt%20fertig_2026-05-29.pdf?collection=document",
+      "title": "Beteiligungsbericht 2024 des Landes Sachsen-Anhalt",
+      "date": "2026-05-29",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "sachsen-anhalt"
+      ],
+      "notes": "Amtlicher Bericht mit Beteiligungsübersichten und Veränderungsnachweisen für 2023 und 2024; ermöglicht die Abgrenzung des Bestands am 1. Dezember 2023."
+    },
+    {
+      "id": "source-mv-beteiligungsbericht-2022-2023",
+      "type": "official-participation-report",
+      "path": "https://www.regierung-mv.de/Landesregierung/fm/Blickpunkte/beteiligungsbericht/",
+      "title": "Beteiligungsbericht Mecklenburg-Vorpommern 2022/2023",
+      "date": null,
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "mecklenburg-vorpommern"
+      ],
+      "notes": "Amtliche Veröffentlichungsseite zum Beteiligungsbericht für die Geschäftsjahre 2022 und 2023."
+    },
+    {
+      "id": "source-gkl-staatsvertrag",
+      "type": "state-treaty",
+      "path": "https://www.gesetze-bayern.de/Content/Document/GKLStV/true",
+      "title": "Staatsvertrag über die Gründung der GKL Gemeinsame Klassenlotterie der Länder",
+      "date": "2012-07-01",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "public-law",
+        "lottery"
+      ],
+      "notes": "Belegt die Trägerschaft aller 16 Länder, Stimmen nach Königsteiner Schlüssel sowie Gewinn-, Haftungs- und Abfindungsschlüssel; die Länderwerte sind keine gewöhnlichen Kapitalquoten."
+    },
+    {
+      "id": "source-nordlb-geschaeftsbericht-2023",
+      "type": "official-annual-report",
+      "path": "https://www.nordlb.de/fileadmin/redaktion/Investor_Relations/pdf/2023/NORDLB_Konzerngeschaeftsbericht_2023.pdf",
+      "title": "NORD/LB Konzerngeschäftsbericht 2023",
+      "date": "2023-12-31",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "bank",
+        "sachsen-anhalt"
+      ],
+      "notes": "Belegt 6,31 Prozent Sachsen-Anhalt vor und 6,25 Prozent nach der Kapitalerhöhung mit Wirkung zum 31. Dezember 2023."
+    },
+    {
+      "id": "source-nordlb-geschaeftsbericht-2025",
+      "type": "official-annual-report",
+      "path": "https://www.nordlb.de/fileadmin/redaktion/Investor_Relations/pdf/2025/NORDLB_Konzerngeschaeftsbericht_2025.pdf",
+      "title": "NORD/LB Konzerngeschäftsbericht 2025",
+      "date": "2025-12-31",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "bank",
+        "sachsen-anhalt"
+      ],
+      "notes": "Bestätigt die fortgeschriebene Trägerquote des Landes Sachsen-Anhalt von 6,22 Prozent."
+    },
+    {
+      "id": "source-nordlb-kapitalstaerkung-2019",
+      "type": "official-press-release",
+      "path": "https://www.stk.niedersachsen.de/startseite/presseinformationen/niedersachsen-wird-das-stammkapital-der-nord-lb-in-hohe-der-empfangenen-garantiegebuhren-erhohen-195079.html",
+      "title": "Vertragliche Kapitalstärkung der NORD/LB",
+      "date": "2019-12-23",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "bank"
+      ],
+      "notes": "Belegt die bereits vor dem Vereinigungsstichtag verbindlich vereinbarten Kapitalerhöhungen aus Garantiegebühren."
+    },
+    {
+      "id": "source-mdr-beteiligungsbericht-2023",
+      "type": "official-annual-report",
+      "path": "https://www.mdr.de/unternehmen/informationen/dokumente/geschaeftsbericht-mdr-zweitausenddreiundzwanzig-104.pdf",
+      "title": "Geschäftsbericht des Mitteldeutschen Rundfunks 2023",
+      "date": "2023-12-31",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "broadcasting",
+        "mdr"
+      ],
+      "notes": "Belegt die unmittelbaren und mittelbaren Unternehmensbeteiligungen des MDR zum 31. Dezember 2023."
+    },
+    {
+      "id": "source-rbb-beteiligungsbericht-2023",
+      "type": "official-participation-report",
+      "path": "https://www.rbb-online.de/unternehmen/der_rbb/struktur/rbb_beteiligungen/beteiligungsbericht-2023.file.html/UTF-8Kurzversion_rbb_Beteiligungsbericht23_RGB_final.pdf",
+      "title": "Beteiligungsbericht des Rundfunk Berlin-Brandenburg 2023",
+      "date": "2023-12-31",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "broadcasting",
+        "rbb"
+      ],
+      "notes": "Belegt unter anderem die seit dem 1. Januar 2023 bestehende 100-Prozent-Beteiligung an der ems gGmbH."
+    },
+    {
+      "id": "source-tab-geschaeftsbericht-2023",
+      "type": "official-annual-report",
+      "path": "https://www.aufbaubank.de/Download/TAB-Geschaeftsbericht-2023.pdf",
+      "title": "Geschäftsbericht der Thüringer Aufbaubank 2023",
+      "date": "2023-12-31",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "bank",
+        "thueringen"
+      ],
+      "notes": "Amtlicher Geschäftsbericht; belegt fünf verbundene Unternehmen und die Liquidationsstände der Private-Equity-Fonds."
+    },
+    {
+      "id": "source-thueringen-iba-gesellschaftsvertrag",
+      "type": "official-corporate-document",
+      "path": "https://iba-thueringen.de/",
+      "title": "Gesellschaftsvertrag und Abschluss der IBA Thüringen GmbH",
+      "date": "2011-12-09",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "thueringen",
+        "liquidation"
+      ],
+      "notes": "Belegt die gesellschaftsvertraglich bereits vor dem Stichtag angeordnete Auflösung zum 31. Dezember 2023; der reale spätere Verschmelzungsvollzug wird nicht ohne ostdeutschen Vollzugsakt übernommen."
+    },
+    {
+      "id": "source-mv-tbi-beteiligung",
+      "type": "official-participation-page",
+      "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/TBI-Technologie%E2%80%93-Beratungs%E2%80%93Institut-GmbH/",
+      "title": "Landesbeteiligung an der TBI Technologie-Beratungs-Institut GmbH",
+      "date": "2024-12-19",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "mecklenburg-vorpommern"
+      ],
+      "notes": "Belegt, dass die mittelbare Landesbeteiligung erst nach dem Vereinigungsstichtag entstand."
+    },
+    {
+      "id": "source-mv-tourismus-beteiligung",
+      "type": "official-participation-page",
+      "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/MV-Tourismus-GmbH/",
+      "title": "Landesbeteiligung an der MV-Tourismus GmbH",
+      "date": "2025-09-30",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "mecklenburg-vorpommern",
+        "tourism"
+      ],
+      "notes": "Belegt, dass die unmittelbare 100-Prozent-Landesbeteiligung erst nach dem Vereinigungsstichtag entstand."
+    },
+    {
+      "id": "source-mv-energieland-beteiligung",
+      "type": "official-participation-page",
+      "path": "https://www.regierung-mv.de/Landesregierung/fm/Beteiligungen/EnergieLand-MV-GmbH/",
+      "title": "Mittelbare Landesbeteiligung an der EnergieLand MV GmbH",
+      "date": "2024-11-12",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "mecklenburg-vorpommern",
+        "energy"
+      ],
+      "notes": "Belegt eine erst nach dem Vereinigungsstichtag entstandene mittelbare Beteiligung."
+    },
+    {
+      "id": "source-kfw-dena-sale-2023",
+      "type": "official-press-release",
+      "path": "https://www.kfw.de/%C3%9Cber-die-KfW/Newsroom/Aktuelles/News-Details_771584.html",
+      "title": "KfW veräußert dena-Anteil an den Bund",
+      "date": "2023-07-13",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "bank",
+        "energy"
+      ],
+      "notes": "Belegt die vor dem Vereinigungsstichtag abgeschlossene Veräußerung der 26-Prozent-Beteiligung an der dena."
+    },
+    {
+      "id": "source-sab-tgfs-iii-2023",
+      "type": "official-press-release",
+      "path": "https://www.sab.sachsen.de/en/web/guest/w/mehr-eigenkapital-fur-die-sachsische-grunderszene-sachssische-aufbaubank-als-weiterer-investor-im-tgfs-technologiegrunderfonds-sachsen-der-dritten-generation",
+      "title": "SAB beteiligt sich am TGFS III",
+      "date": "2023-09-07",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "sachsen",
+        "venture-capital"
+      ],
+      "notes": "Belegt den Erwerb vor dem Vereinigungsstichtag."
+    },
+    {
+      "id": "source-eex-geschaeftsbericht-2023",
+      "type": "official-annual-report",
+      "path": "https://www.lobbyregister.bundestag.de/media/1d/d5/484623/EEX-Jahresabschluss-2023.pdf",
+      "title": "Jahresabschluss der European Energy Exchange AG 2023",
+      "date": "2023-12-31",
+      "status": "primary",
+      "scope": [
+        "public-economy",
+        "holdings",
+        "sachsen",
+        "energy-exchange"
+      ],
+      "notes": "Belegt die EEX-Beteiligungen, darunter die bereits 2022 bestehende ADEX-Position und den 2023 erworbenen GET-Baltic-Anteil."
+    },
+    {
+      "id": "source-landesbank-elbe-law",
+      "type": "law",
+      "path": "content/normen/ostdeutsches-landesbankgesetz/versions/2026-01-26.json",
+      "title": "Ostdeutsches Landesbankgesetz",
+      "date": "2026-01-26",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "bank"
+      ],
+      "notes": "Belegt Errichtung, Kapitalausstattung und Aufgaben der Landesbank an der Elbe."
+    },
+    {
+      "id": "source-ovv-law",
+      "type": "law",
+      "path": "content/normen/erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr/versions/2026-03-23.json",
+      "title": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
+      "date": "2026-03-23",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "transport",
+        "ovv"
+      ],
+      "notes": "Belegt Errichtung, Rechtsform und Mitgliederstruktur des Ostdeutschen Verkehrsverbundes."
+    },
+    {
+      "id": "source-lasp-law",
+      "type": "law",
+      "path": "content/normen/landesagentur-spitzensport-gesetz/versions/2026-07-21.json",
+      "title": "Landesagentur-Spitzensport-Gesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "sport"
+      ],
+      "notes": "Belegt Errichtung und Aufgaben der Landesagentur Spitzensport Ost."
+    },
+    {
+      "id": "source-energy-finance-law",
+      "type": "law",
+      "path": "content/normen/energie-und-waermefinanzierungsgesetz/versions/2026-07-21.json",
+      "title": "Energie- und Wärmefinanzierungsgesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "energy",
+        "special-fund"
+      ],
+      "notes": "Belegt das Sondervermögen Energie- und Wärmevergesellschaftung."
+    },
+    {
+      "id": "source-hsl-sondervermoegen-law",
+      "type": "law",
+      "path": "content/normen/hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz/versions/2026-07-21.json",
+      "title": "Hochgeschwindigkeitsluftfahrt-Sondervermögensgesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "aviation",
+        "special-fund"
+      ],
+      "notes": "Belegt das Sondervermögen Hochgeschwindigkeitsluftfahrt Ost."
+    },
+    {
+      "id": "source-gemeingut-wohnen-law",
+      "type": "law",
+      "path": "content/normen/gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l/versions/2026-03-23.json",
+      "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
+      "date": "2026-03-23",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "housing"
+      ],
+      "notes": "Enthält die Errichtung und Organisationsregelungen für Gemeingut Wohnen."
+    },
+    {
+      "id": "source-landesenergiewerke-law",
+      "type": "law",
+      "path": "content/normen/landesenergiewerke-gesetz/versions/2026-07-21.json",
+      "title": "Landesenergiewerke-Gesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "energy",
+        "heating"
+      ],
+      "notes": "Belegt Errichtung, Rechtsstellung und Aufgaben der Landesenergiewerke Ost."
+    },
+    {
+      "id": "source-ostdeutsche-netze-law",
+      "type": "law",
+      "path": "content/normen/ostdeutsche-netze-gesetz/versions/2026-07-21.json",
+      "title": "Ostdeutsche-Netze-Gesetz",
+      "date": "2026-07-21",
+      "status": "primary",
+      "scope": [
+        "law",
+        "public-economy",
+        "energy",
+        "grid"
+      ],
+      "notes": "Belegt Errichtung, Rechtsstellung und Aufgaben der Ostdeutsche Netze AöR."
+    },
+    {
+      "id": "source-editorial-clarification-zuarbeit-2026-08-27",
+      "type": "editorial-clarification",
+      "path": "knowledge/clarifications/2026-08-27-zuarbeit-pdfnachtrag.md",
+      "title": "Redaktioneller Nachtrag zur Zuarbeitung und zu den PDF-Quellen vom 27. August 2026",
+      "date": "2026-08-27",
+      "status": "primary",
+      "scope": [
+        "law",
+        "government",
+        "projects",
+        "persons"
+      ],
+      "notes": "Dokumentiert die visuelle PDF-Prüfung, redaktionelle Datumsauflösungen sowie die Antworten zu Verwaltungsangeboten und Wolfgang Schmidt."
+    },
+    {
+      "id": "source-abschiebe-aussetzungsverordnung-2024-03-01",
+      "type": "official-document",
+      "path": "Gesetze/Abschiebe-Aussetzungsverordnung.pdf",
+      "title": "Abschiebe-Aussetzungsverordnung in der Fassung der Bekanntmachung vom 1. März 2024",
+      "date": "2024-03-01",
+      "status": "primary",
+      "scope": [
+        "law",
+        "migration",
+        "security"
+      ],
+      "notes": "Vierseitige amtliche PDF-Lesefassung; vollständig visuell geprüft und als strukturierte Normfassung transkribiert. SHA-256: 314662ec15a652a51297251f266b34c3187838af8b1c6e78ff4132dcb18552fb."
+    },
+    {
+      "id": "source-oavo-aenderungsverordnung-2024-09-16-original-pdf",
+      "type": "official-document",
+      "path": "Gesetze/Veordnung_24-01_StMBFK.pdf",
+      "title": "Direkte Einzelverkündung der Änderung der Oberstufen- und Abiturprüfungsverordnung",
+      "date": "2024-09-16",
+      "status": "primary",
+      "scope": [
+        "law",
+        "education"
+      ],
+      "notes": "Einseitiges Originaldokument; bestätigt Verkündung und Inkrafttreten am 16. September 2024."
+    },
+    {
+      "id": "source-organisationserlass-fachbereichszuteilung-2024-09-23-original-pdf",
+      "type": "official-document",
+      "path": "Gesetze/Veordnung_24-02_MP.pdf",
+      "title": "Direkte Einzelverkündung zur Änderung der Fachbereichszuteilung",
+      "date": "2024-09-23",
+      "status": "primary",
+      "scope": [
+        "law",
+        "government",
+        "sorbian-affairs"
+      ],
+      "notes": "Einseitiges Originaldokument; bestätigt die Zuordnung sorbischer Angelegenheiten zur Staatskanzlei."
+    },
+    {
+      "id": "source-dienstanordnung-terrorgefahr-2024-10-02-original-pdf",
+      "type": "official-document",
+      "path": "Gesetze/Veordnung_24-03_MP.pdf",
+      "title": "Direkte Einzelverkündung der Dienstanordnung anlässlich der momentanen Terrorgefahr",
+      "date": "2024-10-02",
+      "status": "primary",
+      "scope": [
+        "law",
+        "government",
+        "security"
+      ],
+      "notes": "Einseitiges Originaldokument; belegt zusätzlich das Außerkrafttreten mit Ablauf des 6. Oktober 2024."
+    },
+    {
+      "id": "source-organisationserlass-fachbereiche-2024-11-08-original-pdf",
+      "type": "official-document",
+      "path": "Gesetze/VO_24-1.pdf",
+      "title": "Direkte Einzelverkündung des Organisationserlasses zur Neueinteilung der Fachbereiche",
+      "date": "2024-11-08",
+      "status": "primary",
+      "scope": [
+        "law",
+        "government"
+      ],
+      "notes": "Einseitiges Originaldokument; belegt den 8. November 2024 und löst den Datumsfehler der späteren Sammelausgabe redaktionell auf."
+    },
+    {
+      "id": "source-vereinsverbot-sachsen-den-sachsen-2024-11-11-original-pdf",
+      "type": "official-document",
+      "path": "Gesetze/BKM_SMIJ_24-1.pdf",
+      "title": "Direkte Einzelverkündung des Vereinsverbots „Sachsen den Sachsen, Deutschland den Deutschen e.V.“",
+      "date": "2024-11-11",
+      "status": "primary",
+      "scope": [
+        "law",
+        "security",
+        "associations"
+      ],
+      "notes": "Einseitiges Originaldokument; belegt sofortiges Inkrafttreten und sofortige Vollziehbarkeit."
+    },
+    {
+      "id": "source-dienstanordnung-gefluechtetenunterkuenfte-2024-11-20-original-pdf",
+      "type": "official-document",
+      "path": "Gesetze/DAO_SMIJ_24-1.pdf",
+      "title": "Direkte Einzelverkündung der Dienstanordnung zum Schutz von Geflüchtetenunterkünften",
+      "date": "2024-11-20",
+      "status": "primary",
+      "scope": [
+        "law",
+        "migration",
+        "security"
+      ],
+      "notes": "Einseitiges Originaldokument vom 20. November 2024; Veröffentlichung am 21. November 2024."
+    },
+    {
+      "id": "source-dienstanordnung-silvesternacht-2024-12-31-original-pdf",
+      "type": "official-document",
+      "path": "Gesetze/DAO_SMIJ_24-2.pdf",
+      "title": "Direkte Einzelverkündung der Dienstanordnung zur Silvesternacht",
+      "date": "2024-12-31",
+      "status": "primary",
+      "scope": [
+        "law",
+        "security",
+        "emergency-services"
+      ],
+      "notes": "Einseitiges Originaldokument; die irrtümlich doppelte Bezeichnung als Inkrafttreten bleibt im Normwortlaut sichtbar."
+    },
+    {
+      "id": "source-organisationserlass-neugliederung-ministerien-2025-01-22-original-pdf",
+      "type": "official-document",
+      "path": "Gesetze/ER_StK_25-01.pdf",
+      "title": "Direkte Einzelverkündung des Organisationserlasses zur Neugliederung einiger Ministerien",
+      "date": "2025-01-22",
+      "status": "primary",
+      "scope": [
+        "law",
+        "government"
+      ],
+      "notes": "Einseitiges Originaldokument; bestätigt Veröffentlichung und Inkrafttreten am 22. Januar 2025."
+    },
+    {
+      "id": "source-kabinett-schmidt",
+      "type": "structured-government-archive",
+      "path": "content/regierung/archiv/kabinett-schmidt.json",
+      "title": "Historischer Archivdatensatz zum Kabinett Schmidt",
+      "date": "2025-04-14",
+      "status": "historical",
+      "scope": [
+        "history",
+        "government",
+        "persons"
+      ],
+      "notes": "Beruht auf der korrigierten redaktionellen Datierung und der historischen Regierungschefliste für Amtsdauer, Nachfolge und Kabinettsbezeichnung."
+    }
   ]
 }

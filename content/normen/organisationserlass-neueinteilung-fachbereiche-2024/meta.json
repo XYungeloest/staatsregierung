@@ -15,16 +15,33 @@
     "Fachbereiche",
     "Ministerien"
   ],
-  "initialCitation": "Organisationserlass vom 8. Oktober 2024 (OGVBl. 2025 Nr. 1–7 S. 2)",
+  "initialCitation": "Organisationserlass vom 8. November 2024 (nachgedruckt in OGVBl. 2025 Nr. 1–7 S. 2 mit abweichender Datierung)",
   "predecessor": null,
   "successor": null,
   "summary": "Löst das Umwelt-, Landwirtschafts- und Klimaschutzressort auf, überträgt seine Fachbereiche und benennt das Infrastrukturressort um.",
   "status": "repealed",
-  "documentDate": "2024-10-08",
+  "documentDate": "2024-11-08",
   "publicationDate": "2025-03-12",
-  "effectiveDate": "2024-10-08",
+  "effectiveDate": "2024-11-08",
   "expiryDate": "2025-01-22",
-  "dateNote": "Der Einleitungssatz bezeichnet den 8. Oktober 2024 als Tag der Verkündung; die Sammelausgabe wurde erst am 12. März 2025 ausgegeben. Der spätere Organisationserlass setzt den Vorgänger unter abweichender Datumsbezeichnung außer Kraft.",
+  "dateNote": "Das zeitgenössische Original, die Discord-Veröffentlichung und der aufhebende Organisationserlass vom 22. Januar 2025 nennen den 8. November 2024. Die erst am 12. März 2025 ausgegebene Sammelausgabe nennt abweichend den 8. Oktober 2024; dies wird als Nachdruckfehler behandelt.",
+  "editorialResolutions": [
+    {
+      "id": "organisationserlass-neueinteilung-datum-2024",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-08-27",
+      "issue": "Die Sammelausgabe OGVBl. 2025 Nr. 1–7 nennt den 8. Oktober 2024, während das zeitgenössische Original und die spätere Aufhebung den 8. November 2024 nennen.",
+      "publishedText": "8. Oktober 2024 in der Sammelausgabe.",
+      "resolvedApplication": "8. November 2024 als Dokument-, Verkündungs- und Inkrafttretensdatum.",
+      "rationale": "Originaldokument, zeitgenössischer Veröffentlichungszeitpunkt und ausdrückliche Bezeichnung in der Aufhebungsnorm stimmen überein.",
+      "evidence": [
+        "Gesetze/VO_24-1.pdf",
+        "docs/ZUARBEITSFORMULAR.md",
+        "Gesetze/ER_StK_25-01.pdf",
+        "Gesetze/OGVBl I-25.pdf"
+      ]
+    }
+  ],
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
@@ -49,6 +66,19 @@
       "sourceRole": "visual-control",
       "pageRange": "2",
       "derivedSource": "Gesetze/OGVBl I-25.html"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Zeitgenössisches amtliches Einzeldokument",
+      "availability": "versioned",
+      "localSource": "Gesetze/VO_24-1.pdf",
+      "url": "/assets/recht/VO_24-1.pdf",
+      "sha256": "0b30a30af2fec143f0507cf8616c56ceeae9583d94b0b7a7c2a7311d5013ef77",
+      "mediaType": "application/pdf",
+      "pageCount": 1,
+      "pageRange": "1",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control"
     }
   ]
 }

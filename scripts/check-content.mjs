@@ -52,6 +52,7 @@ const allowedNormMinistries = new Set([
   'Staatssekretariat für Volksbildung und Wissenschaft',
   'Staatssekretariat für Staats- und Grenzsicherheit',
   'Staatssekretariat für Rechtsstaatlichkeit und kulturelle Emanzipation',
+  'Ministerium für freistaatliche Sicherheit',
   'Büro des Staatspräsidenten',
   'Gemeingut Wohnen AöR',
   'Landesenergiewerke Ost AöR',
@@ -74,6 +75,7 @@ const allowedEnactingBodies = new Set([
   'Verwaltungsrat der Ostdeutschen Eisenbahn',
   'Verbandsversammlung des Ostdeutschen Verkehrsverbundes',
   'Staatssekretariat für Mobilität und regionale Entwicklung',
+  'Ministerium für freistaatliche Sicherheit',
 ]);
 const unverifiedGeneratedAbbreviations = new Set([
   'KrBzNOG', 'ÖVNeuOG', 'BoomEUmsG', 'EnWärmeVergPaketG', 'KGrPolErrG',

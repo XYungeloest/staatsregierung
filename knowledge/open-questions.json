@@ -10,14 +10,33 @@
       "asOf": "2026-08-25",
       "summary": "Die Vollinventur erfasst 666 in amtlichen Länder- und Rundfunkberichten belegte Positionszeilen. Einzelne Berichte begrenzen ihre Offenlegung auf unmittelbare oder mittelbare Beteiligungen ersten Grades; bei der Private Equity Thüringen Verwaltungs GmbH fehlt zudem eine öffentliche Quote.",
       "sourceRefs": [
-        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Methodik und Restlücken", "role": "primary"},
-        {"sourceId": "source-tab-geschaeftsbericht-2023", "locator": "Verbundene Unternehmen", "role": "corroborating"}
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Methodik und Restlücken",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-tab-geschaeftsbericht-2023",
+          "locator": "Verbundene Unternehmen",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["holding-rechtsnachfolge-2023"],
-      "tags": ["open-question", "holdings", "subsidiaries", "source-coverage"],
-      "notes": ["Unbekannte Quoten bleiben null; nicht veröffentlichte Gesellschaften werden nicht geschätzt."],
+      "relatedIds": [
+        "holding-rechtsnachfolge-2023"
+      ],
+      "tags": [
+        "open-question",
+        "holdings",
+        "subsidiaries",
+        "source-coverage"
+      ],
+      "notes": [
+        "Unbekannte Quoten bleiben null; nicht veröffentlichte Gesellschaften werden nicht geschätzt."
+      ],
       "question": "Welche weiteren Tochter-, Enkel-, Fonds- oder Zweckgesellschaften waren am Stichtag rechtlich vorhanden, wurden aber in den öffentlichen Berichten nicht oder nur ohne Quote offengelegt?",
-      "affectedIds": ["holding-rechtsnachfolge-2023"],
+      "affectedIds": [
+        "holding-rechtsnachfolge-2023"
+      ],
       "reason": "Öffentlich zugängliche Beteiligungsberichte sind je Land unterschiedlich tief; Handelsregister- und vollständige Konzernabschlussketten sind nicht für jede Position offen zugänglich.",
       "requiredSource": "Stichtagsbezogene vollständige Beteiligungslisten, Konzernanhänge oder Registerauszüge mit Beteiligungskette und Quote.",
       "publicContentImpact": "Die öffentliche Übersicht nennt belastbare Summen der belegten Positionszeilen, aber keine Vollständigkeit über nicht veröffentlichte Beteiligungstiefen hinaus.",
@@ -33,14 +52,35 @@
       "asOf": "2026-08-25",
       "summary": "Die materiellen Trägerpositionen wurden übernommen. Für GKL, Amt für Statistik Berlin-Brandenburg und weitere Mehrländeranstalten ist jedoch kein vollständiges Paket formaler ostdeutscher Vertrags- und Satzungsanpassungen belegt.",
       "sourceRefs": [
-        {"sourceId": "source-gkl-staatsvertrag", "locator": "Vertragsländer und Gewährträgerversammlung", "role": "primary"},
-        {"sourceId": "source-editorial-clarification-beteiligungen-2026-08-25", "locator": "Mehrländerpositionen und Rechtsnachfolge", "role": "primary"}
+        {
+          "sourceId": "source-gkl-staatsvertrag",
+          "locator": "Vertragsländer und Gewährträgerversammlung",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-beteiligungen-2026-08-25",
+          "locator": "Mehrländerpositionen und Rechtsnachfolge",
+          "role": "primary"
+        }
       ],
-      "relatedIds": ["holding-gkl-traegerschaft", "holding-rechtsnachfolge-2023"],
-      "tags": ["open-question", "holdings", "state-treaty", "formal-adaptation"],
-      "notes": ["Die fehlende formale Anpassung beseitigt die redaktionell bestätigte materielle Rechtsnachfolge nicht."],
+      "relatedIds": [
+        "holding-gkl-traegerschaft",
+        "holding-rechtsnachfolge-2023"
+      ],
+      "tags": [
+        "open-question",
+        "holdings",
+        "state-treaty",
+        "formal-adaptation"
+      ],
+      "notes": [
+        "Die fehlende formale Anpassung beseitigt die redaktionell bestätigte materielle Rechtsnachfolge nicht."
+      ],
       "question": "Welche Ratifikations-, Änderungs-, Beitritts- oder Satzungsakte wurden nach dem 1. Dezember 2023 für die zusammengeführten Trägerpositionen vollzogen?",
-      "affectedIds": ["holding-gkl-traegerschaft", "holding-rechtsnachfolge-2023"],
+      "affectedIds": [
+        "holding-gkl-traegerschaft",
+        "holding-rechtsnachfolge-2023"
+      ],
       "reason": "Die vorhandenen Quellen belegen die Ausgangsverträge und die Rechtsnachfolge, aber nicht für alle gemeinsamen Einrichtungen die nachfolgende formale Bereinigung ihrer Länderbezeichnungen und Organstimmen.",
       "requiredSource": "Ostdeutsche Zustimmungsgesetze, Vertragsänderungen, Satzungsbekanntmachungen oder amtliche Vollzugsmitteilungen.",
       "publicContentImpact": "Trägerpositionen werden als fortbestehend ausgewiesen; eine abgeschlossene formale Vertragsbereinigung wird nicht behauptet.",
@@ -56,14 +96,33 @@
       "asOf": "2026-08-16",
       "summary": "Einzelne Änderungsbefehle der OGVBl. 2026 Nr. 64 und 67 passen nicht auf die nach der Quellenrichtlinie verbindlichen Ausgangsfassungen der SOFS, BSO und BGySO.",
       "sourceRefs": [
-        {"sourceId": "source-ogvbl-2026-64", "locator": "Artikel 1 Nummer 6 zu § 8 Absatz 2 SOFS", "role": "primary"},
-        {"sourceId": "source-ogvbl-2026-67", "locator": "Artikel 2 § 3 Nummer 8 und § 4 Nummer 1 Buchstabe d", "role": "primary"}
+        {
+          "sourceId": "source-ogvbl-2026-64",
+          "locator": "Artikel 1 Nummer 6 zu § 8 Absatz 2 SOFS",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-ogvbl-2026-67",
+          "locator": "Artikel 2 § 3 Nummer 8 und § 4 Nummer 1 Buchstabe d",
+          "role": "primary"
+        }
       ],
-      "relatedIds": ["project-schulreform"],
-      "tags": ["open-question", "law", "education", "consolidation"],
-      "notes": ["Die Änderungsvorschriften selbst sind vollständig veröffentlicht. Gesperrt ist nur die nicht eindeutig ableitbare konsolidierte Folgefassung der drei Stammnormen."],
+      "relatedIds": [
+        "project-schulreform"
+      ],
+      "tags": [
+        "open-question",
+        "law",
+        "education",
+        "consolidation"
+      ],
+      "notes": [
+        "Die Änderungsvorschriften selbst sind vollständig veröffentlicht. Gesperrt ist nur die nicht eindeutig ableitbare konsolidierte Folgefassung der drei Stammnormen."
+      ],
       "question": "Welche exakte Ausgangsfassung beziehungsweise redaktionelle Quellenentscheidung ist für die widersprüchlichen Änderungsanker maßgeblich?",
-      "affectedIds": ["project-schulreform"],
+      "affectedIds": [
+        "project-schulreform"
+      ],
       "reason": "Die vorhandenen Zieltexte enthalten die von den Änderungsbefehlen vorausgesetzten Wortlaute oder Einordnungsstellen nicht.",
       "requiredSource": "Amtliche vollständige Ausgangsfassung, Berichtigung der Verkündung oder ausdrückliche redaktionelle Quellenauflösung mit eindeutiger Einordnungsstelle.",
       "publicContentImpact": "Keine scheinbar konsolidierte Fassung der SOFS, BSO oder BGySO als gesicherten Rechtsstand veröffentlichen; die amtlichen Änderungsvorschriften und der Konflikthinweis bleiben zugänglich.",
@@ -178,16 +237,21 @@
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-08-23",
-      "summary": "Nach dem freigegebenen REVOSax-Abruf fehlen nur noch die vollständige Abschiebe-Aussetzungsverordnung vom 1. März 2024 und die vollständige Ausgangsfassung des NDR-Staatsvertrags.",
+      "summary": "Nach der Übernahme der vollständigen Abschiebe-Aussetzungsverordnung und der Klarstellung zum historisch unwirksamen OAVO-Änderungsakt fehlt als maßgebliche Primärquelle nur noch die vollständige Ausgangsfassung des NDR-Staatsvertrags.",
       "sourceRefs": [
         {
           "sourceId": "source-content-gaps",
-          "locator": "84 Zielnormen, 53 vollständig konsolidiert, 24 fehlende Stammnormdatensätze, 2 Platzhalterbestände, 3 Quellenkonflikte und 2 fehlende Primärquellen",
+          "locator": "Konsolidierungs-Audit: eine fehlende Primärquelle",
           "role": "primary"
         },
         {
           "sourceId": "source-consolidation-manifest",
-          "locator": "Zielnormliste",
+          "locator": "target ndr-staatsvertrag",
+          "role": "corroborating"
+        },
+        {
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-27",
+          "locator": "Abschnitt Weiterhin offen",
           "role": "corroborating"
         }
       ],
@@ -198,12 +262,12 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Wo sind die vollständige Abschiebe-Aussetzungsverordnung vom 1. März 2024 und die vor der Änderung geltende vollständige Fassung des NDR-Staatsvertrags amtlich dokumentiert?",
+      "question": "Wo ist die vor der Änderung vom 8. März 2026 geltende vollständige Fassung des NDR-Staatsvertrags einschließlich Anlagen amtlich dokumentiert?",
       "affectedIds": [
         "proceeding-law-consolidation"
       ],
       "reason": "Ohne Ausgangssnapshot darf keine freie Konsolidierung erfolgen.",
-      "requiredSource": "Amtliche historische REVOSax-Fassungen mit Gültigkeitszeitraum und SHA-256.",
+      "requiredSource": "Vollständige, vor der Änderung vom 8. März 2026 geltende Fassung des NDR-Staatsvertrags einschließlich Anlagen.",
       "publicContentImpact": "Vollständigkeit und historische Fassungen im Rechtsportal.",
       "priority": "high",
       "questionStatus": "open"
@@ -223,11 +287,27 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-e-jura-procurement", "project-hovercraft-procurement", "project-nvidia-settlement", "project-zeppelin-nt"],
-      "tags": ["open-question", "procurement", "projects"],
-      "notes": ["Eine EAG-Annahme oder Preisvereinbarung ist nicht automatisch ein Liefer- oder Eröffnungsnachweis."],
+      "relatedIds": [
+        "project-e-jura-procurement",
+        "project-hovercraft-procurement",
+        "project-nvidia-settlement",
+        "project-zeppelin-nt"
+      ],
+      "tags": [
+        "open-question",
+        "procurement",
+        "projects"
+      ],
+      "notes": [
+        "Eine EAG-Annahme oder Preisvereinbarung ist nicht automatisch ein Liefer- oder Eröffnungsnachweis."
+      ],
       "question": "Wer erhielt den E-Jura-Zuschlag, und welche Liefer-, Bau- oder Betriebsnachweise bestehen für Hovercrafts, NVIDIA und den ersten Zeppelin NT?",
-      "affectedIds": ["project-e-jura-procurement", "project-hovercraft-procurement", "project-nvidia-settlement", "project-zeppelin-nt"],
+      "affectedIds": [
+        "project-e-jura-procurement",
+        "project-hovercraft-procurement",
+        "project-nvidia-settlement",
+        "project-zeppelin-nt"
+      ],
       "reason": "Der Discordverlauf endet bei Zuschlag, Bestellung oder angenommener Ansiedlung und enthält keine eindeutigen Vollzugsbelege.",
       "requiredSource": "Zuschlagsmitteilung, Vertrag, Abnahme, Lieferung, Baugenehmigung, Baubeginn oder Betriebsmitteilung je Vorhaben.",
       "publicContentImpact": "Keine Lieferung, Werkseröffnung oder Betriebsaufnahme behaupten.",
@@ -249,11 +329,21 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["project-luxemburg-liebknecht-memorial", "proceeding-ohlinger-traffic"],
-      "tags": ["open-question", "simulation", "completion"],
+      "relatedIds": [
+        "project-luxemburg-liebknecht-memorial",
+        "proceeding-ohlinger-traffic"
+      ],
+      "tags": [
+        "open-question",
+        "simulation",
+        "completion"
+      ],
       "notes": [],
       "question": "Welche späteren Primärquellen belegen Ende, Durchführung oder konkreten Ausgang der noch offenen EAG-Vorgänge?",
-      "affectedIds": ["project-luxemburg-liebknecht-memorial", "proceeding-ohlinger-traffic"],
+      "affectedIds": [
+        "project-luxemburg-liebknecht-memorial",
+        "proceeding-ohlinger-traffic"
+      ],
       "reason": "Die EAG bestätigte Grundentscheidungen, der Export enthält aber nicht in allen Fällen Abschluss, Enddatum oder genaue Rechtsfolge.",
       "requiredSource": "Datierte amtliche Vollzugsmitteilung, Bescheid oder Reisebericht je Vorgang.",
       "publicContentImpact": "Keine Fertigstellung, Reise, Sanktion oder über den belegten Umfang hinausgehende Beendigung behaupten.",

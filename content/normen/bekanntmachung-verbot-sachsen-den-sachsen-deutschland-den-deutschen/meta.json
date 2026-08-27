@@ -24,7 +24,7 @@
   "documentDate": "2024-11-11",
   "publicationDate": "2025-03-12",
   "effectiveDate": "2024-11-11",
-  "dateNote": "Der Einleitungssatz bezeichnet den 11. November 2024 als Tag der Verkündung; die Sammelausgabe wurde am 12. März 2025 ausgegeben.",
+  "dateNote": "Die zeitgenössische Einzelverkündung erfolgte am 11. November 2024; die Sammelausgabe wurde am 12. März 2025 ausgegeben.",
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
@@ -49,6 +49,19 @@
       "sourceRole": "visual-control",
       "pageRange": "3",
       "derivedSource": "Gesetze/OGVBl I-25.html"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Zeitgenössisches amtliches Einzeldokument",
+      "availability": "versioned",
+      "localSource": "Gesetze/BKM_SMIJ_24-1.pdf",
+      "url": "/assets/recht/BKM_SMIJ_24-1.pdf",
+      "sha256": "4b69b514378b299c66a7f53a01477228868185556f84aabea88804a8f8d0c726",
+      "mediaType": "application/pdf",
+      "pageCount": 1,
+      "pageRange": "1",
+      "verifiedAt": "2026-08-27",
+      "sourceRole": "visual-control"
     }
   ]
 }

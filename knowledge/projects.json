@@ -10,24 +10,61 @@
       "asOf": "2026-08-22",
       "summary": "Die allgemeine Bekanntmachung über staatliche Auszeichnungen begründet Sigmund-Jähn-Orden, Verdienstorden und Verdienstmedaille. Seit 21. August 2026 ist sie an die Staatsorganisation nach der Großen Staatsreform angepasst; zusätzlich besteht die anlassbezogene Einsatzmedaille Monschau 2026.",
       "sourceRefs": [
-        {"sourceId": "source-stanzo-2026-33", "locator": "Abschnitt I und Abschnitte II bis XII", "role": "primary"},
-        {"sourceId": "source-pm-2026-08-21-08", "locator": "Stiftung und erste Verleihungen", "role": "corroborating"}
+        {
+          "sourceId": "source-stanzo-2026-33",
+          "locator": "Abschnitt I und Abschnitte II bis XII",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-pm-2026-08-21-08",
+          "locator": "Stiftung und erste Verleihungen",
+          "role": "corroborating"
+        }
       ],
-      "relatedIds": ["inst-staatspraesident", "person-karl-honecker", "event-monschau-medal-founded-2026"],
-      "tags": ["project", "state-awards", "civil-protection", "government"],
-      "notes": ["Das Büro des Staatspräsidenten bleibt Ordenskanzlei und führt das Ordensregister."],
-      "aliases": ["Ordenswesen des Freistaates"],
+      "relatedIds": [
+        "inst-staatspraesident",
+        "person-karl-honecker",
+        "event-monschau-medal-founded-2026"
+      ],
+      "tags": [
+        "project",
+        "state-awards",
+        "civil-protection",
+        "government"
+      ],
+      "notes": [
+        "Das Büro des Staatspräsidenten bleibt Ordenskanzlei und führt das Ordensregister."
+      ],
+      "aliases": [
+        "Ordenswesen des Freistaates"
+      ],
       "projectStage": "in-force",
-      "responsibleInstitutionIds": ["inst-staatspraesident"],
+      "responsibleInstitutionIds": [
+        "inst-staatspraesident"
+      ],
       "normRefs": [
-        {"normSlug": "bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu", "versionId": "2026-08-21"},
-        {"normSlug": "bekanntmachung-einsatzmedaille-monschau-2026", "versionId": "2026-08-21"}
+        {
+          "normSlug": "bekanntmachung-des-ministerprasidenten-uber-die-stiftung-sta-1wxgxqu",
+          "versionId": "2026-08-21"
+        },
+        {
+          "normSlug": "bekanntmachung-einsatzmedaille-monschau-2026",
+          "versionId": "2026-08-21"
+        }
       ],
       "milestones": [
-        {"date": "2026-03-31", "title": "Allgemeine staatliche Auszeichnungen gestiftet"},
-        {"date": "2026-08-21", "title": "Organbezeichnungen angepasst und Einsatzmedaille Monschau 2026 gestiftet"}
+        {
+          "date": "2026-03-31",
+          "title": "Allgemeine staatliche Auszeichnungen gestiftet"
+        },
+        {
+          "date": "2026-08-21",
+          "title": "Organbezeichnungen angepasst und Einsatzmedaille Monschau 2026 gestiftet"
+        }
       ],
-      "nextSteps": ["Weitere Verleihungen und Änderungen nur bei amtlichem Nachweis ergänzen"],
+      "nextSteps": [
+        "Weitere Verleihungen und Änderungen nur bei amtlichem Nachweis ergänzen"
+      ],
       "dependencies": [],
       "openQuestionIds": []
     },
@@ -424,24 +461,123 @@
         "Halle – Naumburg"
       ],
       "existingTicketRecognitionRelations": [
-        {"relation": "Binz – Bergen – Stralsund – Greifswald – Züssow – Anklam – Pasewalk – Prenzlau – Eberswalde/Angermünde – Berlin", "services": ["ICE 15", "ICE 28"]},
-        {"relation": "Rostock – Waren (Müritz) – Neustrelitz – Oranienburg – Berlin", "services": ["IC 17"]},
-        {"relation": "Rostock – Bützow – Bad Kleinen – Schwerin – Ludwigslust/Wittenberge – Magdeburg", "services": ["IC 57"]},
-        {"relation": "Hamburg – Ludwigslust – Wittenberge – Berlin", "services": ["ICE 18", "ICE 27", "ICE 28", "IC 29"]},
-        {"relation": "Berlin – Stendal – Wolfsburg/Hannover", "services": ["ICE 10", "ICE 13"]},
-        {"relation": "Berlin – Potsdam – Brandenburg – Magdeburg", "services": ["IC 56"]},
-        {"relation": "Berlin – Königs Wusterhausen – Lübben – Lübbenau – Cottbus", "services": ["IC 56"]},
-        {"relation": "Berlin – BER – Doberlug-Kirchhain – Elsterwerda – Dresden", "services": ["IC 17"]},
-        {"relation": "Berlin – Doberlug-Kirchhain – Elsterwerda – Dresden – Bad Schandau", "services": ["ICE 27"]},
-        {"relation": "Berlin – Wittenberg – Leipzig", "services": ["ICE 11", "ICE 28"]},
-        {"relation": "Berlin – Bitterfeld – Halle – Erfurt", "services": ["ICE 18", "ICE 15", "ICE 29"]},
-        {"relation": "Dresden – Riesa – Leipzig – Erfurt – Gotha – Eisenach", "services": ["ICE 50"]},
-        {"relation": "Dresden – Riesa – Leipzig – Leipzig/Halle Flughafen – Halle – Köthen – Magdeburg", "services": ["IC 55"]},
-        {"relation": "Dresden – Freiberg – Chemnitz", "services": ["IC 17"]},
-        {"relation": "Gera – Hermsdorf-Klosterlausnitz – Stadtroda – Jena-Göschwitz – Jena West – Weimar – Erfurt – Gotha – Eisenach", "services": ["IC 51"]},
-        {"relation": "Leipzig – Weißenfels – Naumburg – Jena Paradies – Jena-Göschwitz – Rudolstadt – Saalfeld", "services": ["IC 61", "ICE 28"]},
-        {"relation": "Binz/Stralsund – Velgast – Ribnitz-Damgarten – Rostock – Schwerin", "services": ["ICE 43"]},
-        {"relation": "Eisenach – Gotha – Erfurt – Halle – Bitterfeld – Berlin", "services": ["ICE 15"]}
+        {
+          "relation": "Binz – Bergen – Stralsund – Greifswald – Züssow – Anklam – Pasewalk – Prenzlau – Eberswalde/Angermünde – Berlin",
+          "services": [
+            "ICE 15",
+            "ICE 28"
+          ]
+        },
+        {
+          "relation": "Rostock – Waren (Müritz) – Neustrelitz – Oranienburg – Berlin",
+          "services": [
+            "IC 17"
+          ]
+        },
+        {
+          "relation": "Rostock – Bützow – Bad Kleinen – Schwerin – Ludwigslust/Wittenberge – Magdeburg",
+          "services": [
+            "IC 57"
+          ]
+        },
+        {
+          "relation": "Hamburg – Ludwigslust – Wittenberge – Berlin",
+          "services": [
+            "ICE 18",
+            "ICE 27",
+            "ICE 28",
+            "IC 29"
+          ]
+        },
+        {
+          "relation": "Berlin – Stendal – Wolfsburg/Hannover",
+          "services": [
+            "ICE 10",
+            "ICE 13"
+          ]
+        },
+        {
+          "relation": "Berlin – Potsdam – Brandenburg – Magdeburg",
+          "services": [
+            "IC 56"
+          ]
+        },
+        {
+          "relation": "Berlin – Königs Wusterhausen – Lübben – Lübbenau – Cottbus",
+          "services": [
+            "IC 56"
+          ]
+        },
+        {
+          "relation": "Berlin – BER – Doberlug-Kirchhain – Elsterwerda – Dresden",
+          "services": [
+            "IC 17"
+          ]
+        },
+        {
+          "relation": "Berlin – Doberlug-Kirchhain – Elsterwerda – Dresden – Bad Schandau",
+          "services": [
+            "ICE 27"
+          ]
+        },
+        {
+          "relation": "Berlin – Wittenberg – Leipzig",
+          "services": [
+            "ICE 11",
+            "ICE 28"
+          ]
+        },
+        {
+          "relation": "Berlin – Bitterfeld – Halle – Erfurt",
+          "services": [
+            "ICE 18",
+            "ICE 15",
+            "ICE 29"
+          ]
+        },
+        {
+          "relation": "Dresden – Riesa – Leipzig – Erfurt – Gotha – Eisenach",
+          "services": [
+            "ICE 50"
+          ]
+        },
+        {
+          "relation": "Dresden – Riesa – Leipzig – Leipzig/Halle Flughafen – Halle – Köthen – Magdeburg",
+          "services": [
+            "IC 55"
+          ]
+        },
+        {
+          "relation": "Dresden – Freiberg – Chemnitz",
+          "services": [
+            "IC 17"
+          ]
+        },
+        {
+          "relation": "Gera – Hermsdorf-Klosterlausnitz – Stadtroda – Jena-Göschwitz – Jena West – Weimar – Erfurt – Gotha – Eisenach",
+          "services": [
+            "IC 51"
+          ]
+        },
+        {
+          "relation": "Leipzig – Weißenfels – Naumburg – Jena Paradies – Jena-Göschwitz – Rudolstadt – Saalfeld",
+          "services": [
+            "IC 61",
+            "ICE 28"
+          ]
+        },
+        {
+          "relation": "Binz/Stralsund – Velgast – Ribnitz-Damgarten – Rostock – Schwerin",
+          "services": [
+            "ICE 43"
+          ]
+        },
+        {
+          "relation": "Eisenach – Gotha – Erfurt – Halle – Bitterfeld – Berlin",
+          "services": [
+            "ICE 15"
+          ]
+        }
       ]
     },
     {
@@ -483,7 +619,9 @@
         "energy",
         "public-economy"
       ],
-      "notes": ["Die Leitlinien sind am 22. August 2026 verkündet, gelten aber erst ab 1. September 2026."],
+      "notes": [
+        "Die Leitlinien sind am 22. August 2026 verkündet, gelten aber erst ab 1. September 2026."
+      ],
       "aliases": [],
       "projectStage": "in-force",
       "responsibleInstitutionIds": [
@@ -917,17 +1055,31 @@
         }
       ],
       "milestones": [
-        {"date": "2026-08-14", "title": "SOPOS und SOEOSA verkündet"},
-        {"date": "2026-08-15", "title": "Weiteres Schulordnungsrecht verkündet"},
-        {"date": "2026-08-16", "title": "Bereinigungsverordnung und 16 Verwaltungsvorschriften verkündet"},
-        {"date": "2026-09-01", "title": "Überwiegendes Inkrafttreten des Schulrechtspakets"}
+        {
+          "date": "2026-08-14",
+          "title": "SOPOS und SOEOSA verkündet"
+        },
+        {
+          "date": "2026-08-15",
+          "title": "Weiteres Schulordnungsrecht verkündet"
+        },
+        {
+          "date": "2026-08-16",
+          "title": "Bereinigungsverordnung und 16 Verwaltungsvorschriften verkündet"
+        },
+        {
+          "date": "2026-09-01",
+          "title": "Überwiegendes Inkrafttreten des Schulrechtspakets"
+        }
       ],
       "nextSteps": [
         "Schulen und Schulaufsicht stellen die Verfahren zum 1. September 2026 auf das neue Schulordnungsrecht um.",
         "Die drei dokumentierten Quellkonflikte der Konsolidierung müssen durch belastbare Ausgangstexte oder eine ausdrückliche redaktionelle Quellenentscheidung geklärt werden."
       ],
       "dependencies": [],
-      "openQuestionIds": ["question-school-law-source-conflicts-2026"]
+      "openQuestionIds": [
+        "question-school-law-source-conflicts-2026"
+      ]
     },
     {
       "id": "project-rundfunk",
@@ -1145,15 +1297,20 @@
     {
       "id": "project-transparenz",
       "title": "Transparenz- und Informationsfreiheit",
-      "status": "confirmed-primary",
+      "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-07-21",
-      "summary": "Reformpaket zu Informationszugang, Transparenz und Lobbyregister.",
+      "asOf": "2026-08-23",
+      "summary": "Reformpaket zu Informationszugang, Transparenz und Lobbyregister; das dazugehörige Transparenzportal ist kanonisch umgesetzt, wird aber außerhalb dieses Website-Repositories betrieben.",
       "sourceRefs": [
         {
           "sourceId": "source-government-timeline",
           "locator": "Ereignis transparenzpaket",
+          "role": "primary"
+        },
+        {
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-27",
+          "locator": "Abschnitt Umgesetzte Verwaltungsangebote",
           "role": "primary"
         }
       ],
@@ -1164,9 +1321,11 @@
         "project",
         "transparency"
       ],
-      "notes": [],
+      "notes": [
+        "Eine öffentliche URL und die operative Trägerschaft sind nicht belegt; deshalb wird keine Portalroute in diesem Repository erfunden."
+      ],
       "aliases": [],
-      "projectStage": "in-force",
+      "projectStage": "implemented",
       "responsibleInstitutionIds": [
         "inst-sek-rechtsstaat-kultur"
       ],
@@ -1182,9 +1341,7 @@
           "title": "Transparenzpaket abgeschlossen"
         }
       ],
-      "nextSteps": [
-        "Vollzug und Portalumsetzung getrennt dokumentieren"
-      ],
+      "nextSteps": [],
       "dependencies": [],
       "openQuestionIds": []
     },
@@ -1289,7 +1446,9 @@
         }
       ],
       "milestones": [],
-      "nextSteps": ["Ein späteres besonderes Gesetz erst nach seiner Verkündung übernehmen"],
+      "nextSteps": [
+        "Ein späteres besonderes Gesetz erst nach seiner Verkündung übernehmen"
+      ],
       "dependencies": [],
       "openQuestionIds": []
     },
@@ -1322,10 +1481,21 @@
       "responsibleInstitutionIds": [
         "inst-staatsrat"
       ],
-      "normRefs": [{"normSlug": "ostdeutsches-feiertagsgesetz", "versionId": "2026-03-23"}],
+      "normRefs": [
+        {
+          "normSlug": "ostdeutsches-feiertagsgesetz",
+          "versionId": "2026-03-23"
+        }
+      ],
       "milestones": [
-        {"date": "2024-03-08", "title": "Erste ostdeutsche Folgefassung tritt in Kraft"},
-        {"date": "2026-03-24", "title": "Reformfassung tritt in Kraft"}
+        {
+          "date": "2024-03-08",
+          "title": "Erste ostdeutsche Folgefassung tritt in Kraft"
+        },
+        {
+          "date": "2026-03-24",
+          "title": "Reformfassung tritt in Kraft"
+        }
       ],
       "nextSteps": [],
       "dependencies": [],
@@ -1357,20 +1527,36 @@
         "inst-sek-nachhaltigkeit-energie",
         "inst-sek-finanzen"
       ],
-      "tags": ["project", "energy", "public-economy", "acquisition"],
+      "tags": [
+        "project",
+        "energy",
+        "public-economy",
+        "acquisition"
+      ],
       "notes": [
         "Der Preis von 3,8 Milliarden Euro betrifft die Elia-Beteiligung von 80 Prozent.",
         "Der Erwerb der KfW-Anteile und der Verkauf Hamburger Anlagen sind nicht belegt."
       ],
       "aliases": [],
       "projectStage": "staged-acquisition",
-      "responsibleInstitutionIds": ["inst-sek-nachhaltigkeit-energie", "inst-sek-finanzen"],
+      "responsibleInstitutionIds": [
+        "inst-sek-nachhaltigkeit-energie",
+        "inst-sek-finanzen"
+      ],
       "normRefs": [],
       "milestones": [
-        {"date": "2025-12-02", "title": "Einigung über 3,8 Milliarden Euro bestätigt"},
-        {"date": "2025-12-04", "title": "Gesellschafterversammlung zur neuen Geschäftsführung einberufen"}
+        {
+          "date": "2025-12-02",
+          "title": "Einigung über 3,8 Milliarden Euro bestätigt"
+        },
+        {
+          "date": "2025-12-04",
+          "title": "Gesellschafterversammlung zur neuen Geschäftsführung einberufen"
+        }
       ],
-      "nextSteps": ["Jahresraten und Eigentumsübergang nur mit datierten Vollzugsquellen fortschreiben"],
+      "nextSteps": [
+        "Jahresraten und Eigentumsübergang nur mit datierten Vollzugsquellen fortschreiben"
+      ],
       "dependencies": [],
       "openQuestionIds": []
     },
@@ -1394,20 +1580,44 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["inst-staatsregierung", "question-eag-procurements-delivery"],
-      "tags": ["project", "procurement", "digitalization", "justice"],
-      "notes": ["Die rückwärts liegende Ausführungsfrist 30. Juni 2025 in der Vergabeunterlage wird nicht als Lieferdatum übernommen."],
-      "aliases": ["E-Jura-Programm"],
+      "relatedIds": [
+        "inst-staatsregierung",
+        "question-eag-procurements-delivery"
+      ],
+      "tags": [
+        "project",
+        "procurement",
+        "digitalization",
+        "justice"
+      ],
+      "notes": [
+        "Die rückwärts liegende Ausführungsfrist 30. Juni 2025 in der Vergabeunterlage wird nicht als Lieferdatum übernommen."
+      ],
+      "aliases": [
+        "E-Jura-Programm"
+      ],
       "projectStage": "award-confirmed-delivery-unresolved",
-      "responsibleInstitutionIds": ["inst-staatsregierung"],
+      "responsibleInstitutionIds": [
+        "inst-staatsregierung"
+      ],
       "normRefs": [],
       "milestones": [
-        {"date": "2025-09-30", "title": "Vergabeunterlage vorgelegt"},
-        {"date": "2026-03-14", "title": "Zuschlag rückblickend EAG-seitig bestätigt"}
+        {
+          "date": "2025-09-30",
+          "title": "Vergabeunterlage vorgelegt"
+        },
+        {
+          "date": "2026-03-14",
+          "title": "Zuschlag rückblickend EAG-seitig bestätigt"
+        }
       ],
-      "nextSteps": ["Zuschlagsempfänger und Abnahme- oder Betriebsnachweis beschaffen"],
+      "nextSteps": [
+        "Zuschlagsempfänger und Abnahme- oder Betriebsnachweis beschaffen"
+      ],
       "dependencies": [],
-      "openQuestionIds": ["question-eag-procurements-delivery"]
+      "openQuestionIds": [
+        "question-eag-procurements-delivery"
+      ]
     },
     {
       "id": "project-hovercraft-procurement",
@@ -1429,17 +1639,40 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["inst-sek-staats-grenzsicherheit", "inst-sek-finanzen", "question-eag-procurements-delivery"],
-      "tags": ["project", "procurement", "security", "defence"],
-      "notes": ["Der verbindliche und bezahlte Gesamtpreis betrug 30 Millionen Euro."],
+      "relatedIds": [
+        "inst-sek-staats-grenzsicherheit",
+        "inst-sek-finanzen",
+        "question-eag-procurements-delivery"
+      ],
+      "tags": [
+        "project",
+        "procurement",
+        "security",
+        "defence"
+      ],
+      "notes": [
+        "Der verbindliche und bezahlte Gesamtpreis betrug 30 Millionen Euro."
+      ],
       "aliases": [],
       "projectStage": "order-agreed-delivery-unresolved",
-      "responsibleInstitutionIds": ["inst-sek-staats-grenzsicherheit", "inst-sek-finanzen"],
+      "responsibleInstitutionIds": [
+        "inst-sek-staats-grenzsicherheit",
+        "inst-sek-finanzen"
+      ],
       "normRefs": [],
-      "milestones": [{"date": "2025-12-21", "title": "Stückzahl, Ausführungen und Gesamtpreis von 30 Millionen Euro vereinbart und bezahlt"}],
-      "nextSteps": ["Lieferung oder Abnahme belegen"],
+      "milestones": [
+        {
+          "date": "2025-12-21",
+          "title": "Stückzahl, Ausführungen und Gesamtpreis von 30 Millionen Euro vereinbart und bezahlt"
+        }
+      ],
+      "nextSteps": [
+        "Lieferung oder Abnahme belegen"
+      ],
       "dependencies": [],
-      "openQuestionIds": ["question-eag-procurements-delivery"]
+      "openQuestionIds": [
+        "question-eag-procurements-delivery"
+      ]
     },
     {
       "id": "project-nvidia-settlement",
@@ -1456,20 +1689,42 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["inst-sek-wirtschaft-arbeit", "inst-sek-finanzen", "question-eag-procurements-delivery"],
-      "tags": ["project", "industry", "investment", "semiconductors"],
+      "relatedIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-finanzen",
+        "question-eag-procurements-delivery"
+      ],
+      "tags": [
+        "project",
+        "industry",
+        "investment",
+        "semiconductors"
+      ],
       "notes": [],
       "aliases": [],
       "projectStage": "site-offer-accepted",
-      "responsibleInstitutionIds": ["inst-sek-wirtschaft-arbeit", "inst-sek-finanzen"],
+      "responsibleInstitutionIds": [
+        "inst-sek-wirtschaft-arbeit",
+        "inst-sek-finanzen"
+      ],
       "normRefs": [],
       "milestones": [
-        {"date": "2025-12-21", "title": "Ansiedlungsangebot angenommen"},
-        {"date": "2026-03-08", "title": "Förderung und Gelände konkretisiert"}
+        {
+          "date": "2025-12-21",
+          "title": "Ansiedlungsangebot angenommen"
+        },
+        {
+          "date": "2026-03-08",
+          "title": "Förderung und Gelände konkretisiert"
+        }
       ],
-      "nextSteps": ["Vertrag, Baubeginn oder Betriebsaufnahme belegen"],
+      "nextSteps": [
+        "Vertrag, Baubeginn oder Betriebsaufnahme belegen"
+      ],
       "dependencies": [],
-      "openQuestionIds": ["question-eag-procurements-delivery"]
+      "openQuestionIds": [
+        "question-eag-procurements-delivery"
+      ]
     },
     {
       "id": "project-zeppelin-nt",
@@ -1486,23 +1741,44 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["inst-staatskanzlei", "inst-sek-finanzen", "question-eag-procurements-delivery"],
-      "tags": ["project", "procurement", "aviation"],
+      "relatedIds": [
+        "inst-staatskanzlei",
+        "inst-sek-finanzen",
+        "question-eag-procurements-delivery"
+      ],
+      "tags": [
+        "project",
+        "procurement",
+        "aviation"
+      ],
       "notes": [
         "Ein zweiter Zeppelin wurde am 3. Januar 2026 wegen ausgelasteter Produktionskapazitäten abgelehnt.",
         "Wasserstoffzeppelin, historische Wasserstoffzeppeline und weitere Passagierzeppeline wurden nicht genehmigt beziehungsweise nicht verkauft."
       ],
       "aliases": [],
       "projectStage": "purchase-agreed-delivery-unresolved",
-      "responsibleInstitutionIds": ["inst-staatskanzlei", "inst-sek-finanzen"],
+      "responsibleInstitutionIds": [
+        "inst-staatskanzlei",
+        "inst-sek-finanzen"
+      ],
       "normRefs": [],
       "milestones": [
-        {"date": "2025-12-21", "title": "Gesamtpreis von 15 Millionen Euro vereinbart"},
-        {"date": "2026-01-03", "title": "Zweites Exemplar abgelehnt"}
+        {
+          "date": "2025-12-21",
+          "title": "Gesamtpreis von 15 Millionen Euro vereinbart"
+        },
+        {
+          "date": "2026-01-03",
+          "title": "Zweites Exemplar abgelehnt"
+        }
       ],
-      "nextSteps": ["Liefer- oder Abnahmenachweis für das erste Exemplar beschaffen"],
+      "nextSteps": [
+        "Liefer- oder Abnahmenachweis für das erste Exemplar beschaffen"
+      ],
       "dependencies": [],
-      "openQuestionIds": ["question-eag-procurements-delivery"]
+      "openQuestionIds": [
+        "question-eag-procurements-delivery"
+      ]
     },
     {
       "id": "project-airport-carl-ulbricht-name",
@@ -1519,14 +1795,29 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["inst-sek-mobilitaet-regionen"],
-      "tags": ["project", "transport", "renaming"],
-      "notes": ["Die Firmenbezeichnung der Flughafen Leipzig/Halle GmbH bleibt nach dem Antrag unberührt."],
+      "relatedIds": [
+        "inst-sek-mobilitaet-regionen"
+      ],
+      "tags": [
+        "project",
+        "transport",
+        "renaming"
+      ],
+      "notes": [
+        "Die Firmenbezeichnung der Flughafen Leipzig/Halle GmbH bleibt nach dem Antrag unberührt."
+      ],
       "aliases": [],
       "projectStage": "decision-confirmed",
-      "responsibleInstitutionIds": ["inst-sek-mobilitaet-regionen"],
+      "responsibleInstitutionIds": [
+        "inst-sek-mobilitaet-regionen"
+      ],
       "normRefs": [],
-      "milestones": [{"date": "2026-05-28", "title": "Unternehmensentscheidung bestätigt"}],
+      "milestones": [
+        {
+          "date": "2026-05-28",
+          "title": "Unternehmensentscheidung bestätigt"
+        }
+      ],
       "nextSteps": [],
       "dependencies": [],
       "openQuestionIds": []
@@ -1546,17 +1837,37 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["inst-sek-rechtsstaat-kultur", "question-eag-outcomes-completion"],
-      "tags": ["project", "culture", "memorial"],
-      "notes": ["Die bestätigte simulierte Bauzeit von 1,5 Monaten ist kein Fertigstellungsnachweis."],
+      "relatedIds": [
+        "inst-sek-rechtsstaat-kultur",
+        "question-eag-outcomes-completion"
+      ],
+      "tags": [
+        "project",
+        "culture",
+        "memorial"
+      ],
+      "notes": [
+        "Die bestätigte simulierte Bauzeit von 1,5 Monaten ist kein Fertigstellungsnachweis."
+      ],
       "aliases": [],
       "projectStage": "approved-construction-unresolved",
-      "responsibleInstitutionIds": ["inst-sek-rechtsstaat-kultur"],
+      "responsibleInstitutionIds": [
+        "inst-sek-rechtsstaat-kultur"
+      ],
       "normRefs": [],
-      "milestones": [{"date": "2026-06-05", "title": "Errichtung, Kosten und Ausgestaltung genehmigt"}],
-      "nextSteps": ["Fertigstellung nur mit datierter Vollzugsquelle ergänzen"],
+      "milestones": [
+        {
+          "date": "2026-06-05",
+          "title": "Errichtung, Kosten und Ausgestaltung genehmigt"
+        }
+      ],
+      "nextSteps": [
+        "Fertigstellung nur mit datierter Vollzugsquelle ergänzen"
+      ],
       "dependencies": [],
-      "openQuestionIds": ["question-eag-outcomes-completion"]
+      "openQuestionIds": [
+        "question-eag-outcomes-completion"
+      ]
     },
     {
       "id": "project-heckler-koch-settlement",
@@ -1573,14 +1884,60 @@
           "role": "primary"
         }
       ],
-      "relatedIds": ["inst-staatsregierung"],
-      "tags": ["project", "industry", "rejected", "historical"],
+      "relatedIds": [
+        "inst-staatsregierung"
+      ],
+      "tags": [
+        "project",
+        "industry",
+        "rejected",
+        "historical"
+      ],
       "notes": [],
       "aliases": [],
       "projectStage": "rejected",
-      "responsibleInstitutionIds": ["inst-staatsregierung"],
+      "responsibleInstitutionIds": [
+        "inst-staatsregierung"
+      ],
       "normRefs": [],
-      "milestones": [{"date": "2025-12-21", "title": "Ansiedlung abgelehnt"}],
+      "milestones": [
+        {
+          "date": "2025-12-21",
+          "title": "Ansiedlung abgelehnt"
+        }
+      ],
+      "nextSteps": [],
+      "dependencies": [],
+      "openQuestionIds": []
+    },
+    {
+      "id": "project-zustaendigkeitsfinder",
+      "title": "Zuständigkeitsfinder",
+      "status": "editorially-confirmed",
+      "validFrom": null,
+      "validTo": null,
+      "asOf": "2026-08-23",
+      "summary": "Der Zuständigkeitsfinder ist im Kanon umgesetzt und wird außerhalb dieses Website-Repositories betrieben.",
+      "sourceRefs": [
+        {
+          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-27",
+          "locator": "Abschnitt Umgesetzte Verwaltungsangebote",
+          "role": "primary"
+        }
+      ],
+      "relatedIds": [],
+      "tags": [
+        "project",
+        "administrative-services"
+      ],
+      "notes": [
+        "Eine öffentliche URL und die operative Trägerschaft sind nicht belegt; deshalb wird keine Portalroute in diesem Repository erfunden."
+      ],
+      "aliases": [],
+      "projectStage": "implemented",
+      "responsibleInstitutionIds": [],
+      "normRefs": [],
+      "milestones": [],
       "nextSteps": [],
       "dependencies": [],
       "openQuestionIds": []

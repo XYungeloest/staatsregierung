@@ -235,6 +235,11 @@ async function auditSnapshots() {
       await access(resolve(ROOT, configured.snapshot));
       const bytes = await readFile(resolve(ROOT, configured.snapshot));
       if (hash(bytes) !== configured.sourceSha256) throw new Error('SHA-256 stimmt nicht');
+      if (configured.sourceFormat === 'editorial-structured-html') {
+        if (!configured.sourceValidFrom) throw new Error('Gültigkeitsbeginn der redaktionellen Primärquelle fehlt');
+        console.log(`${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}: redaktionell geprüfte amtliche HTML-Primärquelle und Provenienz gültig`);
+        continue;
+      }
       const parsed = parseRevosaxSnapshot(bytes.toString('utf8'), { url: configured.baselineUrl });
       if (parsed.sourceValidFrom !== configured.sourceValidFrom || parsed.sourceValidTo !== configured.sourceValidTo) {
         throw new Error('Quellgültigkeit weicht von der Konfiguration ab');

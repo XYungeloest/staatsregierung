@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-08-23T10:10:47.777Z",
+  "generatedAt": "2026-08-27T09:25:58.929Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
-    "recognizedAmendmentActs": 60,
-    "recognizedTargetNorms": 84,
-    "completeTargetNorms": 53,
+    "recognizedAmendmentActs": 61,
+    "recognizedTargetNorms": 85,
+    "completeTargetNorms": 55,
     "blockedSourceConflicts": 3,
-    "missingPrimarySources": 2
+    "missingPrimarySources": 1
   },
   "templateProblems": [
     "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
@@ -33,16 +33,18 @@
       "canonicalSlug": "abschiebe-aussetzungsverordnung",
       "title": "Abschiebe-Aussetzungsverordnung",
       "aliases": [
-        "Abschiebe-Aussetzungsverordnung"
+        "Abschiebe-Aussetzungsverordnung",
+        "Verordnung Aussetzung von Abschiebungen"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
-      "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": null,
-      "sourceValidTo": null,
-      "sourceSha256": null,
+      "baselineSnapshotDate": "2024-03-01",
+      "sourceValidFrom": "2024-03-01",
+      "sourceValidTo": "2025-09-15",
+      "sourceSha256": "c764e690f08cc2b2790517e681d4034633bdcbe4ed4eecb5ae9c6c637a496b5d",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
-      "existingStemNormSlug": null,
+      "existingStemNormSlug": "abschiebe-aussetzungsverordnung",
       "enactingActs": [],
       "amendmentActs": [
         {
@@ -57,12 +59,9 @@
       "effectiveDates": [
         "2025-09-16"
       ],
-      "status": "missing-baseline",
-      "problems": [
-        "Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.",
-        "Eigenständiger Stammnormdatensatz fehlt."
-      ],
-      "nextAction": "Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "archivgesetz",
@@ -78,6 +77,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": null,
       "sourceSha256": "21b97529036dc82021d4cfaa8e657d0e92e2531398fd32fc5433d2bf2d3e4a6c",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [
         {
           "id": "archivgesetz-doppelte-paragraf-17",
@@ -124,6 +124,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "energie-und-waermefinanzierungsgesetz",
       "enactingActs": [
@@ -153,6 +154,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "hochgeschwindigkeitsluftfahrt-sondervermoegensgesetz",
       "enactingActs": [
@@ -182,6 +184,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "gesetz-uber-den-anspruch-auf-bildungsfreistellung-im-freistaat-ostdeutschland",
       "enactingActs": [
@@ -211,6 +214,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-kulturpassgesetz",
       "enactingActs": [
@@ -241,6 +245,7 @@
       "sourceValidFrom": "2018-05-25",
       "sourceValidTo": "2024-08-16",
       "sourceSha256": "0c8e1875b1e1bd75bf545f49a80a5ce488ccef1fc2dbdd4e0792de2551ffaafc",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -277,6 +282,7 @@
       "sourceValidFrom": "2012-03-01",
       "sourceValidTo": null,
       "sourceSha256": "a1199f68ee4755d13a8b558a62096069b2818f408bb6771141278779d86dc340",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -328,6 +334,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-fernsehfunkgesetz",
       "enactingActs": [
@@ -357,6 +364,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-beteiligtendokumentationsund-lobbyregistergesetz",
       "enactingActs": [
@@ -386,6 +394,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "betriebssportgemeinschaftengesetz",
       "enactingActs": [
@@ -415,6 +424,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "gesetz-uber-die-feststellung-des-haushaltsplanes-des-freista-cc1hib-2",
       "enactingActs": [
@@ -444,6 +454,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "athletenfoerder-und-versorgungsgesetz",
       "enactingActs": [
@@ -473,6 +484,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "kasernierte-grenzpolizei-gesetz",
       "enactingActs": [
@@ -502,6 +514,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "landesagentur-spitzensport-gesetz",
       "enactingActs": [
@@ -531,6 +544,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-landesbankgesetz",
       "enactingActs": [
@@ -560,6 +574,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-eisenbahngesetz",
       "enactingActs": [
@@ -589,6 +604,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-sportfoerdergesetz",
       "enactingActs": [
@@ -618,6 +634,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "sportstiftungs-und-sportfondsgesetz",
       "enactingActs": [
@@ -647,6 +664,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-transparenzund-informationsfreiheitsgesetz",
       "enactingActs": [
@@ -676,6 +694,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-krankenhaussicherungsund-rekommunalisierungsfondsgesetz",
       "enactingActs": [
@@ -707,6 +726,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2024-08-16",
       "sourceSha256": "0596508734b2a51e9a129dea12ec4f96f307a58e062b5a4a15444b6ff989cc11",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -754,6 +774,7 @@
       "sourceValidFrom": "2013-02-10",
       "sourceValidTo": "2025-05-06",
       "sourceSha256": "16f86a9d3c195798f52d4c6a9d57265bf05a64be2a7a7357a44c336efdde3ac7",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-feiertagsgesetz",
       "enactingActs": [],
@@ -795,6 +816,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "weidetierund-herdenschutzversicherungsgesetz",
       "enactingActs": [
@@ -824,6 +846,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "hochgeschwindigkeitsluftfahrt-standortgesetz",
       "enactingActs": [
@@ -853,6 +876,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "landesenergiewerke-gesetz",
       "enactingActs": [
@@ -882,6 +906,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsche-netze-gesetz",
       "enactingActs": [
@@ -911,6 +936,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-landesantidiskriminierungsgesetz",
       "enactingActs": [
@@ -940,6 +966,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "verkehrsbindungsgesetz",
       "enactingActs": [
@@ -969,6 +996,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-kreis-und-bezirksneuordnungsgesetz",
       "enactingActs": [
@@ -998,6 +1026,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "energie-und-waermevergesellschaftungsgesetz",
       "enactingActs": [
@@ -1027,6 +1056,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
       "enactingActs": [
@@ -1057,6 +1087,7 @@
       "sourceValidFrom": "2022-02-20",
       "sourceValidTo": null,
       "sourceSha256": "1d8524bcea6b5b6c83f2544b2e75e77ba549a03f686813f352991d570b1887a7",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1092,6 +1123,7 @@
       "sourceValidFrom": "2023-09-28",
       "sourceValidTo": "2025-09-24",
       "sourceSha256": "c89dce69249e51fc4b4cbf2ef279251ae64b4dbb005f1484cc1306e4e118bf45",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "landesplanungsgesetz",
       "enactingActs": [],
@@ -1136,6 +1168,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1160,6 +1193,55 @@
       "nextAction": "Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen."
     },
     {
+      "canonicalSlug": "oberstufen-und-abiturprufungsverordnung",
+      "title": "Oberstufen- und Abiturprüfungsverordnung",
+      "aliases": [
+        "Oberstufen- und Abiturprüfungsverordnung"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": true,
+      "editorialResolutions": [
+        {
+          "id": "oavo-2024-keine-wiederinkraftsetzung",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-08-27",
+          "issue": "Der Änderungsakt vom 16. September 2024 bezog sich auf eine bereits seit 1. August 2008 außer Kraft getretene Verordnung.",
+          "publishedText": "Verordnung über die Änderung der Oberstufen- und Abiturprüfungsverordnung vom 16. September 2024",
+          "resolvedApplication": "Der Änderungsakt wird historisch dokumentiert, erzeugt aber weder eine Wiederinkraftsetzung noch eine zu konsolidierende Folgefassung.",
+          "rationale": "OGVBl. 2026 Nr. 67 stellt die frühere Aufhebung und die fehlende Wiederinkraftsetzung verbindlich klar; eine künstliche Ausgangs- oder Folgefassung wäre sachlich falsch.",
+          "evidence": [
+            "content/normen/oberstufenund-abiturprufungsverordnung/meta.json",
+            "content/normen/oberstufenund-abiturprufungsverordnung/history.json",
+            "content/normen/verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026/versions/2026-08-16.json",
+            "Gesetze/Veordnung_24-01_StMBFK.pdf"
+          ]
+        }
+      ],
+      "existingStemNormSlug": "oberstufenund-abiturprufungsverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "verordnung-aenderung-oberstufen-abiturpruefungsverordnung-2024",
+          "title": "Verordnung über die Änderung der Oberstufen- und Abiturprüfungsverordnung",
+          "effectiveDate": "2024-09-16",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2024-09-16"
+        }
+      ],
+      "effectiveDates": [
+        "2024-09-16"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Historischen, bereits unwirksamen Änderungsakt dokumentiert halten; keine künstliche Konsolidierung erzeugen."
+    },
+    {
       "canonicalSlug": "ostdeutsche-bezirksordnung",
       "title": "Ostdeutsche Bezirksordnung",
       "aliases": [
@@ -1172,6 +1254,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [
         {
           "id": "sportneuordnung-bezirksordnung-neufassung",
@@ -1237,6 +1320,7 @@
       "sourceValidFrom": "2020-12-01",
       "sourceValidTo": null,
       "sourceSha256": "b33772840aec5d06bb7a62d1b78602efc58de0e2e471ae405112b2442355ffc8",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "saechsisches-ladenoeffnungsgesetz",
       "enactingActs": [],
@@ -1270,6 +1354,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "ostdeutsches-tariftreueund-vergabegesetz",
       "enactingActs": [
@@ -1299,6 +1384,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": null,
       "sourceSha256": "e0fc453a634af2fe22483a96b4ec898649f9a88529d4a8f98bfd4a5896c1c92f",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "pruefungsverordnung-waldorfschulen",
       "enactingActs": [],
@@ -1332,6 +1418,7 @@
       "sourceValidFrom": "2022-05-12",
       "sourceValidTo": "2024-11-30",
       "sourceSha256": "89f593175b1cfe94acc85863ca6dd86e0547a199aa9c1e9d5fe204b65d57af1c",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1376,6 +1463,7 @@
       "sourceValidFrom": "2025-09-01",
       "sourceValidTo": "2026-08-31",
       "sourceSha256": "1f8dae48bb74d2ece743e009a0c77293c850ad724b2526cb682cf3524838bd60",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1412,6 +1500,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-03-18",
       "sourceSha256": "c342bc4ae041704e617d464afaad3564491f3ae07129e08eaa56cee7991e5e8d",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-bauordnung",
       "enactingActs": [],
@@ -1453,6 +1542,7 @@
       "sourceValidFrom": "2020-08-01",
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "da26b64d487a51edd347f4f0ae1f3257e307e167ed644d0dc308bd7d2446ece9",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "freie-trager-schulverordnung",
       "enactingActs": [],
@@ -1489,6 +1579,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2023-12-30",
       "sourceSha256": "4809b39d1b1439bd2b9247900142091c81c44ffa09298fab969973b6216a8889",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-gemeindeordnung",
       "enactingActs": [],
@@ -1541,6 +1632,7 @@
       "sourceValidFrom": "2021-06-03",
       "sourceValidTo": "2025-07-09",
       "sourceSha256": "12ad8cf603c92c7cb82b361a6b028800ea4a3f56fd235db14175c5bcb9784ffb",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-haushaltsordnung",
       "enactingActs": [],
@@ -1574,6 +1666,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "4f317d7badf0bd830aa17928f72422f177c1a2515fcdf941122efd34c021ec73",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-klassenbildungsverordnung",
       "enactingActs": [],
@@ -1607,6 +1700,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "6c4d15f6d8ea0a222839474b4d4ea23de1ea42d5a3667af0faff1cebb0f625fe",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "saechsische-klassenbildungsverordnung",
       "enactingActs": [],
@@ -1642,6 +1736,7 @@
       "sourceValidFrom": "2022-02-20",
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "b687f83ae9101d9ab2304f8f88ca201ba8260ceddac7fd2920bccf8ea219cf89",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [
         {
           "id": "landkreisordnung-zielanker-paragraf-65",
@@ -1699,6 +1794,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": null,
       "sourceSha256": "ad99dbb5e0bb74f8bc3eb61a6e8e1d1af504f4a75116eb483f2dfc2a98c7ba7d",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "schulnetzplanungsverordnung",
       "enactingActs": [],
@@ -1734,6 +1830,7 @@
       "sourceValidFrom": "2018-07-26",
       "sourceValidTo": "2025-08-15",
       "sourceSha256": "4b97b7f30f716088ef1ad3d09e63e6a20173dde2fa7ecc66b855c977fb063140",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "abschiebungshaftvollzugsgesetz",
       "enactingActs": [],
@@ -1767,6 +1864,7 @@
       "sourceValidFrom": "2023-07-11",
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "9e11330634a8bd9e6b396b20c201ad19c52fc538285bcc6e71a3f8e1387c0dd2",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1802,6 +1900,7 @@
       "sourceValidFrom": "2018-05-25",
       "sourceValidTo": null,
       "sourceSha256": "07442de73015a2fa881bd039b14165117cbe788b9dd22fbf02c5f0d7e7b9db46",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1837,6 +1936,7 @@
       "sourceValidFrom": "2023-09-30",
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "9adc6fa29fb15c2e4eecc205fa5f28f651ab86b826462ef2852f958f87c35ddb",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1874,6 +1974,7 @@
       "sourceValidFrom": "2019-01-01",
       "sourceValidTo": null,
       "sourceSha256": "29f5c6dcd961da37db7b7b1c38bfad4d7a03f8e0002df832f95fcf47dacda33d",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "fluechtlingsaufnahmegesetz",
       "enactingActs": [],
@@ -1907,6 +2008,7 @@
       "sourceValidFrom": "2020-09-02",
       "sourceValidTo": "2024-06-28",
       "sourceSha256": "7a62c22b2925b72b2216013c70ab559d74c6e17ac4b96576913a4930f96d1e89",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1942,6 +2044,7 @@
       "sourceValidFrom": "2024-01-01",
       "sourceValidTo": null,
       "sourceSha256": "0ed4e4e078ffe8dd0963212459035bd3b8db6c334ed3b9431669e0c8cb481492",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -1978,6 +2081,7 @@
       "sourceValidFrom": "2023-06-22",
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "03bb52c8238633f751e5569d7f81ea3724dbac2271e7e88801cc0605f68f1be2",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2032,6 +2136,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "7fa867f9d202f1155f2a9b1234c911a9422b5fd3722058369bc5f38f24dd37fa",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2077,6 +2182,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2024-08-16",
       "sourceSha256": "b6426a79d1f6bd8b219f142360a6f3717b5f1de65ad8574673655a3710eca3ca",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2122,6 +2228,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": null,
       "sourceSha256": "245483f0407d1026fe19a30d3b405143bc90e79b4fb9ecb224a757acaada36f4",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2166,6 +2273,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": null,
       "sourceSha256": "3a940a4ac1fb207b01703689efa1490180f055cbd9c1bcc5ea1ad6688c9dd125",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2201,6 +2309,7 @@
       "sourceValidFrom": "2020-01-01",
       "sourceValidTo": "2024-08-31",
       "sourceSha256": "c74a5044b9f6d672a0f463352093c5111220e1c2d4b8e762b36cf07eceb3612b",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2239,6 +2348,7 @@
       "sourceValidFrom": "2020-01-01",
       "sourceValidTo": "2024-07-29",
       "sourceSha256": "ce5d45669006663209376f711419138f45855f3f9d0ee60b3d354ad84b00e501",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [
         {
           "id": "schmerzgriffe-zielnorm-und-paragraf",
@@ -2322,6 +2432,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2023-12-31",
       "sourceSha256": "3d1792a483a1f733746bfe6c38744a10877dfb16398bbaa1dc7d525815719066",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2366,6 +2477,7 @@
       "sourceValidFrom": "2021-05-13",
       "sourceValidTo": "2024-07-29",
       "sourceSha256": "5c800fa5832e384cda765b312e87548f09d862da22b3f1e3c209a7ff93dcb1cf",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2404,6 +2516,7 @@
       "sourceValidFrom": "2019-04-27",
       "sourceValidTo": null,
       "sourceSha256": "93a9c4008bc46819f323b2331d04e75f0187953f33f0387019d629517fee9061",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "saechsisches-verwaltungskostengesetz",
       "enactingActs": [],
@@ -2437,6 +2550,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": "2025-07-09",
       "sourceSha256": "67ea497aab9e2af708981293e645e9c95de966dab597f0687d4f3dca36f035df",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "sachsisches-verwaltungsorganisationsgesetz",
       "enactingActs": [],
@@ -2484,6 +2598,7 @@
       "sourceValidFrom": "2024-03-19",
       "sourceValidTo": null,
       "sourceSha256": "30483510f31c57b67bf7a5a0efcb05878db0d5d44717b2bf6e33107b2341e416",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2519,6 +2634,7 @@
       "sourceValidFrom": "2021-05-13",
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "33650dae89a25665a7f72321b12cb8da19278a6ad8480d6109c0b6c345f2c707",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2553,6 +2669,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "6344b0c26d34a7a5f5ee63a832b0fdfd79a573dcb818904f57088e8beee717a5",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2587,6 +2704,7 @@
       "sourceValidFrom": "2023-08-29",
       "sourceValidTo": "2026-01-31",
       "sourceSha256": "413659283b4df78b9c59a5037430cc66abfe9982016ba6cf95660b019e47c544",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2621,6 +2739,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2026-01-31",
       "sourceSha256": "7bc458d51dfe04806902101fab1a613f22536254568dffe0ab8b3274a8f89953",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "schulordnung-gemeinschaftsschulen",
       "enactingActs": [],
@@ -2653,6 +2772,7 @@
       "sourceValidFrom": "2021-08-01",
       "sourceValidTo": "2026-01-31",
       "sourceSha256": "ba9892c8bdbcad359c9305833ddd889eb14eadf63bf927beaad8694e032dedd1",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "schulordnung-grundschulen",
       "enactingActs": [],
@@ -2685,6 +2805,7 @@
       "sourceValidFrom": "2023-08-01",
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "2abcd4e8dde17af5e558f176463f4ac23959431b5302bb8f0511041e5b619053",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "schulordnung-gymnasien-abiturpruefung",
       "enactingActs": [],
@@ -2717,6 +2838,7 @@
       "sourceValidFrom": "2023-08-29",
       "sourceValidTo": "2026-07-31",
       "sourceSha256": "4e17c0852491650a6aa5579ea2bb2ff82c12c14652b201c245d49701321a9afe",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "schulordnung-ober-und-abendoberschulen",
       "enactingActs": [],
@@ -2752,6 +2874,7 @@
       "sourceValidFrom": null,
       "sourceValidTo": null,
       "sourceSha256": null,
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "staatsverfassung-des-freistaates-ostdeutschland",
       "enactingActs": [
@@ -2843,6 +2966,7 @@
       "sourceValidFrom": "2007-12-31",
       "sourceValidTo": null,
       "sourceSha256": "b502ee042bee56aeac2a38e286f23fae43a8045b6aaf34ecd43673031a03bdd2",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -2878,6 +3002,7 @@
       "sourceValidFrom": "2004-08-26",
       "sourceValidTo": null,
       "sourceSha256": "6df198f3a61bea306d57a3ff7ffc08429779eefde6a41af2484f65a7795bc0ff",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "vwv-beratungslehrer",
       "enactingActs": [],
@@ -2911,6 +3036,7 @@
       "sourceValidFrom": "2021-07-09",
       "sourceValidTo": null,
       "sourceSha256": "bf2c0b1791af4b5bce0761c15d77e3e34a79d82b13b1abc88bbe50fa4569f7e7",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "vwv-radfahrausbildung",
       "enactingActs": [],
@@ -2946,6 +3072,7 @@
       "sourceValidFrom": "2021-10-08",
       "sourceValidTo": null,
       "sourceSha256": "2899f05dd63dc21eef0b2df621283121c18cda3a1b299b8968f17f4ffadcc0ad",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "vwv-schulformulare",
       "enactingActs": [],
@@ -2979,6 +3106,7 @@
       "sourceValidFrom": "2021-08-01",
       "sourceValidTo": "2024-07-31",
       "sourceSha256": "8332c0df43be9973ade2dbf7aed6b73a29723ae6718142ea11cd916bf68a2bfa",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -3014,6 +3142,7 @@
       "sourceValidFrom": "2023-01-01",
       "sourceValidTo": null,
       "sourceSha256": "216e667a5c508d7b93e89d6a3b15b59c260800dd9a9d11c1c37447658a6fc970",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
@@ -3048,6 +3177,7 @@
       "sourceValidFrom": "2005-03-22",
       "sourceValidTo": null,
       "sourceSha256": "8f6d44bb0e5fffae83bb2663bd493ae7efda4c635325fb63b3448ea8c2ae8615",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": "wappenverordnung",
       "enactingActs": [],
@@ -3081,6 +3211,7 @@
       "sourceValidFrom": "2023-03-31",
       "sourceValidTo": "2023-12-30",
       "sourceSha256": "ed8ecdf59e0edf3d09c7d1c649808d5db55b63c000f151adbe4239889c65b20a",
+      "historicalNonConsolidatable": false,
       "editorialResolutions": [],
       "existingStemNormSlug": null,
       "enactingActs": [],
