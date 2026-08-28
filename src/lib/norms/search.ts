@@ -68,8 +68,7 @@ export interface SearchIndexDocument {
   changeNote: string;
   validFrom: string;
   validTo: string | null;
-  bodyText: string;
-  contexts: string[];
+  bodySupplement: string;
   hitUnits: SearchHitUnit[];
   resultLabel: string;
 }
@@ -109,8 +108,7 @@ export interface SearchIndexPayload {
 }
 
 interface CollectedBodyContent {
-  textParts: string[];
-  contexts: string[];
+  supplementalTextParts: string[];
   hitUnits: SearchHitUnit[];
 }
 
@@ -126,8 +124,7 @@ function addText(target: string[], value: string | undefined): void {
 }
 
 function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
-  const textParts: string[] = [];
-  const contexts: string[] = [];
+  const supplementalTextParts: string[] = [];
   const hitUnits: SearchHitUnit[] = [];
   const anchors = buildNormAnchorMap(blocks);
 
@@ -143,12 +140,6 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
       addText(headingParts, block.label);
       addText(headingParts, block.title);
 
-      if (headingParts.length > 0) {
-        const heading = headingParts.join(' ');
-        textParts.push(heading);
-        currentUnit?.textParts.push(heading);
-      }
-
       const isHitUnit = !quoted && (
         block.type === 'paragraph' ||
         block.type === 'article' ||
@@ -162,16 +153,21 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
             title: toDisplayText(block.title ?? block.label ?? ''),
             text: '',
             anchor: getResolvedBlockAnchorId(anchors, currentPath, block),
-            textParts: headingParts.length > 0 ? [headingParts.join(' ')] : [],
+            textParts: [],
           }
         : currentUnit;
+
+      if (headingParts.length > 0) {
+        const heading = headingParts.join(' ');
+        if (nextUnit) nextUnit.textParts.push(heading);
+        else supplementalTextParts.push(heading);
+      }
 
       if (block.text) {
         const text = toDisplayText(block.text).trim();
         if (text) {
-          textParts.push(text);
-          contexts.push(text);
-          nextUnit?.textParts.push(text);
+          if (nextUnit) nextUnit.textParts.push(text);
+          else supplementalTextParts.push(text);
         }
       }
 
@@ -194,8 +190,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   visit(blocks);
 
   return {
-    textParts,
-    contexts,
+    supplementalTextParts,
     hitUnits,
   };
 }
@@ -233,7 +228,7 @@ function buildSearchDocument(
   publicationReference?: NormPublicationReference,
 ): SearchIndexDocument {
   const identity = getNormVersionIdentity(record, version);
-  const { textParts, contexts, hitUnits } = collectBodyContent(version.body);
+  const { supplementalTextParts, hitUnits } = collectBodyContent(version.body);
   const agreementText = record.meta.agreementDetails
     ? [
         ...record.meta.agreementDetails.parties.map((party) => party.name),
@@ -298,8 +293,7 @@ function buildSearchDocument(
     changeNote: toDisplayText(version.changeNote),
     validFrom: version.validFrom,
     validTo: version.validTo,
-    bodyText: [...agreementText, ...textParts].join('\n\n'),
-    contexts,
+    bodySupplement: [...agreementText, ...supplementalTextParts].join('\n\n'),
     hitUnits,
     resultLabel,
   };

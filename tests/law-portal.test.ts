@@ -567,9 +567,14 @@ function searchDocument(overrides: Partial<SearchIndexDocument> = {}): SearchInd
     changeNote: 'Stammfassung',
     validFrom: '2026-01-01',
     validTo: null,
-    bodyText: 'Die Straße dient der Krankenhausversorgung.',
-    contexts: ['Die Straße dient der Krankenhausversorgung.'],
-    hitUnits: [],
+    bodySupplement: '',
+    hitUnits: [{
+      type: 'paragraph',
+      label: '§ 1',
+      title: 'Versorgung',
+      text: 'Die Straße dient der Krankenhausversorgung.',
+      anchor: 'paragraf-1',
+    }],
     resultLabel: 'Geltende Fassung',
     ...overrides,
   };
@@ -708,4 +713,8 @@ test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung',
     year: latest.year,
     issue: latest.issue,
   });
+  assert.ok(
+    Buffer.byteLength(JSON.stringify(searchIndex)) < 20 * 1024 * 1024,
+    'Der Suchindex muss ausreichend Abstand zur Cloudflare-Grenze von 25 MiB halten.',
+  );
 });
