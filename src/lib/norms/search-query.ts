@@ -88,7 +88,10 @@ function normalizedFields(documentEntry: SearchIndexDocument): Record<SearchScop
       documentEntry.changeNote,
     ].join(' '),
   );
-  const body = normalizeSearchText(documentEntry.bodyText);
+  const body = normalizeSearchText([
+    documentEntry.bodySupplement,
+    ...documentEntry.hitUnits.flatMap((unit) => [unit.label, unit.title, unit.text]),
+  ].join(' '));
   return { all: `${title} ${metadata} ${body}`.trim(), title, metadata, body };
 }
 

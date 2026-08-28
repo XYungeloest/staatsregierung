@@ -333,7 +333,7 @@ function clipContext(documentEntry: SearchIndexDocument, state: NormSearchState)
   const tokens = parseQueryTokens(state.q || state.exact).map((token) => token.value);
   const candidates = [
     ...documentEntry.hitUnits.map((unit) => unit.text),
-    ...documentEntry.contexts,
+    documentEntry.bodySupplement,
     documentEntry.summary,
   ].filter(Boolean);
   const source = candidates.find((entry) => {
