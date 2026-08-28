@@ -7,11 +7,11 @@ function snapshot(sections) {
   return `<!doctype html><html><body><div id="content"><div class="law_show">
     <h1>Testgesetz</h1>
     <p>Vollzitat: Testgesetz vom 1. Januar 2020 (OGVBl. 2020 Nr. 1)</p>
-    <h2>Fassung gültig ab: 1. Januar 2020</h2>
     <article id="lesetext">
       <header><h3>Testgesetz (TestG)</h3><p>1. Januar 2020</p></header>
       <div class="sections">${sections}</div>
     </article>
+    <div id="quickbar"><div class="box"><h3>Gültigkeitszeitraum</h3><p>Fassung gültig ab: 1. Januar 2020</p></div></div>
   </div></div></body></html>`;
 }
 
@@ -27,6 +27,22 @@ function findBlock(blocks, type) {
   }
   return undefined;
 }
+
+test('REVOSax-Metadaten bleiben für die Stammnormmaterialisierung vollständig', () => {
+  const parsed = parseRevosaxSnapshot(snapshot(`
+    <section title="§ 1 Zweck"><h3>§ 1 Zweck</h3>
+      <p>(1) Das Gesetz regelt seinen Zweck.</p>
+    </section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1' });
+
+  assert.equal(parsed.sourceTitle, 'Testgesetz');
+  assert.equal(parsed.shortTitle, 'Testgesetz');
+  assert.equal(parsed.fullCitation, 'Testgesetz vom 1. Januar 2020 (OGVBl. 2020 Nr. 1)');
+  assert.equal(parsed.documentDate, '2020-01-01');
+  assert.equal(parsed.sourceValidFrom, '2020-01-01');
+  assert.equal(parsed.sourceValidTo, null);
+  assert.equal(parsed.sourceUrl, 'https://www.revosax.sachsen.de/vorschrift/1');
+  assert.ok(findBlock(parsed.body, 'paragraph'));
+});
 
 test('REVOSax-Satznummern werden semantisch verworfen und korrekt getrennt', () => {
   const body = parsedBody(`
