@@ -1,56 +1,8 @@
 {
-  "generatedAt": "2026-08-27",
-  "editorialAsOf": "2026-08-25",
-  "count": 1156,
+  "generatedAt": "2026-08-29",
+  "editorialAsOf": "2026-08-23",
+  "count": 1149,
   "items": [
-    {
-      "id": "candidate-acting-federal-president",
-      "title": "Vertretung der Bundespräsidentin durch den Bundesratspräsidenten",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": "2026-08-01",
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-boden-institutions",
-      "title": "Volksacker, Flächenfonds und Bodenfonds Ost",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": "2026-08-23",
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-boom-details",
-      "title": "Projektorganisation Boom Europe Leipzig/Halle",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-court-cases",
-      "title": "Hauer-Verfahren, Erdbebenhilfegesetz und weitere Verfassungskonflikte",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/conversation-candidates.json"
-    },
     {
       "id": "candidate-external-wiki",
       "title": "Ergänzende Fakten aus dem PolitikSim-Wiki auf Miraheze",
@@ -61,18 +13,6 @@
       ],
       "validFrom": null,
       "validTo": null,
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-feiertage",
-      "title": "Neue Feiertage",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": "2026-08-23",
       "target": "knowledge/conversation-candidates.json"
     },
     {
@@ -88,46 +28,8 @@
       "target": "knowledge/conversation-candidates.json"
     },
     {
-      "id": "candidate-grenzpolizei-agreement-draft-status",
-      "title": "Früherer Redaktionsstand zum Grenzpolizeiabkommen",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate",
-        "superseded",
-        "agreement"
-      ],
-      "validFrom": null,
-      "validTo": "2026-07-29",
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-hoheitszeichen-decision",
-      "title": "Nur noch ein Kleines Staatswappen",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": "2026-08-23",
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
       "id": "candidate-honecker-biography",
       "title": "Biografie und Parteifunktionen Karl Honeckers",
-      "type": "conversation-candidate",
-      "aliases": [],
-      "tags": [
-        "conversation-candidate"
-      ],
-      "validFrom": null,
-      "validTo": null,
-      "target": "knowledge/conversation-candidates.json"
-    },
-    {
-      "id": "candidate-ovv-ticket",
-      "title": "OVV und 29-Euro-Ticket",
       "type": "conversation-candidate",
       "aliases": [],
       "tags": [
@@ -12493,7 +12395,7 @@
     },
     {
       "id": "question-missing-revosax-snapshots",
-      "title": "Wo sind die zwei noch fehlenden amtlichen Ausgangsfassungen?",
+      "title": "Welche amtliche Ausgangsfassung des NDR-Staatsvertrags fehlt?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -12517,7 +12419,7 @@
     },
     {
       "id": "question-school-law-source-conflicts-2026",
-      "title": "Zieltextkonflikte bei drei schulrechtlichen Konsolidierungen",
+      "title": "Zieltextkonflikt bei der Schulordnung Förderschulen",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -14582,6 +14484,18 @@
         "history"
       ],
       "validFrom": "2026-07-21",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-stanzo-2026-02",
+      "title": "Staatsanzeiger Ostdeutschland 2026 Nr. 2",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law"
+      ],
+      "validFrom": "2026-03-03",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

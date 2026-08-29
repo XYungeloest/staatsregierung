@@ -1,13 +1,16 @@
 import { glob, readFile } from 'node:fs/promises';
+import { normalizeSiteTargets } from './lib/site-targets.mjs';
 
-const sites = [
+const allSites = [
   {
+    target: 'portal',
     name: 'Staatsportal',
     root: 'dist/portal/client',
     origin: new URL(process.env.PORTAL_SITE_URL ?? 'https://freistaat-ostdeutschland.de').origin,
     siteName: 'Freistaat Ostdeutschland',
   },
   {
+    target: 'law',
     name: 'OstRecht',
     root: 'dist/law/client',
     origin: new URL(process.env.LAW_SITE_URL ?? 'https://recht.freistaat-ostdeutschland.de').origin,
@@ -15,6 +18,9 @@ const sites = [
     normPattern: /^dist\/law\/client\/norm\/[^/]+\/index\.html$/u,
   },
 ];
+
+const selectedTargets = new Set(normalizeSiteTargets(process.env.SITE_TARGETS));
+const sites = allSites.filter((site) => selectedTargets.has(site.target));
 
 const failures = [];
 
@@ -106,5 +112,5 @@ if (failures.length > 0) {
   console.error(failures.join('\n'));
   process.exitCode = 1;
 } else {
-  console.log('SEO-QA für Staatsportal und OstRecht erfolgreich.');
+  console.log(`SEO-QA für ${sites.map((site) => site.name).join(' und ')} erfolgreich.`);
 }

@@ -54,6 +54,7 @@ function stableJson(value) {
 }
 
 function loadModel() {
+  const editorial = readJson('src/config/editorial.json');
   const sourcesDoc = readJson('knowledge/sources.json');
   const holdingPositions = readJson('knowledge/holding-positions.json');
   const collections = dataSpecs.map(([file, key, type]) => {
@@ -64,6 +65,7 @@ function loadModel() {
     return { file, key, type, document, entries: document[key] };
   });
   return {
+    editorial,
     sourcesDoc,
     sources: sourcesDoc.sources,
     holdingPositions,
@@ -161,6 +163,7 @@ function intervalsOverlap(a, b) {
 
 function validateModel(model, compareGenerated) {
   const errors = [];
+  validateDate(model.editorial.referenceDate, 'src/config/editorial.json:referenceDate', errors);
   const sourceIds = new Set();
   const sourceById = new Map();
 
@@ -461,7 +464,7 @@ function buildIndex(model) {
   items.sort((left, right) => left.id.localeCompare(right.id, 'de'));
   return stableJson({
     generatedAt: model.sourcesDoc.asOf,
-    editorialAsOf: model.byType.get('current-state')?.[0]?.asOf ?? null,
+    editorialAsOf: model.editorial.referenceDate,
     count: items.length,
     items,
   });
@@ -494,7 +497,7 @@ function buildContext(model) {
   lines.push('');
   lines.push('> Diese Datei ist ein generierter Überblick. Für rechtliche Detailfragen sind die verknüpften Primärquellen und Normfassungen maßgeblich.');
   lines.push('');
-  lines.push(`**Redaktioneller Stand:** ${government?.asOf ?? 'unbekannt'}`);
+  lines.push(`**Redaktioneller Stand:** ${model.editorial.referenceDate}`);
   lines.push('');
   lines.push('## Quellenregeln');
   lines.push('');

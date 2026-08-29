@@ -1,22 +1,46 @@
 # Betriebsrunbook für Veröffentlichungen
 
 Staatsportal und OstRecht werden ausschließlich über den Workflow `Deploy to Cloudflare Workers`
-aus demselben Commit veröffentlicht. Ein manuelles Überschreiben eines produktiven Workers ist kein
-Wiederherstellungsweg.
+aus dem geprüften Commit veröffentlicht. Der Workflow bestimmt aus den geänderten Pfaden, welche
+Anwendung neu gebaut und veröffentlicht werden muss. Ein manuelles Überschreiben eines produktiven
+Workers ist kein Wiederherstellungsweg.
+
+## Änderungsscope
+
+Die zentrale Zuordnung liegt in `scripts/classify-change-scope.mjs`. Unbekannte Pfade und gemeinsame
+Quellen werden vorsorglich als `shared` behandelt.
+
+| Scope | Typische Pfade | Produktion |
+| --- | --- | --- |
+| `docs-only` | Root-Dokumentation und `docs/` | kein Build und kein Deployment |
+| `portal` | `src/pages/`, portalbezogene Inhalte, Kreisreform und portalbezogene Daten | nur Staatsportal |
+| `law` | `src/law/`, Normkomponenten und `public/assets/recht/` | nur OstRecht |
+| `shared` | gemeinsame Layouts, Komponenten, Libraries, `content/normen/`, `content/verkuendungen/`, `knowledge/`, `Gesetze/`, `data/recht/`, Scripts, Tests, Konfiguration und Abhängigkeiten | beide Anwendungen |
+
+Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie unter
+anderem für Suche, Fundstellen und die Rechtsbrücke einliest. Die PDF-Assets unter
+`public/assets/recht/` werden dagegen nur vom Rechtsportal ausgeliefert.
 
 ## Regulärer Ablauf
 
 1. Änderung über einen geprüften Pull Request nach `main` übernehmen.
-2. Im Main-Workflow zuerst den Build sowie Accessibility- und Browser-Smoke prüfen. Der Job
-   `deploy` startet erst nach allen drei erfolgreichen Prüfungen.
-3. Der Workflow veröffentlicht zuerst OstRecht und danach das Staatsportal. So verweist die
-   Portalbrücke erst nach der erfolgreichen Aktualisierung des Rechtsportals auf den neuen Stand.
-4. Den im Workflow ausgewiesenen vollständigen Commit notieren. Bei Produktion prüft der Job danach
-   automatisch Routen, Altpfad-Redirect sowie Header- und HTML-Kennung beider Origins.
+2. Der Main-Workflow ermittelt den Scope. Bei `docs-only` endet der Lauf ohne Produktionsdeployment.
+3. Für `portal` oder `law` laufen nur der betroffene Build, dessen Content-/Typprüfungen sowie
+   dessen Link- und SEO-Prüfung. Bei `shared` werden beide Anwendungen gebaut und geprüft.
+4. Der vollständige gemeinsame Accessibility- und Browser-Smoke läuft für `shared`. Bei einem
+   einzelnen Ziel bleiben die gezielten statischen Prüfungen auf das veröffentlichte Ziel begrenzt;
+   die manuelle Releaseprüfung bleibt für jede Produktionsfreigabe erforderlich.
+5. Bei beiden Zielen veröffentlicht der Workflow zuerst OstRecht und danach das Staatsportal. So
+   verweist die Portalbrücke erst nach der erfolgreichen Aktualisierung des Rechtsportals auf den
+   neuen Stand.
+6. Den im Workflow ausgewiesenen vollständigen Commit notieren. Die Produktionsnachkontrolle prüft
+   nur die tatsächlich veröffentlichten Ziele; der Portal-Altpfad-Redirect wird bei einer
+   Portalprüfung zusätzlich gegen den bestehenden Rechtsorigin kontrolliert.
 
-Ein manuell gestarteter Workflow verwendet standardmäßig `staging`. Dafür müssen vollständige
+Ein manuell gestarteter Workflow wird aus Sicherheitsgründen als `shared` behandelt und veröffentlicht
+beide Anwendungen wie bisher. Er verwendet standardmäßig `staging`; dafür müssen vollständige
 `portal_site_url` und `law_site_url` angegeben werden. `production` ist nur für eine bewusst
-freigegebene Veröffentlichung zu wählen.
+freigegebene Veröffentlichung zu wählen. Die Eingaben bleiben unverändert.
 
 ## Fehlerklasse bestimmen
 
@@ -70,7 +94,8 @@ EXPECTED_COMMIT=<vollständiger-commit> \
 npm run test:deployment:production
 ```
 
-Die folgenden Routen müssen dieselbe vollständige Kennung liefern und erfolgreich antworten:
+Bei einem `shared`-Lauf müssen die folgenden Routen dieselbe vollständige Kennung liefern und
+erfolgreich antworten:
 
 ```text
 /
@@ -94,6 +119,27 @@ Zusätzlich kurz prüfen:
 - einen alten Portalpfad unter `/recht/norm/...` auf den permanenten Cross-Origin-Redirect,
 - auf Mobilbreite Navigation, Suche und die Einwilligungsentscheidung,
 - dass keine Webanalyse ohne Zustimmung geladen wird.
+
+Bei `portal`- oder `law`-Läufen beschränkt sich die automatische Nachkontrolle auf das jeweilige
+Ziel. Für einen manuellen Einzelcheck kann `DEPLOY_TARGETS=portal` oder `DEPLOY_TARGETS=law`
+gesetzt werden; ohne diese Variable werden beide Ziele geprüft.
+
+## Pflege- und Release-Regeln
+
+Diese Punkte sind wiederkehrende Pflegeanforderungen, keine erledigbaren Feature-TODOs:
+
+- Der redaktionelle Stichtag bleibt ein fachlich gepflegter Wert. Er wird nicht aus dem Builddatum
+  oder automatisch aus dem aktuellen Kalendertag abgeleitet und wird nur einmal in
+  `src/config/editorial.json` gesetzt. Beim Fortschreiben werden Termine,
+  Stellen, Hervorhebungen, Verfahren, Normfassungen, Regierungszuordnungen, Gebietsstände,
+  Timeline und Suchindex gemeinsam geprüft.
+- Vor jeder Produktionsfreigabe erfolgt zusätzlich zu den automatisierten Prüfungen ein kurzer
+  manueller Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-,
+  Tablet- und Desktopbreiten. Das Ergebnis wird im Release- bzw. Pull-Request-Kontext festgehalten;
+  die Dokumentation ersetzt den Test nicht.
+- Nach abgeschlossenen Arbeiten werden README, `CONTENT.md`, `CONTENT_GAPS.md`, `DESIGN.md`,
+  `docs/` und `knowledge/` auf veraltete Aufgaben und Aussagen geprüft. Generierte Wissensdateien
+  werden ausschließlich mit `npm run knowledge:build` aktualisiert.
 
 ## Abhängigkeiten und Actions
 

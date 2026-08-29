@@ -7,8 +7,8 @@ Das Projekt ist eine politische Simulation und stellt keine echte amtliche Verö
 Der entsprechende Hinweis erscheint in der oberen Hinweisleiste, im Footer und ausführlich im
 Impressum.
 
-Der redaktionelle Stichtag ist in `src/config/editorial.json` festgelegt und liegt derzeit auf dem
-**23. August 2026**. Die Inhaltsformate und Pflegewege stehen in `CONTENT.md`. Aktuell offene
+Der redaktionelle Stichtag ist ausschließlich in `src/config/editorial.json` festgelegt. Die
+Inhaltsformate und Pflegewege stehen in `CONTENT.md`. Aktuell offene
 Quellenfragen stehen in `CONTENT_GAPS.md`.
 
 ## Architektur
@@ -233,7 +233,7 @@ vollständige technische Releaseabfolge steht im Deployment-Runbook.
 
 ## TODO
 
-**Zuletzt abgeglichen:** 23. August 2026
+**Zuletzt abgeglichen:** 29. August 2026
 
 Diese Liste ist der zentrale Projektbacklog. Jede noch offene Aufgabe muss hier mindestens als
 Sammelpunkt erscheinen. Quellenlocators, Einzelkonflikte und maschinenlesbare Zustände werden
@@ -349,20 +349,20 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
 
 ### Rechtsportal und Primärquellen
 
-- [x] Die 24 nach dem freigegebenen amtlichen REVOSax-Abruf als `missing-stem-record` geführten
-  Zielnormen aus den geprüften Snapshots als historisierte Stammnormen anlegen und vorhandene
-  ostdeutsche Patch-Rezepte darauf anwenden.
-- [ ] Für die im Konsolidierungsmanifest noch als `incomplete-placeholder` geführten Zielnormen
-  die fehlenden ostdeutschen Patch-Rezepte quellenbasiert erarbeiten. Kulturraumgesetz und
-  Ostdeutsches Polizeibehördengesetz bleiben wegen der Berlin-Darstellung zuerst zu bearbeiten.
-- [ ] Für die weiterhin als `missing-baseline` geführte Zielnorm die vollständige Ausgangsfassung
-  des NDR-Staatsvertrags beschaffen.
-- [ ] Die gemeinsame Dokumentidentität von `OABl. 2025 Nr. 2` und
-  `StAnzO. 2026 Nr. 2.html` technisch zusammenführen; Dokumentkopf und internes Datum bleiben
-  kanonisch.
-- [ ] Für die noch ausschließlich als Markdown vorliegenden Altquellen schrittweise geprüfte
-  strukturierte HTML-Transkriptionen erstellen und bis dahin PDF-Gegenprüfung und Legacy-Fixtures
-  erhalten.
+Der Konsolidierungsaudit erkennt derzeit 85 Zielnormen; 81 sind vollständig konsolidiert. Die
+folgenden vier Rechtsfälle bleiben als konkrete Quellenarbeit offen:
+
+- [ ] Gesetz über den öffentlichen Personennahverkehr (`blocked-source-conflict`): den Konflikt
+  zwischen Artikel 9 Nummer 1 und der maßgeblichen Ausgangsfassung quellenbasiert klären.
+- [ ] NDR-Staatsvertrag (`missing-baseline`): die vollständige maßgebliche Ausgangsfassung vor
+  der Änderung vom 8. März 2026 einschließlich Anlagen beschaffen.
+- [ ] Schulordnung Förderschulen (`blocked-source-conflict`): den nicht passenden Änderungsanker
+  aus OGVBl. 2026 Nr. 64 auch unter Berücksichtigung der Berichtigung in Nr. 68 klären.
+- [ ] Zehntes Sächsisches Kostenverzeichnis (`blocked-source-conflict`): den widersprüchlichen
+  Ausgangsbestand des Tarifplatzes 3 mit einer belastbaren Quelle auflösen.
+- [ ] Die noch ausschließlich als Markdown vorliegenden 25 produktiven Altquellen schrittweise
+  durch strukturtragende HTML-Quellen ersetzen, sobald eine sichere Primär- oder Transkriptionsquelle
+  vorliegt; PDF-Gegenprüfung und Legacy-Fixtures bis dahin erhalten.
 
 ### Aktuelle Vorhaben und öffentliche Inhalte
 
@@ -387,24 +387,23 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
   Honeckers belegte Biografie sowie die Namensgeschichte von DEMOS. Weitere Rollenintervalle und
   Mehrheitsangaben nur aus datierten Primärakten oder klar gekennzeichneten historischen Quellen
   übernehmen.
-- [ ] Die verbleibenden unbestimmten Personen, Gerichtsverfahren und nichtrechtlichen
-  Realitätsereignisse aus `knowledge/conversation-candidates.json` einzeln prüfen. Bestätigte
-  Befunde in Personenrollen, Timeline oder Proceedings überführen, Widerlegtes verwerfen und
-  unprüfbares Gesprächswissen nicht in den Gegenwartsstand übernehmen.
+- [ ] Die verbleibenden unbestimmten Personen und nichtrechtlichen Realitätsereignisse aus
+  `knowledge/conversation-candidates.json` einzeln prüfen. Bestätigte Befunde in Personenrollen,
+  Timeline oder Proceedings überführen, Widerlegtes verwerfen und unprüfbares Gesprächswissen
+  nicht in den Gegenwartsstand übernehmen. Offene Verfahrensdetails bleiben bis zu belastbaren
+  Aktenzeichen, Entscheidungen oder Vollzugsnachweisen in `knowledge/proceedings.json` offen.
 
 ### Dokumentation und laufende Qualität
 
-- [ ] Nach jeder Erledigung eine vollständige Dokumentationsrunde über README, `CONTENT.md`,
-  `CONTENT_GAPS.md`, `DESIGN.md`, `docs/` und `knowledge/` durchführen, erledigte Punkte entfernen
-  und generierte Wissensdateien ausschließlich mit `npm run knowledge:build` aktualisieren.
-- [ ] Beim Fortschreiben des redaktionellen Stichtags alle zeitabhängigen Oberflächen gemeinsam
-  prüfen: aktuelle Termine und Stellen, Highlight-Zeiträume, Verfahren, Normfassungen,
-  Regierungszuordnungen, Gebietsstände, Timeline und Suchindex. Ein technisches Builddatum darf
-  dabei keinen fachlichen Aktualitätsstand ersetzen.
-- [ ] Vor Produktionsfreigaben neben den automatisierten Prüfungen einen kurzen manuellen
-  Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-, Tablet- und
-  Desktopbreiten dokumentieren.
+Die wiederkehrenden Dokumentations- und Releaseprüfungen stehen dauerhaft im
+[`docs/DEPLOYMENT_RUNBOOK.md`](docs/DEPLOYMENT_RUNBOOK.md). Sie sind Pflegeanforderungen und keine
+einmalig abzuschließenden Backlogpunkte.
 
 ### Technik
 
-- [ ] Die CI/CD sollte nicht bei jeder Änderung einer Dokumentation bzw diff in Markdown die komplette Anwendung deployen. Eventuell sogar soweit gehen, dass Änderungen an einer Website nicht beide neu deployet.
+Die CI/CD klassifiziert Änderungen zentral in `docs-only`, `portal`, `law` und `shared`; die
+Deploymentzuordnung und die konservativen gemeinsamen Pfade sind im
+[`docs/DEPLOYMENT_RUNBOOK.md`](docs/DEPLOYMENT_RUNBOOK.md) beschrieben.
+Der Redaktionsstichtag wird nur einmal in `src/config/editorial.json` gesetzt. Gesetzgebungsverfahren
+und öffentliche Auswertungen leiten ihren gemeinsamen Stand daraus ab; historische Quellen- und
+Ereignisdaten bleiben davon unabhängig.

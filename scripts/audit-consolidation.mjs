@@ -96,6 +96,22 @@ function normalize(value) {
     .trim();
 }
 
+function stableFindingKey(finding) {
+  if (typeof finding === 'string') return JSON.stringify(['text', finding]);
+  return JSON.stringify([
+    finding?.type ?? 'finding',
+    finding?.norm ?? finding?.amendmentAct ?? finding?.file ?? '',
+    finding?.location ?? finding?.fundstelle ?? finding?.evidence ?? '',
+    finding?.errorCode ?? finding?.code ?? '',
+    finding?.description ?? finding?.candidate ?? finding?.problem ?? '',
+  ]);
+}
+
+function pushUniqueFinding(findings, finding) {
+  const key = stableFindingKey(finding);
+  if (!findings.some((existing) => stableFindingKey(existing) === key)) findings.push(finding);
+}
+
 function slugify(value) {
   return normalize(value)
     .replace(/\bgesetz über\b/gu, '')
@@ -235,7 +251,7 @@ async function main() {
     const flatBlocks = record.versions.flatMap((version) => flatten(version.body));
     if (flatBlocks.some((block) => /Mustergesetz vom TT\.\s*MMMM\s*JJJJ/iu.test(`${block.title ?? ''} ${block.text ?? ''}`))) {
       const problem = `${record.meta.slug}: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm`;
-      if (!templateProblems.includes(problem)) templateProblems.push(problem);
+      pushUniqueFinding(templateProblems, problem);
     }
     const neverTookEffect = record.meta.status === 'historical' && record.meta.effectiveDate == null;
     // Der operative Änderungssatz bezeichnet innerhalb desselben Artikels die
@@ -290,7 +306,7 @@ async function main() {
           : null;
         const canonical = editorialTarget ?? finding.canonical ?? canonicalFor(targetTitle);
         if (!canonical) {
-          ambiguousFindings.push({
+          pushUniqueFinding(ambiguousFindings, {
             amendmentAct: record.meta.slug,
             candidate: targetTitle,
             evidence: finding.evidence,
@@ -298,7 +314,7 @@ async function main() {
           continue;
         }
         if (canonical.canonicalSlug === 'mustergesetz') {
-          templateProblems.push(`${record.meta.slug}: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm`);
+          pushUniqueFinding(templateProblems, `${record.meta.slug}: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm`);
           continue;
         }
         const target = targets.get(canonical.canonicalSlug) ?? {
@@ -377,7 +393,9 @@ async function main() {
     if (!sourceAvailable && !blocked && !introducedStem && !historicalNonConsolidatable) {
       problems.push('Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.');
     }
-    if (!stem && !blocked) problems.push('Eigenständiger Stammnormdatensatz fehlt.');
+    // Ohne maßgebliche Ausgangsquelle ist das Fehlen eines Stammnormdatensatzes
+    // keine eigenständige offene Arbeitsklasse, sondern Teil des Baseline-Fehlers.
+    if (!stem && !blocked && sourceAvailable) problems.push('Eigenständiger Stammnormdatensatz fehlt.');
     if (hasPlaceholder(stem) && !historicalNonConsolidatable) problems.push('Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.');
     if (!historicalNonConsolidatable && (sourceAvailable || introducedStem) && stem && !completeIntervals(stem, effectiveDates, requiredBaseline)) {
       problems.push('Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.');
@@ -448,7 +466,7 @@ async function main() {
       ),
       effectiveDates,
       status,
-      problems,
+      problems: [...new Set(problems)],
       nextAction,
     };
   }).sort((a, b) => a.title.localeCompare(b.title, 'de'));

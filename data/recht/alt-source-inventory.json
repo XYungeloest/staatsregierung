@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-09",
+  "checkedAt": "2026-08-29",
   "sources": [
     {
       "id": "ogvbl-ii-2024",
@@ -176,6 +176,125 @@
         "HTML und Markdown ergeben nach dem strukturierten Parservergleich denselben vollständigen Normtext mit den §§ 1 bis 11.",
         "Die Markdown-Fassung ist nur ergänzende Transkription und wird bei vorhandener HTML-Ausgabe nicht importiert."
       ]
+    }
+  ],
+  "legacyMarkdownDependencies": [
+    {
+      "publication": "OABl. 2025 Nr. 1",
+      "norms": ["forderrichtlinie-zur-vergabe-zum-meisterkredit"],
+      "markdownSource": "Gesetze/OABl. 2025 Nr. 1.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OABl. 2025 Nr. 1.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OABl. 2025 Nr. 3",
+      "norms": ["anordnung-uber-die-auflosung-des-5-ostdeutschen-landtages"],
+      "markdownSource": "Gesetze/OABl. 2025 Nr. 3.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OABl. 2025 Nr. 3.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OABl. 2025 Nr. 4",
+      "norms": ["verwaltungsvorschrift-des-ministerprasidenten-fur-den-betrie-12aov3j"],
+      "markdownSource": "Gesetze/OABl. 2025 Nr. 4.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OABl. 2025 Nr. 4.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OABl. 2025 Nr. 5",
+      "norms": ["verwaltungsvorschrift-des-ministerprasidenten-uber-die-befla-5f4v7g"],
+      "markdownSource": "Gesetze/OABl. 2025 Nr. 5.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OABl 2025 Nr 5.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OABl. 2025 Nr. 6",
+      "norms": ["verwaltungsvorschrift-des-ministerprasidenten-uber-die-bezei-1dnj8yc"],
+      "markdownSource": "Gesetze/OABl. 2025 Nr. 6.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OABl 2025 Nr 6.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OGVBl. 2025 Nr. 8",
+      "norms": ["erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-09-2025"],
+      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 8.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/GVBl. 2025 Nr. 8.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OGVBl. 2025 Nr. 9",
+      "norms": ["verordnung-zur-aufhebung-verfassungswidrig-erlassener-verordnungen"],
+      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 9.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OGVBl. 2025 Nr. 9.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OGVBl. 2025 Nr. 10",
+      "norms": ["erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-12-2025"],
+      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 10.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OGVBl 2025 Nr 10.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OGVBl. 2025 Nr. 11",
+      "norms": ["verordnung-zur-bestimmung-der-gebiete-mit-mietpreisbegrenzung-bei-mietbeginn"],
+      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 11.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OGVBl 2025 Nr 11.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OGVBl. 2025 Nr. 12",
+      "norms": ["ostdeutsche-kappungsgrenzen-verordnung"],
+      "markdownSource": "Gesetze/OGVBl. 2025 Nr. 12.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OGVBl 2025 Nr 12.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OGVBl. 2026 Nr. 12",
+      "norms": ["verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k"],
+      "markdownSource": "Gesetze/OGVBl. 2026 Nr. 12.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/GVBl. 2026 Nr. 12.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OGVBl. 2026 Nr. 44",
+      "norms": ["verordnung-der-staatsregierung-zur-bewaltigung-der-folgen-des-erdbebens-im-raum-rosenheim-und-zum-schutz-vor-n"],
+      "markdownSource": "Gesetze/OGVBl. 2026 Nr. 44.md",
+      "matchingHtml": null,
+      "primaryPdf": "Gesetze/OGVBl. 2026 Nr. 44.pdf",
+      "migration": "blocked",
+      "blocker": "Keine strukturtragende HTML-Fassung; das vorhandene PDF ist nur visuelle Kontrollquelle."
+    },
+    {
+      "publication": "OGVBl. 2024 Nr. 2 S. 2",
+      "norms": ["oberstufenund-abiturprufungsverordnung"],
+      "markdownSource": "Gesetze/OGVBl. 2024 Nr. 2 S. 2.md",
+      "matchingHtml": null,
+      "primaryPdf": null,
+      "migration": "blocked",
+      "blocker": "Keine gleichartige vollständige HTML- oder Primär-PDF-Quelle; die vorhandene Sammelausgabe ist keine sichere Entsprechung dieser Einzelquelle."
     }
   ]
 }

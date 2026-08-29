@@ -1,7 +1,7 @@
 # Zuarbeitsformular für offene Portalaufgaben
 
-**Redaktioneller Stichtag:** 23. August 2026  
-**Repositoryprüfung:** 27. August 2026
+**Redaktioneller Stichtag:** zentral in `../src/config/editorial.json`
+**Repositoryprüfung:** 29. August 2026
 
 Dieses Formular enthält ausschließlich Punkte, für die aktuell externe Unterlagen oder eine
 inhaltliche Entscheidung benötigt werden. Der verbindliche Aufgabenstatus steht in der

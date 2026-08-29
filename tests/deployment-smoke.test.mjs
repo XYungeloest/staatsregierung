@@ -87,6 +87,24 @@ test('unterschiedliche ausgelieferte Commits lassen den Smoketest klar scheitern
   );
 });
 
+test('Portal-only-Deployment prüft keinen unveränderten Rechtsportal-Commit', async () => {
+  const requests = [];
+  const result = await checkDeployment({
+    portalSiteUrl: portalOrigin,
+    lawSiteUrl: lawOrigin,
+    expectedCommit: commit,
+    targets: ['portal'],
+    fetchImpl: async (input, init) => {
+      requests.push(String(input));
+      return createFetch({ lawCommit: 'abcdef1234567890abcdef1234567890abcdef12' })(input, init);
+    },
+  });
+
+  assert.deepEqual(result.targets, ['portal']);
+  assert.ok(result.redirect);
+  assert.equal(requests.some((url) => url.startsWith(`${lawOrigin}/`)), false);
+});
+
 test('ein falsches Ziel des permanenten Altpfads wird abgewiesen', async () => {
   await assert.rejects(
     checkDeployment({

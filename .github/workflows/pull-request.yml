@@ -23,30 +23,19 @@ jobs:
     if: ${{ github.event.action != 'closed' }}
     runs-on: ubuntu-latest
     outputs:
-      full_ui: ${{ steps.paths.outputs.full_ui }}
+      scope: ${{ steps.scope.outputs.scope }}
+      run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - name: Änderungstyp bestimmen
-        id: paths
+      - name: Änderungsscope bestimmen
+        id: scope
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: |
-          full_ui=false
-          while IFS= read -r path; do
-            case "$path" in
-              content/*|knowledge/*|public/images/*)
-                ;;
-              *)
-                full_ui=true
-                break
-                ;;
-            esac
-          done < <(git diff --name-only "$BASE_SHA...$HEAD_SHA")
-          printf 'full_ui=%s\n' "$full_ui" >> "$GITHUB_OUTPUT"
+        run: git diff --name-only "$BASE_SHA...$HEAD_SHA" | node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT"
 
   quality:
     needs: classify
@@ -74,7 +63,7 @@ jobs:
           npm run check
           npm run test:unit
       - name: Studio-Worker prüfen
-        if: ${{ needs.classify.outputs.full_ui == 'true' }}
+        if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
         run: npm run editorial:check
       - name: Öffentliche Website bauen
         run: npm run build
@@ -94,7 +83,7 @@ jobs:
           retention-days: 1
 
   accessibility_smoke:
-    if: ${{ needs.classify.outputs.full_ui == 'true' }}
+    if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
     needs:
       - classify
       - quality
@@ -119,7 +108,7 @@ jobs:
         run: npm run test:a11y:ci
 
   browser_smoke:
-    if: ${{ needs.classify.outputs.full_ui == 'true' }}
+    if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
     needs:
       - classify
       - quality

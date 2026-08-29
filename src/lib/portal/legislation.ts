@@ -2,6 +2,7 @@ import type { Dirent } from 'node:fs';
 import { readdir, readFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 
+import { PORTAL_REFERENCE_DATE } from './dates.ts';
 import { PortalContentValidationError } from './schema.ts';
 
 export const LEGISLATIVE_STAGES = [
@@ -58,6 +59,7 @@ export interface LegislativeProcedure {
   relatedTopics: string[];
   relatedMinistries: string[];
   relatedNorms: string[];
+  /** Common editorial stand derived from src/config/editorial.json. */
   confirmedAsOf: string;
   group?: string;
   dateNote?: string;
@@ -124,6 +126,9 @@ function parseProcedure(value: unknown, path: string): LegislativeProcedure {
   }
 
   if (!Array.isArray(entry.sources)) fail(`${path}.sources`, 'muss ein Array sein');
+  if ('confirmedAsOf' in entry) {
+    fail(`${path}.confirmedAsOf`, 'wird zentral aus src/config/editorial.json abgeleitet und darf nicht im Vorgang wiederholt werden');
+  }
   const sources = entry.sources.map((source, index) => {
     const sourceEntry = record(source, `${path}.sources[${index}]`);
     const kind = string(sourceEntry.kind, `${path}.sources[${index}].kind`) as LegislativeSource['kind'];
@@ -187,7 +192,7 @@ function parseProcedure(value: unknown, path: string): LegislativeProcedure {
     relatedTopics: stringArray(entry.relatedTopics, `${path}.relatedTopics`),
     relatedMinistries: stringArray(entry.relatedMinistries, `${path}.relatedMinistries`),
     relatedNorms: stringArray(entry.relatedNorms, `${path}.relatedNorms`),
-    confirmedAsOf: date(entry.confirmedAsOf, `${path}.confirmedAsOf`),
+    confirmedAsOf: PORTAL_REFERENCE_DATE,
     group: optionalString(entry.group, `${path}.group`),
     dateNote: optionalString(entry.dateNote, `${path}.dateNote`),
   };

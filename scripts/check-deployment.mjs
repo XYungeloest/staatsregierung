@@ -2,9 +2,14 @@
 
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
+import { normalizeSiteTargets } from './lib/site-targets.mjs';
 
 const FULL_COMMIT_PATTERN = /^[0-9a-f]{40}$/u;
 const REPRESENTATIVE_NORM = '/norm/erstes-gesetz-zur-grossen-staatsreform/';
+
+export function normalizeDeploymentTargets(value) {
+  return normalizeSiteTargets(value);
+}
 
 function normalizedOrigin(value, label) {
   let url;
@@ -48,10 +53,16 @@ export async function checkDeployment({
   portalSiteUrl,
   lawSiteUrl,
   expectedCommit,
+  targets,
   fetchImpl = fetch,
 }) {
-  const portalOrigin = normalizedOrigin(portalSiteUrl, 'PORTAL_SITE_URL');
-  const lawOrigin = normalizedOrigin(lawSiteUrl, 'LAW_SITE_URL');
+  const selectedTargets = normalizeDeploymentTargets(targets);
+  const checksPortal = selectedTargets.includes('portal');
+  const checksLaw = selectedTargets.includes('law');
+  const portalOrigin = checksPortal ? normalizedOrigin(portalSiteUrl, 'PORTAL_SITE_URL') : undefined;
+  // Die Portalprüfung kontrolliert zusätzlich den Zielorigin des permanenten
+  // /recht/-Redirects, auch wenn nur das Portal ausgeliefert wurde.
+  const lawOrigin = checksLaw || checksPortal ? normalizedOrigin(lawSiteUrl, 'LAW_SITE_URL') : undefined;
   if (!FULL_COMMIT_PATTERN.test(expectedCommit)) {
     throw new Error('EXPECTED_COMMIT muss ein vollständiger 40-stelliger Git-Commit sein.');
   }
@@ -60,27 +71,40 @@ export async function checkDeployment({
   const lawPaths = ['/', '/suche/', REPRESENTATIVE_NORM, '/verkuendungen/', '/sitemap.xml', '/robots.txt'];
   const responses = new Map();
 
-  for (const [origin, paths] of [[portalOrigin, portalPaths], [lawOrigin, lawPaths]]) {
+  const routeGroups = [
+    ...(checksPortal ? [[portalOrigin, portalPaths]] : []),
+    ...(checksLaw ? [[lawOrigin, lawPaths]] : []),
+  ];
+  for (const [origin, paths] of routeGroups) {
     for (const path of paths) {
       const url = new URL(path, `${origin}/`).toString();
       responses.set(url, await expectSuccessfulRoute(fetchImpl, url));
     }
   }
+  const checkedRoutes = routeGroups.reduce((total, [, paths]) => total + paths.length, 0);
 
-  const legacyUrl = new URL(`/recht${REPRESENTATIVE_NORM}`, `${portalOrigin}/`).toString();
-  const expectedRedirect = new URL(REPRESENTATIVE_NORM, `${lawOrigin}/`).toString();
-  const redirect = await checkedFetch(fetchImpl, legacyUrl, { redirect: 'manual' });
-  if (![301, 308].includes(redirect.status)) {
-    throw new Error(`${legacyUrl} antwortet mit HTTP ${redirect.status}; erwartet wurde ein permanenter Redirect (301 oder 308).`);
-  }
-  const location = redirect.headers.get('location');
-  const resolvedLocation = location ? new URL(location, legacyUrl).toString() : '';
-  if (resolvedLocation !== expectedRedirect) {
-    throw new Error(`${legacyUrl} verweist auf ${resolvedLocation || 'kein Ziel'}; erwartet wurde ${expectedRedirect}.`);
+  let redirect;
+  let legacyUrl;
+  let expectedRedirect;
+  if (checksPortal) {
+    legacyUrl = new URL(`/recht${REPRESENTATIVE_NORM}`, `${portalOrigin}/`).toString();
+    expectedRedirect = new URL(REPRESENTATIVE_NORM, `${lawOrigin}/`).toString();
+    redirect = await checkedFetch(fetchImpl, legacyUrl, { redirect: 'manual' });
+    if (![301, 308].includes(redirect.status)) {
+      throw new Error(`${legacyUrl} antwortet mit HTTP ${redirect.status}; erwartet wurde ein permanenter Redirect (301 oder 308).`);
+    }
+    const location = redirect.headers.get('location');
+    const resolvedLocation = location ? new URL(location, legacyUrl).toString() : '';
+    if (resolvedLocation !== expectedRedirect) {
+      throw new Error(`${legacyUrl} verweist auf ${resolvedLocation || 'kein Ziel'}; erwartet wurde ${expectedRedirect}.`);
+    }
   }
 
   const commits = [];
-  for (const origin of [portalOrigin, lawOrigin]) {
+  for (const origin of [
+    ...(checksPortal ? [portalOrigin] : []),
+    ...(checksLaw ? [lawOrigin] : []),
+  ]) {
     const rootUrl = new URL('/', `${origin}/`).toString();
     const response = responses.get(rootUrl);
     const headerCommit = response.headers.get('x-portal-commit') ?? '';
@@ -100,8 +124,11 @@ export async function checkDeployment({
   return {
     portalOrigin,
     lawOrigin,
-    checkedRoutes: portalPaths.length + lawPaths.length,
-    redirect: { source: legacyUrl, target: expectedRedirect, status: redirect.status },
+    targets: selectedTargets,
+    checkedRoutes,
+    redirect: redirect
+      ? { source: legacyUrl, target: expectedRedirect, status: redirect.status }
+      : null,
     commit: expectedCommit,
   };
 }
@@ -116,8 +143,15 @@ async function main() {
 
   for (let attempt = 1; attempt <= attempts; attempt += 1) {
     try {
-      const result = await checkDeployment({ portalSiteUrl, lawSiteUrl, expectedCommit });
-      console.log(`Produktions-Smoketest erfolgreich: ${result.checkedRoutes} Routen, permanenter Altpfad-Redirect und Commit ${result.commit} auf beiden Origins geprüft.`);
+      const result = await checkDeployment({
+        portalSiteUrl,
+        lawSiteUrl,
+        expectedCommit,
+        targets: process.env.DEPLOY_TARGETS,
+      });
+      const targetLabel = result.targets.join(' und ');
+      const redirectLabel = result.redirect ? ', permanenter Altpfad-Redirect' : '';
+      console.log(`Produktions-Smoketest erfolgreich: ${result.checkedRoutes} Routen${redirectLabel} und Commit ${result.commit} auf ${targetLabel} geprüft.`);
       return;
     } catch (error) {
       lastError = error;
