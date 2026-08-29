@@ -1,29 +1,36 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
+import { normalizeSiteTargets } from '../scripts/lib/site-targets.mjs';
+
 const lawUrl = (path: string) => new URL(path, 'http://127.0.0.1:4322').toString();
+const selectedSiteTargets = normalizeSiteTargets(process.env.SITE_TARGETS);
 
 const auditPages = [
-  '/',
-  '/staatsregierung/beteiligungen/',
-  '/staatsregierung/kabinett/',
-  '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
-  '/staatsregierung/mitglieder/max-peterson/',
-  '/haushalt/',
-  '/themen/volksbefragung-2026/',
-  '/kreisreform/',
-  '/suche/',
-  '/service/barrierefreiheit/',
-  '/recht/',
-  lawUrl('/'),
-  lawUrl('/norm/saechsische-gemeindeordnung/'),
-  lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
-  lawUrl('/norm/sero-verordnung/history/'),
-  lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'),
-  lawUrl('/suche/'),
-  lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/'),
-  lawUrl('/verkuendungen/stanzo-2026-33/'),
-  lawUrl('/hilfe/'),
+  ...(selectedSiteTargets.includes('portal') ? [
+    '/',
+    '/staatsregierung/beteiligungen/',
+    '/staatsregierung/kabinett/',
+    '/staatsregierung/kabinett/wirtschaft-arbeitsmarkt-und-beschaeftigung/',
+    '/staatsregierung/mitglieder/max-peterson/',
+    '/haushalt/',
+    '/themen/volksbefragung-2026/',
+    '/kreisreform/',
+    '/suche/',
+    '/service/barrierefreiheit/',
+    '/recht/',
+  ] : []),
+  ...(selectedSiteTargets.includes('law') ? [
+    lawUrl('/'),
+    lawUrl('/norm/saechsische-gemeindeordnung/'),
+    lawUrl('/norm/saechsische-gemeindeordnung/vergleich/?von=2023-11-01&bis=2026-08-01'),
+    lawUrl('/norm/sero-verordnung/history/'),
+    lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'),
+    lawUrl('/suche/'),
+    lawUrl('/sachgebiete/kommunal-und-verwaltungsrecht/'),
+    lawUrl('/verkuendungen/stanzo-2026-33/'),
+    lawUrl('/hilfe/'),
+  ] : []),
 ];
 
 for (const path of auditPages) {

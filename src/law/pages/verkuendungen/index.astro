@@ -7,6 +7,7 @@ import {
   formatPublicationEntryType,
   getLawPortalUrl,
   getPublicationLabel,
+  getPublicationSearchAliases,
   getPublicationUrl,
   getPublicationsUrl,
   loadAllVerkuendungen,
@@ -81,7 +82,7 @@ const entryTypes = [...new Set(publications.flatMap((publication) => publication
               data-year={String(publication.year)}
               data-issue={publication.issue}
               data-type={publication.entries.map((entry) => entry.type).join(' ')}
-              data-q={`${publication.title} ${publication.entries.map((entry) => entry.title).join(' ')}`}
+              data-q={`${publication.title} ${getPublicationSearchAliases(publication).join(' ')} ${publication.entries.map((entry) => entry.title).join(' ')}`}
             >
               <strong>
                 <a class="inline-link" href={getPublicationUrl(publication.slug)}>

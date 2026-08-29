@@ -25,6 +25,17 @@
   "effectiveDate": "2025-09-16",
   "sourceReferences": [
     {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2025 Nr. 9.html",
+      "sha256": "da9f8421018fd725626d9a84b4eb39002e61739421c30d45bfe025d7ee8922cc",
+      "mediaType": "text/html",
+      "pageRange": "2",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
       "kind": "primary-pdf",
       "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
@@ -34,13 +45,16 @@
       "pageCount": 2,
       "pageRange": "2",
       "verifiedAt": "2026-08-28",
-      "sourceRole": "visual-control"
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2025 Nr. 9.html"
     },
     {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription (Altbestand)",
+      "kind": "supplementary-markdown-transcription",
+      "label": "Zusätzliche Markdown-Transkription der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2025 Nr. 9.md"
+      "localSource": "Gesetze/OGVBl. 2025 Nr. 9.md",
+      "sourceRole": "supplementary-transcription",
+      "derivedSource": "Gesetze/OGVBl. 2025 Nr. 9.html"
     }
   ]
 }

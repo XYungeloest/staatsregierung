@@ -182,7 +182,7 @@ jobs:
     needs:
       - classify
       - build
-    if: ${{ needs.classify.outputs.run_full_ui_smoke == 'true' }}
+    if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -198,13 +198,15 @@ jobs:
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
       - name: Zentrale Seiten barrierefrei prüfen
+        env:
+          SITE_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
         run: npm run test:a11y:ci
 
   browser_smoke:
     needs:
       - classify
       - build
-    if: ${{ needs.classify.outputs.run_full_ui_smoke == 'true' }}
+    if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -220,6 +222,8 @@ jobs:
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
       - name: Zentrale Nutzerwege in Chromium prüfen
+        env:
+          SITE_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
         run: npm run test:browsers:ci
 
   deploy:

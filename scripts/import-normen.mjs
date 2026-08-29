@@ -2,6 +2,7 @@
 
 import { readFileSync } from 'node:fs';
 import { access, copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { basename, join, relative, resolve } from 'node:path';
 
 import {
@@ -1303,6 +1304,54 @@ function hasNormContamination(text) {
     /D\s+e\s+r\s+L\s+A\s+N\s+D\s+T\s+A\s+G\s+S\s+P\s+R/u.test(text);
 }
 
+function mergeSourceReferences(existingReferences, incomingReferences) {
+  const incoming = incomingReferences ?? [];
+  const incomingByKey = new Map(incoming.map((reference) => [[
+    reference.kind,
+    reference.localSource,
+    reference.url,
+  ].join('\u0000'), reference]));
+  const sourceReferenceKey = (reference) => [
+    reference.kind,
+    reference.localSource,
+    reference.url,
+  ].join('\u0000');
+  const shouldRefresh = (existing, candidate) => {
+    if (!candidate.sha256 || existing.sha256 === candidate.sha256 || typeof existing.localSource !== 'string') return false;
+    try {
+      const actualHash = createHash('sha256')
+        .update(readFileSync(resolve(ROOT, existing.localSource)))
+        .digest('hex');
+      return existing.sha256 !== actualHash;
+    } catch {
+      return false;
+    }
+  };
+  const merged = [
+    ...(existingReferences ?? []).map((reference) => {
+      const candidate = incomingByKey.get(sourceReferenceKey(reference));
+      return candidate && shouldRefresh(reference, candidate) ? candidate : reference;
+    }),
+    ...incoming.filter((reference) => !(existingReferences ?? []).some((candidate) =>
+      sourceReferenceKey(candidate) === sourceReferenceKey(reference)
+    )),
+  ];
+  const hasStructuredSource = merged.some((reference) => reference.kind === 'structured-html-transcription');
+  if (!hasStructuredSource) return merged;
+
+  return merged.map((reference) => reference.kind === 'legacy-markdown-transcription'
+    ? {
+      ...reference,
+      kind: 'supplementary-markdown-transcription',
+      label: 'Zusätzliche Markdown-Transkription der amtlichen Ausgabe',
+      sourceRole: 'supplementary-transcription',
+      derivedSource: reference.derivedSource ?? merged.find((candidate) =>
+        candidate.kind === 'structured-html-transcription'
+      )?.localSource,
+    }
+    : reference);
+}
+
 async function readExistingRecord(slug) {
   const directory = join(outputDir, slug);
   try {
@@ -1363,16 +1412,7 @@ function mergeWithExisting(record, existing) {
     ...((existing.meta.affectedByNorms || record.meta.affectedByNorms) ? {
       affectedByNorms: existing.meta.affectedByNorms ?? record.meta.affectedByNorms,
     } : {}),
-    sourceReferences: [
-      ...(existing.meta.sourceReferences ?? []),
-      ...(record.meta.sourceReferences ?? []).filter((reference) =>
-        !(existing.meta.sourceReferences ?? []).some((candidate) =>
-          candidate.kind === reference.kind &&
-          candidate.localSource === reference.localSource &&
-          candidate.url === reference.url
-        )
-      ),
-    ],
+    sourceReferences: mergeSourceReferences(existing.meta.sourceReferences, record.meta.sourceReferences),
   };
   const generatedEntryKeys = new Set(incomingHistoryEntries.map((entry) => JSON.stringify([
     entry.date,

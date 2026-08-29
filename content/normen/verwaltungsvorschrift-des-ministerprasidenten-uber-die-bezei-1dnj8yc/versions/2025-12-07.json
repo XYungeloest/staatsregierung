@@ -30,111 +30,125 @@
           "type": "item",
           "label": "1.",
           "text": "Die Landesbehörden verwenden bei der Anfertigung von Dokumenten und Akten die in der nachstehenden Liste aufgeführten Abkürzungen, soweit diese sich auf die entsprechenden Bundesgesetze beziehen.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-1",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "2.",
           "text": "Möchte sich eine Landesbehörde auf ein nicht in der Liste aufgeführtes Bundesgesetze beziehen, so hat sie die bekannte amtliche Abkürzung oder die in der Fachwelt verbreitete Abkürzung zu verwenden.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-1",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "3.",
           "text": "Als Abkürzung ist festgesetzt:",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-1",
+          "numberingStyle": "decimal",
           "children": [
             {
               "type": "item",
               "label": "a.",
               "text": ",,GrundG” für das Grundgesetz für die Bundesrepublik Deutschland,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "b.",
               "text": ",,StGB” für das Strafgesetzbuch,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "c.",
               "text": ",,BGB” für das Bürgerliche Gesetzbuch,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "d.",
               "text": ",,EGStGB” für das Einführungsgesetz zum Strafgesetzbuch,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "e.",
               "text": ",,EGBGB” für das Einführungsgesetz für das Bürgerliche Gesetzbuch,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "f.",
               "text": ",,StVO” für die Straßenverkehrsordnung,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "g.",
               "text": ",,StVG” für das Straßenverkehrsgesetz,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "h.",
               "text": ",,SG” für das Soldatengesetz,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "i.",
               "text": ",,AufenthG” für das Aufenthaltsgesetz,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "j.",
               "text": ",,ArbZG” für das Arbeitszeitgesetz und",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "k.",
               "text": ",,AsylG” für das Asylgesetz.",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             }
           ]

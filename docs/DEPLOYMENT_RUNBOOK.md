@@ -27,9 +27,9 @@ anderem für Suche, Fundstellen und die Rechtsbrücke einliest. Die PDF-Assets u
 2. Der Main-Workflow ermittelt den Scope. Bei `docs-only` endet der Lauf ohne Produktionsdeployment.
 3. Für `portal` oder `law` laufen nur der betroffene Build, dessen Content-/Typprüfungen sowie
    dessen Link- und SEO-Prüfung. Bei `shared` werden beide Anwendungen gebaut und geprüft.
-4. Der vollständige gemeinsame Accessibility- und Browser-Smoke läuft für `shared`. Bei einem
-   einzelnen Ziel bleiben die gezielten statischen Prüfungen auf das veröffentlichte Ziel begrenzt;
-   die manuelle Releaseprüfung bleibt für jede Produktionsfreigabe erforderlich.
+4. Für `portal` und `law` laufen Accessibility- und Browser-Smokes nur gegen das jeweils betroffene
+   Ziel; bei `shared` laufen beide Zielgruppen. Bei `docs-only` gibt es keine UI-Smokes. Die manuelle
+   Releaseprüfung bleibt für jede Produktionsfreigabe erforderlich.
 5. Bei beiden Zielen veröffentlicht der Workflow zuerst OstRecht und danach das Staatsportal. So
    verweist die Portalbrücke erst nach der erfolgreichen Aktualisierung des Rechtsportals auf den
    neuen Stand.
@@ -41,6 +41,16 @@ Ein manuell gestarteter Workflow wird aus Sicherheitsgründen als `shared` behan
 beide Anwendungen wie bisher. Er verwendet standardmäßig `staging`; dafür müssen vollständige
 `portal_site_url` und `law_site_url` angegeben werden. `production` ist nur für eine bewusst
 freigegebene Veröffentlichung zu wählen. Die Eingaben bleiben unverändert.
+
+## Pull-Request-Prüfung
+
+Der Pull-Request-Workflow verwendet denselben zentralen Scope. `docs-only` erhält nur den leichten
+Dokumentationscheck ohne Astro-Build, UI-Smokes oder Cloudflare-Vorschau. Bei `portal` oder `law`
+werden die gemeinsamen Inhalts- und Unit-Prüfungen sowie nur der jeweilige Typecheck, Build, Link- und
+SEO-Lauf und zielbezogene UI-Smoke ausgeführt. `shared` führt den vollständigen Lauf für beide
+Anwendungen aus. Die bestehende Cloudflare-PR-Vorschau bleibt auf `portal` und `shared` beschränkt;
+bei einem reinen `law`-Scope wird sie wegen der bestehenden portalbezogenen Previewarchitektur
+nicht gestartet.
 
 ## Fehlerklasse bestimmen
 

@@ -25,7 +25,11 @@ import {
   isAmendmentRecord,
   type SearchIndexDocument,
 } from '../src/lib/norms/search.ts';
-import { getLatestPublication, loadAllVerkuendungen } from '../src/lib/norms/publications.ts';
+import {
+  findPublicationByDesignation,
+  getLatestPublication,
+  loadAllVerkuendungen,
+} from '../src/lib/norms/publications.ts';
 import { loadAllNorms } from '../src/lib/norms/loader.ts';
 import {
   ContentValidationError,
@@ -717,4 +721,18 @@ test('Rechtsübersichten und Suchindex verwenden dieselbe höchste Verkündung',
     Buffer.byteLength(JSON.stringify(searchIndex)) < 20 * 1024 * 1024,
     'Der Suchindex muss ausreichend Abstand zur Cloudflare-Grenze von 25 MiB halten.',
   );
+});
+
+test('historische Verkündungsbezeichnung bleibt ein Such- und Lookupalias', async () => {
+  const publications = await loadAllVerkuendungen();
+  const searchIndex = await buildSearchIndexPayload();
+
+  for (const designation of ['OABl. 2026 Nr. 2', 'StAnzO. 2026 Nr. 2']) {
+    assert.equal(findPublicationByDesignation(publications, designation)?.slug, 'stanzo-2026-02');
+    const results = runNormSearch(searchIndex.documents, searchState({ q: designation }));
+    assert.equal(new Set(results.map(({ documentEntry }) => documentEntry.publicationSlug)).size, 1);
+    assert.equal(results[0]?.documentEntry.publicationSlug, 'stanzo-2026-02');
+  }
+
+  assert.equal(findPublicationByDesignation(publications, 'OABl. 2025 Nr. 2')?.slug, 'oabl-2025-02');
 });

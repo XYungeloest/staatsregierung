@@ -59,6 +59,7 @@ export interface SearchIndexDocument {
   publicationSlug?: string;
   publicationUrl?: string;
   publicationTitle?: string;
+  publicationAliases?: string[];
   publicationDate?: string;
   publicationIssue?: string;
   publicationSource?: string;
@@ -284,6 +285,7 @@ function buildSearchDocument(
     publicationSlug: publicationReference?.publicationSlug,
     publicationUrl: publicationReference ? getPublicationUrl(publicationReference.publicationSlug) : undefined,
     publicationTitle: publicationReference ? toDisplayText(publicationReference.publicationTitle) : undefined,
+    publicationAliases: publicationReference?.publicationAliases?.map(toDisplayText),
     publicationDate: publicationReference?.publicationDate,
     publicationIssue: publicationReference?.issue,
     publicationSource: publicationReference?.publication,

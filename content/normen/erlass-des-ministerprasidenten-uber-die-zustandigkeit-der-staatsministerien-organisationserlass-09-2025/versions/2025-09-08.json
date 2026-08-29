@@ -18,38 +18,43 @@
           "type": "item",
           "label": "1.",
           "text": "Es erhält das Staatsministerium des Innern, der Justiz, für Migration, Bildung und Heimatschutz, die Bezeichnung Staatsministerium des Innern, für Wohnungsbau und Katastrophenschutz.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-1",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "2.",
           "text": "Dem Staatsministerium des Innern, für Wohnungsbau und Katastrophenschutz wird aus dem Geschäftsbereich",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-1",
+          "numberingStyle": "decimal",
           "children": [
             {
               "type": "item",
               "label": "a.",
               "text": "des Staatsministeriums für Kulturbewahrung, Heimat, Ehrenamt und nationale Minderheiten die Geschäftsbereiche",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
                   "label": "i.",
                   "text": "Ehrenamt und",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-1",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "ii.",
                   "text": "Katastrophenschutz",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-1",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 }
               ]
@@ -58,8 +63,9 @@
               "type": "item",
               "label": "b.",
               "text": "des Staatsministeriums für Wirtschaft, Nachhaltigkeit und Mobilität der Geschäftsbereich Wohnungsmarkt und Wohnungsbau",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-1",
+              "numberingStyle": "lower-latin",
               "children": []
             }
           ]
@@ -88,62 +94,70 @@
           "type": "item",
           "label": "1.",
           "text": "Es erhält das Staatsministerium der für Verkehr, Industrie, Landwirtschaft, Gesundheit und Staatsmodernisierung die Bezeichnung Staatsministerium für Wirtschaft, Nachhaltigkeit und Mobilität.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-2",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "2.",
           "text": "Dem Staatsministerium für Wirtschaft, Nachhaltigkeit und Mobilität wird aus dem Geschäftsbereich",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-2",
+          "numberingStyle": "decimal",
           "children": [
             {
               "type": "item",
               "label": "a.",
               "text": "des Staatsministeriums des Innern, für Wohnungsbau und Katastrophenschutz der Geschäftsbereich der nachhaltigen Entwicklung",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-2",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "b.",
               "text": "des Staatsministeriums der Finanzen, für Wirtschaft und Arbeit die Geschäftsbereiche",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-2",
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
                   "label": "i.",
                   "text": "Wirtschaft,",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-2",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "ii.",
                   "text": "Allgemeine Finanzaufsicht,",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-2",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "iii.",
                   "text": "Umwelt und",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-2",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "iv.",
                   "text": "Tierschutz",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-2",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 }
               ]
@@ -164,55 +178,62 @@
           "type": "item",
           "label": "1.",
           "text": "Es wird ein Staatsministerium der Justiz und für Rechtsstaatlichkeit gebildet.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-3",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "2.",
           "text": "Dem Staatsministerium der Justiz und für Rechtsstaatlichkeit wird aus dem Geschäftsbereich des Staatsministeriums des Innern, für Wohnungsbau und Katastrophenschutz die Geschäftsbereiche der",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-3",
+          "numberingStyle": "decimal",
           "children": [
             {
               "type": "item",
               "label": "a.",
               "text": "Justiz,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-3",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "b.",
               "text": "Rechtsaufsicht,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-3",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "c.",
               "text": "Gerichte,",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-3",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "d.",
               "text": "Angelegenheiten der Staatsanwaltschaft und",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-3",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "e.",
               "text": "Rechtspflege",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-3",
+              "numberingStyle": "lower-latin",
               "children": []
             }
           ]
@@ -231,62 +252,70 @@
           "type": "item",
           "label": "1.",
           "text": "Es wird ein Staatsministerium für Soziales und gesellschaftlichen Zusammenhalt gebildet.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-4",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "2.",
           "text": "Dem Staatsministerium für Soziales und gesellschaftlichen Zusammenhalt werden aus dem",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-4",
+          "numberingStyle": "decimal",
           "children": [
             {
               "type": "item",
               "label": "a.",
               "text": "Staatsministerium der Finanzen die Geschäftsbereiche",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-4",
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
                   "label": "i.",
                   "text": "Arbeitsmarkt,",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "ii.",
                   "text": "Beschäftigung,",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "iii.",
                   "text": "Soziales,",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "iv.",
                   "text": "Frauenförderung und",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "v.",
                   "text": "Gleichstellung.",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 }
               ]
@@ -295,23 +324,26 @@
               "type": "item",
               "label": "b.",
               "text": "Staatsministerium für Wirtschaft, Nachhaltigkeit und Mobilität die Geschäftsbereiche",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-4",
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
                   "label": "i.",
                   "text": "Allgemeine Gesundheitspolitik ohne deren Daseinsvorsorge und",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "ii.",
                   "text": "Ernährung.",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 }
               ]
@@ -320,23 +352,26 @@
               "type": "item",
               "label": "c.",
               "text": "Staatsministerium für Kulturbewahrung, Heimat, Ehrenamt und nationale Minderheiten die Geschäftsbereiche",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-4",
+              "numberingStyle": "lower-latin",
               "children": [
                 {
                   "type": "item",
                   "label": "i.",
                   "text": "Nationale Minderheiten und",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 },
                 {
                   "type": "item",
                   "label": "ii.",
                   "text": "Familie.",
-                  "numberingStyle": "lower-roman",
                   "level": 2,
+                  "listId": "standard-4",
+                  "numberingStyle": "lower-roman",
                   "children": []
                 }
               ]
@@ -345,8 +380,9 @@
               "type": "item",
               "label": "d.",
               "text": "Staatsministerium des Innern, für Wohnungsbau und Katastrophenschutz der Geschäftsbereich Integration",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-4",
+              "numberingStyle": "lower-latin",
               "children": []
             }
           ]
@@ -365,39 +401,44 @@
           "type": "item",
           "label": "1.",
           "text": "Es wird ein Staatsministerium für Bildung, Forschung und Kulturförderung gebildet.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-5",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "2.",
           "text": "Dem Staatsministerium für Bildung, Forschung und Kulturförderung werden aus dem",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-5",
+          "numberingStyle": "decimal",
           "children": [
             {
               "type": "item",
               "label": "a.",
               "text": "Staatsministerium für Wirtschaft, Nachhaltigkeit und Mobilität der Geschäftsbereich Forschung und Forschungsförderung und",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-5",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "b.",
               "text": "Staatsministerium des Innern, für Wohnungsbau und Katastrophenschutz",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-5",
+              "numberingStyle": "lower-latin",
               "children": []
             },
             {
               "type": "item",
               "label": "c.",
               "text": "der Geschäftsbereich Bildung und Hochschulbildung",
-              "numberingStyle": "lower-latin",
               "level": 1,
+              "listId": "standard-5",
+              "numberingStyle": "lower-latin",
               "children": []
             }
           ]
@@ -410,8 +451,9 @@
           "type": "item",
           "label": "3.",
           "text": "Dem Staatsministerium für Bildung, Forschung und Kulturförderung werden alle Geschäftsbereiche des Staatsministeriums für Kulturbewahrung, Heimat, Ehrenamt und nationale Minderheiten übertragen, die nicht einem anderen Staatsministerium übertragen wurden.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-6",
+          "numberingStyle": "decimal",
           "children": []
         }
       ]
@@ -434,24 +476,27 @@
           "type": "item",
           "label": "1.",
           "text": "Alle Zuständigkeitsübertragungen schließen deren europäische und internationale Bezüge sowie die entsprechenden übergeordneten und Querschnittsbereiche wie insbesondere Grundsatz- und Planungsangelegenheiten ein, soweit nicht anders angeordnet.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-7",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "2.",
           "text": "Bei allen Zuständigkeitsübertragungen übertragene Planstellen und Stellen werden mit den Personal- und Sachmitteln entsprechend der von der Staatskanzlei festgesetzten Sätze umgesetzt. Dabei wird von einer Vollfinanzierung der Plan-/ Stellen ausgegangen. Ausschlaggebend sind jeweils die Ausstattungen der Organisationsbereiche zum 1. September 2025.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-7",
+          "numberingStyle": "decimal",
           "children": []
         },
         {
           "type": "item",
           "label": "3.",
           "text": "Organisationseinheiten können noch am Sitz der ehemaligen Obersten Staatsbehörde geführt werden wenn dies vereinbart wird und dem Umständen entsprechend auch dienlich ist.",
-          "numberingStyle": "decimal",
           "level": 0,
+          "listId": "standard-7",
+          "numberingStyle": "decimal",
           "children": []
         }
       ]

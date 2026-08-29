@@ -82,6 +82,7 @@ function normalizedFields(documentEntry: SearchIndexDocument): Record<SearchScop
       documentEntry.citation,
       documentEntry.publication,
       documentEntry.publicationTitle,
+      ...(documentEntry.publicationAliases ?? []),
       documentEntry.publicationDate,
       documentEntry.publicationIssue,
       documentEntry.publicationPage,
@@ -105,6 +106,29 @@ function anySubjectSelected(selected: string[], values: string[]): boolean {
 
 function isDateInRange(date: string, start: string, end: string | null): boolean {
   return start <= date && (!end || date <= end);
+}
+
+function publicationDesignations(documentEntry: SearchIndexDocument): string[] {
+  return [
+    documentEntry.publication ?? '',
+    documentEntry.publication && documentEntry.publicationYear && documentEntry.publicationIssue
+      ? `${documentEntry.publication} ${documentEntry.publicationYear} Nr. ${documentEntry.publicationIssue}`
+      : '',
+    documentEntry.publicationTitle ?? '',
+    ...(documentEntry.publicationAliases ?? []),
+  ].filter(Boolean);
+}
+
+function exactPublicationSlug(documents: SearchIndexDocument[], query: string): string | undefined {
+  const normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) return undefined;
+
+  const matches = new Set(documents
+    .filter((documentEntry) => publicationDesignations(documentEntry)
+      .some((designation) => normalizeSearchText(designation) === normalizedQuery))
+    .map((documentEntry) => documentEntry.publicationSlug)
+    .filter((slug): slug is string => Boolean(slug)));
+  return matches.size === 1 ? [...matches][0] : undefined;
 }
 
 export function matchesNormSearchFilters(
@@ -132,6 +156,7 @@ export function matchesNormSearchFilters(
       documentEntry.initialCitation,
       documentEntry.publication,
       documentEntry.publicationTitle,
+      ...(documentEntry.publicationAliases ?? []),
       documentEntry.publicationDate,
       documentEntry.publicationIssue,
       documentEntry.publicationPage,
@@ -196,8 +221,10 @@ export function runNormSearch(
   documents: SearchIndexDocument[],
   state: NormSearchState,
 ): ScoredSearchResult[] {
+  const publicationSlug = exactPublicationSlug(documents, state.q);
   return documents
-    .filter((entry) => matchesNormSearchFilters(entry, state))
+    .filter((entry) => (!publicationSlug || entry.publicationSlug === publicationSlug)
+      && matchesNormSearchFilters(entry, state))
     .map((documentEntry) => ({
       documentEntry,
       score: scoreNormSearchDocument(documentEntry, state),

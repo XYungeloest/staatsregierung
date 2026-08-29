@@ -19,6 +19,17 @@
   ],
   "sourceReferences": [
     {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 12.html",
+      "sha256": "b3c61e8e4e2880f63497ec4cb96b110120448880e6c8bdc0d8106200d5e55995",
+      "mediaType": "text/html",
+      "pageRange": "2–3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
       "kind": "primary-pdf",
       "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
@@ -28,13 +39,8 @@
       "pageCount": 3,
       "pageRange": "2–3",
       "verifiedAt": "2026-08-28",
-      "sourceRole": "visual-control"
-    },
-    {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription (Altbestand)",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 12.md"
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 12.html"
     },
     {
       "kind": "index",

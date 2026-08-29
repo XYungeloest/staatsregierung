@@ -507,9 +507,13 @@ function makeAtomicTokens(nodes, css, fileName) {
         level,
         numberingStyle,
         counterValue: numberingStyle === 'bullet' ? null : counter,
-        numberingPrefix: parenthesized ? '(' : '',
-        numberingSuffix: parenthesized ? ')' : numberingStyle === 'bullet' ? '' : '.',
-        label: parenthesized ? `(${visible})` : numberingStyle === 'bullet' ? visible : `${visible}.`,
+        numberingPrefix: parenthesized ? '(' : nodeAttrs['data-label-prefix'] ?? '',
+        numberingSuffix: parenthesized ? ')' : numberingStyle === 'bullet' ? '' : nodeAttrs['data-label-suffix'] ?? '.',
+        label: parenthesized
+          ? `(${visible})`
+          : numberingStyle === 'bullet'
+            ? visible
+            : `${nodeAttrs['data-label-prefix'] ?? ''}${visible}${nodeAttrs['data-label-suffix'] ?? '.'}`,
         text: normalizeHtmlText(textWithoutNestedLists(item)).replace(/\n+/gu, ' '),
         startsList: counter === explicitStart,
         indent: visualIndent(item, css, level * 36),
@@ -580,9 +584,18 @@ function makeAtomicTokens(nodes, css, fileName) {
     const numberedHeading = /^h[1-6]$/u.test(node.tagName)
       ? rawText.match(/^(\d+)\.\s+(.+)$/u)
       : null;
+    const nodeAttrs = attrs(node);
+    const explicitStructureType = STRUCTURE_RANK[nodeAttrs['data-structure-type']];
+    const explicitMarker = explicitStructureType && nodeAttrs['data-structure-label']
+      ? {
+        type: nodeAttrs['data-structure-type'],
+        label: nodeAttrs['data-structure-label'],
+        ...(nodeAttrs['data-structure-title'] ? { title: nodeAttrs['data-structure-title'] } : {}),
+      }
+      : null;
     const marker = numberedHeading
       ? { type: 'section', label: `${numberedHeading[1]}.`, title: numberedHeading[2] }
-      : parseStructureMarker(rawText);
+      : explicitMarker ?? parseStructureMarker(rawText);
     const inlineParagraphReference = marker?.type === 'paragraph' &&
       !/^h[1-6]$/u.test(node.tagName) &&
       !rawText.includes('\n') &&
@@ -1050,7 +1063,9 @@ function validateBody(fileName, title, body) {
   const main = flat.filter(({ block, insideQuote }) => !insideQuote && [
     'part', 'chapter', 'section', 'subsection', 'article', 'paragraph', 'annex', 'item', 'subitem', 'table',
   ].includes(block.type));
-  if (main.length === 0) throw new NormHtmlParseError(fileName, `„${title}“ enthält keine erkennbare äußere Gliederung`);
+  if (main.length === 0 && !flat.some(({ block, insideQuote }) => !insideQuote && block.type === 'paragraphText' && block.text?.trim())) {
+    throw new NormHtmlParseError(fileName, `„${title}“ enthält keine erkennbare äußere Gliederung`);
+  }
   const bodyText = flat.map(({ block }) => `${block.label ?? ''} ${block.title ?? ''} ${block.text ?? ''}`).join(' ');
   const contamination = bodyText.match(CONTAMINATION_PATTERN)?.[0];
   if (contamination) throw new NormHtmlParseError(fileName, `Kopf-, Fuß-, CSS-, Bild- oder Signaturdaten sind in den Normkörper von „${title}“ geraten (${contamination})`);

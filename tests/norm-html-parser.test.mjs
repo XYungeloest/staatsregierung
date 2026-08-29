@@ -65,6 +65,20 @@ test('alternative amtliche Ausgaben werden als strukturierte Veröffentlichungen
   assert.deepEqual(validatePublicationParserContract(parsed), []);
 });
 
+test('Altquellen-Transkriptionen bewahren einfache und mehrstufige Legacy-Strukturen', async () => {
+  const [simpleHtml, nestedHtml] = await Promise.all([
+    readFile(new URL('../Gesetze/OABl. 2025 Nr. 3.html', import.meta.url), 'utf8'),
+    readFile(new URL('../Gesetze/OABl. 2025 Nr. 1.html', import.meta.url), 'utf8'),
+  ]);
+  const simple = parsePublicationHtml('OABl. 2025 Nr. 3.html', simpleHtml);
+  const nested = parsePublicationHtml('OABl. 2025 Nr. 1.html', nestedHtml);
+  const flat = flatten(nested.body).map(({ block }) => block);
+
+  assert.equal(simple.body[0]?.type, 'paragraphText');
+  assert.equal(flat.find((block) => block.label === '4.1')?.type, 'subsection');
+  assert.equal(flat.filter((block) => block.label === '5.').length, 2);
+});
+
 test('Ausgabe 46 trennt Mantelgesetz, OstKrBzNG und Bezirksordnung', async () => {
   const parsed = await issue(46);
   const summary = summarizeParsedSource(parsed);

@@ -141,8 +141,8 @@ export function parseStructureMarker(value) {
   if (/^\s*(?:#{1,6}\s*)?(?:\*\*)?[IVXLCDM]+\\?\.(?:\*\*)?\s*$/u.test(raw)) {
     return { type: 'section', label: text };
   }
-  if (/^\s*(?:(?:#{1,6}\s*)|(?:\*\*))\d+(?:\.\d+)*\\?\.(?:\*\*)?\s+.+/u.test(raw)) {
-    const outline = text.match(/^(\d+(?:\.\d+)*\.)\s+(.+)$/u);
+  if (/^\s*(?:(?:#{1,6}\s*)|(?:\*\*))\d+(?:\.\d+)*\\?\.?\s+.+/u.test(raw)) {
+    const outline = text.match(/^(\d+(?:\.\d+)*\.?)\s+(.+)$/u);
     if (outline) return { type: outline[1].includes('.') && outline[1].split('.').filter(Boolean).length > 1 ? 'subsection' : 'section', label: outline[1], title: outline[2] };
   }
   match = text.match(/^(Präambel)\s*(?:[–—:-])?\s*(.*)$/iu);

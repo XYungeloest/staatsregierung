@@ -28,6 +28,17 @@
   "dateNote": "Mit Ablauf des 19. Dezember 2025 durch die umfassende Neuordnung des Organisationserlasses 12/2025 abgelöst.",
   "sourceReferences": [
     {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2025 Nr. 8.html",
+      "sha256": "dd4b4fef8a8f5fed306742a296a7da957c66274d507fec7710e68dd0f155e3bd",
+      "mediaType": "text/html",
+      "pageRange": "2-5",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
       "kind": "primary-pdf",
       "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
@@ -37,13 +48,16 @@
       "pageCount": 5,
       "pageRange": "2-5",
       "verifiedAt": "2026-08-28",
-      "sourceRole": "visual-control"
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2025 Nr. 8.html"
     },
     {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription (Altbestand)",
+      "kind": "supplementary-markdown-transcription",
+      "label": "Zusätzliche Markdown-Transkription der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2025 Nr. 8.md"
+      "localSource": "Gesetze/OGVBl. 2025 Nr. 8.md",
+      "sourceRole": "supplementary-transcription",
+      "derivedSource": "Gesetze/OGVBl. 2025 Nr. 8.html"
     }
   ]
 }
