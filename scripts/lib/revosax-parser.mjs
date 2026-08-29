@@ -214,46 +214,86 @@ function parseTable(table) {
   return { type: 'table', columns: width, children: rows };
 }
 
+function definitionLevel(node) {
+  const classes = String(attributes(node).class ?? '').split(/\s+/u);
+  for (const className of classes) {
+    const match = className.match(/^td_(\d+)$/u);
+    if (match) return Math.max(0, Number.parseInt(match[1], 10) - 1);
+  }
+  return node.tagName === 'dt' ? 0 : null;
+}
+
+function definitionNumberingStyle(label) {
+  if (/^\d+(?:\.\d+)*\.?$/u.test(label) || /^\(\d+\)$/u.test(label)) return 'decimal';
+  if (/^[a-z]+\)$/u.test(label) || /^\([a-z]+\)$/u.test(label)) return 'lower-latin';
+  if (/^[A-Z]+\)$/u.test(label) || /^\([A-Z]+\)$/u.test(label)) return 'upper-latin';
+  if (/^(?:[ivxlcdm]+\.?|\([ivxlcdm]+\))$/u.test(label)) return 'lower-roman';
+  if (/^(?:[IVXLCDM]+\.?|\([IVXLCDM]+\))$/u.test(label)) return 'upper-roman';
+  return 'decimal';
+}
+
 function parseDefinitionList(list) {
   const result = [];
   const children = elementChildren(list).filter((node) => node.tagName === 'dt' || node.tagName === 'dd');
-  let pendingLabel = null;
-  let pendingLevel = 0;
-  let lastTopLevel = null;
+  const anchors = [];
+  let pendingMarkers = [];
+  let rowMaxLevel = -1;
+
+  const appendItem = (marker, text) => {
+    const item = {
+      type: 'item',
+      label: marker.label,
+      text,
+      level: marker.level,
+      numberingStyle: definitionNumberingStyle(marker.label),
+      children: [],
+    };
+    let parent = null;
+    for (let level = marker.level - 1; level >= 0; level -= 1) {
+      if (anchors[level]) {
+        parent = anchors[level];
+        break;
+      }
+    }
+    if (parent) parent.children.push(item);
+    else result.push(item);
+    anchors[marker.level] = item;
+    anchors.length = marker.level + 1;
+    return item;
+  };
+
+  const finishRow = (text) => {
+    if (pendingMarkers.length > 0) {
+      for (const [index, marker] of pendingMarkers.entries()) {
+        appendItem(marker, index === pendingMarkers.length - 1 ? text : '');
+      }
+    } else if (text) {
+      const continuationParent = rowMaxLevel >= 0 ? anchors[rowMaxLevel] : null;
+      if (continuationParent) continuationParent.children.push({ type: 'paragraphText', text });
+      else result.push({ type: 'paragraphText', text });
+    }
+    pendingMarkers = [];
+    rowMaxLevel = -1;
+  };
 
   for (const node of children) {
     const text = textOf(node, { breaks: true });
-    if (node.tagName === 'dt') {
-      pendingLabel = text;
-      pendingLevel = 0;
+    if (hasClass(node, 'last')) {
+      finishRow(text);
       continue;
     }
-    if (/^td_2$/u.test(attributes(node).class ?? '') || hasClass(node, 'td_2')) {
-      pendingLabel = text;
-      pendingLevel = 1;
+    const level = definitionLevel(node);
+    if (level === null) {
+      if (text) finishRow(text);
       continue;
     }
-    if (!hasClass(node, 'last') && !text) continue;
-    if (!pendingLabel) {
-      if (text) result.push({ type: 'paragraphText', text });
-      continue;
-    }
-    const item = {
-      type: 'item',
-      label: pendingLabel,
-      text,
-      level: pendingLevel,
-      numberingStyle: /^[a-z]{1,2}\)$/iu.test(pendingLabel) ? 'lower-latin' : 'decimal',
-      children: [],
-    };
-    if (pendingLevel > 0 && lastTopLevel) lastTopLevel.children.push(item);
-    else {
-      result.push(item);
-      lastTopLevel = item;
-    }
-    pendingLabel = null;
-    pendingLevel = 0;
+    rowMaxLevel = Math.max(rowMaxLevel, level);
+    // REVOSax setzt leere td_N-Zellen ein, um die sichtbare Ebene einer Zeile
+    // zu markieren. Sie erhalten den bestehenden Elternanker, sind aber selbst
+    // weder Gliederungspunkt noch Inhalt.
+    if (text) pendingMarkers.push({ label: text, level });
   }
+  if (pendingMarkers.length > 0) finishRow('');
   return result;
 }
 
@@ -416,6 +456,10 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
     sourceTitle,
     shortTitle: sourceTitle,
     ...(abbr ? { abbr } : {}),
+    // REVOSax aktualisiert dieses Seiten-Vollzitat teilweise auch auf Seiten
+    // historischer Fassungen. Es bleibt Quelleninformation; Materializer müssen
+    // daraus eine zeitlich plausible versionsspezifische Zitierung auswählen.
+    pageFullCitation: fullCitation,
     fullCitation,
     documentDate,
     sourceValidFrom: validFrom,

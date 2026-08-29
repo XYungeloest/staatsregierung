@@ -4,7 +4,7 @@
   "title": "Verordnung zur Änderung der Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
   "shortTitle": "Verordnung zur Änderung der Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
   "abbr": "ÄAPFP",
-  "type": "verordnung",
+  "type": "aenderungsvorschrift",
   "responsibleMinistry": "Staatsministerium des Innern, Bau und für kommunale Angelegenheiten",
   "subjects": [
     "Sicherheit und Ordnung",
@@ -34,10 +34,25 @@
   "effectiveDate": "2026-01-30",
   "sourceReferences": [
     {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/GVBl. 2026 Nr. 12.pdf",
+      "sha256": "6ba6aa57c1751ea0725e59e282333ff11ac0105d12059b62abd1f79c2912b63d",
+      "mediaType": "application/pdf",
+      "pageCount": 3,
+      "pageRange": "2-3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control"
+    },
+    {
       "kind": "legacy-markdown-transcription",
       "label": "Historische Markdown-Transkription (Altbestand)",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl. 2026 Nr. 12.md"
     }
+  ],
+  "affectedNorms": [
+    "ausbildungs-und-pruefungsordnung-polizei"
   ]
 }

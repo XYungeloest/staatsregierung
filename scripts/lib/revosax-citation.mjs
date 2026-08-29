@@ -1,0 +1,83 @@
+const MONTHS = new Map([
+  ['januar', 1], ['februar', 2], ['märz', 3], ['maerz', 3], ['april', 4],
+  ['mai', 5], ['juni', 6], ['juli', 7], ['august', 8], ['september', 9],
+  ['oktober', 10], ['november', 11], ['dezember', 12],
+]);
+
+const WRITTEN_DATE_SOURCE = String.raw`\d{1,2}\.\s*(?:Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+\d{4}`;
+const DOTTED_DATE_SOURCE = String.raw`\d{1,2}\.\d{1,2}\.\d{4}`;
+const DATE_SOURCE = `(?:${WRITTEN_DATE_SOURCE}|${DOTTED_DATE_SOURCE})`;
+
+function parseCitationDate(value) {
+  const dotted = value.match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/u);
+  if (dotted) return `${dotted[3]}-${dotted[2].padStart(2, '0')}-${dotted[1].padStart(2, '0')}`;
+  const written = value.match(/^(\d{1,2})\.\s*([\p{L}]+)\s+(\d{4})$/u);
+  if (!written) return null;
+  const month = MONTHS.get(written[2].toLocaleLowerCase('de'));
+  return month ? `${written[3]}-${String(month).padStart(2, '0')}-${written[1].padStart(2, '0')}` : null;
+}
+
+export function amendmentDatesFromCitation(citation) {
+  const normalized = String(citation ?? '').replace(/\s+/gu, ' ').trim();
+  const values = [];
+  const patterns = [
+    new RegExp(`(?:zuletzt\\s+)?geändert\\s+durch.{0,420}?\\bvom\\s+(${DATE_SOURCE})`, 'giu'),
+    new RegExp(`\\b(?:zuletzt\\s+)?durch.{0,420}?\\bvom\\s+(${DATE_SOURCE}).{0,300}?\\bgeändert(?:en|e|er|es)?\\b`, 'giu'),
+  ];
+  for (const pattern of patterns) {
+    for (const match of normalized.matchAll(pattern)) {
+      const date = parseCitationDate(match[1]);
+      if (date) values.push(date);
+    }
+  }
+  return [...new Set(values)].sort();
+}
+
+export function futureAmendmentDates(citation, sourceValidTo) {
+  if (!sourceValidTo) return [];
+  return amendmentDatesFromCitation(citation).filter((date) => date > sourceValidTo);
+}
+
+function stripFutureAmendmentClause(citation, cutoffDate) {
+  const normalized = String(citation ?? '').replace(/\s+/gu, ' ').trim();
+  const futureDates = futureAmendmentDates(normalized, cutoffDate);
+  if (futureDates.length === 0) return normalized;
+  const firstFutureDate = futureDates[0];
+  const dateIndex = normalized.search(new RegExp(
+    String.raw`(?:\d{1,2}\.\s*(?:Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+${firstFutureDate.slice(0, 4)}|\d{1,2}\.\d{1,2}\.${firstFutureDate.slice(0, 4)})`,
+    'iu',
+  ));
+  if (dateIndex < 0) return null;
+  const prefix = normalized.slice(0, dateIndex);
+  const starts = [...prefix.matchAll(
+    /(?:,\s*(?:(?:das|die|der)\s+)?(?:zuletzt\s+)?(?:durch|geändert\s+durch)|\s+(?:zuletzt\s+)?geändert\s+durch)/giu,
+  )];
+  const start = starts.at(-1)?.index;
+  if (start === undefined) return null;
+  return normalized.slice(0, start).replace(/[\s,;]+$/gu, '').trim();
+}
+
+export function historicalBaselineCitation({
+  pageFullCitation,
+  sourceValidTo,
+  citationValidAt,
+  baselineCitation,
+  sourceCitation,
+  context = 'REVOSax-Ausgangsfassung',
+}) {
+  const explicitCitation = baselineCitation ?? sourceCitation;
+  const citation = explicitCitation ?? pageFullCitation;
+  if (!citation) throw new Error(`${context}: Zitierung fehlt`);
+  const cutoffDate = citationValidAt ?? sourceValidTo;
+  const futureDates = futureAmendmentDates(citation, cutoffDate);
+  if (futureDates.length > 0) {
+    if (!explicitCitation) {
+      const historicalCitation = stripFutureAmendmentClause(citation, cutoffDate);
+      if (historicalCitation) return historicalCitation;
+    }
+    throw new Error(
+      `${context}: Baseline-Zitierung nennt spätere Änderung(en) ${futureDates.join(', ')} nach historischem Rechtsstand ${cutoffDate}`,
+    );
+  }
+  return citation;
+}

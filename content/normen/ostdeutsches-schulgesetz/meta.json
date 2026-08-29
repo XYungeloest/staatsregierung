@@ -1,8 +1,8 @@
 {
   "id": "ostdeutsches-schulgesetz",
   "slug": "ostdeutsches-schulgesetz",
-  "title": "Sächsisches Schulgesetz",
-  "shortTitle": "Sächsisches Schulgesetz",
+  "title": "Schulgesetz für den Freistaat Ostdeutschland",
+  "shortTitle": "Ostdeutsches Schulgesetz",
   "shortTitleSource": "official",
   "type": "gesetz",
   "enactingBody": "Sächsischer Landtag",
@@ -14,7 +14,7 @@
     "Sächsisches",
     "Schulgesetz"
   ],
-  "initialCitation": "Sächsisches Schulgesetz in der Fassung der Bekanntmachung vom 27. September 2018 (SächsGVBl. S. 648), das zuletzt durch Artikel 2 des Gesetzes vom 17. Juli 2024 (SächsGVBl. S. 662) geändert worden ist",
+  "initialCitation": "Sächsisches Schulgesetz in der Fassung der Bekanntmachung vom 27. September 2018 (SächsGVBl. S. 648)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Sächsisches Schulgesetz“.",
@@ -31,8 +31,29 @@
       "sha256": "3d1792a483a1f733746bfe6c38744a10877dfb16398bbaa1dc7d525815719066",
       "lawId": "4192",
       "sourceValidFrom": "2023-08-01",
-      "sourceValidTo": "2023-12-31",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2023-12-31"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 52",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 27",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 27.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 52",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
     }
+  ],
+  "affectedByNorms": [
+    "sportneuordnungsgesetz",
+    "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems"
   ]
 }

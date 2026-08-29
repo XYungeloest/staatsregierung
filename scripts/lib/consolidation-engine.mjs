@@ -2,6 +2,7 @@ import { createHash } from 'node:crypto';
 
 export const CONSOLIDATION_OPERATIONS = [
   'replaceProvision',
+  'replaceBody',
   'replaceSiblingRange',
   'replaceText',
   'insertProvisionBefore',
@@ -15,6 +16,7 @@ export const CONSOLIDATION_OPERATIONS = [
   'amendTable',
   'appendAnnex',
   'designationReplacement',
+  'designationReplacementBody',
   'repealLaw',
 ];
 
@@ -72,7 +74,7 @@ function assertOperationContract(operation) {
   if (operation.expectedMatches === undefined) {
     throw new Error(`${operation.op}: Pflichtfeld expectedMatches fehlt`);
   }
-  if (!['renameLaw', 'repealLaw'].includes(operation.op) && !operation.target) {
+  if (!['renameLaw', 'repealLaw', 'replaceBody', 'designationReplacementBody'].includes(operation.op) && !operation.target) {
     throw new Error(`${operation.op}: eindeutiger Zielanker fehlt`);
   }
   if (!operation.expectedHash && operation.expectedOld === undefined && operation.op !== 'renameLaw') {
@@ -144,6 +146,25 @@ export function applyPatchRecipe(input, recipe) {
         throw new Error(`repealLaw: Zielhash weicht ab (${currentHash} statt ${operation.expectedHash})`);
       }
       result.repealed = true;
+      continue;
+    }
+    if (operation.op === 'replaceBody') {
+      if (operation.expectedMatches !== 1 || !Array.isArray(operation.value)) {
+        throw new Error('replaceBody: genau ein Normkörper und ein Array als value sind erforderlich');
+      }
+      const currentHash = sha256(result.body);
+      if (currentHash !== operation.expectedHash) {
+        throw new Error(`replaceBody: Zielhash weicht ab (${currentHash} statt ${operation.expectedHash})`);
+      }
+      result.body = clone(operation.value);
+      continue;
+    }
+    if (operation.op === 'designationReplacementBody') {
+      const replacement = replaceInObject(result.body, operation.expectedOld, operation.value);
+      if (replacement.matches !== operation.expectedMatches) {
+        throw new Error(`designationReplacementBody (${operation.sourceProvision} / ${JSON.stringify(operation.expectedOld)}): ${replacement.matches} statt ${operation.expectedMatches} Treffer`);
+      }
+      result.body = replacement.value;
       continue;
     }
 

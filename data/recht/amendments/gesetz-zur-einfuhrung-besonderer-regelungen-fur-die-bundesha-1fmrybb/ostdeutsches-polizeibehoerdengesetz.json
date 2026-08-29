@@ -1,0 +1,76 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+  "effectiveDate": "2026-03-25",
+  "versionId": "2026-03-25",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 26)",
+  "resultCitation": "Ostdeutsches Polizeibehördengesetz, geändert durch Artikel 4 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 26)",
+  "changeNote": "Eine besondere Zuständigkeits- und Organisationsregelung für die Bundeshauptstadt Berlin wurde ergänzt.",
+  "commandCoverage": [
+    "Artikel 4 Nummer 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 26",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 26.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 6"
+      },
+      "expectedHash": "534eb298912295e4bb11ccb86b8a2ec740a8c1d5b1c96153cb611ee92843234c",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 6a",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Bundeshauptstadt Berlin kann zur Sicherstellung einer bürgernahen Gefahrenabwehr Aufgaben der Ortspolizeibehörde innerhalb ihres Stadtgebiets durch Hauptsatzung oder Organisationsverfügung auf Bezirksämter oder gleichwertige Organisationseinheiten übertragen, soweit",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "eine einheitliche Rechtsanwendung durch gesamtstädtische Vorgaben gesichert ist und",
+            "level": 0,
+            "listId": "bih6ecev19ll",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die Verantwortung der Bundeshauptstadt Berlin als Ortspolizeibehörde unberührt bleibt.",
+            "level": 0,
+            "listId": "bih6ecev19ll",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Für die Wahrnehmung der nach Absatz 1 übertragenen Aufgaben kann die Bundeshauptstadt Berlin eigene Vollzugsdienste organisatorisch den Bezirken zuordnen; § 9 bleibt unberührt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Das Staatsministerium des Innern kann im Einvernehmen mit dem fachlich zuständigen Staatsministerium durch Rechtsverordnung Mindestanforderungen an einheitliche Standards, Melde- und Lagewege sowie an die Zusammenarbeit mit dem Polizeivollzugsdienst für das Stadtgebiet der Bundeshauptstadt Berlin festlegen.”",
+            "children": []
+          }
+        ],
+        "title": "Besondere sachliche Zuständigkeit und Organisation in der Bundeshauptstadt Berlin"
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 4 Nummer 1",
+      "effectiveDate": "2026-03-25"
+    }
+  ]
+}

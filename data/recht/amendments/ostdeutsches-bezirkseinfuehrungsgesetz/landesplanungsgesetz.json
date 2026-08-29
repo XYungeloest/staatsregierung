@@ -1,0 +1,58 @@
+{
+  "amendmentAct": "ostdeutsches-bezirkseinfuehrungsgesetz",
+  "effectiveDate": "2025-03-12",
+  "versionId": "2025-03-12",
+  "amendmentCitation": "Gesetz vom 6. März 2025 (OGVBl. I/2025 S. 7)",
+  "resultCitation": "Landesplanungsgesetz, geändert durch Artikel 3 des Gesetzes vom 6. März 2025 (OGVBl. I/2025 S. 7)",
+  "changeNote": "Die Raumordnungsbehörde wurde dem jeweiligen Bezirk zugeordnet; der dokumentierte Quellenkonflikt zum territorialen Altwortlaut wurde auf den eindeutigen Ergebniswortlaut aufgelöst.",
+  "commandCoverage": [
+    "Artikel 3 Nummer 1"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. I/2025",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 19"
+      },
+      "expectedHash": "a23f4096504db6da130242bb85e408453c2ef96a31448a53cb1f4c1fa180e1db",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 19",
+        "title": "Raumordnungsbehörden, sachliche Zuständigkeit",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Oberste Raumordnungs- und Landesplanungsbehörde ist das Staatsministerium für Regionalentwicklung.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Raumordnungsbehörde ist der jeweilige Bezirk.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Zuständig ist die Raumordnungsbehörde, soweit nichts anderes bestimmt ist.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Artikel 3 Nummer 1",
+      "effectiveDate": "2025-03-12"
+    }
+  ]
+}

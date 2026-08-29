@@ -1,0 +1,35 @@
+{
+  "amendmentAct": "siebte-verordnung-der-ostdeutschen-staatsregierung-zur-anderung-der-ostdeutschen-arbeitszeitverordnung",
+  "effectiveDate": "2026-02-20",
+  "versionId": "2026-02-20",
+  "amendmentCitation": "Verordnung vom 20. Februar 2026 (OGVBl. 2026 Nr. 13)",
+  "resultCitation": "Ostdeutsche Arbeitszeitverordnung, geändert durch Verordnung vom 20. Februar 2026 (OGVBl. 2026 Nr. 13)",
+  "changeNote": "Die regelmäßige wöchentliche Arbeitszeit wurde von 40 auf 39 Stunden abgesenkt.",
+  "commandCoverage": ["Artikel 1"],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 13",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 13.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 1"
+      },
+      "field": "text",
+      "expectedOld": "Die regelmäßige Arbeitszeit der Beamten beträgt im Durchschnitt wöchentlich 40 Stunden. Die wöchentliche Höchstarbeitszeit darf in einem Bezugszeitraum von vier Monaten im Durchschnitt 48 Stunden nicht überschreiten. Urlaubs- sowie Krankheitszeiten bleiben bei der Berechnung des Durchschnitts unberücksichtigt.",
+      "value": "Die regelmäßige Arbeitszeit der Beamten beträgt im Durchschnitt wöchentlich 39 Stunden. Die wöchentliche Höchstarbeitszeit darf in einem Bezugszeitraum von vier Monaten im Durchschnitt 48 Stunden nicht überschreiten. Urlaubs- sowie Krankheitszeiten bleiben bei der Berechnung des Durchschnitts unberücksichtigt.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 13.html",
+      "sourceProvision": "Artikel 1",
+      "effectiveDate": "2026-02-20"
+    }
+  ]
+}

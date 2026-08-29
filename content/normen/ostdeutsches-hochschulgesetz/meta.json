@@ -1,8 +1,8 @@
 {
   "id": "ostdeutsches-hochschulgesetz",
   "slug": "ostdeutsches-hochschulgesetz",
-  "title": "Sächsisches Hochschulgesetz",
-  "shortTitle": "Sächsisches Hochschulgesetz",
+  "title": "Ostdeutsches Hochschulgesetz",
+  "shortTitle": "Ostdeutsches Hochschulgesetz",
   "abbr": "SächsHSG",
   "shortTitleSource": "official",
   "type": "gesetz",
@@ -16,7 +16,7 @@
     "Sächsisches",
     "Hochschulgesetz"
   ],
-  "initialCitation": "Sächsisches Hochschulgesetz vom 31. Mai 2023 (SächsGVBl. S. 329), das zuletzt durch Artikel 2 des Gesetzes vom 31. Januar 2024 (SächsGVBl. S. 83) geändert worden ist",
+  "initialCitation": "Sächsisches Hochschulgesetz vom 31. Mai 2023 (SächsGVBl. S. 329)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Sächsisches Hochschulgesetz“.",
@@ -33,8 +33,30 @@
       "sha256": "03bb52c8238633f751e5569d7f81ea3724dbac2271e7e88801cc0605f68f1be2",
       "lawId": "19986",
       "sourceValidFrom": "2023-06-22",
-      "sourceValidTo": "2023-12-31",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2023-12-31"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Gesetz vom 27. Januar 2026 (OGVBl. 2026 Nr. 8)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 6.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Gesetz vom 19. Juli 2026 (OGVBl. 2026 Nr. 50)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 57.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 55)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-anderung-des-hochschulmedizingesetzes",
+    "gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht",
+    "sportneuordnungsgesetz"
   ]
 }

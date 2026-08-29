@@ -8,9 +8,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 54.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 54.html",
+      "sha256": "870a2f87e61ae5326578f25325d4159dec1616e6e98b5170dda1d99f7aabd59b",
+      "mediaType": "text/html",
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 54.pdf",
+      "sha256": "1f578fca135a0f9f50da27982f84b49b2202af89fc1089a6fca15698c6d9e0e3",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 54.html"
     }
   ],
   "entries": [
@@ -24,5 +42,6 @@
       "normSlug": "zweites-gesetz-zur-grossen-staatsreform",
       "versionId": "2026-07-21"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/OGVBl. 2026 Nr. 54.pdf"
 }

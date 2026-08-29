@@ -11,24 +11,25 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte strukturierte Transkription der PDF-Lesefassung",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
       "localSource": "Gesetze/Abschiebe-Aussetzungsverordnung.html",
+      "sha256": "c764e690f08cc2b2790517e681d4034633bdcbe4ed4eecb5ae9c6c637a496b5d",
       "mediaType": "text/html",
-      "verifiedAt": "2026-08-27",
-      "sourceRole": "structure-bearing",
-      "derivedSource": "Gesetze/Abschiebe-Aussetzungsverordnung.pdf"
+      "pageRange": "1–4",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliche PDF-Lesefassung der historischen Einzelverkündung",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
       "localSource": "Gesetze/Abschiebe-Aussetzungsverordnung.pdf",
       "sha256": "314662ec15a652a51297251f266b34c3187838af8b1c6e78ff4132dcb18552fb",
       "mediaType": "application/pdf",
       "pageCount": 4,
       "pageRange": "1–4",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/Abschiebe-Aussetzungsverordnung.html"
     }

@@ -29,22 +29,35 @@
   ],
   "sourceReferences": [
     {
-      "kind": "original",
-      "label": "Amtliches Original-PDF der Ausgabe",
-      "availability": "not-versioned",
-      "note": "Für die redaktionelle Erfassung lokal geprüft; nicht Bestandteil des Repositorys."
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 14.html",
+      "sha256": "5de10551d1d40011366ea603654a006f74c871d2f2c5483ce132f2177e40c06a",
+      "mediaType": "text/html",
+      "pageRange": "2–7",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 14.pdf",
+      "sha256": "eb6f7dd592330e953d5b00f3595411486ffe6b27ad192e43a1e71e3da083f61c",
+      "mediaType": "application/pdf",
+      "pageCount": 7,
+      "pageRange": "2–7",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/StAnzO. 2026 Nr. 14.html"
     },
     {
       "kind": "index",
       "label": "Festgeschriebene Liste der amtlichen Verkündungsblätter",
       "availability": "external",
       "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
-    },
-    {
-      "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
-      "availability": "versioned",
-      "localSource": "Gesetze/StAnzO. 2026 Nr. 14.html"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/StAnzO. 2026 Nr. 14.pdf"
 }

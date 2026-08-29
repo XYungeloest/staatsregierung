@@ -1,12 +1,28 @@
 {
-  "initialVersionId": "2025-03-12",
+  "initialVersionId": "2023-11-01",
   "entries": [
     {
-      "date": "2025-03-12",
+      "date": "2023-11-01",
       "type": "initial",
-      "title": "Bekanntmachung der geltenden Fassung.",
-      "citation": "Gesetz vom 12. März 2025 (Sächsisches Verwaltungsorganisationsgesetz)",
-      "affectingVersionId": "2025-03-12"
+      "title": "Vollständige Ausgangsfassung zum verbindlichen Stichtag.",
+      "citation": "Sächsisches Verwaltungsorganisationsgesetz vom 25. November 2003 (SächsGVBl. S. 899)",
+      "affectingVersionId": "2023-11-01"
+    },
+    {
+      "date": "2025-03-12",
+      "type": "amendment",
+      "title": "§ 6 wurde für die Bezirke als allgemeine Staatsbehörden neu gefasst.",
+      "citation": "Gesetz vom 6. März 2025 (OGVBl. I/2025 S. 7)",
+      "affectingVersionId": "2025-03-12",
+      "relatedNorm": "ostdeutsches-bezirkseinfuehrungsgesetz"
+    },
+    {
+      "date": "2026-07-21",
+      "type": "amendment",
+      "title": "§ 6 wurde für die Bezirksverwaltungen neu gefasst.",
+      "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+      "affectingVersionId": "2026-07-21",
+      "relatedNorm": "kreis-und-bezirksneuordnungsgesetz"
     }
   ]
 }

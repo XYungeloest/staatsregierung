@@ -83,23 +83,25 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte strukturierte Transkription der vollständigen Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl I-25.html",
+      "sha256": "964cfc1b52f095a87a4ee432a1a9b00753cef8d4a92190db3df967304aae22ef",
       "mediaType": "text/html",
-      "verifiedAt": "2026-07-23",
-      "sourceRole": "structure-bearing",
-      "derivedSource": "Gesetze/OGVBl I-25.pdf"
+      "pageRange": "2–15",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliches Original-PDF der Ausgabe",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl I-25.pdf",
       "sha256": "1c8362ccf1fa1f7d7be5c6a267c38ea0dc218efe27b77402eba4de8be72521d7",
       "mediaType": "application/pdf",
       "pageCount": 15,
-      "verifiedAt": "2026-07-23",
+      "pageRange": "2–15",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl I-25.html"
     }

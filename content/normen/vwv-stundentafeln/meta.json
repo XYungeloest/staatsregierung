@@ -1,7 +1,7 @@
 {
   "id": "vwv-stundentafeln",
   "slug": "vwv-stundentafeln",
-  "title": "VwV Stundentafeln",
+  "title": "Verwaltungsvorschrift des Staatsministeriums für Volksbildung und Wissenschaft über Lehrpläne und Stundentafeln für Förderschulen, Abendoberschulen, Abendgymnasien und Kollegs im Freistaat Ostdeutschland (VwV Stundentafeln)",
   "shortTitle": "VwV Stundentafeln",
   "abbr": "VwV Stundentafeln",
   "shortTitleSource": "official",
@@ -14,7 +14,7 @@
     "VwV Stundentafeln",
     "Stundentafeln"
   ],
-  "initialCitation": "VwV Stundentafeln vom 20. Juni 2018 (MBl. SMK S. 347), die zuletzt durch Ziffer II der Verwaltungsvorschrift vom 23. Juli 2026 (MBl. SMK S. 118) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "initialCitation": "VwV Stundentafeln vom 20. Juni 2018 (MBl. SMK S. 347), geändert durch Verwaltungsvorschrift vom 17. August 2021 (MBl. SMK S. 139)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „VwV Stundentafeln“.",
@@ -31,8 +31,28 @@
       "sha256": "8332c0df43be9973ade2dbf7aed6b73a29723ae6718142ea11cd916bf68a2bfa",
       "lawId": "17744",
       "sourceValidFrom": "2021-08-01",
-      "sourceValidTo": "2024-07-31",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2024-07-31"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2024-08-02 bis 2026-07-31",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/vwv-stundentafeln/17744.6.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/17744.6",
+      "retrievedAt": "2026-08-23",
+      "sha256": "041623078af24baf092782aa259fb47eef30de89f01251b40bf2d84f77a58f21",
+      "lawId": "17744",
+      "sourceValidFrom": "2024-08-02",
+      "sourceValidTo": "2026-07-31"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "StAnzO. 2026 Nr. 12",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 12.html"
     }
+  ],
+  "affectedByNorms": [
+    "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf"
   ]
 }

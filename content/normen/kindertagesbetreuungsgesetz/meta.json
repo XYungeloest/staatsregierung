@@ -1,7 +1,7 @@
 {
   "id": "kindertagesbetreuungsgesetz",
   "slug": "kindertagesbetreuungsgesetz",
-  "title": "Gesetz über Kindertagesbetreuung",
+  "title": "Ostdeutsches Gesetz zur Förderung von Kindern in Kindertageseinrichtungen und in Kindertagespflege (Ostdeutsches Kindertagesbetreuungsgesetz – KitaG)",
   "shortTitle": "Gesetz über Kindertagesbetreuung",
   "shortTitleSource": "official",
   "type": "gesetz",
@@ -14,7 +14,7 @@
     "Gesetz",
     "Kindertagesbetreuung"
   ],
-  "initialCitation": "Gesetz über Kindertagesbetreuung in der Fassung der Bekanntmachung vom 15. Mai 2009 (SächsGVBl. S. 225), das zuletzt durch Artikel 13 des Gesetzes vom 27. Juni 2025 (SächsGVBl. S. 285) geändert worden ist",
+  "initialCitation": "Gesetz über Kindertagesbetreuung in der Fassung der Bekanntmachung vom 15. Mai 2009 (SächsGVBl. S. 225)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Gesetz über Kindertagesbetreuung“.",
@@ -31,8 +31,34 @@
       "sha256": "0596508734b2a51e9a129dea12ec4f96f307a58e062b5a4a15444b6ff989cc11",
       "lawId": "1079",
       "sourceValidFrom": "2023-08-01",
-      "sourceValidTo": "2024-08-16",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2024-08-16"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2025-08-01",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/kindertagesbetreuungsgesetz/1079.20.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1079.20",
+      "retrievedAt": "2026-08-23",
+      "sha256": "2b962a26f74f26868e181ce1e8ec68ce80cb1aac90fdef4727e32851bdbcfa89",
+      "lawId": "1079",
+      "sourceValidFrom": "2025-08-01"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 7",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 5.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 55",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-anderung-des-kindertagesbetreuungsgesetzes-zur-ab-1qhf17w",
+    "sportneuordnungsgesetz"
   ]
 }

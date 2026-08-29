@@ -31,9 +31,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 24.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 24.html",
+      "sha256": "1b45bbaa3f0dccbcf4691041e67a315bba01e7f2dde3a572e6c9860468a533d4",
+      "mediaType": "text/html",
+      "pageRange": "2-4",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 24.pdf",
+      "sha256": "bc315a184561c1ed2dfae17faed23fd126c236af3d887b0901dfafc643dabe20",
+      "mediaType": "application/pdf",
+      "pageCount": 4,
+      "pageRange": "2-4",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 24.html"
     },
     {
       "kind": "amendment-source",
@@ -43,7 +61,7 @@
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
       "mediaType": "text/html",
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "amendment-evidence"
     },
     {
@@ -55,7 +73,7 @@
       "mediaType": "application/pdf",
       "pageCount": 5,
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }

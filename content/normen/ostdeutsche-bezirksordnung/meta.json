@@ -28,33 +28,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Strukturierte Ursprungsfassung der Ostdeutschen Bezirksordnung",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/Ostdeutsche Bezirksordnung 2025.html",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sha256": "49aab5174f303d64e803e05a53eb8bc1fabfbe85215d2ead6d89b9accae46446",
       "mediaType": "text/html",
-      "verifiedAt": "2026-07-23",
-      "sourceRole": "structure-bearing",
-      "pageRange": "7-13",
-      "derivedSource": "Gesetze/OGVBl I-25.pdf"
+      "pageRange": "2–56",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliches Original-PDF der Ursprungsfassung",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl I-25.pdf",
-      "sha256": "1c8362ccf1fa1f7d7be5c6a267c38ea0dc218efe27b77402eba4de8be72521d7",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.pdf",
+      "sha256": "6c827c26d821c092407e3aec36e905ea3d32b0e6ad986149be114d08f0d4b61a",
       "mediaType": "application/pdf",
-      "pageCount": 15,
-      "verifiedAt": "2026-07-23",
+      "pageCount": 56,
+      "pageRange": "2–56",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
-      "pageRange": "7-13",
-      "derivedSource": "Gesetze/Ostdeutsche Bezirksordnung 2025.html"
-    },
-    {
-      "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
     },
     {
       "kind": "amendment-source",
@@ -64,7 +58,7 @@
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
       "mediaType": "text/html",
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "amendment-evidence"
     },
     {
@@ -76,7 +70,7 @@
       "mediaType": "application/pdf",
       "pageCount": 5,
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }

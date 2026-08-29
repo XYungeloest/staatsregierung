@@ -705,6 +705,75 @@ function numberingRank(style) {
   return 0;
 }
 
+function standaloneListMarkerToken(token, nextToken) {
+  if (token?.kind !== 'paragraph' || nextToken?.kind !== 'listItem') return null;
+  const label = token.text.trim();
+  let numberingStyle;
+  let counterValue;
+  let numberingPrefix = '';
+  let numberingSuffix = '';
+  let markerRank;
+  if (/^\d+\.$/u.test(label)) {
+    numberingStyle = 'decimal';
+    counterValue = Number.parseInt(label, 10);
+    numberingSuffix = '.';
+    markerRank = 1;
+  } else if (/^[a-z]\)$/iu.test(label)) {
+    numberingStyle = 'lower-latin';
+    counterValue = label.toLocaleLowerCase('de').charCodeAt(0) - 96;
+    numberingSuffix = ')';
+    markerRank = 2;
+  } else if (/^[a-z]{2,3}\)$/iu.test(label)) {
+    numberingStyle = 'lower-latin';
+    counterValue = null;
+    numberingSuffix = ')';
+    markerRank = 3;
+  } else if (/^\(\d+\)$/u.test(label)) {
+    numberingStyle = 'decimal';
+    counterValue = Number.parseInt(label.slice(1), 10);
+    numberingPrefix = '(';
+    numberingSuffix = ')';
+    markerRank = 4;
+  } else if (/^\([a-z]{1,3}\)$/iu.test(label)) {
+    numberingStyle = 'lower-latin';
+    counterValue = null;
+    numberingPrefix = '(';
+    numberingSuffix = ')';
+    markerRank = 5;
+  } else {
+    return null;
+  }
+
+  const childLabel = nextToken.label?.trim() ?? '';
+  const childRank = /^\d+\.$/u.test(childLabel)
+    ? 1
+    : /^[a-z]\)$/iu.test(childLabel)
+      ? 2
+      : /^[a-z]{2,3}\)$/iu.test(childLabel)
+        ? 3
+        : /^\(\d+\)$/u.test(childLabel)
+          ? 4
+          : /^\([a-z]{1,3}\)$/iu.test(childLabel)
+            ? 5
+            : numberingRank(nextToken.numberingStyle);
+  if (childRank <= markerRank) return null;
+
+  return {
+    kind: 'listItem',
+    listId: 'printed-outline',
+    label,
+    text: '',
+    level: 0,
+    numberingStyle,
+    counterValue,
+    numberingPrefix,
+    numberingSuffix,
+    startsList: true,
+    indent: token.indent,
+    opensSublist: true,
+  };
+}
+
 function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes = true } = {}) {
   const root = [];
   const stack = [{ rank: 0, children: root }];
@@ -723,7 +792,9 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
   const groupedTokens = parseAmendmentQuotes
     ? groupAmendmentQuotes(groupIntroducedQuotes(tokens))
     : tokens;
-  for (const token of groupedTokens) {
+  for (let tokenIndex = 0; tokenIndex < groupedTokens.length; tokenIndex += 1) {
+    const originalToken = groupedTokens[tokenIndex];
+    const token = standaloneListMarkerToken(originalToken, groupedTokens[tokenIndex + 1]) ?? originalToken;
     if (token.kind === 'structure') {
       const block = { type: token.marker.type, label: token.marker.label, ...(token.marker.title ? { title: token.marker.title } : {}), children: [] };
       const rank = STRUCTURE_RANK[block.type];
@@ -745,10 +816,16 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
       const paragraphBlock = subparagraph
         ? { type: 'subparagraph', label: `(${subparagraph[1]})`, text: subparagraph[2], children: [] }
         : { type: 'paragraphText', text: token.text };
+      const syntacticallyOpenListItem = lastListState &&
+        lastBlock === lastListState.block &&
+        !lastListState.contextInterrupted &&
+        !/[.!?;:]\s*$/u.test(lastListState.block.text ?? '') &&
+        /\b(?:der|die|das|den|dem|des|ein|eine|einer|einem|einen|ist|sind|bei|durch|für|mit|nach|von|vor|zu|zur|zum)\s*$/iu
+          .test(lastListState.block.text ?? '');
       const continuationOfListItem = !inQuote && !subparagraph && lastListState &&
         !QUOTE_TRIGGER_PATTERN.test(lastListState.block.text ?? '') &&
         !AMENDMENT_REFERENCE_PATTERN.test(lastListState.block.text ?? '') &&
-        (lastListState.continuationOpen || /:\s*$/u.test(lastListState.block.text ?? '')) &&
+        (lastListState.continuationOpen || /:\s*$/u.test(lastListState.block.text ?? '') || syntacticallyOpenListItem) &&
         token.indent >= (lastListState.indent ?? 0) - 0.5;
       const continuationAfterNestedCorrectionList = !parseAmendmentQuotes && !subparagraph && lastListState?.semanticLevel > 0 &&
         token.indent >= (lastListState.indent ?? 0) - 0.5;
@@ -815,9 +892,10 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         !QUOTE_TRIGGER_PATTERN.test(lastListState.block.text ?? '') &&
         !AMENDMENT_REFERENCE_PATTERN.test(lastListState.block.text ?? '') &&
         token.listId !== lastListState.semanticListId &&
-        (deeperVisualIndent || continuedAtSameIndent) &&
+        (deeperVisualIndent || continuedAtSameIndent || lastListState.opensSublist) &&
         (
           continuedAtSameIndent ||
+          lastListState.opensSublist ||
           lastListState.continuationOpen ||
           /:\s*$/u.test(lastListState.block.text ?? '') ||
           (
@@ -902,6 +980,7 @@ function parseTokens(tokens, fileName, { inQuote = false, parseAmendmentQuotes =
         indent: token.indent,
         continuationOpen: false,
         contextInterrupted: false,
+        opensSublist: token.opensSublist === true,
       };
       continue;
     }

@@ -3,10 +3,13 @@
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 
+import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
+
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
 const write = args.includes('--write');
 const all = args.includes('--all');
+const updateExisting = args.includes('--update-existing');
 const targetIndex = args.indexOf('--target');
 const target = targetIndex >= 0 ? args[targetIndex + 1] : null;
 
@@ -85,7 +88,7 @@ function inferSummary(title) {
   return `Enthält die Regelungen der amtlichen Ausgangsfassung „${title}“.`;
 }
 
-function inferredMeta(parsed, configured, slug) {
+function inferredMeta(parsed, configured, slug, initialCitation) {
   const title = configured.title ?? parsed.sourceTitle;
   const type = configured.createMeta?.type ?? inferType(parsed.sourceTitle);
   return {
@@ -105,7 +108,7 @@ function inferredMeta(parsed, configured, slug) {
       parsed.shortTitle,
       ...parsed.sourceTitle.split(/[^\p{L}\d]+/u).filter((word) => word.length >= 5),
     ].filter(Boolean))].slice(0, 16),
-    initialCitation: configured.baselineCitation ?? parsed.fullCitation,
+    initialCitation,
     predecessor: null,
     successor: null,
     summary: configured.createMeta?.summary ?? inferSummary(parsed.sourceTitle),
@@ -140,44 +143,76 @@ async function sourceFor(slug, configured, config) {
 
 async function materialize(slug, configured, config) {
   const normDirectory = resolve(ROOT, 'content/normen', slug);
-  try {
-    const metaPath = join(normDirectory, 'meta.json');
-    await access(metaPath);
-    const existingMeta = await readJson(metaPath);
-    const normalizedMeta = structuredClone(existingMeta);
-    for (const field of ['documentDate', 'publicationDate', 'effectiveDate', 'expiryDate']) {
-      if (normalizedMeta[field] === null) delete normalizedMeta[field];
-    }
-    if (JSON.stringify(normalizedMeta) !== JSON.stringify(existingMeta)) {
-      console.log(`${slug}: unzulässige null-Datumsfelder im materialisierten Stammnormdatensatz bereinigt`);
-      if (write) await writeJson(metaPath, normalizedMeta);
-    } else {
-      console.log(`${slug}: Stammnormdatensatz bereits vorhanden`);
-    }
-    return 'existing';
-  } catch (error) {
-    if (error.code !== 'ENOENT') throw error;
-  }
   const seed = await sourceFor(slug, configured, config);
   const parsed = await readJson(seed.parsedPath);
   if (parsed.sourceValidFrom !== seed.source.sourceValidFrom || parsed.sourceValidTo !== seed.source.sourceValidTo) {
     throw new Error(`${slug}: geparstes Gültigkeitsintervall weicht von der Quellenkonfiguration ab`);
   }
+  const citation = historicalBaselineCitation({
+    pageFullCitation: parsed.pageFullCitation ?? parsed.fullCitation,
+    sourceValidTo: seed.source.sourceValidTo,
+    baselineCitation: configured.baselineCitation,
+    sourceCitation: seed.source.citation,
+    context: slug,
+  });
   const reference = sourceReference(seed.source);
-  const meta = {
-    ...inferredMeta(parsed, configured, slug),
+  let existingMeta = null;
+  let existingHistory = null;
+  let existingVersion = null;
+  try {
+    const metaPath = join(normDirectory, 'meta.json');
+    await access(metaPath);
+    existingMeta = await readJson(metaPath);
+    const normalizedMeta = structuredClone(existingMeta);
+    for (const field of ['documentDate', 'publicationDate', 'effectiveDate', 'expiryDate']) {
+      if (normalizedMeta[field] === null) delete normalizedMeta[field];
+    }
+    if (!updateExisting && JSON.stringify(normalizedMeta) !== JSON.stringify(existingMeta)) {
+      console.log(`${slug}: unzulässige null-Datumsfelder im materialisierten Stammnormdatensatz bereinigt`);
+      if (write) await writeJson(metaPath, normalizedMeta);
+    } else if (!updateExisting) {
+      console.log(`${slug}: Stammnormdatensatz bereits vorhanden`);
+    }
+    if (!updateExisting) return 'existing';
+    [existingHistory, existingVersion] = await Promise.all([
+      readJson(join(normDirectory, 'history.json')),
+      readJson(join(normDirectory, 'versions', `${seed.versionId}.json`)),
+    ]);
+  } catch (error) {
+    if (error.code !== 'ENOENT') throw error;
+  }
+  const inferred = inferredMeta(parsed, configured, slug, citation);
+  const retainedMetaReferences = (existingMeta?.sourceReferences ?? [])
+    .filter((entry) => entry.kind !== 'revosax-snapshot');
+  const meta = existingMeta ? {
+    ...existingMeta,
+    initialCitation: citation,
+    sourceReferences: [reference, ...retainedMetaReferences],
+  } : {
+    ...inferred,
     sourceReferences: [reference],
   };
-  const citation = configured.baselineCitation ?? seed.source.citation ?? parsed.fullCitation;
-  const history = {
+  for (const field of ['documentDate', 'publicationDate', 'effectiveDate', 'expiryDate']) {
+    if (meta[field] === null) delete meta[field];
+  }
+  const initialEntry = {
+    date: seed.versionId,
+    type: 'initial',
+    title: seed.historyTitle,
+    citation,
+    affectingVersionId: seed.versionId,
+  };
+  const history = existingHistory ? {
+    ...existingHistory,
     initialVersionId: seed.versionId,
-    entries: [{
-      date: seed.versionId,
-      type: 'initial',
-      title: seed.historyTitle,
-      citation,
-      affectingVersionId: seed.versionId,
-    }],
+    entries: [
+      initialEntry,
+      ...(existingHistory.entries ?? []).filter((entry) =>
+        entry.type !== 'initial' && entry.affectingVersionId !== seed.versionId),
+    ],
+  } : {
+    initialVersionId: seed.versionId,
+    entries: [initialEntry],
   };
   const version = {
     versionId: seed.versionId,
@@ -185,22 +220,23 @@ async function materialize(slug, configured, config) {
     shortTitle: parsed.shortTitle,
     ...(parsed.abbr ? { abbr: parsed.abbr } : {}),
     validFrom: seed.versionId,
-    validTo: null,
-    isCurrent: true,
+    validTo: existingVersion?.validTo ?? null,
+    isCurrent: existingVersion?.isCurrent ?? true,
     citation,
     changeNote: seed.changeNote,
     sourceReferences: [reference],
     sourceNotes: parsed.sourceNotes,
     body: parsed.body,
   };
-  console.log(`${slug}: ${parsed.body.length} äußere Blöcke aus ${seed.parsedPath.replace(`${ROOT}/`, '')} materialisiert`);
-  if (!write) return 'would-create';
+  const action = existingMeta ? 'regeneriert' : 'materialisiert';
+  console.log(`${slug}: ${parsed.body.length} äußere Blöcke aus ${seed.parsedPath.replace(`${ROOT}/`, '')} ${action}`);
+  if (!write) return existingMeta ? 'would-update' : 'would-create';
   await Promise.all([
     writeJson(join(normDirectory, 'meta.json'), meta),
     writeJson(join(normDirectory, 'history.json'), history),
     writeJson(join(normDirectory, 'versions', `${seed.versionId}.json`), version),
   ]);
-  return 'created';
+  return existingMeta ? 'updated' : 'created';
 }
 
 const [config, manifest] = await Promise.all([
@@ -210,10 +246,19 @@ const [config, manifest] = await Promise.all([
 const openSlugs = manifest.targets
   .filter((entry) => entry.status === 'missing-stem-record')
   .map((entry) => entry.canonicalSlug);
-const slugs = all ? openSlugs : [target];
+const regenerableSlugs = [];
+for (const [slug, configured] of Object.entries(config.targets)) {
+  const hasRevosaxSource =
+    (configured.snapshot && (!configured.sourceFormat || configured.sourceFormat === 'revosax-html')) ||
+    configured.adoptedSources?.some((entry) => entry.snapshot && (!entry.sourceFormat || entry.sourceFormat === 'revosax-html'));
+  if (!hasRevosaxSource) continue;
+  regenerableSlugs.push(slug);
+}
+regenerableSlugs.sort();
+const slugs = all ? (updateExisting ? regenerableSlugs : openSlugs) : [target];
 for (const slug of slugs) {
   const configured = config.targets[slug];
   if (!configured) throw new Error(`${slug}: Quellenkonfiguration fehlt`);
   await materialize(slug, configured, config);
 }
-console.log(`${slugs.length} dynamisch aus dem Konsolidierungsmanifest ermittelte Zielnormen geprüft${write ? ' und materialisiert' : ''}.`);
+console.log(`${slugs.length} REVOSax-Zielnormen geprüft${write ? ` und ${updateExisting ? 'regeneriert' : 'materialisiert'}` : ''}.`);

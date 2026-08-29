@@ -222,6 +222,7 @@
       ]
     },
     "saechsische-landkreisordnung": {
+      "resultTitle": "Landkreisordnung für den Freistaat Ostdeutschland",
       "title": "Sächsische Landkreisordnung",
       "resultShortTitle": "Ostdeutsche Landkreisordnung",
       "aliases": [
@@ -398,6 +399,7 @@
       "sourceSha256": "4b97b7f30f716088ef1ad3d09e63e6a20173dde2fa7ecc66b855c977fb063140"
     },
     "archivgesetz": {
+      "resultTitle": "Archivgesetz für den Freistaat Ostdeutschland",
       "title": "Archivgesetz für den Freistaat Sachsen",
       "resultShortTitle": "Archivgesetz für den Freistaat Ostdeutschland",
       "aliases": [
@@ -870,6 +872,7 @@
       "sourceSha256": "2abcd4e8dde17af5e558f176463f4ac23959431b5302bb8f0511041e5b619053"
     },
     "ostdeutsches-polizeivollzugsdienstgesetz": {
+      "resultTitle": "Ostdeutsches Polizeivollzugsdienstgesetz",
       "title": "Sächsisches Polizeivollzugsdienstgesetz",
       "resultShortTitle": "Ostdeutsches Polizeivollzugsdienstgesetz",
       "aliases": [
@@ -910,7 +913,27 @@
       "aliases": [
         "Sächsisches Finanzausgleichsgesetz"
       ],
-      "baselineSnapshotDate": "2023-11-01"
+      "baselineSnapshotDate": "2023-11-01",
+      "adoptedSources": [
+        {
+          "id": "2025-01-01",
+          "versionDate": "2025-01-01",
+          "citation": "Sächsisches Finanzausgleichsgesetz in der Fassung der Bekanntmachung vom 23. April 2021 (SächsGVBl. S. 487), das zuletzt durch Artikel 2 des Gesetzes vom 27. Juni 2025 (SächsGVBl. S. 296) geändert worden ist",
+          "changeNote": "Vom ostdeutschen Änderungsbefehl ausdrücklich bezeichnete sächsische Ausgangsfassung.",
+          "adoptionEvidence": {
+            "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
+            "sourceProvision": "Artikel 8",
+            "text": "Das Finanzausgleichsgesetz für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 23. April 2021 (SächsGVBl. S. 487), das zuletzt durch Artikel 2 des Gesetzes vom 27. Juni 2025 (SächsGVBl. S. 296) geändert worden ist, wird wie folgt geändert:"
+          },
+          "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/5402",
+          "revosaxLawId": "5402",
+          "sourceValidFrom": "2025-01-01",
+          "sourceValidTo": null,
+          "snapshot": "data/recht/sources/revosax/finanzausgleichsgesetz/5402.html",
+          "retrievedAt": "2026-08-28",
+          "sourceSha256": "e98aab590bb2afc25354ae5b35b8a53e49b6b416e934a3bcb2c7d30d91b2ab0a"
+        }
+      ]
     },
     "gesetz-zur-durchfuehrung-des-medienstaatsvertrages-und-des-rundfunkbeitragsstaatsvertrages": {
       "revosaxLawId": "1068",
@@ -941,6 +964,8 @@
       "baselineSnapshotDate": "2023-11-01"
     },
     "kulturraumgesetz": {
+      "resultTitle": "Ostdeutsches Kulturraumgesetz",
+      "resultShortTitle": "Ostdeutsches Kulturraumgesetz",
       "revosaxLawId": "3215",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3215.14",
       "sourceValidFrom": "2023-01-01",
@@ -966,21 +991,22 @@
       "aliases": [
         "Landesplanungsgesetz"
       ],
-      "baselineSnapshotDate": "2023-11-01"
-    },
-    "klassenbildungsverordnung": {
-      "revosaxLawId": "17344",
-      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17344.4",
-      "sourceValidFrom": "2023-08-01",
-      "sourceValidTo": "2024-07-31",
-      "snapshot": "data/recht/sources/revosax/klassenbildungsverordnung/17344.4.html",
-      "retrievedAt": "2026-08-23",
-      "sourceSha256": "4f317d7badf0bd830aa17928f72422f177c1a2515fcdf941122efd34c021ec73",
-      "title": "Sächsische Klassenbildungsverordnung",
-      "aliases": [
-        "Sächsische Klassenbildungsverordnung"
-      ],
-      "baselineSnapshotDate": "2023-11-01"
+      "baselineSnapshotDate": "2023-11-01",
+      "editorialResolutions": [
+        {
+          "id": "landesplanung-2025-paragraf-19-zielwortlaut",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-08-28",
+          "issue": "Artikel 3 Nummer 1 des Gesetzes zur Einführung von Bezirken bezeichnet in § 19 die Landesdirektion Ostdeutschland, während die amtliche REVOSax-Ausgangsfassung dort noch die Landesdirektion Sachsen nennt.",
+          "publishedText": "In § 19 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
+          "resolvedApplication": "Der eindeutig bezeichnete § 19 Absatz 2 wird vollständig mit dem festgelegten Ergebniswortlaut „Raumordnungsbehörde ist der jeweilige Bezirk.“ fortgeschrieben; die übrigen Absätze bleiben unverändert.",
+          "rationale": "Norm, Paragraph, Behörde und Ergebniswortlaut sind eindeutig. Die Abweichung betrifft nur die im Änderungsbefehl vorausgesetzte territoriale Bezeichnung des ersetzten Behördennamens und nicht den festgelegten neuen Rechtszustand.",
+          "evidence": [
+            "Gesetze/OGVBl I-25.html",
+            "data/recht/sources/revosax/landesplanungsgesetz/17907.5.html"
+          ]
+        }
+      ]
     },
     "saechsisches-bestattungsgesetz": {
       "revosaxLawId": "4526",
@@ -997,6 +1023,8 @@
       "baselineSnapshotDate": "2023-11-01"
     },
     "ostdeutsches-schulgesetz": {
+      "resultTitle": "Schulgesetz für den Freistaat Ostdeutschland",
+      "resultShortTitle": "Ostdeutsches Schulgesetz",
       "revosaxLawId": "4192",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/4192.30",
       "sourceValidFrom": "2023-08-01",
@@ -1022,9 +1050,31 @@
       "aliases": [
         "Sächsisches Vermessungs- und Katastergesetz"
       ],
-      "baselineSnapshotDate": "2023-11-01"
+      "baselineSnapshotDate": "2023-11-01",
+      "adoptedSources": [
+        {
+          "id": "2024-07-30",
+          "versionDate": "2024-07-30",
+          "citation": "Sächsisches Vermessungs- und Katastergesetz vom 29. Januar 2008 (SächsGVBl. S. 138, 148), das zuletzt durch Artikel 1 des Gesetzes vom 19. Juni 2024 (SächsGVBl. S. 636) geändert worden ist",
+          "changeNote": "Vom ostdeutschen Änderungsbefehl ausdrücklich bezeichnete sächsische Ausgangsfassung.",
+          "adoptionEvidence": {
+            "amendmentAct": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+            "sourceProvision": "Artikel 4",
+            "text": "Das Sächsische Vermessungs- und Katastergesetz vom 29. Januar 2008 (SächsGVBl. S. 138, 148), das zuletzt durch Artikel 1 des Gesetzes vom 19. Juni 2024 (SächsGVBl. S. 636) geändert worden ist, wird wie folgt geändert:"
+          },
+          "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/9851",
+          "revosaxLawId": "9851",
+          "sourceValidFrom": "2024-07-30",
+          "sourceValidTo": null,
+          "snapshot": "data/recht/sources/revosax/vermessungs-und-katastergesetz/9851.html",
+          "retrievedAt": "2026-08-28",
+          "sourceSha256": "79a4084e6d81cb449508ead85f6e4204f46130ab61fa2635c468731bef709166"
+        }
+      ]
     },
     "sachsisches-verwaltungsorganisationsgesetz": {
+      "resultTitle": "Gesetz über die Verwaltungsorganisation des Freistaates Ostdeutschland",
+      "resultShortTitle": "Ostdeutsches Verwaltungsorganisationsgesetz",
       "revosaxLawId": "4355",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/4355.20",
       "sourceValidFrom": "2023-01-01",
@@ -1039,6 +1089,8 @@
       "baselineSnapshotDate": "2023-11-01"
     },
     "ostdeutsches-hochschulgesetz": {
+      "resultTitle": "Ostdeutsches Hochschulgesetz",
+      "resultShortTitle": "Ostdeutsches Hochschulgesetz",
       "revosaxLawId": "19986",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19986.1",
       "sourceValidFrom": "2023-06-22",
@@ -1053,6 +1105,8 @@
       "baselineSnapshotDate": "2023-11-01"
     },
     "ostdeutsche-arbeitszeitverordnung": {
+      "resultTitle": "Ostdeutsche Arbeitszeitverordnung",
+      "resultShortTitle": "Ostdeutsche Arbeitszeitverordnung",
       "revosaxLawId": "4721",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/4721.11",
       "sourceValidFrom": "2022-05-12",
@@ -1066,6 +1120,38 @@
       ],
       "baselineSnapshotDate": "2023-11-01"
     },
+    "ostdeutsche-lehrkraefte-arbeitszeitverordnung": {
+      "resultTitle": "Ostdeutsche Lehrkräfte-Arbeitszeitverordnung",
+      "resultShortTitle": "Ostdeutsche Lehrkräfte-Arbeitszeitverordnung",
+      "revosaxLawId": "17345",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17345.3",
+      "title": "Sächsische Lehrkräfte-Arbeitszeitverordnung",
+      "aliases": [
+        "Sächsische Lehrkräfte-Arbeitszeitverordnung",
+        "Ostdeutsche Lehrkräfte-Arbeitszeitverordnung"
+      ],
+      "baselineCitation": "Sächsische Lehrkräfte-Arbeitszeitverordnung vom 7. Juli 2017 (SächsGVBl. S. 387), zuletzt geändert durch Verordnung vom 9. August 2022 (SächsGVBl. S. 486)",
+      "baselineSnapshotDate": "2023-11-01",
+      "createMeta": {
+        "type": "verordnung",
+        "enactingBody": "Sächsische Staatsregierung",
+        "subjects": [
+          "Bildung und Wissenschaft",
+          "Öffentlicher Dienst"
+        ],
+        "keywords": [
+          "Lehrkräfte",
+          "Arbeitszeit",
+          "Pflichtstunden"
+        ],
+        "summary": "Regelt die Arbeitszeit und Pflichtstundenzahl der Lehrkräfte im öffentlichen Schuldienst."
+      },
+      "sourceValidFrom": "2022-08-01",
+      "sourceValidTo": "2025-07-31",
+      "snapshot": "data/recht/sources/revosax/ostdeutsche-lehrkraefte-arbeitszeitverordnung/17345.3.html",
+      "retrievedAt": "2026-08-28",
+      "sourceSha256": "ac97ffaf9ab95576e6964b3e5675d73d8fa7e860506d9504a010215a688d73bd"
+    },
     "ostdeutsches-justizgesetz": {
       "revosaxLawId": "3393",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3393.23",
@@ -1076,11 +1162,37 @@
       "sourceSha256": "7fa867f9d202f1155f2a9b1234c911a9422b5fd3722058369bc5f38f24dd37fa",
       "title": "Sächsisches Justizgesetz",
       "aliases": [
-        "Sächsisches Justizgesetz"
+        "Sächsisches Justizgesetz",
+        "Ostdeutsches Justizgesetz"
       ],
-      "baselineSnapshotDate": "2023-11-01"
+      "baselineSnapshotDate": "2023-11-01",
+      "resultTitle": "Ostdeutsches Justizgesetz",
+      "resultShortTitle": "Ostdeutsches Justizgesetz",
+      "dropAbbr": true,
+      "adoptedSources": [
+        {
+          "id": "2024-01-01",
+          "versionDate": "2024-01-01",
+          "citation": "Sächsisches Justizgesetz vom 24. November 2000 (SächsGVBl. S. 482; 2001 S. 704), das zuletzt durch Artikel 3 des Gesetzes vom 13. Dezember 2023 (SächsGVBl. S. 884) geändert worden ist",
+          "changeNote": "Vom ostdeutschen Änderungsbefehl ausdrücklich bezeichnete sächsische Ausgangsfassung.",
+          "adoptionEvidence": {
+            "amendmentAct": "gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh",
+            "sourceProvision": "Artikel 1",
+            "text": "Das Sächsische Justizgesetz in der Fassung der Bekanntmachung vom 24. November 2000 (SächsGVBl. S. 482; 2001 S. 704), das zuletzt durch Artikel 3 des Gesetzes vom 13. Dezember 2023 (SächsGVBl. S. 884) geändert worden ist, wird wie folgt geändert:"
+          },
+          "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3393",
+          "revosaxLawId": "3393",
+          "sourceValidFrom": "2024-01-01",
+          "sourceValidTo": null,
+          "snapshot": "data/recht/sources/revosax/ostdeutsches-justizgesetz/3393.html",
+          "retrievedAt": "2026-08-28",
+          "sourceSha256": "f61c191c0e4bf3c092aa9f7b65001b0d4e8d5aea66da6bbf38c7c17f4426cdc6"
+        }
+      ]
     },
     "ostdeutsches-krankenhausgesetz": {
+      "resultTitle": "Ostdeutsches Krankenhausgesetz",
+      "resultShortTitle": "Ostdeutsches Krankenhausgesetz",
       "revosaxLawId": "19826",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19826.1",
       "sourceValidFrom": "2023-01-01",
@@ -1095,6 +1207,8 @@
       "baselineSnapshotDate": "2023-11-01"
     },
     "ostdeutsches-normenkontrollratsgesetz": {
+      "resultTitle": "Ostdeutsches Normenkontrollratsgesetz",
+      "resultShortTitle": "Ostdeutsches Normenkontrollratsgesetz",
       "revosaxLawId": "14060",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/14060.5",
       "sourceValidFrom": "2023-01-01",
@@ -1109,6 +1223,8 @@
       "baselineSnapshotDate": "2023-11-01"
     },
     "ostdeutsches-personennahverkehrsgesetz": {
+      "resultTitle": "Ostdeutsches Personennahverkehrsgesetz",
+      "resultShortTitle": "Ostdeutsches Personennahverkehrsgesetz",
       "revosaxLawId": "3863",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3863.5",
       "sourceValidFrom": "2012-03-01",
@@ -1123,6 +1239,8 @@
       "baselineSnapshotDate": "2023-11-01"
     },
     "ostdeutsches-polizeibehoerdengesetz": {
+      "resultTitle": "Ostdeutsches Polizeibehördengesetz",
+      "resultShortTitle": "Ostdeutsches Polizeibehördengesetz",
       "revosaxLawId": "18194",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18194.1",
       "sourceValidFrom": "2020-01-01",
@@ -1151,6 +1269,8 @@
       "baselineSnapshotDate": "2023-11-01"
     },
     "waldgesetz": {
+      "resultTitle": "Waldgesetz für den Freistaat Ostdeutschland",
+      "resultShortTitle": "Ostdeutsches Waldgesetz",
       "revosaxLawId": "5405",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/5405.17",
       "sourceValidFrom": "2023-01-01",
@@ -1188,9 +1308,30 @@
       "sourceSha256": "0c8e1875b1e1bd75bf545f49a80a5ce488ccef1fc2dbdd4e0792de2551ffaafc",
       "title": "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
       "aliases": [
-        "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen"
+        "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
+        "Sächsisches Gesundheitsdienstgesetz"
       ],
-      "baselineSnapshotDate": "2023-11-01"
+      "baselineSnapshotDate": "2023-11-01",
+      "adoptedSources": [
+        {
+          "id": "2024-08-17",
+          "versionDate": "2024-08-17",
+          "citation": "Sächsisches Gesundheitsdienstgesetz in der Fassung der Bekanntmachung vom 11. September 2024 (SächsGVBl. S. 858)",
+          "changeNote": "Vom ostdeutschen Änderungsbefehl ausdrücklich bezeichnete Neufassung.",
+          "adoptionEvidence": {
+            "amendmentAct": "sportneuordnungsgesetz",
+            "sourceProvision": "Artikel 11",
+            "text": "Das Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 11. September 2024 wird wie folgt geändert:"
+          },
+          "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3348",
+          "revosaxLawId": "3348",
+          "sourceValidFrom": "2024-08-17",
+          "sourceValidTo": null,
+          "snapshot": "data/recht/sources/revosax/gesundheitsdienstgesetz/3348.html",
+          "retrievedAt": "2026-08-28",
+          "sourceSha256": "e0d5a02ce28a8d9fad47d8b8133fac18cfb5ffd9f0a1bd0d673d1ef76e41d69d"
+        }
+      ]
     },
     "landesbeamtengesetz": {
       "revosaxLawId": "13871",
@@ -1218,6 +1359,7 @@
       "aliases": [
         "VwV Stundentafeln"
       ],
+      "baselineCitation": "VwV Stundentafeln vom 20. Juni 2018 (MBl. SMK S. 347), geändert durch Verwaltungsvorschrift vom 17. August 2021 (MBl. SMK S. 139)",
       "baselineSnapshotDate": "2023-11-01",
       "adoptedSources": [
         {
@@ -1303,8 +1445,11 @@
     },
     "saechsisches-gleichstellungsgesetz": {
       "title": "Sächsisches Gleichstellungsgesetz",
+      "resultShortTitle": "Ostdeutsches Gleichstellungsgesetz",
+      "resultAbbr": "OstGleiG",
       "aliases": [
-        "Sächsisches Gleichstellungsgesetz"
+        "Sächsisches Gleichstellungsgesetz",
+        "Ostdeutsches Gleichstellungsgesetz"
       ],
       "adoptedSources": [
         {
@@ -1315,7 +1460,7 @@
           "adoptionEvidence": {
             "amendmentAct": "gesetz-zur-anderung-des-gleichstellungsgesetzes",
             "sourceProvision": "Artikel 1 Einleitungssatz",
-            "text": "Das Sächsische Gleichstellungsgesetz vom 19. Oktober 2023 (SächsGVBl. S. 850) wird wie folgt geändert."
+            "text": "Das Sächsisches Gleichstellungsgesetz vom 19. Oktober 2023 (SächsGVBl. S. 850) wird wie folgt geändert:"
           },
           "revosaxLawId": "20283",
           "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/20283.1",
@@ -1362,6 +1507,14 @@
     "schulordnung-foerderschulen": {
       "reason": "Verbleibender Quellenkonflikt trotz OGVBl. 2026 Nr. 68: Artikel 1 Nummer 6 Buchstabe b der Änderungsverordnung verlangt in § 8 Absatz 3 die Wörter „Klassenstufen 5 und 6 der Oberschule“. Die verbindliche REVOSax-Ausgangsfassung enthält dort stattdessen „Lehrplänen für die Oberschule“. Die Berichtigung Nr. 68 erfasst nur die Befehle zu § 8 Absatz 2 und § 9 Absatz 2; eine heuristische Umdeutung des nicht berichtigten Befehls ist unzulässig.",
       "effectiveDate": "2026-09-01"
+    },
+    "ostdeutsches-personennahverkehrsgesetz": {
+      "reason": "Artikel 9 Nummer 1 des Kreis- und Bezirksneuordnungsgesetzes ordnet zum 21. Juli 2026 Ergänzungen in § 3 Absatz 1 nach den Wörtern „Landkreise und kreisfreien Städte“ an. Die am 24. März 2026 in Kraft getretene Neufassung des § 3 Absatz 1 enthält diese Wörter nicht mehr; sie stehen nur in Absatz 2. Eine Umdeutung des ausdrücklich bezeichneten Absatzes ist ohne Berichtigung oder andere Primärquelle unzulässig. Die gleichzeitig vorgesehenen weiteren Änderungen werden bis zur Klärung nicht als vollständige Folgefassung ausgegeben.",
+      "effectiveDate": "2026-07-21"
+    },
+    "zehntes-ostdeutsches-kostenverzeichnis": {
+      "reason": "Artikel 3 Nummer 2 des Gesetzes zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes ordnet an, nach Tarifstelle 2 eine neue Tarifstelle 3 anzufügen. Die amtliche, im Änderungsgesetz selbst zitierte Ausgangsfassung des Zehnten Sächsischen Kostenverzeichnisses enthält im einschlägigen Abschnitt bereits eine Tarifstelle 3. Ob Ersetzung, Umnummerierung oder eine zusätzliche Tarifstelle beabsichtigt war, ist aus der Primärquelle nicht eindeutig bestimmbar.",
+      "effectiveDate": "2026-07-01"
     }
   }
 }

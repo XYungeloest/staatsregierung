@@ -1,0 +1,64 @@
+{
+  "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "versionId": "2026-07-21",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+  "resultCitation": "Finanzausgleichsgesetz, geändert durch Artikel 8 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+  "changeNote": "Für die Bezirks- und Kreisneuordnung wurden finanzielle Übergangsregeln eingeführt.",
+  "commandCoverage": [
+    "Artikel 8 Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 54",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 35"
+      },
+      "expectedHash": "8e737d160a3e7cb2a28297ad03e65e91a646df80439905735527b33d681d7f48",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 35a",
+        "title": "Übergangsregelungen aus Anlass der Bezirks- und Kreisneuordnung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Neuordnung der Bezirke und Kreise nach dem Bezirks- und Kreisneuordnungsgesetz lässt die für das Ausgleichsjahr 2026 maßgebenden Berechnungsgrundlagen für Zuweisungen an Gemeinden, Landkreise und kreisfreie Städte unberührt, soweit das Haushaltsgesetz nichts anderes bestimmt.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Soweit ein Landkreis oder eine kreisfreie Stadt nach dem Bezirks- und Kreisneuordnungsgesetz neu gebildet wird, gelten die für die bisherigen Landkreise und kreisfreien Städte festgesetzten Umlagesätze, Steuerkraftmesszahlen, Bedarfsmesszahlen und Zuweisungen bis zur erstmaligen Festsetzung für die neue Körperschaft anteilig fort.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Das für Finanzen zuständige Staatsministerium wird ermächtigt, im Einvernehmen mit dem für Inneres zuständigen Staatsministerium nähere Bestimmungen über die übergangsweise Berechnung, Festsetzung und Auszahlung von Zuweisungen, Umlagen und Ausgleichsbeträgen zu treffen, soweit dies zur Sicherung der Zahlungsfähigkeit der neuen Körperschaften erforderlich ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Ab dem Ausgleichsjahr 2027 sind die neuen Bezirke, Landkreise und kreisfreien Städte nach der durch das Bezirks- und Kreisneuordnungsgesetz bestimmten Gebietsstruktur zu berücksichtigen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 8 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

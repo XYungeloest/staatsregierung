@@ -1,7 +1,7 @@
 {
   "id": "landesplanungsgesetz",
   "slug": "landesplanungsgesetz",
-  "title": "Gesetz zur Raumordnung und Landesplanung des Freistaates Sachsen",
+  "title": "Landesplanungsgesetz",
   "shortTitle": "Landesplanungsgesetz",
   "abbr": "SächsLPlG",
   "type": "gesetz",
@@ -16,17 +16,55 @@
     "Sachsen",
     "SächsLPlG"
   ],
-  "initialCitation": "Gesetz vom 12. März 2025 (Sächsisches Landesplanungsgesetz)",
+  "initialCitation": "Landesplanungsgesetz vom 11. Dezember 2018 (SächsGVBl. S. 706), das zuletzt durch Artikel 1 des Gesetzes vom 10. September 2025 (SächsGVBl. S. 350) geändert worden ist",
   "predecessor": null,
   "successor": null,
   "summary": "Das Gesetz regelt den in „Landesplanungsgesetz“ bezeichneten Gegenstand und bestimmt die maßgeblichen Rechte, Pflichten und Verfahren.",
   "status": "in-force",
   "sourceReferences": [
     {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription (Altbestand)",
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig 2023-09-28 bis 2025-09-24",
       "availability": "versioned",
-      "localSource": "Gesetze/Sächsisches Landesplanungsgesetz.md"
+      "localSource": "data/recht/sources/revosax/landesplanungsgesetz/17907.5.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/17907.5",
+      "retrievedAt": "2026-08-23",
+      "sha256": "c89dce69249e51fc4b4cbf2ef279251ae64b4dbb005f1484cc1306e4e118bf45",
+      "lawId": "17907",
+      "sourceValidFrom": "2023-09-28",
+      "sourceValidTo": "2025-09-24"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. I/2025",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 54",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "documentDate": "2018-12-11",
+  "affectedByNorms": [
+    "ostdeutsches-bezirkseinfuehrungsgesetz",
+    "kreis-und-bezirksneuordnungsgesetz"
+  ],
+  "editorialResolutions": [
+    {
+      "id": "landesplanung-2025-paragraf-19-zielwortlaut",
+      "status": "resolved-source-conflict",
+      "decisionDate": "2026-08-28",
+      "issue": "Artikel 3 Nummer 1 des Gesetzes zur Einführung von Bezirken bezeichnet in § 19 die Landesdirektion Ostdeutschland, während die amtliche REVOSax-Ausgangsfassung dort noch die Landesdirektion Sachsen nennt.",
+      "publishedText": "In § 19 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
+      "resolvedApplication": "Der eindeutig bezeichnete § 19 Absatz 2 wird vollständig mit dem festgelegten Ergebniswortlaut „Raumordnungsbehörde ist der jeweilige Bezirk.“ fortgeschrieben; die übrigen Absätze bleiben unverändert.",
+      "rationale": "Norm, Paragraph, Behörde und Ergebniswortlaut sind eindeutig. Die Abweichung betrifft nur die im Änderungsbefehl vorausgesetzte territoriale Bezeichnung des ersetzten Behördennamens und nicht den festgelegten neuen Rechtszustand.",
+      "evidence": [
+        "Gesetze/OGVBl I-25.html",
+        "data/recht/sources/revosax/landesplanungsgesetz/17907.5.html"
+      ]
     }
   ]
 }

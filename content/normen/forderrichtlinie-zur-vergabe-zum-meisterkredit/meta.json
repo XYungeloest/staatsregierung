@@ -30,6 +30,18 @@
   "effectiveDate": "2025-09-25",
   "sourceReferences": [
     {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OABl. 2025 Nr. 1.pdf",
+      "sha256": "82ef9ad9ea34d55d52549fdedfb0b61796cbf5ba7ab4a70c7a288c723ba5a1f9",
+      "mediaType": "application/pdf",
+      "pageCount": 4,
+      "pageRange": "2-4",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control"
+    },
+    {
       "kind": "legacy-markdown-transcription",
       "label": "Historische Markdown-Transkription (Altbestand)",
       "availability": "versioned",

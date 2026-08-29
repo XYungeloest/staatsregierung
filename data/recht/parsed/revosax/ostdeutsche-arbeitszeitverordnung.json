@@ -1,6 +1,7 @@
 {
   "sourceTitle": "Sächsische Arbeitszeitverordnung",
   "shortTitle": "Sächsische Arbeitszeitverordnung",
+  "pageFullCitation": "Sächsische Arbeitszeitverordnung in der Fassung der Bekanntmachung vom 28. Januar 2008 (SächsGVBl. S. 198), die zuletzt durch Artikel 2 der Verordnung vom 21. November 2024 (SächsGVBl. S. 923) geändert worden ist",
   "fullCitation": "Sächsische Arbeitszeitverordnung in der Fassung der Bekanntmachung vom 28. Januar 2008 (SächsGVBl. S. 198), die zuletzt durch Artikel 2 der Verordnung vom 21. November 2024 (SächsGVBl. S. 923) geändert worden ist",
   "documentDate": "2008-01-28",
   "sourceValidFrom": "2022-05-12",
@@ -587,7 +588,32 @@
               "text": "Die Regelstundenverpflichtung an der Hochschule der Sächsischen Polizei (FH) beträgt im Studien- oder Fortbildungsjahr für",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Professoren 684 UE,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Dozenten 760 UE,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "Lehrkräfte für besondere Aufgaben und Fachlehrer 836 UE.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -603,7 +629,77 @@
               "text": "Die Regelstundenverpflichtung für beim Ausbildungsgericht bestellte Ausbildungsleiter gemäß § 32 Absatz 3 Satz 1 der Ausbildungs- und Prüfungsordnung für Juristen des Freistaates Sachsen in der Fassung der Bekanntmachung vom 7. April 2006 (SächsGVBl. S. 105), die zuletzt durch Artikel 5 des Gesetzes vom 26. Februar 2021 (SächsGVBl. S. 318) geändert worden ist, in der jeweils geltenden Fassung, beträgt im Kalenderjahr",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "bei einer Freistellung zu einem Drittel und zwei neu eingerichteten Arbeitsgemeinschaften 140 UE,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "bei einer Freistellung zur Hälfte und drei neu eingerichteten Arbeitsgemeinschaften 200 UE,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "bei einer Freistellung zu zwei Dritteln und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "aaa)",
+                      "text": "vier neu eingerichteten Arbeitsgemeinschaften 280 UE,",
+                      "level": 3,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "bbb)",
+                      "text": "fünf neu eingerichteten Arbeitsgemeinschaften 230 UE,",
+                      "level": 3,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "ccc)",
+                      "text": "sechs neu eingerichteten Arbeitsgemeinschaften 180 UE,",
+                      "level": 3,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "ddd)",
+                      "text": "sieben neu eingerichteten Arbeitsgemeinschaften 130 UE,",
+                      "level": 3,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "eee)",
+                      "text": "acht neu eingerichteten Arbeitsgemeinschaften 90 UE.",
+                      "level": 3,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die Regelstundenverpflichtung ermäßigt sich um 25 UE für jede neu eingerichtete Arbeitsgemeinschaft im Ergänzungsvorbereitungsdienst. Die Regelstundenverpflichtung für Arbeitsgemeinschaftsleiter beträgt bei einer vollständigen Freistellung 780 UE im Kalenderjahr."
+                }
+              ]
             },
             {
               "type": "item",
@@ -611,117 +707,26 @@
               "text": "Die Regelstundenverpflichtung an der Landesfeuerwehr- und Katastrophenschutzschule Sachsen beträgt im Kalenderjahr für",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Fachlehrer 1 144 UE,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Ausbilder 1 232 UE.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Professoren 684 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Dozenten 760 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Lehrkräfte für besondere Aufgaben und Fachlehrer 836 UE."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bei einer Freistellung zu einem Drittel und zwei neu eingerichteten Arbeitsgemeinschaften 140 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bei einer Freistellung zur Hälfte und drei neu eingerichteten Arbeitsgemeinschaften 200 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bei einer Freistellung zu zwei Dritteln und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "aaa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "vier neu eingerichteten Arbeitsgemeinschaften 280 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bbb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "fünf neu eingerichteten Arbeitsgemeinschaften 230 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ccc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "sechs neu eingerichteten Arbeitsgemeinschaften 180 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ddd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "sieben neu eingerichteten Arbeitsgemeinschaften 130 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "eee)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "acht neu eingerichteten Arbeitsgemeinschaften 90 UE."
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die Regelstundenverpflichtung ermäßigt sich um 25 UE für jede neu eingerichtete Arbeitsgemeinschaft im Ergänzungsvorbereitungsdienst. Die Regelstundenverpflichtung für Arbeitsgemeinschaftsleiter beträgt bei einer vollständigen Freistellung 780 UE im Kalenderjahr."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Fachlehrer 1 144 UE,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Ausbilder 1 232 UE."
         }
       ]
     }

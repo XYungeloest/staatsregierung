@@ -8,9 +8,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 47.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 47.html",
+      "sha256": "f62eab5209234290379ef7244bfee54f9d388c528060dc8f3336817f8be90a79",
+      "mediaType": "text/html",
+      "pageRange": "2–44",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 47.pdf",
+      "sha256": "c1615537752749bd047c2db0e6b95349838d5779bb7d53ca8dbc9b73015dc74d",
+      "mediaType": "application/pdf",
+      "pageCount": 44,
+      "pageRange": "2–44",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 47.html"
     }
   ],
   "entries": [
@@ -51,5 +69,6 @@
       "normSlug": "verkehrsbindungsgesetz",
       "versionId": "2026-07-21"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/OGVBl. 2026 Nr. 47.pdf"
 }

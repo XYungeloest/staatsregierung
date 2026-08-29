@@ -25,6 +25,18 @@
   "effectiveDate": "2025-09-16",
   "sourceReferences": [
     {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2025 Nr. 9.pdf",
+      "sha256": "bf36974221612a86d2a47124836178fd0a39a38c9cf43163e1fadb60a8ecfe6c",
+      "mediaType": "application/pdf",
+      "pageCount": 2,
+      "pageRange": "2",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control"
+    },
+    {
       "kind": "legacy-markdown-transcription",
       "label": "Historische Markdown-Transkription (Altbestand)",
       "availability": "versioned",

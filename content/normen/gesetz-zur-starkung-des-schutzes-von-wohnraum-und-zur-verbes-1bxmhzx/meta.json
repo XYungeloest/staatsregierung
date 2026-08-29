@@ -4,7 +4,7 @@
   "title": "Gesetz zur Stärkung des Schutzes von Wohnraum und zur Verbesserung des Vollzugs des Ostdeutschen Zweckentfremdungsverbotsgesetzes",
   "shortTitle": "Gesetz zur Stärkung des Schutzes von Wohnraum und zur Verbesserung des Vollzugs des Ostdeutschen Zweckentfremdungsverbotsgesetzes",
   "abbr": "SSWVVOZ",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "responsibleMinistry": "Staatsministerium des Innern, Bau und für kommunale Angelegenheiten",
   "subjects": [
     "Wohnen und Bodenordnung"
@@ -32,9 +32,30 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 18.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sha256": "0bb0ca84437ad76ee6ad531cd3c9139f0c01f7b1954e2fc458c680dcf114b2ca",
+      "mediaType": "text/html",
+      "pageRange": "2-9",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 18.pdf",
+      "sha256": "f1c55b878c474042f4dd73ef3a5e30650c08e6c6f11a96c5c9ad94306b2164ec",
+      "mediaType": "application/pdf",
+      "pageCount": 9,
+      "pageRange": "2-9",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 18.html"
     }
+  ],
+  "affectedNorms": [
+    "zweckentfremdungsverbotsgesetz"
   ]
 }

@@ -1,0 +1,26 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+  "effectiveDate": "2026-07-01",
+  "versionId": "2026-07-01",
+  "amendmentCitation": "Gesetz vom 30. Juni 2026 (OGVBl. 2026 Nr. 48)",
+  "resultCitation": "Ostdeutsches Normenkontrollratsgesetz, geändert durch Artikel 5 des Gesetzes vom 30. Juni 2026 (OGVBl. 2026 Nr. 48)",
+  "changeNote": "Der Transparenzvorbehalt wurde auf das Ostdeutsche Transparenz- und Informationsfreiheitsgesetz umgestellt.",
+  "commandCoverage": ["Artikel 5"],
+  "sourceReferences": [{
+    "kind": "amendment-source",
+    "label": "OGVBl. 2026 Nr. 48",
+    "availability": "versioned",
+    "localSource": "Gesetze/OGVBl. 2026 Nr. 48.html"
+  }],
+  "operations": [{
+    "op": "replaceText",
+    "target": { "type": "subparagraph", "label": "(1)", "parentType": "paragraph", "parentLabel": "§ 6" },
+    "field": "text",
+    "expectedOld": "Der Sächsische Normenkontrollrat gibt seine Stellungnahmen nicht öffentlich ab. Gutachtensaufträge und Anhörungen nach § 5 Abs. 1 Nr. 1 sowie deren Ergebnisse sind ebenfalls nicht öffentlich zu behandeln. Das Sächsische Transparenzgesetz vom 19. August 2022 (SächsGVBl. S. 486), in der jeweils geltenden Fassung, bleibt unberührt.",
+    "value": "Der Sächsische Normenkontrollrat gibt seine Stellungnahmen nicht öffentlich ab. Gutachtensaufträge und Anhörungen nach § 5 Abs. 1 Nr. 1 sowie deren Ergebnisse sind ebenfalls nicht öffentlich zu behandeln. Das Ostdeutsche Transparenz- und Informationsfreiheitsgesetz in der jeweils geltenden Fassung bleibt unberührt.",
+    "expectedMatches": 1,
+    "source": "Gesetze/OGVBl. 2026 Nr. 48.html",
+    "sourceProvision": "Artikel 5",
+    "effectiveDate": "2026-07-01"
+  }]
+}

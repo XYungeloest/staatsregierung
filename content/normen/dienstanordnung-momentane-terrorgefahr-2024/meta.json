@@ -29,40 +29,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte strukturierte Transkription der Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl II-24.html",
+      "sha256": "058b560351875ba92af82acaab8890b3ebdd40fc8d46c6c9c6f82a714d8e7684",
       "mediaType": "text/html",
-      "verifiedAt": "2026-07-23",
-      "sourceRole": "structure-bearing",
       "pageRange": "4",
-      "derivedSource": "Gesetze/OGVBl II-24.pdf"
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliches Original-PDF der Ausgabe",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl II-24.pdf",
       "sha256": "9b9b5f8d691c8f4341711a5c30b4c1ac2a03a73a00cbf915688ef8a00b91a6fd",
       "mediaType": "application/pdf",
       "pageCount": 32,
-      "verifiedAt": "2026-07-23",
-      "sourceRole": "visual-control",
       "pageRange": "4",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl II-24.html"
-    },
-    {
-      "kind": "primary-pdf",
-      "label": "Zeitgenössisches amtliches Einzeldokument",
-      "availability": "versioned",
-      "localSource": "Gesetze/Veordnung_24-03_MP.pdf",
-      "url": "/assets/recht/Veordnung_24-03_MP.pdf",
-      "sha256": "b5b1a81aea01146a774f9c3072dd67091e9a511f1e980528941d44cbc964ef43",
-      "mediaType": "application/pdf",
-      "pageCount": 1,
-      "pageRange": "1",
-      "verifiedAt": "2026-08-27",
-      "sourceRole": "visual-control"
     },
     {
       "kind": "amendment-source",
@@ -72,7 +59,7 @@
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
       "mediaType": "text/html",
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "amendment-evidence"
     },
     {
@@ -84,7 +71,7 @@
       "mediaType": "application/pdf",
       "pageCount": 5,
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }

@@ -3970,7 +3970,32 @@
                       "text": "im Ergebnishaushalt unter Angabe des Gesamtbetrages",
                       "level": 1,
                       "numberingStyle": "lower-latin",
-                      "children": []
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "aa)",
+                          "text": "der ordentlichen Erträge und Aufwendungen sowie deren Saldo als veranschlagtes ordentliches Ergebnis,",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "bb)",
+                          "text": "der außerordentlichen Erträge und Aufwendungen und deren Saldo als veranschlagtes Sonderergebnis,",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "cc)",
+                          "text": "des ordentlichen Ergebnisses und des Sonderergebnisses als veranschlagtes Gesamtergebnis,",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        }
+                      ]
                     },
                     {
                       "type": "item",
@@ -3978,7 +4003,40 @@
                       "text": "im Finanzhaushalt unter Angabe des Gesamtbetrages",
                       "level": 1,
                       "numberingStyle": "lower-latin",
-                      "children": []
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "aa)",
+                          "text": "der Einzahlungen und Auszahlungen aus laufender Verwaltungstätigkeit und deren Saldo als Zahlungsmittelüberschuss oder -bedarf aus laufender Verwaltungstätigkeit,",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "bb)",
+                          "text": "der Einzahlungen und Auszahlungen aus Investitionstätigkeit und deren Saldo,",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "cc)",
+                          "text": "aus den Salden nach den Doppelbuchstaben aa und bb als Finanzierungsmittelüberschuss oder -fehlbetrag,",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "dd)",
+                          "text": "der Einzahlungen und Auszahlungen aus Finanzierungstätigkeit und deren Saldo,",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        }
+                      ]
                     },
                     {
                       "type": "item",
@@ -3986,81 +4044,26 @@
                       "text": "unter Angabe des Gesamtbetrages",
                       "level": 1,
                       "numberingStyle": "lower-latin",
-                      "children": []
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "aa)",
+                          "text": "der vorgesehenen Kreditaufnahmen für Investitionen und Investitionsförderungsmaßnahmen (Kreditermächtigung) und",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "bb)",
+                          "text": "der vorgesehenen Ermächtigungen zum Eingehen von Verpflichtungen, die künftige Haushaltsjahre mit Auszahlungen für Investitionen und Investitionsförderungsmaßnahmen belasten (Verpflichtungsermächtigungen),",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        }
+                      ]
                     }
                   ]
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "aa)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "der ordentlichen Erträge und Aufwendungen sowie deren Saldo als veranschlagtes ordentliches Ergebnis,"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "bb)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "der außerordentlichen Erträge und Aufwendungen und deren Saldo als veranschlagtes Sonderergebnis,"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "cc)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "des ordentlichen Ergebnisses und des Sonderergebnisses als veranschlagtes Gesamtergebnis,"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "aa)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "der Einzahlungen und Auszahlungen aus laufender Verwaltungstätigkeit und deren Saldo als Zahlungsmittelüberschuss oder -bedarf aus laufender Verwaltungstätigkeit,"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "bb)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "der Einzahlungen und Auszahlungen aus Investitionstätigkeit und deren Saldo,"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "cc)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "aus den Salden nach den Doppelbuchstaben aa und bb als Finanzierungsmittelüberschuss oder -fehlbetrag,"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "dd)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "der Einzahlungen und Auszahlungen aus Finanzierungstätigkeit und deren Saldo,"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "aa)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "der vorgesehenen Kreditaufnahmen für Investitionen und Investitionsförderungsmaßnahmen (Kreditermächtigung) und"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "bb)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "der vorgesehenen Ermächtigungen zum Eingehen von Verpflichtungen, die künftige Haushaltsjahre mit Auszahlungen für Investitionen und Investitionsförderungsmaßnahmen belasten (Verpflichtungsermächtigungen),"
                 },
                 {
                   "type": "item",

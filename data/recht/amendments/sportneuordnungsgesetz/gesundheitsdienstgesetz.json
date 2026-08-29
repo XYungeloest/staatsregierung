@@ -1,0 +1,112 @@
+{
+  "amendmentAct": "sportneuordnungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "versionId": "2026-07-21",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
+  "resultCitation": "Gesetz über den öffentlichen Gesundheitsdienst, geändert durch Artikel 11 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 52)",
+  "changeNote": "Die Bewegungs- und Sportprävention wurde als Aufgabe der Gesundheitsämter ergänzt.",
+  "commandCoverage": [
+    "Artikel 11 Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 52",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 17"
+      },
+      "expectedHash": "12b2687f040eb471f00115192593d18e833165eb0d86c245a0d1a20e5703204b",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 17a",
+        "title": "Bewegungs- und Sportprävention",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Gesundheitsämter wirken im Rahmen ihrer Aufgaben an der Bewegungs- und Sportprävention mit.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Mitwirkung umfasst insbesondere",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Beratung zu Bewegungsförderung,",
+            "level": 0,
+            "listId": "uf5fk18xle3i",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Unterstützung von Präventionsprogrammen,",
+            "level": 0,
+            "listId": "uf5fk18xle3i",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Mitwirkung an Gesundheits- und Seniorensportangeboten,",
+            "level": 0,
+            "listId": "uf5fk18xle3i",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "Unterstützung von Schwimm- und Bewegungsprogrammen für Kinder und Jugendliche,",
+            "level": 0,
+            "listId": "uf5fk18xle3i",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "Beratung zu inklusiven Sportangeboten und",
+            "level": 0,
+            "listId": "uf5fk18xle3i",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "Mitwirkung an gesundheitsbezogener Evaluation.",
+            "level": 0,
+            "listId": "uf5fk18xle3i",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Medizinische Untersuchungen im Zusammenhang mit Sport- und Bewegungsprogrammen bleiben freiwillig, soweit gesetzlich nichts anderes bestimmt ist.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sourceProvision": "Artikel 11 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

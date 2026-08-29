@@ -1,5 +1,8 @@
 {
   "versionId": "2026-09-01",
+  "title": "Verwaltungsvorschrift zur Verwendung von Formularen für die schulische Verwaltung an allgemeinbildenden Schulen und Schulen des zweiten Bildungsweges im Freistaat Ostdeutschland (VwV Schulformulare)",
+  "shortTitle": "VwV Schulformulare",
+  "abbr": "VwV Schulformulare",
   "validFrom": "2026-09-01",
   "validTo": null,
   "isCurrent": true,
@@ -145,89 +148,90 @@
               "text": "Das Klassenbuch enthält:",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Deckblatt mit Name und Ort der Schule, Klasse, Schuljahr und Name der Klassenlehrerin oder des Klassenlehrers,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Angaben zu den unterrichteten Fächern und Lehrkräften in tabellarischer Form,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "Stundenpläne,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "Ferien,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ee)",
+                  "text": "Namen der Klassensprecherinnen und Klassensprecher,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ff)",
+                  "text": "Schülerverzeichnis mit laufender Nummerierung; bei Papierform die laufenden Nummern 1 bis 35,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "gg)",
+                  "text": "Übersicht zu den Unterrichtsversäumnissen der Schülerinnen und Schüler in tabellarischer Form,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "hh)",
+                  "text": "Berichte über die einzelnen Unterrichtswochen, Stundenausfälle und Unterrichtsversäumnisse der Schülerinnen und Schüler gemäß dem Muster in der Anlage 3 (Wochenbericht), in denen täglich Angaben zu den erteilten Unterrichtsstunden mit genauer Bezeichnung des behandelten Lehrstoffs, den erteilten Hausaufgaben, den fehlenden Schülerinnen und Schülern sowie den Abweichungen vom Stundenplan eingetragen werden, und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ii)",
+                  "text": "Belehrungen.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
               "label": "e)",
-              "text": "Für die Abkürzungen der Fächer gelten die im Freistaat Ostdeutschland geltenden Verwaltungsvorschriften über Lehrpläne und Stundentafeln der jeweiligen Schulart und Schulstufe.“",
+              "text": "Für die Abkürzungen der Fächer gelten die im Freistaat Ostdeutschland geltenden Verwaltungsvorschriften über Lehrpläne und Stundentafeln der jeweiligen Schulart und Schulstufe.",
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Deckblatt mit Name und Ort der Schule, Klasse, Schuljahr und Name der Klassenlehrerin oder des Klassenlehrers,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Angaben zu den unterrichteten Fächern und Lehrkräften in tabellarischer Form,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Stundenpläne,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Ferien,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ee)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Namen der Klassensprecherinnen und Klassensprecher,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ff)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Schülerverzeichnis mit laufender Nummerierung; bei Papierform die laufenden Nummern 1 bis 35,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "gg)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Übersicht zu den Unterrichtsversäumnissen der Schülerinnen und Schüler in tabellarischer Form,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "hh)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Berichte über die einzelnen Unterrichtswochen, Stundenausfälle und Unterrichtsversäumnisse der Schülerinnen und Schüler gemäß dem Muster in der Anlage 3 (Wochenbericht), in denen täglich Angaben zu den erteilten Unterrichtsstunden mit genauer Bezeichnung des behandelten Lehrstoffs, den erteilten Hausaufgaben, den fehlenden Schülerinnen und Schülern sowie den Abweichungen vom Stundenplan eingetragen werden, und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ii)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Belehrungen."
         },
         {
           "type": "item",
@@ -266,49 +270,50 @@
               "text": "Das Notenbuch enthält:",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Deckblatt mit Name und Ort der Schule, Klasse, Schuljahr und Name der Klassenlehrerin oder des Klassenlehrers,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Angaben zu den Fächern und Lehrkräften in tabellarischer Form,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "Schülerverzeichnis mit laufender Nummerierung; bei Papierform die laufenden Nummern 1 bis 35,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "Besonderheiten der Schülerin oder des Schülers, soweit die entsprechenden personenbezogenen Daten gemäß der jeweils geltenden Schulordnung verarbeitet werden dürfen und bei der Leistungsermittlung und -bewertung zu berücksichtigen sind, sowie",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ee)",
+                  "text": "für jedes Fach Eintragungen zu erteilten Noten, verbalen Einschätzungen und erforderlichenfalls Bemerkungen; bei Papierform für jedes Fach eine Doppelseite.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Deckblatt mit Name und Ort der Schule, Klasse, Schuljahr und Name der Klassenlehrerin oder des Klassenlehrers,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Angaben zu den Fächern und Lehrkräften in tabellarischer Form,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Schülerverzeichnis mit laufender Nummerierung; bei Papierform die laufenden Nummern 1 bis 35,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Besonderheiten der Schülerin oder des Schülers, soweit die entsprechenden personenbezogenen Daten gemäß der jeweils geltenden Schulordnung verarbeitet werden dürfen und bei der Leistungsermittlung und -bewertung zu berücksichtigen sind, sowie"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ee)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "für jedes Fach Eintragungen zu erteilten Noten, verbalen Einschätzungen und erforderlichenfalls Bemerkungen; bei Papierform für jedes Fach eine Doppelseite."
         },
         {
           "type": "item",
@@ -347,65 +352,66 @@
               "text": "Das Kursbuch enthält:",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Deckblatt mit Name und Ort der Schule, des Faches, der Kursart, Kursnummer, Jahrgangsstufe, Kurshalbjahr, Schuljahr und Name der Lehrkraft,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Themen der Klausuren,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "die von der Gesamtlehrerkonferenz festgesetzten Termine,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "erforderlichenfalls Eintragungen zu Lehr- und Lernmitteln,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ee)",
+                  "text": "Kursliste gemäß dem Muster in der Anlage 4a; bei Papierform mit den laufenden Nummern 1 bis 35,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ff)",
+                  "text": "Ergebnisse der Klausuren gemäß dem Muster in der Anlage 4b und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "gg)",
+                  "text": "Kursprotokolle gemäß dem Muster in der Anlage 4c.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Deckblatt mit Name und Ort der Schule, des Faches, der Kursart, Kursnummer, Jahrgangsstufe, Kurshalbjahr, Schuljahr und Name der Lehrkraft,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Themen der Klausuren,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "die von der Gesamtlehrerkonferenz festgesetzten Termine,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "erforderlichenfalls Eintragungen zu Lehr- und Lernmitteln,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ee)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Kursliste gemäß dem Muster in der Anlage 4a; bei Papierform mit den laufenden Nummern 1 bis 35,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ff)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Ergebnisse der Klausuren gemäß dem Muster in der Anlage 4b und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "gg)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Kursprotokolle gemäß dem Muster in der Anlage 4c."
         }
       ]
     },
@@ -468,7 +474,48 @@
               "text": "Eine vollständige Sicherung in unveränderbarer elektronischer Form oder in gedruckter Form als geheftetes Dokument ist durchzuführen und verschlossen bei der Schulleiterin oder dem Schulleiter aufzubewahren für:",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "das Schülerübergabeverzeichnis am Ende des jeweiligen Schuljahres,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "die Schülerkartei bei Änderungen und bei Abgang der Schülerin oder des Schülers von der Schule,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "das Klassenbuch am Ende des jeweiligen Schuljahres,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "das Notenbuch am Ende des jeweiligen Schuljahres und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ee)",
+                  "text": "das Kursbuch am Ende des jeweiligen Kurshalbjahres.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -479,46 +526,6 @@
               "children": []
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "das Schülerübergabeverzeichnis am Ende des jeweiligen Schuljahres,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "die Schülerkartei bei Änderungen und bei Abgang der Schülerin oder des Schülers von der Schule,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "das Klassenbuch am Ende des jeweiligen Schuljahres,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "das Notenbuch am Ende des jeweiligen Schuljahres und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ee)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "das Kursbuch am Ende des jeweiligen Kurshalbjahres."
         },
         {
           "type": "item",
@@ -600,7 +607,7 @@
             },
             {
               "type": "paragraphText",
-              "text": "Anmeldung, Abmeldung und Teilnahme an freiwilligem Religions- oder Weltanschauungsunterricht werden nicht in der allgemeinen Schülerkartei, sondern ausschließlich in den Formularen nach der VwV Ethik, Religion und Weltanschauung dokumentiert."
+              "text": "Anmeldung, Abmeldung und Teilnahme an freiwilligem Religions- oder Weltanschauungsunterricht werden nicht in der allgemeinen Schülerkartei, sondern ausschließlich in den Formularen ERW-1 und ERW-2 nach der VwV Ethik sowie Religions- und Weltanschauungsunterricht dokumentiert."
             }
           ]
         },

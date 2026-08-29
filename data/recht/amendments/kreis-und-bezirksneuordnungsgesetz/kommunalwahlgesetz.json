@@ -1,0 +1,428 @@
+{
+  "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "versionId": "2026-07-21",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+  "resultCitation": "Kommunalwahlgesetz, geändert durch Artikel 5 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+  "changeNote": "Bezirkstagswahlen wurden in das Kommunalwahlrecht aufgenommen.",
+  "commandCoverage": [
+    "Artikel 5 Nummern 1 bis 5"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 54",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "section",
+        "label": "Zweiter Abschnitt",
+        "title": "Landratswahlen"
+      },
+      "expectedHash": "c95758ef47752b9bd70404359844eecda4c8e78170fb87b3237334695ad0ce50",
+      "expectedMatches": 1,
+      "value": {
+        "type": "section",
+        "label": "Zweiter Abschnitt a",
+        "title": "Bezirkstagswahlen",
+        "children": [
+          {
+            "type": "paragraph",
+            "label": "§ 56a",
+            "title": "Anwendbarkeit der Vorschriften über Kreistagswahlen",
+            "children": [
+              {
+                "type": "paragraphText",
+                "text": "Für Bezirkstagswahlen gelten die Vorschriften über Kreistagswahlen entsprechend, soweit dieses Gesetz, die Ostdeutsche Bezirksordnung oder das Bezirks- und Kreisneuordnungsgesetz nichts anderes bestimmt."
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "label": "§ 56b",
+            "title": "Wahlgebiet, Wahlkreise und Wahlbezirke",
+            "children": [
+              {
+                "type": "subparagraph",
+                "label": "(1)",
+                "text": "Wahlgebiet ist der Bezirk.",
+                "children": []
+              },
+              {
+                "type": "subparagraph",
+                "label": "(2)",
+                "text": "Die Wahl wird in Wahlkreisen durchgeführt. Bei der Abgrenzung der Wahlkreise sollen die Grenzen der Landkreise, der kreisfreien Städte und der Gemeinden, die örtlichen Verhältnisse und der räumliche Zusammenhang berücksichtigt werden.",
+                "children": []
+              },
+              {
+                "type": "subparagraph",
+                "label": "(3)",
+                "text": "Für die Stimmabgabe bildet jede Gemeinde des Wahlgebiets einen oder mehrere Wahlbezirke. In der Bundeshauptstadt Berlin bilden die Stadtbezirke die Grundlage für die Bildung der Wahlbezirke.",
+                "children": []
+              },
+              {
+                "type": "subparagraph",
+                "label": "(4)",
+                "text": "Für die erste Bezirkstagswahl können durch das Bezirks- und Kreisneuordnungsgesetz oder durch Rechtsverordnung nach Artikel 1 § 17 Absatz 6 des Bezirks- und Kreisneuordnungsgesetzes abweichende Regelungen getroffen werden.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "label": "§ 56c",
+            "title": "Wahlorgane",
+            "children": [
+              {
+                "type": "subparagraph",
+                "label": "(1)",
+                "text": "Wahlorgane sind der Bezirkswahlausschuss, der Vorsitzende des Bezirkswahlausschusses und die Wahlvorstände.",
+                "children": []
+              },
+              {
+                "type": "subparagraph",
+                "label": "(2)",
+                "text": "Vorsitzende:r des Bezirkswahlausschusses ist der Vorsitzende des Rates des Bezirkes. Bis zur Wahl des Vorsitzenden des Rates des Bezirkes nimmt der Übergangsbeauftragte nach dem Bezirks- und Kreisneuordnungsgesetz diese Aufgabe wahr.",
+                "children": []
+              },
+              {
+                "type": "subparagraph",
+                "label": "(3)",
+                "text": "In Berlin ist der für die Wahl zum Stadtrat der Bundeshauptstadt Berlin zuständige Wahlleiter zugleich Vorsitzender des Bezirkswahlausschusses.",
+                "children": []
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "label": "§ 56d",
+            "title": "Wahlkosten",
+            "children": [
+              {
+                "type": "paragraphText",
+                "text": "Die Kosten der Bezirkstagswahl trägt der Bezirk, soweit sie bei ihm anfallen. Kosten, die bei Gemeinden, Landkreisen oder kreisfreien Städten anfallen, werden von diesen getragen. Die Kosten der ersten Bezirkstagswahl trägt der Freistaat Ostdeutschland, soweit sie nicht zugleich Kosten einer allgemeinen Kommunalwahl sind."
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 5 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 57"
+      },
+      "expectedHash": "c63b531b198ce125364c8c682ffe4c4d4ede14fc7623b20e1e254d95c7f97776",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 57",
+        "title": "Verbundene Wahlen",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Finden mehrere Wahlen nach diesem Gesetz am gleichen Wahltag statt, werden sie als verbundene Wahlen durchgeführt. Hierfür gilt Folgendes:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Für alle Wahlen sind einheitliche Wahlbezirke zu bilden und einheitliche Wählerverzeichnisse mit der Maßgabe zu erstellen, dass die nicht für alle Wahlen Wahlberechtigten gesondert aufgeführt werden;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "in jedem Landkreis wird nur ein gemeinsamer Kreiswahlausschuss für die Kreistagswahl und die Landratswahl gewählt; in jedem Bezirk wird nur ein Bezirkswahlausschuss für die Bezirkstagswahl gewählt;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "in jeder Gemeinde wird nur ein gemeinsamer Gemeindewahlausschuss für alle Wahlen gewählt;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "die Wahlräume müssen für alle Wahlen dieselben sein;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "für alle Wahlen sind gemeinsame Wahlscheine auszustellen;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "die Stimmzettel der Wahlen müssen sich in ihrer Farbe voneinander unterscheiden;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "bei Briefwahl ist nur ein Wahlbriefumschlag zu verwenden;",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "8.",
+            "text": "die Unterstützungsverzeichnisse werden an demselben Verwaltungsstandort ausgelegt.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Finden am gleichen Wahltag mit einer Wahl nach diesem Gesetz die Wahl zum Europäischen Parlament, dem Deutschen Bundestag oder dem Sächsischen Landtag statt, können diese in der Gemeinde organisatorisch miteinander verbunden werden. In diesem Fall gilt Absatz 1 Satz 2 Nummer 1, 4 und 6 entsprechend. Finden am gleichen Wahltag Volks- oder Bürgerentscheide statt, können diese ebenfalls entsprechend mit der Kommunalwahl verbunden werden.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 5 Nummer 3",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 62"
+      },
+      "expectedHash": "c13c0614af82d58af00b9e5f883b1b38db0dd4657af81c361b5a3d7b6674a608",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 62",
+        "title": "Kommunalwahlordnung",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Das Staatsministerium des Innern erlässt durch Rechtsverordnung (Kommunalwahlordnung) die zur Durchführung dieses Gesetzes erforderlichen Vorschriften. In der Kommunalwahlordnung können insbesondere nähere Bestimmungen getroffen werden über"
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "öffentliche Bekanntmachungen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die Bildung von Wahlkreisen und Wahlbezirken und ihre öffentliche Bekanntmachung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Bildung von Sonderwahlbezirken, in denen nur mit Wahlschein gewählt werden darf, für Krankenhäuser, Heime und ähnliche Einrichtungen mit Wahlberechtigten, die keinen Wahlraum außerhalb der Einrichtung aufsuchen können,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "den Nachweis des Wahlrechts, die Aufstellung, die Berichtigung und den Abschluss des Wählerverzeichnisses, die Einsichtnahme ins Wählerverzeichnis sowie die Benachrichtigung der Wahlberechtigten,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "die Erteilung von Wahlscheinen und Briefwahlunterlagen sowie die Ausgabe von Wahlscheinen von Amts wegen in besonderen Fällen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "die Einreichung, den Inhalt und die Form der Wahlvorschläge sowie der mit ihnen einzureichenden Nachweise, die Leistung von Unterstützungsunterschriften für Wahlvorschläge, die Änderung und Rücknahme von Wahlvorschlägen, ihre Prüfung, die Beseitigung von Mängeln, die Zulassung und die öffentliche Bekanntmachung der Wahlvorschläge,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "die Verlängerung der Frist zur Einreichung von Wahlvorschlägen zur Gemeinderatswahl, Ortschaftsratswahl oder Kreistagswahl oder Bezirkstagswahl, wenn ein oder kein zulassungsfähiger Wahlvorschlag eingereicht worden ist, oder wenn mehrere Wahlvorschläge eingereicht worden sind und diese zusammen weniger Bewerber als das Eineinhalbfache der Zahl der zu besetzenden Sitze enthalten,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "8.",
+            "text": "die Bildung, die Tätigkeit und das Verfahren der Wahlorgane,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "9.",
+            "text": "die Bereitstellung und Ausstattung der Wahlräume,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "10.",
+            "text": "die Form und den Inhalt der Stimmzettel,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "11.",
+            "text": "die Auswertung von Stimmzetteln,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "12.",
+            "text": "die Form von Stimmzettelumschlägen und Wahlbriefumschlägen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "13.",
+            "text": "den Vorgang der Stimmabgabe und die Ausübung der Briefwahl,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "14.",
+            "text": "die Ermittlung, Feststellung, öffentliche Bekanntmachung und statistische Auswertung der Wahlergebnisse sowie die Benachrichtigung der Gewählten,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "15.",
+            "text": "die Wahlprüfung und Wahlanfechtung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "16.",
+            "text": "die Vorbereitung und Durchführung von Neuwahlen, Wiederholungswahlen und Nachwahlen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "17.",
+            "text": "die Wahlhandlung in Krankenhäusern, Heimen, Klöstern und Justizvollzugsanstalten,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "18.",
+            "text": "das Verfahren bei der gleichzeitigen Durchführung mehrerer Kommunalwahlen einschließlich Bezirkstagswahlen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "19.",
+            "text": "das Verfahren bei gleichzeitiger Durchführung von Kommunalwahlen mit anderen Wahlen oder Abstimmungen; dabei kann, soweit dies für die ordnungsgemäße Vorbereitung und Durchführung der Wahlen oder Abstimmungen erforderlich ist, von den Vorschriften der §§ 4 und 10 Abweichendes geregelt werden,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "20.",
+            "text": "die Besonderheiten bei der Durchführung von Kommunalwahlen in Verwaltungsgemeinschaften und Verwaltungsverbänden, dabei kann, soweit dies für die ordnungsgemäße Vorbereitung und Durchführung der Wahlen erforderlich ist, von den Vorschriften der §§ 9 und 10 Abweichendes geregelt werden,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "21.",
+            "text": "die Festsetzung der Wahlzeit abweichend von § 16, sofern besondere Verhältnisse vorliegen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 5 Nummer 4",
+      "effectiveDate": "2026-07-21"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 65"
+      },
+      "expectedHash": "18f80feb1d0b5bab52f56546b83394c934aeebecc8592b7245d1e9fbde20c758",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 65",
+        "title": "Maßgebende Einwohnerzahl",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Für Wahlen nach diesem Gesetz sind die vom Statistischen Landesamt zum 31. Dezember des zweiten der Wahl vorhergehenden Jahres auf der Grundlage der jeweils letzten Volkszählung fortgeschriebenen Einwohnerzahlen der Gemeinden, Landkreise und Bezirke maßgebend. Abweichend von Satz 1 sind Gebietsänderungen vom Tage der Rechtswirksamkeit an zu berücksichtigen."
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 5 Nummer 5",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

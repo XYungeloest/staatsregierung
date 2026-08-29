@@ -1,6 +1,7 @@
 {
   "sourceTitle": "Sächsische Haushaltsordnung",
   "shortTitle": "Sächsische Haushaltsordnung",
+  "pageFullCitation": "Sächsische Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), die zuletzt durch Artikel 1 des Gesetzes vom 27. Juni 2025 (SächsGVBl. S. 285) geändert worden ist",
   "fullCitation": "Sächsische Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), die zuletzt durch Artikel 1 des Gesetzes vom 27. Juni 2025 (SächsGVBl. S. 285) geändert worden ist",
   "documentDate": null,
   "sourceValidFrom": "2021-06-03",
@@ -2530,11 +2531,19 @@
             },
             {
               "type": "item",
-              "label": "a)",
-              "text": "die Summe der Ist-Einnahmen,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "die Summe der Ist-Einnahmen,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
                 {
                   "type": "item",
                   "label": "b)",
@@ -2566,7 +2575,16 @@
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
-                },
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
                 {
                   "type": "item",
                   "label": "a)",
@@ -2606,11 +2624,19 @@
             },
             {
               "type": "item",
-              "label": "a)",
-              "text": "das kassenmäßige Jahresergebnis nach § 82 Nr. 1 Buchst. c,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "das kassenmäßige Jahresergebnis nach § 82 Nr. 1 Buchst. c,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
                 {
                   "type": "item",
                   "label": "b)",
@@ -2618,7 +2644,16 @@
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
-                },
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
                 {
                   "type": "item",
                   "label": "a)",

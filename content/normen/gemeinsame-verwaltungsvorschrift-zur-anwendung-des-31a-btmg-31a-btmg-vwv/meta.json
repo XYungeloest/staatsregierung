@@ -24,9 +24,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OABl. 2025 Nr. 7.html"
+      "localSource": "Gesetze/OABl. 2025 Nr. 7.html",
+      "sha256": "6e68caa05146ce835fffca6ab1df7c2f2dafe7c0fd228385a3e7dde30043e2fb",
+      "mediaType": "text/html",
+      "pageRange": "2-5",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OABl 2025 Nr 7.pdf",
+      "sha256": "e684bbe67a59982c53e2d1cb2495e9686ac71c736abfc1db1e86637b0d3ca0c8",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2-5",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OABl. 2025 Nr. 7.html"
     }
   ]
 }

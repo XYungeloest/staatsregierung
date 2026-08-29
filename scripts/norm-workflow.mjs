@@ -23,7 +23,11 @@ function run(command, commandArgs, label) {
 }
 
 const selected = files.flatMap((file) => ['--file', file]);
-run('node', ['scripts/import-normen.mjs', '--source-dir', 'Gesetze', '--strict', ...selected], 'Quellen und Parser strikt prüfen');
+run(
+  'node',
+  ['scripts/import-normen.mjs', '--source-dir', 'Gesetze', ...(write ? [] : ['--strict']), ...selected],
+  write ? 'Quellen und Parser vor dem Schreiben prüfen' : 'Quellen und Parser strikt prüfen',
+);
 run('node', ['scripts/revosax-snapshot.mjs', 'audit'], 'versionierte REVOSax-Ausgangsquellen prüfen');
 run('node', ['scripts/audit-consolidation.mjs', '--check'], 'Patch-Rezepte und Konsolidierung auf Sperrgründe prüfen');
 
@@ -32,11 +36,16 @@ if (write) {
   run('node', ['scripts/apply-corrections.mjs', '--all', '--write'], 'amtliche Berichtigungen deklaratorisch anwenden');
   run('node', ['scripts/audit-consolidation.mjs'], 'Konsolidierungsmanifest nach dem Import aktualisieren');
   run('node', ['scripts/revosax-snapshot.mjs', 'parse', '--all'], 'alle REVOSax-Ausgangsquellen strukturiert erneuern');
-  run('node', ['scripts/materialize-revosax-norms.mjs', '--all', '--write'], 'fehlende REVOSax-Stammnormen materialisieren');
+  run(
+    'node',
+    ['scripts/materialize-revosax-norms.mjs', '--all', '--update-existing', '--write'],
+    'REVOSax-Stammfassungen deterministisch materialisieren',
+  );
   run('node', ['scripts/consolidate-norms.mjs', '--all', '--write'], 'geprüfte Folgefassungen erzeugen');
   run('node', ['scripts/apply-corrections.mjs', '--all', '--write'], 'Berichtigungsprovenienz nach der Konsolidierung sichern');
   run('node', ['scripts/audit-consolidation.mjs'], 'Konsolidierungsmanifest und Bericht abschließend erneuern');
   run('node', ['scripts/audit-consolidation.mjs', '--check'], 'Konsolidierungsmanifest und Bericht abschließend prüfen');
+  run('node', ['scripts/import-normen.mjs', '--source-dir', 'Gesetze', '--strict', ...selected], 'geschriebene Quellen strikt gegen den Parser prüfen');
 }
 
 run('npm', ['run', 'content:check'], 'Content- und Metadatenprüfung');

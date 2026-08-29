@@ -33,9 +33,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 32.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 32.html",
+      "sha256": "2317b8d5cb7eec5ce88d760313fe213ccaccdac5bb4406a94f694118d957b903",
+      "mediaType": "text/html",
+      "pageRange": "2–24",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 32.pdf",
+      "sha256": "b0912ddc79e62bcf7615da25093a70d4b82336920c89264ee9ffd1be19fdf710",
+      "mediaType": "application/pdf",
+      "pageCount": 24,
+      "pageRange": "2–24",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 32.html"
     }
   ]
 }

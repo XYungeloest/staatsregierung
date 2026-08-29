@@ -8,9 +8,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 57.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 57.html",
+      "sha256": "baa908e83894ae9a2ffc5c61a412a50de3bf228ce024d76b4d2079f83b89058b",
+      "mediaType": "text/html",
+      "pageRange": "2–3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 57.pdf",
+      "sha256": "2a6850011e52b56542f1ec32571e5eedb38798ee4e6669ea288b6b4261d72284",
+      "mediaType": "application/pdf",
+      "pageCount": 3,
+      "pageRange": "2–3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 57.html"
     }
   ],
   "entries": [
@@ -24,5 +42,6 @@
       "normSlug": "gesetz-ueber-die-einfuehrung-einer-zweitveroeffentlichungspflicht",
       "versionId": "2026-07-20"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/OGVBl. 2026 Nr. 57.pdf"
 }

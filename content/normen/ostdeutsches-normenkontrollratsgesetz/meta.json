@@ -1,8 +1,8 @@
 {
   "id": "ostdeutsches-normenkontrollratsgesetz",
   "slug": "ostdeutsches-normenkontrollratsgesetz",
-  "title": "Sächsisches Normenkontrollratsgesetz",
-  "shortTitle": "Sächsisches Normenkontrollratsgesetz",
+  "title": "Ostdeutsches Normenkontrollratsgesetz",
+  "shortTitle": "Ostdeutsches Normenkontrollratsgesetz",
   "abbr": "SächsNKRG",
   "shortTitleSource": "official",
   "type": "gesetz",
@@ -32,8 +32,16 @@
       "retrievedAt": "2026-08-23",
       "sha256": "3a940a4ac1fb207b01703689efa1490180f055cbd9c1bcc5ea1ad6688c9dd125",
       "lawId": "14060",
-      "sourceValidFrom": "2023-01-01",
-      "sourceRole": "official-snapshot"
+      "sourceValidFrom": "2023-01-01"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 48",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 48.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj"
   ]
 }

@@ -4,7 +4,7 @@
   "title": "Elftes Gesetz zur Änderung des Bestattungsgesetzes",
   "shortTitle": "Elftes Gesetz zur Änderung des Bestattungsgesetzes",
   "abbr": "Elftes Gesetz zur Änderung des Bestattungsgesetzes",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "enactingBody": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
     "Staats- und Verfassungsrecht"
@@ -26,9 +26,30 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 11.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 11.html",
+      "sha256": "9a8b7ecddc11d5ccbddb3c34d5601c7eb517accbaa1650ec446f5fad259fd791",
+      "mediaType": "text/html",
+      "pageRange": "2-11",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 11.pdf",
+      "sha256": "3af542e7673f521e0ea5f7799fd96c34cc961ca728d7b2968792d4a6a4ad011b",
+      "mediaType": "application/pdf",
+      "pageCount": 11,
+      "pageRange": "2-11",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 11.html"
     }
+  ],
+  "affectedNorms": [
+    "saechsisches-bestattungsgesetz"
   ]
 }

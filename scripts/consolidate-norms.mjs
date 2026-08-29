@@ -5,6 +5,7 @@ import { dirname, join, resolve } from 'node:path';
 
 import { applyPatchRecipe, previousIsoDate } from './lib/consolidation-engine.mjs';
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
+import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
 
 const ROOT = process.cwd();
 const editorialConfig = await readJson(resolve(ROOT, 'src/config/editorial.json'));
@@ -187,8 +188,14 @@ async function consolidate(slug, config) {
     rawParsed = adopted.parsed;
   }
   const parsed = applyEditorialSourceResolutions(slug, rawParsed, source.editorialSourceResolutions);
-  const baselineCitation = source.baselineCitation ?? baselineSource.citation ?? parsed.fullCitation;
-  const recipes = await Promise.all((await recipeFiles(slug)).map(async (path) => ({
+  const baselineCitation = historicalBaselineCitation({
+    pageFullCitation: parsed.pageFullCitation ?? parsed.fullCitation,
+    sourceValidTo: baselineSource.sourceValidTo,
+    baselineCitation: source.baselineCitation,
+    sourceCitation: baselineSource.citation,
+    context: slug,
+  });
+  let recipes = await Promise.all((await recipeFiles(slug)).map(async (path) => ({
     ...await readJson(path),
     __file: path.replace(`${ROOT}/`, ''),
   })));
@@ -197,6 +204,10 @@ async function consolidate(slug, config) {
     (left.sameDayOrder ?? 0) - (right.sameDayOrder ?? 0) ||
     left.__file.localeCompare(right.__file)
   );
+  const blockedAt = config.blockedTargets?.[slug]?.effectiveDate;
+  if (blockedAt) {
+    recipes = recipes.filter((recipe) => recipe.effectiveDate < blockedAt);
+  }
   if (recipes.length === 0) throw new Error(`${slug}: keine redaktionell geprüften Patch-Rezepte vorhanden`);
   const recipeGroups = Object.values(Object.groupBy(recipes, (recipe) => recipe.effectiveDate));
   for (const group of recipeGroups) {
@@ -252,6 +263,7 @@ async function consolidate(slug, config) {
       : `Ausgangsfassung nach dem am ${baselineVersionDate} geltenden sächsischen Rechtsstand.`,
     sourceReferences: [snapshotReference(baselineSource)],
     sourceNotes: parsed.sourceNotes,
+    title: state.title,
     body: state.body,
   }];
   const historyEntries = [{
@@ -284,6 +296,7 @@ async function consolidate(slug, config) {
       changeNote: adopted.source.changeNote,
       sourceReferences: [snapshotReference(adopted.source)],
       sourceNotes: adopted.parsed.sourceNotes,
+      title: state.title,
       body: state.body,
     });
     historyEntries.push({
@@ -328,6 +341,7 @@ async function consolidate(slug, config) {
     }
 
     if (!group[0].repealsLaw) {
+      if (source.resultTitle) state.title = source.resultTitle;
       versions.push({
         versionId,
         validFrom: effectiveDate,
@@ -336,6 +350,9 @@ async function consolidate(slug, config) {
         citation: group.at(-1).resultCitation,
         changeNote: group.map((recipe) => recipe.changeNote).join(' '),
         sourceReferences: group.flatMap((recipe) => recipe.sourceReferences ?? []),
+        title: state.title,
+        ...(source.resultShortTitle ? { shortTitle: source.resultShortTitle } : {}),
+        ...(source.resultAbbr ? { abbr: source.resultAbbr } : {}),
         body: state.body,
       });
     }
@@ -354,7 +371,7 @@ async function consolidate(slug, config) {
     ...meta,
     // Die öffentliche Normbezeichnung gehört zur redaktionellen Metadatenebene.
     // Der REVOSax-Ausgangstitel darf sie bei einer erneuten Konsolidierung nicht überschreiben.
-    title: meta.title ?? state.title,
+    title: source.resultTitle ?? state.title ?? meta.title,
     ...(source.resultShortTitle ? { shortTitle: source.resultShortTitle } : {}),
     ...(source.resultAbbr ? { abbr: source.resultAbbr } : {}),
     initialCitation: baselineCitation,
@@ -378,6 +395,7 @@ async function consolidate(slug, config) {
       ? publicEditorialResolutions(source)
       : meta.editorialResolutions,
   };
+  if (source.dropAbbr) delete updatedMeta.abbr;
   for (const field of ['documentDate', 'publicationDate', 'effectiveDate', 'expiryDate']) {
     if (updatedMeta[field] === null) delete updatedMeta[field];
   }
@@ -428,21 +446,25 @@ async function consolidate(slug, config) {
 }
 
 const config = await readJson(resolve(ROOT, 'data/recht/consolidation-sources.json'));
-if (target && config.blockedTargets?.[target]) {
+if (target && config.blockedTargets?.[target] && !config.blockedTargets[target].effectiveDate) {
   throw new Error(`${target}: Konsolidierung gesperrt – ${config.blockedTargets[target].reason}`);
 }
 if (!all) {
   await consolidate(target, config);
 } else {
   const blocked = Object.keys(config.targets).filter((slug) => config.blockedTargets?.[slug]);
-  if (blocked.length) console.error(`Gesperrte Ziele übersprungen: ${blocked.join(', ')}`);
+  if (blocked.length) console.error(`Gesperrte Ziele werden höchstens bis vor den Konflikt fortgeschrieben: ${blocked.join(', ')}`);
   for (const [slug, source] of Object.entries(config.targets)) {
-    if (config.blockedTargets?.[slug]) continue;
+    if (config.blockedTargets?.[slug] && !config.blockedTargets[slug].effectiveDate) continue;
     if (!source.snapshot && !(source.adoptedSources ?? []).some((entry) => entry.snapshot)) {
       console.error(`${slug}: kein REVOSax-Ausgangssnapshot, Konsolidierung übersprungen`);
       continue;
     }
-    if ((await recipeFiles(slug)).length === 0) {
+    const availableRecipes = await Promise.all((await recipeFiles(slug)).map(async (path) => await readJson(path)));
+    const usableRecipes = config.blockedTargets?.[slug]?.effectiveDate
+      ? availableRecipes.filter((recipe) => recipe.effectiveDate < config.blockedTargets[slug].effectiveDate)
+      : availableRecipes;
+    if (usableRecipes.length === 0) {
       console.error(`${slug}: keine Änderungsrezepte, Konsolidierung übersprungen`);
       continue;
     }

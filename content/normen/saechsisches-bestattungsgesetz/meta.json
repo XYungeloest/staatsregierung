@@ -1,7 +1,7 @@
 {
   "id": "saechsisches-bestattungsgesetz",
   "slug": "saechsisches-bestattungsgesetz",
-  "title": "Sächsisches Bestattungsgesetz",
+  "title": "Gesetz über das Friedhofs-, Leichen- und Bestattungswesen (Ostdeutsche Bestattungsgesetz – OStBestG)",
   "shortTitle": "Sächsisches Bestattungsgesetz",
   "abbr": "SächsBestG",
   "shortTitleSource": "official",
@@ -32,8 +32,16 @@
       "retrievedAt": "2026-08-23",
       "sha256": "07442de73015a2fa881bd039b14165117cbe788b9dd22fbf02c5f0d7e7b9db46",
       "lawId": "4526",
-      "sourceValidFrom": "2018-05-25",
-      "sourceRole": "official-snapshot"
+      "sourceValidFrom": "2018-05-25"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 11",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 11.html"
     }
+  ],
+  "affectedByNorms": [
+    "elftes-gesetz-zur-anderung-des-bestattungsgesetzes"
   ]
 }

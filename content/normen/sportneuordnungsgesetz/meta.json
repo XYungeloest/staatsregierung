@@ -26,9 +26,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sha256": "96de9854480880f0a19c9857ad75beec3db7fe46299380b2884ce136c982c3a0",
+      "mediaType": "text/html",
+      "pageRange": "2",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.pdf",
+      "sha256": "bc278ed4075edd0d24d36f3c56dcb2e72c770ef4f886c112c605da2c41b9d1b8",
+      "mediaType": "application/pdf",
+      "pageCount": 39,
+      "pageRange": "2",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
     },
     {
       "kind": "amendment-source",
@@ -38,7 +56,7 @@
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
       "mediaType": "text/html",
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "amendment-evidence"
     },
     {
@@ -50,7 +68,7 @@
       "mediaType": "application/pdf",
       "pageCount": 5,
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
@@ -63,10 +81,15 @@
     "athletenfoerder-und-versorgungsgesetz",
     "betriebssportgemeinschaftengesetz"
   ],
-  "affectedNorms": [
-    "ostdeutsche-bezirksordnung"
-  ],
   "affectedByNorms": [
     "berichtigung-verschiedener-verkuendungen-2026"
+  ],
+  "affectedNorms": [
+    "ostdeutsche-bezirksordnung",
+    "landesbeamtengesetz",
+    "ostdeutsches-hochschulgesetz",
+    "kindertagesbetreuungsgesetz",
+    "gesundheitsdienstgesetz",
+    "ostdeutsches-schulgesetz"
   ]
 }

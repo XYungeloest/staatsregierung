@@ -1,12 +1,28 @@
 {
-  "initialVersionId": "2025-03-12",
+  "initialVersionId": "2023-11-01",
   "entries": [
     {
-      "date": "2025-03-12",
+      "date": "2023-11-01",
       "type": "initial",
-      "title": "Bekanntmachung der geltenden Fassung.",
-      "citation": "Gesetz vom 12. März 2025 (Sächsisches Landesplanungsgesetz)",
-      "affectingVersionId": "2025-03-12"
+      "title": "Vollständige Ausgangsfassung zum verbindlichen Stichtag.",
+      "citation": "Landesplanungsgesetz vom 11. Dezember 2018 (SächsGVBl. S. 706), das zuletzt durch Artikel 1 des Gesetzes vom 10. September 2025 (SächsGVBl. S. 350) geändert worden ist",
+      "affectingVersionId": "2023-11-01"
+    },
+    {
+      "date": "2025-03-12",
+      "type": "amendment",
+      "title": "Die Raumordnungsbehörde wurde dem jeweiligen Bezirk zugeordnet; der dokumentierte Quellenkonflikt zum territorialen Altwortlaut wurde auf den eindeutigen Ergebniswortlaut aufgelöst.",
+      "citation": "Gesetz vom 6. März 2025 (OGVBl. I/2025 S. 7)",
+      "affectingVersionId": "2025-03-12",
+      "relatedNorm": "ostdeutsches-bezirkseinfuehrungsgesetz"
+    },
+    {
+      "date": "2026-07-21",
+      "type": "amendment",
+      "title": "Bezirksentwicklungsplanung und die Zuständigkeit der Bezirksverwaltungen wurden geregelt.",
+      "citation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+      "affectingVersionId": "2026-07-21",
+      "relatedNorm": "kreis-und-bezirksneuordnungsgesetz"
     }
   ]
 }

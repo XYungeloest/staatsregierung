@@ -25,6 +25,7 @@
     "norms:revosax:fetch": "node scripts/revosax-snapshot.mjs fetch",
     "norms:revosax:parse": "node scripts/revosax-snapshot.mjs parse",
     "norms:revosax:materialize": "node scripts/materialize-revosax-norms.mjs",
+    "norms:publications:pdf-sync": "node scripts/sync-publication-pdfs.mjs",
     "norms:corrections:apply": "node scripts/apply-corrections.mjs",
     "norms:consolidate": "node scripts/consolidate-norms.mjs",
     "norms:alt-sources:build": "node scripts/build-alt-source-transcriptions.mjs",

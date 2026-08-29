@@ -1,0 +1,564 @@
+{
+  "amendmentAct": "gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx",
+  "effectiveDate": "2026-03-25",
+  "versionId": "2026-03-25",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 29)",
+  "resultCitation": "Ostdeutsches Zweckentfremdungsverbotsgesetz, geändert durch Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 29)",
+  "changeNote": "Zweckentfremdungstatbestände, Genehmigungsverfahren, Registrierung, Rückführung, Betretungsrecht und Ordnungswidrigkeiten wurden neu geregelt.",
+  "commandCoverage": [
+    "Artikel 1 Nummern 1 bis 8"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 29",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 18.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsisches Zweckentfremdungsverbotsgesetz",
+      "value": "Gesetz über das Verbot der Zweckentfremdung von Wohnraum im Ostdeutschen Freistaat (Ostdeutsches Zweckentfremdungsverbotsgesetz)",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 1"
+      },
+      "expectedHash": "fe30fc26728e0fc2f3f0170c850714963ac1d151a29818847831df45566b9393",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 1",
+        "title": "Zweckentfremdungsverbotssatzung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Gemeinden, in denen die ausreichende Versorgung der Bevölkerung mit Wohnraum zu angemessenen Bedingungen besonders gefährdet ist, können durch Satzung mit einer Geltungsdauer von höchstens fünf Jahren für ihr Gemeindegebiet oder einzelne Gemeindeteile bestimmen, dass Wohnraum nur mit ihrer Genehmigung anderen als Wohnzwecken zugeführt werden darf. Voraussetzung ist, dass sie dem Wohnraummangel nicht auf andere Weise mit zumutbaren Mitteln und in angemessener Zeit abhelfen können.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Eine Zweckentfremdung im Sinne dieses Gesetzes liegt vor, wenn Wohnraum",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "für überwiegend gewerbliche oder freiberufliche Zwecke verwendet wird,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "verändert, unbrauchbar gemacht oder verwahrlost wird, sodass er nicht mehr zu Wohnzwecken geeignet ist,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "mehr als zwölf Wochen im Kalenderjahr für die Zwecke der Fremdbeherbergung oder Kurzzeitvermietung genutzt wird,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "länger als sechs Monate leer steht oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "abgebrochen wird.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Als Beginn des Leerstehenlassens von Wohnraum gilt grundsätzlich das Ende des letzten Mietverhältnisses, bei Neubauten der Zeitpunkt der Bezugsfertigkeit."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Eine Zweckentfremdung im Sinne dieses Gesetzes liegt nicht vor, wenn",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Wohnraum bereits zum Zeitpunkt des Inkrafttretens einer Satzung nach Absatz 1 für Zwecke der Fremdbeherbergung gemäß Absatz 2 Satz 1 Nummer 1 genutzt wird und die oder der Verfügungsberechtigte dies innerhalb von drei Monaten nach Inkrafttreten der Satzung der Gemeinde anzeigt; dies gilt jedoch nur für eine Dauer von zwei Jahren nach Inkrafttreten der Satzung,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Wohnraum leer steht, weil er trotz geeigneter Bemühungen zu ortsüblichen Bedingungen über längere Zeit nicht wieder vermietet werden konnte oder",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "Wohnraum zügig umgebaut, instandgesetzt oder modernisiert wird und deshalb unbewohnbar ist oder aus anderen objektiven Gründen nicht vermietet werden kann; die Ausnahme nach Halbsatz 1 gilt längstens für zwölf Monate, soweit nicht die Gemeinde im Einzelfall aufgrund der Art und des Umfangs der Maßnahmen eine längere Frist zulässt.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Wohnraum im Sinne dieses Gesetzes sind alle Räumlichkeiten, die zur dauernden Wohnnutzung tatsächlich und rechtlich geeignet sind. Hiervon ausgenommen sind Räumlichkeiten, die zu anderen Zwecken als zu Wohnzwecken errichtet worden sind und zum Zeitpunkt des Inkrafttretens einer Satzung nach Absatz 1 auch entsprechend genutzt werden.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "1757a65453f5e8e69662af592f916ba0a5682d5e4803f31c6ffe757f303c970f",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 2",
+        "title": "Genehmigung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Genehmigung nach § 1 Absatz 1 Satz 1 setzt einen Antrag der oder des Verfügungsberechtigten voraus. Nutzungsberechtigte dürfen im Einvernehmen mit den Verfügungsberechtigten einen Antrag nach Satz 1 stellen. Die Genehmigung",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "ist zu erteilen, wenn vorrangige öffentliche Interessen oder schutzwürdige private Interessen an der zweckfremden Nutzung das Interesse an der Erhaltung des Wohnraums überwiegen,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "kann erteilt werden, wenn dem Interesse an der Erhaltung des Wohnraums durch Ausgleichsmaßnahmen in verlässlicher und angemessener Weise Rechnung getragen wird; dies kann durch Bereitstellung von Ersatzwohnraum oder durch eine Ausgleichszahlung geschehen.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Vorrangige öffentliche Interessen an einer zweckfremden Nutzung im Sinne des Absatzes 1 Nummer 1 sind in der Regel gegeben, wenn Wohnraum zur Versorgung der Bevölkerung mit sozialen Einrichtungen, für Erziehungs-, Ausbildungs-, Betreuungs- oder gesundheitliche Zwecke verwendet werden soll, für die andere Räume nicht zur Verfügung stehen oder nicht zeitgerecht geschaffen werden können.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Schutzwürdige private Interessen an einer zweckfremden Nutzung im Sinne des Absatzes 1 Nummer 1 sind im Regelfall dann gegeben, wenn Wohnraum als Hauptwohnung, in der der tatsächliche Lebensmittelpunkt begründet wird, während Abwesenheitszeiten zu anderen als Wohnzwecken verwendet und der Charakter als Hauptwohnung nicht angetastet wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Schutzwürdige private Interessen an einer zweckfremden Nutzung im Sinne des Absatzes 1 Nummer 1 sind auch dann gegeben, wenn sich im Vertrauen auf die bisherige Rechtslage getätigte Investitionen in eine andere Nutzung noch nicht substanziell amortisiert haben.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Angemessener Ersatzwohnraum im Sinne von Absatz 1 Satz 3 Nummer 2 liegt vor, wenn der Ersatzwohnraum innerhalb des Geltungsbereiches der Satzung nach § 1 Absatz 1 Satz 1 geschaffen wird und",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "der Ersatzwohnraum vom Adressaten der Zweckentfremdungsgenehmigung im zeitlichen Zusammenhang mit der Zweckentfremdung geschaffen wird,",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "sich die öffentlich-rechtliche Zulässigkeit des geplanten Ersatzwohnraums aus prüfbaren Unterlagen ergibt und die Antragstellerin oder der Antragsteller glaubhaft macht, dass sie oder er das Vorhaben finanzieren kann sowie umsetzen wird, und",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "der neu zu schaffende Wohnraum mit dem wegfallenden Wohnraum in Größe und Standard vergleichbar ist.",
+            "level": 0,
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Kann im Einzelfall nicht oder nicht ausreichend Ersatzwohnraum zur Verfügung gestellt werden, so ist als Kompensation eine Ausgleichszahlung zu leisten."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(6)",
+            "text": "Die Genehmigung wirkt für und gegen den Rechtsnachfolger. Das Gleiche gilt für Personen, die den Besitz nach Erteilung der Genehmigung erlangt haben.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(7)",
+            "text": "Besteht eine weitere Haupt- oder Nebenwohnung der Antragstellerin oder des Antragstellers in derselben Gemeinde, soll in der Regel keine Genehmigung erteilt werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(8)",
+            "text": "Über den Antrag auf Erteilung der Genehmigung entscheidet die Gemeinde innerhalb von sechs Monaten nach Eingang der vollständigen Antragsunterlagen. Erfolgt innerhalb dieser Frist keine Entscheidung, gilt die Genehmigung als erteilt (Genehmigungsfiktion). Die Frist ist gehemmt, solange die Antragstellerin oder der Antragsteller von der Gemeinde angeforderte, für die Entscheidung erforderliche Unterlagen nicht vorlegt.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sourceProvision": "Artikel 1 Nummer 3",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 2"
+      },
+      "expectedHash": "f3c2c41f33872a4aa1f18224bd25a24269fa7e88c409cd012c5f77ce0abc6310",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 2a",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Soll Wohnraum im Geltungsbereich einer Satzung nach § 1 Absatz 1 zum Zwecke der Fremdenbeherbergung angeboten oder insbesondere unter Nutzung eines Telemediendienstes beworben werden, ist dies der zuständigen Gemeinde vorab anzuzeigen. Dabei sind anzugeben:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "Familienname, Vorname, Anschrift und Geburtsdatum der Verfügungsberechtigten oder der Nutzungsberechtigten,",
+            "level": 0,
+            "listId": "d9zruko8dvfy",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "bei juristischen Personen Name, Niederlassungsanschrift, Rechtsform, Handelsregisternummer sowie die Vertretungsberechtigten,",
+            "level": 0,
+            "listId": "d9zruko8dvfy",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die genaue Lage der Unterkunft.",
+            "level": 0,
+            "listId": "d9zruko8dvfy",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Änderungen der nach Satz 2 anzugebenden Daten sind der zuständigen Gemeinde unverzüglich anzuzeigen."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Auf Grundlage der Anzeige nach Absatz 1 teilt die zuständige Gemeinde der Unterkunft eine Registriernummer zu. Die Registriernummer ist beim Anbieten und Bewerben gut sichtbar anzugeben. Die Pflicht nach Satz 2 besteht nicht, wenn beim Anbieten und Bewerben gut sichtbar angegeben sind:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die genaue Lage der Unterkunft sowie der vollständige Name und die Anschrift der Anbietenden oder Werbenden oder",
+            "level": 0,
+            "listId": "i995767gu5uw",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "im Falle juristischer Personen die genaue Lage der Unterkunft, der Name, die Niederlassungsanschrift, die Rechtsform und Handelsregisternummer sowie die Vertretungsberechtigten.",
+            "level": 0,
+            "listId": "i995767gu5uw",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die zuständige Gemeinde kann mit Hilfe automatisierter Verfahren anlasslos Daten, die allgemein zugänglichen Quellen entnommen werden können, verarbeiten, um in Stichproben festzustellen, ob die Verpflichteten nach Absatz 2 ihrer Angabepflicht nachkommen oder ob die nach Absatz 2 Satz 3 maßgeblichen Angaben ordnungsgemäß erfolgen. Die Verarbeitung ist auf das hierfür Erforderliche zu beschränken; die Daten sind zu löschen, sobald sie für den Zweck nach Satz 1 nicht mehr erforderlich sind.“",
+            "children": []
+          }
+        ],
+        "title": "Registriernummer zum Anbieten und Bewerben von Unterkünften zur Fremdenbeherbergung"
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sourceProvision": "Artikel 1 Nummer 4",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 3"
+      },
+      "expectedHash": "1e56d43d01a828aa75f5b661ee8e87f1d52d74750879ae3429096247ad7687e3",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 3",
+        "title": "Wohnungsnutzungs- und Räumungsgebot",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Wird Wohnraum ohne die erforderliche Genehmigung zweckentfremdet, soll die zuständige Gemeinde anordnen, dass der Wohnraum wieder Wohnzwecken zuzuführen ist (Wohnnutzungsgebot). Die zuständige Gemeinde setzt hierfür eine Frist, die im Regelfall zwei Monate beträgt. Die zuständige Gemeinde kann auch die Räumung anordnen (Räumungsgebot).",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Rückführung zu Wohnzwecken ist so zu leisten, dass der ursprüngliche Zustand wiederhergestellt oder ein zumindest gleichwertiger Zustand hergestellt wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Eine Rückführung nach Absatz 2 ist ausgeschlossen, wenn sie für die Verfügungsberechtigten oder Nutzungsberechtigten eine unzumutbare Härte darstellen würde. Eine unzumutbare Härte liegt insbesondere vor, wenn die Kosten der Rückführung die ortsüblichen Kosten für einen Neubau mit vergleichbarer Größe und Ausstattung am gleichen Standort überschreiten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Scheidet eine Rückführung wegen des Vorliegens einer unzumutbaren Härte aus, soll die Gemeinde die Schaffung von Ersatzwohnraum oder die Zahlung einer einmaligen Ausgleichszahlung verlangen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sourceProvision": "Artikel 1 Nummer 5",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "ae9eff7f5ef941703749a5832e37d14ad874e291a37f4ea672b1364e0ca6a9ea",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 4",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Verfügungsberechtigte, Nutzungsberechtigte, Bewohner:innen, Verwalter:innen sowie Vermittler:innen des betreffenden Wohnraums sowie deren Beschäftigte und Beauftragte haben der Gemeinde unentgeltlich Auskünfte zu geben und Unterlagen vorzulegen, soweit dies zur Durchführung dieses Gesetzes und der aufgrund dieses Gesetzes erlassenen Satzungen erforderlich ist.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Eine Auskunftspflicht nach Absatz 1 ist ausgeschlossen, soweit schutzwürdige Belange der betroffenen Personen entgegenstehen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Das Grundrecht auf informationelle Selbstbestimmung (Artikel 33 der Verfassung des Freistaates Ostdeutschland) wird insoweit eingeschränkt.“",
+            "children": []
+          }
+        ],
+        "title": "Auskunftspflicht"
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sourceProvision": "Artikel 1 Nummer 7",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 4"
+      },
+      "expectedHash": "f548d59a1b8ea54f75d72dc1132d554e8631d2bcacacdb5c21e991f926b2ec3f",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 4a",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Verfügungsberechtigte oder Nutzungsberechtigte sind verpflichtet, den Beauftragten der zuständigen Gemeinde das Betreten des Wohnraums zu gestatten, wenn dies für die Entscheidung über eine Maßnahme nach diesem Gesetz erforderlich ist, insbesondere wenn die Einholung von Auskünften nicht ausreicht.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Das Betreten ist rechtzeitig vorher anzukündigen und im Einvernehmen mit den Verfügungsberechtigten oder den Nutzungsberechtigten zu terminieren. Es darf nur zu angemessenen Tageszeiten erfolgen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Das Grundrecht der Unverletzlichkeit der Wohnung (Artikel 30 der Verfassung des Freistaates Ostdeutschland) wird insoweit eingeschränkt.“",
+            "children": []
+          }
+        ],
+        "title": "Betretungsrecht"
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sourceProvision": "Artikel 1 Nummer 7",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 6"
+      },
+      "expectedHash": "0ee7d6d8337562a3be187aa275bf92ad8c4b05e016328eb88cb3fe2219bd920e",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 6",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Ordnungswidrig handelt, wer vorsätzlich oder fahrlässig",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "ohne die erforderliche Genehmigung Wohnraum im Geltungsbereich einer Satzung nach § 1 Absatz 1 zweckentfremdet,",
+            "level": 0,
+            "listId": "ddytcx60vcm8",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "einer mit einer Genehmigung verbundenen Auflage nicht, nicht vollständig oder nicht fristgemäß nachkommt,",
+            "level": 0,
+            "listId": "ddytcx60vcm8",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "einer unanfechtbaren Anordnung nach § 3 nicht, nicht vollständig oder nicht fristgemäß nachkommt,",
+            "level": 0,
+            "listId": "ddytcx60vcm8",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "den Wohnraum entgegen § 3 Absatz 2 nicht in den vorgeschriebenen Zustand zurückführt, obwohl dies durch die Gemeinde angeordnet wurde,",
+            "level": 0,
+            "listId": "ddytcx60vcm8",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "eine Anzeige nach § 2a Absatz 1 nicht, nicht richtig, nicht vollständig oder nicht rechtzeitig erstattet,",
+            "level": 0,
+            "listId": "ddytcx60vcm8",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "6.",
+            "text": "die Registriernummer nach § 2a Absatz 2 nicht oder nicht ordnungsgemäß angibt,",
+            "level": 0,
+            "listId": "ddytcx60vcm8",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "7.",
+            "text": "entgegen § 4 Auskünfte nicht, nicht richtig oder nicht vollständig erteilt oder Unterlagen nicht oder nicht vollständig vorlegt,",
+            "level": 0,
+            "listId": "ddytcx60vcm8",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "8.",
+            "text": "entgegen § 4a Absatz 1 das Betreten nicht gestattet.",
+            "level": 0,
+            "listId": "ddytcx60vcm8",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Ordnungswidrigkeit kann in den Fällen des Absatzes 1 Nummer 1 bis 4 und 8 mit einer Geldbuße bis zu einhunderttausend Euro, in den Fällen des Absatzes 1 Nummer 5 bis 7 mit einer Geldbuße bis zu fünfzigtausend Euro geahndet werden.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Die zuständige Gemeinde ist Verwaltungsbehörde im Sinne des § 36 Absatz 1 Nummer 1 des Gesetzes über Ordnungswidrigkeiten.“",
+            "children": []
+          }
+        ],
+        "title": "Ordnungswidrigkeiten"
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 18.html",
+      "sourceProvision": "Artikel 1 Nummer 8",
+      "effectiveDate": "2026-03-25"
+    }
+  ]
+}

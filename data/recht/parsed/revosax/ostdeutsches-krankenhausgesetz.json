@@ -2,6 +2,7 @@
   "sourceTitle": "Sächsisches Krankenhausgesetz",
   "shortTitle": "Sächsisches Krankenhausgesetz",
   "abbr": "SächsKHG",
+  "pageFullCitation": "Sächsisches Krankenhausgesetz vom 15. Dezember 2022 (SächsGVBl. S. 752), das durch Artikel 2 Absatz 1 des Gesetzes vom 22. Juli 2024 (SächsGVBl. S. 673) geändert worden ist",
   "fullCitation": "Sächsisches Krankenhausgesetz vom 15. Dezember 2022 (SächsGVBl. S. 752), das durch Artikel 2 Absatz 1 des Gesetzes vom 22. Juli 2024 (SächsGVBl. S. 673) geändert worden ist",
   "documentDate": "2022-12-15",
   "sourceValidFrom": "2023-01-01",
@@ -362,37 +363,38 @@
                   "text": "den folgenden drei Versorgungsstufen für Allgemeinkrankenhäuser",
                   "level": 1,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "aa)",
+                      "text": "Krankenhäuser der Regelversorgung mit und ohne Zusatz Gesundheitszentrum,",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "bb)",
+                      "text": "Krankenhäuser der Schwerpunktversorgung,",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "cc)",
+                      "text": "Krankenhäuser der Maximalversorgung",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "oder als Fachkrankenhaus,"
+                    }
+                  ]
                 }
               ]
-            },
-            {
-              "type": "paragraphText",
-              "text": "aa)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "Krankenhäuser der Regelversorgung mit und ohne Zusatz Gesundheitszentrum,"
-            },
-            {
-              "type": "paragraphText",
-              "text": "bb)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "Krankenhäuser der Schwerpunktversorgung,"
-            },
-            {
-              "type": "paragraphText",
-              "text": "cc)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "Krankenhäuser der Maximalversorgung"
-            },
-            {
-              "type": "paragraphText",
-              "text": "oder als Fachkrankenhaus,"
             },
             {
               "type": "item",
