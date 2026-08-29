@@ -360,9 +360,10 @@ folgenden vier Rechtsfälle bleiben als konkrete Quellenarbeit offen:
   aus OGVBl. 2026 Nr. 64 auch unter Berücksichtigung der Berichtigung in Nr. 68 klären.
 - [ ] Zehntes Sächsisches Kostenverzeichnis (`blocked-source-conflict`): den widersprüchlichen
   Ausgangsbestand des Tarifplatzes 3 mit einer belastbaren Quelle auflösen.
-- [ ] Die noch ausschließlich als Markdown vorliegenden 25 produktiven Altquellen schrittweise
-  durch strukturtragende HTML-Quellen ersetzen, sobald eine sichere Primär- oder Transkriptionsquelle
-  vorliegt; PDF-Gegenprüfung und Legacy-Fixtures bis dahin erhalten.
+- [ ] Die drei verbleibenden produktiven Legacy-Markdown-Referenzen aus zwei Quellen erst nach
+  Quellenklärung durch strukturtragende HTML-Quellen ersetzen: OGVBl. 2025 Nr. 10 ist wegen eines
+  Konflikts zwischen Markdown und PDF blockiert, für OGVBl. 2024 Nr. 2 S. 2 fehlt die ausreichende
+  Kontrollquelle. Die Einzelbegründungen stehen im Altquelleninventar.
 
 ### Aktuelle Vorhaben und öffentliche Inhalte
 

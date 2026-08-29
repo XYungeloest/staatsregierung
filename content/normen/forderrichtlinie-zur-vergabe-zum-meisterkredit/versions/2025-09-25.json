@@ -49,52 +49,70 @@
       "title": "Meisterkredit",
       "children": [
         {
-          "type": "paragraphText",
-          "text": "4.1 Anspruchsberechtigung"
+          "type": "subsection",
+          "label": "4.1",
+          "title": "Anspruchsberechtigung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Anspruchsberechtigt für den Meisterkredit sind alle natürlichen Personen, deren Hauptwohnsitz sich im Freistaat Ostdeutschland befindet und die einen Meister nach §§ 45 ff. der Handwerksordnung in der Fassung der Bekanntmachung vom 24. September 1998 (BGBl. I S. 3074; 2006 I S. 2095), die zuletzt durch Artikel 2 des Gesetzes vom 9. November (BGBl. I S. 2009) geändert worden ist, bei einer Handwerkskammer, welche eine Zuständigkeit im Freistaat Ostdeutschland hat, erwerben wollen."
+            }
+          ]
         },
         {
-          "type": "paragraphText",
-          "text": "Anspruchsberechtigt für den Meisterkredit sind alle natürlichen Personen, deren Hauptwohnsitz sich im Freistaat Ostdeutschland befindet und die einen Meister nach §§ 45 ff. der Handwerksordnung in der Fassung der Bekanntmachung vom 24. September 1998 (BGBl. I S. 3074; 2006 I S. 2095), die zuletzt durch Artikel 2 des Gesetzes vom 9. November (BGBl. I S. 2009) geändert worden ist, bei einer Handwerkskammer, welche eine Zuständigkeit im Freistaat Ostdeutschland hat, erwerben wollen."
+          "type": "subsection",
+          "label": "4.2",
+          "title": "Sperrung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Bei einem Erfolgreichem Abschluss der Meisterprüfung nach §§ 45 ff. der Handwerksordnung ist man von der Vergabe eines weiteren Meisterkredits ausgeschlossen. Ebenso gilt dies, wenn eine Meisterprüfung erfolgreich absolviert wurde vor dem Inkrafttreten der Richtlinie."
+            }
+          ]
         },
         {
-          "type": "paragraphText",
-          "text": "4.2 Sperrung"
+          "type": "subsection",
+          "label": "4.3",
+          "title": "Anspruchshöhe",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Höhe des Meisterkredit richtet sich nach dem Kostenvorsanschlag der Schule. Dabei werden die finanzielle Beteiligungen, Förderungen und weitere Einnahmen welche sich aus dem Bundesausbildungsförderungsgesetz in der Fassung der Bekanntmachung vom 7. Dezember 2010 (BGBl. I S. 1952; 2012 I S. 197), das zuletzt durch Artikel 12 des Gesetzes vom 16. Dezember 2022 (BGBl. I S. 2847) geändert worden ist und für eine Kostenbeteiligung des Kostenvoranschlags der Schule zum Erwerb des Meisters oder sonstiger Kostenbeteiligung zum Erwerb des Meisters von der Höhe abzuziehen."
+            }
+          ]
         },
         {
-          "type": "paragraphText",
-          "text": "Bei einem Erfolgreichem Abschluss der Meisterprüfung nach §§ 45 ff. der Handwerksordnung ist man von der Vergabe eines weiteren Meisterkredits ausgeschlossen. Ebenso gilt dies, wenn eine Meisterprüfung erfolgreich absolviert wurde vor dem Inkrafttreten der Richtlinie."
+          "type": "subsection",
+          "label": "4.4",
+          "title": "Zinskondition",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Der Meisterkredit ist ohne Zinsen zu vergeben."
+            }
+          ]
         },
         {
-          "type": "paragraphText",
-          "text": "4.3 Anspruchshöhe"
+          "type": "subsection",
+          "label": "4.5",
+          "title": "Rückführung bei Nichtbestehen",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Bei nicht Absolvieren der Meisterprüfung nach §§ 45 ff. der Handwerksordnung ist der Meisterkredit zu 65 Prozent binnen 15 Jahre nach Vergabe zurückzuzahlen."
+            }
+          ]
         },
         {
-          "type": "paragraphText",
-          "text": "Die Höhe des Meisterkredit richtet sich nach dem Kostenvorsanschlag der Schule. Dabei werden die finanzielle Beteiligungen, Förderungen und weitere Einnahmen welche sich aus dem Bundesausbildungsförderungsgesetz in der Fassung der Bekanntmachung vom 7. Dezember 2010 (BGBl. I S. 1952; 2012 I S. 197), das zuletzt durch Artikel 12 des Gesetzes vom 16. Dezember 2022 (BGBl. I S. 2847) geändert worden ist und für eine Kostenbeteiligung des Kostenvoranschlags der Schule zum Erwerb des Meisters oder sonstiger Kostenbeteiligung zum Erwerb des Meisters von der Höhe abzuziehen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "4.4 Zinskondition"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Der Meisterkredit ist ohne Zinsen zu vergeben."
-        },
-        {
-          "type": "paragraphText",
-          "text": "4.5 Rückführung bei Nichtbestehen"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei nicht Absolvieren der Meisterprüfung nach §§ 45 ff. der Handwerksordnung ist der Meisterkredit zu 65 Prozent binnen 15 Jahre nach Vergabe zurückzuzahlen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "4.6 Erlass bei Bestehen"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei erfolgreichem Absolvieren der Meisterprüfung nach §§ 45 ff. der Handwerksordnung ist der Meisterkredit vollständig zu erlassen. Rückführungen der Mittel sind damit ausgeschlossen."
+          "type": "subsection",
+          "label": "4.6",
+          "title": "Erlass bei Bestehen",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Bei erfolgreichem Absolvieren der Meisterprüfung nach §§ 45 ff. der Handwerksordnung ist der Meisterkredit vollständig zu erlassen. Rückführungen der Mittel sind damit ausgeschlossen."
+            }
+          ]
         }
       ]
     },

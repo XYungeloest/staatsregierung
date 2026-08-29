@@ -24,6 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       scope: ${{ steps.scope.outputs.scope }}
+      deploy_targets: ${{ steps.scope.outputs.deploy_targets }}
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
     steps:
       - name: Repository auschecken
@@ -37,8 +38,24 @@ jobs:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: git diff --name-only "$BASE_SHA...$HEAD_SHA" | node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT"
 
+  docs_check:
+    needs: classify
+    if: ${{ needs.classify.outputs.scope == 'docs-only' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Dokumentationsänderung auf Whitespace- und Patchfehler prüfen
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: git diff --check "$BASE_SHA...$HEAD_SHA"
+
   quality:
     needs: classify
+    if: ${{ needs.classify.outputs.scope != 'docs-only' }}
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
@@ -59,17 +76,36 @@ jobs:
           git diff --exit-code -- knowledge/generated
           npm run knowledge:check
       - name: TypeScript und Unit-Tests prüfen
+        env:
+          DEPLOY_PORTAL: ${{ needs.classify.outputs.scope == 'portal' || needs.classify.outputs.scope == 'shared' }}
+          DEPLOY_LAW: ${{ needs.classify.outputs.scope == 'law' || needs.classify.outputs.scope == 'shared' }}
         run: |
-          npm run check
+          if [ "$DEPLOY_PORTAL" = "true" ]; then
+            npm run check:portal
+          fi
+          if [ "$DEPLOY_LAW" = "true" ]; then
+            npm run check:recht
+          fi
           npm run test:unit
       - name: Studio-Worker prüfen
         if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
         run: npm run editorial:check
       - name: Öffentliche Website bauen
-        run: npm run build
         env:
+          DEPLOY_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
           PORTAL_BUILD_COMMIT: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ "$DEPLOY_TARGETS" = "portal,law" ]; then
+            npm run build
+          elif [ "$DEPLOY_TARGETS" = "portal" ]; then
+            npm run build:portal
+          else
+            npm run build:recht
+          fi
+          npm run deploy:assets:check
       - name: Links und SEO prüfen
+        env:
+          SITE_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
         run: |
           npm run test:links:run
           npm run test:seo:run
@@ -105,6 +141,8 @@ jobs:
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
       - name: Zentrale Seiten barrierefrei prüfen
+        env:
+          SITE_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
         run: npm run test:a11y:ci
 
   browser_smoke:
@@ -130,11 +168,14 @@ jobs:
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
       - name: Zentrale Nutzerwege in Chromium prüfen
+        env:
+          SITE_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
         run: npm run test:browsers:ci
 
   preview:
-    if: ${{ always() && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
+    if: ${{ always() && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && (needs.classify.outputs.scope == 'portal' || needs.classify.outputs.scope == 'shared') && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
     needs:
+      - classify
       - quality
       - accessibility_smoke
       - browser_smoke

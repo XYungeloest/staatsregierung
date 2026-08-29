@@ -31,6 +31,17 @@
   "effectiveDate": "2025-12-06",
   "sourceReferences": [
     {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OABl. 2025 Nr. 5.html",
+      "sha256": "19fd9bc78d09ea8d312a5731b3b61976bd26b15ec0f3fbf3b86189ba169d71db",
+      "mediaType": "text/html",
+      "pageRange": "2-9",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
       "kind": "primary-pdf",
       "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
@@ -40,13 +51,16 @@
       "pageCount": 9,
       "pageRange": "2-9",
       "verifiedAt": "2026-08-28",
-      "sourceRole": "visual-control"
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OABl. 2025 Nr. 5.html"
     },
     {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription (Altbestand)",
+      "kind": "supplementary-markdown-transcription",
+      "label": "Zusätzliche Markdown-Transkription der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OABl. 2025 Nr. 5.md"
+      "localSource": "Gesetze/OABl. 2025 Nr. 5.md",
+      "sourceRole": "supplementary-transcription",
+      "derivedSource": "Gesetze/OABl. 2025 Nr. 5.html"
     }
   ]
 }

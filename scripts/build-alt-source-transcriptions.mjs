@@ -4,6 +4,8 @@ import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 import { parse, serialize } from 'parse5';
+import { parsePublicationHtml } from './lib/norm-html-parser.mjs';
+import { parsePublicationMarkdown } from './lib/norm-markdown-parser.mjs';
 
 const ROOT = process.cwd();
 
@@ -24,6 +26,221 @@ function bodyOf(html) {
 
 function page(title, sourceNote, content) {
   return `<section class="source-document"><h2>${title}</h2><p class="source-note">${sourceNote}</p>${content}</section>`;
+}
+
+const TRANSCRIBABLE_LEGACY_SOURCES = [
+  'OABl. 2025 Nr. 1.md',
+  'OABl. 2025 Nr. 3.md',
+  'OABl. 2025 Nr. 4.md',
+  'OABl. 2025 Nr. 5.md',
+  'OABl. 2025 Nr. 6.md',
+  'OGVBl. 2025 Nr. 8.md',
+  'OGVBl. 2025 Nr. 9.md',
+  'OGVBl. 2025 Nr. 11.md',
+  'OGVBl. 2025 Nr. 12.md',
+  'OGVBl. 2026 Nr. 12.md',
+  'OGVBl. 2026 Nr. 44.md',
+];
+
+const STRUCTURE_TYPES = new Set([
+  'part', 'chapter', 'section', 'subsection', 'article', 'paragraph', 'annex',
+]);
+
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;');
+}
+
+function germanDate(isoDate) {
+  const [year, month, day] = String(isoDate).split('-');
+  const months = [
+    'Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+    'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember',
+  ];
+  return `${Number(day)}. ${months[Number(month) - 1]} ${year}`;
+}
+
+function sourcePlace(markdown) {
+  return markdown.match(/Ausgegeben\s+(?:zu|in)\s+([^|\n]+?)\s+am/iu)?.[1]
+    ?.replace(/\s+/gu, ' ')
+    .trim() ?? 'Leipzig';
+}
+
+function headingText(block) {
+  return [block.label, block.title].filter(Boolean).join(' ');
+}
+
+function listStartValue(label, style) {
+  const visible = String(label ?? '').replace(/^\(/u, '').replace(/[.)]$/u, '');
+  if (style === 'decimal' || style === 'decimal-parenthesized') {
+    const value = Number.parseInt(visible, 10);
+    return Number.isInteger(value) ? value : null;
+  }
+  if (style === 'lower-latin' || style === 'upper-latin') {
+    if (!/^[a-z]+$/iu.test(visible)) return null;
+    return [...visible.toLocaleLowerCase('de')].reduce((total, character) => total * 26 + character.charCodeAt(0) - 96, 0);
+  }
+  if (style === 'lower-roman' || style === 'upper-roman') {
+    const values = { i: 1, v: 5, x: 10, l: 50, c: 100, d: 500, m: 1000 };
+    let total = 0;
+    let previous = 0;
+    for (const character of [...visible.toLocaleLowerCase('de')].reverse()) {
+      const value = values[character];
+      if (!value) return null;
+      total += value < previous ? -value : value;
+      previous = Math.max(previous, value);
+    }
+    return total || null;
+  }
+  return null;
+}
+
+function listTagAndAttributes(block) {
+  const style = block.numberingStyle ?? 'decimal';
+  if (style === 'bullet' || block.label === '–') return { tag: 'ul', attributes: '' };
+  const type = {
+    decimal: '1',
+    'decimal-parenthesized': '1',
+    'lower-latin': 'a',
+    'upper-latin': 'A',
+    'lower-roman': 'i',
+    'upper-roman': 'I',
+  }[style] ?? '1';
+  const firstLabel = String(block.label ?? '');
+  const decoration = firstLabel.match(/^(\()?[^\s]+([.)])$/u);
+  const start = listStartValue(firstLabel, style);
+  const attributes = [
+    `type="${type}"`,
+    start && start > 1 ? `start="${start}"` : '',
+    style === 'decimal-parenthesized' || decoration?.[1] ? 'data-label-style="parenthesized"' : '',
+    decoration?.[2] && !decoration[1] ? `data-label-suffix="${decoration[2]}"` : '',
+  ].filter(Boolean).join(' ');
+  return { tag: 'ol', attributes: attributes ? ` ${attributes}` : '' };
+}
+
+function isListEntry(block) {
+  return block?.type === 'item' || block?.type === 'subitem';
+}
+
+function detachedChildren(block) {
+  return (block.children ?? []).filter((child) => child.type === 'quotedProvision' || STRUCTURE_TYPES.has(child.type));
+}
+
+function serializeTable(block) {
+  const rows = (block.children ?? []).map((row) => `<tr>${(row.children ?? []).map((cell) => {
+    const tag = cell.type === 'tableHeaderCell' ? 'th' : 'td';
+    return `<${tag}>${escapeHtml(cell.text)}</${tag}>`;
+  }).join('')}</tr>`).join('');
+  return `<table><tbody>${rows}</tbody></table>`;
+}
+
+function serializeListGroup(entries) {
+  const first = entries[0];
+  const { tag, attributes } = listTagAndAttributes(first);
+  const detached = [];
+  const items = entries.map((entry) => {
+    const nestedEntries = (entry.children ?? []).filter(isListEntry);
+    const inlineParagraphs = (entry.children ?? [])
+      .filter((child) => child.type === 'paragraphText')
+      .map((child) => `<p>${escapeHtml(child.text)}</p>`)
+      .join('');
+    const nested = nestedEntries.length > 0 ? serializeFlow(nestedEntries) : '';
+    detached.push(...detachedChildren(entry));
+    return `<li>${escapeHtml(entry.text)}${inlineParagraphs}${nested}</li>`;
+  }).join('');
+  return { markup: `<${tag}${attributes}>${items}</${tag}>`, detached };
+}
+
+function serializeSubparagraphGroup(entries) {
+  const first = entries[0];
+  const { tag, attributes } = listTagAndAttributes({ ...first, numberingStyle: 'decimal-parenthesized' });
+  const items = entries.map((entry) => (
+    `<li>${escapeHtml(entry.text)}${serializeFlow(entry.children ?? [])}</li>`
+  )).join('');
+  return `<${tag}${attributes}>${items}</${tag}>`;
+}
+
+function serializeFlow(blocks) {
+  let output = '';
+  for (let index = 0; index < (blocks ?? []).length;) {
+    const block = blocks[index];
+    if (isListEntry(block)) {
+      const entries = [];
+      while (index < blocks.length && isListEntry(blocks[index])) {
+        entries.push(blocks[index]);
+        index += 1;
+        if (detachedChildren(entries.at(-1)).length > 0) break;
+      }
+      const serialized = serializeListGroup(entries);
+      output += serialized.markup;
+      for (const detached of serialized.detached) output += serializeFlow([detached]);
+      continue;
+    }
+    if (block.type === 'paragraphText') {
+      output += `<p>${escapeHtml(block.text)}</p>`;
+    } else if (block.type === 'subparagraph') {
+      const subparagraphs = [];
+      while (index < blocks.length && blocks[index].type === 'subparagraph') {
+        subparagraphs.push(blocks[index]);
+        index += 1;
+      }
+      output += serializeSubparagraphGroup(subparagraphs);
+      continue;
+    } else if (STRUCTURE_TYPES.has(block.type)) {
+      const attributes = [
+        `data-structure-type="${escapeHtml(block.type)}"`,
+        `data-structure-label="${escapeHtml(block.label)}"`,
+        block.title ? `data-structure-title="${escapeHtml(block.title)}"` : '',
+      ].filter(Boolean).join(' ');
+      output += `<h2 ${attributes}>${escapeHtml(headingText(block))}</h2>${serializeFlow(block.children ?? [])}`;
+    } else if (block.type === 'table') {
+      output += serializeTable(block);
+    } else if (block.type === 'quotedProvision') {
+      output += serializeFlow(block.children ?? []);
+    }
+    index += 1;
+  }
+  return output;
+}
+
+function publicationHeading(parsed) {
+  if (parsed.abbr && parsed.shortTitle !== parsed.title) {
+    return `${parsed.title} (${parsed.shortTitle} – ${parsed.abbr})`;
+  }
+  return parsed.title;
+}
+
+function transcribePublication(markdownFileName, markdown) {
+  const parsed = parsePublicationMarkdown(markdownFileName, markdown);
+  const htmlFileName = markdownFileName.replace(/\.md$/u, '.html');
+  const longName = parsed.publication === 'OABl.'
+    ? 'Amtsblatt'
+    : 'Gesetz- und Verordnungsblatt';
+  const date = germanDate(parsed.publicationDate);
+  const documentDate = germanDate(parsed.documentDate);
+  const heading = publicationHeading(parsed);
+  const page = parsed.startPage ?? '2';
+  const html = `<!doctype html><html lang="de"><head><meta charset="utf-8"><title>${escapeHtml(heading)}</title></head><body>
+<header><p>${longName}</p><p>für den Freistaat Ostdeutschland.</p><p>Nr. ${escapeHtml(parsed.issue)} ·</p><p>Ausgegeben zu ${escapeHtml(sourcePlace(markdown))} am ${date}</p></header>
+<p>Inhaltsverzeichnis</p>
+<table><tbody><tr><td>${documentDate}</td><td>${escapeHtml(heading)}</td><td>Seite ${escapeHtml(page)}</td></tr></tbody></table>
+<h2>${escapeHtml(heading)}</h2><p>vom ${documentDate}</p>
+${serializeFlow(parsed.body)}
+</body></html>
+`;
+  const validated = parsePublicationHtml(htmlFileName, html);
+  if (
+    validated.publication !== parsed.publication
+    || validated.issue !== parsed.issue
+    || validated.documentDate !== parsed.documentDate
+    || validated.title !== parsed.title
+  ) {
+    throw new Error(`${htmlFileName}: generierte Transkription weicht bei Ausgabeidentität oder Normtitel ab.`);
+  }
+  return html;
 }
 
 function issueHtml({ title, designation, date, toc, documents }) {
@@ -171,4 +388,10 @@ const i25 = issueHtml({
 
 await writeFile(resolve(ROOT, 'Gesetze/OGVBl II-24.html'), ii24);
 await writeFile(resolve(ROOT, 'Gesetze/OGVBl I-25.html'), i25);
+
+for (const markdownFileName of TRANSCRIBABLE_LEGACY_SOURCES) {
+  const markdown = await readFile(resolve(ROOT, 'Gesetze', markdownFileName), 'utf8');
+  const htmlFileName = markdownFileName.replace(/\.md$/u, '.html');
+  await writeFile(resolve(ROOT, 'Gesetze', htmlFileName), transcribePublication(markdownFileName, markdown));
+}
 console.log('Strukturierte Altquellen-Transkriptionen wurden neu erzeugt.');

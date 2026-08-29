@@ -19,6 +19,17 @@
   ],
   "sourceReferences": [
     {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 44.html",
+      "sha256": "cc49831b8f123fb82d94b40efa79c85d2892ef2d325cadaeec637c8985ca233b",
+      "mediaType": "text/html",
+      "pageRange": "2–6",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
       "kind": "primary-pdf",
       "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
@@ -28,13 +39,8 @@
       "pageCount": 6,
       "pageRange": "2–6",
       "verifiedAt": "2026-08-28",
-      "sourceRole": "visual-control"
-    },
-    {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription (Altbestand)",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 44.md"
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 44.html"
     },
     {
       "kind": "index",

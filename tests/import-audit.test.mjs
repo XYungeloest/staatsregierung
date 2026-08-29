@@ -46,7 +46,7 @@ test('Importer auditiert eine Markdown-only-Quelle ausdrücklich als Legacy-Tran
     '--source-dir',
     'Gesetze',
     '--file',
-    'OGVBl. 2026 Nr. 44.md',
+    'OGVBl. 2025 Nr. 10.md',
     '--quiet',
   ], { encoding: 'utf8' });
   assert.equal(result.status, 0, `${result.stdout}\n${result.stderr}`);

@@ -1,4 +1,4 @@
-import { getPublicationLabel, loadAllVerkuendungen } from '../../../lib/norms/index.ts';
+import { getPublicationLabel, getPublicationSearchAliases, loadAllVerkuendungen } from '../../../lib/norms/index.ts';
 
 export const prerender = true;
 
@@ -22,6 +22,7 @@ export async function GET() {
         slug: publication.slug,
         title: publication.title,
         label: getPublicationLabel(publication),
+        aliases: getPublicationSearchAliases(publication),
         year: publication.year,
         issue: publication.issue,
         date: publication.date,

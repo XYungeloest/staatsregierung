@@ -63,10 +63,13 @@ export {
 
 export {
   buildNormPublicationReferenceLookup,
+  findPublicationByDesignation,
   formatPublicationEntryType,
+  getPublicationDesignations,
   getLatestPublication,
   getNormPublicationReference,
   getPublicationLabel,
+  getPublicationSearchAliases,
   listPublicationEntries,
   loadAllVerkuendungen,
   loadVerkuendung,

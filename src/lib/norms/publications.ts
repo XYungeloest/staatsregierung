@@ -73,6 +73,7 @@ export interface NormPublicationReference {
   publicationTitle: string;
   publicationDate: string;
   publication: string;
+  publicationAliases?: string[];
   issue: string;
   entryId: string;
   entryTitle: string;
@@ -381,6 +382,43 @@ export function getPublicationLabel(publication: Verkuendung): string {
   return `${publication.publication} ${publication.year} Nr. ${publication.issue}`;
 }
 
+function normalizePublicationDesignation(value: string): string {
+  return value
+    .toLocaleLowerCase('de-DE')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/gu, '')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim()
+    .replace(/\s+/gu, ' ');
+}
+
+export function getPublicationDesignations(publication: Verkuendung): string[] {
+  return [...new Set([
+    getPublicationLabel(publication),
+    publication.title,
+    publication.originalIssueDesignation,
+    publication.alternativeIssueDesignation,
+  ].filter((value): value is string => Boolean(value?.trim())))];
+}
+
+export function getPublicationSearchAliases(publication: Verkuendung): string[] {
+  return [...new Set([
+    publication.originalIssueDesignation,
+    publication.alternativeIssueDesignation,
+  ].filter((value): value is string => Boolean(value?.trim())))];
+}
+
+export function findPublicationByDesignation(
+  publications: Verkuendung[],
+  designation: string,
+): Verkuendung | undefined {
+  const normalizedDesignation = normalizePublicationDesignation(designation);
+  if (!normalizedDesignation) return undefined;
+
+  return publications.find((publication) => getPublicationDesignations(publication)
+    .some((value) => normalizePublicationDesignation(value) === normalizedDesignation));
+}
+
 export function formatPublicationEntryType(value: PublicationEntryType): string {
   return PUBLICATION_ENTRY_TYPE_LABELS[value];
 }
@@ -438,6 +476,7 @@ export function buildNormPublicationReferenceLookup(
         publicationTitle: publication.title,
         publicationDate: publication.date,
         publication: publication.publication,
+        publicationAliases: getPublicationSearchAliases(publication),
         issue: publication.issue,
         entryId: entry.id,
         entryTitle: entry.title,
