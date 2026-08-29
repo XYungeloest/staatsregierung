@@ -1,6 +1,7 @@
 import { access, glob, readFile, stat } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { normalizeSiteTargets } from './lib/site-targets.mjs';
 
 export const CLOUDFLARE_ASSET_LIMIT_BYTES = 25 * 1024 * 1024;
 export const REPOSITORY_ASSET_BUDGET_BYTES = 24 * 1024 * 1024;
@@ -52,9 +53,13 @@ export async function findMissingPublicationPdfAssets({
 }
 
 async function main() {
+  const targets = normalizeSiteTargets(process.env.DEPLOY_TARGETS);
+  const roots = targets.map((target) => `dist/${target}/client`);
   const [result, publicationPdfs] = await Promise.all([
-    findOversizedDeployAssets(),
-    findMissingPublicationPdfAssets(),
+    findOversizedDeployAssets({ roots }),
+    targets.includes('law')
+      ? findMissingPublicationPdfAssets()
+      : Promise.resolve({ linkedPdfs: 0, missing: [] }),
   ]);
   if (result.oversized.length > 0) {
     for (const asset of result.oversized) {

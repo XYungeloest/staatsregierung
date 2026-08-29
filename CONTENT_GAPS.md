@@ -1,48 +1,43 @@
 # Offene Quellenfragen
 
-**Repositoryprüfung:** 27. August 2026  
-**Redaktioneller Stichtag:** 23. August 2026
+**Repositoryprüfung:** 29. August 2026
+**Redaktioneller Stichtag:** zentral in `src/config/editorial.json`
 
-Diese Datei enthält nur Quellenfragen, Konflikte und technische Quellenarbeiten, die im aktuellen
-Repository noch tatsächlich relevant sind. Abgeschlossene Prüfungen und früher bestehende
-Abweichungen werden hier nicht als Historie fortgeschrieben. Der maschinenlesbare Einzelstand der
+Diese Datei enthält ausschließlich Quellenlücken, Quellenkonflikte und notwendige Quellenarbeiten,
+die im aktuellen Repository noch offen sind. Der maschinenlesbare Einzelstand der
 Normkonsolidierung steht in `data/recht/consolidation-manifest.json`.
 
 ## Rechtskonsolidierung
 
-- Für den **NDR-Staatsvertrag** fehlt weiterhin die vollständige maßgebliche Ausgangsfassung vor
-  der Änderung vom 8. März 2026 einschließlich Anlagen. Ohne diese Primärquelle wird keine
-  konsolidierte Stammfassung erzeugt.
-- Für sämtliche 24 zuvor als `missing-stem-record` geführten Zielnormen sind die amtlichen
-  Ausgangssnapshots inzwischen als historisierte Stammnormdatensätze materialisiert. Bei derzeit
-  **26 Zielnormen** fehlen aber noch einzelne redaktionell geprüfte Patch-Rezepte für bereits
-  erkannte ostdeutsche Änderungen; der Einzelstatus im Konsolidierungsmanifest ist maßgeblich.
-- Die Konsolidierung der **Schulordnung Förderschulen (SOFS)** bleibt wegen eines nicht eindeutig
-  auflösbaren Zieltextkonflikts gesperrt. Artikel 1 Nummer 6 Buchstabe b der OGVBl. 2026 Nr. 64
-  passt auch nach der Berichtigung in OGVBl. 2026 Nr. 68 nicht auf die verbindliche
-  REVOSax-Ausgangsfassung. BSO und BGySO sind dagegen vollständig bis zur Fassung ab
-  1. September 2026 konsolidiert. Die amtlichen Änderungsvorschriften bleiben davon unberührt;
-  für die SOFS darf keine scheinbar eindeutige Folgefassung erzeugt werden.
-- Die Anlage des NDR-Änderungs- und Überleitungsstaatsvertrags enthält lediglich die unausgefüllte
-  Vorlage „Mustergesetz vom TT. MMMM JJJJ“. Offen ist, ob daneben ein konkretes Mustergesetz
-  beschlossen oder verkündet wurde.
+Der Audit erkennt 85 Zielnormen; 81 sind vollständig konsolidiert. Vier Fälle bleiben offen:
 
-## Aktuelle Quellenkonflikte
-
-- `OABl. 2025 Nr. 2` und `StAnzO. 2026 Nr. 2.html` betreffen dasselbe zugrunde liegende Dokument
-  unter unterschiedlichen Bezeichnungen. Die technische Dokumentidentität ist noch
-  zusammenzuführen. Dokumentkopf und internes Datum sind dabei kanonisch; abweichende Datei- und
-  Datensatzbezeichnungen bleiben nur als Provenienz erhalten.
+- **Gesetz über den öffentlichen Personennahverkehr** — `blocked-source-conflict`: Artikel 9
+  Nummer 1 passt nicht eindeutig auf die maßgebliche Ausgangsfassung; ohne Quellenklärung wird
+  keine Folgefassung erzeugt.
+- **NDR-Staatsvertrag** — `missing-baseline`: Die vollständige maßgebliche Ausgangsfassung vor
+  der Änderung vom 8. März 2026 einschließlich Anlagen fehlt.
+- **Schulordnung Förderschulen** — `blocked-source-conflict`: Artikel 1 Nummer 6 Buchstabe b
+  der OGVBl. 2026 Nr. 64 passt auch nach der Berichtigung in Nr. 68 nicht auf die verbindliche
+  Ausgangsfassung.
+- **Zehntes Sächsisches Kostenverzeichnis** — `blocked-source-conflict`: Der Änderungsbefehl zu
+  Tarifplatz 3 widerspricht dem vorhandenen Ausgangsbestand; der Zieltext ist nicht eindeutig
+  ableitbar.
 
 ## Noch notwendige Quellenarbeit
 
-- Für die weiterhin nur als Markdown vorliegenden Altquellen sind schrittweise strukturierte,
-  redaktionell geprüfte HTML-Transkriptionen anzulegen. Bis dahin bleiben Legacy-Parser,
-  PDF-Gegenprüfung und die vorhandenen Strukturfixtures erforderlich.
-- Die im Konsolidierungsmanifest ausgewiesenen noch nicht vollständig historisierten Zielnormen
-  sind auf Grundlage der bereits gesicherten Ausgangsfassungen über geprüfte Patch-Rezepte zu
-  konsolidieren. Besonders relevant sind derzeit das Kulturraumgesetz und das Ostdeutsche
-  Polizeibehördengesetz.
+### Legacy-Transkriptionen
+
+25 produktive SourceReferences verwenden weiterhin `legacy-markdown-transcription`. Sie betreffen
+13 unterschiedliche Markdownquellen aus den Ausgaben OABl. 2025 Nr. 1, 3–6, OGVBl. 2025 Nr. 8–12,
+OGVBl. 2026 Nr. 12 und 44 sowie OGVBl. 2024 Nr. 2 S. 2. Für keine dieser Quellen liegt derzeit
+eine gleichartige strukturtragende HTML-Fassung vor. Bei den meisten Ausgaben liegt zwar ein
+zugehöriges PDF als visuelle Kontrollquelle vor; daraus wird ohne geprüfte Strukturtranskription
+kein neuer Normvolltext abgeleitet. Die einzelnen Abhängigkeiten und Blockierungsgründe stehen in
+`data/recht/alt-source-inventory.json`.
+
+Eine Migration erfolgt nur, wenn eine strukturtragende HTML-Quelle oder eine gleichwertig geprüfte
+Transkription vorliegt. Bis dahin bleiben die vorhandenen Markdownquellen für Provenienz und
+Regression sowie die bestehende PDF-Gegenprüfung erhalten.
 
 ## Dauerhafte Quellenbegrenzung
 

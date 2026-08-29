@@ -1027,7 +1027,7 @@ for (const { file, json } of legislationRecords) {
   for (const slug of json.relatedTopics ?? []) if (!topicSlugs.has(slug)) addProblem(file, `relatedTopics verweist auf unbekanntes Thema: ${slug}`);
   for (const slug of json.relatedMinistries ?? []) if (!ministrySlugs.has(slug)) addProblem(file, `relatedMinistries verweist auf unbekanntes Ressort: ${slug}`);
   for (const slug of json.relatedNorms ?? []) if (!normSlugs.has(slug)) addProblem(file, `relatedNorms verweist auf unbekannte Norm: ${slug}`);
-  if (json.confirmedAsOf !== referenceDate) addProblem(file, `confirmedAsOf muss dem redaktionellen Stichtag ${referenceDate} entsprechen`);
+  if ('confirmedAsOf' in json) addProblem(file, 'confirmedAsOf wird zentral aus src/config/editorial.json abgeleitet und darf nicht im Vorgang wiederholt werden');
   if (json.stage !== 'in-kraft') addProblem(file, 'muss nach der belegten Verkündung und dem Inkrafttreten als in-kraft geführt werden');
   if (json.nextScheduledReading) addProblem(file, 'darf nach Abschluss der Beratung keine nächste angesetzte Lesung mehr enthalten');
   if (json.decidedOn !== '2026-07-20' || json.promulgatedOn !== '2026-07-20') {

@@ -1,18 +1,24 @@
 import { access, readdir, readFile } from 'node:fs/promises';
 import { dirname, join, relative, resolve } from 'node:path';
+import { normalizeSiteTargets } from './lib/site-targets.mjs';
 
-const sites = [
+const allSites = [
   {
+    target: 'portal',
     name: 'Staatsportal',
     origin: new URL(process.env.PORTAL_SITE_URL ?? 'https://freistaat-ostdeutschland.de').origin,
     outputRoot: resolve(process.cwd(), 'dist/portal/client'),
   },
   {
+    target: 'law',
     name: 'OstRecht',
     origin: new URL(process.env.LAW_SITE_URL ?? 'https://recht.freistaat-ostdeutschland.de').origin,
     outputRoot: resolve(process.cwd(), 'dist/law/client'),
   },
 ];
+
+const selectedTargets = new Set(normalizeSiteTargets(process.env.SITE_TARGETS));
+const sites = allSites.filter((site) => selectedTargets.has(site.target));
 
 const sitesByOrigin = new Map(sites.map((site) => [site.origin, site]));
 const problems = [];
@@ -79,5 +85,5 @@ if (problems.length > 0) {
   console.error(`Defekte interne oder Cross-Site-Verweise (${problems.length}):\n${problems.join('\n')}`);
   process.exitCode = 1;
 } else {
-  console.log(`Linkprüfung für beide Sites erfolgreich (${htmlCount} HTML-Dateien einschließlich Cross-Site-Links).`);
+  console.log(`Linkprüfung für ${sites.map((site) => site.name).join(' und ')} erfolgreich (${htmlCount} HTML-Dateien einschließlich Cross-Site-Links).`);
 }

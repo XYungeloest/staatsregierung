@@ -1,7 +1,7 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-08-29T10:23:09.461Z
+**Erzeugt:** 2026-08-29T14:10:16.826Z
 
 - Erkannte Änderungsvorschriften: 61
 - Erkannte Zielnormen: 85
@@ -32,7 +32,6 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - Datensatz: `ndr-staatsvertrag`
 - Status: `missing-baseline`
 - Problem: Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.
-- Problem: Eigenständiger Stammnormdatensatz fehlt.
 - Nächster Schritt: Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.
 
 ### Schulordnung Förderschulen
@@ -54,13 +53,10 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 ## Nicht als Zielnorm behandelte Vorlagen
 
 - staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm
-- staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm
 
 ## Redaktionell zu prüfende Erkennungsfunde
 
 - `erlass-lehrplan-geschichte-2026`: „Lehrplans Polytechnische Oberschule – Geschichte“ (Gliederungsüberschrift)
 - `erlass-lehrplan-geschichte-2026`: „Lehrplans Erweiterte Oberschule – Geschichte“ (Gliederungsüberschrift)
 - `organisationserlass-aenderung-fachbereichszuteilung-2024`: „Fachbereichszuteilungen“ (Gliederungsüberschrift)
-- `sachsisches-verwaltungsorganisationsgesetz`: „Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden“ (Gliederungsüberschrift)
-- `sachsisches-verwaltungsorganisationsgesetz`: „Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden“ (Gliederungsüberschrift)
 - `sachsisches-verwaltungsorganisationsgesetz`: „Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden“ (Gliederungsüberschrift)

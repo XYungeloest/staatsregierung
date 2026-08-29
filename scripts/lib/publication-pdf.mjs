@@ -10,14 +10,26 @@ export const HISTORICAL_PDF_FILE_MAP = {
   'OGVBl.|2026|12': 'GVBl. 2026 Nr. 12.pdf',
 };
 
+// Ausgabe 2/2026 trägt im erhaltenen Original noch die alte Kopfbezeichnung
+// OABl. Die fachlich geklärte Dokumentidentität ist trotzdem ausschließlich
+// die StAnzO.-Ausgabe; andere OABl.-Jahre und -Nummern bleiben eigenständig.
+export const PUBLICATION_IDENTITY_ALIASES = {
+  'OABl.|2026|2': 'StAnzO.|2026|2',
+};
+
 export const HISTORICAL_PUBLICATION_PAGE_RANGE_MAP = {
   // Das Altmetadatum „1-7“ widersprach dem sechsseitigen Original. Inhalts-
   // verzeichnis und Druckseiten des PDFs weisen die Richtlinie auf S. 2–6 aus.
   'StAnzO.|2026|5': '2–6',
 };
 
+export function canonicalPublicationIdentity(publication, year, issue) {
+  const identity = `${publication}|${year}|${String(issue).replace(/^0+(?=\d)/u, '')}`;
+  return PUBLICATION_IDENTITY_ALIASES[identity] ?? identity;
+}
+
 export function publicationIdentityKey(publication, year, issue) {
-  return `${publication}|${year}|${String(issue).replace(/^0+(?=\d)/u, '')}`;
+  return canonicalPublicationIdentity(publication, year, issue);
 }
 
 export function publicationIdentityFromPdfFileName(fileName) {

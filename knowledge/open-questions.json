@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-25",
+  "asOf": "2026-08-29",
   "questions": [
     {
       "id": "question-holdings-undisclosed-deeper-tiers",
@@ -89,12 +89,12 @@
     },
     {
       "id": "question-school-law-source-conflicts-2026",
-      "title": "Zieltextkonflikte bei drei schulrechtlichen Konsolidierungen",
+      "title": "Zieltextkonflikt bei der Schulordnung Förderschulen",
       "status": "unresolved",
       "validFrom": "2026-08-16",
       "validTo": null,
       "asOf": "2026-08-16",
-      "summary": "Einzelne Änderungsbefehle der OGVBl. 2026 Nr. 64 und 67 passen nicht auf die nach der Quellenrichtlinie verbindlichen Ausgangsfassungen der SOFS, BSO und BGySO.",
+      "summary": "Artikel 1 Nummer 6 Buchstabe b der OGVBl. 2026 Nr. 64 passt auch nach der Berichtigung in OGVBl. 2026 Nr. 68 nicht auf die nach der Quellenrichtlinie verbindliche Ausgangsfassung der Schulordnung Förderschulen.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-64",
@@ -103,7 +103,7 @@
         },
         {
           "sourceId": "source-ogvbl-2026-67",
-          "locator": "Artikel 2 § 3 Nummer 8 und § 4 Nummer 1 Buchstabe d",
+          "locator": "Artikel 1 Nummer 6 Buchstabe b; Berichtigung in OGVBl. 2026 Nr. 68",
           "role": "primary"
         }
       ],
@@ -117,7 +117,7 @@
         "consolidation"
       ],
       "notes": [
-        "Die Änderungsvorschriften selbst sind vollständig veröffentlicht. Gesperrt ist nur die nicht eindeutig ableitbare konsolidierte Folgefassung der drei Stammnormen."
+        "Die Änderungsvorschriften selbst sind vollständig veröffentlicht. Gesperrt ist nur die nicht eindeutig ableitbare konsolidierte Folgefassung der SOFS."
       ],
       "question": "Welche exakte Ausgangsfassung beziehungsweise redaktionelle Quellenentscheidung ist für die widersprüchlichen Änderungsanker maßgeblich?",
       "affectedIds": [
@@ -125,7 +125,7 @@
       ],
       "reason": "Die vorhandenen Zieltexte enthalten die von den Änderungsbefehlen vorausgesetzten Wortlaute oder Einordnungsstellen nicht.",
       "requiredSource": "Amtliche vollständige Ausgangsfassung, Berichtigung der Verkündung oder ausdrückliche redaktionelle Quellenauflösung mit eindeutiger Einordnungsstelle.",
-      "publicContentImpact": "Keine scheinbar konsolidierte Fassung der SOFS, BSO oder BGySO als gesicherten Rechtsstand veröffentlichen; die amtlichen Änderungsvorschriften und der Konflikthinweis bleiben zugänglich.",
+      "publicContentImpact": "Keine scheinbar konsolidierte Fassung der SOFS als gesicherten Rechtsstand veröffentlichen; die amtlichen Änderungsvorschriften und der Konflikthinweis bleiben zugänglich.",
       "priority": "high",
       "questionStatus": "open"
     },
@@ -232,7 +232,7 @@
     },
     {
       "id": "question-missing-revosax-snapshots",
-      "title": "Wo sind die zwei noch fehlenden amtlichen Ausgangsfassungen?",
+      "title": "Welche amtliche Ausgangsfassung des NDR-Staatsvertrags fehlt?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,

@@ -2,7 +2,7 @@
 
 > Diese Datei ist ein generierter Überblick. Für rechtliche Detailfragen sind die verknüpften Primärquellen und Normfassungen maßgeblich.
 
-**Redaktioneller Stand:** 2026-07-21
+**Redaktioneller Stand:** 2026-08-23
 
 ## Quellenregeln
 
@@ -113,7 +113,7 @@ Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 un
 - **Umsetzung Boom Europe Leipzig/Halle** (implementation): Das Boom Europe Leipzig/Halle Agreement ist seit dem 14. Mai 2026 rechtskräftig unterzeichnet und in Kraft. Die gesetzlichen Grundlagen traten am 21. Juli 2026 hinzu; die spätere Standorteröffnung ist nicht belegt.
 - **Bundesratszugangs- oder Stimmrechtsstreit** (decision-details-missing): Ein Bundesratszugangs- beziehungsweise Mitwirkungsstreit mit dem westdeutschen Ministerpräsidenten Markus Hauer ist bestätigt. Eine einstweilige Anordnung führte zur Rücknahme der Zugangsbeschränkung; formale Verfahrensdaten fehlen noch.
 - **Historischer Regierungswechsel und Rücktritt Tom Kurzschlusses 2025** (historical-details-missing): Ein Rücktritt Tom Kurzschlusses und ein außergewöhnlicher Regierungswechsel beziehungsweise ein Misstrauensvotum sind bestätigt; die genaue Ereignisfolge bleibt unerschlossen.
-- **Konsolidierung übernommener und geänderter Stammnormen** (ongoing): Der Audit erkennt 84 Zielnormen; 53 sind vollständig konsolidiert, 24 besitzen nun eine geprüfte Ausgangsquelle und benötigen noch Stammnormdatensätze, zwei Bestände enthalten noch Platzhalter, drei schulrechtliche Quellenkonflikte sind gesperrt und zwei Primärquellen fehlen weiterhin.
+- **Konsolidierung übernommener und geänderter Stammnormen** (ongoing): Der Audit erkennt 85 Zielnormen; 81 sind vollständig konsolidiert. Drei Zieltextkonflikte sind gesperrt (Gesetz über den öffentlichen Personennahverkehr, Schulordnung Förderschulen und Zehntes Sächsisches Kostenverzeichnis); für den NDR-Staatsvertrag fehlt weiterhin eine maßgebliche Ausgangsfassung.
 - **Ausgabenummer der SERO-Verkündung** (resolved): Der Nummernkonflikt ist redaktionell geklärt: Amtlich maßgeblich ist OGVBl. 2026 Nr. 58; die sichtbare Nr. 57 in der PDF ist ein Druckfehler.
 - **Ostdeutsche Mitwirkung am Helsinki-Übereinkommen und in HELCOM** (in-force): Das Helsinki-Übereinkommen stammt aus dem Jahr 1992. Ostdeutschland unterzeichnete am 6. Oktober 2025, stimmte innerstaatlich am 26. Januar 2026 zu und setzte den Beitritt mit der Verkündung im Vertragsblatt am 27. Januar 2026 in Kraft.
 - **Anerkennung ostdeutscher Verbundfahrausweise bei DB Fernverkehr** (deal-confirmed-details-unresolved): DB Fernverkehr und die ostdeutsche Seite vereinbarten für 57 Millionen Euro die Ticketanerkennung in IC- und ICE-Verbindungen. Der Deal umfasst keine Reaktivierung fehlender Fernverkehrsrelationen.
@@ -124,10 +124,10 @@ Die strukturierte Stichtagsinventur enthält 666 belegte Positionszeilen: 217 un
 
 - **Welche nicht öffentlich ausgewiesenen tieferen Beteiligungsstufen bestanden am 1. Dezember 2023?**: Öffentlich zugängliche Beteiligungsberichte sind je Land unterschiedlich tief; Handelsregister- und vollständige Konzernabschlussketten sind nicht für jede Position offen zugänglich.
 - **Welche Staatsverträge und Satzungen gemeinsamer Träger wurden nach der Vereinigung formal angepasst?**: Die vorhandenen Quellen belegen die Ausgangsverträge und die Rechtsnachfolge, aber nicht für alle gemeinsamen Einrichtungen die nachfolgende formale Bereinigung ihrer Länderbezeichnungen und Organstimmen.
-- **Zieltextkonflikte bei drei schulrechtlichen Konsolidierungen**: Die vorhandenen Zieltexte enthalten die von den Änderungsbefehlen vorausgesetzten Wortlaute oder Einordnungsstellen nicht.
+- **Zieltextkonflikt bei der Schulordnung Förderschulen**: Die vorhandenen Zieltexte enthalten die von den Änderungsbefehlen vorausgesetzten Wortlaute oder Einordnungsstellen nicht.
 - **Welche Tarifdetails gelten für die OVV-Anerkennung und werden Fernverkehrsrelationen reaktiviert?**: Der EAG-Deal trennt die Ticketanerkennung ausdrücklich von der Wiederherstellung fehlender Verbindungen. Ein Vertrag, Tarifblatt oder Betriebsnachweis liegt nicht vor.
 - **Wann begann die operative Umsetzung des Boom-Europe-Standorts?**: Das rechtskräftige Agreement belegt Vertragsschluss und Inkrafttreten, aber nicht automatisch Baubeginn, Standorteröffnung oder Betriebsaufnahme.
-- **Wo sind die zwei noch fehlenden amtlichen Ausgangsfassungen?**: Ohne Ausgangssnapshot darf keine freie Konsolidierung erfolgen.
+- **Welche amtliche Ausgangsfassung des NDR-Staatsvertrags fehlt?**: Ohne Ausgangssnapshot darf keine freie Konsolidierung erfolgen.
 - **Welche EAG-bestätigten Vergaben und Beschaffungen wurden tatsächlich ausgeliefert oder in Betrieb genommen?**: Der Discordverlauf endet bei Zuschlag, Bestellung oder angenommener Ansiedlung und enthält keine eindeutigen Vollzugsbelege.
 - **Welche bestätigten EAG-Vorgänge benötigen noch einen Vollzugs- oder Detailbeleg?**: Die EAG bestätigte Grundentscheidungen, der Export enthält aber nicht in allen Fällen Abschluss, Enddatum oder genaue Rechtsfolge.
 

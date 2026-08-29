@@ -24,7 +24,8 @@ Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffen
 - Der sichtbare Hinweis zur politischen Simulation bleibt auf obere Hinweisleiste und Footer
   beschränkt. Das Impressum enthält die ausführliche rechtliche Einordnung; in normalen
   Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation ergänzen.
-- Für aktuelle Übersichten gilt der redaktionelle Stichtag 23. August 2026. Termine davor sind
+- Für aktuelle Übersichten gilt der zentrale redaktionelle Stichtag aus
+  `src/config/editorial.json`. Termine davor sind
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
@@ -1004,8 +1005,9 @@ Sitzungstermins verändert ihn nicht automatisch. Eine Annahmeempfehlung ist wed
 noch Verkündung.
 
 Pflichtangaben sind Slug, vollständiger Titel, Kurztitel, Drucksachennummer, Initiator,
-Verfahrensstufe, verständlicher Statustext, nächste angesetzte Beratung, Quellen, Verknüpfungen
-und der zuletzt bestätigte Stand. Einbringungsdatum, Ausschuss, Beschlussempfehlung und
+Verfahrensstufe, verständlicher Statustext, nächste angesetzte Beratung, Quellen und
+Verknüpfungen. Der zuletzt bestätigte Stand wird zentral aus `src/config/editorial.json` abgeleitet.
+Einbringungsdatum, Ausschuss, Beschlussempfehlung und
 Verfahrensgruppe werden nur gepflegt, wenn sie belegt sind.
 
 Jeder Eintrag unter `sources` kennzeichnet die Verfügbarkeit ausdrücklich: `local` setzt einen

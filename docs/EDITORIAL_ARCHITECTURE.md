@@ -1,6 +1,6 @@
 # Architektur des Redaktionsstudios
 
-Stand: 23. August 2026
+Der fachliche Redaktionsstichtag wird ausschließlich in `src/config/editorial.json` gesetzt.
 
 ## Entscheidung
 

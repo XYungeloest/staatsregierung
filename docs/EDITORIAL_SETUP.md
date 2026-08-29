@@ -64,7 +64,13 @@ Das Token benötigt nur die zum Hochladen einer Worker-Version erforderlichen Re
 
 Ohne die Repositoryvariable bleibt der Preview-Job übersprungen, während alle Qualitätsprüfungen weiterlaufen. Fehlende Preview-Secrets führen somit nicht zu einem unsicheren Ersatzdeployment.
 
-Der Workflow klassifiziert reine Änderungen unter `content/`, `knowledge/` und `public/images/` als redaktionelle Änderungen. Dabei wird der gemeinsame Ausgangscommit von PR- und Basisbranch verwendet, damit spätere Änderungen an `main` nicht fälschlich dem offenen PR zugerechnet werden. Für redaktionelle Änderungen laufen Content-, Knowledge-, Typ-, Unit-, Build-, Link- und SEO-Prüfungen. Änderungen an Code, Layout, Styles, Tests oder Infrastruktur erhalten zusätzlich Studio-, Accessibility-, Browser- und Visual-Prüfungen. Die Vorschau wartet jeweils nur auf die für den Änderungstyp erforderlichen erfolgreichen Jobs.
+Der Workflow ermittelt den Änderungsscope zentral über `scripts/classify-change-scope.mjs`. Der
+gemeinsame Ausgangscommit von PR- und Basisbranch wird verwendet, damit spätere Änderungen an
+`main` nicht fälschlich dem offenen PR zugerechnet werden. `docs-only` löst keine UI-Smokes aus;
+alle anderen PR-Änderungen erhalten die bestehenden Accessibility- und Browser-Smokes. Im
+Produktionsworkflow bestimmen `portal`, `law` und `shared`, welche Anwendung gebaut und
+veröffentlicht wird; gemeinsame Quellen wie `knowledge/`, `Gesetze/` und `content/normen/` gelten
+konservativ als `shared`.
 
 Jeder Preview-Upload wird mit seiner Cloudflare-Versions-ID im technischen Teil des PR-Kommentars registriert. Beim Schließen oder Mergen des Pull Requests löscht der Workflow alle für diesen PR registrierten Preview-Versionen und kennzeichnet die Vorschau im Kommentar als entfernt. Das Cloudflare-API-Token benötigt dafür neben dem Upload auch die Berechtigung zum Löschen von Worker-Versionen.
 

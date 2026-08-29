@@ -303,7 +303,7 @@
       "validFrom": "2023-12-01",
       "validTo": null,
       "asOf": "2026-08-23",
-      "summary": "Freistaat Ostdeutschland; redaktioneller Stichtag 23. August 2026; Regierungssitz Dresden.",
+      "summary": "Freistaat Ostdeutschland; der redaktionelle Stichtag wird aus src/config/editorial.json übernommen; Regierungssitz Dresden.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-config",
@@ -325,8 +325,7 @@
       ],
       "notes": [],
       "stateId": "territory-freistaat",
-      "capital": "Dresden",
-      "editorialAsOf": "2026-08-23"
+      "capital": "Dresden"
     },
     {
       "id": "state-current-constitution",

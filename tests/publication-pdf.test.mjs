@@ -7,6 +7,7 @@ import test from 'node:test';
 import { findMissingPublicationPdfAssets } from '../scripts/check-deploy-assets.mjs';
 import {
   pdfPageCount,
+  publicationIdentityKey,
   publicationIdentityFromPdfFileName,
   retainUnrelatedPublicationSourceReferences,
   resolvePublicationPdf,
@@ -32,6 +33,17 @@ test('neue Ausgabe behält das PDF mit identischem Basename', () => {
     publication: 'OGVBl.', year: 2026, issue: '68',
     htmlFileName: 'OGVBl. 2026 Nr. 68.html', pdfFileNames: pdfFiles,
   }), { fileName: 'OGVBl. 2026 Nr. 68.pdf', strategy: 'exact-basename' });
+});
+
+test('OABl.-Alias der Ausgabe 2026 Nr. 2 bleibt auf die eine StAnzO-Identität begrenzt', () => {
+  assert.notEqual(publicationIdentityKey('OABl.', 2025, '2'), publicationIdentityKey('StAnzO.', 2026, '2'));
+  assert.notEqual(publicationIdentityKey('OABl.', 2026, '1'), publicationIdentityKey('StAnzO.', 2026, '1'));
+  assert.equal(publicationIdentityKey('OABl.', 2026, '2'), publicationIdentityKey('StAnzO.', 2026, '2'));
+  assert.deepEqual(resolvePublicationPdf({
+    publication: 'StAnzO.', year: 2026, issue: '2',
+    htmlFileName: 'StAnzO. 2026 Nr. 2.html',
+    pdfFileNames: ['OABl 2026 Nr 2.pdf'],
+  }), { fileName: 'OABl 2026 Nr 2.pdf', strategy: 'publication-identity' });
 });
 
 test('tatsächlich fehlendes PDF erzeugt keinen Link', () => {

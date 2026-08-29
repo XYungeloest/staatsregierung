@@ -467,6 +467,10 @@ test('Konsolidierungsmanifest ist aktuell und zählt seine Zielstatus konsistent
   assert.ok(manifest.counts.recognizedTargetNorms >= manifest.targets.length);
   assert.ok(manifest.targets.every((target) => typeof target.canonicalSlug === 'string' && typeof target.status === 'string'));
   assert.equal(manifest.targets.filter((target) => target.status === 'missing-stem-record').length, 0);
+  for (const field of ['templateProblems', 'ambiguousFindings']) {
+    const findings = manifest[field] ?? [];
+    assert.equal(new Set(findings.map((finding) => JSON.stringify(finding))).size, findings.length, `${field}: doppelte Funde`);
+  }
   const berufsschule = manifest.targets.find((target) => target.canonicalSlug === 'schulordnung-berufsschule');
   assert.equal(berufsschule.status, 'complete');
   assert.deepEqual(berufsschule.effectiveDates, ['2026-09-01']);

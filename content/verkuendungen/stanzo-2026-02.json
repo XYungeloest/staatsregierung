@@ -5,6 +5,7 @@
   "issue": "2",
   "date": "2026-03-03",
   "publication": "StAnzO.",
+  "originalIssueDesignation": "OABl. 2026 Nr. 2",
   "entries": [
     {
       "id": "anordnung-eines-abschiebungsstopp-gem-60a-abs-1-aufenthg-in-den-iran",
@@ -19,10 +20,28 @@
   ],
   "sourceReferences": [
     {
-      "kind": "original",
-      "label": "Amtliches Original-PDF der Ausgabe",
-      "availability": "not-versioned",
-      "note": "Für die redaktionelle Erfassung lokal geprüft; nicht Bestandteil des Repositorys."
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 2.html",
+      "sha256": "ff3435bf6da49a945cc55a62ed388c030014ce5d0c8cc4c2072c0f758eef9b3d",
+      "mediaType": "text/html",
+      "pageRange": "2–3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OABl 2026 Nr 2.pdf",
+      "sha256": "ea0a5f829af0b6d8a78b446f91b0216f69342f9beff83c00dae726838b045a6d",
+      "mediaType": "application/pdf",
+      "pageCount": 3,
+      "pageRange": "2–3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/StAnzO. 2026 Nr. 2.html"
     },
     {
       "kind": "index",
@@ -30,5 +49,6 @@
       "availability": "external",
       "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/OABl 2026 Nr 2.pdf"
 }
