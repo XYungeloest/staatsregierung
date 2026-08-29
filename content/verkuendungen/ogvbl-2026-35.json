@@ -19,22 +19,35 @@
   ],
   "sourceReferences": [
     {
-      "kind": "original",
-      "label": "Amtliches Original-PDF der Ausgabe",
-      "availability": "not-versioned",
-      "note": "Für die redaktionelle Erfassung lokal geprüft; nicht Bestandteil des Repositorys."
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 35.html",
+      "sha256": "73a1716bd5a7e5b452bedfd37faf3069a117290c678217833237aa7f0d1fe618",
+      "mediaType": "text/html",
+      "pageRange": "2–11",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 35.pdf",
+      "sha256": "a23123426a2acaf9e62f7f03b0eab4705d8861468b3abe0811bb2af10dbee70f",
+      "mediaType": "application/pdf",
+      "pageCount": 11,
+      "pageRange": "2–11",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 35.html"
     },
     {
       "kind": "index",
       "label": "Festgeschriebene Liste der amtlichen Verkündungsblätter",
       "availability": "external",
       "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
-    },
-    {
-      "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 35.html"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/OGVBl. 2026 Nr. 35.pdf"
 }

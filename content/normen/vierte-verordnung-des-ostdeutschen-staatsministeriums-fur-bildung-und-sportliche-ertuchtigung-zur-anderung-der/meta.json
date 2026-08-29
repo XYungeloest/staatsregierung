@@ -4,7 +4,7 @@
   "title": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Bildung und sportliche Ertüchtigung zur Änderung der Ostdeutschen Lehrkräfte-Arbeitszeitverordnung",
   "shortTitle": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Bildung und sportliche Ertüchtigung zur Änderung der Ostdeutschen Lehrkräfte-Arbeitszeitverordnung",
   "abbr": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Bildung und sportliche Ertüchtigung zur Änderung der Ostdeutschen Lehrkräfte-Arbeitszeitverordnung",
-  "type": "verordnung",
+  "type": "aenderungsvorschrift",
   "subjects": [
     "Verordnungsrecht"
   ],
@@ -29,9 +29,30 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 14.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 14.html",
+      "sha256": "ea12055281ffc0e4d7d945612540ecbb5ecf4ca08e2c46897adde06a9ed825a8",
+      "mediaType": "text/html",
+      "pageRange": "2-3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 14.pdf",
+      "sha256": "222b7739c1257279de975c53430b4855fc59c4a9fb18a3b53beb84a0487e8131",
+      "mediaType": "application/pdf",
+      "pageCount": 3,
+      "pageRange": "2-3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 14.html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsche-lehrkraefte-arbeitszeitverordnung"
   ]
 }

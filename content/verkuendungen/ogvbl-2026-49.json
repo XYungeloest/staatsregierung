@@ -8,9 +8,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 49.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 49.html",
+      "sha256": "eb9c04fa8970b574ee4aa8836aeb7570f7369362b0ad45b02669c68e10cced08",
+      "mediaType": "text/html",
+      "pageRange": "2–39",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 49.pdf",
+      "sha256": "78193d606787faceb079520557fbaca536a6111ef63d73bd6a4fd73d5f4e6582",
+      "mediaType": "application/pdf",
+      "pageCount": 39,
+      "pageRange": "2–39",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 49.html"
     }
   ],
   "entries": [
@@ -60,5 +78,6 @@
       "normSlug": "energie-und-waermefinanzierungsgesetz",
       "versionId": "2026-07-21"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/OGVBl. 2026 Nr. 49.pdf"
 }

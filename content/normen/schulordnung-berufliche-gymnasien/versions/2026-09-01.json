@@ -1,5 +1,8 @@
 {
   "versionId": "2026-09-01",
+  "title": "Schulordnung Berufliche Gymnasien",
+  "shortTitle": "Schulordnung Berufliche Gymnasien",
+  "abbr": "BGySO",
   "validFrom": "2026-09-01",
   "validTo": null,
   "isCurrent": true,
@@ -1808,25 +1811,26 @@
                       "text": "vier Grundkurse aus einer der beiden in der Sekundarstufe I begonnenen und fortgeführten\nFremdsprachen sowie zwei weitere Grundkurse",
                       "level": 1,
                       "numberingStyle": "lower-latin",
-                      "children": []
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "aa)",
+                          "text": "bezogen auf die jeweilige Fachrichtung für die Fachrichtungen Informations- und Kommunikationstechnologie sowie Wirtschaftswissenschaft in einer weiteren Naturwissenschaft oder für alle weiteren Fachrichtungen in einer Naturwissenschaft oder im Fach Informatik oder",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "bb)",
+                          "text": "unabhängig von der Fachrichtung in den Fächern Kunst, Literatur oder Musik oder in einer Fremdsprache,",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        }
+                      ]
                     }
                   ]
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "aa)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "bezogen auf die jeweilige Fachrichtung für die Fachrichtungen Informations- und Kommunikationstechnologie sowie Wirtschaftswissenschaft in einer weiteren Naturwissenschaft oder für alle weiteren Fachrichtungen in einer Naturwissenschaft oder im Fach Informatik oder"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "bb)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "unabhängig von der Fachrichtung in den Fächern Kunst, Literatur oder Musik oder in einer Fremdsprache,"
                 },
                 {
                   "type": "item",
@@ -1963,7 +1967,24 @@
                       "text": "bezogen auf die jeweilige Fachrichtung",
                       "level": 1,
                       "numberingStyle": "lower-latin",
-                      "children": []
+                      "children": [
+                        {
+                          "type": "item",
+                          "label": "aa)",
+                          "text": "für die Fachrichtungen Agrarwissenschaft, Biotechnologie, Ernährungswissenschaft, Informations- und Kommunikationstechnologie sowie Technikwissenschaft jeweils vier Kurshalbjahresergebnisse im\nFach Geschichte/Gemeinschaftskunde und jeweils zwei Kurshalbjahresergebnisse in einem der Fächer Biologie, Chemie oder Physik und",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        },
+                        {
+                          "type": "item",
+                          "label": "bb)",
+                          "text": "für die Fachrichtungen Gesundheit und Sozialwesen sowie Wirtschaftswissenschaft jeweils zwei Kurshalbjahresergebnisse im Fach Geschichte/Gemeinschaftskunde und jeweils vier Kurshalbjahresergebnisse in einem der Fächer Biologie, Chemie oder Physik und",
+                          "level": 2,
+                          "numberingStyle": "lower-latin",
+                          "children": []
+                        }
+                      ]
                     },
                     {
                       "type": "item",
@@ -1974,22 +1995,6 @@
                       "children": []
                     }
                   ]
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "aa)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "für die Fachrichtungen Agrarwissenschaft, Biotechnologie, Ernährungswissenschaft, Informations- und Kommunikationstechnologie sowie Technikwissenschaft jeweils vier Kurshalbjahresergebnisse im\nFach Geschichte/Gemeinschaftskunde und jeweils zwei Kurshalbjahresergebnisse in einem der Fächer Biologie, Chemie oder Physik und"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "bb)"
-                },
-                {
-                  "type": "paragraphText",
-                  "text": "für die Fachrichtungen Gesundheit und Sozialwesen sowie Wirtschaftswissenschaft jeweils zwei Kurshalbjahresergebnisse im Fach Geschichte/Gemeinschaftskunde und jeweils vier Kurshalbjahresergebnisse in einem der Fächer Biologie, Chemie oder Physik und"
                 },
                 {
                   "type": "item",

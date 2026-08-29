@@ -6,7 +6,7 @@
   "validFrom": "2023-11-01",
   "validTo": "2026-03-23",
   "isCurrent": false,
-  "citation": "Sächsisches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358), das zuletzt durch Artikel 2 des Gesetzes vom 24. Juni 2026 (SächsGVBl. S. 190) geändert worden ist",
+  "citation": "Sächsisches Polizeivollzugsdienstgesetz vom 11. Mai 2019 (SächsGVBl. S. 358)",
   "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
   "sourceReferences": [
     {
@@ -156,6 +156,14 @@
               "text": "öffentliche Ordnung: die Gesamtheit der im Rahmen der verfassungsmäßigen Ordnung liegenden ungeschriebenen Regeln für das Verhalten des Einzelnen in der Öffentlichkeit, deren Beachtung nach den jeweils herrschenden Anschauungen als unerlässliche Voraussetzung eines geordneten Zusammenlebens betrachtet wird;",
               "level": 0,
               "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
                 {
                   "type": "item",
@@ -252,33 +260,34 @@
                   "text": "Vergehen, die im Einzelfall nach Art und Schwere geeignet sind, den Rechtsfrieden besonders zu stören, soweit sie",
                   "level": 1,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "aa)",
+                      "text": "sich gegen Leib, Leben oder Freiheit einer Person richten,",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "bb)",
+                      "text": "auf den Gebieten des unerlaubten Waffen- oder Betäubungsmittelverkehrs, der Geld- und Wertzeichenfälschung (§§ 146 bis 152b des Strafgesetzbuches), der Vorteilsannahme oder Vorteilsgewährung und der Bestechlichkeit oder Bestechung (§§ 331 bis 335 des Strafgesetzbuches) oder des Staatsschutzes (§§ 74a und 120 des Gerichtsverfassungsgesetzes in der Fassung der Bekanntmachung vom 9. Mai 1975 [BGBl. I S. 1077], das zuletzt durch Artikel 1 des Gesetzes vom 12. Juli 2018 [BGBl. I S. 1151] geändert worden ist, in der jeweils geltenden Fassung) begangen werden oder",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "cc)",
+                      "text": "gewerbs-, gewohnheits-, serien- oder bandenmäßig oder sonst organisiert begangen werden;",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    }
+                  ]
                 }
               ]
-            },
-            {
-              "type": "paragraphText",
-              "text": "aa)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "sich gegen Leib, Leben oder Freiheit einer Person richten,"
-            },
-            {
-              "type": "paragraphText",
-              "text": "bb)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "auf den Gebieten des unerlaubten Waffen- oder Betäubungsmittelverkehrs, der Geld- und Wertzeichenfälschung (§§ 146 bis 152b des Strafgesetzbuches), der Vorteilsannahme oder Vorteilsgewährung und der Bestechlichkeit oder Bestechung (§§ 331 bis 335 des Strafgesetzbuches) oder des Staatsschutzes (§§ 74a und 120 des Gerichtsverfassungsgesetzes in der Fassung der Bekanntmachung vom 9. Mai 1975 [BGBl. I S. 1077], das zuletzt durch Artikel 1 des Gesetzes vom 12. Juli 2018 [BGBl. I S. 1151] geändert worden ist, in der jeweils geltenden Fassung) begangen werden oder"
-            },
-            {
-              "type": "paragraphText",
-              "text": "cc)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "gewerbs-, gewohnheits-, serien- oder bandenmäßig oder sonst organisiert begangen werden;"
             },
             {
               "type": "item",
@@ -309,37 +318,38 @@
                   "text": "die in § 129a Absatz 1 und 2 Nummer 2 bis 5 des Strafgesetzbuches bezeichneten Straftaten, sofern die Begehung der Straftat dazu bestimmt ist,",
                   "level": 1,
                   "numberingStyle": "lower-latin",
-                  "children": []
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "aa)",
+                      "text": "die Bevölkerung auf erhebliche Weise einzuschüchtern,",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "bb)",
+                      "text": "eine Behörde oder eine internationale Organisation rechtswidrig mit Gewalt oder durch Drohung mit Gewalt zu nötigen oder",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "cc)",
+                      "text": "die politischen, verfassungsrechtlichen, wirtschaftlichen oder sozialen Grundstrukturen eines Staates, eines Landes oder einer internationalen Organisation zu beseitigen oder erheblich zu beeinträchtigen;",
+                      "level": 2,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "die Straftat muss durch die Art ihrer Begehung oder durch ihre Auswirkungen einen Staat, ein Land oder eine internationale Organisation erheblich schädigen können;"
+                    }
+                  ]
                 }
               ]
-            },
-            {
-              "type": "paragraphText",
-              "text": "aa)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "die Bevölkerung auf erhebliche Weise einzuschüchtern,"
-            },
-            {
-              "type": "paragraphText",
-              "text": "bb)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "eine Behörde oder eine internationale Organisation rechtswidrig mit Gewalt oder durch Drohung mit Gewalt zu nötigen oder"
-            },
-            {
-              "type": "paragraphText",
-              "text": "cc)"
-            },
-            {
-              "type": "paragraphText",
-              "text": "die politischen, verfassungsrechtlichen, wirtschaftlichen oder sozialen Grundstrukturen eines Staates, eines Landes oder einer internationalen Organisation zu beseitigen oder erheblich zu beeinträchtigen;"
-            },
-            {
-              "type": "paragraphText",
-              "text": "die Straftat muss durch die Art ihrer Begehung oder durch ihre Auswirkungen einen Staat, ein Land oder eine internationale Organisation erheblich schädigen können;"
             },
             {
               "type": "item",

@@ -404,3 +404,7 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
 - [ ] Vor Produktionsfreigaben neben den automatisierten Prüfungen einen kurzen manuellen
   Tastatur- und Screenreader-Test sowie eine Sichtprüfung der festgelegten Mobil-, Tablet- und
   Desktopbreiten dokumentieren.
+
+### Technik
+
+- [ ] Die CI/CD sollte nicht bei jeder Änderung einer Dokumentation bzw diff in Markdown die komplette Anwendung deployen. Eventuell sogar soweit gehen, dass Änderungen an einer Website nicht beide neu deployet.

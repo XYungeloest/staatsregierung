@@ -1,0 +1,26 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-des-ostdeutschen-transparenzund-inform-jfp5oj",
+  "effectiveDate": "2026-07-01",
+  "versionId": "2026-07-01",
+  "amendmentCitation": "Gesetz vom 30. Juni 2026 (OGVBl. 2026 Nr. 48)",
+  "resultCitation": "Waldgesetz für den Freistaat Ostdeutschland, geändert durch Artikel 4 des Gesetzes vom 30. Juni 2026 (OGVBl. 2026 Nr. 48)",
+  "changeNote": "Der Vorbehalt für Transparenz- und Umweltinformationsrecht wurde neu gefasst.",
+  "commandCoverage": ["Artikel 4"],
+  "sourceReferences": [{
+    "kind": "amendment-source",
+    "label": "OGVBl. 2026 Nr. 48",
+    "availability": "versioned",
+    "localSource": "Gesetze/OGVBl. 2026 Nr. 48.html"
+  }],
+  "operations": [{
+    "op": "replaceText",
+    "target": { "type": "subparagraph", "label": "(3)", "parentType": "paragraph", "parentLabel": "§ 43" },
+    "field": "text",
+    "expectedOld": "Bedienstete der Forstbehörden, die nach Absatz 1 oder durch Beratung und Betreuung der Waldbesitzer fremde Betriebs- oder Geschäftsgeheimnisse oder Einzelangaben erfahren, haben darüber Verschwiegenheit zu wahren. § 5 Absatz 1 Nummer 19 des Sächsischen Transparenzgesetzes vom 19. August 2022 (SächsGVBl. S. 486), in der jeweils geltenden Fassung, und § 6 Absatz 1 des Sächsischen Umweltinformationsgesetzes vom 1. Juni 2006 (SächsGVBl. S. 146), das zuletzt durch Artikel 2 Absatz 25 des Gesetzes vom 5. April 2019 (SächsGVBl. S. 245) geändert worden ist, in der jeweils geltenden Fassung, bleiben unberührt.",
+    "value": "Bedienstete der Forstbehörden, die nach Absatz 1 oder durch Beratung und Betreuung der Waldbesitzer fremde Betriebs- oder Geschäftsgeheimnisse oder Einzelangaben erfahren, haben darüber Verschwiegenheit zu wahren. Die Vorschriften des § 7 Absatz 1 Nummer 14 des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes in der jeweils geltenden Fassung und des Ostdeutschen Umweltinformationsgesetzes in der jeweils geltenden Fassung bleiben unberührt.",
+    "expectedMatches": 1,
+    "source": "Gesetze/OGVBl. 2026 Nr. 48.html",
+    "sourceProvision": "Artikel 4",
+    "effectiveDate": "2026-07-01"
+  }]
+}

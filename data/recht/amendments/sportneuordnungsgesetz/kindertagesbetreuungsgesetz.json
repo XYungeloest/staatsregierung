@@ -1,0 +1,39 @@
+{
+  "amendmentAct": "sportneuordnungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "versionId": "2026-07-21",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 55)",
+  "resultCitation": "Ostdeutsches Kindertagesbetreuungsgesetz, geändert durch Artikel 7 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 55)",
+  "changeNote": "Bewegungsförderung in Kindertageseinrichtungen wurde als § 7a ergänzt.",
+  "commandCoverage": [
+    "Artikel 7 Nummer 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 55",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 7"
+      },
+      "expectedHash": "99f6fcc57110c04af31a14b53b3caa06642d888367cecdd09d7371a30ae199f1",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 7a",
+        "title": "Bewegungsförderung“.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Artikel 7 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

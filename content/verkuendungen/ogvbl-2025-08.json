@@ -19,22 +19,29 @@
   ],
   "sourceReferences": [
     {
-      "kind": "original",
-      "label": "Amtliches Original-PDF der Ausgabe",
-      "availability": "not-versioned",
-      "note": "Für die redaktionelle Erfassung lokal geprüft; nicht Bestandteil des Repositorys."
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/GVBl. 2025 Nr. 8.pdf",
+      "sha256": "2d5d6c4268bc3dd232024c8767c0ac54059cfabd303f6ae9c92e197f9ad78cce",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2–5",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control"
+    },
+    {
+      "kind": "legacy-markdown-transcription",
+      "label": "Historische Markdown-Transkription (Altbestand)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2025 Nr. 8.md"
     },
     {
       "kind": "index",
       "label": "Festgeschriebene Liste der amtlichen Verkündungsblätter",
       "availability": "external",
       "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
-    },
-    {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription der Ausgabe (Altbestand)",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2025 Nr. 8.md"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/GVBl. 2025 Nr. 8.pdf"
 }

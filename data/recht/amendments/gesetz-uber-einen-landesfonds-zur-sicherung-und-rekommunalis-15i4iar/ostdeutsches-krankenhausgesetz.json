@@ -1,0 +1,187 @@
+{
+  "amendmentAct": "gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar",
+  "effectiveDate": "2026-04-01",
+  "versionId": "2026-04-01",
+  "amendmentCitation": "Gesetz vom 24. März 2026 (OGVBl. 2026 Nr. 28)",
+  "resultCitation": "Ostdeutsches Krankenhausgesetz, geändert durch Artikel 2 des Gesetzes vom 24. März 2026 (OGVBl. 2026 Nr. 28)",
+  "changeNote": "Sicherungs- und Transformationsbedarf sowie ein Verfahren zur Sicherung versorgungsnotwendiger Standorte wurden geregelt.",
+  "commandCoverage": [
+    "Artikel 2 Nummern 2 bis 6"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 28",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 34.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "item",
+        "label": "2.",
+        "parentType": "paragraph",
+        "parentLabel": "§ 1"
+      },
+      "field": "text",
+      "expectedOld": "die Patientenversorgung soll unter Berücksichtigung der Bevölkerungsdichte, der Morbidität und der demografischen Entwicklung durch ein funktional abgestuftes Netz möglichst gleichmäßig über das Gebiet des Freistaates Sachsen verteilter einander ergänzender Krankenhäuser sichergestellt und patientenzentriert organisiert werden,",
+      "value": "die Patientenversorgung soll unter Berücksichtigung der Bevölkerungsdichte, der Morbidität und der demografischen Entwicklung durch ein funktional abgestuftes Netz möglichst gleichmäßig über das Gebiet des Freistaates Sachsen verteilter einander ergänzender Krankenhäuser sichergestellt und patientenzentriert organisiert, auch durch sektorenübergreifende Versorgungsformen, regionale Kooperationsstrukturen und besondere Sicherungsmaßnahmen für dünn besiedelte und strukturschwache Räume, werden,",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 34.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-04-01"
+    },
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(2)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 1"
+      },
+      "field": "text",
+      "expectedOld": "Die Sicherstellung der Krankenhausversorgung ist eine öffentliche Aufgabe. Findet sich kein anderer geeigneter Träger, sind die Landkreise oder Kreisfreien Städte verpflichtet, bedarfsgerechte Krankenhäuser zu errichten und zu betreiben oder weiterzuentwickeln.",
+      "value": "Die Sicherstellung der Krankenhausversorgung ist eine öffentliche Aufgabe. Findet sich kein anderer geeigneter Träger, sind die Landkreise oder Kreisfreien Städte verpflichtet, bedarfsgerechte Krankenhäuser zu errichten und zu betreiben oder weiterzuentwickeln. Öffentliche und gemeinwohlorientierte Träger sind bei der Sicherung versorgungsnotwendiger Krankenhausstandorte besonders zu berücksichtigen.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 34.html",
+      "sourceProvision": "Artikel 2 Nummer 3",
+      "effectiveDate": "2026-04-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "51985187f03daf486e966013bd1919c3c231ca7a243eb048fb81c8a870fba73d",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5a",
+        "title": "Besonderer Sicherungs- und Transformationsbedarf“.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 34.html",
+      "sourceProvision": "Artikel 2 Nummer 4",
+      "effectiveDate": "2026-04-01"
+    },
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 10"
+      },
+      "expectedHash": "b9d353dc46e9e1c709b1d035f4b29e5ebea9e32c9980661d6313ee7b2059ebe9",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 10",
+        "title": "Sicherung der Krankenhausplanung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Krankenhausträger sind verpflichtet, dem zuständigen Staatsministerium unverzüglich, spätestens jedoch zwölf Monate vor der beabsichtigten Umsetzung, anzuzeigen:",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "1.",
+            "text": "die Einstellung des Betriebs eines Krankenhauses oder eines Krankenhausstandortes,",
+            "level": 0,
+            "listId": "u395uz2evjg6",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "die wesentliche Einschränkung des Versorgungsauftrags,",
+            "level": 0,
+            "listId": "u395uz2evjg6",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "3.",
+            "text": "die Änderung der Aufgabenstellung,",
+            "level": 0,
+            "listId": "u395uz2evjg6",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "den Trägerausstieg,",
+            "level": 0,
+            "listId": "u395uz2evjg6",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "5.",
+            "text": "die Veräußerung einer beherrschenden Beteiligung an der Trägergesellschaft oder wesentlicher betriebsnotwendiger Vermögensgegenstände, soweit hierdurch die Erfüllung des Versorgungsauftrags gefährdet werden kann.",
+            "level": 0,
+            "listId": "u395uz2evjg6",
+            "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "paragraphText",
+            "text": "Das zuständige Staatsministerium beteiligt den Krankenhausplanungsausschuss und stellt gegenüber dem Krankenhausträger innerhalb von sechs Monaten nach Eingang der vollständigen Anzeige fest, ob die Maßnahme krankenhausplanerisch bedenklich ist. Die Maßnahme darf nur umgesetzt werden, wenn innerhalb dieser Frist keine Bedenken festgestellt worden sind. Andernfalls ist der Versorgungsauftrag bis zu einer anderweitigen Entscheidung nach § 10a weiter zu erfüllen, soweit dem nicht zwingende insolvenzrechtliche Gründe entgegenstehen."
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Die Anzeige nach Absatz 1 muss die Gründe der Maßnahme, den vorgesehenen Zeitplan, die wirtschaftliche Lage, die Auswirkungen auf die regionale Versorgung und ein Konzept zur Sicherung oder geordneten Überleitung der Versorgung enthalten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Bei besonders sicherungsbedürftigen Krankenhäusern, Krankenhausstandorten oder Leistungsbereichen kann das zuständige Staatsministerium die Vorlage ergänzender Unterlagen verlangen und die betroffenen Landkreise, kreisfreien Städte sowie mögliche öffentliche oder gemeinwohlorientierte Träger zu einer Sicherungslösung anhören.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Die Krankenhausträger sind verpflichtet, dem zuständigen Staatsministerium auf Verlangen die für die Krankenhausplanung erforderlichen Angaben zu übermitteln und über alle dafür bedeutsamen Angelegenheiten Auskunft zu erteilen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Die Krankenhausträger haben dem zuständigen Staatsministerium Baumaßnahmen, die krankenhausplanerisch bedeutsam sein können, mitzuteilen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 34.html",
+      "sourceProvision": "Artikel 2 Nummer 5",
+      "effectiveDate": "2026-04-01"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 10"
+      },
+      "expectedHash": "4541e41b52a7992869c15a84636f4c1d14aa1a0500fd2a0d13b822e4b5c9720f",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 10a",
+        "title": "Verfahren zur Sicherung versorgungsnotwendiger Standorte und Leistungsbereiche“.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 34.html",
+      "sourceProvision": "Artikel 2 Nummer 6",
+      "effectiveDate": "2026-04-01"
+    }
+  ]
+}

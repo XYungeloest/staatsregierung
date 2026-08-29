@@ -1,0 +1,64 @@
+{
+  "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "versionId": "2026-07-21",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 46)",
+  "resultCitation": "Ostdeutsches Justizgesetz, geändert durch Artikel 13 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 46)",
+  "changeNote": "Die gerichtlichen Zuständigkeiten wurden gegenüber der Kreis- und Bezirksneuordnung auf den Gebietsstand vom 31. Juli 2026 festgeschrieben.",
+  "commandCoverage": [
+    "Artikel 13 Nummern 1 und 2; Nummer 1 betrifft die nicht als Normkörper gespeicherte Inhaltsübersicht."
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 46",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "c179312cb9f400209a04a1d6f3f9659ec67492d0520ff23625c9a427abdde25d",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5a",
+        "title": "Gerichtliche Zuständigkeiten aus Anlass der Kreis- und Bezirksneuordnung",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die Neuordnung der Bezirke, Landkreise und kreisfreien Städte nach dem Ostdeutschen Kreis- und Bezirksneuordnungsgesetz lässt den Bestand, den Sitz, die Bezeichnung und die örtliche Zuständigkeit der Gerichte unberührt, soweit durch Gesetz nichts anderes bestimmt wird.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Soweit in diesem Gesetz oder in der Anlage zu diesem Gesetz die örtliche Zuständigkeit eines Gerichts durch Bezugnahme auf einen Bezirk, einen Landkreis, eine kreisfreie Stadt, eine Gemeinde, einen Gemeindeteil, einen ehemaligen Bezirk der Bundeshauptstadt Berlin oder ein sonstiges Gebiet bestimmt wird, ist der Gebietsstand am 31. Juli 2026 maßgebend.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Soweit in diesem Gesetz oder in der Anlage zu diesem Gesetz auf einen Bezirk, einen Landkreis oder eine kreisfreie Stadt Bezug genommen wird, der oder die durch das Ostdeutsche Kreis- und Bezirksneuordnungsgesetz aufgehoben, neu gebildet oder umbenannt wird, gilt die Bezugnahme für die Bestimmung der gerichtlichen Zuständigkeit als Bezugnahme auf das Gebiet dieser Körperschaft nach dem Gebietsstand am 31. Juli 2026.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Eine Änderung der gerichtlichen Zuständigkeit wegen der Neuordnung der Bezirke, Landkreise und kreisfreien Städte bedarf eines Gesetzes.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 13 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

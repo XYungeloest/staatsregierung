@@ -8,9 +8,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 55.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 55.html",
+      "sha256": "6c1ee2ad942964221dbca2677f196843d205b1fc40246652545c11bbc8abf857",
+      "mediaType": "text/html",
+      "pageRange": "2–12",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 55.pdf",
+      "sha256": "77a9fc0fa2cdea5327a602548372a1fad631ea06d921c96558d9f9f5be057c03",
+      "mediaType": "application/pdf",
+      "pageCount": 12,
+      "pageRange": "2–12",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 55.html"
     }
   ],
   "entries": [
@@ -24,5 +42,6 @@
       "normSlug": "drittes-gesetz-zur-grossen-staatsreform",
       "versionId": "2026-07-21"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/OGVBl. 2026 Nr. 55.pdf"
 }

@@ -1,7 +1,7 @@
 {
   "id": "gesundheitsdienstgesetz",
   "slug": "gesundheitsdienstgesetz",
-  "title": "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
+  "title": "Sächsisches Gesundheitsdienstgesetz",
   "shortTitle": "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
   "abbr": "SächsGDG",
   "shortTitleSource": "official",
@@ -36,8 +36,27 @@
       "sha256": "0c8e1875b1e1bd75bf545f49a80a5ce488ccef1fc2dbdd4e0792de2551ffaafc",
       "lawId": "3348",
       "sourceValidFrom": "2018-05-25",
-      "sourceValidTo": "2024-08-16",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2024-08-16"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2024-08-17",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/gesundheitsdienstgesetz/3348.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3348",
+      "retrievedAt": "2026-08-28",
+      "sha256": "e0d5a02ce28a8d9fad47d8b8133fac18cfb5ffd9f0a1bd0d673d1ef76e41d69d",
+      "lawId": "3348",
+      "sourceValidFrom": "2024-08-17"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 52",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
     }
+  ],
+  "affectedByNorms": [
+    "sportneuordnungsgesetz"
   ]
 }

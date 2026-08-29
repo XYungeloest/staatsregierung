@@ -1,9 +1,8 @@
 {
   "id": "ostdeutsches-justizgesetz",
   "slug": "ostdeutsches-justizgesetz",
-  "title": "Sächsisches Justizgesetz",
-  "shortTitle": "Sächsisches Justizgesetz",
-  "abbr": "SächsJG",
+  "title": "Ostdeutsches Justizgesetz",
+  "shortTitle": "Ostdeutsches Justizgesetz",
   "shortTitleSource": "official",
   "type": "gesetz",
   "enactingBody": "Sächsischer Landtag",
@@ -33,8 +32,34 @@
       "sha256": "7fa867f9d202f1155f2a9b1234c911a9422b5fd3722058369bc5f38f24dd37fa",
       "lawId": "3393",
       "sourceValidFrom": "2023-01-01",
-      "sourceValidTo": "2023-12-31",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2023-12-31"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2024-01-01",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/ostdeutsches-justizgesetz/3393.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3393",
+      "retrievedAt": "2026-08-28",
+      "sha256": "f61c191c0e4bf3c092aa9f7b65001b0d4e8d5aea66da6bbf38c7c17f4426cdc6",
+      "lawId": "3393",
+      "sourceValidFrom": "2024-01-01"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 3",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 3.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 46",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-anderung-des-justizgesetzes-zur-anpassung-an-die-6uxqzh",
+    "kreis-und-bezirksneuordnungsgesetz"
   ]
 }

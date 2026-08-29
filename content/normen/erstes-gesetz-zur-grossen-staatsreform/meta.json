@@ -27,9 +27,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 53.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 53.html",
+      "sha256": "eca9619b054bcf50bc9106dd0e2a3b9e0d9da2263e2310c45016b9cd6d72d0af",
+      "mediaType": "text/html",
+      "pageRange": "2",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 53.pdf",
+      "sha256": "5d81ce35471bb542c16837352dc97f9a3c1ccf8fc5e23ea55a97bd4b1951ec72",
+      "mediaType": "application/pdf",
+      "pageCount": 41,
+      "pageRange": "2",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 53.html"
     },
     {
       "kind": "amendment-source",
@@ -39,7 +57,7 @@
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
       "mediaType": "text/html",
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "amendment-evidence"
     },
     {
@@ -51,16 +69,16 @@
       "mediaType": "application/pdf",
       "pageCount": 5,
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
   ],
   "effectiveDate": "2026-07-21",
-  "affectedNorms": [
-    "staatsverfassung-des-freistaates-ostdeutschland"
-  ],
   "affectedByNorms": [
     "berichtigung-verschiedener-verkuendungen-2026"
+  ],
+  "affectedNorms": [
+    "staatsverfassung-des-freistaates-ostdeutschland"
   ]
 }

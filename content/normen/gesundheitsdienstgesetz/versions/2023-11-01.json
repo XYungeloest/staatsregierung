@@ -4,8 +4,8 @@
   "shortTitle": "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
   "abbr": "SächsGDG",
   "validFrom": "2023-11-01",
-  "validTo": null,
-  "isCurrent": true,
+  "validTo": "2024-08-16",
+  "isCurrent": false,
   "citation": "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen vom 11. Dezember 1991 (SächsGVBl. S. 413), das zuletzt durch Artikel 1 des Gesetzes vom 17. Juli 2024 (SächsGVBl. S. 662) geändert worden ist",
   "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
   "sourceReferences": [
@@ -19,8 +19,7 @@
       "sha256": "0c8e1875b1e1bd75bf545f49a80a5ce488ccef1fc2dbdd4e0792de2551ffaafc",
       "lawId": "3348",
       "sourceValidFrom": "2018-05-25",
-      "sourceValidTo": "2024-08-16",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2024-08-16"
     }
   ],
   "sourceNotes": [
@@ -1045,12 +1044,12 @@
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "oder"
                 }
               ]
-            },
-            {
-              "type": "paragraphText",
-              "text": "oder"
             },
             {
               "type": "item",

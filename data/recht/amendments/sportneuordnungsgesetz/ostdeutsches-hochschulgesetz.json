@@ -1,0 +1,155 @@
+{
+  "amendmentAct": "sportneuordnungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "versionId": "2026-07-21",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 55)",
+  "resultCitation": "Ostdeutsches Hochschulgesetz, geändert durch Artikel 9 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 55)",
+  "changeNote": "Spitzensport und Hochschulsport wurden geregelt.",
+  "commandCoverage": [
+    "Artikel 9 Nummer 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 55)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl.2026Nr.68.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 5"
+      },
+      "expectedHash": "93a538bb628f6eb01f5d7f7e49a3c574116b02dfa8cf8c1dd221226a2cc4e4af",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 5a",
+        "title": "Spitzensport und Hochschulsport“.",
+        "children": [
+          {
+            "type": "item",
+            "label": "2.",
+            "text": "Nach § 5 wird folgender § 5a eingefügt:",
+            "level": 0,
+            "listId": "ipgr1wsxb00f",
+            "numberingStyle": "decimal",
+            "children": [
+              {
+                "type": "quotedProvision",
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "label": "§ 5a",
+                    "title": "Spitzensport und Hochschulsport",
+                    "children": [
+                      {
+                        "type": "subparagraph",
+                        "label": "(1)",
+                        "text": "Die Hochschulen fördern den Hochschulsport im Rahmen ihrer Aufgaben.",
+                        "children": []
+                      },
+                      {
+                        "type": "subparagraph",
+                        "label": "(2)",
+                        "text": "Sie sollen Kaderathlet:innen die Vereinbarkeit von Studium, Training und Wettkampf ermöglichen.",
+                        "children": []
+                      },
+                      {
+                        "type": "subparagraph",
+                        "label": "(3)",
+                        "text": "Maßnahmen nach Absatz 2 können insbesondere umfassen",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "1.",
+                        "text": "flexible Studienverlaufsplanung,",
+                        "level": 0,
+                        "listId": "bkxvjrg1zvqy",
+                        "numberingStyle": "decimal",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "2.",
+                        "text": "Teilzeitstudium,",
+                        "level": 0,
+                        "listId": "bkxvjrg1zvqy",
+                        "numberingStyle": "decimal",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "3.",
+                        "text": "Nachteilsausgleich bei sportbedingter Abwesenheit,",
+                        "level": 0,
+                        "listId": "bkxvjrg1zvqy",
+                        "numberingStyle": "decimal",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "4.",
+                        "text": "Prüfungsverlegung bei internationalen Meisterschaften, Trainingslagern und Kadermaßnahmen,",
+                        "level": 0,
+                        "listId": "bkxvjrg1zvqy",
+                        "numberingStyle": "decimal",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "5.",
+                        "text": "digitale Lehr- und Prüfungsformate nach Maßgabe des Prüfungsrechts,",
+                        "level": 0,
+                        "listId": "bkxvjrg1zvqy",
+                        "numberingStyle": "decimal",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "6.",
+                        "text": "Kooperationen mit der Landesagentur Spitzensport Ost und",
+                        "level": 0,
+                        "listId": "bkxvjrg1zvqy",
+                        "numberingStyle": "decimal",
+                        "children": []
+                      },
+                      {
+                        "type": "item",
+                        "label": "7.",
+                        "text": "sportwissenschaftliche Begleitung.",
+                        "level": 0,
+                        "listId": "bkxvjrg1zvqy",
+                        "numberingStyle": "decimal",
+                        "children": []
+                      },
+                      {
+                        "type": "subparagraph",
+                        "label": "(4)",
+                        "text": "Die Hochschulen sollen im Rahmen vorhandener Kapazitäten besondere Zugangs- und Betreuungsangebote für Kaderathlet:innen vorsehen.",
+                        "children": []
+                      },
+                      {
+                        "type": "subparagraph",
+                        "label": "(5)",
+                        "text": "Prüfungsanforderungen und Abschlussstandards bleiben unberührt.”",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl.2026Nr.68.html",
+      "sourceProvision": "Artikel 9 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

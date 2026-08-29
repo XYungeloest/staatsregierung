@@ -1,8 +1,8 @@
 {
   "id": "ostdeutsches-personennahverkehrsgesetz",
   "slug": "ostdeutsches-personennahverkehrsgesetz",
-  "title": "Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen",
-  "shortTitle": "Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen",
+  "title": "Ostdeutsches Personennahverkehrsgesetz",
+  "shortTitle": "Ostdeutsches Personennahverkehrsgesetz",
   "abbr": "ÖPNVG",
   "shortTitleSource": "official",
   "type": "gesetz",
@@ -35,8 +35,16 @@
       "retrievedAt": "2026-08-23",
       "sha256": "a1199f68ee4755d13a8b558a62096069b2818f408bb6771141278779d86dc340",
       "lawId": "3863",
-      "sourceValidFrom": "2012-03-01",
-      "sourceRole": "official-snapshot"
+      "sourceValidFrom": "2012-03-01"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 29",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 29.html"
     }
+  ],
+  "affectedByNorms": [
+    "erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr"
   ]
 }

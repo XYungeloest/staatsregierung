@@ -1,0 +1,62 @@
+{
+  "amendmentAct": "verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k",
+  "effectiveDate": "2026-01-30",
+  "versionId": "2026-01-30",
+  "amendmentCitation": "Verordnung vom 30. Januar 2026 (OGVBl. 2026 Nr. 12)",
+  "resultCitation": "Ostdeutsche Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei, geändert durch Verordnung vom 30. Januar 2026 (OGVBl. 2026 Nr. 12)",
+  "changeNote": "Normbezeichnung und die im Ausgangstext vorhandene Landesbezeichnung wurden ostdeutsch gefasst; § 10a zu Schmerzgriffen wurde ergänzt. Die übrigen pauschalen Ersetzungsbefehle hatten in der ausdrücklich bezeichneten Ausgangsfassung keinen Texttreffer.",
+  "commandCoverage": [
+    "Artikel 1 Nummern 1 bis 4"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "Verordnung vom 30. Januar 2026 (OGVBl. 2026 Nr. 12)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 12.md"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
+      "value": "Verordnung über Vorbereitungsdienste und Prüfungen für den Erwerb der Laufbahnbefähigungen für die Laufbahnen der Fachrichtung Polizei (Ostdeutsche Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei – OstAPOPol)",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 12.md",
+      "sourceProvision": "Artikel 1 Nummer 1",
+      "effectiveDate": "2026-01-30"
+    },
+    {
+      "op": "designationReplacementBody",
+      "expectedOld": "sächsisch",
+      "value": "ostdeutsch",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 12.md",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-01-30"
+    },
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 10"
+      },
+      "expectedHash": "410d975f1e58be295b46584780d899b6fd4335890688b40597a60f37283b2c02",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 10a",
+        "title": "Schmerzgriffe",
+        "children": [
+          {
+            "type": "paragraphText",
+            "text": "Gegenstand der polizeilichen Ausbildung darf nicht die Anwendung von Nervendruck-, Druckpunkt- oder Quetschtechniken oder solche die ihnen ähneln, deren Zweck oder vorhersehbare Wirkung die Zufügung erheblicher Schmerzen ist (Schmerzgriffe) sein, soweit sie nicht gesetzlich erlaubt sind.”"
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 12.md",
+      "sourceProvision": "Artikel 1 Nummer 4",
+      "effectiveDate": "2026-01-30"
+    }
+  ]
+}

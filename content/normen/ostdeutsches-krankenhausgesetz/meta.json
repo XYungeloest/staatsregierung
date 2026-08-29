@@ -1,8 +1,8 @@
 {
   "id": "ostdeutsches-krankenhausgesetz",
   "slug": "ostdeutsches-krankenhausgesetz",
-  "title": "Sächsisches Krankenhausgesetz",
-  "shortTitle": "Sächsisches Krankenhausgesetz",
+  "title": "Ostdeutsches Krankenhausgesetz",
+  "shortTitle": "Ostdeutsches Krankenhausgesetz",
   "abbr": "SächsKHG",
   "shortTitleSource": "official",
   "type": "gesetz",
@@ -33,8 +33,23 @@
       "sha256": "b6426a79d1f6bd8b219f142360a6f3717b5f1de65ad8574673655a3710eca3ca",
       "lawId": "19826",
       "sourceValidFrom": "2023-01-01",
-      "sourceValidTo": "2024-08-16",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2024-08-16"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 28",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 34.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 51",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 51.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar",
+    "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung"
   ]
 }

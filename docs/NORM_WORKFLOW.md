@@ -26,12 +26,20 @@ dateibezogen und verändert weder andere Quellen noch `temp-neu/`.
    Normfassungen werden anschließend mit `node scripts/consolidate-norms.mjs --all --write`
    aktualisiert. Fehlt der Stammnormdatensatz trotz gesichertem Snapshot, wird er über
    `npm run norms:revosax:materialize -- --all --write` aus dem dynamisch ermittelten
-   Konsolidierungsbestand angelegt.
+   Konsolidierungsbestand angelegt. Nach Parseränderungen werden bereits materialisierte,
+   deterministisch erzeugte Ausgangsfassungen kontrolliert mit
+   `npm run norms:revosax:materialize -- --all --update-existing --write` regeneriert;
+   redaktionelle Folgefassungen entstehen weiterhin ausschließlich durch die Konsolidierung.
 5. Amtliche Berichtigungen werden als eigene Verkündungen importiert und über deklaratorische
    Rezepte unter `data/recht/corrections/` angewandt. Sie korrigieren die betroffene gespeicherte
    Fassung samt Provenienz, erzeugen aber weder einen neuen materiellen Wirksamkeitstag noch eine
    künstliche zusätzliche Fassung. Originalquellen bleiben unverändert.
-6. Den gezielten Schreib- und vollständigen QA-Lauf ausführen:
+6. Original-PDFs werden unabhängig vom Alter der Ausgabe über
+   `npm run norms:publications:pdf-sync -- --write` den Verkündungen zugeordnet und als
+   deploybare Rechtsassets bereitgestellt. HTML bleibt die strukturtragende Transkription,
+   PDF die amtliche visuelle Kontrollquelle; abweichende historische Dateinamen brauchen eine
+   eindeutige, geprüfte Zuordnung.
+7. Den gezielten Schreib- und vollständigen QA-Lauf ausführen:
 
    ```sh
    npm run norms:workflow -- --file "OGVBl. 2026 Nr. 60.html" --write

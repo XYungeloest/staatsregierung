@@ -6,7 +6,7 @@
   "validFrom": "2023-11-01",
   "validTo": "2026-08-31",
   "isCurrent": false,
-  "citation": "Sächsische Freie-Träger-Schulverordnung vom 12. Januar 2017 (SächsGVBl. S. 5), die zuletzt durch Artikel 3 der Verordnung vom 10. Juli 2025 (SächsGVBl. S. 313) geändert worden ist",
+  "citation": "Sächsische Freie-Träger-Schulverordnung vom 12. Januar 2017 (SächsGVBl. S. 5)",
   "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
   "sourceReferences": [
     {
@@ -136,6 +136,14 @@
           "text": "Anschrift des Schulstandortes,",
           "level": 0,
           "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "",
+          "level": 0,
+          "numberingStyle": "decimal",
           "children": [
             {
               "type": "item",
@@ -203,11 +211,19 @@
         },
         {
           "type": "item",
-          "label": "a)",
-          "text": "bei natürlichen Personen als Schulträger deren tabellarischer Lebenslauf,",
-          "level": 1,
-          "numberingStyle": "lower-latin",
+          "label": "1.",
+          "text": "",
+          "level": 0,
+          "numberingStyle": "decimal",
           "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "bei natürlichen Personen als Schulträger deren tabellarischer Lebenslauf,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
             {
               "type": "item",
               "label": "b)",

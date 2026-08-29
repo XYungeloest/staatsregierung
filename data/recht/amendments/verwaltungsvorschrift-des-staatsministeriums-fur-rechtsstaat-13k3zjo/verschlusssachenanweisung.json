@@ -1,0 +1,119 @@
+{
+  "amendmentAct": "verwaltungsvorschrift-des-staatsministeriums-fur-rechtsstaat-13k3zjo",
+  "effectiveDate": "2026-03-28",
+  "versionId": "2026-03-28",
+  "amendmentCitation": "Verwaltungsvorschrift vom 28. März 2026 (StAnzO. 2026 Nr. 8)",
+  "resultCitation": "Verschlusssachenanweisung, geändert durch Verwaltungsvorschrift vom 28. März 2026 (StAnzO. 2026 Nr. 8)",
+  "changeNote": "Eine Kennzeichnungspflicht und die zugehörige Anlage 8 wurden ergänzt.",
+  "commandCoverage": [
+    "I. Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "StAnzO. 2026 Nr. 8",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 7.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "item",
+        "label": "6.3",
+        "parentType": "section",
+        "parentLabel": "I."
+      },
+      "expectedHash": "212d48e458ecc6fe090179d189cab02221fae03731becaa85bcdf6b2d5a8b964",
+      "expectedMatches": 1,
+      "value": {
+        "type": "item",
+        "label": "6.4",
+        "text": "Auf den Geheimschutzdokumenten ist gut sichtbar auf der ersten Seite eine Markierung nach Anlage 8 dieser Verwaltungsvorschrift anzubringen.",
+        "level": 0,
+        "numberingStyle": "decimal",
+        "children": []
+      },
+      "source": "Gesetze/StAnzO. 2026 Nr. 7.html",
+      "sourceProvision": "I. Nummer 1",
+      "effectiveDate": "2026-03-28"
+    },
+    {
+      "op": "appendAnnex",
+      "target": {
+        "type": "annex",
+        "label": "Anlage 7 (zu Nummer 19 und 21)"
+      },
+      "expectedHash": "36bc32d199bc1ac7ae05ea97e4c77590b675b2f7a1b78cd8b99bcb88f71f7b6e",
+      "expectedMatches": 1,
+      "value": {
+        "type": "annex",
+        "label": "ANLAGE 8 (zu Nummer 6.4)",
+        "children": [
+          {
+            "type": "table",
+            "children": [
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Verschlusssache – Nur für den Dienstgebrauch (VS – NfD)"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": ""
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Verschlusssache – Vertraulich (VS-Vertr.)"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": ""
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Geheim (Geheim)"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": ""
+                  }
+                ]
+              },
+              {
+                "type": "tableRow",
+                "children": [
+                  {
+                    "type": "tableCell",
+                    "text": "Streng Geheim (Streng Geheim)"
+                  },
+                  {
+                    "type": "tableCell",
+                    "text": ""
+                  }
+                ]
+              }
+            ],
+            "columns": 2
+          }
+        ]
+      },
+      "source": "Gesetze/StAnzO. 2026 Nr. 7.html",
+      "sourceProvision": "I. Nummer 2",
+      "effectiveDate": "2026-03-28"
+    }
+  ]
+}

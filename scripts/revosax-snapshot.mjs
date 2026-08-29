@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, resolve } from 'node:path';
 
+import { futureAmendmentDates, historicalBaselineCitation } from './lib/revosax-citation.mjs';
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 
 const ROOT = process.cwd();
@@ -248,6 +249,37 @@ async function auditSnapshots() {
       const parsed = parseRevosaxSnapshot(bytes.toString('utf8'), { url: configured.baselineUrl });
       if (parsed.sourceValidFrom !== configured.sourceValidFrom || parsed.sourceValidTo !== configured.sourceValidTo) {
         throw new Error('Quellgültigkeit weicht von der Konfiguration ab');
+      }
+      const pageFutureDates = futureAmendmentDates(
+        parsed.pageFullCitation ?? parsed.fullCitation,
+        configured.sourceValidTo,
+      );
+      const selectedCitation = historicalBaselineCitation({
+        pageFullCitation: parsed.pageFullCitation ?? parsed.fullCitation,
+        sourceValidTo: configured.sourceValidTo,
+        baselineCitation: sourceId === 'baseline' ? configuredTarget.baselineCitation : undefined,
+        sourceCitation: configured.citation,
+        context: `${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}`,
+      });
+      if (pageFutureDates.length > 0) {
+        console.log(
+          `${slug}${sourceId === 'baseline' ? '' : `/${sourceId}`}: REVOSax-Seiten-Vollzitat nennt spätere Änderung(en) ` +
+          `${pageFutureDates.join(', ')}; historisch geprüfte Baseline-Zitierung wird verwendet`,
+        );
+      }
+      const materializedVersionId = sourceId === 'baseline'
+        ? (configuredTarget.baselineSnapshotDate ?? config.baselineSnapshotDate)
+        : configured.versionDate;
+      try {
+        const materialized = JSON.parse(await readFile(
+          resolve(ROOT, 'content/normen', slug, 'versions', `${materializedVersionId}.json`),
+          'utf8',
+        ));
+        if (materialized.citation !== selectedCitation) {
+          throw new Error(`materialisierte Baseline-Zitierung für ${materializedVersionId} weicht von der geprüften Quelle ab`);
+        }
+      } catch (error) {
+        if (error.code !== 'ENOENT') throw error;
       }
       const snapshotDate = sourceId === 'baseline' ? config.baselineSnapshotDate : configured.versionDate;
       if (snapshotDate < parsed.sourceValidFrom ||

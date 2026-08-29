@@ -1,8 +1,8 @@
 {
   "id": "kulturraumgesetz",
   "slug": "kulturraumgesetz",
-  "title": "Sächsisches Kulturraumgesetz",
-  "shortTitle": "Sächsisches Kulturraumgesetz",
+  "title": "Ostdeutsches Kulturraumgesetz",
+  "shortTitle": "Ostdeutsches Kulturraumgesetz",
   "shortTitleSource": "official",
   "type": "gesetz",
   "enactingBody": "Sächsischer Landtag",
@@ -30,8 +30,23 @@
       "retrievedAt": "2026-08-23",
       "sha256": "245483f0407d1026fe19a30d3b405143bc90e79b4fb9ecb224a757acaada36f4",
       "lawId": "3215",
-      "sourceValidFrom": "2023-01-01",
-      "sourceRole": "official-snapshot"
+      "sourceValidFrom": "2023-01-01"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 26",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 26.html"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 54",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+    "kreis-und-bezirksneuordnungsgesetz"
   ]
 }

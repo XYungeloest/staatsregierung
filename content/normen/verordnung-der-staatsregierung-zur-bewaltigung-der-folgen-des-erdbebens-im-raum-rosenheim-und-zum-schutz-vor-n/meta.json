@@ -29,6 +29,18 @@
   "expiryDate": "2026-05-27",
   "sourceReferences": [
     {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 44.pdf",
+      "sha256": "867e58114759c7eadca0342a701cf1d34760dee74cc202552dc495ffa61a4a5b",
+      "mediaType": "application/pdf",
+      "pageCount": 6,
+      "pageRange": "2-6",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control"
+    },
+    {
       "kind": "legacy-markdown-transcription",
       "label": "Historische Markdown-Transkription (Altbestand)",
       "availability": "versioned",

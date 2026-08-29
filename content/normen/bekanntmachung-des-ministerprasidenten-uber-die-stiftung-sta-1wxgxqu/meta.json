@@ -38,33 +38,51 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
-      "availability": "versioned",
-      "localSource": "Gesetze/StAnzO. 2026 Nr. 8.html"
-    },
-    {
-      "kind": "structured-html-transcription",
-      "label": "Änderungsbekanntmachung im Staatsanzeiger Ostdeutschland 2026 Nr. 33",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
       "localSource": "Gesetze/StAnzO.2026Nr.33.html",
       "sha256": "a4c628ea459dda6a955fc9aefb4bf170ea67ae2131fb75ab3e28d458446c6a5e",
       "mediaType": "text/html",
       "pageRange": "2",
-      "verifiedAt": "2026-08-22",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "structure-bearing"
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliche visuelle Veröffentlichungsfassung der Änderung",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
       "localSource": "Gesetze/StAnzO. 2026 Nr. 33.pdf",
       "sha256": "d82ab3225876d07bb56e987c9f6b5a5e85faaaf7488363c08ffa2e8c882b954f",
       "mediaType": "application/pdf",
       "pageCount": 6,
       "pageRange": "2",
-      "verifiedAt": "2026-08-22",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/StAnzO.2026Nr.33.html"
+    },
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 8.html",
+      "sha256": "e8e3a00486ea567972e6b631a9a88b33aaa7aa9961a4c8634e7990cb5eab56f5",
+      "mediaType": "text/html",
+      "pageRange": "2-5",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 8.pdf",
+      "sha256": "9197456c02d145e15c1834d6131d2893a786954b4151c462fc973184c6674df3",
+      "mediaType": "application/pdf",
+      "pageCount": 5,
+      "pageRange": "2-5",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/StAnzO. 2026 Nr. 8.html"
     }
   ]
 }

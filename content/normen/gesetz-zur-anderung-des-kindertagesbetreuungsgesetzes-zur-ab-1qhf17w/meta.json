@@ -27,9 +27,30 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 5.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 5.html",
+      "sha256": "3997702032488827fc4db6e2fb68152edbe1a7d85c4750fa234a8ee18f92b7f0",
+      "mediaType": "text/html",
+      "pageRange": "2-6",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 5.pdf",
+      "sha256": "037c7b99fbb95807e0521eb0f4743a81d11fe1c3586cd064d71cd297d71c2efd",
+      "mediaType": "application/pdf",
+      "pageCount": 6,
+      "pageRange": "2-6",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 5.html"
     }
+  ],
+  "affectedNorms": [
+    "kindertagesbetreuungsgesetz"
   ]
 }

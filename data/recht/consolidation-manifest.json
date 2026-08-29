@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-08-27T20:26:59.569Z",
+  "generatedAt": "2026-08-29T10:23:09.461Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
     "recognizedAmendmentActs": 61,
     "recognizedTargetNorms": 85,
-    "completeTargetNorms": 57,
-    "blockedSourceConflicts": 1,
+    "completeTargetNorms": 81,
+    "blockedSourceConflicts": 3,
     "missingPrimarySources": 1
   },
   "templateProblems": [
+    "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm",
     "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
   ],
   "ambiguousFindings": [
@@ -25,6 +26,21 @@
     {
       "amendmentAct": "organisationserlass-aenderung-fachbereichszuteilung-2024",
       "candidate": "Fachbereichszuteilungen",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "sachsisches-verwaltungsorganisationsgesetz",
+      "candidate": "Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "sachsisches-verwaltungsorganisationsgesetz",
+      "candidate": "Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden",
+      "evidence": "Gliederungsüberschrift"
+    },
+    {
+      "amendmentAct": "sachsisches-verwaltungsorganisationsgesetz",
+      "candidate": "Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden",
       "evidence": "Gliederungsüberschrift"
     }
   ],
@@ -69,8 +85,7 @@
       "title": "Archivgesetz für den Freistaat Sachsen",
       "aliases": [
         "Archivgesetz für den Freistaat Ostdeutschland",
-        "Archivgesetz für den Freistaat Sachsen",
-        "Archivgesetzes für den Freistaat Ostdeutschland"
+        "Archivgesetz für den Freistaat Sachsen"
       ],
       "revosaxLawId": "2628",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/2628.7",
@@ -243,7 +258,8 @@
       "title": "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
       "aliases": [
         "Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen",
-        "Gesetzes über den öffentlichen Gesundheitsdienst"
+        "Gesetzes über den öffentlichen Gesundheitsdienst",
+        "Sächsisches Gesundheitsdienstgesetz"
       ],
       "revosaxLawId": "3348",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3348.12",
@@ -269,11 +285,9 @@
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-personennahverkehrsgesetz",
@@ -281,7 +295,9 @@
       "aliases": [
         "Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen",
         "Gesetzes über den öffentlichen Personennahverkehr",
-        "Ostdeutschen Personennahverkehrsgesetzes"
+        "Ostdeutsche Personennahverkehrsgesetz",
+        "Ostdeutsche Personennahverkehrsgesetz in der Fassung der Bekanntmachung vom 23. März 2026, zuletzt geändert durch Gesetz",
+        "Ostdeutsches Personennahverkehrsgesetz"
       ],
       "revosaxLawId": "3863",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3863.5",
@@ -298,8 +314,8 @@
           "slug": "erstes-gesetz-zur-anderung-des-gesetzes-uber-den-offentlichen-personennahverkehr",
           "title": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
           "effectiveDate": "2026-03-24",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-03-24"
         },
         {
@@ -324,11 +340,12 @@
         "2026-03-24",
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
+      "status": "blocked-source-conflict",
       "problems": [
+        "Artikel 9 Nummer 1 des Kreis- und Bezirksneuordnungsgesetzes ordnet zum 21. Juli 2026 Ergänzungen in § 3 Absatz 1 nach den Wörtern „Landkreise und kreisfreien Städte“ an. Die am 24. März 2026 in Kraft getretene Neufassung des § 3 Absatz 1 enthält diese Wörter nicht mehr; sie stehen nur in Absatz 2. Eine Umdeutung des ausdrücklich bezeichneten Absatzes ist ohne Berichtigung oder andere Primärquelle unzulässig. Die gleichzeitig vorgesehenen weiteren Änderungen werden bis zur Klärung nicht als vollständige Folgefassung ausgegeben.",
         "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
     },
     {
       "canonicalSlug": "ostdeutsches-fernsehfunkgesetz",
@@ -722,8 +739,8 @@
           "slug": "gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar",
           "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Krankenhausgesetzes",
           "effectiveDate": "2026-04-01",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
         }
       ],
       "amendmentActs": [],
@@ -739,7 +756,9 @@
       "aliases": [
         "Gesetz über Kindertagesbetreuung",
         "Gesetzes über Kindertagesbetreuung",
-        "Kindertages- betreuungsgesetzes"
+        "Kindertages- betreuungsgesetzes",
+        "Ostdeutsches Gesetz zur Förderung von Kindern in Kindertageseinrichtungen und in Kindertagespflege (Ostdeutsches Kindertagesbetreuungsgesetz – KitaG)",
+        "Sächsische Kindertagesbetreuung-Finanzierungsverordnung in der Fassung der Bekanntmachung vom 23. November 2015 (SächsGVBl. S. 695), die zuletzt durch Artikel 1 der Verordnung"
       ],
       "revosaxLawId": "1079",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/1079.16",
@@ -774,11 +793,9 @@
         "2026-01-27",
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-feiertagsgesetz",
@@ -1137,11 +1154,9 @@
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "landesplanungsgesetz",
@@ -1157,7 +1172,21 @@
       "sourceValidTo": "2025-09-24",
       "sourceSha256": "c89dce69249e51fc4b4cbf2ef279251ae64b4dbb005f1484cc1306e4e118bf45",
       "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
+      "editorialResolutions": [
+        {
+          "id": "landesplanung-2025-paragraf-19-zielwortlaut",
+          "status": "resolved-source-conflict",
+          "decisionDate": "2026-08-28",
+          "issue": "Artikel 3 Nummer 1 des Gesetzes zur Einführung von Bezirken bezeichnet in § 19 die Landesdirektion Ostdeutschland, während die amtliche REVOSax-Ausgangsfassung dort noch die Landesdirektion Sachsen nennt.",
+          "publishedText": "In § 19 wird „die Landesdirektion Ostdeutschland“ durch „der jeweilige Bezirk“ ersetzt.",
+          "resolvedApplication": "Der eindeutig bezeichnete § 19 Absatz 2 wird vollständig mit dem festgelegten Ergebniswortlaut „Raumordnungsbehörde ist der jeweilige Bezirk.“ fortgeschrieben; die übrigen Absätze bleiben unverändert.",
+          "rationale": "Norm, Paragraph, Behörde und Ergebniswortlaut sind eindeutig. Die Abweichung betrifft nur die im Änderungsbefehl vorausgesetzte territoriale Bezeichnung des ersetzten Behördennamens und nicht den festgelegten neuen Rechtszustand.",
+          "evidence": [
+            "Gesetze/OGVBl I-25.html",
+            "data/recht/sources/revosax/landesplanungsgesetz/17907.5.html"
+          ]
+        }
+      ],
       "existingStemNormSlug": "landesplanungsgesetz",
       "enactingActs": [],
       "amendmentActs": [
@@ -1183,12 +1212,9 @@
         "2025-03-12",
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.",
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ndr-staatsvertrag",
@@ -1339,8 +1365,8 @@
       "canonicalSlug": "saechsisches-ladenoeffnungsgesetz",
       "title": "Ostdeutsches Ladenöffnungsgesetz",
       "aliases": [
-        "Ladenöffnungsgesetzes",
         "Ostdeutsches Ladenöffnungsgesetz",
+        "Sächsische Ladenöffnungsgesetz",
         "Sächsisches Ladenöffnungsgesetz"
       ],
       "revosaxLawId": "11548",
@@ -1376,7 +1402,7 @@
       "title": "Ostdeutsches Tariftreue- und Vergabegesetz",
       "aliases": [
         "Gesetz über die Sicherung von Sozialstandards, Tariftreue und fairen Löhnen bei der Vergabe öffentlicher Aufträge im Ostdeutschen Freistaat",
-        "Sächsischen Vergabegesetzes"
+        "Sächsisches Vergabegesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": null,
@@ -1448,7 +1474,8 @@
       "canonicalSlug": "ostdeutsche-arbeitszeitverordnung",
       "title": "Sächsische Arbeitszeitverordnung",
       "aliases": [
-        "Ostdeutschen Arbeitszeitverordnung",
+        "Ostdeutsche Arbeitszeitverordnung",
+        "Ostdeutsche Arbeitszeitverordnung in der Fassung der Bekanntmachung vom 28. Januar 2008 (SächsGVBl. S. 198), die zuletzt durch Artikel 2 der Verordnung",
         "Sächsische Arbeitszeitverordnung"
       ],
       "revosaxLawId": "4721",
@@ -1466,16 +1493,8 @@
           "slug": "siebte-verordnung-der-ostdeutschen-staatsregierung-zur-anderung-der-ostdeutschen-arbeitszeitverordnung",
           "title": "Siebte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Ostdeutschen Arbeitszeitverordnung",
           "effectiveDate": "2026-02-20",
-          "detectedType": "verordnung",
-          "typeCorrectionNeeded": true,
-          "targetEffectiveDate": "2026-02-20"
-        },
-        {
-          "slug": "vierte-verordnung-des-ostdeutschen-staatsministeriums-fur-bildung-und-sportliche-ertuchtigung-zur-anderung-der",
-          "title": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Bildung und sportliche Ertüchtigung zur Änderung der Ostdeutschen Lehrkräfte-Arbeitszeitverordnung",
-          "effectiveDate": "2026-02-20",
-          "detectedType": "verordnung",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-02-20"
         }
       ],
@@ -1483,19 +1502,18 @@
       "effectiveDates": [
         "2026-02-20"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ausbildungs-und-pruefungsordnung-polizei",
       "title": "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
       "aliases": [
-        "Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
         "Ausbildungs- und Prüfungsordnung für die Polizei",
-        "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei"
+        "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
+        "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei vom 6. August 2024 (SächsGVBl. S. 771), die durch die Verordnung",
+        "Verordnung über Vorbereitungsdienste und Prüfungen für den Erwerb der Laufbahnbefähigungen für die Laufbahnen der Fachrichtung Polizei (Ostdeutsche Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei – OstAPOPol)"
       ],
       "revosaxLawId": null,
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/21006.2",
@@ -1512,8 +1530,8 @@
           "slug": "verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k",
           "title": "Verordnung zur Änderung der Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
           "effectiveDate": "2026-01-30",
-          "detectedType": "verordnung",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-01-30"
         }
       ],
@@ -1521,11 +1539,9 @@
       "effectiveDates": [
         "2026-01-30"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsische-bauordnung",
@@ -1706,46 +1722,12 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
-      "canonicalSlug": "klassenbildungsverordnung",
-      "title": "Sächsische Klassenbildungsverordnung",
-      "aliases": [
-        "Sächsische Klassenbildungsverordnung",
-        "Sächsischen Klassenbildungsverordnung"
-      ],
-      "revosaxLawId": "17344",
-      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17344.4",
-      "baselineSnapshotDate": "2023-11-01",
-      "sourceValidFrom": "2023-08-01",
-      "sourceValidTo": "2024-07-31",
-      "sourceSha256": "4f317d7badf0bd830aa17928f72422f177c1a2515fcdf941122efd34c021ec73",
-      "historicalNonConsolidatable": false,
-      "editorialResolutions": [],
-      "existingStemNormSlug": "saechsische-klassenbildungsverordnung",
-      "enactingActs": [],
-      "amendmentActs": [
-        {
-          "slug": "verordnung-zur-bereinigung-des-allgemeinbildenden-schulordnungsrechts-2026",
-          "title": "Verordnung des Staatssekretariats für Volksbildung und Wissenschaft zur Bereinigung des allgemeinbildenden Schulordnungsrechts im Freistaat Ostdeutschland",
-          "effectiveDate": "2026-08-31",
-          "detectedType": "aenderungsvorschrift",
-          "typeCorrectionNeeded": false,
-          "targetEffectiveDate": "2026-09-01"
-        }
-      ],
-      "correctionActs": [],
-      "effectiveDates": [
-        "2026-09-01"
-      ],
-      "status": "complete",
-      "problems": [],
-      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
-    },
-    {
       "canonicalSlug": "saechsische-klassenbildungsverordnung",
       "title": "Sächsische Klassenbildungsverordnung",
       "aliases": [
         "Ostdeutsche Klassenbildungsverordnung",
-        "Sächsische Klassenbildungsverordnung"
+        "Sächsische Klassenbildungsverordnung",
+        "Sächsischen Klassenbildungsverordnung"
       ],
       "revosaxLawId": "17344",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17344.4",
@@ -1829,6 +1811,41 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "ostdeutsche-lehrkraefte-arbeitszeitverordnung",
+      "title": "Sächsische Lehrkräfte-Arbeitszeitverordnung",
+      "aliases": [
+        "Ostdeutsche Lehrkräfte-Arbeitszeitverordnung",
+        "Sächsische Lehrkräfte-Arbeitszeitverordnung"
+      ],
+      "revosaxLawId": "17345",
+      "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17345.3",
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": "2022-08-01",
+      "sourceValidTo": "2025-07-31",
+      "sourceSha256": "ac97ffaf9ab95576e6964b3e5675d73d8fa7e860506d9504a010215a688d73bd",
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsche-lehrkraefte-arbeitszeitverordnung",
+      "enactingActs": [],
+      "amendmentActs": [
+        {
+          "slug": "vierte-verordnung-des-ostdeutschen-staatsministeriums-fur-bildung-und-sportliche-ertuchtigung-zur-anderung-der",
+          "title": "Vierte Verordnung des Ostdeutschen Staatsministeriums für Bildung und sportliche Ertüchtigung zur Änderung der Ostdeutschen Lehrkräfte-Arbeitszeitverordnung",
+          "effectiveDate": "2026-02-20",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-02-20"
+        }
+      ],
+      "correctionActs": [],
+      "effectiveDates": [
+        "2026-02-20"
+      ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "schulnetzplanungsverordnung",
       "title": "Sächsische Schulnetzplanungsverordnung",
       "aliases": [
@@ -1870,7 +1887,6 @@
       "aliases": [
         "Abschiebungshaftvollzugsgesetz",
         "Sächsische Abschiebungshaftvollzugsgesetz",
-        "Sächsischen Abschiebungshaftvollzugsgesetzes",
         "Sächsisches Abschiebungshaftvollzugsgesetz"
       ],
       "revosaxLawId": "17767",
@@ -1905,7 +1921,7 @@
       "canonicalSlug": "landesbeamtengesetz",
       "title": "Sächsisches Beamtengesetz",
       "aliases": [
-        "Landesbeamtengesetzes",
+        "Landesbeamtengesetz",
         "Sächsisches Beamtengesetz"
       ],
       "revosaxLawId": "13871",
@@ -1932,17 +1948,16 @@
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsisches-bestattungsgesetz",
       "title": "Sächsisches Bestattungsgesetz",
       "aliases": [
-        "Bestattungsgesetzes",
+        "Gesetz über das Friedhofs-, Leichen- und Bestattungswesen (Ostdeutsche Bestattungsgesetz – OStBestG)",
+        "Sächsische Bestattungsgesetz",
         "Sächsisches Bestattungsgesetz"
       ],
       "revosaxLawId": "4526",
@@ -1960,8 +1975,8 @@
           "slug": "elftes-gesetz-zur-anderung-des-bestattungsgesetzes",
           "title": "Elftes Gesetz zur Änderung des Bestattungsgesetzes",
           "effectiveDate": "2026-01-27",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-01-27"
         }
       ],
@@ -1969,11 +1984,9 @@
       "effectiveDates": [
         "2026-01-27"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "finanzausgleichsgesetz",
@@ -2006,11 +2019,9 @@
       "effectiveDates": [
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "fluechtlingsaufnahmegesetz",
@@ -2080,17 +2091,15 @@
       "effectiveDates": [
         "2026-03-25"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsisches-gleichstellungsgesetz",
       "title": "Sächsisches Gleichstellungsgesetz",
       "aliases": [
-        "Sächsischen Gleichstellungsgesetzes",
+        "Ostdeutsches Gleichstellungsgesetz",
         "Sächsisches Gleichstellungsgesetz"
       ],
       "revosaxLawId": null,
@@ -2117,11 +2126,9 @@
       "effectiveDates": [
         "2026-04-01"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-hochschulgesetz",
@@ -2129,6 +2136,8 @@
       "aliases": [
         "Gesetzes über die Hochschulen im Freistaat Ostdeutschland",
         "Hochschulgesetzes",
+        "Ostdeutsches Hochschulgesetz",
+        "Sächsische Hochschulgesetz",
         "Sächsisches Hochschulgesetz"
       ],
       "revosaxLawId": "19986",
@@ -2173,11 +2182,9 @@
         "2026-07-20",
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-justizgesetz",
@@ -2185,6 +2192,7 @@
       "aliases": [
         "Justizgesetzes",
         "Ostdeutschen Justizgesetzes",
+        "Ostdeutsches Justizgesetz",
         "Sächsisches Justizgesetz"
       ],
       "revosaxLawId": "3393",
@@ -2220,18 +2228,16 @@
         "2026-02-01",
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-krankenhausgesetz",
       "title": "Sächsisches Krankenhausgesetz",
       "aliases": [
         "Ostdeutsche Krankenhausgesetz",
-        "Ostdeutschen Krankenhausgesetzes",
+        "Ostdeutsches Krankenhausgesetz",
         "Sächsisches Krankenhausgesetz"
       ],
       "revosaxLawId": "19826",
@@ -2249,16 +2255,16 @@
           "slug": "gesetz-uber-einen-landesfonds-zur-sicherung-und-rekommunalis-15i4iar",
           "title": "Gesetz über einen Landesfonds zur Sicherung und Rekommunalisierung von Krankenhäusern im Freistaat Ostdeutschland und zur Änderung des Ostdeutschen Krankenhausgesetzes",
           "effectiveDate": "2026-04-01",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-04-01"
         },
         {
           "slug": "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung",
           "title": "Gesetz zur Stärkung der psychologischen, psychotherapeutischen und psychiatrischen Versorgung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-20",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-07-20"
         }
       ],
@@ -2267,11 +2273,9 @@
         "2026-04-01",
         "2026-07-20"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "kulturraumgesetz",
@@ -2279,6 +2283,7 @@
       "aliases": [
         "Gesetzes über die Kulturräume in Ostdeutschland",
         "Ostdeutschen Kulturraumgesetzes",
+        "Ostdeutsches Kulturraumgesetz",
         "Sächsisches Kulturraumgesetz"
       ],
       "revosaxLawId": "3215",
@@ -2314,17 +2319,16 @@
         "2026-03-25",
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-normenkontrollratsgesetz",
       "title": "Sächsisches Normenkontrollratsgesetz",
       "aliases": [
-        "Ostdeutschen Normenkontrollratsgesetzes",
+        "Ostdeutsche Normenkontrollratsgesetz",
+        "Ostdeutsches Normenkontrollratsgesetz",
         "Sächsisches Normenkontrollratsgesetz"
       ],
       "revosaxLawId": "14060",
@@ -2351,17 +2355,16 @@
       "effectiveDates": [
         "2026-07-01"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-polizeibehoerdengesetz",
       "title": "Sächsisches Polizeibehördengesetz",
       "aliases": [
-        "Ostdeutschen Polizeibehördengesetzes",
+        "Ostdeutsche Polizeibehördengesetz",
+        "Ostdeutsches Polizeibehördengesetz",
         "Sächsisches Polizeibehördengesetz"
       ],
       "revosaxLawId": "18194",
@@ -2388,18 +2391,15 @@
       "effectiveDates": [
         "2026-03-25"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "ostdeutsches-polizeivollzugsdienstgesetz",
       "title": "Sächsisches Polizeivollzugsdienstgesetz",
       "aliases": [
         "Ostdeutsche Polizeivollzugsdienstgesetz",
-        "Ostdeutschen Polizeivollzugsdienstgesetzes",
         "Ostdeutsches Polizeivollzugsdienstgesetz",
         "Sächsisches Polizeivollzugsdienstgesetz"
       ],
@@ -2479,7 +2479,8 @@
       "title": "Sächsisches Schulgesetz",
       "aliases": [
         "Ostdeutschen Schulgesetzes",
-        "Sächsisches Schulgesetz"
+        "Sächsisches Schulgesetz",
+        "Schulgesetz für den Freistaat Ostdeutschland"
       ],
       "revosaxLawId": "4192",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/4192.30",
@@ -2504,8 +2505,8 @@
           "slug": "gesetz-zur-neuordnung-des-ostdeutschen-schulsystems",
           "title": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems",
           "effectiveDate": "2026-08-01",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
         }
       ],
@@ -2514,18 +2515,17 @@
         "2026-07-21",
         "2026-08-01"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "vermessungs-und-katastergesetz",
       "title": "Sächsisches Vermessungs- und Katastergesetz",
       "aliases": [
-        "Sächsisches Vermessungs- und Katastergesetz",
-        "Vermessungs- und Katastergesetz"
+        "Gesetz über das amtliche Vermessungswesen und das Liegenschaftskataster im Ostdeutschen Freistaat (Ostdeutsches Vermessungs- und Katastergesetz – OstVermKatG)",
+        "Sächsische Vermessungs- und Katastergesetz",
+        "Sächsisches Vermessungs- und Katastergesetz"
       ],
       "revosaxLawId": "9851",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/9851.7",
@@ -2542,8 +2542,8 @@
           "slug": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
           "title": "Gesetz zur Sicherstellung der Versorgung der Bevölkerung mit bezahlbarem Wohnraum",
           "effectiveDate": "2026-03-25",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-03-25"
         }
       ],
@@ -2551,11 +2551,9 @@
       "effectiveDates": [
         "2026-03-25"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "saechsisches-verwaltungskostengesetz",
@@ -2564,8 +2562,7 @@
         "Gesetz über die Gebühren und Beiträge der ostdeutschen Verwaltung",
         "Ostdeutsches Verwaltungskostengesetz",
         "Sächsische Verwaltungskostengesetz",
-        "Sächsisches Verwaltungskostengesetz",
-        "Verwaltungskostengesetzes"
+        "Sächsisches Verwaltungskostengesetz"
       ],
       "revosaxLawId": "18086",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/18086.1",
@@ -2599,6 +2596,7 @@
       "canonicalSlug": "sachsisches-verwaltungsorganisationsgesetz",
       "title": "Sächsisches Verwaltungsorganisationsgesetz",
       "aliases": [
+        "Gesetz über die Verwaltungsorganisation des Freistaates Ostdeutschland",
         "Gesetzes über die Verwaltungsorganisation des Freistaates Ostdeutschland",
         "Sächsisches Verwaltungsorganisationsgesetz"
       ],
@@ -2635,21 +2633,18 @@
         "2025-03-12",
         "2026-07-21"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.",
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "zweckentfremdungsverbotsgesetz",
       "title": "Sächsisches Zweckentfremdungsverbotsgesetz",
       "aliases": [
+        "Gesetz über das Verbot der Zweckentfremdung von Wohnraum im Ostdeutschen Freistaat (Ostdeutsches Zweckentfremdungsverbotsgesetz)",
         "Sächsische Zweckentfremdungsverbotsgesetz",
         "Sächsisches Zweckentfremdungsverbotsgesetz",
-        "Zweckentfremdungsverbotsgesetz",
-        "Zweckentfremdungsverbotsgesetzes"
+        "Zweckentfremdungsverbotsgesetz"
       ],
       "revosaxLawId": null,
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/20743.1",
@@ -2666,8 +2661,8 @@
           "slug": "gesetz-zur-starkung-des-schutzes-von-wohnraum-und-zur-verbes-1bxmhzx",
           "title": "Gesetz zur Stärkung des Schutzes von Wohnraum und zur Verbesserung des Vollzugs des Ostdeutschen Zweckentfremdungsverbotsgesetzes",
           "effectiveDate": "2026-03-25",
-          "detectedType": "gesetz",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-03-25"
         }
       ],
@@ -2675,11 +2670,9 @@
       "effectiveDates": [
         "2026-03-25"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "schulordnung-berufliche-gymnasien",
@@ -2727,7 +2720,8 @@
       "canonicalSlug": "schulordnung-berufsschule",
       "title": "Schulordnung Berufsschule",
       "aliases": [
-        "Schulordnung Berufsschule"
+        "Schulordnung Berufsschule",
+        "Verordnung über die Berufsschule im Freistaat Ostdeutschland (Schulordnung Berufsschule – BSO)"
       ],
       "revosaxLawId": "19923",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/19923.1",
@@ -2768,7 +2762,8 @@
       "canonicalSlug": "schulordnung-foerderschulen",
       "title": "Schulordnung Förderschulen",
       "aliases": [
-        "Schulordnung Förderschulen"
+        "Schulordnung Förderschulen",
+        "Schulordnung Förderschulen vom 3. August 2004 (SächsGVBl. S. 317), die zuletzt durch Artikel 1 der Verordnung"
       ],
       "revosaxLawId": "3887",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/3887.13",
@@ -2948,6 +2943,7 @@
       "canonicalSlug": "staatsverfassung-des-freistaates-ostdeutschland",
       "title": "Verfassung des Freistaates Ostdeutschland",
       "aliases": [
+        "Ostdeutsche Staatsverfassung",
         "Staatsverfassung",
         "Verfassung",
         "Verfassung des Freistaates Ostdeutschland",
@@ -3061,8 +3057,8 @@
           "slug": "verwaltungsvorschrift-des-staatsministeriums-fur-rechtsstaat-13k3zjo",
           "title": "Verwaltungsvorschrift des Staatsministeriums für Rechtsstaatlichkeit und Angelegenheiten des Staates zur Änderung der Verschlusssachenanweisung",
           "effectiveDate": "2026-03-28",
-          "detectedType": "verwaltungsvorschrift",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-03-28"
         }
       ],
@@ -3070,11 +3066,9 @@
       "effectiveDates": [
         "2026-03-28"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "vwv-beratungslehrer",
@@ -3187,8 +3181,9 @@
       "canonicalSlug": "vwv-stundentafeln",
       "title": "VwV Stundentafeln",
       "aliases": [
-        "VwV Stundentafel",
-        "VwV Stundentafeln"
+        "Verwaltungsvorschrift des Staatsministeriums für Volksbildung und Wissenschaft über Lehrpläne und Stundentafeln für Förderschulen, Abendoberschulen, Abendgymnasien und Kollegs im Freistaat Ostdeutschland (VwV Stundentafeln)",
+        "VwV Stundentafeln",
+        "VwV Stundentafeln vom 20. Juni 2018 (MBl. SMK S. 347), die zuletzt durch die Verwaltungsvorschrift"
       ],
       "revosaxLawId": "17744",
       "baselineUrl": "https://www.revosax.sachsen.de/vorschrift/17744.4",
@@ -3205,8 +3200,8 @@
           "slug": "verwaltungsvorschrift-des-staatsministeriums-fur-volksbildung-und-wissenschaft-zur-anderung-der-vwv-stundentaf",
           "title": "Verwaltungsvorschrift des Staatsministeriums für Volksbildung und Wissenschaft zur Änderung der VwV Stundentafel",
           "effectiveDate": "2026-08-01",
-          "detectedType": "verwaltungsvorschrift",
-          "typeCorrectionNeeded": true,
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
         }
       ],
@@ -3214,16 +3209,15 @@
       "effectiveDates": [
         "2026-08-01"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "waldgesetz",
       "title": "Waldgesetz für den Freistaat Sachsen",
       "aliases": [
+        "Waldgesetz für den Freistaat Ostdeutschland",
         "Waldgesetz für den Freistaat Sachsen",
         "Waldgesetzes für den Freistaat Ostdeutschland"
       ],
@@ -3251,11 +3245,9 @@
       "effectiveDates": [
         "2026-07-01"
       ],
-      "status": "incomplete-placeholder",
-      "problems": [
-        "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
-      ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
       "canonicalSlug": "wappenverordnung",
@@ -3322,11 +3314,12 @@
       "effectiveDates": [
         "2026-07-01"
       ],
-      "status": "incomplete-placeholder",
+      "status": "blocked-source-conflict",
       "problems": [
+        "Artikel 3 Nummer 2 des Gesetzes zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes ordnet an, nach Tarifstelle 2 eine neue Tarifstelle 3 anzufügen. Die amtliche, im Änderungsgesetz selbst zitierte Ausgangsfassung des Zehnten Sächsischen Kostenverzeichnisses enthält im einschlägigen Abschnitt bereits eine Tarifstelle 3. Ob Ersetzung, Umnummerierung oder eine zusätzliche Tarifstelle beabsichtigt war, ist aus der Primärquelle nicht eindeutig bestimmbar.",
         "Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle."
       ],
-      "nextAction": "Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen."
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
     }
   ]
 }

@@ -36,9 +36,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/StAnzO. 2026 Nr. 5.html"
+      "localSource": "Gesetze/StAnzO. 2026 Nr. 5.html",
+      "sha256": "a068047ad27c1de0c14aa0440157647420bff9a6953e6d718373990db0392299",
+      "mediaType": "text/html",
+      "pageRange": "2–6",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/StAnzO 2026 Nr 5.pdf",
+      "sha256": "37f308a23ae4a2f7caba9e79ccd4a61e6009eddd4475f4cc4e657df92fdc7149",
+      "mediaType": "application/pdf",
+      "pageCount": 6,
+      "pageRange": "2–6",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/StAnzO. 2026 Nr. 5.html"
     }
   ]
 }

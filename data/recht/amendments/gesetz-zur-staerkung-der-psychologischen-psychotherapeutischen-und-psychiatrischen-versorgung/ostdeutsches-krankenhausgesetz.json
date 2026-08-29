@@ -1,0 +1,58 @@
+{
+  "amendmentAct": "gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung",
+  "effectiveDate": "2026-07-20",
+  "versionId": "2026-07-20",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 51)",
+  "resultCitation": "Ostdeutsches Krankenhausgesetz, geändert durch Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 51)",
+  "changeNote": "Eine Regelung zur Vergütung im psychotherapeutischen und psychiatrischen Dienst wurde ergänzt.",
+  "commandCoverage": [
+    "Artikel 1 Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 51",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 51.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 14"
+      },
+      "expectedHash": "468f5d4d6195362cc05a6cf321a26a0660a6d9511934f27ba2be1460f774011e",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 14a",
+        "title": "Vergütung im psychotherapeutischen und psychiatrischen Dienst",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Zur Sicherung der personellen Ausstattung sind die Gehälter der im öffentlichen Dienst des Freistaates oder in kommunalen Einrichtungen beschäftigten Psychologen, Psychotherapeuten sowie Ärztinnen und Ärzte in der Psychiatrie durch Gewährung von regionalen Strukturzulagen attraktiver zu gestalten.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Das Staatsministerium für Soziales und Gesellschaftlichen Zusammenhalt wird ermächtigt, das Nähere zur Höhe und Ausgestaltung dieser Zulagen durch Rechtsverordnung zu regeln.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Bei der Bemessung der Zulagen gemäß Absatz 1 ist eine zusätzliche Zuwendung für Tätigkeiten im ländlichen Raum oder in vom Staatsministerium für Soziales und gesellschaftlichen Zusammenhalt festgestellten Unterversorgungsgebieten vorzusehen.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 51.html",
+      "sourceProvision": "Artikel 1 Nummer 2",
+      "effectiveDate": "2026-07-20"
+    }
+  ]
+}

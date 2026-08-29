@@ -27,38 +27,27 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte strukturierte Transkription der Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl I-25.html",
+      "sha256": "964cfc1b52f095a87a4ee432a1a9b00753cef8d4a92190db3df967304aae22ef",
       "mediaType": "text/html",
-      "verifiedAt": "2026-07-23",
-      "sourceRole": "structure-bearing",
       "pageRange": "7-14",
-      "derivedSource": "Gesetze/OGVBl I-25.pdf"
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
     },
     {
       "kind": "primary-pdf",
-      "label": "Amtliches Original-PDF der Ausgabe",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
       "localSource": "Gesetze/OGVBl I-25.pdf",
       "sha256": "1c8362ccf1fa1f7d7be5c6a267c38ea0dc218efe27b77402eba4de8be72521d7",
       "mediaType": "application/pdf",
       "pageCount": 15,
-      "verifiedAt": "2026-07-23",
-      "sourceRole": "visual-control",
       "pageRange": "7-14",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl I-25.html"
-    },
-    {
-      "kind": "structured-html-transcription",
-      "label": "Strukturierte Ursprungsfassung der Ostdeutschen Bezirksordnung",
-      "availability": "versioned",
-      "localSource": "Gesetze/Ostdeutsche Bezirksordnung 2025.html",
-      "mediaType": "text/html",
-      "verifiedAt": "2026-07-23",
-      "sourceRole": "structure-bearing",
-      "pageRange": "7-13",
-      "derivedSource": "Gesetze/OGVBl I-25.pdf"
     },
     {
       "kind": "amendment-source",
@@ -68,7 +57,7 @@
       "sha256": "7db4c0851e9a2f2c9bb4ef24675495b3c3a734373cc0b3c33189b4b005988013",
       "mediaType": "text/html",
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "amendment-evidence"
     },
     {
@@ -80,14 +69,16 @@
       "mediaType": "application/pdf",
       "pageCount": 5,
       "pageRange": "2–5",
-      "verifiedAt": "2026-08-27",
+      "verifiedAt": "2026-08-28",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OGVBl.2026Nr.68.html"
     }
   ],
   "enactedNorm": "ostdeutsche-bezirksordnung",
   "affectedNorms": [
-    "saechsische-landkreisordnung"
+    "saechsische-landkreisordnung",
+    "landesplanungsgesetz",
+    "sachsisches-verwaltungsorganisationsgesetz"
   ],
   "affectedByNorms": [
     "berichtigung-verschiedener-verkuendungen-2026"

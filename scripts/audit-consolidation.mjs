@@ -23,6 +23,7 @@ const CANONICAL_GROUPS = [
   ['schulordnung-grundschulen', 'Schulordnung Grundschulen', /\bSchulordnung\s+Grundschulen\b/iu],
   ['schulordnung-gemeinschaftsschulen', 'Schulordnung Gemeinschaftsschulen', /\bSchulordnung\s+Gemeinschaftsschulen\b/iu],
   ['schulordnung-foerderschulen', 'Schulordnung Förderschulen', /\bSchulordnung\s+Förderschulen\b/iu],
+  ['saechsische-klassenbildungsverordnung', 'Sächsische Klassenbildungsverordnung', /\b(?:Sächsische[nrsm]?\s+)?Klassenbildungsverordnung\b/iu],
   ['pruefungsverordnung-waldorfschulen', 'Prüfungsverordnung Waldorfschulen', /\bPrüfungsverordnung\s+Waldorfschulen\b/iu],
   ['schulordnung-berufsschule', 'Schulordnung Berufsschule', /\bSchulordnung\s+Berufsschule\b/iu],
   ['schulordnung-berufliche-gymnasien', 'Schulordnung Berufliche Gymnasien', /\bSchulordnung\s+Berufliche\s+Gymnasien\b/iu],
@@ -129,16 +130,30 @@ function targetFromBlock(block) {
   const text = `${block.text ?? ''}`;
   if (block.type !== 'paragraphText' || text.length > 600) return null;
   const sentence = text.match(
-    /^(?:Das|Die)\s+([^.\n:]{2,320}?(?:gesetz|ordnung|verordnung|verwaltungsvorschrift|vwv|anweisung|staatsvertrag|kostenverzeichnis|verfassung)(?:\s+für\s+den\s+Freistaat\s+(?:Sachsen|Ostdeutschland))?)(?:\s+vom\s+[^,\n]{3,100})?,?\s+wird\s+(?:wie folgt\s+)?(?:geändert|neu gefasst|aufgehoben)\b/iu,
+    /^(?:Das|Die)\s+([^\n:]{2,320}?(?:gesetz|ordnung|verordnung|verwaltungsvorschrift|vwv|anweisung|staatsvertrag|kostenverzeichnis|verfassung)(?:\s+für\s+den\s+Freistaat\s+(?:Sachsen|Ostdeutschland))?)(?:\s+vom\s+[^\n]{3,180}?)?(?:,\s+(?:das|die)\s+[^\n]{0,320}?\bgeändert worden ist)?,?\s+wird\s+(?:wie folgt\s+)?(?:geändert|neu gefasst|aufgehoben)\b/iu,
   );
   return sentence ? { title: sentence[1].trim(), evidence: 'Änderungssatz' } : null;
 }
 
 function targetFromActTitle(title) {
   const match = String(title ?? '').match(
-    /^(?:Gesetz|Verordnung|(?:Gemeinsame\s+)?Verwaltungsvorschrift(?:\s+[^\n]{0,220}?)?)\s+zur\s+(?:[A-Za-zÄÖÜäöüß-]+\s+)?Änderung\s+(?:des|der)\s+(.+)$/u,
+    /^(?:(?:Erste|Zweite|Dritte|Vierte|Fünfte|Sechste|Siebte|Achte|Neunte|Zehnte|Elfte|Zwölfte)\s+)?(?:Gesetz|Verordnung|(?:Gemeinsame\s+)?Verwaltungsvorschrift)(?:\s+[^\n]{0,220}?)?\s+zur\s+(?:[A-Za-zÄÖÜäöüß-]+\s+)?Änderung\s+(?:des|der)\s+(.+)$/u,
   );
   return match ? { title: match[1].trim(), evidence: 'Titel der Änderungsvorschrift' } : null;
+}
+
+function prioritizedBodyFindings(body) {
+  const findings = [];
+  for (const block of body ?? []) {
+    const scope = block.type === 'article' ? flatten([block], []) : [block];
+    const candidates = scope.map(targetFromBlock).filter(Boolean);
+    const operative = candidates.filter((finding) => finding.evidence === 'Änderungssatz');
+    findings.push(...(operative.length > 0 ? operative : candidates));
+    if (block.type !== 'article' && block.children?.length) {
+      findings.push(...prioritizedBodyFindings(block.children));
+    }
+  }
+  return findings;
 }
 
 async function loadNorms() {
@@ -223,7 +238,13 @@ async function main() {
       if (!templateProblems.includes(problem)) templateProblems.push(problem);
     }
     const neverTookEffect = record.meta.status === 'historical' && record.meta.effectiveDate == null;
-    const bodyFindings = neverTookEffect ? [] : flatBlocks.map(targetFromBlock).filter(Boolean);
+    // Der operative Änderungssatz bezeichnet innerhalb desselben Artikels die
+    // tatsächlich geänderte Norm genauer als eine möglicherweise fehlerhafte
+    // Artikelüberschrift. Andere Artikel desselben Mantelgesetzes bleiben
+    // unabhängig davon vollständig auswertbar.
+    const bodyFindings = neverTookEffect
+      ? []
+      : record.versions.flatMap((version) => prioritizedBodyFindings(version.body));
     const findings = neverTookEffect
       ? []
       : bodyFindings.length > 0

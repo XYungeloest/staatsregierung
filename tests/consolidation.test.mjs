@@ -104,6 +104,68 @@ test('Patch-Rezepte brechen bei fehlendem Ziel oder verändertem Ausgangstext ab
   assert.throws(() => applyPatchRecipe(state, contract), /Zielhash weicht ab/u);
 });
 
+test('eine amtlich angeordnete Neufassung ersetzt den Normkörper nur mit passender Vollkörper-Assertion', () => {
+  const state = {
+    title: 'Testgesetz',
+    body: [{ type: 'paragraph', label: '§ 1', title: 'Alt', children: [] }],
+  };
+  const operation = {
+    op: 'replaceBody',
+    expectedHash: sha256(state.body),
+    expectedMatches: 1,
+    value: [{ type: 'paragraph', label: '§ 1', title: 'Neu', children: [] }],
+    source: 'Gesetze/Test.html',
+    sourceProvision: 'Artikel 1 (Neufassung)',
+    effectiveDate: '2026-01-02',
+  };
+  const result = applyPatchRecipe(state, {
+    amendmentAct: 'test-neufassung',
+    effectiveDate: '2026-01-02',
+    operations: [operation],
+  });
+  assert.equal(result.body[0].title, 'Neu');
+  assert.throws(() => applyPatchRecipe(state, {
+    amendmentAct: 'test-neufassung',
+    effectiveDate: '2026-01-02',
+    operations: [{ ...operation, expectedHash: '0'.repeat(64) }],
+  }), /Zielhash weicht ab/u);
+});
+
+test('normkörperweite Bezeichnungsersetzungen zählen und prüfen jeden Treffer', () => {
+  const state = {
+    title: 'Testgesetz',
+    body: [
+      {
+        type: 'paragraph',
+        label: '§ 1',
+        title: 'Behörden in Sachsen',
+        children: [{ type: 'paragraphText', text: 'Sachsen handelt. Sachsen berichtet.' }],
+      },
+    ],
+  };
+  const operation = {
+    op: 'designationReplacementBody',
+    expectedOld: 'Sachsen',
+    expectedMatches: 3,
+    value: 'Ostdeutschland',
+    source: 'Gesetze/Test.html',
+    sourceProvision: 'Artikel 1 Nummer 1',
+    effectiveDate: '2026-01-02',
+  };
+  const result = applyPatchRecipe(state, {
+    amendmentAct: 'test-bezeichnungsersetzung',
+    effectiveDate: '2026-01-02',
+    operations: [operation],
+  });
+  assert.equal(result.body[0].title, 'Behörden in Ostdeutschland');
+  assert.equal(result.body[0].children[0].text, 'Ostdeutschland handelt. Ostdeutschland berichtet.');
+  assert.throws(() => applyPatchRecipe(state, {
+    amendmentAct: 'test-bezeichnungsersetzung',
+    effectiveDate: '2026-01-02',
+    operations: [{ ...operation, expectedMatches: 2 }],
+  }), /3 statt 2 Treffer/u);
+});
+
 test('Wappenverordnung besitzt den vollständigen Ausgangstext und eine belegte Aufhebung', async () => {
   const version = await readJson('content/normen/wappenverordnung/versions/2023-11-01.json');
   const meta = await readJson('content/normen/wappenverordnung/meta.json');
@@ -410,4 +472,36 @@ test('Konsolidierungsmanifest ist aktuell und zählt seine Zielstatus konsistent
   assert.deepEqual(berufsschule.effectiveDates, ['2026-09-01']);
   assert.equal(berufsschule.correctionActs[0].slug, 'berichtigung-verschiedener-verkuendungen-2026');
   assert.ok(!berufsschule.effectiveDates.includes('2026-08-27'));
+});
+
+test('historische Basistitel und ostdeutsche Folgebezeichnungen bleiben fassungsspezifisch', async () => {
+  const baseline = await readJson('content/normen/ostdeutsches-schulgesetz/versions/2023-11-01.json');
+  const current = await readJson('content/normen/ostdeutsches-schulgesetz/versions/2026-08-01.json');
+  const culture = await readJson('content/normen/kulturraumgesetz/versions/2026-03-25.json');
+  const transit = await readJson('content/normen/ostdeutsches-personennahverkehrsgesetz/versions/2026-03-24.json');
+  assert.equal(baseline.title, 'Sächsisches Schulgesetz');
+  assert.equal(current.title, 'Schulgesetz für den Freistaat Ostdeutschland');
+  assert.equal(current.shortTitle, 'Ostdeutsches Schulgesetz');
+  assert.equal(culture.title, 'Ostdeutsches Kulturraumgesetz');
+  assert.equal(transit.title, 'Ostdeutsches Personennahverkehrsgesetz');
+});
+
+test('ein späterer Quellenkonflikt bewahrt die davor vollständig konsolidierte Fassung', async () => {
+  const history = await readJson('content/normen/ostdeutsches-personennahverkehrsgesetz/history.json');
+  const manifest = await readJson('data/recht/consolidation-manifest.json');
+  assert.equal(history.entries.some((entry) => entry.affectingVersionId === '2026-03-24'), true);
+  assert.equal(history.entries.some((entry) => entry.affectingVersionId === '2026-07-21'), false);
+  assert.equal(
+    manifest.targets.find((entry) => entry.canonicalSlug === 'ostdeutsches-personennahverkehrsgesetz')?.status,
+    'blocked-source-conflict',
+  );
+});
+
+test('Krankenhausgesetz übernimmt § 14a vollständig aus der Änderungsausgabe', async () => {
+  const version = await readJson('content/normen/ostdeutsches-krankenhausgesetz/versions/2026-07-20.json');
+  const provision = flatten(version.body).find((block) => block.type === 'paragraph' && block.label === '§ 14a');
+  assert.equal(provision.title, 'Vergütung im psychotherapeutischen und psychiatrischen Dienst');
+  assert.deepEqual(provision.children.map((block) => block.label), ['(1)', '(2)', '(3)']);
+  assert.match(provision.children[2].text, /Unterversorgungsgebieten vorzusehen\.$/u);
+  assert.match(version.citation, /Gesetz vom 20\. Juli 2026/u);
 });

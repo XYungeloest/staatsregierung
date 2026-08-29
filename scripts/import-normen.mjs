@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 
-import { createHash } from 'node:crypto';
-import { existsSync, readFileSync } from 'node:fs';
-import { access, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+import { access, copyFile, mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, join, relative, resolve } from 'node:path';
 
 import {
@@ -23,6 +22,13 @@ import {
   validatePublicationParserContract,
 } from './lib/norm-parser-contract.mjs';
 import { applyCorrectionsToRecord, loadCorrectionBundles } from './lib/correction-engine.mjs';
+import {
+  HISTORICAL_PUBLICATION_PAGE_RANGE_MAP,
+  pageRangeForPublication,
+  pdfPageCount,
+  publicationSourceReferences as buildPublicationSourceReferences,
+  resolvePublicationPdf,
+} from './lib/publication-pdf.mjs';
 
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
@@ -42,6 +48,9 @@ const selectedFiles = new Set(allValuesAfter('--file').flatMap((value) => value.
 const editorialConfig = JSON.parse(await readFile(resolve(ROOT, 'src/config/editorial.json'), 'utf8'));
 const asOf = valueAfter('--as-of') ?? editorialConfig.referenceDate;
 const correctionBundles = await loadCorrectionBundles(ROOT);
+const consolidationSources = JSON.parse(await readFile(resolve(ROOT, 'data/recht/consolidation-sources.json'), 'utf8'));
+const consolidationManagedTargetSlugs = new Set(Object.keys(consolidationSources.targets ?? {}));
+let availablePdfFileNames = [];
 
 if (!/^\d{4}-\d{2}-\d{2}$/u.test(asOf)) {
   throw new Error(`Ungültiger Stichtag „${asOf}“. Erwartet wird --as-of JJJJ-MM-TT.`);
@@ -79,7 +88,7 @@ const ISSUE_CONFIG = {
     { slug: 'kasernierte-grenzpolizei-gesetz', shortTitle: 'Kasernierte-Grenzpolizei-Gesetz', responsibleMinistry: 'Staatssekretariat für Staats- und Grenzsicherheit', summary: 'Bestimmt Auftrag, Befugnisse, Organisation und parlamentarische Kontrolle der Kasernierten Grenzpolizei.' },
   ],
   '51': [
-    { slug: 'gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung', shortTitle: 'Gesetz zur Stärkung der psychologischen Versorgung', responsibleMinistry: 'Staatssekretariat für Gesundheits- und Sozialwesen', summary: 'Ändert das Gesundheitsdienstgesetz zur Stärkung psychologischer, psychotherapeutischer und psychiatrischer Versorgungsangebote.' },
+    { slug: 'gesetz-zur-staerkung-der-psychologischen-psychotherapeutischen-und-psychiatrischen-versorgung', shortTitle: 'Gesetz zur Stärkung der psychologischen Versorgung', type: 'aenderungsvorschrift', affectedNorms: ['ostdeutsches-krankenhausgesetz'], responsibleMinistry: 'Staatssekretariat für Gesundheits- und Sozialwesen', summary: 'Ergänzt das Ostdeutsche Krankenhausgesetz um eine Vergütungsregelung für den psychotherapeutischen und psychiatrischen Dienst.' },
   ],
   '52': [
     { slug: 'sportneuordnungsgesetz', shortTitle: 'Ostdeutsches Sportneuordnungsgesetz', responsibleMinistry: 'Staatssekretariat für Volksbildung und Wissenschaft', summary: 'Ordnet Sportförderung, Spitzensport, Sportfonds, Athletenversorgung und Betriebssport durch mehrere Stammgesetze neu.' },
@@ -547,57 +556,65 @@ function normSourceReferences(fileName) {
   }];
 }
 
-function sha256ForLocalSource(localSource) {
-  return createHash('sha256').update(readFileSync(resolve(ROOT, localSource))).digest('hex');
+function retainedOfficialSourceReferences(references) {
+  return (references ?? []).filter((reference) =>
+    reference.kind !== 'primary-pdf' &&
+    !['transcription', 'structured-html-transcription', 'legacy-markdown-transcription'].includes(reference.kind) &&
+    !(
+      reference.kind === 'original' &&
+      reference.availability === 'not-versioned' &&
+      /(?:Original|PDF)/iu.test(reference.label ?? '')
+    )
+  );
 }
 
-function officialIssueSourceReferences(parsed, config) {
-  if (parsed.publication === 'OGVBl.' && parsed.year === 2026 && parsed.issue === '59') {
-    return OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES;
+function officialIssueSourceReferences(parsed, config, options = {}) {
+  const existingReferences = options.existingReferences ?? [];
+  const resolved = resolvePublicationPdf({
+    publication: parsed.publication,
+    year: parsed.year,
+    issue: parsed.issue,
+    htmlFileName: isHtmlSource(parsed.fileName) ? basename(parsed.fileName) : null,
+    configuredPdfFileName: config.pdfFileName,
+    pdfFileNames: availablePdfFileNames,
+    sourceReferences: existingReferences,
+  });
+  if (resolved.strategy === 'ambiguous') {
+    throw new Error(`${parsed.fileName}: mehrere PDF-Kandidaten für dieselbe Ausgabe: ${resolved.candidates.join(', ')}`);
   }
-  const htmlSource = `Gesetze/${basename(parsed.fileName)}`;
-  const pdfFileName = config.pdfFileName ?? basename(parsed.fileName).replace(/\.html$/iu, '.pdf');
-  const pdfSource = `Gesetze/${pdfFileName}`;
-  const pageRange = parsed.startPage && config.pageCount
-    ? `${parsed.startPage}${Number(parsed.startPage) === config.pageCount ? '' : `–${config.pageCount}`}`
-    : undefined;
-  const references = [{
-    kind: 'structured-html-transcription',
-    label: 'Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe',
-    availability: 'versioned',
-    localSource: htmlSource,
-    sha256: sha256ForLocalSource(htmlSource),
-    mediaType: 'text/html',
-    ...(pageRange ? { pageRange } : {}),
-    verifiedAt: config.verifiedAt ?? '2026-08-16',
-    sourceRole: 'structure-bearing',
-  }];
-  if (existsSync(resolve(ROOT, pdfSource))) {
-    references.push({
-      kind: 'primary-pdf',
-      label: 'Amtliche visuelle Veröffentlichungsfassung',
-      availability: 'versioned',
-      localSource: pdfSource,
-      sha256: sha256ForLocalSource(pdfSource),
-      mediaType: 'application/pdf',
-      pageCount: config.pageCount,
-      ...(pageRange ? { pageRange } : {}),
-      verifiedAt: config.verifiedAt ?? '2026-08-16',
-      sourceRole: 'visual-control',
-      derivedSource: htmlSource,
-    });
+  const htmlFileName = isHtmlSource(parsed.fileName) ? basename(parsed.fileName) : null;
+  const htmlBytes = htmlFileName ? readFileSync(resolve(sourceDir, htmlFileName)) : null;
+  const pdfBytes = resolved.fileName ? readFileSync(resolve(sourceDir, resolved.fileName)) : null;
+  const actualPageCount = pdfBytes ? pdfPageCount(pdfBytes) : null;
+  if (config.pageCount && actualPageCount && config.pageCount !== actualPageCount) {
+    throw new Error(`${parsed.fileName}: konfigurierte Seitenzahl ${config.pageCount} weicht vom PDF (${actualPageCount}) ab`);
   }
-  return references;
-}
-
-function publicationSourceReference(fileName) {
-  const html = isHtmlSource(fileName);
-  return {
-    kind: html ? 'structured-html-transcription' : 'legacy-markdown-transcription',
-    label: html ? 'Redaktionell geprüfte HTML-Fassung der Ausgabe' : 'Historische Markdown-Transkription der Ausgabe (Altbestand)',
-    availability: 'versioned',
-    localSource: `Gesetze/${basename(fileName)}`,
-  };
+  const pageRange = options.pageRange ?? (actualPageCount
+    ? `${parsed.startPage ?? 1}${Number(parsed.startPage ?? 1) === actualPageCount ? '' : `–${actualPageCount}`}`
+    : undefined);
+  const verifiedAt = config.verifiedAt ?? existingReferences.find((reference) =>
+    ['structured-html-transcription', 'primary-pdf'].includes(reference.kind) && reference.verifiedAt
+  )?.verifiedAt;
+  const extras = parsed.publication === 'OGVBl.' && parsed.year === 2026 && parsed.issue === '59'
+    ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES.filter((reference) => reference.kind === 'supplementary-markdown-transcription')
+    : [];
+  return [
+    ...buildPublicationSourceReferences({
+      htmlFileName,
+      htmlBytes,
+      pdfFileName: resolved.fileName,
+      pdfBytes,
+      pageRange,
+      ...(verifiedAt ? { verifiedAt } : {}),
+    }),
+    ...(!htmlFileName ? normSourceReferences(parsed.fileName) : []),
+    ...retainedOfficialSourceReferences(existingReferences),
+    ...extras,
+  ].filter((reference, index, references) => references.findIndex((candidate) =>
+    candidate.kind === reference.kind &&
+    candidate.localSource === reference.localSource &&
+    candidate.url === reference.url
+  ) === index);
 }
 
 function publicationIdentityKey(publication, year, issue) {
@@ -709,14 +726,10 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
       startPage: publicationEntry?.startPage,
       meta: {
         ...existing.meta,
-        sourceReferences: [
-          ...(existing.meta.sourceReferences ?? []).filter((reference) =>
-            !/\.(?:md|html)$/iu.test(String(reference.localSource ?? ''))
-          ),
-          ...normSourceReferences(parsed.fileName),
-        ].filter((reference, index, references) =>
-          references.findIndex((candidate) => candidate.localSource === reference.localSource) === index
-        ),
+        sourceReferences: officialIssueSourceReferences(parsed, {}, {
+          existingReferences: existing.meta.sourceReferences,
+          pageRange: publicationEntry?.pages ?? publicationEntry?.startPage,
+        }),
       },
       history: existing.history,
       versions: [{ ...currentVersion, body: norm.body }],
@@ -738,21 +751,36 @@ function resolveLegacySourceRecords(parsed, existingPublication, existingRecords
     };
   });
   const mappedSlugs = new Set(mappedEntries.map((entry) => entry.normSlug));
+  const resolvedPdf = resolvePublicationPdf({
+    publication: parsed.publication,
+    year: parsed.year,
+    issue: parsed.issue,
+    htmlFileName: isHtmlSource(parsed.fileName) ? basename(parsed.fileName) : null,
+    pdfFileNames: availablePdfFileNames,
+    sourceReferences: existingPublication.sourceReferences,
+  });
+  if (resolvedPdf.strategy === 'ambiguous') {
+    throw new Error(`${parsed.fileName}: mehrere PDF-Kandidaten für dieselbe Ausgabe: ${resolvedPdf.candidates.join(', ')}`);
+  }
+  const publicationEntries = [
+    ...mappedEntries,
+    ...(existingPublication.entries ?? []).filter((entry) => entry.normSlug && !mappedSlugs.has(entry.normSlug)),
+  ];
+  const publicationPageRange = resolvedPdf.fileName
+    ? pageRangeForPublication(
+        { entries: publicationEntries },
+        pdfPageCount(readFileSync(resolve(sourceDir, resolvedPdf.fileName))),
+      )
+    : undefined;
   const publication = {
     ...existingPublication,
     ...(existingPublication.sourceFiles ? { sourceFiles: [`Gesetze/${basename(parsed.fileName)}`] } : {}),
-    sourceReferences: [
-      ...(existingPublication.sourceReferences ?? []).filter((reference) =>
-        !['transcription', 'structured-html-transcription', 'legacy-markdown-transcription'].includes(reference.kind) &&
-        !/\.(?:md|html)$/iu.test(String(reference.localSource ?? ''))
-      ),
-      publicationSourceReference(parsed.fileName),
-    ].filter((reference, index, references) =>
-      references.findIndex((candidate) =>
-        candidate.kind === reference.kind && candidate.localSource === reference.localSource && candidate.url === reference.url
-      ) === index
-    ),
-    entries: [...mappedEntries, ...(existingPublication.entries ?? []).filter((entry) => entry.normSlug && !mappedSlugs.has(entry.normSlug))],
+    ...(resolvedPdf.fileName ? { pdf: `/assets/recht/${resolvedPdf.fileName}` } : { pdf: undefined }),
+    sourceReferences: officialIssueSourceReferences(parsed, {}, {
+      existingReferences: existingPublication.sourceReferences,
+      ...(publicationPageRange ? { pageRange: publicationPageRange } : {}),
+    }),
+    entries: publicationEntries,
   };
   return { records, publication, issues };
 }
@@ -817,11 +845,7 @@ function buildRecords(parsed) {
     const officialTitle = NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)] && officialTitleSuffix && norm.title.endsWith(officialTitleSuffix)
       ? norm.title.slice(0, -officialTitleSuffix.length).trim()
       : norm.title;
-    const sourceReferences = NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]
-      ? officialIssueSourceReferences(parsed, config)
-      : parsed.issue === '59'
-        ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES
-        : normSourceReferences(parsed.fileName);
+    const sourceReferences = officialIssueSourceReferences(parsed, config);
     const meta = {
       id: slug,
       slug,
@@ -1154,7 +1178,18 @@ function publicationFrom(parsed, records) {
   const isVolksbefragung = parsed.issue === '59';
   const isNewOfficialIssue = Boolean(NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)]);
   const config = configuredNormsFor(parsed)?.[0] ?? {};
-  const pdfFileName = config.pdfFileName ?? basename(parsed.fileName).replace(/\.html$/iu, '.pdf');
+  const resolvedPdf = resolvePublicationPdf({
+    publication: parsed.publication,
+    year: parsed.year,
+    issue: parsed.issue,
+    htmlFileName: isHtmlSource(parsed.fileName) ? basename(parsed.fileName) : null,
+    configuredPdfFileName: config.pdfFileName,
+    pdfFileNames: availablePdfFileNames,
+  });
+  if (resolvedPdf.strategy === 'ambiguous') {
+    throw new Error(`${parsed.fileName}: mehrere PDF-Kandidaten für dieselbe Ausgabe: ${resolvedPdf.candidates.join(', ')}`);
+  }
+  const pdfFileName = resolvedPdf.fileName;
   const longName = parsed.publication === 'StAnzO.'
     ? 'Staatsanzeiger Ostdeutschland'
     : 'Ostdeutsches Gesetz- und Verordnungsblatt';
@@ -1162,6 +1197,9 @@ function publicationFrom(parsed, records) {
   const pageRange = parsed.startPage && config.pageCount
     ? `${parsed.startPage}${Number(parsed.startPage) === config.pageCount ? '' : `–${config.pageCount}`}`
     : undefined;
+  const historicalPageRange = HISTORICAL_PUBLICATION_PAGE_RANGE_MAP[
+    publicationIdentityKey(parsed.publication, parsed.year, parsed.issue)
+  ];
   return {
     slug: `${publicationSlugPrefix}-${parsed.year}-${parsed.issue}`,
     title: `${longName} ${parsed.year} Nr. ${parsed.issue}`,
@@ -1172,13 +1210,9 @@ function publicationFrom(parsed, records) {
     ...(isVolksbefragung || isNewOfficialIssue ? {
       place: 'Dresden',
       publisher: 'Freistaat Ostdeutschland',
-      pdf: `/assets/recht/${pdfFileName}`,
     } : {}),
-    sourceReferences: isVolksbefragung
-      ? OGVBL_VOLKSBEFRAGUNG_SOURCE_REFERENCES
-      : isNewOfficialIssue
-        ? officialIssueSourceReferences(parsed, config)
-        : [publicationSourceReference(parsed.fileName)],
+    ...(pdfFileName ? { pdf: `/assets/recht/${pdfFileName}` } : {}),
+    sourceReferences: officialIssueSourceReferences(parsed, config),
     entries: [...records.map((record) => ({
       id: record.meta.slug,
       title: record.meta.title,
@@ -1188,8 +1222,14 @@ function publicationFrom(parsed, records) {
           : record.meta.type
         : record.meta.type === 'verordnung' ? 'verordnung' : 'gesetz',
       citation: record.meta.initialCitation,
-      ...(!isVolksbefragung && !isNewOfficialIssue && record.startPage ? { startPage: record.startPage } : {}),
-      ...(isVolksbefragung ? { pages: '2–7' } : pageRange ? { pages: pageRange } : {}),
+      ...(!historicalPageRange && !isVolksbefragung && !isNewOfficialIssue && record.startPage ? { startPage: record.startPage } : {}),
+      ...(historicalPageRange && records.length === 1
+        ? { pages: historicalPageRange }
+        : isVolksbefragung
+          ? { pages: '2–7' }
+          : pageRange
+            ? { pages: pageRange }
+            : {}),
       documentDate: record.meta.documentDate,
       normSlug: record.meta.slug,
       versionId: record.versions[0].versionId,
@@ -1610,6 +1650,12 @@ async function validateWriteSet(candidateRecords) {
 }
 
 async function writeRecord(record, changes) {
+  // Der Audit vergleicht stets den durch amtliche Berichtigungen
+  // deklaratorisch richtiggestellten Datensatz. Der Schreibpfad muss exakt
+  // dieselbe Transformation verwenden; andernfalls würde ein gezielter
+  // Reimport wieder den fehlerhaften Verkündungswortlaut speichern und der
+  // unmittelbar folgende strikte Audit erneut eine Abweichung melden.
+  record = applyCorrectionsToRecord(record, correctionBundles).record;
   validateRecord(record);
   const existing = await readExistingRecord(record.meta.slug);
   if (existing) {
@@ -1642,6 +1688,10 @@ const allMarkdownFiles = directoryEntries
   .filter((entry) => entry.isFile() && entry.name.toLocaleLowerCase('de').endsWith('.md'))
   .map((entry) => entry.name)
   .sort((left, right) => left.localeCompare(right, 'de'));
+availablePdfFileNames = directoryEntries
+  .filter((entry) => entry.isFile() && entry.name.toLocaleLowerCase('de').endsWith('.pdf'))
+  .map((entry) => entry.name)
+  .sort((left, right) => left.localeCompare(right, 'de'));
 const htmlFiles = allHtmlFiles.filter((name) => selectedFiles.size === 0 || selectedFiles.has(name));
 const markdownFiles = allMarkdownFiles.filter((name) => selectedFiles.size === 0 || selectedFiles.has(name));
 
@@ -1665,17 +1715,6 @@ for (const fileName of allHtmlFiles) {
   }
 }
 const htmlStems = new Set(allHtmlFiles.map((name) => name.replace(/\.html$/iu, '').replace(/[ .]/gu, '').toLocaleLowerCase('de')));
-const consolidationManagedSources = new Map([
-  [
-    'Ostdeutsches Feiertagsgesetz.md',
-    'durch vollständige, quellengesicherte Fassungsfolge aus REVOSax-Snapshot und Änderungsvorschriften ersetzt',
-  ],
-  [
-    'Sächsische Landkreisordnung.md',
-    'durch vollständige, quellengesicherte Fassungsfolge aus REVOSax-Snapshot und redaktionell geprüften Änderungsvorschriften ersetzt',
-  ],
-]);
-
 const existingAuditRecords = await loadExistingAuditRecords();
 const existingPublications = await loadExistingPublications();
 const report = {
@@ -1889,18 +1928,6 @@ for (const fileName of htmlFiles) {
 }
 
 for (const fileName of markdownFiles) {
-  if (consolidationManagedSources.has(fileName)) {
-    const reason = consolidationManagedSources.get(fileName);
-    report.legacyMarkdownIgnored.push({ file: fileName, reason });
-    report.sourceAudit.push({
-      file: fileName,
-      classification: 'legacy-markdown',
-      status: 'superseded-by-consolidation',
-      issues: [reason],
-    });
-    if (selectedFiles.has(fileName)) throw new Error(`${fileName}: ${reason}`);
-    continue;
-  }
   const stem = fileName.replace(/\.md$/iu, '').replace(/[ .]/gu, '').toLocaleLowerCase('de');
   const filePublicationIdentity = publicationIdentityFromLegacyFileName(fileName);
   if (htmlStems.has(stem) || (filePublicationIdentity && htmlPublicationIdentities.has(filePublicationIdentity))) {
@@ -1938,6 +1965,19 @@ for (const fileName of markdownFiles) {
       }
       const parsed = parseConsolidatedMarkdown(fileName, markdown);
       const resolved = resolveLegacyConsolidatedRecord(parsed, existingAuditRecords);
+      if (resolved.record && consolidationManagedTargetSlugs.has(resolved.record.meta.slug)) {
+        const reason = 'durch vollständige, quellengesicherte Fassungsfolge aus REVOSax-Snapshot und Änderungsvorschriften ersetzt';
+        report.legacyMarkdownIgnored.push({ file: fileName, reason });
+        report.sourceAudit.push({
+          file: fileName,
+          classification: 'legacy-markdown-consolidated',
+          status: 'superseded-by-consolidation',
+          detectedNorms: [parsed.title],
+          issues: [reason],
+        });
+        if (selectedFiles.has(fileName)) throw new Error(`${fileName}: ${reason}`);
+        continue;
+      }
       if (resolved.record) {
         validateRecord(resolved.record);
         records.push(resolved.record);
@@ -2093,6 +2133,13 @@ if (shouldWrite) {
     const exists = await access(path).then(() => true).catch(() => false);
     if (exists && !allowExistingUpdate) throw new Error(`${relative(ROOT, path)} existiert bereits; Aktualisierung nur mit --update-existing.`);
     await writeJson(path, publication);
+    const primaryPdf = publication.sourceReferences?.find((reference) => reference.kind === 'primary-pdf');
+    if (primaryPdf?.localSource) {
+      const pdfFileName = basename(primaryPdf.localSource);
+      const publicPath = resolve(ROOT, 'public/assets/recht', pdfFileName);
+      await mkdir(resolve(ROOT, 'public/assets/recht'), { recursive: true });
+      await copyFile(resolve(ROOT, primaryPdf.localSource), publicPath);
+    }
     report.changes.push({ slug: publication.slug, action: exists ? 'updated-publication' : 'created-publication' });
   }
 }

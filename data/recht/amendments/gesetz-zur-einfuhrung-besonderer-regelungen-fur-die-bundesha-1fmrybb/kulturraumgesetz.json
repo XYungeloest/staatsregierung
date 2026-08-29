@@ -1,0 +1,56 @@
+{
+  "amendmentAct": "gesetz-zur-einfuhrung-besonderer-regelungen-fur-die-bundesha-1fmrybb",
+  "effectiveDate": "2026-03-25",
+  "versionId": "2026-03-25",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 26)",
+  "resultCitation": "Ostdeutsches Kulturraumgesetz, geändert durch Artikel 2 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 26)",
+  "changeNote": "Berlin wurde als urbaner Kulturraum einbezogen und eine Regelung für überregionale Kulturlasten ergänzt.",
+  "commandCoverage": [
+    "Artikel 2 Nummern 1 und 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 26",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 26.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceText",
+      "target": {
+        "type": "subparagraph",
+        "label": "(4)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 1"
+      },
+      "field": "text",
+      "expectedOld": "Die Kreisfreien Städte Chemnitz, Leipzig und Dresden sind urbane Kulturräume; für sie gilt dieses Gesetz mit Ausnahme von § 1 Absatz 1 bis 3 und 5, § 2 Absatz 3, § 6 Absatz 3, § 7.",
+      "value": "Die Kreisfreien Städte Chemnitz, Leipzig und Dresden sowie Berlin sind urbane Kulturräume; für sie gilt dieses Gesetz mit Ausnahme von § 1 Absatz 1 bis 3 und 5, § 2 Absatz 3, § 6 Absatz 3, § 7.",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 2 Nummer 1",
+      "effectiveDate": "2026-03-25"
+    },
+    {
+      "op": "insertParagraph",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 6"
+      },
+      "expectedHash": "7361de4cafa3344f7f8d6684a773fa2802436a0576c812dab31c3350abbc69ec",
+      "expectedMatches": 1,
+      "position": "end",
+      "value": {
+        "type": "subparagraph",
+        "label": "(5)",
+        "text": "Zur Abgeltung der überregionalen Kulturlasten der Bundeshauptstadt Berlin können für den urbanen Kulturraum Berlin zusätzliche Zuweisungen nach Maßgabe des Staatshaushaltsplanes bereitgestellt werden. Das Nähere über Verfahren, Kriterien und Abgrenzung der überregionalen Kulturlasten regelt das Staatsministerium für Wissenschaft und Kultur im Einvernehmen mit dem Staatsministerium der Finanzen durch Rechtsverordnung.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 26.html",
+      "sourceProvision": "Artikel 2 Nummer 2",
+      "effectiveDate": "2026-03-25"
+    }
+  ]
+}

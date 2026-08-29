@@ -2,6 +2,7 @@
   "sourceTitle": "Zehntes Sächsisches Kostenverzeichnis",
   "shortTitle": "Zehntes Sächsisches Kostenverzeichnis",
   "abbr": "10. SächsKVZ",
+  "pageFullCitation": "Zehntes Sächsisches Kostenverzeichnis vom 16. August 2021 (SächsGVBl. S. 898), das zuletzt durch Artikel 1 der Verordnung vom 26. März 2025 (SächsGVBl. S. 115) geändert worden ist",
   "fullCitation": "Zehntes Sächsisches Kostenverzeichnis vom 16. August 2021 (SächsGVBl. S. 898), das zuletzt durch Artikel 1 der Verordnung vom 26. März 2025 (SächsGVBl. S. 115) geändert worden ist",
   "documentDate": "2021-08-16",
   "sourceValidFrom": "2023-03-31",
@@ -94127,6 +94128,10 @@
           "numberingStyle": "decimal",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Die Brutto-Grundfläche ist die Gesamtfläche aller Grundrissebenen des Bauwerks. Zur ihr gehören die nutzbare Netto-Raumfläche (NRF) und die Konstruktions-Grundfläche (KGF) aller Grundrissebenen des Bauwerks. Nicht zur Brutto-Grundfläche gehören"
+            },
+            {
               "type": "item",
               "label": "a)",
               "text": "Flächen innerhalb einer Grundrissebene, die nicht vorhanden sind, zum Beispiel Flächen von Lufträumen über Atrien und in Galeriegeschossen sowie Deckenöffnungen,",
@@ -94161,16 +94166,16 @@
           ]
         },
         {
-          "type": "paragraphText",
-          "text": "Die Brutto-Grundfläche ist die Gesamtfläche aller Grundrissebenen des Bauwerks. Zur ihr gehören die nutzbare Netto-Raumfläche (NRF) und die Konstruktions-Grundfläche (KGF) aller Grundrissebenen des Bauwerks. Nicht zur Brutto-Grundfläche gehören"
-        },
-        {
           "type": "item",
           "label": "1.2",
           "text": "Brutto-Rauminhalt (BRI)",
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
+            {
+              "type": "paragraphText",
+              "text": "Der Brutto-Rauminhalt ist das Gesamtvolumen des Bauwerks. Er wird von den äußeren Begrenzungsflächen umschlossen, die von den konstruktiven Bauwerkssohlen, den Außenwänden und den Dächern einschließlich Dachgauben und Dachoberlichtern gebildet werden. Nicht zum Brutto-Rauminhalt gehören die Rauminhalte von folgenden Elementen:"
+            },
             {
               "type": "item",
               "label": "a)",
@@ -94246,10 +94251,6 @@
           ]
         },
         {
-          "type": "paragraphText",
-          "text": "Der Brutto-Rauminhalt ist das Gesamtvolumen des Bauwerks. Er wird von den äußeren Begrenzungsflächen umschlossen, die von den konstruktiven Bauwerkssohlen, den Außenwänden und den Dächern einschließlich Dachgauben und Dachoberlichtern gebildet werden. Nicht zum Brutto-Rauminhalt gehören die Rauminhalte von folgenden Elementen:"
-        },
-        {
           "type": "item",
           "label": "2",
           "text": "Ermittlungsgrundlagen",
@@ -94295,12 +94296,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Sie sind ferner getrennt nach Grundrissebenen, zum Beispiel Geschossen, und getrennt nach unterschiedlichen Höhen der Geschosse zu ermitteln. Dies gilt auch für Grundflächen über oder unter schräg verlaufenden Flächen."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Sie sind ferner getrennt nach Grundrissebenen, zum Beispiel Geschossen, und getrennt nach unterschiedlichen Höhen der Geschosse zu ermitteln. Dies gilt auch für Grundflächen über oder unter schräg verlaufenden Flächen."
         },
         {
           "type": "item",
@@ -94332,11 +94333,12 @@
           "text": "Brutto-Grundfläche",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Für die Ermittlung der Brutto-Grundfläche (Summe aus Netto-Raumfläche und Konstruktions-Grundfläche) sind die äußeren Maße der Bauteile einschließlich Bekleidung (zum Beispiel Außenseite von Putzschichten oder Außenschalen mehrschaliger Wandkonstruktionen) in Höhe der Oberseite der Boden- beziehungsweise Deckenbeläge anzusetzen. Brutto-Grundflächen des Bereiches S werden an den Stellen, an denen sie nicht umschlossen sind, bis zur Begrenzung der vertikalen Projektion ihrer Überdeckung gemessen. Die Konstruktions-Grundflächen, die zwischen den Bereichen R und S liegen, sind dem Bereich R zuzuordnen."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Für die Ermittlung der Brutto-Grundfläche (Summe aus Netto-Raumfläche und Konstruktions-Grundfläche) sind die äußeren Maße der Bauteile einschließlich Bekleidung (zum Beispiel Außenseite von Putzschichten oder Außenschalen mehrschaliger Wandkonstruktionen) in Höhe der Oberseite der Boden- beziehungsweise Deckenbeläge anzusetzen. Brutto-Grundflächen des Bereiches S werden an den Stellen, an denen sie nicht umschlossen sind, bis zur Begrenzung der vertikalen Projektion ihrer Überdeckung gemessen. Die Konstruktions-Grundflächen, die zwischen den Bereichen R und S liegen, sind dem Bereich R zuzuordnen."
+            }
+          ]
         },
         {
           "type": "item",
@@ -94352,11 +94354,12 @@
           "text": "Brutto-Rauminhalt",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Der Brutto-Rauminhalt ist aus den nach Nummer 2.2.1 ermittelten Brutto-Grundflächen und den dazugehörigen Höhen zu ermitteln. Als Höhen für die Ermittlung des Brutto-Rauminhalts gelten die vertikalen Abstände zwischen den Oberflächen der Deckenbeläge in den jeweiligen Grundrissebenen beziehungsweise bei Dächern die Oberflächen der Dachbeläge. Beim untersten Geschoss des Bauwerks gilt als Höhe der Abstand von der Unterseite der Unterböden und Bodenplatten, die nicht der Fundamentierung dienen, bis zur Oberseite des Deckenbelags der darüber liegenden Grundrissebene. Bei Bauwerken oder Bauwerksteilen, die von nicht vertikalen oder nicht waagerechten Flächen begrenzt werden, ist der Rauminhalt nach entsprechenden geometrischen Formeln zu ermitteln. Für die Höhen von Rauminhalten des Bereichs S sind die Oberkanten der begrenzenden Baukonstruktionen (zum Beispiel Brüstungen, Attiken, Geländer) maßgebend."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Der Brutto-Rauminhalt ist aus den nach Nummer 2.2.1 ermittelten Brutto-Grundflächen und den dazugehörigen Höhen zu ermitteln. Als Höhen für die Ermittlung des Brutto-Rauminhalts gelten die vertikalen Abstände zwischen den Oberflächen der Deckenbeläge in den jeweiligen Grundrissebenen beziehungsweise bei Dächern die Oberflächen der Dachbeläge. Beim untersten Geschoss des Bauwerks gilt als Höhe der Abstand von der Unterseite der Unterböden und Bodenplatten, die nicht der Fundamentierung dienen, bis zur Oberseite des Deckenbelags der darüber liegenden Grundrissebene. Bei Bauwerken oder Bauwerksteilen, die von nicht vertikalen oder nicht waagerechten Flächen begrenzt werden, ist der Rauminhalt nach entsprechenden geometrischen Formeln zu ermitteln. Für die Höhen von Rauminhalten des Bereichs S sind die Oberkanten der begrenzenden Baukonstruktionen (zum Beispiel Brüstungen, Attiken, Geländer) maßgebend."
+            }
+          ]
         },
         {
           "type": "paragraphText",

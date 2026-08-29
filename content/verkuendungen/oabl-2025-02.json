@@ -19,10 +19,16 @@
   ],
   "sourceReferences": [
     {
-      "kind": "original",
-      "label": "Amtliches Original-PDF der Ausgabe",
-      "availability": "not-versioned",
-      "note": "Für die redaktionelle Erfassung lokal geprüft; nicht Bestandteil des Repositorys."
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OABl. 2025 Nr. 2.pdf",
+      "sha256": "d2450aa1b3afa57b2573c38ce16815392df1b1bcc75cacedb13cfe1bf316fd52",
+      "mediaType": "application/pdf",
+      "pageCount": 10,
+      "pageRange": "2–10",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control"
     },
     {
       "kind": "index",
@@ -30,5 +36,6 @@
       "availability": "external",
       "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/OABl. 2025 Nr. 2.pdf"
 }

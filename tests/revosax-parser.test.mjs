@@ -1,6 +1,12 @@
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
+import {
+  amendmentDatesFromCitation,
+  futureAmendmentDates,
+  historicalBaselineCitation,
+} from '../scripts/lib/revosax-citation.mjs';
 import { parseRevosaxSnapshot } from '../scripts/lib/revosax-parser.mjs';
 
 function snapshot(sections) {
@@ -26,6 +32,22 @@ function findBlock(blocks, type) {
     if (nested) return nested;
   }
   return undefined;
+}
+
+function findLabel(blocks, label) {
+  for (const block of blocks) {
+    if (block.label === label) return block;
+    const nested = findLabel(block.children ?? [], label);
+    if (nested) return nested;
+  }
+  return undefined;
+}
+
+function definitionBody(rows) {
+  return parsedBody(`
+    <section title="§ 1 Begriffe"><h3>§ 1 Begriffe</h3>
+      <dl>${rows}</dl>
+    </section>`);
 }
 
 test('REVOSax-Metadaten bleiben für die Stammnormmaterialisierung vollständig', () => {
@@ -80,4 +102,105 @@ test('Satznummern aus Fußnotenlinks werden nicht mit dem Normtext vermischt', (
     </section>`);
   const paragraph = findBlock(body, 'paragraph');
   assert.equal(paragraph.children[0].text, 'Der Wortlaut bleibt erhalten.');
+});
+
+test('REVOSax-Definitionslisten erhalten Unterpunkte und kehren zur Elternebene zurück', () => {
+  const body = definitionBody(`
+    <dt class="td_1">1.</dt><dd class="last">Erstens</dd>
+    <dt class="td_1">2.</dt><dd class="last">Zweitens</dd>
+    <dt class="td_1">3.</dt><dd class="td_2">a)</dd><dd class="last">Unterpunkt A</dd>
+    <dt class="td_1"></dt><dd class="td_2">b)</dd><dd class="last">Unterpunkt B</dd>
+    <dt class="td_1">4.</dt><dd class="last">Viertens</dd>`);
+  const paragraph = findBlock(body, 'paragraph');
+  assert.deepEqual(paragraph.children.filter((block) => block.type === 'item').map((item) => item.label), [
+    '1.', '2.', '3.', '4.',
+  ]);
+  assert.deepEqual(findLabel(paragraph.children, '3.').children.map((item) => item.label), ['a)', 'b)']);
+});
+
+test('REVOSax-Definitionslisten bauen beliebig tiefe td_N-Ebenen auf', () => {
+  const body = definitionBody(`
+    <dt class="td_1">4.</dt><dd class="last">Oberpunkt</dd>
+    <dt class="td_1"></dt><dd class="td_2">a)</dd><dd class="last">A</dd>
+    <dt class="td_1"></dt><dd class="td_2">b)</dd><dd class="last">B</dd>
+    <dt class="td_1"></dt><dd class="td_2"></dd><dd class="td_3">aa)</dd><dd class="last">AA</dd>
+    <dt class="td_1"></dt><dd class="td_2"></dd><dd class="td_3">bb)</dd><dd class="last">BB</dd>
+    <dt class="td_1"></dt><dd class="td_2"></dd><dd class="td_3">cc)</dd><dd class="last">CC</dd>
+    <dt class="td_1">5.</dt><dd class="last">Nächster Oberpunkt</dd>`);
+  const paragraph = findBlock(body, 'paragraph');
+  assert.deepEqual(findLabel(paragraph.children, '4.').children.map((item) => item.label), ['a)', 'b)']);
+  assert.deepEqual(findLabel(paragraph.children, 'b)').children.map((item) => item.label), ['aa)', 'bb)', 'cc)']);
+  assert.equal(findLabel(paragraph.children, '5.').text, 'Nächster Oberpunkt');
+});
+
+test('leere REVOSax-Zellen sind Hierarchieplatzhalter und kein eigener Inhalt', () => {
+  const body = definitionBody(`
+    <dt class="td_1">1.</dt><dd class="td_2">a)</dd><dd class="last">A</dd>
+    <dt class="td_1"></dt><dd class="td_2"></dd><dd class="td_3">aa)</dd><dd class="last">AA</dd>
+    <dt class="td_1"></dt><dd class="td_2"></dd><dd class="last">Fortsetzung zu a)</dd>`);
+  const paragraph = findBlock(body, 'paragraph');
+  const itemA = findLabel(paragraph.children, 'a)');
+  assert.deepEqual(itemA.children.map((item) => item.label ?? item.type), ['aa)', 'paragraphText']);
+  assert.equal(itemA.children[1].text, 'Fortsetzung zu a)');
+  assert.equal(JSON.stringify(body).includes('"label":""'), false);
+});
+
+test('echter § 4 SächsPVDG erhält 3 -> a/b und 4.b -> aa/bb/cc', () => {
+  const source = readFileSync(
+    'data/recht/sources/revosax/ostdeutsches-polizeivollzugsdienstgesetz/18193.1.html',
+    'utf8',
+  );
+  const parsed = parseRevosaxSnapshot(source, { url: 'https://www.revosax.sachsen.de/vorschrift/18193.1' });
+  const paragraph = findLabel(parsed.body, '§ 4');
+  assert.deepEqual(findLabel(paragraph.children, '3.').children.slice(0, 3).map((item) => item.label), [
+    'a)', 'b)', 'c)',
+  ]);
+  assert.deepEqual(findLabel(findLabel(paragraph.children, '4.').children, 'b)').children.map((item) => item.label), [
+    'aa)', 'bb)', 'cc)',
+  ]);
+  const isolatedMarkers = [];
+  (function collect(blocks) {
+    for (const block of blocks ?? []) {
+      if (block.type === 'paragraphText' && /^(?:[a-z]+\)|\(\d+\)|\([a-z]+\))$/u.test(block.text)) {
+        isolatedMarkers.push(block.text);
+      }
+      collect(block.children);
+    }
+  }(paragraph.children));
+  assert.deepEqual(isolatedMarkers, []);
+});
+
+test('historische Zitierungen verwerfen spätere Änderungsfundstellen im REVOSax-Seitenkopf', () => {
+  const currentPageCitation = 'VwV vom 20. Juni 2018, die zuletzt durch Ziffer II der Verwaltungsvorschrift vom 23. Juli 2026 geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025';
+  assert.deepEqual(amendmentDatesFromCitation(currentPageCitation), ['2026-07-23']);
+  assert.deepEqual(futureAmendmentDates(currentPageCitation, '2024-07-31'), ['2026-07-23']);
+  assert.equal(historicalBaselineCitation({
+    pageFullCitation: currentPageCitation,
+    sourceValidTo: '2024-07-31',
+    context: 'Testfassung',
+  }), 'VwV vom 20. Juni 2018');
+  assert.equal(historicalBaselineCitation({
+    pageFullCitation: currentPageCitation,
+    sourceValidTo: '2024-07-31',
+    baselineCitation: 'VwV vom 20. Juni 2018, geändert durch Verwaltungsvorschrift vom 17. August 2021',
+  }), 'VwV vom 20. Juni 2018, geändert durch Verwaltungsvorschrift vom 17. August 2021');
+});
+
+test('historische Zitierungen erkennen Abkürzungspunkte und trennen spätere Seitenkopfänderungen ab', () => {
+  const currentPageCitation = 'Sächsisches Verwaltungsorganisationsgesetz vom 25. November 2003 (SächsGVBl. S. 899), das zuletzt durch Artikel 8 des Gesetzes vom 24. Juni 2026 (SächsGVBl. S. 190) geändert worden ist';
+  assert.deepEqual(amendmentDatesFromCitation(currentPageCitation), ['2026-06-24']);
+  assert.deepEqual(futureAmendmentDates(currentPageCitation, '2025-07-09'), ['2026-06-24']);
+  assert.equal(historicalBaselineCitation({
+    pageFullCitation: currentPageCitation,
+    sourceValidTo: '2025-07-09',
+    citationValidAt: '2023-11-01',
+    context: 'SächsVwOrgG',
+  }), 'Sächsisches Verwaltungsorganisationsgesetz vom 25. November 2003 (SächsGVBl. S. 899)');
+  assert.throws(() => historicalBaselineCitation({
+    pageFullCitation: currentPageCitation,
+    sourceValidTo: '2025-07-09',
+    citationValidAt: '2023-11-01',
+    baselineCitation: currentPageCitation,
+    context: 'SächsVwOrgG',
+  }), /historischem Rechtsstand/u);
 });

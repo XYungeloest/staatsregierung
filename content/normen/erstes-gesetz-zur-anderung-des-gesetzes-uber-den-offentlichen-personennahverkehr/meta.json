@@ -4,7 +4,7 @@
   "title": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
   "shortTitle": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
   "abbr": "Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "enactingBody": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
     "Staats- und Verfassungsrecht"
@@ -28,9 +28,30 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 29.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 29.html",
+      "sha256": "69e3edb4b1fc74adef1dcdd9f70d1a4b617fb8deb4bfcab6fa44de7d20b25384",
+      "mediaType": "text/html",
+      "pageRange": "2-10",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 29.pdf",
+      "sha256": "10f7e1842b22ab975d3218923275479307a2bef140e6cdd9a756d08d5c87e73c",
+      "mediaType": "application/pdf",
+      "pageCount": 10,
+      "pageRange": "2-10",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 29.html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-personennahverkehrsgesetz"
   ]
 }

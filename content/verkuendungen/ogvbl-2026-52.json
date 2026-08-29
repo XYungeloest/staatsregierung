@@ -5,12 +5,31 @@
   "issue": "52",
   "date": "2026-07-20",
   "publication": "OGVBl.",
+  "pdf": "/assets/recht/OGVBl. 2026 Nr. 52.pdf",
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Ausgabe",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.html",
+      "sha256": "96de9854480880f0a19c9857ad75beec3db7fe46299380b2884ce136c982c3a0",
+      "mediaType": "text/html",
+      "pageRange": "2–39",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 52.pdf",
+      "sha256": "bc278ed4075edd0d24d36f3c56dcb2e72c770ef4f886c112c605da2c41b9d1b8",
+      "mediaType": "application/pdf",
+      "pageCount": 39,
+      "pageRange": "2–39",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 52.html"
     }
   ],
   "entries": [

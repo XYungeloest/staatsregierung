@@ -4,7 +4,7 @@
   "title": "Siebte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Ostdeutschen Arbeitszeitverordnung",
   "shortTitle": "Siebte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Ostdeutschen Arbeitszeitverordnung",
   "abbr": "Siebte Verordnung der Ostdeutschen Staatsregierung zur Änderung der Ostdeutschen Arbeitszeitverordnung",
-  "type": "verordnung",
+  "type": "aenderungsvorschrift",
   "enactingBody": "Staatsregierung des Freistaates Ostdeutschland",
   "subjects": [
     "Verordnungsrecht"
@@ -28,9 +28,30 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 13.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 13.html",
+      "sha256": "f80583ae2c474ce6625070088be6a034b7b393c2fefce24515d0223c42a03758",
+      "mediaType": "text/html",
+      "pageRange": "2-3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 13.pdf",
+      "sha256": "480101bf690be65250936c4b4ffa9c74a512a193c9fa29b67780a87931d2bc14",
+      "mediaType": "application/pdf",
+      "pageCount": 3,
+      "pageRange": "2-3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 13.html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsche-arbeitszeitverordnung"
   ]
 }

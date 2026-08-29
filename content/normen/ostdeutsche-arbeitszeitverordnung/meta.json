@@ -1,8 +1,8 @@
 {
   "id": "ostdeutsche-arbeitszeitverordnung",
   "slug": "ostdeutsche-arbeitszeitverordnung",
-  "title": "Sächsische Arbeitszeitverordnung",
-  "shortTitle": "Sächsische Arbeitszeitverordnung",
+  "title": "Ostdeutsche Arbeitszeitverordnung",
+  "shortTitle": "Ostdeutsche Arbeitszeitverordnung",
   "shortTitleSource": "official",
   "type": "gesetz",
   "enactingBody": "Sächsischer Landtag",
@@ -31,8 +31,16 @@
       "sha256": "89f593175b1cfe94acc85863ca6dd86e0547a199aa9c1e9d5fe204b65d57af1c",
       "lawId": "4721",
       "sourceValidFrom": "2022-05-12",
-      "sourceValidTo": "2024-11-30",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2024-11-30"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 13",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 13.html"
     }
+  ],
+  "affectedByNorms": [
+    "siebte-verordnung-der-ostdeutschen-staatsregierung-zur-anderung-der-ostdeutschen-arbeitszeitverordnung"
   ]
 }

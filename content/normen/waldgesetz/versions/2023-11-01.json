@@ -4,8 +4,8 @@
   "shortTitle": "Waldgesetz für den Freistaat Sachsen",
   "abbr": "SächsWaldG",
   "validFrom": "2023-11-01",
-  "validTo": null,
-  "isCurrent": true,
+  "validTo": "2026-06-30",
+  "isCurrent": false,
   "citation": "Waldgesetz für den Freistaat Sachsen vom 10. April 1992 (SächsGVBl. S. 137), das zuletzt durch Artikel 2 Absatz 9 des Gesetzes vom 19. August 2022 (SächsGVBl. S. 486) geändert worden ist",
   "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
   "sourceReferences": [
@@ -18,8 +18,7 @@
       "retrievedAt": "2026-08-23",
       "sha256": "216e667a5c508d7b93e89d6a3b15b59c260800dd9a9d11c1c37447658a6fc970",
       "lawId": "5405",
-      "sourceValidFrom": "2023-01-01",
-      "sourceRole": "official-snapshot"
+      "sourceValidFrom": "2023-01-01"
     }
   ],
   "sourceNotes": [
@@ -1820,6 +1819,14 @@
               "text": "der § 9 Abs. 3 Satz 1, § 10 Abs. 2 und 3 sowie § 12 Abs. 8 Satz 1 der Verordnung über den Erwerb land- und forstwirtschaftlicher Flächen, das Verfahren sowie den Beirat nach dem Ausgleichsleistungsgesetz (Flächenerwerbsverordnung – FlErwV) vom 20. Dezember 1995 (BGBl. I S. 2072), die zuletzt durch Artikel 538 der Verordnung vom 31. Oktober 2006 (BGBl. I S. 2407, 2433) geändert worden ist, in der jeweils geltenden Fassung, für den Bereich der Forstwirtschaft,",
               "level": 0,
               "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
                 {
                   "type": "item",
@@ -1836,12 +1843,12 @@
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Von der Zuständigkeit nach den Buchstaben a und b ist der Staatswald ausgenommen."
                 }
               ]
-            },
-            {
-              "type": "paragraphText",
-              "text": "Von der Zuständigkeit nach den Buchstaben a und b ist der Staatswald ausgenommen."
             },
             {
               "type": "item",

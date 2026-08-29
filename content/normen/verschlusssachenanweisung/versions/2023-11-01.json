@@ -4,8 +4,8 @@
   "shortTitle": "Verschlusssachenanweisung",
   "abbr": "VSA",
   "validFrom": "2023-11-01",
-  "validTo": null,
-  "isCurrent": true,
+  "validTo": "2026-03-27",
+  "isCurrent": false,
   "citation": "Verschlusssachenanweisung vom 4. Januar 2008 (SächsABl. SDr. S. S 2), zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2025 (SächsABl. SDr. S. S 206)",
   "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
   "sourceReferences": [
@@ -18,8 +18,7 @@
       "retrievedAt": "2026-08-23",
       "sha256": "b502ee042bee56aeac2a38e286f23fae43a8045b6aaf34ecd43673031a03bdd2",
       "lawId": "9786",
-      "sourceValidFrom": "2007-12-31",
-      "sourceRole": "official-snapshot"
+      "sourceValidFrom": "2007-12-31"
     }
   ],
   "sourceNotes": [],
@@ -204,11 +203,12 @@
           "text": "Geheimhaltungsgrade",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS sind je nach dem Schutz, dessen sie bedürfen, gemäß § 4 Abs. 2\nSächsSÜG in folgende Geheimhaltungsgrade einzustufen:"
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "VS sind je nach dem Schutz, dessen sie bedürfen, gemäß § 4 Abs. 2\nSächsSÜG in folgende Geheimhaltungsgrade einzustufen:"
+            }
+          ]
         },
         {
           "type": "item",
@@ -360,11 +360,12 @@
           "text": "Mitwirkung des Landesamtes für Verfassungsschutz",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei der Durchführung der VSA wirkt das Landesamt für Verfassungsschutz (LfV) mit. Es berät Dienststellen, die mit VS arbeiten. Eine Verarbeitung personenbezogener Daten findet dabei nicht statt. Die Mitwirkung umfasst bei Bedarf auch technische Prüfungen und Schulungen. Das LfV kann sich zu seiner Unterstützung des Bundesamtes für Sicherheit in der Informationstechnik (BSI) bedienen. Die Mitwirkung des LfV erfolgt kostenlos. Die für eine Unterstützung durch das BSI entstehenden Kosten sind von der auftraggebenden Stelle zu tragen."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Bei der Durchführung der VSA wirkt das Landesamt für Verfassungsschutz (LfV) mit. Es berät Dienststellen, die mit VS arbeiten. Eine Verarbeitung personenbezogener Daten findet dabei nicht statt. Die Mitwirkung umfasst bei Bedarf auch technische Prüfungen und Schulungen. Das LfV kann sich zu seiner Unterstützung des Bundesamtes für Sicherheit in der Informationstechnik (BSI) bedienen. Die Mitwirkung des LfV erfolgt kostenlos. Die für eine Unterstützung durch das BSI entstehenden Kosten sind von der auftraggebenden Stelle zu tragen."
+            }
+          ]
         }
       ]
     },
@@ -925,12 +926,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Der Zugriff auf die Protokolle und insbesondere ihre Löschung bedürfen der Zustimmung der Geheimschutzbeauftragten."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Der Zugriff auf die Protokolle und insbesondere ihre Löschung bedürfen der Zustimmung der Geheimschutzbeauftragten."
         },
         {
           "type": "item",
@@ -1338,11 +1339,12 @@
           "text": "Archivierung von VS",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die Archivierung von VS richtet sich nach den Maßgaben des Archivgesetzes für den Freistaat Sachsen (\nSächsArchivG) vom 17. Mai 1993 (SächsGVBl. S. 449), in der jeweils geltenden Fassung."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Archivierung von VS richtet sich nach den Maßgaben des Archivgesetzes für den Freistaat Sachsen (\nSächsArchivG) vom 17. Mai 1993 (SächsGVBl. S. 449), in der jeweils geltenden Fassung."
+            }
+          ]
         },
         {
           "type": "item",
@@ -1492,7 +1494,32 @@
               "text": "VS-Verwahrgelasse und VS-Schlüsselbehälter müssen so beschaffen sein, dass",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "ein Zugang einer Person zum Inhalt erst nach deren zuverlässiger Identifizierung/Authentisierung durch Besitz und Wissen möglich ist; Besitz, zum Beispiel Schlüssel, soll gegen Nachfertigung durch Unbefugte geschützt sein; anstelle von Besitz oder Wissen oder ergänzend können auch biometrische Merkmale genutzt werden;",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "ein Zugriff Unbefugter auf den Inhalt erkennbar wird und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "ein angemessener Schutz gegen gewaltsamen Zugriff auf den Inhalt gegeben ist.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -1500,7 +1527,40 @@
               "text": "Alarmanlagen müssen so beschaffen und installiert sein, dass",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "sie einen Eindringling sicher erkennen,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "sie erst nach zuverlässiger Identifizierung/Authentisierung einer Person durch Besitz und Wissen durch diese unscharf geschaltet werden können; anstelle von Besitz oder Wissen oder ergänzend können auch biometrische Merkmale genutzt werden;",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "der Alarm sicher zu der zu alarmierenden Stelle übertragen wird und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "die Alarmanlage nicht unbemerkt überwunden werden kann.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -1519,62 +1579,6 @@
               "children": []
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ein Zugang einer Person zum Inhalt erst nach deren zuverlässiger Identifizierung/Authentisierung durch Besitz und Wissen möglich ist; Besitz, zum Beispiel Schlüssel, soll gegen Nachfertigung durch Unbefugte geschützt sein; anstelle von Besitz oder Wissen oder ergänzend können auch biometrische Merkmale genutzt werden;"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ein Zugriff Unbefugter auf den Inhalt erkennbar wird und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ein angemessener Schutz gegen gewaltsamen Zugriff auf den Inhalt gegeben ist."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "sie einen Eindringling sicher erkennen,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "sie erst nach zuverlässiger Identifizierung/Authentisierung einer Person durch Besitz und Wissen durch diese unscharf geschaltet werden können; anstelle von Besitz oder Wissen oder ergänzend können auch biometrische Merkmale genutzt werden;"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "der Alarm sicher zu der zu alarmierenden Stelle übertragen wird und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "die Alarmanlage nicht unbemerkt überwunden werden kann."
         },
         {
           "type": "item",
@@ -1736,12 +1740,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Abhörsichere Räume sind darüber hinaus so zu gestalten, dass auch eine unbefugte Übertragung von Gesprächen mittels technischer Hilfsmittel (Abhörgeräten) nach außen verhindert wird."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Abhörsichere Räume sind darüber hinaus so zu gestalten, dass auch eine unbefugte Übertragung von Gesprächen mittels technischer Hilfsmittel (Abhörgeräten) nach außen verhindert wird."
         },
         {
           "type": "item",
@@ -1870,12 +1874,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Übertragung der Befugnis zur Vergabe und Änderung von Rechten ist zu dokumentieren und bedarf der Zustimmung der Geheimschutzbeauftragten. Die Dokumentation ist mindestens fünf Jahre aufzubewahren."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die Übertragung der Befugnis zur Vergabe und Änderung von Rechten ist zu dokumentieren und bedarf der Zustimmung der Geheimschutzbeauftragten. Die Dokumentation ist mindestens fünf Jahre aufzubewahren."
         },
         {
           "type": "item",
@@ -1955,12 +1959,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Außer den Benutzern können mit Zustimmung der Geheimschutzbeauftragten auch die zuständigen VS-Verwalter in Anwesenheit der Benutzer die Änderungen vornehmen."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Außer den Benutzern können mit Zustimmung der Geheimschutzbeauftragten auch die zuständigen VS-Verwalter in Anwesenheit der Benutzer die Änderungen vornehmen."
         },
         {
           "type": "item",
@@ -2168,12 +2172,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "müssen vom BSI zugelassen sein. Die Zulassung hat auch die erforderlichen Angaben zu den Einsatz- und Betriebsbedingungen zu enthalten. Die Buchstaben c bis f gelten nicht für VS-NUR FÜR DEN DIENSTGEBRAUCH eingestufte VS."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "müssen vom BSI zugelassen sein. Die Zulassung hat auch die erforderlichen Angaben zu den Einsatz- und Betriebsbedingungen zu enthalten. Die Buchstaben c bis f gelten nicht für VS-NUR FÜR DEN DIENSTGEBRAUCH eingestufte VS."
         },
         {
           "type": "item",
@@ -2221,12 +2225,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "die für VS-VERTRAULICH oder höher eingestufte VS verwendet werden, sollen vom BSI zugelassen sein. Die Dienststellenleitung kann die Verwendung anderer Produkte freigeben, insbesondere wenn sich Produkte zum Zeitpunkt des Inkrafttretens dieser Vorschrift bereits im Einsatz oder in der Beschaffung befinden oder keine geeigneten zugelassenen Produkte verfügbar sind und eine Bereitstellung nicht oder nicht zeitgerecht veranlasst werden kann. Hierzu zählen insbesondere nach Common Criteria mit nationalen Schutzprofilen durch das BSI zertifizierte Produkte. Bis zur Bereitstellung nationaler Schutzprofile können auch andere durch das BSI zertifizierte Produkte verwendet werden. Eine Beratung durch das LfV wird empfohlen."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "die für VS-VERTRAULICH oder höher eingestufte VS verwendet werden, sollen vom BSI zugelassen sein. Die Dienststellenleitung kann die Verwendung anderer Produkte freigeben, insbesondere wenn sich Produkte zum Zeitpunkt des Inkrafttretens dieser Vorschrift bereits im Einsatz oder in der Beschaffung befinden oder keine geeigneten zugelassenen Produkte verfügbar sind und eine Bereitstellung nicht oder nicht zeitgerecht veranlasst werden kann. Hierzu zählen insbesondere nach Common Criteria mit nationalen Schutzprofilen durch das BSI zertifizierte Produkte. Bis zur Bereitstellung nationaler Schutzprofile können auch andere durch das BSI zertifizierte Produkte verwendet werden. Eine Beratung durch das LfV wird empfohlen."
         },
         {
           "type": "item",
@@ -2379,7 +2383,28 @@
               "text": "wenn die Erledigung der Angelegenheit dringlich ist und die schriftliche oder sonstige sichere Übermittlung einen unvertretbaren Zeitverlust bedeuten würde, kann",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "bei Telefongesprächen mit VS-VERTRAULICH eingestuftem Inhalt eine für VS-NUR FÜR DEN DIENSTGEBRAUCH zugelassene Verbindung nach Absatz 1 Satz 1 und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "bei Telefongesprächen mit VS-NUR FÜR DEN DIENSTGEBRAUCH eingestuftem Inhalt eine ungeschützte Verbindung",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "verwendet werden. Die Gespräche sind möglichst so zu führen, dass der Sachverhalt Dritten nicht verständlich wird. Ist der Gesprächspartner nicht mit Sicherheit zu identifizieren, ist ein Kontrollanruf erforderlich. Besondere Vorsicht ist bei Funkfernsprechanschlüssen, wie Mobilfunk, DECT oder Bluetooth, geboten."
+                }
+              ]
             },
             {
               "type": "item",
@@ -2395,49 +2420,30 @@
               "text": "in außergewöhnlichen Fällen mit Einwilligung der Dienststellenleitung auch über die vorstehenden Ausnahmen hinaus bei der Übertragung von VS-VERTRAULICH oder GEHEIM eingestuften VS (sofern sie keine besonderen VS-Behandlungskennzeichen wie Krypto aufweisen), wenn",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "zwischen Absender und Empfänger keine Kryptiermöglichkeit besteht und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "eine rechtzeitige Beförderung der VS auf anderem Wege nicht möglich ist und eine Verzögerung zu einem Schaden führen würde, der den mit einer Preisgabe der VS verbundenen Schaden deutlich überwiegen würde.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die Nachrichten sind möglichst so abzufassen, dass sie keinen unmittelbaren Rückschluss auf ihren VS-Charakter zulassen. Sie dürfen keine Kennzeichnungen oder Hinweis aufweisen, die sie von einer offenen Nachricht unterscheiden. Die Nachrichtenempfänger sind auf anderem Wege, beispielsweise über andere Telekommunikationsverbindungen, durch Post oder Kurier, unverzüglich über die VS-Einstufung der Nachricht zu unterrichten, außer wenn dies im Einzelfall nicht möglich oder zweckmäßig ist."
+                }
+              ]
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bei Telefongesprächen mit VS-VERTRAULICH eingestuftem Inhalt eine für VS-NUR FÜR DEN DIENSTGEBRAUCH zugelassene Verbindung nach Absatz 1 Satz 1 und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bei Telefongesprächen mit VS-NUR FÜR DEN DIENSTGEBRAUCH eingestuftem Inhalt eine ungeschützte Verbindung"
-        },
-        {
-          "type": "paragraphText",
-          "text": "verwendet werden. Die Gespräche sind möglichst so zu führen, dass der Sachverhalt Dritten nicht verständlich wird. Ist der Gesprächspartner nicht mit Sicherheit zu identifizieren, ist ein Kontrollanruf erforderlich. Besondere Vorsicht ist bei Funkfernsprechanschlüssen, wie Mobilfunk, DECT oder Bluetooth, geboten."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "zwischen Absender und Empfänger keine Kryptiermöglichkeit besteht und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "eine rechtzeitige Beförderung der VS auf anderem Wege nicht möglich ist und eine Verzögerung zu einem Schaden führen würde, der den mit einer Preisgabe der VS verbundenen Schaden deutlich überwiegen würde."
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die Nachrichten sind möglichst so abzufassen, dass sie keinen unmittelbaren Rückschluss auf ihren VS-Charakter zulassen. Sie dürfen keine Kennzeichnungen oder Hinweis aufweisen, die sie von einer offenen Nachricht unterscheiden. Die Nachrichtenempfänger sind auf anderem Wege, beispielsweise über andere Telekommunikationsverbindungen, durch Post oder Kurier, unverzüglich über die VS-Einstufung der Nachricht zu unterrichten, außer wenn dies im Einzelfall nicht möglich oder zweckmäßig ist."
         },
         {
           "type": "item",
@@ -2468,45 +2474,46 @@
               "text": "wenn in einem Netz der Dienststelle",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "VS-NUR FÜR DEN DIENSTGEBRAUCH übertragen werden,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "nur VS-VERTRAULICH oder ausnahmsweise GEHEIM eingestufte VS übertragen werden,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "ein Zugriffskontrollsystem nach Nummer 37.2 eingesetzt ist und",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "die Übertragungseinrichtungen sich vollständig in einem Bereich mit zuverlässiger Zutrittskontrolle befinden oder außerhalb gegen unmittelbaren Zugriff Unbefugter geschützt sind;",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraphText",
+              "text": "bei Verbindung mit einem anderen Kommunikationsnetz muss dieses und die Verbindung zu diesem mindestens gemäß Doppelbuchstaben cc und dd geschützt sein."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS-NUR FÜR DEN DIENSTGEBRAUCH übertragen werden,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "nur VS-VERTRAULICH oder ausnahmsweise GEHEIM eingestufte VS übertragen werden,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ein Zugriffskontrollsystem nach Nummer 37.2 eingesetzt ist und"
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "die Übertragungseinrichtungen sich vollständig in einem Bereich mit zuverlässiger Zutrittskontrolle befinden oder außerhalb gegen unmittelbaren Zugriff Unbefugter geschützt sind;"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bei Verbindung mit einem anderen Kommunikationsnetz muss dieses und die Verbindung zu diesem mindestens gemäß Doppelbuchstaben cc und dd geschützt sein."
         },
         {
           "type": "item",
@@ -2586,12 +2593,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Fernwartung soll nur zu Zeiten erfolgen, zu denen keine Arbeit mit VS stattfindet und wenn alle IT-System zugänglichen VS-Daten kryptiert oder gelöscht sind."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die Fernwartung soll nur zu Zeiten erfolgen, zu denen keine Arbeit mit VS stattfindet und wenn alle IT-System zugänglichen VS-Daten kryptiert oder gelöscht sind."
         },
         {
           "type": "item",
@@ -2679,12 +2686,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Kontrollen sind durch die Geheimschutzbeauftragten oder besonders beauftragte Mitarbeiter, wie zum Beispiel Geheimschutzbeamte, durchzuführen."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die Kontrollen sind durch die Geheimschutzbeauftragten oder besonders beauftragte Mitarbeiter, wie zum Beispiel Geheimschutzbeamte, durchzuführen."
         },
         {
           "type": "item",
@@ -2817,6 +2824,10 @@
           "numberingStyle": "decimal",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Wird bekannt oder besteht der Verdacht, dass"
+            },
+            {
               "type": "item",
               "label": "a)",
               "text": "Unbefugte von einer VS Kenntnis erhalten haben, zur Dekryptierung von VS benötigte Kryptoschlüssel oder andere Zugangsmittel zu VS Unbefugten zur Kenntnis gelangt oder verloren gegangen sind,",
@@ -2847,16 +2858,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "sind die Geheimschutzbeauftragten unverzüglich zu benachrichtigen."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Wird bekannt oder besteht der Verdacht, dass"
-        },
-        {
-          "type": "paragraphText",
-          "text": "sind die Geheimschutzbeauftragten unverzüglich zu benachrichtigen."
         },
         {
           "type": "item",
@@ -2913,6 +2920,10 @@
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
+            {
+              "type": "paragraphText",
+              "text": "Dienststellen, die nach Feststellung des Staatsministeriums des Innern in besonderem Maße Ziel von Angriffen auf Vertraulichkeit, Integrität und Verfügbarkeit von VS sein können, treffen in Zusammenarbeit mit dem LfV weitere Sicherheitsvorkehrungen. Hierzu gehören insbesondere"
+            },
             {
               "type": "item",
               "label": "a)",
@@ -2972,10 +2983,6 @@
           ]
         },
         {
-          "type": "paragraphText",
-          "text": "Dienststellen, die nach Feststellung des Staatsministeriums des Innern in besonderem Maße Ziel von Angriffen auf Vertraulichkeit, Integrität und Verfügbarkeit von VS sein können, treffen in Zusammenarbeit mit dem LfV weitere Sicherheitsvorkehrungen. Hierzu gehören insbesondere"
-        },
-        {
           "type": "item",
           "label": "46.",
           "text": "Schlussbestimmungen",
@@ -3021,11 +3028,12 @@
           "text": "Inkrafttreten",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Diese Verwaltungsvorschrift tritt mit Wirkung vom 31. Dezember 2007 in Kraft."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Diese Verwaltungsvorschrift tritt mit Wirkung vom 31. Dezember 2007 in Kraft."
+            }
+          ]
         }
       ]
     },
@@ -3045,6 +3053,10 @@
           "numberingStyle": "decimal",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Tragen Sie durch eine umsichtige und sachgerechte VS-Einstufung dazu bei, dass"
+            },
+            {
               "type": "item",
               "label": "a)",
               "text": "die tatsächlich geheimhaltungsbedürftigen Informationen effektiv geschützt und",
@@ -3059,20 +3071,16 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Der Geheimhaltungsgrad einer VS richtet sich nach ihrem Inhalt und nicht nach dem Geheimhaltungsgrad des Vorgangs, zu dem sie gehört oder auf den sie sich bezieht. Ein Schriftstück mit VS-Anlagen ist mindestens so hoch einzustufen wie die am höchsten eingestufte Anlage. Ist es wegen seiner Anlagen eingestuft oder höher eingestuft, so ist darauf zu vermerken, dass es ohne Anlagen nicht mehr als VS zu behandeln oder niedriger einzustufen ist."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Innerhalb der Gesamteinstufung einer VS können deutlich feststellbare Teile, zum Beispiel Teilpläne, Abschnitte, Kapitel, Verzeichnisse oder Nummern, niedriger oder nicht eingestuft werden."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Tragen Sie durch eine umsichtige und sachgerechte VS-Einstufung dazu bei, dass"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Der Geheimhaltungsgrad einer VS richtet sich nach ihrem Inhalt und nicht nach dem Geheimhaltungsgrad des Vorgangs, zu dem sie gehört oder auf den sie sich bezieht. Ein Schriftstück mit VS-Anlagen ist mindestens so hoch einzustufen wie die am höchsten eingestufte Anlage. Ist es wegen seiner Anlagen eingestuft oder höher eingestuft, so ist darauf zu vermerken, dass es ohne Anlagen nicht mehr als VS zu behandeln oder niedriger einzustufen ist."
-        },
-        {
-          "type": "paragraphText",
-          "text": "Innerhalb der Gesamteinstufung einer VS können deutlich feststellbare Teile, zum Beispiel Teilpläne, Abschnitte, Kapitel, Verzeichnisse oder Nummern, niedriger oder nicht eingestuft werden."
         },
         {
           "type": "item",
@@ -3081,6 +3089,10 @@
           "level": 0,
           "numberingStyle": "decimal",
           "children": [
+            {
+              "type": "paragraphText",
+              "text": "Insbesondere ist zu prüfen, ob das Schutzbedürfnis zur VS-Einstufung nur zeitlich begrenzt besteht (siehe Nummer 9.2 VSA).\nIm Falle einer VS-Einstufung muss schlüssig darlegbar sein, welche Gefährdungen, Schäden oder Nachteile für die Bundesrepublik Deutschland oder eines ihrer Länder konkret entstehen können, wenn Unbefugte von den Informationen Kenntnis erlangen.\nEine VS-Einstufung kommt grundsätzlich nur bei Informationen in Betracht, die die"
+            },
             {
               "type": "item",
               "label": "a)",
@@ -3112,28 +3124,24 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "betreffen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "VS-Einstufung, die durch die Bundesrepublik Deutschland beziehungsweise den Freistaat Sachsen zu schützende Belange Dritter betreffen, bedürfen der Billigung durch die zuständige oberste Staatsbehörde."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Für andere schutzwürdige Informationen sind die hierfür bestehenden Regelungen, zum Beispiel Pflicht zur Wahrung von Dienst- oder Steuergeheimnissen, Schutz personenbezogener Daten nach dem Sächsischen Datenschutzgesetz, dem Sächsischen Archivgesetz oder interne Geschäftsordnungen, anzuwenden."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Eine Einstufung in VS-VERTRAULICH oder höher hat zur Folge, dass alle mit der eingestuften Information befassten Personen einer aufwändigen, in Persönlichkeitsrechte eingreifenden Sicherheitsüberprüfung unterzogen und für die VS kostenintensive materielle Schutzmaßnahmen getroffen werden müssen."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Insbesondere ist zu prüfen, ob das Schutzbedürfnis zur VS-Einstufung nur zeitlich begrenzt besteht (siehe Nummer 9.2 VSA).\nIm Falle einer VS-Einstufung muss schlüssig darlegbar sein, welche Gefährdungen, Schäden oder Nachteile für die Bundesrepublik Deutschland oder eines ihrer Länder konkret entstehen können, wenn Unbefugte von den Informationen Kenntnis erlangen.\nEine VS-Einstufung kommt grundsätzlich nur bei Informationen in Betracht, die die"
-        },
-        {
-          "type": "paragraphText",
-          "text": "betreffen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS-Einstufung, die durch die Bundesrepublik Deutschland beziehungsweise den Freistaat Sachsen zu schützende Belange Dritter betreffen, bedürfen der Billigung durch die zuständige oberste Staatsbehörde."
-        },
-        {
-          "type": "paragraphText",
-          "text": "Für andere schutzwürdige Informationen sind die hierfür bestehenden Regelungen, zum Beispiel Pflicht zur Wahrung von Dienst- oder Steuergeheimnissen, Schutz personenbezogener Daten nach dem Sächsischen Datenschutzgesetz, dem Sächsischen Archivgesetz oder interne Geschäftsordnungen, anzuwenden."
-        },
-        {
-          "type": "paragraphText",
-          "text": "Eine Einstufung in VS-VERTRAULICH oder höher hat zur Folge, dass alle mit der eingestuften Information befassten Personen einer aufwändigen, in Persönlichkeitsrechte eingreifenden Sicherheitsüberprüfung unterzogen und für die VS kostenintensive materielle Schutzmaßnahmen getroffen werden müssen."
         },
         {
           "type": "item",
@@ -3359,12 +3367,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Von dieser äußeren Kennzeichnung sind VS-Transportbehälter ausgenommen."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Von dieser äußeren Kennzeichnung sind VS-Transportbehälter ausgenommen."
         },
         {
           "type": "item",
@@ -3402,11 +3410,12 @@
           "text": "Hinweise zum Führen von VS-Bestandsverzeichnissen",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei der Gestaltung der VS-Bestandsverzeichnisse kann die VS verwaltende Dienststelle von Muster 10 abweichen. Folgendes ist jedoch zu beachten:"
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Bei der Gestaltung der VS-Bestandsverzeichnisse kann die VS verwaltende Dienststelle von Muster 10 abweichen. Folgendes ist jedoch zu beachten:"
+            }
+          ]
         },
         {
           "type": "item",
@@ -5174,11 +5183,12 @@
           "text": "Versand von VS",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei Weitergabe von VS-VERTRAULICH oder höher eingestuften VS zwischen getrennt liegenden Gebäuden, die nicht zu einer geschlossenen Gebäudegruppe gehören (Versand), sind die nachfolgenden Vorschriften anzuwenden."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Bei Weitergabe von VS-VERTRAULICH oder höher eingestuften VS zwischen getrennt liegenden Gebäuden, die nicht zu einer geschlossenen Gebäudegruppe gehören (Versand), sind die nachfolgenden Vorschriften anzuwenden."
+            }
+          ]
         },
         {
           "type": "item",
@@ -5236,6 +5246,10 @@
               "children": []
             },
             {
+              "type": "paragraphText",
+              "text": "Beim privaten Zustelldienst"
+            },
+            {
               "type": "item",
               "label": "a)",
               "text": "Abholung beim Absender mit Zustellgarantie bis zum Mittag des folgenden Arbeitstages,",
@@ -5258,16 +5272,12 @@
               "level": 1,
               "numberingStyle": "lower-latin",
               "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Bei Bedarf erteilt das LfV Auskunft, welche privaten Zustelldienste die Voraussetzungen nach Nummer 2 erfüllen."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Beim privaten Zustelldienst"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei Bedarf erteilt das LfV Auskunft, welche privaten Zustelldienste die Voraussetzungen nach Nummer 2 erfüllen."
         },
         {
           "type": "item",
@@ -5460,11 +5470,12 @@
           "text": "Aufbewahrung von VS-Transportbehältern",
           "level": 0,
           "numberingStyle": "decimal",
-          "children": []
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS-Transportbehälter sind so aufzubewahren, dass sie Unbefugten nicht zugänglich sind. Der VS-Verwalter hat darauf zu achten, dass die VS-Transportbehälter nach Gebrauch unverzüglich an die VS-Registratur zurückgegeben werden."
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "VS-Transportbehälter sind so aufzubewahren, dass sie Unbefugten nicht zugänglich sind. Der VS-Verwalter hat darauf zu achten, dass die VS-Transportbehälter nach Gebrauch unverzüglich an die VS-Registratur zurückgegeben werden."
+            }
+          ]
         }
       ]
     },
@@ -5550,7 +5561,40 @@
               "text": "Kennzeichnung und Handhabung beziehungsweise Verwahrung",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Dokumente sind durch schwarzen oder blauen Stempelaufdruck, Druck „VS-NUR FÜR DEN DIENSTGEBRAUCH“ am oberen Rand jeder beschriebenen Seite sowie aller entsprechend eingestuften Anlagen zu kennzeichnen beziehungsweise im Falle internationaler oder ausländischer VS mit der entsprechenden deutschen Kennzeichnung umzustempeln. Bei Büchern, Broschüren und Ähnlichem genügt die Kennzeichnung auf dem Einband und dem Titelblatt. Trägt jede beschriebene Seite eines ausländischen Buches oder einer ausländischen Broschüre den ausländischen Geheimhaltungsgrad, genügt die Kennzeichnung mit dem deutschen Geheimhaltungsgrad auf dem Einband oder dem Titelblatt.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "VS-NfD eingestuftes Material (zum Beispiel Gerät, Ausrüstung) oder Datenträger (zum Beispiel Disketten, CD's, Mikrochips, Mikrofiche) sind ebenfalls entweder deutlich sichtbar am Material selbst oder – falls dies nicht möglich ist – an den Aufbewahrungsbehältnissen des Materials zu kennzeichnen beziehungsweise grundsätzlich umzustempeln.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "Die VS sind in verschlossenen Räumen oder Behältern (Schränken, Schreibtischen und so weiter) zu verwahren. Außerhalb von solchen Räumen oder Behältnissen sind sie stets so aufzubewahren beziehungsweise zu behandeln, dass Unbefugte keinen Zugang zu oder Einblick in die VS haben.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "VS-Zwischenmaterial (zum Beispiel Vorentwürfe, Stenogramme, Tonträger, Folien) ist gegen Einsichtnahme Unbefugter in derselben Weise zu schützen wie das Bezugsdokument. VS-Zwischenmaterial, das nicht an Dritte weitergegeben und unverzüglich vernichtet wird, muss nicht als VS gekennzeichnet werden.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -5558,7 +5602,24 @@
               "text": "Weitergabe",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Die Weitergabe in Deutschland erfolgt durch Boten oder Versand durch Zustelldienste in einfachem verschlossenen Umschlag beziehungsweise Behältnis. Der Umschlag beziehungsweise das Behältnis erhalten keine VS-Kennzeichnung.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "VS können durch private Zustelldienste als gewöhnlicher Brief beziehungsweise Paket oder auch als Luft- oder Seefracht in das Ausland versendet werden, es sei denn, der VS-Auftraggeber hat dieser Versendungsart ausdrücklich widersprochen oder andere Modalitäten für den Auslandsversand festgelegt. Dabei sind vom VS-Auftraggeber zwischenstaatliche Vereinbarungen beziehungsweise besondere Programm- oder Projektvereinbarungen zu berücksichtigen.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -5566,7 +5627,24 @@
               "text": "Vernichtung/Rückgabe",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Um größere Bestände von VS zu vermeiden, sind nicht mehr benötigte VS zu vernichten oder an den VS-Auftraggeber zurückzugeben.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "VS, auch VS-Zwischenmaterial, sind so zu vernichten, dass der Inhalt nicht mehr erkennbar ist und nicht mehr erkennbar gemacht werden kann.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -5590,97 +5668,34 @@
               "text": "Aufträge",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Alle VS-Auftragnehmer/-Unterauftragnehmer sind vom VS-Auftraggeber vertraglich zu verpflichten, die Regelungen dieses Merkblattes zu beachten. Dabei ist darauf hinzuweisen, dass eine Nichtbeachtung die Auflösung des Vertrages beziehungsweise von Teilen des Vertrages zur Folge haben kann.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Bei Angeboten beziehungsweise der Aufforderung zur Abgabe von Angeboten und nach Auftragsdurchführung sind VS bis zur Aufhebung der Einstufung vorschriftsmäßig zu verwahren, baldmöglichst zu vernichten oder zurück zu geben.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "VS-Auftragnehmer/-Unterauftragnehmer im Ausland sind vertraglich zu verpflichten, die Vorschriften ihrer zuständigen Sicherheitsbehörde für die Behandlung von VS vergleichbaren Geheimhaltungsgrades zu beachten. Gibt es keinen vergleichbaren Geheimhaltungsgrad in dem Land eines VS-Auftragnehmers/-Unterauftragnehmers, ist das Staatsministerium für Wirtschaft und Arbeit einzuschalten. Die Weitergabe darf dann erst nach Zustimmung des Staatsministeriums für Wirtschaft und Arbeit erfolgen.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Dokumente sind durch schwarzen oder blauen Stempelaufdruck, Druck „VS-NUR FÜR DEN DIENSTGEBRAUCH“ am oberen Rand jeder beschriebenen Seite sowie aller entsprechend eingestuften Anlagen zu kennzeichnen beziehungsweise im Falle internationaler oder ausländischer VS mit der entsprechenden deutschen Kennzeichnung umzustempeln. Bei Büchern, Broschüren und Ähnlichem genügt die Kennzeichnung auf dem Einband und dem Titelblatt. Trägt jede beschriebene Seite eines ausländischen Buches oder einer ausländischen Broschüre den ausländischen Geheimhaltungsgrad, genügt die Kennzeichnung mit dem deutschen Geheimhaltungsgrad auf dem Einband oder dem Titelblatt."
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS-NfD eingestuftes Material (zum Beispiel Gerät, Ausrüstung) oder Datenträger (zum Beispiel Disketten, CD's, Mikrochips, Mikrofiche) sind ebenfalls entweder deutlich sichtbar am Material selbst oder – falls dies nicht möglich ist – an den Aufbewahrungsbehältnissen des Materials zu kennzeichnen beziehungsweise grundsätzlich umzustempeln."
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die VS sind in verschlossenen Räumen oder Behältern (Schränken, Schreibtischen und so weiter) zu verwahren. Außerhalb von solchen Räumen oder Behältnissen sind sie stets so aufzubewahren beziehungsweise zu behandeln, dass Unbefugte keinen Zugang zu oder Einblick in die VS haben."
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS-Zwischenmaterial (zum Beispiel Vorentwürfe, Stenogramme, Tonträger, Folien) ist gegen Einsichtnahme Unbefugter in derselben Weise zu schützen wie das Bezugsdokument. VS-Zwischenmaterial, das nicht an Dritte weitergegeben und unverzüglich vernichtet wird, muss nicht als VS gekennzeichnet werden."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die Weitergabe in Deutschland erfolgt durch Boten oder Versand durch Zustelldienste in einfachem verschlossenen Umschlag beziehungsweise Behältnis. Der Umschlag beziehungsweise das Behältnis erhalten keine VS-Kennzeichnung."
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS können durch private Zustelldienste als gewöhnlicher Brief beziehungsweise Paket oder auch als Luft- oder Seefracht in das Ausland versendet werden, es sei denn, der VS-Auftraggeber hat dieser Versendungsart ausdrücklich widersprochen oder andere Modalitäten für den Auslandsversand festgelegt. Dabei sind vom VS-Auftraggeber zwischenstaatliche Vereinbarungen beziehungsweise besondere Programm- oder Projektvereinbarungen zu berücksichtigen."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Um größere Bestände von VS zu vermeiden, sind nicht mehr benötigte VS zu vernichten oder an den VS-Auftraggeber zurückzugeben."
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS, auch VS-Zwischenmaterial, sind so zu vernichten, dass der Inhalt nicht mehr erkennbar ist und nicht mehr erkennbar gemacht werden kann."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Alle VS-Auftragnehmer/-Unterauftragnehmer sind vom VS-Auftraggeber vertraglich zu verpflichten, die Regelungen dieses Merkblattes zu beachten. Dabei ist darauf hinzuweisen, dass eine Nichtbeachtung die Auflösung des Vertrages beziehungsweise von Teilen des Vertrages zur Folge haben kann."
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei Angeboten beziehungsweise der Aufforderung zur Abgabe von Angeboten und nach Auftragsdurchführung sind VS bis zur Aufhebung der Einstufung vorschriftsmäßig zu verwahren, baldmöglichst zu vernichten oder zurück zu geben."
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS-Auftragnehmer/-Unterauftragnehmer im Ausland sind vertraglich zu verpflichten, die Vorschriften ihrer zuständigen Sicherheitsbehörde für die Behandlung von VS vergleichbaren Geheimhaltungsgrades zu beachten. Gibt es keinen vergleichbaren Geheimhaltungsgrad in dem Land eines VS-Auftragnehmers/-Unterauftragnehmers, ist das Staatsministerium für Wirtschaft und Arbeit einzuschalten. Die Weitergabe darf dann erst nach Zustimmung des Staatsministeriums für Wirtschaft und Arbeit erfolgen."
         },
         {
           "type": "item",
@@ -5719,7 +5734,32 @@
               "text": "Bei der Bearbeitung von VS-NfD eingestuften VS kommen insbesondere folgende Maßnahmen in Betracht:",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Übersicht über die Zugriffsberechtigungen,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Nutzung von Identifizierungs- und Authentisierungsmechanismen (zum Beispiel Login, Passwort),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "geeignete IT-Sicherheitsanweisung (einzelplatz- oder unternehmensbezogen).",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -5780,30 +5820,6 @@
           ]
         },
         {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Übersicht über die Zugriffsberechtigungen,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Nutzung von Identifizierungs- und Authentisierungsmechanismen (zum Beispiel Login, Passwort),"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "geeignete IT-Sicherheitsanweisung (einzelplatz- oder unternehmensbezogen)."
-        },
-        {
           "type": "item",
           "label": "2.2",
           "text": "Übertragung",
@@ -5816,7 +5832,24 @@
               "text": "Bei der elektronischen Übermittlung auf Telekommunikations- oder anderen technischen Kommunikationsverbindungen (einschließlich Onlinedienste wie WWW, FTP, TELNET, E-Mail et cetera) in Deutschland sind die VS mit einem vom BSI zugelassenen, zertifizierten (Nummer 40 VSA) Kryptosystem zu kryptieren. Abweichend hiervon ist im Ausnahmefall eine unkryptierte Übertragung zulässig",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "innerhalb von Festnetzen bei Telefongesprächen, bei Videokonferenzen und bei Fernkopien und Fernschreiben, wenn zwischen Absender und Empfänger für die erforderliche Übertragungsart keine Kryptiermöglichkeit besteht und der VS-Auftraggeber bei der Auftragsvergabe nicht ausdrücklich eine Kryptierung verlangt. Die absendende Stelle hat sich vor der Übertragung möglichst zu vergewissern, dass sie mit dem richtigen Empfänger verbunden ist.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "innerhalb eines geschlossenen Netzes (LAN), wenn es ausschließlich auf einem örtlich zusammenhängenden firmeneigenen Gelände betrieben wird und die Übertragungseinrichtungen gegen unmittelbaren Zugriff Unbefugter geschützt sind.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -5829,22 +5862,6 @@
           ]
         },
         {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "innerhalb von Festnetzen bei Telefongesprächen, bei Videokonferenzen und bei Fernkopien und Fernschreiben, wenn zwischen Absender und Empfänger für die erforderliche Übertragungsart keine Kryptiermöglichkeit besteht und der VS-Auftraggeber bei der Auftragsvergabe nicht ausdrücklich eine Kryptierung verlangt. Die absendende Stelle hat sich vor der Übertragung möglichst zu vergewissern, dass sie mit dem richtigen Empfänger verbunden ist."
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "innerhalb eines geschlossenen Netzes (LAN), wenn es ausschließlich auf einem örtlich zusammenhängenden firmeneigenen Gelände betrieben wird und die Übertragungseinrichtungen gegen unmittelbaren Zugriff Unbefugter geschützt sind."
-        },
-        {
           "type": "item",
           "label": "2.3",
           "text": "Maßnahmen zum Schutz der Vertraulichkeit",
@@ -5852,12 +5869,73 @@
           "numberingStyle": "decimal",
           "children": [
             {
+              "type": "paragraphText",
+              "text": "Die im Folgenden empfohlenen Maßnahmen sollen die Vertraulichkeit der elektronisch gespeicherten VS sicherstellen. Sie dienen nicht in erster Linie dazu, die Integrität und die Verfügbarkeit der Daten zu gewährleisten.\nDrei unterschiedliche Ausgangssituationen sind zu unterscheiden:"
+            },
+            {
               "type": "item",
               "label": "a)",
               "text": "Einzelplatz-PC oder Netzwerke mit geschlossenen Nutzergruppen, die nicht mit anderen Netzen verbunden sind",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "Das Betriebssystem muss ein differenziertes Benutzerprofil und Zugriffsschutz bis auf Dateiebene gewährleisten, damit der Grundsatz „Kenntnis nur, wenn nötig“ sichergestellt wird (zum Beispiel Unix/Linux, Win NT, Win 2000, Win XP).",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "Es muss ein Login und ein Passwort vorhanden sein. Das Passwort muss mindestens sechs alphanumerische Stellen, Sonderzeichen, Groß- und Kleinbuchstaben enthalten.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "Das BIOS muss ebenfalls durch ein Passwort geschützt sein.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "Ein Booten des IT-Systems darf grundsätzlich nur von der Festplatte aus möglich sein.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ee)",
+                  "text": "Es sollte – falls möglich – eine RAM-Disk für die Temp-Dateien enthalten (Nutzungshilfe).",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ff)",
+                  "text": "Ein aktuelles Virenschutzprogramm muss eingesetzt sein.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "gg)",
+                  "text": "Bei Netzwerken sollte eine eigene Partition zum Speichern der VS-Daten auf dem Server installiert werden.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -5865,7 +5943,40 @@
               "text": "Geschlossene Netze mit E-Mail-Anschluss nach außen\nZusätzlich zu den unter Buchstabe a festgelegten Punkten müssen",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "ein serverbasiertes Netz vorhanden sein, bei dem der Server im zugangsgeschützten Bereich steht,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "eine Firewall vorhanden sein, entweder auf dem Server oder als eigenes IT-System (und gegebenenfalls zusätzlich E-Mailserver) auch im zugangsgeschützten Bereich, ein Paketfilter eingesetzt werden, ein Application Gateway ist möglich.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "jede weitere IP-Adresse außer der Server-IP nach außen verborgen werden (DNS-Server),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "die Übertragung von VS-NfD verschlüsselt erfolgen, wobei für die Verschlüsselung nur vom BSI freigegebene Produkte eingesetzt werden dürfen; Schlüssel sind grundsätzlich nicht auf der Festplatte abzulegen. Es müssen verbindliche Anwenderregelungen innerhalb des Unternehmens festgelegt und geschult werden. Die neuesten Sicherheits-Updates der genutzten Software sind nach Verfügbarkeit insbesondere auch der Firewall einzubinden.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
             },
             {
               "type": "item",
@@ -5873,129 +5984,38 @@
               "text": "Standalone-PC oder geschlossene Netze mit E-Mail und Internetanschluss\nZusätzlich zu den unter Buchstaben a und b festgelegten Punkten müssen",
               "level": 1,
               "numberingStyle": "lower-latin",
-              "children": []
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "eine Firewall und ein Application-Gateway vorhanden sein,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "die Regelungen des BSI-Grundschutzhandbuches für Passwörter angewendet werden,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "VS-NfD-Daten auf dem Server in einer eigenen Partition beziehungsweise in einem speziell geschützten Datenbereich gehalten werden; die dadurch gegebenen Schutzmechanismen sind entsprechend anzuwenden.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraphText",
+              "text": "Je nach Umfang ist die Einrichtung eines eigenen VPN zum Beispiel für eine Nutzergruppe oder ein Projekt erforderlich."
             }
           ]
-        },
-        {
-          "type": "paragraphText",
-          "text": "Die im Folgenden empfohlenen Maßnahmen sollen die Vertraulichkeit der elektronisch gespeicherten VS sicherstellen. Sie dienen nicht in erster Linie dazu, die Integrität und die Verfügbarkeit der Daten zu gewährleisten.\nDrei unterschiedliche Ausgangssituationen sind zu unterscheiden:"
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Das Betriebssystem muss ein differenziertes Benutzerprofil und Zugriffsschutz bis auf Dateiebene gewährleisten, damit der Grundsatz „Kenntnis nur, wenn nötig“ sichergestellt wird (zum Beispiel Unix/Linux, Win NT, Win 2000, Win XP)."
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Es muss ein Login und ein Passwort vorhanden sein. Das Passwort muss mindestens sechs alphanumerische Stellen, Sonderzeichen, Groß- und Kleinbuchstaben enthalten."
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Das BIOS muss ebenfalls durch ein Passwort geschützt sein."
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Ein Booten des IT-Systems darf grundsätzlich nur von der Festplatte aus möglich sein."
-        },
-        {
-          "type": "paragraphText",
-          "text": "ee)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Es sollte – falls möglich – eine RAM-Disk für die Temp-Dateien enthalten (Nutzungshilfe)."
-        },
-        {
-          "type": "paragraphText",
-          "text": "ff)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Ein aktuelles Virenschutzprogramm muss eingesetzt sein."
-        },
-        {
-          "type": "paragraphText",
-          "text": "gg)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "Bei Netzwerken sollte eine eigene Partition zum Speichern der VS-Daten auf dem Server installiert werden."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "ein serverbasiertes Netz vorhanden sein, bei dem der Server im zugangsgeschützten Bereich steht,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "eine Firewall vorhanden sein, entweder auf dem Server oder als eigenes IT-System (und gegebenenfalls zusätzlich E-Mailserver) auch im zugangsgeschützten Bereich, ein Paketfilter eingesetzt werden, ein Application Gateway ist möglich."
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "jede weitere IP-Adresse außer der Server-IP nach außen verborgen werden (DNS-Server),"
-        },
-        {
-          "type": "paragraphText",
-          "text": "dd)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "die Übertragung von VS-NfD verschlüsselt erfolgen, wobei für die Verschlüsselung nur vom BSI freigegebene Produkte eingesetzt werden dürfen; Schlüssel sind grundsätzlich nicht auf der Festplatte abzulegen. Es müssen verbindliche Anwenderregelungen innerhalb des Unternehmens festgelegt und geschult werden. Die neuesten Sicherheits-Updates der genutzten Software sind nach Verfügbarkeit insbesondere auch der Firewall einzubinden."
-        },
-        {
-          "type": "paragraphText",
-          "text": "aa)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "eine Firewall und ein Application-Gateway vorhanden sein,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "bb)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "die Regelungen des BSI-Grundschutzhandbuches für Passwörter angewendet werden,"
-        },
-        {
-          "type": "paragraphText",
-          "text": "cc)"
-        },
-        {
-          "type": "paragraphText",
-          "text": "VS-NfD-Daten auf dem Server in einer eigenen Partition beziehungsweise in einem speziell geschützten Datenbereich gehalten werden; die dadurch gegebenen Schutzmechanismen sind entsprechend anzuwenden."
-        },
-        {
-          "type": "paragraphText",
-          "text": "Je nach Umfang ist die Einrichtung eines eigenen VPN zum Beispiel für eine Nutzergruppe oder ein Projekt erforderlich."
         }
       ]
     },

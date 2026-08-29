@@ -4,7 +4,7 @@
   "title": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems",
   "shortTitle": "Gesetz zur Neuordnung des Ostdeutschen Schulsystems",
   "abbr": "NOS",
-  "type": "gesetz",
+  "type": "aenderungsvorschrift",
   "enactingBody": "Landtag des Freistaates Ostdeutschland",
   "subjects": [
     "Bildung und Weiterbildung"
@@ -30,9 +30,30 @@
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
-      "label": "Redaktionell geprüfte HTML-Fassung der Quelle",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 27.html"
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 27.html",
+      "sha256": "3fb58a8a0b96267a45464b39ce62c8250e59cf0bdb4414ab22a59030846942c0",
+      "mediaType": "text/html",
+      "pageRange": "2-11",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 27.pdf",
+      "sha256": "e5872376dab6d65a0e57628bf311acacdd65ff53408c8d0cde69b253bcc2e1a2",
+      "mediaType": "application/pdf",
+      "pageCount": 11,
+      "pageRange": "2-11",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 27.html"
     }
+  ],
+  "affectedNorms": [
+    "ostdeutsches-schulgesetz"
   ]
 }

@@ -1,4 +1,5 @@
-import { glob, stat } from 'node:fs/promises';
+import { access, glob, readFile, stat } from 'node:fs/promises';
+import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 export const CLOUDFLARE_ASSET_LIMIT_BYTES = 25 * 1024 * 1024;
@@ -29,8 +30,32 @@ export async function findOversizedDeployAssets({
   return { checkedFiles, oversized };
 }
 
+export async function findMissingPublicationPdfAssets({
+  publicationRoot = resolve(process.cwd(), 'content/verkuendungen'),
+  assetRoot = resolve(process.cwd(), 'dist/law/client'),
+} = {}) {
+  const missing = [];
+  let linkedPdfs = 0;
+  for await (const file of glob(`${publicationRoot}/*.json`)) {
+    const publication = JSON.parse(await readFile(file, 'utf8'));
+    if (!publication.pdf) continue;
+    linkedPdfs += 1;
+    const relative = decodeURIComponent(publication.pdf).replace(/^\/+/, '');
+    const asset = join(assetRoot, relative);
+    try {
+      await access(asset);
+    } catch {
+      missing.push({ publication: publication.slug, pdf: publication.pdf, asset });
+    }
+  }
+  return { linkedPdfs, missing };
+}
+
 async function main() {
-  const result = await findOversizedDeployAssets();
+  const [result, publicationPdfs] = await Promise.all([
+    findOversizedDeployAssets(),
+    findMissingPublicationPdfAssets(),
+  ]);
   if (result.oversized.length > 0) {
     for (const asset of result.oversized) {
       console.error(
@@ -42,10 +67,17 @@ async function main() {
     process.exitCode = 1;
     return;
   }
+  if (publicationPdfs.missing.length > 0) {
+    for (const entry of publicationPdfs.missing) {
+      console.error(`${entry.publication}: ${entry.pdf} fehlt im Rechtsportal-Build (${entry.asset})`);
+    }
+    process.exitCode = 1;
+    return;
+  }
 
   console.log(
     `${result.checkedFiles} Deployment-Assets geprüft; keine Datei überschreitet `
-    + `${formatMiB(REPOSITORY_ASSET_BUDGET_BYTES)}.`,
+    + `${formatMiB(REPOSITORY_ASSET_BUDGET_BYTES)}; ${publicationPdfs.linkedPdfs} verknüpfte Original-PDFs vorhanden.`,
   );
 }
 

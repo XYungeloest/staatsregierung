@@ -1,7 +1,7 @@
 {
   "id": "ausbildungs-und-pruefungsordnung-polizei",
   "slug": "ausbildungs-und-pruefungsordnung-polizei",
-  "title": "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
+  "title": "Verordnung über Vorbereitungsdienste und Prüfungen für den Erwerb der Laufbahnbefähigungen für die Laufbahnen der Fachrichtung Polizei (Ostdeutsche Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei – OstAPOPol)",
   "shortTitle": "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei",
   "abbr": "SächsAPOPol",
   "shortTitleSource": "official",
@@ -20,7 +20,7 @@
     "Fachrichtung",
     "Polizei"
   ],
-  "initialCitation": "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei vom 6. August 2024 (SächsGVBl. S. 771), die zuletzt durch Artikel 1 der Verordnung vom 16. Juli 2026 (SächsGVBl. S. 245) geändert worden ist",
+  "initialCitation": "Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei vom 6. August 2024 (SächsGVBl. S. 771), geändert durch Verordnung vom 23. Juli 2025 (SächsGVBl. S. 339)",
   "predecessor": null,
   "successor": null,
   "summary": "Enthält die Regelungen der amtlichen Ausgangsfassung „Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei“.",
@@ -37,8 +37,16 @@
       "sha256": "1f8dae48bb74d2ece743e009a0c77293c850ad724b2526cb682cf3524838bd60",
       "lawId": "21006",
       "sourceValidFrom": "2025-09-01",
-      "sourceValidTo": "2026-08-31",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2026-08-31"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "Verordnung vom 30. Januar 2026 (OGVBl. 2026 Nr. 12)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 12.md"
     }
+  ],
+  "affectedByNorms": [
+    "verordnung-zur-anderung-der-ausbildungsund-prufungsordnung-f-1222y2k"
   ]
 }

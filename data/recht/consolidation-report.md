@@ -1,59 +1,31 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-08-27T20:26:59.569Z
+**Erzeugt:** 2026-08-29T10:23:09.461Z
 
 - Erkannte Änderungsvorschriften: 61
 - Erkannte Zielnormen: 85
-- Vollständig konsolidiert: 57
-- Aktuell offene Zielnormen: 28
+- Vollständig konsolidiert: 81
+- Aktuell offene Zielnormen: 4
 
 ## Offener Handlungsbedarf
 
 - Fehlende Stammnormdatensätze: 0
-- Unvollständige Platzhalterbestände: 26
-- Blockierte Quellenkonflikte: 1
+- Unvollständige Platzhalterbestände: 0
+- Blockierte Quellenkonflikte: 3
 - Fehlende Primärquellen: 1
 
 Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solange eine Zielnorm noch nicht vollständig umgesetzt ist, bleibt sie mit Problem und nächstem Schritt hier sichtbar. Der vollständige maschinenlesbare Status steht zusätzlich in `data/recht/consolidation-manifest.json`; redaktionelle Quellenfragen werden in `CONTENT_GAPS.md` gebündelt.
 
 ## Offene Zielnormen
 
-### Gesetz über den öffentlichen Gesundheitsdienst im Freistaat Sachsen
-
-- Datensatz: `gesundheitsdienstgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
 ### Gesetz über den öffentlichen Personennahverkehr im Freistaat Sachsen
 
 - Datensatz: `ostdeutsches-personennahverkehrsgesetz`
-- Status: `incomplete-placeholder`
+- Status: `blocked-source-conflict`
+- Problem: Artikel 9 Nummer 1 des Kreis- und Bezirksneuordnungsgesetzes ordnet zum 21. Juli 2026 Ergänzungen in § 3 Absatz 1 nach den Wörtern „Landkreise und kreisfreien Städte“ an. Die am 24. März 2026 in Kraft getretene Neufassung des § 3 Absatz 1 enthält diese Wörter nicht mehr; sie stehen nur in Absatz 2. Eine Umdeutung des ausdrücklich bezeichneten Absatzes ist ohne Berichtigung oder andere Primärquelle unzulässig. Die gleichzeitig vorgesehenen weiteren Änderungen werden bis zur Klärung nicht als vollständige Folgefassung ausgegeben.
 - Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Gesetz über Kindertagesbetreuung
-
-- Datensatz: `kindertagesbetreuungsgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Kommunalwahlgesetz
-
-- Datensatz: `kommunalwahlgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Landesplanungsgesetz
-
-- Datensatz: `landesplanungsgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 
 ### NDR-Staatsvertrag
 
@@ -63,126 +35,6 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - Problem: Eigenständiger Stammnormdatensatz fehlt.
 - Nächster Schritt: Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.
 
-### Sächsische Arbeitszeitverordnung
-
-- Datensatz: `ostdeutsche-arbeitszeitverordnung`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsische Ausbildungs- und Prüfungsordnung für die Fachrichtung Polizei
-
-- Datensatz: `ausbildungs-und-pruefungsordnung-polizei`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Beamtengesetz
-
-- Datensatz: `landesbeamtengesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Bestattungsgesetz
-
-- Datensatz: `saechsisches-bestattungsgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Finanzausgleichsgesetz
-
-- Datensatz: `finanzausgleichsgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Gesetz zur Durchführung des Medienstaatsvertrages und des Rundfunkbeitragsstaatsvertrages
-
-- Datensatz: `gesetz-zur-durchfuehrung-des-medienstaatsvertrages-und-des-rundfunkbeitragsstaatsvertrages`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Gleichstellungsgesetz
-
-- Datensatz: `saechsisches-gleichstellungsgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Hochschulgesetz
-
-- Datensatz: `ostdeutsches-hochschulgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Justizgesetz
-
-- Datensatz: `ostdeutsches-justizgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Krankenhausgesetz
-
-- Datensatz: `ostdeutsches-krankenhausgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Kulturraumgesetz
-
-- Datensatz: `kulturraumgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Normenkontrollratsgesetz
-
-- Datensatz: `ostdeutsches-normenkontrollratsgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Polizeibehördengesetz
-
-- Datensatz: `ostdeutsches-polizeibehoerdengesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Schulgesetz
-
-- Datensatz: `ostdeutsches-schulgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Vermessungs- und Katastergesetz
-
-- Datensatz: `vermessungs-und-katastergesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Verwaltungsorganisationsgesetz
-
-- Datensatz: `sachsisches-verwaltungsorganisationsgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Gespeicherte Stammnorm enthält Platzhalter oder eine nicht aufgelöste Auslassungsfundstelle.
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Sächsisches Zweckentfremdungsverbotsgesetz
-
-- Datensatz: `zweckentfremdungsverbotsgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
 ### Schulordnung Förderschulen
 
 - Datensatz: `schulordnung-foerderschulen`
@@ -191,36 +43,17 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
 - Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 
-### Verschlusssachenanweisung
-
-- Datensatz: `verschlusssachenanweisung`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### VwV Stundentafeln
-
-- Datensatz: `vwv-stundentafeln`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
-### Waldgesetz für den Freistaat Sachsen
-
-- Datensatz: `waldgesetz`
-- Status: `incomplete-placeholder`
-- Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
-
 ### Zehntes Sächsisches Kostenverzeichnis
 
 - Datensatz: `zehntes-ostdeutsches-kostenverzeichnis`
-- Status: `incomplete-placeholder`
+- Status: `blocked-source-conflict`
+- Problem: Artikel 3 Nummer 2 des Gesetzes zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes ordnet an, nach Tarifstelle 2 eine neue Tarifstelle 3 anzufügen. Die amtliche, im Änderungsgesetz selbst zitierte Ausgangsfassung des Zehnten Sächsischen Kostenverzeichnisses enthält im einschlägigen Abschnitt bereits eine Tarifstelle 3. Ob Ersetzung, Umnummerierung oder eine zusätzliche Tarifstelle beabsichtigt war, ist aus der Primärquelle nicht eindeutig bestimmbar.
 - Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
-- Nächster Schritt: Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
 
 ## Nicht als Zielnorm behandelte Vorlagen
 
+- staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm
 - staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm
 
 ## Redaktionell zu prüfende Erkennungsfunde
@@ -228,3 +61,6 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - `erlass-lehrplan-geschichte-2026`: „Lehrplans Polytechnische Oberschule – Geschichte“ (Gliederungsüberschrift)
 - `erlass-lehrplan-geschichte-2026`: „Lehrplans Erweiterte Oberschule – Geschichte“ (Gliederungsüberschrift)
 - `organisationserlass-aenderung-fachbereichszuteilung-2024`: „Fachbereichszuteilungen“ (Gliederungsüberschrift)
+- `sachsisches-verwaltungsorganisationsgesetz`: „Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden“ (Gliederungsüberschrift)
+- `sachsisches-verwaltungsorganisationsgesetz`: „Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden“ (Gliederungsüberschrift)
+- `sachsisches-verwaltungsorganisationsgesetz`: „Geschäftsbereiche der Staatsministerien und Umbenennung oder Zusammenlegung von Staatsbehörden“ (Gliederungsüberschrift)

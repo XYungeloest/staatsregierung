@@ -1,0 +1,70 @@
+{
+  "amendmentAct": "kreis-und-bezirksneuordnungsgesetz",
+  "effectiveDate": "2026-07-21",
+  "versionId": "2026-07-21",
+  "amendmentCitation": "Gesetz vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+  "resultCitation": "Gesetz über die Verwaltungsorganisation des Freistaates Ostdeutschland, geändert durch Artikel 7 des Gesetzes vom 20. Juli 2026 (OGVBl. 2026 Nr. 54)",
+  "changeNote": "§ 6 wurde für die Bezirksverwaltungen neu gefasst.",
+  "commandCoverage": [
+    "Artikel 7 Nummer 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 54",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 46.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "replaceProvision",
+      "target": {
+        "type": "paragraph",
+        "label": "§ 6"
+      },
+      "expectedHash": "a7ab0f1cf03307b93705fae2a9d44f5bd1232e7a0a527dee34b838444cbd1952",
+      "expectedMatches": 1,
+      "value": {
+        "type": "paragraph",
+        "label": "§ 6",
+        "title": "Rechtsnachfolge der Bezirke",
+        "children": [
+          {
+            "type": "subparagraph",
+            "label": "(1)",
+            "text": "Die neuen Bezirke sind Rechtsnachfolger der bisherigen Bezirke nach Maßgabe der Anlage 3 Abschnitt 1.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(2)",
+            "text": "Soweit das Gebiet eines bisherigen Bezirks vollständig in einem neuen Bezirk aufgeht, ist der neue Bezirk Gesamtrechtsnachfolger des bisherigen Bezirks.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(3)",
+            "text": "Soweit das Gebiet eines bisherigen Bezirks auf mehrere neue Bezirke aufgeteilt wird, treten die neuen Bezirke in die Rechte und Pflichten des bisherigen Bezirks nach Maßgabe der Anlage 3 Abschnitt 1 ein. Soweit eine Einzelzuordnung nicht möglich ist, erfolgt die Zuordnung nach Aufgabenbezug, örtlicher Lage, bisheriger Zweckbindung, wirtschaftlichem Zusammenhang, Einwohneranteil und Flächenanteil; der Aufgabenbezug ist vorrangig zu berücksichtigen.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(4)",
+            "text": "Bei nicht eindeutig zuordenbaren Rechten, Pflichten, Grundstücken, beweglichem Vermögen, Beteiligungen, Forderungen, Verbindlichkeiten, Akten, Datenbeständen und laufenden Verwaltungsverfahren entscheidet das für Inneres zuständige Staatsministerium durch Zuordnungsbescheid. Vor Erlass des Zuordnungsbescheides sind die betroffenen Bezirke und das für Finanzen zuständige Staatsministerium zu hören.",
+            "children": []
+          },
+          {
+            "type": "subparagraph",
+            "label": "(5)",
+            "text": "Der Zuordnungsbescheid begründet Rechte und Pflichten der Beteiligten und bewirkt den Übergang, die Beschränkung oder die Aufhebung dinglicher Rechte. Das für Inneres zuständige Staatsministerium ersucht die zuständigen Stellen um Berichtigung der öffentlichen Bücher.",
+            "children": []
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 46.html",
+      "sourceProvision": "Artikel 7 Nummer 2",
+      "effectiveDate": "2026-07-21"
+    }
+  ]
+}

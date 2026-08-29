@@ -2643,11 +2643,19 @@
             },
             {
               "type": "item",
-              "label": "a)",
-              "text": "die Summe der Ist-Einnahmen,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "die Summe der Ist-Einnahmen,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
                 {
                   "type": "item",
                   "label": "b)",
@@ -2679,7 +2687,16 @@
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
-                },
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
                 {
                   "type": "item",
                   "label": "a)",
@@ -2719,11 +2736,19 @@
             },
             {
               "type": "item",
-              "label": "a)",
-              "text": "das kassenmäßige Jahresergebnis nach § 82 Nr. 1 Buchst. c,",
-              "level": 1,
-              "numberingStyle": "lower-latin",
+              "label": "1.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
               "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "das kassenmäßige Jahresergebnis nach § 82 Nr. 1 Buchst. c,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
                 {
                   "type": "item",
                   "label": "b)",
@@ -2731,7 +2756,16 @@
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
-                },
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
                 {
                   "type": "item",
                   "label": "a)",

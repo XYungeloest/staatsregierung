@@ -1,7 +1,7 @@
 {
   "id": "vermessungs-und-katastergesetz",
   "slug": "vermessungs-und-katastergesetz",
-  "title": "Sächsisches Vermessungs- und Katastergesetz",
+  "title": "Gesetz über das amtliche Vermessungswesen und das Liegenschaftskataster im Ostdeutschen Freistaat (Ostdeutsches Vermessungs- und Katastergesetz – OstVermKatG)",
   "shortTitle": "Sächsisches Vermessungs- und Katastergesetz",
   "abbr": "SächsVermKatG",
   "shortTitleSource": "official",
@@ -34,8 +34,27 @@
       "sha256": "5c800fa5832e384cda765b312e87548f09d862da22b3f1e3c209a7ff93dcb1cf",
       "lawId": "9851",
       "sourceValidFrom": "2021-05-13",
-      "sourceValidTo": "2024-07-29",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2024-07-29"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung, gültig ab 2024-07-30",
+      "availability": "versioned",
+      "localSource": "data/recht/sources/revosax/vermessungs-und-katastergesetz/9851.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9851",
+      "retrievedAt": "2026-08-28",
+      "sha256": "79a4084e6d81cb449508ead85f6e4204f46130ab61fa2635c468731bef709166",
+      "lawId": "9851",
+      "sourceValidFrom": "2024-07-30"
+    },
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 16",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 16.html"
     }
+  ],
+  "affectedByNorms": [
+    "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l"
   ]
 }

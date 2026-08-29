@@ -19,22 +19,29 @@
   ],
   "sourceReferences": [
     {
-      "kind": "original",
-      "label": "Amtliches Original-PDF der Ausgabe",
-      "availability": "not-versioned",
-      "note": "Für die redaktionelle Erfassung lokal geprüft; nicht Bestandteil des Repositorys."
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/GVBl. 2026 Nr. 12.pdf",
+      "sha256": "6ba6aa57c1751ea0725e59e282333ff11ac0105d12059b62abd1f79c2912b63d",
+      "mediaType": "application/pdf",
+      "pageCount": 3,
+      "pageRange": "2–3",
+      "verifiedAt": "2026-08-28",
+      "sourceRole": "visual-control"
+    },
+    {
+      "kind": "legacy-markdown-transcription",
+      "label": "Historische Markdown-Transkription (Altbestand)",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 12.md"
     },
     {
       "kind": "index",
       "label": "Festgeschriebene Liste der amtlichen Verkündungsblätter",
       "availability": "external",
       "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
-    },
-    {
-      "kind": "legacy-markdown-transcription",
-      "label": "Historische Markdown-Transkription der Ausgabe (Altbestand)",
-      "availability": "versioned",
-      "localSource": "Gesetze/OGVBl. 2026 Nr. 12.md"
     }
-  ]
+  ],
+  "pdf": "/assets/recht/GVBl. 2026 Nr. 12.pdf"
 }

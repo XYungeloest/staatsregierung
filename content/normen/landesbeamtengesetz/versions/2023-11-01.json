@@ -4,9 +4,9 @@
   "shortTitle": "Sächsisches Beamtengesetz",
   "abbr": "SächsBG",
   "validFrom": "2023-11-01",
-  "validTo": null,
-  "isCurrent": true,
-  "citation": "Sächsisches Beamtengesetz vom 18. Dezember 2013 (SächsGVBl. S. 970, 971), das zuletzt durch Artikel 3 des Gesetzes vom 27. Juni 2025 (SächsGVBl. S. 285) geändert worden ist",
+  "validTo": "2026-07-20",
+  "isCurrent": false,
+  "citation": "Sächsisches Beamtengesetz vom 18. Dezember 2013 (SächsGVBl. S. 970, 971)",
   "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
   "sourceReferences": [
     {
@@ -19,8 +19,7 @@
       "sha256": "9e11330634a8bd9e6b396b20c201ad19c52fc538285bcc6e71a3f8e1387c0dd2",
       "lawId": "13871",
       "sourceValidFrom": "2023-07-11",
-      "sourceValidTo": "2023-12-31",
-      "sourceRole": "official-snapshot"
+      "sourceValidTo": "2023-12-31"
     }
   ],
   "sourceNotes": [
@@ -1078,12 +1077,12 @@
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "und soweit dies allgemein durch Satzung oder Beschluss bestimmt wurde."
                 }
               ]
-            },
-            {
-              "type": "paragraphText",
-              "text": "und soweit dies allgemein durch Satzung oder Beschluss bestimmt wurde."
             },
             {
               "type": "subparagraph",
@@ -7012,12 +7011,12 @@
                   "level": 1,
                   "numberingStyle": "lower-latin",
                   "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die §§ 46 und 47 finden keine Anwendung."
                 }
               ]
-            },
-            {
-              "type": "paragraphText",
-              "text": "Die §§ 46 und 47 finden keine Anwendung."
             },
             {
               "type": "item",

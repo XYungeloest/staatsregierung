@@ -1,0 +1,30 @@
+{
+  "amendmentAct": "gesetz-zur-sicherstellung-der-versorgung-der-bevolkerung-mit-1tgai0l",
+  "effectiveDate": "2026-03-25",
+  "versionId": "2026-03-25",
+  "amendmentCitation": "Gesetz vom 23. März 2026 (OGVBl. 2026 Nr. 16)",
+  "resultCitation": "Ostdeutsches Vermessungs- und Katastergesetz, geändert durch Artikel 4 des Gesetzes vom 23. März 2026 (OGVBl. 2026 Nr. 16)",
+  "changeNote": "Die Gesetzesbezeichnung wurde an den Freistaat Ostdeutschland angepasst.",
+  "commandCoverage": [
+    "Artikel 4 Nummern 1 und 2; die in Nummer 2 wörtlich bezeichneten Formen kommen im amtlichen Ausgangskörper nicht vor"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 16",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 16.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "renameLaw",
+      "expectedOld": "Sächsisches Vermessungs- und Katastergesetz",
+      "value": "Gesetz über das amtliche Vermessungswesen und das Liegenschaftskataster im Ostdeutschen Freistaat (Ostdeutsches Vermessungs- und Katastergesetz – OstVermKatG)",
+      "expectedMatches": 1,
+      "source": "Gesetze/OGVBl. 2026 Nr. 16.html",
+      "sourceProvision": "Artikel 4 Nummer 1",
+      "effectiveDate": "2026-03-25"
+    }
+  ]
+}

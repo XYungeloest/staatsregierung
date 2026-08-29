@@ -55,7 +55,7 @@
         "type": "paragraph",
         "label": "§ 2"
       },
-      "expectedHash": "9e341251ee924ff71ba16567210158edd978f71984f1ef5b2883c354486ef38c",
+      "expectedHash": "23c40a2b95011585fd4be0ea36a810fb4f90597b04aeb2abb41f964a45b6022b",
       "expectedMatches": 1,
       "value": {
         "type": "paragraph",
@@ -137,6 +137,14 @@
             "text": "Anschrift des Schulstandortes,",
             "level": 0,
             "numberingStyle": "decimal",
+            "children": []
+          },
+          {
+            "type": "item",
+            "label": "4.",
+            "text": "",
+            "level": 0,
+            "numberingStyle": "decimal",
             "children": [
               {
                 "type": "item",
@@ -204,11 +212,19 @@
           },
           {
             "type": "item",
-            "label": "a)",
-            "text": "bei natürlichen Personen als Schulträger deren tabellarischer Lebenslauf,",
-            "level": 1,
-            "numberingStyle": "lower-latin",
+            "label": "1.",
+            "text": "",
+            "level": 0,
+            "numberingStyle": "decimal",
             "children": [
+              {
+                "type": "item",
+                "label": "a)",
+                "text": "bei natürlichen Personen als Schulträger deren tabellarischer Lebenslauf,",
+                "level": 1,
+                "numberingStyle": "lower-latin",
+                "children": []
+              },
               {
                 "type": "item",
                 "label": "b)",

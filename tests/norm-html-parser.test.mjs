@@ -215,6 +215,30 @@ test('eine durch Fließtext getrennte neue Liste bleibt trotz neuer Listen-ID un
   assert.deepEqual(section.children.filter((block) => block.type === 'item').map((block) => block.label), ['1.', 'a.', 'b.']);
 });
 
+test('ein allein gedruckter Dezimalanker erhält die unmittelbar folgende alphabetische Unterliste', () => {
+  const section = hierarchyFixture(`
+    <p>1. Erster Punkt</p>
+    <p>2.</p>
+    <ol type="a"><li>Unterpunkt A</li><li>Unterpunkt B</li></ol>
+    <p>3. Nächster Elternpunkt</p>`);
+  const [one, two, three] = section.children.filter((block) => block.type === 'item');
+  assert.equal(one.label, '1.');
+  assert.equal(two.label, '2.');
+  assert.equal(two.text, '');
+  assert.deepEqual(two.children.map((block) => block.label), ['a.', 'b.']);
+  assert.equal(three.label, '3.');
+});
+
+test('die reale Helsinki-Quelle verliert keine allein gedruckten Gliederungsanker', async () => {
+  const fileName = 'OVertrBl. 2026 Nr. 1.html';
+  const html = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
+  const parsed = parsePublicationHtml(fileName, html);
+  const flat = [parsed.body, ...parsed.introducedNorms.map((norm) => norm.body)]
+    .flatMap((body) => flatten(body).map(({ block }) => block));
+  assert.equal(flat.filter((block) => block.type === 'paragraphText' && /^\d+\.$/u.test(block.text)).length, 0);
+  assert.ok(flat.some((block) => block.label === '2.' && block.children?.some((child) => /^a[.)]$/u.test(child.label))));
+});
+
 test('reale Förderrichtlinienstruktur erhält Eltern, Fortsetzungstext und Unterlisten', async () => {
   const fileName = 'StAnzO. 2026 Nr. 5.html';
   const html = await readFile(new URL(`../Gesetze/${fileName}`, import.meta.url), 'utf8');
@@ -227,6 +251,11 @@ test('reale Förderrichtlinienstruktur erhält Eltern, Fortsetzungstext und Unte
   assert.deepEqual(item('I.', '2.').children.map((block) => block.label), ['-', '-', '-']);
   assert.equal(item('IV.', '1.').children[0].type, 'paragraphText');
   assert.deepEqual(item('IV.', '3.').children.slice(1).map((block) => block.label), ['a)', 'b)']);
+  assert.equal(item('VI.', '1.').children[0].type, 'paragraphText');
+  assert.equal(
+    item('VI.', '1.').children[0].text,
+    'Ostdeutsche Aufbaubank (OAB) Gerberstraße 5 04105 Leipzig.',
+  );
   assert.deepEqual(item('VI.', '2.').children.map((block) => block.label), ['a)', 'b)']);
   assert.deepEqual(item('VII.', '1.').children.map((block) => block.label), ['a)', 'b)']);
   assert.equal(item('IV.', '4.').level, 0);
