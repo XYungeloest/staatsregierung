@@ -346,7 +346,12 @@ siteTest(['law'])('Rechtssuche ist auf jeder OstRecht-Seite im Desktop-Kopf dire
   await page.goto(lawUrl('/norm/ostdeutsches-kulturpassgesetz/'));
   const search = page.locator('.law-header-search--compact');
   await expect(search).toBeVisible();
-  await search.locator('input[name="q"]').fill('Verfassung');
+  const input = search.locator('input[name="q"]');
+  await input.fill('OstPVDG');
+  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toBeVisible();
+  await expect(page.getByRole('option').first()).toContainText('Polizeivollzugsdienst');
+  await input.press('Escape');
+  await input.fill('Verfassung');
   await Promise.all([
     page.waitForURL(/\/suche\/\?q=Verfassung/u),
     search.getByRole('button', { name: 'Suchen' }).click(),
@@ -591,18 +596,19 @@ siteTest(['law'])('Rechtssuche unterstützt Fassungsarten, mehrere Normtypen, Pl
   await expect(page.locator('[data-search-results]')).toContainText('Kulturpass');
 });
 
-siteTest(['law'])('Rechtssuche verwendet ohne URL-Vorgabe die neueste Verkündung als Standardsortierung', async ({ page }) => {
+siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahrt eine ausdrückliche Auswahl', async ({ page }) => {
   await page.goto(lawUrl('/suche/'));
   await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
   await expect(page).not.toHaveURL(/sort=/u);
-  const publicationDates = await page.locator('[data-search-results] .search-hit__facts').evaluateAll((lists) =>
-    lists.map((list) => {
-      const values = [...list.querySelectorAll('div')];
-      return values.find((value) => value.querySelector('dt')?.textContent?.trim() === 'Verkündung')
-        ?.querySelector('dd')?.textContent?.trim() ?? '';
-    }),
-  );
-  expect(publicationDates.length).toBeGreaterThan(1);
+
+  await page.goto(lawUrl('/suche/?q=Landesbaukindergeld'));
+  await expect(page.locator('select[name="sort"]')).toHaveValue('relevance');
+  await expect(page).not.toHaveURL(/sort=/u);
+  await expect(page.locator('[data-search-results] .search-hit').first()).toContainText('Landesbaukindergeld');
+
+  await page.locator('select[name="sort"]').selectOption('publication');
+  await expect(page).toHaveURL(/sort=publication/u);
+  await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
 });
 
 siteTest(['law'])('A–Z-Stichwortindex ist nicht leer und lässt sich lokal filtern', async ({ page }) => {

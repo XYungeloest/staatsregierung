@@ -16,12 +16,16 @@ import {
   parseCitation,
 } from '../src/lib/norms/presentation.ts';
 import {
+  getDefaultSearchSort,
   normalizeSearchText,
+  parseNormSearchQuery,
+  prepareSearchDocuments,
   runNormSearch,
   type NormSearchState,
 } from '../src/lib/norms/search-query.ts';
 import {
   buildSearchIndexPayload,
+  buildSearchSuggestionPayload,
   isAmendmentRecord,
   type SearchIndexDocument,
 } from '../src/lib/norms/search.ts';
@@ -634,15 +638,21 @@ test('Suche verknüpft Facetten mit UND und mehrere Werte derselben Facette mit 
   assert.equal(runNormSearch(documents, searchState({ includeAmendments: true })).length, 3);
 });
 
-test('Standardsortierung stellt die jüngste Verkündung vor alphabetische Titel', () => {
+test('Standardsortierung richtet sich nach Suchkontext und respektiert eine ausdrückliche Auswahl', () => {
   const olderAlphabetical = searchDocument({
     id: 'alt:1', slug: 'alt', title: 'Allgemeinverfügung', publicationDate: '2026-01-01', validFrom: '2026-01-01',
   });
   const newer = searchDocument({
     id: 'neu:1', slug: 'neu', title: 'Zukunftsgesetz', publicationDate: '2026-08-20', validFrom: '2026-08-20',
   });
-  const results = runNormSearch([olderAlphabetical, newer], searchState({ sort: 'publication' }));
-  assert.deepEqual(results.map((entry) => entry.documentEntry.slug), ['neu', 'alt']);
+  assert.equal(getDefaultSearchSort(searchState()), 'publication');
+  assert.equal(getDefaultSearchSort(searchState({ q: 'Allgemeinverfügung' })), 'relevance');
+  const browseResults = runNormSearch([olderAlphabetical, newer], searchState({ sort: 'publication', sortExplicit: false }));
+  assert.deepEqual(browseResults.map((entry) => entry.documentEntry.slug), ['neu', 'alt']);
+  const explicitResults = runNormSearch([olderAlphabetical, newer], searchState({
+    q: 'verfügung', sort: 'publication', sortExplicit: true,
+  }));
+  assert.equal(explicitResults[0]?.documentEntry.slug, 'alt');
 });
 
 test('Änderungsvorschriften werden auch bei historisch grobem Normtyp erkannt', () => {
@@ -735,4 +745,68 @@ test('historische Verkündungsbezeichnung bleibt ein Such- und Lookupalias', asy
   }
 
   assert.equal(findPublicationByDesignation(publications, 'OABl. 2025 Nr. 2')?.slug, 'oabl-2025-02');
+});
+
+test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorschriften und Fundstellen', async () => {
+  const searchIndex = await buildSearchIndexPayload();
+  const documents = prepareSearchDocuments(searchIndex.documents);
+  const search = (q: string, overrides: Partial<NormSearchState> = {}) => runNormSearch(documents, searchState({
+    q,
+    sort: 'relevance',
+    sortExplicit: false,
+    ...overrides,
+  }));
+  const fundingSlug = 'forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23';
+
+  const cases: Array<{ q: string; slug: string; assertion?: (results: ReturnType<typeof search>) => void }> = [
+    {
+      q: 'Förderrichtlinie',
+      slug: fundingSlug,
+      assertion: (results) => assert.ok(results.every((result) => result.documentEntry.type === 'foerderrichtlinie')),
+    },
+    { q: 'FRL Landesbaukindergeld', slug: fundingSlug },
+    { q: 'Landesbaukindergeld', slug: fundingSlug },
+    { q: 'OstPVDG', slug: 'ostdeutsches-polizeivollzugsdienstgesetz' },
+    {
+      q: 'Polizeivollzugsdienst § 41a',
+      slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
+      assertion: (results) => assert.equal(results[0]?.bestHitUnit?.label, '§ 41a'),
+    },
+    { q: 'Foerderrichtlinie', slug: fundingSlug },
+    {
+      q: 'OGVBl. 2026 Nr. 68',
+      slug: 'berichtigung-verschiedener-verkuendungen-2026',
+      assertion: (results) => assert.equal(results[0]?.documentEntry.publicationSlug, 'ogvbl-2026-68'),
+    },
+  ];
+
+  for (const { q, slug, assertion } of cases) {
+    const results = search(q);
+    assert.equal(results[0]?.documentEntry.slug, slug, q);
+    assertion?.(results);
+  }
+
+  const phrase = 'öffentliche Sicherheit';
+  const phraseResults = search(`"${phrase}"`);
+  assert.deepEqual(parseNormSearchQuery(`"${phrase}"`).phrases, [phrase]);
+  assert.ok(phraseResults.length > 0);
+  assert.ok(phraseResults.every(({ documentEntry }) => normalizeSearchText([
+    documentEntry.title,
+    documentEntry.shortTitle,
+    documentEntry.summary,
+    documentEntry.bodySupplement,
+    ...documentEntry.hitUnits.flatMap((unit) => [unit.label, unit.title, unit.text]),
+  ].join(' ')).includes(normalizeSearchText(phrase))));
+});
+
+test('Autocomplete enthält eine kanonische Suggestion je geltender Norm', async () => {
+  const payload = await buildSearchSuggestionPayload();
+  assert.equal(new Set(payload.suggestions.map((suggestion) => suggestion.slug)).size, payload.suggestions.length);
+  const funding = payload.suggestions.find((suggestion) => suggestion.slug === 'forderrichtlinie-des-staatsministeriums-des-innern-bau-und-f-1honi23');
+  assert.ok(funding);
+  assert.equal(funding.abbr, 'FRL Landesbaukindergeld');
+  assert.ok(funding.title.includes('Landesbaukindergeld'));
+  const historical = payload.suggestions.find((suggestion) => suggestion.slug === 'saechsische-gemeindeordnung');
+  assert.ok(historical?.aliases.includes('Sächsische Gemeindeordnung'));
+  assert.equal(historical?.url.endsWith('/norm/saechsische-gemeindeordnung/'), true);
 });

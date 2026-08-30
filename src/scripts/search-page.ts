@@ -1,15 +1,23 @@
 import {
+  getActiveSearchSort,
+  getDefaultSearchSort,
+  getDetectedNormTypeIntent,
   normalizeSearchText,
-  parseQueryTokens,
+  prepareSearchDocuments,
+  removeDetectedTypeIntent,
   runNormSearch,
   type NormSearchState,
+  type NormTypeIntent,
+  type PreparedSearchDocument,
+  type ScoredSearchResult,
   type SearchScope,
   type SortKey,
   type VersionScope,
 } from '../lib/norms/search-query.ts';
-import type { SearchIndexDocument, SearchIndexPayload } from '../lib/norms/search.ts';
+import type { SearchIndexDocument, SearchIndexPayload, SearchPublication } from '../lib/norms/search.ts';
 
 const PAGE_SIZE = 20;
+const INPUT_DEBOUNCE_MS = 120;
 const root = document.querySelector<HTMLElement>('[data-search-root]');
 const form = document.querySelector<HTMLFormElement>('[data-search-form]');
 const queryInput = document.querySelector<HTMLInputElement>('[data-search-query]');
@@ -26,8 +34,9 @@ const includeAmendmentsInput = document.querySelector<HTMLInputElement>('[data-s
 const filterPanels = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-search-filter-panel]'));
 const indexUrl = root?.dataset.indexUrl ?? '';
 let visibleGroups = PAGE_SIZE;
-let lastResults: SearchIndexDocument[] = [];
+let lastResults: ScoredSearchResult[] = [];
 let lastState: NormSearchState | undefined;
+let inputTimer: number | undefined;
 
 const dateFormatter = new Intl.DateTimeFormat('de-DE', {
   day: 'numeric',
@@ -67,7 +76,31 @@ function normalizeSort(value: string): SortKey {
 }
 
 function formValues(data: FormData, name: string): string[] {
-  return data.getAll(name).map(String).map((value) => value.trim()).filter(Boolean);
+  return [...new Set(data.getAll(name).map(String).map((value) => value.trim()).filter(Boolean))];
+}
+
+function sortIsExplicit(): boolean {
+  return form?.dataset.searchSortExplicit === 'true';
+}
+
+function setSortExplicit(value: boolean): void {
+  if (form) form.dataset.searchSortExplicit = String(value);
+}
+
+function versionScopeIsExplicit(): boolean {
+  return form?.dataset.searchVersionScopeExplicit === 'true';
+}
+
+function setVersionScopeExplicit(value: boolean): void {
+  if (form) form.dataset.searchVersionScopeExplicit = String(value);
+}
+
+function withSort(state: Omit<NormSearchState, 'sort' | 'sortExplicit'>, explicit: boolean, rawSort: string): NormSearchState {
+  return {
+    ...state,
+    sort: explicit ? normalizeSort(rawSort) : getDefaultSearchSort(state),
+    sortExplicit: explicit,
+  };
 }
 
 function emptyState(): NormSearchState {
@@ -82,6 +115,7 @@ function emptyState(): NormSearchState {
     statuses: [],
     origins: [],
     versionScope: 'current',
+    versionScopeExplicit: false,
     includeAmendments: false,
     geltungstag: '',
     validFrom: '',
@@ -92,13 +126,14 @@ function emptyState(): NormSearchState {
     publicationIssue: '',
     publicationPage: '',
     sort: 'publication',
+    sortExplicit: false,
   };
 }
 
 function getFormState(): NormSearchState {
   if (!form) return emptyState();
   const data = new FormData(form);
-  return {
+  return withSort({
     q: String(data.get('q') ?? '').trim(),
     exclude: String(data.get('exclude') ?? '').trim(),
     exact: String(data.get('exact') ?? '').trim(),
@@ -109,6 +144,7 @@ function getFormState(): NormSearchState {
     statuses: formValues(data, 'status'),
     origins: formValues(data, 'origin'),
     versionScope: normalizeVersionScope(String(data.get('versionScope') ?? 'current')),
+    versionScopeExplicit: versionScopeIsExplicit(),
     includeAmendments: data.get('includeAmendments') === '1',
     geltungstag: String(data.get('geltungstag') ?? ''),
     validFrom: String(data.get('validFrom') ?? ''),
@@ -118,13 +154,12 @@ function getFormState(): NormSearchState {
     publicationYears: formValues(data, 'publicationYear'),
     publicationIssue: String(data.get('publicationIssue') ?? '').trim(),
     publicationPage: String(data.get('publicationPage') ?? '').trim(),
-    sort: normalizeSort(String(data.get('sort') ?? 'relevance')),
-  };
+  }, sortIsExplicit(), String(data.get('sort') ?? 'publication'));
 }
 
 function readStateFromUrl(): NormSearchState {
   const params = new URLSearchParams(window.location.search);
-  return {
+  return withSort({
     q: params.get('q') ?? '',
     exclude: params.get('exclude') ?? '',
     exact: params.get('exact') ?? '',
@@ -135,6 +170,7 @@ function readStateFromUrl(): NormSearchState {
     statuses: params.getAll('status'),
     origins: params.getAll('origin'),
     versionScope: normalizeVersionScope(params.get('versionScope') ?? 'current'),
+    versionScopeExplicit: params.has('versionScope'),
     includeAmendments: params.get('includeAmendments') === '1',
     geltungstag: params.get('geltungstag') ?? '',
     validFrom: params.get('validFrom') ?? '',
@@ -144,12 +180,13 @@ function readStateFromUrl(): NormSearchState {
     publicationYears: params.getAll('publicationYear'),
     publicationIssue: params.get('publicationIssue') ?? '',
     publicationPage: params.get('publicationPage') ?? '',
-    sort: normalizeSort(params.get('sort') ?? 'publication'),
-  };
+  }, params.has('sort'), params.get('sort') ?? 'publication');
 }
 
 function applyStateToForm(state: NormSearchState): void {
   if (!form) return;
+  setSortExplicit(state.sortExplicit === true);
+  setVersionScopeExplicit(state.versionScopeExplicit === true);
   const values: Record<string, string | string[] | boolean> = {
     q: state.q,
     exclude: state.exclude,
@@ -182,6 +219,8 @@ function applyStateToForm(state: NormSearchState): void {
       Array.from(element.options).forEach((option) => {
         option.selected = selected.includes(option.value);
       });
+    } else if (element instanceof HTMLSelectElement && Array.isArray(value)) {
+      element.value = value[0] ?? '';
     } else if (typeof value === 'string') {
       element.value = value;
     }
@@ -191,7 +230,6 @@ function applyStateToForm(state: NormSearchState): void {
 const filterDefaults: Record<string, string> = {
   scope: 'all',
   versionScope: 'current',
-  sort: 'publication',
 };
 
 const filterLabels: Record<string, string> = {
@@ -224,6 +262,7 @@ interface ActiveFilter {
 
 function isActiveFilter(element: HTMLInputElement | HTMLSelectElement): boolean {
   if (element.name === 'q') return false;
+  if (element.name === 'sort') return sortIsExplicit();
   if (element instanceof HTMLInputElement && element.type === 'checkbox') return element.checked;
   return Boolean(element.value) && element.value !== filterDefaults[element.name];
 }
@@ -241,27 +280,40 @@ function filterValueLabel(element: HTMLInputElement | HTMLSelectElement): string
 }
 
 function collectActiveFilters(elements: Array<HTMLInputElement | HTMLSelectElement> = filterInputs): ActiveFilter[] {
-  return elements.filter(isActiveFilter).map((element) => ({
-    name: element.name,
-    value: element.value,
-    label: `${filterLabels[element.name] ?? element.name}: ${filterValueLabel(element)}`,
-  }));
+  const seen = new Set<string>();
+  return elements.filter(isActiveFilter).flatMap((element) => {
+    const key = `${element.name}:${element.value}`;
+    if (seen.has(key)) return [];
+    seen.add(key);
+    return [{
+      name: element.name,
+      value: element.value,
+      label: `${filterLabels[element.name] ?? element.name}: ${filterValueLabel(element)}`,
+    }];
+  });
 }
 
-function updateActiveFilterControls(): void {
+function createFilterChip(label: string, name: string, value: string, intent = false): HTMLButtonElement {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'search-filter-chip';
+  button.dataset.searchRemoveFilter = name;
+  button.dataset.searchRemoveValue = value;
+  if (intent) button.dataset.searchRemoveIntent = 'type';
+  button.textContent = `${label} ×`;
+  button.setAttribute('aria-label', `${intent ? 'Automatisch erkannten Normtyp entfernen' : 'Filter entfernen'}: ${label}`);
+  return button;
+}
+
+function updateActiveFilterControls(intent?: NormTypeIntent): void {
   if (!activeFilters || !activeFilterList) return;
   const entries = collectActiveFilters();
-  activeFilters.hidden = entries.length === 0;
-  activeFilterList.replaceChildren(...entries.map((entry) => {
-    const button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'search-filter-chip';
-    button.dataset.searchRemoveFilter = entry.name;
-    button.dataset.searchRemoveValue = entry.value;
-    button.textContent = `${entry.label} ×`;
-    button.setAttribute('aria-label', `Filter entfernen: ${entry.label}`);
-    return button;
-  }));
+  const showIntent = intent && getFormState().types.length === 0;
+  activeFilters.hidden = entries.length === 0 && !showIntent;
+  activeFilterList.replaceChildren(
+    ...entries.map((entry) => createFilterChip(entry.label, entry.name, entry.value)),
+    ...(showIntent ? [createFilterChip(`Erkannter Normtyp: ${intent.label}`, 'typeIntent', intent.type, true)] : []),
+  );
 
   for (const panel of filterPanels) {
     const count = collectActiveFilters(Array.from(panel.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[data-search-filter]'))).length;
@@ -279,6 +331,8 @@ function openPanelsWithActiveFilters(): void {
 
 function clearFilter(name: string, value: string): void {
   if (!form) return;
+  if (name === 'sort') setSortExplicit(false);
+  if (name === 'versionScope') setVersionScopeExplicit(false);
   for (const element of Array.from(form.elements)) {
     if (!(element instanceof HTMLInputElement || element instanceof HTMLSelectElement) || element.name !== name) continue;
     if (element instanceof HTMLInputElement && element.type === 'checkbox') {
@@ -290,6 +344,8 @@ function clearFilter(name: string, value: string): void {
 }
 
 function clearAllFilters(): void {
+  setSortExplicit(false);
+  setVersionScopeExplicit(false);
   for (const element of filterInputs) {
     if (element instanceof HTMLInputElement && element.type === 'checkbox') {
       element.checked = false;
@@ -314,7 +370,7 @@ function writeStateToUrl(state: NormSearchState, push = false): void {
   appendValues(params, 'subject', state.subjects);
   appendValues(params, 'status', state.statuses);
   appendValues(params, 'origin', state.origins);
-  if (state.versionScope !== 'current') params.set('versionScope', state.versionScope);
+  if (state.versionScopeExplicit || state.versionScope !== 'current') params.set('versionScope', state.versionScope);
   if (state.includeAmendments) params.set('includeAmendments', '1');
   if (state.geltungstag) params.set('geltungstag', state.geltungstag);
   if (state.validFrom) params.set('validFrom', state.validFrom);
@@ -324,38 +380,23 @@ function writeStateToUrl(state: NormSearchState, push = false): void {
   appendValues(params, 'publicationYear', state.publicationYears);
   if (state.publicationIssue) params.set('publicationIssue', state.publicationIssue);
   if (state.publicationPage) params.set('publicationPage', state.publicationPage);
-  if (state.sort !== 'publication') params.set('sort', state.sort);
+  if (state.sortExplicit) params.set('sort', state.sort);
   const target = params.size > 0 ? `${window.location.pathname}?${params}` : window.location.pathname;
   window.history[push ? 'pushState' : 'replaceState']({}, '', target);
 }
 
-function clipContext(documentEntry: SearchIndexDocument, state: NormSearchState): string {
-  const tokens = parseQueryTokens(state.q || state.exact).map((token) => token.value);
-  const candidates = [
-    ...documentEntry.hitUnits.map((unit) => unit.text),
-    documentEntry.bodySupplement,
-    documentEntry.summary,
-  ].filter(Boolean);
-  const source = candidates.find((entry) => {
-    const normalized = normalizeSearchText(entry);
-    return tokens.some((token) => normalized.includes(token));
-  }) ?? candidates[0] ?? '';
-  if (source.length <= 260) return source;
-  return `${source.slice(0, 257).trimEnd()}…`;
+function clipContext(source: string): string {
+  const text = source.trim();
+  if (text.length <= 280) return text;
+  return `${text.slice(0, 277).trimEnd()}…`;
 }
 
-function hitLinks(documentEntry: SearchIndexDocument, state: NormSearchState): string {
-  const tokens = parseQueryTokens(state.q || state.exact).map((token) => token.value);
-  if (tokens.length === 0) return '';
-  const units = documentEntry.hitUnits.filter((unit) => {
-    const text = normalizeSearchText(`${unit.label} ${unit.title} ${unit.text}`);
-    return tokens.some((token) => text.includes(token));
-  }).slice(0, 3);
-  if (units.length === 0) return '';
-  return `<p class="search-hit__meta">Trefferstellen: ${units.map((unit) => {
-    const label = escapeHtml([unit.label, unit.title].filter(Boolean).join(' '));
-    return `<a class="inline-link" href="${escapeHtml(documentEntry.url)}#${escapeHtml(unit.anchor)}">${label}</a>`;
-  }).join('; ')}</p>`;
+function bestHitMarkup(result: ScoredSearchResult): string {
+  const unit = result.bestHitUnit;
+  if (!unit) return '';
+  const label = [unit.label, unit.title].filter(Boolean).join(' ');
+  const href = `${result.documentEntry.url}#${unit.anchor}`;
+  return `<p class="search-hit__best"><strong>Beste Trefferstelle:</strong> <a class="inline-link" href="${escapeHtml(href)}">${escapeHtml(label || 'Vorschrift öffnen')}</a></p>`;
 }
 
 function badgeClass(entry: SearchIndexDocument): string {
@@ -372,46 +413,67 @@ function validityLabel(entry: SearchIndexDocument): string {
   return `ab ${from}; Gültigkeitsende offen`;
 }
 
-function renderVersion(entry: SearchIndexDocument, state: NormSearchState, heading = true): string {
+function renderVersion(result: ScoredSearchResult, heading = true): string {
+  const entry = result.documentEntry;
   const publication = entry.publicationTitle && entry.publicationUrl
     ? `<a class="inline-link" href="${escapeHtml(entry.publicationUrl)}">${escapeHtml(entry.publicationTitle)}</a>`
     : escapeHtml(entry.publication);
+  const context = result.bestHitUnit?.text || entry.summary;
+  const secondaryTitle = entry.shortTitle && entry.shortTitle !== entry.title
+    ? `<p class="search-hit__short-title">${escapeHtml(entry.shortTitle)}</p>`
+    : '';
+  const identity = heading
+    ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>${secondaryTitle}${entry.abbr ? `<p class="search-hit__abbr">${escapeHtml(entry.abbr)}</p>` : ''}`
+    : `<h4><a class="inline-link" href="${escapeHtml(entry.url)}">Fassung vom ${escapeHtml(formatDate(entry.validFrom))}</a></h4>`;
   return `
     <article class="search-hit">
       <div class="search-hit__header">
         <div class="search-hit__title">
           <span class="law-type-label">${escapeHtml(entry.typeLabel)}</span>
-          ${heading ? `<h3><a class="inline-link" href="${escapeHtml(entry.url)}">${escapeHtml(entry.title)}</a></h3>${entry.abbr ? `<p>${escapeHtml(entry.abbr)}</p>` : ''}` : `<h4><a class="inline-link" href="${escapeHtml(entry.url)}">Fassung vom ${escapeHtml(formatDate(entry.validFrom))}</a></h4>`}
+          ${identity}
         </div>
         <span class="status-badge ${badgeClass(entry)}">${escapeHtml(entry.resultLabel)}</span>
       </div>
-      ${entry.summary ? `<p class="search-hit__summary">${escapeHtml(entry.summary)}</p>` : ''}
-      <dl class="search-hit__facts">
-        <div><dt>Vollzitat</dt><dd>${escapeHtml(entry.citation)}</dd></div>
-        <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
-        <div><dt>Normtyp</dt><dd>${escapeHtml(entry.typeLabel)}</dd></div>
-        <div><dt>Rechtsherkunft</dt><dd>${escapeHtml(entry.originLabel)}</dd></div>
-        <div><dt>Ressort</dt><dd>${escapeHtml(entry.ministry) || 'keine Zuordnung'}</dd></div>
-        ${entry.publication ? `<div><dt>Verkündung</dt><dd>${publication}</dd></div>` : ''}
-      </dl>
-      ${hitLinks(entry, state)}
-      <p class="search-hit__context">${escapeHtml(clipContext(entry, state))}</p>
+      <p class="search-hit__match" data-search-match-kind="${escapeHtml(result.matchKind)}">${escapeHtml(result.matchLabel)}</p>
+      ${bestHitMarkup(result)}
+      ${context ? `<p class="search-hit__context">${escapeHtml(clipContext(context))}</p>` : ''}
+      ${entry.publication ? `<p class="search-hit__publication"><span>Fundstelle</span> ${publication}</p>` : ''}
+      <details class="search-hit__details">
+        <summary>Weitere Angaben</summary>
+        <dl class="search-hit__facts">
+          <div><dt>Vollzitat</dt><dd>${escapeHtml(entry.citation)}</dd></div>
+          <div><dt>Gültigkeit</dt><dd>${escapeHtml(validityLabel(entry))}</dd></div>
+          <div><dt>Rechtsherkunft</dt><dd>${escapeHtml(entry.originLabel)}</dd></div>
+          <div><dt>Ressort</dt><dd>${escapeHtml(entry.ministry) || 'keine Zuordnung'}</dd></div>
+        </dl>
+      </details>
       <nav class="search-hit__actions" aria-label="Aktionen für ${escapeHtml(entry.shortTitle || entry.title)}">
         <a href="${escapeHtml(entry.url)}">Öffnen</a>
         ${entry.publicationUrl ? `<a href="${escapeHtml(entry.publicationUrl)}">Fundstelle</a>` : ''}
-        <a href="${escapeHtml(`${entry.currentUrl}history/`)}">Änderungen anzeigen</a>
+        <a href="${escapeHtml(`${entry.currentUrl}history/`)}">Änderungen</a>
       </nav>
     </article>
   `;
 }
 
-function groupResults(results: SearchIndexDocument[]): Array<{ slug: string; entries: SearchIndexDocument[] }> {
-  const groups = new Map<string, SearchIndexDocument[]>();
-  for (const result of results) groups.set(result.slug, [...(groups.get(result.slug) ?? []), result]);
-  return [...groups.entries()].map(([slug, entries]) => ({ slug, entries }));
+interface SearchResultGroup {
+  slug: string;
+  entries: ScoredSearchResult[];
 }
 
-function updateFacetCounts(results: SearchIndexDocument[]): void {
+function groupResults(results: ScoredSearchResult[], state: NormSearchState): SearchResultGroup[] {
+  const groups = new Map<string, ScoredSearchResult[]>();
+  for (const result of results) groups.set(result.documentEntry.slug, [...(groups.get(result.documentEntry.slug) ?? []), result]);
+  return [...groups.entries()].map(([slug, entries]) => {
+    if (state.versionScope === 'all') {
+      const currentIndex = entries.findIndex((entry) => entry.documentEntry.versionKind === 'current');
+      if (currentIndex > 0) entries.unshift(...entries.splice(currentIndex, 1));
+    }
+    return { slug, entries };
+  });
+}
+
+function updateFacetCounts(results: ScoredSearchResult[]): void {
   const facets: Record<string, (entry: SearchIndexDocument) => string[]> = {
     type: (entry) => [entry.type],
     ministry: (entry) => [entry.ministry],
@@ -425,31 +487,69 @@ function updateFacetCounts(results: SearchIndexDocument[]): void {
     const getter = facets[input.dataset.searchFacet ?? ''];
     if (!getter) return;
     const counts = new Map<string, number>();
-    results.forEach((entry) => getter(entry).forEach((value) => counts.set(value, (counts.get(value) ?? 0) + 1)));
+    results.forEach(({ documentEntry }) => getter(documentEntry).forEach((value) => counts.set(value, (counts.get(value) ?? 0) + 1)));
     const count = counts.get(input.value) ?? 0;
     const countElement = input.closest('label')?.querySelector<HTMLElement>('[data-search-facet-count]');
     if (countElement) countElement.textContent = `(${count})`;
   });
 }
 
-function renderResults(results: SearchIndexDocument[], state: NormSearchState): void {
+function normalizations(value: string): string[] {
+  const transliterated = value
+    .replace(/ä/giu, 'ae')
+    .replace(/ö/giu, 'oe')
+    .replace(/ü/giu, 'ue')
+    .replace(/ß/giu, 'ss');
+  return [...new Set([normalizeSearchText(value), normalizeSearchText(transliterated)].filter(Boolean))];
+}
+
+function findPublicationDirectHit(publications: SearchPublication[], query: string): SearchPublication | undefined {
+  const queryForms = normalizations(query);
+  if (queryForms.length === 0) return undefined;
+  return publications.find((publication) => [publication.designation, ...publication.aliases]
+    .some((designation) => normalizations(designation).some((value) => queryForms.includes(value))));
+}
+
+function renderPublicationDirectHit(publication: SearchPublication | undefined): string {
+  if (!publication) return '';
+  return `<article class="search-publication-direct-hit">
+    <span class="law-type-label">Verkündungsblatt</span>
+    <div>
+      <h3><a class="inline-link" href="${escapeHtml(publication.url)}">${escapeHtml(publication.designation)}</a></h3>
+      <p>${escapeHtml(publication.title)}</p>
+    </div>
+    <a class="inline-link" href="${escapeHtml(publication.url)}">Ausgabe öffnen</a>
+  </article>`;
+}
+
+function sortLabel(state: NormSearchState): string {
+  const labels: Record<SortKey, string> = {
+    relevance: 'Relevanz',
+    publication: 'neuester Verkündung',
+    title: 'Titel A–Z',
+    rechtsstand: 'neuestem Rechtsstand',
+  };
+  return labels[getActiveSearchSort(state)];
+}
+
+function renderResults(results: ScoredSearchResult[], state: NormSearchState, publication?: SearchPublication): void {
   if (!summary || !resultsContainer || !moreButton) return;
-  const groups = groupResults(results);
+  const groups = groupResults(results, state);
   const visible = groups.slice(0, visibleGroups);
   if (groups.length === 0) {
     summary.textContent = 'Keine Treffer für die aktuelle Suchanfrage.';
-    resultsContainer.innerHTML = '';
+    resultsContainer.innerHTML = renderPublicationDirectHit(publication);
     moreButton.hidden = true;
     return;
   }
   const versionLabel = results.length === 1 ? '1 passende Fassung' : `${results.length} passende Fassungen`;
   const normLabel = groups.length === 1 ? 'einer Vorschrift' : `${groups.length} Vorschriften`;
-  summary.textContent = `${groups.length} Treffer: ${versionLabel} in ${normLabel}.`;
-  resultsContainer.innerHTML = `<ol class="record-list search-results__list">${visible.map((group) => {
+  summary.textContent = `${groups.length} Treffer: ${versionLabel} in ${normLabel}. Sortiert nach ${sortLabel(state)}.`;
+  resultsContainer.innerHTML = `${renderPublicationDirectHit(publication)}<ol class="record-list search-results__list">${visible.map((group) => {
     const [primary, ...others] = group.entries;
     return `<li class="record-list__item search-result-group">
-      ${renderVersion(primary, state)}
-      ${others.length > 0 ? `<details class="search-result-group__versions"><summary>${others.length} weitere passende ${others.length === 1 ? 'Fassung' : 'Fassungen'}</summary>${others.map((entry) => renderVersion(entry, state, false)).join('')}</details>` : ''}
+      ${renderVersion(primary)}
+      ${others.length > 0 ? `<details class="search-result-group__versions"><summary>${others.length} weitere passende ${others.length === 1 ? 'Fassung' : 'Fassungen'}</summary>${others.map((entry) => renderVersion(entry, false)).join('')}</details>` : ''}
     </li>`;
   }).join('')}</ol>`;
   moreButton.hidden = visible.length >= groups.length;
@@ -468,6 +568,7 @@ async function setupSearch(): Promise<void> {
     summary.textContent = 'Der Suchindex konnte nicht geladen werden.';
     return;
   }
+  const documents: PreparedSearchDocument[] = prepareSearchDocuments(payload.documents);
 
   const enableAmendmentsForExactSuggestion = () => {
     if (!includeAmendmentsInput || includeAmendmentsInput.checked) return;
@@ -475,7 +576,7 @@ async function setupSearch(): Promise<void> {
     if (!query) return;
     const selectedAmendment = payload.documents.some((entry) => entry.isAmendment
       && entry.versionKind === 'current'
-      && [entry.title, entry.shortTitle, entry.abbr, ...entry.keywords]
+      && [entry.title, entry.shortTitle, entry.abbr, ...(entry.aliases ?? [])]
         .some((value) => normalizeSearchText(value) === query));
     if (selectedAmendment) includeAmendmentsInput.checked = true;
   };
@@ -483,26 +584,42 @@ async function setupSearch(): Promise<void> {
   const run = (push = false, synchronizeSuggestion = false) => {
     if (synchronizeSuggestion) enableAmendmentsForExactSuggestion();
     const state = getFormState();
+    const sortInput = form.querySelector<HTMLSelectElement>('select[name="sort"]');
+    if (sortInput && !state.sortExplicit) sortInput.value = state.sort;
     writeStateToUrl(state, push);
     visibleGroups = PAGE_SIZE;
-    const scored = runNormSearch(payload.documents, state);
-    lastResults = scored.map((entry) => entry.documentEntry);
+    lastResults = runNormSearch(documents, state);
     lastState = state;
     updateFacetCounts(lastResults);
-    updateActiveFilterControls();
-    renderResults(lastResults, state);
+    const typeIntent = getDetectedNormTypeIntent(documents, state.q);
+    updateActiveFilterControls(typeIntent);
+    renderResults(lastResults, state, findPublicationDirectHit(payload.publications ?? [], state.q));
   };
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (inputTimer) window.clearTimeout(inputTimer);
     run(true, true);
   });
   for (const input of filterInputs) {
-    input.addEventListener('change', () => run(true));
+    input.addEventListener('change', () => {
+      if (input.name === 'sort') setSortExplicit(true);
+      if (input.name === 'versionScope') setVersionScopeExplicit(true);
+      run(true);
+    });
   }
-  queryInput.addEventListener('input', () => run(false, true));
+  queryInput.addEventListener('input', () => {
+    if (inputTimer) window.clearTimeout(inputTimer);
+    inputTimer = window.setTimeout(() => run(false, true), INPUT_DEBOUNCE_MS);
+  });
   activeFilterList?.addEventListener('click', (event) => {
     if (!(event.target instanceof HTMLButtonElement)) return;
+    if (event.target.dataset.searchRemoveIntent === 'type') {
+      const intent = getDetectedNormTypeIntent(documents, queryInput.value);
+      if (intent) queryInput.value = removeDetectedTypeIntent(queryInput.value, intent);
+      run(true);
+      return;
+    }
     const name = event.target.dataset.searchRemoveFilter;
     const value = event.target.dataset.searchRemoveValue;
     if (!name || value === undefined) return;
@@ -515,7 +632,7 @@ async function setupSearch(): Promise<void> {
   });
   moreButton.addEventListener('click', () => {
     visibleGroups += PAGE_SIZE;
-    if (lastState) renderResults(lastResults, lastState);
+    if (lastState) renderResults(lastResults, lastState, findPublicationDirectHit(payload.publications ?? [], lastState.q));
   });
   window.addEventListener('popstate', () => {
     applyStateToForm(readStateFromUrl());
