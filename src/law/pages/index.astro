@@ -46,6 +46,9 @@ const futureChanges = norms
 const latestPublications = [...publications]
   .sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'))
   .slice(0, 4);
+const homeSearchTypes = [...new Set(norms.map((norm) => norm.meta.type))]
+  .sort((left, right) => formatNormType(left).localeCompare(formatNormType(right), 'de'));
+const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 const quickAccess = [
   { title: 'Gesetze A–Z', text: 'Alphabetische Übersicht', href: getIndexUrl(), icon: 'law' as const },
   { title: 'Neue Regelungen', text: 'Nach Rechtsstand sortiert', href: `${getSearchUrl()}?sort=rechtsstand`, icon: 'calendar' as const },
@@ -71,13 +74,11 @@ const quickAccess = [
         <label class="visually-hidden" for="law-home-search">Gesetz, Verordnung, Paragraph oder Stichwort suchen</label>
         <div class="law-global-search__control">
           <PortalIcon name="search" />
-          <input id="law-home-search" type="search" name="q" autocomplete="off" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" />
+          <input id="law-home-search" type="search" name="q" autocomplete="off" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} />
           <label class="visually-hidden" for="law-home-type">Inhaltsart</label>
           <select id="law-home-type" name="type">
             <option value="">Alle Inhalte</option>
-            <option value="gesetz">Gesetze</option>
-            <option value="verordnung">Verordnungen</option>
-            <option value="verwaltungsvorschrift">Verwaltungsvorschriften</option>
+            {homeSearchTypes.map((type) => <option value={type}>{formatNormType(type)}</option>)}
           </select>
           <button type="submit">Suchen</button>
         </div>
@@ -87,6 +88,7 @@ const quickAccess = [
         <a href={`${getSearchUrl()}?type=gesetz`}>Gesetze</a>
         <a href={`${getSearchUrl()}?type=verordnung`}>Verordnungen</a>
         <a href={`${getSearchUrl()}?type=verwaltungsvorschrift`}>Verwaltungsvorschriften</a>
+        <a href={`${getSearchUrl()}?type=foerderrichtlinie`}>Förderrichtlinien</a>
         <a href={getPublicationsUrl()}>Verkündungsblätter</a>
         <a href={getSearchUrl()}>Mehr Filter</a>
       </nav>

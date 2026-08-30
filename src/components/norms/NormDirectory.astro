@@ -39,7 +39,7 @@ const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects.map(toDi
   <SectionHero eyebrow="Rechtsportal" title={title} lead={lead} variant="law" facts={[{ label: 'Vorschriften', value: String(norms.length) }]}>
     <form class="law-directory-search" action={getSearchUrl()} method="get">
       <input type="hidden" name="type" value={norms[0]?.meta.type ?? ''} />
-      <label class="search-field"><span>Volltextsuche in diesem Normtyp</span><input type="search" name="q" placeholder={`${title} durchsuchen`} /></label>
+      <label class="search-field"><span>Volltextsuche in diesem Normtyp</span><input type="search" name="q" placeholder={`${title} durchsuchen`} autocomplete="off" data-law-norm-autocomplete data-law-suggestions-url={`${import.meta.env.BASE_URL}search-suggestions.json`} /></label>
       <button class="button-link" type="submit">Suchen</button>
     </form>
   </SectionHero>

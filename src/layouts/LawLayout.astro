@@ -48,6 +48,7 @@ const coatOfArmsAssetUrl = `${base}${lawSiteConfig.officialCoatOfArmsAssetPath.r
 const smallFlagAssetUrl = `${base}${lawSiteConfig.officialFlagSmallAssetPath.replace(/^\//, '')}`;
 const analyticsEnabled = isAnalyticsEnabled();
 const loadPortalModules = scripts.includes('portal-modules');
+const searchSuggestionsUrl = `${base}search-suggestions.json`;
 
 function isActivePath(path: string): boolean {
   if (path === '/') return currentPath === '/';
@@ -110,7 +111,7 @@ const footerStateLinks = [
           <div class="law-header__utilities">
             <form class="law-header-search law-header-search--compact" action={getSearchUrl()} method="get" role="search">
               <label class="visually-hidden" for="law-header-search">Recht durchsuchen</label>
-              <input id="law-header-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" />
+              <input id="law-header-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} />
               <button type="submit" aria-label="Suchen"><PortalIcon name="search" /></button>
             </form>
             <a href={getAccessibilityUrl()} data-law-accessibility-link><PortalIcon name="accessibility" /><span>Barrierefreiheit</span></a>
@@ -123,7 +124,7 @@ const footerStateLinks = [
               <form action={getSearchUrl()} method="get" role="search">
                 <label for="law-mobile-search">{lawSiteConfig.searchLabel}</label>
                 <div>
-                  <input id="law-mobile-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" />
+                  <input id="law-mobile-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} />
                   <button type="submit">Suchen</button>
                 </div>
               </form>
@@ -180,6 +181,7 @@ const footerStateLinks = [
     {analyticsEnabled ? <AnalyticsConsentBanner /> : null}
     {analyticsEnabled ? <script>import '../scripts/analytics-consent.ts';</script> : null}
     {loadPortalModules ? <script>import '../scripts/portal-modules.ts';</script> : null}
+    <script>import '../scripts/norm-autocomplete.ts';</script>
     <script>import '../scripts/global.ts';</script>
   </body>
 </html>

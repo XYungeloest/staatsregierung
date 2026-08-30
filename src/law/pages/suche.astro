@@ -15,6 +15,7 @@ import {
 import { buildSearchIndexPayload } from '../../lib/norms/search.ts';
 
 const searchPayload = await buildSearchIndexPayload();
+const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 ---
 
 <LawLayout
@@ -41,15 +42,7 @@ const searchPayload = await buildSearchIndexPayload();
         <label class="law-search-query">
           <span class="visually-hidden">Suchbegriff</span>
           <PortalIcon name="search" />
-          <input type="search" name="q" autocomplete="off" list="norm-search-suggestions" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" data-search-query />
-          <datalist id="norm-search-suggestions">
-            {[...new Set(searchPayload.documents
-              .filter((entry) => entry.versionKind === 'current')
-              .flatMap((entry) => [entry.title, entry.shortTitle, entry.abbr, ...entry.keywords])
-              .filter(Boolean))]
-              .sort((left, right) => left.localeCompare(right, 'de'))
-              .map((suggestion) => <option value={suggestion} />)}
-          </datalist>
+          <input type="search" name="q" autocomplete="off" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" data-search-query data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} />
         </label>
         <label class="law-search-scope">
           <span class="visually-hidden">Suchbereich</span>
@@ -81,6 +74,13 @@ const searchPayload = await buildSearchIndexPayload();
 
               <div class="law-search-filter-basics">
             <label class="search-field">
+              <span>Normtyp</span>
+              <select name="type" data-search-filter="type">
+                <option value="">Alle Normtypen</option>
+                {searchPayload.filters.types.map((type) => <option value={type.value}>{type.label}</option>)}
+              </select>
+            </label>
+            <label class="search-field">
               <span>Fassung</span>
               <select name="versionScope" data-search-filter="versionScope">
                 <option value="current" selected>Geltende Fassungen</option>
@@ -105,7 +105,7 @@ const searchPayload = await buildSearchIndexPayload();
             </label>
               </div>
 
-              <details class="search-filter-panel" data-search-filter-panel="more" open>
+              <details class="search-filter-panel" data-search-filter-panel="more">
             <summary><span>Norm und Zuständigkeit</span><span class="search-filter-panel__count" data-search-panel-count></span></summary>
             <div class="search-filter-panel__content">
               <SearchCheckboxGroup legend="Normtypen" name="type" facet="type" options={searchPayload.filters.types} />

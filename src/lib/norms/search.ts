@@ -16,6 +16,7 @@ import {
   buildNormPublicationReferenceLookup,
   loadAllVerkuendungen,
   type NormPublicationReference,
+  type Verkuendung,
 } from './publications.ts';
 import { getNormUrl, getNormVersionUrl, getPublicationUrl } from './routes.ts';
 import { getNormVersionIdentity } from './identity.ts';
@@ -45,6 +46,8 @@ export interface SearchIndexDocument {
   title: string;
   shortTitle: string;
   abbr: string;
+  /** Historische oder alternative öffentliche Bezeichnungen derselben Norm. */
+  aliases?: string[];
   type: string;
   typeLabel: string;
   ministry: string;
@@ -106,6 +109,36 @@ export interface SearchIndexPayload {
   };
   filters: SearchFilterOptions;
   documents: SearchIndexDocument[];
+  publications: SearchPublication[];
+}
+
+/** Kleine, normzentrierte Datenquelle für alle Titel-/Abkürzungsvorschläge. */
+export interface SearchSuggestion {
+  slug: string;
+  url: string;
+  title: string;
+  shortTitle: string;
+  abbr: string;
+  aliases: string[];
+  typeLabel: string;
+}
+
+export interface SearchSuggestionPayload {
+  generatedAt: string;
+  suggestions: SearchSuggestion[];
+}
+
+/** Verkündungsdaten für den einzelnen Direkttreffer oberhalb der Normtreffer. */
+export interface SearchPublication {
+  slug: string;
+  url: string;
+  title: string;
+  designation: string;
+  aliases: string[];
+  date: string;
+  publication: string;
+  year: string;
+  issue: string;
 }
 
 interface CollectedBodyContent {
@@ -222,6 +255,25 @@ export function isAmendmentRecord(record: Pick<NormRecord, 'meta'>): boolean {
   );
 }
 
+function getNormAliases(record: NormRecord, currentIdentity: ReturnType<typeof getNormVersionIdentity>): string[] {
+  const currentValues = new Set([
+    currentIdentity.title,
+    currentIdentity.shortTitle,
+    currentIdentity.abbr ?? '',
+  ].map((value) => toDisplayText(value).trim()).filter(Boolean));
+  const aliases = new Set<string>();
+
+  for (const version of record.versions) {
+    const identity = getNormVersionIdentity(record, version);
+    for (const value of [identity.title, identity.shortTitle, identity.abbr]) {
+      const alias = toDisplayText(value).trim();
+      if (alias && !currentValues.has(alias)) aliases.add(alias);
+    }
+  }
+
+  return [...aliases].sort(compareStrings);
+}
+
 function buildSearchDocument(
   record: NormRecord,
   version: NormVersion,
@@ -229,6 +281,7 @@ function buildSearchDocument(
   publicationReference?: NormPublicationReference,
 ): SearchIndexDocument {
   const identity = getNormVersionIdentity(record, version);
+  const aliases = getNormAliases(record, identity);
   const { supplementalTextParts, hitUnits } = collectBodyContent(version.body);
   const agreementText = record.meta.agreementDetails
     ? [
@@ -269,6 +322,7 @@ function buildSearchDocument(
     title: toDisplayText(identity.title),
     shortTitle: toDisplayText(identity.shortTitle),
     abbr: toDisplayText(identity.abbr),
+    aliases,
     type: record.meta.type,
     typeLabel: formatNormType(record.meta.type),
     ministry: toDisplayText(record.meta.responsibleMinistry),
@@ -298,6 +352,53 @@ function buildSearchDocument(
     bodySupplement: [...agreementText, ...supplementalTextParts].join('\n\n'),
     hitUnits,
     resultLabel,
+  };
+}
+
+function buildSearchSuggestions(records: NormRecord[]): SearchSuggestion[] {
+  return records.flatMap((record) => {
+    const version = record.versions.find((entry) => classifyNormVersion(record, entry) === 'current');
+    if (!version) return [];
+    const identity = getNormVersionIdentity(record, version);
+    return [{
+      slug: record.meta.slug,
+      url: getNormUrl(record.meta.slug),
+      title: toDisplayText(identity.title),
+      shortTitle: toDisplayText(identity.shortTitle),
+      abbr: toDisplayText(identity.abbr),
+      aliases: getNormAliases(record, identity),
+      typeLabel: formatNormType(record.meta.type),
+    }];
+  }).sort((left, right) => left.title.localeCompare(right.title, 'de'));
+}
+
+function buildSearchPublications(publications: Verkuendung[]): SearchPublication[] {
+  return publications.map((publication) => {
+    const designation = `${publication.publication} ${publication.year} Nr. ${publication.issue}`;
+    const aliases = [
+      publication.originalIssueDesignation,
+      publication.alternativeIssueDesignation,
+      publication.title,
+    ].filter((value): value is string => Boolean(value && value !== designation));
+    return {
+      slug: publication.slug,
+      url: getPublicationUrl(publication.slug),
+      title: toDisplayText(publication.title),
+      designation,
+      aliases,
+      date: publication.date,
+      publication: publication.publication,
+      year: String(publication.year),
+      issue: publication.issue,
+    };
+  });
+}
+
+export async function buildSearchSuggestionPayload(): Promise<SearchSuggestionPayload> {
+  const records = await loadAllNorms();
+  return {
+    generatedAt: new Date().toISOString(),
+    suggestions: buildSearchSuggestions(records),
   };
 }
 
@@ -385,5 +486,6 @@ export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
       : undefined,
     filters,
     documents,
+    publications: buildSearchPublications(publications),
   };
 }
