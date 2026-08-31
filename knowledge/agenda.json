@@ -1,0 +1,491 @@
+{
+  "asOf": "2026-08-31",
+  "purpose": "Interne, nicht öffentlich ausgelieferte Planungs- und Gesetzgebungsagenda. Sie dokumentiert politische Vorhaben getrennt vom geltenden Rechtsstand und von bereits begonnenen Gesetzgebungsverfahren.",
+  "sourceBasis": [
+    {
+      "type": "programme",
+      "title": "Regierungsprogramm des Roten Aufbruchs zur 8. Volkskammerwahl",
+      "inputDate": "2026-08-31",
+      "role": "planning-context",
+      "note": "Das Programm belegt politische Zielsetzungen und angekündigte Vorhaben, nicht deren Beschluss, Verkündung, Inkrafttreten oder Vollzug."
+    },
+    {
+      "type": "editorial-agenda",
+      "title": "Redaktionell bestätigte Gesetzesideen aus der Projektarbeit",
+      "inputDate": "2026-08-31",
+      "role": "planning-context",
+      "note": "Enthält nur ausdrücklich als ostdeutsche Vorhaben weiterzuverfolgende Ideen. Westdeutsche Fremdentwürfe und bereits erledigte Normvorhaben werden nicht als offen geführt."
+    }
+  ],
+  "politicalContext": {
+    "election": "Wahl zur 8. Ostdeutschen Volkskammer",
+    "electionStartDate": "2026-09-05",
+    "electionEndDate": "2026-09-06",
+    "jointList": {
+      "name": "Roter Aufbruch",
+      "abbreviation": "RA",
+      "participants": [
+        "Volksfront",
+        "Bündnis Demokratie Europa (DEMOS)"
+      ],
+      "character": "gemeinsame Wahlliste",
+      "partyContinuity": "Volksfront und DEMOS behalten ihre eigenständigen politischen Identitäten; Roter Aufbruch wird nicht als dauerhafte Umbenennung beider Parteien behandelt."
+    },
+    "programme": "Regierungsprogramm des Roten Aufbruchs zur 8. Volkskammerwahl",
+    "first100DaysFramework": "Aufbauprogramm 2030"
+  },
+  "stageDefinitions": {
+    "idea": "redaktionell festgehaltene Idee ohne Programmbindung oder amtliches Verfahren",
+    "programme": "im Wahl- oder Regierungsprogramm politisch angekündigt",
+    "conditional-programme": "Programmvorhaben unter einer ausdrücklich genannten Bedingung",
+    "concept": "inhaltlich bereits näher konzipiertes, aber noch nicht eingebrachtes Vorhaben",
+    "drafting": "konkrete Entwurfsarbeit läuft oder liegt bereits vor",
+    "introduced": "förmliches Gesetzgebungsverfahren begonnen",
+    "promulgated": "verkündet; ab diesem Punkt ist für die Rechtslage der Normbestand maßgeblich",
+    "implementation": "verkündete Regelung befindet sich im praktischen Vollzug"
+  },
+  "baselineRules": [
+    "Diese Datei ist keine Rechtsquelle und kein Ersatz für content/normen, content/verkuendungen, current-state.json oder proceedings.json.",
+    "Vor jedem neuen Gesetzesentwurf ist gegen den aktuellen ostdeutschen Normbestand zu prüfen, ob bereits eine Stammnorm, Änderungsvorschrift oder funktional gleichwertige Regelung besteht.",
+    "Übernommenes westdeutsches oder sächsisches Vergleichsrecht wird nicht allein deshalb zu einem ostdeutschen Agenda-Vorhaben.",
+    "Bereits verkündete Projekte werden nicht als unerledigte Gesetzesidee erneut geführt; offen bleiben nur klar bezeichnete Folge- oder Ausbauvorhaben.",
+    "Besondere Gesetze und das Zinnwaldgesetz werden in dieser Agenda nicht als neue offene Vorhaben dupliziert, soweit sie bereits anderweitig im Hub oder in laufender Entwurfsarbeit geführt werden."
+  ],
+  "baselineCorrections": [
+    {
+      "topic": "Landesbank",
+      "currentState": "Die Landesbank an der Elbe besteht bereits auf Grundlage des geltenden Ostdeutschen Landesbankgesetzes.",
+      "agendaMeaning": "Offen ist der Ausbau zur Investitions- und Transformationsbank sowie ein gesellschaftlicher Vermögensfonds, nicht die erstmalige Errichtung einer Landesbank."
+    },
+    {
+      "topic": "Waldrecht",
+      "currentState": "Ein Ostdeutsches Waldgesetz besteht bereits im Rechtsbestand.",
+      "agendaMeaning": "Waldschutz, Waldumbau und Klimaanpassung sind als Novelle, Vollzugsprogramm oder ergänzendes Fachrecht zu prüfen, nicht automatisch als neues Stammgesetz."
+    },
+    {
+      "topic": "SERO",
+      "currentState": "Das SERO-System ist seit 21. Juli 2026 normativ eingeführt.",
+      "agendaMeaning": "Offen sind Ausbau von Re-Use, Reparatur, Baustoffwiederverwendung und öffentlicher Rohstoffrückgewinnung sowie gegebenenfalls ein Kreislaufwirtschaftskombinat."
+    },
+    {
+      "topic": "Große Staatsreform",
+      "currentState": "Die vier Gesetze zur Großen Staatsreform sind seit 21. Juli 2026 in Kraft.",
+      "agendaMeaning": "Die im RA-Programm vorgesehene Sozialistische Verfassungsnovelle ist ein neues Folgevorhaben und wird nicht mit der abgeschlossenen Großen Staatsreform gleichgesetzt."
+    },
+    {
+      "topic": "Sportneuordnung",
+      "currentState": "Das Sportneuordnungsgesetz ist bereits Teil des Rechtsbestands.",
+      "agendaMeaning": "Kein offenes Neuordnungsgesetz; nur spätere konkrete Ausbauvorhaben wären neu zu erfassen."
+    }
+  ],
+  "first100Days": [
+    {
+      "id": "agenda-socialistische-verfassungsnovelle",
+      "title": "Sozialistische Verfassungsnovelle",
+      "stage": "conditional-programme",
+      "priority": "first-100-days",
+      "condition": "Mehrheitliches Ja zur ersten Frage der Volksbefragung 2026.",
+      "scope": [
+        "demokratischer Sozialismus als Staatsausrichtung",
+        "demokratische Bindung wirtschaftlicher Macht",
+        "Wirtschaftsplanung als Staatsauftrag",
+        "soziale Grundrechte",
+        "verstärkter Schutz öffentlichen Eigentums",
+        "Beteiligungsrechte von Beschäftigten, Nutzern und Kommunen",
+        "Genossenschaften und Belegschaftseigentum"
+      ],
+      "baseline": "Eigenständiges Folgevorhaben nach der bereits in Kraft getretenen Großen Staatsreform."
+    },
+    {
+      "id": "agenda-wirtschaftsplanung-gemeinwirtschaft",
+      "title": "Wirtschaftsplanungs- und Gemeinwirtschaftsgesetz",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Staatsplankommission Ost",
+        "Landeswirtschaftsrat",
+        "Perspektivplan 2040",
+        "demokratischer Fünfjahrplan",
+        "Jahreswirtschaftsplan",
+        "Netz-, Speicher- und Standortplanung",
+        "öffentlicher Speicherplan Ost",
+        "Netzanschlussbörse"
+      ]
+    },
+    {
+      "id": "agenda-oeffentliche-hand-industrie",
+      "title": "Holding Öffentliche Hand, Industriestiftung Ost und zweite Vergesellschaftungsagenda",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Landesbeteiligungsholding Öffentliche Hand",
+        "Industriestiftung Ost",
+        "Vergesellschaftungsplan 2035",
+        "strategische Produktionskapazitäten",
+        "Abfall- und Recyclingstrukturen",
+        "digitale Netze und Recheninfrastruktur",
+        "Pflege- und Gesundheitskonzerne",
+        "gesellschaftliche Gegenleistung bei großen Unternehmenssubventionen"
+      ]
+    },
+    {
+      "id": "agenda-gute-arbeit-arbeitszeit",
+      "title": "Gute-Arbeit- und Arbeitszeitgesetz",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Arbeiterkammer Ost",
+        "Ausbildungsgarantie",
+        "solidarischer Ausbildungsfonds",
+        "stärkere Tariftreue",
+        "35-Stunden-Woche bei vollem Lohnausgleich",
+        "Pfad zur 32-Stunden-Woche",
+        "dynamischer Zukunftslohn",
+        "Recht auf Nichterreichbarkeit",
+        "Schutz vor permanenter digitaler Leistungskontrolle",
+        "demokratische Unternehmensverfassung in großen öffentlichen Unternehmen"
+      ]
+    },
+    {
+      "id": "agenda-wohnen-housing-first",
+      "title": "Wohnungsschutz- und Housing-First-Paket",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Landeswohnungsaufsicht",
+        "Mietkataster und Instandhaltungskontrolle",
+        "Leerstandsregime und Aktivierungsinstrumente",
+        "Housing-First-Gesetz",
+        "Schutz vor Entlassung in die Obdachlosigkeit bei öffentlichen Vermietern",
+        "soziale Mietbelastungsgrenze",
+        "öffentliches Wohnungsbaujahrzehnt",
+        "öffentliche Bau- und Sanierungskapazitäten"
+      ]
+    },
+    {
+      "id": "agenda-grundversorgung-ii",
+      "title": "Grundversorgungspaket II",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Sperrenschutz bei Strom und Wärme",
+        "entgeltfreier Energiegrundbedarf für einkommensarme Haushalte",
+        "automatischer Sozialpass",
+        "allgemeiner ÖPNV-Nulltarif",
+        "soziale Mietbelastungsgrenze im gemeinwirtschaftlichen Wohnungsbestand",
+        "Oststrom-Ortsdividende"
+      ]
+    },
+    {
+      "id": "agenda-kommunaler-aufbau",
+      "title": "Kommunales Aufbau- und Beteiligungsgesetz",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Kommunaler Entschuldungsfonds Ost und Altschuldenhilfe",
+        "Reform des kommunalen Finanzausgleichs",
+        "Sondervermögen Kommunale Infrastruktur",
+        "Fonds für kommunale Souveränität",
+        "verbindlicher Infrastrukturatlas",
+        "stärkere kommunale Beteiligung an Landesgesetzgebung",
+        "Dorf- und Quartiersbüros",
+        "dezentrale öffentliche Arbeitsorte"
+      ]
+    },
+    {
+      "id": "agenda-digitale-souveraenitaet",
+      "title": "Gesetz über die digitale Souveränität",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Public Money, Public Code",
+        "offene Standards und dokumentierte Schnittstellen",
+        "öffentliche Cloud-, Identitäts- und Kommunikationsinfrastruktur",
+        "Vermeidung von Vendor-Lock-in",
+        "Landesamt für algorithmische Kontrolle",
+        "öffentliches KI-Register Ost",
+        "Folgenabschätzung für besonders folgenreiche automatisierte Systeme",
+        "menschliche Letztentscheidung",
+        "Erklärungsrechte",
+        "Once-Only-Prinzip"
+      ]
+    },
+    {
+      "id": "agenda-industriekonversion",
+      "title": "Industriekonversions- und Belegschaftssicherungsgesetz",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Transformationsfonds",
+        "zivile Konversion",
+        "Beschäftigungs- und Qualifizierungssicherung",
+        "Landesagentur Belegschaft übernimmt",
+        "Belegschaftsunternehmen und Genossenschaften",
+        "öffentliches Managementkorps"
+      ]
+    },
+    {
+      "id": "agenda-gesundheit-pflege-ausbau",
+      "title": "Ausbaugesetz öffentliche Gesundheit und Pflege",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Polikliniken und Gesundheitszentren",
+        "Sorgezentren",
+        "Pflegestützpunkte und Gemeindepflege",
+        "Landespflegewerk Ost",
+        "Landeskrankenhaus-Holding",
+        "öffentlicher Apothekenbetrieb in unterversorgten Räumen",
+        "öffentliche Beschaffung und perspektivische Produktion wichtiger patentfreier Arzneimittel"
+      ]
+    },
+    {
+      "id": "agenda-investitionsbank-vermoegensfonds",
+      "title": "Landesinvestitionsbank- und Vermögensfondsgesetz",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "Ausbau der bestehenden Landesbank an der Elbe zur Investitions- und Transformationsbank",
+        "gesellschaftlicher Vermögensfonds",
+        "Rückflüsse aus öffentlichen Beteiligungen, Boden und Förderdarlehen für neue Investitionen"
+      ],
+      "baseline": "Die Landesbank besteht bereits; keine erneute Errichtung."
+    },
+    {
+      "id": "agenda-kostenfreie-kindheit-bildung",
+      "title": "Kostenfreie-Kindheit- und Bildungspaket",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "kostenfreies Schulessen",
+        "kostenfreie Lernmittel und wesentliche schulische Angebote",
+        "Familienservicehäuser",
+        "Kinderrechts-Budget",
+        "Jugendortgarantie",
+        "Kinder- und Jugendinfrastrukturbericht",
+        "Bildungscampus Ost",
+        "Bezirkskollegs und dezentrale Campusstandorte",
+        "IT-Akademie Ada Lovelace",
+        "Hochschulsozialpakt Ost",
+        "Mensa-Grundgericht bis höchstens 2,50 Euro",
+        "Produktionsschulen und Landeswerkstätten"
+      ]
+    },
+    {
+      "id": "agenda-demokratiepaket",
+      "title": "Demokratiepaket",
+      "stage": "programme",
+      "priority": "first-100-days",
+      "scope": [
+        "dauerhaftes Volksbefragungsgesetz",
+        "Einwohnerinitiative zur Volkskammer mit vorgesehener Einstiegsschwelle von 1.000 Unterstützern",
+        "verbindliche Bürgerräte",
+        "stärkere kommunale Beteiligungsrechte",
+        "Nutzerbeiräte und Rechenschaftspflichten öffentlicher Unternehmen",
+        "unabhängige Antikorruptionsstelle",
+        "Recht auf analoges Amt",
+        "Armuts- und soziale Folgenprüfung für Gesetze und große öffentliche Investitionen"
+      ]
+    }
+  ],
+  "additionalProgrammeAgenda": [
+    {
+      "id": "agenda-ticketfreier-osten",
+      "title": "Ticketfreier Osten und Mobilitätsgarantie",
+      "stage": "programme",
+      "scope": [
+        "allgemeiner Nulltarif im landesfinanzierten Nahverkehr",
+        "Halbstundentakt auf Hauptachsen",
+        "perspektivischer Nachtverkehr",
+        "Mobilitätsgarantie für jede bewohnte Gemeinde",
+        "öffentlicher Mobilitätsverbund einschließlich Rufbus, Fahrrad, Lastenrad und Carsharing",
+        "langfristiger Fahrzeug- und Werkstattplan der Ostdeutschen Eisenbahn",
+        "Reaktivierung geeigneter Verbindungen und Haltepunkte",
+        "öffentliche Güterlogistik, Güterbahnhöfe, Anschlussgleise, Mikrodepots und geeignete Güterstraßenbahnen"
+      ]
+    },
+    {
+      "id": "agenda-konsum-ost-kreislaufwirtschaft",
+      "title": "Konsum Ost, Grundwarenkorb und Ausbau der öffentlichen Kreislaufwirtschaft",
+      "stage": "programme",
+      "scope": [
+        "Netzwerk Konsum Ost mit Genossenschaften, öffentlichen Agrarbetrieben und regionalen Produzenten",
+        "Ostdeutscher Grundwarenkorb mit transparenten Kosten und niedrigen Margen",
+        "Grundversorgung in Orten mit Rückzug des privaten Einzelhandels",
+        "öffentliche Kantinen als Anker regionaler Ernährungswirtschaft",
+        "öffentliche Agrarbetriebe",
+        "öffentliches Kreislaufwirtschaftskombinat für Re-Use, Reparatur, Baustoffwiederverwendung, Recycling und Rohstoffrückgewinnung"
+      ],
+      "note": "Eine frühere Handelsorganisation/HO-Ost-Konzeption bleibt eine mögliche Organisationsvariante, ist aber nicht mit dem ausdrücklich im Programm genannten Konsum-Ost-Modell gleichzusetzen."
+    },
+    {
+      "id": "agenda-klimaschutz-anpassung",
+      "title": "Klimaschutz- und Klimaanpassungspaket",
+      "stage": "programme",
+      "scope": [
+        "öffentliche, kommunale und genossenschaftliche erneuerbare Energien",
+        "warmmietenneutrale energetische Sanierung gemeinwirtschaftlicher Wohnungen",
+        "Renaturierung von Mooren, Auen und Tagebaufolgelandschaften",
+        "Hochwasser- und Küstenschutz",
+        "Programm Kühler Osten",
+        "kommunale Klimaanpassungspläne",
+        "verbindliche Hitzevorsorge in sensiblen öffentlichen Einrichtungen",
+        "Stadtbegrünung, Trinkwasserstellen und Entsiegelung",
+        "Schwammstädte und Schwammdörfer",
+        "Netto-Null-Pfad bei Flächenversiegelung"
+      ],
+      "targetInstrument": "Zu prüfen sind ein Klimarahmengesetz sowie Änderungen bestehenden Fachrechts; das Programm legt die konkrete Normtechnik nicht abschließend fest."
+    },
+    {
+      "id": "agenda-kultur-grundversorgung",
+      "title": "Kultur als Grundversorgung",
+      "stage": "programme",
+      "scope": [
+        "Kulturhäuser der Grundversorgung",
+        "Weiterentwicklung des Kulturpasses",
+        "Landesfonds für Musiklizenzkosten begrenzter nichtkommerzieller Veranstaltungen",
+        "Mindesthonorare für landesgeförderte Kunst und Kultur",
+        "unabhängige öffentliche Stiftung für nichtkommerziellen Lokaljournalismus, Community-Medien und Mediengenossenschaften"
+      ]
+    },
+    {
+      "id": "agenda-ostsee-nachbarschaft-bundesrat",
+      "title": "Nachbarschafts-, Ostsee- und Bundesratsagenda",
+      "stage": "programme",
+      "scope": [
+        "vertiefte Zusammenarbeit mit Polen und Tschechien",
+        "Ostseestrategie für Häfen, Werften, Energie, Wissenschaft, Klimaschutz und Verkehr",
+        "Zusammenarbeit mit skandinavischen Staaten",
+        "Bundesratsinitiativen für Investitionsspielräume, Arbeitnehmerrechte, Vermögens- und Erbschaftsbesteuerung, Gemeinwirtschaft und soziale Sicherung"
+      ]
+    },
+    {
+      "id": "agenda-olympia",
+      "title": "Olympia-Folgeagenda",
+      "stage": "conditional-programme",
+      "condition": "Nur bei einem Ja zur Olympia-Frage der Volksbefragung 2026.",
+      "scope": [
+        "keine Verdrängung von Mietern",
+        "keine dauerhafte Privatisierung öffentlichen Bodens",
+        "keine dauerhaften Sportstättenruinen",
+        "keine geheimen Garantien zugunsten privater Investoren",
+        "keine sozialen Kürzungen zur Finanzierung",
+        "langfristiger Nutzen für öffentlichen Verkehr, Wohnungsbau, Breitensport und Barrierefreiheit"
+      ]
+    }
+  ],
+  "editoriallyConfirmedAdditionalProjects": [
+    {
+      "id": "agenda-interflug",
+      "title": "Interflug und staatliche Lösch- und Katastrophenschutzflugstaffel",
+      "stage": "concept",
+      "scope": [
+        "Wiedererrichtung der Interflug als öffentliches Luftverkehrsunternehmen",
+        "Aufbau einer staatlichen Lösch- und Katastrophenschutzflugstaffel",
+        "Möglichkeit eines späteren kommerziellen Luftverkehrsbetriebs",
+        "erforderliche Kapitalausstattung und Nachtragshaushaltsregelungen"
+      ],
+      "note": "Im aktuellen Rechtsbestand wurde kein Interfluggesetz festgestellt."
+    },
+    {
+      "id": "agenda-duale-hochschule",
+      "title": "Duale Hochschule Ostdeutschland",
+      "stage": "concept",
+      "scope": [
+        "Zusammenführung dualer Hochschulstrukturen zu einer Dualen Hochschule Ostdeutschland",
+        "gemeinsame institutionelle und hochschulrechtliche Ordnung",
+        "dezentrale Studienakademien und mögliche Studienzentren"
+      ],
+      "note": "Kein entsprechendes ostdeutsches Stammgesetz wurde beim letzten Abgleich festgestellt."
+    },
+    {
+      "id": "agenda-rohstoffholding-generationenfonds",
+      "title": "Rohstoffholding, öffentliches Bergbauunternehmen und Zukunfts- bzw. Generationenfonds",
+      "stage": "concept",
+      "scope": [
+        "Ostdeutsche Rohstoffholding",
+        "öffentliches Bergbauunternehmen",
+        "staatliche Beteiligungen an strategischen Rohstoffvorhaben wie Lithium, Kupfer und Kali",
+        "langfristige Sammlung gemeinwirtschaftlicher Rohstofferträge in einem Zukunfts- bzw. Generationenfonds"
+      ],
+      "note": "Das gesonderte Zinnwaldgesetz wird hier nicht dupliziert. Dieser Komplex ist vom allgemeinen gesellschaftlichen Vermögensfonds des RA-Programms begrifflich und organisatorisch zu unterscheiden, kann später aber mit ihm koordiniert werden."
+    },
+    {
+      "id": "agenda-staatsschutz-nachrichtendienst",
+      "title": "Neuordnung von Staatsschutz und Nachrichtendienst",
+      "stage": "concept",
+      "scope": [
+        "Neuordnung des Nachrichtendienstrechts",
+        "demokratische, parlamentarische und gerichtliche Kontrolle",
+        "klare Trennung und Zusammenarbeit von Nachrichtendienst und polizeilichem Staatsschutz",
+        "Sabotage- und Spionageabwehr",
+        "Sicherheitsüberprüfung besonders sensibler Bereiche"
+      ],
+      "note": "Neutraler Projekttitel; umgangssprachliche Arbeitsbegriffe wie Geheimpolizei sind keine kanonische Behördenbezeichnung."
+    },
+    {
+      "id": "agenda-kommunales-hinweisgeberrecht",
+      "title": "Kommunales Hinweisgebermeldestellengesetz",
+      "stage": "drafting",
+      "scope": [
+        "interne Meldestellen bei Gemeinden und Bezirken",
+        "Einbeziehung von Zweckverbänden und kommunalen Unternehmen",
+        "Beschäftigtenschwelle",
+        "gemeinsame Meldestellen mehrerer kommunaler Träger",
+        "Verweisung auf das Bundes-Hinweisgeberschutzgesetz im Übrigen"
+      ],
+      "note": "Als ostdeutsches Vorhaben weiterzuführen; die spätere sächsische Einführung nach dem Übernahmestichtag ist Vergleichsrecht und kein ostdeutscher Rechtsbestand."
+    },
+    {
+      "id": "agenda-waldorf-privatschulreform",
+      "title": "Waldorf- und Privatschulreform",
+      "stage": "concept",
+      "scope": [
+        "Überprüfung bestehender Waldorf-Sonderregelungen",
+        "Sicherung der Privatschulfreiheit",
+        "konsequenteres Sonderungsverbot",
+        "soziale Schulgeldregelungen",
+        "Transparenz und soziale Zugänglichkeit"
+      ],
+      "note": "Bestehende Prüfungs- und Schulnormen sind vor einer Änderung als Rechtsbaseline zu prüfen."
+    },
+    {
+      "id": "agenda-waldschutz-novelle",
+      "title": "Waldschutz- und Waldumbauoffensive",
+      "stage": "idea",
+      "scope": [
+        "klimaresilienter Waldumbau",
+        "Mischwald und natürliche Waldentwicklung",
+        "Schutz natürlicher Kohlenstoffsenken",
+        "Verknüpfung von Waldrecht, Klimaanpassung und Naturvermögen"
+      ],
+      "targetInstrument": "Vorrangig Novelle des bestehenden Ostdeutschen Waldgesetzes und ergänzende Programme oder Verordnungen prüfen."
+    }
+  ],
+  "explicitExclusions": [
+    {
+      "topic": "Hochschulbeamtenverbot aus einem westdeutschen Fremdentwurf",
+      "reason": "Die Prüfung eines westdeutschen Gesetzesentwurfs begründet ohne gesonderte politische Festlegung kein ostdeutsches Agenda-Vorhaben."
+    },
+    {
+      "topic": "Erneute Errichtung der Landesbank",
+      "reason": "Die Landesbank an der Elbe besteht bereits."
+    },
+    {
+      "topic": "SERO-Neueinführung",
+      "reason": "Die SERO-Verordnung ist bereits in Kraft."
+    },
+    {
+      "topic": "Sportneuordnungsgesetz als offenes Vorhaben",
+      "reason": "Das Sportneuordnungsgesetz gehört bereits zum Rechtsbestand."
+    },
+    {
+      "topic": "Große Staatsreform als offenes Vorhaben",
+      "reason": "Die Reformgesetze sind bereits in Kraft; offen ist nur eine neue, inhaltlich eigenständige Sozialistische Verfassungsnovelle."
+    }
+  ],
+  "maintenance": {
+    "rule": "Sobald ein Agenda-Vorhaben in ein förmliches Verfahren übergeht, ist der konkrete Vorgang in proceedings.json zu dokumentieren. Nach Verkündung bestimmt der Normbestand den Rechtsstatus; die Agenda bleibt nur für noch offene Folgeziele relevant.",
+    "recommendedNextReview": "nach der Wahl zur 8. Volkskammer und nach Vorliegen der Ergebnisse der Volksbefragung 2026"
+  }
+}
