@@ -4,6 +4,10 @@ import type { SearchSuggestion, SearchSuggestionPayload } from '../lib/norms/sea
 const inputs = Array.from(document.querySelectorAll<HTMLInputElement>('[data-law-norm-autocomplete]'));
 let suggestionRequest: Promise<SearchSuggestion[]> | undefined;
 let nextListId = 0;
+const VIEWPORT_GUTTER = 8;
+const LIST_GAP = 4;
+const DESIRED_LIST_HEIGHT = 9 * 44;
+const PREFERRED_MINIMUM_HEIGHT = 180;
 
 function getSearchVariants(value: string): string[] {
   const transliterated = value
@@ -79,10 +83,33 @@ for (const input of inputs) {
   const positionList = () => {
     if (!isOpen) return;
     const box = input.getBoundingClientRect();
-    list.style.left = `${Math.max(8, box.left)}px`;
-    list.style.top = `${box.bottom + 4}px`;
-    list.style.width = `${Math.min(window.innerWidth - 16, box.width)}px`;
-    list.style.maxHeight = `${Math.max(9 * 44, window.innerHeight - box.bottom - 16)}px`;
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    const width = Math.min(Math.max(0, viewportWidth - 2 * VIEWPORT_GUTTER), box.width);
+    const left = Math.min(
+      Math.max(VIEWPORT_GUTTER, box.left),
+      Math.max(VIEWPORT_GUTTER, viewportWidth - VIEWPORT_GUTTER - width),
+    );
+    const spaceBelow = Math.max(0, viewportHeight - box.bottom - LIST_GAP - VIEWPORT_GUTTER);
+    const spaceAbove = Math.max(0, box.top - LIST_GAP - VIEWPORT_GUTTER);
+    const opensAbove = spaceBelow < PREFERRED_MINIMUM_HEIGHT && spaceAbove > spaceBelow;
+    const availableSpace = opensAbove ? spaceAbove : spaceBelow;
+    const height = Math.min(
+      DESIRED_LIST_HEIGHT,
+      availableSpace,
+      Math.max(0, viewportHeight - 2 * VIEWPORT_GUTTER),
+    );
+    const intendedTop = opensAbove ? box.top - LIST_GAP - height : box.bottom + LIST_GAP;
+    const top = Math.min(
+      Math.max(VIEWPORT_GUTTER, intendedTop),
+      Math.max(VIEWPORT_GUTTER, viewportHeight - VIEWPORT_GUTTER - height),
+    );
+
+    list.style.left = `${left}px`;
+    list.style.top = `${top}px`;
+    list.style.width = `${width}px`;
+    list.style.maxHeight = `${height}px`;
+    list.dataset.position = opensAbove ? 'above' : 'below';
   };
 
   const close = () => {
@@ -177,4 +204,5 @@ for (const input of inputs) {
 
   window.addEventListener('resize', positionList);
   window.addEventListener('scroll', positionList, true);
+  window.addEventListener('orientationchange', positionList);
 }

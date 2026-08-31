@@ -83,6 +83,12 @@ export interface SearchHitUnit {
   title: string;
   text: string;
   anchor: string;
+  /** Strukturadressen aus dem kanonischen Normkörper, nicht aus Volltext abgeleitet. */
+  references?: {
+    paragraph?: string;
+    article?: string;
+    subsections?: string[];
+  };
 }
 
 export interface SearchFilterOptions {
@@ -146,6 +152,8 @@ interface CollectedBodyContent {
   hitUnits: SearchHitUnit[];
 }
 
+type MutableSearchHitUnit = SearchHitUnit & { textParts: string[] };
+
 function addText(target: string[], value: string | undefined): void {
   if (!value) {
     return;
@@ -157,6 +165,24 @@ function addText(target: string[], value: string | undefined): void {
   }
 }
 
+function getStructuralReferenceNumber(value: string | undefined): string | undefined {
+  const label = toDisplayText(value ?? '').trim().toLocaleLowerCase('de-DE');
+  return label.match(/[0-9]+[a-z]?/u)?.[0];
+}
+
+function getSubsectionNumber(block: NormBodyBlock): string | undefined {
+  const label = toDisplayText(block.label ?? '').trim();
+  return label.match(/^\(\s*([0-9]+[a-z]?)\s*\)$/iu)?.[1]?.toLocaleLowerCase('de-DE');
+}
+
+function getHitUnitReferences(block: NormBodyBlock): SearchHitUnit['references'] | undefined {
+  const number = getStructuralReferenceNumber(block.label);
+  if (!number) return undefined;
+  if (block.type === 'paragraph') return { paragraph: number };
+  if (block.type === 'article') return { article: number };
+  return undefined;
+}
+
 function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   const supplementalTextParts: string[] = [];
   const hitUnits: SearchHitUnit[] = [];
@@ -165,7 +191,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   const visit = (
     entries: NormBodyBlock[],
     path: number[] = [],
-    currentUnit?: SearchHitUnit & { textParts: string[] },
+    currentUnit?: MutableSearchHitUnit,
     quoted = false,
   ) => {
     for (const [index, block] of entries.entries()) {
@@ -187,9 +213,17 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
             title: toDisplayText(block.title ?? block.label ?? ''),
             text: '',
             anchor: getResolvedBlockAnchorId(anchors, currentPath, block),
+            references: getHitUnitReferences(block),
             textParts: [],
           }
         : currentUnit;
+
+      if (!quoted && block.type === 'subparagraph' && currentUnit?.references) {
+        const subsection = getSubsectionNumber(block);
+        if (subsection && !(currentUnit.references.subsections ?? []).includes(subsection)) {
+          currentUnit.references.subsections = [...(currentUnit.references.subsections ?? []), subsection];
+        }
+      }
 
       if (headingParts.length > 0) {
         const heading = headingParts.join(' ');
@@ -216,6 +250,7 @@ function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
           title: nextUnit.title,
           text: nextUnit.textParts.join('\n\n'),
           anchor: nextUnit.anchor,
+          references: nextUnit.references,
         });
       }
     }

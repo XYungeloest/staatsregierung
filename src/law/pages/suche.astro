@@ -15,7 +15,6 @@ import {
 import { buildSearchIndexPayload } from '../../lib/norms/search.ts';
 
 const searchPayload = await buildSearchIndexPayload();
-const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
 ---
 
 <LawLayout
@@ -42,7 +41,7 @@ const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json
         <label class="law-search-query">
           <span class="visually-hidden">Suchbegriff</span>
           <PortalIcon name="search" />
-          <input type="search" name="q" autocomplete="off" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" data-search-query data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} />
+          <input type="search" name="q" autocomplete="off" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" data-search-query />
         </label>
         <label class="law-search-scope">
           <span class="visually-hidden">Suchbereich</span>
@@ -73,13 +72,7 @@ const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json
               </div>
 
               <div class="law-search-filter-basics">
-            <label class="search-field">
-              <span>Normtyp</span>
-              <select name="type" data-search-filter="type">
-                <option value="">Alle Normtypen</option>
-                {searchPayload.filters.types.map((type) => <option value={type.value}>{type.label}</option>)}
-              </select>
-            </label>
+            <SearchCheckboxGroup legend="Normtypen" name="type" facet="type" options={searchPayload.filters.types} />
             <label class="search-field">
               <span>Fassung</span>
               <select name="versionScope" data-search-filter="versionScope">
@@ -108,7 +101,6 @@ const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json
               <details class="search-filter-panel" data-search-filter-panel="more">
             <summary><span>Norm und Zuständigkeit</span><span class="search-filter-panel__count" data-search-panel-count></span></summary>
             <div class="search-filter-panel__content">
-              <SearchCheckboxGroup legend="Normtypen" name="type" facet="type" options={searchPayload.filters.types} />
               <SearchCheckboxGroup legend="Sachgebiete" name="subject" facet="subject" options={searchPayload.filters.subjects.map((option) => ({ value: option, label: option }))} />
               <SearchCheckboxGroup legend="Ressorts" name="ministry" facet="ministry" options={searchPayload.filters.ministries.map((option) => ({ value: option, label: option }))} />
               <SearchCheckboxGroup legend="Status" name="status" facet="status" options={searchPayload.filters.statuses} />
