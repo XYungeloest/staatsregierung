@@ -2,11 +2,15 @@
 
 ## Einordnung
 
-Dieser Ordner erschließt das vom Nutzer am 31. August 2026 bereitgestellte **Regierungsprogramm des Roten Aufbruchs zur 8. Volkskammerwahl** als politische Kontextquelle des Wissenshubs.
+Dieser Ordner enthält und erschließt das am 31. August 2026 bereitgestellte **Regierungsprogramm des Roten Aufbruchs zur 8. Volkskammerwahl** als politische Kontextquelle des Wissenshubs.
+
+Der vollständige, unveränderte Programmtext liegt in:
+
+`regierungsprogramm-roter-aufbruch-2026.md`
 
 Das Programm ist **keine Rechtsquelle**. Es belegt politische Zielsetzungen, angekündigte Gesetzesvorhaben und Bedingungen, nicht deren Beschluss, Verkündung, Inkrafttreten oder praktische Umsetzung. Für den Rechtsstand bleiben `content/normen/`, `content/verkuendungen/`, `knowledge/current-state.json` und die Primärquellen maßgeblich.
 
-Die strukturierte, gegen den vorhandenen Rechtsbestand bereinigte Gesetzgebungs- und Projektagenda steht in `knowledge/agenda.json`.
+Die strukturierte, gegen den vorhandenen Rechtsbestand bereinigte Gesetzgebungs- und Projektagenda steht in `knowledge/agenda.json`. Eine kompakte menschlich lesbare Arbeitsübersicht steht in `knowledge/AGENDA.md`.
 
 ## Wahlkontext
 
@@ -58,4 +62,4 @@ Das Programm kündigt für den Fall eines Wahlerfolgs ein **Aufbauprogramm 2030*
 
 ## Redaktionelle Nutzung
 
-Bei Fragen nach zukünftiger Gesetzgebung oder noch nicht umgesetzten politischen Vorhaben ist zuerst `knowledge/agenda.json` heranzuziehen. Vor einer rechtlichen Ausarbeitung ist anschließend der geltende Normbestand zu prüfen. Programmformulierungen dürfen nicht als bereits geltende Rechtslage, Regierungsbeschluss oder begonnenes parlamentarisches Verfahren behandelt werden.
+Bei Fragen nach zukünftiger Gesetzgebung oder noch nicht umgesetzten politischen Vorhaben ist zuerst `knowledge/agenda.json` heranzuziehen; für eine schnelle Arbeitsübersicht kann `knowledge/AGENDA.md` genutzt werden. Vor einer rechtlichen Ausarbeitung ist anschließend der geltende Normbestand zu prüfen. Programmformulierungen dürfen nicht als bereits geltende Rechtslage, Regierungsbeschluss oder begonnenes parlamentarisches Verfahren behandelt werden.
