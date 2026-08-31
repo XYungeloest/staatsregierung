@@ -803,6 +803,23 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
     assertion?.(results);
   }
 
+  const firstLawResults = search('erstes Gesetz');
+  assert.ok(firstLawResults.length > 0);
+  assert.match(firstLawResults[0]?.documentEntry.title ?? '', /^Erstes Gesetz/u);
+  assert.ok(firstLawResults.some((result) => result.documentEntry.slug === 'erstes-gesetz-zur-grossen-staatsreform'));
+
+  const exactAmendmentTitle = 'Erstes Gesetz zur Großen Staatsreform zum Zwecke der Neuordnung des Staatswesens';
+  assert.equal(search(exactAmendmentTitle)[0]?.documentEntry.slug, 'erstes-gesetz-zur-grossen-staatsreform');
+
+  const genericLawResults = search('Gesetz');
+  assert.ok(genericLawResults.length > 0);
+  assert.ok(genericLawResults.every((result) => !result.documentEntry.isAmendment));
+
+  const typedFirstLawResults = search('erstes Gesetz', { types: ['gesetz'] });
+  assert.ok(typedFirstLawResults.length > 0);
+  assert.ok(typedFirstLawResults.every((result) => result.documentEntry.type === 'gesetz'));
+  assert.ok(typedFirstLawResults.every((result) => !result.documentEntry.isAmendment));
+
   const consentResults = search('Zustimmungsgesetz');
   assert.equal(parseNormSearchQuery('Zustimmungsgesetz').typeIntent?.type, 'zustimmungsgesetz');
   assert.ok(consentResults.length > 0);

@@ -311,14 +311,12 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
 });
 
-siteTest(['law'])('exakter ÖPNV-Änderungsvorschlag aktiviert den nötigen Suchfilter', async ({ page }) => {
-  await page.goto(lawUrl('/suche/'));
-  const query = page.locator('[data-search-query]');
-  await query.fill('Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr');
-  await page.getByLabel('Suchanfrage und Filter').getByRole('button', { name: 'Suchen' }).click();
-  await expect(page.locator('[data-search-filter="includeAmendments"]')).toBeChecked();
-  await expect(page).toHaveURL(/includeAmendments=1/u);
-  await expect(page.locator('[data-search-results]')).toContainText('Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr');
+siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilter auffindbar', async ({ page }) => {
+  await page.goto(lawUrl('/suche/?q=erstes%20Gesetz'));
+  await expect(page.locator('[data-search-filter="includeAmendments"]')).not.toBeChecked();
+  await expect(page).not.toHaveURL(/includeAmendments=1/u);
+  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
+  await expect(page.locator('[data-search-results] .search-hit h3').first()).toHaveText(/^Erstes Gesetz/u);
 });
 
 siteTest(['law'])('Normverzeichnis stellt Filter, leere Buchstaben und Browserverlauf gemeinsam wieder her', async ({ page }) => {

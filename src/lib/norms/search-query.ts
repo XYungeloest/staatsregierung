@@ -433,7 +433,6 @@ function matchesRawFilters(
   prepared: PreparedSearchDocument,
   ignoreVersionScope = false,
 ): boolean {
-  if (!state.includeAmendments && documentEntry.isAmendment) return false;
   if (!anySelected(state.types, documentEntry.type)) return false;
   if (!anySelected(state.ministries, documentEntry.ministry)) return false;
   if (!anySubjectSelected(state.subjects, documentEntry.subjects)) return false;
@@ -540,6 +539,19 @@ function queryStartsTitle(documentEntry: PreparedSearchDocument, query: ParsedNo
     field.variants.some((fieldValue) => fieldValue.startsWith(value)));
   if (starts(documentEntry.title) || starts(documentEntry.shortTitle) || starts(documentEntry.abbr)) return 'title';
   return undefined;
+}
+
+function hasSpecificRawTitleQuery(query: ParsedNormSearchQuery): boolean {
+  const source = query.raw.replace(PUBLICATION_REFERENCE_PATTERN, ' ');
+  return words(normalizeSearchText(source)).length > 1;
+}
+
+function fullSpecificQueryAppearsInTitle(documentEntry: PreparedSearchDocument, query: ParsedNormSearchQuery): boolean {
+  if (!hasSpecificRawTitleQuery(query) || query.references.length > 0 || query.hasPublicationReference) return false;
+  const source = query.raw.replace(PUBLICATION_REFERENCE_PATTERN, ' ');
+  const queryText = prepareText([source]);
+  return queryText.variants.some((value) => [documentEntry.title, documentEntry.shortTitle, documentEntry.abbr]
+    .some((field) => field.variants.some((fieldValue) => fieldValue.includes(value))));
 }
 
 function tokenPositions(text: string, token: QueryToken): number[] {
@@ -682,6 +694,15 @@ function evaluateDocument(
   const exact = prepareText([state.exact.replaceAll('*', '')]);
   if (exact.normalized && !exact.variants.some((value) => prepared.fields[state.scope].variants.some((field) => field.includes(value)))) return undefined;
 
+  const identity = query.references.length === 0 && query.phrases.length === 0 && !query.hasPublicationReference
+    ? exactIdentityKind(prepared, query.raw)
+    : undefined;
+  const titleStarts = queryStartsTitle(prepared, query);
+  const strongRawTitlePrefix = hasSpecificRawTitleQuery(query) && Boolean(titleStarts);
+  const strongRawTitlePhrase = fullSpecificQueryAppearsInTitle(prepared, query);
+  const amendmentDirectMatch = Boolean(identity || strongRawTitlePrefix || strongRawTitlePhrase);
+  if (documentEntry.isAmendment && !state.includeAmendments && !amendmentDirectMatch) return undefined;
+
   const referenceHits = findReferenceHits(prepared, query.references);
   const referenceHit = referenceHits?.[0]?.hit;
   if (query.references.length > 0 && !referenceHits) return undefined;
@@ -697,10 +718,6 @@ function evaluateDocument(
   const fuzzyMatches = fuzzyTitleMatch(prepared, query);
   if (!browse && !publicationMatches && !scopeMatches && !isTypeOnly && !fuzzyMatches) return undefined;
 
-  const identity = query.references.length === 0 && query.phrases.length === 0 && !query.hasPublicationReference
-    ? exactIdentityKind(prepared, query.raw)
-    : undefined;
-  const titleStarts = queryStartsTitle(prepared, query);
   const titleMatches = queryTextInTitle(prepared, query);
   const titlePhrase = phraseInTitle(prepared, query);
   const hit = getBestPreparedHitUnit(prepared, query, referenceHit);
@@ -726,17 +743,25 @@ function evaluateDocument(
     tier = 1;
     rank = [tier, 0, documentEntry.isAmendment ? 1 : 0];
     kind = 'reference';
-  } else if (isTypeMatch && !isTypeOnly && scopeMatches) {
+  } else if (strongRawTitlePrefix) {
     tier = 1;
     rank = [tier, 1, documentEntry.isAmendment ? 1 : 0];
-    kind = 'type';
-  } else if (titleStarts) {
+    kind = 'title';
+  } else if (strongRawTitlePhrase) {
     tier = 1;
     rank = [tier, 2, documentEntry.isAmendment ? 1 : 0];
     kind = 'title';
-  } else if (titlePhrase || (query.tokens.length > 1 && titleMatches)) {
+  } else if (isTypeMatch && !isTypeOnly && scopeMatches) {
     tier = 1;
     rank = [tier, 3, documentEntry.isAmendment ? 1 : 0];
+    kind = 'type';
+  } else if (titleStarts) {
+    tier = 1;
+    rank = [tier, 4, documentEntry.isAmendment ? 1 : 0];
+    kind = 'title';
+  } else if (titlePhrase || (query.tokens.length > 1 && titleMatches)) {
+    tier = 1;
+    rank = [tier, 5, documentEntry.isAmendment ? 1 : 0];
     kind = 'title';
   } else if (titleMatches) {
     tier = 2;
