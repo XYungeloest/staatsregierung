@@ -2029,6 +2029,7 @@
 .law-norm-suggestions {
   position: fixed;
   z-index: 120;
+  box-sizing: border-box;
   margin: 0;
   padding: 0.35rem;
   overflow-y: auto;

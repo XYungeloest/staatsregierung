@@ -1,5 +1,5 @@
 import type { SearchHitUnit, SearchIndexDocument } from './search.ts';
-import type { NormType } from './schema.ts';
+import { NORM_TYPES, type NormType } from './schema.ts';
 import type { VersionTemporalKind } from './versions.ts';
 
 export type SearchScope = 'all' | 'title' | 'metadata' | 'body';
@@ -81,6 +81,8 @@ export interface LegalReferenceIntent {
   kind: 'paragraph' | 'article' | 'subsection';
   label: string;
   number: string;
+  /** Bei §/Art.-Referenzen gehört der Absatz zur selben Strukturadresse. */
+  subsection?: string;
 }
 
 export interface ParsedNormSearchQuery {
@@ -117,18 +119,21 @@ export interface PreparedSearchDocument {
   hitUnits: PreparedSearchHitUnit[];
 }
 
-const TYPE_INTENTS: Array<{ type: NormType; label: string; aliases: string[] }> = [
-  { type: 'foerderrichtlinie', label: 'Förderrichtlinie', aliases: ['Förderrichtlinie', 'Förderrichtlinien', 'FRL'] },
-  { type: 'gesetz', label: 'Gesetz', aliases: ['Gesetz', 'Gesetze'] },
-  { type: 'verordnung', label: 'Verordnung', aliases: ['Verordnung', 'Verordnungen', 'VO'] },
-  { type: 'verwaltungsvorschrift', label: 'Verwaltungsvorschrift', aliases: ['Verwaltungsvorschrift', 'Verwaltungsvorschriften', 'VwV', 'Erlass', 'Erlasse'] },
-  { type: 'bekanntmachung', label: 'Bekanntmachung', aliases: ['Bekanntmachung', 'Bekanntmachungen'] },
-  { type: 'staatsvertrag', label: 'Staatsvertrag', aliases: ['Staatsvertrag', 'Staatsverträge'] },
-  { type: 'berichtigung', label: 'Berichtigung', aliases: ['Berichtigung', 'Berichtigungen'] },
-  { type: 'allgemeinverfuegung', label: 'Allgemeinverfügung', aliases: ['Allgemeinverfügung', 'Allgemeinverfügungen'] },
-  { type: 'verwaltungsabkommen', label: 'Verwaltungsabkommen', aliases: ['Verwaltungsabkommen'] },
-  { type: 'aenderungsvorschrift', label: 'Änderungsvorschrift', aliases: ['Änderungsvorschrift', 'Änderungsvorschriften', 'Änderungsgesetz', 'Änderungsgesetze'] },
-];
+const TYPE_INTENTS: Readonly<Record<NormType, { label: string; aliases: readonly string[] }>> = {
+  foerderrichtlinie: { label: 'Förderrichtlinie', aliases: ['Förderrichtlinie', 'Förderrichtlinien', 'FRL'] },
+  gesetz: { label: 'Gesetz', aliases: ['Gesetz', 'Gesetze'] },
+  verordnung: { label: 'Verordnung', aliases: ['Verordnung', 'Verordnungen', 'VO'] },
+  verwaltungsvorschrift: { label: 'Verwaltungsvorschrift', aliases: ['Verwaltungsvorschrift', 'Verwaltungsvorschriften', 'VwV', 'Erlass', 'Erlasse'] },
+  allgemeinverfuegung: { label: 'Allgemeinverfügung', aliases: ['Allgemeinverfügung', 'Allgemeinverfügungen'] },
+  bekanntmachung: { label: 'Bekanntmachung', aliases: ['Bekanntmachung', 'Bekanntmachungen'] },
+  berichtigung: { label: 'Berichtigung', aliases: ['Berichtigung', 'Berichtigungen'] },
+  staatsvertrag: { label: 'Staatsvertrag', aliases: ['Staatsvertrag', 'Staatsverträge'] },
+  verwaltungsabkommen: { label: 'Verwaltungsabkommen', aliases: ['Verwaltungsabkommen'] },
+  zustimmungsgesetz: { label: 'Zustimmungsgesetz', aliases: ['Zustimmungsgesetz', 'Zustimmungsgesetze'] },
+  aenderungsvorschrift: { label: 'Änderungsvorschrift', aliases: ['Änderungsvorschrift', 'Änderungsvorschriften', 'Änderungsgesetz', 'Änderungsgesetze'] },
+};
+
+const TYPE_INTENT_DEFINITIONS = NORM_TYPES.map((type) => ({ type, ...TYPE_INTENTS[type] }));
 
 const REFERENCE_PATTERN = /§{1,2}\s*([0-9]+[a-z]?(?:\s*(?:,|und)\s*[0-9]+[a-z]?)*)(?:\s+(?:Abs(?:atz)?\.?)\s*([0-9]+))?/giu;
 const ARTICLE_PATTERN = /(?:Artikel|Art\.)\s*([0-9]+[a-z]?)(?:\s+(?:Abs(?:atz)?\.?)\s*([0-9]+))?/giu;
@@ -326,17 +331,27 @@ function normalizeReferenceNumber(value: string): string {
 function extractLegalReferences(value: string): { remaining: string; references: LegalReferenceIntent[] } {
   const references: LegalReferenceIntent[] = [];
   let remaining = value.replace(REFERENCE_PATTERN, (_match, list: string, subsection?: string) => {
+    const subsectionNumber = subsection ? normalizeReferenceNumber(subsection) : undefined;
     for (const part of list.split(/\s*(?:,|und)\s*/u)) {
       const number = normalizeReferenceNumber(part);
-      if (number) references.push({ kind: 'paragraph', number, label: `§ ${part.trim()}` });
+      if (number) references.push({
+        kind: 'paragraph',
+        number,
+        subsection: subsectionNumber,
+        label: subsectionNumber ? `§ ${part.trim()} Abs. ${subsectionNumber}` : `§ ${part.trim()}`,
+      });
     }
-    if (subsection) references.push({ kind: 'subsection', number: subsection, label: `Abs. ${subsection}` });
     return ' ';
   });
   remaining = remaining.replace(ARTICLE_PATTERN, (_match, article: string, subsection?: string) => {
     const number = normalizeReferenceNumber(article);
-    if (number) references.push({ kind: 'article', number, label: `Art. ${article}` });
-    if (subsection) references.push({ kind: 'subsection', number: subsection, label: `Abs. ${subsection}` });
+    const subsectionNumber = subsection ? normalizeReferenceNumber(subsection) : undefined;
+    if (number) references.push({
+      kind: 'article',
+      number,
+      subsection: subsectionNumber,
+      label: subsectionNumber ? `Art. ${article} Abs. ${subsectionNumber}` : `Art. ${article}`,
+    });
     return ' ';
   });
   remaining = remaining.replace(SUBSECTION_PATTERN, (_match, subsection: string) => {
@@ -348,7 +363,7 @@ function extractLegalReferences(value: string): { remaining: string; references:
   return {
     remaining,
     references: references.filter((reference) => {
-      const key = `${reference.kind}:${reference.number}`;
+      const key = `${reference.kind}:${reference.number}:${reference.subsection ?? ''}`;
       if (known.has(key)) return false;
       known.add(key);
       return true;
@@ -359,7 +374,7 @@ function extractLegalReferences(value: string): { remaining: string; references:
 function findTypeIntent(tokens: QueryToken[], allowTypeIntent: boolean): { intent?: NormTypeIntent; typeToken?: QueryToken } {
   if (!allowTypeIntent) return {};
   for (const token of tokens) {
-    for (const definition of TYPE_INTENTS) {
+    for (const definition of TYPE_INTENT_DEFINITIONS) {
       const aliases = definition.aliases.flatMap(buildSearchVariants);
       if (token.variants.some((variant) => aliases.includes(variant))) {
         return {
@@ -395,8 +410,7 @@ export function parseNormSearchQuery(
 }
 
 export function removeDetectedTypeIntent(value: string, intent: NormTypeIntent): string {
-  const definition = TYPE_INTENTS.find((entry) => entry.type === intent.type);
-  if (!definition) return value;
+  const definition = TYPE_INTENTS[intent.type];
   const alternatives = definition.aliases
     .map((alias) => alias.replace(/[.*+?^${}()|[\]\\]/gu, '\\$&'))
     .join('|');
@@ -484,29 +498,30 @@ function hasSearchTerms(query: ParsedNormSearchQuery): boolean {
     || query.hasPublicationReference;
 }
 
-function containsNumber(text: PreparedSearchText, number: string): boolean {
-  return text.variants.some((variant) => words(variant).includes(number));
-}
-
 function hitMatchesReference(hit: PreparedSearchHitUnit, reference: LegalReferenceIntent): boolean {
-  if (reference.kind === 'paragraph') return containsNumber(hit.label, reference.number);
-  if (reference.kind === 'article') {
-    return containsNumber(hit.label, reference.number)
-      && hit.label.variants.some((value) => /(?:^|\s)(?:art|artikel)(?:\s|$)/u.test(value));
-  }
-  return tokenMatches(hit.all, {
-    value: 'abs',
-    prefix: false,
-    variants: ['abs', 'absatz'],
-  }) && containsNumber(hit.all, reference.number);
+  const references = hit.unit.references;
+  if (!references) return false;
+  const subsectionMatches = !reference.subsection || references.subsections?.includes(reference.subsection) === true;
+  if (reference.kind === 'paragraph') return references.paragraph === reference.number && subsectionMatches;
+  if (reference.kind === 'article') return references.article === reference.number && subsectionMatches;
+  return references.subsections?.includes(reference.number) === true;
 }
 
-function findReferenceHit(
+interface ReferenceHit {
+  reference: LegalReferenceIntent;
+  hit: PreparedSearchHitUnit;
+}
+
+function findReferenceHits(
   documentEntry: PreparedSearchDocument,
   references: LegalReferenceIntent[],
-): PreparedSearchHitUnit | undefined {
-  if (references.length === 0) return undefined;
-  return documentEntry.hitUnits.find((hit) => references.every((reference) => hitMatchesReference(hit, reference)));
+): ReferenceHit[] | undefined {
+  if (references.length === 0) return [];
+  const matches = references.map((reference) => {
+    const hit = documentEntry.hitUnits.find((candidate) => hitMatchesReference(candidate, reference));
+    return hit ? { reference, hit } : undefined;
+  });
+  return matches.every((match): match is ReferenceHit => Boolean(match)) ? matches : undefined;
 }
 
 function phraseInTitle(documentEntry: PreparedSearchDocument, query: ParsedNormSearchQuery): boolean {
@@ -578,7 +593,7 @@ export function getBestHitUnit(
 ): SearchHitUnit | undefined {
   const prepared = isPreparedDocument(documentEntry) ? documentEntry : prepareSearchDocument(documentEntry);
   const query = parseNormSearchQuery(queryValue, { allowTypeIntent: false });
-  return getBestPreparedHitUnit(prepared, query, findReferenceHit(prepared, query.references))?.unit;
+  return getBestPreparedHitUnit(prepared, query, findReferenceHits(prepared, query.references)?.[0]?.hit)?.unit;
 }
 
 function levenshteinDistance(left: string, right: string): number {
@@ -612,7 +627,14 @@ function fuzzyTitleMatch(documentEntry: PreparedSearchDocument, query: ParsedNor
   });
 }
 
-function matchLabel(kind: SearchMatchKind, typeIntent?: NormTypeIntent, reference?: LegalReferenceIntent): string {
+function referenceMatchLabel(references: LegalReferenceIntent[]): string {
+  if (references.length > 1 && references.every((reference) => reference.kind === 'paragraph' && !reference.subsection)) {
+    return `§§ ${references.map((reference) => reference.number).join(', ')}`;
+  }
+  return references[0]?.label ?? 'Vorschrift';
+}
+
+function matchLabel(kind: SearchMatchKind, typeIntent?: NormTypeIntent, references: LegalReferenceIntent[] = []): string {
   switch (kind) {
     case 'exact-abbr': return 'Exakte Abkürzung';
     case 'exact-short-title': return 'Exakter Kurztitel';
@@ -620,7 +642,7 @@ function matchLabel(kind: SearchMatchKind, typeIntent?: NormTypeIntent, referenc
     case 'exact-alias': return 'Bekannte Bezeichnung';
     case 'title': return 'Treffer im Titel';
     case 'type': return typeIntent ? `Normtyp ${typeIntent.label}` : 'Normtyp';
-    case 'reference': return reference ? `Treffer in ${reference.label}` : 'Treffer in Vorschrift';
+    case 'reference': return `Treffer in ${referenceMatchLabel(references)}`;
     case 'publication': return 'Fundstelle';
     case 'metadata': return 'Treffer in Metadaten';
     case 'body': return 'Volltexttreffer';
@@ -660,8 +682,9 @@ function evaluateDocument(
   const exact = prepareText([state.exact.replaceAll('*', '')]);
   if (exact.normalized && !exact.variants.some((value) => prepared.fields[state.scope].variants.some((field) => field.includes(value)))) return undefined;
 
-  const referenceHit = findReferenceHit(prepared, query.references);
-  if (query.references.length > 0 && !referenceHit) return undefined;
+  const referenceHits = findReferenceHits(prepared, query.references);
+  const referenceHit = referenceHits?.[0]?.hit;
+  if (query.references.length > 0 && !referenceHits) return undefined;
 
   const typeIsExplicitlyFiltered = state.types.length > 0;
   const isTypeMatch = Boolean(query.typeIntent && documentEntry.type === query.typeIntent.type);
@@ -764,7 +787,7 @@ function evaluateDocument(
       rank,
       tier,
       matchKind: kind,
-      matchLabel: matchLabel(kind, query.typeIntent, query.references[0]),
+      matchLabel: matchLabel(kind, query.typeIntent, query.references),
       bestHitUnit: hit?.unit,
     },
   };

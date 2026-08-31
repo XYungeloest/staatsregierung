@@ -772,6 +772,23 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
       slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
       assertion: (results) => assert.equal(results[0]?.bestHitUnit?.label, '§ 41a'),
     },
+    {
+      q: 'Polizeivollzugsdienst §§ 41, 41a',
+      slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
+      assertion: (results) => {
+        assert.equal(results[0]?.bestHitUnit?.label, '§ 41');
+        assert.equal(results[0]?.matchLabel, 'Treffer in §§ 41, 41a');
+      },
+    },
+    {
+      q: 'Polizeivollzugsdienst § 41a Abs. 2',
+      slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
+      assertion: (results) => {
+        assert.equal(results[0]?.bestHitUnit?.label, '§ 41a');
+        assert.equal(results[0]?.bestHitUnit?.references?.paragraph, '41a');
+        assert.ok(results[0]?.bestHitUnit?.references?.subsections?.includes('2'));
+      },
+    },
     { q: 'Foerderrichtlinie', slug: fundingSlug },
     {
       q: 'OGVBl. 2026 Nr. 68',
@@ -785,6 +802,11 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
     assert.equal(results[0]?.documentEntry.slug, slug, q);
     assertion?.(results);
   }
+
+  const consentResults = search('Zustimmungsgesetz');
+  assert.equal(parseNormSearchQuery('Zustimmungsgesetz').typeIntent?.type, 'zustimmungsgesetz');
+  assert.ok(consentResults.length > 0);
+  assert.ok(consentResults.every((result) => result.documentEntry.type === 'zustimmungsgesetz'));
 
   const phrase = 'öffentliche Sicherheit';
   const phraseResults = search(`"${phrase}"`);
