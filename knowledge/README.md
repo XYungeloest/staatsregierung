@@ -10,7 +10,7 @@ Quellen, ordnet Gültigkeitszeiträume ein und hält tatsächlich offene Fragen 
 `Gesetze/` enthält strukturtragende Importquellen und visuelle Kontrollquellen.  
 `context/` enthält historische Ausgangstexte, Entwürfe und Simulationsmaterial.  
 `knowledge/` enthält Querverbindungen, Rollenchronologien, Zustände, Projekte, Verfahren,
-aktuelle Konflikte und Suchkandidaten.
+aktuelle Konflikte, die politische und gesetzgeberische Agenda und Suchkandidaten.
 
 Der Wissenshub ist keine zweite Website und kein Ersatz für das Rechtsportal. Normvolltexte und
 öffentliche Seiten werden nicht kopiert.
@@ -31,6 +31,8 @@ Zusammenhänge und Zeiträume.
 | Wer gehört aktuell dem Staatsrat an? | `current-state.json`, danach `entities/persons.json` |
 | Welche Verfassungsfassung galt an einem Datum? | `timeline.json`, `current-state.json`, danach Normhistorie unter `content/normen/` |
 | Welche Normen gehören zu einem politischen Komplex? | `projects.json` |
+| Welche politischen und gesetzgeberischen Vorhaben sind für die nächste Wahlperiode geplant? | `agenda.json`, danach Rechtsabgleich in `projects.json` und `content/normen/` |
+| Welcher Wahlkontext gilt für die 8. Volkskammerwahl? | `agenda.json` sowie `context/programme/roter-aufbruch-2026/README.md` |
 | Welche Beteiligungen, AöR und öffentlichen Wirtschafts- oder Vermögensträger bestehen? | `holdings.json` für die Einordnung, `holding-positions.json` für die vollständige Positionsinventur, danach `entities/institutions.json` und die referenzierten Primärquellen |
 | Wie entwickelte sich die Regierung seit 2025? | `timeline.json`, `entities/persons.json`, `entities/institutions.json` |
 | Welche Verfahren sind offen? | `proceedings.json`, `open-questions.json` |
@@ -48,6 +50,10 @@ Arbeitsfelder.
 `current-state.json` enthält ausschließlich den am Stichtag belegten aktuellen Stand.  
 `timeline.json` enthält datierte Ereignisse.  
 `projects.json` bündelt politische und rechtliche Gesamtkomplexe.  
+`agenda.json` enthält ausschließlich geplante politische und gesetzgeberische Vorhaben, den
+Wahlkontext des Roten Aufbruchs zur 8. Volkskammerwahl und einen Rechtsbestandsabgleich, damit
+bereits verkündete Normen oder bloß herangezogenes westdeutsches Vergleichsrecht nicht als offene
+ostdeutsche Gesetzesvorhaben erscheinen.  
 `holdings.json` enthält den rekonstruierten Beteiligungsbestand, Träger- und
 Gewährträgerpositionen, wichtige mittelbare Beteiligungen, Sondervermögen und die
 Rechtsnachfolgelogik seit dem 1. Dezember 2023.  
@@ -61,6 +67,12 @@ eigenen Sammlungen derselben Datei.
 `conversation-candidates.json` enthält noch nicht hinreichend bestätigtes Gesprächswissen.  
 `entities/` enthält Personen, Institutionen, Parteien und Gebiete.  
 `generated/` enthält ausschließlich automatisch erzeugte Dateien.
+
+Das Regierungsprogramm des Roten Aufbruchs wird unter
+`context/programme/roter-aufbruch-2026/README.md` politisch und redaktionell erschlossen. Für die
+Planungsagenda ist jedoch `agenda.json` maßgeblich, weil dort Programmpunkte gegen den geltenden
+Rechtsbestand abgegrenzt und zusätzliche redaktionell bestätigte Vorhaben gesondert ausgewiesen
+werden.
 
 ## Statuswerte
 
@@ -77,6 +89,11 @@ eigenen Sammlungen derselben Datei.
 | `unverified` | noch nicht hinreichend geprüft |
 | `unresolved` | konkrete offene Wirksamkeits- oder Quellenfrage |
 
+Für `agenda.json` gelten zusätzlich eigene Planungsstufen wie `programme`, `conditional-programme`,
+`concept` und `drafting`. Diese Planungsstufen beschreiben ausschließlich den Reifegrad eines
+Vorhabens und dürfen nicht mit Rechtsgeltung oder einem parlamentarischen Verfahrensstand
+verwechselt werden.
+
 ## Zeitlogik
 
 Jeder Eintrag besitzt `asOf`. Bekannte Gültigkeitszeiträume werden mit `validFrom` und `validTo`
@@ -85,6 +102,11 @@ nicht automatisch auf. Historische Amtsbezeichnungen bleiben für historische Er
 
 Der redaktionelle Stichtag ist in `src/config/editorial.json` festgelegt. Ein künftiger, bereits
 verkündeter Zustand kann im Hub gespeichert werden, wird aber nicht als gegenwärtig ausgegeben.
+
+Die Agenda folgt einer zusätzlichen Trennung: Wahlprogramm, redaktionelle Idee, konkreter Entwurf,
+förmliches Verfahren, Verkündung und praktische Umsetzung sind verschiedene Zustände. Sobald ein
+Vorhaben in ein förmliches Verfahren übergeht, gehört dieses Verfahren zusätzlich nach
+`proceedings.json`; nach Verkündung ist für die Rechtslage der Normbestand maßgeblich.
 
 ## Konflikte
 
@@ -119,7 +141,8 @@ gepflegt; `npm run holdings:check` prüft ihre Aktualität und Feldfreigabe.
 
 `knowledge:check` prüft JSON, IDs, Quellen, Pfade, Datumswerte, Statuswerte, Verweise,
 Rollenintervalle, den Ausschluss ungeprüfter Gesprächsfakten aus dem aktuellen Stand und die
-Übereinstimmung der generierten Dateien.
+Übereinstimmung der generierten Dateien. `agenda.json` ist eine getrennte Planungsdatei und wird
+nicht als Rechts- oder Gegenwartsbestand interpretiert.
 
 Generierte Dateien werden nicht manuell bearbeitet.
 
@@ -128,11 +151,12 @@ Generierte Dateien werden nicht manuell bearbeitet.
 1. Neue Primärquelle einpflegen.
 2. Bestehende strukturierte Inhalte aktualisieren.
 3. Betroffene Wissenseinträge aktualisieren.
-4. Timeline-Ereignis ergänzen, wenn das Ereignis selbst dauerhaft relevant ist.
-5. Offene Frage schließen oder aktualisieren; gelöste Fragen nicht als erledigte Einträge behalten.
-6. `npm run knowledge:check` ausführen.
-7. `npm run knowledge:build` ausführen.
-8. Bestehende Content-, TypeScript- und Buildprüfungen ausführen.
+4. Bei politischen Zukunftsvorhaben `agenda.json` gegen den geltenden Rechtsbestand abgleichen und nur tatsächlich offene Folgeziele fortschreiben.
+5. Timeline-Ereignis ergänzen, wenn das Ereignis selbst dauerhaft relevant ist.
+6. Offene Frage schließen oder aktualisieren; gelöste Fragen nicht als erledigte Einträge behalten.
+7. `npm run knowledge:check` ausführen.
+8. `npm run knowledge:build` ausführen.
+9. Bestehende Content-, TypeScript- und Buildprüfungen ausführen.
 
 ## Quellenpflicht
 
@@ -142,3 +166,10 @@ kanonische Simulationsquellen; bloße Regierungsanfragen und ungeklärte Chatbei
 Gesprächskandidaten. Anhänge werden visuell gelesen und mit Message-ID sowie Dateiname lokalisiert.
 Externe Wikiangaben werden nur mit konkreter Miraheze-Seite oder Revision und nach Quellenabgleich
 übernommen.
+
+Politische Programme werden als Planungs- und Kontextquellen behandelt. Sie können `planned`- oder
+Agenda-Einträge tragen, aber niemals allein geltendes Recht, einen Parlamentsbeschluss oder den
+praktischen Vollzug belegen. Redaktionell aus Gesprächen übernommene Gesetzesideen werden nur dann
+in `agenda.json` geführt, wenn ausdrücklich entschieden wurde, sie als ostdeutsches Vorhaben
+weiterzuverfolgen; westdeutsche Fremdentwürfe bleiben Vergleichsmaterial, solange keine solche
+Festlegung erfolgt.
