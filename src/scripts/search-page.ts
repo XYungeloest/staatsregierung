@@ -30,7 +30,6 @@ const moreButton = document.querySelector<HTMLButtonElement>('[data-search-more]
 const activeFilters = document.querySelector<HTMLElement>('[data-search-active-filters]');
 const activeFilterList = document.querySelector<HTMLElement>('[data-search-active-list]');
 const clearFiltersButton = document.querySelector<HTMLButtonElement>('[data-search-clear-filters]');
-const includeAmendmentsInput = document.querySelector<HTMLInputElement>('[data-search-filter="includeAmendments"]');
 const filterPanels = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-search-filter-panel]'));
 const indexUrl = root?.dataset.indexUrl ?? '';
 let visibleGroups = PAGE_SIZE;
@@ -244,7 +243,7 @@ const filterLabels: Record<string, string> = {
   origin: 'Rechtsherkunft',
   versionScope: 'Fassung',
   sort: 'Sortierung',
-  includeAmendments: 'Änderungsvorschriften',
+  includeAmendments: 'Änderungsvorschriften vollständig',
   geltungstag: 'Geltungstag',
   validFrom: 'Gültig ab',
   validTo: 'Gültig bis',
@@ -570,19 +569,7 @@ async function setupSearch(): Promise<void> {
   }
   const documents: PreparedSearchDocument[] = prepareSearchDocuments(payload.documents);
 
-  const enableAmendmentsForExactSuggestion = () => {
-    if (!includeAmendmentsInput || includeAmendmentsInput.checked) return;
-    const query = normalizeSearchText(queryInput.value);
-    if (!query) return;
-    const selectedAmendment = payload.documents.some((entry) => entry.isAmendment
-      && entry.versionKind === 'current'
-      && [entry.title, entry.shortTitle, entry.abbr, ...(entry.aliases ?? [])]
-        .some((value) => normalizeSearchText(value) === query));
-    if (selectedAmendment) includeAmendmentsInput.checked = true;
-  };
-
-  const run = (push = false, synchronizeSuggestion = false) => {
-    if (synchronizeSuggestion) enableAmendmentsForExactSuggestion();
+  const run = (push = false) => {
     const state = getFormState();
     const sortInput = form.querySelector<HTMLSelectElement>('select[name="sort"]');
     if (sortInput && !state.sortExplicit) sortInput.value = state.sort;
@@ -599,7 +586,7 @@ async function setupSearch(): Promise<void> {
   form.addEventListener('submit', (event) => {
     event.preventDefault();
     if (inputTimer) window.clearTimeout(inputTimer);
-    run(true, true);
+    run(true);
   });
   for (const input of filterInputs) {
     input.addEventListener('change', () => {
@@ -610,7 +597,7 @@ async function setupSearch(): Promise<void> {
   }
   queryInput.addEventListener('input', () => {
     if (inputTimer) window.clearTimeout(inputTimer);
-    inputTimer = window.setTimeout(() => run(false, true), INPUT_DEBOUNCE_MS);
+    inputTimer = window.setTimeout(() => run(false), INPUT_DEBOUNCE_MS);
   });
   activeFilterList?.addEventListener('click', (event) => {
     if (!(event.target instanceof HTMLButtonElement)) return;
