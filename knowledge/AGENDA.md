@@ -63,7 +63,6 @@ Die folgenden Punkte dürfen bei späteren Abfragen **nicht als noch zu beschlie
 - **Große Staatsreform:** abgeschlossen und in Kraft; die Sozialistische Verfassungsnovelle ist ein neues Folgevorhaben.
 - **SERO-System:** bereits eingeführt; offen ist nur der weitere Ausbau der Kreislaufwirtschaft.
 - **Ostdeutsches Waldgesetz:** besteht bereits; Waldschutz soll grundsätzlich als Novelle/Folgeprojekt behandelt werden.
-- **Ostdeutsches Sportfördergesetz / Sportneuordnung:** bereits geltendes Recht und daher **kein Agenda-Vorhaben**.
 - **Besondere Gesetze:** nicht als neue Agendaeinträge duplizieren, soweit sie bereits im Rechtsbestand oder in gesonderter Arbeit geführt werden.
 - **Zinnwaldgesetz:** gesonderter Komplex; nicht als allgemeines neues Agenda-Vorhaben duplizieren.
 - **Westdeutscher Entwurf zum Hochschulbeamtenrecht:** kein ostdeutsches Vorhaben, solange keine ausdrückliche politische Übernahme erfolgt.
