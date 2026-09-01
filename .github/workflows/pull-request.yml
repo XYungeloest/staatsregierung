@@ -170,7 +170,7 @@ jobs:
         run: npm run test:browsers:ci
 
   preview:
-    if: ${{ always() && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && (needs.classify.outputs.scope == 'portal' || needs.classify.outputs.scope == 'shared') && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
+    if: ${{ always() && github.actor != 'dependabot[bot]' && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && (needs.classify.outputs.scope == 'portal' || needs.classify.outputs.scope == 'shared') && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
     needs:
       - classify
       - quality
