@@ -63,7 +63,6 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 - öffentliche Rechtsrouten liegen auf der Rechtsdomain ohne zusätzliches `/recht/`-Präfix
 - Cross-Site-Links werden über `packages/shared/src/lib/portal/routes.ts` und `packages/shared/src/lib/norms/routes.ts` erzeugt; die Origins stammen aus `PORTAL_SITE_URL` und `LAW_SITE_URL`
 - keine aktiven D1/R2-Bindings im aktuellen Portalstand
-- getrenntes Editorial Worker Entry unter `apps/redaktion/src/`; öffentliche Seiten bleiben statisch
 - klare Utility-Funktionen statt unnötiger Klassenhierarchien
 - Build- und Content-Checks vor Abschluss ausführen, sofern möglich
 
@@ -73,7 +72,6 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
   Wrangler-Konfiguration; Buildausgabe unter `apps/portal/dist/`
 - `apps/recht/`: eigenständige Astro-Anwendung von OstRecht mit app-lokaler Astro- und
   Wrangler-Konfiguration; Buildausgabe unter `apps/recht/dist/`
-- `apps/redaktion/`: Editorial Worker und dessen Wrangler-Konfiguration
 - `packages/shared/`: tatsächlich von mehreren Anwendungen verwendete Komponenten,
   Konfigurationen, Styles, Typen sowie Portal- und Normlogik
 - `Gesetze/`, `content/`, `knowledge/`, `data/`, `context/` und `docs/`: gemeinsame kanonische
@@ -93,7 +91,6 @@ npm run content:check
 npm run knowledge:check
 npm run knowledge:build
 npm run check
-npm run editorial:check
 npm run build
 npm run links:check
 npm run test:visual
@@ -115,9 +112,8 @@ npm run test:a11y
 - Kein neues Profil für Gerhardt Lehrmann anlegen.
 - Regierungschef, Stellvertretung, Mitgliedschaft, Ämter und Ressortleitungen werden ausschließlich
   aus `content/organisation/` abgeleitet. Personen- und Ressortprofile enthalten diese Felder nicht.
-- Das Studio unter `/redaktion/` schreibt nie direkt nach `main`, sondern erstellt über die GitHub
-  App einen atomaren Commit und einen Draft Pull Request. D1 und R2 sind keine öffentlichen
-  Inhaltsquellen.
+- Änderungen an kanonischen Inhalten erfolgen über geprüfte Branches und Pull Requests. D1 und R2
+  sind keine öffentlichen Inhaltsquellen.
 
 ## Rechtsportal
 

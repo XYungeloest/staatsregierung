@@ -87,9 +87,6 @@ jobs:
             npm run check:recht
           fi
           npm run test:unit
-      - name: Studio-Worker prüfen
-        if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
-        run: npm run editorial:check
       - name: Öffentliche Website bauen
         env:
           DEPLOY_TARGETS: ${{ needs.classify.outputs.deploy_targets }}

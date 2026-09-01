@@ -73,10 +73,7 @@
     "deploy:portal:staging": "npm run deploy:staging --workspace @ostrecht/portal",
     "deploy:recht:staging": "npm run deploy:staging --workspace @ostrecht/recht",
     "test:deployment": "node --test tests/deployment-smoke.test.mjs",
-    "test:deployment:production": "node scripts/check-deployment.mjs",
-    "editorial:dev": "npm run dev --workspace @ostrecht/redaktion",
-    "editorial:check": "npm run check --workspace @ostrecht/redaktion",
-    "editorial:deploy": "npm run deploy --workspace @ostrecht/redaktion"
+    "test:deployment:production": "node scripts/check-deployment.mjs"
   },
   "dependencies": {
     "parse5": "^8.0.1"

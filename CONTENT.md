@@ -6,7 +6,7 @@ Diese Datei beschreibt den aktuellen kanonischen Weg, Inhalte der Website einzup
 
 Öffentliche Website-Inhalte werden in der Regel dateibasiert als JSON unter `content/` gepflegt. Eine Inhaltsdatei ist immer ein JSON-Objekt, kein Markdown-Dokument und keine Liste als Wurzelwert. Textabsätze werden meist als String-Arrays gepflegt.
 
-Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffentliche Inhaltsauslieferung angebunden; Inhalte werden über validierte JSON-Dateien und Bilddateien unter `public/images/` bereitgestellt. Das Redaktionsstudio reicht dieselben Dateien als Pull Request ein und ist keine zweite Inhaltsquelle.
+Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffentliche Inhaltsauslieferung angebunden; Inhalte werden über validierte JSON-Dateien und Bilddateien unter `public/images/` bereitgestellt. Änderungen an diesen kanonischen Dateien werden über Branches und Pull Requests geprüft; es gibt keine zweite Inhaltsquelle.
 
 ## Allgemeine Regeln
 
@@ -369,8 +369,8 @@ Ressort-Slug. Mehrere gleichzeitige Zuordnungen sind zulässig.
 }
 ```
 
-Kabinettsänderungen werden atomar über das Redaktionsstudio oder die Funktion
-`applyCabinetReshuffle` in `packages/shared/src/lib/portal/organization.ts` durchgeführt. Sie beendet die bisherige
+Kabinettsänderungen werden atomar mit der Funktion `applyCabinetReshuffle` in
+`packages/shared/src/lib/portal/organization.ts` durchgeführt. Sie beendet die bisherige
 Leitung, legt die neue Zuordnung an, prüft alle Invarianten und liefert Diff, Dateien und Routen.
 `content/organisation/snapshots/` enthält ausdrücklich datierte Test-Snapshots und ist keine zweite
 öffentliche Datenquelle.
@@ -1262,15 +1262,14 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 
 ## Empfohlener Ablauf
 
-1. Bevorzugt das Redaktionsstudio öffnen und den passenden Inhaltstyp wählen.
-2. Bestehende Datei als Vorlage nutzen.
-3. `slug` und Dateiname konsistent halten.
-4. Pflichtfelder vollständig ausfüllen.
-5. Verweise auf Ressorts, Themen, Normen und Pressemitteilungen gegen den Bestand prüfen.
-6. Bilder unter `public/images/...` ablegen und mit `/images/...` referenzieren.
-7. Öffentliche Texte auf behördennahen Ton und technische Begriffe prüfen.
-8. `npm run content:check` ausführen.
-9. Bei strukturellen Änderungen zusätzlich `npm run check` und `npm run build` ausführen.
+1. Bestehende Datei als Vorlage nutzen.
+2. `slug` und Dateiname konsistent halten.
+3. Pflichtfelder vollständig ausfüllen.
+4. Verweise auf Ressorts, Themen, Normen und Pressemitteilungen gegen den Bestand prüfen.
+5. Bilder unter `public/images/...` ablegen und mit `/images/...` referenzieren.
+6. Öffentliche Texte auf behördennahen Ton und technische Begriffe prüfen.
+7. `npm run content:check` ausführen.
+8. Bei strukturellen Änderungen zusätzlich `npm run check` und `npm run build` ausführen.
 
 ### Vollständiger Eingang aus `temp-neu/`
 

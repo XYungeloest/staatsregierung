@@ -138,7 +138,6 @@ jobs:
           if [ "$DEPLOY_LAW" = "true" ]; then
             npm run check:recht
           fi
-          npm run editorial:check
           npm run test:unit
 
       - name: Einmaligen Release-Build erzeugen
