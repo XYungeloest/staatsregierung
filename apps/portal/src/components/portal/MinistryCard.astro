@@ -1,0 +1,22 @@
+---
+import { getMinistryUrl, type Ministerium } from '@ostrecht/shared/lib/portal/index.ts';
+import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+
+interface Props {
+  ministry: Ministerium;
+  variant?: 'default' | 'compact';
+}
+
+const { ministry, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+---
+
+<article class:list={['panel', 'ministry-card', isCompact && 'ministry-card--compact']}>
+  <div class="ministry-card__icon" aria-hidden="true"><PortalIcon name="ministry" /></div>
+  <div class="ministry-card__body">
+    <h3><a href={getMinistryUrl(ministry.slug)}>{ministry.kurzname}</a></h3>
+    <p>{ministry.teaser}</p>
+    <p class="detail-line">{ministry.leitung}</p>
+    {!isCompact ? <p class="ministry-card__topics">{ministry.aufgaben[0] ?? ministry.themen[0]}</p> : null}
+  </div>
+</article>

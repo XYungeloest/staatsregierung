@@ -100,7 +100,7 @@ Jeder Eintrag besitzt `asOf`. Bekannte Gültigkeitszeiträume werden mit `validF
 gespeichert. Unbekannte Daten bleiben `null`. Ein später gespeicherter Datensatz hebt einen älteren
 nicht automatisch auf. Historische Amtsbezeichnungen bleiben für historische Ereignisse erhalten.
 
-Der redaktionelle Stichtag ist in `src/config/editorial.json` festgelegt. Ein künftiger, bereits
+Der redaktionelle Stichtag ist in `packages/shared/src/config/editorial.json` festgelegt. Ein künftiger, bereits
 verkündeter Zustand kann im Hub gespeichert werden, wird aber nicht als gegenwärtig ausgegeben.
 
 Die Agenda folgt einer zusätzlichen Trennung: Wahlprogramm, redaktionelle Idee, konkreter Entwurf,

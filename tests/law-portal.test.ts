@@ -2,19 +2,19 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '../src/lib/norms/diff.ts';
-import { renderNormDiffDocument } from '../src/lib/norms/diff-render.ts';
+import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '@ostrecht/shared/lib/norms/diff.ts';
+import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
 import {
   LEGAL_BASELINE_DATE,
   classifyNormOriginVersion,
   getNormOriginInfo,
-} from '../src/lib/norms/origin.ts';
-import { buildNormRelations } from '../src/lib/norms/relations.ts';
+} from '@ostrecht/shared/lib/norms/origin.ts';
+import { buildNormRelations } from '@ostrecht/shared/lib/norms/relations.ts';
 import {
   getBlockAnchorId,
   getLegacyBlockAnchorId,
   parseCitation,
-} from '../src/lib/norms/presentation.ts';
+} from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   getDefaultSearchSort,
   groupNormSearchResults,
@@ -23,25 +23,25 @@ import {
   prepareSearchDocuments,
   runNormSearch,
   type NormSearchState,
-} from '../src/lib/norms/search-query.ts';
+} from '@ostrecht/shared/lib/norms/search-query.ts';
 import {
   buildSearchIndexPayload,
   buildSearchSuggestionPayload,
   isAmendmentRecord,
   type SearchIndexDocument,
-} from '../src/lib/norms/search.ts';
+} from '@ostrecht/shared/lib/norms/search.ts';
 import {
   findPublicationByDesignation,
   getLatestPublication,
   loadAllVerkuendungen,
-} from '../src/lib/norms/publications.ts';
-import { loadAllNorms } from '../src/lib/norms/loader.ts';
+} from '@ostrecht/shared/lib/norms/publications.ts';
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import {
   ContentValidationError,
   parseNormMeta,
   type NormRecord,
   type NormVersion,
-} from '../src/lib/norms/schema.ts';
+} from '@ostrecht/shared/lib/norms/schema.ts';
 import {
   classifyNormVersion,
   getApplicableVersion,
@@ -49,9 +49,9 @@ import {
   isStrictlyFutureEffectiveDate,
   partitionDatedEntries,
   validateVersionIntervals,
-} from '../src/lib/norms/versions.ts';
-import { getNormVersionIdentity } from '../src/lib/norms/identity.ts';
-import { getGermanIndexLetter } from '../src/lib/norms/routes.ts';
+} from '@ostrecht/shared/lib/norms/versions.ts';
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
 
 function version(versionId: string, validFrom: string, validTo: string | null): NormVersion {
   return {

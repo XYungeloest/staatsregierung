@@ -61,11 +61,30 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 - Staatsportal: `freistaat-ostdeutschland.de`, Build `npm run build:portal`, Worker `ostrecht-portal`
 - Rechtsportal: `recht.freistaat-ostdeutschland.de`, Build `npm run build:recht`, Worker `ostrecht-recht`
 - öffentliche Rechtsrouten liegen auf der Rechtsdomain ohne zusätzliches `/recht/`-Präfix
-- Cross-Site-Links werden über `src/lib/portal/routes.ts` und `src/lib/norms/routes.ts` erzeugt; die Origins stammen aus `PORTAL_SITE_URL` und `LAW_SITE_URL`
+- Cross-Site-Links werden über `packages/shared/src/lib/portal/routes.ts` und `packages/shared/src/lib/norms/routes.ts` erzeugt; die Origins stammen aus `PORTAL_SITE_URL` und `LAW_SITE_URL`
 - keine aktiven D1/R2-Bindings im aktuellen Portalstand
-- getrenntes Editorial Worker Entry unter `src/editorial-worker/`; öffentliche Seiten bleiben statisch
+- getrenntes Editorial Worker Entry unter `apps/redaktion/src/`; öffentliche Seiten bleiben statisch
 - klare Utility-Funktionen statt unnötiger Klassenhierarchien
 - Build- und Content-Checks vor Abschluss ausführen, sofern möglich
+
+### Workspace-Struktur
+
+- `apps/portal/`: eigenständige Astro-Anwendung des Staatsportals mit app-lokaler Astro- und
+  Wrangler-Konfiguration; Buildausgabe unter `apps/portal/dist/`
+- `apps/recht/`: eigenständige Astro-Anwendung von OstRecht mit app-lokaler Astro- und
+  Wrangler-Konfiguration; Buildausgabe unter `apps/recht/dist/`
+- `apps/redaktion/`: Editorial Worker und dessen Wrangler-Konfiguration
+- `packages/shared/`: tatsächlich von mehreren Anwendungen verwendete Komponenten,
+  Konfigurationen, Styles, Typen sowie Portal- und Normlogik
+- `Gesetze/`, `content/`, `knowledge/`, `data/`, `context/` und `docs/`: gemeinsame kanonische
+  Root-Bestände; nicht in einzelne Workspaces verschieben
+- `scripts/` und `tests/`: repo-weite Werkzeuge und Prüfungen im Root
+
+Dependencies werden im jeweils nutzenden Workspace deklariert. Die Root-Kommandos bleiben die
+öffentliche Bedienoberfläche und leiten bei Bedarf an die Workspaces weiter. Die gemeinsame
+`public/`-Quelle wird buildzeitlich nach `apps/portal/.site-public/` beziehungsweise
+`apps/recht/.site-public/` aufgeteilt; diese Verzeichnisse sowie die app-lokalen `dist/`- und
+`.astro/`-Verzeichnisse sind generiert.
 
 Wichtige Befehle:
 
@@ -89,7 +108,7 @@ npm run test:a11y
 - Öffentliche Texte erklären weder Gestaltung noch Umsetzung der Website. Formulierungen über Platzhalter, Designabsichten, technische Zustände oder die eigene Seitenstruktur vermeiden.
 - Geschlechtergerechte Personenbezeichnungen einheitlich mit Doppelpunkt schreiben, zum Beispiel `Bürger:innen` oder `Referent:in`. Keine Paarformen, Sterne, Binnen-I oder Unterstriche verwenden.
 - Der Hinweis auf die politische Simulation bleibt sichtbar in der oberen Hinweisleiste und im Footer. Außerhalb dieser festen Hinweise bleiben öffentliche Texte frei von Wiederholungen; das Impressum enthält die erforderliche ausführliche Einordnung des fiktiven Internetangebots.
-- Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote wird ausschließlich aus `src/config/editorial.json` gelesen. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote.
+- Der redaktionelle Stichtag für aktuelle Termine, Rechtsstände, Verfahren und Stellenangebote wird ausschließlich aus `packages/shared/src/config/editorial.json` gelesen. Künftige Termine stehen vor vergangenen; abgelaufene Bewerbungsfristen erscheinen nicht als aktuelle Angebote.
 - Operative technische Begriffe sind in interner Doku und Code zulässig.
 - Der erste Staatsrat ging am 21. Juli 2026 aus dem Kabinett Honecker II hervor. Max Peterson leitet als Staatsrat das Staatssekretariat für Wirtschaft und Arbeit.
 - Thomas Henry Barlow ist seit dem 20. Juli 2026 nicht mehr aktiv. Yannik Schmäle leitet seit dem 21. Juli 2026 sowohl Nachhaltigkeit und Energie als auch Staats- und Grenzsicherheit.
@@ -103,7 +122,7 @@ npm run test:a11y
 ## Rechtsportal
 
 Das Rechtsportal ist eine getrennte öffentliche Astro-Anwendung mit `LawLayout.astro` und den
-Seiteneinstiegen unter `src/law/pages/`. Es liest denselben kanonischen Bestand wie das Staatsportal.
+Seiteneinstiegen unter `apps/recht/src/pages/`. Es liest denselben kanonischen Bestand wie das Staatsportal.
 Alte Detailadressen unter `/recht/...` werden permanent auf die Rechts-Origin weitergeleitet;
 `/recht/` selbst bleibt im Staatsportal eine inhaltliche Brückenseite. Ein Domainwechsel darf keine
 Migration der Normdaten oder des Wissenshubs erfordern.

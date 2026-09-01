@@ -7,13 +7,13 @@ const allSites = [
     target: 'portal',
     name: 'Staatsportal',
     origin: new URL(process.env.PORTAL_SITE_URL ?? 'https://freistaat-ostdeutschland.de').origin,
-    outputRoot: resolve(process.cwd(), 'dist/portal/client'),
+    outputRoot: resolve(process.cwd(), 'apps/portal/dist/client'),
   },
   {
     target: 'law',
     name: 'OstRecht',
     origin: new URL(process.env.LAW_SITE_URL ?? 'https://recht.freistaat-ostdeutschland.de').origin,
-    outputRoot: resolve(process.cwd(), 'dist/law/client'),
+    outputRoot: resolve(process.cwd(), 'apps/recht/dist/client'),
   },
 ];
 

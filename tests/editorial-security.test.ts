@@ -9,7 +9,7 @@ import {
   validateImageUploadBytes,
   validateMutationRequest,
   verifyAccessRequest,
-} from '../src/editorial-worker/security.ts';
+} from '../apps/redaktion/src/security.ts';
 
 test('eine frei gesetzte E-Mail ersetzt keine Cloudflare-Access-Identität', async () => {
   const request = new Request('https://redaktion.example/redaktion/', {

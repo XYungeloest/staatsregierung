@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { loadAllNorms } from '../src/lib/norms/loader.ts';
-import { loadAllVerkuendungen } from '../src/lib/norms/publications.ts';
-import { loadLegislativeProcedures } from '../src/lib/portal/legislation.ts';
-import { PORTAL_REFERENCE_DATE } from '../src/lib/portal/dates.ts';
-import { loadEvents } from '../src/lib/portal/content.ts';
-import editorialConfig from '../src/config/editorial.json' with { type: 'json' };
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
+import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
+import { loadLegislativeProcedures } from '@ostrecht/shared/lib/portal/legislation.ts';
+import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
+import { loadEvents } from '@ostrecht/shared/lib/portal/content.ts';
+import editorialConfig from '@ostrecht/shared/config/editorial.json' with { type: 'json' };
 
 const cutoff = editorialConfig.referenceDate;
 

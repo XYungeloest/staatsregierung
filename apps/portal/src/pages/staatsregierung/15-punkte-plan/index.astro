@@ -1,0 +1,94 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import ActionPlanDashboard from '../../../components/portal/ActionPlanDashboard.astro';
+import ProjectTimeline from '../../../components/portal/ProjectTimeline.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import { actionPlanItems } from '../../../data/dashboard/action-plan.ts';
+import { timelineEntries } from '../../../data/dashboard/timeline.ts';
+import {
+  getCabinetUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getLawHomeUrl,
+  getMinisterPresidentUrl,
+  getTopicsUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+const completedCount = actionPlanItems.filter((point) => point.status === 'umgesetzt').length;
+const partlyCount = actionPlanItems.filter((point) => point.status === 'teilweise_umgesetzt').length;
+const plannedCount = actionPlanItems.filter((point) => point.status === 'angelegt').length;
+---
+
+<BaseLayout
+  title="15-Punkte-Plan II"
+  description="Regierungsprogrammatische Leitlinien des Kabinetts Honecker II."
+  scripts={['portal-modules']}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: '15-Punkte-Plan II' },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Regierungsprogramm"
+    title="15-Punkte-Plan II"
+    lead="Die zentralen politischen Linien des Kabinetts Honecker II mit ihrem jeweiligen Umsetzungsstand."
+    variant="government"
+    facts={[
+      { label: 'Programmpunkte', value: String(actionPlanItems.length) },
+      { label: 'Umgesetzt', value: String(completedCount) },
+      { label: 'Teilweise umgesetzt', value: String(partlyCount) },
+      { label: 'Angelegt', value: String(plannedCount) },
+    ]}
+  />
+  <GovernmentNavigation />
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Stand der Programmpunkte</h2>
+      <p>
+        Alle Programmpunkte werden mit Statussymbolen, Ressortbezug und direkten Verlinkungen auf
+        Themen- oder Rechtsseiten dargestellt.
+      </p>
+    </div>
+    <ActionPlanDashboard items={actionPlanItems} />
+    <p class="section-link-row">
+      <a class="inline-link" href={getTopicsUrl()}>Zur Themenübersicht</a>
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Projekt-Timeline seit Dezember 2025</h2>
+      <p>
+        Die Zeitachse ordnet die erste Aufbauphase, den Regierungswechsel vom <time datetime="2026-05-04">4. Mai 2026</time> und die
+        ersten Schritte der zweiten Aufbauphase chronologisch ein.
+      </p>
+    </div>
+    <ProjectTimeline entries={timelineEntries} />
+  </section>
+
+  <section class="section section-muted">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Staatspräsident</h2>
+        <p>Die Leitungsseite bündelt die Koordination des Staatsrates, politische Prioritäten und den Regierungssitz Dresden.</p>
+        <p><a class="inline-link" href={getMinisterPresidentUrl()}>Zur Leitungsseite</a></p>
+      </article>
+      <article class="panel">
+        <h2>Kabinett & Ressorts</h2>
+        <p>Die Ressortseiten machen Zuständigkeiten, Themenbezüge und institutionelle Verantwortung lesbar zugänglich.</p>
+        <p><a class="inline-link" href={getCabinetUrl()}>Zum Kabinett</a></p>
+      </article>
+      <article class="panel">
+        <h2>Rechtsportal</h2>
+        <p>Aktuelle Fassungen, frühere Rechtsstände und laufende Gesetzgebungsvorhaben sind im Rechtsbereich gebündelt.</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsbereich</a></p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

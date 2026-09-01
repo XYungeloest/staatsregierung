@@ -10,17 +10,15 @@ function isRootDocumentation(path) {
 }
 
 function isLawOnly(path) {
-  return path.startsWith('src/law/')
-    || path.startsWith('src/components/norms/')
+  return path.startsWith('apps/recht/')
+    || path.startsWith('packages/recht-')
     || path.startsWith('public/assets/recht/')
     || path === 'public/images/social/recht-preview.png';
 }
 
 function isPortalOnly(path) {
-  return path.startsWith('src/pages/')
-    || path.startsWith('src/data/')
-    || path.startsWith('src/lib/kreisreform/')
-    || path === 'src/config/legacy-routes.mjs'
+  return path.startsWith('apps/portal/')
+    || path.startsWith('packages/portal-')
     || path.startsWith('content/dashboard/')
     || path.startsWith('content/freistaat/')
     || path.startsWith('content/gesetzgebung/')
@@ -39,16 +37,8 @@ function isPortalOnly(path) {
 }
 
 function isShared(path) {
-  return path.startsWith('src/components/')
-    || path.startsWith('src/layouts/')
-    || path.startsWith('src/lib/norms/')
-    || path.startsWith('src/lib/portal/')
-    || path.startsWith('src/lib/seo/')
-    || path.startsWith('src/scripts/')
-    || path.startsWith('src/config/')
-    || path.startsWith('src/styles/')
-    || path.startsWith('src/assets/')
-    || path.startsWith('src/editorial-worker/')
+  return path.startsWith('apps/redaktion/')
+    || path.startsWith('packages/')
     || path.startsWith('content/normen/')
     || path.startsWith('content/verkuendungen/')
     || path.startsWith('data/recht/')
@@ -62,7 +52,7 @@ function isShared(path) {
     || path === 'public/_headers'
     || path === 'public/favicon.ico'
     || path === 'public/favicon.svg'
-    || /^(?:package(?:-lock)?\.json|astro\.config\.[^/]+|tsconfig[^/]*|playwright[^/]*|wrangler[^/]*)$/u.test(path);
+    || /^(?:package(?:-lock)?\.json|tsconfig[^/]*|playwright[^/]*)$/u.test(path);
 }
 
 const PATH_CLASSIFIERS = [

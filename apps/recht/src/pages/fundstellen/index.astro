@@ -1,0 +1,167 @@
+---
+import LawLayout from '../../layouts/LawLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import {
+  formatDate,
+  formatPublicationEntryType,
+  getLawPortalUrl,
+  getNormUrl,
+  getNormVersionUrl,
+  getPublicationLabel,
+  getPublicationUrl,
+  getReferencesUrl,
+  listPublicationEntries,
+  loadAllVerkuendungen,
+  toDisplayText,
+  classifyNormVersion,
+} from '@ostrecht/shared/lib/norms/index.ts';
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+
+const [publications, norms] = await Promise.all([loadAllVerkuendungen(), loadAllNorms()]);
+const entries = listPublicationEntries(publications).sort((left, right) => {
+  if (left.publication.publication !== right.publication.publication) {
+    return left.publication.publication.localeCompare(right.publication.publication, 'de');
+  }
+
+  if (left.publication.year !== right.publication.year) {
+    return right.publication.year - left.publication.year;
+  }
+
+  return right.publication.issue.localeCompare(left.publication.issue, 'de', { numeric: true });
+});
+const publicationNames = [...new Set(publications.map((publication) => publication.publication))].sort((left, right) =>
+  left.localeCompare(right, 'de'),
+);
+const years = [...new Set(publications.map((publication) => publication.year))].sort((left, right) => right - left);
+const entryTypes = [...new Set(entries.map(({ entry }) => entry.type))].sort();
+const normBySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
+
+function getEntryNormUrl(normSlug: string | undefined, versionId: string | undefined): string | undefined {
+  if (!normSlug) {
+    return undefined;
+  }
+
+  const norm = normBySlug.get(normSlug);
+  if (!norm) {
+    return undefined;
+  }
+
+  const version = versionId ? norm.versions.find((entry) => entry.versionId === versionId) : undefined;
+  return !version || classifyNormVersion(norm, version) === 'current'
+    ? getNormUrl(normSlug)
+    : getNormVersionUrl(normSlug, version.versionId);
+}
+---
+
+<LawLayout
+  title="Fundstellennachweise"
+  description="Fundstellen, Verkündungsblätter und Verweise auf Normfassungen im Rechtsbereich."
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: 'Fundstellennachweise', href: getReferencesUrl() },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'OstRecht', href: getLawPortalUrl() },
+      { label: 'Fundstellennachweise' },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Rechtsportal"
+    title="Fundstellennachweise"
+    lead="Nachweise aus Verkündungsblättern mit direkter Verknüpfung zu den gespeicherten Normfassungen."
+    variant="law"
+    facts={[
+      { label: 'Nachweise', value: String(entries.length) },
+      { label: 'Ausgaben', value: String(publications.length) },
+      { label: 'Verkündungsblätter', value: String(publicationNames.length) },
+    ]}
+  />
+
+  <div data-law-list-filter>
+    <section class="section law-list-filter" aria-labelledby="fundstellen-filter">
+      <div class="section-header section-header--compact">
+        <h2 id="fundstellen-filter">Fundstellen filtern</h2>
+      </div>
+      <form class="search-form__filters" data-law-filter-form>
+        <label class="search-field"><span>Verkündungsblatt</span><select name="publication"><option value="">Alle</option>{publicationNames.map((entry) => <option value={entry}>{entry}</option>)}</select></label>
+        <label class="search-field"><span>Jahr</span><select name="year"><option value="">Alle</option>{years.map((entry) => <option value={String(entry)}>{entry}</option>)}</select></label>
+        <label class="search-field"><span>Ausgabennummer</span><input name="issue" inputmode="numeric" /></label>
+        <label class="search-field"><span>Normtyp</span><select name="type"><option value="">Alle</option>{entryTypes.map((entry) => <option value={entry}>{formatPublicationEntryType(entry)}</option>)}</select></label>
+        <label class="search-field"><span>Titel oder Suchbegriff</span><input type="search" name="q" /></label>
+        <button class="button-link" type="submit">Filtern</button>
+      </form>
+      <p class="search-feedback" aria-live="polite" data-law-filter-summary></p>
+    </section>
+
+  {publicationNames.map((publicationName) => {
+    const publicationEntries = entries.filter((entry) => entry.publication.publication === publicationName);
+
+    return (
+      <section class="section">
+        <div class="section-header">
+          <h2>{publicationName}</h2>
+          <p>Fundstellen aus {publicationName} nach Jahr und Ausgabe.</p>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th scope="col">Fundstelle</th>
+                <th scope="col">Datum</th>
+                <th scope="col">Titel</th>
+                <th scope="col">Normfassung</th>
+              </tr>
+            </thead>
+            <tbody>
+              {publicationEntries.map(({ publication, entry }) => {
+                const normUrl = getEntryNormUrl(entry.normSlug, entry.versionId);
+
+                return (
+                  <tr
+                    data-law-filter-entry
+                    data-publication={publication.publication}
+                    data-year={String(publication.year)}
+                    data-issue={publication.issue}
+                    data-type={entry.type}
+                    data-q={`${entry.title} ${entry.citation}`}
+                  >
+                    <td>
+                      <strong>
+                        <a class="inline-link" href={`${getPublicationUrl(publication.slug)}#${entry.id}`}>
+                          {toDisplayText(entry.citation)}
+                        </a>
+                      </strong>
+                      <span>{getPublicationLabel(publication)}</span>
+                    </td>
+                    <td><time datetime={publication.date}>{formatDate(publication.date)}</time></td>
+                    <td>
+                      {toDisplayText(entry.title)}
+                      <span>{formatPublicationEntryType(entry.type)}</span>
+                    </td>
+                    <td>
+                      {normUrl ? (
+                        <a class="inline-link" href={normUrl}>
+                          {entry.versionId ? `Fassung ${entry.versionId}` : 'Norm öffnen'}
+                        </a>
+                      ) : (
+                        <span>Kein Normlink</span>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+    );
+  })}
+  </div>
+  <script>
+    import "../../scripts/law-list-filter.ts";
+  </script>
+</LawLayout>

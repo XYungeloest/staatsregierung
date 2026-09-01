@@ -1,0 +1,20 @@
+{
+  "name": "@ostrecht/redaktion",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --config wrangler.jsonc --env local",
+    "check": "wrangler deploy --dry-run --config wrangler.jsonc --env=\"\" --outdir .wrangler/dry-run",
+    "deploy": "wrangler deploy --config wrangler.jsonc --env=\"\""
+  },
+  "dependencies": {
+    "@ostrecht/shared": "*"
+  },
+  "devDependencies": {
+    "wrangler": "^4.122.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

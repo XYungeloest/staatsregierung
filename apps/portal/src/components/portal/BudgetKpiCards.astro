@@ -1,0 +1,46 @@
+---
+import {
+  getBudgetShare,
+  type BudgetAmounts,
+  type BudgetYear,
+} from '../../data/haushalt.ts';
+import { formatEuroCompact, formatPercent } from '@ostrecht/shared/lib/portal/modules.ts';
+
+interface Props {
+  year: BudgetYear;
+  amounts: BudgetAmounts;
+  specialInstrumentCount?: number;
+}
+
+const { year, amounts, specialInstrumentCount } = Astro.props as Props;
+const cards = [
+  { label: 'Gesamtausgaben', amount: amounts.expenses, description: 'Summe der Ausgaben' },
+  { label: 'Gesamteinnahmen', amount: amounts.revenue, description: 'Summe der Einnahmen' },
+  { label: 'Investitionen', amount: amounts.investments, description: getBudgetShare(amounts.investments, amounts.expenses) },
+  { label: 'Personalausgaben', amount: amounts.personnel, description: getBudgetShare(amounts.personnel, amounts.expenses) },
+  { label: 'Schuldendienst und Finanzierungen', amount: amounts.financingExpenses, description: 'Besondere Finanzierungsausgaben' },
+];
+---
+
+<div class="budget-kpi-grid budget-kpi-grid--six" aria-label={`Haushaltskennzahlen ${year}`}>
+  {cards.map((card) => (
+    <article class="budget-kpi-card">
+      <span class="meta-label">{card.label}</span>
+      <strong>{formatEuroCompact(card.amount)}</strong>
+      <span class="detail-line">
+        {typeof card.description === 'string'
+          ? card.description
+          : card.description === null
+            ? 'Anteil nicht berechenbar'
+            : `${formatPercent(card.description)} ${card.label === 'Steuereinnahmen' ? 'der Einnahmen' : 'der Ausgaben'}`}
+      </span>
+    </article>
+  ))}
+  {typeof specialInstrumentCount === 'number' ? (
+    <article class="budget-kpi-card">
+      <span class="meta-label">Sondervermögen und Fonds</span>
+      <strong>{specialInstrumentCount}</strong>
+      <span class="detail-line">rechtlich eingeordnete Instrumente</span>
+    </article>
+  ) : null}
+</div>

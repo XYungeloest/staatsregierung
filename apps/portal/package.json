@@ -1,0 +1,33 @@
+{
+  "name": "@ostrecht/portal",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "public": "npm --prefix ../.. run holdings:check && node ../../scripts/prepare-site-public.mjs portal",
+    "predev": "npm run public",
+    "dev": "astro dev",
+    "precheck": "npm run public",
+    "check": "astro check",
+    "prebuild": "npm run public",
+    "build": "astro build",
+    "postbuild": "node ../../scripts/stamp-build.mjs portal",
+    "preview": "astro preview",
+    "deploy": "wrangler deploy --config wrangler.jsonc --env=\"\"",
+    "deploy:staging": "wrangler deploy --config wrangler.jsonc --env staging"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^14.2.1",
+    "@ostrecht/shared": "*",
+    "astro": "^7.2.1",
+    "leaflet": "^1.9.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/leaflet": "^1.9.22",
+    "wrangler": "^4.122.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

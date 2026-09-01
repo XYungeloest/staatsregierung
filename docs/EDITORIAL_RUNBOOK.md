@@ -44,7 +44,7 @@ Themenseite aktualisiert der Worker die wechselseitige Zuordnung in
 
 ## Dashboard bearbeiten
 
-„Dashboard-Aktionsplan“ und „Dashboard-Timeline“ bearbeiten die JSON-Dateien unter `content/dashboard/`. Mit der Positionsangabe und den Pfeiltasten im Listeneditor lassen sich Einträge umsortieren. Die TypeScript-Dateien unter `src/data/dashboard/` sind keine redaktionellen Quellen.
+„Dashboard-Aktionsplan“ und „Dashboard-Timeline“ bearbeiten die JSON-Dateien unter `content/dashboard/`. Mit der Positionsangabe und den Pfeiltasten im Listeneditor lassen sich Einträge umsortieren. Die TypeScript-Dateien unter `apps/portal/src/data/dashboard/` sind keine redaktionellen Quellen.
 
 ## Bild wählen oder ergänzen
 

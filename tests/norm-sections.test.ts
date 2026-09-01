@@ -6,8 +6,8 @@ import {
   buildNormAnchorMap,
   buildNormOutline,
   getResolvedBlockAnchorId,
-} from '../src/lib/norms/presentation.ts';
-import type { NormBodyBlock } from '../src/lib/norms/schema.ts';
+} from '@ostrecht/shared/lib/norms/presentation.ts';
+import type { NormBodyBlock } from '@ostrecht/shared/lib/norms/schema.ts';
 
 const blocks: NormBodyBlock[] = [
   {
@@ -137,7 +137,7 @@ test('zitierte Vorschriften erhalten einen eigenen kollisionsfreien Namensraum',
 
 test('NormBody bindet aria-labelledby an tatsächlich gerenderte Überschriften', () => {
   const component = readFileSync(
-    new URL('../src/components/norms/NormBody.astro', import.meta.url),
+    new URL('../apps/recht/src/components/norms/NormBody.astro', import.meta.url),
     'utf8',
   );
 

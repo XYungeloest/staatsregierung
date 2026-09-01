@@ -1,0 +1,70 @@
+---
+import HoldingPositionDetails from './HoldingPositionDetails.astro';
+import {
+  formatHoldingCurrentPercent,
+  formatHoldingCurrentStatus,
+  formatHoldingLevel,
+  formatHoldingPercent,
+  formatHoldingRelation,
+} from '@ostrecht/shared/lib/portal/holdings.ts';
+import type { BeteiligungsInventarPosition } from '@ostrecht/shared/lib/portal/schema.ts';
+
+interface Props {
+  positions: BeteiligungsInventarPosition[];
+}
+
+const { positions } = Astro.props as Props;
+---
+
+<div class="holdings-results" data-holdings-results>
+  <div class="table-wrap holdings-table-wrap" tabindex="0" role="region" aria-label="Beteiligungs- und Trägerbestand als Tabelle">
+    <table class="data-table holdings-table">
+      <caption>Öffentlich belegte Beteiligungs-, Träger-, Mitgliedschafts- und Vermögenspositionen</caption>
+      <thead>
+        <tr>
+          <th scope="col" aria-sort="ascending"><button type="button" data-holdings-sort="name">Rechtsträger</button></th>
+          <th scope="col"><button type="button" data-holdings-sort="origin">Herkunft</button></th>
+          <th scope="col">Ebene</th>
+          <th scope="col"><button type="button" data-holdings-sort="legalForm">Rechtsform / Beziehung</button></th>
+          <th scope="col"><button type="button" data-holdings-sort="stake">Anteil 1.12.2023</button></th>
+          <th scope="col">Heute</th>
+          <th scope="col"><button type="button" data-holdings-sort="status">Status</button></th>
+        </tr>
+      </thead>
+      <tbody data-holdings-table-body>
+        {positions.map((position) => (
+          <tr>
+            <td>
+              <strong>{position.name}</strong>
+              <HoldingPositionDetails {position} />
+            </td>
+            <td>{position.origin}</td>
+            <td>{formatHoldingLevel(position.level)}</td>
+            <td>{position.legalForm}<span>{formatHoldingRelation(position.relation)}</span></td>
+            <td>{formatHoldingPercent(position.stakePercent)}</td>
+            <td>{formatHoldingCurrentPercent(position)}</td>
+            <td><span class:list={['holdings-status', `holdings-status--${position.currentStatus}`]}>{formatHoldingCurrentStatus(position.currentStatus)}</span></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="holdings-mobile-results" data-holdings-mobile-results aria-label="Beteiligungs- und Trägerbestand">
+    {positions.map((position) => (
+      <article class="holdings-result-card">
+        <div class="holdings-result-card__heading">
+          <h3>{position.name}</h3>
+          <span class:list={['holdings-status', `holdings-status--${position.currentStatus}`]}>{formatHoldingCurrentStatus(position.currentStatus)}</span>
+        </div>
+        <p>{position.origin} · {position.legalForm}</p>
+        <dl>
+          <div><dt>Ebene</dt><dd>{formatHoldingLevel(position.level)}</dd></div>
+          <div><dt>Anteil 1.12.2023</dt><dd>{formatHoldingPercent(position.stakePercent)}</dd></div>
+          <div><dt>Heute</dt><dd>{formatHoldingCurrentPercent(position)}</dd></div>
+        </dl>
+        <HoldingPositionDetails {position} />
+      </article>
+    ))}
+  </div>
+</div>

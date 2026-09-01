@@ -4,13 +4,13 @@ import test from 'node:test';
 import {
   buildNormFullCitation,
   buildNormRecordLookup,
-} from '../src/lib/norms/citation.ts';
-import { loadAllNorms } from '../src/lib/norms/loader.ts';
-import { formatNormType, toDisplayText } from '../src/lib/norms/presentation.ts';
-import { buildSearchIndexPayload } from '../src/lib/norms/search.ts';
-import { NORM_TYPES } from '../src/lib/norms/schema.ts';
-import { getApplicableVersion } from '../src/lib/norms/versions.ts';
-import { getNormVersionIdentity } from '../src/lib/norms/identity.ts';
+} from '@ostrecht/shared/lib/norms/citation.ts';
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
+import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { buildSearchIndexPayload } from '@ostrecht/shared/lib/norms/search.ts';
+import { NORM_TYPES } from '@ostrecht/shared/lib/norms/schema.ts';
+import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 
 const genericCitationLead =
   /^(?:Gesetz|Verordnung|Verfassung|Staatsvertrag|Verwaltungsabkommen|Verwaltungsvorschrift|Bekanntmachung|Organisationserlass|Dienstanordnung|Anordnung|Richtlinie|Allgemeinverfügung|Übereinkommen|Vereinbarung|Erlass)\s+vom\b/u;

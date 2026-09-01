@@ -1,7 +1,7 @@
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
-import { PORTAL_REFERENCE_DATE } from '../src/lib/portal/dates.ts';
+import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
 import {
   loadCurrentGovernment,
   loadCabinetPageContent,
@@ -10,9 +10,9 @@ import {
   loadOrganizationData,
   loadHomeContent,
   loadTopics,
-} from '../src/lib/portal/loader.ts';
-import { parseActionPlanData, parseTimelineData } from '../src/lib/portal/dashboard-content.ts';
-import { isActiveInterval, validateOrganization } from '../src/lib/portal/organization.ts';
+} from '@ostrecht/shared/lib/portal/loader.ts';
+import { parseActionPlanData, parseTimelineData } from '@ostrecht/shared/lib/portal/dashboard-content.ts';
+import { isActiveInterval, validateOrganization } from '@ostrecht/shared/lib/portal/organization.ts';
 
 interface OrganizationSnapshot {
   asOf: string;

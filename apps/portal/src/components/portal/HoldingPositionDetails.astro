@@ -1,0 +1,47 @@
+---
+import {
+  formatHoldingCurrentStatus,
+  formatHoldingCutoffStatus,
+  formatHoldingLevel,
+  formatHoldingPercent,
+  formatHoldingRelation,
+} from '@ostrecht/shared/lib/portal/holdings.ts';
+import type { BeteiligungsInventarPosition } from '@ostrecht/shared/lib/portal/schema.ts';
+
+interface Props {
+  position: BeteiligungsInventarPosition;
+}
+
+const { position } = Astro.props as Props;
+---
+
+<details class="holding-position-details">
+  <summary>Details</summary>
+  <dl>
+    <div><dt>Herkunft</dt><dd>{position.origin}</dd></div>
+    <div><dt>Ebene</dt><dd>{formatHoldingLevel(position.level)}</dd></div>
+    <div><dt>Rechtsform</dt><dd>{position.legalForm}</dd></div>
+    <div><dt>Beziehung</dt><dd>{formatHoldingRelation(position.relation)}</dd></div>
+    {position.parent ? <div><dt>Mutterunternehmen</dt><dd>{position.parent}</dd></div> : null}
+    {position.stakePercent !== null ? (
+      <div><dt>Anteil des Herkunftslandes am 1. Dezember 2023</dt><dd>{formatHoldingPercent(position.stakePercent)}</dd></div>
+    ) : null}
+    {position.effectivePublicPercent !== null ? (
+      <div><dt>Effektiver öffentlicher Anteil</dt><dd>{formatHoldingPercent(position.effectivePublicPercent)}</dd></div>
+    ) : null}
+    {position.currentStakePercent !== null ? (
+      <div><dt>Heutiger Einzelanteil</dt><dd>{formatHoldingPercent(position.currentStakePercent)}</dd></div>
+    ) : null}
+    {position.consolidatedInheritedPercent !== null ? (
+      <div><dt>Gebündelte Position am Stichtag</dt><dd>{formatHoldingPercent(position.consolidatedInheritedPercent)}</dd></div>
+    ) : null}
+    {position.currentConsolidatedPercent !== null ? (
+      <div><dt>Heutige ostdeutsche Gesamtposition</dt><dd>{formatHoldingPercent(position.currentConsolidatedPercent)}</dd></div>
+    ) : null}
+    <div><dt>Status am Stichtag</dt><dd>{formatHoldingCutoffStatus(position.cutoffStatus)}</dd></div>
+    <div><dt>Heutiger Status</dt><dd>{formatHoldingCurrentStatus(position.currentStatus)}</dd></div>
+    {position.change2023To2026 ? (
+      <div class="holding-position-details__wide"><dt>Veränderung 2023–2026</dt><dd>{position.change2023To2026}</dd></div>
+    ) : null}
+  </dl>
+</details>

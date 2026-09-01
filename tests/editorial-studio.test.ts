@@ -2,13 +2,13 @@ import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import test from 'node:test';
 
-import { prepareCabinetReshuffle, prepareDocumentChange } from '../src/editorial-worker/content.ts';
-import { MemoryEditorialRepository } from '../src/editorial-worker/github.ts';
+import { prepareCabinetReshuffle, prepareDocumentChange } from '../apps/redaktion/src/content.ts';
+import { MemoryEditorialRepository } from '../apps/redaktion/src/github.ts';
 import {
   editorialRegistry,
   serializeEditorialDocument,
   type EditorialContentTypeId,
-} from '../src/editorial-worker/registry.ts';
+} from '../apps/redaktion/src/registry.ts';
 
 const fileForType: Record<Exclude<EditorialContentTypeId, 'cabinet-reshuffle'>, string> = {
   'government-member': 'content/regierung/mitglieder/karl-honecker.json',

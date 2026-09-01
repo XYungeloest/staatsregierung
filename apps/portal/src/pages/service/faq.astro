@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import FaqAccordion from '../../components/portal/FaqAccordion.astro';
+import { getHomeUrl, getLawHomeUrl, getLawSearchUrl, getServiceUrl } from '@ostrecht/shared/lib/portal/index.ts';
+
+const faqItems = [
+  {
+    question: 'Wo finde ich die wichtigsten Bereiche?',
+    answer:
+      'Über die Hauptnavigation erreichen Sie Staatsrat, Themen, Recht, Presse und Service direkt.',
+  },
+  {
+    question: 'Wo finde ich aktuelle Fassungen und historische Fassungen von Rechtsvorschriften?',
+    answer:
+      'Der gesamte Rechtsbestand ist im eigenständigen Rechtsportal OstRecht gebündelt. Dort sind aktuelle Fassungen, Historienseiten und historische Fassungen dauerhaft abrufbar.',
+    href: getLawHomeUrl(),
+    hrefLabel: 'Zum Rechtsportal',
+  },
+  {
+    question: 'Kann ich im Rechtsportal nach Titeln, Metadaten und Normtext suchen?',
+    answer:
+      'Ja. Die Normensuche wertet Titel, Metadaten, Sachgebiete und Normtexte aus und führt direkt zu den passenden Fassungen.',
+    href: getLawSearchUrl(),
+    hrefLabel: 'Zur Normensuche',
+  },
+  {
+    question: 'Gibt es Downloads oder offene Daten?',
+    answer:
+      'Einzelne Bereiche wie Haushalt oder Rechtsportal können schrittweise um Downloads oder strukturierte Datenausgaben ergänzt werden.',
+  },
+  {
+    question: 'Wie gehe ich mit Informationsanträgen oder Transparenzanliegen um?',
+    answer:
+      'Für Informationsanträge und Transparenzanliegen nutzen Sie bitte den zuständigen Kontaktweg. Fachliche Anliegen richten Sie an das passende Ressort oder an die allgemeine Kontaktstelle.',
+  },
+  {
+    question: 'Kann ich Petitionen oder Beteiligungsanliegen direkt über das Portal einreichen?',
+    answer:
+      'Nein. Das Portal bietet derzeit kein Online-Formular für Petitionen oder Beteiligungsanliegen an. Bitte nutzen Sie die angegebenen Kontaktwege.',
+  },
+  {
+    question: 'Werden Nutzungsdaten mit Webanalyse erfasst?',
+    answer:
+      'Statistik wird nur nach Ihrer Zustimmung aktiviert. Ihre Entscheidung kann jederzeit in den Datenschutzeinstellungen geändert werden.',
+  },
+  {
+    question: 'Werden Eingaben über das Portal gespeichert?',
+    answer:
+      'Das öffentliche Portal bietet derzeit keine Eingabeformulare für Bewerbungen, Kontaktanliegen oder Petitionen an. Eine Webanalyse kann je nach Einwilligung im Browser erfolgen.',
+  },
+];
+---
+
+<BaseLayout
+  title="FAQ"
+  description="Häufige Fragen zum Regierungsportal und seiner Nutzung."
+  scripts={['portal-modules']}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Service', href: getServiceUrl() },
+      { label: 'FAQ' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>FAQ</h1>
+    <p class="lead">
+      Kurze Hinweise zur Nutzung des Portals, des Rechtsbereichs, zu Informationsanträgen,
+      Downloads, Beteiligung und Kontaktwegen.
+    </p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Rechtsportal</h2>
+        <p>Suche, Normansichten, Historien und Sachgebiete sind vollständig im Rechtsportal OstRecht gebündelt.</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Rechtsportal</a></p>
+      </article>
+      <article class="panel">
+        <h2>Normensuche</h2>
+        <p>Die Normensuche führt über Titel, Metadaten und Normtexte zu den passenden Rechtsvorschriften.</p>
+        <p><a class="inline-link" href={getLawSearchUrl()}>Zur Suche</a></p>
+      </article>
+      <article class="panel">
+        <h2>Servicehinweise</h2>
+        <p>Kontaktwege und organisatorische Informationen finden sich gesammelt im Servicebereich.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <FaqAccordion items={faqItems} />
+  </section>
+</BaseLayout>
