@@ -8,7 +8,7 @@ import {
   MemoryEditorialRepository,
   type EditorialSubmission,
   type GitHubEditorialEnv,
-} from '../src/editorial-worker/github.ts';
+} from '../apps/redaktion/src/github.ts';
 
 const testKey = generateKeyPairSync('rsa', { modulusLength: 2048 }).privateKey;
 const privateKey = testKey.export({ type: 'pkcs8', format: 'pem' }).toString();

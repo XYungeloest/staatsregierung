@@ -1,0 +1,118 @@
+---
+import LawLayout from '../../layouts/LawLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import {
+  formatNormType,
+  getLawPortalUrl,
+  getSearchUrl,
+  getNormUrl,
+  getSubjectAreaGroups,
+  getSubjectsUrl,
+  getSubjectGroups,
+  getApplicableVersion,
+  getNormVersionIdentity,
+  toDisplayText,
+} from '@ostrecht/shared/lib/norms/index.ts';
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
+
+export async function getStaticPaths() {
+  const norms = await loadAllNorms();
+  const groups = getSubjectGroups(norms);
+  const areaGroups = getSubjectAreaGroups(norms);
+
+  return groups.map((group) => ({
+    params: { subject: group.slug },
+    props: {
+      group,
+      area: areaGroups.find((area) => area.subjects.some((subject) => subject.slug === group.slug)),
+    },
+  }));
+}
+
+const { group, area } = Astro.props;
+const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
+  map.set(norm.meta.type, (map.get(norm.meta.type) ?? 0) + 1);
+  return map;
+}, new Map<string, number>()).entries()].sort(([left], [right]) => left.localeCompare(right, 'de'));
+---
+
+<LawLayout
+  title={`Sachgebiet ${toDisplayText(group.name)}`}
+  description={`Sachgebiet ${toDisplayText(group.name)} im Rechtsbereich des Freistaates Ostdeutschland.`}
+  breadcrumbs={[
+    { label: 'OstRecht', href: getLawPortalUrl() },
+    { label: 'Sachgebiete', href: getSubjectsUrl() },
+    { label: toDisplayText(group.name) },
+  ]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'OstRecht', href: getLawPortalUrl() },
+      { label: 'Sachgebiete', href: getSubjectsUrl() },
+      { label: toDisplayText(group.name) },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Sachgebiet"
+    title={toDisplayText(group.name)}
+    lead={`Diesem Sachgebiet sind aktuell ${group.norms.length} Normen zugeordnet.${area ? ` Es gehört zum Bereich ${area.name}.` : ''}`}
+    variant="law"
+    facts={[{ label: 'Vorschriften', value: String(group.norms.length) }]}
+    actions={[
+      { label: 'Sachgebiet durchsuchen', href: `${getSearchUrl()}?subject=${encodeURIComponent(group.name)}`, primary: true },
+      { label: 'Alle Sachgebiete', href: getSubjectsUrl() },
+    ]}
+  />
+
+  <section class="law-subject-overview" aria-labelledby="subject-overview-title">
+    <div class="law-subject-overview__intro">
+      <span class="section-eyebrow">Bestand im Überblick</span>
+      <h2 id="subject-overview-title">Recht in diesem Sachgebiet</h2>
+      <p>Die Vorschriften sind nach ihrem geltenden Titel erschlossen und führen direkt zum aktuellen Rechtsstand.</p>
+    </div>
+    <dl class="law-subject-stats">
+      <div class="law-subject-stats__total">
+        <dt>Vorschriften insgesamt</dt>
+        <dd>{group.norms.length}</dd>
+      </div>
+      {typeCounts.map(([type, count]) => (
+        <div>
+          <dt>{formatNormType(type as NormType)}</dt>
+          <dd>{count}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
+  <section class="law-subject-records">
+    <div class="law-subject-records__header">
+      <div>
+        <span class="section-eyebrow">Zugeordnete Rechtsgrundlagen</span>
+        <h2>Vorschriften</h2>
+        <p>Aktuelle und gespeicherte Normen mit fachlicher Zuständigkeit.</p>
+      </div>
+      <a class="button button--secondary" href={`${getSearchUrl()}?subject=${encodeURIComponent(group.name)}`}>Ergebnisse filtern</a>
+    </div>
+    <ul class="law-subject-record-list">
+      {group.norms.map((norm) => {
+        const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+        return (
+        <li>
+          <div class="law-subject-record-list__type">
+            <span>{formatNormType(norm.meta.type)}</span>
+            {identity.abbr ? <strong>{toDisplayText(identity.abbr)}</strong> : null}
+          </div>
+          <div class="law-subject-record-list__content">
+            <a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a>
+            <span>{toDisplayText(norm.meta.responsibleMinistry)}</span>
+          </div>
+          <span class="law-subject-record-list__arrow" aria-hidden="true">→</span>
+        </li>
+        );
+      })}
+    </ul>
+  </section>
+</LawLayout>

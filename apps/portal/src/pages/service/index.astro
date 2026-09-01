@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import ServiceCard from '../../components/portal/ServiceCard.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getAccessibilityUrl,
+  getCabinetUrl,
+  getCareerUrl,
+  getContactUrl,
+  getEasyLanguageUrl,
+  getFaqUrl,
+  getHomeUrl,
+  getImprintUrl,
+  getPrivacyUrl,
+  getPublicationsUrl,
+  getSignLanguageUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import { loadJobOffers } from '@ostrecht/shared/lib/portal/content.ts';
+
+const offers = await loadJobOffers();
+const authorityNumber = siteConfig.contact.authorityNumber;
+---
+
+<BaseLayout title="Service" description="Kontakt, Karriere, Orientierung und barrierearme Serviceangebote des Regierungsportals.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service' }]} />
+
+  <SectionHero
+    eyebrow="Service"
+    title="Service und Orientierung"
+    lead="Kontaktwege, Zuständigkeiten, Stellenangebote und barrierearme Zugänge zum Regierungsportal."
+    variant="service"
+    facts={[
+      { label: authorityNumber.label, value: authorityNumber.number },
+      { label: 'Aktuelle Stellenangebote', value: String(offers.length), href: getCareerUrl() },
+    ]}
+    actions={[{ label: 'Kontakt und Zuständigkeit', href: getContactUrl(), primary: true }]}
+  />
+  <SectionNavigation
+    label="Servicebereiche"
+    variant="service"
+    items={[
+      { label: 'Kontakt & 115', href: '#kontakt' },
+      { label: 'Orientierung', href: '#orientierung' },
+      { label: 'Barrierearme Zugänge', href: '#zugaenge' },
+      { label: 'Rechtliche Hinweise', href: '#rechtliches' },
+    ]}
+  />
+
+  <section id="kontakt" class="section" aria-labelledby="kontakt-115">
+    <div class="section-header">
+      <h2 id="kontakt-115">Kontakt und Behördennummer {authorityNumber.number}</h2>
+      <p>Für allgemeine Fragen und die Suche nach der zuständigen Stelle.</p>
+    </div>
+    <ServiceCard
+      title="Kontakt zur Landesverwaltung"
+      body={authorityNumber.description}
+      href={getContactUrl()}
+      icon="phone"
+      emphasis={true}
+    />
+  </section>
+
+  <section id="orientierung" class="section section-muted" aria-labelledby="service-orientierung">
+    <div class="section-header">
+      <h2 id="service-orientierung">Orientierung und Angebote</h2>
+    </div>
+    <div class="service-entry-grid">
+      <ServiceCard title="Zuständiges Ressort finden" body="Staatssekretariate, Aufgaben und Kontaktstellen des Staatsrates." href={getCabinetUrl()} icon="ministry" />
+      <ServiceCard title="Karriere" body="Offene Stellen und Kontaktwege für die Arbeit in der Landesverwaltung." href={getCareerUrl()} icon="government" />
+      <ServiceCard title="Publikationen" body="Verkündungen, Presseformate und zentrale Veröffentlichungen." href={getPublicationsUrl()} icon="press" />
+      <ServiceCard title="Hilfe und FAQ" body="Antworten zur Nutzung des Portals, zu Downloads und Kontaktwegen." href={getFaqUrl()} icon="topics" />
+    </div>
+  </section>
+
+  <section id="zugaenge" class="section" aria-labelledby="barrierearme-zugaenge" data-visual-section="service-accessibility">
+    <div class="section-header">
+      <h2 id="barrierearme-zugaenge">Barrierearme Zugänge</h2>
+      <p>Informationen in zugänglichen Formaten sowie Angaben zur Barrierefreiheit.</p>
+    </div>
+    <div class="service-entry-grid">
+      <ServiceCard title="Leichte Sprache" body="Kurze Orientierung zu den wichtigsten Portalbereichen." href={getEasyLanguageUrl()} icon="easy-language" />
+      <ServiceCard title="Gebärdensprache" body="Informationen zum aktuellen Angebot und zum Feedbackweg." href={getSignLanguageUrl()} icon="sign-language" />
+      <ServiceCard title="Barrierefreiheit" body="Stand der Zugänglichkeit, bekannte Einschränkungen und Feedbackweg." href={getAccessibilityUrl()} icon="accessibility" />
+    </div>
+  </section>
+
+  <section id="rechtliches" class="section section-muted" aria-labelledby="rechtliche-hinweise" data-visual-section="service-legal">
+    <div class="section-header">
+      <h2 id="rechtliche-hinweise">Rechtliche Hinweise</h2>
+    </div>
+    <div class="service-legal-links">
+      <a href={getImprintUrl()}>Impressum</a>
+      <a href={getPrivacyUrl()}>Datenschutz</a>
+    </div>
+  </section>
+</BaseLayout>

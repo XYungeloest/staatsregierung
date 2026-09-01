@@ -13,11 +13,11 @@ Eine GitHub App für genau dieses Repository anlegen und installieren. Erforderl
 Webhooks sind nicht erforderlich. Danach die folgenden Worker-Secrets setzen:
 
 ```sh
-npx wrangler secret put GITHUB_APP_ID --config wrangler.editorial.jsonc
-npx wrangler secret put GITHUB_APP_INSTALLATION_ID --config wrangler.editorial.jsonc
-npx wrangler secret put GITHUB_APP_PRIVATE_KEY --config wrangler.editorial.jsonc
-npx wrangler secret put GITHUB_OWNER --config wrangler.editorial.jsonc
-npx wrangler secret put GITHUB_REPOSITORY --config wrangler.editorial.jsonc
+npx wrangler secret put GITHUB_APP_ID --config apps/redaktion/wrangler.jsonc
+npx wrangler secret put GITHUB_APP_INSTALLATION_ID --config apps/redaktion/wrangler.jsonc
+npx wrangler secret put GITHUB_APP_PRIVATE_KEY --config apps/redaktion/wrangler.jsonc
+npx wrangler secret put GITHUB_OWNER --config apps/redaktion/wrangler.jsonc
+npx wrangler secret put GITHUB_REPOSITORY --config apps/redaktion/wrangler.jsonc
 ```
 
 `GITHUB_APP_PRIVATE_KEY` enthält den vollständigen PEM-Schlüssel. Keine dieser Angaben gehört in Browsercode oder versionierte Dateien. Der Basisbranch ist als `GITHUB_BASE_BRANCH=main` konfiguriert.
@@ -27,8 +27,8 @@ npx wrangler secret put GITHUB_REPOSITORY --config wrangler.editorial.jsonc
 Vor dem Studio-Deployment eine selbst gehostete Access-Anwendung für die Produktionsdomain und den Pfad `/redaktion/*` anlegen. Nur die gewünschte Redaktionsgruppe erhält eine Allow-Policy. Anschließend setzen:
 
 ```sh
-npx wrangler secret put CF_ACCESS_TEAM_DOMAIN --config wrangler.editorial.jsonc
-npx wrangler secret put CF_ACCESS_AUD --config wrangler.editorial.jsonc
+npx wrangler secret put CF_ACCESS_TEAM_DOMAIN --config apps/redaktion/wrangler.jsonc
+npx wrangler secret put CF_ACCESS_AUD --config apps/redaktion/wrangler.jsonc
 ```
 
 `CF_ACCESS_TEAM_DOMAIN` hat die Form `teamname.cloudflareaccess.com`; `CF_ACCESS_AUD` ist der Application Audience Tag. Der Worker prüft das Access-JWT selbst und bleibt bei fehlenden Werten geschlossen. Der sichere Ablauf folgt der [Cloudflare-Dokumentation zur JWT-Validierung](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/).
@@ -40,7 +40,7 @@ npm run editorial:check
 npm run editorial:deploy
 ```
 
-Die Route in `wrangler.editorial.jsonc` muss zur tatsächlich in Cloudflare verwalteten Zone passen. Vor Freigabe mit einem nicht berechtigten Konto prüfen, dass sowohl die HTML-Seite als auch direkte `/redaktion/api/*`-Aufrufe abgewiesen werden.
+Die Route in `apps/redaktion/wrangler.jsonc` muss zur tatsächlich in Cloudflare verwalteten Zone passen. Vor Freigabe mit einem nicht berechtigten Konto prüfen, dass sowohl die HTML-Seite als auch direkte `/redaktion/api/*`-Aufrufe abgewiesen werden.
 
 ## 3. Lokaler Mock
 

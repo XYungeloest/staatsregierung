@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import { legacyRouteHelpLinks } from '../config/legacy-routes.mjs';
+import { getServiceOverviewUrl, resolvePortalPath } from '@ostrecht/shared/lib/portal/index.ts';
+import { getHomeUrl, getIndexUrl, getSearchUrl, getSubjectsUrl } from '@ostrecht/shared/lib/norms/index.ts';
+---
+
+<BaseLayout
+  title="Seite nicht gefunden"
+  description="Die angeforderte Seite wurde im Regierungsportal nicht gefunden."
+  breadcrumbs={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Seite nicht gefunden' }]}
+  noindex={true}
+>
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Seite nicht gefunden' }]} />
+
+  <section class="section page-header error-page">
+    <p class="eyebrow">Fehler 404</p>
+    <h1>Seite nicht gefunden</h1>
+    <p class="lead">
+      Die angeforderte Adresse ist nicht vorhanden oder wurde verschoben. Bitte nutzen Sie die
+      Suche oder die Verzeichnisse, um den gewünschten Inhalt aufzurufen.
+    </p>
+    <nav class="hero-actions" aria-label="Hilfsnavigation">
+      <a class="button-link" href={getHomeUrl()}>Zur Startseite</a>
+      <a class="button-link button-link--secondary" href={getServiceOverviewUrl()}>Zur Übersicht</a>
+      <a class="button-link button-link--secondary" href={getSearchUrl()}>Zur Rechtssuche</a>
+      <a class="button-link button-link--secondary" href={getIndexUrl()}>Zum alphabetischen Index</a>
+      <a class="button-link button-link--secondary" href={getSubjectsUrl()}>Zu den Sachgebieten</a>
+    </nav>
+  </section>
+
+  <section class="section section-muted error-page" aria-labelledby="former-addresses-title">
+    <div class="section-header section-header--compact">
+      <p class="eyebrow">Geänderte Adressen</p>
+      <h2 id="former-addresses-title">Häufig gesuchte Bereiche</h2>
+      <p>Einige frühere Portaladressen führen heute in neu geordnete Bereiche.</p>
+    </div>
+    <ul class="record-list">
+      {legacyRouteHelpLinks.map((route) => (
+        <li class="record-list__item">
+          <a class="inline-link" href={resolvePortalPath(route.target)}>{route.label}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

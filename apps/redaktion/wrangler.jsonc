@@ -1,0 +1,32 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "ostrecht-redaktionsstudio",
+  "main": "./src/index.ts",
+  "compatibility_date": "2026-04-15",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "freistaat-ostdeutschland.de/redaktion/*",
+      "zone_name": "freistaat-ostdeutschland.de"
+    }
+  ],
+  "vars": {
+    "APP_ENV": "production",
+    "PUBLIC_SITE_ORIGIN": "https://freistaat-ostdeutschland.de",
+    "EDITORIAL_ORIGIN": "https://freistaat-ostdeutschland.de",
+    "GITHUB_BASE_BRANCH": "main"
+  },
+  "env": {
+    "local": {
+      "name": "ostrecht-redaktionsstudio-local",
+      "workers_dev": true,
+      "vars": {
+        "APP_ENV": "local",
+        "EDITORIAL_ADAPTER": "mock",
+        "PUBLIC_SITE_ORIGIN": "http://localhost:4321",
+        "EDITORIAL_ORIGIN": "http://localhost:8787",
+        "GITHUB_BASE_BRANCH": "main"
+      }
+    }
+  }
+}

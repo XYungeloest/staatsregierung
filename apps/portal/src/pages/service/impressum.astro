@@ -1,0 +1,101 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import { getAccessibilityUrl, getHomeUrl, getPrivacyUrl, getServiceUrl } from '@ostrecht/shared/lib/portal/index.ts';
+import { loadCurrentGovernment } from '@ostrecht/shared/lib/portal/content.ts';
+
+const { contact } = siteConfig;
+const currentGovernment = await loadCurrentGovernment();
+const citizenPhoneHref = `tel:${contact.citizenService.phone.replace(/\s+/gu, '')}`;
+const pressPhoneHref = `tel:${contact.pressOffice.phone.replace(/\s+/gu, '')}`;
+const siteHostname = new URL(siteConfig.seo.siteUrl).hostname;
+---
+
+<BaseLayout title="Impressum" description="Impressum und Hinweise zum Internetangebot des Ostdeutschen Freistaates.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service', href: getServiceUrl() }, { label: 'Impressum' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Impressum</h1>
+  </section>
+
+  <div class="content-grid">
+    <section class="section body-copy">
+      <h2>Anbieter und Herausgeber</h2>
+      <p>{contact.authorityShort}<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
+      <p>Telefon: <a class="inline-link" href={citizenPhoneHref}>{contact.citizenService.phone}</a><br />E-Mail: <a class="inline-link" href={`mailto:${contact.citizenService.email}`}>{contact.citizenService.email}</a><br />Internet: {siteHostname}</p>
+      <p>Der Staatsrat des Ostdeutschen Freistaates ist Herausgeber dieses Internetangebots.</p>
+
+      <h2>Vertreten durch</h2>
+      <p>{currentGovernment.headOfGovernment}<br />Staatspräsident des Ostdeutschen Freistaates</p>
+
+      <h2>Verantwortliche Stelle</h2>
+      <p>Staatskanzlei des Ostdeutschen Freistaates<br />Referat Digitale Regierungskommunikation und Bürgerinformation<br />{contact.addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href={`mailto:${contact.editorialOffice.email}`}>{contact.editorialOffice.email}</a></p>
+      <p>Die redaktionelle Pflege, technische Koordination und organisatorische Gesamtverantwortung für dieses Portal liegen bei der Staatskanzlei des Ostdeutschen Freistaates.</p>
+
+      <h2>Verantwortlich für journalistisch-redaktionelle Inhalte</h2>
+      <p>Verantwortlich im Sinne des § 18 Abs. 2 Medienstaatsvertrag:</p>
+      <p>Mara Seidel<br />Leiterin des Presse- und Informationsamtes des Staatsrates<br />Staatskanzlei des Ostdeutschen Freistaates<br />{contact.addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href={`mailto:${contact.pressOffice.email}`}>{contact.pressOffice.email}</a></p>
+      <p>Die Verantwortung umfasst insbesondere Pressemitteilungen, redaktionelle Meldungen, Themenseiten, Regierungserklärungen und sonstige publizistische Inhalte dieses Internetangebots.</p>
+
+      <h2>Presse- und Öffentlichkeitsarbeit</h2>
+      <p>{contact.pressOffice.label}<br />{contact.addressLines.join(', ')}</p>
+      <p>Telefon: <a class="inline-link" href={pressPhoneHref}>{contact.pressOffice.phone}</a><br />E-Mail: <a class="inline-link" href={`mailto:${contact.pressOffice.email}`}>{contact.pressOffice.email}</a></p>
+      <p>Anfragen von Medienvertreter:innen richten Sie bitte an die Pressestelle des Staatsrates.</p>
+
+      <h2>Technischer Betrieb</h2>
+      <p>Staatskanzlei des Ostdeutschen Freistaates<br />{contact.portalOperations.label}<br />{contact.addressLines.join(', ')}</p>
+      <p>E-Mail: <a class="inline-link" href={`mailto:${contact.portalOperations.email}`}>{contact.portalOperations.email}</a></p>
+      <p>Der technische Betrieb umfasst die Pflege der Portalstruktur, die Bereitstellung der Suchfunktionen, die Barrierefreiheitskomponenten, die Cookie-Einstellungen und die technische Verfügbarkeit des Internetangebots.</p>
+
+      <h2>Hinweis zur politischen Simulation</h2>
+      <p>Dieses Internetangebot ist Teil einer fiktiven politischen Simulation des Ostdeutschen Freistaates. Der Ostdeutsche Freistaat ist kein real bestehendes deutsches Bundesland. Die dargestellten Behörden, Ämter, Rechtsakte, Pressemitteilungen, Haushaltsdaten, Personen, Zuständigkeiten und Kontaktwege dienen ausschließlich der Simulation, Dokumentation und politischen Rollenspielgestaltung.</p>
+      <p>Dieses Portal ist keine amtliche Website einer realen staatlichen Stelle. Es werden keine Verwaltungsleistungen im rechtlichen Sinne erbracht. Über dieses Internetangebot können keine rechtsverbindlichen Anträge, Widersprüche, Petitionen, Auskunftsersuchen oder sonstigen Verwaltungsverfahren gegenüber realen Behörden eingeleitet werden.</p>
+
+      <h2>Inhalte des Internetangebots</h2>
+      <p>Die Inhalte dieses Portals werden mit größtmöglicher Sorgfalt erstellt und redaktionell gepflegt. Sie dienen der Information über den fiktiven Staatsrat, simulierte Rechtsetzung, politische Vorhaben, Haushaltsdaten, Pressemitteilungen und Serviceangebote innerhalb der politischen Simulation.</p>
+      <p>Eine Gewähr für Aktualität, Vollständigkeit und Richtigkeit der Inhalte wird nicht übernommen, soweit es sich um fiktive, satirische, spielerische oder simulationsbezogene Inhalte handelt. Maßgeblich ist stets der erkennbare Kontext der politischen Simulation.</p>
+
+      <h2>Rechtsinformationen und Normtexte</h2>
+      <p>Soweit dieses Portal Gesetze, Verordnungen, Verwaltungsvorschriften, Fundstellen, Verkündungen oder Rechtsstände enthält, handelt es sich um fiktive Rechtsinformationen innerhalb der politischen Simulation. Diese Inhalte entfalten keine Rechtswirkung gegenüber natürlichen oder juristischen Personen in der realen Bundesrepublik Deutschland.</p>
+      <p>Die bereitgestellten Normtexte, Begründungen und Fundstellennachweise dienen der internen Dokumentation des Simulationsgeschehens und ersetzen keine amtliche Rechtsauskunft.</p>
+
+      <h2>Externe Links</h2>
+      <p>Dieses Internetangebot kann Verweise auf externe Internetseiten enthalten. Für Inhalte externer Seiten ist ausschließlich der jeweilige Anbieter verantwortlich. Der Staatsrat des Ostdeutschen Freistaates macht sich fremde Inhalte durch die Verlinkung nicht zu eigen.</p>
+      <p>Zum Zeitpunkt der Verlinkung wurden externe Inhalte auf erkennbare Rechtsverstöße geprüft. Eine dauerhafte inhaltliche Kontrolle externer Seiten findet ohne konkreten Anlass nicht statt. Bei Bekanntwerden entsprechender Rechtsverletzungen werden betroffene Links entfernt.</p>
+
+      <h2>Urheberrecht und Nutzungsrechte</h2>
+      <p>Die auf diesem Internetangebot veröffentlichten Texte, Grafiken, Logos, Karten, Tabellen, Datenvisualisierungen, Bilder und sonstigen Inhalte unterliegen dem Urheberrecht, soweit sie nicht ausdrücklich als gemeinfrei oder unter einer freien Lizenz gekennzeichnet sind.</p>
+      <p>Eine Nutzung, Vervielfältigung, Bearbeitung oder Weiterverbreitung ist nur im Rahmen der jeweils angegebenen Lizenz oder mit Zustimmung der verantwortlichen Redaktion zulässig. Inhalte, die im Rahmen der politischen Simulation erstellt wurden, dürfen für Zwecke der Simulation, Berichterstattung und Dokumentation unter Nennung der Quelle verwendet werden, sofern keine abweichenden Hinweise angegeben sind.</p>
+
+      <h2>Bildnachweise</h2>
+      <p>Soweit Bilder, Karten, Symbole, Wappen, Logos oder sonstige grafische Elemente verwendet werden, erfolgen Bildnachweise unmittelbar am jeweiligen Inhalt, im Quellennachweis der Seite oder in einem gesonderten Bildnachweisbereich.</p>
+      <p>Fiktive Hoheitszeichen, Wappen, Flaggen und Embleme des Ostdeutschen Freistaates sind Bestandteil der politischen Simulation und stellen keine realen amtlichen Hoheitszeichen dar.</p>
+
+      <h2>Datenschutz und Barrierefreiheit</h2>
+      <p>Informationen zur Verarbeitung personenbezogener Daten, zu Cookies und Statistikfunktionen finden Sie in der <a class="inline-link" href={getPrivacyUrl()}>Datenschutzerklärung</a>. Informationen zu bekannten Einschränkungen und Kontaktmöglichkeiten bei Barrieren stehen in der <a class="inline-link" href={getAccessibilityUrl()}>Erklärung zur Barrierefreiheit</a>.</p>
+
+      <h2>Kontakt bei Fehlern oder Barrieren</h2>
+      <p>Hinweise zu technischen Fehlern, fehlerhaften Links, Darstellungsproblemen, Barrieren oder unklaren Inhalten können an die Portalredaktion gesendet werden: <a class="inline-link" href={`mailto:${contact.editorialOffice.email}`}>{contact.editorialOffice.email}</a>.</p>
+      <p>Bitte nennen Sie nach Möglichkeit die betroffene Seite, den verwendeten Browser, das Endgerät und eine kurze Beschreibung des Problems.</p>
+
+      <h2>Keine Streitbeilegung für Verwaltungsverfahren</h2>
+      <p>Da es sich um ein fiktives Internetangebot im Rahmen einer politischen Simulation handelt, nimmt der Staatsrat des Ostdeutschen Freistaates nicht an realen Streitbeilegungsverfahren vor Verbraucherschlichtungsstellen teil. Über dieses Portal werden keine entgeltlichen Leistungen gegenüber Verbraucher:innen angeboten.</p>
+
+      <h2>Stand</h2>
+      <p>Stand dieses Impressums: <time datetime="2026-08-09">9. August 2026</time></p>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact"><h2>Rechtsgrundlagen</h2></div>
+      <dl class="meta-list">
+        <div><dt>Anbieterkennzeichnung</dt><dd>§ 5 DDG</dd></div>
+        <div><dt>Redaktionelle Verantwortung</dt><dd>§ 18 Abs. 2 MStV</dd></div>
+        <div><dt>Herausgeber</dt><dd>{contact.authorityShort}</dd></div>
+      </dl>
+    </aside>
+  </div>
+</BaseLayout>

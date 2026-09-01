@@ -3,8 +3,8 @@ import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
 import { validateDiscoverability } from '../scripts/lib/topic-discoverability.mjs';
-import { loadTopics } from '../src/lib/portal/content.ts';
-import { PORTAL_REFERENCE_DATE } from '../src/lib/portal/dates.ts';
+import { loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
+import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
 
 test('Discoverability-Regel ist datiert und verhindert einen unbemerkten leeren Übergang', async () => {
   const topics = await loadTopics();

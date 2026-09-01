@@ -13,13 +13,25 @@ Quellen werden vorsorglich als `shared` behandelt.
 | Scope | Typische Pfade | Produktion |
 | --- | --- | --- |
 | `docs-only` | Root-Dokumentation und `docs/` | kein Build und kein Deployment |
-| `portal` | `src/pages/`, portalbezogene Inhalte, Kreisreform und portalbezogene Daten | nur Staatsportal |
-| `law` | `src/law/`, Normkomponenten und `public/assets/recht/` | nur OstRecht |
-| `shared` | gemeinsame Layouts, Komponenten, Libraries, `content/normen/`, `content/verkuendungen/`, `knowledge/`, `Gesetze/`, `data/recht/`, Scripts, Tests, Konfiguration und Abhängigkeiten | beide Anwendungen |
+| `portal` | `apps/portal/`, portalbezogene Inhalte, Kreisreform und portalbezogene Daten | nur Staatsportal |
+| `law` | `apps/recht/`, Normkomponenten und `public/assets/recht/` | nur OstRecht |
+| `shared` | `apps/redaktion/`, `packages/shared/`, `content/normen/`, `content/verkuendungen/`, `knowledge/`, `Gesetze/`, `data/recht/`, Scripts, Tests, Root-Konfiguration und Abhängigkeiten | beide Anwendungen |
 
 Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie unter
 anderem für Suche, Fundstellen und die Rechtsbrücke einliest. Die PDF-Assets unter
 `public/assets/recht/` werden dagegen nur vom Rechtsportal ausgeliefert.
+
+Derzeit existiert mit `packages/shared/` nur ein gemeinsames Paket. Die Klassifikation reserviert
+für künftige, tatsächlich app-spezifische Pakete die Präfixe `packages/portal-*` und
+`packages/recht-*`; sie lösen ausschließlich den jeweiligen Websitebuild aus. Änderungen am
+Editorial Worker bleiben wie vor der Migration konservativ `shared`, damit die bestehende
+Deploymentsemantik unverändert bleibt.
+
+Die Buildartefakte liegen unter `apps/portal/dist/` und `apps/recht/dist/`. GitHub Actions lädt
+diese app-lokalen Verzeichnisse als gemeinsames Artefakt hoch und stellt sie vor UI-Smokes und
+Deployment wieder unter `apps/` her. Die unveränderten Worker `ostrecht-portal` und
+`ostrecht-recht` verwenden `apps/portal/wrangler.jsonc` beziehungsweise
+`apps/recht/wrangler.jsonc`.
 
 ## Regulärer Ablauf
 
@@ -140,7 +152,7 @@ Diese Punkte sind wiederkehrende Pflegeanforderungen, keine erledigbaren Feature
 
 - Der redaktionelle Stichtag bleibt ein fachlich gepflegter Wert. Er wird nicht aus dem Builddatum
   oder automatisch aus dem aktuellen Kalendertag abgeleitet und wird nur einmal in
-  `src/config/editorial.json` gesetzt. Beim Fortschreiben werden Termine,
+  `packages/shared/src/config/editorial.json` gesetzt. Beim Fortschreiben werden Termine,
   Stellen, Hervorhebungen, Verfahren, Normfassungen, Regierungszuordnungen, Gebietsstände,
   Timeline und Suchindex gemeinsam geprüft.
 - Vor jeder Produktionsfreigabe erfolgt zusätzlich zu den automatisierten Prüfungen ein kurzer

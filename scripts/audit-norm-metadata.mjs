@@ -5,7 +5,7 @@ import { join, resolve } from 'node:path';
 
 const root = resolve(process.cwd());
 const normRoot = join(root, 'content', 'normen');
-const editorialConfig = JSON.parse(await readFile(join(root, 'src', 'config', 'editorial.json'), 'utf8'));
+const editorialConfig = JSON.parse(await readFile(join(root, 'packages', 'shared', 'src', 'config', 'editorial.json'), 'utf8'));
 const referenceDate = editorialConfig.referenceDate;
 const problems = [];
 const forbiddenResponsibilities = new Set([

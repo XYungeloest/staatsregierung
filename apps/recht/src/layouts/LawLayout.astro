@@ -1,0 +1,187 @@
+---
+import '@ostrecht/shared/styles/global.css';
+import AnalyticsConsentBanner from '@ostrecht/shared/components/analytics/AnalyticsConsentBanner.astro';
+import PageHead from '@ostrecht/shared/components/PageHead.astro';
+import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+import { isAnalyticsEnabled } from '@ostrecht/shared/config/analytics.ts';
+import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
+import type { SeoBreadcrumbItem, SeoImage, StructuredData } from '@ostrecht/shared/lib/seo/index.ts';
+import {
+  getAccessibilityUrl,
+  getHomeUrl,
+  getImprintUrl,
+  getPrivacyUrl,
+} from '@ostrecht/shared/lib/portal/routes.ts';
+import {
+  getHelpUrl,
+  getLawPortalUrl,
+  getSearchUrl,
+} from '@ostrecht/shared/lib/norms/routes.ts';
+
+interface Props {
+  title: string;
+  description?: string;
+  scripts?: ('portal-modules')[];
+  breadcrumbs?: SeoBreadcrumbItem[];
+  structuredData?: StructuredData | StructuredData[];
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  ogImage?: SeoImage;
+  mainWidth?: 'contained' | 'full';
+}
+
+const {
+  title,
+  description = lawSiteConfig.seo.defaultDescription,
+  scripts = [],
+  breadcrumbs = [],
+  structuredData,
+  noindex = false,
+  ogType = 'website',
+  ogImage = lawSiteConfig.seo.defaultSocialImage,
+  mainWidth = 'contained',
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
+const coatOfArmsAssetUrl = `${base}${lawSiteConfig.officialCoatOfArmsAssetPath.replace(/^\//, '')}`;
+const smallFlagAssetUrl = `${base}${lawSiteConfig.officialFlagSmallAssetPath.replace(/^\//, '')}`;
+const analyticsEnabled = isAnalyticsEnabled();
+const loadPortalModules = scripts.includes('portal-modules');
+const searchSuggestionsUrl = `${base}search-suggestions.json`;
+
+function isActivePath(path: string): boolean {
+  if (path === '/') return currentPath === '/';
+  return currentPath === path || currentPath.startsWith(path);
+}
+
+const mainNavLinks = lawSiteConfig.mainNavigation.map((entry) => {
+  const href = `${base}${lawSiteConfig.paths[entry.pathKey].replace(/^\//, '')}`;
+  return { href, label: entry.label, isActive: isActivePath(lawSiteConfig.paths[entry.pathKey]) };
+});
+
+const footerResearchLinks = [
+  { href: getSearchUrl(), label: 'Rechtssuche', isActive: isActivePath(lawSiteConfig.paths.search) },
+  ...mainNavLinks,
+  { href: `${base}${lawSiteConfig.paths.index.replace(/^\//, '')}`, label: 'A–Z', isActive: isActivePath(lawSiteConfig.paths.index) },
+  { href: getHelpUrl(), label: 'Hilfe', isActive: isActivePath(lawSiteConfig.paths.help) },
+];
+const footerStateLinks = [
+  { href: getHomeUrl(), label: 'Staatsportal' },
+  { href: getImprintUrl(), label: 'Impressum' },
+  { href: getPrivacyUrl(), label: 'Datenschutz' },
+  { href: getAccessibilityUrl(), label: 'Barrierefreiheit' },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <PageHead {title} {description} {breadcrumbs} {structuredData} {noindex} {ogType} {ogImage} />
+  </head>
+  <body class="law-site">
+    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+    <div class="page-shell law-shell">
+      <div class="site-notice law-notice" role="note" aria-label="Hinweis zum Rechtsportal">
+        <div class="container site-notice__inner">
+          <div class="site-notice__flag">
+            <img src={smallFlagAssetUrl} alt="" width="480" height="288" />
+          </div>
+          <p>{lawSiteConfig.simulationNotice}</p>
+        </div>
+      </div>
+
+      <header class="law-header">
+        <div class="container law-header__bar">
+          <a class="law-wordmark" href={getLawPortalUrl()} aria-label="Startseite OstRecht">
+            <img src={coatOfArmsAssetUrl} alt="" width="596" height="694" />
+            <span>
+              <strong>{lawSiteConfig.brand}</strong>
+              <small>{lawSiteConfig.subtitle}</small>
+            </span>
+          </a>
+
+          <nav class="law-main-nav" aria-label="Hauptnavigation Rechtsportal">
+            <a href={getLawPortalUrl()} aria-current={currentPath === '/' ? 'page' : undefined}>Start</a>
+            {mainNavLinks.map((link) => (
+              <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+            ))}
+          </nav>
+
+          <div class="law-header__utilities">
+            <form class="law-header-search law-header-search--compact" action={getSearchUrl()} method="get" role="search">
+              <label class="visually-hidden" for="law-header-search">Recht durchsuchen</label>
+              <input id="law-header-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} />
+              <button type="submit" aria-label="Suchen"><PortalIcon name="search" /></button>
+            </form>
+            <a href={getAccessibilityUrl()} data-law-accessibility-link><PortalIcon name="accessibility" /><span>Barrierefreiheit</span></a>
+            <a href={getHomeUrl()}><PortalIcon name="arrow" /><span>Staatsportal</span></a>
+          </div>
+
+          <details class="law-mobile-nav">
+            <summary><PortalIcon name="menu" /><span>Menü</span></summary>
+            <div class="law-mobile-nav__panel">
+              <form action={getSearchUrl()} method="get" role="search">
+                <label for="law-mobile-search">{lawSiteConfig.searchLabel}</label>
+                <div>
+                  <input id="law-mobile-search" type="search" name="q" autocomplete="off" placeholder="Recht durchsuchen" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} />
+                  <button type="submit">Suchen</button>
+                </div>
+              </form>
+              <nav aria-label="Mobile Navigation Rechtsportal">
+                <a href={getLawPortalUrl()} aria-current={currentPath === '/' ? 'page' : undefined}>Start</a>
+                {mainNavLinks.map((link) => (
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                ))}
+                <a href={getSearchUrl()} aria-current={isActivePath(lawSiteConfig.paths.search) ? 'page' : undefined}>Rechtssuche</a>
+                <a href={getHelpUrl()} aria-current={isActivePath(lawSiteConfig.paths.help) ? 'page' : undefined}>Hilfe</a>
+                <a href={getAccessibilityUrl()}>Barrierefreiheit</a>
+                <a href={getHomeUrl()}>Staatsportal</a>
+              </nav>
+            </div>
+          </details>
+        </div>
+      </header>
+
+      <main id="main-content" class:list={['law-main', mainWidth === 'contained' ? 'container' : 'law-main--full']}>
+        <slot />
+      </main>
+
+      <footer class="law-footer">
+        <div class="container law-footer__grid">
+          <section>
+            <a class="law-footer__brand" href={getLawPortalUrl()}>
+              <img src={coatOfArmsAssetUrl} alt="" width="596" height="694" />
+              <span><strong>{lawSiteConfig.brand}</strong><small>{lawSiteConfig.subtitle}</small></span>
+            </a>
+            <p>{lawSiteConfig.footerNote}</p>
+            <p class="law-footer__simulation">{lawSiteConfig.simulationNotice}</p>
+          </section>
+          <section>
+            <h2>Recherchieren</h2>
+            <nav aria-label="Recherchewege im Footer">
+              {footerResearchLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+            </nav>
+          </section>
+          <section>
+            <h2>Freistaat</h2>
+            <nav aria-label="Staatsportal und rechtliche Hinweise">
+              {footerStateLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+            </nav>
+          </section>
+        </div>
+        <div class="container law-footer__bottom">
+          <span>{lawSiteConfig.seo.siteName}</span>
+          {analyticsEnabled ? (
+            <button type="button" class="text-link-button" data-analytics-consent-reset>Datenschutzeinstellungen</button>
+          ) : null}
+        </div>
+      </footer>
+    </div>
+    {analyticsEnabled ? <AnalyticsConsentBanner /> : null}
+    {analyticsEnabled ? <script>import '@ostrecht/shared/scripts/analytics-consent.ts';</script> : null}
+    {loadPortalModules ? <script>import '@ostrecht/shared/scripts/portal-modules.ts';</script> : null}
+    <script>import '../scripts/norm-autocomplete.ts';</script>
+    <script>import '@ostrecht/shared/scripts/global.ts';</script>
+  </body>
+</html>

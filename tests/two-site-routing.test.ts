@@ -8,13 +8,13 @@ import {
   getLawHomeUrl,
   getTopicUrl,
   resolvePortalPath,
-} from '../src/lib/portal/routes.ts';
+} from '@ostrecht/shared/lib/portal/routes.ts';
 import {
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
   getPublicationUrl,
-} from '../src/lib/norms/routes.ts';
+} from '@ostrecht/shared/lib/norms/routes.ts';
 
 const lawOrigin = 'https://recht.freistaat-ostdeutschland.de';
 
@@ -38,7 +38,7 @@ test('generische Altadressen werden permanent auf die konfigurierbare Rechts-Ori
     cwd: process.cwd(),
     env: { ...process.env, LAW_SITE_URL: configuredOrigin },
   });
-  const redirects = readFileSync('.site-public/portal/_redirects', 'utf8');
+  const redirects = readFileSync('apps/portal/.site-public/_redirects', 'utf8');
 
   assert.match(redirects, new RegExp(`/recht/suche/ ${configuredOrigin}/suche/ 301`, 'u'));
   assert.match(redirects, new RegExp(`/recht/verfassung/ ${configuredOrigin}/norm/staatsverfassung-des-freistaates-ostdeutschland/ 301`, 'u'));

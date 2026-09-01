@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { parseNormVersion } from '../src/lib/norms/schema.ts';
+import { parseNormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
 
 test('Normschema erhält leere Tabellenzellen und unterscheidet Kopfzellen', () => {
   const version = parseNormVersion({

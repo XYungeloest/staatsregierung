@@ -8,7 +8,7 @@ import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
 
 const ROOT = process.cwd();
-const editorialConfig = await readJson(resolve(ROOT, 'src/config/editorial.json'));
+const editorialConfig = await readJson(resolve(ROOT, 'packages/shared/src/config/editorial.json'));
 const args = process.argv.slice(2);
 const valueAfter = (flag) => {
   const index = args.indexOf(flag);

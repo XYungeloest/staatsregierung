@@ -1,8 +1,0 @@
----
-import NormDirectory from '../../../components/norms/NormDirectory.astro';
-import { getAdministrativeRulesUrl } from '../../../lib/norms/index.ts';
-import { loadAllNorms } from '../../../lib/norms/content.ts';
-
-const norms = (await loadAllNorms()).filter((norm) => norm.meta.type === 'verwaltungsvorschrift');
----
-<NormDirectory title="Verwaltungsvorschriften" lead="Allgemeine Verwaltungsvorschriften des Ostdeutschen Freistaates strukturiert recherchieren." href={getAdministrativeRulesUrl()} {norms} />

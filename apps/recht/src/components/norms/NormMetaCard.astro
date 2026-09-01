@@ -1,0 +1,193 @@
+---
+import {
+  getHelpUrl,
+  getPublicationUrl,
+  getSubjectUrl,
+} from '@ostrecht/shared/lib/norms/routes.ts';
+import {
+  formatDate,
+  formatNormStatus,
+  formatNormType,
+  toDisplayText,
+} from '@ostrecht/shared/lib/norms/presentation.ts';
+import { classifyNormVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+import type { NormPublicationReference } from '@ostrecht/shared/lib/norms/publications.ts';
+
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  publicationReference?: NormPublicationReference;
+}
+
+const { norm, version, publicationReference } = Astro.props;
+const effectiveFrom = version.validFrom;
+const effectiveUntil = version.validTo;
+const hasDistinctInitialCitation = norm.meta.initialCitation.trim() !== version.citation.trim();
+const temporalKind = classifyNormVersion(norm, version);
+const temporalStatus = temporalKind === 'current'
+  ? 'zum redaktionellen Stichtag geltend'
+  : temporalKind === 'future'
+    ? 'zukünftige Fassung'
+    : temporalKind === 'historical'
+      ? 'historische Fassung'
+      : 'Inkrafttreten nicht belegt';
+---
+
+<aside id="normdaten" class="section meta-panel norm-meta-panel" data-visual-section="norm-metadata">
+  <div class="section-header section-header--compact">
+    <h2>Vorschriftendaten</h2>
+  </div>
+
+  <section class="norm-meta-panel__group" aria-labelledby="norm-einordnung">
+    <h3 id="norm-einordnung">Einordnung</h3>
+    <dl class="meta-list meta-list--compact">
+      <div>
+        <dt>Normtyp</dt>
+        <dd>{formatNormType(norm.meta.type)}</dd>
+      </div>
+      {norm.meta.enactingBody ? (
+        <div>
+          <dt>Erlassendes Organ</dt>
+          <dd>{toDisplayText(norm.meta.enactingBody)}</dd>
+        </div>
+      ) : null}
+      {norm.meta.responsibleMinistry ? (
+        <div>
+          <dt>Zuständiger Geschäftsbereich</dt>
+          <dd>{toDisplayText(norm.meta.responsibleMinistry)}</dd>
+        </div>
+      ) : null}
+    </dl>
+  </section>
+
+  <section class="norm-meta-panel__group" aria-labelledby="norm-rechtsstand">
+    <h3 id="norm-rechtsstand">Rechtsstand</h3>
+    <dl class="meta-list meta-list--compact">
+      <div>
+        <dt>Fassungsstand</dt>
+        <dd>{temporalStatus}</dd>
+      </div>
+      <div>
+        <dt>Normstatus</dt>
+        <dd>{formatNormStatus(norm.meta.status)}</dd>
+      </div>
+      {norm.meta.documentDate ? (
+        <div>
+          <dt>{norm.meta.type === 'verwaltungsabkommen' ? 'Abschlussdatum' : 'Normdatum'}</dt>
+          <dd><time datetime={norm.meta.documentDate}>{formatDate(norm.meta.documentDate)}</time></dd>
+        </div>
+      ) : null}
+      {norm.meta.publicationDate ? (
+        <div>
+          <dt>Veröffentlicht</dt>
+          <dd><time datetime={norm.meta.publicationDate}>{formatDate(norm.meta.publicationDate)}</time></dd>
+        </div>
+      ) : null}
+      {temporalKind === 'unknown-effective' ? (
+        <div>
+          <dt>Inkrafttreten</dt>
+          <dd>nicht belegt</dd>
+        </div>
+      ) : (
+        <div>
+          <dt>In Kraft ab</dt>
+          <dd><time datetime={effectiveFrom}>{formatDate(effectiveFrom)}</time></dd>
+        </div>
+      )}
+      {effectiveUntil ? (
+        <div>
+          <dt>In Kraft bis</dt>
+          <dd><time datetime={effectiveUntil}>{formatDate(effectiveUntil)}</time></dd>
+        </div>
+      ) : null}
+      {norm.meta.dateNote ? (
+        <div class="meta-list__wide">
+          <dt>Datierungshinweis</dt>
+          <dd>{toDisplayText(norm.meta.dateNote)}</dd>
+        </div>
+      ) : null}
+    </dl>
+  </section>
+
+  {norm.meta.agreementDetails ? (
+    <section class="norm-meta-panel__group" aria-labelledby="norm-vertrag">
+      <h3 id="norm-vertrag">Vertragsdaten</h3>
+      <dl class="meta-list meta-list--compact">
+        <div>
+          <dt>Abschlussort</dt>
+          <dd>{toDisplayText(norm.meta.agreementDetails.signedAt)}</dd>
+        </div>
+        <div class="meta-list__wide">
+          <dt>Vertragspartner</dt>
+          <dd>{norm.meta.agreementDetails.parties.map((party) => toDisplayText(party.name)).join(' · ')}</dd>
+        </div>
+        <div class="meta-list__wide">
+          <dt>Unterzeichner</dt>
+          <dd>
+            {norm.meta.agreementDetails.signatories.map((signatory) =>
+              `${toDisplayText(signatory.name)} (${toDisplayText(signatory.office)})`
+            ).join(' · ')}
+          </dd>
+        </div>
+        <div class="meta-list__wide">
+          <dt>Rechtsgrundlage</dt>
+          <dd>
+            {norm.meta.agreementDetails.legalBases.map((basis, index) => (
+              <>
+                {index > 0 ? ' · ' : ''}
+                {basis.url
+                  ? <a class="inline-link" href={basis.url}>{toDisplayText(basis.label)} – {toDisplayText(basis.title)}</a>
+                  : `${toDisplayText(basis.label)} – ${toDisplayText(basis.title)}`}
+              </>
+            ))}
+          </dd>
+        </div>
+      </dl>
+    </section>
+  ) : null}
+
+  <section class="norm-meta-panel__group" aria-labelledby="norm-verkuendung">
+    <h3 id="norm-verkuendung">Zitierweise und Verkündung</h3>
+    <dl class="meta-list">
+      {hasDistinctInitialCitation ? (
+        <div>
+          <dt>Stammfundstelle</dt>
+          <dd>{toDisplayText(norm.meta.initialCitation)}</dd>
+        </div>
+      ) : null}
+      {publicationReference ? (
+        <div>
+          <dt>Verkündung</dt>
+          <dd>
+            <a class="inline-link" href={getPublicationUrl(publicationReference.publicationSlug)}>
+              {toDisplayText(publicationReference.publicationTitle)}
+            </a>
+            <span class="norm-meta-panel__secondary">
+              <time datetime={publicationReference.publicationDate}>{formatDate(publicationReference.publicationDate)}</time>
+              {publicationReference.pages
+                ? ` · Seiten ${publicationReference.pages}`
+                : publicationReference.startPage
+                  ? ` · Beginn auf Seite ${publicationReference.startPage}`
+                  : ''}
+            </span>
+          </dd>
+        </div>
+      ) : null}
+    </dl>
+  </section>
+
+  <section class="norm-meta-panel__group" aria-labelledby="norm-sachgebiete">
+    <h3 id="norm-sachgebiete">Sachgebiete</h3>
+    <div class="tag-list">
+      {norm.meta.subjects.map((subject) => (
+        <a class="tag" href={getSubjectUrl(subject)}>{toDisplayText(subject)}</a>
+      ))}
+    </div>
+  </section>
+
+  <nav class="norm-meta-panel__tools" aria-label="Werkzeuge zur Vorschrift">
+    <button class="text-link-button" type="button" data-print-page>Seite drucken</button>
+    <a class="inline-link" href={getHelpUrl()}>Hilfe zum Rechtsbereich</a>
+  </nav>
+</aside>

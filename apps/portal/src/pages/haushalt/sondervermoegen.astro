@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import BudgetSectionNav from '../../components/portal/BudgetSectionNav.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import { budgetSpecialInstruments } from '../../data/haushalt.ts';
+import { formatEuroAmount } from '@ostrecht/shared/lib/portal/modules.ts';
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import { getBudgetUrl, getHomeUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+---
+
+<BaseLayout title="Sondervermögen und Fonds" description="Sondervermögen und Fonds mit Zweck, Rechtsgrundlage, Zuständigkeit und Bezug zum Kernhaushalt.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Haushalt', href: getBudgetUrl() }, { label: 'Sondervermögen und Fonds' }]} />
+
+  <SectionHero
+    eyebrow="Haushalt"
+    title="Sondervermögen und Fonds"
+    lead="Rechtlich bestimmte Finanzierungsinstrumente mit Zweck, Zuständigkeit und Bezug zum Kernhaushalt."
+    variant="budget"
+    facts={[{ label: 'Instrumente', value: String(budgetSpecialInstruments.length) }]}
+  />
+  <BudgetSectionNav current="sondervermoegen" />
+
+  <section class="section section-muted" aria-labelledby="abgrenzung-sondervermoegen">
+    <div class="section-header"><h2 id="abgrenzung-sondervermoegen">Klare Abgrenzung</h2><p>Die rechtliche Form entscheidet über die Einordnung. Das verhindert, dass Fondsvolumen und Ausgaben eines Einzelplans verwechselt werden.</p></div>
+    <div class="budget-explanation-grid">
+      <article class="budget-explanation-card"><h3>Sondervermögen</h3><p>Ein vom übrigen Landesvermögen getrennt zu führendes Vermögen mit eigener Zweckbindung. Zuführungen können über den Haushalt erfolgen, seine Rechnung bleibt aber gesondert.</p></article>
+      <article class="budget-explanation-card"><h3>Kooperationsfonds</h3><p>Ein gemeinsames Finanzierungsinstrument mit anderen Staaten oder Stellen. Eine im Vertrag genannte Mindestausstattung steht unter dem jeweiligen Haushaltsvorbehalt.</p></article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="instrumente">
+    <div class="section-header"><h2 id="instrumente">Instrumente im Überblick</h2><p>Volumina werden nur angezeigt, wenn sie in der jeweiligen Rechtsgrundlage ausdrücklich beziffert sind.</p></div>
+    <div class="budget-instrument-grid">
+      {budgetSpecialInstruments.map((instrument) => (
+        <article class="budget-instrument-card">
+          <p class="eyebrow">{instrument.kind}</p>
+          <h3>{instrument.title}</h3>
+          <p>{instrument.purpose}</p>
+          <dl class="meta-list">
+            <div><dt>Rechtsgrundlage</dt><dd><a class="inline-link" href={getNormUrl(instrument.legalBasisSlug)}>{instrument.legalBasisLabel}</a></dd></div>
+            <div><dt>Volumen</dt><dd>{instrument.volume ? `${formatEuroAmount(instrument.volume)} · ${instrument.volumeLabel}` : instrument.volumeLabel}</dd></div>
+            <div><dt>Laufzeit</dt><dd>{instrument.duration}</dd></div>
+            <div><dt>Zuständigkeit</dt><dd>{instrument.responsibility}</dd></div>
+            <div><dt>Bezug zum Kernhaushalt</dt><dd>{instrument.coreBudgetConnection}</dd></div>
+          </dl>
+          <p class="detail-line">{instrument.note}</p>
+          {instrument.topicSlug ? <p><a class="inline-link" href={getTopicUrl(instrument.topicSlug)}>Thematischen Zusammenhang öffnen</a></p> : null}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="fonds-hinweis">
+    <div class="budget-context-note"><strong>Keine Doppelzählung</strong><span>Die hier beschriebenen Instrumente werden nicht zu den Ausgaben der Einzelpläne addiert. Ob und in welcher Höhe der Kernhaushalt Mittel zuführt, ergibt sich aus der jeweiligen Haushalts- oder Rechtsgrundlage.</span></div>
+  </section>
+</BaseLayout>

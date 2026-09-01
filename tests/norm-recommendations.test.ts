@@ -4,8 +4,8 @@ import test from 'node:test';
 import {
   getRelatedNormRecommendations,
   type NormRelationKind,
-} from '../src/lib/norms/references.ts';
-import type { NormRecord, NormType } from '../src/lib/norms/schema.ts';
+} from '@ostrecht/shared/lib/norms/references.ts';
+import type { NormRecord, NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 
 function norm(
   slug: string,

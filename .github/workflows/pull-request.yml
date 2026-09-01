@@ -113,7 +113,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
-          path: dist/
+          path: apps/*/dist/
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 1
@@ -137,7 +137,7 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
-          path: dist
+          path: apps
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
       - name: Zentrale Seiten barrierefrei prüfen
@@ -164,7 +164,7 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
-          path: dist
+          path: apps
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
       - name: Zentrale Nutzerwege in Chromium prüfen
@@ -194,7 +194,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
-          path: dist
+          path: apps
       - name: Cloudflare-Worker-Version hochladen
         id: cloudflare_preview
         env:
@@ -202,7 +202,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          OUTPUT="$(npx wrangler versions upload --config wrangler.jsonc --env="" --preview-alias "pr-${PR_NUMBER}")"
+          OUTPUT="$(npx wrangler versions upload --config apps/portal/wrangler.jsonc --env="" --preview-alias "pr-${PR_NUMBER}")"
           PREVIEW_URL="$(printf '%s\n' "$OUTPUT" | grep -Eo 'https://[^[:space:]]+' | tail -n 1 | sed 's/[),.]$//')"
           if [ -z "$PREVIEW_URL" ]; then
             printf '%s\n' "$OUTPUT" >&2

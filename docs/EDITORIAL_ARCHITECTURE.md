@@ -1,6 +1,6 @@
 # Architektur des Redaktionsstudios
 
-Der fachliche Redaktionsstichtag wird ausschließlich in `src/config/editorial.json` gesetzt.
+Der fachliche Redaktionsstichtag wird ausschließlich in `packages/shared/src/config/editorial.json` gesetzt.
 
 ## Entscheidung
 
@@ -31,7 +31,7 @@ Die aktuelle und historische Regierungsorganisation wird aus drei Dateien abgele
 - `content/organisation/offices.json`: Ämter, Rollen, Exklusivität und Zulässigkeit zur Ressortleitung
 - `content/organisation/assignments.json`: zeitlich gültige Personen-, Amts-, Regierungs- und Ressortzuweisungen
 
-Personenprofile enthalten Biografie, Kontakt, Bild und Darstellungsinformationen. Ressortdateien enthalten Beschreibung, Aufgaben, Kontakt und Darstellung. Aktuelles Amt, Mitgliedschaft und Ressortleitung werden nur in `src/lib/portal/organization.ts` abgeleitet. `src/lib/portal/loader.ts` stellt daraus typisierte Objektformen für Komponenten bereit.
+Personenprofile enthalten Biografie, Kontakt, Bild und Darstellungsinformationen. Ressortdateien enthalten Beschreibung, Aufgaben, Kontakt und Darstellung. Aktuelles Amt, Mitgliedschaft und Ressortleitung werden nur in `packages/shared/src/lib/portal/organization.ts` abgeleitet. `packages/shared/src/lib/portal/loader.ts` stellt daraus typisierte Objektformen für Komponenten bereit.
 
 Der Snapshot `content/organisation/snapshots/2026-08-01.json` ist ausdrücklich eine zentrale Testbehauptung für diesen Stichtag, keine zweite öffentliche Datenquelle. Allgemeine Invarianten prüfen Referenzen, Intervalle, Exklusivität und eindeutige Ressortleitungen unabhängig von konkreten Namen.
 
@@ -44,11 +44,11 @@ Häufig bearbeitete Inhalte liegen in validiertem JSON:
 - `content/dashboard/action-plan.json`
 - `content/dashboard/timeline.json`
 
-Die TypeScript-Dateien unter `src/data/dashboard/` sind nur noch dünne Leseadapter. Darstellungslogik bleibt in Astro und TypeScript.
+Die TypeScript-Dateien unter `apps/portal/src/data/dashboard/` sind nur noch dünne Leseadapter. Darstellungslogik bleibt in Astro und TypeScript.
 
 ## Studio-Worker und Sicherheitsgrenzen
 
-Der Worker in `src/editorial-worker/` enthält keine Secrets im Browser. In Produktion verweigert er den Betrieb, wenn Access- oder GitHub-App-Konfiguration fehlt. Er validiert den Header `Cf-Access-Jwt-Assertion` kryptografisch gegen die Access-JWKS sowie erwarteten Issuer und Audience. Frei setzbare E-Mail-Header werden nicht als Identität akzeptiert. Grundlage ist die [offizielle Cloudflare-Anleitung zur JWT-Prüfung](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/).
+Der Worker in `apps/redaktion/src/` enthält keine Secrets im Browser. In Produktion verweigert er den Betrieb, wenn Access- oder GitHub-App-Konfiguration fehlt. Er validiert den Header `Cf-Access-Jwt-Assertion` kryptografisch gegen die Access-JWKS sowie erwarteten Issuer und Audience. Frei setzbare E-Mail-Header werden nicht als Identität akzeptiert. Grundlage ist die [offizielle Cloudflare-Anleitung zur JWT-Prüfung](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/).
 
 Schreibzugriffe sind zusätzlich durch Same-Origin-Prüfung, `SameSite=Strict`-CSRF-Cookie und Header-Token, Methodenerlaubnis, Content-Type- und Größenlimits geschützt. Bilder werden auf höchstens 5 MB, zulässigen MIME-Typ, Dateisignatur, sicheren Namen und verpflichtenden Alternativtext geprüft. Die Content Security Policy verhindert fremde Skripte und Einbettung.
 
@@ -60,7 +60,7 @@ Die GitHub App verwendet ein signiertes App-JWT nur serverseitig, tauscht es geg
 
 ## Vorschau und Deployment
 
-`wrangler.jsonc` aktiviert Worker Preview URLs. Die Pull-Request-CI lädt nach vollständiger Qualitätsprüfung mit `wrangler versions upload --preview-alias ...` eine unveröffentlichte Worker-Version hoch und verlinkt sie im Pull Request. Die dabei erzeugten Versions-IDs werden im technischen Teil des PR-Kommentars gesammelt. Beim Schließen oder Mergen löscht ein eigener Cleanup-Job alle registrierten Versionen, sodass weder der Alias noch ältere versionsgebundene Vorschauen dauerhaft erreichbar bleiben. Cloudflare beschreibt Version Preview URLs und Alias-Vorschauen in der [offiziellen Dokumentation](https://developers.cloudflare.com/workers/versions-and-deployments/preview-urls/). Preview URLs sind von sich aus öffentlich; deshalb muss die passende Preview-Domain zusätzlich durch Cloudflare Access geschützt werden.
+`apps/portal/wrangler.jsonc` aktiviert Worker Preview URLs. Die Pull-Request-CI lädt nach vollständiger Qualitätsprüfung mit `wrangler versions upload --config apps/portal/wrangler.jsonc --preview-alias ...` eine unveröffentlichte Worker-Version hoch und verlinkt sie im Pull Request. Die dabei erzeugten Versions-IDs werden im technischen Teil des PR-Kommentars gesammelt. Beim Schließen oder Mergen löscht ein eigener Cleanup-Job alle registrierten Versionen, sodass weder der Alias noch ältere versionsgebundene Vorschauen dauerhaft erreichbar bleiben. Cloudflare beschreibt Version Preview URLs und Alias-Vorschauen in der [offiziellen Dokumentation](https://developers.cloudflare.com/workers/versions-and-deployments/preview-urls/). Preview URLs sind von sich aus öffentlich; deshalb muss die passende Preview-Domain zusätzlich durch Cloudflare Access geschützt werden.
 
 Der Produktionsdeploy bleibt ausschließlich im bestehenden Workflow für `main` beziehungsweise den ausdrücklich gestarteten Workflow. Die Preview-Pipeline führt kein Produktionsdeployment aus.
 

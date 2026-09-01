@@ -46,7 +46,7 @@ const strictMode = args.includes('--strict');
 const quietMode = args.includes('--quiet');
 const allowExistingUpdate = args.includes('--update-existing');
 const selectedFiles = new Set(allValuesAfter('--file').flatMap((value) => value.split(',')).map((value) => basename(value.trim())));
-const editorialConfig = JSON.parse(await readFile(resolve(ROOT, 'src/config/editorial.json'), 'utf8'));
+const editorialConfig = JSON.parse(await readFile(resolve(ROOT, 'packages/shared/src/config/editorial.json'), 'utf8'));
 const asOf = valueAfter('--as-of') ?? editorialConfig.referenceDate;
 const correctionBundles = await loadCorrectionBundles(ROOT);
 const consolidationSources = JSON.parse(await readFile(resolve(ROOT, 'data/recht/consolidation-sources.json'), 'utf8'));

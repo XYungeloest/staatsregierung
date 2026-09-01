@@ -1,0 +1,69 @@
+---
+import type { NormOutlineItem } from '@ostrecht/shared/lib/norms/presentation.ts';
+
+interface Props {
+  items: NormOutlineItem[];
+  nested?: boolean;
+}
+
+const { items, nested = false } = Astro.props;
+---
+
+{items.length > 0 ? (
+  nested ? (
+    <ul class="outline-list">
+      {items.map((item) => (
+        <li>
+          <a href={`#${item.anchor}`} data-outline-link={item.anchor}>
+            {item.label && item.label !== item.title ? <span class="outline-label">{item.label}</span> : null}
+            <span>{item.title}</span>
+          </a>
+          {item.children.length > 0 ? <Astro.self items={item.children} nested={true} /> : null}
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <>
+      <nav class="norm-outline norm-outline--desktop" aria-label="Inhaltsübersicht">
+        <div class="norm-outline__heading"><h2>Inhaltsübersicht</h2></div>
+        <label class="norm-outline__search"><span class="visually-hidden">Inhaltsübersicht durchsuchen</span><input type="search" placeholder="Inhalt durchsuchen" data-outline-search /></label>
+        <Astro.self items={items} nested={true} />
+      </nav>
+      <details class="norm-outline-mobile">
+        <summary>Inhalt der Vorschrift</summary>
+        <nav aria-label="Mobile Inhaltsübersicht">
+          <label class="norm-outline__search"><span class="visually-hidden">Inhaltsübersicht durchsuchen</span><input type="search" placeholder="Inhalt durchsuchen" data-outline-search /></label>
+          <Astro.self items={items} nested={true} />
+        </nav>
+      </details>
+    </>
+  )
+) : null}
+
+{!nested ? (
+  <script>
+    const outlineInputs = Array.from(document.querySelectorAll<HTMLInputElement>('[data-outline-search]'));
+    outlineInputs.forEach((input) => input.addEventListener('input', () => {
+      const nav = input.closest('nav');
+      const query = input.value.trim().toLocaleLowerCase('de-DE');
+      nav?.querySelectorAll<HTMLLIElement>('.outline-list li').forEach((item) => {
+        item.hidden = Boolean(query) && !(item.textContent ?? '').toLocaleLowerCase('de-DE').includes(query);
+      });
+    }));
+
+    const outlineLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-outline-link]'));
+    const targets = [...new Set(outlineLinks.map((link) => link.dataset.outlineLink).filter(Boolean))]
+      .map((id) => document.getElementById(id!))
+      .filter((entry): entry is HTMLElement => Boolean(entry));
+    const activate = (id: string) => outlineLinks.forEach((link) => {
+      if (link.dataset.outlineLink === id) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((left, right) => left.boundingClientRect.top - right.boundingClientRect.top)[0];
+      if (visible?.target.id) activate(visible.target.id);
+    }, { rootMargin: '-18% 0px -70% 0px' });
+    targets.forEach((target) => observer.observe(target));
+    outlineLinks.forEach((link) => link.addEventListener('click', () => activate(link.dataset.outlineLink ?? '')));
+  </script>
+) : null}

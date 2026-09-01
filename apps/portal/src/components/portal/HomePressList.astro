@@ -1,0 +1,49 @@
+---
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import { getPressReleaseIndexUrl, getPressReleaseUrl, type Pressemitteilung } from '@ostrecht/shared/lib/portal/index.ts';
+import ResponsivePicture from '@ostrecht/shared/components/portal/ResponsivePicture.astro';
+
+interface Props {
+  releases: Pressemitteilung[];
+}
+
+const { releases } = Astro.props as Props;
+---
+
+<section class="home-info-card home-news-card" aria-labelledby="home-news-title">
+  <header class="home-info-card__header">
+    <div>
+      <p class="eyebrow">Presse</p>
+      <h2 id="home-news-title">Aktuelles</h2>
+    </div>
+    <a href={getPressReleaseIndexUrl()}>Alle Mitteilungen <span aria-hidden="true">→</span></a>
+  </header>
+  <div class="home-news-list">
+    {releases.map((release) => {
+      const hasUsableImage = release.image.startsWith('/images/ministerien/');
+      return (
+        <article class="home-news-item">
+          {hasUsableImage ? (
+            <ResponsivePicture
+              className="home-news-item__image"
+              src={release.image}
+              alt={release.imageAlt}
+              width={960}
+              height={720}
+              widths={[480, 720, 960]}
+              sizes="(max-width: 720px) 5.25rem, 5.75rem"
+              loading="lazy"
+            />
+          ) : <span class="home-news-item__date-tile" aria-hidden="true">Presse</span>}
+          <div>
+            <p class="home-news-item__meta">
+              <time datetime={release.date}>{siteConfig.date.formatLong(release.date)}</time>
+            </p>
+            <h3><a href={getPressReleaseUrl(release.slug)}>{release.title}</a></h3>
+            <p>{release.teaser}</p>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</section>

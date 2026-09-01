@@ -1,0 +1,47 @@
+---
+import { formatDate, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
+import { classifyNormVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+
+interface Props {
+  norm: NormRecord;
+  version: NormVersion;
+  historical?: boolean;
+}
+
+const { norm, version } = Astro.props;
+const temporalKind = classifyNormVersion(norm, version);
+const historical = temporalKind === 'historical';
+const status = norm.meta.status;
+const effectiveDate = version.validFrom;
+const expiryDate = version.validTo;
+---
+
+<aside class:list={['status-notice', historical ? 'status-notice--historical' : 'status-notice--current']} data-visual-section="norm-legal-status">
+  <h2>{historical ? 'Hinweis zur historischen Fassung' : 'Rechtsstand'}</h2>
+  {temporalKind === 'historical' ? (
+    <p>
+      Dies ist eine historische Fassung. Sie galt ab <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>
+      {expiryDate
+        ? <> bis <time datetime={expiryDate}>{formatDate(expiryDate)}</time></>
+        : '; ein genaues Gültigkeitsende ist im Fassungsdatensatz nicht belegt'}.
+    </p>
+  ) : temporalKind === 'future' ? (
+    <p>
+      Diese Vorschrift ist verkündet und tritt am{' '}
+      <time datetime={effectiveDate}>{formatDate(effectiveDate)}</time> in Kraft. Bis dahin gehört sie
+      noch nicht zum geltenden Rechtsstand.
+    </p>
+  ) : temporalKind === 'unknown-effective' ? (
+    <p>
+      Diese Vorschrift ist veröffentlicht. Der Eintritt der im Text genannten Bedingung für das
+      Inkrafttreten ist durch die vorliegenden Quellen noch nicht belegt. Sie wird daher nicht als
+      geltender Rechtsstand ausgewiesen.
+    </p>
+  ) : status === 'one-time-act' ? (
+    <p>Dieser einmalige Rechtsakt ist abgeschlossen und bleibt zu Dokumentationszwecken verfügbar.</p>
+  ) : (
+    <p>Dies ist die aktuelle Fassung mit Rechtsstand vom <time datetime={version.validFrom}>{formatDate(version.validFrom)}</time>.</p>
+  )}
+  <p>{toDisplayText(version.changeNote)}</p>
+</aside>

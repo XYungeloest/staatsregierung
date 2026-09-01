@@ -6,7 +6,7 @@ import { normalizeSiteTargets } from './lib/site-targets.mjs';
 export const CLOUDFLARE_ASSET_LIMIT_BYTES = 25 * 1024 * 1024;
 export const REPOSITORY_ASSET_BUDGET_BYTES = 24 * 1024 * 1024;
 
-const defaultRoots = ['dist/portal/client', 'dist/law/client'];
+const defaultRoots = ['apps/portal/dist/client', 'apps/recht/dist/client'];
 
 function formatMiB(bytes) {
   return `${(bytes / 1024 / 1024).toFixed(2)} MiB`;
@@ -33,7 +33,7 @@ export async function findOversizedDeployAssets({
 
 export async function findMissingPublicationPdfAssets({
   publicationRoot = resolve(process.cwd(), 'content/verkuendungen'),
-  assetRoot = resolve(process.cwd(), 'dist/law/client'),
+  assetRoot = resolve(process.cwd(), 'apps/recht/dist/client'),
 } = {}) {
   const missing = [];
   let linkedPdfs = 0;
@@ -54,7 +54,9 @@ export async function findMissingPublicationPdfAssets({
 
 async function main() {
   const targets = normalizeSiteTargets(process.env.DEPLOY_TARGETS);
-  const roots = targets.map((target) => `dist/${target}/client`);
+  const roots = targets.map((target) => target === 'portal'
+    ? 'apps/portal/dist/client'
+    : 'apps/recht/dist/client');
   const [result, publicationPdfs] = await Promise.all([
     findOversizedDeployAssets({ roots }),
     targets.includes('law')

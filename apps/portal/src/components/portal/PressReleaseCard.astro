@@ -1,0 +1,31 @@
+---
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getPressReleaseUrl,
+  type Pressemitteilung,
+} from '@ostrecht/shared/lib/portal/index.ts';
+
+interface Props {
+  release: Pressemitteilung;
+  variant?: 'default' | 'compact' | 'featured';
+}
+
+const { release, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+const isFeatured = variant === 'featured';
+---
+
+<article class:list={['section', 'press-tile', 'press-tile--text', isCompact && 'press-tile--compact', isFeatured && 'press-tile--featured']}>
+  <div class="press-tile__body">
+    <p class="eyebrow"><time datetime={release.date}>{siteConfig.date.formatLong(release.date)}</time> · {release.ressort}</p>
+    <h3><a class="inline-link" href={getPressReleaseUrl(release.slug)}>{release.title}</a></h3>
+    <p>{release.teaser}</p>
+    {!isCompact ? (
+      <div class="tag-list">
+        {release.tags.map((tag) => (
+          <span class="tag">{tag}</span>
+        ))}
+      </div>
+    ) : null}
+  </div>
+</article>

@@ -1,0 +1,50 @@
+import type { APIRoute } from 'astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import { loadPressReleases } from '@ostrecht/shared/lib/portal/content.ts';
+import { getPressReleaseUrl, getPressUrl } from '@ostrecht/shared/lib/portal/index.ts';
+
+function escapeXml(value: string): string {
+  return value
+    .replace(/&/gu, '&amp;')
+    .replace(/"/gu, '&quot;')
+    .replace(/'/gu, '&apos;')
+    .replace(/</gu, '&lt;')
+    .replace(/>/gu, '&gt;');
+}
+
+function absoluteUrl(path: string, site: URL): string {
+  return new URL(path, site).toString();
+}
+
+export const GET: APIRoute = async ({ site }) => {
+  const baseUrl = site ?? new URL(siteConfig.seo.siteUrl);
+  const releases = await loadPressReleases();
+  const xml = [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0">',
+    '<channel>',
+    `<title>${escapeXml('Pressemitteilungen des Staatsrates')}</title>`,
+    `<link>${escapeXml(absoluteUrl(getPressUrl(), baseUrl))}</link>`,
+    `<description>${escapeXml('Aktuelle Pressemitteilungen des Staatsrates des Ostdeutschen Freistaates.')}</description>`,
+    ...releases.slice(0, 30).map((release) => {
+      const link = absoluteUrl(getPressReleaseUrl(release.slug), baseUrl);
+      return [
+        '<item>',
+        `<title>${escapeXml(release.title)}</title>`,
+        `<link>${escapeXml(link)}</link>`,
+        `<guid>${escapeXml(link)}</guid>`,
+        `<pubDate>${new Date(`${release.date}T12:00:00Z`).toUTCString()}</pubDate>`,
+        `<description>${escapeXml(release.teaser)}</description>`,
+        '</item>',
+      ].join('');
+    }),
+    '</channel>',
+    '</rss>',
+  ].join('\n');
+
+  return new Response(xml, {
+    headers: {
+      'Content-Type': 'application/rss+xml; charset=utf-8',
+    },
+  });
+};

@@ -1,0 +1,40 @@
+---
+import {
+  getGovernmentMemberUrl,
+  type RegierungMitglied,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import ResponsivePicture from '@ostrecht/shared/components/portal/ResponsivePicture.astro';
+
+interface Props {
+  member: RegierungMitglied;
+  variant?: 'default' | 'compact';
+}
+
+const { member, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+---
+
+<article class:list={['panel', 'member-card', isCompact && 'member-card--compact']}>
+  <ResponsivePicture
+    className="member-card__image"
+    src={member.bild}
+    alt={member.bildAlt ?? `Porträt von ${member.name}`}
+    width={352}
+    height={440}
+    widths={[240, 360, 480]}
+    sizes="(max-width: 720px) calc(100vw - 2.4rem), 176px"
+    loading="lazy"
+  />
+  <div class="member-card__body">
+    <h3><a class="inline-link" href={getGovernmentMemberUrl(member.slug)}>{member.name}</a></h3>
+    {member.currentOffices.length > 0 ? (
+      <ul class="plain-list detail-line" aria-label="Aktuelle Ämter">
+        {member.currentOffices.map((office) => <li>{office.title}</li>)}
+      </ul>
+    ) : (
+      <p class="detail-line">{member.amt}</p>
+    )}
+    <p class="member-card__ressort">{member.ressort}</p>
+    {!isCompact ? <p>{member.kurzbiografie}</p> : null}
+  </div>
+</article>

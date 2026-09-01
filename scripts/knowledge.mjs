@@ -54,7 +54,7 @@ function stableJson(value) {
 }
 
 function loadModel() {
-  const editorial = readJson('src/config/editorial.json');
+  const editorial = readJson('packages/shared/src/config/editorial.json');
   const sourcesDoc = readJson('knowledge/sources.json');
   const holdingPositions = readJson('knowledge/holding-positions.json');
   const collections = dataSpecs.map(([file, key, type]) => {
@@ -163,7 +163,7 @@ function intervalsOverlap(a, b) {
 
 function validateModel(model, compareGenerated) {
   const errors = [];
-  validateDate(model.editorial.referenceDate, 'src/config/editorial.json:referenceDate', errors);
+  validateDate(model.editorial.referenceDate, 'packages/shared/src/config/editorial.json:referenceDate', errors);
   const sourceIds = new Set();
   const sourceById = new Map();
 

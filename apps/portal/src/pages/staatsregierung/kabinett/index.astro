@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import GovernmentMemberCard from '../../../components/portal/GovernmentMemberCard.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import MinistryDirectory from '../../../components/portal/MinistryDirectory.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import TopicCard from '../../../components/portal/TopicCard.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import {
+  getGovernmentMembersUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getPreviousCabinetsUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import {
+  loadCurrentGovernmentMembers,
+  loadCurrentGovernment,
+  loadCabinetPageContent,
+  loadMinistries,
+  loadTopics,
+} from '@ostrecht/shared/lib/portal/content.ts';
+
+const [members, ministries, topics, currentGovernment, cabinetPage] = await Promise.all([
+  loadCurrentGovernmentMembers(),
+  loadMinistries(),
+  loadTopics(),
+  loadCurrentGovernment(),
+  loadCabinetPageContent(),
+]);
+const stateCouncilMembers = members.filter((member) => member.slug !== 'emma-mueller');
+const chancelleryLeadership = members.filter((member) => member.slug === 'emma-mueller');
+const stateSecretariatCount = ministries.filter((ministry) => ministry.slug !== 'staatskanzlei').length;
+const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
+const topicHighlights = cabinetPage.topicHighlightSlugs.flatMap((slug) => {
+  const topic = topics.find((entry) => entry.slug === slug);
+  return topic ? [topic] : [];
+});
+---
+
+<BaseLayout title="Erster Staatsrat" description="Mitglieder und Geschäftsbereiche des ersten Staatsrates.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Erster Staatsrat' },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Staatsrat"
+    title={currentGovernment.title}
+    lead={cabinetPage.lead}
+    variant="government"
+    facts={[
+      { label: 'Übergang', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
+      { label: 'Koalition', value: currentGovernment.coalitionShort },
+      { label: 'Leitung', value: currentGovernment.headOfGovernment },
+      { label: 'Regierungssitz', value: currentGovernment.seatOfGovernment },
+      { label: 'Staatssekretariate', value: String(stateSecretariatCount) },
+      { label: 'Koalitionssitze', value: `${currentGovernment.coalitionSeats} von ${currentGovernment.parliamentSeats}` },
+    ]}
+    actions={[{ label: 'Staatssekretariatsverzeichnis', href: '#ministerien', primary: true }]}
+  />
+  <GovernmentNavigation />
+
+  <div class="content-grid">
+    <section class="section">
+      <div class="section-header">
+        <h2>Politische Einordnung</h2>
+      </div>
+      <div class="body-copy">
+        {cabinetPage.politicalContext.map((paragraph) => <p>{paragraph}</p>)}
+        <p>
+          Der <a class="inline-link" href={getNormUrl('erlass-des-ministerprasidenten-uber-die-zustandigkeit-der-staatsministerien-organisationserlass-05-2026')}>Organisationserlass 05/2026</a> vom <time datetime="2026-05-04">4. Mai 2026</time> benennt mehrere Staatsministerien neu
+          und löst das bisherige Kultur-, Wissenschafts- und Tourismusressort auf. Wissenschaft
+          liegt nun bei Volksbildung und Wissenschaft; Kultur und Tourismus liegen bei
+          Rechtsstaatlichkeit und kultureller Emanzipation.
+        </p>
+      </div>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Daten des Staatsrates</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Übergeleitet</dt>
+          <dd><time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time></dd>
+        </div>
+        <div>
+          <dt>Vorgänger</dt>
+          <dd>{currentGovernment.predecessor}</dd>
+        </div>
+        <div>
+          <dt>Mitglieder des Staatsrates</dt>
+          <dd>{stateCouncilMembers.length}</dd>
+        </div>
+      </dl>
+      <p><a class="inline-link" href={getPreviousCabinetsUrl()}>Frühere Kabinette</a></p>
+    </aside>
+  </div>
+
+  <section class="section section-muted" aria-labelledby="kabinett-chronologie">
+    <div class="section-header">
+      <h2 id="kabinett-chronologie">{cabinetPage.chronologyTitle}</h2>
+    </div>
+    <ol class="record-list">
+      {cabinetPage.chronology.map((entry) => (
+        <li class="record-list__item">
+          <strong><time datetime={entry.date}>{siteConfig.date.formatLong(entry.date)}</time></strong>
+          <span>{entry.text}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section id="ministerien" class="section section-muted" data-visual-section="cabinet-ministry-directory">
+    <div class="section-header">
+      <h2>Verzeichnis der Staatssekretariate</h2>
+      <p>Alle Geschäftsbereiche und Leitungen werden aus den zentral gepflegten Ressortdaten übernommen.</p>
+    </div>
+    <MinistryDirectory ministries={ministries} />
+  </section>
+
+  <section class="section" data-visual-section="cabinet-members">
+    <div class="section-header">
+      <h2>Mitglieder des Staatsrates</h2>
+      <p>Die Profile bilden die aktuelle personelle Zusammensetzung des ersten Staatsrates ab.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {stateCouncilMembers.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
+    </div>
+    <p class="detail-line">
+      <a class="inline-link" href={getGovernmentMembersUrl()}>Alle Mitglieder mit Profilen</a>
+    </p>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Leitung der Staatskanzlei</h2>
+      <p>Die Chefin der Staatskanzlei wird getrennt von den Mitgliedern des Staatsrates ausgewiesen.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {chancelleryLeadership.map((member) => <GovernmentMemberCard member={member} variant="compact" />)}
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Vorhaben in der Struktur des Staatsrates</h2>
+      <p>
+        Themen und Projekte sind nicht losgelöst, sondern klar an federführende Ressorts und
+        Geschäftsbereiche angebunden.
+      </p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {topicHighlights.map((topic) => (
+        <TopicCard
+          topic={topic}
+          ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
