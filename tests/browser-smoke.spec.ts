@@ -366,6 +366,7 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen fo
   });
   await page.goto(lawUrl('/'));
   await expect(page.locator('[data-visual-section="law-future-changes"]')).toBeHidden();
+  await expect(page.locator('[data-law-current-change-list] [data-law-change][data-effective-date="2026-09-01"]').first()).toBeVisible();
 });
 
 siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt bei einer Trefferliste', async ({ page }) => {

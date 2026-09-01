@@ -23,8 +23,8 @@ import {
   getBerlinCalendarDate,
   getApplicableVersion,
   getNormVersionIdentity,
-  isStrictlyFutureEffectiveDate,
   loadAllVerkuendungen,
+  partitionDatedEntries,
   toDisplayText,
 } from '../../lib/norms/index.ts';
 import { loadAllNorms } from '../../lib/norms/content.ts';
@@ -33,17 +33,18 @@ const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuend
 const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
 const subjectAreas = getSubjectAreaGroups(norms).slice(0, 6);
 const homeCalendarDate = getBerlinCalendarDate();
-const latestChanges = norms
+const changeEntries = norms
   .flatMap((norm) => norm.history.entries
-    .filter((entry) => (entry.type === 'amendment' || entry.type === 'repeal') && !isStrictlyFutureEffectiveDate(entry.date))
+    .filter((entry) => entry.type === 'amendment' || entry.type === 'repeal')
     .map((entry) => ({ norm, entry })))
-  .sort((left, right) => right.entry.date.localeCompare(left.entry.date))
-  .slice(0, 5);
-const futureChanges = norms
-  .flatMap((norm) => norm.history.entries
-    .filter((entry) => (entry.type === 'amendment' || entry.type === 'repeal') && isStrictlyFutureEffectiveDate(entry.date, homeCalendarDate))
-    .map((entry) => ({ norm, entry })))
-  .sort((left, right) => left.entry.date.localeCompare(right.entry.date))
+  .sort((left, right) => right.entry.date.localeCompare(left.entry.date));
+const { current: currentChangeCandidates, future: futureChangeCandidates } = partitionDatedEntries(
+  changeEntries.map(({ norm, entry }) => ({ norm, entry, date: entry.date })),
+  homeCalendarDate,
+);
+const latestChanges = currentChangeCandidates.slice(0, 5);
+const futureChanges = futureChangeCandidates
+  .sort((left, right) => left.date.localeCompare(right.date))
   .slice(0, 3);
 const latestPublications = [...publications]
   .sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'))
@@ -115,13 +116,18 @@ const quickAccess = [
           <div><PortalIcon name="arrow" /><h2>Aktuelle Änderungen</h2></div>
           <a href={getLawDevelopmentOverviewUrl()}>Alle anzeigen</a>
         </header>
-        <ol class="law-dashboard-list">
+        <ol class="law-dashboard-list" data-law-current-change-list>
           {latestChanges.map(({ norm, entry }) => {
-            const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+            const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, homeCalendarDate));
             return (
-            <li>
+            <li
+              data-law-change
+              data-effective-date={entry.date}
+              data-current-label={formatNormType(norm.meta.type)}
+              data-future-label="tritt künftig in Kraft"
+            >
               <time datetime={entry.date}>{formatDate(entry.date)}</time>
-              <span class="law-type-label">{formatNormType(norm.meta.type)}</span>
+              <span class="law-type-label" data-law-change-label>{formatNormType(norm.meta.type)}</span>
               <div>
                 <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h3>
                 <p>{toDisplayText(entry.title)}</p>
@@ -139,13 +145,18 @@ const quickAccess = [
             <div><PortalIcon name="calendar" /><h2>Künftige Änderungen</h2></div>
           </header>
           <p class="law-dashboard-card__future-intro">Vorschriften, die nach dem aktuellen Rechtsstand in Kraft treten.</p>
-          <ol class="law-dashboard-list law-dashboard-list--future">
+          <ol class="law-dashboard-list law-dashboard-list--future" data-law-future-change-list>
             {futureChanges.map(({ norm, entry }) => {
-              const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+              const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, homeCalendarDate));
               return (
-              <li data-law-future-change data-effective-date={entry.date}>
+              <li
+                data-law-change
+                data-effective-date={entry.date}
+                data-current-label={formatNormType(norm.meta.type)}
+                data-future-label="tritt künftig in Kraft"
+              >
                 <time datetime={entry.date}>{formatDate(entry.date)}</time>
-                <span class="law-type-label law-type-label--future">tritt künftig in Kraft</span>
+                <span class="law-type-label law-type-label--future" data-law-change-label>tritt künftig in Kraft</span>
                 <div>
                   <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h3>
                   <p>{toDisplayText(entry.title)}</p>
