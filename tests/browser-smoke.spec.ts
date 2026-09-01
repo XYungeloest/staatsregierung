@@ -350,9 +350,22 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen fo
   await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/'));
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Gemeindeordnung für den Ostdeutschen Freistaat');
 
+  await page.addInitScript(() => {
+    const NativeDate = Date;
+    const fixedTime = new NativeDate('2026-09-01T10:00:00+02:00').valueOf();
+    class FixedDate extends NativeDate {
+      constructor(...args: unknown[]) {
+        super(args.length === 0 ? fixedTime : (Reflect.construct(NativeDate, args) as Date).valueOf());
+      }
+
+      static now() {
+        return fixedTime;
+      }
+    }
+    Object.defineProperty(window, 'Date', { configurable: true, value: FixedDate });
+  });
   await page.goto(lawUrl('/'));
-  await expect(page.getByRole('heading', { name: 'Künftige Änderungen' })).toBeVisible();
-  await expect(page.locator('.law-dashboard-card__future')).toContainText('tritt künftig in Kraft');
+  await expect(page.locator('[data-visual-section="law-future-changes"]')).toBeHidden();
 });
 
 siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt bei einer Trefferliste', async ({ page }) => {

@@ -2,6 +2,29 @@ import editorialConfig from '../../config/editorial.json' with { type: 'json' };
 import { ContentValidationError, type NormRecord, type NormVersion } from './schema.ts';
 
 export const EDITORIAL_REFERENCE_DATE = editorialConfig.referenceDate;
+export const EDITORIAL_TIME_ZONE = 'Europe/Berlin';
+
+export function getBerlinCalendarDate(now = new Date()): string {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: EDITORIAL_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).formatToParts(now);
+  const value = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value;
+  return `${value('year')}-${value('month')}-${value('day')}`;
+}
+
+/**
+ * Compares ISO calendar dates in the portal's Berlin editorial calendar.
+ * Changes taking effect on the reference date are current, not future.
+ */
+export function isStrictlyFutureEffectiveDate(
+  effectiveDate: string,
+  asOf = EDITORIAL_REFERENCE_DATE,
+): boolean {
+  return effectiveDate > asOf;
+}
 
 export const VERSION_TEMPORAL_KINDS = [
   'current',

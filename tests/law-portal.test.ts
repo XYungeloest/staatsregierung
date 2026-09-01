@@ -17,6 +17,7 @@ import {
 } from '../src/lib/norms/presentation.ts';
 import {
   getDefaultSearchSort,
+  groupNormSearchResults,
   normalizeSearchText,
   parseNormSearchQuery,
   prepareSearchDocuments,
@@ -44,6 +45,8 @@ import {
 import {
   classifyNormVersion,
   getApplicableVersion,
+  getBerlinCalendarDate,
+  isStrictlyFutureEffectiveDate,
   validateVersionIntervals,
 } from '../src/lib/norms/versions.ts';
 import { getNormVersionIdentity } from '../src/lib/norms/identity.ts';
@@ -102,6 +105,14 @@ test('Fassungen werden zum redaktionellen Stichtag zentral eingeordnet', () => {
   assert.equal(classifyNormVersion(record([current], 'pending-effective'), current), 'unknown-effective');
   const historicalWithoutEnd = version('dokumentiert', '2025-01-01', null);
   assert.equal(classifyNormVersion(record([historicalWithoutEnd], 'historical'), historicalWithoutEnd), 'historical');
+});
+
+test('künftige Änderungen beginnen erst nach dem redaktionellen Kalendertag', () => {
+  const referenceDate = '2026-09-01';
+  assert.equal(getBerlinCalendarDate(new Date('2026-08-31T22:30:00.000Z')), referenceDate);
+  assert.equal(isStrictlyFutureEffectiveDate('2026-08-31', referenceDate), false);
+  assert.equal(isStrictlyFutureEffectiveDate('2026-09-01', referenceDate), false);
+  assert.equal(isStrictlyFutureEffectiveDate('2026-09-02', referenceDate), true);
 });
 
 test('deutsche Umlaute werden im A–Z-Index einheitlich gruppiert', () => {
@@ -811,6 +822,14 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
   const exactAmendmentTitle = 'Erstes Gesetz zur Großen Staatsreform zum Zwecke der Neuordnung des Staatswesens';
   assert.equal(search(exactAmendmentTitle)[0]?.documentEntry.slug, 'erstes-gesetz-zur-grossen-staatsreform');
 
+  const amendmentIntentResults = search('Änderungsvorschrift');
+  assert.ok(amendmentIntentResults.length > 0);
+  assert.ok(amendmentIntentResults.every((result) => result.documentEntry.type === 'aenderungsvorschrift'));
+
+  const amendmentFacetResults = search('', { types: ['aenderungsvorschrift'] });
+  assert.ok(amendmentFacetResults.length > 0);
+  assert.ok(amendmentFacetResults.every((result) => result.documentEntry.type === 'aenderungsvorschrift'));
+
   const genericLawResults = search('Gesetz');
   assert.ok(genericLawResults.length > 0);
   assert.ok(genericLawResults.every((result) => !result.documentEntry.isAmendment));
@@ -819,6 +838,18 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
   assert.ok(typedFirstLawResults.length > 0);
   assert.ok(typedFirstLawResults.every((result) => result.documentEntry.type === 'gesetz'));
   assert.ok(typedFirstLawResults.every((result) => !result.documentEntry.isAmendment));
+
+  const historicalTitleState = searchState({
+    q: 'Sächsische Gemeindeordnung',
+    versionScope: 'all',
+    sort: 'relevance',
+    sortExplicit: false,
+  });
+  const historicalTitleResults = runNormSearch(documents, historicalTitleState);
+  const municipalityGroup = groupNormSearchResults(historicalTitleResults, historicalTitleState)
+    .find((group) => group.slug === 'saechsische-gemeindeordnung');
+  assert.equal(municipalityGroup?.entries[0]?.documentEntry.title, 'Sächsische Gemeindeordnung');
+  assert.equal(municipalityGroup?.entries[0]?.documentEntry.versionKind, 'historical');
 
   const consentResults = search('Zustimmungsgesetz');
   assert.equal(parseNormSearchQuery('Zustimmungsgesetz').typeIntent?.type, 'zustimmungsgesetz');
