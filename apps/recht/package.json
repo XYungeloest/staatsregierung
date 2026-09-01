@@ -17,9 +17,9 @@
     "deploy:staging": "wrangler deploy --config wrangler.jsonc --env staging"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.2.1",
-    "@ostrecht/shared": "*",
-    "astro": "^7.2.1"
+    "@astrojs/cloudflare": "^14.2.6",
+    "@ostrecht/shared": "^0.0.1",
+    "astro": "^7.2.10"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
