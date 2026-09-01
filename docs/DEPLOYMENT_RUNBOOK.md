@@ -15,7 +15,7 @@ Quellen werden vorsorglich als `shared` behandelt.
 | `docs-only` | Root-Dokumentation und `docs/` | kein Build und kein Deployment |
 | `portal` | `apps/portal/`, portalbezogene Inhalte, Kreisreform und portalbezogene Daten | nur Staatsportal |
 | `law` | `apps/recht/`, Normkomponenten und `public/assets/recht/` | nur OstRecht |
-| `shared` | `apps/redaktion/`, `packages/shared/`, `content/normen/`, `content/verkuendungen/`, `knowledge/`, `Gesetze/`, `data/recht/`, Scripts, Tests, Root-Konfiguration und Abhängigkeiten | beide Anwendungen |
+| `shared` | `packages/shared/`, `content/normen/`, `content/verkuendungen/`, `knowledge/`, `Gesetze/`, `data/recht/`, Scripts, Tests, Root-Konfiguration und Abhängigkeiten | beide Anwendungen |
 
 Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie unter
 anderem für Suche, Fundstellen und die Rechtsbrücke einliest. Die PDF-Assets unter
@@ -23,9 +23,7 @@ anderem für Suche, Fundstellen und die Rechtsbrücke einliest. Die PDF-Assets u
 
 Derzeit existiert mit `packages/shared/` nur ein gemeinsames Paket. Die Klassifikation reserviert
 für künftige, tatsächlich app-spezifische Pakete die Präfixe `packages/portal-*` und
-`packages/recht-*`; sie lösen ausschließlich den jeweiligen Websitebuild aus. Änderungen am
-Editorial Worker bleiben wie vor der Migration konservativ `shared`, damit die bestehende
-Deploymentsemantik unverändert bleibt.
+`packages/recht-*`; sie lösen ausschließlich den jeweiligen Websitebuild aus.
 
 Die Buildartefakte liegen unter `apps/portal/dist/` und `apps/recht/dist/`. GitHub Actions lädt
 diese app-lokalen Verzeichnisse als gemeinsames Artefakt hoch und stellt sie vor UI-Smokes und
@@ -63,6 +61,24 @@ SEO-Lauf und zielbezogene UI-Smoke ausgeführt. `shared` führt den vollständig
 Anwendungen aus. Die bestehende Cloudflare-PR-Vorschau bleibt auf `portal` und `shared` beschränkt;
 bei einem reinen `law`-Scope wird sie wegen der bestehenden portalbezogenen Previewarchitektur
 nicht gestartet.
+
+### Cloudflare-PR-Vorschau einrichten
+
+In den GitHub-Repository-Einstellungen müssen die Variable
+`CLOUDFLARE_PREVIEWS_ENABLED=true` sowie die Secrets `CLOUDFLARE_API_TOKEN` und
+`CLOUDFLARE_ACCOUNT_ID` gesetzt sein. Das Token benötigt nur die Rechte zum Hochladen und Löschen
+von Worker-Versionen.
+
+Der Workflow lädt mit `wrangler versions upload --config apps/portal/wrangler.jsonc` eine
+unveröffentlichte Worker-Version mit PR-spezifischem Preview-Alias hoch. Diese Version wird nicht
+nach Produktion deployt. Da Cloudflare Preview URLs standardmäßig öffentlich sind, müssen Alias-
+und Versions-Preview-Domain durch eine eigene Cloudflare-Access-Anwendung geschützt werden. Die
+konkrete Domain steht nach dem ersten manuellen Preview-Upload fest.
+
+Ohne `CLOUDFLARE_PREVIEWS_ENABLED=true` wird nur der Preview-Job übersprungen; die übrigen
+Qualitätsprüfungen laufen weiter. Der Workflow merkt sich die erzeugten Versions-IDs im technischen
+Teil des PR-Kommentars und löscht sie beim Schließen oder Mergen des Pull Requests. Fehlende
+Preview-Secrets führen nicht zu einem Ersatz- oder Produktionsdeployment.
 
 ## Fehlerklasse bestimmen
 

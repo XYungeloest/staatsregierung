@@ -57,7 +57,6 @@ if (!quick) {
   for (const [script, label] of [
     ['test:unit', 'Unit- und Regressionstests'],
     ['check', 'Astro- und TypeScript-Prüfung'],
-    ['editorial:check', 'Editorial Worker'],
     ['build', 'beide öffentlichen Anwendungen'],
     ['test:links:run', 'interne und domainübergreifende Links'],
     ['test:seo:run', 'öffentliche Metadaten und SEO'],

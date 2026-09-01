@@ -8,7 +8,7 @@ test('Änderungsscope wird anhand der zentralen Pfadzuordnung parametrisiert bes
     { paths: ['README.md'], scope: 'docs-only', targets: [] },
     { paths: ['apps/portal/src/pages/index.astro'], scope: 'portal', targets: ['portal'] },
     { paths: ['apps/recht/src/pages/norm/[slug]/index.astro'], scope: 'law', targets: ['law'] },
-    { paths: ['apps/redaktion/src/index.ts'], scope: 'shared', targets: ['portal', 'law'] },
+    { paths: ['public/_headers'], scope: 'shared', targets: ['portal', 'law'] },
     { paths: ['packages/portal-search/src/index.ts'], scope: 'portal', targets: ['portal'] },
     { paths: ['packages/recht-search/src/index.ts'], scope: 'law', targets: ['law'] },
     { paths: ['packages/shared/src/components/portal/SectionHero.astro'], scope: 'shared', targets: ['portal', 'law'] },

@@ -37,8 +37,7 @@ function isPortalOnly(path) {
 }
 
 function isShared(path) {
-  return path.startsWith('apps/redaktion/')
-    || path.startsWith('packages/')
+  return path.startsWith('packages/')
     || path.startsWith('content/normen/')
     || path.startsWith('content/verkuendungen/')
     || path.startsWith('data/recht/')

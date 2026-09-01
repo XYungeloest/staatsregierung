@@ -13,8 +13,8 @@ Quellenfragen stehen in `CONTENT_GAPS.md`.
 
 ## Architektur
 
-Grundentscheidung ist **ein npm-Workspace-Monorepo mit einem gemeinsamen Daten- und Wissensbestand,
-zwei öffentlichen Anwendungen und einem getrennten Redaktionsworker**:
+Grundentscheidung ist **ein npm-Workspace-Monorepo mit einem gemeinsamen Daten- und Wissensbestand
+und zwei öffentlichen Anwendungen**:
 
 - Staatsportal: `https://freistaat-ostdeutschland.de`
 - Rechtsportal OstRecht: `https://recht.freistaat-ostdeutschland.de`
@@ -23,10 +23,10 @@ Beide Anwendungen lesen dieselben Bestände unter `content/`, `Gesetze/` und `kn
 `knowledge/` wird nicht öffentlich ausgeliefert. Das Staatsportal behält unter `/recht/` nur eine
 redaktionelle Brückenseite; Rechtsdetailseiten liegen ausschließlich auf der Rechtsdomain.
 
-Die Workspaces sind `@ostrecht/portal` unter `apps/portal/`, `@ostrecht/recht` unter `apps/recht/`,
-`@ostrecht/redaktion` unter `apps/redaktion/` und das intern gemeinsam genutzte Paket
-`@ostrecht/shared` unter `packages/shared/`. Die Root-`package.json` orchestriert Entwicklung,
-Prüfung, Build und Deployment; ein zusätzlicher Monorepo-Orchestrator wird nicht verwendet.
+Die Workspaces sind `@ostrecht/portal` unter `apps/portal/`, `@ostrecht/recht` unter `apps/recht/`
+und das intern gemeinsam genutzte Paket `@ostrecht/shared` unter `packages/shared/`. Die
+Root-`package.json` orchestriert Entwicklung, Prüfung, Build und Deployment; ein zusätzlicher
+Monorepo-Orchestrator wird nicht verwendet.
 
 Technischer Kern:
 
@@ -34,7 +34,6 @@ Technischer Kern:
 - Cloudflare Workers als Zielplattform
 - dateibasierte Inhalte unter `content/`
 - normalisierte Regierungsorganisation unter `content/organisation/`
-- getrenntes, Access-geschütztes Git-Redaktionsstudio unter `/redaktion/`
 - interner Wissenshub unter `knowledge/`
 - keine aktiven D1- oder R2-Bindings für die öffentliche Inhaltsauslieferung
 
@@ -62,7 +61,6 @@ npm run test:visual
 npm run test:a11y
 npm run test:quality
 npm run test:browsers
-npm run editorial:check
 ```
 
 Weitere wichtige Befehle:
@@ -74,14 +72,12 @@ npm run deploy:staging
 npm run deploy
 npm run deploy:portal
 npm run deploy:recht
-npm run editorial:dev
 ```
 
 `PORTAL_SITE_URL` und `LAW_SITE_URL` steuern die beiden Origins. `npm run build:portal` schreibt
 nach `apps/portal/dist/`, `npm run build:recht` nach `apps/recht/dist/`. Beide Astro-Anwendungen
 besitzen eine feste app-lokale `astro.config.mjs`. Ihre Cloudflare-Konfigurationen liegen unter
-`apps/portal/wrangler.jsonc` und `apps/recht/wrangler.jsonc`; der Editorial Worker verwendet
-`apps/redaktion/wrangler.jsonc`.
+`apps/portal/wrangler.jsonc` und `apps/recht/wrangler.jsonc`.
 
 Die gemeinsame Assetquelle bleibt `public/`. Vor einem Build erzeugt
 `scripts/prepare-site-public.mjs` den jeweils benötigten, nicht versionierten Bestand unter
@@ -98,7 +94,6 @@ danach Staatsportal. Details zu Veröffentlichung, Wiederanlauf und Produktionsk
 apps/
   portal/       Staatsportal; Astro- und Wrangler-Konfiguration, Pages, Layout und Portalcode
   recht/        OstRecht; Astro- und Wrangler-Konfiguration, Pages, Layout und Normkomponenten
-  redaktion/    Redaktionsstudio; Worker-Quellcode und Wrangler-Konfiguration
 
 packages/
   shared/       gemeinsam genutzte Komponenten, Konfiguration, Styles, Typen und Fachlogik
@@ -146,9 +141,6 @@ docs/           Entwickler- und Betriebsdokumentation
 scripts/        repo-weite Import-, Build- und Prüfwerkzeuge
 tests/          repo-weite Unit-, Routing-, Browser- und Accessibility-Tests
 ```
-
-Architektur, Einrichtung und Bedienung des Redaktionsstudios stehen in
-`docs/EDITORIAL_ARCHITECTURE.md`, `docs/EDITORIAL_SETUP.md` und `docs/EDITORIAL_RUNBOOK.md`.
 
 ## Inhalts- und Wissenspflege
 
@@ -265,10 +257,10 @@ dient nur der Übergabe von Zuarbeit; der Aufgabenstatus wird weiterhin ausschli
 
 Der derzeitige Portalstand kann lange Sitzungsaufzeichnungen noch nicht sachgerecht aufnehmen.
 Workers Static Assets erlauben nur [25 MiB je Datei](https://developers.cloudflare.com/workers/platform/limits/),
-die Medien-CSP lässt ausschließlich die eigene Origin zu und das Redaktionsstudio ist nur für
-kleine Bilddateien ausgelegt. Große Audio- oder Videodateien dürfen deshalb weder unter `public/`
-noch als GitHub-Blob in einen Redaktions-PR gelangen. Die folgende Planung betrifft zunächst
-aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
+die Medien-CSP lässt ausschließlich die eigene Origin zu und Git eignet sich nicht als Ablage für
+große Mediendateien. Große Audio- oder Videodateien dürfen deshalb weder unter `public/` noch als
+Git-Blob in einen Pull Request gelangen. Die folgende Planung betrifft zunächst aufgezeichnete
+öffentliche Sitzungen, keinen Livebetrieb.
 
 - [ ] Vor der Implementierung den fachlichen Auftrag mit der Volkskammer festlegen: zuständige
   Redaktion, nur öffentliche Sitzungen beziehungsweise öffentliche Sitzungsteile, gewünschte
@@ -322,9 +314,9 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
   getrennt oder entfernt sein. Zuständigkeit für Freigabe, Beanstandung, nachträgliche Sperrung,
   Korrektur und endgültige Löschung einschließlich Protokollierung festlegen; eine bloße
   technische Abrufbarkeit darf keinen Veröffentlichungsstatus begründen.
-- [ ] Einen geschützten, vom eigentlichen PR getrennten Uploadablauf entwerfen. Der Editorial
-  Worker darf nur kurzlebige Einmal-URLs ausstellen und keine dauerhaften Medien-API-Schlüssel an
-  den Browser geben. Für lange Videos die von Cloudflare vorgesehenen
+- [ ] Einen geschützten, vom eigentlichen PR getrennten Uploadablauf entwerfen. Der dafür
+  vorgesehene serverseitige Dienst darf nur kurzlebige Einmal-URLs ausstellen und keine dauerhaften
+  Medien-API-Schlüssel an den Browser geben. Für lange Videos die von Cloudflare vorgesehenen
   [resumierbaren tus-Uploads](https://developers.cloudflare.com/stream/uploading-videos/direct-creator-uploads/)
   verwenden; für große Audioobjekte einen resumierbaren R2-Multipart-Upload prüfen. Dateigröße,
   MIME-Typ, Dateisignatur, Dauer, Prüfsumme, erlaubte Formate und Objektpfad serverseitig
