@@ -1,4 +1,4 @@
-import { normalizeSearchText, parseQueryTokens } from '../lib/norms/search-query.ts';
+import { buildSearchVariants, parseQueryTokens } from '../lib/norms/search-query.ts';
 import type { SearchSuggestion, SearchSuggestionPayload } from '../lib/norms/search.ts';
 
 const inputs = Array.from(document.querySelectorAll<HTMLInputElement>('[data-law-norm-autocomplete]'));
@@ -8,15 +8,6 @@ const VIEWPORT_GUTTER = 8;
 const LIST_GAP = 4;
 const DESIRED_LIST_HEIGHT = 9 * 44;
 const PREFERRED_MINIMUM_HEIGHT = 180;
-
-function getSearchVariants(value: string): string[] {
-  const transliterated = value
-    .replace(/ä/giu, 'ae')
-    .replace(/ö/giu, 'oe')
-    .replace(/ü/giu, 'ue')
-    .replace(/ß/giu, 'ss');
-  return [...new Set([normalizeSearchText(value), normalizeSearchText(transliterated)].filter(Boolean))];
-}
 
 function loadSuggestions(url: string): Promise<SearchSuggestion[]> {
   if (!suggestionRequest) {
@@ -36,7 +27,7 @@ function suggestionSearchText(suggestion: SearchSuggestion): string[] {
     suggestion.shortTitle,
     suggestion.abbr,
     ...suggestion.aliases,
-  ].flatMap(getSearchVariants);
+  ].flatMap(buildSearchVariants);
 }
 
 function matchesSuggestion(suggestion: SearchSuggestion, query: string): boolean {

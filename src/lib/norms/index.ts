@@ -109,6 +109,9 @@ export {
 } from './identity.ts';
 export {
   EDITORIAL_REFERENCE_DATE,
+  EDITORIAL_TIME_ZONE,
+  getBerlinCalendarDate,
+  isStrictlyFutureEffectiveDate,
   VERSION_TEMPORAL_KINDS,
   classifyNormVersion,
   classifyNormVersions,

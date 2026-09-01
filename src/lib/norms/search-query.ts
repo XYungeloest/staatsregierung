@@ -164,7 +164,11 @@ function transliterateGermanUmlauts(value: string): string {
     .replace(/ß/giu, 'ss');
 }
 
-function buildSearchVariants(value: string): string[] {
+/**
+ * Builds the German spelling variants used consistently by the full search,
+ * publication lookup and autocomplete.
+ */
+export function buildSearchVariants(value: string): string[] {
   return [...new Set([
     normalizeSearchText(value),
     normalizeSearchText(transliterateGermanUmlauts(value)),
@@ -427,18 +431,23 @@ export function getActiveSearchSort(state: NormSearchState): SortKey {
   return state.sortExplicit === false ? getDefaultSearchSort(state) : state.sort;
 }
 
+interface RawFilterOptions {
+  ignoreVersionScope?: boolean;
+  citationQuery?: ParsedNormSearchQuery;
+}
+
 function matchesRawFilters(
   documentEntry: SearchIndexDocument,
   state: NormSearchState,
   prepared: PreparedSearchDocument,
-  ignoreVersionScope = false,
+  options: RawFilterOptions = {},
 ): boolean {
   if (!anySelected(state.types, documentEntry.type)) return false;
   if (!anySelected(state.ministries, documentEntry.ministry)) return false;
   if (!anySubjectSelected(state.subjects, documentEntry.subjects)) return false;
   if (!anySelected(state.statuses, documentEntry.status)) return false;
   if (!anySelected(state.origins, documentEntry.origin)) return false;
-  if (!ignoreVersionScope && state.versionScope !== 'all' && documentEntry.versionKind !== state.versionScope) return false;
+  if (!options.ignoreVersionScope && state.versionScope !== 'all' && documentEntry.versionKind !== state.versionScope) return false;
   if (state.geltungstag && !isDateInRange(state.geltungstag, documentEntry.validFrom, documentEntry.validTo)) return false;
   if (state.validFrom && documentEntry.validTo && documentEntry.validTo < state.validFrom) return false;
   if (state.validTo && documentEntry.validFrom > state.validTo) return false;
@@ -447,10 +456,9 @@ function matchesRawFilters(
   if (state.publicationIssue && normalizeSearchText(documentEntry.publicationIssue ?? '') !== normalizeSearchText(state.publicationIssue)) return false;
   if (state.publicationPage && !normalizeSearchText(documentEntry.publicationPage ?? '').includes(normalizeSearchText(state.publicationPage))) return false;
 
-  if (state.citation) {
-    const citationQuery = parseNormSearchQuery(state.citation, { allowTypeIntent: false });
-    if (!textMatchesQuery(prepared.publicationDesignations, citationQuery)
-      && !textMatchesQuery(prepared.metadata, citationQuery)) return false;
+  if (options.citationQuery) {
+    if (!textMatchesQuery(prepared.publicationDesignations, options.citationQuery)
+      && !textMatchesQuery(prepared.metadata, options.citationQuery)) return false;
   }
 
   return true;
@@ -460,7 +468,11 @@ export function matchesNormSearchFilters(
   documentEntry: SearchIndexDocument,
   state: NormSearchState,
 ): boolean {
-  return matchesRawFilters(documentEntry, state, prepareSearchDocument(documentEntry));
+  return matchesRawFilters(documentEntry, state, prepareSearchDocument(documentEntry), {
+    citationQuery: state.citation
+      ? parseNormSearchQuery(state.citation, { allowTypeIntent: false })
+      : undefined,
+  });
 }
 
 function exactIdentityKind(documentEntry: PreparedSearchDocument, query: string): ExactIdentityKind | undefined {
@@ -677,21 +689,52 @@ interface SearchEvaluation {
   isFuzzy: boolean;
 }
 
+interface PreparedSearchRequest {
+  query: ParsedNormSearchQuery;
+  excludedTokens: QueryToken[];
+  exact: PreparedSearchText;
+  citationQuery?: ParsedNormSearchQuery;
+  publicationSlug?: string;
+}
+
+function prepareSearchRequest(
+  documents: PreparedSearchDocument[],
+  state: NormSearchState,
+): PreparedSearchRequest {
+  const query = parseNormSearchQuery(state.q, { allowTypeIntent: !hasExactIdentity(documents, state.q) });
+  return {
+    query,
+    excludedTokens: parseQueryTokens(state.exclude),
+    exact: prepareText([state.exact.replaceAll('*', '')]),
+    citationQuery: state.citation
+      ? parseNormSearchQuery(state.citation, { allowTypeIntent: false })
+      : undefined,
+    publicationSlug: query.hasPublicationReference ? exactPublicationSlug(documents, state.q) : undefined,
+  };
+}
+
 function evaluateDocument(
   prepared: PreparedSearchDocument,
   state: NormSearchState,
-  query: ParsedNormSearchQuery,
-  publicationSlug: string | undefined,
+  request: PreparedSearchRequest,
 ): SearchEvaluation | undefined {
+  const {
+    query,
+    excludedTokens,
+    exact,
+    citationQuery,
+    publicationSlug,
+  } = request;
   const documentEntry = prepared.documentEntry;
-  if (!matchesRawFilters(documentEntry, state, prepared, Boolean(publicationSlug && state.versionScopeExplicit !== true))) return undefined;
+  if (!matchesRawFilters(documentEntry, state, prepared, {
+    citationQuery,
+    ignoreVersionScope: Boolean(publicationSlug && state.versionScopeExplicit !== true),
+  })) return undefined;
   if (query.hasPublicationReference && !publicationSlug) return undefined;
   if (publicationSlug && documentEntry.publicationSlug !== publicationSlug) return undefined;
 
-  const excluded = parseQueryTokens(state.exclude);
-  if (excluded.some((token) => tokenMatches(prepared.fields.all, token))) return undefined;
+  if (excludedTokens.some((token) => tokenMatches(prepared.fields.all, token))) return undefined;
 
-  const exact = prepareText([state.exact.replaceAll('*', '')]);
   if (exact.normalized && !exact.variants.some((value) => prepared.fields[state.scope].variants.some((field) => field.includes(value)))) return undefined;
 
   const identity = query.references.length === 0 && query.phrases.length === 0 && !query.hasPublicationReference
@@ -701,7 +744,9 @@ function evaluateDocument(
   const strongRawTitlePrefix = hasSpecificRawTitleQuery(query) && Boolean(titleStarts);
   const strongRawTitlePhrase = fullSpecificQueryAppearsInTitle(prepared, query);
   const amendmentDirectMatch = Boolean(identity || strongRawTitlePrefix || strongRawTitlePhrase);
-  if (documentEntry.isAmendment && !state.includeAmendments && !amendmentDirectMatch) return undefined;
+  const amendmentExplicitlyRequested = state.types.includes('aenderungsvorschrift')
+    || query.typeIntent?.type === 'aenderungsvorschrift';
+  if (documentEntry.isAmendment && !state.includeAmendments && !amendmentExplicitlyRequested && !amendmentDirectMatch) return undefined;
 
   const referenceHits = findReferenceHits(prepared, query.references);
   const referenceHit = referenceHits?.[0]?.hit;
@@ -847,6 +892,39 @@ export function compareNormSearchResults(
     || right.documentEntry.validFrom.localeCompare(left.documentEntry.validFrom);
 }
 
+export interface SearchResultGroup {
+  slug: string;
+  entries: ScoredSearchResult[];
+}
+
+/**
+ * Keeps the most relevant matching version in front of its norm group. The
+ * current version is only elevated for the default, query-free browse view.
+ */
+export function groupNormSearchResults(
+  results: ScoredSearchResult[],
+  state: NormSearchState,
+): SearchResultGroup[] {
+  const groups = new Map<string, ScoredSearchResult[]>();
+  for (const result of results) {
+    const entries = groups.get(result.documentEntry.slug);
+    if (entries) entries.push(result);
+    else groups.set(result.documentEntry.slug, [result]);
+  }
+
+  const preferCurrentBrowseVersion = state.versionScope === 'all'
+    && getDefaultSearchSort(state) === 'publication'
+    && getActiveSearchSort(state) === 'publication';
+
+  return [...groups.entries()].map(([slug, entries]) => {
+    if (preferCurrentBrowseVersion) {
+      const currentIndex = entries.findIndex((entry) => entry.documentEntry.versionKind === 'current');
+      if (currentIndex > 0) entries.unshift(...entries.splice(currentIndex, 1));
+    }
+    return { slug, entries };
+  });
+}
+
 export function getDetectedNormTypeIntent(
   documents: Array<SearchIndexDocument | PreparedSearchDocument>,
   query: string,
@@ -860,10 +938,9 @@ export function runNormSearch(
   state: NormSearchState,
 ): ScoredSearchResult[] {
   const prepared = toPreparedDocuments(documents);
-  const query = parseNormSearchQuery(state.q, { allowTypeIntent: !hasExactIdentity(prepared, state.q) });
-  const publicationSlug = query.hasPublicationReference ? exactPublicationSlug(prepared, state.q) : undefined;
+  const request = prepareSearchRequest(prepared, state);
   const evaluations = prepared
-    .map((documentEntry) => evaluateDocument(documentEntry, state, query, publicationSlug))
+    .map((documentEntry) => evaluateDocument(documentEntry, state, request))
     .filter((entry): entry is SearchEvaluation => Boolean(entry));
   const exactResults = evaluations.filter((entry) => !entry.isFuzzy).map((entry) => entry.result);
   const results = exactResults.length > 0

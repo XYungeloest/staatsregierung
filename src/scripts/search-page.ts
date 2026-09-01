@@ -1,8 +1,9 @@
 import {
+  buildSearchVariants,
   getActiveSearchSort,
   getDefaultSearchSort,
   getDetectedNormTypeIntent,
-  normalizeSearchText,
+  groupNormSearchResults,
   prepareSearchDocuments,
   removeDetectedTypeIntent,
   runNormSearch,
@@ -36,6 +37,16 @@ let visibleGroups = PAGE_SIZE;
 let lastResults: ScoredSearchResult[] = [];
 let lastState: NormSearchState | undefined;
 let inputTimer: number | undefined;
+
+const FACET_VALUE_GETTERS: Record<string, (entry: SearchIndexDocument) => readonly string[]> = {
+  type: (entry) => [entry.type],
+  ministry: (entry) => [entry.ministry],
+  subject: (entry) => entry.subjects,
+  status: (entry) => [entry.status],
+  origin: (entry) => [entry.origin],
+  publicationSource: (entry) => entry.publicationSource ? [entry.publicationSource] : [],
+  publicationYear: (entry) => entry.publicationYear ? [entry.publicationYear] : [],
+};
 
 const dateFormatter = new Intl.DateTimeFormat('de-DE', {
   day: 'numeric',
@@ -455,58 +466,36 @@ function renderVersion(result: ScoredSearchResult, heading = true): string {
   `;
 }
 
-interface SearchResultGroup {
-  slug: string;
-  entries: ScoredSearchResult[];
-}
-
-function groupResults(results: ScoredSearchResult[], state: NormSearchState): SearchResultGroup[] {
-  const groups = new Map<string, ScoredSearchResult[]>();
-  for (const result of results) groups.set(result.documentEntry.slug, [...(groups.get(result.documentEntry.slug) ?? []), result]);
-  return [...groups.entries()].map(([slug, entries]) => {
-    if (state.versionScope === 'all') {
-      const currentIndex = entries.findIndex((entry) => entry.documentEntry.versionKind === 'current');
-      if (currentIndex > 0) entries.unshift(...entries.splice(currentIndex, 1));
-    }
-    return { slug, entries };
-  });
-}
-
 function updateFacetCounts(results: ScoredSearchResult[]): void {
-  const facets: Record<string, (entry: SearchIndexDocument) => string[]> = {
-    type: (entry) => [entry.type],
-    ministry: (entry) => [entry.ministry],
-    subject: (entry) => entry.subjects,
-    status: (entry) => [entry.status],
-    origin: (entry) => [entry.origin],
-    publicationSource: (entry) => entry.publicationSource ? [entry.publicationSource] : [],
-    publicationYear: (entry) => entry.publicationYear ? [entry.publicationYear] : [],
-  };
+  const countsByFacet = new Map<string, Map<string, number>>(
+    Object.keys(FACET_VALUE_GETTERS).map((facet) => [facet, new Map<string, number>()]),
+  );
+  for (const { documentEntry } of results) {
+    for (const [facet, getter] of Object.entries(FACET_VALUE_GETTERS)) {
+      const counts = countsByFacet.get(facet);
+      if (!counts) continue;
+      for (const value of getter(documentEntry)) {
+        counts.set(value, (counts.get(value) ?? 0) + 1);
+      }
+    }
+  }
+
   document.querySelectorAll<HTMLInputElement>('[data-search-facet]').forEach((input) => {
-    const getter = facets[input.dataset.searchFacet ?? ''];
-    if (!getter) return;
-    const counts = new Map<string, number>();
-    results.forEach(({ documentEntry }) => getter(documentEntry).forEach((value) => counts.set(value, (counts.get(value) ?? 0) + 1)));
+    const counts = countsByFacet.get(input.dataset.searchFacet ?? '');
+    if (!counts) return;
     const count = counts.get(input.value) ?? 0;
     const countElement = input.closest('label')?.querySelector<HTMLElement>('[data-search-facet-count]');
     if (countElement) countElement.textContent = `(${count})`;
+    const label = input.dataset.baseLabel ?? input.value;
+    input.setAttribute('aria-label', `${label}, ${count} passende Fassungen in der aktuellen Auswahl`);
   });
 }
 
-function normalizations(value: string): string[] {
-  const transliterated = value
-    .replace(/ä/giu, 'ae')
-    .replace(/ö/giu, 'oe')
-    .replace(/ü/giu, 'ue')
-    .replace(/ß/giu, 'ss');
-  return [...new Set([normalizeSearchText(value), normalizeSearchText(transliterated)].filter(Boolean))];
-}
-
 function findPublicationDirectHit(publications: SearchPublication[], query: string): SearchPublication | undefined {
-  const queryForms = normalizations(query);
+  const queryForms = buildSearchVariants(query);
   if (queryForms.length === 0) return undefined;
   return publications.find((publication) => [publication.designation, ...publication.aliases]
-    .some((designation) => normalizations(designation).some((value) => queryForms.includes(value))));
+    .some((designation) => buildSearchVariants(designation).some((value) => queryForms.includes(value))));
 }
 
 function renderPublicationDirectHit(publication: SearchPublication | undefined): string {
@@ -533,7 +522,7 @@ function sortLabel(state: NormSearchState): string {
 
 function renderResults(results: ScoredSearchResult[], state: NormSearchState, publication?: SearchPublication): void {
   if (!summary || !resultsContainer || !moreButton) return;
-  const groups = groupResults(results, state);
+  const groups = groupNormSearchResults(results, state);
   const visible = groups.slice(0, visibleGroups);
   if (groups.length === 0) {
     summary.textContent = 'Keine Treffer für die aktuelle Suchanfrage.';
