@@ -47,6 +47,7 @@ import {
   getApplicableVersion,
   getBerlinCalendarDate,
   isStrictlyFutureEffectiveDate,
+  partitionDatedEntries,
   validateVersionIntervals,
 } from '../src/lib/norms/versions.ts';
 import { getNormVersionIdentity } from '../src/lib/norms/identity.ts';
@@ -113,6 +114,14 @@ test('künftige Änderungen beginnen erst nach dem redaktionellen Kalendertag', 
   assert.equal(isStrictlyFutureEffectiveDate('2026-08-31', referenceDate), false);
   assert.equal(isStrictlyFutureEffectiveDate('2026-09-01', referenceDate), false);
   assert.equal(isStrictlyFutureEffectiveDate('2026-09-02', referenceDate), true);
+
+  const changes = partitionDatedEntries([
+    { date: '2026-08-31', id: 'past' },
+    { date: '2026-09-01', id: 'effective-today' },
+    { date: '2026-09-02', id: 'future' },
+  ], referenceDate);
+  assert.deepEqual(changes.current.map((entry) => entry.id), ['past', 'effective-today']);
+  assert.deepEqual(changes.future.map((entry) => entry.id), ['future']);
 });
 
 test('deutsche Umlaute werden im A–Z-Index einheitlich gruppiert', () => {

@@ -26,6 +26,25 @@ export function isStrictlyFutureEffectiveDate(
   return effectiveDate > asOf;
 }
 
+/**
+ * Splits dated entries against the same Berlin-calendar reference used for
+ * current and future legal changes. Entries taking effect today are current.
+ */
+export function partitionDatedEntries<T extends { date: string }>(
+  entries: readonly T[],
+  asOf = EDITORIAL_REFERENCE_DATE,
+): { current: T[]; future: T[] } {
+  const current: T[] = [];
+  const future: T[] = [];
+
+  for (const entry of entries) {
+    if (isStrictlyFutureEffectiveDate(entry.date, asOf)) future.push(entry);
+    else current.push(entry);
+  }
+
+  return { current, future };
+}
+
 export const VERSION_TEMPORAL_KINDS = [
   'current',
   'future',

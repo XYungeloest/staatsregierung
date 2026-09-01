@@ -112,6 +112,7 @@ export {
   EDITORIAL_TIME_ZONE,
   getBerlinCalendarDate,
   isStrictlyFutureEffectiveDate,
+  partitionDatedEntries,
   VERSION_TEMPORAL_KINDS,
   classifyNormVersion,
   classifyNormVersions,
