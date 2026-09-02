@@ -1,6 +1,6 @@
 # Wissensaudit zur Politiksimulation und zum Freistaat Ostdeutschland
 
-**Repositoryprüfung:** 29. August 2026
+**Repositoryprüfung:** 2. September 2026
 **Redaktioneller Stichtag:** zentral in `../packages/shared/src/config/editorial.json`
 
 ## Zweck
@@ -21,7 +21,7 @@ keine eigenständige Quelle. Die Quellenhierarchie und das Verfahren bei echten 
 | Staat und Verfassungsordnung | aktuelle Verfassungsfassungen, Staatsaufbau und Staatsreform sind strukturiert | einzelne historische Verfassungsereignisse und Organübergänge weiter verdichten |
 | Regierung und Verwaltung | aktueller Staatsrat und jüngere Regierungsstände sind strukturiert | Regierungs- und Rollenchronologie vor Dezember 2025 vervollständigen |
 | Personen und Parteien | aktuelle Rollen und zahlreiche historische Profile sind vorhanden | einzelne Parteiwechsel, Parteifunktionen, DEMOS-Namenschronologie und frühere Amtsintervalle belegen |
-| Gesetzgebung und Rechtsordnung | 85 Zielnormen sind erkannt, 81 vollständig konsolidiert; 3 Zieltextkonflikte sind gesperrt und 1 maßgebliche Ausgangsfassung fehlt | die Konflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Schulordnung Förderschulen und beim Zehnten Sächsischen Kostenverzeichnis sowie die fehlende NDR-Ausgangsfassung quellenbasiert klären |
+| Gesetzgebung und Rechtsordnung | 89 Zielnormen sind erkannt, 84 vollständig konsolidiert; 4 Zieltextkonflikte sind gesperrt und 1 maßgebliche Ausgangsfassung fehlt | die Konflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Ostdeutschen Gemeindeordnung, bei der Schulordnung Förderschulen und beim Zehnten Sächsischen Kostenverzeichnis sowie die fehlende NDR-Ausgangsfassung quellenbasiert klären |
 | Parlamentarische Geschichte | siebte Wahlperiode ist über Verfahren, Tagesordnungen und Verkündungen erschlossen | frühere Wahlperioden sowie nicht vorliegende Plenar- und Abstimmungsnachweise nur bei neuer Quelle ergänzen |
 | Gerichts- und Verfassungsverfahren | einzelne Vorgänge sind als Kandidaten oder Verfahren erfasst | Aktenzeichen, Entscheidungen und Verfahrensausgänge nur aus belastbaren Quellen übernehmen |
 | Politische Vorhaben und Vollzug | zentrale Reform- und Projektkomplexe sind verknüpft | operative Vollzugsstände unter anderem bei Boom Europe, OVV/DB und mehreren Beschaffungen belegen |
@@ -39,7 +39,7 @@ Die menschenlesbare Liste der tatsächlich noch relevanten Quellenfragen steht i
 Besonders relevant sind derzeit:
 
 - die vollständige Ausgangsfassung des NDR-Staatsvertrags vor der Änderung vom 8. März 2026,
-- die Zieltextkonflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Schulordnung Förderschulen und beim Zehnten Sächsischen Kostenverzeichnis,
+- die Zieltextkonflikte beim Gesetz über den öffentlichen Personennahverkehr, bei der Ostdeutschen Gemeindeordnung, bei der Schulordnung Förderschulen und beim Zehnten Sächsischen Kostenverzeichnis,
 - die abweichende Wahlterminangabe in Artikel 121a der Staatsverfassung,
 - fehlende Vollzugsbelege für mehrere politische und wirtschaftliche Vorhaben,
 - noch unvollständige politische Rollen- und Ereignischronologien vor Ende 2025,

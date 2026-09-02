@@ -42,6 +42,26 @@ async function writeJson(path, value) {
   await writeFile(path, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
+async function versionRecordsThrough(normDirectory, validFrom) {
+  const directory = join(normDirectory, 'versions');
+  const versions = await Promise.all((await readdir(directory))
+    .filter((file) => file.endsWith('.json'))
+    .map((file) => readJson(join(directory, file))));
+  return versions
+    .filter((version) => version.validFrom <= validFrom)
+    .sort((left, right) => left.validFrom.localeCompare(right.validFrom));
+}
+
+function uniqueSourceReferences(references) {
+  const seen = new Set();
+  return references.filter((reference) => {
+    const key = JSON.stringify(reference);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
 async function recipeFiles(slug) {
   const directory = resolve(ROOT, 'data/recht/amendments');
   const files = [];
@@ -169,6 +189,20 @@ function historyEntryKey(entry) {
 async function consolidate(slug, config) {
   const source = config.targets[slug];
   if (!source) throw new Error(`${slug}: Quellenkonfiguration fehlt`);
+  const normDirectory = resolve(ROOT, 'content/normen', slug);
+  let existingVersionSeed = null;
+  let existingSeedMeta = null;
+  if (source.existingVersionSeed) {
+    const versionId = source.existingVersionSeed.versionId;
+    if (!versionId) throw new Error(`${slug}: bestehender Fassungs-Seed benötigt versionId`);
+    [existingVersionSeed, existingSeedMeta] = await Promise.all([
+      readJson(join(normDirectory, 'versions', `${versionId}.json`)),
+      readJson(join(normDirectory, 'meta.json')),
+    ]);
+    if (existingVersionSeed.versionId !== versionId || existingVersionSeed.validFrom !== versionId) {
+      throw new Error(`${slug}: bestehender Fassungs-Seed ${versionId} ist nicht als passende Ausgangsfassung gespeichert`);
+    }
+  }
   let baselineSource = source;
   let baselineVersionDate = source.baselineSnapshotDate ?? config.baselineSnapshotDate;
   let rawParsed;
@@ -176,6 +210,16 @@ async function consolidate(slug, config) {
   if (source.snapshot && source.sourceSha256) {
     const snapshot = await readFile(resolve(ROOT, source.snapshot), 'utf8');
     rawParsed = parseRevosaxSnapshot(snapshot, { url: source.baselineUrl });
+  } else if (existingVersionSeed) {
+    baselineVersionDate = existingVersionSeed.validFrom;
+    rawParsed = {
+      sourceTitle: existingVersionSeed.title ?? existingSeedMeta.title,
+      shortTitle: existingVersionSeed.shortTitle ?? existingSeedMeta.shortTitle,
+      abbr: existingVersionSeed.abbr ?? existingSeedMeta.abbr,
+      documentDate: existingSeedMeta.documentDate,
+      body: existingVersionSeed.body,
+      sourceNotes: existingVersionSeed.sourceNotes,
+    };
   } else {
     const seed = [...(source.adoptedSources ?? [])]
       .filter((entry) => entry.snapshot && entry.sourceSha256)
@@ -188,13 +232,15 @@ async function consolidate(slug, config) {
     rawParsed = adopted.parsed;
   }
   const parsed = applyEditorialSourceResolutions(slug, rawParsed, source.editorialSourceResolutions);
-  const baselineCitation = historicalBaselineCitation({
-    pageFullCitation: parsed.pageFullCitation ?? parsed.fullCitation,
-    sourceValidTo: baselineSource.sourceValidTo,
-    baselineCitation: source.baselineCitation,
-    sourceCitation: baselineSource.citation,
-    context: slug,
-  });
+  const baselineCitation = existingVersionSeed
+    ? existingVersionSeed.citation
+    : historicalBaselineCitation({
+      pageFullCitation: parsed.pageFullCitation ?? parsed.fullCitation,
+      sourceValidTo: baselineSource.sourceValidTo,
+      baselineCitation: source.baselineCitation,
+      sourceCitation: baselineSource.citation,
+      context: slug,
+    });
   let recipes = await Promise.all((await recipeFiles(slug)).map(async (path) => ({
     ...await readJson(path),
     __file: path.replace(`${ROOT}/`, ''),
@@ -208,6 +254,9 @@ async function consolidate(slug, config) {
   if (blockedAt) {
     recipes = recipes.filter((recipe) => recipe.effectiveDate < blockedAt);
   }
+  if (existingVersionSeed) {
+    recipes = recipes.filter((recipe) => recipe.effectiveDate > baselineVersionDate);
+  }
   if (recipes.length === 0) throw new Error(`${slug}: keine redaktionell geprüften Patch-Rezepte vorhanden`);
   const recipeGroups = Object.values(Object.groupBy(recipes, (recipe) => recipe.effectiveDate));
   for (const group of recipeGroups) {
@@ -220,7 +269,6 @@ async function consolidate(slug, config) {
     }
   }
 
-  const normDirectory = resolve(ROOT, 'content/normen', slug);
   let meta;
   let existingHistory;
   try {
@@ -252,27 +300,31 @@ async function consolidate(slug, config) {
     existingHistory = { initialVersionId: null, entries: [] };
   }
   let state = { title: parsed.sourceTitle, body: parsed.body };
-  const versions = [{
-    versionId: baselineVersionDate,
-    validFrom: baselineVersionDate,
-    validTo: null,
-    isCurrent: false,
-    citation: baselineCitation,
-    changeNote: seededAdoptedSourceId
-      ? baselineSource.changeNote
-      : `Ausgangsfassung nach dem am ${baselineVersionDate} geltenden sächsischen Rechtsstand.`,
-    sourceReferences: [snapshotReference(baselineSource)],
-    sourceNotes: parsed.sourceNotes,
-    title: state.title,
-    body: state.body,
-  }];
-  const historyEntries = [{
-    date: baselineVersionDate,
-    type: 'initial',
-    title: 'Vollständige Ausgangsfassung zum verbindlichen Stichtag.',
-    citation: baselineCitation,
-    affectingVersionId: baselineVersionDate,
-  }];
+  const versions = existingVersionSeed
+    ? await versionRecordsThrough(normDirectory, baselineVersionDate)
+    : [{
+      versionId: baselineVersionDate,
+      validFrom: baselineVersionDate,
+      validTo: null,
+      isCurrent: false,
+      citation: baselineCitation,
+      changeNote: seededAdoptedSourceId
+        ? baselineSource.changeNote
+        : `Ausgangsfassung nach dem am ${baselineVersionDate} geltenden sächsischen Rechtsstand.`,
+      sourceReferences: [snapshotReference(baselineSource)],
+      sourceNotes: parsed.sourceNotes,
+      title: state.title,
+      body: state.body,
+    }];
+  const historyEntries = existingVersionSeed
+    ? []
+    : [{
+      date: baselineVersionDate,
+      type: 'initial',
+      title: 'Vollständige Ausgangsfassung zum verbindlichen Stichtag.',
+      citation: baselineCitation,
+      affectingVersionId: baselineVersionDate,
+    }];
   const adoptedSources = await Promise.all(
     (source.adoptedSources ?? [])
       .filter((entry) => entry.id !== seededAdoptedSourceId)
@@ -374,7 +426,7 @@ async function consolidate(slug, config) {
     title: source.resultTitle ?? state.title ?? meta.title,
     ...(source.resultShortTitle ? { shortTitle: source.resultShortTitle } : {}),
     ...(source.resultAbbr ? { abbr: source.resultAbbr } : {}),
-    initialCitation: baselineCitation,
+    initialCitation: existingVersionSeed ? meta.initialCitation : baselineCitation,
     ...((source.documentDate ?? parsed.documentDate)
       ? { documentDate: source.documentDate ?? parsed.documentDate }
       : {}),
@@ -385,12 +437,12 @@ async function consolidate(slug, config) {
         : 'in-force'
       : meta.status,
     ...(repealRecipe ? { expiryDate: previousIsoDate(repealRecipe.effectiveDate) } : {}),
-    affectedByNorms: recipes.map((recipe) => recipe.amendmentAct),
-    sourceReferences: [
-      snapshotReference(baselineSource),
+    affectedByNorms: [...new Set([...(meta.affectedByNorms ?? []), ...recipes.map((recipe) => recipe.amendmentAct)])],
+    sourceReferences: uniqueSourceReferences([
+      ...(existingVersionSeed ? (meta.sourceReferences ?? []) : [snapshotReference(baselineSource)]),
       ...adoptedSources.map(({ source: adoptedSource }) => snapshotReference(adoptedSource)),
       ...recipes.flatMap((recipe) => recipe.sourceReferences ?? []),
-    ],
+    ]),
     editorialResolutions: publicEditorialResolutions(source).length
       ? publicEditorialResolutions(source)
       : meta.editorialResolutions,
@@ -401,12 +453,12 @@ async function consolidate(slug, config) {
   }
   if (publicEditorialResolutions(source).length === 0) delete updatedMeta.editorialResolutions;
   const retainedHistoryEntries = existingHistory.entries.filter((entry) =>
-    entry.type !== 'initial' && !recipes.some((recipe) => recipe.amendmentAct === entry.relatedNorm)
+    (existingVersionSeed || entry.type !== 'initial') && !recipes.some((recipe) => recipe.amendmentAct === entry.relatedNorm)
   );
   const retainedHistoryKeys = new Set(retainedHistoryEntries.map(historyEntryKey));
   const history = {
     ...existingHistory,
-    initialVersionId: baselineVersionDate,
+    initialVersionId: existingVersionSeed ? existingHistory.initialVersionId : baselineVersionDate,
     entries: [
       ...retainedHistoryEntries,
       ...historyEntries.filter((entry) => !retainedHistoryKeys.has(historyEntryKey(entry))),
