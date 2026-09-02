@@ -1,0 +1,31 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "ostrecht-recht",
+  "compatibility_date": "2026-04-15",
+  "workers_dev": true,
+  "preview_urls": true,
+  "routes": [
+    {
+      "pattern": "recht.freistaat-ostdeutschland.de",
+      "custom_domain": true
+    }
+  ],
+  "vars": {
+    "APP_ENV": "production"
+  },
+  "assets": {
+    "directory": "./dist/client",
+    "not_found_handling": "404-page"
+  },
+
+  "env": {
+    "staging": {
+      "name": "ostrecht-recht-staging",
+      "workers_dev": true,
+      "routes": [],
+      "vars": {
+        "APP_ENV": "staging"
+      }
+    }
+  }
+}

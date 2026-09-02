@@ -1,0 +1,119 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import TopicCard from '../../components/portal/TopicCard.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import SectionNavigation from '../../components/portal/SectionNavigation.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getActionPlanUrl,
+  getActiveTopicHighlights,
+  getFeaturedTopics,
+  getHomeUrl,
+  getKreisreformUrl,
+  getLawHomeUrl,
+  groupTopicsByCluster,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
+import { loadMinistries, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
+
+const [topics, ministries] = await Promise.all([loadTopics(), loadMinistries()]);
+const ministryLookup = new Map(ministries.map((ministry) => [ministry.slug, ministry]));
+const currentTopics = getActiveTopicHighlights(topics, PORTAL_REFERENCE_DATE);
+const currentTopicSlugs = new Set(currentTopics.map((topic) => topic.slug));
+const focusTopics = getFeaturedTopics(topics).filter((topic) => !currentTopicSlugs.has(topic.slug));
+const topicGroups = groupTopicsByCluster(topics);
+---
+
+<BaseLayout title="Themen & Projekte" description="Aktuelle Vorhaben, dauerhafte Schwerpunkte und alle Themen des Ostdeutschen Freistaates mit Rechtsstand und Zuständigkeit.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Themen & Projekte' }]} />
+
+  <SectionHero
+    eyebrow="Themen & Projekte"
+    title="Was der Freistaat gestaltet"
+    lead="Aktuelle Entscheidungen, laufende Umsetzungen und dauerhafte Reformbereiche – geordnet nach Bedeutung, Fachgebiet und Rechtsstand."
+    variant="topics"
+    facts={[
+      { label: 'Aktuell hervorgehoben', value: String(currentTopics.length), href: '#aktuell' },
+      { label: 'Dauerhafte Schwerpunkte', value: String(focusTopics.length), href: '#schwerpunkte' },
+      { label: 'Alle Themen', value: String(topics.length), href: '#alle-themen' },
+    ]}
+    actions={[
+      { label: 'Aktuelle Vorhaben', href: '#aktuell', primary: true },
+      { label: 'Gebietssuche zur Kreisreform', href: `${getKreisreformUrl()}#bezirk-suche` },
+    ]}
+  />
+
+  <SectionNavigation
+    label="Themenübersicht"
+    variant="topics"
+    items={[
+      { label: 'Aktuell', href: '#aktuell' },
+      { label: 'Schwerpunkte', href: '#schwerpunkte' },
+      { label: 'Alle Themen', href: '#alle-themen' },
+      { label: '15-Punkte-Plan', href: getActionPlanUrl() },
+      { label: 'Rechtsportal', href: getLawHomeUrl() },
+    ]}
+  />
+
+  <section id="aktuell" class="section topics-current" aria-labelledby="topics-current-title" data-visual-section="topics-current">
+    <div class="section-header topics-heading-row">
+      <div>
+        <p class="eyebrow">Aktuell</p>
+        <h2 id="topics-current-title">Was jetzt wichtig ist</h2>
+        <p>Zeitkritische Vorhaben und jüngste Statusänderungen. Der Zeitraum wird direkt im jeweiligen Themendatensatz gepflegt.</p>
+      </div>
+      <p class="topics-reference-date">Stand <time datetime={PORTAL_REFERENCE_DATE}>{siteConfig.date.formatLong(PORTAL_REFERENCE_DATE)}</time></p>
+    </div>
+    {currentTopics.length > 0 ? (
+      <div class:list={['topics-current-grid', currentTopics.length >= 3 && 'topics-current-grid--lead-layout']}>
+        {currentTopics.map((topic) => (
+          <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} variant="highlight" />
+        ))}
+      </div>
+    ) : (
+      <p class="status-notice">Derzeit ist kein Thema mit einem laufenden Hervorhebungszeitraum gekennzeichnet.</p>
+    )}
+  </section>
+
+  <section id="schwerpunkte" class="section section-muted topics-focus" aria-labelledby="topics-focus-title">
+    <div class="section-header">
+      <p class="eyebrow">Schwerpunkte</p>
+      <h2 id="topics-focus-title">Große Reformbereiche</h2>
+      <p>Dauerhafte politische und rechtliche Arbeitsfelder mit eigener Themenseite, Zuständigkeit und belegtem Umsetzungsstand.</p>
+    </div>
+    <div class="card-grid card-grid--three">
+      {focusTopics.map((topic) => (
+        <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} />
+      ))}
+    </div>
+  </section>
+
+  <section id="alle-themen" class="section topics-directory" aria-labelledby="topics-directory-title">
+    <div class="section-header">
+      <p class="eyebrow">Vollständige Übersicht</p>
+      <h2 id="topics-directory-title">Alle Themen nach Fachgebiet</h2>
+      <p>Jedes Thema erscheint in genau einem redaktionellen Themenbereich. Status und Fachstand bleiben auf jeder Karte sichtbar.</p>
+    </div>
+    <nav class="topic-cluster-navigation" aria-label="Direkt zu einem Themenbereich">
+      <ul>
+        {topicGroups.map((group) => <li><a href={`#cluster-${group.id}`}>{group.label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="topic-cluster-list">
+      {topicGroups.map((group) => (
+        <section id={`cluster-${group.id}`} class="topic-cluster" aria-labelledby={`cluster-${group.id}-title`}>
+          <div class="topic-cluster__heading">
+            <h3 id={`cluster-${group.id}-title`}>{group.label}</h3>
+            <span>{group.topics.length} {group.topics.length === 1 ? 'Thema' : 'Themen'}</span>
+          </div>
+          <div class="card-grid card-grid--two">
+            {group.topics.map((topic) => (
+              <TopicCard topic={topic} ministryName={ministryLookup.get(topic.federfuehrendesRessort)?.kurzname} variant="compact" headingLevel={4} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

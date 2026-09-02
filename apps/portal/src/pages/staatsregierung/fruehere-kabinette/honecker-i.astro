@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getActionPlanUrl,
+  getCabinetUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getPreviousCabinetsUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+
+import archive from '../../../../../../content/regierung/archiv/kabinett-honecker-i.json';
+
+const memberModules = import.meta.glob('../../../../../../content/regierung/archiv/honecker-i/mitglieder/*.json', {
+  eager: true,
+  import: 'default',
+});
+const ministryModules = import.meta.glob('../../../../../../content/regierung/archiv/honecker-i/ressorts/*.json', {
+  eager: true,
+  import: 'default',
+});
+
+const members = Object.values(memberModules)
+  .map((entry) => entry as { name: string; amt: string; ressort: string; reihenfolge: number })
+  .sort((left, right) => left.reihenfolge - right.reihenfolge);
+const ministries = Object.values(ministryModules)
+  .map((entry) => entry as { name: string; kurzname: string; leitung: string })
+  .sort((left, right) => left.name.localeCompare(right.name, 'de'));
+---
+
+<BaseLayout
+  title="Kabinett Honecker I"
+  description="Historischer Archivstand des Kabinetts Honecker I."
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Frühere Kabinette', href: getPreviousCabinetsUrl() },
+      { label: 'Kabinett Honecker I' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Archivierte Staatsregierung</p>
+    <h1>{archive.cabinetName}</h1>
+    <p class="lead">{archive.summary}</p>
+    <nav class="hero-actions" aria-label="Archivnavigation">
+      <a class="button-link" href={getCabinetUrl()}>Zum aktuellen ersten Staatsrat</a>
+      <a class="button-link button-link--secondary" href={getActionPlanUrl()}>Aktueller 15-Punkte-Plan II</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="meta-grid">
+      <div class="meta-card">
+        <span class="meta-label">Amtszeit</span>
+        <strong><time datetime={archive.formedOn}>{siteConfig.date.formatLong(archive.formedOn)}</time> bis <time datetime={archive.endedOn}>{siteConfig.date.formatLong(archive.endedOn)}</time></strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Koalition</span>
+        <strong>{archive.coalition}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Ministerpräsident</span>
+        <strong>{archive.headOfGovernment}</strong>
+      </div>
+      <div class="meta-card">
+        <span class="meta-label">Ressorts</span>
+        <strong>{ministries.length}</strong>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Historische Einordnung</h2>
+      <p>
+        Das Kabinett Honecker I bildet den abgeschlossenen Ausgangsstand vor dem Regierungswechsel
+        am <time datetime="2026-05-04">4. Mai 2026</time>. Die damaligen Profile und Ressortbeschreibungen sind hier als
+        Archivstand dokumentiert.
+      </p>
+    </div>
+    <div class="body-copy">
+      <p>
+        Die erste Aufbauphase umfasste den institutionellen Ausbau des Freistaates, die
+        Einbindung des Rechtsportals, die Verabschiedung des Haushaltsrahmens 2025/2026 und
+        mehrere sozialstaatliche Kernprojekte.
+      </p>
+      <p>
+        Mit dem Kabinett Honecker II wurden Ressorts umbenannt, das Kultur-, Wissenschafts- und
+        Tourismusressort aufgelöst und die politische Arbeitsgrundlage durch den 15-Punkte-Plan II
+        erneuert.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Mitglieder im Archivstand</h2>
+      <p>Die folgende Liste zeigt die damalige Zusammensetzung des Kabinetts Honecker I.</p>
+    </div>
+    <ul class="record-list">
+      {members.map((member) => (
+        <li class="record-list__item">
+          <strong>{member.name}</strong>
+          <span>{member.amt}</span>
+          <span>{member.ressort}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Ressorts im Archivstand</h2>
+      <p>Die Ressortbezeichnungen entsprechen dem Stand vor dem Organisationserlass 05/2026.</p>
+    </div>
+    <ul class="record-list">
+      {ministries.map((ministry) => (
+        <li class="record-list__item">
+          <strong>{ministry.name}</strong>
+          <span>Leitung: {ministry.leitung}</span>
+          <span>Kurzbezeichnung: {ministry.kurzname}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

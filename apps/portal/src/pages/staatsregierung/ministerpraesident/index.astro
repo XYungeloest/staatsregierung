@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import MinistryCard from '../../../components/portal/MinistryCard.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getActionPlanUrl,
+  getCabinetUrl,
+  getGovernmentUrl,
+  getGovernmentMemberUrl,
+  getHomeUrl,
+  getTopicUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import {
+  loadCurrentGovernmentMembers,
+  loadCurrentGovernment,
+  loadMinistries,
+  loadTopics,
+} from '@ostrecht/shared/lib/portal/content.ts';
+
+const [members, ministries, topics, currentGovernment] = await Promise.all([
+  loadCurrentGovernmentMembers(),
+  loadMinistries(),
+  loadTopics(),
+  loadCurrentGovernment(),
+]);
+const ministerPresident = members[0];
+const leadershipMinistries = ministries.filter((ministry) =>
+  ['staatskanzlei', 'kapitalakkumulation-des-fiskus'].includes(ministry.slug),
+);
+const topPriorities = topics
+  .filter((topic) =>
+    ['wohnen-und-vergesellschaftung', 'gute-arbeit', 'haushalt-und-finanzen'].includes(
+      topic.slug,
+    ),
+  )
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Staatspräsident"
+  description="Leitungsseite des ersten Staatspräsidenten innerhalb des Staatsrates."
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Staatspräsident' },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Leitung des Staatsrates"
+    title="Staatspräsident"
+    lead="Der Staatspräsident führt den Vorsitz im Staatsrat, bestimmt die Richtlinien der Politik und vertritt den Freistaat nach außen."
+    variant="government"
+    facts={[
+      { label: 'Amtsträger', value: currentGovernment.headOfGovernment },
+      { label: 'Staatsrat', value: currentGovernment.title },
+      { label: 'Sitz', value: currentGovernment.seatOfGovernment },
+    ]}
+    actions={ministerPresident ? [{ label: 'Zum persönlichen Profil', href: getGovernmentMemberUrl(ministerPresident.slug), primary: true }] : []}
+    image={ministerPresident ? {
+      src: ministerPresident.bild,
+      alt: ministerPresident.bildAlt ?? `Porträt von ${ministerPresident.name}`,
+      credit: ministerPresident.bildnachweis,
+      width: 352,
+      height: 440,
+      widths: [240, 360, 480],
+      kind: 'portrait',
+    } : undefined}
+  />
+  <GovernmentNavigation />
+
+  <section class="section">
+    <div class="content-grid">
+      <section class="section body-copy">
+        <p>
+          Die Leitungsfunktion des Staatsrates bündelt Staatsratssteuerung, ressortübergreifende
+          Koordinierung und öffentliche Repräsentation. Von hier aus werden politische
+          Schwerpunkte, Regierungsverfahren und zentrale Kommunikationslinien zusammengeführt.
+        </p>
+        <p>
+          Der Übergang zum ersten Staatsrat erfolgte am{' '}
+          <time datetime={currentGovernment.formedOn}>{siteConfig.date.formatLong(currentGovernment.formedOn)}</time>.
+          Seitdem gilt die neue Staatsorganisation.
+        </p>
+        <p>
+          Die Leitungsfunktion des Staatspräsidenten ist eng mit der Staatskanzlei und dem
+          Staatssekretariat der Finanzen verknüpft. Von hier aus werden Schwerpunkte, Umsetzungsstände und
+          politische Prioritäten des Staatsrates gebündelt.
+        </p>
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Auf einen Blick</h2>
+        </div>
+        <dl class="meta-list">
+          <div>
+            <dt>Amtsträger</dt>
+            <dd>{currentGovernment.headOfGovernment}</dd>
+          </div>
+          <div>
+            <dt>Staatsrat</dt>
+            <dd>{currentGovernment.title}</dd>
+          </div>
+          <div>
+            <dt>Koalition</dt>
+            <dd>{currentGovernment.coalitionShort}</dd>
+          </div>
+        </dl>
+        <p><a class="inline-link" href={getCabinetUrl()}>Zum ersten Staatsrat</a></p>
+        <p><a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a></p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Unmittelbar geführte Bereiche</h2>
+      <p>Die Leitungsfunktion des Staatspräsidenten ist inhaltlich besonders mit diesen Bereichen verbunden.</p>
+    </div>
+    <div class="card-grid card-grid--two">
+      {leadershipMinistries.map((ministry) => (
+        <MinistryCard ministry={ministry} />
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Leitende Schwerpunkte</h2>
+      <p>Diese Themen markieren politische Prioritäten des Staatsrates in der laufenden Wahlperiode.</p>
+    </div>
+    <ul class="record-list">
+      {topPriorities.map((topic) => (
+        <li class="record-list__item">
+          <strong><a class="inline-link" href={getTopicUrl(topic.slug)}>{topic.title}</a></strong>
+          <span>{topic.teaser}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

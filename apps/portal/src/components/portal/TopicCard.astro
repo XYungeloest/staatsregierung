@@ -1,0 +1,43 @@
+---
+import StatusBadge from './StatusBadge.astro';
+import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getNextTopicDate,
+  getMinistryUrl,
+  getTopicUrl,
+  TOPIC_CLUSTER_LABELS,
+  type Themenseite,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import { PORTAL_REFERENCE_DATE } from '@ostrecht/shared/lib/portal/dates.ts';
+
+interface Props {
+  topic: Themenseite;
+  ministryName?: string;
+  variant?: 'default' | 'highlight' | 'compact';
+  headingLevel?: 3 | 4;
+}
+
+const { topic, ministryName, variant = 'default', headingLevel = 3 } = Astro.props as Props;
+const nextDate = getNextTopicDate(topic, PORTAL_REFERENCE_DATE);
+const Heading = `h${headingLevel}`;
+---
+
+<article class:list={['panel', 'topic-card', `topic-card--${variant}`]}>
+  <div class="topic-card__header">
+    <StatusBadge status={topic.status} />
+    <p class="topic-card__cluster">{TOPIC_CLUSTER_LABELS[topic.cluster]}</p>
+  </div>
+  <Heading><a href={getTopicUrl(topic.slug)}>{topic.title}</a></Heading>
+  <p>{topic.teaser}</p>
+  {nextDate ? (
+    <p class="topic-card__date"><PortalIcon name="calendar" /><span><time datetime={nextDate.date}>{siteConfig.date.formatLong(nextDate.date)}</time> · {nextDate.label}</span></p>
+  ) : null}
+  {ministryName ? (
+    <p class="topic-card__meta">
+      Zuständig: <a class="inline-link" href={getMinistryUrl(topic.federfuehrendesRessort)}>{ministryName}</a>
+    </p>
+  ) : null}
+  <p class="topic-card__updated">Fachstand <time datetime={topic.updatedAt}>{siteConfig.date.formatLong(topic.updatedAt)}</time></p>
+  <a class="topic-card__link" href={getTopicUrl(topic.slug)} aria-label={`${topic.title} ansehen`}><PortalIcon name="arrow" /></a>
+</article>

@@ -1,0 +1,61 @@
+---
+import type { NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
+
+interface Props {
+  norm: NormRecord;
+  outlineId?: string;
+}
+
+const { outlineId = 'norm-inhalt' } = Astro.props;
+---
+
+<nav class="norm-document-tools" aria-label="Werkzeuge für den Vorschriftentext">
+  <button type="button" data-norm-open-all>Alle Paragraphen öffnen</button>
+  <button type="button" data-norm-close-all>Alle Paragraphen schließen</button>
+  <a href={`#${outlineId}`}>Inhaltsübersicht</a>
+  <button type="button" data-print-page>Drucken</button>
+</nav>
+
+<script>
+  function normDetails(): HTMLDetailsElement[] {
+    return Array.from(document.querySelectorAll<HTMLDetailsElement>('#normtext details.norm-unit'));
+  }
+
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element)) return;
+    if (event.target.closest('[data-norm-open-all]')) {
+      normDetails().forEach((entry) => {
+        entry.open = true;
+      });
+    }
+    if (event.target.closest('[data-norm-close-all]')) {
+      normDetails().forEach((entry) => {
+        entry.open = false;
+      });
+    }
+    const printButton = event.target.closest<HTMLElement>('[data-print-unit]');
+    if (printButton?.dataset.printUnit) {
+      const target = document.getElementById(printButton.dataset.printUnit);
+      if (target instanceof HTMLDetailsElement) target.open = true;
+      document.body.classList.add('print-single-norm-unit');
+      target?.classList.add('print-target');
+      window.print();
+      document.body.classList.remove('print-single-norm-unit');
+      target?.classList.remove('print-target');
+    }
+
+    const copyButton = event.target.closest<HTMLElement>('[data-copy-anchor]');
+    if (copyButton?.dataset.copyAnchor) {
+      const url = new URL(window.location.href);
+      url.hash = copyButton.dataset.copyAnchor;
+      void navigator.clipboard?.writeText(url.toString()).then(
+        () => {
+          copyButton.textContent = 'Link kopiert';
+        },
+        () => {
+          window.location.hash = copyButton.dataset.copyAnchor ?? '';
+        },
+      );
+    }
+  });
+</script>

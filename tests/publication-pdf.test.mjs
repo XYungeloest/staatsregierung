@@ -85,7 +85,7 @@ test('PDF-Seitenobjekte liefern eine geprüfte Seitenzahl', () => {
 test('Deployment-Audit findet einen fehlenden und bestätigt einen vorhandenen PDF-Link', async () => {
   const root = await mkdtemp(join(tmpdir(), 'recht-pdf-audit-'));
   const publications = join(root, 'content/verkuendungen');
-  const assets = join(root, 'dist/law/client');
+  const assets = join(root, 'apps/recht/dist/client');
   await mkdir(join(assets, 'assets/recht'), { recursive: true });
   await mkdir(publications, { recursive: true });
   await writeFile(join(assets, 'assets/recht/vorhanden.pdf'), '%PDF-', 'utf8');

@@ -28,7 +28,7 @@ jobs:
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Änderungsscope bestimmen
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Dokumentationsänderung auf Whitespace- und Patchfehler prüfen
@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Node.js einrichten
         uses: actions/setup-node@v7
         with:
@@ -87,9 +87,6 @@ jobs:
             npm run check:recht
           fi
           npm run test:unit
-      - name: Studio-Worker prüfen
-        if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
-        run: npm run editorial:check
       - name: Öffentliche Website bauen
         env:
           DEPLOY_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
@@ -113,7 +110,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
-          path: dist/
+          path: apps/*/dist/
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 1
@@ -126,7 +123,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Node.js einrichten
         uses: actions/setup-node@v7
         with:
@@ -137,7 +134,7 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
-          path: dist
+          path: apps
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
       - name: Zentrale Seiten barrierefrei prüfen
@@ -153,7 +150,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Node.js einrichten
         uses: actions/setup-node@v7
         with:
@@ -164,7 +161,7 @@ jobs:
       - uses: actions/download-artifact@v8
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
-          path: dist
+          path: apps
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
       - name: Zentrale Nutzerwege in Chromium prüfen
@@ -173,7 +170,7 @@ jobs:
         run: npm run test:browsers:ci
 
   preview:
-    if: ${{ always() && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && (needs.classify.outputs.scope == 'portal' || needs.classify.outputs.scope == 'shared') && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
+    if: ${{ always() && github.actor != 'dependabot[bot]' && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && (needs.classify.outputs.scope == 'portal' || needs.classify.outputs.scope == 'shared') && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
     needs:
       - classify
       - quality
@@ -182,7 +179,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repository auschecken
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Node.js einrichten
         uses: actions/setup-node@v7
         with:
@@ -194,7 +191,7 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
-          path: dist
+          path: apps
       - name: Cloudflare-Worker-Version hochladen
         id: cloudflare_preview
         env:
@@ -202,7 +199,7 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          OUTPUT="$(npx wrangler versions upload --config wrangler.jsonc --env="" --preview-alias "pr-${PR_NUMBER}")"
+          OUTPUT="$(npx wrangler versions upload --config apps/portal/wrangler.jsonc --env="" --preview-alias "pr-${PR_NUMBER}")"
           PREVIEW_URL="$(printf '%s\n' "$OUTPUT" | grep -Eo 'https://[^[:space:]]+' | tail -n 1 | sed 's/[),.]$//')"
           if [ -z "$PREVIEW_URL" ]; then
             printf '%s\n' "$OUTPUT" >&2

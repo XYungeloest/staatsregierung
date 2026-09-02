@@ -5,7 +5,7 @@ import {
   loadGovernmentProfiles,
   loadMinistryProfiles,
   loadOrganizationData,
-} from '../src/lib/portal/loader.ts';
+} from '@ostrecht/shared/lib/portal/loader.ts';
 import {
   applyCabinetReshuffle,
   deriveCurrentGovernment,
@@ -15,7 +15,7 @@ import {
   OrganizationValidationError,
   validateOrganization,
   type OrganizationData,
-} from '../src/lib/portal/organization.ts';
+} from '@ostrecht/shared/lib/portal/organization.ts';
 
 async function fixture() {
   const [organization, profiles, ministries] = await Promise.all([

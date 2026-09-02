@@ -2,52 +2,56 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import test from 'node:test';
 
-import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '../src/lib/norms/diff.ts';
-import { renderNormDiffDocument } from '../src/lib/norms/diff-render.ts';
+import { buildProvisionVersionDiff, buildStructuralVersionDiff, diffSentences, diffWords, summarizeNormDiff } from '@ostrecht/shared/lib/norms/diff.ts';
+import { renderNormDiffDocument } from '@ostrecht/shared/lib/norms/diff-render.ts';
 import {
   LEGAL_BASELINE_DATE,
   classifyNormOriginVersion,
   getNormOriginInfo,
-} from '../src/lib/norms/origin.ts';
-import { buildNormRelations } from '../src/lib/norms/relations.ts';
+} from '@ostrecht/shared/lib/norms/origin.ts';
+import { buildNormRelations } from '@ostrecht/shared/lib/norms/relations.ts';
 import {
   getBlockAnchorId,
   getLegacyBlockAnchorId,
   parseCitation,
-} from '../src/lib/norms/presentation.ts';
+} from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   getDefaultSearchSort,
+  groupNormSearchResults,
   normalizeSearchText,
   parseNormSearchQuery,
   prepareSearchDocuments,
   runNormSearch,
   type NormSearchState,
-} from '../src/lib/norms/search-query.ts';
+} from '@ostrecht/shared/lib/norms/search-query.ts';
 import {
   buildSearchIndexPayload,
   buildSearchSuggestionPayload,
   isAmendmentRecord,
   type SearchIndexDocument,
-} from '../src/lib/norms/search.ts';
+} from '@ostrecht/shared/lib/norms/search.ts';
 import {
   findPublicationByDesignation,
   getLatestPublication,
   loadAllVerkuendungen,
-} from '../src/lib/norms/publications.ts';
-import { loadAllNorms } from '../src/lib/norms/loader.ts';
+} from '@ostrecht/shared/lib/norms/publications.ts';
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import {
   ContentValidationError,
   parseNormMeta,
   type NormRecord,
   type NormVersion,
-} from '../src/lib/norms/schema.ts';
+} from '@ostrecht/shared/lib/norms/schema.ts';
 import {
   classifyNormVersion,
   getApplicableVersion,
+  getBerlinCalendarDate,
+  isStrictlyFutureEffectiveDate,
+  partitionDatedEntries,
   validateVersionIntervals,
-} from '../src/lib/norms/versions.ts';
-import { getNormVersionIdentity } from '../src/lib/norms/identity.ts';
-import { getGermanIndexLetter } from '../src/lib/norms/routes.ts';
+} from '@ostrecht/shared/lib/norms/versions.ts';
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getGermanIndexLetter } from '@ostrecht/shared/lib/norms/routes.ts';
 
 function version(versionId: string, validFrom: string, validTo: string | null): NormVersion {
   return {
@@ -102,6 +106,22 @@ test('Fassungen werden zum redaktionellen Stichtag zentral eingeordnet', () => {
   assert.equal(classifyNormVersion(record([current], 'pending-effective'), current), 'unknown-effective');
   const historicalWithoutEnd = version('dokumentiert', '2025-01-01', null);
   assert.equal(classifyNormVersion(record([historicalWithoutEnd], 'historical'), historicalWithoutEnd), 'historical');
+});
+
+test('künftige Änderungen beginnen erst nach dem redaktionellen Kalendertag', () => {
+  const referenceDate = '2026-09-01';
+  assert.equal(getBerlinCalendarDate(new Date('2026-08-31T22:30:00.000Z')), referenceDate);
+  assert.equal(isStrictlyFutureEffectiveDate('2026-08-31', referenceDate), false);
+  assert.equal(isStrictlyFutureEffectiveDate('2026-09-01', referenceDate), false);
+  assert.equal(isStrictlyFutureEffectiveDate('2026-09-02', referenceDate), true);
+
+  const changes = partitionDatedEntries([
+    { date: '2026-08-31', id: 'past' },
+    { date: '2026-09-01', id: 'effective-today' },
+    { date: '2026-09-02', id: 'future' },
+  ], referenceDate);
+  assert.deepEqual(changes.current.map((entry) => entry.id), ['past', 'effective-today']);
+  assert.deepEqual(changes.future.map((entry) => entry.id), ['future']);
 });
 
 test('deutsche Umlaute werden im A–Z-Index einheitlich gruppiert', () => {
@@ -772,6 +792,23 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
       slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
       assertion: (results) => assert.equal(results[0]?.bestHitUnit?.label, '§ 41a'),
     },
+    {
+      q: 'Polizeivollzugsdienst §§ 41, 41a',
+      slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
+      assertion: (results) => {
+        assert.equal(results[0]?.bestHitUnit?.label, '§ 41');
+        assert.equal(results[0]?.matchLabel, 'Treffer in §§ 41, 41a');
+      },
+    },
+    {
+      q: 'Polizeivollzugsdienst § 41a Abs. 2',
+      slug: 'ostdeutsches-polizeivollzugsdienstgesetz',
+      assertion: (results) => {
+        assert.equal(results[0]?.bestHitUnit?.label, '§ 41a');
+        assert.equal(results[0]?.bestHitUnit?.references?.paragraph, '41a');
+        assert.ok(results[0]?.bestHitUnit?.references?.subsections?.includes('2'));
+      },
+    },
     { q: 'Foerderrichtlinie', slug: fundingSlug },
     {
       q: 'OGVBl. 2026 Nr. 68',
@@ -785,6 +822,48 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
     assert.equal(results[0]?.documentEntry.slug, slug, q);
     assertion?.(results);
   }
+
+  const firstLawResults = search('erstes Gesetz');
+  assert.ok(firstLawResults.length > 0);
+  assert.match(firstLawResults[0]?.documentEntry.title ?? '', /^Erstes Gesetz/u);
+  assert.ok(firstLawResults.some((result) => result.documentEntry.slug === 'erstes-gesetz-zur-grossen-staatsreform'));
+
+  const exactAmendmentTitle = 'Erstes Gesetz zur Großen Staatsreform zum Zwecke der Neuordnung des Staatswesens';
+  assert.equal(search(exactAmendmentTitle)[0]?.documentEntry.slug, 'erstes-gesetz-zur-grossen-staatsreform');
+
+  const amendmentIntentResults = search('Änderungsvorschrift');
+  assert.ok(amendmentIntentResults.length > 0);
+  assert.ok(amendmentIntentResults.every((result) => result.documentEntry.type === 'aenderungsvorschrift'));
+
+  const amendmentFacetResults = search('', { types: ['aenderungsvorschrift'] });
+  assert.ok(amendmentFacetResults.length > 0);
+  assert.ok(amendmentFacetResults.every((result) => result.documentEntry.type === 'aenderungsvorschrift'));
+
+  const genericLawResults = search('Gesetz');
+  assert.ok(genericLawResults.length > 0);
+  assert.ok(genericLawResults.every((result) => !result.documentEntry.isAmendment));
+
+  const typedFirstLawResults = search('erstes Gesetz', { types: ['gesetz'] });
+  assert.ok(typedFirstLawResults.length > 0);
+  assert.ok(typedFirstLawResults.every((result) => result.documentEntry.type === 'gesetz'));
+  assert.ok(typedFirstLawResults.every((result) => !result.documentEntry.isAmendment));
+
+  const historicalTitleState = searchState({
+    q: 'Sächsische Gemeindeordnung',
+    versionScope: 'all',
+    sort: 'relevance',
+    sortExplicit: false,
+  });
+  const historicalTitleResults = runNormSearch(documents, historicalTitleState);
+  const municipalityGroup = groupNormSearchResults(historicalTitleResults, historicalTitleState)
+    .find((group) => group.slug === 'saechsische-gemeindeordnung');
+  assert.equal(municipalityGroup?.entries[0]?.documentEntry.title, 'Sächsische Gemeindeordnung');
+  assert.equal(municipalityGroup?.entries[0]?.documentEntry.versionKind, 'historical');
+
+  const consentResults = search('Zustimmungsgesetz');
+  assert.equal(parseNormSearchQuery('Zustimmungsgesetz').typeIntent?.type, 'zustimmungsgesetz');
+  assert.ok(consentResults.length > 0);
+  assert.ok(consentResults.every((result) => result.documentEntry.type === 'zustimmungsgesetz'));
 
   const phrase = 'öffentliche Sicherheit';
   const phraseResults = search(`"${phrase}"`);

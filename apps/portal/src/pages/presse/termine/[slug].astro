@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import { loadEvents } from '@ostrecht/shared/lib/portal/content.ts';
+import { loadLegislativeProcedures } from '@ostrecht/shared/lib/portal/legislation.ts';
+import { isPast } from '@ostrecht/shared/lib/portal/dates.ts';
+import { buildEventJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
+import {
+  getEventIndexUrl,
+  getEventUrl,
+  getHomeUrl,
+  getKreisreformUrl,
+  getPressUrl,
+  getTopicUrl,
+  type Termin,
+} from '@ostrecht/shared/lib/portal/index.ts';
+
+export async function getStaticPaths() {
+  const events = await loadEvents();
+
+  return events.map((event) => ({
+    params: { slug: event.slug },
+    props: { event },
+  }));
+}
+
+const { event } = Astro.props as { event: Termin };
+const allEvents = await loadEvents();
+const relatedEvents = allEvents.filter((entry) => entry.slug !== event.slug).slice(0, 3);
+const isArchivedEvent = isPast(event.date);
+const relatedLegislation = event.relatedLegislationSlugs?.length
+  ? (await loadLegislativeProcedures()).filter((procedure) =>
+      event.relatedLegislationSlugs?.includes(procedure.slug),
+    )
+  : [];
+---
+
+<BaseLayout
+  title={event?.title ?? 'Termin nicht gefunden'}
+  description={
+    event?.teaser ?? 'Der angeforderte Termin konnte nicht gefunden werden.'
+  }
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Presse & Aktuelles', href: getPressUrl() },
+    { label: 'Termine', href: getEventIndexUrl() },
+    { label: event?.title ?? 'Nicht gefunden' },
+  ]}
+  structuredData={
+    event
+      ? buildEventJsonLd(
+          {
+            title: event.title,
+            description: event.teaser,
+            url: getEventUrl(event.slug),
+            startDate: event.date,
+            location: event.location,
+            eventStatus: isArchivedEvent
+              ? 'https://schema.org/EventCompleted'
+              : 'https://schema.org/EventScheduled',
+          },
+          Astro.site,
+        )
+      : undefined
+  }
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Presse & Aktuelles', href: getPressUrl() },
+      { label: 'Termine', href: getEventIndexUrl() },
+      { label: event?.title ?? 'Nicht gefunden' },
+    ]}
+  />
+
+  {event ? (
+    <Fragment>
+      <section class="section page-header">
+        <p class="eyebrow">Termin</p>
+        <h1>{event.title}</h1>
+        <p class="lead">{event.teaser}</p>
+        <p class="detail-line"><time datetime={event.date}>{siteConfig.date.formatLong(event.date)}</time> · {event.location}</p>
+        {isArchivedEvent ? <p class="status-badge status-badge--amber">Vergangener Termin</p> : null}
+      </section>
+
+      <div class="content-grid">
+        <section class="section">
+          <div class="body-copy">
+            {event.body.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
+          </div>
+          {relatedLegislation.length > 0 ? (
+            <section aria-labelledby="termin-verfahren">
+              <div class="section-header section-header--compact">
+                <h2 id="termin-verfahren">{isArchivedEvent ? 'Behandelte Gesetzesvorhaben' : 'Angesetzte Gesetzesberatungen'}</h2>
+              </div>
+              <ol class="record-list">
+                {relatedLegislation.map((procedure) => (
+                  <li class="record-list__item">
+                    <strong>
+                      <a class="inline-link" href={procedure.slug === 'kreis-und-bezirksneuordnungsgesetz' ? getKreisreformUrl() : getTopicUrl(procedure.relatedTopics[0])}>
+                        Drucksache {procedure.documentNumber}: {procedure.shortTitle}
+                      </a>
+                    </strong>
+                    <span>{procedure.statusLabel}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          ) : null}
+        </section>
+
+        <aside class="section meta-panel">
+          <div class="section-header section-header--compact">
+            <h2>Metadaten</h2>
+          </div>
+          <dl class="meta-list">
+            <div>
+              <dt>Datum</dt>
+              <dd><time datetime={event.date}>{siteConfig.date.formatLong(event.date)}</time></dd>
+            </div>
+            <div>
+              <dt>Ort</dt>
+              <dd>{event.location}</dd>
+            </div>
+            <div>
+              <dt>Format</dt>
+              <dd>{isArchivedEvent ? 'Dokumentierter vergangener Termin' : 'Terminankündigung des Staatsrates'}</dd>
+            </div>
+          </dl>
+          <nav class="link-list">
+            <a href={getEventIndexUrl()}>Zur Terminübersicht</a>
+            <a href={getEventUrl(event.slug)}>Stabile URL dieses Termins</a>
+          </nav>
+
+          {relatedEvents.length > 0 ? (
+            <>
+              <div class="section-header section-header--compact">
+                <h2>Weitere Termine</h2>
+              </div>
+              <ul class="record-list">
+                {relatedEvents.map((entry) => (
+                  <li class="record-list__item">
+                    <strong><a class="inline-link" href={getEventUrl(entry.slug)}>{entry.title}</a></strong>
+                    <span><time datetime={entry.date}>{siteConfig.date.formatLong(entry.date)}</time></span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : null}
+        </aside>
+      </div>
+    </Fragment>
+  ) : (
+    <section class="section">
+      <div class="status-notice status-notice--warning">
+        <h1>Termin nicht gefunden</h1>
+        <p>
+          Der angeforderte Inhalt konnte nicht gefunden werden. Bitte nutzen Sie die
+          Terminübersicht.
+        </p>
+        <p><a class="inline-link" href={getEventIndexUrl()}>Zur Terminübersicht</a></p>
+      </div>
+    </section>
+  )}
+</BaseLayout>

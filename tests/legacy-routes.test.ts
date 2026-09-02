@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { legacyRoutes } from '../src/config/legacy-routes.mjs';
+import { legacyRoutes } from '../apps/portal/src/config/legacy-routes.mjs';
 
 test('belegte Altadressen sind eindeutig und führen nur auf interne Portalpfade', () => {
   const sources = legacyRoutes.map((route) => route.source);

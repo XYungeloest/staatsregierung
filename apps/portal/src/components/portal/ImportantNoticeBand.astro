@@ -1,0 +1,37 @@
+---
+import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+
+type NoticeIconName = 'map' | 'government' | 'budget' | 'law' | 'press' | 'topics';
+
+interface NoticeItem {
+  title: string;
+  description: string;
+  href: string;
+  icon: NoticeIconName;
+}
+
+interface Props {
+  items: NoticeItem[];
+}
+
+const { items } = Astro.props as Props;
+---
+
+<aside class="important-band" aria-labelledby="important-band-title">
+  <div class="important-band__label">
+    <PortalIcon name="topics" />
+    <h2 id="important-band-title">Aktuell wichtig</h2>
+  </div>
+  <div class="important-band__items">
+    {items.map((item) => (
+      <a class="important-band__item" href={item.href}>
+        <PortalIcon name={item.icon} />
+        <span>
+          <strong>{item.title}</strong>
+          <small>{item.description}</small>
+        </span>
+        <PortalIcon name="arrow" />
+      </a>
+    ))}
+  </div>
+</aside>

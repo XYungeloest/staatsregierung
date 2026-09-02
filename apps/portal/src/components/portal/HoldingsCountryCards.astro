@@ -1,0 +1,45 @@
+---
+import { getHoldingsUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import type { BeteiligungsAbschnitt, BeteiligungsInventar } from '@ostrecht/shared/lib/portal/schema.ts';
+
+interface Props {
+  section: BeteiligungsAbschnitt;
+  originTotals: BeteiligungsInventar['totals']['originTotals'];
+}
+
+const { section, originTotals } = Astro.props as Props;
+const totalsByOrigin = new Map(originTotals.map((entry) => [entry.origin, entry]));
+const holdingsUrl = getHoldingsUrl();
+---
+
+<section id={section.id} class="section section-muted holdings-countries" aria-labelledby={`${section.id}-title`}>
+  <div class="section-header">
+    <h2 id={`${section.id}-title`}>{section.title}</h2>
+    <p>{section.intro}</p>
+  </div>
+  <div class="holdings-country-grid">
+    {section.items.map((item) => {
+      const total = totalsByOrigin.get(item.title);
+      if (!total) return null;
+      const countLabel = total.direct > 0
+        ? `${total.direct} unmittelbar · ${total.indirectOrDeeper} mittelbar oder tiefer`
+        : `${total.indirectOrDeeper} mittelbar oder tiefer`;
+      const url = new URL(holdingsUrl, Astro.site ?? Astro.url);
+      url.searchParams.set('origin', item.title);
+      url.hash = 'beteiligungsnavigator';
+      return (
+        <a
+          class="holdings-country-card"
+          href={`${url.pathname}${url.search}${url.hash}`}
+          data-holdings-origin-link
+          data-origin={item.title}
+        >
+          <span class="eyebrow">{countLabel}</span>
+          <strong>{item.title}</strong>
+          <span>{item.text}</span>
+          <span class="holdings-country-card__action">Im Navigator anzeigen</span>
+        </a>
+      );
+    })}
+  </div>
+</section>

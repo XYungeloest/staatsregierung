@@ -1,7 +1,7 @@
 # Wissensaudit zur Politiksimulation und zum Freistaat Ostdeutschland
 
 **Repositoryprüfung:** 29. August 2026
-**Redaktioneller Stichtag:** zentral in `../src/config/editorial.json`
+**Redaktioneller Stichtag:** zentral in `../packages/shared/src/config/editorial.json`
 
 ## Zweck
 

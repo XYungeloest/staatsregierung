@@ -7,14 +7,14 @@ Das Projekt ist eine politische Simulation und stellt keine echte amtliche Verö
 Der entsprechende Hinweis erscheint in der oberen Hinweisleiste, im Footer und ausführlich im
 Impressum.
 
-Der redaktionelle Stichtag ist ausschließlich in `src/config/editorial.json` festgelegt. Die
+Der redaktionelle Stichtag ist ausschließlich in `packages/shared/src/config/editorial.json` festgelegt. Die
 Inhaltsformate und Pflegewege stehen in `CONTENT.md`. Aktuell offene
 Quellenfragen stehen in `CONTENT_GAPS.md`.
 
 ## Architektur
 
-Grundentscheidung ist **ein Repository mit einem gemeinsamen Daten- und Wissensbestand und zwei
-öffentlichen Anwendungen**:
+Grundentscheidung ist **ein npm-Workspace-Monorepo mit einem gemeinsamen Daten- und Wissensbestand
+und zwei öffentlichen Anwendungen**:
 
 - Staatsportal: `https://freistaat-ostdeutschland.de`
 - Rechtsportal OstRecht: `https://recht.freistaat-ostdeutschland.de`
@@ -23,13 +23,17 @@ Beide Anwendungen lesen dieselben Bestände unter `content/`, `Gesetze/` und `kn
 `knowledge/` wird nicht öffentlich ausgeliefert. Das Staatsportal behält unter `/recht/` nur eine
 redaktionelle Brückenseite; Rechtsdetailseiten liegen ausschließlich auf der Rechtsdomain.
 
+Die Workspaces sind `@ostrecht/portal` unter `apps/portal/`, `@ostrecht/recht` unter `apps/recht/`
+und das intern gemeinsam genutzte Paket `@ostrecht/shared` unter `packages/shared/`. Die
+Root-`package.json` orchestriert Entwicklung, Prüfung, Build und Deployment; ein zusätzlicher
+Monorepo-Orchestrator wird nicht verwendet.
+
 Technischer Kern:
 
 - Astro und TypeScript
 - Cloudflare Workers als Zielplattform
 - dateibasierte Inhalte unter `content/`
 - normalisierte Regierungsorganisation unter `content/organisation/`
-- getrenntes, Access-geschütztes Git-Redaktionsstudio unter `/redaktion/`
 - interner Wissenshub unter `knowledge/`
 - keine aktiven D1- oder R2-Bindings für die öffentliche Inhaltsauslieferung
 
@@ -39,8 +43,9 @@ Dauerhafte Gestaltungsregeln stehen in `DESIGN.md`. Agenten- und Repositoryregel
 ## Entwicklung
 
 ```sh
-npm install
+npm ci
 npm run dev
+npm run dev:portal
 npm run dev:recht
 npm run content:check
 npm run knowledge:check
@@ -56,7 +61,6 @@ npm run test:visual
 npm run test:a11y
 npm run test:quality
 npm run test:browsers
-npm run editorial:check
 ```
 
 Weitere wichtige Befehle:
@@ -68,12 +72,17 @@ npm run deploy:staging
 npm run deploy
 npm run deploy:portal
 npm run deploy:recht
-npm run editorial:dev
 ```
 
 `PORTAL_SITE_URL` und `LAW_SITE_URL` steuern die beiden Origins. `npm run build:portal` schreibt
-nach `dist/portal/`, `npm run build:recht` nach `dist/law/`. Die Cloudflare-Konfigurationen liegen
-in `wrangler.jsonc` und `wrangler.recht.jsonc`.
+nach `apps/portal/dist/`, `npm run build:recht` nach `apps/recht/dist/`. Beide Astro-Anwendungen
+besitzen eine feste app-lokale `astro.config.mjs`. Ihre Cloudflare-Konfigurationen liegen unter
+`apps/portal/wrangler.jsonc` und `apps/recht/wrangler.jsonc`.
+
+Die gemeinsame Assetquelle bleibt `public/`. Vor einem Build erzeugt
+`scripts/prepare-site-public.mjs` den jeweils benötigten, nicht versionierten Bestand unter
+`apps/portal/.site-public/` oder `apps/recht/.site-public/`. Dadurch werden Rechts-PDFs weiterhin
+nur an OstRecht ausgeliefert, ohne die Quellen im Repository zu duplizieren.
 
 `npm run deploy` veröffentlicht beide Artefakte desselben Commits in der Reihenfolge OstRecht,
 danach Staatsportal. Details zu Veröffentlichung, Wiederanlauf und Produktionskontrolle stehen in
@@ -82,6 +91,13 @@ danach Staatsportal. Details zu Veröffentlichung, Wiederanlauf und Produktionsk
 ## Wichtige Verzeichnisse
 
 ```text
+apps/
+  portal/       Staatsportal; Astro- und Wrangler-Konfiguration, Pages, Layout und Portalcode
+  recht/        OstRecht; Astro- und Wrangler-Konfiguration, Pages, Layout und Normkomponenten
+
+packages/
+  shared/       gemeinsam genutzte Komponenten, Konfiguration, Styles, Typen und Fachlogik
+
 content/
   dashboard/
   gesetzgebung/
@@ -113,27 +129,18 @@ Gesetze/
   amtliche und redaktionell geprüfte Rechtsquellen
 
 public/
+  assets/recht/
   data/kreisreform/
   images/
 
-src/
-  components/
-  config/
-  editorial-worker/
-  law/pages/
-  data/
-  layouts/
-  lib/
-  pages/
-  scripts/
-  styles/
-
 context/
   historische Ausgangstexte, Entwürfe und Simulationsmaterial
-```
 
-Architektur, Einrichtung und Bedienung des Redaktionsstudios stehen in
-`docs/EDITORIAL_ARCHITECTURE.md`, `docs/EDITORIAL_SETUP.md` und `docs/EDITORIAL_RUNBOOK.md`.
+data/           gemeinsame fachliche Datenbestände
+docs/           Entwickler- und Betriebsdokumentation
+scripts/        repo-weite Import-, Build- und Prüfwerkzeuge
+tests/          repo-weite Unit-, Routing-, Browser- und Accessibility-Tests
+```
 
 ## Inhalts- und Wissenspflege
 
@@ -200,7 +207,7 @@ Die Kreis- und Bezirksreform ist unter `/kreisreform/` erreichbar. Die Kartendat
 Freigabe im aktuellen Seitenaufruf; Suche, Filter und Tabellen funktionieren ohne Kartenstart. Die
 Datenpipeline ist in `docs/KREISREFORM_KARTE.md` dokumentiert.
 
-Der Haushaltsbereich verwendet `src/data/haushalt.ts` als zentrale Datenlogik. Gesamtplan,
+Der Haushaltsbereich verwendet `apps/portal/src/data/haushalt.ts` als zentrale Datenlogik. Gesamtplan,
 Einzelpläne und Sondervermögen verwenden dieselbe dateibasierte Haushaltsgrundlage. Die öffentliche
 CSV-Ausgabe steht unter `/haushalt/daten.csv` bereit.
 
@@ -250,10 +257,10 @@ dient nur der Übergabe von Zuarbeit; der Aufgabenstatus wird weiterhin ausschli
 
 Der derzeitige Portalstand kann lange Sitzungsaufzeichnungen noch nicht sachgerecht aufnehmen.
 Workers Static Assets erlauben nur [25 MiB je Datei](https://developers.cloudflare.com/workers/platform/limits/),
-die Medien-CSP lässt ausschließlich die eigene Origin zu und das Redaktionsstudio ist nur für
-kleine Bilddateien ausgelegt. Große Audio- oder Videodateien dürfen deshalb weder unter `public/`
-noch als GitHub-Blob in einen Redaktions-PR gelangen. Die folgende Planung betrifft zunächst
-aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
+die Medien-CSP lässt ausschließlich die eigene Origin zu und Git eignet sich nicht als Ablage für
+große Mediendateien. Große Audio- oder Videodateien dürfen deshalb weder unter `public/` noch als
+Git-Blob in einen Pull Request gelangen. Die folgende Planung betrifft zunächst aufgezeichnete
+öffentliche Sitzungen, keinen Livebetrieb.
 
 - [ ] Vor der Implementierung den fachlichen Auftrag mit der Volkskammer festlegen: zuständige
   Redaktion, nur öffentliche Sitzungen beziehungsweise öffentliche Sitzungsteile, gewünschte
@@ -307,9 +314,9 @@ aufgezeichnete öffentliche Sitzungen, keinen Livebetrieb.
   getrennt oder entfernt sein. Zuständigkeit für Freigabe, Beanstandung, nachträgliche Sperrung,
   Korrektur und endgültige Löschung einschließlich Protokollierung festlegen; eine bloße
   technische Abrufbarkeit darf keinen Veröffentlichungsstatus begründen.
-- [ ] Einen geschützten, vom eigentlichen PR getrennten Uploadablauf entwerfen. Der Editorial
-  Worker darf nur kurzlebige Einmal-URLs ausstellen und keine dauerhaften Medien-API-Schlüssel an
-  den Browser geben. Für lange Videos die von Cloudflare vorgesehenen
+- [ ] Einen geschützten, vom eigentlichen PR getrennten Uploadablauf entwerfen. Der dafür
+  vorgesehene serverseitige Dienst darf nur kurzlebige Einmal-URLs ausstellen und keine dauerhaften
+  Medien-API-Schlüssel an den Browser geben. Für lange Videos die von Cloudflare vorgesehenen
   [resumierbaren tus-Uploads](https://developers.cloudflare.com/stream/uploading-videos/direct-creator-uploads/)
   verwenden; für große Audioobjekte einen resumierbaren R2-Multipart-Upload prüfen. Dateigröße,
   MIME-Typ, Dateisignatur, Dauer, Prüfsumme, erlaubte Formate und Objektpfad serverseitig
@@ -405,6 +412,6 @@ einmalig abzuschließenden Backlogpunkte.
 Die CI/CD klassifiziert Änderungen zentral in `docs-only`, `portal`, `law` und `shared`; die
 Deploymentzuordnung und die konservativen gemeinsamen Pfade sind im
 [`docs/DEPLOYMENT_RUNBOOK.md`](docs/DEPLOYMENT_RUNBOOK.md) beschrieben.
-Der Redaktionsstichtag wird nur einmal in `src/config/editorial.json` gesetzt. Gesetzgebungsverfahren
+Der Redaktionsstichtag wird nur einmal in `packages/shared/src/config/editorial.json` gesetzt. Gesetzgebungsverfahren
 und öffentliche Auswertungen leiten ihren gemeinsamen Stand daraus ab; historische Quellen- und
 Ereignisdaten bleiben davon unabhängig.

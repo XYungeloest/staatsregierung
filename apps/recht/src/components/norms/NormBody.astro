@@ -1,0 +1,225 @@
+---
+import {
+  buildNormAnchorMap,
+  getHeadingTag,
+  getLegacyBlockAnchorId,
+  getResolvedBlockAnchorId,
+  renderLinkedDisplayText,
+  toDisplayText,
+} from '@ostrecht/shared/lib/norms/presentation.ts';
+import type { NormAnchorMap, TextLinkReference } from '@ostrecht/shared/lib/norms/presentation.ts';
+import type { NormBodyBlock } from '@ostrecht/shared/lib/norms/schema.ts';
+
+interface Props {
+  blocks: NormBodyBlock[];
+  path?: number[];
+  references?: TextLinkReference[];
+  headingLevel?: number;
+  quoted?: boolean;
+  anchorMap?: NormAnchorMap;
+}
+
+type BlockRun =
+  | { kind: 'block'; block: NormBodyBlock; index: number }
+  | { kind: 'list'; items: Array<{ block: NormBodyBlock; index: number }> };
+
+const {
+  blocks,
+  path = [],
+  references = [],
+  headingLevel = 2,
+  quoted = false,
+  anchorMap: providedAnchorMap,
+} = Astro.props;
+const anchorMap = providedAnchorMap ?? buildNormAnchorMap(blocks);
+
+function groupBlocks(entries: NormBodyBlock[]): BlockRun[] {
+  const runs: BlockRun[] = [];
+  let listBuffer: Array<{ block: NormBodyBlock; index: number }> = [];
+
+  function flushList() {
+    if (listBuffer.length > 0) {
+      runs.push({ kind: 'list', items: listBuffer });
+      listBuffer = [];
+    }
+  }
+
+  entries.forEach((block, index) => {
+    if (block.type === 'item' || block.type === 'subitem') {
+      listBuffer.push({ block, index });
+      return;
+    }
+
+    flushList();
+    runs.push({ kind: 'block', block, index });
+  });
+
+  flushList();
+  return runs;
+}
+---
+
+{groupBlocks(blocks).map((run) => (
+  <Fragment>
+    {run.kind === 'block'
+      ? (() => {
+          const block = run.block;
+          const currentPath = [...path, run.index];
+          const HeadingTag = getHeadingTag(headingLevel);
+          const anchorId = getResolvedBlockAnchorId(anchorMap, currentPath, block, quoted ? 'zitat' : '');
+          const legacyAnchorId = getLegacyBlockAnchorId(currentPath, block);
+          const headingId = `${anchorId}-heading`;
+          const childHeadingLevel = Number.parseInt(HeadingTag.slice(1), 10);
+
+          return (
+            <Fragment>
+              {block.type === 'part' ||
+              block.type === 'chapter' ||
+              block.type === 'section' ||
+              block.type === 'subsection' ? (
+                <section id={anchorId} class={`norm-division norm-division--${block.type}`} aria-labelledby={headingId}>
+                  {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
+                  <header class="norm-division__header">
+                    <HeadingTag id={headingId} class="norm-division__heading">
+                      {block.label ? <span class="norm-label">{toDisplayText(block.label)}</span> : null}
+                      {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
+                    </HeadingTag>
+                  </header>
+                  {block.children && block.children.length > 0 ? (
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} />
+                  ) : null}
+                </section>
+              ) : null}
+
+              {block.type === 'paragraph' || block.type === 'article' ? (
+                quoted ? (
+                  <section id={anchorId} class={`norm-quoted-unit norm-quoted-unit--${block.type}`} aria-labelledby={headingId}>
+                    <header class="norm-quoted-unit__header">
+                      <HeadingTag id={headingId} class="norm-quoted-unit__heading">
+                        {block.label ? <span class="norm-quoted-unit__label">{toDisplayText(block.label)}</span> : null}
+                        {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
+                      </HeadingTag>
+                    </header>
+                    {block.children && block.children.length > 0 ? (
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={true} anchorMap={anchorMap} />
+                    ) : null}
+                  </section>
+                ) : (
+                  <details id={anchorId} class={`norm-unit norm-unit--${block.type}`} aria-labelledby={headingId} open>
+                    {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
+                    <summary class="norm-unit__summary">
+                      <HeadingTag id={headingId} class="norm-unit__heading">
+                        {block.label ? <span class="norm-unit__label">{toDisplayText(block.label)}</span> : null}
+                        {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
+                      </HeadingTag>
+                    </summary>
+                    <nav class="norm-unit__tools" aria-label={`Werkzeuge für ${toDisplayText([block.label, block.title].filter(Boolean).join(' '))}`}>
+                      <button type="button" data-print-unit={anchorId}>Einzeldruck</button>
+                      <a href={`#${anchorId}`}>Link zu dieser Stelle</a>
+                      <button type="button" data-copy-anchor={anchorId}>Link kopieren</button>
+                    </nav>
+                    {block.children && block.children.length > 0 ? (
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} anchorMap={anchorMap} />
+                    ) : null}
+                  </details>
+                )
+              ) : null}
+
+              {block.type === 'quotedProvision' ? (
+                <blockquote class="norm-quoted-provision">
+                  {block.children && block.children.length > 0 ? (
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={true} anchorMap={anchorMap} />
+                  ) : null}
+                </blockquote>
+              ) : null}
+
+              {block.type === 'annex' ? (
+                <section id={anchorId} class="norm-annex" aria-labelledby={headingId}>
+                  {legacyAnchorId !== anchorId ? <span id={legacyAnchorId} class="legacy-anchor" aria-hidden="true"></span> : null}
+                  <header class="norm-division__header">
+                    <HeadingTag id={headingId} class="norm-division__heading">
+                      {block.label ? <span class="norm-label">{toDisplayText(block.label)}</span> : null}
+                      {block.title ? <span class="norm-title">{toDisplayText(block.title)}</span> : null}
+                    </HeadingTag>
+                  </header>
+                  {block.children && block.children.length > 0 ? (
+                    <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={childHeadingLevel} quoted={quoted} anchorMap={anchorMap} />
+                  ) : null}
+                </section>
+              ) : null}
+
+              {block.type === 'paragraphText' ? (
+                <Fragment>
+                  <p class="norm-text" set:html={renderLinkedDisplayText(block.text, references)} />
+                  {block.children && block.children.length > 0 ? (
+                    <div class="norm-text__children">
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                    </div>
+                  ) : null}
+                </Fragment>
+              ) : null}
+
+              {block.type === 'subparagraph' ? (
+                <div class="norm-subparagraph-wrap">
+                  <p class="norm-subparagraph">
+                    {block.label ? <span class="norm-subparagraph__label">{toDisplayText(block.label)}</span> : null}
+                    <span set:html={renderLinkedDisplayText(block.text, references)} />
+                  </p>
+                  {block.children && block.children.length > 0 ? (
+                    <div class="norm-subparagraph__children">
+                      <Astro.self blocks={block.children} path={currentPath} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                    </div>
+                  ) : null}
+                </div>
+              ) : null}
+
+              {block.type === 'table' ? (
+                <div class="table-wrap norm-table-wrap" tabindex="0" role="region" aria-label={block.title ?? 'Tabelle im Normtext'}>
+                  <table class="norm-table">
+                    <caption class="visually-hidden">{block.title ?? 'Tabelle im Normtext'}</caption>
+                    {block.children?.map((row, rowIndex) => (
+                      <tr>
+                        {row.children?.map((cell, cellIndex) => (
+                          cell.type === 'tableHeaderCell' ? (
+                            <th scope={cell.scope} rowspan={cell.rowspan} colspan={cell.colspan}>
+                              {cell.children?.length ? (
+                                <Astro.self blocks={cell.children} path={[...currentPath, rowIndex, cellIndex]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                              ) : <span set:html={renderLinkedDisplayText(cell.text ?? '', references)} />}
+                            </th>
+                          ) : (
+                            <td rowspan={cell.rowspan} colspan={cell.colspan}>
+                              {cell.children?.length ? (
+                                <Astro.self blocks={cell.children} path={[...currentPath, rowIndex, cellIndex]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                              ) : <span set:html={renderLinkedDisplayText(cell.text ?? '', references)} />}
+                            </td>
+                          )
+                        ))}
+                      </tr>
+                    ))}
+                  </table>
+                </div>
+              ) : null}
+            </Fragment>
+          );
+        })()
+      : null}
+
+    {run.kind === 'list' ? (
+      <ol class:list={['norm-amendment-list', quoted ? 'norm-amendment-list--quoted' : undefined]}>
+        {run.items.map(({ block, index }) => (
+          <li class="norm-amendment-item">
+            {block.label ? <span class="norm-amendment-item__label">{toDisplayText(block.label)}</span> : null}
+            <div class="norm-amendment-item__content">
+              <span set:html={renderLinkedDisplayText(block.text, references)} />
+              {block.children && block.children.length > 0 ? (
+                <div class="norm-amendment-item__children">
+                  <Astro.self blocks={block.children} path={[...path, index]} references={references} headingLevel={headingLevel} quoted={quoted} anchorMap={anchorMap} />
+                </div>
+              ) : null}
+            </div>
+          </li>
+        ))}
+      </ol>
+    ) : null}
+  </Fragment>
+))}

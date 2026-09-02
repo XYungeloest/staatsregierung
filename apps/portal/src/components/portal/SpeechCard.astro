@@ -1,0 +1,28 @@
+---
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getSpeechUrl,
+  type Rede,
+} from '@ostrecht/shared/lib/portal/index.ts';
+
+interface Props {
+  speech: Rede;
+  variant?: 'default' | 'compact';
+}
+
+const { speech, variant = 'default' } = Astro.props as Props;
+const isCompact = variant === 'compact';
+---
+
+<article class:list={['panel', 'speech-card', 'speech-card--text', isCompact && 'speech-card--compact']}>
+  <div class="speech-card__body">
+    <p class="eyebrow"><time datetime={speech.date}>{siteConfig.date.formatLong(speech.date)}</time> · {speech.sprecher}</p>
+    <h3><a class="inline-link" href={getSpeechUrl(speech.slug)}>{speech.title}</a></h3>
+    <p>{speech.teaser}</p>
+    {!isCompact ? (
+      <p class="detail-line">
+        {speech.body.length} Abschnitte · Redetext als eigene Seite verfügbar
+      </p>
+    ) : null}
+  </div>
+</article>

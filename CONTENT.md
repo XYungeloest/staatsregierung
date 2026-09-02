@@ -1,12 +1,12 @@
 # Content-Pflege
 
-Diese Datei beschreibt den aktuellen kanonischen Weg, Inhalte der Website einzupflegen. Maßgeblich sind der tatsächliche Code- und Content-Stand, `README.md`, `AGENTS.md` und diese Datei. Technische Details werden in den Parsern in `src/lib/portal/schema.ts` und `src/lib/norms/schema.ts` validiert.
+Diese Datei beschreibt den aktuellen kanonischen Weg, Inhalte der Website einzupflegen. Maßgeblich sind der tatsächliche Code- und Content-Stand, `README.md`, `AGENTS.md` und diese Datei. Technische Details werden in den Parsern in `packages/shared/src/lib/portal/schema.ts` und `packages/shared/src/lib/norms/schema.ts` validiert.
 
 ## Grundsatz
 
 Öffentliche Website-Inhalte werden in der Regel dateibasiert als JSON unter `content/` gepflegt. Eine Inhaltsdatei ist immer ein JSON-Objekt, kein Markdown-Dokument und keine Liste als Wurzelwert. Textabsätze werden meist als String-Arrays gepflegt.
 
-Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffentliche Inhaltsauslieferung angebunden; Inhalte werden über validierte JSON-Dateien und Bilddateien unter `public/images/` bereitgestellt. Das Redaktionsstudio reicht dieselben Dateien als Pull Request ein und ist keine zweite Inhaltsquelle.
+Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffentliche Inhaltsauslieferung angebunden; Inhalte werden über validierte JSON-Dateien und Bilddateien unter `public/images/` bereitgestellt. Änderungen an diesen kanonischen Dateien werden über Branches und Pull Requests geprüft; es gibt keine zweite Inhaltsquelle.
 
 ## Allgemeine Regeln
 
@@ -25,7 +25,7 @@ Das Portal wird dateibasiert gepflegt. Cloudflare D1/R2 sind nicht an die öffen
   beschränkt. Das Impressum enthält die ausführliche rechtliche Einordnung; in normalen
   Seiteninhalten keine zusätzlichen Hinweise auf Fiktion oder Simulation ergänzen.
 - Für aktuelle Übersichten gilt der zentrale redaktionelle Stichtag aus
-  `src/config/editorial.json`. Termine davor sind
+  `packages/shared/src/config/editorial.json`. Termine davor sind
   vergangen; Stellen mit früherer Bewerbungsfrist sind abgelaufen und dürfen nicht als aktuell
   hervorgehoben werden.
 - Bilder aus `public/images/...` werden in JSON mit absolutem Pfad ab `/images/...` referenziert.
@@ -78,7 +78,7 @@ public/data/
     alte-*.geojson
     gemeinden-zur-suche.json
 
-src/data/dashboard/
+apps/portal/src/data/dashboard/
   action-plan.ts       # reiner JSON-Leseadapter
   legislation.ts       # Darstellung aus content/gesetzgebung
   timeline.ts          # reiner JSON-Leseadapter
@@ -369,8 +369,8 @@ Ressort-Slug. Mehrere gleichzeitige Zuordnungen sind zulässig.
 }
 ```
 
-Kabinettsänderungen werden atomar über das Redaktionsstudio oder die Funktion
-`applyCabinetReshuffle` in `src/lib/portal/organization.ts` durchgeführt. Sie beendet die bisherige
+Kabinettsänderungen werden atomar mit der Funktion `applyCabinetReshuffle` in
+`packages/shared/src/lib/portal/organization.ts` durchgeführt. Sie beendet die bisherige
 Leitung, legt die neue Zuordnung an, prüft alle Invarianten und liefert Diff, Dateien und Routen.
 `content/organisation/snapshots/` enthält ausdrücklich datierte Test-Snapshots und ist keine zweite
 öffentliche Datenquelle.
@@ -599,7 +599,7 @@ Format:
 }
 ```
 
-Öffentliche Übersichten teilen Termine über `src/lib/portal/dates.ts` in künftige und vergangene
+Öffentliche Übersichten teilen Termine über `packages/shared/src/lib/portal/dates.ts` in künftige und vergangene
 Einträge. Nur Termine am oder nach dem redaktionellen Stichtag erscheinen unter „Nächste Termine“.
 Vergangene Einträge bleiben im Archiv sichtbar.
 
@@ -695,7 +695,7 @@ Format wie Service-Seiten. Diese Seiten beschreiben Grundlagen des fiktiven Frei
 
 Die fachlichen Haushaltsseiten liegen unter `/haushalt/`, `/haushalt/gesamtplan/`,
 `/haushalt/einzelplaene/`, `/haushalt/einzelplaene/[nummer]/` und
-`/haushalt/sondervermoegen/`. Die zentrale Datenlogik ist `src/data/haushalt.ts`:
+`/haushalt/sondervermoegen/`. Die zentrale Datenlogik ist `apps/portal/src/data/haushalt.ts`:
 
 - `context/Staatshaushalt 2025_2026 - Zusammenfassung.csv` liefert die Werte der beiden Jahre
   für Gesamtplan und Einzelpläne.
@@ -732,10 +732,10 @@ werden; Platzhalter wie „unverändert“ oder zusammengefasste Paragraphenbere
 Die Rechtssuche wird buildzeitbasiert aus den gespeicherten Fassungen erzeugt. Der allgemeine
 Normlink führt dynamisch zu der am zentralen redaktionellen Stichtag geltenden Fassung.
 Versionsspezifische URLs verweisen unveränderlich auf genau eine gespeicherte Fassung.
-`src/lib/norms/versions.ts` unterscheidet `current`, `future`, `historical` und
+`packages/shared/src/lib/norms/versions.ts` unterscheidet `current`, `future`, `historical` und
 `unknown-effective` aus Gültigkeitsintervall, Normstatus und Stichtag.
 
-Die Rechtsherkunft wird nicht als freies Redaktionslabel gepflegt. `src/lib/norms/origin.ts`
+Die Rechtsherkunft wird nicht als freies Redaktionslabel gepflegt. `packages/shared/src/lib/norms/origin.ts`
 ermittelt sie aus den vorhandenen Quellen- und Historienfeldern nach diesen Regeln:
 
 - „Übernommen“ setzt eine Fassung ab dem 1. November 2023 und einen fassungsspezifischen
@@ -944,7 +944,7 @@ Regeln:
   Quellenfeld erzeugt.
 - Mehrere `subjects` bleiben zulässig. `primarySubject` kann optional eine primäre Zuordnung
   festlegen, muss aber zugleich in `subjects` enthalten sein; die übergeordnete redaktionelle
-  Gruppierung stammt aus `src/config/law-subjects.ts` und verwendet keine erfundenen Nummern.
+  Gruppierung stammt aus `packages/shared/src/config/law-subjects.ts` und verwendet keine erfundenen Nummern.
 
 Format:
 
@@ -999,14 +999,14 @@ Strukturblöcke wie `part`, `chapter`, `section`, `subsection`, `paragraph`, `ar
 Pfad: `content/gesetzgebung/[slug].json`
 
 Parlamentarische Vorgänge werden als eigenständige, quellengebundene Inhaltsdatensätze gepflegt.
-`src/lib/portal/legislation.ts` validiert und lädt diese Datensätze für die Portalansichten. Ein
+`packages/shared/src/lib/portal/legislation.ts` validiert und lädt diese Datensätze für die Portalansichten. Ein
 Vorgang erhält seinen Status ausschließlich aus belegten Dokumenten; das Erreichen eines
 Sitzungstermins verändert ihn nicht automatisch. Eine Annahmeempfehlung ist weder Gesetzesbeschluss
 noch Verkündung.
 
 Pflichtangaben sind Slug, vollständiger Titel, Kurztitel, Drucksachennummer, Initiator,
 Verfahrensstufe, verständlicher Statustext, nächste angesetzte Beratung, Quellen und
-Verknüpfungen. Der zuletzt bestätigte Stand wird zentral aus `src/config/editorial.json` abgeleitet.
+Verknüpfungen. Der zuletzt bestätigte Stand wird zentral aus `packages/shared/src/config/editorial.json` abgeleitet.
 Einbringungsdatum, Ausschuss, Beschlussempfehlung und
 Verfahrensgruppe werden nur gepflegt, wenn sie belegt sind.
 
@@ -1037,10 +1037,10 @@ Häufig redigierte Dashboarddaten liegen als validiertes JSON vor:
 
 - `content/dashboard/action-plan.json`: 15-Punkte-Plan
 - `content/dashboard/timeline.json`: Zeitachse
-- `src/data/haushalt.ts`: Gesamtplan, Einzelpläne, Kapitelangaben und Sondervermögen
+- `apps/portal/src/data/haushalt.ts`: Gesamtplan, Einzelpläne, Kapitelangaben und Sondervermögen
 
-Die gleichnamigen Dateien unter `src/data/dashboard/` laden nur das JSON. Die erlaubten Typen und
-Parser stehen in `src/lib/portal/dashboard-content.ts`.
+Die gleichnamigen Dateien unter `apps/portal/src/data/dashboard/` laden nur das JSON. Die erlaubten Typen und
+Parser stehen in `packages/shared/src/lib/portal/dashboard-content.ts`.
 
 Wichtige Werte:
 
@@ -1064,10 +1064,10 @@ Bezirk-Karten und Tabellen erreichbar bleiben.
 
 Grunddaten, Navigation und Kontakt stehen nicht in `content/`, sondern in Konfigurationsdateien:
 
-- `src/config/site.ts`: Portalname, Pfade, Navigation und Kontakt
-- `src/config/editorial.json`: redaktioneller Stichtag
-- `src/config/features.ts`: Feature-Schalter für die optionale Webanalyse
-- `src/config/analytics.ts`: Analyse- und Consent-Konfiguration
+- `packages/shared/src/config/site.ts`: Portalname, Pfade, Navigation und Kontakt
+- `packages/shared/src/config/editorial.json`: redaktioneller Stichtag
+- `packages/shared/src/config/features.ts`: Feature-Schalter für die optionale Webanalyse
+- `packages/shared/src/config/analytics.ts`: Analyse- und Consent-Konfiguration
 
 Diese Dateien nur ändern, wenn sich die Struktur oder zentrale Stammdaten ändern. Normale Seiteninhalte gehören nach `content/`.
 
@@ -1172,18 +1172,19 @@ Nicht jeder sichtbare Text ist ein redaktioneller Datensatz. Einige Texte gehör
 
 Typische Orte:
 
-- `src/layouts/BaseLayout.astro`: Header, Navigation, Suche, Footer und technische Metadaten.
-- `src/pages/**/*.astro`: Seiteneinstiege, Abschnittsüberschriften, leere Zustände und feste Verknüpfungen.
-- `src/components/**/*.astro`: Karten, Akkordeons, Statusanzeigen, Suchoberflächen und Modultexte.
-- `src/lib/portal/presentation.ts` und `src/lib/norms/presentation.ts`: Formatierungs- und Anzeigetexte.
-- `src/lib/norms/routes.ts`: zentrale Pfade und Gruppierungen des Rechtsbereichs, einschließlich
+- `apps/portal/src/layouts/BaseLayout.astro`: Header, Navigation, Suche, Footer und technische Metadaten.
+- `apps/portal/src/pages/**/*.astro`: Seiteneinstiege, Abschnittsüberschriften, leere Zustände und feste Verknüpfungen.
+- `apps/portal/src/components/**/*.astro` und `apps/recht/src/components/**/*.astro`: app-spezifische Karten, Akkordeons, Statusanzeigen, Suchoberflächen und Modultexte.
+- `packages/shared/src/components/**/*.astro`: von beiden Anwendungen verwendete Seitengerüst- und Basiskomponenten.
+- `packages/shared/src/lib/portal/presentation.ts` und `packages/shared/src/lib/norms/presentation.ts`: Formatierungs- und Anzeigetexte.
+- `packages/shared/src/lib/norms/routes.ts`: zentrale Pfade und Gruppierungen des Rechtsbereichs, einschließlich
   Suche, Index, Sachgebieten, Förderrichtlinien und Hilfe.
 
-Grundregel: Wiederkehrende oder fachliche Inhalte gehören in `content/` oder `src/data/dashboard/`. Kurze Strukturtexte, Labels und UI-Hinweise bleiben in Astro-Komponenten oder Konfiguration. Wenn ein Text regelmäßig redaktionell geändert werden soll, sollte er nicht dauerhaft hart in einer Seite stehen, sondern in das passende Content-Modell wandern.
+Grundregel: Wiederkehrende oder fachliche Inhalte gehören in `content/` oder `apps/portal/src/data/dashboard/`. Kurze Strukturtexte, Labels und UI-Hinweise bleiben in Astro-Komponenten oder Konfiguration. Wenn ein Text regelmäßig redaktionell geändert werden soll, sollte er nicht dauerhaft hart in einer Seite stehen, sondern in das passende Content-Modell wandern.
 
 Die feste Unterseite `/themen/bildung-und-schule/schulsystem/` wird im Code gepflegt, weil sie
 mehrere Komponenten, lokale Anker und eine eigene Grafikdarstellung verbindet. Die Schularten,
-Tabellenzeilen und Ankerpunkte liegen in `src/data/school-system.ts`; die ausgelieferte Grafik liegt
+Tabellenzeilen und Ankerpunkte liegen in `apps/portal/src/data/school-system.ts`; die ausgelieferte Grafik liegt
 unter `public/images/ui/schulsystem.svg`, die bearbeitbare draw.io-Ausgangsdatei unter
 `context/schulsystem.drawio.svg`.
 
@@ -1225,7 +1226,7 @@ Fotografische Motive sollten als webtaugliche JPEG-Dateien gepflegt werden. Tran
 E-Mail-Adressen in redaktionellen JSON-Daten verwenden ausschließlich die Domain
 `freistaat-ostdeutschland.de`. Die Content-QA führt diese Domain als kontrollierte Allowlist und
 meldet unbekannte oder abweichende Domains als Fehler. Zentrale Portal-, Presse-, Redaktions- und
-Betriebskontakte werden in `src/config/site.ts` gepflegt und auf Seiten nicht erneut hartcodiert.
+Betriebskontakte werden in `packages/shared/src/config/site.ts` gepflegt und auf Seiten nicht erneut hartcodiert.
 
 Die ausgelieferte Schulsystemgrafik wird als bereinigtes SVG ohne Draw.io-Dokumentdaten oder
 eingebettete Raster-Fallbacks geführt. Die Content-QA prüft dafür ein Größenbudget von 200.000 Byte
@@ -1261,15 +1262,14 @@ Interne Links in `verknuepfteLinks`, Dashboarddaten und Fließtext werden nicht 
 
 ## Empfohlener Ablauf
 
-1. Bevorzugt das Redaktionsstudio öffnen und den passenden Inhaltstyp wählen.
-2. Bestehende Datei als Vorlage nutzen.
-3. `slug` und Dateiname konsistent halten.
-4. Pflichtfelder vollständig ausfüllen.
-5. Verweise auf Ressorts, Themen, Normen und Pressemitteilungen gegen den Bestand prüfen.
-6. Bilder unter `public/images/...` ablegen und mit `/images/...` referenzieren.
-7. Öffentliche Texte auf behördennahen Ton und technische Begriffe prüfen.
-8. `npm run content:check` ausführen.
-9. Bei strukturellen Änderungen zusätzlich `npm run check` und `npm run build` ausführen.
+1. Bestehende Datei als Vorlage nutzen.
+2. `slug` und Dateiname konsistent halten.
+3. Pflichtfelder vollständig ausfüllen.
+4. Verweise auf Ressorts, Themen, Normen und Pressemitteilungen gegen den Bestand prüfen.
+5. Bilder unter `public/images/...` ablegen und mit `/images/...` referenzieren.
+6. Öffentliche Texte auf behördennahen Ton und technische Begriffe prüfen.
+7. `npm run content:check` ausführen.
+8. Bei strukturellen Änderungen zusätzlich `npm run check` und `npm run build` ausführen.
 
 ### Vollständiger Eingang aus `temp-neu/`
 
@@ -1317,7 +1317,7 @@ Benutzereingang und ist nicht Teil der öffentlichen Auslieferung.
 | Stellenangebot | `content/service/stellen/[slug].json` | JSON-Objekt |
 | Service-Seite | `content/service/seiten/[slug].json` | JSON-Objekt |
 | Freistaat-Seite | `content/freistaat/[slug].json` | JSON-Objekt |
-| Haushaltsdaten | `src/data/haushalt.ts` | Buildzeitbasiertes TypeScript-Datenmodell aus CSV und Archivblättern |
+| Haushaltsdaten | `apps/portal/src/data/haushalt.ts` | Buildzeitbasiertes TypeScript-Datenmodell aus CSV und Archivblättern |
 | Norm | `content/normen/[slug]/` | `meta.json`, `history.json`, `versions/*.json` |
 | 15-Punkte-Plan | `content/dashboard/action-plan.json` | JSON-Objekt |
 | Gesetzgebungsverfahren | `content/gesetzgebung/[slug].json` | JSON-Objekt |

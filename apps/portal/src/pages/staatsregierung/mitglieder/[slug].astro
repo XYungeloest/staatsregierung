@@ -1,0 +1,179 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import {
+  getGovernmentMembersUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import { loadGovernmentMembers } from '@ostrecht/shared/lib/portal/content.ts';
+import type { RegierungMitglied } from '@ostrecht/shared/lib/portal/index.ts';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+
+export async function getStaticPaths() {
+  const members = await loadGovernmentMembers();
+  return members.map((member) => ({
+    params: { slug: member.slug },
+    props: { member },
+  }));
+}
+
+const { member } = Astro.props as { member: RegierungMitglied };
+const currentOfficeTitles = member.currentOffices.map((office) => office.title);
+---
+
+{member ? (
+  <BaseLayout title={member.name} description={member.kurzbiografie}>
+    <Breadcrumbs
+      items={[
+        { label: 'Startseite', href: getHomeUrl() },
+        { label: 'Staatsrat', href: getGovernmentUrl() },
+        { label: 'Mitglieder', href: getGovernmentMembersUrl() },
+        { label: member.name },
+      ]}
+    />
+
+    <SectionHero
+      eyebrow={member.current ? 'Mitglied des Staatsrates' : 'Historisches Regierungsprofil'}
+      title={member.name}
+      titleSize="long"
+      lead={currentOfficeTitles.length === 1 ? currentOfficeTitles[0] : member.current ? undefined : member.amt}
+      status={member.current ? 'Aktuelles Mitglied des ersten Staatsrates' : `Aus dem Kabinett ausgeschieden${member.servingTo ? ` am ${siteConfig.date.formatLong(member.servingTo)}` : ''}`}
+      variant="government"
+      facts={[
+        { label: 'Ressort', value: member.ressort },
+        ...(member.kontakt?.email ? [{ label: 'E-Mail', value: member.kontakt.email, href: `mailto:${member.kontakt.email}` }] : []),
+        ...(member.kontakt?.telefon ? [{ label: 'Telefon', value: member.kontakt.telefon, href: `tel:${member.kontakt.telefon.replace(/\s+/gu, '')}` }] : []),
+      ]}
+      actions={[{ label: 'Zur Mitgliederübersicht', href: getGovernmentMembersUrl(), primary: true }]}
+      image={{
+        src: member.bild,
+        alt: member.bildAlt ?? `Porträt von ${member.name}`,
+        credit: member.bildnachweis,
+        width: 720,
+        height: 900,
+        widths: [240, 360, 480],
+        kind: 'portrait',
+      }}
+    >
+      {currentOfficeTitles.length > 1 ? (
+        <ul class="plain-list" aria-label="Aktuelle Ämter">
+          {currentOfficeTitles.map((title) => <li>{title}</li>)}
+        </ul>
+      ) : null}
+    </SectionHero>
+    <GovernmentNavigation />
+
+    <div class="content-grid" data-visual-section="member-biography-profile">
+      <section class="section">
+        <div class="section-header">
+          <h2>Biografie</h2>
+        </div>
+        <div class="body-copy">
+          <p><strong>{member.kurzbiografie}</strong></p>
+          {member.langbiografie.map((paragraph: string) => (
+            <p>{paragraph}</p>
+          ))}
+        </div>
+        {member.zitat ? <blockquote class="quote-card">„{member.zitat}“</blockquote> : null}
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Profil</h2>
+        </div>
+        <dl class="meta-list">
+          <div>
+            <dt>Amt</dt>
+            <dd>
+              {currentOfficeTitles.length > 0 ? (
+                <ul class="plain-list">{currentOfficeTitles.map((title) => <li>{title}</li>)}</ul>
+              ) : member.amt}
+            </dd>
+          </div>
+          <div>
+            <dt>Ressort</dt>
+            <dd>{member.ressort}</dd>
+          </div>
+          {member.party ? (
+            <div>
+              <dt>Partei</dt>
+              <dd>{member.party}</dd>
+            </div>
+          ) : null}
+          {member.currentOffices.length > 0 ? (
+            <div>
+              <dt>Aktuelle Ämter</dt>
+              <dd>
+                <ul class="plain-list">
+                  {member.currentOffices.map((office) => (
+                    <li>{office.title} · seit <time datetime={office.servingFrom}>{siteConfig.date.formatLong(office.servingFrom)}</time></li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ) : null}
+          {member.formerOffices.length > 0 ? (
+            <div>
+              <dt>Frühere Ämter</dt>
+              <dd>
+                <ul class="plain-list">
+                  {member.formerOffices.map((office) => (
+                    <li>
+                      {office.title} · <time datetime={office.servingFrom}>{siteConfig.date.formatLong(office.servingFrom)}</time>
+                      {office.servingTo ? <> bis <time datetime={office.servingTo}>{siteConfig.date.formatLong(office.servingTo)}</time></> : null}
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ) : null}
+          {member.kontakt?.email ? (
+            <div>
+              <dt>Kontakt</dt>
+              <dd><a class="inline-link" href={`mailto:${member.kontakt.email}`}>{member.kontakt.email}</a></dd>
+            </div>
+          ) : null}
+          {member.kontakt?.telefon ? (
+            <div>
+              <dt>Telefon</dt>
+              <dd><a class="inline-link" href={`tel:${member.kontakt.telefon.replace(/\s+/gu, '')}`}>{member.kontakt.telefon}</a></dd>
+            </div>
+          ) : null}
+        </dl>
+        <nav class="link-list">
+          <a href={getGovernmentMembersUrl()}>Zur Übersicht</a>
+        </nav>
+      </aside>
+    </div>
+  </BaseLayout>
+) : (
+  <BaseLayout
+    title="Profil nicht gefunden"
+    description="Das angeforderte Regierungsprofil konnte nicht geladen werden."
+    breadcrumbs={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
+      { label: 'Nicht gefunden' },
+    ]}
+  >
+    <Breadcrumbs
+      items={[
+        { label: 'Startseite', href: getHomeUrl() },
+        { label: 'Staatsrat', href: getGovernmentUrl() },
+        { label: 'Regierungsmitglieder', href: getGovernmentMembersUrl() },
+        { label: 'Nicht gefunden' },
+      ]}
+    />
+
+    <section class="section">
+      <div class="status-notice status-notice--warning">
+        <h1>Regierungsprofil nicht gefunden</h1>
+        <p>Der angeforderte Inhalt konnte nicht gefunden werden. Bitte nutzen Sie die Übersicht der Regierungsmitglieder.</p>
+      </div>
+    </section>
+  </BaseLayout>
+)}

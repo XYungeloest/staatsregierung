@@ -1,7 +1,7 @@
 # Offene Quellenfragen
 
 **Repositoryprüfung:** 29. August 2026
-**Redaktioneller Stichtag:** zentral in `src/config/editorial.json`
+**Redaktioneller Stichtag:** zentral in `packages/shared/src/config/editorial.json`
 
 Diese Datei enthält ausschließlich Quellenlücken, Quellenkonflikte und notwendige Quellenarbeiten,
 die im aktuellen Repository noch offen sind. Der maschinenlesbare Einzelstand der

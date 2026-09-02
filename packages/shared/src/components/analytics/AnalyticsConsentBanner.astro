@@ -1,0 +1,39 @@
+---
+import {
+  analyticsConfig,
+  isAnalyticsEnabled,
+  shouldShowAnalyticsConsentBanner,
+} from '@ostrecht/shared/config/analytics.ts';
+import { getPrivacyUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+
+const showBanner = isAnalyticsEnabled() && shouldShowAnalyticsConsentBanner();
+---
+
+{showBanner ? (
+  <aside
+    id={analyticsConfig.bannerId}
+    class="consent-banner"
+    aria-label="Datenschutzeinstellungen für Statistik-Cookies"
+    aria-describedby="analytics-consent-description"
+    hidden
+  >
+    <div class="container consent-banner__inner">
+      <div class="consent-banner__content">
+        <p class="consent-banner__title" id="analytics-consent-title">Statistik-Cookies</p>
+        <p id="analytics-consent-description" class="consent-banner__text">
+          Wir nutzen Statistik nur, wenn Sie zustimmen. Die Website funktioniert auch ohne
+          Webanalyse vollständig.
+          <a class="inline-link" href={getPrivacyUrl()}>Mehr zum Datenschutz</a>
+        </p>
+      </div>
+      <div class="consent-banner__actions">
+        <button type="button" class="button-link button-link--secondary consent-banner__choice" data-analytics-consent-reject>
+          Nur notwendige Funktionen nutzen
+        </button>
+        <button type="button" class="button-link button-link--secondary consent-banner__choice" data-analytics-consent-accept>
+          Statistik erlauben
+        </button>
+      </div>
+    </div>
+  </aside>
+) : null}

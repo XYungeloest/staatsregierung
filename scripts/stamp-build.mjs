@@ -2,12 +2,19 @@
 
 import { access, readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { resolveBuildCommit, withBuildCommitHeader } from './lib/build-commit.mjs';
 
 const commit = resolveBuildCommit();
 const target = process.argv[2];
-const targetRoot = target === 'portal' || target === 'law' ? resolve('dist', target) : resolve('dist');
+if (target !== 'portal' && target !== 'law') {
+  throw new Error('Aufruf: node scripts/stamp-build.mjs <portal|law>');
+}
+const repositoryRoot = fileURLToPath(new URL('..', import.meta.url));
+const targetRoot = target === 'portal'
+  ? resolve(repositoryRoot, 'apps', 'portal', 'dist')
+  : resolve(repositoryRoot, 'apps', 'recht', 'dist');
 const candidates = [resolve(targetRoot, 'client/_headers'), resolve(targetRoot, '_headers')];
 let headerPath = null;
 for (const candidate of candidates) {

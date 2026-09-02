@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import {
+  getEducationAndSchoolUrl,
+  getHomeUrl,
+  getMinistryUrl,
+  getSchoolSystemUrl,
+  getTopicUrl,
+  getTopicsUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+
+const title = 'Bildung und Schule';
+const description = 'Einstieg zu Schule, Bildungswegen, Rechtsgrundlagen und zuständigem Bildungsressort im Ostdeutschen Freistaat.';
+const breadcrumbs = [
+  { label: 'Startseite', href: getHomeUrl() },
+  { label: 'Themen & Projekte', href: getTopicsUrl() },
+  { label: title, href: getEducationAndSchoolUrl() },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs.map((item, index) => index === breadcrumbs.length - 1 ? { label: item.label } : item)} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Themen & Projekte</p>
+    <h1>Bildung und Schule</h1>
+    <p class="lead">
+      Der Bereich bündelt Informationen zu Schularten, Bildungswegen, Zuständigkeiten und
+      Rechtsgrundlagen der schulischen Bildung.
+    </p>
+    <nav class="hero-actions" aria-label="Direkteinstiege Bildung und Schule">
+      <a class="button-link" href={getSchoolSystemUrl()}>Schulsystem ansehen</a>
+      <a class="button-link button-link--secondary" href={getTopicUrl('bildungsreform')}>Zur Bildungsreform</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--three">
+      <article class="panel">
+        <h2>Schulsystem</h2>
+        <p>Überblick über Schularten, Abschlüsse, Übergänge und berufliche Bildungswege.</p>
+        <p><a class="inline-link" href={getSchoolSystemUrl()}>Zum Schulsystem</a></p>
+      </article>
+      <article class="panel">
+        <h2>Bildungsreform</h2>
+        <p>Umsetzungsstand, nächste Schritte und Rechtsgrundlagen zur laufenden Bildungsreform.</p>
+        <p><a class="inline-link" href={getTopicUrl('bildungsreform')}>Zur Bildungsreform</a></p>
+      </article>
+      <article class="panel">
+        <h2>Zuständiges Ressort</h2>
+        <p>Informationen zum Staatssekretariat für Volksbildung und Wissenschaft.</p>
+        <p><a class="inline-link" href={getMinistryUrl('bildung-und-sportliche-ertuechtigung')}>Zum Ressort</a></p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

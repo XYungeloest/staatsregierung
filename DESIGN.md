@@ -1,7 +1,7 @@
 # Design-System: Freistaat Ostdeutschland und OstRecht
 
 Dieses Dokument beschreibt die visuelle Leitlinie beider öffentlichen Anwendungen. Maßgeblich bleibt der tatsächliche
-Stand in `src/styles/global.css`; dieses Dokument hält die gestalterischen Entscheidungen und ihre
+Stand in `packages/shared/src/styles/global.css`; dieses Dokument hält die gestalterischen Entscheidungen und ihre
 Anwendung fest.
 
 ## Grundhaltung
@@ -17,7 +17,7 @@ aus den bestehenden Routen und dateibasierten Quellen abgeleitet.
 
 ## Stylesheet-Struktur
 
-`src/styles/global.css` hält nur die stabile Importreihenfolge. `src/styles/law-portal.css`
+`packages/shared/src/styles/global.css` hält nur die stabile Importreihenfolge. `packages/shared/src/styles/law-portal.css`
 ergänzt den eigenständigen OstRecht-Shell und die Normdarstellung. Die Kaskade ist nach Verantwortung
 gegliedert: `foundation.css` enthält Tokens, Basis-, Layout- und allgemeine Fachregeln,
 `section-system.css` die Bereichsheros und lokale Orientierung, `portal-shell.css` Behördenkopf,
@@ -30,7 +30,7 @@ höchstens eine bewusst spätere Inhaltsseiten-Verfeinerung; responsive Variante
 
 ## Design-Tokens
 
-Die zentralen Werte liegen als CSS Custom Properties in `src/styles/global.css`.
+Die zentralen Werte liegen als CSS Custom Properties in `packages/shared/src/styles/global.css`.
 
 | Rolle | Wert | Verwendung |
 | --- | --- | --- |
@@ -62,7 +62,7 @@ umbrechen.
 
 ## Layoutsystem
 
-Das Staatsportal verwendet `BaseLayout.astro` mit zwei Hauptvarianten:
+Das Staatsportal verwendet `apps/portal/src/layouts/BaseLayout.astro` mit zwei Hauptvarianten:
 
 - `contained` für Fach- und Inhaltsseiten mit einem begrenzten Hauptcontainer
 - `full` für die Startseite mit vollbreiten Farbbändern und jeweils innen begrenzten Containern
@@ -71,7 +71,7 @@ Der maximale Inhaltscontainer ist 84 Rem breit. Vollbreite Bereiche behalten ste
 Innenabstände. Wiederholte Einheiten nutzen Grid oder strukturierte Listen; ganze Fachabschnitte
 werden nicht ohne Grund in schwebende Karten verwandelt.
 
-OstRecht verwendet das getrennte `LawLayout.astro`. Es teilt Typografie, Tokens, Skip-Link,
+OstRecht verwendet das getrennte `apps/recht/src/layouts/LawLayout.astro`. Es teilt Typografie, Tokens, Skip-Link,
 Fokusregeln und fachliche Normkomponenten mit dem Staatsportal, kontrolliert aber Header,
 OstRecht-Wortmarke, Recherche-Navigation, Suche, Breadcrumb-Kontext und Footer selbstständig.
 
@@ -115,9 +115,10 @@ Direkteinstiege sind keine erfundenen Onlinedienste.
 ## Komponenten
 
 Wiederkehrende Startseitenmuster liegen als kleine Astro-Komponenten unter
-`src/components/portal/`:
+`apps/portal/src/components/portal/`. Anwendungsübergreifende Grundbausteine wie
+`PortalIcon.astro`, `ResponsivePicture.astro` und `SectionHero.astro` liegen unter
+`packages/shared/src/components/portal/`.
 
-- `PortalIcon.astro`: konsistentes, lokales SVG-Iconset
 - `PortalAccessCard.astro`: zentrale Portalpfade
 - `ImportantNoticeBand.astro`: kompakte wichtige Hinweise
 - `HomePressList.astro`: aktuelle Presseinformationen

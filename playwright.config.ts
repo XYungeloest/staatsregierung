@@ -9,7 +9,7 @@ const webServer = [];
 
 if (selectedSiteTargets.includes('portal')) {
   webServer.push({
-    command: 'node scripts/serve-site.mjs dist/portal/client 4321',
+    command: 'node scripts/serve-site.mjs apps/portal/dist/client 4321',
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,
@@ -17,7 +17,7 @@ if (selectedSiteTargets.includes('portal')) {
 }
 if (selectedSiteTargets.includes('law')) {
   webServer.push({
-    command: 'node scripts/serve-site.mjs dist/law/client 4322',
+    command: 'node scripts/serve-site.mjs apps/recht/dist/client 4322',
     url: lawURL,
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,

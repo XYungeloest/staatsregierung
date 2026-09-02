@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import {
+  getContactUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getLawHomeUrl,
+  getLawSearchUrl,
+  getPortalSearchUrl,
+  getServiceUrl,
+  getTopicsUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+---
+
+<BaseLayout title="Leichte Sprache" description="Einfache Erklärungen zu den wichtigsten Bereichen des Regierungsportals.">
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Service', href: getServiceUrl() }, { label: 'Leichte Sprache' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>Leichte Sprache</h1>
+    <p class="lead">Diese Seite erklärt die wichtigsten Bereiche der Website in kurzen Sätzen.</p>
+  </section>
+
+  <section class="section body-copy" aria-labelledby="leichte-erklaerung">
+    <div class="section-header"><h2 id="leichte-erklaerung">Über diese Website</h2></div>
+    <div class="card-grid card-grid--two">
+      <article class="panel">
+        <h3>Was ist diese Website?</h3>
+        <p>Diese Website ist ein Portal. Hier finden Sie Informationen über Regierung, Gesetze, Themen, Presse und Hilfe.</p>
+      </article>
+      <article class="panel">
+        <h3>Was ist der Ostdeutsche Freistaat?</h3>
+        <p>Der Ostdeutsche Freistaat hat einen Staatsrat. Der Staatsrat arbeitet in Staatssekretariaten und plant Vorhaben für das Land.</p>
+      </article>
+      <article class="panel">
+        <h3>Wie finde ich Themen?</h3>
+        <p>Unter Themen stehen Pläne der Regierung. Sie sehen dort den Stand und die nächsten Schritte.</p>
+        <p><a class="inline-link" href={getTopicsUrl()}>Zu den Themen</a></p>
+      </article>
+      <article class="panel">
+        <h3>Wie finde ich Gesetze?</h3>
+        <p>Im Bereich Recht finden Sie Gesetze, Verordnungen und ältere Fassungen.</p>
+        <p><a class="inline-link" href={getLawHomeUrl()}>Zum Recht</a></p>
+        <p><a class="inline-link" href={getLawSearchUrl()}>Gesetze suchen</a></p>
+      </article>
+      <article class="panel">
+        <h3>Wie nutze ich die Suche?</h3>
+        <p>Schreiben Sie ein Wort in das Suchfeld. Zum Beispiel: Kreisreform, Kulturpass oder Kabinett.</p>
+        <p><a class="inline-link" href={getPortalSearchUrl()}>Zur Suche</a></p>
+      </article>
+      <article class="panel">
+        <h3>Wie nehme ich Kontakt auf?</h3>
+        <p>Auf der Kontakt-Seite finden Sie Telefon, E-Mail und wichtige Ansprechstellen.</p>
+        <p><a class="inline-link" href={getContactUrl()}>Zum Kontakt</a></p>
+      </article>
+      <article class="panel">
+        <h3>Wer gehört zum Staatsrat?</h3>
+        <p>Auf der Staatsrats-Seite stehen der Staatspräsident, die Mitglieder und die Staatssekretariate.</p>
+        <p><a class="inline-link" href={getGovernmentUrl()}>Zum Staatsrat</a></p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
