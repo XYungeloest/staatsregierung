@@ -177,6 +177,7 @@ jobs:
           DEFAULT_PRODUCTION_SITE_URL: https://freistaat-ostdeutschland.de
           DEFAULT_PRODUCTION_LAW_SITE_URL: https://recht.freistaat-ostdeutschland.de
           EVENT_NAME: ${{ github.event_name }}
+          BUILD_TARGETS: ${{ needs.classify.outputs.build_targets }}
           INPUT_ENVIRONMENT: ${{ github.event.inputs.environment }}
           INPUT_PORTAL_SITE_URL: ${{ github.event.inputs.portal_site_url }}
           INPUT_LAW_SITE_URL: ${{ github.event.inputs.law_site_url }}
@@ -191,9 +192,31 @@ jobs:
             LAW_SITE_URL="$DEFAULT_PRODUCTION_LAW_SITE_URL"
           fi
 
-          if [ "$DEPLOY_ENV" = "staging" ] && { [ -z "$PORTAL_SITE_URL" ] || [ -z "$LAW_SITE_URL" ]; }; then
-            echo "Für ein Staging-Deployment müssen portal_site_url und law_site_url gesetzt werden." >&2
-            exit 1
+          if [ "$DEPLOY_ENV" = "staging" ]; then
+            case "$BUILD_TARGETS" in
+              portal)
+                if [ -z "$PORTAL_SITE_URL" ]; then
+                  echo "Für ein Portal-Staging-Deployment muss portal_site_url gesetzt werden." >&2
+                  exit 1
+                fi
+                ;;
+              law)
+                if [ -z "$LAW_SITE_URL" ]; then
+                  echo "Für ein OstRecht-Staging-Deployment muss law_site_url gesetzt werden." >&2
+                  exit 1
+                fi
+                ;;
+              portal,law)
+                if [ -z "$PORTAL_SITE_URL" ] || [ -z "$LAW_SITE_URL" ]; then
+                  echo "Für ein gemeinsames Staging-Deployment müssen portal_site_url und law_site_url gesetzt werden." >&2
+                  exit 1
+                fi
+                ;;
+              *)
+                echo "Unbekannte Build-Ziele: $BUILD_TARGETS" >&2
+                exit 1
+                ;;
+            esac
           fi
 
           if [ -z "$PORTAL_SITE_URL" ]; then
