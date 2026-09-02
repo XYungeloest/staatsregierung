@@ -365,8 +365,14 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen fo
     Object.defineProperty(window, 'Date', { configurable: true, value: FixedDate });
   });
   await page.goto(lawUrl('/'));
-  await expect(page.locator('[data-visual-section="law-future-changes"]')).toBeHidden();
   await expect(page.locator('[data-law-current-change-list] [data-law-change][data-effective-date="2026-09-01"]').first()).toBeVisible();
+  await expect(page.locator('[data-law-future-change-list] [data-law-change][data-effective-date="2026-09-01"]')).toHaveCount(0);
+  const futureDates = await page
+    .locator('[data-law-future-change-list] [data-law-change]:visible')
+    .evaluateAll((entries) => entries
+      .map((entry) => entry.getAttribute('data-effective-date'))
+      .filter((date): date is string => Boolean(date)));
+  expect(futureDates.every((date) => date > '2026-09-01')).toBeTruthy();
 });
 
 siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt bei einer Trefferliste', async ({ page }) => {
