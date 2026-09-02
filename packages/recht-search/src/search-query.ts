@@ -1,4 +1,4 @@
-import type { SearchHitUnit, SearchIndexDocument } from '@ostrecht/shared/lib/norms/search.ts';
+import type { SearchHitUnit, SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
 import { NORM_TYPES, type NormType } from '@ostrecht/shared/lib/norms/schema.ts';
 import type { VersionTemporalKind } from '@ostrecht/shared/lib/norms/versions.ts';
 

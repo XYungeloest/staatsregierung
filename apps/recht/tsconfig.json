@@ -1,5 +1,5 @@
 {
   "extends": "../../tsconfig.json",
-  "include": [".astro/types.d.ts", "src/**/*", "../../packages/shared/src/**/*"],
+  "include": [".astro/types.d.ts", "src/**/*", "../../packages/shared/src/**/*", "../../packages/recht-search/src/**/*"],
   "exclude": ["dist"]
 }

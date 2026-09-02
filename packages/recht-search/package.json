@@ -1,0 +1,15 @@
+{
+  "name": "@ostrecht/recht-search",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./*": "./src/*"
+  },
+  "dependencies": {
+    "@ostrecht/shared": "^0.0.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

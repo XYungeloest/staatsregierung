@@ -23,13 +23,13 @@ import {
   prepareSearchDocuments,
   runNormSearch,
   type NormSearchState,
-} from '@ostrecht/shared/lib/norms/search-query.ts';
+} from '@ostrecht/recht-search/search-query.ts';
 import {
   buildSearchIndexPayload,
   buildSearchSuggestionPayload,
   isAmendmentRecord,
   type SearchIndexDocument,
-} from '@ostrecht/shared/lib/norms/search.ts';
+} from '@ostrecht/recht-search/search.ts';
 import {
   findPublicationByDesignation,
   getLatestPublication,

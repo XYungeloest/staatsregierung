@@ -7,23 +7,30 @@ Workers ist kein Wiederherstellungsweg.
 
 ## Änderungsscope
 
-Die zentrale Zuordnung liegt in `scripts/classify-change-scope.mjs`. Unbekannte Pfade und gemeinsame
-Quellen werden vorsorglich als `shared` behandelt.
+Die zentrale Zuordnung liegt in `scripts/classify-change-scope.mjs`. Sie trennt Runtime-Deploymentziele
+von Verifikationsflags. Unbekannte Laufzeitpfade und gemeinsame Quellen werden vorsorglich als
+`shared` behandelt.
 
 | Scope | Typische Pfade | Produktion |
 | --- | --- | --- |
-| `docs-only` | Root-Dokumentation und `docs/` | kein Build und kein Deployment |
+| `docs-only` | Root-Dokumentation, `docs/` sowie interne Knowledge-Markdown-Dateien | kein Build und kein Deployment |
+| `ci-only` | Tests, Workflowdateien, Validatoren, Audits, Importer, `Gesetze/`, `data/recht/` und interne Knowledge-Daten | kein Produktionsdeployment |
 | `portal` | `apps/portal/`, portalbezogene Inhalte, Kreisreform und portalbezogene Daten | nur Staatsportal |
-| `law` | `apps/recht/`, Normkomponenten und `public/assets/recht/` | nur OstRecht |
-| `shared` | `packages/shared/`, `content/normen/`, `content/verkuendungen/`, `knowledge/`, `Gesetze/`, `data/recht/`, Scripts, Tests, Root-Konfiguration und Abhängigkeiten | beide Anwendungen |
+| `law` | `apps/recht/`, `packages/recht-*` und `public/assets/recht/` | nur OstRecht |
+| `shared` | `packages/shared/`, `content/normen/`, `content/verkuendungen/`, gemeinsame Buildskripte, Root-Buildkonfiguration und Abhängigkeiten | beide Anwendungen |
+
+`ci-only` führt die erforderlichen Content-, Knowledge-, Unit- oder Buildprüfungen aus, veröffentlicht
+aber nie eine Website. Ein Astro-Build findet dabei nur statt, wenn die geänderte Prüfung selbst einen
+Build benötigt, etwa bei Browser-Smokes oder Link- und SEO-Validatoren. Tests und Prüfscripts setzen
+kein Deploymentziel.
 
 Normen und Verkündungen sind trotz des Rechtsportals `shared`, weil das Staatsportal sie unter
 anderem für Suche, Fundstellen und die Rechtsbrücke einliest. Die PDF-Assets unter
 `public/assets/recht/` werden dagegen nur vom Rechtsportal ausgeliefert.
 
-Derzeit existiert mit `packages/shared/` nur ein gemeinsames Paket. Die Klassifikation reserviert
-für künftige, tatsächlich app-spezifische Pakete die Präfixe `packages/portal-*` und
-`packages/recht-*`; sie lösen ausschließlich den jeweiligen Websitebuild aus.
+`packages/recht-search/` enthält die ausschließlich von OstRecht verwendete Suchlogik. Die
+Klassifikation behandelt `packages/portal-*` und `packages/recht-*` als app-spezifisch; sie lösen
+ausschließlich den jeweiligen Websitebuild aus.
 
 Die Buildartefakte liegen unter `apps/portal/dist/` und `apps/recht/dist/`. GitHub Actions lädt
 diese app-lokalen Verzeichnisse als gemeinsames Artefakt hoch und stellt sie vor UI-Smokes und
@@ -34,12 +41,15 @@ Deployment wieder unter `apps/` her. Die unveränderten Worker `ostrecht-portal`
 ## Regulärer Ablauf
 
 1. Änderung über einen geprüften Pull Request nach `main` übernehmen.
-2. Der Main-Workflow ermittelt den Scope. Bei `docs-only` endet der Lauf ohne Produktionsdeployment.
-3. Für `portal` oder `law` laufen nur der betroffene Build, dessen Content-/Typprüfungen sowie
-   dessen Link- und SEO-Prüfung. Bei `shared` werden beide Anwendungen gebaut und geprüft.
+2. Der Main-Workflow ermittelt Deployment- und Verifikationswirkung. Bei `docs-only` endet der Lauf
+   nach dem leichten Dokumentationscheck; bei `ci-only` nach den angeforderten Prüfungen, jeweils ohne
+   Produktionsdeployment.
+3. Für `portal` oder `law` laufen nur der betroffene Build, dessen Typprüfungen sowie dessen Link-
+   und SEO-Prüfung. Der Content-Audit läuft nur bei Inhalts-, Quellen- oder Validatoränderungen. Bei
+   `shared` werden beide Anwendungen gebaut und geprüft.
 4. Für `portal` und `law` laufen Accessibility- und Browser-Smokes nur gegen das jeweils betroffene
-   Ziel; bei `shared` laufen beide Zielgruppen. Bei `docs-only` gibt es keine UI-Smokes. Die manuelle
-   Releaseprüfung bleibt für jede Produktionsfreigabe erforderlich.
+   Ziel; bei `shared` laufen beide Zielgruppen. Bei `docs-only` und üblichen `ci-only`-Läufen gibt es
+   keine UI-Smokes. Die manuelle Releaseprüfung bleibt für jede Produktionsfreigabe erforderlich.
 5. Bei beiden Zielen veröffentlicht der Workflow zuerst OstRecht und danach das Staatsportal. So
    verweist die Portalbrücke erst nach der erfolgreichen Aktualisierung des Rechtsportals auf den
    neuen Stand.
@@ -47,20 +57,20 @@ Deployment wieder unter `apps/` her. Die unveränderten Worker `ostrecht-portal`
    nur die tatsächlich veröffentlichten Ziele; der Portal-Altpfad-Redirect wird bei einer
    Portalprüfung zusätzlich gegen den bestehenden Rechtsorigin kontrolliert.
 
-Ein manuell gestarteter Workflow wird aus Sicherheitsgründen als `shared` behandelt und veröffentlicht
-beide Anwendungen wie bisher. Er verwendet standardmäßig `staging`; dafür müssen vollständige
-`portal_site_url` und `law_site_url` angegeben werden. `production` ist nur für eine bewusst
-freigegebene Veröffentlichung zu wählen. Die Eingaben bleiben unverändert.
+Ein manuell gestarteter Workflow bietet die Ziele `portal`, `law` und `both` (Standard). Er verwendet
+standardmäßig `staging`; dafür müssen vollständige `portal_site_url` und `law_site_url` angegeben
+werden. `production` ist nur für eine bewusst freigegebene Veröffentlichung zu wählen. Die
+zielbezogenen Prüfungen bleiben auch beim manuellen Deployment aktiv.
 
 ## Pull-Request-Prüfung
 
-Der Pull-Request-Workflow verwendet denselben zentralen Scope. `docs-only` erhält nur den leichten
-Dokumentationscheck ohne Astro-Build, UI-Smokes oder Cloudflare-Vorschau. Bei `portal` oder `law`
-werden die gemeinsamen Inhalts- und Unit-Prüfungen sowie nur der jeweilige Typecheck, Build, Link- und
-SEO-Lauf und zielbezogene UI-Smoke ausgeführt. `shared` führt den vollständigen Lauf für beide
-Anwendungen aus. Die bestehende Cloudflare-PR-Vorschau bleibt auf `portal` und `shared` beschränkt;
-bei einem reinen `law`-Scope wird sie wegen der bestehenden portalbezogenen Previewarchitektur
-nicht gestartet.
+Der Pull-Request-Workflow verwendet dieselbe Trennung. `docs-only` erhält nur den leichten
+Dokumentationscheck; `ci-only` nur die angeforderten Prüfungen ohne Produktionsartefakt oder
+Cloudflare-Vorschau. Bei `portal` oder `law` werden nur der jeweilige Typecheck, Build, Link- und
+SEO-Lauf sowie zielbezogene UI-Smokes ausgeführt. `shared` führt den vollständigen Lauf für beide
+Anwendungen aus. Die bestehende Cloudflare-PR-Vorschau bleibt auf Pull Requests mit
+Staatsportal-Runtimewirkung beschränkt; bei einem reinen `law`-Scope wird sie wegen der bestehenden
+portalbezogenen Previewarchitektur nicht gestartet.
 
 ### Cloudflare-PR-Vorschau einrichten
 

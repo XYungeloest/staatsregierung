@@ -1,4 +1,4 @@
-import { buildSearchSuggestionPayload } from '@ostrecht/shared/lib/norms/search.ts';
+import { buildSearchSuggestionPayload } from '@ostrecht/recht-search/search.ts';
 
 export const prerender = true;
 

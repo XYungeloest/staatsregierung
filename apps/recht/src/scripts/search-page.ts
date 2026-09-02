@@ -14,8 +14,8 @@ import {
   type SearchScope,
   type SortKey,
   type VersionScope,
-} from '@ostrecht/shared/lib/norms/search-query.ts';
-import type { SearchIndexDocument, SearchIndexPayload, SearchPublication } from '@ostrecht/shared/lib/norms/search.ts';
+} from '@ostrecht/recht-search/search-query.ts';
+import type { SearchIndexDocument, SearchIndexPayload, SearchPublication } from '@ostrecht/recht-search/search.ts';
 
 const PAGE_SIZE = 20;
 const INPUT_DEBOUNCE_MS = 120;
