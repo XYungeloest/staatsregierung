@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import EventCard from '../../../components/portal/EventCard.astro';
+import { splitEventsByDate } from '@ostrecht/shared/lib/portal/dates.ts';
+import { loadEvents } from '@ostrecht/shared/lib/portal/content.ts';
+import { getEventIndexUrl, getHomeUrl, getPressUrl } from '@ostrecht/shared/lib/portal/index.ts';
+
+const { upcoming, past } = splitEventsByDate(await loadEvents());
+---
+
+<BaseLayout
+  title="Termine"
+  description="Zukünftige öffentliche Termine und das Terminarchiv des Staatsrates des Ostdeutschen Freistaates."
+>
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Presse & Aktuelles', href: getPressUrl() }, { label: 'Termine' }]} />
+
+  <section class="section page-header">
+    <p class="eyebrow">Presse &amp; Aktuelles</p>
+    <h1>Termine</h1>
+    <p class="lead">Öffentliche Termine, Pressekonferenzen und Veranstaltungen des Staatsrates.</p>
+    <nav class="hero-actions" aria-label="Terminangebote">
+      <a class="button-link button-link--secondary" href={`${getEventIndexUrl()}kalender.ics`}>Kalender abonnieren</a>
+    </nav>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>Anstehende Termine</h2>
+      <p>Ort, Datum und Kurzbeschreibung finden Sie auf der jeweiligen Detailseite.</p>
+    </div>
+    {upcoming.length > 0 ? (
+      <div class="content-stack">{upcoming.map((event) => <EventCard event={event} />)}</div>
+    ) : (
+      <p class="search-feedback">Derzeit sind keine zukünftigen öffentlichen Termine angekündigt.</p>
+    )}
+  </section>
+
+  {past.length > 0 ? (
+    <section class="section section-muted">
+      <div class="section-header">
+        <h2>Vergangene Termine</h2>
+        <p>Diese Veranstaltungen sind abgeschlossen und bleiben zur Dokumentation erreichbar.</p>
+      </div>
+      <div class="content-stack">{past.map((event) => <EventCard event={event} />)}</div>
+    </section>
+  ) : null}
+</BaseLayout>

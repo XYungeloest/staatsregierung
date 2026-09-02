@@ -1,6 +1,6 @@
 # Quellenhierarchie des internen Wissenshubs
 
-**Redaktioneller Stichtag:** zentral in `../src/config/editorial.json`
+**Redaktioneller Stichtag:** zentral in `../packages/shared/src/config/editorial.json`
 **Repositoryprüfung:** 29. August 2026
 
 ## Grundsatz
@@ -22,7 +22,7 @@ Amtes maßgeblich sein.
 3. Andere datierte amtliche Simulationsdokumente, insbesondere Ernennungen, Entlassungen,
    Parlamentsdokumente, Verträge und gerichtliche Entscheidungen.
 4. Aktuelle strukturierte Websiteinhalte unter `content/`.
-5. Aktuelle zentrale Konfigurationen unter `src/config/` sowie validierte Dashboarddaten.
+5. Aktuelle zentrale Konfigurationen unter `packages/shared/src/config/` sowie validierte Dashboarddaten.
 6. Historische Regierungs-, Parlaments- und Organisationsdokumente.
 7. Kanonische EAG- beziehungsweise Simulationsausspielungen, soweit sie den Ausgang eines Vorgangs
    eindeutig festlegen.

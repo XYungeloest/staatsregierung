@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import { getContactUrl, getHomeUrl, getServiceUrl } from '@ostrecht/shared/lib/portal/index.ts';
+import { loadPageBySlug } from '@ostrecht/shared/lib/portal/content.ts';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+
+const page = await loadPageBySlug('barrierefreiheit');
+---
+
+<BaseLayout title={page?.title ?? 'Barrierefreiheit'} description="Hinweise zur Barrierefreiheit des Regierungsportals.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Service', href: getServiceUrl() },
+      { label: 'Barrierefreiheit' },
+    ]}
+  />
+
+  <section class="section page-header">
+    <p class="eyebrow">Service</p>
+    <h1>{page?.title ?? 'Barrierefreiheit'}</h1>
+    <p class="lead">Informationen zur Barrierefreiheit des Regierungsportals.</p>
+  </section>
+
+  <div class="content-grid">
+    <section class="section body-copy">
+      {(page?.body ?? []).map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+
+      {page?.accessibilityAudit ? (
+        <>
+          <div class="section-header">
+            <h2>Prüfstand</h2>
+            <p>Die folgenden Angaben beziehen sich auf den Portalstand vom <time datetime={page.accessibilityAudit.checkedOn}>{siteConfig.date.formatLong(page.accessibilityAudit.checkedOn)}</time>.</p>
+          </div>
+          <dl class="meta-list accessibility-audit-list">
+            <div>
+              <dt>Geprüfte Bereiche</dt>
+              <dd>
+                <ul>
+                  {page.accessibilityAudit.scope.map((entry) => <li>{entry}</li>)}
+                </ul>
+              </dd>
+            </div>
+            <div>
+              <dt>Prüfungen</dt>
+              <dd>
+                <ul>
+                  {page.accessibilityAudit.methods.map((entry) => <li>{entry}</li>)}
+                </ul>
+              </dd>
+            </div>
+          </dl>
+
+          <div class="section-header">
+            <h2>Vereinbarkeitsstatus</h2>
+          </div>
+          <p>
+            Nach dem dokumentierten Prüfstand ist das Portal mit den angestrebten Anforderungen
+            teilweise vereinbar. Für die geprüften Kernabläufe wurden keine automatisiert
+            erkennbaren schwerwiegenden Barrieren festgestellt; die unten genannten
+            Einschränkungen bleiben bestehen. Eine förmliche Prüfung durch eine unabhängige
+            Prüfstelle hat nicht stattgefunden.
+          </p>
+
+          <div class="section-header">
+            <h2>Bekannte Einschränkungen</h2>
+          </div>
+          <ul class="record-list">
+            {page.accessibilityAudit.knownLimitations.map((entry) => (
+              <li class="record-list__item"><span>{entry}</span></li>
+            ))}
+          </ul>
+        </>
+      ) : null}
+
+      <div class="section-header">
+        <h2>Barrierefreie Alternativen</h2>
+      </div>
+      <p>
+        Zu Karteninhalten stehen Suche, Bezirksübersicht und vollständige Tabellen bereit.
+        Rechtsinhalte sind als gegliederter Text, historische Fassung und Druckansicht zugänglich.
+        Wenn ein Inhalt nicht nutzbar ist, kann er über die zentrale Kontaktstelle in einer
+        geeigneten textlichen Form angefragt werden.
+      </p>
+
+      <div class="section-header">
+        <h2>Feedback und Kontakt</h2>
+      </div>
+      <p>
+        Hinweise zur Barrierefreiheit, zu Darstellungsproblemen oder zu nicht ausreichend
+        zugänglichen Inhalten können über die Kontaktseite übermittelt werden. Bitte nennen Sie
+        dabei die betroffene Seite und die beobachtete Barriere. Rückmeldungen werden geprüft;
+        sofern eine Antwortmöglichkeit angegeben wurde, erfolgt die Rückmeldung über diesen Weg.
+      </p>
+      <p><a class="inline-link" href={getContactUrl()}>Zur Kontaktseite</a></p>
+    </section>
+
+    <aside class="section meta-panel">
+      <div class="section-header section-header--compact">
+        <h2>Prüfhinweise</h2>
+      </div>
+      <dl class="meta-list">
+        <div>
+          <dt>Stand</dt>
+          <dd>{page?.accessibilityAudit ? <time datetime={page.accessibilityAudit.checkedOn}>{siteConfig.date.formatLong(page.accessibilityAudit.checkedOn)}</time> : 'Keine Angabe'}</dd>
+        </div>
+        <div>
+          <dt>Grundsatz</dt>
+          <dd>Es werden nur nachvollziehbar geprüfte Angaben veröffentlicht.</dd>
+        </div>
+        <div>
+          <dt>Rückmeldung</dt>
+          <dd>Über die zentrale Kontaktseite</dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</BaseLayout>

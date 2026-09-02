@@ -1,0 +1,92 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getActionPlanUrl,
+  getGovernmentUrl,
+  getHomeUrl,
+  getTopicsUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import { loadCurrentGovernment } from '@ostrecht/shared/lib/portal/content.ts';
+
+const currentGovernment = await loadCurrentGovernment();
+const coalitionParties = currentGovernment.coalitionParties;
+const priorities = [
+  'soziale Sicherheit und öffentliche Daseinsvorsorge',
+  'gute Arbeit, öffentliche Wirtschaft und regionale Wertschöpfung',
+  'Wohn- und Bodenoffensive mit starken Kommunen',
+  'Rechtsstaatlichkeit, kulturelle Emanzipation und Bürgernähe',
+];
+---
+
+<BaseLayout title="Koalition" description="Koalitionsrahmen des aktuellen Staatsrates.">
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Koalition' },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Parlamentarische Grundlage"
+    title="Koalition"
+    lead={`Die Koalition aus ${currentGovernment.coalition} trägt den ersten Staatsrat.`}
+    variant="government"
+    facts={[
+      { label: 'Kurzbezeichnung', value: currentGovernment.coalitionShort },
+      { label: 'Übergang zum Staatsrat', value: siteConfig.date.formatLong(currentGovernment.formedOn) },
+      { label: 'Legislatur', value: currentGovernment.legislature },
+      { label: 'Sitze seit 5. Juli 2026', value: `${currentGovernment.coalitionSeats} von ${currentGovernment.parliamentSeats}` },
+    ]}
+    actions={[{ label: '15-Punkte-Plan II', href: getActionPlanUrl(), primary: true }]}
+  />
+  <GovernmentNavigation />
+
+  <section class="section section-muted">
+    <div class="content-grid">
+      <section class="section body-copy">
+        <div class="section-header">
+          <h2>Politische Arbeitsgrundlage</h2>
+        </div>
+        <p>
+          Die Koalition verbindet die Sicherung der ersten Aufbauphase mit einem neuen Programm
+          für soziale Sicherheit, öffentliche Investitionen, gute Arbeit, kommunale
+          Handlungsfähigkeit und demokratische Modernisierung.
+        </p>
+        <p>
+          Der 15-Punkte-Plan II bildet die politische Arbeitsgrundlage der zweiten
+          sozialstaatlichen Aufbauphase des Freistaates.
+        </p>
+      </section>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Tragende Parteien</h2>
+        </div>
+        <ul class="record-list">
+          {coalitionParties.map((party) => (
+            <li class="record-list__item"><span>{party}</span></li>
+          ))}
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section">
+      <div class="section-header">
+        <h2>Gemeinsame Leitlinien</h2>
+        <p>Die Koalition gibt den politischen Rahmen vor, innerhalb dessen Staatsrat, Themen und Rechtsordnung fortentwickelt werden.</p>
+      </div>
+    <ul class="record-list">
+      {priorities.map((priority) => <li class="record-list__item"><strong>{priority}</strong></li>)}
+    </ul>
+    <p class="section-link-row">
+      <a class="inline-link" href={getActionPlanUrl()}>Zum 15-Punkte-Plan</a> ·{' '}
+      <a class="inline-link" href={getTopicsUrl()}>Zu Themen & Projekte</a>
+    </p>
+  </section>
+</BaseLayout>

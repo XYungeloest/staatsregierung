@@ -1,0 +1,81 @@
+---
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import type { ThemenModul } from '@ostrecht/shared/lib/portal/index.ts';
+
+interface Props {
+  module: ThemenModul;
+  referenceDate: string;
+}
+
+const { module, referenceDate } = Astro.props as Props;
+const formatDateRange = (date: string, endDate?: string) => endDate && endDate !== date
+  ? `${siteConfig.date.formatLong(date)} bis ${siteConfig.date.formatLong(endDate)}`
+  : siteConfig.date.formatLong(date);
+const timelineState = (date: string, endDate?: string) => {
+  if ((endDate ?? date) < referenceDate) return { className: 'completed', label: 'Erreicht' };
+  if (date > referenceDate) return { className: 'upcoming', label: 'Bevorstehend' };
+  return { className: 'current', label: 'Aktuell' };
+};
+---
+
+<section id={module.id} class:list={['section', 'topic-module', `topic-module--${module.type}`]} aria-labelledby={`${module.id}-title`} data-topic-module={module.type}>
+  <div class="section-header topic-module__header">
+    <h2 id={`${module.id}-title`}>{module.title}</h2>
+    {module.intro ? <p>{module.intro}</p> : null}
+  </div>
+
+  {module.type === 'questions' ? (
+    <ol class="topic-question-grid">
+      {module.items.map((item) => (
+        <li>
+          <span class="topic-question__number" aria-hidden="true">{item.number}</span>
+          <div><h3>{item.title}</h3><p>{item.text}</p></div>
+        </li>
+      ))}
+    </ol>
+  ) : null}
+
+  {module.type === 'timeline' ? (
+    <ol class="topic-process-timeline">
+      {module.items.map((item) => {
+        const state = timelineState(item.date, item.endDate);
+        return (
+          <li class:list={[`topic-process-timeline__item--${state.className}`]}>
+            <div class="topic-process-timeline__marker" aria-hidden="true"></div>
+            <div class="topic-process-timeline__content">
+              <div class="topic-process-timeline__meta">
+                <time datetime={item.date}>{formatDateRange(item.date, item.endDate)}</time>
+                <span>{state.label}</span>
+              </div>
+              <h3>{item.title}</h3>
+              <p>{item.text}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  ) : null}
+
+  {module.type === 'facts' ? (
+    <dl class="topic-data-grid">
+      {module.items.map((item) => (
+        <div><dt>{item.label}</dt><dd>{item.value}</dd>{item.note ? <p>{item.note}</p> : null}</div>
+      ))}
+    </dl>
+  ) : null}
+
+  {module.type === 'comparison' ? (
+    <div class="topic-comparison" role="region" aria-label={module.title}>
+      <div class="topic-comparison__head" aria-hidden="true">
+        <span></span><strong>{module.beforeLabel}</strong><strong>{module.afterLabel}</strong>
+      </div>
+      {module.items.map((item) => (
+        <div class="topic-comparison__row">
+          <h3>{item.label}</h3>
+          <div><span>{module.beforeLabel}</span><p>{item.before}</p></div>
+          <div><span>{module.afterLabel}</span><p>{item.after}</p></div>
+        </div>
+      ))}
+    </div>
+  ) : null}
+</section>

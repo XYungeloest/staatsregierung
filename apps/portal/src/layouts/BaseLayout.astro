@@ -1,0 +1,359 @@
+---
+import '@ostrecht/shared/styles/global.css';
+import AnalyticsConsentBanner from '@ostrecht/shared/components/analytics/AnalyticsConsentBanner.astro';
+import PageHead from '@ostrecht/shared/components/PageHead.astro';
+import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+import ServiceBand from '../components/portal/ServiceBand.astro';
+import { isAnalyticsEnabled } from '@ostrecht/shared/config/analytics.ts';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import type { SeoBreadcrumbItem, SeoImage, StructuredData } from '@ostrecht/shared/lib/seo/index.ts';
+import {
+  getHomeUrl,
+  getLawIndexUrl,
+  getLawPublicationsUrl,
+  getLawReferencesUrl,
+  getLawSearchUrl,
+  getPortalSearchUrl,
+  getSiteUrl,
+} from '@ostrecht/shared/lib/portal/routes.ts';
+
+interface Props {
+  title: string;
+  description?: string;
+  scripts?: ('portal-modules' | 'holdings-navigator')[];
+  breadcrumbs?: SeoBreadcrumbItem[];
+  structuredData?: StructuredData | StructuredData[];
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  ogImage?: SeoImage;
+  mainWidth?: 'contained' | 'full';
+}
+
+const {
+  title,
+  description = siteConfig.seo.defaultDescription,
+  scripts = [],
+  breadcrumbs = [],
+  structuredData,
+  noindex = false,
+  ogType = 'website',
+  ogImage = siteConfig.seo.defaultSocialImage,
+  mainWidth = 'contained',
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+const base = import.meta.env.BASE_URL;
+const smallFlagAssetUrl = `${base}${siteConfig.officialFlagSmallAssetPath.replace(/^\//, '')}`;
+const coatOfArmsAssetUrl = `${base}${siteConfig.officialCoatOfArmsAssetPath.replace(/^\//, '')}`;
+const analyticsEnabled = isAnalyticsEnabled();
+const loadPortalModules = scripts.includes('portal-modules');
+const loadHoldingsNavigator = scripts.includes('holdings-navigator');
+
+function getPathname(href: string): string {
+  return new URL(href, Astro.url).pathname;
+}
+
+function isActivePath(targetPath: string, exact = false): boolean {
+  if (targetPath === '/') {
+    return currentPath === '/';
+  }
+
+  return exact
+    ? currentPath === targetPath
+    : currentPath === targetPath || currentPath.startsWith(targetPath);
+}
+
+const mainNavTargets = siteConfig.mainNavigation.map((entry) => {
+  const href = getSiteUrl(entry.pathKey);
+
+  return {
+    href,
+    label: entry.label,
+    pathname: getPathname(href),
+  };
+});
+const activeMainNavPath = mainNavTargets
+  .filter((link) => isActivePath(link.pathname))
+  .sort((left, right) => right.pathname.length - left.pathname.length)[0]?.pathname;
+const mainNavLinks = mainNavTargets.map(({ pathname, ...link }) => ({
+  ...link,
+  isActive: pathname === activeMainNavPath,
+}));
+
+const serviceLinks = [
+  { href: getHomeUrl(), label: 'Startseite' },
+  ...siteConfig.serviceNavigation.map((entry) => ({
+    href: getSiteUrl(entry.pathKey),
+    label: entry.label,
+  })),
+].map((entry) => ({
+  ...entry,
+  isActive: isActivePath(getPathname(entry.href), true),
+}));
+
+const utilityNavLinks = siteConfig.serviceNavigation.map((entry) => {
+  const href = getSiteUrl(entry.pathKey);
+
+  return {
+    href,
+    label: entry.label,
+    isActive: isActivePath(getPathname(href), true),
+  };
+});
+
+const headerAccessLinks = utilityNavLinks.filter((link) =>
+  ['Leichte Sprache', 'Gebärdensprache'].includes(link.label),
+);
+
+const homeNavLink = {
+  href: getHomeUrl(),
+  label: 'Startseite',
+  isActive: currentPath === '/',
+};
+
+const footerPortalLinks = mainNavLinks;
+
+const footerServiceLinks = [
+  { href: getPortalSearchUrl(), label: 'Portalsuche' },
+  { href: getSiteUrl('serviceOverview'), label: 'Übersicht' },
+  { href: getSiteUrl('contact'), label: 'Kontakt' },
+  { href: getSiteUrl('career'), label: 'Karriere' },
+  { href: getSiteUrl('publications'), label: 'Publikationen' },
+  { href: getSiteUrl('easyLanguage'), label: 'Leichte Sprache' },
+  { href: getSiteUrl('signLanguage'), label: 'Gebärdensprache' },
+  { href: getSiteUrl('accessibility'), label: 'Barrierefreiheit' },
+].map((entry) => ({
+  ...entry,
+  isActive: isActivePath(getPathname(entry.href), true),
+}));
+
+const footerLegalLinks = [
+  { href: getLawSearchUrl(), label: 'Rechtssuche' },
+  { href: getLawIndexUrl(), label: 'Alphabetischer Index' },
+  { href: getLawReferencesUrl(), label: 'Fundstellennachweise' },
+  { href: getLawPublicationsUrl(), label: 'Verkündungen' },
+  { href: getSiteUrl('faq'), label: 'FAQ' },
+  { href: getSiteUrl('imprint'), label: 'Impressum' },
+  { href: getSiteUrl('privacy'), label: 'Datenschutz' },
+  { href: getSiteUrl('accessibility'), label: 'Erklärung zur Barrierefreiheit' },
+].map((entry) => ({
+  ...entry,
+  isActive: isActivePath(getPathname(entry.href), true),
+}));
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <PageHead {title} {description} {breadcrumbs} {structuredData} {noindex} {ogType} {ogImage} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+    <div class="page-shell">
+      <Fragment>
+          <div class="site-notice" role="note" aria-label="Hinweis zum Portal">
+            <div class="container site-notice__inner">
+              <div class="site-notice__flag">
+                <img
+                  src={smallFlagAssetUrl}
+                  alt=""
+                  width="480"
+                  height="288"
+                />
+                <span class="site-notice__flag-text" aria-hidden="true" hidden>
+                  {siteConfig.officialFlagText}
+                </span>
+              </div>
+              <p>{siteConfig.simulationNotice}</p>
+            </div>
+          </div>
+
+          <header class="site-header">
+            <div class="container site-header__main">
+              <div class="site-branding">
+                <a class="site-wordmark" href={getHomeUrl()} aria-label="Startseite Freistaat Ostdeutschland">
+                  <span class="site-wordmark__media" aria-hidden="true">
+                    <img src={coatOfArmsAssetUrl} alt="" width="596" height="694" />
+                  </span>
+                  <span class="site-wordmark__text">
+                    <span class="site-title">Freistaat<br />Ostdeutschland</span>
+                    <span class="site-kicker">{siteConfig.authorityName}</span>
+                  </span>
+                </a>
+              </div>
+
+              <nav class="site-header__nav site-nav" aria-label="Hauptnavigation">
+                <a
+                  class="site-nav__home"
+                  href={homeNavLink.href}
+                  aria-label={homeNavLink.label}
+                  aria-current={homeNavLink.isActive ? 'page' : undefined}
+                >
+                  <PortalIcon name="home" />
+                </a>
+                {mainNavLinks.map((link) => (
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+
+              <div class="site-header__tools">
+                <form
+                  class="header-search"
+                  action={getPortalSearchUrl()}
+                  method="get"
+                  role="search"
+                  aria-label="Portalsuche"
+                >
+                  <label class="visually-hidden" for="header-portal-search">{siteConfig.searchLabel}</label>
+                  <div class="header-search__control">
+                    <input
+                      id="header-portal-search"
+                      type="search"
+                      name="q"
+                      autocomplete="off"
+                      placeholder="Suche auf der Website"
+                    />
+                    <button type="submit" aria-label="Suche starten"><PortalIcon name="search" /></button>
+                  </div>
+                </form>
+                <nav class="header-access-links" aria-label="Barrierearme Zugänge">
+                  {headerAccessLinks.map((link) => (
+                    <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                      <PortalIcon name={link.label === 'Leichte Sprache' ? 'easy-language' : 'sign-language'} />
+                      <span>{link.label}</span>
+                    </a>
+                  ))}
+                </nav>
+              </div>
+
+              <div class="site-mobile-actions">
+                <a class="site-mobile-actions__search" href={getPortalSearchUrl()} aria-label="Portalsuche öffnen">
+                  <PortalIcon name="search" />
+                </a>
+                <details class="mobile-nav">
+                  <summary class="mobile-nav__summary"><PortalIcon name="menu" /><span>Menü</span></summary>
+                  <div class="mobile-nav__panel">
+                    <form
+                      class="header-search header-search--mobile"
+                      action={getPortalSearchUrl()}
+                      method="get"
+                      role="search"
+                      aria-label="Mobile Portalsuche"
+                    >
+                      <label for="mobile-portal-search">Portal durchsuchen</label>
+                      <div class="header-search__control">
+                        <input id="mobile-portal-search" type="search" name="q" autocomplete="off" placeholder={siteConfig.searchPlaceholder} />
+                        <button type="submit"><PortalIcon name="search" /><span>Suchen</span></button>
+                      </div>
+                    </form>
+                    <div class="mobile-nav__group">
+                      <p class="eyebrow">Hauptbereiche</p>
+                      <nav class="mobile-nav__links" aria-label="Mobile Hauptnavigation">
+                        {[homeNavLink, ...mainNavLinks].map((link) => (
+                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                        ))}
+                      </nav>
+                    </div>
+                    <div class="mobile-nav__group">
+                      <p class="eyebrow">Service & Hilfe</p>
+                      <nav class="mobile-nav__links mobile-nav__links--utility" aria-label="Mobile Servicenavigation">
+                        {serviceLinks.slice(1).map((link) => (
+                          <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+                        ))}
+                      </nav>
+                    </div>
+                  </div>
+                </details>
+              </div>
+            </div>
+          </header>
+      </Fragment>
+
+      <main
+        id="main-content"
+        class:list={['site-main', mainWidth === 'contained' ? 'container' : 'site-main--full']}
+      >
+        <slot />
+      </main>
+
+      <ServiceBand />
+
+      <footer class="site-footer" data-visual-section="global-footer">
+        <div class="container site-footer__inner">
+          <div class="site-footer__grid">
+            <section class="site-footer__section site-footer__identity">
+              <a class="site-footer__wordmark" href={getHomeUrl()}>
+                <img src={coatOfArmsAssetUrl} alt="" width="598" height="695" />
+                <span>Freistaat<br />Ostdeutschland</span>
+              </a>
+              <p>{siteConfig.footerNote}</p>
+              <p class="site-footer__simulation">{siteConfig.simulationNotice}</p>
+            </section>
+
+            <section class="site-footer__section">
+              <h2>Portalbereiche</h2>
+              <nav class="footer-nav" aria-label="Portalbereiche">
+                {footerPortalLinks.map((link) => (
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </section>
+
+            <section class="site-footer__section">
+              <h2>Service & Zugänge</h2>
+              <nav class="footer-nav" aria-label="Servicelinks im Footer">
+                {footerServiceLinks.map((link) => (
+                  <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </section>
+
+            <section class="site-footer__section site-footer__contact">
+              <h2>Kontakt</h2>
+              <p>{siteConfig.contact.addressLines.join(', ')}</p>
+              <p><a href={`tel:${siteConfig.contact.citizenService.phone.replace(/\s+/g, '')}`}>{siteConfig.contact.citizenService.phone}</a></p>
+              <p><a href={`mailto:${siteConfig.contact.citizenService.email}`}>{siteConfig.contact.citizenService.email}</a></p>
+            </section>
+          </div>
+          <div class="site-footer__bottom">
+            <nav class="site-footer__legal" aria-label="Rechtliche Hinweise und weitere Hilfe">
+              {footerLegalLinks.map((link) => (
+                <a href={link.href} aria-current={link.isActive ? 'page' : undefined}>{link.label}</a>
+              ))}
+            </nav>
+            {analyticsEnabled ? (
+              <button type="button" class="text-link-button" data-analytics-consent-reset>
+                Datenschutzeinstellungen
+              </button>
+            ) : null}
+          </div>
+        </div>
+      </footer>
+    </div>
+    {analyticsEnabled ? <AnalyticsConsentBanner /> : null}
+    {analyticsEnabled ? (
+      <script>
+        import '@ostrecht/shared/scripts/analytics-consent.ts';
+      </script>
+    ) : null}
+    {loadPortalModules ? (
+      <script>
+        import '@ostrecht/shared/scripts/portal-modules.ts';
+      </script>
+    ) : null}
+    {loadHoldingsNavigator ? (
+      <script>
+        import '../scripts/holdings-navigator.ts';
+      </script>
+    ) : null}
+    <script>
+      import '@ostrecht/shared/scripts/global.ts';
+    </script>
+  </body>
+</html>

@@ -63,7 +63,7 @@ verwandte Normen, Themen, Pressemitteilungen sowie mittelbare Auswirkungen und Q
 prüfen. Bestätigtes Kontextwissen wird mit Quellen und Gültigkeitszeitraum in den Wissenshub
 überführt. Ungeprüftes Gesprächswissen verbleibt in `knowledge/conversation-candidates.json`.
 
-Der vollständige Lauf prüft Content, Wissenshub, Unit-Tests, Astro/TypeScript und Editorial Worker,
-baut beide Anwendungen einmal und prüft danach Links, SEO sowie repräsentative Chromium- und
+Der vollständige Lauf prüft Content, Wissenshub, Unit-Tests und Astro/TypeScript, baut beide
+Anwendungen einmal und prüft danach Links, SEO sowie repräsentative Chromium- und
 Accessibility-Smokes gegen diesen Build. Visuelle Baselines werden bei betroffenen Oberflächen
 separat und erst nach Sichtprüfung aktualisiert.

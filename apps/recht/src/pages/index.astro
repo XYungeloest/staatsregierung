@@ -1,0 +1,234 @@
+---
+import LawLayout from '../layouts/LawLayout.astro';
+import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
+import {
+  formatDate,
+  formatNormType,
+  getAdministrativeRulesUrl,
+  getIndexUrl,
+  getLawDevelopmentOverviewUrl,
+  getLawPortalUrl,
+  getLawsUrl,
+  getNormHistoryUrl,
+  getNormUrl,
+  getPublicationLabel,
+  getPublicationUrl,
+  getPublicationsUrl,
+  getReferencesUrl,
+  getRegulationsUrl,
+  getSearchUrl,
+  getSubjectAreaGroups,
+  getSubjectsUrl,
+  getSubjectSlug,
+  getBerlinCalendarDate,
+  getApplicableVersion,
+  getNormVersionIdentity,
+  loadAllVerkuendungen,
+  partitionDatedEntries,
+  toDisplayText,
+} from '@ostrecht/shared/lib/norms/index.ts';
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+
+const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
+const subjectAreas = getSubjectAreaGroups(norms).slice(0, 6);
+const homeCalendarDate = getBerlinCalendarDate();
+const HOME_CHANGE_CANDIDATE_LIMIT = 12;
+const HOME_CURRENT_CHANGE_LIMIT = 5;
+const HOME_FUTURE_CHANGE_LIMIT = 3;
+const changeEntries = norms
+  .flatMap((norm) => norm.history.entries
+    .filter((entry) => entry.type === 'amendment' || entry.type === 'repeal')
+    .map((entry) => ({ norm, entry })))
+  .sort((left, right) => right.entry.date.localeCompare(left.entry.date));
+const { current: currentChangeCandidates, future: futureChangeCandidates } = partitionDatedEntries(
+  changeEntries.map(({ norm, entry }) => ({ norm, entry, date: entry.date })),
+  homeCalendarDate,
+);
+const latestChanges = currentChangeCandidates.slice(0, HOME_CHANGE_CANDIDATE_LIMIT);
+const futureChanges = futureChangeCandidates
+  .sort((left, right) => left.date.localeCompare(right.date))
+  .slice(0, HOME_CHANGE_CANDIDATE_LIMIT);
+const latestPublications = [...publications]
+  .sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'))
+  .slice(0, 4);
+const homeSearchTypes = [...new Set(norms.map((norm) => norm.meta.type))]
+  .sort((left, right) => formatNormType(left).localeCompare(formatNormType(right), 'de'));
+const searchSuggestionsUrl = `${import.meta.env.BASE_URL}search-suggestions.json`;
+const quickAccess = [
+  { title: 'Gesetze A–Z', text: 'Alphabetische Übersicht', href: getIndexUrl(), icon: 'law' as const },
+  { title: 'Neue Regelungen', text: 'Nach Rechtsstand sortiert', href: `${getSearchUrl()}?sort=rechtsstand`, icon: 'calendar' as const },
+  { title: 'Änderungen', text: 'Rechtsentwicklung nachvollziehen', href: getLawDevelopmentOverviewUrl(), icon: 'arrow' as const },
+  { title: 'Verkündungsblätter', text: 'Ausgaben und Fundstellen', href: getPublicationsUrl(), icon: 'law' as const },
+  { title: 'Themen', text: 'Recht nach Sachgebieten', href: getSubjectsUrl(), icon: 'topics' as const },
+];
+---
+
+<LawLayout
+  title="OstRecht"
+  description="OstRecht bietet die Recherche in geltenden und historischen Normfassungen, Fundstellen und Verkündungen des Ostdeutschen Freistaates."
+  breadcrumbs={[{ label: 'OstRecht', href: getLawPortalUrl() }]}
+>
+  <section class="law-home-hero" aria-labelledby="law-home-title">
+    <div class="law-home-hero__intro">
+      <p class="eyebrow">Rechtsportal des Ostdeutschen Freistaates</p>
+      <h1 id="law-home-title">Das Recht des Freistaates Ostdeutschland</h1>
+      <p>Gesetze, Verordnungen und Verwaltungsvorschriften recherchieren, aktuelle Fassungen lesen und Änderungen nachvollziehen.</p>
+    </div>
+    <div class="law-home-hero__search">
+      <form class="law-global-search" action={getSearchUrl()} method="get" role="search">
+        <label class="visually-hidden" for="law-home-search">Gesetz, Verordnung, Paragraph oder Stichwort suchen</label>
+        <div class="law-global-search__control">
+          <PortalIcon name="search" />
+          <input id="law-home-search" type="search" name="q" autocomplete="off" placeholder="Gesetz, Verordnung, Paragraph oder Stichwort suchen" data-law-norm-autocomplete data-law-suggestions-url={searchSuggestionsUrl} />
+          <label class="visually-hidden" for="law-home-type">Inhaltsart</label>
+          <select id="law-home-type" name="type">
+            <option value="">Alle Inhalte</option>
+            {homeSearchTypes.map((type) => <option value={type}>{formatNormType(type)}</option>)}
+          </select>
+          <button type="submit">Suchen</button>
+        </div>
+      </form>
+      <nav class="law-search-chips" aria-label="Direkte Suchfilter">
+        <a aria-current="page" href={getSearchUrl()}>Alle Inhalte</a>
+        <a href={`${getSearchUrl()}?type=gesetz`}>Gesetze</a>
+        <a href={`${getSearchUrl()}?type=verordnung`}>Verordnungen</a>
+        <a href={`${getSearchUrl()}?type=verwaltungsvorschrift`}>Verwaltungsvorschriften</a>
+        <a href={`${getSearchUrl()}?type=foerderrichtlinie`}>Förderrichtlinien</a>
+        <a href={getPublicationsUrl()}>Verkündungsblätter</a>
+        <a href={getSearchUrl()}>Mehr Filter</a>
+      </nav>
+      <p class="law-home-hero__inventory">{currentNorms.length} geltende Vorschriften und {publications.length} erschlossene Ausgaben im Bestand.</p>
+    </div>
+  </section>
+
+  <nav class="law-quick-access" aria-label="Schnellzugriffe" data-visual-section="law-research-paths">
+    {quickAccess.map((entry) => (
+      <a href={entry.href}>
+        <PortalIcon name={entry.icon} />
+        <span><strong>{entry.title}</strong><small>{entry.text}</small></span>
+        <PortalIcon name="arrow" />
+      </a>
+    ))}
+  </nav>
+
+  <div class="law-home-dashboard">
+    <div class="law-home-dashboard__changes">
+      <section class="law-dashboard-card law-dashboard-card--changes" data-visual-section="law-latest-status">
+        <header class="law-dashboard-card__header">
+          <div><PortalIcon name="arrow" /><h2>Aktuelle Änderungen</h2></div>
+          <a href={getLawDevelopmentOverviewUrl()}>Alle anzeigen</a>
+        </header>
+        <ol class="law-dashboard-list" data-law-current-change-list>
+          {latestChanges.map(({ norm, entry }, index) => {
+            const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, homeCalendarDate));
+            return (
+            <li
+              data-law-change
+              data-effective-date={entry.date}
+              data-current-label={formatNormType(norm.meta.type)}
+              data-future-label="tritt künftig in Kraft"
+              hidden={index >= HOME_CURRENT_CHANGE_LIMIT}
+            >
+              <time datetime={entry.date}>{formatDate(entry.date)}</time>
+              <span class="law-type-label" data-law-change-label>{formatNormType(norm.meta.type)}</span>
+              <div>
+                <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h3>
+                <p>{toDisplayText(entry.title)}</p>
+                <a class="law-row-link" href={getNormHistoryUrl(norm.meta.slug)}>Änderungsverlauf</a>
+              </div>
+            </li>
+            );
+          })}
+        </ol>
+      </section>
+
+      {futureChanges.length > 0 ? (
+        <section class="law-dashboard-card law-dashboard-card--future" data-visual-section="law-future-changes">
+          <header class="law-dashboard-card__header">
+            <div><PortalIcon name="calendar" /><h2>Künftige Änderungen</h2></div>
+          </header>
+          <p class="law-dashboard-card__future-intro">Vorschriften, die nach dem aktuellen Rechtsstand in Kraft treten.</p>
+          <ol class="law-dashboard-list law-dashboard-list--future" data-law-future-change-list>
+            {futureChanges.map(({ norm, entry }, index) => {
+              const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, homeCalendarDate));
+              return (
+              <li
+                data-law-change
+                data-effective-date={entry.date}
+                data-current-label={formatNormType(norm.meta.type)}
+                data-future-label="tritt künftig in Kraft"
+                hidden={index >= HOME_FUTURE_CHANGE_LIMIT}
+              >
+                <time datetime={entry.date}>{formatDate(entry.date)}</time>
+                <span class="law-type-label law-type-label--future" data-law-change-label>tritt künftig in Kraft</span>
+                <div>
+                  <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.shortTitle)}</a></h3>
+                  <p>{toDisplayText(entry.title)}</p>
+                  <a class="law-row-link" href={getNormHistoryUrl(norm.meta.slug)}>Änderungsverlauf</a>
+                </div>
+              </li>
+              );
+            })}
+          </ol>
+        </section>
+      ) : null}
+    </div>
+
+    <section class="law-dashboard-card law-dashboard-card--publications">
+      <header class="law-dashboard-card__header">
+        <div><PortalIcon name="law" /><h2>Neu verkündet</h2></div>
+        <a href={getPublicationsUrl()}>Alle anzeigen</a>
+      </header>
+      <ol class="law-dashboard-list law-dashboard-list--publications">
+        {latestPublications.map((publication) => (
+          <li>
+            <time datetime={publication.date}>{formatDate(publication.date)}</time>
+            <span class="law-type-label">{publication.publication}</span>
+            <div>
+              <h3><a href={getPublicationUrl(publication.slug)}>{toDisplayText(publication.title)}</a></h3>
+              <p>{getPublicationLabel(publication)} · {publication.entries.length} {publication.entries.length === 1 ? 'Eintrag' : 'Einträge'}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <a class="law-card-footer-link" href={getPublicationsUrl()}>Zum Verkündungsarchiv <PortalIcon name="arrow" /></a>
+    </section>
+
+    <div class="law-home-dashboard__side">
+      <section class="law-dashboard-card law-topic-card">
+        <header class="law-dashboard-card__header">
+          <div><PortalIcon name="topics" /><h2>Themen</h2></div>
+        </header>
+        <ul>
+          {subjectAreas.map((area) => (
+            <li><a href={`${getSubjectsUrl()}#subject-area-${getSubjectSlug(area.name)}`}>{area.name}<span>{area.normCount}</span></a></li>
+          ))}
+        </ul>
+        <a class="law-card-footer-link" href={getSubjectsUrl()}>Alle Sachgebiete <PortalIcon name="arrow" /></a>
+      </section>
+
+      <section class="law-service-card">
+        <h2>Rechtsportal-Funktionen</h2>
+        <a href={`${getSearchUrl()}?versionScope=current`}><strong>Konsolidierte Fassungen</strong><span>Zum Stichtag geltende Normtexte</span></a>
+        <a href={getLawDevelopmentOverviewUrl()}><strong>Änderungsverlauf</strong><span>Fassungen und Änderungen im Zeitverlauf</span></a>
+        <a href={getReferencesUrl()}><strong>PDF und HTML</strong><span>Fundstellen und aufbereitete Normtexte</span></a>
+      </section>
+    </div>
+  </div>
+
+  <section class="law-trust-strip" aria-label="Merkmale des Rechtsportals">
+    <div><strong>Amtlich</strong><span>Auf Grundlage belegter Verkündungen.</span></div>
+    <div><strong>Aktuell</strong><span>Konsolidierte Fassungen und Änderungen.</span></div>
+    <div><strong>Verständlich</strong><span>Strukturierte Normdarstellung.</span></div>
+    <div><strong>Zugänglich</strong><span>Responsiv und barrierearm.</span></div>
+  </section>
+
+  <nav class="law-home-secondary-links" aria-label="Weitere Recherchewege">
+    <a href={getLawsUrl()}>Gesetze</a>
+    <a href={getRegulationsUrl()}>Verordnungen</a>
+    <a href={getAdministrativeRulesUrl()}>Verwaltungsvorschriften</a>
+    <a href={getIndexUrl()}>A–Z</a>
+  </nav>
+  <script>import '../scripts/law-future-changes.ts';</script>
+</LawLayout>

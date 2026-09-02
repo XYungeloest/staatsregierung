@@ -46,7 +46,7 @@ const strictMode = args.includes('--strict');
 const quietMode = args.includes('--quiet');
 const allowExistingUpdate = args.includes('--update-existing');
 const selectedFiles = new Set(allValuesAfter('--file').flatMap((value) => value.split(',')).map((value) => basename(value.trim())));
-const editorialConfig = JSON.parse(await readFile(resolve(ROOT, 'src/config/editorial.json'), 'utf8'));
+const editorialConfig = JSON.parse(await readFile(resolve(ROOT, 'packages/shared/src/config/editorial.json'), 'utf8'));
 const asOf = valueAfter('--as-of') ?? editorialConfig.referenceDate;
 const correctionBundles = await loadCorrectionBundles(ROOT);
 const consolidationSources = JSON.parse(await readFile(resolve(ROOT, 'data/recht/consolidation-sources.json'), 'utf8'));
@@ -1068,6 +1068,7 @@ function buildGmblAgreementRecord(parsed) {
 
 function buildStAnZOHousingGuidelineRecord(parsed) {
   const citation = 'Bekanntmachung vom 8. August 2026 (StAnzO. 2026 Nr. 15 S. 2)';
+  const effectiveDate = '2026-09-01';
   return {
     source: parsed.fileName,
     issue: parsed.issue,
@@ -1089,26 +1090,26 @@ function buildStAnZOHousingGuidelineRecord(parsed) {
       successor: null,
       relatedNorms: ['gemeingut-wohnen-gesetz'],
       summary: 'Legt die gemeinwirtschaftliche Kostenmiete für Gemeingut Wohnen fest und senkt die am 31. August 2026 geschuldeten Nettokaltmieten zum 1. September 2026 von Amts wegen um 25 Prozent.',
-      status: 'future-effective',
+      status: effectiveDate > asOf ? 'future-effective' : 'in-force',
       documentDate: '2026-08-08',
       publicationDate: '2026-08-08',
-      effectiveDate: '2026-09-01',
+      effectiveDate,
       dateNote: 'Die Bekanntmachung wurde am 8. August 2026 veröffentlicht; die Leitlinie und die Mietsenkung treten am 1. September 2026 in Kraft.',
       sourceReferences: STANZO_HOUSING_SOURCE_REFERENCES,
     },
     history: {
-      initialVersionId: '2026-09-01',
+      initialVersionId: effectiveDate,
       entries: [{
         date: '2026-08-08',
         type: 'initial',
         title: 'Bekanntmachung im Staatsanzeiger.',
         citation,
-        affectingVersionId: '2026-09-01',
+        affectingVersionId: effectiveDate,
       }],
     },
     versions: [{
-      versionId: '2026-09-01',
-      validFrom: '2026-09-01',
+      versionId: effectiveDate,
+      validFrom: effectiveDate,
       validTo: null,
       isCurrent: true,
       citation,

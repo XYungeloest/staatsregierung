@@ -276,9 +276,24 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
   const lawType = page.locator('input[name="type"][value="gesetz"]');
   await expect(lawType).toBeChecked();
+  await expect(page.locator('select[name="type"]')).toHaveCount(0);
   await expect(page.getByRole('button', { name: /Filter entfernen: Normtyp: Gesetz/u })).toBeVisible();
 
+  const regulationType = page.locator('input[name="type"][value="verordnung"]');
+  await lawType.uncheck();
+  await regulationType.check();
+  await expect(page).toHaveURL(/type=verordnung/u);
+  await expect(page).not.toHaveURL(/type=gesetz/u);
+  await expect(lawType).not.toBeChecked();
+  await expect(regulationType).toBeChecked();
+
+  await lawType.check();
+  await expect(page.locator('input[name="type"]:checked')).toHaveCount(2);
+  await expect(page).toHaveURL(/type=verordnung.*type=gesetz|type=gesetz.*type=verordnung/u);
+
   const inForce = page.locator('input[name="status"][value="in-force"]');
+  await page.locator('[data-search-filter-panel="more"] > summary').click();
+  await expect(inForce).toBeVisible();
   await inForce.check();
   await expect(page).toHaveURL(/type=gesetz.*status=in-force|status=in-force.*type=gesetz/u);
   await page.reload();
@@ -296,14 +311,12 @@ siteTest(['law'])('OstRecht-Suche hält URL, Filterchips und Browserverlauf sync
   await expect(page.locator('[data-search-summary]')).toContainText('Treffer');
 });
 
-siteTest(['law'])('exakter ÖPNV-Änderungsvorschlag aktiviert den nötigen Suchfilter', async ({ page }) => {
-  await page.goto(lawUrl('/suche/'));
-  const query = page.locator('[data-search-query]');
-  await query.fill('Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr');
-  await page.getByLabel('Suchanfrage und Filter').getByRole('button', { name: 'Suchen' }).click();
-  await expect(page.locator('[data-search-filter="includeAmendments"]')).toBeChecked();
-  await expect(page).toHaveURL(/includeAmendments=1/u);
-  await expect(page.locator('[data-search-results]')).toContainText('Erstes Gesetz zur Änderung des Gesetzes über den öffentlichen Personennahverkehr');
+siteTest(['law'])('starke Änderungsvorschriften-Titel bleiben ohne Volltextfilter auffindbar', async ({ page }) => {
+  await page.goto(lawUrl('/suche/?q=erstes%20Gesetz'));
+  await expect(page.locator('[data-search-filter="includeAmendments"]')).not.toBeChecked();
+  await expect(page).not.toHaveURL(/includeAmendments=1/u);
+  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
+  await expect(page.locator('[data-search-results] .search-hit h3').first()).toHaveText(/^Erstes Gesetz/u);
 });
 
 siteTest(['law'])('Normverzeichnis stellt Filter, leere Buchstaben und Browserverlauf gemeinsam wieder her', async ({ page }) => {
@@ -337,12 +350,26 @@ siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen fo
   await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/'));
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Gemeindeordnung für den Ostdeutschen Freistaat');
 
+  await page.addInitScript(() => {
+    const NativeDate = Date;
+    const fixedTime = new NativeDate('2026-09-01T10:00:00+02:00').valueOf();
+    class FixedDate extends NativeDate {
+      constructor(...args: unknown[]) {
+        super(args.length === 0 ? fixedTime : (Reflect.construct(NativeDate, args) as Date).valueOf());
+      }
+
+      static now() {
+        return fixedTime;
+      }
+    }
+    Object.defineProperty(window, 'Date', { configurable: true, value: FixedDate });
+  });
   await page.goto(lawUrl('/'));
-  await expect(page.getByRole('heading', { name: 'Künftige Änderungen' })).toBeVisible();
-  await expect(page.locator('.law-dashboard-card__future')).toContainText('tritt künftig in Kraft');
+  await expect(page.locator('[data-visual-section="law-future-changes"]')).toBeHidden();
+  await expect(page.locator('[data-law-current-change-list] [data-law-change][data-effective-date="2026-09-01"]').first()).toBeVisible();
 });
 
-siteTest(['law'])('Rechtssuche ist auf jeder OstRecht-Seite im Desktop-Kopf direkt nutzbar', async ({ page }) => {
+siteTest(['law'])('Einstiegssuchen bieten Normvorschläge, die Hauptsuche bleibt bei einer Trefferliste', async ({ page }) => {
   await page.goto(lawUrl('/norm/ostdeutsches-kulturpassgesetz/'));
   const search = page.locator('.law-header-search--compact');
   await expect(search).toBeVisible();
@@ -357,6 +384,12 @@ siteTest(['law'])('Rechtssuche ist auf jeder OstRecht-Seite im Desktop-Kopf dire
     search.getByRole('button', { name: 'Suchen' }).click(),
   ]);
   await expect(page.locator('[data-search-results]')).toContainText('Verfassung');
+
+  await page.goto(lawUrl('/suche/'));
+  const mainQuery = page.locator('[data-search-query]');
+  await mainQuery.fill('OstPVDG');
+  await expect(page.getByRole('listbox', { name: 'Vorschlagsliste für Normen' })).toHaveCount(0);
+  await expect(page.locator('[data-search-results] .search-hit').first()).toContainText('Polizeivollzugsdienst');
 });
 
 siteTest(['law'])('Normkopf unterscheidet allgemeinen und fassungsspezifischen Link und kennzeichnet Staatsportal-Bezüge', async ({ page }) => {

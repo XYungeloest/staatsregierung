@@ -2,15 +2,18 @@
 
 import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const target = process.argv[2];
 if (target !== 'portal' && target !== 'law') {
   throw new Error('Aufruf: node scripts/prepare-site-public.mjs <portal|law>');
 }
 
-const root = process.cwd();
+const root = fileURLToPath(new URL('..', import.meta.url));
 const sourceRoot = resolve(root, 'public');
-const outputRoot = resolve(root, '.site-public', target);
+const outputRoot = target === 'portal'
+  ? resolve(root, 'apps', 'portal', '.site-public')
+  : resolve(root, 'apps', 'recht', '.site-public');
 
 async function copy(relativePath) {
   const source = resolve(sourceRoot, relativePath);

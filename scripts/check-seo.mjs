@@ -5,17 +5,17 @@ const allSites = [
   {
     target: 'portal',
     name: 'Staatsportal',
-    root: 'dist/portal/client',
+    root: 'apps/portal/dist/client',
     origin: new URL(process.env.PORTAL_SITE_URL ?? 'https://freistaat-ostdeutschland.de').origin,
     siteName: 'Freistaat Ostdeutschland',
   },
   {
     target: 'law',
     name: 'OstRecht',
-    root: 'dist/law/client',
+    root: 'apps/recht/dist/client',
     origin: new URL(process.env.LAW_SITE_URL ?? 'https://recht.freistaat-ostdeutschland.de').origin,
     siteName: 'OstRecht – Rechtsportal des Ostdeutschen Freistaates',
-    normPattern: /^dist\/law\/client\/norm\/[^/]+\/index\.html$/u,
+    normPattern: /^apps\/recht\/dist\/client\/norm\/[^/]+\/index\.html$/u,
   },
 ];
 

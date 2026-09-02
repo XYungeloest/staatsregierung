@@ -1,0 +1,106 @@
+---
+import {
+  budgetTotals,
+  getBudgetShare,
+  type BudgetTaskArea,
+  type BudgetYear,
+} from '../../data/haushalt.ts';
+import { formatEuroAmount, formatEuroCompact, formatPercent } from '@ostrecht/shared/lib/portal/modules.ts';
+
+interface Props {
+  areas: BudgetTaskArea[];
+  year: BudgetYear;
+}
+
+const { areas, year } = Astro.props as Props;
+const total = budgetTotals[year].expenses;
+const areaShares = areas.map((area) => getBudgetShare(area.amounts[year], total) ?? 0);
+const chartLabel = areas
+  .map((area, index) => `${area.label}: ${formatPercent(areaShares[index])}`)
+  .join(', ');
+---
+
+<section class="budget-task-areas" data-visual-section="budget-task-areas" aria-labelledby={`aufgabenbereiche-${year}`}>
+  <div class="section-header section-header--compact">
+    <h3 id={`aufgabenbereiche-${year}`}>Wie verteilen sich die Ausgaben?</h3>
+    <p>Die zusammengefassten Aufgabenbereiche bilden gemeinsam 100&nbsp;% der Gesamtausgaben. Die Zuordnung dient der Orientierung und ist keine politische Rangfolge oder Bewertung der Mittelversorgung.</p>
+  </div>
+  <div class="budget-task-areas__chart">
+    <div class="budget-task-areas__summary">
+      <strong>Gesamtausgaben {year}</strong>
+      <span>{formatEuroCompact(total)} · 100&nbsp;%</span>
+    </div>
+    <div
+      class="budget-task-areas__stacked"
+      role="img"
+      aria-label={`Zusammensetzung der Gesamtausgaben ${year}: ${chartLabel}`}
+    >
+      {areas.map((_, index) => (
+        <span
+          class={`budget-task-areas__segment budget-task-areas__segment--${(index % 8) + 1}`}
+          style={`width: ${areaShares[index] * 100}%`}
+          aria-hidden="true"
+        ></span>
+      ))}
+    </div>
+    <ul class="budget-task-areas__legend" aria-label={`Aufgabenbereiche und ihre Anteile am Haushalt ${year}`}>
+      {areas.map((area, index) => (
+        <li class="budget-task-areas__legend-item">
+          <span class={`budget-task-areas__swatch budget-task-areas__swatch--${(index % 8) + 1}`} aria-hidden="true"></span>
+          <div>
+            <div class="budget-task-areas__legend-label">
+              <strong>{area.label}</strong>
+              <span>{formatPercent(areaShares[index])}</span>
+            </div>
+            <span class="budget-task-areas__legend-amount">{formatEuroCompact(area.amounts[year])}</span>
+            <p>{area.description}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="table-wrap" tabindex="0" role="region" aria-label={`Aufgabenbereiche des Haushalts ${year} als Tabelle`}>
+    <table class="data-table">
+      <caption>Aufgabenbereiche im Haushalt {year}</caption>
+      <thead><tr><th scope="col">Aufgabenbereich</th><th scope="col">Ausgaben</th><th scope="col">Anteil am Gesamthaushalt</th><th scope="col">Zugeordnete Einzelpläne</th></tr></thead>
+      <tbody>
+        {areas.map((area) => (
+          <tr>
+            <th scope="row">{area.label}</th>
+            <td>{formatEuroAmount(area.amounts[year])}</td>
+            <td>{formatPercent(getBudgetShare(area.amounts[year], total) ?? 0)}</td>
+            <td>{area.planNumbers.join(', ')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<style>
+  .budget-task-areas { display: grid; gap: 1.25rem; }
+  .budget-task-areas__chart { display: grid; gap: .8rem; }
+  .budget-task-areas__summary { display: flex; gap: 1rem; justify-content: space-between; align-items: baseline; }
+  .budget-task-areas__summary span { color: var(--color-text-muted); }
+  .budget-task-areas__stacked { display: flex; min-height: 2.25rem; overflow: hidden; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface-muted); }
+  .budget-task-areas__segment { display: block; flex: 0 0 auto; min-width: 0; border-right: 2px solid var(--color-surface); }
+  .budget-task-areas__segment:last-child { border-right: 0; }
+  .budget-task-areas__segment--1, .budget-task-areas__swatch--1 { background: var(--color-primary); }
+  .budget-task-areas__segment--2, .budget-task-areas__swatch--2 { background: #2f7f8b; }
+  .budget-task-areas__segment--3, .budget-task-areas__swatch--3 { background: #478c78; }
+  .budget-task-areas__segment--4, .budget-task-areas__swatch--4 { background: #719a69; }
+  .budget-task-areas__segment--5, .budget-task-areas__swatch--5 { background: #9ca15e; }
+  .budget-task-areas__segment--6, .budget-task-areas__swatch--6 { background: #bd8d4c; }
+  .budget-task-areas__segment--7, .budget-task-areas__swatch--7 { background: #c47057; }
+  .budget-task-areas__segment--8, .budget-task-areas__swatch--8 { background: #80688b; }
+  .budget-task-areas__legend { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 1rem; margin: 0; padding: 0; list-style: none; }
+  .budget-task-areas__legend-item { display: grid; grid-template-columns: .7rem minmax(0, 1fr); gap: .6rem; align-items: start; padding: .65rem .75rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); background: var(--color-surface); }
+  .budget-task-areas__swatch { display: block; width: .7rem; height: .7rem; margin-top: .25rem; border-radius: 2px; }
+  .budget-task-areas__legend-label { display: flex; gap: .75rem; justify-content: space-between; align-items: baseline; }
+  .budget-task-areas__legend-label span, .budget-task-areas__legend-amount, .budget-task-areas__legend-item p { color: var(--color-text-muted); }
+  .budget-task-areas__legend-label span { flex: 0 0 auto; }
+  .budget-task-areas__legend-amount { display: block; margin-top: .15rem; }
+  .budget-task-areas__legend-item p { margin: .35rem 0 0; }
+  @media (max-width: 45rem) { .budget-task-areas__legend { grid-template-columns: 1fr; } }
+  @media (max-width: 40rem) { .budget-task-areas__summary { display: grid; gap: .15rem; } }
+</style>

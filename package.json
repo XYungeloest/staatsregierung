@@ -2,15 +2,20 @@
   "name": "ostrecht-portal",
   "type": "module",
   "version": "0.0.1",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "engines": {
     "node": ">=22.12.0"
   },
   "scripts": {
-    "public:portal": "npm run holdings:check && node scripts/prepare-site-public.mjs portal",
-    "public:recht": "node scripts/prepare-site-public.mjs law",
-    "dev": "npm run public:portal && SITE_TARGET=portal astro dev",
+    "public:portal": "npm run public --workspace @ostrecht/portal",
+    "public:recht": "npm run public --workspace @ostrecht/recht",
+    "dev": "npm run dev --workspace @ostrecht/portal",
     "dev:portal": "npm run dev",
-    "dev:recht": "npm run public:recht && SITE_TARGET=law astro dev",
+    "dev:recht": "npm run dev --workspace @ostrecht/recht",
     "content:check": "npm run holdings:check && node scripts/import-normen.mjs --source-dir Gesetze --strict --quiet && node scripts/revosax-snapshot.mjs audit && node scripts/audit-consolidation.mjs --check && node --experimental-strip-types scripts/check-organization.ts && node scripts/check-content.mjs && node scripts/audit-norm-metadata.mjs && node scripts/check-topic-coverage.mjs && node scripts/knowledge.mjs check",
     "knowledge:check": "node scripts/knowledge.mjs check",
     "knowledge:build": "node scripts/knowledge.mjs build && npm run holdings:build",
@@ -33,12 +38,12 @@
     "test:parser": "node --test tests/norm-html-parser.test.mjs tests/norm-markdown-parser.test.mjs tests/import-audit.test.mjs tests/revosax-parser.test.mjs",
     "kreisreform:prepare": "node scripts/prepare-kreisreform-map.mjs",
     "images:generate": "node scripts/generate-responsive-images.mjs",
-    "check:portal": "npm run public:portal && SITE_TARGET=portal astro check",
-    "check:recht": "npm run public:recht && SITE_TARGET=law astro check",
+    "check:portal": "npm run check --workspace @ostrecht/portal",
+    "check:recht": "npm run check --workspace @ostrecht/recht",
     "check": "npm run check:portal && npm run check:recht",
     "test:unit": "node --experimental-strip-types --test tests/*.test.ts tests/*.test.mjs",
-    "build:portal": "npm run public:portal && SITE_TARGET=portal astro build && node scripts/stamp-build.mjs portal",
-    "build:recht": "npm run public:recht && SITE_TARGET=law astro build && node scripts/stamp-build.mjs law",
+    "build:portal": "npm run build --workspace @ostrecht/portal",
+    "build:recht": "npm run build --workspace @ostrecht/recht",
     "build": "npm run build:portal && npm run build:recht && npm run deploy:assets:check",
     "links:check": "npm run build && npm run test:links:run",
     "seo:check": "npm run build && npm run test:seo:run",
@@ -58,35 +63,25 @@
     "test:browsers:run": "playwright test tests/browser-smoke.spec.ts --config=playwright.quality.config.ts",
     "test:browsers:ci": "playwright test tests/browser-smoke.spec.ts --config=playwright.quality.config.ts --project=chromium",
     "preview": "npm run preview:portal",
-    "preview:portal": "SITE_TARGET=portal astro preview",
-    "preview:recht": "SITE_TARGET=law astro preview",
+    "preview:portal": "npm run preview --workspace @ostrecht/portal",
+    "preview:recht": "npm run preview --workspace @ostrecht/recht",
     "deploy": "npm run deploy:recht && npm run deploy:portal",
     "deploy:assets:check": "node scripts/check-deploy-assets.mjs",
-    "deploy:portal": "wrangler deploy --config wrangler.jsonc --env=\"\"",
-    "deploy:recht": "wrangler deploy --config wrangler.recht.jsonc --env=\"\"",
+    "deploy:portal": "npm run deploy --workspace @ostrecht/portal",
+    "deploy:recht": "npm run deploy --workspace @ostrecht/recht",
     "deploy:staging": "npm run deploy:recht:staging && npm run deploy:portal:staging",
-    "deploy:portal:staging": "wrangler deploy --config wrangler.jsonc --env staging",
-    "deploy:recht:staging": "wrangler deploy --config wrangler.recht.jsonc --env staging",
+    "deploy:portal:staging": "npm run deploy:staging --workspace @ostrecht/portal",
+    "deploy:recht:staging": "npm run deploy:staging --workspace @ostrecht/recht",
     "test:deployment": "node --test tests/deployment-smoke.test.mjs",
-    "test:deployment:production": "node scripts/check-deployment.mjs",
-    "editorial:dev": "wrangler dev --config wrangler.editorial.jsonc --env local",
-    "editorial:check": "wrangler deploy --dry-run --config wrangler.editorial.jsonc --env=\"\" --outdir .wrangler/editorial-dry-run",
-    "editorial:deploy": "wrangler deploy --config wrangler.editorial.jsonc --env=\"\"",
-    "astro": "astro"
+    "test:deployment:production": "node scripts/check-deployment.mjs"
   },
   "dependencies": {
-    "astro": "^7.2.1",
-    "leaflet": "^1.9.4",
     "parse5": "^8.0.1"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "@astrojs/cloudflare": "^14.2.1",
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.62.1",
-    "@types/leaflet": "^1.9.22",
-    "@types/node": "^25.9.5",
-    "polygon-clipping": "^0.15.7",
-    "wrangler": "^4.122.0"
+    "@types/node": "^26.4.1",
+    "polygon-clipping": "^0.15.7"
   }
 }

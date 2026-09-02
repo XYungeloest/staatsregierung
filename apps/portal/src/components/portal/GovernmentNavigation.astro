@@ -1,0 +1,26 @@
+---
+import SectionNavigation from './SectionNavigation.astro';
+import {
+  getActionPlanUrl,
+  getCabinetUrl,
+  getCoalitionUrl,
+  getGovernmentMembersUrl,
+  getGovernmentUrl,
+  getHoldingsUrl,
+  getMinisterPresidentUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+---
+
+<SectionNavigation
+  label="Staatsrat"
+  variant="government"
+  items={[
+    { label: 'Überblick', href: getGovernmentUrl() },
+    { label: 'Staatsrat & Geschäftsbereiche', href: getCabinetUrl() },
+    { label: 'Beteiligungen', href: getHoldingsUrl() },
+    { label: 'Mitglieder', href: getGovernmentMembersUrl() },
+    { label: 'Staatspräsident', href: getMinisterPresidentUrl() },
+    { label: 'Koalition', href: getCoalitionUrl() },
+    { label: '15-Punkte-Plan', href: getActionPlanUrl() },
+  ]}
+/>

@@ -1014,7 +1014,7 @@
     {
       "id": "source-editorial-config",
       "type": "structured-content",
-      "path": "src/config/editorial.json",
+      "path": "packages/shared/src/config/editorial.json",
       "title": "Redaktioneller Stichtag",
       "date": "2026-08-09",
       "status": "primary",
@@ -1026,7 +1026,7 @@
     {
       "id": "source-site-config",
       "type": "structured-content",
-      "path": "src/config/site.ts",
+      "path": "packages/shared/src/config/site.ts",
       "title": "Zentrale Portalkonfiguration",
       "date": "2026-07-21",
       "status": "primary",

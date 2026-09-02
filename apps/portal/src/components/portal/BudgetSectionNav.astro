@@ -1,0 +1,22 @@
+---
+import { getBudgetPageUrl, getBudgetUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import SectionNavigation from './SectionNavigation.astro';
+
+interface Props {
+  current?: 'portal' | 'gesamtplan' | 'einzelplaene' | 'sondervermoegen';
+}
+
+const { current = 'portal' } = Astro.props as Props;
+const links = [
+  { id: 'portal' as const, label: 'Haushaltsportal', href: getBudgetUrl() },
+  { id: 'gesamtplan' as const, label: 'Gesamtplan', href: getBudgetPageUrl('gesamtplan') },
+  { id: 'einzelplaene' as const, label: 'Einzelpläne', href: getBudgetPageUrl('einzelplaene') },
+  { id: 'sondervermoegen' as const, label: 'Sondervermögen und Fonds', href: getBudgetPageUrl('sondervermoegen') },
+];
+---
+
+<SectionNavigation
+  label="Haushalt"
+  variant="budget"
+  items={links.map((link) => ({ label: link.label, href: link.href, current: link.id === current }))}
+/>

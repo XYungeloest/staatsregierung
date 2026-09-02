@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import {
+  getHomeUrl,
+  getLawBridgeUrl,
+} from '@ostrecht/shared/lib/portal/routes.ts';
+import {
+  getLawConstitutionUrl,
+  getLawPortalUrl,
+  getNormUrl,
+  getPublicationsUrl,
+  getSearchUrl,
+} from '@ostrecht/shared/lib/norms/routes.ts';
+
+const researchEntrances = [
+  {
+    title: 'Geltendes Recht',
+    text: 'Gesetze, Verordnungen und Verwaltungsvorschriften mit ihrem dokumentierten Rechtsstand aufrufen.',
+    href: getSearchUrl(),
+  },
+  {
+    title: 'Verfassung',
+    text: 'Die Verfassung und verfassungsändernde Vorschriften im Rechtsportal recherchieren.',
+    href: getLawConstitutionUrl(),
+  },
+  {
+    title: 'Verkündungen',
+    text: 'Ausgaben, Fundstellen und die damit verknüpften Normfassungen einsehen.',
+    href: getPublicationsUrl(),
+  },
+];
+---
+
+<BaseLayout
+  title="Recht und Gesetzgebung"
+  description="Einstieg des Staatsportals in Recht, Verkündungen und politische Gesetzgebungsverfahren des Ostdeutschen Freistaates."
+  breadcrumbs={[
+    { label: 'Startseite', href: getHomeUrl() },
+    { label: 'Recht und Gesetzgebung', href: getLawBridgeUrl() },
+  ]}
+>
+  <Breadcrumbs items={[{ label: 'Startseite', href: getHomeUrl() }, { label: 'Recht und Gesetzgebung' }]} />
+
+  <SectionHero
+    eyebrow="Staatsportal"
+    title="Recht und Gesetzgebung"
+    lead="OstRecht ist das eigenständige Rechtsportal des Ostdeutschen Freistaates. Dort finden Sie geltende und historische Fassungen, Fundstellen und Verkündungen."
+    variant="law"
+  >
+    <div class="section-hero__actions">
+      <a class="button-link" href={getLawPortalUrl()}>Zum Rechtsportal</a>
+    </div>
+  </SectionHero>
+
+  <section class="section law-bridge-search" aria-labelledby="law-bridge-search-title">
+    <div class="section-header">
+      <h2 id="law-bridge-search-title">Direkt im Recht suchen</h2>
+      <p>Die Recherche wird im eigenständigen Rechtsportal geöffnet.</p>
+    </div>
+    <form class="search-form search-form--hero" action={getSearchUrl()} method="get" role="search">
+      <label class="search-field">
+        <span>Gesetze, Verordnungen und Verwaltungsvorschriften durchsuchen</span>
+        <input type="search" name="q" autocomplete="off" placeholder="z. B. Verfassung, Schule, Haushalt" />
+      </label>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Recht durchsuchen</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Rechtsrecherche</h2>
+      <p>Direkte Wege zu den wichtigsten rechtlichen Veröffentlichungen.</p>
+    </div>
+    <ul class="law-entry-list">
+      {researchEntrances.map((entry) => (
+        <li>
+          <h3><a href={entry.href}>{entry.title}</a></h3>
+          <p>{entry.text}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="section split-grid">
+    <div>
+      <div class="section-header">
+        <h2>Gesetzgebung und geltendes Recht</h2>
+      </div>
+      <p>
+        Das Staatsportal erklärt politische Vorhaben und laufende Gesetzgebungsverfahren. Ein
+        politischer Beschluss allein ist noch keine geltende Rechtsnorm. Für die rechtliche
+        Einordnung sind insbesondere Ausfertigung, Verkündung, Inkrafttreten und die jeweils
+        dokumentierte Fassung maßgeblich.
+      </p>
+      <p>
+        OstRecht stellt diese juristische Perspektive in den Mittelpunkt und verknüpft
+        Verkündungen mit den gespeicherten Normfassungen.
+      </p>
+      <p><a class="inline-link" href={getNormUrl('staatsverfassung-des-freistaates-ostdeutschland')}>Verfassung als Norm aufrufen</a></p>
+    </div>
+    <aside class="info-box" aria-labelledby="law-bridge-orientation-title">
+      <h2 id="law-bridge-orientation-title">Welcher Einstieg passt?</h2>
+      <dl>
+        <div><dt>Politisches Vorhaben</dt><dd>Themen und Verfahren im Staatsportal</dd></div>
+        <div><dt>Verkündeter Rechtsakt</dt><dd>Ausgabe und Fundstelle in OstRecht</dd></div>
+        <div><dt>Geltender Wortlaut</dt><dd>Norm und Rechtsstand in OstRecht</dd></div>
+      </dl>
+    </aside>
+  </section>
+</BaseLayout>

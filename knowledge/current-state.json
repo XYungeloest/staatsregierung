@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-25",
+  "asOf": "2026-09-01",
   "editorialDateSourceId": "source-editorial-config",
   "sections": [
     {
@@ -47,8 +47,8 @@
       "status": "confirmed-primary",
       "validFrom": "2026-08-23",
       "validTo": null,
-      "asOf": "2026-08-23",
-      "summary": "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 monatlich 15 Euro. Ab 1. September gelten ein sozialer Nulltarif, grundsätzlich kostenfreie Fahrradmitnahme und verbindliche Anschlussstandards; die Betriebsgrundsätze der Ostdeutschen Eisenbahn sowie Landesnetz Ost und Ostdeutschlandtakt gelten ab 24. August.",
+      "asOf": "2026-09-01",
+      "summary": "Das Ost-Ticket kostet rückwirkend seit 1. August 2026 monatlich 15 Euro. Seit 1. September gelten ein sozialer Nulltarif, grundsätzlich kostenfreie Fahrradmitnahme und verbindliche Anschlussstandards; die Betriebsgrundsätze der Ostdeutschen Eisenbahn sowie Landesnetz Ost und Ostdeutschlandtakt gelten seit 24. August.",
       "sourceRefs": [
         {
           "sourceId": "source-stanzo-2026-36",
@@ -104,12 +104,12 @@
     },
     {
       "id": "state-current-energy-heat-tariffs-2026",
-      "title": "Verkündete Strom- und Wärmetarife zum 1. September 2026",
+      "title": "Geltende Strom- und Wärmetarife seit 1. September 2026",
       "status": "confirmed-primary",
-      "validFrom": "2026-08-22",
+      "validFrom": "2026-09-01",
       "validTo": null,
-      "asOf": "2026-08-22",
-      "summary": "Die gemeinwirtschaftlichen Strom- und Wärmepreisleitlinien sind am 22. August 2026 verkündet. Sie führen bei den Landesenergiewerken Ost zum 1. September 2026 Regel- und vergünstigte Grundbedarfstarife ein.",
+      "asOf": "2026-09-01",
+      "summary": "Die gemeinwirtschaftlichen Strom- und Wärmepreisleitlinien sind am 22. August 2026 verkündet worden und gelten seit 1. September 2026 bei den Landesenergiewerken Ost. Sie regeln Regel- und vergünstigte Grundbedarfstarife.",
       "sourceRefs": [
         {
           "sourceId": "source-stanzo-2026-34",
@@ -140,7 +140,7 @@
         "public-economy"
       ],
       "notes": [
-        "Die Verkündung ist gegenwärtiger Rechtsstand; die Tarife selbst gelten erst ab 1. September 2026."
+        "Die Leitlinien gelten seit 1. September 2026; praktische Einzelmaßnahmen werden weiterhin nur bei belastbarem Vollzugsnachweis fortgeschrieben."
       ],
       "normRefs": [
         {
@@ -197,12 +197,12 @@
     },
     {
       "id": "state-current-school-law-package-2026",
-      "title": "Verkündetes Schulrechtspaket zum 1. September 2026",
+      "title": "Geltendes Schulrechtspaket seit 1. September 2026",
       "status": "confirmed-primary",
-      "validFrom": "2026-08-16",
+      "validFrom": "2026-09-01",
       "validTo": null,
-      "asOf": "2026-08-16",
-      "summary": "Die neuen Schulordnungen und 16 Verwaltungsvorschriften sind amtlich verkündet. Bis zum 31. August 2026 gilt grundsätzlich noch das bisherige Schulordnungsrecht; das neue Paket gilt überwiegend ab 1. September 2026.",
+      "asOf": "2026-09-01",
+      "summary": "Die neuen Schulordnungen und 16 Verwaltungsvorschriften sind amtlich verkündet und gelten seit 1. September 2026 überwiegend. Das bis einschließlich 31. August geltende bisherige Schulordnungsrecht ist historisch abrufbar.",
       "sourceRefs": [
         {
           "sourceId": "source-ogvbl-2026-60",
@@ -236,7 +236,7 @@
         "law"
       ],
       "notes": [
-        "Artikel 4 der Bereinigungsverordnung gilt ab 31. August 2026; das übrige Paket überwiegend ab 1. September 2026."
+        "Artikel 4 der Bereinigungsverordnung gilt seit 31. August 2026; das übrige Paket seit 1. September 2026 überwiegend."
       ],
       "normRefs": [
         {
@@ -302,8 +302,8 @@
       "status": "editorially-confirmed",
       "validFrom": "2023-12-01",
       "validTo": null,
-      "asOf": "2026-08-23",
-      "summary": "Freistaat Ostdeutschland; der redaktionelle Stichtag wird aus src/config/editorial.json übernommen; Regierungssitz Dresden.",
+      "asOf": "2026-09-01",
+      "summary": "Freistaat Ostdeutschland; der redaktionelle Stichtag wird aus packages/shared/src/config/editorial.json übernommen; Regierungssitz Dresden.",
       "sourceRefs": [
         {
           "sourceId": "source-editorial-config",
@@ -662,7 +662,7 @@
       "status": "editorially-confirmed",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-23",
+      "asOf": "2026-09-01",
       "summary": "Der Hub bündelt die wichtigsten belegten Rechts- und Umsetzungsverbünde, einschließlich des neuen öffentlichen Mobilitätspakets, der gemeinwirtschaftlichen Energie- und Wärmetarife, der extern betriebenen Transparenz- und Zuständigkeitsangebote, der schrittweisen 50Hertz-Übernahme und der angenommenen NVIDIA-Ansiedlung, ohne Normvolltexte zu duplizieren.",
       "sourceRefs": [
         {

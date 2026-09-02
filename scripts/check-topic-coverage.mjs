@@ -14,7 +14,7 @@ const [coverage, projectsRoot, currentStateRoot, editorial, home] = await Promis
   readJson('content/portal/topic-coverage.json'),
   readJson('knowledge/projects.json'),
   readJson('knowledge/current-state.json'),
-  readJson('src/config/editorial.json'),
+  readJson('packages/shared/src/config/editorial.json'),
   readJson('content/portal/home.json'),
 ]);
 const topicFiles = (await readdir(join(root, 'content', 'themen'))).filter((file) => file.endsWith('.json'));

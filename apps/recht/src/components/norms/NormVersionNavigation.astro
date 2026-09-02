@@ -1,0 +1,115 @@
+---
+import {
+  classifyNormVersions,
+  EDITORIAL_REFERENCE_DATE,
+} from '@ostrecht/shared/lib/norms/versions.ts';
+import {
+  getNormCompareUrl,
+  getNormHistoryUrl,
+  getNormUrl,
+  getNormVersionUrl,
+} from '@ostrecht/shared/lib/norms/routes.ts';
+import { formatDate } from '@ostrecht/shared/lib/norms/presentation.ts';
+import type { NormRecord, NormVersion } from '@ostrecht/shared/lib/norms/schema.ts';
+
+interface Props {
+  norm: NormRecord;
+  version?: NormVersion;
+  currentPage?: 'norm' | 'history' | 'compare';
+  showPicker?: boolean;
+}
+
+const { norm, version, currentPage = 'norm', showPicker = true } = Astro.props;
+const classified = classifyNormVersions(norm);
+const applicable = classified.find((entry) => entry.kind === 'current');
+const future = classified.filter((entry) => entry.kind === 'future');
+const historical = classified.filter((entry) => entry.kind === 'historical');
+const unknown = classified.filter((entry) => entry.kind === 'unknown-effective');
+const selectedEntry = classified.find((entry) => version?.versionId === entry.version.versionId) ?? applicable;
+
+function versionHref(entry: (typeof classified)[number]): string {
+  return entry.kind === 'current'
+    ? getNormUrl(norm.meta.slug)
+    : getNormVersionUrl(norm.meta.slug, entry.version.versionId);
+}
+
+function isSelected(entry: (typeof classified)[number]): boolean {
+  return version?.versionId === entry.version.versionId ||
+    (!version && currentPage === 'norm' && entry.kind === 'current');
+}
+
+function versionLabel(entry: (typeof classified)[number]): string {
+  if (entry.kind === 'current') return `Geltend am ${formatDate(EDITORIAL_REFERENCE_DATE)}`;
+  if (entry.kind === 'future') return `Gültig ab ${formatDate(entry.version.validFrom)}`;
+  if (entry.kind === 'historical') {
+    return entry.version.validTo
+      ? `${formatDate(entry.version.validFrom)} bis ${formatDate(entry.version.validTo)}`
+      : `Gültig seit ${formatDate(entry.version.validFrom)}`;
+  }
+  return 'Inkrafttreten nicht belegt';
+}
+---
+
+<nav class:list={['norm-version-navigation', { 'norm-version-navigation--compact': !showPicker }]} aria-label="Fassungen und Historie" data-version-navigation>
+  <ul class="norm-version-navigation__primary">
+    <li>
+      <a href={getNormUrl(norm.meta.slug)} aria-current={currentPage === 'norm' ? 'page' : undefined}>
+        Aktuelle Fassung
+      </a>
+    </li>
+    <li>
+      <a href={getNormHistoryUrl(norm.meta.slug)} aria-current={currentPage === 'history' ? 'page' : undefined}>
+        Historische Fassungen
+      </a>
+    </li>
+    <li><a href={`${getNormHistoryUrl(norm.meta.slug)}#historieneintraege`}>Änderungsverlauf</a></li>
+    {norm.versions.length >= 2 ? <li><a href={getNormCompareUrl(norm.meta.slug)} aria-current={currentPage === 'compare' ? 'page' : undefined}>Fassungsvergleich</a></li> : null}
+  </ul>
+
+  {showPicker && selectedEntry ? (
+    <details class="norm-version-picker">
+      <summary><span>Fassung wählen</span><strong>{versionLabel(selectedEntry)}</strong></summary>
+      <div class="norm-version-picker__content">
+        {applicable ? (
+          <section aria-labelledby={`version-current-${norm.meta.slug}`}>
+            <h2 id={`version-current-${norm.meta.slug}`}>Geltend</h2>
+            <ul><li>
+              <a href={versionHref(applicable)} aria-current={isSelected(applicable) ? 'page' : undefined}>
+                Geltend{' '}am{' '}<time datetime={EDITORIAL_REFERENCE_DATE}>{formatDate(EDITORIAL_REFERENCE_DATE)}</time>
+              </a>
+            </li></ul>
+          </section>
+        ) : null}
+        {historical.length ? (
+          <section aria-labelledby={`version-history-${norm.meta.slug}`}>
+            <h2 id={`version-history-${norm.meta.slug}`}>Historische Fassungen</h2>
+            <ul>{historical.map((entry) => <li>
+              <a href={versionHref(entry)} aria-current={isSelected(entry) ? 'page' : undefined}>
+                <time datetime={entry.version.validFrom}>{formatDate(entry.version.validFrom)}</time>
+                {entry.version.validTo ? <>{' '}bis{' '}<time datetime={entry.version.validTo}>{formatDate(entry.version.validTo)}</time></> : null}
+              </a>
+            </li>)}</ul>
+          </section>
+        ) : null}
+        {future.length ? (
+          <section aria-labelledby={`version-future-${norm.meta.slug}`}>
+            <h2 id={`version-future-${norm.meta.slug}`}>Zukünftige Fassungen</h2>
+            <ul>{future.map((entry) => <li>
+              <a href={versionHref(entry)} aria-current={isSelected(entry) ? 'page' : undefined}>
+                Gültig{' '}ab{' '}<time datetime={entry.version.validFrom}>{formatDate(entry.version.validFrom)}</time>
+              </a>
+            </li>)}</ul>
+          </section>
+        ) : null}
+        {unknown.length ? (
+          <section aria-labelledby={`version-unknown-${norm.meta.slug}`}>
+            <h2 id={`version-unknown-${norm.meta.slug}`}>Ohne belegtes Inkrafttreten</h2>
+            <ul>{unknown.map((entry) => <li>
+              <a href={versionHref(entry)} aria-current={isSelected(entry) ? 'page' : undefined}>Inkrafttreten nicht belegt</a>
+            </li>)}</ul>
+          </section>
+        ) : null}
+      </div>
+    </details>
+  ) : null}
+</nav>

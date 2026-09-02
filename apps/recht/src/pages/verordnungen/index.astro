@@ -1,0 +1,8 @@
+---
+import NormDirectory from '../../components/norms/NormDirectory.astro';
+import { getRegulationsUrl } from '@ostrecht/shared/lib/norms/index.ts';
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+
+const norms = (await loadAllNorms()).filter((norm) => norm.meta.type === 'verordnung');
+---
+<NormDirectory title="Verordnungen" lead="Rechtsverordnungen des Ostdeutschen Freistaates mit geltenden und gespeicherten historischen Fassungen." href={getRegulationsUrl()} {norms} />

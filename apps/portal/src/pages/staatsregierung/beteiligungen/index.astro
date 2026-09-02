@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
+import GovernmentNavigation from '../../../components/portal/GovernmentNavigation.astro';
+import HoldingsCountryCards from '../../../components/portal/HoldingsCountryCards.astro';
+import HoldingsNavigator from '../../../components/portal/HoldingsNavigator.astro';
+import HoldingsSharedPositions from '../../../components/portal/HoldingsSharedPositions.astro';
+import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
+import { siteConfig } from '@ostrecht/shared/config/site.ts';
+import {
+  getGovernmentUrl,
+  getHoldingsUrl,
+  getHomeUrl,
+} from '@ostrecht/shared/lib/portal/index.ts';
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import {
+  loadBeteiligungsInventar,
+  loadBeteiligungsUebersicht,
+  loadCurrentGovernment,
+} from '@ostrecht/shared/lib/portal/content.ts';
+import { buildDatasetJsonLd } from '@ostrecht/shared/lib/seo/index.ts';
+import type { BeteiligungsAbschnitt } from '@ostrecht/shared/lib/portal/schema.ts';
+
+const [overview, inventory, currentGovernment] = await Promise.all([
+  loadBeteiligungsUebersicht(),
+  loadBeteiligungsInventar(),
+  loadCurrentGovernment(),
+]);
+
+function requireSection(id: string): BeteiligungsAbschnitt {
+  const section = overview.sections.find((entry) => entry.id === id);
+  if (!section) throw new Error(`Beteiligungsabschnitt ${id} fehlt.`);
+  return section;
+}
+
+function getChangeKind(label: string): string {
+  const normalized = label.toLocaleLowerCase('de-DE');
+  if (normalized.includes('kapital')) return 'capital';
+  if (normalized.includes('erwerb') || normalized.includes('vereinbart')) return 'acquisition';
+  if (normalized.includes('rechtsnachfolge')) return 'succession';
+  if (normalized.includes('auflösung')) return 'dissolution';
+  return 'establishment';
+}
+
+const inheritedSection = requireSection('geerbt');
+const sharedSection = requireSection('zusammengefuehrt');
+const specialSection = requireSection('sonderlagen');
+const newSection = requireSection('neu-errichtet');
+const formatDate = (date: string) => siteConfig.date.formatLong(date);
+const getNormLink = (slug: string) => getNormUrl(slug);
+const csvUrl = `${import.meta.env.BASE_URL}staatsregierung/beteiligungen/daten.csv`;
+const heroFacts = [
+  { label: 'Belegte Positionszeilen', value: String(inventory.totals.positionRows) },
+  { label: 'Unmittelbar', value: String(inventory.totals.directRows) },
+  { label: 'Mittelbar oder tiefer', value: String(inventory.totals.indirectAndSecondDegreeRows) },
+  ...overview.facts.map((fact) => ({ label: fact.label, value: fact.value })),
+];
+---
+
+<BaseLayout
+  title="Beteiligungsnavigator"
+  description={inventory.description}
+  scripts={['holdings-navigator']}
+  structuredData={buildDatasetJsonLd({
+    name: inventory.title,
+    description: inventory.description,
+    url: getHoldingsUrl(),
+    distributionUrl: csvUrl,
+  }, Astro.site)}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Startseite', href: getHomeUrl() },
+      { label: 'Staatsrat', href: getGovernmentUrl() },
+      { label: 'Beteiligungsnavigator' },
+    ]}
+  />
+
+  <SectionHero
+    eyebrow="Staatsrat"
+    title="Beteiligungsnavigator des Freistaates"
+    titleSize="long"
+    lead={overview.lead}
+    variant="government"
+    facts={heroFacts}
+    actions={[
+      { label: 'Beteiligungsdaten herunterladen', href: csvUrl, primary: true },
+      { label: 'Inventur durchsuchen', href: '#beteiligungsnavigator' },
+    ]}
+  />
+  <GovernmentNavigation />
+
+  <section class="section">
+    <div class="content-grid">
+      <div class="body-copy">
+        <div class="section-header">
+          <h2>Einordnung</h2>
+        </div>
+        {overview.introduction.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+
+      <aside class="section meta-panel">
+        <div class="section-header section-header--compact">
+          <h2>Stand der Übersicht</h2>
+        </div>
+        <dl class="meta-list">
+          <div>
+            <dt>Ausgangsstichtag</dt>
+            <dd><time datetime={overview.inheritanceDate}>{formatDate(overview.inheritanceDate)}</time></dd>
+          </div>
+          <div>
+            <dt>Datenstand</dt>
+            <dd><time datetime={overview.asOf}>{formatDate(overview.asOf)}</time></dd>
+          </div>
+          <div>
+            <dt>Unterschiedliche Rechtsträger</dt>
+            <dd>{inventory.totals.distinctNames}</dd>
+          </div>
+          <div>
+            <dt>Leitung</dt>
+            <dd>{currentGovernment.title}</dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <HoldingsCountryCards section={inheritedSection} originTotals={inventory.totals.originTotals} />
+  <HoldingsNavigator {inventory} />
+  <HoldingsSharedPositions section={sharedSection} sharedPositions={inventory.sharedPositions} />
+
+  <section id={specialSection.id} class="section section-muted holdings-special" aria-labelledby={`${specialSection.id}-title`}>
+    <div class="section-header">
+      <h2 id={`${specialSection.id}-title`}>Besondere Rechts- und Stichtagslagen</h2>
+      <p>{specialSection.intro}</p>
+    </div>
+    <div class="holdings-case-grid">
+      {specialSection.items.map((item) => (
+        <article class="holdings-case-card">
+          {item.label ? <p class="eyebrow">{item.label}</p> : null}
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          {item.note ? <p class="detail-line">{item.note}</p> : null}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id={newSection.id} class="section holdings-new" aria-labelledby={`${newSection.id}-title`}>
+    <div class="section-header">
+      <h2 id={`${newSection.id}-title`}>{newSection.title}</h2>
+      <p>{newSection.intro}</p>
+    </div>
+    <div class="holdings-new-grid">
+      {newSection.items.map((item) => (
+        <article class="panel holdings-new-card">
+          {item.label ? <p class="eyebrow">{item.label}</p> : null}
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+          {item.normSlug ? (
+            <p class="section-link-row"><a class="inline-link" href={getNormLink(item.normSlug)}>Rechtsgrundlage</a></p>
+          ) : null}
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="veraenderungen" class="section section-muted holdings-changes">
+    <div class="section-header">
+      <h2>Wichtige Veränderungen seit dem Ausgangsstichtag</h2>
+      <p>Errichtung, Rechtsnachfolge, Auflösung, Kapitalmaßnahmen und laufende Erwerbsvorgänge werden getrennt ausgewiesen.</p>
+    </div>
+    <ol class="holdings-timeline">
+      {overview.changes.map((change) => (
+        <li class={`holdings-timeline__item holdings-timeline__item--${getChangeKind(change.label)}`}>
+          <div class="holdings-timeline__date"><time datetime={change.date}>{formatDate(change.date)}</time></div>
+          <article>
+            <p class="eyebrow">{change.label}</p>
+            <h3>{change.title}</h3>
+            <p>{change.text}</p>
+            {change.normSlug ? (
+              <p class="section-link-row"><a class="inline-link" href={getNormLink(change.normSlug)}>Rechtsgrundlage</a></p>
+            ) : null}
+            {change.note ? <p class="detail-line">{change.note}</p> : null}
+          </article>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="section">
+    <div class="card-grid card-grid--two">
+      <article class="panel">
+        <div class="section-header">
+          <h2>{overview.continuingTitle}</h2>
+          <p>{overview.continuingIntro}</p>
+        </div>
+        <ul class="record-list">
+          {overview.continuingItems.map((item) => <li class="record-list__item"><span>{item}</span></li>)}
+        </ul>
+      </article>
+
+      <article class="panel">
+        <div class="section-header">
+          <h2>{overview.unresolvedTitle}</h2>
+          <p>{overview.unresolvedIntro}</p>
+        </div>
+        <ul class="record-list">
+          {overview.unresolvedItems.map((item) => <li class="record-list__item"><span>{item}</span></li>)}
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section-muted">
+    <div class="section-header">
+      <h2>Rechtsgrundlagen</h2>
+      <p>{overview.sourceNote}</p>
+    </div>
+    <nav class="link-list link-list--inline" aria-label="Rechtsgrundlagen zu Beteiligungen und öffentlichen Trägern">
+      {overview.relatedNorms.map((norm) => <a href={getNormLink(norm.normSlug)}>{norm.label}</a>)}
+    </nav>
+  </section>
+</BaseLayout>
