@@ -1,0 +1,41 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge",
+  "effectiveDate": "2026-09-03",
+  "versionId": "2026-09-03",
+  "amendmentCitation": "Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 71 S. 2)",
+  "resultCitation": "Haushaltsordnung des Ostdeutschen Freistaates in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), zuletzt geändert durch Artikel 3 des Gesetzes vom 2. September 2026 (OGVBl. 2026 Nr. 71 S. 2)",
+  "changeNote": "§ 64 Absatz 1a zur Überlassung staatseigener Liegenschaften für die öffentliche Daseinsvorsorge eingefügt.",
+  "commandCoverage": [
+    "Artikel 3"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 71",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 71.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "subparagraph",
+        "label": "(1)",
+        "parentType": "paragraph",
+        "parentLabel": "§ 64"
+      },
+      "expectedHash": "615c1d928071426b02116fe73900f926ddfd0a989daaa86c769b8c1cd31ade35",
+      "expectedMatches": 1,
+      "value": {
+        "type": "subparagraph",
+        "label": "(1a)",
+        "text": "Leerstehende oder ungenutzte Liegenschaften oder Grundstücke können zum Zwecke der Sicherstellung der Daseinsvorsorge unentgeltlich oder zu einem ermäßigten Entgelt einem Verantwortungsträger im Sinne des § 5 Absatz 1 des Ostdeutschen Daseinsvorsorgegesetzes zur Erfüllung seiner aus diesem Gesetz entstandenen Aufgaben überlassen werden.",
+        "children": []
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 71.html",
+      "sourceProvision": "Artikel 3",
+      "effectiveDate": "2026-09-03"
+    }
+  ]
+}

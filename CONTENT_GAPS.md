@@ -1,6 +1,6 @@
 # Offene Quellenfragen
 
-**Repositoryprüfung:** 29. August 2026
+**Repositoryprüfung:** 2. September 2026
 **Redaktioneller Stichtag:** zentral in `packages/shared/src/config/editorial.json`
 
 Diese Datei enthält ausschließlich Quellenlücken, Quellenkonflikte und notwendige Quellenarbeiten,
@@ -9,13 +9,17 @@ Normkonsolidierung steht in `data/recht/consolidation-manifest.json`.
 
 ## Rechtskonsolidierung
 
-Der Audit erkennt 85 Zielnormen; 81 sind vollständig konsolidiert. Vier Fälle bleiben offen:
+Der Audit erkennt 89 Zielnormen; 84 sind vollständig konsolidiert. Fünf Fälle bleiben offen:
 
 - **Gesetz über den öffentlichen Personennahverkehr** — `blocked-source-conflict`: Artikel 9
   Nummer 1 passt nicht eindeutig auf die maßgebliche Ausgangsfassung; ohne Quellenklärung wird
   keine Folgefassung erzeugt.
 - **NDR-Staatsvertrag** — `missing-baseline`: Die vollständige maßgebliche Ausgangsfassung vor
   der Änderung vom 8. März 2026 einschließlich Anlagen fehlt.
+- **Ostdeutsche Gemeindeordnung** — `blocked-source-conflict`: Artikel 1 des Gesetzes zur
+  Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die ausdrücklich
+  als zuletzt geändert bezeichnete Fassung vom 20. Juli 2026 enthält jedoch bereits § 71b bis § 71g;
+  ohne Berichtigung ist keine Umnummerierung oder Verdrängung ableitbar.
 - **Schulordnung Förderschulen** — `blocked-source-conflict`: Artikel 1 Nummer 6 Buchstabe b
   der OGVBl. 2026 Nr. 64 passt auch nach der Berichtigung in Nr. 68 nicht auf die verbindliche
   Ausgangsfassung.

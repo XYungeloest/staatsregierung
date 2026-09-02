@@ -1,16 +1,14 @@
 {
-  "generatedAt": "2026-09-01T10:11:37.956Z",
+  "generatedAt": "2026-09-02T20:22:27.866Z",
   "baselineSnapshotDate": "2023-11-01",
   "counts": {
-    "recognizedAmendmentActs": 61,
-    "recognizedTargetNorms": 85,
-    "completeTargetNorms": 81,
-    "blockedSourceConflicts": 3,
+    "recognizedAmendmentActs": 66,
+    "recognizedTargetNorms": 89,
+    "completeTargetNorms": 84,
+    "blockedSourceConflicts": 4,
     "missingPrimarySources": 1
   },
-  "templateProblems": [
-    "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm"
-  ],
+  "templateProblems": [],
   "ambiguousFindings": [
     {
       "amendmentAct": "erlass-lehrplan-geschichte-2026",
@@ -114,6 +112,37 @@
       "effectiveDates": [
         "2026-07-01"
       ],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-daseinsvorsorgegesetz",
+      "title": "Besonderes Gesetz über die öffentliche Daseinsvorsorge des Freistaates Ostdeutschland",
+      "aliases": [
+        "Besonderes Gesetz über die öffentliche Daseinsvorsorge des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-daseinsvorsorgegesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge",
+          "title": "Gesetz zur Einführung eines besonderen Gesetzes über die öffentliche Daseinsvorsorge des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-09-03",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
       "status": "complete",
       "problems": [],
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
@@ -480,6 +509,68 @@
           "slug": "sportneuordnungsgesetz",
           "title": "Gesetz zur Neuordnung der Sportförderung im Freistaat Ostdeutschland",
           "effectiveDate": "2026-07-21",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "ostdeutsches-hoheitszeichengesetz",
+      "title": "Gesetz über die Hoheitszeichen des Freistaates Ostdeutschland",
+      "aliases": [
+        "Gesetz über die Hoheitszeichen des Freistaates Ostdeutschland"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "ostdeutsches-hoheitszeichengesetz",
+      "enactingActs": [
+        {
+          "slug": "besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts",
+          "title": "Besonderes Gesetz zur Neuregelung des Hoheitszeichenrechts des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-09-02",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
+      "canonicalSlug": "interflug-gesetz",
+      "title": "Gesetz über die Interflug",
+      "aliases": [
+        "Gesetz über die Interflug"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "interflug-gesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-errichtung-der-interflug",
+          "title": "Gesetz zur Errichtung der Interflug",
+          "effectiveDate": "2026-09-03",
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false
         }
@@ -1082,6 +1173,37 @@
       "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
     },
     {
+      "canonicalSlug": "zinnwald-vergesellschaftungsgesetz",
+      "title": "Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald",
+      "aliases": [
+        "Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald"
+      ],
+      "revosaxLawId": null,
+      "baselineUrl": null,
+      "baselineSnapshotDate": "2023-11-01",
+      "sourceValidFrom": null,
+      "sourceValidTo": null,
+      "sourceSha256": null,
+      "historicalNonConsolidatable": false,
+      "editorialResolutions": [],
+      "existingStemNormSlug": "zinnwald-vergesellschaftungsgesetz",
+      "enactingActs": [
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes",
+          "title": "Gesetz zur Einführung eines Zinnwald-Vergesellschaftungsgesetzes",
+          "effectiveDate": "2026-09-02",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false
+        }
+      ],
+      "amendmentActs": [],
+      "correctionActs": [],
+      "effectiveDates": [],
+      "status": "complete",
+      "problems": [],
+      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+    },
+    {
       "canonicalSlug": "ostdeutsches-verkehrsvergesellschaftungsgesetz",
       "title": "Gesetz zur Vergesellschaftung privater Verkehrsproduktionsmittel",
       "aliases": [
@@ -1225,15 +1347,15 @@
         {
           "slug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
           "title": "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
-          "effectiveDate": "2026-03-24",
+          "effectiveDate": "2026-09-03",
           "detectedType": "staatsvertrag",
           "typeCorrectionNeeded": true,
-          "targetEffectiveDate": "2026-03-24"
+          "targetEffectiveDate": "2026-09-03"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
-        "2026-03-24"
+        "2026-09-03"
       ],
       "status": "missing-baseline",
       "problems": [
@@ -1295,6 +1417,7 @@
       "canonicalSlug": "ostdeutsche-bezirksordnung",
       "title": "Ostdeutsche Bezirksordnung",
       "aliases": [
+        "Bezirksordnung",
         "Ostdeutsche Bezirksordnung",
         "Ostdeutschen Bezirksordnung"
       ],
@@ -1332,6 +1455,14 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
+        },
+        {
+          "slug": "gesetz-zur-einfuehrung-von-hinweisgebermeldestellen",
+          "title": "Gesetz zur Einführung von Hinweisgebermeldestellen",
+          "effectiveDate": "2026-10-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-01"
         }
       ],
       "correctionActs": [
@@ -1343,7 +1474,8 @@
         }
       ],
       "effectiveDates": [
-        "2026-08-01"
+        "2026-08-01",
+        "2026-10-01"
       ],
       "status": "complete",
       "problems": [],
@@ -1661,16 +1793,27 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
+        },
+        {
+          "slug": "gesetz-zur-einfuehrung-von-hinweisgebermeldestellen",
+          "title": "Gesetz zur Einführung von Hinweisgebermeldestellen",
+          "effectiveDate": "2026-10-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-01"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
         "2026-03-25",
-        "2026-08-01"
+        "2026-08-01",
+        "2026-10-01"
       ],
-      "status": "complete",
-      "problems": [],
-      "nextAction": "Bei neuen Änderungsvorschriften erneut auditieren."
+      "status": "blocked-source-conflict",
+      "problems": [
+        "Artikel 1 des Gesetzes zur Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die in der ausdrücklich als zuletzt geändert bezeichneten Fassung vom 20. Juli 2026 bereits geltende Gemeindeordnung enthält jedoch § 71b bis § 71g. Eine Umnummerierung oder Verdrängung dieser Vorschriften ist aus der Primärquelle nicht ableitbar."
+      ],
+      "nextAction": "Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung."
     },
     {
       "canonicalSlug": "saechsische-haushaltsordnung",
@@ -1699,11 +1842,20 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-01-27"
+        },
+        {
+          "slug": "gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge",
+          "title": "Gesetz zur Einführung eines besonderen Gesetzes über die öffentliche Daseinsvorsorge des Freistaates Ostdeutschland",
+          "effectiveDate": "2026-09-03",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-09-03"
         }
       ],
       "correctionActs": [],
       "effectiveDates": [
-        "2026-01-27"
+        "2026-01-27",
+        "2026-09-03"
       ],
       "status": "complete",
       "problems": [],
@@ -1749,6 +1901,7 @@
       "canonicalSlug": "saechsische-landkreisordnung",
       "title": "Sächsische Landkreisordnung",
       "aliases": [
+        "Landkreisordnung",
         "Landkreisordnung des ostdeutschen Freistaates",
         "Landkreisordnung für den Freistaat Ostdeutschland",
         "Landkreisordnung für den Freistaat Sachsen",
@@ -1780,6 +1933,14 @@
           "detectedType": "aenderungsvorschrift",
           "typeCorrectionNeeded": false,
           "targetEffectiveDate": "2026-08-01"
+        },
+        {
+          "slug": "gesetz-zur-einfuehrung-von-hinweisgebermeldestellen",
+          "title": "Gesetz zur Einführung von Hinweisgebermeldestellen",
+          "effectiveDate": "2026-10-01",
+          "detectedType": "aenderungsvorschrift",
+          "typeCorrectionNeeded": false,
+          "targetEffectiveDate": "2026-10-01"
         }
       ],
       "correctionActs": [
@@ -1792,7 +1953,8 @@
       ],
       "effectiveDates": [
         "2025-03-12",
-        "2026-08-01"
+        "2026-08-01",
+        "2026-10-01"
       ],
       "status": "complete",
       "problems": [],

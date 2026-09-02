@@ -1,18 +1,18 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-09-01T10:11:37.956Z
+**Erzeugt:** 2026-09-02T20:22:27.866Z
 
-- Erkannte Änderungsvorschriften: 61
-- Erkannte Zielnormen: 85
-- Vollständig konsolidiert: 81
-- Aktuell offene Zielnormen: 4
+- Erkannte Änderungsvorschriften: 66
+- Erkannte Zielnormen: 89
+- Vollständig konsolidiert: 84
+- Aktuell offene Zielnormen: 5
 
 ## Offener Handlungsbedarf
 
 - Fehlende Stammnormdatensätze: 0
 - Unvollständige Platzhalterbestände: 0
-- Blockierte Quellenkonflikte: 3
+- Blockierte Quellenkonflikte: 4
 - Fehlende Primärquellen: 1
 
 Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solange eine Zielnorm noch nicht vollständig umgesetzt ist, bleibt sie mit Problem und nächstem Schritt hier sichtbar. Der vollständige maschinenlesbare Status steht zusätzlich in `data/recht/consolidation-manifest.json`; redaktionelle Quellenfragen werden in `CONTENT_GAPS.md` gebündelt.
@@ -34,6 +34,13 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - Problem: Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.
 - Nächster Schritt: Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.
 
+### Sächsische Gemeindeordnung
+
+- Datensatz: `saechsische-gemeindeordnung`
+- Status: `blocked-source-conflict`
+- Problem: Artikel 1 des Gesetzes zur Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die in der ausdrücklich als zuletzt geändert bezeichneten Fassung vom 20. Juli 2026 bereits geltende Gemeindeordnung enthält jedoch § 71b bis § 71g. Eine Umnummerierung oder Verdrängung dieser Vorschriften ist aus der Primärquelle nicht ableitbar.
+- Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
+
 ### Schulordnung Förderschulen
 
 - Datensatz: `schulordnung-foerderschulen`
@@ -49,10 +56,6 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 - Problem: Artikel 3 Nummer 2 des Gesetzes zur Einführung des Ostdeutschen Transparenz- und Informationsfreiheitsgesetzes ordnet an, nach Tarifstelle 2 eine neue Tarifstelle 3 anzufügen. Die amtliche, im Änderungsgesetz selbst zitierte Ausgangsfassung des Zehnten Sächsischen Kostenverzeichnisses enthält im einschlägigen Abschnitt bereits eine Tarifstelle 3. Ob Ersetzung, Umnummerierung oder eine zusätzliche Tarifstelle beabsichtigt war, ist aus der Primärquelle nicht eindeutig bestimmbar.
 - Problem: Fassungsfolge ist nicht vollständig oder besitzt lückenhafte Intervalle.
 - Nächster Schritt: Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.
-
-## Nicht als Zielnorm behandelte Vorlagen
-
-- staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt: unausgefüllte Mustergesetz-Vorlage ist keine Zielnorm
 
 ## Redaktionell zu prüfende Erkennungsfunde
 

@@ -1,0 +1,59 @@
+{
+  "slug": "ogvbl-2026-74",
+  "title": "Ostdeutsches Gesetz- und Verordnungsblatt 2026 Nr. 74",
+  "year": 2026,
+  "issue": "74",
+  "date": "2026-09-02",
+  "publication": "OGVBl.",
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/OGVBl. 2026 Nr. 74.pdf",
+  "sourceReferences": [
+    {
+      "kind": "structured-html-transcription",
+      "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 74.html",
+      "sha256": "d08b4e2a2b5d0c62707b5ba7f13cc9b249c68c62268fa27d545e57a53b4b714a",
+      "mediaType": "text/html",
+      "pageRange": "2–14",
+      "verifiedAt": "2026-09-02",
+      "sourceRole": "structure-bearing"
+    },
+    {
+      "kind": "primary-pdf",
+      "label": "Amtliche visuelle Veröffentlichungsfassung",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 74.pdf",
+      "sha256": "efa82989e458653171cb00cf47caa23352d35231a9e9f81fae7375409a2b2ad7",
+      "mediaType": "application/pdf",
+      "pageCount": 14,
+      "pageRange": "2–14",
+      "verifiedAt": "2026-09-02",
+      "sourceRole": "visual-control",
+      "derivedSource": "Gesetze/OGVBl. 2026 Nr. 74.html"
+    }
+  ],
+  "entries": [
+    {
+      "id": "gesetz-zur-errichtung-der-interflug",
+      "title": "Gesetz zur Errichtung der Interflug",
+      "type": "gesetz",
+      "citation": "Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 74 S. 2)",
+      "pages": "2–14",
+      "documentDate": "2026-09-02",
+      "normSlug": "gesetz-zur-errichtung-der-interflug",
+      "versionId": "2026-09-03"
+    },
+    {
+      "id": "interflug-gesetz",
+      "title": "Gesetz über die Interflug",
+      "type": "gesetz",
+      "citation": "Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 74)",
+      "pages": "2–14",
+      "documentDate": "2026-09-02",
+      "normSlug": "interflug-gesetz",
+      "versionId": "2026-09-03"
+    }
+  ]
+}

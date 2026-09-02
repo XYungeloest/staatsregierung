@@ -1,0 +1,53 @@
+{
+  "amendmentAct": "gesetz-zur-einfuehrung-von-hinweisgebermeldestellen",
+  "effectiveDate": "2026-10-01",
+  "versionId": "2026-10-01",
+  "amendmentCitation": "Gesetz vom 2. September 2026 (OGVBl. 2026 Nr. 72 S. 2)",
+  "resultCitation": "Landkreisordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 9. März 2018 (SächsGVBl. S. 99), zuletzt geändert durch Artikel 2 des Gesetzes vom 2. September 2026 (OGVBl. 2026 Nr. 72 S. 2)",
+  "changeNote": "Vierter Abschnitt mit § 60a zu Hinweisgeberstellen eingefügt.",
+  "commandCoverage": [
+    "Artikel 2"
+  ],
+  "sourceReferences": [
+    {
+      "kind": "amendment-source",
+      "label": "OGVBl. 2026 Nr. 72",
+      "availability": "versioned",
+      "localSource": "Gesetze/OGVBl. 2026 Nr. 72.html"
+    }
+  ],
+  "operations": [
+    {
+      "op": "insertProvisionAfter",
+      "target": {
+        "type": "section",
+        "label": "Dritter Abschnitt",
+        "parentType": "part",
+        "parentLabel": "Dritter Teil"
+      },
+      "expectedHash": "ea307b50b3c8d64874579d6382460bfb8609d6387cb95a122fd39676a6e4d587",
+      "expectedMatches": 1,
+      "value": {
+        "type": "section",
+        "label": "Vierter Abschnitt",
+        "title": "Hinweisgeberstellen",
+        "children": [
+          {
+            "type": "paragraph",
+            "label": "§ 60a",
+            "title": "Hinweisgeberstellen",
+            "children": [
+              {
+                "type": "paragraphText",
+                "text": "Die Landkreise errichten nach § 71b Absatz 2 und 3 entsprechend Hinweisgeberstellen."
+              }
+            ]
+          }
+        ]
+      },
+      "source": "Gesetze/OGVBl. 2026 Nr. 72.html",
+      "sourceProvision": "Artikel 2",
+      "effectiveDate": "2026-10-01"
+    }
+  ]
+}

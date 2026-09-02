@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-25",
+  "asOf": "2026-09-02",
   "events": [
     {
       "id": "event-off-holdings-succession-2026",
@@ -1150,23 +1150,13 @@
       "status": "confirmed-official",
       "validFrom": "2026-03-08",
       "validTo": "2026-03-08",
-      "asOf": "2026-07-21",
-      "summary": "Der NDR-Änderungs- und Überleitungsstaatsvertrag wurde am 8. März 2026 geschlossen; Ratifikationsaustausch und Inkrafttreten folgten am 24. März 2026.",
+      "asOf": "2026-09-02",
+      "summary": "Der NDR-Änderungs- und Überleitungsstaatsvertrag wurde am 8. März 2026 geschlossen und am 24. März 2026 veröffentlicht. Das Inkrafttreten ist gesondert zum 3. September 2026 bekannt gemacht.",
       "sourceRefs": [
         {
-          "sourceId": "source-government-timeline",
-          "locator": "Ereignis ndr-staatsvertrag",
+          "sourceId": "source-overtrbl-2026-04",
+          "locator": "Staatsvertrag vom 8. März 2026, Veröffentlichung am 24. März 2026",
           "role": "primary"
-        },
-        {
-          "sourceId": "source-content-gaps",
-          "locator": "Ratifikationsnachweis",
-          "role": "context"
-        },
-        {
-          "sourceId": "source-editorial-clarifications-2026-07-29",
-          "locator": "Abschnitt Rechts- und Vertragsstand",
-          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -1805,20 +1795,15 @@
       "id": "event-ndr-treaty-effective",
       "title": "NDR-Änderungs- und Überleitungsstaatsvertrag tritt in Kraft",
       "status": "editorially-confirmed",
-      "validFrom": "2026-03-24",
-      "validTo": "2026-03-24",
-      "asOf": "2026-07-29",
-      "summary": "Die Ratifikationsurkunden werden ausgetauscht; der Staatsvertrag tritt am selben Tag in Kraft.",
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "asOf": "2026-09-02",
+      "summary": "Die Bekanntmachung vom 2. September 2026 stellt das Inkrafttreten des Staatsvertrags zum 3. September 2026 fest.",
       "sourceRefs": [
         {
-          "sourceId": "source-editorial-clarifications-2026-07-29",
-          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "sourceId": "source-overtrbl-2026-05",
+          "locator": "Bekanntmachung vom 2. September 2026",
           "role": "primary"
-        },
-        {
-          "sourceId": "source-overtrbl-2026-04",
-          "locator": "Veröffentlichungsdatum 2026-03-24",
-          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -1826,11 +1811,12 @@
         "proceeding-ndr-ratification"
       ],
       "tags": [
-        "timeline"
+        "timeline",
+        "future"
       ],
       "notes": [],
       "aliases": [],
-      "date": "2026-03-24",
+      "date": "2026-09-03",
       "eventType": "treaty-effective",
       "normRefs": [
         {

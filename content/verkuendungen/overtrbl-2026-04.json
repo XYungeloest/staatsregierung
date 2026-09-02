@@ -5,28 +5,19 @@
   "issue": "4",
   "date": "2026-03-24",
   "publication": "OVertrBl.",
-  "entries": [
-    {
-      "id": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-norddeutschen-ru",
-      "title": "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
-      "type": "staatsvertrag",
-      "citation": "Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)",
-      "pages": "2-9",
-      "documentDate": "2026-03-08",
-      "normSlug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
-      "versionId": "2026-03-08"
-    }
-  ],
+  "place": "Dresden",
+  "publisher": "Freistaat Ostdeutschland",
+  "pdf": "/assets/recht/OVertrBl. 2026 Nr. 4.pdf",
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
       "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
       "localSource": "Gesetze/OVertrBl. 2026 Nr. 4.html",
-      "sha256": "eeaa315b93b89cc245ff68dca8953f676628832cfa9c145a71c3422f680261bd",
+      "sha256": "f9ccbdf3184c277790dcaadd793088309cd5b8978b05fe52b152870bc94a7c94",
       "mediaType": "text/html",
       "pageRange": "2–9",
-      "verifiedAt": "2026-08-28",
+      "verifiedAt": "2026-09-02",
       "sourceRole": "structure-bearing"
     },
     {
@@ -34,20 +25,25 @@
       "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
       "localSource": "Gesetze/OVertrBl. 2026 Nr. 4.pdf",
-      "sha256": "063b732f6c255d960ca133db97e517afc1c1e2a4d1e081e8699a0476198bd9da",
+      "sha256": "91b82ee426e613a2f12725ea20d43e714d828140e7c7651f53d5d13d1723a89e",
       "mediaType": "application/pdf",
       "pageCount": 9,
       "pageRange": "2–9",
-      "verifiedAt": "2026-08-28",
+      "verifiedAt": "2026-09-02",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OVertrBl. 2026 Nr. 4.html"
-    },
-    {
-      "kind": "index",
-      "label": "Festgeschriebene Liste der amtlichen Verkündungsblätter",
-      "availability": "external",
-      "url": "https://politiksim.miraheze.org/w/index.php?title=Liste_der_amtlichen_Verk%C3%BCndungsbl%C3%A4tter_des_Freistaates_Ostdeutschland&oldid=19253"
     }
   ],
-  "pdf": "/assets/recht/OVertrBl. 2026 Nr. 4.pdf"
+  "entries": [
+    {
+      "id": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
+      "title": "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
+      "type": "staatsvertrag",
+      "citation": "Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)",
+      "pages": "2–9",
+      "documentDate": "2026-03-08",
+      "normSlug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
+      "versionId": "2026-03-08"
+    }
+  ]
 }

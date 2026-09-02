@@ -1,6 +1,11 @@
 import { parse } from 'parse5';
 
 const DATE_PATTERN = /(\d{1,2})\.\s*(Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+(\d{4})/iu;
+const PARTIAL_DATE_PATTERN = /(\d{1,2})\.\s*(Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\b(?!\s+\d{4})/iu;
+const GERMAN_MONTHS = {
+  januar: '01', februar: '02', märz: '03', maerz: '03', april: '04', mai: '05', juni: '06',
+  juli: '07', august: '08', september: '09', oktober: '10', november: '11', dezember: '12',
+};
 const LIST_CLASS_PATTERN = /(?:^|\s)lst-kix_([a-z0-9_]+)-(\d+)(?=\s|$)/iu;
 const SIGNATURE_PATTERN = /^[\p{L} .'-]{2,60},\s+den\s+\d{1,2}\./iu;
 const CONTAMINATION_PATTERN = /data:image|;base64,|@font-face|@import\s+url|<style|Inhaltsverzeichnis|Nichtamtliches Inhaltsverzeichnis/iu;
@@ -9,7 +14,7 @@ const AMENDMENT_REFERENCE_PATTERN = /\b(?:wird|werden)\b[^:]*\b(?:geändert|aufg
 const INTRODUCTION_PATTERN = /^(?:Das\s+nachstehende\s+wird\s+(Gesetz|Verordnung):|.+?wird\s+durch\s+die\s+nachstehende\s+(.+?)\s+abgelöst:)$/iu;
 const OPENING_QUOTE_PATTERN = /^(?:„|“|‚|‘|,,|")/u;
 const CLOSING_QUOTE_PATTERN = /(?:“|”|’|''|")\s*$/u;
-const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Berichtigung|Organisationserlass|Erlass|Verwaltungsabkommen|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
+const SOURCE_HEADING_START_PATTERN = /^(?:(?:Erst|Zweit|Dritt|Viert|Fünft|Sechst|Siebt|Acht|Neunt|Zehnt|Elft|Zwölft|Dreizehnt|Vierzehnt|Fünfzehnt|Sechzehnt|Siebzehnt|Achtzehnt|Neunzehnt|Zwanzigst)(?:e|er|es)|Besonderes|Gemeinsame|Gemeinsamer|Gemeinsames)?\s*(?:Gesetz|Verordnung|Änderungsgesetz|Rechtsverordnung|Satzung|Förderrichtlinie|Richtlinie|Verwaltungsvorschrift|Allgemeinverfügung|Anordnung|Bekanntmachung|Berichtigung|Organisationserlass|Erlass|Verwaltungsabkommen|Staatsvertrag|Abkommen|Übereinkommen|Vertrag)/iu;
 const OUTER_ARTICLE_TITLE_PATTERN = /^(?:Einführung|Änderung|Folgeänderungen?|Neufassung|Übergangsbestimmungen?|Übergangsrecht|Berichtspflicht|Einschränkung|Inkrafttreten|Außerkrafttreten|Bekanntmachung|Anpassung|Bereinigung|Rechtsbereinigung)/iu;
 const EMBEDDED_NORM_TITLE_PATTERN = /^(?:Gesetz|Verordnung|Satzung|Staatsvertrag|Abkommen|Übereinkommen)\b/iu;
 const TABLE_HEADER_SCOPES = new Set(['col', 'row', 'colgroup', 'rowgroup']);
@@ -188,17 +193,18 @@ function isCentered(node, css) {
 export function parseGermanDate(value) {
   const match = String(value ?? '').match(DATE_PATTERN);
   if (!match) return null;
-  const months = {
-    januar: '01', februar: '02', märz: '03', maerz: '03', april: '04', mai: '05', juni: '06',
-    juli: '07', august: '08', september: '09', oktober: '10', november: '11', dezember: '12',
-  };
-  return `${match[3]}-${months[match[2].toLocaleLowerCase('de')]}-${match[1].padStart(2, '0')}`;
+  return `${match[3]}-${GERMAN_MONTHS[match[2].toLocaleLowerCase('de')]}-${match[1].padStart(2, '0')}`;
 }
 
 export function addUtcDays(isoDate, days) {
   const date = new Date(`${isoDate}T00:00:00Z`);
   date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString().slice(0, 10);
+}
+
+function firstDayOfNextMonth(isoDate) {
+  const [year, month] = isoDate.split('-').map(Number);
+  return `${month === 12 ? year + 1 : year}-${String(month === 12 ? 1 : month + 1).padStart(2, '0')}-01`;
 }
 
 function alphaCounter(value, upper = false) {
@@ -1076,11 +1082,20 @@ function validateBody(fileName, title, body) {
 }
 
 function inferEffectiveDate(text, publicationDate) {
-  if (/tritt\s+(?:am|mit dem)\s+Tag\s+(?:nach\s+)?(?:seiner|ihrer|der)\s+Verkündung\s+in\s+Kraft/iu.test(text)) {
+  if (/tritt\s+am\s+ersten\s+Tag\s+des\s+ersten\s+Monats\s+nach\s+(?:(?:seiner|der)\s+)?Verkündung\s+in\s+Kraft/iu.test(text)) {
+    return firstDayOfNextMonth(publicationDate);
+  }
+  if (/tritt\s+(?:am|mit dem)\s+Tag(?:e)?\s+(?:nach\s+)?(?:seiner|ihrer|der)\s+Verkündung\s+in\s+Kraft/iu.test(text)) {
     return /Tag\s+nach/iu.test(text) ? addUtcDays(publicationDate, 1) : publicationDate;
   }
   const explicit = text.match(/tritt\s+am\s+(\d{1,2}\.\s*[A-ZÄÖÜa-zäöüß]+\s+\d{4})\s+in\s+Kraft/iu);
   return explicit ? parseGermanDate(explicit[1]) : null;
+}
+
+function partialHeadingDate(value, fallbackDate) {
+  const match = String(value ?? '').match(PARTIAL_DATE_PATTERN);
+  if (!match || !fallbackDate || !/\bvom\s*$/iu.test(String(value).slice(0, match.index))) return null;
+  return `${fallbackDate.slice(0, 4)}-${GERMAN_MONTHS[match[2].toLocaleLowerCase('de')]}-${match[1].padStart(2, '0')}`;
 }
 
 function sanitizeNormNodes(nodes) {
@@ -1110,20 +1125,21 @@ function sanitizeNormNodes(nodes) {
   return result;
 }
 
-function headingRanges(nodes, tocIndex, css) {
+function headingRanges(nodes, tocIndex, css, publicationDate) {
   const ranges = [];
   let floor = tocIndex + 1;
   for (let end = tocIndex + 1; end < nodes.length; end += 1) {
     const endText = textOf(nodes[end]);
     if (nodes[end].tagName === 'table' || /^(?:Seite\s*)?\d+$/iu.test(endText)) floor = end + 1;
-    if (!parseGermanDate(endText)) continue;
+    const documentDate = parseGermanDate(endText) ?? partialHeadingDate(endText, publicationDate);
+    if (!documentDate) continue;
     for (let start = end; start >= Math.max(floor, end - 3); start -= 1) {
       const text = normalizeHeadingText(nodes.slice(start, end + 1).map(textOf).join(' '));
       const presentedAsHeading = start === floor || nodes.slice(start, end + 1).some((node) =>
         /^h[1-6]$/u.test(node.tagName) || linesOf(node).length > 1 || isBold(node, css) || isCentered(node, css)
       );
       if ((ranges.length > 0 && !presentedAsHeading) || !SOURCE_HEADING_START_PATTERN.test(text) || !/\bvom\s+\d{1,2}\./iu.test(text)) continue;
-      ranges.push({ start, end, text });
+      ranges.push({ start, end, text, documentDate });
       floor = end + 1;
       break;
     }
@@ -1135,25 +1151,33 @@ function extractIntroducedNorms(tokens, publication, fileName) {
   const introduced = [];
   for (let index = 0; index < tokens.length; index += 1) {
     const token = tokens[index];
-    if (token.kind !== 'paragraph') continue;
-    const introduction = token.text.match(INTRODUCTION_PATTERN);
-    if (!introduction) continue;
     let end = index + 1;
     while (end < tokens.length && !isOuterArticleToken(tokens[end])) end += 1;
     const segment = tokens.slice(index + 1, end);
     const firstStructure = segment.findIndex((entry) => entry.kind === 'structure');
-    if (firstStructure < 0) throw new NormHtmlParseError(fileName, `eingeführte Stammnorm nach „${token.text}“ besitzt keine Hauptgliederung`);
-    const titleText = segment.slice(0, firstStructure).filter((entry) => entry.kind === 'paragraph').map((entry) => entry.text).join(' ');
-    const heading = introduction[1] ?? 'Gesetz';
+    const titleText = firstStructure >= 0
+      ? segment.slice(0, firstStructure).filter((entry) => entry.kind === 'paragraph').map((entry) => entry.text).join(' ')
+      : '';
     const rawIdentity = titleText.replace(/^[„“”'`,.]+/u, '').trim();
-    const replacementMatch = introduction[2] ? rawIdentity.match(/^(.+?)\s*\(([^()]+)\)\s*$/u) : null;
+    const introduction = token.kind === 'paragraph' ? token.text.match(INTRODUCTION_PATTERN) : null;
+    const articleIntroduction = token.kind === 'structure' && token.marker.type === 'article' &&
+      /^Einführung\s+(?:eines|einer)\s+(?:besonderen\s+)?(?:[\p{L}-]*gesetzes|[\p{L}-]*verordnung|[\p{L}-]*satzung)/iu.test(token.marker.title ?? '') &&
+      /^(?:(?:Besonderes|Gemeinsames)\s+)?(?:Gesetz|Verordnung|Satzung)\b/iu.test(rawIdentity) &&
+      !segment.some((entry) => entry.kind === 'paragraph' && INTRODUCTION_PATTERN.test(entry.text));
+    if (!introduction && !articleIntroduction) continue;
+    if (firstStructure < 0) throw new NormHtmlParseError(fileName, `eingeführte Stammnorm nach „${token.text ?? token.marker.title}“ besitzt keine Hauptgliederung`);
+    const heading = introduction?.[1] ?? (introduction?.[2]
+      ? 'Gesetz'
+      : rawIdentity.match(/^(?:(?:Besonderes|Gemeinsames)\s+)?(?:Gesetz|Verordnung|Satzung)\b/iu)?.[0]);
+    if (!heading) throw new NormHtmlParseError(fileName, `Dokumenttyp der eingeführten Stammnorm „${rawIdentity}“ fehlt`);
+    const replacementMatch = introduction?.[2] ? rawIdentity.match(/^(.+?)\s*\(([^()]+)\)\s*$/u) : null;
     const identity = replacementMatch
       ? { title: replacementMatch[1].trim(), shortTitle: replacementMatch[1].trim(), abbr: replacementMatch[2].trim() }
       : parseIdentity(heading, rawIdentity);
     const body = parseTokens(segment.slice(firstStructure), fileName, { inQuote: false });
     validateBody(fileName, identity.title, body);
     introduced.push({
-      kind: introduction[2] ? 'replacement' : 'introduced',
+      kind: introduction?.[2] ? 'replacement' : 'introduced',
       heading,
       ...identity,
       type: /Verordnung/iu.test(heading) ? 'verordnung' : 'gesetz',
@@ -1215,9 +1239,9 @@ function detectPublicationIdentity(value) {
 }
 
 function parseHeadingRange(range, fileName) {
-  const documentDate = parseGermanDate(range.text);
+  const documentDate = range.documentDate ?? parseGermanDate(range.text);
   if (!documentDate) throw new NormHtmlParseError(fileName, 'Dokumentdatum in der Normüberschrift fehlt');
-  const dateMatch = range.text.match(DATE_PATTERN);
+  const dateMatch = range.text.match(DATE_PATTERN) ?? range.text.match(PARTIAL_DATE_PATTERN);
   const rawTitle = range.text.slice(0, dateMatch?.index ?? range.text.length).replace(/\s+vom\s*$/iu, '').trim();
   const heading = rawTitle.match(SOURCE_HEADING_START_PATTERN)?.[0]?.trim();
   if (!heading) throw new NormHtmlParseError(fileName, `Dokumenttyp in der Normüberschrift „${rawTitle}“ fehlt`);
@@ -1343,7 +1367,7 @@ export function parsePublicationHtml(fileName, html) {
   if (!issueMatch || !publicationDate) throw new NormHtmlParseError(fileName, 'Ausgabenummer oder Ausgabedatum konnte nicht aus dem Inhalt bestimmt werden');
   const tocIndex = nodes.findIndex((node) => /^Inhaltsverzeichnis$/iu.test(textOf(node)));
   if (tocIndex < 0) throw new NormHtmlParseError(fileName, 'Inhaltsverzeichnis fehlt');
-  const ranges = headingRanges(nodes, tocIndex, css);
+  const ranges = headingRanges(nodes, tocIndex, css, publicationDate);
   if (ranges.length === 0) throw new NormHtmlParseError(fileName, 'keine unterstützte Normüberschrift nach dem Inhaltsverzeichnis erkannt');
   const [mainRange] = ranges;
   const toc = tocEntries(nodes, tocIndex, mainRange.start);

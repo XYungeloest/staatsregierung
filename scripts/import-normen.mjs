@@ -384,6 +384,191 @@ const NEW_PUBLICATION_CONFIG = {
     ],
     dateNote: 'Am 23. August 2026 verkündet; Inkrafttreten am 24. August 2026. Takt- und Betriebszeitstandards werden schrittweise zum jeweils nächstmöglichen betrieblich umsetzbaren Fahrplanwechsel verwirklicht.',
   }],
+  'OGVBl.|2026|69': [{
+    slug: 'sicherheitsueberpruefungsfeststellungsverordnung',
+    shortTitle: 'Sicherheitsüberprüfungsfeststellungsverordnung',
+    abbr: 'SÜFV-O',
+    type: 'verordnung',
+    pageCount: 5,
+    pdfFileName: 'OGVBl. 2026 Nr. 69.pdf',
+    verifiedAt: '2026-09-02',
+    enactingBody: 'Staatsrat des Freistaates Ostdeutschland',
+    responsibleMinistry: 'Staatssekretariat für Staats- und Grenzsicherheit',
+    subjects: ['Sicherheit und Ordnung'],
+    summary: 'Bestimmt die lebens- und verteidigungswichtigen Einrichtungen, für deren Aufgabenwahrnehmung Sicherheitsüberprüfungen erforderlich sind.',
+    dateNote: 'Am 31. August 2026 verkündet und am 1. September 2026 in Kraft getreten.',
+  }],
+  'OGVBl.|2026|70': [
+    {
+      slug: 'besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts',
+      shortTitle: 'Besonderes Gesetz zur Neuregelung des Hoheitszeichenrechts',
+      type: 'aenderungsvorschrift',
+      pageCount: 15,
+      pdfFileName: 'OGVBl. 2026 Nr. 70.pdf',
+      verifiedAt: '2026-09-02',
+      enactingBody: 'Landtag des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
+      subjects: ['Staats- und Verfassungsrecht', 'Landesrecht'],
+      summary: 'Führt ein neues Gesetz über die Hoheitszeichen ein, hebt das bisherige Gesetz über die Hoheitszeichen auf und regelt Übergangsrecht sowie die Fortgeltung der Hoheitszeichenverordnung.',
+      affectedNorms: ['gesetz-zur-einfuhrung-eines-hoheitszeichengesetzes', 'hoheitszeichenverordnung'],
+      dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
+    },
+    {
+      slug: 'ostdeutsches-hoheitszeichengesetz',
+      shortTitle: 'Ostdeutsches Hoheitszeichengesetz',
+      abbr: 'OHzG',
+      type: 'gesetz',
+      pageCount: 15,
+      pdfFileName: 'OGVBl. 2026 Nr. 70.pdf',
+      verifiedAt: '2026-09-02',
+      enactingBody: 'Landtag des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
+      subjects: ['Staats- und Verfassungsrecht', 'Landesrecht'],
+      summary: 'Bestimmt die Hoheitszeichen des Freistaates Ostdeutschland und ihre Verwendung.',
+      predecessor: 'Gesetz zur Einführung eines Hoheitszeichengesetzes',
+      relatedNorms: ['besonderes-gesetz-zur-neuregelung-des-hoheitszeichenrechts', 'hoheitszeichenverordnung'],
+      dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
+    },
+  ],
+  'OGVBl.|2026|71': [
+    {
+      slug: 'gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge',
+      shortTitle: 'Einführungsgesetz Daseinsvorsorge',
+      type: 'aenderungsvorschrift',
+      pageCount: 15,
+      pdfFileName: 'OGVBl. 2026 Nr. 71.pdf',
+      verifiedAt: '2026-09-02',
+      enactingBody: 'Landtag des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
+      subjects: ['Öffentliche Wirtschaft', 'Staats- und Verfassungsrecht'],
+      summary: 'Führt das Ostdeutsche Daseinsvorsorgegesetz ein und ergänzt die Ostdeutsche Haushaltsordnung um eine Regelung zur Überlassung landeseigener Liegenschaften.',
+      affectedNorms: ['saechsische-haushaltsordnung'],
+      dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
+    },
+    {
+      slug: 'ostdeutsches-daseinsvorsorgegesetz',
+      shortTitle: 'Ostdeutsches Daseinsvorsorgegesetz',
+      abbr: 'OstDVG',
+      type: 'gesetz',
+      pageCount: 15,
+      pdfFileName: 'OGVBl. 2026 Nr. 71.pdf',
+      verifiedAt: '2026-09-02',
+      enactingBody: 'Landtag des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
+      subjects: ['Öffentliche Wirtschaft', 'Staats- und Verfassungsrecht'],
+      summary: 'Bestimmt die öffentliche Daseinsvorsorge als staatliche Aufgabe, ihre Verantwortungsträger und die Grundsätze ihrer Sicherstellung.',
+      relatedNorms: ['gesetz-zur-einfuehrung-eines-besonderen-gesetzes-ueber-die-oeffentliche-daseinsvorsorge', 'saechsische-haushaltsordnung'],
+      dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
+    },
+  ],
+  'OGVBl.|2026|72': [{
+    slug: 'gesetz-zur-einfuehrung-von-hinweisgebermeldestellen',
+    shortTitle: 'Gesetz zur Einführung von Hinweisgebermeldestellen',
+    type: 'aenderungsvorschrift',
+    pageCount: 3,
+    pdfFileName: 'OGVBl. 2026 Nr. 72.pdf',
+    verifiedAt: '2026-09-02',
+    enactingBody: 'Landtag des Freistaates Ostdeutschland',
+    responsibleMinistry: 'Staatssekretariat des Innern und für Wohnungswirtschaft',
+    subjects: ['Kommunal- und Verwaltungsrecht', 'Transparenz und Informationszugang'],
+    summary: 'Führt bei Gemeinden, Landkreisen und Bezirken interne Meldestellen für Hinweisgeber:innen ein.',
+    affectedNorms: ['saechsische-gemeindeordnung', 'saechsische-landkreisordnung', 'ostdeutsche-bezirksordnung'],
+    dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 1. Oktober 2026.',
+  }],
+  'OGVBl.|2026|73': [
+    {
+      slug: 'gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes',
+      shortTitle: 'Einführungsgesetz Zinnwald-Vergesellschaftung',
+      type: 'aenderungsvorschrift',
+      pageCount: 6,
+      pdfFileName: 'OGVBl. 2026 Nr. 73.pdf',
+      verifiedAt: '2026-09-02',
+      enactingBody: 'Landtag des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
+      subjects: ['Öffentliche Wirtschaft', 'Wirtschaft und Förderung'],
+      summary: 'Führt das Gesetz zur Vergesellschaftung des Lithiumprojekts Zinnwald ein.',
+      dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
+    },
+    {
+      slug: 'zinnwald-vergesellschaftungsgesetz',
+      shortTitle: 'Zinnwald-Vergesellschaftungsgesetz',
+      abbr: 'ZinnVG',
+      type: 'gesetz',
+      pageCount: 6,
+      pdfFileName: 'OGVBl. 2026 Nr. 73.pdf',
+      verifiedAt: '2026-09-02',
+      enactingBody: 'Landtag des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
+      subjects: ['Öffentliche Wirtschaft', 'Wirtschaft und Förderung'],
+      summary: 'Regelt die Vergesellschaftung des Lithiumprojekts Zinnwald.',
+      relatedNorms: ['gesetz-zur-einfuehrung-eines-zinnwald-vergesellschaftungsgesetzes'],
+      dateNote: 'Am 2. September 2026 verkündet und am selben Tag in Kraft getreten.',
+    },
+  ],
+  'OGVBl.|2026|74': [
+    {
+      slug: 'gesetz-zur-errichtung-der-interflug',
+      shortTitle: 'Gesetz zur Errichtung der Interflug',
+      type: 'aenderungsvorschrift',
+      pageCount: 14,
+      pdfFileName: 'OGVBl. 2026 Nr. 74.pdf',
+      verifiedAt: '2026-09-02',
+      enactingBody: 'Landtag des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
+      subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+      summary: 'Errichtet die Interflug und führt das Gesetz über die Interflug ein.',
+      dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
+    },
+    {
+      slug: 'interflug-gesetz',
+      shortTitle: 'Interflug-Gesetz',
+      abbr: 'InterflugG',
+      type: 'gesetz',
+      pageCount: 14,
+      pdfFileName: 'OGVBl. 2026 Nr. 74.pdf',
+      verifiedAt: '2026-09-02',
+      enactingBody: 'Landtag des Freistaates Ostdeutschland',
+      responsibleMinistry: 'Staatssekretariat für Wirtschaft und Arbeit',
+      subjects: ['Öffentliche Wirtschaft', 'Mobilität und öffentliche Infrastruktur'],
+      summary: 'Bestimmt Aufgaben, Organisation und Aufsicht der Interflug.',
+      relatedNorms: ['gesetz-zur-errichtung-der-interflug'],
+      dateNote: 'Am 2. September 2026 verkündet; Inkrafttreten am 3. September 2026.',
+    },
+  ],
+  'OVertrBl.|2026|4': [{
+    slug: 'staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt',
+    shortTitle: 'Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk',
+    type: 'staatsvertrag',
+    pageCount: 9,
+    pdfFileName: 'OVertrBl. 2026 Nr. 4.pdf',
+    verifiedAt: '2026-09-02',
+    enactingBody: null,
+    responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
+    subjects: ['Rundfunk und Medien', 'Völkerrecht und Staatsverträge'],
+    summary: 'Ändert den Staatsvertrag über den Norddeutschen Rundfunk und regelt die Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk.',
+    effectiveOverride: '2026-09-03',
+    versionId: '2026-03-08',
+    validFrom: '2026-09-03',
+    historyDate: '2026-03-08',
+    historyTitle: 'Staatsvertrag geschlossen.',
+    relatedNorms: ['bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages'],
+    dateNote: 'Am 8. März 2026 geschlossen und am 24. März 2026 verkündet. Nach der Bekanntmachung vom 2. September 2026 tritt der Staatsvertrag am 3. September 2026 in Kraft.',
+  }],
+  'OVertrBl.|2026|5': [{
+    slug: 'bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages',
+    shortTitle: 'Bekanntmachung zum Inkrafttreten des NDR-Änderungs- und Überleitungsstaatsvertrages',
+    type: 'bekanntmachung',
+    statusOverride: 'one-time-act',
+    pageCount: 2,
+    pdfFileName: 'OVertrBl. 2026 Nr. 5.pdf',
+    verifiedAt: '2026-09-02',
+    enactingBody: 'Staatspräsident des Freistaates Ostdeutschland',
+    responsibleMinistry: 'Staatskanzlei des Freistaates Ostdeutschland',
+    subjects: ['Rundfunk und Medien', 'Völkerrecht und Staatsverträge'],
+    summary: 'Macht bekannt, dass der NDR-Änderungs- und Überleitungsstaatsvertrag nach Austausch der Ratifikationsurkunden am 3. September 2026 in Kraft tritt.',
+    relatedNorms: ['staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt'],
+    dateNote: 'Am 2. September 2026 verkündet. Der Staatsvertrag tritt am 3. September 2026 in Kraft.',
+  }],
 };
 
 function publicationConfigKey(parsed) {
@@ -533,6 +718,8 @@ function citationFor(parsed, startPage) {
       ? 'Bekanntmachung'
     : /Verordnung/iu.test(parsed.heading ?? '') || parsed.type === 'verordnung'
       ? 'Verordnung'
+      : /Staatsvertrag/iu.test(parsed.heading ?? '') || parsed.type === 'staatsvertrag'
+        ? 'Staatsvertrag'
       : 'Gesetz';
   return `${label} vom ${formatGermanDate(parsed.documentDate)} (${parsed.publication} ${parsed.year} Nr. ${parsed.issue}${startPage ? ` S. ${startPage}` : ''})`;
 }
@@ -836,11 +1023,14 @@ function buildRecords(parsed) {
     const recordNorm = { ...norm, type: recordType, effectiveDate };
     const startPage = index === 0 ? parsed.startPage : undefined;
     const citation = citationFor({ ...parsed, type: recordType }, startPage);
-    const status = deriveStatus(recordNorm, index);
-    const versionId = effectiveDate ?? parsed.publicationDate;
-    const enactingBody = config.enactingBody ?? (NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)] || ['58', '59'].includes(parsed.issue)
-      ? 'Staatsrat des Freistaates Ostdeutschland'
-      : 'Landtag des Freistaates Ostdeutschland');
+    const status = config.statusOverride ?? deriveStatus(recordNorm, index);
+    const versionId = config.versionId ?? effectiveDate ?? parsed.publicationDate;
+    const validFrom = config.validFrom ?? effectiveDate ?? versionId;
+    const enactingBody = Object.hasOwn(config, 'enactingBody')
+      ? config.enactingBody
+      : (NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)] || ['58', '59'].includes(parsed.issue)
+        ? 'Staatsrat des Freistaates Ostdeutschland'
+        : 'Landtag des Freistaates Ostdeutschland');
     const abbr = config.abbr ?? norm.abbr;
     const officialTitleSuffix = abbr ? ` (${abbr})` : '';
     const officialTitle = NEW_PUBLICATION_CONFIG[publicationConfigKey(parsed)] && officialTitleSuffix && norm.title.endsWith(officialTitleSuffix)
@@ -855,7 +1045,7 @@ function buildRecords(parsed) {
       shortTitleSource: config.abbr || norm.shortTitle === shortTitle ? 'official' : 'editorial',
       ...(abbr ? { abbr } : {}),
       type: recordType,
-      enactingBody,
+      ...(enactingBody ? { enactingBody } : {}),
       responsibleMinistry,
       subjects: config.subjects ?? configuredSubjectsFor(parsed),
       ...(config.primarySubject ? { primarySubject: config.primarySubject } : {}),
@@ -903,7 +1093,7 @@ function buildRecords(parsed) {
     };
     const version = {
       versionId,
-      validFrom: versionId,
+      validFrom,
       validTo: parsed.issue === '59' ? '2026-12-31' : config.expiryDate ?? null,
       isCurrent: true,
       citation,
@@ -914,9 +1104,9 @@ function buildRecords(parsed) {
     const history = {
       initialVersionId: versionId,
       entries: [{
-        date: parsed.publicationDate,
+        date: config.historyDate ?? parsed.publicationDate,
         type: 'initial',
-        title: index === 0 ? 'Verkündung.' : 'Stammfassung verkündet.',
+        title: config.historyTitle ?? (index === 0 ? 'Verkündung.' : 'Stammfassung verkündet.'),
         citation,
         affectingVersionId: versionId,
         ...(index > 0 ? { relatedNorm: outerSlug } : {}),
@@ -1192,10 +1382,13 @@ function publicationFrom(parsed, records) {
     throw new Error(`${parsed.fileName}: mehrere PDF-Kandidaten für dieselbe Ausgabe: ${resolvedPdf.candidates.join(', ')}`);
   }
   const pdfFileName = resolvedPdf.fileName;
-  const longName = parsed.publication === 'StAnzO.'
-    ? 'Staatsanzeiger Ostdeutschland'
-    : 'Ostdeutsches Gesetz- und Verordnungsblatt';
-  const publicationSlugPrefix = parsed.publication === 'StAnzO.' ? 'stanzo' : 'ogvbl';
+  const publicationDetails = {
+    'StAnzO.': { longName: 'Staatsanzeiger Ostdeutschland', slugPrefix: 'stanzo' },
+    'OVertrBl.': { longName: 'Ostdeutsches Vertragsblatt', slugPrefix: 'overtrbl' },
+  }[parsed.publication] ?? { longName: 'Ostdeutsches Gesetz- und Verordnungsblatt', slugPrefix: 'ogvbl' };
+  const publicationIssue = parsed.publication === 'OVertrBl.'
+    ? String(parsed.issue).padStart(2, '0')
+    : parsed.issue;
   const pageRange = parsed.startPage && config.pageCount
     ? `${parsed.startPage}${Number(parsed.startPage) === config.pageCount ? '' : `–${config.pageCount}`}`
     : undefined;
@@ -1203,8 +1396,8 @@ function publicationFrom(parsed, records) {
     publicationIdentityKey(parsed.publication, parsed.year, parsed.issue)
   ];
   return {
-    slug: `${publicationSlugPrefix}-${parsed.year}-${parsed.issue}`,
-    title: `${longName} ${parsed.year} Nr. ${parsed.issue}`,
+    slug: `${publicationDetails.slugPrefix}-${parsed.year}-${publicationIssue}`,
+    title: `${publicationDetails.longName} ${parsed.year} Nr. ${parsed.issue}`,
     year: parsed.year,
     issue: parsed.issue,
     date: parsed.publicationDate,
@@ -1220,7 +1413,9 @@ function publicationFrom(parsed, records) {
       title: record.meta.title,
       type: isNewOfficialIssue
         ? record.meta.type === 'aenderungsvorschrift'
-          ? parsed.publication === 'StAnzO.' ? 'verwaltungsvorschrift' : 'verordnung'
+          ? parsed.publication === 'StAnzO.'
+            ? 'verwaltungsvorschrift'
+            : /^Gesetz\s/u.test(record.meta.initialCitation) ? 'gesetz' : 'verordnung'
           : record.meta.type
         : record.meta.type === 'verordnung' ? 'verordnung' : 'gesetz',
       citation: record.meta.initialCitation,
@@ -1423,11 +1618,18 @@ function mergeWithExisting(record, existing) {
   const hasConcreteInitialEntry = existing.history.entries.some((entry) =>
     entry.type === 'initial' && entry.affectingVersionId
   );
+  const incomingInitialVersionIds = new Set(incomingHistoryEntries
+    .filter((entry) => entry.type === 'initial' && entry.affectingVersionId)
+    .map((entry) => entry.affectingVersionId));
   const preservedEntries = (existing.history.entries ?? []).filter((entry) => !generatedEntryKeys.has(JSON.stringify([
     entry.date,
     entry.type,
     entry.relatedNorm ?? null,
-  ])) && !(hasConcreteInitialEntry && entry.type === 'initial' && !entry.affectingVersionId));
+  ])) && !(hasConcreteInitialEntry && entry.type === 'initial' && !entry.affectingVersionId) && !(
+    entry.type === 'initial' &&
+    entry.affectingVersionId &&
+    incomingInitialVersionIds.has(entry.affectingVersionId)
+  ));
   return {
     ...record,
     meta: preservedMeta,

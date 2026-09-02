@@ -43,7 +43,10 @@
       "title": "Ostdeutsche Bezirksordnung",
       "aliases": [
         "Ostdeutsche Bezirksordnung"
-      ]
+      ],
+      "existingVersionSeed": {
+        "versionId": "2026-08-01"
+      }
     },
     "ostdeutsches-feiertagsgesetz": {
       "title": "Gesetz über Sonn- und Feiertage im Ostdeutschen Freistaat",
@@ -1501,8 +1504,9 @@
     }
   },
   "blockedTargets": {
-    "mustergesetz": {
-      "reason": "Der im NDR-Staatsvertrag enthaltene Text „Mustergesetz vom TT. MMMM JJJJ“ ist eine unausgefüllte Quellenvorlage und keine reale Zielnorm."
+    "saechsische-gemeindeordnung": {
+      "reason": "Artikel 1 des Gesetzes zur Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die in der ausdrücklich als zuletzt geändert bezeichneten Fassung vom 20. Juli 2026 bereits geltende Gemeindeordnung enthält jedoch § 71b bis § 71g. Eine Umnummerierung oder Verdrängung dieser Vorschriften ist aus der Primärquelle nicht ableitbar.",
+      "effectiveDate": "2026-10-01"
     },
     "schulordnung-foerderschulen": {
       "reason": "Verbleibender Quellenkonflikt trotz OGVBl. 2026 Nr. 68: Artikel 1 Nummer 6 Buchstabe b der Änderungsverordnung verlangt in § 8 Absatz 3 die Wörter „Klassenstufen 5 und 6 der Oberschule“. Die verbindliche REVOSax-Ausgangsfassung enthält dort stattdessen „Lehrplänen für die Oberschule“. Die Berichtigung Nr. 68 erfasst nur die Befehle zu § 8 Absatz 2 und § 9 Absatz 2; eine heuristische Umdeutung des nicht berichtigten Befehls ist unzulässig.",

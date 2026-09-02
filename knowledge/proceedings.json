@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-08-29",
+  "asOf": "2026-09-02",
   "proceedings": [
     {
       "id": "proceeding-federal-president-dreyer-impeachment", "title": "Präsidentenanklage und Rücktritt von Bundespräsidentin Manuela Dreyer", "status": "editorially-confirmed", "validFrom": "2026-07-09", "validTo": null, "asOf": "2026-08-01",
@@ -276,22 +276,17 @@
     },
     {
       "id": "proceeding-ndr-ratification",
-      "title": "Ratifikation des NDR-Änderungs- und Überleitungsstaatsvertrags",
-      "status": "editorially-confirmed",
-      "validFrom": "2026-03-24",
-      "validTo": "2026-03-24",
-      "asOf": "2026-07-29",
-      "summary": "Ratifikationsurkunden wurden am 24. März 2026 ausgetauscht; der Vertrag trat am selben Tag in Kraft.",
+      "title": "Inkrafttreten des NDR-Änderungs- und Überleitungsstaatsvertrags",
+      "status": "confirmed-primary",
+      "validFrom": "2026-09-03",
+      "validTo": "2026-09-03",
+      "asOf": "2026-09-02",
+      "summary": "Die Bekanntmachung vom 2. September 2026 stellt das Inkrafttreten des Staatsvertrags nach Austausch der Ratifikationsurkunden zum 3. September 2026 fest.",
       "sourceRefs": [
         {
-          "sourceId": "source-editorial-clarifications-2026-07-29",
-          "locator": "Abschnitt Rechts- und Vertragsstand",
+          "sourceId": "source-overtrbl-2026-05",
+          "locator": "Bekanntmachung vom 2. September 2026",
           "role": "primary"
-        },
-        {
-          "sourceId": "source-overtrbl-2026-04",
-          "locator": "Veröffentlichungsdatum 2026-03-24",
-          "role": "corroborating"
         }
       ],
       "relatedIds": [
@@ -301,12 +296,12 @@
         "proceeding",
         "treaty",
         "media",
-        "historical"
+        "future"
       ],
       "notes": [],
       "aliases": [],
       "proceedingType": "ratification",
-      "stage": "completed",
+      "stage": "scheduled",
       "participantIds": [
         "inst-sek-rechtsstaat-kultur"
       ],
@@ -316,8 +311,8 @@
           "versionId": "2026-03-08"
         }
       ],
-      "decision": "Ratifikationsurkunden am 24. März 2026 ausgetauscht; Inkrafttreten am selben Tag.",
-      "nextAction": null,
+      "decision": "Die Bekanntmachung stellt das Inkrafttreten nach Austausch der Ratifikationsurkunden zum 3. September 2026 fest.",
+      "nextAction": "Inkrafttreten und praktische Überleitung ab dem 3. September 2026 dokumentieren.",
       "openQuestionIds": []
     },
     {
@@ -619,8 +614,8 @@
       "status": "confirmed-official",
       "validFrom": null,
       "validTo": null,
-      "asOf": "2026-08-29",
-      "summary": "Der Audit erkennt 85 Zielnormen; 81 sind vollständig konsolidiert. Drei Zieltextkonflikte sind gesperrt (Gesetz über den öffentlichen Personennahverkehr, Schulordnung Förderschulen und Zehntes Sächsisches Kostenverzeichnis); für den NDR-Staatsvertrag fehlt weiterhin eine maßgebliche Ausgangsfassung.",
+      "asOf": "2026-09-02",
+      "summary": "Der Audit erkennt 89 Zielnormen; 84 sind vollständig konsolidiert. Vier Zieltextkonflikte sind gesperrt (Gesetz über den öffentlichen Personennahverkehr, Ostdeutsche Gemeindeordnung, Schulordnung Förderschulen und Zehntes Sächsisches Kostenverzeichnis); für den NDR-Staatsvertrag fehlt weiterhin eine maßgebliche Ausgangsfassung.",
       "sourceRefs": [
         {
           "sourceId": "source-content-gaps",

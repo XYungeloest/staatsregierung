@@ -3,7 +3,7 @@
   "slug": "staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt",
   "title": "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
   "shortTitle": "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
-  "abbr": "ÄSüNRÜMbNOF",
+  "shortTitleSource": "official",
   "type": "staatsvertrag",
   "responsibleMinistry": "Staatskanzlei des Freistaates Ostdeutschland",
   "subjects": [
@@ -11,38 +11,43 @@
     "Völkerrecht und Staatsverträge"
   ],
   "keywords": [
-    "Rundfunk",
-    "Fernsehfunk",
-    "Medien",
+    "Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk",
     "Staatsvertrag",
-    "Abkommen",
-    "Nachbarschaft",
     "Änderung",
     "Staatsvertrages",
-    "über",
     "Norddeutschen",
+    "Rundfunk",
     "Überleitung",
-    "Mecklenburg-Vorpommern"
+    "Mecklenburg-Vorpommern",
+    "belegenen",
+    "NDR-Strukturen",
+    "Ostdeutschen",
+    "Fernsehfunk",
+    "Medien",
+    "Abkommen",
+    "Nachbarschaft",
+    "über"
   ],
-  "initialCitation": "Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4)",
+  "initialCitation": "Staatsvertrag vom 8. März 2026 (OVertrBl. 2026 Nr. 4 S. 2)",
   "predecessor": null,
   "successor": null,
+  "relatedNorms": [
+    "bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages"
+  ],
   "summary": "Der Staatsvertrag regelt die in „Staatsvertrag zur Änderung des Staatsvertrages über den Norddeutschen Rundfunk und zur Überleitung der in Mecklenburg-Vorpommern belegenen NDR-Strukturen auf den Ostdeutschen Fernsehfunk“ bezeichnete Zusammenarbeit sowie die Rechte und Pflichten der Vertragsparteien.",
-  "status": "in-force",
+  "status": "future-effective",
   "documentDate": "2026-03-08",
   "publicationDate": "2026-03-24",
-  "effectiveDate": "2026-03-24",
-  "dateNote": "Der Austausch der Ratifikationsurkunden ist belegt; der Staatsvertrag trat am 24. März 2026 in Kraft.",
   "sourceReferences": [
     {
       "kind": "structured-html-transcription",
       "label": "Vollständige strukturtragende HTML-Fassung der amtlichen Ausgabe",
       "availability": "versioned",
       "localSource": "Gesetze/OVertrBl. 2026 Nr. 4.html",
-      "sha256": "eeaa315b93b89cc245ff68dca8953f676628832cfa9c145a71c3422f680261bd",
+      "sha256": "f9ccbdf3184c277790dcaadd793088309cd5b8978b05fe52b152870bc94a7c94",
       "mediaType": "text/html",
-      "pageRange": "2-9",
-      "verifiedAt": "2026-08-28",
+      "pageRange": "2–9",
+      "verifiedAt": "2026-09-02",
       "sourceRole": "structure-bearing"
     },
     {
@@ -50,13 +55,15 @@
       "label": "Amtliche visuelle Veröffentlichungsfassung",
       "availability": "versioned",
       "localSource": "Gesetze/OVertrBl. 2026 Nr. 4.pdf",
-      "sha256": "063b732f6c255d960ca133db97e517afc1c1e2a4d1e081e8699a0476198bd9da",
+      "sha256": "91b82ee426e613a2f12725ea20d43e714d828140e7c7651f53d5d13d1723a89e",
       "mediaType": "application/pdf",
       "pageCount": 9,
-      "pageRange": "2-9",
-      "verifiedAt": "2026-08-28",
+      "pageRange": "2–9",
+      "verifiedAt": "2026-09-02",
       "sourceRole": "visual-control",
       "derivedSource": "Gesetze/OVertrBl. 2026 Nr. 4.html"
     }
-  ]
+  ],
+  "effectiveDate": "2026-09-03",
+  "dateNote": "Am 8. März 2026 geschlossen und am 24. März 2026 verkündet. Nach der Bekanntmachung vom 2. September 2026 tritt der Staatsvertrag am 3. September 2026 in Kraft."
 }

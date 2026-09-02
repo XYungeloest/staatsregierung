@@ -103,7 +103,7 @@ test('Hoheitszeichenänderung erhält eine vollständige Folgefassung mit dokume
   assert.match(JSON.stringify(amendment.body), /nach dem Wort ,,nach” die Angabe ,,Blau, “/u);
 });
 
-test('Bezirksordnung besitzt die belegte Ursprungsfassung und die vollständige Ablösungsfassung', async () => {
+test('Bezirksordnung besitzt die belegte Ursprungsfassung, Ablösung und künftige Hinweisgeberfassung', async () => {
   const [meta, history, original, replacement] = await Promise.all([
     readJson('content/normen/ostdeutsche-bezirksordnung/meta.json'),
     readJson('content/normen/ostdeutsche-bezirksordnung/history.json'),
@@ -115,7 +115,7 @@ test('Bezirksordnung besitzt die belegte Ursprungsfassung und die vollständige 
   assert.equal(original.validFrom, '2025-03-12');
   assert.equal(original.validTo, '2026-07-31');
   assert.equal(replacement.validFrom, '2026-08-01');
-  assert.equal(replacement.validTo, null);
+  assert.equal(replacement.validTo, '2026-09-30');
   assert.deepEqual(
     flatten(original.body).filter((block) => block.type === 'paragraph').map((block) => block.label),
     Array.from({ length: 29 }, (_, index) => `§ ${index + 1}`),
@@ -151,7 +151,7 @@ test('Sportänderung gilt ab 1. August für die neue Bezirksordnung', async () =
   assert.equal(sportEntry?.affectingVersionId, '2026-08-01');
   const target = manifest.targets.find((entry) => entry.canonicalSlug === 'ostdeutsche-bezirksordnung');
   assert.equal(target?.status, 'complete');
-  assert.deepEqual(target?.effectiveDates, ['2026-08-01']);
+  assert.deepEqual(target?.effectiveDates, ['2026-08-01', '2026-10-01']);
   assert.equal(
     target?.amendmentActs.find((act) => act.slug === 'sportneuordnungsgesetz')?.targetEffectiveDate,
     '2026-08-01',
