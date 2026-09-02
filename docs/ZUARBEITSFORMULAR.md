@@ -1,7 +1,7 @@
 # Zuarbeitsformular für offene Portalaufgaben
 
 **Redaktioneller Stichtag:** zentral in `../packages/shared/src/config/editorial.json`
-**Repositoryprüfung:** 29. August 2026
+**Repositoryprüfung:** 2. September 2026
 
 Dieses Formular enthält ausschließlich Punkte, für die aktuell externe Unterlagen oder eine
 inhaltliche Entscheidung benötigt werden. Der verbindliche Aufgabenstatus steht in der
@@ -86,21 +86,20 @@ Bitte für eine längere öffentliche Sitzung bereitstellen:
 
 ## Q. Noch fehlende Rechtsquellen
 
-### Q-01 – Vollständige Ausgangsfassung des NDR-Staatsvertrags
+### Q-01 – Technische Archivierung der NDR-Ausgangsfassung
 
-Benötigt wird die vollständige, vor der Änderung vom 8. März 2026 geltende Fassung des
-NDR-Staatsvertrags einschließlich Anlagen.
+Die fachlich maßgebliche Ausgangsfassung ist durch die korrigierte Veröffentlichung inzwischen
+eindeutig identifiziert: Staatsvertrag über den Norddeutschen Rundfunk (NDR-Staatsvertrag) vom
+4./9. März 2021 (GVOBl. M-V S. 797). Eine vollständige amtliche Fassung stellt der NDR bereit:
+https://www.ndr.de/der_ndr/zahlen_und_daten/staatsvertrag202.pdf
 
-**Dateien oder amtliche URLs:**
+Offen ist nur noch die unveränderte Versionierung dieser Ausgangsfassung im Repository und die
+anschließende Konsolidierungsprüfung. Eine gesonderte Klärung eines „Mustergesetzes“ ist nicht
+erforderlich; der entsprechende Platzhalter stammte aus der ersetzten fehlerhaften Fassung von
+OVertrBl. 2026 Nr. 4.
 
-### Q-02 – NDR-Mustergesetz
-
-Die Anlage des NDR-Änderungs- und Überleitungsstaatsvertrags enthält eine unausgefüllte
-„Mustergesetz vom TT. MMMM JJJJ“-Angabe.
-
-**Wurde daneben ein konkretes Mustergesetz beschlossen oder verkündet:** ja / nein / unbekannt  
-**Titel, Datum und Fundstelle:**  
-**Vollständige Quelle:**
+**Nur falls der amtliche Abruf technisch nicht möglich ist:** vollständige PDF unverändert unter
+`/temp-neu` bereitstellen.
 
 ---
 
