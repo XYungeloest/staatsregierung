@@ -24,7 +24,16 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       scope: ${{ steps.scope.outputs.scope }}
+      deploy_portal: ${{ steps.scope.outputs.deploy_portal }}
+      deploy_law: ${{ steps.scope.outputs.deploy_law }}
       deploy_targets: ${{ steps.scope.outputs.deploy_targets }}
+      check_portal: ${{ steps.scope.outputs.check_portal }}
+      check_law: ${{ steps.scope.outputs.check_law }}
+      build_targets: ${{ steps.scope.outputs.build_targets }}
+      ui_targets: ${{ steps.scope.outputs.ui_targets }}
+      run_content_check: ${{ steps.scope.outputs.run_content_check }}
+      run_knowledge_check: ${{ steps.scope.outputs.run_knowledge_check }}
+      run_unit_tests: ${{ steps.scope.outputs.run_unit_tests }}
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
     steps:
       - name: Repository auschecken
@@ -36,7 +45,41 @@ jobs:
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-        run: git diff --name-only "$BASE_SHA...$HEAD_SHA" | node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT"
+        run: |
+          CHANGED_PATHS="${RUNNER_TEMP}/changed-paths.txt"
+          git diff --name-only "$BASE_SHA...$HEAD_SHA" > "$CHANGED_PATHS"
+          node scripts/classify-change-scope.mjs --stdin --github-output "$GITHUB_OUTPUT" < "$CHANGED_PATHS"
+
+          output_value() {
+            grep "^$1=" "$GITHUB_OUTPUT" | tail -n 1 | cut -d '=' -f 2-
+          }
+          target_label() {
+            case "$1" in
+              portal) printf 'Staatsportal' ;;
+              law) printf 'OstRecht' ;;
+              portal,law) printf 'Staatsportal und OstRecht' ;;
+              '') printf 'kein Ziel' ;;
+            esac
+          }
+          deployment_label() {
+            if [ -n "$1" ]; then target_label "$1"; else printf 'kein Produktionsdeployment'; fi
+          }
+          yes_no() {
+            if [ "$1" = "true" ]; then printf 'ja'; else printf 'nein'; fi
+          }
+
+          {
+            echo '## Änderungswirkung'
+            echo
+            echo "- Geänderte Dateien: $(grep -cve '^[[:space:]]*$' "$CHANGED_PATHS" || true)"
+            echo "- Deployment: $(deployment_label "$(output_value deploy_targets)")"
+            echo "- Astro-Build: $(target_label "$(output_value build_targets)")"
+            echo "- Portal-Prüfung: $(yes_no "$(output_value check_portal)")"
+            echo "- OstRecht-Prüfung: $(yes_no "$(output_value check_law)")"
+            echo "- Content-Prüfung: $(yes_no "$(output_value run_content_check)")"
+            echo "- Unit-Tests: $(yes_no "$(output_value run_unit_tests)")"
+            echo "- UI-Smoke: $(target_label "$(output_value ui_targets)")"
+          } >> "$GITHUB_STEP_SUMMARY"
 
   docs_check:
     needs: classify
@@ -70,43 +113,58 @@ jobs:
       - name: Abhängigkeiten auf hohe Sicherheitsrisiken prüfen
         run: npm audit --audit-level=high
       - name: Inhalte und Wissenshub prüfen
+        env:
+          RUN_CONTENT_CHECK: ${{ needs.classify.outputs.run_content_check }}
+          RUN_KNOWLEDGE_CHECK: ${{ needs.classify.outputs.run_knowledge_check }}
         run: |
-          npm run content:check
-          npm run knowledge:build
-          git diff --exit-code -- knowledge/generated
-          npm run knowledge:check
+          if [ "$RUN_CONTENT_CHECK" = "true" ]; then
+            npm run content:check
+          fi
+          if [ "$RUN_KNOWLEDGE_CHECK" = "true" ]; then
+            npm run knowledge:build
+            git diff --exit-code -- knowledge/generated
+            npm run knowledge:check
+          fi
       - name: TypeScript und Unit-Tests prüfen
         env:
-          DEPLOY_PORTAL: ${{ needs.classify.outputs.scope == 'portal' || needs.classify.outputs.scope == 'shared' }}
-          DEPLOY_LAW: ${{ needs.classify.outputs.scope == 'law' || needs.classify.outputs.scope == 'shared' }}
+          CHECK_PORTAL: ${{ needs.classify.outputs.check_portal }}
+          CHECK_LAW: ${{ needs.classify.outputs.check_law }}
+          RUN_UNIT_TESTS: ${{ needs.classify.outputs.run_unit_tests }}
         run: |
-          if [ "$DEPLOY_PORTAL" = "true" ]; then
+          if [ "$CHECK_PORTAL" = "true" ]; then
             npm run check:portal
           fi
-          if [ "$DEPLOY_LAW" = "true" ]; then
+          if [ "$CHECK_LAW" = "true" ]; then
             npm run check:recht
           fi
-          npm run test:unit
+          if [ "$RUN_UNIT_TESTS" = "true" ]; then
+            npm run test:unit
+          fi
       - name: Öffentliche Website bauen
+        if: ${{ needs.classify.outputs.build_targets != '' }}
         env:
-          DEPLOY_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
+          BUILD_TARGETS: ${{ needs.classify.outputs.build_targets }}
           PORTAL_BUILD_COMMIT: ${{ github.event.pull_request.head.sha }}
         run: |
-          if [ "$DEPLOY_TARGETS" = "portal,law" ]; then
-            npm run build
-          elif [ "$DEPLOY_TARGETS" = "portal" ]; then
-            npm run build:portal
-          else
-            npm run build:recht
-          fi
-          npm run deploy:assets:check
+          case "$BUILD_TARGETS" in
+            portal,law) npm run build ;;
+            portal) npm run build:portal ;;
+            law) npm run build:recht ;;
+            *)
+              echo "Unbekannte Build-Ziele: $BUILD_TARGETS" >&2
+              exit 1
+              ;;
+          esac
+          DEPLOY_TARGETS="$BUILD_TARGETS" npm run deploy:assets:check
       - name: Links und SEO prüfen
+        if: ${{ needs.classify.outputs.build_targets != '' }}
         env:
-          SITE_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
+          SITE_TARGETS: ${{ needs.classify.outputs.build_targets }}
         run: |
           npm run test:links:run
           npm run test:seo:run
       - name: Geprüften PR-Build bereitstellen
+        if: ${{ needs.classify.outputs.build_targets != '' }}
         uses: actions/upload-artifact@v7
         with:
           name: pr-site-build-${{ github.event.pull_request.head.sha }}
@@ -139,7 +197,7 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Zentrale Seiten barrierefrei prüfen
         env:
-          SITE_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
+          SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
         run: npm run test:a11y:ci
 
   browser_smoke:
@@ -166,11 +224,11 @@ jobs:
         run: npx playwright install --with-deps chromium
       - name: Zentrale Nutzerwege in Chromium prüfen
         env:
-          SITE_TARGETS: ${{ needs.classify.outputs.deploy_targets }}
+          SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
         run: npm run test:browsers:ci
 
   preview:
-    if: ${{ always() && github.actor != 'dependabot[bot]' && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && (needs.classify.outputs.scope == 'portal' || needs.classify.outputs.scope == 'shared') && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
+    if: ${{ always() && github.actor != 'dependabot[bot]' && vars.CLOUDFLARE_PREVIEWS_ENABLED == 'true' && needs.classify.outputs.deploy_portal == 'true' && needs.quality.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
     needs:
       - classify
       - quality

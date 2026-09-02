@@ -1,5 +1,5 @@
-import { buildSearchVariants, parseQueryTokens } from '@ostrecht/shared/lib/norms/search-query.ts';
-import type { SearchSuggestion, SearchSuggestionPayload } from '@ostrecht/shared/lib/norms/search.ts';
+import { buildSearchVariants, parseQueryTokens } from '@ostrecht/recht-search/search-query.ts';
+import type { SearchSuggestion, SearchSuggestionPayload } from '@ostrecht/recht-search/search.ts';
 
 const inputs = Array.from(document.querySelectorAll<HTMLInputElement>('[data-law-norm-autocomplete]'));
 let suggestionRequest: Promise<SearchSuggestion[]> | undefined;

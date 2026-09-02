@@ -19,12 +19,14 @@ und zwei öffentlichen Anwendungen**:
 - Staatsportal: `https://freistaat-ostdeutschland.de`
 - Rechtsportal OstRecht: `https://recht.freistaat-ostdeutschland.de`
 
-Beide Anwendungen lesen dieselben Bestände unter `content/`, `Gesetze/` und `knowledge/`.
-`knowledge/` wird nicht öffentlich ausgeliefert. Das Staatsportal behält unter `/recht/` nur eine
-redaktionelle Brückenseite; Rechtsdetailseiten liegen ausschließlich auf der Rechtsdomain.
+Beide Anwendungen lesen dieselben öffentlichen Bestände unter `content/`. `Gesetze/` und
+`data/recht/` sind Quellen- und Auditbestände für Import und Validierung; `knowledge/` bleibt interne
+Repositorydokumentation und wird nicht öffentlich ausgeliefert. Das Staatsportal behält unter `/recht/`
+nur eine redaktionelle Brückenseite; Rechtsdetailseiten liegen ausschließlich auf der Rechtsdomain.
 
-Die Workspaces sind `@ostrecht/portal` unter `apps/portal/`, `@ostrecht/recht` unter `apps/recht/`
-und das intern gemeinsam genutzte Paket `@ostrecht/shared` unter `packages/shared/`. Die
+Die Workspaces sind `@ostrecht/portal` unter `apps/portal/`, `@ostrecht/recht` unter `apps/recht/`,
+das intern gemeinsam genutzte Paket `@ostrecht/shared` unter `packages/shared/` sowie die
+OstRecht-spezifische Suchlogik `@ostrecht/recht-search` unter `packages/recht-search/`. Die
 Root-`package.json` orchestriert Entwicklung, Prüfung, Build und Deployment; ein zusätzlicher
 Monorepo-Orchestrator wird nicht verwendet.
 
@@ -97,6 +99,7 @@ apps/
 
 packages/
   shared/       gemeinsam genutzte Komponenten, Konfiguration, Styles, Typen und Fachlogik
+  recht-search/ OstRecht-spezifische Suche und Autovervollständigung
 
 content/
   dashboard/
@@ -409,8 +412,10 @@ einmalig abzuschließenden Backlogpunkte.
 
 ### Technik
 
-Die CI/CD klassifiziert Änderungen zentral in `docs-only`, `portal`, `law` und `shared`; die
-Deploymentzuordnung und die konservativen gemeinsamen Pfade sind im
+Die CI/CD trennt Runtime-Deploymentziele von Verifikationsumfang: `docs-only` führt nur die
+leichte Dokumentationsprüfung aus, `ci-only` führt notwendige Checks ohne Produktionsdeployment
+aus, und `portal`, `law` sowie `shared` bauen und veröffentlichen nur die jeweils betroffenen
+Websites. Die Deploymentzuordnung und die konservativen gemeinsamen Pfade sind im
 [`docs/DEPLOYMENT_RUNBOOK.md`](docs/DEPLOYMENT_RUNBOOK.md) beschrieben.
 Der Redaktionsstichtag wird nur einmal in `packages/shared/src/config/editorial.json` gesetzt. Gesetzgebungsverfahren
 und öffentliche Auswertungen leiten ihren gemeinsamen Stand daraus ab; historische Quellen- und
