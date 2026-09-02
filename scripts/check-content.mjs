@@ -851,6 +851,9 @@ for (const { file, json } of normMetaRecords) {
   if (json.status === 'future-effective' && (!json.effectiveDate || json.effectiveDate <= referenceDate)) {
     addProblem(file, 'future-effective setzt ein Inkrafttreten nach dem Stichtag voraus');
   }
+  if (json.status === 'in-force' && json.effectiveDate && json.effectiveDate > referenceDate) {
+    addProblem(file, 'in-force setzt ein Inkrafttreten am oder vor dem Stichtag voraus');
+  }
   if (json.status === 'pending-effective' && json.effectiveDate) {
     addProblem(file, 'pending-effective darf kein unbelegtes konkretes Inkrafttretensdatum enthalten');
   }

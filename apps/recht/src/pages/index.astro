@@ -33,6 +33,9 @@ const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuend
 const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
 const subjectAreas = getSubjectAreaGroups(norms).slice(0, 6);
 const homeCalendarDate = getBerlinCalendarDate();
+const HOME_CHANGE_CANDIDATE_LIMIT = 12;
+const HOME_CURRENT_CHANGE_LIMIT = 5;
+const HOME_FUTURE_CHANGE_LIMIT = 3;
 const changeEntries = norms
   .flatMap((norm) => norm.history.entries
     .filter((entry) => entry.type === 'amendment' || entry.type === 'repeal')
@@ -42,10 +45,10 @@ const { current: currentChangeCandidates, future: futureChangeCandidates } = par
   changeEntries.map(({ norm, entry }) => ({ norm, entry, date: entry.date })),
   homeCalendarDate,
 );
-const latestChanges = currentChangeCandidates.slice(0, 5);
+const latestChanges = currentChangeCandidates.slice(0, HOME_CHANGE_CANDIDATE_LIMIT);
 const futureChanges = futureChangeCandidates
   .sort((left, right) => left.date.localeCompare(right.date))
-  .slice(0, 3);
+  .slice(0, HOME_CHANGE_CANDIDATE_LIMIT);
 const latestPublications = [...publications]
   .sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'))
   .slice(0, 4);
@@ -117,7 +120,7 @@ const quickAccess = [
           <a href={getLawDevelopmentOverviewUrl()}>Alle anzeigen</a>
         </header>
         <ol class="law-dashboard-list" data-law-current-change-list>
-          {latestChanges.map(({ norm, entry }) => {
+          {latestChanges.map(({ norm, entry }, index) => {
             const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, homeCalendarDate));
             return (
             <li
@@ -125,6 +128,7 @@ const quickAccess = [
               data-effective-date={entry.date}
               data-current-label={formatNormType(norm.meta.type)}
               data-future-label="tritt künftig in Kraft"
+              hidden={index >= HOME_CURRENT_CHANGE_LIMIT}
             >
               <time datetime={entry.date}>{formatDate(entry.date)}</time>
               <span class="law-type-label" data-law-change-label>{formatNormType(norm.meta.type)}</span>
@@ -146,7 +150,7 @@ const quickAccess = [
           </header>
           <p class="law-dashboard-card__future-intro">Vorschriften, die nach dem aktuellen Rechtsstand in Kraft treten.</p>
           <ol class="law-dashboard-list law-dashboard-list--future" data-law-future-change-list>
-            {futureChanges.map(({ norm, entry }) => {
+            {futureChanges.map(({ norm, entry }, index) => {
               const identity = getNormVersionIdentity(norm, getApplicableVersion(norm, homeCalendarDate));
               return (
               <li
@@ -154,6 +158,7 @@ const quickAccess = [
                 data-effective-date={entry.date}
                 data-current-label={formatNormType(norm.meta.type)}
                 data-future-label="tritt künftig in Kraft"
+                hidden={index >= HOME_FUTURE_CHANGE_LIMIT}
               >
                 <time datetime={entry.date}>{formatDate(entry.date)}</time>
                 <span class="law-type-label law-type-label--future" data-law-change-label>tritt künftig in Kraft</span>
