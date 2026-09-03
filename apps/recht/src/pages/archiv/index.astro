@@ -189,6 +189,13 @@ const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
     // Komfort ohne Pflicht: der Filter wirkt sofort auf die geladene Stichwortseite; das
     // GET-Formular liefert die vollständige, serverseitig gefilterte Liste.
     const input = document.querySelector<HTMLInputElement>('[data-index-filter]');
+    const keywordForm = document.querySelector<HTMLFormElement>('[data-keyword-filter-form]');
+    // Leere Felder nicht in die Adresse übernehmen.
+    keywordForm?.addEventListener('submit', () => {
+      keywordForm.querySelectorAll<HTMLInputElement>('input[name]').forEach((field) => {
+        if (!field.value.trim()) field.disabled = true;
+      });
+    });
     const status = document.querySelector<HTMLElement>('[data-index-filter-status]');
     const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-index-entry]'));
     const initialStatus = status?.textContent ?? '';

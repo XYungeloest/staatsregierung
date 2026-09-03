@@ -208,6 +208,12 @@ const pageTitle = `Rechtsentwicklung seit 1. November 2023${result.page > 1 ? ` 
     // Komfort ohne Pflicht: Auswahländerungen senden das GET-Formular sofort ab; ohne
     // JavaScript wirkt die Schaltfläche „Filtern“.
     const form = document.querySelector<HTMLFormElement>('[data-development-filter-form]');
+    // Leere Felder nicht in die Adresse übernehmen (die Seite lädt neu, die Felder sind danach wieder aktiv).
+    form?.addEventListener('submit', () => {
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('input[name], select[name]').forEach((field) => {
+        if (!field.value.trim()) field.disabled = true;
+      });
+    });
     form?.querySelectorAll<HTMLSelectElement>('select[data-development-filter]').forEach((select) => {
       select.addEventListener('change', () => form.requestSubmit());
     });
