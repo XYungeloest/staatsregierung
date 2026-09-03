@@ -535,10 +535,9 @@ siteTest(['law'])('Rechtsportal verwendet auf Übersichten und Suchindex dieselb
   await page.goto(lawUrl('/verkuendungen/'));
   await expect(page.locator('[data-law-filter-entry]').first()).toContainText(latestPublicationLabel);
 
-  const publicationIndexResponse = await request.get(lawUrl('/verkuendungen/index.json'));
-  expect(publicationIndexResponse).toBeOK();
-  const publicationIndex = await publicationIndexResponse.json();
-  expect(publicationIndex.latestPublication).toEqual(latestPublication);
+  const recheckResponse = await request.get(lawUrl('/verkuendungen/index.json'));
+  expect(recheckResponse).toBeOK();
+  expect((await recheckResponse.json()).latestPublication).toEqual(latestPublication);
 });
 
 siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwerkzeuge', async ({ page }) => {

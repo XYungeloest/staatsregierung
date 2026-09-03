@@ -195,6 +195,9 @@ jobs:
           path: apps
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
+      - name: OstRecht-Worker mit lokaler D1-Projektion vorbereiten
+        if: ${{ contains(needs.classify.outputs.ui_targets, 'law') }}
+        run: npm run norms:runtime:d1-local
       - name: Zentrale Seiten barrierefrei prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
@@ -222,6 +225,9 @@ jobs:
           path: apps
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
+      - name: OstRecht-Worker mit lokaler D1-Projektion vorbereiten
+        if: ${{ contains(needs.classify.outputs.ui_targets, 'law') }}
+        run: npm run norms:runtime:d1-local
       - name: Zentrale Nutzerwege in Chromium prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}

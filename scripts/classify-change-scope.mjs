@@ -20,6 +20,7 @@ const RUNTIME_BUILD_SCRIPTS = new Set([
 
 const UI_TEST_SUPPORT_SCRIPTS = new Set([
   'scripts/serve-site.mjs',
+  'scripts/serve-law-worker.mjs',
   'scripts/lib/site-targets.mjs',
 ]);
 

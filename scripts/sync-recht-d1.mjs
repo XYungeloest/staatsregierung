@@ -1,7 +1,7 @@
 #!/usr/bin/env node --experimental-strip-types
 
 import { execFile } from 'node:child_process';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
@@ -35,6 +35,12 @@ import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
  * `--dry-run` validiert alle Normen und schreibt beim Wrangler-Transport die SQL-Dateien
  * zur Kontrolle, ohne sie auszuführen. `--slug` synchronisiert einzelne Normen (dann
  * werden keine veralteten Zeilen gelöscht).
+ *
+ * Lokale Projektion (Wrangler-Transport): `--local [--persist-to <Verzeichnis>]` schreibt in
+ * die lokale D1-Datenbank von Miniflare (Standard .cache/wrangler-local), `--apply-schema`
+ * spielt davor die Migrationen aus data/recht/d1/ ein. Damit laufen Browser-Smoke-Tests und
+ * lokale Entwicklung gegen `wrangler dev --local` ohne Cloudflare-Anmeldung; die produktive
+ * Datenbank erhält Migrationen weiterhin nur manuell.
  */
 
 const ROOT = resolve(process.cwd());
@@ -280,8 +286,9 @@ async function runWrangler(args) {
   return { stdout, stderr };
 }
 
-async function executeSqlFile(filePath) {
-  const { stdout, stderr } = await runWrangler(['d1', 'execute', D1_DATABASE_NAME, '--remote', '--yes', '--json', '--file', filePath]);
+async function executeSqlFile(filePath, { local = false, persistTo } = {}) {
+  const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
+  const { stdout, stderr } = await runWrangler(['d1', 'execute', D1_DATABASE_NAME, ...target, '--yes', '--json', '--file', filePath]);
   const jsonStart = stdout.indexOf('[');
   const payload = jsonStart >= 0 ? JSON.parse(stdout.slice(jsonStart)) : null;
   if (!Array.isArray(payload) || payload.some((result) => result.success === false)) {
@@ -300,9 +307,22 @@ async function main() {
     databaseId: process.env.OSTRECHT_D1_DATABASE_ID ?? DEFAULT_D1_DATABASE_ID,
     apiToken: process.env.CLOUDFLARE_API_TOKEN,
   };
-  const transport = valueAfter(args, '--transport') ?? (config.apiToken ? 'api' : 'wrangler');
+  const local = args.includes('--local');
+  const applySchema = args.includes('--apply-schema');
+  const persistTo = resolve(ROOT, valueAfter(args, '--persist-to') ?? join('.cache', 'wrangler-local'));
+  const transport = valueAfter(args, '--transport') ?? (local ? 'wrangler' : config.apiToken ? 'api' : 'wrangler');
   if (!['api', 'wrangler'].includes(transport)) throw new Error(`Unbekannter Transport ${transport}`);
+  if (local && transport !== 'wrangler') throw new Error('--local gibt es nur für den Wrangler-Transport');
+  if (applySchema && !local) throw new Error('--apply-schema ist nur lokal erlaubt; produktive Migrationen werden manuell eingespielt');
   if (!dryRun && transport === 'api' && !config.apiToken) throw new Error('CLOUDFLARE_API_TOKEN ist für --transport api erforderlich');
+  if (applySchema && !dryRun) {
+    const schemaDir = join(ROOT, 'data', 'recht', 'd1');
+    const migrations = (await readdir(schemaDir)).filter((name) => /^\d{4}_.*\.sql$/u.test(name)).sort();
+    for (const name of migrations) {
+      await executeSqlFile(join(schemaDir, name), { local, persistTo });
+      console.log(`Migration ${name} lokal angewendet`);
+    }
+  }
 
   const startedAt = Date.now();
   const [norms, publications, topics, pressReleases] = await Promise.all([
@@ -356,13 +376,13 @@ async function main() {
       const filePath = join(runDirectory, `batch-${String(index + 1).padStart(4, '0')}.sql`);
       await writeFile(filePath, `${file.statements.join('\n')}\n`, 'utf8');
       if (!dryRun) {
-        await executeSqlFile(filePath);
-        console.log(`SQL-Datei ${index + 1}/${files.length} (${file.slugs.length} Normen, ${file.statements.length} Anweisungen) ausgeführt`);
+        await executeSqlFile(filePath, { local, persistTo });
+        console.log(`SQL-Datei ${index + 1}/${files.length} (${file.slugs.length} Normen, ${file.statements.length} Anweisungen) ${local ? 'lokal ' : ''}ausgeführt`);
       }
     }
     console.log(`${files.length} SQL-Datei(en) unter ${runDirectory.replace(`${ROOT}/`, '')}${dryRun ? ' geschrieben (nicht ausgeführt)' : ' ausgeführt'}`);
   }
-  console.log(`${selected.length} Normen, ${publications.length} Verkündungen, ${queryCount} Inhaltsoperationen${dryRun ? ' validiert' : ' nach D1 übertragen'} (${Math.round((Date.now() - startedAt) / 1000)} s).`);
+  console.log(`${selected.length} Normen, ${publications.length} Verkündungen, ${queryCount} Inhaltsoperationen${dryRun ? ' validiert' : local ? ` in die lokale D1 unter ${persistTo.replace(`${ROOT}/`, '')} übertragen` : ' nach D1 übertragen'} (${Math.round((Date.now() - startedAt) / 1000)} s).`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

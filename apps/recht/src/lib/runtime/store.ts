@@ -151,6 +151,12 @@ export function assembleBlocks(rows: BlockRow[]): unknown[] {
     .map(([, pieces]) => JSON.parse(pieces.join('')));
 }
 
+function chunked<T>(items: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let index = 0; index < items.length; index += size) chunks.push(items.slice(index, index + size));
+  return chunks;
+}
+
 export function createD1NormStore(db: D1Database): NormStore {
   const loadCorpus = async (): Promise<{ records: NormRecord[]; publications: Verkuendung[] }> => {
     const syncedAt = (await db.prepare("SELECT value FROM law_runtime_meta WHERE key = 'last_sync_at'").first<{ value: string }>())?.value ?? null;
@@ -226,14 +232,19 @@ export function createD1NormStore(db: D1Database): NormStore {
     },
     async getSearchDocuments(slugs, unitsMatch) {
       if (slugs.length === 0) return [];
-      const placeholders = slugs.map(() => '?').join(', ');
-      const documents = await db.prepare(`SELECT d.norm_id, d.version_id, d.document_json FROM law_search_documents d JOIN law_norms n ON n.id = d.norm_id WHERE n.slug IN (${placeholders})`).bind(...slugs).all<{ norm_id: string; version_id: string; document_json: string }>();
+      // D1 erlaubt höchstens 100 gebundene Parameter je Anfrage (lokale SQLite-
+      // Builds teils weniger); Kandidatenlisten werden deshalb in Blöcken abgefragt.
+      const documents: Array<{ norm_id: string; version_id: string; document_json: string }> = [];
+      const units: Array<Record<string, string>> = [];
       const unitColumns = 'norm_id, version_id, provision_path, anchor, block_type, references_json, label, heading, body';
-      const units = unitsMatch === undefined
-        ? []
-        : unitsMatch === null
-          ? (await db.prepare(`SELECT ${unitColumns} FROM law_search WHERE slug IN (${placeholders})`).bind(...slugs).all<Record<string, string>>()).results
-          : (await db.prepare(`SELECT ${unitColumns} FROM law_search WHERE law_search MATCH ? AND slug IN (${placeholders})`).bind(unitsMatch, ...slugs).all<Record<string, string>>()).results;
+      for (const chunk of chunked(slugs, 80)) {
+        const placeholders = chunk.map(() => '?').join(', ');
+        documents.push(...(await db.prepare(`SELECT d.norm_id, d.version_id, d.document_json FROM law_search_documents d JOIN law_norms n ON n.id = d.norm_id WHERE n.slug IN (${placeholders})`).bind(...chunk).all<{ norm_id: string; version_id: string; document_json: string }>()).results);
+        if (unitsMatch === undefined) continue;
+        units.push(...(unitsMatch === null
+          ? (await db.prepare(`SELECT ${unitColumns} FROM law_search WHERE slug IN (${placeholders})`).bind(...chunk).all<Record<string, string>>()).results
+          : (await db.prepare(`SELECT ${unitColumns} FROM law_search WHERE law_search MATCH ? AND slug IN (${placeholders})`).bind(unitsMatch, ...chunk).all<Record<string, string>>()).results));
+      }
       const unitsByKey = new Map<string, SearchUnitRow[]>();
       for (const unit of units) {
         const key = `${unit.norm_id}:${unit.version_id}`;
@@ -251,7 +262,7 @@ export function createD1NormStore(db: D1Database): NormStore {
         });
         unitsByKey.set(key, list);
       }
-      return documents.results.map((row) => ({
+      return documents.map((row) => ({
         document: JSON.parse(row.document_json) as SearchIndexDocument,
         units: (unitsByKey.get(`${row.norm_id}:${row.version_id}`) ?? []).sort((left, right) => left.unitIndex - right.unitIndex),
       }));
