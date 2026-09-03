@@ -937,17 +937,27 @@ async function main() {
   const gitDiffBase = args.includes('--git-diff') ? args[args.indexOf('--git-diff') + 1] : null;
   const baseIdentity = scope.mode === 'incremental' && gitDiffBase ? await projectionIdentityAtRef(gitDiffBase, { root: ROOT, scope: scopeId }) : null;
   if (baseIdentity) console.log(`Erwartete Basisidentität ${gitDiffBase}: ${baseIdentity.fingerprint.slice(0, 16)}…`);
-  const decision = decideSyncAction({
-    requested: scope.mode,
-    stored,
-    identity: fingerprint,
-    baseIdentity,
-    recover,
-    ignoreFingerprint,
-    // Manuelle Auswahl (--slug/--publications/--changed-paths) kennt keinen Basis-Ref; sie
-    // verlangt trotzdem eine vollständige Identität im selben Scope.
-    requiresBase: Boolean(gitDiffBase),
-  });
+  let decision;
+  try {
+    decision = decideSyncAction({
+      requested: scope.mode,
+      stored,
+      identity: fingerprint,
+      baseIdentity,
+      recover,
+      ignoreFingerprint,
+      // Manuelle Auswahl (--slug/--publications/--changed-paths) kennt keinen Basis-Ref; sie
+      // verlangt trotzdem eine vollständige Identität im selben Scope.
+      requiresBase: Boolean(gitDiffBase),
+    });
+  } catch (error) {
+    // Im Dry-run ist die Ablehnung das Ergebnis der Prüfung, kein Fehler: der Lauf schreibt
+    // nichts und meldet, dass ein echter Lauf fail-closed abbrechen bzw. --recover brauchen würde.
+    if (!(error instanceof SyncBaseMismatch) || !dryRun) throw error;
+    console.log(`Dry-run: ${error.message}`);
+    console.log(`Kosten dieser Prüfung: ${formatStats(stats)}`);
+    return;
+  }
   console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
   if (decision.action === 'noop') {
     console.log(`D1-Projektion ist bereits exakt aktuell (letzter Sync ${stored?.last_sync_at ?? '?'}, Modus ${stored?.sync_mode ?? '?'}); kein Sync erforderlich.`);
