@@ -48,7 +48,11 @@ test('Textverweise werden über den Präfixindex genauso gefunden wie beim Rende
 test('Empfehlungsindex liefert dieselben Empfehlungen wie die paarweise Berechnung', async () => {
   const norms = await loadAllNorms();
   const index = buildRelatedNormRecommendationIndex(norms);
-  for (const norm of norms) {
+  // Die paarweise Berechnung ist O(n) je Norm; über den vollen Bestand (mehrere
+  // tausend Normen) wäre der Vergleich quadratisch. Eine deterministische
+  // Stichprobe über den ganzen Bestand genügt als Regressionsschutz.
+  const step = Math.max(1, Math.ceil(norms.length / 60));
+  for (const norm of norms.filter((_, position) => position % step === 0)) {
     const expected = getRelatedNormRecommendations(norm, norms).map((entry) => [entry.norm.meta.slug, entry.relation, entry.score]);
     const actual = (index.get(norm.meta.slug) ?? []).map((entry) => [entry.slug, entry.relation, entry.score]);
     assert.deepEqual(actual, expected, norm.meta.slug);

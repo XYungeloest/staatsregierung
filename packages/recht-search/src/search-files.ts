@@ -69,3 +69,15 @@ export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
     publications: buildSearchPublications(publications),
   };
 }
+
+let searchIndexPayloadOnce: Promise<SearchIndexPayload> | null = null;
+
+/**
+ * Einmal je Prozess aufgebauter Suchindex für Tests und Werkzeuge, die den
+ * Bestand mehrfach lesen; der Aufbau über den vollen Rechtsbestand dauert
+ * spürbar, der Inhalt ändert sich innerhalb eines Laufs nicht.
+ */
+export function loadSearchIndexPayloadOnce(): Promise<SearchIndexPayload> {
+  searchIndexPayloadOnce ??= buildSearchIndexPayload();
+  return searchIndexPayloadOnce;
+}
