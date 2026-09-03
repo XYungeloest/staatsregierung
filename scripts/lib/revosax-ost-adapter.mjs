@@ -170,6 +170,49 @@ export function hasSaxonResidual(value) {
 }
 
 /** Liefert die erste Reststelle mit Kontext (für Auditausgaben). */
+/** Wörter, die nur durch eine fehlerhafte Anpassung entstehen können (z. B. aus „Niedersächsisch“). */
+export const ADAPTER_ARTEFACT_PATTERN = /\b[Nn]iederostdeutsch\p{L}*/u;
+
+/** Geschützte Fundstellenkürzel durch gleich lange Leerzeichen ersetzen, damit Indizes erhalten bleiben. */
+function blankProtectedSourceTokens(value) {
+  let text = value;
+  for (const pattern of SOURCE_TOKEN_PATTERNS) {
+    pattern.lastIndex = 0;
+    text = text.replace(pattern, (match) => ' '.repeat(match.length));
+  }
+  return text;
+}
+
+/**
+ * Alle Reststellen eines Textes (nicht nur die erste): Sachsen-Bezüge nach Entfernen der
+ * geschützten Fundstellenkürzel sowie Adapterartefakte; jede Fundstelle mit Token, Index
+ * im Originaltext, Kontext (±40 Zeichen) und Art (`residual` | `artefact`).
+ * Web-/E-Mail-Adressen zählen nicht (`ignoreAddresses`).
+ */
+export function findSaxonResiduals(value, { ignoreAddresses = true } = {}) {
+  if (typeof value !== 'string' || !value) return [];
+  let text = blankProtectedSourceTokens(value);
+  if (ignoreAddresses) {
+    text = text.replace(/(?:https?:\/\/|www\.)[^\s"“”)]+|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/gu, (match) => ' '.repeat(match.length));
+  }
+  const findings = [];
+  const collect = (pattern, kind) => {
+    const global = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : `${pattern.flags}g`);
+    for (const match of text.matchAll(global)) {
+      const index = match.index ?? 0;
+      findings.push({
+        kind,
+        token: match[0],
+        index,
+        context: value.slice(Math.max(0, index - 40), index + match[0].length + 40).replace(/\s+/gu, ' '),
+      });
+    }
+  };
+  collect(SAXON_RESIDUAL_PATTERN, 'residual');
+  collect(ADAPTER_ARTEFACT_PATTERN, 'artefact');
+  return findings.sort((left, right) => left.index - right.index);
+}
+
 export function findSaxonResidual(value) {
   if (typeof value !== 'string' || !value) return null;
   const cleaned = stripProtectedSourceTokens(value);

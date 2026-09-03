@@ -5,7 +5,7 @@ import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { extname, join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-import { findSaxonResidual } from './lib/revosax-ost-adapter.mjs';
+import { findSaxonResiduals } from './lib/revosax-ost-adapter.mjs';
 
 /**
  * Korpusweiter End-Audit der Rechtsüberleitung über den materialisierten
@@ -52,7 +52,6 @@ const BACKLOG_PATH = join(ROOT, 'data', 'recht', 'ost-residual-backlog.json');
 // editorialResolutions dokumentieren Befunde der amtlichen Quelle (z. B. abweichende Bezeichnungen
 // in der sächsischen Ausgangsfassung) und sind wie sourceNotes Provenienz, kein Normtext.
 const PROVENANCE_KEYS = new Set(['sourceReferences', 'sourceNotes', 'enactingBody', 'originEnactingBody', 'editorialResolutions']);
-const ADDRESS_PATTERN = /(?:https?:\/\/|www\.)[^\s"“”)]+|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/gu;
 const TEXT_SOURCE_EXTENSIONS = new Set(['.html', '.htm', '.md', '.txt']);
 const WINDOW_LETTERS = 24;
 
@@ -73,9 +72,6 @@ function collectNormativeStrings(value, path, output) {
   return output;
 }
 
-/** Wörter, die nur durch eine fehlerhafte Anpassung entstehen können (z. B. aus „Niedersächsisch“). */
-const ADAPTER_ARTEFACT_PATTERN = /\b[Nn]iederostdeutsch\p{L}*/u;
-
 /** Buchstaben-/Ziffernfolge ohne Satzzeichen und Leerraum (Vergleich mit der Quelle). */
 export function lettersOnly(value) {
   return String(value ?? '').normalize('NFKC').toLocaleLowerCase('de').replace(/[^\p{L}\p{N}]+/gu, '');
@@ -87,19 +83,28 @@ function windowAround(value, index, length) {
   return `${before}${lettersOnly(value.slice(index, index + length))}${after}`;
 }
 
+/**
+ * Alle Fundstellen einer Norm: jede Reststelle jedes Strings einzeln (Feldpfad, Token,
+ * Index, Kontext, Buchstabenfenster, Art), nicht nur die erste je Feld – zwei
+ * Sachsen-Bezüge in einem Satz sind zwei Fundstellen, die getrennt belegt sein müssen.
+ * Geschützte Fundstellenkürzel (SächsGVBl., SächsABl., …), „Sachsen-Anhalt“ sowie
+ * Web-/E-Mail-Adressen zählen nicht.
+ */
 export function auditNormRecord({ slug, meta, versions }) {
   const strings = collectNormativeStrings({ meta, versions }, slug, []);
   const findings = [];
   for (const { path, value } of strings) {
     if (/\.(?:id|slug)$/u.test(path)) continue; // Identifikatoren, keine normativen Texte
-    const cleaned = value.replace(ADDRESS_PATTERN, ' ');
-    const residual = findSaxonResidual(cleaned);
-    if (residual) {
-      const index = cleaned.indexOf(residual.token);
-      findings.push({ path, token: residual.token, context: residual.context, window: windowAround(cleaned, Math.max(index, 0), residual.token.length) });
+    for (const finding of findSaxonResiduals(value)) {
+      findings.push({
+        path,
+        token: finding.token,
+        index: finding.index,
+        context: finding.context,
+        window: windowAround(value, finding.index, finding.token.length),
+        ...(finding.kind === 'artefact' ? { artefact: true } : {}),
+      });
     }
-    const artefact = cleaned.match(ADAPTER_ARTEFACT_PATTERN);
-    if (artefact) findings.push({ path, token: artefact[0], context: cleaned.slice(Math.max(0, artefact.index - 40), artefact.index + artefact[0].length + 40).replace(/\s+/gu, ' '), window: windowAround(cleaned, artefact.index, artefact[0].length), artefact: true });
   }
   return findings;
 }
@@ -295,7 +300,7 @@ async function main() {
     return;
   }
   if (!quiet) {
-    console.log(`Rechtsüberleitungs-Audit erfolgreich: ${norms.length} Normen geprüft, 0 Reststellen im übergeleiteten Recht, ${legacy.size} Normen / ${legacyResiduals} unbelegte Stellen im Rückstand; ${backed.size} eigene Erlasse mit ${backedReferences} amtlich belegten Sachsen-Bezügen (nachrichtlich).`);
+    console.log(`Rechtsüberleitungs-Audit erfolgreich: ${norms.length} Normen geprüft (jede Fundstelle einzeln), 0 Reststellen im übergeleiteten Recht, ${legacy.size} Normen / ${legacyResiduals} unbelegte Stellen im Rückstand; ${backed.size} eigene Erlasse mit ${backedReferences} amtlich belegten Sachsen-Bezügen (nachrichtlich).`);
   }
 }
 
