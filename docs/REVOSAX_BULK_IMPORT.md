@@ -242,50 +242,82 @@ Nach der Transformation läuft ein Reststellen-Audit. Verbliebene Vorkommen von 
 
 ### 4. R2-Archivierung
 
-Erst wenn `report.json` keine Fehler enthält, werden die unveränderten Rohquellen nach R2 übertragen:
+Erst wenn `report.json` keine Fehler enthält und der Materialisierungsplan (Schritt 5) steht, werden
+die unveränderten Rohquellen der Einträge mit Aktion `CREATE` oder `MATCH` nach R2 übertragen:
 
 ```sh
-npm run norms:revosax:r2-upload -- --report .cache/revosax-baseline/2023-11-01/report.json
+npm run norms:revosax:plan-materialization
+npm run norms:revosax:r2-upload -- --plan .cache/revosax-baseline/2023-11-01/materialization-plan.json --concurrency 6
 ```
 
-Standardbucket:
+Bucket `ostrecht-recht-quellen`, Objektschlüssel `revosax/2023-11-01/<REVOSAX-ID>[.<FASSUNG>].html`.
+Der Uploader prüft vor jedem Objekt, dass die Rohdatei im Cache byte- und hashidentisch zum
+Stagingbericht ist, lädt sie hoch, liest sie zur Kontrolle zurück und vergleicht den SHA-256. Das
+committete Manifest `data/recht/revosax-r2-manifest.json` (lawId, Fassung, amtliche URL,
+Objektschlüssel, SHA-256, Größe, Abruf- und Uploadzeit, `verified`) ist die Referenz für die
+Provenienzprüfung in `scripts/check-content.mjs` und für den Materializer. Es wird während des Laufs
+alle 25 Objekte fortgeschrieben; ein Abbruch verliert keinen Fortschritt, ein Neustart überspringt
+bereits verzeichnete Objekte. Ein Objekt mit abweichendem Hash wird nie überschrieben.
 
-```text
-ostrecht-recht-quellen
-```
-
-Objektschlüssel:
-
-```text
-revosax/2023-11-01/<REVOSAX-ID>[.<FASSUNG>].html
-```
-
-Die Zuordnung aus REVOSax-ID, SHA-256 und R2-Objektschlüssel wird im Staging als `r2-manifest.json` festgehalten. Dieser Schritt verändert den Git-Rechtsbestand noch nicht.
+Ohne `CLOUDFLARE_API_TOKEN` läuft der Transport über die lokale Wrangler-Anmeldung
+(`wrangler r2 object put/get`). Ein Aufruf dauert rund drei Sekunden; mit sechs parallelen Uploads
+schafft der Lauf etwa 30 Objekte pro Minute (3.354 Objekte mit 127 MB: rund zwei Stunden).
+`--dry-run` prüft nur, `--limit` und `--law-id` schränken ein. Dieser Schritt verändert den
+Git-Rechtsbestand nicht.
 
 ### 5. Materialisierung in `content/normen/`
 
-Dieser Schritt wird erst aktiviert, nachdem das Quellenmodell R2-Objektschlüssel als vollwertige Provenienzreferenz akzeptiert und der initiale Staginglauf auditiert wurde.
-
-Regeln für die Zuordnung:
-
-1. Existiert bereits eine Norm mit derselben REVOSax-`lawId`, wird deren bestehender kanonischer Slug verwendet.
-2. Andernfalls wird gegen Titel, Kurzbezeichnung und Abkürzung abgeglichen.
-3. Neue Normen erhalten einen stabilen technischen Slug aus der ostdeutsch angepassten Kurzbezeichnung; Kollisionen werden deterministisch mit REVOSax-ID aufgelöst.
-4. Bestehende ostdeutsche Folgefassungen werden niemals von einer Baseline überschrieben.
-5. Die REVOSax-Fassung ist ausschließlich die Ausgangsfassung zum 1. November 2023.
-6. Änderungsvorschriften werden als eigene Rechtsetzungsakte erhalten und nicht in eine künstliche Stammnorm umgedeutet.
-
-Der Materialisierungsschritt muss vor dem Schreiben einen Plan erzeugen:
-
-```text
-CREATE       neue übernommene Norm
-MATCH        vorhandene Norm, Baseline ergänzen
-PROTECT      vorhandene spätere Ost-Fassung nicht überschreiben
-REVIEW       Identität nicht eindeutig
-SKIP         kein fachlich zulässiger Import
+```sh
+npm run norms:revosax:plan-materialization
+npm run norms:revosax:materialize-baseline            # Prüfung ohne Schreiben
+npm run norms:revosax:materialize-baseline -- --write
+npm run content:check
 ```
 
-`REVIEW` blockiert den Schreibmodus.
+`scripts/plan-revosax-materialization.mjs` ordnet jeden Stagingeintrag dem bestehenden Bestand zu.
+Identität wird in dieser Reihenfolge geprüft: REVOSax-`lawId` in der Quellenreferenz → Quellen-URL →
+exakter Titel → exakte Kurzbezeichnung → exakte Abkürzung (normalisiert, ohne Fuzzy-Matching).
+
+| Aktion | Bedeutung |
+| --- | --- |
+| `CREATE` | neue Norm; Slug deterministisch aus der ostdeutschen Kurzbezeichnung, Kollisionen mit REVOSax-ID |
+| `MATCH` | vorhandene Norm ohne Fassung zum Stichtag; wird nicht automatisch verändert (siehe offene Schritte) |
+| `PROTECT` | vorhandene Norm mit eigener Stichtagsfassung oder späteren Ost-Fassungen bleibt unangetastet |
+| `REVIEW` | Identität oder Inhalt nicht eindeutig (z. B. nur PDF-Anlagen); blockiert `--write` |
+| `SKIP` | Mantelbestandteil, Alias derselben Fassung, textloser Eintrag, identischer Vorgängertext |
+
+Bestehende Normen, die selbst aus der Baseline stammen (Fassung zum Stichtag) und eine andere
+REVOSax-`lawId` tragen, sind für den Titel-/Abkürzungsabgleich keine Kandidaten: gleiche
+Kurzbezeichnungen von Änderungsvorschriften („Änd. OstAZVO“) ergeben getrennte Akte mit
+deterministischem Slug-Zusatz. Normen mit anderer `lawId`, aber ohne Stichtagsfassung (spätere
+Ost-Importe, Vorgänger/Nachfolger) bleiben Kandidaten und ergeben `PROTECT` oder `REVIEW`.
+
+`REVIEW`-Fälle werden in `data/recht/revosax-baseline-decisions.json` mit Begründung entschieden;
+der Plan liest die Datei bei jedem Lauf. REVOSax-Doppelerfassungen (identischer angepasster Text
+und identische Zitierung unter zwei lawIds, z. B. 4476/9501) übernimmt der Plan nur unter der
+niedrigeren lawId. Ergebnis zum Stichtag vor dem Schreiben: `CREATE` 3.346, `MATCH` 7, `PROTECT` 52,
+`REVIEW` 0, `SKIP` 1.684 (1.662 Mantelbestandteile, 9 textlose Einträge, 8 Aliasse, 2 identische
+Vorgängertexte, 2 Nur-PDF-Vorschriften 1018 und 17114, 1 Doppelerfassung). Nach dem Schreiben
+meldet ein erneuter Planlauf dieselben Einträge als `MATCH` (Stichtagsfassung vorhanden). Der Plan
+liegt unter `.cache/revosax-baseline/2023-11-01/materialization-plan.json`.
+
+`scripts/materialize-revosax-baseline.mjs` schreibt ausschließlich `CREATE`-Einträge: `meta.json`,
+`history.json` und `versions/2023-11-01.json` (`versionId` und `validFrom` = `2023-11-01`,
+`validTo` offen, Änderungsvermerk „Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen
+Rechtsstand“) mit der Quellenreferenz `revosax-snapshot` / `availability: r2-archived`
+(Objektschlüssel, amtliche URL, `lawId`, Abrufzeit, SHA-256, Gültigkeitsintervall,
+`sourceRole: official-snapshot`). Erlassorgan, Sachgebiete, Schlagwörter und Kurzfassung leitet
+`scripts/lib/revosax-metadata.mjs` deterministisch aus Typ, Ressort und Titel ab. Jeder Datensatz
+wird vor dem Schreiben mit dem gemeinsamen Normschema validiert und erneut auf Sachsen-Reststellen
+geprüft. Der Lauf schreibt nichts, solange auch nur ein Eintrag nicht im R2-Manifest archiviert ist,
+ein Zielverzeichnis bereits existiert oder ein Datensatz die Regeln verletzt; Bericht:
+`.cache/revosax-baseline/2023-11-01/materialization-report.json`. Änderungsvorschriften bleiben
+eigene Rechtsetzungsakte, Mantelbestandteile werden nicht als Normen angelegt.
+
+Umfang im Repository: 3.346 neue Normverzeichnisse mit rund 10.000 JSON-Dateien und 170 MB
+(unkomprimiert); das Git-Pack wächst dadurch um etwa 75 MB. Rohquellen (127 MB HTML) liegen nur in
+R2. `npm run content:check` braucht mit dem Vollbestand rund eine Minute, `npm run test:unit` unter
+einer Minute.
 
 ## D1-Synchronisation
 
@@ -318,10 +350,34 @@ Dateivariante der Website) und schreibt je Norm alle Zeilen neu. Bei einem Volls
 gelöscht, die im Repository nicht mehr existieren.
 
 Transport: Mit `CLOUDFLARE_API_TOKEN` (D1 Read/Write) läuft der Sync über die REST-API mit
-parametrisierten Batches; ohne Token verwendet er die lokale Wrangler-Anmeldung
-(`wrangler d1 execute ostrecht-recht --remote --file`) mit SQL-Dateien unter `.cache/d1-sync/`,
-in denen Parameter als Literale gerendert sind. `--dry-run` validiert und schreibt beim
-Wrangler-Transport nur die Dateien. Token und Anmeldedaten werden nie committed.
+parametrisierten Batches (`--transport api`, so auch in CI); ohne Token verwendet er die lokale
+Wrangler-Anmeldung (`wrangler d1 execute ostrecht-recht --remote --file`) mit SQL-Dateien unter
+`.cache/d1-sync/`, in denen Parameter als Literale gerendert sind. `--dry-run` validiert und schreibt
+beim Wrangler-Transport nur die Dateien. Token und Anmeldedaten werden nie committed.
+
+Kontrolle der Projektion gegen Git (Zähler und Stichproben, auch für die lokale Miniflare-D1):
+
+```sh
+npm run norms:runtime:d1-verify
+npm run norms:runtime:d1-verify -- --local
+```
+
+Limits: D1 Free zählt 5 Mio. Zeilenlesevorgänge und 100.000 Schreibvorgänge je Tag. Der Vollsync
+des Stichtagsbestands (3.587 Normen, 65 SQL-Dateien, rund 230 MB) hat das Leselimit am Synctag
+erschöpft, weil Löschen und FTS-Neuaufbau je Norm Zeilen lesen; danach antwortet die Datenbank bis
+Mitternacht UTC mit Fehler 7500. Vor einem produktiven Betrieb mit dem Vollbestand ist Workers Paid
+einzuplanen oder der Sync auf geänderte Normen zu beschränken (`--slug`).
+
+Lokale Kontrolle des Worker-Standes gegen die reale Datenbank:
+
+```sh
+npm run build:recht
+cd apps/recht && npx wrangler dev --config dist/server/wrangler.json --remote --port 8788
+```
+
+Danach `/norm/<slug>/`, `/norm/<slug>/history/`, `/norm/<slug>/vergleich/<von>/<bis>.json`,
+`/api/suche.json?q=…`, `/search-suggestions.json`, `/verkuendungen/index.json` und `/sitemap.xml`
+abrufen; die Antworten tragen `X-Portal-Commit`.
 
 ## Runtime-Umbau von OstRecht
 
@@ -347,8 +403,52 @@ mit dieser erzeugten Konfiguration.
 - `/search-suggestions.json` und `/verkuendungen/index.json` werden aus D1 erzeugt; das statische
   `search-index.json` entfällt.
 - Worker-Antworten tragen über die Middleware denselben `X-Portal-Commit` wie die Assets.
+- workerd kennt `node:fs` nicht. Die Dateiloader (`norms/loader.ts`, `loadAllVerkuendungen`,
+  `portal/content.ts`) und die dateibasierten Suchartefakte (`recht-search/search-files.ts`)
+  werden deshalb nur lazy importiert; reine Helfer wie `getCurrentVersion` liegen in
+  `norms/versions.ts`. Ein Worker ohne D1-Binding antwortet mit einem klaren Fehler statt eines
+  Dateizugriffs.
 - Öffentliche URLs sind unverändert; `scripts/check-links.mjs` und `scripts/check-seo.mjs` erkennen
   On-demand-Routen aus den Seitenquellen und prüfen die Sitemap im Deployment-Smoke.
+
+## CI/CD-Trennung
+
+`scripts/classify-change-scope.mjs` bestimmt aus den geänderten Pfaden, was ein Push auslöst
+(`tests/change-scope.test.mjs` dokumentiert die Fälle):
+
+| Änderung | Content-Prüfung | Build/Deploy | D1-Projektion |
+| --- | --- | --- | --- |
+| `content/normen/**`, `content/verkuendungen/**` | ja | nur Staatsportal (rendert Rechtsgrundlagen statisch) | ja |
+| `content/themen/**`, `content/presse/**` | ja | Staatsportal | ja (Empfehlungen, Portalbezüge) |
+| `scripts/sync-recht-d1.mjs` | ja | – | ja |
+| `packages/shared/src/lib/norms/**`, `packages/recht-search/**` | – | beide bzw. OstRecht | ja |
+| `apps/recht/**` | – | OstRecht | – |
+| `data/recht/d1/*.sql` | ja | – | nein: Migrationen werden bewusst manuell eingespielt |
+
+Der Workflow `.github/workflows/deploy.yml` führt den Job `d1_sync` (nur bei `push`, nach dem
+Build, mit `CLOUDFLARE_API_TOKEN`/`CLOUDFLARE_ACCOUNT_ID` aus den Repository-Secrets über
+`npm run norms:runtime:d1-sync -- --transport api`) vor dem Deployment aus; ein manuelles
+`workflow_dispatch`-Deployment schreibt die Projektion nicht. Der Token braucht dafür zusätzlich
+`D1 Read`/`D1 Write` für die Datenbank `ostrecht-recht`.
+
+Browser-Smoke- und Barrierefreiheitstests (`tests/browser-smoke.spec.ts`, `tests/accessibility.spec.ts`)
+laufen für OstRecht nicht mehr gegen den statischen Client-Build, sondern gegen den gebauten Worker:
+`scripts/serve-law-worker.mjs` projiziert `content/` mit `npm run norms:runtime:d1-sync -- --local
+--apply-schema` in eine lokale Miniflare-D1 unter `.cache/wrangler-local` (Migrationen aus
+`data/recht/d1/`, Fingerabdruck-Marker verhindert unnötige Neuaufbauten) und startet
+`wrangler dev --local` auf Port 4322. In CI übernimmt der Schritt `npm run norms:runtime:d1-local`
+das Seeding vor Playwright; die produktive Datenbank wird dabei nicht berührt. Der Sync läuft
+dabei als Rechtsportal (`SITE_TARGET=law`, gesetzt über `scripts/lib/law-site-env.mjs`), damit
+Normadressen relativ und Portalverweise absolut in der Projektion stehen. Das vollständige Seeding
+(3.587 Normen, 65 SQL-Dateien, lokale D1 rund 640 MB) dauert lokal etwa sieben Minuten; in CI
+entsprechend länger. Es fällt nur an, wenn Änderungen an `apps/recht` oder den gemeinsamen Paketen
+OstRecht-Smoke-Tests auslösen.
+
+Unit-Tests (`npm run test:unit`, Heap 4 GB) laden den Bestand über `tests/helpers/corpus.ts` nur
+einmal je Testprozess; der Suchindex für die browserseitige Suchlogik wird aus dem redaktionellen
+Kernbestand plus jeder 15. übernommenen Baseline-Norm gebaut, weil ein Gesamtindex über den
+Vollbestand als Testartefakt zu groß ist und in Produktion ohnehin nur D1-Kandidaten bewertet werden.
+Der paarweise Empfehlungsvergleich prüft eine deterministische Stichprobe.
 
 ## Sicherheits- und Qualitätsregeln
 
@@ -365,11 +465,15 @@ mit dieser erzeugten Konfiguration.
 
 ## Noch offene Implementierungsschritte
 
-- R2-fähige Quellenreferenz im Normschema ergänzen, damit eine unveränderte Quelle entweder als versionierte Repositorydatei oder als per SHA-256 belegtes R2-Objekt referenziert werden kann.
-- Materializer für den vollständigen Stagingbestand implementieren und bestehende Normen anhand `lawId`/Identität sicher zuordnen.
-- Staginglauf zum 1. November 2023 vollständig durchführen und Parser-Sonderfälle beheben.
-- Automatischen Importbericht mit Größenstatistik, Typverteilung, Reststellen, Slug-Kollisionen und Quellenfehlern erzeugen.
-- D1/R2-Ressourcen anlegen und Initialsync durchführen.
-- Danach Astro-Runtime auf D1/R2 umstellen.
-- Erst anschließend statische Norm- und Vergleichsgenerierung entfernen.
-- CI so trennen, dass Rechtsinhaltsänderungen keinen vollständigen Websitebuild mehr erzwingen.
+- Anlagen: 230 der neuen Normen verweisen auf 890 REVOSax-Anlagen (PDF, meist Formulare und
+  Muster). Die Verweise stehen im Stagingbericht (`attachments`); die Dateien selbst sind noch nicht
+  nach R2 archiviert und nicht als Quellen verzeichnet.
+- `MATCH`-Fälle (7 vorhandene Normen ohne Stichtagsfassung, z. B. `wappenverordnung`): die
+  REVOSax-Fassung ist in R2 archiviert, die Ergänzung der Fassung in `versions/` bleibt eine
+  redaktionelle Nacharbeit mit Prüfung der bestehenden Fassungshistorie.
+- Prüfmarken des Stagings (`reviewFlagCounts`, insbesondere 287 × `source-ended-without-successor`
+  und 250 × `missing-document-date`) sind informativ und sollten redaktionell gesichtet werden.
+- Für ein getrenntes Staging-Deployment fehlt eine eigene D1-/R2-Umgebung; `wrangler.jsonc` bindet
+  in beiden Umgebungen dieselben Ressourcen.
+- Sachgebiete, Schlagwörter, Kurzfassung und Erlassorgan der übernommenen Normen sind deterministisch
+  abgeleitet und generisch (z. B. Sachgebiet „Landesrecht“); redaktionelle Verfeinerung offen.

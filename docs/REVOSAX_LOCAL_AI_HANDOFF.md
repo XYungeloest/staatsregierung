@@ -75,7 +75,8 @@ Diese Ressourcen existieren bereits im Cloudflare-Konto des Projekts:
 - R2-Bucket: `ostrecht-recht-quellen`
 - R2-Binding in Wrangler: `ostrecht_recht_quellen`
 
-`data/recht/d1/0001_rechtsbestand.sql` wurde bereits manuell auf die reale D1-Datenbank angewendet.
+Die Migrationen `data/recht/d1/0001_rechtsbestand.sql` bis `0004_search_references.sql` wurden
+manuell mit `wrangler d1 execute ostrecht-recht --remote --file …` auf die reale Datenbank angewendet.
 
 Die Account-ID und Database-ID sind keine Secrets. Ein Cloudflare-API-Token ist **nicht** im Repository vorhanden und darf nie committed werden. Für schreibende lokale/CI-Skripte muss er nur über lokale Umgebung/Secrets bereitgestellt werden.
 
@@ -230,101 +231,32 @@ Identitätsmerkmale in Prioritätsreihenfolge:
 
 Keine fuzzy Auto-Merges bei Mehrdeutigkeit.
 
-## 8. R2-Provenienz im Normschema noch fertigstellen
+## 8. R2-Provenienz im Normschema (umgesetzt)
 
-Vor dem Vollmaterialisieren muss `NormSourceReference` sauber R2-Quellen erlauben.
+`NormSourceReference` erlaubt für `revosax-snapshot` zwei Speicherorte derselben unveränderlichen
+amtlichen Quelle: `availability: "versioned"` mit `localSource` im Repository oder
+`availability: "r2-archived"` mit `objectKey` (und optional `bucket`) im Bucket
+`ostrecht-recht-quellen`. `url`, `sha256`, `retrievedAt`, `lawId`, `sourceValidFrom`/`sourceValidTo`,
+`sourceRole: "official-snapshot"` und `mediaType` bleiben Pflicht. `scripts/check-content.mjs` prüft
+R2-Verweise gegen `data/recht/revosax-r2-manifest.json` (Objektschlüssel und SHA-256 müssen
+übereinstimmen); Mischformen und fehlende Hashes werden abgelehnt (`tests/norm-schema*.test.ts`,
+`tests/check-content*.test.*`). Alle vorhandenen Normen validieren weiterhin.
 
-Ziel: Eine `revosax-snapshot`-Quelle muss nicht zwingend tausendfach als Roh-HTML in Git liegen. Sie soll alternativ unveränderlich über R2 referenziert werden können, mindestens mit:
+## 9. Reihenfolge und Stand (3. September 2026)
 
-- `kind: "revosax-snapshot"`
-- `label`
-- `url` der amtlichen REVOSax-Fassung
-- `retrievedAt`
-- `sha256`
-- `lawId`
-- `sourceValidFrom`
-- `sourceValidTo`
-- `sourceRole: "official-snapshot"`
-- `objectKey` des R2-Objekts
-- geeignetem `mediaType`
+| Phase | Stand |
+| --- | --- |
+| A Discovery | erledigt: 5.092 Listenzeilen, 5.089 eindeutige Fassungen, Manifest `data/recht/revosax-baseline-2023-11-01.json` |
+| B Staging | erledigt: 20 → 100 → 5.089/5.089 ohne Fehler; Bericht `.cache/revosax-baseline/2023-11-01/report.json` |
+| C R2-Provenienz, Plan, Materializer | erledigt: `CREATE` 3.346, `MATCH` 7, `PROTECT` 52, `REVIEW` 0 (Entscheidungen in `data/recht/revosax-baseline-decisions.json`), `SKIP` 1.684 |
+| D R2 und Git | erledigt: 3.354 Rohquellen hashverifiziert in `ostrecht-recht-quellen`, Manifest `data/recht/revosax-r2-manifest.json`, 3.346 neue Normen unter `content/normen/` (3.587 gesamt) |
+| E D1 | erledigt: Schema 0001–0004, Vollsync über `npm run norms:runtime:d1-sync` (65 SQL-Dateien, ohne Fehler); die Remote-Stichprobe (`npm run norms:runtime:d1-verify`) steht aus, weil das D1-Free-Tier-Leselimit am Synctag erschöpft war – lokal gegen die Miniflare-Projektion geprüft |
+| F OstRecht-Runtime | erledigt: On-demand-Routen aus D1, Vergleich nur für das angefragte Paar, Sitemap/Suchvorschläge aus D1, lokal mit `wrangler dev --remote` geprüft |
+| G CI/CD | erledigt: `scripts/classify-change-scope.mjs` mit `run_d1_sync`, Job `d1_sync` in `deploy.yml`; Browser-Smoke/A11y laufen gegen `scripts/serve-law-worker.mjs` (lokale Miniflare-D1 aus `content/`); Token braucht D1 Read/Write |
 
-Die bestehende Provenienzprüfung darf dadurch nicht aufgeweicht werden. Repositoryquelle oder R2-Objekt sind alternative Speicherorte derselben unveränderlichen amtlichen Quelle; URL, Hash und Validitätsdaten bleiben Pflicht, soweit für REVOSax verfügbar.
-
-Alle vorhandenen Normen müssen weiterhin validieren.
-
-## 9. Empfohlene sichere Reihenfolge ab jetzt
-
-### Phase A: Discovery reparieren
-
-1. aktuellen REVOSax-Request im Browser analysieren
-2. `search_request` exakt nachbauen
-3. Discovery für `2023-11-01` ausführen
-4. Trefferzahl plausibilisieren
-5. Manifest committen, wenn vollständig und reproduzierbar
-
-### Phase B: Stichprobe statt sofortiger Vollimport
-
-Danach zunächst:
-
-```sh
-npm run norms:revosax:stage-baseline -- \
-  --manifest data/recht/revosax-baseline-2023-11-01.json \
-  --limit 20
-```
-
-Prüfen:
-
-- 20/20 Abrufe erfolgreich
-- Parser keine stillen Fallbacks
-- Titel/Kürzel angepasst
-- Fundstellen nicht verfälscht
-- keine unerlaubten Sachsen-Reste
-- Gültigkeitsdaten plausibel
-- Änderungsvorschriften sinnvoll klassifiziert
-
-Erst dann größere Stichprobe, danach Vollstaging.
-
-### Phase C: R2-Provenienz + Materializer
-
-1. Schema erweitern
-2. Tests ergänzen
-3. Materialisierungsplan erstellen
-4. REVIEW-Fälle manuell untersuchen
-5. erst danach Write-Modus implementieren/aktivieren
-
-### Phase D: R2 und Git
-
-1. unveränderte Rohquellen nach `ostrecht-recht-quellen`
-2. R2-Manifest mit SHA-256/Object-Key
-3. materialisierte ostdeutsche Normen nach `content/normen`
-4. `content:check`, Normaudits, Unit-Tests
-
-### Phase E: D1
-
-1. zuerst `npm run norms:runtime:d1-sync -- --dry-run`
-2. dann vorhandenen Bestand testweise mit einer Norm synchronisieren
-3. Daten direkt in D1 kontrollieren
-4. danach Vollsync
-5. D1 ist nur abgeleitete Runtimekopie; Git bleibt Source of Truth
-
-### Phase F: OstRecht-Runtime umbauen
-
-Erst wenn Gitbestand und D1 vollständig stimmen:
-
-- `apps/recht/astro.config.mjs` nicht mehr vollständig statisch für Rechtsdaten
-- Normdetail, Fassungen und Historie on-demand aus D1
-- vorhandene UI-Komponenten wiederverwenden
-- Suchseite auf D1/FTS5
-- Vergleich zweier Fassungen on-demand, nicht mehr alle `n × (n-1)` Paare builden
-- Sitemap passend dynamisch/cached erzeugen
-- öffentliche URLs unverändert lassen
-- statische Help-/redaktionelle Seiten dürfen prerendered bleiben
-
-### Phase G: CI/CD trennen
-
-- reine Normänderung: validieren + inkrementeller D1/R2-Sync
-- Änderung an Rechtsportalcode: Worker/Astro bauen und deployen
-- nicht mehr wegen jeder Rechtsnorm den gesamten Bestand statisch rebuilden
+Die genauen Befehle je Phase stehen im Runbook `docs/REVOSAX_BULK_IMPORT.md`; offene Punkte
+(Anlagenarchivierung, `MATCH`-Nacharbeit, Sichtung der Prüfmarken, getrennte Staging-Ressourcen)
+im README-Backlog.
 
 ## 10. Nicht tun
 
@@ -368,6 +300,11 @@ Zusätzlich für den Import:
 
 ## 12. Aktueller Branch-/PR-Zustand
 
-Draft-PR #18 bleibt absichtlich Draft. Die öffentliche Runtime liest weiterhin wie bisher dateibasiert/statisch. D1/R2-Bindings existieren bereits, aber die Anwendung ist noch nicht auf D1-Lesen umgestellt.
+Draft-PR #18 bleibt Draft, bis die Regressionssuite auf dem Vollbestand grün ist und der Deployment-
+Smoke gegen die produktive D1-Projektion geprüft wurde. Der Branch enthält den vollständigen
+Importpfad, den R2-/D1-Bestand des Stichtags, die D1-gestützte OstRecht-Laufzeit und die
+CI-Trennung; die produktive Website wird erst mit dem Merge auf `main` umgestellt.
 
-Der unmittelbar nächste technische Auftrag ist **ausschließlich die korrekte REVOSax-Discovery zu reparieren und zu verifizieren**, danach eine kleine Staging-Stichprobe durchzuführen. Erst wenn diese belastbar ist, den Vollimport weiterbauen.
+Vor dem Merge sind zu prüfen: Repository-Secret `CLOUDFLARE_API_TOKEN` mit D1 Read/Write erweitern,
+Migrationen 0001–0004 sind bereits eingespielt, nach dem Deploy `npm run test:deployment:production`
+und stichprobenartig Norm-, Such- und Vergleichsrouten gegen `recht.freistaat-ostdeutschland.de`.

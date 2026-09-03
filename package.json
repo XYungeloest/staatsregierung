@@ -37,6 +37,7 @@
     "norms:revosax:r2-upload": "node scripts/upload-revosax-r2.mjs",
     "norms:runtime:d1-sync": "node --experimental-strip-types scripts/sync-recht-d1.mjs",
     "norms:runtime:d1-local": "node scripts/serve-law-worker.mjs --seed-only",
+    "norms:runtime:d1-verify": "node scripts/verify-recht-d1.mjs",
     "norms:publications:pdf-sync": "node scripts/sync-publication-pdfs.mjs",
     "norms:corrections:apply": "node scripts/apply-corrections.mjs",
     "norms:consolidate": "node scripts/consolidate-norms.mjs",

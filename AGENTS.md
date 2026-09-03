@@ -62,7 +62,7 @@ Generierte Dateien unter `knowledge/generated/` werden nicht manuell gepflegt.
 - Rechtsportal: `recht.freistaat-ostdeutschland.de`, Build `npm run build:recht`, Worker `ostrecht-recht`
 - öffentliche Rechtsrouten liegen auf der Rechtsdomain ohne zusätzliches `/recht/`-Präfix
 - Cross-Site-Links werden über `packages/shared/src/lib/portal/routes.ts` und `packages/shared/src/lib/norms/routes.ts` erzeugt; die Origins stammen aus `PORTAL_SITE_URL` und `LAW_SITE_URL`
-- keine aktiven D1/R2-Bindings im aktuellen Portalstand
+- OstRecht liest Rechtsdaten zur Laufzeit aus Cloudflare D1 (`ostrecht_recht`, Projektion aus `content/` per `npm run norms:runtime:d1-sync`); R2 (`ostrecht_recht_quellen`) archiviert nur unveränderte Rohquellen; das Staatsportal hat keine D1/R2-Bindings
 - klare Utility-Funktionen statt unnötiger Klassenhierarchien
 - Build- und Content-Checks vor Abschluss ausführen, sofern möglich
 
