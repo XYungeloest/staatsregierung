@@ -7,6 +7,8 @@ const ROOT = resolve(process.cwd());
 const CONTENT_ROOT = join(ROOT, 'content', 'normen');
 const MAX_D1_TEXT_BYTES = 1_800_000;
 const DEFAULT_BATCH_SIZE = 40;
+const DEFAULT_CLOUDFLARE_ACCOUNT_ID = '28871b9b1c6753235a331544f7c68460';
+const DEFAULT_D1_DATABASE_ID = '2491f200-de20-4a45-b028-d00a4fd57840';
 
 function valueAfter(args, flag) {
   const index = args.indexOf(flag);
@@ -198,12 +200,12 @@ async function main() {
   const dryRun = args.includes('--dry-run');
   const batchSize = Number.parseInt(valueAfter(args, '--batch-size') ?? String(DEFAULT_BATCH_SIZE), 10);
   const config = {
-    accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
-    databaseId: process.env.OSTRECHT_D1_DATABASE_ID,
+    accountId: process.env.CLOUDFLARE_ACCOUNT_ID ?? DEFAULT_CLOUDFLARE_ACCOUNT_ID,
+    databaseId: process.env.OSTRECHT_D1_DATABASE_ID ?? DEFAULT_D1_DATABASE_ID,
     apiToken: process.env.CLOUDFLARE_API_TOKEN,
   };
-  if (!dryRun && Object.values(config).some((value) => !value)) {
-    throw new Error('CLOUDFLARE_ACCOUNT_ID, OSTRECHT_D1_DATABASE_ID und CLOUDFLARE_API_TOKEN sind erforderlich');
+  if (!dryRun && !config.apiToken) {
+    throw new Error('CLOUDFLARE_API_TOKEN ist für den Remote-D1-Sync erforderlich');
   }
 
   const slugs = requestedSlug ? [requestedSlug] : await listSlugs();
