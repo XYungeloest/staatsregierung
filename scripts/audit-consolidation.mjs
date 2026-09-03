@@ -2,6 +2,7 @@
 
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 
 const ROOT = process.cwd();
 const NORM_ROOT = resolve(ROOT, 'content/normen');
@@ -233,6 +234,24 @@ function completeIntervals(record, effectiveDates, baselineDate = BASELINE_DATE)
   });
 }
 
+export function isInheritedBaselineAct(record, baselineDate = BASELINE_DATE) {
+  const references = [
+    ...(record.meta.sourceReferences ?? []),
+    ...record.versions.flatMap((version) => version.sourceReferences ?? []),
+  ];
+  if (references.length === 0) return false;
+  if (!references.every((source) => source.kind === 'revosax-snapshot' && source.sourceRole === 'official-snapshot')) {
+    return false;
+  }
+  if (record.versions.some((version) => version.validFrom > baselineDate)) return false;
+  if ((record.history?.entries ?? []).some((entry) =>
+    ['amendment', 'repeal'].includes(entry.type) && entry.date > baselineDate)) {
+    return false;
+  }
+  const effectiveDate = record.meta.effectiveDate ?? record.versions.map((version) => version.validFrom).sort()[0] ?? null;
+  return Boolean(effectiveDate) && effectiveDate <= baselineDate;
+}
+
 async function main() {
   const [norms, config] = await Promise.all([
     loadNorms(),
@@ -244,6 +263,11 @@ async function main() {
   const ambiguousFindings = [];
 
   for (const record of norms) {
+    // Übernommene, in Ostdeutschland unveränderte REVOSax-Akte (etwa sächsische
+    // Änderungsgesetze des Ausgangsbestands) sind historische Quellenakte: Ihre
+    // Änderungsbefehle sind in den Stichtagsfassungen der Stammnormen bereits
+    // eingearbeitet und begründen keine ostdeutsche Konsolidierung.
+    if (isInheritedBaselineAct(record)) continue;
     const recordEffectiveDate =
       record.meta.effectiveDate ??
       record.versions.map((version) => version.validFrom).filter(Boolean).sort()[0] ??
@@ -560,4 +584,6 @@ async function main() {
   console.log(JSON.stringify(manifest.counts));
 }
 
-await main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  await main();
+}
