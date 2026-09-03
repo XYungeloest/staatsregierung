@@ -5,8 +5,11 @@ import { parseGermanDate, parseStructureMarker } from './norm-html-parser.mjs';
 const DATE_DOTTED = /(\d{1,2})\.(\d{1,2})\.(\d{4})/u;
 const DATE_DOTTED_GLOBAL = /(\d{1,2})\.(\d{1,2})\.(\d{4})/gu;
 const FOOTNOTE_LINK = /^#FNID_/u;
-const SIGNATURE_START = /^(?:Dresden|Leipzig|Chemnitz),\s+den\s+/iu;
-const NON_NORM_SECTION = /^(?:Bekanntmachung|Gesetz|Verordnung|Inhaltsübersicht)$/iu;
+const SIGNATURE_START = /^(?:Dresden|Leipzig|Chemnitz),\s+(?:den\s+|\d{1,2}\.\s)/iu;
+const NON_NORM_SECTION = /^(?:Bekanntmachung|Gesetz|Verordnung|Inhaltsübersicht|Inhaltsverzeichnis)$/iu;
+// Diese Wrapper enthalten in Zustimmungsgesetzen gelegentlich den gesamten Text; ihr Inhalt wird
+// nur dann übernommen, wenn das Dokument sonst keinen Normtext hätte.
+const TEXT_BEARING_WRAPPER = /^(?:Gesetz|Verordnung)$/iu;
 // Generische Dokument-Wrapper, die REVOSax um den eigentlichen Text legt (etwa
 // „Vorschrift“ oder „Zustimmungsgesetz“). Sie sind keine Gliederungseinheit;
 // ihr unmittelbarer Inhalt wird auf der aktuellen Ebene übernommen.
@@ -136,8 +139,12 @@ function markerFromSection(section) {
       ? { ...parsed, rank: ROMAN_OUTLINE_RANK }
       : parsed;
   }
-  const numeric = normalizeText(source).replace(/\n+/gu, ' ').match(/^(\d+(?:\.\d+)*\.?)\s+(.+)$/u);
-  if (numeric) return { type: 'section', label: numeric[1], title: numeric[2] };
+  const numeric = normalizeText(source).replace(/\n+/gu, ' ').match(/^(\d+(?:\.\d+)*\.?)(?:\s+(.+))?$/u);
+  if (numeric && (numeric[2] || /\.$/u.test(numeric[1]))) {
+    return { type: 'section', label: numeric[1], ...(numeric[2] ? { title: numeric[2] } : {}) };
+  }
+  const letterPart = normalizeText(source).replace(/\n+/gu, ' ').match(/^(Teil\s+[A-Z])(?:\s*[–—:-]?\s*(.*))?$/u);
+  if (letterPart) return { type: 'part', label: letterPart[1], ...(letterPart[2] ? { title: letterPart[2] } : {}) };
   const letter = normalizeText(source).replace(/\n+/gu, ' ').match(LETTER_OUTLINE);
   if (letter) return { type: 'section', label: `${letter[1]}.`, title: letter[2], rank: LETTER_OUTLINE_RANK };
   const match = normalizeText(source)
@@ -331,22 +338,38 @@ function paragraphBlock(node) {
   return { type: 'paragraphText', text };
 }
 
-function sectionContent(section) {
+function parseHtmlList(list, level = 0) {
+  const ordered = list.tagName === 'ol';
+  return elementChildren(list, 'li').map((item, index) => {
+    const nestedLists = elementChildren(item).filter((child) => child.tagName === 'ol' || child.tagName === 'ul');
+    const ownContent = { ...item, childNodes: (item.childNodes ?? []).filter((child) => !nestedLists.includes(child)) };
+    return {
+      type: 'item',
+      label: ordered ? `${index + 1}.` : '–',
+      text: textOf(ownContent, { breaks: true }),
+      level,
+      numberingStyle: 'decimal',
+      children: nestedLists.flatMap((nested) => parseHtmlList(nested, level + 1)),
+    };
+  });
+}
+
+function sectionContent(section, state = { signature: false }) {
   const blocks = [];
-  let signature = false;
   for (const child of elementChildren(section)) {
     if (/^h[1-6]$/u.test(child.tagName) || child.tagName === 'section') continue;
     if (child.tagName === 'p') {
       const text = textOf(child, { breaks: true });
       if (SIGNATURE_START.test(text)) {
-        signature = true;
+        state.signature = true;
         continue;
       }
-      if (signature) continue;
+      if (state.signature) continue;
       const block = paragraphBlock(child);
       if (block) blocks.push(block);
       continue;
     }
+    if (state.signature) continue;
     if (child.tagName === 'dl') {
       blocks.push(...parseDefinitionList(child));
       continue;
@@ -355,15 +378,17 @@ function sectionContent(section) {
       blocks.push(parseTable(child));
       continue;
     }
-    for (const paragraph of descendants(child, (node) => node.tagName === 'p')) {
-      const block = paragraphBlock(paragraph);
-      if (block) blocks.push(block);
+    if (child.tagName === 'ol' || child.tagName === 'ul') {
+      blocks.push(...parseHtmlList(child));
+      continue;
     }
+    // Sonstige Container (div, nav, …): Inhalt in Dokumentreihenfolge übernehmen.
+    blocks.push(...sectionContent(child, state));
   }
   return blocks;
 }
 
-function parseSections(container, notes = []) {
+function parseSections(container, notes = [], { hoistTextBearingWrappers = false } = {}) {
   const root = [];
   const stack = [{ rank: 0, children: root }];
   const sections = descendants(container, (node) => node.tagName === 'section');
@@ -376,6 +401,11 @@ function parseSections(container, notes = []) {
       // REVOSax stellt Bekanntmachungs- und Identitätsblöcke im selben Container
       // wie den Normkörper bereit. Sie gehören zur unveränderten Rohquelle und
       // zur Fundstellenprüfung, sind aber keine Gliederungseinheit der Lesefassung.
+      if (hoistTextBearingWrappers && TEXT_BEARING_WRAPPER.test(sectionTitle)) {
+        stack.at(-1).children.push(...sectionContent(section));
+        notes.push({ kind: 'hoisted-wrapper', title: sectionTitle });
+        continue;
+      }
       if (NON_NORM_SECTION.test(sectionTitle)) continue;
       if (HOISTED_WRAPPER_SECTION.test(sectionTitle)) {
         stack.at(-1).children.push(...sectionContent(section));
@@ -470,16 +500,30 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
       .filter(Boolean)
     : [];
   const sectionsContainer = findElement(article, (node) => hasClass(node, 'sections'));
-  if (!sectionsContainer) throw new RevosaxParseError('REVOSax-Gliederungscontainer .sections fehlt');
   const structureNotes = [];
-  const body = [...entryFormula, ...parseSections(sectionsContainer, structureNotes)];
-  const provisionLabels = body
+  const provisionsOf = (blocks) => blocks
     .flatMap(function flatten(block) {
       return [block, ...(block.children ?? []).flatMap(flatten)];
     })
-    .filter((block) => ['paragraph', 'article', 'section'].includes(block.type))
-    .map((block) => block.label);
-  if (provisionLabels.length === 0) throw new RevosaxParseError('keine Paragraphen oder Artikel erkannt');
+    .filter((block) => ['paragraph', 'article', 'section'].includes(block.type));
+  let sectionBlocks;
+  if (sectionsContainer) {
+    sectionBlocks = parseSections(sectionsContainer, structureNotes);
+    if (sectionBlocks.length === 0) {
+      // Zustimmungsgesetze tragen ihren gesamten Text gelegentlich im Wrapper „Gesetz“.
+      structureNotes.length = 0;
+      sectionBlocks = parseSections(sectionsContainer, structureNotes, { hoistTextBearingWrappers: true });
+    }
+  } else {
+    // Altes REVOSax-Layout ohne Gliederungscontainer: Lesetext liegt direkt im Artikel.
+    const container = findElement(article, (node) => node.tagName === 'nav' || (node.tagName === 'div' && attributes(node).id === 'lesetext')) ?? article;
+    sectionBlocks = sectionContent(container).filter((block) => !(block.type === 'paragraphText' && /^Vom\s+\d{1,2}\.\s/u.test(block.text)));
+    if (sectionBlocks.length === 0) throw new RevosaxParseError('REVOSax-Gliederungscontainer .sections fehlt und Artikel enthält keinen Text');
+    structureNotes.push({ kind: 'legacy-layout' });
+  }
+  const body = [...entryFormula, ...sectionBlocks];
+  if (body.length === 0) throw new RevosaxParseError('kein Normtext erkannt');
+  if (provisionsOf(body).length === 0) structureNotes.push({ kind: 'no-provisions' });
 
   return {
     sourceTitle,

@@ -11,6 +11,7 @@ import {
   RevosaxHttpError,
   classifyDocumentType,
   detectEnvelopeComponent,
+  detectMissingText,
   extractAttachmentLinks,
   extractVersionLinks,
   requestWithRetry,
@@ -242,11 +243,12 @@ async function obtainSource(url, sourceId, options) {
   return { bytes: response.bytes, meta, rawPath, fromCache: false };
 }
 
-async function loadVersion(hit, url, sourceId, options) {
+async function loadVersion(hit, url, sourceId, options, { allowRedirect = false } = {}) {
   const source = await obtainSource(url, sourceId, options);
   const rawHtml = source.bytes.toString('utf8');
   const envelope = detectEnvelopeComponent(rawHtml, source.meta.url);
   if (envelope) return { ...source, sourceId, envelope, original: null, versions: [], active: null };
+  if (detectMissingText(rawHtml)) return { ...source, sourceId, missingText: true, original: null, versions: [], active: null };
   let original;
   try {
     original = parseRevosaxSnapshot(rawHtml, { url: source.meta.url });
@@ -259,19 +261,27 @@ async function loadVersion(hit, url, sourceId, options) {
   const active = versions.find((version) => version.active) ?? null;
   if (!active) throw new StageFailure('validity', 'konkrete Fassungskennung (law_version_link linkactive) nicht erkannt');
   if (active.lawId !== String(hit.lawId)) {
+    if (allowRedirect) return { ...source, sourceId, redirectedTo: active.lawId, original: null, versions: [], active: null };
     throw new StageFailure('validity', `Seite gehört zu lawId ${active.lawId} statt ${hit.lawId} (Weiterleitung auf eine andere Vorschrift?)`);
   }
   return { ...source, sourceId, original, versions, attachments, active };
 }
 
 async function loadMatchingVersion(hit, options) {
-  const requested = await loadVersion(hit, fetchUrlFor(hit), sourceIdOf(hit), options);
-  if (requested.envelope) return { ...requested, resolvedFrom: null };
+  let requested = await loadVersion(hit, fetchUrlFor(hit), sourceIdOf(hit), options, { allowRedirect: !hit.versionSuffix });
+  if (requested.envelope || requested.missingText) return { ...requested, resolvedFrom: null };
+  let redirectedFrom = null;
+  if (requested.redirectedTo) {
+    // Die Stammnorm-URL leitet auf eine Nachfolgevorschrift weiter; die erste
+    // konkrete Fassung der ursprünglichen lawId trägt deren vollständiges Fassungsmenü.
+    redirectedFrom = `${requested.meta.url} → lawId ${requested.redirectedTo}`;
+    requested = await loadVersion(hit, `${REVOSAX_ORIGIN}/vorschrift/${hit.lawId}.1`, `${hit.lawId}.1`, options);
+  }
   if (hit.versionSuffix && requested.active.versionSuffix !== hit.versionSuffix) {
     throw new StageFailure('validity', `Seite zeigt Fassung ${requested.active.versionSuffix} statt der angeforderten ${hit.versionSuffix}`);
   }
   const problem = validityProblem(hit, requested.original, options.date);
-  if (!problem) return { ...requested, resolvedFrom: null };
+  if (!problem) return { ...requested, resolvedFrom: redirectedFrom };
   if (hit.versionSuffix) throw new StageFailure('validity', problem);
 
   // Dynamische Seite zeigt eine spätere Fassung: passende historische Fassung aus dem Menü laden.
@@ -292,7 +302,7 @@ async function loadMatchingVersion(hit, options) {
   }
   const fallbackProblem = validityProblem(hit, fallback.original, options.date);
   if (fallbackProblem) throw new StageFailure('validity', `historische Fassung ${candidate.versionSuffix}: ${fallbackProblem}`);
-  return { ...fallback, resolvedFrom: requested.meta.url };
+  return { ...fallback, resolvedFrom: redirectedFrom ?? requested.meta.url };
 }
 
 /** Kurzbezeichnungen, die nur aus einem Kürzel bestehen, ergeben keinen lesbaren Slug. */
@@ -339,11 +349,46 @@ function envelopeEntry({ hit, index, loaded, classification, manifestLawIds }) {
   };
 }
 
+function missingTextEntry({ hit, index, loaded, classification }) {
+  const { meta, sourceId } = loaded;
+  console.log(`[${index + 1}] ${sourceId}: REVOSax hält keinen Text vor („Datei nicht im Datenbestand“)`);
+  return {
+    index,
+    revosaxLawId: String(hit.lawId),
+    versionSuffix: hit.versionSuffix ?? null,
+    sourceId,
+    urlKind: hit.urlKind ?? (hit.versionSuffix ? 'version' : 'dynamic'),
+    category: classification.category,
+    documentType: hit.documentType ?? null,
+    inferredType: classification.normType,
+    listing: { url: hit.url, label: hit.label ?? null, title: hit.title ?? null, citation: hit.citation ?? null, fsnNumber: hit.fsnNumber ?? null, documentDate: hit.documentDate ?? null, validFrom: hit.validFrom ?? null, validTo: hit.validTo ?? null, alternativeVersionUrls: hit.alternativeVersionUrls ?? [] },
+    requestedUrl: meta.requestedUrl,
+    sourceUrl: meta.url,
+    canonicalVersionUrl: null,
+    versionNumber: null,
+    resolvedFrom: null,
+    retrievedAt: meta.retrievedAt,
+    sourceSha256: meta.sha256,
+    byteLength: meta.byteLength,
+    sourceTitle: hit.title ?? hit.label ?? null,
+    adaptedTitle: adaptSaxonText(hit.title ?? hit.label ?? ''),
+    adaptedShortTitle: adaptSaxonText(hit.label ?? ''),
+    adaptedAbbr: null,
+    proposedSlug: null,
+    blockCount: 0,
+    reviewFlags: [],
+    skipReason: 'no-text-in-revosax',
+    rawCacheFile: relative(loaded.rawPath),
+    parsedCacheFile: null,
+  };
+}
+
 async function stageHit({ hit, index, total }, options) {
   const { cacheRoot, slugCounts, manifestLawIds } = options;
   const classification = validateHit(hit);
   const loaded = await loadMatchingVersion(hit, options);
   if (loaded.envelope) return envelopeEntry({ hit, index, loaded, classification, manifestLawIds });
+  if (loaded.missingText) return missingTextEntry({ hit, index, loaded, classification });
   const { original, meta, active, sourceId } = loaded;
   const parsedPath = resolve(cacheRoot, 'parsed', `${sourceId}.json`);
 
@@ -385,6 +430,9 @@ async function stageHit({ hit, index, total }, options) {
     flags.push('source-ended-without-successor');
   }
   const structureNotes = original.structureNotes ?? [];
+  for (const kind of ['no-provisions', 'legacy-layout']) {
+    if (structureNotes.some((note) => note.kind === kind)) flags.push(kind);
+  }
 
   await writeJson(parsedPath, {
     listing: { ...hit, context: undefined },
@@ -593,6 +641,7 @@ async function main() {
     reviewFlagCounts: reviewEntries.flatMap((entry) => entry.reviewFlags).reduce((counts, flag) => ({ ...counts, [flag]: (counts[flag] ?? 0) + 1 }), {}),
     skipped: entries.filter((entry) => entry.skipReason).length,
     envelopeComponents: entries.filter((entry) => entry.envelope).length,
+    missingTextEntries: entries.filter((entry) => entry.skipReason === 'no-text-in-revosax').length,
     entriesWithAttachments: entries.filter((entry) => entry.attachments?.length).length,
     structureNoteCounts: entries.flatMap((entry) => entry.structureNotes ?? []).reduce((counts, note) => ({ ...counts, [note.kind]: (counts[note.kind] ?? 0) + 1 }), {}),
     genericSectionTitles: [...new Set(entries.flatMap((entry) => (entry.structureNotes ?? []).filter((note) => note.kind === 'generic-section').map((note) => note.title)))].sort().slice(0, 200),

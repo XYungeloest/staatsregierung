@@ -596,6 +596,15 @@ export function detectEnvelopeComponent(html, pageUrl = REVOSAX_ORIGIN) {
   };
 }
 
+/** Seiten, für die REVOSax ausdrücklich keinen Text vorhält („Datei nicht im Datenbestand“). */
+export function detectMissingText(html) {
+  const document = parse(html);
+  const lawShow = first(document, (node) => hasClass(node, 'law_show'));
+  if (!lawShow) return false;
+  if (first(lawShow, (node) => node.tagName === 'article' && attrs(node).id === 'lesetext')) return false;
+  return /Datei nicht im Datenbestand/u.test(cleanText(lawShow));
+}
+
 /** Anlagenverweise (PDF-Anhänge) innerhalb des Lesetexts. */
 export function extractAttachmentLinks(html, pageUrl = REVOSAX_ORIGIN) {
   const document = parse(html);
