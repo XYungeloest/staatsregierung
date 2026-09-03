@@ -14,6 +14,11 @@ Die am 2. September 2026 neu bereitgestellte Fassung von `OVertrBl. 2026 Nr. 4` 
 - `Gesetze/OVertrBl. 2026 Nr. 4.pdf`
 - `content/verkuendungen/overtrbl-2026-04.json`
 
+Die ältere fehlerhafte Markdown-Alttranskription bleibt nur als dokumentierter Eingangsbestand
+erhalten. Weil eine strukturtragende HTML-Quelle derselben Ausgabe vorliegt, führt der Importer
+sie als `superseded-by-html` und öffnet sie nicht; sie kann daher weder in Normdaten noch in die
+Konsolidierung einfließen.
+
 Die korrigierte Anlage 1 bezeichnet als geänderte Ausgangsnorm ausdrücklich den **Staatsvertrag über den Norddeutschen Rundfunk (NDR-Staatsvertrag) vom 4./9. März 2021 (GVOBl. M-V S. 797)**. Ein daneben bestehendes oder gesondert zu ermittelndes „Mustergesetz“ ist nicht anzunehmen. Der frühere Platzhalter darf weder als eigene Norm noch als ungeklärter Zieltext fortgeführt werden.
 
 Die vollständige Ausgangsfassung ist auch beim NDR amtlich dokumentiert:

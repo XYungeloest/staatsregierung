@@ -14,8 +14,10 @@ Der Audit erkennt 89 Zielnormen; 84 sind vollständig konsolidiert. Fünf Fälle
 - **Gesetz über den öffentlichen Personennahverkehr** — `blocked-source-conflict`: Artikel 9
   Nummer 1 passt nicht eindeutig auf die maßgebliche Ausgangsfassung; ohne Quellenklärung wird
   keine Folgefassung erzeugt.
-- **NDR-Staatsvertrag** — `missing-baseline`: Die vollständige maßgebliche Ausgangsfassung vor
-  der Änderung vom 8. März 2026 einschließlich Anlagen fehlt.
+- **NDR-Staatsvertrag** — `missing-baseline`: Die maßgebliche Ausgangsfassung ist durch die
+  korrigierte Ausgabe als NDR-Staatsvertrag vom 4./9. März 2021 (GVOBl. M-V S. 797) eindeutig
+  bezeichnet; sie ist jedoch noch nicht unverändert im Repository versioniert und damit noch keine
+  Konsolidierungsbaseline.
 - **Ostdeutsche Gemeindeordnung** — `blocked-source-conflict`: Artikel 1 des Gesetzes zur
   Einführung von Hinweisgebermeldestellen ordnet nach § 71a einen neuen § 71b an. Die ausdrücklich
   als zuletzt geändert bezeichnete Fassung vom 20. Juli 2026 enthält jedoch bereits § 71b bis § 71g;

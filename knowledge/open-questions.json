@@ -232,16 +232,16 @@
     },
     {
       "id": "question-missing-revosax-snapshots",
-      "title": "Welche amtliche Ausgangsfassung des NDR-Staatsvertrags fehlt?",
+      "title": "Wann wird die bekannte Ausgangsfassung des NDR-Staatsvertrags technisch archiviert?",
       "status": "unresolved",
       "validFrom": null,
       "validTo": null,
       "asOf": "2026-09-02",
-      "summary": "Nach der Korrektur der Veröffentlichung des NDR-Änderungs- und Überleitungsstaatsvertrags fehlt als maßgebliche Primärquelle weiterhin nur die vollständige Ausgangsfassung des NDR-Staatsvertrags.",
+      "summary": "Die korrigierte Veröffentlichung bezeichnet die maßgebliche Ausgangsfassung des NDR-Staatsvertrags eindeutig. Offen ist nur noch, sie unverändert im Repository zu archivieren und als Konsolidierungsbaseline zu verarbeiten.",
       "sourceRefs": [
         {
-          "sourceId": "source-content-gaps",
-          "locator": "Konsolidierungs-Audit: eine fehlende Primärquelle",
+          "sourceId": "source-overtrbl-2026-04",
+          "locator": "Anlage 1: Bezeichnung des NDR-Staatsvertrags vom 4./9. März 2021 als Änderungsziel",
           "role": "primary"
         },
         {
@@ -250,8 +250,8 @@
           "role": "corroborating"
         },
         {
-          "sourceId": "source-editorial-clarification-zuarbeit-2026-08-27",
-          "locator": "Abschnitt Weiterhin offen",
+          "sourceId": "source-editorial-clarification-ndr-2026-09-02",
+          "locator": "Abschnitt Verbindliche Quellenauflösung",
           "role": "corroborating"
         }
       ],
@@ -262,12 +262,12 @@
         "open-question"
       ],
       "notes": [],
-      "question": "Wo ist die vor der Änderung vom 8. März 2026 geltende vollständige Fassung des NDR-Staatsvertrags einschließlich Anlagen amtlich dokumentiert?",
+      "question": "Wann kann die bekannte vollständige Fassung des NDR-Staatsvertrags einschließlich Anlagen unverändert archiviert und als Konsolidierungsbaseline verarbeitet werden?",
       "affectedIds": [
         "proceeding-law-consolidation"
       ],
-      "reason": "Ohne Ausgangssnapshot darf keine freie Konsolidierung erfolgen.",
-      "requiredSource": "Vollständige, vor der Änderung vom 8. März 2026 geltende Fassung des NDR-Staatsvertrags einschließlich Anlagen.",
+      "reason": "Ohne versionierten Ausgangssnapshot darf keine freie Konsolidierung erfolgen.",
+      "requiredSource": "Unveränderte Archivkopie der bekannten, vor der Änderung vom 8. März 2026 geltenden Fassung des NDR-Staatsvertrags einschließlich Anlagen.",
       "publicContentImpact": "Vollständigkeit und historische Fassungen im Rechtsportal.",
       "priority": "high",
       "questionStatus": "open"
