@@ -10,6 +10,7 @@ import {
 } from '../scripts/lib/consolidation-engine.mjs';
 import { applyCorrectionToRecord } from '../scripts/lib/correction-engine.mjs';
 import { parseRevosaxSnapshot } from '../scripts/lib/revosax-parser.mjs';
+import { adaptBodyBlocks } from '../scripts/lib/revosax-ost-adapter.mjs';
 
 const readJson = async (path) => JSON.parse(await readFile(path, 'utf8'));
 
@@ -51,11 +52,13 @@ test('Feiertagsgesetz entsteht deterministisch als drei vollständige Fassungen'
     readJson('content/normen/ostdeutsches-feiertagsgesetz/versions/2026-03-23.json'),
   ]);
 
+  // Die Rezepte werden auf den unveränderten sächsischen Ausgangstext angewendet; gespeichert
+  // wird das übergeleitete Ergebnis (scripts/consolidate-norms.mjs, applyRechtsueberleitung).
   let state = { title: parsed.sourceTitle, body: parsed.body };
-  assert.deepEqual(state.body, stored[0].body);
+  assert.deepEqual(adaptBodyBlocks(state.body), stored[0].body);
   for (const [index, recipe] of recipes.entries()) {
     state = applyPatchRecipe(state, recipe);
-    assert.deepEqual(state.body, stored[index + 1].body);
+    assert.deepEqual(adaptBodyBlocks(state.body), stored[index + 1].body);
   }
 
   assert.deepEqual(stored.map(({ validFrom, validTo }) => ({ validFrom, validTo })), [
@@ -192,10 +195,10 @@ test('Ladenöffnungsgesetz erhält Ausgangs- und vollständige Folgefassung ohne
     readJson('content/normen/saechsisches-ladenoeffnungsgesetz/versions/2023-11-01.json'),
     readJson('content/normen/saechsisches-ladenoeffnungsgesetz/versions/2026-02-01.json'),
   ]);
-  assert.deepEqual(baseline.body, parsed.body);
+  assert.deepEqual(baseline.body, adaptBodyBlocks(parsed.body));
   const result = applyPatchRecipe({ title: parsed.sourceTitle, body: parsed.body }, recipe);
   assert.equal(result.title, 'Ostdeutsches Ladenöffnungsgesetz');
-  assert.deepEqual(result.body, current.body);
+  assert.deepEqual(adaptBodyBlocks(result.body), current.body);
   assert.deepEqual(
     flatten(current.body).filter((block) => block.type === 'paragraph').map((block) => block.label),
     ['§ 1', '§ 2', '§ 3', '§ 3a', '§ 3b', '§ 4', '§ 5', '§ 6', '§ 7', '§ 8', '§ 8a', '§ 9', '§ 10', '§ 11'],
@@ -478,12 +481,14 @@ test('Konsolidierungsmanifest ist aktuell und zählt seine Zielstatus konsistent
   assert.ok(!berufsschule.effectiveDates.includes('2026-08-27'));
 });
 
-test('historische Basistitel und ostdeutsche Folgebezeichnungen bleiben fassungsspezifisch', async () => {
+test('übergeleitete Basistitel und ostdeutsche Folgebezeichnungen bleiben fassungsspezifisch', async () => {
   const baseline = await readJson('content/normen/ostdeutsches-schulgesetz/versions/2023-11-01.json');
   const current = await readJson('content/normen/ostdeutsches-schulgesetz/versions/2026-08-01.json');
   const culture = await readJson('content/normen/kulturraumgesetz/versions/2026-03-25.json');
   const transit = await readJson('content/normen/ostdeutsches-personennahverkehrsgesetz/versions/2026-03-24.json');
-  assert.equal(baseline.title, 'Sächsisches Schulgesetz');
+  // Die Ausgangsfassung trägt den übergeleiteten Titel (Rechtsüberleitung: „Sächsisches“ →
+  // „Ostdeutsches“); die spätere amtliche Umbenennung bleibt der Folgefassung vorbehalten.
+  assert.equal(baseline.title, 'Ostdeutsches Schulgesetz');
   assert.equal(current.title, 'Schulgesetz für den Freistaat Ostdeutschland');
   assert.equal(current.shortTitle, 'Ostdeutsches Schulgesetz');
   assert.equal(culture.title, 'Ostdeutsches Kulturraumgesetz');

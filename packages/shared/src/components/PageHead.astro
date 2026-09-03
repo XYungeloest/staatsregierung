@@ -18,6 +18,11 @@ interface Props {
   noindex?: boolean;
   ogType?: 'website' | 'article';
   ogImage?: SeoImage;
+  /** Kanonische Adresse (Pfad mit Query, z. B. paginierte Übersichten); Standard: Pfad ohne Query. */
+  canonical?: string;
+  /** Vorherige/nächste Seite einer paginierten Übersicht (rel="prev"/"next"). */
+  prev?: string;
+  next?: string;
 }
 
 const {
@@ -28,10 +33,17 @@ const {
   noindex = false,
   ogType = 'website',
   ogImage = activeSiteConfig.seo.defaultSocialImage,
+  canonical,
+  prev,
+  next,
 } = Astro.props;
 
 const pageTitle = buildPageTitle(title);
-const canonicalUrl = buildCanonicalUrl(Astro.url, Astro.site);
+const defaultCanonical = buildCanonicalUrl(Astro.url, Astro.site);
+const absolute = (target: string): string => new URL(target, defaultCanonical).toString();
+const canonicalUrl = canonical ? absolute(canonical) : defaultCanonical;
+const prevUrl = prev ? absolute(prev) : undefined;
+const nextUrl = next ? absolute(next) : undefined;
 const breadcrumbJsonLd = buildBreadcrumbJsonLd(breadcrumbs, Astro.url.pathname, Astro.site);
 const structuredDataItems = [
   ...(structuredData ? (Array.isArray(structuredData) ? structuredData : [structuredData]) : []),
@@ -47,6 +59,8 @@ const ogImageUrl = ogImage ? toAbsoluteUrl(ogImage.url, Astro.site) : undefined;
 <meta name="description" content={description} />
 <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
 <link rel="canonical" href={canonicalUrl} />
+{prevUrl ? <link rel="prev" href={prevUrl} /> : null}
+{nextUrl ? <link rel="next" href={nextUrl} /> : null}
 <meta property="og:locale" content={activeSiteConfig.seo.locale} />
 <meta property="og:site_name" content={activeSiteConfig.seo.siteName} />
 <meta property="og:type" content={ogType} />

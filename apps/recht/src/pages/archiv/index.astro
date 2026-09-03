@@ -4,67 +4,59 @@ import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import {
   formatNormType,
-  getGermanIndexLetter,
-  getIndexGroups,
   getLawPortalUrl,
   getNormUrl,
-  getNormVersionIdentity,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion, loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
+import { DEFAULT_PAGE_SIZE, KEYWORD_PAGE_SIZE, normalizePage } from '../../lib/runtime/store.ts';
+import { buildPagination, pageUrl } from '../../lib/runtime/pagination.ts';
 
-const norms = await loadAllNorms();
-const groups = getIndexGroups(norms);
-const keywordEntries = new Map<string, typeof norms>();
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion – seitenweise und
+// je Buchstabengruppe (serverseitige Filter), nie den gesamten Bestand in einer Antwort.
+export const prerender = false;
 
-for (const norm of norms) {
-  const identity = getNormVersionIdentity(norm, getCurrentVersion(norm));
-  for (const rawKeyword of [identity.abbr, identity.shortTitle, ...norm.meta.keywords].filter(Boolean)) {
-    const keyword = toDisplayText(rawKeyword).trim();
-    if (!keyword || keyword.length < 2) {
-      continue;
-    }
+const store = await getNormStore(Astro.locals);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-    const existing = keywordEntries.get(keyword) ?? [];
-    if (!existing.some((entry) => entry.meta.slug === norm.meta.slug)) {
-      keywordEntries.set(keyword, [...existing, norm]);
-    }
-  }
-}
-
-const keywordGroups = [...keywordEntries.entries()]
-  .sort(([left], [right]) => left.localeCompare(right, 'de'))
-  .reduce<Array<{ letter: string; entries: Array<{ keyword: string; norms: typeof norms }> }>>(
-    (result, [keyword, keywordNorms]) => {
-      const key = getGermanIndexLetter(keyword);
-      const group = result.find((entry) => entry.letter === key);
-      const entry = { keyword, norms: keywordNorms.sort((left, right) => {
-        const leftTitle = getNormVersionIdentity(left, getCurrentVersion(left)).title;
-        const rightTitle = getNormVersionIdentity(right, getCurrentVersion(right)).title;
-        return leftTitle.localeCompare(rightTitle, 'de');
-      }) };
-
-      if (group) {
-        group.entries.push(entry);
-      } else {
-        result.push({ letter: key, entries: [entry] });
-      }
-
-      return result;
-    },
-    [],
-  );
-const availableLetters = [...new Set([...groups.map((group) => group.letter), ...keywordGroups.map((group) => group.letter)])]
-  .sort((left, right) => left.localeCompare(right, 'de'));
+const basePath = getLawPortalUrl() + 'archiv/';
+const letters = await store.listIndexLetters();
+const requestedLetter = (Astro.url.searchParams.get('buchstabe') ?? '').trim().toLocaleUpperCase('de-DE').slice(0, 1);
+const availableLetters = letters.map((entry) => entry.letter);
+const letter = availableLetters.includes(requestedLetter) ? requestedLetter : (availableLetters.includes('A') ? 'A' : availableLetters[0] ?? 'A');
+const { page: requestedPage } = normalizePage(Astro.url.searchParams.get('seite'));
+const result = await store.queryNormSummaries({ letter, page: requestedPage, pageSize: DEFAULT_PAGE_SIZE });
+const totalNorms = letters.reduce((sum, entry) => sum + entry.count, 0);
+// Stichwortindex der Buchstabengruppe: serverseitiger Teilstringfilter (`stichwort`) und eigene
+// Seiten (`stichwortseite`, 100 Stichwörter je Seite); der lokale Filter wirkt zusätzlich auf die
+// geladene Seite.
+const keywordFilter = (Astro.url.searchParams.get('stichwort') ?? '').trim().slice(0, 100);
+const { page: requestedKeywordPage } = normalizePage(Astro.url.searchParams.get('stichwortseite'), KEYWORD_PAGE_SIZE);
+const keywords = await store.listKeywordIndex(letter, { q: keywordFilter || undefined, page: requestedKeywordPage, pageSize: KEYWORD_PAGE_SIZE });
+const stateParams = { buchstabe: letter, seite: result.page > 1 ? String(result.page) : '', stichwort: keywordFilter, stichwortseite: keywords.page > 1 ? String(keywords.page) : '' };
+const pagination = buildPagination({ page: result.page, pageCount: result.pageCount, basePath, params: { buchstabe: letter, stichwort: keywordFilter, stichwortseite: stateParams.stichwortseite } });
+const keywordPagination = buildPagination({ page: keywords.page, pageCount: keywords.pageCount, basePath, params: { buchstabe: letter, seite: stateParams.seite, stichwort: keywordFilter } });
+// buildPagination schreibt `seite`; für den Stichwortindex heißt der Parameter `stichwortseite`.
+const keywordPageHref = (href: string): string => href.replace(/([?&])seite=(\d+)/u, (_match, separator: string, page: string) => `${separator}stichwortseite=${page}`);
+const heading = letter === '#' ? 'Ziffern und Sonderzeichen' : `Buchstabe ${letter}`;
+const pageTitle = `Alphabetischer Index – ${heading}${result.page > 1 ? ` (Seite ${result.page} von ${result.pageCount})` : ''}`;
+const firstIndex = result.total === 0 ? 0 : (result.page - 1) * result.pageSize + 1;
+const lastIndex = Math.min(result.page * result.pageSize, result.total);
+const firstKeyword = keywords.total === 0 ? 0 : (keywords.page - 1) * keywords.pageSize + 1;
+const lastKeyword = Math.min(keywords.page * keywords.pageSize, keywords.total);
 ---
 
 <LawLayout
-  title="Alphabetischer Index"
-  description="Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen."
+  title={pageTitle}
+  description={`Alphabetischer Zugang zu den im Rechtsbereich des Freistaates Ostdeutschland geführten Normen: ${heading}.`}
   breadcrumbs={[
     { label: 'OstRecht', href: getLawPortalUrl() },
-    { label: 'Alphabetischer Index', href: getLawPortalUrl() + 'archiv/' },
+    { label: 'Alphabetischer Index', href: basePath },
   ]}
+  canonical={pageUrl(basePath, stateParams)}
+  noindex={Boolean(keywordFilter)}
+  prev={pagination.prev}
+  next={pagination.next}
 >
   <Breadcrumbs
     items={[
@@ -76,61 +68,97 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
   <SectionHero
     eyebrow="Rechtsportal"
     title="Alphabetischer Index"
-    lead="Alle Vorschriften, Abkürzungen, Kurztitel und Stichwörter von A bis Z."
+    lead="Alle Vorschriften, Abkürzungen, Kurztitel und Stichwörter von A bis Z – je Buchstabengruppe seitenweise."
     variant="law"
-    facts={[{ label: 'Normen', value: String(norms.length) }, { label: 'Buchstabengruppen', value: String(groups.length) }]}
+    facts={[{ label: 'Normen', value: String(totalNorms) }, { label: 'Buchstabengruppen', value: String(letters.length) }, { label: heading, value: String(result.total) }]}
   />
   <section class="section" aria-label="Buchstabenauswahl">
     <nav class="letter-nav" aria-label="Buchstaben-Navigation">
-      {availableLetters.map((letter) => (
-        <a href={`#${encodeURIComponent(letter)}`} data-index-letter={letter}>{letter}</a>
+      {letters.map((entry) => (
+        <a
+          href={pageUrl(basePath, { buchstabe: entry.letter })}
+          data-index-letter={entry.letter}
+          aria-current={entry.letter === letter ? 'page' : undefined}
+          title={`${entry.count} Normen`}
+        >{entry.letter}</a>
       ))}
     </nav>
   </section>
 
-  {groups.map((group) => (
-    <section class="section" id={group.letter}>
-      <div class="section-header">
-        <h2>{group.letter}</h2>
-      </div>
-      <ul class="record-list">
-        {group.norms.map((norm) => {
-          const identity = getNormVersionIdentity(norm, getCurrentVersion(norm));
-          return (
-          <li class="record-list__item">
-            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a>
-            <span>{[identity.abbr, formatNormType(norm.meta.type)].filter(Boolean).join(' · ')}</span>
-          </li>
-          );
-        })}
-      </ul>
-    </section>
-  ))}
-
-  <section class="section section-muted">
+  <section class="section" id={letter} aria-labelledby="index-letter-heading">
     <div class="section-header">
-      <h2>Stichwortindex</h2>
-      <p>Abkürzungen, Kurztitel und redaktionelle Stichwörter führen zusätzlich in den Normenbestand.</p>
+      <h2 id="index-letter-heading">{heading}</h2>
+      <p data-index-count>
+        {result.total === 0
+          ? 'In dieser Buchstabengruppe sind keine Normen verzeichnet.'
+          : `${result.total} ${result.total === 1 ? 'Norm' : 'Normen'}; angezeigt ${firstIndex}–${lastIndex}.`}
+      </p>
     </div>
-    <label class="search-field law-index-filter">
-      <span>Stichwörter lokal filtern</span>
-      <input type="search" autocomplete="off" data-index-filter placeholder="z. B. Kultur, Energie, Verwaltung" />
-    </label>
-    <p class="search-feedback" aria-live="polite" data-index-filter-status></p>
-    <div class="content-grid content-grid--wide">
-      {keywordGroups.map((group) => (
-        <section class="panel" id={groups.some((entry) => entry.letter === group.letter) ? undefined : group.letter} data-index-group={group.letter}>
-          <h3>{group.letter}</h3>
+    {result.items.length > 0 ? (
+      <ul class="record-list" data-index-list>
+        {result.items.map((norm) => (
+          <li class="record-list__item">
+            <a class="inline-link" href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a>
+            <span>{[norm.abbr, formatNormType(norm.type)].filter(Boolean).join(' · ')}</span>
+          </li>
+        ))}
+      </ul>
+    ) : null}
+    {pagination.pages.length > 1 ? (
+      <nav class="pagination" aria-label={`Seiten der Buchstabengruppe ${letter}`}>
+        {pagination.prev ? <a class="pagination__link" rel="prev" href={pagination.prev}>Vorherige Seite</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Vorherige Seite</span>}
+        <ol class="pagination__list">
+          {pagination.pages.map((entry) => (
+            <li>
+              {entry.kind === 'gap'
+                ? <span class="pagination__gap" aria-hidden="true">…</span>
+                : <a href={entry.href} aria-current={entry.current ? 'page' : undefined} aria-label={`Seite ${entry.page}`}>{entry.page}</a>}
+            </li>
+          ))}
+        </ol>
+        {pagination.next ? <a class="pagination__link" rel="next" href={pagination.next}>Nächste Seite</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Nächste Seite</span>}
+      </nav>
+    ) : null}
+  </section>
+
+  <section class="section section-muted" aria-labelledby="keyword-index-heading">
+    <div class="section-header">
+      <h2 id="keyword-index-heading">Stichwortindex {heading}</h2>
+      <p>Abkürzungen, Kurztitel und redaktionelle Stichwörter dieser Buchstabengruppe führen zusätzlich in den Normenbestand.</p>
+    </div>
+    <form class="law-list-filter law-index-filter" method="get" action={basePath} data-keyword-filter-form>
+      <input type="hidden" name="buchstabe" value={letter} />
+      {result.page > 1 ? <input type="hidden" name="seite" value={String(result.page)} /> : null}
+      <label class="search-field">
+        <span>Stichwörter filtern</span>
+        <input type="search" name="stichwort" value={keywordFilter} autocomplete="off" maxlength="100" placeholder="z. B. Kultur, Energie, Verwaltung" data-index-filter />
+      </label>
+      <div class="search-form__actions">
+        <button class="button-link" type="submit">Filtern</button>
+        {keywordFilter ? <a class="button-link button-link--secondary" href={pageUrl(basePath, { buchstabe: letter, seite: stateParams.seite })}>Filter zurücksetzen</a> : null}
+      </div>
+    </form>
+    <p class="search-feedback" aria-live="polite" data-index-filter-status>
+      {keywords.total === 0
+        ? (keywordFilter ? `Kein Stichwort passt zu „${keywordFilter}“.` : 'Für diese Buchstabengruppe sind keine Stichwörter verzeichnet.')
+        : `${keywords.total} ${keywords.total === 1 ? 'Stichwort' : 'Stichwörter'}${keywordFilter ? ` passen zu „${keywordFilter}“` : ''}; angezeigt ${firstKeyword}–${lastKeyword}.`}
+    </p>
+    {keywords.entries.length === 0 ? (
+      <p data-index-empty>Passen Sie den Filter an oder wählen Sie eine andere Buchstabengruppe.</p>
+    ) : (
+      <div class="content-grid content-grid--wide">
+        <section class="panel" data-index-group={letter}>
+          <h3>{letter}</h3>
           <ul class="record-list">
-            {group.entries.map((entry) => (
+            {keywords.entries.map((entry) => (
               <li class="record-list__item" data-index-entry={entry.keyword.toLocaleLowerCase('de-DE')}>
                 <strong>{entry.keyword}</strong>
                 <span>
                   {entry.norms.map((norm, index) => (
                     <Fragment>
                       {index > 0 ? ', ' : ''}
-                      <a class="inline-link" href={getNormUrl(norm.meta.slug)}>
-                        {toDisplayText(getNormVersionIdentity(norm, getCurrentVersion(norm)).shortTitle)}
+                      <a class="inline-link" href={getNormUrl(norm.slug)}>
+                        {toDisplayText(norm.shortTitle)}
                       </a>
                     </Fragment>
                   ))}
@@ -139,15 +167,38 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
             ))}
           </ul>
         </section>
-      ))}
-    </div>
+      </div>
+    )}
+    {keywordPagination.pages.length > 1 ? (
+      <nav class="pagination" aria-label={`Seiten des Stichwortindex ${letter}`}>
+        {keywordPagination.prev ? <a class="pagination__link" href={keywordPageHref(keywordPagination.prev)}>Vorherige Stichwörter</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Vorherige Stichwörter</span>}
+        <ol class="pagination__list">
+          {keywordPagination.pages.map((entry) => (
+            <li>
+              {entry.kind === 'gap'
+                ? <span class="pagination__gap" aria-hidden="true">…</span>
+                : <a href={keywordPageHref(entry.href)} aria-current={entry.current ? 'page' : undefined} aria-label={`Stichwortseite ${entry.page}`}>{entry.page}</a>}
+            </li>
+          ))}
+        </ol>
+        {keywordPagination.next ? <a class="pagination__link" href={keywordPageHref(keywordPagination.next)}>Nächste Stichwörter</a> : <span class="pagination__link pagination__link--disabled" aria-disabled="true">Nächste Stichwörter</span>}
+      </nav>
+    ) : null}
   </section>
   <script>
+    // Komfort ohne Pflicht: der Filter wirkt sofort auf die geladene Stichwortseite; das
+    // GET-Formular liefert die vollständige, serverseitig gefilterte Liste.
     const input = document.querySelector<HTMLInputElement>('[data-index-filter]');
+    const keywordForm = document.querySelector<HTMLFormElement>('[data-keyword-filter-form]');
+    // Leere Felder nicht in die Adresse übernehmen.
+    keywordForm?.addEventListener('submit', () => {
+      keywordForm.querySelectorAll<HTMLInputElement>('input[name]').forEach((field) => {
+        if (!field.value.trim()) field.disabled = true;
+      });
+    });
     const status = document.querySelector<HTMLElement>('[data-index-filter-status]');
     const entries = Array.from(document.querySelectorAll<HTMLElement>('[data-index-entry]'));
-    const groups = Array.from(document.querySelectorAll<HTMLElement>('[data-index-group]'));
-    const letters = Array.from(document.querySelectorAll<HTMLElement>('[data-index-letter]'));
+    const initialStatus = status?.textContent ?? '';
     input?.addEventListener('input', () => {
       const query = input.value.trim().toLocaleLowerCase('de-DE');
       let visible = 0;
@@ -155,18 +206,7 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
         entry.hidden = Boolean(query) && !(entry.dataset.indexEntry ?? '').includes(query);
         if (!entry.hidden) visible += 1;
       });
-      const visibleLetters = new Set<string>();
-      groups.forEach((group) => {
-        const hasVisibleEntry = Array.from(group.querySelectorAll<HTMLElement>('[data-index-entry]')).some((entry) => !entry.hidden);
-        group.hidden = !hasVisibleEntry;
-        if (hasVisibleEntry && group.dataset.indexGroup) visibleLetters.add(group.dataset.indexGroup);
-      });
-      letters.forEach((letter) => {
-        const value = letter.dataset.indexLetter ?? '';
-        const belongsToNormGroup = document.getElementById(value)?.matches('.section');
-        letter.hidden = !belongsToNormGroup && !visibleLetters.has(value);
-      });
-      if (status) status.textContent = query ? `${visible} Stichwörter passen zum Filter.` : '';
+      if (status) status.textContent = query ? `${visible} Stichwörter dieser Seite passen zum Filter; „Filtern“ durchsucht die ganze Buchstabengruppe.` : initialStatus;
     });
   </script>
 </LawLayout>

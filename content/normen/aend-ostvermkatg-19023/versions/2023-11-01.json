@@ -1,0 +1,136 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Vermessungs- und Katastergesetzes",
+  "shortTitle": "Änd. OstVermKatG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Vermessungs- und Katastergesetzes vom 3. Februar 2021 (SächsGVBl. S. 242)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 2 der Mantelvorschrift 19021, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 19023 (Bestandteil der Vorschrift 19021)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/19023.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19023",
+      "retrievedAt": "2026-09-03",
+      "sha256": "481a74af4842c0aebe5f1e83c1544c85c05e15617e150317ee89a7f7617c3ce6",
+      "lawId": "19023",
+      "sourceValidFrom": "2021-02-27",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 19021, Artikel 2 (Sächsisches Gesetz zur Umsetzung der Grundsteuerreform)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/19021.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19021#a2",
+      "retrievedAt": "2026-09-03",
+      "sha256": "358aac65b21d9a19b771bda5496927a551f2142c5686c8b4c339490d9193dadc",
+      "lawId": "19021",
+      "sourceValidFrom": "2021-02-27",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Änderung des Ostdeutschen Vermessungs- und Katastergesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Ostdeutsche Vermessungs- und Katastergesetz vom 29. Januar 2008 (SächsGVBl. S. 138, 148), das zuletzt durch das Gesetz vom 24. Mai 2019 (SächsGVBl. S. 431) geändert worden ist, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Dem § 9 Absatz 3 wird folgender Satz angefügt:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "„Die unteren Vermessungsbehörden übermitteln der oberen Vermessungsbehörde zum Zwecke der Aktualisierung der amtlichen Geobasisdaten Informationen über wesentliche topographische Veränderungen in ihrem Amtsbezirk.“"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 14 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In Absatz 1 Satz 1 werden nach den Wörtern „der Daten gemäß § 7,“ die Wörter „der Datenübermittlung nach Absatz 6 Satz 2,“ eingefügt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Nach Absatz 5 wird folgender Absatz 6 eingefügt:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„(6) Die unteren Vermessungsbehörden aktualisieren regelmäßig die Bestandsdaten nach § 10 Absatz 2 Nummer 2. Für die Aktualisierung der Nutzungen können auch Informationen aus anderen amtlichen Geobasisdaten mittels eines automatisierten Verfahrens in das Liegenschaftskataster übernommen werden.“"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Der bisherige Absatz 6 wird Absatz 7.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "§ 29 Absatz 1 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Nummer 3 wird wie folgt gefasst:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "„3.",
+                  "text": "die Landesvermessung und die Übermittlung von Informationen über wesentliche topographische Veränderungen durch die unteren Vermessungsbehörden;“.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In Nummer 4 werden nach dem Wort „Erneuerung“ ein Komma und die Wörter „die Aktualisierung von Bestandsdaten nach § 14 Absatz 6“ eingefügt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

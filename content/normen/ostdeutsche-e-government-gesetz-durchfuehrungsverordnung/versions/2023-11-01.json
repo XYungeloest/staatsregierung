@@ -1,0 +1,1821 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Ostdeutsche E-Government-Gesetz-Durchführungsverordnung",
+  "shortTitle": "Ostdeutsche E-Government-Gesetz-Durchführungsverordnung",
+  "abbr": "OstEGovGDVO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Ostdeutsche E-Government-Gesetz-Durchführungsverordnung vom 13. Dezember 2016 (SächsGVBl. S. 664), die zuletzt durch die Verordnung vom 10. März 2020 (SächsGVBl. S. 93) geändert worden ist",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 17103.4, gültig ab 2020-04-07",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/17103.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/17103",
+      "retrievedAt": "2026-09-03",
+      "sha256": "b2f633241f44c96fc9e870439f91285932fcc4a489c206142bfb1cae8f9e1ba7",
+      "lawId": "17103",
+      "sourceValidFrom": "2020-04-07",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "1",
+      "text": "Inhaltsübersicht eingefügt durch Verordnung vom 10. März 2020 (SächsGVBl. S. 93)"
+    },
+    {
+      "label": "2",
+      "text": "Überschrift Abschnitt 1 eingefügt durch Verordnung vom 10. März 2020 (SächsGVBl. S. 93)"
+    },
+    {
+      "label": "3",
+      "text": "§ 1 geändert durch Artikel 10 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198), durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81) und durch Verordnung vom 10. März 2020 (SächsGVBl. S. 93)"
+    },
+    {
+      "label": "4",
+      "text": "§ 2 geändert durch Artikel 10 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198) und durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "5",
+      "text": "§ 3 geändert durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "6",
+      "text": "§ 5 geändert durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "7",
+      "text": "§ 6 geändert durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "8",
+      "text": "§ 7 geändert durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "9",
+      "text": "§ 8 geändert durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "10",
+      "text": "§ 9 geändert durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "11",
+      "text": "§ 10 geändert durch Artikel 10 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198) und durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "12",
+      "text": "§ 11 eingefügt durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81)"
+    },
+    {
+      "label": "13",
+      "text": "Abschnitte 2 und 3 eingefügt durch Verordnung vom 10. März 2020 (SächsGVBl. S. 93)"
+    },
+    {
+      "label": "14",
+      "text": "Abschnitt 3 tritt am 18. April 2020 in Kraft."
+    },
+    {
+      "label": "15",
+      "text": "bisheriger § 11 wird § 12 durch Verordnung vom 22. Januar 2019 (SächsGVBl. S. 81) und § 12 wird § 21 durch Verordnung vom 10. März 2020 (SächsGVBl. S. 93)"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Vom 13. Dezember 2016"
+    },
+    {
+      "type": "paragraphText",
+      "text": "Auf Grund des § 10 Absatz 4 Satz 1 und 3 in Verbindung mit Satz 4 Nummer 1, 2 und 4 des Ostdeutschen E-Government-Gesetzes vom 9. Juli 2014 (SächsGVBl. S. 398) verordnet die Staatsregierung:"
+    },
+    {
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Basiskomponenten",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 1",
+          "title": "Bestimmung der Basiskomponenten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung bereit, in der Informationen zur Verwaltungstätigkeit, zu den für diese zuständigen Behörden und deren Organisationseinheiten sowie zu den verfügbaren Online-Formularen und Online-Diensten bereit gestellt werden (Amt24). Diese Inhalte werden über Webservices staatlichen und kommunalen Internetauftritten sowie der Wissensdatenbank des Bundes für das Projekt D 115 zur Verfügung gestellt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung für die Entwicklung und Verwendung druckbarer, ausfüllbarer und einreichbarer elektronischer Formulare bereit (Formularservice). Die Basiskomponente ermöglicht die statistische Auswertung der Formularnutzung. Ausgefüllte Formulare und über Formulare erfasste Daten werden an andere Basiskomponenten und andere Anwendungen zur elektronischen Unterstützung der Verwaltungstätigkeit zur Weiterverarbeitung übermittelt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung zur Gewährleistung rechtssicherer und vertraulicher elektronischer Kommunikation bereit (Elektronische Signatur und Verschlüsselung). Die Basiskomponente bietet zentrale elektronische Kryptographie-, Vertrauens- und Signaturdienste an, die nationalen und europäischen Rechtsnormen für die elektronische Kommunikation genügen. Hierzu gehören zum Beispiel Dienste und Anwendungen zur Signaturerstellung und Signaturprüfung, zur zertifikatbasierten Ver- und Entschlüsselung von Daten und Kommunikationskanälen sowie Zertifizierungsfunktionen zur Ausgabe und Pflege elektronischer Identitäten und zur Identitätsadministration in Verzeichnisdiensten des Freistaates und des Bundes.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung zur sicheren Identifizierung anhand eines elektronischen Identitätsnachweises nach § 18 Absatz 3 des Personalausweisgesetzes vom 18. Juni 2009 (BGBl. I S. 1346), das zuletzt durch Artikel 4 Absatz 1 des Gesetzes vom 18. Juli 2016 (BGBl. I S. 1666) geändert worden ist, in der jeweils geltenden Fassung, oder nach § 78 Absatz 5 des Aufenthaltsgesetzes in der Fassung der Bekanntmachung vom 25. Februar 2008 (BGBl. I S. 162), das zuletzt durch Artikel 2 Absatz 3 des Gesetzes vom 4. November 2016 (BGBl. I S. 2460) geändert worden ist, in der jeweils geltenden Fassung, in Verwaltungsverfahren und anderen Basiskomponenten bereit (Temporäre Identifikation).",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung zur Nutzung von Geodaten nach § 2 Absatz 1 des Ostdeutschen Geodateninfrastrukturgesetzes vom 19. Mai 2010 (SächsGVBl. S. 134), in der jeweils geltenden Fassung, bereit (Geodaten). Die Basiskomponente dient auch der Umsetzung der Richtlinie 2007/2/EG des Europäischen Parlaments und des Rates vom 14. März 2007 zur Schaffung einer Geodateninfrastruktur in der Europäischen Gemeinschaft (INSPIRE) (ABl. L 108 vom 25.4.2007, S. 1), in der jeweils geltenden Fassung. Sie umfasst zum Beispiel das Geoportal, den Geoviewer, den Geodiensteserver, den Metadatenkatalog, die Geodienstesecurity, das Geodienstemonitoring, die Geodatenaufbereitung und die Geodatenspeicherung und kann auch durch andere Basiskomponenten und Anwendungen zur elektronischen Unterstützung der Verwaltungstätigkeit genutzt werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung zur sicheren Abwicklung des elektronischen Zahlungsverkehrs, zur Zahlungsüberwachung sowie zur Buchung in den Anwendungen des Haushalts-, Kassen- und Rechnungswesens der Verwaltungen bereit (Zahlungsverkehr). Die Basiskomponente beinhaltet insbesondere eine vorkonfigurierte Bezahlseite, einen Webshop, ein Modul zur elektronischen Rechnungserstellung, Bezahlterminals und die SEPA-Mandatsverwaltung.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung bereit, die die Erstellung und den Betrieb von statischen und dynamischen Internetauftritten ermöglicht (Zentrales Content Management System). Daten und Dienste anderer Basiskomponenten, zum Beispiel elektronische Formulare, Informationen zur Verwaltungstätigkeit und zu zuständigen Behörden sowie Suchanfragen, können über die Basiskomponente in Internetauftritte integriert werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung zur schematischen und beschreibenden Darstellung und Modellierung von Prozessen bereit (Prozessplattform). Die Basiskomponente beinhaltet Prozessmodellierungswerkzeuge und eine Prozessdatenbank, in der Prozesse erfasst, gepflegt und veröffentlicht sowie Referenzprozesse abgerufen und bereitgestellt werden können.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(9)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung zur Unterstützung von Beteiligungsverfahren bereit (Beteiligungsportal). Mit der Basiskomponente können rechtlich geregelte formelle Beteiligungsverfahren und sonstige Beteiligungsprozesse unterstützt werden. Für diese werden zum Beispiel freie Dialogverfahren und Online-Fragebögen eingesetzt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(10)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung bereit, mit der Verwaltungsverfahren medienbruchfrei elektronisch abgewickelt und Stamm-, Verfahrens- und Kommunikationsdaten gespeichert werden können (Antragsmanagement). Dienste anderer Basiskomponenten werden integriert, soweit dies für die Abwicklung des Verwaltungsverfahrens erforderlich ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(11)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung bereit, die",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die einmalige oder dauerhafte Identifizierung von Nutzern auf dem für die jeweilige Verwaltungsleistung erforderlichen Vertrauensniveau für die im Freistaat Ostdeutschland und im Portalverbund nach § 2 Absatz 1 des Onlinezugangsgesetzes vom 14. August 2017 (BGBl. I S. 3122, 3138), in der jeweils geltenden Fassung, verfügbaren elektronischen Verwaltungsleistungen ermöglicht und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die elektronische Kommunikation zwischen dem Nutzer und der Behörde und zwischen Behörden ermöglicht sowie",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Stamm-, Verfahrens- und Kommunikationsdaten sowie elektronische Dokumente verarbeitet und speichert, um diese in elektronischen Verwaltungsverfahren und anderen E-Government- Anwendungen zu verarbeiten (Servicekonto).",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Das Servicekonto ist zugleich Nutzerkonto nach § 3 Absatz 2 des Onlinezugangsgesetzes."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(12)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung bereit, mit der Internetauftritte und Internetanwendungen realisiert werden können (Webhosting). Bereitgestellt werden Web- und Applikationsserver für statische Internetseiten und dynamische Internetanwendungen ohne Datenbankspeicherbedarf. Die Basiskomponente ermöglicht auch Betriebssystemvirtualisierung mittels Container-Engine für dynamische Internetanwendungen sowie die Speicherung und Bereitstellung großer Datenmengen über das Internet.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(13)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung zur elektronischen Vorgangsbearbeitung und Aktenführung zur Umsetzung von § 12 des Ostdeutschen E-Government-Gesetzes bereit (eVA.SAX). Die Basiskomponente ermöglicht die Übernahme von elektronischem Schriftgut aus anderen Anwendungen zur elektronischen Unterstützung der Verwaltungstätigkeit und beinhaltet eine Schnittstelle für die Übergabe von Schriftgut zur elektronischen Archivierung.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(14)",
+              "text": "Der Freistaat Ostdeutschland stellt als Basiskomponente eine E-Government-Anwendung bereit, die Suchfunktionalitäten realisiert (Suchmaschine). Die Basiskomponente nimmt Suchanfragen anderer Basiskomponenten und von Anwendungen zur elektronischen Unterstützung der Verwaltungstätigkeit entgegen. Sie gewährleistet den Zugriff auf die zu durchsuchenden Daten und Informationen. Die Suchergebnisse werden Basiskomponenten und anderen Anwendungen zur elektronischen Unterstützung der Verwaltungstätigkeit für die elektronische Weiterverarbeitung zur Verfügung gestellt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(15)",
+              "text": "Der Freistaat Ostdeutschland stellt eine Basiskomponente bereit, die Adressinformationen nach § 3 der Ostdeutschen Meldeverordnung vom 9. Oktober 2015 (SächsGVBl. S. 515), in der jeweils geltenden Fassung, für andere Basiskomponenten und Anwendungen zur elektronischen Unterstützung der Verwaltungstätigkeit zur Verfügung stellt (Deutsches Verwaltungsdiensteverzeichnis).",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(16)",
+              "text": "Die Staatskanzlei verarbeitet zum Zwecke der Erstellung von Mengengerüsten, der Betriebssicherstellung und der Verbesserung der Servicequalität aggregierte Daten über die Nutzung der Basiskomponenten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(17)",
+              "text": "Zu aktuellen technischen und organisatorischen Fragen zu den Basiskomponenten informiert die Staatskanzlei unter https://www.egovernment.ostdeutschland.de/basiskomponenten.html.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 2",
+          "title": "Schutz personenbezogener Daten, Verfahrensmängel bei der Verarbeitung personenbezogener Daten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Wird eine Basiskomponente von einer Behörde genutzt, gilt diese Behörde als Verantwortlicher im Sinne von Artikel 4 Nummer 7 der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG (ABl. L 119 vom 4.5.2016, S. 1, L 314 vom 22.11.2016, S. 72, L 127 vom 23.5.2018, S. 2). Eine Basiskomponente wird genutzt, wenn sie einer Behörde von der Staatskanzlei durch Nutzungsvereinbarung zur öffentlichen Aufgabenerfüllung zur Verfügung gestellt wird.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Soweit die Staatskanzlei nach den §§ 4 bis 11 genannte personenbezogene Daten verarbeitet, ist es für die Einhaltung der Verordnung (EU) 2016/679 und anderer Vorschriften über den Datenschutz verantwortlich.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Wird eine Basiskomponente von einer Behörde nach Absatz 1 Satz 2 genutzt und ist diese Verantwortlicher nach Absatz 1 Satz 1, gewährleistet die Staatskanzlei für die von den Basiskomponenten nach Absatz 2 verarbeiteten personenbezogenen Daten Folgendes:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "es stellt den die Basiskomponente nutzenden Behörden die für das Verzeichnis nach Artikel 30 Absatz 1 und 2 der Verordnung (EU) 2016/679 erforderlichen Informationen zur Verfügung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "es stellt den die Basiskomponente nutzenden Behörden die für die Datenschutz-Folgenabschätzung nach Artikel 35 Absatz 1 der Verordnung (EU) 2016/679 erforderlichen Informationen zur Verfügung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "es stellt den die Basiskomponente nutzenden Behörden die für die Datenschutz- und Informationssicherheitskonzepte nach § 5 Absatz 1 des Ostdeutschen E-Government-Gesetzes erforderlichen Informationen zur Verfügung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "es informiert die Behörden, die die jeweilige Basiskomponente nutzen, unverzüglich über bekannt gewordene Verfahrensmängel bei der Verarbeitung personenbezogener Daten und die voraussichtliche Dauer der Mängelbeseitigung.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Werden von einer Behörde, die Basiskomponenten nutzt, Verfahrensmängel bei der Verarbeitung personenbezogener Daten festgestellt, hat sie die Staatskanzlei darüber unverzüglich zu informieren.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 3",
+          "title": "Interoperabilität und Informationssicherheit",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Zur Gewährleistung der von der Basiskomponente zu erfüllenden Funktionalitäten gewährleistet die Staatskanzlei, dass die Basiskomponenten untereinander und mit Anwendungen zur elektronisch unterstützten Verwaltungstätigkeit der die Basiskomponente nutzenden staatlichen Behörden medienbruchfrei Daten austauschen können.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Basiskomponenten sind wie folgt verfügbar:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die Basiskomponenten nach § 1 Absatz 1, 3, 6, 12 Satz 2 und Absatz 14 mit einer Betriebszeit von 24 Stunden an sieben Tagen pro Woche, bei einer maximalen Ausfallzeit von 10,8 Stunden pro Monat und einer maximalen Wiederherstellungszeit von vier Stunden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Basiskomponenten nach § 1 Absatz 2, 4, 5, 7, 9, 13 und 15 mit einer Betriebszeit von 24 Stunden an sieben Tagen pro Woche, bei einer maximalen Ausfallzeit von 14,4 Stunden pro Monat und einer maximalen Wiederherstellungszeit von acht Stunden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Basiskomponenten nach § 1 Absatz 8, 10 und 11, 12 Satz 3 mit einer Betriebszeit von 24 Stunden an sieben Tagen pro Woche, bei einer maximalen Ausfallzeit von 28,8 Stunden pro Monat und einer maximalen Wiederherstellungszeit von 24 Stunden.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 4",
+          "title": "Amt24",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Basiskomponente Amt24 ist das Serviceportal und der Zuständigkeitsfinder des Freistaates Ostdeutschland.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Folgende Daten sind von den staatlichen Behörden nach § 10 Absatz 3 des Ostdeutschen E-Government-Gesetzes durch Eingabe in das Redaktionssystem oder unter Nutzung technischer Schnittstellen der Basiskomponente zu übermitteln und mindestens einmal jährlich zu aktualisieren, soweit sie verfügbar sind:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Daten der staatlichen Behörde:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Name,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Behördenschlüssel,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Auswahl aus in der Basiskomponente vordefinierten Behördengruppen,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "d)",
+                  "text": "Hausanschrift,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "e)",
+                  "text": "Postanschrift,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "f)",
+                  "text": "zentrale Telefonnummer,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "g)",
+                  "text": "zentrale Telefaxnummer,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "h)",
+                  "text": "zentrale E-Mail-Adresse,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "i)",
+                  "text": "Internetadresse,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "j)",
+                  "text": "Zugang für elektronisch signierte und für verschlüsselte Nachrichten,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "k)",
+                  "text": "Geschäftszeiten,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "l)",
+                  "text": "Verwaltungsverfahren, für die die Behörde zuständig ist,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "m)",
+                  "text": "Auswahl aus in der Basiskomponente vordefinierten örtlichen Zuständigkeitsbereichen,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "n)",
+                  "text": "elektronische Verweisungen auf die von der jeweiligen Behörde über öffentlich zugängliche Netze schon bereitgestellten elektronischen Formulare und Online-Dienste zu Verwaltungsverfahren nach Buchstabe l,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "o)",
+                  "text": "Name, Vorname und dienstliche E-Mail-Adresse mindestens eines für die Erfassung, Übermittlung und Aktualisierung der Daten der Behörde zuständigen Mitarbeiters als Ansprechpartner für die Amt24-Redaktion,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Daten der Organisationseinheiten innerhalb der staatlichen Behörde, soweit diesen eine Zuständigkeit für Verwaltungsverfahren zugewiesen ist:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Name der Organisationseinheiten, die nach Organisationsplan bestimmte Verwaltungsverfahren nach Nummer 1 Buchstabe l durchführen,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Zuordnung zu der Behörde nach Nummer 1 Buchstabe a,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Behördenschlüssel,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "d)",
+                  "text": "Auswahl aus im Redaktionssystem vordefinierten Behördengruppen,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "e)",
+                  "text": "Hausanschrift,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "f)",
+                  "text": "Postanschrift,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "g)",
+                  "text": "Telefonnummer,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "h)",
+                  "text": "Telefaxnummer,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "i)",
+                  "text": "E-Mail-Adresse,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "j)",
+                  "text": "Internetadresse,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "k)",
+                  "text": "Zugang für elektronisch signierte und für verschlüsselte Nachrichten,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "l)",
+                  "text": "Geschäftszeiten,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "m)",
+                  "text": "Verwaltungsverfahren, für die die Organisationseinheiten nach Organisationsplan zuständig sind,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "n)",
+                  "text": "Auswahl aus in der Basiskomponente vordefinierten örtlichen Zuständigkeitsbereichen,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "o)",
+                  "text": "elektronische Verweisungen auf die von der jeweiligen Behörde über öffentlich zugängliche Netze schon bereitgestellten elektronischen Formulare und Online-Dienste zu den Verwaltungsverfahren nach Buchstabe m.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Folgende Daten können die staatlichen Behörden zusätzlich zu den Daten nach Absatz 2 übermitteln:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Anfahrtsbeschreibung zu den Dienstgebäuden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Koordinaten der Dienstgebäude im amtlichen Referenzsystem,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Fotografie der Dienstgebäude,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Name, Vorname, Doktorgrad, Amts- oder Berufsbezeichnung, Funktion, dienstliche E-Mail-Adresse und dienstliche Telefonnummer jeweils eines zuständigen Mitarbeiters für jedes Verwaltungsverfahren nach Absatz 1 Nummer 1 Buchstabe l und Nummer 2 Buchstabe m.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Werden Daten nach Satz 1 übermittelt, sind diese von den staatlichen Behörden mindestens einmal jährlich zu aktualisieren."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 5",
+          "title": "Elektronische Signatur und Verschlüsselung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatskanzlei verarbeitet zum Zwecke der Autorisierung und Authentisierung von Nutzern, der Nutzung von Diensten zur Erstellung, Prüfung und Beweiswerterhaltung elektronischer Signaturen für Dokumente, der Nutzung von Diensten zur Verschlüsselung, Entschlüsselung, Signatur und Signaturprüfung elektronischer Nachrichten, der Nutzung von Diensten zur rechtssicheren elektronischen Kommunikation und der Bestätigung elektronischer Identitäten folgende personenbezogene Daten von Kommunikationspartnern, soweit sie zur Aufgabenerfüllung erforderlich sind:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Name oder Firma,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Vorname,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "E-Mail-Adresse,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "De-Mail-Adresse,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Passwort,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Telefonnummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "elektronische Identitäten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Zuordnung zu Mandanten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "verschlüsselte OSCI Nutzungsdaten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Kommunikationsnachweise für OSCI Kommunikation,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "Signaturprüfprotokolle.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Staatskanzlei löscht die zum Zwecke des Absatzes 1 verarbeiteten personenbezogenen Daten für den jeweiligen Dienst automatisiert unverzüglich nach Wegfall des Zweckes der Speicherung.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 6",
+          "title": "Temporäre Identifikation",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatskanzlei erhebt in eigener datenschutzrechtlicher Verantwortlichkeit zur sicheren Identifizierung anhand eines elektronischen Identitätsnachweises nach § 18 Absatz 3 des Personalausweisgesetzes oder nach § 78 Absatz 5 des Aufenthaltsgesetzes folgende personenbezogene Daten und übermittelt diese im erforderlichen Umfang zum Zwecke der Abwicklung des Verwaltungsverfahrens mit Identifikationsbedarf an die zuständige Behörde:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Familienname (§ 18 Absatz 3 Satz 2 Nummer 1 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Geburtsname (§ 18 Absatz 3 Satz 2 Nummer 1a des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Vornamen (§ 18 Absatz 3 Satz 2 Nummer 2 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Doktorgrad (§ 18 Absatz 3 Satz 2 Nummer 3 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Tag der Geburt (§ 18 Absatz 3 Satz 2 Nummer 4 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Ort der Geburt (§ 18 Absatz 3 Satz 2 Nummer 5 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Anschrift (§ 18 Absatz 3 Satz 2 Nummer 6 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Dokumentenart (§ 18 Absatz 3 Satz 2 Nummer 7 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Abkürzung „D“ für Bundesrepublik Deutschland (§ 18 Absatz 3 Satz 2 Nummer 9 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Angabe, ob ein bestimmtes Alter über- oder unterschritten wird (§ 18 Absatz 3 Satz 2 Nummer 10 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "Angabe, ob ein Wohnort dem abgefragten Wohnort entspricht (§ 18 Absatz 3 Satz 2 Nummer 11 des Personalausweisgesetzes),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "12.",
+              "text": "Ordensname, Künstlername (§ 18 Absatz 3 Satz 2 Nummer 12 des Personalausweisgesetzes).",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die zuständige Behörde vereinbart mit der Staatskanzlei die Übermittlung der zur sicheren Identifizierung nach Absatz 1 erforderlichen Daten. Dazu teilt die zuständige Behörde der Staatskanzlei folgende Angaben mit:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Name und Anschrift der Behörde, an die die Datenermittlung erfolgen soll,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Beginn und Ende der Datenübermittlung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Rechtsgrundlage des Verwaltungsverfahrens, zu dessen Durchführung die Übermittlung der Daten des elektronischen Identitätsnachweises erfolgen soll,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Daten nach Absatz 1, die für den elektronischen Identitätsnachweis übermittelt werden sollen, und Begründung der Erforderlichkeit der Notwendigkeit der Datenerhebung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Name, Vorname, Funktion, dienstliche Telefonnummer und dienstliche E-Mail-Adresse des technischen Ansprechpartners der zuständigen Behörde,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Name, Vorname, Funktion, dienstliche Telefonnummer und dienstliche E-Mail-Adresse des für das Fachverfahren zuständigen Ansprechpartners,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Name, Vorname, dienstliche Telefonnummer und dienstliche E-Mail-Adresse des Datenschutzbeauftragten der zuständigen Behörde,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Name, Vorname, dienstliche Telefonnummer und dienstliche E-Mail-Adresse des Informationssicherheitsbeauftragten der zuständigen Behörde,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "eine vom Datenschutzbeauftragten und vom Informationssicherheitsbeauftragten der zuständigen Behörde unterzeichnete Erklärung, dass für das verwendete informationstechnische System für das Verwaltungsverfahren die jeweils aktuellen Informationssicherheits- und Datenschutzstandards eingehalten werden und aktuelle Datenschutz- und Informationssicherheitskonzepte vorliegen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Zeitraum der Übermittlung darf für das jeweilige Verwaltungsverfahren drei Jahre nicht überschreiten. Eine Verlängerung der Datenübermittlung ist unter den Voraussetzungen des Absatzes 2 möglich. Die übermittelten Daten dürfen von der zuständigen Behörde nur zur Identifikation für das konkrete Verwaltungsverfahren verwendet werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Änderungen der Angaben des Absatzes 1 sind der Staatskanzlei unverzüglich mitzuteilen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Datenübermittlung durch die Staatskanzlei endet bei Erlöschen der der Nutzung der Basiskomponente zugrundeliegenden Berechtigung. In diesem Fall informiert die Staatskanzlei unverzüglich die betroffenen Behörden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Der Personalausweisinhaber kann die Übermittlung der für das konkrete Verwaltungsverfahren ausgelesenen Daten jederzeit ausschließen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Die Staatskanzlei löscht die zum Zwecke des Absatzes 1 verarbeiteten personenbezogenen Daten unverzüglich nach Abschluss des Identifizierungsvorganges und erfolgter Übermittlung an die für das Verwaltungsverfahren mit Identifikationsbedarf zuständige Behörde. Protokolldaten sind von der Staatskanzlei durch geeignete Vorkehrungen gegen zweckfremde Verwendung und gegen sonstigen Missbrauch zu schützen. Zum Zwecke der Durchführung des Verwaltungsverfahrens mit Identifikationsbedarf können im Einzelfall Protokolldaten von der Staatskanzlei an die zuständige Verwaltungsbehörde übermittelt werden.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 7",
+          "title": "Geodaten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatskanzlei verarbeitet mit Einwilligung des Nutzers in einem Nutzerkonto folgende personenbezogene Daten:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Name,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Vorname,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "E-Mail-Adresse,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Login-Name,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Passwort,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Zugriffsberechtigungen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "vorkonfigurierte Nutzerdaten.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Staatskanzlei löscht das Nutzerkonto nach Absatz 1, wenn das Nutzerkonto drei Jahre nicht verwendet wurde.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 8",
+          "title": "Zahlungsverkehr",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatskanzlei verarbeitet mit Einwilligung des Nutzers zur Abwicklung von Bestellvorgängen in einem Nutzerkonto folgende personenbezogene Daten, soweit sie auf den Nutzer zutreffen:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Anrede,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Vorname,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Name,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "E-Mail-Adresse,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Passwort,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Firma,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Umsatzsteuer-Identifikationsnummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Wirtschafts-Identifikationsnummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Telefonnummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Telefaxnummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "Straße,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "12.",
+              "text": "Hausnummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "13.",
+              "text": "Postleitzahl,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "14.",
+              "text": "Wohnort,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "15.",
+              "text": "Bundesland,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "16.",
+              "text": "Land,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "17.",
+              "text": "abweichende Lieferadresse, soweit die bestellte Ware nicht an die Adresse des Bestellers geliefert werden soll,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "18.",
+              "text": "Bestelldatum,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "19.",
+              "text": "Bestellstatus,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "20.",
+              "text": "Artikelbezeichnung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "21.",
+              "text": "Menge,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "22.",
+              "text": "Einzelpreis,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "23.",
+              "text": "Gesamtpreis,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "24.",
+              "text": "Zahlungsart,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "25.",
+              "text": "Kundennummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "26.",
+              "text": "SEPA-Mandatsreferenz,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "27.",
+              "text": "Kassenzeichen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "28.",
+              "text": "IBAN,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "29.",
+              "text": "BIC.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Angabe der Daten nach den Nummern 9 und 10 durch den Besteller ist freiwillig. Die Staatskanzlei darf Daten nach den Nummern 11 bis 14 und 16 nur verarbeiten, soweit Ware an die Adresse des Bestellers versandt werden soll."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Staatskanzlei löscht das Nutzerkonto nach Absatz 1, wenn das Nutzerkonto drei Jahre nicht verwendet wurde.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 9",
+          "title": "Beteiligungsportal",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatskanzlei verarbeitet mit Einwilligung des Nutzers zur Einrichtung eines Nutzerkontos folgende personenbezogene Daten des Nutzers:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "E-Mail-Adresse,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Login-Name,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Passwort.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Staatskanzlei löscht das Nutzerkonto nach Absatz 1, wenn das Nutzerkonto drei Jahre nicht verwendet wurde.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 10",
+          "title": "Antragsmanagement",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatskanzlei verarbeitet mit Einwilligung des Nutzers zur Einrichtung eines Nutzerkontos und zum Zwecke der Verarbeitung von Stammdaten nach § 10 Absatz 1 Satz 2 des Ostdeutschen E-Government-Gesetzes folgende personenbezogene Daten, soweit vorhanden:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "E-Mail-Adresse,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Login-Name,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Passwort,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Name,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Vorname,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "De-Mail-Adresse,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Straße,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Hausnummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Postleitzahl,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Wohnort.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Darüber hinaus verarbeitet die Staatskanzlei Verfahrens- und Kommunikationsdaten."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Staatskanzlei löscht die Stammdaten nach Absatz 1, wenn das Nutzerkonto drei Jahre nicht verwendet wurde.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 11",
+          "title": "Servicekonto",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatskanzlei ist berechtigt, zur Umsetzung der Funktionen nach § 1 Absatz 11 mit Einwilligung des Nutzers folgende Daten zu verarbeiten:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "sofern der Nutzer eine natürliche Person ist:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Stammdaten: Anrede, Familienname, Geburtsnamen, Vornamen, Ordens- oder Künstlername, akademischer Grad, Geschlecht, Tag der Geburt, Ort der Geburt, Land der Geburt, Landkreis der Geburt, Familienstand, Staatsangehörigkeit, Religion, Anschrift, Telefonnummern und Telefaxnummern und die Information darüber, ob und in welcher Form und Art Textnachrichten empfangen werden können, E-Mail-Adressen, Steuernummer, Steuer-Identifikationsnummer, IBAN, BIC, Profilbild,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "die zur elektronischen Identifizierung erforderlichen Daten: Nummer, Art und ausstellendes Land des Identifizierungsdokuments, dienste- und kartenspezifisches Kennzeichen des elektronischen Personalausweises nach § 18 Absatz 3 Nummer 8 des Personalausweisgesetzes vom 18. Juni 2009 (BGBl. I S. 1346), das zuletzt durch Artikel 4 des Gesetzes vom 18. Juli 2017 (BGBl. I S. 2745) geändert worden ist, in der jeweils geltenden Fassung, oder nach § 78 des Aufenthaltsgesetzes in der Fassung der Bekanntmachung vom 25. Februar 2008 (BGBl. I S. 162), das zuletzt durch Artikel 1 des Gesetzes vom 12. Juli 2018 (BGBl. I S. 1147) geändert worden ist, in der jeweils geltenden Fassung, spezifische Daten, insbesondere Identifizierungsmerkmale, eines Identitätsnachweises nach der Verordnung (EU) Nr. 910/2014 des Europäischen Parlaments und des Rates vom 23. Juli 2014 über elektronische Identifizierung und Vertrauensdienste für elektronische Transaktionen im Binnenmarkt und zur Aufhebung der Richtlinie 1999/93/EG (ABl. L 257 vom 28.8.2014, S. 73, L 23 vom 29.1.2015, S. 19, L 155 vom 14.6.2016, S. 44) notifizierten Identifizierungsmittels.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "sofern der Nutzer keine natürliche Person ist: Stammdaten des Nutzers: Firma, Name oder Bezeichnung, Name des Kontos, Rechtsform, Anschrift des Sitzes oder der Hauptniederlassung, Namen der Mitglieder des Vertretungsorgans oder der gesetzlichen Vertreter, Hausanschriften, Postanschriften, Telefonnummern, Telefaxnummern,\nE-Mail-Adressen und die Information darüber, ob und in welcher Form und Art Textnachrichten empfangen werden können, Art des Registers, Registernummer, Registerort, Steuernummer, Umsatzsteuer-Identifikationsnummer, Wirtschafts- Identifikationsnummer, IBAN, BIC, Profilbild; soweit eine natürliche Person für ein Unternehmen\nhandelt, zusätzlich die Daten nach Nummer 1 Buchstabe b mit Ausnahme der Anschrift,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die zur Dokumentation von Nutzungsberechtigungen erforderlichen Daten: Familienname des Nutzers, Vornamen des Nutzers, Nutzername, Servicekonto-Identifikationsnummer, Art, Umfang und Zeitraum der Berechtigungen der nutzungsberechtigten Person, Datum und Uhrzeit der Einladung und der Einladungsannahme zur Nutzung des\nServicekontos.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "die zur Verwaltung des Servicekontos erforderlichen Daten: Name des Kontos, E-Mail-Adresse, Passwort, geheime Frage, geheime Antwort, Servicekonto-\nIdentifikationsnummer.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Mit Einwilligung des Nutzers sind die dauerhafte Speicherung von Stamm-, Verfahrens- und Kommunikationsdaten sowie von elektronischen Dokumenten und deren Übermittlung an und deren Verwendung durch die für die Verwaltungsleistung zuständige Behörde zulässig.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die für die Abwicklung von Verwaltungsleistungen zuständige Behörde kann mit Einwilligung des Nutzers die Stamm-, Verfahrens- und Kommunikationsdaten sowie elektronische Dokumente aus dem Nutzerkonto elektronisch abrufen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Staatskanzlei löscht das Servicekonto, wenn dieses drei Jahre nicht verwendet wurde. Zudem hat der Nutzer jederzeit die Möglichkeit, das Nutzerkonto und alle gespeicherten Daten selbständig zu löschen.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Abschnitt 2",
+      "title": "Besonderes elektronisches Behördenpostfach",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 12",
+          "title": "Zuständigkeit",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Staatskanzlei ist zuständig für die Durchführung des Identifizierungsverfahrens nach § 7 Absatz 1 Satz 1 der Elektronischer-Rechtsverkehr-Verordnung vom 24. November 2017 (BGBl. I S. 3803), die durch Artikel 1 der Verordnung vom 9. Februar 2018 (BGBl. I S. 200) geändert worden ist, in der jeweils geltenden Fassung, soweit im Folgenden nichts anderes bestimmt ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Staatsbetrieb Ostdeutsche Informatik Dienste ist zuständig für die Führung des sicheren elektronischen Verzeichnisses im Sinne von § 6 Absatz 1 Nummer 3 und § 7 Absatz 1 Satz 1 der Elektronischer-Rechtsverkehr-Verordnung außerhalb des Geschäftsbereichs des Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Für die Behörden im Geschäftsbereich des Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung ist die Leitstelle für Informationstechnologie der ostdeutschen Justiz für die Wahrnehmung der Aufgaben nach den Absätzen 1 und 2 zuständig.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 13",
+          "title": "Freischaltung mit Ausnahme des Geschäftsbereichs des Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Staatliche Behörden und Träger der Selbstverwaltung können schriftlich oder elektronisch über die zuständige Aufsichtsbehörde bei der Staatskanzlei den Antrag auf Freischaltung eines besonderen elektronischen Behördenpostfachs nach § 6 der Elektronischer- Rechtsverkehr-Verordnung (beBPo) stellen. Wenn keine zuständige Aufsichtsbehörde besteht, ist der Antrag direkt an die Staatskanzlei zu richten. Der Antrag kann mit einem Antrag auf Einrichtung eines Behördenkontos im Serviceportal Amt24 verbunden werden. Die zuständige Aufsichtsbehörde bestätigt gegenüber der Staatskanzlei die Angaben des Antragstellers und entscheidet über die Berechtigung zur Einrichtung eines beBPo. Die Antragsdokumente werden unter www.extranet.egovernment.ostdeutschland.de zur Verfügung gestellt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Staatskanzlei prüft den von der zuständigen Aufsichtsbehörde bestätigten Antrag in formeller Hinsicht und auf technische Umsetzbarkeit. Zur Prüfung der Identität des Antragstellers gleicht die Staatskanzlei die Angaben nach § 7 Absatz 2 der Elektronischer-Rechtsverkehr-Verordnung mit den entsprechenden Daten nach § 4 Absatz 2 und 3 ab.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Staatskanzlei informiert den Antragsteller und den Staatsbetrieb Ostdeutsche Informatik Dienste über das Ergebnis des Prüfverfahrens nach Absatz 2. Im Fall der Ablehnung des Antrags informiert sie zusätzlich die zuständige Aufsichtsbehörde.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Staatskanzlei kann sich zur technischen Umsetzung der Einrichtung und zum Betrieb des beBPo eines Dienstleisters bedienen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Absätze 1 bis 4 gelten nicht für die Behörden im Geschäftsbereich des Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 14",
+          "title": "Freischaltung im Geschäftsbereich des Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Behörden im Geschäftsbereich des Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung können beim Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung schriftlich oder elektronisch Anträge auf Freischaltung eines beBPo stellen. § 13 Absatz 1 Satz 3 ist entsprechend anzuwenden. Das Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung prüft den Antrag in formeller Hinsicht und auf technische Umsetzbarkeit und entscheidet über die Berechtigung zur Einrichtung eines beBPo. Zur Prüfung der Identität der Behörden werden die Angaben nach § 7 Absatz 2 der Elektronischer-Rechtsverkehr-Verordnung mit den entsprechenden Daten nach § 4 Absatz 2 und 3 abgeglichen und deren Richtigkeit durch das Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung festgestellt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Das Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung beauftragt auf Grundlage des Ergebnisses des Prüfverfahrens nach Absatz 1 die Leitstelle für Informationstechnologie der ostdeutschen Justiz mit der Einrichtung des beBPo. Die antragstellende Behörde ist über das Prüfergebnis zu informieren.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Soweit gesetzlich die Verpflichtung zur Eröffnung eines sicheren Übermittlungsweges für die Zustellung elektronischer Dokumente besteht, beauftragt das Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung die Leitstelle für Informationstechnologie der ostdeutschen Justiz abweichend von Absatz 1 Satz 1 von Amts wegen.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Abschnitt 3",
+      "title": "Elektronische Rechnungen",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 15",
+          "title": "Begriffsbestimmungen",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Rechnungsempfänger sind alle Auftraggeber, die nach § 3a Absatz 1 des Ostdeutschen E-Government-Gesetzes zum Empfang und zur Verarbeitung elektronischer Rechnungen verpflichtet sind.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Rechnungssteller sind alle Unternehmer im Sinne von § 14 Absatz 1 des Bürgerlichen Gesetzbuches, die eine elektronische Rechnung an Rechnungsempfänger ausstellen und übermitteln. Rechnungssteller können sich bei der Ausstellung und Übermittlung von elektronischen Rechnungen der Dienstleistung von Rechnungssendern bedienen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Rechnungssender sind alle Unternehmer im Sinne von § 14 Absatz 1 des Bürgerlichen Gesetzbuches, die eine elektronische Rechnung im Auftrag des Rechnungsstellers ausstellen und übermitteln.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 16",
+          "title": "Rechnungsformat, Übermittlung und Inhalt",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Rechnungsempfänger müssen elektronische Rechnungen empfangen und verarbeiten können, die",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "den Anforderungen des Standards XRechnung vom 29. September 2017 (BAnz AT vom 10. Oktober 2017 B1), in der jeweils aktuellen Fassung, entsprechen\nund",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "unter Nutzung eines Verwaltungsportals im Sinne von § 2 Absatz 2 des Onlinezugangsgesetzes vom 14. August 2017 (BGBl. I S. 3122, 3138), in der jeweils geltenden Fassung, insbesondere per Weberfassung, E-Mail, De-Mail, Webservice oder Webupload, übermittelt worden sind.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Abweichend von Satz 1 Nummer 1 kann auch ein anderer Datenaustauschstandard verwendet werden, wenn er unionsrechtlichen Anforderungen für die elektronische Rechnungsstellung entspricht. Zur Übermittlung der elektronischen Rechnung muss sich der Rechnungssteller oder Rechnungssender mit einem Nutzerkonto im Sinne von § 2 Absatz 5 des Onlinezugangsgesetzes elektronisch registriert haben."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Elektronische Rechnungen müssen neben den Pflichtangaben für eine Rechnung nach dem Umsatzsteuergesetz in der Fassung der Bekanntmachung vom 21. Februar 2005 (BGBl. I S. 386), das zuletzt durch Artikel 3 des Gesetzes vom 21. Dezember 2019 (BGBl. I S. 2886) geändert worden ist, in der jeweils geltenden Fassung, mindestens folgende Angaben enthalten:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "eine Leitweg-Identifikationsnummer,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Bankverbindungsdaten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Zahlungsbedingungen und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "die De-Mail-Adresse oder eine E-Mail-Adresse des Rechnungsstellers.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Elektronische Rechnungen haben zusätzlich folgende Angaben zu enthalten, wenn diese dem Rechnungssteller bereits bei Beauftragung übermittelt wurden:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die Lieferantennummer des Rechnungsempfängers,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "mindestens eine Bestellnummer.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 17",
+          "title": "Prüfung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Über das Verwaltungsportal übermittelte elektronische Rechnungen sind vom Rechnungsempfänger automatisiert auf ihre formale Fehlerlosigkeit zu prüfen. Formal fehlerlos sind elektronische Rechnungen, die gemäß § 16 Absatz 1 übermittelt wurden und die die Angaben gemäß § 16 Absatz 2 und 3 enthalten. Der Rechnungssteller oder Rechnungssender ist über das Ergebnis der Prüfung in Kenntnis zu setzen. Eine formal fehlerhafte Rechnung ist automatisiert zurückzuweisen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 18",
+          "title": "Verarbeitung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Sind staatliche Behörden Rechnungsempfänger, haben sie die formal fehlerlosen elektronischen Rechnungen ab dem 1. Januar 2023 medienbruchfrei einzusehen und zu verarbeiten. Sie sollen hierzu zur Verfügung stehende Komponenten des zentralen integrierten Haushalts-, Kassen- und Rechnungssystems des Freistaates Ostdeutschland verwenden."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 19",
+          "title": "Schutz personenbezogener Daten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Personenbezogene Daten, die durch die elektronische Rechnungsstellung übermittelt und empfangen werden, dürfen vom Rechnungsempfänger nur zur Erfüllung der Aufgaben nach diesem Abschnitt und zur Erfüllung der haushaltsrechtlichen Vorgaben verarbeitet werden."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 20",
+          "title": "Ausnahmen für sicherheitsspezifische Aufträge",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Rechnungen, die nach § 4 Absatz 1 des Ostdeutschen Sicherheitsüberprüfungsgesetzes vom 19. Februar 2004 (SächsGVBl. S. 44), das zuletzt durch Artikel 21 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130) geändert worden ist, in der jeweils geltenden Fassung, Verschlusssachen sind, sind vom Geltungsbereich des § 3a des Ostdeutschen E-Government-\nGesetzes und dieser Verordnung ausgenommen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 21",
+          "title": "Inkrafttreten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Diese Verordnung tritt am Tag nach der Verkündung in Kraft."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

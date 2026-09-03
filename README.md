@@ -37,7 +37,10 @@ Technischer Kern:
 - dateibasierte Inhalte unter `content/`
 - normalisierte Regierungsorganisation unter `content/organisation/`
 - interner Wissenshub unter `knowledge/`
-- keine aktiven D1- oder R2-Bindings für die öffentliche Inhaltsauslieferung
+- Cloudflare D1 (`ostrecht-recht`) als abgeleitete Laufzeitdatenbank von OstRecht, aus
+  `content/normen` und `content/verkuendungen` per `npm run norms:runtime:d1-sync` projiziert
+- Cloudflare R2 (`ostrecht-recht-quellen`) als unveränderliches Archiv amtlicher Rohquellen;
+  das Staatsportal liest weiterhin nur `content/`
 
 Dauerhafte Gestaltungsregeln stehen in `DESIGN.md`. Agenten- und Repositoryregeln stehen in
 `AGENTS.md`.
@@ -85,6 +88,13 @@ Die gemeinsame Assetquelle bleibt `public/`. Vor einem Build erzeugt
 `scripts/prepare-site-public.mjs` den jeweils benötigten, nicht versionierten Bestand unter
 `apps/portal/.site-public/` oder `apps/recht/.site-public/`. Dadurch werden Rechts-PDFs weiterhin
 nur an OstRecht ausgeliefert, ohne die Quellen im Repository zu duplizieren.
+
+OstRecht liest Rechtsdaten zur Laufzeit aus Cloudflare D1. `npm run norms:runtime:d1-sync`
+projiziert `content/normen` und `content/verkuendungen` in die produktive Datenbank (Wrangler-
+Anmeldung oder `CLOUDFLARE_API_TOKEN`); `npm run norms:runtime:d1-local` baut dieselbe Projektion in
+einer lokalen Miniflare-D1 unter `.cache/wrangler-local`. `npm run test:a11y` und
+`npm run test:browsers` starten OstRecht darüber als lokalen Worker (`scripts/serve-law-worker.mjs`),
+das Staatsportal weiterhin als statische Vorschau.
 
 `npm run deploy` veröffentlicht beide Artefakte desselben Commits in der Reihenfolge OstRecht,
 danach Staatsportal. Details zu Veröffentlichung, Wiederanlauf und Produktionskontrolle stehen in
@@ -185,7 +195,8 @@ harmonisiert.
 
 Für ausdrücklich geänderte übernommene Stammnormen bildet grundsätzlich der am 1. November 2023
 geltende sächsische Rechtsstand die Ausgangsfassung. REVOSax-Snapshots werden unverändert
-versioniert; Folgefassungen entstehen ausschließlich über geprüfte, deterministische Patch-Rezepte.
+versioniert oder hashverifiziert in R2 archiviert (`data/recht/revosax-r2-manifest.json`);
+Folgefassungen entstehen ausschließlich über geprüfte, deterministische Patch-Rezepte.
 Quellenkonflikte blockieren die Konsolidierung.
 
 Der kanonische Ablauf für Import, REVOSax-Snapshots, Konsolidierung und technische Prüfung steht in
@@ -218,7 +229,7 @@ Webanalyse ist optional und wird erst nach Zustimmung geladen. Eine außerhalb d
 Cloudflare Web Analytics muss ebenfalls deaktiviert bleiben, solange dafür keine gesonderte
 Einwilligungslogik besteht.
 
-Beide Anwendungen teilen Basiskomponenten und Accessibility-Regeln, verwenden aber getrennte
+Beide Anwendungen teilen Basiskomponenten und Accessibilityregeln, verwenden aber getrennte
 Layouts. Das Staatsportal nutzt `BaseLayout.astro`, OstRecht `LawLayout.astro`.
 
 ## Qualitätssicherung
@@ -243,7 +254,7 @@ vollständige technische Releaseabfolge steht im Deployment-Runbook.
 
 ## TODO
 
-**Zuletzt abgeglichen:** 29. August 2026
+**Zuletzt abgeglichen:** 3. September 2026
 
 Diese Liste ist der zentrale Projektbacklog. Jede noch offene Aufgabe muss hier mindestens als
 Sammelpunkt erscheinen. Quellenlocators, Einzelkonflikte und maschinenlesbare Zustände werden
@@ -255,6 +266,181 @@ entfernt statt dauerhaft abgehakt stehen gelassen.
 Alle dafür noch benötigten externen Einstellungen, fachlichen Entscheidungen und Primärquellen
 sind ausfüllbar im [`docs/ZUARBEITSFORMULAR.md`](docs/ZUARBEITSFORMULAR.md) gebündelt. Das Formular
 dient nur der Übergabe von Zuarbeit; der Aufgabenstatus wird weiterhin ausschließlich hier gepflegt.
+
+### Vollständiger REVOSax-Ausgangsbestand und D1/R2-Laufzeitarchitektur für OstRecht
+
+OstRecht soll den vollständigen am Rechtsüberleitungsstichtag **1. November 2023** maßgeblichen
+REVOSax-Bestand übernehmen. Ausgangspunkt ist nicht der heutige Bestand und auch nicht die gesamte
+sächsische Versionshistorie, sondern die REVOSax-**Erweiterte Suche mit Geltungstag 01.11.2023**.
+Dabei müssen ausdrücklich alle Stamm- und Änderungstypen aktiviert werden: Gesetze und
+Änderungsgesetze, Verordnungen und Änderungsverordnungen, Verwaltungsvorschriften und
+Änderungsverwaltungsvorschriften, Förderrichtlinien und Änderungsförderrichtlinien sowie
+Staatsverträge und Zustimmungsgesetze einschließlich der von REVOSax angebotenen Änderungstypen.
+REVOSax blendet Änderungsvorschriften standardmäßig aus; eine Abfrage ohne diese Haken wäre deshalb
+kein vollständiger übergeleiteter Rechtsbestand.
+
+Für jeden Treffer wird **genau die von REVOSax für den Stichtag ausgelieferte Fassung** übernommen.
+Es sollen nicht zusätzlich sämtliche vor dem 1. November 2023 vorhandenen historischen Fassungen
+geladen werden. Die sächsische Versionshistorie vor dem Stichtag ist Quellenhistorie, nicht Teil der
+ostdeutschen Fassungsentwicklung. Die übernommene Fassung bildet Version 1 des ostdeutschen
+Bestands; spätere Versionen entstehen ausschließlich aus ostdeutschen Verkündungen und den bereits
+vorhandenen deterministischen Konsolidierungs- und Patchregeln.
+
+Der Vollbestand soll technisch dreifach, aber mit klar getrennten Aufgaben gehalten werden:
+
+- **Git/Wissenshub bleibt der fachliche und reviewbare Source of Truth.** Die materialisierten Normen
+  bleiben unter `content/normen/[slug]/meta.json`, `history.json` und `versions/*.json`. Dadurch
+  können lokale Werkzeuge, Codex und ChatGPT weiterhin sofort ermitteln, welche Norm gilt, welcher
+  Paragraph eine bestimmte Regelung enthält und wie ein neuer Änderungsbefehl formuliert werden
+  muss. Der Rechtsbestand darf deshalb niemals ausschließlich in einer Cloudflare-Datenbank liegen.
+- **D1 wird die produktive strukturierte Laufzeitdatenbank von OstRecht.** Dort liegen Normidentität,
+  Metadaten, Fassungen, Normkörper und der Volltext-Suchindex. Der Normkörper soll nicht als ein
+  einziges riesiges JSON-Feld gespeichert werden, sondern mindestens nach äußeren Body-Blöcken
+  getrennt. Das vorbereitetete Schema `data/recht/d1/0001_rechtsbestand.sql` verwendet dafür
+  `law_norms`, `law_versions`, `law_version_blocks`, `law_source_objects` und die FTS5-Tabelle
+  `law_search`. Ein einzelner Body-Block über 1,8 MB blockiert den Sync und muss strukturell weiter
+  zerlegt werden, statt unkontrolliert an die D1-Zeilengrenze zu geraten.
+- **R2 wird ausschließlich unverändertes Quellen- und Anlagenarchiv.** Dort gehören REVOSax-HTML,
+  PDFs und große Anlagen hin. Der öffentliche Normtext wird nicht bei jedem Aufruf aus R2 geparst.
+  Parsing und Rechtsüberleitungsanpassung erfolgen vor Veröffentlichung; normale Normseiten lesen
+  später aus D1. R2 wird für Quellennachweis, Kontrolle und Anlagen verwendet.
+
+OstRecht liest Norm-, Fassungs-, Historien-, Vergleichs-, Such-, Verkündungs- und Sitemap-Routen
+zur Laufzeit aus D1 (`apps/recht/src/lib/runtime/`); statische Hilfeseiten und die Suchhülle bleiben
+prerendert. Ein Fassungsvergleich wird erst beim Abruf für genau das angefragte Paar berechnet und
+über `Cache-Control` gecacht, statt `n × (n - 1)` Paare zu bauen. Websitecode löst einen
+Astro/Worker-Build aus; reine Rechtsinhaltsänderungen lösen Contentprüfung, Portal-Build und den
+D1-Sync aus (`scripts/classify-change-scope.mjs`).
+
+Der vollständige technische Ablauf und die Cloudflare-Schritte stehen in
+[`docs/REVOSAX_BULK_IMPORT.md`](docs/REVOSAX_BULK_IMPORT.md).
+
+**Stand 4. September 2026 (Branch `revosax-bulk-import-d1-r2`, Draft-PR #18):** Discovery
+(5.092 Listenzeilen, 5.089 eindeutige Fassungen, fail-closed verifiziert), Vollstaging
+(5.089/5.089 ohne Parser-, Adapter- oder Reststellenfehler), Rechtsüberleitungsanpassung mit
+korpusweitem End-Audit (0 Reststellen im übergeleiteten Recht, leerer Rückstand), R2-Provenienz im
+Normschema, Materialisierungsplan mit zweistufiger Klassifizierung der Mantelbestandteile
+(Heuristik plus geprüfte Zuordnungen in `data/recht/revosax-envelope-decisions.json`),
+R2-Archivierung der Rohquellen und aller 890 PDF-Anlagen, Materialisierung (3.346 Stammfassungen
+und Änderungsakte plus 1.620 Artikel bzw. Absätze von Mantelvorschriften als eigene
+Änderungsvorschriften; 4.966 übernommene Normen, 5.207 Normen insgesamt), versionierter
+Import-Audit, D1-Schema mit indexierbarem Suchindex und Buchstabenindex (Migrationen 0005 und 0006),
+kostenbegrenzter D1-Sync mit Projektionsidentität (Fingerabdruck plus Scope), Base-State-Guard und
+zentralen Budgets, die D1-gestützte OstRecht-Laufzeit ohne Korpusaufbau mit serverseitig
+paginierten Übersichten, getrennte Staging-Ressourcen und die CI-Trennung mit Testfixture sind
+umgesetzt. Die vollständige Bilanz steht
+in `data/recht/revosax-import-audit/summary.json` und geht exakt auf: 5.089 eindeutige Treffer =
+4.966 eigene Normen + 7 redaktionell vorhandene (MATCH) + 52 geschützte Ost-Normen + 0 Reviewfälle
++ 64 begründete SKIPs (42 Aliasse desselben Artikels einer Mantelvorschrift, 8 Aliasse derselben
+Fassung, 2 identische Vorgängertexte, 9 in REVOSax textlose Einträge, 1 Doppelerfassung, 2
+PDF-only-Entscheidungen).
+
+**D1-Kosten (Stand 4. September 2026).** Bis Migration 0004 war `law_search` eine FTS5-Tabelle
+mit `norm_id` als UNINDEXED-Spalte; jedes `DELETE FROM law_search WHERE norm_id = ?` scannte den
+gesamten Volltextindex (EXPLAIN QUERY PLAN: `SCAN law_search VIRTUAL TABLE INDEX 0:`, rund 38.000
+Zeilen je Norm, bei einer Vollprojektion ≈ 195 Mio. gelesene Zeilen). Seit Migration 0005 liegen
+die Provisionen relational in `law_search_units` (Indizes auf `norm_id`, `slug`,
+`(norm_id, version_id)`), der FTS5-Index ist ein Index mit externem Inhalt, den Trigger rowid-genau
+führen (`SEARCH law_search_units USING COVERING INDEX`). Die Vollprojektion leert die Tabellen
+einmalig (FTS5 `delete-all`) und schreibt ohne normweise Löschungen. Die Projektionsidentität
+(`scripts/lib/d1-projection-fingerprint.mjs`: Git-Blob-Kennungen von Projektionslogik, Rechtsbestand
+und Portalgrundlagen plus Scope `full` oder `fixture:<Datei>@<Hash>`) macht einen Sync bei
+unverändertem Stand zum No-op; ein Testfixture kann nie die Identität des Vollbestands behaupten.
+Ein inkrementeller `--git-diff`-Sync schreibt erst, wenn D1 nachweislich die Identität des
+Basis-Commits trägt (Base-State-Guard, sonst fail-closed oder markierte Recovery-Vollprojektion mit
+`--recover`); Budgets kommen aus `data/recht/d1-sync-budgets.json` (`--budget incremental|full|
+recovery|fixture`), werden vor dem ersten Schreibzugriff gegen die Planschätzung und laufend gegen
+die realen Zähler geprüft. Die Laufzeit lädt keinen Korpus mehr: Übersichten lesen schmale Zeilen
+mit SQL-Filtern, A–Z und Rechtsentwicklung filtern und paginieren serverseitig (Buchstabenindex,
+`LIMIT`/`OFFSET`, `COUNT(*)`), Start-, Sachgebiets- und Suchseiten lesen vorberechnete
+Metadatenzeilen. Pull Requests testen gegen ein Fixture von 38 Normen; der Vollbestand läuft als
+einmalig geseedeter Release-Gate-Job in `deploy.yml` und wöchentlich.
+
+Release-Gates vor dem Merge (PR bleibt Draft):
+
+- [x] **Migration 0005 und Neuprojektion der produktiven D1 (3. September 2026, 19:26 UTC).**
+  Nach Prüfung lokal und auf `ostrecht-recht-staging`: Migration 0005 auf `ostrecht-recht`
+  (76.856 gelesene / 152.920 geschriebene Zeilen: Übernahme der 38.223 Suchzeilen und Neuaufbau des
+  Index), anschließend die Vollprojektion des Endbestands mit dem kostensicheren Pfad (5.207 Normen,
+  103.127 Anweisungen, 70 SQL-Dateien, 809 s; **103.403 gelesene** statt zuvor über 300 Mio. und
+  465.926 geschriebene Zeilen, Budgets `--max-rows-read 2000000 --max-rows-written 800000` nicht
+  berührt; inzwischen durch die Vollprojektion vom 3. September 2026, 22:09 UTC, abgelöst, s. u.). `npm run norms:runtime:d1-verify --fts-integrity` bestätigt alle Zähler (5.207 Normen,
+  5.287 Fassungen, 24.543 Blöcke, 6.789 Quellen, 38.561 Suchzeilen, 6.760 Sachgebiets- und 5.317
+  Historienzeilen), `corpus_hash`, Projektionsfingerabdruck, FTS5-Integrität und 16 Stichproben; ein
+  erneuter Sync endet als No-op (8 gelesene, 0 geschriebene Zeilen) – der `d1_sync`-Job nach dem
+  Merge projiziert nichts erneut, solange Rechtsbestand und Projektionslogik unverändert bleiben.
+- [ ] **Cloudflare-Plan.** Der frühere Vollsync und der kalte Korpusaufbau haben das
+  D1-Free-Tier-Leselimit (5 Mio. Zeilen/Tag) am 3. September 2026 zweimal erschöpft. Mit Migration
+  0005 liest ein Normsync nur noch die Zeilen der Norm, die Laufzeit keinen Korpus mehr; Workers Paid
+  bleibt für den Betrieb mit dem Vollbestand vorgesehen (Schreibvorgänge einer Vollprojektion,
+  CPU-Zeit großer Normen).
+- [ ] **Produktions-Smoke** (`npm run test:deployment:production`) nach dem ersten Deployment mit
+  D1-Laufzeit; bis dahin ist die Runtime nur lokal (Miniflare) und per `wrangler dev --remote`
+  geprüft.
+- [x] **CI-Token geprüft.** Das Repository-Secret `CLOUDFLARE_API_TOKEN` (Template „Cloudflare
+  Workers bearbeiten“, enthält `D1: Edit`) ist für den API-Transport des Syncs ausreichend: der
+  PR-Job `d1_token_check` liest die produktive Datenbank (Identität, `--dry-run`) und schreibt
+  die Verkündungstabelle nach `ostrecht-recht-staging` (Teilsync ohne Identitätsänderung).
+  Migrationen unter `data/recht/d1/` werden weiterhin bewusst manuell eingespielt.
+- [x] **Release-Hardening (4. September 2026).** Projektionsidentität mit Scope (ein Fixture
+  kann nie den Vollbestand vortäuschen), Base-State-Guard für `--git-diff`, Budgets im automatischen
+  `d1_sync` (`--budget incremental --recover`), globaler Reststellen-Scanner (jede Fundstelle),
+  ein einziger Vollbestand-Smoke-Job im Deployment, serverseitig paginierte A–Z- und
+  Rechtsentwicklungsseiten (Migration 0006: Buchstabenindex, Stichworttabelle) und die
+  Befristungsentscheidungen der Prüfmarken (`data/recht/revosax-sunset-decisions.json`).
+- [x] **Staging als Release-Gate mit dem Vollbestand.** Migration 0006 auf `ostrecht-recht-staging`
+  (812 gelesene / 997 geschriebene Zeilen), Vollprojektion der 5.207 Normen mit Budgetprofil
+  `full` (129.763 Anweisungen, 2.945 gelesene / 479.464 geschriebene Zeilen, 611 s),
+  `d1-verify --fts-integrity` ohne Abweichung (Identität, Scope `full`, 26.624 Stichwortzeilen),
+  Worker `ostrecht-recht-staging` über die fail-closed erzeugte Staging-Konfiguration deployt
+  (`scripts/write-staging-wrangler-config.mjs`; die vom Adapter gebaute Konfiguration hätte
+  `--env staging` sonst auf den produktiven Worker aufgelöst), 25 Routen (Start, A–Z mit Buchstabe,
+  Seite und Stichwortfilter, Sachgebiete, Rechtsentwicklung mit Filtern und Seiten, leere Suche,
+  „Polizei“ mit Typfilter, Gemeindeordnung, größte Norm, Historie, Vergleich, befristete
+  Richtlinie, Verkündungen, 404, Sitemap, Vorschläge) und `scripts/check-deployment.mjs` grün.
+- [x] **Produktive D1 auf den Endstand (3. September 2026, 22:09 UTC).** Migration 0006 auf
+  `ostrecht-recht` (95.327 gelesene / 105.916 geschriebene Zeilen), danach die Vollprojektion des
+  finalen Standes mit Budgetprofil `full` (129.763 Anweisungen, 182.223 gelesene / 606.398
+  geschriebene Zeilen, 530 s; nötig, weil die Identität jetzt Scope und Zustand trägt und acht
+  Normen durch die Befristungsentscheidungen geändert sind), `d1-verify --fts-integrity` ohne
+  Abweichung; ein Dry-run des Deployment-Syncs endet als No-op (17 gelesene Zeilen) – der
+  `d1_sync`-Job nach dem Squash-Merge projiziert nichts erneut, weil der Merge denselben Baum
+  trägt.
+
+Redaktionelle Restarbeiten (konkret in `data/recht/revosax-import-audit/` identifiziert):
+
+- [x] **Zurückgestellte Mantelbestandteile.** Alle 101 Fälle sind in
+  `data/recht/revosax-envelope-decisions.json` entschieden (98 deterministisch über das Zielgesetz im
+  Eröffnungssatz, Anker und Überschrift durch `scripts/resolve-revosax-envelope-defers.mjs`, 3
+  manuell geprüft; 100 zugeordnet, 1 dokumentierter Alias der Stammnorm), vom Klassifizierer gegen den
+  Artikeltext verifiziert und materialisiert – auch Absätze von Folgeänderungsartikeln, Paragraphen
+  historischer Mantelfassungen (2956.1, 2876.1, 2932.1, 5479.1) und Nummern des in Vorschrift 3382
+  geführten Rechtsbereinigungsgesetzes.
+- [x] **Altbestand mit sächsischen Bezeichnungen.** Die 54 konsolidierten Altbestandsnormen sind
+  über `scripts/consolidate-norms.mjs` (Rechtsüberleitung des konsolidierten Ergebnisses, Rezepte
+  weiter gegen den amtlichen Ausgangstext) übergeleitet; `data/recht/ost-residual-backlog.json` ist
+  leer. Sachsen-Bezüge in eigenen ostdeutschen Erlassen gelten nur, wenn sie wörtlich in der
+  amtlichen Quelle unter `Gesetze/` stehen (`scripts/audit-ost-residuals.mjs` prüft jede
+  Fundstelle einzeln: 228 belegte Bezüge in 48 Erlassen, eine dokumentierte PDF-Prüfung).
+- [x] **Prüfmarken „Quelle endet ohne Nachfolger“.** 275 × Typ A (Gültigkeitsende nach dem
+  Stichtag ohne Befristung im Text: spätere sächsische Rechtsänderung ohne Wirkung für
+  Ostdeutschland, keine Entscheidung nötig). Die 7 Typ-B-Fälle (Förderrichtlinien mit „tritt mit
+  Ablauf des 31. Dezember 2023 außer Kraft“ im übernommenen Text) und der Maßnahmekatalog Bienen
+  (Befristung 31. Dezember 2027 im Text; das sächsische Quellenende 2024 ist eine spätere
+  Rechtsänderung) sind in `data/recht/revosax-sunset-decisions.json` mit wörtlichem Beleg
+  entschieden und modelliert (`expiryDate`, `validTo`, Status `repealed` bzw. künftiges
+  Außerkrafttreten, Historieneintrag); ein Fall bleibt begründet offen (14011.1: Text befristet auf
+  2015, REVOSax führt die Fassung bis 2023 – widersprüchliche Belege). 249 Fassungen tragen das
+  Erlassdatum aus der amtlichen REVOSax-Trefferliste, eine (1018) hat keines.
+- [ ] **PDF-only-Vorschriften.** 1018 (Europäisches Übereinkommen über das grenzüberschreitende
+  Fernsehen: Haupttext nur als Scan ohne Textebene, keine OCR ohne manuelle Prüfung) und 17114
+  (nur eine Fragebogen-Anlage mit Textebene, kein Normtext, der als Paragraphentext dargestellt
+  werden dürfte); Anlagen sind hashverifiziert in R2, beide bleiben dokumentierte SKIPs.
+- [ ] **Abgeleitete Metadaten nachschärfen.** Sachgebiete, Schlagwörter und Kurzfassung der
+  4.966 übernommenen Normen sind deterministisch aus Typ, Ressort und Titel abgeleitet und im
+  Import-Audit als solche gekennzeichnet (`summary.json` → `derivedMetadata`);
+  `originEnactingBody` nennt bewusst das sächsische Ursprungsorgan als Provenienz („Ursprungsorgan
+  der übernommenen Quelle“ in der Normansicht).
 
 ### Sitzungsmediathek der Volkskammer
 

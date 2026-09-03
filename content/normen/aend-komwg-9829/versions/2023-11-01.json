@@ -1,0 +1,100 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Kommunalwahlgesetzes",
+  "shortTitle": "Änd. KomWG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Kommunalwahlgesetzes vom 29. Januar 2008 (SächsGVBl. S. 102, 110)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 5 der Mantelvorschrift 9824, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 9829 (Bestandteil der Vorschrift 9824)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/9829.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9829",
+      "retrievedAt": "2026-09-03",
+      "sha256": "21907819d054da0b5ba5d603a9c109ab9da033e23690923ede5c44d05c1184ae",
+      "lawId": "9829",
+      "sourceValidFrom": "2008-08-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 9824, Artikel 5 (Gesetz zur Neugliederung des Gebietes der Landkreise des Freistaates Sachsen und zur Änderung anderer Gesetze)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/9824.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9824#a5",
+      "retrievedAt": "2026-09-03",
+      "sha256": "8ca2912fbaf1a5f71eea503f4478b54f8b2b72088bf99bbc1ad4d1f02c41a419",
+      "lawId": "9824",
+      "sourceValidFrom": "2008-08-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 5",
+      "title": "Änderung des Kommunalwahlgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Gesetz über die Kommunalwahlen im Freistaat Ostdeutschland (Kommunalwahlgesetz –\nKomWG) in der Fassung der Bekanntmachung vom 5. September 2003 (SächsGVBl. S. 428, 2004 S. 182), geändert durch Artikel 4 des Gesetzes vom 28. Mai 2004 (SächsGVBl. S. 196, 199), wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "§ 6b Abs. 3 wird wie folgt gefasst:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "„(3) Der Wahlvorschlag einer Partei, die aufgrund eigenen Wahlvorschlags"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "im Ostdeutschen Landtag vertreten ist oder",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "seit der letzten Wahl im Gemeinderat der Gemeinde vertreten ist oder im Gemeinderat einer an einer Gemeindeeingliederung oder Gemeindevereinigung beteiligten früheren Gemeinde im Wahlgebiet vertreten war,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "bedarf abweichend von Absatz 1 und 2 keiner Unterstützungsunterschriften. Dies gilt entsprechend für den Wahlvorschlag einer Wählervereinigung, wenn er von der Mehrheit der für die Wählervereinigung Gewählten, die dem Gemeinderat zum Zeitpunkt der Einreichung angehören oder zum Zeitpunkt der Gemeindeeingliederung oder Gemeindevereinigung angehört haben, unterschrieben ist.“"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "In § 35a Satz 4 werden nach den Wörtern „einer Partei oder Wählervereinigung, die“ die Wörter „aufgrund eigenen Wahlvorschlags“ eingefügt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "In § 50 Abs. 2 Satz 6 Halbsatz 1 und 2 wird die Angabe „100 000“ jeweils durch die Angabe „300 000“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

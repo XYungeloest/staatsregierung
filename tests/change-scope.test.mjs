@@ -59,10 +59,11 @@ test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametr
       targets: [],
     },
     {
-      label: 'H: OstRecht-Suchpaket',
+      label: 'H: OstRecht-Suchpaket bestimmt auch die D1-Suchdokumente',
       paths: ['packages/recht-search/src/search.ts'],
       scope: 'law',
       targets: ['law'],
+      d1Sync: true,
     },
     {
       label: 'I: gemeinsame Laufzeitkomponente',
@@ -71,10 +72,49 @@ test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametr
       targets: ['portal', 'law'],
     },
     {
-      label: 'J: gemeinsame Normdaten',
+      label: 'J: Normdaten laufen über D1, nicht über ein OstRecht-Deployment',
       paths: ['content/normen/sero-verordnung/meta.json'],
+      scope: 'portal',
+      targets: ['portal'],
+      content: true,
+      d1Sync: true,
+    },
+    {
+      label: 'J2: Verkündungen laufen über D1',
+      paths: ['content/verkuendungen/2024/sero-verordnung.json'],
+      scope: 'portal',
+      targets: ['portal'],
+      content: true,
+      d1Sync: true,
+    },
+    {
+      label: 'J3: Themenseiten speisen die abgeleiteten D1-Daten',
+      paths: ['content/themen/bildung.json'],
+      scope: 'portal',
+      targets: ['portal'],
+      content: true,
+      d1Sync: true,
+    },
+    {
+      label: 'J4: Sync-Skript allein schreibt die Projektion neu',
+      paths: ['scripts/sync-recht-d1.mjs'],
+      scope: 'ci-only',
+      targets: [],
+      content: true,
+      d1Sync: true,
+    },
+    {
+      label: 'J5: Normbibliothek ist Laufzeit beider Websites und D1-Projektion',
+      paths: ['packages/shared/src/lib/norms/derived.ts'],
       scope: 'shared',
       targets: ['portal', 'law'],
+      d1Sync: true,
+    },
+    {
+      label: 'J6: D1-Migrationen werden bewusst manuell eingespielt',
+      paths: ['data/recht/d1/0005_beispiel.sql'],
+      scope: 'ci-only',
+      targets: [],
       content: true,
     },
     {
@@ -154,5 +194,6 @@ test('Änderungsscope trennt Runtime-Deployment und Verifikationsumfang parametr
     assert.equal(result.deployLaw, entry.targets.includes('law'), entry.label);
     assert.equal(result.runContentCheck, entry.content ?? false, entry.label);
     assert.equal(result.runUnitTests, entry.unit ?? true, entry.label);
+    assert.equal(result.runD1Sync, entry.d1Sync ?? false, entry.label);
   }
 });

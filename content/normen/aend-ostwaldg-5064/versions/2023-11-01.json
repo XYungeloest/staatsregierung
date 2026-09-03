@@ -1,0 +1,99 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Waldgesetzes für den Freistaat Ostdeutschland",
+  "shortTitle": "Änd. OstWaldG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Waldgesetzes für den Freistaat Ostdeutschland vom 28. Juni 2001 (SächsGVBl. S. 426, 430)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 48 der Mantelvorschrift 3629, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 5064 (Bestandteil der Vorschrift 3629)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/5064.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/5064",
+      "retrievedAt": "2026-09-03",
+      "sha256": "14cb8f30d3ef5027a4277e9d479d0de3b16a48431ca04274420cb0f6303427b6",
+      "lawId": "5064",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3629, Artikel 48 (Zweites Gesetz zur Euro-bedingten und weiteren Änderung des sächsischen Landesrechts)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3629.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3629#a48",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bfb48b196d6fa024bfd8768ad6ff89b141e9b96c28876b25a112369f6a4ce627",
+      "lawId": "3629",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
+      "children": [
+        {
+          "type": "article",
+          "label": "Artikel 48",
+          "title": "Änderung des Waldgesetzes für den Freistaat Ostdeutschland",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Das Waldgesetz für den Freistaat Ostdeutschland (OstWaldG) vom 10. April 1992 (SächsGVBl. S. 137), geändert durch Artikel 2 des Gesetzes vom 21. Juni 1999 (SächsGVBl. S. 330, 333), wird wie folgt geändert:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "In § 52 Abs. 4 wird die Angabe „5 000 Deutsche Mark“ durch die Angabe „2 500 EUR“ und die Angabe „20 000 Deutsche Mark“ durch die Angabe „10 000 EUR“ ersetzt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "§ 53 Abs. 3 wird wie folgt geändert:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "Die Angabe „50 000 Deutsche Mark“ wird durch die Angabe „25 000 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Die Angabe „5 000 Deutsche Mark“ wird durch die Angabe „2 500 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "Die Angabe „20 000 Deutsche Mark“ wird durch die Angabe „10 000 EUR“ ersetzt.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

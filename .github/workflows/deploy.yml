@@ -54,6 +54,7 @@ jobs:
       run_content_check: ${{ steps.scope.outputs.run_content_check }}
       run_knowledge_check: ${{ steps.scope.outputs.run_knowledge_check }}
       run_unit_tests: ${{ steps.scope.outputs.run_unit_tests }}
+      run_d1_sync: ${{ steps.scope.outputs.run_d1_sync }}
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
       run_full_ui_smoke: ${{ steps.scope.outputs.run_full_ui_smoke }}
     steps:
@@ -122,6 +123,7 @@ jobs:
             echo "- OstRecht-Prüfung: $(yes_no "$(output_value check_law)")"
             echo "- Content-Prüfung: $(yes_no "$(output_value run_content_check)")"
             echo "- Unit-Tests: $(yes_no "$(output_value run_unit_tests)")"
+            echo "- D1-Projektion (OstRecht-Laufzeitdaten): $(yes_no "$(output_value run_d1_sync)")"
             echo "- UI-Smoke: $(target_label "$UI_TARGETS")"
           } >> "$GITHUB_STEP_SUMMARY"
 
@@ -298,12 +300,18 @@ jobs:
           if-no-files-found: error
           retention-days: 1
 
-  accessibility_smoke:
+  # Release-Gate mit dem gesamten Rechtsbestand: die lokale D1-Projektion wird genau
+  # einmal aufgebaut (Vollbestand, ≈ 15 min), dann laufen Verifikation, A11y- und
+  # Browser-Smoke gegen denselben Worker. Pull Requests prüfen stattdessen zwei parallele
+  # Fixture-Jobs (pull-request.yml); der Vollbestand läuft außerdem wöchentlich in
+  # full-corpus-smoke.yml. Es entstehen keine Kosten auf der Cloudflare-D1.
+  full_runtime_smoke:
     needs:
       - classify
       - build
     if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -317,42 +325,68 @@ jobs:
           path: apps
       - name: Chromium installieren
         run: npx playwright install --with-deps chromium
+      - name: OstRecht-Worker mit lokaler D1-Vollprojektion vorbereiten (einmalig)
+        if: ${{ contains(needs.classify.outputs.ui_targets, 'law') }}
+        run: npm run norms:runtime:d1-local
+      - name: Lokale Vollprojektion verifizieren
+        if: ${{ contains(needs.classify.outputs.ui_targets, 'law') }}
+        run: npm run norms:runtime:d1-verify -- --local --fts-integrity
       - name: Zentrale Seiten barrierefrei prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
         run: npm run test:a11y:ci
-
-  browser_smoke:
-    needs:
-      - classify
-      - build
-    if: ${{ needs.classify.outputs.run_ui_smoke == 'true' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - uses: actions/download-artifact@v8
-        with:
-          name: site-build-${{ github.sha }}
-          path: apps
-      - name: Chromium installieren
-        run: npx playwright install --with-deps chromium
       - name: Zentrale Nutzerwege in Chromium prüfen
         env:
           SITE_TARGETS: ${{ needs.classify.outputs.ui_targets }}
         run: npm run test:browsers:ci
 
+  # OstRecht liest Normen, Fassungen, Verkündungen und den Suchindex zur Laufzeit
+  # aus Cloudflare D1. Änderungen an content/normen und content/verkuendungen
+  # brauchen deshalb kein OstRecht-Deployment, sondern eine neue Projektion.
+  # Schema-Migrationen (data/recht/d1/*.sql) werden bewusst manuell eingespielt,
+  # siehe docs/REVOSAX_BULK_IMPORT.md.
+  d1_sync:
+    needs:
+      - classify
+      - build
+    if: ${{ github.event_name == 'push' && needs.classify.outputs.run_d1_sync == 'true' && needs.build.result == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Rechtsdaten inkrementell nach Cloudflare D1 projizieren
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_SHA: ${{ github.sha }}
+        run: |
+          # Nur die im Push geänderten Normen und Verkündungen; eine Vollprojektion nur bei
+          # geänderter Projektionslogik (scripts/lib/d1-sync-scope.mjs), wenn kein Vorgängerstand
+          # bekannt ist oder – als markierte Recovery (--recover) – wenn D1 nicht den
+          # Ausgangszustand des Vorgänger-Commits trägt (Base-State-Guard). Budgets aus
+          # data/recht/d1-sync-budgets.json: Vorabschätzung vor dem ersten Schreibzugriff
+          # (0 Schreibzugriffe bei Überschreitung) und Abbruch bei realer Überschreitung;
+          # bei unverändertem Stand (identischer Fingerabdruck und Scope) ist der Lauf ein No-op.
+          if [ -n "$EVENT_BEFORE" ] && [ "$EVENT_BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$EVENT_BEFORE^{commit}" 2>/dev/null; then
+            npm run norms:runtime:d1-sync -- --transport api --git-diff "$EVENT_BEFORE" "$EVENT_SHA" --budget incremental --recover
+          else
+            npm run norms:runtime:d1-sync -- --transport api --full --budget full
+          fi
+
   deploy:
     needs:
       - classify
       - build
-      - accessibility_smoke
-      - browser_smoke
-    if: ${{ always() && needs.classify.outputs.deploy_targets != '' && needs.build.result == 'success' && (needs.accessibility_smoke.result == 'success' || needs.accessibility_smoke.result == 'skipped') && (needs.browser_smoke.result == 'success' || needs.browser_smoke.result == 'skipped') }}
+      - full_runtime_smoke
+      - d1_sync
+    if: ${{ always() && needs.classify.outputs.deploy_targets != '' && needs.build.result == 'success' && (needs.full_runtime_smoke.result == 'success' || needs.full_runtime_smoke.result == 'skipped') && (needs.d1_sync.result == 'success' || needs.d1_sync.result == 'skipped') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

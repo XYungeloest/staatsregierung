@@ -5,6 +5,7 @@ import { access, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, dirname, extname, resolve } from 'node:path';
 
 import { futureAmendmentDates, historicalBaselineCitation } from './lib/revosax-citation.mjs';
+import { adaptSaxonText } from './lib/revosax-ost-adapter.mjs';
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 
 const ROOT = process.cwd();
@@ -275,8 +276,10 @@ async function auditSnapshots() {
           resolve(ROOT, 'content/normen', slug, 'versions', `${materializedVersionId}.json`),
           'utf8',
         ));
-        if (materialized.citation !== selectedCitation) {
-          throw new Error(`materialisierte Baseline-Zitierung für ${materializedVersionId} weicht von der geprüften Quelle ab`);
+        // Gespeichert wird die übergeleitete Zitierung (scripts/consolidate-norms.mjs,
+        // applyRechtsueberleitung); geschützte Fundstellenkürzel bleiben erhalten.
+        if (materialized.citation !== adaptSaxonText(selectedCitation)) {
+          throw new Error(`materialisierte Baseline-Zitierung für ${materializedVersionId} weicht von der geprüften Quelle ab (erwartet „${adaptSaxonText(selectedCitation)}“, gespeichert „${materialized.citation}“)`);
         }
       } catch (error) {
         if (error.code !== 'ENOENT') throw error;

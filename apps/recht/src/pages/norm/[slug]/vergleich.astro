@@ -13,29 +13,27 @@ import {
   getNormUrl,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion, loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { getNormStore } from '../../../lib/runtime/context.ts';
 
-export async function getStaticPaths() {
-  const norms = await loadAllNorms();
-  return norms.filter((norm) => norm.versions.length > 1).map((norm) => {
-    const versions = [...norm.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
-    const defaultTo = getCurrentVersion(norm);
-    const defaultToIndex = versions.findIndex((version) => version.versionId === defaultTo.versionId);
-    const defaultFrom = versions[Math.max(0, defaultToIndex - 1)] ?? versions[0];
-    return {
-      params: { slug: norm.meta.slug },
-      props: {
-        norm,
-        versions,
-        defaultFrom,
-        defaultTo,
-        defaultProvisions: buildProvisionVersionDiff(defaultFrom, defaultTo),
-      },
-    };
-  });
-}
+// Der Vergleich lädt nur die beiden angezeigten Fassungen aus D1.
+export const prerender = false;
 
-const { norm, versions, defaultFrom, defaultTo, defaultProvisions } = Astro.props;
+const slug = Astro.params.slug ?? '';
+const store = await getNormStore(Astro.locals);
+const skeleton = await store.getNorm(slug, 'none');
+if (!skeleton || skeleton.versions.length < 2) return Astro.rewrite('/404');
+const orderedVersions = [...skeleton.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
+const defaultToSkeleton = getCurrentVersion(skeleton);
+const defaultToIndex = orderedVersions.findIndex((version) => version.versionId === defaultToSkeleton.versionId);
+const defaultFromSkeleton = orderedVersions[Math.max(0, defaultToIndex - 1)] ?? orderedVersions[0];
+const norm = await store.getNorm(slug, [defaultFromSkeleton.versionId, defaultToSkeleton.versionId]);
+if (!norm) return Astro.rewrite('/404');
+const versions = [...norm.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));
+const defaultTo = versions.find((version) => version.versionId === defaultToSkeleton.versionId) ?? versions.at(-1)!;
+const defaultFrom = versions.find((version) => version.versionId === defaultFromSkeleton.versionId) ?? versions[0];
+const defaultProvisions = buildProvisionVersionDiff(defaultFrom, defaultTo);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const currentIdentity = getNormVersionIdentity(norm, defaultTo);
 const normTitle = toDisplayText(currentIdentity.title);
 const normShortTitle = toDisplayText(currentIdentity.shortTitle || currentIdentity.title);

@@ -53,18 +53,37 @@ export type HistoryEntryType = (typeof HISTORY_ENTRY_TYPES)[number];
 export type StructureType = (typeof STRUCTURE_TYPES)[number];
 export type TableHeaderScope = (typeof TABLE_HEADER_SCOPES)[number];
 
+export const NORM_SOURCE_KINDS = [
+  'structured-html-transcription',
+  'legacy-markdown-transcription',
+  'supplementary-markdown-transcription',
+  'revosax-snapshot',
+  'amendment-source',
+  'primary-pdf',
+  'structured-docx-source',
+] as const;
+
+/**
+ * `versioned`: unveränderte Quelle liegt als versionierte Repositorydatei vor (`localSource`).
+ * `r2-archived`: dieselbe unveränderte amtliche Quelle liegt unveränderlich im R2-Quellenarchiv
+ * (`objectKey`); Hash, amtliche URL und Gültigkeitsdaten bleiben Pflicht, damit die Provenienz
+ * nicht schwächer ist als bei einer Repositorydatei. Derzeit nur für `revosax-snapshot` zulässig.
+ */
+export const NORM_SOURCE_AVAILABILITIES = ['versioned', 'r2-archived'] as const;
+
+export type NormSourceKind = (typeof NORM_SOURCE_KINDS)[number];
+export type NormSourceAvailability = (typeof NORM_SOURCE_AVAILABILITIES)[number];
+
 export interface NormSourceReference {
-  kind:
-    | 'structured-html-transcription'
-    | 'legacy-markdown-transcription'
-    | 'supplementary-markdown-transcription'
-    | 'revosax-snapshot'
-    | 'amendment-source'
-    | 'primary-pdf'
-    | 'structured-docx-source';
+  kind: NormSourceKind;
   label: string;
-  availability: 'versioned';
-  localSource: string;
+  availability: NormSourceAvailability;
+  /** Relativer Pfad der versionierten Quelle; nur bei `availability: "versioned"`. */
+  localSource?: string;
+  /** R2-Objektschlüssel der unveränderten Quelle; nur bei `availability: "r2-archived"`. */
+  objectKey?: string;
+  /** Optionaler Bucketname, falls vom Standardarchiv abweichend. */
+  bucket?: string;
   url?: string;
   retrievedAt?: string;
   sha256?: string;
@@ -75,7 +94,7 @@ export interface NormSourceReference {
   pageCount?: number;
   pageRange?: string;
   verifiedAt?: string;
-  sourceRole?: 'structure-bearing' | 'visual-control' | 'supplementary-transcription' | 'official-snapshot' | 'amendment-evidence';
+  sourceRole?: 'structure-bearing' | 'visual-control' | 'supplementary-transcription' | 'official-snapshot' | 'amendment-evidence' | 'envelope-snapshot';
   derivedSource?: string;
 }
 
@@ -144,7 +163,13 @@ export interface NormMeta {
   type: NormType;
   /** Bestandsfeld; neue Datensätze trennen Organ und fachliche Zuständigkeit. */
   ministry?: string;
+  /** Erlassendes Organ der Norm im Sinne des ostdeutschen Rechtsbestands. */
   enactingBody?: string;
+  /**
+   * Historisches Ursprungsorgan der übernommenen Quelle (Rechtsüberleitung), z. B.
+   * „Sächsischer Landtag“. Provenienzangabe; kein Erlassorgan der ostdeutschen Norm.
+   */
+  originEnactingBody?: string;
   responsibleMinistry?: string;
   subjects: string[];
   primarySubject?: string;
@@ -157,6 +182,11 @@ export interface NormMeta {
   enactingNorm?: string;
   enactedNorm?: string;
   enactedNorms?: string[];
+  /**
+   * Mantelvorschrift, deren Artikel diese eigenständig geführte Änderungsvorschrift
+   * ist (REVOSax: „Bestandteil der Vorschrift“). Ergibt die Beziehung part-of/contains.
+   */
+  containedIn?: string;
   affectedNorms?: string[];
   affectedByNorms?: string[];
   relatedNorms?: string[];
@@ -344,48 +374,82 @@ function expectSlugArray(value: unknown, path: string): string[] {
   return value.map((entry, index) => expectSlug(entry, `${path}[${index}]`));
 }
 
+const SHA256_PATTERN = /^[a-f0-9]{64}$/u;
+const R2_OBJECT_KEY_PATTERN = /^[a-z0-9][a-z0-9._-]*(?:\/[a-z0-9][a-z0-9._-]*)+$/iu;
+
 function parseNormSourceReference(value: unknown, path: string): NormSourceReference {
   const object = expectObject(value, path);
+  const kind = expectEnumValue(object.kind, `${path}.kind`, NORM_SOURCE_KINDS);
+  const availability = expectEnumValue(object.availability, `${path}.availability`, NORM_SOURCE_AVAILABILITIES);
+  const localSource = expectOptionalString(object.localSource, `${path}.localSource`);
+  const objectKey = expectOptionalString(object.objectKey, `${path}.objectKey`);
+  const bucket = expectOptionalString(object.bucket, `${path}.bucket`);
+  const url = expectOptionalString(object.url, `${path}.url`);
+  const retrievedAt = object.retrievedAt === undefined
+    ? undefined
+    : expectIsoDate(object.retrievedAt, `${path}.retrievedAt`);
+  const sha256 = expectOptionalString(object.sha256, `${path}.sha256`);
+  const lawId = expectOptionalString(object.lawId, `${path}.lawId`);
+  const sourceValidFrom = object.sourceValidFrom === undefined
+    ? undefined
+    : expectIsoDate(object.sourceValidFrom, `${path}.sourceValidFrom`);
+  const mediaType = expectOptionalString(object.mediaType, `${path}.mediaType`) as NormSourceReference['mediaType'];
+  const sourceRole = expectOptionalString(object.sourceRole, `${path}.sourceRole`) as NormSourceReference['sourceRole'];
+
+  if (sha256 !== undefined && !SHA256_PATTERN.test(sha256)) {
+    fail(`${path}.sha256`, 'muss ein SHA-256-Hexwert mit 64 Zeichen sein');
+  }
+
+  if (availability === 'versioned') {
+    if (!localSource) fail(`${path}.localSource`, 'ist für eine versionierte Quelle erforderlich');
+    if (objectKey !== undefined || bucket !== undefined) {
+      fail(`${path}.objectKey`, 'ist nur für eine in R2 archivierte Quelle (availability r2-archived) zulässig');
+    }
+  } else {
+    if (kind !== 'revosax-snapshot') {
+      fail(`${path}.availability`, 'r2-archived ist nur für revosax-snapshot zulässig');
+    }
+    if (localSource !== undefined) {
+      fail(`${path}.localSource`, 'darf bei einer in R2 archivierten Quelle nicht gesetzt sein; Repositorydatei und R2-Objekt sind alternative Speicherorte');
+    }
+    if (!objectKey) fail(`${path}.objectKey`, 'ist für eine in R2 archivierte Quelle erforderlich');
+    if (!R2_OBJECT_KEY_PATTERN.test(objectKey)) fail(`${path}.objectKey`, 'muss ein R2-Objektschlüssel mit Präfixpfad sein');
+    if (!sha256) fail(`${path}.sha256`, 'ist für eine in R2 archivierte Quelle erforderlich');
+    if (!url) fail(`${path}.url`, 'muss die amtliche Fassungs-URL einer in R2 archivierten Quelle nennen');
+    if (!retrievedAt) fail(`${path}.retrievedAt`, 'ist für eine in R2 archivierte Quelle erforderlich');
+    if (!lawId) fail(`${path}.lawId`, 'ist für eine in R2 archivierte REVOSax-Quelle erforderlich');
+    if (!sourceValidFrom) fail(`${path}.sourceValidFrom`, 'ist für eine in R2 archivierte REVOSax-Quelle erforderlich');
+    // official-snapshot: die eigene amtliche Fassungsseite; envelope-snapshot: die
+    // Mantelvorschrift, aus deren Artikel der Text einer eigenständig geführten
+    // Änderungsvorschrift stammt (REVOSax „Bestandteil der Vorschrift“).
+    if (sourceRole !== 'official-snapshot' && sourceRole !== 'envelope-snapshot') fail(`${path}.sourceRole`, 'muss für eine in R2 archivierte REVOSax-Quelle official-snapshot oder envelope-snapshot sein');
+    if (mediaType !== 'text/html') fail(`${path}.mediaType`, 'muss für eine in R2 archivierte REVOSax-Quelle text/html sein');
+  }
+
   return {
-    kind: expectEnumValue(
-      object.kind,
-      `${path}.kind`,
-      [
-        'structured-html-transcription',
-        'legacy-markdown-transcription',
-        'supplementary-markdown-transcription',
-        'revosax-snapshot',
-        'amendment-source',
-        'primary-pdf',
-        'structured-docx-source',
-      ] as const,
-    ),
+    kind,
     label: expectString(object.label, `${path}.label`),
-    availability: expectEnumValue(object.availability, `${path}.availability`, ['versioned'] as const),
-    localSource: expectString(object.localSource, `${path}.localSource`),
-    url: expectOptionalString(object.url, `${path}.url`),
-    retrievedAt:
-      object.retrievedAt === undefined
-        ? undefined
-        : expectIsoDate(object.retrievedAt, `${path}.retrievedAt`),
-    sha256: expectOptionalString(object.sha256, `${path}.sha256`),
-    lawId: expectOptionalString(object.lawId, `${path}.lawId`),
-    sourceValidFrom:
-      object.sourceValidFrom === undefined
-        ? undefined
-        : expectIsoDate(object.sourceValidFrom, `${path}.sourceValidFrom`),
+    availability,
+    localSource,
+    objectKey,
+    bucket,
+    url,
+    retrievedAt,
+    sha256,
+    lawId,
+    sourceValidFrom,
     sourceValidTo:
       object.sourceValidTo === undefined
         ? undefined
         : expectIsoDate(object.sourceValidTo, `${path}.sourceValidTo`),
-    mediaType: expectOptionalString(object.mediaType, `${path}.mediaType`) as NormSourceReference['mediaType'],
+    mediaType,
     pageCount: expectOptionalInteger(object.pageCount, `${path}.pageCount`, { minimum: 1 }),
     pageRange: expectOptionalString(object.pageRange, `${path}.pageRange`),
     verifiedAt:
       object.verifiedAt === undefined
         ? undefined
         : expectIsoDate(object.verifiedAt, `${path}.verifiedAt`),
-    sourceRole: expectOptionalString(object.sourceRole, `${path}.sourceRole`) as NormSourceReference['sourceRole'],
+    sourceRole,
     derivedSource: expectOptionalString(object.derivedSource, `${path}.derivedSource`),
   };
 }
@@ -743,6 +807,7 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
     type: normalizedTypeMap[rawType],
     ministry: expectOptionalString(object.ministry, `${path}.ministry`),
     enactingBody: expectOptionalString(object.enactingBody, `${path}.enactingBody`),
+    originEnactingBody: expectOptionalString(object.originEnactingBody, `${path}.originEnactingBody`),
     responsibleMinistry: expectOptionalString(object.responsibleMinistry, `${path}.responsibleMinistry`),
     subjects,
     primarySubject,
@@ -766,6 +831,9 @@ export function parseNormMeta(value: unknown, path = 'meta.json'): NormMeta {
       object.enactedNorms === undefined
         ? undefined
         : expectSlugArray(object.enactedNorms, `${path}.enactedNorms`),
+    containedIn: object.containedIn === undefined
+      ? undefined
+      : expectSlug(object.containedIn, `${path}.containedIn`),
     affectedNorms:
       object.affectedNorms === undefined
         ? undefined

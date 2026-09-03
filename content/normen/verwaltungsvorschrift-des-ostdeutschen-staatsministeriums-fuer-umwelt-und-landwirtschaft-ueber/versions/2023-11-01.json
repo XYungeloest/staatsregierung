@@ -1,0 +1,535 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über das Ostdeutsche Altlastenkataster",
+  "shortTitle": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über das Ostdeutsche Altlastenkataster",
+  "abbr": "VwVOstAltK",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Umwelt und Landwirtschaft über das Ostdeutsche Altlastenkataster vom 29. Juni 2007 (SächsABl. S. 1002), zuletzt enthalten in der Verwaltungsvorschrift vom 4. Dezember 2025 (SächsABl. SDr. S. S 280)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 9546.1, gültig ab 2007-08-01",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/9546.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9546",
+      "retrievedAt": "2026-09-03",
+      "sha256": "3017a2ef47e03a3b7f6b5d5df4b89b0b8d9066bd7dd8be9607fc6fc48138a5a3",
+      "lawId": "9546",
+      "sourceValidFrom": "2007-08-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Regelungsgegenstand",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Im Freistaat Ostdeutschland wird ein digitales Altlastenkataster geführt, in dem alle im Freistaat Ostdeutschland bekannten Altstandorte und Altablagerungen im Sinne von § 2 Abs. 5 und 6 des Gesetzes zum Schutz vor schädlichen Bodenveränderungen und zur Sanierung von Altlasten (Bundes-Bodenschutzgesetz\n–\nBBodSchG) vom 17. März 1998 (BGBl. I S. 502), das zuletzt durch Artikel 3 des Gesetzes vom 9. Dezember 2004 (BGBl. I S. 3214) geändert worden ist, sowie betriebene und stillgelegte Deponien erfasst werden. Das Kataster trägt die Bezeichnung „Ostdeutsches Altlastenkataster“. Es wird zentral vom Ostdeutschen Landesamt für Umwelt und Geologie in einer automatisierten Datenbank (SALKA) geführt, auf die über eine Web-Anwendung von berechtigten Nutzern zugegriffen werden kann.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Wesentliche Rechtsvorschriften zur Führung des Altlastenkatasters sind",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "§ 11\nBBodSchG,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "§ 12b Abs. 2 Nr. 1 und § 13 Abs. 3 des Ostdeutschen Abfallwirtschafts- und Bodenschutzgesetzes (OstABG) in der Fassung der Bekanntmachung vom 31. Mai 1999 (SächsGVBl. S. 261), das zuletzt durch Artikel 21 des Gesetzes vom 5. Mai 2004 (SächsGVBl. S. 148, 156) geändert worden ist, sowie",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "das Umweltinformationsgesetz für den Freistaat Ostdeutschland (Ostdeutsches Umweltinformationsgesetz – OstUIG) vom 1. Juni 2006 (SächsGVBl. S. 146) und das Gesetz zum Schutz der informationellen Selbstbestimmung im Freistaat Ostdeutschland (Ostdeutsches Datenschutzgesetz – OstDSG) vom 25. August 2003 (SächsGVBl. S. 330), geändert durch Artikel 1 des Gesetzes vom 14. Dezember 2006 (SächsGVBl. S. 530).",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Inhalt der Datenbank SALKA",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Datenbank SALKA besteht aus dem Ostdeutschen Altlastenkataster (aktiver Datenbestand) und dem Archiv zum Ostdeutschen Altlastenkataster.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Im Ostdeutschen Altlastenkataster werden Daten zu Grundstücken, für die zukünftig weitere Maßnahmen nach\nBundes-Bodenschutzgesetz erforderlich sind oder erforderlich werden können, unter folgenden Kategorien und der Angabe des zukünftigen Handlungsbedarfs gespeichert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "altlastverdächtige Fläche – entsprechend § 2 Abs. 6\nBBodSchG, mit Handlungsbedarf B (Belassen), C (Überwachen) oder E (Erkunden),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Altlast – entsprechend § 2 Abs. 5\nBBodSchG, mit Handlungsbedarf SU (Sanierungsuntersuchung), San (Sanierung) oder C (Überwachen),",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "sanierte Altlast – nach Abschluss der erforderlichen Sanierungsmaßnahmen entsprechend § 4 BBodSchG, wenn danach noch weitere Maßnahmen zur Überwachung und Nachsorge entsprechend § 10 Abs. 1 und § 15 BBodSchG erforderlich sind (Handlungsbedarf C – Überwachen) oder Nutzungsbeschränkungen (§ 2 Abs. 8\nBBodSchG) bestehen (Handlungsbedarf B – Belassen).",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Im Archiv des Ostdeutschen Altlastenkatasters werden Daten zu Grundstücken, für die keine weitere Bearbeitung nach\nBundes-Bodenschutzgesetz mehr erforderlich ist und auch zukünftig nicht mehr erforderlich sein wird (Handlungsbedarf A), unter folgenden Kategorien abgelegt:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "keine Altlast/altlastverdächtige Fläche – wenn im Rahmen der durchgeführten Untersuchungen kein weiterer Handlungsbedarf festgestellt wurde und auch zukünftig nicht zu erwarten ist und gleichwohl der bisherige Untersuchungsumfang weiter zu dokumentieren ist,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "sanierte Altlast – nach Abschluss der erforderlichen Sanierungsmaßnahmen entsprechend § 4\nBBodSchG, wenn kein weiterer Überwachungs- oder Nachsorgebedarf besteht und keine Nutzungsbeschränkung erfolgt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Ausschlaggebend für die weitere Bearbeitung der altlastverdächtigen Flächen und Altlasten und deren Speicherung im SALKA ist der im Rahmen der zuletzt durchgeführten Maßnahmen festgestellte zukünftige Handlungsbedarf. Folgende Eintragungen sind für den Handlungsbedarf möglich:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "keine Angabe\n(1) Nach der Erfassung und formalen Erstbewertung erfolgt noch keine Aussage zum weiteren Handlungsbedarf. Wurde die altlastverdächtige Fläche nach der formalen Erstbewertung nicht wegen fehlenden Anfangsverdachtes gelöscht (siehe Ziffer IV Nr. 2), ist davon auszugehen, dass weitere Untersuchungen erforderlich sind; oder\n(2) für Bearbeitungsstufe ab der historischen Erkundung wurden die Ergebnisse der durchgeführten Maßnahmen der zuständigen Behörde nicht bekannt gegeben.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Ausscheiden (A)\nIm Rahmen der Erkundung wurde kein Handlungsbedarf für die altlastverdächtige Fläche festgestellt oder im Rahmen der Sanierung erfolgte eine vollständige Dekontamination. Der Handlungsbedarf ändert sich auch bei einer zukünftigen Nutzungsänderung nicht. Die Daten sind entsprechend Ziffer IV Nr. 3 bis 5 zu archivieren.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Belassen (B)\nIm Rahmen der Erkundung wurde bei der derzeitigen Nutzung kein Handlungsbedarf festgestellt oder die Sanierung der Altlast erfolgte für die derzeitige Nutzung. Bei einer sensibleren Nutzung kann der Altlastenverdacht wieder aufleben, so dass erneut Erkundungs- oder Sanierungsmaßnahmen erforderlich werden können. Daher unterbleibt eine Archivierung. Die Fläche verbleibt im Ostdeutschen Altlastenkataster.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Erkunden (E)/Sanierungsuntersuchung (SU)/Sanierung (San)\nNach Abschluss der letzten Bearbeitungsstufe sind weitere Maßnahmen zur Altlastenbehandlung nach\nBundes-Bodenschutzgesetz erforderlich.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "Überwachen (C)\nEine altlastverdächtige Fläche oder Altlast verbleibt im aktiven Datenbestand, wenn sie weiterhin zu überwachen ist. Dies ist insbesondere dann der Fall, wenn",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "aa)",
+                  "text": "zur endgültigen Gefährdungsabschätzung wiederkehrende Untersuchungen notwendig sind,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "bb)",
+                  "text": "die Kontamination bis zum Beginn der aktiven Sanierung aus Gefahrenabwehrgründen weiter zu beobachten ist,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "cc)",
+                  "text": "die aktive Sanierung einer Altlast unverhältnismäßig ist,",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "dd)",
+                  "text": "natürliche Schadstoffminderungsprozesse überwacht werden oder",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "ee)",
+                  "text": "im Ergebnis einer durchgeführten Sanierung deren Wirksamkeit oder Restkontamination kontrolliert werden soll.",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Entsprechend des Bearbeitungsfortschritts werden zu den unter Ziffer II Nr. 2 genannten Kategorien die Daten erhoben, die bei der Altlastenbehandlung (Erfassung, Untersuchung, Sanierung und Überwachung sowie bei der Durchführung sonstiger Maßnahmen) anfallen. Dies können insbesondere sein",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Altlastenkennziffer, Flächenart, Kategorie, geografische Lage, Größe und Flurstücksangaben der altlastenverdächtigen Flächen und Altlasten, sowie Prioritäten zur weiteren Bearbeitung,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Historie, darunter frühere und bestehende Nutzung des Grundstückes, Betriebskategorie von Altablagerungen und Deponien, Name und Anschrift von Eigentümern, Betreibern oder Nutzungsberechtigten sowie sonstige Pflichtige nach § 4\nBBodSchG und § 10 Abs. 2\nOstABG ,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Standortbeschreibung sowie Schutzobjekte im Einwirkungsbereich,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Art, Umfang, Menge und Beschaffenheit der Abfälle und Stoffe, die abgelagert worden sein können oder mit denen umgegangen worden sein kann,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "behördliche Entscheidungen, Anordnungen und Genehmigungen sowie Angaben zur Altlastenfreistellung,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "f)",
+              "text": "Untersuchungsergebnisse und festgestellte Umwelteinwirkungen einschließlich möglicher Gefährdungen der Gesundheit, die von altlastenverdächtigen Flächen und Altlasten ausgehen oder zu besorgen sind,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "g)",
+              "text": "Maßnahmen zur und Ergebnisse aus der Überwachung, Sanierung und Nachsorge von Altlasten einschließlich der Kosten der Altlastenbehandlung,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "h)",
+              "text": "Angaben zur gegenwärtigen und geplanten Nutzung und eventuelle Nutzungsbeschränkungen,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "i)",
+              "text": "sonstige, für die Erforschung und Abwehr von Gefahren und die Feststellung von Pflichtigen nach § 4\nBBodSchG und § 10 Abs. 2\nOstABG bedeutsame Sachverhalte und Rechtsverhältnisse,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "j)",
+              "text": "Verzeichnis der erstellten Gutachten und Dokumentationen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Datenerfassung und -aktualisierung",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Daten werden nach § 13 Abs. 3\nOstABG in der Regel von den unteren Bodenschutzbehörden von Amts wegen erfasst sowie regelmäßig aktualisiert. Festgestellte Fehler im Kataster sind zeitnah zu korrigieren.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Werden einer anderen Behörde unter Ziffer II aufgeführte Informationen bekannt, die bisher nicht im Kataster enthalten sind, übermittelt die betreffende Behörde diese Informationen unverzüglich der unteren Bodenschutzbehörde.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Insbesondere wenn die Maßnahmen der Altlastenbehandlung aus Haushaltsmitteln des Freistaates Ostdeutschland finanziert werden (Altlastenfreistellung, Fördermittel), soll gegenüber dem Pflichtigen nach § 4 Abs. 3, 5 oder 6 BBodschG die Übermittlung der maßnahmespezifischen Daten für das Ostdeutsche Altlastenkataster als Nebenbestimmung zum Freistellungs- beziehungsweise Fördermittelbescheid angeordnet werden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die Erfassung und Aktualisierung der Daten kann im Auftrag der zuständigen Behörde oder im Auftrag des Pflichtigen durch Dritte erfolgen. Die Behörden haben dabei § 7\nOstDSG zu beachten. Die untere Bodenschutzbehörde entscheidet in den Fällen der Nummern 2 bis 4 über die Übernahme der Daten in das Ostdeutsche Altlastenkataster.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV.",
+      "title": "Aufbewahrung, Löschen und Archivieren der Daten",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Für den Inhalt der Datenbank SALKA besteht eine zeitlich unbeschränkte Aufbewahrungspflicht; dies gilt nicht für personenbezogene Daten, deren Aufbewahrung für die Aufgabenerfüllung nicht mehr erforderlich ist (§ 20 Abs. 1 Nr. 2\nOstDSG).",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die in der Kategorie „altlastverdächtige Fläche“ erfassten Daten sind von der örtlich zuständigen unteren Bodenschutzbehörde unverzüglich zu löschen, wenn sich der Anfangsverdacht der betreffenden altlastverdächtigen Fläche nach ihrer Erfassung, ohne dass weitere Untersuchungen durchgeführt wurden, nicht bestätigt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Im Archiv im Sinne dieser Verwaltungsvorschrift werden Daten zu Grundstücken abgelegt, für die im Datenfeld Handlungsbedarf A eingetragen ist. Die Daten der unter Handlungsbedarf B eingestuften Grundstücke werden auch dann nicht archiviert, wenn die Entscheidung zur Einstufung unter B nur darauf beruht, dass eine künftige Nutzungsänderung den Gefahrenverdacht wieder aufleben lässt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die in der Kategorie „altlastverdächtige Fläche“ erfassten Daten sind von der unteren Bodenschutzbehörde zu archivieren, wenn im Rahmen der durchgeführten Untersuchungen kein weiterer Handlungsbedarf festgestellt wurde und auch zukünftig nicht zu erwarten ist. Die altlastverdächtige Fläche ist der Kategorie „keine Altlast/altlastverdächtige Fläche“ zuzuordnen. Eine Löschung unterbleibt, um dauerhaft zu dokumentieren, dass sich der Verdacht als unbegründet herausgestellt hat, und um Doppeluntersuchungen zu vermeiden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Die in der Kategorie „Altlast“ erfassten Daten sind von der unteren Bodenschutzbehörde zu archivieren, wenn nach erfolgter Sanierung kein weiterer Überwachungs- oder Nachsorgebedarf besteht und keine Nutzungsbeschränkung erfolgt. Die Altlast ist der Kategorie „sanierte Altlast“ zuzuordnen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Die Nutzung der archivierten Daten ist in der Regel nur noch zu statistischen Zwecken sowie zur Vermeidung des Wiederauflebens eines Altlastenverdachtes zulässig.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "V.",
+      "title": "Zugriffsrechte",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Landesamt für Umwelt und Geologie (LfUG) gewährleistet durch ein Nutzer- und Sicherheitskonzept, dass nur berechtigte Personen auf die Datenbank SALKA zugreifen können. Die vergebenen Zugriffsrechte werden automatisch protokolliert.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Zugriffsrechte der Bodenschutzbehörden auf die Datenbank SALKA werden wie folgt festgelegt:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Das LfUG erhält Lese- und Schreibrechte für alle Daten. Von den Schreibrechten macht das LfUG nur im Ausnahmefall und in Abstimmung mit den zuständigen Bearbeitern der Landkreise beziehungsweise Kreisfreien Städte Gebrauch.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Die Landratsämter beziehungsweise Stadtverwaltungen der Kreisfreien Städte erhalten Lese- und Schreibrechte für alle Daten zu Grundstücken ihres Landkreises beziehungsweise ihrer Kreisfreien Stadt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Die Regierungspräsidien erhalten Leserechte für die Daten aus den Landkreisen und Kreisfreien Städten ihres Regierungsbezirks.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Das SMUL erhält Leserechte für alle Daten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Die erforderlichen Zugriffsrechte auf die Datenbank SALKA für die unter Ziffer V Nr. 2 genannten Behörden werden für jede Behörde einem zu bestimmenden Administrator zugewiesen. Diesem werden für die behördeninterne Administration die erforderlichen Rechte und Hilfsmittel zur Verfügung gestellt. Innerhalb der unter Ziffer V Nr. 2 genannten Behörden erfolgt die Vergabe der Zugriffsrechte nur an berechtigte Personen, die das Kataster im Rahmen ihrer Dienstaufgabe benötigen. Neben den Aufgaben nach\nBundes-Bodenschutzgesetz können dies insbesondere auch Planungsaufgaben (Bau-/Regionalplanung) sein.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Für die Erfüllung von Aufgaben einzelner Landesbehörden (zum Beispiel SIB), Kommunen oder beauftragter Stellen (zum Beispiel Projektcontroller Altlastenfreistellung) werden vom LfUG Leserechte für ausgewählte Daten der Datenbank SALKA vergeben.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Werden im Rahmen von Maßnahmen der Altlastenbehandlung Dritte zur Datenerhebung beauftragt, kann die untere Bodenschutzbehörde ein Duplikat des Datenbestandes zu dieser altlastverdächtigen Fläche oder Altlast für eine zugriffsgeschützte Bearbeitung im Internet bereitstellen. Der beauftragte Dritte erhält nur für dieses Duplikat Lese- und Schreibrecht.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VI.",
+      "title": "Auskunftsrechte",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Recht auf Auskunft aus dem Ostdeutschen Altlastenkataster wird nach den Vorschriften des Ostdeutschen Umweltinformationsgesetzes gewährt. Bei Auskunftsersuchen aus dem Ostdeutschen Altlastenkataster einschließlich seines Archivs ist hinsichtlich des Schutzes privater Belange (§ 6 Abs. 1 OstUIG) grundsätzlich davon auszugehen, dass das Interesse an der Bekanntgabe den Schutz privater Belange überwiegt und Informationen zu erteilen sind. Der Umfang der mitzuteilenden Informationen ist im Einzelfall zu bestimmen."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VII.",
+      "title": "Information der Betroffenen",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die untere Bodenschutzbehörde hat ab In-Kraft-Treten dieser Verwaltungsvorschrift die Eigentümer über die Neuaufnahme von Grundstücken in das Ostdeutsche Altlastenkataster und über wesentliche Änderungen der gespeicherten personenbezogenen Daten zu informieren. Weiterhin ist darüber zu informieren, dass nach § 4 Abs. 1\nOstUIG jeder Person Auskünfte erteilt werden können, da es sich um Umweltinformationen handelt."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VIII.",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am 1. August 2007 in Kraft."
+        }
+      ]
+    }
+  ]
+}

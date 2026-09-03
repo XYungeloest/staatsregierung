@@ -1,0 +1,20 @@
+{
+  "pdfVerifications": [
+    {
+      "slug": "gesetz-zur-anderung-des-gesetzes-uber-sonn-und-feiertage-im-freistaat-ostdeutschland",
+      "path": "gesetz-zur-anderung-des-gesetzes-uber-sonn-und-feiertage-im-freistaat-ostdeutschland.versions[0].body[1].title",
+      "localSource": "Gesetze/OGVBl-03-24.pdf",
+      "sha256": "76b82af51dfd3e12e73645313a40db807205e61c5c659615890ea23ecfe58d40",
+      "quote": "Änderung des Gesetzes über Sonn- und Feiertage im Freistaat Sachsen",
+      "verifiedAt": "2026-09-03",
+      "method": "pdftotext (poppler), Textebene des amtlichen PDF OGVBl. 2024 Nr. 3",
+      "reason": "Eigener ostdeutscher Änderungsakt vom 7. März 2024; die Artikelüberschrift zitiert das damals so bezeichnete Gesetz über Sonn- und Feiertage im Freistaat Sachsen (Ausgangsrecht). Die Norm hat nur eine PDF-Quelle, deshalb dokumentierte Prüfung statt automatischem Textvergleich."
+    }
+  ],
+  "schemaVersion": 2,
+  "description": "Sachsen-Reststellen, die der Audit scripts/audit-ost-residuals.mjs nicht als übergeleitet (Adapter) und nicht als amtlich belegt (eigener ostdeutscher Erlass, wörtlich in Gesetze/) einordnen kann. Der Audit verlangt exakt diese Zähler; jede Änderung ist eine bewusste redaktionelle Entscheidung und wird mit --update-backlog fortgeschrieben. Zielzustand: leer.",
+  "updatedAt": "2026-09-03",
+  "normCount": 0,
+  "residualCount": 0,
+  "norms": {}
+}

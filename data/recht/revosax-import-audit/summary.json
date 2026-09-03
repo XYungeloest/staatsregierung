@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "baselineDate": "2023-11-01",
+  "generatedFrom": {
+    "report": "2026-09-03T16:02:19.269Z",
+    "plan": "2026-09-03T19:02:17.311Z",
+    "envelopes": "2026-09-03T19:02:13.242Z"
+  },
+  "discovery": {
+    "reportedRows": 5092,
+    "uniqueHits": 5089,
+    "duplicateListings": [
+      {
+        "url": "https://www.revosax.sachsen.de/vorschrift/10230-Aend-Architekten-und-Ingenieurgesetz",
+        "occurrences": 2
+      },
+      {
+        "url": "https://www.revosax.sachsen.de/vorschrift/2082-3-VO-zur-Aend-ErnVO",
+        "occurrences": 2
+      },
+      {
+        "url": "https://www.revosax.sachsen.de/vorschrift/9214-G-zum-9-RundfunkaenderungsStV",
+        "occurrences": 2
+      }
+    ],
+    "passes": [
+      {
+        "pass": 1,
+        "pagesVisited": 1019,
+        "rows": 5092,
+        "newHits": 5089,
+        "repeatedHits": 3,
+        "duplicateUrls": [
+          {
+            "url": "https://www.revosax.sachsen.de/vorschrift/10230-Aend-Architekten-und-Ingenieurgesetz",
+            "occurrences": 2
+          },
+          {
+            "url": "https://www.revosax.sachsen.de/vorschrift/2082-3-VO-zur-Aend-ErnVO",
+            "occurrences": 2
+          },
+          {
+            "url": "https://www.revosax.sachsen.de/vorschrift/9214-G-zum-9-RundfunkaenderungsStV",
+            "occurrences": 2
+          }
+        ],
+        "uniqueTotal": 5089
+      },
+      {
+        "pass": 2,
+        "pagesVisited": 1019,
+        "rows": 5092,
+        "newHits": 0,
+        "repeatedHits": 5092,
+        "duplicateUrls": [
+          {
+            "url": "https://www.revosax.sachsen.de/vorschrift/10230-Aend-Architekten-und-Ingenieurgesetz",
+            "occurrences": 2
+          },
+          {
+            "url": "https://www.revosax.sachsen.de/vorschrift/2082-3-VO-zur-Aend-ErnVO",
+            "occurrences": 2
+          },
+          {
+            "url": "https://www.revosax.sachsen.de/vorschrift/9214-G-zum-9-RundfunkaenderungsStV",
+            "occurrences": 2
+          }
+        ],
+        "uniqueTotal": 5089
+      }
+    ],
+    "manifestDiscoveredAt": "2026-09-03T11:51:50.139Z"
+  },
+  "staging": {
+    "total": 5089,
+    "successful": 5089,
+    "failed": 0,
+    "reviewCases": 699,
+    "failureCounts": {
+      "http": 0,
+      "parser": 0,
+      "adapter": 0,
+      "residual": 0,
+      "validity": 0,
+      "manifest": 0,
+      "other": 0
+    }
+  },
+  "plan": {
+    "CREATE": 99,
+    "MATCH": 4874,
+    "PROTECT": 52,
+    "REVIEW": 0,
+    "SKIP": 64,
+    "DEFERRED": 0,
+    "writable": true
+  },
+  "balance": {
+    "uniqueHits": 5089,
+    "materializedOwnNorms": 4966,
+    "existingMatched": 7,
+    "protectedExisting": 52,
+    "review": 0,
+    "reviewDeferred": 0,
+    "skipped": 64,
+    "skippedByCategory": {
+      "manual-decision": 2,
+      "no-text-in-revosax": 9,
+      "envelope-alias": 42,
+      "duplicate-source": 1,
+      "same-version-alias": 8,
+      "identical-text-alias": 2
+    },
+    "sums": 5089
+  },
+  "envelopes": {
+    "componentCount": 1662,
+    "classes": {
+      "A": 1620,
+      "B": 42,
+      "C": 0,
+      "D": 0
+    },
+    "byAction": {
+      "MATCH": 1521,
+      "SKIP": 42,
+      "CREATE": 99
+    },
+    "fetchedEnvelopes": 20
+  },
+  "attachments": {
+    "referenced": 890,
+    "archived": 890,
+    "verified": 890,
+    "byKind": {
+      "pdf": 889,
+      "other": 1
+    }
+  },
+  "r2": {
+    "htmlObjects": 5092,
+    "htmlVerified": 5092
+  },
+  "reviewFlags": {
+    "counts": {
+      "missing-document-date": 250,
+      "attachment-only-content": 2,
+      "attachments": 242,
+      "source-ended-without-successor": 284,
+      "document-date-mismatch": 75,
+      "resolved-historical-version": 75,
+      "no-provisions": 61,
+      "legacy-layout": 4,
+      "duplicate-interval-versions": 1,
+      "multi-version-identical-text": 2
+    },
+    "sourceEndingTypes": {
+      "A": 275,
+      "unclear": 2,
+      "B": 7
+    },
+    "sourceEndingResolutions": {
+      "open": 1,
+      "sunset-applies": 8
+    },
+    "documentDateFromListing": 249,
+    "documentDateMissing": 1
+  },
+  "decisions": {
+    "1018": {
+      "action": "SKIP",
+      "reason": "Europäisches Übereinkommen über das grenzüberschreitende Fernsehen: REVOSax hält den Text nur als PDF-Anlagen vor. Das Übereinkommen selbst (Anlage 12287, 25 Seiten, revosax/2023-11-01/attachments/1018/12287-01_93_1160a_UEK.pdf) ist ein Scan ohne Textebene (pdftotext liefert keinen Text) und dürfte nur per OCR erschlossen werden; das Änderungsprotokoll (Anlage 12285, Textebene vorhanden) ist ohne den Haupttext nicht sinnvoll. Beide PDFs sind hashverifiziert in R2 archiviert; Materialisierung bleibt ein Reviewfall."
+    },
+    "17114": {
+      "action": "SKIP",
+      "reason": "Der REVOSax-Lesetext besteht ausschließlich aus dem Verweis auf die Anlage 29063 (revosax/2023-11-01/attachments/17114/29063-02_17_0115a_anl.pdf, 8 Seiten, Textebene vorhanden). Die Anlage ist ein Fragebogenformular (Anlage zu Ziffer I mit Anhang), kein strukturierbarer Normtext; eine automatische Umsetzung in Normblöcke wäre irreführend. PDF hashverifiziert archiviert; Materialisierung bleibt ein Reviewfall."
+    }
+  },
+  "sunsetDecisions": {
+    "14110.1": {
+      "slug": "esf-richtlinie-qualifizierung-gefangener-2014-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "15276.2": {
+      "slug": "rl-forschung-infrapro",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "15277.1": {
+      "slug": "efre-richtlinie-sms-2014-bis-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "16696.3": {
+      "slug": "smk-esf-richtlinie-2014-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "16734.3": {
+      "slug": "esf-technologiefoerderung-2014-bis-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "16965.1": {
+      "slug": "rl-verkehrsinfrastruktur",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "17642.2": {
+      "slug": "rl-esf-hochschule-und-forschung-2014-bis-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "20009.1": {
+      "slug": "massnahmekatalog-bienen",
+      "resolution": "sunset-applies",
+      "expiryDate": "2027-12-31",
+      "status": "in-force"
+    },
+    "14011.1": {
+      "slug": "rl-hilfe-wohngebaeude-und-unternehmen-2014",
+      "resolution": "open",
+      "expiryDate": null,
+      "status": null
+    }
+  },
+  "derivedMetadata": {
+    "norms": 4966,
+    "fields": [
+      "subjects",
+      "keywords",
+      "summary"
+    ],
+    "source": "automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferSubjects, inferKeywords, inferSummary); Erlassorgan der Quelle als originEnactingBody (Provenienz)"
+  },
+  "residualBacklog": {
+    "norms": 0,
+    "residuals": 0
+  }
+}

@@ -1,13 +1,21 @@
-import { buildSearchSuggestionPayload } from '@ostrecht/recht-search/search.ts';
+import type { APIRoute } from 'astro';
 
-export const prerender = true;
+import { getNormStore } from '../lib/runtime/context.ts';
 
-export async function GET() {
-  const payload = await buildSearchSuggestionPayload();
+// Autovervollständigung aus der D1-Projektion (Bezeichnungen der geltenden Fassungen).
+export const prerender = false;
 
-  return new Response(JSON.stringify(payload), {
+export const GET: APIRoute = async ({ locals }) => {
+  const store = await getNormStore(locals);
+  // Bezeichnungen und Aliasse der geltenden Fassungen aus law_norms; keine Fassungs-JSONs.
+  const suggestions = await store.listSearchSuggestions();
+  return new Response(JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    suggestions,
+  }), {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'public, max-age=600, s-maxage=3600',
     },
   });
-}
+};

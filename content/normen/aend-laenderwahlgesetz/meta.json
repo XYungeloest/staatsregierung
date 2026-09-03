@@ -1,0 +1,53 @@
+{
+  "id": "aend-laenderwahlgesetz",
+  "slug": "aend-laenderwahlgesetz",
+  "title": "Änderung des Länderwahlgesetzes",
+  "shortTitle": "Änd. Länderwahlgesetz",
+  "shortTitleSource": "official",
+  "type": "aenderungsvorschrift",
+  "originEnactingBody": "Sächsischer Landtag",
+  "subjects": [
+    "Staats- und Verfassungsrecht"
+  ],
+  "keywords": [
+    "Änd. Länderwahlgesetz",
+    "Änderung",
+    "Länderwahlgesetzes"
+  ],
+  "initialCitation": "Änderung des Länderwahlgesetzes vom 10. November 1992 (SächsGVBl. S. 539, 540)",
+  "predecessor": null,
+  "successor": null,
+  "containedIn": "agbtg-und-aend-weiterer-rechtsvorschriften",
+  "summary": "Übernommene Änderungsvorschrift des Rechtsbestands zum 1. November 2023: „Änd. Länderwahlgesetz“.",
+  "status": "one-time-act",
+  "documentDate": "1992-11-10",
+  "effectiveDate": "1992-11-21",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 5140 (Bestandteil der Vorschrift 9498)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/5140.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/5140",
+      "retrievedAt": "2026-09-03",
+      "sha256": "cc22aa555d328071e7b4488186147b9774b53c7a3eb97a24617f191bffb28cac",
+      "lawId": "5140",
+      "sourceValidFrom": "1992-11-21",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 9498, Artikel 2 (Gesetz zur Ausführung des Betreuungsgesetzes)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/9498.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9498#a2",
+      "retrievedAt": "2026-09-03",
+      "sha256": "a6949af934538cb67c8a78b3a701137ebe98d57657ab188e0b6cfabd8867a83e",
+      "lawId": "9498",
+      "sourceValidFrom": "2002-07-03",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ]
+}

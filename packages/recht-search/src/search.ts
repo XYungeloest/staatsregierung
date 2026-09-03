@@ -1,4 +1,3 @@
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import {
   buildNormFullCitation,
   buildNormRecordLookup,
@@ -14,7 +13,6 @@ import {
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   buildNormPublicationReferenceLookup,
-  loadAllVerkuendungen,
   type NormPublicationReference,
   type Verkuendung,
 } from '@ostrecht/shared/lib/norms/publications.ts';
@@ -147,7 +145,7 @@ export interface SearchPublication {
   issue: string;
 }
 
-interface CollectedBodyContent {
+export interface CollectedBodyContent {
   supplementalTextParts: string[];
   hitUnits: SearchHitUnit[];
 }
@@ -183,7 +181,7 @@ function getHitUnitReferences(block: NormBodyBlock): SearchHitUnit['references']
   return undefined;
 }
 
-function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
+export function collectBodyContent(blocks: NormBodyBlock[]): CollectedBodyContent {
   const supplementalTextParts: string[] = [];
   const hitUnits: SearchHitUnit[] = [];
   const anchors = buildNormAnchorMap(blocks);
@@ -278,7 +276,7 @@ function compareLabelValuePairs(
   return left.label.localeCompare(right.label, 'de');
 }
 
-function compareStrings(left: string, right: string): number {
+export function compareStrings(left: string, right: string): number {
   return left.localeCompare(right, 'de');
 }
 
@@ -290,7 +288,7 @@ export function isAmendmentRecord(record: Pick<NormRecord, 'meta'>): boolean {
   );
 }
 
-function getNormAliases(record: NormRecord, currentIdentity: ReturnType<typeof getNormVersionIdentity>): string[] {
+export function getNormAliases(record: NormRecord, currentIdentity: ReturnType<typeof getNormVersionIdentity>): string[] {
   const currentValues = new Set([
     currentIdentity.title,
     currentIdentity.shortTitle,
@@ -309,7 +307,7 @@ function getNormAliases(record: NormRecord, currentIdentity: ReturnType<typeof g
   return [...aliases].sort(compareStrings);
 }
 
-function buildSearchDocument(
+export function buildSearchDocument(
   record: NormRecord,
   version: NormVersion,
   recordsBySlug: NormRecordLookup,
@@ -390,7 +388,7 @@ function buildSearchDocument(
   };
 }
 
-function buildSearchSuggestions(records: NormRecord[]): SearchSuggestion[] {
+export function buildSearchSuggestions(records: NormRecord[]): SearchSuggestion[] {
   return records.flatMap((record) => {
     const version = record.versions.find((entry) => classifyNormVersion(record, entry) === 'current');
     if (!version) return [];
@@ -407,7 +405,7 @@ function buildSearchSuggestions(records: NormRecord[]): SearchSuggestion[] {
   }).sort((left, right) => left.title.localeCompare(right.title, 'de'));
 }
 
-function buildSearchPublications(publications: Verkuendung[]): SearchPublication[] {
+export function buildSearchPublications(publications: Verkuendung[]): SearchPublication[] {
   return publications.map((publication) => {
     const designation = `${publication.publication} ${publication.year} Nr. ${publication.issue}`;
     const aliases = [
@@ -429,15 +427,7 @@ function buildSearchPublications(publications: Verkuendung[]): SearchPublication
   });
 }
 
-export async function buildSearchSuggestionPayload(): Promise<SearchSuggestionPayload> {
-  const records = await loadAllNorms();
-  return {
-    generatedAt: new Date().toISOString(),
-    suggestions: buildSearchSuggestions(records),
-  };
-}
-
-function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
+export function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
   const types = new Map<string, string>();
   const ministries = new Set<string>();
   const subjects = new Set<string>();
@@ -477,50 +467,5 @@ function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
     ],
     publications: [],
     years: [],
-  };
-}
-
-export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
-  const [records, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
-  const recordsBySlug = buildNormRecordLookup(records);
-  const publicationReferences = buildNormPublicationReferenceLookup(publications);
-  const documents = records
-    .flatMap((record) =>
-      record.versions.map((version) =>
-        buildSearchDocument(
-          record,
-          version,
-          recordsBySlug,
-          publicationReferences.get(`${record.meta.slug}:${version.versionId}`),
-        ),
-      ),
-    )
-    .sort((left, right) => {
-      if (left.title !== right.title) {
-        return left.title.localeCompare(right.title, 'de');
-      }
-
-      return right.validFrom.localeCompare(left.validFrom);
-    });
-  const filters = buildFilterOptions(records);
-  filters.publications = [...new Set(documents.map((entry) => entry.publicationSource).filter(Boolean) as string[])].sort(compareStrings);
-  filters.years = [...new Set(documents.map((entry) => entry.publicationYear).filter(Boolean) as string[])].sort((left, right) => right.localeCompare(left));
-
-  return {
-    generatedAt: new Date().toISOString(),
-    buildCommit: import.meta.env?.PORTAL_BUILD_COMMIT ?? process.env.PORTAL_BUILD_COMMIT ?? 'development',
-    documentCount: documents.length,
-    latestPublication: publications[0]
-      ? {
-          slug: publications[0].slug,
-          date: publications[0].date,
-          publication: publications[0].publication,
-          year: publications[0].year,
-          issue: publications[0].issue,
-        }
-      : undefined,
-    filters,
-    documents,
-    publications: buildSearchPublications(publications),
   };
 }

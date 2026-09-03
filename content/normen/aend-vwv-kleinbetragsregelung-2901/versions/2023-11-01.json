@@ -1,0 +1,92 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung VwV Kleinbetragsregelung",
+  "shortTitle": "Änd. VwV Kleinbetragsregelung",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung VwV Kleinbetragsregelung vom 15. November 2001 (SächsABl. S. 1192)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: I. der Mantelvorschrift 5304, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 2901 (Bestandteil der Vorschrift 5304)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/2901.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/2901",
+      "retrievedAt": "2026-09-03",
+      "sha256": "27b08646a23426b056bf7079d08769cbb5266ac6291c725104a41ab25f855dbd",
+      "lawId": "2901",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 5304, I. (Verwaltungsvorschrift des Sächsischen Staatsministeriums der Justiz zur Euro-bedingten Änderung im Sächsischen Amtsblatt veröffentlichter Verwaltungsvorschriften.)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/envelope-5304.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/5304#roemI",
+      "retrievedAt": "2026-09-03",
+      "sha256": "eab22ef2b58b5bbf809de137da67e000a268c4a61200db134faebdfa5bc70fd0",
+      "lawId": "5304",
+      "sourceValidFrom": "2002-01-01",
+      "sourceValidTo": "2013-12-31",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Änderung der Kleinbetragsregelung",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Ziffer I der Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Justiz über die Behandlung von Kleinbeträgen im Bereich der Justizverwaltung (Kleinbetragsregelung) vom 2. Dezember 1992 (SächsABl. 1993 S. 27), die zuletzt durch Verwaltungsvorschrift vom 31. März 1999 (SächsJMBl. S. 69) geändert und durch Verwaltungsvorschrift vom 28. November 1997 (SächsABl. S. 1260) verlängert worden ist, wird mit Einwilligung des Staatsministeriums der Finanzen und nach Anhörung des Rechnungshofes wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In Nummer 1.1 wird die Angabe „10,00 DM“ durch die Angabe „5 EUR“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "In Nummer 3.1 wird die Angabe „10,00 DM“ durch die Angabe „5 EUR“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "In Nummer 3.2 wird jeweils die Angabe „50 DM“ durch die Angabe „25 EUR“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "In Nummer 4.1 wird die Angabe „20 DM“ durch die Angabe „10 EUR“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "In Nummer 6 wird die Angabe „10,00 DM“ durch die Angabe „5 EUR“ sowie die Angabe „50 DM“ durch die Angabe „25 EUR“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

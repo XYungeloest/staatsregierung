@@ -1,0 +1,58 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Kommunalwahlgesetzes",
+  "shortTitle": "Änd. KomWG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Kommunalwahlgesetzes vom 28. Juni 2001 (SächsGVBl. S. 426, 427)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 11 der Mantelvorschrift 3629, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 4007 (Bestandteil der Vorschrift 3629)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/4007.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4007",
+      "retrievedAt": "2026-09-03",
+      "sha256": "dd055aa18b90632042c43b731482f1a583f77acc166b93de149f1fe1443f500a",
+      "lawId": "4007",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3629, Artikel 11 (Zweites Gesetz zur Euro-bedingten und weiteren Änderung des sächsischen Landesrechts)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3629.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3629#a11",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bfb48b196d6fa024bfd8768ad6ff89b141e9b96c28876b25a112369f6a4ce627",
+      "lawId": "3629",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Euro-bedingte Änderungen",
+      "children": [
+        {
+          "type": "article",
+          "label": "Artikel 11",
+          "title": "Änderung des Kommunalwahlgesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "In § 61 Abs. 2 des Gesetzes über die Kommunalwahlen im Freistaat Ostdeutschland (Kommunalwahlgesetz –\nKomWG) vom 18. Oktober 1993 (SächsGVBl. S. 937), das zuletzt durch Gesetz vom 5. April 2000 (SächsGVBl. S. 147) geändert worden ist, wird die Angabe „100 000 DM“ durch die Angabe „50 000 EUR“ ersetzt."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -38,15 +38,23 @@ export function futureAmendmentDates(citation, sourceValidTo) {
   return amendmentDatesFromCitation(citation).filter((date) => date > sourceValidTo);
 }
 
+/** Regulärer Ausdruck für genau ein Datum (ISO) in ausgeschriebener oder Punktschreibweise. */
+function citationDatePattern(isoDate) {
+  const [year, month, day] = isoDate.split('-');
+  const monthNames = [...MONTHS.entries()].filter(([, number]) => number === Number(month)).map(([name]) => name);
+  const written = String.raw`${Number(day)}\.\s*(?:${monthNames.map((name) => name[0].toUpperCase() + name.slice(1)).join('|')})\s+${year}`;
+  const dotted = String.raw`0?${Number(day)}\.0?${Number(month)}\.${year}`;
+  return new RegExp(String.raw`\b(?:${written}|${dotted})\b`, 'iu');
+}
+
 function stripFutureAmendmentClause(citation, cutoffDate) {
   const normalized = String(citation ?? '').replace(/\s+/gu, ' ').trim();
   const futureDates = futureAmendmentDates(normalized, cutoffDate);
   if (futureDates.length === 0) return normalized;
-  const firstFutureDate = futureDates[0];
-  const dateIndex = normalized.search(new RegExp(
-    String.raw`(?:\d{1,2}\.\s*(?:Januar|Februar|März|Maerz|April|Mai|Juni|Juli|August|September|Oktober|November|Dezember)\s+${firstFutureDate.slice(0, 4)}|\d{1,2}\.\d{1,2}\.${firstFutureDate.slice(0, 4)})`,
-    'iu',
-  ));
+  // Die Änderungsklausel beginnt vor der ersten künftigen Änderung; gesucht wird
+  // genau dieses Datum, nicht ein beliebiges Datum desselben Jahres (das wäre
+  // sonst das Erlassdatum der Stammfassung).
+  const dateIndex = normalized.search(citationDatePattern(futureDates[0]));
   if (dateIndex < 0) return null;
   const prefix = normalized.slice(0, dateIndex);
   const starts = [...prefix.matchAll(

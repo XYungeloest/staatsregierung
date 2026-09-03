@@ -1,0 +1,84 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Besoldungsgesetzes",
+  "shortTitle": "Änd. OstBesG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Besoldungsgesetzes vom 21. Dezember 2021 (SächsGVBl. 2022 S. 2)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 2 der Mantelvorschrift 19466, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 19468 (Bestandteil der Vorschrift 19466)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/19468.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19468",
+      "retrievedAt": "2026-09-03",
+      "sha256": "a8604c76083d03c5abfe0f29df82be0fe9ed4d82935a419109cfbd35ac027ee4",
+      "lawId": "19468",
+      "sourceValidFrom": "2022-03-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 19466, Artikel 2 (Gesetz zur Neuordnung der Organisation von Studium, Ausbildung und Fortbildung der sächsischen Polizei)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/19466.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/19466#a2",
+      "retrievedAt": "2026-09-03",
+      "sha256": "24af541ef40817fc14713eb414a0c3589c99137e474a9c068c86ab6ec8062d32",
+      "lawId": "19466",
+      "sourceValidFrom": "2022-03-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Änderung des Ostdeutschen Besoldungsgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Ostdeutsche Besoldungsgesetz vom 18. Dezember 2013 (SächsGVBl. S. 970, 1005), das zuletzt durch Artikel 1 des Gesetzes vom 20. August 2019 (SächsGVBl. S. 662) geändert worden ist, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In der Anlage 1 Ziffer I werden in der Besoldungsgruppe A 15 die Wörter „Kanzler der Hochschule der Ostdeutschen Polizei (FH)“ gestrichen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Anlage 2 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In der Besoldungsgruppe B 2 werden die Wörter „Rektor der Hochschule der Ostdeutschen Polizei (FH)“ gestrichen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In der Besoldungsgruppe B 3 werden nach den Wörtern „Präsident des Statistischen Landesamtes“ ein Zeilenumbruch, die Wörter „Rektor der Hochschule der Ostdeutschen Polizei (FH)“ und ein weiterer Zeilenumbruch eingefügt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

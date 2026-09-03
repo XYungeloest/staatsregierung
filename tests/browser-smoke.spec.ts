@@ -116,7 +116,7 @@ siteTest(['portal', 'law'])('alle ausgelieferten Routentypen tragen dieselbe vol
   let publicationSlug: string | undefined;
   if (selectedSiteTargets.includes('law')) {
     const [searchIndexResponse, publicationIndexResponse] = await Promise.all([
-      request.get(lawUrl('/search-index.json')),
+      request.get(lawUrl('/api/suche.json')),
       request.get(lawUrl('/verkuendungen/index.json')),
     ]);
     expect(searchIndexResponse).toBeOK();
@@ -143,7 +143,7 @@ siteTest(['portal', 'law'])('alle ausgelieferten Routentypen tragen dieselbe vol
       lawUrl('/verfassung/'),
       lawUrl(normPath!),
       lawUrl(`/verkuendungen/${publicationSlug}/`),
-      lawUrl('/search-index.json'),
+      lawUrl('/api/suche.json'),
       lawUrl('/verkuendungen/index.json'),
     ] : []),
   ];
@@ -342,7 +342,7 @@ siteTest(['law'])('Normverzeichnis stellt Filter, leere Buchstaben und Browserve
 
 siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen folgen dem redaktionellen Stichtag', async ({ page }) => {
   await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'));
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sächsische Gemeindeordnung');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Ostdeutsche Gemeindeordnung');
   const metadata = page.locator('[data-visual-section="norm-metadata"]');
   await expect(metadata).toContainText('1. November 2023');
   await expect(metadata).toContainText('30. Dezember 2023');
@@ -535,10 +535,9 @@ siteTest(['law'])('Rechtsportal verwendet auf Übersichten und Suchindex dieselb
   await page.goto(lawUrl('/verkuendungen/'));
   await expect(page.locator('[data-law-filter-entry]').first()).toContainText(latestPublicationLabel);
 
-  const searchIndexResponse = await request.get(lawUrl('/search-index.json'));
-  expect(searchIndexResponse).toBeOK();
-  const searchIndex = await searchIndexResponse.json();
-  expect(searchIndex.latestPublication).toEqual(latestPublication);
+  const recheckResponse = await request.get(lawUrl('/verkuendungen/index.json'));
+  expect(recheckResponse).toBeOK();
+  expect((await recheckResponse.json()).latestPublication).toEqual(latestPublication);
 });
 
 siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwerkzeuge', async ({ page }) => {
@@ -650,13 +649,70 @@ siteTest(['law'])('Rechtssuche wählt die Sortierung kontextabhängig und bewahr
   await expect(page.locator('select[name="sort"]')).toHaveValue('publication');
 });
 
-siteTest(['law'])('A–Z-Stichwortindex ist nicht leer und lässt sich lokal filtern', async ({ page }) => {
+siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet einen lokal filterbaren Stichwortindex', async ({ page }) => {
   await page.goto(lawUrl('/archiv/'));
+  await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('A');
+  expect(await page.locator('[data-index-list] li').count()).toBeGreaterThan(0);
+  expect(await page.locator('[data-index-list] li').count()).toBeLessThanOrEqual(50);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', /\/archiv\/\?buchstabe=A$/u);
+
+  // Buchstabenwechsel über die URL (ohne JavaScript nutzbar): nur Normen dieser Gruppe.
+  await page.locator('.letter-nav a[data-index-letter="O"]').click();
+  await expect(page).toHaveURL(/buchstabe=O/u);
+  await expect(page.locator('.letter-nav a[aria-current="page"]')).toHaveText('O');
+  const titles = await page.locator('[data-index-list] li a').allTextContents();
+  expect(titles.length).toBeGreaterThan(0);
+  expect(titles.every((title) => /^[OÖ]/u.test(title.trim()))).toBe(true);
+
+  // Stichwortindex der Gruppe: serverseitig gefiltert (GET) und lokal auf der geladenen Seite filterbar.
+  await page.goto(lawUrl('/archiv/?buchstabe=K&stichwort=Kultur'));
+  await expect(page).toHaveURL(/stichwort=Kultur/u);
   const entries = page.locator('[data-index-entry]');
   expect(await entries.count()).toBeGreaterThan(0);
-  await page.locator('[data-index-filter]').fill('Kultur');
-  await expect(page.locator('[data-index-filter-status]')).toContainText('Stichwörter');
+  expect(await entries.count()).toBeLessThanOrEqual(100);
+  await expect(page.locator('[data-index-filter-status]')).toContainText('passen zu „Kultur“');
+  await page.locator('[data-index-filter]').fill('Kulturpass');
+  await expect(page.locator('[data-index-filter-status]')).toContainText('dieser Seite');
   expect(await entries.evaluateAll((nodes) => nodes.filter((node) => !(node as HTMLElement).hidden).length)).toBeGreaterThan(0);
+  await page.locator('[data-keyword-filter-form] button[type="submit"]').click();
+  await expect(page).toHaveURL(/stichwort=Kulturpass/u);
+  await expect(page.locator('[data-index-filter-status]')).toContainText('passen zu „Kulturpass“');
+
+  // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
+  const response = await page.goto(lawUrl('/archiv/?buchstabe=A&seite=999'));
+  expect(response?.status()).toBe(200);
+  await expect(page.locator('[data-index-count]')).toContainText('angezeigt');
+});
+
+siteTest(['law'])('Rechtsentwicklung filtert und paginiert serverseitig über GET-Parameter', async ({ page }) => {
+  await page.goto(lawUrl('/rechtsentwicklung/'));
+  await expect(page.locator('[data-development-count]')).toContainText('im Bestand');
+  const total = await page.locator('[data-development-item]').count();
+  expect(total).toBeGreaterThan(0);
+  expect(total).toBeLessThanOrEqual(50);
+
+  // Auswahländerung sendet das GET-Formular; die URL trägt die Auswahl.
+  await page.locator('select[name="origin"]').selectOption('inherited-amended');
+  await expect(page).toHaveURL(/origin=inherited-amended/u);
+  await expect(page.locator('select[name="origin"]')).toHaveValue('inherited-amended');
+  const origins = await page.locator('[data-development-item]').evaluateAll((nodes) => nodes.map((node) => (node as HTMLElement).dataset.origin));
+  expect(origins.length).toBeGreaterThan(0);
+  expect(origins.every((origin) => origin === 'inherited-amended')).toBe(true);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
+
+  // Freitext per Formular, Zurück-Navigation stellt den vorherigen Zustand wieder her.
+  await page.locator('[data-development-filter-form] input[name="q"]').fill('Gemeindeordnung');
+  await page.locator('[data-development-filter-form] button[type="submit"]').click();
+  await expect(page).toHaveURL(/q=Gemeindeordnung/u);
+  await expect(page.locator('[data-development-item]').first()).toContainText('Gemeindeordnung');
+  await page.goBack();
+  await expect(page).toHaveURL(/origin=inherited-amended/u);
+  await expect(page).not.toHaveURL(/q=/u);
+
+  // Leere Treffermenge zeigt einen Hinweis statt einer Liste.
+  await page.goto(lawUrl('/rechtsentwicklung/?q=xyzzy-nicht-vorhanden'));
+  await expect(page.locator('[data-development-count]')).toContainText('keine Vorschriften');
+  await expect(page.locator('[data-development-empty]')).toBeVisible();
 });
 
 siteTest(['portal'])('Wappen kennzeichnet die Wortmarke in Kopf und Fuß', async ({ page }) => {
