@@ -2,280 +2,96 @@
 
 import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
-import { parse } from 'parse5';
 
-const SEARCH_URL = 'https://www.revosax.sachsen.de/vorschriftensuche';
-const DEFAULT_DATE = '2023-11-01';
-const ALL_TYPES = new Set(['G', 'ÄG', 'VO', 'ÄVO', 'VwV', 'ÄVwV', 'FRL', 'ÄFRL', 'StV', 'ÄStV', 'ZuG', 'ÄZuG']);
+import {
+  DEFAULT_BASELINE_DATE,
+  RevosaxDiscoveryError,
+  RevosaxHttpError,
+  assertIsoDate,
+  discoverBaseline,
+} from './lib/revosax-discovery.mjs';
+
+/**
+ * Ermittelt den vollständigen REVOSax-Bestand zu einem Geltungstag über die
+ * echte erweiterte Suche (`GET /suche?search_request=<JSON>` mit Session-
+ * Pagination). Der Ablauf, das reale Requestformat und die fail-closed-Regeln
+ * sind in `scripts/lib/revosax-discovery.mjs` und docs/REVOSAX_BULK_IMPORT.md
+ * dokumentiert. Ohne exakt konsistenten Trefferbestand wird kein Manifest
+ * geschrieben.
+ */
+
+const USAGE = `Verwendung: node scripts/revosax-discover-baseline.mjs [Optionen]
+
+Optionen:
+  --date <YYYY-MM-DD>   Geltungstag der REVOSax-Suche (Standard: ${DEFAULT_BASELINE_DATE})
+  --output <Pfad>       Zielmanifest (Standard: data/recht/revosax-baseline-<Datum>.json)
+  --delay-ms <ms>       Pause zwischen Ergebnisseiten (Standard: 250)
+  --max-pages <n>       Obergrenze der Ergebnisseiten (Standard: 2000)
+  --max-passes <n>      vollständige Durchläufe bei instabiler Pagination (Standard: 3)
+  --help                Diese Hilfe`;
 
 function valueAfter(args, flag) {
   const index = args.indexOf(flag);
   return index >= 0 ? args[index + 1] : undefined;
 }
 
-function germanDate(isoDate) {
-  const match = String(isoDate).match(/^(\d{4})-(\d{2})-(\d{2})$/u);
-  if (!match) throw new Error(`Ungültiger --date-Wert ${isoDate}; erwartet YYYY-MM-DD`);
-  return `${match[3]}.${match[2]}.${match[1]}`;
-}
-
-function attrs(node) {
-  return Object.fromEntries((node?.attrs ?? []).map(({ name, value }) => [name, value]));
-}
-
-function text(node) {
-  if (!node) return '';
-  if (node.nodeName === '#text') return node.value ?? '';
-  return (node.childNodes ?? []).map(text).join(' ').replace(/\s+/gu, ' ').trim();
-}
-
-function walk(node, predicate, output = []) {
-  if (node?.tagName && predicate(node)) output.push(node);
-  for (const child of node?.childNodes ?? []) walk(child, predicate, output);
-  return output;
-}
-
-function findForm(document) {
-  const forms = walk(document, (node) => node.tagName === 'form');
-  const form = forms.find((candidate) => /Geltungstag/iu.test(text(candidate))) ?? forms[0];
-  if (!form) throw new Error('REVOSax-Suchformular nicht gefunden');
-  return form;
-}
-
-function controlContext(control) {
-  const own = attrs(control);
-  const candidates = [own.id, own.name, own.value, own.placeholder].filter(Boolean).join(' ');
-  const parentText = text(control.parentNode).slice(0, 500);
-  return `${candidates} ${parentText}`;
-}
-
-function buildSearchRequest(html, date) {
-  const document = parse(html);
-  const form = findForm(document);
-  const formAttrs = attrs(form);
-  const controls = walk(form, (node) => ['input', 'select', 'textarea', 'button'].includes(node.tagName));
-  const params = new URLSearchParams();
-  const dateInputs = controls.filter((control) => {
-    const properties = attrs(control);
-    return control.tagName === 'input' &&
-      (properties.type ?? 'text').toLowerCase() !== 'hidden' &&
-      /(?:TT\.MM\.JJJJ|date|datum|gelt|gült|valid)/iu.test(controlContext(control));
-  });
-  let dateControl = dateInputs.find((control) => /(?:geltungstag|stichtag)/iu.test(controlContext(control)));
-  if (!dateControl) {
-    const placeholderDates = controls.filter((control) =>
-      control.tagName === 'input' && /TT\.MM\.JJJJ/iu.test(attrs(control).placeholder ?? '')
-    );
-    dateControl = placeholderDates[2];
-  }
-  if (!dateControl?.attrs) throw new Error('Eingabefeld „Geltungstag“ im REVOSax-Formular nicht erkannt');
-
-  for (const control of controls) {
-    const properties = attrs(control);
-    const name = properties.name;
-    if (!name || properties.disabled !== undefined) continue;
-    const type = (properties.type ?? '').toLowerCase();
-
-    if (control === dateControl) {
-      params.set(name, date);
-      continue;
-    }
-
-    if (type === 'checkbox' || type === 'radio') {
-      const value = properties.value ?? 'on';
-      if (ALL_TYPES.has(value)) params.append(name, value);
-      else if (properties.checked !== undefined) params.append(name, value);
-      continue;
-    }
-
-    if (type === 'submit' || type === 'button' || type === 'reset' || type === 'file') continue;
-    if (control.tagName === 'select') {
-      const options = walk(control, (node) => node.tagName === 'option');
-      for (const option of options.filter((entry) => attrs(entry).selected !== undefined)) {
-        params.append(name, attrs(option).value ?? text(option));
-      }
-      continue;
-    }
-    if (properties.value) params.append(name, properties.value);
-  }
-
-  const action = new URL(formAttrs.action || SEARCH_URL, SEARCH_URL);
-  const method = (formAttrs.method ?? 'get').toUpperCase();
-  return { action, method, params };
-}
-
-async function sleep(ms) {
-  await new Promise((resolvePromise) => setTimeout(resolvePromise, ms));
-}
-
-async function request(url, options = {}, retries = 4) {
-  let lastError;
-  for (let attempt = 0; attempt <= retries; attempt += 1) {
-    try {
-      const response = await fetch(url, {
-        redirect: 'follow',
-        headers: {
-          'user-agent': 'OstRecht REVOSax-Baseline-Importer/1.0',
-          accept: 'text/html,application/xhtml+xml',
-          'accept-encoding': 'identity',
-          ...(options.headers ?? {}),
-        },
-        ...options,
-      });
-      if (response.status === 429 || response.status >= 500) {
-        if (attempt === retries) throw new Error(`HTTP ${response.status}`);
-        await sleep(1000 * (attempt + 1));
-        continue;
-      }
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      return response;
-    } catch (error) {
-      lastError = error;
-      if (attempt === retries) break;
-      await sleep(1000 * (attempt + 1));
-    }
-  }
-  throw lastError;
-}
-
-function resultCount(pageText) {
-  const match = pageText.match(/([\d.]+)\s+Treffer/iu);
-  return match ? Number.parseInt(match[1].replace(/\./gu, ''), 10) : null;
-}
-
-function nearestResultText(anchor) {
-  let node = anchor;
-  for (let depth = 0; depth < 4 && node; depth += 1, node = node.parentNode) {
-    const candidate = text(node);
-    if (candidate.length >= 20 && candidate.length <= 2000) return candidate;
-  }
-  return text(anchor);
-}
-
-function extractPage(html, pageUrl) {
-  const document = parse(html);
-  const anchors = walk(document, (node) => node.tagName === 'a');
-  const hits = [];
-  const pagination = [];
-
-  for (const anchor of anchors) {
-    const href = attrs(anchor).href;
-    if (!href) continue;
-    let url;
-    try {
-      url = new URL(href, pageUrl);
-    } catch {
-      continue;
-    }
-    if (url.hostname !== 'www.revosax.sachsen.de' && url.hostname !== 'revosax.sachsen.de') continue;
-
-    const versionMatch = url.pathname.match(/^\/vorschrift\/(\d+)(?:\.(\d+))?(?:-[^/]*)?$/u);
-    if (versionMatch) {
-      const label = text(anchor);
-      const context = nearestResultText(anchor);
-      hits.push({
-        url: url.toString(),
-        lawId: versionMatch[1],
-        versionSuffix: versionMatch[2] ?? null,
-        label,
-        context,
-      });
-      continue;
-    }
-
-    const anchorText = text(anchor);
-    let ancestor = anchor.parentNode;
-    let paginationContext = '';
-    for (let depth = 0; depth < 3 && ancestor; depth += 1, ancestor = ancestor.parentNode) {
-      paginationContext += ` ${attrs(ancestor).class ?? ''} ${attrs(ancestor).id ?? ''}`;
-    }
-    if (
-      /(?:pagination|pager|seiten|page)/iu.test(paginationContext) ||
-      /^(?:weiter|nächste|naechste|›|»|\d+)$/iu.test(anchorText)
-    ) {
-      pagination.push(url.toString());
-    }
-  }
-
-  return {
-    hits,
-    pagination: [...new Set(pagination)],
-    reportedCount: resultCount(text(document)),
-  };
+function integerOption(args, flag, fallback) {
+  const raw = valueAfter(args, flag);
+  if (raw === undefined) return fallback;
+  const value = Number.parseInt(raw, 10);
+  if (!Number.isFinite(value) || value < 0) throw new RevosaxDiscoveryError(`${flag} erwartet eine nichtnegative ganze Zahl, erhalten: ${raw}`);
+  return value;
 }
 
 async function main() {
   const args = process.argv.slice(2);
-  const isoDate = valueAfter(args, '--date') ?? DEFAULT_DATE;
-  const date = germanDate(isoDate);
+  if (args.includes('--help')) {
+    console.log(USAGE);
+    return;
+  }
+  const isoDate = assertIsoDate(valueAfter(args, '--date') ?? DEFAULT_BASELINE_DATE);
   const output = resolve(valueAfter(args, '--output') ?? `data/recht/revosax-baseline-${isoDate}.json`);
-  const delayMs = Number.parseInt(valueAfter(args, '--delay-ms') ?? '200', 10);
-  const maxPages = Number.parseInt(valueAfter(args, '--max-pages') ?? '1000', 10);
+  const delayMs = integerOption(args, '--delay-ms', 250);
+  const maxPages = integerOption(args, '--max-pages', 2000);
+  const maxPasses = integerOption(args, '--max-passes', 3);
+  const startedAt = Date.now();
 
-  const formResponse = await request(SEARCH_URL);
-  const formHtml = await formResponse.text();
-  const search = buildSearchRequest(formHtml, date);
-  let firstResponse;
-  if (search.method === 'GET') {
-    const url = new URL(search.action);
-    for (const [key, value] of search.params) url.searchParams.append(key, value);
-    firstResponse = await request(url);
-  } else {
-    firstResponse = await request(search.action, {
-      method: search.method,
-      headers: { 'content-type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-      body: search.params.toString(),
+  let manifest;
+  try {
+    manifest = await discoverBaseline({
+      date: isoDate,
+      delayMs,
+      maxPages,
+      maxPasses,
+      log: (message) => console.error(message),
     });
-  }
-
-  const queue = [{ url: firstResponse.url, html: await firstResponse.text() }];
-  const visited = new Set();
-  const hits = new Map();
-  let reportedCount = null;
-
-  while (queue.length > 0) {
-    if (visited.size >= maxPages) throw new Error(`Mehr als ${maxPages} Ergebnisseiten; Abbruch statt unkontrolliertem Crawl`);
-    const current = queue.shift();
-    if (visited.has(current.url)) continue;
-    visited.add(current.url);
-    const extracted = extractPage(current.html, current.url);
-    reportedCount ??= extracted.reportedCount;
-    for (const hit of extracted.hits) hits.set(hit.url, hit);
-
-    for (const pageUrl of extracted.pagination) {
-      if (visited.has(pageUrl) || queue.some((entry) => entry.url === pageUrl)) continue;
-      await sleep(delayMs);
-      const response = await request(pageUrl);
-      queue.push({ url: response.url, html: await response.text() });
+  } catch (error) {
+    if (error?.details) {
+      // Diagnosedaten bewusst nur unter .cache/, nie als Manifest unter data/.
+      const rejectedPath = resolve(`.cache/revosax-baseline/${isoDate}/discovery-rejected.json`);
+      await mkdir(dirname(rejectedPath), { recursive: true });
+      await writeFile(rejectedPath, `${JSON.stringify({ rejectedAt: new Date().toISOString(), reason: error.message, ...error.details }, null, 2)}\n`, 'utf8');
+      console.error(`Abgelehnter Trefferbestand zur Diagnose: ${rejectedPath}`);
     }
+    throw error;
   }
-
-  const manifest = {
-    schemaVersion: 1,
-    source: 'REVOSax erweiterte Vorschriftensuche',
-    sourceUrl: SEARCH_URL,
-    query: {
-      geltungstag: isoDate,
-      includeTypes: [...ALL_TYPES],
-    },
-    discoveredAt: new Date().toISOString(),
-    reportedCount,
-    discoveredCount: hits.size,
-    pagesVisited: visited.size,
-    hits: [...hits.values()].sort((left, right) => left.url.localeCompare(right.url)),
-  };
-
-  if (reportedCount !== null && hits.size !== reportedCount) {
-    throw new Error(
-      `REVOSax meldet ${reportedCount} Treffer, der Crawler hat aber ${hits.size} eindeutige Vorschriftenlinks gefunden. ` +
-      `Manifest wird nicht geschrieben; Pagination/Selektoren prüfen.`,
-    );
-  }
-  if (hits.size === 0) throw new Error('REVOSax-Suche lieferte keine auswertbaren Vorschriftenlinks');
 
   await mkdir(dirname(output), { recursive: true });
   await writeFile(output, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
-  console.log(`${hits.size} REVOSax-Treffer für ${isoDate} nach ${output} geschrieben.`);
+  const seconds = Math.round((Date.now() - startedAt) / 1000);
+  console.log(`${manifest.discoveredCount} REVOSax-Treffer für ${isoDate} (${manifest.pageCount} Seiten, ${manifest.passes.length} Durchlauf/-läufe, ${seconds} s) nach ${output} geschrieben.`);
+  const multiVersion = Object.keys(manifest.multiVersionLawIds).length;
+  if (multiVersion > 0) console.log(`${multiVersion} lawId(s) mit mehreren Fassungen am Stichtag; Auflösung im Staging.`);
+  console.log(Object.entries(manifest.categoryCounts).map(([category, count]) => `${category}=${count}`).join(', '));
 }
 
-await main();
+try {
+  await main();
+} catch (error) {
+  if (error instanceof RevosaxDiscoveryError || error instanceof RevosaxHttpError) {
+    console.error(`Discovery abgebrochen: ${error.message}`);
+  } else {
+    console.error(error);
+  }
+  process.exitCode = 1;
+}

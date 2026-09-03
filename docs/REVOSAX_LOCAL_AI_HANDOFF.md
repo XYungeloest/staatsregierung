@@ -105,9 +105,8 @@ Vor neuer Implementierung zuerst diese Dateien vollständig lesen und vorhandene
 
 ### Auf diesem Branch neu vorbereitet
 
-- `scripts/revosax-discover-baseline.mjs`
-  - Discovery der Stichtagstreffer
-  - derzeit BLOCKIERT, siehe Abschnitt 5
+- `scripts/revosax-discover-baseline.mjs` und `scripts/lib/revosax-discovery.mjs`
+  - Discovery der Stichtagstreffer über das reale `search_request`-Format, siehe Abschnitt 5
 - `scripts/revosax-stage-baseline.mjs`
   - lädt konkrete Treffer
   - Retry/Backoff
@@ -134,62 +133,40 @@ Vor neuer Implementierung zuerst diese Dateien vollständig lesen und vorhandene
 - ausführlicher Backlog in `README.md` unter `TODO`
 - reale D1-/R2-Bindings in `apps/recht/wrangler.jsonc`
 
-## 5. Aktueller Blocker: REVOSax-Discovery HTTP 422
+## 5. Discovery repariert: reales REVOSax-Requestformat (3. September 2026)
 
-Lokal wurde ausgeführt:
+Der frühere Fehler `HTTP 422` beim Befehl
 
 ```sh
 npm run norms:revosax:discover-baseline -- --date 2023-11-01
 ```
 
-Resultat unter Node.js 25.9.0:
+ist behoben. Ursache war die Rails-CSRF-Prüfung: Das Skript sendete das sichtbare Formular als
+`POST /suche` ohne die zugehörige Session (Cookie zum `authenticity_token`); REVOSax antwortet darauf
+mit „The change you wanted was rejected (422 Unprocessable Entity)“.
 
-```text
-Error: HTTP 422
-    at request (.../scripts/revosax-discover-baseline.mjs:130:31)
-    at async main (.../scripts/revosax-discover-baseline.mjs:224:21)
-```
+Das reale Verhalten wurde mit Browser-Netzwerkprotokoll (Formular ausgefüllt: Geltungstag
+01.11.2023, alle Stamm- und Änderungstypen, „zugleich Mantelvorschriften“) und mit `curl`
+verifiziert:
 
-### Ursache / wichtige Erkenntnis
+- Browser: `POST /suche` mit `search_request[valid_day_de]=01.11.2023`,
+  `search_request[categories][]=G|ÄG|VO|ÄVO|VwV|ÄVwV|FRL|ÄFRL|StV|ÄStV|ZuG|ÄZuG`,
+  `search_request[include_envelopes]=1`, `search_request[mode]=fullsearch` und CSRF-Token in der
+  Session → „5092 Treffer“, „Seite 1 von 1019“. Die Seitenknöpfe sind `POST /suche?seite=<n>`.
+- Stateless-Äquivalent (vom Skript verwendet): `GET /suche?search_request=<URL-kodiertes JSON>` mit
+  `{"valid_day":"2023-11-01","categories":[…12 Kürzel…],"include_envelopes":"1","mode":"fullsearch"}`
+  → identische 5092 Treffer. Änderungstypen sind eigene Kürzel im `categories`-Array; es gibt keine
+  gesonderten Flags. Folgeseiten: `GET /suche?seite=<n>` mit dem Session-Cookie der ersten Antwort.
+  Ein `page`-Feld im JSON liefert HTTP 500.
+- Treffer verlinken die konkrete historische Fassung (`/vorschrift/<lawId>.<n>`) oder bei
+  unveränderter aktueller Fassung die dynamische Stammnorm-URL (`/vorschrift/<lawId>-<slug>`) und
+  nennen jeweils „Fassung gültig ab“, Vorschriftentyp, Fundstelle, Fsn-Nr. und Erlassdatum.
 
-Die aktuelle Implementierung liest das sichtbare HTML-Formular auf `/vorschriftensuche` und versucht dessen Controls als normales GET- oder POST-Formular zu senden.
-
-Das tatsächliche REVOSax-Suchsystem verwendet aber Treffer-URLs der Form:
-
-```text
-/suche?search_request=<URL-kodiertes JSON>
-```
-
-Öffentlich auffindbare reale Treffer-URLs zeigen unter anderem folgende JSON-Felder:
-
-```json
-{
-  "valid_day": "2022-07-04",
-  "categories": ["G", "VO", "VwV", "FRL", "StV", "ZuG"],
-  "include_envelopes": "1",
-  "mode": "quicksearch"
-}
-```
-
-Weitere optionale Felder in realen URLs sind z. B. `category`, `search_text`, `ressort_id` und `sg_nr`.
-
-Daraus folgt: Der Browser bzw. das REVOSax-Frontend transformiert die sichtbaren Formularfelder vor dem Request in `search_request`-JSON. Das heutige Discovery-Skript bildet diesen clientseitigen Schritt noch nicht ab. Der direkte Formularrequest wird deshalb mit HTTP 422 abgelehnt.
-
-### Was als Erstes zu tun ist
-
-1. Mit lokalem Browser-DevTools-Netzwerkprotokoll oder durch Inspektion des aktuell ausgelieferten REVOSax-JavaScripts **eine manuelle erweiterte Suche** ausführen:
-   - Geltungstag 01.11.2023
-   - alle Stammtypen
-   - alle Änderungstypen
-   - Mantelvorschriften nach fachlicher Prüfung wie für die manuelle 5.099er-Abfrage
-2. Den exakten Request nach `/suche` inklusive dekodiertem `search_request` dokumentieren.
-3. Insbesondere feststellen, **wie Änderungstypen im JSON repräsentiert werden**. Nicht raten. Es ist noch nicht bewiesen, ob Werte wie `ÄG`, `ÄVO` direkt in `categories` stehen oder ob REVOSax dafür separate Flags/Felder verwendet.
-4. `scripts/revosax-discover-baseline.mjs` so umbauen, dass es genau dieses dokumentierte JSON erzeugt.
-5. Nicht mehr versuchen, das HTML-Formular blind wie ein klassisches Form-POST zu senden.
-6. Der Initialrequest sollte anschließend eine normale `/suche?search_request=...`-Trefferseite liefern.
-7. Pagination ebenfalls anhand realer Trefferseiten/Requests verifizieren. Keine Annahme über `page=` o. Ä. ohne Prüfung.
-8. Fail-closed beibehalten: gemeldete Trefferzahl und Zahl der eindeutig extrahierten Treffer müssen übereinstimmen.
-9. Bei jedem HTTP-Fehler künftig Status, finale URL und einen begrenzten Response-Body-Ausschnitt ausgeben, damit 4xx-Fehler diagnostizierbar sind.
+Die Logik liegt in `scripts/lib/revosax-discovery.mjs` (Formularstrukturprüfung, JSON-Request,
+Session-Cookie, Retry/Backoff, Trefferextraktion, fail-closed-Verifikation, deterministisches
+Manifest); `scripts/revosax-discover-baseline.mjs` ist nur noch das CLI. Tests mit echten
+REVOSax-Fixtures: `tests/revosax-discovery.test.mjs`. Details im Runbook
+`docs/REVOSAX_BULK_IMPORT.md`, Abschnitt „Discovery“.
 
 ## 6. Zwingende Rechtsüberleitungsanpassung
 

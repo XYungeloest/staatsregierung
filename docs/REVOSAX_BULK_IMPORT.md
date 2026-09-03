@@ -96,17 +96,58 @@ Befehl:
 npm run norms:revosax:discover-baseline -- --date 2023-11-01
 ```
 
-`scripts/revosax-discover-baseline.mjs` lädt zunächst das echte REVOSax-Suchformular. Die internen Feldnamen werden nicht fest verdrahtet. Der Scraper erkennt das Geltungstagsfeld und die Vorschriftentypen aus dem ausgelieferten Formular, schaltet alle Stamm- und Änderungstypen ein und folgt der Ergebnis-Pagination.
+`scripts/revosax-discover-baseline.mjs` (Logik in `scripts/lib/revosax-discovery.mjs`) bildet das
+reale REVOSax-Verhalten nach, das am 3. September 2026 mit Browser-Netzwerkprotokoll und `curl`
+verifiziert wurde:
 
-Das Ergebnis wird beispielsweise nach
+1. `GET /vorschriftensuche` liefert das Rails-Formular (`POST /suche`, Felder `search_request[…]`,
+   CSRF-`authenticity_token`) und den Session-Cookie. Das Formular wird nur zur Strukturprüfung
+   gelesen: Geltungstagsfeld `search_request[valid_day_de]`, Mantelvorschriften
+   `search_request[include_envelopes]`, Modus `search_request[mode]=fullsearch` und die zwölf
+   Typkürzel `G, ÄG, VO, ÄVO, VwV, ÄVwV, FRL, ÄFRL, StV, ÄStV, ZuG, ÄZuG` müssen vorhanden sein.
+   Fehlende oder unbekannte Typen brechen ab. Die Änderungstypen sind im Formular standardmäßig
+   nicht aktiviert; „zugleich Mantelvorschriften“ ist standardmäßig aktiv.
+2. Die eigentliche Suche ist der stateless Request `GET /suche?search_request=<URL-kodiertes JSON>`:
 
-```text
-data/recht/revosax-baseline-2023-11-01.json
-```
+   ```json
+   {
+     "valid_day": "2023-11-01",
+     "categories": ["G", "ÄG", "VO", "ÄVO", "VwV", "ÄVwV", "FRL", "ÄFRL", "StV", "ÄStV", "ZuG", "ÄZuG"],
+     "include_envelopes": "1",
+     "mode": "fullsearch"
+   }
+   ```
 
-geschrieben.
+   Änderungstypen sind eigene Kürzel im selben `categories`-Array; REVOSax verwendet dafür keine
+   separaten Flags. `include_envelopes: "1"` entspricht dem Haken „zugleich Mantelvorschriften“ und
+   bleibt für den vollständigen Bestand gesetzt. `mode: "fullsearch"` ist die erweiterte Suche; die
+   Schnellsuche der Startseite verwendet `quicksearch`. Der frühere HTTP-422-Fehler entstand, weil
+   der Formular-POST ohne die zugehörige Rails-Session gesendet wurde (CSRF-Prüfung); der JSON-GET
+   benötigt keinen Token und liefert dieselbe Trefferliste wie der Browser-POST.
+3. Die Trefferseite bestätigt die Parameter („Typ: …“, „zugleich Mantelvorschrift“,
+   „Geltungstag: 01.11.2023“), nennt die Trefferzahl und „Seite 1 von N“ mit 5 Treffern je Seite.
+   REVOSax hält die Suche in der Session; Folgeseiten werden mit `GET /suche?seite=<n>` und dem
+   Session-Cookie geladen (im Browser: `POST /suche?seite=<n>`). Ein `page`-Feld im JSON beantwortet
+   REVOSax mit HTTP 500.
+4. Jeder Treffer liefert Link, Kurzbezeichnung, vollständigen Titel, Fundstelle, „Vorschriftentyp“,
+   Fsn-Nr., Erlassdatum und „Fassung gültig ab“. Treffer verlinken entweder die konkrete historische
+   Fassung (`/vorschrift/<lawId>.<n>`) oder, wenn die am Geltungstag geltende Fassung zugleich die
+   aktuelle ist, die dynamische Stammnorm-URL (`/vorschrift/<lawId>-<slug>`). Das Staging prüft
+   deshalb bei jeder geladenen Quelle, dass „Fassung gültig ab“ dem Treffer entspricht und das
+   Gültigkeitsintervall den Stichtag abdeckt.
 
-Der Discovery-Schritt ist fail-closed: Wenn REVOSax eine Trefferzahl anzeigt, muss die Zahl der eindeutig gefundenen Vorschriftenlinks damit übereinstimmen. Sonst wird kein Manifest geschrieben. Ein verändertes REVOSax-Markup soll damit zu einem sichtbaren Fehler und nicht zu einem unvollständigen Rechtsbestand führen.
+Fail-closed-Regeln: Es entsteht kein Manifest bei fehlender oder abweichender Trefferzahl, doppelten
+Treffer-URLs, mehreren Fassungs-URLs je lawId, unvollständiger Pagination, abweichenden Typfacetten
+der Marginalspalte, unbekannten Vorschriftentypen, Treffern ohne „Fassung gültig ab“ oder 0 Treffern.
+HTTP 429 und 5xx werden mit exponentiellem Backoff wiederholt; andere HTTP-Fehler nennen Status,
+Methode, finale URL und einen begrenzten Antwortauszug, nie Header oder Cookies. Zwischen den
+Ergebnisseiten wartet der Crawler standardmäßig 250 ms. Die Treffer werden deterministisch nach
+lawId sortiert; zwei Läufe liefern semantisch denselben Bestand.
+
+Ergebnis ist `data/recht/revosax-baseline-2023-11-01.json` (Schema 2) mit `query.searchRequest`,
+`reportedCount`, `discoveredCount`, `pageCount`, `typeCounts` (Facette), `categoryCounts` und
+`hits[]` (URL, lawId, Fassungssuffix, URL-Art, Kurzbezeichnung, Titel, Fundstelle, Vorschriftentyp,
+Kategorie, OstRecht-Normtyp, Fsn-Nr., Erlassdatum, „Fassung gültig ab/bis“).
 
 ### 2. Staging, Parsing und Rechtsüberleitungsanpassung
 
