@@ -1,4 +1,3 @@
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import {
   buildNormFullCitation,
   buildNormRecordLookup,
@@ -14,7 +13,6 @@ import {
 } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
   buildNormPublicationReferenceLookup,
-  loadAllVerkuendungen,
   type NormPublicationReference,
   type Verkuendung,
 } from '@ostrecht/shared/lib/norms/publications.ts';
@@ -278,7 +276,7 @@ function compareLabelValuePairs(
   return left.label.localeCompare(right.label, 'de');
 }
 
-function compareStrings(left: string, right: string): number {
+export function compareStrings(left: string, right: string): number {
   return left.localeCompare(right, 'de');
 }
 
@@ -429,14 +427,6 @@ export function buildSearchPublications(publications: Verkuendung[]): SearchPubl
   });
 }
 
-export async function buildSearchSuggestionPayload(): Promise<SearchSuggestionPayload> {
-  const records = await loadAllNorms();
-  return {
-    generatedAt: new Date().toISOString(),
-    suggestions: buildSearchSuggestions(records),
-  };
-}
-
 export function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
   const types = new Map<string, string>();
   const ministries = new Set<string>();
@@ -477,50 +467,5 @@ export function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
     ],
     publications: [],
     years: [],
-  };
-}
-
-export async function buildSearchIndexPayload(): Promise<SearchIndexPayload> {
-  const [records, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
-  const recordsBySlug = buildNormRecordLookup(records);
-  const publicationReferences = buildNormPublicationReferenceLookup(publications);
-  const documents = records
-    .flatMap((record) =>
-      record.versions.map((version) =>
-        buildSearchDocument(
-          record,
-          version,
-          recordsBySlug,
-          publicationReferences.get(`${record.meta.slug}:${version.versionId}`),
-        ),
-      ),
-    )
-    .sort((left, right) => {
-      if (left.title !== right.title) {
-        return left.title.localeCompare(right.title, 'de');
-      }
-
-      return right.validFrom.localeCompare(left.validFrom);
-    });
-  const filters = buildFilterOptions(records);
-  filters.publications = [...new Set(documents.map((entry) => entry.publicationSource).filter(Boolean) as string[])].sort(compareStrings);
-  filters.years = [...new Set(documents.map((entry) => entry.publicationYear).filter(Boolean) as string[])].sort((left, right) => right.localeCompare(left));
-
-  return {
-    generatedAt: new Date().toISOString(),
-    buildCommit: import.meta.env?.PORTAL_BUILD_COMMIT ?? process.env.PORTAL_BUILD_COMMIT ?? 'development',
-    documentCount: documents.length,
-    latestPublication: publications[0]
-      ? {
-          slug: publications[0].slug,
-          date: publications[0].date,
-          publication: publications[0].publication,
-          year: publications[0].year,
-          issue: publications[0].issue,
-        }
-      : undefined,
-    filters,
-    documents,
-    publications: buildSearchPublications(publications),
   };
 }

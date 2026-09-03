@@ -24,12 +24,8 @@ import {
   runNormSearch,
   type NormSearchState,
 } from '@ostrecht/recht-search/search-query.ts';
-import {
-  buildSearchIndexPayload,
-  buildSearchSuggestionPayload,
-  isAmendmentRecord,
-  type SearchIndexDocument,
-} from '@ostrecht/recht-search/search.ts';
+import { buildSearchIndexPayload, buildSearchSuggestionPayload } from '@ostrecht/recht-search/search-files.ts';
+import { isAmendmentRecord, type SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
 import {
   findPublicationByDesignation,
   getLatestPublication,

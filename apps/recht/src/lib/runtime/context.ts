@@ -1,9 +1,3 @@
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
-import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
-import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
-import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
-import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
-
 import type { D1Database } from './d1-types.ts';
 import { createD1NormStore, createFileNormStore, type NormStore } from './store.ts';
 
@@ -12,7 +6,7 @@ export interface OstRechtEnv {
   ostrecht_recht?: D1Database;
 }
 
-let fileStore: NormStore | null = null;
+let fileStorePromise: Promise<NormStore> | null = null;
 let workerEnvPromise: Promise<OstRechtEnv | null> | null = null;
 
 /**
@@ -32,17 +26,37 @@ async function resolveWorkerEnv(): Promise<OstRechtEnv | null> {
   return workerEnvPromise;
 }
 
-function createFileStore(): NormStore {
-  fileStore ??= createFileNormStore({
-    loadAllNorms,
-    loadAllVerkuendungen,
-    loadTopics,
-    loadPressReleases,
-    topicUrl: getTopicUrl,
-    pressReleaseUrl: getPressReleaseUrl,
-    buildSearchDocument,
-  });
-  return fileStore;
+/**
+ * Dateivariante über `content/`. Die Loader lesen mit `node:fs`; sie werden
+ * deshalb erst hier dynamisch importiert, damit das Worker-Bundle die
+ * Node-Module nie auflösen muss (workerd kennt `node:fs/promises` nicht).
+ */
+function createFileStore(): Promise<NormStore> {
+  fileStorePromise ??= (async () => {
+    const [
+      { loadAllNorms },
+      { loadAllVerkuendungen },
+      { loadPressReleases, loadTopics },
+      { getPressReleaseUrl, getTopicUrl },
+      { buildSearchDocument },
+    ] = await Promise.all([
+      import('@ostrecht/shared/lib/norms/loader.ts'),
+      import('@ostrecht/shared/lib/norms/publications.ts'),
+      import('@ostrecht/shared/lib/portal/content.ts'),
+      import('@ostrecht/shared/lib/portal/routes.ts'),
+      import('@ostrecht/recht-search/search.ts'),
+    ]);
+    return createFileNormStore({
+      loadAllNorms,
+      loadAllVerkuendungen,
+      loadTopics,
+      loadPressReleases,
+      topicUrl: getTopicUrl,
+      pressReleaseUrl: getPressReleaseUrl,
+      buildSearchDocument,
+    });
+  })();
+  return fileStorePromise;
 }
 
 /**
@@ -54,6 +68,11 @@ export async function getNormStore(_locals?: App.Locals): Promise<NormStore> {
   const env = await resolveWorkerEnv();
   const db = env?.ostrecht_recht;
   if (db) return createD1NormStore(db);
+  if (env) {
+    // Im Worker ohne D1-Binding gibt es keinen sinnvollen Rückfall: die
+    // Dateivariante hätte dort keinen Zugriff auf content/.
+    throw new Error('Das D1-Binding ostrecht_recht fehlt in der Worker-Konfiguration.');
+  }
   return createFileStore();
 }
 

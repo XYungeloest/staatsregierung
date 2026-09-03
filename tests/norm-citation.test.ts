@@ -7,7 +7,7 @@ import {
 } from '@ostrecht/shared/lib/norms/citation.ts';
 import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import { buildSearchIndexPayload } from '@ostrecht/recht-search/search.ts';
+import { buildSearchIndexPayload } from '@ostrecht/recht-search/search-files.ts';
 import { NORM_TYPES } from '@ostrecht/shared/lib/norms/schema.ts';
 import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
