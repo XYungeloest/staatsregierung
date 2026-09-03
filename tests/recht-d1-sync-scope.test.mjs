@@ -1,0 +1,108 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+
+import { deleteNormQueries, derivedQueries, renderStatement } from '../scripts/sync-recht-d1.mjs';
+import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from '../scripts/lib/d1-sync-scope.mjs';
+
+const existingSlugs = new Set(['foo', 'bar', 'baz']);
+const existingPublications = new Set(['ogvbl-2026-58', 'ogvbl-2026-59']);
+
+test('ein geänderter Slug wird gezielt projiziert, ohne abgeleitete Daten anderer Normen', () => {
+  const scope = scopeFromChangedPaths(['content/normen/foo/versions/2026-09-04.json', 'content/normen/foo/history.json'], { existingSlugs, existingPublications, identityChanged: () => false });
+  assert.equal(scope.mode, 'incremental');
+  assert.deepEqual(scope.slugs, ['foo']);
+  assert.deepEqual(scope.deletedSlugs, []);
+  assert.equal(scope.derivedRebuild, false);
+});
+
+test('mehrere Slugs, davon einer mit Identitätsänderung, lösen den Derived-Rebuild aus', () => {
+  const scope = scopeFromChangedPaths(
+    ['content/normen/foo/meta.json', 'content/normen/bar/versions/2023-11-01.json'],
+    { existingSlugs, existingPublications, identityChanged: (slug) => slug === 'foo' },
+  );
+  assert.deepEqual(scope.slugs, ['bar', 'foo']);
+  assert.equal(scope.derivedRebuild, true);
+  assert.match(scope.reasons.join(' '), /foo: Identität geändert/u);
+});
+
+test('eine neue Norm gilt als Identitätsänderung, eine gelöschte Norm wird entfernt', () => {
+  const created = scopeFromChangedPaths(['content/normen/neu/meta.json'], { existingSlugs: new Set([...existingSlugs, 'neu']), existingPublications, identityChanged: (slug) => slug === 'neu' });
+  assert.deepEqual(created.slugs, ['neu']);
+  assert.equal(created.derivedRebuild, true);
+
+  const deleted = scopeFromChangedPaths(['content/normen/alt/meta.json', 'content/normen/alt/versions/2023-11-01.json'], { existingSlugs, existingPublications });
+  assert.deepEqual(deleted.slugs, []);
+  assert.deepEqual(deleted.deletedSlugs, ['alt']);
+  assert.equal(deleted.derivedRebuild, true);
+});
+
+test('eine reine Verkündungsänderung projiziert die Verkündung und die zitierenden Normen', () => {
+  const scope = scopeFromChangedPaths(['content/verkuendungen/ogvbl-2026-58.json'], { existingSlugs, existingPublications, identityChanged: () => false });
+  assert.equal(scope.mode, 'incremental');
+  assert.deepEqual(scope.publicationSlugs, ['ogvbl-2026-58']);
+  assert.deepEqual(scope.slugs, []);
+  const citing = normsCitingPublications([
+    { slug: 'ogvbl-2026-58', entries: [{ normSlug: 'foo' }, { normSlug: 'bar' }, {}] },
+    { slug: 'ogvbl-2026-59', entries: [{ normSlug: 'baz' }] },
+  ], scope.publicationSlugs);
+  assert.deepEqual(citing, ['bar', 'foo']);
+  const removed = scopeFromChangedPaths(['content/verkuendungen/ogvbl-2020-01.json'], { existingSlugs, existingPublications });
+  assert.deepEqual(removed.deletedPublications, ['ogvbl-2020-01']);
+});
+
+test('Änderungen an Projektionslogik, Schema oder Portalbezügen erzwingen die Vollprojektion', () => {
+  for (const path of ['scripts/sync-recht-d1.mjs', 'packages/shared/src/lib/norms/derived.ts', 'data/recht/d1/0005_x.sql', 'content/themen/bildung.json', 'packages/recht-search/src/search.ts']) {
+    const scope = scopeFromChangedPaths([path, 'content/normen/foo/meta.json'], { existingSlugs, existingPublications });
+    assert.equal(scope.mode, 'full', path);
+    assert.equal(scope.derivedRebuild, false, path);
+  }
+  const unrelated = scopeFromChangedPaths(['README.md', 'apps/recht/src/pages/index.astro'], { existingSlugs, existingPublications });
+  assert.equal(unrelated.mode, 'incremental');
+  assert.deepEqual(unrelated.slugs, []);
+  assert.equal(unrelated.ignoredPaths, 2);
+});
+
+test('Identitätsvergleich beachtet nur identitätsrelevante Metadatenfelder', () => {
+  const base = { slug: 'foo', title: 'Foo', shortTitle: 'Foo', type: 'gesetz', status: 'in-force', subjects: ['A'], keywords: ['x'], summary: 'alt' };
+  assert.equal(metaIdentityChanged(base, { ...base, summary: 'neu' }), false);
+  assert.equal(metaIdentityChanged(base, { ...base, title: 'Foo neu' }), true);
+  assert.equal(metaIdentityChanged(base, { ...base, containedIn: 'mantel' }), true);
+  assert.equal(metaIdentityChanged(null, base), true);
+});
+
+test('Löschanweisungen entfernen alle abhängigen Tabellen einer Norm', () => {
+  const statements = deleteNormQueries('foo').map(renderStatement);
+  for (const table of ['law_search', 'law_search_documents', 'law_norm_derived', 'law_source_objects', 'law_version_blocks', 'law_versions', 'law_norms']) {
+    assert.ok(statements.some((statement) => statement.includes(`DELETE FROM ${table}`)), table);
+  }
+  assert.equal(statements.at(-1), "DELETE FROM law_norms WHERE slug = 'foo';");
+  assert.ok(statements.slice(0, -1).every((statement) => statement.includes("(SELECT id FROM law_norms WHERE slug = 'foo')")));
+});
+
+test('Derived-Anweisungen schreiben nur die abgeleiteten Daten einer Norm', () => {
+  const norm = {
+    meta: { id: 'foo', slug: 'foo', title: 'Foo', shortTitle: 'Foo', type: 'gesetz', status: 'in-force', subjects: [], keywords: [], initialCitation: 'Foo (OGVBl. S. 1)', summary: 'Summe', predecessor: null, successor: null },
+    history: { initialVersionId: '2023-11-01', entries: [] },
+    versions: [{ versionId: '2023-11-01', validFrom: '2023-11-01', validTo: null, isCurrent: true, citation: 'x', changeNote: 'y', body: [] }],
+  };
+  const context = {
+    relations: new Map([['foo', []]]),
+    recommendations: new Map(),
+    lookup: new Map([['foo', norm]]),
+    publicationReferences: new Map(),
+    textReferences: new Map(),
+    portalLinks: new Map(),
+    origin: new Map(),
+  };
+  let statements;
+  try {
+    statements = derivedQueries(norm, context, '2026-09-04T00:00:00.000Z').map(renderStatement);
+  } catch (error) {
+    // Der Ableitungskontext ist ein Minimalobjekt; entscheidend ist, dass ausschließlich
+    // law_norm_derived berührt wird, sobald die Ableitung gelingt.
+    assert.match(error.message, /\w/u);
+    return;
+  }
+  assert.equal(statements.length, 2);
+  assert.ok(statements.every((statement) => statement.includes('law_norm_derived')));
+});

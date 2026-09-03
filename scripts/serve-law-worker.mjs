@@ -112,6 +112,7 @@ async function seed() {
   await run(process.execPath, [
     '--experimental-strip-types',
     'scripts/sync-recht-d1.mjs',
+    '--full',
     '--transport', 'wrangler',
     '--local',
     '--persist-to', persistTo,

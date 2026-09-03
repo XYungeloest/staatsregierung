@@ -367,16 +367,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Rechtsdaten nach Cloudflare D1 projizieren
+      - name: Rechtsdaten inkrementell nach Cloudflare D1 projizieren
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npm run norms:runtime:d1-sync -- --transport api
+          EVENT_BEFORE: ${{ github.event.before }}
+          EVENT_SHA: ${{ github.sha }}
+        run: |
+          # Nur die im Push geänderten Normen und Verkündungen; eine Vollprojektion
+          # nur bei geänderter Projektionslogik (scripts/lib/d1-sync-scope.mjs) oder
+          # wenn kein Vorgängerstand bekannt ist.
+          if [ -n "$EVENT_BEFORE" ] && [ "$EVENT_BEFORE" != "0000000000000000000000000000000000000000" ] && git cat-file -e "$EVENT_BEFORE^{commit}" 2>/dev/null; then
+            npm run norms:runtime:d1-sync -- --transport api --git-diff "$EVENT_BEFORE" "$EVENT_SHA"
+          else
+            npm run norms:runtime:d1-sync -- --transport api --full
+          fi
 
   deploy:
     needs:

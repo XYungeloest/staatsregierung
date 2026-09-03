@@ -4,6 +4,7 @@
 import './lib/law-site-env.mjs';
 
 import { execFile } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -17,6 +18,8 @@ import { classifyNormVersion, getApplicableVersion } from '@ostrecht/shared/lib/
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
 import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
+
+import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from './lib/d1-sync-scope.mjs';
 
 /**
  * Spiegelt content/normen und content/verkuendungen nach Cloudflare D1 – die
@@ -35,9 +38,27 @@ import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
  *                         lokalen Wrangler-Anmeldung; Parameter werden als SQL-Literale
  *                         gerendert, Blöcke über 40.000 Zeichen in Teile zerlegt.
  * Ohne Angabe wird die API verwendet, wenn ein Token gesetzt ist, sonst Wrangler.
- * `--dry-run` validiert alle Normen und schreibt beim Wrangler-Transport die SQL-Dateien
- * zur Kontrolle, ohne sie auszuführen. `--slug` synchronisiert einzelne Normen (dann
- * werden keine veralteten Zeilen gelöscht).
+ *
+ * Umfang (genau eine Angabe ist Pflicht; ohne Angabe bricht der Sync ab):
+ *   --full                      Vollprojektion aller Normen und Verkündungen (Initialimport,
+ *                               Recovery, bewusste Neuprojektion); löscht veraltete Zeilen
+ *   --slug <slug> …             nur diese Normen (vollständig: Fassungen, Körper, Quellen,
+ *                               abgeleitete Daten, Suchindex)
+ *   --delete <slug> …           diese Normen samt abhängiger Zeilen aus D1 entfernen
+ *   --publications              Verkündungstabelle neu schreiben
+ *   --git-diff <base> <head>    Umfang aus dem Git-Diff bestimmen (scripts/lib/d1-sync-scope.mjs):
+ *                               betroffene, neue und gelöschte Normen, geänderte Verkündungen und
+ *                               deren Normen, Vollprojektion bei geänderter Projektionslogik;
+ *                               abgeleitete Daten aller Normen werden nur neu geschrieben, wenn
+ *                               sich die Identität einer Norm geändert hat oder Normen hinzukamen
+ *                               bzw. entfielen (Beziehungen, Empfehlungen und Textverweise
+ *                               anderer Normen hängen davon ab)
+ *   --database <Name>           Zieldatenbank des Wrangler-Transports (Standard ostrecht-recht;
+ *                               Staging: ostrecht-recht-staging)
+ *   --changed-paths <Datei>     wie --git-diff, mit einer Pfadliste (eine Zeile je Pfad; gelöschte
+ *                               Normen werden am fehlenden Verzeichnis erkannt, Identitäts-
+ *                               änderungen gelten als gegeben)
+ * `--dry-run` validiert und schreibt beim Wrangler-Transport nur die SQL-Dateien.
  *
  * Lokale Projektion (Wrangler-Transport): `--local [--persist-to <Verzeichnis>]` schreibt in
  * die lokale D1-Datenbank von Miniflare (Standard .cache/wrangler-local), `--apply-schema`
@@ -54,7 +75,7 @@ const DEFAULT_SQL_FILE_STATEMENTS = 1500;
 const DEFAULT_SQL_FILE_BYTES = 6_000_000;
 const DEFAULT_CLOUDFLARE_ACCOUNT_ID = '28871b9b1c6753235a331544f7c68460';
 const DEFAULT_D1_DATABASE_ID = '2491f200-de20-4a45-b028-d00a4fd57840';
-const D1_DATABASE_NAME = 'ostrecht-recht';
+const D1_DATABASE_NAME = process.env.OSTRECHT_D1_DATABASE_NAME ?? 'ostrecht-recht';
 const execFileAsync = promisify(execFile);
 
 function valueAfter(args, flag) {
@@ -249,6 +270,51 @@ export function normQueries(norm, context, now) {
   return queries;
 }
 
+/** Entfernt eine Norm mit allen abhängigen Zeilen (FTS, Suchdokumente, abgeleitete Daten, Quellen, Blöcke, Fassungen). */
+export function deleteNormQueries(slug) {
+  const byNorm = 'norm_id IN (SELECT id FROM law_norms WHERE slug = ?)';
+  return [
+    q(`DELETE FROM law_search WHERE ${byNorm}`, [slug]),
+    q(`DELETE FROM law_search_documents WHERE ${byNorm}`, [slug]),
+    q(`DELETE FROM law_norm_derived WHERE ${byNorm}`, [slug]),
+    q(`DELETE FROM law_source_objects WHERE ${byNorm}`, [slug]),
+    q(`DELETE FROM law_version_blocks WHERE ${byNorm}`, [slug]),
+    q(`DELETE FROM law_versions WHERE ${byNorm}`, [slug]),
+    q('DELETE FROM law_norms WHERE slug = ?', [slug]),
+  ];
+}
+
+/** Nur die abgeleiteten Daten einer Norm (Beziehungen, Empfehlungen, Textverweise, Portalbezüge). */
+export function derivedQueries(norm, context, now) {
+  const derived = deriveNorm(norm, context);
+  return [
+    q('DELETE FROM law_norm_derived WHERE norm_id = ?', [norm.meta.id]),
+    q(`INSERT INTO law_norm_derived (
+      norm_id, relations_json, recommendations_json, origin_json, text_references_json, portal_links_json, updated_at
+    ) VALUES (?, ?, ?, ?, ?, ?, ?)`, [
+      norm.meta.id, JSON.stringify(derived.relations), JSON.stringify(derived.recommendations), JSON.stringify(derived.origin),
+      JSON.stringify(derived.textReferences), JSON.stringify(derived.portalLinks), now,
+    ]),
+  ];
+}
+
+export function deletePublicationQueries(slug) {
+  return [q('DELETE FROM law_publications WHERE slug = ?', [slug])];
+}
+
+/**
+ * Deterministischer Fingerabdruck des Git-Bestands (Slug, Fassung, Gültigkeit je
+ * Fassung sowie Verkündungsslugs), den der Sync in law_runtime_meta ablegt und
+ * scripts/verify-recht-d1.mjs gegen den Repositorystand vergleicht.
+ */
+export function corpusFingerprint(norms, publications) {
+  const lines = [
+    ...norms.flatMap((norm) => norm.versions.map((version) => `${norm.meta.slug}:${version.versionId}:${version.validFrom}:${version.validTo ?? ''}`)),
+    ...publications.map((publication) => `publication:${publication.slug}:${publication.date}`),
+  ].sort();
+  return createHash('sha256').update(lines.join('\n')).digest('hex');
+}
+
 export function publicationQueries(publication, now) {
   return [q(`INSERT INTO law_publications (slug, publication_date, publication, year, issue, publication_json, updated_at)
     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -297,11 +363,11 @@ const TRANSIENT_D1_ERROR = /Network connection lost|Authentication error \[code:
  * Versuch wiederholt werden; vorübergehende Netz- oder Anmeldefehler der
  * Cloudflare-API werden mit Backoff erneut versucht.
  */
-async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4 } = {}) {
+async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4, databaseName = D1_DATABASE_NAME } = {}) {
   const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
   for (let attempt = 1; ; attempt += 1) {
     try {
-      const { stdout, stderr } = await runWrangler(['d1', 'execute', D1_DATABASE_NAME, ...target, '--yes', '--json', '--file', filePath]);
+      const { stdout, stderr } = await runWrangler(['d1', 'execute', databaseName, ...target, '--yes', '--json', '--file', filePath]);
       const jsonStart = stdout.indexOf('[');
       const payload = jsonStart >= 0 ? JSON.parse(stdout.slice(jsonStart)) : null;
       if (!Array.isArray(payload) || payload.some((result) => result.success === false)) {
@@ -318,9 +384,76 @@ async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4
   }
 }
 
+async function gitShowJson(ref, path) {
+  try {
+    const { stdout } = await execFileAsync('git', ['show', `${ref}:${path}`], { cwd: ROOT, maxBuffer: 16 * 1024 * 1024 });
+    return JSON.parse(stdout);
+  } catch {
+    return null;
+  }
+}
+
+async function gitChangedPaths(base, head) {
+  const { stdout } = await execFileAsync('git', ['diff', '--name-only', base, head], { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 });
+  return stdout.split(/\r?\n/u).filter(Boolean);
+}
+
+/**
+ * Bestimmt den Sync-Umfang aus den Kommandozeilenoptionen. Genau eine Umfangsangabe
+ * ist erforderlich; ein Aufruf ohne Angabe löst keinen Vollsync mehr aus.
+ */
+export async function resolveScope(args, { norms, publications }) {
+  const existingSlugs = new Set(norms.map((norm) => norm.meta.slug));
+  const existingPublications = new Set(publications.map((publication) => publication.slug));
+  const requestedSlugs = valuesAfter(args, '--slug');
+  const deleteSlugs = valuesAfter(args, '--delete');
+  const modes = [args.includes('--full'), requestedSlugs.length > 0 || deleteSlugs.length > 0 || args.includes('--publications'), args.includes('--git-diff'), args.includes('--changed-paths')].filter(Boolean).length;
+  if (modes === 0) throw new Error('Kein Umfang angegeben: --full, --slug/--delete/--publications, --git-diff <base> <head> oder --changed-paths <Datei> ist erforderlich');
+  if (modes > 1) throw new Error('Nur eine Umfangsangabe ist zulässig (--full | --slug/--delete/--publications | --git-diff | --changed-paths)');
+  if (args.includes('--full')) return { mode: 'full', slugs: [], deletedSlugs: [], publicationSlugs: [], deletedPublications: [], derivedRebuild: false, reasons: ['--full'] };
+  if (requestedSlugs.length > 0 || deleteSlugs.length > 0 || args.includes('--publications')) {
+    for (const slug of requestedSlugs) if (!existingSlugs.has(slug)) throw new Error(`Norm ${slug} nicht gefunden`);
+    for (const slug of deleteSlugs) if (existingSlugs.has(slug)) throw new Error(`Norm ${slug} existiert noch im Repository; --delete nur für entfernte Normen`);
+    return { mode: 'incremental', slugs: [...new Set(requestedSlugs)].sort(), deletedSlugs: [...new Set(deleteSlugs)].sort(), publicationSlugs: args.includes('--publications') ? [...existingPublications].sort() : [], deletedPublications: [], derivedRebuild: deleteSlugs.length > 0, reasons: ['explizite Auswahl'] };
+  }
+  let paths;
+  let identityChanged = () => true;
+  if (args.includes('--git-diff')) {
+    const index = args.indexOf('--git-diff');
+    const [base, head] = [args[index + 1], args[index + 2]];
+    if (!base || !head) throw new Error('--git-diff braucht <base> <head>');
+    paths = await gitChangedPaths(base, head);
+    const metaCache = new Map();
+    const currentMeta = (slug) => norms.find((norm) => norm.meta.slug === slug)?.meta ?? null;
+    identityChanged = (slug) => {
+      if (!metaCache.has(slug)) metaCache.set(slug, null);
+      return metaCache.get(slug);
+    };
+    // Identitätsänderungen vorab (asynchron) bestimmen.
+    const candidateSlugs = new Set(paths.map((path) => path.match(/^content\/normen\/([^/]+)\//u)?.[1]).filter(Boolean));
+    for (const slug of candidateSlugs) {
+      if (!existingSlugs.has(slug)) continue;
+      const previous = await gitShowJson(base, `content/normen/${slug}/meta.json`);
+      metaCache.set(slug, metaIdentityChanged(previous, currentMeta(slug)));
+    }
+    identityChanged = (slug) => metaCache.get(slug) ?? true;
+  } else {
+    const file = valueAfter(args, '--changed-paths');
+    if (!file) throw new Error('--changed-paths braucht eine Datei');
+    paths = (await readFile(resolve(ROOT, file), 'utf8')).split(/\r?\n/u).filter(Boolean);
+  }
+  const scope = scopeFromChangedPaths(paths, { existingSlugs, existingPublications, identityChanged });
+  if (scope.mode === 'incremental' && scope.publicationSlugs.length > 0) {
+    for (const slug of normsCitingPublications(publications, scope.publicationSlugs)) {
+      if (existingSlugs.has(slug) && !scope.slugs.includes(slug)) scope.slugs.push(slug);
+    }
+    scope.slugs.sort();
+  }
+  return scope;
+}
+
 async function main() {
   const args = process.argv.slice(2);
-  const requestedSlugs = valuesAfter(args, '--slug');
   const dryRun = args.includes('--dry-run');
   const batchSize = Number.parseInt(valueAfter(args, '--batch-size') ?? String(DEFAULT_BATCH_SIZE), 10);
   const config = {
@@ -330,6 +463,9 @@ async function main() {
   };
   const local = args.includes('--local');
   const applySchema = args.includes('--apply-schema');
+  // Zieldatenbank des Wrangler-Transports (z. B. ostrecht-recht-staging); die API
+  // adressiert über OSTRECHT_D1_DATABASE_ID.
+  const databaseName = valueAfter(args, '--database') ?? D1_DATABASE_NAME;
   const persistTo = resolve(ROOT, valueAfter(args, '--persist-to') ?? join('.cache', 'wrangler-local'));
   const transport = valueAfter(args, '--transport') ?? (local ? 'wrangler' : config.apiToken ? 'api' : 'wrangler');
   if (!['api', 'wrangler'].includes(transport)) throw new Error(`Unbekannter Transport ${transport}`);
@@ -340,7 +476,7 @@ async function main() {
     const schemaDir = join(ROOT, 'data', 'recht', 'd1');
     const migrations = (await readdir(schemaDir)).filter((name) => /^\d{4}_.*\.sql$/u.test(name)).sort();
     for (const name of migrations) {
-      await executeSqlFile(join(schemaDir, name), { local, persistTo });
+      await executeSqlFile(join(schemaDir, name), { local, persistTo, databaseName });
       console.log(`Migration ${name} lokal angewendet`);
     }
   }
@@ -350,28 +486,49 @@ async function main() {
     loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(),
   ]);
   console.log(`${norms.length} Normen und ${publications.length} Verkündungen geladen und validiert (${Math.round((Date.now() - startedAt) / 1000)} s)`);
+  const scope = await resolveScope(args, { norms, publications });
+  const full = scope.mode === 'full';
+  console.log(full
+    ? 'Umfang: Vollprojektion'
+    : `Umfang: ${scope.slugs.length} Norm(en), ${scope.deletedSlugs.length} Löschung(en), ${scope.publicationSlugs.length} Verkündung(en)${scope.derivedRebuild ? ', abgeleitete Daten aller Normen' : ''}${scope.reasons.length ? ` – ${scope.reasons.slice(0, 3).join('; ')}` : ''}`);
   const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl });
   console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
-  const selected = requestedSlugs.length > 0
-    ? requestedSlugs.map((slug) => norms.find((norm) => norm.meta.slug === slug) ?? (() => { throw new Error(`Norm ${slug} nicht gefunden`); })())
-    : norms;
+  const selectedSlugs = new Set(scope.slugs);
+  const selected = full ? norms : norms.filter((norm) => selectedSlugs.has(norm.meta.slug));
   const now = new Date().toISOString();
   let queryCount = 0;
   const normStatements = [];
   const apiQueue = [];
-  for (const [index, norm] of selected.entries()) {
-    const queries = normQueries(norm, context, now);
+  const enqueue = (slug, queries) => {
     queryCount += queries.length;
     if (transport === 'api') apiQueue.push(...queries);
-    else normStatements.push({ slug: norm.meta.slug, statements: queries.map(renderStatement) });
+    else normStatements.push({ slug, statements: queries.map(renderStatement) });
+  };
+  for (const slug of scope.deletedSlugs) enqueue(`(löschen ${slug})`, deleteNormQueries(slug));
+  for (const [index, norm] of selected.entries()) {
+    const queries = normQueries(norm, context, now);
+    enqueue(norm.meta.slug, queries);
     if ((index + 1) % 100 === 0 || index === selected.length - 1) {
       console.log(`[${index + 1}/${selected.length}] ${norm.meta.slug}: ${queries.length} D1-Operationen vorbereitet`);
     }
   }
-  const publicationStatements = publications.flatMap((publication) => publicationQueries(publication, now));
+  if (!full && scope.derivedRebuild) {
+    let derivedCount = 0;
+    for (const norm of norms) {
+      if (selectedSlugs.has(norm.meta.slug)) continue;
+      enqueue(`(abgeleitet ${norm.meta.slug})`, derivedQueries(norm, context, now));
+      derivedCount += 1;
+    }
+    console.log(`Abgeleitete Daten für ${derivedCount} weitere Normen vorbereitet`);
+  }
+  const publicationSelection = full ? publications : publications.filter((publication) => scope.publicationSlugs.includes(publication.slug));
+  const publicationStatements = [
+    ...scope.deletedPublications.flatMap((slug) => deletePublicationQueries(slug)),
+    ...publicationSelection.flatMap((publication) => publicationQueries(publication, now)),
+  ];
   const finalQueries = [
     ...publicationStatements,
-    ...(requestedSlugs.length === 0
+    ...(full
       ? [
           q('DELETE FROM law_publications WHERE updated_at < ?', [now]),
           q('DELETE FROM law_norms WHERE updated_at < ?', [now]),
@@ -381,6 +538,7 @@ async function main() {
     q(`INSERT INTO law_runtime_meta (key, value) VALUES ('last_sync_at', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [now]),
     q(`INSERT INTO law_runtime_meta (key, value) VALUES ('norm_count', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [String(norms.length)]),
     q(`INSERT INTO law_runtime_meta (key, value) VALUES ('publication_count', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [String(publications.length)]),
+    q(`INSERT INTO law_runtime_meta (key, value) VALUES ('corpus_hash', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [corpusFingerprint(norms, publications)]),
   ];
 
   if (transport === 'api') {
@@ -397,13 +555,13 @@ async function main() {
       const filePath = join(runDirectory, `batch-${String(index + 1).padStart(4, '0')}.sql`);
       await writeFile(filePath, `${file.statements.join('\n')}\n`, 'utf8');
       if (!dryRun) {
-        await executeSqlFile(filePath, { local, persistTo });
+        await executeSqlFile(filePath, { local, persistTo, databaseName });
         console.log(`SQL-Datei ${index + 1}/${files.length} (${file.slugs.length} Normen, ${file.statements.length} Anweisungen) ${local ? 'lokal ' : ''}ausgeführt`);
       }
     }
     console.log(`${files.length} SQL-Datei(en) unter ${runDirectory.replace(`${ROOT}/`, '')}${dryRun ? ' geschrieben (nicht ausgeführt)' : ' ausgeführt'}`);
   }
-  console.log(`${selected.length} Normen, ${publications.length} Verkündungen, ${queryCount} Inhaltsoperationen${dryRun ? ' validiert' : local ? ` in die lokale D1 unter ${persistTo.replace(`${ROOT}/`, '')} übertragen` : ' nach D1 übertragen'} (${Math.round((Date.now() - startedAt) / 1000)} s).`);
+  console.log(`${selected.length} Normen, ${scope.deletedSlugs.length} Löschungen, ${publicationSelection.length} Verkündungen, ${queryCount} Inhaltsoperationen${dryRun ? ' validiert' : local ? ` in die lokale D1 unter ${persistTo.replace(`${ROOT}/`, '')} übertragen` : ' nach D1 übertragen'} (${Math.round((Date.now() - startedAt) / 1000)} s).`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
