@@ -583,7 +583,10 @@ export function createD1NormStore(db: D1Database): NormStore {
       const keywords = keywordRows.results.map((row) => row.keyword);
       const entries = new Map<string, KeywordIndexEntry>(keywords.map((keyword) => [keyword, { keyword, norms: [] }]));
       if (keywords.length > 0) {
-        const rows = await db.prepare(`SELECT k.keyword, n.slug, n.short_title FROM law_norm_keywords k JOIN law_norms n ON n.id = k.norm_id WHERE k.index_letter = ? AND k.keyword IN (${keywords.map(() => '?').join(', ')}) ORDER BY k.keyword, n.sort_title, n.slug`).bind(letter, ...keywords).all<{ keyword: string; slug: string; short_title: string }>();
+        // Die Seite ist in SQL-Sortierung ein zusammenhängender Bereich: BETWEEN statt einer
+        // IN-Liste (D1 erlaubt höchstens 100 Parameter); der Filter gilt erneut, damit
+        // zwischenliegende Stichwörter ohne Treffer nicht mitgelesen werden.
+        const rows = await db.prepare(`SELECT k.keyword, n.slug, n.short_title FROM law_norm_keywords k JOIN law_norms n ON n.id = k.norm_id WHERE ${where} AND k.keyword BETWEEN ? AND ? ORDER BY k.keyword, n.sort_title, n.slug`).bind(...params, keywords[0], keywords[keywords.length - 1]).all<{ keyword: string; slug: string; short_title: string }>();
         for (const row of rows.results) {
           const entry = entries.get(row.keyword);
           if (entry && !entry.norms.some((norm) => norm.slug === row.slug)) entry.norms.push({ slug: row.slug, shortTitle: row.short_title });

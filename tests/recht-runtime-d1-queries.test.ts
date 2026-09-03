@@ -185,7 +185,7 @@ test('Buchstabengruppen, Stichwortindex und Herkunftszähler lesen nur Aggregat-
   assert.deepEqual(pageQuery.params, ['A', '%abg%', 100, 100]);
   const joinQuery = log.find((query) => query.sql.includes('FROM law_norm_keywords k JOIN law_norms n'));
   assert.ok(joinQuery);
-  assert.match(joinQuery.sql, /WHERE k\.index_letter = \? AND k\.keyword IN \(\?\) ORDER BY k\.keyword/u);
-  assert.deepEqual(joinQuery.params, ['A', 'Abgaben']);
+  assert.match(joinQuery.sql, /WHERE k\.index_letter = \? AND lower\(k\.keyword\) LIKE \? ESCAPE '\\' AND k\.keyword BETWEEN \? AND \? ORDER BY k\.keyword/u);
+  assert.deepEqual(joinQuery.params, ['A', '%abg%', 'Abgaben', 'Abgaben'], 'höchstens vier Parameter, unabhängig von der Seitengröße (D1-Grenze 100)');
   assert.ok(log.every((query) => !loadsCorpus(query)));
 });
