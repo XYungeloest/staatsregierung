@@ -614,9 +614,17 @@ mit dieser erzeugten Konfiguration.
   + Suchdokumente der Kandidaten + passende Provisionen (`MATCH … AND slug IN (…)`) + 1
   Metadatenzeile für die Verkündungsdaten – vorher zusätzlich alle 137 Verkündungs-JSONs über den
   Korpusaufbau; Normdetail die Zeilen der Norm und die Blöcke der angezeigten Fassung; Sitemap
-  5.207 + 5.287 schmale Zeilen (edge-gecacht 6 h). Cold/warm-Zeiten lokal (Miniflare, Vollbestand):
-  Startseite ≈ 60 ms kalt, Übersichten ≈ 25 ms, Normdetail 40 ms, größte Norm 220 ms, Suche
-  „Polizei“ 140 ms kalt / 35 ms warm; ein kalter Korpusaufbau (≈ 1 s) findet nicht mehr statt.
+  5.207 + 5.287 schmale Zeilen (edge-gecacht 6 h). Gemessen lokal (Miniflare, Vollbestand von
+  5.207 Normen, erste Anfrage nach Workerstart / zweite Anfrage): Startseite 685 ms / 25 ms (33 KB;
+  der frühere Korpusaufbau von ≈ 1 s entfällt, die erste Anfrage trägt nur noch Isolate- und
+  Modulstart), `/gesetze/` 72 / 55 ms (250 KB), `/verordnungen/` 107 / 99 ms (553 KB),
+  Sachgebiete 11 / 8 ms, Sachgebiet Kommunal- und Verwaltungsrecht 26 ms (146 KB), Fundstellen
+  42 ms, Verkündung 8 ms, Sitemap 202 ms (1,5 MB), Vorschlagsliste 180 ms (1,9 MB), Suche „Polizei“
+  76 / 73 ms (1,9 MB), Gemeindeordnung 113 / 92 ms, größte Norm (Kostenverzeichnis, 1 MB HTML)
+  679 / 650 ms, Mantelbestandteil 13 ms. Die Seiten A–Z (`/archiv/`, 8,2 MB, ≈ 1,4 s) und
+  Rechtsentwicklung (7,3 MB, ≈ 0,7 s) rendern weiterhin den gesamten Bestand in eine Seite; ihre
+  Datenzugriffe sind schmal, die Seitengröße ist eine offene Folgearbeit (Aufteilung nach
+  Buchstaben bzw. Paginierung).
 - Öffentliche URLs sind unverändert; `scripts/check-links.mjs` und `scripts/check-seo.mjs` erkennen
   On-demand-Routen aus den Seitenquellen und prüfen die Sitemap im Deployment-Smoke.
 
