@@ -1,27 +1,56 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --experimental-strip-types
 
 import { execFile } from 'node:child_process';
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
 
+import { loadAllNorms, loadNorm } from '@ostrecht/shared/lib/norms/loader.ts';
+import {
+  buildNormPublicationReferenceLookup,
+  loadAllVerkuendungen,
+} from '@ostrecht/shared/lib/norms/publications.ts';
+import { buildNormRelations, toNormRelationViews } from '@ostrecht/shared/lib/norms/relations.ts';
+import { buildNormFullCitation, buildNormRecordLookup } from '@ostrecht/shared/lib/norms/citation.ts';
+import { getNormOriginInfo } from '@ostrecht/shared/lib/norms/origin.ts';
+import {
+  buildNormTextLinkReferences,
+  buildRelatedNormRecommendationIndex,
+  selectMatchingTextLinkReferences,
+} from '@ostrecht/shared/lib/norms/references.ts';
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { classifyNormVersion, getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { getNormUrl, getNormVersionUrl } from '@ostrecht/shared/lib/norms/routes.ts';
+import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
+import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
+import { buildSearchDocument, collectBodyContent } from '@ostrecht/recht-search/search.ts';
+
 /**
- * Spiegelt content/normen nach Cloudflare D1 (abgeleitete Runtime-Projektion).
+ * Spiegelt content/normen und content/verkuendungen nach Cloudflare D1 – die
+ * abgeleitete Runtime-Projektion von OstRecht. Git bleibt fachlicher Source of
+ * Truth; alle korpusweiten Ableitungen (Beziehungen, Empfehlungen, Herkunft,
+ * Textverweise, Vollzitate, Verkündungsbezüge, Portalbezüge) werden hier aus dem
+ * vollständigen Bestand berechnet und je Norm gespeichert, damit die Website zur
+ * Laufzeit nur die Zeilen der angefragten Norm lesen muss.
+ *
+ * Schema: data/recht/d1/0001_rechtsbestand.sql + 0002_runtime_projection.sql.
  *
  * Transport:
  *   --transport api       D1-REST-API mit parametrisierten Batches (CLOUDFLARE_API_TOKEN)
  *   --transport wrangler  SQL-Dateien unter .cache/d1-sync/ und
- *                         `wrangler d1 execute ostrecht-recht --remote --file` mit der lokalen
- *                         Wrangler-Anmeldung; Parameter werden als SQL-Literale gerendert.
+ *                         `wrangler d1 execute ostrecht-recht --remote --file` mit der
+ *                         lokalen Wrangler-Anmeldung; Parameter werden als SQL-Literale
+ *                         gerendert, Blöcke über 40.000 Zeichen in Teile zerlegt.
  * Ohne Angabe wird die API verwendet, wenn ein Token gesetzt ist, sonst Wrangler.
  * `--dry-run` validiert alle Normen und schreibt beim Wrangler-Transport die SQL-Dateien
- * zur Kontrolle, ohne sie auszuführen.
+ * zur Kontrolle, ohne sie auszuführen. `--slug` synchronisiert einzelne Normen (dann
+ * werden keine veralteten Zeilen gelöscht).
  */
 
 const ROOT = resolve(process.cwd());
-const CONTENT_ROOT = join(ROOT, 'content', 'normen');
-const MAX_D1_TEXT_BYTES = 1_800_000;
+const MAX_BLOCK_PART_CHARS = 40_000;
+const MAX_SEARCH_BODY_CHARS = 40_000;
 const DEFAULT_BATCH_SIZE = 40;
 const DEFAULT_SQL_FILE_STATEMENTS = 1500;
 const DEFAULT_SQL_FILE_BYTES = 6_000_000;
@@ -35,183 +64,12 @@ function valueAfter(args, flag) {
   return index >= 0 ? args[index + 1] : undefined;
 }
 
-async function readJson(path) {
-  return JSON.parse(await readFile(path, 'utf8'));
-}
-
-async function listSlugs() {
-  const entries = await readdir(CONTENT_ROOT, { withFileTypes: true });
-  return entries.filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
-}
-
-async function loadNorm(slug) {
-  const base = join(CONTENT_ROOT, slug);
-  const [meta, history, versionEntries] = await Promise.all([
-    readJson(join(base, 'meta.json')),
-    readJson(join(base, 'history.json')),
-    readdir(join(base, 'versions'), { withFileTypes: true }),
-  ]);
-  const versions = [];
-  for (const entry of versionEntries.filter((item) => item.isFile() && item.name.endsWith('.json')).sort((a, b) => a.name.localeCompare(b.name))) {
-    versions.push(await readJson(join(base, 'versions', entry.name)));
-  }
-  return { meta, history, versions };
-}
-
-function currentVersion(norm) {
-  return norm.versions.find((version) => version.isCurrent) ?? norm.versions.at(-1);
-}
-
-function sourceLawId(meta, version) {
-  return [...(version.sourceReferences ?? []), ...(meta.sourceReferences ?? [])]
-    .map((source) => source.lawId)
-    .find(Boolean) ?? null;
-}
-
-function sourceKind(meta, version) {
-  return [...(version.sourceReferences ?? []), ...(meta.sourceReferences ?? [])]
-    .some((source) => source.kind === 'revosax-snapshot') ? 'revosax-baseline' : 'repository';
-}
-
-function textBytes(value) {
-  return Buffer.byteLength(value, 'utf8');
-}
-
-function blockText(block) {
-  return [block.text, ...(block.children ?? []).map(blockText)].filter(Boolean).join(' ').replace(/\s+/gu, ' ').trim();
-}
-
-function flattenSearchBlocks(blocks, path = [], output = []) {
-  for (const [index, block] of blocks.entries()) {
-    const label = block.label ?? '';
-    const heading = block.title ?? '';
-    const nextPath = [...path, label || `${block.type}-${index + 1}`];
-    const searchableTypes = new Set(['paragraph', 'article', 'section', 'subsection', 'annex', 'chapter', 'part']);
-    if (searchableTypes.has(block.type)) {
-      output.push({
-        path: nextPath.join(' > '),
-        label,
-        heading,
-        body: blockText(block),
-      });
-    }
-    if (Array.isArray(block.children)) flattenSearchBlocks(block.children, nextPath, output);
-  }
-  return output;
+function valuesAfter(args, flag) {
+  return args.flatMap((entry, index) => (entry === flag && args[index + 1] ? [args[index + 1]] : []));
 }
 
 function q(sql, params = []) {
   return { sql, params };
-}
-
-function normQueries(norm, now) {
-  const { meta, versions } = norm;
-  const current = currentVersion(norm);
-  if (!current) throw new Error(`${meta.slug}: keine Fassung vorhanden`);
-  const queries = [
-    q('DELETE FROM law_search WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_source_objects WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_version_blocks WHERE norm_id = ?', [meta.id]),
-    q('DELETE FROM law_versions WHERE norm_id = ?', [meta.id]),
-    q(`INSERT INTO law_norms (
-      id, slug, title, short_title, abbr, type, status, revosax_law_id, current_version_id,
-      document_date, publication_date, effective_date, expiry_date, initial_citation, summary,
-      responsible_ministry, enacting_body, source_kind, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ON CONFLICT(id) DO UPDATE SET
-      slug=excluded.slug, title=excluded.title, short_title=excluded.short_title, abbr=excluded.abbr,
-      type=excluded.type, status=excluded.status, revosax_law_id=excluded.revosax_law_id,
-      current_version_id=excluded.current_version_id, document_date=excluded.document_date,
-      publication_date=excluded.publication_date, effective_date=excluded.effective_date,
-      expiry_date=excluded.expiry_date, initial_citation=excluded.initial_citation,
-      summary=excluded.summary, responsible_ministry=excluded.responsible_ministry,
-      enacting_body=excluded.enacting_body, source_kind=excluded.source_kind, updated_at=excluded.updated_at`, [
-      meta.id, meta.slug, meta.title, meta.shortTitle, meta.abbr ?? null, meta.type, meta.status,
-      sourceLawId(meta, current), current.versionId, meta.documentDate ?? null, meta.publicationDate ?? null,
-      meta.effectiveDate ?? null, meta.expiryDate ?? null, meta.initialCitation, meta.summary,
-      meta.responsibleMinistry ?? meta.ministry ?? null, meta.enactingBody ?? null, sourceKind(meta, current), now,
-    ]),
-  ];
-
-  for (const version of versions) {
-    const primarySource = (version.sourceReferences ?? []).find((source) => source.kind === 'revosax-snapshot')
-      ?? (version.sourceReferences ?? [])[0]
-      ?? null;
-    queries.push(q(`INSERT INTO law_versions (
-      norm_id, version_id, valid_from, valid_to, is_current, title, short_title, abbr, summary,
-      citation, change_note, source_sha256, source_url, source_retrieved_at, source_object_key, updated_at
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
-      meta.id, version.versionId, version.validFrom, version.validTo ?? null, version.isCurrent ? 1 : 0,
-      version.title ?? null, version.shortTitle ?? null, version.abbr ?? null, version.summary ?? null,
-      version.citation, version.changeNote, primarySource?.sha256 ?? null, primarySource?.url ?? null,
-      primarySource?.retrievedAt ?? null, primarySource?.objectKey ?? null, now,
-    ]));
-
-    for (const [blockIndex, block] of version.body.entries()) {
-      const blockJson = JSON.stringify(block);
-      if (textBytes(blockJson) > MAX_D1_TEXT_BYTES) {
-        throw new Error(
-          `${meta.slug}/${version.versionId}: äußerer Body-Block ${blockIndex} ist ${textBytes(blockJson)} Byte groß; ` +
-          `vor D1-Sync strukturell weiter aufteilen`,
-        );
-      }
-      queries.push(q(
-        'INSERT INTO law_version_blocks (norm_id, version_id, block_index, block_json) VALUES (?, ?, ?, ?)',
-        [meta.id, version.versionId, blockIndex, blockJson],
-      ));
-    }
-
-    for (const [sourceIndex, source] of (version.sourceReferences ?? []).entries()) {
-      queries.push(q(`INSERT INTO law_source_objects (
-        norm_id, version_id, source_index, kind, label, url, local_source, object_key, media_type,
-        sha256, retrieved_at, source_valid_from, source_valid_to
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
-        meta.id, version.versionId, sourceIndex, source.kind, source.label, source.url ?? null,
-        source.localSource ?? null, source.objectKey ?? null, source.mediaType ?? null, source.sha256 ?? null,
-        source.retrievedAt ?? null, source.sourceValidFrom ?? null, source.sourceValidTo ?? null,
-      ]));
-    }
-  }
-
-  const identityTitle = current.title ?? meta.title;
-  const identityShortTitle = current.shortTitle ?? meta.shortTitle;
-  const identityAbbr = current.abbr ?? meta.abbr ?? '';
-  for (const provision of flattenSearchBlocks(current.body)) {
-    queries.push(q(`INSERT INTO law_search (
-      norm_id, version_id, provision_path, slug, title, short_title, abbr, label, heading, body
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
-      meta.id, current.versionId, provision.path, meta.slug, identityTitle, identityShortTitle,
-      identityAbbr, provision.label, provision.heading, provision.body,
-    ]));
-  }
-
-  return queries;
-}
-
-async function cloudflareQuery({ accountId, databaseId, apiToken }, batch) {
-  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${databaseId}/query`, {
-    method: 'POST',
-    headers: {
-      authorization: `Bearer ${apiToken}`,
-      'content-type': 'application/json',
-    },
-    body: JSON.stringify({ batch }),
-  });
-  const payload = await response.json();
-  if (!response.ok || !payload.success || payload.errors?.length) {
-    throw new Error(`Cloudflare D1: ${response.status} ${JSON.stringify(payload.errors ?? payload)}`);
-  }
-  if ((payload.result ?? []).some((result) => result.success === false)) {
-    throw new Error(`Cloudflare D1 meldet fehlgeschlagene Batch-Abfrage: ${JSON.stringify(payload.result)}`);
-  }
-  return payload;
-}
-
-async function sendBatches(config, queries, batchSize) {
-  for (let index = 0; index < queries.length; index += batchSize) {
-    const batch = queries.slice(index, index + batchSize);
-    await cloudflareQuery(config, batch);
-  }
 }
 
 export function sqlLiteral(value) {
@@ -255,6 +113,248 @@ export function groupStatementFiles(normStatements, { maxStatements = DEFAULT_SQ
   return files;
 }
 
+/** Zerlegt einen JSON-Text in Teile fester Zeichenlänge (D1 begrenzt die Anweisungslänge). */
+export function splitBlockJson(json, maxChars = MAX_BLOCK_PART_CHARS) {
+  if (json.length <= maxChars) return [json];
+  const parts = [];
+  for (let offset = 0; offset < json.length; offset += maxChars) parts.push(json.slice(offset, offset + maxChars));
+  return parts;
+}
+
+function stripBody(version) {
+  const { body, ...rest } = version;
+  return rest;
+}
+
+function versionUrlFor(norm, versionId) {
+  const version = norm.versions.find((entry) => entry.versionId === versionId);
+  if (!version) return undefined;
+  return classifyNormVersion(norm, version) === 'current' ? getNormUrl(norm.meta.slug) : getNormVersionUrl(norm.meta.slug, versionId);
+}
+
+function identityFor(norm) {
+  const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
+  return { title: identity.title, shortTitle: identity.shortTitle };
+}
+
+function versionTexts(norm) {
+  const parts = [];
+  const visit = (blocks) => {
+    for (const block of blocks ?? []) {
+      if (block.label) parts.push(block.label);
+      if (block.title) parts.push(block.title);
+      if (block.text) parts.push(block.text);
+      visit(block.children);
+    }
+  };
+  for (const version of norm.versions) visit(version.body);
+  return parts;
+}
+
+/**
+ * Berechnet die korpusweiten Ableitungen einmal für alle Normen.
+ */
+export function buildDerivedContext({ norms, publications, topics, pressReleases }) {
+  const lookup = buildNormRecordLookup(norms);
+  const relations = buildNormRelations(norms);
+  const recommendations = buildRelatedNormRecommendationIndex(norms);
+  const publicationReferences = buildNormPublicationReferenceLookup(publications);
+  const topicsByNorm = new Map();
+  for (const topic of topics) {
+    for (const reference of topic.rechtsgrundlagen ?? []) {
+      if (!reference.normSlug) continue;
+      const list = topicsByNorm.get(reference.normSlug) ?? [];
+      if (!list.some((entry) => entry.slug === topic.slug)) list.push({ slug: topic.slug, title: topic.title, url: getTopicUrl(topic.slug) });
+      topicsByNorm.set(reference.normSlug, list);
+    }
+  }
+  const pressByNorm = new Map();
+  for (const release of pressReleases) {
+    for (const slug of release.relatedNormSlugs ?? []) {
+      const list = pressByNorm.get(slug) ?? [];
+      list.push({ slug: release.slug, title: release.title, date: release.date, url: getPressReleaseUrl(release.slug) });
+      pressByNorm.set(slug, list);
+    }
+  }
+  return { lookup, relations, recommendations, publicationReferences, topicsByNorm, pressByNorm, norms, publications };
+}
+
+export function deriveNorm(norm, context) {
+  const references = selectMatchingTextLinkReferences(buildNormTextLinkReferences(context.norms, norm.meta.slug), versionTexts(norm));
+  const relationViews = toNormRelationViews(context.relations.get(norm.meta.slug) ?? [], { identityFor, versionUrlFor });
+  const recommendations = (context.recommendations.get(norm.meta.slug) ?? []).map((entry) => {
+    const related = context.lookup.get(entry.slug);
+    const identity = related ? identityFor(related) : { title: entry.slug, shortTitle: entry.slug };
+    return { slug: entry.slug, relation: entry.relation, score: entry.score, title: identity.title, shortTitle: identity.shortTitle };
+  });
+  return {
+    relations: relationViews,
+    recommendations,
+    origin: getNormOriginInfo(norm, context.norms),
+    textReferences: references,
+    portalLinks: {
+      topics: context.topicsByNorm.get(norm.meta.slug) ?? [],
+      pressReleases: (context.pressByNorm.get(norm.meta.slug) ?? []).sort((left, right) => right.date.localeCompare(left.date)).slice(0, 3),
+    },
+  };
+}
+
+function searchUnits(record, version, context) {
+  const publicationReference = context.publicationReferences.get(`${record.meta.slug}:${version.versionId}`);
+  const document = buildSearchDocument(record, version, context.lookup, publicationReference);
+  const { hitUnits, bodySupplement, ...metadata } = document;
+  const units = hitUnits.map((unit, index) => ({
+    unitIndex: index,
+    path: unit.anchor,
+    anchor: unit.anchor,
+    blockType: unit.type,
+    label: unit.label,
+    heading: unit.title,
+    body: unit.text.slice(0, MAX_SEARCH_BODY_CHARS),
+    references: unit.references ?? null,
+  }));
+  if (bodySupplement) {
+    units.push({ unitIndex: units.length, path: 'supplement', anchor: '', blockType: 'supplement', label: '', heading: '', body: bodySupplement.slice(0, MAX_SEARCH_BODY_CHARS), references: null });
+  }
+  return { metadata, units };
+}
+
+export function normQueries(norm, context, now) {
+  const { meta, history, versions } = norm;
+  const current = getApplicableVersion(norm);
+  const currentIdentity = getNormVersionIdentity(norm, current);
+  const derived = deriveNorm(norm, context);
+  const sourceOf = (version) => (version.sourceReferences ?? []).find((source) => source.kind === 'revosax-snapshot') ?? (version.sourceReferences ?? [])[0] ?? null;
+  const lawId = [...(current.sourceReferences ?? []), ...(meta.sourceReferences ?? [])].map((source) => source.lawId).find(Boolean) ?? null;
+  const sourceKind = [...(current.sourceReferences ?? []), ...(meta.sourceReferences ?? [])].some((source) => source.kind === 'revosax-snapshot') ? 'revosax-baseline' : 'repository';
+  const queries = [
+    q('DELETE FROM law_search WHERE norm_id = ?', [meta.id]),
+    q('DELETE FROM law_source_objects WHERE norm_id = ?', [meta.id]),
+    q('DELETE FROM law_version_blocks WHERE norm_id = ?', [meta.id]),
+    q('DELETE FROM law_versions WHERE norm_id = ?', [meta.id]),
+    q('DELETE FROM law_norm_derived WHERE norm_id = ?', [meta.id]),
+    q(`INSERT INTO law_norms (
+      id, slug, title, short_title, abbr, type, status, revosax_law_id, current_version_id,
+      document_date, publication_date, effective_date, expiry_date, initial_citation, summary,
+      responsible_ministry, enacting_body, source_kind, updated_at, meta_json, history_json, sort_title, current_valid_from
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET
+      slug=excluded.slug, title=excluded.title, short_title=excluded.short_title, abbr=excluded.abbr,
+      type=excluded.type, status=excluded.status, revosax_law_id=excluded.revosax_law_id,
+      current_version_id=excluded.current_version_id, document_date=excluded.document_date,
+      publication_date=excluded.publication_date, effective_date=excluded.effective_date,
+      expiry_date=excluded.expiry_date, initial_citation=excluded.initial_citation,
+      summary=excluded.summary, responsible_ministry=excluded.responsible_ministry,
+      enacting_body=excluded.enacting_body, source_kind=excluded.source_kind, updated_at=excluded.updated_at,
+      meta_json=excluded.meta_json, history_json=excluded.history_json, sort_title=excluded.sort_title,
+      current_valid_from=excluded.current_valid_from`, [
+      meta.id, meta.slug, currentIdentity.title, currentIdentity.shortTitle, currentIdentity.abbr ?? null, meta.type, meta.status,
+      lawId, current.versionId, meta.documentDate ?? null, meta.publicationDate ?? null,
+      meta.effectiveDate ?? null, meta.expiryDate ?? null, meta.initialCitation, meta.summary,
+      meta.responsibleMinistry ?? meta.ministry ?? null, meta.enactingBody ?? null, sourceKind, now,
+      JSON.stringify(meta), JSON.stringify(history), currentIdentity.title.toLocaleLowerCase('de'), current.validFrom,
+    ]),
+  ];
+
+  for (const version of versions) {
+    const primarySource = sourceOf(version);
+    const publicationReference = context.publicationReferences.get(`${meta.slug}:${version.versionId}`) ?? null;
+    queries.push(q(`INSERT INTO law_versions (
+      norm_id, version_id, valid_from, valid_to, is_current, title, short_title, abbr, summary,
+      citation, change_note, source_sha256, source_url, source_retrieved_at, source_object_key, updated_at,
+      version_json, full_citation, publication_ref_json, temporal_kind
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
+      meta.id, version.versionId, version.validFrom, version.validTo ?? null, version.isCurrent ? 1 : 0,
+      version.title ?? null, version.shortTitle ?? null, version.abbr ?? null, version.summary ?? null,
+      version.citation, version.changeNote, primarySource?.sha256 ?? null, primarySource?.url ?? null,
+      primarySource?.retrievedAt ?? null, primarySource?.objectKey ?? null, now,
+      JSON.stringify(stripBody(version)), buildNormFullCitation(norm, version, context.lookup),
+      publicationReference ? JSON.stringify(publicationReference) : null, classifyNormVersion(norm, version),
+    ]));
+
+    for (const [blockIndex, block] of version.body.entries()) {
+      const parts = splitBlockJson(JSON.stringify(block));
+      for (const [partIndex, part] of parts.entries()) {
+        queries.push(q(
+          'INSERT INTO law_version_blocks (norm_id, version_id, block_index, part_index, part_count, block_json) VALUES (?, ?, ?, ?, ?, ?)',
+          [meta.id, version.versionId, blockIndex, partIndex, parts.length, part],
+        ));
+      }
+    }
+
+    for (const [sourceIndex, source] of (version.sourceReferences ?? []).entries()) {
+      queries.push(q(`INSERT INTO law_source_objects (
+        norm_id, version_id, source_index, kind, label, url, local_source, object_key, media_type,
+        sha256, retrieved_at, source_valid_from, source_valid_to
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
+        meta.id, version.versionId, sourceIndex, source.kind, source.label, source.url ?? null,
+        source.localSource ?? null, source.objectKey ?? null, source.mediaType ?? null, source.sha256 ?? null,
+        source.retrievedAt ?? null, source.sourceValidFrom ?? null, source.sourceValidTo ?? null,
+      ]));
+    }
+  }
+
+  queries.push(q(`INSERT INTO law_norm_derived (
+    norm_id, relations_json, recommendations_json, origin_json, text_references_json, portal_links_json, updated_at
+  ) VALUES (?, ?, ?, ?, ?, ?, ?)`, [
+    meta.id, JSON.stringify(derived.relations), JSON.stringify(derived.recommendations), JSON.stringify(derived.origin),
+    JSON.stringify(derived.textReferences), JSON.stringify(derived.portalLinks), now,
+  ]));
+
+  // Suchindex: nur die geltende Fassung, provisionsgenau. Die Metadaten des
+  // Suchdokuments werden je Fassung gespeichert, damit historische und künftige
+  // Fassungen weiterhin über Titel, Fundstelle und Metadaten auffindbar bleiben.
+  for (const version of versions) {
+    const { metadata, units } = searchUnits(norm, version, context);
+    queries.push(q(
+      'INSERT INTO law_search_documents (norm_id, version_id, document_json, updated_at) VALUES (?, ?, ?, ?) ON CONFLICT(norm_id, version_id) DO UPDATE SET document_json=excluded.document_json, updated_at=excluded.updated_at',
+      [meta.id, version.versionId, JSON.stringify(metadata), now],
+    ));
+    if (version.versionId !== current.versionId) continue;
+    for (const unit of units) {
+      queries.push(q(`INSERT INTO law_search (
+        norm_id, version_id, provision_path, anchor, block_type, slug, title, short_title, abbr, label, heading, body
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
+        meta.id, current.versionId, `${unit.unitIndex}`, unit.anchor, unit.blockType, meta.slug, currentIdentity.title, currentIdentity.shortTitle,
+        currentIdentity.abbr ?? '', unit.label, unit.heading, unit.body,
+      ]));
+    }
+  }
+
+  return queries;
+}
+
+export function publicationQueries(publication, now) {
+  return [q(`INSERT INTO law_publications (slug, publication_date, publication, year, issue, publication_json, updated_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(slug) DO UPDATE SET publication_date=excluded.publication_date, publication=excluded.publication,
+      year=excluded.year, issue=excluded.issue, publication_json=excluded.publication_json, updated_at=excluded.updated_at`, [
+    publication.slug, publication.date, publication.publication, publication.year, publication.issue, JSON.stringify(publication), now,
+  ])];
+}
+
+async function cloudflareQuery({ accountId, databaseId, apiToken }, batch) {
+  const response = await fetch(`https://api.cloudflare.com/client/v4/accounts/${accountId}/d1/database/${databaseId}/query`, {
+    method: 'POST',
+    headers: { authorization: `Bearer ${apiToken}`, 'content-type': 'application/json' },
+    body: JSON.stringify({ batch }),
+  });
+  const payload = await response.json();
+  if (!response.ok || !payload.success || payload.errors?.length) {
+    throw new Error(`Cloudflare D1: ${response.status} ${JSON.stringify(payload.errors ?? payload)}`);
+  }
+  if ((payload.result ?? []).some((result) => result.success === false)) {
+    throw new Error(`Cloudflare D1 meldet fehlgeschlagene Batch-Abfrage: ${JSON.stringify(payload.result)}`);
+  }
+  return payload;
+}
+
+async function sendBatches(config, queries, batchSize) {
+  for (let index = 0; index < queries.length; index += batchSize) {
+    await cloudflareQuery(config, queries.slice(index, index + batchSize));
+  }
+}
+
 async function runWrangler(args) {
   const { stdout, stderr } = await execFileAsync('npx', ['wrangler', ...args], {
     cwd: join(ROOT, 'apps', 'recht'),
@@ -274,10 +374,6 @@ async function executeSqlFile(filePath) {
   return payload;
 }
 
-function valuesAfter(args, flag) {
-  return args.flatMap((entry, index) => (entry === flag && args[index + 1] ? [args[index + 1]] : []));
-}
-
 async function main() {
   const args = process.argv.slice(2);
   const requestedSlugs = valuesAfter(args, '--slug');
@@ -290,38 +386,53 @@ async function main() {
   };
   const transport = valueAfter(args, '--transport') ?? (config.apiToken ? 'api' : 'wrangler');
   if (!['api', 'wrangler'].includes(transport)) throw new Error(`Unbekannter Transport ${transport}`);
-  if (!dryRun && transport === 'api' && !config.apiToken) {
-    throw new Error('CLOUDFLARE_API_TOKEN ist für --transport api erforderlich');
-  }
+  if (!dryRun && transport === 'api' && !config.apiToken) throw new Error('CLOUDFLARE_API_TOKEN ist für --transport api erforderlich');
 
-  const slugs = requestedSlugs.length > 0 ? requestedSlugs : await listSlugs();
+  const startedAt = Date.now();
+  const [norms, publications, topics, pressReleases] = await Promise.all([
+    loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(),
+  ]);
+  console.log(`${norms.length} Normen und ${publications.length} Verkündungen geladen und validiert (${Math.round((Date.now() - startedAt) / 1000)} s)`);
+  const context = buildDerivedContext({ norms, publications, topics, pressReleases });
+  console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
+  const selected = requestedSlugs.length > 0
+    ? requestedSlugs.map((slug) => norms.find((norm) => norm.meta.slug === slug) ?? (() => { throw new Error(`Norm ${slug} nicht gefunden`); })())
+    : norms;
   const now = new Date().toISOString();
-  const totalNormCount = requestedSlugs.length > 0 ? (await listSlugs()).length : slugs.length;
   let queryCount = 0;
   const normStatements = [];
-  for (const [index, slug] of slugs.entries()) {
-    const norm = await loadNorm(slug);
-    const queries = normQueries(norm, now);
+  const apiQueue = [];
+  for (const [index, norm] of selected.entries()) {
+    const queries = normQueries(norm, context, now);
     queryCount += queries.length;
-    if (transport === 'api') {
-      if (!dryRun) await sendBatches(config, queries, batchSize);
-    } else {
-      normStatements.push({ slug, statements: queries.map(renderStatement) });
+    if (transport === 'api') apiQueue.push(...queries);
+    else normStatements.push({ slug: norm.meta.slug, statements: queries.map(renderStatement) });
+    if ((index + 1) % 100 === 0 || index === selected.length - 1) {
+      console.log(`[${index + 1}/${selected.length}] ${norm.meta.slug}: ${queries.length} D1-Operationen vorbereitet`);
     }
-    console.log(`[${index + 1}/${slugs.length}] ${slug}: ${queries.length} D1-Operationen${dryRun ? ' geprüft' : transport === 'api' ? ' synchronisiert' : ' vorbereitet'}`);
   }
-
-  const metadataQueries = [
-    q(`INSERT INTO law_runtime_meta (key, value) VALUES ('last_sync_at', ?)
-       ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [now]),
-    q(`INSERT INTO law_runtime_meta (key, value) VALUES ('norm_count', ?)
-       ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [String(totalNormCount)]),
+  const publicationStatements = publications.flatMap((publication) => publicationQueries(publication, now));
+  const finalQueries = [
+    ...publicationStatements,
+    ...(requestedSlugs.length === 0
+      ? [
+          q('DELETE FROM law_publications WHERE updated_at < ?', [now]),
+          q('DELETE FROM law_norms WHERE updated_at < ?', [now]),
+          q('DELETE FROM law_search_documents WHERE updated_at < ?', [now]),
+        ]
+      : []),
+    q(`INSERT INTO law_runtime_meta (key, value) VALUES ('last_sync_at', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [now]),
+    q(`INSERT INTO law_runtime_meta (key, value) VALUES ('norm_count', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [String(norms.length)]),
+    q(`INSERT INTO law_runtime_meta (key, value) VALUES ('publication_count', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [String(publications.length)]),
   ];
 
   if (transport === 'api') {
-    if (!dryRun) await sendBatches(config, metadataQueries, batchSize);
+    if (!dryRun) {
+      await sendBatches(config, apiQueue, batchSize);
+      await sendBatches(config, finalQueries, batchSize);
+    }
   } else {
-    normStatements.push({ slug: '(runtime-meta)', statements: metadataQueries.map(renderStatement) });
+    normStatements.push({ slug: '(verkuendungen+meta)', statements: finalQueries.map(renderStatement) });
     const files = groupStatementFiles(normStatements);
     const runDirectory = join(ROOT, '.cache', 'd1-sync', now.replace(/[:.]/gu, '-'));
     await mkdir(runDirectory, { recursive: true });
@@ -335,7 +446,7 @@ async function main() {
     }
     console.log(`${files.length} SQL-Datei(en) unter ${runDirectory.replace(`${ROOT}/`, '')}${dryRun ? ' geschrieben (nicht ausgeführt)' : ' ausgeführt'}`);
   }
-  console.log(`${slugs.length} Normen, ${queryCount} Inhaltsoperationen${dryRun ? ' validiert' : ' nach D1 übertragen'}.`);
+  console.log(`${selected.length} Normen, ${publications.length} Verkündungen, ${queryCount} Inhaltsoperationen${dryRun ? ' validiert' : ' nach D1 übertragen'} (${Math.round((Date.now() - startedAt) / 1000)} s).`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

@@ -35,7 +35,7 @@
     "norms:revosax:plan-materialization": "node scripts/plan-revosax-materialization.mjs",
     "norms:revosax:materialize-baseline": "node --experimental-strip-types scripts/materialize-revosax-baseline.mjs",
     "norms:revosax:r2-upload": "node scripts/upload-revosax-r2.mjs",
-    "norms:runtime:d1-sync": "node scripts/sync-recht-d1.mjs",
+    "norms:runtime:d1-sync": "node --experimental-strip-types scripts/sync-recht-d1.mjs",
     "norms:publications:pdf-sync": "node scripts/sync-publication-pdfs.mjs",
     "norms:corrections:apply": "node scripts/apply-corrections.mjs",
     "norms:consolidate": "node scripts/consolidate-norms.mjs",
