@@ -289,15 +289,33 @@ async function runWrangler(args) {
   return { stdout, stderr };
 }
 
-async function executeSqlFile(filePath, { local = false, persistTo } = {}) {
+const TRANSIENT_D1_ERROR = /Network connection lost|Authentication error \[code: 10000\]|ETIMEDOUT|ECONNRESET|socket hang up|fetch failed|\b5\d\d\b/u;
+
+/**
+ * Führt eine SQL-Datei aus. Jede Datei schreibt ihre Normen vollständig neu
+ * (Löschen je Norm, anschließend Einfügen), darf also nach einem abgebrochenen
+ * Versuch wiederholt werden; vorübergehende Netz- oder Anmeldefehler der
+ * Cloudflare-API werden mit Backoff erneut versucht.
+ */
+async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4 } = {}) {
   const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
-  const { stdout, stderr } = await runWrangler(['d1', 'execute', D1_DATABASE_NAME, ...target, '--yes', '--json', '--file', filePath]);
-  const jsonStart = stdout.indexOf('[');
-  const payload = jsonStart >= 0 ? JSON.parse(stdout.slice(jsonStart)) : null;
-  if (!Array.isArray(payload) || payload.some((result) => result.success === false)) {
-    throw new Error(`wrangler d1 execute ${filePath}: ${(stderr || stdout).trim().slice(-400)}`);
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      const { stdout, stderr } = await runWrangler(['d1', 'execute', D1_DATABASE_NAME, ...target, '--yes', '--json', '--file', filePath]);
+      const jsonStart = stdout.indexOf('[');
+      const payload = jsonStart >= 0 ? JSON.parse(stdout.slice(jsonStart)) : null;
+      if (!Array.isArray(payload) || payload.some((result) => result.success === false)) {
+        throw new Error(`wrangler d1 execute ${filePath}: ${(stderr || stdout).trim().slice(-400)}`);
+      }
+      return payload;
+    } catch (error) {
+      const message = error instanceof Error ? `${error.message}\n${error.stdout ?? ''}\n${error.stderr ?? ''}` : String(error);
+      if (local || attempt >= attempts || !TRANSIENT_D1_ERROR.test(message)) throw error;
+      const delayMs = 5_000 * attempt;
+      console.warn(`${filePath.replace(`${ROOT}/`, '')}: vorübergehender Fehler (Versuch ${attempt}/${attempts}), neuer Versuch in ${delayMs / 1000} s`);
+      await new Promise((resolveDelay) => setTimeout(resolveDelay, delayMs));
+    }
   }
-  return payload;
 }
 
 async function main() {
