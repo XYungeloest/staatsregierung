@@ -21,6 +21,12 @@
       "database_id": "2491f200-de20-4a45-b028-d00a4fd57840"
     }
   ],
+  "r2_buckets": [
+    {
+      "binding": "ostrecht_recht_quellen",
+      "bucket_name": "ostrecht-recht-quellen"
+    }
+  ],
   "assets": {
     "directory": "./dist/client",
     "not_found_handling": "404-page"
