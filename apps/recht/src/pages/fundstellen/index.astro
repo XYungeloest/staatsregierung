@@ -2,23 +2,16 @@
 import LawLayout from '../../layouts/LawLayout.astro';
 import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
-import {
-  formatDate,
-  formatPublicationEntryType,
-  getLawPortalUrl,
-  getNormUrl,
-  getNormVersionUrl,
-  getPublicationLabel,
-  getPublicationUrl,
-  getReferencesUrl,
-  listPublicationEntries,
-  loadAllVerkuendungen,
-  toDisplayText,
-  classifyNormVersion,
-} from '@ostrecht/shared/lib/norms/index.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { formatDate, formatPublicationEntryType, getLawPortalUrl, getNormUrl, getNormVersionUrl, getPublicationLabel, getPublicationUrl, getReferencesUrl, listPublicationEntries, toDisplayText, classifyNormVersion } from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-const [publications, norms] = await Promise.all([loadAllVerkuendungen(), loadAllNorms()]);
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+export const prerender = false;
+
+const store = getNormStore(Astro.locals);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+
+const [publications, norms] = await Promise.all([store.listPublications(), store.listNorms()]);
 const entries = listPublicationEntries(publications).sort((left, right) => {
   if (left.publication.publication !== right.publication.publication) {
     return left.publication.publication.localeCompare(right.publication.publication, 'de');

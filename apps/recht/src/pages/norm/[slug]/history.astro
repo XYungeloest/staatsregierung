@@ -5,43 +5,39 @@ import NormPageHeader from '../../../components/norms/NormPageHeader.astro';
 import NormVersionNavigation from '../../../components/norms/NormVersionNavigation.astro';
 import { formatDate, formatNormStatus, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
-  buildNormFullCitation,
-  buildNormRecordLookup,
   classifyNormVersion,
   getLawPortalUrl,
   getNormUrl,
   getNormVersionUrl,
   getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion, getVersionById, loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getCurrentVersion, getVersionById } from '@ostrecht/shared/lib/norms/content.ts';
+import { getNormStore } from '../../../lib/runtime/context.ts';
 
-export async function getStaticPaths() {
-  const norms = await loadAllNorms();
-  const normLookup = buildNormRecordLookup(norms);
-  const relatedNormLabels = Object.fromEntries(
-    norms.map((entry) => {
-      const identity = getNormVersionIdentity(entry, getCurrentVersion(entry));
-      return [entry.meta.slug, toDisplayText(identity.shortTitle || identity.title)];
-    }),
-  );
+// Historienseiten werden zur Laufzeit aus D1 gelesen; Normkörper werden nicht benötigt.
+export const prerender = false;
 
-  return norms.map((norm) => ({
-    params: { slug: norm.meta.slug },
-    props: {
-      norm,
-      currentVersion: getCurrentVersion(norm),
-      relatedNormLabels,
-      fullCitations: Object.fromEntries(
-        norm.versions.map((version) => [
-          version.versionId,
-          buildNormFullCitation(norm, version, normLookup),
-        ]),
-      ),
-    },
-  }));
-}
-
-const { norm, currentVersion, relatedNormLabels, fullCitations } = Astro.props;
+const slug = Astro.params.slug ?? '';
+const store = getNormStore(Astro.locals);
+const norm = await store.getNorm(slug, 'none');
+if (!norm) return Astro.rewrite('/404');
+const currentVersion = getCurrentVersion(norm);
+const relatedSlugs = [
+  ...norm.history.entries.map((entry) => entry.relatedNorm),
+  norm.meta.predecessorSlug,
+  norm.meta.successorSlug,
+].filter((value): value is string => Boolean(value));
+const [labels, ...citations] = await Promise.all([
+  store.getNormLabels(relatedSlugs),
+  ...norm.versions.map((version) => store.getFullCitation(slug, version.versionId)),
+]);
+const relatedNormLabels: Record<string, string> = Object.fromEntries(
+  [...labels.entries()].map(([entrySlug, identity]) => [entrySlug, toDisplayText(identity.shortTitle || identity.title)]),
+);
+const fullCitations: Record<string, string> = Object.fromEntries(
+  norm.versions.map((version, index) => [version.versionId, citations[index] ?? version.citation]),
+);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const initialVersion = norm.history.initialVersionId
   ? getVersionById(norm, norm.history.initialVersionId)
   : undefined;

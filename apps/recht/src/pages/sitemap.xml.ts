@@ -10,16 +10,20 @@ import {
   getSubjectGroups,
   getSubjectUrl,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
-import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
+
+import { getNormStore } from '../lib/runtime/context.ts';
+
+// Die Sitemap wird aus der D1-Projektion erzeugt und am Rand gecacht.
+export const prerender = false;
 
 function escapeXml(value: string): string {
   return value.replace(/&/gu, '&amp;').replace(/"/gu, '&quot;').replace(/'/gu, '&apos;').replace(/</gu, '&lt;').replace(/>/gu, '&gt;');
 }
 
-export const GET: APIRoute = async ({ site }) => {
+export const GET: APIRoute = async ({ site, locals }) => {
   const baseUrl = site ?? new URL(lawSiteConfig.seo.siteUrl);
-  const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+  const store = getNormStore(locals);
+  const [norms, publications] = await Promise.all([store.listNorms(), store.listPublications()]);
   const staticPaths = [
     lawSiteConfig.paths.home, lawSiteConfig.paths.index, lawSiteConfig.paths.subjects,
     lawSiteConfig.paths.funding, lawSiteConfig.paths.references, lawSiteConfig.paths.publications,
@@ -58,5 +62,7 @@ export const GET: APIRoute = async ({ site }) => {
     }),
     '</urlset>',
   ].join('\n');
-  return new Response(xml, { headers: { 'Content-Type': 'application/xml; charset=utf-8' } });
+  return new Response(xml, {
+    headers: { 'Content-Type': 'application/xml; charset=utf-8', 'Cache-Control': 'public, max-age=600, s-maxage=21600' },
+  });
 };

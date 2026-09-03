@@ -14,24 +14,20 @@ import {
   getNormVersionIdentity,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
 import type { NormType } from '@ostrecht/shared/lib/norms/schema.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-export async function getStaticPaths() {
-  const norms = await loadAllNorms();
-  const groups = getSubjectGroups(norms);
-  const areaGroups = getSubjectAreaGroups(norms);
+// Sachgebietsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut.
+export const prerender = false;
 
-  return groups.map((group) => ({
-    params: { subject: group.slug },
-    props: {
-      group,
-      area: areaGroups.find((area) => area.subjects.some((subject) => subject.slug === group.slug)),
-    },
-  }));
-}
-
-const { group, area } = Astro.props;
+const store = getNormStore(Astro.locals);
+const norms = await store.listNorms();
+const groups = getSubjectGroups(norms);
+const areaGroups = getSubjectAreaGroups(norms);
+const group = groups.find((entry) => entry.slug === Astro.params.subject);
+if (!group) return Astro.rewrite('/404');
+const area = areaGroups.find((entry) => entry.subjects.some((subject) => subject.slug === group.slug));
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const typeCounts = [...group.norms.reduce((map: Map<string, number>, norm) => {
   map.set(norm.meta.type, (map.get(norm.meta.type) ?? 0) + 1);
   return map;

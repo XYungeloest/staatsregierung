@@ -16,9 +16,16 @@ import {
   LEGAL_BASELINE_DATE,
   type NormOriginKind,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion, loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getCurrentVersion } from '@ostrecht/shared/lib/norms/content.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-const norms = await loadAllNorms();
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+export const prerender = false;
+
+const store = getNormStore(Astro.locals);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+
+const norms = await store.listNorms();
 const records = norms.map((norm) => ({
   norm,
   version: getCurrentVersion(norm),

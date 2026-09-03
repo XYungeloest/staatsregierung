@@ -12,9 +12,17 @@ import {
   getSearchUrl,
   getSubjectsUrl,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { buildSearchIndexPayload } from '@ostrecht/recht-search/search.ts';
+import { buildFilterOptions } from '@ostrecht/recht-search/search.ts';
+import { getNormStore } from '../lib/runtime/context.ts';
 
-const searchPayload = await buildSearchIndexPayload();
+// Die Suchseite ist eine statische Hülle; Treffer liefert zur Laufzeit /api/suche.json aus D1.
+const store = getNormStore(Astro.locals);
+const [records, publications] = await Promise.all([store.listNorms(), store.listPublications()]);
+const filters = buildFilterOptions(records);
+filters.publications = [...new Set(publications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));
+filters.years = [...new Set(publications.map((publication) => String(publication.year)))].sort((left, right) => right.localeCompare(left));
+const searchPayload = { filters, documentCount: records.reduce((sum, record) => sum + record.versions.length, 0) };
+const searchApiUrl = `${import.meta.env.BASE_URL}api/suche.json`;
 ---
 
 <LawLayout
@@ -33,7 +41,7 @@ const searchPayload = await buildSearchIndexPayload();
     </div>
   </header>
 
-  <section class="search-shell" aria-labelledby="search-form-title" data-search-root data-index-url={`${import.meta.env.BASE_URL}search-index.json`}>
+  <section class="search-shell" aria-labelledby="search-form-title" data-search-root data-search-api={searchApiUrl}>
     <h2 class="visually-hidden" id="search-form-title">Suchanfrage und Filter</h2>
 
     <form class="search-form law-search-form" action={getSearchUrl()} method="get" data-search-form>

@@ -12,7 +12,6 @@ import {
   getPublicationUrl,
   getPublicationsUrl,
   getReferencesUrl,
-  loadAllVerkuendungen,
   toDisplayText,
   classifyNormVersion,
   buildNormRelations,
@@ -20,19 +19,16 @@ import {
   getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
 import type { NormRelation } from '@ostrecht/shared/lib/norms/relations.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-export async function getStaticPaths() {
-  const publications = await loadAllVerkuendungen();
+// Verkündungsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut.
+export const prerender = false;
 
-  return publications.map((publication) => ({
-    params: { slug: publication.slug },
-    props: { publication },
-  }));
-}
-
-const { publication } = Astro.props;
-const norms = await loadAllNorms();
+const store = getNormStore(Astro.locals);
+const publication = await store.getPublication(Astro.params.slug ?? '');
+if (!publication) return Astro.rewrite('/404');
+const norms = await store.listNorms();
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 const normBySlug = new Map(norms.map((norm) => [norm.meta.slug, norm]));
 const relationLookup = buildNormRelations(norms);
 

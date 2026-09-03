@@ -13,8 +13,8 @@
     "build": "astro build",
     "postbuild": "node ../../scripts/stamp-build.mjs law",
     "preview": "astro preview",
-    "deploy": "wrangler deploy --config wrangler.jsonc --env=\"\"",
-    "deploy:staging": "wrangler deploy --config wrangler.jsonc --env staging"
+    "deploy": "wrangler deploy --config dist/server/wrangler.json --env=\"\"",
+    "deploy:staging": "wrangler deploy --config dist/server/wrangler.json --env staging"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.2.6",

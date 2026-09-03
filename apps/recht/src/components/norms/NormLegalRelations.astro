@@ -1,15 +1,13 @@
 ---
 import { formatDate, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
-import { getNormUrl, getNormVersionUrl } from '@ostrecht/shared/lib/norms/routes.ts';
-import { classifyNormVersion } from '@ostrecht/shared/lib/norms/versions.ts';
-import { getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
-import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import type { NormRecord } from '@ostrecht/shared/lib/norms/schema.ts';
-import type { NormRelation, NormRelationKind } from '@ostrecht/shared/lib/norms/relations.ts';
+import type { NormRelationKind, NormRelationView } from '@ostrecht/shared/lib/norms/relations.ts';
 
 interface Props {
   norm: NormRecord;
-  relations: NormRelation[];
+  /** Serialisierte Beziehungssicht aus der Runtime-Projektion (siehe toNormRelationViews). */
+  relations: NormRelationView[];
 }
 
 const { norm, relations } = Astro.props;
@@ -27,14 +25,6 @@ const visibleSections = sections
   .map((section) => ({ ...section, entries: relations.filter((entry) => entry.kind === section.kind) }))
   .filter((section) => section.entries.length > 0);
 
-function resultingVersionUrl(relation: NormRelation): string | undefined {
-  if (!relation.resultingNorm || !relation.resultingVersionId) return undefined;
-  const version = relation.resultingNorm.versions.find((entry) => entry.versionId === relation.resultingVersionId);
-  if (!version) return undefined;
-  return classifyNormVersion(relation.resultingNorm, version) === 'current'
-    ? getNormUrl(relation.resultingNorm.meta.slug)
-    : getNormVersionUrl(relation.resultingNorm.meta.slug, version.versionId);
-}
 ---
 
 {visibleSections.length > 0 ? (
@@ -48,21 +38,16 @@ function resultingVersionUrl(relation: NormRelation): string | undefined {
         <section aria-labelledby={`norm-relation-${norm.meta.slug}-${section.kind}`}>
           <h3 id={`norm-relation-${norm.meta.slug}-${section.kind}`}>{section.heading}</h3>
           <ul class="timeline-list">
-            {section.entries.map((relation) => {
-              const relationIdentity = getNormVersionIdentity(relation.norm, getApplicableVersion(relation.norm));
-              const versionUrl = resultingVersionUrl(relation);
-              const resultingVersion = relation.resultingNorm?.versions.find((entry) => entry.versionId === relation.resultingVersionId);
-              return (
-                <li>
-                  <strong><a class="inline-link" href={getNormUrl(relation.norm.meta.slug)}>{toDisplayText(relationIdentity.shortTitle)}</a></strong>
-                  {relation.date ? <span>Rechtsänderung am <time datetime={relation.date}>{formatDate(relation.date)}</time></span> : null}
-                  {relation.citation ? <span>Fundstelle: {toDisplayText(relation.citation)}</span> : null}
-                  {versionUrl && resultingVersion ? (
-                    <span>Entstandene Fassung: <a class="inline-link" href={versionUrl}><time datetime={resultingVersion.validFrom}>{formatDate(resultingVersion.validFrom)}</time></a></span>
-                  ) : null}
-                </li>
-              );
-            })}
+            {section.entries.map((relation) => (
+              <li>
+                <strong><a class="inline-link" href={getNormUrl(relation.slug)}>{toDisplayText(relation.shortTitle)}</a></strong>
+                {relation.date ? <span>Rechtsänderung am <time datetime={relation.date}>{formatDate(relation.date)}</time></span> : null}
+                {relation.citation ? <span>Fundstelle: {toDisplayText(relation.citation)}</span> : null}
+                {relation.resultingVersionUrl && relation.resultingVersionValidFrom ? (
+                  <span>Entstandene Fassung: <a class="inline-link" href={relation.resultingVersionUrl}><time datetime={relation.resultingVersionValidFrom}>{formatDate(relation.resultingVersionValidFrom)}</time></a></span>
+                ) : null}
+              </li>
+            ))}
           </ul>
         </section>
       ))}

@@ -6,25 +6,14 @@ import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
 
-import { loadAllNorms, loadNorm } from '@ostrecht/shared/lib/norms/loader.ts';
-import {
-  buildNormPublicationReferenceLookup,
-  loadAllVerkuendungen,
-} from '@ostrecht/shared/lib/norms/publications.ts';
-import { buildNormRelations, toNormRelationViews } from '@ostrecht/shared/lib/norms/relations.ts';
-import { buildNormFullCitation, buildNormRecordLookup } from '@ostrecht/shared/lib/norms/citation.ts';
-import { getNormOriginInfo } from '@ostrecht/shared/lib/norms/origin.ts';
-import {
-  buildNormTextLinkReferences,
-  buildRelatedNormRecommendationIndex,
-  selectMatchingTextLinkReferences,
-} from '@ostrecht/shared/lib/norms/references.ts';
+import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
+import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
+import { buildDerivedContext, deriveNorm, fullCitationFor } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
 import { classifyNormVersion, getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
-import { getNormUrl, getNormVersionUrl } from '@ostrecht/shared/lib/norms/routes.ts';
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
-import { buildSearchDocument, collectBodyContent } from '@ostrecht/recht-search/search.ts';
+import { buildSearchDocument } from '@ostrecht/recht-search/search.ts';
 
 /**
  * Spiegelt content/normen und content/verkuendungen nach Cloudflare D1 – die
@@ -126,79 +115,6 @@ function stripBody(version) {
   return rest;
 }
 
-function versionUrlFor(norm, versionId) {
-  const version = norm.versions.find((entry) => entry.versionId === versionId);
-  if (!version) return undefined;
-  return classifyNormVersion(norm, version) === 'current' ? getNormUrl(norm.meta.slug) : getNormVersionUrl(norm.meta.slug, versionId);
-}
-
-function identityFor(norm) {
-  const identity = getNormVersionIdentity(norm, getApplicableVersion(norm));
-  return { title: identity.title, shortTitle: identity.shortTitle };
-}
-
-function versionTexts(norm) {
-  const parts = [];
-  const visit = (blocks) => {
-    for (const block of blocks ?? []) {
-      if (block.label) parts.push(block.label);
-      if (block.title) parts.push(block.title);
-      if (block.text) parts.push(block.text);
-      visit(block.children);
-    }
-  };
-  for (const version of norm.versions) visit(version.body);
-  return parts;
-}
-
-/**
- * Berechnet die korpusweiten Ableitungen einmal für alle Normen.
- */
-export function buildDerivedContext({ norms, publications, topics, pressReleases }) {
-  const lookup = buildNormRecordLookup(norms);
-  const relations = buildNormRelations(norms);
-  const recommendations = buildRelatedNormRecommendationIndex(norms);
-  const publicationReferences = buildNormPublicationReferenceLookup(publications);
-  const topicsByNorm = new Map();
-  for (const topic of topics) {
-    for (const reference of topic.rechtsgrundlagen ?? []) {
-      if (!reference.normSlug) continue;
-      const list = topicsByNorm.get(reference.normSlug) ?? [];
-      if (!list.some((entry) => entry.slug === topic.slug)) list.push({ slug: topic.slug, title: topic.title, url: getTopicUrl(topic.slug) });
-      topicsByNorm.set(reference.normSlug, list);
-    }
-  }
-  const pressByNorm = new Map();
-  for (const release of pressReleases) {
-    for (const slug of release.relatedNormSlugs ?? []) {
-      const list = pressByNorm.get(slug) ?? [];
-      list.push({ slug: release.slug, title: release.title, date: release.date, url: getPressReleaseUrl(release.slug) });
-      pressByNorm.set(slug, list);
-    }
-  }
-  return { lookup, relations, recommendations, publicationReferences, topicsByNorm, pressByNorm, norms, publications };
-}
-
-export function deriveNorm(norm, context) {
-  const references = selectMatchingTextLinkReferences(buildNormTextLinkReferences(context.norms, norm.meta.slug), versionTexts(norm));
-  const relationViews = toNormRelationViews(context.relations.get(norm.meta.slug) ?? [], { identityFor, versionUrlFor });
-  const recommendations = (context.recommendations.get(norm.meta.slug) ?? []).map((entry) => {
-    const related = context.lookup.get(entry.slug);
-    const identity = related ? identityFor(related) : { title: entry.slug, shortTitle: entry.slug };
-    return { slug: entry.slug, relation: entry.relation, score: entry.score, title: identity.title, shortTitle: identity.shortTitle };
-  });
-  return {
-    relations: relationViews,
-    recommendations,
-    origin: getNormOriginInfo(norm, context.norms),
-    textReferences: references,
-    portalLinks: {
-      topics: context.topicsByNorm.get(norm.meta.slug) ?? [],
-      pressReleases: (context.pressByNorm.get(norm.meta.slug) ?? []).sort((left, right) => right.date.localeCompare(left.date)).slice(0, 3),
-    },
-  };
-}
-
 function searchUnits(record, version, context) {
   const publicationReference = context.publicationReferences.get(`${record.meta.slug}:${version.versionId}`);
   const document = buildSearchDocument(record, version, context.lookup, publicationReference);
@@ -268,7 +184,7 @@ export function normQueries(norm, context, now) {
       version.title ?? null, version.shortTitle ?? null, version.abbr ?? null, version.summary ?? null,
       version.citation, version.changeNote, primarySource?.sha256 ?? null, primarySource?.url ?? null,
       primarySource?.retrievedAt ?? null, primarySource?.objectKey ?? null, now,
-      JSON.stringify(stripBody(version)), buildNormFullCitation(norm, version, context.lookup),
+      JSON.stringify(stripBody(version)), fullCitationFor(norm, version, context),
       publicationReference ? JSON.stringify(publicationReference) : null, classifyNormVersion(norm, version),
     ]));
 
@@ -313,10 +229,10 @@ export function normQueries(norm, context, now) {
     if (version.versionId !== current.versionId) continue;
     for (const unit of units) {
       queries.push(q(`INSERT INTO law_search (
-        norm_id, version_id, provision_path, anchor, block_type, slug, title, short_title, abbr, label, heading, body
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
-        meta.id, current.versionId, `${unit.unitIndex}`, unit.anchor, unit.blockType, meta.slug, currentIdentity.title, currentIdentity.shortTitle,
-        currentIdentity.abbr ?? '', unit.label, unit.heading, unit.body,
+        norm_id, version_id, provision_path, anchor, block_type, references_json, slug, title, short_title, abbr, label, heading, body
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [
+        meta.id, current.versionId, `${unit.unitIndex}`, unit.anchor, unit.blockType, unit.references ? JSON.stringify(unit.references) : null,
+        meta.slug, currentIdentity.title, currentIdentity.shortTitle, currentIdentity.abbr ?? '', unit.label, unit.heading, unit.body,
       ]));
     }
   }
@@ -393,7 +309,7 @@ async function main() {
     loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(),
   ]);
   console.log(`${norms.length} Normen und ${publications.length} Verkündungen geladen und validiert (${Math.round((Date.now() - startedAt) / 1000)} s)`);
-  const context = buildDerivedContext({ norms, publications, topics, pressReleases });
+  const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl });
   console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
   const selected = requestedSlugs.length > 0
     ? requestedSlugs.map((slug) => norms.find((norm) => norm.meta.slug === slug) ?? (() => { throw new Error(`Norm ${slug} nicht gefunden`); })())

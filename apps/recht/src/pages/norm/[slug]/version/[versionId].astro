@@ -14,46 +14,31 @@ import NormPageHeader from '../../../../components/norms/NormPageHeader.astro';
 import NormHistorySummary from '../../../../components/norms/NormHistorySummary.astro';
 import { buildNormOutline, formatDate, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import {
-  buildNormTextLinkReferences,
-  buildNormFullCitation,
-  buildNormPublicationReferenceLookup,
-  buildNormRecordLookup,
   getLawPortalUrl,
   getNormUrl,
   getPublicationUrl,
-  loadAllVerkuendungen,
   classifyNormVersion,
-  getNormOriginInfo,
   getNormVersionIdentity,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { getNormStore } from '../../../../lib/runtime/context.ts';
 
-export async function getStaticPaths() {
-  const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
-  const publicationReferences = buildNormPublicationReferenceLookup(publications);
-  const normLookup = buildNormRecordLookup(norms);
+// Konkrete Fassungen werden zur Laufzeit aus D1 gelesen; nur der angefragte
+// Normkörper wird geladen.
+export const prerender = false;
 
-  return norms.flatMap((norm) =>
-    norm.versions.map((version) => ({
-      params: { slug: norm.meta.slug, versionId: version.versionId },
-      props: {
-        norm,
-        version,
-        fullCitation: buildNormFullCitation(norm, version, normLookup),
-        textReferences: buildNormTextLinkReferences(norms, norm.meta.slug),
-        publicationReferences,
-        publications,
-        origin: getNormOriginInfo(norm, norms),
-      },
-    })),
-  );
-}
-
-const { norm, version, fullCitation, textReferences, publicationReferences, publications, origin } = Astro.props;
-const publicationReference = publicationReferences.get(`${norm.meta.slug}:${version.versionId}`);
-const publication = publicationReference
-  ? publications.find((entry) => entry.slug === publicationReference.publicationSlug)
-  : undefined;
+const slug = Astro.params.slug ?? '';
+const versionId = Astro.params.versionId ?? '';
+const store = getNormStore(Astro.locals);
+const norm = await store.getNorm(slug, [versionId]);
+const version = norm?.versions.find((entry) => entry.versionId === versionId);
+if (!norm || !version) return Astro.rewrite('/404');
+const [derived, fullCitation, publicationReference] = await Promise.all([
+  store.getDerived(slug),
+  store.getFullCitation(slug, versionId),
+  store.getPublicationReference(slug, versionId),
+]);
+if (!derived) return Astro.rewrite('/404');
+const publication = publicationReference ? await store.getPublication(publicationReference.publicationSlug) : null;
 const temporalKind = classifyNormVersion(norm, version);
 const outline = buildNormOutline(version.body);
 const identity = getNormVersionIdentity(norm, version);
@@ -61,6 +46,7 @@ const currentIdentity = getNormVersionIdentity(norm, norm.versions.find((entry) 
 const normTitle = toDisplayText(identity.title);
 const normSeoTitle = identity.abbr ? `${normTitle} (${toDisplayText(identity.abbr)})` : normTitle;
 const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : temporalKind === 'historical' ? 'Historische' : 'Veröffentlichte'} Fassung von ${normTitle} mit Stand vom ${formatDate(version.validFrom)} im Rechtsbereich des Freistaates Ostdeutschland.`;
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 ---
 
 <LawLayout
@@ -94,21 +80,21 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
     <aside class="norm-toc-column"><NormOutline items={outline} /></aside>
     <article class="norm-document-column">
       <NormStatusNotice norm={norm} version={version} />
-      <NormOriginNotice norm={norm} version={version} origin={origin} />
+      <NormOriginNotice norm={norm} version={version} origin={derived.origin} />
       <section class="section" id="normtext">
         <div class="section-header">
           <h2>{temporalKind === 'future' ? 'Zukünftiger Normtext' : temporalKind === 'historical' ? 'Historischer Normtext' : 'Veröffentlichter Normtext'}</h2>
           <p>{toDisplayText(version.changeNote)}</p>
         </div>
         <NormDocumentTools norm={norm} />
-        <NormBody blocks={version.body} references={textReferences} />
+        <NormBody blocks={version.body} references={derived.textReferences} />
       </section>
       <NormPrintSources
         norm={norm}
         version={version}
-        fullCitation={fullCitation}
+        fullCitation={fullCitation ?? version.citation}
         publicationReference={publicationReference}
-        publication={publication}
+        publication={publication ?? undefined}
       />
     </article>
     <aside class="norm-info-column">
@@ -118,7 +104,7 @@ const versionDescription = `${temporalKind === 'future' ? 'Zukünftige' : tempor
           <NormCitationBlock
             norm={norm}
             version={version}
-            fullCitation={fullCitation}
+            fullCitation={fullCitation ?? version.citation}
             publicationReference={publicationReference}
             immutableLink
           />

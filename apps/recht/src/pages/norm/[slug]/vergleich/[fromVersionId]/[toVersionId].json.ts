@@ -1,42 +1,31 @@
 import type { APIRoute } from 'astro';
 
-import {
-  buildProvisionVersionDiff,
-} from '@ostrecht/shared/lib/norms/diff.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { buildProvisionVersionDiff } from '@ostrecht/shared/lib/norms/diff.ts';
 
-export async function getStaticPaths() {
-  const norms = await loadAllNorms();
+import { getNormStore, notFound } from '../../../../../lib/runtime/context.ts';
 
-  return norms.flatMap((norm) => norm.versions.flatMap((fromVersion) =>
-    norm.versions
-      .filter((toVersion) => toVersion.versionId !== fromVersion.versionId)
-      .map((toVersion) => ({
-        params: {
-          slug: norm.meta.slug,
-          fromVersionId: fromVersion.versionId,
-          toVersionId: toVersion.versionId,
-        },
-        props: { fromVersion, toVersion },
-      })),
-  ));
-}
+// Ein Fassungsvergleich wird nur für die tatsächlich angefragte Paarung aus zwei
+// D1-Fassungen berechnet; es werden keine n × (n − 1) Paare mehr vorgebaut.
+export const prerender = false;
 
-export const GET: APIRoute = ({ props }) => {
-  const { fromVersion, toVersion } = props;
+export const GET: APIRoute = async ({ params, locals }) => {
+  const { slug = '', fromVersionId = '', toVersionId = '' } = params;
+  if (!slug || !fromVersionId || !toVersionId || fromVersionId === toVersionId) return notFound();
+  const store = getNormStore(locals);
+  const norm = await store.getNorm(slug, [fromVersionId, toVersionId]);
+  const fromVersion = norm?.versions.find((version) => version.versionId === fromVersionId);
+  const toVersion = norm?.versions.find((version) => version.versionId === toVersionId);
+  if (!norm || !fromVersion || !toVersion) return notFound();
   const provisions = buildProvisionVersionDiff(fromVersion, toVersion);
 
   return new Response(JSON.stringify({
-    fromVersion: {
-      versionId: fromVersion.versionId,
-      validFrom: fromVersion.validFrom,
-    },
-    toVersion: {
-      versionId: toVersion.versionId,
-      validFrom: toVersion.validFrom,
-    },
+    fromVersion: { versionId: fromVersion.versionId, validFrom: fromVersion.validFrom },
+    toVersion: { versionId: toVersion.versionId, validFrom: toVersion.validFrom },
     provisions,
   }), {
-    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+    headers: {
+      'Content-Type': 'application/json; charset=utf-8',
+      'Cache-Control': 'public, max-age=300, s-maxage=86400',
+    },
   });
 };

@@ -1,35 +1,16 @@
 ---
 import LawLayout from '../layouts/LawLayout.astro';
 import PortalIcon from '@ostrecht/shared/components/portal/PortalIcon.astro';
-import {
-  formatDate,
-  formatNormType,
-  getAdministrativeRulesUrl,
-  getIndexUrl,
-  getLawDevelopmentOverviewUrl,
-  getLawPortalUrl,
-  getLawsUrl,
-  getNormHistoryUrl,
-  getNormUrl,
-  getPublicationLabel,
-  getPublicationUrl,
-  getPublicationsUrl,
-  getReferencesUrl,
-  getRegulationsUrl,
-  getSearchUrl,
-  getSubjectAreaGroups,
-  getSubjectsUrl,
-  getSubjectSlug,
-  getBerlinCalendarDate,
-  getApplicableVersion,
-  getNormVersionIdentity,
-  loadAllVerkuendungen,
-  partitionDatedEntries,
-  toDisplayText,
-} from '@ostrecht/shared/lib/norms/index.ts';
-import { loadAllNorms } from '@ostrecht/shared/lib/norms/content.ts';
+import { formatDate, formatNormType, getAdministrativeRulesUrl, getIndexUrl, getLawDevelopmentOverviewUrl, getLawPortalUrl, getLawsUrl, getNormHistoryUrl, getNormUrl, getPublicationLabel, getPublicationUrl, getPublicationsUrl, getReferencesUrl, getRegulationsUrl, getSearchUrl, getSubjectAreaGroups, getSubjectsUrl, getSubjectSlug, getBerlinCalendarDate, getApplicableVersion, getNormVersionIdentity, partitionDatedEntries, toDisplayText } from '@ostrecht/shared/lib/norms/index.ts';
+import { getNormStore } from '../lib/runtime/context.ts';
 
-const [norms, publications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+// Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
+export const prerender = false;
+
+const store = getNormStore(Astro.locals);
+Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
+
+const [norms, publications] = await Promise.all([store.listNorms(), store.listPublications()]);
 const currentNorms = norms.filter((entry) => entry.meta.status === 'in-force');
 const subjectAreas = getSubjectAreaGroups(norms).slice(0, 6);
 const homeCalendarDate = getBerlinCalendarDate();

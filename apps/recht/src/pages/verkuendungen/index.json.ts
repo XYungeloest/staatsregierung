@@ -1,9 +1,13 @@
-import { getPublicationLabel, getPublicationSearchAliases, loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/index.ts';
+import type { APIRoute } from 'astro';
+import { getPublicationLabel, getPublicationSearchAliases } from '@ostrecht/shared/lib/norms/index.ts';
 
-export const prerender = true;
+import { getNormStore } from '../../lib/runtime/context.ts';
 
-export async function GET() {
-  const publications = await loadAllVerkuendungen();
+// Verkündungsliste aus der D1-Projektion.
+export const prerender = false;
+
+export const GET: APIRoute = async ({ locals }) => {
+  const publications = await getNormStore(locals).listPublications();
 
   return new Response(
     JSON.stringify({
@@ -34,7 +38,8 @@ export async function GET() {
     {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control': 'public, max-age=300, s-maxage=3600',
       },
     },
   );
-}
+};

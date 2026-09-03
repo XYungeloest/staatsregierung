@@ -390,7 +390,7 @@ export function buildSearchDocument(
   };
 }
 
-function buildSearchSuggestions(records: NormRecord[]): SearchSuggestion[] {
+export function buildSearchSuggestions(records: NormRecord[]): SearchSuggestion[] {
   return records.flatMap((record) => {
     const version = record.versions.find((entry) => classifyNormVersion(record, entry) === 'current');
     if (!version) return [];
@@ -407,7 +407,7 @@ function buildSearchSuggestions(records: NormRecord[]): SearchSuggestion[] {
   }).sort((left, right) => left.title.localeCompare(right.title, 'de'));
 }
 
-function buildSearchPublications(publications: Verkuendung[]): SearchPublication[] {
+export function buildSearchPublications(publications: Verkuendung[]): SearchPublication[] {
   return publications.map((publication) => {
     const designation = `${publication.publication} ${publication.year} Nr. ${publication.issue}`;
     const aliases = [
@@ -437,7 +437,7 @@ export async function buildSearchSuggestionPayload(): Promise<SearchSuggestionPa
   };
 }
 
-function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
+export function buildFilterOptions(records: NormRecord[]): SearchFilterOptions {
   const types = new Map<string, string>();
   const ministries = new Set<string>();
   const subjects = new Set<string>();

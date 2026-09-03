@@ -116,7 +116,7 @@ siteTest(['portal', 'law'])('alle ausgelieferten Routentypen tragen dieselbe vol
   let publicationSlug: string | undefined;
   if (selectedSiteTargets.includes('law')) {
     const [searchIndexResponse, publicationIndexResponse] = await Promise.all([
-      request.get(lawUrl('/search-index.json')),
+      request.get(lawUrl('/api/suche.json')),
       request.get(lawUrl('/verkuendungen/index.json')),
     ]);
     expect(searchIndexResponse).toBeOK();
@@ -143,7 +143,7 @@ siteTest(['portal', 'law'])('alle ausgelieferten Routentypen tragen dieselbe vol
       lawUrl('/verfassung/'),
       lawUrl(normPath!),
       lawUrl(`/verkuendungen/${publicationSlug}/`),
-      lawUrl('/search-index.json'),
+      lawUrl('/api/suche.json'),
       lawUrl('/verkuendungen/index.json'),
     ] : []),
   ];
@@ -535,10 +535,10 @@ siteTest(['law'])('Rechtsportal verwendet auf Übersichten und Suchindex dieselb
   await page.goto(lawUrl('/verkuendungen/'));
   await expect(page.locator('[data-law-filter-entry]').first()).toContainText(latestPublicationLabel);
 
-  const searchIndexResponse = await request.get(lawUrl('/search-index.json'));
-  expect(searchIndexResponse).toBeOK();
-  const searchIndex = await searchIndexResponse.json();
-  expect(searchIndex.latestPublication).toEqual(latestPublication);
+  const publicationIndexResponse = await request.get(lawUrl('/verkuendungen/index.json'));
+  expect(publicationIndexResponse).toBeOK();
+  const publicationIndex = await publicationIndexResponse.json();
+  expect(publicationIndex.latestPublication).toEqual(latestPublication);
 });
 
 siteTest(['law'])('Normtext bietet stabile Anker, Fassungsnavigation und zugängliche Textwerkzeuge', async ({ page }) => {
