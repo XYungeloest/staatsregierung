@@ -128,7 +128,7 @@ test('deutsche Umlaute werden im A–Z-Index einheitlich gruppiert', () => {
   assert.equal(getGermanIndexLetter('123. Bekanntmachung'), '#');
 });
 
-test('historische und geltende Fassungen behalten ihre jeweilige öffentliche Bezeichnung', async () => {
+test('übergeleitete historische und geltende Fassungen behalten ihre jeweilige öffentliche Bezeichnung', async () => {
   const norms = await loadAllNorms();
   const municipality = norms.find((norm) => norm.meta.slug === 'saechsische-gemeindeordnung');
   assert.ok(municipality);
@@ -136,7 +136,7 @@ test('historische und geltende Fassungen behalten ihre jeweilige öffentliche Be
   const current = municipality.versions.find((version) => version.versionId === '2026-08-01');
   assert.ok(historical);
   assert.ok(current);
-  assert.equal(getNormVersionIdentity(municipality, historical).title, 'Sächsische Gemeindeordnung');
+  assert.equal(getNormVersionIdentity(municipality, historical).title, 'Ostdeutsche Gemeindeordnung');
   assert.equal(getNormVersionIdentity(municipality, current).title, 'Gemeindeordnung für den Ostdeutschen Freistaat');
   assert.equal(historical.validTo, '2023-12-30');
   assert.equal(current.validFrom, '2026-08-01');
@@ -855,7 +855,7 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
   assert.ok(typedFirstLawResults.every((result) => !result.documentEntry.isAmendment));
 
   const historicalTitleState = searchState({
-    q: 'Sächsische Gemeindeordnung',
+    q: 'Ostdeutsche Gemeindeordnung',
     versionScope: 'all',
     sort: 'relevance',
     sortExplicit: false,
@@ -863,8 +863,11 @@ test('feldbewusste Rechtssuche priorisiert reale Identitäten, Normtypen, Vorsch
   const historicalTitleResults = runNormSearch(documents, historicalTitleState);
   const municipalityGroup = groupNormSearchResults(historicalTitleResults, historicalTitleState)
     .find((group) => group.slug === 'saechsische-gemeindeordnung');
-  assert.equal(municipalityGroup?.entries[0]?.documentEntry.title, 'Sächsische Gemeindeordnung');
-  assert.equal(municipalityGroup?.entries[0]?.documentEntry.versionKind, 'historical');
+  // Der übergeleitete historische Titel ist zugleich die geltende Kurzbezeichnung; die Gruppe
+  // führt die geltende Fassung an und enthält die historische Fassung unter ihrem Titel.
+  assert.ok(municipalityGroup);
+  assert.ok(['Ostdeutsche Gemeindeordnung', 'Gemeindeordnung für den Ostdeutschen Freistaat'].includes(municipalityGroup.entries[0]?.documentEntry.title ?? ''));
+  assert.ok(municipalityGroup.entries.some((entry) => entry.documentEntry.title === 'Ostdeutsche Gemeindeordnung' && entry.documentEntry.versionKind === 'historical'));
 
   const consentResults = search('Zustimmungsgesetz');
   assert.equal(parseNormSearchQuery('Zustimmungsgesetz').typeIntent?.type, 'zustimmungsgesetz');
@@ -892,6 +895,8 @@ test('Autocomplete enthält eine kanonische Suggestion je geltender Norm', async
   assert.equal(funding.abbr, 'FRL Landesbaukindergeld');
   assert.ok(funding.title.includes('Landesbaukindergeld'));
   const historical = payload.suggestions.find((suggestion) => suggestion.slug === 'saechsische-gemeindeordnung');
-  assert.ok(historical?.aliases.includes('Sächsische Gemeindeordnung'));
+  // Aliasse sind Bezeichnungen anderer Fassungen, die von der geltenden Identität abweichen
+  // (hier die Abkürzung der Zwischenfassung; der übergeleitete Titel ist die geltende Kurzbezeichnung).
+  assert.ok(historical?.aliases.includes('OstGemO'));
   assert.equal(historical?.url.endsWith('/norm/saechsische-gemeindeordnung/'), true);
 });

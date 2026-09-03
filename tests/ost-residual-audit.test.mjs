@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
 
-import { auditCorpus, auditNormRecord, isBaselineImport, loadCorpus } from '../scripts/audit-ost-residuals.mjs';
+import { auditCorpus, auditNormRecord, isBaselineImport, isInheritedNorm, lettersOnly, loadCorpus, sourceTextOf } from '../scripts/audit-ost-residuals.mjs';
 import { adaptParsedRevosaxSnapshot } from '../scripts/lib/revosax-ost-adapter.mjs';
 
 const r2Reference = {
@@ -76,28 +76,58 @@ test('Adapterartefakte (Niederostdeutsch) und zusammengesetzte Kürzel werden er
   assert.deepEqual(auditNormRecord(address), []);
 });
 
-test('der Bestandsaudit trennt übernommenes Recht (muss leer sein) und verzeichneten Altbestand', () => {
-  const legacy = {
+test('übergeleitetes Recht (auch konsolidierte Altbestandsnormen mit versioniertem Snapshot) muss reststellenfrei sein', async () => {
+  const consolidated = {
     ...record({ meta: { title: 'Sächsisches Altgesetz' } }),
     slug: 'altgesetz',
-    versions: [{ ...record().versions[0], sourceReferences: [{ kind: 'revosax-snapshot', availability: 'versioned', localSource: 'Gesetze/x.html', label: 'x' }] }],
+    versions: [{ ...record().versions[0], sourceReferences: [{ kind: 'revosax-snapshot', availability: 'versioned', localSource: 'data/recht/sources/revosax/x.html', label: 'x' }] }],
   };
-  legacy.meta.sourceReferences = [];
-  const clean = record();
-  const okResult = auditCorpus([clean, legacy], { norms: { altgesetz: { residuals: 1 } } });
-  assert.deepEqual(okResult.problems, []);
-  const drift = auditCorpus([clean, legacy], { norms: { altgesetz: { residuals: 3 } } });
-  assert.equal(drift.problems.length, 1);
-  const unknown = auditCorpus([clean, legacy], { norms: {} });
-  assert.match(unknown.problems[0], /nicht im Rückstand/u);
-  const baselineResidual = auditCorpus([record({ meta: { title: 'Sächsisches Testgesetz' } })], { norms: {} });
-  assert.equal(baselineResidual.baseline.length, 1);
+  consolidated.meta.sourceReferences = [];
+  assert.equal(isInheritedNorm(consolidated.meta, consolidated.versions), true);
+  assert.equal(isBaselineImport(consolidated.meta, consolidated.versions), false);
+  const result = await auditCorpus([record(), consolidated], { norms: {} });
+  assert.equal(result.inherited.length, 1);
+  assert.match(result.problems[0], /altgesetz: 1 Sachsen-Reststelle\(n\) in übergeleitetem Recht/u);
+  const baselineResidual = await auditCorpus([record({ meta: { title: 'Sächsisches Testgesetz' } })], { norms: {} });
+  assert.equal(baselineResidual.inherited.length, 1);
 });
 
-test('der materialisierte Rechtsbestand enthält im übernommenen Recht keine Reststellen und entspricht dem Rückstand', async () => {
+test('eigene ostdeutsche Erlasse: Sachsen-Bezüge gelten nur, wenn sie wörtlich in der amtlichen Quelle stehen', async () => {
+  const own = (text) => ({
+    ...record({ version: { body: [{ type: 'paragraphText', text }], sourceReferences: [{ kind: 'structured-html-transcription', availability: 'versioned', localSource: 'Gesetze/Erlass.html', label: 'x' }] } }),
+    slug: 'eigener-erlass',
+  });
+  own('x').meta.sourceReferences = [];
+  const cited = own('Das Sächsische Bestattungsgesetz vom 8. Juli 1994 (SächsGVBl. S. 1321) wird wie folgt geändert:');
+  cited.meta.sourceReferences = [];
+  const sourceHtml = '<p>Das S&auml;chsische Bestattungsgesetz vom 8.&nbsp;Juli 1994 (S&auml;chsGVBl. S.&nbsp;1321) wird wie folgt ge&auml;ndert:</p>';
+  assert.equal(lettersOnly(sourceTextOf(sourceHtml, 'Gesetze/Erlass.html')).includes('sächsischebestattungsgesetz'), true);
+  const loader = async () => lettersOnly(sourceTextOf(sourceHtml, 'Gesetze/Erlass.html'));
+  const backed = await auditCorpus([cited], { norms: {} }, { loadSource: loader });
+  assert.deepEqual(backed.problems, []);
+  assert.equal(backed.backed.get('eigener-erlass')?.length, 1);
+  assert.equal(backed.legacy.size, 0);
+  // Weicht der Wortlaut von der Quelle ab, bleibt die Stelle eine Reststelle und braucht einen Rückstandseintrag.
+  const deviating = own('Das Sächsische Bestattungsrecht vom 8. Juli 1994 (SächsGVBl. S. 1321) wird wie folgt geändert:');
+  deviating.meta.sourceReferences = [];
+  const unbacked = await auditCorpus([deviating], { norms: {} }, { loadSource: loader });
+  assert.match(unbacked.problems[0], /unbelegte/u);
+  const recorded = await auditCorpus([deviating], { norms: { 'eigener-erlass': { residuals: 1 } } }, { loadSource: loader });
+  assert.deepEqual(recorded.problems, []);
+  const drift = await auditCorpus([deviating], { norms: { 'eigener-erlass': { residuals: 3 } } }, { loadSource: loader });
+  assert.equal(drift.problems.length, 1);
+  // Adapterartefakte sind nie quellenbelegt.
+  const artefact = own('Die Niederostdeutsche Staatskanzlei.');
+  artefact.meta.sourceReferences = [];
+  const artefactResult = await auditCorpus([artefact], { norms: {} }, { loadSource: async () => lettersOnly('Die Niederostdeutsche Staatskanzlei.') });
+  assert.equal(artefactResult.legacy.size, 1);
+});
+
+test('der materialisierte Rechtsbestand enthält im übergeleiteten Recht keine Reststellen; eigene Erlasse sind belegt oder verzeichnet', async () => {
   const backlog = JSON.parse(await readFile(new URL('../data/recht/ost-residual-backlog.json', import.meta.url), 'utf8'));
   const norms = await loadCorpus();
-  const result = auditCorpus(norms, backlog);
-  assert.deepEqual(result.baseline.map((entry) => `${entry.slug}: ${entry.findings[0]?.context}`), []);
+  const result = await auditCorpus(norms, backlog);
+  assert.deepEqual(result.inherited.map((entry) => `${entry.slug}: ${entry.findings[0]?.context}`), []);
   assert.deepEqual(result.problems, []);
+  assert.equal(backlog.normCount, 0, 'Zielzustand: leerer Rückstand');
 });

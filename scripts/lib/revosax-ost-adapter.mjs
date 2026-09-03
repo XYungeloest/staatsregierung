@@ -97,6 +97,11 @@ function adaptBodyBlock(block) {
   return result;
 }
 
+/** Rechtsüberleitung eines vollständigen Normkörpers (Labels, Überschriften, Texte, Anlagen). */
+export function adaptBodyBlocks(blocks) {
+  return (blocks ?? []).map(adaptBodyBlock);
+}
+
 export function adaptParsedRevosaxSnapshot(parsed) {
   return {
     ...parsed,

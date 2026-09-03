@@ -6,6 +6,51 @@ import { dirname, join, resolve } from 'node:path';
 import { applyPatchRecipe, previousIsoDate } from './lib/consolidation-engine.mjs';
 import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 import { historicalBaselineCitation } from './lib/revosax-citation.mjs';
+import { adaptBodyBlocks, adaptSaxonText } from './lib/revosax-ost-adapter.mjs';
+
+/**
+ * Rechtsüberleitung des konsolidierten Ergebnisses. Die Patch-Rezepte werden auf den
+ * unveränderten sächsischen Ausgangstext angewendet (ihre Hashes und Erwartungswerte
+ * beziehen sich auf die amtliche Quelle); erst das Ergebnis – alle Fassungen, die
+ * Historie und die redaktionellen Metadaten – wird mit demselben Adapter wie der
+ * REVOSax-Vollbestand nach Ostdeutschland übergeleitet. Provenienzfelder
+ * (sourceReferences, sourceNotes, enactingBody) bleiben unverändert; geschützte
+ * Fundstellenkürzel (SächsGVBl., SächsABl., …) behält der Adapter bei.
+ */
+export function applyRechtsueberleitung({ meta, history, versions }) {
+  const adaptText = (value) => (typeof value === 'string' ? adaptSaxonText(value) : value);
+  const adaptedVersions = versions.map((version) => ({
+    ...version,
+    ...(version.title !== undefined ? { title: adaptText(version.title) } : {}),
+    ...(version.shortTitle !== undefined ? { shortTitle: adaptText(version.shortTitle) } : {}),
+    ...(version.abbr !== undefined ? { abbr: adaptText(version.abbr) } : {}),
+    ...(version.summary !== undefined ? { summary: adaptText(version.summary) } : {}),
+    citation: adaptText(version.citation),
+    changeNote: adaptText(version.changeNote),
+    body: adaptBodyBlocks(version.body),
+  }));
+  const adaptedMeta = {
+    ...meta,
+    title: adaptText(meta.title),
+    shortTitle: adaptText(meta.shortTitle),
+    ...(meta.abbr !== undefined ? { abbr: adaptText(meta.abbr) } : {}),
+    keywords: [...new Set((meta.keywords ?? []).map(adaptText))],
+    summary: adaptText(meta.summary),
+    initialCitation: adaptText(meta.initialCitation),
+    ...(meta.predecessor ? { predecessor: adaptText(meta.predecessor) } : {}),
+    ...(meta.successor ? { successor: adaptText(meta.successor) } : {}),
+  };
+  const adaptedHistory = {
+    ...history,
+    entries: history.entries.map((entry) => ({
+      ...entry,
+      title: adaptText(entry.title),
+      citation: adaptText(entry.citation),
+      ...(entry.note !== undefined ? { note: adaptText(entry.note) } : {}),
+    })),
+  };
+  return { meta: adaptedMeta, history: adaptedHistory, versions: adaptedVersions };
+}
 
 const ROOT = process.cwd();
 const editorialConfig = await readJson(resolve(ROOT, 'packages/shared/src/config/editorial.json'));
@@ -17,7 +62,8 @@ const valueAfter = (flag) => {
 const target = valueAfter('--target');
 const all = args.includes('--all');
 const write = args.includes('--write');
-if ((target ? 1 : 0) + (all ? 1 : 0) !== 1) {
+const isMain = process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href;
+if (isMain && (target ? 1 : 0) + (all ? 1 : 0) !== 1) {
   throw new Error('Genau eines von --target <slug> oder --all ist erforderlich.');
 }
 
@@ -257,7 +303,9 @@ async function consolidate(slug, config) {
   if (existingVersionSeed) {
     recipes = recipes.filter((recipe) => recipe.effectiveDate > baselineVersionDate);
   }
-  if (recipes.length === 0) throw new Error(`${slug}: keine redaktionell geprüften Patch-Rezepte vorhanden`);
+  // Ein gesperrtes Ziel (Quellenkonflikt ab einem Datum) darf ohne nutzbare Rezepte allein
+  // aus der Ausgangsfassung bestehen; sonst sind Rezepte Pflicht.
+  if (recipes.length === 0 && !blockedAt) throw new Error(`${slug}: keine redaktionell geprüften Patch-Rezepte vorhanden`);
   const recipeGroups = Object.values(Object.groupBy(recipes, (recipe) => recipe.effectiveDate));
   for (const group of recipeGroups) {
     if (group.length < 2) continue;
@@ -310,7 +358,7 @@ async function consolidate(slug, config) {
       citation: baselineCitation,
       changeNote: seededAdoptedSourceId
         ? baselineSource.changeNote
-        : `Ausgangsfassung nach dem am ${baselineVersionDate} geltenden sächsischen Rechtsstand.`,
+        : `Ausgangsfassung zum Rechtsüberleitungsstichtag ${baselineVersionDate}: übernommener Rechtsstand dieses Tages.`,
       sourceReferences: [snapshotReference(baselineSource)],
       sourceNotes: parsed.sourceNotes,
       title: state.title,
@@ -452,8 +500,12 @@ async function consolidate(slug, config) {
     if (updatedMeta[field] === null) delete updatedMeta[field];
   }
   if (publicEditorialResolutions(source).length === 0) delete updatedMeta.editorialResolutions;
+  // Hinweise zu Zusatzquellen werden aus der Konfiguration neu erzeugt (Wortlaut kann sich ändern).
+  const adoptedVersionIds = new Set(adoptedSources.map(({ source: adoptedSource }) => adoptedSource.id));
   const retainedHistoryEntries = existingHistory.entries.filter((entry) =>
-    (existingVersionSeed || entry.type !== 'initial') && !recipes.some((recipe) => recipe.amendmentAct === entry.relatedNorm)
+    (existingVersionSeed || entry.type !== 'initial')
+    && !recipes.some((recipe) => recipe.amendmentAct === entry.relatedNorm)
+    && !(entry.type === 'notice' && adoptedVersionIds.has(entry.affectingVersionId))
   );
   const retainedHistoryKeys = new Set(retainedHistoryEntries.map(historyEntryKey));
   const history = {
@@ -489,19 +541,23 @@ async function consolidate(slug, config) {
     ...await existingVersionMetadata(normDirectory, version.versionId),
     ...version,
   })));
+  // Rechtsüberleitung erst auf dem konsolidierten Ergebnis (siehe applyRechtsueberleitung).
+  const transitioned = applyRechtsueberleitung({ meta: updatedMeta, history, versions: versionsWithMetadata });
   await Promise.all([
-    writeJson(join(normDirectory, 'meta.json'), updatedMeta),
-    writeJson(join(normDirectory, 'history.json'), history),
-    ...versionsWithMetadata.map((version) => writeJson(join(normDirectory, 'versions', `${version.versionId}.json`), version)),
+    writeJson(join(normDirectory, 'meta.json'), transitioned.meta),
+    writeJson(join(normDirectory, 'history.json'), transitioned.history),
+    ...transitioned.versions.map((version) => writeJson(join(normDirectory, 'versions', `${version.versionId}.json`), version)),
     ...affectedActs.map(({ path, value }) => writeJson(path, value)),
   ]);
 }
 
-const config = await readJson(resolve(ROOT, 'data/recht/consolidation-sources.json'));
-if (target && config.blockedTargets?.[target] && !config.blockedTargets[target].effectiveDate) {
+const config = isMain ? await readJson(resolve(ROOT, 'data/recht/consolidation-sources.json')) : null;
+if (isMain && target && config.blockedTargets?.[target] && !config.blockedTargets[target].effectiveDate) {
   throw new Error(`${target}: Konsolidierung gesperrt – ${config.blockedTargets[target].reason}`);
 }
-if (!all) {
+if (!isMain) {
+  // nur importiert (Tests)
+} else if (!all) {
   await consolidate(target, config);
 } else {
   const blocked = Object.keys(config.targets).filter((slug) => config.blockedTargets?.[slug]);
@@ -516,7 +572,7 @@ if (!all) {
     const usableRecipes = config.blockedTargets?.[slug]?.effectiveDate
       ? availableRecipes.filter((recipe) => recipe.effectiveDate < config.blockedTargets[slug].effectiveDate)
       : availableRecipes;
-    if (usableRecipes.length === 0) {
+    if (usableRecipes.length === 0 && !config.blockedTargets?.[slug]?.effectiveDate) {
       console.error(`${slug}: keine Änderungsrezepte, Konsolidierung übersprungen`);
       continue;
     }
