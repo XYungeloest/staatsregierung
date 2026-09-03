@@ -364,7 +364,7 @@ Release-Gates vor dem Merge (PR bleibt Draft):
   Index), anschließend die Vollprojektion des Endbestands mit dem kostensicheren Pfad (5.207 Normen,
   103.127 Anweisungen, 70 SQL-Dateien, 809 s; **103.403 gelesene** statt zuvor über 300 Mio. und
   465.926 geschriebene Zeilen, Budgets `--max-rows-read 2000000 --max-rows-written 800000` nicht
-  berührt). `npm run norms:runtime:d1-verify --fts-integrity` bestätigt alle Zähler (5.207 Normen,
+  berührt; inzwischen durch die Vollprojektion vom 3. September 2026, 22:09 UTC, abgelöst, s. u.). `npm run norms:runtime:d1-verify --fts-integrity` bestätigt alle Zähler (5.207 Normen,
   5.287 Fassungen, 24.543 Blöcke, 6.789 Quellen, 38.561 Suchzeilen, 6.760 Sachgebiets- und 5.317
   Historienzeilen), `corpus_hash`, Projektionsfingerabdruck, FTS5-Integrität und 16 Stichproben; ein
   erneuter Sync endet als No-op (8 gelesene, 0 geschriebene Zeilen) – der `d1_sync`-Job nach dem
@@ -382,12 +382,30 @@ Release-Gates vor dem Merge (PR bleibt Draft):
   PR-Job `d1_token_check` liest die produktive Datenbank (Identität, `--dry-run`) und schreibt
   die Verkündungstabelle nach `ostrecht-recht-staging` (Teilsync ohne Identitätsänderung).
   Migrationen unter `data/recht/d1/` werden weiterhin bewusst manuell eingespielt.
-- [x] **Release-Hardening (Stand dieses Branches).** Projektionsidentität mit Scope (ein Fixture
+- [x] **Release-Hardening (4. September 2026).** Projektionsidentität mit Scope (ein Fixture
   kann nie den Vollbestand vortäuschen), Base-State-Guard für `--git-diff`, Budgets im automatischen
   `d1_sync` (`--budget incremental --recover`), globaler Reststellen-Scanner (jede Fundstelle),
   ein einziger Vollbestand-Smoke-Job im Deployment, serverseitig paginierte A–Z- und
   Rechtsentwicklungsseiten (Migration 0006: Buchstabenindex, Stichworttabelle) und die
   Befristungsentscheidungen der Prüfmarken (`data/recht/revosax-sunset-decisions.json`).
+- [x] **Staging als Release-Gate mit dem Vollbestand.** Migration 0006 auf `ostrecht-recht-staging`
+  (812 gelesene / 997 geschriebene Zeilen), Vollprojektion der 5.207 Normen mit Budgetprofil
+  `full` (129.763 Anweisungen, 2.945 gelesene / 479.464 geschriebene Zeilen, 611 s),
+  `d1-verify --fts-integrity` ohne Abweichung (Identität, Scope `full`, 26.624 Stichwortzeilen),
+  Worker `ostrecht-recht-staging` über die fail-closed erzeugte Staging-Konfiguration deployt
+  (`scripts/write-staging-wrangler-config.mjs`; die vom Adapter gebaute Konfiguration hätte
+  `--env staging` sonst auf den produktiven Worker aufgelöst), 25 Routen (Start, A–Z mit Buchstabe,
+  Seite und Stichwortfilter, Sachgebiete, Rechtsentwicklung mit Filtern und Seiten, leere Suche,
+  „Polizei“ mit Typfilter, Gemeindeordnung, größte Norm, Historie, Vergleich, befristete
+  Richtlinie, Verkündungen, 404, Sitemap, Vorschläge) und `scripts/check-deployment.mjs` grün.
+- [x] **Produktive D1 auf den Endstand (3. September 2026, 22:09 UTC).** Migration 0006 auf
+  `ostrecht-recht` (95.327 gelesene / 105.916 geschriebene Zeilen), danach die Vollprojektion des
+  finalen Standes mit Budgetprofil `full` (129.763 Anweisungen, 182.223 gelesene / 606.398
+  geschriebene Zeilen, 530 s; nötig, weil die Identität jetzt Scope und Zustand trägt und acht
+  Normen durch die Befristungsentscheidungen geändert sind), `d1-verify --fts-integrity` ohne
+  Abweichung; ein Dry-run des Deployment-Syncs endet als No-op (17 gelesene Zeilen) – der
+  `d1_sync`-Job nach dem Squash-Merge projiziert nichts erneut, weil der Merge denselben Baum
+  trägt.
 
 Redaktionelle Restarbeiten (konkret in `data/recht/revosax-import-audit/` identifiziert):
 

@@ -317,9 +317,11 @@ D1-Sync, getrennte Staging-Ressourcen und die CI-Trennung. Die produktive Websit
 Merge auf `main` umgestellt.
 
 Release-Gates (siehe README): Produktions-Smoke nach dem ersten Deployment, Workers Paid für den
-Betrieb mit dem Vollbestand; das Repository-Secret `CLOUDFLARE_API_TOKEN` ist geprüft. Die
-produktive D1 ist migriert, mit dem kostensicheren Pfad projiziert, verifiziert und trägt die
-Projektionsidentität (Scope `full`); der `d1_sync`-Job nach dem Merge ist damit ein No-op, und ein
+Betrieb mit dem Vollbestand; das Repository-Secret `CLOUDFLARE_API_TOKEN` ist geprüft. Staging
+trägt den Vollbestand (Migration 0006, Vollprojektion, `d1-verify --fts-integrity`, Worker
+`ostrecht-recht-staging` deployt und über 25 Routen geprüft); die produktive D1 ist migriert
+(0006), mit dem kostensicheren Pfad projiziert, verifiziert und trägt die Projektionsidentität
+(Scope `full`, Zustand `complete`); der `d1_sync`-Job nach dem Merge ist damit ein No-op, und ein
 späterer inkrementeller Lauf schreibt nur mit verifizierter Basis. Die Befristungsfälle der
 Prüfmarken sind in `data/recht/revosax-sunset-decisions.json` entschieden (8 modelliert, 1
 begründet offen); PDF-only-Vorschriften und generische Metadaten sind mit lawId, sourceId, URL,

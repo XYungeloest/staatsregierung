@@ -545,7 +545,10 @@ bzw. Dateien, `rows_read`, `rows_written` und Dauer („D1-Kosten: …“). Budg
 `recovery` 500.000 / 900.000, `fixture` 20.000 / 40.000 gelesene / geschriebene Zeilen; abgeleitet
 aus der produktiven Vollprojektion mit 103.403 / 465.926 Zeilen und dem Einzelsync mit 155 / 289).
 `--budget <Profil>` wählt ein Profil, `--max-rows-read`/`--max-rows-written` überschreiben einzelne
-Grenzen. Vor dem ersten Schreibzugriff prüft der Sync die kalibrierte Planschätzung (rows_written ≈
+Grenzen. Messwerte der Vollprojektion mit Migration 0006 (129.763 Anweisungen, davon 26.624
+Stichwortzeilen): Staging 2.945 gelesene / 479.464 geschriebene Zeilen in 611 s, Produktion
+182.223 / 606.398 in 530 s (Wrangler-Transport); Migration 0006 selbst 95.327 / 105.916 Zeilen auf
+der produktiven Datenbank. Vor dem ersten Schreibzugriff prüft der Sync die kalibrierte Planschätzung (rows_written ≈
 Anweisungen × 1,25 + Suchprovisionen × 14 für die FTS5-Schattentabellen; rows_read ≈ Anweisungen,
 inkrementell × 2) gegen das Budget und bricht mit 0 Schreibzugriffen ab, wenn sie darüber liegt;
 während des Laufs bricht er ab, sobald die realen Zähler das Budget überschreiten (Identität und
