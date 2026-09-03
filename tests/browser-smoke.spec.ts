@@ -342,7 +342,7 @@ siteTest(['law'])('Normverzeichnis stellt Filter, leere Buchstaben und Browserve
 
 siteTest(['law'])('Fassungstitel, Gültigkeitsdaten und künftige Änderungen folgen dem redaktionellen Stichtag', async ({ page }) => {
   await page.goto(lawUrl('/norm/saechsische-gemeindeordnung/version/2023-11-01/'));
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Sächsische Gemeindeordnung');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Ostdeutsche Gemeindeordnung');
   const metadata = page.locator('[data-visual-section="norm-metadata"]');
   await expect(metadata).toContainText('1. November 2023');
   await expect(metadata).toContainText('30. Dezember 2023');
