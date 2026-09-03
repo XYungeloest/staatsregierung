@@ -1,0 +1,75 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Ministergesetzes",
+  "shortTitle": "Änd OstMinG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Ministergesetzes vom 28. Juni 2001 (SächsGVBl. S. 426)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 3 der Mantelvorschrift 3629, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 3590 (Bestandteil der Vorschrift 3629)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3590.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3590",
+      "retrievedAt": "2026-09-03",
+      "sha256": "4b687a29ce16bfaf563218701a114de183cc76a44aea541c7295125b2ff92218",
+      "lawId": "3590",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3629, Artikel 3 (Zweites Gesetz zur Euro-bedingten und weiteren Änderung des sächsischen Landesrechts)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3629.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3629#a3",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bfb48b196d6fa024bfd8768ad6ff89b141e9b96c28876b25a112369f6a4ce627",
+      "lawId": "3629",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 3",
+      "title": "Änderung des Ostdeutschen Ministergesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "§ 8 Abs. 2 Satz 1 Buchst. c des Gesetzes über die Rechtsverhältnisse der Mitglieder der Staatsregierung (Ostdeutsches Ministergesetz –\nOstMinG) in der Fassung der Bekanntmachung vom 4. Juli 2000 (SächsGVBl. S. 322) wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In Doppelbuchstabe aa wird die Angabe „2 000 DM“ durch die Angabe „1 022,58 EUR“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "In Doppelbuchstabe bb wird die Angabe „1 000 DM“ durch die Angabe „511,29 EUR“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "In Doppelbuchstabe cc wird die Angabe „500 DM“ durch die Angabe „255,65 EUR“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

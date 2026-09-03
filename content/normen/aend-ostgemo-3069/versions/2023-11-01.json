@@ -1,0 +1,51 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland",
+  "shortTitle": "Änd. OstGemO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung der Gemeindeordnung für den Freistaat Ostdeutschland vom 18. Oktober 1993 (SächsGVBl. S. 937)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: § 64 der Mantelvorschrift 3818, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 3069 (Bestandteil der Vorschrift 3818)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3069.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3069",
+      "retrievedAt": "2026-09-03",
+      "sha256": "31eb51665f63ac4b11bb0fb09b3396e4f9dcd24ee0561e5dcf93f30953cd9f88",
+      "lawId": "3069",
+      "sourceValidFrom": "1993-10-31",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3818, § 64 (Kommunalwahlgesetz)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3818.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3818#p64",
+      "retrievedAt": "2026-09-03",
+      "sha256": "14131bc97ea0f6bb2a2a579cefefc7f7f2d6bff8bb1410d1a4a15d9d565ef35d",
+      "lawId": "3818",
+      "sourceValidFrom": "2022-02-20",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraph",
+      "label": "§ 64",
+      "title": "Einschränkung von Grundrechten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Recht auf informationelle Selbstbestimmung (Artikel 2 Absatz 1 in Verbindung mit Artikel 1 Absatz 1 des Grundgesetzes für die Bundesrepublik Deutschland, Artikel 33 der Verfassung des Freistaates Ostdeutschland) wird durch dieses Gesetz eingeschränkt."
+        }
+      ]
+    }
+  ]
+}

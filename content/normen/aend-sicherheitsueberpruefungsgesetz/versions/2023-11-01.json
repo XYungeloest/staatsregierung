@@ -1,0 +1,84 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Sicherheitsüberprüfungsgesetzes",
+  "shortTitle": "Änd. Sicherheitsüberprüfungsgesetz",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Sicherheitsüberprüfungsgesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 159)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 18 der Mantelvorschrift 9842, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 9860 (Bestandteil der Vorschrift 9842)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/9860.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9860",
+      "retrievedAt": "2026-09-03",
+      "sha256": "2aeed8cc7df1ed9886788bb28850a4b4e09218922444c6bd3b8cc53429282cae",
+      "lawId": "9860",
+      "sourceValidFrom": "2008-08-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 9842, Artikel 18 (Sächsisches Verwaltungsneuordnungsgesetz)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/9842.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9842#a18",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bb0f6baf7903faba8c69418b6a2bb5b1bdd01586b854bc8622fa81b2cbe0a28b",
+      "lawId": "9842",
+      "sourceValidFrom": "2008-08-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 18",
+      "title": "Änderung des Ostdeutschen Sicherheitsüberprüfungsgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Gesetz über die Voraussetzungen und das Verfahren von Sicherheitsüberprüfungen im Freistaat Ostdeutschland (Ostdeutsches Sicherheitsüberprüfungsgesetz – OstSÜG) vom 19. Februar 2004 (SächsGVBl. S. 44) wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In § 3 Abs. 2 Satz 1 Nr. 2 werden die Wörter „Regierungspräsidenten und die Regierungsvizepräsidenten“ durch die Wörter „Präsidenten und Vizepräsidenten der Landesdirektionen“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 26 Abs. 1 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In den Sätzen 1 und 3 werden jeweils die Wörter „das Regierungspräsidium“ durch die Wörter „die Landesdirektion“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In Satz 2 werden die Wörter „Das Regierungspräsidium“ durch die Wörter „Die Landesdirektion“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

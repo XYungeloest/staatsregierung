@@ -1,0 +1,101 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Ostdeutschen Umzugskostengesetzes",
+  "shortTitle": "Änd. Umzugskostengesetz",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Ostdeutschen Umzugskostengesetzes vom 28. Juni 2001 (SächsGVBl. S. 426, 427)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 13 der Mantelvorschrift 3629, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 4238 (Bestandteil der Vorschrift 3629)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/4238.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/4238",
+      "retrievedAt": "2026-09-03",
+      "sha256": "7dde8232ce9ba4b999eaac3ec6390037ffe5dfe10f52b3d0b30db136e8992265",
+      "lawId": "4238",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 3629, Artikel 13 (Zweites Gesetz zur Euro-bedingten und weiteren Änderung des sächsischen Landesrechts)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/3629.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/3629#a13",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bfb48b196d6fa024bfd8768ad6ff89b141e9b96c28876b25a112369f6a4ce627",
+      "lawId": "3629",
+      "sourceValidFrom": "2002-01-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 13",
+      "title": "Änderung des Ostdeutschen Umzugskostengesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Ostdeutsche Gesetz über die Umzugskostenvergütung der Beamten und Richter (Ostdeutsches Umzugskostengesetz –\nOstUKG) vom 23. November 1993 (SächsGVBl. S. 1070), geändert durch Artikel 2 des Gesetzes vom 19. Mai 1998 (SächsGVBl. S. 200, 202), wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "§ 9 Abs. 3 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In Satz 1 wird die Angabe „450 Deutsche Mark“ durch die Angabe „230,08 EUR“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In Satz 2 wird die Angabe „320 Deutsche Mark“ durch die Angabe „163,61 EUR“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 10 Abs. 1 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In Satz 2 wird die Angabe „1 600 DM“ durch die Angabe „818,07 EUR“ und die Angabe „800 DM“ durch die Angabe „409,03 EUR“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In Satz 3 wird die Angabe „400 DM“ durch die Angabe „204,52 EUR“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

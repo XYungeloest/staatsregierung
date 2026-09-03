@@ -1,0 +1,110 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung der Ostdeutschen Bauordnung",
+  "shortTitle": "Änd. OstBO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung der Ostdeutschen Bauordnung vom 27. Januar 2012 (SächsGVBl. S. 130, 142)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 23 der Mantelvorschrift 12231, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 12256 (Bestandteil der Vorschrift 12231)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/12256.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/12256",
+      "retrievedAt": "2026-09-03",
+      "sha256": "b0f0bba0e62ae81d90485343373a5eddcfea8784e5e9e5705a5849b9d4bbfb14",
+      "lawId": "12256",
+      "sourceValidFrom": "2012-03-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 12231, Artikel 23 (Sächsisches Standortegesetz)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/12231.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/12231#a23",
+      "retrievedAt": "2026-09-03",
+      "sha256": "b74edd9bc5eb4d77bacd439357dcd5acb5e35584289efb98e6bf4c08d985f87e",
+      "lawId": "12231",
+      "sourceValidFrom": "2012-03-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 23",
+      "title": "Änderung der Ostdeutschen Bauordnung",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Ostdeutsche Bauordnung (OstBO) vom 28. Mai 2004 (SächsGVBl. S. 200), zuletzt geändert durch Gesetz vom 4. Oktober 2011 (SächsGVBl. S. 377), wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "§ 57 Abs. 1 Satz 1 Nr. 2 wird wie folgt gefasst:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "„2.",
+              "text": "die Landesdirektion Ostdeutschland als obere Bauaufsichtsbehörde und“.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "In § 85 Abs. 1 Satz 2, Abs. 3 und 4 wird jeweils das Wort „Landesdirektion“ durch die Wörter „Landesdirektion Ostdeutschland“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "§ 86 Abs. 1 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Satz 1 Nr. 1 wird wie folgt gefasst:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "„1.",
+                  "text": "die Landesdirektion Ostdeutschland als obere Aufsichtsbehörde und“.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In Satz 2 werden die Wörter „den Landesdirektionen“ durch die Wörter „der Landesdirektion Ostdeutschland“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Kommunalwahlgesetzes",
+  "shortTitle": "Änd. KomWG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Kommunalwahlgesetzes vom 28. Mai 2004 (SächsGVBl. S. 196, 199)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 4 der Mantelvorschrift 1762, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 1552 (Bestandteil der Vorschrift 1762)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/1552.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1552",
+      "retrievedAt": "2026-09-03",
+      "sha256": "4ad9a97a915bf06b591c491ccac78fb1ee91df227b64b0af062cdfd21d2c1b14",
+      "lawId": "1552",
+      "sourceValidFrom": "2005-01-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 1762, Artikel 4 (Gesetz zur Verbesserung des selbstbestimmten Handelns von Menschen mit Behinderungen im Freistaat Sachsen)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/1762.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1762#a4",
+      "retrievedAt": "2026-09-03",
+      "sha256": "b9d614884b051d0597fd76cf19854aa41e3c219e73a5e51767dad2e6aaceaeb7",
+      "lawId": "1762",
+      "sourceValidFrom": "2004-06-26",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 4",
+      "title": "Änderung des Kommunalwahlgesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Dem § 13 des Gesetzes über die Kommunalwahlen im Freistaat Ostdeutschland (Kommunalwahlgesetz –\nKomWG) in der Fassung der Bekanntmachung vom 5. September 2003 (SächsGVBl. S. 428) werden folgende Sätze angefügt:"
+        },
+        {
+          "type": "paragraphText",
+          "text": "„Die Wahlräume sollen nach den örtlichen Gegebenheiten so ausgewählt und eingerichtet werden, dass allen Wahlberechtigten, insbesondere Menschen mit Behinderungen, die Teilnahme an der Wahl möglichst erleichtert wird. Die Gemeinde teilt frühzeitig und in geeigneter Weise mit, welche Wahlräume barrierefrei sind.“"
+        }
+      ]
+    }
+  ]
+}

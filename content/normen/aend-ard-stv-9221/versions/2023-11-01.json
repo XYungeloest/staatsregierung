@@ -1,0 +1,101 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des ARD-Staatsvertrages",
+  "shortTitle": "Änd. ARD-StV",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des ARD-Staatsvertrages vom 10. Oktober 2006 (SächsGVBl. 2007 S. 18, 23)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 4 der Mantelvorschrift 9217, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 9221 (Bestandteil der Vorschrift 9217)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/9221.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9221",
+      "retrievedAt": "2026-09-03",
+      "sha256": "127165ed9f418a3e99fb8d7cef1d0a067f1338625c3beba44088a6d7bde18e95",
+      "lawId": "9221",
+      "sourceValidFrom": "2007-03-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 9217, Artikel 4 (Neunter Rundfunkänderungsstaatsvertrag)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/9217.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/9217#a4",
+      "retrievedAt": "2026-09-03",
+      "sha256": "3ce628385ed157a82d817f07d7ab72849140aa9541f4ea0dcce89f1d662f009d",
+      "lawId": "9217",
+      "sourceValidFrom": "2007-03-01",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 4",
+      "title": "Änderung des ARD-Staatsvertrages",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Der\nARD-Staatsvertrag vom 31. August 1991, zuletzt geändert durch den Achten Rundfunkänderungsstaatsvertrag vom 8. bis 15. Oktober 2004, wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "§ 4 Abs. 3 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In Satz 1 werden die Worte „Mediendienste im Sinne von § 2 Abs. 2 Nr. 4 des Mediendienste-Staatsvertrages” ersetzt durch das Wort „Telemedien”.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In Satz 2 wird das Wort „Mediendiensten” ersetzt durch das Wort „Telemedien”.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 7 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Der bisherige Wortlaut wird Absatz 1.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Es wird folgender neue Absatz 2 angefügt:\n„(2) Die Konferenz der Vorsitzenden der Rundfunk- und Verwaltungsräte der in der ARD zusammengeschlossenen Landesrundfunkanstalten (Gremienvorsitzendenkonferenz) koordiniert die Gremienkontrolle der in der ARD zusammengeschlossenen Landesrundfunkanstalten.”",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

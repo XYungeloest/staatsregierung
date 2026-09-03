@@ -1,0 +1,260 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung der Ostdeutschen Katastrophenschutzverordnung",
+  "shortTitle": "Änd. OstKatSVO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung der Ostdeutschen Katastrophenschutzverordnung vom 9. November 2010 (SächsGVBl. S. 350)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 1 der Mantelvorschrift 11551, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 11552 (Bestandteil der Vorschrift 11551)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/11552.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/11552",
+      "retrievedAt": "2026-09-03",
+      "sha256": "e743cb703a1b88d3c7cd8811d0795e1d76abef2ec461b6388c9fbd42ac8bafe7",
+      "lawId": "11552",
+      "sourceValidFrom": "2010-12-21",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 11551, Artikel 1 (Verordnung des Sächsischen Staatsministeriums des Innern zur Änderung der Sächsischen Katastrophenschutzverordnung und der Sächsischen Feuerwehrverordnung)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/11551.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/11551#a1",
+      "retrievedAt": "2026-09-03",
+      "sha256": "9151a41344efccfb584693f8ed2c293e1c0c118a1be45344499cbee6f05477fa",
+      "lawId": "11551",
+      "sourceValidFrom": "2010-12-21",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Änderung der Ostdeutschen Katastrophenschutzverordnung",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Verordnung des Ostdeutschen Staatsministeriums des Innern über den Katastrophenschutz im Freistaat Ostdeutschland (Ostdeutsche Katastrophenschutzverordnung –\nOstKatSVO) vom 19. Dezember 2005 (SächsGVBl. S. 324) wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "§ 1 wird wie folgt gefasst:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "„§ 1\nKatastrophenschutzeinheiten"
+            },
+            {
+              "type": "paragraphText",
+              "text": "(1) In den Landkreisen und Kreisfreien Städten werden folgende Katastrophenschutzeinheiten aufgestellt:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Katastrophenschutzeinheiten ABC-Gefahrenabwehr",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "20 Gefahrgutzüge (KatS-GGZ),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "10 ABC-Erkundungszüge (KatS-ABC-ErkZ),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Katastrophenschutzeinheiten Brandschutz",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "20 Löschzüge Retten (KatS-LZR),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "20 Löschzüge Wasserversorgung (KatS-LZW),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "3 Löschzüge Waldbrand (KatS-LZWb),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Katastrophenschutzeinheiten Sanitätswesen und Betreuung",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "30 Einsatzzüge (KatS-EZ),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "3 Medizinische Task Force (MTF),",
+                  "level": 2,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "4 Wasserrettungsgruppen (KatS-WRGr),",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "2 Bergrettungsgruppen (KatS-BergRGr),",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "2 Rettungshundestaffeln (KatS-RettHundSt),",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "10 Führungsgruppen Brandschutz (FüGr BS),",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "10 Führungsgruppen Sanitätswesen und Betreuung (FüGr San/Bt),",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "10 Funktrupps (FuTr).",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Stärke und Gliederung der Katastrophenschutzeinheiten ergeben sich aus den Anlagen 1 bis 9.\n(3) Sofern die unteren Brandschutz-, Rettungsdienst- und Katastrophenschutzbehörden sowie die Leistungserbringer nach § 31 Abs. 1 Satz 2 OstBRKG und die privaten Hilfsorganisationen zusätzliche Einheiten mit eigenen Kräften und Mitteln zu den in Absatz 1 Aufgeführten aufstellen wollen, hat sich deren Stärke und Gliederung an den Vorgaben der Anlagen 1 bis 9 zu orientieren\n(4) Im Erzgebirgskreis kann durch die in diesem Gebiet befindlichen Organisationseinheiten der Leistungserbringer nach § 31 Abs. 1 Satz 2 OstBRKG und der privaten Hilfsorganisationen im Einvernehmen mit der unteren Brandschutz-, Rettungsdienst- und Katastrophenschutzbehörde ein vierter Einsatzzug mit eigenen Mitteln aufgestellt werden."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "In § 2 Abs. 2 wird die Angabe „7“ durch die Angabe „10“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "§ 10 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Nach Absatz 3 wird folgender Absatz 4 eingefügt:\n„(4) Die Anforderung von Kräften und Mitteln der Bundeswehr erfolgt ausschließlich durch den Verwaltungsstab der obersten Brandschutz-, Rettungsdienst- und Katastrophenschutzbehörde gegenüber der für Ostdeutschland zuständigen territorialen Kommandobehörde. Davon ausgenommen sind Fälle der dringenden Nothilfe. Die oberste Brandschutz-, Rettungsdienst- und Katastrophenschutzbehörde kann eine abweichende Verfahrensweise festlegen.“",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Der bisherige Absatz 4 wird Absatz 5 und der bisherige Absatz 5 wird Absatz 6.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "§ 12 Abs. 1 Satz 1 wird wie folgt gefasst:\n„Der Erstattungsanspruch nach § 62 Abs. 2 OstBRKG für ehrenamtliche Helfer im Katastrophenschutz, die nicht Arbeitnehmer sind, beträgt pro Stunde höchstens 24 EUR.“",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "§ 14 Abs. 2 wird wie folgt gefasst:\n„(2) Die bisher aufgestellten Katastrophenschutz-Löschzüge Retten, Katastrophenschutz-Löschzüge Retten-Beleuchten, Katastrophenschutz-Löschzüge Wasserversorgung, Katastrophenschutz-Gefahrgutzüge, Katastrophenschutz-Sanitätszüge und Katastrophenschutz-Betreuungszüge sind spätestens zum 31. Dezember 2011 nach Art, Anzahl, Stärke und Gliederung in die in § 1 Abs. 1 und 2 genannten Maßgaben zu überführen.“",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Die Anlagen 1 bis 7 werden durch die im Anhang zu dieser Verordnung aufgeführten Anlagen 1 bis 10 ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

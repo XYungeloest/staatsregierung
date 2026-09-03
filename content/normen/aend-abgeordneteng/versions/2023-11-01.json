@@ -1,0 +1,100 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Änderung des Abgeordnetengesetzes",
+  "shortTitle": "Änd AbgeordnetenG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Änderung des Abgeordnetengesetzes vom 5. Mai 2004 (SächsGVBl. S. 142)",
+  "changeNote": "Ausgangsfassung zum Rechtsüberleitungsstichtag 2023-11-01: Artikel 1 der Mantelvorschrift 2521, übernommener Rechtsstand dieses Tages.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Vorschriftenseite 2728 (Bestandteil der Vorschrift 2521)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/2728.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/2728",
+      "retrievedAt": "2026-09-03",
+      "sha256": "5df9af497dae6665cc01e2543a8021a901360b447d5df550a281af67b90e5b9a",
+      "lawId": "2728",
+      "sourceValidFrom": "2004-05-23",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    },
+    {
+      "kind": "revosax-snapshot",
+      "label": "Mantelvorschrift 2521, Artikel 1 (Gesetz zur Änderung des Abgeordnetengesetzes und des Fraktionsrechtsstellungsgesetzes)",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/2521.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/2521#a1",
+      "retrievedAt": "2026-09-03",
+      "sha256": "616839656ae9b8d7c72bbc010588615b89b86e4cda7e1b6760239911396d7e01",
+      "lawId": "2521",
+      "sourceValidFrom": "2004-05-23",
+      "sourceRole": "envelope-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Änderung des Abgeordnetengesetzes",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Gesetz über die Rechtsverhältnisse der Mitglieder des Ostdeutschen Landtages (Abgeordnetengesetz) in der Fassung der Bekanntmachung vom 4. Juli 2000 (SächsGVBl. S. 326), zuletzt geändert durch Gesetz vom 20. Mai 2003 (SächsGVBl. S. 135), wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "In § 5 Abs. 2 werden nach den Worten „für den Präsidenten“ die Worte „und je Fraktion einen Fraktionsvorsitzenden“ eingefügt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "§ 6 Abs. 6 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In Satz 1 werden die Worte „die anderen Mitglieder des Präsidiums in Höhe von je 153,39 EUR,“ gestrichen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Satz 3 wird gestrichen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "In § 8 Abs. 1 Satz 3 werden nach dem Wort „einbehalten“ die Worte „; finden mehrere Sitzungen an einem Tag statt, so erfolgt der Einbehalt nur einmal“ eingefügt",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "In § 17 Abs. 4 wird das Wort „und“ durch das Wort „bis“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    }
+  ]
+}
