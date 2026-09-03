@@ -141,7 +141,7 @@ async function countPreexistingMatches(plan, contentRoot) {
   return count;
 }
 
-export async function buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog, contentRoot = join(ROOT, 'content', 'normen'), preexistingMatches = null }) {
+export async function buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, sunsetDecisions = null, r2Manifest, attachmentsManifest, materializationReport, residualBacklog, contentRoot = join(ROOT, 'content', 'normen'), preexistingMatches = null }) {
   const planBySource = new Map(plan.entries.map((entry) => [entry.sourceId, entry]));
   const existingMatched = preexistingMatches ?? await countPreexistingMatches(plan, contentRoot);
   const envelopeBySource = new Map((envelopes?.components ?? []).map((component) => [component.sourceId, component]));
@@ -264,17 +264,27 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
         // ohne Cache bleibt die Einordnung leer
       }
       details.sourceEnding = { sourceValidFrom: entry.sourceValidFrom, sourceValidTo: entry.sourceValidTo, laterVersions, sunsetDates, ...classifySourceEnding({ sourceValidTo: entry.sourceValidTo, laterVersions, sunsetDates }) };
+      // Dokumentierte Entscheidung (data/recht/revosax-sunset-decisions.json): Befristung im
+      // übernommenen Text gilt in Ostdeutschland fort (Typ B) bzw. ein unklarer Fall bleibt
+      // begründet offen; der Materialisierer modelliert die Entscheidung (expiryDate, validTo, Status).
+      const sunset = sunsetDecisions?.decisions?.[entry.sourceId] ?? null;
+      if (sunset) details.sunsetDecision = { resolution: sunset.resolution, expiryDate: sunset.expiryDate ?? null, status: sunset.status ?? null, basis: sunset.basis ?? null, reason: sunset.reason };
     }
     if (flags.includes('listing-title-mismatch')) details.listingTitle = { listing: entry.listing?.title ?? null, source: entry.sourceTitle ?? null };
     for (const flag of flags) flagCounts[flag] = (flagCounts[flag] ?? 0) + 1;
     flagEntries.push({ ...base, flags, ...details });
   }
   const sourceEndingTypes = flagEntries.filter((entry) => entry.sourceEnding).reduce((acc, entry) => ({ ...acc, [entry.sourceEnding.type]: (acc[entry.sourceEnding.type] ?? 0) + 1 }), {});
+  const sourceEndingResolutions = flagEntries.filter((entry) => entry.sourceEnding && entry.sourceEnding.type !== 'A').reduce((acc, entry) => {
+    const key = entry.sunsetDecision?.resolution ?? 'undecided';
+    return { ...acc, [key]: (acc[key] ?? 0) + 1 };
+  }, {});
   const reviewFlags = {
     schemaVersion: 1,
     baselineDate: report.baselineDate,
     flagCounts,
     sourceEndingTypes,
+    sourceEndingResolutions,
     documentDateFromListing: flagEntries.filter((entry) => entry.documentDate?.source === 'listing').length,
     documentDateMissing: flagEntries.filter((entry) => entry.documentDate && !entry.documentDate.value).length,
     entries: flagEntries.sort((left, right) => Number(left.lawId) - Number(right.lawId) || left.sourceId.localeCompare(right.sourceId)),
@@ -316,8 +326,18 @@ export async function buildImportAudit({ cacheDir, manifest, report, plan, envel
       byKind: attachmentsAll.reduce((acc, record) => ({ ...acc, [record.kind]: (acc[record.kind] ?? 0) + 1 }), {}),
     },
     r2: { htmlObjects: Object.keys(r2Manifest?.objects ?? {}).length, htmlVerified: Object.values(r2Manifest?.objects ?? {}).filter((record) => record.verified).length },
-    reviewFlags: { counts: flagCounts, sourceEndingTypes, documentDateFromListing: reviewFlags.documentDateFromListing, documentDateMissing: reviewFlags.documentDateMissing },
+    reviewFlags: { counts: flagCounts, sourceEndingTypes, sourceEndingResolutions, documentDateFromListing: reviewFlags.documentDateFromListing, documentDateMissing: reviewFlags.documentDateMissing },
     decisions: Object.fromEntries(Object.entries(decisions?.decisions ?? {}).map(([key, decision]) => [key, { action: decision.action, reason: decision.reason }])),
+    sunsetDecisions: Object.fromEntries(Object.entries(sunsetDecisions?.decisions ?? {}).map(([key, decision]) => [key, { slug: decision.slug, resolution: decision.resolution, expiryDate: decision.expiryDate ?? null, status: decision.status ?? null }])),
+    // Metadaten der übernommenen Normen, die nicht aus der amtlichen Quelle stammen, sondern
+    // automatisch abgeleitet sind (scripts/lib/revosax-metadata.mjs): Sachgebiete aus Typ,
+    // Ressortkürzel und Titel, Schlagwörter aus Abkürzung/Kurzbezeichnung/Titel, Kurzfassung
+    // aus Typ und Kurzbezeichnung. Sie sind Erschließungshilfen, keine amtlichen Angaben.
+    derivedMetadata: {
+      norms: actions.CREATE + actions.MATCH - existingMatched,
+      fields: ['subjects', 'keywords', 'summary'],
+      source: 'automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferSubjects, inferKeywords, inferSummary); Erlassorgan der Quelle als originEnactingBody (Provenienz)',
+    },
     residualBacklog: residualBacklog ? { norms: residualBacklog.normCount, residuals: residualBacklog.residualCount } : null,
   };
   return { summary, skips, envelopes: envelopeAudit, reviewFlags };
@@ -327,7 +347,7 @@ async function main() {
   const args = process.argv.slice(2);
   const cacheDir = resolve(valueAfter(args, '--cache') ?? '.cache/revosax-baseline/2023-11-01');
   const check = args.includes('--check');
-  const [manifest, report, plan, envelopes, decisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog] = await Promise.all([
+  const [manifest, report, plan, envelopes, decisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog, sunsetDecisions] = await Promise.all([
     readJson(join(ROOT, 'data', 'recht', 'revosax-baseline-2023-11-01.json')),
     readJson(join(cacheDir, 'report.json')),
     readJson(join(cacheDir, 'materialization-plan.json')),
@@ -337,8 +357,9 @@ async function main() {
     readJsonIfExists(join(ROOT, 'data', 'recht', 'revosax-attachments.json')),
     readJsonIfExists(join(cacheDir, 'materialization-report.json')),
     readJsonIfExists(join(ROOT, 'data', 'recht', 'ost-residual-backlog.json')),
+    readJsonIfExists(join(ROOT, 'data', 'recht', 'revosax-sunset-decisions.json')),
   ]);
-  const audit = await buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog });
+  const audit = await buildImportAudit({ cacheDir, manifest, report, plan, envelopes, decisions, sunsetDecisions, r2Manifest, attachmentsManifest, materializationReport, residualBacklog });
   await mkdir(OUTPUT_DIR, { recursive: true });
   let changed = 0;
   for (const [name, value] of Object.entries({ 'summary.json': audit.summary, 'skips.json': audit.skips, 'envelopes.json': audit.envelopes, 'review-flags.json': audit.reviewFlags })) {

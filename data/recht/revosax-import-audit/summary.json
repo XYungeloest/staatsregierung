@@ -159,6 +159,10 @@
       "unclear": 2,
       "B": 7
     },
+    "sourceEndingResolutions": {
+      "open": 1,
+      "sunset-applies": 8
+    },
     "documentDateFromListing": 249,
     "documentDateMissing": 1
   },
@@ -171,6 +175,71 @@
       "action": "SKIP",
       "reason": "Der REVOSax-Lesetext besteht ausschließlich aus dem Verweis auf die Anlage 29063 (revosax/2023-11-01/attachments/17114/29063-02_17_0115a_anl.pdf, 8 Seiten, Textebene vorhanden). Die Anlage ist ein Fragebogenformular (Anlage zu Ziffer I mit Anhang), kein strukturierbarer Normtext; eine automatische Umsetzung in Normblöcke wäre irreführend. PDF hashverifiziert archiviert; Materialisierung bleibt ein Reviewfall."
     }
+  },
+  "sunsetDecisions": {
+    "14110.1": {
+      "slug": "esf-richtlinie-qualifizierung-gefangener-2014-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "15276.2": {
+      "slug": "rl-forschung-infrapro",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "15277.1": {
+      "slug": "efre-richtlinie-sms-2014-bis-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "16696.3": {
+      "slug": "smk-esf-richtlinie-2014-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "16734.3": {
+      "slug": "esf-technologiefoerderung-2014-bis-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "16965.1": {
+      "slug": "rl-verkehrsinfrastruktur",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "17642.2": {
+      "slug": "rl-esf-hochschule-und-forschung-2014-bis-2020",
+      "resolution": "sunset-applies",
+      "expiryDate": "2023-12-31",
+      "status": "repealed"
+    },
+    "20009.1": {
+      "slug": "massnahmekatalog-bienen",
+      "resolution": "sunset-applies",
+      "expiryDate": "2027-12-31",
+      "status": "in-force"
+    },
+    "14011.1": {
+      "slug": "rl-hilfe-wohngebaeude-und-unternehmen-2014",
+      "resolution": "open",
+      "expiryDate": null,
+      "status": null
+    }
+  },
+  "derivedMetadata": {
+    "norms": 4966,
+    "fields": [
+      "subjects",
+      "keywords",
+      "summary"
+    ],
+    "source": "automatisch abgeleitet (scripts/lib/revosax-metadata.mjs: inferSubjects, inferKeywords, inferSummary); Erlassorgan der Quelle als originEnactingBody (Provenienz)"
   },
   "residualBacklog": {
     "norms": 0,

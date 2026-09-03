@@ -161,3 +161,39 @@ test('ein Artikel einer Mantelvorschrift wird als eigene Änderungsvorschrift mi
   assert.equal(envelope.url, 'https://www.revosax.sachsen.de/vorschrift/1228#a44');
   assert.throws(() => buildEnvelopeComponentRecord({ entry: componentEntry, component, envelopeSource, envelopeBody, slug: 'x', containedIn: null, objectRecords: {} }), /nicht im R2-Manifest/u);
 });
+
+test('Befristungsentscheidungen modellieren das Außerkrafttreten aus dem übernommenen Text', () => {
+  const sunsetParsed = {
+    ...parsed,
+    original: {
+      ...parsed.original,
+      body: [{ type: 'section', label: 'VII.', title: 'Inkrafttreten', children: [{ type: 'paragraphText', text: 'Sie tritt am Tage nach ihrer Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2023 außer Kraft.' }] }],
+    },
+  };
+  const basis = 'Sie tritt am Tage nach ihrer Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2023 außer Kraft.';
+  const past = buildBaselineRecord({ entry, parsed: sunsetParsed, slug: 'ostdeutsche-kommunalpauschalenverordnung', objectRecord, sunset: { resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'repealed', basis, basisLocation: 'VII.' } });
+  assert.equal(past.meta.status, 'repealed');
+  assert.equal(past.meta.expiryDate, '2023-12-31');
+  assert.equal(past.version.validTo, '2023-12-31');
+  assert.equal(past.version.isCurrent, false);
+  assert.equal(past.history.entries.length, 2);
+  assert.equal(past.history.entries[1].type, 'repeal');
+  assert.equal(past.history.entries[1].date, '2023-12-31');
+  assert.equal(past.history.entries[1].affectingVersionId, null);
+  assert.match(past.history.entries[1].note ?? '', /Befristung nach VII\. der übernommenen Fassung: „Sie tritt am Tage nach ihrer Veröffentlichung in Kraft und mit Ablauf des 31\. Dezember 2023 außer Kraft\.“/u);
+
+  const future = buildBaselineRecord({ entry, parsed: sunsetParsed, slug: 'ostdeutsche-kommunalpauschalenverordnung', objectRecord, sunset: { resolution: 'sunset-applies', expiryDate: '2027-12-31', status: 'in-force', basis, basisLocation: 'X.' } });
+  assert.equal(future.meta.status, 'in-force');
+  assert.equal(future.meta.expiryDate, '2027-12-31');
+  assert.equal(future.version.validTo, '2027-12-31');
+  assert.equal(future.version.isCurrent, true);
+  assert.match(future.history.entries[1].title, /^Tritt durch Befristung/u);
+
+  // Offene Fälle bleiben unverändert; ungültige Entscheidungen scheitern.
+  const open = buildBaselineRecord({ entry, parsed: sunsetParsed, slug: 'ostdeutsche-kommunalpauschalenverordnung', objectRecord, sunset: { resolution: 'open', basis } });
+  assert.equal(open.meta.status, 'in-force');
+  assert.equal(open.version.validTo, null);
+  assert.equal(open.history.entries.length, 1);
+  assert.throws(() => buildBaselineRecord({ entry, parsed: sunsetParsed, slug: 'x', objectRecord, sunset: { resolution: 'sunset-applies', expiryDate: '2023-10-01', status: 'repealed', basis } }), /vor dem Beginn der Ausgangsfassung/u);
+  assert.throws(() => buildBaselineRecord({ entry, parsed: sunsetParsed, slug: 'x', objectRecord, sunset: { resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'historical', basis } }), /unzulässigem Status/u);
+});

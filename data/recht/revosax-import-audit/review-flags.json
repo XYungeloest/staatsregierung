@@ -18,6 +18,10 @@
     "unclear": 2,
     "B": 7
   },
+  "sourceEndingResolutions": {
+    "open": 1,
+    "sunset-applies": 8
+  },
   "documentDateFromListing": 249,
   "documentDateMissing": 1,
   "entries": [
@@ -10037,6 +10041,13 @@
         ],
         "type": "unclear",
         "basis": "Befristungsdaten im Text (2015-12-31) passen nicht zum Gültigkeitsende 2023-12-31"
+      },
+      "sunsetDecision": {
+        "resolution": "open",
+        "expiryDate": null,
+        "status": null,
+        "basis": "Sie tritt mit Ablauf des 31. Dezember 2015 außer Kraft.",
+        "reason": "Widersprüchliche Belege: der übernommene Text befristet die Richtlinie auf den 31. Dezember 2015, REVOSax führt die Fassung jedoch bis zum 31. Dezember 2023 als geltend (Stichtagstreffer 1. November 2023). Ob eine spätere Verlängerung nur in der Datenbank oder eine nicht dokumentierte Änderung vorliegt, ist ohne weitere amtliche Quelle nicht entscheidbar; die Norm bleibt unverändert (Status in-force der Stichtagsquelle) und der Fall dokumentiert offen."
       }
     },
     {
@@ -10296,6 +10307,13 @@
         ],
         "type": "B",
         "basis": "Befristung im übernommenen Text auf 2023-12-31"
+      },
+      "sunsetDecision": {
+        "resolution": "sunset-applies",
+        "expiryDate": "2023-12-31",
+        "status": "repealed",
+        "basis": "Sie tritt am Tage nach ihrer Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2023 außer Kraft.",
+        "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
       }
     },
     {
@@ -10690,6 +10708,13 @@
         ],
         "type": "B",
         "basis": "Befristung im übernommenen Text auf 2023-12-31"
+      },
+      "sunsetDecision": {
+        "resolution": "sunset-applies",
+        "expiryDate": "2023-12-31",
+        "status": "repealed",
+        "basis": "Diese Richtlinie tritt am Tage nach ihrer Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2023 außer Kraft.",
+        "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
       }
     },
     {
@@ -10716,6 +10741,13 @@
         ],
         "type": "B",
         "basis": "Befristung im übernommenen Text auf 2023-12-31"
+      },
+      "sunsetDecision": {
+        "resolution": "sunset-applies",
+        "expiryDate": "2023-12-31",
+        "status": "repealed",
+        "basis": "Diese Richtlinie tritt am Tag nach ihrer Veröffentlichung in Kraft und mit Ablauf des 31. Dezember 2023 außer Kraft.",
+        "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
       }
     },
     {
@@ -11345,6 +11377,13 @@
         ],
         "type": "B",
         "basis": "Befristung im übernommenen Text auf 2023-12-31"
+      },
+      "sunsetDecision": {
+        "resolution": "sunset-applies",
+        "expiryDate": "2023-12-31",
+        "status": "repealed",
+        "basis": "Diese Richtlinie tritt am 31. Dezember 2023 außer Kraft.",
+        "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
       }
     },
     {
@@ -11403,6 +11442,13 @@
         ],
         "type": "B",
         "basis": "Befristung im übernommenen Text auf 2023-12-31"
+      },
+      "sunsetDecision": {
+        "resolution": "sunset-applies",
+        "expiryDate": "2023-12-31",
+        "status": "repealed",
+        "basis": "Diese Richtlinie tritt am 31. Dezember 2023 außer Kraft.",
+        "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
       }
     },
     {
@@ -12118,6 +12164,13 @@
         ],
         "type": "B",
         "basis": "Befristung im übernommenen Text auf 2023-12-31"
+      },
+      "sunsetDecision": {
+        "resolution": "sunset-applies",
+        "expiryDate": "2023-12-31",
+        "status": "repealed",
+        "basis": "Sie tritt mit Ablauf des 31. Dezember 2023 außer Kraft.",
+        "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
       }
     },
     {
@@ -14194,6 +14247,13 @@
         ],
         "type": "B",
         "basis": "Befristung im übernommenen Text auf 2023-12-31"
+      },
+      "sunsetDecision": {
+        "resolution": "sunset-applies",
+        "expiryDate": "2023-12-31",
+        "status": "repealed",
+        "basis": "Diese Richtlinie tritt am 31. Dezember 2023 außer Kraft.",
+        "reason": "Typ B: Befristung im übernommenen Text; die Richtlinie ist in Ostdeutschland mit Ablauf des 31. Dezember 2023 außer Kraft getreten (keine ostdeutsche Verlängerung bekannt). Modelliert als expiryDate, validTo der Ausgangsfassung und Historieneintrag Außerkrafttreten."
       }
     },
     {
@@ -22970,6 +23030,13 @@
         ],
         "type": "unclear",
         "basis": "Befristungsdaten im Text (2027-12-31) passen nicht zum Gültigkeitsende 2024-04-28"
+      },
+      "sunsetDecision": {
+        "resolution": "sunset-applies",
+        "expiryDate": "2027-12-31",
+        "status": "in-force",
+        "basis": "Dieser Maßnahmekatalog tritt mit Unterzeichnung in Kraft und mit Ablauf des 31. Dezember 2027 außer Kraft.",
+        "reason": "Befristung im übernommenen Text (Außerkrafttreten mit Ablauf des 31. Dezember 2027). Das Ende der sächsischen Quelle am 28. April 2024 beruht auf einer späteren sächsischen Rechtsänderung (Typ A, ohne Wirkung in Ostdeutschland); die textliche Befristung gilt in Ostdeutschland fort und wird als künftiges Außerkrafttreten modelliert."
       }
     },
     {

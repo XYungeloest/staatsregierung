@@ -43,6 +43,7 @@ import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 const ROOT = resolve(process.cwd());
 const CONTENT_ROOT = join(ROOT, 'content', 'normen');
 const R2_MANIFEST_PATH = join(ROOT, 'data', 'recht', 'revosax-r2-manifest.json');
+const SUNSET_DECISIONS_PATH = join(ROOT, 'data', 'recht', 'revosax-sunset-decisions.json');
 
 const USAGE = `Verwendung: node --experimental-strip-types scripts/materialize-revosax-baseline.mjs [Optionen]
 
@@ -104,7 +105,41 @@ function checkSummary(summary, context) {
  * Baut aus einem gestagten Treffer den vollständigen Normdatensatz.
  * `parsed` ist die Datei aus parsed/<sourceId>.json (original + adapted).
  */
-export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselineDate = BASELINE_DATE }) {
+/**
+ * Befristung aus data/recht/revosax-sunset-decisions.json anwenden (resolution sunset-applies):
+ * das Außerkrafttreten steht im übernommenen Text und gilt in Ostdeutschland fort. Modelliert
+ * als expiryDate, validTo der Ausgangsfassung, Status (repealed, sobald das Datum verstrichen
+ * ist; sonst in-force mit künftigem Ende) und Historieneintrag mit dem wörtlichen Beleg.
+ */
+export function applySunsetDecision({ meta, history, version }, sunset, { citation }) {
+  if (!sunset || sunset.resolution !== 'sunset-applies') return { meta, history, version };
+  if (!/^\d{4}-\d{2}-\d{2}$/u.test(sunset.expiryDate ?? '')) throw new Error(`${meta.slug}: Befristungsentscheidung ohne gültiges expiryDate`);
+  if (!['repealed', 'in-force'].includes(sunset.status)) throw new Error(`${meta.slug}: Befristungsentscheidung mit unzulässigem Status ${sunset.status}`);
+  if (sunset.expiryDate < version.validFrom) throw new Error(`${meta.slug}: Befristung ${sunset.expiryDate} liegt vor dem Beginn der Ausgangsfassung`);
+  const repealed = sunset.status === 'repealed';
+  return {
+    meta: { ...meta, status: sunset.status, expiryDate: sunset.expiryDate },
+    history: {
+      ...history,
+      entries: [
+        ...history.entries,
+        {
+          date: sunset.expiryDate,
+          type: 'repeal',
+          title: repealed
+            ? 'Außer Kraft getreten durch Befristung im übernommenen Text.'
+            : 'Tritt durch Befristung im übernommenen Text außer Kraft.',
+          citation,
+          affectingVersionId: null,
+          note: `Befristung nach ${sunset.basisLocation ?? 'Schlussbestimmung'} der übernommenen Fassung: „${sunset.basis}“ Entscheidung dokumentiert in data/recht/revosax-sunset-decisions.json.`,
+        },
+      ],
+    },
+    version: { ...version, validTo: sunset.expiryDate, isCurrent: !repealed },
+  };
+}
+
+export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselineDate = BASELINE_DATE, sunset = null }) {
   // Die Anpassung wird immer aus dem unveränderten Parse (original) mit dem aktuellen
   // Adapter berechnet; ein im Staging gespeichertes „adapted“ könnte von einem
   // älteren Adapterstand stammen.
@@ -201,10 +236,11 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     body: adapted.body,
   };
 
+  const sunsetApplied = applySunsetDecision({ meta, history, version }, sunset, { citation });
   // Schema- und Reststellenprüfung vor jedem Schreibvorgang.
-  const parsedMeta = parseNormMeta(meta, `${slug}/meta.json`);
-  const parsedHistory = parseNormHistory(history, `${slug}/history.json`);
-  const parsedVersion = parseNormVersion(version, `${slug}/versions/${baselineDate}.json`);
+  const parsedMeta = parseNormMeta(sunsetApplied.meta, `${slug}/meta.json`);
+  const parsedHistory = parseNormHistory(sunsetApplied.history, `${slug}/history.json`);
+  const parsedVersion = parseNormVersion(sunsetApplied.version, `${slug}/versions/${baselineDate}.json`);
   const record = validateNormRecord({ meta: parsedMeta, history: parsedHistory, versions: [parsedVersion] }, slug);
   validateVersionIntervals(record);
   checkSummary(meta.summary, context);
@@ -215,7 +251,7 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
   if (residuals.length > 0 || metaResiduals.length > 0) {
     throw new Error(`${context}: Sachsen-Reststellen: ${[...residuals, ...metaResiduals].slice(0, 3).map((item) => item.path).join(', ')}`);
   }
-  return { slug, meta, history, version };
+  return { slug, meta: sunsetApplied.meta, history: sunsetApplied.history, version: sunsetApplied.version };
 }
 
 function blockAtPath(body, path) {
@@ -376,6 +412,10 @@ export function buildEnvelopeComponentRecord({ entry, component, envelopeSource,
  * sie ausschließlich aus der Baseline besteht: genau eine Fassung zum Stichtag mit
  * R2-archivierter REVOSax-Quelle derselben lawId. Alles andere ist geschützt.
  */
+function reportEntriesSlug(report, sourceId) {
+  return report.entries.find((entry) => entry.sourceId === sourceId)?.proposedSlug ?? null;
+}
+
 export async function isRegenerableBaselineNorm(directory, { lawId, baselineDate }) {
   const metaPath = join(directory, 'meta.json');
   if (!(await exists(metaPath))) return { ok: false, reason: 'meta.json fehlt' };
@@ -418,6 +458,13 @@ async function main() {
   const envelopes = (await exists(envelopesPath)) ? await readJson(envelopesPath) : null;
   const fetchedEnvelopes = new Map((envelopes?.fetchedEnvelopes ?? []).map((source) => [source.sourceId, source]));
   const r2Manifest = (await exists(R2_MANIFEST_PATH)) ? await readJson(R2_MANIFEST_PATH) : { objects: {} };
+  const sunsetDecisions = (await exists(SUNSET_DECISIONS_PATH)) ? await readJson(SUNSET_DECISIONS_PATH) : { decisions: {} };
+  for (const [sourceId, decision] of Object.entries(sunsetDecisions.decisions ?? {})) {
+    const planned = plan.entries.find((candidate) => candidate.sourceId === sourceId);
+    if (planned && decision.slug && planned.canonicalSlug !== decision.slug && reportEntriesSlug(report, sourceId) !== decision.slug) {
+      throw new Error(`Befristungsentscheidung ${sourceId} nennt Slug ${decision.slug}, der Plan ${planned.canonicalSlug}`);
+    }
+  }
   if (!plan.writable) {
     const message = `${plan.counts.REVIEW - (plan.counts.DEFERRED ?? 0)} offene REVIEW-Fälle im Materialisierungsplan; Schreiben ist blockiert, bis sie über data/recht/revosax-baseline-decisions.json geklärt oder zurückgestellt sind`;
     if (write) throw new Error(message);
@@ -490,6 +537,7 @@ async function main() {
           slug: targetSlug,
           objectRecord: r2Manifest.objects?.[objectKeyFor(baselineDate, entry.sourceId)],
           baselineDate,
+          sunset: sunsetDecisions.decisions?.[entry.sourceId] ?? null,
         });
       }
       if (!regenerate && (await exists(directory))) {

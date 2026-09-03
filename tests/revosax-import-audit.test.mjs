@@ -26,21 +26,23 @@ test('Quellenende wird nach Nachfolgefassung (A), eigener Befristung (B) oder un
 });
 
 test('der Import-Audit ist deterministisch und seine Bilanz geht exakt auf', async () => {
-  const manifest = { reportedCount: 5, hits: [{ lawId: 1 }, { lawId: 2 }, { lawId: 3 }, { lawId: 4 }, { lawId: 5 }], duplicateListings: 0, passes: 2 };
+  const manifest = { reportedCount: 6, hits: [{ lawId: 1 }, { lawId: 2 }, { lawId: 3 }, { lawId: 4 }, { lawId: 5 }, { lawId: 6 }], duplicateListings: 0, passes: 2 };
   const entries = [
     { sourceId: '1', revosaxLawId: '1', category: 'G', inferredType: 'gesetz', adaptedTitle: 'A', sourceUrl: 'u1', proposedSlug: 'a', reviewFlags: ['missing-document-date'], listing: { documentDate: '2001-01-01' } },
     { sourceId: '2', revosaxLawId: '2', category: 'ÄG', inferredType: 'aenderungsvorschrift', adaptedTitle: 'B', sourceUrl: 'u2', proposedSlug: 'b', reviewFlags: [], attachments: [{ url: 'https://www.revosax.sachsen.de/attachments/9', label: 'Anlage' }] },
     { sourceId: '3', revosaxLawId: '3', category: 'ÄG', sourceUrl: 'u3', skipReason: 'part-of-envelope:1', envelope: { envelopeLawId: '1', envelopeUrl: 'e1' }, listing: {} },
     { sourceId: '4', revosaxLawId: '4', category: 'VwV', sourceUrl: 'u4', skipReason: 'same-version-alias:4.1' },
     { sourceId: '5', revosaxLawId: '5', category: 'VwV', sourceUrl: 'u5', proposedSlug: 'e', reviewFlags: ['attachment-only-content'] },
+    { sourceId: '6.1', revosaxLawId: '6', category: 'VwV', inferredType: 'foerderrichtlinie', adaptedTitle: 'F', sourceUrl: 'u6', proposedSlug: 'f', reviewFlags: ['source-ended-without-successor'], sourceValidFrom: '2020-01-01', sourceValidTo: '2023-12-31', rawCacheFile: '/nicht/vorhanden/raw.html', parsedCacheFile: '/nicht/vorhanden/parsed.json' },
   ];
-  const report = { baselineDate: '2023-11-01', generatedAt: 't', total: 5, successful: 5, failed: 0, reviewCases: 3, failureCounts: {}, entries };
+  const report = { baselineDate: '2023-11-01', generatedAt: 't', total: 6, successful: 6, failed: 0, reviewCases: 3, failureCounts: {}, entries };
   const plan = {
     generatedAt: 't', writable: true,
-    counts: { CREATE: 2, MATCH: 0, PROTECT: 0, REVIEW: 1, SKIP: 2, DEFERRED: 1 },
+    counts: { CREATE: 3, MATCH: 0, PROTECT: 0, REVIEW: 1, SKIP: 2, DEFERRED: 1 },
     entries: [
       { sourceId: '1', action: 'CREATE', canonicalSlug: 'a' },
       { sourceId: '2', action: 'CREATE', canonicalSlug: 'b' },
+      { sourceId: '6.1', action: 'CREATE', canonicalSlug: 'f' },
       { sourceId: '3', action: 'REVIEW', reason: 'zurückgestellt: x', deferred: true },
       { sourceId: '4', action: 'SKIP', reason: 'Staging: same-version-alias:4.1' },
       { sourceId: '5', action: 'SKIP', reason: 'Entscheidung: nur PDF' },
@@ -48,16 +50,24 @@ test('der Import-Audit ist deterministisch und seine Bilanz geht exakt auf', asy
   };
   const envelopes = { generatedAt: 't', counts: { A: 0, B: 0, C: 0, D: 1 }, fetchedEnvelopes: [], components: [{ sourceId: '3', lawId: '3', class: 'D', reason: 'Anker fehlt', envelopeLawId: '1', envelopeUrl: 'e1', anchor: 'a2', sourceUrl: 'u3' }] };
   const attachmentsManifest = { attachments: { 9: { sourceId: '2', url: 'https://www.revosax.sachsen.de/attachments/9', objectKey: 'k', verified: true, fileName: 'x.pdf', kind: 'pdf' } } };
-  const input = { cacheDir: '/nicht/vorhanden', manifest, report, plan, envelopes, decisions: { decisions: { 5: { action: 'SKIP', reason: 'nur PDF' } } }, r2Manifest: { objects: {} }, attachmentsManifest, materializationReport: { protectedCount: 0 }, residualBacklog: null, preexistingMatches: 0 };
+  const sunsetDecisions = { decisions: { '6.1': { slug: 'f', resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'repealed', basis: 'Sie tritt mit Ablauf des 31. Dezember 2023 außer Kraft.', reason: 'Typ B' } } };
+  const input = { cacheDir: '/nicht/vorhanden', manifest, report, plan, envelopes, decisions: { decisions: { 5: { action: 'SKIP', reason: 'nur PDF' } } }, sunsetDecisions, r2Manifest: { objects: {} }, attachmentsManifest, materializationReport: { protectedCount: 0 }, residualBacklog: null, preexistingMatches: 0 };
   const first = await buildImportAudit(input);
   const second = await buildImportAudit(input);
   assert.deepEqual(first, second);
-  assert.equal(first.summary.balance.sums, 5);
-  assert.equal(first.summary.balance.uniqueHits, 5);
+  assert.equal(first.summary.balance.sums, 6);
+  assert.equal(first.summary.balance.uniqueHits, 6);
   assert.equal(first.summary.balance.reviewDeferred, 1);
   assert.deepEqual(first.skips.byCategory, { 'same-version-alias': 1, 'manual-decision': 1 });
   assert.equal(first.reviewFlags.entries.find((entry) => entry.sourceId === '1').documentDate.source, 'listing');
   assert.equal(first.reviewFlags.entries.find((entry) => entry.sourceId === '2').attachments[0].verified, true);
   assert.equal(first.summary.attachments.referenced, 1);
   assert.equal(first.envelopes.components[0].deferred, true);
+  // Befristungsentscheidung: der Quellenendefall trägt die Entscheidung, die Bilanz zählt sie als aufgelöst.
+  const ended = first.reviewFlags.entries.find((entry) => entry.sourceId === '6.1');
+  assert.equal(ended.sourceEnding.type, 'A', 'ohne Cache keine Befristungsdaten → wie spätere Rechtsänderung eingeordnet');
+  assert.deepEqual(ended.sunsetDecision, { resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'repealed', basis: 'Sie tritt mit Ablauf des 31. Dezember 2023 außer Kraft.', reason: 'Typ B' });
+  assert.deepEqual(first.summary.sunsetDecisions, { '6.1': { slug: 'f', resolution: 'sunset-applies', expiryDate: '2023-12-31', status: 'repealed' } });
+  assert.deepEqual(first.summary.derivedMetadata.fields, ['subjects', 'keywords', 'summary']);
+  assert.equal(first.summary.derivedMetadata.norms, 3);
 });
