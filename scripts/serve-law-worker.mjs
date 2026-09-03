@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-import { createHash } from 'node:crypto';
 import { spawn } from 'node:child_process';
 import { mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
+
+import { projectionFingerprint } from './lib/d1-projection-fingerprint.mjs';
 
 /**
  * Startet den gebauten OstRecht-Worker lokal (`wrangler dev --local`) mit einer aus
@@ -13,34 +14,33 @@ import { join, relative, resolve } from 'node:path';
  *
  * Aufruf:
  *   node scripts/serve-law-worker.mjs [--port 4322] [--persist-to .cache/wrangler-local]
- *                                     [--seed-only] [--force]
+ *                                     [--fixture data/recht/runtime-fixture.json] [--seed-only] [--force]
+ *
+ * Persist-Verzeichnis: `--persist-to` oder OSTRECHT_D1_PERSIST_TO (Standard .cache/wrangler-local);
+ * so können Fixture- und Vollbestandsprojektion nebeneinander liegen.
+ *
+ * Fixture: mit `--fixture <Datei>` oder der Umgebungsvariable OSTRECHT_D1_FIXTURE wird
+ * nur der repräsentative Testbestand (data/recht/runtime-fixture.json) projiziert –
+ * dieselbe D1-Runtimearchitektur, aber wenige Dutzend statt tausender Normen. Pull-
+ * Request-Smoke nutzt das Fixture; der Vollbestand bleibt Release-Gate und manuellem
+ * Lauf vorbehalten (.github/workflows/full-corpus-smoke.yml).
  *
  * Die lokale Projektion wird nur neu geschrieben, wenn sich der Fingerabdruck der
- * Rechtsdaten, der Migrationen oder der Projektionslogik geändert hat (`--force`
- * erzwingt es). Voraussetzung ist ein vorhandener Build unter apps/recht/dist.
+ * Projektion (scripts/lib/d1-projection-fingerprint.mjs: reine Inhaltshashes von
+ * Rechtsbestand, Migrationen und Projektionslogik – keine Änderungszeiten) oder das
+ * Fixture geändert hat (`--force` erzwingt es). Voraussetzung ist ein vorhandener
+ * Build unter apps/recht/dist.
  */
 
 const ROOT = resolve(process.cwd());
 const args = process.argv.slice(2);
 const port = valueAfter('--port') ?? '4322';
-const persistTo = resolve(ROOT, valueAfter('--persist-to') ?? join('.cache', 'wrangler-local'));
+const persistTo = resolve(ROOT, valueAfter('--persist-to') ?? process.env.OSTRECHT_D1_PERSIST_TO ?? join('.cache', 'wrangler-local'));
 const seedOnly = args.includes('--seed-only');
 const force = args.includes('--force');
+const fixture = valueAfter('--fixture') ?? (process.env.OSTRECHT_D1_FIXTURE || undefined);
 const workerConfig = join(ROOT, 'apps', 'recht', 'dist', 'server', 'wrangler.json');
 const markerPath = join(persistTo, 'ostrecht-recht.seed.json');
-
-const FINGERPRINT_ROOTS = [
-  'content/normen',
-  'content/verkuendungen',
-  'content/themen',
-  'content/presse',
-  'data/recht/d1',
-];
-const FINGERPRINT_FILES = [
-  'scripts/sync-recht-d1.mjs',
-  'packages/shared/src/lib/norms/derived.ts',
-  'packages/recht-search/src/search.ts',
-];
 
 function valueAfter(flag) {
   const index = args.indexOf(flag);
@@ -56,33 +56,13 @@ async function exists(path) {
   }
 }
 
-async function walk(directory, entries) {
-  let children;
-  try {
-    children = await readdir(directory, { withFileTypes: true });
-  } catch (error) {
-    if (error.code === 'ENOENT') return;
-    throw error;
-  }
-  for (const child of children) {
-    const path = join(directory, child.name);
-    if (child.isDirectory()) await walk(path, entries);
-    else if (child.isFile()) {
-      const info = await stat(path);
-      entries.push(`${relative(ROOT, path)}\t${info.size}\t${Math.round(info.mtimeMs)}`);
-    }
-  }
-}
-
-async function fingerprint() {
-  const entries = [];
-  for (const root of FINGERPRINT_ROOTS) await walk(join(ROOT, root), entries);
-  for (const file of FINGERPRINT_FILES) {
-    const info = await stat(join(ROOT, file));
-    entries.push(`${file}\t${info.size}\t${Math.round(info.mtimeMs)}`);
-  }
-  entries.sort();
-  return createHash('sha256').update(entries.join('\n')).digest('hex');
+/** Fingerabdruck der zu erzeugenden Projektion: Inhaltshash plus Fixture-Inhalt. */
+async function seedFingerprint() {
+  const { fingerprint } = await projectionFingerprint(ROOT);
+  if (!fixture) return { fingerprint, mode: 'full' };
+  const fixtureText = await readFile(resolve(ROOT, fixture), 'utf8');
+  const { createHash } = await import('node:crypto');
+  return { fingerprint: createHash('sha256').update(`${fingerprint}\nfixture:${fixture}\n${fixtureText}`).digest('hex'), mode: `fixture:${fixture}` };
 }
 
 function run(command, commandArgs, options = {}) {
@@ -97,15 +77,15 @@ function run(command, commandArgs, options = {}) {
 }
 
 async function seed() {
-  const current = await fingerprint();
+  const current = await seedFingerprint();
   if (!force && (await exists(markerPath))) {
     const marker = JSON.parse(await readFile(markerPath, 'utf8'));
-    if (marker.fingerprint === current) {
-      console.log(`Lokale D1-Projektion ist aktuell (${marker.seededAt}, ${marker.normCount ?? '?'} Normen).`);
+    if (marker.fingerprint === current.fingerprint) {
+      console.log(`Lokale D1-Projektion ist aktuell (${marker.seededAt}, ${marker.normCount ?? '?'} Normen, ${marker.mode ?? 'full'}).`);
       return;
     }
   }
-  console.log('Lokale D1-Projektion wird neu aufgebaut …');
+  console.log(`Lokale D1-Projektion wird neu aufgebaut (${current.mode}) …`);
   // Nur der lokale Miniflare-Zustand unter dem Persist-Verzeichnis wird verworfen.
   await rm(join(persistTo, 'v3', 'd1'), { recursive: true, force: true });
   await mkdir(persistTo, { recursive: true });
@@ -117,10 +97,14 @@ async function seed() {
     '--local',
     '--persist-to', persistTo,
     '--apply-schema',
+    '--ignore-fingerprint',
+    ...(fixture ? ['--corpus-filter', fixture] : []),
   ], { env: { ...process.env, SITE_TARGET: 'law' } });
-  const normCount = (await readdir(join(ROOT, 'content', 'normen'), { withFileTypes: true })).filter((entry) => entry.isDirectory()).length;
-  await writeFile(markerPath, `${JSON.stringify({ fingerprint: current, seededAt: new Date().toISOString(), normCount }, null, 2)}\n`, 'utf8');
-  console.log(`Lokale D1-Projektion unter ${relative(ROOT, persistTo)} geschrieben (${normCount} Normen).`);
+  const normCount = fixture
+    ? JSON.parse(await readFile(resolve(ROOT, fixture), 'utf8')).slugs.length
+    : (await readdir(join(ROOT, 'content', 'normen'), { withFileTypes: true })).filter((entry) => entry.isDirectory()).length;
+  await writeFile(markerPath, `${JSON.stringify({ fingerprint: current.fingerprint, mode: current.mode, seededAt: new Date().toISOString(), normCount }, null, 2)}\n`, 'utf8');
+  console.log(`Lokale D1-Projektion unter ${relative(ROOT, persistTo)} geschrieben (${normCount} Normen, ${current.mode}).`);
 }
 
 if (!(await exists(workerConfig))) {
