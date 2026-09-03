@@ -299,3 +299,27 @@ test('Alt-Layout ohne Gliederungscontainer, HTML-Listen und Wrapper mit alleinig
     <section title="§ 1 Zweck"><h3>§ 1 Zweck</h3><p>(1) Zweck.</p></section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/3' });
   assert.doesNotMatch(JSON.stringify(mixed.body), /Präsentationstext/u);
 });
+
+test('Bekanntmachungen als eigene Vorschrift und Abschnitte außerhalb von .sections werden gelesen', () => {
+  const notice = parseRevosaxSnapshot(snapshot(`
+    <section title="Bekanntmachung"><h3 class="centre">Bekanntmachung</h3><p class="centre"><strong>Vom 14. Juni 2005</strong></p>
+      <p class="gauche">Das Staatsministerium gibt bekannt, dass die Aufgabe übertragen wurde.</p>
+    </section>`), { url: 'https://www.revosax.sachsen.de/vorschrift/1266' });
+  assert.deepEqual(notice.body.at(-1), { type: 'paragraphText', text: 'Das Staatsministerium gibt bekannt, dass die Aufgabe übertragen wurde.' });
+  assert.deepEqual(notice.structureNotes, [{ kind: 'hoisted-wrapper', title: 'Bekanntmachung' }, { kind: 'no-provisions' }]);
+
+  const modern = parseRevosaxSnapshot(`<!doctype html><html><body><div id="content"><div class="law_show">
+    <h1>VwV Religion und Ethik</h1><p>Vollzitat: VwV Religion und Ethik vom 26. März 2026 (MBl. SMK S. 38)</p>
+    <article id="lesetext"><header title="Eingangsformel"><h3 class="centre">Verwaltungsvorschrift</h3><p class="centre"><b>Vom 26. März 2026</b></p></header>
+      <div id="_idContainer000" class="Einfacher-Textrahmen">
+        <section data-level="1" title="I. Geltungsbereich"><h4 class="centre">I.<br>Geltungsbereich</h4><p class="FLIESSTEXT">Diese Verwaltungsvorschrift gilt für alle Schulen.</p></section>
+        <section data-level="1" title="II. Religionsunterricht"><h4 class="centre">II.<br>Religionsunterricht</h4></section>
+        <section data-level="2" title="1. Rechtsgrundlagen"><dl class="cf"><dt class="td_1">1.</dt><dd class="last">Rechtsgrundlagen</dd></dl></section>
+      </div></article>
+    <div id="quickbar"><p>Fassung gültig ab: 1. August 2026</p></div>
+  </div></div></body></html>`, { url: 'https://www.revosax.sachsen.de/vorschrift/2405' });
+  const sections = modern.body.filter((block) => block.type === 'section');
+  assert.deepEqual(sections.map((block) => [block.label, block.title]), [['I.', 'Geltungsbereich'], ['II.', 'Religionsunterricht']]);
+  assert.deepEqual(sections[1].children.map((block) => [block.type, block.label, block.title]), [['section', '1.', 'Rechtsgrundlagen']]);
+  assert.equal(modern.sourceValidFrom, '2026-08-01');
+});

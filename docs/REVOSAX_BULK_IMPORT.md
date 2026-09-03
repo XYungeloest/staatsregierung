@@ -157,15 +157,57 @@ Befehl:
 npm run norms:revosax:stage-baseline -- --manifest data/recht/revosax-baseline-2023-11-01.json
 ```
 
-Der Staging-Schritt lädt jede im Manifest enthaltene konkrete Fassung genau einmal herunter. Rohdaten werden vorerst unter
+Für Stichproben: `--stratified 20` verteilt die Auswahl gleichmäßig über alle zwölf Vorschriftentypen,
+`--limit`/`--start-at` wählen einen Bereich, `--law-id` einzelne Vorschriften. Bereits geladene
+Rohquellen werden aus `.cache/` wiederverwendet (`--refetch` erzwingt Neuabruf, `--offline`
+verbietet Netzzugriffe); nach einer Parseränderung genügt deshalb ein Lauf ohne Netzlast.
+
+Der Staging-Schritt lädt jede Fassung genau einmal (250 ms Pause, Retry/Backoff bei 429/5xx) und legt
+unter `.cache/revosax-baseline/2023-11-01/` ab:
 
 ```text
-.cache/revosax-baseline/2023-11-01/raw/
+raw/<lawId>[.<Fassung>].html        unveränderte Rohquelle
+raw/<lawId>[.<Fassung>].meta.json   abgerufene URL, Abrufzeitpunkt, SHA-256, Größe, Content-Type
+parsed/<lawId>[.<Fassung>].json     Treffer, Quellmetadaten, Original- und Ost-Fassung
+report.json                          maschinenlesbarer Bericht
 ```
 
-abgelegt und deshalb nicht in Git eingecheckt. Geparste Original- und Ost-Fassungen liegen parallel unter `parsed/`. `report.json` enthält Erfolg, Fehler, Hashes, erkannte Gültigkeitsdaten, vorgeschlagene Slugs und Quellgrößen.
+Fassungslogik:
 
-Die bestehende Funktion `parseRevosaxSnapshot()` bleibt der strukturtragende Parser. Der Bulkimport verwendet also denselben Parser wie der bereits vorhandene Einzelquellenworkflow.
+- Dynamische Treffer (`/vorschrift/<lawId>-<slug>`) werden über die numerische Stammnorm-URL
+  `/vorschrift/<lawId>` geladen; der Objektschlüssel spiegelt diese Identität (`<lawId>.html`).
+  Jede Seite nennt die tatsächlich angezeigte konkrete Fassung (`law_version_link linkactive`);
+  sie wird als `canonicalVersionUrl`/`versionNumber` festgehalten. Fassungs-URLs (`<lawId>.<n>`)
+  müssen genau diese Fassung zeigen.
+- Das „Fassung gültig ab“ der Trefferliste muss dem Seitenwert entsprechen und das Intervall muss
+  den Stichtag abdecken (auch für Änderungsvorschriften). Zeigt eine dynamische Seite eine spätere
+  Fassung oder leitet sie auf eine Nachfolgevorschrift weiter, wird die passende historische
+  Fassung aus dem Fassungsmenü (bei Weiterleitung: über `<lawId>.1`) geladen und erneut geprüft
+  (`resolved-historical-version`).
+- Treffer ohne eigenen Lesetext werden nicht als Fehler, sondern als Übersprungene geführt:
+  `part-of-envelope:<lawId>` (Bestandteil einer Mantelvorschrift, deren Text in der verlinkten
+  Vorschrift liegt) und `no-text-in-revosax` („Datei nicht im Datenbestand“).
+- Liefert REVOSax für eine lawId zwei Fassungen zum Stichtag, werden sie verglichen: dieselbe
+  konkrete Fassung unter zwei URLs wird als Alias übersprungen, identischer angepasster Text wird
+  deterministisch auf die höhere Fassungsnummer aufgelöst, abweichender Text wird zum Reviewfall.
+
+Fehler werden klassifiziert (`http`, `parser`, `adapter`, `residual`, `validity`, `manifest`,
+`other`); es gibt keine stillen Fallbacks. `report.json` enthält Gesamtzahl, Erfolge, Fehler je
+Klasse, Reviewfälle je Kennzeichen, Übersprungene, Mantelbestandteile, Anlagenverweise,
+Strukturhinweise (`hoisted-wrapper`, `generic-section`, `legacy-layout`, `no-provisions`) und je
+Eintrag Kategorie, Normtyp, Trefferlistenangaben, kanonische Fassung, SHA-256, Gültigkeit,
+angepasste Titel, vorgeschlagenen Slug und Reviewkennzeichen. Reviewkennzeichen sind
+informativ (`listing-title-mismatch`, `document-date-mismatch`, `missing-document-date`,
+`source-ended-without-successor`, `envelope-not-in-manifest`, `no-provisions`, `legacy-layout`)
+oder blockierend für die Materialisierung (`attachment-only-content`, `multi-version-text-differs`,
+`multi-version-sibling-not-staged`).
+
+`parseRevosaxSnapshot()` bleibt der einzige Parser. Für den Vollbestand wurde er deterministisch um
+Buchstaben- und Römisch-Gliederungen von Verwaltungsvorschriften, HTML-Listen, generische
+Dokument-Wrapper, betitelte Abschnitte ohne Kennzeichen, das ältere Layout ohne
+Gliederungscontainer und Zustimmungsgesetze bzw. Bekanntmachungen erweitert, deren Text allein im
+Dokument-Wrapper liegt. Ein erneutes Parsen aller 62 versionierten Snapshots liefert unverändert
+dieselben Ergebnisse.
 
 ### 3. Sachsen→Ostdeutschland
 

@@ -9,7 +9,7 @@ const SIGNATURE_START = /^(?:Dresden|Leipzig|Chemnitz),\s+(?:den\s+|\d{1,2}\.\s)
 const NON_NORM_SECTION = /^(?:Bekanntmachung|Gesetz|Verordnung|Inhaltsübersicht|Inhaltsverzeichnis)$/iu;
 // Diese Wrapper enthalten in Zustimmungsgesetzen gelegentlich den gesamten Text; ihr Inhalt wird
 // nur dann übernommen, wenn das Dokument sonst keinen Normtext hätte.
-const TEXT_BEARING_WRAPPER = /^(?:Gesetz|Verordnung)$/iu;
+const TEXT_BEARING_WRAPPER = /^(?:Gesetz|Verordnung|Bekanntmachung)$/iu;
 // Generische Dokument-Wrapper, die REVOSax um den eigentlichen Text legt (etwa
 // „Vorschrift“ oder „Zustimmungsgesetz“). Sie sind keine Gliederungseinheit;
 // ihr unmittelbarer Inhalt wird auf der aktuellen Ebene übernommen.
@@ -499,7 +499,10 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
       .map((node) => paragraphBlock(node))
       .filter(Boolean)
     : [];
-  const sectionsContainer = findElement(article, (node) => hasClass(node, 'sections'));
+  // Neuere REVOSax-Ausgaben legen die Abschnitte in einen anderen Container als .sections;
+  // maßgeblich ist, dass der Artikel Gliederungsabschnitte enthält.
+  const sectionsContainer = findElement(article, (node) => hasClass(node, 'sections'))
+    ?? (descendants(article, (node) => node.tagName === 'section').length > 0 ? article : null);
   const structureNotes = [];
   const provisionsOf = (blocks) => blocks
     .flatMap(function flatten(block) {
@@ -510,7 +513,8 @@ export function parseRevosaxSnapshot(html, { url = '' } = {}) {
   if (sectionsContainer) {
     sectionBlocks = parseSections(sectionsContainer, structureNotes);
     if (sectionBlocks.length === 0) {
-      // Zustimmungsgesetze tragen ihren gesamten Text gelegentlich im Wrapper „Gesetz“.
+      // Zustimmungsgesetze und amtliche Bekanntmachungen tragen ihren gesamten Text
+      // gelegentlich im Wrapper „Gesetz“, „Verordnung“ oder „Bekanntmachung“.
       structureNotes.length = 0;
       sectionBlocks = parseSections(sectionsContainer, structureNotes, { hoistTextBearingWrappers: true });
     }

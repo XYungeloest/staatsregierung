@@ -243,19 +243,12 @@ async function obtainSource(url, sourceId, options) {
   return { bytes: response.bytes, meta, rawPath, fromCache: false };
 }
 
-async function loadVersion(hit, url, sourceId, options, { allowRedirect = false } = {}) {
+async function loadVersion(hit, url, sourceId, options, { allowRedirect = false, deferParseError = false } = {}) {
   const source = await obtainSource(url, sourceId, options);
   const rawHtml = source.bytes.toString('utf8');
   const envelope = detectEnvelopeComponent(rawHtml, source.meta.url);
   if (envelope) return { ...source, sourceId, envelope, original: null, versions: [], active: null };
   if (detectMissingText(rawHtml)) return { ...source, sourceId, missingText: true, original: null, versions: [], active: null };
-  let original;
-  try {
-    original = parseRevosaxSnapshot(rawHtml, { url: source.meta.url });
-  } catch (error) {
-    if (error instanceof RevosaxParseError) throw new StageFailure('parser', error.message);
-    throw error;
-  }
   const versions = extractVersionLinks(rawHtml, source.meta.url);
   const attachments = extractAttachmentLinks(rawHtml, source.meta.url);
   const active = versions.find((version) => version.active) ?? null;
@@ -264,23 +257,38 @@ async function loadVersion(hit, url, sourceId, options, { allowRedirect = false 
     if (allowRedirect) return { ...source, sourceId, redirectedTo: active.lawId, original: null, versions: [], active: null };
     throw new StageFailure('validity', `Seite gehört zu lawId ${active.lawId} statt ${hit.lawId} (Weiterleitung auf eine andere Vorschrift?)`);
   }
-  return { ...source, sourceId, original, versions, attachments, active };
+  let original = null;
+  let parseError = null;
+  try {
+    original = parseRevosaxSnapshot(rawHtml, { url: source.meta.url });
+  } catch (error) {
+    if (!(error instanceof RevosaxParseError)) throw error;
+    parseError = new StageFailure('parser', error.message);
+    // Zeigt eine dynamische Seite eine spätere, anders aufgebaute Fassung, entscheidet
+    // erst das Fassungsmenü, ob die Stichtagsfassung noch geladen werden kann.
+    if (!deferParseError) throw parseError;
+  }
+  return { ...source, sourceId, original, parseError, versions, attachments, active };
 }
 
 async function loadMatchingVersion(hit, options) {
-  let requested = await loadVersion(hit, fetchUrlFor(hit), sourceIdOf(hit), options, { allowRedirect: !hit.versionSuffix });
+  let requested = await loadVersion(hit, fetchUrlFor(hit), sourceIdOf(hit), options, { allowRedirect: !hit.versionSuffix, deferParseError: !hit.versionSuffix });
   if (requested.envelope || requested.missingText) return { ...requested, resolvedFrom: null };
   let redirectedFrom = null;
   if (requested.redirectedTo) {
     // Die Stammnorm-URL leitet auf eine Nachfolgevorschrift weiter; die erste
     // konkrete Fassung der ursprünglichen lawId trägt deren vollständiges Fassungsmenü.
     redirectedFrom = `${requested.meta.url} → lawId ${requested.redirectedTo}`;
-    requested = await loadVersion(hit, `${REVOSAX_ORIGIN}/vorschrift/${hit.lawId}.1`, `${hit.lawId}.1`, options);
+    requested = await loadVersion(hit, `${REVOSAX_ORIGIN}/vorschrift/${hit.lawId}.1`, `${hit.lawId}.1`, options, { deferParseError: true });
   }
   if (hit.versionSuffix && requested.active.versionSuffix !== hit.versionSuffix) {
     throw new StageFailure('validity', `Seite zeigt Fassung ${requested.active.versionSuffix} statt der angeforderten ${hit.versionSuffix}`);
   }
-  const problem = validityProblem(hit, requested.original, options.date);
+  const activeMatchesListing = !hit.validFrom || requested.active.validFrom === hit.validFrom;
+  if (requested.parseError && activeMatchesListing) throw requested.parseError;
+  const problem = requested.parseError
+    ? `angezeigte Fassung ${requested.active.versionSuffix} (gültig ab ${requested.active.validFrom ?? '?'}) ist nicht die Stichtagsfassung`
+    : validityProblem(hit, requested.original, options.date);
   if (!problem) return { ...requested, resolvedFrom: redirectedFrom };
   if (hit.versionSuffix) throw new StageFailure('validity', problem);
 
