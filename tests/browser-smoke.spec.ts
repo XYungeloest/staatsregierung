@@ -701,7 +701,7 @@ siteTest(['law'])('Rechtsentwicklung filtert und paginiert serverseitig über GE
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/u);
 
   // Freitext per Formular, Zurück-Navigation stellt den vorherigen Zustand wieder her.
-  await page.locator('input[name="q"]').fill('Gemeindeordnung');
+  await page.locator('[data-development-filter-form] input[name="q"]').fill('Gemeindeordnung');
   await page.locator('[data-development-filter-form] button[type="submit"]').click();
   await expect(page).toHaveURL(/q=Gemeindeordnung/u);
   await expect(page.locator('[data-development-item]').first()).toContainText('Gemeindeordnung');

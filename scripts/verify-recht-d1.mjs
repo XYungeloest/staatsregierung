@@ -45,6 +45,14 @@ function query(sql) {
   return JSON.parse(out.slice(start))[0].results;
 }
 
+// Schema-Stand: die Zählerabfrage setzt Migration 0006 voraus (index_letter, law_norm_keywords);
+// eine ältere Datenbank wird als klare Abweichung gemeldet statt mit einem SQL-Fehler abzubrechen.
+const schemaState = query("SELECT (SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='law_norm_keywords') AS keywords_table, (SELECT COUNT(*) FROM pragma_table_info('law_norms') WHERE name='index_letter') AS index_letter_column")[0];
+if (Number(schemaState.keywords_table) !== 1 || Number(schemaState.index_letter_column) !== 1) {
+  console.error(`Abweichungen:\n- Schema unvollständig: Migration data/recht/d1/0006_index_letter_keywords.sql ist auf ${databaseName} (${local ? 'lokal' : 'remote'}) nicht eingespielt`);
+  process.exit(1);
+}
+
 const counts = query(`SELECT
   (SELECT COUNT(*) FROM law_norms) AS norms,
   (SELECT COUNT(*) FROM law_versions) AS versions,
