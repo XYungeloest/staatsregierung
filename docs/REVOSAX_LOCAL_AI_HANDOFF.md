@@ -250,7 +250,7 @@ R2-Verweise gegen `data/recht/revosax-r2-manifest.json` (Objektschlüssel und SH
 | B Staging | erledigt: 20 → 100 → 5.089/5.089 ohne Fehler; Bericht `.cache/revosax-baseline/2023-11-01/report.json`, versionierter Import-Audit unter `data/recht/revosax-import-audit/` |
 | C R2-Provenienz, Plan, Materializer | erledigt: 3.346 Stammfassungen/Änderungsakte + 1.521 Artikel von Mantelvorschriften (Klassifizierung A/B/C/D, `containedIn`/`part-of`), `PROTECT` 52, `REVIEW` 101 zurückgestellt (`DEFER`), `SKIP` 62 begründet; Bilanz in `data/recht/revosax-import-audit/summary.json` |
 | D R2 und Git | erledigt: HTML-Rohquellen (Fassungsseiten, Komponentenseiten, nachgeladene Mantelvorschriften) und 890 PDF-Anlagen hashverifiziert in `ostrecht-recht-quellen` (`data/recht/revosax-r2-manifest.json`, `data/recht/revosax-attachments.json`); 5.108 Normen unter `content/normen/`; Korpus-Audit `npm run norms:ost:residual-audit` mit 0 Reststellen im übernommenen Recht |
-| E D1 | Schema 0001–0004; Sync jetzt inkrementell (`--git-diff`/`--slug`/`--delete`/`--publications`, `--full` als Sondermodus, `corpus_hash` in `law_runtime_meta`); offen: einmaliger Vollsync nach dieser Materialisierung und Remote-Verify – am 3. September 2026 durch das D1-Free-Tier-Leselimit blockiert, lokal gegen Miniflare grün |
+| E D1 | erledigt: Schema 0001–0004; Sync inkrementell (`--git-diff`/`--slug`/`--delete`/`--publications`, `--full` als Sondermodus, `corpus_hash` in `law_runtime_meta`); Vollsync des Endbestands (115.390 Operationen) und Remote-Verify gegen Git grün; Free-Tier-Limits als Betriebsrisiko dokumentiert |
 | F OstRecht-Runtime | erledigt: On-demand-Routen aus D1, Vergleich nur für das angefragte Paar, Sitemap/Suchvorschläge aus D1, lokal mit `wrangler dev --remote` geprüft |
 | G CI/CD | erledigt: `scripts/classify-change-scope.mjs` mit `run_d1_sync`, Job `d1_sync` mit `--git-diff` in `deploy.yml`; Browser-Smoke/A11y gegen `scripts/serve-law-worker.mjs` (lokale Miniflare-D1); Staging mit eigenen Bindings (`ostrecht-recht-staging`, `ostrecht-recht-quellen-staging`); Token braucht D1 Read/Write |
 
@@ -306,10 +306,9 @@ Anlagenarchiv, versionierter Import-Audit), die D1-gestützte OstRecht-Laufzeit,
 D1-Sync, getrennte Staging-Ressourcen und die CI-Trennung. Die produktive Website wird erst mit dem
 Merge auf `main` umgestellt.
 
-Release-Gates (siehe README): einmaliger Vollsync der neuen Materialisierung nach D1 und
-`npm run norms:runtime:d1-verify` gegen die produktive Datenbank (blockiert durch das
-D1-Free-Tier-Leselimit; Workers Paid einplanen), Produktions-Smoke nach dem ersten Deployment,
-Repository-Secret `CLOUDFLARE_API_TOKEN` mit D1 Read/Write. Die redaktionellen Restarbeiten sind mit
+Release-Gates (siehe README): Produktions-Smoke nach dem ersten Deployment, Workers Paid für den
+Betrieb mit dem Vollbestand (D1-Free-Tier-Leselimit, CPU-Limit beim kalten Korpusaufbau),
+Repository-Secret `CLOUDFLARE_API_TOKEN` mit D1 Read/Write. Remote-D1 ist gegen Git verifiziert. Die redaktionellen Restarbeiten sind mit
 lawId, sourceId, URL, Titel, Slug und Grund unter `data/recht/revosax-import-audit/` und in
 `data/recht/revosax-baseline-decisions.json` (`DEFER`) sowie `data/recht/ost-residual-backlog.json`
 versioniert.

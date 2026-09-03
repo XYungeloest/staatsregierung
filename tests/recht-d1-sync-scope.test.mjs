@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 
-import { deleteNormQueries, derivedQueries, renderStatement } from '../scripts/sync-recht-d1.mjs';
+import { deleteNormQueries, derivedQueries, renderStatement, staleRowCleanupQueries } from '../scripts/sync-recht-d1.mjs';
 import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from '../scripts/lib/d1-sync-scope.mjs';
 
 const existingSlugs = new Set(['foo', 'bar', 'baz']);
@@ -105,4 +105,11 @@ test('Derived-Anweisungen schreiben nur die abgeleiteten Daten einer Norm', () =
   }
   assert.equal(statements.length, 2);
   assert.ok(statements.every((statement) => statement.includes('law_norm_derived')));
+});
+
+test('die Vollprojektion räumt Zeilen entfernter Normen auch aus Tabellen ohne Fremdschlüssel', () => {
+  const statements = staleRowCleanupQueries().map(renderStatement);
+  for (const table of ['law_search', 'law_norm_derived', 'law_search_documents', 'law_versions', 'law_version_blocks', 'law_source_objects']) {
+    assert.ok(statements.some((statement) => statement === `DELETE FROM ${table} WHERE norm_id NOT IN (SELECT id FROM law_norms);`), table);
+  }
 });

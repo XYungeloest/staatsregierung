@@ -333,12 +333,15 @@ Reviewfälle + 62 begründete SKIPs (40 Doppelerfassungen desselben Artikels ein
 
 Release-Gates vor dem Merge (PR bleibt Draft):
 
-- [ ] **Remote-D1 gegen Git verifizieren.** `npm run norms:runtime:d1-verify` (Zähler,
-  `corpus_hash`, Stichproben) ist nur lokal gegen die Miniflare-Projektion grün; die produktive
-  Datenbank antwortet nach dem Vollsync mit Fehler 7500, weil das D1-Free-Tier-Leselimit (5 Mio.
-  Zeilen/Tag) erschöpft ist. Für den Betrieb mit dem Vollbestand ist Workers Paid nötig; der
-  inkrementelle Sync (`--git-diff`) hält den laufenden Betrieb klein, der einmalige Vollsync nach
-  dieser Materialisierung steht noch aus.
+- [x] **Remote-D1 gegen Git verifiziert.** Der einmalige Vollsync der neuen Materialisierung
+  (`--full`, 115.390 Operationen, 16 Minuten) ist durch; `npm run norms:runtime:d1-verify` gegen die
+  produktive Datenbank bestätigt Zähler (5.108 Normen, 5.188 Fassungen, 24.444 Blöcke, 6.591 Quellen,
+  5.108 abgeleitete Zeilen, 137 Verkündungen, 38.223 Suchzeilen), `corpus_hash` und 15 Stichproben.
+- [ ] **Cloudflare-Plan.** Vollsync und Laufzeit haben das D1-Free-Tier-Leselimit (5 Mio.
+  Zeilen/Tag) am 3. September 2026 zweimal erschöpft (Fehler 7500 bis Mitternacht UTC); der kalte
+  Korpusaufbau der Übersichten liegt über dem CPU-Limit von Workers Free. Für den Betrieb mit dem
+  Vollbestand ist Workers Paid nötig; der inkrementelle Sync (`--git-diff`) hält den laufenden
+  Betrieb klein.
 - [ ] **Produktions-Smoke** (`npm run test:deployment:production`) nach dem ersten Deployment mit
   D1-Laufzeit; bis dahin ist die Runtime nur lokal (Miniflare) und per `wrangler dev --remote`
   geprüft.

@@ -298,6 +298,22 @@ export function derivedQueries(norm, context, now) {
   ];
 }
 
+/**
+ * Räumt nach einer Vollprojektion Zeilen entfernter oder umbenannter Normen aus den
+ * Tabellen ohne Fremdschlüssel (FTS5-Index, abgeleitete Daten) auf; Fassungen, Blöcke
+ * und Quellen folgen dem Löschen in law_norms per ON DELETE CASCADE.
+ */
+export function staleRowCleanupQueries() {
+  return [
+    q('DELETE FROM law_search WHERE norm_id NOT IN (SELECT id FROM law_norms)'),
+    q('DELETE FROM law_norm_derived WHERE norm_id NOT IN (SELECT id FROM law_norms)'),
+    q('DELETE FROM law_search_documents WHERE norm_id NOT IN (SELECT id FROM law_norms)'),
+    q('DELETE FROM law_versions WHERE norm_id NOT IN (SELECT id FROM law_norms)'),
+    q('DELETE FROM law_version_blocks WHERE norm_id NOT IN (SELECT id FROM law_norms)'),
+    q('DELETE FROM law_source_objects WHERE norm_id NOT IN (SELECT id FROM law_norms)'),
+  ];
+}
+
 export function deletePublicationQueries(slug) {
   return [q('DELETE FROM law_publications WHERE slug = ?', [slug])];
 }
@@ -533,6 +549,7 @@ async function main() {
           q('DELETE FROM law_publications WHERE updated_at < ?', [now]),
           q('DELETE FROM law_norms WHERE updated_at < ?', [now]),
           q('DELETE FROM law_search_documents WHERE updated_at < ?', [now]),
+          ...staleRowCleanupQueries(),
         ]
       : []),
     q(`INSERT INTO law_runtime_meta (key, value) VALUES ('last_sync_at', ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value`, [now]),

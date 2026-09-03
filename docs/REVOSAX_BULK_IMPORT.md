@@ -457,11 +457,16 @@ Fassungen, eine übernommene Änderungsvorschrift, ein Mantelbestandteil, die gr
 Titel/Typ/Status, Fassungen mit Blöcken, Suchzeilen und absoluten Portalverweisen.
 `--local` prüft die Miniflare-Projektion, `--database` eine andere Zieldatenbank.
 
-Limits: D1 Free zählt 5 Mio. Zeilenlesevorgänge und 100.000 Schreibvorgänge je Tag. Der Vollsync
-des Stichtagsbestands (rund 95.000 Operationen) und die Laufzeitzugriffe des Workers haben das
-Leselimit am 3. September 2026 zweimal erschöpft; danach antwortet die Datenbank bis Mitternacht UTC
-mit Fehler 7500. Vor dem produktiven Betrieb mit dem Vollbestand ist Workers Paid einzuplanen; der
-inkrementelle Sync hält den laufenden Betrieb klein.
+Stand der produktiven Datenbank: Vollsync des Endbestands am 3. September 2026 (5.108 Normen,
+115.390 Operationen, 79 SQL-Dateien, 975 s, ohne Wiederholungen); `d1-verify` bestätigt alle Zähler,
+`corpus_hash` und 15 Stichproben. Eine Vollprojektion räumt Zeilen entfernter oder umbenannter Normen
+auch aus Tabellen ohne Fremdschlüssel (`law_search`, `law_norm_derived`) auf; beim ersten Vollsync
+blieben 36 FTS-Zeilen der neun umbenannten Slugs stehen und wurden nachgeräumt.
+
+Limits: D1 Free zählt 5 Mio. Zeilenlesevorgänge und 100.000 Schreibvorgänge je Tag. Vollsyncs und
+die Laufzeitzugriffe des Workers haben das Leselimit am 3. September 2026 zweimal erschöpft; danach
+antwortet die Datenbank bis Mitternacht UTC mit Fehler 7500. Vor dem produktiven Betrieb mit dem
+Vollbestand ist Workers Paid einzuplanen; der inkrementelle Sync hält den laufenden Betrieb klein.
 
 Lokale Kontrolle des Worker-Standes gegen die reale Datenbank:
 
@@ -503,6 +508,18 @@ mit dieser erzeugten Konfiguration.
   werden deshalb nur lazy importiert; reine Helfer wie `getCurrentVersion` liegen in
   `norms/versions.ts`. Ein Worker ohne D1-Binding antwortet mit einem klaren Fehler statt eines
   Dateizugriffs.
+- Lastverhalten (lokal gemessen, Miniflare mit dem Vollbestand von 5.108 Normen; Cloudflare-Messung
+  steht wegen des D1-Leselimits aus): `listNorms()` lädt bei kaltem Isolate alle `law_norms`- und
+  `law_versions`-Zeilen (rund 10.400 Zeilen, ohne Körper) und rekonstruiert die Datensätze – erste
+  Antwort der Startseite ≈ 1 s, danach ≈ 20 ms aus dem Isolate-Cache (`last_sync_at`-Prüfung, 1
+  Zeile je Anfrage). Übersichten 25 ms, Sitemap (1,5 MB) 27 ms, Normdetail 40 ms, größte Norm
+  (1 MB HTML) 220 ms, Fassungsvergleich 18 ms, Änderungsvorschrift 6 ms, 404 3 ms; die Suche
+  „Polizei“ liefert 120 Kandidaten mit allen Fassungen und passenden Provisionen (1,9 MB) in 140 ms
+  kalt / 35 ms warm. Auf Workers Free (10 ms CPU je Anfrage) ist der kalte Korpusaufbau nicht
+  haltbar; der Betrieb mit dem Vollbestand setzt Workers Paid voraus. Eine leichtere Listenprojektion
+  (nur Slug, Titel, Kurzbezeichnung, Abkürzung, Typ, Status, Sachgebiete, geltende Fassung) und ein
+  kleineres Suchantwortformat sind als Folgearbeit vorgemerkt, sobald reale D1-Messwerte
+  (`rows_read`, CPU) vorliegen.
 - Öffentliche URLs sind unverändert; `scripts/check-links.mjs` und `scripts/check-seo.mjs` erkennen
   On-demand-Routen aus den Seitenquellen und prüfen die Sitemap im Deployment-Smoke.
 
@@ -564,9 +581,8 @@ Der paarweise Empfehlungsvergleich prüft eine deterministische Stichprobe.
 
 ## Noch offene Schritte (Release-Gates)
 
-- Remote-D1 gegen Git verifizieren (`npm run norms:runtime:d1-verify`) und Produktions-Smoke nach
-  dem Deployment; beides scheitert derzeit am Free-Tier-Leselimit von D1 und ist als Release-Gate
-  im README geführt.
+- Produktions-Smoke nach dem ersten Deployment mit D1-Laufzeit; Workers Paid für den Betrieb mit
+  dem Vollbestand (Release-Gates im README). Remote-D1 ist gegen Git verifiziert.
 - Zurückgestellte Reviewfälle (`DEFER` in `data/recht/revosax-baseline-decisions.json`, Details in
   `data/recht/revosax-import-audit/envelopes.json`): Mantelbestandteile, deren Artikel nicht
   maschinell zuzuordnen ist.
