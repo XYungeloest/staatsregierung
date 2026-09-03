@@ -1,6 +1,7 @@
 {
   "$schema": "../../node_modules/wrangler/config-schema.json",
   "name": "ostrecht-recht",
+  "account_id": "28871b9b1c6753235a331544f7c68460",
   "compatibility_date": "2026-04-15",
   "workers_dev": true,
   "preview_urls": true,
@@ -13,6 +14,13 @@
   "vars": {
     "APP_ENV": "production"
   },
+  "d1_databases": [
+    {
+      "binding": "ostrecht_recht",
+      "database_name": "ostrecht-recht",
+      "database_id": "2491f200-de20-4a45-b028-d00a4fd57840"
+    }
+  ],
   "assets": {
     "directory": "./dist/client",
     "not_found_handling": "404-page"
