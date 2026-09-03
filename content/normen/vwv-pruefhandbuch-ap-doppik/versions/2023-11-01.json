@@ -1,0 +1,1373 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verwaltungsvorschrift der Ostdeutschen Anstalt für kommunale Datenverarbeitung Prüfhandbuch über die erforderlichen technischen Standards für Programmzulassungen im Bereich der Allgemeinen Anforderungen an Finanzverfahren nach den Regeln der Doppik",
+  "shortTitle": "VwV Prüfhandbuch AP.Doppik",
+  "abbr": "VwV PHB-AP.Doppik",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "VwV Prüfhandbuch AP.Doppik vom 8. August 2014 (SächsABl. S. 1442)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 14190.1, gültig ab 2014-11-28",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/14190.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/14190",
+      "retrievedAt": "2026-09-03",
+      "sha256": "874e3cb4cc0e34eda4e1a0175d4069b326f8c9ef0500e04ce13509be5ccc3779",
+      "lawId": "14190",
+      "sourceValidFrom": "2014-11-28",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Auf Grund § 87 Absatz 2 der\nGemeindeordnung für den Freistaat Ostdeutschland in der Fassung der Bekanntmachung vom 3. März 2014 (SächsGVBl. S. 146), die durch Artikel 6 des Gesetzes vom 2. April 2014 (SächsGVBl. S. 234) geändert worden ist, wird im Benehmen mit dem Ostdeutschen Rechnungshof folgende Verwaltungsvorschrift als Prüfhandbuch erlassen:"
+    },
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Anwendungsbereich",
+      "children": [
+        {
+          "type": "item",
+          "label": "I.",
+          "text": "Anwendungsbereich",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift ist bei der Prüfung von Programmen zur Unterstützung des kommunalen Finanzwesens nach den Regeln der Doppik anzuwenden. Sie fasst die aus den im Freistaat Ostdeutschland geltenden Kommunalgesetzen und Verordnungen ableitbaren allgemeinen Anforderungen und allgemein anerkannten technischen Regeln an Programme zusammen, deren Erfüllung Voraussetzung für eine Programmzulassung durch die SAKD ist. Diese Anforderungen und Regeln sind in der Form von Prüfkriterien formuliert."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Abbildung von Sachverhalten",
+      "children": [
+        {
+          "type": "item",
+          "label": "II.",
+          "text": "Abbildung von Sachverhalten",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm ermöglicht die nachvollziehbare und wirklichkeitsgetreue Eingabe und wiedererkennbare Speicherung von Daten, die einen bestimmten Sachverhalt beschreiben.\nKriteriennummer: AP1",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm ermöglicht dem Anwender die übersichtliche Recherche gespeicherter Sachverhalte anhand",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "eines Merkmals, welches einen konkreten Sachverhalt eindeutig charakterisiert, und",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "klassifizierender Merkmale, die eine Gruppe von Sachverhalten charakterisieren.\nKriteriennummer: AP2",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Das Programm gewährleistet die sofortige Wirksamkeit der eingegebenen Daten, so dass alle Programmabläufe stets auf einem aktuellen Datenbestand aufsetzen.\nKriteriennummer: AP3",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Übersichtliche Eingabe und wiedererkennbare Abläufe",
+      "children": [
+        {
+          "type": "item",
+          "label": "III.",
+          "text": "Übersichtliche Eingabe und wiedererkennbare Abläufe",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm gewährleistet die Wiedererkennbarkeit finanzrelevanter Vorgänge und fachlicher Abläufe.\nKriteriennummer: AP4",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm ermöglicht bei der Eingabe die erfassten Daten innerhalb eines bildschirmorientierten Eingabebereiches so lange zu verändern, bis sie durch den Anwender endgültig bestätigt oder aber verworfen werden.\nKriteriennummer: AP5",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV.",
+      "title": "Plausibilitätskontrollen",
+      "children": [
+        {
+          "type": "item",
+          "label": "IV.",
+          "text": "Plausibilitätskontrollen",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm erkennt formale Fehleingaben und verhindert deren Weiterverarbeitung. Dies betrifft insbesondere die Eingabe von Werten außerhalb formal gültiger Wertebereiche wie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "zu große und zu kleine Zahlen,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "zu lange Zeichenfolgen,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "falsche Datumswerte",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "sowie die Verwendung der richtigen"
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Eingabezeichen bei der Eingabe von Buchstaben, Zeichen, Zahlen, Ja/ Nein-Angaben,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Eingabeformate (zum Beispiel für Bankleitzahlen, Produktsachkonten oder das Datum).",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: AP6"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm warnt, wenn die eingegebenen Daten trotz formaler Richtigkeit nicht korrekt weiterverarbeitet werden können. Gründe dafür können sein:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Offensichtliche logische Beziehungen zwischen verschiedenen Eingabefeldern werden nicht berücksichtigt.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Die Weiterberechnung führt zu Werten außerhalb gültiger Wertebereiche.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Es werden offensichtlich gesetzliche Vorgaben verletzt.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Der eingegebene Wert steht im Widerspruch zu sonstigen im Programm hinterlegten Daten (zum Beispiel im Widerspruch zu Wertetabellen oder auf vorherigen Masken erfassten Werten).",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: AP7"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "V.",
+      "title": "Berechnungen",
+      "children": [
+        {
+          "type": "item",
+          "label": "V.",
+          "text": "Berechnungen",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm führt Berechnungen so durch, dass sie den geltenden Gesetzlichkeiten folgen.\nKriteriennummer: AP8",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm ermöglicht die mathematisch korrekte Durchführung und Darstellung von Berechnungen unter Berücksichtigung notwendiger Zwischenschritte sowohl im Programm als auch auf Dokumenten. Dies betrifft beispielsweise die folgenden Bereiche:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Rundung von Beträgen und korrekte Weiterverarbeitung von gerundeten beziehungsweise nicht gerundeten Werten,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Aufteilung auf Fälligkeiten,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "korrekte Zinsberechnung,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "korrekte Datumsberechnung.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: AP9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VI.",
+      "title": "Übersichtlichkeit der Darstellung, Druck von Dokumenten",
+      "children": [
+        {
+          "type": "item",
+          "label": "VI.",
+          "text": "Übersichtlichkeit der Darstellung, Druck von Dokumenten",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm ermöglicht den Ausdruck aller vom Anwender im Programm gespeicherten Fachdaten.\nKriteriennummer: AP10",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm stellt bei der lesbaren Ausgabe die Sachverhalte für den Bearbeiter übersichtlich und klar dar. Vom Programm erzeugte Dokumente sind für den Adressaten verständlich, lesbar und entsprechen den geltenden Formvorschriften.\nKriteriennummer: AP11",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VII.",
+      "title": "Personendaten",
+      "children": [
+        {
+          "type": "item",
+          "label": "VII.",
+          "text": "Personendaten",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm ermöglicht die Speicherung und Verwaltung von folgenden Personendaten:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Anrede,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Titel,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Vorname,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Nachname,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Namenszusatz,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Firmenbezeichnung,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Adresse,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Postfachadresse,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Länderbezeichnung,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Zahlwegsinformationen.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: AP12"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm ermöglicht die Speicherung und Verwaltung von SEPA-Mandaten.\nKriteriennummer: AP12a",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Das Programm ermöglicht auf der Grundlage der bei den Personendaten gespeicherten Zahlwegsinformationen und Mandate den Aufbau und die Anwendung von Regeln, nach denen die gespeicherten Zahlwegsinformationen und Mandate bei Forderungstatbeständen zur Durchführung von Lastschriften und Erstattungen im Rahmen des maschinellen Zahlungsverkehrs automatisiert zur Anwendung kommen.\nKriteriennummer: AP13",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Das Programm ermöglicht auf der Grundlage der gespeicherten Personendaten die Speicherung und Verwaltung von Gesamtschuldnerschaften.\nKriteriennummer: AP14",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Das Programm ermöglicht die Löschung von personenbezogenen Daten durch den Bearbeiter.\nKriteriennummer: AP15",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Das Programm ermöglicht die Unterbindung der Weiterverarbeitung einzelner personenbezogener Daten.\nKriteriennummer: AP16",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VIII.",
+      "title": "Bescheidgestaltung",
+      "children": [
+        {
+          "type": "item",
+          "label": "VIII.",
+          "text": "Bescheidgestaltung",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Bescheidinhalt",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm ermöglicht die Darstellung folgender Angaben auf dem Abgabebescheid:",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "erlassende Behörde,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Bescheiddatum,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Inhaltsadressat (Abgabeschuldner),",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Bekanntgabeadressat (bei Abweichung vom Inhaltsadressaten),",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Adresse des Empfängers (gegebenenfalls abweichend von Inhalts- und Bekanntgabeadressat),",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Angaben zum Abgabeobjekt,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "Art der Abgabe,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "festzusetzender Betrag der Abgabe,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "9.",
+                  "text": "Begründung,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "10.",
+                  "text": "Leistungsgebot,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "11.",
+                  "text": "Zahlweg der erlassenden Behörde,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "12.",
+                  "text": "kassentechnisches Merkmal für die Zuordnung von Zahlungen,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "13.",
+                  "text": "Rechtsbehelfsbelehrung.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: AP17"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Das Programm unterstützt die Erstellung einer Vorabankündigung (Pre-Notification) bei Lastschrifteinzug.\nKriteriennummer: AP17a",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Das Programm ermöglicht die Darstellung folgender Angaben auf den einzelnen Seiten von Abgabebescheiden:",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Seitenzahl,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Information, die erkennen lässt, ob es eine Folgeseite gibt,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Kennzeichnung, die bei mehrseitigen Bescheiden erkennen lässt, dass die Seite Bestandteil des betreffenden Bescheides ist.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: AP18"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "d.",
+              "text": "Das Programm ermöglicht die übersichtliche und nachvollziehbare Darstellung von Abgabezusammenhängen auf Abgabebescheiden.\nKriteriennummer: AP19",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Bescheide für Gesamtschuldnerschaften",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm ermöglicht in den Fällen, in denen mehrere Gesamtschuldner einem gemeinsamen Abgabetatbestand zugeordnet sind (Gesamtschuldnerschaft), die Erstellung eines Bescheides an ausgewählte Gesamtschuldner zum Zweck der Einzelbekanntgabe. Auf jedem dieser Bescheide ist ersichtlich, dass eine Zahlung erwartet wird.\nKriteriennummer: AP20",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Das Programm ermöglicht die Kennzeichnung, Verwendung und Änderung eines Gesamtschuldners als Bekanntgabeadressat für die Gesamtschuldnerschaft.\nKriteriennummer: AP21",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Das Programm ermöglicht für jeden Gesamtschuldner die Erstellung inhaltsgleicher Abschriften von Abgabebescheiden.\nKriteriennummer: AP22",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d.",
+              "text": "Das Programm ermöglicht für Ehegatten oder Ehegatten mit ihren Kindern oder Alleinstehende mit ihren Kindern die Ausfertigung eines Bescheides unter ihrer gemeinsamen Anschrift.\nKriteriennummer: AP23",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e.",
+              "text": "entfallen\nKriteriennummer: AP24",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IX.",
+      "title": "Mandantenfähigkeit",
+      "children": [
+        {
+          "type": "item",
+          "label": "IX.",
+          "text": "Mandantenfähigkeit",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm ermöglicht die parallele Bearbeitung mehrerer voneinander unabhängiger Haushalte im Rahmen einer Programminstallation.\nKriteriennummer: AP25",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "X.",
+      "title": "Anforderungen zur Gewährleistung des Datenschutzes",
+      "children": [
+        {
+          "type": "item",
+          "label": "X.",
+          "text": "Anforderungen zur Gewährleistung des Datenschutzes",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Benutzerkontrolle",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm ermöglicht zur Benutzerkontrolle die Anlage und Verwaltung von Benutzerzugängen für jeden Anwender im Programm. Die Programmfunktionen zur Benutzerzugangsverwaltung sind vor unbefugtem Zugriff geschützt.\nKriteriennummer: AP26",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Das Programm ermöglicht bei der Verwendung von Passwörtern zur Absicherung von Benutzerzugängen die Einhaltung folgender Grundanforderungen:",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Das Passwort ist bei der Eingabe nicht sichtbar.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Jeder Benutzer hat ein eigenes Passwort, welches er selbst ändern kann.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Die manuelle Passworteingabe kann nicht umgangen werden.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: AP27"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Zugriffskontrolle",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Das Programm ermöglicht zur Zugriffskontrolle die Vergabe individueller Zugriffsrechte der Benutzer für die einzelnen Programmfunktionen. Die Programmfunktionen zur Verwaltung der Zugriffsrechte sind vor unbefugtem Zugriff geschützt.\nKriteriennummer: AP28",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Das Programm ermöglicht die Beschränkung des schreibenden und lesenden Datenzugriffs eines Bearbeiters auf einzelne, fachlich abgrenzbare Datenbereiche.\nKriteriennummer: AP29",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XI.",
+      "title": "Schutz von Stamm- und Bewegungsdaten",
+      "children": [
+        {
+          "type": "item",
+          "label": "XI.",
+          "text": "Schutz von Stamm- und Bewegungsdaten",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm protokolliert recherchierbar und feldbezogen jeden ändernden Zugriff auf Stammdaten durch die Speicherung der folgenden Informationen:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Wertehistorie (Wert alt/Wert neu),",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Autor der jeweiligen Änderung,",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Zeitpunkt der jeweiligen Änderung.",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Kriteriennummer: AP30"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm verhindert das Löschen von Stammdaten, die noch verwendet werden oder die in Beziehung zu anderen Daten stehen.\nKriteriennummer: AP31",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Das Programm verhindert das Löschen oder Ändern von Bewegungsdaten. Das Programm protokolliert recherchierbar Entstehungszeitpunkt und Autor von Bewegungsdaten.\nKriteriennummer: AP32",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Das Programm warnt den Bearbeiter vor dem Löschen von Daten und ermöglicht ihm den Abbruch.\nKriteriennummer: AP33",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XII.",
+      "title": "Datensicherung",
+      "children": [
+        {
+          "type": "item",
+          "label": "XII.",
+          "text": "Datensicherung",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm unterstützt zur Wiederherstellung fachlich funktionierender Datenbestände die Erstellung von externen Sicherungskopien zu einem vom Anwender wählbaren Zeitpunkt.\nKriteriennummer: AP34",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XIII.",
+      "title": "Ablaufsicherheit, Schutz vor Datenverlust",
+      "children": [
+        {
+          "type": "item",
+          "label": "XIII.",
+          "text": "Ablaufsicherheit, Schutz vor Datenverlust",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm arbeitet in einer den Mindestanforderungen entsprechenden Umgebung stabil, so dass eine anwenderübliche Nutzung problemlos gewährleistet ist. Die dokumentierten Funktionalitäten sind verfügbar. Programmbedingte Fehlersituationen sind benutzergerecht dokumentiert.\nKriteriennummer: AP35",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Das Programm ermöglicht mit angemessenem Aufwand die Wiederherstellung von Daten, die durch kritische Programmzustände beschädigt wurden. Dort, wo Inkonsistenzen im Datenbestand entstehen und unbemerkt bleiben könnten, bietet das Programm Möglichkeiten, den Datenbestand auf Defekte hin zu überprüfen.\nDer Anwender wird durch die Benutzerdokumentation über das Verhalten bei kritischen Programmzuständen informiert.\nKriteriennummer: AP36",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XIV.",
+      "title": "Produktdokumentation",
+      "children": [
+        {
+          "type": "item",
+          "label": "XIV.",
+          "text": "Produktdokumentation",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Das Programm ist unter Berücksichtigung seiner Einsatzbedingungen im Rahmen einer Produktdokumentation ausreichend beschrieben.\nDie Produktdokumentation liegt in einer verbindlichen und inhaltlich hinreichend bestimmten Form vor; wenn sie nicht in gedruckter Form vorliegt, kann sie in angemessener Frist lesbar gemacht werden.\nKriteriennummer: AP37",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Produktbeschreibung",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Die Produktbeschreibung",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "ist durch eine eindeutige Dokumentenbezeichnung gekennzeichnet,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "bezeichnet das entsprechende Programm unter Angabe einer Version oder eines Datums.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die Produktbeschreibung enthält weiterhin genaue Angaben"
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "bezüglich mindestens einem Lieferanten,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "zu den Arbeitsaufgaben, die mit dem Programm ausgeführt werden können,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "zu dem Mindestsystem bestehend aus Hardware, Software und Konfigurationseinstellungen, das für die Inbetriebnahme des Programms notwendig ist,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "zu Programmschnittstellen,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "hinsichtlich der Form und dem Umfang der Lieferung,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "zu der Art und Weise der Installation,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "9.",
+                  "text": "darüber, ob und in welcher Form Anwendungsunterstützung angeboten wird,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "10.",
+                  "text": "dazu, in welcher Form die Wartung des Programms erfolgt.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: AP38"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Die Produktbeschreibung enthält",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "einen Überblick über die aufrufbaren Programmfunktionen,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "zu jeder genannten Programmfunktion die Angabe, ob die entsprechende Funktionalität Teil des Programms selbst oder Teil von Ergänzungen oder Beigaben ist,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Informationen über programmspezifische Grenzwerte und Beschränkungen, sofern die Nutzung des Programms durch diese eingeschränkt ist,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Angaben zu den vom Programm bereitgestellten Mitteln, um einen unerlaubten Zugriff auf Programmfunktionen und Daten zu verhindern.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: AP39"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c.",
+              "text": "Die Produktbeschreibung enthält Angaben",
+              "level": 1,
+              "numberingStyle": "lower-roman",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "zur Datensicherung,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "zur Art der Benutzerschnittstelle,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "zur Sprache der Benutzerschnittstelle und der Benutzerdokumentation,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "über die beim Anwender vorausgesetzten Kenntnisse,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "dazu, ob und wie Programmanpassungen durch den Anwender vorgenommen werden können.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: AP40"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Benutzerdokumentation",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a.",
+              "text": "Die Benutzerdokumentation enthält die für die Anwendung des Programms notwendigen Angaben in",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "vollständiger,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "richtiger,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "widerspruchsfreier,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "verständlicher und",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "übersichtlicher",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Art und Weise. Im Einzelnen sind dies insbesondere"
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "die Beschreibung aller vom Anwender aufrufbaren Programmfunktionen,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "eine Installationsanleitung (wenn die Installation durch den Anwender vorgesehen ist),",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "8.",
+                  "text": "eine Wartungsanleitung (wenn die Wartung durch den Anwender vorgesehen ist).",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Kriteriennummer: AP41"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b.",
+              "text": "Im Programm sind folgende Angaben erkennbar:",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Name,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Versionsnummer,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Releasestand (Datumsangabe)",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "des Programms und gegebenenfalls der Programmteile.\nKriteriennummer: AP42"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "XV.",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "item",
+          "label": "XV.",
+          "text": "Inkrafttreten",
+          "level": 0,
+          "numberingStyle": "upper-roman",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tag nach ihrer Veröffentlichung in Kraft. Gleichzeitig tritt die Verwaltungsvorschrift der Ostdeutschen Anstalt für kommunale Datenverarbeitung – Prüfhandbuch über die erforderlichen technischen Standards für Programmzulassungen im Bereich der Allgemeinen Anforderungen an Finanzverfahren nach den Regeln der Doppik (VwV Prüfhandbuch AP.Doppik – VwV PHB-AP.Doppik) vom 2. Februar 2011 (SächsABl. S. 524) außer Kraft."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Bischofswerda, den 8. August 2014"
+        },
+        {
+          "type": "paragraphText",
+          "text": "Ostdeutsche Anstalt für kommunale Datenverarbeitung\nWeber\nDirektor"
+        }
+      ]
+    }
+  ]
+}

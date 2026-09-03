@@ -1,0 +1,303 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verordnung der Ostdeutschen Staatsregierung über die Verarbeitung von personenbezogenen Daten in der Landeseinheitlichen Fördermitteldatenbank",
+  "shortTitle": "Ostdeutsche Fördermitteldatenbankverordnung",
+  "abbr": "OstFöDaVO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Ostdeutsche Fördermitteldatenbankverordnung vom 13. Oktober 2000 (SächsGVBl. S. 442)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 2372.1, gültig ab 2000-04-01",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/2372.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/2372",
+      "retrievedAt": "2026-09-03",
+      "sha256": "99967bf1e5bce0ab91f98195f119c568ae7fef5f01c3fbf509a1abac68b77c44",
+      "lawId": "2372",
+      "sourceValidFrom": "2000-04-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Auf Grund von § 1 Abs. 3 des Gesetzes über Fördermitteldatenbanken im Freistaat Ostdeutschland (OstFöDaG ) vom 10. Juni 1999 (SächsGVBl. S. 273) wird verordnet:"
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 1",
+      "title": "Daten zum Antragsteller",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "In Zuwendungsverfahren nach § 44 in Verbindung mit § 23 der Vorläufigen Ostdeutschen Haushaltsordnung des Freistaates Ostdeutschland (Vorläufige Ostdeutsche Haushaltsordnung –\nSäHO ) vom 19. Dezember 1990 (SächsGVBl. S. 21), geändert durch Artikel 4 des Gesetzes vom 19. Oktober 1998 (SächsGVBl. S. 505), werden durch die Landeseinheitliche Fördermitteldatenbank folgende personenbezogene Daten der Antragsteller verarbeitet:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Name,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Anschrift,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "von der antragsbearbeitenden Stelle vergebene Identifikationsnummer des Antragstellers,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Rechtsform und bei natürlichen Personen Geschlecht des Antragstellers, soweit bekannt,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Angabe, ob es sich um ein kleines oder mittleres Unternehmen handelt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 2",
+      "title": "Daten zum Verfahrensstand",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "In Zuwendungsverfahren werden in der Landeseinheitlichen Fördermitteldatenbank, bezogen auf den jeweiligen Stand des Zuwendungsverfahrens, folgende Daten verarbeitet:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die antragsbearbeitende, die bewilligende und die auszahlungsanordnende Stelle,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Gesamtausgaben und ihre Finanzierung, aufgeschlüsselt nach Höhe der Zuwendung, Höhe der Finanzierungsanteile Dritter sowie des Finanzierungsanteils des Antragstellers,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "die Höhe der Zuwendung aufgeschlüsselt nach Haushaltsjahren, Fördergegenständen und Orten, in denen das Vorhaben realisiert wird (Leistungsorten),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "die Bearbeitungsstände,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Änderungen des Bewilligungsbescheids mit Datum und Begründung,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "die Fälligkeit von Auszahlungen nach Betrag, Datum und Haushaltstiteln,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Datum des letzten Tages der Frist zur Vorlage des Verwendungsnachweises durch den Zuwendungsempfänger und Datum des tatsächlichen Eingangs des Verwendungsnachweises.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 3",
+      "title": "Daten zum Fördervorhaben",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "In Zuwendungsverfahren werden in der Landeseinheitlichen Fördermitteldatenbank, bezogen auf den Förderbescheid, folgende Daten des Fördervorhabens verarbeitet:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "das Förderprogramm, das Grundlage für den Antrag auf Zuwendung ist,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Bezeichnung des Fördervorhabens,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "die Identifikationsnummer für das Fördervorhaben,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "die Einschätzung der Folgekosten des Vorhabens für den öffentlichen Sektor,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "die Zuwendungsform (nicht, bedingt oder unbedingt rückzahlbare Zuwendung),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "die Finanzierungsart,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "die Bemessungsgrundlage (Förderung auf Ausgaben- oder auf Kostenbasis),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "die Zuwendungsart,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "der Bewilligungszeitraum,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "10.",
+          "text": "die Gesamtausgaben, aufgeschlüsselt nach Höhe der Zuwendung, der Höhe der Finanzierungsanteile Dritter sowie des Finanzierungsanteils des Antragstellers,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "11.",
+          "text": "die programmkonkreten Anteile an der Finanzierung der Zuwendung nach Europäischer Union, Bund, Land und sonstigen Geldgebern,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "12.",
+          "text": "die Zuwendungshöhe, aufgeschlüsselt nach Haushaltsjahren, Haushaltstiteln, der bewilligten und der in Aussicht gestellten Zuwendung, den Fördergegenständen und den Leistungsorten.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4",
+      "title": "Trennung der Vorhabensdaten von den Daten des Leistungsempfängers",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Vorhabensdaten sind spätestens nach fünf Jahren von den Daten des Leistungsempfängers gemäß § 1 Nr. 1 bis 3 zu trennen. Die Frist beginnt am Tag des Abschlusses der Verwendungsnachweisprüfung. Wird nach Abschluss der Verwendungsnachweisprüfung festgestellt, dass Fördermittel oder Zinsen zurückgefordert werden können, beginnt die Frist"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "am Tag des Abschlusses der Verwendungsnachweisprüfung, soweit die Rückforderung unterbleibt oder nicht binnen drei Monaten nach Abschluss der Verwendungsnachweisprüfung darüber entschieden ist,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "mit Bestandskraft des Verwaltungsaktes, mit dem Beträge zurückgefordert werden oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "mit Rechtskraft des Urteils, das einen Verwaltungsakt, mit dem Beträge zurückgefordert werden, aufhebt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 5",
+      "title": "In-Kraft-Treten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Verordnung tritt mit Wirkung vom 1. April 2000 in Kraft."
+        }
+      ]
+    }
+  ]
+}

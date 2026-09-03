@@ -1,0 +1,932 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Ostdeutsches Gesetz über die Feststellung der Gleichwertigkeit von Berufsqualifikationen",
+  "shortTitle": "Ostdeutsches Berufsqualifikationsfeststellungsgesetz",
+  "abbr": "OstBQFG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Ostdeutsches Berufsqualifikationsfeststellungsgesetz vom 17. Dezember 2013 (SächsGVBl. S. 874)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 13833.8, gültig 2020-10-24 bis 2024-08-16",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/13833.8.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/13833.8",
+      "retrievedAt": "2026-09-03",
+      "sha256": "96d454e984de2e9e5f2d390662a8deba7bd56f1c80e2274c0c0d5ed81b83f848",
+      "lawId": "13833",
+      "sourceValidFrom": "2020-10-24",
+      "sourceValidTo": "2024-08-16",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "1",
+      "text": "§ 2 geändert durch Artikel 2 des Gesetzes vom 23. Mai 2019 (SächsGVBl. S. 422)"
+    },
+    {
+      "label": "2",
+      "text": "§ 3 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "3",
+      "text": "§ 4 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86) und durch Artikel 1 des Gesetzes vom 30. September 2020 (SächsGVBl. S. 522)"
+    },
+    {
+      "label": "4",
+      "text": "§ 5 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "5",
+      "text": "§ 6 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "6",
+      "text": "§ 7 geändert durch Artikel 2 des Gesetzes vom 23. Mai 2019 (SächsGVBl. S. 422)"
+    },
+    {
+      "label": "7",
+      "text": "Teil 2 Abschnitt 2 dieses Gesetzes dient der Umsetzung der Richtlinie 2005/36/EG des Europäischen Parlaments und des Rates vom 7. September 2005 über die Anerkennung von Berufsqualifikationen (ABl. L 255 vom 30. 9. 2005, S. 22, L 271 vom 16. 10. 2007, S. 18, L 93 vom 4. 4. 2008, S. 28, L 33 vom 3. 2. 2009, S. 49, L 305 vom 24. 10. 2014, S. 115), die zuletzt durch die Richtlinie 2013/55/EU (ABl. L 354 vom 28. 12. 2013, S. 132) geändert worden ist."
+    },
+    {
+      "label": "8",
+      "text": "§ 10 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "9",
+      "text": "§ 11 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "10",
+      "text": "§ 12 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86) und durch Artikel 1 des Gesetzes vom 30. September 2020 (SächsGVBl. S. 522)"
+    },
+    {
+      "label": "11",
+      "text": "§ 13 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86), durch Artikel 2 des Gesetzes vom 26. April 2017 (SächsGVBl. S. 242, 263) und durch Artikel 2 des Gesetzes vom 23. Mai 2019 (SächsGVBl. S. 422)"
+    },
+    {
+      "label": "12",
+      "text": "§ 13a eingefügt durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "13",
+      "text": "§ 15 geändert durch Artikel 2 des Gesetzes vom 23. Mai 2019 (SächsGVBl. S. 422)"
+    },
+    {
+      "label": "14",
+      "text": "§ 16 geändert durch Artikel 1 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86) und durch Artikel 42 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198)"
+    }
+  ],
+  "body": [
+    {
+      "type": "part",
+      "label": "Teil 1",
+      "title": "Allgemeiner Teil",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 1",
+          "title": "Zweck des Gesetzes",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Dieses Gesetz dient der besseren Nutzung von im Ausland erworbenen Berufsqualifikationen für den ostdeutschen Arbeitsmarkt, um eine qualifikationsnahe Beschäftigung zu ermöglichen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 2",
+          "title": "Anwendungsbereich",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Dieses Gesetz gilt für die Feststellung der Gleichwertigkeit im Ausland erworbener Ausbildungsnachweise, unter Berücksichtigung sonstiger nachgewiesener Befähigungsnachweise, mit inländischen Ausbildungsnachweisen für Berufe, die durch Rechtsvorschriften des Freistaates Ostdeutschland geregelt worden sind. Es gilt nicht, sofern Rechtsvorschriften des Freistaates Ostdeutschland unter Bezugnahme auf dieses Gesetz etwas anderes bestimmen. § 10 des Bundesvertriebenengesetzes in der Fassung der Bekanntmachung vom 10. August 2007 (BGBl. I S. 1902), das zuletzt durch Artikel 3 des Gesetzes vom 6. Mai 2019 (BGBl. I S. 646) geändert worden ist, in der jeweils geltenden Fassung, bleibt unberührt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Dieses Gesetz ist auf alle Personen anwendbar, die im Ausland einen Ausbildungsnachweis erworben haben und darlegen, im Freistaat Ostdeutschland eine ihrer Berufsqualifikation entsprechende Erwerbstätigkeit ausüben zu wollen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 3",
+          "title": "Begriffsbestimmung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Berufsqualifikationen sind Qualifikationen, die durch Ausbildungsnachweise oder einschlägige, im Inland oder Ausland erworbene Berufserfahrung nachgewiesen werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Ausbildungsnachweise sind Prüfungszeugnisse und Befähigungsnachweise, die von verantwortlichen Behörden für den Abschluss einer erfolgreich absolvierten Ausbildung ausgestellt werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Berufsbildung im Sinne dieses Gesetzes ist eine durch Rechtsvorschriften geregelte Berufsausbildung sowie eine berufliche Fort- oder Weiterbildung. Die Berufsausbildung vermittelt die zur Ausübung einer qualifizierten beruflichen Tätigkeit erforderliche berufliche Handlungsfähigkeit. Sie findet in einem geordneten Ausbildungsgang statt, der auch den Erwerb der erforderlichen Berufserfahrungen umfassen kann. Die berufliche Fort- und Weiterbildung erweitert die berufliche Handlungsfähigkeit über die Berufsausbildung hinaus.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Berufe, die durch Rechtsvorschriften des Freistaates Ostdeutschland geregelt sind, umfassen reglementierte Berufe und nicht reglementierte Berufe.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Reglementierte Berufe sind berufliche Tätigkeiten, deren Aufnahme oder Ausübung durch Rechtsvorschriften an den Besitz bestimmter Berufsqualifikationen gebunden sind; eine Art der Ausübung ist insbesondere die Führung einer Berufsbezeichnung, die durch Rechtsvorschriften auf Personen beschränkt ist, die über bestimmte Berufsqualifikationen verfügen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Der Europäische Berufsausweis ist eine elektronische Bescheinigung zum Nachweis der Anerkennung von Berufsqualifikationen für die Niederlassung in einem Aufnahmemitgliedstaat.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "label": "Teil 2",
+      "title": "Feststellung der Gleichwertigkeit",
+      "children": [
+        {
+          "type": "section",
+          "label": "Abschnitt 1",
+          "title": "Nicht reglementierte Berufe",
+          "children": [
+            {
+              "type": "paragraph",
+              "label": "§ 4",
+              "title": "Feststellung der Gleichwertigkeit",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die zuständige Stelle stellt auf Antrag die Gleichwertigkeit fest, sofern",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "der im Ausland erworbene Ausbildungsnachweis die Befähigung zu vergleichbaren beruflichen Tätigkeiten wie der entsprechende im Freistaat Ostdeutschland geregelte Ausbildungsnachweis belegt und",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "zwischen den nachgewiesenen Berufsqualifikationen und der entsprechenden im Freistaat Ostdeutschland geregelten Berufsbildung keine wesentlichen Unterschiede bestehen.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Wesentliche Unterschiede zwischen den nachgewiesenen Berufsqualifikationen und der entsprechenden im Freistaat Ostdeutschland geregelten Berufsbildung liegen vor, wenn",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "sich der im Ausland erworbene Ausbildungsnachweis auf Fertigkeiten, Kenntnisse und Fähigkeiten bezieht, die sich hinsichtlich der vermittelten Inhalte wesentlich von den Fertigkeiten, Kenntnissen und Fähigkeiten unterscheiden, auf die sich der entsprechende im Freistaat Ostdeutschland geregelte Ausbildungsnachweis bezieht,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "die nach Nummer 1 abweichenden Fertigkeiten, Kenntnisse und Fähigkeiten für die Ausübung des jeweiligen Berufs wesentlich sind und",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "der Antragsteller diese Unterschiede nicht durch",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "a)",
+                      "text": "sonstige Befähigungsnachweise,",
+                      "level": 1,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "b)",
+                      "text": "Kenntnisse, Fähigkeiten und Kompetenzen, die durch lebenslanges Lernen erworben wurden und die von einer einschlägigen Stelle formell als gültig anerkannt wurden, oder",
+                      "level": 1,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "c)",
+                      "text": "nachgewiesene einschlägige Berufserfahrung",
+                      "level": 1,
+                      "numberingStyle": "lower-latin",
+                      "children": []
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "ausgleichen kann."
+                    }
+                  ]
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "In dem Umfang, in dem die zuständige Stelle eines anderen Landes der Bundesrepublik Deutschland die Gleichwertigkeit festgestellt hat, ist der Inhaber dieser Berufsqualifikation so zu behandeln, als sei die landesrechtlich geregelte Berufsqualifikation in diesem Land der Bundesrepublik Deutschland erworben worden.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 5",
+              "title": "Vorzulegende Unterlagen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Dem Antrag sind folgende Unterlagen beizufügen:",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "eine tabellarische Aufstellung der absolvierten Ausbildungsgänge und der ausgeübten Erwerbstätigkeit in deutscher Sprache,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "ein Identitätsnachweis,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "im Ausland erworbene Ausbildungsnachweise,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Nachweise über einschlägige Berufserfahrung oder sonstige Befähigungsnachweise, sofern diese zur Feststellung der Gleichwertigkeit erforderlich sind, und",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "eine Erklärung, ob, bei welcher Stelle und mit welchem Ergebnis bereits ein Antrag auf Feststellung der Gleichwertigkeit gestellt wurde.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die Unterlagen nach Absatz 1 Nr. 2 bis 4 sind der zuständigen Stelle in Form von Originalen oder beglaubigten Kopien vorzulegen. Von den Unterlagen nach Absatz 1 Nr. 3 und 4 sind Übersetzungen in deutscher Sprache vorzulegen. Darüber hinaus kann die zuständige Stelle vom Identitätsnachweis und allen nachgereichten Unterlagen Übersetzungen in deutscher Sprache verlangen. Die Übersetzungen sind von einem öffentlich bestellten oder beeidigten Dolmetscher oder Übersetzer erstellen zu lassen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die zuständige Stelle kann von den Anforderungen des Absatzes 2 Satz 1 und 4 abweichen, sofern keine Zweifel an der Echtheit oder der inhaltlichen Richtigkeit der jeweiligen Unterlagen bestehen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Die zuständige Stelle kann den Antragsteller auffordern, innerhalb einer angemessenen Frist Informationen zu Inhalt und Dauer der im Ausland absolvierten Berufsbildung sowie zu sonstigen Berufsqualifikationen vorzulegen, soweit dies zur Feststellung der Gleichwertigkeit erforderlich ist.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Bestehen begründete Zweifel an der Echtheit oder inhaltlichen Richtigkeit der vorgelegten Unterlagen, kann die zuständige Stelle den Antragsteller auffordern, innerhalb einer angemessenen Frist weitere geeignete Unterlagen vorzulegen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(6)",
+                  "text": "Der Antragsteller hat durch geeignete Unterlagen darzulegen, im Freistaat Ostdeutschland eine der Berufsqualifikationen entsprechende Erwerbstätigkeit ausüben zu wollen. Geeignete Unterlagen sind insbesondere der Nachweis über ein beantragtes Einreisevisum zur Aufnahme einer Erwerbstätigkeit, der Nachweis einer Kontaktaufnahme mit möglichen Arbeitgebern oder die Vorlage eines Geschäftskonzepts. Für Antragsteller mit Wohnsitz in",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "einem Mitgliedstaat der Europäischen Union,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "einem weiteren Vertragsstaat des Abkommens über den Europäischen Wirtschaftsraum oder",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "einem durch Abkommen gleichgestellten Staat,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "sowie für Staatsangehörige dieser Staaten ist diese Darlegung entbehrlich, sofern keine besonderen Gründe gegen eine entsprechende Absicht sprechen."
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 6",
+              "title": "Verfahren",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Antragsberechtigt ist jede Person, die im Ausland einen Ausbildungsnachweis im Sinne des § 3 Abs. 2 erworben hat. Der Antrag ist schriftlich oder elektronisch bei der zuständigen Stelle zu stellen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die zuständige Stelle bestätigt dem Antragsteller innerhalb eines Monats den Eingang des Antrags einschließlich der nach § 5 Abs. 1 vorgelegten Unterlagen. In der Bestätigung ist das Eingangsdatum mitzuteilen und auf die Frist nach Absatz 3 sowie auf die Voraussetzungen für den Beginn des Fristlaufs hinzuweisen. Sind die vorzulegenden Unterlagen unvollständig, teilt die zuständige Stelle innerhalb der Frist des Satzes 1 mit, welche Unterlagen nachzureichen sind.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die zuständige Stelle muss innerhalb von drei Monaten über die Gleichwertigkeit entscheiden. Die Frist beginnt mit Eingang der vollständigen Unterlagen. Sie kann einmal verlängert werden, wenn dies wegen der Besonderheiten der Angelegenheit gerechtfertigt ist. Die Fristverlängerung ist zu begründen und rechtzeitig mitzuteilen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Hat der Antragsteller seinen Antrag gemäß § 5 Abs. 4 und 5 zu ergänzen, ist der Lauf der Frist nach Absatz 3 bis zum Ablauf der von der zuständigen Stelle für die Ergänzung festgelegten Frist, in den Verfahren gemäß § 14 Abs. 2 bis zur Beendigung dieser Verfahren, gehemmt.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Der Antrag ist abzulehnen, soweit die Gleichwertigkeit im Rahmen anderer Verfahren oder durch Rechtsvorschrift bereits festgestellt ist.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 7",
+              "title": "Form der Entscheidung",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Entscheidung über den Antrag gemäß § 4 Abs. 1 ergeht durch schriftlichen oder elektronischen Bescheid.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Ist der Antrag abzulehnen, weil die Gleichwertigkeit wegen wesentlicher Unterschiede gemäß § 4 Abs. 2 nicht festgestellt werden kann, sind in der Begründung die vorhandenen Berufsqualifikationen des Antragstellers sowie die wesentlichen Unterschiede zwischen den vorhandenen Berufsqualifikationen und der entsprechenden landesrechtlich geregelten Berufsbildung darzulegen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Dem Bescheid ist eine Rechtsbehelfsbelehrung beizufügen.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 8",
+              "title": "Zuständige Stelle",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Das jeweils zuständige Staatsministerium wird ermächtigt, die Aufgaben durch Rechtsverordnung auf andere Stellen, die Aufgaben der öffentlichen Verwaltung wahrnehmen, zu übertragen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Zuständige Stellen können vereinbaren, dass die ihnen durch dieses oder aufgrund dieses Gesetzes übertragene Aufgaben von einer anderen zuständigen Stelle, deren Sitz auch in einem anderen Land der Bundesrepublik Deutschland sein kann, wahrgenommen werden. Die Vereinbarung bedarf der Genehmigung des jeweils zuständigen Staatsministeriums.",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "Abschnitt 2",
+          "title": "Reglementierte Berufe",
+          "children": [
+            {
+              "type": "paragraph",
+              "label": "§ 9",
+              "title": "Voraussetzungen für die Feststellung der Gleichwertigkeit",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Bei der Entscheidung über die Befugnis zur Aufnahme oder Ausübung eines im Freistaat Ostdeutschland reglementierten Berufs gilt der im Ausland erworbene Ausbildungsnachweis, unter Berücksichtigung sonstiger nachgewiesener Berufsqualifikationen, als gleichwertig mit den entsprechenden im Freistaat Ostdeutschland geregelten Ausbildungsnachweisen, sofern",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "der im Ausland erworbene Ausbildungsnachweis die Befähigung zu vergleichbaren beruflichen Tätigkeiten wie der entsprechende im Freistaat Ostdeutschland geregelte Ausbildungsnachweis belegt,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "der Antragsteller bei einem sowohl im Freistaat Ostdeutschland als auch im Ausbildungsstaat reglementierten Beruf zur Ausübung des Berufs im Ausbildungsstaat berechtigt ist oder die Befugnis zur Aufnahme oder Ausübung des Berufs aus Gründen verwehrt wurde, die der Aufnahme oder Ausübung im Freistaat Ostdeutschland nicht entgegenstehen, und",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "zwischen den nachgewiesenen Berufsqualifikationen und der entsprechenden im Freistaat Ostdeutschland geregelten Berufsbildung keine wesentlichen Unterschiede bestehen.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Für die Feststellung der wesentlichen Unterschiede zwischen den nachgewiesenen Berufsqualifikationen und der entsprechenden im Freistaat Ostdeutschland geregelten Berufsbildung gilt § 4 Abs. 2 entsprechend.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 10",
+              "title": "Feststellung der vorhandenen Berufsqualifikationen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Sofern die Feststellung der Gleichwertigkeit wegen wesentlicher Unterschiede im Sinne des § 4 Abs. 2 nicht erfolgen kann, werden bei der Entscheidung über die Befugnis zur Aufnahme oder Ausübung eines im Freistaat Ostdeutschland reglementierten Berufs die vorhandenen Berufsqualifikationen und die wesentlichen Unterschiede gegenüber der entsprechenden im Freistaat Ostdeutschland geregelten Berufsqualifikation durch Bescheid festgestellt. Dabei ist jeweils das Qualifikationsniveau der im Ausland erworbenen Berufsqualifikation der im Freistaat Ostdeutschland geregelten Berufsqualifikation gegenüberzustellen. Dem Antragsteller sind die Gründe, die der Feststellung der Gleichwertigkeit entgegenstehen, mitzuteilen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Gleichzeitig ist unter Beachtung des Grundsatzes der Verhältnismäßigkeit festzustellen, durch welche Maßnahmen nach § 11 die wesentlichen Unterschiede gegenüber der erforderlichen im Freistaat Ostdeutschland geregelten Berufsqualifikation ausgeglichen werden können.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "§ 4 Abs. 3 gilt entsprechend.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 11",
+              "title": "Ausgleichsmaßnahmen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Wesentliche Unterschiede im Sinne des § 4 Abs. 2 können durch die Absolvierung eines höchstens dreijährigen Anpassungslehrgangs, der Gegenstand einer Bewertung sein kann, oder das Ablegen einer Eignungsprüfung im Inland ausgeglichen werden.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Bei der Ausgestaltung der Ausgleichsmaßnahmen sind die vorhandenen Berufsqualifikationen des Antragstellers zu berücksichtigen. Der Inhalt der Ausgleichsmaßnahmen ist auf die festgestellten wesentlichen Unterschiede im Sinne des § 4 Abs. 2 zu beschränken.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Antragsteller hat die Wahl zwischen Anpassungslehrgang und Eignungsprüfung, sofern die entsprechenden berufsrechtlichen Regelungen nichts anderes bestimmen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Hat sich der Antragsteller für eine Eignungsprüfung nach Absatz 3 entschieden, muss diese innerhalb von sechs Monaten abgelegt werden können. Wird dem Antragsteller die Teilnahme an der Eignungsprüfung als zusätzliche Ausgleichsmaßnahme oder aufgrund berufsrechtlicher Regelungen im Sinne von Absatz 3 von der zuständigen Stelle auferlegt, muss diese innerhalb von sechs Monaten seit ihrer Auferlegung abgelegt werden können.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Das jeweils zuständige Staatsministerium kann Inhalt und Durchführung der Ausgleichsmaßnahmen durch Rechtsverordnung regeln.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 12",
+              "title": "Vorzulegende Unterlagen und Verfahren bei Zweifeln an der Echtheit der Unterlagen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Für die Vorlage von Unterlagen zur Feststellung der Gleichwertigkeit und der Erteilung einer Erlaubnis zur Aufnahme oder Ausübung eines im Freistaat Ostdeutschland reglementierten Berufs gilt § 5 entsprechend. Ergänzend zu § 5 Abs. 1 hat der Antragsteller eine Bescheinigung in deutscher Sprache über die Berechtigung zur Berufsausübung im Ausbildungsstaat gemäß § 9 Abs. 1 Nr. 2 Alternative 1 vorzulegen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Unterlagen, die in einem Mitgliedstaat der Europäischen Union, in einem anderen Vertragsstaat des Abkommens über den Europäischen Wirtschaftsraum oder in einem durch Abkommen gleichgestellten Staat ausgestellt oder anerkannt wurden, können vom Antragsteller in Form von einfachen Kopien übersandt oder elektronisch übermittelt werden.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Bei begründeten Zweifeln an der Echtheit oder inhaltlichen Richtigkeit der gemäß Absatz 2 elektronisch oder in einfacher Kopie übersandten Unterlagen kann die zuständige Stelle",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "von der zuständigen Stelle des Mitgliedsstaats, der die Ausbildungs- und Befähigungsnachweise ausgestellt oder anerkannt hat, eine Bestätigung über die Echtheit dieser Unterlagen oder eine Bestätigung darüber verlangen, dass die Berufsausübung durch den Antragsteller nicht auf Grund eines schwerwiegenden standeswidrigen Verhaltens oder einer Verurteilung wegen strafbarer Handlungen ausgesetzt oder untersagt wurde, oder",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "vom Antragsteller die Vorlage beglaubigter Kopien oder weitere zum Nachweis geeignete Unterlagen in deutscher Übersetzung verlangen, sofern dies zwingend erforderlich ist.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eine Aufforderung zur Vorlage beglaubigter Kopien gilt nicht als Aufforderung zur Vorlage fehlender Unterlagen und hemmt nicht den Lauf der Fristen gemäß § 13 Absatz 3."
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Beziehen sich Ausbildungsnachweise, die von einem Mitgliedstaat ausgestellt wurden, auf eine Ausbildung, die ganz oder teilweise in einer rechtmäßig im Hoheitsgebiet eines anderen Mitgliedstaats niedergelassenen Einrichtung absolviert wurde, kann sich die zuständige Stelle bei berechtigten Zweifeln an der Echtheit oder inhaltlichen Richtigkeit dieser Ausbildungsnachweise an die zuständige Stelle des Mitgliedstaats wenden, der die Unterlagen ausgestellt hat und Auskunft darüber verlangen, ob",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "die Ausbildung an der betreffenden Einrichtung von diesem Mitgliedstaat anerkannt worden ist,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "der an der Einrichtung erworbene Ausbildungsnachweis mit dem Ausbildungsnachweis übereinstimmt, welcher ausgestellt worden wäre, wenn die Ausbildung ganz oder teilweise in diesem Mitgliedstaat absolviert worden wäre, und",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "mit dem an der Einrichtung erworbenen Ausbildungsnachweis in diesem Mitgliedstaat dieselben beruflichen Rechte verliehen werden.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 13",
+              "title": "Verfahren",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die Bewertung der Gleichwertigkeit erfolgt im Rahmen der Entscheidung über die Befugnis zur Aufnahme oder Ausübung eines im Freistaat Ostdeutschland reglementierten Berufs.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Die zuständige Stelle bestätigt dem Antragsteller innerhalb eines Monats den Eingang des schriftlichen oder elektronischen Antrags einschließlich der nach § 12 Abs. 1 vorzulegenden Unterlagen. Im Übrigen gilt § 6 Abs. 2 Satz 2 und 3 sowie Abs. 4 und 5 entsprechend.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die zuständige Stelle muss innerhalb von drei Monaten über die Gleichwertigkeit durch schriftlichen oder elektronischen Bescheid entscheiden. Die Frist beginnt mit Eingang der vollständigen Unterlagen. Sie kann einmal verlängert werden, wenn dies wegen der Besonderheit der Angelegenheit gerechtfertigt ist. Für Antragsteller, die ihren Ausbildungsnachweis in einem Mitgliedstaat der Europäischen Union, einem weiteren Vertragsstaat des Abkommens über den Europäischen Wirtschaftsraum oder in einem durch Abkommen gleichgestellten Staat erworben haben oder deren Ausbildungsnachweise in einem dieser Staaten anerkannt wurde, kann die Fristverlängerung nach Satz 3 höchstens einen Monat betragen. Sie ist zu begründen und dem Antragsteller rechtzeitig mitzuteilen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Das jeweils zuständige Staatsministerium wird ermächtigt, die Aufgaben durch Rechtsverordnung auf andere Behörden, die Aufgaben der öffentlichen Verwaltung wahrnehmen, zu übertragen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(5)",
+                  "text": "Zuständige Stellen können vereinbaren, dass die ihnen durch dieses oder aufgrund dieses Gesetzes übertragenen Aufgaben von einer anderen zuständigen Stelle, deren Sitz auch in einem anderen Land der Bundesrepublik Deutschland sein kann, wahrgenommen werden. Die Vereinbarung bedarf der Genehmigung des jeweils zuständigen Staatsministeriums.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(6)",
+                  "text": "Das Verfahren gemäß den Absätzen 1 bis 3 kann für Antragsteller, die ihre Berufsqualifikation in einem Mitgliedstaat der Europäischen Union, einem Vertragsstaat des Abkommens über den Europäischen Wirtschaftsraum oder in einem durch Abkommen gleichgestellten Staat erworben haben oder deren Berufsqualifikation in einem dieser Staaten anerkannt wurde, auch elektronisch über den einheitlichen Ansprechpartner gemäß § 1 des Gesetzes über den einheitlichen Ansprechpartner im Freistaat Ostdeutschland vom 13. August 2009 (SächsGVBl. S. 446), das zuletzt durch Artikel 3 des Gesetzes vom 24. Februar 2016 (SächsGVBl. S. 86) geändert worden ist, in der jeweils geltenden Fassung, durchgeführt werden. Das elektronische Verfahren findet auf die Durchführung eines Anpassungslehrgangs oder einer Eignungsprüfung keine Anwendung.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 13a",
+              "title": "Europäischer Berufsausweis",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Die zuständige Stelle stellt auf Antrag einen Berufsausweis gemäß Artikel 4a Absatz 1 der Richtlinie 2005/36/EG aus, wenn dieser aufgrund von Durchführungsrechtsakten der Europäischen Kommission für den betreffenden Beruf eingeführt ist.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Der Europäische Berufsausweis kann von Antragstellern beantragt werden, die ihren Ausbildungsnachweis in einem Mitgliedstaat der Europäischen Union, einem Vertragsstaat des Abkommens über den Europäischen Wirtschaftsraum oder in einem durch Abkommen gleichgestellten Staat erworben haben oder deren Ausbildungsnachweise in einem dieser Staaten bereits anerkannt wurden.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Das Verfahren richtet sich nach den Artikeln 4a bis 4e der Richtlinie 2005/36/EG und den dazu ergangenen Durchführungsrechtsakten.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(4)",
+                  "text": "Es besteht ein Wahlrecht des Antragstellers, einen solchen Ausweis zu beantragen oder sich des Verfahrens nach den §§ 9 bis 13 zu bedienen.",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "Abschnitt 3",
+          "title": "Gemeinsame Vorschriften",
+          "children": [
+            {
+              "type": "paragraph",
+              "label": "§ 14",
+              "title": "Sonstige Verfahren zur Feststellung der Gleichwertigkeit bei fehlenden Nachweisen",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Kann der Antragsteller die für die Feststellung oder Bewertung der Gleichwertigkeit erforderlichen Nachweise nach § 5 Abs. 1 Nr. 2 bis 4 oder § 12 Abs. 1 aus Gründen, die der Antragsteller nicht zu vertreten hat, nicht oder nur teilweise vorlegen oder ist die Vorlage der entsprechenden Unterlagen mit einem unangemessenen zeitlichen oder sachlichen Aufwand verbunden, stellt die zuständige Stelle die für einen Vergleich mit der entsprechenden inländischen Berufsbildung maßgeblichen beruflichen Fertigkeiten, Kenntnisse und Fähigkeiten des Antragstellers durch sonstige geeignete Verfahren fest. Der Antragsteller hat die Gründe glaubhaft zu machen, die einer Vorlage der entsprechenden Unterlagen entgegenstehen. Die zuständige Stelle ist befugt, eine Versicherung an Eides Statt zu verlangen und abzunehmen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Sonstige geeignete Verfahren zur Ermittlung der beruflichen Fertigkeiten, Kenntnisse und Fähigkeiten im Sinne des Absatzes 1 Satz 1 sind insbesondere Arbeitsproben, Fachgespräche, praktische und theoretische Prüfungen sowie Gutachten von Sachverständigen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Die Feststellung oder Bewertung der Gleichwertigkeit nach § 4 oder § 9 erfolgt auf der Grundlage der Ergebnisse der in den Absätzen 1 und 2 vorgesehenen Verfahren.",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "label": "§ 15",
+              "title": "Mitwirkungspflichten",
+              "children": [
+                {
+                  "type": "subparagraph",
+                  "label": "(1)",
+                  "text": "Der Antragsteller ist verpflichtet, alle für die Ermittlung der Gleichwertigkeit notwendigen Unterlagen vorzulegen sowie alle dazu erforderlichen Auskünfte zu erteilen.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(2)",
+                  "text": "Kommt der Antragsteller dieser Mitwirkungspflicht nicht nach und wird hierdurch die Aufklärung des Sachverhalts erheblich erschwert, kann die zuständige Stelle ohne weitere Ermittlungen entscheiden. Dies gilt entsprechend, wenn der Antragsteller in anderer Weise die Aufklärung des Sachverhalts erheblich erschwert.",
+                  "children": []
+                },
+                {
+                  "type": "subparagraph",
+                  "label": "(3)",
+                  "text": "Der Antrag darf wegen fehlender Mitwirkung nur abgelehnt werden, nachdem der Antragsteller auf die Folge hingewiesen worden ist und der Mitwirkungspflicht nicht innerhalb einer angemessenen Frist nachgekommen ist.",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Schlussvorschriften",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 16",
+          "title": "Statistik",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Über die Verfahren zur Feststellung der Gleichwertigkeit nach diesem Gesetz und nach anderen berufsrechtlichen Gesetzen und Verordnungen wird eine Landesstatistik geführt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Statistik erfasst jährlich für das vorausgegangene Kalenderjahr folgende Erhebungsmerkmale:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Staatsangehörigkeit, Geschlecht, Wohnort des Antragstellers, Datum der Antragstellung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Ausbildungsstaat, deutscher Referenzberuf oder deutsche Referenzausbildung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Datum der Entscheidung, Gegenstand und Art der Entscheidung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Meldungen und Entscheidungen betreffend die Dienstleistungsfreiheit nach Artikel 7 Abs. 1 und 4 der Richtlinie 2005/36/EG sowie",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "eingelegte Rechtsbehelfe und Entscheidungen darüber.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Hilfsmerkmale sind:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Name und Anschrift der Auskunftspflichtigen sowie",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Name, Telefonnummer und Adresse für elektronische Post der für Rückfragen zur Verfügung stehenden Person.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Für die Erhebung besteht Auskunftspflicht. Die Angaben nach Absatz 3 Nr. 2 sind freiwillig. Auskunftspflichtig sind die nach diesem Gesetz und nach anderen berufsrechtlichen Rechtsvorschriften für die Verfahren zur Feststellung der Gleichwertigkeit zuständigen Stellen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Angaben sind elektronisch an das Statistische Landesamt zu übermitteln.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "An die obersten Bundes- und Landesbehörden sowie an das Statistische Bundesamt dürfen für die Verwendung gegenüber den gesetzgebenden Körperschaften und für Zwecke der Planung, jedoch nicht für die Regelung von Einzelfällen, vom Statistischen Landesamt des Freistaates Ostdeutschland Tabellen mit statistischen Ergebnissen übermittelt werden, auch wenn Tabellenfelder nur einen einzigen Fall ausweisen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Die Staatsregierung wird ermächtigt, durch Rechtsverordnung",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die Erhebung einzelner Merkmale auszusetzen, die Periodizität zu verlängern sowie den Kreis der zu Befragenden einzuschränken, wenn die Ergebnisse nicht mehr oder nicht mehr in der ursprünglich vorgesehenen Ausführlichkeit oder Häufigkeit benötigt werden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "einzelne neue Merkmale einzuführen, wenn dies zur Deckung eines geänderten Bedarfs für den in § 1 genannten Zweck erforderlich ist und durch gleichzeitige Aussetzung anderer Merkmale ein Erweitern des Erhebungsumfangs vermieden wird, und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Erhebung von Merkmalen anzuordnen, soweit dies zur Umsetzung oder Durchführung von Rechtsakten der Europäischen Gemeinschaft erforderlich ist.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 17",
+          "title": "Evaluation",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Auf der Grundlage der Statistik nach § 16 überprüft die Staatsregierung nach Ablauf von vier Jahren nach Inkrafttreten dieses Gesetzes seine Anwendung und Auswirkungen."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

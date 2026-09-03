@@ -1,0 +1,768 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Gesetz über die Weiterbildung in den Gesundheitsfachberufen im Freistaat Ostdeutschland",
+  "shortTitle": "Weiterbildungsgesetz Gesundheitsfachberufe",
+  "abbr": "OstGfbWBG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Weiterbildungsgesetz Gesundheitsfachberufe vom 4. November 2002 (SächsGVBl. S. 266), das zuletzt durch Artikel 2 des Gesetzes vom 5. Juli 2023 (SächsGVBl. S. 559) geändert worden ist",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 1108.12, gültig ab 2023-08-01",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/1108.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/1108",
+      "retrievedAt": "2026-09-03",
+      "sha256": "6fed2b71e74840245d5bfbdb3c0337710a8a76aa53c420a6bf9a34147ee07c15",
+      "lawId": "1108",
+      "sourceValidFrom": "2023-08-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "1",
+      "text": "Überschrift neu gefasst Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69)"
+    },
+    {
+      "label": "2",
+      "text": "§ 1 geändert durch Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69) und durch Artikel 2 des Gesetzes vom 5. Juni 2014 (SächsGVBl. S. 326, 328)"
+    },
+    {
+      "label": "3",
+      "text": "§ 2 geändert durch Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69), durch Artikel 2 des Gesetzes vom 5. Juni 2014 (SächsGVBl. S. 326, 328), durch Artikel 3 des Gesetzes vom 23. Mai 2019 (SächsGVBl. S. 434) und durch Artikel 2 des Gesetzes vom 5. Juli 2023 (SächsGVBl. S. 559)"
+    },
+    {
+      "label": "4",
+      "text": "§ 3 geändert durch Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69), durch Artikel 4 des Gesetzes vom 10. November 2008 (SächsGVBl. S. 622, 625) und durch Artikel 45 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130, 147)"
+    },
+    {
+      "label": "5",
+      "text": "§ 3a eingefügt durch Artikel 6 des Gesetzes vom 13. August 2009 (SächsGVBl. S. 438, 441), geändert durch Artikel 2 Absatz 12 des Gesetzes vom 19. Mai 2010 (SächsGVBl. S. 142, 144) und durch Artikel 2 des Gesetzes vom 5. Juni 2014 (SächsGVBl. S. 326, 328)"
+    },
+    {
+      "label": "6",
+      "text": "§ 4 geändert durch Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69) und durch Artikel 45 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130, 147)"
+    },
+    {
+      "label": "7",
+      "text": "§ 5 geändert durch Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69) und durch Artikel 2 des Gesetzes vom 5. Juli 2023 (SächsGVBl. S. 559)"
+    },
+    {
+      "label": "8",
+      "text": "§ 6 geändert durch Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69)"
+    },
+    {
+      "label": "9",
+      "text": "§ 7 geändert durch Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69), durch Artikel 4 des Gesetzes vom 10. November 2008 (SächsGVBl. S. 622, 625), durch Artikel 45 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130, 147), durch Artikel 10 des Gesetzes vom 17. Dezember 2013 (SächsGVBl. S. 874, 886) und durch Artikel 3 des Gesetzes vom 3. Februar 2016 (SächsGVBl. S. 42, 44)"
+    },
+    {
+      "label": "10",
+      "text": "§ 7a eingefügt durch Artikel 3 des Gesetzes vom 3. Februar 2016 (SächsGVBl. S. 42, 44) und durch Artikel 3 des Gesetzes vom 23. Mai 2019 (SächsGVBl. S. 434)"
+    },
+    {
+      "label": "11",
+      "text": "§ 7b eingefügt durch Artikel 3 des Gesetzes vom 3. Februar 2016 (SächsGVBl. S. 42, 44)"
+    },
+    {
+      "label": "12",
+      "text": "§ 7b eingefügt durch Artikel 3 des Gesetzes vom 3. Februar 2016 (SächsGVBl. S. 42, 44)"
+    },
+    {
+      "label": "13",
+      "text": "§ 8 geändert durch Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69) und durch Artikel 63 des Gesetzes vom 29. Januar 2008 (SächsGVBl. S. 138, 181), durch Artikel 45 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130, 147), durch Artikel 10 des Gesetzes vom 17. Dezember 2013 (SächsGVBl. S. 874, 886) und durch Artikel 3 des Gesetzes vom 3. Februar 2016 (SächsGVBl. S. 42, 44)"
+    },
+    {
+      "label": "14",
+      "text": "§ 10 aufgehoben Gesetz vom 16. Februar 2006 (SächsGVBl. S. 69)"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Der Ostdeutsche Landtag hat am 10. Oktober 2002 das folgende Gesetz beschlossen:"
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 1",
+      "title": "Regelungsbereich",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Dieses Gesetz regelt die Weiterbildung in den Gesundheitsfachberufen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Der Regelungsbereich dieses Gesetzes umfasst Weiterbildung nur insoweit, wie diese nicht durch die Bestimmungen des\nSchulgesetzes für den Freistaat Ostdeutschland (SchulG) in der Fassung der Bekanntmachung vom 16. Juli 2004 (SächsGVBl. S. 298), zuletzt geändert durch Artikel 2 Abs. 10 des\nGesetzes vom 19. Mai 2010 (SächsGVBl. S. 142, 144), und des Gesetzes über Schulen in freier Trägerschaft (OstFrTrSchulG) vom 4. Februar 1992 (SächsGVBl. S. 37), zuletzt geändert durch Artikel 10 des Gesetzes vom 15. Dezember 2010 (SächsGVBl. S. 387, 396), in den jeweils geltenden Fassungen, erfasst ist. Das Gesetz über die Weiterbildung im Freistaat Ostdeutschland (Weiterbildungsgesetz – WBG) vom 29. Juni 1998 (SächsGVBl. S. 270), zuletzt geändert durch Artikel 33 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130, 144), in der jeweils geltenden Fassung, findet auf die Weiterbildung nach diesem Gesetz keine Anwendung.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 2",
+      "title": "Begriffsbestimmungen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Weiterbildung im Sinne dieses Gesetzes hat das Ziel, an einer staatlich anerkannten Weiterbildungseinrichtung nach Abschluss der Berufsausbildung in einem Gesundheitsfachberuf die allgemeine berufliche Qualifikation zu erhöhen und zur Übernahme spezieller beruflicher Aufgaben und Funktionen zu befähigen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Gesundheitsfachberufe im Sinne dieses Gesetzes sind:",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Altenpflegerin und Altenpfleger,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Diätassistentin und Diätassistent,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Ergotherapeutin und Ergotherapeut,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Hebamme und Entbindungspfleger,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Gesundheits- und Kinderkrankenpflegerin sowie Gesundheits- und Kinderkrankenpfleger,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Gesundheits- und Krankenpflegerin sowie Gesundheits- und Krankenpfleger,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Logopädin und Logopäde,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Masseurin und medizinische Bademeisterin sowie Masseur und medizinischer Bademeister,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "Orthoptistin und Orthoptist,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "10.",
+          "text": "pharmazeutisch-technische Assistentin und pharmazeutisch-technischer Assistent,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "11.",
+          "text": "Physiotherapeutin und Physiotherapeut,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "12.",
+          "text": "Podologin und Podologe,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "13.",
+          "text": "Rettungsassistentin und Rettungsassistent,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "14.",
+          "text": "Notfallsanitäterin und Notfallsanitäter,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "15.",
+          "text": "technische Assistentin in der Medizin und technischer Assistent in der Medizin sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "16.",
+          "text": "Pflegefachfrau und Pflegefachmann,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "17.",
+          "text": "Anästhesietechnische Assistentin und Anästhesietechnischer Assistent,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "18.",
+          "text": "Operationstechnische Assistentin und Operationstechnischer Assistent sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "19.",
+          "text": "Medizinische Technologin und Medizinischer Technologe.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 3",
+      "title": "Anerkennung der Weiterbildungseinrichtung",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Eine Einrichtung ist auf Antrag des Trägers vom Staatsministerium für Soziales und Verbraucherschutz für die Weiterbildung als geeignet anzuerkennen, wenn sie",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "von einer geeigneten Person geführt wird,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "über fachlich geeignetes Unterrichtspersonal verfügt,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "die Durchführung der praktischen Weiterbildung mit geeigneten Einrichtungen, die eine fachliche Anleitung gewährleisten, vertraglich gesichert hat,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "über Unterrichtsräume und eine ausreichende Ausstattung an Lehr- und Lernmitteln verfügt und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "die Weiterbildung entsprechend den nach § 8 Nr. 1 bis 3 erlassenen Rechtsverordnungen durchführt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Änderungen der in Absatz 1 genannten Voraussetzungen sind unverzüglich dem Staatsministerium für Soziales und Verbraucherschutz anzuzeigen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 3a",
+      "title": "Einheitliche Stelle und Verwaltungsverfahren",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Verwaltungsverfahren nach § 3 Abs. 1 können über eine einheitliche Stelle im Sinne des § 1 des\nGesetzes zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Ostdeutschland (OstVwVfZG) vom 19. Mai 2010 (SächsGVBl. S. 142), das durch Artikel 3 des Gesetzes vom 12. Juli 2013 (SächsGVBl. S. 503, 553) geändert worden ist, in der jeweils geltenden Fassung, in Verbindung mit den §§ 71a bis 71e des Verwaltungsverfahrensgesetzes (VwVfG) in der Fassung der Bekanntmachung vom 23. Januar 2003 (BGBl. I S. 102), das zuletzt durch Artikel 3 des Gesetzes vom 25. Juli 2013 (BGBl. I S. 2749, 2753) geändert worden ist, in der jeweils geltenden Fassung, abgewickelt werden. § 42a VwVfG findet Anwendung.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "In Verfahren nach Absatz 1 richten sich die Verwaltungszusammenarbeit nach den Artikeln 28 bis 36, die Anerkennung der Zeugnisse, Bescheinigungen und sonstigen Dokumente nach Artikel 5 sowie die Bewerberauswahl nach Artikel 12 der Richtlinie 2006/123/EG des Europäischen Parlaments und des Rates vom 12. Dezember 2006 über Dienstleistungen im Binnenmarkt (ABl. EU Nr. L 376 S. 36).",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 4",
+      "title": "Aufsicht",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Die anerkannten Weiterbildungseinrichtungen unterliegen der Aufsicht des Staatsministeriums für Soziales und Verbraucherschutz (Aufsichtsbehörde). Sie erstreckt sich auf die Beachtung von Gesetz und sonstigem Recht, das für die Weiterbildungseinrichtungen maßgebend ist. Wird durch das Handeln oder Unterlassen einer Weiterbildungseinrichtung das Recht verletzt, wirkt die Aufsichtsbehörde zunächst beratend darauf hin, dass die Weiterbildungseinrichtung die Rechtsverletzung behebt. Kommt die Weiterbildungseinrichtung dem innerhalb einer angemessenen Frist nicht nach, kann die Aufsichtsbehörde den Träger der Weiterbildungseinrichtung verpflichten, die Rechtsverletzung zu beheben. Die Verpflichtung kann mit den Mitteln des Verwaltungsvollstreckungsrechts durchgesetzt werden.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Aufsichtsbehörde ist befugt, zum Zwecke der Überwachung die Weiterbildungseinrichtungen und Unterrichtsveranstaltungen sowie die für die praktische Weiterbildung in Anspruch genommenen Einrichtungen während der üblichen Geschäftszeiten zu betreten, dort Prüfungen und Besichtigungen vorzunehmen, sich die geschäftlichen Unterlagen vorlegen zu lassen und in diese Einsicht zu nehmen. Das Grundrecht der Unverletzlichkeit der Wohnung (Artikel 13 des Grundgesetzes für die Bundesrepublik Deutschland, Artikel 30 der Verfassung des Freistaates Ostdeutschland) wird insoweit eingeschränkt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die staatliche Anerkennung kann zurückgenommen werden, wenn die Voraussetzungen für die Anerkennung nicht vorgelegen haben. Sie kann widerrufen werden, wenn die Voraussetzungen für die Anerkennung nicht mehr vorliegen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 5",
+      "title": "Voraussetzungen der Weiterbildung",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Voraussetzungen für die Aufnahme einer Weiterbildung sind",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "die Erlaubnis zum Führen der Berufsbezeichnung in einem Gesundheitsfachberuf und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die Erfüllung der besonderen Zugangsvoraussetzungen gemäß der Rechtsverordnung nach § 8 Nr. 2.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Eine andere Aus- oder Weiterbildung, eine Hochschulausbildung oder Teile davon, Berufserfahrung sowie durch lebenslanges Lernen erworbene Kenntnisse und Fähigkeiten können auf die Weiterbildung angerechnet werden, sofern der Erfolg der Weiterbildung hierdurch nicht beeinträchtigt wird. Über die Anrechnung entscheidet auf Antrag die Weiterbildungseinrichtung.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 6",
+      "title": "Führen einer Weiterbildungsbezeichnung",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Zum Führen einer Weiterbildungsbezeichnung ist berechtigt, wer an einer staatlich anerkannten Weiterbildungseinrichtung den vorgeschriebenen Weiterbildungslehrgang in seinem Fachbereich erfolgreich abgeschlossen hat.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Berechtigung zum Führen der Weiterbildungsbezeichnung wird von der staatlich anerkannten Weiterbildungseinrichtung in einer Urkunde bescheinigt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Die Berechtigung nach Absatz 1 erlischt, wenn die Erlaubnis zum Führen einer Berufsbezeichnung im Sinne des § 5 Abs. 1 Nr. 1 zurückgenommen oder widerrufen oder die Weiterbildungsprüfung von der Weiterbildungseinrichtung nachträglich für nicht bestanden erklärt wird. Wird die Weiterbildungsprüfung nachträglich für nicht bestanden erklärt, ist die Urkunde von der Weiterbildungseinrichtung einzuziehen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 7",
+      "title": "Gleichgestellte Weiterbildungsbezeichnungen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Den Weiterbildungsbezeichnungen aufgrund dieses Gesetzes sind gleichgestellt:",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Weiterbildungsbezeichnungen, die in einem anderen Land nach dessen Rechts- oder Verwaltungsvorschriften von der dort zuständigen Behörde oder Stelle erteilt wurden,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Weiterbildungsbezeichnungen, die nach den Richtlinien der Deutschen Krankenhausgesellschaft erteilt wurden, wenn die Weiterbildungen vor In-Kraft-Treten der Rechtsverordnungen nach § 8 Nr. 4 begonnen wurden,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Weiterbildungsbezeichnungen, die vor dem 3. Oktober 1990 an einer Bezirksakademie, einer Betriebsakademie des Gesundheits- und Sozialwesens oder einer vergleichbaren Weiterbildungsstätte nach den Weiterbildungsvorschriften der Deutschen Demokratischen Republik erworben worden sind oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Weiterbildungsbezeichnungen, die nach vom Staatsministerium für Soziales und Verbraucherschutz bestätigten Weiterbildungskonzeptionen erteilt werden, wenn die Weiterbildungen vor In-Kraft-Treten der Rechtsverordnungen nach § 8 Nr. 1 bis 3 begonnen wurden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Weiterbildungsbezeichnungen, die vor In-Kraft-Treten der Rechtsverordnung nach § 8 Nr. 4 erworben worden sind und nicht unter die Regelungen des Absatzes 1 fallen, sind auf Antrag den Weiterbildungsbezeichnungen aufgrund dieses Gesetzes gleichzustellen, wenn das Staatsministerium für Soziales und Verbraucherschutz die Gleichwertigkeit der Weiterbildung feststellt.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Berufsangehörige nach § 2 Absatz 2, deren Weiterbildungsbezeichnung nach den Absätzen 1 und 2 gleichgestellt ist, führen als Weiterbildungsbezeichnung die Bezeichnung, die im Geltungsbereich dieses Gesetzes der betreffenden Weiterbildung entspricht. Gibt es keine entsprechende Weiterbildungsbezeichnung, darf die bisherige weitergeführt werden.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 7a",
+      "title": "Gleichstellung ausländischer Weiterbildungsbezeichnungen",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Weiterbildungsbezeichnungen von Staatsangehörigen eines Mitgliedstaates der Europäischen Union, eines Vertragsstaates des Abkommens über den Europäischen Wirtschaftsraum oder eines durch Abkommen gleichgestellten Staates, die nachgewiesen werden durch ein Diplom, ein Prüfungszeugnis oder einen sonstigen Befähigungsnachweis gemäß Artikel 3 Absatz 1 Buchstabe c oder Absatz 3 der Richtlinie 2005/36/EG des Europäischen Parlaments und des Rates vom 7. September 2005 über die Anerkennung von Berufsqualifikationen (ABl. L 255 vom 30.9.2005, S. 22, L 271 vom 16.10.2007, S. 18, L 93 vom 4.4.2008, S. 28, L 33 vom 3.2.2009, S. 49, L 305 vom 24.10.2014, S. 115), die zuletzt durch die Richtlinie 2013/55/EU (ABl. L 354 vom 28.12.2013, S. 132) geändert worden ist, werden auf Antrag den Weiterbildungsbezeichnungen aufgrund dieses Gesetzes gleichgestellt, wenn die in einem der genannten Staaten erworbene Weiterbildung einer Weiterbildung nach diesem Gesetz und den darauf beruhenden Verordnungen gleichwertig ist. Die Weiterbildungsnachweise im Sinne von Satz 1 müssen von einer zuständigen Behörde des Herkunftsmitgliedstaates ausgestellt worden sein und das Berufsqualifikationsniveau des Antragstellers nach Artikel 11 der Richtlinie 2005/36/EG bescheinigen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Ist die berufliche Tätigkeit, für die eine Weiterbildung nach diesem Gesetz qualifiziert, in einem Staat im Sinne von Absatz 1 Satz 1 nicht reglementiert, darf die berufliche Tätigkeit ausgeübt werden, wenn diese in den vorhergehenden zehn Jahren in einem oder mehreren Mitgliedsstaaten ein Jahr vollzeitlich oder während eines\nentsprechenden Zeitraums in Teilzeit ausgeübt wurde. Die entsprechenden Ausbildungsnachweise müssen in einem Staat im Sinne von Absatz 1 Satz 1 von einer zuständigen Behörde ausgestellt worden sein und bescheinigen, dass der Berufsangehörige auf die Ausübung des betreffenden Berufs vorbereitet wurde. Die Berufserfahrung nach Satz 1 darf nicht verlangt werden, wenn durch den Ausbildungsnachweis ein reglementierter Ausbildungsgang belegt wird.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Staatsangehörige im Sinne des Absatzes 1 Satz 1 mit einer abgeschlossenen Weiterbildung in einem Gesundheitsfachberuf, deren Dauer in Vollzeitform mindestens ein Jahr unter der in diesem Gesetz und den darauf beruhenden Verordnungen festgesetzten Weiterbildungszeit liegt oder deren Weiterbildungsinhalte sich wesentlich von der in diesem Gesetz und den darauf beruhenden Verordnungen bestimmten Weiterbildung unterscheiden, haben als Ausgleichsmaßnahme einen höchstens dreijährigen Anpassungslehrgang zu absolvieren oder eine Eignungsprüfung unter Berücksichtigung von Artikel 3 Absatz 1 Buchstabe h der Richtlinie 2005/36/EG abzulegen, sofern die kürzere Dauer der Weiterbildung oder der wesentliche Unterschied nicht durch die Berufspraxis oder durch Kenntnisse, Fähigkeiten und Kompetenzen, die durch lebenslanges Lernen in einem Mitgliedstaat oder Drittland erworben und die hierfür von einer einschlägigen Stelle formell als gültig anerkannt wurden, ganz oder teilweise ausgeglichen wird. Der Antragsteller kann zwischen den Ausgleichsmaßnahmen wählen. Abweichend von Satz 2 kann das Staatsministerium für Soziales und Verbraucherschutz eine Eignungsprüfung oder einen Anpassungslehrgang vorschreiben, wenn die Voraussetzungen von Artikel 14 Absatz 3 Unterabsatz 4 Buchstabe a in Verbindung mit Artikel 11 der Richtlinie 2005/36/EG vorliegen. Die Sätze 1 bis 3 gelten entsprechend für Staatsangehörige im Sinne von Absatz 1 Satz 1, die in einem Drittland eine Weiterbildung abgeschlossen haben.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(4)",
+          "text": "Das Staatsministerium für Soziales und Verbraucherschutz erkennt bei der Prüfung von Anträgen auf Gleichstellung einer Weiterbildungsbezeichnung die Zeiträume des praktischen Teils der Weiterbildung in einem Staat im Sinne von Absatz 1 Satz 1 an und berücksichtigt den in einem Drittland absolvierten praktischen Teil der Weiterbildung. Die Anerkennung ersetzt nicht die Erfüllung geltender Anforderungen an das Bestehen einer Prüfung, die den Berufszugang ermöglicht. Das Staatsministerium für Soziales und Verbraucherschutz erstellt Leitlinien zur Organisation und Anerkennung des in einem Staat im Sinne von Absatz 1 Satz 1 oder einem Drittland absolvierten praktischen Teils der Weiterbildung und insbesondere zu den Aufgaben der Person, die diesen überwacht.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(5)",
+          "text": "Das Staatsministerium für Soziales und Verbraucherschutz bestätigt innerhalb eines Monats den Eingang des Antrags und der Unterlagen und teilt mit, welche Unterlagen fehlen. Entscheidungen über die Anerkennung nach den Absätzen 1 und 2 sind innerhalb von drei Monaten nach Einreichung der vollständigen Unterlagen zu treffen. Die Entscheidung über die Auferlegung eines Anpassungslehrgangs oder einer Eignungsprüfung muss hinreichend begründet sein. Dem Antragsteller sind insbesondere mitzuteilen:",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "das Niveau der im Aufnahmemitgliedstaat verlangten Berufsqualifikation und das Niveau der vom Antragsteller vorgelegten Berufsqualifikation gemäß der Klassifizierung in Artikel 11 der Richtlinie 2005/36/EG sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die wesentlichen Unterschiede und Gründe, aus denen diese Unterschiede nicht durch Kenntnisse, Fähigkeiten und Kompetenzen, die durch lebenslanges Lernen erworben und hierfür von einer einschlägigen Stelle formell als gültig anerkannt wurden, ausgeglichen werden können.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(6)",
+          "text": "Das Staatsministerium für Soziales und Verbraucherschutz teilt der zuständigen Behörde eines Staates im Sinne von Absatz 1 Satz 1 auf Ersuchen die Daten mit, die für die Anerkennung einer Weiterbildung in einem Gesundheitsfachberuf in diesem Staat erforderlich sind, und bestätigt gegebenenfalls, dass die Mindestanforderungen an die Weiterbildung erfüllt sind. Es holt Auskünfte nach Satz 1 von der zuständigen Behörde eines Staates im Sinne von Absatz 1 Satz 1 ein, wenn berechtigte Zweifel an der Richtigkeit der Angaben des Antragstellers bestehen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(7)",
+          "text": "Die Absätze 1 bis 3 gelten auch für Staatsangehörige im Sinne des Absatzes 1 Satz 1, die weitergebildete Krankenschwestern und Krankenpfleger sind, jedoch in ihrem Herkunftsmitgliedstaat keine Ausbildung für die allgemeine Pflege absolviert haben.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(8)",
+          "text": "§ 7 Absatz 3 gilt entsprechend.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(9)",
+          "text": "Auf Staatsangehörige anderer als in Absatz 1 Satz 1 genannter Staaten, die außerhalb des Geltungsbereichs dieses Gesetzes eine Weiterbildung in einem Gesundheitsfachberuf abgeschlossen haben, finden die Absätze 1 bis 8 entsprechende Anwendung.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(10)",
+          "text": "Soweit in diesem Gesetz keine abweichenden Regelungen getroffen werden, findet das Ostdeutsche Berufsqualifikationsfeststellungsgesetz vom 17. Dezember 2013 (SächsGVBl. S. 874), in der jeweils geltenden Fassung, mit Ausnahme von § 17 ergänzend Anwendung.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 7b",
+      "title": "Partieller Zugang",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Im Einzelfall ist eine Anerkennung partiell gemäß Artikel 4f der Richtlinie 2005/36/EG zu erteilen, wenn der Antragsteller im Herkunftsmitgliedstaat ohne Einschränkung qualifiziert ist, diese berufliche Tätigkeit auszuüben, erforderliche Ausgleichsmaßnahmen einer vollständigen Weiterbildung gleichkämen und die berufliche Tätigkeit sich objektiv von der beruflichen Tätigkeit, für die eine partielle Anerkennung erteilt wird, trennen lässt. Im Falle der Erteilung der partiellen Anerkennung wird die Berufstätigkeit unter der Berufsbezeichnung des Herkunftsmitgliedstaats ausgeübt. Der Berufsangehörige ist verpflichtet, den Empfängern der Dienstleistung den Umfang seiner beruflichen Tätigkeit eindeutig anzugeben.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die partielle Anerkennung kann verweigert werden, wenn zwingende Gründe des Allgemeininteresses, insbesondere die Gewährleistung der öffentlichen Gesundheit und Sicherheit, entgegenstehen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Eine partielle Anerkennung von Weiterbildungsnachweisen gemäß Anhang V Nummer 5.2.2 und 5.5.2 der Richtlinie 2005/36/EG ist ausgeschlossen.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 7c",
+      "title": "Vorwarnmechanismus",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Das Staatsministerium für Soziales und Verbraucherschutz ist die zuständige Behörde für ein- und ausgehende Warnmeldungen einschließlich deren Bearbeitung und Aktualisierung gemäß Artikel 56a der Richtlinie 2005/36/EG und der dazu erlassenen Durchführungsrechtsakte, soweit die Warnmeldungen Weiterbildungsbezeichnungen im Sinne dieses Gesetzes betreffen. Davon unberührt bleibt die Zuständigkeit des einheitlichen Ansprechpartners als koordinierende Stelle gemäß § 1 des Gesetzes über den einheitlichen Ansprechpartner im Freistaat Ostdeutschland vom 13. August 2009 (SächsGVBl. S. 446), das zuletzt durch Artikel 40 des Gesetzes vom 27. Januar 2012 (SächsGVBl. S. 130) geändert worden ist, in der jeweils geltenden Fassung. Die Warnmeldungen und deren Bearbeitung und Aktualisierung erfolgen nach den Vorgaben von Artikel 56a der Richtlinie 2005/36/EG und der dazu erlassenen Durchführungsrechtsakte.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Das Staatsministerium für Soziales und Verbraucherschutz unterrichtet die zuständigen Behörden der Mitgliedstaaten der Europäischen Union und der anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum, die dem Binnenmarkt-Informationssystem (IMI) angeschlossen sind, mittels einer Warnung über das IMI über den Widerruf oder die Rücknahme einer Weiterbildungsbezeichnung. Die Warnmeldung erfolgt spätestens drei Tage nach Erlass der Entscheidung und beinhaltet die Angabe der Identität des Berufsangehörigen, den betroffenen Beruf und die Behörde, welche die Entscheidung getroffen hat, sowie den Umfang und Zeitraum der Beschränkung oder Untersagung. Legt der betroffene Berufsangehörige einen Rechtsbehelf gegen die Warnmeldung ein, ist das über das IMI mitzuteilen. Die zuständigen Behörden gemäß Satz 1 sind unverzüglich über den Ablauf der Geltungsdauer einer Untersagung oder Beschränkung unter Angabe des Datums der Geltungsdauer zu unterrichten. Die Warnung ist spätestens drei Tage, nachdem die getroffene Maßnahme keine Gültigkeit mehr hat, aus dem IMI zu löschen.",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(3)",
+          "text": "Gleichzeitig mit der Warnmeldung ist der Betroffene über die Warnung schriftlich zu informieren. Die Information muss Angaben über die zulässigen Rechtsbehelfe enthalten. Rechtsbehelfe gegen die Entscheidung zur Übermittlung der Warnmeldung haben keine aufschiebende Wirkung.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 8",
+      "title": "Rechtsverordnungen",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Staatsministerium für Soziales und Verbraucherschutz wird ermächtigt, durch Rechtsverordnung"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Ziel, Inhalt, Gliederung und Dauer des Weiterbildungslehrganges,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "die besonderen Zugangsvoraussetzungen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "die Prüfung und Ausgestaltung der Urkunde nach § 6 Abs. 2,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "die Weiterbildungsbezeichnungen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "das Verfahren zur Anerkennung von Weiterbildungseinrichtungen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "die Übertragung der Zuständigkeit auf die Landesdirektion Ostdeutschland und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "das Nähere zur Durchführung der Ausgleichsmaßnahmen nach § 7a Absatz 3 Satz 1",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "zu regeln."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 9",
+      "title": "Ordnungswidrigkeiten",
+      "children": [
+        {
+          "type": "subparagraph",
+          "label": "(1)",
+          "text": "Ordnungswidrig handelt, wer vorsätzlich oder fahrlässig",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "ohne Berechtigung eine durch Rechtsverordnung nach § 8 Nr. 4 geregelte Weiterbildungsbezeichnung führt,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "durch falsche Angaben die Berechtigung zum Führen einer Weiterbildungsbezeichnung erlangt oder",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "eine Urkunde über die Berechtigung zum Führen einer Weiterbildungsbezeichnung erteilt, ohne als Weiterbildungseinrichtung staatlich anerkannt zu sein.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "subparagraph",
+          "label": "(2)",
+          "text": "Die Ordnungswidrigkeit kann mit einer Geldbuße bis zu 2 500 EUR geahndet werden.",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 10",
+      "title": "(aufgehoben)",
+      "children": []
+    },
+    {
+      "type": "paragraph",
+      "label": "§ 11",
+      "title": "In-Kraft-Treten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Dieses Gesetz tritt am Tage nach seiner Verkündung in Kraft."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das vorstehende Gesetz wird hiermit ausgefertigt und ist zu verkünden."
+        }
+      ]
+    }
+  ]
+}

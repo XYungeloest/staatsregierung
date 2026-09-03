@@ -1,0 +1,3269 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Gesetz über den privaten Rundfunk und neue Medien in Ostdeutschland",
+  "shortTitle": "Ostdeutsches Privatrundfunkgesetz",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Ostdeutsches Privatrundfunkgesetz in der Fassung der Bekanntmachung vom 9. Januar 2001 (SächsGVBl. S. 69, 684)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 2407.23, gültig 2023-01-01 bis 2024-04-12",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/2407.23.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/2407.23",
+      "retrievedAt": "2026-09-03",
+      "sha256": "163a63e66f0ae81e5446f51e2d3233f817543ce848acd8c578e037493f826fb3",
+      "lawId": "2407",
+      "sourceValidFrom": "2023-01-01",
+      "sourceValidTo": "2024-04-12",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "1",
+      "text": "Inhaltsübersicht geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466), durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130), durch Artikel 4 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198) und durch Artikel 16 des Gesetzes vom 20. Dezember 2022 (SächsGVBl. S. 705)"
+    },
+    {
+      "label": "2",
+      "text": "§ 1 geändert durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466) und durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130)"
+    },
+    {
+      "label": "3",
+      "text": "§ 1a geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466), durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130) und durch Artikel 2 des Gesetzes vom 10. März 2010 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "4",
+      "text": "§ 2 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685) und durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18)"
+    },
+    {
+      "label": "5",
+      "text": "§ 3 geändert durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466) und durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130)"
+    },
+    {
+      "label": "6",
+      "text": "§ 4 neu gefasst durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25); geändert durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466), durch Artikel 2 des Gesetzes vom 10. März 2010 (SächsGVBl. S. 86), durch Artikel 18 des Gesetzes vom 13. Dezember 2012 (SächsGVBl. S. 725, 735), durch Artikel 1 des Gesetzes vom 10. Juli 2014 (SächsGVBl. S. 374) und durch Gesetz vom 11. Dezember 2018 (SächsGVBl. S. 810)"
+    },
+    {
+      "label": "7",
+      "text": "§ 5 geändert durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466) und durch Gesetz vom 11. Dezember 2018 (SächsGVBl. S. 810)"
+    },
+    {
+      "label": "8",
+      "text": "§ 6 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25) und durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "9",
+      "text": "§ 7 geändert durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130)"
+    },
+    {
+      "label": "10",
+      "text": "§ 9 geändert durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "11",
+      "text": "§ 10 geändert durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466) und durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130)"
+    },
+    {
+      "label": "12",
+      "text": "§ 11 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25) und durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "13",
+      "text": "§ 14 geändert durch Artikel 2 des Gesetzes vom 21. März 2003 (SächsGVBl. S. 37)"
+    },
+    {
+      "label": "14",
+      "text": "§ 16 geändert durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "15",
+      "text": "§ 20 geändert durch Artikel 2 des Gesetzes vom 10. März 2010 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "16",
+      "text": "§ 22 Absatz 1 neu gefasst durch Artikel 1 des Gesetzes vom 11. April 2011 (SächsGVBl. S. 114)"
+    },
+    {
+      "label": "17",
+      "text": "§ 23 geändert durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25)"
+    },
+    {
+      "label": "18",
+      "text": "§ 24 geändert durch Artikel 2 des Gesetzes vom 21. März 2003 (SächsGVBl. S. 37) und durch Artikel 2 des Gesetzes vom 10. März 2010 (SächsGVBl. S. 86)"
+    },
+    {
+      "label": "19",
+      "text": "§ 26 geändert durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18)"
+    },
+    {
+      "label": "20",
+      "text": "§ 27 geändert durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18)"
+    },
+    {
+      "label": "21",
+      "text": "§ 28 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25), durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466), durch Artikel 1 des Gesetzes vom 10. Juli 2014 (SächsGVBl. S. 374), durch Artikel 24 des Gesetzes vom 29. April 2015 (SächsGVBl. S. 349, 362) und durch Artikel 16 des Gesetzes vom 20. Dezember 2022 (SächsGVBl. S. 705)"
+    },
+    {
+      "label": "22",
+      "text": "§ 28a neu eingefügt durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685)"
+    },
+    {
+      "label": "23",
+      "text": "§ 28b eingefügt durch Artikel 16 des Gesetzes vom 20. Dezember 2022 (SächsGVBl. S. 705)"
+    },
+    {
+      "label": "24",
+      "text": "§ 29 geändert durch Artikel 2 des Gesetzes vom 21. März 2003 (SächsGVBl. S. 37), durch Berichtigung vom 24. September 2001 (SächsGVBl. S. 684), durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25) und durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "25",
+      "text": "§ 30 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Artikel 2 des Gesetzes vom 21. März 2003 (SächsGVBl. S. 37) und durch Artikel 16 des Gesetzes vom 20. Dezember 2022 (SächsGVBl. S. 705)"
+    },
+    {
+      "label": "26",
+      "text": "§ 31 geändert durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25) und durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "27",
+      "text": "§ 32 geändert durch Artikel 2 des Gesetzes vom 21. März 2003 (SächsGVBl. S. 37), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466) und durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130)"
+    },
+    {
+      "label": "28",
+      "text": "§ 34 geändert durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "29",
+      "text": "§ 35 geändert durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18) und durch Artikel 3 des Gesetzes vom 6. Dezember 2011 (SächsGVBl. S. 638)"
+    },
+    {
+      "label": "30",
+      "text": "Überschrift 8. Abschnitt geändert durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "31",
+      "text": "§ 37 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18) und durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "32",
+      "text": "§ 38 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466), durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130), durch Artikel 1 des Gesetzes vom 10. Juli 2014 (SächsGVBl. S. 374) und durch Gesetz vom 11. Dezember 2018 (SächsGVBl. S. 810)"
+    },
+    {
+      "label": "33",
+      "text": "§ 40 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685)"
+    },
+    {
+      "label": "34",
+      "text": "§ 41 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685) und durch Artikel 2 des Gesetzes vom 16. April 2009 (SächsGVBl. S. 130)"
+    },
+    {
+      "label": "35",
+      "text": "§ 42 neu gefasst durch Gesetz vom 23. Januar 2004 (SächsGVBl. S. 25) und geändert durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    },
+    {
+      "label": "36",
+      "text": "§ 43 geändert durch Artikel 1 des Gesetzes vom 16. Oktober 2001 (SächsGVBl. S. 685), durch Artikel 2 des Gesetzes vom 21. März 2003 (SächsGVBl. S. 37), durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18), durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466), durch Artikel 2 des Gesetzes vom 10. März 2010 (SächsGVBl. S. 86) und durch Artikel 1 des Gesetzes vom 10. Juli 2014 (SächsGVBl. S. 374)"
+    },
+    {
+      "label": "37",
+      "text": "§ 44 neu gefasst durch Artikel 4 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198)"
+    },
+    {
+      "label": "38",
+      "text": "ursprünglicher § 45a wird durch Aufhebung des § 45 neu § 45 durch Artikel 4 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198)"
+    },
+    {
+      "label": "39",
+      "text": "§ 46 geändert durch Artikel 2 des Gesetzes vom 21. März 2003 (SächsGVBl. S. 37), durch Artikel 2 des Gesetzes vom 24. Januar 2007 (SächsGVBl. S. 18) und durch Artikel 2 des Gesetzes vom 16. Juli 2008 (SächsGVBl. S. 466)"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "1.",
+      "title": "Abschnitt Allgemeine Bestimmungen",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 1",
+          "title": "Anwendungsbereich",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Dieses Gesetz gilt für die",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Veranstaltung und Verbreitung von Rundfunk und vergleichbaren Telemedien durch private Anbieter,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Zuordnung von technischen Übertragungsmöglichkeiten für den öffentlich-rechtlichen und den privaten Rundfunk,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Verbreitung oder Weiterverbreitung von Rundfunk und vergleichbaren Telemedien auf Plattformen in Ostdeutschland,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Entwicklung und Nutzung neuer Techniken und neuer Nutzungsformen des Rundfunks und von vergleichbaren Telemedien.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Dieses Gesetz findet keine Anwendung auf die Verbreitung oder Weiterverbreitung von Angeboten,",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die sich auf ein Gebäude oder einen zusammengehörigen Gebäudekomplex beschränken und in einem funktionellen Zusammenhang mit den dort zu erfüllenden Aufgaben stehen oder",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die ausschließlich in Kabelanlagen verbreitet werden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "an die weniger als 100 Wohneinheiten angeschlossen sind,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "die sich in einem Gebäude oder einem zusammenhängenden Gebäudekomplex befinden, wenn diese nicht dauernd zum Wohnen bestimmt sind,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "c)",
+                  "text": "mit denen unselbständige Wohneinheiten versorgt werden sollen,",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die ausschließlich in Kabelanlagen in einem Wirtschaftsunternehmen verbreitet werden",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Für den Freistaat Ostdeutschland geltende Staatsverträge zwischen mehreren oder allen Ländern, welche die Errichtung öffentlich-rechtlicher Rundfunkanstalten oder sonstige Angelegenheiten des Rundfunks und der Telemedien länderübergreifend regeln, bleiben unberührt, soweit darin diesem Gesetz widersprechende Regelungen getroffen werden.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 1a",
+          "title": "Begriffsbestimmungen",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Rundfunk ist ein linearer Informations- und Kommunikationsdienst; er ist die für die Allgemeinheit und zum zeitgleichen Empfang bestimmte Veranstaltung und Verbreitung von Angeboten in Bewegtbild oder Ton entlang eines Sendeplans unter Benutzung elektromagnetischer Schwingungen. Der Begriff schließt Angebote ein, die verschlüsselt verbreitet werden oder gegen besonderes Entgelt empfangbar sind. Kein Rundfunk sind Angebote, die",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "jedenfalls weniger als 500 potenziellen Nutzern zum zeitgleichen Empfang angeboten werden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "zur unmittelbaren Wiedergabe aus Speichern von Empfangsgeräten bestimmt sind,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "ausschließlich persönlichen oder familiären Zwecken dienen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "nicht journalistisch-redaktionell gestaltet sind oder",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "aus Sendungen bestehen, die jeweils gegen Einzelentgelt freigeschaltet werden.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Rundfunkprogramm ist eine nach einem Sendeplan zeitlich geordnete Folge von Inhalten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Sendung ist ein inhaltlich zusammenhängender, geschlossener, zeitlich begrenzter Teil eines Rundfunkprogramms.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Vollprogramme sind Rundfunkprogramme mit vielfältigen Inhalten, in welchen Unterrichtung, Bildung und Unterhaltung insgesamt einen wesentlichen Teil des Gesamtprogramms bilden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Spartenprogramme sind Rundfunkprogramme mit wesentlich gleichartigen Inhalten, insbesondere als Nachrichten-, Bildungs-, Kultur-, Unterhaltungs- oder Sportprogramme.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Fensterprogramme sind zeitlich begrenzte Rundfunkprogramme von wöchentlich mindestens 60 Minuten Länge, die inhaltlich vorrangig auf ostdeutsche Orte und Regionen, auf Ostdeutschland oder darüber hinaus auf eines oder mehrere benachbarte Länder bezogen sind oder überwiegend in Ostdeutschland hergestellt werden und im Rahmen eines bundesweiten Programms zusammen mit diesem oder sendetechnisch getrennt verbreitet werden. Dabei kann der Veranstalter des Fensterprogramms auch mit anderen bundesweiten, landesweiten, regionalen oder örtlichen Veranstaltern zusammenarbeiten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Vergleichbare Telemedien sind solche Telemedien, die wie Rundfunkprogramme an die Allgemeinheit gerichtet sind.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Werbung ist jede Äußerung bei der Ausübung eines Handels, Gewerbes, Handwerks oder freien Berufs, die im Rundfunk von einem öffentlich-rechtlichen oder einem privaten Veranstalter oder einer natürlichen Person entweder gegen Entgelt oder eine ähnliche Gegenleistung oder als Eigenwerbung gesendet wird mit dem Ziel, den Absatz von Waren oder die Erbringung von Dienstleistungen, einschließlich unbeweglicher Sachen, Rechte und Verpflichtungen, gegen Entgelt zu fördern. § 7 Abs. 9 Rundfunkstaatsvertrag (\nRStV) bleibt unberührt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(9)",
+              "text": "Schleichwerbung ist die Erwähnung oder Darstellung von Waren, Dienstleistungen, Namen, Marken oder Tätigkeiten eines Herstellers von Waren oder eines Erbringers von Dienstleistungen in Sendungen, wenn sie vom Veranstalter absichtlich zu Werbezwecken vorgesehen ist und mangels Kennzeichnung die Allgemeinheit hinsichtlich des eigentlichen Zweckes dieser Erwähnung oder Darstellung irreführen kann. Eine Erwähnung oder Darstellung gilt insbesondere dann als zu Werbezwecken beabsichtigt, wenn sie gegen Entgelt oder eine ähnliche Gegenleistung erfolgt.“",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(10)",
+              "text": "Sponsoring ist jeder Beitrag einer natürlichen oder juristischen Person oder einer Personenvereinigung, die an Rundfunktätigkeiten oder an der Produktion audiovisueller Werke nicht beteiligt ist, zur direkten oder indirekten Finanzierung einer Sendung, um den Namen, die Marke, das Erscheinungsbild der Person oder Personenvereinigung, ihre Tätigkeit oder ihre Leistungen zu fördern.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(11)",
+              "text": "Teleshopping ist die Sendung direkter Angebote an die Öffentlichkeit für den Absatz von Waren oder die Erbringung von Dienstleistungen, einschließlich unbeweglicher Sachen, Rechte und Verpflichtungen, gegen Entgelt in Form von Teleshoppingkanälen, -fenstern und -spots.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(12)",
+              "text": "Produktplatzierung ist die gekennzeichnete Erwähnung oder Darstellung von Waren, Dienstleistungen, Namen, Marken, Tätigkeiten eines Herstellers von Waren oder eines Erbringers von Dienstleistungen in Sendungen gegen Entgelt oder eine ähnliche Gegenleistung mit dem Ziel der Absatzförderung. Die kostenlose Bereitstellung von Waren oder Dienstleistungen ist Produktplatzierung, sofern die betreffende Ware oder Dienstleistung von bedeutendem Wert ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(13)",
+              "text": "Programmbouquet ist die Bündelung von Programmen und Diensten, die in digitaler Technik unter einem elektronischen Programmführer verbreitet werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(14)",
+              "text": "Veranstalter ist, wer ein Rundfunkprogramm in eigener inhaltlicher Verantwortung anbietet.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(15)",
+              "text": "Plattformanbieter ist, wer auf digitalen Übertragungskapazitäten oder digitalen Datenströmen Rundfunk und vergleichbare Telemedien, auch von Dritten, mit dem Ziel zusammenfasst, diese Angebote als Gesamtangebot zugänglich zu machen, oder wer über die Auswahl für die Zusammenfassung entscheidet; Plattformanbieter ist nicht, wer Rundfunk oder vergleichbare Telemedien ausschließlich vermarktet.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(16)",
+              "text": "Landesanstalt ist die Ostdeutsche Landesanstalt für privaten Rundfunk und neue Medien.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(17)",
+              "text": "Technische Übertragungskapazitäten sind elektromagnetische Wellen bestimmter Frequenz oder Frequenzbänder (Frequenzen).",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(18)",
+              "text": "Bitrate ist die pro Zeiteinheit zu transportierende Informationsmenge.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 2",
+          "title": "Grundsätze für die Veranstaltung von privatem Rundfunk",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Im Rahmen dieses Gesetzes erhalten private Anbieter die Zulassung zur eigenverantwortlichen Veranstaltung von Rundfunk. Den privaten Veranstaltern sind juristische Personen des öffentlichen Rechts gleichgestellt, soweit sie als Veranstalter zugelassen werden können. Der private Rundfunk hat teil an der technischen Entwicklung.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der öffentlich-rechtliche Rundfunk und die Dienstleistungen des privaten Rundfunks ergänzen einander als Voraussetzung für die Verwirklichung der Meinungs- und Informationsfreiheit und haben teil an der Erfüllung der Kulturpflicht des Landes. Die in Ostdeutschland veranstalteten Programme tragen in ihrer Gesamtheit zur Grundversorgung durch Unterrichtung, Bildung und Unterhaltung bei. Sie haben einen objektiven Überblick über das Geschehen in allen für Ostdeutschland relevanten Lebensbereichen zu geben und angemessen die regionale Gliederung, die kulturelle Vielfalt und die Interessen der Bürgerinnen und Bürger in Ostdeutschland zu berücksichtigen sowie zu einer freien individuellen und öffentlichen Meinungsbildung beizutragen. Sie dürfen nicht einseitig eine Partei, eine Interessengruppe oder eine Weltanschauung begünstigen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Landesanstalt fördert, neben ihrer Aufgabe der Zulassung und Aufsicht über Veranstalter nach diesem Gesetz, die Voraussetzungen für die Veranstaltung und Verbreitung sowie Weiterverbreitung von Rundfunk und vergleichbaren Telemedien, insbesondere durch Maßnahmen zur Förderung der technischen Infrastruktur zur Versorgung des gesamten Landes und zur Förderung von Projekten für neuartige Rundfunkübertragungstechniken. Sie trägt zur Förderung und Entwicklung des Medienstandortes Ostdeutschland bei und wirkt insbesondere darauf hin, dass die Meinungsvielfalt, vor allem kulturelle, kirchliche und soziale Anliegen, gefördert und die Beteiligung neuer mittelständischer Veranstalter sowie die programmliche, technische und wirtschaftliche Entwicklung der in Ostdeutschland zugelassenen und produzierenden Veranstalter unterstützt werden. Die Landesanstalt kann mit den für private Veranstalter zuständigen Stellen vor allem auch benachbarter Länder zusammenarbeiten mit dem Ziel, die Bedingungen für die Veranstaltung und Verbreitung von privatem Rundfunk aufeinander abzustimmen, und mit ihnen gemeinsame Zulassungsverfahren durchführen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 3",
+          "title": "Programme im privaten Rundfunk",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Landesanstalt kann Zulassungen für landesweite und lokale sowie regionale Rundfunkvollprogramme erteilen. Dabei werden Sendegebiete von der Landesanstalt unter Berücksichtigung der verfügbaren technischen Übertragungskapazitäten und der zuvor festgestellten wirtschaftlichen Tragfähigkeit für die Veranstaltung von Vollprogrammen nach programmlichen Gesichtspunkten festgelegt. Ebenso kann die Landesanstalt weitere Programme, insbesondere über Satelliten, in Kabelanlagen oder auf anderen Plattformen verbreitete Programme, Spartenprogramme, Fensterprogramme und Teleshoppingkanäle, zulassen. Die Landesanstalt kann Offene Kanäle und Formen der nichtkommerziellen Veranstaltung von lokalem und regionalem Rundfunk ermöglichen. Dies kann auch dadurch geschehen, dass Sendezeiten für die eigenverantwortliche Gestaltung von einzelnen Sendungen durch Dritte im Rahmen des Programms des Veranstalters zur Verfügung gestellt werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Im Falle von Fenster- und Spartenprogrammen können die Veranstalter auch mit anderen Veranstaltern privaten Rundfunks zusammenarbeiten, die außerhalb Ostdeutschlands rechtmäßig Rundfunk veranstalten. Veranstaltern lokaler Rundfunkprogramme genehmigt die Landesanstalt auf Antrag die Zusammenarbeit im Wege von Veranstaltergemeinschaften oder in sonstiger geeigneter Weise, wenn dies aufgrund enger regionaler oder kultureller Verbindungen erforderlich ist; die Zulassungsvoraussetzungen der Veranstalter werden durch eine solche Zusammenarbeit nicht verändert.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Für die Veranstaltung von landesweiten Hörfunkvollprogrammen, die über terrestrische UKW-Hörfunkfrequenzen verbreitet werden, sind geeignete technische Übertragungskapazitäten für bis zu drei Programme vorrangig zu verwenden. Für die Veranstaltung von Fernsehvollprogrammen, auch in der Form des Absatzes 2, die über terrestrische Fernsehfrequenzen verbreitet werden, sind geeignete landesweite technische Übertragungskapazitäten für mindestens zwei Programme vorrangig zu verwenden. § 4 Abs. 2 Satz 5 bleibt unberührt.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 4",
+          "title": "Zuordnung technischer Übertragungskapazitäten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Für die Veranstaltung und Verbreitung von Rundfunk und vergleichbaren Telemedien im Rahmen dieses Gesetzes sind den Veranstaltern und Plattformanbietern technische Übertragungskapazitäten zur Verfügung zu stellen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(1a)",
+              "text": "An dem Aufbau und der Fortentwicklung eines dualen Rundfunksystems in Ostdeutschland sowie an der Erschließung der Nutzung von neuen Techniken, neuen Nutzungsformen und Nutzungskapazitäten sind alle Veranstalter gleichgewichtig zu beteiligen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Zuordnung der zur Verfügung stehenden technischen Übertragungskapazitäten an die Landesanstalt, den Mitteldeutschen Rundfunk, das Deutschlandradio und das Zweite Deutsche Fernsehen erfolgt nach Maßgabe der nachfolgenden Kriterien durch die Ostdeutsche Staatskanzlei.",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Durch die Zuordnung sind"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die flächendeckende Grundversorgung durch öffentlich-rechtlichen Rundfunk zu gewährleisten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "ein vielfältiges, dem öffentlich-rechtlichen Rundfunk gleichgewichtiges Programmangebot privater Veranstalter zu schaffen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "der Förderung des publizistischen Wettbewerbs und des Medienstandortes Ostdeutschland Rechnung zu tragen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Versorgungslücken bestehender Programme zu schließen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "beim Übergang zur ausschließlich digitalen Übertragung die Rundfunkveranstalter mit denjenigen Programmen vorrangig zu berücksichtigen, die im Gebiet des Freistaates Ostdeutschland am 1. Januar 2001 analog terrestrisch verbreitet wurden, soweit die verfügbaren Übertragungskapazitäten nicht bereits zuvor im Wege einer Ausschreibung nach § 5 Abs. 2 anderweitig vergeben worden sind.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Bei der Zuordnung ist auf eine möglichst wirtschaftliche Nutzung und Verteilung der technischen Übertragungskapazitäten zwischen den Beteiligten hinzuwirken. Für die Programme nach § 3 Abs. 3 und die Programme des öffentlich-rechtlichen Rundfunks sind Übertragungskapazitäten vorrangig zur Verfügung zu stellen. Dabei ist sicherzustellen, dass der öffentlich-rechtliche Rundfunk ebenso wie die privaten Rundfunkveranstalter an der weiteren Entwicklung in sendetechnischer und programmlicher Hinsicht teilnehmen können. Reichen die vorhandenen Übertragungskapazitäten hierfür nicht aus, ist zunächst der gleichgewichtigen Entwicklung des privaten Rundfunks gegenüber dem öffentlich-rechtlichen Rundfunk Rechnung zu tragen."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die zur Verfügung stehenden freien technischen Übertragungskapazitäten sind den nach Absatz 2 Satz 1 Beteiligten bekannt zu geben. Wird eine Verständigung zwischen den Beteiligten erreicht, ordnet die Ostdeutsche Staatskanzlei Übertragungskapazitäten entsprechend der Einigung zu. Die Ostdeutsche Staatskanzlei wirkt auf eine Verständigung hin. Kommt diese nicht zu Stande, entscheidet die Ostdeutsche Staatskanzlei über die Zuordnung anhand der für die Beteiligten geltenden Rechtsgrundlagen und der Kriterien des Absatzes 1 Satz 2 und des Absatzes 2.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Zuordnung kann widerrufen werden, wenn nach Absatz 2 Satz 1 Beteiligte auf ihnen zugeordnete oder zustehende Übertragungskapazitäten verzichten oder diese nicht in angemessener Zeit effektiv nutzen. Dies gilt auch, wenn nach Absatz 2 Satz 1 Beteiligte die Nutzung ihnen zugeordneter Frequenzen im Sinne der Zuordnungsentscheidung ganz oder teilweise aufgeben.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Zulassung von Programmen, die in Ostdeutschland über Satelliten, in Kabelanlagen oder auf anderen Plattformen verbreitet werden, bleibt von den Absätzen 2, 3 und 4 unberührt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Spätestens ab dem 1. Januar 2010 erfolgt die Übertragung von Rundfunkprogrammen und vergleichbaren Telemedien in Ostdeutschland ausschließlich in digitaler Technik. In Abweichung von Satz 1 dürfen Hörfunkprogramme auf Ultrakurzwelle bis zum Ablauf des 31. Dezember 2025 sowie Rundfunkprogramme und vergleichbare Telemedien in Kabelanlagen bis zum Ablauf des 31. Dezember 2018 weiter in analoger Technik übertragen werden. In Abweichung von den Sätzen 1 und 2 kann die Landesanstalt auf Antrag eines Kabelanlagenbetreibers genehmigen, dass Hörfunkprogramme in Kabelanlagen mit weniger als 1 000 Anschlussstellen über den 31. Dezember 2018 hinaus längstens bis zum 31. Dezember 2025 weiter in analoger Technik übertragen werden können, wenn der Kabelanlagenbetreiber der Landesanstalt ein Konzept zum technischen und wirtschaftlichen Übergang der analogen zur digitalen Übertragungstechnik (Digitalisierungskonzept) vorlegt und gegenüber der Landesanstalt glaubhaft macht, dass",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "nach dem Gesamtbild der tatsächlichen finanziellen und wirtschaftlichen Verhältnisse der Kabelanbieter nicht in der Lage ist, die technischen Voraussetzungen für eine Übertragung in digitaler Technik zu erfüllen oder",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "aufgrund der topographischen Lage die analoge Weiterverbreitung in Kabelanlagen erforderlich ist.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Genehmigung ist zu befristen. Eine befristete Genehmigung kann längstens bis zum 31. Dezember 2025 verlängert werden. Unbeschadet der übrigen Voraussetzungen von Satz 3 kann die Landesanstalt in besonderen Härtefällen auf Antrag auch Kabelanlagenbetreibern, an deren Kabelanlagen insgesamt mehr als 1 000 Anschlussstellen angeschlossen sind, die Übertragung von Hörfunkprogrammen in analoger Technik über den 31. Dezember 2018 hinaus längstens bis zum 31. Dezember 2020 genehmigen. Die Einzelheiten, insbesondere auch zum vorzulegenden Digitalisierungskonzept, kann die Landesanstalt durch Satzung regeln. Stellt ein Veranstalter seine Verbreitung auf ausschließlich digitale Technik um, so verliert er seinen Anspruch auf analoge Weiterverbreitung in Kabelanlagen nach § 38 Abs. 1 nicht, soweit diese zumindest auch in analoger Technik betrieben werden. Stellt ein Kabelanlagenbetreiber seine Verbreitung auf ausschließlich digitale Verbreitung um, gilt Satz 1 entsprechend."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Kabelanlagenbetreiber, die in den Anwendungsbereich der Regelung in Absatz 6 Satz 3 bis 6 fallen, dürfen ohne die erforderliche Genehmigung längstens bis zum 30. Juni 2019 analoge Hörfunkprogramme in ihren Anlagen verbreiten.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "2.",
+      "title": "Abschnitt Zulassung der Veranstalter",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 5",
+          "title": "Zulassung von Rundfunkprogrammen",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Veranstalter von Rundfunk bedürfen einer Zulassung durch die Landesanstalt. Die Zulassungen werden nach Maßgabe der Bestimmungen dieses Gesetzes und auf der Grundlage einer Gesamtbewertung durch die Landesanstalt erteilt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Landesanstalt schreibt verfügbare technische Übertragungskapazitäten für bestimmte Sendegebiete und zur Veranstaltung bestimmter Programmarten im Ostdeutschen Amtsblatt aus. Sofern eine digitale Nutzung dieser technischen Übertragungskapazitäten möglich ist, sind sie entsprechend auszuschreiben und zuzulassen; die Sätze 3 und 4 bleiben unberührt. Anträge auf Zulassung können auch aufgrund verfügbarer technischer Übertragungskapazitäten von Satelliten, in Kabelanlagen oder auf anderen Plattformen gestellt werden. Die Landesanstalt kann ohne Ausschreibung technische Übertragungskapazitäten an einen zugelassenen Veranstalter vergeben oder für einen zugelassenen Veranstalter austauschen, wenn dadurch eine bessere Versorgung im Sinne der Zulassung erreicht wird.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Analog-terrestrische Hörfunkübertragungskapazitäten, die zurückgegeben oder in sonstiger Weise verfügbar werden, werden nicht neu ausgeschrieben. Die Landesanstalt kann solche Kapazitäten an Veranstalter vergeben, soweit dies zur Verbesserung der Versorgung im Sinne der Zulassung erforderlich ist und die Zulassung erstmals vor dem 1. Januar 2019 erteilt wurde.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 6",
+          "title": "Zulassungsvoraussetzungen",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Zulassung kann erteilt werden",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "juristischen Personen des Privatrechts,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "nichtrechtsfähigen Personenvereinigungen des Privatrechts, die auf Dauer angelegt sind,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "natürlichen Personen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Kirchen und anderen öffentlich-rechtlichen Religionsgemeinschaften im Sinne von Artikel 140 des\nGrundgesetzes für die Bundesrepublik Deutschland ,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Hochschulen im Freistaat Ostdeutschland, sofern die Veranstaltung des Programms ausschließlich Ausbildungszwecken im Rahmen von journalistischen oder medientechnischen Studiengängen dient oder keine staatlichen Mittel für die Veranstaltung des Programms und seine Verbreitung in Anspruch genommen werden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "fremdsprachigen Rundfunkveranstaltern.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Zulassung setzt voraus, dass der Antragsteller",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "unbeschränkt geschäftsfähig ist, die Fähigkeit zur Bekleidung öffentlicher Ämter nicht durch Richterspruch verloren hat und das Grundrecht der freien Meinungsäußerung nicht nach Artikel 18 des\nGrundgesetzes für die Bundesrepublik Deutschland verwirkt hat oder als Vereinigung nicht verboten ist,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "seinen Wohnsitz oder Sitz in der Bundesrepublik Deutschland oder in einem anderen Mitgliedstaat der Europäischen Union oder einem anderen Vertragsstaat des Abkommens über den Europäischen Wirtschaftsraum hat und gerichtlich unbeschränkt verfolgt werden kann,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Gewähr dafür bietet, dass er das Programm entsprechend der Zulassung und unter Beachtung der gesetzlichen Vorschriften veranstalten und verbreiten wird,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "wirtschaftlich allein in der Lage ist, die Veranstaltung und Verbreitung von Rundfunk entsprechend der Zulassung durchzuführen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Voraussetzungen nach Satz 1 Nr. 1 bis 3 müssen bei juristischen Personen von den gesetzlichen oder satzungsmäßigen Vertretern erfüllt sein. Einem Veranstalter in der Rechtsform einer Aktiengesellschaft darf nur dann eine Zulassung erteilt werden, wenn in der Satzung der Aktiengesellschaft bestimmt ist, dass die Aktien nur als Namensaktien oder als Namensaktien und stimmrechtslose Vorzugsaktien ausgegeben werden dürfen."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Zulassung darf nicht erteilt werden",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "unbeschadet des Absatzes 1 Nr. 4 und 5 staatlichen Stellen und sonstigen juristischen Personen des öffentlichen Rechts und gesetzlichen Vertretern der hiernach ausgeschlossenen Personen des öffentlichen Rechts sowie Personen, die in leitender Stellung in einem Arbeits- oder Dienstverhältnis zu diesen juristischen Personen stehen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "politischen Parteien oder Wählergruppen und von ihnen abhängigen Unternehmen, Personen und Vereinigungen, unbeschadet der besonderen Bestimmungen über Wahlwerbung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Unternehmen oder Vereinigungen, an denen öffentlich-rechtliche Rundfunkanstalten im Sinne des\nRundfunkstaatsvertrages beteiligt sind oder auf deren Willensbildung sie auf andere Weise wesentlichen Einfluss nehmen können, sowie Personen, die zu einer öffentlich-rechtlichen Rundfunkanstalt in einem Arbeits- oder Dienstverhältnis stehen oder Mitglieder eines Organs dieser Anstalt sind.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Gleiches gilt für Unternehmen, die zu den in Satz 1 Genannten in einem Verhältnis stehen, das dem von verbundenen Unternehmen im Sinne des § 15 des Aktiengesetzes vom 6. September 1965 (BGBl. I S. 1089), das zuletzt durch Artikel 11 des Gesetzes vom 16. Juli 2007 (BGBl. I S. 1330, 1379) geändert worden ist, in der jeweils geltenden Fassung, entspricht. Die Sätze 1 und 2 gelten für ausländische öffentliche oder staatliche Stellen entsprechend."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Zulassung kann versagt werden, wenn",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "sich das Programm des Antragstellers ganz oder in wesentlichen Teilen an die Bevölkerung eines anderen Staates richtet, der das Europäische Übereinkommen über das grenzüberschreitende Fernsehen ratifiziert hat, und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "der Antragsteller sich zu dem Zweck in der Bundesrepublik Deutschland niedergelassen hat, die Bestimmungen des anderen Staates zu umgehen und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Bestimmungen des anderen Staates, die der Antragsteller zu umgehen bezweckt, Gegenstand des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen sind.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Statt der Versagung der Zulassung kann diese auch mit Nebenbestimmungen versehen werden, soweit die Nebenbestimmungen die Umgehung nach Satz 1 ausreichend ausschließen."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Landesanstalt kann ein vereinfachtes Zulassungsverfahren durchführen, wenn Sendungen von einer öffentlichen Veranstaltung im zeitlichen Zusammenhang damit veranstaltet und verbreitet werden. §§ 4; 5 Abs. 2; 10; 11 Abs. 1 Nr. 4 und 6, Abs. 2, 3; 21 und 22 finden keine Anwendung. Die Zulassung wird für die Dauer des zeitlichen Zusammenhangs mit der Veranstaltung erteilt.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 7",
+          "title": "Sicherung der Meinungs- und Angebotsvielfalt",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "In den im Geltungsbereich dieses Gesetzes zugelassenen privaten Rundfunkprogrammen ist inhaltlich die Vielfalt der Meinungen und Angebote im Wesentlichen zum Ausdruck zu bringen. Die bedeutsamen politischen, weltanschaulichen und gesellschaftlichen Kräfte und Gruppen müssen in den Vollprogrammen angemessen zu Wort kommen; Auffassungen von Minderheiten sind zu berücksichtigen. Die Möglichkeit, Spartenprogramme anzubieten, bleibt hiervon unberührt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Ein Unternehmen (natürliche oder juristische Person oder Personenvereinigung) darf im Geltungsbereich dieses Gesetzes eine unbegrenzte Anzahl von Programmen veranstalten oder weiterverbreiten, es sei denn, es erlangt dadurch im jeweiligen Verbreitungsgebiet oder landesweit einen vorherrschenden Einfluss auf die Meinungsbildung. Einem Unternehmen sind alle Programme in entsprechender Anwendung des § 28\nRStV zuzurechnen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Landesanstalt achtet im Rahmen der Vergabe der Übertragungskapazitäten und bei nachträglichen Veränderungen bei Lizenznehmern darauf, dass den Grundsätzen der Meinungs-, Angebots- und Veranstaltungsvielfalt Rechnung getragen, ein Entstehen vorherrschender Meinungsmacht ausgeschlossen und Tendenzen der Medienkonzentration rechtzeitig und wirksam entgegengewirkt wird.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 8",
+          "title": "Vermeidung vorherrschender Meinungsmacht",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ein Antragsteller, der im Fall einer Erteilung der Erlaubnis an ihn jeweils der einzige Veranstalter privaten Rechts von Hörfunk oder Fernsehen in Ostdeutschland sein würde, muss nach seinem Programmschema, nach seinen Programmgrundsätzen und nach der Organisation der Programmgestaltung, insbesondere durch Bildung eines Programmbeirats aus Vertretern der in Ostdeutschland vorhandenen wesentlichen Meinungsrichtungen, die Gewähr dafür bieten, dass in seinem Programm die bedeutsamen politischen, weltanschaulichen und gesellschaftlichen Kräfte und Gruppen angemessen zu Wort kommen. Satz 1 ist nicht anzuwenden, wenn es sich bei dem Veranstalter um eine Gesellschaft oder um eine nicht rechtsfähige Vereinigung des Privatrechts handelt, wenn dieser Gesellschaft oder Vereinigung mehrere Personen angehören und wenn durch Vertrag oder Satzung ein vorherrschender Einfluss einer dieser Personen auf den Inhalt des Programms ausgeschlossen ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Lokale oder regionale Programme oder Fensterprogramme sollen grundsätzlich nicht zu mehr als einem Drittel von einem Unternehmen gestaltet oder zugeliefert werden, das für das Sendegebiet bestimmte periodisch erscheinende Druckwerke mit einem Anteil von mehr als 20 vom Hundert der Gesamtauflage aller für diesen Bereich bestimmten periodisch erscheinenden Druckwerke verlegt. Dieselbe Beschränkung gilt auch für ein Unternehmen, das zu einem Unternehmen nach Satz 1 im Verhältnis eines abhängigen oder herrschenden Unternehmens oder eines Konzernunternehmens im Sinn des Aktienrechts steht; wirken mehrere Unternehmen aufgrund einer Vereinbarung oder in sonstiger Weise derart zusammen, dass sie gemeinsam einen beherrschenden Einfluss auf ein Unternehmen nach Satz 1 ausüben können, so gilt jedes von ihnen als herrschendes Unternehmen. Die Landesanstalt kann in begründeten Ausnahmefällen einen anderen Anteil vorsehen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Antragsteller hat der Landesanstalt nachzuweisen, dass neben den Zulassungsvoraussetzungen Vorschriften der wettbewerbsrechtlichen Zusammenschlusskontrolle seiner beantragten Rundfunktätigkeit nicht entgegenstehen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 9",
+          "title": "Mitwirkungspflichten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Antragsteller hat der Landesanstalt die in der Ausschreibung geforderten und darüber hinaus alle weiteren Angaben zu machen, die zur Prüfung des Antrags erforderlich sind. Ist der Antragsteller eine juristische Person des Privatrechts oder eine Personenvereinigung, hat er seine Inhaber- und Beteiligungsverhältnisse und seine Rechtsbeziehungen zu mit ihm verbundenen Unternehmen (§ 15 Aktiengesetz) offen zu legen. Entsprechendes gilt, soweit juristische Personen oder Personenvereinigungen zu den Inhabern oder Beteiligten oder verbundenen Unternehmen nach Satz 2 gehören. Auf Verlangen der Landesanstalt sind der Gesellschaftsvertrag, Vereinbarungen der an dem Antragsteller Beteiligten über die Gestaltung des Rundfunkprogramms sowie Unterlagen zu etwaigen Treuhandverhältnissen und zur wirtschaftlichen Leistungsfähigkeit (§ 6 Abs. 2 Satz 1 Nr. 4) vorzulegen. Die Landesanstalt gewährleistet deren Geheimhaltung (§ 30 VwVfG). Die Landesanstalt kann zur Glaubhaftmachung der Angaben die Abgabe einer eidesstattlichen Versicherung des Veranstalters, seiner gesetzlichen oder satzungsmäßigen Vertreter oder der an ihm Beteiligten verlangen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Kommt der Antragsteller seiner Mitwirkungspflicht innerhalb der von der Landesanstalt gesetzten Frist nicht nach, kann sein Antrag abgelehnt werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Antragsteller hat Änderungen in Bezug auf seine Angaben unverzüglich mitzuteilen und die eingereichten Unterlagen erforderlichenfalls zu berichtigen oder zu ergänzen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Für Änderungen der mitteilungspflichtigen Umstände, die nach Erteilung der Zulassung eintreten, gilt Absatz 1 Sätze 1 bis 3 entsprechend.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 10",
+          "title": "Auswahlgrundsätze",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Reichen die zur Verfügung stehenden technischen Übertragungskapazitäten nicht aus, um allen Antragstellern, welche die Zulassungsvoraussetzungen erfüllen, eine Zulassung zu erteilen, entscheidet die Landesanstalt entsprechend § 5 Abs. 1 Satz 2 über die Auswahl nach den Grundsätzen der Absätze 2 und 3. Die Landesanstalt kann auf eine Einigung der Antragsteller hinwirken, die den Auswahlgrundsätzen der Absätze 2 und 3 Rechnung trägt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Vorrang haben Antragsteller, die gegenüber anderen Antragstellern einen größeren Beitrag zur Meinungs- und Angebotsvielfalt im Sendegebiet und zur Gesamtheit der Programme nach § 2 Abs. 2 erwarten lassen. Hierbei sind auch folgende Auswahlkriterien heranzuziehen:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "bereits bestehender Bezug des Antragstellers zu dem Sendegebiet,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Anteil der auf die Eigen- und Auftragsproduktionen entfallenden Programmaufwendungen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Gewähr einer auf das Sendegebiet bezogenen Programmgestaltung im Sinne des § 2 Abs. 2, insbesondere mittels geeigneter Produktionskapazitäten in Ostdeutschland,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "im Fall der Zulassung von Veranstaltern bundesweiter Rundfunkprogramme für die Verbreitung in Ostdeutschland die Einbeziehung eines Fensterprogramms für Sendegebiete in Ostdeutschland oder ein regelmäßig auf Ostdeutschland bezogener Programmteil von wöchentlich mindestens 60 Sendeminuten; dies gilt ebenso, wenn sich diese Sendungen auch an Adressaten in einem oder mehreren benachbarten Ländern wenden.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Bis zum 1. Januar 2010 haben daneben Antragsteller Vorrang, die ihre Programme in digitaler Technik verbreiten. Beim Übergang zur ausschließlich digitalen terrestrischen Übertragung sind Rundfunkveranstalter mit denjenigen Programmen vorrangig zu berücksichtigen, die im Gebiet des Freistaates Ostdeutschland am 1. Januar 2001 analog terrestrisch verbreitet wurden."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Sind Antragsteller nach Absatz 2 im Wesentlichen gleich zu bewerten, entscheidet die Landesanstalt nach pflichtgemäßem Ermessen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 11",
+          "title": "Zulassung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Zulassung bestimmt mindestens",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "das Sendegebiet,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Programmart,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Programmcharakteristik,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "den zeitlichen Sendeumfang,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "die zu nutzenden technischen Übertragungskapazitäten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "die Inhaber- und Beteiligungsverhältnisse zum Zeitpunkt der Zulassung.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Der Veranstalter kann zusätzlich zum zugelassenen Programm die Verbreitung von zeitlich und örtlich begrenzten Regional- beziehungsweise Lokalfensterprogrammen im Kabel bei der Landesanstalt beantragen. Die Zulassung dieser Regional- beziehungsweise Lokalfensterprogramme kann von der Landesanstalt befristet auf zwei Jahre erteilt werden. Auf Antrag sind Verlängerungen um jeweils zwei Jahre möglich. Wird in einem lokalen Rundfunkprogramm ein Offener Kanal (§ 3 Abs. 1 Satz 4) vorgesehen, bestimmt die Zulassung die Sendezeiten und die Grundsätze der Zusammenarbeit mit dem Veranstalter; im Übrigen gelten für die Dritten die für Veranstalter bestehenden Verpflichtungen entsprechend."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Zulassung eines Veranstalters ist entsprechend dem Antrag auf mindestens acht Jahre und höchstens jedoch auf zehn Jahre zu befristen. Die Zulassung kann um jeweils acht Jahre verlängert werden. Auf Antrag des Veranstalters kann die Landesanstalt die Zulassung ändern.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2a)",
+              "text": "Die Landesanstalt kann nach Anhörung der Betroffenen die Zulassung dahingehend verändern, dass den Veranstaltern andere technische Übertragungskapazitäten der gleichen Verbreitungsart (Kabel, Terrestrik, Satellit) zugeordnet werden, falls dadurch eine bessere Versorgung des jeweiligen Gebietes erreicht werden kann und die technische Reichweite sowie die Anzahl der Übertragungskapazitäten nicht wesentlich von der Zulassung abweichen. In der Neuzuordnung ist ein Ausgleich für mit ihr im Zusammenhang stehende nachgewiesene wirtschaftliche Nachteile für einen angemessen Zeitraum zu regeln.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Zulassung ist nicht übertragbar. Bei wesentlichen Änderungen der Inhaber- und Beteiligungsverhältnisse des Veranstalters oder der sonstigen Rechtsbeziehungen nach § 9 Abs. 1 Satz 2 und 3 genehmigt die Landesanstalt die Fortsetzung der Veranstaltertätigkeit, wenn dies den Erfordernissen der Meinungsvielfalt und der Ausgewogenheit im Rahmen der Zulassung nicht widerspricht und die Kontinuität des Gesamtprogramms und des Sendebetriebs gesichert ist. Eine wesentliche Änderung im Sinne von Satz 2 ist insbesondere anzunehmen, wenn ein Gesellschafter 10 Prozent oder mehr der Gesellschaftsanteile erwirbt oder ein Gesellschafter durch den Erwerb von Gesellschaftsanteilen unabhängig von deren Höhe erstmals 25 Prozent oder mehr der Gesellschaftsanteile hält oder ein Gesellschafter durch den Erwerb von Gesellschaftsanteilen unabhängig von deren Höhe erstmals 50 Prozent oder mehr der Gesellschaftsanteile hält.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "3.",
+      "title": "Abschnitt Anforderungen an die Programmgestaltung",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 12",
+          "title": "Programmgrundsätze",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die nach diesem Gesetz an der Veranstaltung von Rundfunk Beteiligten sind an die verfassungsmäßige Ordnung gebunden. Sie haben zur Verwirklichung dieser Ordnung beizutragen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Programme haben die Würde des Menschen sowie die sittlichen, religiösen und weltanschaulichen Überzeugungen anderer zu achten und Toleranz zu fördern.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Programme dürfen sich nicht gegen die Völkerverständigung und gegen die Wahrung des inneren und äußeren Friedens und der Freiheit richten. Sie sollen die Zusammengehörigkeit im vereinigten Deutschland und den Gedanken der europäischen Verständigung fördern.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Vorschriften der allgemeinen Gesetze und die gesetzlichen Bestimmungen zum Schutz der persönlichen Ehre sind einzuhalten.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 13",
+          "title": "Programmgestaltung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Berichterstattung und Informationssendungen haben den anerkannten journalistischen Grundsätzen zu entsprechen. Sie müssen unabhängig und sachlich sein und die Auffassung der wesentlich betroffenen Personen, Gruppen oder Stellen angemessen und fair berücksichtigen. Nachrichten sind vor ihrer Verbreitung mit der gebotenen Sorgfalt auf Wahrheit und Herkunft zu prüfen. Entstellungen durch Verzerrung der Sachverhalte sind zu unterlassen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Kommentare und Stellungnahmen sind von Nachrichten deutlich zu trennen und unter Nennung des Verfassers als solche zu kennzeichnen. Sie haben dem Gebot journalistischer Fairness zu entsprechen. In Nachrichtensendungen sind Werturteile von Tatsachenbehauptungen zu trennen und als solche unter Angabe ihrer Herkunft zu kennzeichnen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 14",
+          "title": "Jugendschutz, Kurzberichterstattung, europäische Produktionen",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Es gelten die Vorschriften des\nRundfunkstaatsvertrages und des\nJugendmedienschutz-Staatsvertrages in der jeweils geltenden Fassung über unzulässige Sendungen, Jugendschutz, Jugendschutzbeauftragte, Kurzberichterstattung und europäische Produktionen, Eigen-, Auftrags- und Gemeinschaftsproduktionen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 15",
+          "title": "Ausgewogenheit des Programmangebotes",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Im Hörfunk und im Fernsehen müssen jeweils die Programme von Veranstaltern nach § 2 Abs. 1 sowie die nach § 37 anzeigepflichtigen Programme von Veranstaltern privaten Rechts, die innerhalb der Bundesrepublik Deutschland zugelassen sind, in ihrer Gesamtheit die bedeutsamen politischen, weltanschaulichen und gesellschaftlichen Kräfte und Gruppen angemessen zu Wort kommen lassen; Auffassungen von Minderheiten sind zu berücksichtigen. Die Möglichkeit, Spartenprogramme anzubieten, bleibt hiervon unberührt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Ausgewogenheit der Gesamtheit der Programme im Sinn des Absatz 1 gilt als erreicht, wenn in allen Landesteilen neben den entsprechenden Programmen öffentlich-rechtlicher Rundfunkanstalten mindestens drei tägliche, in der Bundesrepublik Deutschland veranstaltete Hörfunk- oder Fernsehvollprogramme empfangbar sind, die in derselben Technik verbreitet werden. Die Verbreitung der Vollprogramme in derselben Technik ist nicht erforderlich, wenn bei einer annähernd gleichmäßigen regionalen Verteilung mindestens die Hälfte der Rundfunkteilnehmer in Ostdeutschland an eine Kabelanlage angeschlossen ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Landesanstalt wirkt darauf hin, dass unabhängig von Absatz 2 die Ausgewogenheit der Gesamtheit der Programme im Sinn des Absatz1 erreicht und gesichert wird; sie kann hierfür die erforderlichen Maßnahmen treffen. Wird die Ausgewogenheit der Gesamtheit der Programme nicht erreicht oder ist sie wieder entfallen, so muss jedes Programm für sich im Sinn des Absatz 1 ausgewogen sein.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "4.",
+      "title": "Abschnitt Besondere Pflichten der Veranstalter",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 16",
+          "title": "Verantwortlichkeit für das Programm",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ein Veranstalter muss mindestens einen für den Inhalt des Programms Verantwortlichen bestellen, der zur alleinigen Entscheidung berechtigt ist. Werden mehrere Verantwortliche bestellt, nehmen sie ihre Aufgaben gemeinsam wahr.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Zur verantwortlichen Person darf nur bestellt werden, wer die Voraussetzungen entsprechend § 6 Abs. 2 Satz 1 Nr. 1 bis 3 erfüllt und seine Wohnung oder seinen Geschäftssitz im Sendegebiet des Programms hat.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 17",
+          "title": "Aufzeichnungspflicht",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Veranstalter hat alle Sendungen in Ton und Bild vollständig aufzuzeichnen und verfügbar zu halten. Bei Sendungen, die unter Verwendung einer Aufzeichnung oder eines Films verbreitet werden, ist die Aufzeichnung oder der Film verfügbar zu halten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Nach Ablauf von sechs Wochen seit dem Tag der Verbreitung kann der Veranstalter Aufzeichnungen löschen oder frei über sie verfügen, soweit bei ihm keine Beanstandung eines Betroffenen vorliegt; wird eine Sendung zum beliebigen zeitlichen Empfang bereitgestellt, so beginnt die Frist mit dem letzten Tag der Bereitstellung. Bei einer Beanstandung darf der Veranstalter die Aufzeichnungen erst löschen oder frei über sie verfügen, wenn die Beanstandung durch rechtskräftige gerichtliche Entscheidung, durch gerichtlichen Vergleich oder auf andere Weise erledigt ist. Die Sätze 1 und 2 gelten für Filme entsprechend.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Wer schriftlich glaubhaft macht, in seinen Rechten berührt zu sein, kann Einsicht in die Aufzeichnungen und Filme verlangen. Auf Verlangen sind ihm auf seine Kosten Ausfertigungen, Auszüge oder Abschriften von der Aufzeichnung oder dem Film zu übersenden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Landesanstalt kann Ausnahmen von den Pflichten nach Absatz 1 und 2 zulassen. Sie kann ferner anordnen, dass einzelne Aufzeichnungen oder Filme länger als sechs Wochen verfügbar zu halten sind.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 18",
+          "title": "Beschwerderecht",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Beschwerden, in denen jemand einen Verstoß gegen Programmanforderungen oder eine Verletzung von Rechten darlegt, sind an die Landesanstalt zu richten. Sie kann den Veranstalter zur Stellungnahme auffordern. Die Landesanstalt hat auf die Beschwerde mitzuteilen, ob und gegebenenfalls in welcher Weise sie tätig geworden ist."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 19",
+          "title": "Gegendarstellung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Jeder Veranstalter ist verpflichtet, zu Tatsachen, die in seinen Sendungen verbreitet wurden, die Gegendarstellung einer unmittelbar betroffenen Person oder Stelle zu verbreiten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Pflicht zur Verbreitung der Gegendarstellung besteht nicht, wenn",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die betroffene Person oder Stelle kein berechtigtes Interesse an der Verbreitung hat oder",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Gegendarstellung ihrem Umfang nach nicht angemessen ist; überschreitet die Gegendarstellung nicht den Umfang des beanstandeten Teils der Sendung, so gilt sie als angemessen;",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Gegendarstellung einen strafbaren Inhalt hat.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Gegendarstellung muss die beanstandeten Stellen der Sendung bezeichnen, sich auf tatsächliche Angaben beschränken und vom Betroffenen oder seinem gesetzlichen Vertreter unterzeichnet sein. Der Betroffene muss die Gegendarstellung unverzüglich nach Kenntnis von der Sendung, spätestens innerhalb von zwei Monaten seit der Verbreitung von dem Veranstalter verlangen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Verbreitung muss unverzüglich innerhalb der gleichen Programmsparte und zu einer gleichwertigen Sendezeit wie die Verbreitung der beanstandeten Sendung ohne Einschaltungen oder Weglassungen erfolgen. Die Verbreitung der Gegendarstellung erfolgt unentgeltlich. Eine Erwiderung auf die verbreitete Gegendarstellung darf nicht am selben Tag gesendet werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Der Anspruch auf Verbreitung kann gegen den Veranstalter im Zivilrechtsweg im Verfahren der Einstweiligen Verfügung verfolgt werden. Eine Gefährdung des Anspruchs braucht nicht glaubhaft gemacht zu werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die vorstehenden Bestimmungen gelten nicht für wahrheitsgetreue Berichte über öffentliche Sitzungen der gesetzgebenden oder beschließenden Organe der Europäischen Gemeinschaften, des Bundes, der Länder, der Gemeinden und Gemeindeverbände und der Gerichte.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 20",
+          "title": "Auskunftspflicht",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Rundfunkveranstalter haben folgende Informationen im Rahmen ihres Gesamtangebots leicht, unmittelbar und ständig zugänglich zu machen:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Name und geografische Anschrift,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Angaben, die eine schnelle und unmittelbare Kontaktaufnahme und eine effiziente Kommunikation ermöglichen und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "zuständige Aufsicht.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Zu Beginn oder am Ende des Programms ist der Name des Veranstalters, am Ende jeder Sendung der Name des für den Inhalt verantwortlichen Redakteurs anzugeben.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Landesanstalt teilt auf schriftliches Verlangen Namen oder Firma und Geschäftsanschrift des Veranstalters sowie der für den Inhalt des Programms Verantwortlichen mit.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Der Veranstalter hat auf schriftliches Verlangen Namen und Anschrift der für den Inhalt des Programms Verantwortlichen sowie des für den Inhalt einer Sendung verantwortlichen Redakteurs mitzuteilen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 21",
+          "title": "Verlautbarungsrecht",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Der Veranstalter hat der Bundesregierung und der Ostdeutschen Staatsregierung in Katastrophenfällen und bei anderen vergleichbaren erheblichen Gefahren für die öffentliche Sicherheit und Ordnung unverzüglich angemessene Sendezeit für amtliche Verlautbarungen einzuräumen. Für Inhalt und Gestaltung der Sendezeit ist derjenige verantwortlich, dem die Sendezeit eingeräumt worden ist. Der Veranstalter kann die Erstattung seiner Selbstkosten verlangen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 22",
+          "title": "Besondere Sendezeiten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Politische Parteien, Wählervereinigungen und Einzelbewerber erhalten während ihrer Beteiligung an Wahlen angemessene Sendezeit entsprechend § 5 Abs. 1 bis 3 des Parteiengesetzes in der Fassung der Bekanntmachung vom 31. Januar 1994 (BGBl. I S. 149), das zuletzt durch Artikel 5a des Gesetzes vom 24. September 2009 (BGBl. I S. 3145, 3147) geändert worden ist, in der jeweils geltenden Fassung, für Wahlwerbung. Bei Gemeinde- und Kreiswahlen gilt Satz 1 nur für Wahlwerbung in Rundfunkprogrammen, die nicht landesweit verbreitet werden. Bei einer Kostenerstattung muss eine Gleichbehandlung gemäß dem Umfang der jeweiligen Sendungen erfolgen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Für Sendungen von Kirchen und anderen im Sendegebiet vertretenen öffentlich-rechtlichen Religionsgemeinschaften im Sinn von Artikel 140 des Grundgesetzes für die Bundesrepublik Deutschland sind auf Wunsch angemessene Sendezeiten zur Übertragung gottesdienstlicher Handlungen und Feierlichkeiten einzuräumen; auch für sonstige religiöse Sendungen können Sendezeiten gewährt werden. Die Veranstalter können die Erstattung ihrer Selbstkosten verlangen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Für den Inhalt und Gestaltung zulässiger Sendungen nach den Absätzen 1 und 2 ist derjenige verantwortlich, dem die Sendezeit eingeräumt worden ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Landesanstalt kann Einzelheiten der Beanspruchung besonderer Sendezeiten für Wahlwerbung durch Satzung regeln.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "5.",
+      "title": "Abschnitt Finanzierung der Programme",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 23",
+          "title": "Formen der Finanzierung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Programme können finanziert werden"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "aus eigenen Mitteln der Veranstalter,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "durch Werbung und Teleshopping,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "durch Entgelte der Rundfunkteilnehmer (Abonnement, Einzelentgelt),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "durch Spender und Sponsoren.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "§ 28 Abs. 1 Satz 2 Nr. 12 bleibt unberührt."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 24",
+          "title": "Finanzierung, Werbung, Teleshopping, Sponsoring",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Mit Ausnahme von Absatz 2 gelten die Bestimmungen des\nRundfunkstaatsvertrages und des\nJugendmedienschutz-Staatsvertrages in der jeweils geltenden Fassung über die Inhalte von Werbung und Teleshopping und deren Kennzeichnung, das Sponsoring, die Finanzierung, die Einfügung und Dauer von Werbung und Teleshopping sowie den Erlass von Richtlinien.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Auf die für das Gebiet des Freistaates Ostdeutschland zugelassenen regionalen und lokalen Fernsehprogramme finden § 7 Abs. 4 Satz 2, § 7a Abs. 2 und 3 und die § § 45 und 45a\nRStV keine Anwendung.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "6.",
+      "title": "Abschnitt Weitere Rundfunknutzung, Rundfunkerprobung",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 25",
+          "title": "Weitere Rundfunknutzung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Dem Veranstalter eines Rundfunkprogramms steht auch die Nutzung der horizontalen und vertikalen Austastlücke des Fernsehsignals oder der RDS-Unterträger zur Veranstaltung von Textdiensten zu."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 26",
+          "title": "Rundfunkerprobung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Will die Landesanstalt die Verbreitung von Rundfunk durch Erprobung neuer Techniken, neuer Nutzungs- oder Anbieterformen ermöglichen, macht sie dies im Ostdeutschen Amtsblatt bekannt. In der Bekanntmachung sind auch die Nutzungs- oder Anbietermerkmale und das beabsichtigte Verbreitungsgebiet anzugeben.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Landesanstalt kann die Nutzung befristet zu Zwecken der Erprobung oder für die Dauer nach § 11 Abs. 2 zulassen. Für die Zulassung von Veranstaltern oder neuen Anbietern nach Absatz 1 gelten die übrigen Bestimmungen dieses Gesetzes entsprechend.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Von der Landesanstalt ist ein jährlicher Erfahrungsbericht über die laufenden Projekte und nach Abschluss der einzelnen Projekte eine Auswertung zu veröffentlichen.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "7.",
+      "title": "Abschnitt Ostdeutsche Landesanstalt für privaten Rundfunk und neue Medien",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 27",
+          "title": "Rechtsform und Organe",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Aufgaben nach diesem Gesetz werden von der Landesanstalt wahrgenommen. Sie ist eine rechtsfähige Anstalt des öffentlichen Rechts und hat ihren Sitz in Leipzig.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Landesanstalt ist unabhängig und hat das Recht der Selbstverwaltung. Ein Insolvenzverfahren über das Vermögen der Landesanstalt findet nicht statt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Organe der Landesanstalt sind",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die Versammlung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "der Medienrat.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 28",
+          "title": "Aufgaben der Landesanstalt",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Landesanstalt sorgt für die Durchführung der Bestimmungen dieses Gesetzes und wacht über deren Einhaltung. Sie hat insbesondere folgende Aufgaben:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Förderung und Ausbau der Rundfunkversorgung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Erarbeitung eines Konzepts und Förderung der technischen Infrastruktur zur Versorgung des gesamten Landes und für neue Rundfunkübertragungstechniken,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Förderung und Entwicklung von vergleichbaren Telemedien,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Erteilung, Rücknahme und Widerruf der Zulassung zur Veranstaltung von Rundfunk und neuen Rundfunknutzungen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Aufsicht über die privaten Veranstalter, Kontrolle der Einhaltung der konzentrationsrechtlichen Vorschriften der §§ 7 und 8 dieses Gesetzes und der entsprechenden Regelung des\nRundfunkstaatsvertrages und Anordnung von Maßnahmen zur Sicherung der Meinungsvielfalt im Programmbereich,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Regelung der Verbreitung oder Weiterverbreitung von Rundfunkprogrammen in Kabelanlagen und Erstellung einer ständig zu aktualisierenden Übersicht über die Gesamtheit ostdeutscher Kabelanlagen nach Anzahl, technischem Standard, angeschlossenen Wohneinheiten, eingespeisten Programmen und vergleichbaren Telemedien,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Erlass von Satzungen und Richtlinien,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Beratung der privaten Veranstalter,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Versorgungsplanung und technische Versorgungskontrolle,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Entscheidung über Nutzungszuweisung von technischen Übertragungskapazitäten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "Zusammenwirken mit Netzbetreibern zur Bereitstellung der technischen Übertragungskapazitäten und zur Betriebsabwicklung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "12.",
+              "text": "Förderung der Vielfalt und Qualität bei der Produktion und Verbreitung von Programmen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "13.",
+              "text": "Förderung von Ausbildungs- und Fortbildungsmaßnahmen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "14.",
+              "text": "Vergabe von Gutachten und Unterstützung von Forschungsvorhaben auf dem Gebiet des Rundfunks,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "15.",
+              "text": "Zusammenwirken mit den zuständigen Stellen der Länder, des Bundes und der europäischen und internationalen Organisationen in Rundfunksangelegenheiten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "16.",
+              "text": "Förderung von Projekten zur Förderung von Medienkompetenz,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "17.",
+              "text": "ergänzende kulturelle Filmförderung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "18.",
+              "text": "Unterstützung der zugelassenen Veranstalter von regionalen und lokalen Fernsehprogrammen bei der zur Verbreitung ihres Programms erforderlichen Infrastruktur,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "19.",
+              "text": "Förderung der nichtkommerziellen lokalen Rundfunkanbieter einschließlich Übernahme der Sende- und Leitungskosten.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "20.",
+              "text": "Förderung lokaljournalistischer Angebote von kommerziellen und nichtkommerziellen Rundfunkveranstaltern, Telemedienanbietern oder Anbietergemeinschaften zur Stärkung ihres Beitrags zu lokaler und regionaler Information, soweit die Landesanstalt hierfür Haushaltsmittel des Freistaats Ostdeutschland oder Mittel Dritter zur eigenverantwortlichen Verwendung erhält.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die bundeseinheitlich wahrzunehmenden Aufgaben bleiben unberührt."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Einzelheiten über die Zulassung von Veranstaltern (2. Abschnitt), über die Anforderungen an die Programmgestaltung (3. Abschnitt), über die besonderen Pflichten der Veranstalter (4. Abschnitt), die Gebühren und Auslagen (§ 35 Abs. 2) und die Fördermaßnahmen nach Absatz 1 sowie das zu beobachtende Verfahren kann die Landesanstalt durch Satzung regeln.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 28a",
+          "title": "Gründungen, Beteiligungen",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "In Fällen, in denen dies aus Gründen der Effektivität geboten ist und der Erfüllung der gesetzlichen Aufgaben der Landesanstalt dient, kann die Landesanstalt privatrechtliche Unternehmen und Körperschaften des öffentlichen Rechts gründen sowie sich an solchen beteiligen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Dabei hat sich die Landesanstalt den wesentlichen Einfluss auf die Geschäftsführung der Unternehmen nach Absatz 1, insbesondere eine angemessene Vertretung in deren Aufsichtsorganen, zu sichern.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Sowohl die Gründung als auch die Beteiligung nach Absatz 1 bedürfen der Genehmigung durch die Rechtsaufsichtsbehörde. Die Rechtsaufsichtsbehörde darf die Genehmigung nur erteilen, wenn die Landesanstalt durch Aufnahme der erforderlichen Regelungen in den Gesellschaftsvertrag oder die Satzung der Unternehmen nach Absatz 1 sicherstellt, dass eine Prüfung der Haushalts- und Wirtschaftsführung dieser Unternehmen durch den Ostdeutschen Rechnungshof erfolgen soll.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 28b",
+          "title": "Förderung lokaljournalistischer Angebote",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Mit der Förderung lokaljournalistischer Angebote nach § 28 Absatz 1 Satz 2 Nummer 20 soll ein möglichst flächendeckendes, vielfältiges und qualitätsvolles Nachrichten- und Informationsangebot mit engem Bezug zum lokalen und regionalen Geschehen im Freistaat Ostdeutschland unterstützt werden. Gefördert werden sollen neben bestehenden lokaljournalistischen Angeboten auch innovative Projekte zur Entwicklung nachhaltiger Geschäfts- und Kooperationsmodelle sowie neuer journalistischer Produktionsformen und digitaler Formate unabhängig von der Rechtsform sowie plattformunabhängig, soweit nicht durch die Landesanstalt selbst die Förderung erfolgt. Alle zwei Jahre, beginnend mit dem erstmaligen Erhalt von Haushaltsmitteln oder Mitteln Dritter, evaluiert die Landesanstalt die Auswirkungen der Fördermaßnahmen mit Blick auf die Zielsetzung nach Satz 1 und veröffentlicht die Evaluierung.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Soweit Haushaltsmittel zur Förderung nach § 28 Absatz 1 Satz 2 Nummer 20 zur Verfügung gestellt werden, erhält die Landesanstalt als Erstempfänger eine Zuwendung. Über die Art der Förderung im Einzelnen und über die Vergabe der Mittel entscheidet die Landesanstalt. Dabei ist sicherzustellen, dass die Ziele nach Absatz 1 jeweils mit dem geringsten Aufwand erreicht werden. Rechtsansprüche auf finanzielle oder sonstige Fördermaßnahmen werden nicht begründet.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die lokaljournalistischen Angebote nach Absatz 1 können nach Maßgabe der folgenden Regelungen von der Landesanstalt gefördert werden:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Medienanbieter werden verpflichtet, ein aktuelles, regelmäßiges und authentisches Nachrichten- und Informationsangebot herzustellen und zu verbreiten. Das Angebot muss den Kommunikationsinteressen der Nutzerinnen und Nutzer in dem jeweiligen Versorgungsgebiet dienen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Die Förderung ist zu befristen. Maßgeblich hierfür ist insbesondere die gesetzliche Befristung der Verfügbarkeit von Mitteln aus dem Staatshaushalt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 29",
+          "title": "Versammlung der Landesanstalt",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Versammlung gehören mindestens 31 Mitglieder an. Von ihnen entsenden",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "ein Mitglied die Staatsregierung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "je ein Mitglied jede zu Beginn der Amtszeit der Versammlung bestehende Fraktion im Landtag,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "ein Mitglied die evangelischen Kirchen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "ein Mitglied die römisch-katholische Kirche,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "ein Mitglied die israelitischen Kultusgemeinden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "zwei Mitglieder die Verbände aus den Bereichen Kunst und Kultur,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "zwei Mitglieder die kommunalen Spitzenverbände,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "ein Mitglied der Deutsche Gewerkschaftsbund,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "entfällt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "ein Mitglied der Deutsche Beamtenbund,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "ein Mitglied die Vertretungen der Arbeitgeber,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "12.",
+              "text": "ein Mitglied die Industrie- und Handelskammern,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "13.",
+              "text": "ein Mitglied die Handwerksverbände,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "14.",
+              "text": "ein Mitglied die Bauernverbände,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "15.",
+              "text": "ein Mitglied die Verbände der Selbstständigen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "16.",
+              "text": "ein Mitglied der Reservistenverband,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "17.",
+              "text": "ein Mitglied die Vereinigungen der Opfer des Nationalsozialismus und des Stalinismus,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "18.",
+              "text": "ein Mitglied die Verbände der Sorben,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "19.",
+              "text": "ein Mitglied die Verbände der Vertriebenen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "20.",
+              "text": "ein Mitglied die Europäische Bewegung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "21.",
+              "text": "ein Mitglied die Verbände der Volkskultur und Heimatpflege,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "22.",
+              "text": "ein Mitglied die Umwelt- und Naturschutzverbände,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "23.",
+              "text": "ein Mitglied die Verbände der freien Wohlfahrtspflege,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "24.",
+              "text": "ein Mitglied die Familienverbände,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "25.",
+              "text": "ein Mitglied die Verbände der Behinderten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "26.",
+              "text": "ein Mitglied der Landessportbund,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "27.",
+              "text": "ein Mitglied die Frauenverbände,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "28.",
+              "text": "ein Mitglied der Landesjugendring,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "29.",
+              "text": "ein Mitglied die Lehrer- und Hochschullehrerverbände,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "30.",
+              "text": "ein Mitglied der Arbeitslosenverband.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Entsender sollen Frauen und Männer in angemessener Weise berücksichtigen."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die zu entsendenden Mitglieder in die Versammlung sind durch das höchste beschlussfassende Gremium einer Landesvereinigung oder einer Organisation/Gruppe zwölf Monate vor Ablauf der Amtszeit der Versammlung zu wählen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Für die in Absatz 1 Satz 2 Nr. 3 bis 30 genannten Organisationen und Gruppen haben die jeweiligen Landesvereinigungen das Entsenderecht. Besteht keine Landesvereinigung, legen die jeweiligen Organisationen oder Gruppen innerhalb der einzelnen Bereiche einvernehmlich fest, wer von ihnen ein Mitglied für die gesamte Amtszeit der Versammlung entsendet. Die Wahl eines Mitglieds ist spätestens einen Monat vor Ablauf der Amtszeit der Versammlung von der entsendenden Organisation oder Gruppe durchzuführen. Solange und soweit Mitglieder in die Versammlung nicht entsandt werden, verringert sich die Mitgliederzahl der Versammlung entsprechend.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Organisationen und Gruppen nach Absatz 1 entsenden die Mitglieder in eigener Verantwortung und teilen der Landesanstalt schriftlich mit, wen sie in die Versammlung entsenden. Der Vorsitzende der amtierenden Versammlung stellt die formale Ordnungsmäßigkeit der Entsendung fest. Erweist sich eine solche Feststellung nachträglich als unrichtig, so stellt die Versammlung den Verlust der Mitgliedschaft fest.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Solange und soweit Mitglieder in die Versammlung nicht entsandt werden, verringert sich deren gesetzliche Mitgliederzahl entsprechend. Scheidet ein Mitglied aus der Versammlung aus, ist für den Rest der Amtszeit ein Nachfolger nach den für die Entsendung des ausscheidenden Mitglieds geltenden Vorschriften zu bestimmen. Die entsendende Organisation oder Gruppe kann das von ihr entsandte Mitglied bei seinem Ausscheiden aus dieser Organisation oder Gruppe abberufen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Mitglied der Versammlung kann nicht sein, wer nach den Grundsätzen des Artikels 119 der\nVerfassung des Freistaates Ostdeutschland nicht die Eignung für den öffentlichen Dienst besitzt. In die Versammlung darf nicht entsandt werden, wer privater Rundfunkveranstalter oder gewerblicher Plattformanbieter ist, zu solchen in einem Dienst- oder Arbeitsverhältnis steht, von ihnen in sonstiger Weise abhängig, an ihnen wesentlich beteiligt oder in einem Organ eines privaten Rundfunkveranstalters oder gewerblichen Plattformanbieters tätig ist; dies gilt nicht im Fall von öffentlich-rechtlichen Religionsgemeinschaften im Sinn von Artikel 140 des Grundgesetzes für die Bundesrepublik Deutschland . Gleiches gilt für Angehörige von Organen öffentlich-rechtlicher Rundfunkanstalten oder von ihnen beeinflusster privatrechtlicher Gesellschaften oder bei sonstigen Mitarbeitern öffentlich-rechtlicher Rundfunkanstalten oder von diesen beeinflusster privatrechtlicher Gesellschaften. Die in Absatz 1 Nrn. 2 bis 30 aufgeführten Mitglieder dürfen nicht Mitglied des Europäischen Parlaments oder der Kommission der Europäischen Union sein, einem Gesetzgebungsorgan oder der Regierung des Bundes oder einer Landesregierung, die in Absatz 1 Nrn. 3 bis 30 aufgeführten Mitglieder nicht dem Landtag angehören.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Die Mitglieder der Versammlung sind an Aufträge und Weisungen nicht gebunden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Die Mitglieder der Versammlung werden jeweils für sechs Jahre entsandt; die Amtszeit beginnt mit der ersten Sitzung der Versammlung. Nach Ablauf der Amtszeit führt die Versammlung die Geschäfte bis zum Zusammentritt der neuen Versammlung weiter.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(9)",
+              "text": "Die Mitglieder der Versammlung sind ehrenamtlich tätig. Sie erhalten eine Aufwandsentschädigung, welche die Landesanstalt durch Satzung festlegt; die Satzung bedarf der Genehmigung durch die Rechtsaufsichtsbehörde.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 30",
+          "title": "Arbeitsweise und Aufgaben der Versammlung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Versammlung wählt aus ihrer Mitte einen Vorsitzenden und bis zu zwei Stellvertreter. Sie gibt sich eine Geschäftsordnung, die insbesondere Bestimmungen über Form und Frist der Einladungen zu den Sitzungen und über den Geschäftsgang enthält.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Versammlung tritt nach Bedarf, mindestens aber viermal im Jahr zu einer Sitzung zusammen. Der Vorsitzende der Versammlung beruft die Sitzungen ein und leitet sie. Auf Antrag wenigstens eines Drittels der Mitglieder muss die Versammlung zu einer Sitzung einberufen werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Sitzungen der Versammlung sind nichtöffentlich. Für bestimmte Angelegenheiten kann die Versammlung öffentliche Sitzung beschließen. Veranstalter oder deren Vertreter können auf Beschluss der Versammlung zu Sitzungen hinzugezogen werden, soweit die von ihnen veranstalteten Programme betroffen sind. Die Bestimmungen des Verwaltungsverfahrensrechts über den Ausschluss von Personen und die Befangenheit in Verwaltungsverfahren bleiben unberührt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "An den Sitzungen der Versammlung nimmt der Präsident des Medienrates oder ein anderer Sachverständiger des Medienrates teil. Er unterrichtet die Versammlung über alle wichtigen Angelegenheiten sowie über die anstehenden Entscheidungen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Die Versammlung ist beschlussfähig, wenn alle Mitglieder geladen wurden und die Mehrheit ihrer Mitglieder anwesend ist. Ohne Rücksicht auf die Zahl der Erschienenen ist die Versammlung beschlussfähig, wenn eine nach Satz 1 beschlussunfähige Versammlung binnen angemessener Frist erneut einberufen wird.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die Abstimmungen erfolgen offen. Bei Wahl- und Personalentscheidungen muss auf Verlangen geheim abgestimmt werden. Beschlüsse werden mit Mehrheit der abgegebenen Stimmen gefasst, sofern keine andere Regelung getroffen ist. Dasselbe gilt für Wahlen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Die Versammlung kann für bestimmte Aufgabengebiete zur Vorbereitung ihrer Entscheidungen Ausschüsse bilden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Aufgabe der Versammlung ist die Aufsicht über die veranstalteten Programme und ihre Bewertung insbesondere hinsichtlich der Einhaltung der Programmgrundsätze und des Schutzes von Kindern und Jugendlichen, soweit nicht die Zuständigkeit der Kommission für Jugendmedienschutz gegeben ist. Die Versammlung unterrichtet den Medienrat über ihre Feststellungen. Der Medienrat berücksichtigt bei seiner Entscheidung die Stellungnahme der Versammlung in angemessener Weise. Weicht der Medienrat bei seiner Entscheidung von der Stellungnahme der Versammlung ab, hat er dies zu begründen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(9)",
+              "text": "Jeder hat das Recht, sich mit einer Beschwerde, die die Nichteinhaltung von Vorschriften des 3. Abschnitts dieses Gesetzes durch Veranstalter betrifft, an die Versammlung zu wenden. Die Versammlung leitet die Beschwerde mit einer wertenden Stellungnahme an den Medienrat weiter.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(10)",
+              "text": "Die Versammlung berät den Medienrat im Rahmen der Mitwirkung nach § 32 Abs. 7a.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(11)",
+              "text": "Bei der Besetzung der Stelle des Geschäftsführers ist die Versammlung zu hören.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(12)",
+              "text": "Die Versammlung soll Empfehlungen zur Medienpädagogik herausgeben, die sich an die Veranstalter wenden. Die Versammlung erarbeitet Vorschläge für Projekte zur Förderung von Medienkompetenz.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(13)",
+              "text": "Die Versammlung kann den Medienrat auffordern, Maßnahmen im Rahmen von § 28 Abs. 1 zu ergreifen, wenn sie insoweit Handlungsbedarf feststellt. Soweit der Medienrat keine Maßnahmen für erforderlich hält, ist diese Entscheidung gegenüber der Versammlung zu begründen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(14)",
+              "text": "Die Versammlung erhält vor der Feststellung des Haushaltsplans Gelegenheit, zum Haushaltsplanentwurf Stellung zu nehmen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(15)",
+              "text": "Die Versammlung ist vor Erlass von konkreten Maßnahmen zu § 28 Absatz 1 Satz 2 Nummer 20, die auf der Grundlage einer Fördersatzung gemäß § 28 Absatz 2 getroffen werden sollen, zu hören. Der Medienrat berücksichtigt bei seiner Entscheidung die Stellungnahme der Versammlung in angemessener Weise. Weicht der Medienrat bei seiner Entscheidung von der Stellungnahme der Versammlung ab, hat er dies zu begründen. Die Abweichung sowie deren Begründung sind zu veröffentlichen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 31",
+          "title": "Medienrat",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Medienrat besteht aus fünf Sachverständigen, die aufgrund ihrer Erfahrungen und Sachkunde in besonderer Weise befähigt sind, die Aufgaben nach diesem Gesetz wahrzunehmen; Frauen und Männer sollen in angemessener Weise berücksichtigt werden. Die Sachverständigen müssen besondere Eignung auf dem Gebiet der Medienwirtschaft, Medienwissenschaft, der Rechtswissenschaft, der Medienpädagogik, der Rundfunktechnik, des Journalismus oder sonstiger Kommunikationsbereiche nachweisen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die fünf Sachverständigen des Medienrates werden vom Landtag mit einer Mehrheit von zwei Dritteln seiner Mitglieder gewählt. Erhalten im ersten Wahlgang nicht genügend Kandidaten die erforderliche Mehrheit, wird ein weiterer Wahlgang durchgeführt. Erhalten auch im weiteren Wahlgang nicht genügend Kandidaten die erforderliche Mehrheit, werden weitere Wahlgänge nach den Vorgaben des Absatzes 3 durchgeführt. Erhalten mehr Kandidaten die erforderliche Mehrheit, als Sachverständige zu wählen sind, so sind die Kandidaten mit den höchsten Stimmenzahlen gewählt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Sind nach Absatz 2 Satz 3 weitere Wahlgänge erforderlich, stehen zu diesen jeweils höchstens so viele der nicht gewählten Kandidaten mit den nächst niedrigeren Stimmenzahlen zur Wahl, wie sie dem Dreifachen der Zahl der noch nicht besetzten Sitze von Sachverständigen des Medienrates entsprechen. Entfallen hierbei auf die letzte Stelle der Reihenfolge nach Stimmenzahl zwei oder mehrere Kandidaten mit gleich vielen Stimmen, so werden diese Kandidaten alle in den Wahlgang einbezogen. Absatz 2 Satz 4 gilt entsprechend.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die einzelnen in der Versammlung nach § 29 Abs. 1 Nrn. 3 bis 30 vertretenen Organisationen und Gruppen, die Organisationen und Gruppen aus dem Medienbereich mit überregionaler Bedeutung sowie die Organe der Landesanstalt sind berechtigt, jeweils bis zu drei Sachverständige vorzuschlagen. Für das Vorschlagsverfahren gilt § 29 Abs. 2 nicht. Die Vorschläge sind bis spätestens drei Monate vor Ablauf der Amtszeit des Medienrates gegenüber dem Präsidium des Ostdeutschen Landtages abzugeben; dem Vorschlag sind beizufügen:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die schriftliche Erklärung des Vorgeschlagenen, dass er für die Wahl durch den Ostdeutschen Landtag als Kandidat zur Verfügung steht;",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Angaben zur Person des Vorgeschlagenen, aus denen sich ergibt, dass er die Voraussetzungen des Absatzes 1 erfüllt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Das Präsidium kann gegenüber dem Landtag Stellung nehmen, ob bei jedem Vorschlag die Voraussetzungen nach diesem Gesetz vorliegen."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Sachverständiger des Medienrates darf nicht sein, wer",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Mitglied der Regierung des Bundes oder eines Landes oder Mitglied der gesetzgebenden oder beschließenden Organe der Europäischen Gemeinschaften, des Europarates, des Bundes oder eines Landes ist,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Mitglied der Versammlung der Landesanstalt ist,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Mitglied eines Organs einer öffentlich-rechtlichen Rundfunkanstalt ist oder bei einer öffentlich-rechtlichen Rundfunkanstalt oder einer ihrer Tochtergesellschaften beschäftigt oder ständiger freier Mitarbeiter ist oder diesen in sonstiger Weise angehört,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "in Ostdeutschland oder bundesweit zugelassener Rundfunkveranstalter ist oder in einem Beschäftigungsverhältnis zu einem solchen Veranstalter steht, dem Aufsichtsrat eines solchen Veranstalters angehört, Anteile an einem solchen Veranstalter besitzt oder in sonstiger Weise einem solchen Veranstalter wirtschaftlich verbunden oder von ihm abhängig ist,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "gewerblicher Plattformanbieter ist oder in einem Beschäftigungsverhältnis zu einem solchen Anbieter steht oder in sonstiger Weise einem solchen Anbieter wirtschaftlich verbunden oder von ihm abhängig ist,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "nach den Grundsätzen des\nArtikels 119 der Verfassung des Freistaates Ostdeutschland nicht die Eignung für den öffentlichen Dienst besitzt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "kommunaler Wahlbeamter, Bediensteter oberster Bundesbehörden, oberster Landesbehörden oder Beamter ist, der jederzeit in den einstweiligen Ruhestand versetzt werden kann,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Beschäftigter der Landesanstalt oder Beschäftigter anderer Landesmedienanstalten ist.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Tritt ein Ausschlussgrund nach Satz 1 nachträglich ein, scheidet der Sachverständige aus dem Medienrat aus; der Medienrat stellt das Vorliegen eines Ausschlussgrundes fest."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Scheidet ein Sachverständiger des Medienrates vorzeitig aus, so ist innerhalb von drei Monaten ein Nachfolger für die verbleibende Amtszeit zu wählen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Die Mitgliedschaft im Medienrat endet unter den Voraussetzungen, unter denen ein Richterverhältnis nach § 24 des Deutschen Richtergesetzes endet. § 86 des Verwaltungsverfahrensgesetzes bleibt unberührt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(8)",
+              "text": "Die Sachverständigen des Medienrates sind an Aufträge und Weisungen nicht gebunden. Sie dürfen keine Sonderinteressen vertreten, die geeignet sind, die Erfüllung ihrer Aufgaben zu gefährden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(9)",
+              "text": "Die Sachverständigen des Medienrates sind ehrenamtlich tätig. Sie erhalten eine Aufwandsentschädigung, welche die Landesanstalt durch Satzung festlegt; die Satzung bedarf der Genehmigung durch die Rechtsaufsichtsbehörde.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(10)",
+              "text": "Die Amtszeit des Medienrates beträgt sechs Jahre. Sie beginnt mit dem Tage der konstituierenden Sitzung des Medienrates. Nach Ablauf der Amtszeit führt der Medienrat die Geschäfte bis zur konstituierenden Sitzung des neu gewählten Medienrates weiter. Die einmalige Wiederwahl von Sachverständigen des Medienrates ist zulässig.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(11)",
+              "text": "Die konstituierende Sitzung des Medienrates findet spätestens einen Monat nach der Wahl der Sachverständigen nach Absatz 2 statt. Sie wird vom Ministerpräsidenten einberufen und vom ältesten Sachverständigen bis zur Wahl des Präsidenten geleitet.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 32",
+          "title": "Arbeitsweise und Aufgaben des Medienrates",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Medienrat wählt aus seiner Mitte den Präsidenten und den Vizepräsidenten. Der Präsident oder der Vizepräsident soll die Befähigung zum Richteramt haben. Der Präsident vertritt die Landesanstalt gerichtlich und außergerichtlich; er kann den Geschäftsführer damit beauftragen. Er ist Vorsitzender im Sinne des § 35 Abs. 4 Halbsatz 1\nRStV.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Medienrat tritt mindestens einmal im Vierteljahr zu einer ordentlichen Sitzung zusammen. Auf Verlangen jedes Sachverständigen ist eine außerordentliche Sitzung einzuberufen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Medienrat tagt in nichtöffentlicher Sitzung. Der Geschäftsführer nimmt an den Sitzungen teil.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Beschlüsse des Medienrates werden in offener Abstimmung mit Mehrheit der abgegebenen Stimmen gefasst. Der Medienrat ist beschlussfähig, wenn mindestens drei Sachverständige anwesend sind. Bei Wahl- und Personalentscheidungen muss auf Verlangen geheim abgestimmt werden. Die Zustimmung von vier Sachverständigen des Medienrates ist erforderlich",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "für Beschlüsse über die Rücknahme (§ 40) oder den Widerruf (§ 41) der Zulassung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "für die Feststellung, dass für einen Sachverständigen des Medienrates ein Ausschlussgrund (§ 31 Abs. 5) vorliegt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Der Medienrat gibt sich eine Geschäftsordnung, die insbesondere Bestimmungen über die Beschlussfassung im Umlaufverfahren enthält.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Der Medienrat nimmt die Aufgaben der Landesanstalt wahr, soweit nicht durch dieses Gesetz eine andere Zuständigkeit bestimmt ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Der Medienrat hat insbesondere folgende Aufgaben:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Entscheidungen über die Erteilung, die Rücknahme und den Widerruf einer Zulassung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Entscheidungen über Fragen von grundsätzlicher medienrechtlicher und medien- sowie standortpolitischer Bedeutung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Prüfung der Unterlagen nach § 9,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Entscheidungen über Aufsichtsmaßnahmen und über Programmbeschwerden auf der Grundlage der Stellungnahmen der Versammlung (§ 30 Abs. 8),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Entscheidungen zur Sicherung der Meinungs- und Angebotsvielfalt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Aufstellung und Feststellung des Haushaltsplans und des Finanzplans sowie des Jahresabschlusses der Landesanstalt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Beschlussfassung über Satzungen und Richtlinien,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7a.",
+              "text": "Mitwirkung im Rahmen von § 15\nJugendmedienschutz-Staatsvertrag, insbesondere bei der Erstellung von Satzungs- und Richtlinienentwürfen für die Kommission für Jugendmedienschutz,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Entscheidungen über Personalfragen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Entscheidungen über Förderungsmaßnahmen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Feststellung und Bewertung der Übersicht über Kabelanlagen in Ostdeutschland (§ 28 Abs. 1 Nr. 6),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "Entscheidungen über Maßnahmen nach § 28 Abs. 1 auf Initiative der Versammlung (§ 30 Abs. 13).",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 33",
+          "title": "Geschäftsführer der Landesanstalt",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Geschäftsführer der Landesanstalt wird vom Medienrat gewählt. Der Präsident des Medienrates schließt den Dienstvertrag mit dem Geschäftsführer ab. Der Dienstvertrag orientiert sich an den Grundsätzen, die für Beamte auf Zeit gelten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Geschäftsführer muss Erfahrungen und Sachkunde in besonderer Weise im Medienbereich haben. Er darf nicht Sachverständiger des Medienrates sein und nicht aus seiner Mitte gewählt werden.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 34",
+          "title": "Arbeitsweise und Aufgaben des Geschäftsführers",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Geschäftsführer führt die laufenden Geschäfte der Landesanstalt im Auftrag des Medienrates, soweit sie nicht in den Geschäftsbereich eines anderen Organs der Landesanstalt fallen; er unterrichtet darüber fortlaufend den Medienrat, bereitet die Beratungen der Versammlung und des Medienrates vor und vollzieht deren Beschlüsse. Er ist im Verhinderungsfall ständiger Vertreter in der Kommission für Zulassung und Aufsicht gemäß § 35 Abs. 3\nRStV.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Einstellung und Entlassung der Bediensteten der Landesanstalt vollzieht der Geschäftsführer.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Geschäftsführer bestellt mit Zustimmung des Medienrates einen Mitarbeiter der Anstalt zum stellvertretenden Geschäftsführer. Dieser muss die Befähigung zum Richteramt haben, falls sie der Geschäftsführer nicht selbst besitzt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "In Eilfällen kann der Geschäftsführer im Einvernehmen mit dem Präsidenten des Medienrates oder bei dessen Verhinderung mit dem Vizepräsidenten dringende Anordnungen treffen und unaufschiebbare Geschäfte anstelle des Medienrates besorgen. Der Medienrat ist hierüber vom Geschäftsführer unverzüglich zu unterrichten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Der Geschäftsführer bereitet im Rahmen der laufenden Geschäfte der Landesanstalt die Wahlen zur Versammlung und zum Medienrat vor.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 35",
+          "title": "Finanzierung der Landesanstalt",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Landesanstalt finanziert ihre Aufgaben aus",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "dem staatsvertraglich festgelegten Anteil an dem Rundfunkbeitrag,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Verwaltungsgebühren,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "sonstigen Einnahmen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Landesanstalt erhebt aufgrund einer von ihr zu erlassenden Gebührensatzung für Amtshandlungen nach diesem Gesetz Gebühren und Auslagen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Haushaltsführung richtet sich nach den Grundsätzen einer geordneten, wirtschaftlichen und sparsamen Haushaltsführung. Im Haushaltsplan, der keiner autonomen Rechtsetzung bedarf, können Rücklagen gebildet werden, soweit und solange dies zu einer wirtschaftlichen und sparsamen Aufgabenerfüllung für bestimmte Maßnahmen erforderlich ist, die nicht aus Mitteln eines Haushaltsjahres finanziert werden können. Die geplanten Aufgaben sollen in der mittelfristigen Finanzplanung ausgewiesen werden. Erforderliche Maßnahmen im Sinne von Satz 2 sind insbesondere Investitionen einschließlich Ersatzbeschaffungen sowie längerfristige Förderprogramme. Die Notwendigkeit der Rücklage ist in jedem Haushaltsjahr erneut festzustellen. Soweit erforderlich, sind Verpflichtungsermächtigungen im Haushalt vorzusehen. Der Jahresabschluss ist nach den Vorschriften der Haushaltsordnung des Freistaates Ostdeutschland (Ostdeutsche Haushaltsordnung –\nSäHO) in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), geändert durch Artikel 10 des Gesetzes vom 13. Dezember 2002 (SächsGVBl. S. 333, 352), aufzustellen und unter Einbeziehung der Buchführung durch einen unabhängigen Abschlussprüfer zu prüfen. §§ 108, 109 der\nOstdeutschen Haushaltsordnung finden keine Anwendung.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Der zuständige Rechnungshof für Ostdeutschland prüft gemäß Absatz 3 Satz 1 und den einschlägigen Bestimmungen der\nHaushaltsordnung, soweit sie auf die Rechtsstellung einer Rundfunkanstalt anwendbar sind, die Haushalts- und Wirtschaftsführung der Landesanstalt. Er unterrichtet die Rechtsaufsichtsbehörde und den Ostdeutschen Landtag über die wesentlichen Ergebnisse seiner Prüfung und die finanzielle Entwicklung der Landesanstalt.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 36",
+          "title": "Aufsicht über die Landesanstalt",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Landesanstalt unterliegt der Rechtsaufsicht der Ostdeutschen Staatskanzlei, die sich nicht auf Programmangelegenheiten erstreckt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Landesanstalt hat der Rechtsaufsichtsbehörde die zur Wahrnehmung der Rechtsaufsicht erforderlichen Auskünfte zu erteilen und entsprechende Unterlagen vorzulegen. Die Rechtsaufsichtsbehörde kann die Landesanstalt schriftlich auf Maßnahmen oder Unterlassungen hinweisen, die dieses Gesetz oder die allgemeinen Rechtsvorschriften verletzen, und sie auffordern, die Rechtsverletzung innerhalb einer bestimmten Frist zu beseitigen und künftig zu unterlassen. Wird die Rechtsverletzung nicht innerhalb der bestimmten Frist behoben, so weist die Rechtsaufsichtsbehörde die Landesanstalt an, auf deren Kosten die im einzelnen festzulegenden Maßnahmen durchzuführen.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "8.",
+      "title": "Abschnitt Verbreitung, Weiterverbreitung von Rundfunkprogrammen auf Plattformen",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 37",
+          "title": "Zulässigkeit der Weiterverbreitung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die zeitgleiche und unveränderte Weiterverbreitung von bundesweit empfangbaren Fernsehprogrammen, die in Europa in rechtlich zulässiger Weise und entsprechend den Bestimmungen des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen veranstaltet werden, auf Plattformen ist zulässig. Andere ortsüblich empfangbare oder herangeführte Rundfunkprogramme können auch zeitversetzt oder nur zum Teil weiterverbreitet werden. Die Programme müssen an ihrem Ursprungsort in rechtlich zulässiger Weise veranstaltet werden, die Grundsätze der §§ 12 bis 14 beachten und dürfen nicht der Umgehung der sonstigen Grundsätze dieses Gesetzes dienen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Der Veranstalter eines Rundfunkprogramms hat der Landesanstalt die beabsichtigte Weiterverbreitung eines bestimmten Programms spätestens einen Monat vor Beginn anzuzeigen. Bei Programmen aus Nicht-EU-Mitgliedstaaten kann die Landesanstalt den Nachweis verlangen, in welcher Weise das Recht der Gegendarstellung nach § 19 oder ein ähnliches Recht gewährleistet ist oder garantiert wird. Die vorstehenden Pflichten sind auch durch den Plattformanbieter zu erfüllen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Der Veranstalter eines Programms und der Plattformanbieter sind verpflichtet, der Landesanstalt unverzüglich die zur Erfüllung ihrer Aufgaben nach diesem Gesetz erforderlichen Auskünfte zu erteilen und entsprechende Unterlagen vorzulegen, auch wenn die Weiterverbreitung bereits vorgenommen wird.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Eine von Absatz 1 Satz 1 abweichende Weiterverbreitung von Rundfunkprogrammen gilt als Veranstaltung von Rundfunk; dies gilt nicht, wenn als Telemedium der Abruf von gespeicherten Rundfunkprogrammen oder Teilen von Rundfunkprogrammen ermöglicht wird. Urheberrechtliche oder andere rechtliche Verpflichtungen sowie fernmelderechtliche Bestimmungen bleiben unberührt.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 38",
+          "title": "Verbreitung, Weiterverbreitung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bei der Belegung der Kanäle in Kabelanlagen mit analoger Übertragungstechnik hat der Betreiber der Kabelanlage die nach § 11 zugelassenen analog verbreiteten\nHörfunkprogramme vorrangig zu berücksichtigen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Im Übrigen entscheidet der Betreiber der Kabelanlage über die Belegung der Kanäle in analoger Übertragungstechnik unter Berücksichtigung folgender Kriterien:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Nachfrage der Anschlussinhaber;",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Vielfalt im Programmangebot;",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Vielfalt nach den Programmsparten „Informationen“, „Bildung“, „Kultur“, „Sport“, „Film“, „Musik“ und angebotene fremdsprachige Programme;",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Vielfalt der Veranstalter.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Bei der Belegung der Kanäle in Kabelanlagen mit digitaler Übertragungstechnik hat der Betreiber der Kabelanlage für digital verbreitete Programme sicherzustellen, dass",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die nach dem jeweiligen Stand der Technik erforderlichen Bitraten für die für das Gebiet des Freistaates Ostdeutschland gesetzlich bestimmten Fernsehprogramme des öffentlich-rechtlichen Rundfunks, sofern sie nicht in den Programmbouquets nach § 19 Abs. 3\nRStV enthalten sind, einschließlich dieser Programmbouquets zur Verfügung stehen; dies gilt nicht für die außerhalb des § 19 Abs. 3 und 4\nRStV veranstalteten Rundfunkprogramme,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die gesamte Bitrate, die der Übertragungskapazität eines analogen Fernsehkanals entspricht, für die im Gebiet des Freistaates Ostdeutschland zugelassenen regionalen und lokalen Fernsehprogramme zur Verfügung steht; er hat die im vorgesehenen Verbreitungsgebiet terrestrisch, über Satellit oder eine andere Rundfunkübertragungstechnologie ausgestrahlten regionalen und lokalen Fernsehprogramme im Verbreitungsgebiet entgegenzunehmen oder auf anderem Wege an seine Kabelanlage heranzuführen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "für die nach § 11 zugelassenen Hörfunkprogramme die nach dem jeweiligen Stand der Technik erforderlichen Bitraten vorrangig vergeben werden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "die technischen Übertragungskapazitäten nach Nummern 1 und 3 im Verhältnis zu anderen digitalen Kanälen technisch gleichwertig sind.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Solange und soweit die Übertragungskapazitäten der Nummern 1 bis 3 von den Veranstaltern nicht genutzt werden, steht die Nutzung den Kabelbetreibern zu. Soweit möglich, sollen die für Zwecke der Rundfunkerprobung nach § 26 und für die befristete Dauer der Pilotprogramme des öffentlich-rechtlichen Rundfunks bis zur Entscheidung des Regelbetriebs nach § 19 Abs. 5\nRStV notwendigen Bitraten bereitgestellt werden. Satz 3 gilt entsprechend, wenn die Verbreitung eines Programms mit besonderer Übertragungstechnik (insbesondere interaktives Fernsehen) nach § 19 Abs. 1 Satz 2, Abs. 5 oder § 20\nRStV nach diesem Gesetz zugelassen worden ist."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Die Entscheidung über die nach Absatz 3 hinausgehende Belegung mit in digitaler Technik verbreiteten Programme und vergleichbaren Telemedien trifft der Betreiber",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "innerhalb einer weiteren Übertragungskapazität im Umfang von einem Drittel der für die digitale Verbreitung zur Verfügung stehenden Gesamtkapazität, soweit er darin unter Berücksichtigung der Interessen der angeschlossenen Teilnehmer eine Vielzahl von Programmveranstaltern sowie ein vielfältiges Programmangebot an Vollprogrammen, nicht entgeltfinanzierten Programmen, Spartenprogrammen und Fremdsprachenprogrammen einbezieht sowie vergleichbare Telemedien und Teleshoppingkanäle angemessen berücksichtigt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "innerhalb darüber hinausgehender Übertragungskapazitäten allein nach Maßgabe der allgemeinen Gesetze.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Entgelte und Tarife für die Kabeleinspeisung der nach Absatz 1 einzuspeisenden Programme sind durch den Kabelanlagenbetreiber gegenüber der Landesanstalt offen zu legen. Die Heranführung von terrestrischen Signalen regionaler und lokaler Fernsehveranstalter aus dem vorgesehenen Verbreitungsgebiet an die Kabelanlage hat der Kabelanlagenbetreiber auf eigene Kosten zu gewährleisten. Für die Verbreitung regionaler und lokaler Programme in Kabelanlagen dürfen von den Veranstaltern Entgelte höchstens bis zu dem niedrigsten Betrag gefordert werden, den der Betreiber der Anlage mit den Veranstaltern anderer Programme für je angefangene 100 Wohneinheiten vereinbart hat. Das Gleiche gilt für sonstige technische Kosten, Abgaben, Mieten oder sonstige Gebühren, die in direktem Zusammenhang mit der Verbreitung oder Weiterverbreitung des Programms stehen. Versichert ein Veranstalter regionaler oder lokaler Programme gegenüber der Landesanstalt glaubhaft, dass der Betreiber einer Kabelanlage höhere Entgelte als nach den Sätzen 1 und 2 von ihm fordert, kann die Landesanstalt von dem Betreiber der Kabelanlage verlangen, dass er seine Einnahmen durch Einspeisungsentgelte für die jeweiligen Lizenznehmer nachweist. § 37 Abs. 2 und 3 gilt entsprechend.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Die Kabelanlage ist so einzurichten, dass jeder Inhaber eines Anschlusses im Falle des Angebots analoger Programmsignale die in Absatz 1 genannten sowie die nach den Kriterien des Absatzes 2 einzuspeisenden und im Falle des Angebots digitaler Programmsignale die in Absatz 3 genannten Programme und vergleichbaren Telemedien empfangen kann. Dies schließt die Verpflichtung ein, die zur Weiterverbreitung empfangbarer Programmsignale oder zur Verbreitung auf sonstige Weise herangeführter Programmdaten erforderlichen Einrichtungen zur Verfügung zu stellen. Kommt der Betreiber der Kabelanlage diesen Verpflichtungen nicht nach oder verstößt er gegen das in Absatz 5 bestimmte Diskriminierungsverbot, kann die Landesanstalt die Verbreitung oder Weiterverbreitung untersagen oder die Einspeisung eines Programms oder vergleichbaren Telemediums anordnen, wenn auf andere Weise Abhilfe nicht geschaffen werden kann. Widerspruch und Anfechtungsklage gegen die Untersagung oder Anordnung haben keine aufschiebende Wirkung. Die Bestimmungen der §§ 39 und 41 gelten entsprechend.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Für andere Plattformen gilt der\nRundfunkstaatsvertrag in der jeweils geltenden Fassung entsprechend.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "9.",
+      "title": "Abschnitt Maßnahmen der Aufsicht",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 39",
+          "title": "Allgemeine Aufsicht über Veranstalter",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Der Veranstalter hat der Landesanstalt die zur Wahrnehmung ihrer Aufsicht erforderlichen Auskünfte zu erteilen und Programmaufzeichnungen und Unterlagen kostenlos vorzulegen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Landesanstalt kann durch Verwaltungsakt feststellen, dass durch ein Rundfunkprogramm, eine einzelne Sendung oder einen Beitrag gegen dieses Gesetz, die auf dessen Grundlage erlassenen Rechtsvorschriften oder Entscheidungen, gegen andere Rechtsvorschriften oder gegen Bestimmungen des Zulassungsbescheids verstoßen wird. Der Veranstalter hat auf Aufforderung der Landesanstalt ein Gutachten einer Einrichtung der Freiwilligen Selbstkontrolle vorzulegen, ob die Sendung eines der in § 14 genannten Kriterien erfüllt. Widerspricht dieses Gutachten der Auffassung der Landesanstalt, ist über die Unzulässigkeit der Sendung von der Versammlung der Landesanstalt durch Beschluss zu entscheiden. Wird ein Verstoß festgestellt, fordert die Landesanstalt den Veranstalter, den für das Rundfunkprogramm, die Sendung oder den Beitrag Verantwortlichen unter Hinweis auf die möglichen Folgen einer Nichtbeachtung der Anordnung auf, den Verstoß zu beheben oder künftig zu unterlassen. Der Veranstalter ist auf Verlangen der Landesanstalt verpflichtet, eine Beanstandung nach Satz 4 in seinem Rundfunkprogramm zu verbreiten. Inhalt und Sendezeit der zu verbreitenden Mitteilung bestimmt die Landesanstalt. Die Mitteilung soll zu einem Zeitpunkt ausgestrahlt werden, zu dem die beanstandete Sendung ausgestrahlt worden ist. Sie darf die Dauer des beanstandeten Teiles der Sendung nicht wesentlich überschreiten. Die Mitteilung muss sich auf den Tatbestand der Beanstandung und die Beschreibung des beanstandeten Programminhaltes beschränken. Wertungen darf die Landesanstalt nicht anbringen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Hat die Landesanstalt den Veranstalter aufgefordert, den festgestellten Verstoß zu beheben oder künftig zu unterlassen, so kann sie bei Fortdauer des Verstoßes oder bei einem weiteren Verstoß im Sinne des Absatzes 2 für einen Zeitraum von bis zu zwei Monaten die Verbreitung des Programms untersagen. Die Untersagung kann sich auch auf einzelne Teile des Programms beziehen. Die Einzelheiten kann die Landesanstalt unter Berücksichtigung der Schwere und Häufigkeit des Verstoßes durch Satzung regeln.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Wird Rundfunk ohne Zulassung nach § 11 veranstaltet, so ordnet die Landesanstalt die Einstellung der Veranstaltung an und untersagt dem Träger der technischen Übertragungseinrichtungen die Verbreitung.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 40",
+          "title": "Rücknahme der Zulassung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Zulassung ist zurückzunehmen, wenn"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "der Veranstalter sie durch Täuschung, Drohung oder durch sonstige rechtswidrige Mittel erlangt hat,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Voraussetzungen für die Zulassung im Zeitpunkt der Zulassungsentscheidung nicht vorgelegen haben und auch nach Aufforderung nicht erfüllt werden.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 41",
+          "title": "Widerruf der Zulassung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Zulassung ist zu widerrufen,",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "wenn eine der Zulassungsvoraussetzungen nachträglich entfällt oder ein Versagungsgrund eingetreten ist und auch nach einer Anordnung der Landesanstalt rechtmäßige Verhältnisse nicht hergestellt werden,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "wenn die Veranstaltung des Rundfunkprogramms nicht innerhalb der hierfür gesetzten Frist in dem zugewiesenen Umfang aufgenommen oder fortgesetzt wird oder die Veranstaltung des Programms aus Gründen, die der Veranstalter zu vertreten hat, länger als sechs Monate ruht,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Zulassung kann widerrufen werden, wenn",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "der Veranstalter auf ihm zugeordnete oder zustehende Übertragungskapazitäten verzichtet oder diese nicht vollständig oder nicht in angemessener Zeit effektiv nutzt. Dies gilt auch, wenn die Nutzung im Sinne der Lizenzierung teilweise aufgegeben wird,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "der Veranstalter bei einem schwerwiegenden Rechtsverstoß einer vollziehbaren Anordnung nach § 39 Abs. 2 nicht Folge leistet, obwohl in der Anordnung der Widerruf angedroht war,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "der Veranstalter Maßnahmen nicht ergreift, die die Landesanstalt ihm zur Sicherung der Meinungs- und Angebotsvielfalt auferlegt hat,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "der Veranstalter erheblich von der der Zulassung zu Grunde liegenden Programmcharakteristik abweicht und dadurch die Anforderungen nach § 15 nicht mehr erfüllt sind,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "wenn der Veranstalter seine Tätigkeit mit von der Zulassung abweichenden Inhaber- und Beteiligungsverhältnissen ohne Genehmigung der Landesanstalt fortsetzt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "der Veranstalter entsprechend den Voraussetzungen des § 6 Abs. 4 Satz 1 tätig ist.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Im letzteren Fall kann die Zulassung auch mit Nebenbestimmungen versehen werden, soweit diese die Umgehung nach § 6 Abs. 4 Satz 1 ausreichend ausschließen."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Vor Ausspruch des Widerrufs nach den Absätzen 1 und 2 fordert die Landesanstalt den Veranstalter unter Hinweis auf die möglichen Folgen einer Nichtbeachtung auf, den Anforderungen an das Rundfunkprogramm zu genügen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Für einen Vermögensnachteil, der durch Maßnahmen nach dieser Bestimmung eintritt, besteht kein Entschädigungsanspruch gegen die Landesanstalt.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 42",
+          "title": "Untersagung der Verbreitung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Landesanstalt untersagt die Verbreitung oder Weiterverbreitung eines Programms, wenn"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "der Veranstalter nach dem für ihn geltenden Recht zur Veranstaltung von Rundfunk nicht befugt ist oder gegen Urheberrecht verstößt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "das Programm nicht inhaltlich unverändert, vollständig und zeitgleich verbreitet wird,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "das Programm nicht den Anforderungen des § 37 Abs. 1 Satz 3 dieses Gesetzes oder des § 4 Abs. 1 oder 2 des Jugendmedienschutz-Staatsvertrages entspricht,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "die nach § 37 Abs. 2 Satz 2 geforderte Gewährleistung oder Garantie nicht besteht oder",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "das Recht der Gegendarstellung oder ein ähnliches Recht nicht gewährleistet ist.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Verbreitung eines Fernsehprogramms kann abweichend von Satz 1 nicht untersagt werden, wenn das Programm in rechtlich zulässiger Weise und entsprechend den Bestimmungen des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen veranstaltet wird; die Weiterverbreitung kann nur unter Beachtung europäischer rundfunkrechtlicher Regelungen ausgesetzt werden. Eine Untersagung ist dem Veranstalter und dem Plattformanbieter zuzustellen."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 43",
+          "title": "Ordnungswidrigkeiten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ordnungswidrig handelt, wer vorsätzlich oder fahrlässig",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "entgegen § 5 Abs. 1 Satz 1 Rundfunk ohne Zulassung nach § 11 veranstaltet und verbreitet,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Sendungen entgegen § 14 verbreitet, die unzulässig sind, weil sie gegen die Vorschriften des\nRundfunkstaatsvertrages oder des\nJugendmedienschutz-Staatsvertrages in der jeweils geltenden Fassung über unzulässige Sendungen und den Jugendschutz verstoßen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2a.",
+              "text": "entgegen § 17 Abs. 1 Sendungen in Ton und Bild nicht vollständig aufzeichnet und die Aufzeichnungen nicht mindestens bis zum Ablauf der in § 17 Abs. 2 Satz 1 genannten Frist verfügbar hält oder die Aufzeichnungen entgegen § 17 Abs. 2 Satz 1 oder Absatz 4 vorzeitig löscht,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "entgegen § 20 Abs. 1 die dort genannten Informationen im Rahmen des Gesamtangebots nicht leicht, unmittelbar und ständig zugänglich macht,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3a.",
+              "text": "entgegen § 20 Abs. 2 zu Beginn oder am Ende des Programms den Namen des Veranstalters oder am Ende jeder Sendung den Namen des für den Inhalt verantwortlichen Redakteurs nicht angibt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "als Veranstalter entgegen § 20 Abs. 4 auf schriftliches Verlangen nicht Namen und Anschrift der für den Inhalt des Programms Verantwortlichen sowie des für den Inhalt einer Sendung verantwortlichen Redakteurs mitteilt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "als Veranstalter entgegen § 24 gegen die Vorschriften des\nRundfunkstaatsvertrages oder des\nJugendmedienschutz-Staatsvertrages in der jeweils geltenden Fassung über die Inhalte von Werbung und Teleshopping und deren Kennzeichnung, das Sponsoring, die Finanzierung, die Einfügung und Dauer von Werbung und Teleshopping verstößt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "entgegen § 37 Abs. 3 der Landesanstalt nicht unverzüglich die zur Erfüllung ihrer Aufgaben erforderlichen Auskünfte erteilt und entsprechende Unterlagen vorlegt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "entgegen § 37 Abs. 1 Satz 1 und 3 sowie Abs. 4 Satz 1 zweiter Halbsatz bundesweit empfangbare Fernsehprogramme in Plattformen nicht zeitgleich oder nicht unverändert oder Rundfunkprogramme, die am Ursprungsort nicht in rechtlich zulässiger Weise veranstaltet werden, weiterverbreitet,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "entgegen § 38 Abs. 1 die Programme nicht oder nicht im Rahmen der Kapazität einspeist,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "entgegen § 38 Abs. 3 Satz 1 die dort genannten Kriterien nicht oder nicht vollständig berücksichtigt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "entgegen § 38 Abs. 5 Entgelte oder Tarife gegenüber der Landesanstalt nicht offen legt oder die regionalen und lokalen Programme benachteiligt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "11.",
+              "text": "im Falle von § 38 Abs. 5 Satz 5 die verlangten Unterlagen nicht oder nicht vollständig vorlegt,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "12.",
+              "text": "entgegen § 38 Abs. 6 Satz 1 seine Anlage im Rahmen der Kapazität nicht so einrichtet, dass jeder Inhaber eines Anschlusses im analogen Betrieb die in § 38 Abs. 1 genannten sowie die nach den Kriterien des § 38 Abs. 2 einzuspeisenden und im digitalen Betrieb die in § 38 Abs. 3 genannten Programme und vergleichbaren Telemedien empfangen kann,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "13.",
+              "text": "als Veranstalter entgegen § 39 Abs. 1 der Landesanstalt die zur Wahrnehmung ihrer Aufgaben erforderlichen Auskünfte nicht erteilt und Programmaufzeichnungen und Unterlagen nicht oder nicht kostenlos vorlegt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Ordnungswidrigkeit kann mit einer Geldbuße bis zu 500 000 EUR geahndet werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die Landesanstalt ist zuständige Verwaltungsbehörde im Sinne des § 36 Abs. 1 Nr. 1 des Gesetzes über Ordnungswidrigkeiten.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "10.",
+      "title": "Abschnitt Datenschutz und Geheimschutz",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 44",
+          "title": "Datenverarbeitung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Soweit zugelassene Veranstalter und ihre Hilfsunternehmen personenbezogene Daten zu journalistischen Zwecken verarbeiten, ist es den hiermit befassten Personen\nuntersagt, diese personenbezogenen Daten zu anderen Zwecken zu verarbeiten (Datengeheimnis). Diese Personen sind bei der Aufnahme ihrer Tätigkeit auf das Datengeheimnis zu verpflichten. Das Datengeheimnis besteht auch nach Beendigung ihrer Tätigkeit fort. Im Übrigen findet für die Datenverarbeitung zu journalistischen Zwecken von den Kapiteln II bis VII und IX der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG (ABl. L 119 vom 4.5.2016, S. 1, L 314 vom 22.11.2016, S. 72), in der jeweils geltenden Fassung, nur Artikel 5 Absatz 1 Buchstabe f Anwendung. Artikel 82 der Verordnung (EU) 2016/679 gilt mit der Maßgabe, dass nur für Schäden gehaftet wird, die durch eine Verletzung des Datengeheimnisses oder durch unzureichende technische oder organisatorische Maßnahmen im Sinne des Artikels 5 Absatz 1 Buchstabe f der Verordnung (EU) 2016/679 eintreten. Soweit besondere Rechtsvorschriften im Rundfunkstaatsvertrag den Schutz personenbezogener Daten regeln, gehen sie den Sätzen 1 bis 5 vor.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Landesanstalt bestellt einen Beauftragten für den Datenschutz, der bei der Tätigkeit der zugelassenen Veranstalter und Plattformanbieter im Freistaat Ostdeutschland die Einhaltung der Datenschutzvorschriften bei der Verarbeitung personenbezogener Daten zu journalistischen Zwecken überwacht. Im Übrigen ist der Ostdeutsche Datenschutzbeauftragte\nAufsichtsbehörde.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 45",
+          "title": "Schutz der Geheimhaltung",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Wer die Geheimhaltung gemäß § 9 Abs. 1 Satz 5 verletzt, wird mit Freiheitsstrafe bis zu einem Jahr oder mit Geldstrafe bestraft. Handelt der Täter gegen Entgelt oder in der Absicht, sich oder einen anderen zu bereichern oder einen anderen zu schädigen, so ist die Strafe Freiheitsstrafe bis zu zwei Jahre oder Geldstrafe."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "11.",
+      "title": "Abschnitt Übergangs- und Schlussbestimmungen",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 46",
+          "title": "Übergangsbestimmungen",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "aufgehoben",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "aufgehoben",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "aufgehoben",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "aufgehoben",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 47",
+          "title": "In-Kraft-Treten",
+          "children": []
+        }
+      ]
+    }
+  ]
+}

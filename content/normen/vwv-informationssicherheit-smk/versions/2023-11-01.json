@@ -1,0 +1,992 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums für Kultus zur Gewährleistung der Informationssicherheit im Geschäftsbereich",
+  "shortTitle": "VwV Informationssicherheit SMK",
+  "abbr": "VwV Informationssicherheit SMK",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "VwV Informationssicherheit SMK vom 27. Januar 2016 (SächsABl. S. 196), die durch Ziffer I der Verwaltungsvorschrift vom 12. Mai 2020 (MBl. SMK S. 80) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2025 (SächsABl. SDr. S. S 255)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 16831.2, gültig ab 2020-06-05",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/16831.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/16831",
+      "retrievedAt": "2026-09-03",
+      "sha256": "781dd0dbce17219c1c3aea9b750207742de51e99f8efe1798b1829966be43a5c",
+      "lawId": "16831",
+      "sourceValidFrom": "2020-06-05",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Regelungsgegenstand",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Verwaltungsvorschrift regelt die Strategien und Organisationsstrukturen, die für die Initiierung und Etablierung eines ganzheitlichen Informationssicherheitsprozesses im Geschäftsbereich des Staatsministeriums für Kultus erforderlich sind. Die allgemeinen Grundsätze und Ziele der Informationssicherheit, die Verantwortlichkeiten und die Informationssicherheitsorganisation sind in der Anlage ausgeführt."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Geltungsbereich",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Verwaltungsvorschrift gilt nach Maßgabe der Nummer 2.1 der Anlage für die dort genannten Behörden und Einrichtungen. Die Vorgaben der Anlage sind entsprechend der jeweiligen Aufgabenverantwortung umzusetzen und auszugestalten."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Inkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am Tag nach ihrer Veröffentlichung in Kraft."
+        }
+      ]
+    },
+    {
+      "type": "annex",
+      "label": "Anlage",
+      "title": "Leitlinie Informationssicherheit SMK",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Inhaltsverzeichnis:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Einleitung",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Begriffsbestimmungen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.1",
+          "text": "Geltungsbereich und Begriffe",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.2",
+          "text": "Informationssicherheitsmanagementsystem (ISMS)",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.3",
+          "text": "Informationseigentümer",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.4",
+          "text": "Sicherheitsdomänen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Ziele der Informationssicherheit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Grundsätze",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.1",
+          "text": "Bedeutung der Informationssicherheit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.2",
+          "text": "Standards des Bundesamtes für Sicherheit in der Informationstechnik",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.3",
+          "text": "Informationssicherheit als Leistungsmerkmal",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.4",
+          "text": "Subsidiarität",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.5",
+          "text": "Beteiligung und Information der Beschäftigten",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Rollen und Verantwortlichkeiten",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.1",
+          "text": "Behördenleitung und Führungskräfte",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.2",
+          "text": "Beschäftigte",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.3",
+          "text": "Externe Dienstleister",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.4",
+          "text": "Beauftragter für Informationssicherheit (BfIS)",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.5",
+          "text": "Informationssicherheits-Management-Team (ISM-Team)",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "IT-Sicherheitskonzeptionen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Durchsetzung der Leitlinie Informationssicherheit SMK",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Änderungsmanagement",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Einleitung",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Möglichkeiten der Informationstechnik (IT) bilden im Geschäftsbereich des Staatsministeriums für Kultus zunehmend die Grundlage für die Bewältigung der zu erfüllenden Fachaufgaben und der behördlichen Abläufe. Ohne den Einsatz der IT ist ein effizienter Verwaltungsbetrieb heute nicht mehr denkbar."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Mit der Nutzung der Informationstechnologie gehen jedoch auch erhebliche Gefährdungen einher. Jede Störung des IT-Betriebes kann Geschäftsprozesse behindern und die Leistungsfähigkeit der Verwaltung negativ beeinflussen. Beeinträchtigungen können zum Beispiel durch vorsätzliche Angriffe von innen und außen, fahrlässiges Handeln, Nachlässigkeiten, Ignoranz und Unkenntnis entstehen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Vor diesem Hintergrund muss es das Ziel sein, alle IT-unterstützten Geschäftsprozesse sowie alle im Geschäftsbereich des Staatsministeriums für Kultus vorhandenen Informationen vor den genannten Gefährdungen zu schützen. Nur durch die Gewährleistung eines funktionierenden und sicheren IT-Betriebes können die dem Staatsministerium für Kultus, seinen nachgeordneten Behörden und den Schulen in Landesträgerschaft übertragenen Aufgaben in der erforderlichen Qualität erfüllt werden. Hierfür sind die Initiierung und Etablierung eines ganzheitlichen Informationssicherheitsprozesses erforderlich. Dieser erstreckt sich nicht nur auf die Rahmenbedingungen elektronischer Datenverarbeitungsprozesse, sondern auch auf organisatorische Maßnahmen und die Ausgestaltung fachlich-inhaltlicher Geschäftsprozesse."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die vorliegende Leitlinie beschreibt die vom Staatsministerium für Kultus angestrebten Informationssicherheitsziele, die Organisationsstrukturen und die verfolgte Sicherheitsstrategie, die für die Initiierung und Etablierung eines ganzheitlichen Informationssicherheitsprozesses erforderlich sind. Sie gilt in allen Behörden und Einrichtungen des Geschäftsbereichs des Staatsministeriums für Kultus."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Regelungen dieser Leitlinie folgen den Standards des Bundesamtes für Sicherheit in der Informationstechnik (BSI). Sie entsprechen zudem den Festlegungen der VwV Informationssicherheit vom 7. September 2011 (SächsABl. S. 1294), die durch die Verwaltungsvorschrift vom 27. Januar 2015 (SächsABl. S. 214) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 16. Dezember 2015 (SächsABl. SDr. S. S 342)."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Behördenleitung des Staatsministeriums für Kultus bekennt sich hiermit zu ihrer Gesamtverantwortung und unterstützt alle angemessenen und geeigneten Maßnahmen zur Etablierung, Aufrechterhaltung und kontinuierlichen Verbesserung der Informationssicherheit."
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Begriffsbestimmungen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.1",
+          "text": "Geltungsbereich und Begriffe",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die vorliegende Leitlinie gilt dem Schutz aller geschäftsrelevanten Informationen und deren Verarbeitung im Staatsministerium für Kultus und den nachgeordneten Behörden und Einrichtungen für:"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "das Staatsministerium für Kultus",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "das Landesamt für Schule und Bildung",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "das Ostdeutsche Landesgymnasium Sankt Afra zu Meißen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "das Ostdeutsche Landesgymnasium für Sport Leipzig",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "das Ostdeutsche Landesgymnasium für Musik Carl Maria von Weber",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "die Ostdeutsche Landesschule für Gehörlose Samuel Heinicke",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "die Ostdeutsche Landesschule für Blinde und Sehbehinderte mit dem Landeszentrum.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Sofern einzelne Beschäftigte im Rahmen von Telearbeit tätig sind und zu Hause oder auf Dienstreisen Daten verarbeiten oder Datenträger mit sich führen, gelten die Festlegungen dieser Leitlinie ebenfalls."
+        },
+        {
+          "type": "paragraphText",
+          "text": "In den öffentlichen Schulen sind auch die Arbeitsplätze betroffen, die in das Ostdeutsche Verwaltungsnetz eingebunden sind. Die Schulleiter öffentlicher Schulen haben daher dafür Sorge zu tragen, dass die Bestimmungen dieser Leitlinie auch von solchen Bediensteten an den öffentlichen Schulen beachtet werden, die beauftragt sind, Aufgaben im Zusammenhang mit SaxSVS zu erfüllen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Informationssicherheit bezeichnet einen Zustand, in dem die Risiken für die Sicherheitsziele Vertraulichkeit, Integrität und Verfügbarkeit von Informationen und IT durch angemessene Maßnahmen auf ein tragbares Maß reduziert sind. Die Informationssicherheit umfasst neben der Sicherheit der IT-Systeme und der darin gespeicherten Daten auch die Sicherheit von nicht elektronisch verarbeiteten und gespeicherten Daten und Informationen, zum Beispiel Papierdokumente."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Dabei bedeuten die drei Grundwerte der Informationssicherheit (Definition nach BSI):"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Verfügbarkeit: Die Verfügbarkeit von Dienstleistungen, Funktionen eines IT-Systems, IT-Anwendungen oder IT-Netzen oder auch von Informationen ist vorhanden, wenn diese den Benutzern stets wie gewünscht zur Verfügung stehen. Verfügbarkeit ist ein Grundwert der IT-Sicherheit.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Vertraulichkeit: Vertraulichkeit ist der Schutz vor unbefugter Preisgabe von Informationen. Vertrauliche Daten und Informationen dürfen ausschließlich Befugten in der zulässigen Weise zugänglich sein. Vertraulichkeit ist ein Grundwert der IT-Sicherheit.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Integrität: Integrität bezeichnet die Sicherstellung der Korrektheit (Unversehrtheit) von Daten und der korrekten Funktionsweise von Systemen. Wenn der Begriff Integrität auf „Daten“ angewendet wird, drückt er aus, dass die Daten vollständig und unverändert sind. In der Informationstechnik wird er in der Regel aber weiter gefasst und auf „Informationen“ angewendet. Der Begriff „Information“ wird dabei für „Daten“ verwendet, denen je nach Zusammenhang bestimmte Attribute wie zum Beispiel Autor oder Zeitpunkt der Erstellung zugeordnet werden können. Der Verlust der Integrität von Informationen kann daher bedeuten, dass diese unerlaubt verändert, Angaben zum Autor verfälscht oder Zeitangaben zur Erstellung manipuliert wurden. Integrität ist ein Grundwert der IT-Sicherheit.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Beschäftigte im Sinne dieser Leitlinie sind alle im Geschäftsbereich des Staatsministeriums für Kultus tätigen Beamtinnen/Beamten, Tarifbeschäftigten (m/w/d), Auszubildenden (m/w/d) und Praktikantinnen/Praktikanten."
+        },
+        {
+          "type": "item",
+          "label": "2.2",
+          "text": "Informationssicherheitsmanagementsystem (ISMS)",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Unter einem ISMS wird der Teil des gesamten Managementsystems verstanden, der auf Basis eines Geschäftsrisikoansatzes die Entwicklung, Implementierung, Durchführung, Überwachung, Überprüfung, Aufrechterhaltung und Verbesserung der Informationssicherheit abdeckt. Das Managementsystem umfasst dabei Strukturen, Richtlinien, Planungsaktivitäten, Verantwortlichkeiten, Praktiken, Verfahren, Prozesse und Ressourcen der Organisation."
+        },
+        {
+          "type": "item",
+          "label": "2.3",
+          "text": "Informationseigentümer",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Zu jedem IT-unterstützten Geschäftsprozess und jeder Fachanwendung muss ein Ansprechpartner benannt werden, der als so genannter Informationseigentümer für alle Fragen der Informationsverarbeitung und der Informationssicherheit im Rahmen dieses Geschäftsprozesses verantwortlich ist."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Der Verantwortliche für einen Geschäftsprozess muss als Informationseigentümer sicherstellen, dass die für seinen Geschäftsprozess relevanten Sicherheitsmaßnahmen dem Sicherheits- und Kontrollumfang der Schutzbedarfsfeststellung entsprechen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Wird kein entsprechender Verantwortlicher für IT-unterstützte Geschäftsprozesse bestimmt, ist automatisch die Behörden- beziehungsweise Einrichtungsleitung der Informationseigentümer."
+        },
+        {
+          "type": "item",
+          "label": "2.4.",
+          "text": "Sicherheitsdomänen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Informations-Sicherheitsrichtlinien beziehungsweise Sicherheitskonzepte beziehen sich immer auf eine bestimmte Sicherheitsdomäne. Als Sicherheitsdomäne wird dabei ein logisch, organisatorisch oder räumlich zusammengehöriger Bereich mit einheitlichen Sicherheitsanforderungen und/oder einheitlicher Sicherheitsadministration bezeichnet. Insbesondere bilden das Staatsministerium für Kultus, die nachgeordneten Behörden und Einrichtungen (Schulen in Landesträgerschaft) jeweils eigene Sicherheitsdomänen."
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Ziele der Informationssicherheit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Allgemeingültige Sicherheitsziele innerhalb des Staatsministeriums für Kultus und der nachgeordneten Behörden und Einrichtungen sind:"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Zuverlässige Unterstützung der Geschäftsprozesse durch die IT und Sicherstellung der Kontinuität der Arbeitsabläufe innerhalb der Sicherheitsdomäne,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Realisierung sicherer und vertrauenswürdiger E-Government-Verfahren,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Erhaltung der in Technik, Informationen, Arbeitsprozesse und Wissen investierten Werte,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Sicherung der hohen, möglicherweise unwiederbringlichen Werte der verarbeiteten Informationen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Erhalt beziehungsweise Gewährleistung der aus gesetzlichen Vorgaben resultierenden Anforderungen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Gewährleistung des informationellen Selbstbestimmungsrechts des Betroffenen bei der Verarbeitung personenbezogener Daten,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Reduzierung der im Schadensfall entstehenden Kosten sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Wahrung besonderer Dienst- oder Amtsgeheimnisse.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Für alle IT-Verfahren sind die Zeiten, in denen sie verfügbar sein sollen, zu bestimmen. Für regelmäßige Betriebsunterbrechungen, die aus technischen, organisatorischen oder sicherheitsrelevanten Gründen notwendig sind, sind Zeiten festzulegen. Sämtliche Daten, die erhoben, gespeichert oder verarbeitet werden, sind vertraulich zu behandeln und jederzeit vor unbefugtem Zugriff zu schützen. Informationen dürfen nur den Berechtigten zur Verfügung stehen. Berechtigt ist jeder Beschäftigte, soweit er den Zugriff auf die Informationen zur Erfüllung seiner dienstlichen Aufgaben benötigt. Informationen sind gegen unbeabsichtigte Veränderung und vorsätzliche Verfälschung zu schützen. Alle IT-Verfahren sollen stets aktuelle und vollständige Informationen liefern, eventuelle verfahrens- oder informationsverarbeitungsbedingte Einschränkungen sind zu dokumentieren."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Jede Behörde beziehungsweise Einrichtung kann für ihren Bereich weitere angepasste Informationssicherheitsziele aufstellen."
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Grundsätze",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.1",
+          "text": "Bedeutung der Informationssicherheit",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Im Geschäftsbereich des Staatsministeriums für Kultus ist es das Ziel, dass alle technischen Einrichtungen, die der Erstellung, Speicherung und Übertragung von Daten dienen, so ausgewählt, integriert und konfiguriert sind, dass für die auf ihnen verarbeiteten Daten zu jeder Zeit und unter allen Umständen das angemessene Maß an Vertraulichkeit, Integrität und Verfügbarkeit sichergestellt ist. Dies gilt auch für die Orte zur Aufbewahrung der Medien zur Datensicherung. Die Einhaltung dieser Anforderungen ist unabdingbarer Bestandteil jedes Einsatzes von Informations- und Kommunikationstechnik im Geschäftsbereich des Staatsministeriums für Kultus und ist durch geeignete Maßnahmen sicherzustellen."
+        },
+        {
+          "type": "item",
+          "label": "4.2",
+          "text": "Standards des Bundesamtes für Sicherheit in der Informationstechnik",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Zur Erreichung und Aufrechterhaltung eines angemessenen und ausreichenden Informationssicherheitsniveaus sind für die Behörden und Einrichtungen des Geschäftsbereichs des Staatsministeriums für Kultus die Handlungsanweisungen des Bundesamtes für Sicherheit in der Informationstechnik (BSI) in ihrer jeweils geltenden Fassung maßgeblich (www.bsi.bund.de). Diese umfassen insbesondere die Anwendung der aktuellen BSI-Standards sowie der IT-Grundschutz-Kataloge."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Sicherheitskonzepte sind entsprechend der IT-Grundschutz-Vorgehensweise (BSI Standard 100-2) zu erstellen. Zeichnet sich im Rahmen der Prüfung ein über den Grundschutz hinausgehender Schutzbedarf ab, ist dieser anschließend mit einer Risikoanalyse auf der Basis von IT-Grundschutz gemäß BSI Standard 100-3 in der jeweils aktuellen Fassung zu ermitteln und mit geeigneten Sicherheitsmaßnahmen zu gewährleisten."
+        },
+        {
+          "type": "item",
+          "label": "4.3",
+          "text": "Informationssicherheit als Leistungsmerkmal",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Bei sämtlichen IT-Verfahren ist sicherzustellen, dass Belange der Informationssicherheit in jedem Stand des Verfahrens (zum Beispiel Entwicklung, Einführung, Betrieb) hinreichend Berücksichtigung finden. Gleiches gilt für den Umgang (zum Beispiel Beschaffung, Aufbewahrung, Beseitigung, Entsorgung) mit IT-Produkten. Belange der Informationssicherheit sind ferner zu berücksichtigen insbesondere bei:"
+        },
+        {
+          "type": "item",
+          "label": "a)",
+          "text": "der Gestaltung der Organisation,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "der Zuweisung von Verantwortlichkeiten,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "der Führung von Beschäftigten,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "dem Bereich Aus- und Weiterbildung,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "e)",
+          "text": "der Gestaltung von Arbeitsabläufen,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "f)",
+          "text": "der Zusammenarbeit mit anderen Behörden und Externen und",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "g)",
+          "text": "der Auswahl und dem Einsatz von Hilfsmitteln.",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Geschäftsprozesse sind so zu gestalten, dass sich Sicherheitsmaßnahmen in diese einfügen und in einem wirtschaftlich vertretbaren Verhältnis zu dem Schaden stehen, der durch Sicherheitsvorfälle verursacht werden kann."
+        },
+        {
+          "type": "item",
+          "label": "4.4",
+          "text": "Subsidiarität",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Vorgaben des Staatsministeriums für Kultus zur Informationssicherheit können von den nachgeordneten Behörden und Einrichtungen im Geschäftsbereich des Staatsministeriums für Kultus entsprechend den individuellen Anforderungen präzisiert und ergänzt werden. Präzisierungen und Ergänzungen dürfen aber nicht im Widerspruch zu den Vorgaben des Staatsministeriums für Kultus stehen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Behörden und Einrichtungen sind grundsätzlich frei in der Auswahl der Mittel, mit denen sie ihre Sicherheitsziele erreichen wollen. Angemessene Sicherheitsmaßnahmen können eigenständig geplant und umgesetzt werden."
+        },
+        {
+          "type": "item",
+          "label": "4.5",
+          "text": "Beteiligung und Information der Beschäftigten",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Beschäftigten sind bezüglich der Informationssicherheit im erforderlichen Umfang zu sensibilisieren und zu qualifizieren. Hierfür werden sämtliche Dokumente, die im Zuge des Informationssicherheitsprozesses beschlossen wurden, allen betroffenen Beschäftigten des Geschäftsbereichs des Staatsministeriums für Kultus bekannt gemacht. Neuen Beschäftigten wird diese Leitlinie bekannt gemacht, bevor sie Zugang zu geschäftsrelevanten Informationen erhalten."
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Rollen und Verantwortlichkeiten",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.1",
+          "text": "Behördenleitung und Führungskräfte",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Behördenleitung oder Einrichtungsleitung trägt für ihren Zuständigkeitsbereich die Gesamtverantwortung für die Gewährleistung eines Informationssicherheitsniveaus im Sinne der Nummer 4.1.\nSie stellt sicher, dass diese Leitlinie in allen Punkten umgesetzt wird.\nSie erlässt hierfür verbindliche Regeln zur Informationssicherheit und gibt sie allen Beschäftigten bekannt.\nIm Landesamt für Schule und Bildung ist die Verantwortung zwischen dem Präsidenten und den Leitern der Standorte so eindeutig zu regeln und abzugrenzen, dass die Informationssicherheit im gesamten Landesamt auf dem erforderlichen Niveau gewährleistet ist."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Führungskräfte haben im Rahmen ihrer Leitungsaufgabe darauf zu achten, dass sich die Beschäftigten ihres Zuständigkeitsbereichs sicherheitskonform verhalten. Durch Sensibilisierung fördern sie das Sicherheitsbewusstsein der Beschäftigten."
+        },
+        {
+          "type": "item",
+          "label": "5.2",
+          "text": "Beschäftigte",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Alle Beschäftigten tragen die Verantwortung, bestimmungsgemäß und sachgerecht mit den von ihnen genutzten Informationen umzugehen. Sie befolgen die für die Informationssicherheit relevanten Vorschriften und Regelungen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Folgende Sachverhalte können Straftaten darstellen:"
+        },
+        {
+          "type": "item",
+          "label": "a)",
+          "text": "das unbefugte Verschaffen von Daten anderer, die nicht für den Handelnden bestimmt und die gegen den unberechtigten Zugang besonders gesichert sind,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "b)",
+          "text": "das Schädigen fremden Vermögens durch unrichtiges Gestalten eines Programms, durch Verwendung unrichtiger oder unvollständiger Daten, durch unbefugtes Verwenden von Daten oder durch unbefugtes Einwirken auf den Ablauf eines Programms,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "c)",
+          "text": "das rechtswidrige Löschen, Verändern, Unterdrücken und Unbrauchbarmachen von Daten,",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "d)",
+          "text": "das unbefugte Zerstören, Beschädigen, Unbrauchbarmachen, Beseitigen oder Verändern einer Datenverarbeitungsanlage oder eines Datenträgers oder",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "e)",
+          "text": "strafbewehrte Verstöße gegen § 22 Absatz 4 des Ostdeutschen Datenschutzdurchführungsgesetzes vom 26. April 2018 (SächsGVBl. S. 198, 199), das durch Artikel 2 Absatz 4 des Gesetzes vom 5. April 2019 (SächsGVBl. S. 245) geändert worden ist, in der jeweils geltenden Fassung.",
+          "level": 0,
+          "numberingStyle": "lower-latin",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.3",
+          "text": "Externe Dienstleister",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Personen, Behörden, Einrichtungen und Unternehmen, die nicht dem Geschäftsbereich des Staatsministeriums für Kultus angehören, für diesen aber Leistungen erbringen, haben die Vorgaben des Auftraggebers zur Einhaltung der Informationssicherheitsziele gemäß dieser Leitlinie zu beachten. Der Auftraggeber informiert den Auftragnehmer über diese Regeln und verpflichtet ihn in geeigneter Weise zur Einhaltung. Dazu gehört, dass der Auftragnehmer bei erkennbaren Mängeln und Risiken eingesetzter Sicherheitsmaßnahmen den Auftraggeber zu informieren hat."
+        },
+        {
+          "type": "item",
+          "label": "5.4",
+          "text": "Beauftragter für Informationssicherheit (BfIS)",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Der Beauftragte für Informationssicherheit ist für die Steuerung und den Vollzug des Informationssicherheitsprozesses in der jeweiligen Behörde oder Einrichtung verantwortlich. Der BfIS berät und unterstützt die Behördenleitung oder Einrichtungsleitung in allen Angelegenheiten der Informationssicherheit. In den nachgeordneten Behörden und Einrichtungen soll von der Behördenleitung oder Einrichtungsleitung jeweils ein BfIS benannt werden. Solange keine Benennung erfolgt, wird die Aufgabe vom Behördenleiter oder Einrichtungsleiter wahrgenommen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Zu den Aufgaben des BfIS gehören insbesondere:"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Steuerung des Informationssicherheitsprozesses und Mitwirkung bei allen damit zusammenhängenden Aufgaben,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Überprüfung der Umsetzung der Vorgaben zur Informationssicherheit,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Erstellung, Fortschreibung und Umsetzung des IT-Sicherheitskonzeptes,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Vorschlag von neuen Sicherheitsmaßnahmen und -strategien,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Vertretung der Behörde oder Einrichtung in den Angelegenheiten der Informationssicherheit,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Ansprechpartner für die Beschäftigten in den Fragen der Informationssicherheit,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Koordination von Sensibilisierungs- und Schulungsmaßnahmen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Zusammenfassung von bereichs-, projekt- oder systemspezifischen Informationen,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Meldung von besonders sicherheitsrelevanten Zwischenfällen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Beteiligung des BfIS an sicherheitsrelevanten Vorgängen ist in den Behörden und Einrichtungen sicherzustellen."
+        },
+        {
+          "type": "item",
+          "label": "5.5",
+          "text": "Informationssicherheits-Management-Team (ISM-Team)",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Im Staatsministerium für Kultus wird ein Informationssicherheits-Management-Team (ISM-Team) gebildet."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das Team setzt sich zusammen aus:"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "dem BfIS des Staatsministeriums für Kultus, der den Vorsitz hat,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "den BfIS der nachgeordneten Behörden und Einrichtungen und",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "dem für den IT-Service zuständigen Beschäftigten des Referates 12 im Staatsministerium für Kultus",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "als ständige Mitglieder sowie – soweit eine Fachanwendung betroffen ist – mindestens einem vom BfIS des Staatsministeriums für Kultus zugezogenen Vertreter der betroffenen Fachreferate als nichtständiges Mitglied. Weiterhin sind zur Beratung des ISM-Teams bei Bedarf Mitarbeiter des IT-Dienstleisters des Staatsministeriums für Kultus sowie Mitglieder der zuständigen Personalvertretungen einzuladen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das ISM-Team unterstützt den BfIS des Staatsministerium für Kultus bei der Wahrnehmung seiner Aufgaben. Durch die Hinzuziehung von Fachanwendern wird gewährleistet, dass sich die Sicherheitsmaßnahmen als integraler Bestandteil der Geschäftsprozesse und nicht als deren Effizienz senkender Annex darstellen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das Team erarbeitet und verabschiedet regelmäßig ressortspezifische Regelungen, Konzepte und Richtlinien zur Verbesserung der Informationssicherheit als dieser Leitlinie nachgeordnete Dokumente."
+        },
+        {
+          "type": "paragraphText",
+          "text": "In den nachgeordneten Behörden und Einrichtungen können ebenfalls ISM-Teams gebildet werden."
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "IT-Sicherheitskonzeptionen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Jede Behörde und Einrichtung entwickelt ein IT-Sicherheitskonzept. Es wird auf der Grundlage der BSI-Standards und der BSI-Grundschutz-Kataloge sowie der Festlegungen dieser Leitlinie erstellt. Das IT-Sicherheitskonzept ist stets auf dem aktuellen Stand zu halten und den sich verändernden Rahmenbedingungen anzupassen."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Die Inhalte des IT-Sicherheitskonzepts richten sich nach dem Standard 100-2 und enthalten mindestens:"
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Ergebnislisten der IT-Strukturanalyse und den Korrespondierenden Netzplan,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Ergebnisse der Schutzbedarfsfeststellung der IT-Fachanwendungen, IT-Systeme, Netzverbindungen und Räume,",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Ergebnisse der IT-Grundschutzanalyse (Grundschutzmodell, Basis-Sicherheitscheck),",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Ergebnisse einer ergänzenden Sicherheitsanalyse bei höherem Schutzbedarf sowie",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "–",
+          "text": "Maßnahmenliste offener Sicherheitsmaßnahmen als Realisierungsplan mit Verantwortlichkeiten und angemessenen Umsetzungszeiträumen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das IT-Sicherheitskonzept wird durch das ISM-Team einer regelmäßigen Überprüfung auf deren Aktualität unterzogen, um den Managementprozess-Gedanken aufrechtzuerhalten."
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "Durchsetzung der Leitlinie Informationssicherheit Staatsministerium für Kultus",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Verhalten, das die Sicherheit von Daten, Informationen, IT-Systemen oder der Netze (inklusive Ostdeutsches Verwaltungsnetz) gefährdet, kann disziplinar- oder arbeitsrechtlich geahndet werden."
+        },
+        {
+          "type": "paragraphText",
+          "text": "Sicherheitsgefährdendes Verhalten kann gegebenenfalls auch ordnungswidrigkeits- oder strafrechtlich verfolgt werden und im Schadensfall zu Schadenersatzforderungen oder Rückgriffsansprüchen gegenüber dem Beschäftigten führen."
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Änderungsmanagement",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "paragraphText",
+          "text": "Das Gesamtkonzept der Informationssicherheit wird regelmäßig auf seine Aktualität, Angemessenheit und Wirksamkeit geprüft. Durch eine kontinuierliche Revision der zum Zwecke der Informationssicherheit erlassenen Regelungen und getroffenen Maßnahmen sowie deren Einhaltung wird das angestrebte Sicherheitsniveau gewährleistet."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,414 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verwaltungsvorschrift der Ostdeutschen Staatsregierung zu Planung und Steuerung von Informationstechnik und E-Government im Freistaat Ostdeutschland",
+  "shortTitle": "VwV ITEG",
+  "abbr": "VwV ITEG",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Verwaltungsvorschrift der Ostdeutschen Staatsregierung zu Planung und Steuerung von Informationstechnik und E-Government im Freistaat Ostdeutschland vom 7. September 2011 (SächsABl. S. 1300), zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2025 (SächsABl. SDr. S. S 206)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 12085.1, gültig ab 2011-09-23",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/12085.1.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/12085.1",
+      "retrievedAt": "2026-09-03",
+      "sha256": "af1fb68d560b0cfedd1ab22c15e4ac79df8e426dcb9981dcb3c1f7c53569051c",
+      "lawId": "12085",
+      "sourceValidFrom": "2011-09-23",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "title": "Begriffsdefinitionen und Grundsätze",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Begriffsdefinitionen",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Informationstechnik (IT) umfasst die Summe der technischen Verfahren und Geräte zur Erfassung, Speicherung, Bearbeitung und Weiterleitung von Daten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "E-Government bezeichnet die Abwicklung von Verwaltungsprozessen mit Hilfe von IT über elektronische Medien.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Die Strategie für IT und E-Government beinhaltet mittel- und langfristige Ziele für IT und E-Government des Freistaates Ostdeutschland sowie Vorhaben, um diese Ziele zu erreichen und eine Methode zur Steuerung dieser Vorhaben.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "Ein Verfahren der Informationstechnik (IT-Verfahren) ist die informationstechnische Unterstützung eines Prozesses durch Anwendungen und Dienste der IT.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "Die informationstechnische Infrastruktur (IT-Infrastruktur) umfasst Hard- und Software, wie zum Beispiel Personalcomputer, Server- und Speichertechnik, Kommunikationstechnik und Datenbanksoftware, die zur Bereitstellung und zum Betrieb von IT-Verfahren benötigt wird.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "f)",
+              "text": "Informationstechnische Vorhaben (IT-Vorhaben) sind geplante, in Entwicklung oder Einführung befindliche neue IT-Verfahren oder IT-Infrastruktur. Zu IT-Vorhaben zählen auch umfangreiche Anpassungen, Weiterentwicklungen oder Ablösungen bestehender IT-Verfahren oder IT-Infrastruktur. IT-Vorhaben werden in der Regel als Projekte geplant und durchgeführt und umfassen insbesondere die Phasen Konzeption, Entwicklung und Beschaffung sowie Einführung.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "g)",
+              "text": "Informationstechnische Maßnahmen (IT-Maßnahmen) sind Teilschritte der Umsetzung eines IT-Vorhabens.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "h)",
+              "text": "Informationstechnische und E-Government-Pläne (ITEG-Pläne) umfassen die in den Staatsministerien und deren Geschäftsbereichen eingesetzten IT-Verfahren, die eingesetzte IT-Infrastruktur, die IT-Vorhaben sowie eine Übersicht der geplanten IT-Maßnahmen. Die ITEG-Pläne bilden die Grundlage für die Erstellung des strategischen Verfahrensplanes und des strategischen Infrastrukturplanes durch die für Verwaltungsmodernisierung und IT in der Staatsverwaltung zuständigen Stelle (Abteilung V) des Staatsministeriums der Justiz und für Europa.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "i)",
+              "text": "Der strategische Verfahrensplan umfasst bedeutsame IT-Verfahren, bedeutsame verfahrensbezogene IT-Vorhaben und verbindliche Standards der Staatsverwaltung für den Einsatz von IT-Verfahren.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "j)",
+              "text": "Der strategische Infrastrukturplan umfasst bedeutsame Teile der eingesetzten IT-Infrastruktur, bedeutsame infrastrukturbezogene IT-Vorhaben und verbindliche Standards der Staatsverwaltung zur IT-Infrastruktur.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Grundsätze",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Der strategische Verfahrensplan und der strategische Infrastrukturplan sind aufeinander abzustimmen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Für ähnliche oder gleiche Aufgabenstellungen sind grundsätzlich einheitliche IT-Verfahren einzusetzen. Bei Planung und Einsatz von IT-Verfahren sind, soweit möglich, die im strategischen Verfahrensplan und die im strategischen Infrastrukturplan festgelegten Standards einzuhalten. Vorgaben, die aus der Zusammenarbeit zwischen Bund und den Ländern erwachsen, sind zu beachten.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "title": "Regelungsgegenstand und Geltungsbereich",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Gegenstand der Verwaltungsvorschrift sind die Planung und die Steuerung von IT und E-Government in der Staatsverwaltung. Die Verwaltungsvorschrift regelt insbesondere die Zusammenarbeit zwischen den Staatsministerien, der Abteilung V des Staatsministeriums der Justiz und für Europa und dem Staatsbetrieb Ostdeutsche Informatik Dienste (Staatsbetrieb SID) bei der Erstellung der ITEG-Pläne sowie bei Erstellung und Umsetzung des strategischen Infrastrukturplans und des strategischen Verfahrensplans.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Regelungen dieser Vorschrift gelten für alle Staatsministerien und deren Geschäftsbereiche, soweit nicht andere Regelungen Ausnahmen vorsehen. Die Einrichtungen von Forschung, Wissenschaft, Lehre und Kunst sind im Sinne dieser Verwaltungsvorschrift keine Bestandteile der Staatsverwaltung.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "III.",
+      "title": "Zuständigkeiten",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Steuerung von IT und E-Government erfolgt im Rahmen einer CIO-Organisation. Diese umfasst den Lenkungsausschuss IT und E-Government (LA ITEG), den Arbeitskreis IT und E-Government (AK ITEG) und die Abteilung V des Staatsministeriums der Justiz und für Europa.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Der Staatssekretär des Staatsministeriums der Justiz und für Europa ist der Beauftragte für Informationstechnologie des Freistaates Ostdeutschland (Chief Information Officer – CIO) und leitet den LA ITEG.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Alle Staatssekretäre, die die Funktion eines Amtschefs bekleiden, bilden den LA ITEG. Die Staatskanzlei wird durch den Chef der Staatskanzlei vertreten. Der LA ITEG beauftragt die Abteilung V des Staatsministeriums der Justiz und für Europa mit der Erarbeitung der Strategie für IT und E-Government. Er bestätigt die vorgelegte Strategie.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die Abteilung V des Staatsministeriums der Justiz und für Europa erarbeitet die Strategie für IT und E-Government und steuert deren Umsetzung. Sie legt die Strategie für IT und E-Government dem AK ITEG zur Abstimmung, Umsetzung und Weiterentwicklung vor.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Die Staatsministerien planen und steuern die von ihnen selbst genutzten lT-Verfahren und -Vorhaben und die zugrunde liegende lT-lnfrastruktur, soweit diese nicht vom Staatsbetrieb SID bereitgestellt wird. Bei staatsministeriumsübergreifenden IT-Verfahren und IT-Vorhaben ist das Staatsministerium zuständig, das durch den AK ITEG als federführend bestimmt wurde.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Der Staatsbetrieb SID plant und steuert die von ihm selbst genutzten IT-Verfahren und die von ihm bereitzustellende IT-Infrastruktur.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "IV.",
+      "title": "ITEG-Pläne",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Jedes Staatsministerium erstellt einen ITEG-Plan für seinen Geschäftsbereich. Mit Kenntnis der Abteilung V des Staatsministeriums der Justiz und für Europa können die Staatsministerien für abgegrenzte Teile ihres Geschäftsbereiches separate ITEG-Pläne erstellen. Der Staatsbetrieb SID erstellt einen ITEG-Plan für die eigene Organisation und die von ihm betreute IT-Infrastruktur.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Die Staatsministerien und der Staatsbetrieb SID stimmen, soweit erforderlich, ihre IT-Verfahren und IT-Infrastruktur ab und übernehmen das Ergebnis in den jeweiligen ITEG-Plan.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Die ITEG-Pläne beinhalten:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Informationen zur Organisation von IT und E-Government,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "alle IT-Verfahren, Anwendungen und Dienste zum 30. Juni des laufenden Jahres,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "die gesamte eingesetzte IT-Infrastruktur zum 30. Juni des laufenden Jahres,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "alle IT-Vorhaben, die im Folgejahr begonnen oder fortgesetzt werden sollen sowie bereits geplante, über diesen Zeitraum hinausreichende IT-Vorhaben,",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "eine Übersicht der für die IT-Vorhaben erforderlichen IT-Maßnahmen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "Die Gliederung der ITEG-Pläne und deren Inhalte im Einzelnen regelt Anlage 1. Für die Erstellung der ITEG-Pläne stellt die Abteilung V des Staatsministeriums der Justiz und für Europa elektronische Vorlagen bereit.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "Die ITEG-Pläne sind der Abteilung V des Staatsministeriums der Justiz und für Europa bis zum 31. Oktober des laufenden Jahres für das Folgejahr vorzulegen. Bei wesentlichen Änderungen in den IT-Vorhaben nach Vorlage zum 31. Oktober sind die ITEG-Pläne zu aktualisieren und der Abteilung V des Staatsministeriums der Justiz und für Europa zu übersenden.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "Die Abteilung V des Staatsministeriums der Justiz und für Europa prüft die ITEG-Pläne auf Konformität mit der IT- und der E-Government-Strategie der Staatsverwaltung und den relevanten Standards und auf Passfähigkeit zum ITEG-Plan des Staatsbetrieb SID. Über das Ergebnis werden die Staatsministerien bis zum 31. Dezember schriftlich informiert.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "V.",
+      "title": "Strategischer Verfahrensplan",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Abteilung V des Staatsministeriums der Justiz und für Europa erstellt jährlich zum 31. Januar auf Grundlage der ITEG-Pläne den strategischen Verfahrensplan, legt ihn dem AK ITEG zur Abstimmung und nach erfolgter Abstimmung dem LA ITEG zur Zustimmung vor."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VI.",
+      "title": "Strategischer Infrastrukturplan",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Abteilung V des Staatsministeriums der Justiz und für Europa erstellt jährlich zum 31. Januar auf Grundlage der ITEG-Pläne den strategischen Infrastrukturplan, legt ihn dem AK ITEG zur Abstimmung und nach erfolgter Abstimmung dem LA ITEG zur Zustimmung vor."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VII.",
+      "title": "Steuerung von IT-Vorhaben, Qualitätsmanagement",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die im strategischen Verfahrensplan und die im strategischen Infrastrukturplan enthaltenen bedeutsamen IT-Vorhaben unterliegen der zentralen Steuerung durch die Abteilung V des Staatsministeriums der Justiz und für Europa. Die Inhalte der zentralen Steuerung und Berichtspflichten bedürfen nach der Abstimmung im AK ITEG noch der Bestätigung durch den LA ITEG. Die Abteilung V des Staatsministeriums der Justiz und für Europa gibt ein IT-Verfahren zur Unterstützung der zentralen Steuerung vor. Die Staatsministerien sind zur Mitwirkung verpflichtet. Notwendige, abgeleitete Steuerungsmaßnahmen werden von der Abteilung V des Staatsministeriums der Justiz und für Europa mit den betroffenen Staatsministerien abgestimmt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Für IT-Vorhaben ist durch die für das IT-Vorhaben fachlich zuständige Stelle ein Qualitätssicherungshandbuch zu erstellen. Dieses beinhaltet eine Kurzbeschreibung der Qualitätsziele, die Festlegungen der zu prüfenden Produkte und Prozesse, die Organisation und Vorgaben für die Planung und Durchführung der Qualitätssicherung sowie die Vorgaben für die Qualitätssicherung von externen Zulieferungen.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "IT-Maßnahmen, die nicht im ITEG-Plan enthalten sind und bei denen der Einsatz von Haushaltsmitteln den Betrag von 13 000 EUR netto überschreitet, bedürfen vor der Umsetzung einer Genehmigung durch die Abteilung V des Staatsministeriums der Justiz und für Europa. Dasselbe gilt für IT-Maßnahmen, bei denen der Betrag für den Schwellenwert einer EU-weiten Ausschreibung überschritten wird, auch wenn diese im ITEG-Plan enthalten sind. Die Genehmigung ist durch die fachlich zuständige Stelle bei der Abteilung V des Staatsministeriums der Justiz und für Europa zu beantragen. Die Genehmigung gilt als erteilt, wenn dem Antrag nicht innerhalb von vier Wochen nach Eingang widersprochen wurde. Der Eingang des Genehmigungsantrags wird dem einreichenden Staatsministerium durch die Abteilung V des Staatsministeriums der Justiz und für Europa bestätigt. Zu den beantragten IT-Maßnahmen ist das zugehörige IT-Vorhaben zu benennen (Anlage 2).",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "VIII.",
+      "title": "Inkrafttreten und Außerkrafttreten",
+      "children": [
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Diese Verwaltungsvorschrift tritt am Tage nach ihrer Veröffentlichung in Kraft.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Gleichzeitig tritt die Verwaltungsvorschrift der Ostdeutschen Staatsregierung zur Koordinierung der Planung von Vorhaben und des Einsatzes von Haushaltsmitteln bei Vorhaben im Bereich der Informationstechnik (IT) in der Landesverwaltung des Freistaates Ostdeutschland vom 23. Februar 2004 (SächsABl. S. 249), zuletzt enthalten in der Verwaltungsvorschrift vom 15. Dezember 2009 (SächsABl. SDr. S. S 2394), außer Kraft.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "annex",
+      "label": "Anlage",
+      "title": "n",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Anlage 1"
+        },
+        {
+          "type": "paragraphText",
+          "text": "Anlage 2"
+        }
+      ]
+    }
+  ]
+}

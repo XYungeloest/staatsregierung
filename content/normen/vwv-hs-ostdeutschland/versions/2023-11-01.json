@@ -1,0 +1,501 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen zur Haushaltssystematik des Freistaates Ostdeutschland",
+  "shortTitle": "VwV-HS Ostdeutschland",
+  "abbr": "VwV-HS Ostdeutschland",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen zur Haushaltssystematik des Freistaates Ostdeutschland vom 22. Dezember 2015 (SächsABl. SDr. 2016 S. S 210), die zuletzt durch die Verwaltungsvorschrift vom 22. Dezember 2020 (SächsABl. 2021 S. 21) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 2. Dezember 2025 (SächsABl. SDr. S. S 222)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 16816.3, gültig ab 2021-01-15",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/16816.3.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/16816.3",
+      "retrievedAt": "2026-09-03",
+      "sha256": "bdecb0ce2de765f4297820097bdff5ada36b0d7e3eac0de4860bf09ed22e41a9",
+      "lawId": "16816",
+      "sourceValidFrom": "2021-01-15",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "I.",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Gemäß § 13 Absatz 2 Satz 3 und § 14 Absatz 2 in Verbindung mit § 5 der Ostdeutschen Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), die zuletzt durch Artikel 1 des Gesetzes vom 29. April 2015 (SächsGVBl. S. 349) geändert worden ist, in der jeweils geltenden Fassung, wird die Verwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen zur Haushaltssystematik des Freistaates Ostdeutschland in der nachstehenden Fassung erlassen."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "II.",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verwaltungsvorschrift tritt am 1. Januar 2017 in Kraft. Gleichzeitig tritt die\nVerwaltungsvorschrift des Ostdeutschen Staatsministeriums der Finanzen zur Haushaltssystematik des Freistaates Ostdeutschland\nvom 14. März 2013 (SächsABl. SDr. S. S 190), zuletzt enthalten in der Verwaltungsvorschrift vom 9. Dezember 2015 (SächsABl. SDr. S. S 374), außer Kraft."
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "A.",
+      "title": "Allgemeine Vorschriften zum Gruppierungsplan und Gruppierungsplan",
+      "children": [
+        {
+          "type": "section",
+          "label": "I.",
+          "title": "Allgemeine Vorschriften zum Gruppierungsplan",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Gliederung",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Der Gruppierungsplan gliedert sich für Bund und Länder übereinstimmend in"
+            },
+            {
+              "type": "table",
+              "columns": 3,
+              "children": [
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Art der Gruppe",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "–",
+                      "scope": "col"
+                    },
+                    {
+                      "type": "tableHeaderCell",
+                      "text": "Definierte Gliederungseinheit",
+                      "scope": "col"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "Hauptgruppen"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "–"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Gliederungseinheit mit einer einstelligen Zahl,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "Obergruppen"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "–"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Gliederungseinheit mit einer zweistelligen Zahl,"
+                    }
+                  ]
+                },
+                {
+                  "type": "tableRow",
+                  "children": [
+                    {
+                      "type": "tableCell",
+                      "text": "Gruppen"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "–"
+                    },
+                    {
+                      "type": "tableCell",
+                      "text": "Gliederungseinheit mit einer dreistelligen Zahl."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Hauptgruppen beginnen mit der Ziffer 0, die Obergruppen mit der Ziffer 1. Durch Zuordnungshinweise werden die Gliederungseinheiten erläutert."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Ordnung der Einnahme- und Ausgabearten nach dem Gruppierungsplan orientiert sich in erster Linie an Kriterien der Volkswirtschaftlichen Gesamtrechnungen für die Darstellung wirtschaftlicher Vorgänge. Eine konsequente Anwendung ist notwendig für die Bereitstellung von Grunddaten für die Berechnung des Staatskontos."
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Zuordnung der Einnahmen und Ausgaben",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Sollen Einnahmen oder Ausgaben verschiedener Arten zusammengefasst werden, weil eine Aufteilung nicht vertretbar ist, so ist nach dem Schwerpunkt zuzuordnen."
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Begriffsbestimmungen",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.1",
+              "text": "Übertragungsleistungen, Zuweisungen und Zuschüsse",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Übertragungsleistungen\nsind insbesondere Zinseinnahmen und -ausgaben, Darlehensrückflüsse, Gewährung von Darlehen, Tilgungsausgaben, Zuweisungen, Zuschüsse und Schuldenaufnahme. Keine Übertragungsleistungen sind Zahlungen, die ein marktübliches oder marktähnliches Entgelt oder eine öffentliche Abgabe darstellen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Zuweisungen\nsind einmalige oder laufende Geldleistungen innerhalb des öffentlichen Bereichs.\nZuschüsse\nsind Geldleistungen zwischen dem öffentlichen Bereich und den sonstigen Bereichen. Hierzu gehören auch\nErstattungen\ninnerhalb des öffentlichen Bereichs oder zwischen dem öffentlichen Bereich und den sonstigen Bereichen, insbesondere als Ersatz für entstandene Ausgaben."
+            },
+            {
+              "type": "item",
+              "label": "3.2",
+              "text": "Zahlungen innerhalb des öffentlichen Bereichs\nZahlungen innerhalb des öffentlichen Bereichs\nEinnahmen/Ausgaben\nGruppe\nEinnahmen:\nObergruppen/Gruppen 15, 17, 21 bis 23, 291 bis 293, 31, 33\nAusgaben:\nObergruppen/Gruppen 56, 58, 61 bis 63, 691 bis 693, 85, 88",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Zum\nöffentlichen Bereich\nim Sinne des Gruppierungsplans gehören:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die Gebietskörperschaften: Bund, Länder, Gemeinden/Gemeindeverbände,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Sondervermögen des Bundes und der Länder, soweit nicht mit unternehmerischer Aufgabenstellung (Sondervermögen mit unternehmerischer Aufgabenstellung vgl. Nr. 3.3),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die Sozialversicherungsträger: z. B. Träger der gesetzlichen Rentenversicherung, der gesetzlichen Kranken- und Unfallversicherung, der sozialen Pflegeversicherung sowie die Bundesagentur für Arbeit (öffentliche Zusatzversorgungskassen, wie z. B. die Versorgungsanstalt des Bundes und der Länder, gehören zu den öffentlichen Unternehmen, vgl. Nr. 3.3),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "die Zweckverbände: Verbände und sonstige Organisationen, die kommunale Aufgaben erfüllen, rechtlich selbstständig sind und mindestens eine kommunale Gebietskörperschaft (Gemeinde oder Gemeindeverband) zum Mitglied haben.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.3",
+              "text": "Zahlungen zwischen dem öffentlichen Bereich und den sonstigen Bereichen im Inland\nZahlungen zwischen dem öffentlichen Bereich und den sonstigen Bereichen im Inland\nEinnahmen/Ausgaben\nGruppe\nEinnahmen:\nObergruppen/Gruppen 14, 16, 18, 26 bis 28, 297\nbis 299, 32, 34\nAusgaben:\nObergruppen/Gruppen 57, 59, 66 bis 68, 697\nbis 699, 86, 87, 89",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Zum\nsonstigen Bereich\nim Sinne des Gruppierungsplans zählen im Inland die natürlichen Personen, die privaten Einrichtungen, die öffentlichen Einrichtungen, soweit sie nicht unter Nr. 3.2 aufgeführt sind, sowie die privaten und öffentlichen Unternehmen. Falls der Empfänger die öffentlichen Mittel nur verwaltet oder weiterleitet, so kann eine Zuordnung nach den Begünstigten in Betracht kommen. So sind z. B. Subventionen, die zwar an wirtschaftliche Organisationen ausgezahlt, von diesen aber an begünstigte Unternehmen weitergeleitet werden, den Unternehmen zuzuordnen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Zu den\nUnternehmen\nzählen alle wirtschaftlichen Institutionen, die vorwiegend Waren und Dienstleistungen produzieren bzw. erbringen und diese gegen spezielles Entgelt verkaufen, das in der Regel Überschüsse abwirft oder mindestens die Kosten deckt. Hierzu gehören u. a. auch landwirtschaftliche Betriebe, Handwerksbetriebe, Ein- und Verkaufsvereinigungen (auch in genossenschaftlicher Form) sowie Arbeitsstätten der freien Berufe.\nEinrichtungen\nsind demgegenüber Institutionen ohne unternehmerische Aufgabenstellung."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Öffentliche Unternehmen\nsind:"
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "Eigene Betriebe des Bundes und der Länder im Sinne des § 26 BHO/SäHO,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "Sondervermögen mit unternehmerischer Aufgabenstellung und eigener Wirtschafts- und Rechnungsführung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "Unternehmen in der Rechtsform einer juristischen Person des öffentlichen Rechts,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "Unternehmen des privaten Rechts (z. B. AG, GmbH, eGmbH), wenn Bund, Länder und Gemeinden/Gemeindeverbände überwiegend, d. h. mit mehr als 50 v. H. am Nennkapital (Grund- oder Stammkapital) unmittelbar oder mittelbar (z. B. über eine Holding) beteiligt sind.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Öffentliche Einrichtungen\nsind:"
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "juristische Personen des öffentlichen Rechts (soweit nicht unter Nr. 3.2 genannt), die keine Unternehmen sind,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "juristische Personen des privaten Rechts ohne unternehmerische Aufgabenstellung, wenn Bund, Länder und Gemeinden/Gemeindeverbände überwiegend, d. h. mit mehr als 50 v. H. am Nennkapital (Grund- und Stammkapital) unmittelbar oder mittelbar (z. B. über eine Holding) beteiligt sind,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "juristische Personen des privaten Rechts in der Form von Stiftungen und Vereinen sowie Gesellschaften des privaten Rechts, bei denen die öffentliche Hand aufgrund der Satzung o. Ä. beherrschenden Einfluss ausübt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.4",
+              "text": "Zahlungen zwischen Inland und Ausland\nZahlungen zwischen Inland und Ausland\nEinnahmen/Ausgaben\nGruppe\nEinnahmen:\nObergruppen 14, 16, 18, 26 bis 29, 32, 34\nAusgaben:\nObergruppen 57, 59, 66 bis 69, 83, 86, 89",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Für die Behandlung von Zahlungen vom und an das Ausland ist in der Regel von dem Einzahler oder von dem Erstempfänger auszugehen. Bei Zahlungen von und an Vermittlungsstellen mit Sitz im Inland kann jedoch auch eine Zahlung vom oder an das Ausland in Betracht kommen, z. B."
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "Zahlungen an ausländische Staaten, juristische oder natürliche Personen im Ausland durch Vermittlung von Banken,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "Abwicklung von Lieferungen und Leistungen über inländische Vertreter von Unternehmen im Ausland,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "–",
+              "text": "Zahlungen von Renten und anderen Geldleistungen an im Ausland wohnende Personen auf Konten bei Inlandsbanken, z. B. Wiedergutmachungsleistungen, Zahlungen aus Lieferungsverträgen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Dagegen ist die Übertragung von Geldmitteln an die Kreditanstalt für Wiederaufbau zur Verwendung für Entwicklungshilfe als Zahlung im Inland zu behandeln."
+            },
+            {
+              "type": "item",
+              "label": "3.5.",
+              "text": "Wertgrenzen",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.5.1",
+              "text": "Die für die Beschaffung von beweglichen Sachen geltenden Wertgrenzen für den Einzelfall (Erwerb je Stück oder beim Erwerb einer größeren Menge je Kauf) ergeben sich aus den Zuordnungshinweisen im Gruppierungsplan. Die dort genannten Beträge verstehen sich einschließlich Umsatzsteuer.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.5.2",
+              "text": "Für Baumaßnahmen können sich Wertgrenzen aus besonderen Bestimmungen, z. B. baufachlichen Bestimmungen ergeben.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "II.",
+          "title": "Gruppierungsplan (GPl)",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Gruppierungsplan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "B.",
+      "title": "Allgemeine Vorschriften zum Funktionenplan und Funktionenplan",
+      "children": [
+        {
+          "type": "section",
+          "label": "I.",
+          "title": "Allgemeine Vorschriften zum Funktionenplan",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Der Funktionenplan enthält die Gliederungsmerkmale für eine systematische Darstellung der Einnahmen und Ausgaben nach ihren Aufgabenbereichen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Der Funktionenplan gliedert sich für Bund und Länder übereinstimmend in\nFunktionenplan\nArt der Funktion\n–\nDefinierte Gliederungseinheit\nHauptfunktionen\n–\nGliederungseinheit mit einer einstelligen Zahl,\nOberfunktionen\n–\nGliederungseinheit mit einer zweistelligen Zahl,\nFunktionen\n–\nGliederungseinheit mit einer dreistelligen Zahl."
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Die Untergliederung nach Oberfunktionen bzw. Funktionen beginnt mit der Ziffer 1 in der zweiten bzw. dritten Stelle. Die Ziffer 0 ist in der zweiten und dritten Stelle für die Summierung der Oberfunktionen zur Hauptfunktion bzw. der Funktionen zur Oberfunktion vorgesehen. Durch Zuordnungshinweise werden die Gliederungseinheiten erläutert."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Schließt eine Zweckbestimmung mehrere vollständige Funktionen verschiedener Art ein, so ist nach dem Schwerpunkt zuzuordnen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Der Funktionenplan sieht für bestimmte Aufgabengebiete (vgl. z. B. 031, 111, 188, 21, 311, 331, 341, 51, 61, 71) eine Trennung der „Verwaltung“ von den Fachaufgaben und Förderungsmaßnahmen vor. Der „Verwaltung“ sind die",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Verwaltungseinnahmen (Obergruppe 11),",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Personalausgaben (Hauptgruppe 4),",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Sächliche Verwaltungsausgaben (Obergruppen 51 bis 54),",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Erstattungen von Verwaltungsausgaben (Obergruppen 23, 26 und 63) und",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Ausgaben für Investitionen, soweit sie Verwaltungsgebäude betreffen (aus Hauptgruppen 7 und 8),",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "der Verwaltungsaufgaben wahrnehmenden Stellen zuzuordnen."
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Eine solche Trennung ist bei anderen Aufgabengebieten nicht vorgesehen. Hier erfolgt eine Zuordnung zu den wahrgenommenen Fachaufgaben (z. B. 313 Arbeitsschutz)."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "II.",
+          "title": "Funktionenplan (FPl)",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Funktionenplan"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

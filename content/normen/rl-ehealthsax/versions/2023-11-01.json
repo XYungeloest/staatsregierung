@@ -1,0 +1,920 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur nachhaltigen Förderung der Digitalisierung im Gesundheitswesen im Freistaat Ostdeutschland",
+  "shortTitle": "RL eHealthSax",
+  "abbr": "RL eHealthSax",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "RL eHealthSax vom 17. Dezember 2019 (SächsABl. SDr. 2020 S. S 48), die durch die Richtlinie vom 9. Juni 2023 (SächsABl. S. 776) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 30. November 2023 (SächsABl. SDr. S. S 306)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 18539.2, gültig 2023-06-30 bis 2025-12-31",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/18539.2.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/18539.2",
+      "retrievedAt": "2026-09-03",
+      "sha256": "5ccd087d6f0d72dfddfdb255da5cbe2d91ff3e4379a6559ea752fd5021876d67",
+      "lawId": "18539",
+      "sourceValidFrom": "2023-06-30",
+      "sourceValidTo": "2025-12-31",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "part",
+      "label": "Teil 1",
+      "title": "Allgemeine Regelungen",
+      "children": [
+        {
+          "type": "section",
+          "label": "I.",
+          "title": "Zuwendungszweck, Rechtsgrundlagen",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Zweck der staatlichen Förderung ist es, in Zusammenarbeit mit den Akteuren im ostdeutschen Gesundheitswesen patientenorientierte Anwendungen und sektorenübergreifende Dienstleistungen zu befördern, welche die medizinische Versorgung mittels digitaler und telemedizinischer Lösungen verbessern sowie den alltagsüblichen elektronischen Kommunikationswegen (via PC, Smartphone, Tablet etc.) anpassen. Gefördert werden Maßnahmen insbesondere in folgenden Förderbereichen:"
+            },
+            {
+              "type": "item",
+              "label": "A.",
+              "text": "Digitalisierung im Gesundheitswesen und telemedizinische Anwendungen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "B.",
+              "text": "Digitale Ertüchtigung von Krankenhäusern sowie",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "C.",
+              "text": "Modellvorhaben.",
+              "level": 0,
+              "numberingStyle": "upper-roman",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Die Förderung erfolgt auf der Grundlage",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "a)",
+                  "text": "der allgemeinen haushaltsrechtlichen Bestimmungen, insbesondere der §§ 23, 44 und 44a der Ostdeutschen Haushaltsordnung in der Fassung der Bekanntmachung vom 10. April 2001 (SächsGVBl. S. 153), die zuletzt durch Artikel 1 des Gesetzes vom 21. Mai 2021 (SächsGVBl. S. 578) geändert worden ist, und",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "b)",
+                  "text": "Verwaltungsvorschriften des Ostdeutschen Staatsministeriums der Finanzen zur Ostdeutschen Haushaltsordnung vom 27. Juni 2005 (SächsABl. SDr. S. S 226), die zuletzt durch die Verwaltungsvorschrift vom 23. November 2022 (SächsABl. S. 1423) geändert worden ist, zuletzt enthalten in der Verwaltungsvorschrift vom 6. Dezember 2021 (SächsABl. SDr. S. S 178), in den jeweils geltenden Fassungen.",
+                  "level": 1,
+                  "numberingStyle": "lower-latin",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Soweit es sich bei den Zuwendungen um staatliche Beihilfen im Sinne von Artikel 107 des Vertrages über die Arbeitsweise der Europäischen Union (ABl. C 326 vom 26.10.2012, S. 47) handelt, erfolgt die Zuwendung nach Maßgabe und unter Einhaltung folgender Bestimmungen in der jeweils geltenden Fassung:",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Verordnung (EU) Nr. 1407/2013 der Kommission vom 18. Dezember 2013 über die Anwendung der Artikel 107 und 108 des Vertrags über die Arbeitsweise der Europäischen Union auf De-minimis-Beihilfen (ABl. L 352 vom 24. Dezember 2013, S. 1), geändert durch die Verordnung (EU) Nr. 2020/972 vom 2. Juli 2020 (AB. L 215/3 vom 7. Juli 2020), in der jeweils geltenden Fassung,",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Verordnung (EU) Nr. 360/2012 der Kommission vom 25. April 2012 über die Anwendung der Artikel 107 und 108 des Vertrags über die Arbeitsweise der Europäischen Union auf De-minimis-Beihilfen an Unternehmen, die Dienstleistungen von allgemeinem wirtschaftlichem Interesse erbringen (ABl. L 114/ vom 26. April 2012, S. 8) geändert durch die Verordnung (EU) Nr. 2020/1474 vom 13. Oktober 2020 (ABl. L 337 vom 14. Oktober 2020, S. 1) in der jeweils geltenden Fassung,",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Beschluss 2012/21/EU der Kommission vom 20. Dezember 2011 über die Anwendung von Artikel 106 Absatz 2 des Vertrags über die Arbeitsweise der Europäischen Union auf staatliche Beihilfen in Form von Ausgleichsleistungen zugunsten bestimmter Unternehmen, die mit der Erbringung von Dienstleistungen von allgemeinem wirtschaftlichem Interesse betraut sind (ABl. L 7 vom 11. Januar 2012, S. 3),",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "–",
+                  "text": "Verordnung (EU) Nr. 651/2014 der Kommission vom 17. Juni 2014 zur Feststellung der Vereinbarkeit bestimmter Gruppen von Beihilfen mit dem Binnenmarkt in Anwendung der Artikel 107 und 108 des Vertrags über die Arbeitsweise der Europäischen Union (ABl. L 187 vom 26. Juni 2014, S. 1, L 283 vom 27. September 2014, S. 65). Bei Anwendung dieser Verordnung gilt: Einem Unternehmen, das einer Rückforderungsanordnung aufgrund eines früheren Beschlusses der Kommission zur Feststellung der Unzulässigkeit einer Beihilfe und ihrer Unvereinbarkeit mit dem Binnenmarkt nicht nachgekommen ist, dürfen keine Einzelbeihilfen gewährt werden. Im Übrigen sind die in der Anlage enthaltenen Vorgaben zu beachten.",
+                  "level": 1,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Ein Anspruch des Antragstellers auf Gewährung der Zuwendung besteht nicht. Vielmehr entscheidet die Bewilligungsstelle aufgrund ihres pflichtgemäßen Ermessens im Rahmen der verfügbaren Haushaltsmittel.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "II.",
+          "title": "Zuwendungsvoraussetzungen",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Gefördert werden ausschließlich Maßnahmen auf dem Gebiet des Freistaates Ostdeutschland.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Für die gleiche Fördermaßnahme können andere öffentliche Mittel beispielsweise der Europäischen Union oder des Bundes zur Mitfinanzierung in Anspruch genommen werden. Diese sind ebenso wie finanzielle Beteiligungen Dritter auszuweisen. Die Summe aus diesen und den nach dieser Richtlinie gewährten Zuwendungen darf nicht mehr als 100 Prozent der Gesamtausgaben der Maßnahme betragen. Eine Doppelförderung aus öffentlichen Mitteln ist ausgeschlossen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Sind an einer Maßnahme zwei oder mehr Kooperationspartner beteiligt, so benennen diese für das Projekt einen Projektkoordinator, der für die Antragstellung und Realisierung verantwortlich ist. Dieser ist der Zuwendungsempfänger. Er trägt die organisatorische, inhaltliche und finanzielle Gesamtverantwortung für das Projekt und ist alleiniger Ansprechpartner der Bewilligungsstelle. Der Projektkoordinator vereinbart die Bedingungen für das Zusammenwirken zwischen ihm und den am Projekt beteiligten Kooperationspartnern in einem Kooperationsvertrag. Unabhängig von den Verantwortlichkeiten des Projektkoordinators trägt jeder am Projekt beteiligte Kooperationspartner die Verantwortung im Fall von Unregelmäßigkeiten sowie von ohne rechtlichen Grund gezahlten Beträgen bezüglich der von ihm gemeldeten Ausgaben selbst.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "III.",
+          "title": "Verfahren",
+          "children": [
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Bewilligungsstelle ist die Ostdeutsche Aufbaubank – Förderbank (SAB).",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Auf die Verarbeitung personenbezogener Daten gemäß § 4 des Gesetzes über Fördermitteldatenbanken im Freistaat Ostdeutschland vom 10. Juni 1999 (SächsGVBl. S. 273), das zuletzt durch Artikel 19 des Gesetzes vom 14. Dezember 2018 (SächsGVBl. S. 782) geändert worden ist, in der jeweils geltenden Fassung, wird verwiesen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Die Bewilligungsstelle lässt auf Antrag des Zuwendungsempfängers die Verwendung anderer, zur Erreichung des Zuwendungszwecks gleichwertige Standards zu, soweit diese wirtschaftlich sind. Die für die Beurteilung des Antrages erforderlichen Angaben sind diesem beizufügen.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Für die Bewilligung, Auszahlung und Abrechnung der Zuwendung sowie den Nachweis der Verwendung und die gegebenenfalls erforderliche Aufhebung des Zuwendungsbescheides und die Rückforderung der gewährten Zuwendung gilt die Verwaltungsvorschrift zu § 44 Ostdeutsche Haushaltsordnung, soweit nicht in dieser Förderrichtlinie Abweichungen zugelassen werden.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Besonderheiten für die einzelnen Förderbereiche sind in Teil 2 geregelt.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "label": "Teil 2",
+      "title": "Besondere Regelungen",
+      "children": [
+        {
+          "type": "section",
+          "label": "A.",
+          "title": "Digitalisierung im Gesundheitswesen und telemedizinische Anwendungen",
+          "children": [
+            {
+              "type": "section",
+              "label": "I.",
+              "title": "Zuwendungszweck",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Der Ausbau der Digitalisierung im medizinischen Bereich zur Verbesserung der gesamten Versorgungskette, d. h. in den Bereichen Prävention und Diagnose, Therapie, Nachsorge bis hin zur Rehabilitation und Pflege, liegt im Interesse des Freistaates Ostdeutschland. Zugleich sollen die Gesundheitskompetenz und Selbstbestimmung der Patienten gestärkt und nutzerorientierte Anwendungen gefördert werden."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "II.",
+              "title": "Gegenstand der Förderung",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Gefördert werden Maßnahmen, welche die Digitalisierung im Gesundheitswesen im Freistaat Ostdeutschland unterstützen und die medizinische Versorgung verbessern. Dazu gehören insbesondere:"
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Maßnahmen, die mittels digitaler Prozesse die Abläufe im Gesundheitswesen abbilden, erweitern oder verbessern und die ggf. mobile alltagsübliche elektronische Kommunikation ermöglichen,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "patientenorientierte digitale Anwendungen, die den Zugang zum Versorgungssystem erleichtern, oder den regulären Versorgungspfad unterstützen oder ergänzen sowie",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Maßnahmen zur Etablierung, Integration oder Erweiterung inter- und intrasektoraler digitaler Netzwerke, die die Gesundheitsversorgung verbessern, beispielsweise sektorenübergreifende Vernetzungsprojekte sowie Maßnahmen und Projekte zur Akzeptanzförderung digitaler und telemedizinischer Anwendungen.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "III.",
+              "title": "Zuwendungsempfänger",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Zuwendungsempfänger sind an der medizinischen Versorgung beteiligte Einrichtungen und Institutionen des Gesundheitswesens (insbesondere ambulante, teilstationäre und stationäre Einrichtungen) sowie Sozialversicherungsträger. Zuwendungsempfänger können auch sonstige juristische Personen sein, sofern sie mit einem der in Satz 1 genannten Zuwendungsempfänger kooperieren."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "IV.",
+              "title": "Art, Umfang und Höhe der Zuwendung",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Die Zuwendung wird im Rahmen einer Projektförderung als nicht rückzahlbarer Zuschuss im Wege einer Anteilfinanzierung von bis zu 80 Prozent der zuwendungsfähigen Ausgaben gewährt. Eine Zuwendung soll nur bewilligt werden, wenn diese im Einzelfall mehr als 2 500 Euro, bei kommunalen Körperschaften mehr als 10 000 Euro beträgt.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Bemessungsgrundlage sind die zuwendungsfähigen Gesamtausgaben, die bei Beachtung der Grundsätze der Wirtschaftlichkeit und Sparsamkeit zur Durchführung des Projektes anfallen.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Zuwendungsfähig sind Personal- und Sachausgaben sowie Ausgaben für Investitionen und Fremdleistungen, die in unmittelbarem Zusammenhang mit der Durchführung des beantragten Projekts stehen. Gemeinausgaben sind nicht zuwendungsfähig.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Die Ausgaben für eine wissenschaftliche Begleitung oder Evaluierung des Projektes oder einzelner Bestandteile dürfen 15 Prozent der zuwendungsfähigen Gesamtausgaben nicht überschreiten.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Als zuwendungsfähige Personalausgaben werden pro Jahr für ganzjährig beim Zuwendungsempfänger angestellte Vollzeitkräfte Pauschalsätze gemäß der Anlage B zum Tarifvertrag für den öffentlichen Dienst der Länder (TV-L) vom 12. Oktober 2006 in der Fassung des Änderungstarifvertrages Nr. 11 vom 2. März 2019, in der jeweils geltenden Fassung, angesetzt; für Projektmitarbeiter, die nach ihrer Qualifikation und ausgeübten Tätigkeit mit einem Beschäftigten der",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": [
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Laufbahngruppe 1 zweite Einstiegsebene des öffentlichen Dienstes in Ostdeutschland vergleichbar sind: Entgeltgruppe 5, Stufe 3,",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Laufbahngruppe 2 erste Einstiegsebene des öffentlichen Dienstes in Ostdeutschland vergleichbar sind: Entgeltgruppe 9b, Stufe 3,",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Laufbahngruppe 2 zweite Einstiegsebene des öffentlichen Dienstes in Ostdeutschland vergleichbar sind: Entgeltgruppe 13, Stufe 3,",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Laufbahngruppe 2 zweite Einstiegsebene des öffentlichen Dienstes in Ostdeutschland vergleichbar sind und Führungsverantwortung wahrnehmen: Entgeltgruppe 14, Stufe 3.",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "Bei einer Teilzeitkraft sowie keiner ganzjährigen Beschäftigung vermindern sich die Pauschalsätze entsprechend."
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "Für Personalnebenausgaben ist ein Aufschlag in Höhe von 10 Prozent der Pauschalsätze zuwendungsfähig."
+                    },
+                    {
+                      "type": "paragraphText",
+                      "text": "Die Bewilligungsstelle kann Ausnahmen zulassen."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "V.",
+              "title": "Zuwendungsvoraussetzungen und Verfahren",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Für die Bewilligung einer Zuwendung bedarf es eines schriftlichen Antrages oder entsprechend § 3a des Verwaltungsverfahrensgesetzes eines elektronischen Antrages, der bis spätestens 30. März eines Jahres, im Jahr 2019 bis spätestens 31. Mai, bei der Bewilligungsstelle einzureichen ist.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Die Bewertung der Anträge erfolgt im Einvernehmen mit dem Ostdeutschen Staatsministerium für Soziales und Verbraucherschutz.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Die Auswahl der zur Förderung vorgesehenen, fristgerecht eingegangenen Anträge erfolgt im Wettbewerb untereinander. Das Ostdeutsche Staatsministerium für Soziales und Verbraucherschutz setzt eine Jury ein, die sowohl die klinischen und technischen Aspekte als auch die gesellschaftliche Bedeutung und den Transferaspekt des Antrages beurteilt.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": [
+                    {
+                      "type": "paragraphText",
+                      "text": "Zugrunde gelegt werden unter anderem folgende Kriterien:"
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Versorgungsbezug",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Patientenorientierung",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "intersektorale Zusammenarbeit",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Interoperabilität",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Nachhaltigkeit",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    },
+                    {
+                      "type": "item",
+                      "label": "–",
+                      "text": "Skalierbarkeit.",
+                      "level": 1,
+                      "numberingStyle": "decimal",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Der Bewilligungszeitraum beträgt vorbehaltlich verfügbarer Verpflichtungsermächtigungen in der Regel maximal drei Jahre.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Bei der Gewährung der Zuwendung ist eine Zweckbindungsfrist gemäß Nummer 4.2.6 der Verwaltungsvorschriften zu § 44 der Ostdeutschen Haushaltsordnung festzulegen.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Für Zuwendungen an Kommunale Zuwendungsempfänger sowie nicht Kommunale Zuwendungsempfänger, die bis zum 31. Dezember 2024 bewilligt werden, gilt, dass abweichend von den Nummern 7.1 bis 7.4 der Verwaltungsvorschrift zu § 44 der Ostdeutschen Haushaltsordnung sowie abweichend von den Nummern 7.1 bis 7.4 der Anlage 3 der Verwaltungsvorschrift zu § 44 der Ostdeutschen Haushaltsordnung (Verwaltungsvorschrift für Zuwendungen des Freistaates Ostdeutschland an kommunale Körperschaften – VVK) mehrere Vorauszahlungen zulässig sind. Die Zuwendungen dürfen nach Stellung eines entsprechenden Auszahlungsantrags des Zuwendungsempfängers nur insoweit und nicht eher ausgezahlt werden, als sie voraussichtlich innerhalb von sechs Monaten nach Auszahlung für fällige Zahlungen im Rahmen des Zuwendungszwecks benötigt werden.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "7.",
+                  "text": "Für Zuwendungen an kommunale Zuwendungsempfänger, die ab dem 1. Januar 2025 bewilligt werden, gilt das Auszahlungsverfahren nach Nummer 7.1 VVK. Für Zuwendungen an nicht kommunale Zuwendungsempfänger, die ab dem 1. Januar 2025 bewilligt werden, gilt das Auszahlungsverfahren nach Nummer 7.1 der Verwaltungsvorschrift zu § 44 der Ostdeutschen Haushaltsordnung.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "section",
+          "label": "B.",
+          "title": "Digitale Ertüchtigung von Krankenhäusern",
+          "children": [
+            {
+              "type": "section",
+              "label": "I.",
+              "title": "Zuwendungszweck",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Die Informationssicherheit und der Digitalisierungs- und Vernetzungsgrad von Krankenhäusern sollen durch infrastrukturelle und technische Maßnahmen verbessert werden."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "II.",
+              "title": "Gegenstand der Förderung",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Gefördert werden:"
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Maßnahmen der Beschaffung, Errichtung, Erweiterung oder Entwicklung informationstechnischer oder kommunikationstechnischer Anlagen, Systeme oder Verfahren, um die Informationssicherheit von Krankenhäusern an den Stand der Technik anzupassen,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Maßnahmen der Beschaffung und Erweiterung von digitaler Technik im Krankenhaus, mit Ausnahme von Medizinprodukten, Geräten der bildgebenden Diagnostik und Geräten für Operationsverfahren,",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Maßnahmen im Bereich des digitalen Patienten- und Facilitymanagement sowie",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Maßnahmen zur Schaffung und Verbesserung von IT-Infrastruktur.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "III.",
+              "title": "Zuwendungsempfänger",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Zuwendungsempfänger sind Krankenhäuser, die nach § 7 Absatz 1 des Ostdeutschen Krankenhausgesetzes vom 19. August 1993 (SächsGVBl. S. 675), das zuletzt durch Artikel 18 des Gesetzes vom 26. April 2018 (SächsGVBl. S. 198) geändert worden ist, in der jeweils geltenden Fassung, in den Krankenhausplan des Freistaates Ostdeutschland aufgenommen und nicht von § 5 des Krankenhausfinanzierungsgesetzes in der Fassung der Bekanntmachung vom 10. April 1991 (BGBl. I S. 886), das zuletzt durch Artikel 4 des Gesetzes vom 22. November 2019 (BGBl. I S. 1759) geändert worden ist, in der jeweils geltenden Fassung, umfasst sind."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "IV.",
+              "title": "Art, Umfang und Höhe der Zuwendung",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Die Zuwendung wird den Zuwendungsempfängern als Projektförderung im Wege der Festbetragsfinanzierung als nicht rückzahlbarer Zuschuss in Form einer Pauschale gewährt. Zuwendungsfähig sind Sachausgaben und Investitionen, die der stationären Krankenversorgung dienen.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Die Höhe der Zuwendung bestimmt sich nach den im jeweiligen Haushaltsjahr zur Verfügung stehenden Haushaltsmitteln. Diese werden zu gleichen Teilen auf die Zuwendungsempfänger verteilt. Dabei kommt je nach Versorgungsstufe gemäß § 4 Absatz 2 des Ostdeutschen Krankenhausgesetzes ein Faktor von 1 für Krankenhäuser nach § 4 Absatz 2 Nummer 1 und Nummer 4 des Ostdeutschen Krankenhausgesetzes, ein Faktor 2 für Krankenhäuser nach § 4 Absatz 2 Nummer 2 des Ostdeutschen Krankenhausgesetzes sowie ein Faktor 3 für Krankenhäuser nach § 4 Absatz 2 Nummer 3 des Ostdeutschen Krankenhausgesetzes zur Anwendung.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Die Zuwendung soll nur bewilligt werden, wenn diese im Einzelfall mehr als 2 500 Euro, bei kommunalen Körperschaften mehr als 10 000 Euro beträgt.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "V.",
+              "title": "Zuwendungsvoraussetzungen und Verfahren",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Die Anträge auf Gewährung einer Zuwendung sind durch die Zuwendungsempfänger bis zum 28. Februar eines Jahres bei der Bewilligungsstelle einzureichen. Für das Jahr 2019 gilt davon abweichend der 30. April 2019.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Die Auszahlung der Zuwendung erfolgt jährlich grundsätzlich im Monat Mai ohne Anforderung in einem Betrag.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Für den Nachweis der zweckentsprechenden sowie wirtschaftlichen und sparsamen Verwendung der Zuwendung wird ein einfacher Verwendungsnachweis zugelassen.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "C.",
+              "title": "Modellvorhaben",
+              "children": []
+            },
+            {
+              "type": "section",
+              "label": "I.",
+              "title": "Zuwendungszweck",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Modellvorhaben und die damit verbundene wissenschaftliche Begleitung sind zeitlich begrenzte Vorhaben, zur Entwicklung, Erprobung, Überprüfung und Weiterentwicklung von Methoden und Konzeptionen sowie zur Notwendigkeit und Ausgestaltung gesetzgeberischer Regelungen. Die Ergebnisse der Modellvorhaben sollen auf andere Träger oder Förderbereiche übertragbar sein und beispielsweise Erkenntnisse im Hinblick darauf bringen, wie der Strukturwandel in Folge der demografischen Entwicklung im Gesundheitswesen modellhaft bewältigt werden oder wie die flächendeckende medizinische und pflegerische Versorgung im Freistaat Ostdeutschland weiterhin gewährleistet werden kann."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "II.",
+              "title": "Gegenstand der Förderung",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Gefördert werden insbesondere innovative Wettbewerbe, regionale Pilotprojekte oder strukturierte Prozesse zur Stärkung der gemeinsamen Verantwortung aller gesundheitlichen Akteure in regionalen und überregionalen Kontexten, insbesondere im Hinblick auf eine sektorenübergreifende Verzahnung medizinisch ambulanter, stationärer, rehabilitativer und pflegerischer Versorgung."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "III.",
+              "title": "Zuwendungsempfänger",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Zuwendungsempfänger sind natürliche und juristische Personen."
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "IV.",
+              "title": "Art, Umfang und Höhe der Zuwendung",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Die Zuwendung wird im Rahmen einer Projektförderung als Anteilfinanzierung oder Festbetragsfinanzierung in Form eines nicht rückzahlbaren Zuschusses gewährt.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Die Höhe der Zuwendung beträgt bei der Anteilfinanzierung in der Regel bis zu 80 Prozent der zuwendungsfähigen Ausgaben. In begründeten Einzelfällen kann die Bewilligungsstelle im Einvernehmen mit dem Staatsministerium für Soziales und Verbraucherschutz einen höheren Fördersatz gewähren. Bei einer Festbetragsfinanzierung wird die Höhe der Zuwendung in der Förderbekanntmachung geregelt.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Eine Zuwendung soll nur bewilligt werden, wenn diese im Einzelfall mehr als 2 500 Euro, bei kommunalen Körperschaften mehr als 10 000 Euro beträgt.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "type": "section",
+              "label": "V.",
+              "title": "Zuwendungsvoraussetzungen und Verfahren",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Für Modellvorhaben nach dieser Richtlinie veröffentlicht das Staatsministerium für Soziales und Verbraucherschutz themenspezifische Förderbekanntmachungen, in denen insbesondere Einzelheiten der Förderung und vor allem Stichtage für die Antragstellung festgelegt werden.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "Eine Antragstellung ist nur nach einer Förderbekanntmachung und unter den dort näher bestimmten Voraussetzungen möglich.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "3.",
+                  "text": "Das Modellvorhaben ist vom Zuwendungsempfänger zu evaluieren. Das Ergebnis ist der Bewilligungsstelle in Berichtsform zusammen mit dem Verwendungsnachweis vorzulegen.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "4.",
+                  "text": "Modellvorhaben werden nur im Rahmen des im Bewilligungsbescheid festgelegten Zeitraumes gefördert. Eine Anschlussfinanzierung ist regelmäßig nicht möglich, ebenso ausgeschlossen ist eine Anschlussförderung nach Großbuchstabe A.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "5.",
+                  "text": "Als zuwendungsfähige Personalausgaben werden Pauschalsätze gemäß der Anlage B zum Tarifvertrag für den öffentlichen Dienst der Länder (TV-L) vom 12. Oktober 2006 in der Fassung des Änderungstarifvertrages Nr. 11 vom 2. März 2019, in der jeweils geltenden Fassung, angesetzt.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "Es gilt das Regelauszahlungsverfahren nach Nummer 7.1 der Verwaltungsvorschrift zu § 44 der Ostdeutschen Haushaltsordnung beziehungsweise nach Nummer 7.1 der Anlage 3 der Verwaltungsvorschrift zu § 44 der Ostdeutschen Haushaltsordnung (Verwaltungsvorschrift für Zuwendungen des Freistaates Ostdeutschland an kommunale Körperschaften – VVK). Für nicht-kommunale Zuwendungsempfänger kann eine Auszahlung nach Nummer 7.5 der Verwaltungsvorschrift zu § 44 der Ostdeutschen Haushaltsordnung nur erfolgen, wenn die Voraussetzungen erfüllt sind.",
+                  "level": 0,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "part",
+      "label": "Teil 3",
+      "title": "Inkrafttreten, Außerkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Richtlinie tritt mit Wirkung vom 1. Januar 2020 in Kraft. Gleichzeitig tritt die Richtlinie des Ostdeutschen Staatsministeriums für Soziales und Verbraucherschutz zur nachhaltigen Förderung der Digitalisierung im Gesundheitswesen im Freistaat Ostdeutschland vom 5. März 2019 (SächsABl. S. 532) außer Kraft."
+        },
+        {
+          "type": "annex",
+          "label": "Anlage",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Sofern die Maßnahmen nach dieser Richtlinie als staatliche Beihilfen auf Grundlage der AG-VO gefördert werden, sind ergänzend die nachfolgenden Punkte zu beachten:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Anwendbare Freistellungstatbestände",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Eine Förderung kann auf der Grundlage aller einschlägigen Artikel der AGVO gewährt werden."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "Förderverbot (Artikel 1 AGVO)",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Von der Förderung ausgeschlossen sind Unternehmen beziehungsweise Sektoren in den Fällen des Artikel 1 Absatz 2 bis 5 AGVO."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "Beachtung der Anmeldeschwelle (Artikel 4 AGVO)",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Bei der Bewilligung der Einzelvorhaben sind die Anmeldeschwellen nach Artikel 4 AGVO zu beachten."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "Transparenz (Artikel 5 AGVO)",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Die Förderung nach dieser Richtlinie erfolgt in Form von Zuschüssen."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "Anreizeffekt (Artikel 6 AGVO)",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Der Beihilfeempfänger muss vor Beginn der Arbeiten für das Vorhaben oder die Tätigkeit den schriftlichen Förderantrag gestellt haben. Dieser muss mindestens die folgenden Angaben enthalten:"
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Name und Größe des Unternehmens, Beschreibung des Vorhabens mit Angabe des Beginns und des Abschlusses, Standort des Vorhabens, die Kosten des Vorhabens, Art der Beihilfe (Zuschuss) sowie Höhe der für das Vorhaben benötigten öffentlichen Finanzierung."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "Berechnung von Beihilfeintensität und beihilfefähigen Kosten (Artikel 7 AGVO)",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Für die Berechnung der Beihilfeintensität und der beihilfefähigen Kosten werden die Beträge vor Abzug von Steuern und sonstigen Abgaben herangezogen. Die beihilfefähigen Kosten sind durch schriftliche Unterlagen zu belegen, die klar, spezifisch und aktuell sein müssen."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "7.",
+              "text": "Kumulierungsregel (Artikel 8 AGVO)",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Auf der Grundlage der AGVO gewährte staatliche Beihilfen können mit anderen staatlichen Beihilfen kumuliert werden, sofern diese Maßnahmen unterschiedliche bestimmbare beihilfefähige Kosten betreffen. Mit anderen staatlichen Beihilfen für dieselben, sich teilweise oder vollständig überschneidenden beihilfefähigen Kosten ist eine Kumulation zulässig, wenn durch diese Kumulierung die höchste nach der AGVO für diese Beihilfen geltende Beihilfeintensität beziehungsweise der höchste nach der AGVO für diese Beihilfen geltende Beihilfebetrag nicht überschritten wird."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "8.",
+              "text": "Veröffentlichung (Artikel 9 AGVO)",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Informationen über jede Einzelbeihilfe von über 500 000 Euro werden gemäß Artikel 9 Absatz 1 Buchstabe c in Verbindung mit Anhang III der AGVO auf einer ausführlichen Beihilfe-Website veröffentlicht."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "9.",
+              "text": "Beihilfefähige Kosten",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Beihilfefähige Kosten sind die Kosten des für die jeweilige Maßnahme einschlägigen Artikels der AGVO."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "10.",
+              "text": "Geltungsdauer der AGVO (Artikel 58 Absatz 5 in Verbindung mit Artikel 59 AGVO)",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "Die Freistellungstatbestände der AGVO gelten bis zum 31. Dezember 2023 zuzüglich einer Anpassungsperiode von sechs Monaten, mithin bis zum 30. Juni 2024."
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Sollte die AGVO nicht verlängert oder durch eine neue Allgemeine Gruppenfreistellungsverordnung ersetzt werden, oder werden relevante inhaltliche Veränderungen der derzeitigen AGVO vorgenommen, wird die Richtlinie zur Einhaltung der neuen Vorgaben entsprechend überarbeitet werden."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

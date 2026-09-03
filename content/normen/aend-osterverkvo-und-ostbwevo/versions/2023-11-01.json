@@ -1,0 +1,1634 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums der Justiz und für Europa zur Änderung der Verordnung über den elektronischen Rechtsverkehr in Ostdeutschland und weiterer Verordnungen",
+  "shortTitle": "Änd. OstERVerkVO und OstBWEVO",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Verordnung des Ostdeutschen Staatsministeriums der Justiz und für Europa zur Änderung der Verordnung über den elektronischen Rechtsverkehr in Ostdeutschland und weiterer Verordnungen vom 5. März 2014 (SächsGVBl. S. 94)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 13946.1, gültig ab 2014-04-01",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/13946.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/13946",
+      "retrievedAt": "2026-09-03",
+      "sha256": "80dc0a8656b1bc62b00da5483c92d379a0efd16714627fceac80ff7974fefea6",
+      "lawId": "13946",
+      "sourceValidFrom": "2014-04-01",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "body": [
+    {
+      "type": "paragraphText",
+      "text": "Es wird verordnet aufgrund von"
+    },
+    {
+      "type": "article",
+      "label": "Artikel 1",
+      "title": "Änderung der Verordnung über den elektronischen Rechtsverkehr in Ostdeutschland",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die Verordnung des Ostdeutschen Staatsministeriums der Justiz und für Europa über den elektronischen Rechtsverkehr in Ostdeutschland (OstERVerkVO) vom 6. Juli 2010 (SächsGVBl. S. 190), zuletzt geändert durch Verordnung vom 6. Juni 2012 (SächsGVBl. S. 324), wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Überschrift wird wie folgt gefasst:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "„Verordnung\ndes Ostdeutschen Staatsministeriums\nder Justiz und für Europa\nüber den elektronischen Rechtsverkehr, die elektronische Aktenführung, die elektronischen Register und das maschinelle Grundbuch in Ostdeutschland\n(Ostdeutsche E-Justizverordnung – OstEJustizVO)“."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "Nach der Überschrift wird folgende Fußnote 1 eingefügt:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "„1",
+              "text": "Die Verpflichtungen aus der Richtlinie 98/34/EG des Europäischen Parlaments und des Rates vom 22. Juni 1998 über ein Informationsverfahren auf dem Gebiet der Normen und technischen Vorschriften und der Vorschriften für die Dienste der Informationsgesellschaft (ABl. L 204 vom 21.7.1998, S. 37), zuletzt geändert durch Artikel 26 Abs. 2 der Verordnung (EU) Nr. 1025/2012 (ABl. L 316 vom 14.11.2012, S. 12), sind beachtet worden.“",
+              "level": 1,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "3.",
+          "text": "Vor § 1 wird folgende Überschrift eingefügt:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "„Abschnitt 1\nElektronischer Rechtsverkehr“."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "4.",
+          "text": "§ 1 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Die Überschrift wird wie folgt gefasst:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„§ 1\nEröffnung der elektronischen Kommunikation; Verpflichtung zur elektronischen Einreichung und zur Übermittlung von Strukturdaten“."
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Der Wortlaut wird Absatz 1 und nach dem Wort „Anlage“ wird die Angabe „1“ eingefügt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Folgender Absatz 2 wird angefügt:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„(2) Soweit in Grundbuchsachen die Einreichung elektronischer Dokumente gemäß Absatz 1 eröffnet ist, haben Notare"
+                },
+                {
+                  "type": "item",
+                  "label": "1.",
+                  "text": "Dokumente elektronisch zu übermitteln und",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "2.",
+                  "text": "neben den elektronischen Dokumenten auch die darin enthaltenen Angaben in strukturierter maschinenlesbarer Form im Format XML (Extensible Markup Language) zu übermitteln; dazu gehören mindestens die Bezeichnung des Grundbuchamts, des Grundbuchbezirks, des Grundbuchblatts, der Beteiligten und der eingereichten Dokumente.",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "paragraphText",
+                  "text": "Satz 1 Nr. 1 gilt nicht für Pläne und Zeichnungen, die ein größeres Format als DIN A3 aufweisen, und, soweit es sich nicht um Urkunden des antragstellenden oder eines mit ihm zur gemeinsamen Berufsausübung verbundenen Notars handelt, für die mit den Plänen oder Zeichnungen gemäß § 44 des Beurkundungsgesetzes verbundenen Dokumente, wenn mindestens die in Satz 1 Nr. 2 genannten Angaben in strukturierter maschinenlesbarer Form übermittelt werden. § 137 Abs. 1 Satz 3 der Grundbuchordnung bleibt unberührt.“"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "5.",
+          "text": "§ 2 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "Dem Absatz 1 wird folgender Satz angefügt:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„Zur Entgegennahme elektronischer Dokumente in Grundbuchsachen ist ausschließlich das direkt adressierbare elektronische Postfach des jeweiligen Grundbuchamtes bei der elektronischen Poststelle bestimmt.“"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "Dem Absatz 2 wird folgender Satz angefügt:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„§ 136 der Grundbuchordnung bleibt unberührt.“"
+                }
+              ]
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "In Absatz 3 Satz 1 wird die Angabe „in der im Bundesgesetzblatt Teil III, Gliederungsnummer 4100-1, veröffentlichten bereinigten Fassung, das zuletzt durch Artikel 6a des Gesetzes vom 31. Juli 2009 (BGBl. I S. 2512, 2519) geändert worden ist, in der jeweils geltenden Fassung,“ gestrichen.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "d)",
+              "text": "In Absatz 3 Satz 2 und Absatz 4 Satz 1 werden die Wörter „das adressierte Gericht“ durch die Wörter „den Adressaten“ ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "e)",
+              "text": "Folgender Absatz 7 wird angefügt:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "paragraphText",
+                  "text": "„(7) Die elektronischen Nachrichten und die enthaltenen elektronischen Dokumente dürfen keine Schadsoftware enthalten.“"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "6.",
+          "text": "§ 3 wird wie folgt geändert:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "item",
+              "label": "a)",
+              "text": "In Nummer 3 wird nach den Wörtern „sowie die bei dem in“ die Angabe „§ 1 Abs. 2 Satz 1 Nr. 2 und“ eingefügt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "b)",
+              "text": "In Nummer 4 werden nach dem Wort „Gerichts“ die Wörter „oder des Grundbuchamts“ eingefügt und der Satzpunkt wird durch ein Komma ersetzt.",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "c)",
+              "text": "Die folgenden Nummern 5 und 6 werden angefügt:",
+              "level": 1,
+              "numberingStyle": "lower-latin",
+              "children": [
+                {
+                  "type": "item",
+                  "label": "„5.",
+                  "text": "die Angaben zur höchstzulässigen Anzahl der elektronischen Dokumente und den Volumengrenzen bei einer Einreichung,",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                },
+                {
+                  "type": "item",
+                  "label": "6.",
+                  "text": "die Angaben zu den Datenträgern für die Ersatzeinreichung nach § 4 Abs. 1 Satz 1.“",
+                  "level": 2,
+                  "numberingStyle": "decimal",
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "7.",
+          "text": "§ 4 wird wie folgt gefasst:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "„§ 4\nErsatzeinreichung"
+            },
+            {
+              "type": "paragraphText",
+              "text": "(1) Ist eine Übermittlung an die elektronische Poststelle nicht möglich, insbesondere weil die Grenzen für die Anzahl der einzureichenden Dokumente oder das Volumen der zu übermittelnden Daten nach § 3 Nr. 5 überschritten werden oder weil beim Einreicher oder bei der elektronischen Poststelle eine technische Störung vorliegt, kann die Einreichung abweichend von § 2 Abs. 1 und 2 auf einem Datenträger nach § 3 Nr. 6 bei dem Adressaten erfolgen. Eine Ersatzeinreichung bei dem Grundbuchamt muss in Papierform erfolgen. Die Unmöglichkeit der Übermittlung nach § 2 ist darzulegen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Die Bearbeitungsvoraussetzungen gemäß § 3 Nr. 2 bis 4 sind auch in den Fällen des Absatzes 1 Satz 1 einzuhalten, soweit sie nicht den elektronischen Übermittlungsvorgang betreffen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(3) Ist die Übermittlung elektronischer Dokumente über die elektronische Poststelle und die Einreichung gemäß Absatz 1 Satz 1 nicht möglich, sind die Dokumente in Papierform einzureichen.“"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "8.",
+          "text": "Nach § 4 werden die folgenden Abschnitte 2 und 3 eingefügt:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "„Abschnitt 2\nElektronische Aktenführung"
+            },
+            {
+              "type": "paragraphText",
+              "text": "§ 5\nFührung elektronischer Akten"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Bei den in der Anlage 2 bezeichneten Gerichten werden in den dort jeweils für sie näher bezeichneten Verfahrensarten und ab dem dort für sie angegebenen Datum die Akten elektronisch geführt."
+            },
+            {
+              "type": "paragraphText",
+              "text": "§ 6\nErlass von Entscheidungen und Verfügungen in Grundbuchsachen"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Entscheidungen und Verfügungen von Grundbuchämtern, deren Grundakten elektronisch geführt werden, sind in elektronischer Form zu erlassen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "§ 7\nÜbertragung von Papierdokumenten"
+            },
+            {
+              "type": "paragraphText",
+              "text": "(1) Schriftstücke, die nach Anlegung der elektronischen Akte in Papierform eingereicht werden und dauerhaft aufzubewahren sind, sind zur Ersetzung der Urschrift in die elektronische Form zu übertragen und in dieser Form zur Akte zu nehmen. Die Schriftstücke können anschließend ausgesondert werden, soweit das Gesetz nichts anderes bestimmt."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Das Staatsministerium der Justiz und für Europa entscheidet nach pflichtgemäßem Ermessen darüber, ob, zu welchem Zeitpunkt und in welchem Umfang der zum Zeitpunkt der Anlegung der elektronischen Akte in Papierform vorliegende Inhalt einer Akte in elektronische Dokumente übertragen und in dieser Form zur elektronischen Akte genommen wird."
+            },
+            {
+              "type": "paragraphText",
+              "text": "Abschnitt 3\nElektronisches Handels-, Genossenschafts-, Partnerschafts- und Vereinsregister und maschinell geführtes Grundbuch"
+            },
+            {
+              "type": "paragraphText",
+              "text": "§ 8\nFührung in maschineller Form"
+            },
+            {
+              "type": "paragraphText",
+              "text": "(1) Das Vereinsregister einschließlich der zu seiner Führung erforderlichen Verzeichnisse und das Grundbuch werden in maschineller Form als automatisierte Datei geführt."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Die elektronische Datenverarbeitung zur Führung des Handels-, Genossenschafts-, Partnerschafts- und Vereinsregisters sowie des Grundbuchs wird im Auftrag des zuständigen Amtsgerichts beim Staatsministerium der Justiz und für Europa vorgenommen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "§ 9\nEinsicht in Registerdaten"
+            },
+            {
+              "type": "paragraphText",
+              "text": "Die Daten des bei einem Gericht geführten Handels-, Genossenschafts-, Partnerschafts- und Vereinsregisters sind auch bei den anderen Registergerichten zur Einsicht zugänglich."
+            },
+            {
+              "type": "paragraphText",
+              "text": "§ 10\nErsatzregister und Ersatzgrundbuch"
+            },
+            {
+              "type": "paragraphText",
+              "text": "(1) Ein Ersatzregister oder ein Ersatzgrundbuch in Papierform soll in der Regel angelegt werden, wenn die Vornahme der Eintragungen in das maschinell geführte Register oder Grundbuch länger als zwei Wochen nicht möglich ist."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(2) Die Anordnung zur Führung des Ersatzregisters trifft der Präsident des Amtsgerichts. Vor der Anlegung eines Ersatzregisters in Papierform und nach der Übernahme von Eintragungen aus dem Ersatzregister in das maschinell geführte Register benachrichtigt das Amtsgericht das Staatsministerium der Justiz und für Europa. Dieses hat die Nutzer in geeigneter Weise auf die Anlegung des Ersatzregisters hinzuweisen."
+            },
+            {
+              "type": "paragraphText",
+              "text": "(3) Bei der Übernahme neuer Eintragungen aus dem Ersatzregister oder Ersatzgrundbuch in das maschinell geführte Register oder Grundbuch ist die Speicherung des Schriftzugs von Unterschriften nicht notwendig. Die aus dem Ersatzregister oder Ersatzgrundbuch in die automatisierte Datei übernommene Eintragung ist mit dem Vermerk abzuschließen: ‚Aus dem Ersatzregister/Ersatzgrundbuch übernommen und freigegeben am/zum ...‘. In der Aufschrift des Ersatzregisters oder Ersatzgrundbuchs ist folgender Schließungsvermerk deutlich sichtbar einzutragen: ‚Nach Wiederherstellung des maschinell geführten Registers/Grundbuchs geschlossen am/zum ...‘.“"
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "9.",
+          "text": "Die Anlage zu § 1 wird wie folgt gefasst:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "table",
+          "columns": 4,
+          "children": [
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Nummer",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Gericht",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Verfahrensbereich",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Datum",
+                  "scope": "col"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Num-\nmer"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gericht"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verfahrensbereich"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Datum"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "1.",
+                  "rowspan": 4
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Dresden",
+                  "rowspan": 4
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Handels-, Genossenschafts- und Partnerschaftsregister"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Januar 2007"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Vereinsregister"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2010"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2014"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "2.",
+                  "rowspan": 3
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Chemnitz",
+                  "rowspan": 3
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Handels-, Genossenschafts -und Partnerschaftsregister"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Januar 2007"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Vereinsregister"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2010"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "3.",
+                  "rowspan": 3
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Leipzig",
+                  "rowspan": 3
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Handels-, Genossenschafts- und Partnerschaftsregister"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Januar 2007"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Vereinsregister"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2010"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Februar 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "4."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Sozialgericht Dresden"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2011"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "5."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Ostdeutsches Landessozial-\ngericht"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2011"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "6."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Oberlandes-\ngericht Dresden"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. September 2011"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "7."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Dresden"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. November 2011"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "8."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Eilenburg"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. November 2011"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "9."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Zwickau"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. November 2011"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "10."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Borna"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Februar 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "11."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Grimma"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Februar 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "12."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Torgau"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Februar 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "13."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Leipzig"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Februar 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "14."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verwaltungs-\ngericht Dresden"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. März 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "15."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Dippoldiswalde"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "16."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Meißen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "17."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Pirna"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "18."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Riesa"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "19."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Auerbach"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Juni 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "20."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Hohenstein-Ernstthal"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Juni 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "21."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Plauen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Juni 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "22."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Zwickau"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Juni 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "23."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Sozialgericht Chemnitz"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Juli 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "24."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Ostdeutsches Landesarbeits-\ngericht"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Juli 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "25."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Dresden"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Juli 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "26."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Aue"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "27."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Döbeln"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "28."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Freiberg"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "29."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Marienberg"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "30."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Chemnitz"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. August 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "31."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Sozialgericht Leipzig"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Oktober 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "32."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Bautzen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Oktober 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "33."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Hoyerswerda"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Oktober 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "34."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Kamenz"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Oktober 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "35."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Görlitz"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "36."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Weißwasser"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "37."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Zittau"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren mit Ausnahme von Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "38."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Görlitz"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "39."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Ostdeutsches Oberverwaltungs-\ngericht"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "40."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verwaltungs-\ngericht Chemnitz"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "41."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verwaltungs-\ngericht Leipzig"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "42."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Bautzen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "43."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Chemnitz"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "44."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Leipzig"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "45."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Zwickau"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "46."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Ostdeutsches Finanzgericht"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "alle Verfahren"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. Dezember 2012"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraphText",
+          "text": "“"
+        },
+        {
+          "type": "item",
+          "label": "10.",
+          "text": "Folgende Anlage 2 wird angefügt:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        },
+        {
+          "type": "table",
+          "columns": 4,
+          "children": [
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Nummer",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Gericht",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Verfahrensbereich",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Datum",
+                  "scope": "col"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Num-\nmer"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gericht"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verfahrensbereich"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Datum"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "1."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Dresden"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Grundbuchsachen"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "1. April 2014"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraphText",
+          "text": "“"
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 2",
+      "title": "Änderung der Verordnung über die grundbuchmäßige Behandlung von Bergwerkseigentum",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Die\nVerordnung des Ostdeutschen Staatsministeriums der Justiz über die grundbuchmäßige Behandlung von Bergwerkseigentum vom 29. August 1991 (SächsGVBl. S. 352), zuletzt geändert durch Verordnung vom 14. Dezember 2007 (SächsGVBl. S. 600), wird wie folgt geändert:"
+        },
+        {
+          "type": "item",
+          "label": "1.",
+          "text": "Die Überschrift wird wie folgt gefasst:",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "„Verordnung\ndes Ostdeutschen Staatsministeriums\nder Justiz und für Europa\nüber die grundbuchmäßige Behandlung von Bergwerkseigentum\n(Ostdeutsche Bergwerkseigentumsverordnung – OstBWEVO)“."
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "label": "2.",
+          "text": "In § 2 werden nach der Angabe „S. 114)“ ein Komma und die Angabe „zuletzt geändert durch Artikel 2 des Gesetzes vom 1. Oktober 2013 (BGBl. I S. 3719, 3721), in der jeweils geltenden Fassung,“ eingefügt und die Angabe „über das maschinell geführte Grundbuch (MaschGBV) vom 28. Juli 1995 (SächsGVBl. S. 259)“ wird durch die Angabe „und für Europa über den elektronischen Rechtsverkehr, die elektronische Aktenführung, die elektronischen Register und das maschinelle Grundbuch (Ostdeutsche E-Justizverordnung – OstEJustizVO) vom 6. Juli 2010 (SächsGVBl. S. 190), zuletzt geändert durch Artikel 1 der Verordnung vom 5. März 2014 (SächsGVBl. S. 94, 95), in der jeweils geltenden Fassung“ ersetzt.",
+          "level": 0,
+          "numberingStyle": "decimal",
+          "children": []
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 3",
+      "title": "Neufassung der Ostdeutschen E-Justizverordnung und der Ostdeutschen Bergwerkseigentumsverordnung",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Das Staatsministerium der Justiz und für Europa kann den Wortlaut der Ostdeutschen E-Justizverordnung und der Ostdeutschen Bergwerkseigentumsverordnung in der vom 1. April 2014 an geltenden Fassung im Ostdeutschen Gesetz- und Verordnungsblatt bekannt machen."
+        }
+      ]
+    },
+    {
+      "type": "article",
+      "label": "Artikel 4",
+      "title": "Inkrafttreten und Außerkrafttreten",
+      "children": [
+        {
+          "type": "paragraphText",
+          "text": "Diese Verordnung tritt am 1. April 2014 in Kraft. Gleichzeitig treten die Verordnung des Ostdeutschen Staatsministeriums der Justiz über das maschinell geführte Grundbuch (MaschGBV) vom 28. Juli 1995 (SächsGVBl. S. 259), zuletzt geändert durch Artikel 1 der Verordnung vom 6. Juli 2006 (SächsGVBl. S. 400, 401), und die Verordnung des Ostdeutschen Staatsministeriums der Justiz über Einführung und Führung des maschinell geführten Handels-, Genossenschafts-, Partnerschafts- und Vereinsregisters (MaschRegVO) vom 7. Januar 2002 (SächsGVBl. S. 51), geändert durch Artikel 2 der Verordnung vom 6. Juli 2006 (SächsGVBl. S. 400, 401), außer Kraft."
+        }
+      ]
+    }
+  ]
+}

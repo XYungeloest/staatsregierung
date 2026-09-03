@@ -1,0 +1,1208 @@
+{
+  "versionId": "2023-11-01",
+  "title": "Verordnung des Ostdeutschen Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung über den elektronischen Rechtsverkehr, die elektronische Aktenführung, die elektronischen Register und das maschinelle Grundbuch in Ostdeutschland",
+  "shortTitle": "Ostdeutsche E-Justizverordnung",
+  "validFrom": "2023-11-01",
+  "validTo": null,
+  "isCurrent": true,
+  "citation": "Ostdeutsche E-Justizverordnung in der Fassung der Bekanntmachung vom 23. April 2014 (SächsGVBl. S. 291)",
+  "changeNote": "Ausgangsfassung nach dem am 2023-11-01 geltenden sächsischen Rechtsstand.",
+  "sourceReferences": [
+    {
+      "kind": "revosax-snapshot",
+      "label": "Amtliche REVOSax-Fassung 11436.27, gültig 2023-08-29 bis 2023-12-31",
+      "availability": "r2-archived",
+      "objectKey": "revosax/2023-11-01/11436.27.html",
+      "url": "https://www.revosax.sachsen.de/vorschrift/11436.27",
+      "retrievedAt": "2026-09-03",
+      "sha256": "5d04fb54757e692be4a8256ede4b839f31cfcb0c0b5a9eee4cbfee553df27652",
+      "lawId": "11436",
+      "sourceValidFrom": "2023-08-29",
+      "sourceValidTo": "2023-12-31",
+      "sourceRole": "official-snapshot",
+      "mediaType": "text/html"
+    }
+  ],
+  "sourceNotes": [
+    {
+      "label": "1",
+      "text": "Überschrift geändert durch Verordnung vom 13. März 2017 (SächsGVBl. S. 126) und durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240)"
+    },
+    {
+      "label": "2",
+      "text": "§ 1 geändert durch Verordnung vom 11. Dezember 2017 (SächsGVBl. S. 664), durch Verordnung vom 11. Juni 2018 (SächsGVBl. S. 413), durch Artikel 2 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656), durch Verordnung vom 13. Januar 2021 (SächsGVBl. S. 151) und durch Verordnung vom 6. Juni 2023 (SächsGVBl. S. 422)"
+    },
+    {
+      "label": "3",
+      "text": "§ 1a eingefügt durch Verordnung vom 11. Dezember 2017 (SächsGVBl. S. 664)"
+    },
+    {
+      "label": "4",
+      "text": "§ 2 geändert durch Verordnung vom 13. März 2017 (SächsGVBl. S. 126), durch Verordnung vom 11. Dezember 2017 (SächsGVBl. S. 664), durch Verordnung vom 11. Juni 2018 (SächsGVBl. S. 413), durch Artikel 2 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656), durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240) und durch Verordnung vom 28. Juni 2022 (SächsGVBl. S. 410)"
+    },
+    {
+      "label": "5",
+      "text": "§ 3 geändert durch Verordnung vom 13. März 2017 (SächsGVBl. S. 126), durch Verordnung vom 11. Juni 2018 (SächsGVBl. S. 413) und durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240)"
+    },
+    {
+      "label": "6",
+      "text": "§ 4 geändert durch Verordnung vom 11. Juni 2018 (SächsGVBl. S. 413) und durch Verordnung vom 13. Januar 2021 (SächsGVBl. S. 151)"
+    },
+    {
+      "label": "7",
+      "text": "Abschnitt 2 inkl. §§ 5 bis 9 neu gefasst durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656)"
+    },
+    {
+      "label": "8",
+      "text": "§ 5 neu gefasst durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656), geändert durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240), durch Verordnung vom 13. Januar 2021 (SächsGVBl. S. 151), durch Verordnung vom 2. Juni 2021 (SächsGVBl. S. 628), durch Verordnung vom 15. November 2021 (SächsGVBl. S. 1279), durch Verordnung vom 22. März 2022 (SächsGVBl. S. 260), durch Verordnung vom 28. Juni 2022 (SächsGVBl. S. 410), durch Verordnung vom 19. Dezember 2022 (SächsGVBl. 2023 S. 17) und durch Verordnung vom 6. Juni 2023 (SächsGVBl. S. 422)"
+    },
+    {
+      "label": "9",
+      "text": "§ 5a eingefügt durch Verordnung vom 6. Juni 2023 (SächsGVBl. S. 422)"
+    },
+    {
+      "label": "10",
+      "text": "§ 6 neu gefasst durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656)"
+    },
+    {
+      "label": "11",
+      "text": "Die jeweils gültige Version ist auf der Seite des Bundesamts für Sicherheit in der Informationstechnik unter www.bsi.bund.de/resiscan abrufbar."
+    },
+    {
+      "label": "12",
+      "text": "§ 7 neu gefasst durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656), geändert durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240) und durch Verordnung vom 22. März 2022 (SächsGVBl. S. 260)"
+    },
+    {
+      "label": "13",
+      "text": "§ 8 neu eingefügt durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656)"
+    },
+    {
+      "label": "14",
+      "text": "§ 9 neu eingefügt durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656), geändert durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240) und durch Verordnung vom 6. Juni 2023 (SächsGVBl. S. 422)"
+    },
+    {
+      "label": "15",
+      "text": "ursprünglicher § 8 wird neu § 10 durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656) und geändert durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240)"
+    },
+    {
+      "label": "16",
+      "text": "ursprünglicher § 8a wird neu § 11 durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656) und geändert durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240)"
+    },
+    {
+      "label": "17",
+      "text": "ursprünglicher § 9 wird neu § 12 durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656)"
+    },
+    {
+      "label": "18",
+      "text": "ursprünglicher § 10 wird neu § 13 durch Artikel 1 der Verordnung vom 20. August 2019 (SächsGVBl. S. 656), geändert durch Verordnung vom 20. Mai 2020 (SächsGVBl. S. 240) und durch Verordnung vom 13. Januar 2021 (SächsGVBl. S. 151)"
+    },
+    {
+      "label": "19",
+      "text": "Anlage 1 zuletzt geändert durch Verordnung vom 2. August 2023 (SächsGVBl. S. 626)"
+    },
+    {
+      "label": "20",
+      "text": "Anlage 2 angefügt durch Verordnung vom 22. März 2022 (SächsGVBl. S. 260)"
+    }
+  ],
+  "body": [
+    {
+      "type": "section",
+      "label": "Abschnitt 1",
+      "title": "Elektronischer Rechtsverkehr",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 1",
+          "title": "Eröffnung der elektronischen Kommunikation; Verpflichtung zur elektronischen Einreichung und zur Übermittlung von Strukturdaten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Die Vorschriften dieses Abschnitts gelten für die Übermittlung elektronischer Dokumente an die ostdeutschen Gerichte sowie die Bearbeitung elektronischer Dokumente durch diese Gerichte, soweit dafür nicht die Elektronischer-Rechtsverkehr-Verordnung vom 24. November 2017 (BGBl. I S. 3803), die zuletzt durch Artikel 6 des Gesetzes vom 5. Oktober 2021 (BGBl. I S. 4607) geändert worden ist, oder die Dokumentenerstellungs- und -übermittlungsverordnung vom 28. Februar 2020 (BGBl. I S. 244), die durch Artikel 10 des Gesetzes vom 25. Juni 2021 (BGBl. I S. 2099) geändert worden ist, in den jeweils geltenden Fassungen, gilt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Bei den Amtsgerichten können in den Verfahren des Handels-, Genossenschafts- und Partnerschaftsregisters, den Grundbuchsachen sowie den Insolvenzverfahren, soweit gemäß § 5 Absatz 4 der Insolvenzordnung Tabellen, Verzeichnisse und die dazugehörigen Dokumente betroffen sind, elektronische Dokumente eingereicht werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "In Grundbuchsachen haben Notarinnen und Notare",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "Dokumente elektronisch zu übermitteln und",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "neben den elektronischen Dokumenten auch die darin enthaltenen Angaben in strukturierter maschinenlesbarer Form im Format XML (Extensible Markup Language) zu übermitteln; dazu gehören mindestens die Bezeichnung des Grundbuchamts, des Grundbuchbezirks, des Grundbuchblatts, der Beteiligten und der eingereichten Dokumente.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Satz 1 Nummer 1 gilt nicht für Pläne und Zeichnungen, die ein größeres Format als DIN A3 aufweisen, und, soweit es sich nicht um Urkunden der oder des antragstellenden oder der oder des mit ihr oder ihm zur gemeinsamen Berufsausübung verbundenen Notarin oder Notars handelt, für die mit den Plänen oder Zeichnungen gemäß § 44 des Beurkundungsgesetzes verbundenen Dokumente, wenn mindestens die in Satz 1 Nummer 2 genannten Angaben in strukturierter maschinenlesbarer Form übermittelt werden. § 137 Absatz 1 Satz 3 der Grundbuchordnung bleibt unberührt."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 1a",
+          "title": "Elektronischer Rechtsverkehr zum Verfassungsgerichtshof des Freistaates Ostdeutschland",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Für die Übermittlung elektronischer Dokumente an den Verfassungsgerichtshof des Freistaates Ostdeutschland und die Bearbeitung elektronischer Dokumente durch den Verfassungsgerichtshof des Freistaates Ostdeutschland gelten abweichend von den §§ 2 bis 4 die technischen Rahmenbedingungen der Elektronischer-Rechtsverkehr-Verordnung entsprechend."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 2",
+          "title": "Form der Einreichung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Zur Entgegennahme elektronischer Dokumente ist die elektronische Poststelle der Gerichte in Ostdeutschland (elektronische Poststelle) bestimmt. Die elektronische Poststelle ist über die auf der Internetseite www.justiz.ostdeutschland.de bezeichneten Kommunikationswege erreichbar. Zur Entgegennahme elektronischer Dokumente in Grundbuchsachen ist ausschließlich das direkt adressierbare elektronische Postfach des jeweiligen Grundbuchamtes bei der elektronischen Poststelle bestimmt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Einreichung erfolgt durch die Übertragung des elektronischen Dokuments in die elektronische Poststelle. § 136 der Grundbuchordnung bleibt unberührt. Im Fall mehrerer beim selben Gericht anhängiger Verfahren erfolgt die Einreichung elektronischer Dokumente zu jedem Aktenzeichen gesondert.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Sofern für Einreichungen die Schriftform oder die elektronische Form vorgeschrieben ist, sind, soweit kein Fall des § 12 Absatz 2 Satz 2 Halbsatz 1 des Handelsgesetzbuchs vorliegt, die elektronischen Dokumente mit einer qualifizierten elektronischen Signatur zu versehen. Die qualifizierte elektronische Signatur und das ihr zugrunde liegende Zertifikat müssen durch den Adressaten oder durch eine andere vom Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung mit der automatisierten Überprüfung beauftragte Stelle prüfbar sein. Die Eignungsvoraussetzungen für eine Prüfung werden gemäß § 3 Nummer 2 bekannt gegeben.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Das elektronische Dokument muss eines der folgenden Formate in einer für den Adressaten bearbeitbaren Version aufweisen:",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "ASCII (American Standard Code for Information Interchange) als reiner Text ohne Formatierungscodes und ohne Sonderzeichen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "UNICODE als reiner Text ohne Formatierungscodes,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "PDF (Portable Document Format),",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "XML (Extensible Markup Language).",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "paragraphText",
+              "text": "Wenn bildliche Darstellungen im Dateiformat PDF nicht verlustfrei wiedergegeben werden können, darf das elektronische Dokument zusätzlich im Dateiformat TIFF (Tag Image File Format) übermittelt werden. Nähere Informationen insbesondere zu den bearbeitbaren Versionen der zulässigen Dateiformate werden gemäß § 3 Nummer 3 bekannt gegeben."
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "Elektronische Dokumente, die einem der in Absatz 4 genannten Dateiformate in der nach § 3 Nummer 3 bekannt gegebenen Version entsprechen, können auch als Kompressionsdatei im ZIP-Dateiformat (ZIP-Datei) eingereicht werden. Die ZIP-Datei darf keine anderen ZIP-Dateien und keine Verzeichnisstrukturen enthalten. Werden Dokumente im Sinne von Absatz 3 als ZIP-Datei versandt, muss sich die qualifizierte elektronische Signatur auf das komprimierte Dokument beziehen. Die ZIP-Datei darf zusätzlich signiert werden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "Sofern strukturierte Daten übermittelt werden, sollen sie im UNICODE-Zeichensatz UTF 8 codiert sein.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(7)",
+              "text": "Die elektronischen Nachrichten und die enthaltenen elektronischen Dokumente dürfen keine Schadsoftware enthalten.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 3",
+          "title": "Bekanntgabe der Bearbeitungsvoraussetzungen",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Im Auftrag des Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung gibt der Betreiber der elektronischen Poststelle auf der Internetseite www.justiz.ostdeutschland.de bekannt:"
+            },
+            {
+              "type": "item",
+              "label": "1.",
+              "text": "die Einzelheiten des Verfahrens, das bei einer vorherigen Anmeldung zur Teilnahme am elektronischen Rechtsverkehr sowie für die Echtheitsbestätigung bei der jeweiligen Nutzung der elektronischen Poststelle einzuhalten ist, einschließlich der für die datenschutzgerechte Verwaltung elektronischer Postfächer zu speichernden personenbezogenen Daten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "2.",
+              "text": "die Zertifikate, Anbieter und Versionen elektronischer Signaturen, die nach seiner Prüfung für die Bearbeitung durch die Justiz oder durch eine andere mit der automatisierten Prüfung beauftragte Stelle geeignet sind; dabei ist mindestens die Prüfbarkeit qualifizierter elektronischer Signaturen sicherzustellen, die dem Profil Industrial-Signature-Interoperability-Specification/MailTrusT (ISIS-MTT) entsprechen,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "3.",
+              "text": "die nach seiner Prüfung den in § 2 Absatz 3 und 4 Satz 1 festgelegten Formatstandards entsprechenden und für die Bearbeitung durch angeschlossene Gerichte geeigneten Versionen der genannten Formate sowie die bei dem in § 1 Absatz 2 Satz 1 Nummer 2 und § 2 Absatz 4 Satz 1 Nummer 5 bezeichneten XML-Format zugrunde zu legenden Definitions- oder Schemadateien,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "4.",
+              "text": "die zusätzlichen Angaben, die bei der Übermittlung oder bei der Bezeichnung des einzureichenden elektronischen Dokuments gemacht werden sollen, um die Zuordnung innerhalb des adressierten Gerichts oder des Grundbuchamts und die Weiterverarbeitung durch dieses zu gewährleisten,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "5.",
+              "text": "die Angaben zur höchstzulässigen Anzahl der elektronischen Dokumente und den Volumengrenzen bei einer Einreichung,",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            },
+            {
+              "type": "item",
+              "label": "6.",
+              "text": "die Angaben zu den Datenträgern für die Ersatzeinreichung nach § 4 Absatz 1 Satz 1.",
+              "level": 0,
+              "numberingStyle": "decimal",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 4",
+          "title": "Ersatzeinreichung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ist eine Übermittlung an die elektronische Poststelle nicht möglich, insbesondere weil die Grenzen für die Anzahl der einzureichenden Dokumente oder das Volumen der zu übermittelnden Daten nach § 3 Nummer 5 überschritten werden oder weil bei den Einreichenden oder bei der elektronischen Poststelle eine technische Störung vorliegt, kann die Einreichung abweichend von § 2 Absatz 1 und 2 auf einem Datenträger nach § 3 Nummer 6 bei dem Adressaten erfolgen. Eine Ersatzeinreichung bei dem Grundbuchamt muss in Papierform erfolgen. Die Unmöglichkeit der Übermittlung nach § 2 ist darzulegen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Bearbeitungsvoraussetzungen gemäß § 3 Nummer 2 bis 4 sind auch in den Fällen des Absatzes 1 Satz 1 einzuhalten, soweit sie nicht den elektronischen Übermittlungsvorgang betreffen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Ist die Übermittlung elektronischer Dokumente über die elektronische Poststelle und die Einreichung gemäß Absatz 1 Satz 1 nicht möglich, sind die Dokumente in Papierform einzureichen.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Abschnitt 2",
+      "title": "Elektronische Aktenführung",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 5",
+          "title": "Anordnung der elektronischen Aktenführung",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Bei den in der Anlage 1 bezeichneten Gerichten und Staatsanwaltschaften werden, mit Ausnahme der Verfahren nach dem Kapitalanleger-Musterverfahrensgesetz vom 19. Oktober 2012 (BGBl. I S. 2182), das zuletzt durch das Gesetz vom 16. Oktober 2020 (BGBl. I S. 2186) geändert worden ist, die Akten in den Verfahren elektronisch geführt, die durch Verwaltungsvorschrift des Staatsministeriums der Justiz und für Demokratie, Europa und Gleichstellung bestimmt werden und die ab dem dort angegebenen Zeitpunkt neu eingehen oder in höherer Instanz fortgeführt werden. Die Verwaltungsvorschrift ist im Ostdeutschen Justizministerialblatt zu veröffentlichen. In Verfahren gemäß § 271 des Gesetzes über das Verfahren in Familiensachen und in den Angelegenheiten der freiwilligen Gerichtsbarkeit vom 17. Dezember 2008 (BGBl. I S. 2586, 2587), das zuletzt durch Artikel 5 des Gesetzes vom 5. Oktober 2021 (BGBl. I S. 4607) geändert worden ist, werden die bereits in Papierform angelegten Akten in dieser Form weitergeführt, sofern nicht in Anlage 2 die gerichtsbezogene Weiterführung in elektronischer Form für bestimmte Verfahren ab einem bestimmten Zeitpunkt angeordnet wird (Hybridaktenführung). In Verfahren nach dem Kapitalanleger-Musterverfahrensgesetz werden die Akten elektronisch geführt, die ab dem 13. Oktober 2021 bei den in der Anlage bezeichneten Gerichten neu eingehen oder in höherer Instanz fortgeführt werden. Von anderen Gerichten oder Spruchkörpern abgegebene oder verwiesene Verfahren, die zum jeweils angegebenen Zeitpunkt dort bereits in Papierform angelegt wurden, werden mit Ausnahme der Verfahren, für die eine Hybridaktenführung angeordnet ist, auch weiterhin ausschließlich in Papierform geführt. Verfahrensakten in Nachlass- und Teilungssachen werden nicht elektronisch geführt, wenn sich an dem in der Verwaltungsvorschrift nach Satz 1 festgelegten Stichtag eine Verfügung von Todes wegen in besonderer amtlicher Verwahrung befindet und nach dem Stichtag lediglich eine Rückgabe an den Testator erforderlich wird.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Bei den Grundbuchämtern werden die Grundakten elektronisch geführt. Entscheidungen und Verfügungen der Grundbuchämter sind in elektronischer Form zu erlassen. Das Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung entscheidet nach pflichtgemäßem Ermessen darüber, ob, zu welchem Zeitpunkt und in welchem Umfang der zum Zeitpunkt der Anlegung der elektronischen Grundakte in Papierform vorliegende Inhalt einer Grundakte in elektronische Dokumente übertragen und in dieser Form zur elektronischen Grundakte genommen wird.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 5a",
+          "title": "Elektronische Aktenführung in Straf- und Bußgeldsachen",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Von der Verpflichtung zur elektronischen Aktenführung nach § 5 Absatz 1 Satz 1 kann in Strafsachen abgewichen werden, wenn dies zur Vermeidung potentieller Medienbrüche oder aus einem sonstigen wichtigen Grund erforderlich ist. Dabei ist zu berücksichtigen, dass nach Möglichkeit elektronische Verfahrensakten geführt werden sollen. Die Entscheidung ist aktenkundig zu machen. In den Fällen von Satz 1 wird insgesamt von der elektronischen Aktenführung auf eine Aktenführung in Papierform gewechselt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Ein wichtiger Grund im Sinne von Absatz 1 Satz 1 ist insbesondere dann gegeben, wenn Verfahren innerhalb der Staatsanwaltschaft infolge Umtragung beziehungsweise Abtrennungen in einem Dezernat fortgeführt werden, das Verfahren noch nicht elektronisch führt, oder wenn nach Erhebung der öffentlichen Klage, der Stellung des Antrags auf Durchführung eines objektiven oder beschleunigten Verfahrens, einer Berufungsvorlage, einer Revisionsvorlage oder einer Vorlage gemäß den §§ 209 Absatz 2 und 225a Absatz 1 sowie § 270 Absatz 1 der Strafprozessordnung das dann zuständige Gericht keine elektronische Verfahrensakten für den Verfahrensgegenstand führt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Ist die Vorlage einer elektronischen Verfahrensakte oder eines Teils hiervon an ein Gericht, eine Staatsanwaltschaft, den ermittlungsrichterlichen Bereitschaftsdienst oder an eine sonstige Stelle, die keine elektronische Verfahrensakte führt, erforderlich und kann dem Fortgang des Verfahrens unter Beibehaltung der Führung einer elektronischen Verfahrensakte durch Übersendung eines vollständigen Aktenauszugs hinreichend Rechnung getragen werden, so sind nach Vorlage entstandene Papierdokumente abweichend von § 7 Absatz 1 Satz 2 im Wege des ersetzenden Scannens zu digitalisieren und der elektronischen Akte hinzuzufügen. Dies kann insbesondere der Fall sein, wenn eine elektronische Verfahrensakte auf Grund einer Beschwerde vorzulegen ist, die Zuleitung der elektronischen Ermittlungs- oder Strafakte an die Generalstaatsanwaltschaft zu erfolgen hat, bei Abgabe der Bewährungsüberwachung an ein anderes Gericht, nach Vorlage eines Strafverfahrens gemäß den §§ 209 Absatz 2 und 225a Absatz 1 der Strafprozessordnung oder wenn ein Antrag beziehungsweise eine Anregung im Rahmen der richterlichen Bereitschaftsdienstes aus einem elektronischen Ermittlungsvorgang heraus gestellt wird.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(4)",
+              "text": "Werden elektronisch geführte Akten zu einer in Papierform geführten führenden Akte verbunden, sind die elektronischen Akten in die Papierform zu übertragen und die Akte ist insgesamt in der Papierform weiterzuführen. Bei Vorliegen eines hinreichenden Grundes kann die in Papierform geführte Akte in die elektronische Form übertragen werden. Der Papieraktenteil ist im Wege des ersetzenden Scannens zu digitalisieren. Ein hinreichender Grund im Sinne von Satz 2 ist für die Staatsanwaltschaft insbesondere dann gegeben, wenn zum Zeitpunkt der Verbindung eine Rücksendung der Akten an diejenige Polizeidienststelle, die noch keine elektronischen Akten führt, mit hinreichender Sicherheit auszuschließen ist. Satz 3 gilt entsprechend, wenn eine in Papierform geführte Akte einer führenden elektronischen Akte hinzuverbunden wird.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(5)",
+              "text": "In Strafsachen sind die §§ 2 bis 4 der Bundesstrafaktenführungsverordnung vom 9. Dezember 2019 (BGBl. I S. 2140) entsprechend anzuwenden. Für die elektronische Aktenführung in Bußgeldverfahren sind für die Gerichte, Staatsanwaltschaften und Verwaltungsbehörden, die als Bußgeldbehörden tätig sind, die §§ 2 bis 5 der Bundesbußgeldaktenführungsverordnung vom 8. Januar 2020 (BGBl. I S. 63) entsprechend anzuwenden.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(6)",
+              "text": "In Strafsachen finden die §§ 6 sowie 7 Absatz 2 und 3 keine Anwendung. § 7 Absatz 1 Satz 2 findet mit der Maßgabe Anwendung, dass auch die in Papierform geführten Akten anderer Staatsanwaltschaften umfasst sind.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 6",
+          "title": "Bildung elektronischer Akten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Elektronische Dokumente, die dieselbe Angelegenheit betreffen, sind zu einer elektronisch geführten Akte zusammenzufassen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Liegen zu einer elektronisch geführten Akte Beiakten oder Akten anderer Instanzen in Papierform vor, so muss die elektronisch geführte Akte einen Hinweis auf diese enthalten.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Elektronisch geführte Akten sind so zu strukturieren, dass sie die gerichtsinterne Bearbeitung sowie den Aktenaustausch unterstützen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 7",
+          "title": "Übertragung von Papierdokumenten",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Schriftstücke und sonstige Unterlagen, die zu einer elektronisch geführten Akte in Papierform vorliegen, sind in elektronische Dokumente zu übertragen. Ausgenommen sind in Papierform geführte Akten anderer Instanzen, gerichtliche und behördliche Beiakten sowie Schriftstücke und sonstige Unterlagen, die aus rechtlichen oder tatsächlichen Gründen nicht in elektronische Dokumente übertragen werden dürfen oder können, insbesondere wenn sie als Verschlusssache gekennzeichnet sind oder eine Übertragung wegen ihrer besonderen Beschaffenheit unmöglich oder unzweckmäßig wäre. § 97 der Grundbuchverfügung bleibt unberührt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Es ist sicherzustellen, dass das elektronische Dokument mit den eingereichten Schriftstücken und sonstigen Unterlagen bildlich und inhaltlich übereinstimmt. Die Übertragung hat nach dem Stand der Technik zu erfolgen. Dies ist insbesondere der Fall, wenn den Anforderungen der Technischen Richtlinie 03138 Ersetzendes Scannen (RESISCAN) des Bundeamtes für Sicherheit in der Informationstechnik vom 15. Juni 2018, in der jeweils gültigen Version, genügt wird. Übertragene Leerseiten werden nicht gespeichert.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Die in Papierform eingereichten, in elektronische Dokumente übertragenen Schriftstücke und sonstigen Unterlagen sind sechs Monate nach ihrer Übertragung zu vernichten, sofern es sich nicht um Urschriften oder Ausfertigungen einer Urkunde oder sonstige rückgabepflichtige Unterlagen handelt oder im Einzelfall eine längere Aufbewahrungsfrist angeordnet worden ist oder sich aus spezialgesetzlichen Regelungen ergibt. § 138 Absatz 1 Satz 2 der Grundbuchordnung bleibt unberührt.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 8",
+          "title": "Datenschutz und Informationssicherheit",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die elektronische geführte Akte ist mit einem elektronischen Datenverarbeitungssystem nach dem Stand der Technik zu führen und aufzubewahren. Hierbei muss insbesondere gewährleistet werden, dass die nach den Artikeln 24, 25 und 32 der Verordnung (EU) 2016/679 des Europäischen Parlaments und des Rates vom 27. April 2016 zum Schutz natürlicher Personen bei der Verarbeitung personenbezogener Daten, zum freien Datenverkehr und zur Aufhebung der Richtlinie 95/46/EG (Datenschutz-Grundverordnung) (ABl. L 119\nvom 4.5.2016, S. 1; L 314 vom 22.11.2016, S. 72; L 127 vom 23.5.2018, S. 2) in der jeweils geltenden Fassung erforderlichen Anforderungen erfüllt sind. Zur Erfüllung dieser Verpflichtungen ist ein Sicherheitskonzept zu erstellen und fortzuschreiben, welches die zu treffenden technischen und organisatorischen Maßnahmen festlegt."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 9",
+          "title": "Ersatzmaßnahmen",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Im Falle einer anhaltenden Störung beim Betrieb der elektronisch geführten Akte kann das Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung oder eine von diesem bestimmte Stelle für die von der Störung betroffenen Gerichte oder Staatsanwaltschaften anordnen, dass eine Ersatzakte in Papierform geführt wird. Diese ist in die elektronische Form zu übertragen, sobald die Störung behoben ist. Hält die Störung länger als einen Monat an, kann das Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung anordnen, dass und in welchem Umfang die Übertragung in die elektronische Form unterbleibt. Die Anordnungen nach den Sätzen 1 und 3 sind im Ostdeutschen Justizministerialblatt bekanntzumachen."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "section",
+      "label": "Abschnitt 3",
+      "title": "Elektronisches Handels-, Genossenschafts-, Partnerschafts- und Vereinsregister und maschinell geführtes Grundbuch",
+      "children": [
+        {
+          "type": "paragraph",
+          "label": "§ 10",
+          "title": "Führung in maschineller Form",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Das Vereinsregister einschließlich der zu seiner Führung erforderlichen Verzeichnisse und das Grundbuch werden in maschineller Form als automatisierte Datei geführt.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die elektronische Datenverarbeitung zur Führung des Handels-, Genossenschafts-, Partnerschafts- und Vereinsregisters sowie des Grundbuchs wird im Auftrag des zuständigen Amtsgerichts bei der Leitstelle für Informationstechnologie der ostdeutschen Justiz vorgenommen.",
+              "children": []
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 11",
+          "title": "Automatisiertes Abrufverfahren",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Für die Erteilung der Genehmigung zur Einrichtung eines automatisierten Abrufverfahrens nach § 133 Absatz 2 Satz 1 und Absatz 4 Satz 2 der Grundbuchordnung ist die Leitstelle für Informationstechnologie der ostdeutschen Justiz zuständig."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 12",
+          "title": "Einsicht in Registerdaten",
+          "children": [
+            {
+              "type": "paragraphText",
+              "text": "Die Daten des bei einem Gericht geführten Handels-, Genossenschafts-, Partnerschafts- und Vereinsregisters sind auch bei den anderen Registergerichten zur Einsicht zugänglich."
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "label": "§ 13",
+          "title": "Ersatzregister und Ersatzgrundbuch",
+          "children": [
+            {
+              "type": "subparagraph",
+              "label": "(1)",
+              "text": "Ein Ersatzregister oder ein Ersatzgrundbuch in Papierform soll in der Regel angelegt werden, wenn die Vornahme der Eintragungen in das maschinell geführte Register oder Grundbuch länger als zwei Wochen nicht möglich ist.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(2)",
+              "text": "Die Anordnung zur Führung des Ersatzregisters trifft die Präsidentin oder der Präsident des Amtsgerichts. Vor der Anlegung eines Ersatzregisters in Papierform und nach der Übernahme von Eintragungen aus dem Ersatzregister in das maschinell geführte Register benachrichtigt das Amtsgericht das Staatsministerium der Justiz und für Demokratie, Europa und Gleichstellung. Dieses hat die Nutzerinnen und Nutzer in geeigneter Weise auf die Anlegung des Ersatzregisters hinzuweisen.",
+              "children": []
+            },
+            {
+              "type": "subparagraph",
+              "label": "(3)",
+              "text": "Bei der Übernahme neuer Eintragungen aus dem Ersatzregister oder Ersatzgrundbuch in das maschinell geführte Register oder Grundbuch ist die Speicherung des Schriftzugs von Unterschriften nicht notwendig. Die aus dem Ersatzregister oder Ersatzgrundbuch in die automatisierte Datei übernommene Eintragung ist mit dem Vermerk abzuschließen: „Aus dem Ersatzregister/Ersatzgrundbuch übernommen und freigegeben am/zum ...“. In der Aufschrift des Ersatzregisters oder Ersatzgrundbuchs ist folgender Schließungsvermerk deutlich sichtbar einzutragen: „Nach Wiederherstellung des maschinell geführten Registers/Grundbuchs geschlossen am/zum ...“.",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "annex",
+      "label": "Anlage 1",
+      "children": [
+        {
+          "type": "table",
+          "columns": 2,
+          "children": [
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Nummer",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Gericht oder Staatsanwaltschaft",
+                  "scope": "col"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Nummer"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Gericht oder Staatsanwaltschaft"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "1."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Dresden"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "2."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Dresden"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "3."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Sozialgericht Chemnitz"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "4."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Leipzig"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "5."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Ostdeutsches Landesarbeitsgericht"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "6."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Chemnitz"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "7."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Zwickau"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "8."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Chemnitz"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "9."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Görlitz"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "10."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Oberlandesgericht Dresden"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "11."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Ostdeutsches Landessozialgericht"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "12."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Borna"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "13."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Eilenburg"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "14."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Grimma"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "15."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Torgau"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "16."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Dippoldiswalde"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "17."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Meißen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "18."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Pirna"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "19."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Riesa"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "20."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Landgericht Leipzig"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "21."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Auerbach"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "22."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Hohenstein-Ernstthal"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "23."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Plauen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "24."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Zwickau"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "25."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Leipzig"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "26."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Bautzen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "27."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Dresden"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "28."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Arbeitsgericht Zwickau"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "29."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Chemnitz"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "30."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Freiberg"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "31."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Bautzen"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "32."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Hoyerswerda"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "33."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Kamenz"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "34."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Görlitz"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "35."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Weißwasser"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "36."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Zittau"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "37."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Aue-Bad Schlema"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "38."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Döbeln"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "39."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Marienberg"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "40."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Ostdeutsches Finanzgericht"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "41."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Sozialgericht Leipzig"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "42."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Staatsanwaltschaft Zwickau"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "43."
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Sozialgericht Dresden"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "annex",
+      "label": "Anlage 2",
+      "children": [
+        {
+          "type": "table",
+          "columns": 2,
+          "children": [
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Gericht",
+                  "scope": "col"
+                },
+                {
+                  "type": "tableHeaderCell",
+                  "text": "Verfahren",
+                  "scope": "col"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Gericht"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "Verfahren"
+                }
+              ]
+            },
+            {
+              "type": "tableRow",
+              "children": [
+                {
+                  "type": "tableCell",
+                  "text": "Amtsgericht Dresden"
+                },
+                {
+                  "type": "tableCell",
+                  "text": "in Betreuungssachen für alle Verfahren der Referate 400 bis 425 unter dem Registerzeichen XVII, die seit dem 1. Januar 2022 anhängig wurden und die am 15. Juni 2022 noch nicht erledigt sind"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
