@@ -218,7 +218,7 @@ Webanalyse ist optional und wird erst nach Zustimmung geladen. Eine außerhalb d
 Cloudflare Web Analytics muss ebenfalls deaktiviert bleiben, solange dafür keine gesonderte
 Einwilligungslogik besteht.
 
-Beide Anwendungen teilen Basiskomponenten und Accessibility-Regeln, verwenden aber getrennte
+Beide Anwendungen teilen Basiskomponenten und Accessibilityregeln, verwenden aber getrennte
 Layouts. Das Staatsportal nutzt `BaseLayout.astro`, OstRecht `LawLayout.astro`.
 
 ## Qualitätssicherung
@@ -243,7 +243,7 @@ vollständige technische Releaseabfolge steht im Deployment-Runbook.
 
 ## TODO
 
-**Zuletzt abgeglichen:** 29. August 2026
+**Zuletzt abgeglichen:** 3. September 2026
 
 Diese Liste ist der zentrale Projektbacklog. Jede noch offene Aufgabe muss hier mindestens als
 Sammelpunkt erscheinen. Quellenlocators, Einzelkonflikte und maschinenlesbare Zustände werden
@@ -255,6 +255,126 @@ entfernt statt dauerhaft abgehakt stehen gelassen.
 Alle dafür noch benötigten externen Einstellungen, fachlichen Entscheidungen und Primärquellen
 sind ausfüllbar im [`docs/ZUARBEITSFORMULAR.md`](docs/ZUARBEITSFORMULAR.md) gebündelt. Das Formular
 dient nur der Übergabe von Zuarbeit; der Aufgabenstatus wird weiterhin ausschließlich hier gepflegt.
+
+### Vollständiger REVOSax-Ausgangsbestand und D1/R2-Laufzeitarchitektur für OstRecht
+
+OstRecht soll den vollständigen am Rechtsüberleitungsstichtag **1. November 2023** maßgeblichen
+REVOSax-Bestand übernehmen. Ausgangspunkt ist nicht der heutige Bestand und auch nicht die gesamte
+sächsische Versionshistorie, sondern die REVOSax-**Erweiterte Suche mit Geltungstag 01.11.2023**.
+Dabei müssen ausdrücklich alle Stamm- und Änderungstypen aktiviert werden: Gesetze und
+Änderungsgesetze, Verordnungen und Änderungsverordnungen, Verwaltungsvorschriften und
+Änderungsverwaltungsvorschriften, Förderrichtlinien und Änderungsförderrichtlinien sowie
+Staatsverträge und Zustimmungsgesetze einschließlich der von REVOSax angebotenen Änderungstypen.
+REVOSax blendet Änderungsvorschriften standardmäßig aus; eine Abfrage ohne diese Haken wäre deshalb
+kein vollständiger übergeleiteter Rechtsbestand.
+
+Für jeden Treffer wird **genau die von REVOSax für den Stichtag ausgelieferte Fassung** übernommen.
+Es sollen nicht zusätzlich sämtliche vor dem 1. November 2023 vorhandenen historischen Fassungen
+geladen werden. Die sächsische Versionshistorie vor dem Stichtag ist Quellenhistorie, nicht Teil der
+ostdeutschen Fassungsentwicklung. Die übernommene Fassung bildet Version 1 des ostdeutschen
+Bestands; spätere Versionen entstehen ausschließlich aus ostdeutschen Verkündungen und den bereits
+vorhandenen deterministischen Konsolidierungs- und Patchregeln.
+
+Der Vollbestand soll technisch dreifach, aber mit klar getrennten Aufgaben gehalten werden:
+
+- **Git/Wissenshub bleibt der fachliche und reviewbare Source of Truth.** Die materialisierten Normen
+  bleiben unter `content/normen/[slug]/meta.json`, `history.json` und `versions/*.json`. Dadurch
+  können lokale Werkzeuge, Codex und ChatGPT weiterhin sofort ermitteln, welche Norm gilt, welcher
+  Paragraph eine bestimmte Regelung enthält und wie ein neuer Änderungsbefehl formuliert werden
+  muss. Der Rechtsbestand darf deshalb niemals ausschließlich in einer Cloudflare-Datenbank liegen.
+- **D1 wird die produktive strukturierte Laufzeitdatenbank von OstRecht.** Dort liegen Normidentität,
+  Metadaten, Fassungen, Normkörper und der Volltext-Suchindex. Der Normkörper soll nicht als ein
+  einziges riesiges JSON-Feld gespeichert werden, sondern mindestens nach äußeren Body-Blöcken
+  getrennt. Das vorbereitetete Schema `data/recht/d1/0001_rechtsbestand.sql` verwendet dafür
+  `law_norms`, `law_versions`, `law_version_blocks`, `law_source_objects` und die FTS5-Tabelle
+  `law_search`. Ein einzelner Body-Block über 1,8 MB blockiert den Sync und muss strukturell weiter
+  zerlegt werden, statt unkontrolliert an die D1-Zeilengrenze zu geraten.
+- **R2 wird ausschließlich unverändertes Quellen- und Anlagenarchiv.** Dort gehören REVOSax-HTML,
+  PDFs und große Anlagen hin. Der öffentliche Normtext wird nicht bei jedem Aufruf aus R2 geparst.
+  Parsing und Rechtsüberleitungsanpassung erfolgen vor Veröffentlichung; normale Normseiten lesen
+  später aus D1. R2 wird für Quellennachweis, Kontrolle und Anlagen verwendet.
+
+Die bestehende statische Astro-Auslieferung wird erst nach einem vollständig geprüften Initialimport
+umgestellt. Der heutige Zustand lädt `content/normen` beim Build und erzeugt Norm-, Versions- und
+Vergleichsseiten mit `getStaticPaths()`. Das ist bei mehreren tausend Normen unnötig teuer. Besonders
+die Vergleichsroute skaliert quadratisch, weil für `n` Fassungen derzeit `n × (n - 1)` geordnete
+Vergleichspaare statisch erzeugt werden. Ziel ist deshalb: Websitecode löst einen Astro/Worker-Build
+aus; reine Rechtsinhaltsänderungen lösen nur Contentprüfung und inkrementellen D1/R2-Sync aus.
+Vergleiche werden erst beim tatsächlichen Abruf aus zwei D1-Fassungen berechnet und anschließend
+gecacht.
+
+Der vollständige technische Ablauf und die Cloudflare-Schritte stehen in
+[`docs/REVOSAX_BULK_IMPORT.md`](docs/REVOSAX_BULK_IMPORT.md). Für die Umsetzung gelten insbesondere
+folgende offene Arbeitspakete:
+
+- [ ] **REVOSax-Discovery am 1. November 2023 vollständig ausführen.** Der vorbereitete Befehl
+  `npm run norms:revosax:discover-baseline -- --date 2023-11-01` liest das echte Suchformular,
+  setzt den Geltungstag und aktiviert alle Stamm- und Änderungstypen. Interne Feldnamen werden nicht
+  hart codiert. Der Crawl muss sämtliche Ergebnisseiten paginieren. Zeigt REVOSax eine Trefferzahl,
+  muss die Zahl der eindeutig gefundenen Vorschriftenlinks exakt übereinstimmen; andernfalls darf
+  kein Baseline-Manifest veröffentlicht werden.
+- [ ] **Alle Treffer zunächst nur stagen und parsen.** Mit
+  `npm run norms:revosax:stage-baseline -- --manifest data/recht/revosax-baseline-2023-11-01.json`
+  jede konkrete Fassung mit zurückhaltender Request-Rate laden, SHA-256 bilden und in `.cache/`
+  Roh-HTML und geparste Daten ablegen. Der vorhandene `parseRevosaxSnapshot()` bleibt der
+  strukturtragende Parser. Parserfehler werden nicht durch ungeprüfte Plaintext-Extraktion
+  kaschiert. Erst ein Staging-Bericht ohne Fehler darf in die nächste Stufe gehen.
+- [ ] **Die Rechtsüberleitungs-/Bereinigungsanpassung als deterministischen Pflichtschritt anwenden.**
+  `scripts/lib/revosax-ost-adapter.mjs` transformiert normative Landesbezeichnungen und die
+  zugehörigen Kürzel, insbesondere `Sachsen` → `Ostdeutschland`, die Flexionsformen von
+  `sächsisch` → `ostdeutsch` sowie Kürzelpräfixe wie `SächsBG` → `OstBG`. Das gilt für Titel,
+  Kurzbezeichnung, Abkürzung, Überschriften, Normtext und normative Anlagen. Historische
+  Fundstellenkürzel wie `SächsGVBl.`, `SächsABl.` oder `SächsJMBl.` bleiben unverändert, weil sie
+  die tatsächliche Primärquelle bezeichnen. Auch `Sachsen-Anhalt` darf nicht zu
+  `Ostdeutschland-Anhalt` verfälscht werden. Ein Reststellen-Audit auf `Sachsen`, `sächsisch` und
+  `Sächs...` in normativen Feldern muss den Import blockieren, solange keine ausdrücklich
+  dokumentierte Ausnahme vorliegt.
+- [ ] **Rohquellen nach erfolgreichem Staging in einen privaten R2-Bucket archivieren.** Empfohlener
+  Bucketname `ostrecht-recht-quellen`, Objektschlüssel
+  `revosax/2023-11-01/<REVOSAX-ID>[.<FASSUNG>].html`. Der vorbereitete Befehl
+  `npm run norms:revosax:r2-upload -- --report .cache/revosax-baseline/2023-11-01/report.json`
+  darf nur laufen, wenn der Bericht keine Importfehler enthält. R2 ist Quellenarchiv und soll für
+  diesen Zweck nicht pauschal öffentlich geschaltet werden.
+- [ ] **Das Normquellenmodell um R2-Provenienz erweitern**, bevor der Vollbestand materialisiert
+  wird. Eine amtliche REVOSax-Quelle muss entweder als unveränderte versionierte Repositorydatei
+  oder als unveränderliches R2-Objekt mit `objectKey`, amtlicher URL, REVOSax-`lawId`,
+  Abrufdatum, Gültigkeitsintervall und SHA-256 referenziert werden können. Ein R2-Verweis darf die
+  heutige Quellenprüfung nicht dadurch umgehen, dass Hash oder amtliche Fassungs-URL entfallen.
+- [ ] **Materializer mit Schutz bestehender Ost-Normen implementieren.** Vor jedem Schreibvorgang
+  muss er anhand REVOSax-`lawId`, Titel, Kurzbezeichnung und Abkürzung unterscheiden zwischen
+  `CREATE`, `MATCH`, `PROTECT`, `REVIEW` und `SKIP`. Vorhandene spätere ostdeutsche Fassungen dürfen
+  niemals von der Baseline überschrieben werden. Mehrdeutige Identitäten müssen `REVIEW` erzeugen
+  und den Schreibmodus blockieren. Änderungsvorschriften bleiben eigenständige Rechtsetzungsakte
+  und werden nicht künstlich zu Stammnormen umgedeutet.
+- [ ] **Cloudflare D1 anlegen und Schema initialisieren.** Empfohlener Datenbankname
+  `ostrecht-recht`. Die Database-ID zunächst nur lokal beziehungsweise als CI-Konfiguration
+  hinterlegen. Einen eng begrenzten API-Token mit `D1 Read` und `D1 Write` erstellen. Danach
+  `data/recht/d1/0001_rechtsbestand.sql` anwenden und den vorhandenen Rechtsbestand zunächst mit
+  `npm run norms:runtime:d1-sync -- --dry-run`, anschließend mit dem echten Sync testen.
+  `CLOUDFLARE_ACCOUNT_ID`, `OSTRECHT_D1_DATABASE_ID` und `CLOUDFLARE_API_TOKEN` dürfen niemals
+  committed werden.
+- [ ] **D1-Suchindex auf die jeweils aktuelle Fassung beschränken.** Die FTS5-Tabelle erhält
+  Titel, Kurzbezeichnung, Abkürzung, Gliederungslabel, Überschrift und Provisionstext. Historische
+  Fassungen bleiben vollständig abrufbar, sollen aber den normalen Suchindex nicht vervielfachen.
+- [ ] **Nach erfolgreichem Initialsync D1- und R2-Bindings in `apps/recht/wrangler.jsonc`
+  aktivieren.** Vorgesehene Bindings sind `RECHT_DB` und `RECHT_SOURCES`. Bis die realen
+  Cloudflare-Ressourcen existieren und der Initialsync geprüft ist, bleibt die Produktions-
+  `wrangler.jsonc` bewusst unverändert.
+- [ ] **OstRecht anschließend von vollständig statischer Rechtsauslieferung auf D1-gestützte
+  On-demand-Routen umstellen.** Die bestehenden UI-Komponenten bleiben bestehen; nur die
+  Datenquelle ändert sich. `/norm/[slug]`, konkrete Versionsseiten und Suche lesen aus D1.
+  Vergleichsrouten berechnen nur angeforderte Paarungen. Sitemap und Suchvorschläge werden aus D1
+  erzeugt oder geeignet gecacht.
+- [ ] **CI/CD nach Inhalt und Anwendungscode trennen.** Änderungen unter `content/normen/**`,
+  `content/verkuendungen/**` und den zugehörigen Rechtsdaten sollen Contentprüfung,
+  Konsolidierungsaudit und inkrementellen D1/R2-Sync auslösen, aber keinen vollständigen Astro-Build
+  nur wegen einer Normänderung. Änderungen an `apps/recht/**` und relevanten Packages bauen und
+  deployen weiterhin den Worker.
+- [ ] **Nach der Umstellung die alten Buildpfade entfernen.** Erst wenn Norm-, Versions-, Suche- und
+  Vergleichsrouten produktiv aus D1 funktionieren und Staging/Produktion getestet sind,
+  `getStaticPaths()`-basierte Massengenerierung und buildzeitliche Gesamtsuchindizes aus OstRecht
+  entfernen. Git/Wissenshub und D1 bleiben danach bewusst parallel: Git ist fachlicher Source of
+  Truth und Arbeitsgrundlage, D1 die daraus abgeleitete Runtime-Datenbank.
 
 ### Sitzungsmediathek der Volkskammer
 
