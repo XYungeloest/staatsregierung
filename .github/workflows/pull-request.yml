@@ -35,6 +35,7 @@ jobs:
       run_knowledge_check: ${{ steps.scope.outputs.run_knowledge_check }}
       run_unit_tests: ${{ steps.scope.outputs.run_unit_tests }}
       run_ui_smoke: ${{ steps.scope.outputs.run_ui_smoke }}
+      run_d1_sync: ${{ steps.scope.outputs.run_d1_sync }}
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v7
@@ -80,6 +81,41 @@ jobs:
             echo "- Unit-Tests: $(yes_no "$(output_value run_unit_tests)")"
             echo "- UI-Smoke: $(target_label "$(output_value ui_targets)")"
           } >> "$GITHUB_STEP_SUMMARY"
+
+  d1_token_check:
+    # Berührt der PR die D1-Projektion, wird der API-Transport des Syncs mit dem Repository-
+    # Secret geprüft: lesend gegen die produktive Datenbank (nur Fingerabdruck, --dry-run) und
+    # schreibend gegen ostrecht-recht-staging (Verkündungen des Testfixtures, idempotent). Die
+    # produktive Datenbank wird nie beschrieben; Forks erhalten keine Secrets und überspringen.
+    needs: classify
+    if: ${{ needs.classify.outputs.run_d1_sync == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Node.js einrichten
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Abhängigkeiten installieren
+        run: npm ci
+      - name: Produktive D1 lesen (Fingerabdruck, kein Schreibzugriff)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: npm run norms:runtime:d1-sync -- --transport api --dry-run --git-diff "$BASE_SHA" "$HEAD_SHA"
+      - name: Staging-D1 schreiben (Verkündungen des Testfixtures)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          OSTRECHT_D1_DATABASE_ID: ba9c0e0b-ba18-4aec-b28e-fe65c8b69674
+        run: npm run norms:runtime:d1-sync -- --transport api --publications --corpus-filter data/recht/runtime-fixture.json --ignore-fingerprint --max-rows-read 5000 --max-rows-written 5000
 
   docs_check:
     needs: classify
