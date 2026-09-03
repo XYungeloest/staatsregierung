@@ -24,6 +24,7 @@ function protectSourceTokens(value) {
   const protectedValues = [];
   let text = value;
   for (const pattern of SOURCE_TOKEN_PATTERNS) {
+    pattern.lastIndex = 0;
     text = text.replace(pattern, (match) => {
       const marker = `\uE100${protectedValues.length}\uE101`;
       protectedValues.push(match);
@@ -105,9 +106,20 @@ function collectStrings(value, path = '$', output = []) {
   return output;
 }
 
+function stripProtectedSourceTokens(value) {
+  let text = value;
+  for (const pattern of SOURCE_TOKEN_PATTERNS) {
+    pattern.lastIndex = 0;
+    text = text.replace(pattern, '');
+  }
+  return text;
+}
+
 /**
  * Prüft ausschließlich die normativ angepassten Felder. Historische sourceNotes,
  * URLs, Hashes und R2-/Repository-Quellenpfade gehören nicht in diesen Audit.
+ * Historische Fundstellenkürzel innerhalb eines Vollzitats werden vor der
+ * Reststellenprüfung entfernt, da sie gerade nicht rechtsüberleitend umzubenennen sind.
  */
 export function auditAdaptedRevosaxSnapshot(parsed) {
   const normative = {
@@ -117,7 +129,8 @@ export function auditAdaptedRevosaxSnapshot(parsed) {
     fullCitation: parsed.fullCitation,
     body: parsed.body,
   };
-  return collectStrings(normative).filter(({ value }) =>
-    /(?:\bSachsen\b(?!-Anhalt)|\bsachsen\b(?!-anhalt)|\bSächs(?:isch|[A-ZÄÖÜ])|\bsächs(?:isch|[A-ZÄÖÜ]))/u.test(value)
-  );
+  return collectStrings(normative).filter(({ value }) => {
+    const auditableValue = stripProtectedSourceTokens(value);
+    return /(?:\bSachsen\b(?!-Anhalt)|\bsachsen\b(?!-anhalt)|\bSächs(?:isch|[A-ZÄÖÜ])|\bsächs(?:isch|[A-ZÄÖÜ]))/u.test(auditableValue);
+  });
 }
