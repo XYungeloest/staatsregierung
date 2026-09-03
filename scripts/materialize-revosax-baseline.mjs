@@ -1,6 +1,6 @@
 #!/usr/bin/env node --experimental-strip-types
 
-import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -21,7 +21,8 @@ import {
   inferSummary,
   sourceReferenceLabel,
 } from './lib/revosax-metadata.mjs';
-import { auditAdaptedRevosaxSnapshot } from './lib/revosax-ost-adapter.mjs';
+import { adaptParsedRevosaxSnapshot, auditAdaptedRevosaxSnapshot } from './lib/revosax-ost-adapter.mjs';
+import { parseRevosaxSnapshot } from './lib/revosax-parser.mjs';
 
 /**
  * Materialisiert den geprüften REVOSax-Ausgangsbestand nach content/normen/.
@@ -51,6 +52,12 @@ Optionen:
   --write             Dateien tatsächlich schreiben (sonst nur Prüfung)
   --limit <n>         nur die ersten n CREATE-Einträge
   --law-id <id>       nur diese lawId (mehrfach möglich)
+  --regenerate        MATCH-Einträge, deren Norm ausschließlich aus der Baseline besteht
+                      (eine Fassung 2023-11-01 mit R2-Quelle derselben lawId), deterministisch
+                      aus dem Staging neu schreiben; Normen mit weiteren Fassungen bleiben unberührt
+  --prune-baseline    zusammen mit --regenerate --write: ausschließlich aus der Baseline bestehende
+                      Normen entfernen, deren Quelle im Plan nicht mehr CREATE oder MATCH ist
+                      (z. B. nach neuer Einordnung als Alias oder Reviewfall)
   --help              Diese Hilfe`;
 
 function valueAfter(args, flag) {
@@ -98,7 +105,11 @@ function checkSummary(summary, context) {
  * `parsed` ist die Datei aus parsed/<sourceId>.json (original + adapted).
  */
 export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselineDate = BASELINE_DATE }) {
-  const { adapted, original } = parsed;
+  // Die Anpassung wird immer aus dem unveränderten Parse (original) mit dem aktuellen
+  // Adapter berechnet; ein im Staging gespeichertes „adapted“ könnte von einem
+  // älteren Adapterstand stammen.
+  const { original } = parsed;
+  const adapted = adaptParsedRevosaxSnapshot(original);
   const context = `${entry.sourceId} (${slug})`;
   const objectKey = objectKeyFor(baselineDate, entry.sourceId);
   if (!objectRecord) throw new Error(`${context}: Rohquelle ${objectKey} ist nicht im R2-Manifest archiviert`);
@@ -139,7 +150,12 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     sourceRole: 'official-snapshot',
     mediaType: 'text/html',
   };
-  const enactingBody = inferEnactingBody({ category: entry.category, sourceTitle: original.sourceTitle });
+  // Historisches Ursprungsorgan der sächsischen Quelle: Provenienz, kein Erlassorgan
+  // der ostdeutschen Norm (originEnactingBody statt enactingBody).
+  const originEnactingBody = inferEnactingBody({ category: entry.category, sourceTitle: original.sourceTitle });
+  // Erlassdatum: aus der Fassungsseite, ersatzweise aus der amtlichen REVOSax-Trefferliste
+  // (Spalte Erlassdatum); nie geschätzt.
+  const documentDate = original.documentDate ?? entry.listing?.documentDate ?? null;
   const meta = {
     id: slug,
     slug,
@@ -148,7 +164,7 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     ...(abbr ? { abbr } : {}),
     shortTitleSource: 'official',
     type: normType,
-    ...(enactingBody ? { enactingBody } : {}),
+    ...(originEnactingBody ? { originEnactingBody } : {}),
     subjects: inferSubjects({ sourceTitle: original.sourceTitle, label: entry.listing?.label, category: entry.category }),
     keywords: inferKeywords({ abbr, shortTitle, title }),
     initialCitation: citation,
@@ -156,7 +172,7 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     successor: null,
     summary: inferSummary({ normType, shortTitle }),
     status: isAmendment ? 'one-time-act' : 'in-force',
-    ...(original.documentDate ? { documentDate: original.documentDate } : {}),
+    ...(documentDate ? { documentDate } : {}),
     ...(isAmendment ? { effectiveDate: original.sourceValidFrom } : {}),
     sourceReferences: [reference],
   };
@@ -179,7 +195,7 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
     validTo: null,
     isCurrent: true,
     citation,
-    changeNote: `Ausgangsfassung nach dem am ${baselineDate} geltenden sächsischen Rechtsstand.`,
+    changeNote: `Ausgangsfassung zum Rechtsüberleitungsstichtag ${baselineDate}: übernommener Rechtsstand dieses Tages.`,
     sourceReferences: [reference],
     ...(original.sourceNotes?.length ? { sourceNotes: original.sourceNotes } : {}),
     body: adapted.body,
@@ -193,10 +209,170 @@ export function buildBaselineRecord({ entry, parsed, slug, objectRecord, baselin
   validateVersionIntervals(record);
   checkSummary(meta.summary, context);
   const residuals = auditAdaptedRevosaxSnapshot({ sourceTitle: title, shortTitle, abbr, fullCitation: citation, body: version.body });
-  if (residuals.length > 0) {
-    throw new Error(`${context}: Sachsen-Reststellen: ${residuals.slice(0, 3).map((item) => item.path).join(', ')}`);
+  const { originEnactingBody: _origin, sourceReferences: _sources, ...normativeMeta } = meta;
+  const metaResiduals = auditAdaptedRevosaxSnapshot({ ...normativeMeta, body: [] })
+    .concat(auditAdaptedRevosaxSnapshot({ sourceTitle: version.changeNote, shortTitle: history.entries[0].title, fullCitation: '', body: [] }));
+  if (residuals.length > 0 || metaResiduals.length > 0) {
+    throw new Error(`${context}: Sachsen-Reststellen: ${[...residuals, ...metaResiduals].slice(0, 3).map((item) => item.path).join(', ')}`);
   }
   return { slug, meta, history, version };
+}
+
+function blockAtPath(body, path) {
+  let blocks = body;
+  let block = null;
+  for (const index of path) {
+    block = blocks?.[index] ?? null;
+    if (!block) return null;
+    blocks = block.children ?? [];
+  }
+  return block;
+}
+
+/**
+ * Baut aus einem als „Bestandteil der Vorschrift“ geführten REVOSax-Treffer eine
+ * eigene Änderungsvorschrift: Kopfdaten von der Komponentenseite (Titel, eigenes
+ * Vollzitat, Trefferliste), Text aus dem zugeordneten Artikel der Mantelvorschrift.
+ * Beide amtlichen Seiten sind als R2-Quellen belegt (official-snapshot der
+ * Komponente, envelope-snapshot der Mantelvorschrift mit Anker).
+ */
+export function buildEnvelopeComponentRecord({ entry, component, envelopeSource, envelopeBody, slug, containedIn, objectRecords, baselineDate = BASELINE_DATE }) {
+  const context = `${entry.sourceId} (${slug})`;
+  const componentKey = objectKeyFor(baselineDate, entry.sourceId);
+  const componentObject = objectRecords[componentKey];
+  const envelopeObject = objectRecords[envelopeSource.objectKey];
+  if (!componentObject) throw new Error(`${context}: Komponentenseite ${componentKey} ist nicht im R2-Manifest archiviert`);
+  if (componentObject.sha256 !== entry.sourceSha256) throw new Error(`${context}: SHA-256 der Komponentenseite weicht vom Stagingbericht ab`);
+  if (!envelopeObject) throw new Error(`${context}: Mantelvorschrift ${envelopeSource.objectKey} ist nicht im R2-Manifest archiviert`);
+  if (envelopeObject.sha256 !== envelopeSource.sha256) throw new Error(`${context}: SHA-256 der Mantelvorschrift weicht von der Klassifizierung ab`);
+  const block = blockAtPath(envelopeBody, component.articleBlockPath ?? []);
+  if (!block) throw new Error(`${context}: Artikelblock ${JSON.stringify(component.articleBlockPath)} nicht in der Mantelvorschrift gefunden`);
+  const adapted = adaptParsedRevosaxSnapshot({
+    sourceTitle: component.sourceTitle ?? entry.listing?.title ?? '',
+    shortTitle: entry.listing?.label ?? component.sourceTitle ?? '',
+    fullCitation: component.sourceCitation ?? entry.listing?.citation ?? '',
+    body: [block],
+  });
+  const title = adapted.sourceTitle;
+  const shortTitle = adapted.shortTitle || title;
+  const citation = historicalBaselineCitation({
+    pageFullCitation: adapted.fullCitation,
+    sourceValidTo: null,
+    citationValidAt: baselineDate,
+    context,
+  });
+  const validFrom = entry.listing?.validFrom ?? envelopeSource.sourceValidFrom;
+  if (!validFrom) throw new Error(`${context}: kein Gültigkeitsbeginn (Trefferliste/Mantelvorschrift)`);
+  const componentReference = {
+    kind: 'revosax-snapshot',
+    label: `Amtliche REVOSax-Vorschriftenseite ${entry.sourceId} (Bestandteil der Vorschrift ${component.envelopeLawId})`,
+    availability: 'r2-archived',
+    objectKey: componentKey,
+    url: entry.sourceUrl,
+    retrievedAt: String(entry.retrievedAt).slice(0, 10),
+    sha256: entry.sourceSha256,
+    lawId: String(entry.revosaxLawId),
+    sourceValidFrom: validFrom,
+    sourceRole: 'official-snapshot',
+    mediaType: 'text/html',
+  };
+  const envelopeReference = {
+    kind: 'revosax-snapshot',
+    label: `Mantelvorschrift ${component.envelopeLawId}, ${component.articleLabel} (${component.envelopeTitle})`,
+    availability: 'r2-archived',
+    objectKey: envelopeSource.objectKey,
+    url: `${envelopeSource.url}#${component.anchor}`,
+    retrievedAt: String(envelopeSource.retrievedAt).slice(0, 10),
+    sha256: envelopeSource.sha256,
+    lawId: String(component.envelopeLawId),
+    sourceValidFrom: envelopeSource.sourceValidFrom ?? validFrom,
+    ...(envelopeSource.sourceValidTo ? { sourceValidTo: envelopeSource.sourceValidTo } : {}),
+    sourceRole: 'envelope-snapshot',
+    mediaType: 'text/html',
+  };
+  const originEnactingBody = inferEnactingBody({ category: entry.category, sourceTitle: component.sourceTitle ?? '' });
+  const documentDate = entry.listing?.documentDate ?? null;
+  const meta = {
+    id: slug,
+    slug,
+    title,
+    shortTitle,
+    shortTitleSource: 'official',
+    type: 'aenderungsvorschrift',
+    ...(originEnactingBody ? { originEnactingBody } : {}),
+    subjects: inferSubjects({ sourceTitle: component.sourceTitle, label: entry.listing?.label, category: entry.category }),
+    keywords: inferKeywords({ abbr: undefined, shortTitle, title }),
+    initialCitation: citation,
+    predecessor: null,
+    successor: null,
+    ...(containedIn ? { containedIn } : {}),
+    summary: inferSummary({ normType: 'aenderungsvorschrift', shortTitle }),
+    status: 'one-time-act',
+    ...(documentDate ? { documentDate } : {}),
+    effectiveDate: validFrom,
+    sourceReferences: [componentReference, envelopeReference],
+  };
+  const history = {
+    initialVersionId: baselineDate,
+    entries: [{
+      date: baselineDate,
+      type: 'initial',
+      title: `Vollständige Ausgangsfassung zum Rechtsüberleitungsstichtag (${component.articleLabel} der Mantelvorschrift).`,
+      citation,
+      affectingVersionId: baselineDate,
+    }],
+  };
+  const version = {
+    versionId: baselineDate,
+    title,
+    shortTitle,
+    validFrom: baselineDate,
+    validTo: null,
+    isCurrent: true,
+    citation,
+    changeNote: `Ausgangsfassung zum Rechtsüberleitungsstichtag ${baselineDate}: ${component.articleLabel} der Mantelvorschrift ${component.envelopeLawId}, übernommener Rechtsstand dieses Tages.`,
+    sourceReferences: [componentReference, envelopeReference],
+    body: adapted.body,
+  };
+  const parsedMeta = parseNormMeta(meta, `${slug}/meta.json`);
+  const parsedHistory = parseNormHistory(history, `${slug}/history.json`);
+  const parsedVersion = parseNormVersion(version, `${slug}/versions/${baselineDate}.json`);
+  const record = validateNormRecord({ meta: parsedMeta, history: parsedHistory, versions: [parsedVersion] }, slug);
+  validateVersionIntervals(record);
+  checkSummary(meta.summary, context);
+  const { originEnactingBody: _origin, sourceReferences: _sources, ...normativeMeta } = meta;
+  const residuals = auditAdaptedRevosaxSnapshot({ sourceTitle: title, shortTitle, fullCitation: citation, body: version.body })
+    .concat(auditAdaptedRevosaxSnapshot({ ...normativeMeta, body: [] }));
+  if (residuals.length > 0) throw new Error(`${context}: Sachsen-Reststellen: ${residuals.slice(0, 3).map((item) => item.path).join(', ')}`);
+  return { slug, meta, history, version };
+}
+
+/**
+ * Eine bestehende Norm darf nur dann aus dem Staging neu geschrieben werden, wenn
+ * sie ausschließlich aus der Baseline besteht: genau eine Fassung zum Stichtag mit
+ * R2-archivierter REVOSax-Quelle derselben lawId. Alles andere ist geschützt.
+ */
+export async function isRegenerableBaselineNorm(directory, { lawId, baselineDate }) {
+  const metaPath = join(directory, 'meta.json');
+  if (!(await exists(metaPath))) return { ok: false, reason: 'meta.json fehlt' };
+  const meta = await readJson(metaPath);
+  const versionFiles = (await readdir(join(directory, 'versions'))).filter((file) => file.endsWith('.json'));
+  if (versionFiles.length !== 1 || versionFiles[0] !== `${baselineDate}.json`) {
+    return { ok: false, reason: `Norm hat weitere Fassungen (${versionFiles.join(', ')}); geschützt` };
+  }
+  const version = await readJson(join(directory, 'versions', versionFiles[0]));
+  const references = [...(meta.sourceReferences ?? []), ...(version.sourceReferences ?? [])];
+  // Eigene Fassungsseite (official-snapshot) derselben lawId; bei Artikeln von
+  // Mantelvorschriften zusätzlich die Mantelvorschrift (envelope-snapshot, andere lawId).
+  const own = references.filter((reference) => reference.sourceRole !== 'envelope-snapshot');
+  const baselineOnly = references.length > 0
+    && references.every((reference) => reference.kind === 'revosax-snapshot' && reference.availability === 'r2-archived')
+    && own.length > 0
+    && own.every((reference) => String(reference.lawId) === String(lawId));
+  if (!baselineOnly) {
+    return { ok: false, reason: 'Quellenreferenzen sind nicht ausschließlich die R2-Baseline dieser lawId; geschützt' };
+  }
+  return { ok: true };
 }
 
 async function main() {
@@ -208,44 +384,118 @@ async function main() {
   const planPath = resolve(valueAfter(args, '--plan') ?? '.cache/revosax-baseline/2023-11-01/materialization-plan.json');
   const reportPath = resolve(valueAfter(args, '--report') ?? '.cache/revosax-baseline/2023-11-01/report.json');
   const write = args.includes('--write');
+  const regenerate = args.includes('--regenerate');
   const limit = valueAfter(args, '--limit') ? Number.parseInt(valueAfter(args, '--limit'), 10) : null;
   const lawIds = valuesAfter(args, '--law-id');
   const [plan, report] = await Promise.all([readJson(planPath), readJson(reportPath)]);
   if (plan.baselineDate !== report.baselineDate) throw new Error('Plan und Stagingbericht gehören zu verschiedenen Stichtagen');
   const baselineDate = plan.baselineDate;
+  const envelopesPath = resolve(valueAfter(args, '--envelopes') ?? planPath.replace(/materialization-plan\.json$/u, 'envelope-components.json'));
+  const envelopes = (await exists(envelopesPath)) ? await readJson(envelopesPath) : null;
+  const fetchedEnvelopes = new Map((envelopes?.fetchedEnvelopes ?? []).map((source) => [source.sourceId, source]));
   const r2Manifest = (await exists(R2_MANIFEST_PATH)) ? await readJson(R2_MANIFEST_PATH) : { objects: {} };
-  if (plan.counts.REVIEW > 0) {
-    const message = `${plan.counts.REVIEW} REVIEW-Fall/-Fälle im Materialisierungsplan; Schreiben ist blockiert, bis sie über data/recht/revosax-baseline-decisions.json geklärt sind`;
+  if (!plan.writable) {
+    const message = `${plan.counts.REVIEW - (plan.counts.DEFERRED ?? 0)} offene REVIEW-Fälle im Materialisierungsplan; Schreiben ist blockiert, bis sie über data/recht/revosax-baseline-decisions.json geklärt oder zurückgestellt sind`;
     if (write) throw new Error(message);
     console.error(`Hinweis: ${message}`);
   }
 
   const reportEntries = new Map(report.entries.map((entry) => [entry.sourceId, entry]));
-  let creates = plan.entries.filter((entry) => entry.action === 'CREATE');
+  let creates = plan.entries.filter((entry) => entry.action === (regenerate ? 'MATCH' : 'CREATE'));
   if (lawIds.length > 0) creates = creates.filter((entry) => lawIds.includes(String(entry.revosaxLawId)));
   if (limit !== null) creates = creates.slice(0, limit);
 
   const prepared = [];
   const problems = [];
+  const skipped = [];
   for (const planned of creates) {
     const entry = reportEntries.get(planned.sourceId);
     try {
       if (!entry) throw new Error(`${planned.sourceId}: fehlt im Stagingbericht`);
-      const parsed = await readJson(resolve(ROOT, entry.parsedCacheFile));
-      const record = buildBaselineRecord({
-        entry,
-        parsed,
-        slug: planned.canonicalSlug,
-        objectRecord: r2Manifest.objects?.[objectKeyFor(baselineDate, entry.sourceId)],
-        baselineDate,
-      });
-      if (await exists(join(CONTENT_ROOT, record.slug))) {
+      const directory = join(CONTENT_ROOT, planned.canonicalSlug);
+      let targetSlug = planned.canonicalSlug;
+      let replacesSlug = null;
+      if (regenerate) {
+        const check = await isRegenerableBaselineNorm(directory, { lawId: entry.revosaxLawId, baselineDate });
+        if (!check.ok) {
+          skipped.push({ sourceId: planned.sourceId, slug: planned.canonicalSlug, reason: check.reason });
+          continue;
+        }
+        // Der Slug folgt der aktuellen Anpassung; ein aus einem älteren Adapterstand
+        // stammender Slug (z. B. aend-saechsverfghg) wird ersetzt, solange die Norm
+        // ausschließlich aus der Baseline besteht und der neue Slug frei ist.
+        if (entry.proposedSlug && entry.proposedSlug !== planned.canonicalSlug) {
+          if (await exists(join(CONTENT_ROOT, entry.proposedSlug))) {
+            throw new Error(`${planned.sourceId}: neuer Slug ${entry.proposedSlug} ist bereits belegt; alter Slug ${planned.canonicalSlug} bleibt`);
+          }
+          targetSlug = entry.proposedSlug;
+          replacesSlug = planned.canonicalSlug;
+        }
+      }
+      let record;
+      if (planned.envelope) {
+        const component = planned.envelope;
+        let envelopeSource;
+        let envelopeBody;
+        if (fetchedEnvelopes.has(component.envelopeSourceId)) {
+          const fetched = fetchedEnvelopes.get(component.envelopeSourceId);
+          const html = await readFile(resolve(ROOT, fetched.rawCacheFile), 'utf8');
+          envelopeBody = parseRevosaxSnapshot(html, { url: fetched.url }).body;
+          envelopeSource = { objectKey: fetched.objectKey, sha256: fetched.sha256, url: fetched.url, retrievedAt: fetched.retrievedAt, sourceValidFrom: fetched.sourceValidFrom, sourceValidTo: fetched.sourceValidTo };
+        } else {
+          const envelopeEntry = reportEntries.get(component.envelopeSourceId);
+          if (!envelopeEntry?.parsedCacheFile) throw new Error(`${planned.sourceId}: Mantelvorschrift ${component.envelopeSourceId} nicht im Stagingbericht`);
+          envelopeBody = (await readJson(resolve(ROOT, envelopeEntry.parsedCacheFile))).original.body;
+          envelopeSource = { objectKey: objectKeyFor(baselineDate, envelopeEntry.sourceId), sha256: envelopeEntry.sourceSha256, url: envelopeEntry.sourceUrl, retrievedAt: envelopeEntry.retrievedAt, sourceValidFrom: envelopeEntry.sourceValidFrom, sourceValidTo: envelopeEntry.sourceValidTo ?? null };
+        }
+        record = buildEnvelopeComponentRecord({
+          entry,
+          component,
+          envelopeSource,
+          envelopeBody,
+          slug: targetSlug,
+          containedIn: planned.containedIn ?? null,
+          objectRecords: r2Manifest.objects ?? {},
+          baselineDate,
+        });
+      } else {
+        const parsed = await readJson(resolve(ROOT, entry.parsedCacheFile));
+        record = buildBaselineRecord({
+          entry,
+          parsed,
+          slug: targetSlug,
+          objectRecord: r2Manifest.objects?.[objectKeyFor(baselineDate, entry.sourceId)],
+          baselineDate,
+        });
+      }
+      if (!regenerate && (await exists(directory))) {
         throw new Error(`${planned.sourceId}: content/normen/${record.slug} existiert bereits; CREATE darf keine bestehende Norm berühren`);
       }
-      prepared.push(record);
+      prepared.push({ ...record, replacesSlug });
     } catch (error) {
       problems.push({ sourceId: planned.sourceId, slug: planned.canonicalSlug, error: error.message });
     }
+  }
+  if (regenerate) console.log(`${skipped.length} MATCH-Einträge geschützt (nicht ausschließlich Baseline), ${prepared.length} regenerierbar.`);
+
+  // Baseline-Normen, deren Quelle nach neuer Einordnung nicht mehr übernommen wird.
+  const pruned = [];
+  if (regenerate && args.includes('--prune-baseline')) {
+    const keep = new Set(plan.entries.filter((entry) => ['CREATE', 'MATCH'].includes(entry.action)).map((entry) => String(entry.revosaxLawId)));
+    for (const name of (await readdir(CONTENT_ROOT, { withFileTypes: true })).filter((entry) => entry.isDirectory()).map((entry) => entry.name)) {
+      const metaPath = join(CONTENT_ROOT, name, 'meta.json');
+      if (!(await exists(metaPath))) continue;
+      const meta = await readJson(metaPath);
+      const own = (meta.sourceReferences ?? []).find((reference) => reference.kind === 'revosax-snapshot' && reference.sourceRole === 'official-snapshot' && reference.availability === 'r2-archived');
+      if (!own || keep.has(String(own.lawId))) continue;
+      const check = await isRegenerableBaselineNorm(join(CONTENT_ROOT, name), { lawId: own.lawId, baselineDate });
+      if (!check.ok) {
+        problems.push({ sourceId: own.lawId, slug: name, error: `nicht mehr übernommen, aber geschützt: ${check.reason}` });
+        continue;
+      }
+      pruned.push({ slug: name, lawId: String(own.lawId), action: plan.entries.find((entry) => String(entry.revosaxLawId) === String(own.lawId))?.action ?? 'unbekannt' });
+    }
+    console.log(`${pruned.length} Baseline-Normen ohne übernommene Quelle werden entfernt.`);
   }
 
   const summary = {
@@ -254,12 +504,17 @@ async function main() {
     generatedAt: new Date().toISOString(),
     plan: planPath.replace(`${ROOT}/`, ''),
     write,
+    regenerate,
     planned: plan.counts,
     prepared: prepared.length,
     problems: problems.length,
+    protectedCount: skipped.length,
     written: 0,
-    entries: prepared.map((record) => ({ slug: record.slug, lawId: record.meta.sourceReferences[0].lawId, type: record.meta.type })),
+    entries: prepared.map((record) => ({ slug: record.slug, lawId: record.meta.sourceReferences[0].lawId, type: record.meta.type, ...(record.replacesSlug ? { replacesSlug: record.replacesSlug } : {}) })),
+    renamed: prepared.filter((record) => record.replacesSlug).length,
     problemDetails: problems,
+    protectedDetails: skipped,
+    pruned,
   };
 
   if (problems.length > 0) {
@@ -267,14 +522,19 @@ async function main() {
     console.error(`${problems.length} von ${creates.length} CREATE-Einträgen sind nicht schreibbar; es wird nichts geschrieben.`);
     process.exitCode = 1;
   } else if (write) {
+    for (const entry of pruned) {
+      await rm(join(CONTENT_ROOT, entry.slug), { recursive: true, force: true });
+      console.log(`entfernt: ${entry.slug} (lawId ${entry.lawId}, jetzt ${entry.action})`);
+    }
     for (const record of prepared) {
       const directory = join(CONTENT_ROOT, record.slug);
+      if (record.replacesSlug) await rm(join(CONTENT_ROOT, record.replacesSlug), { recursive: true, force: true });
       await writeJson(join(directory, 'meta.json'), record.meta);
       await writeJson(join(directory, 'history.json'), record.history);
       await writeJson(join(directory, 'versions', `${baselineDate}.json`), record.version);
     }
     summary.written = prepared.length;
-    console.log(`${prepared.length} Normen nach content/normen geschrieben.`);
+    console.log(`${prepared.length} Normen nach content/normen ${regenerate ? 'neu ' : ''}geschrieben.`);
   } else {
     console.log(`${prepared.length} CREATE-Einträge geprüft und schreibbar (Prüflauf ohne --write).`);
   }

@@ -375,7 +375,7 @@ export async function requestWithRetry(url, {
     }
     if (binary) {
       const bytes = Buffer.from(await response.arrayBuffer());
-      return { status: response.status, url: finalUrl, bytes, contentType: response.headers.get('content-type') ?? null };
+      return { status: response.status, url: finalUrl, bytes, contentType: response.headers.get('content-type') ?? null, headers: response.headers };
     }
     return { status: response.status, url: finalUrl, text: await response.text() };
   }
@@ -593,6 +593,23 @@ export function detectEnvelopeComponent(html, pageUrl = REVOSAX_ORIGIN) {
     envelopeUrl: anchor.link.url,
     envelopeTitle: cleanText(anchor.node),
     envelopeAnchor: fragment,
+  };
+}
+
+/**
+ * Kopfdaten einer Komponentenseite („Bestandteil der Vorschrift …“): eigener
+ * Titel (h1) und eigenes Vollzitat der als Vorschrift geführten Änderung.
+ */
+export function extractEnvelopeComponentPage(html) {
+  const document = parse(html);
+  const lawShow = first(document, (node) => hasClass(node, 'law_show'));
+  if (!lawShow) return null;
+  const heading = first(lawShow, (node) => node.tagName === 'h1');
+  const paragraphs = walk(lawShow, (node) => node.tagName === 'p').map((node) => cleanText(node));
+  const citation = paragraphs.map((text) => text.match(/^Vollzitat:\s*(.+)$/u)?.[1]?.trim()).find(Boolean) ?? null;
+  return {
+    title: heading ? cleanText(heading) : null,
+    fullCitation: citation,
   };
 }
 

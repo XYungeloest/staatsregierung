@@ -1,16 +1,521 @@
 {
   "schemaVersion": 1,
   "baselineDate": "2023-11-01",
-  "description": "Dokumentierte Entscheidungen zu REVIEW-Fällen des Materialisierungsplans (scripts/plan-revosax-materialization.mjs). Schlüssel ist die REVOSax-Quellkennung (<lawId>[.<Fassung>]). Jede Entscheidung braucht eine Begründung; sie löst nur REVIEW-Fälle auf oder erzwingt SKIP.",
+  "description": "Dokumentierte Entscheidungen zu REVIEW-Fällen des Materialisierungsplans (scripts/plan-revosax-materialization.mjs). Schlüssel ist die REVOSax-Quellkennung (<lawId>[.<Fassung>]). Aktionen: SKIP (begründeter Ausschluss), MATCH/PROTECT/CREATE (Auflösung mit canonicalSlug), DEFER (bewusst offen gehaltener Reviewfall: bleibt REVIEW im Plan und im Import-Audit, blockiert den Schreibmodus nicht).",
   "decisions": {
     "1018": {
       "action": "SKIP",
-      "reason": "Europäisches Übereinkommen über das grenzüberschreitende Fernsehen: REVOSax hält den Text nur als PDF-Anlagen vor (Übereinkommen, Änderungsprotokoll); die Anlagenarchivierung ist als Folgeaufgabe im README dokumentiert.",
+      "reason": "Europäisches Übereinkommen über das grenzüberschreitende Fernsehen: REVOSax hält den Text nur als PDF-Anlagen vor. Das Übereinkommen selbst (Anlage 12287, 25 Seiten, revosax/2023-11-01/attachments/1018/12287-01_93_1160a_UEK.pdf) ist ein Scan ohne Textebene (pdftotext liefert keinen Text) und dürfte nur per OCR erschlossen werden; das Änderungsprotokoll (Anlage 12285, Textebene vorhanden) ist ohne den Haupttext nicht sinnvoll. Beide PDFs sind hashverifiziert in R2 archiviert; Materialisierung bleibt ein Reviewfall.",
+      "decidedAt": "2026-09-03"
+    },
+    "3712": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 3297 (Verwaltungsvorschrift des Sächsischen Staatsministeriums der Justiz zur Euro-bedingten Änderung im Sächsischen Justizministerialblatt veröffentlichter Verwaltungsvorschriften): Anker #roemIX zeigt auf „Änderung der Verwaltungsvorschrift über die Höhe der Aufwandsentschädigung der Beiratsmitglieder in den Justizvollzugsanstalten“, die Komponente heißt „Änderung der Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern über die Aufwandsentschädigung bei Einsätzen und Übungen der Polizei“; keine Artikelüberschrift entspricht „Änderung der Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern über die Aufwandsentschädigung bei Einsätzen und Übungen der Polizei“ (beste Übereinstimmung IX.: 0.33)",
+      "decidedAt": "2026-09-03"
+    },
+    "3950": {
+      "action": "DEFER",
+      "reason": "Komponentenseite verweist auf den Anker #abs2, den die Mantelvorschrift 5479 (Finanzausgleichsgesetz 1996) nicht enthält; keine eindeutige Artikelüberschrift. Zuordnung redaktionell klären.",
+      "decidedAt": "2026-09-03"
+    },
+    "3967": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung“; keine Artikelüberschrift entspricht „Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung“ (beste Übereinstimmung Artikel 3: 0.40)",
+      "decidedAt": "2026-09-03"
+    },
+    "4131": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 3542 (Gesetz zur Änderung des Sächsischen Verfassungsschutzgesetzes und des Gesetzes zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen): Anker #a2 zeigt auf „Änderung des Gesetzes zur Ausführung“, die Komponente heißt „Änderung des Gesetzes zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Gesetzes zur Ausführung des Gesetzes zu Artikel 10 Grundgesetz im Freistaat Sachsen“ (beste Übereinstimmung Artikel 2: 0.38)",
+      "decidedAt": "2026-09-03"
+    },
+    "4265": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 5082 (Gesetz zur Anpassung landesrechtlicher Vorschriften an die Änderung des Investitionsgesetzes Aufbau Ost): Anker #a1 zeigt auf „“, die Komponente heißt „Änderung des Finanzausgleichsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Finanzausgleichsgesetzes“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "4395": {
+      "action": "DEFER",
+      "reason": "Komponentenseite ohne Anker auf die Mantelvorschrift 2932; der zugehörige Artikel ist nicht maschinell bestimmbar.",
+      "decidedAt": "2026-09-03"
+    },
+    "4399": {
+      "action": "DEFER",
+      "reason": "Anker der Mantelvorschrift 3393 trägt kein Artikelkennzeichen; Abschnitt nicht eindeutig.",
+      "decidedAt": "2026-09-03"
+    },
+    "4443": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Gesetzes zur Umsetzung der Richtlinie 94/80/EG des Rates der Europäischen Union“; keine Artikelüberschrift entspricht „Änderung des Gesetzes zur Umsetzung der Richtlinie 94/80/EG des Rates der Europäischen Union“ (beste Übereinstimmung Artikel 3: 0.20)",
+      "decidedAt": "2026-09-03"
+    },
+    "4570": {
+      "action": "DEFER",
+      "reason": "Komponentenseite verweist auf den Anker #abs2, den die Mantelvorschrift 2956 nicht enthält; Artikelüberschrift nicht eindeutig.",
+      "decidedAt": "2026-09-03"
+    },
+    "4574": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Gesetz über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Gesetz über die staatliche Anerkennung von Diplom-Sozialarbeitern, Diplom-Sozialpädagogen und Diplom-Heilpädagogen im Freistaat Sachsen“ (beste Übereinstimmung Artikel 4: 0.44)",
+      "decidedAt": "2026-09-03"
+    },
+    "4603": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Sächsischen Bestattungsgesetzes“; mehrere Artikelüberschriften ähneln „Änderung des Sächsischen Bestattungsgesetzes“ (Artikel 6: 0.67, Artikel 7: 0.67)",
+      "decidedAt": "2026-09-03"
+    },
+    "4709": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 2324 (Vierter Rundfunkänderungsstaatsvertrag): Anker #a9 zeigt auf „Übergangsbestimmung, Kündigung, In-Kraft-Treten, Neubekanntmachung“, die Komponente heißt „Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen“; keine Artikelüberschrift entspricht „Protokoll zur Änderung des Europäischen Übereinkommens über das grenzüberschreitende Fernsehen“ (beste Übereinstimmung Artikel 1: 0.17)",
+      "decidedAt": "2026-09-03"
+    },
+    "4758": {
+      "action": "DEFER",
+      "reason": "Mantelvorschrift 4525 enthält drei Abschnitte mit dem Kennzeichen „II.“; der gemeinte Abschnitt ist nicht eindeutig.",
+      "decidedAt": "2026-09-03"
+    },
+    "4784": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 3750 (Sächsisches Aufbaubeschleunigungsgesetz): Anker #a8 zeigt auf „Änderungsgesetz zum Straßengesetz für den Freistaat Sachsen“, die Komponente heißt „Änderung des Sächsischen Straßengesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Straßengesetzes“ (beste Übereinstimmung Artikel 2: 0.50)",
+      "decidedAt": "2026-09-03"
+    },
+    "4787": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Aufbaubeschleunigungsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Aufbaubeschleunigungsgesetzes“ (beste Übereinstimmung Artikel 5: 0.50)",
+      "decidedAt": "2026-09-03"
+    },
+    "4849": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Sonderurlaubsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sonderurlaubsgesetzes“ (beste Übereinstimmung Artikel 5: 0.50)",
+      "decidedAt": "2026-09-03"
+    },
+    "5092": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Sächsisches Gesetz zur Ausführung des Sozialgesetzbuches“; mehrere Artikelüberschriften ähneln „Änderung des Sächsisches Gesetz zur Ausführung des Sozialgesetzbuches“ (Artikel 2: 0.80, Artikel 9: 0.80)",
+      "decidedAt": "2026-09-03"
+    },
+    "5094": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Gesetzes zur Durchführung der Kriegsopferfürsorge“; keine Artikelüberschrift entspricht „Änderung des Gesetzes zur Durchführung der Kriegsopferfürsorge“ (beste Übereinstimmung Artikel 3: 0.50)",
+      "decidedAt": "2026-09-03"
+    },
+    "9483": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 2876 (Sächsisches Wahlgesetz): Mantelvorschrift nicht parsebar: Mantelvorschrift 2876 leitet auf die Vorschrift 20176 weiter (https://www.revosax.sachsen.de/vorschrift/20176)",
+      "decidedAt": "2026-09-03"
+    },
+    "9508": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 1255 (Gesetz zum Vierten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge): Anker #a1 zeigt auf „“, die Komponente heißt „Zustimmung zum Vierten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge“; keine Artikelüberschrift entspricht „Zustimmung zum Vierten Staatsvertrag zur Änderung rundfunkrechtlicher Staatsverträge“ (beste Übereinstimmung Artikel 2: 0.25)",
+      "decidedAt": "2026-09-03"
+    },
+    "10266": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 10264 (Verordnung des Sächsischen Staatsministeriums des Innern zur Änderung der Ausbildungs- und Prüfungsordnung für den gehobenen allgemeinen Verwaltungsdienst, der Ausbildungs- und Prüfungsordnung für den mittleren allgemeinen Verwaltungsdienst und der Sächsischen Ausführungsverordnung zum Berufsbildungsgesetz): Anker #a2 zeigt auf „“, die Komponente heißt „Änderung der Ausbildungs- und Prüfungsordnung für den mittleren allgemeinen Verwaltungsdienst“; keine Artikelüberschrift entspricht „Änderung der Ausbildungs- und Prüfungsordnung für den mittleren allgemeinen Verwaltungsdienst“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "10267": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 10264 (Verordnung des Sächsischen Staatsministeriums des Innern zur Änderung der Ausbildungs- und Prüfungsordnung für den gehobenen allgemeinen Verwaltungsdienst, der Ausbildungs- und Prüfungsordnung für den mittleren allgemeinen Verwaltungsdienst und der Sächsischen Ausführungsverordnung zum Berufsbildungsgesetz): Anker #a3 zeigt auf „“, die Komponente heißt „Änderung der Sächsische Ausführungsverordnung zum Berufsbildungsgesetz“; keine Artikelüberschrift entspricht „Änderung der Sächsische Ausführungsverordnung zum Berufsbildungsgesetz“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "10350": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 10338 (Verordnung der Sächsischen Staatsregierung zur Umsetzung der Verwaltungsneuordnung im Zuständigkeitsbereich des Sächsischen Staatsministeriums des Innern): Anker #a11 zeigt auf „Änderung der Verordnung über die Zuständigkeiten nach dem <a href='http://www.gesetze-im-internet.de/schberg/' class='bundesgesetz' target='_blank' title='Schutzbereichsgesetz' data-name='SchutzbereichsG' data-id='344'>Schutzbereichgesetz</a> und dem Landbeschaffungsgesetz“, die Komponente heißt „Änderung der Verordnung über die Zuständigkeiten nach dem Schutzbereichgesetz und dem Landbeschaffungsgesetz“; mehrere Artikelüberschriften ähneln „Änderung der Verordnung über die Zuständigkeiten nach dem Schutzbereichgesetz und dem Landbeschaffungsgesetz“ (Artikel 3: 0.60, Artikel 10: 0.60)",
+      "decidedAt": "2026-09-03"
+    },
+    "11326": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11324 (Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag und zur Änderung des Sächsischen Privatrundfunkgesetzes): Anker #a1 zeigt auf „“, die Komponente heißt „Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag“; keine Artikelüberschrift entspricht „Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "11327": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11324 (Gesetz zum Dreizehnten Rundfunkänderungsstaatsvertrag und zur Änderung des Sächsischen Privatrundfunkgesetzes): Anker #a2 zeigt auf „“, die Komponente heißt „Änderung des Sächsischen Privatrundfunkgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Privatrundfunkgesetzes“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "11329": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11325 (Dreizehnter Rundfunkänderungsstaatsvertrag): Anker #a2 zeigt auf „“, die Komponente heißt „Änderung des Jugendmedienschutz-Staatsvertrages“; keine Artikelüberschrift entspricht „Änderung des Jugendmedienschutz-Staatsvertrages“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "11331": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11330 (Verordnung der Sächsischen Staatsregierung zur Regelung der Internetversteigerung in der Zwangsvollstreckung und von Fundsachen und zur Änderung der Zuständigkeitsübertragungsverordnung Justiz): Anker #a2 zeigt auf „“, die Komponente heißt „Änderung der Zuständigkeitsübertragungsverordnung Justiz“; keine Artikelüberschrift entspricht „Änderung der Zuständigkeitsübertragungsverordnung Justiz“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "11380": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Disziplinargesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Disziplinargesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11381": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Gesetzes über den öffentlichen Gesundheitsdienst im Freistaat Sachsen“ (beste Übereinstimmung Artikel 1: 0.43)",
+      "decidedAt": "2026-09-03"
+    },
+    "11384": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Gesetzes über den einheitlichen Ansprechpartner im Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Gesetzes über den einheitlichen Ansprechpartner im Freistaat Sachsen“ (beste Übereinstimmung Artikel 1: 0.43)",
+      "decidedAt": "2026-09-03"
+    },
+    "11385": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung der Sächsischen Bauordnung“; keine Artikelüberschrift entspricht „Änderung der Sächsischen Bauordnung“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11386": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Landesjugendhilfegesetzes“; keine Artikelüberschrift entspricht „Änderung des Landesjugendhilfegesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11387": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Schulgesetzes für den Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Schulgesetzes für den Freistaat Sachsen“ (beste Übereinstimmung Artikel 1: 0.29)",
+      "decidedAt": "2026-09-03"
+    },
+    "11388": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Befähigungs-Anerkennungsgesetzes Lehrer“; keine Artikelüberschrift entspricht „Änderung des Befähigungs-Anerkennungsgesetzes Lehrer“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11389": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Weiterbildungsgesetzes Gesundheitsfachberufe“; keine Artikelüberschrift entspricht „Änderung des Weiterbildungsgesetzes Gesundheitsfachberufe“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11390": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Gesetzes über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Gesetzes über die staatliche Anerkennung von Absolventen mit Diplom oder Bachelor in den Fachgebieten des Sozialwesens oder der Heilpädagogik im Freistaat Sachsen“ (beste Übereinstimmung Artikel 1: 0.23)",
+      "decidedAt": "2026-09-03"
+    },
+    "11391": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Kommunalabgabengesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Kommunalabgabengesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11393": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Rechtsanwaltsversorgungsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Rechtsanwaltsversorgungsgesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11397": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Markscheidergesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Markscheidergesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11399": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Ändeurng des Landeseisenbahngesetzes“; keine Artikelüberschrift entspricht „Ändeurng des Landeseisenbahngesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11400": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11376 (Gesetz zur Regelung des Verwaltungsverfahrens- und des Verwaltungszustellungsrechts für den Freistaat Sachsen und zur Änderung anderer Gesetze): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Landesseilbahngesetzes“; keine Artikelüberschrift entspricht „Änderung des Landesseilbahngesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11644": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11643 (Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern zur Änderung der RL Hochwasserschäden Wohngebäude 2010, der RL Vorfinanzierung Hochwasser 2010, der RL Kommunaldarlehen Hochwasser 2010, der Auffangrichtlinie Hochwasserschäden 2010 und der VwV SMI Aufbauhilfe Sommerhochwasser 2010): Anker #roemI zeigt auf „“, die Komponente heißt „Änderung RL Hochwasserschäden Wohngebäude 2010“; keine Artikelüberschrift entspricht „Änderung RL Hochwasserschäden Wohngebäude 2010“ (beste Übereinstimmung VI.: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11645": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11643 (Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern zur Änderung der RL Hochwasserschäden Wohngebäude 2010, der RL Vorfinanzierung Hochwasser 2010, der RL Kommunaldarlehen Hochwasser 2010, der Auffangrichtlinie Hochwasserschäden 2010 und der VwV SMI Aufbauhilfe Sommerhochwasser 2010): Anker #roemII zeigt auf „“, die Komponente heißt „Änderung RL Vorfinanzierung Hochwasser 2010“; keine Artikelüberschrift entspricht „Änderung RL Vorfinanzierung Hochwasser 2010“ (beste Übereinstimmung VI.: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11647": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11643 (Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern zur Änderung der RL Hochwasserschäden Wohngebäude 2010, der RL Vorfinanzierung Hochwasser 2010, der RL Kommunaldarlehen Hochwasser 2010, der Auffangrichtlinie Hochwasserschäden 2010 und der VwV SMI Aufbauhilfe Sommerhochwasser 2010): Anker #roemIV zeigt auf „“, die Komponente heißt „Änderung Auffangrichtlinie Hochwasserschäden 2010“; keine Artikelüberschrift entspricht „Änderung Auffangrichtlinie Hochwasserschäden 2010“ (beste Übereinstimmung VI.: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11648": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11643 (Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern zur Änderung der RL Hochwasserschäden Wohngebäude 2010, der RL Vorfinanzierung Hochwasser 2010, der RL Kommunaldarlehen Hochwasser 2010, der Auffangrichtlinie Hochwasserschäden 2010 und der VwV SMI Aufbauhilfe Sommerhochwasser 2010): Anker #roemV zeigt auf „“, die Komponente heißt „Änderung VwV SMI Aufbauhilfe Sommerhochwasser 2010“; keine Artikelüberschrift entspricht „Änderung VwV SMI Aufbauhilfe Sommerhochwasser 2010“ (beste Übereinstimmung VI.: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "11678": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 3051 (Gesetz zum Vertrag mit den evangelischen Landeskirchen im Freistaat Sachsen): Anker #a1 zeigt auf „Zustimmung zum Staatsvertrag“, die Komponente heißt „Zustimmung zum Staatsvertrag [Vertrag mit den evangelischen Landeskirchen im Freistaat Sachsen ]“; keine Artikelüberschrift entspricht „Zustimmung zum Staatsvertrag [Vertrag mit den evangelischen Landeskirchen im Freistaat Sachsen ]“ (beste Übereinstimmung Artikel 1: 0.29)",
+      "decidedAt": "2026-09-03"
+    },
+    "12306": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a1 zeigt auf „“, die Komponente heißt „Änderung der Verwaltungsvorschrift zur Regelung des Großraum- und Schwerlastverkehrs für überbreite land- oder forstwirtschaftlich genutzte Arbeitsmaschinen und Zugmaschinen“; keine Artikelüberschrift entspricht „Änderung der Verwaltungsvorschrift zur Regelung des Großraum- und Schwerlastverkehrs für überbreite land- oder forstwirtschaftlich genutzte Arbeitsmaschinen und Zugmaschinen“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12310": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a5 zeigt auf „“, die Komponente heißt „Änderung der Richtlinien für die rechtliche Behandlung von Ortsdurchfahrten“; keine Artikelüberschrift entspricht „Änderung der Richtlinien für die rechtliche Behandlung von Ortsdurchfahrten“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12312": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a7 zeigt auf „“, die Komponente heißt „Änderung der Verwaltungsvorschrift „Straßenunterhaltungs- und Betriebsdienst im Gemeinschaftsaufwand – Beschaffung von Fahrzeugen und Geräten““; keine Artikelüberschrift entspricht „Änderung der Verwaltungsvorschrift „Straßenunterhaltungs- und Betriebsdienst im Gemeinschaftsaufwand – Beschaffung von Fahrzeugen und Geräten““ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12313": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a8 zeigt auf „“, die Komponente heißt „Verwaltungsvorschrift zur Durchführung der Verordnung des Sächsischen Staatsministeriums für Wirtschaft und Arbeit zur Bestimmung der den Landkreisen und kreisfreien Städten obliegenden Unterhaltungs- und Instandsetzungsaufgaben an Staats- und Bundesstraßen im Freistaat Sachsen (Verwaltungsvorschrift zur Sächsischen Unterhaltungs- und Instandsetzungsverordnung – VwVSächsUIVO)“; keine Artikelüberschrift entspricht „Verwaltungsvorschrift zur Durchführung der Verordnung des Sächsischen Staatsministeriums für Wirtschaft und Arbeit zur Bestimmung der den Landkreisen und kreisfreien Städten obliegenden Unterhaltungs- und Instandsetzungsaufgaben an Staats- und Bundesstraßen im Freistaat Sachsen (Verwaltungsvorschrift zur Sächsischen Unterhaltungs- und Instandsetzungsverordnung – VwVSächsUIVO)“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12314": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a9 zeigt auf „“, die Komponente heißt „Änderung der Verwaltungsvorschrift des Sächsisches Staatsministeriums für Wirtschaft und Arbeit zur Einführung der „Richtlinie zur Ermittlung und Verrechnung von Kosten im Straßenbetriebsdienst an Bundesfernstraßen“ in der sächsischen Straßenbauverwaltung“; keine Artikelüberschrift entspricht „Änderung der Verwaltungsvorschrift des Sächsisches Staatsministeriums für Wirtschaft und Arbeit zur Einführung der „Richtlinie zur Ermittlung und Verrechnung von Kosten im Straßenbetriebsdienst an Bundesfernstraßen“ in der sächsischen Straßenbauverwaltung“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12315": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a10 zeigt auf „“, die Komponente heißt „Änderung der Verwaltungsvorschrift „Merkblatt für den Straßenbetriebsdienst – Teil: Grünpflege – Ausgabe 2006““; keine Artikelüberschrift entspricht „Änderung der Verwaltungsvorschrift „Merkblatt für den Straßenbetriebsdienst – Teil: Grünpflege – Ausgabe 2006““ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12316": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a11 zeigt auf „“, die Komponente heißt „Änderung der Verwaltungsvorschrift „Betriebstechnische Ausstattung von Straßentunneln (Allgemeines Rundschreiben Straßenbau Nr. 10/2006)““; keine Artikelüberschrift entspricht „Änderung der Verwaltungsvorschrift „Betriebstechnische Ausstattung von Straßentunneln (Allgemeines Rundschreiben Straßenbau Nr. 10/2006)““ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12317": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a12 zeigt auf „“, die Komponente heißt „Änderung der Verwaltungsvorschrift „Verordnung über Sicherheit und Gesundheitsschutz auf Baustellen (Baustellenverordnung – BaustellV vom 10.06.1998); Regeln zum Arbeitsschutz auf Baustellen (RAB)““; keine Artikelüberschrift entspricht „Änderung der Verwaltungsvorschrift „Verordnung über Sicherheit und Gesundheitsschutz auf Baustellen (Baustellenverordnung – BaustellV vom 10.06.1998); Regeln zum Arbeitsschutz auf Baustellen (RAB)““ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12318": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a13 zeigt auf „“, die Komponente heißt „Änderung der Verwaltungsvorschrift „Merkblatt über Rahmenbedingungen für erforderliche Fachkenntnisse zur Verkehrssicherung von Arbeitsstellen an Straßen (MVAS 1999)““; keine Artikelüberschrift entspricht „Änderung der Verwaltungsvorschrift „Merkblatt über Rahmenbedingungen für erforderliche Fachkenntnisse zur Verkehrssicherung von Arbeitsstellen an Straßen (MVAS 1999)““ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12319": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12305 (Verwaltungsvorschrift des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr zur Änderung von Verwaltungsvorschriften zur Anpassung an das Sächsische Standortegesetz (SächsStOG)): Anker #a14 zeigt auf „“, die Komponente heißt „Änderung der Richtlinie des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Gewährung von Fördermitteln im öffentlichen Personennahverkehr (RL-ÖPNV)“; keine Artikelüberschrift entspricht „Änderung der Richtlinie des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr über die Gewährung von Fördermitteln im öffentlichen Personennahverkehr (RL-ÖPNV)“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12492": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12491 (Gesetz zur Änderung des Gesetzes über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe): Anker #a1 zeigt auf „“, die Komponente heißt „Artikel 1 [Änderung des Gesetzes über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe]“; keine Artikelüberschrift entspricht „Artikel 1 [Änderung des Gesetzes über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe]“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12493": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12491 (Gesetz zur Änderung des Gesetzes über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe): Anker #a2 zeigt auf „“, die Komponente heißt „Artikel 2 [Änderung des Gesetzes über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe]“; keine Artikelüberschrift entspricht „Artikel 2 [Änderung des Gesetzes über die öffentlich-rechtlichen Kreditinstitute im Freistaat Sachsen und die Sachsen-Finanzgruppe]“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "12703": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 12679 (Verordnung der Sächsischen Staatsregierung, des Sächsischen Staatsministeriums der Justiz und für Europa, des Sächsischen Staatsministeriums für Kultus, des Sächsischen Staatsministeriums für Wirtschaft, Arbeit und Verkehr, des Sächsischen Staatsministeriums für Soziales und Verbraucherschutz und des Sächsischen Staatsministeriums für Umwelt und Landwirtschaft zur Umsetzung der Standortkonzeption sowie zur Rechtsbereinigung): Anker #a24 zeigt auf „Änderung der Sächsischen Chemikalienrecht–Zuständigkeitsverordnung“, die Komponente heißt „Änderung der Sächsischen Chemikalienrecht-Zuständigkeitsverordnung“; mehrere Artikelüberschriften ähneln „Änderung der Sächsischen Chemikalienrecht-Zuständigkeitsverordnung“ (Artikel 1: 0.67, Artikel 9: 0.67)",
+      "decidedAt": "2026-09-03"
+    },
+    "14075": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 14069 (Gesetz zur Förderung der elektronischen Verwaltung im Freistaat Sachsen und zur Änderung des Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung): Anker #a2 zeigt auf „“, die Komponente heißt „Änderung des Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung“; keine Artikelüberschrift entspricht „Änderung des Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "14084": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 14073 (Verordnung des Sächsischen Staatsministeriums für Kultus zur Änderung der Schulordnung Gymnasien Abiturprüfung und der Abendgymnasien-und Kollegverordnung): Anker #a2 zeigt auf „“, die Komponente heißt „Änderung der Abendgymnasien- und Kollegverordnung“; keine Artikelüberschrift entspricht „Änderung der Abendgymnasien- und Kollegverordnung“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "14121": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 14120 (Änderungsrichtlinie Einbruchschutz): Anker #roemI zeigt auf „“, die Komponente heißt „Änderung der Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung der energetischen Sanierung von Wohnraum“; keine Artikelüberschrift entspricht „Änderung der Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung der energetischen Sanierung von Wohnraum“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "14122": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 14120 (Änderungsrichtlinie Einbruchschutz): Anker #roemII zeigt auf „“, die Komponente heißt „Änderung der Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung von Wohnraumanpassungen für generationenübergreifendes Wohnen“; keine Artikelüberschrift entspricht „Änderung der Richtlinie des Sächsischen Staatsministeriums des Innern zur Förderung von Wohnraumanpassungen für generationenübergreifendes Wohnen“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "16012": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 16011 (Gesetz zur Änderung des Gesetzes zur Ausführung des Bundesmeldegesetzes und zur Änderung weiterer Gesetze): Anker ohne Artikelkennzeichen",
+      "decidedAt": "2026-09-03"
+    },
+    "16833": {
+      "action": "DEFER",
+      "reason": "Anker der Mantelvorschrift trägt kein Artikelkennzeichen; Abschnitt nicht eindeutig.",
+      "decidedAt": "2026-09-03"
+    },
+    "17022": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Gesetzes zur Ausführung des Betreuungsgesetzes“; mehrere Artikelüberschriften ähneln „Änderung des Gesetzes zur Ausführung des Betreuungsgesetzes“ (Artikel 9: 0.60, Artikel 2: 0.50)",
+      "decidedAt": "2026-09-03"
+    },
+    "17023": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung“; keine Artikelüberschrift entspricht „Änderung des Gesetzes über Zuständigkeiten auf dem Gebiet der Energieeinsparung“ (beste Übereinstimmung Artikel 3: 0.40)",
+      "decidedAt": "2026-09-03"
+    },
+    "17024": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 4371 (Gesetz zur Aufhebung und Änderung von Rechtsvorschriften im Freistaat Sachsen): Anker #a1 zeigt auf „Zweites Gesetz des Freistaates Sachsen zur Bereinigung des Landesrechts (Zweites Sächsisches Rechtsbereinigungsgesetz – 2. SächsRBG)“, die Komponente heißt „Änderung des Ausführungsgesetzes zum Sozialgesetzbuch Achtes Buch (SGB VIII) – Kinder- und Jugendhilfe – und anderer Gesetze zum Schutz der Jugend für den Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Ausführungsgesetzes zum Sozialgesetzbuch Achtes Buch (SGB VIII) – Kinder- und Jugendhilfe – und anderer Gesetze zum Schutz der Jugend für den Freistaat Sachsen“ (beste Übereinstimmung Artikel 4: 0.31)",
+      "decidedAt": "2026-09-03"
+    },
+    "17038": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17036 (Gesetz zur Änderung des Sächsischen Kommunalabgabengesetzes): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Gesetzes zur Ausführung des Bundesmeldegesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Gesetzes zur Ausführung des Bundesmeldegesetzes“ (beste Übereinstimmung Artikel 1: 0.40)",
+      "decidedAt": "2026-09-03"
+    },
+    "17092": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17089 (Drittes Gesetz zur Änderung der Sächsischen Gemeindeordnung): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Gesetzes über kommunale Zusammenarbeit“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Gesetzes über kommunale Zusammenarbeit“ (beste Übereinstimmung Artikel 1: 0.40)",
+      "decidedAt": "2026-09-03"
+    },
+    "17093": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17089 (Drittes Gesetz zur Änderung der Sächsischen Gemeindeordnung): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung der Sächsischen Landkreisordnung“; mehrere Artikelüberschriften ähneln „Änderung der Sächsischen Landkreisordnung“ (Artikel 1: 0.67, Artikel 2: 0.50)",
+      "decidedAt": "2026-09-03"
+    },
+    "17094": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17089 (Drittes Gesetz zur Änderung der Sächsischen Gemeindeordnung): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Gesetzes über den Kommunalen Sozialverband Sachsen“; keine Artikelüberschrift entspricht „Änderung des Gesetzes über den Kommunalen Sozialverband Sachsen“ (beste Übereinstimmung Artikel 1: 0.20)",
+      "decidedAt": "2026-09-03"
+    },
+    "17096": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17089 (Drittes Gesetz zur Änderung der Sächsischen Gemeindeordnung): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung“; keine Artikelüberschrift entspricht „Änderung des Gesetzes über die Errichtung der Sächsischen Anstalt für kommunale Datenverarbeitung“ (beste Übereinstimmung Artikel 1: 0.29)",
+      "decidedAt": "2026-09-03"
+    },
+    "17097": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17089 (Drittes Gesetz zur Änderung der Sächsischen Gemeindeordnung): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Kulturraumgesetzes“; mehrere Artikelüberschriften ähneln „Änderung des Sächsischen Kulturraumgesetzes“ (Artikel 1: 0.67, Artikel 2: 0.50)",
       "decidedAt": "2026-09-03"
     },
     "17114": {
       "action": "SKIP",
-      "reason": "Der REVOSax-Lesetext besteht ausschließlich aus Verweisen auf PDF-Anlagen; ohne Anlagenimport gäbe es keinen Normtext. Anlagenarchivierung ist als Folgeaufgabe dokumentiert.",
+      "reason": "Der REVOSax-Lesetext besteht ausschließlich aus dem Verweis auf die Anlage 29063 (revosax/2023-11-01/attachments/17114/29063-02_17_0115a_anl.pdf, 8 Seiten, Textebene vorhanden). Die Anlage ist ein Fragebogenformular (Anlage zu Ziffer I mit Anhang), kein strukturierbarer Normtext; eine automatische Umsetzung in Normblöcke wäre irreführend. PDF hashverifiziert archiviert; Materialisierung bleibt ein Reviewfall.",
+      "decidedAt": "2026-09-03"
+    },
+    "17867": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17866 (Richtlinie des Sächsischen Staatsministeriums des Innern zur Änderung von Wohnraumförderrichtlinien): Anker #roemI zeigt auf „“, die Komponente heißt „Änderung der RL gebundener Mietwohnraum“; keine Artikelüberschrift entspricht „Änderung der RL gebundener Mietwohnraum“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "17868": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17866 (Richtlinie des Sächsischen Staatsministeriums des Innern zur Änderung von Wohnraumförderrichtlinien): Anker #roemII zeigt auf „“, die Komponente heißt „Änderung der RL Seniorengerecht Umbauen“; keine Artikelüberschrift entspricht „Änderung der RL Seniorengerecht Umbauen“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "17869": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 17866 (Richtlinie des Sächsischen Staatsministeriums des Innern zur Änderung von Wohnraumförderrichtlinien): Anker #roemIII zeigt auf „“, die Komponente heißt „Änderung der RLWohnraumanpassung“; keine Artikelüberschrift entspricht „Änderung der RLWohnraumanpassung“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "18453": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 18452 (Änderungsrichtlinie Wohnraumförderung 2019): Anker #roemI zeigt auf „“, die Komponente heißt „Änderung der RL gebundener Mietwohnraum“; keine Artikelüberschrift entspricht „Änderung der RL gebundener Mietwohnraum“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "18454": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 18452 (Änderungsrichtlinie Wohnraumförderung 2019): Anker #roemII zeigt auf „“, die Komponente heißt „Änder der RL Wohnraumanpassung“; keine Artikelüberschrift entspricht „Änder der RL Wohnraumanpassung“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "18513": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 18512 (Anpassungsrichtlinie Wohnraumförderung 2019): Anker #roemI zeigt auf „“, die Komponente heißt „Änderung der Richtlinie gebundener Mietwohnraum“; keine Artikelüberschrift entspricht „Änderung der Richtlinie gebundener Mietwohnraum“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "18515": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 18512 (Anpassungsrichtlinie Wohnraumförderung 2019): Anker #roemIII zeigt auf „“, die Komponente heißt „Änderung der Richtlinie Wohnraumanpassung“; keine Artikelüberschrift entspricht „Änderung der Richtlinie Wohnraumanpassung“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "18516": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 18512 (Anpassungsrichtlinie Wohnraumförderung 2019): Anker #roemIV zeigt auf „“, die Komponente heißt „Änderung der Richtlinie Seniorengerecht Umbauen“; keine Artikelüberschrift entspricht „Änderung der Richtlinie Seniorengerecht Umbauen“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "18517": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 18512 (Anpassungsrichtlinie Wohnraumförderung 2019): Anker #roemV zeigt auf „“, die Komponente heißt „Änderung der Richtlinie Wohneigentum ländlicher Raum“; keine Artikelüberschrift entspricht „Änderung der Richtlinie Wohneigentum ländlicher Raum“ (beste Übereinstimmung keine)",
+      "decidedAt": "2026-09-03"
+    },
+    "19095": {
+      "action": "DEFER",
+      "reason": "Komponentenseite ohne Anker auf die Mantelvorschrift; Artikel nicht maschinell bestimmbar.",
+      "decidedAt": "2026-09-03"
+    },
+    "19096": {
+      "action": "DEFER",
+      "reason": "Komponentenseite ohne Anker auf die Mantelvorschrift; Artikel nicht maschinell bestimmbar.",
+      "decidedAt": "2026-09-03"
+    },
+    "19265": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19262 (Vierte Verordnung des Sächsischen Staatsministeriums für Soziales und Gesellschaftlichen Zusammenhalt zur Änderung der Schwangerschafts- und Schwangerschaftskonfliktberatungs&shy;stellenförderverordnung): Anker #a1 zeigt auf „Änderung der Schwangerschafts- und Schwangerschaftskonfliktberatungsstellenförderverordnung“, die Komponente heißt „Änderung der Schwangerschafts- und Schwangerschaftskonfliktberatungs­stellenförderverordnung“; keine Artikelüberschrift entspricht „Änderung der Schwangerschafts- und Schwangerschaftskonfliktberatungs­stellenförderverordnung“ (beste Übereinstimmung Artikel 1: 0.50)",
+      "decidedAt": "2026-09-03"
+    },
+    "19700": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Normenkontrollratsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Normenkontrollratsgesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "19701": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Zehnten Sächsischen Kostenverzeichnisses“; keine Artikelüberschrift entspricht „Änderung des Zehnten Sächsischen Kostenverzeichnisses“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "19702": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Archivgesetzes für den Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Archivgesetzes für den Freistaat Sachsen“ (beste Übereinstimmung Artikel 1: 0.40)",
+      "decidedAt": "2026-09-03"
+    },
+    "19703": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Jugendstrafvollzugsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Jugendstrafvollzugsgesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "19704": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Untersuchungshaftvollzugsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Untersuchungshaftvollzugsgesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "19705": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Strafvollzugsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Strafvollzugsgesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "19706": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Sicherungsverwahrungsvollzugsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Sicherungsverwahrungsvollzugsgesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "19707": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Jugendarrestvollzugsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Jugendarrestvollzugsgesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "19708": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Waldgesetzes für den Freistaat Sachsen“; keine Artikelüberschrift entspricht „Änderung des Waldgesetzes für den Freistaat Sachsen“ (beste Übereinstimmung Artikel 1: 0.40)",
+      "decidedAt": "2026-09-03"
+    },
+    "19709": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 19698 (Gesetz zur Einführung des Gesetzes über die Transparenz von Informationen im Freistaat Sachsen): Anker #a2 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Umweltinformationsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Umweltinformationsgesetzes“ (beste Übereinstimmung Artikel 1: 0.00)",
+      "decidedAt": "2026-09-03"
+    },
+    "20112": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 20109 (Gesetz zur Änderung des sächsischen Nachbar- sowie Richter- und Staatsanwaltsrechts): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Personalvertretungsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Personalvertretungsgesetzes“ (beste Übereinstimmung Artikel 1: 0.33)",
+      "decidedAt": "2026-09-03"
+    },
+    "20113": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 20109 (Gesetz zur Änderung des sächsischen Nachbar- sowie Richter- und Staatsanwaltsrechts): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Besoldungsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Besoldungsgesetzes“ (beste Übereinstimmung Artikel 1: 0.33)",
+      "decidedAt": "2026-09-03"
+    },
+    "20114": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 20109 (Gesetz zur Änderung des sächsischen Nachbar- sowie Richter- und Staatsanwaltsrechts): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung des Sächsischen Beamtenversorgungsgesetzes“; keine Artikelüberschrift entspricht „Änderung des Sächsischen Beamtenversorgungsgesetzes“ (beste Übereinstimmung Artikel 1: 0.33)",
+      "decidedAt": "2026-09-03"
+    },
+    "20115": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 20109 (Gesetz zur Änderung des sächsischen Nachbar- sowie Richter- und Staatsanwaltsrechts): Anker #a3 zeigt auf „Folgeänderungen“, die Komponente heißt „Änderung der Sächsischen Dienstrechtszuständigkeitsverordnung“; keine Artikelüberschrift entspricht „Änderung der Sächsischen Dienstrechtszuständigkeitsverordnung“ (beste Übereinstimmung Artikel 1: 0.33)",
+      "decidedAt": "2026-09-03"
+    },
+    "11646.1": {
+      "action": "DEFER",
+      "reason": "Bestandteil der Mantelvorschrift 11643 (Verwaltungsvorschrift des Sächsischen Staatsministeriums des Innern zur Änderung der RL Hochwasserschäden Wohngebäude 2010, der RL Vorfinanzierung Hochwasser 2010, der RL Kommunaldarlehen Hochwasser 2010, der Auffangrichtlinie Hochwasserschäden 2010 und der VwV SMI Aufbauhilfe Sommerhochwasser 2010): Anker #roemIII zeigt auf „“, die Komponente heißt „Änderung RL Kommunaldarlehen Hochwasser 2010“; keine Artikelüberschrift entspricht „Änderung RL Kommunaldarlehen Hochwasser 2010“ (beste Übereinstimmung VI.: 0.00)",
       "decidedAt": "2026-09-03"
     }
   }

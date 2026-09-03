@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 
-import { createHash } from 'node:crypto';
-import { execFile } from 'node:child_process';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { basename, dirname, join, resolve } from 'node:path';
-import { promisify } from 'node:util';
+import { readFile, writeFile } from 'node:fs/promises';
+import { dirname, join, resolve } from 'node:path';
+
+import { DEFAULT_ACCOUNT_ID, DEFAULT_BUCKET, apiTransport, sha256, wranglerTransport } from './lib/r2-transport.mjs';
 
 /**
  * Archiviert die unveränderten REVOSax-Rohquellen eines Staginglaufs im
@@ -29,9 +28,6 @@ import { promisify } from 'node:util';
 
 const ROOT = resolve(process.cwd());
 const MANIFEST_PATH = join(ROOT, 'data', 'recht', 'revosax-r2-manifest.json');
-const DEFAULT_BUCKET = 'ostrecht-recht-quellen';
-const DEFAULT_ACCOUNT_ID = '28871b9b1c6753235a331544f7c68460';
-const execFileAsync = promisify(execFile);
 
 const USAGE = `Verwendung: node scripts/upload-revosax-r2.mjs [Optionen]
 
@@ -43,6 +39,7 @@ Optionen:
   --limit <n>            nur die ersten n archivierbaren Einträge
   --law-id <id>          nur diese lawId (mehrfach möglich)
   --plan <Pfad>          nur Einträge mit Aktion CREATE oder MATCH des Materialisierungsplans
+  --envelopes <Pfad>     zusätzlich die nachgeladenen Mantelvorschriften aus der Envelope-Klassifizierung
   --concurrency <n>      parallele Uploads (Standard: 1; Wrangler-Transport verträgt 4–6)
   --allow-failures       Stagingbericht mit Fehlern zulassen (nur erfolgreiche Einträge)
   --help                 Diese Hilfe`;
@@ -56,17 +53,9 @@ function valuesAfter(args, flag) {
   return args.flatMap((entry, index) => (entry === flag && args[index + 1] ? [args[index + 1]] : []));
 }
 
-function sha256(bytes) {
-  return createHash('sha256').update(bytes).digest('hex');
-}
-
 export function objectKeyFor(baselineDate, entry) {
   const sourceId = entry.sourceId ?? `${entry.revosaxLawId}${entry.versionSuffix ? `.${entry.versionSuffix}` : ''}`;
   return `revosax/${baselineDate}/${sourceId}.html`;
-}
-
-function encodeObjectKey(key) {
-  return key.split('/').map((part) => encodeURIComponent(part)).join('/');
 }
 
 async function readJson(path) {
@@ -80,58 +69,6 @@ async function readJsonIfExists(path) {
     if (error.code === 'ENOENT') return null;
     throw error;
   }
-}
-
-function apiTransport({ accountId, apiToken, bucket }) {
-  const base = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${encodeURIComponent(bucket)}/objects/`;
-  return {
-    name: 'api',
-    async put(objectKey, bytes, contentType, _localPath) {
-      const response = await fetch(base + encodeObjectKey(objectKey), {
-        method: 'PUT',
-        headers: { authorization: `Bearer ${apiToken}`, 'content-type': contentType },
-        body: bytes,
-      });
-      if (!response.ok) {
-        const excerpt = (await response.text()).replace(/\s+/gu, ' ').slice(0, 300);
-        throw new Error(`R2 PUT ${objectKey}: HTTP ${response.status} ${excerpt}`);
-      }
-      const payload = await response.json().catch(() => ({}));
-      return { etag: payload?.result?.etag ?? response.headers.get('etag') ?? null };
-    },
-    async get(objectKey) {
-      const response = await fetch(base + encodeObjectKey(objectKey), {
-        headers: { authorization: `Bearer ${apiToken}` },
-      });
-      if (!response.ok) throw new Error(`R2 GET ${objectKey}: HTTP ${response.status}`);
-      return Buffer.from(await response.arrayBuffer());
-    },
-  };
-}
-
-function wranglerTransport({ bucket, cacheDir }) {
-  const run = async (args) => {
-    const { stdout, stderr } = await execFileAsync('npx', ['wrangler', ...args], {
-      cwd: join(ROOT, 'apps', 'recht'),
-      maxBuffer: 64 * 1024 * 1024,
-      env: { ...process.env, WRANGLER_SEND_METRICS: 'false' },
-    });
-    return `${stdout}\n${stderr}`;
-  };
-  return {
-    name: 'wrangler',
-    async put(objectKey, bytes, contentType, localPath) {
-      const output = await run(['r2', 'object', 'put', `${bucket}/${objectKey}`, '--file', localPath, '--content-type', contentType, '--remote']);
-      if (!/Upload complete|Creating object/u.test(output)) throw new Error(`wrangler r2 object put ${objectKey}: ${output.trim().slice(-300)}`);
-      return { etag: null };
-    },
-    async get(objectKey) {
-      const downloadPath = resolve(cacheDir, 'r2-verify', basename(objectKey));
-      await mkdir(dirname(downloadPath), { recursive: true });
-      await run(['r2', 'object', 'get', `${bucket}/${objectKey}`, '--file', downloadPath, '--remote']);
-      return readFile(downloadPath);
-    },
-  };
 }
 
 function sortManifest(manifest) {
@@ -185,7 +122,32 @@ async function main() {
     const plan = await readJson(resolve(planPath));
     if (plan.baselineDate !== report.baselineDate) throw new Error('Plan und Stagingbericht gehören zu verschiedenen Stichtagen');
     const wanted = new Set(plan.entries.filter((entry) => ['CREATE', 'MATCH'].includes(entry.action)).map((entry) => entry.sourceId));
-    candidates = candidates.filter((entry) => wanted.has(entry.sourceId));
+    // Mantelvorschriften, aus deren Artikeln neue Normen entstehen, sind ebenfalls Quellen –
+    // auch wenn sie selbst geschützt (PROTECT) oder nur Alias sind.
+    for (const entry of plan.entries) {
+      if (entry.action === 'CREATE' && entry.envelope?.envelopeSourceId && !entry.envelope.envelopeSourceId.startsWith('envelope-')) wanted.add(entry.envelope.envelopeSourceId);
+    }
+    // Komponentenseiten von Mantelvorschriften tragen im Staging einen skipReason,
+    // werden über den Plan (CREATE/MATCH) aber zu eigenen Normen und damit zu Quellen.
+    candidates = report.entries.filter((entry) => wanted.has(entry.sourceId) && entry.rawCacheFile && entry.sourceSha256);
+  }
+  const envelopesPath = valueAfter(args, '--envelopes');
+  if (envelopesPath) {
+    const envelopes = await readJson(resolve(envelopesPath));
+    for (const source of envelopes.fetchedEnvelopes ?? []) {
+      candidates.push({
+        revosaxLawId: source.lawId,
+        versionSuffix: null,
+        sourceId: source.sourceId,
+        sourceUrl: source.url,
+        canonicalVersionUrl: null,
+        versionNumber: null,
+        retrievedAt: source.retrievedAt,
+        sourceSha256: source.sha256,
+        byteLength: source.byteLength,
+        rawCacheFile: source.rawCacheFile,
+      });
+    }
   }
   if (lawIds.length > 0) candidates = candidates.filter((entry) => lawIds.includes(String(entry.revosaxLawId)));
   if (limit !== null) candidates = candidates.slice(0, limit);

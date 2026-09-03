@@ -63,10 +63,12 @@ export function normalizedAbbr(value) {
 }
 
 function sourceReferencesOf(meta, versions) {
+  // Die Mantelvorschrift einer eigenständig geführten Änderungsvorschrift
+  // (sourceRole envelope-snapshot) ist eine andere Vorschrift und zählt nicht zur Identität.
   return [
     ...(meta.sourceReferences ?? []),
     ...versions.flatMap((version) => version.sourceReferences ?? []),
-  ];
+  ].filter((reference) => reference.sourceRole !== 'envelope-snapshot');
 }
 
 export async function loadExistingNorm(slug, contentRoot = CONTENT_ROOT) {
@@ -157,7 +159,51 @@ function review(reason, extra = {}) {
   return { action: 'REVIEW', reason, ...extra };
 }
 
+/**
+ * Bestandteile von Mantelvorschriften (Staging: part-of-envelope) werden über die
+ * Klassifizierung aus scripts/classify-revosax-envelopes.mjs entschieden:
+ * A → eigene Norm (CREATE), B/C → dokumentierter SKIP, D → REVIEW. Ohne
+ * Klassifizierung bleibt der Eintrag ein REVIEW-Fall, damit kein Änderungsakt
+ * stillschweigend entfällt.
+ */
+function planEnvelopeComponent(entry, baselineDate, indexes) {
+  const component = indexes.envelopeComponents?.get(entry.sourceId);
+  if (!component) {
+    return review(`Bestandteil der Mantelvorschrift ${entry.skipReason.slice('part-of-envelope:'.length)} ohne Klassifizierung (scripts/classify-revosax-envelopes.mjs ausführen)`);
+  }
+  if (component.class === 'B') return { action: 'SKIP', reason: `envelope-alias-of:${component.envelopeLawId} – ${component.reason}`, envelope: component };
+  if (component.class === 'C') return { action: 'SKIP', reason: `envelope-attachment-only:${component.envelopeLawId} – ${component.reason}`, envelope: component };
+  if (component.class !== 'A') return review(`Bestandteil der Mantelvorschrift ${component.envelopeLawId}: ${component.reason}`, { envelope: component });
+  const lawIdMatches = indexes.byLawId.get(String(entry.revosaxLawId)) ?? [];
+  if (lawIdMatches.length > 1) {
+    return review(`REVOSax-lawId ${entry.revosaxLawId} ist mehreren bestehenden Normen zugeordnet`, { candidates: lawIdMatches.map((norm) => norm.slug) });
+  }
+  if (lawIdMatches.length === 1) {
+    const existing = lawIdMatches[0];
+    const hasBaseline = existing.versions.some((version) => version.versionId === baselineDate);
+    return {
+      action: hasBaseline ? 'MATCH' : 'PROTECT',
+      reason: hasBaseline ? 'Bestandteil bereits als eigene Norm vorhanden' : 'bestehende Norm ohne Stichtagsfassung bleibt unangetastet',
+      canonicalSlug: existing.slug,
+      matchBasis: 'lawId',
+      envelope: component,
+    };
+  }
+  const envelopeNorm = indexes.byLawId.get(String(component.envelopeLawId))?.[0] ?? null;
+  return {
+    action: 'CREATE',
+    reason: component.reason,
+    canonicalSlug: component.proposedSlug,
+    matchBasis: null,
+    envelope: component,
+    containedIn: envelopeNorm?.slug ?? null,
+  };
+}
+
 export function planEntry(entry, baselineDate, indexes) {
+  if (entry.skipReason?.startsWith('part-of-envelope:')) {
+    return planEnvelopeComponent(entry, baselineDate, indexes);
+  }
   if (entry.skipReason) {
     return { action: 'SKIP', reason: `Staging: ${entry.skipReason}` };
   }
@@ -271,11 +317,17 @@ export function applyDecision(planned, entry, decisions, baselineDate) {
   const key = entry.sourceId ?? `${entry.revosaxLawId}${entry.versionSuffix ? `.${entry.versionSuffix}` : ''}`;
   const decision = decisions?.[key] ?? decisions?.[String(entry.revosaxLawId)];
   if (!decision) return planned;
-  if (!PLAN_ACTIONS.includes(decision.action) || decision.action === 'REVIEW') {
+  if (!(PLAN_ACTIONS.includes(decision.action) && decision.action !== 'REVIEW') && decision.action !== 'DEFER') {
     return review(`Entscheidung für ${key} nennt keine gültige Aktion (${decision.action ?? '?'})`);
   }
   if (typeof decision.reason !== 'string' || decision.reason.trim().length < 12) {
     return review(`Entscheidung für ${key} ohne ausreichende Begründung`);
+  }
+  if (decision.action === 'DEFER') {
+    // Bewusst offen gehaltener Reviewfall: bleibt REVIEW im Plan und im Import-Audit,
+    // blockiert den Schreibmodus für die übrigen Einträge aber nicht.
+    if (planned.action !== 'REVIEW') return review(`Zurückstellung für ${key} widerspricht der automatischen Zuordnung ${planned.action}`);
+    return { ...planned, reason: `zurückgestellt: ${decision.reason} (${planned.reason})`, deferred: true, decided: true };
   }
   if (planned.action !== 'REVIEW' && decision.action !== 'SKIP') {
     return review(`Entscheidung für ${key} (${decision.action}) widerspricht der automatischen Zuordnung ${planned.action}`);
@@ -329,8 +381,11 @@ export function findDuplicateSources(entries) {
   return duplicates;
 }
 
-export function buildPlan({ report, existing, decisions = {}, baselineDate = report.baselineDate }) {
+export function buildPlan({ report, existing, decisions = {}, baselineDate = report.baselineDate, envelopeComponents = null }) {
   const indexes = buildIndexes(existing);
+  indexes.envelopeComponents = envelopeComponents
+    ? new Map(envelopeComponents.components.map((component) => [component.sourceId, component]))
+    : null;
   const duplicates = findDuplicateSources(report.entries);
   const planFor = (entry) => (duplicates.has(entry.sourceId)
     ? { action: 'SKIP', reason: `identischer Text und gleiche Zitierung wie ${duplicates.get(entry.sourceId)} (REVOSax-Doppelerfassung)` }
@@ -368,6 +423,7 @@ export function buildPlan({ report, existing, decisions = {}, baselineDate = rep
   }
 
   const counts = Object.fromEntries(PLAN_ACTIONS.map((action) => [action, entries.filter((entry) => entry.action === action).length]));
+  counts.DEFERRED = entries.filter((entry) => entry.action === 'REVIEW' && entry.deferred).length;
   return {
     schemaVersion: 2,
     baselineDate,
@@ -376,7 +432,8 @@ export function buildPlan({ report, existing, decisions = {}, baselineDate = rep
     existingNormCount: existing.length,
     stagedNormCount: entries.length,
     counts,
-    writable: counts.REVIEW === 0,
+    // Schreibbar, wenn kein offener (nicht zurückgestellter) REVIEW-Fall existiert.
+    writable: counts.REVIEW - counts.DEFERRED === 0,
     entries,
   };
 }
@@ -403,8 +460,17 @@ async function main() {
   }
   if (!report.baselineDate) throw new Error(`${reportPath}: baselineDate fehlt`);
 
-  const [existing, decisions] = await Promise.all([loadExistingNorms(), loadDecisions()]);
-  const plan = buildPlan({ report: { ...report, sourceReport: reportPath.replace(`${ROOT}/`, '') }, existing, decisions });
+  const envelopesPath = resolve(valueAfter(args, '--envelopes') ?? reportPath.replace(/report\.json$/u, 'envelope-components.json'));
+  const [existing, decisions, envelopeComponents] = await Promise.all([
+    loadExistingNorms(),
+    loadDecisions(),
+    readJson(envelopesPath).catch((error) => {
+      if (error.code === 'ENOENT') return null;
+      throw error;
+    }),
+  ]);
+  if (!envelopeComponents) console.error(`Hinweis: ${envelopesPath} fehlt; Bestandteile von Mantelvorschriften werden als REVIEW geführt.`);
+  const plan = buildPlan({ report: { ...report, sourceReport: reportPath.replace(`${ROOT}/`, '') }, existing, decisions, envelopeComponents });
   await writeFile(outputPath, `${JSON.stringify(plan, null, 2)}\n`, 'utf8');
   console.log(`Materialisierungsplan: ${outputPath}`);
   console.log(Object.entries(plan.counts).map(([action, count]) => `${action}=${count}`).join(', '));

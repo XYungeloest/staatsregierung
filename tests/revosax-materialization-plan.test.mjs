@@ -177,7 +177,7 @@ test('buildPlan zählt Kategorien, blockiert den Schreibmodus bei REVIEW und ver
 
   const clean = buildPlan({ report: { baselineDate: BASELINE, entries: [report.entries[2]] }, existing: [] });
   assert.equal(clean.writable, true);
-  assert.deepEqual(clean.counts, { CREATE: 1, MATCH: 0, PROTECT: 0, REVIEW: 0, SKIP: 0 });
+  assert.deepEqual(clean.counts, { CREATE: 1, MATCH: 0, PROTECT: 0, REVIEW: 0, SKIP: 0, DEFERRED: 0 });
 });
 
 import { isInheritedBaselineAct } from '../scripts/audit-consolidation.mjs';
