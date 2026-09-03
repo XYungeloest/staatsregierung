@@ -81,7 +81,7 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  *                               änderungen gelten als gegeben)
  *   --database <Name>           Zieldatenbank des Wrangler-Transports (Standard ostrecht-recht;
  *                               Staging: ostrecht-recht-staging)
- *   --corpus-filter <Datei>     nur lokal: beschränkt den geladenen Bestand auf die Slugs der
+ *   --corpus-filter <Datei>     nur lokal oder Staging: beschränkt den geladenen Bestand auf die Slugs der
  *                               JSON-Datei ({ "slugs": [...] }) – Testfixture für Browser- und
  *                               A11y-Smoke (data/recht/runtime-fixture.json); Ableitungen und
  *                               Übersichtsmetadaten beziehen sich dann auf dieses Fixture
@@ -768,7 +768,10 @@ async function main() {
     loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(),
   ]);
   const corpusFilter = valueAfter(args, '--corpus-filter');
-  if (corpusFilter && !local) throw new Error('--corpus-filter ist nur für die lokale Projektion zulässig (Testfixture)');
+  // Ein Fixture darf nie die produktive Datenbank treffen (Vollprojektion würde den Bestand
+  // auf das Fixture reduzieren): nur lokal oder gegen eine ausdrücklich andere Datenbank (Staging).
+  const targetsProduction = transport === 'api' ? config.databaseId === DEFAULT_D1_DATABASE_ID : !local && databaseName === 'ostrecht-recht';
+  if (corpusFilter && targetsProduction) throw new Error('--corpus-filter ist nur lokal oder gegen eine Staging-Datenbank zulässig (Testfixture)');
   const norms = corpusFilter ? applyCorpusFilter(loadedNorms, JSON.parse(await readFile(resolve(ROOT, corpusFilter), 'utf8')), corpusFilter) : loadedNorms;
   console.log(`${loadedNorms.length} Normen und ${publications.length} Verkündungen geladen und validiert (${Math.round((Date.now() - startedAt) / 1000)} s)${corpusFilter ? `; Fixture ${corpusFilter}: ${norms.length} Normen` : ''}`);
   const scope = await resolveScope(args, { norms, publications });
