@@ -664,13 +664,19 @@ siteTest(['law'])('A–Z filtert serverseitig je Buchstabe, paginiert und bietet
   expect(titles.length).toBeGreaterThan(0);
   expect(titles.every((title) => /^[OÖ]/u.test(title.trim()))).toBe(true);
 
-  // Stichwortindex der Gruppe, lokal filterbar.
-  await page.goto(lawUrl('/archiv/?buchstabe=K'));
+  // Stichwortindex der Gruppe: serverseitig gefiltert (GET) und lokal auf der geladenen Seite filterbar.
+  await page.goto(lawUrl('/archiv/?buchstabe=K&stichwort=Kultur'));
+  await expect(page).toHaveURL(/stichwort=Kultur/u);
   const entries = page.locator('[data-index-entry]');
   expect(await entries.count()).toBeGreaterThan(0);
-  await page.locator('[data-index-filter]').fill('Kultur');
-  await expect(page.locator('[data-index-filter-status]')).toContainText('Stichwörter');
+  expect(await entries.count()).toBeLessThanOrEqual(100);
+  await expect(page.locator('[data-index-filter-status]')).toContainText('passen zu „Kultur“');
+  await page.locator('[data-index-filter]').fill('Kulturpass');
+  await expect(page.locator('[data-index-filter-status]')).toContainText('dieser Seite');
   expect(await entries.evaluateAll((nodes) => nodes.filter((node) => !(node as HTMLElement).hidden).length)).toBeGreaterThan(0);
+  await page.locator('[data-keyword-filter-form] button[type="submit"]').click();
+  await expect(page).toHaveURL(/stichwort=Kulturpass/u);
+  await expect(page.locator('[data-index-filter-status]')).toContainText('passen zu „Kulturpass“');
 
   // Ungültige Seiten fallen auf die letzte vorhandene Seite zurück, ohne Fehler.
   const response = await page.goto(lawUrl('/archiv/?buchstabe=A&seite=999'));

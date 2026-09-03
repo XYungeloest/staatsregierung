@@ -165,16 +165,27 @@ test('seitenweise Übersichten laufen als SQL mit COUNT(*) und LIMIT/OFFSET; Buc
 test('Buchstabengruppen, Stichwortindex und Herkunftszähler lesen nur Aggregat- bzw. Indexzeilen', async () => {
   const { db, log } = recordingDatabase({
     'GROUP BY index_letter': [{ letter: 'A', count: 3 }, { letter: '#', count: 1 }],
+    'COUNT(DISTINCT k.keyword)': [{ total: 250 }],
+    'GROUP BY k.keyword ORDER BY k.keyword LIMIT': [{ keyword: 'Abgaben' }],
     'FROM law_norm_keywords k JOIN law_norms n': [{ keyword: 'Abgaben', slug: 'a', short_title: 'A-Gesetz' }, { keyword: 'Abgaben', slug: 'b', short_title: 'B-Gesetz' }, { keyword: 'Abgaben', slug: 'a', short_title: 'A-Gesetz' }],
     'GROUP BY origin_kind': [{ origin_kind: 'ostdeutsch-original', count: 5 }, { origin_kind: null, count: 1 }],
   });
   const store = createD1NormStore(db);
   assert.deepEqual(await store.listIndexLetters(), [{ letter: 'A', count: 3 }, { letter: '#', count: 1 }]);
-  assert.deepEqual(await store.listKeywordIndex('A'), [{ keyword: 'Abgaben', norms: [{ slug: 'a', shortTitle: 'A-Gesetz' }, { slug: 'b', shortTitle: 'B-Gesetz' }] }]);
+  const keywords = await store.listKeywordIndex('A', { q: 'abg', page: 2 });
+  assert.deepEqual(keywords.entries, [{ keyword: 'Abgaben', norms: [{ slug: 'a', shortTitle: 'A-Gesetz' }, { slug: 'b', shortTitle: 'B-Gesetz' }] }]);
+  assert.deepEqual({ total: keywords.total, page: keywords.page, pageSize: keywords.pageSize, pageCount: keywords.pageCount }, { total: 250, page: 2, pageSize: 100, pageCount: 3 });
   assert.deepEqual(await store.countByOriginKind(), { 'ostdeutsch-original': 5 });
-  const keywordQuery = log.find((query) => query.sql.includes('FROM law_norm_keywords k'));
-  assert.ok(keywordQuery);
-  assert.match(keywordQuery.sql, /WHERE k\.index_letter = \? ORDER BY k\.keyword/u);
-  assert.deepEqual(keywordQuery.params, ['A']);
+  const countQuery = log.find((query) => query.sql.includes('COUNT(DISTINCT k.keyword)'));
+  assert.ok(countQuery);
+  assert.match(countQuery.sql, /WHERE k\.index_letter = \? AND lower\(k\.keyword\) LIKE \? ESCAPE/u);
+  assert.deepEqual(countQuery.params, ['A', '%abg%']);
+  const pageQuery = log.find((query) => query.sql.includes('GROUP BY k.keyword ORDER BY k.keyword LIMIT'));
+  assert.ok(pageQuery);
+  assert.deepEqual(pageQuery.params, ['A', '%abg%', 100, 100]);
+  const joinQuery = log.find((query) => query.sql.includes('FROM law_norm_keywords k JOIN law_norms n'));
+  assert.ok(joinQuery);
+  assert.match(joinQuery.sql, /WHERE k\.index_letter = \? AND k\.keyword IN \(\?\) ORDER BY k\.keyword/u);
+  assert.deepEqual(joinQuery.params, ['A', 'Abgaben']);
   assert.ok(log.every((query) => !loadsCorpus(query)));
 });
