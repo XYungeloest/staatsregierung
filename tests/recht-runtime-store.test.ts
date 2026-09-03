@@ -9,10 +9,20 @@ import { assembleBlocks, createFileNormStore, selectedVersionIds } from '../apps
 
 const store = createFileNormStore({ loadAllNorms, loadAllVerkuendungen, buildSearchDocument });
 
-test('Dateivariante des Stores liefert Normen ohne fremde Körper, Ableitungen und Verkündungen', async () => {
-  const norms = await store.listNorms();
-  assert.ok(norms.length > 100);
-  assert.ok(norms.every((norm) => norm.versions.every((version) => version.body.length === 0)));
+test('Dateivariante des Stores liefert Übersichtszeilen, Normen mit gewünschten Körpern, Ableitungen und Verkündungen', async () => {
+  const summaries = await store.listNormSummaries();
+  assert.ok(summaries.length > 100);
+  assert.ok(summaries.every((summary) => summary.slug && summary.title && summary.type && summary.currentVersionId));
+  const regulations = await store.listNormSummariesByType('verordnung');
+  assert.ok(regulations.length > 0);
+  assert.deepEqual(regulations.map((summary) => summary.slug), summaries.filter((summary) => summary.type === 'verordnung').map((summary) => summary.slug));
+  const feiertagSummary = (await store.getNormSummaries(['ostdeutsches-feiertagsgesetz', 'gibt-es-nicht'])).get('ostdeutsches-feiertagsgesetz');
+  assert.ok(feiertagSummary);
+  assert.equal(feiertagSummary.originKind, 'inherited-amended');
+  assert.ok(feiertagSummary.versionCount > 1);
+  const versionSummaries = await store.listVersionSummaries({ slugs: ['ostdeutsches-feiertagsgesetz'] });
+  assert.equal(versionSummaries.length, feiertagSummary.versionCount);
+  assert.ok(versionSummaries.some((version) => version.temporalKind === 'current'));
 
   const feiertag = await store.getNorm('ostdeutsches-feiertagsgesetz', 'current');
   assert.ok(feiertag);
@@ -35,9 +45,36 @@ test('Dateivariante des Stores liefert Normen ohne fremde Körper, Ableitungen u
   assert.match(citation ?? '', /Sonn- und Feiertage/u);
   const publications = await store.listPublications();
   assert.ok(publications.length > 0);
+  assert.equal((await store.listPublications({ limit: 3 })).length, 3);
   assert.equal((await store.getPublication(publications[0].slug))?.slug, publications[0].slug);
   const labels = await store.getNormLabels(['ostdeutsches-feiertagsgesetz', 'gibt-es-nicht']);
   assert.equal(labels.size, 1);
+});
+
+test('Übersichtsdaten der Dateivariante: Änderungen, Sachgebiete, Bestandszahlen, Vorschläge, Suchfilter', async () => {
+  const changes = await store.listChanges({ changeTypes: ['amendment', 'repeal'], until: '2026-12-31', order: 'desc', limit: 5 });
+  assert.ok(changes.length > 0 && changes.length <= 5);
+  assert.ok(changes.every((change, index) => index === 0 || changes[index - 1].date >= change.date));
+  assert.ok(changes.every((change) => ['amendment', 'repeal'].includes(change.changeType) && change.normShortTitle));
+  const upcoming = await store.listChanges({ changeTypes: ['amendment'], after: '2099-01-01', order: 'asc', limit: 3 });
+  assert.deepEqual(upcoming, []);
+  const subjects = await store.listSubjectSummaries();
+  const areas = await store.listSubjectAreas();
+  const stats = await store.getCorpusStats();
+  const summaries = await store.listNormSummaries();
+  assert.equal(subjects.reduce((sum, subject) => sum + subject.normCount, 0), summaries.reduce((sum, summary) => sum + new Set(summary.subjects).size, 0));
+  assert.ok(areas.length > 0 && areas.every((area) => area.subjects.length > 0));
+  assert.equal(stats.normCount, summaries.length);
+  assert.equal(stats.inForceCount, summaries.filter((summary) => summary.status === 'in-force').length);
+  const bySubject = await store.listNormSummaries({ subjectSlug: subjects[0].slug });
+  assert.equal(bySubject.length, subjects[0].normCount);
+  const suggestions = await store.listSearchSuggestions();
+  assert.ok(suggestions.some((suggestion) => suggestion.slug === 'ostdeutsches-feiertagsgesetz'));
+  const { filters, documentCount } = await store.getSearchFilters();
+  assert.ok(filters.types.length > 0);
+  assert.equal(documentCount, summaries.reduce((sum, summary) => sum + summary.versionCount, 0));
+  const searchPublications = await store.listSearchPublications();
+  assert.equal(searchPublications.length, (await store.listPublications()).length);
 });
 
 test('Suchkandidaten und Suchdokumente der Dateivariante entsprechen dem Suchindexformat', async () => {

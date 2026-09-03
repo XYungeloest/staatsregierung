@@ -10,13 +10,10 @@ import {
   getLawDevelopmentOverviewUrl,
   getLawPortalUrl,
   getNormCompareSelectionUrl,
-  getNormOriginInfo,
-  getNormVersionIdentity,
   getNormUrl,
   LEGAL_BASELINE_DATE,
   type NormOriginKind,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
@@ -25,12 +22,8 @@ export const prerender = false;
 const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-const norms = await store.listNorms();
-const records = norms.map((norm) => ({
-  norm,
-  version: getCurrentVersion(norm),
-  origin: getNormOriginInfo(norm, norms),
-}));
+// Übersichtszeilen mit vorberechneter Herkunft (origin_kind) statt Fassungs-JSONs.
+const norms = await store.listNormSummaries();
 const originKinds: NormOriginKind[] = [
   'ostdeutsch-original',
   'inherited-amended',
@@ -39,12 +32,12 @@ const originKinds: NormOriginKind[] = [
 ];
 const counts = Object.fromEntries(originKinds.map((kind) => [
   kind,
-  records.filter((entry) => entry.origin.kind === kind).length,
+  norms.filter((norm) => norm.originKind === kind).length,
 ]));
-const types = [...new Set(norms.map((norm) => norm.meta.type))]
+const types = [...new Set(norms.map((norm) => norm.type))]
   .sort((left, right) => formatNormType(left).localeCompare(formatNormType(right), 'de'));
-const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects))].sort((left, right) => left.localeCompare(right, 'de'));
-const statuses = [...new Set(norms.map((norm) => norm.meta.status))]
+const subjects = [...new Set(norms.flatMap((norm) => norm.subjects))].sort((left, right) => left.localeCompare(right, 'de'));
+const statuses = [...new Set(norms.map((norm) => norm.status))]
   .sort((left, right) => formatNormStatus(left).localeCompare(formatNormStatus(right), 'de'));
 ---
 
@@ -116,39 +109,36 @@ const statuses = [...new Set(norms.map((norm) => norm.meta.status))]
       </div>
     </form>
 
-    <p class="search-feedback" aria-live="polite" data-development-count>{records.length} Vorschriften werden angezeigt.</p>
+    <p class="search-feedback" aria-live="polite" data-development-count>{norms.length} Vorschriften werden angezeigt.</p>
     <ol class="record-list law-development__list">
-      {records.map(({ norm, version, origin }) => {
-        const identity = getNormVersionIdentity(norm, version);
-        const baselineVersion = origin.baselineVersionId
-          ? norm.versions.find((entry) => entry.versionId === origin.baselineVersionId)
-          : undefined;
-        const compareUrl = baselineVersion && baselineVersion.versionId !== version.versionId
-          ? getNormCompareSelectionUrl(norm.meta.slug, baselineVersion.versionId, version.versionId)
+      {norms.map((norm) => {
+        const originKind = norm.originKind ?? 'origin-unresolved';
+        const compareUrl = norm.originBaselineVersionId && norm.originBaselineVersionId !== norm.currentVersionId
+          ? getNormCompareSelectionUrl(norm.slug, norm.originBaselineVersionId, norm.currentVersionId)
           : undefined;
         return (
           <li
             class="record-list__item law-development__item"
             data-development-item
-            data-origin={origin.kind}
-            data-type={norm.meta.type}
-            data-status={norm.meta.status}
-            data-subjects={norm.meta.subjects.join('|')}
-            data-search={[identity.title, identity.shortTitle, identity.abbr, ...norm.meta.subjects, ...norm.meta.keywords].filter(Boolean).join(' ').toLocaleLowerCase('de-DE')}
+            data-origin={originKind}
+            data-type={norm.type}
+            data-status={norm.status}
+            data-subjects={norm.subjects.join('|')}
+            data-search={[norm.title, norm.shortTitle, norm.abbr, ...norm.subjects, ...norm.keywords].filter(Boolean).join(' ').toLocaleLowerCase('de-DE')}
           >
             <div class="law-development__item-heading">
-              <h3><a class="inline-link" href={getNormUrl(norm.meta.slug)}>{identity.title}</a></h3>
-              <span class="status-badge status-badge--blue">{formatNormOriginKind(origin.kind)}</span>
+              <h3><a class="inline-link" href={getNormUrl(norm.slug)}>{norm.title}</a></h3>
+              <span class="status-badge status-badge--blue">{formatNormOriginKind(originKind)}</span>
             </div>
-            {identity.abbr ? <p class="detail-line">Abkürzung: {identity.abbr}</p> : null}
+            {norm.abbr ? <p class="detail-line">Abkürzung: {norm.abbr}</p> : null}
             <dl class="law-development__facts">
-              <div><dt>Normtyp</dt><dd>{formatNormType(norm.meta.type)}</dd></div>
-              <div><dt>Status</dt><dd>{formatNormStatus(norm.meta.status)}</dd></div>
-              <div><dt>Fassungsstand</dt><dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd></div>
-              {origin.lastOwnChangeDate ? <div><dt>Letzte eigene Rechtsänderung</dt><dd><time datetime={origin.lastOwnChangeDate}>{formatDate(origin.lastOwnChangeDate)}</time></dd></div> : null}
+              <div><dt>Normtyp</dt><dd>{formatNormType(norm.type)}</dd></div>
+              <div><dt>Status</dt><dd>{formatNormStatus(norm.status)}</dd></div>
+              <div><dt>Fassungsstand</dt><dd><time datetime={norm.currentValidFrom}>{formatDate(norm.currentValidFrom)}</time></dd></div>
+              {norm.originLastOwnChangeDate ? <div><dt>Letzte eigene Rechtsänderung</dt><dd><time datetime={norm.originLastOwnChangeDate}>{formatDate(norm.originLastOwnChangeDate)}</time></dd></div> : null}
             </dl>
-            <nav class="link-list link-list--inline" aria-label={`Recherchewege zu ${identity.shortTitle}`}>
-              <a href={getNormUrl(norm.meta.slug)}>Vorschrift öffnen</a>
+            <nav class="link-list link-list--inline" aria-label={`Recherchewege zu ${norm.shortTitle}`}>
+              <a href={getNormUrl(norm.slug)}>Vorschrift öffnen</a>
               {compareUrl ? <a href={compareUrl}>Mit Ausgangsrecht vergleichen</a> : null}
             </nav>
           </li>

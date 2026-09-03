@@ -6,28 +6,27 @@ import {
   formatDate,
   formatNormStatus,
   formatNormType,
-  getIndexGroups,
   getLawPortalUrl,
   getNormUrl,
-  getNormVersionIdentity,
   getSearchUrl,
   toDisplayText,
-  type NormRecord,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
+import { groupSummariesByLetter } from '../../lib/runtime/overview.ts';
+import type { NormSummary } from '../../lib/runtime/store.ts';
 
 interface Props {
   title: string;
   lead: string;
   href: string;
-  norms: NormRecord[];
+  /** Übersichtszeilen (NormSummary) des Normtyps; kein vollständiger Datensatz. */
+  norms: NormSummary[];
 }
 
 const { title, lead, href, norms } = Astro.props;
-const groups = getIndexGroups(norms);
+const groups = groupSummariesByLetter(norms);
 const groupLookup = new Map(groups.map((group) => [group.letter, group]));
 const alphabet = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '#'];
-const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects.map(toDisplayText)))].sort((left, right) => left.localeCompare(right, 'de'));
+const subjects = [...new Set(norms.flatMap((norm) => norm.subjects.map(toDisplayText)))].sort((left, right) => left.localeCompare(right, 'de'));
 ---
 
 <LawLayout
@@ -38,7 +37,7 @@ const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects.map(toDi
   <Breadcrumbs items={[{ label: 'OstRecht', href: getLawPortalUrl() }, { label: title }]} />
   <SectionHero eyebrow="Rechtsportal" title={title} lead={lead} variant="law" facts={[{ label: 'Vorschriften', value: String(norms.length) }]}>
     <form class="law-directory-search" action={getSearchUrl()} method="get">
-      <input type="hidden" name="type" value={norms[0]?.meta.type ?? ''} />
+      <input type="hidden" name="type" value={norms[0]?.type ?? ''} />
       <label class="search-field"><span>Volltextsuche in diesem Normtyp</span><input type="search" name="q" placeholder={`${title} durchsuchen`} autocomplete="off" data-law-norm-autocomplete data-law-suggestions-url={`${import.meta.env.BASE_URL}search-suggestions.json`} /></label>
       <button class="button-link" type="submit">Suchen</button>
     </form>
@@ -68,29 +67,25 @@ const subjects = [...new Set(norms.flatMap((norm) => norm.meta.subjects.map(toDi
         <section id={`directory-${group.letter}`} class="law-directory-group" data-law-filter-group={group.letter}>
           <h2>{group.letter}</h2>
           <ol>
-            {group.norms.map((norm) => {
-              const version = getCurrentVersion(norm);
-              const identity = getNormVersionIdentity(norm, version);
-              return (
+            {group.norms.map((norm) => (
                 <li
                   data-law-filter-entry
-                  data-q={`${identity.title} ${identity.shortTitle} ${identity.abbr ?? ''}`}
-                  data-subject={norm.meta.subjects.join(' ')}
-                  data-status={norm.meta.status}
+                  data-q={`${norm.title} ${norm.shortTitle} ${norm.abbr ?? ''}`}
+                  data-subject={norm.subjects.join(' ')}
+                  data-status={norm.status}
                 >
                   <div>
-                    <span class="law-type-label">{formatNormType(norm.meta.type)}</span>
-                    <h3><a href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a></h3>
-                    {identity.abbr ? <p class="law-directory-group__abbr">{toDisplayText(identity.abbr)}</p> : null}
-                    <p>{toDisplayText(identity.summary)}</p>
+                    <span class="law-type-label">{formatNormType(norm.type)}</span>
+                    <h3><a href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a></h3>
+                    {norm.abbr ? <p class="law-directory-group__abbr">{toDisplayText(norm.abbr)}</p> : null}
+                    <p>{toDisplayText(norm.summary)}</p>
                   </div>
                   <dl>
-                    <div><dt>Rechtsstand</dt><dd>{formatNormStatus(norm.meta.status)}</dd></div>
-                    <div><dt>Fassung seit</dt><dd><time datetime={version.validFrom}>{formatDate(version.validFrom)}</time></dd></div>
+                    <div><dt>Rechtsstand</dt><dd>{formatNormStatus(norm.status)}</dd></div>
+                    <div><dt>Fassung seit</dt><dd><time datetime={norm.currentValidFrom}>{formatDate(norm.currentValidFrom)}</time></dd></div>
                   </dl>
                 </li>
-              );
-            })}
+            ))}
           </ol>
         </section>
       ))}

@@ -9,6 +9,7 @@ export const prerender = false;
 const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-const norms = (await store.listNorms()).filter((norm) => norm.meta.type === 'verordnung');
+// SQL-Filter über den Typindex; nur Übersichtszeilen, keine Fassungs-JSONs.
+const norms = await store.listNormSummariesByType('verordnung');
 ---
 <NormDirectory title="Verordnungen" lead="Rechtsverordnungen des Ostdeutschen Freistaates mit geltenden und gespeicherten historischen Fassungen." href={getRegulationsUrl()} {norms} />

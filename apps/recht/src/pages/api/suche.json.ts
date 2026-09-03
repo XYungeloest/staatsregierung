@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 
 import { buildSearchVariants, parseQueryTokens } from '@ostrecht/recht-search/search-query.ts';
-import { buildSearchPublications, type SearchHitUnit, type SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
+import type { SearchHitUnit, SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
 
 import { getNormStore } from '../../lib/runtime/context.ts';
 
@@ -51,9 +51,11 @@ export const GET: APIRoute = async ({ url, locals }) => {
   const types = url.searchParams.getAll('type').filter((value) => /^[a-z-]+$/u.test(value)).slice(0, 12);
   const match = buildFtsMatch({ q, exact, citation });
 
+  // Kandidaten über den FTS5-Index, Verkündungsdaten als eine vorberechnete Metadatenzeile;
+  // der Normenbestand wird nicht geladen.
   const [{ slugs, total }, publications] = await Promise.all([
     store.searchCandidates({ match, limit: CANDIDATE_LIMIT, offset, types }),
-    store.listPublications(),
+    store.listSearchPublications(),
   ]);
   const candidates = await store.getSearchDocuments(slugs, match ?? undefined);
   const documents: SearchIndexDocument[] = candidates.map(({ document, units }) => ({
@@ -79,7 +81,7 @@ export const GET: APIRoute = async ({ url, locals }) => {
     limit: CANDIDATE_LIMIT,
     candidateCount: slugs.length,
     documents,
-    publications: buildSearchPublications(publications),
+    publications,
   }), {
     headers: {
       'Content-Type': 'application/json; charset=utf-8',

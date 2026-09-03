@@ -3,10 +3,13 @@ import {
   parseNormMeta,
   parseNormVersion,
   validateNormRecord,
+  type HistoryEntryType,
   type NormRecord,
+  type NormStatus,
+  type NormType,
   type NormVersion,
 } from '@ostrecht/shared/lib/norms/schema.ts';
-import { validateVersionIntervals } from '@ostrecht/shared/lib/norms/versions.ts';
+import { classifyNormVersion, getApplicableVersion, validateVersionIntervals } from '@ostrecht/shared/lib/norms/versions.ts';
 import {
   buildDerivedContext,
   deriveNorm,
@@ -15,8 +18,20 @@ import {
   type DerivedContext,
   type NormDerivedData,
 } from '@ostrecht/shared/lib/norms/derived.ts';
+import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
+import { getNormOriginInfo, type NormOriginKind } from '@ostrecht/shared/lib/norms/origin.ts';
+import { getNormUrl, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
+import { formatNormType, toDisplayText } from '@ostrecht/shared/lib/norms/presentation.ts';
 import type { NormPublicationReference, Verkuendung } from '@ostrecht/shared/lib/norms/publications.ts';
-import type { SearchIndexDocument } from '@ostrecht/recht-search/search.ts';
+import {
+  buildFilterOptions,
+  buildSearchPublications,
+  getNormAliases,
+  type SearchFilterOptions,
+  type SearchIndexDocument,
+  type SearchPublication,
+  type SearchSuggestion,
+} from '@ostrecht/recht-search/search.ts';
 
 import type { D1Database } from './d1-types.ts';
 
@@ -28,12 +43,100 @@ import type { D1Database } from './d1-types.ts';
  * Sync scripts/sync-recht-d1.mjs). Für lokale Entwicklung, Prerendering und Tests
  * ohne Binding steht eine Dateivariante bereit, die denselben Ableitungscode nutzt.
  * Git bleibt fachlicher Source of Truth; D1 ist die Projektion.
+ *
+ * Kostenregel: keine Route lädt den vollständigen Korpus. Übersichten arbeiten mit
+ * NormSummary-Zeilen (schmale Spalten von law_norms, SQL-Filter über Indizes),
+ * korpusweite Zähler und Gruppierungen liest der Store als einzelne Metadatenzeilen,
+ * die der Sync vorberechnet; Normkörper werden nur für die angefragte Norm und
+ * Fassung gelesen. D1 zählt gelesene Zeilen – jede Methode dokumentiert deshalb,
+ * welche Zeilen sie liest.
  */
 
 export type BodySelection = 'none' | 'current' | 'all' | string[];
 
-export interface NormListEntry {
-  record: NormRecord;
+/** Schmale Übersichtsdaten einer Norm (Bezeichnungen der geltenden Fassung). */
+export interface NormSummary {
+  id: string;
+  slug: string;
+  title: string;
+  shortTitle: string;
+  abbr?: string;
+  summary: string;
+  type: NormType;
+  status: NormStatus;
+  subjects: string[];
+  primarySubject?: string;
+  keywords: string[];
+  /** Bezeichnungen anderer Fassungen (Autovervollständigung, Stichwortindex). */
+  aliases: string[];
+  responsibleMinistry?: string;
+  currentVersionId: string;
+  currentValidFrom: string;
+  documentDate?: string;
+  originKind?: NormOriginKind;
+  originBaselineVersionId?: string;
+  originLastOwnChangeDate?: string;
+  versionCount: number;
+  lastChangeDate?: string;
+}
+
+export interface NormSummaryQuery {
+  types?: string[];
+  statuses?: string[];
+  subjectSlug?: string;
+}
+
+export interface SubjectSummary {
+  name: string;
+  slug: string;
+  normCount: number;
+}
+
+export interface SubjectAreaSummary {
+  name: string;
+  description: string;
+  normCount: number;
+  subjects: SubjectSummary[];
+}
+
+export interface CorpusStats {
+  normCount: number;
+  inForceCount: number;
+  publicationCount: number;
+  types: NormType[];
+  statuses: NormStatus[];
+}
+
+export interface NormVersionSummary {
+  slug: string;
+  versionId: string;
+  validFrom: string;
+  temporalKind: ReturnType<typeof classifyNormVersion>;
+}
+
+/** Historieneintrag samt Bezeichnung der Norm (Startseite, Rechtsentwicklung). */
+export interface NormChange {
+  slug: string;
+  normTitle: string;
+  normShortTitle: string;
+  type: NormType;
+  date: string;
+  changeType: HistoryEntryType;
+  title: string;
+  citation: string;
+  note?: string;
+  affectingVersionId?: string | null;
+  relatedNorm?: string | null;
+}
+
+export interface ChangeQuery {
+  changeTypes: HistoryEntryType[];
+  /** Nur Einträge bis einschließlich dieses Datums. */
+  until?: string;
+  /** Nur Einträge nach diesem Datum. */
+  after?: string;
+  order: 'asc' | 'desc';
+  limit: number;
 }
 
 export interface SearchUnitRow {
@@ -55,14 +158,34 @@ export interface SearchCandidate {
 
 export interface NormStore {
   readonly kind: 'd1' | 'files';
-  /** Alle Normen ohne Normkörper (Metadaten, Historie, Fassungsdaten). */
-  listNorms(): Promise<NormRecord[]>;
+  /** Übersichtszeilen; Filter laufen als SQL (Typ, Status, Sachgebiet). Liest nur law_norms(+aktuelle Fassungszeile). */
+  listNormSummaries(query?: NormSummaryQuery): Promise<NormSummary[]>;
+  listNormSummariesByType(type: NormType): Promise<NormSummary[]>;
+  /** Übersichtszeilen einer Slug-Liste (Verkündungs- und Fundstellenseiten). */
+  getNormSummaries(slugs: string[]): Promise<Map<string, NormSummary>>;
+  /** Fassungsübersicht (Slug, Fassung, Beginn, zeitliche Einordnung); optional auf Slugs eingeschränkt. */
+  listVersionSummaries(options?: { slugs?: string[] }): Promise<NormVersionSummary[]>;
+  /** Historieneinträge korpusweit, nach Datum über Index; nur die angeforderte Anzahl. */
+  listChanges(query: ChangeQuery): Promise<NormChange[]>;
+  /** Sachgebiete mit Zählern (eine Metadatenzeile). */
+  listSubjectSummaries(): Promise<SubjectSummary[]>;
+  /** Hauptbereiche mit Sachgebieten und Zählern (eine Metadatenzeile). */
+  listSubjectAreas(): Promise<SubjectAreaSummary[]>;
+  /** Bestandszahlen (eine Metadatenzeile). */
+  getCorpusStats(): Promise<CorpusStats>;
+  /** Autovervollständigung: Bezeichnungen und Aliasse der geltenden Fassungen aus law_norms. */
+  listSearchSuggestions(): Promise<SearchSuggestion[]>;
+  /** Filteroptionen und Dokumentzahl der Suche (Metadatenzeilen). */
+  getSearchFilters(): Promise<{ filters: SearchFilterOptions; documentCount: number }>;
+  /** Verkündungsdaten für die Suche (eine Metadatenzeile statt aller Verkündungs-JSONs). */
+  listSearchPublications(): Promise<SearchPublication[]>;
   /** Eine Norm; Normkörper nur für die gewünschten Fassungen. */
   getNorm(slug: string, bodies?: BodySelection): Promise<NormRecord | null>;
   getDerived(slug: string): Promise<NormDerivedData | null>;
   getFullCitation(slug: string, versionId: string): Promise<string | undefined>;
   getPublicationReference(slug: string, versionId: string): Promise<NormPublicationReference | undefined>;
-  listPublications(): Promise<Verkuendung[]>;
+  /** Verkündungen, neueste zuerst (nur law_publications; lädt keine Normen); optional begrenzt. */
+  listPublications(options?: { limit?: number }): Promise<Verkuendung[]>;
   getPublication(slug: string): Promise<Verkuendung | null>;
   /** Suchdokumente der gewünschten Normen (alle Fassungen) samt Provisionen der geltenden Fassung. */
   /** `unitsMatch`: FTS-Ausdruck, auf den die gelieferten Provisionen eingeschränkt werden; null = alle Provisionen; undefined = keine. */
@@ -92,8 +215,67 @@ function getCurrentVersionId(record: NormRecord): string | undefined {
   return record.versions.find((version) => version.isCurrent)?.versionId ?? record.versions.at(-1)?.versionId;
 }
 
-function withoutBodies(record: NormRecord): NormRecord {
-  return { ...record, versions: record.versions.map((version) => ({ ...version, body: [] })) };
+/** Übersichtszeile aus einem vollständigen Datensatz (Dateivariante, Tests, Sync-Vergleich). */
+export function summarizeNormRecord(record: NormRecord, records: NormRecord[] = [record]): NormSummary {
+  const current = getApplicableVersion(record);
+  const identity = getNormVersionIdentity(record, current);
+  const origin = getNormOriginInfo(record, records);
+  const lastChangeDate = [...record.versions.map((version) => version.validFrom), ...record.history.entries.map((entry) => entry.date)].sort().at(-1);
+  return {
+    id: record.meta.id,
+    slug: record.meta.slug,
+    title: identity.title,
+    shortTitle: identity.shortTitle,
+    ...(identity.abbr ? { abbr: identity.abbr } : {}),
+    summary: identity.summary,
+    type: record.meta.type,
+    status: record.meta.status,
+    subjects: [...record.meta.subjects],
+    ...(record.meta.primarySubject ? { primarySubject: record.meta.primarySubject } : {}),
+    keywords: [...record.meta.keywords],
+    aliases: getNormAliases(record, identity),
+    ...(record.meta.responsibleMinistry ?? record.meta.ministry ? { responsibleMinistry: record.meta.responsibleMinistry ?? record.meta.ministry } : {}),
+    currentVersionId: current.versionId,
+    currentValidFrom: current.validFrom,
+    ...(record.meta.documentDate ? { documentDate: record.meta.documentDate } : {}),
+    originKind: origin.kind,
+    ...(origin.baselineVersionId ? { originBaselineVersionId: origin.baselineVersionId } : {}),
+    ...(origin.lastOwnChangeDate ? { originLastOwnChangeDate: origin.lastOwnChangeDate } : {}),
+    versionCount: record.versions.length,
+    ...(lastChangeDate ? { lastChangeDate } : {}),
+  };
+}
+
+export function suggestionFromSummary(summary: NormSummary): SearchSuggestion {
+  return {
+    slug: summary.slug,
+    url: getNormUrl(summary.slug),
+    title: toDisplayText(summary.title),
+    shortTitle: toDisplayText(summary.shortTitle),
+    abbr: toDisplayText(summary.abbr ?? ''),
+    aliases: summary.aliases,
+    typeLabel: formatNormType(summary.type),
+  };
+}
+
+export function compareSummaryTitles(left: NormSummary, right: NormSummary): number {
+  return left.title.localeCompare(right.title, 'de') || left.slug.localeCompare(right.slug);
+}
+
+function chunked<T>(items: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let index = 0; index < items.length; index += size) chunks.push(items.slice(index, index + size));
+  return chunks;
+}
+
+function parseJsonArray(value: string | null | undefined): string[] {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  } catch {
+    return [];
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -115,17 +297,70 @@ interface VersionRow {
   publication_ref_json: string | null;
 }
 
+interface SummaryRow {
+  id: string;
+  slug: string;
+  title: string;
+  short_title: string;
+  abbr: string | null;
+  summary: string;
+  current_summary: string | null;
+  type: NormType;
+  status: NormStatus;
+  subjects_json: string;
+  primary_subject: string | null;
+  keywords_json: string;
+  aliases_json: string;
+  responsible_ministry: string | null;
+  current_version_id: string;
+  current_valid_from: string;
+  document_date: string | null;
+  origin_kind: NormOriginKind | null;
+  origin_baseline_version_id: string | null;
+  origin_last_own_change_date: string | null;
+  version_count: number;
+  last_change_date: string | null;
+}
+
 export interface BlockRow {
   block_index: number;
   part_index: number;
   block_json: string;
 }
 
-const corpusCache: { syncedAt: string | null; records: NormRecord[] | null; publications: Verkuendung[] | null } = {
-  syncedAt: null,
-  records: null,
-  publications: null,
-};
+const SUMMARY_SELECT = `SELECT n.id, n.slug, n.title, n.short_title, n.abbr, n.summary, v.summary AS current_summary, n.type, n.status,
+  n.subjects_json, n.primary_subject, n.keywords_json, n.aliases_json, n.responsible_ministry, n.current_version_id, n.current_valid_from,
+  n.document_date, n.origin_kind, n.origin_baseline_version_id, n.origin_last_own_change_date, n.version_count, n.last_change_date
+  FROM law_norms n LEFT JOIN law_versions v ON v.norm_id = n.id AND v.version_id = n.current_version_id`;
+
+function summaryFromRow(row: SummaryRow): NormSummary {
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    shortTitle: row.short_title,
+    ...(row.abbr ? { abbr: row.abbr } : {}),
+    summary: row.current_summary ?? row.summary,
+    type: row.type,
+    status: row.status,
+    subjects: parseJsonArray(row.subjects_json),
+    ...(row.primary_subject ? { primarySubject: row.primary_subject } : {}),
+    keywords: parseJsonArray(row.keywords_json),
+    aliases: parseJsonArray(row.aliases_json),
+    ...(row.responsible_ministry ? { responsibleMinistry: row.responsible_ministry } : {}),
+    currentVersionId: row.current_version_id,
+    currentValidFrom: row.current_valid_from,
+    ...(row.document_date ? { documentDate: row.document_date } : {}),
+    ...(row.origin_kind ? { originKind: row.origin_kind } : {}),
+    ...(row.origin_baseline_version_id ? { originBaselineVersionId: row.origin_baseline_version_id } : {}),
+    ...(row.origin_last_own_change_date ? { originLastOwnChangeDate: row.origin_last_own_change_date } : {}),
+    versionCount: Number(row.version_count ?? 0),
+    ...(row.last_change_date ? { lastChangeDate: row.last_change_date } : {}),
+  };
+}
+
+/** Isolate-weiter Cache korpusweiter Metadaten, gültig für einen Sync-Stand (last_sync_at). */
+const metaCache: { syncedAt: string | null; entries: Map<string, unknown> } = { syncedAt: null, entries: new Map() };
 
 function assembleRecord(row: NormRow, versionRows: VersionRow[], bodies: Map<string, unknown[]>): NormRecord {
   const meta = parseNormMeta(JSON.parse(row.meta_json), `${row.slug}/meta.json`);
@@ -151,44 +386,154 @@ export function assembleBlocks(rows: BlockRow[]): unknown[] {
     .map(([, pieces]) => JSON.parse(pieces.join('')));
 }
 
-function chunked<T>(items: T[], size: number): T[][] {
-  const chunks: T[][] = [];
-  for (let index = 0; index < items.length; index += size) chunks.push(items.slice(index, index + size));
-  return chunks;
-}
-
 export function createD1NormStore(db: D1Database): NormStore {
-  const loadCorpus = async (): Promise<{ records: NormRecord[]; publications: Verkuendung[] }> => {
-    const syncedAt = (await db.prepare("SELECT value FROM law_runtime_meta WHERE key = 'last_sync_at'").first<{ value: string }>())?.value ?? null;
-    if (corpusCache.records && corpusCache.publications && corpusCache.syncedAt === syncedAt) {
-      return { records: corpusCache.records, publications: corpusCache.publications };
+  const readMeta = async (key: string): Promise<string | null> =>
+    (await db.prepare('SELECT value FROM law_runtime_meta WHERE key = ?').bind(key).first<{ value: string }>())?.value ?? null;
+
+  /** Kleine korpusweite Metadaten je Sync-Stand zwischenspeichern (eine Zeile Prüfaufwand je Zugriff). */
+  const cachedMeta = async <T>(key: string, loader: () => Promise<T>): Promise<T> => {
+    const syncedAt = await readMeta('last_sync_at');
+    if (metaCache.syncedAt !== syncedAt) {
+      metaCache.syncedAt = syncedAt;
+      metaCache.entries.clear();
     }
-    const [normRows, versionRows, publicationRows] = await Promise.all([
-      db.prepare('SELECT id, slug, meta_json, history_json FROM law_norms ORDER BY sort_title, slug').all<NormRow>(),
-      db.prepare('SELECT norm_id, version_id, version_json, full_citation, publication_ref_json FROM law_versions ORDER BY norm_id, valid_from').all<VersionRow>(),
-      db.prepare('SELECT publication_json FROM law_publications ORDER BY publication_date DESC, issue DESC').all<{ publication_json: string }>(),
-    ]);
-    const versionsByNorm = new Map<string, VersionRow[]>();
-    for (const row of versionRows.results) {
-      const list = versionsByNorm.get(row.norm_id) ?? [];
-      list.push(row);
-      versionsByNorm.set(row.norm_id, list);
-    }
-    const records = normRows.results.map((row) => assembleRecord(row, versionsByNorm.get(row.id) ?? [], new Map()));
-    const publications = publicationRows.results.map((row) => JSON.parse(row.publication_json) as Verkuendung);
-    corpusCache.records = records;
-    corpusCache.publications = publications;
-    corpusCache.syncedAt = syncedAt;
-    return { records, publications };
+    if (metaCache.entries.has(key)) return metaCache.entries.get(key) as T;
+    const value = await loader();
+    metaCache.entries.set(key, value);
+    return value;
   };
+
+  const metaJson = async <T>(key: string, fallback: () => Promise<T>): Promise<T> =>
+    cachedMeta(key, async () => {
+      const raw = await readMeta(key);
+      return raw ? (JSON.parse(raw) as T) : fallback();
+    });
 
   const loadVersionRows = async (normId: string): Promise<VersionRow[]> =>
     (await db.prepare('SELECT norm_id, version_id, version_json, full_citation, publication_ref_json FROM law_versions WHERE norm_id = ? ORDER BY valid_from').bind(normId).all<VersionRow>()).results;
 
+  const listSummaries = async (query: NormSummaryQuery = {}): Promise<NormSummary[]> => {
+    const conditions: string[] = [];
+    const params: unknown[] = [];
+    if (query.types?.length) {
+      conditions.push(`n.type IN (${query.types.map(() => '?').join(', ')})`);
+      params.push(...query.types);
+    }
+    if (query.statuses?.length) {
+      conditions.push(`n.status IN (${query.statuses.map(() => '?').join(', ')})`);
+      params.push(...query.statuses);
+    }
+    if (query.subjectSlug) {
+      conditions.push('n.id IN (SELECT s.norm_id FROM law_norm_subjects s WHERE s.subject_slug = ?)');
+      params.push(query.subjectSlug);
+    }
+    const where = conditions.length ? ` WHERE ${conditions.join(' AND ')}` : '';
+    const rows = await db.prepare(`${SUMMARY_SELECT}${where} ORDER BY n.sort_title, n.slug`).bind(...params).all<SummaryRow>();
+    return rows.results.map(summaryFromRow);
+  };
+
   return {
     kind: 'd1',
-    async listNorms() {
-      return (await loadCorpus()).records;
+    listNormSummaries: listSummaries,
+    async listNormSummariesByType(type) {
+      return listSummaries({ types: [type] });
+    },
+    async getNormSummaries(slugs) {
+      const summaries = new Map<string, NormSummary>();
+      for (const chunk of chunked([...new Set(slugs)], 80)) {
+        const rows = await db.prepare(`${SUMMARY_SELECT} WHERE n.slug IN (${chunk.map(() => '?').join(', ')})`).bind(...chunk).all<SummaryRow>();
+        for (const row of rows.results) summaries.set(row.slug, summaryFromRow(row));
+      }
+      return summaries;
+    },
+    async listVersionSummaries({ slugs } = {}) {
+      const select = 'SELECT n.slug, v.version_id, v.valid_from, v.temporal_kind FROM law_versions v JOIN law_norms n ON n.id = v.norm_id';
+      const map = (rows: Array<{ slug: string; version_id: string; valid_from: string; temporal_kind: string }>): NormVersionSummary[] =>
+        rows.map((row) => ({ slug: row.slug, versionId: row.version_id, validFrom: row.valid_from, temporalKind: row.temporal_kind as NormVersionSummary['temporalKind'] }));
+      if (!slugs) return map((await db.prepare(`${select} ORDER BY n.slug, v.valid_from`).all<{ slug: string; version_id: string; valid_from: string; temporal_kind: string }>()).results);
+      const summaries: NormVersionSummary[] = [];
+      for (const chunk of chunked([...new Set(slugs)], 80)) {
+        const rows = await db.prepare(`${select} WHERE n.slug IN (${chunk.map(() => '?').join(', ')}) ORDER BY n.slug, v.valid_from`).bind(...chunk).all<{ slug: string; version_id: string; valid_from: string; temporal_kind: string }>();
+        summaries.push(...map(rows.results));
+      }
+      return summaries;
+    },
+    async listChanges({ changeTypes, until, after, order, limit }) {
+      if (changeTypes.length === 0 || limit <= 0) return [];
+      const conditions = [`h.change_type IN (${changeTypes.map(() => '?').join(', ')})`];
+      const params: unknown[] = [...changeTypes];
+      if (until) {
+        conditions.push('h.change_date <= ?');
+        params.push(until);
+      }
+      if (after) {
+        conditions.push('h.change_date > ?');
+        params.push(after);
+      }
+      const rows = await db.prepare(`SELECT n.slug, n.title, n.short_title, n.type, h.change_date, h.change_type, h.title AS entry_title, h.citation, h.note, h.affecting_version_id, h.related_norm
+        FROM law_norm_history h JOIN law_norms n ON n.id = h.norm_id WHERE ${conditions.join(' AND ')}
+        ORDER BY h.change_date ${order === 'asc' ? 'ASC' : 'DESC'}, n.sort_title LIMIT ?`).bind(...params, limit).all<Record<string, string | null>>();
+      return rows.results.map((row) => ({
+        slug: row.slug as string,
+        normTitle: row.title as string,
+        normShortTitle: row.short_title as string,
+        type: row.type as NormType,
+        date: row.change_date as string,
+        changeType: row.change_type as HistoryEntryType,
+        title: row.entry_title as string,
+        citation: row.citation as string,
+        ...(row.note ? { note: row.note } : {}),
+        affectingVersionId: row.affecting_version_id,
+        relatedNorm: row.related_norm,
+      }));
+    },
+    async listSubjectSummaries() {
+      return metaJson<SubjectSummary[]>('subject_groups_json', async () => {
+        const rows = await db.prepare('SELECT subject, subject_slug, COUNT(*) AS norm_count FROM law_norm_subjects GROUP BY subject_slug, subject ORDER BY subject').all<{ subject: string; subject_slug: string; norm_count: number }>();
+        return rows.results.map((row) => ({ name: row.subject, slug: row.subject_slug, normCount: Number(row.norm_count) }));
+      });
+    },
+    async listSubjectAreas() {
+      return metaJson<SubjectAreaSummary[]>('subject_areas_json', async () => []);
+    },
+    async getCorpusStats() {
+      return metaJson<CorpusStats>('corpus_stats_json', async () => {
+        const row = await db.prepare(`SELECT (SELECT COUNT(*) FROM law_norms) AS norm_count, (SELECT COUNT(*) FROM law_norms WHERE status = 'in-force') AS in_force, (SELECT COUNT(*) FROM law_publications) AS publication_count`).first<{ norm_count: number; in_force: number; publication_count: number }>();
+        const types = await db.prepare('SELECT DISTINCT type FROM law_norms ORDER BY type').all<{ type: NormType }>();
+        const statuses = await db.prepare('SELECT DISTINCT status FROM law_norms ORDER BY status').all<{ status: NormStatus }>();
+        return {
+          normCount: Number(row?.norm_count ?? 0),
+          inForceCount: Number(row?.in_force ?? 0),
+          publicationCount: Number(row?.publication_count ?? 0),
+          types: types.results.map((entry) => entry.type),
+          statuses: statuses.results.map((entry) => entry.status),
+        };
+      });
+    },
+    async listSearchSuggestions() {
+      const rows = await db.prepare('SELECT slug, title, short_title, abbr, aliases_json, type FROM law_norms ORDER BY title, slug').all<{ slug: string; title: string; short_title: string; abbr: string | null; aliases_json: string; type: NormType }>();
+      return rows.results.map((row) => ({
+        slug: row.slug,
+        url: getNormUrl(row.slug),
+        title: toDisplayText(row.title),
+        shortTitle: toDisplayText(row.short_title),
+        abbr: toDisplayText(row.abbr ?? ''),
+        aliases: parseJsonArray(row.aliases_json),
+        typeLabel: formatNormType(row.type),
+      })).sort((left, right) => left.title.localeCompare(right.title, 'de'));
+    },
+    async getSearchFilters() {
+      const filters = await metaJson<SearchFilterOptions>('search_filters_json', async () =>
+        buildFilterOptions((await listSummaries()).map((summary) => ({ meta: { type: summary.type, status: summary.status, subjects: summary.subjects, responsibleMinistry: summary.responsibleMinistry } })) as NormRecord[]));
+      const documentCount = await cachedMeta('search_document_count', async () => {
+        const raw = await readMeta('search_document_count');
+        if (raw) return Number(raw);
+        return Number((await db.prepare('SELECT COUNT(*) AS total FROM law_versions').first<{ total: number }>())?.total ?? 0);
+      });
+      return { filters, documentCount };
+    },
+    async listSearchPublications() {
+      return metaJson<SearchPublication[]>('search_publications_json', async () => buildSearchPublications(await this.listPublications()));
     },
     async getNorm(slug, bodies = 'current') {
       const row = await db.prepare('SELECT id, slug, meta_json, history_json FROM law_norms WHERE slug = ?').bind(slug).first<NormRow>();
@@ -223,8 +568,13 @@ export function createD1NormStore(db: D1Database): NormStore {
       const row = await db.prepare('SELECT v.publication_ref_json FROM law_versions v JOIN law_norms n ON n.id = v.norm_id WHERE n.slug = ? AND v.version_id = ?').bind(slug, versionId).first<{ publication_ref_json: string | null }>();
       return row?.publication_ref_json ? JSON.parse(row.publication_ref_json) as NormPublicationReference : undefined;
     },
-    async listPublications() {
-      return (await loadCorpus()).publications;
+    async listPublications({ limit } = {}) {
+      // Nur law_publications; der Normenbestand wird dafür nicht gelesen.
+      const statement = limit
+        ? db.prepare('SELECT publication_json FROM law_publications ORDER BY publication_date DESC, issue DESC LIMIT ?').bind(limit)
+        : db.prepare('SELECT publication_json FROM law_publications ORDER BY publication_date DESC, issue DESC');
+      const rows = await statement.all<{ publication_json: string }>();
+      return rows.results.map((row) => JSON.parse(row.publication_json) as Verkuendung);
     },
     async getPublication(slug) {
       const row = await db.prepare('SELECT publication_json FROM law_publications WHERE slug = ?').bind(slug).first<{ publication_json: string }>();
@@ -242,7 +592,8 @@ export function createD1NormStore(db: D1Database): NormStore {
         documents.push(...(await db.prepare(`SELECT d.norm_id, d.version_id, d.document_json FROM law_search_documents d JOIN law_norms n ON n.id = d.norm_id WHERE n.slug IN (${placeholders})`).bind(...chunk).all<{ norm_id: string; version_id: string; document_json: string }>()).results);
         if (unitsMatch === undefined) continue;
         units.push(...(unitsMatch === null
-          ? (await db.prepare(`SELECT ${unitColumns} FROM law_search WHERE slug IN (${placeholders})`).bind(...chunk).all<Record<string, string>>()).results
+          // Ohne Suchausdruck über die relationale Tabelle und ihren Slug-Index, nicht über den FTS-Index.
+          ? (await db.prepare(`SELECT ${unitColumns} FROM law_search_units WHERE slug IN (${placeholders})`).bind(...chunk).all<Record<string, string>>()).results
           : (await db.prepare(`SELECT ${unitColumns} FROM law_search WHERE law_search MATCH ? AND slug IN (${placeholders})`).bind(unitsMatch, ...chunk).all<Record<string, string>>()).results));
       }
       const unitsByKey = new Map<string, SearchUnitRow[]>();
@@ -279,7 +630,7 @@ export function createD1NormStore(db: D1Database): NormStore {
       return { slugs: rows.results.map((row) => row.slug), total: total?.total ?? rows.results.length };
     },
     async getRuntimeMeta(key) {
-      return (await db.prepare('SELECT value FROM law_runtime_meta WHERE key = ?').bind(key).first<{ value: string }>())?.value ?? null;
+      return readMeta(key);
     },
     async getNormLabels(slugs) {
       const labels = new Map<string, { title: string; shortTitle: string }>();
@@ -310,6 +661,7 @@ export interface FileStoreSources {
 
 export function createFileNormStore(sources: FileStoreSources): NormStore {
   let contextPromise: Promise<DerivedContext> | null = null;
+  let summariesPromise: Promise<NormSummary[]> | null = null;
   const context = (): Promise<DerivedContext> => {
     contextPromise ??= (async () => {
       const [norms, publications, topics, pressReleases] = await Promise.all([
@@ -322,12 +674,90 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     })();
     return contextPromise;
   };
+  const summaries = (): Promise<NormSummary[]> => {
+    summariesPromise ??= (async () => {
+      const { norms } = await context();
+      return norms.map((record) => summarizeNormRecord(record, norms)).sort(compareSummaryTitles);
+    })();
+    return summariesPromise;
+  };
   const find = async (slug: string): Promise<NormRecord | null> => (await context()).lookup.get(slug) ?? null;
+
+  const filterSummaries = async (query: NormSummaryQuery = {}): Promise<NormSummary[]> =>
+    (await summaries()).filter((summary) =>
+      (!query.types?.length || query.types.includes(summary.type))
+      && (!query.statuses?.length || query.statuses.includes(summary.status))
+      && (!query.subjectSlug || summary.subjects.some((subject) => getSubjectSlug(subject) === query.subjectSlug)));
 
   return {
     kind: 'files',
-    async listNorms() {
-      return (await context()).norms.map(withoutBodies);
+    listNormSummaries: filterSummaries,
+    async listNormSummariesByType(type) {
+      return filterSummaries({ types: [type] });
+    },
+    async getNormSummaries(slugs) {
+      const wanted = new Set(slugs);
+      return new Map((await summaries()).filter((summary) => wanted.has(summary.slug)).map((summary) => [summary.slug, summary]));
+    },
+    async listVersionSummaries({ slugs } = {}) {
+      const wanted = slugs ? new Set(slugs) : null;
+      return (await context()).norms
+        .filter((record) => !wanted || wanted.has(record.meta.slug))
+        .flatMap((record) => record.versions.map((version) => ({ slug: record.meta.slug, versionId: version.versionId, validFrom: version.validFrom, temporalKind: classifyNormVersion(record, version) })));
+    },
+    async listChanges({ changeTypes, until, after, order, limit }) {
+      const wanted = new Set(changeTypes);
+      const entries = (await context()).norms.flatMap((record) => {
+        const identity = identityFor(record);
+        return record.history.entries
+          .filter((entry) => wanted.has(entry.type) && (!until || entry.date <= until) && (!after || entry.date > after))
+          .map((entry): NormChange => ({
+            slug: record.meta.slug,
+            normTitle: identity.title,
+            normShortTitle: identity.shortTitle,
+            type: record.meta.type,
+            date: entry.date,
+            changeType: entry.type,
+            title: entry.title,
+            citation: entry.citation,
+            ...(entry.note ? { note: entry.note } : {}),
+            affectingVersionId: entry.affectingVersionId ?? null,
+            relatedNorm: entry.relatedNorm ?? null,
+          }));
+      });
+      entries.sort((left, right) => (order === 'asc' ? left.date.localeCompare(right.date) : right.date.localeCompare(left.date)) || left.normTitle.localeCompare(right.normTitle, 'de'));
+      return entries.slice(0, limit);
+    },
+    async listSubjectSummaries() {
+      return getSubjectGroups((await context()).norms).map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length }));
+    },
+    async listSubjectAreas() {
+      return getSubjectAreaGroups((await context()).norms).map((area) => ({
+        name: area.name,
+        description: area.description,
+        normCount: area.normCount,
+        subjects: area.subjects.map((group) => ({ name: group.name, slug: group.slug, normCount: group.norms.length })),
+      }));
+    },
+    async getCorpusStats() {
+      const { norms, publications } = await context();
+      return {
+        normCount: norms.length,
+        inForceCount: norms.filter((record) => record.meta.status === 'in-force').length,
+        publicationCount: publications.length,
+        types: [...new Set(norms.map((record) => record.meta.type))].sort(),
+        statuses: [...new Set(norms.map((record) => record.meta.status))].sort(),
+      };
+    },
+    async listSearchSuggestions() {
+      return (await summaries()).map(suggestionFromSummary).sort((left, right) => left.title.localeCompare(right.title, 'de'));
+    },
+    async getSearchFilters() {
+      const { norms } = await context();
+      return { filters: buildFilterOptions(norms), documentCount: norms.reduce((sum, record) => sum + record.versions.length, 0) };
+    },
+    async listSearchPublications() {
+      return buildSearchPublications((await context()).publications);
     },
     async getNorm(slug, bodies = 'current') {
       const record = await find(slug);
@@ -347,8 +777,9 @@ export function createFileNormStore(sources: FileStoreSources): NormStore {
     async getPublicationReference(slug, versionId) {
       return (await context()).publicationReferences.get(`${slug}:${versionId}`);
     },
-    async listPublications() {
-      return (await context()).publications;
+    async listPublications({ limit } = {}) {
+      const publications = [...(await context()).publications].sort((left, right) => right.date.localeCompare(left.date) || right.issue.localeCompare(left.issue, 'de'));
+      return limit ? publications.slice(0, limit) : publications;
     },
     async getPublication(slug) {
       return (await context()).publications.find((publication) => publication.slug === slug) ?? null;

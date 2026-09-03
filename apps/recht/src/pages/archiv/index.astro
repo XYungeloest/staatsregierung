@@ -5,14 +5,12 @@ import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import {
   formatNormType,
   getGermanIndexLetter,
-  getIndexGroups,
   getLawPortalUrl,
   getNormUrl,
-  getNormVersionIdentity,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
-import { getCurrentVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getNormStore } from '../../lib/runtime/context.ts';
+import { groupSummariesByLetter } from '../../lib/runtime/overview.ts';
 
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
 export const prerender = false;
@@ -20,20 +18,20 @@ export const prerender = false;
 const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-const norms = await store.listNorms();
-const groups = getIndexGroups(norms);
+// Übersichtszeilen (Bezeichnungen, Abkürzungen, Schlagwörter); keine Fassungs-JSONs.
+const norms = await store.listNormSummaries();
+const groups = groupSummariesByLetter(norms);
 const keywordEntries = new Map<string, typeof norms>();
 
 for (const norm of norms) {
-  const identity = getNormVersionIdentity(norm, getCurrentVersion(norm));
-  for (const rawKeyword of [identity.abbr, identity.shortTitle, ...norm.meta.keywords].filter(Boolean)) {
+  for (const rawKeyword of [norm.abbr, norm.shortTitle, ...norm.keywords].filter(Boolean)) {
     const keyword = toDisplayText(rawKeyword).trim();
     if (!keyword || keyword.length < 2) {
       continue;
     }
 
     const existing = keywordEntries.get(keyword) ?? [];
-    if (!existing.some((entry) => entry.meta.slug === norm.meta.slug)) {
+    if (!existing.some((entry) => entry.slug === norm.slug)) {
       keywordEntries.set(keyword, [...existing, norm]);
     }
   }
@@ -45,11 +43,7 @@ const keywordGroups = [...keywordEntries.entries()]
     (result, [keyword, keywordNorms]) => {
       const key = getGermanIndexLetter(keyword);
       const group = result.find((entry) => entry.letter === key);
-      const entry = { keyword, norms: keywordNorms.sort((left, right) => {
-        const leftTitle = getNormVersionIdentity(left, getCurrentVersion(left)).title;
-        const rightTitle = getNormVersionIdentity(right, getCurrentVersion(right)).title;
-        return leftTitle.localeCompare(rightTitle, 'de');
-      }) };
+      const entry = { keyword, norms: keywordNorms.sort((left, right) => left.title.localeCompare(right.title, 'de')) };
 
       if (group) {
         group.entries.push(entry);
@@ -101,15 +95,12 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
         <h2>{group.letter}</h2>
       </div>
       <ul class="record-list">
-        {group.norms.map((norm) => {
-          const identity = getNormVersionIdentity(norm, getCurrentVersion(norm));
-          return (
+        {group.norms.map((norm) => (
           <li class="record-list__item">
-            <a class="inline-link" href={getNormUrl(norm.meta.slug)}>{toDisplayText(identity.title)}</a>
-            <span>{[identity.abbr, formatNormType(norm.meta.type)].filter(Boolean).join(' · ')}</span>
+            <a class="inline-link" href={getNormUrl(norm.slug)}>{toDisplayText(norm.title)}</a>
+            <span>{[norm.abbr, formatNormType(norm.type)].filter(Boolean).join(' · ')}</span>
           </li>
-          );
-        })}
+        ))}
       </ul>
     </section>
   ))}
@@ -136,8 +127,8 @@ const availableLetters = [...new Set([...groups.map((group) => group.letter), ..
                   {entry.norms.map((norm, index) => (
                     <Fragment>
                       {index > 0 ? ', ' : ''}
-                      <a class="inline-link" href={getNormUrl(norm.meta.slug)}>
-                        {toDisplayText(getNormVersionIdentity(norm, getCurrentVersion(norm)).shortTitle)}
+                      <a class="inline-link" href={getNormUrl(norm.slug)}>
+                        {toDisplayText(norm.shortTitle)}
                       </a>
                     </Fragment>
                   ))}

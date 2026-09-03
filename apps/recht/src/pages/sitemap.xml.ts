@@ -1,13 +1,11 @@
 import type { APIRoute } from 'astro';
 import { lawSiteConfig } from '@ostrecht/shared/config/site.ts';
 import {
-  classifyNormVersion,
   getNormCompareUrl,
   getNormHistoryUrl,
   getNormUrl,
   getNormVersionUrl,
   getPublicationUrl,
-  getSubjectGroups,
   getSubjectUrl,
 } from '@ostrecht/shared/lib/norms/index.ts';
 
@@ -23,7 +21,17 @@ function escapeXml(value: string): string {
 export const GET: APIRoute = async ({ site, locals }) => {
   const baseUrl = site ?? new URL(lawSiteConfig.seo.siteUrl);
   const store = await getNormStore(locals);
-  const [norms, publications] = await Promise.all([store.listNorms(), store.listPublications()]);
+  // Schmale Zeilen: Übersichten (Slug, Fassungszahl, letzte Änderung), Fassungsübersicht
+  // (Slug, Fassung, Beginn, Einordnung), Verkündungen und Sachgebiete – keine Normkörper.
+  const [norms, versions, publications, subjects] = await Promise.all([
+    store.listNormSummaries(), store.listVersionSummaries(), store.listPublications(), store.listSubjectSummaries(),
+  ]);
+  const versionsBySlug = new Map<string, typeof versions>();
+  for (const version of versions) {
+    const list = versionsBySlug.get(version.slug) ?? [];
+    list.push(version);
+    versionsBySlug.set(version.slug, list);
+  }
   const staticPaths = [
     lawSiteConfig.paths.home, lawSiteConfig.paths.index, lawSiteConfig.paths.subjects,
     lawSiteConfig.paths.funding, lawSiteConfig.paths.references, lawSiteConfig.paths.publications,
@@ -31,24 +39,24 @@ export const GET: APIRoute = async ({ site, locals }) => {
   ];
   const dynamicPaths = [
     ...norms.flatMap((norm) => [
-      getNormUrl(norm.meta.slug),
-      getNormHistoryUrl(norm.meta.slug),
-      ...(norm.versions.length > 1 ? [getNormCompareUrl(norm.meta.slug)] : []),
-      ...norm.versions.filter((version) => classifyNormVersion(norm, version) !== 'current').map((version) => getNormVersionUrl(norm.meta.slug, version.versionId)),
+      getNormUrl(norm.slug),
+      getNormHistoryUrl(norm.slug),
+      ...(norm.versionCount > 1 ? [getNormCompareUrl(norm.slug)] : []),
+      ...(versionsBySlug.get(norm.slug) ?? []).filter((version) => version.temporalKind !== 'current').map((version) => getNormVersionUrl(norm.slug, version.versionId)),
     ]),
     ...publications.map((publication) => getPublicationUrl(publication.slug)),
-    ...getSubjectGroups(norms).map((group) => getSubjectUrl(group.name)),
+    ...subjects.map((subject) => getSubjectUrl(subject.name)),
   ];
   const lastmodByPath = new Map<string, string>();
   for (const publication of publications) lastmodByPath.set(getPublicationUrl(publication.slug), publication.date);
   for (const norm of norms) {
-    const lastmod = [...norm.versions.map((version) => version.validFrom), ...norm.history.entries.map((entry) => entry.date)].sort().at(-1);
+    const lastmod = norm.lastChangeDate;
     if (!lastmod) continue;
-    lastmodByPath.set(getNormUrl(norm.meta.slug), lastmod);
-    lastmodByPath.set(getNormHistoryUrl(norm.meta.slug), lastmod);
-    if (norm.versions.length > 1) lastmodByPath.set(getNormCompareUrl(norm.meta.slug), lastmod);
-    for (const version of norm.versions.filter((entry) => classifyNormVersion(norm, entry) !== 'current')) {
-      lastmodByPath.set(getNormVersionUrl(norm.meta.slug, version.versionId), version.validFrom);
+    lastmodByPath.set(getNormUrl(norm.slug), lastmod);
+    lastmodByPath.set(getNormHistoryUrl(norm.slug), lastmod);
+    if (norm.versionCount > 1) lastmodByPath.set(getNormCompareUrl(norm.slug), lastmod);
+    for (const version of (versionsBySlug.get(norm.slug) ?? []).filter((entry) => entry.temporalKind !== 'current')) {
+      lastmodByPath.set(getNormVersionUrl(norm.slug, version.versionId), version.validFrom);
     }
   }
 

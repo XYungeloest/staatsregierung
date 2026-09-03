@@ -4,9 +4,7 @@ import Breadcrumbs from '@ostrecht/shared/components/Breadcrumbs.astro';
 import SectionHero from '@ostrecht/shared/components/portal/SectionHero.astro';
 import {
   getLawPortalUrl,
-  getSubjectAreaGroups,
   getSubjectUrl,
-  getSubjectGroups,
   getSubjectSlug,
   toDisplayText,
 } from '@ostrecht/shared/lib/norms/index.ts';
@@ -18,9 +16,8 @@ export const prerender = false;
 const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
-const norms = await store.listNorms();
-const groups = getSubjectGroups(norms);
-const areaGroups = getSubjectAreaGroups(norms);
+// Sachgebiete, Hauptbereiche und Bestandszahlen sind vorberechnete Metadatenzeilen.
+const [groups, areaGroups, stats] = await Promise.all([store.listSubjectSummaries(), store.listSubjectAreas(), store.getCorpusStats()]);
 ---
 
 <LawLayout
@@ -43,7 +40,7 @@ const areaGroups = getSubjectAreaGroups(norms);
     title="Sachgebiete"
     lead="Vorschriften nach fachlicher Zuordnung und thematischen Hauptbereichen recherchieren."
     variant="law"
-    facts={[{ label: 'Sachgebiete', value: String(groups.length) }, { label: 'Vorschriften', value: String(norms.length) }]}
+    facts={[{ label: 'Sachgebiete', value: String(groups.length) }, { label: 'Vorschriften', value: String(stats.normCount) }]}
   />
 
   <section class="section">
@@ -61,7 +58,7 @@ const areaGroups = getSubjectAreaGroups(norms);
             {area.subjects.map((group) => (
               <li class="record-list__item">
                 <a class="inline-link" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)}</a>
-                <span>{group.norms.length} Normen</span>
+                <span>{group.normCount} Normen</span>
               </li>
             ))}
           </ul>
@@ -76,7 +73,7 @@ const areaGroups = getSubjectAreaGroups(norms);
     </div>
     <div class="tag-list">
       {groups.map((group) => (
-        <a class="tag" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)} ({group.norms.length})</a>
+        <a class="tag" href={getSubjectUrl(group.name)}>{toDisplayText(group.name)} ({group.normCount})</a>
       ))}
     </div>
   </section>
