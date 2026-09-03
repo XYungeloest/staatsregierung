@@ -427,6 +427,7 @@ Das Repository wird als Runtime-Projektion nach D1 gespiegelt; genau eine Umfang
 ein Aufruf ohne Umfang bricht ab:
 
 ```sh
+npm run norms:runtime:d1-sync -- --stamp-fingerprint          # nur Fingerabdruck neu schreiben (fail-closed, s. u.)
 npm run norms:runtime:d1-sync -- --full                       # Initialimport, Recovery, bewusste Vollprojektion
 npm run norms:runtime:d1-sync -- --slug foo --slug bar        # gezielte Normen
 npm run norms:runtime:d1-sync -- --delete alt-slug            # aus Git entfernte Normen samt abhängiger Zeilen löschen
@@ -496,7 +497,9 @@ gelesene / 289 geschriebene Zeilen; der erneute Lauf bei unverändertem Stand 8 
 geschriebene Zeilen (No-op).
 
 **Projektionsfingerabdruck.** `scripts/lib/d1-projection-fingerprint.mjs` bildet aus reinen
-Inhaltshashes (SHA-256 je Datei, sortierte Pfade; keine Änderungszeiten) den Fingerabdruck der
+Inhaltshashes (SHA-256 je Datei, sortierte Pfade; keine Änderungszeiten; nur Dateien, die Git
+kennt – ignorierte Dateien wie `.DS_Store` zählen nicht, sonst wichen lokaler Arbeitsbaum und
+CI-Checkout voneinander ab) den Fingerabdruck der
 Projektionslogik (Migrationen, Sync, Umfangsbestimmung, `packages/shared/src/lib/norms/**`,
 Portalbezüge, Konfiguration, `packages/recht-search/src/**`), des Rechtsbestands (`content/normen`,
 `content/verkuendungen`) und der Portalgrundlagen (`content/themen`, `content/presse`). Der Sync
@@ -504,7 +507,10 @@ schreibt ihn als `projection_fingerprint` und liest ihn vor jedem Lauf (eine Zei
 Gleichheit endet er ohne Schreibzugriff mit „D1-Projektion ist bereits exakt aktuell; kein Sync
 erforderlich.“ – so bleibt der `d1_sync`-Job nach dem Merge ein No-op, wenn die produktive
 Datenbank zuvor kontrolliert auf den Endstand gebracht wurde. `--ignore-fingerprint` erzwingt den
-Lauf; `d1-verify` vergleicht den Fingerabdruck mit dem Repository.
+Lauf; `d1-verify` vergleicht den Fingerabdruck mit dem Repository. Ändert sich nur die
+Berechnung des Fingerabdrucks, nicht die Projektion, schreibt `--stamp-fingerprint` die drei
+Metadatenzeilen neu – ausschließlich, wenn `corpus_hash`, `norm_count` und `publication_count`
+in D1 exakt dem Repository entsprechen.
 
 **Kostenzähler und Budgets.** Beide Transporte summieren aus den D1-Antworten Abfragen, Batches
 bzw. Dateien, `rows_read`, `rows_written` und Dauer („D1-Kosten: …“). `--max-rows-read <n>` und
@@ -670,6 +676,12 @@ Verkündungen; jede Zeile begründet) – `OSTRECHT_D1_FIXTURE` in der Job-Umgeb
 Seeding in rund einer Minute statt 14 bis 16 Minuten je Job. Der Vollbestand läuft als Release-Gate
 in `deploy.yml`, manuell und wöchentlich in `.github/workflows/full-corpus-smoke.yml`
 (`workflow_dispatch`, Montag 03:30 UTC). Die produktive Datenbank wird dabei nie berührt.
+
+Berührt ein Pull Request die D1-Projektion (`run_d1_sync`), prüft der Job `d1_token_check` das
+Repository-Secret `CLOUDFLARE_API_TOKEN` mit dem API-Transport: lesend gegen die produktive
+Datenbank (nur Fingerabdruck, `--dry-run`, kein Schreibzugriff) und schreibend gegen
+`ostrecht-recht-staging` (Verkündungen des Testfixtures, idempotent). Forks erhalten keine Secrets
+und überspringen den Job; `d1-token-check.yml` bietet dieselbe Prüfung manuell.
 
 Unit-Tests (`npm run test:unit`, Heap 4 GB) laden den Bestand über `tests/helpers/corpus.ts` nur
 einmal je Testprozess; der Suchindex für die browserseitige Suchlogik wird aus dem redaktionellen

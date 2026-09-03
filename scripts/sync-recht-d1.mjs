@@ -53,6 +53,10 @@ import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search
  *   - Der API-Transport summiert Abfragen, Batches, rows_read, rows_written und Dauer
  *     aus den D1-Antworten; --max-rows-read / --max-rows-written brechen den Lauf ab,
  *     sobald das Budget überschritten ist. --dry-run schätzt Umfang und Anweisungen.
+ *   - --stamp-fingerprint schreibt nur den Fingerabdruck neu (drei Metadatenzeilen), wenn
+ *     sich ausschließlich seine Berechnung geändert hat, die Projektion aber unverändert ist:
+ *     erlaubt nur, wenn corpus_hash, norm_count und publication_count in D1 exakt dem
+ *     Repository entsprechen (fail-closed); sonst ist eine Projektion nötig.
  *
  * Transport:
  *   --transport api       D1-REST-API mit parametrisierten Batches (CLOUDFLARE_API_TOKEN)
@@ -429,6 +433,12 @@ export function corpusOverviewMeta(norms, publications) {
   };
 }
 
+/** Nur die Fingerabdruck-Zeilen (siehe --stamp-fingerprint). */
+export function fingerprintStampQueries(fingerprint) {
+  const values = { projection_fingerprint: fingerprint.fingerprint, projection_logic_hash: fingerprint.logic, corpus_content_hash: fingerprint.corpus };
+  return Object.entries(values).map(([key, value]) => q('INSERT INTO law_runtime_meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value', [key, value]));
+}
+
 /** Laufzeitmetadaten; sie werden als letzte Anweisungen eines erfolgreichen Laufs geschrieben. */
 export function runtimeMetaQueries({ now, norms, publications, fingerprint, mode }) {
   const values = {
@@ -561,7 +571,7 @@ async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4
 
 /** Liest die gespeicherten Fingerabdrücke aus law_runtime_meta (null, wenn nicht lesbar). */
 async function readStoredFingerprint({ transport, config, local, persistTo, databaseName, stats }) {
-  const sql = "SELECT key, value FROM law_runtime_meta WHERE key IN ('projection_fingerprint', 'corpus_hash', 'sync_mode', 'last_sync_at')";
+  const sql = "SELECT key, value FROM law_runtime_meta WHERE key IN ('projection_fingerprint', 'corpus_hash', 'sync_mode', 'last_sync_at', 'norm_count', 'publication_count')";
   try {
     let results;
     if (transport === 'api') {
@@ -762,6 +772,31 @@ async function main() {
     console.log(stored?.projection_fingerprint
       ? `Gespeicherter Fingerabdruck ${stored.projection_fingerprint.slice(0, 16)}… weicht ab; Sync läuft.`
       : 'Kein gespeicherter Fingerabdruck in D1 (oder nicht lesbar); Sync läuft.');
+  }
+
+  if (args.includes('--stamp-fingerprint')) {
+    // Fingerabdruck neu schreiben, ohne zu projizieren: nur wenn D1 nachweislich den
+    // aktuellen Bestand trägt (corpus_hash und Zähler identisch).
+    if (dryRun) throw new Error('--stamp-fingerprint und --dry-run schließen sich aus');
+    const [stampNorms, stampPublications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
+    const stored = await readStoredFingerprint({ transport, config, local, persistTo, databaseName, stats });
+    const expected = { corpus_hash: corpusFingerprint(stampNorms, stampPublications), norm_count: String(stampNorms.length), publication_count: String(stampPublications.length) };
+    const deviations = Object.entries(expected).filter(([key, value]) => stored?.[key] !== value).map(([key, value]) => `${key}: D1 ${stored?.[key] ?? '(fehlt)'} ≠ Git ${value}`);
+    if (deviations.length > 0) throw new Error(`Fingerabdruck wird nicht gesetzt, die Projektion entspricht nicht dem Bestand: ${deviations.join('; ')}`);
+    const queries = fingerprintStampQueries(fingerprint);
+    if (transport === 'api') {
+      await sendBatches(config, queries, batchSize, stats);
+    } else {
+      const runDirectory = join(ROOT, '.cache', 'd1-sync', `${new Date().toISOString().replace(/[:.]/gu, '-')}-stamp`);
+      await mkdir(runDirectory, { recursive: true });
+      const filePath = join(runDirectory, 'stamp.sql');
+      await writeFile(filePath, `${queries.map(renderStatement).join('\n')}\n`, 'utf8');
+      const payload = await executeSqlFile(filePath, { local, persistTo, databaseName });
+      recordResults(stats, payload, { queries: queries.length, batches: 1 });
+    }
+    console.log(`Projektionsfingerabdruck ${fingerprint.fingerprint.slice(0, 16)}… geschrieben (corpus_hash und Zähler identisch; zuvor ${stored?.projection_fingerprint?.slice(0, 16) ?? '(kein Wert)'}…).`);
+    console.log(`D1-Kosten: ${formatStats(stats)}`);
+    return;
   }
 
   const [loadedNorms, publications, topics, pressReleases] = await Promise.all([

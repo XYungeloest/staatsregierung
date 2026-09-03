@@ -1,6 +1,10 @@
+import { execFile } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { readdir, readFile } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
+import { promisify } from 'node:util';
+
+const execFileAsync = promisify(execFile);
 
 /**
  * Deterministischer Fingerabdruck der D1-Projektion von OstRecht.
@@ -12,6 +16,12 @@ import { join, relative, resolve } from 'node:path';
  *     Portalbezüge, die Konfiguration und die Suchprojektion in packages/recht-search/src/),
  *   - dem Rechtsbestand (content/normen, content/verkuendungen) und
  *   - den korpusweiten Portalgrundlagen (content/themen, content/presse).
+ *
+ * Gezählt werden nur Dateien, die Git kennt oder kennen würde (`git ls-files --cached
+ * --others --exclude-standard`): getrackte Dateien und noch nicht eingecheckte Arbeits-
+ * kopien, aber keine ignorierten Dateien wie `.DS_Store`. Nur so liefern ein lokaler
+ * Arbeitsbaum und der CI-Checkout denselben Wert. Außerhalb eines Git-Repositorys wird
+ * das Dateisystem ohne Punktdateien durchlaufen.
  *
  * Der Sync legt den Wert als projection_fingerprint in law_runtime_meta ab und
  * beendet sich ohne Schreibzugriff, wenn D1 bereits denselben Fingerabdruck trägt;
@@ -46,6 +56,8 @@ async function walkFiles(directory, output) {
     throw error;
   }
   for (const entry of entries) {
+    // Punktdateien (.DS_Store, Editor-Reste) gehören nie zur Projektion.
+    if (entry.name.startsWith('.')) continue;
     const path = join(directory, entry.name);
     if (entry.isDirectory()) await walkFiles(path, output);
     else if (entry.isFile()) output.push(path);
@@ -53,18 +65,42 @@ async function walkFiles(directory, output) {
   return output;
 }
 
+/** Dateien, die Git für die Pfadangaben kennt (getrackt oder ungetrackt, nicht ignoriert); null außerhalb von Git. */
+async function gitListedFiles(root, pathspecs) {
+  try {
+    const { stdout } = await execFileAsync('git', ['-C', root, 'ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', ...pathspecs], { maxBuffer: 256 * 1024 * 1024 });
+    return stdout.split('\0').filter(Boolean).map((path) => resolve(root, path));
+  } catch {
+    return null;
+  }
+}
+
+/** Sortierte, eindeutige Liste der Dateien einer Fingerabdruckmenge. */
+export async function listFingerprintFiles(root, roots, files = []) {
+  const listed = await gitListedFiles(root, [...roots, ...files]);
+  const collected = listed ?? [...files.map((file) => resolve(root, file))];
+  if (listed === null) for (const directory of roots) await walkFiles(resolve(root, directory), collected);
+  return [...new Set(collected)].sort();
+}
+
 async function hashFileSet(root, files) {
-  const lines = await Promise.all([...files].sort().map(async (path) => {
-    const digest = createHash('sha256').update(await readFile(path)).digest('hex');
-    return `${relative(root, path).replaceAll('\\', '/')}\t${digest}`;
-  }));
+  const lines = [];
+  for (const path of files) {
+    let bytes;
+    try {
+      bytes = await readFile(path);
+    } catch (error) {
+      // Getrackt, aber im Arbeitsbaum gelöscht: zählt nicht zum Inhalt.
+      if (error.code === 'ENOENT') continue;
+      throw error;
+    }
+    lines.push(`${relative(root, path).replaceAll('\\', '/')}\t${createHash('sha256').update(bytes).digest('hex')}`);
+  }
   return createHash('sha256').update(lines.join('\n')).digest('hex');
 }
 
-async function hashRoots(root, roots, files = []) {
-  const collected = [...files.map((file) => resolve(root, file))];
-  for (const directory of roots) await walkFiles(resolve(root, directory), collected);
-  return hashFileSet(root, collected);
+export async function hashRoots(root, roots, files = []) {
+  return hashFileSet(root, await listFingerprintFiles(root, roots, files));
 }
 
 /** Inhaltshash des Rechtsbestands (alle Dateien unter content/normen und content/verkuendungen). */

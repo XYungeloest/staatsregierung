@@ -368,9 +368,11 @@ Release-Gates vor dem Merge (PR bleibt Draft):
 - [ ] **Produktions-Smoke** (`npm run test:deployment:production`) nach dem ersten Deployment mit
   D1-Laufzeit; bis dahin ist die Runtime nur lokal (Miniflare) und per `wrangler dev --remote`
   geprüft.
-- [ ] **CI-Token erweitern.** Der Job `d1_sync` braucht für `CLOUDFLARE_API_TOKEN` zusätzlich
-  `D1 Read`/`D1 Write` für `ostrecht-recht`; Migrationen unter `data/recht/d1/` werden bewusst
-  manuell mit `wrangler d1 execute` eingespielt.
+- [x] **CI-Token geprüft.** Das Repository-Secret `CLOUDFLARE_API_TOKEN` (Template „Cloudflare
+  Workers bearbeiten“, enthält `D1: Edit`) ist für den API-Transport des Syncs ausreichend: der
+  PR-Job `d1_token_check` liest die produktive Datenbank (Fingerabdruck, `--dry-run`) und schreibt
+  die Verkündungen des Testfixtures nach `ostrecht-recht-staging` (Lauf 33802773965, beide Schritte
+  grün). Migrationen unter `data/recht/d1/` werden weiterhin bewusst manuell eingespielt.
 
 Redaktionelle Restarbeiten (konkret in `data/recht/revosax-import-audit/` identifiziert):
 
