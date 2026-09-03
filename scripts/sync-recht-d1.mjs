@@ -14,14 +14,14 @@ import { loadAllNorms } from '@ostrecht/shared/lib/norms/loader.ts';
 import { loadAllVerkuendungen } from '@ostrecht/shared/lib/norms/publications.ts';
 import { buildDerivedContext, deriveNorm, fullCitationFor } from '@ostrecht/shared/lib/norms/derived.ts';
 import { getNormVersionIdentity } from '@ostrecht/shared/lib/norms/identity.ts';
-import { getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
+import { getGermanIndexLetter, getSubjectAreaGroups, getSubjectGroups, getSubjectSlug } from '@ostrecht/shared/lib/norms/routes.ts';
 import { classifyNormVersion, getApplicableVersion } from '@ostrecht/shared/lib/norms/versions.ts';
 import { getPressReleaseUrl, getTopicUrl } from '@ostrecht/shared/lib/portal/routes.ts';
 import { loadPressReleases, loadTopics } from '@ostrecht/shared/lib/portal/content.ts';
 import { buildFilterOptions, buildSearchDocument, buildSearchPublications, getNormAliases } from '@ostrecht/recht-search/search.ts';
 
 import { metaIdentityChanged, normsCitingPublications, scopeFromChangedPaths } from './lib/d1-sync-scope.mjs';
-import { projectionFingerprint } from './lib/d1-projection-fingerprint.mjs';
+import { FULL_SCOPE, fixtureScope, projectionIdentity, projectionIdentityAtRef } from './lib/d1-projection-fingerprint.mjs';
 import { SEARCH_UNIT_COLUMNS, searchIndexResetStatements } from './lib/d1-search-schema.mjs';
 
 /**
@@ -106,7 +106,10 @@ const DEFAULT_SQL_FILE_BYTES = 6_000_000;
 const DEFAULT_CLOUDFLARE_ACCOUNT_ID = '28871b9b1c6753235a331544f7c68460';
 const DEFAULT_D1_DATABASE_ID = '2491f200-de20-4a45-b028-d00a4fd57840';
 const D1_DATABASE_NAME = process.env.OSTRECHT_D1_DATABASE_NAME ?? 'ostrecht-recht';
-const RUNTIME_META_KEYS = ['last_sync_at', 'norm_count', 'publication_count', 'corpus_hash', 'projection_fingerprint', 'projection_logic_hash', 'corpus_content_hash', 'sync_mode', 'search_filters_json', 'search_document_count', 'search_publications_json', 'subject_groups_json', 'subject_areas_json', 'corpus_stats_json'];
+const RUNTIME_META_KEYS = ['last_sync_at', 'norm_count', 'publication_count', 'corpus_hash', 'projection_fingerprint', 'projection_scope', 'projection_logic_hash', 'corpus_content_hash', 'portal_content_hash', 'sync_mode', 'sync_state', 'search_filters_json', 'search_document_count', 'search_publications_json', 'subject_groups_json', 'subject_areas_json', 'corpus_stats_json'];
+const IDENTITY_META_KEYS = ['projection_fingerprint', 'projection_scope', 'projection_logic_hash', 'corpus_content_hash', 'portal_content_hash', 'sync_state'];
+const BUDGETS_PATH = join(ROOT, 'data', 'recht', 'd1-sync-budgets.json');
+const PRODUCTION_DATABASE_NAME = 'ostrecht-recht';
 const execFileAsync = promisify(execFile);
 
 function valueAfter(args, flag) {
@@ -214,7 +217,16 @@ const NORM_COLUMNS = [
   'document_date', 'publication_date', 'effective_date', 'expiry_date', 'initial_citation', 'summary',
   'responsible_ministry', 'enacting_body', 'source_kind', 'updated_at', 'meta_json', 'history_json', 'sort_title', 'current_valid_from',
   'subjects_json', 'primary_subject', 'keywords_json', 'aliases_json', 'origin_kind', 'origin_baseline_version_id', 'origin_last_own_change_date', 'version_count', 'last_change_date',
+  'index_letter',
 ];
+
+/** Einträge des Stichwortindex einer Norm (Abkürzung, Kurzbezeichnung, Schlagwörter; mindestens zwei Zeichen). */
+export function keywordEntries(norm, identity) {
+  const values = [identity.abbr, identity.shortTitle, ...(norm.meta.keywords ?? [])]
+    .map((value) => (typeof value === 'string' ? value.trim() : ''))
+    .filter((value) => value.length >= 2);
+  return [...new Set(values)].map((keyword) => ({ keyword, indexLetter: getGermanIndexLetter(keyword) }));
+}
 
 /**
  * Anweisungen einer Norm. Inkrementell werden zuerst die eigenen Zeilen der Norm über
@@ -232,6 +244,7 @@ export function normQueries(norm, context, now, { full = false } = {}) {
   const queries = full ? [] : [
     q('DELETE FROM law_search_units WHERE norm_id = ?', [meta.id]),
     q('DELETE FROM law_norm_subjects WHERE norm_id = ?', [meta.id]),
+    q('DELETE FROM law_norm_keywords WHERE norm_id = ?', [meta.id]),
     q('DELETE FROM law_norm_history WHERE norm_id = ?', [meta.id]),
     q('DELETE FROM law_source_objects WHERE norm_id = ?', [meta.id]),
     q('DELETE FROM law_version_blocks WHERE norm_id = ?', [meta.id]),
@@ -248,6 +261,7 @@ export function normQueries(norm, context, now, { full = false } = {}) {
     JSON.stringify(meta), JSON.stringify(history), currentIdentity.title.toLocaleLowerCase('de'), current.validFrom,
     JSON.stringify(meta.subjects), meta.primarySubject ?? null, JSON.stringify(meta.keywords), JSON.stringify(getNormAliases(norm, currentIdentity)),
     derived.origin.kind, derived.origin.baselineVersionId ?? null, derived.origin.lastOwnChangeDate ?? null, versions.length, lastChangeDate(norm),
+    getGermanIndexLetter(currentIdentity.title),
   ]));
 
   for (const version of versions) {
@@ -302,6 +316,9 @@ export function normQueries(norm, context, now, { full = false } = {}) {
     subjectSlugs.add(subjectSlug);
     queries.push(q('INSERT INTO law_norm_subjects (norm_id, subject, subject_slug) VALUES (?, ?, ?)', [meta.id, subject, subjectSlug]));
   }
+  for (const { keyword, indexLetter } of keywordEntries(norm, currentIdentity)) {
+    queries.push(q('INSERT OR IGNORE INTO law_norm_keywords (norm_id, keyword, index_letter) VALUES (?, ?, ?)', [meta.id, keyword, indexLetter]));
+  }
   for (const [entryIndex, entry] of history.entries.entries()) {
     queries.push(q(`INSERT INTO law_norm_history (
       norm_id, entry_index, change_date, change_type, title, citation, note, affecting_version_id, related_norm
@@ -339,6 +356,7 @@ export function deleteNormQueries(slug) {
   return [
     q(`DELETE FROM law_search_units WHERE ${byNorm}`, [slug]),
     q(`DELETE FROM law_norm_subjects WHERE ${byNorm}`, [slug]),
+    q(`DELETE FROM law_norm_keywords WHERE ${byNorm}`, [slug]),
     q(`DELETE FROM law_norm_history WHERE ${byNorm}`, [slug]),
     q(`DELETE FROM law_search_documents WHERE ${byNorm}`, [slug]),
     q(`DELETE FROM law_norm_derived WHERE ${byNorm}`, [slug]),
@@ -373,7 +391,7 @@ export function derivedQueries(norm, context, now) {
 export function fullResetQueries() {
   return [
     ...searchIndexResetStatements().map((sql) => q(sql)),
-    ...['law_norm_history', 'law_norm_subjects', 'law_search_documents', 'law_norm_derived', 'law_source_objects', 'law_version_blocks', 'law_versions', 'law_norms', 'law_publications']
+    ...['law_norm_history', 'law_norm_subjects', 'law_norm_keywords', 'law_search_documents', 'law_norm_derived', 'law_source_objects', 'law_version_blocks', 'law_versions', 'law_norms', 'law_publications']
       .map((table) => q(`DELETE FROM ${table}`)),
     q(`DELETE FROM law_runtime_meta WHERE key IN (${RUNTIME_META_KEYS.map(() => '?').join(', ')})`, RUNTIME_META_KEYS),
   ];
@@ -433,22 +451,53 @@ export function corpusOverviewMeta(norms, publications) {
   };
 }
 
-/** Nur die Fingerabdruck-Zeilen (siehe --stamp-fingerprint). */
-export function fingerprintStampQueries(fingerprint) {
-  const values = { projection_fingerprint: fingerprint.fingerprint, projection_logic_hash: fingerprint.logic, corpus_content_hash: fingerprint.corpus };
-  return Object.entries(values).map(([key, value]) => q('INSERT INTO law_runtime_meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value', [key, value]));
+/** Identitätszeilen (Fingerabdruck, Scope, Teilhashes, Zustand `complete`). */
+export function identityMetaValues(identity) {
+  return {
+    projection_fingerprint: identity.fingerprint,
+    projection_scope: identity.scope ?? FULL_SCOPE,
+    projection_logic_hash: identity.logic,
+    corpus_content_hash: identity.corpus,
+    portal_content_hash: identity.portal ?? '',
+    sync_state: 'complete',
+  };
+}
+
+/** Nur die Identitätszeilen (siehe --stamp-fingerprint). */
+export function fingerprintStampQueries(identity) {
+  return Object.entries(identityMetaValues(identity)).map(([key, value]) => q('INSERT INTO law_runtime_meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value', [key, value]));
+}
+
+/**
+ * Erste Anweisungen eines inkrementellen Laufs: die gespeicherte Identität wird entwertet
+ * (`sync_state` = `incremental-in-progress`, Fingerabdruck entfernt), damit ein abgebrochener
+ * Lauf nie als vollständiger Basiszustand gilt; die neue Identität kommt erst am Ende.
+ */
+export function incrementalStartQueries(now) {
+  return [
+    q('DELETE FROM law_runtime_meta WHERE key = ?', ['projection_fingerprint']),
+    q('INSERT INTO law_runtime_meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value', ['sync_state', `incremental-in-progress:${now}`]),
+  ];
+}
+
+/**
+ * Metadaten eines manuellen Teilsyncs (--slug/--delete/--publications/--changed-paths):
+ * nur Zeitstempel und Modus. Die gespeicherte Identität bleibt unverändert, weil ein
+ * Teilsync D1 nicht nachweisbar auf den Stand des Arbeitsbaums bringt; die nächste
+ * --git-diff- oder --full-Projektion schreibt sie wieder vollständig.
+ */
+export function partialMetaQueries({ now, mode }) {
+  return Object.entries({ last_sync_at: now, sync_mode: mode }).map(([key, value]) => q('INSERT INTO law_runtime_meta (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value=excluded.value', [key, value]));
 }
 
 /** Laufzeitmetadaten; sie werden als letzte Anweisungen eines erfolgreichen Laufs geschrieben. */
-export function runtimeMetaQueries({ now, norms, publications, fingerprint, mode }) {
+export function runtimeMetaQueries({ now, norms, publications, fingerprint, identity = fingerprint, mode }) {
   const values = {
     last_sync_at: now,
     norm_count: String(norms.length),
     publication_count: String(publications.length),
     corpus_hash: corpusFingerprint(norms, publications),
-    projection_fingerprint: fingerprint.fingerprint,
-    projection_logic_hash: fingerprint.logic,
-    corpus_content_hash: fingerprint.corpus,
+    ...identityMetaValues(identity),
     sync_mode: mode,
     search_filters_json: JSON.stringify(buildFilterOptions(norms)),
     search_document_count: String(norms.reduce((sum, norm) => sum + norm.versions.length, 0)),
@@ -490,16 +539,84 @@ export function recordResults(stats, results, { queries = results.length, batche
     stats.durationMs += Number(meta.duration ?? 0);
   }
   if (stats.limits.maxRowsRead !== undefined && stats.rowsRead > stats.limits.maxRowsRead) {
-    throw new SyncBudgetExceeded(`Lesebudget überschritten: ${stats.rowsRead} gelesene Zeilen > --max-rows-read ${stats.limits.maxRowsRead}; Sync abgebrochen (Laufzeitmetadaten wurden nicht geschrieben)`);
+    throw new SyncBudgetExceeded(`Lesebudget überschritten: ${stats.rowsRead} gelesene Zeilen > Budget ${stats.limits.maxRowsRead} (${stats.limits.profile ?? '--max-rows-read'}); Sync abgebrochen, Laufzeitmetadaten und Identität wurden nicht geschrieben`);
   }
   if (stats.limits.maxRowsWritten !== undefined && stats.rowsWritten > stats.limits.maxRowsWritten) {
-    throw new SyncBudgetExceeded(`Schreibbudget überschritten: ${stats.rowsWritten} geschriebene Zeilen > --max-rows-written ${stats.limits.maxRowsWritten}; Sync abgebrochen (Laufzeitmetadaten wurden nicht geschrieben)`);
+    throw new SyncBudgetExceeded(`Schreibbudget überschritten: ${stats.rowsWritten} geschriebene Zeilen > Budget ${stats.limits.maxRowsWritten} (${stats.limits.profile ?? '--max-rows-written'}); Sync abgebrochen, Laufzeitmetadaten und Identität wurden nicht geschrieben`);
   }
   return stats;
 }
 
 export function formatStats(stats) {
   return `${stats.queries} Abfragen in ${stats.batches} Batch(es)/Datei(en), rows_read ${stats.rowsRead}, rows_written ${stats.rowsWritten}, D1-Dauer ${Math.round(stats.durationMs)} ms`;
+}
+
+/**
+ * Budgetprofil aus data/recht/d1-sync-budgets.json; explizite --max-rows-* Werte gehen vor.
+ */
+export function resolveBudget(profileName, budgets, { maxRowsRead, maxRowsWritten } = {}) {
+  const profile = profileName ? budgets?.profiles?.[profileName] : null;
+  if (profileName && !profile) throw new Error(`Unbekanntes Budgetprofil ${profileName}; verfügbar: ${Object.keys(budgets?.profiles ?? {}).join(', ')}`);
+  const limits = {
+    maxRowsRead: maxRowsRead ?? profile?.maxRowsRead,
+    maxRowsWritten: maxRowsWritten ?? profile?.maxRowsWritten,
+  };
+  if (limits.maxRowsRead === undefined) delete limits.maxRowsRead;
+  if (limits.maxRowsWritten === undefined) delete limits.maxRowsWritten;
+  if (profileName) limits.profile = profileName;
+  return limits;
+}
+
+export class SyncBaseMismatch extends Error {}
+
+/**
+ * Entscheidet vor dem ersten Schreibzugriff, was ein Lauf tun darf. Reine Funktion über
+ *   - requested: 'full' | 'incremental' (Umfang aus den Optionen),
+ *   - stored: gespeicherte Identität aus law_runtime_meta (null = nicht lesbar/leer),
+ *   - identity: erwartete Identität des Arbeitsbaums im Ziel-Scope,
+ *   - baseIdentity: erwartete Identität des Basis-Refs (nur --git-diff) im Vollbestands-Scope,
+ *   - recover: ob bei abweichendem Ausgangszustand eine markierte Recovery-Vollprojektion
+ *     erlaubt ist (--recover), sonst fail-closed.
+ * Ergebnis: { action: 'noop' | 'full' | 'incremental' | 'recovery', reason }.
+ *
+ * Ein No-op setzt Fingerabdruck UND Scope gleich voraus; ein Fixture-Scope ist nie ein
+ * gültiger Basiszustand für den Vollbestand. Ein inkrementeller Lauf verlangt, dass D1
+ * genau den Basiszustand trägt (Fingerabdruck des Basis-Refs, Scope `full`, Zustand
+ * `complete`); fehlender, abgebrochener (in-progress), fixture- oder fremder Zustand
+ * wird nie als Basis anerkannt.
+ */
+export function decideSyncAction({ requested, stored, identity, baseIdentity = null, recover = false, ignoreFingerprint = false, requiresBase = true }) {
+  const storedFingerprint = stored?.projection_fingerprint ?? null;
+  const storedScope = stored?.projection_scope ?? (storedFingerprint ? '(unbekannt)' : null);
+  const storedState = stored?.sync_state ?? (storedFingerprint ? 'complete' : null);
+  const complete = storedState === 'complete';
+  if (!ignoreFingerprint && storedFingerprint && storedFingerprint === identity.fingerprint && storedScope === identity.scope && complete) {
+    return { action: 'noop', reason: `Fingerabdruck ${identity.fingerprint.slice(0, 16)}… und Scope ${identity.scope} identisch` };
+  }
+  if (requested === 'full') {
+    return { action: 'full', reason: ignoreFingerprint ? '--ignore-fingerprint' : storedFingerprint ? `gespeicherte Identität ${storedFingerprint.slice(0, 16)}… (${storedScope}, ${storedState}) weicht ab` : 'keine gespeicherte Identität' };
+  }
+  // inkrementell: Basiszustand prüfen
+  const problems = [];
+  if (!storedFingerprint) problems.push(`D1 trägt keine vollständige Identität (sync_state ${storedState ?? 'fehlt'})`);
+  else if (!complete) problems.push(`D1 meldet einen unvollständigen Zustand (${storedState})`);
+  if (storedFingerprint && storedScope !== identity.scope) problems.push(`Scope in D1 ist ${storedScope}, erwartet ${identity.scope}`);
+  if (baseIdentity) {
+    if (storedFingerprint && storedFingerprint !== baseIdentity.fingerprint) problems.push(`Fingerabdruck in D1 ${storedFingerprint.slice(0, 16)}… ≠ erwartete Basis ${baseIdentity.fingerprint.slice(0, 16)}… (${baseIdentity.ref ?? 'Basis'})`);
+  } else if (requiresBase) {
+    problems.push('kein Basis-Ref zur Verifikation des Ausgangszustands');
+  }
+  if (problems.length === 0) return { action: 'incremental', reason: `Basiszustand verifiziert (${baseIdentity ? baseIdentity.fingerprint.slice(0, 16) : storedFingerprint.slice(0, 16)}…, Scope ${identity.scope})` };
+  if (recover) return { action: 'recovery', reason: `Recovery-Vollprojektion: ${problems.join('; ')}` };
+  throw new SyncBaseMismatch(`Inkrementeller Sync abgelehnt (fail-closed): ${problems.join('; ')}. Abhilfe: Vollprojektion mit --full --budget full oder automatische Recovery mit --recover.`);
+}
+
+/** Vorabprüfung der Planschätzung gegen das Budget; wirft, bevor irgendetwas geschrieben wird. */
+export function assertEstimateWithinBudget(cost, limits) {
+  const problems = [];
+  if (limits.maxRowsWritten !== undefined && cost.rowsWrittenMax > limits.maxRowsWritten) problems.push(`geschätzte rows_written ${cost.rowsWrittenMax} > Budget ${limits.maxRowsWritten}`);
+  if (limits.maxRowsRead !== undefined && cost.rowsReadApprox > limits.maxRowsRead) problems.push(`geschätzte rows_read ${cost.rowsReadApprox} > Budget ${limits.maxRowsRead}`);
+  if (problems.length > 0) throw new SyncBudgetExceeded(`Vorabschätzung überschreitet das Budget (${limits.profile ?? 'explizit'}): ${problems.join('; ')}; es wurde nichts geschrieben`);
 }
 
 async function cloudflareQuery({ accountId, databaseId, apiToken }, batch) {
@@ -570,8 +687,8 @@ async function executeSqlFile(filePath, { local = false, persistTo, attempts = 4
 }
 
 /** Liest die gespeicherten Fingerabdrücke aus law_runtime_meta (null, wenn nicht lesbar). */
-async function readStoredFingerprint({ transport, config, local, persistTo, databaseName, stats }) {
-  const sql = "SELECT key, value FROM law_runtime_meta WHERE key IN ('projection_fingerprint', 'corpus_hash', 'sync_mode', 'last_sync_at', 'norm_count', 'publication_count')";
+async function readStoredIdentity({ transport, config, local, persistTo, databaseName, stats }) {
+  const sql = "SELECT key, value FROM law_runtime_meta WHERE key IN ('projection_fingerprint', 'projection_scope', 'sync_state', 'corpus_hash', 'sync_mode', 'last_sync_at', 'norm_count', 'publication_count')";
   try {
     let results;
     if (transport === 'api') {
@@ -671,12 +788,13 @@ export async function resolveScope(args, { norms, publications }) {
  * Normen, abgeleitete Daten, Verkündungen, Laufzeitmetadaten. Reine Funktion über den
  * geladenen Bestand; Tests prüfen damit Umfang und Kostenpfad ohne Datenbank.
  */
-export function buildSyncPlan({ scope, norms, publications, context, now, fingerprint }) {
+export function buildSyncPlan({ scope, norms, publications, context, now, fingerprint, identity = fingerprint, writeIdentity = true }) {
   const full = scope.mode === 'full';
   const selectedSlugs = new Set(scope.slugs);
   const selected = full ? norms : norms.filter((norm) => selectedSlugs.has(norm.meta.slug));
   const groups = [];
   if (full) groups.push({ slug: '(reset)', queries: fullResetQueries() });
+  else if (writeIdentity) groups.push({ slug: '(identität entwerten)', queries: incrementalStartQueries(now) });
   for (const slug of scope.deletedSlugs) groups.push({ slug: `(löschen ${slug})`, queries: deleteNormQueries(slug) });
   let searchUnitCount = 0;
   for (const norm of selected) {
@@ -696,7 +814,7 @@ export function buildSyncPlan({ scope, norms, publications, context, now, finger
   const finalQueries = [
     ...scope.deletedPublications.flatMap((slug) => deletePublicationQueries(slug)),
     ...publicationSelection.flatMap((publication) => publicationQueries(publication, now)),
-    ...runtimeMetaQueries({ now, norms, publications, fingerprint, mode: scope.mode }),
+    ...(full || writeIdentity ? runtimeMetaQueries({ now, norms, publications, identity, mode: scope.mode }) : partialMetaQueries({ now, mode: 'manual-partial' })),
   ];
   groups.push({ slug: '(verkuendungen+meta)', queries: finalQueries });
   const all = groups.flatMap((group) => group.queries);
@@ -712,18 +830,22 @@ export function buildSyncPlan({ scope, norms, publications, context, now, finger
   };
 }
 
-/** Grobe Kostenschätzung eines Plans (Zeilen; Vollprojektionen lesen nur Verwaltungszeilen). */
-export function estimatePlanCost(plan) {
+export const DEFAULT_ESTIMATE = { writtenPerStatement: 1.25, writtenPerSearchUnit: 14, readPerStatementFull: 1.0, readPerStatementIncremental: 2.0 };
+
+/**
+ * Konservative Kostenschätzung eines Plans (Zeilen), kalibriert an der produktiven
+ * Vollprojektion vom 3. September 2026 (103.127 Anweisungen, 38.561 Suchprovisionen →
+ * gemessen 103.403 gelesene / 465.926 geschriebene Zeilen): D1 zählt je Anweisung die
+ * Zeile selbst, Indexzeilen und die FTS5-Schattentabellen der Provisionen mit.
+ */
+export function estimatePlanCost(plan, estimate = DEFAULT_ESTIMATE) {
   const inserts = Object.entries(plan.byStatement).filter(([key]) => key.startsWith('insert')).reduce((sum, [, count]) => sum + count, 0);
-  const deletes = Object.entries(plan.byStatement).filter(([key]) => key.startsWith('delete')).reduce((sum, [, count]) => sum + count, 0);
+  const statements = plan.statementCount;
+  const rowsWrittenMax = Math.ceil(statements * estimate.writtenPerStatement + plan.searchUnitCount * estimate.writtenPerSearchUnit);
   return {
-    // Jede eingefügte Provision erzeugt zusätzlich die FTS5-Indexzeilen (Trigger); D1 zählt
-    // Schattentabellen-Schreibzugriffe mit, deshalb als Spanne angegeben.
     rowsWrittenMin: inserts,
-    rowsWrittenMax: inserts + plan.searchUnitCount * 3,
-    // Inkrementell: gelöschte Zeilen der betroffenen Normen werden über Indizes gelesen;
-    // Vollprojektion: nur Fingerabdruck und Reset.
-    rowsReadApprox: plan.full ? 16 : deletes + plan.searchUnitCount + plan.selected.reduce((sum, norm) => sum + norm.versions.length * 4, 0),
+    rowsWrittenMax,
+    rowsReadApprox: Math.ceil(statements * (plan.full ? estimate.readPerStatementFull : estimate.readPerStatementIncremental)) + 16,
   };
 }
 
@@ -739,12 +861,22 @@ async function main() {
   const local = args.includes('--local');
   const applySchema = args.includes('--apply-schema');
   const ignoreFingerprint = args.includes('--ignore-fingerprint');
+  const recover = args.includes('--recover');
+  const budgetProfile = valueAfter(args, '--budget');
+  const budgets = JSON.parse(await readFile(BUDGETS_PATH, 'utf8'));
   // Zieldatenbank des Wrangler-Transports (z. B. ostrecht-recht-staging); die API
   // adressiert über OSTRECHT_D1_DATABASE_ID.
   const databaseName = valueAfter(args, '--database') ?? D1_DATABASE_NAME;
   const persistTo = resolve(ROOT, valueAfter(args, '--persist-to') ?? join('.cache', 'wrangler-local'));
   const transport = valueAfter(args, '--transport') ?? (local ? 'wrangler' : config.apiToken ? 'api' : 'wrangler');
-  const stats = createStats({ maxRowsRead: integerAfter(args, '--max-rows-read'), maxRowsWritten: integerAfter(args, '--max-rows-written') });
+  const explicitLimits = { maxRowsRead: integerAfter(args, '--max-rows-read'), maxRowsWritten: integerAfter(args, '--max-rows-written') };
+  const stats = createStats(resolveBudget(budgetProfile, budgets, explicitLimits));
+  const corpusFilter = valueAfter(args, '--corpus-filter');
+  // Ein Fixture darf nie die produktive Datenbank treffen (Vollprojektion würde den Bestand
+  // auf das Fixture reduzieren): nur lokal oder gegen eine ausdrücklich andere Datenbank (Staging).
+  const targetsProduction = transport === 'api' ? config.databaseId === DEFAULT_D1_DATABASE_ID : !local && databaseName === PRODUCTION_DATABASE_NAME;
+  if (corpusFilter && targetsProduction) throw new Error('--corpus-filter ist nur lokal oder gegen eine Staging-Datenbank zulässig (Testfixture)');
+  if (targetsProduction && !dryRun && !stats.limits.maxRowsWritten) console.warn('Hinweis: kein Schreibbudget gesetzt (--budget <Profil> oder --max-rows-written); der automatische Sync verwendet immer ein Profil.');
   if (!['api', 'wrangler'].includes(transport)) throw new Error(`Unbekannter Transport ${transport}`);
   if (local && transport !== 'wrangler') throw new Error('--local gibt es nur für den Wrangler-Transport');
   if (applySchema && !local) throw new Error('--apply-schema ist nur lokal erlaubt; produktive Migrationen werden manuell eingespielt (zuerst lokal, dann Staging)');
@@ -759,28 +891,23 @@ async function main() {
   }
 
   const startedAt = Date.now();
-  const fingerprint = await projectionFingerprint(ROOT);
-  console.log(`Projektionsfingerabdruck ${fingerprint.fingerprint.slice(0, 16)}… (Logik ${fingerprint.logic.slice(0, 12)}…, Bestand ${fingerprint.corpus.slice(0, 12)}…)`);
+  // Projektionsidentität im Ziel-Scope: Vollbestand oder Fixture (Pfad + Inhaltshash).
+  const scopeId = corpusFilter ? await fixtureScope(ROOT, corpusFilter) : FULL_SCOPE;
+  const fingerprint = await projectionIdentity({ root: ROOT, scope: scopeId });
+  console.log(`Projektionsidentität ${fingerprint.fingerprint.slice(0, 16)}… (Scope ${fingerprint.scope}, Logik ${fingerprint.logic.slice(0, 12)}…, Bestand ${fingerprint.corpus.slice(0, 12)}…, Portal ${fingerprint.portal.slice(0, 12)}…)`);
   const canReadTarget = !dryRun || transport === 'wrangler' || Boolean(config.apiToken);
-  if (!ignoreFingerprint && canReadTarget) {
-    const stored = await readStoredFingerprint({ transport, config, local, persistTo, databaseName, stats });
-    if (stored?.projection_fingerprint === fingerprint.fingerprint) {
-      console.log(`D1-Projektion ist bereits exakt aktuell (Fingerabdruck identisch, letzter Sync ${stored.last_sync_at ?? '?'}, Modus ${stored.sync_mode ?? '?'}); kein Sync erforderlich.`);
-      console.log(`Kosten dieser Prüfung: ${formatStats(stats)}`);
-      return;
-    }
-    console.log(stored?.projection_fingerprint
-      ? `Gespeicherter Fingerabdruck ${stored.projection_fingerprint.slice(0, 16)}… weicht ab; Sync läuft.`
-      : 'Kein gespeicherter Fingerabdruck in D1 (oder nicht lesbar); Sync läuft.');
-  }
+  const stored = canReadTarget ? await readStoredIdentity({ transport, config, local, persistTo, databaseName, stats }) : null;
+  if (stored) console.log(`D1 trägt: Fingerabdruck ${stored.projection_fingerprint?.slice(0, 16) ?? '(keiner)'}…, Scope ${stored.projection_scope ?? '(keiner)'}, Zustand ${stored.sync_state ?? '(keiner)'}, Modus ${stored.sync_mode ?? '?'}, letzter Sync ${stored.last_sync_at ?? '?'}`);
+  else console.log(canReadTarget ? 'D1 trägt keine lesbare Identität.' : 'Identität in D1 nicht geprüft (Dry-run ohne Zugang).');
 
   if (args.includes('--stamp-fingerprint')) {
     // Fingerabdruck neu schreiben, ohne zu projizieren: nur wenn D1 nachweislich den
     // aktuellen Bestand trägt (corpus_hash und Zähler identisch).
     if (dryRun) throw new Error('--stamp-fingerprint und --dry-run schließen sich aus');
+    if (corpusFilter) throw new Error('--stamp-fingerprint gilt nur für den Vollbestand');
     const [stampNorms, stampPublications] = await Promise.all([loadAllNorms(), loadAllVerkuendungen()]);
-    const stored = await readStoredFingerprint({ transport, config, local, persistTo, databaseName, stats });
     const expected = { corpus_hash: corpusFingerprint(stampNorms, stampPublications), norm_count: String(stampNorms.length), publication_count: String(stampPublications.length) };
+    if (stored?.projection_scope && stored.projection_scope !== FULL_SCOPE) throw new Error(`Fingerabdruck wird nicht gesetzt: D1 trägt den Scope ${stored.projection_scope}, kein Vollbestand`);
     const deviations = Object.entries(expected).filter(([key, value]) => stored?.[key] !== value).map(([key, value]) => `${key}: D1 ${stored?.[key] ?? '(fehlt)'} ≠ Git ${value}`);
     if (deviations.length > 0) throw new Error(`Fingerabdruck wird nicht gesetzt, die Projektion entspricht nicht dem Bestand: ${deviations.join('; ')}`);
     const queries = fingerprintStampQueries(fingerprint);
@@ -794,7 +921,7 @@ async function main() {
       const payload = await executeSqlFile(filePath, { local, persistTo, databaseName });
       recordResults(stats, payload, { queries: queries.length, batches: 1 });
     }
-    console.log(`Projektionsfingerabdruck ${fingerprint.fingerprint.slice(0, 16)}… geschrieben (corpus_hash und Zähler identisch; zuvor ${stored?.projection_fingerprint?.slice(0, 16) ?? '(kein Wert)'}…).`);
+    console.log(`Projektionsidentität ${fingerprint.fingerprint.slice(0, 16)}… (Scope ${fingerprint.scope}) geschrieben (corpus_hash und Zähler identisch; zuvor ${stored?.projection_fingerprint?.slice(0, 16) ?? '(kein Wert)'}…).`);
     console.log(`D1-Kosten: ${formatStats(stats)}`);
     return;
   }
@@ -802,14 +929,37 @@ async function main() {
   const [loadedNorms, publications, topics, pressReleases] = await Promise.all([
     loadAllNorms(), loadAllVerkuendungen(), loadTopics(), loadPressReleases(),
   ]);
-  const corpusFilter = valueAfter(args, '--corpus-filter');
-  // Ein Fixture darf nie die produktive Datenbank treffen (Vollprojektion würde den Bestand
-  // auf das Fixture reduzieren): nur lokal oder gegen eine ausdrücklich andere Datenbank (Staging).
-  const targetsProduction = transport === 'api' ? config.databaseId === DEFAULT_D1_DATABASE_ID : !local && databaseName === 'ostrecht-recht';
-  if (corpusFilter && targetsProduction) throw new Error('--corpus-filter ist nur lokal oder gegen eine Staging-Datenbank zulässig (Testfixture)');
   const norms = corpusFilter ? applyCorpusFilter(loadedNorms, JSON.parse(await readFile(resolve(ROOT, corpusFilter), 'utf8')), corpusFilter) : loadedNorms;
   console.log(`${loadedNorms.length} Normen und ${publications.length} Verkündungen geladen und validiert (${Math.round((Date.now() - startedAt) / 1000)} s)${corpusFilter ? `; Fixture ${corpusFilter}: ${norms.length} Normen` : ''}`);
-  const scope = await resolveScope(args, { norms, publications });
+  let scope = await resolveScope(args, { norms, publications });
+  // Entscheidung vor dem ersten Schreibzugriff: No-op, Vollprojektion, verifizierter
+  // inkrementeller Lauf oder markierte Recovery (fail-closed bei abweichender Basis).
+  const gitDiffBase = args.includes('--git-diff') ? args[args.indexOf('--git-diff') + 1] : null;
+  const baseIdentity = scope.mode === 'incremental' && gitDiffBase ? await projectionIdentityAtRef(gitDiffBase, { root: ROOT, scope: scopeId }) : null;
+  if (baseIdentity) console.log(`Erwartete Basisidentität ${gitDiffBase}: ${baseIdentity.fingerprint.slice(0, 16)}…`);
+  const decision = decideSyncAction({
+    requested: scope.mode,
+    stored,
+    identity: fingerprint,
+    baseIdentity,
+    recover,
+    ignoreFingerprint,
+    // Manuelle Auswahl (--slug/--publications/--changed-paths) kennt keinen Basis-Ref; sie
+    // verlangt trotzdem eine vollständige Identität im selben Scope.
+    requiresBase: Boolean(gitDiffBase),
+  });
+  console.log(`Entscheidung: ${decision.action} – ${decision.reason}`);
+  if (decision.action === 'noop') {
+    console.log(`D1-Projektion ist bereits exakt aktuell (letzter Sync ${stored?.last_sync_at ?? '?'}, Modus ${stored?.sync_mode ?? '?'}); kein Sync erforderlich.`);
+    console.log(`Kosten dieser Prüfung: ${formatStats(stats)}`);
+    return;
+  }
+  if (decision.action === 'recovery') {
+    scope = { mode: 'full', slugs: [], deletedSlugs: [], publicationSlugs: [], deletedPublications: [], derivedRebuild: false, reasons: [decision.reason] };
+    if (!budgetProfile && explicitLimits.maxRowsWritten === undefined) Object.assign(stats.limits, resolveBudget('recovery', budgets));
+    else if (budgetProfile && budgetProfile !== 'recovery' && budgetProfile !== 'full') Object.assign(stats.limits, resolveBudget('recovery', budgets, explicitLimits));
+    console.log(`Recovery-Vollprojektion (Budget ${stats.limits.profile ?? 'explizit'}: rows_read ≤ ${stats.limits.maxRowsRead ?? '∞'}, rows_written ≤ ${stats.limits.maxRowsWritten ?? '∞'})`);
+  }
   const full = scope.mode === 'full';
   console.log(full
     ? 'Umfang: Vollprojektion (Tabellen werden einmalig geleert, keine normweisen Löschungen)'
@@ -817,11 +967,15 @@ async function main() {
   const context = buildDerivedContext({ norms, publications, topics, pressReleases, topicUrl: getTopicUrl, pressReleaseUrl: getPressReleaseUrl });
   console.log(`Korpusweite Ableitungen berechnet (${Math.round((Date.now() - startedAt) / 1000)} s)`);
   const now = new Date().toISOString();
-  const plan = buildSyncPlan({ scope, norms, publications, context, now, fingerprint });
-  const cost = estimatePlanCost(plan);
+  // Identität nur bei Vollprojektion und verifiziertem Git-Diff schreiben; manuelle Teilsyncs
+  // lassen die gespeicherte Identität unverändert (siehe partialMetaQueries).
+  const writeIdentity = full || Boolean(gitDiffBase);
+  const plan = buildSyncPlan({ scope, norms, publications, context, now, identity: fingerprint, writeIdentity });
+  const cost = estimatePlanCost(plan, budgets.estimate ?? DEFAULT_ESTIMATE);
   console.log(`Plan: ${plan.selected.length} Normen, ${scope.deletedSlugs.length} Löschungen, ${plan.derivedCount} abgeleitete Datensätze, ${plan.publicationCount} Verkündungen, ${plan.searchUnitCount} Suchprovisionen, ${plan.statementCount} Anweisungen`);
   console.log(`Anweisungen je Tabelle: ${JSON.stringify(plan.byStatement)}`);
-  console.log(`Schätzung: rows_written ≈ ${cost.rowsWrittenMin}–${cost.rowsWrittenMax}, rows_read ≈ ${cost.rowsReadApprox} (${full ? 'Vollprojektion: nur Verwaltungsabfragen' : 'inkrementell: nur Zeilen der betroffenen Normen über Indizes'})`);
+  console.log(`Schätzung: rows_written ≈ ${cost.rowsWrittenMin}–${cost.rowsWrittenMax}, rows_read ≈ ${cost.rowsReadApprox}; Budget ${stats.limits.profile ?? (stats.limits.maxRowsWritten ? 'explizit' : 'keins')}: rows_read ≤ ${stats.limits.maxRowsRead ?? '∞'}, rows_written ≤ ${stats.limits.maxRowsWritten ?? '∞'}`);
+  if (!dryRun) assertEstimateWithinBudget(cost, stats.limits);
 
   if (transport === 'api') {
     if (!dryRun) {

@@ -36,7 +36,7 @@ jobs:
       - name: Vollständige lokale D1-Projektion erzeugen
         run: npm run norms:runtime:d1-local
       - name: Lokale D1-Projektion verifizieren
-        run: npm run norms:runtime:d1-verify -- --local
+        run: npm run norms:runtime:d1-verify -- --local --fts-integrity
       - name: Zentrale Seiten barrierefrei prüfen
         env:
           SITE_TARGETS: law

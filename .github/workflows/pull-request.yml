@@ -110,12 +110,15 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: npm run norms:runtime:d1-sync -- --transport api --dry-run --git-diff "$BASE_SHA" "$HEAD_SHA"
-      - name: Staging-D1 schreiben (Verkündungen des Testfixtures)
+      - name: Staging-D1 schreiben (Verkündungstabelle, Teilsync ohne Identitätsänderung)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           OSTRECHT_D1_DATABASE_ID: ba9c0e0b-ba18-4aec-b28e-fe65c8b69674
-        run: npm run norms:runtime:d1-sync -- --transport api --publications --corpus-filter data/recht/runtime-fixture.json --ignore-fingerprint --max-rows-read 5000 --max-rows-written 5000
+        # Staging trägt den Vollbestand (Scope full). Der Teilsync schreibt nur law_publications
+        # und last_sync_at; die gespeicherte Identität bleibt unverändert (Base-State-Guard
+        # verlangt eine vollständige Identität im selben Scope).
+        run: npm run norms:runtime:d1-sync -- --transport api --publications --budget incremental --max-rows-read 5000 --max-rows-written 5000
 
   docs_check:
     needs: classify

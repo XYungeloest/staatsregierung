@@ -1,0 +1,33 @@
+{
+  "$schema": "d1-sync-budgets/1",
+  "description": "Kostenbudgets des D1-Syncs (scripts/sync-recht-d1.mjs --budget <Profil>). Grenzen für rows_read und rows_written je Lauf, geprüft vor dem ersten Schreibzugriff (konservative Schätzung des Plans) und laufend gegen die realen D1-Metadaten. Ableitung: produktive Vollprojektion vom 3. September 2026 mit 5.207 Normen las 103.403 und schrieb 465.926 Zeilen; ein Einzelsync (3 Fassungen, 14 Provisionen) las 155 und schrieb 289 Zeilen; ein Derived-Rebuild schreibt je Norm drei Anweisungen (≈ 16.000 Zeilen). Die Profile lassen Wachstum des Bestands zu, bleiben aber unterhalb eines Vielfachen der Messwerte, damit ein Fehlverhalten (z. B. ein Vollscan des Suchindex) den Lauf abbricht, bevor die Tageskontingente von D1 erschöpft sind.",
+  "profiles": {
+    "incremental": {
+      "description": "Automatischer Sync nach einem Push (nur geänderte Normen/Verkündungen, ggf. abgeleitete Daten aller Normen).",
+      "maxRowsRead": 60000,
+      "maxRowsWritten": 120000
+    },
+    "full": {
+      "description": "Bewusste Vollprojektion des gesamten Bestands.",
+      "maxRowsRead": 500000,
+      "maxRowsWritten": 900000
+    },
+    "recovery": {
+      "description": "Vollprojektion, die der automatische Sync bei abweichendem Ausgangszustand von D1 auslöst (--recover).",
+      "maxRowsRead": 500000,
+      "maxRowsWritten": 900000
+    },
+    "fixture": {
+      "description": "Projektion des Testfixtures (38 Normen) lokal oder nach Staging.",
+      "maxRowsRead": 20000,
+      "maxRowsWritten": 40000
+    }
+  },
+  "estimate": {
+    "description": "Konservative Vorabschätzung je Plan: rows_written ≈ Anweisungen × writtenPerStatement + Suchprovisionen × writtenPerSearchUnit (FTS5-Schattentabellen); rows_read ≈ Anweisungen × readPerStatement (Löschungen über Indizes, Upsert-Konflikte).",
+    "writtenPerStatement": 1.25,
+    "writtenPerSearchUnit": 14,
+    "readPerStatementFull": 1.0,
+    "readPerStatementIncremental": 2.0
+  }
+}

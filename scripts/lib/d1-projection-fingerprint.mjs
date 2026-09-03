@@ -1,31 +1,32 @@
-import { execFile } from 'node:child_process';
+import { spawn } from 'node:child_process';
 import { createHash } from 'node:crypto';
-import { readdir, readFile } from 'node:fs/promises';
-import { join, relative, resolve } from 'node:path';
-import { promisify } from 'node:util';
-
-const execFileAsync = promisify(execFile);
+import { access, readFile } from 'node:fs/promises';
+import { resolve } from 'node:path';
 
 /**
- * Deterministischer Fingerabdruck der D1-Projektion von OstRecht.
+ * Projektionsidentität der D1-Projektion von OstRecht.
  *
- * Er hängt ausschließlich von Dateiinhalten ab (SHA-256 je Datei, sortierte Pfade),
- * nie von Änderungszeiten oder Buildzeitpunkten, und setzt sich zusammen aus
- *   - der Projektionslogik (Migrationen unter data/recht/d1/, Sync und Umfangsbestimmung,
- *     die korpusweiten Ableitungen unter packages/shared/src/lib/norms/, die
- *     Portalbezüge, die Konfiguration und die Suchprojektion in packages/recht-search/src/),
- *   - dem Rechtsbestand (content/normen, content/verkuendungen) und
- *   - den korpusweiten Portalgrundlagen (content/themen, content/presse).
+ * Eine Identität besteht aus
+ *   - dem Inhaltshash der Projektionslogik (Migrationen unter data/recht/d1/, Sync und
+ *     Umfangsbestimmung, korpusweite Ableitungen unter packages/shared/src/lib/norms/,
+ *     Portalbezüge, Konfiguration, Suchprojektion in packages/recht-search/src/),
+ *   - dem Inhaltshash des Rechtsbestands (content/normen, content/verkuendungen),
+ *   - dem Inhaltshash der Portalgrundlagen (content/themen, content/presse),
+ *   - dem Projektionsumfang (Scope): `full` für den gesamten Bestand oder
+ *     `fixture:<Pfad>@<Inhaltshash>` für ein Testfixture (--corpus-filter).
+ * Der Fingerabdruck ist der SHA-256 über diese vier Bestandteile; ein Fixture kann deshalb
+ * nie dieselbe Identität wie der Vollbestand behaupten, und zwei Fixtures unterscheiden sich.
  *
- * Gezählt werden nur Dateien, die Git kennt oder kennen würde (`git ls-files --cached
- * --others --exclude-standard`): getrackte Dateien und noch nicht eingecheckte Arbeits-
- * kopien, aber keine ignorierten Dateien wie `.DS_Store`. Nur so liefern ein lokaler
- * Arbeitsbaum und der CI-Checkout denselben Wert. Außerhalb eines Git-Repositorys wird
- * das Dateisystem ohne Punktdateien durchlaufen.
+ * Alle Hashes beruhen auf Git-Blob-Kennungen (SHA-1 über Größe und Inhalt jeder Datei),
+ * nie auf Änderungszeiten: der Arbeitsbaum wird über `git ls-files --cached --others
+ * --exclude-standard` (getrackt und ungetrackt, nicht ignoriert – keine .DS_Store) und
+ * `git hash-object --stdin-paths` erfasst, ein Git-Ref über `git ls-tree -r`. Dadurch
+ * lässt sich die erwartete Identität eines Basis-Commits (Ausgangszustand eines
+ * inkrementellen Syncs) bestimmen, ohne den Arbeitsbaum umzuschalten.
  *
- * Der Sync legt den Wert als projection_fingerprint in law_runtime_meta ab und
- * beendet sich ohne Schreibzugriff, wenn D1 bereits denselben Fingerabdruck trägt;
- * scripts/serve-law-worker.mjs nutzt ihn für die lokale Seed-Entscheidung.
+ * Der Sync legt fingerprint und scope in law_runtime_meta ab und beendet sich ohne
+ * Schreibzugriff, wenn D1 dieselbe Identität (Fingerabdruck und Scope) trägt;
+ * scripts/serve-law-worker.mjs nutzt sie für die lokale Seed-Entscheidung.
  */
 
 export const PROJECTION_LOGIC_ROOTS = [
@@ -46,84 +47,111 @@ export const PROJECTION_LOGIC_FILES = [
 ];
 export const CORPUS_ROOTS = ['content/normen', 'content/verkuendungen'];
 export const PORTAL_CONTENT_ROOTS = ['content/themen', 'content/presse'];
+export const FULL_SCOPE = 'full';
 
-async function walkFiles(directory, output) {
-  let entries;
-  try {
-    entries = await readdir(directory, { withFileTypes: true });
-  } catch (error) {
-    if (error.code === 'ENOENT') return output;
-    throw error;
-  }
-  for (const entry of entries) {
-    // Punktdateien (.DS_Store, Editor-Reste) gehören nie zur Projektion.
-    if (entry.name.startsWith('.')) continue;
-    const path = join(directory, entry.name);
-    if (entry.isDirectory()) await walkFiles(path, output);
-    else if (entry.isFile()) output.push(path);
-  }
-  return output;
+/** Git ausführen; `input` wird auf stdin geschrieben (hash-object --stdin-paths). */
+function git(root, args, input = null) {
+  return new Promise((resolvePromise, reject) => {
+    const child = spawn('git', ['-C', root, ...args], { stdio: ['pipe', 'pipe', 'pipe'] });
+    const stdout = [];
+    const stderr = [];
+    child.stdout.on('data', (chunk) => stdout.push(chunk));
+    child.stderr.on('data', (chunk) => stderr.push(chunk));
+    child.on('error', reject);
+    child.on('close', (code) => {
+      if (code === 0) resolvePromise(Buffer.concat(stdout).toString('utf8'));
+      else reject(new Error(`git ${args[0]} schlug fehl (${code}): ${Buffer.concat(stderr).toString('utf8').trim()}`));
+    });
+    if (input !== null) child.stdin.end(input);
+    else child.stdin.end();
+  });
 }
 
-/** Dateien, die Git für die Pfadangaben kennt (getrackt oder ungetrackt, nicht ignoriert); null außerhalb von Git. */
-async function gitListedFiles(root, pathspecs) {
-  try {
-    const { stdout } = await execFileAsync('git', ['-C', root, 'ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', ...pathspecs], { maxBuffer: 256 * 1024 * 1024 });
-    return stdout.split('\0').filter(Boolean).map((path) => resolve(root, path));
-  } catch {
-    return null;
-  }
+function hashLines(lines) {
+  return createHash('sha256').update([...lines].sort().join('\n')).digest('hex');
 }
 
-/** Sortierte, eindeutige Liste der Dateien einer Fingerabdruckmenge. */
+/** Dateien des Arbeitsbaums, die Git für die Pfadangaben kennt (getrackt oder ungetrackt, nicht ignoriert). */
 export async function listFingerprintFiles(root, roots, files = []) {
-  const listed = await gitListedFiles(root, [...roots, ...files]);
-  const collected = listed ?? [...files.map((file) => resolve(root, file))];
-  if (listed === null) for (const directory of roots) await walkFiles(resolve(root, directory), collected);
-  return [...new Set(collected)].sort();
+  const stdout = await git(root, ['ls-files', '-z', '--cached', '--others', '--exclude-standard', '--', ...roots, ...files]);
+  return [...new Set(stdout.split('\0').filter(Boolean))].sort();
 }
 
-async function hashFileSet(root, files) {
-  const lines = [];
-  for (const path of files) {
-    let bytes;
+/** Zeilen „Pfad\tBlob“ des Arbeitsbaums; im Arbeitsbaum gelöschte getrackte Dateien zählen nicht. */
+async function workingTreeLines(root, roots, files) {
+  const listed = await listFingerprintFiles(root, roots, files);
+  const present = [];
+  for (const path of listed) {
     try {
-      bytes = await readFile(path);
-    } catch (error) {
-      // Getrackt, aber im Arbeitsbaum gelöscht: zählt nicht zum Inhalt.
-      if (error.code === 'ENOENT') continue;
-      throw error;
+      await access(resolve(root, path));
+      present.push(path);
+    } catch {
+      // getrackt, aber im Arbeitsbaum entfernt
     }
-    lines.push(`${relative(root, path).replaceAll('\\', '/')}\t${createHash('sha256').update(bytes).digest('hex')}`);
   }
-  return createHash('sha256').update(lines.join('\n')).digest('hex');
+  if (present.length === 0) return [];
+  const stdout = await git(root, ['hash-object', '--stdin-paths'], `${present.join('\n')}\n`);
+  const ids = stdout.split('\n').filter(Boolean);
+  if (ids.length !== present.length) throw new Error(`git hash-object lieferte ${ids.length} Kennungen für ${present.length} Dateien`);
+  return ids.map((id, index) => `${present[index]}\t${id}`);
 }
 
-export async function hashRoots(root, roots, files = []) {
-  return hashFileSet(root, await listFingerprintFiles(root, roots, files));
+/** Zeilen „Pfad\tBlob“ eines Git-Refs für die Pfadangaben. */
+async function refLines(root, ref, roots, files) {
+  const stdout = await git(root, ['ls-tree', '-r', '-z', ref, '--', ...roots, ...files]);
+  return stdout.split('\0').filter(Boolean).map((entry) => {
+    const [meta, path] = entry.split('\t');
+    const blob = meta.split(' ')[2];
+    return `${path}\t${blob}`;
+  });
+}
+
+export async function hashRoots(root, roots, files = [], { ref = null } = {}) {
+  const lines = ref ? await refLines(root, ref, roots, files) : await workingTreeLines(root, roots, files);
+  return hashLines(lines);
 }
 
 /** Inhaltshash des Rechtsbestands (alle Dateien unter content/normen und content/verkuendungen). */
-export async function corpusContentHash(root = process.cwd()) {
-  return hashRoots(root, CORPUS_ROOTS);
+export async function corpusContentHash(root = process.cwd(), options = {}) {
+  return hashRoots(root, CORPUS_ROOTS, [], options);
 }
 
-/** Inhaltshash der Projektionslogik (Schema, Sync, Ableitungen, Suche, Konfiguration). */
-export async function projectionLogicHash(root = process.cwd()) {
-  return hashRoots(root, PROJECTION_LOGIC_ROOTS, PROJECTION_LOGIC_FILES);
+/** Inhaltshash der Projektionslogik (Schema, Sync, Ableitungen, Suche, Konfiguration, Budgets). */
+export async function projectionLogicHash(root = process.cwd(), options = {}) {
+  return hashRoots(root, PROJECTION_LOGIC_ROOTS, PROJECTION_LOGIC_FILES, options);
 }
 
 /** Inhaltshash der Portalgrundlagen (Themen, Presse), die in law_norm_derived einfließen. */
-export async function portalContentHash(root = process.cwd()) {
-  return hashRoots(root, PORTAL_CONTENT_ROOTS);
+export async function portalContentHash(root = process.cwd(), options = {}) {
+  return hashRoots(root, PORTAL_CONTENT_ROOTS, [], options);
 }
 
-export function combineFingerprint({ logic, corpus, portal }) {
-  return createHash('sha256').update(`logic:${logic}\ncorpus:${corpus}\nportal:${portal}`).digest('hex');
+/** Scope-Kennung eines Testfixtures: Pfad und Inhaltshash der Fixture-Datei. */
+export async function fixtureScope(root, fixturePath) {
+  const bytes = await readFile(resolve(root, fixturePath));
+  return `fixture:${fixturePath.replaceAll('\\', '/')}@${createHash('sha256').update(bytes).digest('hex').slice(0, 16)}`;
 }
 
-/** Vollständiger Fingerabdruck samt Bestandteilen. */
+export function combineFingerprint({ logic, corpus, portal, scope = FULL_SCOPE }) {
+  return createHash('sha256').update(`logic:${logic}\ncorpus:${corpus}\nportal:${portal}\nscope:${scope}`).digest('hex');
+}
+
+/**
+ * Vollständige Projektionsidentität des Arbeitsbaums (oder eines Git-Refs) für einen Scope.
+ * `fingerprint` ist der Vergleichswert; `scope` wird zusätzlich gespeichert und geprüft.
+ */
+export async function projectionIdentity({ root = process.cwd(), scope = FULL_SCOPE, ref = null } = {}) {
+  const options = { ref };
+  const [logic, corpus, portal] = await Promise.all([projectionLogicHash(root, options), corpusContentHash(root, options), portalContentHash(root, options)]);
+  return { fingerprint: combineFingerprint({ logic, corpus, portal, scope }), scope, logic, corpus, portal, ref };
+}
+
+/** Kompatibler Kurzzugriff: Identität des Arbeitsbaums im Vollbestands-Scope. */
 export async function projectionFingerprint(root = process.cwd()) {
-  const [logic, corpus, portal] = await Promise.all([projectionLogicHash(root), corpusContentHash(root), portalContentHash(root)]);
-  return { fingerprint: combineFingerprint({ logic, corpus, portal }), logic, corpus, portal };
+  return projectionIdentity({ root, scope: FULL_SCOPE });
+}
+
+/** Erwartete Identität eines Git-Refs (Basis eines inkrementellen Syncs), ohne Checkout. */
+export async function projectionIdentityAtRef(ref, { root = process.cwd(), scope = FULL_SCOPE } = {}) {
+  return projectionIdentity({ root, scope, ref });
 }

@@ -5,7 +5,7 @@ import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 
-import { projectionFingerprint } from './lib/d1-projection-fingerprint.mjs';
+import { FULL_SCOPE, fixtureScope, projectionIdentity } from './lib/d1-projection-fingerprint.mjs';
 
 /**
  * Prüft die D1-Projektion von OstRecht gegen den Git-Bestand: Tabellenzähler
@@ -26,7 +26,12 @@ const persistIndex = args.indexOf('--persist-to');
 const persistTo = resolve(ROOT, persistIndex >= 0 ? args[persistIndex + 1] : join('.cache', 'wrangler-local'));
 const databaseIndex = args.indexOf('--database');
 const databaseName = databaseIndex >= 0 ? args[databaseIndex + 1] : (process.env.OSTRECHT_D1_DATABASE_NAME ?? 'ostrecht-recht');
-const requestedSlugs = args.filter((value, index) => !value.startsWith('--') && index !== persistIndex + 1 && index !== databaseIndex + 1);
+// --corpus-filter <Datei>: die Projektion ist ein Testfixture (lokal/Staging); Git-Seite und
+// erwartete Identität beziehen sich dann auf die Slugs der Fixture-Datei.
+const corpusIndex = args.indexOf('--corpus-filter');
+const corpusFilter = corpusIndex >= 0 ? args[corpusIndex + 1] : null;
+const fixtureSlugs = corpusFilter ? new Set(JSON.parse(readFileSync(resolve(ROOT, corpusFilter), 'utf8')).slugs.map((entry) => (typeof entry === 'string' ? entry : entry.slug))) : null;
+const requestedSlugs = args.filter((value, index) => !value.startsWith('--') && index !== persistIndex + 1 && index !== databaseIndex + 1 && index !== corpusIndex + 1);
 
 function query(sql) {
   const target = local ? ['--local', '--persist-to', persistTo] : ['--remote'];
@@ -53,16 +58,21 @@ const counts = query(`SELECT
   (SELECT COUNT(DISTINCT slug) FROM law_search_units) AS search_norms,
   (SELECT COUNT(*) FROM law_norm_subjects) AS subject_rows,
   (SELECT COUNT(*) FROM law_norm_history) AS history_rows,
+  (SELECT COUNT(*) FROM law_norm_keywords) AS keyword_rows,
+  (SELECT COUNT(*) FROM law_norms WHERE index_letter IS NULL OR (index_letter != '#' AND (index_letter < 'A' OR index_letter > 'Z' OR length(index_letter) != 1))) AS bad_index_letters,
   (SELECT value FROM law_runtime_meta WHERE key='last_sync_at') AS last_sync_at,
   (SELECT value FROM law_runtime_meta WHERE key='norm_count') AS norm_count_meta,
   (SELECT value FROM law_runtime_meta WHERE key='publication_count') AS publication_count_meta,
   (SELECT value FROM law_runtime_meta WHERE key='corpus_hash') AS corpus_hash,
   (SELECT value FROM law_runtime_meta WHERE key='projection_fingerprint') AS projection_fingerprint,
+  (SELECT value FROM law_runtime_meta WHERE key='projection_scope') AS projection_scope,
+  (SELECT value FROM law_runtime_meta WHERE key='sync_state') AS sync_state,
   (SELECT value FROM law_runtime_meta WHERE key='sync_mode') AS sync_mode`)[0];
 console.log(`D1 (${local ? 'lokal' : 'remote'}):`, JSON.stringify(counts));
 
 const normDir = join(ROOT, 'content', 'normen');
-const slugs = readdirSync(normDir, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name).sort();
+const slugs = readdirSync(normDir, { withFileTypes: true }).filter((entry) => entry.isDirectory()).map((entry) => entry.name).filter((slug) => !fixtureSlugs || fixtureSlugs.has(slug)).sort();
+if (fixtureSlugs && slugs.length !== fixtureSlugs.size) throw new Error(`Fixture ${corpusFilter}: ${fixtureSlugs.size - slugs.length} Slug(s) nicht im Bestand`);
 let gitVersions = 0;
 let gitR2Sources = 0;
 const fingerprintLines = [];
@@ -97,14 +107,20 @@ if (Number(counts.search_norms) !== slugs.length) problems.push(`Suchindex deckt
 if (Number(counts.norm_count_meta) !== slugs.length) problems.push(`law_runtime_meta.norm_count ${counts.norm_count_meta} ≠ Git ${slugs.length}`);
 if (Number(counts.publication_count_meta) !== publications) problems.push(`law_runtime_meta.publication_count ${counts.publication_count_meta} ≠ Git ${publications}`);
 if (Number(counts.derived) !== slugs.length) problems.push(`law_norm_derived ${counts.derived} ≠ Normen ${slugs.length}`);
+if (Number(counts.bad_index_letters) !== 0) problems.push(`${counts.bad_index_letters} Normen ohne gültigen Buchstabenindex (Migration 0006 / Sync)`);
+if (Number(counts.keyword_rows) < slugs.length) problems.push(`law_norm_keywords ${counts.keyword_rows} < Normen ${slugs.length} (Stichwortindex unvollständig)`);
 if (Number(counts.search_documents) !== gitVersions) problems.push(`law_search_documents ${counts.search_documents} ≠ Fassungen ${gitVersions}`);
 if (Number(counts.r2_sources) !== gitR2Sources) problems.push(`R2-Quellen: D1 ${counts.r2_sources} ≠ Git ${gitR2Sources}`);
 if (counts.corpus_hash !== gitHash) problems.push(`corpus_hash: D1 ${counts.corpus_hash ?? '(fehlt)'} ≠ Git ${gitHash}`);
-const expectedFingerprint = await projectionFingerprint(ROOT);
-console.log('Projektionsfingerabdruck:', JSON.stringify({ d1: counts.projection_fingerprint ?? null, git: expectedFingerprint.fingerprint, sync_mode: counts.sync_mode ?? null }));
+// Erwartete Identität im geprüften Scope: Vollbestand oder (--corpus-filter) Fixture.
+const expectedScope = corpusFilter ? await fixtureScope(ROOT, corpusFilter) : FULL_SCOPE;
+const expectedFingerprint = await projectionIdentity({ root: ROOT, scope: expectedScope });
+console.log('Projektionsidentität:', JSON.stringify({ d1: counts.projection_fingerprint ?? null, git: expectedFingerprint.fingerprint, scope_d1: counts.projection_scope ?? null, scope_git: expectedScope, sync_state: counts.sync_state ?? null, sync_mode: counts.sync_mode ?? null }));
 if (counts.projection_fingerprint !== expectedFingerprint.fingerprint) {
   problems.push(`projection_fingerprint: D1 ${counts.projection_fingerprint ?? '(fehlt)'} ≠ Git ${expectedFingerprint.fingerprint} (Sync würde erneut projizieren)`);
 }
+if ((counts.projection_scope ?? null) !== expectedScope) problems.push(`projection_scope: D1 ${counts.projection_scope ?? '(fehlt)'} ≠ erwartet ${expectedScope}`);
+if ((counts.sync_state ?? null) !== 'complete') problems.push(`sync_state: D1 ${counts.sync_state ?? '(fehlt)'} ≠ complete`);
 if (args.includes('--fts-integrity')) {
   // FTS5-Integritätsprüfung des Index mit externem Inhalt (liest den gesamten Index; nur auf Wunsch).
   query("INSERT INTO law_search(law_search) VALUES ('integrity-check')");

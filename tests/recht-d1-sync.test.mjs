@@ -89,11 +89,13 @@ test('Vollprojektion: Reset einmal am Anfang, keine normweisen Suchindex-Löschu
   assert.equal(plan.searchUnitCount, all.filter((sql) => sql.startsWith('INSERT INTO law_search_units')).length);
   const last = plan.groups.at(-1).queries;
   const metaKeys = last.filter((query) => query.sql.startsWith('INSERT INTO law_runtime_meta')).map((query) => query.params[0]);
-  assert.ok(['projection_fingerprint', 'corpus_hash', 'last_sync_at', 'sync_mode', 'search_filters_json', 'subject_areas_json', 'corpus_stats_json'].every((key) => metaKeys.includes(key)));
+  assert.ok(['projection_fingerprint', 'projection_scope', 'sync_state', 'corpus_hash', 'last_sync_at', 'sync_mode', 'search_filters_json', 'subject_areas_json', 'corpus_stats_json'].every((key) => metaKeys.includes(key)));
   assert.equal(last.at(-1).sql.startsWith('INSERT INTO law_runtime_meta'), true, 'Laufzeitmetadaten sind die letzten Anweisungen');
   assert.equal(last.find((query) => query.params[0] === 'projection_fingerprint').params[1], FINGERPRINT.fingerprint);
   const cost = estimatePlanCost(plan);
-  assert.ok(cost.rowsReadApprox < 100, 'die Vollprojektion liest nur Verwaltungszeilen');
+  // Kalibrierte Schätzung: D1 zählt je Anweisung mindestens eine gelesene Zeile (gemessen 103.403 bei 103.127 Anweisungen).
+  assert.ok(cost.rowsReadApprox >= plan.statementCount && cost.rowsReadApprox <= plan.statementCount + 16, 'die Vollprojektion liest etwa eine Zeile je Anweisung');
+  assert.ok(cost.rowsWrittenMax >= plan.statementCount * 1.25 + plan.searchUnitCount * 14, 'Schreibschätzung deckt Index- und FTS5-Schattenzeilen ab');
 });
 
 test('einzelner Slug: nur Zeilen dieser Norm über Indizes, kein Reset; Derived-Rebuild berührt bei anderen Normen nur abgeleitete Daten', async () => {
@@ -109,6 +111,7 @@ test('einzelner Slug: nur Zeilen dieser Norm über Indizes, kein Reset; Derived-
   assert.deepEqual(deletes.map((query) => query.sql), [
     'DELETE FROM law_search_units WHERE norm_id = ?',
     'DELETE FROM law_norm_subjects WHERE norm_id = ?',
+    'DELETE FROM law_norm_keywords WHERE norm_id = ?',
     'DELETE FROM law_norm_history WHERE norm_id = ?',
     'DELETE FROM law_source_objects WHERE norm_id = ?',
     'DELETE FROM law_version_blocks WHERE norm_id = ?',

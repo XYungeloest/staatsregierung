@@ -4,7 +4,7 @@ import { spawn } from 'node:child_process';
 import { mkdir, readdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { join, relative, resolve } from 'node:path';
 
-import { projectionFingerprint } from './lib/d1-projection-fingerprint.mjs';
+import { FULL_SCOPE, fixtureScope, projectionIdentity } from './lib/d1-projection-fingerprint.mjs';
 
 /**
  * Startet den gebauten OstRecht-Worker lokal (`wrangler dev --local`) mit einer aus
@@ -56,13 +56,11 @@ async function exists(path) {
   }
 }
 
-/** Fingerabdruck der zu erzeugenden Projektion: Inhaltshash plus Fixture-Inhalt. */
+/** Identität der zu erzeugenden Projektion im Ziel-Scope (Vollbestand oder Fixture mit Inhaltshash). */
 async function seedFingerprint() {
-  const { fingerprint } = await projectionFingerprint(ROOT);
-  if (!fixture) return { fingerprint, mode: 'full' };
-  const fixtureText = await readFile(resolve(ROOT, fixture), 'utf8');
-  const { createHash } = await import('node:crypto');
-  return { fingerprint: createHash('sha256').update(`${fingerprint}\nfixture:${fixture}\n${fixtureText}`).digest('hex'), mode: `fixture:${fixture}` };
+  const scope = fixture ? await fixtureScope(ROOT, fixture) : FULL_SCOPE;
+  const { fingerprint } = await projectionIdentity({ root: ROOT, scope });
+  return { fingerprint, mode: scope };
 }
 
 function run(command, commandArgs, options = {}) {
