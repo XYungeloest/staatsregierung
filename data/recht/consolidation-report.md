@@ -1,7 +1,7 @@
 # Konsolidierungs-Audit
 
 **Ausgangsstichtag:** 2023-11-01
-**Erzeugt:** 2026-09-02T20:22:27.866Z
+**Erzeugt:** 2026-09-03T05:29:10.434Z
 
 - Erkannte Änderungsvorschriften: 66
 - Erkannte Zielnormen: 89
@@ -31,8 +31,8 @@ Abgeschlossene Zielnormen werden in diesem Bericht nicht fortgeschrieben. Solang
 
 - Datensatz: `ndr-staatsvertrag`
 - Status: `missing-baseline`
-- Problem: Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.
-- Nächster Schritt: Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.
+- Problem: Maßgebliche amtliche Ausgangsfassung ist bekannt, aber noch nicht unverändert versioniert.
+- Nächster Schritt: Bekannte maßgebliche amtliche Ausgangsfassung unverändert archivieren und prüfen.
 
 ### Sächsische Gemeindeordnung
 

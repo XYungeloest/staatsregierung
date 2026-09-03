@@ -1,7 +1,7 @@
 {
   "generatedAt": "2026-09-02",
   "editorialAsOf": "2026-09-01",
-  "count": 1150,
+  "count": 1151,
   "items": [
     {
       "id": "candidate-external-wiki",
@@ -12396,7 +12396,7 @@
     },
     {
       "id": "question-missing-revosax-snapshots",
-      "title": "Welche amtliche Ausgangsfassung des NDR-Staatsvertrags fehlt?",
+      "title": "Wann wird die bekannte Ausgangsfassung des NDR-Staatsvertrags technisch archiviert?",
       "type": "open-question",
       "aliases": [],
       "tags": [
@@ -13007,6 +13007,20 @@
         "transport"
       ],
       "validFrom": "2026-08-11",
+      "validTo": null,
+      "target": "knowledge/sources.json"
+    },
+    {
+      "id": "source-editorial-clarification-ndr-2026-09-02",
+      "title": "Redaktionelle Quellenklärung zum NDR-Änderungs- und Überleitungsstaatsvertrag",
+      "type": "source",
+      "aliases": [],
+      "tags": [
+        "law",
+        "media",
+        "ndr"
+      ],
+      "validFrom": "2026-09-02",
       "validTo": null,
       "target": "knowledge/sources.json"
     },

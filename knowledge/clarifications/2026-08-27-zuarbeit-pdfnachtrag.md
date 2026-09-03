@@ -41,7 +41,9 @@ unbestätigte öffentliche URLs angelegt.
 Wolfgang Schmidt war vom **14. April 2025 bis einschließlich 4. Juni 2025** Ministerpräsident. Das
 Kabinett Schmidt wird entsprechend als historische Regierung modelliert.
 
-## Weiterhin offene Primärquelle
+## Damals weiterhin offene Primärquelle
 
-Die vollständige Ausgangsfassung des NDR-Staatsvertrags vor der Änderung vom 8. März 2026 liegt
-weiterhin nicht vor.
+Am 27. August 2026 lag die vollständige Ausgangsfassung des NDR-Staatsvertrags vor der Änderung
+vom 8. März 2026 noch nicht im Repository vor. Die spätere korrigierte Ausgabe identifiziert sie
+eindeutig; offen ist nun nur noch ihre unveränderte Archivierung und Verarbeitung als Baseline.
+Siehe `knowledge/clarifications/2026-09-02-ndr-quellenkorrektur.md`.

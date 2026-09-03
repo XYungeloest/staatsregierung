@@ -553,6 +553,21 @@ const NEW_PUBLICATION_CONFIG = {
     historyTitle: 'Staatsvertrag geschlossen.',
     relatedNorms: ['bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages'],
     dateNote: 'Am 8. März 2026 geschlossen und am 24. März 2026 verkündet. Nach der Bekanntmachung vom 2. September 2026 tritt der Staatsvertrag am 3. September 2026 in Kraft.',
+    editorialResolutions: [{
+      id: 'ndr-vertragsblatt-4-quellenkorrektur-2026-09-02',
+      status: 'resolved-source-conflict',
+      decisionDate: '2026-09-02',
+      issue: 'Die zuvor versionierte und gesperrte Fassung von OVertrBl. 2026 Nr. 4 enthielt in Anlage 1 einen fehlerhaften unausgefüllten Mustergesetz-Platzhalter anstelle der tatsächlich geänderten Ausgangsnorm.',
+      publishedText: 'Der Staatsvertrag über den Norddeutschen Rundfunk (NDR-Staatsvertrag) vom 4./9. März 2021 (GVOBl. M-V S. 797) wird wie folgt geändert:',
+      resolvedApplication: 'Für die Erfassung des Änderungsstaatsvertrags ist ausschließlich die korrigierte Fassung von OVertrBl. 2026 Nr. 4 maßgeblich. Der frühere Mustergesetz-Platzhalter wird nicht als eigene Zielnorm ausgewertet.',
+      rationale: 'Die frühere Fassung beruhte auf einem Fehler in den Quellen. Die korrigierte strukturtragende HTML-Fassung und die dazugehörige PDF-Fassung bezeichnen übereinstimmend den NDR-Staatsvertrag als Zielnorm und ersetzen die gesperrte fehlerhafte Ausgabe.',
+      evidence: [
+        'Gesetze/OVertrBl. 2026 Nr. 4.html',
+        'Gesetze/OVertrBl. 2026 Nr. 4.pdf',
+        'content/verkuendungen/overtrbl-2026-04.json',
+        'content/normen/staatsvertrag-zur-anderung-des-staatsvertrages-uber-den-nord-122dpnt/versions/2026-03-08.json',
+      ],
+    }],
   }],
   'OVertrBl.|2026|5': [{
     slug: 'bekanntmachung-ueber-das-inkrafttreten-des-ndr-aenderungs-und-ueberleitungsstaatsvertrages',
@@ -1063,6 +1078,7 @@ function buildRecords(parsed) {
       ...(effectiveDate ? { effectiveDate } : {}),
       ...(config.expiryDate ? { expiryDate: config.expiryDate } : {}),
       ...(config.dateNote ? { dateNote: config.dateNote } : {}),
+      ...(config.editorialResolutions ? { editorialResolutions: config.editorialResolutions } : {}),
       ...(parsed.issue === '59' ? {
         expiryDate: '2026-12-31',
         primarySubject: 'Staats- und Verfassungsrecht',

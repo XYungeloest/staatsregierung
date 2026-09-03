@@ -385,13 +385,16 @@ async function main() {
     const introducedStem = enactingActs.length > 0;
     const adoptedPrimarySource = source.adoptedSources?.find((entry) => entry.snapshot && entry.sourceSha256);
     const sourceAvailable = Boolean(source.snapshot || adoptedPrimarySource);
+    const knownBaseline = Boolean(source.baselineUrl || source.baselineCitation);
     const requiredBaseline = source.baselineVersionDate ?? (introducedStem
       ? stem?.versions.map((version) => version.validFrom).sort()[0] ?? stem?.meta.effectiveDate ?? BASELINE_DATE
       : source.snapshot ? BASELINE_DATE : adoptedPrimarySource?.versionDate ?? BASELINE_DATE);
     const problems = [...target.problems];
     if (blocked) problems.push(blocked.reason);
     if (!sourceAvailable && !blocked && !introducedStem && !historicalNonConsolidatable) {
-      problems.push('Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.');
+      problems.push(knownBaseline
+        ? 'Maßgebliche amtliche Ausgangsfassung ist bekannt, aber noch nicht unverändert versioniert.'
+        : 'Maßgebliche amtliche Ausgangsfassung ist noch nicht versioniert.');
     }
     // Ohne maßgebliche Ausgangsquelle ist das Fehlen eines Stammnormdatensatzes
     // keine eigenständige offene Arbeitsklasse, sondern Teil des Baseline-Fehlers.
@@ -427,7 +430,9 @@ async function main() {
       ? 'Historischen, bereits unwirksamen Änderungsakt dokumentiert halten; keine künstliche Konsolidierung erzeugen.'
       : {
       'blocked-source-conflict': 'Quellenkonflikt fachlich klären; bis dahin keine Konsolidierung.',
-      'missing-baseline': 'Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.',
+      'missing-baseline': knownBaseline
+        ? 'Bekannte maßgebliche amtliche Ausgangsfassung unverändert archivieren und prüfen.'
+        : 'Maßgebliche amtliche Ausgangsfassung ermitteln, unverändert archivieren und prüfen.',
       'missing-stem-record': 'Ausgangsfassung parsen und eigenständigen Stammnormdatensatz anlegen.',
       'incomplete-placeholder': 'Redaktionell geprüfte Patch-Rezepte anwenden und vollständige Folgefassungen erzeugen.',
       complete: 'Bei neuen Änderungsvorschriften erneut auditieren.',

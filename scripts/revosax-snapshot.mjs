@@ -227,7 +227,7 @@ async function auditSnapshots() {
   const failures = [];
   for (const [slug, configuredTarget] of targets) {
     if (!configuredTarget.snapshot && configuredTarget.editorialResolutions?.length) {
-      console.log(`${slug}: redaktionelle Quellenauflösung ohne REVOSax-Ausgangssnapshot dokumentiert`);
+      console.log(`${slug}: redaktionelle Quellenauflösung ohne lokal versionierte Ausgangsfassung dokumentiert`);
       continue;
     }
     const sources = snapshotId

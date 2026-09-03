@@ -359,13 +359,17 @@ Git-Blob in einen Pull Request gelangen. Die folgende Planung betrifft zunächst
 
 ### Rechtsportal und Primärquellen
 
-Der Konsolidierungsaudit erkennt derzeit 85 Zielnormen; 81 sind vollständig konsolidiert. Die
-folgenden vier Rechtsfälle bleiben als konkrete Quellenarbeit offen:
+Der Konsolidierungsaudit erkennt derzeit 89 Zielnormen; 84 sind vollständig konsolidiert. Die
+folgenden fünf Rechtsfälle bleiben als konkrete Quellenarbeit offen:
 
 - [ ] Gesetz über den öffentlichen Personennahverkehr (`blocked-source-conflict`): den Konflikt
   zwischen Artikel 9 Nummer 1 und der maßgeblichen Ausgangsfassung quellenbasiert klären.
-- [ ] NDR-Staatsvertrag (`missing-baseline`): die vollständige maßgebliche Ausgangsfassung vor
-  der Änderung vom 8. März 2026 einschließlich Anlagen beschaffen.
+- [ ] NDR-Staatsvertrag (`missing-baseline`): die in der korrigierten Ausgabe eindeutig bezeichnete
+  vollständige Ausgangsfassung vor der Änderung vom 8. März 2026 einschließlich Anlagen unverändert
+  archivieren und als Konsolidierungsbaseline verarbeiten.
+- [ ] Ostdeutsche Gemeindeordnung (`blocked-source-conflict`): die kollidierende Anordnung zu § 71b
+  im Gesetz zur Einführung von Hinweisgebermeldestellen mit einer Berichtigung oder weiteren
+  Primärquelle klären.
 - [ ] Schulordnung Förderschulen (`blocked-source-conflict`): den nicht passenden Änderungsanker
   aus OGVBl. 2026 Nr. 64 auch unter Berücksichtigung der Berichtigung in Nr. 68 klären.
 - [ ] Zehntes Sächsisches Kostenverzeichnis (`blocked-source-conflict`): den widersprüchlichen
