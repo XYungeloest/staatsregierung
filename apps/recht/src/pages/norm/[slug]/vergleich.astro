@@ -20,7 +20,7 @@ import { getNormStore } from '../../../lib/runtime/context.ts';
 export const prerender = false;
 
 const slug = Astro.params.slug ?? '';
-const store = getNormStore(Astro.locals);
+const store = await getNormStore(Astro.locals);
 const skeleton = await store.getNorm(slug, 'none');
 if (!skeleton || skeleton.versions.length < 2) return Astro.rewrite('/404');
 const orderedVersions = [...skeleton.versions].sort((left, right) => left.validFrom.localeCompare(right.validFrom));

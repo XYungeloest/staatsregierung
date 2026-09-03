@@ -7,7 +7,8 @@ import { getNormStore } from '../../lib/runtime/context.ts';
 export const prerender = false;
 
 export const GET: APIRoute = async ({ locals }) => {
-  const publications = await getNormStore(locals).listPublications();
+  const store = await getNormStore(locals);
+  const publications = await store.listPublications();
 
   return new Response(
     JSON.stringify({

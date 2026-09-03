@@ -36,7 +36,7 @@ import { getNormStore } from '../../../lib/runtime/context.ts';
 export const prerender = false;
 
 const slug = Astro.params.slug ?? '';
-const store = getNormStore(Astro.locals);
+const store = await getNormStore(Astro.locals);
 const norm = await store.getNorm(slug, 'current');
 if (!norm) return Astro.rewrite('/404');
 const currentVersion = getCurrentVersion(norm);

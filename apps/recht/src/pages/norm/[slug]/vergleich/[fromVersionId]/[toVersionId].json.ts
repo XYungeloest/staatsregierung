@@ -11,7 +11,7 @@ export const prerender = false;
 export const GET: APIRoute = async ({ params, locals }) => {
   const { slug = '', fromVersionId = '', toVersionId = '' } = params;
   if (!slug || !fromVersionId || !toVersionId || fromVersionId === toVersionId) return notFound();
-  const store = getNormStore(locals);
+  const store = await getNormStore(locals);
   const norm = await store.getNorm(slug, [fromVersionId, toVersionId]);
   const fromVersion = norm?.versions.find((version) => version.versionId === fromVersionId);
   const toVersion = norm?.versions.find((version) => version.versionId === toVersionId);

@@ -8,7 +8,8 @@ import { getNormStore } from '../lib/runtime/context.ts';
 export const prerender = false;
 
 export const GET: APIRoute = async ({ locals }) => {
-  const records = await getNormStore(locals).listNorms();
+  const store = await getNormStore(locals);
+  const records = await store.listNorms();
   return new Response(JSON.stringify({
     generatedAt: new Date().toISOString(),
     suggestions: buildSearchSuggestions(records),

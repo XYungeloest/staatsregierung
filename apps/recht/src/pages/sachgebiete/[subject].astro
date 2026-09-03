@@ -20,7 +20,7 @@ import { getNormStore } from '../../lib/runtime/context.ts';
 // Sachgebietsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut.
 export const prerender = false;
 
-const store = getNormStore(Astro.locals);
+const store = await getNormStore(Astro.locals);
 const norms = await store.listNorms();
 const groups = getSubjectGroups(norms);
 const areaGroups = getSubjectAreaGroups(norms);

@@ -289,125 +289,66 @@ SKIP         kein fachlich zulässiger Import
 
 ## D1-Synchronisation
 
-Das vorhandene Repository kann bereits unabhängig vom Vollimport nach D1 gespiegelt werden:
+Das Repository wird als Runtime-Projektion nach D1 gespiegelt:
 
 ```sh
 npm run norms:runtime:d1-sync -- --dry-run
+npm run norms:runtime:d1-sync -- --slug ostdeutsches-feiertagsgesetz
 npm run norms:runtime:d1-sync
-npm run norms:runtime:d1-sync -- --slug ostdeutsches-beamtengesetz
 ```
 
-Erforderliche Umgebungsvariablen:
+Schema: `data/recht/d1/0001_rechtsbestand.sql` bis `0004_search_references.sql` (in dieser
+Reihenfolge mit `wrangler d1 execute ostrecht-recht --remote --file …` anwenden). Tabellen:
 
-```text
-CLOUDFLARE_ACCOUNT_ID
-CLOUDFLARE_API_TOKEN
-OSTRECHT_D1_DATABASE_ID
-```
+| Tabelle | Inhalt |
+| --- | --- |
+| `law_norms` | Identität, Spalten für Listen sowie `meta_json`, `history_json`, Sortier- und Gültigkeitsfelder |
+| `law_versions` | Fassungen ohne Körper (`version_json`), Vollzitat, Verkündungsbezug, zeitliche Einordnung |
+| `law_version_blocks` | äußere Body-Blöcke als JSON; Blöcke über 40.000 Zeichen in Teile (`part_index`) zerlegt |
+| `law_source_objects` | Quellenreferenzen je Fassung, bei R2 mit `object_key` |
+| `law_norm_derived` | Beziehungen, Empfehlungen, Herkunft, im Text vorkommende Verweise, Portalbezüge |
+| `law_publications` | Verkündungen als JSON |
+| `law_search_documents` | Suchdokument-Metadaten je Fassung |
+| `law_search` | FTS5 der geltenden Fassung, provisionsgenau mit Anker und Strukturadresse |
+| `law_runtime_meta` | `last_sync_at`, `norm_count`, `publication_count` |
 
-`scripts/sync-recht-d1.mjs` verwendet die Cloudflare-D1-REST-API mit parametrisierten Batch-Abfragen. Vor dem Schreiben eines Body-Blocks wird dessen UTF-8-Größe geprüft. Ein Block über 1,8 MB wird nicht hochgeladen, sondern löst einen Fehler aus, damit die Norm strukturell weiter zerlegt wird.
+Der Sync lädt den gesamten Bestand über den gemeinsamen Loader (validiert also jede Norm), berechnet
+die korpusweiten Ableitungen mit `packages/shared/src/lib/norms/derived.ts` (derselbe Code wie die
+Dateivariante der Website) und schreibt je Norm alle Zeilen neu. Bei einem Vollsync werden Zeilen
+gelöscht, die im Repository nicht mehr existieren.
 
-FTS5 wird nur mit der jeweils aktuellen Fassung befüllt. Suchzeilen enthalten Normtitel, Kurzbezeichnung, Abkürzung, Gliederungsbezeichnung, Überschrift und zusammengezogenen Provisionstext. Historische Fassungen bleiben in den normalen Versionstabellen abrufbar, blähen aber den normalen Suchindex nicht auf.
-
-## Cloudflare-Einrichtung
-
-Noch **nicht** die bestehende Produktionskonfiguration umstellen. Zuerst Ressourcen anlegen und Initialsync testen.
-
-### D1
-
-Im Cloudflare-Dashboard:
-
-1. `Workers & Pages` bzw. `Storage & Databases` öffnen.
-2. Neue D1-Datenbank anlegen, empfohlen: `ostrecht-recht`.
-3. Database-ID notieren.
-4. `data/recht/d1/0001_rechtsbestand.sql` auf die Datenbank anwenden, zunächst manuell über Wrangler oder Dashboard.
-5. Einen API-Token mit mindestens `D1 Read` und `D1 Write` für die betreffende Ressource erstellen.
-
-Für lokale administrative Skripte die Werte nur als Umgebungsvariablen beziehungsweise lokale `.env`-Datei setzen; niemals Token committen.
-
-### R2
-
-1. R2 aktivieren, falls im Konto noch nicht geschehen.
-2. Privaten Bucket `ostrecht-recht-quellen` anlegen.
-3. Den Bucket **nicht** pauschal öffentlich machen. Die Rohquellen sind zunächst internes Quellenarchiv.
-4. Der bestehende Cloudflare-API-Token benötigt für den Upload geeignete R2-Schreibrechte.
-5. Falls später große Mengen über die S3-kompatible API synchronisiert werden sollen, dafür einen gesonderten R2-Token verwenden. Für die kleinen REVOSax-HTML-Objekte reicht zunächst die Cloudflare-REST-Objekt-API.
-
-### Worker-Bindings erst nach erfolgreichem Test
-
-Erst nach erfolgreichem Initialsync werden in `apps/recht/wrangler.jsonc` Bindings aktiviert, beispielsweise konzeptionell:
-
-```json
-{
-  "d1_databases": [
-    {
-      "binding": "RECHT_DB",
-      "database_name": "ostrecht-recht",
-      "database_id": "<DATABASE-ID>"
-    }
-  ],
-  "r2_buckets": [
-    {
-      "binding": "RECHT_SOURCES",
-      "bucket_name": "ostrecht-recht-quellen"
-    }
-  ]
-}
-```
-
-Die tatsächlichen IDs werden erst nach Ressourcenerstellung eingetragen. Bis dahin bleibt `apps/recht/wrangler.jsonc` unverändert und das produktive Portal arbeitet weiter wie bisher.
+Transport: Mit `CLOUDFLARE_API_TOKEN` (D1 Read/Write) läuft der Sync über die REST-API mit
+parametrisierten Batches; ohne Token verwendet er die lokale Wrangler-Anmeldung
+(`wrangler d1 execute ostrecht-recht --remote --file`) mit SQL-Dateien unter `.cache/d1-sync/`,
+in denen Parameter als Literale gerendert sind. `--dry-run` validiert und schreibt beim
+Wrangler-Transport nur die Dateien. Token und Anmeldedaten werden nie committed.
 
 ## Runtime-Umbau von OstRecht
 
-Nach erfolgreichem Datenimport folgt ein eigener Umbau:
+`apps/recht` ist weiterhin `output: 'static'`; Norm-, Fassungs-, Historien-, Vergleichs-, Index-,
+Sachgebiets-, Verkündungs- und Sitemap-Routen tragen jedoch `export const prerender = false` und
+laufen im Cloudflare-Worker. Der Adapter erzeugt `apps/recht/dist/server/entry.mjs` samt
+`dist/server/wrangler.json` (Bindings aus `wrangler.jsonc`); `npm run deploy:recht` veröffentlicht
+mit dieser erzeugten Konfiguration.
 
-1. `apps/recht` von vollständig statischer Rechtsauslieferung auf Cloudflare-SSR/On-demand-Routen umstellen.
-2. `/norm/[slug]` liest Normidentität, aktuelle Fassung und Body-Blöcke aus `RECHT_DB`.
-3. `/norm/[slug]/version/[versionId]` lädt eine konkrete Version aus D1.
-4. Vergleichsrouten laden nur zwei benötigte Fassungen und berechnen den Diff bei Abruf.
-5. `/suche` beziehungsweise eine API-Route fragt `law_search` per FTS5 ab.
-6. Sitemap kann aus D1 generiert oder periodisch gecacht werden.
-7. `content/normen/` bleibt trotzdem im Repository und wird nicht abgeschafft.
-
-Die bestehenden Astro-Komponenten wie `NormBody`, `NormOutline`, `NormMetaCard` und `NormVersionNavigation` sollen weiterverwendet werden. Geändert wird primär die Datenquelle, nicht die Darstellung.
-
-## CI/CD-Zielzustand
-
-Pfadtrennung:
-
-### Änderungen an Rechtsinhalten
-
-Beispielsweise:
-
-```text
-content/normen/**
-content/verkuendungen/**
-data/recht/amendments/**
-```
-
-führen aus:
-
-```text
-Content-Validierung
-Konsolidierungsaudit
-D1-Sync nur betroffener Normen
-R2-Sync nur neuer Quellenobjekte
-Runtime-Smoke-Test
-```
-
-Kein vollständiger Astro-Build allein wegen einer neuen Norm.
-
-### Änderungen an OstRecht-Code
-
-Beispielsweise:
-
-```text
-apps/recht/**
-packages/recht-search/**
-relevante packages/shared/**
-```
-
-führen weiterhin Build, Tests und Worker-Deployment aus.
+- `apps/recht/src/lib/runtime/store.ts` kapselt den Datenzugriff: `createD1NormStore` liest die
+  Projektion aus dem Binding `ostrecht_recht`; `createFileNormStore` liest `content/` und berechnet
+  dieselben Ableitungen. `getNormStore(Astro.locals)` wählt je nach vorhandenem Binding.
+- Normkörper werden nur für die angezeigte Fassung geladen; ein Fassungsvergleich lädt genau die
+  beiden angefragten Fassungen (`/norm/[slug]/vergleich/[von]/[bis].json`).
+- Übersichten arbeiten mit einem im Worker gecachten Metadatenbestand (ohne Körper), der bei
+  geändertem `last_sync_at` neu geladen wird.
+- Die Suchseite bleibt eine statische Hülle. `/api/suche.json` wählt über den FTS5-Index Kandidaten
+  (Wortpräfixe der Anfrage, ODER-verknüpft, Typfilter), liefert je Kandidatennorm alle Fassungen als
+  Suchdokumente und nur die passenden Provisionen der geltenden Fassung; Bewertung, Filterung und
+  Gruppierung übernimmt weiterhin `packages/recht-search/search-query.ts` im Browser. Historische
+  und künftige Fassungen sind damit über Titel, Kurzbezeichnung, Abkürzung und Fundstelle auffindbar,
+  im Volltext jedoch nur die geltende Fassung.
+- `/search-suggestions.json` und `/verkuendungen/index.json` werden aus D1 erzeugt; das statische
+  `search-index.json` entfällt.
+- Worker-Antworten tragen über die Middleware denselben `X-Portal-Commit` wie die Assets.
+- Öffentliche URLs sind unverändert; `scripts/check-links.mjs` und `scripts/check-seo.mjs` erkennen
+  On-demand-Routen aus den Seitenquellen und prüfen die Sitemap im Deployment-Smoke.
 
 ## Sicherheits- und Qualitätsregeln
 

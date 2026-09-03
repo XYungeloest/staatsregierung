@@ -20,7 +20,9 @@ function normalizeBasePath(value) {
 export default defineConfig({
   adapter: cloudflare({
     imageService: 'passthrough',
-    // Portal- und Rechtsdaten werden weiterhin buildzeitbasiert aus Dateien gelesen.
+    // Statische Hilfe- und Hüllseiten werden im Node-Build vorgerendert; Norm-, Fassungs-,
+    // Such- und Sitemap-Routen laufen mit `prerender = false` im Worker und lesen aus D1
+    // (siehe src/lib/runtime/context.ts).
     prerenderEnvironment: 'node',
   }),
   output: 'static',

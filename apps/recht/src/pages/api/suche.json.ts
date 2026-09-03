@@ -43,7 +43,7 @@ export function buildFtsMatch({ q, exact, citation }: { q: string; exact: string
 }
 
 export const GET: APIRoute = async ({ url, locals }) => {
-  const store = getNormStore(locals);
+  const store = await getNormStore(locals);
   const q = (url.searchParams.get('q') ?? '').slice(0, 200);
   const exact = (url.searchParams.get('exact') ?? '').slice(0, 200);
   const citation = (url.searchParams.get('citation') ?? '').slice(0, 120);

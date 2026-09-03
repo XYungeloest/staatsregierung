@@ -7,7 +7,7 @@ import { getNormStore } from '../lib/runtime/context.ts';
 // Übersichten lesen den Bestand zur Laufzeit aus der D1-Projektion.
 export const prerender = false;
 
-const store = getNormStore(Astro.locals);
+const store = await getNormStore(Astro.locals);
 Astro.response.headers.set('Cache-Control', 'public, max-age=300, s-maxage=3600');
 
 const [norms, publications] = await Promise.all([store.listNorms(), store.listPublications()]);

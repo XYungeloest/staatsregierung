@@ -16,7 +16,7 @@ import { buildFilterOptions } from '@ostrecht/recht-search/search.ts';
 import { getNormStore } from '../lib/runtime/context.ts';
 
 // Die Suchseite ist eine statische Hülle; Treffer liefert zur Laufzeit /api/suche.json aus D1.
-const store = getNormStore(Astro.locals);
+const store = await getNormStore(Astro.locals);
 const [records, publications] = await Promise.all([store.listNorms(), store.listPublications()]);
 const filters = buildFilterOptions(records);
 filters.publications = [...new Set(publications.map((publication) => publication.publication))].sort((left, right) => left.localeCompare(right, 'de'));

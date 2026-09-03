@@ -24,7 +24,7 @@ import { getNormStore } from '../../lib/runtime/context.ts';
 // Verkündungsseiten werden zur Laufzeit aus der D1-Projektion aufgebaut.
 export const prerender = false;
 
-const store = getNormStore(Astro.locals);
+const store = await getNormStore(Astro.locals);
 const publication = await store.getPublication(Astro.params.slug ?? '');
 if (!publication) return Astro.rewrite('/404');
 const norms = await store.listNorms();

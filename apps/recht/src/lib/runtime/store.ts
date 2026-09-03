@@ -77,7 +77,7 @@ export interface NormStore {
 // Gemeinsame Hilfen
 // ---------------------------------------------------------------------------
 
-function selectedVersionIds(record: NormRecord, bodies: BodySelection): Set<string> {
+export function selectedVersionIds(record: NormRecord, bodies: BodySelection): Set<string> {
   if (bodies === 'none') return new Set();
   if (bodies === 'all') return new Set(record.versions.map((version) => version.versionId));
   if (bodies === 'current') {
@@ -115,7 +115,7 @@ interface VersionRow {
   publication_ref_json: string | null;
 }
 
-interface BlockRow {
+export interface BlockRow {
   block_index: number;
   part_index: number;
   block_json: string;
@@ -139,7 +139,7 @@ function assembleRecord(row: NormRow, versionRows: VersionRow[], bodies: Map<str
   return record;
 }
 
-function assembleBlocks(rows: BlockRow[]): unknown[] {
+export function assembleBlocks(rows: BlockRow[]): unknown[] {
   const parts = new Map<number, string[]>();
   for (const row of rows) {
     const list = parts.get(row.block_index) ?? [];

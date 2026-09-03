@@ -22,7 +22,7 @@ function escapeXml(value: string): string {
 
 export const GET: APIRoute = async ({ site, locals }) => {
   const baseUrl = site ?? new URL(lawSiteConfig.seo.siteUrl);
-  const store = getNormStore(locals);
+  const store = await getNormStore(locals);
   const [norms, publications] = await Promise.all([store.listNorms(), store.listPublications()]);
   const staticPaths = [
     lawSiteConfig.paths.home, lawSiteConfig.paths.index, lawSiteConfig.paths.subjects,

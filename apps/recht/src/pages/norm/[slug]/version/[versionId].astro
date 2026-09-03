@@ -28,7 +28,7 @@ export const prerender = false;
 
 const slug = Astro.params.slug ?? '';
 const versionId = Astro.params.versionId ?? '';
-const store = getNormStore(Astro.locals);
+const store = await getNormStore(Astro.locals);
 const norm = await store.getNorm(slug, [versionId]);
 const version = norm?.versions.find((entry) => entry.versionId === versionId);
 if (!norm || !version) return Astro.rewrite('/404');
