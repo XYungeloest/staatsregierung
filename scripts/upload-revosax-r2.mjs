@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile, writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { basename, resolve } from 'node:path';
 
 function valueAfter(args, flag) {
   const index = args.indexOf(flag);
@@ -14,13 +14,14 @@ function encodeObjectKeyPreservingSlashes(key) {
 
 async function uploadObject({ accountId, apiToken, bucket }, objectKey, bytes, contentType) {
   const url = `https://api.cloudflare.com/client/v4/accounts/${accountId}/r2/buckets/${encodeURIComponent(bucket)}/objects/${encodeObjectKeyPreservingSlashes(objectKey)}`;
+  const form = new FormData();
+  form.append('body', new Blob([bytes], { type: contentType }), basename(objectKey));
   const response = await fetch(url, {
     method: 'PUT',
     headers: {
       authorization: `Bearer ${apiToken}`,
-      'content-type': contentType,
     },
-    body: bytes,
+    body: form,
   });
   const payload = await response.json();
   if (!response.ok || !payload.success || payload.errors?.length) {
