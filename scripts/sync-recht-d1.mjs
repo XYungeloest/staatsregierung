@@ -1,5 +1,8 @@
 #!/usr/bin/env node --experimental-strip-types
 
+// Muss vor allen @ostrecht-Importen stehen (SITE_TARGET=law für die Routenhelfer).
+import './lib/law-site-env.mjs';
+
 import { execFile } from 'node:child_process';
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';

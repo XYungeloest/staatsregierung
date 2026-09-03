@@ -116,7 +116,7 @@ async function seed() {
     '--local',
     '--persist-to', persistTo,
     '--apply-schema',
-  ]);
+  ], { env: { ...process.env, SITE_TARGET: 'law' } });
   const normCount = (await readdir(join(ROOT, 'content', 'normen'), { withFileTypes: true })).filter((entry) => entry.isDirectory()).length;
   await writeFile(markerPath, `${JSON.stringify({ fingerprint: current, seededAt: new Date().toISOString(), normCount }, null, 2)}\n`, 'utf8');
   console.log(`Lokale D1-Projektion unter ${relative(ROOT, persistTo)} geschrieben (${normCount} Normen).`);
